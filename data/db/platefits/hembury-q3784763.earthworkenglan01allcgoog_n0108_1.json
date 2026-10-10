@@ -1,0 +1,51 @@
+{
+ "site": "hembury-q3784763",
+ "plan": "earthworkenglan01allcgoog_n0108_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0108.jpg",
+ "crop": [
+  350,
+  950,
+  2850,
+  3850
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1807.0,
+   1504.0,
+   -3.2613819,
+   50.8222313
+  ],
+  [
+   1852.0,
+   3311.0,
+   -3.2611259,
+   50.8182338
+  ],
+  [
+   1599.0,
+   2132.0,
+   -3.2618938,
+   50.8203898
+  ],
+  [
+   2132.0,
+   2132.0,
+   -3.2603723,
+   50.8203898
+  ]
+ ],
+ "label": "Fig. 12",
+ "title": "Hembury Fort, Honiton, Devon",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:44:13.827289+00:00"
+}
