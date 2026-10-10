@@ -1786,6 +1786,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "barnwell-castle-q1188983",
+   "name": "Barnwell Castle",
+   "place": "England",
+   "lon": -0.45742,
+   "lat": 52.454929,
+   "summary": "Barnwell Castle is a ruined castle, south of the town of Oundle, and north of the village of Barnwell, Northamptonshire. It has been designated by English Heritage as a Grade\u00a0I listed building, and is a Scheduled Ancient Monument. It is under private ownership.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q1188983",
+   "wiki": "https://en.wikipedia.org/wiki/Barnwell_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.463316533780818,
+     52.45852211453699
+    ],
+    [
+     -0.451523466219182,
+     52.45852211453699
+    ],
+    [
+     -0.451523466219182,
+     52.45133559226076
+    ],
+    [
+     -0.463316533780818,
+     52.45133559226076
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 23.71,
+    "zmax": 37.14,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "barwick-in-elmet-castle-q4865964",
    "name": "Barwick-in-Elmet Castle",
    "aka": "Barwick in Elmet large univallate hillfort and motte and bailey castle, Barwick-in-Elmet",
@@ -2591,6 +2636,51 @@
     2000
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "bolsover-castle-q2968590",
+   "name": "Bolsover Castle",
+   "place": "England",
+   "lon": -1.29611,
+   "lat": 53.2307,
+   "summary": "Bolsover Castle is in the town of Bolsover, in the north-east of the English county of Derbyshire. Built in the early 17th century, the present castle lies on the earthworks and ruins of the 12th-century medieval castle; the first structure of the present castle was built between 1612 and 1617 by Sir Charles Cavendish. The site is now in the care of the English Heritage charity, as both a Grade I listed building and a Scheduled Ancient Monument.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2968590",
+   "wiki": "https://en.wikipedia.org/wiki/Bolsover_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.3021128305134064,
+     53.2342931103551
+    ],
+    [
+     -1.290107169486594,
+     53.2342931103551
+    ],
+    [
+     -1.290107169486594,
+     53.227106588078406
+    ],
+    [
+     -1.3021128305134064,
+     53.227106588078406
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 95.71,
+    "zmax": 175.86,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "borgring",
@@ -3483,6 +3573,96 @@
    ]
   },
   {
+   "id": "caister-castle-q5017844",
+   "name": "Caister Castle",
+   "place": "England",
+   "lon": 1.70113,
+   "lat": 52.6505,
+   "summary": "Caister Castle is a 15th-century moated castle situated in the parish of West Caister, some 5\u00a0km (3.1\u00a0mi) north of the town of Great Yarmouth in the English county of Norfolk.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q5017844",
+   "wiki": "https://en.wikipedia.org/wiki/Caister_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     1.6952071274805989,
+     52.65409311349676
+    ],
+    [
+     1.7070528725194012,
+     52.65409311349676
+    ],
+    [
+     1.7070528725194012,
+     52.64690659122042
+    ],
+    [
+     1.6952071274805989,
+     52.64690659122042
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 0.96,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -1.23,
+    "zmax": 16.66,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
+   "id": "caldicot-castle-q2968744",
+   "name": "Caldicot Castle",
+   "place": "Wales",
+   "lon": -2.74225,
+   "lat": 51.5931,
+   "summary": "Caldicot Castle is an extensive stone medieval castle in the town of Caldicot, Monmouthshire, in southeast Wales, built near the site of Harold Godwinson's former Saxon castle by the Norman earls of Hereford from about 1100. The castle became a Grade I listed building on 10 June 1953.",
+   "region": "Wales",
+   "kind": "castle",
+   "qid": "Q2968744",
+   "wiki": "https://en.wikipedia.org/wiki/Caldicot_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.7480339943929266,
+     51.59669311901343
+    ],
+    [
+     -2.7364660056070735,
+     51.59669311901343
+    ],
+    [
+     -2.7364660056070735,
+     51.589506596737685
+    ],
+    [
+     -2.7480339943929266,
+     51.589506596737685
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.12,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 4.08,
+    "zmax": 15.63,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "calleva-atrebatum-q1027253",
    "name": "Calleva Atrebatum",
    "aka": "Silchester, Silchester Roman town",
@@ -3674,9 +3854,11 @@
    "place": "Morbihan, France",
    "lon": -3.5053,
    "lat": 47.6401,
+   "summary": "Le camp gaulois de la pointe de Kerv\u00e9dan est un \u00e9peron barr\u00e9 de Groix dans le Morbihan.",
    "region": "France",
    "kind": "hillfort",
    "qid": "Q22991880",
+   "wiki": "https://fr.wikipedia.org/wiki/Camp_gaulois_de_la_pointe_de_Kerv\u00e9dan",
    "corners": [
     [
      -3.515965892034902,
@@ -3746,6 +3928,96 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "carisbrooke-castle-q328595",
+   "name": "Carisbrooke Castle",
+   "place": "England",
+   "lon": -1.31389,
+   "lat": 50.6875,
+   "summary": "Carisbrooke Castle is a historic motte-and-bailey castle located above, and to the south of, Carisbrooke village centre, on the Isle of Wight, England. Charles I was imprisoned at the castle in the months prior to his trial.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q328595",
+   "wiki": "https://en.wikipedia.org/wiki/Carisbrooke_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.3195616327562152,
+     50.69109312353778
+    ],
+    [
+     -1.3082183672437846,
+     50.69109312353778
+    ],
+    [
+     -1.3082183672437846,
+     50.683906601262514
+    ],
+    [
+     -1.3195616327562152,
+     50.683906601262514
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 17.08,
+    "zmax": 76.3,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
+   "id": "carlisle-castle-q614836",
+   "name": "Carlisle Castle",
+   "place": "England",
+   "lon": -2.94167,
+   "lat": 54.8972,
+   "summary": "Carlisle Castle is a medieval stone fortress located in the city of Carlisle, Cumbria, near the site of Hadrian's Wall and the Roman fortress of Luguvalium. The castle was first built during the reign of William II in 1092 and rebuilt in stone under Henry I in 1122. It played an important role in the Wars of Scottish Independence in the later Middle Ages, being besieged several times. During the Jacobite Rising of 1745\u20131746, Carlisle became the last English fortress to undergo a siege. The castle was listed as a Scheduled Ancient Monument on 7 August 1996.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q614836",
+   "wiki": "https://en.wikipedia.org/wiki/Carlisle_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.9479186582375325,
+     54.900793100836204
+    ],
+    [
+     -2.935421341762468,
+     54.900793100836204
+    ],
+    [
+     -2.935421341762468,
+     54.89360657855842
+    ],
+    [
+     -2.9479186582375325,
+     54.89360657855842
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 8.93,
+    "zmax": 27.83,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "carnac-stones-q833850",
@@ -3962,6 +4234,51 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "castle-rising-castle-q1049485",
+   "name": "Castle Rising Castle",
+   "place": "England",
+   "lon": 0.468956,
+   "lat": 52.792939,
+   "summary": "Castle Rising is a ruined medieval fortification in the village of Castle Rising, Norfolk, England. It was built soon after 1138 by William d'Aubigny II, who had risen through the ranks of the Anglo-Norman nobility to become the Earl of Arundel. With his new wealth, he constructed Castle Rising and its surrounding deer park, a combination of fortress and palatial hunting lodge. It was inherited by William's descendants before passing into the hands of the de Montalt family in 1243. The Montalts later sold the castle to Queen Isabella, who lived there after her fall from power in 1330. Isabella extended the castle buildings and enjoyed a regal lifestyle, entertaining her son, Edward III, on several occasions. After her death, it was granted to Edward, the Black Prince, to form part of the Duchy of Cornwall.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q1049485",
+   "wiki": "https://en.wikipedia.org/wiki/Castle_Rising_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.46301375203858613,
+     52.79653211273326
+    ],
+    [
+     0.47489824796141383,
+     52.79653211273326
+    ],
+    [
+     0.47489824796141383,
+     52.789345590456826
+    ],
+    [
+     0.46301375203858613,
+     52.789345590456826
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 9.35,
+    "zmax": 43.09,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "castra-argentovaria-q2654537",
@@ -5049,6 +5366,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "cooling-castle-q5167493",
+   "name": "Cooling Castle",
+   "place": "England",
+   "lon": 0.522732,
+   "lat": 51.4555,
+   "summary": "Cooling Castle is a 14th-century quadrangular castle in the village of Cooling, Kent on the Hoo Peninsula about 6 miles (9.7\u00a0km) north of Rochester. It was built in the 1380s by the Cobham family, the local lords of the manor, to guard the area against French raids into the Thames Estuary. The castle has an unusual layout, comprising two walled wards of unequal size next to each other, surrounded by moats and ditches. It was the earliest English castle designed for the use of gunpowder weapons by its defenders.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q5167493",
+   "wiki": "https://en.wikipedia.org/wiki/Cooling_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.5169654574421431,
+     51.45909311971239
+    ],
+    [
+     0.5284985425578568,
+     51.45909311971239
+    ],
+    [
+     0.5284985425578568,
+     51.45190659743675
+    ],
+    [
+     0.5169654574421431,
+     51.45190659743675
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.03,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.42,
+    "zmax": 22.16,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "coria-q3819299",
    "name": "Coria",
    "aka": "Corstopitum, Coriosopitum",
@@ -5718,6 +6080,51 @@
     800
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "duffield-castle-q2073299",
+   "name": "Duffield Castle",
+   "place": "England",
+   "lon": -1.491939,
+   "lat": 52.99225,
+   "summary": "Duffield Castle was a Norman castle in Duffield, Derbyshire. The site is a scheduled monument.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2073299",
+   "wiki": "https://en.wikipedia.org/wiki/Duffield_Castle,_Derbyshire",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.5038782708928862,
+     52.99943592436009
+    ],
+    [
+     -1.4799997291071132,
+     52.99943592436009
+    ],
+    [
+     -1.4799997291071132,
+     52.985062879785545
+    ],
+    [
+     -1.5038782708928862,
+     52.985062879785545
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 51.46,
+    "zmax": 119.91,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "dunadd",
@@ -6586,6 +6993,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "farleigh-hungerford-castle-q5435410",
+   "name": "Farleigh Hungerford Castle",
+   "place": "England",
+   "lon": -2.2869,
+   "lat": 51.3174,
+   "summary": "Farleigh Hungerford Castle, sometimes called Farleigh Castle or Farley Castle, is a medieval castle in Farleigh Hungerford, Somerset, England. The castle was built in two phases: the inner court was constructed between 1377 and 1383 by Sir Thomas Hungerford, who made his fortune as steward to John of Gaunt. The castle was built to a quadrangular design, already slightly old-fashioned, on the site of an existing manor house overlooking the River Frome. A deer park was attached to the castle, requiring the destruction of the nearby village. Sir Thomas's son, Sir Walter Hungerford, a knight and leading courtier to Henry V, became rich during the Hundred Years War with France and extended the castle with an additional, outer court, enclosing the parish church in the process. By Walter's death in 1449, the substantial castle was richly appointed, and its chapel decorated with murals.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q5435410",
+   "wiki": "https://en.wikipedia.org/wiki/Farleigh_Hungerford_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.292649166115312,
+     51.32099312040972
+    ],
+    [
+     -2.2811508338846886,
+     51.32099312040972
+    ],
+    [
+     -2.2811508338846886,
+     51.31380659813412
+    ],
+    [
+     -2.292649166115312,
+     51.31380659813412
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 30.89,
+    "zmax": 87.58,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "ferme-d-azincourt-q20669811",
    "name": "Ferme d'Azincourt",
    "aka": "motte castrale d'Hasencort",
@@ -7138,6 +7590,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "framlingham-castle-q2524183",
+   "name": "Framlingham Castle",
+   "place": "England",
+   "lon": 1.34661,
+   "lat": 52.2246,
+   "summary": "Framlingham Castle is a castle in the market town of Framlingham, Suffolk, England. An early motte and bailey or ringwork Norman castle was built on the Framlingham site by 1148, but this was destroyed (slighted) by Henry II of England in the aftermath of the Revolt of 1173\u20131174. Its replacement, constructed by Roger Bigod, the Earl of Norfolk, was unusual for the time in having no central keep, but instead using a curtain wall with thirteen mural towers to defend the centre of the castle. Despite this, the castle was successfully taken by King John in 1216 after a short siege. By the end of the 13th century, Framlingham had become a luxurious home, surrounded by extensive parkland used for hunting.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2524183",
+   "wiki": "https://en.wikipedia.org/wiki/Framlingham_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     1.3407440999822366,
+     52.228193115750344
+    ],
+    [
+     1.3524759000177637,
+     52.228193115750344
+    ],
+    [
+     1.3524759000177637,
+     52.22100659347427
+    ],
+    [
+     1.3407440999822366,
+     52.22100659347427
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 25.14,
+    "zmax": 48.33,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "frankfort-works",
    "name": "Frankfort Works",
    "place": "Ross County, Ohio",
@@ -7591,6 +8088,51 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "goodrich-castle-q5583571",
+   "name": "Goodrich Castle",
+   "place": "England",
+   "lon": -2.6157,
+   "lat": 51.8767,
+   "summary": "Goodrich Castle is a ruined medieval castle north of the village of Goodrich in Herefordshire, England, controlling a key location between Monmouth and Ross-on-Wye. It was praised by William Wordsworth as the \"noblest ruin in Herefordshire\" and is considered by historian Adrian Pettifer to be the \"most splendid in the county, and one of the best examples of English military architecture\".",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q5583571",
+   "wiki": "https://en.wikipedia.org/wiki/Goodrich_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.6215204051877374,
+     51.88029311755935
+    ],
+    [
+     -2.609879594812262,
+     51.88029311755935
+    ],
+    [
+     -2.609879594812262,
+     51.87310659528345
+    ],
+    [
+     -2.6215204051877374,
+     51.87310659528345
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 24.41,
+    "zmax": 79.93,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "grand-mound-q5594814",
@@ -8082,6 +8624,51 @@
     800
    ],
    "lidar": false
+  },
+  {
+   "id": "herstmonceux-castle-q2652207",
+   "name": "Herstmonceux Castle",
+   "place": "England",
+   "lon": 0.339214,
+   "lat": 50.8702,
+   "summary": "Herstmonceux Castle is a brick-built castle, dating from the 15th century, near Herstmonceux, East Sussex, England. It is one of the oldest significant brick buildings still standing in England. The castle was renowned for being one of the first buildings to use that material in England, built using bricks made from local clay by builders from Flanders. It dates from 1441. Construction began under the then-owner, Sir Roger Fiennes, and was continued after his death in 1449 by his son, Lord Dacre.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2652207",
+   "wiki": "https://en.wikipedia.org/wiki/Herstmonceux_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.33352016587969835,
+     50.87379312263921
+    ],
+    [
+     0.34490783412030174,
+     50.87379312263921
+    ],
+    [
+     0.34490783412030174,
+     50.866606600363845
+    ],
+    [
+     0.33352016587969835,
+     50.866606600363845
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 3.7,
+    "zmax": 41.15,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "heveskesklooster-q3276052",
@@ -9554,6 +10141,51 @@
    ]
   },
   {
+   "id": "lancaster-castle-q2969640",
+   "name": "Lancaster Castle",
+   "place": "England",
+   "lon": -2.80562,
+   "lat": 54.0498,
+   "summary": "Lancaster Castle is a medieval castle and former prison in Lancaster in the English county of Lancashire. Its early history is unclear, but it was most likely founded in 1092-4 on the site of a Roman fort overlooking a crossing of the River Lune. In 1164 the Honour of Lancaster, including the castle, came under royal control. In 1322 and 1389 the Scots invaded England, progressing as far as Lancaster and damaging the castle. It was not to see military action again until the English Civil War. The castle was first used as a prison in 1196 although this aspect became more important during the English Civil War. The castle buildings are owned by the British sovereign as Duke of Lancaster; part of the structure is used to host sittings of the Crown Court.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2969640",
+   "wiki": "https://en.wikipedia.org/wiki/Lancaster_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.8117405453940427,
+     54.05339310577192
+    ],
+    [
+     -2.7994994546059564,
+     54.05339310577192
+    ],
+    [
+     -2.7994994546059564,
+     54.046206583494694
+    ],
+    [
+     -2.8117405453940427,
+     54.046206583494694
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.93,
+    "zmax": 39.72,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "las-medulas",
    "name": "Las M\u00e9dulas",
    "place": "Spain",
@@ -9690,6 +10322,51 @@
     800
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "leeds-castle-q746876",
+   "name": "Leeds Castle",
+   "place": "England",
+   "lon": 0.63,
+   "lat": 51.248889,
+   "summary": "Leeds Castle is a castle in Kent, England, 7 miles (11\u00a0km) southeast of Maidstone. It is built on islands in a lake formed by the River Len to the east of the village of Leeds and is a historic Grade\u00a0I listed estate.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q746876",
+   "wiki": "https://en.wikipedia.org/wiki/Leeds_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.6242594031298796,
+     51.25248212075407
+    ],
+    [
+     0.6357405968701203,
+     51.25248212075407
+    ],
+    [
+     0.6357405968701203,
+     51.24529559847853
+    ],
+    [
+     0.6242594031298796,
+     51.24529559847853
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 46.82,
+    "zmax": 88.39,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "leicester-castle-q6519156",
@@ -10009,6 +10686,51 @@
     1500,
     1500
    ]
+  },
+  {
+   "id": "ludlow-castle-q576369",
+   "name": "Ludlow Castle",
+   "place": "England",
+   "lon": -2.72301,
+   "lat": 52.3672,
+   "summary": "Ludlow Castle is a ruined medieval fortification in the town of Ludlow in the English county of Shropshire, standing on a promontory overlooking the River Teme. The castle was probably founded by Walter de Lacy after the Norman Conquest and was one of the first stone castles to be built in England. During the The Anarchy a civil war of the 12th century, the castle changed hands several times between the de Lacys and rival claimants and was further fortified with a Great Tower and a large outer bailey. In the mid-13th century, Ludlow was passed on to Geoffrey de Geneville, who rebuilt part of the inner bailey, and the castle played a part in the Second Barons' War. Roger Mortimer acquired the castle in 1301, further extending the internal complex of buildings.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q576369",
+   "wiki": "https://en.wikipedia.org/wiki/Ludlow_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.7288948169535843,
+     52.370793115000616
+    ],
+    [
+     -2.7171251830464156,
+     52.370793115000616
+    ],
+    [
+     -2.7171251830464156,
+     52.363606592724466
+    ],
+    [
+     -2.7288948169535843,
+     52.363606592724466
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 76.02,
+    "zmax": 149.03,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "madira-bickel-mound-state-archeological-q6727810",
@@ -11622,6 +12344,51 @@
    "lidar_credit": "USGS 3DEP"
   },
   {
+   "id": "norham-castle-q388705",
+   "name": "Norham Castle",
+   "place": "England",
+   "lon": -2.150757,
+   "lat": 55.721812,
+   "summary": "Norham Castle is a castle in Norham, Northumberland, England, overlooking the River Tweed, on the border between England and Scotland. It is a Grade I listed building and a Scheduled Ancient Monument. The castle saw much action during the wars between England and Scotland.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q388705",
+   "wiki": "https://en.wikipedia.org/wiki/Norham_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.1571369496468042,
+     55.72540509582967
+    ],
+    [
+     -2.1443770503531967,
+     55.72540509582967
+    ],
+    [
+     -2.1443770503531967,
+     55.71821857355128
+    ],
+    [
+     -2.1571369496468042,
+     55.71821857355128
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 3.31,
+    "zmax": 42.19,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "norwich-castle-q1672292",
    "name": "Norwich Castle",
    "aka": "Norwich Castle Museum and Art Gallery",
@@ -12303,6 +13070,51 @@
     800
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "oxford-castle-q2600886",
+   "name": "Oxford Castle",
+   "place": "England",
+   "lon": -1.26248,
+   "lat": 51.7518,
+   "summary": "Oxford Castle is a large, partly ruined medieval castle on the western side of central Oxford in Oxfordshire, England. Most of the original moated, wooden motte and bailey castle was replaced in stone in the late 12th or early 13th century and the castle played an important role in the conflict known as the Anarchy. In the 14th century the military value of the castle diminished and the site came to be used primarily for county administration and as a prison. The surviving rectangular St George's Tower is now believed to pre-date the remainder of the castle and to have been a watch tower associated with the original Saxon west gate of the city.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q2600886",
+   "wiki": "https://en.wikipedia.org/wiki/Oxford_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.2682842956851708,
+     51.755393118201994
+    ],
+    [
+     -1.2566757043148293,
+     51.755393118201994
+    ],
+    [
+     -1.2566757043148293,
+     51.74820659592617
+    ],
+    [
+     -1.2682842956851708,
+     51.74820659592617
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 55.31,
+    "zmax": 76.3,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "painscastle-castle-q24659303",
@@ -13102,6 +13914,51 @@
    "lidar_credit": "USGS 3DEP"
   },
   {
+   "id": "raby-castle-q4583646",
+   "name": "Raby Castle",
+   "place": "England",
+   "lon": -1.80175,
+   "lat": 54.59092,
+   "summary": "Raby Castle is a medieval castle located near Staindrop in County Durham, England, among 200 acres (810,000\u00a0m2) of deer park. It was built by John Neville, 3rd Baron Neville de Raby, between approximately 1367 and 1390. Cecily Neville, the mother of the Kings Edward\u00a0IV and Richard\u00a0III, was born here. After Charles Neville, 6th Earl of Westmorland, led the failed Rising of the North in favour of Mary, Queen of Scots in 1569 Raby Castle was taken into royal custody.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q4583646",
+   "wiki": "https://en.wikipedia.org/wiki/Raby_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.8079515826586443,
+     54.5945131026438
+    ],
+    [
+     -1.7955484173413556,
+     54.5945131026438
+    ],
+    [
+     -1.7955484173413556,
+     54.587326580366216
+    ],
+    [
+     -1.8079515826586443,
+     54.587326580366216
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 120.15,
+    "zmax": 149.76,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "raedykes",
    "name": "Raedykes Roman camp",
    "place": "Scotland",
@@ -13146,6 +14003,50 @@
     1600,
     1600
    ]
+  },
+  {
+   "id": "richard-s-castle-q17650937",
+   "name": "Richard's Castle",
+   "aka": "Richard's Castle: a motte and bailey with an enclosed settlement.",
+   "place": "Richards Castle, Herefordshire, England",
+   "lon": -2.75751,
+   "lat": 52.3281,
+   "region": "England",
+   "kind": "motte",
+   "qid": "Q17650937",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.7633896142960372,
+     52.33169311520667
+    ],
+    [
+     -2.751630385703963,
+     52.33169311520667
+    ],
+    [
+     -2.751630385703963,
+     52.32450659293054
+    ],
+    [
+     -2.7633896142960372,
+     52.32450659293054
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 117.49,
+    "zmax": 236.86,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "richborough-roman-fort-q1309736",
@@ -13241,6 +14142,51 @@
     1000,
     1000
    ]
+  },
+  {
+   "id": "rockingham-castle-q3939808",
+   "name": "Rockingham Castle",
+   "place": "England",
+   "lon": -0.724,
+   "lat": 52.5129,
+   "summary": "Rockingham Castle is a former royal castle and hunting lodge in Rockingham Forest, approximately two miles from the town centre of Corby, Northamptonshire, England.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q3939808",
+   "wiki": "https://en.wikipedia.org/wiki/Rockingham_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.7299043094600057,
+     52.51649311422964
+    ],
+    [
+     -0.7180956905399943,
+     52.51649311422964
+    ],
+    [
+     -0.7180956905399943,
+     52.50930659195338
+    ],
+    [
+     -0.7299043094600057,
+     52.50930659195338
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 60.38,
+    "zmax": 130.69,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "rookery-mound-q7366204",
@@ -13512,6 +14458,94 @@
     3000,
     3000
    ]
+  },
+  {
+   "id": "scotney-castle-q17530343",
+   "name": "Scotney Castle",
+   "place": "England",
+   "lon": 0.411447,
+   "lat": 51.0915,
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q17530343",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.40572596177724474,
+     51.0950931215413
+    ],
+    [
+     0.4171680382227552,
+     51.0950931215413
+    ],
+    [
+     0.4171680382227552,
+     51.08790659926583
+    ],
+    [
+     0.40572596177724474,
+     51.08790659926583
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 35.83,
+    "zmax": 80.52,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
+   "id": "sedgwick-castle-q17645407",
+   "name": "Sedgwick Castle",
+   "place": "England",
+   "lon": -0.318726,
+   "lat": 51.0303,
+   "summary": "Sedgwick Castle is a ruined medieval castle in Nuthurst, West Sussex, England. The castle dates to 1258 AD. The remains consist of wall fragments and earthworks. The site also includes two concentric ditches, ponds, and an outer enclosure. S. E. Winbolt led excavations at the castle in 1923 and 1924. Sedgwick Castle was established as a scheduled monument in 1933.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q17645407",
+   "wiki": "https://en.wikipedia.org/wiki/Sedgwick_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.3244394804890954,
+     51.03389312184596
+    ],
+    [
+     -0.3130125195109047,
+     51.03389312184596
+    ],
+    [
+     -0.3130125195109047,
+     51.02670659957052
+    ],
+    [
+     -0.3244394804890954,
+     51.02670659957052
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 52.31,
+    "zmax": 91.09,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "seip-earthworks-q123916810",
@@ -14103,6 +15137,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "stokesay-castle-q7618555",
+   "name": "Stokesay Castle",
+   "place": "England",
+   "lon": -2.8313,
+   "lat": 52.4303,
+   "summary": "Stokesay Castle is one of the finest surviving fortified manor houses in England, and situated at Stokesay in Shropshire. It was largely built in its present form in the late 13th century by Laurence of Ludlow, on the earlier castle founded by its original owners the de Lacy family, from whom it passed to their de Verdun heirs, who retained feudal overlordship of Stokesay until at least 1317. Laurence 'of' Ludlow was one of the leading wool merchants in England, who intended it to form a secure private house and generate income as a commercial estate. Laurence's descendants continued to own the castle until the 16th century, when it passed through various private owners. By the time of the outbreak of the First English Civil War in 1642, Stokesay was owned by William Craven, 1st Earl of Craven (1608\u20131697), a supporter of King Charles I. After the Royalist war effort collapsed in 1645, Parliamentary forces besieged the castle in June and quickly forced its garrison to surrender. Parliament ordered the property to be slighted, but only minor damage was done to the walls, allowing Stokesay to continue to be used as a house by the Baldwyn family until the end of the 17th century.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q7618555",
+   "wiki": "https://en.wikipedia.org/wiki/Stokesay_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.8371932383006917,
+     52.43389311466736
+    ],
+    [
+     -2.8254067616993086,
+     52.43389311466736
+    ],
+    [
+     -2.8254067616993086,
+     52.426706592391156
+    ],
+    [
+     -2.8371932383006917,
+     52.426706592391156
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 109.4,
+    "zmax": 153.38,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "stonehenge-q39671",
    "name": "Stonehenge",
    "aka": "Stonehenge, the Avenue, and Three Barrows Adjacent to the Avenue Forming Part of a Round Barrow Cemetery on Countess Farm",
@@ -14379,6 +15458,51 @@
     1100,
     1100
    ]
+  },
+  {
+   "id": "taunton-castle-q7688781",
+   "name": "Taunton Castle",
+   "place": "England",
+   "lon": -3.1138,
+   "lat": 51.0153,
+   "summary": "Taunton Castle is a castle built to defend the town of Taunton, Somerset, England. It has origins in the Anglo Saxon period and was later the site of a priory. The Normans then built a stone structured castle, which belonged to the Bishops of Winchester. The current heavily reconstructed buildings are the inner ward, which now houses the Museum of Somerset and the Somerset Military Museum. The building was designated a grade I listed building in 1952.",
+   "region": "England",
+   "kind": "castle",
+   "qid": "Q7688781",
+   "wiki": "https://en.wikipedia.org/wiki/Taunton_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -3.119511632142942,
+     51.01889312192054
+    ],
+    [
+     -3.1080883678570586,
+     51.01889312192054
+    ],
+    [
+     -3.1080883678570586,
+     51.0117065996451
+    ],
+    [
+     -3.119511632142942,
+     51.0117065996451
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.0,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 13.38,
+    "zmax": 27.33,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "teerd-q13138282",

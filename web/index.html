@@ -268,10 +268,11 @@ const KIND = {
   henge: ['Henge', 'enclosures'], earthwork: ['Earthwork', 'enclosures'], barrow: ['Barrow', 'mounds'], mound_site: ['Mound site', 'mounds'],
   platform_mound: ['Platform mound', 'mounds'], effigy_mound: ['Effigy mound', 'mounds'], motte: ['Motte', 'mottes'],
   roman_fort: ['Roman fort', 'military'], military_earthwork: ['Military earthwork', 'military'], linear_earthwork: ['Dyke or linear earthwork', 'linear'],
-  terp: ['Terp (dwelling mound)', 'terps'],
+  terp: ['Terp (dwelling mound)', 'terps'], castle: ['Castle', 'mottes'], town: ['Walled town', 'towns'], garden: ['House and garden', 'gardens'],
 };
 const KGROUP = { forts: ['Hillforts', '#CFC6E0'], enclosures: ['Enclosures and henges', '#9ED8D8'], mounds: ['Barrows and mounds', '#F2C48D'],
-  mottes: ['Mottes', '#F2B5C4'], military: ['Roman and military forts', '#D8BCD5'], linear: ['Dykes', '#C4D9A6'], terps: ['Terps', '#EAE2CC'] };
+  mottes: ['Mottes and castles', '#F2B5C4'], military: ['Roman and military forts', '#D8BCD5'], linear: ['Dykes', '#C4D9A6'], terps: ['Terps', '#EAE2CC'],
+  towns: ['Walled towns', '#A9C4EC'], gardens: ['Lost gardens', '#F0E08A'] };
 const kindLabel = k => (KIND[k] || [k.replace(/_/g, ' ')])[0];
 const kindGroup = k => (KIND[k] || [0, 'enclosures'])[1];
 const RELIEF_SRC = { US: 'USGS 3DEP', England: 'Environment Agency', Wales: 'Environment Agency (where it covers Wales)', Netherlands: 'AHN', France: 'IGN LiDAR HD' };
@@ -743,7 +744,7 @@ function renderSite(s) {
     ${depGroup(s)}
     ${S.db ? `<div class="group">
       <p class="section-title">Old plans in books</p>
-      <p class="fit">${(P.bySite[s.id] || []).length ? `${P.bySite[s.id].length} plan${P.bySite[s.id].length === 1 ? '' : 's'} in the old books may show this site. ` : ''}Pick a plan from ${P.rows.length} in eight old books and pin it to the ground by clicking matching spots.</p>
+      <p class="fit">${(P.bySite[s.id] || []).length ? `${P.bySite[s.id].length} old plan${P.bySite[s.id].length === 1 ? '' : 's'} may show this site. ` : ''}Pick a plan from ${P.rows.length} in old books and on Wikimedia Commons and pin it to the ground by clicking matching spots.</p>
       <div class="tools"><button class="primary" id="fitgo">Place an old plan</button></div>
     </div>` : ''}
     ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}

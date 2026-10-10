@@ -1,0 +1,15 @@
+{
+ "id": "rockingham-castle-q3939808",
+ "name": "Rockingham Castle",
+ "place": "England",
+ "lon": -0.724,
+ "lat": 52.5129,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "castle",
+ "qid": "Q3939808",
+ "summary": "Rockingham Castle is a former royal castle and hunting lodge in Rockingham Forest, approximately two miles from the town centre of Corby, Northamptonshire, England.",
+ "wiki": "https://en.wikipedia.org/wiki/Rockingham_Castle"
+}

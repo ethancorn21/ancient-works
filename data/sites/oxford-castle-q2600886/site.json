@@ -1,0 +1,15 @@
+{
+ "id": "oxford-castle-q2600886",
+ "name": "Oxford Castle",
+ "place": "England",
+ "lon": -1.26248,
+ "lat": 51.7518,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "castle",
+ "qid": "Q2600886",
+ "summary": "Oxford Castle is a large, partly ruined medieval castle on the western side of central Oxford in Oxfordshire, England. Most of the original moated, wooden motte and bailey castle was replaced in stone in the late 12th or early 13th century and the castle played an important role in the conflict known as the Anarchy. In the 14th century the military value of the castle diminished and the site came to be used primarily for county administration and as a prison. The surviving rectangular St George's Tower is now believed to pre-date the remainder of the castle and to have been a watch tower associated with the original Saxon west gate of the city.",
+ "wiki": "https://en.wikipedia.org/wiki/Oxford_Castle"
+}

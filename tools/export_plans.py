@@ -38,7 +38,9 @@ def commons_rows(min_p=0.3):
         if not os.path.exists(path):
             continue
         w, hgt = Image.open(path).size
-        name = re.sub(r"\.(jpe?g|png|tiff?|gif)$", "", r["title"][5:], flags=re.I)
+        # a row from pipeline/sources.py names its picture ("Ludlow Castle, plan from Mackenzie ..."): the British Library's
+        # scans are titled by page number only
+        name = r.get("name") or re.sub(r"\.(jpe?g|png|tiff?|gif)$", "", r["title"][5:], flags=re.I)
         artist = re.sub(r"\s+", " ", r.get("artist") or "").strip()
         cite = "; ".join(x for x in [artist and f"by {artist}", r.get("license"), r.get("page")] if x)
         out.append([f"c_{h}", "Wikimedia Commons", None, None, name, r["when"], [w, hgt],

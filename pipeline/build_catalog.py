@@ -31,7 +31,8 @@ WEB = os.path.join(ROOT, "web", "data")
 # site box (ground metres) by kind of work; a box is square
 BOX = [("hillfort", 1600), ("enclosure", 1600), ("fort", 1600), ("camp", 1600), ("oppidum", 2400), ("henge", 1000),
        ("group", 1600), ("complex", 2000), ("dyke", 2000), ("linear", 2000), ("field", 1600), ("motte", 800),
-       ("platform", 1000), ("effigy", 1200), ("mound", 800), ("barrow", 800), ("tumul", 800)]
+       ("platform", 1000), ("effigy", 1200), ("mound", 800), ("barrow", 800), ("tumul", 800),
+       ("castle", 800), ("town", 2000), ("garden", 1600)]  # walled towns as Van Deventer drew them; Kip's houses with their avenues
 
 
 def box_m(entry):
@@ -57,7 +58,8 @@ def wiki_summary(entry):
         m = re.match(r"https?://(\w+)\.wikipedia\.org/wiki/(.+)", url)
         if not m:
             continue
-        api = f"https://{m.group(1)}.wikipedia.org/api/rest_v1/page/summary/{m.group(2)}"
+        # quote what is not already %-escaped: a raw é in the title made urllib fail ("'ascii' codec can't encode", Kervédan)
+        api = f"https://{m.group(1)}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(m.group(2), safe='%/:()_,')}"
         try:
             with urllib.request.urlopen(urllib.request.Request(api, headers=aw.UA), timeout=30) as r:
                 d = json.load(r)
@@ -71,7 +73,7 @@ def wiki_summary(entry):
 
 REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France",
                "scotland": "Scotland", "ireland": "Ireland", "denmark": "Denmark", "spain": "Spain", "switzerland": "Switzerland",
-               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia"}
+               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia", "belgium": "Belgium"}
 
 
 def place_of(entry):
