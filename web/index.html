@@ -341,8 +341,10 @@ function ensureSite(site) {
   S.loaded.add(site.id);
   const base = `data/sites/${site.id}/`;
   const paint = { 'raster-fade-duration': 0, 'raster-resampling': 'linear' };
-  map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
-  map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
+  if (site.lidar !== false) {  // aerial-only sites (no open LiDAR there) have no relief image
+    map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
+    map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
+  }
   if (site.plate) {
     const pc = alignedCorners(site);
     map.addSource(`ink-${site.id}`, { type: 'image', url: base + site.plate.ink, coordinates: pc });
@@ -355,7 +357,7 @@ function ensureSite(site) {
 }
 function applyLayers(site) {
   if (!S.loaded.has(site.id)) return;
-  map.setLayoutProperty(`rel-${site.id}`, 'visibility', S.ground === 'relief' ? 'visible' : 'none');
+  if (map.getLayer(`rel-${site.id}`)) map.setLayoutProperty(`rel-${site.id}`, 'visibility', S.ground === 'relief' ? 'visible' : 'none');
   if (site.plate) for (const mode of ['ink', 'paper']) {
     const id = `${mode}-${site.id}`;
     map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 ? 'visible' : 'none');
@@ -537,7 +539,7 @@ function siteEntries() {
     <ul class="legend-list">${groups[g].map(s => `
       <li><button class="entry" data-id="${esc(s.id)}">
         ${s.status ? `<span class="swatch ${esc(s.status)}"></span>` : `<span class="swatch" style="background:${KGROUP[kindGroup(s.kind || 'earthwork')][1]}"></span>`}
-        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind && !s.status ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
+        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind && !s.status ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}${s.lidar === false ? '; aerial photograph only' : ''}</span></span>
       </button></li>`).join('')}</ul>`).join('') + (cm.length ? `
     <p class="group-title">From the catalog <span>${cm.length === 40 ? 'first 40' : cm.length}</span></p>
     <ul class="legend-list">${cm.map(r => `
@@ -572,7 +574,7 @@ function renderList() {
     </div>
     <div id="entries">${siteEntries()}</div>
     <div class="about">
-      <p>Each site pairs old surveys and maps with today's LiDAR. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
+      <p>Each site pairs old surveys and maps with today's LiDAR, or where there is none, with the aerial photograph. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
       <p>Survey plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
       <p>Private site, served from this Mac on the home network.</p>
     </div>`}`;
@@ -707,12 +709,14 @@ function renderSite(s) {
   $('#body').innerHTML = `
     <button class="back" id="back">← All sites</button>
     <div><h2 class="site-title">${esc(s.name)}</h2><p class="site-aka">${esc([s.aka, s.place].filter(Boolean).join(' · '))}</p></div>
-    <div class="tabs" role="group" aria-label="View">
+    ${s.block ? `<div class="tabs" role="group" aria-label="View">
       <button id="t-map" aria-pressed="true">Map</button>
       <button id="t-block" aria-pressed="false">Block diagram</button>
-    </div>
+    </div>` : ''}
     <div class="group">
       <p class="section-title">Ground</p>
+      ${s.lidar === false ? `<p class="fit"><span class="chip">Aerial photograph only</span></p>
+      <p class="fit">No open LiDAR here. Old maps are placed by what has not moved since they were drawn: roads, churches, river crossings, field edges.</p>` : `
       <div class="seg" role="group" aria-label="Ground layer">
         <button id="g-relief" aria-pressed="${S.ground === 'relief'}">LiDAR relief</button>
         <button id="g-imagery" aria-pressed="${S.ground === 'imagery'}">Aerial photograph</button>
@@ -720,7 +724,7 @@ function renderSite(s) {
       <div ${S.ground === 'relief' ? '' : 'hidden'}>
         <div class="ramp"></div>
         <div class="ramp-labels"><span>sunken −${s.relief_clip_m} m</span><span>level</span><span>raised +${s.relief_clip_m} m</span></div>
-      </div>
+      </div>`}
     </div>
     ${s.plate ? `
     <div class="group">
@@ -745,10 +749,8 @@ function renderSite(s) {
     ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}
     ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
   $('#back').onclick = () => { closeBlock(); S.sel = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
-  $('#t-map').onclick = () => closeBlock();
-  $('#t-block').onclick = () => openBlock(s);
-  $('#g-relief').onclick = () => setGround('relief', s);
-  $('#g-imagery').onclick = () => setGround('imagery', s);
+  if (s.block) { $('#t-map').onclick = () => closeBlock(); $('#t-block').onclick = () => openBlock(s); }
+  if ($('#g-relief')) { $('#g-relief').onclick = () => setGround('relief', s); $('#g-imagery').onclick = () => setGround('imagery', s); }
   $('#body').querySelectorAll('[data-dep]').forEach(b => b.onclick = () => setDep(s, b.dataset.dep));
   if ($('#fitgo')) $('#fitgo').onclick = () => startFit(s);
   const depMode = m => { S.depMode = m; lsSet('aw.depMode', m); applyDep(s); renderSite(s); if (B.open) setTab(true); };
@@ -763,7 +765,7 @@ function renderSite(s) {
   $('#p-paper').onclick = () => setPlateMode('paper', s);
   wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
-function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
+function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
 function alignDesc(a) {
   if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the fit.';
   const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
@@ -780,8 +782,13 @@ function select(id) {
   S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; stopDrag();
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s);
   loadDeps(s).then(() => {
-    // a site with an old drawing opens with it showing, unless this viewer chose otherwise for the site
-    if (!(s.id in S.depSel)) { const d = (S.dep[s.id] || []).find(x => DRAWING.has(x.kind)); if (d) S.depSel[s.id] = d.file; }
+    // a site with an old drawing opens with it showing, unless this viewer chose otherwise for the site; an aerial-only
+    // site opens with a map, since the map on the photograph is all there is to see: the latest one (all are 150+ years
+    // old; the later surveys sit closest on today's roads, e.g. the État-major against Cassini's sketch)
+    if (!(s.id in S.depSel)) {
+      const ds = S.dep[s.id] || [], d = ds.find(x => DRAWING.has(x.kind)) || (s.lidar === false && ds.filter(x => x.kind === 'map').pop());
+      if (d) S.depSel[s.id] = d.file;
+    }
     applyDep(s); if (S.sel === id && !B.open) renderSite(s);
   });
   if (narrow()) $('#panel').classList.remove('collapsed');
@@ -1357,6 +1364,7 @@ function buildPiece(site, H, r0, r1, ve, base, tex, inkTex, cutNorth, cutSouth) 
 }
 
 async function openBlock(s) {
+  if (!s.block) return;  // aerial-only site: no LiDAR, no block
   B.open = true; setTab(true);
   $('#sheet').hidden = false;
   if (narrow()) $('#panel').classList.add('collapsed');

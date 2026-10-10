@@ -6,6 +6,15 @@ below: **no USGS topographic quads** (they show roads and fields, not the works)
 their age. Rows whose code was not ported say so; `sanborn.py`, `sentinel.py`, `harvest.py`, `inventory.py`, `fetch_plates.py`
 and the USGS-topo half of `topo.py` stayed on the branch.
 
+**Sites without LiDAR** (Ethan 2026-10-10: "we don't need to box ourselves in by only relying on lidar"). Where no LiDAR source has
+data for a box but a 150-year-old map covers it, `build_catalog.py` still builds the site, on the aerial photograph only:
+`"lidar": false` in `sites.json`, no relief, no block diagram, and the page opens it with the latest of its old maps in ink. The old
+maps here are georeferenced by their publishers (NLS, IGN) and line up by what has not moved: roads, churches, river crossings,
+field edges. A site whose box gets no old map is dropped again. `tools/fitkit.py` fits plans against the aerial photograph
+(Esri World Imagery, cached in `data/raw/aerial/`, never published) for these sites, or for any site with `FITKIT_GROUND=aerial`.
+First batch: 13 Welsh sites (six-inch 1st edition) and 4 French ones (Cassini, État-major) that had been taken off the globe
+for an empty DEM; Bibrax was dropped (its Wikidata point is a rounded 3.0, 49.0).
+
 Only sources that answered a real request are listed as working. "Checked" says from where:
 
 - **Mac**: the earlier sessions, open network.

@@ -168,7 +168,7 @@ def read_dem(bbox, w, h, lon=None, lat=None):
     height_m = (bbox[3] - bbox[1]) * math.cos(math.radians(lat))
     cands = [c for c in candidates(lon, lat, width_m, height_m) if c["coverage"] > 0.05]
     if not cands:
-        raise RuntimeError("no Scottish LiDAR tiles on this box")
+        raise aw.NoLidar("no Scottish LiDAR tiles on this box")
     z = np.full((h, w), np.nan)
     info = []
     for c in cands:  # best dataset first, the others fill what it lacks

@@ -1,12 +1,14 @@
 """Export one site for the globe: relief + imagery images, plate ink/paper images, and its entry in sites.json.
 
-usage: build_site.py data/sites/<id>/site.json [--refresh-imagery] [--no-imagery]
+usage: build_site.py data/sites/<id>/site.json [--refresh-imagery] [--no-imagery] [--aerial-ok]
 Writes web/data/sites/<id>/{relief.jpg,imagery.jpg,plate_ink.png,plate_paper.jpg} and updates web/data/sites.json.
 A site with no "plate" gets relief, block-diagram assets and its index entry only. AW_DEM=s3 reads the DEM from S3 tiles.
+--aerial-ok: where no LiDAR has data, the site is still listed ("lidar": false), for old maps on the aerial photograph.
 """
 import fcntl
 import json
 import os
+import shutil
 import sys
 
 import numpy as np
@@ -121,17 +123,11 @@ def build_block(z, px_m, out, water_or_modern, max_mesh=512, max_tex=2048):
             "contour_m": ci, "height": "block_h.png", "top": "block_top.jpg"}
 
 
-def main(path, refresh_imagery=False, no_imagery=False):
-    sdir = os.path.dirname(path)
-    site = json.load(open(path))
-    sid = site["id"]
-    out = os.path.join(WEB, "sites", sid)
-    os.makedirs(out, exist_ok=True)
-    px_m = site.get("px_m", 1.0)
-    bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
-    w, h = int(site["width_m"] / px_m), int(site["height_m"] / px_m)
-
+def load_dem(sdir, bbox, w, h):
+    """(DEM, fetched now) for the site box, cached beside site.json; (None, False) where no LiDAR source has data."""
     import dem_sources
+    if not (dem_sources.source_for_bbox(bbox) or dem_sources.static_source_for_bbox(bbox)):
+        return None, False
     dem_cache = os.path.join(sdir, "dem.npy")
     # the cached DEM, mask and imagery belong to one box: a moved or resized box (specs/site_boxes.json) refetches all
     # three (before this check a rebuilt Cahokia kept its old 800 m relief under the new 2400 m corners)
@@ -142,21 +138,87 @@ def main(path, refresh_imagery=False, no_imagery=False):
             for f in ("dem.npy", "modern_mask.npy"):
                 if os.path.exists(os.path.join(sdir, f)):
                     os.remove(os.path.join(sdir, f))
-            refresh_imagery = True
     fetched = not os.path.exists(dem_cache)
     if not fetched:
         z = np.load(dem_cache)
         if not os.path.exists(box_path):
             json.dump(key, open(box_path, "w"))
     else:
-        z = aw.fetch_dem(bbox, w, h)
+        try:
+            z = aw.fetch_dem(bbox, w, h)
+        except aw.NoLidar as e:
+            print("  no LiDAR here:", e)
+            return None, False
         np.save(dem_cache, z)
         json.dump(key, open(box_path, "w"))
     # a source that answers outside its coverage with zeros or nodata leaves a blank relief (2026-10-10: 18 Welsh and
-    # French sites were on the globe with an all-zero DEM); refuse it, so the build reports "no LiDAR" instead
+    # French sites were on the globe with an all-zero DEM): no LiDAR here
     if (np.isfinite(z) & (z != 0)).mean() < 0.5:
         os.remove(dem_cache)  # not cached: a source added later should get its chance
-        raise RuntimeError("no LiDAR data in this box (DEM is mostly empty or zero)")
+        return None, False
+    return z, fetched
+
+
+def entry_of(site, bbox):
+    entry = {k: site[k] for k in ("id", "name", "aka", "place", "lon", "lat", "status", "summary", "notes",
+                                  "region", "kind", "qid", "wiki", "period", "lidar_credit") if k in site}
+    entry["corners"] = aw.corners(bbox)
+    entry["size_m"] = [site["width_m"], site["height_m"]]
+    return entry
+
+
+def write_entry(entry):
+    index_path = os.path.join(WEB, "sites.json")
+    # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
+    with open(index_path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        index = json.load(open(index_path)) if os.path.exists(index_path) else {"sites": []}
+        index["sites"] = [s for s in index["sites"] if s["id"] != entry["id"]] + [entry]
+        index["sites"].sort(key=lambda s: s["name"])
+        aw.save_json(index_path, index)  # atomic (tmp file + os.replace)
+
+
+def drop(sid):
+    """Take an aerial-only site off the globe again (build_catalog: no old map came out for it)."""
+    index_path = os.path.join(WEB, "sites.json")
+    with open(index_path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        index = json.load(open(index_path))
+        gone = [s for s in index["sites"] if s["id"] == sid]
+        if not gone or gone[0].get("lidar") is not False:
+            return
+        index["sites"] = [s for s in index["sites"] if s["id"] != sid]
+        aw.save_json(index_path, index)
+    shutil.rmtree(os.path.join(WEB, "sites", sid), ignore_errors=True)
+
+
+def main(path, refresh_imagery=False, no_imagery=False, aerial_ok=False):
+    """Returns "lidar", or "aerial" for a site built on the aerial photograph alone (aerial_ok and no LiDAR here)."""
+    sdir = os.path.dirname(path)
+    site = json.load(open(path))
+    sid = site["id"]
+    out = os.path.join(WEB, "sites", sid)
+    os.makedirs(out, exist_ok=True)
+    px_m = site.get("px_m", 1.0)
+    bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
+    w, h = int(site["width_m"] / px_m), int(site["height_m"] / px_m)
+
+    import dem_sources
+    z, fetched = load_dem(sdir, bbox, w, h)
+    refresh_imagery = refresh_imagery or fetched  # a moved or resized box drops the cached DEM: the imagery copy goes too
+    if z is None:
+        if not aerial_ok:
+            raise RuntimeError("no LiDAR data in this box (no source, or the DEM is mostly empty or zero)")
+        # Ethan 2026-10-10: no need to rely on LiDAR alone; an old map fitted to roads, churches and field edges that are
+        # still there is worth seeing on the aerial photograph. No relief, no block diagram: the page shows the photo only.
+        for f in ("relief.jpg", "block_h.png", "block_top.jpg", "imagery.jpg"):
+            if os.path.exists(os.path.join(out, f)):
+                os.remove(os.path.join(out, f))
+        entry = entry_of({k: v for k, v in site.items() if k != "lidar_credit"}, bbox)
+        entry["lidar"] = False
+        write_entry(entry)
+        print(sid, "aerial only (no LiDAR here)")
+        return "aerial"
     # what the block caption credits: worked out when the DEM is fetched (a STATIC read names its own survey) and kept
     # beside the cached DEM, since the source outline alone can name the wrong survey (Burnswark: EA's outline, Scotland's data)
     credit_path = os.path.join(sdir, "dem_credit.json")
@@ -183,12 +245,9 @@ def main(path, refresh_imagery=False, no_imagery=False):
         except Exception as e:  # a convenience copy (the page draws live aerial tiles); never fail the build on it
             print("  no imagery.jpg:", str(e)[:100])
 
-    entry = {k: site[k] for k in ("id", "name", "aka", "place", "lon", "lat", "status", "summary", "notes",
-                                  "region", "kind", "qid", "wiki", "period", "lidar_credit") if k in site}
-    entry["corners"] = aw.corners(bbox)
+    entry = entry_of(site, bbox)
     entry["relief_clip_m"] = round(clip, 2)
     entry["block"] = entry_block
-    entry["size_m"] = [site["width_m"], site["height_m"]]
     if "plate" in site and "corners" in site["plate"]:
         p = site["plate"]
         scan = Image.open(os.path.join(sdir, p["image"])).convert("RGB")
@@ -211,17 +270,11 @@ def main(path, refresh_imagery=False, no_imagery=False):
                           "fit": p.get("fit"), "features": p.get("features"), "warped": bool(p.get("warp")),
                           "label": p.get("label", "")}
 
-    index_path = os.path.join(WEB, "sites.json")
-    # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
-    with open(index_path + ".lock", "w") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
-        index = json.load(open(index_path)) if os.path.exists(index_path) else {"sites": []}
-        index["sites"] = [s for s in index["sites"] if s["id"] != sid] + [entry]
-        index["sites"].sort(key=lambda s: s["name"])
-        aw.save_json(index_path, index)  # atomic (tmp file + os.replace)
+    write_entry(entry)
     sizes = {f: os.path.getsize(os.path.join(out, f)) // 1024 for f in os.listdir(out)}
     print(sid, "relief clip", round(clip, 2), "m;", sizes, "KB")
+    return "lidar"
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], "--refresh-imagery" in sys.argv, "--no-imagery" in sys.argv)
+    main(sys.argv[1], "--refresh-imagery" in sys.argv, "--no-imagery" in sys.argv, "--aerial-ok" in sys.argv)

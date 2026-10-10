@@ -2195,6 +2195,42 @@
    "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
+   "id": "bibracte-q650053",
+   "name": "Bibracte",
+   "aka": "Bibracte (zanikl\u00e9 m\u011bsto), BIBRACTE",
+   "place": "Sa\u00f4ne-et-Loire, France",
+   "lon": 4.035,
+   "lat": 46.9244,
+   "summary": "Bibracte, a Gallic oppidum, was the capital of the Aedui and one of the most important stone hillforts in Gaul. It was located near modern Autun in Burgundy, France. The material culture of the Aedui corresponded to the Late Iron Age La T\u00e8ne culture.",
+   "region": "France",
+   "kind": "hillfort",
+   "qid": "Q650053",
+   "wiki": "https://en.wikipedia.org/wiki/Bibracte",
+   "corners": [
+    [
+     4.024477431793236,
+     46.93158604023877
+    ],
+    [
+     4.0455225682067635,
+     46.93158604023877
+    ],
+    [
+     4.0455225682067635,
+     46.91721299568743
+    ],
+    [
+     4.024477431793236,
+     46.91721299568743
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
+  },
+  {
    "id": "biggs-site",
    "name": "Biggs Site",
    "place": "Greenup County, Kentucky",
@@ -3014,6 +3050,42 @@
    ]
   },
   {
+   "id": "burrium-q602000",
+   "name": "Burrium",
+   "aka": "Usk Roman Site, Caer Rufeinig Brynbuga",
+   "place": "Monmouthshire, Wales",
+   "lon": -2.899177,
+   "lat": 51.700221,
+   "summary": "Burrium was a legionary fortress in the Roman province of Britannia Superior or Roman Britain. Its remains today lie beneath the town of Usk in Monmouthshire, south east Wales.",
+   "region": "Wales",
+   "kind": "roman_fort",
+   "qid": "Q602000",
+   "wiki": "https://en.wikipedia.org/wiki/Burrium",
+   "corners": [
+    [
+     -2.9107723541564403,
+     51.70740695159808
+    ],
+    [
+     -2.88758164584356,
+     51.70740695159808
+    ],
+    [
+     -2.88758164584356,
+     51.69303390702944
+    ],
+    [
+     -2.9107723541564403,
+     51.69303390702944
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
+  },
+  {
    "id": "burrow-mump-q3647450",
    "name": "Burrow Mump",
    "place": "Burrowbridge, Somerset, England",
@@ -3245,6 +3317,78 @@
     800
    ],
    "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "caer-castell-q13126473",
+   "name": "Caer Castell",
+   "aka": "Caer Castell, St Mellons, Caer Castell Camp",
+   "place": "Cardiff, Wales",
+   "lon": -3.11566,
+   "lat": 51.51669,
+   "summary": "Caer Castell Camp, also known as Caer Castell Ring Motte, is a medieval motte and ditch in Rumney in Cardiff, Wales, which is a scheduled monument.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q13126473",
+   "wiki": "https://en.wikipedia.org/wiki/Caer_Castell_Camp",
+   "corners": [
+    [
+     -3.1214342861654383,
+     51.520283119402094
+    ],
+    [
+     -3.1098857138345624,
+     51.520283119402094
+    ],
+    [
+     -3.1098857138345624,
+     51.51309659712637
+    ],
+    [
+     -3.1214342861654383,
+     51.51309659712637
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
+  },
+  {
+   "id": "caerau-hillfort-q5016882",
+   "name": "Caerau Hillfort",
+   "aka": "Caerau Castle, Caerau Camp, Ely",
+   "place": "Cardiff, Wales",
+   "lon": -3.2484,
+   "lat": 51.4675,
+   "summary": "Caerau Hillfort is a large triangular multivallate Iron Age hillfort, built on a previously occupied Neolithic site, occupying the western tip of an extensive ridge-top plateau in the western suburbs of Caerau and Ely, Cardiff, Wales. It is the largest Iron Age site of its type in south Wales and also one of the largest in Great Britain. The old parish church, St Mary's, and a small ringwork, almost certainly a medieval castle site probably contemporary with the church, stand within the hillfort on the north-eastern side.",
+   "region": "Wales",
+   "kind": "hillfort",
+   "qid": "Q5016882",
+   "wiki": "https://en.wikipedia.org/wiki/Caerau_Hillfort",
+   "corners": [
+    [
+     -3.2599361180088353,
+     51.47468595633893
+    ],
+    [
+     -3.2368638819911655,
+     51.47468595633893
+    ],
+    [
+     -3.2368638819911655,
+     51.46031291177128
+    ],
+    [
+     -3.2599361180088353,
+     51.46031291177128
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "cahokia-q333661",
@@ -3524,6 +3668,40 @@
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
+   "id": "camp-gaulois-de-la-pointe-de-kervedan-q22991880",
+   "name": "Camp gaulois de la pointe de Kerv\u00e9dan",
+   "aka": "camp gaulois de la pointe de Kerv\u00e9dan, camp gaulois de Kerv\u00e9dan",
+   "place": "Morbihan, France",
+   "lon": -3.5053,
+   "lat": 47.6401,
+   "region": "France",
+   "kind": "hillfort",
+   "qid": "Q22991880",
+   "corners": [
+    [
+     -3.515965892034902,
+     47.64728602800602
+    ],
+    [
+     -3.494634107965098,
+     47.64728602800602
+    ],
+    [
+     -3.494634107965098,
+     47.63291298345247
+    ],
+    [
+     -3.515965892034902,
+     47.63291298345247
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
+  },
+  {
    "id": "camulodunum-q630604",
    "name": "Camulodunum",
    "aka": "Mint of Camulodunum",
@@ -3568,6 +3746,42 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "carnac-stones-q833850",
+   "name": "Carnac stones",
+   "aka": "alignements de Carnac",
+   "place": "Morbihan, France",
+   "lon": -3.079722,
+   "lat": 47.593333,
+   "summary": "The Carnac stones are an exceptionally dense collection of megalithic sites near the south coast of Brittany in northwestern France, consisting of stone alignments (rows), dolmens, tumuli, and single menhirs. More than 3,000 prehistoric standing stones were hewn from local granite and erected by the pre-Celtic people of Brittany and form the largest such collection in the world. Most of the stones are within the Breton municipality of Carnac, but some to the east are within neighboring La Trinit\u00e9-sur-Mer. Numerous megaliths and tumuli are also found in the surrounding areas, such as at Locmariaquer and Arzon, and on islands in the Gulf of Morbihan. The stones were erected at some stage during the Neolithic period, probably around 3300 BC, but some may date to as early as 4500\u00a0BC.",
+   "region": "France",
+   "kind": "enclosure",
+   "qid": "Q833850",
+   "wiki": "https://en.wikipedia.org/wiki/Carnac_stones",
+   "corners": [
+    [
+     -3.09037835652504,
+     47.600519028815555
+    ],
+    [
+     -3.0690656434749597,
+     47.600519028815555
+    ],
+    [
+     -3.0690656434749597,
+     47.58614598426215
+    ],
+    [
+     -3.09037835652504,
+     47.58614598426215
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "carvium-q1046167",
@@ -4753,6 +4967,42 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "colwyn-castle-q5150338",
+   "name": "Colwyn Castle",
+   "aka": "Castell Colwyn",
+   "place": "Powys, Wales",
+   "lon": -3.307435,
+   "lat": 52.176749,
+   "summary": "Colwyn Castle, also known as Maud's Castle, was a medieval castle near Builth Wells in Wales, in the Manor of Glascwm and the county of Radnorshire. There have been two castles on the site, the first constructed on the site of a Roman fort in 1093 by Raoul II of Tosny. This changed hands several times and was eventually captured and destroyed in 1196 by Rhys ap Gruffydd, who was campaigning against the Normans. The castle was rebuilt by Henry III of England in 1215, and was then rebuilt again in 1242 by Ralph de Mortimer to protect the lordship of Maelienydd, which he had recently acquired. It was finally abandoned during the 14th century. The site of Colwyn Castle now houses a farmhouse, with the outer entrenchments of the castle still in place.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q5150338",
+   "wiki": "https://en.wikipedia.org/wiki/Colwyn_Castle",
+   "corners": [
+    [
+     -3.313294587573396,
+     52.18034211600082
+    ],
+    [
+     -3.3015754124266037,
+     52.18034211600082
+    ],
+    [
+     -3.3015754124266037,
+     52.17315559372477
+    ],
+    [
+     -3.313294587573396,
+     52.17315559372477
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
+  },
+  {
    "id": "concangis-q5158253",
    "name": "Concangis",
    "aka": "Concangium Roman fort",
@@ -5027,6 +5277,42 @@
     800
    ],
    "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "crug-hywel-q851344",
+   "name": "Crug Hywel",
+   "aka": "Crucywel",
+   "place": "Powys, Wales",
+   "lon": -3.1264,
+   "lat": 51.8792,
+   "summary": "Crug Hywel is an Iron Age Celtic hillfort, with a clearly visible earth and stone ditch and rampart. Crug Hywel is approached by a couple of public footpaths across farmland from Crickhowell and Llanbedr and visited by the Beacons Way. It lies within an area designated as open country over which the public have the right to roam.",
+   "region": "Wales",
+   "kind": "hillfort",
+   "qid": "Q851344",
+   "wiki": "https://en.wikipedia.org/wiki/Crug_Hywel",
+   "corners": [
+    [
+     -3.13804145766257,
+     51.88638594791874
+    ],
+    [
+     -3.1147585423374298,
+     51.88638594791874
+    ],
+    [
+     -3.1147585423374298,
+     51.87201290334931
+    ],
+    [
+     -3.13804145766257,
+     51.87201290334931
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "crystal-river",
@@ -5306,6 +5592,42 @@
     2000
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "dolforwyn-castle-q1235495",
+   "name": "Dolforwyn Castle",
+   "aka": "Castell Dolforwyn, Dolforwyn",
+   "place": "Powys, Wales",
+   "lon": -3.25203,
+   "lat": 52.5465,
+   "summary": "Dolforwyn Castle is a Welsh medieval castle above the village of Abermule, Powys. The fortification was established by Llywelyn ap Gruffudd, Prince of Gwynedd in the late 13th century. It is sited on a wooded ridge commanding excellent views of the upper Severn Valley.",
+   "region": "Wales",
+   "kind": "hillfort",
+   "qid": "Q1235495",
+   "wiki": "https://en.wikipedia.org/wiki/Dolforwyn_Castle",
+   "corners": [
+    [
+     -3.2638476568224464,
+     52.553685933938056
+    ],
+    [
+     -3.240212343177553,
+     52.553685933938056
+    ],
+    [
+     -3.240212343177553,
+     52.5393128893656
+    ],
+    [
+     -3.2638476568224464,
+     52.5393128893656
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "dorset-cursus-q5298848",
@@ -7726,6 +8048,42 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "hen-domen-q5712905",
+   "name": "Hen Domen",
+   "aka": "Baldwins Castle, Muntgumeri",
+   "place": "Powys, Wales",
+   "lon": -3.161691,
+   "lat": 52.574292,
+   "summary": "Hen Domen is the site of a medieval timber motte-and-bailey castle in Powys, Wales. It is the site of the original Montgomery Castle, and was built by Roger de Montgomery in 1070.\nFrom 1105 the castle was the home of the de Boulers (Bowdler) family, and it is from Baldwin de Boulers that Montgomery gets its Welsh name, Trefaldwyn \"The Town of Baldwin\".\nWhen the castle was rebuilt in stone (1223\u20131234), it was decided to rebuild it on a rocky promontory a mile to the southeast\u2014the location of the current town of Montgomery, Powys.\nThe Hen Domen site has been extensively excavated.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q5712905",
+   "wiki": "https://en.wikipedia.org/wiki/Hen_Domen",
+   "corners": [
+    [
+     -3.167603572997378,
+     52.57788511390324
+    ],
+    [
+     -3.155778427002621,
+     52.57788511390324
+    ],
+    [
+     -3.155778427002621,
+     52.570698591626936
+    ],
+    [
+     -3.167603572997378,
+     52.570698591626936
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
+  },
+  {
    "id": "heveskesklooster-q3276052",
    "name": "Heveskesklooster",
    "aka": "Heveskesklooster Terp",
@@ -8475,6 +8833,45 @@
     900,
     900
    ]
+  },
+  {
+   "id": "isca-augusta-q929778",
+   "name": "Isca Augusta",
+   "aka": "Caer Rufeinig Caerllion, Caerleon Legionary Fortress: Car Park and Garden of Endowed School, North of Broadway",
+   "place": "Newport, Wales",
+   "lon": -2.956498,
+   "lat": 51.609862,
+   "summary": "Isca, variously specified as Isca Augusta or Isca Silurum, was the site of a Roman legionary fortress and settlement or vicus, the remains of which lie beneath parts of the present-day suburban town of Caerleon in the north of the city of Newport in South Wales. The site includes Caerleon Amphitheatre and is protected by Cadw.",
+   "region": "Wales",
+   "kind": "roman_fort",
+   "qid": "Q929778",
+   "wiki": "https://en.wikipedia.org/wiki/Isca_Augusta",
+   "period": [
+    "Romano-British period"
+   ],
+   "corners": [
+    [
+     -2.9680702596481914,
+     51.6170479534446
+    ],
+    [
+     -2.9449257403518088,
+     51.6170479534446
+    ],
+    [
+     -2.9449257403518088,
+     51.60267490887636
+    ],
+    [
+     -2.9680702596481914,
+     51.60267490887636
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "jaketown-site-q6125125",
@@ -10174,6 +10571,42 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "mold-castle-q6895734",
+   "name": "Mold Castle",
+   "aka": "The Bailey Hill, Mold The Bailey Hill",
+   "place": "Flintshire, Wales",
+   "lon": -3.145285,
+   "lat": 53.171018,
+   "summary": "Mold Castle, also known as Bailey Hill in the town of Mold, Flintshire, north-east Wales, is a motte-and-bailey castle erected around 1072, probably by the Norman Robert de Montalt under instructions from Hugh d'Avranches, Earl of Chester. Little remains except the mound on which the motte was built. It stands close to the 15th-century parish church, St Mary's Church near the centre of the town.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q6895734",
+   "wiki": "https://en.wikipedia.org/wiki/Mold_Castle",
+   "corners": [
+    [
+     -3.15127947773263,
+     53.1746111106822
+    ],
+    [
+     -3.1392905222673693,
+     53.1746111106822
+    ],
+    [
+     -3.1392905222673693,
+     53.16742458840554
+    ],
+    [
+     -3.15127947773263,
+     53.16742458840554
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
+  },
+  {
    "id": "montlaures-q3322814",
    "name": "Montlaur\u00e8s",
    "aka": "Oppidum de Montlaur\u00e8s, oppidum de Montlaur\u00e8s",
@@ -10262,6 +10695,42 @@
     800
    ],
    "lidar_credit": "AHN (Rijkswaterstaat)"
+  },
+  {
+   "id": "motte-castrale-quiquempois-q22961457",
+   "name": "Motte castrale Quiquempois",
+   "aka": "motte Quiquempoix, La motte Quiquempois",
+   "place": "Nord, France",
+   "lon": 3.14754,
+   "lat": 50.634601,
+   "summary": "La motte Quiquempois est une motte f\u00e9odale situ\u00e9e sur le territoire de Villeneuve-d'Ascq,\ndans le d\u00e9partement du Nord, en r\u00e9gion Hauts-de-France.",
+   "region": "France",
+   "kind": "motte",
+   "qid": "Q22961457",
+   "wiki": "https://fr.wikipedia.org/wiki/Motte_Quiquempois",
+   "corners": [
+    [
+     3.141874752414465,
+     50.638194123796666
+    ],
+    [
+     3.1532052475855346,
+     50.638194123796666
+    ],
+    [
+     3.1532052475855346,
+     50.63100760152143
+    ],
+    [
+     3.141874752414465,
+     50.63100760152143
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
   },
   {
    "id": "motte-castrale-de-bailleul-q22963648",
@@ -11836,6 +12305,42 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "painscastle-castle-q24659303",
+   "name": "Painscastle Castle",
+   "aka": "Pain's Castle, Castell Paun",
+   "place": "Powys, Wales",
+   "lon": -3.21859,
+   "lat": 52.10738,
+   "summary": "Painscastle Castle is a castle in the village of Painscastle in Powys, Wales. It lies between Builth and Hay-on-Wye, approximately 3 miles from the Wales-England border today.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q24659303",
+   "wiki": "https://en.wikipedia.org/wiki/Painscastle_Castle",
+   "corners": [
+    [
+     -3.2244404678230807,
+     52.110973116363006
+    ],
+    [
+     -3.212739532176919,
+     52.110973116363006
+    ],
+    [
+     -3.212739532176919,
+     52.103786594086976
+    ],
+    [
+     -3.2244404678230807,
+     52.103786594086976
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
+  },
+  {
    "id": "parkin-archeological-state-park-q7138516",
    "name": "Parkin Archeological State Park",
    "place": "Arkansas",
@@ -11925,6 +12430,42 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "pen-y-clawdd-castle-q7162124",
+   "name": "Pen y Clawdd Castle",
+   "aka": "Pen y Clawdd Castle Mound, Castell Pen-y-clawdd",
+   "place": "Monmouthshire, Wales",
+   "lon": -3.00387,
+   "lat": 51.875289,
+   "summary": "Pen y Clawdd Castle is a ditched mound with a double moat, roughly circular in shape, with a diameter of approximately 28m to 30m and about 2.4m high. The castle is in Llanvihangel Crucorney, about five miles to the north of Abergavenny, Monmouthshire, in south east Wales and lies between the Usk and Monnow rivers. The mound was designated a scheduled monument in 1950 and described as a defensive medieval motte.",
+   "region": "Wales",
+   "kind": "motte",
+   "qid": "Q7162124",
+   "wiki": "https://en.wikipedia.org/wiki/Pen_y_Clawdd_Castle",
+   "corners": [
+    [
+     -3.0096902225440996,
+     51.87888211756662
+    ],
+    [
+     -2.9980497774559005,
+     51.87888211756662
+    ],
+    [
+     -2.9980497774559005,
+     51.871695595290745
+    ],
+    [
+     -3.0096902225440996,
+     51.871695595290745
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar": false
   },
   {
    "id": "pharr-mounds-q7180861",
@@ -14022,6 +14563,42 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "tinboeth-castle-q7808013",
+   "name": "Tinboeth Castle",
+   "aka": "Castell Tinboeth, Castell Dinbaud, Llananno",
+   "place": "Powys, Wales",
+   "lon": -3.3371,
+   "lat": 52.3694,
+   "summary": "Tinboeth Castle was a medieval castle situated midway between Llanbister and Llanbadarn Fynydd in Wales, on a bend in the River Ithon.",
+   "region": "Wales",
+   "kind": "hillfort",
+   "qid": "Q7808013",
+   "wiki": "https://en.wikipedia.org/wiki/Tinboeth_Castle",
+   "corners": [
+    [
+     -3.3488702200826403,
+     52.37658593768961
+    ],
+    [
+     -3.3253297799173596,
+     52.37658593768961
+    ],
+    [
+     -3.3253297799173596,
+     52.36221289311799
+    ],
+    [
+     -3.3488702200826403,
+     52.36221289311799
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
+  },
+  {
    "id": "totnes-castle-q2445840",
    "name": "Totnes Castle",
    "place": "Totnes, Devon, England",
@@ -14203,6 +14780,40 @@
     1200,
     1200
    ]
+  },
+  {
+   "id": "tredegar-fort-q20584714",
+   "name": "Tredegar Fort",
+   "aka": "Tredegar Camp, Tredegar Hillfort",
+   "place": "Newport, Wales",
+   "lon": -3.026675,
+   "lat": 51.576198,
+   "region": "Wales",
+   "kind": "hillfort",
+   "qid": "Q20584714",
+   "corners": [
+    [
+     -3.0382386864449,
+     51.583383954130646
+    ],
+    [
+     -3.0151113135550993,
+     51.583383954130646
+    ],
+    [
+     -3.0151113135550993,
+     51.569010909562536
+    ],
+    [
+     -3.0382386864449,
+     51.569010909562536
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false
   },
   {
    "id": "trelleborg-slagelse",

@@ -19,6 +19,10 @@ from scipy.ndimage import gaussian_filter
 R = 6378137.0
 DEM_URL = "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage"
 IMG_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/export"
+class NoLidar(RuntimeError):
+    """No LiDAR source has data for the box (as opposed to a source that failed to answer)."""
+
+
 UA = {"User-Agent": "ancient-works/0.2 (personal research; https://github.com/ethancorn21/ancient-works)"}
 
 
@@ -138,7 +142,7 @@ def fetch_imagery(bbox, w, h):
 
 def fill_nan(z):
     if np.isnan(z).all():
-        raise RuntimeError("no elevation data in this bbox")
+        raise NoLidar("no elevation data in this bbox")
     return np.where(np.isnan(z), np.nanmedian(z), z)
 
 
@@ -174,13 +178,19 @@ def render_relief(z, px_m, clip_m=None, ignore=None, radius_m=24.0):
     return (np.clip(mix, 0, 1) * 255).astype(np.uint8), clip_m
 
 
-def ink_share(rgb, have):
-    """Share of the covered pixels that differ from the sheet's paper colour (median) by 40+ levels: lines, lettering, tints.
-    A map panel with almost none (< 0.5%) is blank paper: the sheet's extent reaches into the box but nothing was printed there."""
+def ink_mask(rgb, have):
+    """Covered pixels that differ from the sheet's paper colour (median) by 40+ levels: lines, lettering, tints."""
+    out = np.zeros(have.shape, bool)
     px = rgb[have].astype(np.int16)
-    if len(px) == 0:
-        return 0.0
-    return float((np.abs(px - np.median(px, axis=0)).max(axis=1) > 40).mean())
+    if len(px):
+        out[have] = np.abs(px - np.median(px, axis=0)).max(axis=1) > 40
+    return out
+
+
+def ink_share(rgb, have):
+    """Share of the covered pixels that are ink (ink_mask). A map panel with almost none (< 0.5%) is blank paper: the
+    sheet's extent reaches into the box but nothing was printed there."""
+    return float(ink_mask(rgb, have)[have].mean()) if have.any() else 0.0
 
 
 MIN_INK = 0.005

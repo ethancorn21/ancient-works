@@ -185,7 +185,7 @@ def read_dem(bbox, w, h, lon=None, lat=None, log=print):
     height_m = (bbox[3] - bbox[1]) * math.cos(math.radians(lat))
     cands = candidates(lon, lat, width_m, height_m)
     if not cands or cands[0]["coverage"] < 0.5:
-        raise RuntimeError("no open point-cloud LiDAR covers this box")
+        raise aw.NoLidar("no open point-cloud LiDAR covers this box")
     c = cands[0]
     px = width_m / w
     log(f"  LiDAR survey {c['survey']} ({c['year']}), {len(c['tiles'])} tiles, {c['density']} pts/m2, {c['coverage']:.0%} of the box")

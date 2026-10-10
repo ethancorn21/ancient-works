@@ -43,7 +43,7 @@ CREDIT = "Maps: National Library of Scotland (maps.nls.uk), Ordnance Survey"
 FAMILIES = {
     # surveyed county by county, northern counties in the 1840s-60s, southern ones as late as the 1880s (Wiltshire's Silbury sheet
     # is c. 1880: about 145 years old); NLS's sheet dates were not reachable, so the edition range is what the label says
-    "six-inch-1st": dict(kind="map", scale="1:10,560", years="1st edition, surveyed 1840s-1880s by county", year=1842, maxz=17, inferred=True,
+    "six-inch-1st": dict(kind="map", scale="1:10,560", years="surveyed 1840s-1880s by county", year=1842, maxz=17, inferred=True,
                          label="Ordnance Survey six-inch map, England and Wales, 1st edition"),
     "scotland-6-first": dict(kind="map", scale="1:10,560", years="1st edition, 1843-1882", year=1843, maxz=17, sets=["os/6inchfirst"],
                              label="Ordnance Survey six-inch map, Scotland, 1st edition"),
@@ -148,10 +148,32 @@ def mosaic(path, bbox, z, ow, oh):
     return out, float((np.asarray(out)[..., 3] > 8).mean())
 
 
+def merge_counties(layers, px_m, window_m=100):
+    """One sheet from several counties' sets. Each county's sheet runs on past its border as blank printed paper, and that
+    paper is not transparent: stacked, it hid the next county's map over the site (2026-10-10: King Arthur's Round Table,
+    Whitley Castle, Pons Aelius, Pen-y-clawdd all showed paper). Each pixel comes from the set with the most ink within
+    ~100 m; where none has any, from the first set with data."""
+    if len(layers) == 1:
+        return layers[0]
+    from scipy.ndimage import uniform_filter
+    k = max(3, int(window_m / px_m))
+    dens = []
+    for arr in layers:
+        got = arr[..., 3] > 8
+        d = uniform_filter(aw.ink_mask(arr[..., :3], got).astype(np.float32), k)
+        dens.append(np.where(got, d + 1e-6, -1.0))  # +1e-6: any data beats none; ties go to the first set
+    pick = np.argmax(np.stack(dens), axis=0)
+    return np.take_along_axis(np.stack(layers), pick[None, ..., None], 0)[0]
+
+
+def covers(lon, lat):
+    return -10.7 <= lon <= 1.9 and 49.8 <= lat <= 61.0  # the NLS sets cover Britain and Ireland only
+
+
 def build(site_path, px=1.5, families=None, list_only=False):
     site = json.load(open(site_path))
     sid = site["id"]
-    if not (-10.7 <= site["lon"] <= 1.9 and 49.8 <= site["lat"] <= 61.0):  # the NLS sets cover Britain and Ireland only
+    if not covers(site["lon"], site["lat"]):
         return
     bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
     out_dir = os.path.join(WEB, sid)
@@ -177,9 +199,8 @@ def build(site_path, px=1.5, families=None, list_only=False):
         name = f"{fam.replace('scotland-', 'scot-')}.webp"
         fpx = max(min(px, meta.get("px", px)), max(site["width_m"], site["height_m"]) / 3200)  # a family may ask for finer pixels; never more than 3200 a side
         ow, oh = int(site["width_m"] / fpx), int(site["height_m"] / fpx)
-        img = Image.new("RGBA", (ow, oh), (0, 0, 0, 0))
-        used = []
-        for p in paths:  # a site near a county line takes both counties' sets: the first on top, the next ones only where it has no data
+        layers, used = [], []
+        for p in paths:  # a site near a county line takes both counties' sets
             m, share = mosaic(p, bbox, z, ow, oh)
             if m is None:
                 continue
@@ -187,10 +208,11 @@ def build(site_path, px=1.5, families=None, list_only=False):
             got = arr[..., 3] > 8
             if meta["kind"] == "map" and got.any() and aw.ink_share(arr[..., :3], got) < aw.MIN_INK:
                 continue  # the neighbouring county's sheet margin: blank paper that would hide the real map
-            img = Image.alpha_composite(m, img)
+            layers.append(arr)
             used.append(p)
         paths = used
-        arr = np.asarray(img)
+        arr = merge_counties(layers, fpx) if layers else np.zeros((oh, ow, 4), np.uint8)
+        img = Image.fromarray(arr, "RGBA")
         have = arr[..., 3] > 8
         cover = float(have.mean())
         if cover < 0.2:

@@ -142,28 +142,43 @@ def main():
     rows = [r for r in rows if r["id"] not in alias]  # same place as a hand-built site
     if a.top:
         rows = rows[:a.top]
+    built = {s["id"] for s in json.load(open(os.path.join(WEB, "sites.json")))["sites"]}
+    newest = time.gmtime().tm_year - depict.MIN_AGE_YEARS
     done, skipped, failed = [], [], []
     for i, entry in enumerate(rows):
         site = make_site(entry)
         sid = site["id"]
         sdir = os.path.join(SITES, sid)
-        if os.path.exists(os.path.join(WEB, "sites", sid, "relief.jpg")) and not a.force:
+        if sid in built and not a.force:
+            continue
+        if float(entry["lon"]).is_integer() and float(entry["lat"]).is_integer():
+            skipped.append((sid, "coordinate rounded to whole degrees: not a place"))  # Bibrax: 3.0, 49.0
             continue
         bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
         src = dem_sources.source_for_bbox(bbox) or dem_sources.static_source_for_bbox(bbox)
-        if src is None:
-            skipped.append((sid, "no LiDAR source"))
+        # no LiDAR: still worth a site when an old map of the place may fit the aerial photograph (Ethan 2026-10-10), or
+        # when the record says so ("aerial_ok": a town or garden that comes with its own old plan)
+        old_map = (entry.get("aerial_ok") or nls.covers(site["lon"], site["lat"])
+                   or any(depict.covers(L, site["lon"], site["lat"]) and L["year"] <= newest for L in depict.LAYERS.values()))
+        if src is None and not old_map:
+            skipped.append((sid, "no LiDAR source, no old map"))
             continue
-        print(f"[{i + 1}/{len(rows)}] {sid} ({src}, {site['width_m']} m)", flush=True)
+        print(f"[{i + 1}/{len(rows)}] {sid} ({src or 'aerial'}, {site['width_m']} m)", flush=True)
         t = time.time()
         try:
             os.makedirs(sdir, exist_ok=True)
             path = os.path.join(sdir, "site.json")
             json.dump(site, open(path, "w"), indent=1)
-            build_site.main(path)
+            ground = build_site.main(path, aerial_ok=old_map)
             # no USGS topographic quads: they show roads and fields, not the works (Ethan 2026-10-10)
-            depict.build(site)
+            maps = depict.build(site)
             nls.build(path)  # no-op outside Britain and Ireland
+            if ground == "aerial" and not entry.get("aerial_ok"):
+                dp = os.path.join(WEB, "sites", sid, "depictions.json")
+                if not (os.path.exists(dp) and json.load(open(dp))["depictions"]):
+                    build_site.drop(sid)
+                    skipped.append((sid, "no LiDAR, and no old map came out here"))
+                    continue
             done.append(sid)
             print(f"   ok {time.time() - t:.0f}s", flush=True)
         except Exception as e:

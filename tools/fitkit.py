@@ -7,7 +7,10 @@ usage:
                                                       pairs in plan px and relief px -> db platefits (serve.py builds it)
   fitkit.py check <site> <plan id>                     ink overlay on the relief -> scratch png
   fitkit.py find <site>                                harvested Commons pictures of a site (ids for the commands above)
-Relief px are pixels of web/data/sites/<site>/relief.jpg; converted to lon/lat through the site's corners.
+Relief px are pixels of the site's ground image, converted to lon/lat through the site's corners: web/data/sites/<site>/relief.jpg,
+or the aerial photograph (Esri World Imagery, the page's "Aerial photograph") for a site with no LiDAR or with FITKIT_GROUND=aerial.
+The aerial is for fitting an old map by what has not moved (roads, churches, river crossings, field edges); it is cached in
+data/raw/aerial/ (gitignored) and never published.
 """
 import datetime
 import json
@@ -24,6 +27,36 @@ sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import aw  # noqa: E402
 
 Image.MAX_IMAGE_PIXELS = 200_000_000
+
+
+AERIAL = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export"
+
+
+def ground(sid):
+    """Path of the image the fit pixels refer to: the relief, or the aerial photograph of the site box at 1 m a pixel."""
+    rel = os.path.join(ROOT, "web", "data", "sites", sid, "relief.jpg")
+    if os.path.exists(rel) and os.environ.get("FITKIT_GROUND") != "aerial":
+        return rel
+    s = site(sid)
+    path = os.path.join(ROOT, "data", "raw", "aerial", f"{sid}.jpg")
+    if not os.path.exists(path):
+        (lon0, lat1), (lon1, _), (_, lat0) = s["corners"][0], s["corners"][1], s["corners"][2]
+        x0, y1 = aw.to_merc(lon0, lat1)
+        x1, y0 = aw.to_merc(lon1, lat0)
+        w, h = (min(4096, round(v)) for v in s["size_m"])
+        body = aw._get(AERIAL, {"bbox": f"{x0:.2f},{y0:.2f},{x1:.2f},{y1:.2f}", "bboxSR": 3857, "imageSR": 3857,
+                                "size": f"{w},{h}", "format": "jpg", "f": "image"})
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "wb") as f:
+            f.write(body)
+    return path
+
+
+def ground_view(sid, im):
+    """The ground image for looking at: the relief contrast-stretched in grey, the aerial as it is."""
+    if ground(sid).endswith("relief.jpg"):
+        return ImageOps.autocontrast(im.convert("L"), cutoff=1).convert("RGB")
+    return im.convert("RGB")
 
 
 def site(sid):
@@ -75,8 +108,7 @@ def sheet(sid, pid, crop=None):
     c = c.resize((round(c.width * sc), round(c.height * sc)), Image.LANCZOS)
     step = 100 if max(x1 - x0, y1 - y0) < 1600 else 200 if max(x1 - x0, y1 - y0) < 3200 else 400
     grid(c, x0, y0, sc, step)
-    r = Image.open(os.path.join(ROOT, "web", "data", "sites", sid, "relief.jpg")).convert("L")
-    r = ImageOps.autocontrast(r, cutoff=1).convert("RGB")
+    r = ground_view(sid, Image.open(ground(sid)))
     rs = 900 / max(r.size)
     r = r.resize((round(r.width * rs), round(r.height * rs)), Image.LANCZOS)
     grid(r, 0, 0, rs, 100, (230, 40, 40))
@@ -85,13 +117,12 @@ def sheet(sid, pid, crop=None):
     S.paste(r, (c.width + 10, 0))
     path = os.path.join(OUT, f"fit_{sid}_{pid}.jpg")
     S.save(path, quality=85)
-    print(path, "plan size", im.size, "relief size", Image.open(os.path.join(ROOT, "web", "data", "sites", sid, "relief.jpg")).size)
+    print(path, "plan size", im.size, "relief size", Image.open(ground(sid)).size)
 
 
 def zoom(sid, box):
     x0, y0, x1, y1 = box
-    r = Image.open(os.path.join(ROOT, "web", "data", "sites", sid, "relief.jpg")).convert("L").crop((x0, y0, x1, y1))
-    r = ImageOps.autocontrast(r, cutoff=1).convert("RGB")
+    r = ground_view(sid, Image.open(ground(sid)).crop((x0, y0, x1, y1)))
     sc = 900 / max(r.size)
     r = r.resize((round(r.width * sc), round(r.height * sc)), Image.LANCZOS)
     step = 20 if max(x1 - x0, y1 - y0) <= 250 else 50 if max(x1 - x0, y1 - y0) <= 600 else 100
@@ -102,7 +133,7 @@ def zoom(sid, box):
 
 
 def lonlat(s, col, row):
-    W, H = Image.open(os.path.join(ROOT, "web", "data", "sites", s["id"], "relief.jpg")).size
+    W, H = Image.open(ground(s["id"])).size
     (lon0, lat1), (lon1, _), (_, lat0) = s["corners"][0], s["corners"][1], s["corners"][2]
     x0, y1 = aw.to_merc(lon0, lat1)
     x1, y0 = aw.to_merc(lon1, lat0)
@@ -137,7 +168,7 @@ def check(sid, pid):
     s = site(sid)
     dep = json.load(open(os.path.join(ROOT, "web", "data", "sites", sid, "depictions.json")))["depictions"]
     e = next(x for x in dep if x["file"] == f"plan_{pid}.webp")
-    rel = Image.open(os.path.join(ROOT, "web", "data", "sites", sid, "relief.jpg")).convert("RGB")
+    rel = Image.open(ground(sid)).convert("RGB")
     W, H = rel.size
     (lon0, lat1), (lon1, _), (_, lat0) = s["corners"][0], s["corners"][1], s["corners"][2]
     X0, Y1 = aw.to_merc(lon0, lat1)
@@ -154,7 +185,7 @@ def check(sid, pid):
         b += [u, v]
     coef = np.linalg.solve(np.array(A), np.array(b))
     warped = ink.transform((W, H), Image.PERSPECTIVE, tuple(coef), Image.BILINEAR)
-    rel = ImageOps.autocontrast(rel.convert("L"), cutoff=1).convert("RGBA")
+    rel = ground_view(sid, rel).convert("RGBA")
     out = Image.alpha_composite(rel, warped)
     out.thumbnail((1100, 1100))
     path = os.path.join(OUT, f"check_{sid}_{pid}.jpg")
