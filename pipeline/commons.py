@@ -160,6 +160,31 @@ def year_of(title, m):
     return min(ty) if ty else None
 
 
+def when_of(title, m):
+    """The date as a person would write it, for labels: "17th century", "1870s", "1575-1635", "c. 1748", "1769".
+    year_of() stays the number used for sorting and the 1925 cut-off (a century sorts at its middle year)."""
+    y = year_of(title, m)
+    if y is None:
+        return ""
+    d = (m.get("date") or "").split("date QS")[0]
+    raw = m.get("date") or ""
+    if PUBLISHED.search(m.get("desc") or "") or not YEAR.findall(d):
+        qs = re.search(r"P571,\+(1[2-9]\d\d)-00-00T00:00:00Z/([78])|^[^,]*,\+(1[2-9]\d\d)-00-00T00:00:00Z/([78])", raw)
+        if qs and not PUBLISHED.search(m.get("desc") or ""):
+            yy, prec = int(qs.group(1) or qs.group(3)), qs.group(2) or qs.group(4)
+            if prec == "7":
+                n = yy // 100 + 1
+                return f"{n}{'th' if 10 <= n % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')} century"
+            return f"{yy // 10 * 10}s"
+        return str(y)
+    ys = sorted(int(v) for v in YEAR.findall(d))
+    circa = "c. " if re.search(r"\b(circa|ca\.|c\.|about)\s*\d", d, re.I) and ys[0] == y else ""
+    if (len(ys) >= 2 and ys[-1] > ys[0] and ys[0] == y and
+            re.search(r"\bbetween\b|\d\s*[-\u2013]\s*(?:circa|ca\.|c\.)?\s*\d", d, re.I)):
+        return f"{circa}{ys[0]}-{ys[-1]}"
+    return f"{circa}{y}"
+
+
 def keep(title, m):
     """Old enough, or undated with a plan/map/engraving word in the title (the classifier and an eye check decide)."""
     if NO.search(title) or NO.search(m.get("desc") or ""):
@@ -228,7 +253,7 @@ def rows():
     out = []
     for r in (json.loads(l) for l in open(p)) if os.path.exists(p) else []:
         if r.get("title") and keep(r["title"], r):
-            out.append(dict(r, year=year_of(r["title"], r)))
+            out.append(dict(r, year=year_of(r["title"], r), when=when_of(r["title"], r)))
     return out
 
 

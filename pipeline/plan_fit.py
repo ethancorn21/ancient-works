@@ -14,6 +14,7 @@ import glob
 import json
 import math
 import os
+import re
 import sys
 
 import numpy as np
@@ -160,8 +161,10 @@ def build(doc):
     crop.save(os.path.join(out_dir, name), quality=80, method=6)
     ink = depict.make_ink(crop.convert("RGBA"))
     ink.save(os.path.join(out_dir, ink_name), quality=85, method=6)
-    year = next((int(t) for t in (doc.get("book", "") + " " + str(doc.get("label") or "")).split()
-                 if t.isdigit() and len(t) == 4), None)
+    # sort year: first 4-digit year in the book or label ("1575-1635" -> 1575); a century label sorts at its middle
+    words = doc.get("book", "") + " " + str(doc.get("label") or "")
+    ym, cm = re.search(r"(?<!\d)(1[2-9]\d\d)(?!\d)", words), re.search(r"\b(1[2-9])(?:st|nd|rd|th) century", words)
+    year = int(ym.group(1)) if ym else (int(cm.group(1)) - 1) * 100 + 50 if cm else None
     how = (f"Placed by hand on {len(pairs)} matching points with a perspective fit; all within {math.ceil(resid.max())} m."
            if view else f"Placed by hand on {len(pairs)} matching points; one rotation and scale fits them within "
                         f"{math.ceil(resid.max())} m.")

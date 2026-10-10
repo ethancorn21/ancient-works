@@ -41,7 +41,7 @@ def commons_rows(min_p=0.3):
         name = re.sub(r"\.(jpe?g|png|tiff?|gif)$", "", r["title"][5:], flags=re.I)
         artist = re.sub(r"\s+", " ", r.get("artist") or "").strip()
         cite = "; ".join(x for x in [artist and f"by {artist}", r.get("license"), r.get("page")] if x)
-        out.append([f"c_{h}", "Wikimedia Commons", None, None, name, str(r["year"]) if r.get("year") else "", [w, hgt],
+        out.append([f"c_{h}", "Wikimedia Commons", None, None, name, r["when"], [w, hgt],
                     None, [r["site"]], cite, f"media/commons/{r['site']}/{h}.jpg", bool(c) and c["p_birdseye"] > c["p_plan"], r["title"]])
     return out
 

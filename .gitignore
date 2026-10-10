@@ -27,3 +27,4 @@ data/sites/*/dem.npy
 web/data/sites.json.lock
 web/data/sites.json.*.tmp
 data/db/plan_fit.log
+data/commons/sheets/
