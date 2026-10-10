@@ -1,0 +1,45 @@
+{
+ "site": "aztalan-state-park-q4832928",
+ "plan": "antiquitiesofwis00saph_n0182_1",
+ "ia": "antiquitiesofwis00saph",
+ "file": "n0182.jpg",
+ "crop": [
+  250,
+  500,
+  4400,
+  3650
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  5768,
+  4190
+ ],
+ "pairs": [
+  [
+   737.0,
+   1923.0,
+   -88.8621561,
+   43.0645445
+  ],
+  [
+   2916.0,
+   1955.0,
+   -88.8608896,
+   43.0676885
+  ],
+  [
+   3172.0,
+   2788.0,
+   -88.859119,
+   43.0677784
+  ]
+ ],
+ "label": "Plate XXXIV",
+ "title": "Ancient Works at Aztalan",
+ "book": "Lapham 1855",
+ "cite": "I. A. Lapham, The Antiquities of Wisconsin, as Surveyed and Described (Smithsonian Contributions to Knowledge vol. 7), Washington 1855",
+ "at": "2026-10-10T17:41:40.370589+00:00"
+}
