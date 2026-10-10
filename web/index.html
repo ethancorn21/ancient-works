@@ -527,12 +527,13 @@ async function setVerdict(name, id, v) {
   }
 }
 function verdictChip(id) { const v = (F.verdicts[id] || {}).v; return v ? `<span class="chip v-${v}">${VERDICT[v]}</span>` : '<span class="chip todo">To review</span>'; }
-function candLine(c) { return `Ring of ${c.r_m} m radius; stands ${c.ridge_m.toFixed(2)} m above its sides, ${Math.round(c.raised * 100)}% of its length raised`; }
+function candLine(c) { return `Ring of ${c.r_m} m radius; the crest stands ${c.score_m.toFixed(2)} m above the ground inside and outside it in ${c.sectors} of 8 sectors, on ground that varies by ${c.rough_m.toFixed(2)} m`; }
 function renderScan(name) {
   const sc = F.byName[name], d = F.data[name], c = F.cand && d.byId[F.cand];
   const known = sc.known.map(k => {
     const hit = d.candidates.filter(x => x.known === k.name).sort((a, b) => a.rank - b.rank)[0];
-    return `<li><span>${esc(k.name)}</span>${hit ? `<button class="chip found" data-c="${hit.id}">Found · #${hit.rank}</button>` : '<span class="chip missed">Not in list</span>'}<i>${esc(k.note)}</i></li>`;
+    const chip = !k.expected ? '<span class="chip">Control</span>' : hit ? `<button class="chip found" data-c="${hit.id}">Found · #${hit.rank}</button>` : '<span class="chip missed">Not in list</span>';
+    return `<li><span>${esc(k.name)}</span>${chip}<i>${esc(k.note)}</i></li>`;
   }).join('');
   const list = d.candidates.filter(x => F.filter === 'all' || (F.filter === 'todo' ? !F.verdicts[x.id] : F.verdicts[x.id]));
   const done = reviewedCount(name);
@@ -543,7 +544,7 @@ function renderScan(name) {
       <p class="section-title">Candidate ${c.rank} of ${d.candidates.length}${c.known ? ` · ${esc(c.known)}` : ''}</p>
       <div class="crop"><img src="data/scan/${esc(name)}/${esc(c.crop)}" alt="LiDAR relief around candidate ${c.rank}">
         <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="${(c.r_m / (2 * Math.max(150, 3 * c.r_m)) * 100).toFixed(2)}" fill="none" stroke="#CE2E4E" stroke-width="0.5" stroke-dasharray="2 1.5"/></svg></div>
-      <p class="stats">${candLine(c)}. Score ${c.z} (robust z against its 4 km tile).</p>
+      <p class="stats">${candLine(c)}. Signal to noise ${c.snr}.</p>
       <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-v="${k}" aria-pressed="${(F.verdicts[c.id] || {}).v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
       <div class="tools"><button id="c-prev">← Previous</button><button id="c-next">Next to review →</button></div>
       <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need you signed in to claude.ai.'}</p>
@@ -557,11 +558,11 @@ function renderScan(name) {
       <div class="seg" role="group" aria-label="Show"><button data-f="todo" aria-pressed="${F.filter === 'todo'}">To review (${d.candidates.length - done})</button><button data-f="all" aria-pressed="${F.filter === 'all'}">All (${d.candidates.length})</button></div>
       <ul class="cands">${list.map(x => `<li><button class="cand" data-c="${x.id}" aria-current="${x.id === F.cand}">
         <img src="data/scan/${esc(name)}/${esc(x.crop)}" alt="" loading="lazy">
-        <span><b>#${x.rank}${x.known ? ` · ${esc(x.known)}` : ''}</b><small>${x.r_m} m radius · ${x.ridge_m.toFixed(2)} m · score ${x.z}</small></span>
+        <span><b>#${x.rank}${x.known ? ` · ${esc(x.known)}` : ''}</b><small>${x.r_m} m radius · ${x.score_m.toFixed(2)} m · s/n ${x.snr}</small></span>
         ${verdictChip(x.id)}</button></li>`).join('') || '<li class="status">Nothing left in this list.</li>'}</ul>
     </div>
     <div class="about">
-      <p>The scan removes the natural slope from the LiDAR, then asks of every point how far it stands above the ground 20 m to either side. Rings of ${sc.radii_m.length} sizes are passed over that map; a candidate is a ring whose whole length stands out from its 4 km tile, with roads, buildings and water masked.</p>
+      <p>The scan removes the natural slope from the LiDAR and passes rings of ${sc.radii_m.length} sizes over it, each split into 8 sectors. A first pass keeps rings whose crest is convex nearly all the way round; a second pass removes the local tilt and keeps rings whose crest stands above both the ground inside and outside in at least 6 sectors. Roads, buildings and water are masked. Candidates are ordered by that height over the roughness of the ground around them.</p>
       <p>A candidate is a shape, not a find. Meander scars, sinkholes, farm ponds, tracks and old field edges all make rings. The known works above are the check: a ring that the scan cannot find where one is known to exist says how much it misses elsewhere.</p>
       <p>Private: candidates may mark unrecorded sites. Keep this page and its verdicts to yourself.</p>
     </div>`;
