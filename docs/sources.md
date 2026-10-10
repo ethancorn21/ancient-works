@@ -92,6 +92,18 @@ Plates not yet on the page, by site: VI Fortified Hill, VII Fort Ancient, X (Ros
 XXIII Dunlap's Works and Wolf Plains, XXVII-XXVIII Portsmouth, XXXV Serpent Mound, XXXVI Alligator Mound and the effigies, XXXVII Wateree (South Carolina),
 XXXVIII-XXXIX the Etowah and Mississippi works, XL-XLIV Wisconsin (Dane, Rock River), XLV Marietta's Great Mound.
 
+**Named sources tied to sites by hand** (`pipeline/sources.py <name>`, Ethan 2026-10-10: "walled towns and lost gardens").
+A table of Commons file -> hand-checked Wikidata QID per source; new sites go to `data/catalog/extras.jsonl` (`aerial_ok`), pictures
+to `data/commons/files.jsonl` with a readable `name` and to `classified.jsonl` as `"by": "hand"`; then `build_catalog.py --ids`,
+`commons.py thumbs`, `tools/export_plans.py`. Captions beat titles: the Rijksmuseum's "Gezicht op Hampton Court" is Hampton Court
+in Herefordshire.
+
+| Source | On Commons | Used | Notes |
+|---|---|---|---|
+| Mackenzie, *The Castles of England* (1897), plans | "The Castles of England: their story and structure (1897)", 42 files (British Library Flickr scans, page + Flickr id) | 26 plans, 24 new castle sites | Partly schematic: Framlingham, Carisbrooke and Cooling disagree between axes by 25-35%. Castle Rising fits within 12 m. Page 212 (five-towered castle, no caption) not identified. Each scan links to the BL Georeferencer, which may hold volunteer control points; it sits behind a bot challenge now |
+| Jacob van Deventer, town plans (c. 1545-1565) | "Maps by Jacob van Deventer": 70 town categories, plus the Madrid (BNE) set as root files | 6 towns: Gouda, Zwolle, Venlo, Damme, Binche, Bergues | Survey-grade: Bergues fits within 33 m and its street ring still curves where he drew it. 64 towns left; many are in northern France and Belgium (Hainaut, Artois) |
+| Kip (after Knyff and others), bird's-eye views (1707-1719) | "Britannia Illustrata" (26 files, mostly 300-800 px) and "Johannes Kip" (104; Yale and Rijksmuseum scans at 1920-7032 px) | 6 houses: Hampton Court (Herefordshire), Chevening, Cassiobury, Chiswick, Fairlawne, Burlington House | Perspective views: the fit tool places them with a homography (4+ points on the ground, not rooftops) |
+
 ## 6. Hosts the cloud session could not reach
 
 The proxy answered 403 to CONNECT for these, so anything from them is unverified there. Allowing them (environment settings, Network access, Allowed domains) is
