@@ -147,6 +147,37 @@ def sample_rd(L, name, bbox, ow, oh):
     return np.dstack([map_coordinates(mos[..., c].astype(np.float32), [R, C], order=1) for c in range(4)]).astype(np.uint8), lvl
 
 
+def make_ink(img):
+    """RGBA map image -> survey-red ink version (dark lines opaque, paper transparent), like the plates."""
+    import build_site
+    a = np.asarray(img.convert("RGBA")) if isinstance(img, Image.Image) else img
+    inside = a[..., 3] > 0
+    if not inside.any():
+        return None
+    ink = np.asarray(build_site.plate_ink(Image.fromarray(a[..., :3], "RGB"), inside=inside)).copy()
+    ink[..., 3] = np.minimum(ink[..., 3], a[..., 3])
+    return Image.fromarray(ink, "RGBA")
+
+
+def add_ink(sid, force=False):
+    """Give every old map (not aerials) of a site an ink version; updates depictions.json."""
+    out_dir = os.path.join(WEB, sid)
+    dep_path = os.path.join(out_dir, "depictions.json")
+    if not os.path.exists(dep_path):
+        return
+    deps = json.load(open(dep_path))
+    for d in deps["depictions"]:
+        if d.get("kind") not in ("map", "topo") or (d.get("ink") and not force):
+            continue
+        ink = make_ink(Image.open(os.path.join(out_dir, d["file"])))
+        if ink is None:
+            continue
+        d["ink"] = d["file"].rsplit(".", 1)[0] + "_ink.webp"
+        ink.save(os.path.join(out_dir, d["ink"]), quality=85, method=6)
+        print(sid, d["ink"], os.path.getsize(os.path.join(out_dir, d["ink"])) // 1024, "KB")
+    aw.save_json(dep_path, deps)
+
+
 def covers(L, lon, lat):
     x0, y0, x1, y1 = L["box"]
     return x0 <= lon <= x1 and y0 <= lat <= y1
@@ -183,8 +214,13 @@ def build(site, names=None):
         print(sid, name, f"zoom {z}", f"coverage {entry['coverage']:.0%}", os.path.getsize(os.path.join(out_dir, file)) // 1024, "KB")
     deps["depictions"].sort(key=lambda d: d.get("year", 0))
     aw.save_json(dep_path, deps)
+    add_ink(sid, force=True)
     return made
 
 
 if __name__ == "__main__":
-    build(json.load(open(sys.argv[1])), sys.argv[2:] or None)
+    if sys.argv[1] == "--ink":  # depict.py --ink <site id> ...: (re)make ink versions only
+        for sid in sys.argv[2:]:
+            add_ink(sid, force=True)
+    else:
+        build(json.load(open(sys.argv[1])), sys.argv[2:] or None)

@@ -25,7 +25,8 @@
     ]
    ],
    "coverage": 1.0,
-   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Chillicothe, OH 1906"
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Chillicothe, OH 1906",
+   "ink": "topo_1906_62500_ink.webp"
   }
  ]
 }

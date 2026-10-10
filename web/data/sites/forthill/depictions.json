@@ -25,7 +25,8 @@
     ]
    ],
    "coverage": 1.0,
-   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Bainbridge, OH 1915"
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Bainbridge, OH 1915",
+   "ink": "topo_1915_48000_ink.webp"
   }
  ]
 }

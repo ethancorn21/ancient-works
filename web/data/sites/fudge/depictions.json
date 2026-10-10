@@ -25,7 +25,8 @@
     ]
    ],
    "coverage": 0.946,
-   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Winchester, IN 1916"
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Winchester, IN 1916",
+   "ink": "topo_1916_48000_ink.webp"
   }
  ]
 }

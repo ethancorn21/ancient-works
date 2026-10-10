@@ -162,6 +162,8 @@ def main(path, max_scale=62500, all_editions=False):
               os.path.getsize(os.path.join(out_dir, name)) // 1024, "KB")
     deps["depictions"].sort(key=lambda d: d.get("year", 0))
     aw.save_json(dep_path, deps)
+    import depict
+    depict.add_ink(sid, force=True)
 
 
 if __name__ == "__main__":

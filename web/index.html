@@ -233,7 +233,7 @@ const narrow = () => matchMedia('(max-width: 760px)').matches;
 function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.85);
-S.dep = {}; S.depUrl = {}; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85);
+S.dep = {}; S.depUrl = {}; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85); S.depMode = lsGet('aw.depMode', 'ink');
 
 const map = new maplibregl.Map({
   container: 'map',
@@ -338,7 +338,7 @@ function applyDep(s) {
   if (!S.loaded.has(s.id)) return;
   const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); return; }
-  const url = `data/sites/${s.id}/${d.file}`;
+  const url = `data/sites/${s.id}/${S.depMode === 'ink' && d.ink ? d.ink : d.file}`;
   if (!map.getSource(id)) {
     map.addSource(id, { type: 'image', url, coordinates: d.corners });
     // above the ground, below the plate
@@ -462,6 +462,10 @@ function depGroup(s) {
         <button data-dep="" aria-pressed="${!d}">None</button>
         ${list.map(x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}</button>`).join('')}
       </div>
+      ${d && d.ink ? `<div class="seg" role="group" aria-label="Map style">
+        <button id="d-ink" aria-pressed="${S.depMode === 'ink'}">Ink lines</button>
+        <button id="d-paper" aria-pressed="${S.depMode !== 'ink'}">Original paper</button>
+      </div>` : ''}
       ${d ? `<div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
       <p class="source">${esc(d.source)}${d.coverage < 0.98 ? ` Covers ${Math.round(d.coverage * 100)}% of the site box.` : ''}</p>` : ''}
     </div>`;
@@ -530,6 +534,8 @@ function renderSite(s) {
   $('#g-relief').onclick = () => setGround('relief', s);
   $('#g-imagery').onclick = () => setGround('imagery', s);
   $('#body').querySelectorAll('[data-dep]').forEach(b => b.onclick = () => setDep(s, b.dataset.dep));
+  const depMode = m => { S.depMode = m; lsSet('aw.depMode', m); applyDep(s); renderSite(s); if (B.open) setTab(true); };
+  if ($('#d-ink')) { $('#d-ink').onclick = () => depMode('ink'); $('#d-paper').onclick = () => depMode('paper'); }
   if ($('#dop')) $('#dop').oninput = e => { S.depOpacity = e.target.value / 100; $('#dopv').textContent = e.target.value + '%'; applyDep(s); lsSet('aw.depOpacity', S.depOpacity); };
   if (!s.plate) return;
   $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
