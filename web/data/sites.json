@@ -1,0 +1,74 @@
+{
+ "sites": [
+  {
+   "id": "fudge",
+   "name": "Fudge Site",
+   "aka": "Ancient Work near Winchester",
+   "place": "Randolph County, Indiana",
+   "lon": -84.9906,
+   "lat": 40.1826,
+   "status": "plowed",
+   "summary": "A 31-acre earthwork rectangle that James McBride surveyed in 1847. The walls have been plowed down, and the 9 ft central mound was dug out in the late 1920s.",
+   "notes": [
+    "The relief shows two parallel raised bands 320 m apart. The north one stands about 0.45 m above the ground 25 m to either side, the south one about 0.3 m. The plate puts the walls 1080 ft (329 m) apart.",
+    "Fitting the plate's walls to the relief gives 0.47 m per plate pixel, within 2% of the plate's own labeled sizes.",
+    "A county road now crosses the north third of the enclosure. A quarry lake sits where the southern half of the east wall should be.",
+    "NRHP 07000213, listed 2007 (Fudge Site)."
+   ],
+   "corners": [
+    [
+     -85.0011823587731,
+     40.18933703008471
+    ],
+    [
+     -84.9800176412269,
+     40.18933703008471
+    ],
+    [
+     -84.9800176412269,
+     40.17586230083182
+    ],
+    [
+     -85.0011823587731,
+     40.17586230083182
+    ]
+   ],
+   "relief_clip_m": 1.25,
+   "size_m": [
+    1800,
+    1500
+   ],
+   "plate": {
+    "corners": [
+     [
+      -84.99396321652844,
+      40.18585307595193
+     ],
+     [
+      -84.98536091133695,
+      40.186061302992684
+     ],
+     [
+      -84.9851021472662,
+      40.17982200615588
+     ],
+     [
+      -84.99370445245768,
+      40.17961375996389
+     ]
+    ],
+    "source": "Squier & Davis 1848, Plate XXXIII No. 2 (surveyed by James McBride, 1847). Scan: Internet Archive ancientmonuments00squi leaf n203.",
+    "fit": {
+     "m_per_px": 0.4633,
+     "rot_deg": 1.81,
+     "tx": -11.9,
+     "ty": -15.1,
+     "ridge_contrast_m": 0.307,
+     "null_mean_m": -0.103,
+     "null_p99_m": -0.033
+    },
+    "label": "Plate XXXIII No. 2"
+   }
+  }
+ ]
+}

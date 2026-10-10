@@ -1,0 +1,374 @@
+<title>Ancient Works</title>
+<style>
+/* Layout: full-bleed globe; one calm panel (left column on desktop, bottom sheet on phones); foil only on small chips. */
+:root {
+  --bg: #E9DCCB; --surface: #F5EEDF; --raised: #FBF7F0; --sunk: #E3D5C3; --border: #CDB9A2;
+  --text: #2B211C; --muted: #6E5A49; --link: #8A4F2A; --space: #1C1612;
+  --ink-gold: #B97A1E;
+  --chrome: linear-gradient(135deg, #fdfdfd 0%, #a9adb3 20%, #f4f5f7 42%, #7d8188 60%, #e6e8eb 80%, #9ea2a8 100%);
+  --sheen: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%);
+  --holo: linear-gradient(110deg, #ffc6e8 0%, #d4c4ff 22%, #b9e6ff 42%, #bfffe6 60%, #fff3b8 78%, #ffc6e8 100%);
+  --on-foil: #2B211C;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1C1612; --surface: #2B211C; --raised: #362B23; --sunk: #15100D; --border: #4E3D33;
+  --text: #EFE6DC; --muted: #B5A493; --link: #D9A877; --ink-gold: #F2B862; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1C1612; --surface: #2B211C; --raised: #362B23; --sunk: #15100D; --border: #4E3D33;
+  --text: #EFE6DC; --muted: #B5A493; --link: #D9A877; --ink-gold: #F2B862; color-scheme: dark; }
+
+html, body { height: 100%; }
+body { background: var(--space); color: var(--text); font: 14px/1.5 var(--font); overflow: hidden; }
+#map { position: fixed; inset: 0; background: var(--space); }
+
+.panel {
+  position: fixed; z-index: 2; top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; bottom: 12px; width: 360px;
+  display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.35); overflow: hidden;
+}
+.panel-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 10px; }
+.wordmark { font: 600 19px/1.1 var(--serif); letter-spacing: .01em; margin: 0; }
+.tagline { color: var(--muted); font-size: 12px; margin: 2px 0 0; }
+.grab { display: none; }
+.panel-body { overflow-y: auto; padding: 12px 16px 18px; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+
+.eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.site-list { display: flex; flex-direction: column; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.site-row {
+  display: grid; gap: 4px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px;
+  background: var(--raised); border: 1px solid var(--border); color: inherit; font: inherit; cursor: pointer;
+}
+.site-row:hover { border-color: var(--link); }
+.site-row:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.site-row .name { font-weight: 650; font-size: 15px; }
+.site-row .place { color: var(--muted); font-size: 12.5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+
+.foil {
+  --h: 45;
+  --g: linear-gradient(110deg, hsl(var(--h) 95% 83%), hsl(calc(var(--h) + 45) 95% 86%),
+       hsl(calc(var(--h) + 110) 90% 88%), hsl(calc(var(--h) + 40) 95% 85%), hsl(var(--h) 95% 82%));
+  display: inline-block; border: 2px solid transparent; border-radius: 999px; padding: 1px 9px;
+  color: var(--on-foil); font-size: 11.5px; font-weight: 650; letter-spacing: .01em; white-space: nowrap;
+  background: var(--sheen) padding-box, var(--g) padding-box, var(--chrome) border-box;
+  background-size: 300% 100%, 100% 100%, 100% 100%; background-position: 100% 0, 0 0, 0 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 1px 2px rgba(0,0,0,.35);
+  transition: background-position .9s ease;
+}
+.foil:hover { background-position: 0 0, 0 0, 0 0; }
+.foil.plate { --h: 45; } .foil.plowed { --h: 265; } .foil.standing { --h: 195; } .foil.urban { --h: 320; }
+.foil.shared { --g: var(--holo); }
+@media (prefers-reduced-motion: reduce) { .foil { transition: none; } }
+
+.back { align-self: flex-start; background: none; border: 0; color: var(--link); font: inherit; padding: 0; cursor: pointer; }
+.site-title { margin: 0; font: 600 22px/1.15 var(--serif); text-wrap: balance; }
+.site-aka { margin: 2px 0 8px; color: var(--muted); font-style: italic; font-family: var(--serif); }
+.summary { margin: 0; }
+.group { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 10px; background: var(--raised); border: 1px solid var(--border); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.seg button { background: var(--surface); color: var(--text); border: 0; font: inherit; padding: 7px 8px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button[aria-pressed="true"] { background: var(--text); color: var(--surface); font-weight: 600; }
+.row { display: flex; align-items: center; gap: 10px; }
+.row label { flex: 0 0 auto; color: var(--muted); font-size: 12.5px; }
+input[type=range] { flex: 1; min-width: 0; accent-color: var(--link); }
+.val { font: 12px var(--mono); color: var(--muted); min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
+.legend { display: grid; gap: 4px; }
+.ramp { height: 8px; border-radius: 4px; background: linear-gradient(90deg, #000, #808080, #fff); border: 1px solid var(--border); }
+.ramp-labels { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.notes { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.fit { font-size: 12.5px; color: var(--muted); margin: 0; }
+.source { font-size: 12px; color: var(--muted); margin: 0; font-family: var(--serif); font-style: italic; }
+details.align summary { cursor: pointer; color: var(--link); }
+.pad { display: grid; grid-template-columns: repeat(3, 40px); gap: 6px; justify-content: start; }
+.pad button, .tools button {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
+  font: 15px/1 var(--font); height: 34px; cursor: pointer;
+}
+.pad button:hover, .tools button:hover { border-color: var(--link); }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.tools button { padding: 0 10px; font-size: 13px; }
+.tools button.primary { background: var(--text); color: var(--surface); border-color: var(--text); }
+.status { font-size: 12px; color: var(--muted); min-height: 1.5em; margin: 0; }
+.about { font-size: 12.5px; color: var(--muted); display: grid; gap: 6px; }
+.about p { margin: 0; }
+
+.marker { display: flex; align-items: center; gap: 6px; cursor: pointer; background: none; border: 0; padding: 0; }
+.marker .dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid transparent;
+  background: var(--holo) padding-box, var(--chrome) border-box; box-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.marker .tag { font-size: 11.5px; padding: 0 8px; }
+
+.maplibregl-ctrl-attrib { font-size: 10.5px; }
+.maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--border); }
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--border) !important; }
+:root[data-theme="dark"] .maplibregl-ctrl-icon, :root:not([data-theme="light"]) .maplibregl-ctrl-icon { filter: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .maplibregl-ctrl button .maplibregl-ctrl-icon { filter: invert(.9); } }
+:root[data-theme="dark"] .maplibregl-ctrl button .maplibregl-ctrl-icon { filter: invert(.9); }
+
+@media (max-width: 720px) {
+  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 52%; border-radius: 16px 16px 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px); border-left: 0; border-right: 0; border-bottom: 0; }
+  .panel.collapsed { max-height: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .panel.collapsed .panel-body { display: none; }
+  .grab { display: block; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 44px; height: 5px;
+    border-radius: 3px; background: var(--border); border: 0; padding: 0; cursor: pointer; }
+  .panel-head { padding-top: 18px; padding-left: 16px; padding-right: 16px; }
+}
+</style>
+
+<div id="map" aria-label="Globe of earthwork sites"></div>
+
+<aside class="panel" id="panel">
+  <button class="grab" id="grab" aria-label="Show or hide the panel"></button>
+  <header class="panel-head">
+    <div>
+      <h1 class="wordmark">Ancient Works</h1>
+      <p class="tagline">1848 earthwork surveys laid over today's LiDAR</p>
+    </div>
+  </header>
+  <div class="panel-body" id="body"></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script>
+<script>
+const WORLD = [[-180, 85.0511], [180, 85.0511], [180, -85.0511], [-180, -85.0511]];
+const STATUS = { plowed: ['plowed', 'Plowed down'], standing: ['standing', 'Walls standing'], urban: ['urban', 'Under town'] };
+const S = { sites: [], byId: {}, sel: null, ground: 'relief', plateMode: 'ink', plateOpacity: 0.8, align: {}, loaded: new Set(), db: null };
+const $ = (sel, el = document) => el.querySelector(sel);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const narrow = () => matchMedia('(max-width: 720px)').matches;
+function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.8);
+
+const map = new maplibregl.Map({
+  container: 'map',
+  style: {
+    version: 8, projection: { type: 'globe' },
+    sources: { world: { type: 'image', url: 'data/world.jpg', coordinates: WORLD } },
+    layers: [
+      { id: 'space', type: 'background', paint: { 'background-color': '#1C1612' } },
+      { id: 'world', type: 'raster', source: 'world', paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } },
+    ],
+  },
+  center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
+});
+map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
+map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
+  'Globe: NASA Blue Marble · LiDAR: USGS 3DEP · Imagery: USDA NAIP via USGS The National Map · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
+
+/* ---------- geometry ---------- */
+const R = 6378137;
+const merc = ([lon, lat]) => [lon * Math.PI / 180 * R, Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) * R];
+const unmerc = ([x, y]) => [x / R * 180 / Math.PI, (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * 180 / Math.PI];
+function alignedCorners(site) {
+  const a = S.align[site.id] || { dx: 0, dy: 0, rot: 0, scale: 1 };
+  const pts = site.plate.corners.map(merc);
+  const cx = pts.reduce((s, p) => s + p[0], 0) / 4, cy = pts.reduce((s, p) => s + p[1], 0) / 4;
+  const k = 1 / Math.cos(site.lat * Math.PI / 180);      // ground metres -> mercator metres
+  const t = -a.rot * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);  // positive rot = clockwise, like a compass
+  return pts.map(([x, y]) => {
+    const dx = (x - cx) * a.scale, dy = (y - cy) * a.scale;
+    return unmerc([cx + dx * c - dy * s + a.dx * k, cy + dx * s + dy * c + a.dy * k]);
+  });
+}
+
+/* ---------- layers ---------- */
+function ensureSite(site) {
+  if (S.loaded.has(site.id) || !map.isStyleLoaded()) return;
+  S.loaded.add(site.id);
+  const base = `data/sites/${site.id}/`;
+  const paint = { 'raster-fade-duration': 0, 'raster-resampling': 'linear' };
+  map.addSource(`img-${site.id}`, { type: 'image', url: base + 'imagery.jpg', coordinates: site.corners });
+  map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
+  map.addLayer({ id: `img-${site.id}`, type: 'raster', source: `img-${site.id}`, paint });
+  map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
+  if (site.plate) {
+    const pc = alignedCorners(site);
+    map.addSource(`ink-${site.id}`, { type: 'image', url: base + 'plate_ink.png', coordinates: pc });
+    map.addSource(`paper-${site.id}`, { type: 'image', url: base + 'plate_paper.jpg', coordinates: pc });
+    map.addLayer({ id: `paper-${site.id}`, type: 'raster', source: `paper-${site.id}`, paint });
+    map.addLayer({ id: `ink-${site.id}`, type: 'raster', source: `ink-${site.id}`, paint });
+  }
+  applyLayers(site);
+}
+function applyLayers(site) {
+  if (!S.loaded.has(site.id)) return;
+  map.setLayoutProperty(`img-${site.id}`, 'visibility', S.ground === 'imagery' ? 'visible' : 'none');
+  map.setLayoutProperty(`rel-${site.id}`, 'visibility', S.ground === 'relief' ? 'visible' : 'none');
+  if (site.plate) {
+    for (const mode of ['ink', 'paper']) {
+      const id = `${mode}-${site.id}`;
+      map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 ? 'visible' : 'none');
+      map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
+    }
+  }
+}
+function applyAll() { S.sites.forEach(applyLayers); }
+function moveplate(site) {
+  if (!S.loaded.has(site.id) || !site.plate) return;
+  const pc = alignedCorners(site);
+  map.getSource(`ink-${site.id}`).setCoordinates(pc);
+  map.getSource(`paper-${site.id}`).setCoordinates(pc);
+}
+// load site imagery only when the view is close to it, so the globe stays light
+function lazyLoad() {
+  if (map.getZoom() < 10) return;
+  const c = map.getCenter();
+  for (const s of S.sites) if (Math.abs(s.lon - c.lng) < 0.4 && Math.abs(s.lat - c.lat) < 0.3) ensureSite(s);
+}
+map.on('moveend', lazyLoad);
+
+/* ---------- markers ---------- */
+const markers = [];
+function addMarkers() {
+  for (const s of S.sites) {
+    const el = document.createElement('button');
+    el.className = 'marker'; el.type = 'button'; el.setAttribute('aria-label', `Open ${s.name}`);
+    el.innerHTML = `<span class="dot"></span><span class="foil shared tag">${esc(s.name)}</span>`;
+    el.addEventListener('click', e => { e.stopPropagation(); select(s.id); });
+    markers.push({ site: s, el, m: new maplibregl.Marker({ element: el, anchor: 'left', offset: [-7, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
+  }
+  const sync = () => { const z = map.getZoom(); markers.forEach(({ el }) => { el.style.display = z > 12.5 ? 'none' : ''; }); };
+  map.on('zoom', sync); sync();
+}
+
+/* ---------- panel ---------- */
+function chips(s) {
+  const out = [];
+  if (s.plate) out.push(`<span class="foil plate">1848 plate</span>`);
+  if (STATUS[s.status]) out.push(`<span class="foil ${STATUS[s.status][0]}">${STATUS[s.status][1]}</span>`);
+  return `<div class="chips">${out.join('')}</div>`;
+}
+function renderList() {
+  $('#body').innerHTML = `
+    <p class="eyebrow">${S.sites.length} site${S.sites.length === 1 ? '' : 's'}</p>
+    <ul class="site-list">${S.sites.map(s => `
+      <li><button class="site-row" data-id="${esc(s.id)}">
+        <span class="name">${esc(s.name)}</span><span class="place">${esc(s.aka ? s.aka + ' · ' : '')}${esc(s.place)}</span>${chips(s)}
+      </button></li>`).join('')}</ul>
+    <div class="about">
+      <p>Each site pairs an 1848 survey plate from Squier &amp; Davis, <i>Ancient Monuments of the Mississippi Valley</i>, with USGS LiDAR. The relief view subtracts the natural slope of the land, so walls plowed down to a few tens of centimetres still show as light bands.</p>
+      <p>Plates are fitted automatically: the fit tries rotations, scales and positions until the plate's drawn walls sit on the highest ridges. Roads, buildings and water are masked so they cannot pass for walls.</p>
+      <p>Private page. Several of these sites are address-restricted in the National Register; keep the link private.</p>
+    </div>`;
+  $('#body').querySelectorAll('.site-row').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+}
+function renderSite(s) {
+  const f = s.plate && s.plate.fit;
+  const a = S.align[s.id];
+  const moved = a && (a.dx || a.dy || a.rot || a.scale !== 1);
+  $('#body').innerHTML = `
+    <button class="back" id="back">← All sites</button>
+    <div><h2 class="site-title">${esc(s.name)}</h2><p class="site-aka">${esc([s.aka, s.place].filter(Boolean).join(' · '))}</p>${chips(s)}</div>
+    <div class="group">
+      <p class="eyebrow">Ground</p>
+      <div class="seg" role="group" aria-label="Ground layer">
+        <button id="g-relief" aria-pressed="${S.ground === 'relief'}">LiDAR relief</button>
+        <button id="g-imagery" aria-pressed="${S.ground === 'imagery'}">Aerial photo</button>
+      </div>
+      <div class="legend" ${S.ground === 'relief' ? '' : 'hidden'}>
+        <div class="ramp"></div>
+        <div class="ramp-labels"><span>sunken −${s.relief_clip_m} m</span><span>raised +${s.relief_clip_m} m</span></div>
+      </div>
+    </div>
+    ${s.plate ? `
+    <div class="group">
+      <p class="eyebrow">${esc(s.plate.label || '1848 plate')}</p>
+      <div class="row"><label for="op">Opacity</label><input id="op" type="range" min="0" max="100" value="${Math.round(S.plateOpacity * 100)}"><span class="val" id="opv">${Math.round(S.plateOpacity * 100)}%</span></div>
+      <div class="seg" role="group" aria-label="Plate style">
+        <button id="p-ink" aria-pressed="${S.plateMode === 'ink'}">Ink lines</button>
+        <button id="p-paper" aria-pressed="${S.plateMode === 'paper'}">Original paper</button>
+      </div>
+      ${f ? `<p class="fit">Fit: the drawn walls stand ${f.ridge_contrast_m.toFixed(2)} m above the higher side 20 m away (median). Random placements of the same shape: ${f.null_p99_m.toFixed(2)} m at the 99th percentile.</p>` : ''}
+      <details class="align" ${moved ? 'open' : ''}>
+        <summary>Adjust the plate</summary>
+        <div style="display:grid;gap:10px;margin-top:10px">
+          <div class="row" style="align-items:flex-start;gap:16px">
+            <div class="pad" aria-label="Move plate">
+              <span></span><button data-m="0,5" aria-label="Move north">↑</button><span></span>
+              <button data-m="-5,0" aria-label="Move west">←</button><span></span><button data-m="5,0" aria-label="Move east">→</button>
+              <span></span><button data-m="0,-5" aria-label="Move south">↓</button><span></span>
+            </div>
+            <div class="tools" style="flex-direction:column">
+              <div class="tools"><button data-r="-0.5" aria-label="Rotate counterclockwise">⟲ 0.5°</button><button data-r="0.5" aria-label="Rotate clockwise">⟳ 0.5°</button></div>
+              <div class="tools"><button data-s="0.99" aria-label="Shrink">− 1%</button><button data-s="1.01" aria-label="Grow">+ 1%</button></div>
+            </div>
+          </div>
+          <p class="status" id="alignv">${alignText(s)}</p>
+          <div class="tools"><button class="primary" id="save">Save alignment</button><button id="reset">Back to auto-fit</button></div>
+          <p class="status" id="saved"></p>
+        </div>
+      </details>
+      <p class="source">${esc(s.plate.source)}</p>
+    </div>` : ''}
+    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>` : ''}
+    ${s.notes && s.notes.length ? `<div><p class="eyebrow">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
+  $('#back').onclick = () => { S.sel = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
+  $('#g-relief').onclick = () => setGround('relief', s);
+  $('#g-imagery').onclick = () => setGround('imagery', s);
+  if (!s.plate) return;
+  $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
+  $('#p-ink').onclick = () => setPlateMode('ink', s);
+  $('#p-paper').onclick = () => setPlateMode('paper', s);
+  const nudge = fn => { const a = S.align[s.id] || { dx: 0, dy: 0, rot: 0, scale: 1 }; fn(a); S.align[s.id] = a; moveplate(s); $('#alignv').textContent = alignText(s); $('#saved').textContent = ''; };
+  $('#body').querySelectorAll('[data-m]').forEach(b => b.onclick = () => nudge(a => { const [x, y] = b.dataset.m.split(',').map(Number); a.dx += x; a.dy += y; }));
+  $('#body').querySelectorAll('[data-r]').forEach(b => b.onclick = () => nudge(a => { a.rot = +(a.rot + Number(b.dataset.r)).toFixed(2); }));
+  $('#body').querySelectorAll('[data-s]').forEach(b => b.onclick = () => nudge(a => { a.scale = +(a.scale * Number(b.dataset.s)).toFixed(4); }));
+  $('#reset').onclick = () => nudge(a => Object.assign(a, { dx: 0, dy: 0, rot: 0, scale: 1 }));
+  $('#save').onclick = () => saveAlign(s);
+  if (!S.db) { $('#save').disabled = true; $('#saved').textContent = 'Saving needs you signed in to claude.ai. Changes last until you reload.'; }
+}
+function alignText(s) {
+  const a = S.align[s.id];
+  if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the automatic fit.';
+  const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
+  return 'Moved from the auto-fit: ' + [dir(a.dx, 'east', 'west'), dir(a.dy, 'north', 'south'), a.rot ? `${a.rot > 0 ? '+' : ''}${a.rot}°` : null, a.scale !== 1 ? `${((a.scale - 1) * 100).toFixed(1)}% size` : null].filter(Boolean).join(', ') + '.';
+}
+async function saveAlign(s) {
+  const a = S.align[s.id] || { dx: 0, dy: 0, rot: 0, scale: 1 };
+  $('#saved').textContent = 'Saving…';
+  try { await S.db.doc(`plates/${s.id}`).set({ dx: a.dx, dy: a.dy, rot: a.rot, scale: a.scale, savedAt: new Date().toISOString() }); $('#saved').textContent = 'Saved. This is now the plate position for this site.'; }
+  catch (e) { $('#saved').textContent = e && e.code === 'not_granted' ? 'Saving is off for this view. Ask for edit access to keep changes.' : `Could not save (${e && e.code || 'error'}). Try again in a moment.`; }
+}
+function setGround(g, s) { S.ground = g; lsSet('aw.ground', g); applyAll(); renderSite(s); }
+function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAll(); renderSite(s); }
+function select(id) {
+  const s = S.byId[id]; if (!s) return;
+  S.sel = id; ensureSite(s); renderSite(s);
+  if (narrow()) $('#panel').classList.remove('collapsed');
+  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 380, top: 20, right: 20, bottom: 20 };
+  map.flyTo({ center: [s.lon, s.lat], zoom: narrow() ? 14.2 : 15, duration: 4500, essential: true, padding: pad });
+  try { history.replaceState(null, '', '#' + id); } catch {}
+}
+$('#grab').onclick = () => $('#panel').classList.toggle('collapsed');
+
+/* ---------- boot ---------- */
+async function boot() {
+  const data = await fetch('data/sites.json').then(r => r.json());
+  S.sites = data.sites; S.sites.forEach(s => S.byId[s.id] = s);
+  addMarkers();
+  const start = () => { const id = location.hash.slice(1); if (S.byId[id]) select(id); else renderList(); };
+  if (map.isStyleLoaded()) start(); else map.once('load', start);
+  // shared plate alignments (db), when this view can reach it
+  const claude = window.claude;
+  if (claude && claude.use) {
+    claude.use('db').then(async db => {
+      if (!db) return;
+      S.db = db;
+      for (const s of S.sites) {
+        if (!s.plate) continue;
+        try {
+          const snap = await db.doc(`plates/${s.id}`).get();
+          if (snap.exists) { const d = snap.data(); S.align[s.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; moveplate(s); }
+        } catch {}
+      }
+      if (S.sel) renderSite(S.byId[S.sel]);
+    });
+  }
+}
+boot();
+</script>

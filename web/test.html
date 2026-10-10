@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body,#m{height:100%;margin:0;background:#1C1612}</style>
+<link rel="stylesheet" href="vendor/maplibre-gl-5.6.0.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script></head><body><div id="m"></div>
+<script>
+const map = new maplibregl.Map({container:'m', style:{version:8, projection:{type:'globe'}, sources:{
+  world:{type:'image', url:'data/world.jpg', coordinates:[[-180,85.0511],[180,85.0511],[180,-85.0511],[-180,-85.0511]]}},
+  layers:[{id:'bg',type:'background',paint:{'background-color':'#1C1612'}},{id:'world',type:'raster',source:'world'}]},
+  center:[-85,40], zoom:1.6});
+map.on('error', e => console.log('MAPERR', e.error && e.error.message));
+map.on('load', () => console.log('MAPLOAD ok'));
+</script></body></html>
