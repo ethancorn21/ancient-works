@@ -7,3 +7,7 @@ __pycache__/
 data/scan/*/tiles/
 data/scan_*.log
 data/scan/
+# Finder output (unknown-site candidates) never leaves this Mac: looting / burial-site sensitivity
+web/data/scan/
+web/data/scans.json
+data/db/verdicts/
