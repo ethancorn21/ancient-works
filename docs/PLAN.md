@@ -12,10 +12,14 @@ Ethan chose (2026-10-10):
 
 Proposed by Claude (not yet agreed):
 
-- Remove the cap by extracting the wall template from the plate's ink automatically (phase 2). This is
-  unproven; if it fails, plates go back to hand tracing at the old rate.
-- Local models (Qwen3.8-27B vision on the AI box; Ethan: "if you want it") do classification and grunt work:
-  page triage of scanned books, relief-crop triage per site, Finder pre-screen. Claude builds and checks.
+- Remove the cap by extracting the wall template from the plate's ink automatically (phase 2). TESTED
+  2026-10-10: FAIL, 0/5 sites against the pre-registered criterion (docs/autofit.md). The extractor keeps the
+  walls but also every river and creek (21-30% of what it keeps is wall); wide seeds on distorted plates
+  defeat the fitter even with hand-traced walls. Next: semi-automatic fitting (automatic ink, a person clicks
+  the wall pieces and 2-3 control points, then the existing per-feature warp), to be tested on new plates.
+- Local models do classification and grunt work; Claude builds and checks. The Qwen servers belong to
+  Ethan's harness coding agents (frontpage a/b/c): NOT used by this project (2026-10-10, they slowed the
+  agents). Classification runs on Clef-flash on the 5060 Ti only, while Ethan lets it have that card.
 
 The artifact database (plates/*, verdicts/*) was empty when checked on 2026-10-10: nothing to migrate.
 
