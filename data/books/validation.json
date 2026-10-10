@@ -1,0 +1,1109 @@
+[
+ {
+  "book": "squier_davis_1848",
+  "ia": "ancientmonuments00squi",
+  "pages": 452,
+  "triaged_A": 452,
+  "flagged_site_pages_stageA": 60,
+  "stageF_pages": 0,
+  "flagged_site_pages": 62,
+  "plates": {
+   "listed": 48,
+   "site": 43,
+   "other": 5,
+   "unsure": 0,
+   "site_mapped_to_leaf": 43,
+   "mapped_by": {
+    "qwen": 29,
+    "qwen+title": 17,
+    "title": 1
+   },
+   "recall_site_plan_type": 1.0,
+   "qwen_read_numeral_on_site_plates": 1.0,
+   "other_plates_flagged_as_site": "0/4",
+   "missed": [],
+   "unmapped_site": [],
+   "map": {
+    "1": [
+     7,
+     "title"
+    ],
+    "2": [
+     51,
+     "qwen+title"
+    ],
+    "3": [
+     54,
+     "qwen"
+    ],
+    "4": [
+     63,
+     "qwen+title"
+    ],
+    "5": [
+     68,
+     "qwen+title"
+    ],
+    "6": [
+     72,
+     "qwen+title"
+    ],
+    "7": [
+     76,
+     "qwen"
+    ],
+    "8": [
+     81,
+     "qwen"
+    ],
+    "9": [
+     86,
+     "qwen+title"
+    ],
+    "10": [
+     90,
+     "qwen"
+    ],
+    "11": [
+     95,
+     "qwen+title"
+    ],
+    "12": [
+     99,
+     "qwen"
+    ],
+    "13": [
+     105,
+     "qwen+title"
+    ],
+    "14": [
+     108,
+     "qwen"
+    ],
+    "15": [
+     111,
+     "qwen+title"
+    ],
+    "16": [
+     126,
+     "qwen+title"
+    ],
+    "17": [
+     129,
+     "qwen"
+    ],
+    "18": [
+     132,
+     "qwen+title"
+    ],
+    "19": [
+     136,
+     "qwen"
+    ],
+    "20": [
+     140,
+     "qwen"
+    ],
+    "21": [
+     142,
+     "qwen"
+    ],
+    "22": [
+     149,
+     "qwen+title"
+    ],
+    "23": [
+     153,
+     "qwen"
+    ],
+    "24": [
+     158,
+     "qwen"
+    ],
+    "25": [
+     161,
+     "qwen+title"
+    ],
+    "26": [
+     169,
+     "qwen"
+    ],
+    "27": [
+     175,
+     "qwen"
+    ],
+    "28": [
+     178,
+     "qwen"
+    ],
+    "29": [
+     184,
+     "qwen"
+    ],
+    "30": [
+     189,
+     "qwen"
+    ],
+    "31": [
+     194,
+     "qwen+title"
+    ],
+    "32": [
+     199,
+     "qwen"
+    ],
+    "33": [
+     203,
+     "qwen"
+    ],
+    "34": [
+     206,
+     "qwen"
+    ],
+    "35": [
+     210,
+     "qwen"
+    ],
+    "36": [
+     214,
+     "qwen"
+    ],
+    "37": [
+     223,
+     "qwen"
+    ],
+    "38": [
+     228,
+     "qwen+title"
+    ],
+    "39": [
+     237,
+     "qwen+title"
+    ],
+    "40": [
+     250,
+     "qwen"
+    ],
+    "41": [
+     253,
+     "qwen"
+    ],
+    "42": [
+     256,
+     "qwen"
+    ],
+    "43": [
+     259,
+     "qwen"
+    ],
+    "44": [
+     263,
+     "qwen+title"
+    ],
+    "45": [
+     272,
+     "qwen+title"
+    ],
+    "46": [
+     325,
+     "qwen"
+    ],
+    "47": [
+     426,
+     "qwen"
+    ]
+   }
+  },
+  "figures": {
+   "listed": 199,
+   "expected": 207,
+   "parsed_with_page_on_a_leaf": 196,
+   "site": 19,
+   "unsure": 14,
+   "other": 166,
+   "gt_site_pages": 15,
+   "recall_pages": 0.8,
+   "recall_pages_pm1": 0.8,
+   "flagged_nonplate_pages": 19,
+   "precision_strict": 0.632,
+   "precision_lenient": 0.842,
+   "flagged_on_other_only_pages": [
+    283,
+    287
+   ],
+   "flagged_not_in_list": [
+    171
+   ],
+   "missed_pages": [
+    163,
+    266,
+    296
+   ],
+   "stage_A_only": {
+    "recall": 0.733,
+    "precision_strict": 0.647,
+    "precision_lenient": 0.882,
+    "flagged": 17
+   }
+  }
+ },
+ {
+  "book": "lapham_1855",
+  "ia": "antiquitiesofwis00saph",
+  "pages": 230,
+  "triaged_A": 230,
+  "flagged_site_pages_stageA": 62,
+  "stageF_pages": 0,
+  "flagged_site_pages": 61,
+  "plates": {
+   "listed": 55,
+   "site": 52,
+   "other": 2,
+   "unsure": 1,
+   "site_mapped_to_leaf": 51,
+   "mapped_by": {
+    "qwen": 16,
+    "qwen+title": 35,
+    "title": 3
+   },
+   "recall_site_plan_type": 0.961,
+   "qwen_read_numeral_on_site_plates": 0.98,
+   "other_plates_flagged_as_site": "0/2",
+   "missed": [
+    {
+     "plate": 17,
+     "n": 148,
+     "qwen": {
+      "page_type": "other_illustration",
+      "numbers": [
+       "XVII.",
+       "N\u00ba 1.",
+       "N\u00ba 2.",
+       "N\u00ba 3.",
+       "N\u00ba 4."
+      ],
+      "caption": ""
+     }
+    },
+    {
+     "plate": 26,
+     "n": 166,
+     "qwen": {
+      "page_type": "other_illustration",
+      "numbers": [
+       "XXVI"
+      ],
+      "caption": "ANCIENT WORKS AT INDIAN HILL NEAR FULTON."
+     }
+    }
+   ],
+   "unmapped_site": [
+    11
+   ],
+   "map": {
+    "1": [
+     116,
+     "title"
+    ],
+    "2": [
+     118,
+     "qwen+title"
+    ],
+    "3": [
+     120,
+     "qwen+title"
+    ],
+    "4": [
+     122,
+     "qwen+title"
+    ],
+    "5": [
+     124,
+     "qwen+title"
+    ],
+    "6": [
+     126,
+     "qwen+title"
+    ],
+    "7": [
+     128,
+     "qwen+title"
+    ],
+    "8": [
+     130,
+     "qwen+title"
+    ],
+    "9": [
+     132,
+     "title"
+    ],
+    "10": [
+     134,
+     "qwen"
+    ],
+    "12": [
+     138,
+     "qwen+title"
+    ],
+    "13": [
+     140,
+     "qwen"
+    ],
+    "14": [
+     142,
+     "qwen+title"
+    ],
+    "15": [
+     144,
+     "qwen"
+    ],
+    "16": [
+     146,
+     "qwen+title"
+    ],
+    "17": [
+     148,
+     "qwen"
+    ],
+    "18": [
+     150,
+     "qwen+title"
+    ],
+    "19": [
+     152,
+     "qwen+title"
+    ],
+    "20": [
+     154,
+     "qwen+title"
+    ],
+    "21": [
+     156,
+     "qwen+title"
+    ],
+    "22": [
+     158,
+     "qwen"
+    ],
+    "23": [
+     160,
+     "qwen+title"
+    ],
+    "24": [
+     162,
+     "qwen"
+    ],
+    "25": [
+     164,
+     "qwen"
+    ],
+    "26": [
+     166,
+     "qwen+title"
+    ],
+    "27": [
+     168,
+     "qwen+title"
+    ],
+    "28": [
+     170,
+     "qwen+title"
+    ],
+    "29": [
+     172,
+     "qwen+title"
+    ],
+    "30": [
+     174,
+     "qwen+title"
+    ],
+    "31": [
+     176,
+     "qwen+title"
+    ],
+    "32": [
+     178,
+     "qwen"
+    ],
+    "33": [
+     180,
+     "qwen"
+    ],
+    "34": [
+     182,
+     "qwen+title"
+    ],
+    "35": [
+     184,
+     "qwen+title"
+    ],
+    "36": [
+     186,
+     "qwen+title"
+    ],
+    "37": [
+     188,
+     "qwen+title"
+    ],
+    "38": [
+     190,
+     "qwen+title"
+    ],
+    "39": [
+     192,
+     "qwen+title"
+    ],
+    "40": [
+     194,
+     "qwen"
+    ],
+    "41": [
+     196,
+     "qwen"
+    ],
+    "42": [
+     198,
+     "qwen"
+    ],
+    "43": [
+     200,
+     "qwen"
+    ],
+    "44": [
+     202,
+     "qwen+title"
+    ],
+    "45": [
+     204,
+     "qwen+title"
+    ],
+    "46": [
+     206,
+     "qwen"
+    ],
+    "47": [
+     208,
+     "qwen"
+    ],
+    "48": [
+     210,
+     "qwen"
+    ],
+    "49": [
+     212,
+     "qwen+title"
+    ],
+    "50": [
+     214,
+     "title"
+    ],
+    "51": [
+     216,
+     "qwen+title"
+    ],
+    "52": [
+     218,
+     "qwen+title"
+    ],
+    "53": [
+     220,
+     "qwen+title"
+    ],
+    "54": [
+     222,
+     "qwen+title"
+    ],
+    "55": [
+     224,
+     "qwen+title"
+    ]
+   }
+  },
+  "figures": {
+   "listed": 50,
+   "expected": 61,
+   "parsed_with_page_on_a_leaf": 50,
+   "site": 17,
+   "unsure": 3,
+   "other": 30,
+   "gt_site_pages": 14,
+   "recall_pages": 0.643,
+   "recall_pages_pm1": 0.786,
+   "flagged_nonplate_pages": 12,
+   "precision_strict": 0.75,
+   "precision_lenient": 0.75,
+   "flagged_on_other_only_pages": [
+    28,
+    29,
+    108
+   ],
+   "flagged_not_in_list": [],
+   "missed_pages": [
+    22,
+    51,
+    56,
+    68,
+    70
+   ],
+   "stage_A_only": {
+    "recall": 0.643,
+    "precision_strict": 0.692,
+    "precision_lenient": 0.692,
+    "flagged": 13
+   }
+  }
+ },
+ {
+  "book": "whittlesey_1850",
+  "ia": "descriptionsofan00whit",
+  "pages": 54,
+  "triaged_A": 54,
+  "flagged_site_pages_stageA": 7,
+  "stageF_pages": 0,
+  "flagged_site_pages": 7,
+  "plates": {
+   "listed": 7,
+   "site": 7,
+   "other": 0,
+   "unsure": 0,
+   "site_mapped_to_leaf": 7,
+   "mapped_by": {
+    "qwen": 3,
+    "qwen+title": 4
+   },
+   "recall_site_plan_type": 1.0,
+   "qwen_read_numeral_on_site_plates": 1.0,
+   "other_plates_flagged_as_site": "0/0",
+   "missed": [],
+   "unmapped_site": [],
+   "map": {
+    "1": [
+     26,
+     "qwen+title"
+    ],
+    "2": [
+     28,
+     "qwen+title"
+    ],
+    "3": [
+     30,
+     "qwen"
+    ],
+    "4": [
+     32,
+     "qwen+title"
+    ],
+    "5": [
+     34,
+     "qwen+title"
+    ],
+    "6": [
+     36,
+     "qwen"
+    ],
+    "7": [
+     38,
+     "qwen"
+    ]
+   }
+  }
+ },
+ {
+  "book": "squier_1851",
+  "ia": "b30449492",
+  "pages": 222,
+  "triaged_A": 222,
+  "flagged_site_pages_stageA": 34,
+  "stageF_pages": 0,
+  "flagged_site_pages": 34,
+  "plates": {
+   "listed": 14,
+   "site": 14,
+   "other": 0,
+   "unsure": 0,
+   "site_mapped_to_leaf": 14,
+   "mapped_by": {
+    "qwen": 14
+   },
+   "recall_site_plan_type": 1.0,
+   "qwen_read_numeral_on_site_plates": 1.0,
+   "other_plates_flagged_as_site": "0/0",
+   "missed": [],
+   "unmapped_site": [],
+   "map": {
+    "1": [
+     188,
+     "qwen"
+    ],
+    "2": [
+     190,
+     "qwen"
+    ],
+    "3": [
+     192,
+     "qwen"
+    ],
+    "4": [
+     194,
+     "qwen"
+    ],
+    "5": [
+     196,
+     "qwen"
+    ],
+    "6": [
+     198,
+     "qwen"
+    ],
+    "7": [
+     200,
+     "qwen"
+    ],
+    "8": [
+     202,
+     "qwen"
+    ],
+    "9": [
+     204,
+     "qwen"
+    ],
+    "10": [
+     206,
+     "qwen"
+    ],
+    "11": [
+     208,
+     "qwen"
+    ],
+    "12": [
+     210,
+     "qwen"
+    ],
+    "13": [
+     212,
+     "qwen"
+    ],
+    "14": [
+     214,
+     "qwen"
+    ]
+   }
+  }
+ },
+ {
+  "book": "thomas_1894",
+  "ia": "annualreportofbu1218901891smit",
+  "pages": 896,
+  "triaged_A": 896,
+  "flagged_site_pages_stageA": 192,
+  "stageF_pages": 0,
+  "flagged_site_pages": 190,
+  "plates": {
+   "listed": 42,
+   "site": 29,
+   "other": 7,
+   "unsure": 6,
+   "site_mapped_to_leaf": 29,
+   "mapped_by": {
+    "ocr+title": 3,
+    "qwen": 1,
+    "qwen+ocr+title": 23,
+    "qwen+title": 10,
+    "title": 4
+   },
+   "recall_site_plan_type": 1.0,
+   "qwen_read_numeral_on_site_plates": 0.759,
+   "other_plates_flagged_as_site": "0/6",
+   "missed": [],
+   "unmapped_site": [],
+   "map": {
+    "1": [
+     128,
+     "qwen+title"
+    ],
+    "2": [
+     140,
+     "qwen+ocr+title"
+    ],
+    "3": [
+     154,
+     "qwen+title"
+    ],
+    "4": [
+     158,
+     "qwen+title"
+    ],
+    "5": [
+     166,
+     "qwen+ocr+title"
+    ],
+    "6": [
+     200,
+     "qwen+ocr+title"
+    ],
+    "7": [
+     204,
+     "qwen+ocr+title"
+    ],
+    "8": [
+     238,
+     "qwen+ocr+title"
+    ],
+    "9": [
+     314,
+     "qwen+ocr+title"
+    ],
+    "10": [
+     318,
+     "qwen+title"
+    ],
+    "11": [
+     330,
+     "qwen+title"
+    ],
+    "12": [
+     334,
+     "qwen+ocr+title"
+    ],
+    "13": [
+     338,
+     "qwen+title"
+    ],
+    "14": [
+     346,
+     "qwen+ocr+title"
+    ],
+    "15": [
+     378,
+     "qwen+ocr+title"
+    ],
+    "16": [
+     384,
+     "qwen+ocr+title"
+    ],
+    "17": [
+     392,
+     "qwen+ocr+title"
+    ],
+    "18": [
+     396,
+     "qwen+ocr+title"
+    ],
+    "19": [
+     410,
+     "qwen+ocr+title"
+    ],
+    "21": [
+     416,
+     "qwen+title"
+    ],
+    "22": [
+     422,
+     "qwen"
+    ],
+    "23": [
+     428,
+     "qwen+title"
+    ],
+    "24": [
+     434,
+     "qwen+ocr+title"
+    ],
+    "25": [
+     478,
+     "qwen+title"
+    ],
+    "26": [
+     482,
+     "qwen+ocr+title"
+    ],
+    "27": [
+     530,
+     "qwen+ocr+title"
+    ],
+    "28": [
+     558,
+     "qwen+ocr+title"
+    ],
+    "29": [
+     564,
+     "qwen+ocr+title"
+    ],
+    "30": [
+     580,
+     "ocr+title"
+    ],
+    "31": [
+     584,
+     "ocr+title"
+    ],
+    "32": [
+     588,
+     "title"
+    ],
+    "33": [
+     592,
+     "title"
+    ],
+    "34": [
+     596,
+     "ocr+title"
+    ],
+    "35": [
+     604,
+     "qwen+ocr+title"
+    ],
+    "36": [
+     608,
+     "qwen+ocr+title"
+    ],
+    "37": [
+     612,
+     "qwen+ocr+title"
+    ],
+    "38": [
+     616,
+     "qwen+ocr+title"
+    ],
+    "39": [
+     622,
+     "title"
+    ],
+    "40": [
+     626,
+     "qwen+ocr+title"
+    ],
+    "41": [
+     702,
+     "title"
+    ],
+    "42": [
+     798,
+     "qwen+title"
+    ]
+   }
+  },
+  "figures": {
+   "listed": 334,
+   "expected": 344,
+   "parsed_with_page_on_a_leaf": 325,
+   "site": 116,
+   "unsure": 33,
+   "other": 185,
+   "gt_site_pages": 113,
+   "recall_pages": 0.947,
+   "recall_pages_pm1": 0.973,
+   "flagged_nonplate_pages": 159,
+   "precision_strict": 0.673,
+   "precision_lenient": 0.761,
+   "flagged_on_other_only_pages": [
+    91,
+    206,
+    208,
+    279,
+    361,
+    390,
+    413,
+    418,
+    450,
+    460,
+    467,
+    471,
+    480,
+    484,
+    485,
+    490,
+    493,
+    496,
+    500,
+    514,
+    515,
+    516,
+    521,
+    576,
+    684,
+    766
+   ],
+   "flagged_not_in_list": [
+    144,
+    148,
+    153,
+    170,
+    176,
+    183,
+    363,
+    475,
+    476,
+    504,
+    513,
+    574
+   ],
+   "missed_pages": [
+    152,
+    182,
+    297,
+    312,
+    313,
+    341
+   ],
+   "stage_A_only": {
+    "recall": 0.938,
+    "precision_strict": 0.658,
+    "precision_lenient": 0.733,
+    "flagged": 161
+   }
+  }
+ },
+ {
+  "book": "fowke_1902",
+  "ia": "b24849959",
+  "pages": 788,
+  "triaged_A": 788,
+  "flagged_site_pages_stageA": 70,
+  "stageF_pages": 0,
+  "flagged_site_pages": 74,
+  "figures": {
+   "listed": 301,
+   "expected": 303,
+   "parsed_with_page_on_a_leaf": 298,
+   "site": 81,
+   "unsure": 8,
+   "other": 212,
+   "gt_site_pages": 69,
+   "recall_pages": 0.986,
+   "recall_pages_pm1": 1.0,
+   "flagged_nonplate_pages": 74,
+   "precision_strict": 0.919,
+   "precision_lenient": 0.946,
+   "flagged_on_other_only_pages": [
+    179,
+    428,
+    442,
+    445
+   ],
+   "flagged_not_in_list": [],
+   "missed_pages": [
+    201
+   ],
+   "stage_A_only": {
+    "recall": 0.971,
+    "precision_strict": 0.957,
+    "precision_lenient": 0.971,
+    "flagged": 70
+   }
+  }
+ },
+ {
+  "book": "allcroft_1908",
+  "ia": "earthworkenglan01allcgoog",
+  "pages": 743,
+  "triaged_A": 391,
+  "flagged_site_pages_stageA": 95,
+  "stageF_pages": 0,
+  "flagged_site_pages": 193,
+  "figures": {
+   "listed": 203,
+   "expected": 224,
+   "parsed_with_page_on_a_leaf": 162,
+   "site": 190,
+   "unsure": 0,
+   "other": 13,
+   "gt_site_pages": 139,
+   "recall_pages": 0.942,
+   "recall_pages_pm1": 0.993,
+   "flagged_nonplate_pages": 193,
+   "precision_strict": 0.679,
+   "precision_lenient": 0.679,
+   "flagged_on_other_only_pages": [],
+   "flagged_not_in_list": [
+    75,
+    146,
+    152,
+    156,
+    158,
+    169,
+    172,
+    173,
+    174,
+    175,
+    189,
+    201,
+    204,
+    207,
+    208,
+    212,
+    213,
+    223,
+    227,
+    246,
+    247,
+    354,
+    360,
+    385,
+    408,
+    413,
+    455,
+    456,
+    459,
+    483,
+    486,
+    489,
+    491,
+    499,
+    508,
+    509,
+    549,
+    550,
+    556,
+    557,
+    573,
+    576,
+    581,
+    582,
+    584,
+    586,
+    589,
+    596,
+    597,
+    599,
+    600,
+    601,
+    602,
+    611,
+    615,
+    620,
+    626,
+    627,
+    629,
+    630,
+    634,
+    683
+   ],
+   "missed_pages": [
+    412,
+    427,
+    530,
+    552,
+    577,
+    580,
+    603,
+    697
+   ],
+   "stage_A_only": {
+    "recall": 0.525,
+    "precision_strict": 0.768,
+    "precision_lenient": 0.768,
+    "flagged": 95
+   }
+  }
+ },
+ {
+  "book": "mills_1914",
+  "ia": "ArcheologicalAtlasOfOhio",
+  "pages": 206,
+  "triaged_A": 206,
+  "flagged_site_pages_stageA": 23,
+  "stageF_pages": 13,
+  "flagged_site_pages": 26
+ }
+]

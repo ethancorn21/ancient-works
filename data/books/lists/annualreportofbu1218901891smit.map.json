@@ -1,0 +1,2453 @@
+[
+{
+"n": 90,
+"site_plan": false,
+"entries": [
+{
+"fig": 1,
+"title": "Elongate mound, Souris river, Mniiitolia",
+"page": 35,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 95,
+"site_plan": true,
+"entries": [
+{
+"fig": 3,
+"title": "Turtle figure, Hughes county, South Dakota",
+"page": 40,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 99,
+"site_plan": true,
+"entries": [
+{
+"fig": 4,
+"title": "Inflosures and mounds, Pipestone county, iliuuesota",
+"page": 44,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 101,
+"site_plan": true,
+"entries": [
+{
+"fig": 6,
+"title": "Mound group near Madison, Wisconsiu",
+"page": 46,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 103,
+"site_plan": true,
+"entries": [
+{
+"fig": 8,
+"title": "Bird mound, Prairie du Chieu, Wisconsin",
+"page": 48,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 107,
+"site_plan": true,
+"entries": [
+{
+"fig": 14,
+"title": "Eartlnvorks uear Eastman, Crawford county, Wisconsin",
+"page": 52,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 108,
+"site_plan": true,
+"entries": [
+{
+"fig": 15,
+"title": "Plat of southwest part of Crawford county, Wisconsin",
+"page": 53,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 109,
+"site_plan": true,
+"entries": [
+{
+"fig": 16,
+"title": "Mounils on northeast quarter of Sec. 24, T. 8 N., R. 6 W., Wisconsin",
+"page": 54,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 110,
+"site_plan": true,
+"entries": [
+{
+"fig": 17,
+"title": "Mouud group at Hazeu Corners, Crawford county, Wisconsin",
+"page": 55,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 111,
+"site_plan": true,
+"entries": [
+{
+"fig": 18,
+"title": "Bird eftigics at Hazen Corners, Crawford county, Wisconsin",
+"page": 56,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 114,
+"site_plan": true,
+"entries": [
+{
+"fig": 19,
+"title": "Quadruped effigy on Sec. 36, T. 8, R. 6 W., Wisconsin",
+"page": 59,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 115,
+"site_plan": true,
+"entries": [
+{
+"fig": 20,
+"title": "Group of bird effigies. Sec. 35, T. 8 N., R. 6 W., Wisconsin",
+"page": 60,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 116,
+"site_plan": true,
+"entries": [
+{
+"fig": 21,
+"title": "Birdeffigy, Sec.35,T.8N., R.6 W., Wisc(msiM",
+"page": 61,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 118,
+"site_plan": true,
+"entries": [
+{
+"fig": 22,
+"title": "Moun<ls on Slaumer's land, Crawford county, Wisconsin",
+"page": 63,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 119,
+"site_plan": true,
+"entries": [
+{
+"fig": 23,
+"title": "Courtois group uear Prairie du Chieu, Wisconsin",
+"page": 64,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 120,
+"site_plan": true,
+"entries": [
+{
+"fig": 24,
+"title": "Mound No. 6, Courtois group. Prairie du Chieu, Wisconsin",
+"page": 65,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+},
+{
+"fig": 25,
+"title": "Plan of uuiuud Xo. Ifi, Courtois group, Prairie du Chien, Wisconsin",
+"page": 65,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 123,
+"site_plan": true,
+"entries": [
+{
+"fig": 27,
+"title": "Dousemau mound (plan), Prairie du Chieu",
+"page": 68,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 125,
+"site_plan": true,
+"entries": [
+{
+"fig": 29,
+"title": "The Polander group, Sec. 14, T. 9, R. 6 W., Crawford county, Wisconsin",
+"page": 70,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 128,
+"site_plan": true,
+"entries": [
+{
+"plate": "I",
+"sub": "",
+"title": "Plan of the Vilas and Flucke groups, Crawford county, Wisconsin",
+"page": "72",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 131,
+"site_plan": true,
+"entries": [
+{
+"fig": 32,
+"title": "Plan of the Armstrong group, near Lyuxville, Crawford county",
+"page": 74,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 132,
+"site_plan": true,
+"entries": [
+{
+"fig": 33,
+"title": "Plau of the Sue Coulee group, Crawford county, Wisconsin",
+"page": 75,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 135,
+"site_plan": true,
+"entries": [
+{
+"fig": 35,
+"title": "Mouud group uear Battle isl.and. Veruou county, Wisconsin",
+"page": 78,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 136,
+"site_plan": true,
+"entries": [
+{
+"fig": 36,
+"title": "Plan of mound No. 4, Battle islaml, Vernon county, Wisconsin",
+"page": 79,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 140,
+"site_plan": true,
+"entries": [
+{
+"plate": "II",
+"sub": "",
+"title": "Plat of White's group, Vernon county, Wisconsin",
+"page": "82",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 145,
+"site_plan": true,
+"entries": [
+{
+"fig": 42,
+"title": "Lines of works uear Cassville, Grant county, Wisconsin",
+"page": 86,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 151,
+"site_plan": true,
+"entries": [
+{
+"fig": 44,
+"title": "Elephant mouud, according to Middletou's survey in 1884",
+"page": 92,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 152,
+"site_plan": true,
+"entries": [
+{
+"fig": 45,
+"title": "Elephant mouud, after Warner's figure",
+"page": 93,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 154,
+"site_plan": true,
+"entries": [
+{
+"plate": "III",
+"sub": "",
+"title": "Elephant mound and surroundings, Grant county, Wisconsin",
+"page": "94",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 156,
+"site_plan": false,
+"entries": [
+{
+"fig": 47,
+"title": "Mound No. 1. Rico lake group",
+"page": 95,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 158,
+"site_plan": true,
+"entries": [
+{
+"plate": "IV",
+"sub": "",
+"title": "Plat of Rice lake group, Barron county, Wisconsin",
+"page": "96",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 163,
+"site_plan": true,
+"entries": [
+{
+"fig": 48,
+"title": "Circular inclosure near New .Vlbiu, Allamakee county, Iowa",
+"page": 100,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 166,
+"site_plan": true,
+"entries": [
+{
+"plate": "V",
+"sub": "",
+"title": "Ancient works near New Albin, Allamakee county, Iowa",
+"page": "102",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 172,
+"site_plan": false,
+"entries": [
+{
+"fig": 50,
+"title": "Walled mouud. Fish group, Allamakee county, Iowa",
+"page": 107,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 174,
+"site_plan": true,
+"entries": [
+{
+"fig": 51,
+"title": "Group uear Peru, Dubuque couut.v, Iowa",
+"page": 109,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 179,
+"site_plan": true,
+"entries": [
+{
+"fig": 54,
+"title": "Mound group, Dunleith, Illinois",
+"page": 114,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 182,
+"site_plan": true,
+"entries": [
+{
+"fig": 58,
+"title": "Welch group, Browu couuty, Illinois",
+"page": 117,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 187,
+"site_plan": false,
+"entries": [
+{
+"fig": 59,
+"title": "Mound No. 1, sec. 34, T. 10, R. 2, Calhoun county, Illinois",
+"page": 122,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 189,
+"site_plan": false,
+"entries": [
+{
+"fig": 60,
+"title": "Mound No. 4, sec. 34, T. 10, R. 2, Calhoun county, Illinois",
+"page": 124,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 190,
+"site_plan": true,
+"entries": [
+{
+"fig": 61,
+"title": "Group of mounds on sec. 31, T. 10, R. 2 W., Calhoun couuty, lUiuois",
+"page": 125,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 197,
+"site_plan": true,
+"entries": [
+{
+"fig": 66,
+"title": "Wood river mounds, Madison county, Illinois",
+"page": 132,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 200,
+"site_plan": true,
+"entries": [
+{
+"plate": "VI",
+"sub": "",
+"title": "Map of Cahokia group, Madison county, Illinois",
+"page": "134",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 202,
+"site_plan": false,
+"entries": [
+{
+"fig": 67,
+"title": "Stone firaves on Mill Tract, Randolph county, Illinois",
+"page": 135,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 204,
+"site_plan": true,
+"entries": [
+{
+"plate": "VII",
+"sub": "",
+"title": "Map of the western part of Madison county, Illinois",
+"page": "136",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 209,
+"site_plan": true,
+"entries": [
+{
+"fig": 70,
+"title": "Hut rings near the bank of Hig Mary river, Illinois",
+"page": 140,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 213,
+"site_plan": true,
+"entries": [
+{
+"fig": 72,
+"title": "Vogel group, Jackson county, Illinois",
+"page": 144,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 215,
+"site_plan": true,
+"entries": [
+{
+"fig": 74,
+"title": "Schlimpert mounds, Jackson couuty, Illinois",
+"page": 146,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 217,
+"site_plan": true,
+"entries": [
+{
+"fig": 76,
+"title": "Mounds on Hale's place, Jackson couuty, Illinois",
+"page": 148,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 225,
+"site_plan": true,
+"entries": [
+{
+"fig": 82,
+"title": "Plat of works ou Linu's pl.aee. Union county, Illinois",
+"page": 156,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 229,
+"site_plan": true,
+"entries": [
+{
+"fig": 84,
+"title": "Round Pond mounds. Union county, Illinois",
+"page": 160,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 233,
+"site_plan": true,
+"entries": [
+{
+"fig": 86,
+"title": "Mound group, Clarke county, Missouri",
+"page": 164,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 237,
+"site_plan": false,
+"entries": [
+{
+"fig": 87,
+"title": "The Ben Proifer mound. Cape Girardeau county, Missouri",
+"page": 168,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 238,
+"site_plan": true,
+"entries": [
+{
+"plate": "VIII",
+"sub": "",
+"title": "Ancient works on Boulware's place, Clarke county, Missouri",
+"page": "168",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 240,
+"site_plan": true,
+"entries": [
+{
+"fig": 88,
+"title": "The Witting mounds, Cape Girardeau county, Missouri",
+"page": 169,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 242,
+"site_plan": true,
+"entries": [
+{
+"fig": 89,
+"title": "The Peter Bess settlement, Bollinger county, Missouri",
+"page": 171,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 244,
+"site_plan": true,
+"entries": [
+{
+"fig": 90,
+"title": "The Lakeville settlement, Stodilard county, Missouri",
+"page": 173,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 245,
+"site_plan": true,
+"entries": [
+{
+"fig": 92,
+"title": "County line settlement, Stoddard county, Missouri",
+"page": 174,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 246,
+"site_plan": true,
+"entries": [
+{
+"fig": 93,
+"title": "The Rich woods mounds, .Stoddard county, Missouri",
+"page": 175,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 248,
+"site_plan": true,
+"entries": [
+{
+"fig": 94,
+"title": "Plan of mounds. No. 3 to No. 6, Rich woods mounds",
+"page": 177,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 255,
+"site_plan": true,
+"entries": [
+{
+"fig": 96,
+"title": "Pin Hook ridge mounds, Mississippi county, Missouri",
+"page": 184,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 256,
+"site_plan": true,
+"entries": [
+{
+"fig": 97,
+"title": "Baker's mound, Mississippi county, Missouri",
+"page": 185,
+"kind": "u",
+"type": "figure"
+},
+{
+"fig": 98,
+"title": "Beckwith's fort, Mississippi county, Missouri",
+"page": 185,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 264,
+"site_plan": false,
+"entries": [
+{
+"fig": 106,
+"title": "Meyer's mound, Scott county, Missouri",
+"page": 193,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 265,
+"site_plan": true,
+"entries": [
+{
+"fig": 107,
+"title": "Mound group near Harviell, Butler county, Missouri",
+"page": 194,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 266,
+"site_plan": true,
+"entries": [
+{
+"fig": 108,
+"title": "Power's fort, Butler countv. Missouri",
+"page": 195,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 270,
+"site_plan": false,
+"entries": [
+{
+"fig": 110,
+"title": "Effect of earth(|uake of 1811 on mound. Green county, Arkansas",
+"page": 199,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 272,
+"site_plan": true,
+"entries": [
+{
+"fig": 111,
+"title": "Webb group, Craighead county, Arkansas",
+"page": 201,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 275,
+"site_plan": true,
+"entries": [
+{
+"fig": 112,
+"title": "Mounds at Tyronza station, Poinsett county, Arkansas",
+"page": 204,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 280,
+"site_plan": true,
+"entries": [
+{
+"fig": 119,
+"title": "The Miller mounds, Poinsett county, Arkansas",
+"page": 209,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 281,
+"site_plan": false,
+"entries": [
+{
+"fig": 121,
+"title": "Mound No. 9, Miller grouji, Poinsett county, Arkansas",
+"page": 210,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 282,
+"site_plan": true,
+"entries": [
+{
+"fig": 122,
+"title": "Plan of mound No. 11, Miller group",
+"page": 211,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 283,
+"site_plan": true,
+"entries": [
+{
+"fig": 123,
+"title": "Plan of mound No. 12, Miller group",
+"page": 212,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 284,
+"site_plan": true,
+"entries": [
+{
+"fig": 124,
+"title": "Plat of Thornton group, Poinsett county, Arkansas",
+"page": 213,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 285,
+"site_plan": true,
+"entries": [
+{
+"fig": 125,
+"title": "Plat of Taylor Shanty group, Poinsett county, Arkansas",
+"page": 214,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 286,
+"site_plan": false,
+"entries": [
+{
+"fig": 126,
+"title": "Mound No. 1, Taylor Shanty group",
+"page": 215,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 291,
+"site_plan": true,
+"entries": [
+{
+"fig": 129,
+"title": "Plat of Pecan point \u25a0works, Mississippi county, Arkansas",
+"page": 220,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 294,
+"site_plan": false,
+"entries": [
+{
+"fig": 132,
+"title": "The Sherman mound, Mississippi county, Arkansas",
+"page": 223,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 296,
+"site_plan": false,
+"entries": [
+{
+"fig": 134,
+"title": "Stone spool from mound, Jackson county, Arkansas",
+"page": 225,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 297,
+"site_plan": true,
+"entries": [
+{
+"fig": 135,
+"title": "Bradley mounds, Crittenden county, Arkansas",
+"page": 226,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 300,
+"site_plan": false,
+"entries": [
+{
+"fig": 136,
+"title": "House site, St. Francis county, .Arkansas",
+"page": 229,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 301,
+"site_plan": true,
+"entries": [
+{
+"fig": 137,
+"title": "Plan of Menard mounds, Arkansas county, Arkansas",
+"page": 230,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 307,
+"site_plan": true,
+"entries": [
+{
+"fig": 142,
+"title": "Plan of Old Town works, Phillips county. Arkansas",
+"page": 236,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 309,
+"site_plan": true,
+"entries": [
+{
+"fig": 144,
+"title": "Mound No. 3, Old Town works",
+"page": 238,
+"kind": "u",
+"type": "figure"
+},
+{
+"fig": 145,
+"title": "Ground plan and elevation of the Barney mound, Phillips county, Arkansas",
+"page": 238,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 310,
+"site_plan": false,
+"entries": [
+{
+"fig": 146,
+"title": "Roger's mound, Phillips county. Arkansas",
+"page": 239,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 311,
+"site_plan": false,
+"entries": [
+{
+"fig": 147,
+"title": "Mound near Arkansas City, Desha county, Arkansas",
+"page": 240,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 312,
+"site_plan": true,
+"entries": [
+{
+"fig": 148,
+"title": "Old French fort, Desha county, Arkansas",
+"page": 241,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 313,
+"site_plan": true,
+"entries": [
+{
+"fig": 149,
+"title": "The Taylor mounds. Drew county, Arkansas",
+"page": 242,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 314,
+"site_plan": false,
+"entries": [
+{
+"plate": "IX",
+"sub": "",
+"title": "The De Soto mound, Jefferson county, and the Knapp mounds, Pulaski county, Arkansas",
+"page": "242",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 318,
+"site_plan": true,
+"entries": [
+{
+"plate": "X",
+"sub": "",
+"title": "Plat of the Knapp mounds, Pulaski county, Arkansas",
+"page": "244",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 321,
+"site_plan": false,
+"entries": [
+{
+"fig": 151,
+"title": "The Hughes mound. Saline count}', Arkansas",
+"page": 246,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 324,
+"site_plan": true,
+"entries": [
+{
+"fig": 154,
+"title": "Mound group near Camden, Arkansas",
+"page": 249,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 326,
+"site_plan": true,
+"entries": [
+{
+"fig": 155,
+"title": "Plat of Troy ville mounds, Catahoula parish, Louisiana",
+"page": 251,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 330,
+"site_plan": true,
+"entries": [
+{
+"plate": "XI",
+"sub": "",
+"title": "Plat of the Carson mounds, Coahoma county, Mississippi",
+"page": "254",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 333,
+"site_plan": true,
+"entries": [
+{
+"fig": 158,
+"title": "Clarksdale works, Coahoma county, Mississippi",
+"page": 256,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 334,
+"site_plan": false,
+"entries": [
+{
+"plate": "XII",
+"sub": "",
+"title": "Mound b, Carson group, Coahoma county, Mississippi",
+"page": "256",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 338,
+"site_plan": false,
+"entries": [
+{
+"plate": "XIII",
+"sub": "",
+"title": "Mound d, Carson group, Coahoma county, Mississippi",
+"page": "258",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 341,
+"site_plan": true,
+"entries": [
+{
+"fig": 161,
+"title": "Avoudale mounds, WasUiugtou conut.v, Mississippi",
+"page": 260,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 342,
+"site_plan": false,
+"entries": [
+{
+"fig": 162,
+"title": "Outline of mouud No. 1, Champliu group, Yazoo couuty, Mississippi",
+"page": 261,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 346,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIV",
+"sub": "",
+"title": "Selsertown group, Adams county, Mississippi, and platform and mounds of the Selsertown group",
+"page": "264",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 351,
+"site_plan": true,
+"entries": [
+{
+"fig": 165,
+"title": "Mound group iu Tniou couuty, Mississijipi",
+"page": 268,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 352,
+"site_plan": true,
+"entries": [
+{
+"fig": 166,
+"title": "Plan of mouud No. 1, group iu Uuiou coiiuty, Mississipjii",
+"page": 269,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 364,
+"site_plan": false,
+"entries": [
+{
+"fig": 177,
+"title": "Mouud No. 1, O'Byam's fort",
+"page": 281,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 374,
+"site_plan": true,
+"entries": [
+{
+"fig": 178,
+"title": "Plat of Tally mounds, Jefferson couuty, Alaliama",
+"page": 291,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 179,
+"title": "Mound No. 2, Tally group (plan and section)",
+"page": 291,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 377,
+"site_plan": true,
+"entries": [
+{
+"fig": 180,
+"title": "Plat of Etowah group, copy of Jones's plat. No. 1",
+"page": 294,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 381,
+"site_plan": true,
+"entries": [
+{
+"fig": 181,
+"title": "Plat of Etowah group, copy of Whittlesey's figure No. 1",
+"page": 296,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 384,
+"site_plan": true,
+"entries": [
+{
+"plate": "XVI",
+"sub": "",
+"title": "Plan of the large mound, Etowah group",
+"page": "298",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 386,
+"site_plan": true,
+"entries": [
+{
+"fig": 182,
+"title": "Plat of the Etowah group (original)",
+"page": 299,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 387,
+"site_plan": false,
+"entries": [
+{
+"fig": 183,
+"title": "Large mouud of the Etowah group",
+"page": 300,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 408,
+"site_plan": true,
+"entries": [
+{
+"fig": 194,
+"title": "Plau of mound No. 1, Rembert group",
+"page": 317,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 416,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXI",
+"sub": "",
+"title": "Observatory Circle, near Newark, Ohio",
+"page": "320",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 422,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXII",
+"sub": "",
+"title": "Fair Ground Circle, near Newark, Ohio",
+"page": "322",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 428,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXIII",
+"sub": "",
+"title": "High Bank Circle, near Chillicothe, Ohio",
+"page": "324",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 441,
+"site_plan": false,
+"entries": [
+{
+"fig": 207,
+"title": "T. F. Nelson mouud, Caldwell county. North Carolina",
+"page": 334,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 443,
+"site_plan": false,
+"entries": [
+{
+"fig": 208,
+"title": "T.F.Nelson Triangle, Caldwell county. North Carolina",
+"page": 336,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 449,
+"site_plan": true,
+"entries": [
+{
+"fig": 221,
+"title": "Plan of W. D. Jones mound, Caldwell county, North Carolina",
+"page": 342,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 452,
+"site_plan": false,
+"entries": [
+{
+"fig": 223,
+"title": "Ancient hurial gronu4l, Wilkes county, North Carolina",
+"page": 345,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 457,
+"site_plan": false,
+"entries": [
+{
+"fig": 228,
+"title": "Big mound, Haywood county, North Carolina",
+"page": 350,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 458,
+"site_plan": true,
+"entries": [
+{
+"fig": 230,
+"title": "Plan of mounds on the Holstou river, Sullivan county, Tennessee",
+"page": 351,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 462,
+"site_plan": false,
+"entries": [
+{
+"fig": 234,
+"title": "Plat showing ancient graves near Kingsport, Tennessee",
+"page": 355,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 466,
+"site_plan": true,
+"entries": [
+{
+"fig": 238,
+"title": "Plat of groups on Long island, Roane county, Tennessee",
+"page": 359,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 478,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXV",
+"sub": "",
+"title": "Plat of the valley of the Little Tennessee river, Blount and Monroe counties, Tennessee",
+"page": "366",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 481,
+"site_plan": true,
+"entries": [
+{
+"fig": 243,
+"title": "Plat of the McMurray mounds, Blount county, Tennessee",
+"page": 368,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 482,
+"site_plan": false,
+"entries": [
+{
+"plate": "XXVI",
+"sub": "",
+"title": "Copy of Timberlake's map of Overhill Cherokee towns",
+"page": "368",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 487,
+"site_plan": true,
+"entries": [
+{
+"fig": 247,
+"title": "Plat of Latimore and MoSpaddiu mounds (Cltico group), Monroe county, Tennessee",
+"page": 372,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 492,
+"site_plan": true,
+"entries": [
+{
+"fig": 254,
+"title": "Plat of the Bacon and McGee mounds, Blount and Monroe counties, Tennessee",
+"page": 377,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 494,
+"site_plan": true,
+"entries": [
+{
+"fig": 256,
+"title": "Plat of the Toco mounds, Monroe county, Tennessee",
+"page": 379,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 503,
+"site_plan": true,
+"entries": [
+{
+"fig": 269,
+"title": "Plat of the Niles ferry mounds, Monroe county, Tennessee",
+"page": 388,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 505,
+"site_plan": true,
+"entries": [
+{
+"fig": 271,
+"title": "Plat of mounds on the Click farm, Monroe county, Tennessee",
+"page": 390,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 510,
+"site_plan": true,
+"entries": [
+{
+"fig": 274,
+"title": "Mounds on John Jackson's farm, Loudon county, Tennessee",
+"page": 395,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 511,
+"site_plan": true,
+"entries": [
+{
+"fig": 275,
+"title": "Mounds (Ui John Jackson's farm, Loudon county, Tennessee",
+"page": 396,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 512,
+"site_plan": true,
+"entries": [
+{
+"fig": 276,
+"title": "The Lenoir mounds, Loudon county, Tennessee",
+"page": 397,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 522,
+"site_plan": true,
+"entries": [
+{
+"fig": 287,
+"title": "Huddlesou's Circle, Fayette county. West Virginia",
+"page": 407,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 523,
+"site_plan": false,
+"entries": [
+{
+"fig": 288,
+"title": "Singul ar stone heaps, Fayette county, AVest Virginia",
+"page": 408,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 530,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXVII",
+"sub": "",
+"title": "Plat of group near Charleston, Kanawha county, West Virginia",
+"page": "414",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 532,
+"site_plan": true,
+"entries": [
+{
+"fig": 291,
+"title": "Enlarged plan of mound No. 1, and inclosure a, Kanawha county, West Virginia",
+"page": 415,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 536,
+"site_plan": true,
+"entries": [
+{
+"fig": 293,
+"title": "Spring Hill inclosureon enlarged scale, Kanawha county, West A'ir- ginia",
+"page": 419,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 538,
+"site_plan": true,
+"entries": [
+{
+"fig": 294,
+"title": "Inclosure O, Kanawha county. West Virginia",
+"page": 421,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 539,
+"site_plan": true,
+"entries": [
+{
+"fig": 295,
+"title": "Inclosure I, Kanawha county, West Virginia",
+"page": 422,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 540,
+"site_plan": true,
+"entries": [
+{
+"fig": 296,
+"title": "Inclosure L, Kanawha county, West Virginia",
+"page": 423,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 541,
+"site_plan": true,
+"entries": [
+{
+"fig": 297,
+"title": "Inclosure K, Kanawha county, West Virginia",
+"page": 424,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 555,
+"site_plan": true,
+"entries": [
+{
+"fig": 303,
+"title": "Mound group, 1 mile west of Barboursville, West Virginia",
+"page": 438,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 558,
+"site_plan": false,
+"entries": [
+{
+"plate": "XXVIII",
+"sub": "",
+"title": "Plan and sections of the Staats mound, Knox county, Ohio",
+"page": "440",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 561,
+"site_plan": true,
+"entries": [
+{
+"fig": 305,
+"title": "Plat and sectiou of the area about the Staats mound, Knox county, Ohio",
+"page": 442,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 563,
+"site_plan": true,
+"entries": [
+{
+"fig": 306,
+"title": "Plan of Cemetery mouud, Mt. Vernon. Knox county, Ohio",
+"page": 444,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 564,
+"site_plan": false,
+"entries": [
+{
+"plate": "XXIX",
+"sub": "",
+"title": "Cemetery mound, Mount Vernon, Knox county, Ohio",
+"page": "444",
+"kind": "u",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 568,
+"site_plan": true,
+"entries": [
+{
+"fig": 308,
+"title": "Works on the Davis place, Hocking county, Ohio",
+"page": 447,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 569,
+"site_plan": true,
+"entries": [
+{
+"fig": 309,
+"title": "Plan of the large work, Davis place, Hocking county, Ohio",
+"page": 448,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 571,
+"site_plan": true,
+"entries": [
+{
+"fig": 310,
+"title": "Ancient works near Dublin, Franklin county, Ohio",
+"page": 450,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 579,
+"site_plan": true,
+"entries": [
+{
+"fig": 314,
+"title": "Mounds near Brownsville, Licking county, Ohio",
+"page": 458,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 580,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXX",
+"sub": "",
+"title": "Newark works, Licking county, Ohio",
+"page": "458",
+"kind": "s",
+"type": "plate",
+"map_method": "ocr+title"
+}
+]
+},
+{
+"n": 583,
+"site_plan": true,
+"entries": [
+{
+"fig": 315,
+"title": "Small iuclosure, Newark group. Licking county, Ohio",
+"page": 460,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 584,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXI",
+"sub": "",
+"title": "Fair Ground Circle, Newark, Ohio",
+"page": "460",
+"kind": "s",
+"type": "plate",
+"map_method": "ocr+title"
+}
+]
+},
+{
+"n": 588,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXII",
+"sub": "",
+"title": "Observatory Circle, Newark, Ohio",
+"page": "462",
+"kind": "s",
+"type": "plate",
+"map_method": "title"
+}
+]
+},
+{
+"n": 592,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIII",
+"sub": "",
+"title": "Octagon, Newark, Ohio",
+"page": "464",
+"kind": "s",
+"type": "plate",
+"map_method": "title"
+}
+]
+},
+{
+"n": 596,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIV",
+"sub": "",
+"title": "Square, Newark, Ohio",
+"page": "466",
+"kind": "s",
+"type": "plate",
+"map_method": "ocr+title"
+}
+]
+},
+{
+"n": 599,
+"site_plan": true,
+"entries": [
+{
+"fig": 317,
+"title": "Ancient inclosnre, Licking county, Ohio",
+"page": 468,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 600,
+"site_plan": true,
+"entries": [
+{
+"fig": 318,
+"title": "Stone fort on Flint ridge, Licking county, Ohio",
+"page": 469,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 601,
+"site_plan": true,
+"entries": [
+{
+"fig": 319,
+"title": "Stone fort near Glenford, Perry county, Ohio",
+"page": 470,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 604,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXV",
+"sub": "",
+"title": "Square of Hopeton works, Ross county, Ohio",
+"page": "472",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 608,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVI",
+"sub": "",
+"title": "Circle of Hopeton works, Ross county, Ohio",
+"page": "474",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 612,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVII",
+"sub": "",
+"title": "Circle of High Bank works, Ross county, Ohio",
+"page": "476",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 616,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVIII",
+"sub": "",
+"title": "Octagon of High Bank works, Ross county, Ohio",
+"page": "478",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 619,
+"site_plan": true,
+"entries": [
+{
+"fig": 321,
+"title": "Small circle, Liberty Township works, Koss county, Ohio",
+"page": 480,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 622,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIX",
+"sub": "",
+"title": "Square of Liberty township works, Ross county, Ohio",
+"page": "482",
+"kind": "s",
+"type": "plate",
+"map_method": "title"
+}
+]
+},
+{
+"n": 626,
+"site_plan": true,
+"entries": [
+{
+"plate": "XL",
+"sub": "",
+"title": "Square of Baum works, Ross county, Ohio",
+"page": "484",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+ocr+title"
+}
+]
+},
+{
+"n": 628,
+"site_plan": false,
+"entries": [
+{
+"fig": 322,
+"title": "Pyramidal mound, Baum works, Hoss county, Ohio",
+"page": 485,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 633,
+"site_plan": true,
+"entries": [
+{
+"fig": 324,
+"title": "Circle A, Seal township works, Pike county, Ohio",
+"page": 490,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 635,
+"site_plan": false,
+"entries": [
+{
+"fig": 325,
+"title": "Copy of Moorehead's station 241, PI. VI",
+"page": 492,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 636,
+"site_plan": true,
+"entries": [
+{
+"fig": 326,
+"title": "The Serpent mound, Adams county, Ohio",
+"page": 493,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 639,
+"site_plan": false,
+"entries": [
+{
+"fig": 327,
+"title": "Mound and graves near Monongahela City , Pa",
+"page": 496,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 645,
+"site_plan": true,
+"entries": [
+{
+"fig": 330,
+"title": "Inclosure near PittsHeld, Warren county. Pa",
+"page": 502,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 647,
+"site_plan": true,
+"entries": [
+{
+"fig": 331,
+"title": "Ancient fort on Atwell farm, Madison county, N. Y",
+"page": 504,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 648,
+"site_plan": true,
+"entries": [
+{
+"fig": 332,
+"title": "Seat of ancient Onondaga town, Madison county, N. V",
+"page": 505,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 650,
+"site_plan": true,
+"entries": [
+{
+"fig": 333,
+"title": "Old fort near Ellington, Chautau<iua county, N. Y",
+"page": 507,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 652,
+"site_plan": true,
+"entries": [
+{
+"fig": 334,
+"title": "Inclosnre near Ellington, Chautaui|ua county, N. Y",
+"page": 509,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 657,
+"site_plan": true,
+"entries": [
+{
+"fig": 335,
+"title": "Inclosure on Dunn farm, Wyoming county, N. Y",
+"page": 514,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 660,
+"site_plan": true,
+"entries": [
+{
+"fig": 336,
+"title": "Rifle river fort No. 2, Ogemaw county, Michigan",
+"page": 517,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 701,
+"site_plan": true,
+"entries": [
+{
+"fig": 339,
+"title": "Plat of the large mound, \"Angel \" group",
+"page": 558,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 702,
+"site_plan": true,
+"entries": [
+{
+"plate": "XLI",
+"sub": "",
+"title": "Plat of the \"Angel mounds,\" near Evansville, Indiana",
+"page": "558",
+"kind": "s",
+"type": "plate",
+"map_method": "title"
+}
+]
+}
+]

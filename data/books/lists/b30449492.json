@@ -1,0 +1,208 @@
+{
+"plates": [
+{
+"plate": "I",
+"sub": "",
+"title": "Plate I",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "II",
+"sub": "1",
+"title": "Plate II No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "II",
+"sub": "2",
+"title": "Plate II No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "1",
+"title": "Plate III No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "2",
+"title": "Plate III No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "3",
+"title": "Plate III No. 3",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "1",
+"title": "Plate IV No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "2",
+"title": "Plate IV No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "3  and  4",
+"title": "Plate IV No. 3  and  4",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "V",
+"sub": "1",
+"title": "Plate V No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "V",
+"sub": "2",
+"title": "Plate V No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "VI",
+"sub": "1",
+"title": "Plate VI No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "VI",
+"sub": "2",
+"title": "Plate VI No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "1",
+"title": "Plate VII No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "1",
+"title": "Plate VIII No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "2",
+"title": "Plate VIII No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "1",
+"title": "Plate IX No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "2",
+"title": "Plate IX No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "3",
+"title": "Plate IX No. 3",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "X",
+"sub": "1",
+"title": "Plate X No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "X",
+"sub": "2",
+"title": "Plate X No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "X",
+"sub": "3",
+"title": "Plate X No. 3",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XI",
+"sub": "2",
+"title": "Plate XI No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "",
+"title": "Plate XII",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "1",
+"title": "Plate XIII No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "2",
+"title": "Plate XIII No. 2",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "3",
+"title": "Plate XIII No. 3",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "1",
+"title": "Plate XIV No. 1",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "2",
+"title": "Plate XIV No. 2",
+"page": "",
+"kind": "s"
+}
+],
+"figures": []
+}

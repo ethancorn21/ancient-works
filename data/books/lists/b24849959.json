@@ -1,0 +1,1926 @@
+{
+"plates": null,
+"figures": [
+{
+"fig": 1,
+"title": "The \u201cElephant Mound\u201d of Wisconsin Ill",
+"page": null,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 2,
+"title": "The \u201cElephant Pipes\u201d from Iowa Ill",
+"page": null,
+"kind": "o"
+},
+{
+"fig": 3,
+"title": "The \u201cElephant Pipes\u201d from Iowa Ill",
+"page": null,
+"kind": "o"
+},
+{
+"fig": 4,
+"title": "Mound in which skull was found",
+"page": 137,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 5,
+"title": "Section of above mound",
+"page": 138,
+"kind": "o"
+},
+{
+"fig": 6,
+"title": "Profile of skull from mound",
+"page": 138,
+"kind": "o"
+},
+{
+"fig": 7,
+"title": "Front and top view of skull from mound",
+"page": 139,
+"kind": "o"
+},
+{
+"fig": 8,
+"title": "Morgan\u2019s \u201cRestoration of High Bank Pueblo\u201d",
+"page": 156,
+"kind": "o"
+},
+{
+"fig": 9,
+"title": "Morgan\u2019s Plan of \u201cHigh Bank Pueblo\u201d",
+"page": 157,
+"kind": "s"
+},
+{
+"fig": 10,
+"title": "Six miles of Raccoon creek valley, Licking county",
+"page": 163,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 11,
+"title": "The Newark works, Licking county",
+"page": 164,
+"kind": "s"
+},
+{
+"fig": 12,
+"title": "Minor work at Newark",
+"page": 166,
+"kind": "s"
+},
+{
+"fig": 13,
+"title": "The Fair Ground Circle at Newark",
+"page": 169,
+"kind": "s"
+},
+{
+"fig": 14,
+"title": "The Square at Newark",
+"page": 170,
+"kind": "s"
+},
+{
+"fig": 15,
+"title": "The Marietta works",
+"page": 172,
+"kind": "s"
+},
+{
+"fig": 16,
+"title": "The Portsmouth group",
+"page": 174,
+"kind": "s"
+},
+{
+"fig": 17,
+"title": "Work opposite old mouth of the Scioto",
+"page": 175,
+"kind": "s"
+},
+{
+"fig": 18,
+"title": "Works on the site of Portsmouth",
+"page": 177,
+"kind": "s"
+},
+{
+"fig": 19,
+"title": "Mound and concentric circles in Kentucky",
+"page": 177,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 20,
+"title": "Mound within enclosure, Greenup county Kentucky",
+"page": 178,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 21,
+"title": "The Barnes work. Pike county",
+"page": 180,
+"kind": "s"
+},
+{
+"fig": 22,
+"title": "Ditch and embankment, with Barnes work",
+"page": 181,
+"kind": "s"
+},
+{
+"fig": 23,
+"title": "Twelve miles of the Scioto valley",
+"page": 182,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 24,
+"title": "Six miles of Paint creek valley",
+"page": 183,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 25,
+"title": "Harness, or Liberty township group, Ross county",
+"page": 185,
+"kind": "s"
+},
+{
+"fig": 26,
+"title": "Correct outline of small circle, Harness group",
+"page": 187,
+"kind": "s"
+},
+{
+"fig": 27,
+"title": "High Banks works, Ross county",
+"page": 188,
+"kind": "s"
+},
+{
+"fig": 28,
+"title": "Octagon at High Banks",
+"page": 189,
+"kind": "s"
+},
+{
+"fig": 29,
+"title": "Works at Chillicothe",
+"page": 191,
+"kind": "s"
+},
+{
+"fig": 30,
+"title": "Works at Frankfort, Ross county",
+"page": 191,
+"kind": "s"
+},
+{
+"fig": 31,
+"title": "Works at Hopetown, Ross county",
+"page": 192,
+"kind": "s"
+},
+{
+"fig": 32,
+"title": "The square at Hopetown",
+"page": 194,
+"kind": "s"
+},
+{
+"fig": 33,
+"title": "The circle at Hopetown",
+"page": 195,
+"kind": "s"
+},
+{
+"fig": 34,
+"title": "Cedar Banks works, Ross county",
+"page": 196,
+"kind": "s"
+},
+{
+"fig": 35,
+"title": "\u201cMound City,\u201d Ross county",
+"page": 199,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 36,
+"title": "Dunlap works, Ross county",
+"page": 200,
+"kind": "s"
+},
+{
+"fig": 37,
+"title": "Blackwater group, Ross county",
+"page": 201,
+"kind": "s"
+},
+{
+"fig": 38,
+"title": "Junction group, Ross county",
+"page": 203,
+"kind": "s"
+},
+{
+"fig": 39,
+"title": "Clark\u2019s works, or Hopewell group, Ross county",
+"page": 205,
+"kind": "s"
+},
+{
+"fig": 40,
+"title": "Baum works, near Bourneville, Ross county",
+"page": 207,
+"kind": "s"
+},
+{
+"fig": 41,
+"title": "Pricer works, near Bainbridge, Ross county",
+"page": 207,
+"kind": "s"
+},
+{
+"fig": 42,
+"title": "Six miles of the Great Miami valley",
+"page": 210,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 43,
+"title": "Work in Clermont county",
+"page": 213,
+"kind": "s"
+},
+{
+"fig": 44,
+"title": "The \u201cGridiron,\u201d Clermont county",
+"page": 213,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 45,
+"title": "Coleraine work, Butler county",
+"page": 214,
+"kind": "s"
+},
+{
+"fig": 46,
+"title": "Works at Alexandersville, Montgomery county",
+"page": 216,
+"kind": "s"
+},
+{
+"fig": 47,
+"title": "Square near Worthington, Franklin county",
+"page": 218,
+"kind": "s"
+},
+{
+"fig": 48,
+"title": "Ellipse near Bourneville, Ross county",
+"page": 218,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 49,
+"title": "Works near Dublin, Franklin county",
+"page": 222,
+"kind": "s"
+},
+{
+"fig": 50,
+"title": "Works in Athens county",
+"page": 223,
+"kind": "s"
+},
+{
+"fig": 51,
+"title": "Archaeological map of Miami county",
+"page": 224,
+"kind": "s"
+},
+{
+"fig": 52,
+"title": "Work on Massie\u2019s creek, Greene county",
+"page": 227,
+"kind": "s"
+},
+{
+"fig": 53,
+"title": "Works at Norwalk, Huron county",
+"page": 228,
+"kind": "s"
+},
+{
+"fig": 54,
+"title": "Works in Ashtabula and Cuyahoga counties",
+"page": 229,
+"kind": "s"
+},
+{
+"fig": 55,
+"title": "Works near Cleveland",
+"page": 230,
+"kind": "s"
+},
+{
+"fig": 56,
+"title": "Work near Toledo",
+"page": 231,
+"kind": "s"
+},
+{
+"fig": 57,
+"title": "Works in Lorain county",
+"page": 231,
+"kind": "s"
+},
+{
+"fig": 58,
+"title": "Works in Lorain county",
+"page": 231,
+"kind": "s"
+},
+{
+"fig": 59,
+"title": "Fort Ancient, Warren county",
+"page": 241,
+"kind": "s"
+},
+{
+"fig": 60,
+"title": "Spruce Hill Fort, Ross county",
+"page": 243,
+"kind": "s"
+},
+{
+"fig": 61,
+"title": "Fort Hill, Highland county",
+"page": 246,
+"kind": "s"
+},
+{
+"fig": 62,
+"title": "Map of the vicinity of Fort Hill",
+"page": 247,
+"kind": "s"
+},
+{
+"fig": 63,
+"title": "Glenford Fort, Perry county",
+"page": 248,
+"kind": "s"
+},
+{
+"fig": 64,
+"title": "East wall of Glenford Fort",
+"page": 250,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 65,
+"title": "Portion of eastern wall, Glenford Fort",
+"page": 251,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 66,
+"title": "Wall on east slope, Glenford Fort",
+"page": 252,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 67,
+"title": "View from interior of Glenford Fort",
+"page": 253,
+"kind": "o"
+},
+{
+"fig": 68,
+"title": "Fort Miami, Hamilton county",
+"page": 255,
+"kind": "s"
+},
+{
+"fig": 69,
+"title": "\u201cFortified Hill,\u201d Butler county",
+"page": 258,
+"kind": "s"
+},
+{
+"fig": 70,
+"title": "\u201cFortified Hill,\u201d Licking county, with exterior ditch",
+"page": 260,
+"kind": "s"
+},
+{
+"fig": 71,
+"title": "Hill fort, with exterior ditch. Licking county",
+"page": 262,
+"kind": "s"
+},
+{
+"fig": 72,
+"title": "Stone fort on Flint Ridge, Licking county",
+"page": 262,
+"kind": "s"
+},
+{
+"fig": 73,
+"title": "Fortifications in Butler county",
+"page": 263,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 74,
+"title": "Enclosures in Miami and Montgomery counties",
+"page": 264,
+"kind": "s"
+},
+{
+"fig": 75,
+"title": "Graded Way, Pike county; from Squier and Davis",
+"page": 276,
+"kind": "s"
+},
+{
+"fig": 76,
+"title": "Graded Way; from Squier and Davis",
+"page": 277,
+"kind": "s"
+},
+{
+"fig": 77,
+"title": "Graded Way; correct plan and sections",
+"page": 277,
+"kind": "s"
+},
+{
+"fig": 78,
+"title": "Serpent Mound; from Squier and Davis",
+"page": 283,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 79,
+"title": "Map of Serpent Mound Park; from Putnam",
+"page": 285,
+"kind": "s"
+},
+{
+"fig": 80,
+"title": "Serpent Mound; from McLean",
+"page": 286,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 81,
+"title": "Serpent Mound; from Holmes",
+"page": 290,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 82,
+"title": "The Opossum Mound, Licking county",
+"page": 291,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 83,
+"title": "The Newark \u201cEffigy,\u201d Licking county",
+"page": 293,
+"kind": "s"
+},
+{
+"fig": 84,
+"title": "Groups of conjoined mounds",
+"page": 293,
+"kind": "s"
+},
+{
+"fig": 85,
+"title": "The \u201cTapir,\u201d Scioto county",
+"page": 294,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 86,
+"title": "The Cross, Pickaway county",
+"page": 296,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 87,
+"title": "Stone work, Ross county",
+"page": 296,
+"kind": "s"
+},
+{
+"fig": 88,
+"title": "The Trefoil, Ross county",
+"page": 298,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 89,
+"title": "The Marietta Mound; from a fanciful sketch",
+"page": 301,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 90,
+"title": "The Marietta Mound; from a photograph",
+"page": 301,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 91,
+"title": "The Miamisburg Mound; from a photograph",
+"page": 302,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 92,
+"title": "The Tippett Mound, Licking county; from a sketch",
+"page": 302,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 93,
+"title": "Great Stone Mound, Licking Co., impossible \u201crestoration.\u201d",
+"page": 302,
+"kind": "o"
+},
+{
+"fig": 94,
+"title": "Theoretical section of a mound and altar",
+"page": 305,
+"kind": "o"
+},
+{
+"fig": 95,
+"title": "Outlines of separate loads of earth in a mound",
+"page": 307,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 96,
+"title": "Plan of mound at Mt. Vernon",
+"page": 330,
+"kind": "s"
+},
+{
+"fig": 97,
+"title": "Section of above mound",
+"page": 330,
+"kind": "o"
+},
+{
+"fig": 98,
+"title": "Group of mounds near Brownsville and Linville",
+"page": 332,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 99,
+"title": "Stone mound in above group",
+"page": 333,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 100,
+"title": "Temple Mound at Marietta",
+"page": 338,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 101,
+"title": "Enclosure with interior mound near Adelphi",
+"page": 340,
+"kind": "s"
+},
+{
+"fig": 102,
+"title": "Section of mound with altar ; \u2018",
+"page": 344,
+"kind": "o"
+},
+{
+"fig": 103,
+"title": "Sections of mound at Baum\u2019s",
+"page": 347,
+"kind": "o"
+},
+{
+"fig": 104,
+"title": "Imaginary section of a mound",
+"page": 350,
+"kind": "o"
+},
+{
+"fig": 105,
+"title": "Plan and section of altar",
+"page": 350,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 106,
+"title": "Section of a mound with very large altar",
+"page": 351,
+"kind": "o"
+},
+{
+"fig": 107,
+"title": "Longitudinal section of above altar",
+"page": 351,
+"kind": "o"
+},
+{
+"fig": 108,
+"title": "Cross section of same",
+"page": 351,
+"kind": "o"
+},
+{
+"fig": 109,
+"title": "Cross section of altar",
+"page": 353,
+"kind": "o"
+},
+{
+"fig": 110,
+"title": "Wooden pick and log cut with stone ax",
+"page": 356,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 111,
+"title": "Section of a mound",
+"page": 360,
+"kind": "o"
+},
+{
+"fig": 112,
+"title": "Plan and section of Harness mound",
+"page": 360,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 113,
+"title": "Monitor pipe from Harness mound",
+"page": 360,
+"kind": "o"
+},
+{
+"fig": 114,
+"title": "Front view of skull from Waverly mound",
+"page": 366,
+"kind": "o"
+},
+{
+"fig": 115,
+"title": "Side view of above skull",
+"page": 367,
+"kind": "o"
+},
+{
+"fig": 116,
+"title": "Front view of skull from Waverly mound",
+"page": 368,
+"kind": "o"
+},
+{
+"fig": 117,
+"title": "Side view of above skull",
+"page": 369,
+"kind": "o"
+},
+{
+"fig": 118,
+"title": "Mound of stone covered with earth, Chillicothe",
+"page": 390,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 119,
+"title": "Stone graves in a mound of earth. Brown county",
+"page": 393,
+"kind": "o"
+},
+{
+"fig": 120,
+"title": "Grave in above mound",
+"page": 395,
+"kind": "o"
+},
+{
+"fig": 121,
+"title": "Cairn with covering intact, in above mound",
+"page": 396,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 122,
+"title": "Grave, cleaned out, in above cairn",
+"page": 397,
+"kind": "o"
+},
+{
+"fig": 123,
+"title": "Grave, cleaned out, in above cairn",
+"page": 397,
+"kind": "o"
+},
+{
+"fig": 124,
+"title": "Grave made of clay and stone in above mound",
+"page": 399,
+"kind": "o"
+},
+{
+"fig": 125,
+"title": "Cairn in Brown county",
+"page": 399,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 126,
+"title": "Grave cleaned out, in a cairn",
+"page": 401,
+"kind": "o"
+},
+{
+"fig": 127,
+"title": "Cairn in Brown county",
+"page": 403,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 128,
+"title": "Grave in above cairn",
+"page": 403,
+"kind": "o"
+},
+{
+"fig": 129,
+"title": "Plan and section of stone grave near Ripley",
+"page": 405,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 130,
+"title": "Cairn containing an \u201carch,\u201d near Ripley",
+"page": 405,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 131,
+"title": "Refuse pit, Madisonville",
+"page": 407,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 132,
+"title": "Refuse pit, containing charred corn, Madisonville",
+"page": 407,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 133,
+"title": "Refuse pit containing human skeleton, Madisonville",
+"page": 408,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 134,
+"title": "One of the Barnesville \u201cTrack Rocks\u201d",
+"page": 419,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 135,
+"title": "Some details of above inscription",
+"page": 420,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 136,
+"title": "Barnesville \u201cTrack Rock\u201d",
+"page": 421,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 137,
+"title": "Newark \u201cTrack Rock\u201d",
+"page": 422,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 138,
+"title": "Inscribed rock at Independence",
+"page": 423,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 139,
+"title": "Aboriginal hut plastered and floored with mud",
+"page": 461,
+"kind": "o"
+},
+{
+"fig": 140,
+"title": "Aboriginal hut plastered and floored with mud",
+"page": 461,
+"kind": "o"
+},
+{
+"fig": 141,
+"title": "Axe with two grooves",
+"page": 521,
+"kind": "o"
+},
+{
+"fig": 142,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 143,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 144,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 145,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 146,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 147,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 148,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 149,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 150,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 151,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 152,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 153,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 154,
+"title": "Grooved axes",
+"page": 527,
+"kind": "o"
+},
+{
+"fig": 155,
+"title": "Hatchets, tomahawks, or celts",
+"page": 533,
+"kind": "o"
+},
+{
+"fig": 156,
+"title": "Hatchets, tomahawks, or celts",
+"page": 533,
+"kind": "o"
+},
+{
+"fig": 157,
+"title": "Hatchets, tomahawks, or celts",
+"page": 533,
+"kind": "o"
+},
+{
+"fig": 158,
+"title": "Hematite celts",
+"page": 536,
+"kind": "o"
+},
+{
+"fig": 159,
+"title": "Pestles",
+"page": 537,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 160,
+"title": "Pestles",
+"page": 537,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 161,
+"title": "Pestles",
+"page": 537,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 162,
+"title": "Pestles",
+"page": 537,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 163,
+"title": "Mullers",
+"page": 539,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 164,
+"title": "Cup-stone",
+"page": 541,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 165,
+"title": "Large boulder with numerous cups",
+"page": 546,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 166,
+"title": "Hammers, sinkers, or club-heads; round and grooved",
+"page": 547,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 167,
+"title": "Discoidal Stones",
+"page": 555,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 168,
+"title": "Discoidal Stones",
+"page": 555,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 169,
+"title": "Spud-like implement",
+"page": 557,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 170,
+"title": "Plummets",
+"page": 557,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 171,
+"title": "Cones",
+"page": 560,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 172,
+"title": "Cones",
+"page": 560,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 173,
+"title": "Hemispheric stones",
+"page": 560,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 174,
+"title": "Gorgets",
+"page": 566,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 175,
+"title": "Gorgets",
+"page": 566,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 176,
+"title": "Gorgets",
+"page": 566,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 177,
+"title": "Banner stones",
+"page": 570,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 178,
+"title": "Pendants",
+"page": 571,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 179,
+"title": "Perforated round stones",
+"page": 571,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 180,
+"title": "Picks",
+"page": 571,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 181,
+"title": "Bar amulets",
+"page": 572,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 182,
+"title": "Bird shaped stones",
+"page": 572,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 183,
+"title": "Spool shaped stones",
+"page": 573,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 184,
+"title": "Unfinished pipes",
+"page": 573,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 185,
+"title": "Unfinished slate objects",
+"page": 574,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 186,
+"title": "Unfinished slate objects",
+"page": 574,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 187,
+"title": "Unfinished slate objects",
+"page": 574,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 188,
+"title": "Grinding or polishing stones",
+"page": 576,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 189,
+"title": "Tubes",
+"page": 577,
+"kind": "o"
+},
+{
+"fig": 190,
+"title": "Monitor pipes",
+"page": 585,
+"kind": "o"
+},
+{
+"fig": 191,
+"title": "Unfinished effigy pipe",
+"page": 586,
+"kind": "o"
+},
+{
+"fig": 192,
+"title": "Effigy pipes; human heads",
+"page": 591,
+"kind": "o"
+},
+{
+"fig": 193,
+"title": "Effigy pipes; human heads",
+"page": 591,
+"kind": "o"
+},
+{
+"fig": 194,
+"title": "Effigy pipes; human heads",
+"page": 591,
+"kind": "o"
+},
+{
+"fig": 195,
+"title": "Effigy pipes; human heads",
+"page": 591,
+"kind": "o"
+},
+{
+"fig": 196,
+"title": "Effigy pipe; figure with human head",
+"page": 592,
+"kind": "o"
+},
+{
+"fig": 197,
+"title": "Effigy pipe; bird with human head",
+"page": 592,
+"kind": "o"
+},
+{
+"fig": 198,
+"title": "Effigy pipe; human figure with coiled snake",
+"page": 593,
+"kind": "o"
+},
+{
+"fig": 199,
+"title": "Human faces carved in stone",
+"page": 593,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 200,
+"title": "Human faces carved in stone",
+"page": 593,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 201,
+"title": "Effigy pipe; elk",
+"page": 594,
+"kind": "o"
+},
+{
+"fig": 202,
+"title": "Effigy pipe; wildcat",
+"page": 594,
+"kind": "o"
+},
+{
+"fig": 203,
+"title": "Effigy pipe ; otter",
+"page": 594,
+"kind": "o"
+},
+{
+"fig": 204,
+"title": "Effigy pipe; heron",
+"page": 595,
+"kind": "o"
+},
+{
+"fig": 205,
+"title": "Effigy pipe ; eagle or hawk",
+"page": 595,
+"kind": "o"
+},
+{
+"fig": 207,
+"title": "Effigy pipe; paroquet",
+"page": 597,
+"kind": "o"
+},
+{
+"fig": 208,
+"title": "Effigy pipes; unfinished",
+"page": 597,
+"kind": "o"
+},
+{
+"fig": 209,
+"title": "Effigy pipes; unfinished",
+"page": 597,
+"kind": "o"
+},
+{
+"fig": 210,
+"title": "Effigy pipe; toucan",
+"page": 598,
+"kind": "o"
+},
+{
+"fig": 212,
+"title": "Effigies; eagles",
+"page": 598,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 213,
+"title": "Effigy pipe; toad",
+"page": 599,
+"kind": "o"
+},
+{
+"fig": 214,
+"title": "Effigy pipe; possibly groundhog",
+"page": 599,
+"kind": "o"
+},
+{
+"fig": 215,
+"title": "Effigy pipe; possibly hawk or eagle",
+"page": 599,
+"kind": "o"
+},
+{
+"fig": 216,
+"title": "Effigy pipe; unnamed",
+"page": 600,
+"kind": "o"
+},
+{
+"fig": 217,
+"title": "Effigy pipe; coiled rattlesnake",
+"page": 600,
+"kind": "o"
+},
+{
+"fig": 218,
+"title": "Effigy pipe; said to be an owl",
+"page": 600,
+"kind": "o"
+},
+{
+"fig": 219,
+"title": "So-called \u201ctoucan pipes,\u201d and the toucan",
+"page": 607,
+"kind": "o"
+},
+{
+"fig": 220,
+"title": "So-called \u201ctoucan pipes,\u201d and the toucan",
+"page": 607,
+"kind": "o"
+},
+{
+"fig": 221,
+"title": "So-called \u201ctoucan pipes,\u201d and the toucan",
+"page": 607,
+"kind": "o"
+},
+{
+"fig": 222,
+"title": "Effigy pipes, wrongly identified",
+"page": 609,
+"kind": "o"
+},
+{
+"fig": 223,
+"title": "Effigy pipes, wrongly identified",
+"page": 609,
+"kind": "o"
+},
+{
+"fig": 224,
+"title": "The manitus and the so-called manitus pipes",
+"page": 612,
+"kind": "o"
+},
+{
+"fig": 225,
+"title": "The manitus and the so-called manitus pipes",
+"page": 612,
+"kind": "o"
+},
+{
+"fig": 226,
+"title": "The manitus and the so-called manitus pipes",
+"page": 612,
+"kind": "o"
+},
+{
+"fig": 227,
+"title": "The manitus and the so-called manitus pipes",
+"page": 612,
+"kind": "o"
+},
+{
+"fig": 228,
+"title": "Effigy pipe; carnivore with human head",
+"page": 613,
+"kind": "o"
+},
+{
+"fig": 229,
+"title": "Effigy pipe; frog",
+"page": 613,
+"kind": "o"
+},
+{
+"fig": 230,
+"title": "Effigy pipe; owl",
+"page": 614,
+"kind": "o"
+},
+{
+"fig": 231,
+"title": "Rude effigy pipes of stone and clay",
+"page": 615,
+"kind": "o"
+},
+{
+"fig": 232,
+"title": "Various forms of pipes",
+"page": 615,
+"kind": "o"
+},
+{
+"fig": 233,
+"title": "Various forms of pipes",
+"page": 615,
+"kind": "o"
+},
+{
+"fig": 234,
+"title": "Map of Flint Ridge",
+"page": 620,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 235,
+"title": "Mound containing large disks, at Hopewell\u2019s",
+"page": 628,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 236,
+"title": "Disks, from Hopewell mound",
+"page": 630,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 237,
+"title": "Diagram of terms applied to flint implements",
+"page": 633,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 238,
+"title": "Flake of obsidian and arrow head made from it",
+"page": 642,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 239,
+"title": "Progressive stages in arrow head making",
+"page": 644,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 240,
+"title": "Flints with polished bases 1",
+"page": 647,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 241,
+"title": "Flints with polished bases 1",
+"page": 647,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 242,
+"title": "Flints with polished bases 1",
+"page": 647,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 243,
+"title": "'Flint knives or spear heads",
+"page": 650,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 244,
+"title": "Flint knives",
+"page": 651,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 245,
+"title": "Flint knives",
+"page": 651,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 246,
+"title": "Roughly finished knives or spear heads",
+"page": 653,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 247,
+"title": "Flint scrapers",
+"page": 654,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 248,
+"title": "Rare forms of knives and scrapers",
+"page": 654,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 249,
+"title": "Unusual forms, probably for cutting or scraping",
+"page": 655,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 250,
+"title": "Illustrating the manner of drilling curved objects",
+"page": 659,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 251,
+"title": "Modern Sioux pipe made of catlinite",
+"page": 661,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 252,
+"title": "Experiments in drilling",
+"page": 662,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 253,
+"title": "Experiments in drilling",
+"page": 662,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 254,
+"title": "Flint drill",
+"page": 662,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 255,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 256,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 257,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 258,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 259,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 260,
+"title": "Primitive methods of drilling and fire-making",
+"page": 663,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 261,
+"title": "Experiments in drilling",
+"page": 664,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 262,
+"title": "Experiments in drilling",
+"page": 664,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 263,
+"title": "Flint perforators",
+"page": 665,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 264,
+"title": "Bunts and scrapers",
+"page": 667,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 265,
+"title": "Flint cores",
+"page": 669,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 266,
+"title": "Flint flakes",
+"page": 671,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 267,
+"title": "Methods of hafting knives and arrow heads",
+"page": 675,
+"kind": "o"
+},
+{
+"fig": 268,
+"title": "Methods of hafting knives and arrow heads",
+"page": 675,
+"kind": "o"
+},
+{
+"fig": 269,
+"title": "Bone scrapers or skin dressers",
+"page": 680,
+"kind": "o"
+},
+{
+"fig": 270,
+"title": "Bone arrow heads",
+"page": 680,
+"kind": "o"
+},
+{
+"fig": 271,
+"title": "Piercing, weaving and sewing tools of bone",
+"page": 681,
+"kind": "o"
+},
+{
+"fig": 272,
+"title": "Piercing, weaving and sewing tools of bone",
+"page": 681,
+"kind": "o"
+},
+{
+"fig": 273,
+"title": "Manufacture of bone flsh hooks",
+"page": 683,
+"kind": "o"
+},
+{
+"fig": 274,
+"title": "Animal jaws cut into ornaments",
+"page": 684,
+"kind": "o"
+},
+{
+"fig": 275,
+"title": "Hoe made of a mussel shell",
+"page": 685,
+"kind": "o"
+},
+{
+"fig": 276,
+"title": "Hoe or scraper made of a mussel shell",
+"page": 686,
+"kind": "o"
+},
+{
+"fig": 277,
+"title": "Spoon made of a mussel shell",
+"page": 686,
+"kind": "o"
+},
+{
+"fig": 278,
+"title": "Shell gorget",
+"page": 687,
+"kind": "o"
+},
+{
+"fig": 279,
+"title": "Rattlesnake, carved in stone",
+"page": 688,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 280,
+"title": "Belts of wampum",
+"page": 690,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 281,
+"title": "Specimens of ancient pottery",
+"page": 692,
+"kind": "o"
+},
+{
+"fig": 282,
+"title": "Specimens of ancient pottery",
+"page": 692,
+"kind": "o"
+},
+{
+"fig": 283,
+"title": "Specimens of ancient pottery",
+"page": 692,
+"kind": "o"
+},
+{
+"fig": 284,
+"title": "Specimens of ancient pottery",
+"page": 692,
+"kind": "o"
+},
+{
+"fig": 285,
+"title": "Specimens of ancient pottery",
+"page": 692,
+"kind": "o"
+},
+{
+"fig": 286,
+"title": "Clay pipes",
+"page": 695,
+"kind": "o"
+},
+{
+"fig": 287,
+"title": "Specimens of weaving, from impressions on pottery",
+"page": 698,
+"kind": "o"
+},
+{
+"fig": 288,
+"title": "Specimens of weaving, from impressions on pottery",
+"page": 698,
+"kind": "o"
+},
+{
+"fig": 289,
+"title": "Specimens of cloth from mounds",
+"page": 700,
+"kind": "o"
+},
+{
+"fig": 290,
+"title": "Specimens of cloth from mounds",
+"page": 700,
+"kind": "o"
+},
+{
+"fig": 291,
+"title": "Parts of mica crescent",
+"page": 702,
+"kind": "o"
+},
+{
+"fig": 292,
+"title": "Cutting and piercing tools of copper \u2018",
+"page": 714,
+"kind": "o"
+},
+{
+"fig": 293,
+"title": "Copper hatchets or celts",
+"page": 714,
+"kind": "o"
+},
+{
+"fig": 294,
+"title": "Copper plate, with cloth adhering",
+"page": 715,
+"kind": "o"
+},
+{
+"fig": 295,
+"title": "Copper ornaments, battered out of form",
+"page": 716,
+"kind": "o"
+},
+{
+"fig": 296,
+"title": "Copper ornaments, battered out of form",
+"page": 716,
+"kind": "o"
+},
+{
+"fig": 297,
+"title": "Copper ear-ornaments",
+"page": 718,
+"kind": "o"
+},
+{
+"fig": 298,
+"title": "Antlers of wood, covered with copper, from Hopewell\u2019s",
+"page": 719,
+"kind": "o"
+},
+{
+"fig": 299,
+"title": "Copper symbolic figures, from Hopewell\u2019s",
+"page": 720,
+"kind": "o"
+},
+{
+"fig": 300,
+"title": "Copper symbolic figures, from Hopewell\u2019s",
+"page": 720,
+"kind": "o"
+},
+{
+"fig": 301,
+"title": "Copper eagle, from Peoria",
+"page": 722,
+"kind": "o"
+},
+{
+"fig": 302,
+"title": "Copper plates of Mexican design, from Georgia",
+"page": 723,
+"kind": "o"
+},
+{
+"fig": 303,
+"title": "Copper plates of Mexican design, from Georgia",
+"page": 723,
+"kind": "o"
+}
+]
+}

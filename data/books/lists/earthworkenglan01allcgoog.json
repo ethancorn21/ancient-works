@@ -1,0 +1,1259 @@
+{
+"plates": null,
+"figures": [
+{
+"fig": 1,
+"title": "Camp on Trevalgoy Head, Newquay, Cornwall",
+"page": null,
+"kind": "s",
+"page_ocr": 62,
+"kind_by": "hand"
+},
+{
+"fig": 2,
+"title": "Camp at Eamsheugh, St. Abb's Head {afUr Dr. Chridi;ton)",
+"page": 53,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 3,
+"title": "Camp on Embury Beacon, Welcombe, Devon",
+"page": 54,
+"kind": "s"
+},
+{
+"fig": 4,
+"title": "Blacker's Hill Camp, Downside, Somerset",
+"page": 59,
+"kind": "s"
+},
+{
+"fig": 5,
+"title": "Camps at Clifton, Bristol",
+"page": 63,
+"kind": "s"
+},
+{
+"fig": 6,
+"title": "Carl's Wark Camp, Hathersage Moor, Derbyshire",
+"page": 66,
+"kind": "s"
+},
+{
+"fig": 7,
+"title": "Dyke Hills, Dorchester, Oxon",
+"page": 67,
+"kind": "s"
+},
+{
+"fig": 8,
+"title": "Ponter's Ball, Glastonbury",
+"page": 69,
+"kind": "s"
+},
+{
+"fig": 9,
+"title": "Castle Hill Camp, Clatworthy, Somerset",
+"page": 76,
+"kind": "s"
+},
+{
+"fig": 10,
+"title": "Pulpit Hill Camp, Great Kimble, Bucks",
+"page": 78,
+"kind": "s"
+},
+{
+"fig": 11,
+"title": "Winkelbury Camp, Tisbury, Wilts",
+"page": 82,
+"kind": "s"
+},
+{
+"fig": 12,
+"title": "Hembury Fort, Honiton, Devon",
+"page": 85,
+"kind": "s"
+},
+{
+"fig": 13,
+"title": "Castle Neroche, Somerset",
+"page": 87,
+"kind": "s"
+},
+{
+"fig": 14,
+"title": "Csesar's Camp, Easthampstead, Berks",
+"page": 90,
+"kind": "s"
+},
+{
+"fig": 15,
+"title": "Ham Hill Camp, Montacute, Somerset",
+"page": 92,
+"kind": "s"
+},
+{
+"fig": 16,
+"title": "South Cadbury Camp, Sutton Montis, Somerset",
+"page": 95,
+"kind": "s"
+},
+{
+"fig": 17,
+"title": "Camp, Old Oswestry, Salop",
+"page": 96,
+"kind": "s"
+},
+{
+"fig": 18,
+"title": "Maiden Castle, Dorchester",
+"page": 101,
+"kind": "s"
+},
+{
+"fig": 19,
+"title": "Eggardon Camp, Bridport, Dorset",
+"page": 105,
+"kind": "s"
+},
+{
+"fig": 20,
+"title": "Camp on Pillesdon Pen, Beaminster, Dorset",
+"page": 107,
+"kind": "s"
+},
+{
+"fig": 21,
+"title": "Badbury Rings, Wimbome, Dorset",
+"page": 109,
+"kind": "s"
+},
+{
+"fig": 22,
+"title": "Cadbury Castle, Tiverton",
+"page": 111,
+"kind": "s"
+},
+{
+"fig": 23,
+"title": "Bury Castle, Selworthy, Somerset",
+"page": 113,
+"kind": "s"
+},
+{
+"fig": 24,
+"title": "Shoulsbury Castle, Exmoor",
+"page": 114,
+"kind": "s"
+},
+{
+"fig": 25,
+"title": "Cranbrook Castle, More ton Hampstead",
+"page": 116,
+"kind": "s"
+},
+{
+"fig": 26,
+"title": "Old Burrow, Countisbury, Devon",
+"page": 117,
+"kind": "s"
+},
+{
+"fig": 27,
+"title": "Old Sarum, WiltH",
+"page": 119,
+"kind": "s"
+},
+{
+"fig": 28,
+"title": "The Herefordshire Beacon, Great Malvern",
+"page": 122,
+"kind": "s"
+},
+{
+"fig": 29,
+"title": "Powerstock Ca-stle, Dorset V",
+"page": null,
+"kind": "s",
+"page_ocr": 2
+},
+{
+"fig": 30,
+"title": "Yambury Camp, WinterlMiurne Stoke, Wilt.s",
+"page": 126,
+"kind": "s"
+},
+{
+"fig": 31,
+"title": "Hunsbury Camp, Northant\u00ab",
+"page": 127,
+"kind": "s"
+},
+{
+"fig": 32,
+"title": "Anibresbury Banks, Epping Fnre.st 12*.\u00bb ;i*3. Enclosure on Roomer Common, Ma.sham, Yorks",
+"page": 131,
+"kind": "s"
+},
+{
+"fig": 34,
+"title": "Camp on Hawsett M(M)r, Dallowgill, Yorks I'W",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 35,
+"title": "Cholesbury Camp, Cheshani, Bucks IX)",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 36,
+"title": "Ring-work in HckI Hill Camp, Blaudford",
+"page": 140,
+"kind": "s"
+},
+{
+"fig": 37,
+"title": "Enclosure on Martin Down, Cranlx)rne",
+"page": 144,
+"kind": "s"
+},
+{
+"fig": 38,
+"title": "Enclosure in Loose Bottom, Falmer, Sussex",
+"page": 144,
+"kind": "s"
+},
+{
+"fig": 39,
+"title": "Enclosure, Wilts {after Maeit-ather)",
+"page": 148,
+"kind": "s"
+},
+{
+"fig": 44,
+"title": "SoldierH King, South Damurhaiu, Wilts l't",
+"page": null,
+"kind": "s",
+"page_ocr": 2
+},
+{
+"fig": 45,
+"title": "Siege-lines (^ Roman) at Birrenswark, AnnantlfiU",
+"page": 161,
+"kind": "s"
+},
+{
+"fig": 46,
+"title": "Diagram to illustrate proportion of height to mass in a Vallum . li>",
+"page": null,
+"kind": "o",
+"page_ocr": 3
+},
+{
+"fig": 47,
+"title": "Diagram of Valla on Slopes of lO'' and 20",
+"page": 163,
+"kind": "o"
+},
+{
+"fig": 48,
+"title": "Camp cm Brent Knoll, Somerset",
+"page": 164,
+"kind": "s"
+},
+{
+"fig": 49,
+"title": "Sections of various Terraces and Parapets ^",
+"page": 165,
+"kind": "o"
+},
+{
+"fig": 50,
+"title": "Camp at Ringknowes, Pee})les,shire KHJ",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 51,
+"title": "Section of Vallum, West Wyccmibe, Bucks ir\u00bb",
+"page": null,
+"kind": "o",
+"page_ocr": 7
+},
+{
+"fig": 52,
+"title": "Sections of pre-Roman Ditches",
+"page": 170,
+"kind": "o"
+},
+{
+"fig": 53,
+"title": "Sections of various Berms",
+"page": 172,
+"kind": "o"
+},
+{
+"fig": 54,
+"title": "A. \u2014 E. Sections of dry-built Walls",
+"page": 174,
+"kind": "o"
+},
+{
+"fig": 55,
+"title": "Grim's Pound, Moret<m Hampstead",
+"page": null,
+"kind": "s",
+"page_ocr": 178
+},
+{
+"fig": 57,
+"title": "Camp in Eynsham Park, Oxon IM",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 58,
+"title": "Caynham Camp, Ludlow ,1^",
+"page": null,
+"kind": "s",
+"page_ocr": 5
+},
+{
+"fig": 59,
+"title": "East Gateway, Dumpton Great Camp, Luppitt, Devon . 1H",
+"page": null,
+"kind": "s",
+"page_ocr": 9
+},
+{
+"fig": 60,
+"title": "Holne (Miase Castle, Ashlmrton, Devon I-^",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 61,
+"title": "South-west Gate, Burroui^h-cm-tlie-Hill, Leicestorshiru",
+"page": 191,
+"kind": "s"
+},
+{
+"fig": 62,
+"title": "Grimsbury Castle, Hampstead Norris, Berks",
+"page": 192,
+"kind": "s"
+},
+{
+"fig": 63,
+"title": "Dudsbury Camp, Wimborne {after Warne)",
+"page": 193,
+"kind": "s"
+},
+{
+"fig": 64,
+"title": "Muzbury Camp, Axminster, Devon",
+"page": 193,
+"kind": "s"
+},
+{
+"fig": 65,
+"title": "North-East Gate, Hod HiU, Blandford",
+"page": 194,
+"kind": "s"
+},
+{
+"fig": 66,
+"title": "Camp at Buckbind Brewer, Great Torringtttb, Devon",
+"page": 195,
+"kind": "s"
+},
+{
+"fig": 67,
+"title": "South Ditch and Mound, Bjittlesbury Camp, Warminster, Wilts",
+"page": 196,
+"kind": "s"
+},
+{
+"fig": 68,
+"title": "Ea.st Gate, Battleabury",
+"page": 197,
+"kind": "s"
+},
+{
+"fig": 69,
+"title": "Bat's Ctistle, and Gallox Hill, Dunster, Someraet",
+"page": 198,
+"kind": "s"
+},
+{
+"fig": 70,
+"title": "Blackljury Castle, Southleigh, Devon",
+"page": 199,
+"kind": "s"
+},
+{
+"fig": 71,
+"title": "Gateway, Rink Hill, Selkirk (afkr Dr, Chriduon)",
+"page": null,
+"kind": "s",
+"page_ocr": 2
+},
+{
+"fig": 72,
+"title": "Pitfall at Mem bury Camp, Axminster, Devon",
+"page": 201,
+"kind": "s"
+},
+{
+"fig": 73,
+"title": "Blind Entry at Berry Castle, Huntshaw, Devon",
+"page": 201,
+"kind": "s"
+},
+{
+"fig": 74,
+"title": "Buzbury Camp, Blandford (inset after Warne)",
+"page": 202,
+"kind": "s"
+},
+{
+"fig": 76,
+"title": "Camp at Cockbum Law, Berwickshire {after Dr. Chridi4son)",
+"page": 203,
+"kind": "s"
+},
+{
+"fig": 78,
+"title": "Ground plan oi Hut, Anglesey",
+"page": 225,
+"kind": "s"
+},
+{
+"fig": 79,
+"title": "Group of Huts, IVe'r Ceiri, Caemai'vonshire",
+"page": 227,
+"kind": "s"
+},
+{
+"fig": 80,
+"title": "C/istell Caer Seit)n, Conway Mountain",
+"page": 228,
+"kind": "s"
+},
+{
+"fig": 81,
+"title": "Group of ruined Huts, Llanfairfechan, Caernarvonshire",
+"page": 230,
+"kind": "s"
+},
+{
+"fig": 82,
+"title": "A modem Shoepfold, Dallowgill Moor, Ripon",
+"page": 231,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 83,
+"title": "Baghan Galldair, Inverness {after Dr. Ch)nstison)",
+"page": 232,
+"kind": "s"
+},
+{
+"fig": 84,
+"title": "Baghan Burlach, Inverness {after Dr. ChrUtison)",
+"page": 233,
+"kind": "s"
+},
+{
+"fig": 85,
+"title": "Bodennar Crell&s, Chftn Castle, Cornwall {after Boiiase)",
+"page": 235,
+"kind": "s"
+},
+{
+"fig": 86,
+"title": "Ch<in Castle, Cornwall {after Borlam)",
+"page": 237,
+"kind": "s"
+},
+{
+"fig": 87,
+"title": "Castell-an-Dinas, Cornwall {after Cotton)",
+"page": 239,
+"kind": "s"
+},
+{
+"fig": 88,
+"title": "Sections of various Huts frestored)",
+"page": 245,
+"kind": "o"
+},
+{
+"fig": 89,
+"title": "British Village on Hampton Down, Bath",
+"page": 262,
+"kind": "s"
+},
+{
+"fig": 90,
+"title": "Section of Dewpond",
+"page": 273,
+"kind": "o"
+},
+{
+"fig": 91,
+"title": "Ponds and Earthworks, Chanctonbury Ring, Sussex",
+"page": 280,
+"kind": "s"
+},
+{
+"fig": 92,
+"title": "Sections of Roman Ditches",
+"page": 296,
+"kind": "o"
+},
+{
+"fig": 93,
+"title": "Roman Works, Kirkbuddo, Strathearn (after Hoy)",
+"page": 297,
+"kind": "s"
+},
+{
+"fig": 94,
+"title": "Roman Wt)rks, Rae Dykes, Ury {after Roy)",
+"page": 298,
+"kind": "s"
+},
+{
+"fig": 95,
+"title": "Roman Works, Kreiginthorpe, Kirkby Thore {after Hoy)",
+"page": 299,
+"kind": "s"
+},
+{
+"fig": 96,
+"title": "Roman Works, Rey Cross, Stanmoor {after Roy)",
+"page": 299,
+"kind": "s"
+},
+{
+"fig": 97,
+"title": "Cawthorn Camps, Pickering, Yorks",
+"page": 302,
+"kind": "s"
+},
+{
+"fig": 98,
+"title": "Roman Works at Pigwn, Merionethshire",
+"page": 303,
+"kind": "s"
+},
+{
+"fig": 99,
+"title": "Roman Works at Dealgin Ross, Strathearn {after Roy)",
+"page": 303,
+"kind": "s"
+},
+{
+"fig": 100,
+"title": "Earthwork at Bossens, St. Erth, Cornwall",
+"page": 306,
+"kind": "s"
+},
+{
+"fig": 101,
+"title": "Roman Camp, Grewelthorpe, Yorkn",
+"page": 307,
+"kind": "s"
+},
+{
+"fig": 102,
+"title": "Circular VVork\u00ab, Strageath {from Dr, Chi-i^ison)",
+"page": 311,
+"kind": "s"
+},
+{
+"fig": 103,
+"title": "Earthwork on Muswell Hill, Brill, Bucks",
+"page": 314,
+"kind": "s"
+},
+{
+"fig": 104,
+"title": "Castlo Hill Camp, Great Missenden, Bucks",
+"page": 315,
+"kind": "s"
+},
+{
+"fig": 105,
+"title": "King Arthur's Hall, Leaze, Cornwall",
+"page": 317,
+"kind": "s"
+},
+{
+"fig": 106,
+"title": "Burgh Castle (Garianonum), Great Yarmouth",
+"page": 322,
+"kind": "s"
+},
+{
+"fig": 107,
+"title": "Melandra, Derbyshire",
+"page": 323,
+"kind": "s"
+},
+{
+"fig": 108,
+"title": "Castle Dykes, Ripon",
+"page": 325,
+"kind": "s"
+},
+{
+"fig": 110,
+"title": "The Same: Plan of N.E. and N.W. Angles, and Enlarged Sections of E., N., and W. Sides {after Dr. Christuion)",
+"page": 332,
+"kind": "s"
+},
+{
+"fig": 111,
+"title": "Silchester (Calleva Attrebatum), Berks i^",
+"page": null,
+"kind": "s",
+"page_ocr": 7
+},
+{
+"fig": 112,
+"title": "Hod Hill and Lydsbury Rings, Blandford ;i",
+"page": null,
+"kind": "s",
+"page_ocr": 62
+},
+{
+"fig": 113,
+"title": "Gannock's Castle, Tempsford, Beds",
+"page": 386,
+"kind": "s"
+},
+{
+"fig": 114,
+"title": "Danes' Camp, Willington, Beds",
+"page": 386,
+"kind": "s"
+},
+{
+"fig": 115,
+"title": "Hasten 's Camp, Shoebury, Essex",
+"page": 389,
+"kind": "s"
+},
+{
+"fig": 116,
+"title": "Kenwith's Castle, Bideford, Devon",
+"page": null,
+"kind": "s",
+"page_ocr": 3
+},
+{
+"fig": 117,
+"title": "The Burh, Witham, Essex",
+"page": 393,
+"kind": "s"
+},
+{
+"fig": 118,
+"title": "The Old Pale, Eddisbury, Cheshire",
+"page": 394,
+"kind": "s"
+},
+{
+"fig": 119,
+"title": "Clifford's HUl, Northants",
+"page": 404,
+"kind": "s"
+},
+{
+"fig": 120,
+"title": "Norman Earthwork, Brides tow, Devon",
+"page": 405,
+"kind": "s"
+},
+{
+"fig": 121,
+"title": "Durpley Castle, Shebbear, Devon",
+"page": 406,
+"kind": "s"
+},
+{
+"fig": 122,
+"title": "Cranmer's Mount, Aslockton, Notts",
+"page": 406,
+"kind": "s"
+},
+{
+"fig": 123,
+"title": "Norman Work at Wembworthy, Chumleigh, Devon",
+"page": 407,
+"kind": "s"
+},
+{
+"fig": 124,
+"title": "Another",
+"page": 407,
+"kind": "s"
+},
+{
+"fig": 125,
+"title": "Mexborough Castle, Yorks",
+"page": 408,
+"kind": "s"
+},
+{
+"fig": 126,
+"title": "Builth Castle, Breconshire",
+"page": 409,
+"kind": "s"
+},
+{
+"fig": 127,
+"title": "Ongar Castle, Essex",
+"page": 410,
+"kind": "s"
+},
+{
+"fig": 128,
+"title": "The Rings (Blackdown Camp), Loddiawell, Devon",
+"page": 410,
+"kind": "s"
+},
+{
+"fig": 129,
+"title": "Cymbeline's Mount, Little Kimble, Bucks",
+"page": 411,
+"kind": "s"
+},
+{
+"fig": 130,
+"title": "Porchester Castle, Hants",
+"page": 414,
+"kind": "s"
+},
+{
+"fig": 131,
+"title": "Defences of York, Roman, Norman, and Mediseval",
+"page": 415,
+"kind": "s"
+},
+{
+"fig": 132,
+"title": "Hembury Castle, Buckfastleigh, Devon",
+"page": 416,
+"kind": "s"
+},
+{
+"fig": 133,
+"title": "Tottemhoe, Beds",
+"page": 417,
+"kind": "s"
+},
+{
+"fig": 134,
+"title": "Ciesar's Camp, Folkestone",
+"page": 418,
+"kind": "s"
+},
+{
+"fig": 135,
+"title": "Castle Toll, Newenden, Kent",
+"page": 419,
+"kind": "s"
+},
+{
+"fig": 136,
+"title": "Ailcy Hill, Ripon",
+"page": 424,
+"kind": "s"
+},
+{
+"fig": 137,
+"title": "Richard's Castle, Herefordshire",
+"page": 430,
+"kind": "s"
+},
+{
+"fig": 140,
+"title": "Skenfrith Castle, Monmouthshire",
+"page": 434,
+"kind": "s"
+},
+{
+"fig": 141,
+"title": "Arundel Castle, Sussex",
+"page": null,
+"kind": "s",
+"page_ocr": 4
+},
+{
+"fig": 142,
+"title": "Kat-on Socon, Beds 4i^",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 143,
+"title": "Bol})ec Cjistle, Whitchurch, Bucks",
+"page": 437,
+"kind": "s"
+},
+{
+"fig": 144,
+"title": "Beaumaris Castle, Anglesey",
+"page": 439,
+"kind": "s"
+},
+{
+"fig": 145,
+"title": "Harlech Castle",
+"page": 439,
+"kind": "s"
+},
+{
+"fig": 146,
+"title": "Nunney Castle, Somerset",
+"page": 440,
+"kind": "s"
+},
+{
+"fig": 147,
+"title": "Castle of Arques, Normandy",
+"page": 441,
+"kind": "s"
+},
+{
+"fig": 148,
+"title": "Bur well Castle, Cambs",
+"page": 441,
+"kind": "s"
+},
+{
+"fig": 149,
+"title": "Desborough Castle, High Wycombe, Bucks",
+"page": 442,
+"kind": "s"
+},
+{
+"fig": 150,
+"title": "William's HUl, Middleham, Yorks",
+"page": 445,
+"kind": "s"
+},
+{
+"fig": 151,
+"title": "Cock Lodge and Maiden Bower, Topclifle, Yorks",
+"page": 446,
+"kind": "s"
+},
+{
+"fig": 152,
+"title": "Earthworks in Magdalen Field, West Tanfield, Yorks",
+"page": 448,
+"kind": "s"
+},
+{
+"fig": 153,
+"title": "Moat at Grove Farm, Terrick's Cross, Bucks 460 164. Moat at Little Pednor, Chesham, Bucks",
+"page": 461,
+"kind": "s"
+},
+{
+"fig": 155,
+"title": "Moated Site, Givendale, Ri[)on",
+"page": 462,
+"kind": "s"
+},
+{
+"fig": 156,
+"title": "Moated Site, Nash Lee, Wendover, Bucks 46",
+"page": null,
+"kind": "s",
+"page_ocr": 3
+},
+{
+"fig": 157,
+"title": "Moats, Apsley, Wendover, Bucks",
+"page": 464,
+"kind": "s"
+},
+{
+"fig": 158,
+"title": "Moated Site, Great Kimble, Bucks",
+"page": 465,
+"kind": "s"
+},
+{
+"fig": 162,
+"title": "Moat and Earthwrjrks, Reddingwick W^ood, Great Missenden, Bucks",
+"page": 472,
+"kind": "s"
+},
+{
+"fig": 163,
+"title": "Moat and Earthworks, Bray's Wood, Great Missenden",
+"page": 473,
+"kind": "s"
+},
+{
+"fig": 164,
+"title": "Norman and later Earthworks at Little Kimljle, Bucks 476 1C5. Moated Sites at Saunderton, Bucks",
+"page": 477,
+"kind": "s"
+},
+{
+"fig": 166,
+"title": "Fortified Manor Site, Sil^thorpe, Notts",
+"page": 478,
+"kind": "s"
+},
+{
+"fig": 167,
+"title": "Moated Sites, Walkingham Hall, Knaresborough, Yorks",
+"page": 481,
+"kind": "s"
+},
+{
+"fig": 168,
+"title": "Moat\u00abd Sites, Shenley Church End, Bletchley",
+"page": 482,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 169,
+"title": "Double Moat, Grove Farm, Ashley Green, Chesham, Bucks",
+"page": 484,
+"kind": "s"
+},
+{
+"fig": 172,
+"title": "Fish-ponds, L;ingley Marish, Bucks",
+"page": 489,
+"kind": "s"
+},
+{
+"fig": 173,
+"title": "Fish-ponds at Flam borough, Yorks",
+"page": 490,
+"kind": "s"
+},
+{
+"fig": 174,
+"title": "Moated Sites and l<'iHh-iK)iidH, Rollenton, NottH",
+"page": 490,
+"kind": "s"
+},
+{
+"fig": 175,
+"title": "Fish-ponds at Sibthorpe, Notts",
+"page": 491,
+"kind": "s"
+},
+{
+"fig": 176,
+"title": "The Cambridgeshire Dykes",
+"page": 507,
+"kind": "s"
+},
+{
+"fig": 177,
+"title": "Disc-Barrow, Hunter's Rest, Priddy, Somerset",
+"page": 528,
+"kind": "s"
+},
+{
+"fig": 178,
+"title": "Disc-Barrows on I^wes Down, Sussex",
+"page": 529,
+"kind": "s"
+},
+{
+"fig": 179,
+"title": "Disc-Barrow on Haddon Hill, KxuKKjr 5:^",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 183,
+"title": "Mediaeval Village-site (** Cn>w Close\"), Bingham, Notts",
+"page": 552,
+"kind": "s"
+},
+{
+"fig": 184,
+"title": "Earthworks : A, at rtfculme, Devon ; B, on Brow Down, Dorset",
+"page": 554,
+"kind": "s"
+},
+{
+"fig": 185,
+"title": "Cruciform Earthwork at Banwell, Somerset",
+"page": 555,
+"kind": "s"
+},
+{
+"fig": 186,
+"title": "Earthworks near Cottenhaiii, Cambs",
+"page": 557,
+"kind": "s"
+},
+{
+"fig": 187,
+"title": "Earthworks of Avebury, Wilts",
+"page": null,
+"kind": "s",
+"page_ocr": 500
+},
+{
+"fig": 188,
+"title": "Earthworks of Stonehenge",
+"page": null,
+"kind": "s",
+"page_ocr": 561
+},
+{
+"fig": 189,
+"title": "Ring works at Priddy, Mendip Hills 5f)",
+"page": null,
+"kind": "s",
+"page_ocr": 3
+},
+{
+"fig": 190,
+"title": "Earthworks at Knowlton, Dorset 54>",
+"page": null,
+"kind": "s",
+"page_ocr": 5
+},
+{
+"fig": 191,
+"title": "Thombrough, Ripon : plan of the Nortliern Ring 5<>",
+"page": null,
+"kind": "s",
+"page_ocr": 8
+},
+{
+"fig": 192,
+"title": "Thoi-nbrough : section of original and present-day fusses",
+"page": 570,
+"kind": "o"
+},
+{
+"fig": 193,
+"title": "Figsbury Ring (Chl\u00ab>rus' Camp), Salisbury",
+"page": null,
+"kind": "s",
+"page_ocr": 575
+},
+{
+"fig": 194,
+"title": "Ai-bor Low, Youlgrave, Derl)yshire",
+"page": null,
+"kind": "s",
+"page_ocr": 570
+},
+{
+"fig": 195,
+"title": "Castle Dyke, Aysgai-th, Yorks",
+"page": null,
+"kind": "s",
+"page_ocr": 57
+},
+{
+"fig": 196,
+"title": "Voley Castle, Parracombe, Devon",
+"page": null,
+"kind": "s",
+"page_ocr": 57
+},
+{
+"fig": 197,
+"title": "Rectangular Earthwork at Phishetts, NorthumlKilaiid 5H",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 198,
+"title": "Studfold Ring, Ampleforth, Yorks",
+"page": 580,
+"kind": "s"
+},
+{
+"fig": 199,
+"title": "The Stripple Stones, Blisland, Cornwall",
+"page": 581,
+"kind": "s"
+},
+{
+"fig": 200,
+"title": "Burrington Camp, Somerset",
+"page": 583,
+"kind": "s"
+},
+{
+"fig": 201,
+"title": "Maumbury Rings, Dorchester",
+"page": 585,
+"kind": "s"
+},
+{
+"fig": 202,
+"title": "The Amphitheatre, Silchester",
+"page": null,
+"kind": "s",
+"page_ocr": 587
+},
+{
+"fig": 203,
+"title": "So-called Amphitheatre, Charterhouse-on-Mendip",
+"page": null,
+"kind": "s",
+"page_ocr": 500
+},
+{
+"fig": 204,
+"title": "The Castell, Llanidan, Anglesey .\"ilU",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 205,
+"title": "The Cockpit, Chislehurst, Kent",
+"page": null,
+"kind": "s",
+"page_ocr": 5
+},
+{
+"fig": 206,
+"title": "The Queen's Sconce, Newark, Notts \u00abi",
+"page": null,
+"kind": "s",
+"page_ocr": 5
+},
+{
+"fig": 207,
+"title": "The Bulwark, Earith, Cambs (;<K>",
+"page": null,
+"kind": "s"
+},
+{
+"fig": 208,
+"title": "Various Siege- works before Newark, Notts",
+"page": null,
+"kind": "s",
+"page_ocr": 7
+},
+{
+"fig": 209,
+"title": "Siege-work of the Scot^s, Newark",
+"page": null,
+"kind": "s",
+"page_ocr": 8
+},
+{
+"fig": 210,
+"title": "Cambridge Castle in U'Ali",
+"page": null,
+"kind": "s",
+"page_ocr": 9
+},
+{
+"fig": 211,
+"title": "Duck-pond (Eighteenth Century) on Ilutton Moor, Ripon",
+"page": 613,
+"kind": "o"
+},
+{
+"fig": 212,
+"title": "Burpham Camp, Arundel, Sussex",
+"page": 642,
+"kind": "s"
+},
+{
+"fig": 213,
+"title": "Highdown Camp, Worthing",
+"page": 646,
+"kind": "s"
+},
+{
+"fig": 214,
+"title": "Cissbury, Worthing",
+"page": 647,
+"kind": "s"
+},
+{
+"fig": 215,
+"title": "*' The Roman Ditches,'' Steep Down, Worthing",
+"page": 655,
+"kind": "s"
+},
+{
+"fig": 216,
+"title": "Edburt<jn Castle, near Brighton",
+"page": null,
+"kind": "s",
+"page_ocr": 66
+},
+{
+"fig": 217,
+"title": "The Devil's Dyke Camp, near Brighton",
+"page": 663,
+"kind": "s"
+},
+{
+"fig": 218,
+"title": "** The Giants' Graves,\" Devil's Dyke, Brighton",
+"page": 666,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 219,
+"title": "Ditchling Beacon Camp",
+"page": 668,
+"kind": "s"
+},
+{
+"fig": 220,
+"title": "SeafordCamp",
+"page": 673,
+"kind": "s"
+},
+{
+"fig": 221,
+"title": "Camp on East Hill, Hastings",
+"page": 674,
+"kind": "s"
+},
+{
+"fig": 222,
+"title": "Camp on Combe Hill, Willingdon",
+"page": 675,
+"kind": "s"
+},
+{
+"fig": 223,
+"title": "Mount Caburn, Lewes",
+"page": 677,
+"kind": "s"
+},
+{
+"fig": 224,
+"title": "Dolebury, Axbridge, Somerset",
+"page": 686,
+"kind": "s"
+}
+]
+}

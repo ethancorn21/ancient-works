@@ -1,0 +1,896 @@
+{"n": 2, "leaf": 3, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [839, 1400]}
+{"n": 7, "leaf": 8, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [851, 1400]}
+{"n": 6, "leaf": 7, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [839, 1401]}
+{"n": 4, "leaf": 5, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [839, 1400]}
+{"n": 5, "leaf": 6, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [851, 1400]}
+{"n": 1, "leaf": 2, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [839, 1400]}
+{"n": 8, "leaf": 9, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [839, 1401]}
+{"n": 0, "leaf": 1, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [880, 1400]}
+{"n": 13, "leaf": 14, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [851, 1400]}
+{"n": 15, "leaf": 16, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [851, 1400]}
+{"n": 14, "leaf": 15, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [839, 1401]}
+{"n": 11, "leaf": 12, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [851, 1400]}
+{"n": 9, "leaf": 10, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [851, 1400]}
+{"n": 12, "leaf": 13, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [839, 1401]}
+{"n": 10, "leaf": 11, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [839, 1401]}
+{"n": 16, "leaf": 17, "out": {"page_type": "text_only", "numbers": ["IX"], "caption": "CONTENTS."}, "parse": "ok", "s": 1.9, "img_size": [839, 1401]}
+{"n": 17, "leaf": 18, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 11.3, "img_size": [851, 1400]}
+{"n": 23, "leaf": 24, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"213\",\n    \"214\",\n    \"215\",\n    \"216\",\n    \"217\",\n    \"218\",\n    \"219\",\n    \"220\",\n    \"221\",\n    \"222\",\n    \"223\",\n    \"224\",\n    \"225\",\n    \"226\",\n    \"227\",\n    \"228\",\n    \"229\",\n    \"230\",\n    \"231\",\n    \"232\",\n    \"233\",\n    \"234\",\n    \"235\",\n    \"236\",\n    \"237\",\n    \"238\",\n    \"239\",\n    \"240\",\n    \"241\",\n    \"242\",\n    \"243\",\n    \"244\",\n    \"245\",\n    \"246\",\n    \"247\",\n    \"248\",\n    \"249\",\n    \"250\",\n    \"251\",\n    \"252\","}, "parse": "unparsed", "s": 25.7, "img_size": [851, 1400]}
+{"n": 24, "leaf": 25, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"265\",\n    \"266\",\n    \"267\",\n    \"268\",\n    \"269\",\n    \"270\",\n    \"271\",\n    \"272\",\n    \"273\",\n    \"274\",\n    \"275\",\n    \"276\",\n    \"277\",\n    \"278\",\n    \"279\",\n    \"280\",\n    \"281\",\n    \"282\",\n    \"283\",\n    \"284\",\n    \"285\",\n    \"286\",\n    \"287\",\n    \"288\",\n    \"289\",\n    \"290\",\n    \"291\",\n    \"292\",\n    \"293\",\n    \"294\",\n    \"295\",\n    \"296\",\n    \"297\",\n    \"298\",\n    \"299\",\n    \"300\",\n    \"301\",\n    \"302\",\n    \"303\",\n    \"304\","}, "parse": "unparsed", "s": 15.5, "img_size": [839, 1401]}
+{"n": 26, "leaf": 27, "out": {"page_type": "text_only", "numbers": ["XIX"], "caption": "REPORT OF THE DIRECTOR"}, "parse": "ok", "s": 1.8, "img_size": [839, 1401]}
+{"n": 21, "leaf": 22, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"109\",\n    \"110\",\n    \"111\",\n    \"112\",\n    \"113\",\n    \"114\",\n    \"115\",\n    \"116\",\n    \"117\",\n    \"118\",\n    \"119\",\n    \"120\",\n    \"121\",\n    \"122\",\n    \"123\",\n    \"124\",\n    \"125\",\n    \"126\",\n    \"127\",\n    \"128\",\n    \"129\",\n    \"130\",\n    \"131\",\n    \"132\",\n    \"133\",\n    \"134\",\n    \"135\",\n    \"136\",\n    \"137\",\n    \"138\",\n    \"139\",\n    \"140\",\n    \"141\",\n    \"142\",\n    \"143\",\n    \"144\",\n    \"145\",\n    \"146\",\n    \"147\",\n    \"148\","}, "parse": "unparsed", "s": 31.7, "img_size": [851, 1400]}
+{"n": 27, "leaf": 28, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [851, 1400]}
+{"n": 19, "leaf": 20, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"1\",\n    \"2\",\n    \"3\",\n    \"4\",\n    \"5\",\n    \"6\",\n    \"7\",\n    \"8\",\n    \"9\",\n    \"10\",\n    \"11\",\n    \"12\",\n    \"13\",\n    \"14\",\n    \"15\",\n    \"16\",\n    \"17\",\n    \"18\",\n    \"19\",\n    \"20\",\n    \"21\",\n    \"22\",\n    \"23\",\n    \"24\",\n    \"25\",\n    \"26\",\n    \"27\",\n    \"28\",\n    \"29\",\n    \"30\",\n    \"31\",\n    \"32\",\n    \"33\",\n    \"34\",\n    \"35\",\n    \"36\",\n    \"37\",\n    \"38\",\n    \"39\",\n    \"40\",\n    \"41\",\n    \"42\",\n    \"43\",\n    \"44\",\n    \"45\",\n    \"46\",\n    \"47\",\n    \"48\","}, "parse": "unparsed", "s": 33.4, "img_size": [851, 1400]}
+{"n": 29, "leaf": 30, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [851, 1400]}
+{"n": 20, "leaf": 21, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"XIII\",\n    \"Fig. 55\",\n    \"56\",\n    \"57\",\n    \"58\",\n    \"59\",\n    \"60\",\n    \"61\",\n    \"62\",\n    \"63\",\n    \"64\",\n    \"65\",\n    \"66\",\n    \"67\",\n    \"68\",\n    \"69\",\n    \"70\",\n    \"71\",\n    \"72\",\n    \"73\",\n    \"74\",\n    \"75\",\n    \"76\",\n    \"77\",\n    \"78\",\n    \"79\",\n    \"80\",\n    \"81\",\n    \"82\",\n    \"83\",\n    \"84\",\n    \"85\",\n    \"86\",\n    \"87\",\n    \"88\",\n    \"89\",\n    \"90\",\n    \"91\",\n    \"92\",\n    \"93\",\n    \"94\",\n    \"95\",\n    \"96\",\n    \"97\",\n    \"98\",\n    \"99\","}, "parse": "unparsed", "s": 34.3, "img_size": [839, 1401]}
+{"n": 22, "leaf": 23, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"161\",\n    \"162\",\n    \"163\",\n    \"164\",\n    \"165\",\n    \"166\",\n    \"167\",\n    \"168\",\n    \"169\",\n    \"170\",\n    \"171\",\n    \"172\",\n    \"173\",\n    \"174\",\n    \"175\",\n    \"176\",\n    \"177\",\n    \"178\",\n    \"179\",\n    \"180\",\n    \"181\",\n    \"182\",\n    \"183\",\n    \"184\",\n    \"185\",\n    \"186\",\n    \"187\",\n    \"188\",\n    \"189\",\n    \"190\",\n    \"191\",\n    \"192\",\n    \"193\",\n    \"194\",\n    \"195\",\n    \"196\",\n    \"197\",\n    \"198\",\n    \"199\",\n    \"200\","}, "parse": "unparsed", "s": 34.2, "img_size": [839, 1401]}
+{"n": 25, "leaf": 26, "out": {"page_type": "text_only", "numbers": ["312", "313", "314", "315", "316", "317", "318", "319", "320", "321", "322", "323", "324", "325", "326", "327", "328", "329", "330", "331", "332", "333", "334", "335", "336", "337", "338", "339", "340", "341", "342", "343", "344"], "caption": ""}, "parse": "ok", "s": 9.5, "img_size": [851, 1400]}
+{"n": 31, "leaf": 32, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [851, 1400]}
+{"n": 28, "leaf": 29, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [839, 1401]}
+{"n": 30, "leaf": 31, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [839, 1401]}
+{"n": 34, "leaf": 35, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [839, 1401]}
+{"n": 35, "leaf": 36, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [851, 1400]}
+{"n": 32, "leaf": 33, "out": {"page_type": "text_only", "numbers": ["XXV"], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [839, 1401]}
+{"n": 33, "leaf": 34, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [851, 1400]}
+{"n": 36, "leaf": 37, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [839, 1401]}
+{"n": 38, "leaf": 39, "out": {"page_type": "text_only", "numbers": ["XXXI"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [839, 1401]}
+{"n": 39, "leaf": 40, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [851, 1400]}
+{"n": 37, "leaf": 38, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [851, 1400]}
+{"n": 44, "leaf": 45, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [839, 1401]}
+{"n": 46, "leaf": 47, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [839, 1401]}
+{"n": 40, "leaf": 41, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [839, 1401]}
+{"n": 47, "leaf": 48, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [851, 1400]}
+{"n": 41, "leaf": 42, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [851, 1400]}
+{"n": 3, "leaf": 4, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [839, 1400]}
+{"n": 42, "leaf": 43, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [839, 1401]}
+{"n": 45, "leaf": 46, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [851, 1400]}
+{"n": 49, "leaf": 50, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [851, 1400]}
+{"n": 51, "leaf": 52, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [851, 1400]}
+{"n": 54, "leaf": 55, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [826, 1401]}
+{"n": 48, "leaf": 49, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [839, 1401]}
+{"n": 55, "leaf": 56, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [851, 1400]}
+{"n": 50, "leaf": 51, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [839, 1401]}
+{"n": 56, "leaf": 57, "out": {"page_type": "text_only", "numbers": [], "caption": "ACCOMPANYING PAPER."}, "parse": "ok", "s": 3.3, "img_size": [826, 1401]}
+{"n": 52, "leaf": 53, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.7, "img_size": [839, 1401]}
+{"n": 53, "leaf": 54, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [851, 1400]}
+{"n": 60, "leaf": 61, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [826, 1401]}
+{"n": 58, "leaf": 59, "out": {"page_type": "text_only", "numbers": ["3"], "caption": "REPORT ON THE MOUND EXPLORATIONS OF THE BUREAU OF ETHNOLOGY. BY CYRUS THOMAS."}, "parse": "ok", "s": 3.6, "img_size": [826, 1401]}
+{"n": 57, "leaf": 58, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [826, 1400]}
+{"n": 59, "leaf": 60, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [826, 1400]}
+{"n": 61, "leaf": 62, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1400]}
+{"n": 62, "leaf": 63, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1401]}
+{"n": 63, "leaf": 64, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [826, 1400]}
+{"n": 64, "leaf": 65, "out": {"page_type": "text_only", "numbers": ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII"], "caption": "ILLUSTRATIONS."}, "parse": "ok", "s": 6.8, "img_size": [826, 1401]}
+{"n": 18, "leaf": 19, "out": {"page_type": "text_only", "numbers": ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII"], "caption": "ILLUSTRATIONS."}, "parse": "ok", "s": 6.0, "img_size": [839, 1401]}
+{"n": 71, "leaf": 72, "out": {"page_type": "text_only", "numbers": ["312", "313", "314", "315", "316", "317", "318", "319", "320", "321", "322", "323", "324", "325", "326", "327", "328", "329", "330", "331", "332", "333", "334", "335", "336", "337", "338", "339", "340", "341", "342", "343", "344"], "caption": "ILLUSTRATIONS."}, "parse": "ok", "s": 6.6, "img_size": [826, 1400]}
+{"n": 72, "leaf": 73, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.3, "img_size": [826, 1401]}
+{"n": 73, "leaf": 74, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [826, 1400]}
+{"n": 70, "leaf": 71, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"265\",\n    \"266\",\n    \"267\",\n    \"268\",\n    \"269\",\n    \"270\",\n    \"271\",\n    \"272\",\n    \"273\",\n    \"274\",\n    \"275\",\n    \"276\",\n    \"277\",\n    \"278\",\n    \"279\",\n    \"280\",\n    \"281\",\n    \"282\",\n    \"283\",\n    \"284\",\n    \"285\",\n    \"286\",\n    \"287\",\n    \"288\",\n    \"289\",\n    \"290\",\n    \"291\",\n    \"292\",\n    \"293\",\n    \"294\",\n    \"295\",\n    \"296\",\n    \"297\",\n    \"298\",\n    \"299\",\n    \"300\",\n    \"301\",\n    \"302\",\n    \"303\",\n    \"304\","}, "parse": "unparsed", "s": 14.5, "img_size": [826, 1401]}
+{"n": 69, "leaf": 70, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"213\",\n    \"214\",\n    \"215\",\n    \"216\",\n    \"217\",\n    \"218\",\n    \"219\",\n    \"220\",\n    \"221\",\n    \"222\",\n    \"223\",\n    \"224\",\n    \"225\",\n    \"226\",\n    \"227\",\n    \"228\",\n    \"229\",\n    \"230\",\n    \"231\",\n    \"232\",\n    \"233\",\n    \"234\",\n    \"235\",\n    \"236\",\n    \"237\",\n    \"238\",\n    \"239\",\n    \"240\",\n    \"241\",\n    \"242\",\n    \"243\",\n    \"244\",\n    \"245\",\n    \"246\",\n    \"247\",\n    \"248\",\n    \"249\",\n    \"250\",\n    \"251\",\n    \"252\","}, "parse": "unparsed", "s": 13.9, "img_size": [826, 1400]}
+{"n": 65, "leaf": 66, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"1\",\n    \"2\",\n    \"3\",\n    \"4\",\n    \"5\",\n    \"6\",\n    \"7\",\n    \"8\",\n    \"9\",\n    \"10\",\n    \"11\",\n    \"12\",\n    \"13\",\n    \"14\",\n    \"15\",\n    \"16\",\n    \"17\",\n    \"18\",\n    \"19\",\n    \"20\",\n    \"21\",\n    \"22\",\n    \"23\",\n    \"24\",\n    \"25\",\n    \"26\",\n    \"27\",\n    \"28\",\n    \"29\",\n    \"30\",\n    \"31\",\n    \"32\",\n    \"33\",\n    \"34\",\n    \"35\",\n    \"36\",\n    \"37\",\n    \"38\",\n    \"39\",\n    \"40\",\n    \"41\",\n    \"42\",\n    \"43\",\n    \"44\",\n    \"45\",\n    \"46\",\n    \"47\",\n    \"48\","}, "parse": "unparsed", "s": 20.8, "img_size": [826, 1400]}
+{"n": 66, "leaf": 67, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"55\",\n    \"56\",\n    \"57\",\n    \"58\",\n    \"59\",\n    \"60\",\n    \"61\",\n    \"62\",\n    \"63\",\n    \"64\",\n    \"65\",\n    \"66\",\n    \"67\",\n    \"68\",\n    \"69\",\n    \"70\",\n    \"71\",\n    \"72\",\n    \"73\",\n    \"74\",\n    \"75\",\n    \"76\",\n    \"77\",\n    \"78\",\n    \"79\",\n    \"80\",\n    \"81\",\n    \"82\",\n    \"83\",\n    \"84\",\n    \"85\",\n    \"86\",\n    \"87\",\n    \"88\",\n    \"89\",\n    \"90\",\n    \"91\",\n    \"92\",\n    \"93\",\n    \"94\",\n    \"95\",\n    \"96\",\n    \"97\",\n    \"98\",\n    \"99\",\n    \"100\",\n    \""}, "parse": "unparsed", "s": 20.8, "img_size": [826, 1401]}
+{"n": 67, "leaf": 68, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"109\",\n    \"110\",\n    \"111\",\n    \"112\",\n    \"113\",\n    \"114\",\n    \"115\",\n    \"116\",\n    \"117\",\n    \"118\",\n    \"119\",\n    \"120\",\n    \"121\",\n    \"122\",\n    \"123\",\n    \"124\",\n    \"125\",\n    \"126\",\n    \"127\",\n    \"128\",\n    \"129\",\n    \"130\",\n    \"131\",\n    \"132\",\n    \"133\",\n    \"134\",\n    \"135\",\n    \"136\",\n    \"137\",\n    \"138\",\n    \"139\",\n    \"140\",\n    \"141\",\n    \"142\",\n    \"143\",\n    \"144\",\n    \"145\",\n    \"146\",\n    \"147\",\n    \"148\","}, "parse": "unparsed", "s": 20.7, "img_size": [826, 1400]}
+{"n": 74, "leaf": 75, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [826, 1401]}
+{"n": 75, "leaf": 76, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.9, "img_size": [826, 1400]}
+{"n": 76, "leaf": 77, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1401]}
+{"n": 77, "leaf": 78, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 78, "leaf": 79, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [826, 1401]}
+{"n": 79, "leaf": 80, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [826, 1400]}
+{"n": 68, "leaf": 69, "out": {"_unparsed": "```json\n{\n  \"page_type\": \"text_only\",\n  \"numbers\": [\n    \"161\",\n    \"162\",\n    \"163\",\n    \"164\",\n    \"165\",\n    \"166\",\n    \"167\",\n    \"168\",\n    \"169\",\n    \"170\",\n    \"171\",\n    \"172\",\n    \"173\",\n    \"174\",\n    \"175\",\n    \"176\",\n    \"177\",\n    \"178\",\n    \"179\",\n    \"180\",\n    \"181\",\n    \"182\",\n    \"185\",\n    \"184\",\n    \"185\",\n    \"186\",\n    \"187\",\n    \"188\",\n    \"189\",\n    \"190\",\n    \"191\",\n    \"192\",\n    \"193\",\n    \"194\",\n    \"195\",\n    \"196\",\n    \"197\",\n    \"198\",\n    \"199\",\n    \"200\","}, "parse": "unparsed", "s": 20.7, "img_size": [826, 1401]}
+{"n": 80, "leaf": 81, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [826, 1401]}
+{"n": 81, "leaf": 82, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [826, 1400]}
+{"n": 82, "leaf": 83, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [826, 1401]}
+{"n": 87, "leaf": 88, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [826, 1400]}
+{"n": 83, "leaf": 84, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [826, 1400]}
+{"n": 86, "leaf": 87, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [826, 1401]}
+{"n": 85, "leaf": 86, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [826, 1400]}
+{"n": 84, "leaf": 85, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [826, 1401]}
+{"n": 88, "leaf": 89, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [826, 1401]}
+{"n": 89, "leaf": 90, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [826, 1400]}
+{"n": 90, "leaf": 91, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 1."], "caption": "Elongate mound, Souris river, Manitoba."}, "parse": "ok", "s": 2.6, "img_size": [826, 1401]}
+{"n": 96, "leaf": 97, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [826, 1401]}
+{"n": 97, "leaf": 98, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.6, "img_size": [826, 1400]}
+{"n": 95, "leaf": 96, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 3."], "caption": "Turtle figure, Hughes county, South Dakota."}, "parse": "ok", "s": 5.1, "img_size": [826, 1400]}
+{"n": 93, "leaf": 94, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [826, 1400]}
+{"n": 94, "leaf": 95, "out": {"page_type": "text_only", "numbers": ["Fig. 3"], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [826, 1401]}
+{"n": 91, "leaf": 92, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 2."], "caption": "Elongate mounds, Souris river, Manitoba."}, "parse": "ok", "s": 7.7, "img_size": [826, 1400]}
+{"n": 92, "leaf": 93, "out": {"page_type": "text_only", "numbers": ["Fig. 1"], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [826, 1401]}
+{"n": 43, "leaf": 44, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [851, 1400]}
+{"n": 99, "leaf": 100, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 4."], "caption": "Inclosures and mounds, Pipestone county, Minnesota."}, "parse": "ok", "s": 6.6, "img_size": [826, 1400]}
+{"n": 100, "leaf": 101, "out": {"page_type": "other_illustration", "numbers": ["Fig. 5."], "caption": "Mound vault, Houston county, Minnesota."}, "parse": "ok", "s": 5.2, "img_size": [826, 1401]}
+{"n": 98, "leaf": 99, "out": {"page_type": "text_only", "numbers": ["No. 3", "No. 4", "No. 5", "No. 6", "No. 7", "No. 8", "Fig. 4", "No. 9", "No. 10", "Fig. 4"], "caption": "CIRCULAR AND CRESCENT EARTHWORKS."}, "parse": "ok", "s": 7.2, "img_size": [826, 1401]}
+{"n": 101, "leaf": 102, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 6."], "caption": "Mound group near Madison, Wisconsin."}, "parse": "ok", "s": 7.6, "img_size": [826, 1400]}
+{"n": 102, "leaf": 103, "out": {"page_type": "text_only", "numbers": ["Fig. 6"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [826, 1401]}
+{"n": 103, "leaf": 104, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 7", "Fig. 8"], "caption": "Bird mound, Prairie du Chien, Wisconsin."}, "parse": "ok", "s": 7.5, "img_size": [826, 1400]}
+{"n": 104, "leaf": 105, "out": {"page_type": "other_illustration", "numbers": ["Fig. 9"], "caption": "Section of mound and pit, Prairie du Chien, Wisconsin."}, "parse": "ok", "s": 7.4, "img_size": [826, 1401]}
+{"n": 105, "leaf": 106, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [826, 1400]}
+{"n": 107, "leaf": 108, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 13", "Fig. 15"], "caption": "Earthworks near Eastman, Crawford county, Wisconsin."}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 108, "leaf": 109, "out": {"page_type": "plate_site_plan", "numbers": ["Fig. 14."], "caption": "Plat of southwest part of Crawford county, Wisconsin."}, "parse": "ok", "s": 5.5, "img_size": [826, 1401]}
+{"n": 106, "leaf": 107, "out": {"page_type": "other_illustration", "numbers": ["Fig. 10", "Fig. 11", "Fig. 12"], "caption": "Silver locket from mound, Prairie du Chien, Wisconsin."}, "parse": "ok", "s": 5.9, "img_size": [826, 1401]}
+{"n": 112, "leaf": 113, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [826, 1401]}
+{"n": 111, "leaf": 112, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 18"], "caption": "Bird effigies at Hazen Corners, Crawford county, Wisconsin."}, "parse": "ok", "s": 9.3, "img_size": [826, 1400]}
+{"n": 110, "leaf": 111, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 17."], "caption": "Mound group at Hazen Corners, Crawford county, Wisconsin."}, "parse": "ok", "s": 9.3, "img_size": [826, 1401]}
+{"n": 113, "leaf": 114, "out": {"page_type": "text_only", "numbers": ["Fig. 18"], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [826, 1400]}
+{"n": 114, "leaf": 115, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 19"], "caption": "Quadruped effigy on Sec. 36, T. 8 N., R. 6 W., Wisconsin."}, "parse": "ok", "s": 6.7, "img_size": [826, 1401]}
+{"n": 116, "leaf": 117, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 21", "Fig. 20"], "caption": "Bird effigy, Sec. 35, T. 8 N., R. 6 W., Wisconsin."}, "parse": "ok", "s": 6.8, "img_size": [826, 1401]}
+{"n": 115, "leaf": 116, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 20"], "caption": "Group of bird effigies, Sec. 35, T. 8 N., R. 6 W., Wisconsin."}, "parse": "ok", "s": 6.4, "img_size": [826, 1400]}
+{"n": 109, "leaf": 110, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 16"], "caption": "Mounds on northeast quarter of Sec. 24, T. 8 N., R. 6 W., Wisconsin."}, "parse": "ok", "s": 10.7, "img_size": [826, 1400]}
+{"n": 117, "leaf": 118, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [826, 1400]}
+{"n": 119, "leaf": 120, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 20"], "caption": "COURTOIS group, near Prairie du Chien, Wis."}, "parse": "ok", "s": 4.3, "img_size": [826, 1400]}
+{"n": 118, "leaf": 119, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 22"], "caption": "Mounds on Skinner's land Crawford county Wis."}, "parse": "ok", "s": 4.4, "img_size": [826, 1401]}
+{"n": 122, "leaf": 123, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [826, 1401]}
+{"n": 120, "leaf": 121, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 24", "Fig. 25"], "caption": "Mound No. 6, Courtois group, Prairie du Chien, Wis."}, "parse": "ok", "s": 6.7, "img_size": [826, 1401]}
+{"n": 123, "leaf": 124, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 27", "Fig. 28"], "caption": "Douseman mound (plan), Prairie du Chien, Wis."}, "parse": "ok", "s": 6.2, "img_size": [826, 1400]}
+{"n": 121, "leaf": 122, "out": {"page_type": "other_illustration", "numbers": ["Fig. 26."], "caption": "Mound No. 20 (section), Courtois group, Prairie du Chien, Wis."}, "parse": "ok", "s": 5.5, "img_size": [826, 1400]}
+{"n": 124, "leaf": 125, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [826, 1401]}
+{"n": 127, "leaf": 128, "out": {"page_type": "other_illustration", "numbers": ["Fig. 31"], "caption": "Mound No. 16 (horizontal section), Po- lander group."}, "parse": "ok", "s": 7.5, "img_size": [826, 1400]}
+{"n": 126, "leaf": 127, "out": {"page_type": "other_illustration", "numbers": ["Fig. 30."], "caption": "Mound No. 3 (section), Polander group, Crawford county, Wis."}, "parse": "ok", "s": 6.7, "img_size": [826, 1401]}
+{"n": 125, "leaf": 126, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 30", "Fig. 33"], "caption": "The Poldam group, Sec. 14, T. 9 N., R. 6 W. Crawford county, Wis."}, "parse": "ok", "s": 8.1, "img_size": [826, 1400]}
+{"n": 129, "leaf": 130, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 130, "leaf": 131, "out": {"page_type": "text_only", "numbers": ["Fig. 32"], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [826, 1401]}
+{"n": 128, "leaf": 129, "out": {"page_type": "plate_site_plan", "numbers": ["PL. I"], "caption": "PLAN OF THE VILAS AND FLUCKE GROUPS, CRAWFORD COUNTY, WISCONSIN."}, "parse": "ok", "s": 8.1, "img_size": [826, 1401]}
+{"n": 131, "leaf": 132, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 32"], "caption": "Plan of the Armstrong group, near Lynxville, Crawford county, Wis."}, "parse": "ok", "s": 9.6, "img_size": [826, 1400]}
+{"n": 134, "leaf": 135, "out": {"page_type": "text_only", "numbers": ["Fig. 35"], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [826, 1401]}
+{"n": 135, "leaf": 136, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 35."], "caption": "Mound group near Battle island, Vernon county, Wis."}, "parse": "ok", "s": 7.7, "img_size": [826, 1400]}
+{"n": 136, "leaf": 137, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 36"], "caption": "Plan of Mound No. 4, Battle island, Vernon county, Wisconsin."}, "parse": "ok", "s": 6.6, "img_size": [826, 1401]}
+{"n": 137, "leaf": 138, "out": {"page_type": "text_only", "numbers": ["Pl. 11", "Fig. 37"], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [826, 1400]}
+{"n": 133, "leaf": 134, "out": {"page_type": "other_illustration", "numbers": ["Fig. 34"], "caption": "Copper spindles from the Sue Conlee group, Crawford county, Wis."}, "parse": "ok", "s": 11.1, "img_size": [826, 1400]}
+{"n": 132, "leaf": 133, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 33"], "caption": "Plan of the Sue Coulee group, Crawford county, Wis."}, "parse": "ok", "s": 8.6, "img_size": [826, 1401]}
+{"n": 139, "leaf": 140, "out": {"page_type": "other_illustration", "numbers": ["Fig. 39"], "caption": "Obsidian implement from Mound No. 10, White's group."}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 138, "leaf": 139, "out": {"page_type": "other_illustration", "numbers": ["Fig. 37", "Fig. 38"], "caption": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum)."}, "parse": "ok", "s": 8.3, "img_size": [826, 1401]}
+{"n": 143, "leaf": 144, "out": {"page_type": "text_only", "numbers": ["Fig. 41"], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [826, 1400]}
+{"n": 141, "leaf": 142, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [826, 1400]}
+{"n": 142, "leaf": 143, "out": {"page_type": "other_illustration", "numbers": ["Fig. 40"], "caption": "Pot from Mound No. 11. White's group."}, "parse": "ok", "s": 3.6, "img_size": [826, 1401]}
+{"n": 140, "leaf": 141, "out": {"page_type": "plate_site_plan", "numbers": ["PL. II"], "caption": "PLAT OF WHITE'S GROUP, VERNON COUNTY, WISCONSIN."}, "parse": "ok", "s": 5.7, "img_size": [826, 1401]}
+{"n": 144, "leaf": 145, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 41."], "caption": "Effigy mounds near Cassville, Grant county, Wisconsin."}, "parse": "ok", "s": 2.3, "img_size": [826, 1401]}
+{"n": 150, "leaf": 151, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [826, 1401]}
+{"n": 147, "leaf": 148, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [826, 1400]}
+{"n": 146, "leaf": 147, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [826, 1401]}
+{"n": 152, "leaf": 153, "out": {"page_type": "other_illustration", "numbers": ["Fig. 45"], "caption": "Elephant mound, after Warner's figure."}, "parse": "ok", "s": 4.0, "img_size": [826, 1401]}
+{"n": 148, "leaf": 149, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 43"], "caption": "Mound group near Wyalusling, Grant county, Wisconsin."}, "parse": "ok", "s": 6.5, "img_size": [826, 1401]}
+{"n": 151, "leaf": 152, "out": {"page_type": "other_illustration", "numbers": ["Fig. 44"], "caption": "Elephant mound, according to Middleton's survey in 1884."}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 145, "leaf": 146, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 42"], "caption": "Lines of works near Cassville, Grant county, Wisconsin."}, "parse": "ok", "s": 3.5, "img_size": [826, 1400]}
+{"n": 157, "leaf": 158, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1400]}
+{"n": 155, "leaf": 156, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.5, "img_size": [826, 1400]}
+{"n": 159, "leaf": 160, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 156, "leaf": 157, "out": {"page_type": "other_illustration", "numbers": ["FIG. 47."], "caption": "Mound No. 1, Rice lake group."}, "parse": "ok", "s": 7.5, "img_size": [826, 1401]}
+{"n": 154, "leaf": 155, "out": {"page_type": "plate_site_plan", "numbers": ["PL. III"], "caption": "ELEPHANT MOUND AND SURROUNDINGS, GRANT COUNTY, WISCONSIN."}, "parse": "ok", "s": 8.1, "img_size": [826, 1401]}
+{"n": 158, "leaf": 159, "out": {"page_type": "plate_site_plan", "numbers": ["PL. IV"], "caption": "PLATE OF RICE LAKE GROUP, BARON COUNTY, WISCONSIN."}, "parse": "ok", "s": 8.7, "img_size": [897, 1400]}
+{"n": 162, "leaf": 163, "out": {"page_type": "text_only", "numbers": ["Pl. v", "Fig. 48"], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1401]}
+{"n": 160, "leaf": 161, "out": {"page_type": "text_only", "numbers": ["Fig. 34"], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [826, 1401]}
+{"n": 161, "leaf": 162, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [826, 1400]}
+{"n": 164, "leaf": 165, "out": {"page_type": "text_only", "numbers": ["Fig. 48", "Pl. v"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [826, 1401]}
+{"n": 165, "leaf": 166, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1400]}
+{"n": 167, "leaf": 168, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [826, 1400]}
+{"n": 169, "leaf": 170, "out": {"page_type": "text_only", "numbers": ["Fig. 49"], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [826, 1400]}
+{"n": 163, "leaf": 164, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 48"], "caption": "Circular inclosure near New Albin, Allamakee county, Iowa."}, "parse": "ok", "s": 7.3, "img_size": [826, 1400]}
+{"n": 166, "leaf": 167, "out": {"page_type": "plate_site_plan", "numbers": ["PL. V"], "caption": "ANCIENT WORKS NEAR NEW ALBIN, ALLAMAKEE COUNTY, IOWA."}, "parse": "ok", "s": 5.8, "img_size": [826, 1401]}
+{"n": 170, "leaf": 171, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 49"], "caption": "Inclosure on Hays's farm, near New Albin, Allamakee county, Iowa."}, "parse": "ok", "s": 2.5, "img_size": [811, 1401]}
+{"n": 171, "leaf": 172, "out": {"page_type": "text_only", "numbers": ["Fig. 49"], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [826, 1400]}
+{"n": 172, "leaf": 173, "out": {"page_type": "other_illustration", "numbers": ["Fig. 50"], "caption": "Walled mound, Fish group, Allamakee county, Iowa."}, "parse": "ok", "s": 3.1, "img_size": [811, 1401]}
+{"n": 173, "leaf": 174, "out": {"page_type": "text_only", "numbers": ["Fig. 51"], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 174, "leaf": 175, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 51."], "caption": "Group near Peru, Dubuque county, Iowa."}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 175, "leaf": 176, "out": {"page_type": "other_illustration", "numbers": ["Fig. 52"], "caption": "Stone gorget, Dubuque county, Iowa."}, "parse": "ok", "s": 5.1, "img_size": [826, 1400]}
+{"n": 177, "leaf": 178, "out": {"page_type": "text_only", "numbers": ["Fig. 54"], "caption": ""}, "parse": "ok", "s": 2.7, "img_size": [826, 1400]}
+{"n": 176, "leaf": 177, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 52."], "caption": "Diagram of Indian battle ground, Wapello county, Iowa."}, "parse": "ok", "s": 3.5, "img_size": [811, 1401]}
+{"n": 182, "leaf": 183, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [811, 1401]}
+{"n": 181, "leaf": 182, "out": {"page_type": "other_illustration", "numbers": ["Fig. 56.", "Fig. 57."], "caption": "Section of Mound No. 16, Dunleith. Illinois."}, "parse": "ok", "s": 3.5, "img_size": [826, 1400]}
+{"n": 178, "leaf": 179, "out": {"page_type": "text_only", "numbers": ["Fig. 54"], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 184, "leaf": 185, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [811, 1401]}
+{"n": 179, "leaf": 180, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 54"], "caption": "Mound group, Dunleith, Illinois."}, "parse": "ok", "s": 6.8, "img_size": [826, 1400]}
+{"n": 180, "leaf": 181, "out": {"page_type": "other_illustration", "numbers": ["Fig. 55"], "caption": "Vault in Mound No. 4, Dunleith, Illinois."}, "parse": "ok", "s": 7.4, "img_size": [811, 1401]}
+{"n": 185, "leaf": 186, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.0, "img_size": [826, 1400]}
+{"n": 186, "leaf": 187, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [811, 1401]}
+{"n": 183, "leaf": 184, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 58"], "caption": "Fig. 58. \u2014 Welch group, Brown county, Illinois."}, "parse": "ok", "s": 3.9, "img_size": [826, 1400]}
+{"n": 191, "leaf": 192, "out": {"page_type": "text_only", "numbers": ["Fig. 64"], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [826, 1400]}
+{"n": 188, "leaf": 189, "out": {"page_type": "text_only", "numbers": ["Fig. 61"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [811, 1401]}
+{"n": 190, "leaf": 191, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 61"], "caption": "Group of mounds on Sec. 31, T. 10, R. 2 W., Calhoun county, Illinois."}, "parse": "ok", "s": 5.1, "img_size": [811, 1401]}
+{"n": 187, "leaf": 188, "out": {"page_type": "other_illustration", "numbers": ["Fig. 59"], "caption": "Mound No. 1. Sec. 34, T. 10. R. 2. Calhoun county, Illinois."}, "parse": "ok", "s": 7.6, "img_size": [826, 1400]}
+{"n": 194, "leaf": 195, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [811, 1401]}
+{"n": 192, "leaf": 193, "out": {"page_type": "other_illustration", "numbers": ["Fig. 62.", "Fig. 63."], "caption": "Vertical section of Mound No. 8, NE. 1 Sec. 31, T. 10, R. 2 W., Illinois."}, "parse": "ok", "s": 3.6, "img_size": [811, 1401]}
+{"n": 189, "leaf": 190, "out": {"page_type": "other_illustration", "numbers": ["Fig. 60"], "caption": "Mound No. 4, Sec. 34, T. 10, R. 2, Calhoun county, Illinois."}, "parse": "ok", "s": 9.3, "img_size": [826, 1400]}
+{"n": 196, "leaf": 197, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [811, 1401]}
+{"n": 193, "leaf": 194, "out": {"page_type": "other_illustration", "numbers": ["Fig. 64."], "caption": "Vertical section of Mound No. 1, NW. Sec. 2, T. 9, R. 2 W., Illinois."}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 198, "leaf": 199, "out": {"page_type": "text_only", "numbers": ["Pl. VI"], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [811, 1401]}
+{"n": 199, "leaf": 200, "out": {"page_type": "text_only", "numbers": ["Pl. VI", "Pl. VII"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [826, 1400]}
+{"n": 195, "leaf": 196, "out": {"page_type": "other_illustration", "numbers": ["Fig. 65"], "caption": "Vertical section of Mound No. 1, N.E. Sec. 27, T. 10, R. 2 W., Illinois."}, "parse": "ok", "s": 7.3, "img_size": [826, 1400]}
+{"n": 197, "leaf": 198, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 66"], "caption": "Wood river mounds, Madison county, Illinois."}, "parse": "ok", "s": 4.8, "img_size": [826, 1400]}
+{"n": 201, "leaf": 202, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [826, 1400]}
+{"n": 202, "leaf": 203, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 67"], "caption": "Stone graves on Mill tract, Randolph county, Illinois."}, "parse": "ok", "s": 3.5, "img_size": [811, 1401]}
+{"n": 204, "leaf": 205, "out": {"page_type": "plate_site_plan", "numbers": ["PL. VII"], "caption": "MAP OF THE WESTERN PART OF MADISON COUNTY ILLINOIS."}, "parse": "ok", "s": 1.9, "img_size": [811, 1401]}
+{"n": 200, "leaf": 201, "out": {"page_type": "plate_site_plan", "numbers": ["PL. VI"], "caption": "MAP OF CAHOKIA GROUP, MADISON COUNTY, ILLINOIS."}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 203, "leaf": 204, "out": {"page_type": "text_only", "numbers": ["Fig. 68"], "caption": ""}, "parse": "ok", "s": 2.2, "img_size": [826, 1400]}
+{"n": 207, "leaf": 208, "out": {"page_type": "text_only", "numbers": ["Fig. 69"], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [826, 1400]}
+{"n": 205, "leaf": 206, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [826, 1400]}
+{"n": 208, "leaf": 209, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 69"], "caption": "Stone graves on bluff, Randolph county, Illinois."}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 209, "leaf": 210, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 70."], "caption": "Hut rings near the bank of Big Mary river, Illinois."}, "parse": "ok", "s": 4.8, "img_size": [826, 1400]}
+{"n": 206, "leaf": 207, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 68"], "caption": "The De Frenne stone graves, Randolph county, Illinois."}, "parse": "ok", "s": 5.0, "img_size": [811, 1401]}
+{"n": 210, "leaf": 211, "out": {"page_type": "text_only", "numbers": ["Fig. 70"], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [811, 1401]}
+{"n": 214, "leaf": 215, "out": {"page_type": "other_illustration", "numbers": ["Fig. 73"], "caption": "Spoon-shaped ornament of copper."}, "parse": "ok", "s": 3.4, "img_size": [811, 1401]}
+{"n": 215, "leaf": 216, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 74"], "caption": "Schlimpert mounds, Jackson county, Illinois."}, "parse": "ok", "s": 3.1, "img_size": [826, 1400]}
+{"n": 213, "leaf": 214, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 72."], "caption": "Vogel group, Jackson county, Illinois."}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 212, "leaf": 213, "out": {"page_type": "text_only", "numbers": ["Fig. 72"], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [811, 1401]}
+{"n": 211, "leaf": 212, "out": {"page_type": "other_illustration", "numbers": ["Fig. 71"], "caption": "Pot from Jackson county, Illinois."}, "parse": "ok", "s": 5.1, "img_size": [826, 1400]}
+{"n": 217, "leaf": 218, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 76."], "caption": "Mounds on Hale's place, Jackson county, Illinois."}, "parse": "ok", "s": 3.4, "img_size": [826, 1400]}
+{"n": 216, "leaf": 217, "out": {"page_type": "other_illustration", "numbers": ["Fig. 75."], "caption": "Section of mound on Schlimpert's place, Jackson county, Illinois."}, "parse": "ok", "s": 4.7, "img_size": [811, 1401]}
+{"n": 219, "leaf": 220, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [804, 1401]}
+{"n": 153, "leaf": 154, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 46"], "caption": "Inclosure near Sheboygan, Sheboygan county, Wisconsin."}, "parse": "ok", "s": 5.0, "img_size": [826, 1400]}
+{"n": 221, "leaf": 222, "out": {"page_type": "other_illustration", "numbers": ["Fig. 78."], "caption": "Skull from mound on Hale's place (front view)."}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 222, "leaf": 223, "out": {"page_type": "other_illustration", "numbers": ["Fig. 79."], "caption": "Bone plate from mound on Hale's place."}, "parse": "ok", "s": 2.5, "img_size": [811, 1401]}
+{"n": 220, "leaf": 221, "out": {"page_type": "other_illustration", "numbers": ["Fig. 77."], "caption": "Skull from mound on Hale's place (side view)."}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 218, "leaf": 219, "out": {"page_type": "text_only", "numbers": ["Figs. 1, 2, and 3", "No. 1", "No. 2", "No. 3", "No. 4", "Grave No. 1"], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 223, "leaf": 224, "out": {"page_type": "other_illustration", "numbers": ["Fig. 80.", "Fig. 81."], "caption": "Catholic medal from mound on Hale's place. Stone grave on Hale's place."}, "parse": "ok", "s": 2.5, "img_size": [804, 1401]}
+{"n": 224, "leaf": 225, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [811, 1401]}
+{"n": 225, "leaf": 226, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 82"], "caption": "Plate of works on Linn's place, Union county, Illinois."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 226, "leaf": 227, "out": {"page_type": "other_illustration", "numbers": ["Fig. 83"], "caption": "Mound A. Line. Front, vertical outline."}, "parse": "ok", "s": 4.1, "img_size": [811, 1401]}
+{"n": 227, "leaf": 228, "out": {"page_type": "text_only", "numbers": ["Fig. 83"], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 228, "leaf": 229, "out": {"page_type": "text_only", "numbers": ["Fig. 82", "Fig. 84"], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 229, "leaf": 230, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 84"], "caption": "Round pond mounds, Union county, Illinois."}, "parse": "ok", "s": 5.1, "img_size": [804, 1401]}
+{"n": 231, "leaf": 232, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [804, 1401]}
+{"n": 232, "leaf": 233, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [811, 1401]}
+{"n": 168, "leaf": 169, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [826, 1401]}
+{"n": 230, "leaf": 231, "out": {"page_type": "other_illustration", "numbers": ["Fig. 85"], "caption": "Copper plate bearing dancing figures. Union county, Illinois."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 235, "leaf": 236, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 234, "leaf": 235, "out": {"page_type": "text_only", "numbers": ["Pl. VIII"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [811, 1401]}
+{"n": 233, "leaf": 234, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 86"], "caption": "Mound group, Clarke county, Missouri."}, "parse": "ok", "s": 5.8, "img_size": [804, 1401]}
+{"n": 239, "leaf": 240, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 236, "leaf": 237, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.7, "img_size": [811, 1401]}
+{"n": 237, "leaf": 238, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 87"], "caption": "The Ben Proffer mound, Cape Girardean county, Missouri."}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 238, "leaf": 239, "out": {"page_type": "plate_site_plan", "numbers": ["Pl. VIII"], "caption": "ANCIENT WORKS ON BOULWARE'S PLACE, CLARKE COUNTY, MISSOURI."}, "parse": "ok", "s": 6.1, "img_size": [811, 1401]}
+{"n": 241, "leaf": 242, "out": {"page_type": "text_only", "numbers": ["Fig. 89"], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 240, "leaf": 241, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 88."], "caption": "The Witting mounds, Cape Girardean county, Missouri."}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 242, "leaf": 243, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 89"], "caption": "The Peter Bess settlement, Bollinger county, Missouri."}, "parse": "ok", "s": 3.7, "img_size": [811, 1401]}
+{"n": 243, "leaf": 244, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 245, "leaf": 246, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 91", "Fig. 92"], "caption": "County line settlement, Stoddard county, Missouri."}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 244, "leaf": 245, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 90"], "caption": "The Lakeville settlement, Stoddard county, Missouri."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 246, "leaf": 247, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 93"], "caption": "The Rich Woods mounds, Stoddard county, Missouri."}, "parse": "ok", "s": 6.3, "img_size": [811, 1401]}
+{"n": 247, "leaf": 248, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 248, "leaf": 249, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 94"], "caption": "Plan of Mounds Nos. 3, 4, 5, and 6. Rich Woods mounds."}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 249, "leaf": 250, "out": {"page_type": "other_illustration", "numbers": ["Fig. 35"], "caption": "Section of Mound No. 3 and adjoins. Rich World mounds."}, "parse": "ok", "s": 5.7, "img_size": [804, 1401]}
+{"n": 254, "leaf": 255, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.0, "img_size": [811, 1401]}
+{"n": 251, "leaf": 252, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 253, "leaf": 254, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [804, 1401]}
+{"n": 250, "leaf": 251, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [811, 1401]}
+{"n": 252, "leaf": 253, "out": {"page_type": "text_only", "numbers": ["Fig. 93"], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [811, 1401]}
+{"n": 255, "leaf": 256, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 96"], "caption": "Pin Hook Ridge mounds, Mississippi county, Missouri."}, "parse": "ok", "s": 8.3, "img_size": [804, 1401]}
+{"n": 258, "leaf": 259, "out": {"page_type": "text_only", "numbers": ["No. 2, Fig. 98"], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 256, "leaf": 257, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 97.", "Fig. 98."], "caption": "Baker's mound, Mississippi county, Missouri."}, "parse": "ok", "s": 9.3, "img_size": [811, 1401]}
+{"n": 260, "leaf": 261, "out": {"page_type": "other_illustration", "numbers": ["Fig. 101", "Fig. 102"], "caption": "Water vessel from Beckwith's ranch, Mississippi county, Missouri."}, "parse": "ok", "s": 8.3, "img_size": [811, 1401]}
+{"n": 257, "leaf": 258, "out": {"page_type": "text_only", "numbers": ["186", "1, in Fig. 96", "Fig. 98"], "caption": "BECKWITH'S FORT."}, "parse": "ok", "s": 9.9, "img_size": [804, 1401]}
+{"n": 259, "leaf": 260, "out": {"page_type": "other_illustration", "numbers": ["Fig. 99.", "Fig. 100."], "caption": "Image vessel from Beckwith's ranch. Bowl from Beckwith's fort."}, "parse": "ok", "s": 9.5, "img_size": [804, 1401]}
+{"n": 262, "leaf": 263, "out": {"page_type": "other_illustration", "numbers": ["Fig. 104"], "caption": "Owl image vessel from Beckwith's ranch."}, "parse": "ok", "s": 5.4, "img_size": [811, 1401]}
+{"n": 264, "leaf": 265, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 106"], "caption": "Meyers' mound, Scott county, Missouri."}, "parse": "ok", "s": 3.9, "img_size": [811, 1401]}
+{"n": 261, "leaf": 262, "out": {"page_type": "other_illustration", "numbers": ["Fig. 103."], "caption": "Gourd-shaped vessel from Beckwith's ranch, Mississippi county, Missouri."}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 263, "leaf": 264, "out": {"page_type": "other_illustration", "numbers": ["Fig. 105"], "caption": "Fish-shaped vessel from Beckwith's ranch. a, view; b, plan."}, "parse": "ok", "s": 5.0, "img_size": [804, 1401]}
+{"n": 266, "leaf": 267, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 108"], "caption": "Power's fort, Butler county, Missouri."}, "parse": "ok", "s": 2.4, "img_size": [811, 1401]}
+{"n": 265, "leaf": 266, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 107"], "caption": "Mound group near Harviell. Butler county, Missouri."}, "parse": "ok", "s": 3.5, "img_size": [804, 1401]}
+{"n": 267, "leaf": 268, "out": {"page_type": "other_illustration", "numbers": ["Fig. 106"], "caption": "Section of mound in Pomer's fort, Butler county, Missouri."}, "parse": "ok", "s": 2.1, "img_size": [804, 1401]}
+{"n": 268, "leaf": 269, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [811, 1401]}
+{"n": 269, "leaf": 272, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [804, 1401]}
+{"n": 272, "leaf": 275, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 111"], "caption": "Webb group, Craighead county, Arkansas."}, "parse": "ok", "s": 2.4, "img_size": [811, 1401]}
+{"n": 273, "leaf": 276, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [804, 1401]}
+{"n": 271, "leaf": 274, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [804, 1401]}
+{"n": 270, "leaf": 273, "out": {"page_type": "other_illustration", "numbers": ["Fig. 110"], "caption": "Effect of earthquake of 1811 on mound, Greene county, Arkansas."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 274, "leaf": 277, "out": {"page_type": "text_only", "numbers": ["Fig. 112", "Fig. 113", "Fig. 114"], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [811, 1401]}
+{"n": 275, "leaf": 278, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 112"], "caption": "Mounds at Tyrone station, Polketti county, Arkansas."}, "parse": "ok", "s": 7.6, "img_size": [804, 1401]}
+{"n": 149, "leaf": 150, "out": {"page_type": "text_only", "numbers": ["Fig. 43"], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [826, 1400]}
+{"n": 278, "leaf": 281, "out": {"page_type": "other_illustration", "numbers": ["Fig. 116"], "caption": "Clay casts of ear of maize, or Indian corn."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 279, "leaf": 282, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 117"], "caption": "Clay floor of a three room house."}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 277, "leaf": 280, "out": {"page_type": "other_illustration", "numbers": ["Fig. 115"], "caption": "Section of mounds, Tyrone station."}, "parse": "ok", "s": 8.7, "img_size": [804, 1401]}
+{"n": 281, "leaf": 284, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 120", "Fig. 121"], "caption": "Mound No. 9, Miller group, Poinsett county, Arkansas."}, "parse": "ok", "s": 9.4, "img_size": [804, 1401]}
+{"n": 280, "leaf": 283, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 118", "Fig. 119"], "caption": "The Miller mounds, Point sett county, Arkansas."}, "parse": "ok", "s": 9.4, "img_size": [811, 1401]}
+{"n": 276, "leaf": 279, "out": {"page_type": "other_illustration", "numbers": ["Fig. 113", "Fig. 114"], "caption": "Section of Mound No. 8, Tyronea station, Poinsett county, Arkansas."}, "parse": "ok", "s": 12.6, "img_size": [811, 1401]}
+{"n": 284, "leaf": 287, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 124"], "caption": "Plat of Thornton group, Poinsett county, Arkansas."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 287, "leaf": 290, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [804, 1401]}
+{"n": 282, "leaf": 285, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 122"], "caption": "Plan of mound No. 11, Miller group."}, "parse": "ok", "s": 7.4, "img_size": [811, 1401]}
+{"n": 289, "leaf": 292, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.1, "img_size": [804, 1401]}
+{"n": 283, "leaf": 286, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 123"], "caption": "Plan of Mound No. 12, Miller group."}, "parse": "ok", "s": 7.5, "img_size": [804, 1401]}
+{"n": 286, "leaf": 289, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 126", "Fig. 127"], "caption": "Mound No. 1, Taylor Shanty group."}, "parse": "ok", "s": 6.1, "img_size": [811, 1401]}
+{"n": 285, "leaf": 288, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 125."], "caption": "Plat of Taylor Shanty group, Poinsett county, Arkansas."}, "parse": "ok", "s": 7.9, "img_size": [804, 1401]}
+{"n": 288, "leaf": 291, "out": {"page_type": "other_illustration", "numbers": ["Fig. 128"], "caption": "Section of mound No. 4, Taylor Stany Group."}, "parse": "ok", "s": 7.9, "img_size": [811, 1401]}
+{"n": 290, "leaf": 293, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [811, 1401]}
+{"n": 291, "leaf": 294, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 129"], "caption": "Plat of Pecan' point works, Mississippi county, Arkansas."}, "parse": "ok", "s": 3.6, "img_size": [804, 1401]}
+{"n": 296, "leaf": 299, "out": {"page_type": "other_illustration", "numbers": ["Fig. 134"], "caption": "Stone spool from mound, Jackson county, Arkansas."}, "parse": "ok", "s": 2.6, "img_size": [811, 1401]}
+{"n": 293, "leaf": 296, "out": {"page_type": "text_only", "numbers": ["Fig. 131"], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [804, 1401]}
+{"n": 292, "leaf": 295, "out": {"page_type": "other_illustration", "numbers": ["Fig. 130"], "caption": "Image vessel, Pecan point, Mississippi county, Arkansas."}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 295, "leaf": 298, "out": {"page_type": "other_illustration", "numbers": ["Fig. 133"], "caption": "Engraved shell (Barycon pererensum) from mound, Independence county, Arkansas."}, "parse": "ok", "s": 7.7, "img_size": [804, 1401]}
+{"n": 294, "leaf": 297, "out": {"page_type": "other_illustration", "numbers": ["Fig. 131", "Fig. 132"], "caption": "Vessel from Jackson mounds, Mississippi county, Arkansas."}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 299, "leaf": 302, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [804, 1401]}
+{"n": 298, "leaf": 301, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.0, "img_size": [811, 1401]}
+{"n": 297, "leaf": 300, "out": {"page_type": "other_illustration", "numbers": ["Fig. 135."], "caption": "Bradley mounds, Crittenden county, Arkansas."}, "parse": "ok", "s": 6.3, "img_size": [804, 1401]}
+{"n": 300, "leaf": 303, "out": {"page_type": "other_illustration", "numbers": ["Fig. 136"], "caption": "House site, St. Francis county, Arkansas."}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 302, "leaf": 305, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 303, "leaf": 306, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 305, "leaf": 308, "out": {"page_type": "other_illustration", "numbers": ["Fig. 139."], "caption": "Image pipe, Monroe county, Ark."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 308, "leaf": 311, "out": {"page_type": "other_illustration", "numbers": ["Fig. 143"], "caption": "Pottery vessel from Old Town works."}, "parse": "ok", "s": 4.6, "img_size": [811, 1401]}
+{"n": 301, "leaf": 304, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 137"], "caption": "Plan of Menard mounds, Arkansas county, Arkansas."}, "parse": "ok", "s": 9.1, "img_size": [804, 1401]}
+{"n": 307, "leaf": 310, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 142"], "caption": "Plan of Old Town works, Phillips county, Arkansas."}, "parse": "ok", "s": 6.6, "img_size": [804, 1401]}
+{"n": 304, "leaf": 307, "out": {"page_type": "other_illustration", "numbers": ["Fig. 138"], "caption": "Image pipe, Monroe county, Arkansas."}, "parse": "ok", "s": 9.7, "img_size": [811, 1401]}
+{"n": 311, "leaf": 314, "out": {"page_type": "other_illustration", "numbers": ["FIG. 147."], "caption": "THE TILLER MOUND."}, "parse": "ok", "s": 4.8, "img_size": [804, 1401]}
+{"n": 312, "leaf": 315, "out": {"page_type": "other_illustration", "numbers": ["Fig. 148"], "caption": "Old French Fort Desha, Arkansas."}, "parse": "ok", "s": 4.0, "img_size": [811, 1401]}
+{"n": 315, "leaf": 318, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [804, 1401]}
+{"n": 316, "leaf": 319, "out": {"page_type": "text_only", "numbers": ["Pl. IX"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [811, 1401]}
+{"n": 310, "leaf": 313, "out": {"page_type": "other_illustration", "numbers": ["Fig. 146"], "caption": "Roger's mound. Phillips county, Arkansas."}, "parse": "ok", "s": 9.2, "img_size": [811, 1401]}
+{"n": 309, "leaf": 312, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 144", "Fig. 145"], "caption": "Mound No. 3, Old Town works."}, "parse": "ok", "s": 9.3, "img_size": [804, 1401]}
+{"n": 313, "leaf": 316, "out": {"page_type": "other_illustration", "numbers": ["Fig. 140"], "caption": "The Taylor mounds, Drew county, Arkansas."}, "parse": "ok", "s": 6.6, "img_size": [804, 1401]}
+{"n": 314, "leaf": 317, "out": {"page_type": "other_illustration", "numbers": ["PL. IX"], "caption": "THE DE SOTO MOUND, JEFFERSON COUNTY, ARKANSAS."}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 317, "leaf": 320, "out": {"page_type": "text_only", "numbers": ["Pl. x.", "Plate IX"], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [804, 1401]}
+{"n": 319, "leaf": 322, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [804, 1401]}
+{"n": 318, "leaf": 321, "out": {"page_type": "plate_site_plan", "numbers": ["PL. X"], "caption": "PLAN OF THE KNAPP MOUNDS, PULASKI COUNTY, ARKANSAS."}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 321, "leaf": 324, "out": {"page_type": "other_illustration", "numbers": ["Fig. 151"], "caption": "The Hughes mound, Saline county, Arkansas."}, "parse": "ok", "s": 5.9, "img_size": [804, 1401]}
+{"n": 325, "leaf": 328, "out": {"page_type": "text_only", "numbers": ["Fig. 155"], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 324, "leaf": 327, "out": {"page_type": "figure_site_plan", "numbers": ["154"], "caption": "Mound group near Camden, Arkansas."}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 323, "leaf": 326, "out": {"page_type": "other_illustration", "numbers": ["FIG. 152", "FIG. 153"], "caption": "An ornamented water bottle, Clark county, Arkansas. Flat-bottomed jar, Clark county, Arkansas."}, "parse": "ok", "s": 5.1, "img_size": [804, 1401]}
+{"n": 320, "leaf": 323, "out": {"page_type": "other_illustration", "numbers": ["Fig. 150"], "caption": "Stone implement from Knapp group."}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 322, "leaf": 325, "out": {"page_type": "text_only", "numbers": ["Fig. 152", "Fig. 153"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [811, 1401]}
+{"n": 330, "leaf": 333, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XI"], "caption": "Plan of the Carson Mounds"}, "parse": "ok", "s": 4.8, "img_size": [811, 1401]}
+{"n": 328, "leaf": 331, "out": {"page_type": "text_only", "numbers": ["Pl. XI", "Pl. XII"], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [811, 1401]}
+{"n": 329, "leaf": 332, "out": {"page_type": "text_only", "numbers": ["Pl. XIII"], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 331, "leaf": 334, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 332, "leaf": 335, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.7, "img_size": [811, 1401]}
+{"n": 326, "leaf": 329, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 155"], "caption": "Plan of Troyville mounds, Calhounia parish."}, "parse": "ok", "s": 7.5, "img_size": [811, 1401]}
+{"n": 327, "leaf": 330, "out": {"page_type": "other_illustration", "numbers": ["Fig. 156"], "caption": "View of mound No. 6, Trowville mounds, Catahoula parish."}, "parse": "ok", "s": 7.6, "img_size": [804, 1401]}
+{"n": 335, "leaf": 338, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [804, 1401]}
+{"n": 333, "leaf": 336, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 158"], "caption": "Clarksdale works, Coahoma county, Mississippi."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 334, "leaf": 337, "out": {"page_type": "other_illustration", "numbers": ["PL. XII"], "caption": "MOUND 6, CARSON GROUP, COAHOMA COUNTY, MISSISSIPPI."}, "parse": "ok", "s": 7.9, "img_size": [811, 1401]}
+{"n": 339, "leaf": 342, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [804, 1401]}
+{"n": 336, "leaf": 339, "out": {"page_type": "other_illustration", "numbers": ["Fig. 159"], "caption": "Section of mound No. 1, Chickasaw bluffs"}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 340, "leaf": 343, "out": {"page_type": "other_illustration", "numbers": ["Fig. 160"], "caption": "Vessel in form of a shell, Sunflower county, Mississippi."}, "parse": "ok", "s": 5.0, "img_size": [811, 1401]}
+{"n": 341, "leaf": 344, "out": {"page_type": "other_illustration", "numbers": ["Fig. 161"], "caption": "Avondale mounds, Washington county, Mississippi."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 337, "leaf": 340, "out": {"page_type": "text_only", "numbers": ["No. 8", "Fig. 158", "No. 1"], "caption": ""}, "parse": "ok", "s": 10.8, "img_size": [804, 1401]}
+{"n": 338, "leaf": 341, "out": {"page_type": "other_illustration", "numbers": ["PL. XIII"], "caption": "MOUND d, CARSON GROUP, COAHOMA COUNTY, MISSISSIPPI."}, "parse": "ok", "s": 11.0, "img_size": [811, 1401]}
+{"n": 342, "leaf": 345, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 162"], "caption": "Outline of mound No. 1, Champlin group Yazoo county, Mississippi."}, "parse": "ok", "s": 5.0, "img_size": [811, 1401]}
+{"n": 345, "leaf": 348, "out": {"page_type": "text_only", "numbers": ["PL. XIV, 1"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [804, 1401]}
+{"n": 346, "leaf": 349, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XIV"], "caption": "PLATFORM AND MOUNDS OF THE SELSERTOWN GROUP."}, "parse": "ok", "s": 2.5, "img_size": [811, 1401]}
+{"n": 344, "leaf": 347, "out": {"page_type": "other_illustration", "numbers": ["Fig. 164"], "caption": "Image vessel from Champlin mound, Mississippi."}, "parse": "ok", "s": 4.1, "img_size": [811, 1401]}
+{"n": 343, "leaf": 346, "out": {"page_type": "other_illustration", "numbers": ["Fig. 163"], "caption": "Vertical section of mound No. 1, Champlin group, Yazoo county, Mississippi."}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 349, "leaf": 352, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 350, "leaf": 353, "out": {"page_type": "text_only", "numbers": ["Fig. 165"], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [811, 1401]}
+{"n": 351, "leaf": 354, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 165"], "caption": "Mound group in Union county, Mississippi."}, "parse": "ok", "s": 4.5, "img_size": [804, 1401]}
+{"n": 347, "leaf": 350, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [804, 1401]}
+{"n": 348, "leaf": 351, "out": {"page_type": "text_only", "numbers": ["Pl. XIV, 2"], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [811, 1401]}
+{"n": 352, "leaf": 355, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 166"], "caption": "Plan of mound No. 1, group in Union county, Mississippi."}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 353, "leaf": 356, "out": {"page_type": "other_illustration", "numbers": ["Fig. 167.", "Fig. 168."], "caption": "Sections along south trench, mound No. 1, Union county, Mississippi."}, "parse": "ok", "s": 6.9, "img_size": [804, 1401]}
+{"n": 354, "leaf": 357, "out": {"page_type": "other_illustration", "numbers": ["Fig. 169"], "caption": "Section along the northeast trench, mound No. 1, Union county."}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 356, "leaf": 359, "out": {"page_type": "other_illustration", "numbers": ["Fig. 171."], "caption": "Section along the north trench, mound No. 1, Union county."}, "parse": "ok", "s": 4.8, "img_size": [811, 1401]}
+{"n": 355, "leaf": 358, "out": {"page_type": "other_illustration", "numbers": ["Fig. 170"], "caption": "Section along the northeast trench, mound No. 1, Union county."}, "parse": "ok", "s": 4.8, "img_size": [804, 1401]}
+{"n": 359, "leaf": 362, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [804, 1401]}
+{"n": 360, "leaf": 363, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [811, 1401]}
+{"n": 357, "leaf": 360, "out": {"page_type": "other_illustration", "numbers": ["Fig. 172"], "caption": "Section along the north trench, mound No. 1, Union county."}, "parse": "ok", "s": 7.6, "img_size": [804, 1401]}
+{"n": 358, "leaf": 361, "out": {"page_type": "other_illustration", "numbers": ["Fig. 173."], "caption": "Silver plate, with Spanish coat of arms; mound, Union county."}, "parse": "ok", "s": 7.7, "img_size": [811, 1401]}
+{"n": 362, "leaf": 365, "out": {"page_type": "other_illustration", "numbers": ["Fig. 175"], "caption": "Image vessel from mound, Obion county, Tennessee."}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 363, "leaf": 366, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 176"], "caption": "O'Byam's fort, Hickman county, Kentucky."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 361, "leaf": 364, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 174"], "caption": "Fireplace in mound, Lauderdale, Tenn."}, "parse": "ok", "s": 4.4, "img_size": [804, 1401]}
+{"n": 369, "leaf": 372, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 368, "leaf": 371, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [811, 1401]}
+{"n": 365, "leaf": 368, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 370, "leaf": 373, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 366, "leaf": 369, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [811, 1401]}
+{"n": 367, "leaf": 370, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [804, 1401]}
+{"n": 373, "leaf": 376, "out": {"page_type": "text_only", "numbers": ["Fig. 178."], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [804, 1401]}
+{"n": 375, "leaf": 378, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.0, "img_size": [804, 1401]}
+{"n": 371, "leaf": 374, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [804, 1401]}
+{"n": 372, "leaf": 375, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [811, 1401]}
+{"n": 379, "leaf": 382, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [804, 1401]}
+{"n": 376, "leaf": 379, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [811, 1401]}
+{"n": 374, "leaf": 377, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 178", "Fig. 179"], "caption": "Plat of Tally mounds, Jefferson county, Alabama."}, "parse": "ok", "s": 9.4, "img_size": [811, 1401]}
+{"n": 306, "leaf": 309, "out": {"page_type": "other_illustration", "numbers": ["Fig. 140", "Fig. 141"], "caption": "Image pipe, Monroe county, Arkansas."}, "parse": "ok", "s": 9.0, "img_size": [811, 1401]}
+{"n": 377, "leaf": 380, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 180"], "caption": "Plat of Etowah group, copy of Jones's plat No. 1."}, "parse": "ok", "s": 7.4, "img_size": [804, 1401]}
+{"n": 382, "leaf": 385, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.1, "img_size": [811, 1401]}
+{"n": 378, "leaf": 381, "out": {"page_type": "other_illustration", "numbers": ["PL. XV"], "caption": "VIEW OF THE LARGE MOUND, ETOVAA GROUP."}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 380, "leaf": 383, "out": {"page_type": "text_only", "numbers": ["G G, Pl. I", "D D", "P", "A", "B", "C", "F F F F"], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [811, 1401]}
+{"n": 383, "leaf": 386, "out": {"page_type": "text_only", "numbers": ["Fig. 182"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [804, 1401]}
+{"n": 381, "leaf": 384, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 181"], "caption": "THE GREAT MOUND ON THE ETOWAH RIVER, GEORGIA."}, "parse": "ok", "s": 5.0, "img_size": [804, 1401]}
+{"n": 384, "leaf": 387, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XVI"], "caption": "PLAN OF THE LARGE MOUND ETOWAH GROUP."}, "parse": "ok", "s": 3.5, "img_size": [811, 1401]}
+{"n": 385, "leaf": 388, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.0, "img_size": [804, 1401]}
+{"n": 386, "leaf": 389, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 182"], "caption": "Plat of the Etowah group (original)."}, "parse": "ok", "s": 5.7, "img_size": [811, 1401]}
+{"n": 387, "leaf": 390, "out": {"page_type": "other_illustration", "numbers": ["Fig. 183"], "caption": "Large mound of the Etowah group."}, "parse": "ok", "s": 5.8, "img_size": [804, 1401]}
+{"n": 390, "leaf": 393, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 185"], "caption": "Plan of burials in mound c, Etowah group."}, "parse": "ok", "s": 3.4, "img_size": [811, 1401]}
+{"n": 391, "leaf": 394, "out": {"page_type": "other_illustration", "numbers": ["Fig. 186"], "caption": "Figured copper plate from mound c Etowah group."}, "parse": "ok", "s": 3.2, "img_size": [804, 1401]}
+{"n": 388, "leaf": 391, "out": {"page_type": "text_only", "numbers": ["Pl. XVI", "Fig. 183"], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [811, 1401]}
+{"n": 393, "leaf": 396, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 395, "leaf": 398, "out": {"page_type": "other_illustration", "numbers": ["Fig. 188", "Fig. 189"], "caption": "Copper ornament or badge from mound c, Etowah group."}, "parse": "ok", "s": 5.9, "img_size": [804, 1401]}
+{"n": 394, "leaf": 397, "out": {"page_type": "other_illustration", "numbers": ["Fig. 187"], "caption": "Copper badge from mound c, Etowah group."}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 392, "leaf": 395, "out": {"page_type": "other_illustration", "numbers": ["PL. XVII"], "caption": "FIGURED COPPER PLATE FROM MOUND C, ETOWAH GROUP (HUMAN FIGURE)."}, "parse": "ok", "s": 7.5, "img_size": [811, 1401]}
+{"n": 396, "leaf": 399, "out": {"page_type": "other_illustration", "numbers": ["PL. XVIII"], "caption": "FIGURED COPPER PLATE FROM MOUND C, ETOWAH GROUP (BIRD FIGURE)."}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 397, "leaf": 400, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [804, 1401]}
+{"n": 399, "leaf": 402, "out": {"page_type": "other_illustration", "numbers": ["Fig. 191"], "caption": "Bust from Etowah mounds."}, "parse": "ok", "s": 2.0, "img_size": [804, 1401]}
+{"n": 398, "leaf": 401, "out": {"page_type": "other_illustration", "numbers": ["Fig. 190"], "caption": "Engraved shell, mound c, Etowah group."}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 401, "leaf": 404, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.9, "img_size": [804, 1401]}
+{"n": 400, "leaf": 403, "out": {"page_type": "other_illustration", "numbers": ["Fig. 192"], "caption": "Copper plate with bird figure; mound near Peoria, Illinois."}, "parse": "ok", "s": 4.1, "img_size": [811, 1401]}
+{"n": 403, "leaf": 406, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 402, "leaf": 405, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.3, "img_size": [811, 1401]}
+{"n": 404, "leaf": 407, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [811, 1401]}
+{"n": 405, "leaf": 408, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 406, "leaf": 409, "out": {"page_type": "text_only", "numbers": ["Fig. 193"], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 407, "leaf": 410, "out": {"page_type": "other_illustration", "numbers": ["Fig. 193"], "caption": "Section of the Rempter group, Elbert county, Georgia."}, "parse": "ok", "s": 3.7, "img_size": [804, 1401]}
+{"n": 410, "leaf": 413, "out": {"page_type": "other_illustration", "numbers": ["PL. XIX"], "caption": "POT FROM HOLLYWOOD MOUND, GEORGIA."}, "parse": "ok", "s": 4.6, "img_size": [811, 1401]}
+{"n": 408, "leaf": 411, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 194"], "caption": "Plan of mound No. 1, Rembert group."}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 409, "leaf": 412, "out": {"page_type": "other_illustration", "numbers": ["Fig. 195"], "caption": "Vertical section mound No. 1. Rembert group."}, "parse": "ok", "s": 4.6, "img_size": [804, 1401]}
+{"n": 412, "leaf": 415, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [811, 1401]}
+{"n": 411, "leaf": 414, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 413, "leaf": 416, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 196"], "caption": "Upper horizontal section of Hollywood mound, Georgia."}, "parse": "ok", "s": 5.0, "img_size": [804, 1401]}
+{"n": 415, "leaf": 418, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 414, "leaf": 417, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 416, "leaf": 419, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXI"], "caption": "OBSERVATORY CIRCLE. NEAR NEWARK. O."}, "parse": "ok", "s": 5.5, "img_size": [1369, 1400]}
+{"n": 418, "leaf": 421, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 197", "Fig. 198"], "caption": "Lower horizontal section of Hollywood mound, Georgia."}, "parse": "ok", "s": 6.0, "img_size": [811, 1401]}
+{"n": 419, "leaf": 422, "out": {"page_type": "other_illustration", "numbers": ["Fig. 199"], "caption": "Pot from Hollywood mound, Georgia (135197)."}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 417, "leaf": 420, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE MOUND GROUP AT THE MOUND OF ETHNOLOGY"}, "parse": "ok", "s": 5.9, "img_size": [804, 1401]}
+{"n": 421, "leaf": 424, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 422, "leaf": 425, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXII"], "caption": "FAIRGROUND CIRCLE. NEAR NEWARK. O."}, "parse": "ok", "s": 5.3, "img_size": [1401, 1350]}
+{"n": 420, "leaf": 423, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXV"], "caption": "PLAN OF THE GREAT MOUND, HOPWELL, OHIO"}, "parse": "ok", "s": 5.8, "img_size": [811, 1401]}
+{"n": 424, "leaf": 427, "out": {"page_type": "other_illustration", "numbers": ["Fig. 200"], "caption": "A painted vessel from Hollywood mound, Georgia."}, "parse": "ok", "s": 3.8, "img_size": [811, 1401]}
+{"n": 425, "leaf": 428, "out": {"page_type": "other_illustration", "numbers": ["Fig. 201", "Fig. 202", "Fig. 203"], "caption": "Pot from Hollywood mound, Georgia"}, "parse": "ok", "s": 4.3, "img_size": [804, 1401]}
+{"n": 426, "leaf": 429, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 427, "leaf": 430, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 428, "leaf": 431, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXIII"], "caption": "HIGH BANK CIRCLE, NEAR CHILLICOTHE, O."}, "parse": "ok", "s": 5.2, "img_size": [1386, 1400]}
+{"n": 430, "leaf": 433, "out": {"page_type": "other_illustration", "numbers": ["Fig. 204", "Fig. 205"], "caption": "Shell beads from Hollywood mound, Georgia"}, "parse": "ok", "s": 5.9, "img_size": [811, 1401]}
+{"n": 364, "leaf": 367, "out": {"page_type": "other_illustration", "numbers": ["Fig. 177"], "caption": "Mound No. 1, O'Byan's fort."}, "parse": "ok", "s": 4.5, "img_size": [811, 1401]}
+{"n": 429, "leaf": 432, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "INTOILLING HAWK-BLORIO AMAD HORN"}, "parse": "ok", "s": 5.3, "img_size": [804, 1401]}
+{"n": 432, "leaf": 435, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [811, 1401]}
+{"n": 433, "leaf": 436, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [804, 1401]}
+{"n": 431, "leaf": 434, "out": {"page_type": "other_illustration", "numbers": ["Fig. 206"], "caption": "Fragment of porcelain from Hollywood mound, Georgia."}, "parse": "ok", "s": 4.9, "img_size": [804, 1401]}
+{"n": 437, "leaf": 440, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 435, "leaf": 438, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 439, "leaf": 442, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [827, 1401]}
+{"n": 438, "leaf": 441, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [811, 1401]}
+{"n": 436, "leaf": 439, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [811, 1401]}
+{"n": 434, "leaf": 437, "out": {"page_type": "other_illustration", "numbers": ["PL. XXIV", "1", "2", "3a", "3b", "4", "5"], "caption": "PIPES FROM HOLLYWOOD MOUND, GEORGIA."}, "parse": "ok", "s": 5.9, "img_size": [811, 1401]}
+{"n": 440, "leaf": 443, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 442, "leaf": 445, "out": {"page_type": "text_only", "numbers": ["Fig. 208"], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 443, "leaf": 446, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 208", "Fig. 209", "Fig. 210"], "caption": "T. F. Nelson Triangle, Caldwell county, North Carolina"}, "parse": "ok", "s": 4.6, "img_size": [827, 1401]}
+{"n": 441, "leaf": 444, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 207."], "caption": "T. F. Nelson mound, Caldwell county, North Carolina."}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 445, "leaf": 448, "out": {"page_type": "other_illustration", "numbers": ["Fig. 213."], "caption": "Engraved shell. Nelson triangle."}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 444, "leaf": 447, "out": {"page_type": "other_illustration", "numbers": ["Fig. 211.", "Fig. 212."], "caption": "Part of iron blade, Nelson triangle."}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 446, "leaf": 449, "out": {"page_type": "other_illustration", "numbers": ["Fig. 214", "Fig. 215"], "caption": "Engraved shell, Nelson triangle. Pipe, Caldwell county, North Carolina."}, "parse": "ok", "s": 5.2, "img_size": [817, 1401]}
+{"n": 447, "leaf": 450, "out": {"page_type": "other_illustration", "numbers": ["Fig. 216", "Fig. 217"], "caption": "Pipe, Caldwell county, North Carolina."}, "parse": "ok", "s": 4.6, "img_size": [827, 1401]}
+{"n": 448, "leaf": 451, "out": {"page_type": "other_illustration", "numbers": ["Fig. 218", "Fig. 219", "Fig. 220"], "caption": "Pipe, Caldwell county, North Carolina."}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 451, "leaf": 454, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 450, "leaf": 453, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 222"], "caption": "R. T. Lenoir burial pit (plan), Caldwell county, North Carolina."}, "parse": "ok", "s": 6.0, "img_size": [817, 1401]}
+{"n": 449, "leaf": 452, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 221"], "caption": "Plan of W. D. Jones mound, Caldwell county, North Carolina."}, "parse": "ok", "s": 6.0, "img_size": [827, 1401]}
+{"n": 452, "leaf": 455, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 223"], "caption": "Ancient burial ground, Wilkes county, North Carolina."}, "parse": "ok", "s": 5.0, "img_size": [817, 1401]}
+{"n": 453, "leaf": 456, "out": {"page_type": "other_illustration", "numbers": ["Fig. 224"], "caption": "Clay hearth (or fire-bed), Wilkes county, North Carolina."}, "parse": "ok", "s": 4.9, "img_size": [827, 1401]}
+{"n": 454, "leaf": 457, "out": {"page_type": "other_illustration", "numbers": ["Fig. 225"], "caption": "Bogus article, Haywood county, North Carolina."}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 455, "leaf": 458, "out": {"page_type": "other_illustration", "numbers": ["Fig. 226"], "caption": "Bogus article, Haywood county. North Carolina."}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 456, "leaf": 459, "out": {"page_type": "other_illustration", "numbers": ["Fig. 227."], "caption": "Bogus articles, Haywood county, North Carolina."}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 457, "leaf": 460, "out": {"page_type": "other_illustration", "numbers": ["Fig. 228", "Fig. 229"], "caption": "Section of Conner mound, Henderson county, North Carolina."}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 459, "leaf": 462, "out": {"page_type": "other_illustration", "numbers": ["Fig. 231"], "caption": "Copper spade from mound, Sullivan county, Tennessee."}, "parse": "ok", "s": 5.0, "img_size": [827, 1401]}
+{"n": 458, "leaf": 461, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 230"], "caption": "Plan of mounds on the Holston river, Sullivan county, Tennessee."}, "parse": "ok", "s": 5.1, "img_size": [817, 1401]}
+{"n": 460, "leaf": 463, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 232"], "caption": "Plan of burials in mound, Sullivan county, Tennessee."}, "parse": "ok", "s": 5.0, "img_size": [817, 1401]}
+{"n": 461, "leaf": 464, "out": {"page_type": "other_illustration", "numbers": ["Fig. 233"], "caption": "Stone pipe from mound, Sullivan county, Tennessee."}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 462, "leaf": 465, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 234"], "caption": "Plat showing ancient graves near Kingsport, Tennessee."}, "parse": "ok", "s": 6.0, "img_size": [817, 1401]}
+{"n": 463, "leaf": 466, "out": {"page_type": "other_illustration", "numbers": ["Fig. 235", "Fig. 236"], "caption": "Section of grave No. 1, near Kingsport, Tennessee."}, "parse": "ok", "s": 5.5, "img_size": [827, 1401]}
+{"n": 464, "leaf": 467, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [817, 1401]}
+{"n": 465, "leaf": 468, "out": {"page_type": "other_illustration", "numbers": ["Fig. 237"], "caption": "Section of mound on Fain's island, Jefferson county, Tennessee."}, "parse": "ok", "s": 5.0, "img_size": [827, 1401]}
+{"n": 466, "leaf": 469, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 238"], "caption": "Plat of groups on Long island, Roane county, Tennessee."}, "parse": "ok", "s": 5.0, "img_size": [817, 1401]}
+{"n": 469, "leaf": 472, "out": {"page_type": "text_only", "numbers": ["Fig. 238"], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [827, 1401]}
+{"n": 467, "leaf": 470, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 239"], "caption": "Diagram of mound No. 3, Long island, Roane county, Tennessee."}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 468, "leaf": 471, "out": {"page_type": "other_illustration", "numbers": ["Plo. 240"], "caption": "Image from mound No. 3. Long island, Roane county, Tennessee."}, "parse": "ok", "s": 5.9, "img_size": [817, 1401]}
+{"n": 470, "leaf": 473, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 472, "leaf": 475, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [817, 1401]}
+{"n": 471, "leaf": 474, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 241"], "caption": "Diagram of the Hagler mound, Roane county, Tennessee."}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 474, "leaf": 477, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 475, "leaf": 478, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXV"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 473, "leaf": 476, "out": {"page_type": "text_only", "numbers": ["Pl. XXV"], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 477, "leaf": 480, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [827, 1401]}
+{"n": 476, "leaf": 479, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "PLAN OF THE VALLEY OF THE LITTLE TENNESSEE RIVER, BLOUNT AND MONROE COUNTIES, TENNESSEE."}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 478, "leaf": 481, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXV"], "caption": "FLAT OF THE VALLEY OF THE LITTLE TENNESSEE RIVER, BLOUNT AND MONROE COUNTIES, TENNESSEE."}, "parse": "ok", "s": 5.5, "img_size": [1401, 1118]}
+{"n": 479, "leaf": 482, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [827, 1401]}
+{"n": 480, "leaf": 483, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 242"], "caption": "Diagram of the Hardin mound, Blount county, Tennessee."}, "parse": "ok", "s": 3.5, "img_size": [817, 1401]}
+{"n": 483, "leaf": 486, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 482, "leaf": 485, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXVI"], "caption": "LOCATION OF THE OVERHILL CHEROKEE TOWNS"}, "parse": "ok", "s": 5.1, "img_size": [817, 1401]}
+{"n": 484, "leaf": 487, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 244", "Fig. 245"], "caption": "Diagram of McMurray mound, No. 2."}, "parse": "ok", "s": 4.3, "img_size": [817, 1401]}
+{"n": 489, "leaf": 492, "out": {"page_type": "other_illustration", "numbers": ["Fig. 249"], "caption": "Vertical section of the Citico mound (McSpaddin, No. 4)."}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 488, "leaf": 491, "out": {"page_type": "text_only", "numbers": ["Fig. 248", "Fig. 247"], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [817, 1401]}
+{"n": 481, "leaf": 484, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 243"], "caption": "Plat of the McMurray mounds, Blount county, Tennessee."}, "parse": "ok", "s": 7.8, "img_size": [827, 1401]}
+{"n": 485, "leaf": 488, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 246"], "caption": "Diagram of McMurray mound, No. 3."}, "parse": "ok", "s": 6.9, "img_size": [827, 1401]}
+{"n": 487, "leaf": 490, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 247", "Fig. 248"], "caption": "Plat of Latimore and McSpaddin mounds (Citico group), Monroe county, Tennessee."}, "parse": "ok", "s": 4.2, "img_size": [827, 1401]}
+{"n": 423, "leaf": 426, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE 10"], "caption": "LAKEMORE CIRCLE, NEAR NEWARK, O."}, "parse": "ok", "s": 7.2, "img_size": [804, 1401]}
+{"n": 486, "leaf": 489, "out": {"page_type": "text_only", "numbers": ["Fig. 245", "Pl. XXV", "Pl. XXV", "Pl. XXVI"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [817, 1401]}
+{"n": 493, "leaf": 496, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 255"], "caption": "Plan of burials in McGee mound. No. 2."}, "parse": "ok", "s": 4.0, "img_size": [827, 1401]}
+{"n": 494, "leaf": 497, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 256"], "caption": "Plat of the Toco mounds, Monroe county, Tennessee."}, "parse": "ok", "s": 4.6, "img_size": [817, 1401]}
+{"n": 491, "leaf": 494, "out": {"page_type": "other_illustration", "numbers": ["Fig. 251", "Fig. 252"], "caption": "Moccasin-shaped pot, Citico mound. Copper rattle or hawk's bell, Citico mound."}, "parse": "ok", "s": 5.2, "img_size": [827, 1401]}
+{"n": 490, "leaf": 493, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 250"], "caption": "Plan of burials in the Citico mound (McSpaddin, No. 4)."}, "parse": "ok", "s": 4.6, "img_size": [817, 1401]}
+{"n": 495, "leaf": 498, "out": {"page_type": "other_illustration", "numbers": ["Fig. 257"], "caption": "Vertical section of the Big Toco mound, Monroe county, Tennessee."}, "parse": "ok", "s": 2.4, "img_size": [827, 1401]}
+{"n": 499, "leaf": 502, "out": {"page_type": "other_illustration", "numbers": ["Fig. 264"], "caption": "Pot, Big Toco mound."}, "parse": "ok", "s": 3.5, "img_size": [827, 1401]}
+{"n": 498, "leaf": 501, "out": {"page_type": "other_illustration", "numbers": ["Fig. 261", "Fig. 262", "Fig. 263"], "caption": "Stone pipe, Big Toco mound. Ornamented shell, Big Toco mound. Stone implement, Big Toco mound."}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 497, "leaf": 500, "out": {"page_type": "other_illustration", "numbers": ["Fig. 259"], "caption": "Bone implement, Big Toco mound."}, "parse": "ok", "s": 7.3, "img_size": [827, 1401]}
+{"n": 501, "leaf": 504, "out": {"page_type": "other_illustration", "numbers": ["Fig. 267"], "caption": "Water vessel, Callaway mound."}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 492, "leaf": 495, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 253", "Fig. 254"], "caption": "Plat of the Bacon and McGee mounds, Blount and Monroe counties, Tennessee."}, "parse": "ok", "s": 8.1, "img_size": [817, 1401]}
+{"n": 496, "leaf": 499, "out": {"page_type": "figure_site_plan", "numbers": ["258", "257"], "caption": "Plan of burials in the Big Toco mound, Monroe county, Tennessee."}, "parse": "ok", "s": 7.5, "img_size": [817, 1401]}
+{"n": 502, "leaf": 505, "out": {"page_type": "other_illustration", "numbers": ["Fig. 268"], "caption": "Water vessel, Callaway mound."}, "parse": "ok", "s": 3.5, "img_size": [817, 1401]}
+{"n": 503, "leaf": 506, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 269"], "caption": "Plat of the Niles ferry mounds, Monroe county, Tennessee."}, "parse": "ok", "s": 3.1, "img_size": [827, 1401]}
+{"n": 508, "leaf": 511, "out": {"page_type": "other_illustration", "numbers": ["Fig. 272"], "caption": "Horizontal section, Bat creek mound, No. 3, London county, Tennessee."}, "parse": "ok", "s": 3.6, "img_size": [817, 1401]}
+{"n": 509, "leaf": 512, "out": {"page_type": "other_illustration", "numbers": ["Fig. 273"], "caption": "Engraved stone from Bat creek mound No. 3, Loudon county, Tennessee."}, "parse": "ok", "s": 3.2, "img_size": [827, 1401]}
+{"n": 505, "leaf": 508, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 271"], "caption": "Plat of mounds on the Click farm, Monroe county, Tennessee."}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 504, "leaf": 507, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 270"], "caption": "Group 2 miles below Niles's ferry."}, "parse": "ok", "s": 6.1, "img_size": [817, 1401]}
+{"n": 506, "leaf": 509, "out": {"page_type": "text_only", "numbers": ["No. 13 on Pl. XXV", "No. 14 on Pl. XXV", "Nos. 2 and 3"], "caption": "THE BAT CREEK MOUNDS."}, "parse": "ok", "s": 6.2, "img_size": [817, 1401]}
+{"n": 511, "leaf": 514, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 275", "Pl. XXV"], "caption": "Mounds on John Jackson's farm, London county, Tennessee."}, "parse": "ok", "s": 5.0, "img_size": [827, 1401]}
+{"n": 510, "leaf": 513, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 274"], "caption": "Mounds on John Jackson's farm, Loudon county, Tennessee."}, "parse": "ok", "s": 4.9, "img_size": [817, 1401]}
+{"n": 389, "leaf": 392, "out": {"page_type": "other_illustration", "numbers": ["Fig. 184"], "caption": "Vertical section of mound c, Etowah group."}, "parse": "ok", "s": 2.0, "img_size": [804, 1401]}
+{"n": 512, "leaf": 515, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 276"], "caption": "The Lenoir mounds, Lenoir county, Tennessee."}, "parse": "ok", "s": 5.9, "img_size": [817, 1401]}
+{"n": 514, "leaf": 517, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 278."], "caption": "Diagram of mound No. 2, Lenoir group."}, "parse": "ok", "s": 6.0, "img_size": [817, 1401]}
+{"n": 513, "leaf": 516, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 277"], "caption": "Plan of burials in mound No. 1, Lenoir group."}, "parse": "ok", "s": 6.0, "img_size": [827, 1401]}
+{"n": 516, "leaf": 519, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 281", "Fig. 282"], "caption": "Horizontal plan of mound No. 2, Lenoir group."}, "parse": "ok", "s": 5.1, "img_size": [817, 1401]}
+{"n": 517, "leaf": 520, "out": {"page_type": "other_illustration", "numbers": ["Fig. 283", "Fig. 284"], "caption": "Shell ornament, mound No. 2, Lenoir group."}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 515, "leaf": 518, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 279", "Fig. 280"], "caption": "Plan of burials in mound No. 2, Lenoir group."}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 519, "leaf": 522, "out": {"page_type": "text_only", "numbers": ["Fig. 276"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 520, "leaf": 523, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 518, "leaf": 521, "out": {"page_type": "other_illustration", "numbers": ["Fig. 285"], "caption": "Pipe, mound No. 2, Lenoir group."}, "parse": "ok", "s": 5.4, "img_size": [817, 1401]}
+{"n": 523, "leaf": 526, "out": {"page_type": "other_illustration", "numbers": ["Fig. 288"], "caption": "Singular stone heaps, Fayette county, West Virginia."}, "parse": "ok", "s": 3.5, "img_size": [827, 1401]}
+{"n": 522, "leaf": 525, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 287"], "caption": "Huddleson's Circle, Fayette county, West Virginia."}, "parse": "ok", "s": 3.6, "img_size": [817, 1401]}
+{"n": 527, "leaf": 530, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 526, "leaf": 529, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [817, 1401]}
+{"n": 521, "leaf": 524, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 286"], "caption": "Plan of burials in mound No. 1, Frazier group, Rhea county, Tennessee."}, "parse": "ok", "s": 2.7, "img_size": [827, 1401]}
+{"n": 525, "leaf": 528, "out": {"page_type": "text_only", "numbers": ["Fig. 288"], "caption": ""}, "parse": "ok", "s": 2.9, "img_size": [827, 1401]}
+{"n": 524, "leaf": 527, "out": {"page_type": "other_illustration", "numbers": ["Fig. 289", "Fig. 290"], "caption": "Stone heap with two cavities, Fayette county, West Virginia."}, "parse": "ok", "s": 5.9, "img_size": [817, 1401]}
+{"n": 528, "leaf": 531, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 532, "leaf": 535, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 291"], "caption": "Enlarged plan of mound No. 1, and inclosure a. Kanawha county, West Virginia."}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 530, "leaf": 533, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXVII"], "caption": "PLAT OF GROUP NEAR CHARLESTON, KANAWHA COUNTY, WEST VIRGINIA."}, "parse": "ok", "s": 3.7, "img_size": [817, 1401]}
+{"n": 531, "leaf": 534, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 534, "leaf": 537, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [817, 1401]}
+{"n": 529, "leaf": 532, "out": {"page_type": "text_only", "numbers": ["Pl. xxvii", "No. 1, Pl. xxvii", "Fig. 291", "Fig. 292"], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 535, "leaf": 538, "out": {"page_type": "text_only", "numbers": ["Pl. XXVII", "Fig. 293"], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 536, "leaf": 539, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 293"], "caption": "Spring Hill inclosure on enlarged scale, Kanawha county, West Virginia."}, "parse": "ok", "s": 3.4, "img_size": [817, 1401]}
+{"n": 541, "leaf": 544, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 297."], "caption": "Inclosure K, Kanawha county, West Virginia."}, "parse": "ok", "s": 1.9, "img_size": [827, 1401]}
+{"n": 537, "leaf": 540, "out": {"page_type": "text_only", "numbers": ["Pl. XXVII", "Fig. 294"], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [827, 1401]}
+{"n": 538, "leaf": 541, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 294"], "caption": "Inclosure G, Kanawha county, West Virginia."}, "parse": "ok", "s": 5.0, "img_size": [817, 1401]}
+{"n": 539, "leaf": 542, "out": {"page_type": "figure_site_plan", "numbers": ["295"], "caption": "FIG. 295.\u2014Inclosure I, Kanawha county, West Virginia."}, "parse": "ok", "s": 3.2, "img_size": [827, 1401]}
+{"n": 542, "leaf": 545, "out": {"page_type": "other_illustration", "numbers": ["Fig. 298"], "caption": "A section of mound No. 21, Kanawha County, West Virginia."}, "parse": "ok", "s": 1.9, "img_size": [817, 1401]}
+{"n": 545, "leaf": 548, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [827, 1401]}
+{"n": 543, "leaf": 546, "out": {"page_type": "other_illustration", "numbers": ["Fig. 299", "Fig. 300"], "caption": "Copper bracelet from mound No. 21, Kanawha county, West Virginia."}, "parse": "ok", "s": 6.6, "img_size": [827, 1401]}
+{"n": 544, "leaf": 547, "out": {"page_type": "other_illustration", "numbers": ["Fig. 301"], "caption": "Steatite pipe from Kanawha county, West Virginia."}, "parse": "ok", "s": 6.4, "img_size": [817, 1401]}
+{"n": 547, "leaf": 550, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 546, "leaf": 549, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [817, 1401]}
+{"n": 548, "leaf": 551, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 550, "leaf": 553, "out": {"page_type": "text_only", "numbers": ["Fig. 288"], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [817, 1401]}
+{"n": 549, "leaf": 552, "out": {"page_type": "other_illustration", "numbers": ["Fig. 302"], "caption": "Section of mound No. 31, Kanawha county, West Virginia."}, "parse": "ok", "s": 8.1, "img_size": [827, 1401]}
+{"n": 552, "leaf": 555, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [817, 1401]}
+{"n": 551, "leaf": 554, "out": {"page_type": "text_only", "numbers": ["Pl. xxvii"], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [827, 1401]}
+{"n": 556, "leaf": 559, "out": {"page_type": "text_only", "numbers": ["Fig. 303"], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [817, 1401]}
+{"n": 553, "leaf": 556, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 557, "leaf": 560, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 554, "leaf": 557, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [817, 1401]}
+{"n": 559, "leaf": 562, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 555, "leaf": 558, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 303"], "caption": "Mound group, 1 mile west of Barboursville, West Virginia."}, "parse": "ok", "s": 8.2, "img_size": [827, 1401]}
+{"n": 500, "leaf": 503, "out": {"page_type": "other_illustration", "numbers": ["Fig. 265", "Fig. 266"], "caption": "Vertical section of Callaway mound, Monroe county."}, "parse": "ok", "s": 6.4, "img_size": [817, 1401]}
+{"n": 561, "leaf": 564, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 305"], "caption": "Plat and section of the area about the Staats mound, Knox county, Ohio."}, "parse": "ok", "s": 2.0, "img_size": [827, 1401]}
+{"n": 560, "leaf": 563, "out": {"page_type": "other_illustration", "numbers": ["Fig. 304"], "caption": "Section of the Staats mound Knox county Ohio"}, "parse": "ok", "s": 4.5, "img_size": [817, 1401]}
+{"n": 558, "leaf": 561, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXVIII"], "caption": "PLAN AND SECTIONS OF THE STAATS MOUND, KNOX COUNTY, OHIO."}, "parse": "ok", "s": 6.7, "img_size": [817, 1401]}
+{"n": 507, "leaf": 510, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 564, "leaf": 567, "out": {"page_type": "other_illustration", "numbers": ["PL. XXIX"], "caption": "CEMETERY MOUND, MOUNT VERNON, KNOX COUNTY, OHIO."}, "parse": "ok", "s": 3.6, "img_size": [817, 1401]}
+{"n": 562, "leaf": 565, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [817, 1401]}
+{"n": 565, "leaf": 568, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.9, "img_size": [827, 1401]}
+{"n": 563, "leaf": 566, "out": {"page_type": "figure_site_plan", "numbers": ["306"], "caption": "Plan of Cemetery mound, Mount Vernon, Knox county, Ohio."}, "parse": "ok", "s": 6.6, "img_size": [827, 1401]}
+{"n": 566, "leaf": 569, "out": {"page_type": "other_illustration", "numbers": ["Fig. 307"], "caption": "Section of the Cemetery mound, Mount Vernon, Knox county, Ohio."}, "parse": "ok", "s": 2.7, "img_size": [817, 1401]}
+{"n": 567, "leaf": 570, "out": {"page_type": "text_only", "numbers": ["Fig. 306"], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 568, "leaf": 571, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 308"], "caption": "Works on the Davis place, Hocking county, Ohio."}, "parse": "ok", "s": 2.0, "img_size": [817, 1401]}
+{"n": 571, "leaf": 574, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 310"], "caption": "Ancient works near Dublin, Franklin county, Ohio."}, "parse": "ok", "s": 6.5, "img_size": [827, 1401]}
+{"n": 570, "leaf": 573, "out": {"page_type": "text_only", "numbers": ["Fig. 308", "Fig. 310"], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [817, 1401]}
+{"n": 572, "leaf": 575, "out": {"page_type": "text_only", "numbers": ["Fig. 311"], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 569, "leaf": 572, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 309"], "caption": "Plan of the large work, Davis place, Hocking county, Ohio."}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 574, "leaf": 577, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 311"], "caption": "Group of mounds, Brown county, Ohio."}, "parse": "ok", "s": 1.9, "img_size": [817, 1401]}
+{"n": 579, "leaf": 582, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 314"], "caption": "Mounds near Brownsville, Ohio."}, "parse": "ok", "s": 1.9, "img_size": [827, 1401]}
+{"n": 580, "leaf": 583, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXV"], "caption": "NEWARK WORKS, LICKING COUNTY, OHIO."}, "parse": "ok", "s": 2.0, "img_size": [817, 1401]}
+{"n": 575, "leaf": 578, "out": {"page_type": "text_only", "numbers": ["Fig. 312"], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 578, "leaf": 581, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [817, 1401]}
+{"n": 576, "leaf": 579, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 312."], "caption": "Stone grave, Brown county, Ohio."}, "parse": "ok", "s": 6.5, "img_size": [817, 1401]}
+{"n": 577, "leaf": 580, "out": {"page_type": "other_illustration", "numbers": ["Fig. 313."], "caption": "Section of a stone grave, Brown county, Ohio."}, "parse": "ok", "s": 6.5, "img_size": [827, 1401]}
+{"n": 581, "leaf": 584, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 586, "leaf": 589, "out": {"page_type": "text_only", "numbers": ["Pl. XXII", "Pl. XXV"], "caption": "FAIR GROUND CIRCLE."}, "parse": "ok", "s": 2.0, "img_size": [817, 1401]}
+{"n": 582, "leaf": 585, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [817, 1401]}
+{"n": 585, "leaf": 588, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 584, "leaf": 587, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXI"], "caption": "FAIR GROUND CIRCLE, NEWARK, OHIO."}, "parse": "ok", "s": 6.1, "img_size": [817, 1401]}
+{"n": 583, "leaf": 586, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 315."], "caption": "Small inclosure, Newark group, Licking county, Ohio."}, "parse": "ok", "s": 6.5, "img_size": [827, 1401]}
+{"n": 533, "leaf": 536, "out": {"page_type": "other_illustration", "numbers": ["Fig. 292"], "caption": "Section of mound No. 1, Kanawha county, West Virginia."}, "parse": "ok", "s": 3.6, "img_size": [827, 1401]}
+{"n": 587, "leaf": 590, "out": {"page_type": "text_only", "numbers": ["PL. XXV", "PL. XXXI"], "caption": "OBSERVATORY CIRCLE."}, "parse": "ok", "s": 3.5, "img_size": [827, 1401]}
+{"n": 593, "leaf": 596, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 592, "leaf": 595, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXXII"], "caption": "OCTAGON, NEWARK, OHIO."}, "parse": "ok", "s": 3.5, "img_size": [817, 1401]}
+{"n": 594, "leaf": 597, "out": {"page_type": "text_only", "numbers": ["Pl. XXV", "Pl. XXXIV"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [817, 1401]}
+{"n": 595, "leaf": 598, "out": {"page_type": "text_only", "numbers": ["316", "Pl. xxx"], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 589, "leaf": 592, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 11.8, "img_size": [827, 1401]}
+{"n": 588, "leaf": 591, "out": {"page_type": "plate_site_plan", "numbers": ["Pl. XXII"], "caption": "OBSERVATORY CIRCLE, NEWARK, OHIO."}, "parse": "ok", "s": 11.9, "img_size": [817, 1401]}
+{"n": 590, "leaf": 593, "out": {"page_type": "text_only", "numbers": ["Pl. XXXII"], "caption": ""}, "parse": "ok", "s": 11.6, "img_size": [817, 1401]}
+{"n": 591, "leaf": 594, "out": {"page_type": "text_only", "numbers": ["Pl. XXXIII"], "caption": ""}, "parse": "ok", "s": 11.6, "img_size": [827, 1401]}
+{"n": 597, "leaf": 600, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 596, "leaf": 599, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXIV"], "caption": "SQUARE, NEWARK, OHIO."}, "parse": "ok", "s": 3.5, "img_size": [817, 1401]}
+{"n": 603, "leaf": 606, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.9, "img_size": [827, 1401]}
+{"n": 598, "leaf": 601, "out": {"page_type": "other_illustration", "numbers": ["Fig. 316"], "caption": "Levels along parallels at Newark, Ohio."}, "parse": "ok", "s": 6.8, "img_size": [817, 1401]}
+{"n": 599, "leaf": 602, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 317"], "caption": "Ancient inclosure, Licking county, Ohio."}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 600, "leaf": 603, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 318"], "caption": "Stone fort on Flint ridge, Licking county, Ohio."}, "parse": "ok", "s": 6.8, "img_size": [817, 1401]}
+{"n": 601, "leaf": 604, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 319"], "caption": "Stone fort near Glenford, Perry county, Ohio."}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 602, "leaf": 605, "out": {"page_type": "other_illustration", "numbers": ["Fig. 320"], "caption": "Section of the Cryder mound, near Adelphi, Ross county, Ohio."}, "parse": "ok", "s": 9.7, "img_size": [817, 1401]}
+{"n": 609, "leaf": 612, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 604, "leaf": 607, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXXV"], "caption": "SQUARE OF HOPETON WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 10.6, "img_size": [817, 1401]}
+{"n": 605, "leaf": 608, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.9, "img_size": [827, 1401]}
+{"n": 610, "leaf": 613, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [817, 1401]}
+{"n": 606, "leaf": 609, "out": {"page_type": "text_only", "numbers": ["Pl. XXXV.", "Pl. XXXVI."], "caption": ""}, "parse": "ok", "s": 12.4, "img_size": [817, 1401]}
+{"n": 611, "leaf": 614, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 613, "leaf": 616, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 607, "leaf": 610, "out": {"page_type": "text_only", "numbers": ["Pl. XXXV", "Pl. XXXVI", "Pl. XVII"], "caption": ""}, "parse": "ok", "s": 13.9, "img_size": [827, 1401]}
+{"n": 608, "leaf": 611, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXXVI"], "caption": "CIRCLE OF HOPETON WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 14.0, "img_size": [817, 1401]}
+{"n": 614, "leaf": 617, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [817, 1401]}
+{"n": 612, "leaf": 615, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXXVII"], "caption": "CIRCLE OF HIGH BANK WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 615, "leaf": 618, "out": {"page_type": "text_only", "numbers": ["PL. XXVIII", "PL. XXXVIII"], "caption": ""}, "parse": "ok", "s": 2.3, "img_size": [827, 1401]}
+{"n": 616, "leaf": 619, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXXVIII"], "caption": "OCTAGON OF HIGH BANK WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 3.7, "img_size": [817, 1401]}
+{"n": 621, "leaf": 624, "out": {"page_type": "text_only", "numbers": ["Pl. XXXIX"], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 622, "leaf": 625, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XXIX"], "caption": "SQUARE OF LIBERTY TOWNSHIP WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 4.1, "img_size": [817, 1401]}
+{"n": 623, "leaf": 626, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 624, "leaf": 627, "out": {"page_type": "text_only", "numbers": ["Pl. XXI"], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [817, 1401]}
+{"n": 573, "leaf": 576, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [827, 1401]}
+{"n": 625, "leaf": 628, "out": {"page_type": "text_only", "numbers": ["No. 1, Pl. XXI", "Fig. 322"], "caption": "THE PYRAMIDAL MOUND."}, "parse": "ok", "s": 7.1, "img_size": [827, 1401]}
+{"n": 627, "leaf": 630, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 626, "leaf": 629, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XL"], "caption": "SQUARE OF THE BAUM WORKS, ROSS COUNTY, OHIO."}, "parse": "ok", "s": 6.6, "img_size": [817, 1401]}
+{"n": 629, "leaf": 632, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 628, "leaf": 631, "out": {"page_type": "other_illustration", "numbers": ["Fig. 322"], "caption": "Pyramidal mound, Baum works, Ross county, Ohio."}, "parse": "ok", "s": 6.5, "img_size": [817, 1401]}
+{"n": 631, "leaf": 634, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 630, "leaf": 633, "out": {"page_type": "other_illustration", "numbers": ["Fig. 323"], "caption": "Bone implement point from Baum works."}, "parse": "ok", "s": 6.4, "img_size": [817, 1401]}
+{"n": 632, "leaf": 635, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [817, 1401]}
+{"n": 618, "leaf": 621, "out": {"page_type": "text_only", "numbers": ["Pl. XXVIII", "Pl. XX"], "caption": ""}, "parse": "ok", "s": 31.1, "img_size": [817, 1401]}
+{"n": 617, "leaf": 620, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 29.6, "img_size": [827, 1401]}
+{"n": 620, "leaf": 623, "out": {"page_type": "text_only", "numbers": ["Fig. 321"], "caption": "The small circle."}, "parse": "ok", "s": 32.5, "img_size": [817, 1401]}
+{"n": 619, "leaf": 622, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 321"], "caption": "Small circle, Liberty township works, Ross county, Ohio."}, "parse": "ok", "s": 35.9, "img_size": [827, 1401]}
+{"n": 634, "leaf": 637, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 11.6, "img_size": [817, 1401]}
+{"n": 633, "leaf": 636, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 324"], "caption": "Circle A, Seal township works."}, "parse": "ok", "s": 13.3, "img_size": [827, 1401]}
+{"n": 637, "leaf": 640, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 638, "leaf": 641, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [817, 1401]}
+{"n": 636, "leaf": 639, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 236"], "caption": "The Serpent mound, Adams county, Ohio."}, "parse": "ok", "s": 6.9, "img_size": [817, 1401]}
+{"n": 635, "leaf": 638, "out": {"page_type": "other_illustration", "numbers": ["Fig. 325"], "caption": "Copy of Moorehead's station 241, Pl. VI."}, "parse": "ok", "s": 14.9, "img_size": [827, 1401]}
+{"n": 640, "leaf": 643, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [817, 1401]}
+{"n": 641, "leaf": 644, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 645, "leaf": 648, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 330"], "caption": "Inclosure near Pittsfield, Warren county, Pennsylvania."}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 646, "leaf": 649, "out": {"page_type": "text_only", "numbers": ["Fig. 330", "Fig. 331"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [817, 1401]}
+{"n": 639, "leaf": 642, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 327."], "caption": "Mound and graves near Monongahela city, Pennsylvania."}, "parse": "ok", "s": 11.2, "img_size": [827, 1401]}
+{"n": 642, "leaf": 645, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.5, "img_size": [817, 1401]}
+{"n": 643, "leaf": 646, "out": {"page_type": "other_illustration", "numbers": ["Fig. 328"], "caption": "Section of Irvineton mound, Warren county, Pennsylvania."}, "parse": "ok", "s": 9.7, "img_size": [827, 1401]}
+{"n": 644, "leaf": 647, "out": {"page_type": "other_illustration", "numbers": ["Fig. 329"], "caption": "Pieces of silver from Irvinetou mound."}, "parse": "ok", "s": 9.7, "img_size": [817, 1401]}
+{"n": 540, "leaf": 543, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 296"], "caption": "Inclosure L, Kanawha county, West Virginia."}, "parse": "ok", "s": 7.5, "img_size": [817, 1401]}
+{"n": 647, "leaf": 650, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 331"], "caption": "Ancient fort on Atwell farm, Madison county, New York."}, "parse": "ok", "s": 9.8, "img_size": [827, 1401]}
+{"n": 649, "leaf": 652, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [827, 1401]}
+{"n": 654, "leaf": 657, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.4, "img_size": [817, 1401]}
+{"n": 648, "leaf": 651, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 332"], "caption": "Seat of ancient Onondaga town, Madison county, New York."}, "parse": "ok", "s": 5.1, "img_size": [817, 1401]}
+{"n": 653, "leaf": 656, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 651, "leaf": 654, "out": {"page_type": "text_only", "numbers": ["Pl. VII", "Fig. 334"], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [827, 1401]}
+{"n": 650, "leaf": 653, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 333."], "caption": "Old fort near Ellington, Chautauqua county, New York."}, "parse": "ok", "s": 7.1, "img_size": [817, 1401]}
+{"n": 652, "leaf": 655, "out": {"page_type": "figure_site_plan", "numbers": ["334"], "caption": "Inclosure near Ellington, Chautauqua county, New York."}, "parse": "ok", "s": 6.7, "img_size": [817, 1401]}
+{"n": 655, "leaf": 658, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 656, "leaf": 659, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [817, 1401]}
+{"n": 658, "leaf": 661, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [817, 1401]}
+{"n": 657, "leaf": 660, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 335."], "caption": "Inclosure on Dunn farm, Wyoming county, New York."}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 659, "leaf": 662, "out": {"page_type": "text_only", "numbers": ["Fig. 336"], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [818, 1400]}
+{"n": 661, "leaf": 664, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 662, "leaf": 665, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [817, 1401]}
+{"n": 660, "leaf": 663, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 336"], "caption": "Rifle river fort No. 2, Ogemaw county, Michigan."}, "parse": "ok", "s": 7.2, "img_size": [824, 1400]}
+{"n": 663, "leaf": 666, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 665, "leaf": 668, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 664, "leaf": 667, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [817, 1401]}
+{"n": 666, "leaf": 669, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 667, "leaf": 670, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 670, "leaf": 673, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [817, 1401]}
+{"n": 669, "leaf": 672, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 668, "leaf": 671, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [817, 1401]}
+{"n": 671, "leaf": 674, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 674, "leaf": 677, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [817, 1401]}
+{"n": 673, "leaf": 676, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 672, "leaf": 675, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.1, "img_size": [817, 1401]}
+{"n": 677, "leaf": 680, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 676, "leaf": 679, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [817, 1401]}
+{"n": 675, "leaf": 678, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 680, "leaf": 683, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [817, 1401]}
+{"n": 681, "leaf": 684, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [827, 1401]}
+{"n": 678, "leaf": 681, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [817, 1401]}
+{"n": 682, "leaf": 685, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [817, 1401]}
+{"n": 679, "leaf": 682, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [827, 1401]}
+{"n": 686, "leaf": 689, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [817, 1401]}
+{"n": 683, "leaf": 686, "out": {"page_type": "text_only", "numbers": ["Fig. 337"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 687, "leaf": 690, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 685, "leaf": 688, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 688, "leaf": 691, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [817, 1401]}
+{"n": 689, "leaf": 692, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [827, 1401]}
+{"n": 691, "leaf": 696, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 693, "leaf": 698, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 684, "leaf": 687, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 327"], "caption": "Map of the Huron-Iroquois district."}, "parse": "ok", "s": 8.6, "img_size": [817, 1401]}
+{"n": 692, "leaf": 697, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [817, 1401]}
+{"n": 694, "leaf": 699, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [817, 1401]}
+{"n": 697, "leaf": 702, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 698, "leaf": 703, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 696, "leaf": 701, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 700, "leaf": 705, "out": {"page_type": "other_illustration", "numbers": ["Fig. 338"], "caption": "Elevation of large mound. Angel group."}, "parse": "ok", "s": 7.1, "img_size": [817, 1401]}
+{"n": 699, "leaf": 704, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.9, "img_size": [827, 1401]}
+{"n": 695, "leaf": 700, "out": {"page_type": "text_only", "numbers": ["Fig. 65"], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [827, 1401]}
+{"n": 701, "leaf": 706, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 339"], "caption": "Plan of large mound, Angel group."}, "parse": "ok", "s": 6.9, "img_size": [827, 1401]}
+{"n": 703, "leaf": 708, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 702, "leaf": 707, "out": {"page_type": "plate_site_plan", "numbers": ["PL. XX"], "caption": "PLAN OF THE \"ANGEL MOUNDS\" NEAR EVANSVILLE, INDIANA."}, "parse": "ok", "s": 6.5, "img_size": [817, 1401]}
+{"n": 704, "leaf": 709, "out": {"page_type": "text_only", "numbers": ["Pl. xli"], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [817, 1401]}
+{"n": 709, "leaf": 714, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [827, 1401]}
+{"n": 705, "leaf": 710, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 706, "leaf": 711, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [817, 1401]}
+{"n": 712, "leaf": 717, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [802, 1401]}
+{"n": 710, "leaf": 715, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [802, 1401]}
+{"n": 707, "leaf": 712, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [827, 1401]}
+{"n": 708, "leaf": 713, "out": {"page_type": "text_only", "numbers": ["No. 3, Pl. XI", "Pl. VI"], "caption": ""}, "parse": "ok", "s": 9.2, "img_size": [802, 1401]}
+{"n": 713, "leaf": 718, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 714, "leaf": 719, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [802, 1401]}
+{"n": 711, "leaf": 716, "out": {"page_type": "text_only", "numbers": ["Pl. XXI", "Pl. XXII", "Pls. XXXI and XL", "Pl. XXIII", "Pl. XXXIV"], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [827, 1401]}
+{"n": 715, "leaf": 720, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 716, "leaf": 721, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.5, "img_size": [802, 1401]}
+{"n": 719, "leaf": 724, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 721, "leaf": 726, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 723, "leaf": 728, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 722, "leaf": 727, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [802, 1401]}
+{"n": 720, "leaf": 725, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [802, 1401]}
+{"n": 717, "leaf": 722, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [827, 1401]}
+{"n": 718, "leaf": 723, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [802, 1401]}
+{"n": 724, "leaf": 729, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [802, 1401]}
+{"n": 727, "leaf": 732, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 726, "leaf": 731, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.1, "img_size": [802, 1401]}
+{"n": 728, "leaf": 733, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [802, 1401]}
+{"n": 732, "leaf": 737, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [802, 1401]}
+{"n": 725, "leaf": 730, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 735, "leaf": 740, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 730, "leaf": 735, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.7, "img_size": [802, 1401]}
+{"n": 731, "leaf": 736, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 11.1, "img_size": [827, 1401]}
+{"n": 737, "leaf": 742, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 736, "leaf": 741, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.7, "img_size": [802, 1401]}
+{"n": 733, "leaf": 738, "out": {"page_type": "text_only", "numbers": ["Fig. 132"], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [827, 1401]}
+{"n": 734, "leaf": 739, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.4, "img_size": [802, 1401]}
+{"n": 738, "leaf": 743, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [802, 1401]}
+{"n": 739, "leaf": 744, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 729, "leaf": 734, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [827, 1401]}
+{"n": 742, "leaf": 747, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 741, "leaf": 746, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 743, "leaf": 748, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 748, "leaf": 753, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 747, "leaf": 752, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 746, "leaf": 751, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [802, 1401]}
+{"n": 745, "leaf": 750, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [827, 1401]}
+{"n": 744, "leaf": 749, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [802, 1401]}
+{"n": 749, "leaf": 754, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.9, "img_size": [827, 1401]}
+{"n": 750, "leaf": 755, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 751, "leaf": 758, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.5, "img_size": [827, 1401]}
+{"n": 756, "leaf": 763, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 757, "leaf": 764, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.1, "img_size": [827, 1401]}
+{"n": 752, "leaf": 759, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 753, "leaf": 760, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 754, "leaf": 761, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 755, "leaf": 762, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [827, 1401]}
+{"n": 758, "leaf": 765, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 759, "leaf": 766, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 690, "leaf": 693, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [817, 1401]}
+{"n": 764, "leaf": 771, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 765, "leaf": 772, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [827, 1401]}
+{"n": 761, "leaf": 768, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 762, "leaf": 769, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 760, "leaf": 767, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [802, 1401]}
+{"n": 763, "leaf": 770, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [827, 1401]}
+{"n": 767, "leaf": 774, "out": {"page_type": "text_only", "numbers": ["Pl. XLII", "Fig. 340", "Fig. 341"], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 766, "leaf": 773, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 340"], "caption": "The village of Seotan."}, "parse": "ok", "s": 6.6, "img_size": [802, 1401]}
+{"n": 770, "leaf": 777, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 771, "leaf": 778, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 768, "leaf": 775, "out": {"page_type": "other_illustration", "numbers": ["Fig. 341"], "caption": "POWHATAN Held this state &. fishion when Capt. Smith -was delivered to him prisoner 1607"}, "parse": "ok", "s": 7.1, "img_size": [802, 1401]}
+{"n": 773, "leaf": 780, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 769, "leaf": 776, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [827, 1401]}
+{"n": 774, "leaf": 781, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [802, 1401]}
+{"n": 772, "leaf": 779, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [802, 1401]}
+{"n": 777, "leaf": 784, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 775, "leaf": 782, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 776, "leaf": 783, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 778, "leaf": 785, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [802, 1401]}
+{"n": 780, "leaf": 787, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 779, "leaf": 786, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 782, "leaf": 789, "out": {"page_type": "text_only", "numbers": ["Fig. 17"], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 785, "leaf": 792, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 781, "leaf": 788, "out": {"page_type": "other_illustration", "numbers": ["Fig. 342"], "caption": "Section of mound 11. Cook farm group, Iowa."}, "parse": "ok", "s": 8.7, "img_size": [827, 1401]}
+{"n": 783, "leaf": 790, "out": {"page_type": "text_only", "numbers": ["Fig. 3, Pl. 11"], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [827, 1401]}
+{"n": 787, "leaf": 794, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [827, 1401]}
+{"n": 786, "leaf": 793, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 784, "leaf": 791, "out": {"page_type": "text_only", "numbers": ["Fig. 8"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [802, 1401]}
+{"n": 788, "leaf": 795, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [802, 1401]}
+{"n": 793, "leaf": 800, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 789, "leaf": 796, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [827, 1401]}
+{"n": 795, "leaf": 802, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [827, 1401]}
+{"n": 797, "leaf": 804, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 796, "leaf": 803, "out": {"page_type": "text_only", "numbers": ["Pl. XLII", "Fig. 133"], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 790, "leaf": 797, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.2, "img_size": [802, 1401]}
+{"n": 791, "leaf": 798, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.2, "img_size": [827, 1401]}
+{"n": 792, "leaf": 799, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.2, "img_size": [802, 1401]}
+{"n": 794, "leaf": 801, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.8, "img_size": [802, 1401]}
+{"n": 799, "leaf": 806, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 798, "leaf": 805, "out": {"page_type": "other_illustration", "numbers": ["PL. XLII"], "caption": "COPY OF PLATE XI, \"BREW'S NARRATIO.\""}, "parse": "ok", "s": 5.1, "img_size": [802, 1401]}
+{"n": 800, "leaf": 807, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [802, 1401]}
+{"n": 805, "leaf": 812, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 807, "leaf": 814, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 806, "leaf": 813, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [802, 1401]}
+{"n": 802, "leaf": 809, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 11.1, "img_size": [802, 1401]}
+{"n": 801, "leaf": 808, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.5, "img_size": [827, 1401]}
+{"n": 804, "leaf": 811, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.3, "img_size": [802, 1401]}
+{"n": 803, "leaf": 810, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [827, 1401]}
+{"n": 809, "leaf": 816, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [827, 1401]}
+{"n": 808, "leaf": 815, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [802, 1401]}
+{"n": 740, "leaf": 745, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [802, 1401]}
+{"n": 810, "leaf": 817, "out": {"page_type": "text_only", "numbers": ["Fig. 136", "figs. 117, 118"], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [802, 1401]}
+{"n": 811, "leaf": 818, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 814, "leaf": 821, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 813, "leaf": 820, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [827, 1401]}
+{"n": 812, "leaf": 819, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [802, 1401]}
+{"n": 815, "leaf": 822, "out": {"page_type": "text_only", "numbers": ["Pl. 6", "Fig. 343"], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [827, 1401]}
+{"n": 818, "leaf": 825, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [802, 1401]}
+{"n": 816, "leaf": 823, "out": {"page_type": "other_illustration", "numbers": ["FIG. 343."], "caption": "Village of Pomeiok, from Brevis Narratio."}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 817, "leaf": 824, "out": {"page_type": "text_only", "numbers": ["Pl. I", "Pl. II", "Pl. III"], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [827, 1401]}
+{"n": 820, "leaf": 827, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 822, "leaf": 829, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [802, 1401]}
+{"n": 821, "leaf": 828, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [827, 1401]}
+{"n": 819, "leaf": 826, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 823, "leaf": 830, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 824, "leaf": 831, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [802, 1401]}
+{"n": 826, "leaf": 833, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [802, 1401]}
+{"n": 825, "leaf": 832, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 827, "leaf": 834, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 829, "leaf": 836, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 828, "leaf": 835, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [802, 1401]}
+{"n": 830, "leaf": 837, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [802, 1401]}
+{"n": 831, "leaf": 838, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 832, "leaf": 839, "out": {"page_type": "text_only", "numbers": ["Fig. 133"], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [802, 1401]}
+{"n": 834, "leaf": 841, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [802, 1401]}
+{"n": 833, "leaf": 840, "out": {"page_type": "text_only", "numbers": ["Fig. 3", "Pl. LII", "Fig. 213", "283", "284"], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 835, "leaf": 842, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 841, "leaf": 848, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [827, 1401]}
+{"n": 838, "leaf": 845, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [802, 1401]}
+{"n": 842, "leaf": 849, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [802, 1401]}
+{"n": 837, "leaf": 844, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 836, "leaf": 843, "out": {"page_type": "text_only", "numbers": ["Fig. 183"], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [802, 1401]}
+{"n": 839, "leaf": 846, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 840, "leaf": 847, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [802, 1401]}
+{"n": 846, "leaf": 853, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [802, 1401]}
+{"n": 843, "leaf": 850, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [827, 1401]}
+{"n": 847, "leaf": 854, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 845, "leaf": 852, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [827, 1401]}
+{"n": 848, "leaf": 855, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [802, 1401]}
+{"n": 849, "leaf": 856, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 850, "leaf": 857, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [802, 1401]}
+{"n": 844, "leaf": 851, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [802, 1401]}
+{"n": 851, "leaf": 858, "out": {"page_type": "text_only", "numbers": ["Fig. 68"], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 854, "leaf": 861, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [802, 1401]}
+{"n": 853, "leaf": 860, "out": {"page_type": "other_illustration", "numbers": ["Fig. 344"], "caption": "Pipe from Virginia."}, "parse": "ok", "s": 5.3, "img_size": [827, 1401]}
+{"n": 855, "leaf": 862, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.9, "img_size": [827, 1401]}
+{"n": 856, "leaf": 863, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [802, 1401]}
+{"n": 859, "leaf": 866, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [827, 1401]}
+{"n": 857, "leaf": 864, "out": {"page_type": "text_only", "numbers": ["Fig. 299"], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [827, 1401]}
+{"n": 858, "leaf": 865, "out": {"page_type": "text_only", "numbers": ["Fig. 209"], "caption": ""}, "parse": "ok", "s": 4.9, "img_size": [802, 1401]}
+{"n": 862, "leaf": 869, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [802, 1401]}
+{"n": 861, "leaf": 868, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 860, "leaf": 867, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [802, 1401]}
+{"n": 863, "leaf": 870, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 866, "leaf": 873, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [802, 1401]}
+{"n": 864, "leaf": 871, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [802, 1401]}
+{"n": 865, "leaf": 872, "out": {"page_type": "text_only", "numbers": ["Pl. xxv", "Pl. xxvi"], "caption": ""}, "parse": "ok", "s": 8.0, "img_size": [827, 1401]}
+{"n": 867, "leaf": 874, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [827, 1401]}
+{"n": 868, "leaf": 875, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [802, 1401]}
+{"n": 870, "leaf": 877, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [802, 1401]}
+{"n": 869, "leaf": 876, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.6, "img_size": [827, 1401]}
+{"n": 871, "leaf": 878, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 872, "leaf": 879, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [802, 1401]}
+{"n": 874, "leaf": 881, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [802, 1401]}
+{"n": 873, "leaf": 880, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [827, 1401]}
+{"n": 876, "leaf": 883, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [802, 1401]}
+{"n": 875, "leaf": 882, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [827, 1401]}
+{"n": 877, "leaf": 884, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [827, 1401]}
+{"n": 878, "leaf": 885, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [802, 1401]}
+{"n": 879, "leaf": 886, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 880, "leaf": 887, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [802, 1401]}
+{"n": 881, "leaf": 888, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [827, 1401]}
+{"n": 883, "leaf": 890, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 882, "leaf": 889, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [802, 1401]}
+{"n": 884, "leaf": 891, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [802, 1401]}
+{"n": 887, "leaf": 894, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [827, 1401]}
+{"n": 885, "leaf": 892, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [827, 1401]}
+{"n": 889, "leaf": 896, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [827, 1401]}
+{"n": 891, "leaf": 898, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [827, 1401]}
+{"n": 886, "leaf": 893, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [802, 1401]}
+{"n": 888, "leaf": 895, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [802, 1401]}
+{"n": 890, "leaf": 897, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [802, 1401]}
+{"n": 893, "leaf": 900, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.2, "img_size": [1025, 1400]}
+{"n": 892, "leaf": 899, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [786, 1400]}
+{"n": 895, "leaf": 902, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [881, 1400]}
+{"n": 894, "leaf": 901, "out": {"page_type": "other_illustration", "numbers": ["PL. XX"], "caption": "DISTRIBUTION OF MOUNDS IN THE EASTERN UNITED STATES."}, "parse": "ok", "s": 4.8, "img_size": [1306, 1400]}
+{"n": 852, "leaf": 859, "out": {"page_type": "text_only", "numbers": ["Fig. 301", "Fig. 344"], "caption": ""}, "parse": "ok", "s": 2.1, "img_size": [802, 1401]}

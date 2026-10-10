@@ -1,0 +1,1987 @@
+{
+"plates": [
+{
+"plate": "I",
+"sub": "",
+"title": "View of ancient works at Marietta",
+"page": "",
+"kind": "o"
+},
+{
+"plate": "II",
+"sub": "",
+"title": "Map of a section of 12 miles of Scioto valley",
+"page": "3",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "",
+"title": "Map of a section of 6 miles of Miami valley",
+"page": "4",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "2",
+"title": "Map of 6 miles of Paint creek valley",
+"page": "4",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "",
+"title": "Stone work near Bourneville, Ross co., Ohio",
+"page": "11",
+"kind": "s"
+},
+{
+"plate": "V",
+"sub": "",
+"title": "\"Fort Hill,\" Highland county, Ohio",
+"page": "14",
+"kind": "s"
+},
+{
+"plate": "VI",
+"sub": "",
+"title": "Fortified Hill, Butler county, Ohio",
+"page": "16",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "",
+"title": "\"Fort Ancient,\" Warren county, Ohio",
+"page": "18",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "21",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "22",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "3",
+"title": "Ancient work near Piqua, Miami co., Ohio",
+"page": "23",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "4",
+"title": "Ancient work near Dayton, Montgomery county, Ohio",
+"page": "23",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "",
+"title": "Fortified Hill near Granville, Licking co., Ohio",
+"page": "24",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "2",
+"title": "Fortified Hill at the mouth of Great Miami river",
+"page": "25",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "3",
+"title": "Ancient work near Lexington, Kentucky",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "X",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "XI",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "29",
+"kind": "s"
+},
+{
+"plate": "XI",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "29",
+"kind": "s"
+},
+{
+"plate": "XI",
+"sub": "3",
+"title": "Ancient work, Butler county, Ohio",
+"page": "30",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "",
+"title": "Stone work on Duck river, Tennessee",
+"page": "31",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "2",
+"title": "Ancient work, Preble county, Ohio",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "3",
+"title": "Ancient work, Greene county, Ohio",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "34",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "",
+"title": "Ancient work, Bourbon county, Kentucky",
+"page": "35",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "2",
+"title": "Colerain works, Butler county, Ohio",
+"page": "35",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "",
+"title": "Ancient work, Pickaway county, Ohio",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "2",
+"title": "Ancient work, Franklin county, Ohio",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "3",
+"title": "Ancient work, Fayette county, Kentucky",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "4",
+"title": "Ancient work, Fayette county, Kentucky",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "",
+"title": "Ancient work, Huron county, Ohio",
+"page": "37",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "2",
+"title": "Ancient work, Ashtabula county, Ohio",
+"page": "38",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "3",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "38",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "4",
+"title": "Ancient work, Lorain county, Ohio",
+"page": "39",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "5",
+"title": "Ancient work, Lorain county, Ohio",
+"page": "39",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "6",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "40",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "7",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "40",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "8",
+"title": "Ancient work, Wood county, Ohio",
+"page": "40",
+"kind": "s"
+},
+{
+"plate": "XVI",
+"sub": "",
+"title": "High Bank works, Ross county, Ohio",
+"page": "50",
+"kind": "s"
+},
+{
+"plate": "XVII",
+"sub": "",
+"title": "Hopeton works, Ross county, Ohio",
+"page": "51",
+"kind": "s"
+},
+{
+"plate": "XVIII",
+"sub": "",
+"title": "Cedar Bank works, Ross county, Ohio",
+"page": "52",
+"kind": "s"
+},
+{
+"plate": "XIX",
+"sub": "",
+"title": "\"Mound City,\" Ross county, Ohio",
+"page": "54",
+"kind": "s"
+},
+{
+"plate": "XX",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "56",
+"kind": "s"
+},
+{
+"plate": "XXI",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "57",
+"kind": "s"
+},
+{
+"plate": "XXI",
+"sub": "2",
+"title": "Ancient work, Ross county, Ohio",
+"page": "57",
+"kind": "s"
+},
+{
+"plate": "XXI",
+"sub": "3",
+"title": "Ancient work, Ross county, Ohio",
+"page": "58",
+"kind": "s"
+},
+{
+"plate": "XXI",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "59",
+"kind": "s"
+},
+{
+"plate": "XXII",
+"sub": "",
+"title": "\"Junction Group,\" Ross county, Ohio",
+"page": "60",
+"kind": "s"
+},
+{
+"plate": "XXII",
+"sub": "2",
+"title": "Blackwater Group, Ross county, Ohio",
+"page": "61",
+"kind": "s"
+},
+{
+"plate": "XXIII",
+"sub": "",
+"title": "Dunlap's works, Ross county, Ohio",
+"page": "63",
+"kind": "s"
+},
+{
+"plate": "XXIII",
+"sub": "2",
+"title": "Ancient work, Athens county, Ohio",
+"page": "64",
+"kind": "s"
+},
+{
+"plate": "XXIV",
+"sub": "",
+"title": "Ancient work, Pike county, Ohio",
+"page": "66",
+"kind": "s"
+},
+{
+"plate": "XXV",
+"sub": "",
+"title": "Newark works, Licking county, Ohio",
+"page": "67",
+"kind": "s"
+},
+{
+"plate": "XXVI",
+"sub": "",
+"title": "Marietta works, Washington county, Ohio",
+"page": "73",
+"kind": "s"
+},
+{
+"plate": "XXVII",
+"sub": "",
+"title": "Portsmouth works, Scioto county, Ohio",
+"page": "77",
+"kind": "s"
+},
+{
+"plate": "XXVIII",
+"sub": "",
+"title": "Portsmouth works, Group A",
+"page": "78",
+"kind": "s"
+},
+{
+"plate": "XXVIII",
+"sub": "2",
+"title": "Portsmouth works, Group B",
+"page": "80",
+"kind": "s"
+},
+{
+"plate": "XXVIII",
+"sub": "3",
+"title": "Portsmouth works, Group C",
+"page": "81",
+"kind": "s"
+},
+{
+"plate": "XXIX",
+"sub": "",
+"title": "Ancient works, Montgomery county, Ohio",
+"page": "82",
+"kind": "s"
+},
+{
+"plate": "XXIX",
+"sub": "2",
+"title": "Ancient works, Scioto county, Ohio",
+"page": "83",
+"kind": "s"
+},
+{
+"plate": "XXIX",
+"sub": "3",
+"title": "Ancient works, Franklin county, Ohio",
+"page": "84",
+"kind": "s"
+},
+{
+"plate": "XXX",
+"sub": "",
+"title": "Ancient works, Butler county, Ohio",
+"page": "85",
+"kind": "s"
+},
+{
+"plate": "XXX",
+"sub": "2",
+"title": "Ancient works, Butler county, Ohio",
+"page": "85",
+"kind": "s"
+},
+{
+"plate": "XXX",
+"sub": "3",
+"title": "Ancient works, Ross county, Ohio",
+"page": "86",
+"kind": "s"
+},
+{
+"plate": "XXX",
+"sub": "4",
+"title": "Stone work, Ross county, Ohio",
+"page": "87",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "",
+"title": "Graded Way, Pike county, Ohio",
+"page": "88",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "3",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "4",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "91",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "2",
+"title": "Ancient work, Washington county, Ohio",
+"page": "92",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "3",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "5",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "6",
+"title": "Ancient work, Montgomery co., Kentucky",
+"page": "",
+"kind": "s"
+},
+{
+"plate": "XXXIII",
+"sub": "",
+"title": "Ancient work, Montgomery co., Kentucky",
+"page": "93",
+"kind": "s"
+},
+{
+"plate": "XXXIII",
+"sub": "2",
+"title": "Ancient work, Randolph county, Indiana",
+"page": "94",
+"kind": "s"
+},
+{
+"plate": "XXXIV",
+"sub": "",
+"title": "Ancient work, Clermont county, Ohio",
+"page": "94",
+"kind": "s"
+},
+{
+"plate": "XXXIV",
+"sub": "2",
+"title": "Ancient work, Clermont county, Ohio",
+"page": "95",
+"kind": "s"
+},
+{
+"plate": "XXXIV",
+"sub": "3",
+"title": "Ancient work, Greene county, Ohio",
+"page": "95",
+"kind": "s"
+},
+{
+"plate": "XXXIV",
+"sub": "4",
+"title": "Ancient work, Greene county, Ohio",
+"page": "95",
+"kind": "s"
+},
+{
+"plate": "XXXV",
+"sub": "",
+"title": "Great Serpent, Adams county, Ohio",
+"page": "96",
+"kind": "s"
+},
+{
+"plate": "XXXVI",
+"sub": "",
+"title": "\"The Cross,\" Pickaway county, Ohio",
+"page": "97",
+"kind": "s"
+},
+{
+"plate": "XXXVI",
+"sub": "2",
+"title": "\"The Alligator,\" Licking county, Ohio",
+"page": "98",
+"kind": "s"
+},
+{
+"plate": "XXXVI",
+"sub": "3",
+"title": "Ancient work, Fairfield county, Ohio",
+"page": "100",
+"kind": "s"
+},
+{
+"plate": "XXXVI",
+"sub": "4",
+"title": "Map of section of Newark valley",
+"page": "101",
+"kind": "s"
+},
+{
+"plate": "XXXVII",
+"sub": "",
+"title": "Ancient works, Wateree District, S. C.",
+"page": "105",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "",
+"title": "Ancient works on Etowah river, Alabama",
+"page": "108",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "-",
+"title": "Ancient works on Tennessee river, Alabama",
+"page": "109",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "2",
+"title": "Ancient works, Chickasaw surveys, Miss.",
+"page": "110",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "3",
+"title": "Ancient works, Lafayette county, Miss.",
+"page": "111",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "4",
+"title": "Ancient works, Prairie Jefferson, Louisiana",
+"page": "113",
+"kind": "s"
+},
+{
+"plate": "XXXIX",
+"sub": "",
+"title": "Ancient work, Madison parish, Louisiana",
+"page": "115",
+"kind": "s"
+},
+{
+"plate": "XXXIX",
+"sub": "-",
+"title": "Ancient work, Bolivar county, Mississippi",
+"page": "116",
+"kind": "s"
+},
+{
+"plate": "XL",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "126",
+"kind": "s"
+},
+{
+"plate": "XLI",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "127",
+"kind": "s"
+},
+{
+"plate": "XLI",
+"sub": "2",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "127",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "128",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "2",
+"title": "Ancient works, Richland county, Wisconsin",
+"page": "128",
+"kind": "s"
+},
+{
+"plate": "XLIII",
+"sub": "",
+"title": "Ancient works, Grant county, Wisconsin",
+"page": "129",
+"kind": "s"
+},
+{
+"plate": "XLIII",
+"sub": "2-13",
+"title": "various localities",
+"page": "130",
+"kind": "s"
+},
+{
+"plate": "XLIV",
+"sub": "",
+"title": "Ancient work on Rock river, Wisconsin",
+"page": "131",
+"kind": "s"
+},
+{
+"plate": "XLIV",
+"sub": "2-8",
+"title": "various localities",
+"page": "132",
+"kind": "s"
+},
+{
+"plate": "XLV",
+"sub": "",
+"title": "View of great mound at Marietta",
+"page": "138",
+"kind": "o"
+},
+{
+"plate": "XLVI",
+"sub": "",
+"title": "Pottery from the mounds",
+"page": "139",
+"kind": "o"
+},
+{
+"plate": "XLVII",
+"sub": "",
+"title": "Crania from the mounds",
+"page": "288",
+"kind": "o"
+},
+{
+"plate": "XLVIII",
+"sub": "",
+"title": "Crania from the mounds",
+"page": "288",
+"kind": "o"
+}
+],
+"figures": [
+{
+"fig": 1,
+"title": "View of Great Mound at Miamisburgh, Ohio",
+"page": 3,
+"kind": "o"
+},
+{
+"fig": 2,
+"title": "Section, exhibiting Septaria",
+"page": 13,
+"kind": "o"
+},
+{
+"fig": 3,
+"title": "Group of Mounds within an enclosure",
+"page": 27,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 4,
+"title": "Plan of Ancient Work, Lorain county, Ohio",
+"page": 39,
+"kind": "s"
+},
+{
+"fig": 5,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 39,
+"kind": "s"
+},
+{
+"fig": 6,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s"
+},
+{
+"fig": 7,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s"
+},
+{
+"fig": 8,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s"
+},
+{
+"fig": 9,
+"title": "Circle and truncated Pyramid",
+"page": 53,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 10,
+"title": "Plan of Ancient Work at Circleville, Ohio",
+"page": 60,
+"kind": "s"
+},
+{
+"fig": 11,
+"title": "Plan of Sacred Enclosure, Pike county, Ohio",
+"page": 66,
+"kind": "s"
+},
+{
+"fig": 12,
+"title": "Bird-shaped Mound, Newark, Ohio",
+"page": 68,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 13,
+"title": "View of Gateway of Octagon, Newark, Ohio",
+"page": 69,
+"kind": "o"
+},
+{
+"fig": 14,
+"title": "Truncated Mound covering gateway",
+"page": 69,
+"kind": "u"
+},
+{
+"fig": 15,
+"title": "Crown-work of Circle",
+"page": 69,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 16,
+"title": "View of \" Observatory \" at Newark",
+"page": 70,
+"kind": "o"
+},
+{
+"fig": 18,
+"title": "Plan of Ancient Work, Parkersburgh, Virginia",
+"page": 77,
+"kind": "s"
+},
+{
+"fig": 19,
+"title": "Circle and Mound, Greenup county, Kentucky",
+"page": 82,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 20,
+"title": "Graded Way, Piketon, Ohio",
+"page": 88,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 21,
+"title": "Plan of Ancient Work in Alabama",
+"page": 109,
+"kind": "s"
+},
+{
+"fig": 22,
+"title": "Plan of Ancient Work in Alabama [do.]",
+"page": 116,
+"kind": "s"
+},
+{
+"fig": 23,
+"title": "Public Square of the Muscogulges",
+"page": 121,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 24,
+"title": "Mound at Mount Royal, Florida",
+"page": 122,
+"kind": "u"
+},
+{
+"fig": 25,
+"title": "Plan of Mound and Parallels",
+"page": 122,
+"kind": "s"
+},
+{
+"fig": 26,
+"title": "Plan of Works in Wisconsin",
+"page": 133,
+"kind": "s"
+},
+{
+"fig": 27,
+"title": "Group illustrating the forms of the Mounds",
+"page": 139,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 28,
+"title": "Hill Mounds",
+"page": 141,
+"kind": "u"
+},
+{
+"fig": 30,
+"title": "Structure of Mounds",
+"page": 144,
+"kind": "u"
+},
+{
+"fig": 31,
+"title": "Section of Sacrificial Mound",
+"page": 147,
+"kind": "o"
+},
+{
+"fig": 32,
+"title": "Plan of Altar",
+"page": 147,
+"kind": "o"
+},
+{
+"fig": 33,
+"title": "Section of Sacrificial Mound",
+"page": 148,
+"kind": "o"
+},
+{
+"fig": 34,
+"title": "Section of Sacrificial Mound [do.]",
+"page": 149,
+"kind": "o"
+},
+{
+"fig": 35,
+"title": "Section of Altar, \"",
+"page": 150,
+"kind": "o"
+},
+{
+"fig": 36,
+"title": "Section of Altar, \" [do.]",
+"page": 150,
+"kind": "o"
+},
+{
+"fig": 37,
+"title": "Section of Sacrificial Mound",
+"page": 152,
+"kind": "o"
+},
+{
+"fig": 38,
+"title": "Plan of Altar",
+"page": 152,
+"kind": "o"
+},
+{
+"fig": 40,
+"title": "Position of recent deposits",
+"page": 153,
+"kind": "o"
+},
+{
+"fig": 41,
+"title": "Section of Sacrificial Mound",
+"page": 154,
+"kind": "o"
+},
+{
+"fig": 42,
+"title": "Plan of Excavation, etc",
+"page": 154,
+"kind": "o"
+},
+{
+"fig": 43,
+"title": "Section of Sacrificial Mound",
+"page": 155,
+"kind": "o"
+},
+{
+"fig": 45,
+"title": "Section of Sacrificial Mound [do.]",
+"page": 156,
+"kind": "o"
+},
+{
+"fig": 46,
+"title": "Section of a Stratified Mound",
+"page": 158,
+"kind": "o"
+},
+{
+"fig": 47,
+"title": "Section of a Mound",
+"page": 159,
+"kind": "o"
+},
+{
+"fig": 48,
+"title": "View of Elliptical Mound",
+"page": null,
+"kind": "o",
+"page_ocr": 16
+},
+{
+"fig": 49,
+"title": "Group of Sepulchral Mounds",
+"page": 161,
+"kind": "s"
+},
+{
+"fig": 51,
+"title": "Plan of Sepulchral Chamber",
+"page": 162,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 52,
+"title": "Section of Sepulchral Mound",
+"page": 164,
+"kind": "o"
+},
+{
+"fig": 53,
+"title": "Position of Skeleton",
+"page": 164,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 54,
+"title": "Section of Sepulchral Mound",
+"page": 165,
+"kind": "o"
+},
+{
+"fig": 55,
+"title": "Section of Grave creek Mound",
+"page": 169,
+"kind": "o"
+},
+{
+"fig": 56,
+"title": "View of Grave creek Mound",
+"page": 169,
+"kind": "o"
+},
+{
+"fig": 57,
+"title": "Plans of groups of Mounds",
+"page": 170,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 58,
+"title": "Mounds of Oregon",
+"page": 171,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 59,
+"title": "Terraced Mound",
+"page": 173,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 60,
+"title": "Plan of Cahokia Mound",
+"page": 174,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 61,
+"title": "Lozenge-shaped Mound",
+"page": 175,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 62,
+"title": "Section of a truncated Mound",
+"page": 176,
+"kind": "o"
+},
+{
+"fig": 63,
+"title": "Plan of an Ancient octagonal Terrace",
+"page": 176,
+"kind": "s"
+},
+{
+"fig": 64,
+"title": "Plan of an Ancient rectangular Terrace",
+"page": 176,
+"kind": "s"
+},
+{
+"fig": 65,
+"title": "Plan of Temple Mound with graded ascent",
+"page": 177,
+"kind": "s"
+},
+{
+"fig": 66,
+"title": "Group of Sepulchral Mounds",
+"page": 177,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 67,
+"title": "Plan and Section of Anomalous Mound",
+"page": 178,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 68,
+"title": "Ancient Pipe from the Mounds",
+"page": 179,
+"kind": "o"
+},
+{
+"fig": 69,
+"title": "Section of Anomalous Mound",
+"page": 180,
+"kind": "o"
+},
+{
+"fig": 70,
+"title": "Conical Mound",
+"page": 185,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 71,
+"title": "Ancient Pottery, three figures",
+"page": 191,
+"kind": "o"
+},
+{
+"fig": 72,
+"title": "Ancient Pottery, three figures [do.]",
+"page": 192,
+"kind": "o"
+},
+{
+"fig": 73,
+"title": "Ancient Earthen Vessel",
+"page": 192,
+"kind": "o"
+},
+{
+"fig": 74,
+"title": "Ancient Earthen Vessel [do.]",
+"page": 192,
+"kind": "o"
+},
+{
+"fig": 75,
+"title": "Ancient Terra Cotta",
+"page": 193,
+"kind": "o"
+},
+{
+"fig": 76,
+"title": "Terra Cotta from the Mounds",
+"page": 194,
+"kind": "o"
+},
+{
+"fig": 77,
+"title": "Terra Cotta from the Mounds [do.]",
+"page": 194,
+"kind": "o"
+},
+{
+"fig": 78,
+"title": "Terra Cotta from the Mounds [do.]",
+"page": 194,
+"kind": "o"
+},
+{
+"fig": 79,
+"title": "Terra Cotta from the Mounds [do.]",
+"page": 194,
+"kind": "o"
+},
+{
+"fig": 80,
+"title": "Terra Cotta from the Mounds",
+"page": 194,
+"kind": "o"
+},
+{
+"fig": 81,
+"title": "Copper Axe from the Mounds, 19",
+"page": null,
+"kind": "o",
+"page_ocr": 7
+},
+{
+"fig": 82,
+"title": "Earthen Pipes, two figures",
+"page": 197,
+"kind": "o"
+},
+{
+"fig": 83,
+"title": "Adjustment of Ancient Axes",
+"page": 198,
+"kind": "o"
+},
+{
+"fig": 84,
+"title": "Copper Axe from the Mounds",
+"page": 199,
+"kind": "o"
+},
+{
+"fig": 85,
+"title": "Copper Gravers from the Mounds, five figures",
+"page": 200,
+"kind": "o"
+},
+{
+"fig": 86,
+"title": "Copper Spear-head and Knife",
+"page": 201,
+"kind": "o"
+},
+{
+"fig": 87,
+"title": "Ancient Copper Implements, five figures",
+"page": 201,
+"kind": "o"
+},
+{
+"fig": 88,
+"title": "Copper Bracelets from the Mounds",
+"page": 204,
+"kind": "o"
+},
+{
+"fig": 89,
+"title": "Copper Gorgets from the Mounds",
+"page": 205,
+"kind": "o"
+},
+{
+"fig": 90,
+"title": "Copper Ornament from the Mounds",
+"page": 206,
+"kind": "o"
+},
+{
+"fig": 91,
+"title": "Copper Ornament from the Mounds [do.]",
+"page": 206,
+"kind": "o"
+},
+{
+"fig": 92,
+"title": "Ancient Work-block of stone",
+"page": 206,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 93,
+"title": "Copper Beads from the Mounds",
+"page": 207,
+"kind": "o"
+},
+{
+"fig": 94,
+"title": "Copper Fibulae from the Mounds",
+"page": 207,
+"kind": "o"
+},
+{
+"fig": 95,
+"title": "Copper Bands, etc",
+"page": 207,
+"kind": "o"
+},
+{
+"fig": 96,
+"title": "Silver Beads from the Mounds",
+"page": 207,
+"kind": "o"
+},
+{
+"fig": 97,
+"title": "Silver Cross",
+"page": 208,
+"kind": "o"
+},
+{
+"fig": 98,
+"title": "An article of Lead",
+"page": 209,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 99,
+"title": "Flint Spear-heads, three figures",
+"page": 211,
+"kind": "o"
+},
+{
+"fig": 100,
+"title": "Quartz Spear-head",
+"page": 211,
+"kind": "o"
+},
+{
+"fig": 101,
+"title": "Ancient Mexican mahquahuitl",
+"page": 211,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 102,
+"title": "Sword of Pacific Islanders",
+"page": 211,
+"kind": "o"
+},
+{
+"fig": 103,
+"title": "Arrow-heads, nine figures",
+"page": 212,
+"kind": "o"
+},
+{
+"fig": 104,
+"title": "Hornstone Disks, three figures",
+"page": 214,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 105,
+"title": "Flint Knives, three figures",
+"page": 215,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 106,
+"title": "Hematite Cutting Implements",
+"page": 215,
+"kind": "o"
+},
+{
+"fig": 107,
+"title": "Slate do. do",
+"page": 216,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 108,
+"title": "Ancient Stone Axe",
+"page": 216,
+"kind": "o"
+},
+{
+"fig": 109,
+"title": "Ancient Stone Axe [do.]",
+"page": 217,
+"kind": "o"
+},
+{
+"fig": 110,
+"title": "Stone Axe from Mounds",
+"page": 217,
+"kind": "o"
+},
+{
+"fig": 111,
+"title": "Stone Hand-axe",
+"page": 218,
+"kind": "o"
+},
+{
+"fig": 112,
+"title": "Ancient Stone-axe, four figures",
+"page": 218,
+"kind": "o"
+},
+{
+"fig": 113,
+"title": "Ancient Scandinavian Axes, two figures",
+"page": 218,
+"kind": "o"
+},
+{
+"fig": 114,
+"title": "Ancient ornamented Axes, six figures",
+"page": 218,
+"kind": "o"
+},
+{
+"fig": 115,
+"title": "Ancient ornamented Axes, six figures [do.]",
+"page": 219,
+"kind": "o"
+},
+{
+"fig": 116,
+"title": "Ancient Club-head of Stone",
+"page": 219,
+"kind": "o"
+},
+{
+"fig": 117,
+"title": "Ancient Club-head of Stone [do.]",
+"page": 219,
+"kind": "o"
+},
+{
+"fig": 118,
+"title": "Pestles of Stone, two figures",
+"page": 220,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 119,
+"title": "Implements of Bone, three figures",
+"page": 220,
+"kind": "o"
+},
+{
+"fig": 120,
+"title": "Ancient Bone Awls",
+"page": 220,
+"kind": "o"
+},
+{
+"fig": 121,
+"title": "Discoidal Stones, six figures",
+"page": 221,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 122,
+"title": "Tubes of Stone, two figures",
+"page": 224,
+"kind": "o"
+},
+{
+"fig": 123,
+"title": "Ornamented Stone Tube",
+"page": 225,
+"kind": "o"
+},
+{
+"fig": 124,
+"title": "Stone Tube",
+"page": 226,
+"kind": "o"
+},
+{
+"fig": 126,
+"title": "Ancient Mound Pipe",
+"page": 227,
+"kind": "o"
+},
+{
+"fig": 128,
+"title": "Modern Indian Pipes",
+"page": 230,
+"kind": "o"
+},
+{
+"fig": 130,
+"title": "Beads of Shell, three figures",
+"page": 233,
+"kind": "o"
+},
+{
+"fig": 131,
+"title": "Pendants, eight figures",
+"page": 234,
+"kind": "o"
+},
+{
+"fig": 132,
+"title": "Pendants'of Stone",
+"page": 235,
+"kind": "o"
+},
+{
+"fig": 133,
+"title": "Stone Gorgets, two figures",
+"page": 236,
+"kind": "o"
+},
+{
+"fig": 134,
+"title": "Stone Gorget",
+"page": 237,
+"kind": "o"
+},
+{
+"fig": 135,
+"title": "Stone Gorget [do.]",
+"page": 237,
+"kind": "o"
+},
+{
+"fig": 136,
+"title": "Stone Gorgets, seventeen figures",
+"page": 237,
+"kind": "o"
+},
+{
+"fig": 137,
+"title": "Section of Gorget",
+"page": 238,
+"kind": "o"
+},
+{
+"fig": 138,
+"title": "Stone Ornaments",
+"page": 239,
+"kind": "o"
+},
+{
+"fig": 139,
+"title": "Prismatic Tube",
+"page": 240,
+"kind": "o"
+},
+{
+"fig": 140,
+"title": "Articles of Stone",
+"page": 240,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 141,
+"title": "Mica Ornaments",
+"page": 240,
+"kind": "o"
+},
+{
+"fig": 142,
+"title": "Sculptured head from the Mounds, two views",
+"page": 244,
+"kind": "o"
+},
+{
+"fig": 143,
+"title": "Sculptured head from the Mounds, two views [do.]",
+"page": 244,
+"kind": "o"
+},
+{
+"fig": 144,
+"title": "Sculptured head from the Mounds, two views [do.]",
+"page": 245,
+"kind": "o"
+},
+{
+"fig": 145,
+"title": "Sculptured head from the Mounds, two views [do.]",
+"page": 245,
+"kind": "o"
+},
+{
+"fig": 146,
+"title": "Ancient Sculpture",
+"page": 247,
+"kind": "o"
+},
+{
+"fig": 147,
+"title": "Sculptured Pipe",
+"page": 247,
+"kind": "o"
+},
+{
+"fig": 148,
+"title": "Sculptured Pipe [do.]",
+"page": 248,
+"kind": "o"
+},
+{
+"fig": 149,
+"title": "Sculptured Pipe [do.]",
+"page": 249,
+"kind": "o"
+},
+{
+"fig": 150,
+"title": "Mask of Stone",
+"page": 250,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 151,
+"title": "Mask of Stone [do.]",
+"page": 251,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 152,
+"title": "Mask of Stone [do.]",
+"page": 251,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 153,
+"title": "Sculpture of the Manitus",
+"page": 251,
+"kind": "o"
+},
+{
+"fig": 154,
+"title": "Sculpture of the Manitus [do.]",
+"page": 252,
+"kind": "o"
+},
+{
+"fig": 155,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 156,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 157,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 158,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 159,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 160,
+"title": "Sculpture of the Manitus [do.]",
+"page": 256,
+"kind": "o"
+},
+{
+"fig": 161,
+"title": "Sculptured head of Elk",
+"page": 257,
+"kind": "o"
+},
+{
+"fig": 162,
+"title": "Sculptured Head",
+"page": 258,
+"kind": "o"
+},
+{
+"fig": 163,
+"title": "Sculptured Head [do.]",
+"page": 258,
+"kind": "o"
+},
+{
+"fig": 164,
+"title": "Sculpture of tufted Heron",
+"page": 259,
+"kind": "o"
+},
+{
+"fig": 165,
+"title": "Sculpture of tufted Heron [do.]",
+"page": 259,
+"kind": "o"
+},
+{
+"fig": 166,
+"title": "Sculpture of tufted Heron [do.]",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 167,
+"title": "Sculpture of tufted Heron [do.]",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 168,
+"title": "Sculpture of tufted Heron [do.]",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 169,
+"title": "Sculpture of tufted Heron [do.]",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 170,
+"title": "Sculpture of Grouse",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 171,
+"title": "Sculpture of Grouse [do.]",
+"page": 261,
+"kind": "o"
+},
+{
+"fig": 172,
+"title": "Sculpture of Grouse [do.]",
+"page": 263,
+"kind": "o"
+},
+{
+"fig": 173,
+"title": "Sculpture of Grouse [do.]",
+"page": 263,
+"kind": "o"
+},
+{
+"fig": 174,
+"title": "Sculpture of Grouse [do.]",
+"page": 263,
+"kind": "o"
+},
+{
+"fig": 175,
+"title": "Sculpture of Grouse [do.]",
+"page": 263,
+"kind": "o"
+},
+{
+"fig": 176,
+"title": "Sculpture of Grouse [do.]",
+"page": 263,
+"kind": "o"
+},
+{
+"fig": 177,
+"title": "Sculpture of Grouse [do.]",
+"page": 264,
+"kind": "o"
+},
+{
+"fig": 178,
+"title": "Sculpture of Grouse [do.]",
+"page": 266,
+"kind": "o"
+},
+{
+"fig": 179,
+"title": "Sculpture of Grouse [do.]",
+"page": 267,
+"kind": "o"
+},
+{
+"fig": 180,
+"title": "Heads of Eagles",
+"page": 267,
+"kind": "o"
+},
+{
+"fig": 181,
+"title": "Head of Raven?",
+"page": 267,
+"kind": "o"
+},
+{
+"fig": 182,
+"title": "Sculpture of unknown Bird",
+"page": 267,
+"kind": "o"
+},
+{
+"fig": 183,
+"title": "Sculpture of unknown Bird [do.]",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 184,
+"title": "Sculpture of unknown Bird [do.]",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 185,
+"title": "Sculpture of unknown Bird [do.]",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 186,
+"title": "Sculpture of unknown Bird [do.]",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 187,
+"title": "Sculptured head of Goose",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 188,
+"title": "Sculptured head of Goose [do.]",
+"page": 269,
+"kind": "o"
+},
+{
+"fig": 189,
+"title": "Sculptured head of Goose [do.]",
+"page": 271,
+"kind": "o"
+},
+{
+"fig": 190,
+"title": "Sculptured head of Goose [do.]",
+"page": 271,
+"kind": "o"
+},
+{
+"fig": 191,
+"title": "Sculptured head of Goose [do.]",
+"page": 271,
+"kind": "o"
+},
+{
+"fig": 192,
+"title": "Sculptured head of Goose [do.]",
+"page": 271,
+"kind": "o"
+},
+{
+"fig": 193,
+"title": "Sculptured head of Goose [do.]",
+"page": 271,
+"kind": "o"
+},
+{
+"fig": 194,
+"title": "Front View of Tablet found at Cincinnati",
+"page": 275,
+"kind": "o"
+},
+{
+"fig": 195,
+"title": "Reverse of same",
+"page": 275,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 196,
+"title": "Carving of Rattlesnake, coiled",
+"page": 276,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 197,
+"title": "Shark's Teeth, fossil",
+"page": 282,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 198,
+"title": "Marine Shell, pyrula perversa",
+"page": 283,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 199,
+"title": "Section of Hill Mound",
+"page": 289,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 200,
+"title": "Inscribed Rock on Guyandotte river, Va",
+"page": 294,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 201,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 295,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 202,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 295,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 203,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 296,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 204,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 296,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 205,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 297,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 206,
+"title": "Inscribed Rock on Guyandotte river, Va [do.]",
+"page": 298,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 207,
+"title": "Site of Sculptured Rocks of the Guyandotte",
+"page": 299,
+"kind": "u",
+"kind_by": "hand"
+}
+]
+}

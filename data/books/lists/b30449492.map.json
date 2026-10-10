@@ -1,0 +1,347 @@
+[
+{
+"n": 188,
+"site_plan": true,
+"entries": [
+{
+"plate": "I",
+"sub": "",
+"title": "Plate I",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 190,
+"site_plan": true,
+"entries": [
+{
+"plate": "II",
+"sub": "1",
+"title": "Plate II No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "II",
+"sub": "2",
+"title": "Plate II No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 192,
+"site_plan": true,
+"entries": [
+{
+"plate": "III",
+"sub": "1",
+"title": "Plate III No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "III",
+"sub": "2",
+"title": "Plate III No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "III",
+"sub": "3",
+"title": "Plate III No. 3",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 194,
+"site_plan": true,
+"entries": [
+{
+"plate": "IV",
+"sub": "1",
+"title": "Plate IV No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "IV",
+"sub": "2",
+"title": "Plate IV No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "IV",
+"sub": "3  and  4",
+"title": "Plate IV No. 3  and  4",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 196,
+"site_plan": true,
+"entries": [
+{
+"plate": "V",
+"sub": "1",
+"title": "Plate V No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "V",
+"sub": "2",
+"title": "Plate V No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 198,
+"site_plan": true,
+"entries": [
+{
+"plate": "VI",
+"sub": "1",
+"title": "Plate VI No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VI",
+"sub": "2",
+"title": "Plate VI No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 200,
+"site_plan": true,
+"entries": [
+{
+"plate": "VII",
+"sub": "1",
+"title": "Plate VII No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 202,
+"site_plan": true,
+"entries": [
+{
+"plate": "VIII",
+"sub": "1",
+"title": "Plate VIII No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VIII",
+"sub": "2",
+"title": "Plate VIII No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 204,
+"site_plan": true,
+"entries": [
+{
+"plate": "IX",
+"sub": "1",
+"title": "Plate IX No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "IX",
+"sub": "2",
+"title": "Plate IX No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "IX",
+"sub": "3",
+"title": "Plate IX No. 3",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 206,
+"site_plan": true,
+"entries": [
+{
+"plate": "X",
+"sub": "1",
+"title": "Plate X No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "X",
+"sub": "2",
+"title": "Plate X No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "X",
+"sub": "3",
+"title": "Plate X No. 3",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 208,
+"site_plan": true,
+"entries": [
+{
+"plate": "XI",
+"sub": "2",
+"title": "Plate XI No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 210,
+"site_plan": true,
+"entries": [
+{
+"plate": "XII",
+"sub": "",
+"title": "Plate XII",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 212,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIII",
+"sub": "1",
+"title": "Plate XIII No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIII",
+"sub": "2",
+"title": "Plate XIII No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIII",
+"sub": "3",
+"title": "Plate XIII No. 3",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 214,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIV",
+"sub": "1",
+"title": "Plate XIV No. 1",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIV",
+"sub": "2",
+"title": "Plate XIV No. 2",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+}
+]

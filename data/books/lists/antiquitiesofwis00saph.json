@@ -1,0 +1,957 @@
+{
+"plates": [
+{
+"plate": "I",
+"sub": "",
+"title": "Map of Wisconsin, showing the location of the Ancient Works.",
+"page": "",
+"kind": "o"
+},
+{
+"plate": "II",
+"sub": "",
+"title": "Ancient Works near Racine",
+"page": "6",
+"kind": "s"
+},
+{
+"plate": "III",
+"sub": "",
+"title": "Ancient Works in the vicinity of Milwaukee",
+"page": "12",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "",
+"title": "Ancient Works near Forest Home Cemetery, Milwaukee",
+"page": "14",
+"kind": "s"
+},
+{
+"plate": "IV",
+"sub": "2",
+"title": "Animal Mound on Sherman's Addition to Milwaukee",
+"page": "16",
+"kind": "s"
+},
+{
+"plate": "V",
+"sub": "",
+"title": "Ancient Works in the First Ward, Milwaukee",
+"page": "14",
+"kind": "s"
+},
+{
+"plate": "VI",
+"sub": "",
+"title": "Ancient Works in the Second Ward, Milwaukee",
+"page": "16",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "",
+"title": "Animal Mound, Beaubian Street, Milwaukee",
+"page": "16",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "2",
+"title": "Animal Mound, Sherman's Addition, Milwaukee",
+"page": "17",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "3",
+"title": "Animal mound on Block 120, Second Ward, Milwaukee",
+"page": "17",
+"kind": "s"
+},
+{
+"plate": "VII",
+"sub": "4",
+"title": "Ancient Works on the School Section, Milwaukee",
+"page": "17",
+"kind": "s"
+},
+{
+"plate": "VIII",
+"sub": "",
+"title": "Ancient Works at Indian Prairie",
+"page": "17",
+"kind": "s"
+},
+{
+"plate": "IX",
+"sub": "",
+"title": "Ancient Excavations",
+"page": "18",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "1",
+"title": "At Milwaukee",
+"page": "15",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "2",
+"title": "At Indian Prairie",
+"page": "18",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "3",
+"title": "At Indian Prairie",
+"page": "18",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "4",
+"title": "At Indian Prairie",
+"page": "18",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "5",
+"title": "At Theresa",
+"page": "58",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "6",
+"title": "At Pewaukee",
+"page": "31",
+"kind": "u"
+},
+{
+"plate": "IX",
+"sub": "7",
+"title": "At Fort Atkinson",
+"page": "36",
+"kind": "u"
+},
+{
+"plate": "X",
+"sub": "",
+"title": "Ancient Works, Township 11, Range 20, east",
+"page": "20",
+"kind": "s"
+},
+{
+"plate": "XI",
+"sub": "",
+"title": "Ancient Works, Township 12, Range 20, east",
+"page": "21",
+"kind": "s"
+},
+{
+"plate": "XII",
+"sub": "",
+"title": "Ancient Works near Sheboygan",
+"page": "21",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "",
+"title": "Animal Mound near Burlington",
+"page": "24",
+"kind": "s"
+},
+{
+"plate": "XIII",
+"sub": "2",
+"title": "Ancient Works at Burlington",
+"page": "24",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "",
+"title": "Ancient Works near Muskego Lake",
+"page": "24",
+"kind": "s"
+},
+{
+"plate": "XIV",
+"sub": "2",
+"title": "Group of Oblong Mounds at Crawfordsville",
+"page": "24",
+"kind": "s"
+},
+{
+"plate": "XV",
+"sub": "",
+"title": "Map of Ancient Works near Big Bend",
+"page": "25",
+"kind": "s"
+},
+{
+"plate": "XVI",
+"sub": "",
+"title": "Ancient Works at Crawfordsville",
+"page": "25",
+"kind": "s"
+},
+{
+"plate": "XVII",
+"sub": "",
+"title": "Animal Mound at Crawfordsville",
+"page": "25",
+"kind": "s"
+},
+{
+"plate": "XVII",
+"sub": "2",
+"title": "Lizard Mound at Crawfordsville",
+"page": "25",
+"kind": "s"
+},
+{
+"plate": "XVII",
+"sub": "3",
+"title": "The Frog, Big Bend",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "XVII",
+"sub": "4",
+"title": "The Frog, Big Bend",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "XVIII",
+"sub": "",
+"title": "Ancient Works at Waukesha",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "XIX",
+"sub": "",
+"title": "The Turtle, Waukesha",
+"page": "26",
+"kind": "s"
+},
+{
+"plate": "XX",
+"sub": "",
+"title": "Bird Hill, Waukesha",
+"page": "27",
+"kind": "s"
+},
+{
+"plate": "XX",
+"sub": "2",
+"title": "Lizard Mound, Waukesha",
+"page": "27",
+"kind": "s"
+},
+{
+"plate": "XXI",
+"sub": "",
+"title": "Ancient Works on Carroll College Hill, Waukesha",
+"page": "27",
+"kind": "s"
+},
+{
+"plate": "XXII",
+"sub": "",
+"title": "Birds, Waukesha",
+"page": "27",
+"kind": "s"
+},
+{
+"plate": "XXIII",
+"sub": "",
+"title": "Ancient Works on the School Section, Pewaukee",
+"page": "30",
+"kind": "s"
+},
+{
+"plate": "XXIV",
+"sub": "",
+"title": "Animal Mounds, Pewaukee",
+"page": "31",
+"kind": "s"
+},
+{
+"plate": "XXV",
+"sub": "",
+"title": "Ancient Works on the Pekatonica river",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "XXV",
+"sub": "2",
+"title": "Oval Work at Fulton",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "XXVI",
+"sub": "",
+"title": "Ancient Works, Indian Hill, near Fulton",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "XXVII",
+"sub": "",
+"title": "Ancient Works on Lake Koshkonong",
+"page": "35",
+"kind": "s"
+},
+{
+"plate": "XXVIII",
+"sub": "",
+"title": "Ancient Works, Fort Atkinson",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XXVIII",
+"sub": "2",
+"title": "Ancient Works near Jefferson",
+"page": "36",
+"kind": "s"
+},
+{
+"plate": "XXIX",
+"sub": "",
+"title": "Ancient Works, Ripley Lake",
+"page": "37",
+"kind": "s"
+},
+{
+"plate": "XXX",
+"sub": "",
+"title": "Map of Ancient Works, Summit",
+"page": "38",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "",
+"title": "Ancient Works near Hartland",
+"page": "38",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "2",
+"title": "Ancient Works at Merton",
+"page": "39",
+"kind": "s"
+},
+{
+"plate": "XXXI",
+"sub": "3",
+"title": "The Cross at Merton",
+"page": "39",
+"kind": "s"
+},
+{
+"plate": "XXXII",
+"sub": "",
+"title": "Ancient Works, Madison",
+"page": "40",
+"kind": "s"
+},
+{
+"plate": "XXXIII",
+"sub": "",
+"title": "Ancient Works, Third Lake",
+"page": "40",
+"kind": "s"
+},
+{
+"plate": "XXXIV",
+"sub": "",
+"title": "Ancient Works at Aztalan",
+"page": "42",
+"kind": "s"
+},
+{
+"plate": "XXXV",
+"sub": "",
+"title": "Map of Ancient Works at Aztalan",
+"page": "42",
+"kind": "s"
+},
+{
+"plate": "XXXVI",
+"sub": "",
+"title": "Ancient Works, Pike Lake and Horicon",
+"page": "54",
+"kind": "s"
+},
+{
+"plate": "XXXVII",
+"sub": "",
+"title": "Ancient Works at Horicon",
+"page": "55",
+"kind": "s"
+},
+{
+"plate": "XXXVIII",
+"sub": "",
+"title": "Ancient Works and Diluvial Ridges at Mayville",
+"page": "56",
+"kind": "s"
+},
+{
+"plate": "XXXIX",
+"sub": "",
+"title": "Ancient Works near Mayville",
+"page": "56",
+"kind": "s"
+},
+{
+"plate": "XL",
+"sub": "",
+"title": "Ancient Works near Mayville",
+"page": "58",
+"kind": "s"
+},
+{
+"plate": "XLI",
+"sub": "",
+"title": "Ancient Works on Lake Winnebago",
+"page": "62",
+"kind": "s"
+},
+{
+"plate": "XLI",
+"sub": "2",
+"title": "Ancient Works on Lake Winnebago",
+"page": "62",
+"kind": "s"
+},
+{
+"plate": "XLI",
+"sub": "3",
+"title": "The Spread Eagle, Utica",
+"page": "63",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "",
+"title": "Group of Mounds, Township 8, Range 4, east",
+"page": "63",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "2",
+"title": "One of the same enlarged",
+"page": "68",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "3",
+"title": "Mound, Township 9, Range 4, east",
+"page": "68",
+"kind": "s"
+},
+{
+"plate": "XLII",
+"sub": "4",
+"title": "The Man, Township 9, Range 6, east",
+"page": "68",
+"kind": "s"
+},
+{
+"plate": "XLIII",
+"sub": "",
+"title": "Ancient Works at Moseley's, Township 9, Range 6",
+"page": "68",
+"kind": "s"
+},
+{
+"plate": "XLIV",
+"sub": "",
+"title": "Map of Ancient Works at Honey Creek Mills",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLIV",
+"sub": "2",
+"title": "Ancient Works, Honey Creek Mills",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLV",
+"sub": "",
+"title": "The Buffalo, at Moseley's",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLV",
+"sub": "2",
+"title": "Animal Mound, Honey Creek",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLV",
+"sub": "3",
+"title": "Animal Mound, Honey Creek",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLV",
+"sub": "4",
+"title": "The Bear, Honey Creek Mills",
+"page": "69",
+"kind": "s"
+},
+{
+"plate": "XLVI",
+"sub": "",
+"title": "Animal Mound at Mr. Durr's",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLVI",
+"sub": "2",
+"title": "Deflected Ridges at Mr. Durr's",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLVI",
+"sub": "3",
+"title": "Bird, at Honey Creek Mills",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLVI",
+"sub": "4",
+"title": "Bird, Township 10, Range 7, east",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLVII",
+"sub": "",
+"title": "Ancient Works, Township 5, Range 7, east",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLVIII",
+"sub": "",
+"title": "Ancient Works, Township 5, Range 7, east",
+"page": "70",
+"kind": "s"
+},
+{
+"plate": "XLIX",
+"sub": "",
+"title": "Ancient Works on One Mile Creek, Adams County",
+"page": "72",
+"kind": "s"
+},
+{
+"plate": "L",
+"sub": "",
+"title": "Ancient Works, at Maus' Mill, Lemonwier river",
+"page": "73",
+"kind": "s"
+},
+{
+"plate": "LI",
+"sub": "",
+"title": "Ancient Works on the great dividing ridge between the Mississippi and Kickapoo rivers",
+"page": "77",
+"kind": "s"
+},
+{
+"plate": "LII",
+"sub": "",
+"title": "Ancient Works near Bartlett's Landing, Mississippi river",
+"page": "78",
+"kind": "s"
+},
+{
+"plate": "LIII",
+"sub": "",
+"title": "Human Skull, from a Mound at Racine",
+"page": "81",
+"kind": "o"
+},
+{
+"plate": "LIV",
+"sub": "",
+"title": "Ancient Works on the College grounds, Beloit",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "LV",
+"sub": "",
+"title": "Ancient Works on the east bank of Rock River, near Beloit",
+"page": "33",
+"kind": "s"
+},
+{
+"plate": "LV",
+"sub": "2",
+"title": "Mound near the Wisconsin River.",
+"page": "",
+"kind": "s"
+}
+],
+"figures": [
+{
+"fig": 1,
+"title": "Row of Mounds on the Aucielit Lake Beach, near the State line",
+"page": 5,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 2,
+"title": "Section of Mound at Racine",
+"page": 7,
+"kind": "o"
+},
+{
+"fig": 3,
+"title": "Beaver Dam",
+"page": 11,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 4,
+"title": "Serpentine Ridges in Marshes",
+"page": 12,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 5,
+"title": "Pair of Lizards",
+"page": 14,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 6,
+"title": "Oval Enclosures",
+"page": 15,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 7,
+"title": "Section of Mound, Walker\u2019s Point",
+"page": 15,
+"kind": "o"
+},
+{
+"fig": 8,
+"title": "Vase from a Mound at Waukesha",
+"page": 28,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 9,
+"title": "Aucient Works, Waukesha",
+"page": 30,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 10,
+"title": "Row of Mounds, Fulton",
+"page": 34,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 11,
+"title": "Natural Mounds, Dane County",
+"page": 34,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 12,
+"title": "View of Lapliam\u2019s Peak",
+"page": 39,
+"kind": "o"
+},
+{
+"fig": 13,
+"title": "Mounds on Lapliam\u2019s Peak",
+"page": 39,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 14,
+"title": "Section of Mound at Aztalan",
+"page": 44,
+"kind": "o"
+},
+{
+"fig": 15,
+"title": "Stone Arch, TTxmal",
+"page": 46,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 16,
+"title": "Stone Bird",
+"page": 51,
+"kind": "o"
+},
+{
+"fig": 17,
+"title": "Row of Mounds, Ilustisford",
+"page": 51,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 18,
+"title": "Animal Mound, Hustisford",
+"page": 52,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 19,
+"title": "The Cross, Township 11, Range 15",
+"page": 52,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 20,
+"title": "Natural Mound, Rolling Prairie",
+"page": 53,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 21,
+"title": "Associated Mounds, Beaver Dam",
+"page": 53,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 22,
+"title": "The Elk, at Waushara",
+"page": 54,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 23,
+"title": "Oblique Cross, Waushara",
+"page": 54,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 24,
+"title": "The War Club, Waushara",
+"page": 54,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 25,
+"title": "Little Butte des Morts Lake",
+"page": 60,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 26,
+"title": "The Man, near Mount Moriah",
+"page": 64,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 27,
+"title": "Animal Effigy, at Moundville",
+"page": 65,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 28,
+"title": "Enclosure at the Dells",
+"page": 71,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 29,
+"title": "Fort, Iron Creek",
+"page": 73,
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 30,
+"title": "Temple Mound, Lake Superior",
+"page": 74,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 31,
+"title": "Stone Hammer",
+"page": 74,
+"kind": "o"
+},
+{
+"fig": 32,
+"title": "Stone Axe",
+"page": 74,
+"kind": "o"
+},
+{
+"fig": 33,
+"title": "Copper Knife",
+"page": 77,
+"kind": "o"
+},
+{
+"fig": 34,
+"title": "Copper Arrow Head",
+"page": 77,
+"kind": "o"
+},
+{
+"fig": 35,
+"title": "Excavations at La Crosse",
+"page": 78,
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 36,
+"title": "Indian Hieroglyphics, Gale\u2019s Bluff",
+"page": 79,
+"kind": "o"
+},
+{
+"fig": 37,
+"title": "Top View of Mound Skull",
+"page": 80,
+"kind": "o"
+},
+{
+"fig": 38,
+"title": "Back view of same",
+"page": 80,
+"kind": "o"
+},
+{
+"fig": 39,
+"title": "Clay Pipe of Mound Builders",
+"page": 83,
+"kind": "o"
+},
+{
+"fig": 40,
+"title": "Stone Pipe of Mound Builders",
+"page": 83,
+"kind": "o"
+},
+{
+"fig": 51,
+"title": "Indian Pipes",
+"page": 83,
+"kind": "o"
+},
+{
+"fig": 52,
+"title": "Indian Arrow Head",
+"page": 85,
+"kind": "o"
+},
+{
+"fig": 53,
+"title": "Vase from a Mound at Racine",
+"page": 86,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 54,
+"title": "Stone Axe",
+"page": 86,
+"kind": "o"
+},
+{
+"fig": 56,
+"title": "Stone Chisel",
+"page": 86,
+"kind": "o"
+},
+{
+"fig": 57,
+"title": "Wooden Image",
+"page": 87,
+"kind": "o"
+},
+{
+"fig": 58,
+"title": "Perforated Stone",
+"page": 87,
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 59,
+"title": "Indian Game of Ball",
+"page": 87,
+"kind": "o"
+},
+{
+"fig": 60,
+"title": "Copper Chisel",
+"page": 88,
+"kind": "o"
+},
+{
+"fig": 61,
+"title": "Windfalls near Green Bay",
+"page": 91,
+"kind": "o"
+}
+]
+}

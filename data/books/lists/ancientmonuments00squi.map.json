@@ -1,0 +1,1569 @@
+[
+{
+"n": 51,
+"site_plan": true,
+"entries": [
+{
+"plate": "II",
+"sub": "",
+"title": "Map of a section of 12 miles of Scioto valley",
+"page": "3",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 54,
+"site_plan": true,
+"entries": [
+{
+"plate": "III",
+"sub": "",
+"title": "Map of a section of 6 miles of Miami valley",
+"page": "4",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "III",
+"sub": "2",
+"title": "Map of 6 miles of Paint creek valley",
+"page": "4",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 63,
+"site_plan": true,
+"entries": [
+{
+"plate": "IV",
+"sub": "",
+"title": "Stone work near Bourneville, Ross co., Ohio",
+"page": "11",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 68,
+"site_plan": true,
+"entries": [
+{
+"plate": "V",
+"sub": "",
+"title": "\"Fort Hill,\" Highland county, Ohio",
+"page": "14",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 72,
+"site_plan": true,
+"entries": [
+{
+"plate": "VI",
+"sub": "",
+"title": "Fortified Hill, Butler county, Ohio",
+"page": "16",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 76,
+"site_plan": true,
+"entries": [
+{
+"plate": "VII",
+"sub": "",
+"title": "\"Fort Ancient,\" Warren county, Ohio",
+"page": "18",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 81,
+"site_plan": true,
+"entries": [
+{
+"plate": "VIII",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "21",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VIII",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "22",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VIII",
+"sub": "3",
+"title": "Ancient work near Piqua, Miami co., Ohio",
+"page": "23",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VIII",
+"sub": "4",
+"title": "Ancient work near Dayton, Montgomery county, Ohio",
+"page": "23",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 86,
+"site_plan": true,
+"entries": [
+{
+"plate": "IX",
+"sub": "",
+"title": "Fortified Hill near Granville, Licking co., Ohio",
+"page": "24",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "IX",
+"sub": "2",
+"title": "Fortified Hill at the mouth of Great Miami river",
+"page": "25",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "IX",
+"sub": "3",
+"title": "Ancient work near Lexington, Kentucky",
+"page": "26",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 90,
+"site_plan": true,
+"entries": [
+{
+"plate": "X",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "26",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 92,
+"site_plan": false,
+"entries": [
+{
+"fig": 3,
+"title": "Group of Mounds within an enclosure",
+"page": 27,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 95,
+"site_plan": true,
+"entries": [
+{
+"plate": "XI",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "29",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XI",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "29",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XI",
+"sub": "3",
+"title": "Ancient work, Butler county, Ohio",
+"page": "30",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 99,
+"site_plan": true,
+"entries": [
+{
+"plate": "XII",
+"sub": "",
+"title": "Stone work on Duck river, Tennessee",
+"page": "31",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XII",
+"sub": "2",
+"title": "Ancient work, Preble county, Ohio",
+"page": "33",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XII",
+"sub": "3",
+"title": "Ancient work, Greene county, Ohio",
+"page": "33",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XII",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "34",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 105,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIII",
+"sub": "",
+"title": "Ancient work, Bourbon county, Kentucky",
+"page": "35",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XIII",
+"sub": "2",
+"title": "Colerain works, Butler county, Ohio",
+"page": "35",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 108,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIV",
+"sub": "",
+"title": "Ancient work, Pickaway county, Ohio",
+"page": "36",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIV",
+"sub": "2",
+"title": "Ancient work, Franklin county, Ohio",
+"page": "36",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIV",
+"sub": "3",
+"title": "Ancient work, Fayette county, Kentucky",
+"page": "36",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XIV",
+"sub": "4",
+"title": "Ancient work, Fayette county, Kentucky",
+"page": "36",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 111,
+"site_plan": true,
+"entries": [
+{
+"plate": "XV",
+"sub": "",
+"title": "Ancient work, Huron county, Ohio",
+"page": "37",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "2",
+"title": "Ancient work, Ashtabula county, Ohio",
+"page": "38",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "3",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "38",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "4",
+"title": "Ancient work, Lorain county, Ohio",
+"page": "39",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "5",
+"title": "Ancient work, Lorain county, Ohio",
+"page": "39",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "6",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "40",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "7",
+"title": "Ancient work, Cuyahoga county, Ohio",
+"page": "40",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XV",
+"sub": "8",
+"title": "Ancient work, Wood county, Ohio",
+"page": "40",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 114,
+"site_plan": true,
+"entries": [
+{
+"fig": 4,
+"title": "Plan of Ancient Work, Lorain county, Ohio",
+"page": 39,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 5,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 39,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 115,
+"site_plan": true,
+"entries": [
+{
+"fig": 6,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 7,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 8,
+"title": "Plan of Ancient Work, Lorain county, Ohio [do.]",
+"page": 40,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 126,
+"site_plan": true,
+"entries": [
+{
+"plate": "XVI",
+"sub": "",
+"title": "High Bank works, Ross county, Ohio",
+"page": "50",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 129,
+"site_plan": true,
+"entries": [
+{
+"plate": "XVII",
+"sub": "",
+"title": "Hopeton works, Ross county, Ohio",
+"page": "51",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 132,
+"site_plan": true,
+"entries": [
+{
+"plate": "XVIII",
+"sub": "",
+"title": "Cedar Bank works, Ross county, Ohio",
+"page": "52",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 134,
+"site_plan": false,
+"entries": [
+{
+"fig": 9,
+"title": "Circle and truncated Pyramid",
+"page": 53,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 136,
+"site_plan": true,
+"entries": [
+{
+"plate": "XIX",
+"sub": "",
+"title": "\"Mound City,\" Ross county, Ohio",
+"page": "54",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 140,
+"site_plan": true,
+"entries": [
+{
+"plate": "XX",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "56",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 142,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXI",
+"sub": "",
+"title": "Ancient work, Ross county, Ohio",
+"page": "57",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXI",
+"sub": "2",
+"title": "Ancient work, Ross county, Ohio",
+"page": "57",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXI",
+"sub": "3",
+"title": "Ancient work, Ross county, Ohio",
+"page": "58",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXI",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "59",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 147,
+"site_plan": true,
+"entries": [
+{
+"fig": 10,
+"title": "Plan of Ancient Work at Circleville, Ohio",
+"page": 60,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 149,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXII",
+"sub": "",
+"title": "\"Junction Group,\" Ross county, Ohio",
+"page": "60",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXII",
+"sub": "2",
+"title": "Blackwater Group, Ross county, Ohio",
+"page": "61",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 153,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXIII",
+"sub": "",
+"title": "Dunlap's works, Ross county, Ohio",
+"page": "63",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXIII",
+"sub": "2",
+"title": "Ancient work, Athens county, Ohio",
+"page": "64",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 157,
+"site_plan": true,
+"entries": [
+{
+"fig": 11,
+"title": "Plan of Sacred Enclosure, Pike county, Ohio",
+"page": 66,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 158,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXIV",
+"sub": "",
+"title": "Ancient work, Pike county, Ohio",
+"page": "66",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 161,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXV",
+"sub": "",
+"title": "Newark works, Licking county, Ohio",
+"page": "67",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 163,
+"site_plan": true,
+"entries": [
+{
+"fig": 12,
+"title": "Bird-shaped Mound, Newark, Ohio",
+"page": 68,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 164,
+"site_plan": false,
+"entries": [
+{
+"fig": 14,
+"title": "Truncated Mound covering gateway",
+"page": 69,
+"kind": "u",
+"type": "figure"
+},
+{
+"fig": 15,
+"title": "Crown-work of Circle",
+"page": 69,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 169,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXVI",
+"sub": "",
+"title": "Marietta works, Washington county, Ohio",
+"page": "73",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 175,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXVII",
+"sub": "",
+"title": "Portsmouth works, Scioto county, Ohio",
+"page": "77",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 176,
+"site_plan": true,
+"entries": [
+{
+"fig": 18,
+"title": "Plan of Ancient Work, Parkersburgh, Virginia",
+"page": 77,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 178,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXVIII",
+"sub": "",
+"title": "Portsmouth works, Group A",
+"page": "78",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXVIII",
+"sub": "2",
+"title": "Portsmouth works, Group B",
+"page": "80",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXVIII",
+"sub": "3",
+"title": "Portsmouth works, Group C",
+"page": "81",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 184,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXIX",
+"sub": "",
+"title": "Ancient works, Montgomery county, Ohio",
+"page": "82",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXIX",
+"sub": "2",
+"title": "Ancient works, Scioto county, Ohio",
+"page": "83",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXIX",
+"sub": "3",
+"title": "Ancient works, Franklin county, Ohio",
+"page": "84",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 189,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXX",
+"sub": "",
+"title": "Ancient works, Butler county, Ohio",
+"page": "85",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXX",
+"sub": "2",
+"title": "Ancient works, Butler county, Ohio",
+"page": "85",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXX",
+"sub": "3",
+"title": "Ancient works, Ross county, Ohio",
+"page": "86",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXX",
+"sub": "4",
+"title": "Stone work, Ross county, Ohio",
+"page": "87",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 194,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXI",
+"sub": "",
+"title": "Graded Way, Pike county, Ohio",
+"page": "88",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXI",
+"sub": "2",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXI",
+"sub": "3",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXI",
+"sub": "4",
+"title": "Ancient work, Butler county, Ohio",
+"page": "90",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 199,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXII",
+"sub": "",
+"title": "Ancient work, Butler county, Ohio",
+"page": "91",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXII",
+"sub": "2",
+"title": "Ancient work, Washington county, Ohio",
+"page": "92",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXII",
+"sub": "3",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXII",
+"sub": "4",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXII",
+"sub": "5",
+"title": "Ancient work, Ross county, Ohio",
+"page": "92",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXII",
+"sub": "6",
+"title": "Ancient work, Montgomery co., Kentucky",
+"page": "",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 203,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIII",
+"sub": "",
+"title": "Ancient work, Montgomery co., Kentucky",
+"page": "93",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXIII",
+"sub": "2",
+"title": "Ancient work, Randolph county, Indiana",
+"page": "94",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 206,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIV",
+"sub": "",
+"title": "Ancient work, Clermont county, Ohio",
+"page": "94",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXIV",
+"sub": "2",
+"title": "Ancient work, Clermont county, Ohio",
+"page": "95",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXIV",
+"sub": "3",
+"title": "Ancient work, Greene county, Ohio",
+"page": "95",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXIV",
+"sub": "4",
+"title": "Ancient work, Greene county, Ohio",
+"page": "95",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 210,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXV",
+"sub": "",
+"title": "Great Serpent, Adams county, Ohio",
+"page": "96",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 214,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVI",
+"sub": "",
+"title": "\"The Cross,\" Pickaway county, Ohio",
+"page": "97",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXVI",
+"sub": "2",
+"title": "\"The Alligator,\" Licking county, Ohio",
+"page": "98",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXVI",
+"sub": "3",
+"title": "Ancient work, Fairfield county, Ohio",
+"page": "100",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XXXVI",
+"sub": "4",
+"title": "Map of section of Newark valley",
+"page": "101",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 223,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVII",
+"sub": "",
+"title": "Ancient works, Wateree District, S. C.",
+"page": "105",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 228,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXVIII",
+"sub": "",
+"title": "Ancient works on Etowah river, Alabama",
+"page": "108",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXVIII",
+"sub": "-",
+"title": "Ancient works on Tennessee river, Alabama",
+"page": "109",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXVIII",
+"sub": "2",
+"title": "Ancient works, Chickasaw surveys, Miss.",
+"page": "110",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXVIII",
+"sub": "3",
+"title": "Ancient works, Lafayette county, Miss.",
+"page": "111",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXVIII",
+"sub": "4",
+"title": "Ancient works, Prairie Jefferson, Louisiana",
+"page": "113",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 230,
+"site_plan": true,
+"entries": [
+{
+"fig": 21,
+"title": "Plan of Ancient Work in Alabama",
+"page": 109,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 237,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXXIX",
+"sub": "",
+"title": "Ancient work, Madison parish, Louisiana",
+"page": "115",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XXXIX",
+"sub": "-",
+"title": "Ancient work, Bolivar county, Mississippi",
+"page": "116",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 239,
+"site_plan": true,
+"entries": [
+{
+"fig": 22,
+"title": "Plan of Ancient Work in Alabama [do.]",
+"page": 116,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 244,
+"site_plan": false,
+"entries": [
+{
+"fig": 23,
+"title": "Public Square of the Muscogulges",
+"page": 121,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 245,
+"site_plan": true,
+"entries": [
+{
+"fig": 24,
+"title": "Mound at Mount Royal, Florida",
+"page": 122,
+"kind": "u",
+"type": "figure"
+},
+{
+"fig": 25,
+"title": "Plan of Mound and Parallels",
+"page": 122,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 250,
+"site_plan": true,
+"entries": [
+{
+"plate": "XL",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "126",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 253,
+"site_plan": true,
+"entries": [
+{
+"plate": "XLI",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "127",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XLI",
+"sub": "2",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "127",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 256,
+"site_plan": true,
+"entries": [
+{
+"plate": "XLII",
+"sub": "",
+"title": "Ancient works, Dade county, Wisconsin",
+"page": "128",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XLII",
+"sub": "2",
+"title": "Ancient works, Richland county, Wisconsin",
+"page": "128",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 259,
+"site_plan": true,
+"entries": [
+{
+"plate": "XLIII",
+"sub": "",
+"title": "Ancient works, Grant county, Wisconsin",
+"page": "129",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "XLIII",
+"sub": "2-13",
+"title": "various localities",
+"page": "130",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 263,
+"site_plan": true,
+"entries": [
+{
+"plate": "XLIV",
+"sub": "",
+"title": "Ancient work on Rock river, Wisconsin",
+"page": "131",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "XLIV",
+"sub": "2-8",
+"title": "various localities",
+"page": "132",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 266,
+"site_plan": true,
+"entries": [
+{
+"fig": 26,
+"title": "Plan of Works in Wisconsin",
+"page": 133,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 276,
+"site_plan": false,
+"entries": [
+{
+"fig": 28,
+"title": "Hill Mounds",
+"page": 141,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 279,
+"site_plan": false,
+"entries": [
+{
+"fig": 30,
+"title": "Structure of Mounds",
+"page": 144,
+"kind": "u",
+"type": "figure"
+}
+]
+},
+{
+"n": 296,
+"site_plan": true,
+"entries": [
+{
+"fig": 49,
+"title": "Group of Sepulchral Mounds",
+"page": 161,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 305,
+"site_plan": true,
+"entries": [
+{
+"fig": 57,
+"title": "Plans of groups of Mounds",
+"page": 170,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 306,
+"site_plan": false,
+"entries": [
+{
+"fig": 58,
+"title": "Mounds of Oregon",
+"page": 171,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 308,
+"site_plan": false,
+"entries": [
+{
+"fig": 59,
+"title": "Terraced Mound",
+"page": 173,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 309,
+"site_plan": true,
+"entries": [
+{
+"fig": 60,
+"title": "Plan of Cahokia Mound",
+"page": 174,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 310,
+"site_plan": false,
+"entries": [
+{
+"fig": 61,
+"title": "Lozenge-shaped Mound",
+"page": 175,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 311,
+"site_plan": true,
+"entries": [
+{
+"fig": 63,
+"title": "Plan of an Ancient octagonal Terrace",
+"page": 176,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 64,
+"title": "Plan of an Ancient rectangular Terrace",
+"page": 176,
+"kind": "s",
+"type": "figure"
+}
+]
+},
+{
+"n": 312,
+"site_plan": true,
+"entries": [
+{
+"fig": 65,
+"title": "Plan of Temple Mound with graded ascent",
+"page": 177,
+"kind": "s",
+"type": "figure"
+},
+{
+"fig": 66,
+"title": "Group of Sepulchral Mounds",
+"page": 177,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 313,
+"site_plan": false,
+"entries": [
+{
+"fig": 67,
+"title": "Plan and Section of Anomalous Mound",
+"page": 178,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 440,
+"site_plan": false,
+"entries": [
+{
+"fig": 207,
+"title": "Site of Sculptured Rocks of the Guyandotte",
+"page": 299,
+"kind": "u",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+}
+]

@@ -1,0 +1,197 @@
+[
+{
+"n": 26,
+"site_plan": true,
+"entries": [
+{
+"plate": "I",
+"sub": "",
+"title": "Ancient Excavation, Big Bottom, Pike County",
+"page": "7",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 28,
+"site_plan": true,
+"entries": [
+{
+"plate": "II",
+"sub": "",
+"title": "Ancient Work near Todd's Fork, Warren County",
+"page": "8",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 30,
+"site_plan": true,
+"entries": [
+{
+"plate": "III",
+"sub": "1",
+"title": "Work near Newtown",
+"page": "9",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "III",
+"sub": "2",
+"title": "Mound near Newtown",
+"page": "10",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "III",
+"sub": "3",
+"title": "Work near Columbus",
+"page": "10",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 32,
+"site_plan": true,
+"entries": [
+{
+"plate": "IV",
+"sub": "",
+"title": "Ancient Works at Cincinnati",
+"page": "11",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 34,
+"site_plan": true,
+"entries": [
+{
+"plate": "V",
+"sub": "1",
+"title": "Ancient Works in Adams, Washington County",
+"page": "12",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "V",
+"sub": "2",
+"title": "Work near Jacktown, Licking County",
+"page": "12",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "V",
+"sub": "3",
+"title": "Stone Work, Perry County",
+"page": "13",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+},
+{
+"plate": "V",
+"sub": "4",
+"title": "Fortified Summit, three miles South of Newark, Licking County",
+"page": "14",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+},
+{
+"n": 36,
+"site_plan": true,
+"entries": [
+{
+"plate": "VI",
+"sub": "1",
+"title": "Work near Medina Centre, Medina County",
+"page": "15",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VI",
+"sub": "2",
+"title": "Fortified Position, Weymouth",
+"page": "16",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VI",
+"sub": "3",
+"title": "Earth-Work, South-East of Weymouth",
+"page": "16",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+},
+{
+"n": 38,
+"site_plan": true,
+"entries": [
+{
+"plate": "VII",
+"sub": "A",
+"title": "Work in North Field, Summit County",
+"page": "17",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VII",
+"sub": "1",
+"title": "Ancient Work in Jackson County",
+"page": "18",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VII",
+"sub": "2",
+"title": "Work between Jackson and Richmond",
+"page": "18",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+},
+{
+"plate": "VII",
+"sub": "3",
+"title": "Work in Ross County",
+"page": "18",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen"
+}
+]
+}
+]
