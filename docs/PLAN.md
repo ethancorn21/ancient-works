@@ -76,6 +76,29 @@ The artifact database (plates/*, verdicts/*) was empty when checked on 2026-10-1
   portals (Ohio, Indiana first) before promising any. UK aerial archives are mostly view-only: skip unless
   terms allow.
 
+## Finder: looking for earthworks nobody has recorded (Ethan 2026-10-10: "lean into it")
+
+Its own section on the site. Candidates stay on the Mac (gitignored), never on GitHub.
+Where it stands: the ring scanner failed its pre-agreed test (Hopeton great circle #966, High Bank #729
+of 7,231 on the test tiles; small natural rings flood the list).
+
+1. Test set before any claim: known earthworks with good coordinates (catalog + fitted plates) as
+   positives, random ground on similar terrain as negatives, held-out areas. Metric: recall at k per km2.
+2. More detectors: mounds (1-10 m bumps, far easier than plowed walls), rings, squares and octagons,
+   linear walls; then a re-ranking stage that gives a probability per candidate.
+3. Re-ranker bake-off on the test set: Qwen3.8-27B (label probabilities from token log-probs) vs
+   Cloudflare Clef-flash 9B (decision model: one probability per option in one forward pass, Qwen3.5-9B
+   backbone with its vision encoder, Apache-2.0, released 2026-09-30) vs embeddings + a small trained
+   head. Keep whichever separates known sites from random ground best.
+4. Independent evidence per candidate: Mills 1914 Archeological Atlas of Ohio county maps (every mound and
+   enclosure known in 1914 as red symbols; georeference + extract), old USGS topo "mound" labels,
+   1930s aerials (Iowa), Squier & Davis plates, the catalog (known = not new).
+5. "Lost" vs "new": a LiDAR feature at a Mills 1914 symbol that no modern public source lists is a lost
+   site found again; a strong candidate with no record anywhere is a possible new one. Both get reviewed
+   on the site (relief, aerial, historical layers side by side; verdict buttons).
+6. Search areas: Scioto, Paint Creek, Little and Great Miami, Muskingum terraces (Ohio); Mississippi
+   bluffs (effigy mound country, Iowa/Wisconsin); later England and the Netherlands.
+
 ## Not doing
 
 - Ground photos, for now (Ethan: historical depictions only for now).
