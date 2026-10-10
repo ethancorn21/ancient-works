@@ -316,7 +316,8 @@ function renderSite(s) {
         <button id="p-ink" aria-pressed="${S.plateMode === 'ink'}">Ink lines</button>
         <button id="p-paper" aria-pressed="${S.plateMode === 'paper'}">Original paper</button>
       </div>
-      ${feats ? `<p class="fit">Rubber-sheeted through ${feats.length} feature${feats.length === 1 ? '' : 's'}; drawn walls stand ${feats.map(x => x.contrast_m.toFixed(2)).join(', ')} m above the ground 20 m to either side.</p>`
+      ${f && f.model === 'control' ? `<p class="fit">Placed by ${f.control_resid_m.length} hand-picked points (surviving mounds); a single rotation and scale fits all of them within ${Math.ceil(Math.max(...f.control_resid_m))} m.</p>`
+        : feats ? `<p class="fit">Rubber-sheeted through ${feats.length} feature${feats.length === 1 ? '' : 's'}; drawn walls stand ${feats.map(x => x.contrast_m.toFixed(2)).join(', ')} m above the ground 20 m to either side.</p>`
         : f ? `<p class="fit">Drawn walls stand ${f.ridge_contrast_m.toFixed(2)} m above the ground 20 m to either side (median). Random placements of the same shape: ${f.null_p99_m.toFixed(2)} m at the 99th percentile.</p>` : ''}
       <details class="align" ${moved ? 'open' : ''}>
         <summary>Adjust the plate</summary>

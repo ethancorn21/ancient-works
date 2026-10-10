@@ -1,0 +1,230 @@
+{
+ "id": "forthill",
+ "name": "Fort Hill",
+ "aka": "Fort Hill Earthworks",
+ "place": "Highland County, Ohio",
+ "lon": -83.4039,
+ "lat": 39.1155,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "status": "standing",
+ "summary": "A wall of earth and stone running more than a mile and a half around the rim of a steep, flat-topped hill, enclosing 48 acres. Squier and Davis surveyed it in 1846. It stands in old forest today, which is why aerial photographs show nothing and LiDAR shows all of it.",
+ "notes": [
+  "The wall follows the rim of the hill all the way around; in the relief it shows as a bright line just inside the edge of the plateau, with the plate's gateways as gaps.",
+  "Forest hides it from aerial photographs. Switch the ground to 'Aerial photograph' to compare.",
+  "Placed from four hand-picked points (the two tips and two corners), then fitted to the wall: it stands about 0.2 m above the ground 12 m to either side after a tight relief filter, against \u22120.09 m for random placements."
+ ],
+ "plate": {
+  "leaf": "data/plates/sd_n68.jpg",
+  "crop": [
+   330,
+   380,
+   2900,
+   3700
+  ],
+  "label": "Plate V",
+  "blank": [
+   [
+    330,
+    380,
+    1500,
+    2150
+   ],
+   [
+    330,
+    3350,
+    1100,
+    3700
+   ],
+   [
+    2610,
+    380,
+    2900,
+    3700
+   ]
+  ],
+  "source": "Squier & Davis 1848, Plate V (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n68.",
+  "m_per_px": 0.429,
+  "guess": {
+   "rot_deg": -15,
+   "tx": 0,
+   "ty": 0
+  },
+  "rot_max_deg": 4,
+  "search_m": 60,
+  "walls": [
+   [
+    [
+     1739,
+     1005
+    ],
+    [
+     1875,
+     1091
+    ],
+    [
+     1861,
+     1333
+    ],
+    [
+     1818,
+     1504
+    ],
+    [
+     1847,
+     1675
+    ],
+    [
+     1960,
+     1817
+    ],
+    [
+     2102,
+     2017
+    ],
+    [
+     1989,
+     2102
+    ],
+    [
+     1705,
+     2188
+    ],
+    [
+     1534,
+     2273
+    ],
+    [
+     1449,
+     2416
+    ],
+    [
+     1392,
+     2615
+    ],
+    [
+     1349,
+     2843
+    ],
+    [
+     1321,
+     3071
+    ],
+    [
+     1335,
+     3242
+    ],
+    [
+     1321,
+     3299
+    ],
+    [
+     1250,
+     3257
+    ],
+    [
+     1080,
+     3157
+    ],
+    [
+     852,
+     3043
+    ],
+    [
+     597,
+     2915
+    ],
+    [
+     582,
+     2815
+    ],
+    [
+     639,
+     2672
+    ],
+    [
+     739,
+     2558
+    ],
+    [
+     852,
+     2501
+    ],
+    [
+     1023,
+     2444
+    ],
+    [
+     1222,
+     2273
+    ],
+    [
+     1335,
+     2159
+    ],
+    [
+     1420,
+     2045
+    ],
+    [
+     1477,
+     1931
+    ],
+    [
+     1534,
+     1760
+    ],
+    [
+     1591,
+     1703
+    ],
+    [
+     1634,
+     1475
+    ],
+    [
+     1648,
+     1247
+    ],
+    [
+     1676,
+     1076
+    ],
+    [
+     1739,
+     1005
+    ]
+   ]
+  ],
+  "control": [
+   [
+    1739,
+    1005,
+    1200,
+    460
+   ],
+   [
+    1321,
+    3299,
+    900,
+    1400
+   ],
+   [
+    597,
+    2915,
+    620,
+    1160
+   ],
+   [
+    2102,
+    2017,
+    1320,
+    900
+   ]
+  ],
+  "lrm_radius_m": 8,
+  "clip_m": 3,
+  "side_m": 12
+ }
+}

@@ -6,7 +6,7 @@ d = f"web/data/sites/{sid}/"
 rel = Image.open(d + "relief.jpg").convert("RGBA")
 import json, os
 e = next(s for s in json.load(open("web/data/sites.json"))["sites"] if s["id"] == sid)
-if e.get("plate", {}).get("warped"):
+if e.get("plate"):
     ink = Image.open(d + e["plate"]["ink"]).convert("RGBA").resize(rel.size)
     rel = Image.alpha_composite(rel, ink)
 if len(sys.argv) >= 7:

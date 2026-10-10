@@ -116,14 +116,14 @@ def hillshade(z, px_m, az=315, alt=35, exag=3.0):
     return np.clip(hs, 0, 1)
 
 
-def render_relief(z, px_m, clip_m=None, ignore=None):
+def render_relief(z, px_m, clip_m=None, ignore=None, radius_m=24.0):
     """Grayscale relief picture: raised = light, sunken = dark, plus a soft hillshade for texture.
 
     The contrast stretch comes from open ground only (`ignore` masks roads, quarries, water), so highway
     embankments do not wash out half-metre walls. Returns (uint8 image array, clip used in metres).
     """
     z = fill_nan(z)
-    lrm = local_relief(z, px_m)
+    lrm = local_relief(z, px_m, radius_m)
     if clip_m is None:
         sample = lrm if ignore is None or ignore.all() else lrm[~ignore]
         lo, hi = np.percentile(sample, [2, 98])

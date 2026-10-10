@@ -1,6 +1,105 @@
 {
  "sites": [
   {
+   "id": "forthill",
+   "name": "Fort Hill",
+   "aka": "Fort Hill Earthworks",
+   "place": "Highland County, Ohio",
+   "lon": -83.4039,
+   "lat": 39.1155,
+   "status": "standing",
+   "summary": "A wall of earth and stone running more than a mile and a half around the rim of a steep, flat-topped hill, enclosing 48 acres. Squier and Davis surveyed it in 1846. It stands in old forest today, which is why aerial photographs show nothing and LiDAR shows all of it.",
+   "notes": [
+    "The wall follows the rim of the hill all the way around; in the relief it shows as a bright line just inside the edge of the plateau, with the plate's gateways as gaps.",
+    "Forest hides it from aerial photographs. Switch the ground to 'Aerial photograph' to compare.",
+    "Placed from four hand-picked points (the two tips and two corners), then fitted to the wall: it stands about 0.2 m above the ground 12 m to either side after a tight relief filter, against \u22120.09 m for random placements."
+   ],
+   "corners": [
+    [
+     -83.41547808150844,
+     39.124482580212764
+    ],
+    [
+     -83.39232191849153,
+     39.124482580212764
+    ],
+    [
+     -83.39232191849153,
+     39.106516274555304
+    ],
+    [
+     -83.41547808150844,
+     39.106516274555304
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 251.88,
+    "zmax": 391.2,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2000,
+    2000
+   ],
+   "plate": {
+    "corners": [
+     [
+      -83.41547808150844,
+      39.124482580212764
+     ],
+     [
+      -83.39232191849153,
+      39.124482580212764
+     ],
+     [
+      -83.39232191849153,
+      39.106516274555304
+     ],
+     [
+      -83.41547808150844,
+      39.106516274555304
+     ]
+    ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
+    "source": "Squier & Davis 1848, Plate V (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n68.",
+    "fit": {
+     "m_per_px": 0.4134,
+     "rot_deg": -6.17,
+     "affine": [
+      0.41102,
+      0.04446,
+      -0.04446,
+      0.41102,
+      11.36217,
+      21.7951
+     ],
+     "u0v0": [
+      1089.27,
+      1833.39
+     ],
+     "ridge_contrast_m": 0.205,
+     "model": "similarity",
+     "control_resid_m": [
+      17.1,
+      14.3,
+      20.4,
+      15.4
+     ],
+     "null_mean_m": -0.183,
+     "null_p99_m": -0.09
+    },
+    "features": null,
+    "warped": false,
+    "label": "Plate V"
+   }
+  },
+  {
    "id": "fudge",
    "name": "Fudge Site",
    "aka": "Ancient Work near Winchester",
@@ -198,6 +297,104 @@
     ],
     "warped": true,
     "label": "Plate XVII"
+   }
+  },
+  {
+   "id": "marietta",
+   "name": "Marietta Works",
+   "aka": "Marietta Earthworks",
+   "place": "Washington County, Ohio",
+   "lon": -81.4535,
+   "lat": 39.4185,
+   "status": "urban",
+   "summary": "Two walled squares of 50 and 27 acres, flat-topped mounds and a graded way down to the Muskingum, with the Conus mound and its ring to the south. The town of Marietta was laid out over it in 1788; the Conus mound survives in Mound Cemetery.",
+   "notes": [
+    "The squares and the graded way are gone under streets. What the LiDAR still shows: the Conus mound and its ring ditch in Mound Cemetery, and two raised blocks where the flat-topped mounds Quadranaou and Capitolium stood (the county library sits on Capitolium).",
+    "Too little wall survives for the automatic search, so this plate is placed by three hand-picked points: the Conus mound and the two platform mounds.",
+    "Charles Whittlesey surveyed it in 1837, with the town's streets drawn in; the same streets are still there."
+   ],
+   "corners": [
+    [
+     -81.4686167204422,
+     39.428380767726125
+    ],
+    [
+     -81.43838327955783,
+     39.428380767726125
+    ],
+    [
+     -81.43838327955783,
+     39.408617831507264
+    ],
+    [
+     -81.4686167204422,
+     39.408617831507264
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 433,
+    "zmin": 177.38,
+    "zmax": 268.14,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2600,
+    2200
+   ],
+   "plate": {
+    "corners": [
+     [
+      -81.4686167204422,
+      39.428380767726125
+     ],
+     [
+      -81.43838327955783,
+      39.428380767726125
+     ],
+     [
+      -81.43838327955783,
+      39.408617831507264
+     ],
+     [
+      -81.4686167204422,
+      39.408617831507264
+     ]
+    ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
+    "source": "Squier & Davis 1848, Plate XXVI (surveyed by Charles Whittlesey, 1837). Scan: Internet Archive ancientmonuments00squi leaf n169.",
+    "fit": {
+     "m_per_px": 0.7296,
+     "rot_deg": -4.3,
+     "affine": [
+      0.72758,
+      0.05468,
+      -0.05468,
+      0.72758,
+      165.7403,
+      209.54854
+     ],
+     "u0v0": [
+      2131.0,
+      1750.0
+     ],
+     "ridge_contrast_m": -0.338,
+     "model": "control",
+     "control_resid_m": [
+      1.2,
+      1.7,
+      0.5
+     ],
+     "null_mean_m": -0.085,
+     "null_p99_m": 0.0
+    },
+    "features": null,
+    "warped": false,
+    "label": "Plate XXVI"
    }
   },
   {

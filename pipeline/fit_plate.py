@@ -61,8 +61,10 @@ def main(path):
         z = aw.fetch_dem(bbox, w, h)
         np.save(cache, z)
     z = aw.fill_nan(z)
-    lrm = aw.local_relief(z, px_m)
-    lrm = np.clip(lrm, -1.0, 1.0)  # quarry pits and banks would dominate the score otherwise
+    # steep ground (hill rims) needs a tighter relief filter, or the slope swamps a 1 m wall
+    lrm = aw.local_relief(z, px_m, radius_m=plate.get("lrm_radius_m", 24.0))
+    clip = plate.get("clip_m", 1.0)
+    lrm = np.clip(lrm, -clip, clip)  # quarry pits and banks would dominate the score otherwise
     mask_path = os.path.join(os.path.dirname(path), "modern_mask.npy")
     if os.path.exists(mask_path):
         mask = np.load(mask_path)
@@ -88,6 +90,7 @@ def main(path):
         (a, b), *_ = np.linalg.lstsq(A, zv, rcond=None)
         s0, rot0, tx0, ty0 = abs(a), float(np.angle(a)), b.real, b.imag
         resid = np.abs(A @ np.array([a, b]) - zv)
+        plate["_resid"] = np.round(resid, 1).tolist()
         print("  control seed: m/px %.3f rot %.1f shift %.0f %.0f, residuals m %s" % (
             s0, math.degrees(rot0), tx0, ty0, np.round(resid, 1).tolist()))
 
@@ -119,11 +122,14 @@ def main(path):
         return float(np.median(contrast[good]))
 
     best = (score(s0, rot0, tx0, ty0), s0, rot0, tx0, ty0)
+    if plate.get("model") == "control":
+        # too little wall survives to search on (towns): trust the hand-picked control points
+        plate["_skip_search"] = True
     # Plates are drawn north-up from compass surveys, so keep rotation near the drawing's own (+-rot_max).
     # Free rotation lets the walls snap onto section-line roads and field edges instead.
     rot_max = math.radians(plate.get("rot_max_deg", 3.0))
     span = dict(s=0.08 * s0, rot=rot_max, t=plate.get("search_m", 120.0))
-    for _ in range(5):  # coarse-to-fine grid search around the current best
+    for _ in range(0 if plate.pop("_skip_search", False) else 5):  # coarse-to-fine grid search around the current best
         _, sb, rb, xb, yb = best
         for s in np.linspace(sb - span["s"], sb + span["s"], 5):
             for rot in np.clip(np.linspace(rb - span["rot"], rb + span["rot"], 9), rot0 - rot_max, rot0 + rot_max):
@@ -260,7 +266,8 @@ def main(path):
     plate["fit"] = {"m_per_px": round(float(math.sqrt(abs(np.linalg.det(M)))), 4),
                     "rot_deg": round(math.degrees(math.atan2(M[1, 0], M[0, 0])), 2),
                     "affine": [round(float(v), 5) for v in (*M.ravel(), *t)], "u0v0": [round(u0, 2), round(v0, 2)],
-                    "ridge_contrast_m": round(sc, 3),
+                    "ridge_contrast_m": round(sc, 3), "model": plate.get("model", "similarity"),
+                    "control_resid_m": plate.pop("_resid", None),
                     "null_mean_m": round(float(null.mean()), 3), "null_p99_m": round(float(np.percentile(null, 99)), 3)}
     print("fit", plate["fit"])
     json.dump(site, open(path, "w"), indent=1)

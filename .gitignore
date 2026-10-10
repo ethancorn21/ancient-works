@@ -4,3 +4,5 @@ data/raw/
 *.npy
 __pycache__/
 .DS_Store
+data/scan/*/tiles/
+data/scan_*.log

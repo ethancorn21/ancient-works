@@ -139,7 +139,8 @@ def main(path, refresh_imagery=False):
     ignore = aw.water_mask(z, px_m)
     if os.path.exists(mask_path):
         ignore = ignore | np.load(mask_path)
-    img, clip = aw.render_relief(z, px_m, clip_m=site.get("relief_clip_m"), ignore=ignore)
+    img, clip = aw.render_relief(z, px_m, clip_m=site.get("relief_clip_m"), ignore=ignore,
+                                 radius_m=site.get("plate", {}).get("lrm_radius_m", 24.0))
     Image.fromarray(duotone(img).astype(np.uint8)).save(os.path.join(out, "relief.jpg"), quality=84, optimize=True)
     entry_block = build_block(z, px_m, out, ignore)
 

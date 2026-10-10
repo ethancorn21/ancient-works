@@ -37,13 +37,17 @@ def main(spec_path):
     p = spec["plate"]
     x0, y0, x1, y1 = p["crop"]
     im = Image.open(os.path.join(ROOT, p["leaf"])).convert("RGB")
+    from PIL import ImageDraw, ImageStat
+    W, H = im.size
+    inb = (max(x0, 0), max(y0, 0), min(x1, W), min(y1, H))
+    paper = tuple(int(v) for v in ImageStat.Stat(im.crop(inb)).median)
     if p.get("blank"):  # paint over parts of the plate that are not map (sections, titles), in paper colour
-        from PIL import ImageDraw, ImageStat
-        paper = tuple(int(v) for v in ImageStat.Stat(im.crop((x0, y0, x1, y1))).median)
         d = ImageDraw.Draw(im)
         for bx0, by0, bx1, by1 in p["blank"]:
             d.rectangle((bx0, by0, bx1, by1), fill=paper)
-    im.crop((x0, y0, x1, y1)).save(os.path.join(sdir, "plate_scan.jpg"), quality=92)
+    out = Image.new("RGB", (x1 - x0, y1 - y0), paper)  # a crop past the leaf edge is padded with paper, not black
+    out.paste(im.crop(inb), (inb[0] - x0, inb[1] - y0))
+    out.save(os.path.join(sdir, "plate_scan.jpg"), quality=92)
     site = {k: v for k, v in spec.items() if k != "plate"}
     site["plate"] = {k: v for k, v in p.items() if k not in ("leaf", "crop", "walls", "control", "blank")}
     site["plate"]["image"] = "plate_scan.jpg"
