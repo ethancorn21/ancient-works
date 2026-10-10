@@ -14,11 +14,14 @@ Document store (replaces the claude.ai artifact database the page used before):
   GET    /api/db/<collection>/<doc>    -> the document, or 404
   PUT    /api/db/<collection>/<doc>    -> replace the document (JSON object body)
   DELETE /api/db/<collection>/<doc>
-Documents live in data/db/<collection>/<doc>.json.
+Documents live in data/db/<collection>/<doc>.json. Writes to "platefits" (the plate-fitting tool) start
+pipeline/plan_fit.py in the background, which turns each fit into an overlay on its site.
 
 Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv python):
   GET    /tiles/relief/<z>/<x>/<y>.webp -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
                                           service is failing. DEMs and PNGs are cached in data/tilecache/.
+Old book pages for the plate-fitting tool:
+  GET    /books/<ia>/n<N>.jpg           -> data/raw/books/<ia>/full/n<N>.jpg (pipeline/books.py full)
 The rest is stdlib only, so the system python3 still runs the site; tiles then answer 404.
 """
 import argparse
@@ -38,6 +41,7 @@ WEB = os.path.join(ROOT, "web")
 DB = os.path.join(ROOT, "data", "db")
 SEG = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_.\-]{0,199}$")
 TILE = re.compile(r"^/tiles/relief/(\d{1,2})/(\d{1,6})/(\d{1,6})\.webp$")
+BOOK = re.compile(r"^/books/([A-Za-z0-9_.\-]{1,80})/(n\d{1,5}\.jpg)$")  # old book pages for the plate-fitting tool
 RELIEF = None  # the relief_tiles module, when numpy & co. are importable (see main)
 MAX_BODY = 1 << 20
 
@@ -75,6 +79,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.api("GET")
         if self.path.startswith("/tiles/"):
             return self.tile()
+        if self.path.startswith("/books/"):
+            return self.book_page()
         super().do_GET()
 
     def do_HEAD(self):
@@ -91,6 +97,21 @@ class Handler(SimpleHTTPRequestHandler):
         if not self.allowed():
             return self.refuse()
         self.api("DELETE")
+
+    # ---- old book pages (data/raw/books/<ia>/full/n<N>.jpg, downloaded by pipeline/books.py full) ----
+    def book_page(self):
+        m = BOOK.match(self.path.split("?")[0])
+        path = m and os.path.join(ROOT, "data", "raw", "books", m.group(1), "full", m.group(2))
+        if not path or ".." in m.group(1) or not os.path.isfile(path):
+            return self.send_error(HTTPStatus.NOT_FOUND)
+        with open(path, "rb") as f:
+            body = f.read()
+        self.send_response(200)
+        self.send_header("Content-Type", "image/jpeg")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "max-age=86400")
+        self.end_headers()
+        self.wfile.write(body)
 
     # ---- relief tiles ----
     def tile(self):
@@ -164,6 +185,7 @@ class Handler(SimpleHTTPRequestHandler):
         if method == "DELETE":
             if os.path.exists(path):
                 os.remove(path)
+            after_write(parts[2])
             return self.reply(200, {"ok": True})
         n = int(self.headers.get("Content-Length") or 0)
         if not 0 < n <= MAX_BODY:
@@ -179,11 +201,24 @@ class Handler(SimpleHTTPRequestHandler):
         with os.fdopen(fd, "w") as f:
             json.dump(data, f, indent=1)
         os.replace(tmp, path)
+        after_write(parts[2])
         return self.reply(200, {"ok": True})
 
     def log_message(self, fmt, *args):
         if self.path.startswith("/api/") or (args and str(args[1]) not in ("200", "304")):
             sys.stderr.write("%s %s\n" % (self.client_address[0], fmt % args))
+
+
+def after_write(coll):
+    """A saved or deleted plan fit is turned into map overlays in the background (pipeline/plan_fit.py syncs all
+    fits, so overlapping runs only repeat work). The page polls depictions.json for the result."""
+    if coll != "platefits":
+        return
+    import subprocess
+    py = os.path.join(ROOT, ".venv", "bin", "python")
+    log = open(os.path.join(ROOT, "data", "db", "plan_fit.log"), "a")
+    subprocess.Popen([py if os.path.exists(py) else sys.executable, os.path.join(ROOT, "pipeline", "plan_fit.py")],
+                     cwd=ROOT, stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
 
 
 def lan_address():
