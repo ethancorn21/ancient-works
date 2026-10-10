@@ -279,7 +279,7 @@ const narrow = () => matchMedia('(max-width: 760px)').matches;
 function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.85);
-S.dep = {}; S.depUrl = {}; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85); S.depMode = lsGet('aw.depMode', 'ink');
+S.dep = {}; S.depUrl = {}; S.depAlign = {}; S.alignStep = lsGet('aw.alignStep', 'fine'); S.drag = null; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85); S.depMode = lsGet('aw.depMode', 'ink');
 
 const map = new maplibregl.Map({
   container: 'map',
@@ -316,11 +316,13 @@ map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribut
 const R = 6378137;
 const merc = ([lon, lat]) => [lon * Math.PI / 180 * R, Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) * R];
 const unmerc = ([x, y]) => [x / R * 180 / Math.PI, (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * 180 / Math.PI];
-function alignedCorners(site) {
-  const a = S.align[site.id] || { dx: 0, dy: 0, rot: 0, scale: 1 };
-  const pts = site.plate.corners.map(merc);
+function alignedCorners(site) { return shiftCorners(site.plate.corners, S.align[site.id], site.lat); }
+// an overlay moved by hand from its fitted corners: dx/dy metres east/north, rot degrees clockwise, scale about its centre
+function shiftCorners(corners, a, lat) {
+  a = a || { dx: 0, dy: 0, rot: 0, scale: 1 };
+  const pts = corners.map(merc);
   const cx = pts.reduce((s, p) => s + p[0], 0) / 4, cy = pts.reduce((s, p) => s + p[1], 0) / 4;
-  const k = 1 / Math.cos(site.lat * Math.PI / 180);
+  const k = 1 / Math.cos(lat * Math.PI / 180);
   const t = -a.rot * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);  // positive rot = clockwise, like a compass
   return pts.map(([x, y]) => {
     const dx = (x - cx) * a.scale, dy = (y - cy) * a.scale;
@@ -391,16 +393,19 @@ function applyDep(s) {
   const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); return; }
   const url = `data/sites/${s.id}/${S.depMode === 'ink' && d.ink ? d.ink : d.file}`;
+  const coordinates = shiftCorners(d.corners, S.depAlign[depKey(s, d)], s.lat);
   if (!map.getSource(id)) {
-    map.addSource(id, { type: 'image', url, coordinates: d.corners });
+    map.addSource(id, { type: 'image', url, coordinates });
     // above the ground, below the plate
     map.addLayer({ id, type: 'raster', source: id, paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } },
       map.getLayer(`paper-${s.id}`) ? `paper-${s.id}` : undefined);
-  } else if (S.depUrl[id] !== url) map.getSource(id).updateImage({ url, coordinates: d.corners });
+  } else if (S.depUrl[id] !== url) map.getSource(id).updateImage({ url, coordinates });
+  else map.getSource(id).setCoordinates(coordinates);
   S.depUrl[id] = url;
   map.setLayoutProperty(id, 'visibility', 'visible');
   map.setPaintProperty(id, 'raster-opacity', S.depOpacity);
 }
+const depKey = (s, d) => `${s.id}.${d.file}`;
 function setDep(s, file) {
   S.depSel[s.id] = file; lsSet('aw.depSel', S.depSel); applyDep(s); renderSite(s); if (B.open) setTab(true);
 }
@@ -411,6 +416,7 @@ function lazyLoad() {
   for (const s of S.sites) if (Math.abs(s.lon - c.lng) < 0.4 && Math.abs(s.lat - c.lat) < 0.3) ensureSite(s);
 }
 map.on('moveend', lazyLoad);
+for (const [ev, fn] of [['mousedown', dragStart], ['touchstart', dragStart], ['mousemove', dragAt], ['touchmove', dragAt], ['mouseup', dragEnd], ['touchend', dragEnd]]) map.on(ev, fn);
 
 const markers = [];
 function addMarkers() {
@@ -606,9 +612,79 @@ function depGroup(s) {
         <button id="d-paper" aria-pressed="${S.depMode !== 'ink'}">Original paper</button>
       </div>` : ''}
       ${d ? `<div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
+      ${alignBlock('d', S.depAlign[depKey(s, d)], 'Adjust the drawing')}
       <p class="source">${esc(d.source)}${d.coverage < 0.98 ? ` Covers ${Math.round(d.coverage * 100)}% of the site box.` : ''}</p>` : ''}
     </div>`;
 }
+// Ethan 2026-10-10: some fits are off by a few metres; every overlay can be nudged (fine 2 m / coarse 10 m steps),
+// rotated, resized or dragged on the map, and the position saved for everyone on this server
+const STEP = { fine: { m: 2, r: 0.25, s: 0.005 }, coarse: { m: 10, r: 1, s: 0.02 } };
+function alignBlock(p, a, title) {
+  const moved = a && (a.dx || a.dy || a.rot || a.scale !== 1), st = STEP[S.alignStep];
+  return `<details class="align" ${moved || (S.drag && S.drag.p === p) ? 'open' : ''}>
+        <summary>${title}</summary>
+        <div style="display:grid;gap:9px;margin-top:9px">
+          <div class="seg" role="group" aria-label="Step size">
+            <button data-${p}step="fine" aria-pressed="${S.alignStep === 'fine'}">Fine (${STEP.fine.m} m)</button>
+            <button data-${p}step="coarse" aria-pressed="${S.alignStep === 'coarse'}">Coarse (${STEP.coarse.m} m)</button>
+          </div>
+          <div class="row" style="align-items:flex-start;gap:14px">
+            <div class="pad" aria-label="Move">
+              <span></span><button data-${p}m="0,1" aria-label="Move north">↑</button><span></span>
+              <button data-${p}m="-1,0" aria-label="Move west">←</button><span></span><button data-${p}m="1,0" aria-label="Move east">→</button>
+              <span></span><button data-${p}m="0,-1" aria-label="Move south">↓</button><span></span>
+            </div>
+            <div class="tools" style="flex-direction:column">
+              <div class="tools"><button data-${p}r="-1" aria-label="Rotate counterclockwise">⟲ ${st.r}°</button><button data-${p}r="1" aria-label="Rotate clockwise">⟳ ${st.r}°</button></div>
+              <div class="tools"><button data-${p}s="-1" aria-label="Shrink">− ${+(st.s * 100).toFixed(1)}%</button><button data-${p}s="1" aria-label="Grow">+ ${+(st.s * 100).toFixed(1)}%</button></div>
+            </div>
+          </div>
+          <div class="tools"><button id="${p}drag" aria-pressed="${!!(S.drag && S.drag.p === p)}">${S.drag && S.drag.p === p ? 'Done dragging' : 'Drag it on the map'}</button></div>
+          <p class="status" id="${p}alignv">${alignDesc(a)}</p>
+          <div class="tools"><button class="primary" id="${p}save">Save position</button><button id="${p}reset">Back to the fit</button></div>
+          <p class="status" id="${p}saved"></p>
+        </div>
+      </details>`;
+}
+// wire one pad: get/set the alignment, redraw, and the db doc it saves to
+function wireAlign(p, get, set, redraw, docPath, savedMsg) {
+  const st = () => STEP[S.alignStep];
+  const nudge = fn => { const a = Object.assign({ dx: 0, dy: 0, rot: 0, scale: 1 }, get()); fn(a); set(a); redraw(); $(`#${p}alignv`).textContent = alignDesc(a); $(`#${p}saved`).textContent = ''; };
+  $('#body').querySelectorAll(`[data-${p}m]`).forEach(b => b.onclick = () => nudge(a => { const [x, y] = b.dataset[`${p}m`].split(',').map(Number); a.dx = +(a.dx + x * st().m).toFixed(1); a.dy = +(a.dy + y * st().m).toFixed(1); }));
+  $('#body').querySelectorAll(`[data-${p}r]`).forEach(b => b.onclick = () => nudge(a => { a.rot = +(a.rot + Number(b.dataset[`${p}r`]) * st().r).toFixed(2); }));
+  $('#body').querySelectorAll(`[data-${p}s]`).forEach(b => b.onclick = () => nudge(a => { a.scale = +(a.scale * (1 + Number(b.dataset[`${p}s`]) * st().s)).toFixed(4); }));
+  $('#body').querySelectorAll(`[data-${p}step]`).forEach(b => b.onclick = () => { S.alignStep = b.dataset[`${p}step`]; lsSet('aw.alignStep', S.alignStep); renderSite(S.byId[S.sel]); });
+  $(`#${p}reset`).onclick = () => nudge(a => Object.assign(a, { dx: 0, dy: 0, rot: 0, scale: 1 }));
+  $(`#${p}drag`).onclick = () => { if (S.drag && S.drag.p === p) stopDrag(); else startDrag(p, get, set, redraw); renderSite(S.byId[S.sel]); };
+  $(`#${p}save`).onclick = async () => {
+    const a = Object.assign({ dx: 0, dy: 0, rot: 0, scale: 1 }, get());
+    $(`#${p}saved`).textContent = 'Saving…';
+    try { await S.db.doc(docPath).set({ dx: a.dx, dy: a.dy, rot: a.rot, scale: a.scale, savedAt: new Date().toISOString() }); $(`#${p}saved`).textContent = savedMsg; }
+    catch (e) { $(`#${p}saved`).textContent = `Could not save (${e && e.code || 'error'}). Try again in a moment.`; }
+  };
+  if (!S.db) { $(`#${p}save`).disabled = true; $(`#${p}saved`).textContent = 'Saving needs the Ancient Works server. Changes last until you reload.'; }
+}
+// drag mode: the map stops panning and a drag moves the overlay instead (mouse or one finger)
+function startDrag(p, get, set, redraw) {
+  stopDrag();
+  S.drag = { p, get, set, redraw, from: null };
+  map.dragPan.disable(); map.touchZoomRotate.disableRotation(); map.getCanvas().style.cursor = 'move';
+}
+function stopDrag() { if (!S.drag) return; S.drag = null; map.dragPan.enable(); map.touchZoomRotate.enableRotation(); map.getCanvas().style.cursor = ''; }
+function dragAt(e) {
+  if (!S.drag || !S.drag.from) return;
+  const s = S.byId[S.sel], [x0, y0] = merc([S.drag.from.lng, S.drag.from.lat]), [x1, y1] = merc([e.lngLat.lng, e.lngLat.lat]);
+  const k = Math.cos(s.lat * Math.PI / 180), a = S.drag.start;
+  const b = Object.assign({}, a, { dx: +(a.dx + (x1 - x0) * k).toFixed(1), dy: +(a.dy + (y1 - y0) * k).toFixed(1) });
+  S.drag.set(b); S.drag.redraw();
+  const v = $(`#${S.drag.p}alignv`); if (v) v.textContent = alignDesc(b);
+}
+function dragStart(e) {
+  if (!S.drag || (e.originalEvent.touches && e.originalEvent.touches.length > 1)) return;
+  e.preventDefault();
+  S.drag.from = e.lngLat; S.drag.start = Object.assign({ dx: 0, dy: 0, rot: 0, scale: 1 }, S.drag.get());
+}
+function dragEnd() { if (S.drag && S.drag.from) { S.drag.from = null; const v = $(`#${S.drag.p}saved`); if (v) v.textContent = ''; } }
 function renderSite(s) {
   const f = s.plate && s.plate.fit;
   const a = S.align[s.id];
@@ -643,25 +719,7 @@ function renderSite(s) {
       ${f && f.model === 'control' ? `<p class="fit">Placed by ${f.control_resid_m.length} hand-picked points (surviving mounds); a single rotation and scale fits all of them within ${Math.ceil(Math.max(...f.control_resid_m))} m.</p>`
         : feats ? `<p class="fit">Rubber-sheeted through ${feats.length} feature${feats.length === 1 ? '' : 's'}; drawn walls stand ${feats.map(x => x.contrast_m.toFixed(2)).join(', ')} m above the ground 20 m to either side.</p>`
         : f ? `<p class="fit">Drawn walls stand ${f.ridge_contrast_m.toFixed(2)} m above the ground 20 m to either side (median). Random placements of the same shape: ${f.null_p99_m.toFixed(2)} m at the 99th percentile.</p>` : ''}
-      <details class="align" ${moved ? 'open' : ''}>
-        <summary>Adjust the plate</summary>
-        <div style="display:grid;gap:9px;margin-top:9px">
-          <div class="row" style="align-items:flex-start;gap:14px">
-            <div class="pad" aria-label="Move plate">
-              <span></span><button data-m="0,5" aria-label="Move north">↑</button><span></span>
-              <button data-m="-5,0" aria-label="Move west">←</button><span></span><button data-m="5,0" aria-label="Move east">→</button>
-              <span></span><button data-m="0,-5" aria-label="Move south">↓</button><span></span>
-            </div>
-            <div class="tools" style="flex-direction:column">
-              <div class="tools"><button data-r="-0.5" aria-label="Rotate counterclockwise">⟲ 0.5°</button><button data-r="0.5" aria-label="Rotate clockwise">⟳ 0.5°</button></div>
-              <div class="tools"><button data-s="0.99" aria-label="Shrink">− 1%</button><button data-s="1.01" aria-label="Grow">+ 1%</button></div>
-            </div>
-          </div>
-          <p class="status" id="alignv">${alignText(s)}</p>
-          <div class="tools"><button class="primary" id="save">Save alignment</button><button id="reset">Back to auto-fit</button></div>
-          <p class="status" id="saved"></p>
-        </div>
-      </details>
+      ${alignBlock('p', S.align[s.id], 'Adjust the plate')}
       <p class="source">${esc(s.plate.source)}</p>
     </div>` : ''}
     ${depGroup(s)}
@@ -682,30 +740,20 @@ function renderSite(s) {
   const depMode = m => { S.depMode = m; lsSet('aw.depMode', m); applyDep(s); renderSite(s); if (B.open) setTab(true); };
   if ($('#d-ink')) { $('#d-ink').onclick = () => depMode('ink'); $('#d-paper').onclick = () => depMode('paper'); }
   if ($('#dop')) $('#dop').oninput = e => { S.depOpacity = e.target.value / 100; $('#dopv').textContent = e.target.value + '%'; applyDep(s); lsSet('aw.depOpacity', S.depOpacity); };
+  const dsel = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
+  if (dsel && $('#dsave')) wireAlign('d', () => S.depAlign[depKey(s, dsel)], a => { S.depAlign[depKey(s, dsel)] = a; }, () => applyDep(s),
+    `depalign/${depKey(s, dsel)}`, 'Saved. This is now where the drawing sits for everyone.');
   if (!s.plate) return;
   $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
   $('#p-ink').onclick = () => setPlateMode('ink', s);
   $('#p-paper').onclick = () => setPlateMode('paper', s);
-  const nudge = fn => { const a = S.align[s.id] || { dx: 0, dy: 0, rot: 0, scale: 1 }; fn(a); S.align[s.id] = a; moveplate(s); $('#alignv').textContent = alignText(s); $('#saved').textContent = ''; };
-  $('#body').querySelectorAll('[data-m]').forEach(b => b.onclick = () => nudge(a => { const [x, y] = b.dataset.m.split(',').map(Number); a.dx += x; a.dy += y; }));
-  $('#body').querySelectorAll('[data-r]').forEach(b => b.onclick = () => nudge(a => { a.rot = +(a.rot + Number(b.dataset.r)).toFixed(2); }));
-  $('#body').querySelectorAll('[data-s]').forEach(b => b.onclick = () => nudge(a => { a.scale = +(a.scale * Number(b.dataset.s)).toFixed(4); }));
-  $('#reset').onclick = () => nudge(a => Object.assign(a, { dx: 0, dy: 0, rot: 0, scale: 1 }));
-  $('#save').onclick = () => saveAlign(s);
-  if (!S.db) { $('#save').disabled = true; $('#saved').textContent = 'Saving needs the Ancient Works server. Changes last until you reload.'; }
+  wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
 function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
-function alignText(s) {
-  const a = S.align[s.id];
-  if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the automatic fit.';
+function alignDesc(a) {
+  if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the fit.';
   const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
-  return 'Moved from the automatic fit: ' + [dir(a.dx, 'east', 'west'), dir(a.dy, 'north', 'south'), a.rot ? `${a.rot > 0 ? '+' : ''}${a.rot}°` : null, a.scale !== 1 ? `${((a.scale - 1) * 100).toFixed(1)}% size` : null].filter(Boolean).join(', ') + '.';
-}
-async function saveAlign(s) {
-  const a = S.align[s.id] || { dx: 0, dy: 0, rot: 0, scale: 1 };
-  $('#saved').textContent = 'Saving…';
-  try { await S.db.doc(`plates/${s.id}`).set({ dx: a.dx, dy: a.dy, rot: a.rot, scale: a.scale, savedAt: new Date().toISOString() }); $('#saved').textContent = 'Saved. This is now the plate position for this site.'; }
-  catch (e) { $('#saved').textContent = e && e.code === 'not_granted' ? 'Saving is off for this view. Ask for edit access to keep changes.' : `Could not save (${e && e.code || 'error'}). Try again in a moment.`; }
+  return 'Moved from the fit: ' + [dir(a.dx, 'east', 'west'), dir(a.dy, 'north', 'south'), a.rot ? `${a.rot > 0 ? '+' : ''}${a.rot}°` : null, a.scale !== 1 ? `${((a.scale - 1) * 100).toFixed(1)}% size` : null].filter(Boolean).join(', ') + '.';
 }
 function setGround(g, s) { S.ground = g; lsSet('aw.ground', g); applyAll(); if (s) { renderSite(s); if (B.open) setTab(true); } }
 function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAll(); renderSite(s); if (B.open) setTab(true); }
@@ -714,7 +762,7 @@ function select(id) {
   if (B.open && B.site !== s) closeBlock();
   // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
   // switch either back for this visit
-  S.ground = 'imagery'; S.plateMode = 'ink';
+  S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; stopDrag();
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s);
   loadDeps(s).then(() => {
     // a site with an old drawing opens with it showing, unless this viewer chose otherwise for the site
@@ -1448,6 +1496,11 @@ async function boot() {
         const s = S.byId[doc.id], d = doc.data();
         if (s && s.plate) { S.align[s.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; moveplate(s); }
       }
+    } catch {}
+    try {
+      const snap = await db.collection('depalign').get();
+      for (const doc of snap.docs) { const d = doc.data(); S.depAlign[doc.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; }
+      if (S.sel && S.byId[S.sel]) { applyDep(S.byId[S.sel]); if (!B.open) renderSite(S.byId[S.sel]); }
     } catch {}
     try {
       const snap = await db.collection('verdicts').get();
