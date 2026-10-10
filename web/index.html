@@ -82,6 +82,11 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .tools button { padding: 0 10px; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; }
 .tools button.primary { background: var(--ink); color: var(--sheet); }
 .status { margin: 0; font-size: 13px; color: var(--ink-2); min-height: 1.4em; }
+.deps { display: grid; border: 1px solid var(--ink); }
+.deps button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px 9px; font: 13.5px var(--title); text-align: left; cursor: pointer; }
+.deps button + button { border-top: 1px solid var(--rule); }
+.deps button[aria-pressed="true"] { background: var(--mauve); }
+.deps .yr { font: 600 11.5px var(--label); letter-spacing: .06em; color: var(--ink-2); margin-left: 4px; }
 .about { display: grid; gap: 7px; font-size: 13.5px; color: var(--ink-2); }
 .about p { margin: 0; }
 
@@ -222,6 +227,7 @@ const narrow = () => matchMedia('(max-width: 760px)').matches;
 function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.85);
+S.dep = {}; S.depUrl = {}; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85);
 
 const map = new maplibregl.Map({
   container: 'map',
@@ -283,6 +289,7 @@ function ensureSite(site) {
     map.addLayer({ id: `ink-${site.id}`, type: 'raster', source: `ink-${site.id}`, paint });
   }
   applyLayers(site);
+  applyDep(site);
 }
 function applyLayers(site) {
   if (!S.loaded.has(site.id)) return;
@@ -314,6 +321,32 @@ function moveplate(site) {
   map.getSource(`ink-${site.id}`).setCoordinates(pc);
   map.getSource(`paper-${site.id}`).setCoordinates(pc);
 }
+/* ---------- old maps and aerials (pipeline/topo.py, pipeline/depict.py -> data/sites/<id>/depictions.json) ---------- */
+async function loadDeps(s) {
+  if (S.dep[s.id]) return S.dep[s.id];
+  try { const r = await fetch(`data/sites/${s.id}/depictions.json`); S.dep[s.id] = r.ok ? (await r.json()).depictions || [] : []; }
+  catch { S.dep[s.id] = []; }
+  return S.dep[s.id];
+}
+function applyDep(s) {
+  if (!S.loaded.has(s.id)) return;
+  const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
+  if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); return; }
+  const url = `data/sites/${s.id}/${d.file}`;
+  if (!map.getSource(id)) {
+    map.addSource(id, { type: 'image', url, coordinates: d.corners });
+    // above the ground, below the plate
+    map.addLayer({ id, type: 'raster', source: id, paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } },
+      map.getLayer(`paper-${s.id}`) ? `paper-${s.id}` : undefined);
+  } else if (S.depUrl[id] !== url) map.getSource(id).updateImage({ url, coordinates: d.corners });
+  S.depUrl[id] = url;
+  map.setLayoutProperty(id, 'visibility', 'visible');
+  map.setPaintProperty(id, 'raster-opacity', S.depOpacity);
+}
+function setDep(s, file) {
+  S.depSel[s.id] = file; lsSet('aw.depSel', S.depSel); applyDep(s); renderSite(s); if (B.open) setTab(true);
+}
+
 function lazyLoad() {
   if (map.getZoom() < 10) return;
   const c = map.getCenter();
@@ -367,6 +400,21 @@ function renderList() {
     </div>`;
   $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
+}
+function depGroup(s) {
+  const list = S.dep[s.id] || [];
+  if (!list.length) return '';
+  const d = list.find(x => x.file === S.depSel[s.id]);
+  return `
+    <div class="group">
+      <p class="section-title">Old maps and aerials</p>
+      <div class="deps" role="group" aria-label="Old map or aerial photograph">
+        <button data-dep="" aria-pressed="${!d}">None</button>
+        ${list.map(x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}</button>`).join('')}
+      </div>
+      ${d ? `<div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
+      <p class="source">${esc(d.source)}${d.coverage < 0.98 ? ` Covers ${Math.round(d.coverage * 100)}% of the site box.` : ''}</p>` : ''}
+    </div>`;
 }
 function renderSite(s) {
   const f = s.plate && s.plate.fit;
@@ -423,6 +471,7 @@ function renderSite(s) {
       </details>
       <p class="source">${esc(s.plate.source)}</p>
     </div>` : ''}
+    ${depGroup(s)}
     ${s.summary ? `<p class="summary">${esc(s.summary)}</p>` : ''}
     ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
   $('#back').onclick = () => { closeBlock(); S.sel = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
@@ -430,6 +479,8 @@ function renderSite(s) {
   $('#t-block').onclick = () => openBlock(s);
   $('#g-relief').onclick = () => setGround('relief', s);
   $('#g-imagery').onclick = () => setGround('imagery', s);
+  $('#body').querySelectorAll('[data-dep]').forEach(b => b.onclick = () => setDep(s, b.dataset.dep));
+  if ($('#dop')) $('#dop').oninput = e => { S.depOpacity = e.target.value / 100; $('#dopv').textContent = e.target.value + '%'; applyDep(s); lsSet('aw.depOpacity', S.depOpacity); };
   if (!s.plate) return;
   $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
   $('#p-ink').onclick = () => setPlateMode('ink', s);
@@ -461,6 +512,7 @@ function select(id) {
   const s = S.byId[id]; if (!s) return;
   if (B.open && B.site !== s) closeBlock();
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); renderSite(s);
+  loadDeps(s).then(() => { applyDep(s); if (S.sel === id && !B.open) renderSite(s); });
   if (narrow()) $('#panel').classList.remove('collapsed');
   const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
   const span = Math.max(...s.size_m);
