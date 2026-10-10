@@ -1,0 +1,63 @@
+{
+ "site": "castle-rising-castle-q1049485",
+ "plan": "c_70f937b71ae63d6a",
+ "ia": null,
+ "file": null,
+ "crop": [
+  70,
+  50,
+  1025,
+  700
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/castle-rising-castle-q1049485/70f937b71ae63d6a.jpg",
+ "ref": "File:356 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147078984).jpg",
+ "size": [
+  1090,
+  743
+ ],
+ "pairs": [
+  [
+   472.0,
+   75.0,
+   0.4691268,
+   52.7938687
+  ],
+  [
+   484.0,
+   672.0,
+   0.4691268,
+   52.792153
+  ],
+  [
+   269.0,
+   484.0,
+   0.4680721,
+   52.7928357
+  ],
+  [
+   696.0,
+   484.0,
+   0.4701667,
+   52.7928357
+  ],
+  [
+   981.0,
+   484.0,
+   0.4714889,
+   52.792692
+  ],
+  [
+   111.0,
+   424.0,
+   0.4672699,
+   52.7928716
+  ]
+ ],
+ "label": "1897",
+ "title": "Castle Rising Castle, plan from Mackenzie, The Castles of England (1897)",
+ "book": "Wikimedia Commons",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:356_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147078984).jpg",
+ "at": "2026-10-10T23:40:44.020818+00:00"
+}

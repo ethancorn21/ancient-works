@@ -1,0 +1,51 @@
+{
+ "site": "bergues-q244934",
+ "plan": "c_4bbca705be732b1c",
+ "ia": null,
+ "file": null,
+ "crop": [
+  60,
+  120,
+  1260,
+  1260
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bergues-q244934/4bbca705be732b1c.jpg",
+ "ref": "File:Bergues - Deventer.jpg",
+ "size": [
+  1280,
+  1842
+ ],
+ "pairs": [
+  [
+   398.0,
+   603.0,
+   2.4262617,
+   50.9708592
+  ],
+  [
+   653.0,
+   887.0,
+   2.4320389,
+   50.9655501
+  ],
+  [
+   645.0,
+   558.0,
+   2.4332514,
+   50.9712095
+  ],
+  [
+   517.0,
+   846.0,
+   2.4282587,
+   50.9669516
+  ]
+ ],
+ "label": "1545",
+ "title": "Bergues, town plan by Jacob van Deventer",
+ "book": "Wikimedia Commons",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Bergues_-_Deventer.jpg",
+ "at": "2026-10-10T23:51:16.136943+00:00"
+}
