@@ -1,7 +1,7 @@
 """Turn catalog entries (data/catalog/sites.jsonl) into sites on the globe: LiDAR relief + block, old maps, summary.
 
 usage: build_catalog.py [--ids a,b,c] [--region US] [--top N] [--min-p 0.5] [--force]
-For each entry: data/sites/<id>/site.json -> build_site (relief, block) -> topo.py (US) / depict.py (Europe, Iowa).
+For each entry: data/sites/<id>/site.json -> build_site (relief, block) -> depict.py (Europe, Iowa; no USGS topos).
 Skips sites already built unless --force. Sites without LiDAR coverage are skipped and listed.
 The summary is the lead paragraph of the site's Wikipedia article (CC BY-SA, linked), never model text.
 """
@@ -111,7 +111,6 @@ def main():
     import build_site
     import dem_sources
     import depict
-    import topo
     rows = [json.loads(l) for l in open(CAT)]
     if a.ids:
         want = set(a.ids.split(","))
@@ -150,8 +149,7 @@ def main():
             path = os.path.join(sdir, "site.json")
             json.dump(site, open(path, "w"), indent=1)
             build_site.main(path)
-            if src == "usgs":
-                topo.main(path)
+            # no USGS topographic quads: they show roads and fields, not the works (Ethan 2026-10-10)
             depict.build(site)
             done.append(sid)
             print(f"   ok {time.time() - t:.0f}s", flush=True)

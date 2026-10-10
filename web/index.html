@@ -381,7 +381,8 @@ function moveplate(site) {
 /* ---------- old maps and aerials (pipeline/topo.py, pipeline/depict.py -> data/sites/<id>/depictions.json) ---------- */
 async function loadDeps(s) {
   if (S.dep[s.id]) return S.dep[s.id];
-  try { const r = await fetch(`data/sites/${s.id}/depictions.json`); S.dep[s.id] = r.ok ? (await r.json()).depictions || [] : []; }
+  // USGS topographic quads left out (Ethan 2026-10-10: "they don't really ever show anything")
+  try { const r = await fetch(`data/sites/${s.id}/depictions.json`); S.dep[s.id] = (r.ok ? (await r.json()).depictions || [] : []).filter(x => x.kind !== 'topo'); }
   catch { S.dep[s.id] = []; }
   return S.dep[s.id];
 }
@@ -711,7 +712,10 @@ function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAl
 function select(id) {
   const s = S.byId[id]; if (!s || P.active) return;
   if (B.open && B.site !== s) closeBlock();
-  S.sel = id; F.sel = null; F.cand = null; ensureSite(s); renderSite(s);
+  // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
+  // switch either back for this visit
+  S.ground = 'imagery'; S.plateMode = 'ink';
+  S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s);
   loadDeps(s).then(() => {
     // a site with an old drawing opens with it showing, unless this viewer chose otherwise for the site
     if (!(s.id in S.depSel)) { const d = (S.dep[s.id] || []).find(x => DRAWING.has(x.kind)); if (d) S.depSel[s.id] = d.file; }
