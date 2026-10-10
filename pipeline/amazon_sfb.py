@@ -47,6 +47,7 @@ CREDIT = ("LiDAR: Brazilian Forest Service (SFB) forest-concession surveys, proc
           "research and education use only")
 ZMIN, ZMAX = 12, 17
 RADIUS_M = 20.0
+SMOOTH_M, CLIP_M = 1.5, 0.8  # fixed range: ditches of 1-3 m saturate, the +-0.3 m forest-floor speckle stays faint
 HALF = math.pi * aw.R
 
 
@@ -89,12 +90,14 @@ def relief_rgba(path):
             z[z == src.nodata] = np.nan
     z[(z < -500) | (z > 9000)] = np.nan
     have = np.isfinite(z)
-    # the forest-floor DTM is speckled at 1 m (tree throws, residual low vegetation); a 1-cell smoothing calms it and keeps
-    # anything a few metres across, which is all an eye review for big geometric works needs
+    # the forest-floor DTM is speckled at 1 m (tree throws, residual low vegetation); a 1.5 m smoothing and a fixed +-0.8 m
+    # range calm it and keep anything a few metres across, which is all an eye review for big geometric works needs
+    # (2026-10-10, JAM02-2020: the automatic range came out at 0.6 m and made the speckle the loudest thing on the map)
     from scipy.ndimage import gaussian_filter
     zf = aw.fill_nan(z)
-    z = np.where(have, gaussian_filter(zf, 1.0), np.nan)
-    img, _ = aw.render_relief(z, abs(prof["transform"].a), radius_m=RADIUS_M)
+    px = abs(prof["transform"].a)
+    z = np.where(have, gaussian_filter(zf, SMOOTH_M / px), np.nan)
+    img, _ = aw.render_relief(z, px, clip_m=CLIP_M, radius_m=RADIUS_M)
     rgb = build_site.duotone(img).astype(np.uint8)
     return np.dstack([rgb, np.where(have, 255, 0).astype(np.uint8)]), prof
 

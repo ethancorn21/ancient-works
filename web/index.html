@@ -1588,7 +1588,7 @@ function renderArea(name) {
     <div><h2 class="site-title">${esc(a.label)}</h2><p class="site-aka">${esc(a.state)}, Brazil · ${a.surveys.length} LiDAR surveys, ${km2} km² · ${seen} looked at</p></div>
     ${cur ? `<div class="card">
       <p class="section-title">Mark · ${cur.lat.toFixed(5)}, ${cur.lon.toFixed(5)}</p>
-      <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-mv="${k}" aria-pressed="${cur.v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
+      <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-mv="${k}" data-v="${k}" aria-pressed="${cur.v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
       <textarea id="mnote" rows="2" placeholder="Note (what you see, why)" ${S.db ? '' : 'disabled'}>${esc(cur.note || '')}</textarea>
       <div class="tools"><button id="mdrop">Delete mark</button><button id="mclose">Done</button></div>
     </div>` : ''}
