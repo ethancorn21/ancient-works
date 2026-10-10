@@ -23,7 +23,10 @@ from scipy import ndimage
 
 PX = 2.0
 WINDOWS = [3, 5, 9, 15, 25]  # opening sizes in cells (6-50 m)
-DH, SLOPE = 0.4, 0.25         # metres, and metres per metre of half-window
+# metres, and metres per metre of half-window. 2026-10-10 on strip 0414: 0.4 / 0.25 let understory through (9% of
+# the swath >1 m above a 30 m opening, canopy blobs ranking as ring ditches); 0.25 / 0.06 leaves 2%, with the
+# geoglyph's ditch unchanged and its bank shaved under 0.5 m.
+DH, SLOPE = 0.25, 0.06
 
 
 def ground_cells(zmin):
