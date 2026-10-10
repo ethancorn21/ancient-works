@@ -26,9 +26,10 @@ def main():
             s = json.load(open(p))
             if "plate" in s:
                 fitted.append((s["lon"], s["lat"]))
+    alias = json.load(open(os.path.join(ROOT, "specs", "aliases.json")))
     out = []
     for r in rows:
-        if any(dist_m((r["lon"], r["lat"]), f) < 400 for f in fitted):
+        if r["id"] in alias or any(dist_m((r["lon"], r["lat"]), f) < 400 for f in fitted):
             continue
         a = r.get("admin") or {}
         place = [a.get(k) for k in ("parish", "municipality", "commune", "county", "departement", "province", "state")] if isinstance(a, dict) else [a]

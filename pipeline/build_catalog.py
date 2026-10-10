@@ -123,6 +123,8 @@ def main():
             if d.get("id") is not None and d.get("clef_p") is not None:
                 scores[d["id"]] = d["clef_p"]
         rows = [r for r in rows if scores.get(r["id"], 0) >= a.min_p]
+    alias = json.load(open(os.path.join(ROOT, "specs", "aliases.json")))
+    rows = [r for r in rows if r["id"] not in alias]  # same place as a hand-built site
     if a.top:
         rows = rows[:a.top]
     done, skipped, failed = [], [], []

@@ -61,6 +61,8 @@ def main():
             elif m["status"] == "ambiguous":
                 ids += [cat[c[1]] for c in m.get("candidates") or [] if c[1] in cat]
             matches[m["row_id"]] = ids
+    alias = {k: v for k, v in json.load(open(os.path.join(ROOT, "specs", "aliases.json"))).items() if not k.startswith("_")}
+    matches = {k: list(dict.fromkeys(alias.get(x, x) for x in v)) for k, v in matches.items()}
     out = []
     for r in rows:
         if not r.get("full_local") or not os.path.exists(os.path.join(ROOT, r["full_local"])):
