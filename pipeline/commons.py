@@ -12,8 +12,9 @@ Where files come from: the site's Wikidata item (P373 Commons category, P3311 pl
 full-text search on the site's name with plan/map/engraving words (this is what finds antiquarian plans and the
 British Library's book-illustration scans; categories alone gave 1-2 old files per site), and the files in the
 site's category and its map/plan/old-picture subcategories.
-Kept: a year before 1926 in the file's date, title or description, or no year but a plan/map/engraving word in the
-title; never SVGs, reconstructions, museum finds or modern geograph photos.
+Kept: made before 1926 by year_of() (the file's date, a book's publication date, or the title; never a year from the
+description's prose), or undated with a plan/map/engraving word in the title; never SVGs, reconstructions, museum
+finds, paintings "in the style of" or modern geograph photos.
 Licences and authors are recorded per file (all Commons files are free; most of these are public domain).
 """
 import hashlib
@@ -44,9 +45,10 @@ FOLLOW = re.compile(r"map|plan|histor|old |engrav|drawing|print|paint|antiquar|i
 SKIP = re.compile(r"people|event|interior|church|coin|artefact|artifact|finds|museum|logo|sign|bus |railway station|"
                   r"pub |shop|street|vehicle|ship|portrait|grave|tomb|stained glass|cricket|football|concert", re.I)
 NO = re.compile(r"reconstruct|\.svg$|model|diorama|artist'?s impression|google|openstreetmap|FindID|geograph\.org|"
-                r"\(geograph|panoramio|flickr - |buckle|brooch|coin|portrait|\.webm|\.ogv|\.pdf$|\.djvu$", re.I)
+                r"\(geograph|panoramio|flickr - |buckle|brooch|coin|portrait|\.webm|\.ogv|\.pdf$|\.djvu$|"
+                r"\(style of\)|Bowes Museum|still life", re.I)
 PLANWORD = re.compile(r"plan|map|survey|engrav|sketch|view|bird|ichnograph|prospect|plate|lithograph|etching|drawing", re.I)
-SEARCHES = ['"{n}" plan', '"{n}" map OR survey', '"{n}" engraving OR drawing OR view OR prospect']
+SEARCHES = ['"{n}" plan', '"{n}" map OR survey', '"{n}" engraving OR drawing OR view OR prospect -"style of"']
 
 
 def search(name):
@@ -127,11 +129,46 @@ def files_of(cat, depth=2, seen=None):
     return files
 
 
-def years(*texts):
-    ys = []
-    for t in texts:
-        ys += [int(y) for y in re.findall(r"(?<!\d)(1[2-9]\d\d)(?!\d)", t or "") if 1200 <= int(y) <= 2030]
-    return ys
+YEAR = re.compile(r"(?<!\d)(1[2-9]\d\d|20[0-2]\d)(?!\d)")
+# book scans (the British Library's) carry the upload date in the date field and the book's date in the description
+PUBLISHED = re.compile(r"(?:Date of Publishing|Date of publication|Published|Zeichnung von|drawn in|engraved in)\s*:?\s*"
+                       r"(1[2-9]\d\d)", re.I)
+LIVED = re.compile(r"Unknown date.*?\)|author lived[^)]*\)", re.I)
+LIFESPAN = re.compile(r"\((?:c\.\s*)?1[2-9]\d\d\s*[-\u2013]\s*(?:c\.\s*)?1[2-9]\d\d\)")  # a painter's life dates in a title
+
+
+def year_of(title, m):
+    """Year the picture was made, or None: the file's date, else a publication date in the description, else the
+    title. Never a number from the description's prose (a 2025 photo of a castle "abandoned in 1495" is not old)."""
+    raw = m.get("date") or ""
+    d = raw.split("date QS")[0]
+    if LIVED.search(d):
+        return None  # "Unknown date (author lived 1607-1677)": the artist's life, not the picture's date
+    pub = PUBLISHED.search(m.get("desc") or "")
+    if pub:
+        return int(pub.group(1))
+    ty = [int(y) for y in YEAR.findall(LIFESPAN.sub("", title))]
+    ys = [int(y) for y in YEAR.findall(d)]
+    if not ys:
+        qs = re.search(r"\+(1[2-9]\d\d)-", raw)  # "13th century" -> +1250
+        ys = [int(qs.group(1))] if qs else []
+    if ys:
+        # an upload timestamp on a scan whose title names the year it was drawn: "Plan of Barnard Castle (1897).jpg"
+        if min(ys) > MAX_YEAR and ty and min(ty) <= MAX_YEAR and re.match(r"\s*\d{4}-\d\d-\d\d", d):
+            return min(ty)
+        return min(ys)
+    return min(ty) if ty else None
+
+
+def keep(title, m):
+    """Old enough, or undated with a plan/map/engraving word in the title (the classifier and an eye check decide)."""
+    if NO.search(title) or NO.search(m.get("desc") or ""):
+        return False
+    lived = LIVED.search((m.get("date") or "").split("date QS")[0])
+    if lived:
+        return max(int(y) for y in YEAR.findall(lived.group(0)) or [9999]) <= MAX_YEAR
+    y = year_of(title, m)
+    return y <= MAX_YEAR if y is not None else bool(PLANWORD.search(title))
 
 
 def info(titles):
@@ -173,14 +210,9 @@ def harvest(ids):
         for t, m in meta.items():
             if not m.get("url") or NO.search(t) or NO.search(m["desc"]) or (m["mime"] or "").startswith(("video", "audio", "application/pdf")):
                 continue
-            yd = years(m["date"])
-            ys = yd or years(t, m["desc"])
-            old_enough = bool(ys) and min(ys) <= MAX_YEAR and not (yd and min(yd) > MAX_YEAR)
-            # undated drawings: keep when the title says plan/map/engraving..., the classifier and an eye check decide
-            undated = not ys and PLANWORD.search(t)
-            if not (old_enough or undated):
+            if not keep(t, m):
                 continue
-            kept.append({"site": sid, "qid": s["qid"], "title": t, "year": min(ys) if ys else None, "wd_plan": t[5:] in c.get("plan", []),
+            kept.append({"site": sid, "qid": s["qid"], "title": t, "year": year_of(t, m), "wd_plan": t[5:] in c.get("plan", []),
                          "cat": c.get("cat"), **m})
         with open(path, "a") as f:
             for k in kept:
@@ -191,8 +223,13 @@ def harvest(ids):
 
 
 def rows():
+    """Harvested files, judged again with the current keep() / year_of() (rows from older harvests included)."""
     p = os.path.join(OUT, "files.jsonl")
-    return [r for r in (json.loads(l) for l in open(p)) if r.get("title")] if os.path.exists(p) else []
+    out = []
+    for r in (json.loads(l) for l in open(p)) if os.path.exists(p) else []:
+        if r.get("title") and keep(r["title"], r):
+            out.append(dict(r, year=year_of(r["title"], r)))
+    return out
 
 
 def local(r):

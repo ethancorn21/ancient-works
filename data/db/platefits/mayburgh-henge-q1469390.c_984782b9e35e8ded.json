@@ -1,0 +1,45 @@
+{
+ "site": "mayburgh-henge-q1469390",
+ "plan": "c_984782b9e35e8ded",
+ "ia": null,
+ "file": null,
+ "crop": [
+  0,
+  0,
+  1280,
+  910
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/king-arthur-s-round-table-q283800/984782b9e35e8ded.jpg",
+ "ref": "File:Mayburgh-1769.png",
+ "size": [
+  1280,
+  910
+ ],
+ "pairs": [
+  [
+   272.0,
+   395.0,
+   -2.7466743,
+   54.6486596
+  ],
+  [
+   400.0,
+   398.0,
+   -2.7454012,
+   54.6486955
+  ],
+  [
+   936.0,
+   507.0,
+   -2.7403708,
+   54.6483092
+  ]
+ ],
+ "label": "1769",
+ "title": "Mayburgh-1769",
+ "book": "Wikimedia Commons",
+ "cite": "by rearranged by contributor from original by Thomas Pennant; Public domain; https://commons.wikimedia.org/wiki/File:Mayburgh-1769.png",
+ "at": "2026-10-10T18:10:26.948179+00:00"
+}

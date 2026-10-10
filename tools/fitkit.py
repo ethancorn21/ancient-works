@@ -6,6 +6,7 @@ usage:
   fitkit.py save <site> <plan id> <crop> <model> u,v=col,row ...
                                                       pairs in plan px and relief px -> db platefits (serve.py builds it)
   fitkit.py check <site> <plan id>                     ink overlay on the relief -> scratch png
+  fitkit.py find <site>                                harvested Commons pictures of a site (ids for the commands above)
 Relief px are pixels of web/data/sites/<site>/relief.jpg; converted to lon/lat through the site's corners.
 """
 import datetime
@@ -30,8 +31,14 @@ def site(sid):
 
 
 def plan(pid):
+    """A row of web/data/plans.json, or any harvested Commons picture (c_<hash>) not exported there yet."""
     d = json.load(open(os.path.join(ROOT, "web", "data", "plans.json")))
-    return dict(zip(d["cols"], next(r for r in d["rows"] if r[0] == pid)))
+    r = next((r for r in d["rows"] if r[0] == pid), None)
+    if r is None:
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import export_plans
+        r = next(r for r in export_plans.commons_rows(min_p=None) if r[0] == pid)
+    return dict(zip(d["cols"], r))
 
 
 def plan_image(p):
@@ -155,6 +162,14 @@ def check(sid, pid):
     print(path, e["fit"])
 
 
+def find(sid):
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import export_plans
+    for r in export_plans.commons_rows(min_p=None):
+        if sid in r[8]:
+            print(r[0], r[5] or "-", r[6], r[4][:90])
+
+
 if __name__ == "__main__":
     cmd, a = sys.argv[1], sys.argv[2:]
     box = lambda t: [int(float(v)) for v in t.split(",")]
@@ -170,3 +185,5 @@ if __name__ == "__main__":
         save(a[0], a[1], box(a[2]), a[3], prs)
     elif cmd == "check":
         check(a[0], a[1])
+    elif cmd == "find":
+        find(a[0])
