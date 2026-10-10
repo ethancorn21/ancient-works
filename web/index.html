@@ -82,6 +82,12 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .tools button { padding: 0 10px; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; }
 .tools button.primary { background: var(--ink); color: var(--sheet); }
 .status { margin: 0; font-size: 13px; color: var(--ink-2); min-height: 1.4em; }
+.search { display: flex; gap: 10px; align-items: center; }
+.search input[type=search] { flex: 1; min-width: 0; padding: 7px 9px; border: 1px solid var(--ink); background: var(--sheet); font: 14px var(--title); color: var(--ink); }
+.check { display: flex; gap: 5px; align-items: center; font: 12px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
+.group-title { margin: 6px 0 2px; font: 600 11.5px var(--label); letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid var(--rule); padding-bottom: 3px; display: flex; justify-content: space-between; }
+.group-title span { color: var(--ink-2); font-weight: 400; }
+.lede { margin: 0; font-style: italic; }
 .deps { display: grid; border: 1px solid var(--ink); }
 .deps button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px 9px; font: 13.5px var(--title); text-align: left; cursor: pointer; }
 .deps button + button { border-top: 1px solid var(--rule); }
@@ -178,10 +184,10 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 
 <aside class="panel" id="panel">
   <button class="grab" id="grab" aria-label="Show or hide the panel"></button>
-  <div class="strip caps"><span>Ancient Works</span><span>LiDAR and the surveys of 1848</span></div>
+  <div class="strip caps"><span>Ancient Works</span><span>LiDAR and the old surveys</span></div>
   <header class="panel-head">
     <h1 class="wordmark">Ancient Works</h1>
-    <p class="tagline">Earthworks surveyed in the 1840s, fitted to today's ground</p>
+    <p class="tagline">Old earthworks in old surveys and today's ground</p>
   </header>
   <div class="panel-body" id="body"></div>
 </aside>
@@ -379,27 +385,71 @@ function addMarkers() {
 }
 
 /* ---------- panel ---------- */
-function renderList() {
-  $('#body').innerHTML = `
-    <p class="section-title">Explanation</p>
-    <ul class="legend-list">${S.sites.map(s => `
+/* ---------- home: Sites and Finder tabs ---------- */
+S.tab = lsGet('aw.tab', 'sites'); S.q = ''; S.onlyPlate = false;
+const regionOf = s => s.region || String(s.place || '').split(',').pop().trim() || 'Other';
+function siteMatches(s) {
+  if (S.onlyPlate && !s.plate) return false;
+  const q = S.q.trim().toLowerCase();
+  return !q || [s.name, s.aka, s.place, s.kind].some(v => v && String(v).toLowerCase().includes(q));
+}
+function siteEntries() {
+  const groups = {};
+  for (const s of S.sites.filter(siteMatches)) (groups[regionOf(s)] = groups[regionOf(s)] || []).push(s);
+  const names = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length || a.localeCompare(b));
+  if (!names.length) return '<p class="status">No site matches.</p>';
+  return names.map(g => `
+    <p class="group-title">${esc(g)} <span>${groups[g].length}</span></p>
+    <ul class="legend-list">${groups[g].map(s => `
       <li><button class="entry" data-id="${esc(s.id)}">
-        <span class="swatch ${esc(s.status)}"></span>
-        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc(s.place)}. ${esc(STATUS[s.status] || '')}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
-      </button></li>`).join('')}</ul>
-    ${F.scans.length ? `<p class="section-title">Finder</p>
-    <ul class="legend-list">${F.scans.map(sc => `
-      <li><button class="entry" data-scan="${esc(sc.name)}">
-        <span class="swatch hatch"></span>
-        <span><span class="name">${esc(sc.label)}</span><span class="desc">${sc.size_km[0]} × ${sc.size_km[1]} km of LiDAR searched for rings; ${sc.n_shown} strongest of ${sc.n_total} candidates to review${reviewedCount(sc.name) ? `, ${reviewedCount(sc.name)} reviewed` : ''}.</span></span>
-      </button></li>`).join('')}</ul>` : ''}
-    <div class="about">
-      <p>Each site pairs a survey plate from Squier &amp; Davis, <i>Ancient Monuments of the Mississippi Valley</i> (1848), with USGS LiDAR. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
-      <p>Plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
-      <p>Private site, served from this Mac on the home network. Some of these sites are address-restricted in the National Register; keep it that way.</p>
-    </div>`;
+        <span class="swatch ${esc(s.status || 'plowed')}"></span>
+        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc(s.place)}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
+      </button></li>`).join('')}</ul>`).join('');
+}
+function bindEntries() {
   $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
+}
+function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname); } catch {} }
+function renderList() {
+  const n = S.sites.length;
+  $('#body').innerHTML = `
+    <div class="tabs" role="group" aria-label="Section">
+      <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites · ${n}</button>
+      <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
+    </div>
+    ${S.tab === 'finder' ? finderHome() : `
+    <div class="search">
+      <input id="q" type="search" placeholder="Search ${n} sites" value="${esc(S.q)}" aria-label="Search sites">
+      <label class="check"><input id="only-plate" type="checkbox" ${S.onlyPlate ? 'checked' : ''}> Fitted plate</label>
+    </div>
+    <div id="entries">${siteEntries()}</div>
+    <div class="about">
+      <p>Each site pairs old surveys and maps with today's LiDAR. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
+      <p>Survey plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
+      <p>Private site, served from this Mac on the home network.</p>
+    </div>`}`;
+  $('#h-sites').onclick = () => setTabHome('sites');
+  $('#h-finder').onclick = () => setTabHome('finder');
+  if ($('#q')) {
+    $('#q').oninput = e => { S.q = e.target.value; $('#entries').innerHTML = siteEntries(); bindEntries(); };
+    $('#only-plate').onchange = e => { S.onlyPlate = e.target.checked; $('#entries').innerHTML = siteEntries(); bindEntries(); };
+  }
+  bindEntries();
+}
+function finderHome() {
+  return `
+    <p class="lede">Looking for earthworks nobody has recorded: the LiDAR is searched for mounds, rings and walls, each candidate is scored by a local vision model, and checked against what was known in 1914 and what is known today.</p>
+    ${F.scans.length ? `<ul class="legend-list">${F.scans.map(sc => `
+      <li><button class="entry" data-scan="${esc(sc.name)}">
+        <span class="swatch hatch"></span>
+        <span><span class="name">${esc(sc.label)}</span><span class="desc">${sc.size_km[0]} × ${sc.size_km[1]} km of LiDAR searched; ${sc.n_shown} strongest of ${sc.n_total} candidates to review${reviewedCount(sc.name) ? `, ${reviewedCount(sc.name)} reviewed` : ''}.</span></span>
+      </button></li>`).join('')}</ul>`
+    : `<p class="status">No search exported yet. The Finder is being rebuilt: a test set of known sites first, then mound and ring detectors, a re-ranking model, and the 1914 Archeological Atlas of Ohio as evidence.</p>`}
+    <div class="about">
+      <p><b>Known</b>: listed today (Wikidata, OpenStreetMap, place names). <b>Lost</b>: marked in the 1914 atlas, in no modern public list. <b>New</b>: no record anywhere.</p>
+      <p>Candidates stay on this Mac; they are never pushed to GitHub.</p>
+    </div>`;
 }
 function depGroup(s) {
   const list = S.dep[s.id] || [];
@@ -887,6 +937,7 @@ async function boot() {
     applyAll();
     if (F.scans.length) addScanAreas();
     const id = location.hash.slice(1), m = id.match(/^scan-([\w-]+?)(?:\/(.+))?$/);
+    if (id === 'finder') S.tab = 'finder';
     if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
   };
   if (map.isStyleLoaded()) start(); else map.once('load', start);
