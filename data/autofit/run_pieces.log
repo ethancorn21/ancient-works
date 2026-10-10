@@ -1,0 +1,5 @@
+fudge      55 pieces; Qwen walls  27 ( 1767 pts), near-hand  16 (  973 pts); point recall 0.98, point precision 0.54; kinds {'hill': 1, 'other': 1, 'wall': 27, 'water': 26}
+hopeton    60 pieces; Qwen walls  52 ( 3576 pts), near-hand  17 ( 1200 pts); point recall 1.00, point precision 0.34; kinds {'hill': 3, 'other': 1, 'road': 1, 'wall': 52, 'water': 3}
+newark    137 pieces; Qwen walls  73 ( 3898 pts), near-hand  29 ( 1584 pts); point recall 0.97, point precision 0.39; kinds {'hill': 5, 'other': 8, 'road': 25, 'wall': 73, 'water': 26}
+forthill  132 pieces; Qwen walls  88 ( 5442 pts), near-hand  33 ( 1964 pts); point recall 0.92, point precision 0.33; kinds {'wall': 88, 'water': 44}
+highbank   81 pieces; Qwen walls  70 ( 3897 pts), near-hand  21 ( 1477 pts); point recall 0.67, point precision 0.25; kinds {'road': 1, 'wall': 70, 'water': 10}

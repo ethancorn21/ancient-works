@@ -1,0 +1,55 @@
+fudge: 973 template points, tol 20.2 m
+  coarse: 46 rotations x 29 scales, 33s
+  seed 0: seed rms   204 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  seed 1: seed rms   182 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  seed 2: seed rms   100 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  seed 3: seed rms   175 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  seed 4: seed rms   178 m -> rms  244.9 m, drot  +1.44, scale x0.715, median 0.254 (p99 -0.004) fail
+  seed 5: seed rms   168 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  seed 6: seed rms   212 m -> rms  399.6 m, drot +31.44, scale x0.782, median 0.219 (p99 -0.014) fail
+  seed 7: seed rms   170 m -> rms    7.0 m, drot  -0.31, scale x0.995, median 0.295 (p99 -0.009) PASS
+  fudge: 6/8 seeds pass, 41s
+hopeton: 1308 template points, tol 28.6 m
+  coarse: 44 rotations x 29 scales, 37s
+  seed 0: seed rms   243 m -> rms  462.2 m, drot +35.20, scale x1.017, median 0.130 (p99 -0.012) fail
+  seed 1: seed rms   168 m -> rms   14.4 m, drot  -0.30, scale x1.017, median 0.121 (p99 -0.012) PASS
+  seed 2: seed rms   243 m -> rms   14.4 m, drot  -0.30, scale x1.017, median 0.121 (p99 -0.012) PASS
+  seed 3: seed rms   144 m -> rms  309.3 m, drot +23.20, scale x1.022, median 0.150 (p99 -0.018) fail
+  seed 4: seed rms   248 m -> rms   14.4 m, drot  -0.30, scale x1.017, median 0.121 (p99 -0.012) PASS
+  seed 5: seed rms   195 m -> rms  309.3 m, drot +23.20, scale x1.022, median 0.150 (p99 -0.018) fail
+  seed 6: seed rms   223 m -> rms   14.4 m, drot  -0.30, scale x1.017, median 0.121 (p99 -0.012) PASS
+  seed 7: seed rms   174 m -> rms   14.4 m, drot  -0.30, scale x1.017, median 0.121 (p99 -0.012) PASS
+  hopeton: 5/8 seeds pass, 45s
+newark: 1553 template points, tol 80.5 m
+  coarse: 39 rotations x 26 scales, 74s
+  seed 0: seed rms   583 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 1: seed rms   386 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 2: seed rms   378 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 3: seed rms   484 m -> rms  977.8 m, drot +26.89, scale x0.996, median 0.025 (p99 nan) fail
+  seed 4: seed rms   263 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 5: seed rms   271 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 6: seed rms   514 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  seed 7: seed rms   356 m -> rms   97.9 m, drot  -2.61, scale x0.996, median -0.004 (p99 nan) fail
+  newark: 0/8 seeds pass, 82s
+forthill: 2230 template points, tol 34.7 m
+  coarse: 44 rotations x 23 scales, 22s
+  seed 0: seed rms   131 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 1: seed rms   287 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 2: seed rms   195 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 3: seed rms   124 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 4: seed rms   144 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 5: seed rms   178 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 6: seed rms   142 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  seed 7: seed rms   354 m -> rms  101.8 m, drot  +1.67, scale x0.899, median 0.092 (p99 -0.090) fail
+  forthill: 0/8 seeds pass, 32s
+highbank: 1504 template points, tol 36.2 m
+  coarse: 41 rotations x 26 scales, 29s
+  seed 0: seed rms   331 m -> rms  215.4 m, drot  +0.73, scale x1.210, median 0.000 (p99 -0.030) fail
+  seed 1: seed rms   196 m -> rms  245.8 m, drot  -0.52, scale x1.241, median 0.000 (p99 -0.036) fail
+  seed 2: seed rms   270 m -> rms  409.1 m, drot  +4.73, scale x0.677, median -0.026 (p99 -0.019) fail
+  seed 3: seed rms   216 m -> rms  245.8 m, drot  -0.52, scale x1.241, median 0.000 (p99 -0.036) fail
+  seed 4: seed rms   180 m -> rms  383.2 m, drot  -0.77, scale x0.799, median 0.000 (p99 -0.027) fail
+  seed 5: seed rms   246 m -> rms  245.8 m, drot  -0.52, scale x1.241, median 0.000 (p99 -0.036) fail
+  seed 6: seed rms   242 m -> rms  360.5 m, drot  +3.98, scale x0.677, median -0.005 (p99 -0.019) fail
+  seed 7: seed rms   216 m -> rms  457.7 m, drot +17.73, scale x0.592, median -0.034 (p99 -0.005) fail
+  highbank: 0/8 seeds pass, 37s

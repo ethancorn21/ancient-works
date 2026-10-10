@@ -1,0 +1,87 @@
+fudge: 3446 template points, tol 20.2 m
+  coarse: 46 rotations x 29 scales, 37s
+  seed 0: seed rms   204 m -> rms  131.5 m, drot  +8.19, scale x0.900, median 0.044 (p99 -0.036) fail
+  seed 1: seed rms   182 m -> rms  131.5 m, drot  +8.19, scale x0.900, median 0.044 (p99 -0.036) fail
+  seed 2: seed rms   100 m -> rms  131.5 m, drot  +8.19, scale x0.900, median 0.044 (p99 -0.036) fail
+  seed 3: seed rms   175 m -> rms  131.5 m, drot  +8.19, scale x0.900, median 0.044 (p99 -0.036) fail
+  seed 4: seed rms   178 m -> rms  284.7 m, drot  -3.56, scale x0.628, median 0.111 (p99 -0.030) fail
+  seed 5: seed rms   168 m -> rms  335.7 m, drot -13.81, scale x0.946, median -0.010 (p99 -0.033) fail
+  seed 6: seed rms   212 m -> rms  313.2 m, drot  +9.44, scale x0.814, median -0.036 (p99 -0.033) fail
+  seed 7: seed rms   170 m -> rms  131.5 m, drot  +8.19, scale x0.900, median 0.044 (p99 -0.036) fail
+  fudge: 0/8 seeds pass, 55s
+hopeton: 4444 template points, tol 28.6 m
+  coarse: 44 rotations x 29 scales, 45s
+  seed 0: seed rms   243 m -> rms  559.0 m, drot +41.70, scale x0.757, median -0.020 (p99 -0.033) fail
+  seed 1: seed rms   168 m -> rms  292.1 m, drot -17.80, scale x1.181, median 0.000 (p99 -0.041) fail
+  seed 2: seed rms   243 m -> rms  538.3 m, drot -34.05, scale x1.187, median -0.016 (p99 -0.041) fail
+  seed 3: seed rms   144 m -> rms  292.1 m, drot -17.80, scale x1.181, median 0.000 (p99 -0.041) fail
+  seed 4: seed rms   248 m -> rms  343.7 m, drot -25.30, scale x1.080, median -0.021 (p99 -0.038) fail
+  seed 5: seed rms   195 m -> rms  394.2 m, drot -20.05, scale x0.598, median -0.005 (p99 -0.036) fail
+  seed 6: seed rms   223 m -> rms  496.4 m, drot -33.30, scale x0.702, median 0.000 (p99 -0.032) fail
+  seed 7: seed rms   174 m -> rms  343.7 m, drot -25.30, scale x1.080, median -0.021 (p99 -0.038) fail
+  hopeton: 0/8 seeds pass, 74s
+newark: 7285 template points, tol 80.5 m
+  coarse: 39 rotations x 26 scales, 117s
+Traceback (most recent call last):
+  File "/Users/ethan/code/projects/ancient-works/pipeline/autofit.py", line 411, in <module>
+    run(sys.argv[2], sys.argv[3], sys.argv[4:] or SITES)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ethan/code/projects/ancient-works/pipeline/autofit.py", line 376, in run
+    e = evaluate(S, P, N, r, null_cache)
+  File "/Users/ethan/code/projects/ancient-works/pipeline/autofit.py", line 347, in evaluate
+    p99 = float(np.percentile(null_cache[key], 99))
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ethan/code/projects/ancient-works/.venv/lib/python3.14/site-packages/numpy/lib/_function_base_impl.py", line 4258, in percentile
+    return _quantile_unchecked(
+        a, q, axis, out, overwrite_input, method, keepdims, weights, weak_q)
+  File "/Users/ethan/code/projects/ancient-works/.venv/lib/python3.14/site-packages/numpy/lib/_function_base_impl.py", line 4522, in _quantile_unchecked
+    return _ureduce(a,
+                    func=_quantile_ureduce_func,
+    ...<6 lines>...
+                    method=method,
+                    weak_q=weak_q)
+  File "/Users/ethan/code/projects/ancient-works/.venv/lib/python3.14/site-packages/numpy/lib/_function_base_impl.py", line 3892, in _ureduce
+    r = func(a, **kwargs)
+  File "/Users/ethan/code/projects/ancient-works/.venv/lib/python3.14/site-packages/numpy/lib/_function_base_impl.py", line 4681, in _quantile_ureduce_func
+    result = _quantile(arr,
+                       quantiles=q,
+    ...<3 lines>...
+                       weights=wgt,
+                       weak_q=weak_q)
+  File "/Users/ethan/code/projects/ancient-works/.venv/lib/python3.14/site-packages/numpy/lib/_function_base_impl.py", line 4805, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0
+newark: 7285 template points, tol 80.5 m
+  coarse: 39 rotations x 26 scales, 108s
+  seed 0: seed rms   583 m -> rms  583.1 m, drot  -8.82, scale x1.225, median -9.000 (p99 nan) fail
+  seed 1: seed rms   386 m -> rms  386.1 m, drot +10.23, scale x0.973, median -9.000 (p99 nan) fail
+  seed 2: seed rms   378 m -> rms  378.0 m, drot +10.01, scale x1.020, median -9.000 (p99 nan) fail
+  seed 3: seed rms   484 m -> rms  483.6 m, drot +11.43, scale x1.111, median -9.000 (p99 nan) fail
+  seed 4: seed rms   263 m -> rms  263.2 m, drot  +6.34, scale x0.978, median -9.000 (p99 nan) fail
+  seed 5: seed rms   271 m -> rms  271.0 m, drot  -6.31, scale x1.052, median -9.000 (p99 nan) fail
+  seed 6: seed rms   514 m -> rms  513.6 m, drot -12.29, scale x0.845, median -9.000 (p99 nan) fail
+  seed 7: seed rms   356 m -> rms  356.4 m, drot  +8.01, scale x1.083, median -9.000 (p99 nan) fail
+  newark: 0/8 seeds pass, 122s
+forthill: 8375 template points, tol 34.7 m
+  coarse: 44 rotations x 23 scales, 37s
+  seed 0: seed rms   131 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 1: seed rms   287 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 2: seed rms   195 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 3: seed rms   124 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 4: seed rms   144 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 5: seed rms   178 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 6: seed rms   142 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  seed 7: seed rms   354 m -> rms   39.2 m, drot  +2.42, scale x1.013, median -0.160 (p99 -0.117) fail
+  forthill: 0/8 seeds pass, 76s
+highbank: 4990 template points, tol 36.2 m
+  coarse: 41 rotations x 26 scales, 39s
+  seed 0: seed rms   331 m -> rms  589.1 m, drot -29.52, scale x0.684, median -0.000 (p99 -0.046) fail
+  seed 1: seed rms   196 m -> rms  526.3 m, drot +27.48, scale x1.042, median -0.066 (p99 -0.051) fail
+  seed 2: seed rms   270 m -> rms  295.4 m, drot  +7.73, scale x0.723, median -0.056 (p99 -0.046) fail
+  seed 3: seed rms   216 m -> rms  405.7 m, drot -16.27, scale x1.062, median -0.017 (p99 -0.050) fail
+  seed 4: seed rms   180 m -> rms  385.9 m, drot  +1.48, scale x0.779, median -0.017 (p99 -0.044) fail
+  seed 5: seed rms   246 m -> rms  405.7 m, drot -16.27, scale x1.062, median -0.017 (p99 -0.050) fail
+  seed 6: seed rms   242 m -> rms  370.2 m, drot  +3.73, scale x0.664, median -0.017 (p99 -0.044) fail
+  seed 7: seed rms   216 m -> rms  459.8 m, drot +16.73, scale x0.583, median -0.013 (p99 -0.043) fail
+  highbank: 0/8 seeds pass, 64s

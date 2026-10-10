@@ -22,3 +22,4 @@ web/data/sites/*
 !web/data/sites/marietta/
 !web/data/sites/forthill/
 !web/data/sites/highbank/
+data/autofit/*.npz
