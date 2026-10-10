@@ -1,7 +1,7 @@
 """Old plans and bird's-eye views from named sources, each tied to a site by hand (Ethan 2026-10-10: widen the map with
 Mackenzie's 1897 castle plans, Van Deventer's 1550s town plans and Kip & Knyff's 1707 views of country houses).
 
-usage: sources.py <source> [--dry]        source: mackenzie | deventer
+usage: sources.py <source> [--dry]        source: mackenzie | deventer | kip
 
 Each source is a table of Commons file -> Wikidata item. The QIDs were checked by hand: a name search alone gives the
 town for "Barnard Castle", the village for "Richard's Castle", the 19th-century house for "Scotney Castle" and a
@@ -74,11 +74,30 @@ DEVENTER = [
     ("File:Binche - Deventer.jpg", "Q95121", "belgium", "Binche", dict(lon=4.1652, lat=50.4103)),
     ("File:Bergues - Deventer.jpg", "Q244934", "france", "Bergues", dict(lon=2.4342, lat=50.9686)),
 ]
+# Kip & Knyff's bird's-eye views of country houses and their formal gardens (Britannia Illustrata 1707-09, Nouveau
+# Theatre de la Grande Bretagne; Kip's later plates), the large scans only: most Britannia Illustrata files on Commons are
+# 300-800 px, too small to lay over the ground. Picked where something fixed survives to fit by: the house (Hampton
+# Court in Herefordshire, Chevening, Fairlawne, Burlington House), the garden's axes (Chiswick), or the park (Cassiobury, house gone 1927).
+_YALE = "File:Jan Kip - {} - Yale Center for British Art.jpg"
+KIP = [
+    # the Rijksmuseum calls it "Gezicht op Hampton Court"; the caption says Hampton Court in Herefordshire, Lord Coningsby's
+    # seat (Q1443802), not the palace on the Thames (built there by mistake first, 2026-10-10)
+    ("File:Gezicht op Hampton Court, RP-P-1905-194.jpg", "Q1443802", "england", "Hampton Court, Herefordshire"),
+    ("File:An engraving of Chevening by Johannes Kip (d.1722) after Thomas Badeslade (d.1742), published (in History of Kent) "
+     "1719 by John Harris.jpg", "Q1070927", "england", "Chevening"),
+    ("File:Cassiobury Park by Kip and Knyff.jpg", "Q5049456", "england", "Cassiobury House"),
+    (_YALE.format("The House at Chiswick in the County of Middlesex one of the Seats of the Rt Hon Charles Boyle - B1977.14.18672"),
+     "Q1074877", "england", "Chiswick House"),
+    (_YALE.format("Fair Lawn in ye County of Kent - B2017.35.2"), "Q17530246", "england", "Fairlawne"),
+    (_YALE.format("Burlington House in Piccadilly - B1977.14.17783"), "Q225471", "england", "Burlington House",
+     dict(date="circa 1707")),  # Britannia Illustrata plate; Yale gives no date
+]
 SOURCES = {
     "mackenzie": dict(rows=MACKENZIE, kind="castle", p="plan", year=1897,
                       label="{name}, plan from Mackenzie, The Castles of England (1897)",
                       source="Mackenzie, J. D. (1897) The Castles of England: their story and structure (plan on Wikimedia Commons)"),
     "deventer": dict(rows=DEVENTER, kind="town", p="plan", year=None, label="{name}, town plan by Jacob van Deventer"),
+    "kip": dict(rows=KIP, kind="garden", p="birdseye", year=None, label="{name}, bird's-eye view engraved by Johannes Kip"),
 }
 
 
@@ -153,6 +172,8 @@ def run(name, dry=False):
                    "kind": src["kind"], "aerial_ok": True, "source": f"pipeline/sources.py {name}"}
             if w.get("place"):
                 row["place"] = w["place"]
+            if x.get("box_m"):
+                row["box_m"] = x["box_m"]
             if w.get("wiki"):
                 row["wikipedia"] = w["wiki"]
             new_sites.append(row)

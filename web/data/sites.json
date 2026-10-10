@@ -3184,6 +3184,51 @@
    "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
+   "id": "burlington-house-q225471",
+   "name": "Burlington House",
+   "place": "England",
+   "lon": -0.139444,
+   "lat": 51.508889,
+   "summary": "Burlington House is a building on Piccadilly in Mayfair, London. It was originally a private English Baroque and then Neo-Palladian mansion owned by the Earls of Burlington. It was significantly expanded in the mid-19th century after being purchased by the British government. Today, the Royal Academy and five learned societies occupy much of the building.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q225471",
+   "wiki": "https://en.wikipedia.org/wiki/Burlington_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.15099059484878186,
+     51.516074955499334
+    ],
+    [
+     -0.12789740515121817,
+     51.516074955499334
+    ],
+    [
+     -0.12789740515121817,
+     51.50170191093151
+    ],
+    [
+     -0.15099059484878186,
+     51.50170191093151
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -6.02,
+    "zmax": 27.57,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "burnswark-hill",
    "name": "Burnswark Hill",
    "place": "Scotland",
@@ -4191,6 +4236,51 @@
    "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
+   "id": "cassiobury-house-q5049456",
+   "name": "Cassiobury House",
+   "place": "England",
+   "lon": -0.418889,
+   "lat": 51.665,
+   "summary": "Cassiobury House was a country house in Cassiobury Park, Watford, England. It was the ancestral seat of the Earls of Essex. Originally a Tudor building, dating from 1546 for Sir Richard Morrison, it was substantially remodelled in the 17th and 19th centuries and ultimately demolished in 1927. The surrounding Cassiobury Park was turned into the main public open space for Watford.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q5049456",
+   "wiki": "https://en.wikipedia.org/wiki/Cassiobury_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.4304753377753707,
+     51.672185952318685
+    ],
+    [
+     -0.40730266222462935,
+     51.672185952318685
+    ],
+    [
+     -0.40730266222462935,
+     51.6578129077502
+    ],
+    [
+     -0.4304753377753707,
+     51.6578129077502
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.88,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 53.54,
+    "zmax": 85.85,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "castalian-springs-mound-site-q5049584",
    "name": "Castalian Springs Mound Site",
    "place": "Tennessee",
@@ -5059,6 +5149,96 @@
     1100,
     1100
    ]
+  },
+  {
+   "id": "chevening-q1070927",
+   "name": "Chevening",
+   "place": "England",
+   "lon": 0.13165,
+   "lat": 51.2987,
+   "summary": "Chevening House is a large country house in the parish of Chevening in Kent, England. Built between 1617 and 1630 to a design reputedly by Inigo Jones and greatly extended after 1717, it is a Grade I listed building. The surrounding gardens, pleasure grounds and park are listed Grade II*.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q1070927",
+   "wiki": "https://en.wikipedia.org/wiki/Chevening",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.12015635240682734,
+     51.30588595974749
+    ],
+    [
+     0.1431436475931726,
+     51.30588595974749
+    ],
+    [
+     0.1431436475931726,
+     51.291512915180526
+    ],
+    [
+     0.12015635240682734,
+     51.291512915180526
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.87,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 78.11,
+    "zmax": 198.41,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
+   "id": "chiswick-house-q1074877",
+   "name": "Chiswick House",
+   "place": "England",
+   "lon": -0.258611,
+   "lat": 51.483611,
+   "summary": "Chiswick House is a Neo-Palladian style villa in the Chiswick district of London, England. A \"glorious\" example of Neo-Palladian architecture in west London, the house was designed and built by Richard Boyle, 3rd Earl of Burlington (1694\u20131753), and completed in 1729. The house and garden occupy 26.33 hectares. The garden was created mainly by the architect and landscape designer William Kent, and it is one of the earliest examples of the English landscape garden.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q1074877",
+   "wiki": "https://en.wikipedia.org/wiki/Chiswick_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.27015119322622444,
+     51.49079695601232
+    ],
+    [
+     -0.24707080677377555,
+     51.49079695601232
+    ],
+    [
+     -0.24707080677377555,
+     51.47642391144459
+    ],
+    [
+     -0.27015119322622444,
+     51.47642391144459
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.16,
+    "zmax": 11.47,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "chateau-d-olivet-q2968304",
@@ -7128,6 +7308,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "fairlawne-q17530246",
+   "name": "Fairlawne",
+   "place": "England",
+   "lon": 0.283511,
+   "lat": 51.2577,
+   "summary": "Fairlawne is a Grade I listed house in Shipbourne, Kent, England, about 30 miles southeast of central London. The Fairlawne Estate is extensive and stretches to Plaxtol.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q17530246",
+   "wiki": "https://en.wikipedia.org/wiki/Fairlawne",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.27202760591148173,
+     51.264885960571604
+    ],
+    [
+     0.29499439408851824,
+     51.264885960571604
+    ],
+    [
+     0.29499439408851824,
+     51.250512916004844
+    ],
+    [
+     0.27202760591148173,
+     51.250512916004844
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 52.58,
+    "zmax": 159.82,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "farleigh-hungerford-castle-q5435410",
    "name": "Farleigh Hungerford Castle",
    "place": "England",
@@ -8586,6 +8811,51 @@
     1600
    ],
    "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "hampton-court-herefordshire-q1443802",
+   "name": "Hampton Court, Herefordshire",
+   "place": "England",
+   "lon": -2.70414,
+   "lat": 52.1677,
+   "summary": "Hampton Court Castle, also known as Hampton Court or Hampton Castle, is a castellated country house in the English county of Herefordshire. The house is in the parish of Hope under Dinmore 4 miles (6.4\u00a0km) south of Leominster and is a Grade I listed building, which is the highest category of architecture in the statutory protection scheme.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q1443802",
+   "wiki": "https://en.wikipedia.org/wiki/Hampton_Court_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.7158567916540055,
+     52.174885941925815
+    ],
+    [
+     -2.6924232083459954,
+     52.174885941925815
+    ],
+    [
+     -2.6924232083459954,
+     52.16051289735508
+    ],
+    [
+     -2.7158567916540055,
+     52.16051289735508
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 60.72,
+    "zmax": 169.29,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "harbottle-castle-q5654774",
