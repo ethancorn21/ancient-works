@@ -1,0 +1,51 @@
+{
+ "site": "avebury-q661855",
+ "plan": "earthworkenglan01allcgoog_n0581_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0581.jpg",
+ "crop": [
+  700,
+  1000,
+  3150,
+  3700
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1683.0,
+   2469.0,
+   -1.8544768,
+   51.428355
+  ],
+  [
+   1470.0,
+   1470.0,
+   -1.8552548,
+   51.4303851
+  ],
+  [
+   2767.0,
+   2076.0,
+   -1.8512782,
+   51.4292533
+  ],
+  [
+   1992.0,
+   3243.0,
+   -1.8533962,
+   51.4268637
+  ]
+ ],
+ "label": "Fig. 187",
+ "title": "Earthworks of Avebury",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:39:08.481007+00:00"
+}

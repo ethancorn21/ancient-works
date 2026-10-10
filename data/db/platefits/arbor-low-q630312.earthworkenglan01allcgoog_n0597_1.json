@@ -1,0 +1,51 @@
+{
+ "site": "arbor-low-q630312",
+ "plan": "earthworkenglan01allcgoog_n0597_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0597.jpg",
+ "crop": [
+  650,
+  1050,
+  3050,
+  3700
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1824.0,
+   2217.0,
+   -1.7615837,
+   53.1689315
+  ],
+  [
+   1234.0,
+   1599.0,
+   -1.7619328,
+   53.1691337
+  ],
+  [
+   1655.0,
+   3311.0,
+   -1.7618129,
+   53.1685525
+  ],
+  [
+   2144.0,
+   3030.0,
+   -1.7614578,
+   53.168707
+  ]
+ ],
+ "label": "Fig. 194",
+ "title": "Arbor Low",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:40:15.647262+00:00"
+}
