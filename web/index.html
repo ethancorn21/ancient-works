@@ -1,10 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ancient Works</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@400;600&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F3EDDC'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23CE2E4E' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/fonts.css">
+<link rel="stylesheet" href="vendor/maplibre-gl-5.6.0.css">
 <style>
 /* Layout: a USGS Professional Paper plate. Full-bleed globe on paper; the panel is the plate's EXPLANATION
    column; the block diagram opens as a framed plate sheet over the map. Single paper theme, by design. */
+body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
 :root {
   --paper: #F3EDDC; --paper-2: #EAE2CC; --sheet: #F8F4E8; --ink: #2B2724; --ink-2: #6B625A; --rule: #8E8478;
   --survey: #CE2E4E;            /* 1848 plate ink, as on the ore bodies of USGS plates */
@@ -160,6 +166,8 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   .explain { border-left: 0; border-top: 1px solid var(--rule); max-height: 32vh; }
 }
 </style>
+</head>
+<body>
 
 <div id="map" aria-label="Globe of earthwork sites"></div>
 
@@ -188,8 +196,8 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   <div class="caption"><h2 id="cap-title"></h2><p id="cap-sub"></p></div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="vendor/maplibre-gl-5.6.0.js"></script>
+<script src="vendor/three-r128.min.js"></script>
 <script>
 const WORLD = [[-180, 85.0511], [180, 85.0511], [180, -85.0511], [-180, -85.0511]];
 const STATUS = { plowed: 'Walls plowed down', standing: 'Walls standing', urban: 'Mostly under a town' };
@@ -205,17 +213,23 @@ const map = new maplibregl.Map({
   container: 'map',
   style: {
     version: 8, projection: { type: 'globe' },
-    sources: { world: { type: 'image', url: 'data/world.jpg', coordinates: WORLD } },
+    sources: {
+      world: { type: 'image', url: 'data/world.jpg', coordinates: WORLD },
+      // live aerial tiles around the site boxes when the ground is set to the aerial photograph
+      sat: { type: 'raster', tileSize: 256, maxzoom: 19,
+             tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
+    },
     layers: [
       { id: 'space', type: 'background', paint: { 'background-color': '#F3EDDC' } },
       { id: 'world', type: 'raster', source: 'world', paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } },
+      { id: 'sat', type: 'raster', source: 'sat', minzoom: 9, layout: { visibility: 'none' }, paint: { 'raster-fade-duration': 0 } },
     ],
   },
   center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
-  'Base map: Natural Earth · LiDAR: USGS 3DEP · Photos: USDA NAIP via USGS The National Map · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
+  'Base map: Natural Earth · LiDAR: USGS 3DEP · Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
 
 /* ---------- geometry ---------- */
 const R = 6378137;
@@ -239,9 +253,7 @@ function ensureSite(site) {
   S.loaded.add(site.id);
   const base = `data/sites/${site.id}/`;
   const paint = { 'raster-fade-duration': 0, 'raster-resampling': 'linear' };
-  map.addSource(`img-${site.id}`, { type: 'image', url: base + 'imagery.jpg', coordinates: site.corners });
   map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
-  map.addLayer({ id: `img-${site.id}`, type: 'raster', source: `img-${site.id}`, paint });
   map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
   if (site.plate) {
     const pc = alignedCorners(site);
@@ -254,7 +266,6 @@ function ensureSite(site) {
 }
 function applyLayers(site) {
   if (!S.loaded.has(site.id)) return;
-  map.setLayoutProperty(`img-${site.id}`, 'visibility', S.ground === 'imagery' ? 'visible' : 'none');
   map.setLayoutProperty(`rel-${site.id}`, 'visibility', S.ground === 'relief' ? 'visible' : 'none');
   if (site.plate) for (const mode of ['ink', 'paper']) {
     const id = `${mode}-${site.id}`;
@@ -262,7 +273,10 @@ function applyLayers(site) {
     map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
   }
 }
-const applyAll = () => S.sites.forEach(applyLayers);
+const applyAll = () => {
+  if (map.getLayer('sat')) map.setLayoutProperty('sat', 'visibility', S.ground === 'imagery' ? 'visible' : 'none');
+  S.sites.forEach(applyLayers);
+};
 function moveplate(site) {
   if (!S.loaded.has(site.id) || !site.plate) return;
   const pc = alignedCorners(site);
@@ -318,7 +332,7 @@ function renderList() {
     <div class="about">
       <p>Each site pairs a survey plate from Squier &amp; Davis, <i>Ancient Monuments of the Mississippi Valley</i> (1848), with USGS LiDAR. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
       <p>Plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
-      <p>Private page. Some of these sites are address-restricted in the National Register; keep the link private.</p>
+      <p>Private site, served from this Mac on the home network. Some of these sites are address-restricted in the National Register; keep it that way.</p>
     </div>`;
   $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
@@ -395,7 +409,7 @@ function renderSite(s) {
   $('#body').querySelectorAll('[data-s]').forEach(b => b.onclick = () => nudge(a => { a.scale = +(a.scale * Number(b.dataset.s)).toFixed(4); }));
   $('#reset').onclick = () => nudge(a => Object.assign(a, { dx: 0, dy: 0, rot: 0, scale: 1 }));
   $('#save').onclick = () => saveAlign(s);
-  if (!S.db) { $('#save').disabled = true; $('#saved').textContent = 'Saving needs you signed in to claude.ai. Changes last until you reload.'; }
+  if (!S.db) { $('#save').disabled = true; $('#saved').textContent = 'Saving needs the Ancient Works server. Changes last until you reload.'; }
 }
 function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
 function alignText(s) {
@@ -547,7 +561,7 @@ function renderScan(name) {
       <p class="stats">${candLine(c)}. Signal to noise ${c.snr}.</p>
       <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-v="${k}" aria-pressed="${(F.verdicts[c.id] || {}).v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
       <div class="tools"><button id="c-prev">← Previous</button><button id="c-next">Next to review →</button></div>
-      <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need you signed in to claude.ai.'}</p>
+      <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need the Ancient Works server.'}</p>
     </div>` : ''}
     <div class="group">
       <p class="section-title">Known works in the area</p>
@@ -750,6 +764,35 @@ function bindControls() {
   el.addEventListener('wheel', e => { e.preventDefault(); B.zoom = Math.min(8, Math.max(0.6, B.zoom * Math.exp(-e.deltaY * 0.0015))); B.dirty = true; }, { passive: false });
 }
 
+/* ---------- document store on the local server (same shape as the old artifact db) ---------- */
+async function openDb() {
+  const url = p => 'api/db/' + p.split('/').map(encodeURIComponent).join('/');
+  try { if (!(await fetch(url('ping'))).ok) return null; } catch { return null; }
+  return {
+    doc: path => ({
+      async get() {
+        const r = await fetch(url(path));
+        if (r.status === 404) return { exists: false, data: () => undefined };
+        if (!r.ok) throw new Error(`db get ${r.status}`);
+        const d = await r.json();
+        return { exists: true, data: () => d };
+      },
+      async set(data) {
+        const r = await fetch(url(path), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (!r.ok) throw new Error(`db set ${r.status}`);
+      },
+    }),
+    collection: name => ({
+      async get() {
+        const r = await fetch(url(name));
+        if (!r.ok) throw new Error(`db list ${r.status}`);
+        const { docs } = await r.json();
+        return { docs: docs.map(d => ({ id: d.id, data: () => d.data })) };
+      },
+    }),
+  };
+}
+
 /* ---------- boot ---------- */
 async function boot() {
   const data = await fetch('data/sites.json').then(r => r.json());
@@ -758,22 +801,22 @@ async function boot() {
   F.scans.forEach(sc => F.byName[sc.name] = sc);
   addMarkers();
   const start = () => {
+    applyAll();
     if (F.scans.length) addScanAreas();
     const id = location.hash.slice(1), m = id.match(/^scan-([\w-]+?)(?:\/(.+))?$/);
     if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
   };
   if (map.isStyleLoaded()) start(); else map.once('load', start);
-  const claude = window.claude;
-  if (claude && claude.use) claude.use('db').then(async db => {
+  openDb().then(async db => {
     if (!db) return;
     S.db = db;
-    for (const s of S.sites) {
-      if (!s.plate) continue;
-      try {
-        const snap = await db.doc(`plates/${s.id}`).get();
-        if (snap.exists) { const d = snap.data(); S.align[s.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; moveplate(s); }
-      } catch {}
-    }
+    try {
+      const snap = await db.collection('plates').get();
+      for (const doc of snap.docs) {
+        const s = S.byId[doc.id], d = doc.data();
+        if (s && s.plate) { S.align[s.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; moveplate(s); }
+      }
+    } catch {}
     try {
       const snap = await db.collection('verdicts').get();
       for (const doc of snap.docs) { const v = doc.data(); if (VERDICT[v.v]) F.verdicts[doc.id] = { scan: v.scan, v: v.v }; }
@@ -786,3 +829,5 @@ async function boot() {
 }
 boot();
 </script>
+</body>
+</html>
