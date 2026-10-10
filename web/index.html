@@ -500,20 +500,20 @@ function bindEntries() {
 }
 function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname); } catch {} }
 function renderList() {
-  const n = S.sites.length;
+  const n = S.sites.length, nc = C.rows.filter(r => !S.byId[r.id]).length;
   $('#body').innerHTML = `
     <div class="tabs" role="group" aria-label="Section">
       <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites</button>
       <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
     </div>
     ${S.tab === 'finder' ? finderHome() : `
-    <p class="fit">${n} built in full; ${C.rows.length.toLocaleString()} more known earthworks on the map as dots, with live LiDAR where it exists.</p>
+    <p class="fit">${n} built in full; ${nc.toLocaleString()} more known earthworks on the map as dots, with live LiDAR where it exists.</p>
     <div class="kinds" role="group" aria-label="Kind of earthwork">
       <button data-kind="all" aria-pressed="${C.kind === 'all'}">All</button>
       ${Object.entries(KGROUP).map(([k, v]) => `<button data-kind="${k}" aria-pressed="${C.kind === k}"><i style="background:${v[1]}"></i>${esc(v[0])}</button>`).join('')}
     </div>
     <div class="search">
-      <input id="q" type="search" placeholder="Search ${(n + C.rows.length).toLocaleString()} sites" value="${esc(S.q)}" aria-label="Search sites">
+      <input id="q" type="search" placeholder="Search ${(n + nc).toLocaleString()} sites" value="${esc(S.q)}" aria-label="Search sites">
       <label class="check"><input id="only-plate" type="checkbox" ${S.onlyPlate ? 'checked' : ''}> Fitted plate</label>
     </div>
     <div id="entries">${siteEntries()}</div>
