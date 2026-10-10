@@ -37,6 +37,17 @@ def plate_to_ground(uv, u0, v0, s, rot, tx, ty):
     return np.stack([s * (c * du - sn * dv) + tx, s * (sn * du + c * dv) + ty], 1)
 
 
+def affine_to_ground(uv, u0, v0, M, t):
+    """Plate px -> ground metres with a general 2x2 matrix M and shift t (v axis flipped, centred on u0, v0)."""
+    d = np.stack([uv[:, 0] - u0, -(uv[:, 1] - v0)], 1)
+    return d @ np.asarray(M).T + np.asarray(t)
+
+
+def sim_matrix(s, rot):
+    c, sn = math.cos(rot), math.sin(rot)
+    return np.array([[s * c, -s * sn], [s * sn, s * c]])
+
+
 def main(path):
     site = json.load(open(path))
     plate = site["plate"]
@@ -126,6 +137,104 @@ def main(path):
               "shift", round(best[3], 1), round(best[4], 1))
 
     sc, s, rot, tx, ty = best
+    M, t = sim_matrix(s, rot), np.array([tx, ty])
+    M_global, t_global = M.copy(), t.copy()
+
+    def score_affine(M, t, P, N):
+        en = affine_to_ground(P, u0, v0, M, t)
+        n = np.stack([N[:, 0], -N[:, 1]], 1) @ np.linalg.inv(M)  # normals transform by M^-T
+        n /= np.linalg.norm(n, axis=1, keepdims=True)
+        on, a, b = relief_at(en), relief_at(en + n * side_m), relief_at(en - n * side_m)
+        contrast = on - np.maximum(a, b)
+        good = np.isfinite(contrast)
+        return float(np.median(contrast[good])) if good.mean() >= 0.5 else -9
+
+    warp_ctrl = None
+    if plate.get("model") == "warp":
+        # Rubber-sheet: fit each feature with its own similarity transform (they are surveyed well
+        # individually, but distances and bearings between them drift), then warp the plate image
+        # through all of them with a thin-plate spline.
+        fs = plate.get("feature_search_m", 120.0)
+        src_pts, dst_pts, feats = [], [], []
+        for fi, line in enumerate(plate["walls"]):
+            P, N = sample_walls([line], normals=True)
+            cen = np.array([P[:, 0].mean() - u0, -(P[:, 1].mean() - v0)])
+            # 1) translation only, at the global scale/rotation, fine grid (walls are ~10 m wide)
+            bd, bsc = np.zeros(2), score_affine(M, t, P, N)
+            span, n = fs, int(2 * fs / 6) + 1
+            for _ in range(3):
+                c0 = bd.copy()
+                for dx in np.linspace(-span, span, n):
+                    for dy in np.linspace(-span, span, n):
+                        v = score_affine(M, t + c0 + [dx, dy], P, N)
+                        if v > bsc:
+                            bsc, bd = v, c0 + [dx, dy]
+                span, n = 2 * span / (n - 1), 9
+            # 2) scale and rotation about the feature's own centre, with small shifts
+            fm_s, fm_r, fm_d = 1.0, 0.0, bd
+            gcen = M @ cen + t
+            for sspan, rspan, dspan in [(0.12, math.radians(5), 12.0), (0.04, math.radians(1.5), 4.0), (0.012, math.radians(0.5), 1.5)]:
+                b0 = (fm_s, fm_r, fm_d.copy())
+                for ks in np.linspace(b0[0] * (1 - sspan), b0[0] * (1 + sspan), 7):
+                    for kr in np.linspace(b0[1] - rspan, b0[1] + rspan, 7):
+                        Mi = sim_matrix(ks, kr) @ M
+                        for dx in np.linspace(-dspan, dspan, 5):
+                            for dy in np.linspace(-dspan, dspan, 5):
+                                d = b0[2] + [dx, dy]
+                                ti = gcen + d - Mi @ cen
+                                v = score_affine(Mi, ti, P, N)
+                                if v > bsc:
+                                    bsc, fm_s, fm_r, fm_d = v, ks, kr, d
+            Mi = sim_matrix(fm_s, fm_r) @ M
+            ti = gcen + fm_d - Mi @ cen
+            ok = bsc > plate.get("feature_min_m", 0.05)
+            feats.append({"moved_m": round(float(np.hypot(*fm_d)), 1), "scale": round(fm_s, 3),
+                          "rot_deg": round(math.degrees(fm_r), 2), "contrast_m": round(bsc, 3), "used": bool(ok)})
+            print("  feature %d: moved %.0f m, scale %.3f, rot %+.1f deg, contrast %.3f m%s" % (
+                fi, np.hypot(*fm_d), fm_s, math.degrees(fm_r), bsc, "" if ok else "  (not found, ignored)"))
+            if ok:
+                idx = np.linspace(0, len(P) - 1, min(40, len(P))).astype(int)
+                src_pts.append(P[idx])
+                dst_pts.append(affine_to_ground(P[idx], u0, v0, Mi, ti))
+        if src_pts:
+            warp_ctrl = (np.concatenate(src_pts), np.concatenate(dst_pts))
+            plate["features"] = feats
+            sc = float(np.median([f["contrast_m"] for f in feats if f["used"]]))
+
+    if plate.get("model") == "features" and len(plate["walls"]) >= 2:
+        # Long plates drift: each feature is surveyed well on its own, but bearings between distant
+        # features can be off by several degrees. Locate every feature separately, then solve one
+        # affine (3+ features) or similarity (2) transform through the located centres.
+        src, dst, fs = [], [], plate.get("feature_search_m", 60.0)
+        for line in plate["walls"]:
+            P, N = sample_walls([line], normals=True)
+            bd, bsc = np.zeros(2), score_affine(M, t, P, N)
+            # walls are ~10 m wide, so the first pass must step finer than that or it jumps over them
+            span, n = fs, int(2 * fs / 6) + 1
+            for _ in range(3):
+                c0 = bd.copy()
+                for dx in np.linspace(-span, span, n):
+                    for dy in np.linspace(-span, span, n):
+                        v = score_affine(M, t + c0 + [dx, dy], P, N)
+                        if v > bsc:
+                            bsc, bd = v, c0 + [dx, dy]
+                span, n = 2 * span / (n - 1), 9
+            cen = np.array([P[:, 0].mean() - u0, -(P[:, 1].mean() - v0)])
+            src.append(cen)
+            dst.append(M @ cen + t + bd)
+            print("  feature moved %.0f m, contrast %.3f m" % (np.hypot(*bd), bsc))
+        src, dst = np.array(src), np.array(dst)
+        if len(src) >= 3:
+            A = np.hstack([src, np.ones((len(src), 1))])
+            sol, *_ = np.linalg.lstsq(A, dst, rcond=None)
+            M, t = sol[:2].T, sol[2]
+        else:
+            wv, zv = src[:, 0] + 1j * src[:, 1], dst[:, 0] + 1j * dst[:, 1]
+            a = (zv[1] - zv[0]) / (wv[1] - wv[0])
+            b = zv[0] - a * wv[0]
+            M, t = sim_matrix(abs(a), float(np.angle(a))), np.array([b.real, b.imag])
+        sc = score_affine(M, t, pts, nrm)
+        print("  per-feature transform: contrast %.3f m" % sc)
     # null check: how does a random placement of the same wall shape score?
     rng = np.random.default_rng(0)
     null = [score(s, rng.uniform(-math.pi, math.pi), rng.uniform(-site["width_m"] / 3, site["width_m"] / 3),
@@ -137,11 +246,21 @@ def main(path):
     k = 1 / aw.ground_scale(site["lat"])
     corners = []
     for u, v in [(0, 0), (W, 0), (W, H), (0, H)]:
-        e, n = plate_to_ground(np.array([[u, v]], float), u0, v0, s, rot, tx, ty)[0]
+        e, n = affine_to_ground(np.array([[u, v]], float), u0, v0, M, t)[0]
         corners.append(list(aw.to_lonlat(cx + e * k, cy + n * k)))
     plate["corners"] = corners
-    plate["fit"] = {"m_per_px": round(s, 4), "rot_deg": round(math.degrees(rot), 2), "tx": round(tx, 1),
-                    "ty": round(ty, 1), "ridge_contrast_m": round(sc, 3),
+    plate.pop("warp", None)
+    if warp_ctrl is not None:
+        # anchors: the plate's frame follows the global fit, so the sheet stays sane away from features
+        fr = np.array([[x, y] for x in np.linspace(0, W, 5) for y in np.linspace(0, H, 5)
+                       if x in (0, W) or y in (0, H)], float)
+        src = np.concatenate([warp_ctrl[0], fr])
+        dst = np.concatenate([warp_ctrl[1], affine_to_ground(fr, u0, v0, M_global, t_global)])
+        plate["warp"] = {"src_px": np.round(src, 1).tolist(), "dst_m": np.round(dst, 2).tolist()}
+    plate["fit"] = {"m_per_px": round(float(math.sqrt(abs(np.linalg.det(M)))), 4),
+                    "rot_deg": round(math.degrees(math.atan2(M[1, 0], M[0, 0])), 2),
+                    "affine": [round(float(v), 5) for v in (*M.ravel(), *t)], "u0v0": [round(u0, 2), round(v0, 2)],
+                    "ridge_contrast_m": round(sc, 3),
                     "null_mean_m": round(float(null.mean()), 3), "null_p99_m": round(float(np.percentile(null, 99)), 3)}
     print("fit", plate["fit"])
     json.dump(site, open(path, "w"), indent=1)

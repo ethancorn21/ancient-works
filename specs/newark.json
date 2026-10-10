@@ -1,0 +1,134 @@
+{
+ "id": "newark",
+ "name": "Newark Works",
+ "aka": "Newark Earthworks",
+ "place": "Licking County, Ohio",
+ "lon": -82.4365,
+ "lat": 40.047,
+ "width_m": 4400,
+ "height_m": 3800,
+ "px_m": 1.1,
+ "status": "urban",
+ "summary": "The largest set of geometric earthworks known: an octagon joined to a circle, a 1200 ft great circle, a square and miles of parallel walls. Most of it now lies under the city of Newark. The Octagon and the Great Circle survive.",
+ "notes": [
+  "Only the Octagon with its attached circle and the Great Circle still stand; the plate's square, parallel walls and small circles lie under streets and houses.",
+  "The overlay is rubber-sheeted: each surviving feature is fitted to its LiDAR walls on its own, because the plate's bearing from the Octagon to the Great Circle is about 7 degrees off.",
+  "The Great Circle walls stand over a metre above the ground beside them, the highest of any site here."
+ ],
+ "plate": {
+  "leaf": "data/plates/sd_n161.jpg",
+  "crop": [
+   450,
+   330,
+   2700,
+   3480
+  ],
+  "label": "Plate XXV",
+  "blank": [
+   [
+    1650,
+    2400,
+    2700,
+    3480
+   ],
+   [
+    1880,
+    2150,
+    2700,
+    2400
+   ],
+   [
+    2250,
+    330,
+    2700,
+    1450
+   ],
+   [
+    2600,
+    1450,
+    2700,
+    3480
+   ]
+  ],
+  "source": "Squier & Davis 1848, Plate XXV (surveyed by Charles Whittlesey, E. G. Squier and E. H. Davis, 1836-47). Scan: Internet Archive ancientmonuments00squi leaf n161.",
+  "m_per_px": 1.07,
+  "rot_max_deg": 6,
+  "search_m": 120,
+  "control": [
+   [
+    944,
+    2959,
+    1400,
+    945
+   ],
+   [
+    1199,
+    3290,
+    1055,
+    1211
+   ],
+   [
+    2178,
+    1837,
+    2418,
+    2327
+   ]
+  ],
+  "walls": [
+   [
+    [
+     815,
+     2789
+    ],
+    [
+     968,
+     2723
+    ],
+    [
+     1099,
+     2825
+    ],
+    [
+     1187,
+     2987
+    ],
+    [
+     1086,
+     3122
+    ],
+    [
+     900,
+     3214
+    ],
+    [
+     787,
+     3084
+    ],
+    [
+     713,
+     2926
+    ],
+    [
+     815,
+     2789
+    ]
+   ],
+   {
+    "circle": [
+     1199,
+     3290,
+     147
+    ]
+   },
+   {
+    "circle": [
+     2178,
+     1837,
+     176
+    ]
+   }
+  ],
+  "model": "warp",
+  "feature_search_m": 180
+ }
+}

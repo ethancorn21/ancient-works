@@ -65,8 +65,19 @@ def _get(url, params, tries=4):
             time.sleep(5 * (i + 1))
 
 
-def fetch_dem(bbox, w, h):
-    """Bare-earth DEM (metres, float32) for a Mercator bbox at w x h pixels."""
+def fetch_dem(bbox, w, h, tile=2000):
+    """Bare-earth DEM (metres) for a Mercator bbox at w x h pixels; big requests are fetched in tiles
+    because the service answers 500 on very large exports."""
+    if w > tile or h > tile:
+        out = np.full((h, w), np.nan)
+        x0, y0, x1, y1 = bbox
+        sx, sy = (x1 - x0) / w, (y1 - y0) / h
+        for r0 in range(0, h, tile):
+            for c0 in range(0, w, tile):
+                r1, c1 = min(h, r0 + tile), min(w, c0 + tile)
+                sub = (x0 + c0 * sx, y1 - r1 * sy, x0 + c1 * sx, y1 - r0 * sy)
+                out[r0:r1, c0:c1] = fetch_dem(sub, c1 - c0, r1 - r0, tile)
+        return out
     body = _get(DEM_URL, {
         "bbox": ",".join(f"{v:.3f}" for v in bbox), "bboxSR": 3857, "imageSR": 3857,
         "size": f"{w},{h}", "format": "tiff", "pixelType": "F32",

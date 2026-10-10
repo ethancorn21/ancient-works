@@ -58,11 +58,14 @@
      1932
     ]
    ]
-  ]
+  ],
+  "model": "warp",
+  "feature_search_m": 80,
+  "warp_smoothing": 30000
  },
  "notes": [
   "The circle and the square both show as low rises in the relief. The circle is about 300 m across, close to the plate's 1050 ft (320 m).",
-  "The plate draws the square about 15% smaller than its own 900 ft label, so no single rotation and scale fits both shapes. The fit follows the circle; the real square extends past the drawn one to the south and west.",
+  "The plate draws the square about 15% smaller than its own 900 ft label. The overlay is rubber-sheeted so that the circle and the square each sit on their LiDAR walls.",
   "The plate is rotated about 34 degrees from page-up to true north."
  ]
 }

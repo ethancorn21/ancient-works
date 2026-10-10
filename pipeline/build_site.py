@@ -18,15 +18,48 @@ WEB = os.path.join(ROOT, "web", "data")
 INK = (255, 196, 92)  # warm gold reads on both grey relief and colour imagery
 
 
-def plate_ink(scan):
-    """Plate scan -> RGBA where alpha follows ink darkness and paper turns transparent."""
+def plate_ink(scan, inside=None):
+    """Plate scan -> RGBA where alpha follows ink darkness and paper turns transparent.
+    `inside` limits the paper/ink tone estimate to the plate itself (a warped sheet has blank margins)."""
     g = np.asarray(scan.convert("L"), dtype=np.float64)
-    paper, ink = np.percentile(g, 85), np.percentile(g, 2)
+    sample = g if inside is None else g[inside]
+    paper, ink = np.percentile(sample, 85), np.percentile(sample, 2)
     # paper grain and the engraver's faint ground shading sit just below paper tone; drop them
     a = np.clip((paper - g) / max(paper - ink, 1) * 1.35 - 0.18, 0, 1) ** 0.9
     out = np.zeros(g.shape + (4,), np.uint8)
     out[..., :3] = INK
     out[..., 3] = (a * 255).astype(np.uint8)
+    return Image.fromarray(out, "RGBA")
+
+
+def warp_plate(scan, warp, site, max_px=2400):
+    """Rubber-sheet the plate onto the site grid with a thin-plate spline (ground metres -> plate px).
+
+    Returns an RGBA image covering the site bbox exactly; alpha is 0 outside the plate."""
+    from scipy.interpolate import RBFInterpolator
+    from scipy.ndimage import map_coordinates, zoom
+    W_m, H_m = site["width_m"], site["height_m"]
+    opx = max(site.get("px_m", 1.0), max(W_m, H_m) / max_px)
+    ow, oh = int(round(W_m / opx)), int(round(H_m / opx))
+    # fit in metres on both sides so the smoothing (m^2) means the same thing on fine and coarse plates
+    k = site["plate"]["fit"]["m_per_px"]
+    tps_m = RBFInterpolator(np.array(warp["dst_m"]), np.array(warp["src_px"]) * k, kernel="thin_plate_spline",
+                            smoothing=site["plate"].get("warp_smoothing", 2000.0))
+    tps = lambda q: tps_m(q) / k
+    step = 16
+    cols, rows = np.arange(0, ow + step, step), np.arange(0, oh + step, step)
+    E = (cols + 0.5) * opx - W_m / 2
+    N = H_m / 2 - (rows + 0.5) * opx
+    EE, NN = np.meshgrid(E, N)
+    uv = tps(np.stack([EE.ravel(), NN.ravel()], 1)).reshape(len(rows), len(cols), 2)
+    U = zoom(uv[..., 0], step, order=1)[:oh, :ow]
+    V = zoom(uv[..., 1], step, order=1)[:oh, :ow]
+    rgb = np.asarray(scan.convert("RGB"), dtype=np.float32)
+    out = np.zeros((oh, ow, 4), np.uint8)
+    for c in range(3):
+        out[..., c] = np.clip(map_coordinates(rgb[..., c], [V, U], order=1, cval=255), 0, 255)
+    inside = (U >= 0) & (U < scan.width - 1) & (V >= 0) & (V < scan.height - 1)
+    out[..., 3] = inside * 255
     return Image.fromarray(out, "RGBA")
 
 
@@ -65,9 +98,23 @@ def main(path, refresh_imagery=False):
     if "plate" in site and "corners" in site["plate"]:
         p = site["plate"]
         scan = Image.open(os.path.join(sdir, p["image"])).convert("RGB")
-        plate_ink(scan).save(os.path.join(out, "plate_ink.png"), optimize=True)
-        scan.save(os.path.join(out, "plate_paper.jpg"), quality=82, optimize=True)
-        entry["plate"] = {"corners": p["corners"], "source": p["source"], "fit": p.get("fit"),
+        for f in ("plate_ink.png", "plate_paper.jpg", "plate_ink.webp", "plate_paper.webp"):
+            if os.path.exists(os.path.join(out, f)):
+                os.remove(os.path.join(out, f))
+        if p.get("warp"):
+            sheet = warp_plate(scan, p["warp"], site)
+            ink = plate_ink(sheet.convert("RGB"), inside=np.asarray(sheet)[..., 3] > 0)
+            a = np.minimum(np.asarray(ink)[..., 3], np.asarray(sheet)[..., 3])
+            ink = Image.fromarray(np.dstack([np.asarray(ink)[..., :3], a]), "RGBA")
+            ink.save(os.path.join(out, "plate_ink.webp"), quality=85, method=6)
+            sheet.save(os.path.join(out, "plate_paper.webp"), quality=78, method=6)
+            files, corners = ("plate_ink.webp", "plate_paper.webp"), entry["corners"]
+        else:
+            plate_ink(scan).save(os.path.join(out, "plate_ink.png"), optimize=True)
+            scan.save(os.path.join(out, "plate_paper.jpg"), quality=82, optimize=True)
+            files, corners = ("plate_ink.png", "plate_paper.jpg"), p["corners"]
+        entry["plate"] = {"corners": corners, "ink": files[0], "paper": files[1], "source": p["source"],
+                          "fit": p.get("fit"), "features": p.get("features"), "warped": bool(p.get("warp")),
                           "label": p.get("label", "")}
 
     index_path = os.path.join(WEB, "sites.json")

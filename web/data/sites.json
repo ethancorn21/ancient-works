@@ -81,7 +81,7 @@
    "summary": "A 20-acre circle joined to a 20-acre square, with parallel walls running 2400 ft toward the Scioto. Squier and Davis surveyed it in 1846. It is now part of Hopewell Culture National Historical Park.",
    "notes": [
     "The circle and the square both show as low rises in the relief. The circle is about 300 m across, close to the plate's 1050 ft (320 m).",
-    "The plate draws the square about 15% smaller than its own 900 ft label, so no single rotation and scale fits both shapes. The fit follows the circle; the real square extends past the drawn one to the south and west.",
+    "The plate draws the square about 15% smaller than its own 900 ft label. The overlay is rubber-sheeted so that the circle and the square each sit on their LiDAR walls.",
     "The plate is rotated about 34 degrees from page-up to true north."
    ],
    "corners": [
@@ -110,33 +110,167 @@
    "plate": {
     "corners": [
      [
-      -82.98017623535725,
-      39.39068150751784
+      -82.99054266450185,
+      39.39399257468941
      ],
      [
-      -82.97274867106097,
-      39.386852565478414
+      -82.96729733549817,
+      39.39399257468941
      ],
      [
-      -82.98052305351236,
-      39.37784364227006
+      -82.96729733549817,
+      39.376026269031016
      ],
      [
-      -82.98795061780862,
-      39.38167307857641
+      -82.99054266450185,
+      39.376026269031016
      ]
     ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
     "source": "Squier & Davis 1848, Plate XVII (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n129.",
     "fit": {
      "m_per_px": 0.3939,
      "rot_deg": -33.7,
-     "tx": 17.6,
-     "ty": 6.6,
-     "ridge_contrast_m": 0.051,
+     "affine": [
+      0.32772,
+      0.21859,
+      -0.21859,
+      0.32772,
+      17.63374,
+      6.58436
+     ],
+     "u0v0": [
+      1145.57,
+      1142.35
+     ],
+     "ridge_contrast_m": 0.22,
      "null_mean_m": -0.098,
      "null_p99_m": -0.025
     },
+    "features": [
+     {
+      "moved_m": 12.7,
+      "scale": 1.044,
+      "rot_deg": 0.17,
+      "contrast_m": 0.214,
+      "used": true
+     },
+     {
+      "moved_m": 51.6,
+      "scale": 1.08,
+      "rot_deg": 2.5,
+      "contrast_m": 0.226,
+      "used": true
+     }
+    ],
+    "warped": true,
     "label": "Plate XVII"
+   }
+  },
+  {
+   "id": "newark",
+   "name": "Newark Works",
+   "aka": "Newark Earthworks",
+   "place": "Licking County, Ohio",
+   "lon": -82.4365,
+   "lat": 40.047,
+   "status": "urban",
+   "summary": "The largest set of geometric earthworks known: an octagon joined to a circle, a 1200 ft great circle, a square and miles of parallel walls. Most of it now lies under the city of Newark. The Octagon and the Great Circle survive.",
+   "notes": [
+    "Only the Octagon with its attached circle and the Great Circle still stand; the plate's square, parallel walls and small circles lie under streets and houses.",
+    "The overlay is rubber-sheeted: each surviving feature is fitted to its LiDAR walls on its own, because the plate's bearing from the Octagon to the Great Circle is about 7 degrees off.",
+    "The Great Circle walls stand over a metre above the ground beside them, the highest of any site here."
+   ],
+   "corners": [
+    [
+     -82.46231645964284,
+     40.06406585359703
+    ],
+    [
+     -82.41068354035718,
+     40.06406585359703
+    ],
+    [
+     -82.41068354035718,
+     40.02992987294868
+    ],
+    [
+     -82.46231645964284,
+     40.02992987294868
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "size_m": [
+    4400,
+    3800
+   ],
+   "plate": {
+    "corners": [
+     [
+      -82.46231645964284,
+      40.06406585359703
+     ],
+     [
+      -82.41068354035718,
+      40.06406585359703
+     ],
+     [
+      -82.41068354035718,
+      40.02992987294868
+     ],
+     [
+      -82.46231645964284,
+      40.02992987294868
+     ]
+    ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
+    "source": "Squier & Davis 1848, Plate XXV (surveyed by Charles Whittlesey, E. G. Squier and E. H. Davis, 1836-47). Scan: Internet Archive ancientmonuments00squi leaf n161.",
+    "fit": {
+     "m_per_px": 1.0395,
+     "rot_deg": -95.39,
+     "affine": [
+      -0.0976,
+      1.03488,
+      -1.03488,
+      -0.0976,
+      -356.24721,
+      230.99885
+     ],
+     "u0v0": [
+      941.76,
+      2373.78
+     ],
+     "ridge_contrast_m": 0.963,
+     "null_mean_m": -0.123,
+     "null_p99_m": -0.057
+    },
+    "features": [
+     {
+      "moved_m": 158.4,
+      "scale": 1.026,
+      "rot_deg": 4.67,
+      "contrast_m": 0.363,
+      "used": true
+     },
+     {
+      "moved_m": 119.1,
+      "scale": 1.054,
+      "rot_deg": -2.33,
+      "contrast_m": 0.963,
+      "used": true
+     },
+     {
+      "moved_m": 8.3,
+      "scale": 1.008,
+      "rot_deg": 1.33,
+      "contrast_m": 1.076,
+      "used": true
+     }
+    ],
+    "warped": true,
+    "label": "Plate XXV"
    }
   }
  ]
