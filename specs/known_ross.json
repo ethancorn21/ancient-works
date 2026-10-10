@@ -1,0 +1,9 @@
+[
+ {"name": "Hopeton great circle", "lon": -82.97936, "lat": 39.38669, "r_m": 158, "expected": true, "note": "20-acre circle, plowed but plain in the relief; radius from the fitted plate"},
+ {"name": "High Bank great circle", "lon": -82.9200, "lat": 39.3000, "r_m": 163, "expected": true, "note": "20-acre circle joined to the octagon; radius from the fitted plate"},
+ {"name": "High Bank 250 ft circle", "lon": -82.91692, "lat": 39.30017, "r_m": 40, "expected": true, "note": "small circle NE of the great circle, placed from the fitted plate; may be plowed away"},
+ {"name": "Hopewell Mound Group", "lon": -83.09, "lat": 39.361111, "r_m": 0, "expected": false, "note": "D-shaped great enclosure; not a ring, so a control"},
+ {"name": "Mound City", "lon": -83.004444, "lat": 39.375833, "r_m": 0, "expected": false, "note": "rounded-square wall; not a ring, so a control"},
+ {"name": "Cedar Bank", "lon": -82.976667, "lat": 39.401111, "r_m": 0, "expected": false, "note": "open-sided rectangle; not a ring, so a control"},
+ {"name": "Story Mound", "lon": -82.999444, "lat": 39.341944, "r_m": 0, "expected": false, "note": "single conical mound in town; not a ring, so a control"}
+]

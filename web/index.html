@@ -79,6 +79,37 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .about { display: grid; gap: 7px; font-size: 13.5px; color: var(--ink-2); }
 .about p { margin: 0; }
 
+/* ---------- finder ---------- */
+.known { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; font-size: 13.5px; }
+.known li { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: baseline; }
+.known i { color: var(--ink-2); font-size: 12.5px; grid-column: 1 / -1; margin-top: -3px; }
+.chip { font: 600 10.5px/1 var(--label); letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px 2px; border: 1px solid var(--ink); white-space: nowrap; background: var(--sheet); color: var(--ink); }
+.chip.found, .chip.v-earthwork { background: var(--survey); color: #fff; border-color: var(--survey); }
+.chip.missed { background: var(--ink); color: var(--sheet); }
+.chip.v-natural { background: var(--sage); } .chip.v-modern { background: var(--mauve); } .chip.v-unsure { background: var(--aqua); }
+.chip.todo { color: var(--ink-2); border-style: dashed; }
+.cands { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.cand { display: grid; grid-template-columns: 56px 1fr auto; gap: 9px; align-items: center; width: 100%; text-align: left; padding: 4px; background: none; border: 1px solid transparent; color: inherit; font: inherit; cursor: pointer; }
+.cand:hover { border-color: var(--rule); background: var(--paper); }
+.cand[aria-current="true"] { border-color: var(--ink); background: var(--paper-2); }
+.cand img { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--ink); display: block; background: var(--paper-2); }
+.cand b { display: block; font-size: 14px; line-height: 1.2; }
+.cand small { display: block; font-style: italic; color: var(--ink-2); font-size: 12.5px; line-height: 1.3; }
+.card { display: grid; gap: 9px; padding: 11px 12px; border: 1px solid var(--ink); background: var(--paper); }
+.card .crop { position: relative; border: 1px solid var(--ink); background: var(--paper-2); aspect-ratio: 1; }
+.card .crop img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.card .crop svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.card .stats { margin: 0; font-size: 13px; color: var(--ink-2); font-style: italic; }
+.verdicts { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--ink); }
+.verdicts button { background: var(--sheet); border: 0; padding: 7px 2px; font: 600 11px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.verdicts button + button { border-left: 1px solid var(--ink); }
+.verdicts button[aria-pressed="true"][data-v="earthwork"] { background: var(--survey); color: #fff; }
+.verdicts button[aria-pressed="true"][data-v="natural"] { background: var(--sage); }
+.verdicts button[aria-pressed="true"][data-v="modern"] { background: var(--mauve); }
+.verdicts button[aria-pressed="true"][data-v="unsure"] { background: var(--aqua); }
+.verdicts button:disabled { color: var(--rule); cursor: not-allowed; }
+.marker.scan .sq { background: var(--sheet); border-style: dashed; }
+
 /* ---------- markers ---------- */
 .marker { display: flex; align-items: center; gap: 0; cursor: pointer; background: none; border: 0; padding: 0; }
 .marker .sq { width: 11px; height: 11px; border: 1.5px solid var(--ink); background: var(--survey); }
@@ -278,12 +309,19 @@ function renderList() {
         <span class="swatch ${esc(s.status)}"></span>
         <span><span class="name">${esc(s.name)}</span><span class="desc">${esc(s.place)}. ${esc(STATUS[s.status] || '')}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
       </button></li>`).join('')}</ul>
+    ${F.scans.length ? `<p class="section-title">Finder</p>
+    <ul class="legend-list">${F.scans.map(sc => `
+      <li><button class="entry" data-scan="${esc(sc.name)}">
+        <span class="swatch hatch"></span>
+        <span><span class="name">${esc(sc.label)}</span><span class="desc">${sc.size_km[0]} × ${sc.size_km[1]} km of LiDAR searched for rings; ${sc.n_shown} strongest of ${sc.n_total} candidates to review${reviewedCount(sc.name) ? `, ${reviewedCount(sc.name)} reviewed` : ''}.</span></span>
+      </button></li>`).join('')}</ul>` : ''}
     <div class="about">
       <p>Each site pairs a survey plate from Squier &amp; Davis, <i>Ancient Monuments of the Mississippi Valley</i> (1848), with USGS LiDAR. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
       <p>Plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
       <p>Private page. Some of these sites are address-restricted in the National Register; keep the link private.</p>
     </div>`;
-  $('#body').querySelectorAll('.entry').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+  $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
+  $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
 }
 function renderSite(s) {
   const f = s.plate && s.plate.fit;
@@ -377,7 +415,7 @@ function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAl
 function select(id) {
   const s = S.byId[id]; if (!s) return;
   if (B.open && B.site !== s) closeBlock();
-  S.sel = id; ensureSite(s); renderSite(s);
+  S.sel = id; F.sel = null; F.cand = null; ensureSite(s); renderSite(s);
   if (narrow()) $('#panel').classList.remove('collapsed');
   const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
   const span = Math.max(...s.size_m);
@@ -385,6 +423,164 @@ function select(id) {
   try { history.replaceState(null, '', '#' + id); } catch {}
 }
 $('#grab').onclick = () => $('#panel').classList.toggle('collapsed');
+
+/* ---------- finder: scanned areas and their ring candidates ---------- */
+const VERDICT = { earthwork: 'Earthwork', natural: 'Natural', modern: 'Modern', unsure: 'Unsure' };
+const VCOLOR = ['match', ['get', 'v'], 'earthwork', '#CE2E4E', 'natural', '#6F8F4A', 'modern', '#8A6A88', 'unsure', '#3E9C9C', '#2B2724'];
+const F = { scans: [], byName: {}, data: {}, sel: null, cand: null, verdicts: {}, filter: 'todo' };
+const reviewedCount = name => Object.values(F.verdicts).filter(v => v.scan === name).length;
+function ringCoords(c, r_m = c.r_m, n = 56) {
+  const k = 1 / Math.cos(c.lat * Math.PI / 180), [x, y] = merc([c.lon, c.lat]), pts = [];
+  for (let i = 0; i <= n; i++) { const t = i / n * 2 * Math.PI; pts.push(unmerc([x + Math.cos(t) * r_m * k, y + Math.sin(t) * r_m * k])); }
+  return pts;
+}
+function candFeatures(name) {
+  const d = F.data[name], feats = [];
+  for (const c of d.candidates) {
+    const v = (F.verdicts[c.id] || {}).v || 'todo';
+    feats.push({ type: 'Feature', properties: { id: c.id, v, kind: 'dot' }, geometry: { type: 'Point', coordinates: [c.lon, c.lat] } });
+    feats.push({ type: 'Feature', properties: { id: c.id, v, kind: 'ring' }, geometry: { type: 'LineString', coordinates: ringCoords(c) } });
+  }
+  return { type: 'FeatureCollection', features: feats };
+}
+function addScanAreas() {
+  map.addSource('scan-areas', { type: 'geojson', data: { type: 'FeatureCollection', features: F.scans.map(sc => {
+    const [x0, y0, x1, y1] = sc.area;
+    return { type: 'Feature', properties: { name: sc.name }, geometry: { type: 'LineString', coordinates: [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]] } };
+  }) } });
+  map.addLayer({ id: 'scan-areas', type: 'line', source: 'scan-areas', paint: { 'line-color': '#2B2724', 'line-width': 1.2, 'line-dasharray': [4, 3] } });
+  for (const sc of F.scans) {
+    const el = document.createElement('button');
+    el.className = 'marker scan'; el.type = 'button'; el.setAttribute('aria-label', `Open ${sc.label}`);
+    el.innerHTML = `<span class="sq"></span><span class="tag">${esc(sc.label)}</span>`;
+    el.addEventListener('click', e => { e.stopPropagation(); selectScan(sc.name); });
+    const [x0, , , y1] = sc.area;
+    markers.push({ el, m: new maplibregl.Marker({ element: el, anchor: 'left', offset: [-6, 0] }).setLngLat([x0, y1]).addTo(map) });
+  }
+}
+async function loadScan(name) {
+  if (F.data[name]) return F.data[name];
+  const d = await fetch(`data/scan/${name}/candidates.json`).then(r => r.json());
+  d.byId = {}; d.candidates.forEach(c => d.byId[c.id] = c);
+  F.data[name] = d;
+  map.addSource(`cands-${name}`, { type: 'geojson', data: candFeatures(name) });
+  map.addLayer({ id: `cand-ring-${name}`, type: 'line', source: `cands-${name}`, minzoom: 12.5, filter: ['==', ['get', 'kind'], 'ring'],
+    paint: { 'line-color': VCOLOR, 'line-width': 1.8, 'line-dasharray': ['case', ['==', ['get', 'v'], 'todo'], ['literal', [3, 2]], ['literal', [1, 0]]] } });
+  map.addLayer({ id: `cand-dot-${name}`, type: 'circle', source: `cands-${name}`, maxzoom: 12.5, filter: ['==', ['get', 'kind'], 'dot'],
+    paint: { 'circle-radius': 4, 'circle-color': ['match', ['get', 'v'], 'todo', '#F8F4E8', VCOLOR], 'circle-stroke-color': '#2B2724', 'circle-stroke-width': 1.2 } });
+  for (const id of [`cand-ring-${name}`, `cand-dot-${name}`]) {
+    map.on('click', id, e => { const f = e.features && e.features[0]; if (f) selectCand(name, f.properties.id); });
+    map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
+    map.on('mouseleave', id, () => map.getCanvas().style.cursor = '');
+  }
+  return d;
+}
+function refreshCands(name) { const src = map.getSource(`cands-${name}`); if (src) src.setData(candFeatures(name)); }
+function showCrop(name, c) {
+  const url = `data/scan/${name}/${c.crop}`;
+  const sel = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: ringCoords(c, c.r_m + 12) } }] };
+  if (!map.getSource('cand-crop')) {
+    map.addSource('cand-crop', { type: 'image', url, coordinates: c.corners });
+    map.addLayer({ id: 'cand-crop', type: 'raster', source: 'cand-crop', paint: { 'raster-fade-duration': 0 } }, map.getLayer(`cand-ring-${name}`) ? `cand-ring-${name}` : undefined);
+    map.addSource('cand-sel', { type: 'geojson', data: sel });
+    map.addLayer({ id: 'cand-sel', type: 'line', source: 'cand-sel', paint: { 'line-color': '#2B2724', 'line-width': 1, 'line-opacity': 0.9 } });
+  } else {
+    map.getSource('cand-crop').updateImage({ url, coordinates: c.corners });
+    map.getSource('cand-sel').setData(sel);
+  }
+}
+async function selectScan(name, candId) {
+  const sc = F.byName[name]; if (!sc) return;
+  closeBlock(); S.sel = null; F.sel = name;
+  const d = await loadScan(name);
+  if (candId && d.byId[candId]) return selectCand(name, candId);
+  F.cand = null; renderScan(name);
+  if (narrow()) $('#panel').classList.remove('collapsed');
+  const [x0, y0, x1, y1] = sc.area;
+  map.fitBounds([[x0, y0], [x1, y1]], { padding: narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 400, top: 30, right: 30, bottom: 30 }, duration: 3500 });
+  try { history.replaceState(null, '', '#scan-' + name); } catch {}
+}
+function selectCand(name, id) {
+  const d = F.data[name], c = d && d.byId[id]; if (!c) return;
+  closeBlock(); S.sel = null; F.sel = name; F.cand = id;
+  showCrop(name, c); renderScan(name);
+  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
+  map.flyTo({ center: [c.lon, c.lat], zoom: (narrow() ? 15.3 : 16) - Math.max(0, Math.log2(c.r_m / 60)), duration: 1800, essential: true, padding: pad });
+  try { history.replaceState(null, '', `#scan-${name}/${id}`); } catch {}
+  const row = $(`.cand[data-c="${id}"]`); if (row) row.scrollIntoView({ block: 'nearest' });
+}
+function nextCand(name, step = 1, todoOnly = true) {
+  const list = F.data[name].candidates, i = list.findIndex(c => c.id === F.cand);
+  for (let j = 1; j <= list.length; j++) {
+    const c = list[(i + j * step + list.length * 2) % list.length];
+    if (!todoOnly || !F.verdicts[c.id]) return selectCand(name, c.id);
+  }
+}
+async function setVerdict(name, id, v) {
+  const prev = F.verdicts[id];
+  F.verdicts[id] = { scan: name, v }; refreshCands(name); renderScan(name);
+  try { await S.db.doc(`verdicts/${id}`).set({ scan: name, v, at: new Date().toISOString() }); $('#vsaved').textContent = 'Saved.'; nextCand(name); }
+  catch (e) {
+    if (prev) F.verdicts[id] = prev; else delete F.verdicts[id];
+    refreshCands(name); renderScan(name);
+    $('#vsaved').textContent = e && e.code === 'not_granted' ? 'Saving is off for this view.' : `Could not save (${e && e.code || 'error'}).`;
+  }
+}
+function verdictChip(id) { const v = (F.verdicts[id] || {}).v; return v ? `<span class="chip v-${v}">${VERDICT[v]}</span>` : '<span class="chip todo">To review</span>'; }
+function candLine(c) { return `Ring of ${c.r_m} m radius; stands ${c.ridge_m.toFixed(2)} m above its sides, ${Math.round(c.raised * 100)}% of its length raised`; }
+function renderScan(name) {
+  const sc = F.byName[name], d = F.data[name], c = F.cand && d.byId[F.cand];
+  const known = sc.known.map(k => {
+    const hit = d.candidates.filter(x => x.known === k.name).sort((a, b) => a.rank - b.rank)[0];
+    return `<li><span>${esc(k.name)}</span>${hit ? `<button class="chip found" data-c="${hit.id}">Found · #${hit.rank}</button>` : '<span class="chip missed">Not in list</span>'}<i>${esc(k.note)}</i></li>`;
+  }).join('');
+  const list = d.candidates.filter(x => F.filter === 'all' || (F.filter === 'todo' ? !F.verdicts[x.id] : F.verdicts[x.id]));
+  const done = reviewedCount(name);
+  $('#body').innerHTML = `
+    <button class="back" id="back">← All sites</button>
+    <div><h2 class="site-title">${esc(sc.label)}</h2><p class="site-aka">${sc.size_km[0]} × ${sc.size_km[1]} km · LiDAR at ${sc.px_m} m · rings ${sc.radii_m[0]}–${sc.radii_m[sc.radii_m.length - 1]} m radius</p></div>
+    ${c ? `<div class="card">
+      <p class="section-title">Candidate ${c.rank} of ${d.candidates.length}${c.known ? ` · ${esc(c.known)}` : ''}</p>
+      <div class="crop"><img src="data/scan/${esc(name)}/${esc(c.crop)}" alt="LiDAR relief around candidate ${c.rank}">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="${(c.r_m / (2 * Math.max(150, 3 * c.r_m)) * 100).toFixed(2)}" fill="none" stroke="#CE2E4E" stroke-width="0.5" stroke-dasharray="2 1.5"/></svg></div>
+      <p class="stats">${candLine(c)}. Score ${c.z} (robust z against its 4 km tile).</p>
+      <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-v="${k}" aria-pressed="${(F.verdicts[c.id] || {}).v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
+      <div class="tools"><button id="c-prev">← Previous</button><button id="c-next">Next to review →</button></div>
+      <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need you signed in to claude.ai.'}</p>
+    </div>` : ''}
+    <div class="group">
+      <p class="section-title">Known works in the area</p>
+      <ul class="known">${known}</ul>
+    </div>
+    <div class="group">
+      <p class="section-title">Candidates</p>
+      <div class="seg" role="group" aria-label="Show"><button data-f="todo" aria-pressed="${F.filter === 'todo'}">To review (${d.candidates.length - done})</button><button data-f="all" aria-pressed="${F.filter === 'all'}">All (${d.candidates.length})</button></div>
+      <ul class="cands">${list.map(x => `<li><button class="cand" data-c="${x.id}" aria-current="${x.id === F.cand}">
+        <img src="data/scan/${esc(name)}/${esc(x.crop)}" alt="" loading="lazy">
+        <span><b>#${x.rank}${x.known ? ` · ${esc(x.known)}` : ''}</b><small>${x.r_m} m radius · ${x.ridge_m.toFixed(2)} m · score ${x.z}</small></span>
+        ${verdictChip(x.id)}</button></li>`).join('') || '<li class="status">Nothing left in this list.</li>'}</ul>
+    </div>
+    <div class="about">
+      <p>The scan removes the natural slope from the LiDAR, then asks of every point how far it stands above the ground 20 m to either side. Rings of ${sc.radii_m.length} sizes are passed over that map; a candidate is a ring whose whole length stands out from its 4 km tile, with roads, buildings and water masked.</p>
+      <p>A candidate is a shape, not a find. Meander scars, sinkholes, farm ponds, tracks and old field edges all make rings. The known works above are the check: a ring that the scan cannot find where one is known to exist says how much it misses elsewhere.</p>
+      <p>Private: candidates may mark unrecorded sites. Keep this page and its verdicts to yourself.</p>
+    </div>`;
+  $('#back').onclick = () => { F.sel = null; F.cand = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); try { history.replaceState(null, '', '#'); } catch {} };
+  $('#body').querySelectorAll('[data-c]').forEach(b => b.onclick = () => selectCand(name, b.dataset.c));
+  $('#body').querySelectorAll('[data-f]').forEach(b => b.onclick = () => { F.filter = b.dataset.f; renderScan(name); });
+  if (c) {
+    $('#body').querySelectorAll('[data-v]').forEach(b => b.onclick = () => setVerdict(name, c.id, b.dataset.v));
+    $('#c-prev').onclick = () => nextCand(name, -1, false);
+    $('#c-next').onclick = () => nextCand(name, 1, true);
+  }
+}
+addEventListener('keydown', e => {
+  if (!F.sel || !F.cand || B.open || e.target.closest('input, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+  const v = Object.keys(VERDICT)[+e.key - 1];
+  if (v && S.db) { e.preventDefault(); setVerdict(F.sel, F.cand, v); }
+  else if (e.key === 'j') nextCand(F.sel, 1, false);
+  else if (e.key === 'k') nextCand(F.sel, -1, false);
+});
 
 /* ---------- isometric block diagram ---------- */
 const B = { open: false, site: null, renderer: null, scene: null, camera: null, az: Math.PI * 0.75, el: 0.62, zoom: 1.3, gap: 1, plate: true, dirty: true, raf: 0, radius: 1, center: null };
@@ -557,8 +753,14 @@ function bindControls() {
 async function boot() {
   const data = await fetch('data/sites.json').then(r => r.json());
   S.sites = data.sites; S.sites.forEach(s => S.byId[s.id] = s);
+  F.scans = await fetch('data/scans.json').then(r => r.ok ? r.json() : { scans: [] }).then(d => d.scans).catch(() => []);
+  F.scans.forEach(sc => F.byName[sc.name] = sc);
   addMarkers();
-  const start = () => { const id = location.hash.slice(1); if (S.byId[id]) select(id); else renderList(); };
+  const start = () => {
+    if (F.scans.length) addScanAreas();
+    const id = location.hash.slice(1), m = id.match(/^scan-([\w-]+?)(?:\/(.+))?$/);
+    if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
+  };
   if (map.isStyleLoaded()) start(); else map.once('load', start);
   const claude = window.claude;
   if (claude && claude.use) claude.use('db').then(async db => {
@@ -571,7 +773,14 @@ async function boot() {
         if (snap.exists) { const d = snap.data(); S.align[s.id] = { dx: +d.dx || 0, dy: +d.dy || 0, rot: +d.rot || 0, scale: +d.scale || 1 }; moveplate(s); }
       } catch {}
     }
+    try {
+      const snap = await db.collection('verdicts').get();
+      for (const doc of snap.docs) { const v = doc.data(); if (VERDICT[v.v]) F.verdicts[doc.id] = { scan: v.scan, v: v.v }; }
+      Object.keys(F.data).forEach(refreshCands);
+    } catch {}
     if (S.sel) { renderSite(S.byId[S.sel]); if (B.open) setTab(true); }
+    else if (F.sel) renderScan(F.sel);
+    else renderList();
   });
 }
 boot();

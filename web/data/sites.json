@@ -193,6 +193,101 @@
    }
   },
   {
+   "id": "highbank",
+   "name": "High Bank Works",
+   "aka": "High Banks Works",
+   "place": "Ross County, Ohio",
+   "lon": -82.9188,
+   "lat": 39.299,
+   "status": "plowed",
+   "summary": "A 20-acre circle joined to an 18-acre octagon, with smaller circles and a long avenue of parallel walls running south. Squier and Davis surveyed it in 1846. It is the only other Hopewell circle-and-octagon besides Newark, and is part of Hopewell Culture National Historical Park.",
+   "notes": [
+    "The great circle and the octagon both show as faint low rises in the relief. The fitted plate puts the circle at about 162 m radius, close to the plate's 20 acres.",
+    "The plate is drawn close to true north: the fit turns it under 2 degrees.",
+    "The plate's 'natural bank' along the terrace edge sits roughly 90 m west of the edge in the LiDAR. The walls, not the bank, set the fit.",
+    "A rail embankment runs just northeast of the octagon. Not yet checked here: the small circles and the long avenue to the south."
+   ],
+   "corners": [
+    [
+     -82.93040837134589,
+     39.30977895341229
+    ],
+    [
+     -82.90719162865413,
+     39.30977895341229
+    ],
+    [
+     -82.90719162865413,
+     39.288219386635404
+    ],
+    [
+     -82.93040837134589,
+     39.288219386635404
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 427,
+    "h": 512,
+    "zmin": 179.16,
+    "zmax": 206.4,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2000,
+    2400
+   ],
+   "plate": {
+    "corners": [
+     [
+      -82.93040837134589,
+      39.30977895341229
+     ],
+     [
+      -82.90719162865413,
+      39.30977895341229
+     ],
+     [
+      -82.90719162865413,
+      39.288219386635404
+     ],
+     [
+      -82.93040837134589,
+      39.288219386635404
+     ]
+    ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
+    "source": "Squier & Davis 1848, Plate XVI (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n126.",
+    "fit": {
+     "m_per_px": 0.4446,
+     "rot_deg": -1.73,
+     "affine": [
+      0.44436,
+      0.01341,
+      -0.01341,
+      0.44436,
+      6.91358,
+      -31.93416
+     ],
+     "u0v0": [
+      1440.31,
+      888.14
+     ],
+     "ridge_contrast_m": 0.135,
+     "model": "similarity",
+     "control_resid_m": null,
+     "null_mean_m": -0.101,
+     "null_p99_m": -0.042
+    },
+    "features": null,
+    "warped": false,
+    "label": "Plate XVI"
+   }
+  },
+  {
    "id": "hopeton",
    "name": "Hopeton Works",
    "aka": "Hopeton Earthworks",

@@ -1,0 +1,153 @@
+{
+ "id": "highbank",
+ "name": "High Bank Works",
+ "aka": "High Banks Works",
+ "place": "Ross County, Ohio",
+ "lon": -82.9188,
+ "lat": 39.299,
+ "width_m": 2000,
+ "height_m": 2400,
+ "px_m": 1.0,
+ "status": "plowed",
+ "summary": "A 20-acre circle joined to an 18-acre octagon, with smaller circles and a long avenue of parallel walls running south. Squier and Davis surveyed it in 1846. It is the only other Hopewell circle-and-octagon besides Newark, and is part of Hopewell Culture National Historical Park.",
+ "notes": [
+  "The great circle and the octagon both show as faint low rises in the relief. The fitted plate puts the circle at about 162 m radius, close to the plate's 20 acres.",
+  "The plate is drawn close to true north: the fit turns it under 2 degrees.",
+  "The plate's 'natural bank' along the terrace edge sits roughly 90 m west of the edge in the LiDAR. The walls, not the bank, set the fit.",
+  "A rail embankment runs just northeast of the octagon. Not yet checked here: the small circles and the long avenue to the south."
+ ],
+ "plate": {
+  "leaf": "data/plates/sd_n126.jpg",
+  "crop": [
+   140,
+   340,
+   2490,
+   3660
+  ],
+  "label": "Plate XVI",
+  "source": "Squier & Davis 1848, Plate XVI (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n126.",
+  "blank": [
+   [
+    1660,
+    340,
+    2490,
+    660
+   ],
+   [
+    170,
+    1270,
+    540,
+    2130
+   ],
+   [
+    1620,
+    3120,
+    2490,
+    3540
+   ],
+   [
+    960,
+    3550,
+    1320,
+    3660
+   ],
+   [
+    2180,
+    3590,
+    2490,
+    3660
+   ]
+  ],
+  "walls": [
+   {
+    "circle": [
+     1359,
+     978,
+     366
+    ]
+   },
+   [
+    [
+     1658,
+     1256
+    ],
+    [
+     1844,
+     1137
+    ]
+   ],
+   [
+    [
+     1888,
+     1143
+    ],
+    [
+     2068,
+     1300
+    ]
+   ],
+   [
+    [
+     2099,
+     1333
+    ],
+    [
+     2214,
+     1525
+    ]
+   ],
+   [
+    [
+     2211,
+     1576
+    ],
+    [
+     2058,
+     1736
+    ]
+   ],
+   [
+    [
+     2029,
+     1763
+    ],
+    [
+     1804,
+     1882
+    ],
+    [
+     1767,
+     1864
+    ]
+   ],
+   [
+    [
+     1753,
+     1850
+    ],
+    [
+     1469,
+     1511
+    ]
+   ],
+   [
+    [
+     1465,
+     1470
+    ],
+    [
+     1593,
+     1293
+    ]
+   ]
+  ],
+  "m_per_px": 0.44,
+  "guess": {
+   "rot_deg": 0,
+   "tx": 0,
+   "ty": 0
+  },
+  "rot_max_deg": 8,
+  "search_m": 160
+ }
+}
