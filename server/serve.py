@@ -22,6 +22,7 @@ Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv pytho
                                           service is failing. DEMs and PNGs are cached in data/tilecache/.
 Old book pages for the plate-fitting tool:
   GET    /books/<ia>/n<N>.jpg           -> data/raw/books/<ia>/full/n<N>.jpg (pipeline/books.py full)
+  GET    /media/commons/<site>/<h>.jpg  -> data/raw/commons/<site>/<h>.jpg (pipeline/commons.py thumbs)
 The rest is stdlib only, so the system python3 still runs the site; tiles then answer 404.
 """
 import argparse
@@ -42,6 +43,7 @@ DB = os.path.join(ROOT, "data", "db")
 SEG = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_.\-]{0,199}$")
 TILE = re.compile(r"^/tiles/relief/(\d{1,2})/(\d{1,6})/(\d{1,6})\.webp$")
 BOOK = re.compile(r"^/books/([A-Za-z0-9_.\-]{1,80})/(n\d{1,5}\.jpg)$")  # old book pages for the plate-fitting tool
+COMMONS = re.compile(r"^/media/commons/([a-z0-9_\-]{1,120})/([0-9a-f]{16}\.jpg)$")  # Commons thumbnails (pipeline/commons.py)
 RELIEF = None  # the relief_tiles module, when numpy & co. are importable (see main)
 MAX_BODY = 1 << 20
 
@@ -79,7 +81,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self.api("GET")
         if self.path.startswith("/tiles/"):
             return self.tile()
-        if self.path.startswith("/books/"):
+        if self.path.startswith("/books/") or self.path.startswith("/media/commons/"):
             return self.book_page()
         super().do_GET()
 
@@ -100,8 +102,12 @@ class Handler(SimpleHTTPRequestHandler):
 
     # ---- old book pages (data/raw/books/<ia>/full/n<N>.jpg, downloaded by pipeline/books.py full) ----
     def book_page(self):
-        m = BOOK.match(self.path.split("?")[0])
+        p = self.path.split("?")[0]
+        m = BOOK.match(p)
         path = m and os.path.join(ROOT, "data", "raw", "books", m.group(1), "full", m.group(2))
+        if not m:
+            m = COMMONS.match(p)
+            path = m and os.path.join(ROOT, "data", "raw", "commons", m.group(1), m.group(2))
         if not path or ".." in m.group(1) or not os.path.isfile(path):
             return self.send_error(HTTPStatus.NOT_FOUND)
         with open(path, "rb") as f:

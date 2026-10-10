@@ -95,6 +95,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
 .links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
 .links a { color: var(--survey); }
+details.plain summary { cursor: pointer; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 6px 0 4px; }
 /* plate-fitting tool: an old book page beside the map, matching points clicked on both */
 .fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: 398px; width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
 .fitpane canvas { flex: 1; width: 100%; min-height: 0; cursor: crosshair; touch-action: none; background: var(--paper); display: block; }
@@ -579,16 +580,22 @@ function finderHome() {
       <p>Candidates stay on this Mac; they are never pushed to GitHub.</p>
     </div>`;
 }
+// Ethan 2026-10-10: plain survey sheets (USGS topos, OS, Cassini) only show roads and fields around a site; what is
+// worth seeing is a drawing of the work itself over today's ground. Drawings first, plain sheets folded away.
+const DRAWING = new Set(['plan', 'drawing', 'view']);
 function depGroup(s) {
   const list = S.dep[s.id] || [];
   if (!list.length) return '';
   const d = list.find(x => x.file === S.depSel[s.id]);
+  const draw = list.filter(x => DRAWING.has(x.kind)), plain = list.filter(x => !DRAWING.has(x.kind));
+  const btn = x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}</button>`;
   return `
     <div class="group">
-      <p class="section-title">Old maps and aerials</p>
-      <div class="deps" role="group" aria-label="Old map or aerial photograph">
+      <p class="section-title">${draw.length ? 'Old drawings of the site' : 'Old maps and aerials'}</p>
+      <div class="deps" role="group" aria-label="Old drawing, map or aerial photograph">
         <button data-dep="" aria-pressed="${!d}">None</button>
-        ${list.map(x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}</button>`).join('')}
+        ${draw.map(btn).join('')}
+        ${draw.length && plain.length ? `</div><details class="plain" ${d && !DRAWING.has(d.kind) ? 'open' : ''}><summary>Plain survey maps and aerials (${plain.length})</summary><div class="deps">${plain.map(btn).join('')}</div></details><div>` : plain.map(btn).join('')}
       </div>
       ${d && d.ink ? `<div class="seg" role="group" aria-label="Map style">
         <button id="d-ink" aria-pressed="${S.depMode === 'ink'}">Ink lines</button>
@@ -716,7 +723,7 @@ $('#grab').onclick = () => $('#panel').classList.toggle('collapsed');
 // which is conformal, so it is a similarity on the ground too. Saved to db platefits/<site>.<plan>; the server then
 // runs pipeline/plan_fit.py, which solves the same fit and writes the overlay into the site's depictions.json.
 const P = { rows: [], byId: {}, bySite: {}, active: false, site: null, plan: null, img: null, crop: null, pairs: [], pending: null,
-  view: { x: 0, y: 0, k: 1 }, cropMode: false, cropA: null, marks: [], q: '', inkUrl: null, op: 0.85, fit: null };
+  view: { x: 0, y: 0, k: 1 }, cropMode: false, cropA: null, marks: [], q: '', inkUrl: null, ink: null, op: 0.85, fit: null, model: 'plan' };
 async function loadPlans() {
   try {
     const d = await fetch('data/plans.json').then(r => r.json());
@@ -767,29 +774,35 @@ function renderFit() {
   const step = P.cropMode ? 'Click two opposite corners of the plan drawing on the page.'
     : P.pending ? `Point ${n + 1}: now click the same spot on the map.`
     : !n && P.img && P.crop[0] === 0 && P.crop[1] === 0 && P.crop[2] === P.img.naturalWidth ? 'First, press “Crop to the plan” under the page and click two corners around the drawing, so the page title and border stay off the map. Then click a spot on the plan you can also find on the LiDAR.'
-    : n < 2 ? `Point ${n + 1}: click a spot on the plan you can also find on the LiDAR: a wall corner, a gateway, a mound, a stream bend.`
+    : n < need() ? `Point ${n + 1} of at least ${need()}: click a spot on the picture you can also find on the LiDAR: a wall corner, a gateway, a mound, a stream bend.${P.model === 'view' ? ' For a view, spread the points out and keep them on the ground (not on tower tops).' : ''}`
     : 'Add more points to check the fit, drag a red marker on the map to correct it, or save.';
   $('#body').innerHTML = `
     <button class="back" id="fitback">← ${esc(s.name)}</button>
     <div><h2 class="site-title">${esc(P.plan.title || 'Old plan')}</h2><p class="site-aka">${esc([P.plan.book, P.plan.label].filter(Boolean).join(' · '))}</p></div>
+    <div class="seg" role="group" aria-label="How the picture was drawn">
+      <button id="m-plan" aria-pressed="${P.model === 'plan'}">Plan, drawn from above</button>
+      <button id="m-view" aria-pressed="${P.model === 'view'}">View, drawn at an angle</button>
+    </div>
     <p class="step">${step}</p>
     ${n ? `<ol class="pairs">${P.pairs.map((p, i) => `<li>${f ? `<span class="${f.resid[i] > 15 ? 'bad' : ''}">off by ${f.resid[i].toFixed(1)} m</span>` : 'pinned'}</li>`).join('')}</ol>` : ''}
-    ${f ? `<p class="fit">Scale ${f.mpx.toFixed(2)} m per page pixel, turned ${f.rot > 0 ? '+' : ''}${f.rot.toFixed(1)}°. ${n >= 3 ? `With ${n} points one rotation and scale fits all within ${Math.ceil(Math.max(...f.resid))} m.` : 'Two points always fit exactly; a third shows whether the plan is true.'}</p>
+    ${f ? `<p class="fit">${P.model === 'view' ? `Perspective fit through ${n} points${n > 4 ? `; all within ${Math.ceil(Math.max(...f.resid))} m` : '; four points always fit exactly, a fifth shows whether the view is true'}.` : `Scale ${f.mpx.toFixed(2)} m per page pixel, turned ${f.rot > 0 ? '+' : ''}${f.rot.toFixed(1)}°. ${n >= 3 ? `With ${n} points one rotation and scale fits all within ${Math.ceil(Math.max(...f.resid))} m.` : 'Two points always fit exactly; a third shows whether the plan is true.'}`}</p>
     <div class="row"><label for="fop">Opacity</label><input id="fop" type="range" min="0" max="100" value="${Math.round(P.op * 100)}"><span class="val" id="fopv">${Math.round(P.op * 100)}%</span></div>` : ''}
     <div class="tools">
       <button id="fundo" ${n || P.pending ? '' : 'disabled'}>Undo point</button>
       <button id="fclear" ${n ? '' : 'disabled'}>Clear</button>
       <button id="fother">Another plan</button>
     </div>
-    <div class="tools"><button class="primary" id="fsave" ${n >= 3 ? '' : 'disabled'}>Save on the map</button><button id="fcancel">Cancel</button></div>
-    <p class="status" id="fitst">${n < 3 ? 'Saving needs at least 3 points.' : ''}</p>
-    <p class="source">${esc(P.plan.cite)}${P.plan.cite ? '. ' : ''}Scan: Internet Archive ${esc(P.plan.ia)}.</p>`;
+    <div class="tools"><button class="primary" id="fsave" ${n >= need() + 1 ? '' : 'disabled'}>Save on the map</button><button id="fcancel">Cancel</button></div>
+    <p class="status" id="fitst">${n < need() + 1 ? `Saving needs at least ${need() + 1} points.` : ''}</p>
+    <p class="source">${P.plan.ia ? `${esc(P.plan.cite)}${P.plan.cite ? '. ' : ''}Scan: Internet Archive ${esc(P.plan.ia)}.` : `Wikimedia Commons, ${esc(P.plan.cite)}`}</p>`;
   $('#fitback').onclick = () => endFit();
   $('#fcancel').onclick = () => endFit();
   $('#fother').onclick = () => { endFit(false); startFit(s); };
   $('#fundo').onclick = () => { if (P.pending) P.pending = null; else { P.pairs.pop(); P.marks.pop()?.remove(); } refit(); };
   $('#fclear').onclick = () => { P.pairs = []; P.pending = null; P.marks.forEach(m => m.remove()); P.marks = []; refit(); };
   $('#fsave').onclick = saveFit;
+  $('#m-plan').onclick = () => { P.model = 'plan'; refit(); };
+  $('#m-view').onclick = () => { P.model = 'view'; refit(); };
   if ($('#fop')) $('#fop').oninput = e => { P.op = e.target.value / 100; $('#fopv').textContent = e.target.value + '%'; if (map.getLayer('fit-prev')) map.setPaintProperty('fit-prev', 'raster-opacity', P.op); };
   $('#fithint').textContent = P.cropMode ? 'Click two corners' : 'Drag to move · scroll to zoom';
 }
@@ -798,7 +811,8 @@ async function openPlan(r) {
   $('#fitpane').hidden = false; $('#fitpane').classList.remove('min');
   $('#fitname').textContent = [r.book, r.label, r.title].filter(Boolean).join(' · ');
   $('#fithint').textContent = 'Loading the page…';
-  try { P.img = await loadImage(`books/${r.ia}/${r.file}`); }
+  P.model = r.view ? 'view' : 'plan';
+  try { P.img = await loadImage(r.url || `books/${r.ia}/${r.file}`); }
   catch { $('#fithint').textContent = 'Could not load the page scan.'; return; }
   const W = P.img.naturalWidth, H = P.img.naturalHeight, b = r.map_box;
   P.crop = b ? [b[0] * W, b[1] * H, b[2] * W, b[3] * H] : [0, 0, W, H];
@@ -852,6 +866,7 @@ function makeInk() {
     a[i] = 206; a[i + 1] = 46; a[i + 2] = 78; a[i + 3] = al * 255;
   }
   g.putImageData(im, 0, 0);
+  P.ink = { data: a, w, h, f };
   P.inkUrl = c.toDataURL('image/png');
   if (map.getSource('fit-prev')) map.removeLayer('fit-prev'), map.removeSource('fit-prev');
   refit();
@@ -872,9 +887,77 @@ function simFit(pairs) {
   const resid = pairs.map((p, i) => { const q = at(p.u, p.v); return Math.hypot(q[0] - Z[i][0], q[1] - Z[i][1]) * k; });
   return { at, resid, mpx: Math.hypot(...a) * k, rot: Math.atan2(a[1], a[0]) * 180 / Math.PI };
 }
+const need = () => P.model === 'view' ? 4 : 2;   // points that fix the fit exactly; one more is needed to check it
+function solve(A, b) {  // least squares via normal equations + Gaussian elimination (8 unknowns at most)
+  const n = A[0].length, M = Array.from({ length: n }, (_, i) => { const r = new Array(n + 1).fill(0);
+    for (let k = 0; k < A.length; k++) { for (let j = 0; j < n; j++) r[j] += A[k][i] * A[k][j]; r[n] += A[k][i] * b[k]; } return r; });
+  for (let c = 0; c < n; c++) {
+    let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    [M[c], M[p]] = [M[p], M[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const t = M[r][c] / M[c][c]; for (let j = c; j <= n; j++) M[r][j] -= t * M[c][j]; }
+  }
+  return M.map((r, i) => r[n] / r[i]);
+}
+function inv3(m) {
+  const [a, b, c, d, e, f, g, h, i] = m, A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g, det = a * A + b * B + c * C;
+  return [A, -(b * i - c * h), b * f - c * e, B, a * i - c * g, -(a * f - c * d), C, -(a * h - b * g), a * e - b * d].map(v => v / det);
+}
+function homFit(pairs) {
+  // a perspective drawing of flat ground maps to the ground by a homography (8 parameters, 4+ points); solved on
+  // normalised coordinates so page pixels and Mercator metres are on the same footing
+  const Z = pairs.map(p => merc([p.lon, p.lat])), n = pairs.length;
+  const norm = pts => { const mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
+    const sc = Math.sqrt(pts.reduce((s, p) => s + (p[0] - mx) ** 2 + (p[1] - my) ** 2, 0) / n) || 1; return [mx, my, sc]; };
+  const U = pairs.map(p => [p.u, p.v]), [um, vm, us] = norm(U), [xm, ym, xs] = norm(Z);
+  const A = [], b = [];
+  pairs.forEach((p, i) => {
+    const u = (p.u - um) / us, v = (p.v - vm) / us, X = (Z[i][0] - xm) / xs, Y = (Z[i][1] - ym) / xs;
+    A.push([u, v, 1, 0, 0, 0, -u * X, -v * X]); b.push(X);
+    A.push([0, 0, 0, u, v, 1, -u * Y, -v * Y]); b.push(Y);
+  });
+  const h = solve(A, b);
+  // full matrix: ground = Tz^-1 * Hn * Tu
+  const Hn = [...h, 1], Tu = [1 / us, 0, -um / us, 0, 1 / us, -vm / us, 0, 0, 1], Tzi = [xs, 0, xm, 0, xs, ym, 0, 0, 1];
+  const mul = (P, Q) => [0, 1, 2].flatMap(r => [0, 1, 2].map(c => P[r * 3] * Q[c] + P[r * 3 + 1] * Q[3 + c] + P[r * 3 + 2] * Q[6 + c]));
+  const H = mul(Tzi, mul(Hn, Tu)), Hi = inv3(H);
+  const at = (u, v) => { const w = H[6] * u + H[7] * v + H[8]; return [(H[0] * u + H[1] * v + H[2]) / w, (H[3] * u + H[4] * v + H[5]) / w, w]; };
+  const k = Math.cos(pairs[0].lat * Math.PI / 180);
+  const resid = pairs.map((p, i) => { const q = at(p.u, p.v); return Math.hypot(q[0] - Z[i][0], q[1] - Z[i][1]) * k; });
+  return { at, H, Hi, resid, k };
+}
+function warpView() {
+  // the ink picture resampled onto a north-up Mercator rectangle (an image source cannot do perspective itself)
+  const f = P.fit, [x0, y0, x1, y1] = P.crop, s = P.site, c = merc([s.lon, s.lat]), lim = 3000 / f.k;
+  const pts = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(([u, v]) => f.at(u, v)).filter(q => q[2] > 0);
+  if (pts.length < 4) pts.push([c[0] - lim, c[1] - lim], [c[0] + lim, c[1] + lim]);  // the horizon is inside the picture
+  const X0 = Math.max(Math.min(...pts.map(q => q[0])), c[0] - lim), X1 = Math.min(Math.max(...pts.map(q => q[0])), c[0] + lim);
+  const Y0 = Math.max(Math.min(...pts.map(q => q[1])), c[1] - lim), Y1 = Math.min(Math.max(...pts.map(q => q[1])), c[1] + lim);
+  const sc = 1024 / Math.max(X1 - X0, Y1 - Y0), W = Math.max(2, Math.round((X1 - X0) * sc)), Hh = Math.max(2, Math.round((Y1 - Y0) * sc));
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = Hh;
+  const g = cv.getContext('2d'), out = g.createImageData(W, Hh), o = out.data, { data, w, h, f: kf } = P.ink, Hi = f.Hi;
+  for (let j = 0; j < Hh; j++) for (let i = 0; i < W; i++) {
+    const X = X0 + (i + 0.5) / sc, Y = Y1 - (j + 0.5) / sc, ww = Hi[6] * X + Hi[7] * Y + Hi[8];
+    if (ww === 0) continue;
+    const u = (Hi[0] * X + Hi[1] * Y + Hi[2]) / ww, v = (Hi[3] * X + Hi[4] * Y + Hi[5]) / ww;
+    if ((f.at(u, v)[2] <= 0) || u < x0 || u >= x1 || v < y0 || v >= y1) continue;
+    const si = ((Math.min(h - 1, ((v - y0) * kf) | 0)) * w + Math.min(w - 1, ((u - x0) * kf) | 0)) * 4, di = (j * W + i) * 4;
+    o[di] = data[si]; o[di + 1] = data[si + 1]; o[di + 2] = data[si + 2]; o[di + 3] = data[si + 3];
+  }
+  g.putImageData(out, 0, 0);
+  return { url: cv.toDataURL('image/png'), coordinates: [[X0, Y1], [X1, Y1], [X1, Y0], [X0, Y0]].map(unmerc) };
+}
 function refit() {
-  P.fit = P.pairs.length >= 2 ? simFit(P.pairs) : null;
-  if (P.fit && P.inkUrl) {
+  const view = P.model === 'view';
+  P.fit = P.pairs.length >= need() ? (view ? homFit(P.pairs) : simFit(P.pairs)) : null;
+  if (P.fit && view && P.ink) {
+    const { url, coordinates } = warpView(), src = map.getSource('fit-prev');
+    if (src) { map.removeLayer('fit-prev'); map.removeSource('fit-prev'); }
+    map.addSource('fit-prev', { type: 'image', url, coordinates });
+    map.addLayer({ id: 'fit-prev', type: 'raster', source: 'fit-prev', paint: { 'raster-opacity': P.op, 'raster-fade-duration': 0 } });
+    P.viewPrev = true;
+  } else if (P.fit && P.inkUrl) {
+    if (P.viewPrev && map.getSource('fit-prev')) { map.removeLayer('fit-prev'); map.removeSource('fit-prev'); }
+    P.viewPrev = false;
     const [x0, y0, x1, y1] = P.crop;
     const coordinates = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(([u, v]) => unmerc(P.fit.at(u, v)));
     const src = map.getSource('fit-prev');
@@ -936,9 +1019,10 @@ map.on('click', e => {
 })();
 async function saveFit() {
   const s = P.site, r = P.plan, st = $('#fitst');
-  if (!S.db || P.pairs.length < 3) return;
+  if (!S.db || P.pairs.length < need() + 1) return;
   const at = new Date().toISOString(), id = `${s.id}.${r.id}`;
-  const doc = { site: s.id, plan: r.id, ia: r.ia, file: r.file, crop: P.crop.map(v => Math.round(v)),
+  const doc = { site: s.id, plan: r.id, ia: r.ia, file: r.file, crop: P.crop.map(v => Math.round(v)), model: P.model === 'view' ? 'homography' : 'similarity',
+    src: r.ia ? 'book' : 'commons', url: r.url || null, ref: r.ref || null, size: [P.img.naturalWidth, P.img.naturalHeight],
     pairs: P.pairs.map(p => [Math.round(p.u * 10) / 10, Math.round(p.v * 10) / 10, +p.lon.toFixed(7), +p.lat.toFixed(7)]),
     label: r.label, title: r.title, book: r.book, cite: r.cite, at };
   st.textContent = 'Saving…'; $('#fsave').disabled = true;
@@ -949,7 +1033,7 @@ async function saveFit() {
     await new Promise(res => setTimeout(res, 1500));
     try {
       const d = await fetch(`data/sites/${s.id}/depictions.json?t=${Date.now()}`).then(x => x.json());
-      const e = (d.depictions || []).find(x => x.kind === 'plan' && x.fit && x.fit.at === at);
+      const e = (d.depictions || []).find(x => (x.kind === 'plan' || x.kind === 'view') && x.fit && x.fit.at === at);
       if (e) {
         S.dep[s.id] = d.depictions; S.depSel[s.id] = e.file; lsSet('aw.depSel', S.depSel);
         if (map.getSource(`dep-${s.id}`)) { map.removeLayer(`dep-${s.id}`); map.removeSource(`dep-${s.id}`); S.depUrl[`dep-${s.id}`] = null; }

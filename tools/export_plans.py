@@ -14,6 +14,34 @@ SHORT = {"squier_davis_1848": "Squier & Davis 1848", "lapham_1855": "Lapham 1855
          "allcroft_1908": "Allcroft 1908", "mills_1914": "Mills 1914"}
 
 
+def commons_rows(min_p=0.3):
+    """Old pictures from Wikimedia Commons (pipeline/commons.py) that Clef-flash takes for a plan or a bird's-eye view."""
+    import hashlib
+    import re
+    from PIL import Image
+    cd = os.path.join(ROOT, "data", "commons")
+    if not os.path.exists(os.path.join(cd, "classified.jsonl")):
+        return []
+    cl = {(c["site"], c["title"]): c for c in (json.loads(l) for l in open(os.path.join(cd, "classified.jsonl")))}
+    out = []
+    for l in open(os.path.join(cd, "files.jsonl")):
+        r = json.loads(l)
+        c = r.get("title") and cl.get((r["site"], r["title"]))
+        if not c or c["p_photo"] >= 0.5 or max(c["p_plan"], c["p_birdseye"]) < min_p:
+            continue
+        h = hashlib.sha1(r["title"].encode()).hexdigest()[:16]
+        path = os.path.join(ROOT, "data", "raw", "commons", r["site"], h + ".jpg")
+        if not os.path.exists(path):
+            continue
+        w, hgt = Image.open(path).size
+        name = re.sub(r"\.(jpe?g|png|tiff?|gif)$", "", r["title"][5:], flags=re.I)
+        artist = re.sub(r"\s+", " ", r.get("artist") or "").strip()
+        cite = "; ".join(x for x in [artist and f"by {artist}", r.get("license"), r.get("page")] if x)
+        out.append([f"c_{h}", "Wikimedia Commons", None, None, name, str(r["year"]) if r.get("year") else "", [w, hgt],
+                    None, [r["site"]], cite, f"media/commons/{r['site']}/{h}.jpg", c["p_birdseye"] > c["p_plan"], r["title"]])
+    return out
+
+
 def main():
     rows = [json.loads(l) for l in open(os.path.join(BOOKS, "index.jsonl")) if l.strip()]
     cat = {}
@@ -40,8 +68,9 @@ def main():
         label = f"Plate {r['plate']}{r.get('sub') or ''}" if r.get("plate") else (f"Fig. {r['fig']}" if r.get("fig") else "")
         out.append([r["id"], SHORT.get(r["book"], r["book"]), r["ia_id"], os.path.basename(r["full_local"]),
                     r.get("title") or "", label, r.get("full_size"), r.get("map_box"), matches.get(r["id"], []),
-                    r.get("cite") or ""])
-    cols = ["id", "book", "ia", "file", "title", "label", "size", "map_box", "sites", "cite"]
+                    r.get("cite") or "", None, False, None])
+    out += commons_rows()
+    cols = ["id", "book", "ia", "file", "title", "label", "size", "map_box", "sites", "cite", "url", "view", "ref"]
     dst = os.path.join(ROOT, "web", "data", "plans.json")
     json.dump({"cols": cols, "rows": out}, open(dst, "w"), separators=(",", ":"))
     print(len(out), "plans,", os.path.getsize(dst) // 1024, "KB ->", dst)

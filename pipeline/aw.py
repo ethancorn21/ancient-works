@@ -18,7 +18,7 @@ from scipy.ndimage import gaussian_filter
 R = 6378137.0
 DEM_URL = "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage"
 IMG_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/export"
-UA = {"User-Agent": "ancient-works/0.2 (personal research)"}
+UA = {"User-Agent": "ancient-works/0.2 (personal research; https://github.com/ethancorn21/ancient-works)"}
 
 
 def to_merc(lon, lat):

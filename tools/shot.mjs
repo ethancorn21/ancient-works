@@ -6,7 +6,7 @@ const [url, out, wait = '4000', w = '1200', h = '800', js = ''] = process.argv.s
 const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width: +w, height: +h }, colorScheme: process.env.SCHEME || 'light', isMobile: +w < 600, hasTouch: +w < 600, deviceScaleFactor: +w < 600 ? 2 : 1 });
 page.on('console', m => console.log('[console]', m.type(), m.text()));
-page.on('pageerror', e => console.log('[pageerror]', e.message));
+page.on('pageerror', e => console.log('[pageerror]', process.env.STACK ? e.stack : e.message));
 page.on('requestfailed', r => console.log('[reqfail]', r.url(), r.failure()?.errorText));
 await page.goto(url);
 await page.waitForTimeout(+wait);
