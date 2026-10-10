@@ -20,3 +20,20 @@ stretch, so a style difference could leak the label for both models. The real te
 
 Run: `ssh -N -L 18083:127.0.0.1:8083 aibox`, then `pipeline/clef.py` (`decide`, `decide_batch`). Server:
 `server/aibox/clef_server.py` in `/opt/llm/clef` on the AI box (llama-5060ti stopped while it runs).
+
+## One view vs four views, 2026-10-10 (same 18 places, still too small)
+
+Re-rendered from the DEM at native 1 m/px, 600 m crops centred on each place, every view with a fixed stretch
+(`pipeline/viz.py`), so known sites and random ground are drawn identically.
+
+| Clef-flash input | AUC | Time for 18 |
+|---|---|---|
+| One image: local relief at 15 m radius | 0.82 | 6 s |
+| Four images: relief at 5 / 15 / 40 m + sky-view factor | 0.75 | 20 s |
+
+- With the contrast difference removed, Clef still separates (0.82 vs 0.86 before): the first result was not just
+  the rendering leaking the label.
+- Four views did not help here. The difference (0.07) is about five swapped pairs out of 72: noise at this size.
+  Four views made the top two positives more confident (0.95, 0.77) and cost 3.3x the time.
+- The 5 m relief view shows Hopeton's plowed circles and square far more crisply than the 24 m view the site pages
+  use (checked by eye); worth testing as the single view too.
