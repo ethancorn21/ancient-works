@@ -24,3 +24,5 @@ web/data/sites/*
 !web/data/sites/highbank/
 data/autofit/*.npz
 data/sites/*/dem.npy
+web/data/sites.json.lock
+web/data/sites.json.*.tmp

@@ -179,10 +179,16 @@ def main(path, refresh_imagery=False):
                           "label": p.get("label", "")}
 
     index_path = os.path.join(WEB, "sites.json")
-    index = json.load(open(index_path)) if os.path.exists(index_path) else {"sites": []}
-    index["sites"] = [s for s in index["sites"] if s["id"] != sid] + [entry]
-    index["sites"].sort(key=lambda s: s["name"])
-    aw.save_json(index_path, index)
+    # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
+    import fcntl
+    with open(index_path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        index = json.load(open(index_path)) if os.path.exists(index_path) else {"sites": []}
+        index["sites"] = [s for s in index["sites"] if s["id"] != sid] + [entry]
+        index["sites"].sort(key=lambda s: s["name"])
+        tmp = f"{index_path}.{os.getpid()}.tmp"
+        aw.save_json(tmp, index)
+        os.replace(tmp, index_path)
     sizes = {f: os.path.getsize(os.path.join(out, f)) // 1024 for f in os.listdir(out)}
     print(sid, "relief clip", round(clip, 2), "m;", sizes, "KB")
 
