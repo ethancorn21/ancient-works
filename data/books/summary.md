@@ -3,8 +3,9 @@
 Built 2026-10-10 by `pipeline/books.py` (+ `books_ia.py`, `books_lists.py`, `books_mills.py`, `books_match.py`,
 `books_summary.py`). Every number below was measured on the real scans; the tables come from `books_summary.py`.
 
-Status: partial. Qwen (the vision model) was stopped mid-run on the lead's order because it was slowing Ethan's
-other agents. What it had not done is listed under "Not done" at the end.
+Status: complete. The first run stopped Qwen (the vision model) mid-run because it was slowing Ethan's other
+agents. A rerun later on 2026-10-10, on both 3090s, finished the missing stages. What is still open is under
+"Not done" at the end.
 
 ## Books and scans
 
@@ -27,12 +28,12 @@ Wikimedia Commons source).
 
 ## Files
 
-- `index.jsonl`: 813 rows, one per site plan (one per plan or list entry on a page), 670 distinct pages.
+- `index.jsonl`: 890 rows, one per site plan (one per plan or list entry on a page), 675 distinct pages.
   - Fields: book, ia_id, leaf_n (0-based BookReader index = `page/n{N}.jpg`), leaf_jp2, plate/sub/fig, title and
     title_source, numbers_on_page, captions_ocr, site_names, place, scale_text, north_angle_deg, map_box,
     blank_boxes, full_url, full_local, full_size.
   - Title source per row: transcribed list of plates, OCR list of figures (OCR errors kept), the page caption in
-    IA OCR, or "page, read by Qwen". 770 of 813 rows have a title.
+    IA OCR, or "page, read by Qwen". 848 of 890 rows have a title.
 - `mills_county_maps.jsonl`: 88 rows, page type "county site map", one per Ohio county (88/88 distinct, no
   duplicates, every name checked against the atlas's own OCR headings).
   - All 88 have scale text "Scale, one inch equals three miles".
@@ -43,21 +44,21 @@ Wikimedia Commons source).
 - `lists/`: the parsed lists of plates and figures.
 - `triage/`: raw stage outputs.
 - `checks/`: 6 box drawings, under 90 KB each.
-- Full-res site-plan pages: `data/raw/books/<ia_id>/full/n{NNNN}.jpg`. All 670 index pages are present and pass a
-  PIL verify, 0 download failures, about 590 MB in total (Mills folder: 88 county maps + 26 site plans). One
+- Full-res site-plan pages: `data/raw/books/<ia_id>/full/n{NNNN}.jpg`. All 675 index pages are present and pass a
+  PIL verify, 0 download failures, about 580 MB in total (Mills folder: 88 county maps + 26 site plans). One
   Lapham page left over from an earlier index build is not in the index.
 - Triage-size pages (1400 px long side): `data/raw/books/<ia_id>/triage/`.
 
 | book | pages | stage A | stage F | stage B | index rows | site-plan pages | by Qwen | by list only |
 |---|---|---|---|---|---|---|---|---|
-| squier_davis_1848 | 452 | 452 | 0 | 6 | 129 | 65 | 60 | 3 |
-| lapham_1855 | 230 | 230 | 0 | 0 | 98 | 68 | 61 | 7 |
-| thomas_1894 | 896 | 896 | 0 | 0 | 195 | 194 | 184 | 6 |
-| fowke_1902 | 788 | 788 | 0 | 0 | 86 | 75 | 70 | 1 |
-| squier_1851 | 222 | 222 | 0 | 0 | 49 | 34 | 34 | 0 |
-| whittlesey_1850 | 54 | 54 | 0 | 0 | 17 | 7 | 7 | 0 |
-| allcroft_1908 | 743 | 391 | 0 | 0 | 213 | 201 | 95 | 8 |
-| mills_1914 | 206 | 206 | 13 | 0 | 26 | 26 | 26 | 0 |
+| squier_davis_1848 | 452 | 452 | 125 | 65 | 145 | 68 | 67 | 1 |
+| lapham_1855 | 230 | 230 | 38 | 68 | 115 | 68 | 65 | 3 |
+| thomas_1894 | 896 | 896 | 302 | 196 | 197 | 193 | 187 | 6 |
+| fowke_1902 | 788 | 788 | 216 | 75 | 88 | 75 | 71 | 4 |
+| squier_1851 | 222 | 222 | 41 | 34 | 55 | 33 | 33 | 0 |
+| whittlesey_1850 | 54 | 54 | 0 | 7 | 18 | 7 | 7 | 0 |
+| allcroft_1908 | 743 | 743 | 211 | 205 | 235 | 205 | 200 | 5 |
+| mills_1914 | 206 | 206 | 13 | 26 | 37 | 26 | 26 | 0 |
 
 Pipeline stages:
 - Stage A: Qwen page type and the numbers printed on the page.
@@ -80,13 +81,13 @@ caption-to-title similarity.
 | book | site plates listed | mapped to a leaf | Qwen typed site plan | Qwen read the numeral | other plates called site plan |
 |---|---|---|---|---|---|
 | squier_davis_1848 | 43 | 43 | 1.0 | 1.0 | 0/4 |
-| lapham_1855 | 52 | 51 | 0.961 | 0.98 | 0/2 |
+| lapham_1855 | 52 | 51 | 0.98 | 0.98 | 0/2 |
 | whittlesey_1850 | 7 | 7 | 1.0 | 1.0 | 0/0 |
 | squier_1851 | 14 | 14 | 1.0 | 1.0 | 0/0 |
 | thomas_1894 | 29 | 29 | 1.0 | 0.759 | 0/6 |
 
 Lapham:
-- Misses: XVII (n148) and XXVI (n166), which Qwen typed as other.
+- Miss: XXVI (n166), which Qwen typed as other. (XVII, missed before the rerun, is now found.)
 - One plate is not mapped to a leaf: XI "Ancient Works, Township 12, Range 20, east" (not located; it may share a
   sheet with X or be missing from the scan).
 
@@ -98,32 +99,34 @@ Figures (text pages with a site-plan figure, judged at page level):
 
 | book | figures parsed / listed | site-plan pages in list | recall A | recall A+Clef | recall A+Clef (+-1 leaf) | precision A (strict/lenient) | precision A+Clef (strict/lenient) |
 |---|---|---|---|---|---|---|---|
-| squier_davis_1848 | 196/207 | 15 | 0.733 | 0.8 | 0.8 | 0.647/0.882 | 0.632/0.842 |
-| lapham_1855 | 50/61 | 14 | 0.643 | 0.643 | 0.786 | 0.692/0.692 | 0.75/0.75 |
-| thomas_1894 | 325/344 | 113 | 0.938 | 0.947 | 0.973 | 0.658/0.733 | 0.673/0.761 |
-| fowke_1902 | 298/303 | 69 | 0.971 | 0.986 | 1.0 | 0.957/0.971 | 0.919/0.946 |
-| allcroft_1908 | 162/224 | 139 | 0.525 | 0.942 | 0.993 | 0.768/0.768 | 0.679/0.679 |
+| squier_davis_1848 | 196/207 | 15 | 0.733 | 0.933 | 0.933 | 0.647/0.882 | 0.583/0.833 |
+| lapham_1855 | 50/61 | 14 | 0.643 | 0.857 | 0.857 | 0.692/0.692 | 0.857/0.929 |
+| thomas_1894 | 325/344 | 113 | 0.938 | 0.947 | 0.973 | 0.658/0.733 | 0.677/0.759 |
+| fowke_1902 | 298/303 | 69 | 0.971 | 0.942 | 0.986 | 0.957/0.971 | 0.915/0.944 |
+| allcroft_1908 | 162/224 | 139 | 0.964 | 0.964 | 0.993 | 0.67/0.67 | 0.67/0.67 |
 
 How to read the figure table:
 - Precision here is a lower bound. A flagged page counts as wrong whenever the parsed list has no site-plan figure
   on it, and the parsed lists are incomplete.
-- Allcroft: 62 of the 193 flagged pages are not in the parsed list, because 62 list entries have no parsed page.
-  - I viewed 20 of the 62 by eye, picked across the book (not a random sample). All 20 are real site plans; one,
-    a hut plan (n247), is borderline.
-  - So Allcroft precision is at least (131+20)/193 = 0.78. That is a floor, not an estimate; the other 42 pages are
-    unchecked.
-- Allcroft recall A is 0.525 only because Qwen stopped at page 391 of 743; on the first half Qwen's recall was 1.0.
+- Allcroft: 66 of the 200 flagged pages are not in the parsed list, because 62 list entries have no parsed page.
+  - Before the rerun I viewed 20 such pages by eye, picked across the book (not a random sample). All 20 were real
+    site plans; one, a hut plan (n247), is borderline. That check was not redone on the new set of 66.
+  - So 0.67 is a floor; most of the 66 are probably real plans, but they are unchecked.
+- Allcroft recall A is now 0.964 (it was 0.525 when Qwen had stopped at page 391); misses are n530, n552, n577,
+  n580 and n603.
 - Clef alone on all of Allcroft: recall 0.899, precision 0.676 (lower bound).
 
 Typical model errors:
 - Misses: small figures inside text, and pages that mix a plan with a view or an artifact.
 - False flags: plans of natural features (beaver dam, windfalls, serpentine ridges) and an altar plan.
 
-## Boxes, scale, north arrow (stage B, only 6 S&D plates)
+## Boxes, scale, north arrow (stage B)
 
+- Stage B now covers every book: 850 of 890 rows have a map box, 508 have scale text, 589 have a north arrow
+  end-point pair.
 - Box convention confirmed by drawing: Qwen's boxes are 0-1000 per axis. Stored as page fractions
   [x0, y0, x1, y1], origin top-left.
-- Map box good on 5 of 6 (Newark cut off). Titles read 6/6.
+- First check on 6 S&D plates: map box good on 5 of 6 (Newark cut off). Titles read 6/6.
 - North angle compared with the fitted rotations of the same 6 plates. Errors: 8.9, 1.7, 11.6, 95.4, 4.3, 1.8 deg.
   - Newark's arrow is horizontal; Qwen gave about 0.
   - A rerun flipped Hopeton to 131 deg.
@@ -135,17 +138,19 @@ Rule-based matching, no model.
 
 | book | matched | ambiguous | no candidate | generic title |
 |---|---|---|---|---|
-| allcroft_1908 | 50 | 86 | 54 | 23 |
-| fowke_1902 | 18 | 7 | 61 | 0 |
-| lapham_1855 | 2 | 9 | 78 | 9 |
-| mills_1914 | 4 | 5 | 14 | 3 |
-| squier_1851 | 0 | 0 | 34 | 15 |
-| squier_davis_1848 | 16 | 3 | 38 | 72 |
-| thomas_1894 | 13 | 22 | 157 | 3 |
-| whittlesey_1850 | 0 | 3 | 13 | 1 |
+| allcroft_1908 | 73 | 106 | 52 | 2 |
+| fowke_1902 | 23 | 8 | 56 | 1 |
+| lapham_1855 | 2 | 9 | 99 | 5 |
+| mills_1914 | 6 | 3 | 26 | 1 |
+| squier_1851 | 0 | 0 | 44 | 11 |
+| squier_davis_1848 | 13 | 11 | 69 | 52 |
+| thomas_1894 | 18 | 21 | 157 | 0 |
+| whittlesey_1850 | 0 | 3 | 14 | 1 |
 
-- Overall: 103 of 813 rows matched (0.127), 65 distinct catalog sites. 0.150 of the rows that have a distinctive name.
-  The denominator is index rows (one per plan or list entry, 670 distinct pages), not plates or sites.
+- Overall: 135 of 890 rows matched (0.152), 89 distinct catalog sites. 0.165 of the rows that have a distinctive name.
+  The denominator is index rows (one per plan or list entry, 675 distinct pages), not plates or sites.
+- Hand overrides (`HAND` in books_match.py) are keyed on the title with case and punctuation ignored, so a rerun
+  that re-reads "Banwell Cross" as "BANWELL CROSS." keeps the override.
 - Checked by eye against the names: 3 clearly wrong (now `status: rejected_by_eye` with a note; the 2 doubtful
   ones are `status: doubtful`).
   - Mills "Map of Serpent Mound, Warren Co." went to the Adams County Serpent Mound. It is a different effigy;
@@ -174,14 +179,9 @@ Allcroft's ambiguous rows are mostly:
 Rows with no place word in the title get a default state for the US books where the title page fixes it: Lapham
 Wisconsin; Fowke, Whittlesey and Mills Ohio; Squier 1851 New York.
 
-## Not done (Qwen stopped)
+## Not done
 
-- Stage B (map box, scale bar, scale text, north arrow, on-page title and site names per plan) for all but 6 S&D
-  pages: 9 of 813 rows have a box, 7 have scale text.
-- Stage F (per-figure check on mixed pages) everywhere except Mills (13 pages). This is the step that recovered
-  missed small figures in the test (6 of 8).
-- Qwen stage A on Allcroft pages 391-742. Clef-flash classified them instead, which is weaker on precision.
-- Titles read off the page by a model for pages missing from the book's list:
-  - Allcroft unlisted figures: 20 got a caption from IA OCR; 23 rows are still untitled.
-  - Squier NY in-text figures: 15 untitled; their figure numbers are in numbers_on_page.
-- Mills site-plan titles are Qwen-read (stage A, before the stop). Mills has no OCR per page to cross-check them.
+- The 2026-10-10 rerun finished what Qwen had not reached: Allcroft stage A (pages 391-742), stage B and stage F
+  on all 8 books. Numbers above are after that rerun.
+- 42 rows are still untitled: S&D 22, Squier NY 16 (their figure numbers are in numbers_on_page), Allcroft 4.
+- Mills site-plan titles are Qwen-read. Mills has no OCR per page to cross-check them.

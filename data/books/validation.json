@@ -5,8 +5,8 @@
   "pages": 452,
   "triaged_A": 452,
   "flagged_site_pages_stageA": 60,
-  "stageF_pages": 0,
-  "flagged_site_pages": 62,
+  "stageF_pages": 125,
+  "flagged_site_pages": 67,
   "plates": {
    "listed": 48,
    "site": 43,
@@ -222,21 +222,20 @@
    "unsure": 14,
    "other": 166,
    "gt_site_pages": 15,
-   "recall_pages": 0.8,
-   "recall_pages_pm1": 0.8,
-   "flagged_nonplate_pages": 19,
-   "precision_strict": 0.632,
-   "precision_lenient": 0.842,
+   "recall_pages": 0.933,
+   "recall_pages_pm1": 0.933,
+   "flagged_nonplate_pages": 24,
+   "precision_strict": 0.583,
+   "precision_lenient": 0.833,
    "flagged_on_other_only_pages": [
     283,
-    287
+    287,
+    289
    ],
    "flagged_not_in_list": [
     171
    ],
    "missed_pages": [
-    163,
-    266,
     296
    ],
    "stage_A_only": {
@@ -253,8 +252,8 @@
   "pages": 230,
   "triaged_A": 230,
   "flagged_site_pages_stageA": 62,
-  "stageF_pages": 0,
-  "flagged_site_pages": 61,
+  "stageF_pages": 38,
+  "flagged_site_pages": 65,
   "plates": {
    "listed": 55,
    "site": 52,
@@ -266,25 +265,10 @@
     "qwen+title": 35,
     "title": 3
    },
-   "recall_site_plan_type": 0.961,
+   "recall_site_plan_type": 0.98,
    "qwen_read_numeral_on_site_plates": 0.98,
    "other_plates_flagged_as_site": "0/2",
    "missed": [
-    {
-     "plate": 17,
-     "n": 148,
-     "qwen": {
-      "page_type": "other_illustration",
-      "numbers": [
-       "XVII.",
-       "N\u00ba 1.",
-       "N\u00ba 2.",
-       "N\u00ba 3.",
-       "N\u00ba 4."
-      ],
-      "caption": ""
-     }
-    },
     {
      "plate": 26,
      "n": 166,
@@ -527,23 +511,18 @@
    "unsure": 3,
    "other": 30,
    "gt_site_pages": 14,
-   "recall_pages": 0.643,
-   "recall_pages_pm1": 0.786,
-   "flagged_nonplate_pages": 12,
-   "precision_strict": 0.75,
-   "precision_lenient": 0.75,
+   "recall_pages": 0.857,
+   "recall_pages_pm1": 0.857,
+   "flagged_nonplate_pages": 14,
+   "precision_strict": 0.857,
+   "precision_lenient": 0.929,
    "flagged_on_other_only_pages": [
-    28,
-    29,
-    108
+    29
    ],
    "flagged_not_in_list": [],
    "missed_pages": [
-    22,
     51,
-    56,
-    68,
-    70
+    56
    ],
    "stage_A_only": {
     "recall": 0.643,
@@ -614,8 +593,8 @@
   "pages": 222,
   "triaged_A": 222,
   "flagged_site_pages_stageA": 34,
-  "stageF_pages": 0,
-  "flagged_site_pages": 34,
+  "stageF_pages": 41,
+  "flagged_site_pages": 33,
   "plates": {
    "listed": 14,
    "site": 14,
@@ -696,8 +675,8 @@
   "pages": 896,
   "triaged_A": 896,
   "flagged_site_pages_stageA": 192,
-  "stageF_pages": 0,
-  "flagged_site_pages": 190,
+  "stageF_pages": 302,
+  "flagged_site_pages": 189,
   "plates": {
    "listed": 42,
    "site": 29,
@@ -893,13 +872,16 @@
    "gt_site_pages": 113,
    "recall_pages": 0.947,
    "recall_pages_pm1": 0.973,
-   "flagged_nonplate_pages": 159,
-   "precision_strict": 0.673,
-   "precision_lenient": 0.761,
+   "flagged_nonplate_pages": 158,
+   "precision_strict": 0.677,
+   "precision_lenient": 0.759,
    "flagged_on_other_only_pages": [
     91,
+    138,
+    181,
     206,
     208,
+    263,
     279,
     361,
     390,
@@ -908,7 +890,6 @@
     450,
     460,
     467,
-    471,
     480,
     484,
     485,
@@ -916,13 +897,12 @@
     493,
     496,
     500,
+    508,
     514,
     515,
     516,
     521,
-    576,
-    684,
-    766
+    576
    ],
    "flagged_not_in_list": [
     144,
@@ -934,7 +914,6 @@
     363,
     475,
     476,
-    504,
     513,
     574
    ],
@@ -960,8 +939,8 @@
   "pages": 788,
   "triaged_A": 788,
   "flagged_site_pages_stageA": 70,
-  "stageF_pages": 0,
-  "flagged_site_pages": 74,
+  "stageF_pages": 216,
+  "flagged_site_pages": 71,
   "figures": {
    "listed": 301,
    "expected": 303,
@@ -970,20 +949,24 @@
    "unsure": 8,
    "other": 212,
    "gt_site_pages": 69,
-   "recall_pages": 0.986,
-   "recall_pages_pm1": 1.0,
-   "flagged_nonplate_pages": 74,
-   "precision_strict": 0.919,
-   "precision_lenient": 0.946,
+   "recall_pages": 0.942,
+   "recall_pages_pm1": 0.986,
+   "flagged_nonplate_pages": 71,
+   "precision_strict": 0.915,
+   "precision_lenient": 0.944,
    "flagged_on_other_only_pages": [
     179,
     428,
-    442,
-    445
+    442
    ],
-   "flagged_not_in_list": [],
+   "flagged_not_in_list": [
+    134
+   ],
    "missed_pages": [
-    201
+    201,
+    205,
+    233,
+    270
    ],
    "stage_A_only": {
     "recall": 0.971,
@@ -997,10 +980,10 @@
   "book": "allcroft_1908",
   "ia": "earthworkenglan01allcgoog",
   "pages": 743,
-  "triaged_A": 391,
-  "flagged_site_pages_stageA": 95,
-  "stageF_pages": 0,
-  "flagged_site_pages": 193,
+  "triaged_A": 743,
+  "flagged_site_pages_stageA": 200,
+  "stageF_pages": 211,
+  "flagged_site_pages": 200,
   "figures": {
    "listed": 203,
    "expected": 224,
@@ -1009,11 +992,11 @@
    "unsure": 0,
    "other": 13,
    "gt_site_pages": 139,
-   "recall_pages": 0.942,
+   "recall_pages": 0.964,
    "recall_pages_pm1": 0.993,
-   "flagged_nonplate_pages": 193,
-   "precision_strict": 0.679,
-   "precision_lenient": 0.679,
+   "flagged_nonplate_pages": 200,
+   "precision_strict": 0.67,
+   "precision_lenient": 0.67,
    "flagged_on_other_only_pages": [],
    "flagged_not_in_list": [
     75,
@@ -1052,10 +1035,12 @@
     499,
     508,
     509,
+    528,
     549,
     550,
     556,
     557,
+    558,
     573,
     576,
     581,
@@ -1074,26 +1059,25 @@
     620,
     626,
     627,
+    628,
     629,
     630,
     634,
+    662,
     683
    ],
    "missed_pages": [
-    412,
-    427,
     530,
     552,
     577,
     580,
-    603,
-    697
+    603
    ],
    "stage_A_only": {
-    "recall": 0.525,
-    "precision_strict": 0.768,
-    "precision_lenient": 0.768,
-    "flagged": 95
+    "recall": 0.964,
+    "precision_strict": 0.67,
+    "precision_lenient": 0.67,
+    "flagged": 200
    }
   }
  },

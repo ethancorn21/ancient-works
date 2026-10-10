@@ -1,0 +1,302 @@
+{"n": 95, "leaf": 96, "out": {"figures": [{"number": "Fig. 3", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 101, "leaf": 102, "out": {"figures": [{"number": "Fig. 6", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 104, "leaf": 105, "out": {"figures": [{"number": "Fig. 9", "shows": "section"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1401]}
+{"n": 103, "leaf": 104, "out": {"figures": [{"number": "Fig. 7", "shows": "section"}, {"number": "Fig. 8", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 99, "leaf": 100, "out": {"figures": [{"number": "Fig. 4", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 100, "leaf": 101, "out": {"figures": [{"number": "Fig. 5", "shows": "section"}]}, "parse": "ok", "s": 7.1, "img_size": [826, 1401]}
+{"n": 91, "leaf": 92, "out": {"figures": [{"number": "Fig. 2", "shows": "plan"}]}, "parse": "ok", "s": 8.1, "img_size": [826, 1400]}
+{"n": 90, "leaf": 91, "out": {"figures": [{"number": "Fig. 1", "shows": "plan"}]}, "parse": "ok", "s": 8.6, "img_size": [826, 1401]}
+{"n": 109, "leaf": 110, "out": {"figures": [{"number": "Fig. 16", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 110, "leaf": 111, "out": {"figures": [{"number": "Fig. 17", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1401]}
+{"n": 107, "leaf": 108, "out": {"figures": [{"number": "Fig. 13", "shows": "object"}, {"number": "Fig. 15", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 114, "leaf": 115, "out": {"figures": [{"number": "Fig. 19", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [826, 1401]}
+{"n": 111, "leaf": 112, "out": {"figures": [{"number": "Fig. 18", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 115, "leaf": 116, "out": {"figures": [{"number": "Fig. 20", "shows": "plan"}]}, "parse": "ok", "s": 3.4, "img_size": [826, 1400]}
+{"n": 116, "leaf": 117, "out": {"figures": [{"number": "Fig. 21", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [826, 1401]}
+{"n": 106, "leaf": 107, "out": {"figures": [{"number": "Fig. 10", "shows": "object"}, {"number": "Fig. 11", "shows": "object"}, {"number": "Fig. 12", "shows": "object"}]}, "parse": "ok", "s": 10.1, "img_size": [826, 1401]}
+{"n": 118, "leaf": 119, "out": {"figures": [{"number": "Fig. 22", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [826, 1401]}
+{"n": 125, "leaf": 126, "out": {"figures": [{"number": "Fig. 30", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 126, "leaf": 127, "out": {"figures": [{"number": "Fig. 30", "shows": "section"}]}, "parse": "ok", "s": 4.4, "img_size": [826, 1401]}
+{"n": 123, "leaf": 124, "out": {"figures": [{"number": "Fig. 27", "shows": "plan"}, {"number": "Fig. 28", "shows": "section"}]}, "parse": "ok", "s": 5.9, "img_size": [826, 1400]}
+{"n": 119, "leaf": 120, "out": {"figures": [{"number": "Fig. 20", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [826, 1400]}
+{"n": 127, "leaf": 128, "out": {"figures": [{"number": "Fig. 31", "shows": "section"}]}, "parse": "ok", "s": 3.9, "img_size": [826, 1400]}
+{"n": 121, "leaf": 122, "out": {"figures": [{"number": "Fig. 26", "shows": "section"}]}, "parse": "ok", "s": 8.3, "img_size": [826, 1400]}
+{"n": 120, "leaf": 121, "out": {"figures": [{"number": "Fig. 24", "shows": "plan"}, {"number": "Fig. 25", "shows": "plan"}]}, "parse": "ok", "s": 9.8, "img_size": [826, 1401]}
+{"n": 131, "leaf": 132, "out": {"figures": [{"number": "Fig. 32", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [826, 1400]}
+{"n": 136, "leaf": 137, "out": {"figures": [{"number": "Fig. 36", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [826, 1401]}
+{"n": 133, "leaf": 134, "out": {"figures": [{"number": "Fig. 34", "shows": "object"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 135, "leaf": 136, "out": {"figures": [{"number": "Fig. 35", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 132, "leaf": 133, "out": {"figures": [{"number": "Fig. 33", "shows": "plan"}, {"number": "Fig. 33", "shows": "section"}]}, "parse": "ok", "s": 5.9, "img_size": [826, 1401]}
+{"n": 139, "leaf": 140, "out": {"figures": [{"number": "Fig. 39", "shows": "object"}]}, "parse": "ok", "s": 4.3, "img_size": [826, 1400]}
+{"n": 142, "leaf": 143, "out": {"figures": [{"number": "Fig. 40", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1401]}
+{"n": 144, "leaf": 145, "out": {"figures": [{"number": "Fig. 41", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1401]}
+{"n": 138, "leaf": 139, "out": {"figures": [{"number": "Fig. 37", "shows": "plan"}, {"number": "Fig. 38", "shows": "section"}]}, "parse": "ok", "s": 7.7, "img_size": [826, 1401]}
+{"n": 148, "leaf": 149, "out": {"figures": [{"number": "Fig. 43", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [826, 1401]}
+{"n": 145, "leaf": 146, "out": {"figures": [{"number": "Fig. 42", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [826, 1400]}
+{"n": 153, "leaf": 154, "out": {"figures": [{"number": "Fig. 46", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 151, "leaf": 152, "out": {"figures": [{"number": "Fig. 44", "shows": "plan"}]}, "parse": "ok", "s": 6.6, "img_size": [826, 1400]}
+{"n": 152, "leaf": 153, "out": {"figures": [{"number": "Fig. 45", "shows": "view"}]}, "parse": "ok", "s": 8.4, "img_size": [826, 1401]}
+{"n": 156, "leaf": 157, "out": {"figures": [{"number": "Fig. 47", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1401]}
+{"n": 170, "leaf": 171, "out": {"figures": [{"number": "Fig. 49", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 174, "leaf": 175, "out": {"figures": [{"number": "Fig. 51", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 175, "leaf": 176, "out": {"figures": [{"number": "Fig. 52", "shows": "object"}]}, "parse": "ok", "s": 4.2, "img_size": [826, 1400]}
+{"n": 172, "leaf": 173, "out": {"figures": [{"number": "Fig. 50", "shows": "section"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 176, "leaf": 177, "out": {"figures": [{"number": "Fig. 52", "shows": "plan"}]}, "parse": "ok", "s": 4.7, "img_size": [811, 1401]}
+{"n": 163, "leaf": 164, "out": {"figures": [{"number": "Fig. 48", "shows": "plan"}, {"number": "Fig. 48", "shows": "section"}]}, "parse": "ok", "s": 8.3, "img_size": [826, 1400]}
+{"n": 179, "leaf": 180, "out": {"figures": [{"number": "Fig. 54", "shows": "plan"}, {"number": "Fig. 54", "shows": "section"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 189, "leaf": 190, "out": {"figures": [{"number": "Fig. 60", "shows": "section"}]}, "parse": "ok", "s": 3.0, "img_size": [826, 1400]}
+{"n": 180, "leaf": 181, "out": {"figures": [{"number": "Fig. 55", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 190, "leaf": 191, "out": {"figures": [{"number": "Fig. 61", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [811, 1401]}
+{"n": 181, "leaf": 182, "out": {"figures": [{"number": "Fig. 56", "shows": "section"}, {"number": "Fig. 57", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [826, 1400]}
+{"n": 183, "leaf": 184, "out": {"figures": [{"number": "Fig. 58", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 187, "leaf": 188, "out": {"figures": [{"number": "Fig. 59", "shows": "section"}]}, "parse": "ok", "s": 6.8, "img_size": [826, 1400]}
+{"n": 197, "leaf": 198, "out": {"figures": [{"number": "Fig. 66", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [826, 1400]}
+{"n": 193, "leaf": 194, "out": {"figures": [{"number": "Fig. 64", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 208, "leaf": 209, "out": {"figures": [{"number": "Fig. 69", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 192, "leaf": 193, "out": {"figures": [{"number": "Fig. 62", "shows": "section"}, {"number": "Fig. 63", "shows": "section"}]}, "parse": "ok", "s": 8.4, "img_size": [811, 1401]}
+{"n": 209, "leaf": 210, "out": {"figures": [{"number": "Fig. 70", "shows": "plan"}]}, "parse": "ok", "s": 2.9, "img_size": [826, 1400]}
+{"n": 195, "leaf": 196, "out": {"figures": [{"number": "Fig. 65", "shows": "section"}]}, "parse": "ok", "s": 7.0, "img_size": [826, 1400]}
+{"n": 202, "leaf": 203, "out": {"figures": [{"number": "Fig. 67", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 206, "leaf": 207, "out": {"figures": [{"number": "Fig. 68", "shows": "plan"}]}, "parse": "ok", "s": 7.0, "img_size": [811, 1401]}
+{"n": 211, "leaf": 212, "out": {"figures": [{"number": "Fig. 71", "shows": "object"}]}, "parse": "ok", "s": 5.1, "img_size": [826, 1400]}
+{"n": 213, "leaf": 214, "out": {"figures": [{"number": "Fig. 72", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 215, "leaf": 216, "out": {"figures": [{"number": "Fig. 74", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [826, 1400]}
+{"n": 214, "leaf": 215, "out": {"figures": [{"number": "Fig. 73", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 217, "leaf": 218, "out": {"figures": [{"number": "Fig. 76", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [826, 1400]}
+{"n": 216, "leaf": 217, "out": {"figures": [{"number": "Fig. 75", "shows": "section"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 220, "leaf": 221, "out": {"figures": [{"number": "Fig. 77", "shows": "object"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 221, "leaf": 222, "out": {"figures": [{"number": "Fig. 78", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 222, "leaf": 223, "out": {"figures": [{"number": "Fig. 79", "shows": "object"}]}, "parse": "ok", "s": 4.1, "img_size": [811, 1401]}
+{"n": 229, "leaf": 230, "out": {"figures": [{"number": "Fig. 84", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 233, "leaf": 234, "out": {"figures": [{"number": "Fig. 86", "shows": "plan"}]}, "parse": "ok", "s": 2.9, "img_size": [804, 1401]}
+{"n": 223, "leaf": 224, "out": {"figures": [{"number": "Fig. 80", "shows": "object"}, {"number": "Fig. 81", "shows": "object"}]}, "parse": "ok", "s": 5.7, "img_size": [804, 1401]}
+{"n": 225, "leaf": 226, "out": {"figures": [{"number": "Fig. 82", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 226, "leaf": 227, "out": {"figures": [{"number": "Fig. 83", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 237, "leaf": 238, "out": {"figures": [{"number": "Fig. 87", "shows": "plan"}]}, "parse": "ok", "s": 5.2, "img_size": [804, 1401]}
+{"n": 230, "leaf": 231, "out": {"figures": [{"number": "Fig. 85", "shows": "object"}]}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 240, "leaf": 241, "out": {"figures": [{"number": "Fig. 88", "shows": "plan"}]}, "parse": "ok", "s": 5.9, "img_size": [811, 1401]}
+{"n": 242, "leaf": 243, "out": {"figures": [{"number": "Fig. 89", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 246, "leaf": 247, "out": {"figures": [{"number": "Fig. 93", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 248, "leaf": 249, "out": {"figures": [{"number": "Fig. 94", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 244, "leaf": 245, "out": {"figures": [{"number": "Fig. 90", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 249, "leaf": 250, "out": {"figures": [{"number": "Fig. 35", "shows": "section"}]}, "parse": "ok", "s": 4.7, "img_size": [804, 1401]}
+{"n": 255, "leaf": 256, "out": {"figures": [{"number": "Fig. 96", "shows": "plan"}]}, "parse": "ok", "s": 4.5, "img_size": [804, 1401]}
+{"n": 245, "leaf": 246, "out": {"figures": [{"number": "Fig. 91", "shows": "object"}, {"number": "Fig. 92", "shows": "plan"}]}, "parse": "ok", "s": 8.3, "img_size": [804, 1401]}
+{"n": 256, "leaf": 257, "out": {"figures": [{"number": "Fig. 97", "shows": "section"}, {"number": "Fig. 98", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 262, "leaf": 263, "out": {"figures": [{"number": "Fig. 104", "shows": "object"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 259, "leaf": 260, "out": {"figures": [{"number": "Fig. 99", "shows": "object"}, {"number": "Fig. 100", "shows": "object"}]}, "parse": "ok", "s": 5.7, "img_size": [804, 1401]}
+{"n": 261, "leaf": 262, "out": {"figures": [{"number": "Fig. 103", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 260, "leaf": 261, "out": {"figures": [{"number": "Fig. 101", "shows": "object"}, {"number": "Fig. 102", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 265, "leaf": 266, "out": {"figures": [{"number": "Fig. 107", "shows": "plan"}]}, "parse": "ok", "s": 5.1, "img_size": [804, 1401]}
+{"n": 264, "leaf": 265, "out": {"figures": [{"number": "Fig. 106", "shows": "plan"}, {"number": "Fig. 106", "shows": "section"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 266, "leaf": 267, "out": {"figures": [{"number": "Fig. 108", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 263, "leaf": 264, "out": {"figures": [{"number": "Fig. 105", "shows": "object"}, {"number": "Fig. 105", "shows": "plan"}]}, "parse": "ok", "s": 8.3, "img_size": [804, 1401]}
+{"n": 267, "leaf": 268, "out": {"figures": [{"number": "Fig. 106", "shows": "section"}]}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 272, "leaf": 275, "out": {"figures": [{"number": "Fig. 111", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 270, "leaf": 273, "out": {"figures": [{"number": "Fig. 110", "shows": "plan"}]}, "parse": "ok", "s": 6.5, "img_size": [811, 1401]}
+{"n": 275, "leaf": 278, "out": {"figures": [{"number": "Fig. 112", "shows": "plan"}]}, "parse": "ok", "s": 6.4, "img_size": [804, 1401]}
+{"n": 279, "leaf": 282, "out": {"figures": [{"number": "Fig. 117", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 276, "leaf": 279, "out": {"figures": [{"number": "Fig. 113", "shows": "section"}, {"number": "Fig. 114", "shows": "section"}]}, "parse": "ok", "s": 6.1, "img_size": [811, 1401]}
+{"n": 277, "leaf": 280, "out": {"figures": [{"number": "Fig. 115", "shows": "section"}]}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 278, "leaf": 281, "out": {"figures": [{"number": "Fig. 116", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 282, "leaf": 285, "out": {"figures": [{"number": "Fig. 122", "shows": "plan"}]}, "parse": "ok", "s": 3.3, "img_size": [811, 1401]}
+{"n": 283, "leaf": 286, "out": {"figures": [{"number": "Fig. 123", "shows": "plan"}]}, "parse": "ok", "s": 4.1, "img_size": [804, 1401]}
+{"n": 280, "leaf": 283, "out": {"figures": [{"number": "Fig. 118", "shows": "other"}, {"number": "Fig. 119", "shows": "plan"}]}, "parse": "ok", "s": 8.3, "img_size": [811, 1401]}
+{"n": 281, "leaf": 284, "out": {"figures": [{"number": "Fig. 120", "shows": "section"}, {"number": "Fig. 121", "shows": "plan"}]}, "parse": "ok", "s": 8.2, "img_size": [804, 1401]}
+{"n": 284, "leaf": 287, "out": {"figures": [{"number": "Fig. 124", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 288, "leaf": 291, "out": {"figures": [{"number": "Fig. 128", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 292, "leaf": 295, "out": {"figures": [{"number": "Fig. 130", "shows": "object"}]}, "parse": "ok", "s": 3.3, "img_size": [811, 1401]}
+{"n": 285, "leaf": 288, "out": {"figures": [{"number": "Fig. 125", "shows": "plan"}]}, "parse": "ok", "s": 6.5, "img_size": [804, 1401]}
+{"n": 286, "leaf": 289, "out": {"figures": [{"number": "Fig. 126", "shows": "plan"}, {"number": "Fig. 127", "shows": "section"}]}, "parse": "ok", "s": 7.0, "img_size": [811, 1401]}
+{"n": 291, "leaf": 294, "out": {"figures": [{"number": "Fig. 129", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [804, 1401]}
+{"n": 295, "leaf": 298, "out": {"figures": [{"number": "Fig. 133", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 296, "leaf": 299, "out": {"figures": [{"number": "Fig. 134", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 301, "leaf": 304, "out": {"figures": [{"number": "Fig. 137", "shows": "plan"}]}, "parse": "ok", "s": 3.3, "img_size": [804, 1401]}
+{"n": 294, "leaf": 297, "out": {"figures": [{"number": "Fig. 131", "shows": "object"}, {"number": "Fig. 132", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [811, 1401]}
+{"n": 297, "leaf": 300, "out": {"figures": [{"number": "Fig. 135", "shows": "view"}]}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 305, "leaf": 308, "out": {"figures": [{"number": "Fig. 139", "shows": "object"}]}, "parse": "ok", "s": 2.9, "img_size": [804, 1401]}
+{"n": 300, "leaf": 303, "out": {"figures": [{"number": "Fig. 136", "shows": "section"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 304, "leaf": 307, "out": {"figures": [{"number": "Fig. 138", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 310, "leaf": 313, "out": {"figures": [{"number": "Fig. 146", "shows": "view"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 307, "leaf": 310, "out": {"figures": [{"number": "Fig. 142", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 306, "leaf": 309, "out": {"figures": [{"number": "Fig. 140", "shows": "object"}, {"number": "Fig. 141", "shows": "object"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 312, "leaf": 315, "out": {"figures": [{"number": "Fig. 148", "shows": "view"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 308, "leaf": 311, "out": {"figures": [{"number": "Fig. 143", "shows": "object"}]}, "parse": "ok", "s": 6.9, "img_size": [811, 1401]}
+{"n": 311, "leaf": 314, "out": {"figures": [{"number": "Fig. 147", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 313, "leaf": 316, "out": {"figures": [{"number": "Fig. 140", "shows": "view"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 309, "leaf": 312, "out": {"figures": [{"number": "Fig. 144", "shows": "plan"}, {"number": "Fig. 145", "shows": "plan"}]}, "parse": "ok", "s": 9.7, "img_size": [804, 1401]}
+{"n": 320, "leaf": 323, "out": {"figures": [{"number": "Fig. 150", "shows": "object"}]}, "parse": "ok", "s": 4.3, "img_size": [811, 1401]}
+{"n": 321, "leaf": 324, "out": {"figures": [{"number": "Fig. 151", "shows": "view"}]}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 314, "leaf": 317, "out": {"figures": [{"number": "Pl. IX", "shows": "view"}, {"number": "Pl. IX", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 327, "leaf": 330, "out": {"figures": [{"number": "Fig. 156", "shows": "view"}]}, "parse": "ok", "s": 2.9, "img_size": [804, 1401]}
+{"n": 324, "leaf": 327, "out": {"figures": [{"number": "Fig. 154", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [811, 1401]}
+{"n": 326, "leaf": 329, "out": {"figures": [{"number": "Fig. 155", "shows": "plan"}]}, "parse": "ok", "s": 6.4, "img_size": [811, 1401]}
+{"n": 323, "leaf": 326, "out": {"figures": [{"number": "Fig. 152", "shows": "object"}, {"number": "Fig. 153", "shows": "object"}]}, "parse": "ok", "s": 7.0, "img_size": [804, 1401]}
+{"n": 333, "leaf": 336, "out": {"figures": [{"number": "Fig. 158", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 334, "leaf": 337, "out": {"figures": [{"number": "PL. XII", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 336, "leaf": 339, "out": {"figures": [{"number": "Fig. 159", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 341, "leaf": 344, "out": {"figures": [{"number": "Fig. 161", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 342, "leaf": 345, "out": {"figures": [{"number": "Fig. 162", "shows": "plan"}]}, "parse": "ok", "s": 4.2, "img_size": [811, 1401]}
+{"n": 338, "leaf": 341, "out": {"figures": [{"number": "Pl. XIII", "shows": "view"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 340, "leaf": 343, "out": {"figures": [{"number": "Fig. 160", "shows": "object"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 343, "leaf": 346, "out": {"figures": [{"number": "Fig. 163", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 344, "leaf": 347, "out": {"figures": [{"number": "Fig. 164", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 351, "leaf": 354, "out": {"figures": [{"number": "Fig. 165", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 352, "leaf": 355, "out": {"figures": [{"number": "Fig. 166", "shows": "plan"}]}, "parse": "ok", "s": 5.4, "img_size": [811, 1401]}
+{"n": 354, "leaf": 357, "out": {"figures": [{"number": "Fig. 169", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 355, "leaf": 358, "out": {"figures": [{"number": "Fig. 170", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 356, "leaf": 359, "out": {"figures": [{"number": "Fig. 171", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 357, "leaf": 360, "out": {"figures": [{"number": "Fig. 172", "shows": "section"}]}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 353, "leaf": 356, "out": {"figures": [{"number": "Fig. 167", "shows": "section"}, {"number": "Fig. 168", "shows": "section"}]}, "parse": "ok", "s": 8.3, "img_size": [804, 1401]}
+{"n": 358, "leaf": 361, "out": {"figures": [{"number": "Fig. 173", "shows": "object"}]}, "parse": "ok", "s": 4.3, "img_size": [811, 1401]}
+{"n": 361, "leaf": 364, "out": {"figures": [{"number": "Fig. 174", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 363, "leaf": 366, "out": {"figures": [{"number": "Fig. 176", "shows": "plan"}]}, "parse": "ok", "s": 3.3, "img_size": [804, 1401]}
+{"n": 362, "leaf": 365, "out": {"figures": [{"number": "Fig. 175", "shows": "object"}]}, "parse": "ok", "s": 5.1, "img_size": [811, 1401]}
+{"n": 364, "leaf": 367, "out": {"figures": [{"number": "Fig. 177", "shows": "section"}]}, "parse": "ok", "s": 5.4, "img_size": [811, 1401]}
+{"n": 377, "leaf": 380, "out": {"figures": [{"number": "Fig. 180", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 389, "leaf": 392, "out": {"figures": [{"number": "Fig. 184", "shows": "section"}]}, "parse": "ok", "s": 3.3, "img_size": [804, 1401]}
+{"n": 390, "leaf": 393, "out": {"figures": [{"number": "Fig. 185", "shows": "plan"}]}, "parse": "ok", "s": 1.6, "img_size": [811, 1401]}
+{"n": 378, "leaf": 381, "out": {"figures": [{"number": "12", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 381, "leaf": 384, "out": {"figures": [{"number": "Fig. 181", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [804, 1401]}
+{"n": 386, "leaf": 389, "out": {"figures": [{"number": "Fig. 182", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 387, "leaf": 390, "out": {"figures": [{"number": "Fig. 183", "shows": "view"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 374, "leaf": 377, "out": {"figures": [{"number": "Fig. 178", "shows": "plan"}, {"number": "Fig. 179", "shows": "plan"}, {"number": "Fig. 179", "shows": "section"}]}, "parse": "ok", "s": 9.2, "img_size": [811, 1401]}
+{"n": 391, "leaf": 394, "out": {"figures": [{"number": "Fig. 186", "shows": "object"}]}, "parse": "ok", "s": 5.4, "img_size": [804, 1401]}
+{"n": 395, "leaf": 398, "out": {"figures": [{"number": "Fig. 188", "shows": "object"}, {"number": "Fig. 189", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [804, 1401]}
+{"n": 392, "leaf": 395, "out": {"figures": [{"number": "PL. XVII", "shows": "object"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 394, "leaf": 397, "out": {"figures": [{"number": "Fig. 187", "shows": "object"}]}, "parse": "ok", "s": 6.8, "img_size": [811, 1401]}
+{"n": 398, "leaf": 401, "out": {"figures": [{"number": "Fig. 190", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 396, "leaf": 399, "out": {"figures": [{"number": "Pl. XVIII", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 400, "leaf": 403, "out": {"figures": [{"number": "Fig. 192", "shows": "object"}]}, "parse": "ok", "s": 5.9, "img_size": [811, 1401]}
+{"n": 399, "leaf": 402, "out": {"figures": [{"number": "Fig. 191", "shows": "object"}]}, "parse": "ok", "s": 7.0, "img_size": [804, 1401]}
+{"n": 407, "leaf": 410, "out": {"figures": [{"number": "Fig. 193", "shows": "other"}]}, "parse": "ok", "s": 5.0, "img_size": [804, 1401]}
+{"n": 408, "leaf": 411, "out": {"figures": [{"number": "Fig. 194", "shows": "plan"}]}, "parse": "ok", "s": 5.1, "img_size": [811, 1401]}
+{"n": 409, "leaf": 412, "out": {"figures": [{"number": "Fig. 195", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 410, "leaf": 413, "out": {"figures": [{"number": "Pl. XIX", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [811, 1401]}
+{"n": 413, "leaf": 416, "out": {"figures": [{"number": "Fig. 196", "shows": "plan"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 419, "leaf": 422, "out": {"figures": [{"number": "Fig. 199", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [804, 1401]}
+{"n": 424, "leaf": 427, "out": {"figures": [{"number": "Fig. 200", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [811, 1401]}
+{"n": 418, "leaf": 421, "out": {"figures": [{"number": "Fig. 197", "shows": "object"}, {"number": "Fig. 198", "shows": "plan"}]}, "parse": "ok", "s": 8.5, "img_size": [811, 1401]}
+{"n": 430, "leaf": 433, "out": {"figures": [{"number": "Fig. 204", "shows": "object"}, {"number": "Fig. 205", "shows": "object"}]}, "parse": "ok", "s": 4.9, "img_size": [811, 1401]}
+{"n": 441, "leaf": 444, "out": {"figures": [{"number": "Fig. 207", "shows": "plan"}]}, "parse": "ok", "s": 3.1, "img_size": [827, 1401]}
+{"n": 431, "leaf": 434, "out": {"figures": [{"number": "Fig. 206", "shows": "object"}]}, "parse": "ok", "s": 4.2, "img_size": [804, 1401]}
+{"n": 425, "leaf": 428, "out": {"figures": [{"number": "Fig. 201", "shows": "object"}, {"number": "Fig. 202", "shows": "object"}, {"number": "Fig. 203", "shows": "object"}]}, "parse": "ok", "s": 7.5, "img_size": [804, 1401]}
+{"n": 443, "leaf": 446, "out": {"figures": [{"number": "Fig. 208", "shows": "plan"}, {"number": "Fig. 209", "shows": "object"}, {"number": "Fig. 210", "shows": "object"}]}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 449, "leaf": 452, "out": {"figures": [{"number": "Fig. 221", "shows": "plan"}]}, "parse": "ok", "s": 1.7, "img_size": [827, 1401]}
+{"n": 444, "leaf": 447, "out": {"figures": [{"number": "Fig. 211", "shows": "object"}, {"number": "Fig. 212", "shows": "object"}]}, "parse": "ok", "s": 5.9, "img_size": [817, 1401]}
+{"n": 445, "leaf": 448, "out": {"figures": [{"number": "Fig. 213", "shows": "object"}]}, "parse": "ok", "s": 4.4, "img_size": [827, 1401]}
+{"n": 434, "leaf": 437, "out": {"figures": [{"number": "1", "shows": "object"}, {"number": "2", "shows": "object"}, {"number": "3a", "shows": "object"}, {"number": "3b", "shows": "object"}, {"number": "4", "shows": "object"}, {"number": "5", "shows": "object"}]}, "parse": "ok", "s": 8.7, "img_size": [811, 1401]}
+{"n": 448, "leaf": 451, "out": {"figures": [{"number": "Fig. 218", "shows": "object"}, {"number": "Fig. 219", "shows": "object"}, {"number": "Fig. 220", "shows": "object"}]}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 453, "leaf": 456, "out": {"figures": [{"number": "Fig. 224", "shows": "section"}]}, "parse": "ok", "s": 3.0, "img_size": [827, 1401]}
+{"n": 447, "leaf": 450, "out": {"figures": [{"number": "Fig. 216", "shows": "object"}, {"number": "Fig. 217", "shows": "object"}]}, "parse": "ok", "s": 7.3, "img_size": [827, 1401]}
+{"n": 446, "leaf": 449, "out": {"figures": [{"number": "Fig. 214", "shows": "object"}, {"number": "Fig. 215", "shows": "object"}]}, "parse": "ok", "s": 7.4, "img_size": [817, 1401]}
+{"n": 454, "leaf": 457, "out": {"figures": [{"number": "Fig. 225", "shows": "object"}]}, "parse": "ok", "s": 3.0, "img_size": [817, 1401]}
+{"n": 450, "leaf": 453, "out": {"figures": [{"number": "Fig. 222", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 452, "leaf": 455, "out": {"figures": [{"number": "Fig. 223", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 455, "leaf": 458, "out": {"figures": [{"number": "Fig. 226", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 456, "leaf": 459, "out": {"figures": [{"number": "Fig. 227", "shows": "object"}]}, "parse": "ok", "s": 7.0, "img_size": [817, 1401]}
+{"n": 460, "leaf": 463, "out": {"figures": [{"number": "Fig. 232", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [817, 1401]}
+{"n": 457, "leaf": 460, "out": {"figures": [{"number": "Fig. 228", "shows": "view"}, {"number": "Fig. 229", "shows": "section"}]}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 459, "leaf": 462, "out": {"figures": [{"number": "Fig. 231", "shows": "object"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 458, "leaf": 461, "out": {"figures": [{"number": "Fig. 230", "shows": "plan"}, {"number": "Fig. 230", "shows": "section"}]}, "parse": "ok", "s": 7.3, "img_size": [817, 1401]}
+{"n": 461, "leaf": 464, "out": {"figures": [{"number": "Fig. 233", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 462, "leaf": 465, "out": {"figures": [{"number": "Fig. 234", "shows": "plan"}]}, "parse": "ok", "s": 6.9, "img_size": [817, 1401]}
+{"n": 465, "leaf": 468, "out": {"figures": [{"number": "Fig. 237", "shows": "section"}]}, "parse": "ok", "s": 3.3, "img_size": [827, 1401]}
+{"n": 466, "leaf": 469, "out": {"figures": [{"number": "Fig. 238", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 467, "leaf": 470, "out": {"figures": [{"number": "Fig. 239", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 480, "leaf": 483, "out": {"figures": [{"number": "Fig. 242", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [817, 1401]}
+{"n": 463, "leaf": 466, "out": {"figures": [{"number": "Fig. 235", "shows": "section"}, {"number": "Fig. 236", "shows": "section"}]}, "parse": "ok", "s": 8.4, "img_size": [827, 1401]}
+{"n": 481, "leaf": 484, "out": {"figures": [{"number": "Fig. 243", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 468, "leaf": 471, "out": {"figures": [{"number": "PlO. 240", "shows": "object"}]}, "parse": "ok", "s": 8.5, "img_size": [817, 1401]}
+{"n": 471, "leaf": 474, "out": {"figures": [{"number": "Fig. 241", "shows": "other"}]}, "parse": "ok", "s": 7.1, "img_size": [827, 1401]}
+{"n": 489, "leaf": 492, "out": {"figures": [{"number": "Fig. 249", "shows": "section"}]}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 484, "leaf": 487, "out": {"figures": [{"number": "Fig. 244", "shows": "plan"}, {"number": "Fig. 245", "shows": "section"}]}, "parse": "ok", "s": 7.1, "img_size": [817, 1401]}
+{"n": 490, "leaf": 493, "out": {"figures": [{"number": "Fig. 250", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [817, 1401]}
+{"n": 485, "leaf": 488, "out": {"figures": [{"number": "Fig. 246", "shows": "plan"}]}, "parse": "ok", "s": 5.3, "img_size": [827, 1401]}
+{"n": 487, "leaf": 490, "out": {"figures": [{"number": "Fig. 247", "shows": "plan"}, {"number": "Fig. 248", "shows": "section"}]}, "parse": "ok", "s": 7.2, "img_size": [827, 1401]}
+{"n": 493, "leaf": 496, "out": {"figures": [{"number": "Fig. 255", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [827, 1401]}
+{"n": 491, "leaf": 494, "out": {"figures": [{"number": "Fig. 251", "shows": "object"}, {"number": "Fig. 252", "shows": "object"}]}, "parse": "ok", "s": 7.1, "img_size": [827, 1401]}
+{"n": 492, "leaf": 495, "out": {"figures": [{"number": "Fig. 253", "shows": "object"}, {"number": "Fig. 254", "shows": "plan"}]}, "parse": "ok", "s": 5.9, "img_size": [817, 1401]}
+{"n": 494, "leaf": 497, "out": {"figures": [{"number": "Fig. 256", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [817, 1401]}
+{"n": 495, "leaf": 498, "out": {"figures": [{"number": "Fig. 257", "shows": "section"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 497, "leaf": 500, "out": {"figures": [{"number": "Fig. 259", "shows": "object"}, {"number": "Fig. 260", "shows": "object"}]}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 496, "leaf": 499, "out": {"figures": [{"number": "Fig. 258", "shows": "plan"}]}, "parse": "ok", "s": 6.6, "img_size": [817, 1401]}
+{"n": 499, "leaf": 502, "out": {"figures": [{"number": "Fig. 264", "shows": "object"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 501, "leaf": 504, "out": {"figures": [{"number": "Fig. 267", "shows": "object"}]}, "parse": "ok", "s": 4.4, "img_size": [827, 1401]}
+{"n": 502, "leaf": 505, "out": {"figures": [{"number": "Fig. 268", "shows": "object"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 503, "leaf": 506, "out": {"figures": [{"number": "Fig. 269", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 504, "leaf": 507, "out": {"figures": [{"number": "Fig. 270", "shows": "other"}]}, "parse": "ok", "s": 3.4, "img_size": [817, 1401]}
+{"n": 505, "leaf": 508, "out": {"figures": [{"number": "Fig. 271", "shows": "plan"}]}, "parse": "ok", "s": 4.7, "img_size": [827, 1401]}
+{"n": 500, "leaf": 503, "out": {"figures": [{"number": "Fig. 265", "shows": "section"}, {"number": "Fig. 266", "shows": "plan"}]}, "parse": "ok", "s": 7.1, "img_size": [817, 1401]}
+{"n": 498, "leaf": 501, "out": {"figures": [{"number": "Fig. 261", "shows": "object"}, {"number": "Fig. 262", "shows": "object"}, {"number": "Fig. 263", "shows": "object"}]}, "parse": "ok", "s": 10.1, "img_size": [817, 1401]}
+{"n": 508, "leaf": 511, "out": {"figures": [{"number": "Fig. 272", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 510, "leaf": 513, "out": {"figures": [{"number": "Fig. 274", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 509, "leaf": 512, "out": {"figures": [{"number": "Fig. 273", "shows": "object"}]}, "parse": "ok", "s": 7.1, "img_size": [827, 1401]}
+{"n": 512, "leaf": 515, "out": {"figures": [{"number": "Fig. 276", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [817, 1401]}
+{"n": 511, "leaf": 514, "out": {"figures": [{"number": "Fig. 275", "shows": "plan"}]}, "parse": "ok", "s": 7.0, "img_size": [827, 1401]}
+{"n": 513, "leaf": 516, "out": {"figures": [{"number": "Fig. 277", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 514, "leaf": 517, "out": {"figures": [{"number": "Fig. 278", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 515, "leaf": 518, "out": {"figures": [{"number": "Fig. 279", "shows": "plan"}, {"number": "Fig. 280", "shows": "section"}]}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 518, "leaf": 521, "out": {"figures": [{"number": "Fig. 285", "shows": "object"}]}, "parse": "ok", "s": 3.0, "img_size": [817, 1401]}
+{"n": 516, "leaf": 519, "out": {"figures": [{"number": "Fig. 281", "shows": "plan"}, {"number": "Fig. 282", "shows": "object"}]}, "parse": "ok", "s": 4.5, "img_size": [817, 1401]}
+{"n": 521, "leaf": 524, "out": {"figures": [{"number": "Fig. 286", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [827, 1401]}
+{"n": 522, "leaf": 525, "out": {"figures": [{"number": "Fig. 287", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [817, 1401]}
+{"n": 517, "leaf": 520, "out": {"figures": [{"number": "Fig. 283", "shows": "object"}, {"number": "Fig. 284", "shows": "object"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 523, "leaf": 526, "out": {"figures": [{"number": "Fig. 288", "shows": "section"}]}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 532, "leaf": 535, "out": {"figures": [{"number": "Fig. 291", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 533, "leaf": 536, "out": {"figures": [{"number": "Fig. 292", "shows": "section"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 524, "leaf": 527, "out": {"figures": [{"number": "Fig. 289", "shows": "view"}, {"number": "Fig. 290", "shows": "section"}]}, "parse": "ok", "s": 8.4, "img_size": [817, 1401]}
+{"n": 539, "leaf": 542, "out": {"figures": [{"number": "Fig. 295", "shows": "plan"}]}, "parse": "ok", "s": 4.3, "img_size": [827, 1401]}
+{"n": 542, "leaf": 545, "out": {"figures": [{"number": "Fig. 298", "shows": "section"}]}, "parse": "ok", "s": 3.0, "img_size": [817, 1401]}
+{"n": 544, "leaf": 547, "out": {"figures": [{"number": "Fig. 301", "shows": "object"}]}, "parse": "ok", "s": 3.0, "img_size": [817, 1401]}
+{"n": 540, "leaf": 543, "out": {"figures": [{"number": "Fig. 296", "shows": "plan"}, {"number": "Fig. 296", "shows": "section"}, {"number": "Fig. 296", "shows": "section"}]}, "parse": "ok", "s": 7.2, "img_size": [817, 1401]}
+{"n": 549, "leaf": 552, "out": {"figures": [{"number": "Fig. 302", "shows": "section"}]}, "parse": "ok", "s": 3.0, "img_size": [827, 1401]}
+{"n": 538, "leaf": 541, "out": {"figures": [{"number": "Fig. 294", "shows": "plan"}, {"number": "Fig. 294", "shows": "section"}, {"number": "Fig. 294", "shows": "section"}]}, "parse": "ok", "s": 8.8, "img_size": [817, 1401]}
+{"n": 541, "leaf": 544, "out": {"figures": [{"number": "Fig. 297", "shows": "plan"}, {"number": "Fig. 297", "shows": "section"}, {"number": "Fig. 297", "shows": "section"}]}, "parse": "ok", "s": 8.6, "img_size": [827, 1401]}
+{"n": 543, "leaf": 546, "out": {"figures": [{"number": "Fig. 299", "shows": "object"}, {"number": "Fig. 300", "shows": "object"}]}, "parse": "ok", "s": 5.9, "img_size": [827, 1401]}
+{"n": 536, "leaf": 539, "out": {"figures": [{"number": "Fig. 293", "shows": "plan"}, {"number": "Fig. 293", "shows": "section"}, {"number": "Fig. 293", "shows": "section"}, {"number": "Fig. 293", "shows": "section"}]}, "parse": "ok", "s": 11.7, "img_size": [817, 1401]}
+{"n": 555, "leaf": 558, "out": {"figures": [{"number": "Fig. 303", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [827, 1401]}
+{"n": 560, "leaf": 563, "out": {"figures": [{"number": "Fig. 304", "shows": "section"}]}, "parse": "ok", "s": 5.5, "img_size": [817, 1401]}
+{"n": 564, "leaf": 567, "out": {"figures": [{"number": "Pl. XXIX", "shows": "view"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 568, "leaf": 571, "out": {"figures": [{"number": "Fig. 308", "shows": "plan"}]}, "parse": "ok", "s": 4.4, "img_size": [817, 1401]}
+{"n": 563, "leaf": 566, "out": {"figures": [{"number": "Fig. 306", "shows": "plan"}]}, "parse": "ok", "s": 7.0, "img_size": [827, 1401]}
+{"n": 566, "leaf": 569, "out": {"figures": [{"number": "Fig. 307", "shows": "section"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 561, "leaf": 564, "out": {"figures": [{"number": "Fig. 305", "shows": "plan"}, {"number": "Fig. 305", "shows": "section"}]}, "parse": "ok", "s": 8.4, "img_size": [827, 1401]}
+{"n": 571, "leaf": 574, "out": {"figures": [{"number": "Fig. 310", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 574, "leaf": 577, "out": {"figures": [{"number": "Fig. 311", "shows": "plan"}]}, "parse": "ok", "s": 3.8, "img_size": [817, 1401]}
+{"n": 569, "leaf": 572, "out": {"figures": [{"number": "Fig. 309", "shows": "plan"}, {"number": "Fig. 309", "shows": "section"}, {"number": "Fig. 309", "shows": "section"}]}, "parse": "ok", "s": 8.8, "img_size": [827, 1401]}
+{"n": 577, "leaf": 580, "out": {"figures": [{"number": "Fig. 313", "shows": "section"}]}, "parse": "ok", "s": 4.5, "img_size": [827, 1401]}
+{"n": 576, "leaf": 579, "out": {"figures": [{"number": "Fig. 312", "shows": "plan"}, {"number": "Fig. 312", "shows": "section"}]}, "parse": "ok", "s": 4.6, "img_size": [817, 1401]}
+{"n": 599, "leaf": 602, "out": {"figures": [{"number": "Fig. 317", "shows": "plan"}]}, "parse": "ok", "s": 1.7, "img_size": [827, 1401]}
+{"n": 579, "leaf": 582, "out": {"figures": [{"number": "Fig. 314", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 583, "leaf": 586, "out": {"figures": [{"number": "Fig. 315", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 598, "leaf": 601, "out": {"figures": [{"number": "Fig. 316", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 600, "leaf": 603, "out": {"figures": [{"number": "Fig. 318", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 602, "leaf": 605, "out": {"figures": [{"number": "Fig. 320", "shows": "section"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 601, "leaf": 604, "out": {"figures": [{"number": "Fig. 319", "shows": "plan"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 630, "leaf": 633, "out": {"figures": [{"number": "Fig. 323", "shows": "object"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 633, "leaf": 636, "out": {"figures": [{"number": "Fig. 324", "shows": "plan"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 619, "leaf": 622, "out": {"figures": [{"number": "Fig. 321", "shows": "plan"}]}, "parse": "ok", "s": 8.0, "img_size": [827, 1401]}
+{"n": 635, "leaf": 638, "out": {"figures": [{"number": "Fig. 325", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [827, 1401]}
+{"n": 628, "leaf": 631, "out": {"figures": [{"number": "Fig. 322", "shows": "section"}]}, "parse": "ok", "s": 9.8, "img_size": [817, 1401]}
+{"n": 636, "leaf": 639, "out": {"figures": [{"number": "Fig. 236", "shows": "plan"}]}, "parse": "ok", "s": 6.1, "img_size": [817, 1401]}
+{"n": 639, "leaf": 642, "out": {"figures": [{"number": "Fig. 327", "shows": "view"}]}, "parse": "ok", "s": 5.8, "img_size": [827, 1401]}
+{"n": 643, "leaf": 646, "out": {"figures": [{"number": "Fig. 328", "shows": "section"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 647, "leaf": 650, "out": {"figures": [{"number": "Fig. 331", "shows": "plan"}]}, "parse": "ok", "s": 3.4, "img_size": [827, 1401]}
+{"n": 644, "leaf": 647, "out": {"figures": [{"number": "Fig. 329", "shows": "object"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 645, "leaf": 648, "out": {"figures": [{"number": "Fig. 330", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 650, "leaf": 653, "out": {"figures": [{"number": "Fig. 333", "shows": "plan"}]}, "parse": "ok", "s": 3.9, "img_size": [817, 1401]}
+{"n": 648, "leaf": 651, "out": {"figures": [{"number": "Fig. 332", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 652, "leaf": 655, "out": {"figures": [{"number": "Fig. 334", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [817, 1401]}
+{"n": 657, "leaf": 660, "out": {"figures": [{"number": "Fig. 335", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [827, 1401]}
+{"n": 660, "leaf": 663, "out": {"figures": [{"number": "Fig. 336", "shows": "plan"}]}, "parse": "ok", "s": 5.7, "img_size": [824, 1400]}
+{"n": 684, "leaf": 687, "out": {"figures": [{"number": "Fig. 327", "shows": "other"}]}, "parse": "ok", "s": 7.0, "img_size": [817, 1401]}
+{"n": 700, "leaf": 705, "out": {"figures": [{"number": "Fig. 338", "shows": "section"}]}, "parse": "ok", "s": 5.6, "img_size": [817, 1401]}
+{"n": 701, "leaf": 706, "out": {"figures": [{"number": "Fig. 339", "shows": "plan"}]}, "parse": "ok", "s": 6.6, "img_size": [827, 1401]}
+{"n": 768, "leaf": 775, "out": {"figures": [{"number": "Fig. 341", "shows": "view"}]}, "parse": "ok", "s": 6.3, "img_size": [802, 1401]}
+{"n": 781, "leaf": 788, "out": {"figures": [{"number": "Fig. 342", "shows": "section"}]}, "parse": "ok", "s": 4.9, "img_size": [827, 1401]}
+{"n": 894, "leaf": 901, "out": {"figures": [{"number": "PL. XX", "shows": "other"}]}, "parse": "ok", "s": 2.3, "img_size": [1306, 1400]}
+{"n": 766, "leaf": 773, "out": {"figures": [{"number": "Fig. 340", "shows": "view"}]}, "parse": "ok", "s": 7.5, "img_size": [802, 1401]}
+{"n": 798, "leaf": 805, "out": {"figures": [{"number": "PL. XII", "shows": "view"}]}, "parse": "ok", "s": 4.3, "img_size": [802, 1401]}
+{"n": 853, "leaf": 860, "out": {"figures": [{"number": "Fig. 344", "shows": "object"}]}, "parse": "ok", "s": 3.0, "img_size": [827, 1401]}
+{"n": 816, "leaf": 823, "out": {"figures": [{"number": "Fig. 343", "shows": "view"}]}, "parse": "ok", "s": 4.3, "img_size": [802, 1401]}

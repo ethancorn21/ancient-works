@@ -263,6 +263,14 @@ HAND = {
 }
 
 
+def _key(book, title):
+    """HAND key that survives a rerun re-reading the title in another case or with other punctuation."""
+    return book, re.sub(r"[^a-z0-9]+", " ", (title or "").lower()).strip()
+
+
+HAND = {_key(*k): v for k, v in HAND.items()}
+
+
 def main(args):
     if not os.path.exists(CATALOG):
         sys.exit(f"no catalog yet at {CATALOG}")
@@ -272,7 +280,7 @@ def main(args):
     for r in rows:
         m = match_row(r, idx, by_name)
         m.update({"row_id": r["id"], "book": r["book"], "title": r.get("title"), "site_names": r.get("site_names")})
-        h = HAND.get((r["book"], r.get("title")))
+        h = HAND.get(_key(r["book"], r.get("title")))
         if h and m["status"] in ("matched", "ambiguous"):
             m["status"], m["note"] = h
         out.append(m)

@@ -395,3 +395,355 @@
 {"n": 401, "error": "URLError(ConnectionRefusedError(61, 'Connection refused'))"}
 {"n": 399, "error": "URLError(ConnectionRefusedError(61, 'Connection refused'))"}
 {"n": 400, "error": "URLError(ConnectionRefusedError(61, 'Connection refused'))"}
+{"n": 365, "leaf": 365, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [934, 1400]}
+{"n": 354, "leaf": 354, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 109."], "caption": "FIG. 109.\u2014ARDOCH, PERTHSHIRE."}, "parse": "ok", "s": 8.6, "img_size": [934, 1400]}
+{"n": 385, "leaf": 385, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 112."], "caption": "HOD HILL AND LYDSBURY RINGS."}, "parse": "ok", "s": 8.6, "img_size": [934, 1400]}
+{"n": 387, "leaf": 387, "out": {"page_type": "text_only", "numbers": ["Fig. 29", "Fig. 162", "Fig. 44", "Fig. 19"], "caption": ""}, "parse": "ok", "s": 11.9, "img_size": [934, 1400]}
+{"n": 388, "leaf": 388, "out": {"page_type": "text_only", "numbers": ["Fig. 97"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [934, 1400]}
+{"n": 390, "leaf": 390, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [934, 1400]}
+{"n": 394, "leaf": 394, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 398, "leaf": 398, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 399, "leaf": 399, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [934, 1400]}
+{"n": 400, "leaf": 400, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [934, 1400]}
+{"n": 401, "leaf": 401, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [934, 1400]}
+{"n": 402, "leaf": 402, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 403, "leaf": 403, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [934, 1400]}
+{"n": 404, "leaf": 404, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [934, 1400]}
+{"n": 405, "leaf": 405, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [934, 1400]}
+{"n": 406, "leaf": 406, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 407, "leaf": 407, "out": {"page_type": "text_only", "numbers": ["Fig. 7", "Fig. 113"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 410, "leaf": 410, "out": {"page_type": "text_only", "numbers": ["Fig. 115"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 408, "leaf": 408, "out": {"page_type": "figure_site_plan", "numbers": ["113"], "caption": "GANNOCK'S CASTLE, TEMPSFORD."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 409, "leaf": 409, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 114."], "caption": "WILLINGTON."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 411, "leaf": 411, "out": {"page_type": "text_only", "numbers": ["Fig. 7", "Fig. 212"], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 414, "leaf": 414, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 413, "leaf": 413, "out": {"page_type": "figure_site_plan", "numbers": ["116"], "caption": "KENWITH'S CASTLE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 412, "leaf": 412, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 115."], "caption": "SHOEBURY."}, "parse": "ok", "s": 9.5, "img_size": [933, 1400]}
+{"n": 415, "leaf": 415, "out": {"page_type": "text_only", "numbers": ["Fig. 117"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 416, "leaf": 416, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 117"], "caption": "THE BURH, WITHAM."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 419, "leaf": 419, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.0, "img_size": [933, 1400]}
+{"n": 418, "leaf": 418, "out": {"page_type": "text_only", "numbers": ["Fig. 207", "Fig. 108"], "caption": ""}, "parse": "ok", "s": 4.3, "img_size": [933, 1400]}
+{"n": 417, "leaf": 417, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 118."], "caption": "EDDISBURY, THE OLD PALE."}, "parse": "ok", "s": 7.0, "img_size": [933, 1400]}
+{"n": 420, "leaf": 420, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 421, "leaf": 421, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 422, "leaf": 422, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 423, "leaf": 423, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 10.0, "img_size": [933, 1400]}
+{"n": 424, "leaf": 424, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 425, "leaf": 425, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 426, "leaf": 426, "out": {"page_type": "text_only", "numbers": ["Fig. 119", "Fig. 13"], "caption": ""}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 427, "leaf": 427, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 119."], "caption": "CLIFFORD'S HILL"}, "parse": "ok", "s": 7.0, "img_size": [933, 1400]}
+{"n": 428, "leaf": 428, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 120"], "caption": "BRIDGESTOW."}, "parse": "ok", "s": 6.3, "img_size": [933, 1400]}
+{"n": 429, "leaf": 429, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 121", "Fig. 122"], "caption": "DURPLEY CASTLE. CHANNER'S MOUNT, ASLOCKTON."}, "parse": "ok", "s": 7.1, "img_size": [933, 1400]}
+{"n": 431, "leaf": 431, "out": {"page_type": "figure_site_plan", "numbers": ["125"], "caption": "MEXBOROUGH CASTLE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 432, "leaf": 432, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 126."], "caption": "BUILT CASTLE."}, "parse": "ok", "s": 4.3, "img_size": [933, 1400]}
+{"n": 430, "leaf": 430, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 123", "Fig. 124"], "caption": "WEMBWORTHY, No. 1. WEMBWORTHY, No. 2."}, "parse": "ok", "s": 8.7, "img_size": [934, 1400]}
+{"n": 435, "leaf": 435, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 436, "leaf": 436, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [933, 1400]}
+{"n": 433, "leaf": 433, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 127.", "FIG. 128."], "caption": "ONGAR CASTLE. THE RINGS, LODDISWELL."}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 434, "leaf": 434, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 129"], "caption": "CYMBELINE'S MOUNT."}, "parse": "ok", "s": 7.9, "img_size": [934, 1400]}
+{"n": 437, "leaf": 437, "out": {"page_type": "figure_site_plan", "numbers": ["130"], "caption": "PORCHESTER CASTLE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 438, "leaf": 438, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 131"], "caption": "DEFENCES OF YORK."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 439, "leaf": 439, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 132."], "caption": "HEMBURY CASTLE, BUCKFASTLEIGH."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 440, "leaf": 440, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 133"], "caption": "TOTTENH\u0152."}, "parse": "ok", "s": 7.7, "img_size": [933, 1400]}
+{"n": 444, "leaf": 444, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 441, "leaf": 441, "out": {"page_type": "figure_site_plan", "numbers": ["134"], "caption": "FIG. 134.\u2014CAESAR'S CAMP, FOLKESTONE."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 442, "leaf": 442, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 135"], "caption": "CASTLE TOLL, NEWENDEN."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 443, "leaf": 443, "out": {"page_type": "text_only", "numbers": ["Fig. 151", "Fig. 113"], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 445, "leaf": 445, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 446, "leaf": 446, "out": {"page_type": "text_only", "numbers": ["Fig. 136"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 448, "leaf": 448, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 447, "leaf": 447, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 136."], "caption": "FIG. 136.\u2014ALCY HILL."}, "parse": "ok", "s": 10.1, "img_size": [933, 1400]}
+{"n": 449, "leaf": 449, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 450, "leaf": 450, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 451, "leaf": 451, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [933, 1400]}
+{"n": 452, "leaf": 452, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 454, "leaf": 454, "out": {"page_type": "text_only", "numbers": ["Fig. 138"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 453, "leaf": 453, "out": {"page_type": "figure_site_plan", "numbers": ["137"], "caption": "RICHARD'S CASTLE, HEREFORDSHIRE."}, "parse": "ok", "s": 8.6, "img_size": [934, 1400]}
+{"n": 455, "leaf": 455, "out": {"page_type": "figure_site_plan", "numbers": ["138"], "caption": "JOHN O' GAUNT'S CASTLE, HARROGATE."}, "parse": "ok", "s": 7.6, "img_size": [933, 1400]}
+{"n": 456, "leaf": 456, "out": {"page_type": "figure_site_plan", "numbers": ["139"], "caption": "BRAMBER CASTLE."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 458, "leaf": 458, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 457, "leaf": 457, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 140.", "FIG. 141."], "caption": "SKENFRITH CASTLE. ARUNDEL CASTLE."}, "parse": "ok", "s": 8.6, "img_size": [934, 1400]}
+{"n": 459, "leaf": 459, "out": {"page_type": "figure_site_plan", "numbers": ["142"], "caption": "FIG. 142. \u2014 EATON SOCON."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 460, "leaf": 460, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 143."], "caption": "WHITCHURCH, BUCKS."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 461, "leaf": 461, "out": {"page_type": "text_only", "numbers": ["Fig. 144", "Fig. 145"], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [933, 1400]}
+{"n": 463, "leaf": 463, "out": {"page_type": "figure_site_plan", "numbers": ["146"], "caption": "NUNNEY CASTLE."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 462, "leaf": 462, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 144.", "FIG. 145."], "caption": "BEAUMARIS CASTLE. HARLECH CASTLE."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 465, "leaf": 465, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 149"], "caption": "DESBOROUGH."}, "parse": "ok", "s": 4.3, "img_size": [933, 1400]}
+{"n": 464, "leaf": 464, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 147", "Fig. 148"], "caption": "ARQUES. BURWELL CASTLE."}, "parse": "ok", "s": 10.2, "img_size": [933, 1400]}
+{"n": 466, "leaf": 466, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 467, "leaf": 467, "out": {"page_type": "text_only", "numbers": ["Fig. 150"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 468, "leaf": 468, "out": {"page_type": "figure_site_plan", "numbers": ["150"], "caption": "WILLIAM'S HILL, MIDDLEHAM"}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 470, "leaf": 470, "out": {"page_type": "text_only", "numbers": ["Fig. 152"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 469, "leaf": 469, "out": {"page_type": "figure_site_plan", "numbers": ["151"], "caption": "FIG. 151.\u2014TOPCLIFFE."}, "parse": "ok", "s": 7.0, "img_size": [933, 1400]}
+{"n": 471, "leaf": 471, "out": {"page_type": "figure_site_plan", "numbers": ["152"], "caption": "MAGDALEN FIELD."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 472, "leaf": 472, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 473, "leaf": 473, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 474, "leaf": 474, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 475, "leaf": 475, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 476, "leaf": 476, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 477, "leaf": 477, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 478, "leaf": 478, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 479, "leaf": 479, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 480, "leaf": 480, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 481, "leaf": 481, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 482, "leaf": 482, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 483, "leaf": 483, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 153"], "caption": "GROVE FARM, TERRICK'S CROSS."}, "parse": "ok", "s": 7.0, "img_size": [933, 1400]}
+{"n": 484, "leaf": 484, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 154"], "caption": "LITTLE PEDNOR."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 485, "leaf": 485, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 155"], "caption": "GIVENDALE."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 486, "leaf": 486, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 156"], "caption": "NASH LEE."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 490, "leaf": 490, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 487, "leaf": 487, "out": {"page_type": "figure_site_plan", "numbers": ["157"], "caption": "FIG. 157.\u2014APSLEY."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 489, "leaf": 489, "out": {"page_type": "figure_site_plan", "numbers": ["160"], "caption": "NORTH LEES, RIPON."}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 488, "leaf": 488, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 158", "FIG. 159"], "caption": "THE MOATED HOMESTEAD"}, "parse": "ok", "s": 10.2, "img_size": [933, 1400]}
+{"n": 493, "leaf": 493, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 492, "leaf": 492, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 491, "leaf": 491, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 161"], "caption": "MOAT AT MARSH."}, "parse": "ok", "s": 6.9, "img_size": [934, 1400]}
+{"n": 494, "leaf": 494, "out": {"page_type": "text_only", "numbers": ["Fig. 162"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 498, "leaf": 498, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 495, "leaf": 495, "out": {"page_type": "figure_site_plan", "numbers": ["162"], "caption": "FIG. 162.\u2014REDDINGWICK WOOD."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 496, "leaf": 496, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 163."], "caption": "BRAY'S WOOD."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 497, "leaf": 497, "out": {"page_type": "text_only", "numbers": ["Fig. 152", "Fig. 100", "Fig. 104"], "caption": ""}, "parse": "ok", "s": 11.2, "img_size": [933, 1400]}
+{"n": 502, "leaf": 502, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.6, "img_size": [933, 1400]}
+{"n": 499, "leaf": 499, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 164"], "caption": "LITTLE KIMBLE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 501, "leaf": 501, "out": {"page_type": "figure_site_plan", "numbers": ["166"], "caption": "FORTIFIED MANOR SITE, SIBTHORPE."}, "parse": "ok", "s": 9.4, "img_size": [933, 1400]}
+{"n": 500, "leaf": 500, "out": {"page_type": "figure_site_plan", "numbers": ["165"], "caption": "FIG. 165.\u2014SAUNDERTON."}, "parse": "ok", "s": 11.7, "img_size": [934, 1400]}
+{"n": 503, "leaf": 503, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 506, "leaf": 506, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [934, 1400]}
+{"n": 505, "leaf": 505, "out": {"page_type": "figure_site_plan", "numbers": ["168"], "caption": "MOATED SITES, SHENLEY CHURCH END."}, "parse": "ok", "s": 7.5, "img_size": [933, 1400]}
+{"n": 504, "leaf": 504, "out": {"page_type": "figure_site_plan", "numbers": ["167"], "caption": "FIG. 167.\u2014MOATED SITES, WALKINGHAM HALL."}, "parse": "ok", "s": 10.2, "img_size": [934, 1400]}
+{"n": 507, "leaf": 507, "out": {"page_type": "figure_site_plan", "numbers": ["169"], "caption": "GROVE FARM, ASHLEY GREEN."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 510, "leaf": 510, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 508, "leaf": 508, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 170"], "caption": "THE CAMPS, BUSHMEAD, ST. NEOTS."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 509, "leaf": 509, "out": {"page_type": "figure_site_plan", "numbers": ["171"], "caption": "SHARE FARM, HORSMONDEN."}, "parse": "ok", "s": 7.8, "img_size": [934, 1400]}
+{"n": 511, "leaf": 511, "out": {"page_type": "text_only", "numbers": ["Fig. 172"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 512, "leaf": 512, "out": {"page_type": "figure_site_plan", "numbers": ["172"], "caption": "FISH-POND, LANGLEY MARISH."}, "parse": "ok", "s": 6.9, "img_size": [934, 1400]}
+{"n": 515, "leaf": 515, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.0, "img_size": [933, 1400]}
+{"n": 514, "leaf": 514, "out": {"page_type": "figure_site_plan", "numbers": ["175"], "caption": "FISH-PONDS AT SIRTHORPE, NOTTS."}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 513, "leaf": 513, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 173", "FIG. 174"], "caption": "Fish-ponds at Flamborough. Moats and Fish-ponds at Rolleston."}, "parse": "ok", "s": 11.9, "img_size": [933, 1400]}
+{"n": 516, "leaf": 516, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 517, "leaf": 517, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [933, 1400]}
+{"n": 518, "leaf": 518, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 519, "leaf": 519, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 520, "leaf": 520, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 521, "leaf": 521, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [933, 1400]}
+{"n": 522, "leaf": 522, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 523, "leaf": 523, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 525, "leaf": 525, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 526, "leaf": 526, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 524, "leaf": 524, "out": {"page_type": "text_only", "numbers": ["Fig. 217"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 527, "leaf": 527, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 529, "leaf": 529, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 530, "leaf": 530, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 531, "leaf": 531, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 532, "leaf": 532, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 528, "leaf": 528, "out": {"page_type": "plate_site_plan", "numbers": ["xv", "507", "FIG. 176."], "caption": "THE CAMBRIDGESHIRE DYKES."}, "parse": "ok", "s": 11.9, "img_size": [933, 1400]}
+{"n": 533, "leaf": 533, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 534, "leaf": 534, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 535, "leaf": 535, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 536, "leaf": 536, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 537, "leaf": 537, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 538, "leaf": 538, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 539, "leaf": 539, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 540, "leaf": 540, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 542, "leaf": 542, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 541, "leaf": 541, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 543, "leaf": 543, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 544, "leaf": 544, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 545, "leaf": 545, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 546, "leaf": 546, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 547, "leaf": 547, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 548, "leaf": 548, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 549, "leaf": 549, "out": {"page_type": "figure_site_plan", "numbers": ["177"], "caption": "Disc-Barrow, Hunter's Rest."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 550, "leaf": 550, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 178."], "caption": "DISC-BARROWS, LEWES DOWN."}, "parse": "ok", "s": 8.5, "img_size": [934, 1400]}
+{"n": 551, "leaf": 551, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 179"], "caption": "Disc-Barrow, Haddon Hill."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 552, "leaf": 552, "out": {"page_type": "text_only", "numbers": ["Fig. 195", "Fig. 196"], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [933, 1400]}
+{"n": 553, "leaf": 553, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 555, "leaf": 555, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 554, "leaf": 554, "out": {"page_type": "text_only", "numbers": ["Fig. 67", "Fig. 21", "Fig. 64", "Fig. 66"], "caption": ""}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 556, "leaf": 556, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 180."], "caption": "SITE OF WINDMILL, MOUNT CABURN."}, "parse": "ok", "s": 6.0, "img_size": [934, 1400]}
+{"n": 557, "leaf": 557, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 181."], "caption": "SITE OF WINDMILL, FIRLE HILL."}, "parse": "ok", "s": 5.4, "img_size": [933, 1400]}
+{"n": 558, "leaf": 558, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 182"], "caption": "WINDMILL SITES, LEWES DOWN."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 560, "leaf": 560, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 559, "leaf": 559, "out": {"page_type": "text_only", "numbers": ["Fig. 182 B"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 561, "leaf": 561, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 562, "leaf": 562, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 563, "leaf": 563, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 564, "leaf": 564, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 565, "leaf": 565, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 566, "leaf": 566, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 567, "leaf": 567, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 568, "leaf": 568, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 569, "leaf": 569, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 570, "leaf": 570, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 571, "leaf": 571, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 572, "leaf": 572, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 574, "leaf": 574, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 573, "leaf": 573, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 183"], "caption": "CROW CLOSE."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 577, "leaf": 577, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [933, 1400]}
+{"n": 575, "leaf": 575, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 184"], "caption": "EARTHWORKS. A. UFFCULME; B. BROW DOWN."}, "parse": "ok", "s": 7.0, "img_size": [933, 1400]}
+{"n": 576, "leaf": 576, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 185"], "caption": "BANWELL CROSS."}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 578, "leaf": 578, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 186"], "caption": "EARTHMARKS AT COTTENHAM."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 579, "leaf": 579, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 580, "leaf": 580, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 581, "leaf": 581, "out": {"page_type": "figure_site_plan", "numbers": ["187"], "caption": "EARTHWORKS OF AVEBURY."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 583, "leaf": 583, "out": {"page_type": "text_only", "numbers": ["Fig. 189"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 582, "leaf": 582, "out": {"page_type": "figure_site_plan", "numbers": ["188"], "caption": "EARTHWORKS OF STONEHENGE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 584, "leaf": 584, "out": {"page_type": "figure_site_plan", "numbers": ["189"], "caption": "Mendip Ringworks, Piddly."}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 585, "leaf": 585, "out": {"page_type": "text_only", "numbers": ["Fig. 190"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 587, "leaf": 587, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 586, "leaf": 586, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 190."], "caption": "KNOWLTON."}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 588, "leaf": 588, "out": {"page_type": "text_only", "numbers": ["Fig. 191"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 590, "leaf": 590, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 589, "leaf": 589, "out": {"page_type": "figure_site_plan", "numbers": ["191"], "caption": "FIG. 191.\u2014THORNBROUGH, THE NORTHERN RING."}, "parse": "ok", "s": 10.2, "img_size": [933, 1400]}
+{"n": 592, "leaf": 592, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 591, "leaf": 591, "out": {"page_type": "other_illustration", "numbers": ["192"], "caption": "SECTION OF FOSSES, THORNBROUGH."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 593, "leaf": 593, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 594, "leaf": 594, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 595, "leaf": 595, "out": {"page_type": "text_only", "numbers": ["Fig. 193"], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 597, "leaf": 597, "out": {"page_type": "figure_site_plan", "numbers": ["194"], "caption": "ARBOR LOW."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 596, "leaf": 596, "out": {"page_type": "figure_site_plan", "numbers": ["193"], "caption": "FIG. 193.\u2014FIGSBURY."}, "parse": "ok", "s": 10.2, "img_size": [933, 1400]}
+{"n": 598, "leaf": 598, "out": {"page_type": "text_only", "numbers": ["Fig. 195"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 599, "leaf": 599, "out": {"page_type": "figure_site_plan", "numbers": ["195"], "caption": "FIG. 195.\u2014CASTLE DYKE, AYSGARTH."}, "parse": "ok", "s": 7.0, "img_size": [934, 1400]}
+{"n": 600, "leaf": 600, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 196."], "caption": "Volley Castle, Parracombe."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 602, "leaf": 602, "out": {"page_type": "figure_site_plan", "numbers": ["199"], "caption": "STRIPPLE STONES."}, "parse": "ok", "s": 5.3, "img_size": [933, 1400]}
+{"n": 601, "leaf": 601, "out": {"page_type": "figure_site_plan", "numbers": ["197", "198"], "caption": "EARTHWORK AT PLASHEIITS"}, "parse": "ok", "s": 10.2, "img_size": [933, 1400]}
+{"n": 603, "leaf": 603, "out": {"page_type": "text_only", "numbers": ["Fig. 200"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 604, "leaf": 604, "out": {"page_type": "figure_site_plan", "numbers": ["200"], "caption": "Burrington Camp."}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 605, "leaf": 605, "out": {"page_type": "text_only", "numbers": ["Fig. 201"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 607, "leaf": 607, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.4, "img_size": [933, 1400]}
+{"n": 606, "leaf": 606, "out": {"page_type": "figure_site_plan", "numbers": ["201"], "caption": "MAUMBURY RINGS."}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 609, "leaf": 609, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 610, "leaf": 610, "out": {"page_type": "text_only", "numbers": ["Fig. 203"], "caption": ""}, "parse": "ok", "s": 5.8, "img_size": [933, 1400]}
+{"n": 608, "leaf": 608, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 202"], "caption": "AMPHITHEATRE, SIL-CHESTER."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 611, "leaf": 611, "out": {"page_type": "figure_site_plan", "numbers": ["203"], "caption": "AMPHITHEATRE, CHARTERHOUSE."}, "parse": "ok", "s": 6.9, "img_size": [934, 1400]}
+{"n": 612, "leaf": 612, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 613, "leaf": 613, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 614, "leaf": 614, "out": {"page_type": "text_only", "numbers": ["Fig. 204", "Fig. 74"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 616, "leaf": 616, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 617, "leaf": 617, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 615, "leaf": 615, "out": {"page_type": "figure_site_plan", "numbers": ["204"], "caption": "CASTELL, LLANIDAN."}, "parse": "ok", "s": 8.5, "img_size": [934, 1400]}
+{"n": 618, "leaf": 618, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 621, "leaf": 621, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 619, "leaf": 619, "out": {"page_type": "text_only", "numbers": ["Fig. 205"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 622, "leaf": 622, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 620, "leaf": 620, "out": {"page_type": "figure_site_plan", "numbers": ["205"], "caption": "THE COCKPIT, CHISLEHURST."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 623, "leaf": 623, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 624, "leaf": 624, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 625, "leaf": 625, "out": {"page_type": "text_only", "numbers": ["Fig. 206"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 626, "leaf": 626, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 206."], "caption": "QUEEN'S SCONCE, NEWARK."}, "parse": "ok", "s": 10.1, "img_size": [933, 1400]}
+{"n": 627, "leaf": 627, "out": {"page_type": "figure_site_plan", "numbers": ["207"], "caption": "THE BULWARK, EARITH."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 628, "leaf": 628, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 208"], "caption": "SIEGE-WORKS BEFORE NEWARK."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 629, "leaf": 629, "out": {"page_type": "figure_site_plan", "numbers": ["209"], "caption": "SIEGE-WORK OF THE SCOTS, NEWARK."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 631, "leaf": 631, "out": {"page_type": "text_only", "numbers": ["Fig. 136"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 630, "leaf": 630, "out": {"page_type": "figure_site_plan", "numbers": ["210"], "caption": "CAMBRIDGE CASTLE IN 1643."}, "parse": "ok", "s": 6.9, "img_size": [934, 1400]}
+{"n": 632, "leaf": 632, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 633, "leaf": 633, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 635, "leaf": 635, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 636, "leaf": 636, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 637, "leaf": 637, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 634, "leaf": 634, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 211"], "caption": "DUCKPOND, HUTTON MOOR."}, "parse": "ok", "s": 8.4, "img_size": [934, 1400]}
+{"n": 638, "leaf": 638, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 639, "leaf": 639, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [933, 1400]}
+{"n": 640, "leaf": 640, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 641, "leaf": 641, "out": {"page_type": "text_only", "numbers": ["Fig. 212"], "caption": ""}, "parse": "ok", "s": 9.9, "img_size": [933, 1400]}
+{"n": 642, "leaf": 642, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 643, "leaf": 643, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 644, "leaf": 644, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 645, "leaf": 645, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 646, "leaf": 646, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 647, "leaf": 647, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [933, 1400]}
+{"n": 648, "leaf": 648, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 649, "leaf": 649, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 650, "leaf": 650, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [933, 1400]}
+{"n": 651, "leaf": 651, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 652, "leaf": 652, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [933, 1400]}
+{"n": 653, "leaf": 653, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 654, "leaf": 654, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 655, "leaf": 655, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [933, 1400]}
+{"n": 656, "leaf": 656, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 657, "leaf": 657, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 658, "leaf": 658, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 659, "leaf": 659, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [933, 1400]}
+{"n": 660, "leaf": 660, "out": {"page_type": "text_only", "numbers": ["Fig. 38"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 661, "leaf": 661, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 662, "leaf": 662, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "SWEALD"}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 663, "leaf": 663, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 664, "leaf": 664, "out": {"page_type": "text_only", "numbers": ["Fig. 212"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 666, "leaf": 666, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 665, "leaf": 665, "out": {"page_type": "figure_site_plan", "numbers": ["212"], "caption": "BURPHAM."}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 667, "leaf": 667, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 668, "leaf": 668, "out": {"page_type": "text_only", "numbers": ["Fig. 213"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 671, "leaf": 671, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 670, "leaf": 670, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 214."], "caption": "CISSBURY."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 669, "leaf": 669, "out": {"page_type": "figure_site_plan", "numbers": ["213"], "caption": "FIG. 213. \u2014 HIGHDOWN."}, "parse": "ok", "s": 8.6, "img_size": [933, 1400]}
+{"n": 672, "leaf": 672, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 673, "leaf": 673, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 674, "leaf": 674, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 675, "leaf": 675, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 676, "leaf": 676, "out": {"page_type": "text_only", "numbers": ["Fig. 91"], "caption": ""}, "parse": "ok", "s": 7.7, "img_size": [933, 1400]}
+{"n": 677, "leaf": 677, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 679, "leaf": 679, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 680, "leaf": 680, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 678, "leaf": 678, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 215."], "caption": "STEEP DOWN."}, "parse": "ok", "s": 10.1, "img_size": [933, 1400]}
+{"n": 681, "leaf": 681, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 682, "leaf": 682, "out": {"page_type": "text_only", "numbers": ["Fig. 216"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 684, "leaf": 684, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 683, "leaf": 683, "out": {"page_type": "figure_site_plan", "numbers": ["216"], "caption": "EDBURTON."}, "parse": "ok", "s": 10.1, "img_size": [933, 1400]}
+{"n": 685, "leaf": 685, "out": {"page_type": "text_only", "numbers": ["Fig. 217", "Fig. 129", "Fig. 133"], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [933, 1400]}
+{"n": 687, "leaf": 687, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 686, "leaf": 686, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 217."], "caption": "DEVIL'S DYKE CAMP."}, "parse": "ok", "s": 8.4, "img_size": [934, 1400]}
+{"n": 688, "leaf": 688, "out": {"page_type": "text_only", "numbers": ["Fig. 218"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 690, "leaf": 690, "out": {"page_type": "text_only", "numbers": ["Fig. 219"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 689, "leaf": 689, "out": {"page_type": "figure_site_plan", "numbers": ["218"], "caption": "EARTHWORK, DEVIL'S DYKE COMBE."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 692, "leaf": 692, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 691, "leaf": 691, "out": {"page_type": "figure_site_plan", "numbers": ["219"], "caption": "DITCHLING BEACON."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 693, "leaf": 693, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 694, "leaf": 694, "out": {"page_type": "text_only", "numbers": ["Fig. 222"], "caption": ""}, "parse": "ok", "s": 8.4, "img_size": [933, 1400]}
+{"n": 695, "leaf": 695, "out": {"page_type": "text_only", "numbers": ["Fig. 220"], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [933, 1400]}
+{"n": 697, "leaf": 697, "out": {"page_type": "figure_site_plan", "numbers": ["221"], "caption": "EAST HILL, HASTINGS."}, "parse": "ok", "s": 5.9, "img_size": [933, 1400]}
+{"n": 696, "leaf": 696, "out": {"page_type": "figure_site_plan", "numbers": ["220"], "caption": "FIG. 220.\u2014SEAFORD."}, "parse": "ok", "s": 8.5, "img_size": [933, 1400]}
+{"n": 699, "leaf": 699, "out": {"page_type": "text_only", "numbers": ["Fig. 223"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [933, 1400]}
+{"n": 698, "leaf": 698, "out": {"page_type": "figure_site_plan", "numbers": ["Fig. 222"], "caption": "COMBE HILL, WILLINGDON."}, "parse": "ok", "s": 6.9, "img_size": [933, 1400]}
+{"n": 701, "leaf": 701, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 702, "leaf": 702, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 700, "leaf": 700, "out": {"page_type": "figure_site_plan", "numbers": ["223"], "caption": "MOUNT CABURN."}, "parse": "ok", "s": 8.4, "img_size": [934, 1400]}
+{"n": 703, "leaf": 703, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 704, "leaf": 704, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [933, 1400]}
+{"n": 705, "leaf": 705, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 706, "leaf": 706, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 707, "leaf": 707, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 708, "leaf": 708, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [933, 1400]}
+{"n": 710, "leaf": 710, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 709, "leaf": 709, "out": {"page_type": "figure_site_plan", "numbers": ["FIG. 224."], "caption": "Dolebury."}, "parse": "ok", "s": 6.8, "img_size": [934, 1400]}
+{"n": 711, "leaf": 711, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 712, "leaf": 712, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 713, "leaf": 713, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 714, "leaf": 714, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 715, "leaf": 715, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 716, "leaf": 716, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 717, "leaf": 717, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 718, "leaf": 718, "out": {"page_type": "text_only", "numbers": ["Fig. 48"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 719, "leaf": 719, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 720, "leaf": 720, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 721, "leaf": 721, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 722, "leaf": 722, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 723, "leaf": 723, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 724, "leaf": 724, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 725, "leaf": 725, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 726, "leaf": 726, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [933, 1400]}
+{"n": 727, "leaf": 727, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [933, 1400]}
+{"n": 728, "leaf": 728, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 729, "leaf": 729, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [933, 1400]}
+{"n": 730, "leaf": 730, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 731, "leaf": 731, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 732, "leaf": 732, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 733, "leaf": 733, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.3, "img_size": [933, 1400]}
+{"n": 734, "leaf": 734, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [933, 1400]}
+{"n": 735, "leaf": 735, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 736, "leaf": 736, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 737, "leaf": 737, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.2, "img_size": [933, 1400]}
+{"n": 738, "leaf": 738, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 739, "leaf": 739, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [933, 1400]}
+{"n": 740, "leaf": 740, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [933, 1400]}
+{"n": 741, "leaf": 741, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
+{"n": 742, "leaf": 742, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [933, 1400]}
