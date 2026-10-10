@@ -249,6 +249,20 @@ def match_row(row, idx, by_name):
     return rec
 
 
+# Matches checked by eye (2026-10-10) that the name rule gets wrong or only half right: (book, title) -> (status, note)
+HAND = {
+    ("mills_1914", "MAP of Serpent Mound. Warren Co., O."):
+        ("rejected_by_eye", "different effigy: Warren County serpent, not Adams County Serpent Mound"),
+    ("allcroft_1908", "Banwell Cross"): ("rejected_by_eye", "the cross earthwork, not the hillfort Banwell Camp"),
+    ("allcroft_1908", "Cruciform Earthwork at Banwell, Somerset"):
+        ("rejected_by_eye", "the cross earthwork, not the hillfort Banwell Camp"),
+    ("thomas_1894", "Plat of group near Charleston, Kanawha county, West Virginia"):
+        ("doubtful", "group plan; Criel Mound is one mound of it"),
+    ("allcroft_1908", "The Old Pale, Eddisbury, Cheshire"):
+        ("doubtful", "The Old Pale is a separate enclosure next to Eddisbury hill fort"),
+}
+
+
 def main(args):
     if not os.path.exists(CATALOG):
         sys.exit(f"no catalog yet at {CATALOG}")
@@ -258,6 +272,9 @@ def main(args):
     for r in rows:
         m = match_row(r, idx, by_name)
         m.update({"row_id": r["id"], "book": r["book"], "title": r.get("title"), "site_names": r.get("site_names")})
+        h = HAND.get((r["book"], r.get("title")))
+        if h and m["status"] in ("matched", "ambiguous"):
+            m["status"], m["note"] = h
         out.append(m)
     with open(os.path.join(OUT, "matches.jsonl"), "w") as f:
         for m in out:

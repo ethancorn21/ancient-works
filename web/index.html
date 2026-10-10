@@ -280,6 +280,8 @@ const map = new maplibregl.Map({
   },
   center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
+// on phones the bottom sheet covers the lower half: centre the globe in the visible part
+if (narrow()) map.setPadding({ top: 0, left: 0, right: 0, bottom: innerHeight * 0.5 });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
   'Base map: Natural Earth · Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
@@ -388,16 +390,24 @@ function addMarkers() {
     el.className = 'marker'; el.type = 'button'; el.setAttribute('aria-label', `Open ${s.name}`);
     el.innerHTML = `<span class="sq"></span><span class="tag">${esc(s.name)}</span>`;
     el.addEventListener('click', e => { e.stopPropagation(); select(s.id); });
-    markers.push({ el, m: new maplibregl.Marker({ element: el, anchor: 'left', offset: [-6, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
+    markers.push({ id: s.id, el, m: new maplibregl.Marker({ element: el, anchor: 'left', offset: [-6, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
   }
-  // hide a label (not its square) when it would overlap one already placed
+  // hide a label (not its square) when it would overlap another square or a label already placed;
+  // sites with a fitted plate get their labels first
+  const order = [...markers].sort((a, b) => !!S.byId[b.id]?.plate - !!S.byId[a.id]?.plate);
   const sync = () => {
-    const z = map.getZoom(), placed = [];
-    for (const { el, m } of markers) {
-      el.style.display = z > 12.5 ? 'none' : '';
-      const tag = el.querySelector('.tag'), p = map.project(m.getLngLat());
-      const box = [p.x, p.y - 10, p.x + 12 + tag.offsetWidth, p.y + 10];
-      const hit = placed.some(b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]);
+    const z = map.getZoom(), pts = new Map(), placed = [];
+    for (const k of markers) {
+      k.el.style.display = z > 12.5 ? 'none' : '';
+      const p = map.project(k.m.getLngLat());
+      pts.set(k, p);
+    }
+    const squares = markers.map(k => { const p = pts.get(k); return [p.x - 7, p.y - 7, p.x + 7, p.y + 7, k]; });
+    for (const k of order) {
+      const tag = k.el.querySelector('.tag'), p = pts.get(k);
+      const box = [p.x + 6, p.y - 10, p.x + 12 + tag.offsetWidth, p.y + 10];
+      const over = b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1];
+      const hit = placed.some(over) || squares.some(b => b[4] !== k && over(b));
       tag.style.visibility = hit ? 'hidden' : '';
       if (!hit) placed.push(box);
     }
@@ -483,8 +493,8 @@ function siteEntries() {
     <p class="group-title">${esc(g)} <span>${groups[g].length}</span></p>
     <ul class="legend-list">${groups[g].map(s => `
       <li><button class="entry" data-id="${esc(s.id)}">
-        <span class="swatch ${esc(s.status || 'plowed')}"></span>
-        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc(s.place)}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
+        ${s.status ? `<span class="swatch ${esc(s.status)}"></span>` : `<span class="swatch" style="background:${KGROUP[kindGroup(s.kind || 'earthwork')][1]}"></span>`}
+        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind && !s.status ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
       </button></li>`).join('')}</ul>`).join('') + (cm.length ? `
     <p class="group-title">From the catalog <span>${cm.length === 40 ? 'first 40' : cm.length}</span></p>
     <ul class="legend-list">${cm.map(r => `
