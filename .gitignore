@@ -14,3 +14,11 @@ data/db/verdicts/
 data/tilecache/
 data/demtest/
 data/finder/
+# per-site images are rebuilt by the pipeline (build_catalog.py); only the first six hand-fitted sites are tracked
+web/data/sites/*
+!web/data/sites/fudge/
+!web/data/sites/hopeton/
+!web/data/sites/newark/
+!web/data/sites/marietta/
+!web/data/sites/forthill/
+!web/data/sites/highbank/

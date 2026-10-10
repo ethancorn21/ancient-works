@@ -150,8 +150,8 @@ def main(path, refresh_imagery=False):
     if dem_sources.source_for_bbox(bbox) not in ("ea", "ahn", "ign") and (refresh_imagery or not os.path.exists(imagery)):
         aw.fetch_imagery(bbox, min(w, 4096), min(h, 4096)).save(imagery, quality=80, optimize=True)
 
-    entry = {k: site[k] for k in ("id", "name", "aka", "place", "lon", "lat", "status", "summary", "notes")
-             if k in site}
+    entry = {k: site[k] for k in ("id", "name", "aka", "place", "lon", "lat", "status", "summary", "notes",
+                                  "region", "kind", "qid", "wiki") if k in site}
     entry["corners"] = aw.corners(bbox)
     entry["relief_clip_m"] = round(clip, 2)
     entry["block"] = entry_block

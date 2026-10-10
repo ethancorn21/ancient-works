@@ -522,7 +522,7 @@ function renderSite(s) {
       <p class="source">${esc(s.plate.source)}</p>
     </div>` : ''}
     ${depGroup(s)}
-    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>` : ''}
+    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}
     ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
   $('#back').onclick = () => { closeBlock(); S.sel = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
   $('#t-map').onclick = () => closeBlock();
