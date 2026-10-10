@@ -1091,11 +1091,16 @@ async function loadScan(name) {
   d.byId = {}; d.candidates.forEach(c => d.byId[c.id] = c);
   F.data[name] = d;
   map.addSource(`cands-${name}`, { type: 'geojson', data: candFeatures(name) });
-  map.addLayer({ id: `cand-ring-${name}`, type: 'line', source: `cands-${name}`, minzoom: 12.5, filter: ['==', ['get', 'kind'], 'ring'],
-    paint: { 'line-color': VCOLOR, 'line-width': 1.8, 'line-dasharray': ['case', ['==', ['get', 'v'], 'todo'], ['literal', [3, 2]], ['literal', [1, 0]]] } });
+  // MapLibre takes no per-feature line-dasharray: rings still to judge are dashed, judged ones solid, in two layers
+  map.addLayer({ id: `cand-ring-${name}`, type: 'line', source: `cands-${name}`, minzoom: 12.5,
+    filter: ['all', ['==', ['get', 'kind'], 'ring'], ['==', ['get', 'v'], 'todo']],
+    paint: { 'line-color': VCOLOR, 'line-width': 1.8, 'line-dasharray': [3, 2] } });
+  map.addLayer({ id: `cand-ring-done-${name}`, type: 'line', source: `cands-${name}`, minzoom: 12.5,
+    filter: ['all', ['==', ['get', 'kind'], 'ring'], ['!=', ['get', 'v'], 'todo']],
+    paint: { 'line-color': VCOLOR, 'line-width': 1.8 } });
   map.addLayer({ id: `cand-dot-${name}`, type: 'circle', source: `cands-${name}`, maxzoom: 12.5, filter: ['==', ['get', 'kind'], 'dot'],
     paint: { 'circle-radius': 4, 'circle-color': ['match', ['get', 'v'], 'todo', '#F8F4E8', VCOLOR], 'circle-stroke-color': '#2B2724', 'circle-stroke-width': 1.2 } });
-  for (const id of [`cand-ring-${name}`, `cand-dot-${name}`]) {
+  for (const id of [`cand-ring-${name}`, `cand-ring-done-${name}`, `cand-dot-${name}`]) {
     map.on('click', id, e => { const f = e.features && e.features[0]; if (f) selectCand(name, f.properties.id); });
     map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
     map.on('mouseleave', id, () => map.getCanvas().style.cursor = '');
