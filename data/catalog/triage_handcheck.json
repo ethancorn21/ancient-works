@@ -1,0 +1,283 @@
+{
+ "built-forthill": {
+  "agrees": true,
+  "note": "wall along the plateau rim crosses the middle third (subtle in dissected terrain)"
+ },
+ "built-highbank": {
+  "agrees": true,
+  "note": "circle and octagon walls cross the middle third"
+ },
+ "built-hopeton": {
+  "agrees": true,
+  "note": "circle and square walls cross the middle third"
+ },
+ "pos-q968802": {
+  "agrees": true,
+  "note": "serpent's sinuous ridge in the middle third"
+ },
+ "pos-q280444": {
+  "agrees": true,
+  "note": "Monks Mound fills the centre"
+ },
+ "pos-q964745": {
+  "agrees": true,
+  "note": "Mound A in the middle third, ridges to the right"
+ },
+ "pos-q1320821": {
+  "agrees": true,
+  "note": "a plaza mound touches the middle third"
+ },
+ "pos-q5597781": {
+  "agrees": true,
+  "note": "conical mound at centre"
+ },
+ "pos-q34827561": {
+  "agrees": true,
+  "note": "conical mound at centre"
+ },
+ "pos-q34821111": {
+  "agrees": true,
+  "note": "ringed conical mound at centre"
+ },
+ "pos-q28403189": {
+  "agrees": true,
+  "note": "small mound at centre next to a quarry"
+ },
+ "pos-q5185117": {
+  "agrees": true,
+  "note": "conical mound at centre"
+ },
+ "pos-q4220862": {
+  "agrees": true,
+  "note": "platform mounds in the middle third"
+ },
+ "pos-q7814641": {
+  "agrees": true,
+  "note": "platform mound in the middle third"
+ },
+ "pos-q4470180": {
+  "agrees": true,
+  "note": "large platform mound in the middle third"
+ },
+ "pos-q5370466": {
+  "agrees": true,
+  "note": "large platform mound at centre (coarse-looking DEM)"
+ },
+ "pos-q4363053": {
+  "agrees": true,
+  "note": "mound at centre"
+ },
+ "pos-q4530064": {
+  "agrees": true,
+  "note": "large platform mound at centre"
+ },
+ "pos-q4315010": {
+  "agrees": true,
+  "note": "Mound City enclosure overlaps the right of the middle third"
+ },
+ "pos-q123916810": {
+  "agrees": true,
+  "note": "Seip mound and circle wall in the middle third"
+ },
+ "pos-q2044290": {
+  "agrees": true,
+  "note": "Craig Mound in the middle third"
+ },
+ "pos-q4949038": {
+  "agrees": true,
+  "note": "platform mounds in the middle third"
+ },
+ "built-fudge": {
+  "agrees": false,
+  "note": "plowed-out enclosure: at most a faint arc, not clearly visible"
+ },
+ "built-marietta": {
+  "agrees": false,
+  "note": "the Conus mound is in the picture but outside the middle third; centre is streets"
+ },
+ "built-newark": {
+  "agrees": false,
+  "note": "site.json centre falls in town; Octagon and Great Circle are off this 800 m crop"
+ },
+ "pos-q4533107": {
+  "agrees": false,
+  "note": "Etowah mounds are in the lower left, outside the middle third (point ~250 m off)"
+ },
+ "pos-q5470727": {
+  "agrees": false,
+  "note": "Fort Ancient walls run along the plateau edge right of the middle third"
+ },
+ "pos-q7620387": {
+  "agrees": false,
+  "note": "no mound visible at centre (a building pad); point likely off"
+ },
+ "pos-q1517500": {
+  "agrees": false,
+  "note": "railway cut and a small bump at the edge; the big mounds are outside the middle third"
+ },
+ "pos-q4228402": {
+  "agrees": false,
+  "note": "only two small dots, cannot tell if mounds; main mound not in the middle third"
+ },
+ "pos-q4452751": {
+  "agrees": false,
+  "note": "no mound visible"
+ },
+ "pos-q1296201": {
+  "agrees": false,
+  "note": "highway and bluff; no effigies visible at this scale"
+ },
+ "pos-q4832928": {
+  "agrees": false,
+  "note": "no clear platform mound or wall in the middle third"
+ },
+ "pos-q1269580": {
+  "agrees": false,
+  "note": "gullies only; no mound visible"
+ },
+ "pos-q3485388": {
+  "agrees": false,
+  "note": "highway and houses; mounds not visible in the middle third"
+ },
+ "neg-00": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-01": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-02": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-03": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-04": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-05": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-06": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-07": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-08": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-09": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-10": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-11": {
+  "agrees": true,
+  "note": "field of dozens of small round bumps: natural pimple (mima) mounds by their number and spread; hard negative"
+ },
+ "neg-12": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-13": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-14": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-15": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-16": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-17": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-18": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-19": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-20": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-21": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-22": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-23": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-24": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-25": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-26": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-27": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-28": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-29": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-30": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-31": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-32": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-33": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "neg-34": {
+  "agrees": true,
+  "note": "no earthwork in the middle third"
+ },
+ "_how": "Claude looked at each 800 m crop (middle third outlined) before seeing any model output and marked whether the picture agrees with the a-priori truth (known site point / random point). Not a field check."
+}

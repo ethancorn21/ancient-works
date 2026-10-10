@@ -1,0 +1,158 @@
+{
+ "model": "qwen3.8-27b-v1",
+ "clip_m": 0.8,
+ "size_m": 800,
+ "px_m": 1.0,
+ "prompt": "This picture is a LiDAR terrain image (bare earth, trees and buildings removed). Brightness shows local relief: ground higher than its surroundings is light, lower ground is dark, with a faint hillshade lit from the north-west. North is up. The picture covers {w} x {h} metres (1 pixel = {px} m).\n\nQuestion: is there an artificial earthwork near the centre of the picture (within the middle third)?\n\nEarthworks means things built of earth by people long ago, for example: burial mounds (round or oval bumps, usually 5-100 m across), flat-topped platform mounds with straight sides, low effigy mounds shaped like animals, embankment walls forming circles, squares, octagons or long lines, walls with ditches around a hilltop.\n\nNot earthworks: roads, railways, highway embankments, field edges, plough marks, farm terraces, levees, ponds, quarries, building pads, golf courses, natural hills, gullies and river banks.\n\nLabels:\n- \"earthwork_visible\": an earthwork as described is clearly visible near the centre\n- \"modern_only\": near the centre there are only modern features (roads, buildings, quarries, fields...)\n- \"nothing\": near the centre there is only natural ground\n- \"unsure\": something is there but you cannot tell whether it is an earthwork\n\nAnswer as JSON: {{\"label\": one of the four labels, \"reason\": \"one short sentence on what you see\"}}",
+ "clef_state": "A LiDAR local-relief image: bare-earth elevation minus a smoothed copy, so ground higher than its surroundings is light and lower ground is dark. 800 x 800 m, 1 m per pixel, north up.",
+ "clef_questions": {
+  "v1": {
+   "earthwork": {
+    "type": "noul",
+    "instructions": "Does this image show an ancient earthwork (a geometric enclosure wall or a burial mound)?"
+   }
+  },
+  "v2": {
+   "earthwork": {
+    "type": "noul",
+    "instructions": "Is there an ancient earthwork near the centre of this image: a round or flat-topped mound, or an earthen wall forming a circle, square or enclosure? Roads, railways, field edges, ponds, quarries and natural gullies do not count."
+   }
+  }
+ },
+ "all": {
+  "n_pos": 35,
+  "n_neg": 35,
+  "qwen_confusion": {
+   "positive": {
+    "earthwork_visible": 22,
+    "nothing": 4,
+    "modern_only": 8,
+    "unsure": 1,
+    "none": 0
+   },
+   "negative": {
+    "earthwork_visible": 2,
+    "nothing": 20,
+    "modern_only": 11,
+    "unsure": 2,
+    "none": 0
+   }
+  },
+  "qwen_recall": 0.629,
+  "qwen_false_pos_rate": 0.057,
+  "qwen_accuracy": 0.786,
+  "qwen_auc_from_labels": 0.789,
+  "clef_auc": 0.662,
+  "clef_v2_auc": 0.751,
+  "clef_at_0.5": {
+   "recall": 0.0,
+   "false_pos_rate": 0.0
+  },
+  "clef_best_in_sample": {
+   "threshold": 0.0663,
+   "recall": 0.629,
+   "false_pos_rate": 0.314
+  },
+  "clef_v2_at_0.5": {
+   "recall": 0.029,
+   "false_pos_rate": 0.0
+  },
+  "clef_v2_best_in_sample": {
+   "threshold": 0.0654,
+   "recall": 0.657,
+   "false_pos_rate": 0.171
+  }
+ },
+ "qwen_note": "Qwen labels come from one run on these 70 crops (prompt v1, two servers, temperature 0) made before the lead stopped all Qwen use; no Qwen calls were made after that, and the top-150 batch has no Qwen labels.",
+ "hand_checked": {
+  "n_pos": 22,
+  "n_neg": 35,
+  "qwen_confusion": {
+   "positive": {
+    "earthwork_visible": 18,
+    "nothing": 1,
+    "modern_only": 3,
+    "unsure": 0,
+    "none": 0
+   },
+   "negative": {
+    "earthwork_visible": 2,
+    "nothing": 20,
+    "modern_only": 11,
+    "unsure": 2,
+    "none": 0
+   }
+  },
+  "qwen_recall": 0.818,
+  "qwen_false_pos_rate": 0.057,
+  "qwen_accuracy": 0.895,
+  "qwen_auc_from_labels": 0.875,
+  "clef_auc": 0.735,
+  "clef_v2_auc": 0.836,
+  "clef_at_0.5": {
+   "recall": 0.0,
+   "false_pos_rate": 0.0
+  },
+  "clef_best_in_sample": {
+   "threshold": 0.0977,
+   "recall": 0.591,
+   "false_pos_rate": 0.114
+  },
+  "clef_v2_at_0.5": {
+   "recall": 0.045,
+   "false_pos_rate": 0.0
+  },
+  "clef_v2_best_in_sample": {
+   "threshold": 0.0654,
+   "recall": 0.773,
+   "false_pos_rate": 0.171
+  }
+ },
+ "truth_by_eye": {
+  "n_pos": 22,
+  "n_neg": 48,
+  "qwen_confusion": {
+   "positive": {
+    "earthwork_visible": 18,
+    "nothing": 1,
+    "modern_only": 3,
+    "unsure": 0,
+    "none": 0
+   },
+   "negative": {
+    "earthwork_visible": 6,
+    "nothing": 23,
+    "modern_only": 16,
+    "unsure": 3,
+    "none": 0
+   }
+  },
+  "qwen_recall": 0.818,
+  "qwen_false_pos_rate": 0.125,
+  "qwen_accuracy": 0.857,
+  "qwen_auc_from_labels": 0.841,
+  "clef_auc": 0.724,
+  "clef_v2_auc": 0.812,
+  "clef_at_0.5": {
+   "recall": 0.0,
+   "false_pos_rate": 0.0
+  },
+  "clef_best_in_sample": {
+   "threshold": 0.0977,
+   "recall": 0.591,
+   "false_pos_rate": 0.125
+  },
+  "clef_v2_at_0.5": {
+   "recall": 0.045,
+   "false_pos_rate": 0.0
+  },
+  "clef_v2_best_in_sample": {
+   "threshold": 0.0579,
+   "recall": 0.864,
+   "false_pos_rate": 0.333
+  }
+ },
+ "n_hand_disagree": 13,
+ "run": "2026-10-10 11:14",
+ "note": "'all' scores against the a-priori truth (known site vs random point). 'hand_checked' drops crops where looking at the picture contradicts that truth (e.g. a site point that misses the work, a random point that lands on a mound). Hand checks were done by Claude looking at the same crops, not by a field archaeologist. 'truth_by_eye' keeps every crop but counts a known-site crop whose work is not visible in the middle third as a negative."
+}

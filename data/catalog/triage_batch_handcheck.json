@@ -1,0 +1,603 @@
+{
+ "cahokia-q333661": {
+  "visible": true,
+  "note": ""
+ },
+ "poverty-point-q964745": {
+  "visible": true,
+  "note": ""
+ },
+ "serpent-mound-q968802": {
+  "visible": true,
+  "note": ""
+ },
+ "hopewell-culture-national-historical-par-q4315010": {
+  "visible": true,
+  "note": ""
+ },
+ "hopewell-ceremonial-earthworks-q10525989": {
+  "visible": true,
+  "note": ""
+ },
+ "watson-brake-q2552689": {
+  "visible": true,
+  "note": ""
+ },
+ "etowah-indian-mounds-q4533107": {
+  "visible": false,
+  "note": "mounds lower left, outside the middle third"
+ },
+ "moundville-archaeological-site-q1320821": {
+  "visible": true,
+  "note": ""
+ },
+ "spiro-mounds-q2044290": {
+  "visible": true,
+  "note": ""
+ },
+ "effigy-mounds-national-monument-q1296201": {
+  "visible": false,
+  "note": ""
+ },
+ "ocmulgee-mounds-national-historical-park-q1517500": {
+  "visible": false,
+  "note": ""
+ },
+ "aztalan-state-park-q4832928": {
+  "visible": null,
+  "note": "linear ridges and a small square bump at the edge; cannot tell"
+ },
+ "grave-creek-mound-q5597781": {
+  "visible": true,
+  "note": ""
+ },
+ "rock-eagle-effigy-mound-q1153892": {
+  "visible": false,
+  "note": ""
+ },
+ "fort-ancient-q5470727": {
+  "visible": false,
+  "note": "walls run right of the middle third"
+ },
+ "bottle-creek-indian-mounds-q4949038": {
+  "visible": true,
+  "note": ""
+ },
+ "newark-earthworks-q7016678": {
+  "visible": true,
+  "note": ""
+ },
+ "indian-mound-cemetery-q6020961": {
+  "visible": false,
+  "note": ""
+ },
+ "kolomoki-mounds-state-park-q4228402": {
+  "visible": null,
+  "note": ""
+ },
+ "mounds-state-park-q1950269": {
+  "visible": false,
+  "note": ""
+ },
+ "winterville-site-q4470180": {
+  "visible": true,
+  "note": ""
+ },
+ "adena-mound-q4682185": {
+  "visible": false,
+  "note": "Adena Mound was dug away in 1901; nothing at the point"
+ },
+ "angel-mounds-q4530064": {
+  "visible": true,
+  "note": ""
+ },
+ "emerald-mound-site-q5370466": {
+  "visible": true,
+  "note": ""
+ },
+ "pinson-mounds-q4363053": {
+  "visible": true,
+  "note": ""
+ },
+ "wickliffe-mounds-q1269580": {
+  "visible": false,
+  "note": ""
+ },
+ "indian-mounds-park-q3150092": {
+  "visible": null,
+  "note": "faint small circle at the edge; cannot tell"
+ },
+ "miamisburg-mound-q34827561": {
+  "visible": true,
+  "note": ""
+ },
+ "safety-harbor-site-q7398614": {
+  "visible": true,
+  "note": ""
+ },
+ "town-creek-indian-mound-q4452751": {
+  "visible": false,
+  "note": ""
+ },
+ "tremper-mound-and-works-q7838197": {
+  "visible": null,
+  "note": "small rounded-rectangle shape; cannot tell"
+ },
+ "alligator-effigy-mound-q4732645": {
+  "visible": null,
+  "note": "bright hilltop; effigy not identifiable"
+ },
+ "battle-mound-site-q4870073": {
+  "visible": true,
+  "note": ""
+ },
+ "bynum-mound-and-village-site-q5004170": {
+  "visible": false,
+  "note": ""
+ },
+ "caddo-mounds-state-historic-site-q5016312": {
+  "visible": true,
+  "note": ""
+ },
+ "crystal-river-archaeological-state-park-q3485388": {
+  "visible": false,
+  "note": ""
+ },
+ "dunns-pond-mound-q5315620": {
+  "visible": false,
+  "note": ""
+ },
+ "fort-hill-state-memorial-q16210178": {
+  "visible": true,
+  "note": "rim wall crosses the middle third (subtle)"
+ },
+ "kincaid-mounds-state-historic-site-q4220862": {
+  "visible": true,
+  "note": ""
+ },
+ "lsu-campus-mounds-q6460005": {
+  "visible": true,
+  "note": ""
+ },
+ "lake-ridge-island-mounds-q6477523": {
+  "visible": false,
+  "note": ""
+ },
+ "marietta-earthworks-q6763227": {
+  "visible": true,
+  "note": ""
+ },
+ "menard-hodges-site-q4290309": {
+  "visible": false,
+  "note": ""
+ },
+ "mound-cemetery-mound-q14716731": {
+  "visible": null,
+  "note": ""
+ },
+ "nacoochee-mound-q4312576": {
+  "visible": true,
+  "note": ""
+ },
+ "nodena-site-q4327024": {
+  "visible": false,
+  "note": "flat plowed field"
+ },
+ "portsmouth-earthworks-q4373374": {
+  "visible": false,
+  "note": ""
+ },
+ "shiloh-indian-mounds-site-q7496730": {
+  "visible": true,
+  "note": ""
+ },
+ "turtle-mound-q7856427": {
+  "visible": true,
+  "note": ""
+ },
+ "bear-lake-mounds-archeological-district-q4876480": {
+  "visible": null,
+  "note": ""
+ },
+ "monte-sano-mounds-q124445250": {
+  "visible": false,
+  "note": "refinery ground; nothing left"
+ },
+ "mount-elizabeth-archeological-site-q6920600": {
+  "visible": false,
+  "note": ""
+ },
+ "nanih-waiya-q6963605": {
+  "visible": true,
+  "note": ""
+ },
+ "rookery-mound-q7366204": {
+  "visible": null,
+  "note": ""
+ },
+ "round-hill-q14691182": {
+  "visible": false,
+  "note": ""
+ },
+ "davidsonville-historic-state-park-q5241685": {
+  "visible": false,
+  "note": "historic town site, not an earthwork"
+ },
+ "eaker-site-q5325432": {
+  "visible": false,
+  "note": ""
+ },
+ "fort-walton-mound-q5472236": {
+  "visible": true,
+  "note": ""
+ },
+ "lake-jackson-mounds-archaeological-state-q6476328": {
+  "visible": true,
+  "note": ""
+ },
+ "mound-key-archeological-state-park-q6919120": {
+  "visible": true,
+  "note": ""
+ },
+ "pharr-mounds-q7180861": {
+  "visible": true,
+  "note": ""
+ },
+ "story-mound-state-memorial-q18617458": {
+  "visible": true,
+  "note": ""
+ },
+ "anna-site-q4767482": {
+  "visible": false,
+  "note": ""
+ },
+ "annis-mound-and-village-site-q64617356": {
+  "visible": null,
+  "note": ""
+ },
+ "balmoral-mounds-q4852392": {
+  "visible": true,
+  "note": ""
+ },
+ "batesville-mounds-q68034246": {
+  "visible": true,
+  "note": ""
+ },
+ "battle-of-island-mound-state-historic-si-q14693501": {
+  "visible": false,
+  "note": "Civil War battle site named after a natural mound: not an ancient earthwork"
+ },
+ "beattie-park-mound-group-q4877297": {
+  "visible": false,
+  "note": ""
+ },
+ "berry-brothers-bolt-works-q4894766": {
+  "visible": false,
+  "note": "a 19th-century factory (Bolt Works): junk entry"
+ },
+ "blackhawk-country-club-mound-group-q117715185": {
+  "visible": null,
+  "note": ""
+ },
+ "boyd-mounds-site-q4952371": {
+  "visible": false,
+  "note": ""
+ },
+ "burchenal-mound-q4998204": {
+  "visible": false,
+  "note": ""
+ },
+ "burrows-park-effigy-mound-and-campsite-q102242088": {
+  "visible": false,
+  "note": ""
+ },
+ "castalian-springs-mound-site-q5049584": {
+  "visible": true,
+  "note": ""
+ },
+ "civil-war-earthworks-at-tallahatchie-cro-q61456836": {
+  "visible": null,
+  "note": "Civil War earthwork: not ancient; small feature at most"
+ },
+ "coy-site-q5180002": {
+  "visible": false,
+  "note": ""
+ },
+ "criel-mound-q5185117": {
+  "visible": true,
+  "note": ""
+ },
+ "cross-mound-q14716397": {
+  "visible": false,
+  "note": ""
+ },
+ "deprato-mounds-q5244044": {
+  "visible": false,
+  "note": ""
+ },
+ "dickson-mounds-q5273799": {
+  "visible": false,
+  "note": "museum building on the bluff"
+ },
+ "ellis-mounds-q5365955": {
+  "visible": false,
+  "note": ""
+ },
+ "emerald-mound-and-village-site-q16891077": {
+  "visible": true,
+  "note": ""
+ },
+ "freel-farm-mound-site-q5500940": {
+  "visible": false,
+  "note": ""
+ },
+ "frogmore-mound-site-q5505287": {
+  "visible": true,
+  "note": ""
+ },
+ "green-mound-q5602880": {
+  "visible": null,
+  "note": ""
+ },
+ "halvorson-mound-group-q117715230": {
+  "visible": null,
+  "note": ""
+ },
+ "hartley-mound-q104829699": {
+  "visible": false,
+  "note": ""
+ },
+ "heim-mound-q117711792": {
+  "visible": false,
+  "note": ""
+ },
+ "highbank-park-works-q5757832": {
+  "visible": null,
+  "note": "oval loop shape; could be natural"
+ },
+ "hodgen-s-cemetery-mound-q5876069": {
+  "visible": true,
+  "note": ""
+ },
+ "holly-bluff-site-q12060418": {
+  "visible": true,
+  "note": ""
+ },
+ "indian-mound-park-q6020971": {
+  "visible": true,
+  "note": ""
+ },
+ "indian-mound-reserve-q2493254": {
+  "visible": null,
+  "note": ""
+ },
+ "jaketown-site-q6125125": {
+  "visible": true,
+  "note": ""
+ },
+ "jungle-prada-site-q12060922": {
+  "visible": false,
+  "note": ""
+ },
+ "kings-crossing-site-q6412902": {
+  "visible": false,
+  "note": ""
+ },
+ "kingsley-bend-mound-group-q118942670": {
+  "visible": false,
+  "note": ""
+ },
+ "letchworth-love-mounds-archaeological-st-q6533192": {
+  "visible": true,
+  "note": ""
+ },
+ "little-maquoketa-river-mounds-state-pres-q6650830": {
+  "visible": false,
+  "note": ""
+ },
+ "lizard-mound-county-park-q6660528": {
+  "visible": null,
+  "note": "faint short streaks that may be effigy mounds; cannot tell"
+ },
+ "luthor-list-mound-q6705780": {
+  "visible": false,
+  "note": ""
+ },
+ "madira-bickel-mound-state-archeological-q6727810": {
+  "visible": true,
+  "note": ""
+ },
+ "marksville-prehistoric-indian-site-q6771408": {
+  "visible": true,
+  "note": ""
+ },
+ "monona-mound-q117711595": {
+  "visible": false,
+  "note": ""
+ },
+ "mound-72-q10396696": {
+  "visible": null,
+  "note": ""
+ },
+ "mound-bottom-q14710093": {
+  "visible": true,
+  "note": ""
+ },
+ "mound-cemetery-q6919104": {
+  "visible": true,
+  "note": ""
+ },
+ "mount-horeb-earthworks-complex-q6921321": {
+  "visible": true,
+  "note": ""
+ },
+ "mount-royal-q6923321": {
+  "visible": null,
+  "note": ""
+ },
+ "norton-mound-group-q14716249": {
+  "visible": false,
+  "note": ""
+ },
+ "norwood-mound-q7061637": {
+  "visible": null,
+  "note": ""
+ },
+ "observatory-hill-mound-group-q117715220": {
+  "visible": false,
+  "note": ""
+ },
+ "odd-fellows-cemetery-mound-q7077319": {
+  "visible": true,
+  "note": ""
+ },
+ "ormond-mound-q7103447": {
+  "visible": null,
+  "note": ""
+ },
+ "outlet-mound-q7112158": {
+  "visible": false,
+  "note": ""
+ },
+ "owl-creek-mounds-q7114849": {
+  "visible": false,
+  "note": ""
+ },
+ "parkin-archeological-state-park-q7138516": {
+  "visible": true,
+  "note": "raised block with moat"
+ },
+ "plum-bayou-mounds-archeological-state-pa-q7814641": {
+  "visible": true,
+  "note": ""
+ },
+ "pocahontas-mounds-q14693354": {
+  "visible": true,
+  "note": ""
+ },
+ "pompano-beach-mound-q18011400": {
+  "visible": false,
+  "note": ""
+ },
+ "portavant-mound-q7231529": {
+  "visible": true,
+  "note": ""
+ },
+ "pyramid-mound-q7263260": {
+  "visible": true,
+  "note": ""
+ },
+ "raleigh-mound-q14716791": {
+  "visible": false,
+  "note": ""
+ },
+ "rock-hawk-effigy-mound-q7354458": {
+  "visible": false,
+  "note": ""
+ },
+ "rowlandton-mound-site-q7372215": {
+  "visible": false,
+  "note": ""
+ },
+ "santee-indian-mound-and-fort-watson-q17030623": {
+  "visible": true,
+  "note": ""
+ },
+ "sellars-indian-mound-q14710174": {
+  "visible": true,
+  "note": ""
+ },
+ "sewee-mound-q18157936": {
+  "visible": true,
+  "note": "shell ring"
+ },
+ "shrum-mound-q28403189": {
+  "visible": true,
+  "note": ""
+ },
+ "sinnissippi-mounds-q7524732": {
+  "visible": null,
+  "note": ""
+ },
+ "spikebuck-town-mound-and-village-site-q16900428": {
+  "visible": false,
+  "note": ""
+ },
+ "spring-harbor-mound-group-q117715248": {
+  "visible": false,
+  "note": ""
+ },
+ "spruce-creek-mound-complex-q7581397": {
+  "visible": false,
+  "note": "mound and pits just left of the middle third"
+ },
+ "tampico-mounds-q22059027": {
+  "visible": false,
+  "note": ""
+ },
+ "tompkins-brindler-mound-group-q118875199": {
+  "visible": false,
+  "note": ""
+ },
+ "troyville-earthworks-q7847060": {
+  "visible": false,
+  "note": "town over the site"
+ },
+ "turkey-river-mounds-state-preserve-q27986783": {
+  "visible": false,
+  "note": ""
+ },
+ "velda-mound-q7918862": {
+  "visible": true,
+  "note": ""
+ },
+ "vilas-circle-bear-effigy-mound-and-the-c-q102375666": {
+  "visible": false,
+  "note": ""
+ },
+ "zaleski-mound-group-q8065456": {
+  "visible": true,
+  "note": ""
+ },
+ "aberdeen-mound-q4666953": {
+  "visible": true,
+  "note": ""
+ },
+ "aden-site-q4682175": {
+  "visible": true,
+  "note": ""
+ },
+ "albany-mounds-state-historic-site-q4709348": {
+  "visible": false,
+  "note": ""
+ },
+ "arledge-mounds-i-and-ii-q4792111": {
+  "visible": true,
+  "note": ""
+ },
+ "backusburg-mounds-q15195879": {
+  "visible": false,
+  "note": ""
+ },
+ "bay-pines-site-q4874058": {
+  "visible": false,
+  "note": ""
+ },
+ "bayou-grande-cheniere-mounds-q4874725": {
+  "visible": true,
+  "note": ""
+ },
+ "beam-farm-woodland-archaeological-distri-q4876173": {
+  "visible": null,
+  "note": "3 m source, blurry bump"
+ },
+ "beasley-mounds-site-q4876834": {
+  "visible": false,
+  "note": ""
+ },
+ "belcher-mound-site-q4882058": {
+  "visible": false,
+  "note": ""
+ },
+ "_how": "Claude looked at each batch crop (middle third outlined) on contact sheets showing only index and id, before looking at any Clef score, and marked whether an earthwork is visible in the middle third (true / false / null = cannot tell). Not a field check."
+}

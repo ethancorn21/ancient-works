@@ -1,0 +1,27 @@
+{
+ "n_labelled": 128,
+ "n_visible": 64,
+ "n_not_visible": 64,
+ "n_unclear": 22,
+ "thresholds_from_validation": {
+  "clef_p": 0.0977,
+  "clef_p_v2": 0.0579
+ },
+ "clef_p": {
+  "auc": 0.77,
+  "recall_at_val_threshold": 0.375,
+  "false_pos_at_val_threshold": 0.109
+ },
+ "clef_p_v2": {
+  "auc": 0.857,
+  "recall_at_val_threshold": 0.797,
+  "false_pos_at_val_threshold": 0.266
+ },
+ "clef_v2_confusion_at_val_threshold": {
+  "visible_yes": 51,
+  "visible_no": 13,
+  "notvisible_yes": 17,
+  "notvisible_no": 47
+ },
+ "text": "Batch check by eye (Claude, before looking at the scores): of 150 crops, 64 show an earthwork in the middle third, 64 do not, 22 unclear. Clef on this held-out set: question v1 AUC 0.77, v2 AUC 0.857; at the thresholds picked on the validation set, v1 recall 0.375 / false-pos 0.109, v2 recall 0.797 / false-pos 0.266. Clef v2 at p >= 0.0579: of 68 crops it passes, 51 show a work by eye; of 60 it flags, 47 show none. Entries in this batch that later catalog fixes dropped or re-tagged: Battle of Island Mound State Historic Site (military_earthwork), Berry Brothers Bolt Works (dropped), Civil War Earthworks at Tallahatchie Crossing (military_earthwork)."
+}
