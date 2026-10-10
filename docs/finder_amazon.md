@@ -121,8 +121,19 @@ in each area (0 in JAM02), so that half of the gate held, but it is moot.
 | 7 | 0333 | angular ditched enclosure in pasture, running off the swath edge (enclosures touching the edge are dropped) |
 | 8 | 0621 | a large depression in a valley; unclear |
 
+Positive 7 turned out to be open ground (ground share 0.79 at the point, pasture): by section 1's own rule a sanity
+check, not a positive. It was counted because the rule keyed on the TREES/INPE label, which does not guarantee forest.
+The verdict is the same either way: 0 of 8, or 0 of 7 under forest. Against Ethan's target (big geometric works) the
+eight split into 4 banked roads (not the target), 3 in the target class (the two raised rings, 0 found by design; the
+ditched enclosure, dropped by the edge rule chosen in section 2) and 1 unclear.
+
 So the miss is in the design, not the tuning. Under forest these works show as low banks (raised roads, raised rings),
 while both detectors look for ditches, and the speck opening and ground filter are built to keep ditches and shave
 what stands up. Seven of the eight are visible by eye in this ground model, which means the data carries them. Next
 detector, if pursued: raised rings and paired parallel banks. It needs a fresh test set, because these 8 have been
 looked at.
+
+Post-hoc exploration, not a test (one run, nothing tuned): detector A with the sign flipped (crest rings instead of
+trench rings), same pre-steps, on 0126 and 0476. Neither raised ring (positives 3 and 6) is in its top 400. The rings
+are faint next to the canopy texture left in the forest ground model, so flipping the sign is not enough for a
+raised-feature detector.
