@@ -1,0 +1,15 @@
+{
+ "id": "binche-q95121",
+ "name": "Binche",
+ "place": "Belgium",
+ "lon": 4.1652,
+ "lat": 50.4103,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q95121",
+ "summary": "Binche is a city and municipality of Wallonia, in the province of Hainaut, Belgium. Since 1977, the municipality consists of Binche, Bray, Buvrinnes, \u00c9pinois, Leval-Trahegnies, P\u00e9ronnes-lez-Binche, Ressaix, and Waudrez districts.",
+ "wiki": "https://en.wikipedia.org/wiki/Binche"
+}

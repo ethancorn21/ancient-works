@@ -117,7 +117,10 @@ def sheet(sid, pid, crop=None):
     S.paste(r, (c.width + 10, 0))
     path = os.path.join(OUT, f"fit_{sid}_{pid}.jpg")
     S.save(path, quality=85)
-    print(path, "plan size", im.size, "relief size", Image.open(ground(sid)).size)
+    # read positions off the grid labels, never off the sheet's own pixels: the plan is drawn at `sc`, the ground at `rs`
+    # (2026-10-10: Castle Rising saved with on-sheet pixels came out 1.21x too small and shifted)
+    print(path, "plan size", im.size, "ground size", Image.open(ground(sid)).size,
+          f"| sheet scale: plan {sc:.3f}, ground {rs:.3f} (plan px = (sheet x / {sc:.3f}) + {x0})")
 
 
 def zoom(sid, box):

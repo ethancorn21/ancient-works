@@ -1,0 +1,15 @@
+{
+ "id": "bergues-q244934",
+ "name": "Bergues",
+ "place": "France",
+ "lon": 2.4342,
+ "lat": 50.9686,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "town",
+ "qid": "Q244934",
+ "summary": "Bergues is a commune in the Nord department in northern France.",
+ "wiki": "https://en.wikipedia.org/wiki/Bergues"
+}

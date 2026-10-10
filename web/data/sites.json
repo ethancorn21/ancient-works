@@ -2149,6 +2149,51 @@
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
+   "id": "bergues-q244934",
+   "name": "Bergues",
+   "place": "France",
+   "lon": 2.4342,
+   "lat": 50.9686,
+   "summary": "Bergues is a commune in the Nord department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q244934",
+   "wiki": "https://en.wikipedia.org/wiki/Bergues",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.419935280557104,
+     50.97758228420174
+    ],
+    [
+     2.4484647194428963,
+     50.97758228420174
+    ],
+    [
+     2.4484647194428963,
+     50.95961597848097
+    ],
+    [
+     2.419935280557104,
+     50.95961597848097
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.76,
+    "zmax": 22.64,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "berkhamsted-castle-q4892150",
    "name": "Berkhamsted Castle",
    "aka": "Berkhamsted motte and bailey castle",
@@ -2320,6 +2365,51 @@
     800,
     800
    ]
+  },
+  {
+   "id": "binche-q95121",
+   "name": "Binche",
+   "place": "Belgium",
+   "lon": 4.1652,
+   "lat": 50.4103,
+   "summary": "Binche is a city and municipality of Wallonia, in the province of Hainaut, Belgium. Since 1977, the municipality consists of Binche, Bray, Buvrinnes, \u00c9pinois, Leval-Trahegnies, P\u00e9ronnes-lez-Binche, Ressaix, and Waudrez districts.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95121",
+   "wiki": "https://en.wikipedia.org/wiki/Binche",
+   "lidar_credit": "Service public de Wallonie, 2022 (10.68 points/m2)",
+   "corners": [
+    [
+     4.151104036208512,
+     50.419282301297514
+    ],
+    [
+     4.179295963791487,
+     50.419282301297514
+    ],
+    [
+     4.179295963791487,
+     50.4013159955811
+    ],
+    [
+     4.151104036208512,
+     50.4013159955811
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 61.78,
+    "zmax": 132.93,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   },
   {
    "id": "binchester-roman-fort-q4913955",
@@ -5723,6 +5813,51 @@
    ]
   },
   {
+   "id": "damme-q323408",
+   "name": "Damme",
+   "place": "Belgium",
+   "lon": 3.2815,
+   "lat": 51.251,
+   "summary": "Damme is a municipality and city located in the Belgian province of West Flanders, six kilometres northeast of Brugge (Bruges). The municipality comprises the city of Damme proper and the villages of Hoeke, Lapscheure, Moerkerke, Oostkerke, Sijsele, Vivenkapelle, and Sint-Rita. On 1 January 2006, the municipality had a population of 10,899. The total area is 89.52\u00a0km2, giving a population density of 122 inhabitants per km2.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q323408",
+   "wiki": "https://en.wikipedia.org/wiki/Damme",
+   "lidar_credit": "Wallonia (EODaS), 2015 (32.56 points/m2)",
+   "corners": [
+    [
+     3.2671478489834107,
+     51.2599822753971
+    ],
+    [
+     3.295852151016589,
+     51.2599822753971
+    ],
+    [
+     3.295852151016589,
+     51.24201596967405
+    ],
+    [
+     3.2671478489834107,
+     51.24201596967405
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.05,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.22,
+    "zmax": 10.06,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "danebury-hill-camp-q677333",
    "name": "Danebury Hill Camp",
    "aka": "Danebury Hill camp, Danebury",
@@ -8130,6 +8265,51 @@
     "zmin": 24.41,
     "zmax": 79.93,
     "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
+   "id": "gouda-q84125",
+   "name": "Gouda",
+   "place": "Netherlands",
+   "lon": 4.7105,
+   "lat": 52.0117,
+   "summary": "Gouda is a city and municipality in the west of the Netherlands, between Rotterdam and Utrecht, in the province of South Holland. Gouda has a population of 75,000 and is famous for its Gouda cheese, stroopwafels, many grachten, smoking pipes, and its 15th-century city hall. Its array of historic churches and other buildings makes it a very popular day-trip destination.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q84125",
+   "wiki": "https://en.wikipedia.org/wiki/Gouda,_South_Holland",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.695905126166712,
+     52.02068225113184
+    ],
+    [
+     4.725094873833288,
+     52.02068225113184
+    ],
+    [
+     4.725094873833288,
+     52.002715945402365
+    ],
+    [
+     4.695905126166712,
+     52.002715945402365
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.17,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -5.17,
+    "zmax": 7.35,
+    "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
    }
@@ -16346,6 +16526,51 @@
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
+   "id": "venlo-q9777",
+   "name": "Venlo",
+   "place": "Netherlands",
+   "lon": 6.1725,
+   "lat": 51.3705,
+   "summary": "Venlo is a city and municipality in southeastern Netherlands, close to the border with Germany. It is situated in the province of Limburg. The municipality of Venlo had 101,578 inhabitants in January 2019.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q9777",
+   "wiki": "https://en.wikipedia.org/wiki/Venlo",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     6.15811042233836,
+     51.37948227163873
+    ],
+    [
+     6.186889577661642,
+     51.37948227163873
+    ],
+    [
+     6.186889577661642,
+     51.361515965914684
+    ],
+    [
+     6.15811042233836,
+     51.361515965914684
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.09,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 10.82,
+    "zmax": 27.94,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
+  },
+  {
    "id": "vertillum-q7922962",
    "name": "Vertillum",
    "place": "C\u00f4te-d\u2019Or, France",
@@ -17119,6 +17344,51 @@
     1600
    ],
    "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "zwolle-q793",
+   "name": "Zwolle",
+   "place": "Netherlands",
+   "lon": 6.0925,
+   "lat": 52.5125,
+   "summary": "Zwolle is a city and municipality in the Northeastern Netherlands. It is the capital of the province of Overijssel and the province's second-largest municipality, after Enschede, and has a population of 132,441 as of December 2023. Zwolle borders the province of Gelderland and lies on the eastern side of the River IJssel.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q793",
+   "wiki": "https://en.wikipedia.org/wiki/Zwolle",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     6.077739360707934,
+     52.521482234702084
+    ],
+    [
+     6.107260639292067,
+     52.521482234702084
+    ],
+    [
+     6.107260639292067,
+     52.50351592896819
+    ],
+    [
+     6.077739360707934,
+     52.50351592896819
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.98,
+    "zmax": 11.38,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   }
   }
  ]
 }

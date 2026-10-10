@@ -1,0 +1,15 @@
+{
+ "id": "venlo-q9777",
+ "name": "Venlo",
+ "place": "Netherlands",
+ "lon": 6.1725,
+ "lat": 51.3705,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q9777",
+ "summary": "Venlo is a city and municipality in southeastern Netherlands, close to the border with Germany. It is situated in the province of Limburg. The municipality of Venlo had 101,578 inhabitants in January 2019.",
+ "wiki": "https://en.wikipedia.org/wiki/Venlo"
+}
