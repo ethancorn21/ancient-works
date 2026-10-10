@@ -1,0 +1,16 @@
+{
+ "id": "sutton-hoo-q503256",
+ "name": "Sutton Hoo",
+ "place": "Sutton, Suffolk, England",
+ "lon": 1.338889,
+ "lat": 52.089722,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "earthwork",
+ "qid": "Q503256",
+ "summary": "Sutton Hoo is the site of two Anglo-Saxon cemeteries dating from the 6th to 7th centuries near Woodbridge, Suffolk, England. Archaeologists have excavated the site since the discovery of a previously undisturbed ship burial containing a wealth of artifacts in 1938. Sutton Hoo illuminates the culture of the Anglo-Saxons during a period that lacks historical documentation.",
+ "wiki": "https://en.wikipedia.org/wiki/Sutton_Hoo",
+ "aka": "Prehistoric settlement and group of barrows (including site of ship burial) at Sutton Hoo"
+}

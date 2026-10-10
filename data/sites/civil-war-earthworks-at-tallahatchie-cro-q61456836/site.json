@@ -1,0 +1,15 @@
+{
+ "id": "civil-war-earthworks-at-tallahatchie-cro-q61456836",
+ "name": "Civil War Earthworks at Tallahatchie Crossing",
+ "place": "Mississippi",
+ "lon": -89.487778,
+ "lat": 34.556944,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "military_earthwork",
+ "qid": "Q61456836",
+ "summary": "The Civil War Earthworks at Tallahatchie Crossing is a Civil War earthwork in Marshall County, Mississippi. The earthworks are located on federal land owned by the Army Corps of Engineers and consist of eight parapets used for Union cannons, as well as infantry trenches.",
+ "wiki": "https://en.wikipedia.org/wiki/Civil_War_Earthworks_at_Tallahatchie_Crossing"
+}

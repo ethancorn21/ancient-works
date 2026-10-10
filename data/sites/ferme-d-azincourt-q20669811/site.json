@@ -1,0 +1,16 @@
+{
+ "id": "ferme-d-azincourt-q20669811",
+ "name": "Ferme d'Azincourt",
+ "place": "Nord, France",
+ "lon": 3.27173,
+ "lat": 50.3175,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "motte",
+ "qid": "Q20669811",
+ "summary": "La motte castrale d'Hasencort ou ch\u00e2teau d'Hasencort deviendra la ferme d'Azincourt situ\u00e9e \u00e0 \u00c9merchicourt dans le d\u00e9partement du Nord. Elle est situ\u00e9e \u00e0 la limite de partage des eaux de l'Escaut et de la Scarpe.",
+ "wiki": "https://fr.wikipedia.org/wiki/Motte_castrale_d'Hasencort",
+ "aka": "motte castrale d'Hasencort"
+}

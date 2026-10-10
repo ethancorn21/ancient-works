@@ -1,0 +1,15 @@
+{
+ "id": "moundville-archaeological-site-q1320821",
+ "name": "Moundville Archaeological Site",
+ "place": "Alabama",
+ "lon": -87.631069,
+ "lat": 33.004669,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q1320821",
+ "summary": "Moundville Archaeological Site, also known as the Moundville Archaeological Park, is a Mississippian culture archaeological site on the Black Warrior River in Hale County, near the modern city of Tuscaloosa, Alabama. Extensive archaeological investigation has shown that the site was the political and ceremonial center of a regionally organized Mississippian culture chiefdom polity known as the Province of Pafalaya between the 11th and 16th centuries. The archaeological park portion of the site is administered by the University of Alabama Museums and encompasses 185 acres (75\u00a0ha), consisting of 29 platform mounds around a rectangular plaza.",
+ "wiki": "https://en.wikipedia.org/wiki/Moundville_Archaeological_Site"
+}

@@ -1,0 +1,15 @@
+{
+ "id": "pickering-castle-q7190805",
+ "name": "Pickering Castle",
+ "place": "Pickering, North Yorkshire, England",
+ "lon": -0.775923,
+ "lat": 54.2502,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "motte",
+ "qid": "Q7190805",
+ "summary": "Pickering Castle is a motte-and-bailey fortification in Pickering, North Yorkshire, England. The original castle was made of timber, and the later stone castle was a temporary prison for Richard II in 1399.",
+ "wiki": "https://en.wikipedia.org/wiki/Pickering_Castle"
+}

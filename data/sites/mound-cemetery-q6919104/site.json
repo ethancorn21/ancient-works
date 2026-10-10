@@ -1,0 +1,15 @@
+{
+ "id": "mound-cemetery-q6919104",
+ "name": "Mound Cemetery",
+ "place": "Ohio",
+ "lon": -81.451944,
+ "lat": 39.42,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q6919104",
+ "summary": "Mound Cemetery in Marietta, Ohio, is a historic cemetery developed around the base of a prehistoric Adena burial mound known as the Great Mound or Conus. The city founders preserved the Great Mound from destruction by establishing the city cemetery around it in 1801.",
+ "wiki": "https://en.wikipedia.org/wiki/Mound_Cemetery_(Marietta,_Ohio)"
+}

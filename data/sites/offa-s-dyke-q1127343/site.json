@@ -1,0 +1,16 @@
+{
+ "id": "offa-s-dyke-q1127343",
+ "name": "Offa's Dyke",
+ "place": "Powys, Wales",
+ "lon": -3.049,
+ "lat": 52.344,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Wales",
+ "kind": "earthwork",
+ "qid": "Q1127343",
+ "summary": "Offa's Dyke is a large linear earthwork that roughly follows the border between England and Wales. The structure is named after Offa, the Anglo-Saxon king of Mercia from 757 to 796\u00a0CE, who is traditionally believed to have ordered its construction, although modern archaeological evidence shows far earlier origins and its original purpose is debated.",
+ "wiki": "https://en.wikipedia.org/wiki/Offa's_Dyke",
+ "aka": "Clawdd Offa"
+}

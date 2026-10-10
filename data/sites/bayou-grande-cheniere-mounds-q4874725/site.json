@@ -1,0 +1,15 @@
+{
+ "id": "bayou-grande-cheniere-mounds-q4874725",
+ "name": "Bayou Grande Cheniere Mounds",
+ "place": "Louisiana",
+ "lon": -89.7926,
+ "lat": 29.4963,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q4874725",
+ "summary": "Bayou Grande Cheniere Mounds is an archaeological site in Plaquemines Parish near the southeast corner of Louisiana. Built by the Coastal Coles Creek culture, it was inhabited from 875 to 1200 CE, from the Early Coles Creek period to the Coles Creek/Plaquemine period.",
+ "wiki": "https://en.wikipedia.org/wiki/Bayou_Grande_Cheniere_Mounds"
+}

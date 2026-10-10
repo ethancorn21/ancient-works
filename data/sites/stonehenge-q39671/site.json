@@ -1,0 +1,20 @@
+{
+ "id": "stonehenge-q39671",
+ "name": "Stonehenge",
+ "place": "Amesbury, Wiltshire, England",
+ "lon": -1.826111,
+ "lat": 51.178889,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "henge",
+ "period": [
+  "Neolithic",
+  "Bronze Age"
+ ],
+ "qid": "Q39671",
+ "summary": "Stonehenge is a prehistoric megalithic structure on Salisbury Plain in Wiltshire, England, two miles (3\u00a0km) west of Amesbury. It consists of an outer ring of vertical sarsen standing stones, each around 13 feet (4.0\u00a0m) high, seven feet (2.1\u00a0m) wide, and weighing around 25 tons, topped by connecting horizontal lintel stones which are held in place with mortise and tenon joints\u2014a feature unique among contemporary monuments. Inside is a ring of smaller bluestones. Inside these are free-standing trilithons: two bulkier vertical sarsens joined by a single lintel. The whole monument, now in ruins, is aligned towards the sunrise on the summer solstice and sunset on the winter solstice. The stones are set within earthworks in the middle of the densest complex of Neolithic and Bronze Age monuments in England, including several hundred tumuli.",
+ "wiki": "https://en.wikipedia.org/wiki/Stonehenge",
+ "aka": "Stonehenge, the Avenue, and Three Barrows Adjacent to the Avenue Forming Part of a Round Barrow Cemetery on Countess Farm"
+}

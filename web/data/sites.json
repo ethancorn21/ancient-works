@@ -268,6 +268,50 @@
    ]
   },
   {
+   "id": "aldenhaag-q23650779",
+   "name": "Aldenhaag",
+   "place": "Buren, Gelderland, Netherlands",
+   "lon": 5.397731,
+   "lat": 51.915591,
+   "summary": "De Aldenhaag is een motteheuvel in Zoelen in de Nederlandse provincie Gelderland en ligt 500 meter ten noordwesten van kasteel Soelen in de oeverzone van het riviertje de Zoel.",
+   "region": "Netherlands",
+   "kind": "motte",
+   "qid": "Q23650779",
+   "wiki": "https://nl.wikipedia.org/wiki/Aldenhaag",
+   "corners": [
+    [
+     5.391905554748896,
+     51.919184117358505
+    ],
+    [
+     5.403556445251106,
+     51.919184117358505
+    ],
+    [
+     5.403556445251106,
+     51.9119975950826
+    ],
+    [
+     5.391905554748896,
+     51.9119975950826
+    ]
+   ],
+   "relief_clip_m": 0.74,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 2.8,
+    "zmax": 7.22,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ]
+  },
+  {
    "id": "aldford-castle-q4713789",
    "name": "Aldford Castle",
    "aka": "Aldford Blobb Hill, Aldford motte and bailey and shell keep castle",
@@ -1965,6 +2009,51 @@
    "size_m": [
     1600,
     1600
+   ]
+  },
+  {
+   "id": "blijdestein-q18812970",
+   "name": "Blijdestein",
+   "aka": "rijksmonumentnummer 529848, Bleidestein",
+   "place": "Nissewaard, South Holland, Netherlands",
+   "lon": 4.241561,
+   "lat": 51.867669,
+   "summary": "Het mottekasteel Blijdestein stond in het Nederlandse stadje Heenvliet, provincie Zuid-Holland. De ronde vorm van het kasteel is bewaard gebleven in de bocht van de huidige Donjonstraat, die de voormalige slotgracht volgt; de contouren van de muren zijn zichtbaar gemaakt in het park.",
+   "region": "Netherlands",
+   "kind": "motte",
+   "qid": "Q18812970",
+   "wiki": "https://nl.wikipedia.org/wiki/Blijdestein",
+   "corners": [
+    [
+     4.2357417635501555,
+     51.87126211760595
+    ],
+    [
+     4.247380236449843,
+     51.87126211760595
+    ],
+    [
+     4.247380236449843,
+     51.86407559533006
+    ],
+    [
+     4.2357417635501555,
+     51.86407559533006
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.63,
+    "zmax": 7.76,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
    ]
   },
   {
@@ -8455,6 +8544,96 @@
    ]
   },
   {
+   "id": "motte-castrale-de-bailleul-q22963648",
+   "name": "Motte castrale de Bailleul",
+   "aka": "motte castrale de Bailleul",
+   "place": "Orne, France",
+   "lon": -0.004179,
+   "lat": 48.801656,
+   "summary": "La motte castrale de Bailleul est une ancienne fortification de terre et de bois qui se dresse sur le territoire de la commune fran\u00e7aise de Bailleul, dans le d\u00e9partement de l'Orne, en r\u00e9gion Normandie.",
+   "region": "France",
+   "kind": "motte",
+   "qid": "Q22963648",
+   "wiki": "https://fr.wikipedia.org/wiki/Motte_castrale_de_Bailleul",
+   "corners": [
+    [
+     -0.009634347309800877,
+     48.805249132422865
+    ],
+    [
+     0.0012763473098008778,
+     48.805249132422865
+    ],
+    [
+     0.0012763473098008778,
+     48.79806261014846
+    ],
+    [
+     -0.009634347309800877,
+     48.79806261014846
+    ]
+   ],
+   "relief_clip_m": 0.62,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 156.14,
+    "zmax": 189.86,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ]
+  },
+  {
+   "id": "motte-castrale-de-brion-q58580090",
+   "name": "Motte castrale de Brion",
+   "aka": "motte castrale de Brion",
+   "place": "Puy-de-D\u00f4me, France",
+   "lon": 2.9612,
+   "lat": 45.4137,
+   "summary": "La motte castrale de Brion est une motte castrale situ\u00e9e dans le C\u00e9zallier \u00e0 Compains dans le d\u00e9partement fran\u00e7ais du Puy-de-D\u00f4me, en r\u00e9gion Auvergne-Rh\u00f4ne-Alpes.",
+   "region": "France",
+   "kind": "motte",
+   "qid": "Q58580090",
+   "wiki": "https://fr.wikipedia.org/wiki/Motte_castrale_de_Brion",
+   "corners": [
+    [
+     2.956081268832631,
+     45.41729314682324
+    ],
+    [
+     2.966318731167369,
+     45.41729314682324
+    ],
+    [
+     2.966318731167369,
+     45.41010662455014
+    ],
+    [
+     2.956081268832631,
+     45.41010662455014
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1167.37,
+    "zmax": 1273.11,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ]
+  },
+  {
    "id": "motte-castrale-de-doue-la-fontaine-q3325341",
    "name": "Motte castrale de Dou\u00e9-la-Fontaine",
    "aka": "ch\u00e2teau de Dou\u00e9-la-Fontaine, Aula carolingienne de Dou\u00e9-la-Fontaine",
@@ -8489,6 +8668,51 @@
     "zmin": 69.17,
     "zmax": 86.26,
     "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ]
+  },
+  {
+   "id": "motte-castrale-de-garenne-de-la-motte-q14689836",
+   "name": "Motte castrale de Garenne-de-la-Motte",
+   "aka": "motte f\u00e9odale Garenne-de-la-Motte",
+   "place": "Orne, France",
+   "lon": 0.49917,
+   "lat": 48.3233,
+   "summary": "La motte f\u00e9odale dite Garenne-de-la-Motte est une motte castrale situ\u00e9e sur la commune d'Ig\u00e9, dans le d\u00e9partement de l'Orne.",
+   "region": "France",
+   "kind": "motte",
+   "qid": "Q14689836",
+   "wiki": "https://fr.wikipedia.org/wiki/Motte_castrale_de_Garenne-de-la-Motte",
+   "corners": [
+    [
+     0.49376600389646635,
+     48.326893134570646
+    ],
+    [
+     0.5045739961035337,
+     48.326893134570646
+    ],
+    [
+     0.5045739961035337,
+     48.31970661229645
+    ],
+    [
+     0.49376600389646635,
+     48.31970661229645
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 128.36,
+    "zmax": 175.94,
+    "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },

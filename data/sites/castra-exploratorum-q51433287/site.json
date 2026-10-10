@@ -1,0 +1,19 @@
+{
+ "id": "castra-exploratorum-q51433287",
+ "name": "Castra Exploratorum",
+ "place": "Arthuret, Cumberland, England",
+ "lon": -2.945877,
+ "lat": 55.036648,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q51433287",
+ "summary": "Castra Exploratorum was a Roman fort and associated substantial civil settlement now in the grounds of Netherby Hall, Cumbria. It was first built by Agricola during his conquest of the north in around 80 AD.",
+ "wiki": "https://en.wikipedia.org/wiki/Castra_Exploratorum",
+ "aka": "Netherby Roman fort"
+}

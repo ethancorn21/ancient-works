@@ -1,0 +1,19 @@
+{
+ "id": "avebury-q661855",
+ "name": "Avebury",
+ "place": "Avebury, Wiltshire, England",
+ "lon": -1.854167,
+ "lat": 51.428611,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "henge",
+ "period": [
+  "Neolithic"
+ ],
+ "qid": "Q661855",
+ "summary": "Avebury is a Neolithic henge monument containing three stone circles, around the village of Avebury in Wiltshire, in south-west England. One of the best-known prehistoric sites in Britain, it contains the largest megalithic stone circle in the world. It is both a tourist attraction and a place of religious importance to contemporary pagans.",
+ "wiki": "https://en.wikipedia.org/wiki/Avebury",
+ "aka": "Avebury Stones, Avebury henge and stone circles"
+}

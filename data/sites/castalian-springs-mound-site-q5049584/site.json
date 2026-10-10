@@ -1,0 +1,13 @@
+{
+ "id": "castalian-springs-mound-site-q5049584",
+ "name": "Castalian Springs Mound Site",
+ "place": "Tennessee",
+ "lon": -86.3135,
+ "lat": 36.3986,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q5049584"
+}

@@ -1,0 +1,16 @@
+{
+ "id": "lavendon-castle-q6502549",
+ "name": "Lavendon Castle",
+ "place": "Lavendon, City of Milton Keynes, England",
+ "lon": -0.660441,
+ "lat": 52.1799,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "motte",
+ "qid": "Q6502549",
+ "summary": "Lavendon Castle stood to the north of the village of Lavendon, Buckinghamshire, England.",
+ "wiki": "https://en.wikipedia.org/wiki/Lavendon_Castle",
+ "aka": "Lavendon Castle: a motte and bailey and associated enclosures at Castle Farm"
+}

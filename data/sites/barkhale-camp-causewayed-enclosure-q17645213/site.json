@@ -1,0 +1,15 @@
+{
+ "id": "barkhale-camp-causewayed-enclosure-q17645213",
+ "name": "Barkhale Camp causewayed enclosure",
+ "place": "Bignor, West Sussex, England",
+ "lon": -0.613722,
+ "lat": 50.9048,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "causewayed_enclosure",
+ "qid": "Q17645213",
+ "summary": "Barkhale Camp is a Neolithic-era causewayed enclosure, an archaeological site on Bignor Hill, on the South Downs in West Sussex, England. Causewayed enclosures were built in England from shortly before 3700 BC until at least 3500 BC; they are characterized by the full or partial enclosure of an area with ditches that are interrupted by gaps, or causeways. Their purpose is not known; they may have been settlements, meeting places, or ritual sites. The Barkhale Camp enclosure was first identified in 1929, by John Ryle, and was surveyed the following year by E. Cecil Curwen, who listed it as a possible Neolithic site in a 1930 paper which was the first attempt to list all the causewayed enclosures in England.",
+ "wiki": "https://en.wikipedia.org/wiki/Barkhale_Camp"
+}

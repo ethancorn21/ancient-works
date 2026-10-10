@@ -1,0 +1,16 @@
+{
+ "id": "castrum-gariannonum-q1735346",
+ "name": "Castrum Gariannonum",
+ "place": "Norfolk, England",
+ "lon": 1.7194,
+ "lat": 52.65,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "qid": "Q1735346",
+ "summary": "Caister Roman Site is a Roman Saxon Shore fort, located in Caister-on-Sea, Norfolk, England. It was constructed around AD 200 for use by units of the Roman army and navy, and was occupied until around 370-390 AD. This fort was possibly known as Gariannonum, although the single record that describes it as such may also mean the Roman site at Burgh Castle.",
+ "wiki": "https://en.wikipedia.org/wiki/Caister_Roman_Site",
+ "aka": "Castra of Caister-on-Sea, Caister Roman fort"
+}

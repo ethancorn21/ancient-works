@@ -1,0 +1,19 @@
+{
+ "id": "arbeia-q1131391",
+ "name": "Arbeia",
+ "place": "Tyne and Wear, England",
+ "lon": -1.43111,
+ "lat": 55.0044,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q1131391",
+ "summary": "Arbeia was a large Roman fort in South Shields, Tyne & Wear, England, now ruined and partially reconstructed. It was first excavated in the 1870s. All modern buildings on the site were cleared in the 1970s. It is managed by North East Museums as Arbeia, South Shields Roman Fort.",
+ "wiki": "https://en.wikipedia.org/wiki/Arbeia",
+ "aka": "South Shields Roman fort, Arbeia Roman Fort and Museum"
+}

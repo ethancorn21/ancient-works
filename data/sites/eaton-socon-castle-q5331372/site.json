@@ -1,0 +1,16 @@
+{
+ "id": "eaton-socon-castle-q5331372",
+ "name": "Eaton Socon Castle",
+ "place": "St Neots, Cambridgeshire, England",
+ "lon": -0.284015,
+ "lat": 52.2159,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "motte",
+ "qid": "Q5331372",
+ "summary": "Eaton Socon Castle was a Norman fortification. It was constructed next to the River Great Ouse in what is now Eaton Socon, Cambridgeshire, England.",
+ "wiki": "https://en.wikipedia.org/wiki/Eaton_Socon_Castle",
+ "aka": "The Hillings, Castle Hills: A Ringwork Castle Associated With a Saxon Vill, Shifted Medieval Village, and a Windmill Mound"
+}

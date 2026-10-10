@@ -1,0 +1,19 @@
+{
+ "id": "navio-roman-fort-q17667745",
+ "name": "Navio Roman fort",
+ "place": "Hope, Derbyshire, England",
+ "lon": -1.72849,
+ "lat": 53.3408,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q17667745",
+ "summary": "Navio Roman fort overlooks a tight bend of the River Noe at Brough-on-Noe near Hope, Derbyshire, in England. Navio fort and vicus is a Scheduled Monument.",
+ "wiki": "https://en.wikipedia.org/wiki/Navio_Roman_Fort",
+ "aka": "Navio Roman fort and vicus"
+}

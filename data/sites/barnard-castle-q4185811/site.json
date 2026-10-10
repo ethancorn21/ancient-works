@@ -1,0 +1,15 @@
+{
+ "id": "barnard-castle-q4185811",
+ "name": "Barnard Castle",
+ "place": "Barnard Castle, County Durham, England",
+ "lon": -1.926667,
+ "lat": 54.543333,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "motte",
+ "qid": "Q4185811",
+ "summary": "Barnard Castle is a ruined medieval castle situated in the town of the same name in County Durham, England.",
+ "wiki": "https://en.wikipedia.org/wiki/Barnard_Castle_(castle)"
+}

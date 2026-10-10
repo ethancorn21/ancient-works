@@ -1,0 +1,19 @@
+{
+ "id": "castrum-segedunum-q637958",
+ "name": "Castrum Segedunum",
+ "place": "Tyne and Wear, England",
+ "lon": -1.53231,
+ "lat": 54.98791,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q637958",
+ "summary": "Segedunum was a Roman fort at modern-day Wallsend, North Tyneside in North East England. The fort lay at the eastern end of Hadrian's Wall near the banks of the River Tyne. It was in use for approximately 300\u00a0years from around 122\u00a0AD to almost 400. Today Segedunum is the most thoroughly excavated fort along Hadrian's Wall, and is operated as Segedunum Roman Fort, Baths and Museum. It forms part of the Hadrian's Wall UNESCO World Heritage Site.",
+ "wiki": "https://en.wikipedia.org/wiki/Segedunum",
+ "aka": "Segedunum Roman Fort, Baths and Museum, Wallsend Roman Fort"
+}

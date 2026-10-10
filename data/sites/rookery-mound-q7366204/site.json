@@ -1,0 +1,15 @@
+{
+ "id": "rookery-mound-q7366204",
+ "name": "Rookery Mound",
+ "place": "Florida",
+ "lon": -80.87693,
+ "lat": 25.462659,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q7366204",
+ "summary": "The Rookery Mound is an archaeological site near Everglades City, Florida. On November 5, 1996, it was added to the U.S. National Register of Historic Places.",
+ "wiki": "https://en.wikipedia.org/wiki/Rookery_Mound"
+}

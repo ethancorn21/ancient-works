@@ -1,0 +1,16 @@
+{
+ "id": "glannoventa-q16839208",
+ "name": "Glannoventa",
+ "place": "Muncaster, Cumberland, England",
+ "lon": -3.40463,
+ "lat": 54.3496,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "qid": "Q16839208",
+ "summary": "Glannoventa is a Roman fort associated with the Roman naval base at Ravenglass in Cumbria, England. Its name is derived from the Latin place-name Clanoventa as recorded in the 2nd-century Antonine Itinerary, Glannibanta in the 4th-century Notitia Dignitatum, and Cantiventi in the 6th-century Ravenna Cosmography.",
+ "wiki": "https://en.wikipedia.org/wiki/Glannoventa",
+ "aka": "Glannibanta, Clanoventa"
+}

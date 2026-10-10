@@ -1,0 +1,16 @@
+{
+ "id": "motte-castrale-de-garenne-de-la-motte-q14689836",
+ "name": "Motte castrale de Garenne-de-la-Motte",
+ "place": "Orne, France",
+ "lon": 0.49917,
+ "lat": 48.3233,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "motte",
+ "qid": "Q14689836",
+ "summary": "La motte f\u00e9odale dite Garenne-de-la-Motte est une motte castrale situ\u00e9e sur la commune d'Ig\u00e9, dans le d\u00e9partement de l'Orne.",
+ "wiki": "https://fr.wikipedia.org/wiki/Motte_castrale_de_Garenne-de-la-Motte",
+ "aka": "motte f\u00e9odale Garenne-de-la-Motte"
+}

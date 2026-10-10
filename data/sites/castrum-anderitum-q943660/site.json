@@ -1,0 +1,16 @@
+{
+ "id": "castrum-anderitum-q943660",
+ "name": "Castrum Anderitum",
+ "place": "Pevensey, East Sussex, England",
+ "lon": 0.3329,
+ "lat": 50.8193,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "qid": "Q943660",
+ "summary": "Anderitum was a Saxon Shore fort in the Roman province of Britannia. The ruins adjoin the west end of the village of Pevensey in East Sussex, England. The fort was built in the 290s and was abandoned after it was sacked in 471. It was re-inhabited by Saxons and in the 11th century the Normans built a castle within the east end of the fort.",
+ "wiki": "https://en.wikipedia.org/wiki/Anderitum",
+ "aka": "Castra Anderida, Castrum Anteridos"
+}

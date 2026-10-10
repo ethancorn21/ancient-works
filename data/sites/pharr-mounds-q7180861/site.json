@@ -1,0 +1,15 @@
+{
+ "id": "pharr-mounds-q7180861",
+ "name": "Pharr Mounds",
+ "place": "Mississippi",
+ "lon": -88.416715,
+ "lat": 34.466488,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q7180861",
+ "summary": "Pharr Mounds is a Middle Woodland period archaeological site located near Tupelo in parts of Itawamba and Prentiss counties in northern Mississippi. This complex was made of earthwork mounds.",
+ "wiki": "https://en.wikipedia.org/wiki/Pharr_Mounds"
+}

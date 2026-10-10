@@ -1,0 +1,15 @@
+{
+ "id": "castra-herculis-q515850",
+ "name": "Castra Herculis",
+ "place": "Netherlands",
+ "lon": 5.873611,
+ "lat": 51.970833,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "roman_fort",
+ "qid": "Q515850",
+ "summary": "Castra Herculis was een Romeinse plaats, vermoedelijk een fort of legerkamp.",
+ "wiki": "https://nl.wikipedia.org/wiki/Castra_Herculis"
+}

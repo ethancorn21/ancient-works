@@ -1,0 +1,16 @@
+{
+ "id": "bibrax-q856700",
+ "name": "Bibrax",
+ "place": "France",
+ "lon": 3.0,
+ "lat": 49.0,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "hillfort",
+ "qid": "Q856700",
+ "summary": "Bibrax is a Gallic oppidum. Its position has long been debated, but the oppidum is now almost certainly identified with the site of Saint-Thomas (Aisne).",
+ "wiki": "https://en.wikipedia.org/wiki/Bibrax",
+ "aka": "vieux-Laon, camp de Saint-thomas"
+}

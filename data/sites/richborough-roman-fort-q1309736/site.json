@@ -1,0 +1,19 @@
+{
+ "id": "richborough-roman-fort-q1309736",
+ "name": "Richborough Roman Fort",
+ "place": "Ash, Kent, England",
+ "lon": 1.332,
+ "lat": 51.294,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q1309736",
+ "summary": "Richborough Castle is a Roman Saxon Shore fort better known as Richborough\u00a0Roman\u00a0Fort. It is situated in Richborough near Sandwich, Kent. Substantial remains of the massive fort walls still stand to a height of several metres.",
+ "wiki": "https://en.wikipedia.org/wiki/Richborough_Castle",
+ "aka": "Richborough Castle, Rutupi\u00e6"
+}

@@ -1,0 +1,15 @@
+{
+ "id": "aden-site-q4682175",
+ "name": "Aden Site",
+ "place": "Mississippi",
+ "lon": -90.8363,
+ "lat": 32.637,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q4682175",
+ "summary": "The Aden Site is an archaeological site that is the type site for the Aden phase of Lower Yazoo Basin Coles Creek culture chronology. It corresponds to Middle Coles Creek, chronologically between the Bayland phase and Kings Crossing phase.",
+ "wiki": "https://en.wikipedia.org/wiki/Aden_site"
+}

@@ -1,0 +1,19 @@
+{
+ "id": "isca-augusta-q929778",
+ "name": "Isca Augusta",
+ "place": "Newport, Wales",
+ "lon": -2.956498,
+ "lat": 51.609862,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "Wales",
+ "kind": "roman_fort",
+ "period": [
+  "Romano-British period"
+ ],
+ "qid": "Q929778",
+ "summary": "Isca, variously specified as Isca Augusta or Isca Silurum, was the site of a Roman legionary fortress and settlement or vicus, the remains of which lie beneath parts of the present-day suburban town of Caerleon in the north of the city of Newport in South Wales. The site includes Caerleon Amphitheatre and is protected by Cadw.",
+ "wiki": "https://en.wikipedia.org/wiki/Isca_Augusta",
+ "aka": "Caer Rufeinig Caerllion, Caerleon Legionary Fortress: Car Park and Garden of Endowed School, North of Broadway"
+}

@@ -1,0 +1,16 @@
+{
+ "id": "castra-deva-victrix-q2450247",
+ "name": "Castra Deva Victrix",
+ "place": "Cheshire West and Chester, England",
+ "lon": -2.89278,
+ "lat": 53.1914,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "qid": "Q2450247",
+ "summary": "Deva Victrix, or simply Deva, was a legionary fortress and town in the Roman province of Britannia on the site of the modern city of Chester. The fortress was built by the Legio II Adiutrix in the 70s AD as the Roman army advanced north against the Brigantes, and rebuilt completely over the next few decades by the Legio XX Valeria Victrix. In the early 3rd century the fortress was again rebuilt. The legion probably remained at the fortress until the late 4th or early 5th century, upon which it fell into disuse.",
+ "wiki": "https://en.wikipedia.org/wiki/Deva_Victrix",
+ "aka": "Deva"
+}

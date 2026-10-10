@@ -1,0 +1,16 @@
+{
+ "id": "mound-key-archeological-state-park-q6919120",
+ "name": "Mound Key Archeological State Park",
+ "place": "Florida",
+ "lon": -81.865278,
+ "lat": 26.422222,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q6919120",
+ "summary": "Mound Key Archaeological State Park is a Florida State Park, located in Estero Bay, near the mouth of the Estero River. One hundred and thirteen of the island's one hundred and twenty-five acres are managed by the park system. It is a complex of mounds and accumulated shell, fish bone, and pottery middens that rises more than 30 feet above the waters of the bay.",
+ "wiki": "https://en.wikipedia.org/wiki/Mound_Key_Archaeological_State_Park",
+ "aka": "Mound Key Archaeological State Park"
+}

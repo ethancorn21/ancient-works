@@ -1,0 +1,16 @@
+{
+ "id": "marden-henge-q139573",
+ "name": "Marden Henge",
+ "place": "Marden, Wiltshire, England",
+ "lon": -1.87109,
+ "lat": 51.3229,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "henge",
+ "qid": "Q139573",
+ "summary": "Marden Henge is the largest Neolithic henge enclosure discovered to date in the United Kingdom. The monument is north-east of the village of Marden, Wiltshire, within the Vale of Pewsey and between the World Heritage Sites of Avebury and Stonehenge.",
+ "wiki": "https://en.wikipedia.org/wiki/Marden_Henge",
+ "aka": "The Hatfield Earthwork: a henge enclosure, henge and remains of monumental mound at Marden"
+}

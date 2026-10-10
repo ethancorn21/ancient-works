@@ -1,0 +1,19 @@
+{
+ "id": "danebury-hill-camp-q677333",
+ "name": "Danebury Hill Camp",
+ "place": "Nether Wallop, Hampshire, England",
+ "lon": -1.5397,
+ "lat": 51.1368,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "hillfort",
+ "period": [
+  "British Iron Age"
+ ],
+ "qid": "Q677333",
+ "summary": "Danebury is an Iron Age hillfort in Hampshire, England, about 19 kilometres (12\u00a0mi) north-west of Winchester. The site, covering 5 hectares, was excavated by Barry Cunliffe over twenty years. Danebury is considered a type site for hillforts, and was important in developing the understanding of hillforts, as very few others have been so intensively excavated.",
+ "wiki": "https://en.wikipedia.org/wiki/Danebury",
+ "aka": "Danebury Hill camp, Danebury"
+}
