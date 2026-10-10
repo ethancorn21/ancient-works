@@ -1,4 +1,5 @@
-"""Shared helpers: Web Mercator math, USGS 3DEP DEM + USGS imagery exports, local relief model rendering.
+"""Shared helpers: Web Mercator math, bare-earth DEMs (USGS 3DEP; Europe via dem_sources.py) + USGS imagery exports,
+local relief model rendering.
 
 All exports are requested in EPSG:3857 so a MapLibre `image` source with the bbox corners lines up exactly.
 """
@@ -17,7 +18,7 @@ from scipy.ndimage import gaussian_filter
 R = 6378137.0
 DEM_URL = "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage"
 IMG_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/export"
-UA = {"User-Agent": "ancient-works/0.1 (personal research)"}
+UA = {"User-Agent": "ancient-works/0.2 (personal research)"}
 
 
 def to_merc(lon, lat):
@@ -66,8 +67,19 @@ def _get(url, params, tries=4):
 
 
 def fetch_dem(bbox, w, h, tile=2000):
-    """Bare-earth DEM (metres) for a Mercator bbox at w x h pixels; big requests are fetched in tiles
-    because the service answers 500 on very large exports."""
+    """Bare-earth DEM (metres, NaN = no data) for a Mercator bbox at w x h pixels.
+
+    England, the Netherlands and France come from their national LiDAR DTMs (see dem_sources.py); everything
+    else, the US included, goes to USGS 3DEP exactly as before."""
+    import dem_sources  # imported here so that `import aw` stays as light as it was
+    src = dem_sources.source_for_bbox(bbox)
+    if src in ("ea", "ahn", "ign"):
+        return dem_sources.fetch(src, bbox, w, h)
+    return _fetch_3dep(bbox, w, h, tile)
+
+
+def _fetch_3dep(bbox, w, h, tile=2000):
+    """USGS 3DEP DEM; big requests are fetched in tiles because the service answers 500 on very large exports."""
     if w > tile or h > tile:
         out = np.full((h, w), np.nan)
         x0, y0, x1, y1 = bbox
@@ -76,7 +88,7 @@ def fetch_dem(bbox, w, h, tile=2000):
             for c0 in range(0, w, tile):
                 r1, c1 = min(h, r0 + tile), min(w, c0 + tile)
                 sub = (x0 + c0 * sx, y1 - r1 * sy, x0 + c1 * sx, y1 - r0 * sy)
-                out[r0:r1, c0:c1] = fetch_dem(sub, c1 - c0, r1 - r0, tile)
+                out[r0:r1, c0:c1] = _fetch_3dep(sub, c1 - c0, r1 - r0, tile)
         return out
     body = _get(DEM_URL, {
         "bbox": ",".join(f"{v:.3f}" for v in bbox), "bboxSR": 3857, "imageSR": 3857,

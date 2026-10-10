@@ -12,3 +12,4 @@ web/data/scan/
 web/data/scans.json
 data/db/verdicts/
 data/tilecache/
+data/demtest/

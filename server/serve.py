@@ -1,6 +1,8 @@
-"""Serve Ancient Works from this Mac: the page and its data from web/, plus a small JSON document store.
+"""Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live
+LiDAR relief tiles.
 
-usage: python3 server/serve.py [--lan] [--port 8642] [--allow 10.0.0.0/16 ...]
+usage: .venv/bin/python server/serve.py [--lan] [--port 8642] [--allow 10.0.0.0/16 ...]
+   (the normal run is /Users/ethan/code/projects/ancient-works/.venv/bin/python server/serve.py --lan)
 
   default   listens on 127.0.0.1 only
   --lan     listens on every interface so a phone on the home Wi-Fi can open it; requests from addresses
@@ -12,13 +14,20 @@ Document store (replaces the claude.ai artifact database the page used before):
   GET    /api/db/<collection>/<doc>    -> the document, or 404
   PUT    /api/db/<collection>/<doc>    -> replace the document (JSON object body)
   DELETE /api/db/<collection>/<doc>
-Documents live in data/db/<collection>/<doc>.json. Stdlib only, so the system python3 runs it.
+Documents live in data/db/<collection>/<doc>.json.
+
+Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv python):
+  GET    /tiles/relief/<z>/<x>/<y>.png -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
+                                          service is failing. DEMs and PNGs are cached in data/tilecache/.
+The rest is stdlib only, so the system python3 still runs the site; tiles then answer 404.
 """
 import argparse
 import ipaddress
 import json
 import os
 import re
+import select
+import socket
 import sys
 import tempfile
 from http import HTTPStatus
@@ -28,6 +37,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
 DB = os.path.join(ROOT, "data", "db")
 SEG = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_.\-]{0,199}$")
+TILE = re.compile(r"^/tiles/relief/(\d{1,2})/(\d{1,6})/(\d{1,6})\.png$")
+RELIEF = None  # the relief_tiles module, when numpy & co. are importable (see main)
 MAX_BODY = 1 << 20
 
 
@@ -62,6 +73,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.refuse()
         if self.path.startswith("/api/"):
             return self.api("GET")
+        if self.path.startswith("/tiles/"):
+            return self.tile()
         super().do_GET()
 
     def do_HEAD(self):
@@ -78,6 +91,43 @@ class Handler(SimpleHTTPRequestHandler):
         if not self.allowed():
             return self.refuse()
         self.api("DELETE")
+
+    # ---- relief tiles ----
+    def tile(self):
+        m = TILE.match(self.path.split("?")[0])
+        if not m or RELIEF is None:
+            return self.send_error(HTTPStatus.NOT_FOUND)
+        try:
+            body = RELIEF.tile(*map(int, m.groups()), alive=self.client_waiting)
+        except ValueError:
+            return self.send_error(HTTPStatus.NOT_FOUND)
+        except RELIEF.Cancelled:
+            self.close_connection = True
+            return
+        except RELIEF.Unavailable:
+            self.send_response(HTTPStatus.SERVICE_UNAVAILABLE)
+            self.send_header("Retry-After", str(RELIEF.RETRY_AFTER_S))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Length", "0")
+            super().end_headers()
+            return
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "image/png")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "max-age=86400")
+        super().end_headers()
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError):  # the map dropped a tile it no longer shows
+            pass
+
+    def client_waiting(self):
+        """False once the browser has closed this connection (MapLibre aborts tiles that left the view)."""
+        try:
+            ready, _, _ = select.select([self.connection], [], [], 0)
+            return not ready or self.connection.recv(1, socket.MSG_PEEK) != b""
+        except OSError:
+            return False
 
     # ---- api ----
     def reply(self, code, obj=None):
@@ -157,6 +207,13 @@ def main():
     nets = ["127.0.0.0/8", "::1/128"] + ((a.allow or ["10.0.0.0/16"]) if a.lan else [])
     Handler.allow = [ipaddress.ip_network(n) for n in nets]
     host = "0.0.0.0" if a.lan else "127.0.0.1"
+    global RELIEF
+    try:
+        import relief_tiles
+        RELIEF = relief_tiles
+    except ImportError as e:
+        print(f"relief tiles off ({e.name or e} not importable); run with .venv/bin/python for the LiDAR relief layer",
+              flush=True)
     srv = ThreadingHTTPServer((host, a.port), Handler)
     print(f"Ancient Works on http://127.0.0.1:{a.port}/", flush=True)
     if a.lan:

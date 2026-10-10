@@ -200,6 +200,20 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 <script src="vendor/three-r128.min.js"></script>
 <script>
 const WORLD = [[-180, 85.0511], [180, 85.0511], [180, -85.0511], [-180, -85.0511]];
+// live LiDAR relief tiles (server/relief_tiles.py, z12-17). The server picks the DEM for each tile; one source per
+// national DEM only so that each credit shows where its area is on screen and no tiles are asked for elsewhere.
+const RELIEF_URL = location.origin + location.pathname.replace(/[^/]*$/, '') + 'tiles/relief/{z}/{x}/{y}.png';
+// `boxes` (rough, from pipeline/dem_sources.py) decide whether a credit is on screen; `bounds` is their union.
+const RELIEF = [
+  { id: 'relief-us', attribution: 'LiDAR: USGS 3DEP',
+    boxes: [[-125.5, 24.3, -66.5, 49.5], [-170, 51, -129.9, 71.6], [-160.6, 18.8, -154.6, 22.4], [-67.5, 17.8, -65.2, 18.6]] },
+  { id: 'relief-ea', attribution: 'LiDAR: Environment Agency, &copy; Crown copyright, Open Government Licence v3.0',
+    boxes: [[-6.5, 49.85, 1.45, 55.85], [1.45, 51.15, 1.95, 53.0]] },
+  { id: 'relief-ahn', attribution: 'LiDAR: AHN (Rijkswaterstaat)', boxes: [[3.0, 50.72, 7.3, 53.65]] },
+  { id: 'relief-ign', attribution: 'LiDAR: IGN LiDAR HD, Licence Ouverte 2.0',
+    boxes: [[-4.9, 42.3, -1.95, 48.9], [-1.95, 42.3, 1.4, 49.8], [1.4, 42.3, 4.3, 51.15], [4.3, 42.3, 8.25, 50.2], [8.5, 41.3, 9.65, 43.05]] },
+];
+RELIEF.forEach(r => r.bounds = [0, 1, 2, 3].map(i => (i < 2 ? Math.min : Math.max)(...r.boxes.map(b => b[i]))));
 const STATUS = { plowed: 'Walls plowed down', standing: 'Walls standing', urban: 'Mostly under a town' };
 const S = { sites: [], byId: {}, sel: null, ground: 'relief', plateMode: 'ink', plateOpacity: 0.85, align: {}, loaded: new Set(), db: null };
 const $ = (sel, el = document) => el.querySelector(sel);
@@ -218,18 +232,24 @@ const map = new maplibregl.Map({
       // live aerial tiles around the site boxes when the ground is set to the aerial photograph
       sat: { type: 'raster', tileSize: 256, maxzoom: 19,
              tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
+      // source minzoom (not layer minzoom): no tiles below z12, but the credit stays while per-site relief shows
+      ...Object.fromEntries(RELIEF.map(r => [r.id, { type: 'raster', tileSize: 256, minzoom: 12, maxzoom: 17,
+        bounds: r.bounds, attribution: r.attribution, tiles: [RELIEF_URL] }])),
     },
     layers: [
       { id: 'space', type: 'background', paint: { 'background-color': '#F3EDDC' } },
       { id: 'world', type: 'raster', source: 'world', paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } },
       { id: 'sat', type: 'raster', source: 'sat', minzoom: 9, layout: { visibility: 'none' }, paint: { 'raster-fade-duration': 0 } },
+      // beneath everything added later (per-site relief, plates, finder crops)
+      ...RELIEF.map(r => ({ id: r.id, type: 'raster', source: r.id, layout: { visibility: 'none' },
+        paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } })),
     ],
   },
   center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
-  'Base map: Natural Earth · LiDAR: USGS 3DEP · Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
+  'Base map: Natural Earth · Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
 
 /* ---------- geometry ---------- */
 const R = 6378137;
@@ -273,8 +293,19 @@ function applyLayers(site) {
     map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
   }
 }
+function applyRelief() {
+  let v = null;
+  try { const b = map.getBounds(); v = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()]; if (v[0] > v[2]) v = null; } catch {}
+  for (const r of RELIEF) {
+    if (!map.getLayer(r.id)) continue;
+    const onScreen = !v || r.boxes.some(b => v[0] <= b[2] && v[2] >= b[0] && v[1] <= b[3] && v[3] >= b[1]);
+    map.setLayoutProperty(r.id, 'visibility', S.ground === 'relief' && onScreen ? 'visible' : 'none');
+  }
+}
+map.on('moveend', applyRelief);
 const applyAll = () => {
   if (map.getLayer('sat')) map.setLayoutProperty('sat', 'visibility', S.ground === 'imagery' ? 'visible' : 'none');
+  applyRelief();
   S.sites.forEach(applyLayers);
 };
 function moveplate(site) {
