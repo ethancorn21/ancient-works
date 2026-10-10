@@ -1,0 +1,15 @@
+{
+ "id": "yeavering-bell-camp-q17643662",
+ "name": "Yeavering Bell camp",
+ "place": "Kirknewton, Northumberland, England",
+ "lon": -2.114,
+ "lat": 55.557,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "hillfort",
+ "qid": "Q17643662",
+ "lrm_radius_m": 10,
+ "aka": "Yeavering Bell Camp"
+}

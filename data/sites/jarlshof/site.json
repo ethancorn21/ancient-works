@@ -1,0 +1,16 @@
+{
+ "id": "jarlshof",
+ "name": "Jarlshof",
+ "place": "Scotland",
+ "lon": -1.291,
+ "lat": 59.8694,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "earthwork",
+ "period": "c.2500 BC-AD 1600",
+ "summary": "Jarlshof is the best-known prehistoric archaeological site in Shetland, Scotland. It lies in Sumburgh, Mainland, Shetland and has been described as \"one of the most remarkable archaeological sites ever excavated in the British Isles\". It contains remains dating from 2500 BC up to the 17th century AD.",
+ "wiki": "https://en.wikipedia.org/wiki/Jarlshof",
+ "status": "standing"
+}

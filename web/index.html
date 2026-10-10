@@ -126,6 +126,9 @@ details.plain summary { cursor: pointer; font: 600 11.5px var(--label); letter-s
 .known { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; font-size: 13.5px; }
 .known li { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: baseline; }
 .known i { color: var(--ink-2); font-size: 12.5px; grid-column: 1 / -1; margin-top: -3px; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-align: left; cursor: pointer; text-decoration: underline dotted var(--rule); }
+.linkish[aria-current="true"] { font-weight: 700; color: var(--survey); }
+#mnote { width: 100%; box-sizing: border-box; font: 13.5px var(--title); border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); padding: 6px; resize: vertical; }
 .chip { font: 600 10.5px/1 var(--label); letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px 2px; border: 1px solid var(--ink); white-space: nowrap; background: var(--sheet); color: var(--ink); }
 .chip.found, .chip.v-earthwork { background: var(--survey); color: #fff; border-color: var(--survey); }
 .chip.missed { background: var(--ink); color: var(--sheet); }
@@ -381,10 +384,14 @@ function moveplate(site) {
   map.getSource(`paper-${site.id}`).setCoordinates(pc);
 }
 /* ---------- old maps and aerials (pipeline/topo.py, pipeline/depict.py -> data/sites/<id>/depictions.json) ---------- */
+// plain surveys (maps, aerials, USGS topos) only when at least 150 years old: the point is how little the works changed
+// (Ethan 2026-10-10). Plans and drawings of the works stay whatever their age.
+const SURVEY_KINDS = new Set(['map', 'aerial', 'topo']);
+const surveyOldEnough = x => !SURVEY_KINDS.has(x.kind) || (x.year && x.year <= new Date().getFullYear() - 150);
 async function loadDeps(s) {
   if (S.dep[s.id]) return S.dep[s.id];
   // USGS topographic quads left out (Ethan 2026-10-10: "they don't really ever show anything")
-  try { const r = await fetch(`data/sites/${s.id}/depictions.json`); S.dep[s.id] = (r.ok ? (await r.json()).depictions || [] : []).filter(x => x.kind !== 'topo'); }
+  try { const r = await fetch(`data/sites/${s.id}/depictions.json`); S.dep[s.id] = (r.ok ? (await r.json()).depictions || [] : []).filter(surveyOldEnough); }
   catch { S.dep[s.id] = []; }
   return S.dep[s.id];
 }
@@ -473,6 +480,7 @@ function addCatalog() {
 }
 function setKind(k) { C.kind = k; if (map.getLayer('catalog-pins')) map.setFilter('catalog-pins', catFilter()); renderList(); }
 function selectCat(id) {
+  A.sel = null; A.mark = null; if (typeof refreshMarks === "function" && map.getSource("amazon-marks")) refreshMarks();
   if (S.byId[id]) return select(id);
   const r = C.byId[id]; if (!r) return;
   if (B.open) closeBlock();
@@ -542,6 +550,7 @@ function bindEntries() {
   $('#body').querySelectorAll('.entry[data-cat]').forEach(b => b.addEventListener('click', () => selectCat(b.dataset.cat)));
   $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
+  $('#body').querySelectorAll('.entry[data-area]').forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
 }
 function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname); } catch {} }
 function renderList() {
@@ -585,6 +594,11 @@ function finderHome() {
         <span><span class="name">${esc(sc.label)}</span><span class="desc">${sc.size_km[0]} × ${sc.size_km[1]} km of LiDAR searched; ${sc.n_shown} strongest of ${sc.n_total} candidates to review${reviewedCount(sc.name) ? `, ${reviewedCount(sc.name)} reviewed` : ''}.</span></span>
       </button></li>`).join('')}</ul>`
     : `<p class="status">No search exported yet. The Finder is being rebuilt: a test set of known sites first, then mound and ring detectors, a re-ranking model, and the 1914 Archeological Atlas of Ohio as evidence.</p>`}
+    ${A.areas.length ? `<p class="group-title">Amazon forest LiDAR, by eye</p><ul class="legend-list">${A.areas.map(a => `
+      <li><button class="entry" data-area="${esc(a.name)}">
+        <span class="swatch hatch"></span>
+        <span><span class="name">${esc(a.label)}</span><span class="desc">${a.surveys.length} surveys, ${Math.round(a.surveys.reduce((t, v) => t + v.km2, 0))} km² under forest; ${areaSeen(a)} looked at, ${areaMarks(a.name).length} marked.</span></span>
+      </button></li>`).join('')}</ul>` : ''}
     <div class="about">
       <p><b>Known</b>: listed today (Wikidata, OpenStreetMap, place names). <b>Lost</b>: marked in the 1914 atlas, in no modern public list. <b>New</b>: no record anywhere.</p>
       <p>Candidates stay on this Mac; they are never pushed to GitHub.</p>
@@ -758,6 +772,7 @@ function alignDesc(a) {
 function setGround(g, s) { S.ground = g; lsSet('aw.ground', g); applyAll(); if (s) { renderSite(s); if (B.open) setTab(true); } }
 function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAll(); renderSite(s); if (B.open) setTab(true); }
 function select(id) {
+  A.sel = null; A.mark = null; if (typeof refreshMarks === "function" && map.getSource("amazon-marks")) refreshMarks();
   const s = S.byId[id]; if (!s || P.active) return;
   if (B.open && B.site !== s) closeBlock();
   // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
@@ -1175,7 +1190,7 @@ function showCrop(name, c) {
 }
 async function selectScan(name, candId) {
   const sc = F.byName[name]; if (!sc) return;
-  closeBlock(); S.sel = null; F.sel = name;
+  closeBlock(); S.sel = null; F.sel = name; A.sel = null;
   const d = await loadScan(name);
   if (candId && d.byId[candId]) return selectCand(name, candId);
   F.cand = null; renderScan(name);
@@ -1260,6 +1275,11 @@ function renderScan(name) {
   }
 }
 addEventListener('keydown', e => {
+  if (A.sel && A.mark && !B.open && !e.target.closest('input, textarea') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    const v = Object.keys(VERDICT)[+e.key - 1];
+    if (v && S.db) { e.preventDefault(); setMark(A.mark, { v }); }
+    return;
+  }
   if (!F.sel || !F.cand || B.open || e.target.closest('input, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
   const v = Object.keys(VERDICT)[+e.key - 1];
   if (v && S.db) { e.preventDefault(); setVerdict(F.sel, F.cand, v); }
@@ -1345,7 +1365,7 @@ async function openBlock(s) {
   const ve = verticalExaggeration(s), [W, Hm] = s.size_m;
   $('#sheet-left').textContent = s.plate ? `${s.plate.label} · Squier & Davis 1848` : 'Ancient Works';
   $('#cap-title').textContent = `Isometric block diagram of the ${s.name.replace(/^the /i, '')}, ${s.place}`;
-  $('#cap-sub').textContent = `Ground from USGS 3DEP LiDAR, 1 m. Block ${(W / 1000).toFixed(1)} by ${(Hm / 1000).toFixed(1)} km; vertical exaggeration ×${ve}; contour interval ${s.block.contour_m} m.`;
+  $('#cap-sub').textContent = `Ground from ${s.lidar_credit || 'USGS 3DEP LiDAR, 1 m'}. Block ${(W / 1000).toFixed(1)} by ${(Hm / 1000).toFixed(1)} km; vertical exaggeration ×${ve}; contour interval ${s.block.contour_m} m.`;
   renderExplain(s, ve);
   try {
     const [H, tex, inkTex] = await Promise.all([heights(s), loadTexture(`data/sites/${s.id}/${s.block.top}`), s.plate ? loadTexture(`data/sites/${s.id}/${s.plate.ink}`) : null]);
@@ -1451,6 +1471,10 @@ async function openDb() {
         const r = await fetch(url(path), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
         if (!r.ok) throw new Error(`db set ${r.status}`);
       },
+      async delete() {
+        const r = await fetch(url(path), { method: 'DELETE' });
+        if (!r.ok && r.status !== 404) throw new Error(`db delete ${r.status}`);
+      },
     }),
     collection: name => ({
       async get() {
@@ -1461,6 +1485,140 @@ async function openDb() {
       },
     }),
   };
+}
+
+/* ---------- finder: Amazon forest LiDAR, looked at by eye ---------- */
+// Ethan 2026-10-10: eye review of the Brazilian Forest Service concession LiDAR (pipeline/amazon_sfb.py). The relief tiles,
+// the index and the marks are gitignored and served only on the LAN: the SFB data are for research and education, never
+// published. A mark is a spot Ethan wants to remember, with a verdict; nothing here is a find.
+const A = { areas: [], byName: {}, sel: null, survey: null, mark: null, marks: {}, seen: {} };
+const seenKey = (area, sid) => `${area}.${sid}`;
+const areaSeen = a => a.surveys.filter(v => A.seen[seenKey(a.name, v.id)]).length;
+const areaMarks = name => Object.entries(A.marks).filter(([, m]) => m.area === name).map(([id, m]) => ({ id, ...m }));
+function markFeatures() {
+  return { type: 'FeatureCollection', features: Object.entries(A.marks).map(([id, m]) => ({ type: 'Feature',
+    properties: { id, v: m.v, sel: id === A.mark ? 1 : 0 }, geometry: { type: 'Point', coordinates: [m.lon, m.lat] } })) };
+}
+function refreshMarks() { const src = map.getSource('amazon-marks'); if (src) src.setData(markFeatures()); }
+function addArea(a) {
+  if (map.getSource(`amazon-${a.name}`)) return;
+  const [x0, y0, x1, y1] = a.bounds;
+  map.addSource(`amazon-${a.name}`, { type: 'raster', tiles: [a.tiles], tileSize: 256, minzoom: a.minzoom, maxzoom: a.maxzoom, bounds: a.bounds,
+    attribution: 'LiDAR: Brazilian Forest Service (SFB), via Fischer et al.' });
+  map.addLayer({ id: `amazon-${a.name}`, type: 'raster', source: `amazon-${a.name}`, minzoom: a.minzoom - 0.5, paint: { 'raster-fade-duration': 0 } });
+  map.addSource(`amazon-${a.name}-surveys`, { type: 'geojson', data: { type: 'FeatureCollection', features: a.surveys.map(v => ({ type: 'Feature',
+    properties: { id: v.id }, geometry: { type: 'LineString', coordinates: v.outline } })) } });
+  map.addLayer({ id: `amazon-${a.name}-surveys`, type: 'line', source: `amazon-${a.name}-surveys`,
+    paint: { 'line-color': ['case', ['==', ['get', 'id'], A.survey || ''], '#CE2E4E', '#2B2724'], 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 1.2, 15, 2], 'line-dasharray': [3, 2] } });
+  if (!map.getSource('amazon-marks')) {
+    map.addSource('amazon-marks', { type: 'geojson', data: markFeatures() });
+    map.addLayer({ id: 'amazon-marks', type: 'circle', source: 'amazon-marks', paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 4, 16, 9], 'circle-color': VCOLOR, 'circle-opacity': 0.9,
+      'circle-stroke-color': ['case', ['==', ['get', 'sel'], 1], '#F8F4E8', '#2B2724'], 'circle-stroke-width': ['case', ['==', ['get', 'sel'], 1], 3, 1.2] } });
+    map.on('mouseenter', 'amazon-marks', () => map.getCanvas().style.cursor = 'pointer');
+    map.on('mouseleave', 'amazon-marks', () => map.getCanvas().style.cursor = '');
+  }
+}
+function areaPad() { return narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 400, top: 30, right: 30, bottom: 30 }; }
+function selectArea(name) {
+  const a = A.byName[name]; if (!a) return;
+  closeBlock(); S.sel = null; F.sel = null; F.cand = null; A.sel = name; A.mark = null;
+  addArea(a); renderArea(name);
+  if (narrow()) $('#panel').classList.remove('collapsed');
+  const [x0, y0, x1, y1] = a.bounds;
+  map.fitBounds([[x0, y0], [x1, y1]], { padding: areaPad(), duration: 3500 });
+  try { history.replaceState(null, '', '#amazon-' + name); } catch {}
+}
+function selectSurvey(name, sid) {
+  const v = A.byName[name].surveys.find(x => x.id === sid); if (!v) return;
+  A.survey = sid; A.mark = null; refreshMarks();
+  map.setPaintProperty(`amazon-${name}-surveys`, 'line-color', ['case', ['==', ['get', 'id'], sid], '#CE2E4E', '#2B2724']);
+  const [x0, y0, x1, y1] = v.bounds;
+  map.fitBounds([[x0, y0], [x1, y1]], { padding: areaPad(), duration: 1800, maxZoom: 16 });
+  renderArea(name);
+}
+function nextSurvey(name) {
+  const list = A.byName[name].surveys, i = list.findIndex(v => v.id === A.survey);
+  for (let j = 1; j <= list.length; j++) { const v = list[(i + j + list.length) % list.length]; if (!A.seen[seenKey(name, v.id)]) return selectSurvey(name, v.id); }
+}
+async function toggleSeen(name, sid) {
+  const k = seenKey(name, sid), was = A.seen[k];
+  if (was) delete A.seen[k]; else A.seen[k] = { at: new Date().toISOString() };
+  renderArea(name);
+  try { if (was) await S.db.doc(`surveyseen/${k}`).delete(); else await S.db.doc(`surveyseen/${k}`).set(A.seen[k]); }
+  catch (e) { if (was) A.seen[k] = was; else delete A.seen[k]; renderArea(name); $('#asaved').textContent = `Could not save (${e && e.message || 'error'}).`; }
+}
+async function addMark(name, lngLat) {
+  const id = `${name}-${Date.now().toString(36)}`;
+  A.marks[id] = { area: name, survey: A.survey, lon: +lngLat.lng.toFixed(6), lat: +lngLat.lat.toFixed(6), v: 'unsure', note: '', at: new Date().toISOString() };
+  A.mark = id; refreshMarks(); renderArea(name);
+  try { await S.db.doc(`marks/${id}`).set(A.marks[id]); $('#asaved').textContent = 'Marked. Pick a verdict (keys 1-4).'; }
+  catch (e) { delete A.marks[id]; A.mark = null; refreshMarks(); renderArea(name); $('#asaved').textContent = `Could not save (${e && e.message || 'error'}).`; }
+}
+async function setMark(id, patch) {
+  const prev = A.marks[id]; if (!prev) return;
+  A.marks[id] = { ...prev, ...patch, at: new Date().toISOString() }; refreshMarks(); renderArea(A.sel);
+  try { await S.db.doc(`marks/${id}`).set(A.marks[id]); $('#asaved').textContent = 'Saved.'; }
+  catch (e) { A.marks[id] = prev; refreshMarks(); renderArea(A.sel); $('#asaved').textContent = `Could not save (${e && e.message || 'error'}).`; }
+}
+async function dropMark(id) {
+  const prev = A.marks[id]; delete A.marks[id]; A.mark = null; refreshMarks(); renderArea(A.sel);
+  try { await S.db.doc(`marks/${id}`).delete(); }
+  catch (e) { A.marks[id] = prev; refreshMarks(); renderArea(A.sel); $('#asaved').textContent = `Could not delete (${e && e.message || 'error'}).`; }
+}
+function selectMark(id, fly = false) {
+  const m = A.marks[id]; if (!m) return;
+  A.mark = id; refreshMarks(); renderArea(A.sel);
+  if (fly) map.flyTo({ center: [m.lon, m.lat], zoom: 16, duration: 1500, padding: areaPad() });
+}
+map.on('click', e => {
+  if (!A.sel || P.active || B.open) return;
+  const hit = map.getLayer('amazon-marks') && map.queryRenderedFeatures(e.point, { layers: ['amazon-marks'] })[0];
+  if (hit) return selectMark(hit.properties.id);
+  if (!S.db) { const st = $('#asaved'); if (st) st.textContent = 'Marks need the Ancient Works server.'; return; }
+  if (map.getZoom() < 13) { const st = $('#asaved'); if (st) st.textContent = 'Zoom in to the relief (zoom 13 or closer) to mark a spot.'; return; }
+  addMark(A.sel, e.lngLat);
+});
+function renderArea(name) {
+  const a = A.byName[name]; if (!a) return;
+  const marks = areaMarks(name).sort((x, y) => x.at < y.at ? 1 : -1), cur = A.mark && A.marks[A.mark];
+  const km2 = Math.round(a.surveys.reduce((t, v) => t + v.km2, 0)), seen = areaSeen(a);
+  $('#body').innerHTML = `
+    <button class="back" id="back">← Finder</button>
+    <div><h2 class="site-title">${esc(a.label)}</h2><p class="site-aka">${esc(a.state)}, Brazil · ${a.surveys.length} LiDAR surveys, ${km2} km² · ${seen} looked at</p></div>
+    ${cur ? `<div class="card">
+      <p class="section-title">Mark · ${cur.lat.toFixed(5)}, ${cur.lon.toFixed(5)}</p>
+      <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-mv="${k}" aria-pressed="${cur.v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
+      <textarea id="mnote" rows="2" placeholder="Note (what you see, why)" ${S.db ? '' : 'disabled'}>${esc(cur.note || '')}</textarea>
+      <div class="tools"><button id="mdrop">Delete mark</button><button id="mclose">Done</button></div>
+    </div>` : ''}
+    <p class="status" id="asaved">${S.db ? 'Zoom in and click the relief to mark a spot.' : 'Marks need the Ancient Works server.'}</p>
+    <div class="group">
+      <p class="section-title">Surveys</p>
+      <div class="tools"><button class="primary" id="anext">Next not looked at →</button>${A.survey ? `<button id="aseen">${A.seen[seenKey(name, A.survey)] ? 'Not looked at' : 'Looked at ✓'}</button>` : ''}</div>
+      <ul class="known">${a.surveys.map(v => `<li><button class="linkish" data-sv="${esc(v.id)}" aria-current="${v.id === A.survey}">${esc(v.unit)} · ${v.year} · ${v.km2} km²</button>
+        ${A.seen[seenKey(name, v.id)] ? '<span class="chip v-natural">Looked at</span>' : '<span class="chip todo">To look at</span>'}</li>`).join('')}</ul>
+    </div>
+    <div class="group">
+      <p class="section-title">Marks (${marks.length})</p>
+      <ul class="known">${marks.map(m => `<li><button class="linkish" data-mk="${esc(m.id)}" aria-current="${m.id === A.mark}">${m.lat.toFixed(4)}, ${m.lon.toFixed(4)}${m.survey ? ` · ${esc(m.survey)}` : ''}</button>
+        <span class="chip v-${m.v}">${VERDICT[m.v]}</span>${m.note ? `<i>${esc(m.note)}</i>` : ''}</li>`).join('') || '<li class="status">No marks yet.</li>'}</ul>
+    </div>
+    <div class="about">
+      <p>Bare-earth relief from the Brazilian Forest Service's forest-concession LiDAR, flown before selective logging, one block a year. Ditches and banks a few metres across show; hills are flattened. Logging roads, skid trails and log decks are recent; streams wander. A ring, square or straight bank that ignores the drainage is what to look for.</p>
+      <p>${esc(a.credit)}. Private: this layer and its marks stay on this Mac and are never published.</p>
+    </div>`;
+  $('#back').onclick = () => { A.sel = null; A.mark = null; refreshMarks(); S.tab = 'finder'; renderList(); try { history.replaceState(null, '', '#finder'); } catch {} };
+  $('#anext').onclick = () => nextSurvey(name);
+  const sb = $('#aseen'); if (sb) sb.onclick = () => toggleSeen(name, A.survey);
+  $('#body').querySelectorAll('[data-sv]').forEach(b => b.onclick = () => selectSurvey(name, b.dataset.sv));
+  $('#body').querySelectorAll('[data-mk]').forEach(b => b.onclick = () => selectMark(b.dataset.mk, true));
+  if (cur) {
+    $('#body').querySelectorAll('[data-mv]').forEach(b => b.onclick = () => setMark(A.mark, { v: b.dataset.mv }));
+    $('#mnote').onchange = ev => setMark(A.mark, { note: ev.target.value.trim() });
+    $('#mdrop').onclick = () => dropMark(A.mark);
+    $('#mclose').onclick = () => { A.mark = null; refreshMarks(); renderArea(name); };
+  }
 }
 
 /* ---------- boot ---------- */
@@ -1475,6 +1633,8 @@ async function boot() {
   } catch {}
   F.scans = await fetch('data/scans.json').then(r => r.ok ? r.json() : { scans: [] }).then(d => d.scans).catch(() => []);
   F.scans.forEach(sc => F.byName[sc.name] = sc);
+  A.areas = await fetch('data/amazon/areas.json').then(r => r.ok ? r.json() : { areas: [] }).then(d => d.areas).catch(() => []);
+  A.areas.forEach(a => A.byName[a.name] = a);
   addMarkers();
   const start = () => {
     S.ready = true;
@@ -1484,6 +1644,8 @@ async function boot() {
     const id = location.hash.slice(1), m = id.match(/^scan-([\w-]+?)(?:\/(.+))?$/);
     if (id === 'finder') S.tab = 'finder';
     if (id.startsWith('c/') && C.byId[id.slice(2)]) selectCat(id.slice(2));
+    const am = id.match(/^amazon-([\w-]+)$/);
+    if (am && A.byName[am[1]]) selectArea(am[1]);
     else if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
   };
   if (S.mapLoaded) start(); else map.once('load', start);
@@ -1507,7 +1669,13 @@ async function boot() {
       for (const doc of snap.docs) { const v = doc.data(); if (VERDICT[v.v]) F.verdicts[doc.id] = { scan: v.scan, v: v.v }; }
       Object.keys(F.data).forEach(refreshCands);
     } catch {}
+    try {
+      for (const doc of (await db.collection('marks').get()).docs) A.marks[doc.id] = doc.data();
+      for (const doc of (await db.collection('surveyseen').get()).docs) A.seen[doc.id] = doc.data();
+      refreshMarks();
+    } catch {}
     if (S.sel) { renderSite(S.byId[S.sel]); if (B.open) setTab(true); }
+    else if (A.sel) renderArea(A.sel);
     else if (F.sel) renderScan(F.sel);
     else renderList();
   });

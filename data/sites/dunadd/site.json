@@ -1,0 +1,16 @@
+{
+ "id": "dunadd",
+ "name": "Dunadd",
+ "place": "Scotland",
+ "lon": -5.4786,
+ "lat": 56.0861,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Iron Age; Early Historic c. AD 500-900",
+ "summary": "Dunadd is a hillfort in Argyll and Bute, Scotland, dating from the Iron Age and early medieval period and is believed to be the capital of the ancient kingdom of D\u00e1l Riata. Dal Riata was a Gaelic kingdom spanning the northern Irish coast to Argyll and the Scottish islands in the early centuries AD, possibly after the Romans had abandoned Southern Britain and at the time when the Anglo-Saxons were crossing the North Sea to counter incursions over Hadrian's Wall by the Picts and Dalriadan Scots.",
+ "wiki": "https://en.wikipedia.org/wiki/Dunadd",
+ "status": "plowed"
+}

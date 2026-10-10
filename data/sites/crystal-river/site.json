@@ -1,0 +1,16 @@
+{
+ "id": "crystal-river",
+ "name": "Crystal River Archaeological State Park",
+ "place": "Citrus County, Florida",
+ "lon": -82.6285,
+ "lat": 28.9078,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "period": "c. 65 BCE-CE 1400",
+ "summary": "Crystal River Archaeological State Park is a 61-acre (25\u00a0ha) Florida state park in Citrus County that preserves the Crystal River Site, a pre-Columbian mound complex, together with the related Roberts Island complex downstream. The site is recorded in the Florida Master Site File, the state's inventory of historical resources, under the Smithsonian trinomial 8CI1. The park occupies a low bluff on the north bank of the Crystal River, about 1.9 miles (3\u00a0km) above the river's mouth on the Gulf of Mexico. Its mainland parcel is nearly surrounded by the separate Crystal River Preserve State Park, and the two parks are administered together.",
+ "wiki": "https://en.wikipedia.org/wiki/Crystal_River_Archaeological_State_Park",
+ "status": "standing"
+}

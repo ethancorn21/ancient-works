@@ -1,0 +1,14 @@
+{
+ "id": "borgring",
+ "name": "Borgring",
+ "place": "Denmark",
+ "lon": 12.1233,
+ "lat": 55.4697,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "military_earthwork",
+ "period": "c. AD 975",
+ "status": "plowed"
+}

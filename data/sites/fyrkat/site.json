@@ -1,0 +1,14 @@
+{
+ "id": "fyrkat",
+ "name": "Fyrkat",
+ "place": "Denmark",
+ "lon": 9.7703,
+ "lat": 56.6231,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "military_earthwork",
+ "period": "c. AD 980",
+ "status": "standing"
+}

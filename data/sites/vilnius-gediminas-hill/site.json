@@ -1,0 +1,14 @@
+{
+ "id": "vilnius-gediminas-hill",
+ "name": "Gediminas Hill (Vilnius Upper Castle)",
+ "place": "Lithuania",
+ "lon": 25.291,
+ "lat": 54.687,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Lithuania",
+ "kind": "hillfort",
+ "period": "hillfort 1st mill. AD; castle 14th c.",
+ "status": "urban"
+}

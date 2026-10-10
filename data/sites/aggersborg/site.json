@@ -1,0 +1,14 @@
+{
+ "id": "aggersborg",
+ "name": "Aggersborg",
+ "place": "Denmark",
+ "lon": 9.2547,
+ "lat": 56.9953,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "military_earthwork",
+ "period": "c. AD 970-980",
+ "status": "plowed"
+}

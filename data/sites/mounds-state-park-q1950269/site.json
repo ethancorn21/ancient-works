@@ -1,0 +1,15 @@
+{
+ "id": "mounds-state-park-q1950269",
+ "name": "Mounds State Park",
+ "place": "Indiana",
+ "lon": -85.6192,
+ "lat": 40.1029,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q1950269",
+ "summary": "Mounds State Park is a state park near Anderson, Indiana featuring Native American heritage, and ten ceremonial mounds built by the prehistoric Adena culture indigenous peoples of eastern North America, and also used centuries later by Hopewell culture inhabitants. It is separate from the similarly named Mounds State Recreation Area. The park receives about 400,000 visitors annually.",
+ "wiki": "https://en.wikipedia.org/wiki/Mounds_State_Park"
+}

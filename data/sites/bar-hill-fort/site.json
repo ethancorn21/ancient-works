@@ -1,0 +1,16 @@
+{
+ "id": "bar-hill-fort",
+ "name": "Bar Hill Roman fort (Antonine Wall)",
+ "place": "Scotland",
+ "lon": -4.072,
+ "lat": 55.959,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman_fort",
+ "period": "Roman, AD 142-c.165; earlier Iron Age fort",
+ "summary": "Bar Hill Fort was a Roman fort on the Antonine Wall in Scotland. It was built around the year 142\u00a0CE. Older maps and documents sometimes spell the name as Barr Hill. A computer generated fly around for the site has been produced. Lidar scans have been done along the length of the wall including Bar Hill. Sir George Macdonald wrote about the excavation of the site. Many other artefacts have also been found at Shirva, about a mile away on the other side of Twechar.",
+ "wiki": "https://en.wikipedia.org/wiki/Bar_Hill_Fort",
+ "status": "standing"
+}

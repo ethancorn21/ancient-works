@@ -1,0 +1,16 @@
+{
+ "id": "burnswark-hill",
+ "name": "Burnswark Hill",
+ "place": "Scotland",
+ "lon": -3.2761,
+ "lat": 55.0969,
+ "width_m": 1900,
+ "height_m": 1900,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Iron Age hillfort; Roman attack c. AD 140-160",
+ "summary": "Burnswark Hill, to the east of the A74(M) between Ecclefechan and Lockerbie in Dumfries and Galloway, Scotland, is a prominent flat-topped hill, composed of basalt deposited some 300 million years ago as a local flow of lava. On this hill have been found an Iron Age hillfort enclosing some 7 hectares, Iron Age round houses within the fort, an earlier Bronze Age burial cairn, enclosures dated to the medieval period, a possible Civil War battery, and an Ordnance Survey triangulation station. Immediately adjacent to the base of the hill are two Roman camps, north and south of the fort, and a possible Roman fortlet within the South Camp.",
+ "wiki": "https://en.wikipedia.org/wiki/Burnswark_Hill",
+ "status": "standing"
+}

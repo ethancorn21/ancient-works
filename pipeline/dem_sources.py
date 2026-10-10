@@ -15,6 +15,11 @@ when the target is much coarser) and reprojected here with pyproj + one bilinear
 lands on exactly the requested Mercator pixels. OSTN15 (England) is downloaded once into
 data/tilecache/proj; without it pyproj falls back to a Helmert fit good to ~2 m.
 
+Pre-built sites only (STATIC, not offered to the live tile server): Scotland's national DTM tiles and the point-cloud surveys
+of the open-lidar-data mirror (Denmark, Spain, the Baltics, Poland, Sweden, Finland, Switzerland, Slovenia, ...), both read from public
+S3 (pipeline/lidar_scot.py, pipeline/lidar_pc.py). They need no service or key, so they also work where the national services are blocked.
+They are too slow for a tile server (a point cloud is gridded on the fly), hence the separate registry.
+
 Coverage: source_for(lon, lat) / source_for_bbox(bbox) use rough polygons (generous along borders and
 coasts: the services return nodata outside their area, and callers treat all-NaN as "not covered").
 probe=True also fetches a tiny DEM and returns None when it is all nodata.
@@ -96,6 +101,27 @@ MAX_PX = 2500  # largest side of one upstream request; bigger areas are fetched 
 # EA's GeoServer drops whole rectangles from big scaled requests (a 38 km z12 chunk came back 10% empty, its
 # halves complete), so its requests are also capped by ground extent
 MAX_EXTENT_M = {"ea": 15000}
+
+
+# Scotland (mainland, Hebrides, Orkney, Shetland) as one generous outline; the tile index decides where data really exists
+SCOTLAND = [(-8.0, 54.55), (-6.6, 54.6), (-5.2, 54.5), (-3.9, 54.75), (-3.1, 54.9), (-2.4, 55.2), (-1.9, 55.62), (-1.9, 55.95),
+            (-1.9, 56.9), (-1.4, 57.7), (-1.6, 58.6), (-0.7, 60.0), (-0.6, 61.0), (-2.0, 61.0), (-3.0, 59.7), (-3.8, 58.95),
+            (-5.2, 58.75), (-6.4, 58.6), (-7.9, 58.3), (-8.0, 57.0), (-7.7, 55.9)]
+# countries whose surveys sit on the open-lidar-data mirror and that the national services above do not serve
+PC_COUNTRIES = {"DK": (7.9, 54.5, 15.3, 57.8), "SE": (10.9, 55.3, 24.2, 69.1), "FI": (19.0, 59.7, 31.7, 70.2), "EE": (21.7, 57.5, 28.3, 59.8),
+                "LV": (20.9, 55.6, 28.3, 58.1), "LT": (20.9, 53.8, 26.9, 56.5), "PL": (14.0, 49.0, 24.2, 54.9), "SI": (13.3, 45.4, 16.7, 46.9),
+                "CH": (5.9, 45.7, 10.6, 47.9), "LU": (5.7, 49.4, 6.6, 50.2), "BE": (2.5, 49.4, 6.5, 51.6), "DE": (5.8, 47.2, 15.1, 55.1),
+                "ES": (-9.5, 35.9, 4.4, 43.9), "IE": (-10.7, 51.3, -5.3, 55.5)}
+PC = [[(x0, y0), (x1, y0), (x1, y1), (x0, y1)] for x0, y0, x1, y1 in PC_COUNTRIES.values()]
+STATIC = {
+    "scot": {"label": "Scotland national LiDAR DTM tiles", "native_m": 0.5, "areas": [SCOTLAND],
+             "attribution": "LiDAR: Scottish Government, Historic Environment Scotland, Orkney Islands Council (Open Government Licence v3.0)"},
+    "pc": {"label": "National LiDAR point-cloud surveys (open-lidar-data mirror)", "native_m": 1.0, "areas": PC,
+           "attribution": "LiDAR: national mapping agencies via the open-lidar-data mirror (survey credited per site)"},
+}
+STATIC_ORDER = ["scot", "pc"]
+LAST_INFO = []  # what the last fetch_static read: [{source, credit, share, collect_end, ...}], for the site's LiDAR credit
+LAST_BBOX = None  # the box LAST_INFO belongs to (a build_catalog run fetches many sites in one process)
 
 
 # ---------------------------------------------------------------- coverage
@@ -385,6 +411,43 @@ def fetch(name, bbox, w, h, tries=3):
         return z
     lat = aw.to_lonlat(0, (bbox[1] + bbox[3]) / 2)[1]
     return fill_gaps(z, (bbox[2] - bbox[0]) / w * aw.ground_scale(lat))
+
+
+def static_source_for_bbox(bbox):
+    """STATIC source for a Mercator bbox (centre, then corners), or None. Call after source_for_bbox returned None."""
+    x0, y0, x1, y1 = bbox
+    for x, y in [((x0 + x1) / 2, (y0 + y1) / 2), (x0, y0), (x1, y0), (x1, y1), (x0, y1)]:
+        lon, lat = aw.to_lonlat(x, y)
+        for name in STATIC_ORDER:
+            if any(_in_ring(lon, lat, r) for r in STATIC[name]["areas"]):
+                return name
+    return None
+
+
+def fetch_static(name, bbox, w, h):
+    """DEM (float64 metres, NaN = no data) from a STATIC source for a Mercator bbox; sets LAST_INFO."""
+    global LAST_INFO, LAST_BBOX
+    lon, lat = aw.to_lonlat((bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2)
+    if name == "scot":
+        import lidar_scot
+        z, info = lidar_scot.read_dem(bbox, w, h, lon, lat)
+    elif name == "pc":
+        import lidar_pc
+        z, info = lidar_pc.read_dem(bbox, w, h, lon, lat)
+    else:
+        raise KeyError(name)
+    LAST_INFO, LAST_BBOX = info, tuple(bbox)
+    return z
+
+
+def credit_for_bbox(bbox):
+    """Short LiDAR credit for a site box, e.g. 'USGS 3DEP' or 'Environment Agency ...': what the block caption names.
+    A STATIC fetch just made names its own survey; otherwise the source's generic attribution."""
+    if LAST_INFO and LAST_BBOX == tuple(bbox):  # a static read just made for this box (also a live source's border fallback)
+        return "; ".join(i.get("credit") or i["source"] for i in LAST_INFO)
+    name = source_for_bbox(bbox) or static_source_for_bbox(bbox)
+    src = SOURCES.get(name) or STATIC.get(name)
+    return src["attribution"].replace("LiDAR: ", "", 1) if src else None
 
 
 if __name__ == "__main__":

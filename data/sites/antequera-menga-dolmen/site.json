@@ -1,0 +1,16 @@
+{
+ "id": "antequera-menga-dolmen",
+ "name": "Antequera dolmens (Menga, Viera, El Romeral)",
+ "place": "Spain",
+ "lon": -4.5463,
+ "lat": 37.0246,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Spain",
+ "kind": "barrow",
+ "period": "Neolithic to Copper Age c.3750-2500 BC",
+ "summary": "The Dolmen of Menga is a megalithic burial mound called a tumulus, a long barrow form of dolmen, dating from the Neolithic period around 3750\u20133650 BCE. It is near Antequera, M\u00e1laga, Spain.",
+ "wiki": "https://en.wikipedia.org/wiki/Dolmen_of_Menga",
+ "status": "standing"
+}

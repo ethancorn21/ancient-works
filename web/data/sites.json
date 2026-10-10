@@ -42,7 +42,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "abbotsbury-castle-q3662453",
@@ -87,7 +88,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "aberdeen-mound-q4666953",
@@ -131,7 +133,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "aden-site-q4682175",
@@ -175,7 +178,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "aesica-q4688554",
@@ -220,6 +224,51 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "aggersborg",
+   "name": "Aggersborg",
+   "place": "Denmark",
+   "lon": 9.2547,
+   "lat": 56.9953,
+   "status": "plowed",
+   "region": "Denmark",
+   "kind": "military_earthwork",
+   "period": "c. AD 970-980",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (13.9 points/m2)",
+   "corners": [
+    [
+     9.246454154841421,
+     56.99979130537679
+    ],
+    [
+     9.262945845158578,
+     56.99979130537679
+    ],
+    [
+     9.262945845158578,
+     56.990808152522995
+    ],
+    [
+     9.246454154841421,
+     56.990808152522995
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.28,
+    "zmax": 24.49,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -265,7 +314,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "aldenhaag-q23650779",
@@ -309,7 +359,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "aldford-castle-q4713789",
@@ -354,7 +405,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "alesia-q835966",
@@ -399,7 +451,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "alignement-du-camp-de-la-justice-q22965925",
@@ -444,7 +497,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "alligator-effigy-mound-q4732645",
@@ -488,7 +542,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "ambrussum-q1458146",
@@ -533,7 +588,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "andone-castrum-q2941535",
@@ -578,7 +634,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "angel-mounds-q4530064",
@@ -623,7 +680,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "anstey-castle-q4770776",
@@ -668,6 +726,99 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "antequera-menga-dolmen",
+   "name": "Antequera dolmens (Menga, Viera, El Romeral)",
+   "place": "Spain",
+   "lon": -4.5463,
+   "lat": 37.0246,
+   "status": "standing",
+   "summary": "The Dolmen of Menga is a megalithic burial mound called a tumulus, a long barrow form of dolmen, dating from the Neolithic period around 3750\u20133650 BCE. It is near Antequera, M\u00e1laga, Spain.",
+   "region": "Spain",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Dolmen_of_Menga",
+   "period": "Neolithic to Copper Age c.3750-2500 BC",
+   "lidar_credit": "CNIG / IGN Spain, 2021 (2.3 points/m2)",
+   "corners": [
+    [
+     -4.551925883709865,
+     37.02909144363415
+    ],
+    [
+     -4.540674116290135,
+     37.02909144363415
+    ],
+    [
+     -4.540674116290135,
+     37.02010829079693
+    ],
+    [
+     -4.551925883709865,
+     37.02010829079693
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 451.3,
+    "zmax": 516.29,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ]
+  },
+  {
+   "id": "apuole-hillfort",
+   "name": "Apuol\u0117 hillfort",
+   "place": "Lithuania",
+   "lon": 21.6781,
+   "lat": 56.2464,
+   "status": "standing",
+   "summary": "The Apuol\u0117 hillfort is a hillfort in Lithuania located by Apuol\u0117, a historic village in Skuodas district municipality. The hillfort with a settlement is a cultural monument of the Republic of Lithuania of area 318,028 sq. m. The hill fort is situated at the confluence of the Luoba River and its tributary, Brukis Stream. Apuol\u0117 is the first Lithuanian place mentioned in historical sources, dated by 853.",
+   "region": "Lithuania",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Apuol%C4%97_Hillfort",
+   "period": "5th-13th c. AD",
+   "lidar_credit": "NZT, Lithuania, 2022 (16.36 points/m2)",
+   "corners": [
+    [
+     21.670016136180365,
+     56.25089131297928
+    ],
+    [
+     21.68618386381963,
+     56.25089131297928
+    ],
+    [
+     21.68618386381963,
+     56.24190816012668
+    ],
+    [
+     21.670016136180365,
+     56.24190816012668
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 32.55,
+    "zmax": 61.08,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -713,7 +864,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "arbeia-q1131391",
@@ -761,7 +913,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "arbor-low-q630312",
@@ -806,7 +959,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "ardotalia-q4788242",
@@ -851,7 +1005,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "argentomagus-q2860982",
@@ -895,7 +1050,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "argentoratum-q2361353",
@@ -940,7 +1096,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "arledge-mounds-i-and-ii-q4792111",
@@ -984,7 +1141,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "athelney-q3496233",
@@ -1029,7 +1187,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "avaricum-q281826",
@@ -1073,7 +1232,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "avebury-q661855",
@@ -1121,6 +1281,53 @@
    "size_m": [
     1000,
     1000
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "aventicum",
+   "name": "Aventicum (Avenches)",
+   "place": "Switzerland",
+   "lon": 7.042,
+   "lat": 46.881,
+   "status": "plowed",
+   "summary": "Aventicum was the largest town and capital of Roman Switzerland. Its remains are beside the modern town of Avenches.",
+   "region": "Switzerland",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Aventicum",
+   "period": "Roman c. 15 BC-AD 260+",
+   "lidar_credit": "swisstopo, 2022 (10.76 points/m2)",
+   "corners": [
+    [
+     7.022286150021355,
+     46.89447303718932
+    ],
+    [
+     7.061713849978644,
+     46.89447303718932
+    ],
+    [
+     7.061713849978644,
+     46.867523578630845
+    ],
+    [
+     7.022286150021355,
+     46.867523578630845
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 430.02,
+    "zmax": 624.45,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    3000,
+    3000
    ]
   },
   {
@@ -1165,7 +1372,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "badbury-rings-q798831",
@@ -1210,6 +1418,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "balfarg-henge",
+   "name": "Balfarg Henge",
+   "place": "Scotland",
+   "lon": -3.16,
+   "lat": 56.215,
+   "status": "urban",
+   "summary": "Balfarg is a prehistoric monument complex in Glenrothes, Fife, Scotland. It is protected as a scheduled monument. With the development of Glenrothes new town in the latter half of the 20th Century an adjacent residential area was developed around the complex carrying the same name.",
+   "region": "Scotland",
+   "kind": "henge",
+   "wiki": "https://en.wikipedia.org/wiki/Balfarg",
+   "period": "Neolithic c.3000-2500 BC",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -3.16807724106222,
+     56.21949131329152
+    ],
+    [
+     -3.151922758937781,
+     56.21949131329152
+    ],
+    [
+     -3.151922758937781,
+     56.21050816043895
+    ],
+    [
+     -3.16807724106222,
+     56.21050816043895
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 87.56,
+    "zmax": 115.12,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -1254,6 +1509,99 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "clava-cairns",
+   "name": "Balnuaran of Clava cairns",
+   "place": "Scotland",
+   "lon": -4.0744,
+   "lat": 57.4737,
+   "status": "standing",
+   "summary": "The Clava cairn is a type of Bronze Age circular chamber tomb cairn, named after the group of three cairns at Balnuaran of Clava, to the east of Inverness in Scotland. There are about 50 cairns of this type in an area round about Inverness.",
+   "region": "Scotland",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Clava_cairn",
+   "period": "Early Bronze Age c.2000 BC",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 2)",
+   "corners": [
+    [
+     -4.082753519870252,
+     57.47819130035821
+    ],
+    [
+     -4.066046480129748,
+     57.47819130035821
+    ],
+    [
+     -4.066046480129748,
+     57.4692081475036
+    ],
+    [
+     -4.082753519870252,
+     57.4692081475036
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 94.57,
+    "zmax": 158.75,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ]
+  },
+  {
+   "id": "bar-hill-fort",
+   "name": "Bar Hill Roman fort (Antonine Wall)",
+   "place": "Scotland",
+   "lon": -4.072,
+   "lat": 55.959,
+   "status": "standing",
+   "summary": "Bar Hill Fort was a Roman fort on the Antonine Wall in Scotland. It was built around the year 142\u00a0CE. Older maps and documents sometimes spell the name as Barr Hill. A computer generated fly around for the site has been produced. Lidar scans have been done along the length of the wall including Bar Hill. Sir George Macdonald wrote about the excavation of the site. Many other artefacts have also been found at Shirva, about a mile away on the other side of Twechar.",
+   "region": "Scotland",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Bar_Hill_Fort",
+   "period": "Roman, AD 142-c.165; earlier Iron Age fort",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -4.080023738292253,
+     55.96349131581831
+    ],
+    [
+     -4.063976261707746,
+     55.96349131581831
+    ],
+    [
+     -4.063976261707746,
+     55.95450816296614
+    ],
+    [
+     -4.080023738292253,
+     55.95450816296614
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 38.47,
+    "zmax": 155.8,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -1299,7 +1647,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "barkhale-camp-causewayed-enclosure-q17645213",
@@ -1343,7 +1692,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "barnard-castle-q4185811",
@@ -1387,7 +1737,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "barnstaple-castle-q808516",
@@ -1431,7 +1782,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "barwick-in-elmet-castle-q4865964",
@@ -1476,7 +1828,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "batesville-mounds-q68034246",
@@ -1520,7 +1873,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "battle-mound-site-q4870073",
@@ -1564,7 +1918,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "bayou-grande-cheniere-mounds-q4874725",
@@ -1608,7 +1963,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "beam-farm-woodland-archaeological-distri-q4876173",
@@ -1652,7 +2008,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "beaudesert-castle-q4877442",
@@ -1697,7 +2054,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bedford-castle-q4879112",
@@ -1742,7 +2100,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "berkhamsted-castle-q4892150",
@@ -1787,7 +2146,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bethlehem-q2523914",
@@ -1831,6 +2191,53 @@
    "size_m": [
     1200,
     1200
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
+  },
+  {
+   "id": "biggs-site",
+   "name": "Biggs Site",
+   "place": "Greenup County, Kentucky",
+   "lon": -82.93444,
+   "lat": 38.734083,
+   "status": "standing",
+   "summary": "The Biggs Site (15Gp8), also known as the Portsmouth Earthworks Group D, is an Adena culture archaeological site located near South Shore in Greenup County, Kentucky. Biggs was originally a concentric circular embankment and ditch surrounding a central conical burial mound with a causeway crossing the ring and ditch. It was part of a larger complex, the Portsmouth Earthworks, located across the Ohio River and now mostly obliterated by agriculture and the developing city of Portsmouth, Ohio.",
+   "region": "US",
+   "kind": "enclosure",
+   "wiki": "https://en.wikipedia.org/wiki/Biggs_site",
+   "period": "c. 100 BCE-CE 500",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -82.9390464005289,
+     38.7376761707564
+    ],
+    [
+     -82.92983359947111,
+     38.7376761707564
+    ],
+    [
+     -82.92983359947111,
+     38.73048964848511
+    ],
+    [
+     -82.9390464005289,
+     38.73048964848511
+    ]
+   ],
+   "relief_clip_m": 1.18,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 156.45,
+    "zmax": 168.02,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
    ]
   },
   {
@@ -1876,7 +2283,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bincknoll-castle-q4913961",
@@ -1921,6 +2329,50 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "birdoswald-roman-fort-and-the-section-of-q17650767",
+   "name": "Birdoswald Roman Fort (Banna)",
+   "place": "Waterhead, Cumberland, England",
+   "lon": -2.6032,
+   "lat": 54.9897,
+   "region": "England",
+   "kind": "roman_fort",
+   "qid": "Q17650767",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.6110288147009073,
+     54.99419132509093
+    ],
+    [
+     -2.5953711852990935,
+     54.99419132509093
+    ],
+    [
+     -2.5953711852990935,
+     54.98520817224016
+    ],
+    [
+     -2.6110288147009073,
+     54.98520817224016
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 92.38,
+    "zmax": 168.59,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -1964,7 +2416,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "blestium-q572453",
@@ -2009,7 +2462,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "blijdestein-q18812970",
@@ -2054,7 +2508,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "bokerley-dyke-q891218",
@@ -2098,6 +2553,51 @@
    "size_m": [
     2000,
     2000
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "borgring",
+   "name": "Borgring",
+   "place": "Denmark",
+   "lon": 12.1233,
+   "lat": 55.4697,
+   "status": "plowed",
+   "region": "Denmark",
+   "kind": "military_earthwork",
+   "period": "c. AD 975",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (18.78 points/m2)",
+   "corners": [
+    [
+     12.115376140185168,
+     55.47419132055609
+    ],
+    [
+     12.131223859814833,
+     55.47419132055609
+    ],
+    [
+     12.131223859814833,
+     55.46520816770466
+    ],
+    [
+     12.115376140185168,
+     55.46520816770466
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 2.35,
+    "zmax": 22.91,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -2142,7 +2642,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "bramber-castle-q897538",
@@ -2187,7 +2688,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bremetennacum-q4960578",
@@ -2235,7 +2737,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "britzgyberg-oppidum-q14627810",
@@ -2278,7 +2781,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "brocavum-q16824574",
@@ -2322,7 +2826,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bryn-amlwg-castle-q4980826",
@@ -2367,6 +2872,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "burcht-van-leiden",
+   "name": "Burcht van Leiden",
+   "place": "Netherlands",
+   "lon": 4.493,
+   "lat": 52.159,
+   "status": "urban",
+   "summary": "The Burcht van Leiden is an old shell keep in Leiden constructed in the 11th century. It is located at the spot where two tributaries of the Rhine come together, the Oude Rijn and the Nieuwe Rijn. The structure is on top of a motte, and is today a public park.",
+   "region": "Netherlands",
+   "kind": "motte",
+   "wiki": "https://en.wikipedia.org/wiki/Burcht_van_Leiden",
+   "period": "11th c. motte; ring wall 12th-13th c.",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.485678436702048,
+     52.16349134979173
+    ],
+    [
+     4.500321563297954,
+     52.16349134979173
+    ],
+    [
+     4.500321563297954,
+     52.154508196944505
+    ],
+    [
+     4.485678436702048,
+     52.154508196944505
+    ]
+   ],
+   "relief_clip_m": 0.56,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.28,
+    "zmax": 12.65,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -2412,51 +2964,53 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
-   "id": "burrium-q602000",
-   "name": "Burrium",
-   "aka": "Usk Roman Site, Caer Rufeinig Brynbuga",
-   "place": "Monmouthshire, Wales",
-   "lon": -2.899177,
-   "lat": 51.700221,
-   "summary": "Burrium was a legionary fortress in the Roman province of Britannia Superior or Roman Britain. Its remains today lie beneath the town of Usk in Monmouthshire, south east Wales.",
-   "region": "Wales",
-   "kind": "roman_fort",
-   "qid": "Q602000",
-   "wiki": "https://en.wikipedia.org/wiki/Burrium",
+   "id": "burnswark-hill",
+   "name": "Burnswark Hill",
+   "place": "Scotland",
+   "lon": -3.2761,
+   "lat": 55.0969,
+   "status": "standing",
+   "summary": "Burnswark Hill, to the east of the A74(M) between Ecclefechan and Lockerbie in Dumfries and Galloway, Scotland, is a prominent flat-topped hill, composed of basalt deposited some 300 million years ago as a local flow of lava. On this hill have been found an Iron Age hillfort enclosing some 7 hectares, Iron Age round houses within the fort, an earlier Bronze Age burial cairn, enclosures dated to the medieval period, a possible Civil War battery, and an Ordnance Survey triangulation station. Immediately adjacent to the base of the hill are two Roman camps, north and south of the fort, and a possible Roman fortlet within the South Camp.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Burnswark_Hill",
+   "period": "Iron Age hillfort; Roman attack c. AD 140-160",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 3)",
    "corners": [
     [
-     -2.9107723541564403,
-     51.70740695159808
+     -3.291014611429439,
+     55.105433084292756
     ],
     [
-     -2.88758164584356,
-     51.70740695159808
+     -3.261185388570561,
+     55.105433084292756
     ],
     [
-     -2.88758164584356,
-     51.69303390702944
+     -3.261185388570561,
+     55.088365093827946
     ],
     [
-     -2.9107723541564403,
-     51.69303390702944
+     -3.291014611429439,
+     55.088365093827946
     ]
    ],
-   "relief_clip_m": 0.15,
+   "relief_clip_m": 1.2,
    "block": {
     "w": 512,
     "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
+    "zmin": 146.9,
+    "zmax": 285.95,
+    "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
    "size_m": [
-    1600,
-    1600
+    1900,
+    1900
    ]
   },
   {
@@ -2501,7 +3055,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "bury-castle-q5001077",
@@ -2546,7 +3101,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "butte-saint-clair-du-mesnil-vigot-q22963275",
@@ -2591,7 +3147,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "cadbury-castle-q1025082",
@@ -2641,7 +3198,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "caddo-mounds-state-historic-site-q5016312",
@@ -2685,97 +3243,8 @@
    "size_m": [
     800,
     800
-   ]
-  },
-  {
-   "id": "caer-castell-q13126473",
-   "name": "Caer Castell",
-   "aka": "Caer Castell, St Mellons, Caer Castell Camp",
-   "place": "Cardiff, Wales",
-   "lon": -3.11566,
-   "lat": 51.51669,
-   "summary": "Caer Castell Camp, also known as Caer Castell Ring Motte, is a medieval motte and ditch in Rumney in Cardiff, Wales, which is a scheduled monument.",
-   "region": "Wales",
-   "kind": "motte",
-   "qid": "Q13126473",
-   "wiki": "https://en.wikipedia.org/wiki/Caer_Castell_Camp",
-   "corners": [
-    [
-     -3.1214342861654383,
-     51.520283119402094
-    ],
-    [
-     -3.1098857138345624,
-     51.520283119402094
-    ],
-    [
-     -3.1098857138345624,
-     51.51309659712637
-    ],
-    [
-     -3.1214342861654383,
-     51.51309659712637
-    ]
    ],
-   "relief_clip_m": 1.2,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 7.95,
-    "zmax": 37.87,
-    "contour_m": 1,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    800,
-    800
-   ]
-  },
-  {
-   "id": "caerau-hillfort-q5016882",
-   "name": "Caerau Hillfort",
-   "aka": "Caerau Castle, Caerau Camp, Ely",
-   "place": "Cardiff, Wales",
-   "lon": -3.2484,
-   "lat": 51.4675,
-   "summary": "Caerau Hillfort is a large triangular multivallate Iron Age hillfort, built on a previously occupied Neolithic site, occupying the western tip of an extensive ridge-top plateau in the western suburbs of Caerau and Ely, Cardiff, Wales. It is the largest Iron Age site of its type in south Wales and also one of the largest in Great Britain. The old parish church, St Mary's, and a small ringwork, almost certainly a medieval castle site probably contemporary with the church, stand within the hillfort on the north-eastern side.",
-   "region": "Wales",
-   "kind": "hillfort",
-   "qid": "Q5016882",
-   "wiki": "https://en.wikipedia.org/wiki/Caerau_Hillfort",
-   "corners": [
-    [
-     -3.2599361180088353,
-     51.47468595633893
-    ],
-    [
-     -3.2368638819911655,
-     51.47468595633893
-    ],
-    [
-     -3.2368638819911655,
-     51.46031291177128
-    ],
-    [
-     -3.2599361180088353,
-     51.46031291177128
-    ]
-   ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    1600,
-    1600
-   ]
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "cahokia-q333661",
@@ -2820,6 +3289,53 @@
    "size_m": [
     2400,
     2400
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "cairnpapple-hill",
+   "name": "Cairnpapple Hill",
+   "place": "Scotland",
+   "lon": -3.6225,
+   "lat": 55.9281,
+   "status": "standing",
+   "summary": "Cairnpapple Hill is a hill with a dominating position in central lowland Scotland with views from coast to coast. It was used and re-used as a major ritual site for around 4,000 years, and in its day would have been comparable to better known sites like the Standing Stones of Stenness. The summit lies 312\u00a0meters above sea level, and is about 2\u00a0miles (3\u00a0km) north of Bathgate. In the 19th century the site was completely concealed by trees, then in 1947\u20131948 excavations by Stuart Piggott found a series of ritual monuments from successive prehistoric periods. In 1998, Gordon Barclay re-interpreted the site for Historic Scotland. It is designated a scheduled ancient monument.",
+   "region": "Scotland",
+   "kind": "henge",
+   "wiki": "https://en.wikipedia.org/wiki/Cairnpapple_Hill",
+   "period": "Neolithic c.3500 BC onward; henge c.2800 BC; Bronze Age cairns",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -3.6305173390382537,
+     55.93259131612103
+    ],
+    [
+     -3.6144826609617473,
+     55.93259131612103
+    ],
+    [
+     -3.6144826609617473,
+     55.923608163268916
+    ],
+    [
+     -3.6305173390382537,
+     55.923608163268916
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 205.04,
+    "zmax": 310.76,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -2868,7 +3384,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "camp-celtique-de-la-bure-q2935231",
@@ -2913,7 +3430,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "camp-d-attila-q18749222",
@@ -2958,7 +3476,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "camp-des-rouets-q22992059",
@@ -3001,7 +3520,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "camulodunum-q630604",
@@ -3046,7 +3566,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "carvium-q1046167",
@@ -3090,7 +3611,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "castalian-springs-mound-site-q5049584",
@@ -3132,7 +3654,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "castle-dore-q5050057",
@@ -3177,7 +3700,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castle-neroche-q5050201",
@@ -3222,7 +3746,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castra-argentovaria-q2654537",
@@ -3267,7 +3792,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "castra-deva-victrix-q2450247",
@@ -3312,7 +3838,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castra-exploratorum-q51433287",
@@ -3360,7 +3887,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castra-herculis-q515850",
@@ -3404,7 +3932,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "castra-lemanis-q499898",
@@ -3449,7 +3978,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castrum-anderitum-q943660",
@@ -3494,7 +4024,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castrum-carvo-q1046175",
@@ -3539,7 +4070,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "castrum-gariannonum-q1735346",
@@ -3584,7 +4116,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "castrum-levefanum-q1309559",
@@ -3627,7 +4160,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "castrum-mannaricium-q1309550",
@@ -3672,7 +4206,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "castrum-segedunum-q637958",
@@ -3720,7 +4255,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "caus-castle-q5054556",
@@ -3765,6 +4301,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "cawthorne-camp-q5055239",
+   "name": "Cawthorne Camp",
+   "aka": "Cawthorn Roman forts and camp including a section of medieval trackway known as the Portergate",
+   "place": "Cropton, North Yorkshire, England",
+   "lon": -0.796,
+   "lat": 54.302,
+   "summary": "Cawthorn Camp is a Roman site in northeast England, about 4 miles (6\u00a0km) north of Pickering, North Yorkshire.",
+   "region": "England",
+   "kind": "roman_fort",
+   "qid": "Q5055239",
+   "wiki": "https://en.wikipedia.org/wiki/Cawthorne_Camp",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.8152436906629855,
+     54.313227409727695
+    ],
+    [
+     -0.7767563093370147,
+     54.313227409727695
+    ],
+    [
+     -0.7767563093370147,
+     54.29076952749003
+    ],
+    [
+     -0.8152436906629855,
+     54.29076952749003
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 102.63,
+    "zmax": 198.64,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2500,
+    2500
    ]
   },
   {
@@ -3810,6 +4393,50 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
+   "name": "Chesters Roman Fort (Cilurnum)",
+   "place": "Humshaugh, Northumberland, England",
+   "lon": -2.138,
+   "lat": 55.025,
+   "region": "England",
+   "kind": "earthwork",
+   "qid": "Q17650519",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.14661927886871,
+     55.02994042955531
+    ],
+    [
+     -2.12938072113129,
+     55.02994042955531
+    ],
+    [
+     -2.12938072113129,
+     55.02005896141722
+    ],
+    [
+     -2.14661927886871,
+     55.02005896141722
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 48.62,
+    "zmax": 104.35,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1100,
+    1100
    ]
   },
   {
@@ -3853,7 +4480,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "chateau-de-fecamp-q2969286",
@@ -3896,7 +4524,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "chateau-de-labrit-q2969604",
@@ -3939,7 +4568,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "chateau-du-kochersberg-q1012697",
@@ -3982,7 +4612,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "civil-war-earthworks-at-tallahatchie-cro-q61456836",
@@ -4026,7 +4657,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "clun-castle-q5136615",
@@ -4071,7 +4703,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "cockermouth-castle-q5139587",
@@ -4116,52 +4749,8 @@
    "size_m": [
     800,
     800
-   ]
-  },
-  {
-   "id": "colwyn-castle-q5150338",
-   "name": "Colwyn Castle",
-   "aka": "Castell Colwyn",
-   "place": "Powys, Wales",
-   "lon": -3.307435,
-   "lat": 52.176749,
-   "summary": "Colwyn Castle, also known as Maud's Castle, was a medieval castle near Builth Wells in Wales, in the Manor of Glascwm and the county of Radnorshire. There have been two castles on the site, the first constructed on the site of a Roman fort in 1093 by Raoul II of Tosny. This changed hands several times and was eventually captured and destroyed in 1196 by Rhys ap Gruffydd, who was campaigning against the Normans. The castle was rebuilt by Henry III of England in 1215, and was then rebuilt again in 1242 by Ralph de Mortimer to protect the lordship of Maelienydd, which he had recently acquired. It was finally abandoned during the 14th century. The site of Colwyn Castle now houses a farmhouse, with the outer entrenchments of the castle still in place.",
-   "region": "Wales",
-   "kind": "motte",
-   "qid": "Q5150338",
-   "wiki": "https://en.wikipedia.org/wiki/Colwyn_Castle",
-   "corners": [
-    [
-     -3.313294587573396,
-     52.18034211600082
-    ],
-    [
-     -3.3015754124266037,
-     52.18034211600082
-    ],
-    [
-     -3.3015754124266037,
-     52.17315559372477
-    ],
-    [
-     -3.313294587573396,
-     52.17315559372477
-    ]
    ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    800,
-    800
-   ]
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "concangis-q5158253",
@@ -4206,7 +4795,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "coria-q3819299",
@@ -4251,6 +4841,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "craig-phadrig",
+   "name": "Craig Phadrig",
+   "place": "Scotland",
+   "lon": -4.269,
+   "lat": 57.477,
+   "status": "standing",
+   "summary": "Craig Phadrig is a forested hill on the western edge of Inverness, Scotland. A hill fort on the summit is generally supposed to have been the base of the Pictish king Bridei mac Maelchon. The hill rises to 172 metres (564\u00a0ft) above sea level and overlooks the Beauly Firth to the north and the mouth of the River Ness to the north-east. The hill is currently owned and managed by Forestry and Land Scotland.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Craig_Phadrig",
+   "period": "Iron Age c.400 BC; reused 5th-7th c. AD",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 1)",
+   "corners": [
+    [
+     -4.277354274407812,
+     57.481491300323114
+    ],
+    [
+     -4.260645725592188,
+     57.481491300323114
+    ],
+    [
+     -4.260645725592188,
+     57.47250814746849
+    ],
+    [
+     -4.277354274407812,
+     57.47250814746849
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 50.11,
+    "zmax": 172.32,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -4296,7 +4933,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "crayke-castle-q5183045",
@@ -4341,7 +4979,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "criel-mound-q5185117",
@@ -4386,51 +5025,53 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
-   "id": "crug-hywel-q851344",
-   "name": "Crug Hywel",
-   "aka": "Crucywel",
-   "place": "Powys, Wales",
-   "lon": -3.1264,
-   "lat": 51.8792,
-   "summary": "Crug Hywel is an Iron Age Celtic hillfort, with a clearly visible earth and stone ditch and rampart. Crug Hywel is approached by a couple of public footpaths across farmland from Crickhowell and Llanbedr and visited by the Beacons Way. It lies within an area designated as open country over which the public have the right to roam.",
-   "region": "Wales",
-   "kind": "hillfort",
-   "qid": "Q851344",
-   "wiki": "https://en.wikipedia.org/wiki/Crug_Hywel",
+   "id": "crystal-river",
+   "name": "Crystal River Archaeological State Park",
+   "place": "Citrus County, Florida",
+   "lon": -82.6285,
+   "lat": 28.9078,
+   "status": "standing",
+   "summary": "Crystal River Archaeological State Park is a 61-acre (25\u00a0ha) Florida state park in Citrus County that preserves the Crystal River Site, a pre-Columbian mound complex, together with the related Roberts Island complex downstream. The site is recorded in the Florida Master Site File, the state's inventory of historical resources, under the Smithsonian trinomial 8CI1. The park occupies a low bluff on the north bank of the Crystal River, about 1.9 miles (3\u00a0km) above the river's mouth on the Gulf of Mexico. Its mainland parcel is nearly surrounded by the separate Crystal River Preserve State Park, and the two parks are administered together.",
+   "region": "US",
+   "kind": "mound_site",
+   "wiki": "https://en.wikipedia.org/wiki/Crystal_River_Archaeological_State_Park",
+   "period": "c. 65 BCE-CE 1400",
+   "lidar_credit": "USGS 3DEP",
    "corners": [
     [
-     -3.13804145766257,
-     51.88638594791874
+     -82.63465707053143,
+     28.91318975170514
     ],
     [
-     -3.1147585423374298,
-     51.88638594791874
+     -82.62234292946859,
+     28.91318975170514
     ],
     [
-     -3.1147585423374298,
-     51.87201290334931
+     -82.62234292946859,
+     28.90240996830676
     ],
     [
-     -3.13804145766257,
-     51.87201290334931
+     -82.63465707053143,
+     28.90240996830676
     ]
    ],
-   "relief_clip_m": 0.15,
+   "relief_clip_m": 0.88,
    "block": {
     "w": 512,
     "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
+    "zmin": -0.4,
+    "zmax": 8.97,
     "contour_m": 0.25,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
    "size_m": [
-    1600,
-    1600
+    1200,
+    1200
    ]
   },
   {
@@ -4479,7 +5120,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "daw-s-castle-q5242247",
@@ -4524,7 +5166,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "de-thombe-q2359601",
@@ -4569,7 +5212,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "desborough-castle-q5263651",
@@ -4614,7 +5258,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "devil-s-dyke-q3307343",
@@ -4659,52 +5304,8 @@
    "size_m": [
     2000,
     2000
-   ]
-  },
-  {
-   "id": "dolforwyn-castle-q1235495",
-   "name": "Dolforwyn Castle",
-   "aka": "Castell Dolforwyn, Dolforwyn",
-   "place": "Powys, Wales",
-   "lon": -3.25203,
-   "lat": 52.5465,
-   "summary": "Dolforwyn Castle is a Welsh medieval castle above the village of Abermule, Powys. The fortification was established by Llywelyn ap Gruffudd, Prince of Gwynedd in the late 13th century. It is sited on a wooded ridge commanding excellent views of the upper Severn Valley.",
-   "region": "Wales",
-   "kind": "hillfort",
-   "qid": "Q1235495",
-   "wiki": "https://en.wikipedia.org/wiki/Dolforwyn_Castle",
-   "corners": [
-    [
-     -3.2638476568224464,
-     52.553685933938056
-    ],
-    [
-     -3.240212343177553,
-     52.553685933938056
-    ],
-    [
-     -3.240212343177553,
-     52.5393128893656
-    ],
-    [
-     -3.2638476568224464,
-     52.5393128893656
-    ]
    ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    1600,
-    1600
-   ]
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "dorset-cursus-q5298848",
@@ -4748,7 +5349,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "dudley-castle-q5311832",
@@ -4792,6 +5394,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "dunadd",
+   "name": "Dunadd",
+   "place": "Scotland",
+   "lon": -5.4786,
+   "lat": 56.0861,
+   "status": "plowed",
+   "summary": "Dunadd is a hillfort in Argyll and Bute, Scotland, dating from the Iron Age and early medieval period and is believed to be the capital of the ancient kingdom of D\u00e1l Riata. Dal Riata was a Gaelic kingdom spanning the northern Irish coast to Argyll and the Scottish islands in the early centuries AD, possibly after the Romans had abandoned Southern Britain and at the time when the Anglo-Saxons were crossing the North Sea to counter incursions over Hadrian's Wall by the Picts and Dalriadan Scots.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Dunadd",
+   "period": "Iron Age; Early Historic c. AD 500-900",
+   "lidar_credit": "Historic Environment Scotland, 0.25 m DTM (HES 2016)",
+   "corners": [
+    [
+     -5.4866501926070885,
+     56.090591314567995
+    ],
+    [
+     -5.470549807392912,
+     56.090591314567995
+    ],
+    [
+     -5.470549807392912,
+     56.08160816171566
+    ],
+    [
+     -5.4866501926070885,
+     56.08160816171566
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.2,
+    "zmax": 53.95,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -4837,7 +5486,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "dunster-castle-q2969173",
@@ -4882,7 +5532,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "durocortorum-q4896307",
@@ -4927,7 +5578,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "eaton-socon-castle-q5331372",
@@ -4972,7 +5624,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "eddisbury-hill-fort-q5336613",
@@ -5017,6 +5670,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "edins-hall-broch",
+   "name": "Edin's Hall Broch",
+   "place": "Scotland",
+   "lon": -2.3647,
+   "lat": 55.8352,
+   "status": "standing",
+   "summary": "Edin's Hall Broch is a 2nd-century broch near Duns in the Borders of Scotland. It is one of very few brochs found in southern Scotland. It is roughly 28 metres in diameter.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Edin's_Hall_Broch",
+   "period": "Iron Age / Roman Iron Age c.1st-2nd c. AD",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 3)",
+   "corners": [
+    [
+     -2.3790967153057574,
+     55.84328399713996
+    ],
+    [
+     -2.350303284694243,
+     55.84328399713996
+    ],
+    [
+     -2.350303284694243,
+     55.827114321962995
+    ],
+    [
+     -2.3790967153057574,
+     55.827114321962995
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 108.67,
+    "zmax": 325.06,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1800,
+    1800
    ]
   },
   {
@@ -5061,7 +5761,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "egremont-castle-q15216185",
@@ -5105,6 +5806,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "eildon-hill-north",
+   "name": "Eildon Hill North",
+   "place": "Scotland",
+   "lon": -2.7092,
+   "lat": 55.5864,
+   "status": "standing",
+   "summary": "Eildon Hill lies just south of Melrose, Scotland in the Scottish Borders, overlooking the town. The name is usually pluralised into \"the Eildons\" or \"Eildon Hills\", because of its triple peak. The 422-metre-high (1,385-foot) eminence overlooks Teviotdale to the South. The igneous rock formation results from volcanic activity 350 million years ago. The north hilltop is surrounded by over five kilometres of ramparts, enclosing an area of about 16 hectares in which at least 300 level platforms have been cut into the rock to provide bases for turf or timber-walled houses, forming one of the largest hill forts known in Scotland. A Roman army signalling station was later constructed on the same site as this hill fort.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Eildon_Hill",
+   "period": "Late Bronze Age to Iron Age c.1000 BC-AD 100; Roman signal station c. AD 80s",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 4); Scottish Government, 0.5 m DTM (Phase 3); Scottish Government, 1.0 m DTM (Phase 1)",
+   "corners": [
+    [
+     -2.7290685055863655,
+     55.59762733495185
+    ],
+    [
+     -2.6893314944136355,
+     55.59762733495185
+    ],
+    [
+     -2.6893314944136355,
+     55.575169452686296
+    ],
+    [
+     -2.7290685055863655,
+     55.575169452686296
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 85.07,
+    "zmax": 422.09,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2500,
+    2500
    ]
   },
   {
@@ -5147,7 +5895,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "emerald-mound-site-q5370466",
@@ -5191,7 +5940,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "emerald-mound-and-village-site-q16891077",
@@ -5235,7 +5985,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "emmeloord-q4604102",
@@ -5279,7 +6030,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "ensemble-castral-de-vesvre-q3054866",
@@ -5324,7 +6076,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "entremont-q281494",
@@ -5369,6 +6122,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "etowah-indian-mounds-q4533107",
+   "name": "Etowah Indian Mounds",
+   "aka": "Etowah, Etowah Indian Mounds State Historic Site",
+   "place": "Georgia",
+   "lon": -84.8076,
+   "lat": 34.125,
+   "summary": "Etowah Indian Mounds (9BR1) are a 54-acre (220,000\u00a0m2) archaeological site in Bartow County, Georgia, south of Cartersville. Built and occupied in three phases, from 1000\u20131550 CE, the prehistoric site is located on the north shore of the Etowah River.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q4533107",
+   "wiki": "https://en.wikipedia.org/wiki/Etowah_Indian_Mounds",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -84.81573872603927,
+     34.13173709617652
+    ],
+    [
+     -84.7994612739607,
+     34.13173709617652
+    ],
+    [
+     -84.7994612739607,
+     34.118262366931525
+    ],
+    [
+     -84.81573872603927,
+     34.118262366931525
+    ]
+   ],
+   "relief_clip_m": 1.18,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 204.62,
+    "zmax": 229.43,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1500,
+    1500
    ]
   },
   {
@@ -5414,7 +6214,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "eye-castle-q5422609",
@@ -5459,7 +6260,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "ferme-d-azincourt-q20669811",
@@ -5504,7 +6306,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "fletio-q2072212",
@@ -5548,7 +6351,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "flevum-q615397",
@@ -5592,7 +6396,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "flitwick-castle-q5459772",
@@ -5637,6 +6442,96 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "waumanona-mound-q31580080",
+   "name": "Florence Indian Mound",
+   "place": "Alabama",
+   "lon": -87.67,
+   "lat": 34.7903,
+   "region": "US",
+   "kind": "barrow",
+   "qid": "Q31580080",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -87.67437537830968,
+     34.79389318285286
+    ],
+    [
+     -87.66562462169031,
+     34.79389318285286
+    ],
+    [
+     -87.66562462169031,
+     34.78670666058233
+    ],
+    [
+     -87.67437537830968,
+     34.78670666058233
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 125.49,
+    "zmax": 151.59,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ]
+  },
+  {
+   "id": "fort-ancient-q5470727",
+   "name": "Fort Ancient",
+   "aka": "Fort Ancient State Memorial",
+   "place": "Ohio",
+   "lon": -84.0903,
+   "lat": 39.4078,
+   "summary": "Fort Ancient is a Native American earthworks complex located in Washington Township, Warren County, Ohio, along the eastern shore of the Little Miami River about seven miles (11\u00a0km) southeast of Lebanon on State Route 350. The site is the largest prehistoric hilltop enclosure in the United States with three and one-half miles (18,000\u00a0ft) of walls in a 100-acre (0.40\u00a0km2) complex. Built by the Hopewell culture, who lived in the area from the 200 BC to AD 400, the site is situated on a wooded bluff 270 feet (82\u00a0m) above the Little Miami. It is the namesake of a culture known as Fort Ancient who lived near the complex long after it was constructed.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q5470727",
+   "wiki": "https://en.wikipedia.org/wiki/Fort_Ancient_(Lebanon,_Ohio)",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -84.10425175445044,
+     39.418578950192
+    ],
+    [
+     -84.07634824554954,
+     39.418578950192
+    ],
+    [
+     -84.07634824554954,
+     39.39701938341448
+    ],
+    [
+     -84.10425175445044,
+     39.39701938341448
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 198.73,
+    "zmax": 301.68,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2400,
+    2400
    ]
   },
   {
@@ -5736,7 +6631,52 @@
     "features": null,
     "warped": false,
     "label": "Plate V"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "fort-toulouse-mound",
+   "name": "Fort Toulouse Mississippian Mound",
+   "place": "Elmore County, Alabama",
+   "lon": -86.2557,
+   "lat": 32.5043,
+   "status": "standing",
+   "region": "US",
+   "kind": "platform_mound",
+   "period": "c. CE 1000-1700",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -86.26315621466912,
+     32.51058798711422
+    ],
+    [
+     -86.24824378533089,
+     32.51058798711422
+    ],
+    [
+     -86.24824378533089,
+     32.49801157315154
+    ],
+    [
+     -86.26315621466912,
+     32.49801157315154
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 37.64,
+    "zmax": 57.64,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1400,
+    1400
+   ]
   },
   {
    "id": "fort-walton-mound-q5472236",
@@ -5780,7 +6720,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "fort-du-muret-q48757768",
@@ -5825,7 +6766,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "fotheringhay-castle-q1439593",
@@ -5870,6 +6812,51 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "frankfort-works",
+   "name": "Frankfort Works",
+   "place": "Ross County, Ohio",
+   "lon": -83.1873,
+   "lat": 39.4046,
+   "status": "plowed",
+   "region": "US",
+   "kind": "enclosure",
+   "period": "c. 100 BCE-CE 500",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.19311296427966,
+     39.40909143178336
+    ],
+    [
+     -83.18148703572034,
+     39.40909143178336
+    ],
+    [
+     -83.18148703572034,
+     39.40010827894517
+    ],
+    [
+     -83.19311296427966,
+     39.40010827894517
+    ]
+   ],
+   "relief_clip_m": 0.8,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 219.96,
+    "zmax": 230.67,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -5914,7 +6901,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "fudge",
@@ -6007,7 +6995,52 @@
     "features": null,
     "warped": false,
     "label": "Plate XXXIII No. 2"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "fyrkat",
+   "name": "Fyrkat",
+   "place": "Denmark",
+   "lon": 9.7703,
+   "lat": 56.6231,
+   "status": "standing",
+   "region": "Denmark",
+   "kind": "military_earthwork",
+   "period": "c. AD 980",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (27.24 points/m2)",
+   "corners": [
+    [
+     9.762135636611811,
+     56.627591309192894
+    ],
+    [
+     9.778464363388194,
+     56.627591309192894
+    ],
+    [
+     9.778464363388194,
+     56.61860815633971
+    ],
+    [
+     9.762135636611811,
+     56.61860815633971
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.12,
+    "zmax": 50.42,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ]
   },
   {
    "id": "galava-q3094516",
@@ -6052,6 +7085,51 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "vilnius-gediminas-hill",
+   "name": "Gediminas Hill (Vilnius Upper Castle)",
+   "place": "Lithuania",
+   "lon": 25.291,
+   "lat": 54.687,
+   "status": "urban",
+   "region": "Lithuania",
+   "kind": "hillfort",
+   "period": "hillfort 1st mill. AD; castle 14th c.",
+   "lidar_credit": "NZT, Lithuania, 2017 (132.79 points/m2)",
+   "corners": [
+    [
+     25.283229681720478,
+     54.691491327895314
+    ],
+    [
+     25.298770318279526,
+     54.691491327895314
+    ],
+    [
+     25.298770318279526,
+     54.68250817504499
+    ],
+    [
+     25.283229681720478,
+     54.68250817504499
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 87.6,
+    "zmax": 165.59,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -6097,7 +7175,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "glevum-q360974",
@@ -6142,7 +7221,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "gondole-q775166",
@@ -6187,6 +7267,52 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "grand-mound-q5594814",
+   "name": "Grand Mound",
+   "place": "Minnesota",
+   "lon": -93.7086,
+   "lat": 48.5167,
+   "summary": "Grand Mound is a prehistoric burial site in Koochiching County, Minnesota, United States. It is the largest surviving prehistoric structure in the upper Midwest, dating back to 200 BCE. The site was listed as a National Historic Landmark on June 23, 2011.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q5594814",
+   "wiki": "https://en.wikipedia.org/wiki/Grand_Mound_(Minnesota)",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -93.71402459510196,
+     48.520293133707185
+    ],
+    [
+     -93.70317540489805,
+     48.520293133707185
+    ],
+    [
+     -93.70317540489805,
+     48.51310661143291
+    ],
+    [
+     -93.71402459510196,
+     48.51310661143291
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 328.1,
+    "zmax": 338.63,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
    ]
   },
   {
@@ -6232,7 +7358,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "groby-castle-q5609924",
@@ -6277,7 +7404,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "gurnard-s-head-q5620199",
@@ -6322,7 +7450,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "habitancum-q5636876",
@@ -6367,7 +7496,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "halvorson-mound-group-q117715230",
@@ -6410,7 +7540,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "harbottle-castle-q5654774",
@@ -6454,7 +7585,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "hardknott-roman-fort-q1584994",
@@ -6499,7 +7631,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "hartshill-castle-q15223134",
@@ -6543,7 +7676,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "hembury-q3784763",
@@ -6588,7 +7722,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "heveskesklooster-q3276052",
@@ -6633,7 +7768,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "highbank",
@@ -6728,7 +7864,8 @@
     "features": null,
     "warped": false,
     "label": "Plate XVI"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "hodgen-s-cemetery-mound-q5876069",
@@ -6772,7 +7909,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "holly-bluff-site-q12060418",
@@ -6817,7 +7955,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "hopeton",
@@ -6924,7 +8063,8 @@
     ],
     "warped": true,
     "label": "Plate XVII"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "hopewell-culture-national-historical-par-q4315010",
@@ -6969,6 +8109,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "hopewell-mound-group",
+   "name": "Hopewell Mound Group",
+   "place": "Ross County, Ohio",
+   "lon": -83.09337,
+   "lat": 39.36098,
+   "status": "plowed",
+   "summary": "Hopewell Culture National Historical Park is a United States national historical park with earthworks and burial mounds from the Hopewell culture, indigenous peoples who flourished from about 200 BC to 500 AD. The park is composed of four separate sites open to the public in Ross County, Ohio, including the former Mound City Group National Monument. The park includes archaeological resources of the Hopewell culture. It is administered by the United States Department of the Interior's National Park Service. It was designated a part of Hopewell Ceremonial Earthworks World Heritage Site in 2023.",
+   "region": "US",
+   "kind": "enclosure",
+   "wiki": "https://en.wikipedia.org/wiki/Hopewell_Mound_Group",
+   "period": "c. 100 BCE-CE 500",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.11079799752159,
+     39.37445342951866
+    ],
+    [
+     -83.07594200247837,
+     39.37445342951866
+    ],
+    [
+     -83.07594200247837,
+     39.34750397107634
+    ],
+    [
+     -83.11079799752159,
+     39.34750397107634
+    ]
+   ],
+   "relief_clip_m": 1.17,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 202.98,
+    "zmax": 300.17,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    3000,
+    3000
    ]
   },
   {
@@ -7013,7 +8200,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "huntingdon-castle-q5945108",
@@ -7058,7 +8246,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "ilkley-roman-fort-q7086777",
@@ -7103,6 +8292,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "inchtuthil",
+   "name": "Inchtuthil Roman legionary fortress",
+   "place": "Scotland",
+   "lon": -3.424,
+   "lat": 56.541,
+   "status": "standing",
+   "summary": "Inchtuthil is the site of a Roman legionary fortress situated on a natural platform overlooking the north bank of the River Tay southwest of Blairgowrie, Perth and Kinross, Scotland.",
+   "region": "Scotland",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Inchtuthil",
+   "period": "Roman, AD 83-87",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 1)",
+   "corners": [
+    [
+     -3.4354053134734346,
+     56.54728768485719
+    ],
+    [
+     -3.4125946865265653,
+     56.54728768485719
+    ],
+    [
+     -3.4125946865265653,
+     56.53471127084695
+    ],
+    [
+     -3.4354053134734346,
+     56.53471127084695
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 31.45,
+    "zmax": 51.47,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1400,
+    1400
    ]
   },
   {
@@ -7147,7 +8383,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "indian-mound-reserve-q2493254",
@@ -7191,54 +8428,52 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
-   "id": "isca-augusta-q929778",
-   "name": "Isca Augusta",
-   "aka": "Caer Rufeinig Caerllion, Caerleon Legionary Fortress: Car Park and Garden of Endowed School, North of Broadway",
-   "place": "Newport, Wales",
-   "lon": -2.956498,
-   "lat": 51.609862,
-   "summary": "Isca, variously specified as Isca Augusta or Isca Silurum, was the site of a Roman legionary fortress and settlement or vicus, the remains of which lie beneath parts of the present-day suburban town of Caerleon in the north of the city of Newport in South Wales. The site includes Caerleon Amphitheatre and is protected by Cadw.",
-   "region": "Wales",
-   "kind": "roman_fort",
-   "qid": "Q929778",
-   "wiki": "https://en.wikipedia.org/wiki/Isca_Augusta",
-   "period": [
-    "Romano-British period"
-   ],
+   "id": "indian-mounds-park-q3150092",
+   "name": "Indian Mounds Park",
+   "place": "Minnesota",
+   "lon": -93.0565,
+   "lat": 44.9458,
+   "summary": "Wica\u1e23api is a public park in Saint Paul, Minnesota, United States, featuring six burial mounds overlooking the Mississippi River. The oldest mounds were constructed about 2,500 years ago by local Indigenous people linked to the Archaic period, who may have been inspired by the burial style known as the Hopewell Tradition. Mdewakanton Dakota people are also known to have interred their dead here well into that period. At least 31 mounds were destroyed by development in the late 19th century. This burial mound group includes the tallest mounds constructed by people Indigenous to Minnesota and Wisconsin. Wica\u1e23api is a component of the Mississippi National River and Recreation Area, a unit of the National Park System. In 2014, the extant Mounds Group was listed in the National Register of Historic Places. The nomination document describes the archaeology and context. A Cultural Landscape Study provides more context about the cultural landscape.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q3150092",
+   "wiki": "https://en.wikipedia.org/wiki/Indian_Mounds_Regional_Park_(Saint_Paul,_Minnesota)",
+   "lidar_credit": "USGS 3DEP",
    "corners": [
     [
-     -2.9680702596481914,
-     51.6170479534446
+     -93.0622114431726,
+     44.94984227644461
     ],
     [
-     -2.9449257403518088,
-     51.6170479534446
+     -93.0507885568274,
+     44.94984227644461
     ],
     [
-     -2.9449257403518088,
-     51.60267490887636
+     -93.0507885568274,
+     44.94175743888757
     ],
     [
-     -2.9680702596481914,
-     51.60267490887636
+     -93.0622114431726,
+     44.94175743888757
     ]
    ],
-   "relief_clip_m": 0.15,
+   "relief_clip_m": 1.2,
    "block": {
     "w": 512,
     "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
+    "zmin": 211.93,
+    "zmax": 283.18,
+    "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
    "size_m": [
-    1600,
-    1600
+    900,
+    900
    ]
   },
   {
@@ -7283,6 +8518,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "jarlshof",
+   "name": "Jarlshof",
+   "place": "Scotland",
+   "lon": -1.291,
+   "lat": 59.8694,
+   "status": "standing",
+   "summary": "Jarlshof is the best-known prehistoric archaeological site in Shetland, Scotland. It lies in Sumburgh, Mainland, Shetland and has been described as \"one of the most remarkable archaeological sites ever excavated in the British Isles\". It contains remains dating from 2500 BC up to the 17th century AD.",
+   "region": "Scotland",
+   "kind": "earthwork",
+   "wiki": "https://en.wikipedia.org/wiki/Jarlshof",
+   "period": "c.2500 BC-AD 1600",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 2)",
+   "corners": [
+    [
+     -1.2999478496786208,
+     59.87389127309472
+    ],
+    [
+     -1.2820521503213793,
+     59.87389127309472
+    ],
+    [
+     -1.2820521503213793,
+     59.864908120235434
+    ],
+    [
+     -1.2999478496786208,
+     59.864908120235434
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.95,
+    "zmax": 18.35,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -7328,6 +8610,97 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "jelling-mounds",
+   "name": "Jelling royal monuments",
+   "place": "Denmark",
+   "lon": 9.42,
+   "lat": 55.7564,
+   "status": "standing",
+   "summary": "The Jelling stones are massive carved runestones from the 10th century, found at the town of Jelling in Denmark. The older of the two Jelling stones was raised by King Gorm the Old in memory of his wife Thyra. The larger of the two stones was raised by King Gorm's son, Harald Bluetooth, in memory of his parents, celebrating his conquest of Denmark and Norway, and his conversion of the Danes to Christianity.",
+   "region": "Denmark",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Jelling_stones",
+   "period": "c. AD 958-965 (Gorm and Harald Bluetooth)",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (15.48 points/m2)",
+   "corners": [
+    [
+     9.41121979120041,
+     55.761340421125695
+    ],
+    [
+     9.428780208799592,
+     55.761340421125695
+    ],
+    [
+     9.428780208799592,
+     55.75145895298617
+    ],
+    [
+     9.41121979120041,
+     55.75145895298617
+    ]
+   ],
+   "relief_clip_m": 1.1,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 97.65,
+    "zmax": 119.09,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1100,
+    1100
+   ]
+  },
+  {
+   "id": "jersika-hillfort",
+   "name": "Jersika hillfort",
+   "place": "Latvia",
+   "lon": 26.202,
+   "lat": 56.2759,
+   "status": "standing",
+   "region": "Latvia",
+   "kind": "hillfort",
+   "period": "Late Iron Age to 13th c. AD (principality 12th-13th c.)",
+   "lidar_credit": "LGIA, Latvia, 2019 (4.61 points/m2)",
+   "corners": [
+    [
+     26.190673862863658,
+     56.28218769007244
+    ],
+    [
+     26.213326137136345,
+     56.28218769007244
+    ],
+    [
+     26.213326137136345,
+     56.269611276063365
+    ],
+    [
+     26.190673862863658,
+     56.269611276063365
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 84.74,
+    "zmax": 102.37,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1400,
+    1400
    ]
   },
   {
@@ -7370,6 +8743,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "kilmartin-temple-wood",
+   "name": "Kilmartin Glen ritual landscape (Temple Wood, Nether Largie cemetery)",
+   "place": "Scotland",
+   "lon": -5.4987,
+   "lat": 56.1236,
+   "status": "standing",
+   "summary": "Temple Wood is an ancient site located in Kilmartin Glen, near Kintyre, Argyll, Scotland. The site includes two circles. The southern circle contains a ring of 13 standing stones about 12 metres in diameter. In the past it may have had 22 stones. In the centre is a burial cist surrounded by a circle of stones about 3 metres in diameter. Other later burials are associated with the circle. According to the Historic Scotland information marker at the site, the southern circle's first incarnation may have been constructed around 3000 BC.",
+   "region": "Scotland",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Temple_Wood",
+   "period": "Neolithic to Bronze Age c.3500-1500 BC",
+   "lidar_credit": "Historic Environment Scotland, 0.25 m DTM (HES 2016)",
+   "corners": [
+    [
+     -5.522874116166693,
+     56.13707236935506
+    ],
+    [
+     -5.474525883833307,
+     56.13707236935506
+    ],
+    [
+     -5.474525883833307,
+     56.11012291052876
+    ],
+    [
+     -5.522874116166693,
+     56.11012291052876
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 10.11,
+    "zmax": 216.46,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    3000,
+    3000
    ]
   },
   {
@@ -7414,7 +8834,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "king-arthur-s-round-table-q283800",
@@ -7452,6 +8873,99 @@
     "h": 512,
     "zmin": 112.6,
     "zmax": 144.25,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "kolomoki-mounds-state-park-q4228402",
+   "name": "Kolomoki Mounds State Park",
+   "aka": "Kolomoki Mounds",
+   "place": "Georgia",
+   "lon": -84.9398,
+   "lat": 31.468,
+   "summary": "The Kolomoki Mounds is one of the largest and earliest Woodland period earthwork mound complexes in the Southeastern United States and is the largest in Georgia. Constructed from 350 to 600 CE, the mound complex is located in southwest Georgia, in present-day Early County near the Chattahoochee River.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q4228402",
+   "wiki": "https://en.wikipedia.org/wiki/Kolomoki_Mounds",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -84.94822566997149,
+     31.475186246419657
+    ],
+    [
+     -84.9313743300285,
+     31.475186246419657
+    ],
+    [
+     -84.9313743300285,
+     31.460813201897324
+    ],
+    [
+     -84.94822566997149,
+     31.460813201897324
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 61.74,
+    "zmax": 106.3,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
+   ]
+  },
+  {
+   "id": "kong-asgers-hoj",
+   "name": "Kong Asgers H\u00f8j",
+   "place": "Denmark",
+   "lon": 12.1403,
+   "lat": 54.9572,
+   "status": "standing",
+   "summary": "Kong Asgers H\u00f8j is a large passage grave on the island of M\u00f8n in Denmark.",
+   "region": "Denmark",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Kong_Asgers_H%C3%B8j",
+   "period": "Funnel Beaker culture c.3300 BC",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (12.57 points/m2)",
+   "corners": [
+    [
+     12.132477518540204,
+     54.961691325394064
+    ],
+    [
+     12.148122481459795,
+     54.961691325394064
+    ],
+    [
+     12.148122481459795,
+     54.952708172543346
+    ],
+    [
+     12.132477518540204,
+     54.952708172543346
+    ]
+   ],
+   "relief_clip_m": 0.26,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.19,
+    "zmax": 19.23,
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
@@ -7504,7 +9018,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "lsu-campus-mounds-q6460005",
@@ -7548,7 +9063,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "lake-jackson-mounds-archaeological-state-q6476328",
@@ -7592,6 +9108,98 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "lamar-mounds-and-village-site-q6480896",
+   "name": "Lamar Mounds and Village Site",
+   "place": "Georgia",
+   "lon": -83.5922,
+   "lat": 32.8122,
+   "summary": "The Lamar mounds and village site (9BI2) is an important archaeological site on the banks of the Ocmulgee River in Bibb County, Georgia, several miles to the southeast of the Ocmulgee mound site. Both mound sites are part of the Ocmulgee Mounds National Historical Park, a national park and historic district created in 1936 and run by the U.S. National Park Service. Historians and archaeologists have theorized that the site is the location of the main village of the Ichisi encountered by the Hernando de Soto expedition in 1539.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q6480896",
+   "wiki": "https://en.wikipedia.org/wiki/Lamar_mounds_and_village_site",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.59754424391954,
+     32.81669146290601
+    ],
+    [
+     -83.58685575608047,
+     32.81669146290601
+    ],
+    [
+     -83.58685575608047,
+     32.807708310070204
+    ],
+    [
+     -83.59754424391954,
+     32.807708310070204
+    ]
+   ],
+   "relief_clip_m": 0.61,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 84.09,
+    "zmax": 93.25,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ]
+  },
+  {
+   "id": "las-medulas",
+   "name": "Las M\u00e9dulas",
+   "place": "Spain",
+   "lon": -6.76,
+   "lat": 42.4589,
+   "status": "standing",
+   "summary": "Las M\u00e9dulas is a historic gold-mining site near the town of Ponferrada in the comarca of El Bierzo. It was the most important gold mine, as well as the largest open-pit gold mine, in the entire Roman Empire. Las M\u00e9dulas Cultural Landscape is listed by UNESCO as a World Heritage Site. Advanced aerial surveys conducted in 2014 using LIDAR have confirmed the wide extent of the Roman-era works.",
+   "region": "Spain",
+   "kind": "earthwork",
+   "wiki": "https://en.wikipedia.org/wiki/Las_M%C3%A9dulas",
+   "period": "Roman, 1st-3rd c. AD",
+   "lidar_credit": "CNIG / IGN Spain, 2021 (5.3 points/m2)",
+   "corners": [
+    [
+     -6.778264336590126,
+     42.4723732794204
+    ],
+    [
+     -6.741735663409874,
+     42.4723732794204
+    ],
+    [
+     -6.741735663409874,
+     42.44542382093724
+    ],
+    [
+     -6.778264336590126,
+     42.44542382093724
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 603.78,
+    "zmax": 1034.62,
+    "contour_m": 20,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    3000,
+    3000
    ]
   },
   {
@@ -7637,7 +9245,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "lavendon-castle-q6502549",
@@ -7682,7 +9291,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "leicester-castle-q6519156",
@@ -7726,7 +9336,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "letchworth-love-mounds-archaeological-st-q6533192",
@@ -7771,7 +9382,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "lincoln-castle-q727760",
@@ -7815,7 +9427,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "little-solsbury-hill-q548780",
@@ -7860,7 +9473,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "lizard-mound-county-park-q6660528",
@@ -7904,7 +9518,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "longovicium-q6674222",
@@ -7949,6 +9564,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "los-millares",
+   "name": "Los Millares",
+   "place": "Spain",
+   "lon": -2.5222,
+   "lat": 36.9647,
+   "status": "standing",
+   "summary": "Los Millares is a Chalcolithic occupation site 17\u00a0km north of Almer\u00eda, in the municipality of Santa Fe de Mond\u00fajar, Andaluc\u00eda, Spain. The complex was in use from the fourth millennium BC to the end of the third millennium BC and probably supported around 1,000 people. It was discovered in 1891 during the construction of a railway. It was first excavated by Luis Siret in the succeeding years. Excavations are ongoing. Los Millares is the type site of the Chalcolithic Millaran culture.",
+   "region": "Spain",
+   "kind": "enclosure",
+   "wiki": "https://en.wikipedia.org/wiki/Los_Millares",
+   "period": "Chalcolithic c.3200-2200 BC",
+   "lidar_credit": "CNIG / IGN Spain, 2021 (3.66 points/m2)",
+   "corners": [
+    [
+     -2.530632181325436,
+     36.971437066508294
+    ],
+    [
+     -2.513767818674564,
+     36.971437066508294
+    ],
+    [
+     -2.513767818674564,
+     36.957962337259985
+    ],
+    [
+     -2.530632181325436,
+     36.957962337259985
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 177.71,
+    "zmax": 344.79,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1500,
+    1500
    ]
   },
   {
@@ -7993,6 +9655,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "maeshowe",
+   "name": "Maeshowe",
+   "place": "Scotland",
+   "lon": -3.1882,
+   "lat": 58.9966,
+   "status": "standing",
+   "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+   "region": "Scotland",
+   "kind": "barrow",
+   "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+   "period": "Neolithic c.2800 BC",
+   "lidar_credit": "Orkney Islands Council, 0.5 m DTM (Orkney 2023)",
+   "corners": [
+    [
+     -3.196920001688249,
+     59.00109128346567
+    ],
+    [
+     -3.179479998311751,
+     59.00109128346567
+    ],
+    [
+     -3.179479998311751,
+     58.99210813060819
+    ],
+    [
+     -3.196920001688249,
+     58.99210813060819
+    ]
+   ],
+   "relief_clip_m": 0.83,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.08,
+    "zmax": 23.88,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -8042,7 +9751,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "mamucium-q3285089",
@@ -8087,7 +9797,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "marden-henge-q139573",
@@ -8132,7 +9843,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "marietta",
@@ -8230,7 +9942,8 @@
     "features": null,
     "warped": false,
     "label": "Plate XXVI"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "marksville-prehistoric-indian-site-q6771408",
@@ -8274,6 +9987,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "maumbury-rings-q1702090",
+   "name": "Maumbury Rings",
+   "aka": "Henge, Romano-British amphitheatre and Civil War fieldworks known collectively as Maumbury Rings",
+   "place": "Dorchester, Dorset, England",
+   "lon": -2.44,
+   "lat": 50.708,
+   "summary": "Maumbury Rings is a Neolithic henge in the south of Dorchester town in Dorset, England. It is a large circular earthwork, 85 metres in diameter, with a single bank and an entrance to the north east. It was modified during the Roman period when it was adapted for use as an amphitheatre, and the site was remodelled again during the English Civil War when it was used as an artillery fort guarding the southern approach to Dorchester. The monument is now a public open space, and used for open-air concerts, festivals and re-enactments.",
+   "region": "England",
+   "kind": "henge",
+   "qid": "Q1702090",
+   "wiki": "https://en.wikipedia.org/wiki/Maumbury_Rings",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.447092640475147,
+     50.7124913612661
+    ],
+    [
+     -2.432907359524853,
+     50.7124913612661
+    ],
+    [
+     -2.432907359524853,
+     50.70350820842035
+    ],
+    [
+     -2.447092640475147,
+     50.70350820842035
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 59.65,
+    "zmax": 88.22,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -8319,7 +10079,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "miamisburg-mound-q34827561",
@@ -8363,7 +10124,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "mitford-castle-q6881554",
@@ -8408,52 +10170,8 @@
    "size_m": [
     800,
     800
-   ]
-  },
-  {
-   "id": "mold-castle-q6895734",
-   "name": "Mold Castle",
-   "aka": "The Bailey Hill, Mold The Bailey Hill",
-   "place": "Flintshire, Wales",
-   "lon": -3.145285,
-   "lat": 53.171018,
-   "summary": "Mold Castle, also known as Bailey Hill in the town of Mold, Flintshire, north-east Wales, is a motte-and-bailey castle erected around 1072, probably by the Norman Robert de Montalt under instructions from Hugh d'Avranches, Earl of Chester. Little remains except the mound on which the motte was built. It stands close to the 15th-century parish church, St Mary's Church near the centre of the town.",
-   "region": "Wales",
-   "kind": "motte",
-   "qid": "Q6895734",
-   "wiki": "https://en.wikipedia.org/wiki/Mold_Castle",
-   "corners": [
-    [
-     -3.15127947773263,
-     53.1746111106822
-    ],
-    [
-     -3.1392905222673693,
-     53.1746111106822
-    ],
-    [
-     -3.1392905222673693,
-     53.16742458840554
-    ],
-    [
-     -3.15127947773263,
-     53.16742458840554
-    ]
    ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    800,
-    800
-   ]
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "montlaures-q3322814",
@@ -8496,7 +10214,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "motte-montferland-q2845894",
@@ -8541,7 +10260,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "motte-castrale-de-bailleul-q22963648",
@@ -8586,7 +10306,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "motte-castrale-de-brion-q58580090",
@@ -8631,7 +10352,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "motte-castrale-de-doue-la-fontaine-q3325341",
@@ -8674,7 +10396,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "motte-castrale-de-garenne-de-la-motte-q14689836",
@@ -8719,7 +10442,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "motte-de-la-jacquille-q3325352",
@@ -8764,7 +10488,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "mound-bottom-q14710093",
@@ -8808,7 +10533,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "mound-cemetery-q6919104",
@@ -8852,7 +10578,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "mound-key-archeological-state-park-q6919120",
@@ -8897,6 +10624,52 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "mounds-state-park-q1950269",
+   "name": "Mounds State Park",
+   "place": "Indiana",
+   "lon": -85.6192,
+   "lat": 40.1029,
+   "summary": "Mounds State Park is a state park near Anderson, Indiana featuring Native American heritage, and ten ceremonial mounds built by the prehistoric Adena culture indigenous peoples of eastern North America, and also used centuries later by Hopewell culture inhabitants. It is separate from the similarly named Mounds State Recreation Area. The park receives about 400,000 visitors annually.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q1950269",
+   "wiki": "https://en.wikipedia.org/wiki/Mounds_State_Park",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -85.62507219532154,
+     40.10739142815311
+    ],
+    [
+     -85.61332780467848,
+     40.10739142815311
+    ],
+    [
+     -85.61332780467848,
+     40.098408275314576
+    ],
+    [
+     -85.62507219532154,
+     40.098408275314576
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 255.95,
+    "zmax": 278.5,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -8941,6 +10714,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "mount-caburn-q12062109",
+   "name": "Mount Caburn",
+   "aka": "Mount Caburn Camp, The Caburn",
+   "place": "Glynde, East Sussex, England",
+   "lon": 0.0508,
+   "lat": 50.8619,
+   "summary": "Mount Caburn is a 150-metre (492\u00a0ft) prominent landmark in East Sussex, England, about one mile (1.6\u00a0km) east of Lewes overlooking the village of Glynde. It is the highest part of an outlier of the South Downs, separated from the main range by Glynde Reach, a tributary of the River Ouse.",
+   "region": "England",
+   "kind": "hillfort",
+   "qid": "Q12062109",
+   "wiki": "https://en.wikipedia.org/wiki/Mount_Caburn",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     0.043683974381166495,
+     50.86639136008311
+    ],
+    [
+     0.057916025618833515,
+     50.86639136008311
+    ],
+    [
+     0.057916025618833515,
+     50.85740820723723
+    ],
+    [
+     0.043683974381166495,
+     50.85740820723723
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.16,
+    "zmax": 149.29,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -8985,6 +10805,51 @@
    "size_m": [
     2000,
     2000
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "henge-enclosure-conquer-barrow-and-barro-q17648364",
+   "name": "Mount Pleasant henge",
+   "aka": "Enclosure on Mount Pleasant Hill",
+   "place": "West Stafford, Dorset, England",
+   "lon": -2.413,
+   "lat": 50.708,
+   "region": "England",
+   "kind": "earthwork",
+   "qid": "Q17648364",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.4243482247602346,
+     50.71518597148093
+    ],
+    [
+     -2.4016517752397646,
+     50.71518597148093
+    ],
+    [
+     -2.4016517752397646,
+     50.70081292691641
+    ],
+    [
+     -2.4243482247602346,
+     50.70081292691641
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 48.11,
+    "zmax": 84.37,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
    ]
   },
   {
@@ -9029,7 +10894,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "nacoochee-mound-q4312576",
@@ -9073,7 +10939,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "nanih-waiya-q6963605",
@@ -9118,7 +10985,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "navio-roman-fort-q17667745",
@@ -9166,7 +11034,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "newark",
@@ -9280,7 +11149,8 @@
     ],
     "warped": true,
     "label": "Plate XXV"
-   }
+   },
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "norwich-castle-q1672292",
@@ -9325,7 +11195,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "norwood-mound-q7061637",
@@ -9369,6 +11240,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "numancia",
+   "name": "Numancia (Cerro de la Muela)",
+   "place": "Spain",
+   "lon": -2.4443,
+   "lat": 41.8096,
+   "status": "standing",
+   "summary": "Numantia is an ancient Celtiberian settlement, whose remains are located on a hill known as Cerro de la Muela in the current municipality of Garray (Soria), Spain.",
+   "region": "Spain",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Numantia",
+   "period": "Celtiberian to siege 134-133 BC; Roman town 1st-4th c. AD",
+   "lidar_credit": "CNIG / IGN Spain, 2021 (3.88 points/m2)",
+   "corners": [
+    [
+     -2.450928616358715,
+     41.814540543530974
+    ],
+    [
+     -2.4376713836412853,
+     41.814540543530974
+    ],
+    [
+     -2.4376713836412853,
+     41.8046590754081
+    ],
+    [
+     -2.450928616358715,
+     41.8046590754081
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1005.98,
+    "zmax": 1075.14,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1100,
+    1100
    ]
   },
   {
@@ -9414,6 +11332,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "ocmulgee-mounds-national-historical-park-q1517500",
+   "name": "Ocmulgee Mounds National Historical Park",
+   "aka": "Ocmulgee National Monument, Ocmulgee National Monument Association",
+   "place": "Georgia",
+   "lon": -83.6068,
+   "lat": 32.839,
+   "summary": "Ocmulgee Mounds National Historical Park in Macon, Georgia, United States preserves traces of over ten millennia of culture from the Indigenous peoples of the Southeastern Woodlands. Its chief remains are major earthworks built before 1000 CE by the South Appalachian Mississippian culture These include the Great Temple and other ceremonial mounds, a burial mound, and defensive trenches. They represented highly skilled engineering techniques and soil knowledge, and the organization of many laborers. The site has evidence of \"12,000 years of continuous human habitation\". The 3,336-acre (13.50\u00a0km2) park is located on the east bank of the Ocmulgee River. Macon, Georgia developed around the site after the United States built Fort Benjamin Hawkins nearby in 1806 to support trading with Native Americans.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q1517500",
+   "wiki": "https://en.wikipedia.org/wiki/Ocmulgee_Mounds_National_Historical_Park",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.61963005615189,
+     32.849779128872214
+    ],
+    [
+     -83.59396994384811,
+     32.849779128872214
+    ],
+    [
+     -83.59396994384811,
+     32.82821956212754
+    ],
+    [
+     -83.61963005615189,
+     32.82821956212754
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 84.34,
+    "zmax": 143.91,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    2400,
+    2400
    ]
   },
   {
@@ -9458,7 +11423,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "offa-s-dyke-q1127343",
@@ -9503,7 +11469,8 @@
    "size_m": [
     2000,
     2000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "okehampton-castle-q1419982",
@@ -9547,7 +11514,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "old-sarum-q782719",
@@ -9592,7 +11560,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "oldorp-q931301",
@@ -9636,7 +11605,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "oostum-q2598567",
@@ -9680,7 +11650,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "oppidum-d-altimurium-q3354357",
@@ -9725,7 +11696,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "oppidum-d-enserune-q77221",
@@ -9768,7 +11740,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "oppidum-of-corent-q3354365",
@@ -9813,7 +11786,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "oswestry-castle-q20713795",
@@ -9858,52 +11832,8 @@
    "size_m": [
     800,
     800
-   ]
-  },
-  {
-   "id": "painscastle-castle-q24659303",
-   "name": "Painscastle Castle",
-   "aka": "Pain's Castle, Castell Paun",
-   "place": "Powys, Wales",
-   "lon": -3.21859,
-   "lat": 52.10738,
-   "summary": "Painscastle Castle is a castle in the village of Painscastle in Powys, Wales. It lies between Builth and Hay-on-Wye, approximately 3 miles from the Wales-England border today.",
-   "region": "Wales",
-   "kind": "motte",
-   "qid": "Q24659303",
-   "wiki": "https://en.wikipedia.org/wiki/Painscastle_Castle",
-   "corners": [
-    [
-     -3.2244404678230807,
-     52.110973116363006
-    ],
-    [
-     -3.212739532176919,
-     52.110973116363006
-    ],
-    [
-     -3.212739532176919,
-     52.103786594086976
-    ],
-    [
-     -3.2244404678230807,
-     52.103786594086976
-    ]
    ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    800,
-    800
-   ]
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "parkin-archeological-state-park-q7138516",
@@ -9947,7 +11877,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "pech-maho-q3373902",
@@ -9992,7 +11923,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "pharr-mounds-q7180861",
@@ -10036,7 +11968,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "pickering-castle-q7190805",
@@ -10074,6 +12007,53 @@
     "zmin": 30.02,
     "zmax": 68.75,
     "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "piketon-mounds-q14716786",
+   "name": "Piketon Mounds",
+   "aka": "Graded Way",
+   "place": "Ohio",
+   "lon": -83.0194,
+   "lat": 39.0511,
+   "summary": "The Piketon Mounds are a group of earthworks located in Piketon, Ohio in the United States. The site is listed on the National Register of Historic Places. The specific age of the site is unknown. Some mounds were created by the Adena culture, while other mounds were built by the Hopewell culture.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q14716786",
+   "wiki": "https://en.wikipedia.org/wiki/Piketon_Mounds",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.02402700668101,
+     39.054693169727294
+    ],
+    [
+     -83.014772993319,
+     39.054693169727294
+    ],
+    [
+     -83.014772993319,
+     39.04750664745595
+    ],
+    [
+     -83.02402700668101,
+     39.04750664745595
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 166.35,
+    "zmax": 185.33,
+    "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
@@ -10125,7 +12105,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "pinson-mounds-q4363053",
@@ -10169,7 +12150,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "plum-bayou-mounds-archeological-state-pa-q7814641",
@@ -10214,7 +12196,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "pocahontas-mounds-q14693354",
@@ -10258,7 +12241,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "pons-aelius-q7227963",
@@ -10303,7 +12287,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "pontefract-castle-q1949590",
@@ -10348,7 +12333,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "portavant-mound-q7231529",
@@ -10386,6 +12372,50 @@
     "zmin": -0.73,
     "zmax": 7.25,
     "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    800,
+    800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "horseshoe-mound-q116268128",
+   "name": "Portsmouth Earthworks (Horseshoe Mound)",
+   "place": "Ohio",
+   "lon": -82.97733,
+   "lat": 38.74325,
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q116268128",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -82.98193699183061,
+     38.74684317072677
+    ],
+    [
+     -82.9727230081694,
+     38.74684317072677
+    ],
+    [
+     -82.9727230081694,
+     38.73965664845551
+    ],
+    [
+     -82.98193699183061,
+     38.73965664845551
+    ]
+   ],
+   "relief_clip_m": 0.89,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 162.58,
+    "zmax": 177.54,
+    "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
@@ -10436,7 +12466,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "poverty-point-q964745",
@@ -10481,7 +12512,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "pyramid-mound-q7263260",
@@ -10525,6 +12557,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "raedykes",
+   "name": "Raedykes Roman camp",
+   "place": "Scotland",
+   "lon": -2.2632,
+   "lat": 57.002,
+   "status": "standing",
+   "summary": "Raedykes is the site of a Roman marching camp located just over three miles northwest of Stonehaven, Aberdeenshire, Scotland. National Grid Reference NO 842902. It is designated as a scheduled monument. A marching camp was a temporary camp used mainly for overnight stops on a long route between more permanent forts, or as a temporary base while on campaign in hostile territory.",
+   "region": "Scotland",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Raedykes",
+   "period": "Roman, probably Flavian (c. AD 83-84) or Severan",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 2)",
+   "corners": [
+    [
+     -2.2763957280361486,
+     57.00918582823285
+    ],
+    [
+     -2.2500042719638507,
+     57.00918582823285
+    ],
+    [
+     -2.2500042719638507,
+     56.994812783635254
+    ],
+    [
+     -2.2763957280361486,
+     56.994812783635254
+    ]
+   ],
+   "relief_clip_m": 1.19,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 93.32,
+    "zmax": 216.9,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
    ]
   },
   {
@@ -10573,6 +12652,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "ring-of-brodgar",
+   "name": "Ring of Brodgar",
+   "place": "Scotland",
+   "lon": -3.2306,
+   "lat": 59.0011,
+   "status": "standing",
+   "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+   "region": "Scotland",
+   "kind": "henge",
+   "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+   "period": "Neolithic c.2500-2000 BC",
+   "lidar_credit": "Orkney Islands Council, 0.5 m DTM (Orkney 2023)",
+   "corners": [
+    [
+     -3.239321141521569,
+     59.005591283413594
+    ],
+    [
+     -3.221878858478431,
+     59.005591283413594
+    ],
+    [
+     -3.221878858478431,
+     58.99660813055611
+    ],
+    [
+     -3.239321141521569,
+     58.99660813055611
+    ]
+   ],
+   "relief_clip_m": 0.76,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.05,
+    "zmax": 15.73,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -10617,6 +12743,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "rough-castle-fort",
+   "name": "Rough Castle Roman fort (Antonine Wall)",
+   "place": "Scotland",
+   "lon": -3.856,
+   "lat": 55.9978,
+   "status": "standing",
+   "summary": "Rough Castle Fort is a Roman fort on the Antonine Wall roughly 2 kilometres south east of Bonnybridge near Tamfourhill in the Falkirk council area, Scotland. It is owned by the National Trust for Scotland.",
+   "region": "Scotland",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Rough_Castle_Fort",
+   "period": "Roman, AD 142-c.165",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -3.8640317913942828,
+     56.002291315437496
+    ],
+    [
+     -3.8479682086057174,
+     56.002291315437496
+    ],
+    [
+     -3.8479682086057174,
+     55.9933081625853
+    ],
+    [
+     -3.8640317913942828,
+     55.9933081625853
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 34.23,
+    "zmax": 103.67,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -10659,7 +12832,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "sandal-castle-q1760652",
@@ -10704,7 +12878,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "santee-indian-mound-and-fort-watson-q17030623",
@@ -10742,6 +12917,97 @@
     "zmin": 20.95,
     "zmax": 31.21,
     "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "santok",
+   "name": "Santok stronghold",
+   "place": "Poland",
+   "lon": 15.402,
+   "lat": 52.7338,
+   "status": "standing",
+   "summary": "Santok is a village in Gorz\u00f3w County, Lubusz Voivodeship, in western Poland. It is the seat of the gmina called Gmina Santok.",
+   "region": "Poland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Santok",
+   "period": "9th-12th c. AD",
+   "lidar_credit": "GUGiK, Poland, 2021 (5.93 points/m2)",
+   "corners": [
+    [
+     15.379746811187964,
+     52.747272646874116
+    ],
+    [
+     15.42425318881204,
+     52.747272646874116
+    ],
+    [
+     15.42425318881204,
+     52.72032318816984
+    ],
+    [
+     15.379746811187964,
+     52.72032318816984
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 19.17,
+    "zmax": 79.1,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    3000,
+    3000
+   ]
+  },
+  {
+   "id": "seip-earthworks-q123916810",
+   "name": "Seip Earthworks",
+   "aka": "Seip Earthenworks",
+   "place": "Ohio",
+   "lon": -83.21983,
+   "lat": 39.23747,
+   "region": "US",
+   "kind": "earthwork",
+   "qid": "Q123916810",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.22910854708157,
+     39.2446561541959
+    ],
+    [
+     -83.21055145291845,
+     39.2446561541959
+    ],
+    [
+     -83.21055145291845,
+     39.23028310966255
+    ],
+    [
+     -83.22910854708157,
+     39.23028310966255
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 208.75,
+    "zmax": 254.97,
+    "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
@@ -10792,7 +13058,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "serpent-mound-q968802",
@@ -10837,7 +13104,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "sewee-mound-q18157936",
@@ -10881,7 +13149,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "shiloh-indian-mounds-site-q7496730",
@@ -10925,7 +13194,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "shrum-mound-q28403189",
@@ -10969,6 +13239,52 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "silbury-hill-q225896",
+   "name": "Silbury Hill",
+   "place": "Avebury, Wiltshire, England",
+   "lon": -1.8574,
+   "lat": 51.4157,
+   "summary": "Silbury Hill is a prehistoric artificial chalk mound near Avebury in the English county of Wiltshire. It is part of the Stonehenge, Avebury and Associated Sites UNESCO World Heritage Site. At 39.3 metres (129\u00a0ft) high, the hill is the tallest and second largest prehistoric man-made mound in Europe and one of the largest in the world; it is similar in volume to contemporary Egyptian pyramids. The site is in the care of English Heritage.",
+   "region": "England",
+   "kind": "barrow",
+   "qid": "Q225896",
+   "wiki": "https://en.wikipedia.org/wiki/Silbury_Hill",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.8646019006511838,
+     51.420191355760686
+    ],
+    [
+     -1.8501980993488165,
+     51.420191355760686
+    ],
+    [
+     -1.8501980993488165,
+     51.411208202914224
+    ],
+    [
+     -1.8646019006511838,
+     51.411208202914224
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 144.75,
+    "zmax": 192.32,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -11013,6 +13329,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "skara-brae",
+   "name": "Skara Brae",
+   "place": "Scotland",
+   "lon": -3.3416,
+   "lat": 59.0488,
+   "status": "standing",
+   "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+   "region": "Scotland",
+   "kind": "earthwork",
+   "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+   "period": "Neolithic c.3180-2500 BC",
+   "lidar_credit": "Orkney Islands Council, 0.5 m DTM (Orkney 2023); Historic Environment Scotland, 0.5 m DTM (HES 2017 (Orkney))",
+   "corners": [
+    [
+     -3.3503332454155776,
+     59.05329128286029
+    ],
+    [
+     -3.3328667545844226,
+     59.05329128286029
+    ],
+    [
+     -3.3328667545844226,
+     59.044308130002705
+    ],
+    [
+     -3.3503332454155776,
+     59.044308130002705
+    ]
+   ],
+   "relief_clip_m": 0.48,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.56,
+    "zmax": 44.68,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -11058,7 +13421,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "spiro-mounds-q2044290",
@@ -11102,7 +13466,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "stanton-drew-stone-circles-q1516300",
@@ -11147,7 +13512,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "stanwick-camp-q15242545",
@@ -11192,7 +13558,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "stonehenge-q39671",
@@ -11235,6 +13602,53 @@
     "zmin": 79.78,
     "zmax": 110.33,
     "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "stones-of-stenness",
+   "name": "Stones of Stenness",
+   "place": "Scotland",
+   "lon": -3.209,
+   "lat": 58.994,
+   "status": "standing",
+   "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+   "region": "Scotland",
+   "kind": "henge",
+   "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+   "period": "Neolithic c.3100 BC",
+   "lidar_credit": "Orkney Islands Council, 0.5 m DTM (Orkney 2023)",
+   "corners": [
+    [
+     -3.217719343278194,
+     58.998491283495774
+    ],
+    [
+     -3.200280656721806,
+     58.998491283495774
+    ],
+    [
+     -3.200280656721806,
+     58.98950813063831
+    ],
+    [
+     -3.217719343278194,
+     58.98950813063831
+    ]
+   ],
+   "relief_clip_m": 0.76,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.01,
+    "zmax": 9.7,
+    "contour_m": 0.25,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
@@ -11285,7 +13699,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "strutt-s-park-roman-fort-q1241270",
@@ -11329,7 +13744,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "sutton-hoo-q503256",
@@ -11374,6 +13790,53 @@
    "size_m": [
     1200,
     1200
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "tap-o-noth",
+   "name": "Tap o' Noth",
+   "place": "Scotland",
+   "lon": -2.8586,
+   "lat": 57.3514,
+   "status": "standing",
+   "summary": "The Tap o' Noth is a hill and the name of a hillfort on its summit, 8 miles south of Huntly in Aberdeenshire, Scotland at grid reference NJ485293. It is the second highest fort in Scotland and its main feature is its well-preserved vitrified wall which encloses an area of approximately 100 m by 30 m, 0.3 hectares. Archaeological finds from the site include a stone axe head dated to between c. 2000 BC\u2013 c.800 BC, and a decorated bronze rein-ring dated to the 1st\u20133rd century AD. The site has been designated a scheduled monument.",
+   "region": "Scotland",
+   "kind": "hillfort",
+   "wiki": "https://en.wikipedia.org/wiki/Tap_o'_Noth",
+   "period": "Iron Age c.500 BC-AD 500",
+   "lidar_credit": "Scottish Government, 1.0 m DTM (Phase 2)",
+   "corners": [
+    [
+     -2.867758238640306,
+     57.35634040159538
+    ],
+    [
+     -2.8494417613596936,
+     57.35634040159538
+    ],
+    [
+     -2.8494417613596936,
+     57.34645893345248
+    ],
+    [
+     -2.867758238640306,
+     57.34645893345248
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 323.17,
+    "zmax": 563.21,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1100,
+    1100
    ]
   },
   {
@@ -11417,7 +13880,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "terpensmole-q4687217",
@@ -11462,7 +13926,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "terpzigt-q1919205",
@@ -11507,7 +13972,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "thurnham-castle-q7799359",
@@ -11552,52 +14018,8 @@
    "size_m": [
     800,
     800
-   ]
-  },
-  {
-   "id": "tinboeth-castle-q7808013",
-   "name": "Tinboeth Castle",
-   "aka": "Castell Tinboeth, Castell Dinbaud, Llananno",
-   "place": "Powys, Wales",
-   "lon": -3.3371,
-   "lat": 52.3694,
-   "summary": "Tinboeth Castle was a medieval castle situated midway between Llanbister and Llanbadarn Fynydd in Wales, on a bend in the River Ithon.",
-   "region": "Wales",
-   "kind": "hillfort",
-   "qid": "Q7808013",
-   "wiki": "https://en.wikipedia.org/wiki/Tinboeth_Castle",
-   "corners": [
-    [
-     -3.3488702200826403,
-     52.37658593768961
-    ],
-    [
-     -3.3253297799173596,
-     52.37658593768961
-    ],
-    [
-     -3.3253297799173596,
-     52.36221289311799
-    ],
-    [
-     -3.3488702200826403,
-     52.36221289311799
-    ]
    ],
-   "relief_clip_m": 0.15,
-   "block": {
-    "w": 512,
-    "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
-    "height": "block_h.png",
-    "top": "block_top.jpg"
-   },
-   "size_m": [
-    1600,
-    1600
-   ]
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "totnes-castle-q2445840",
@@ -11641,7 +14063,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "totternhoe-castle-q7828481",
@@ -11686,7 +14109,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "traiectum-q2199749",
@@ -11731,49 +14155,97 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
-   "id": "tredegar-fort-q20584714",
-   "name": "Tredegar Fort",
-   "aka": "Tredegar Camp, Tredegar Hillfort",
-   "place": "Newport, Wales",
-   "lon": -3.026675,
-   "lat": 51.576198,
-   "region": "Wales",
+   "id": "traprain-law",
+   "name": "Traprain Law",
+   "place": "Scotland",
+   "lon": -2.6725,
+   "lat": 55.9631,
+   "status": "standing",
+   "summary": "Traprain Law is a hill 6\u00a0km (4\u00a0mi) east of Haddington, East Lothian, Scotland. It is the site of a hill fort or possibly oppidum, which covered at its maximum extent about 16\u00a0ha. It is the site of the Traprain Law Treasure, the largest Roman silver hoard from anywhere outside the Roman Empire which included exquisite silver artefacts.",
+   "region": "Scotland",
    "kind": "hillfort",
-   "qid": "Q20584714",
+   "wiki": "https://en.wikipedia.org/wiki/Traprain_Law",
+   "period": "Late Bronze Age enclosure; Iron Age hillfort; Roman-period oppidum c. AD 100-400; silver hoard c. AD 400",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 3)",
    "corners": [
     [
-     -3.0382386864449,
-     51.583383954130646
+     -2.682129505992863,
+     55.968489516381105
     ],
     [
-     -3.0151113135550993,
-     51.583383954130646
+     -2.662870494007137,
+     55.968489516381105
     ],
     [
-     -3.0151113135550993,
-     51.569010909562536
+     -2.662870494007137,
+     55.95770973295272
     ],
     [
-     -3.0382386864449,
-     51.569010909562536
+     -2.682129505992863,
+     55.95770973295272
     ]
    ],
-   "relief_clip_m": 0.15,
+   "relief_clip_m": 1.2,
    "block": {
     "w": 512,
     "h": 512,
-    "zmin": 0.0,
-    "zmax": 0.0,
-    "contour_m": 0.25,
+    "zmin": 58.92,
+    "zmax": 220.8,
+    "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
    "size_m": [
-    1600,
-    1600
+    1200,
+    1200
+   ]
+  },
+  {
+   "id": "trelleborg-slagelse",
+   "name": "Trelleborg (Slagelse)",
+   "place": "Denmark",
+   "lon": 11.2653,
+   "lat": 55.3942,
+   "status": "standing",
+   "region": "Denmark",
+   "kind": "military_earthwork",
+   "period": "c. AD 980/981",
+   "lidar_credit": "Danish Agency for Data Supply and Infrastructure, 2022 (14.28 points/m2)",
+   "corners": [
+    [
+     11.257391279536273,
+     55.39869132127669
+    ],
+    [
+     11.273208720463725,
+     55.39869132127669
+    ],
+    [
+     11.273208720463725,
+     55.389708168425365
+    ],
+    [
+     11.257391279536273,
+     55.389708168425365
+    ]
+   ],
+   "relief_clip_m": 1.05,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.05,
+    "zmax": 12.68,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -11818,7 +14290,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "tremper-mound-and-works-q7838197",
@@ -11862,6 +14335,53 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "trundle-q7847949",
+   "name": "Trundle",
+   "aka": "The Trundle hillfort, causewayed enclosure and associated remains at St Roche's Hill, The Trundle",
+   "place": "Singleton, West Sussex, England",
+   "lon": -0.7539,
+   "lat": 50.8925,
+   "summary": "The Trundle is a hillfort on St Roche's Hill about 4 miles (6\u00a0km) north of Chichester, West Sussex, England. It was built in the Iron Age on the site of a causewayed enclosure, a form of early Neolithic earthwork found in northwestern Europe. A chapel dedicated to St Roche was built on the hill around the end of the 14th century; it was in ruins by 1570. A windmill and a beacon were subsequently built on the hill. The site was occasionally used as a meeting place in the post-medieval period.",
+   "region": "England",
+   "kind": "hillfort",
+   "qid": "Q7847949",
+   "wiki": "https://en.wikipedia.org/wiki/The_Trundle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.7610206998196212,
+     50.896991359846965
+    ],
+    [
+     -0.746779300180379,
+     50.896991359846965
+    ],
+    [
+     -0.746779300180379,
+     50.888008207001036
+    ],
+    [
+     -0.7610206998196212,
+     50.888008207001036
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 96.66,
+    "zmax": 206.59,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -11906,7 +14426,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "uffington-castle-q2473790",
@@ -11951,7 +14472,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "uxellodunum-q1290232",
@@ -11995,7 +14517,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "velda-mound-q7918862",
@@ -12039,7 +14562,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   },
   {
    "id": "vellaunodunum-q673209",
@@ -12083,7 +14607,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
   },
   {
    "id": "vertillum-q7922962",
@@ -12127,6 +14652,53 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+  },
+  {
+   "id": "vindolanda",
+   "name": "Vindolanda (Chesterholm)",
+   "place": "England",
+   "lon": -2.3608,
+   "lat": 54.9911,
+   "status": "standing",
+   "summary": "Vindolanda was a Roman auxiliary fort (castrum) just south of Hadrian's Wall in northern England, which it pre-dated. Archaeological excavations of the site show it was under Roman occupation from roughly 85 AD to 370 AD. Located near the modern village of Bardon Mill in Northumberland, it guarded the Stanegate, the Roman road from the River Tyne to the Solway Firth. It is noted for the Vindolanda tablets, a set of wooden leaf-tablets that were, at the time of their discovery, the oldest surviving handwritten documents in Britain.",
+   "region": "England",
+   "kind": "roman_fort",
+   "wiki": "https://en.wikipedia.org/wiki/Vindolanda",
+   "period": "Roman, c. AD 85-370 (earlier timber forts)",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.370194905365349,
+     54.996489529772546
+    ],
+    [
+     -2.351405094634651,
+     54.996489529772546
+    ],
+    [
+     -2.351405094634651,
+     54.985709746346615
+    ],
+    [
+     -2.370194905365349,
+     54.985709746346615
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 127.68,
+    "zmax": 256.37,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1200,
+    1200
    ]
   },
   {
@@ -12172,7 +14744,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "viroconium-cornoviorum-q1361580",
@@ -12217,7 +14790,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "warffum-q1942428",
@@ -12261,7 +14835,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "AHN (Rijkswaterstaat)"
   },
   {
    "id": "wark-in-tyndale-castle-q7969465",
@@ -12306,7 +14881,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "warkworth-castle-q922422",
@@ -12350,7 +14926,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "wat-s-dyke-q696088",
@@ -12395,7 +14972,8 @@
    "size_m": [
     2000,
     2000
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "watson-brake-q2552689",
@@ -12439,6 +15017,56 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "west-kennet-long-barrow-q541312",
+   "name": "West Kennet Long Barrow",
+   "aka": "West Kennet Long Barrow, 800m south-east of Silbury Hill, West Kennet long barrow",
+   "place": "Avebury, Wiltshire, England",
+   "lon": -1.8511,
+   "lat": 51.4086,
+   "summary": "The West Kennet Long Barrow, also known as South Long Barrow, is a chambered long barrow near the village of Avebury in the south-western English county of Wiltshire. Probably constructed in the thirty-seventh century BC, during Britain's Early Neolithic period. Today it survives in a partially reconstructed state.",
+   "region": "England",
+   "kind": "barrow",
+   "qid": "Q541312",
+   "wiki": "https://en.wikipedia.org/wiki/West_Kennet_Long_Barrow",
+   "period": [
+    "Neolithic"
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.8583007823015698,
+     51.41309135581673
+    ],
+    [
+     -1.8438992176984297,
+     51.41309135581673
+    ],
+    [
+     -1.8438992176984297,
+     51.4041082029703
+    ],
+    [
+     -1.8583007823015698,
+     51.4041082029703
+    ]
+   ],
+   "relief_clip_m": 1.15,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 144.05,
+    "zmax": 185.74,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -12484,6 +15112,52 @@
    "size_m": [
     1600,
     1600
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+  },
+  {
+   "id": "wickliffe-mounds-q1269580",
+   "name": "Wickliffe Mounds",
+   "place": "Kentucky",
+   "lon": -89.09,
+   "lat": 36.97,
+   "summary": "Wickliffe Mounds is a prehistoric, Mississippian culture archaeological site located in Ballard County, Kentucky, just outside the town of Wickliffe, about 3 miles (4.8\u00a0km) from the confluence of the Ohio and Mississippi rivers. Archaeological investigations have linked the site with others along the Ohio River in Illinois and Kentucky as part of the Angel phase of Mississippian culture. Wickliffe Mounds is controlled by the State Parks Service, which operates a museum at the site for interpretation of the ancient community. Listed on the National Register of Historic Places, it is also a Kentucky Archeological Landmark and State Historic Site.",
+   "region": "US",
+   "kind": "mound_site",
+   "qid": "Q1269580",
+   "wiki": "https://en.wikipedia.org/wiki/Wickliffe_Mounds",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -89.09562184561302,
+     36.97449144389716
+    ],
+    [
+     -89.08437815438698,
+     36.97449144389716
+    ],
+    [
+     -89.08437815438698,
+     36.965508291059955
+    ],
+    [
+     -89.09562184561302,
+     36.965508291059955
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 90.85,
+    "zmax": 140.68,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -12528,7 +15202,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "winterville-site-q4470180",
@@ -12573,6 +15248,51 @@
    "size_m": [
     800,
     800
+   ],
+   "lidar_credit": "USGS 3DEP"
+  },
+  {
+   "id": "yeavering-bell-camp-q17643662",
+   "name": "Yeavering Bell camp",
+   "aka": "Yeavering Bell Camp",
+   "place": "Kirknewton, Northumberland, England",
+   "lon": -2.114,
+   "lat": 55.557,
+   "region": "England",
+   "kind": "hillfort",
+   "qid": "Q17643662",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.1219414549610995,
+     55.56149131971946
+    ],
+    [
+     -2.1060585450389,
+     55.56149131971946
+    ],
+    [
+     -2.1060585450389,
+     55.552508166867874
+    ],
+    [
+     -2.1219414549610995,
+     55.552508166867874
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 144.14,
+    "zmax": 360.35,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1000,
+    1000
    ]
   },
   {
@@ -12617,7 +15337,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
   },
   {
    "id": "zaleski-mound-group-q8065456",
@@ -12661,7 +15382,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "lidar_credit": "USGS 3DEP"
   }
  ]
 }

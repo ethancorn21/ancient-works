@@ -1,0 +1,16 @@
+{
+ "id": "las-medulas",
+ "name": "Las M\u00e9dulas",
+ "place": "Spain",
+ "lon": -6.76,
+ "lat": 42.4589,
+ "width_m": 3000,
+ "height_m": 3000,
+ "px_m": 1.0,
+ "region": "Spain",
+ "kind": "earthwork",
+ "period": "Roman, 1st-3rd c. AD",
+ "summary": "Las M\u00e9dulas is a historic gold-mining site near the town of Ponferrada in the comarca of El Bierzo. It was the most important gold mine, as well as the largest open-pit gold mine, in the entire Roman Empire. Las M\u00e9dulas Cultural Landscape is listed by UNESCO as a World Heritage Site. Advanced aerial surveys conducted in 2014 using LIDAR have confirmed the wide extent of the Roman-era works.",
+ "wiki": "https://en.wikipedia.org/wiki/Las_M%C3%A9dulas",
+ "status": "standing"
+}

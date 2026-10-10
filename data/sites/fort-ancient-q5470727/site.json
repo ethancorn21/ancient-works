@@ -1,0 +1,17 @@
+{
+ "id": "fort-ancient-q5470727",
+ "name": "Fort Ancient",
+ "place": "Ohio",
+ "lon": -84.0903,
+ "lat": 39.4078,
+ "width_m": 2400,
+ "height_m": 2400,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q5470727",
+ "summary": "Fort Ancient is a Native American earthworks complex located in Washington Township, Warren County, Ohio, along the eastern shore of the Little Miami River about seven miles (11\u00a0km) southeast of Lebanon on State Route 350. The site is the largest prehistoric hilltop enclosure in the United States with three and one-half miles (18,000\u00a0ft) of walls in a 100-acre (0.40\u00a0km2) complex. Built by the Hopewell culture, who lived in the area from the 200 BC to AD 400, the site is situated on a wooded bluff 270 feet (82\u00a0m) above the Little Miami. It is the namesake of a culture known as Fort Ancient who lived near the complex long after it was constructed.",
+ "wiki": "https://en.wikipedia.org/wiki/Fort_Ancient_(Lebanon,_Ohio)",
+ "lrm_radius_m": 6,
+ "aka": "Fort Ancient State Memorial"
+}

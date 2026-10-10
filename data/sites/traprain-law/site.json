@@ -1,0 +1,16 @@
+{
+ "id": "traprain-law",
+ "name": "Traprain Law",
+ "place": "Scotland",
+ "lon": -2.6725,
+ "lat": 55.9631,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Late Bronze Age enclosure; Iron Age hillfort; Roman-period oppidum c. AD 100-400; silver hoard c. AD 400",
+ "summary": "Traprain Law is a hill 6\u00a0km (4\u00a0mi) east of Haddington, East Lothian, Scotland. It is the site of a hill fort or possibly oppidum, which covered at its maximum extent about 16\u00a0ha. It is the site of the Traprain Law Treasure, the largest Roman silver hoard from anywhere outside the Roman Empire which included exquisite silver artefacts.",
+ "wiki": "https://en.wikipedia.org/wiki/Traprain_Law",
+ "status": "standing"
+}

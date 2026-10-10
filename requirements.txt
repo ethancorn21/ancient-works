@@ -1,0 +1,11 @@
+# Python packages the pipeline uses (pipeline/*.py). The server (server/serve.py) needs only the standard library,
+# plus numpy/scipy/pillow for the live relief tiles.
+numpy
+scipy
+pillow
+tifffile
+pyproj
+rasterio             # windowed reads of GeoTIFFs over HTTPS (USGS 1 m DEM tiles, Scotland DTM)
+laspy[lazrs]         # COPC / EPT point clouds over HTTP (open-lidar-data mirror, 3DEP) and the Amazon strips
+requests             # laspy's HTTP reader
+pyshp                # tile-index shapefiles of the point-cloud surveys and the EBA strips

@@ -1,8 +1,10 @@
 """Export one site for the globe: relief + imagery images, plate ink/paper images, and its entry in sites.json.
 
-usage: build_site.py data/sites/<id>/site.json [--refresh-imagery]
+usage: build_site.py data/sites/<id>/site.json [--refresh-imagery] [--no-imagery]
 Writes web/data/sites/<id>/{relief.jpg,imagery.jpg,plate_ink.png,plate_paper.jpg} and updates web/data/sites.json.
+A site with no "plate" gets relief, block-diagram assets and its index entry only. AW_DEM=s3 reads the DEM from S3 tiles.
 """
+import fcntl
 import json
 import os
 import sys
@@ -119,7 +121,7 @@ def build_block(z, px_m, out, water_or_modern, max_mesh=512, max_tex=2048):
             "contour_m": ci, "height": "block_h.png", "top": "block_top.jpg"}
 
 
-def main(path, refresh_imagery=False):
+def main(path, refresh_imagery=False, no_imagery=False):
     sdir = os.path.dirname(path)
     site = json.load(open(path))
     sid = site["id"]
@@ -129,6 +131,7 @@ def main(path, refresh_imagery=False):
     bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
     w, h = int(site["width_m"] / px_m), int(site["height_m"] / px_m)
 
+    import dem_sources
     dem_cache = os.path.join(sdir, "dem.npy")
     # the cached DEM, mask and imagery belong to one box: a moved or resized box (specs/site_boxes.json) refetches all
     # three (before this check a rebuilt Cahokia kept its old 800 m relief under the new 2400 m corners)
@@ -140,7 +143,8 @@ def main(path, refresh_imagery=False):
                 if os.path.exists(os.path.join(sdir, f)):
                     os.remove(os.path.join(sdir, f))
             refresh_imagery = True
-    if os.path.exists(dem_cache):
+    fetched = not os.path.exists(dem_cache)
+    if not fetched:
         z = np.load(dem_cache)
         if not os.path.exists(box_path):
             json.dump(key, open(box_path, "w"))
@@ -148,23 +152,39 @@ def main(path, refresh_imagery=False):
         z = aw.fetch_dem(bbox, w, h)
         np.save(dem_cache, z)
         json.dump(key, open(box_path, "w"))
+    # a source that answers outside its coverage with zeros or nodata leaves a blank relief (2026-10-10: 18 Welsh and
+    # French sites were on the globe with an all-zero DEM); refuse it, so the build reports "no LiDAR" instead
+    if (np.isfinite(z) & (z != 0)).mean() < 0.5:
+        os.remove(dem_cache)  # not cached: a source added later should get its chance
+        raise RuntimeError("no LiDAR data in this box (DEM is mostly empty or zero)")
+    # what the block caption credits: worked out when the DEM is fetched (a STATIC read names its own survey) and kept
+    # beside the cached DEM, since the source outline alone can name the wrong survey (Burnswark: EA's outline, Scotland's data)
+    credit_path = os.path.join(sdir, "dem_credit.json")
+    if not site.get("lidar_credit"):
+        if not fetched and os.path.exists(credit_path):
+            site["lidar_credit"] = json.load(open(credit_path))
+        else:
+            site["lidar_credit"] = dem_sources.credit_for_bbox(bbox) or ""
+            json.dump(site["lidar_credit"], open(credit_path, "w"))
     mask_path = os.path.join(sdir, "modern_mask.npy")
     ignore = aw.water_mask(z, px_m)
     if os.path.exists(mask_path):
         ignore = ignore | np.load(mask_path)
     img, clip = aw.render_relief(z, px_m, clip_m=site.get("relief_clip_m"), ignore=ignore,
-                                 radius_m=site.get("plate", {}).get("lrm_radius_m", 24.0))
+                                 radius_m=site.get("lrm_radius_m") or site.get("plate", {}).get("lrm_radius_m", 24.0))
     Image.fromarray(duotone(img).astype(np.uint8)).save(os.path.join(out, "relief.jpg"), quality=84, optimize=True)
     entry_block = build_block(z, px_m, out, ignore)
 
     # USGS imagery is US-only; the page shows live aerial tiles anyway, this copy is for offline checks
-    import dem_sources
     imagery = os.path.join(out, "imagery.jpg")
-    if dem_sources.source_for_bbox(bbox) not in ("ea", "ahn", "ign") and (refresh_imagery or not os.path.exists(imagery)):
-        aw.fetch_imagery(bbox, min(w, 4096), min(h, 4096)).save(imagery, quality=80, optimize=True)
+    if dem_sources.source_for_bbox(bbox) == "usgs" and (refresh_imagery or not os.path.exists(imagery)) and not no_imagery:
+        try:
+            aw.fetch_imagery(bbox, min(w, 4096), min(h, 4096)).save(imagery, quality=80, optimize=True)
+        except Exception as e:  # a convenience copy (the page draws live aerial tiles); never fail the build on it
+            print("  no imagery.jpg:", str(e)[:100])
 
     entry = {k: site[k] for k in ("id", "name", "aka", "place", "lon", "lat", "status", "summary", "notes",
-                                  "region", "kind", "qid", "wiki", "period") if k in site}
+                                  "region", "kind", "qid", "wiki", "period", "lidar_credit") if k in site}
     entry["corners"] = aw.corners(bbox)
     entry["relief_clip_m"] = round(clip, 2)
     entry["block"] = entry_block
@@ -193,18 +213,15 @@ def main(path, refresh_imagery=False):
 
     index_path = os.path.join(WEB, "sites.json")
     # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
-    import fcntl
     with open(index_path + ".lock", "w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         index = json.load(open(index_path)) if os.path.exists(index_path) else {"sites": []}
         index["sites"] = [s for s in index["sites"] if s["id"] != sid] + [entry]
         index["sites"].sort(key=lambda s: s["name"])
-        tmp = f"{index_path}.{os.getpid()}.tmp"
-        aw.save_json(tmp, index)
-        os.replace(tmp, index_path)
+        aw.save_json(index_path, index)  # atomic (tmp file + os.replace)
     sizes = {f: os.path.getsize(os.path.join(out, f)) // 1024 for f in os.listdir(out)}
     print(sid, "relief clip", round(clip, 2), "m;", sizes, "KB")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], "--refresh-imagery" in sys.argv)
+    main(sys.argv[1], "--refresh-imagery" in sys.argv, "--no-imagery" in sys.argv)

@@ -6,6 +6,7 @@ All exports are requested in EPSG:3857 so a MapLibre `image` source with the bbo
 import io
 import json
 import math
+import os
 import time
 import urllib.parse
 import urllib.request
@@ -69,13 +70,40 @@ def _get(url, params, tries=4):
 def fetch_dem(bbox, w, h, tile=2000):
     """Bare-earth DEM (metres, NaN = no data) for a Mercator bbox at w x h pixels.
 
-    England, the Netherlands and France come from their national LiDAR DTMs (see dem_sources.py); everything
-    else, the US included, goes to USGS 3DEP exactly as before."""
+    England, the Netherlands and France come from their national LiDAR DTMs; Scotland and the countries on the
+    open-lidar-data mirror from public S3 (dem_sources.py). The US goes to USGS 3DEP: the ImageServer, and when
+    that fails (it is slow and 5xx-prone, and some networks block it) the same DEMs read from the S3 tiles by
+    usgs.py; AW_DEM=s3 skips the ImageServer."""
     import dem_sources  # imported here so that `import aw` stays as light as it was
     src = dem_sources.source_for_bbox(bbox)
     if src in ("ea", "ahn", "ign"):
-        return dem_sources.fetch(src, bbox, w, h)
-    return _fetch_3dep(bbox, w, h, tile)
+        # the live outlines are generous along borders (Burnswark, in Scotland, falls inside England's): a service that
+        # errors or answers mostly nodata hands over to the S3 sources when one covers the box
+        static = dem_sources.static_source_for_bbox(bbox)
+        try:
+            z = dem_sources.fetch(src, bbox, w, h)
+            # EA answers outside England with zeros, not nodata (Burnswark 2026-10-10: a 1.9 km box of 0.0 m)
+            if not static or (np.isfinite(z) & (z != 0)).mean() > 0.5:
+                return z
+        except Exception:
+            if not static:
+                raise
+        print(f"  {src} has no data here; reading {static}")
+        return dem_sources.fetch_static(static, bbox, w, h)
+    if src is None:
+        static = dem_sources.static_source_for_bbox(bbox)
+        if static:
+            return dem_sources.fetch_static(static, bbox, w, h)
+    if os.environ.get("AW_DEM") != "s3":
+        try:
+            return _fetch_3dep(bbox, w, h, tile)
+        except Exception as e:
+            print("  3DEP ImageServer failed (%s); reading the S3 tiles" % str(e)[:80])
+    import usgs  # needs rasterio, so imported only when the S3 path is taken
+    z, info = usgs.read_dem(bbox, w, h)
+    for i in info:
+        print("  DEM from %s (%.0f%%, collected to %s)" % (i["source"], 100 * i["share"], i["collect_end"]))
+    return z
 
 
 def _fetch_3dep(bbox, w, h, tile=2000):
@@ -146,9 +174,24 @@ def render_relief(z, px_m, clip_m=None, ignore=None, radius_m=24.0):
     return (np.clip(mix, 0, 1) * 255).astype(np.uint8), clip_m
 
 
+def ink_share(rgb, have):
+    """Share of the covered pixels that differ from the sheet's paper colour (median) by 40+ levels: lines, lettering, tints.
+    A map panel with almost none (< 0.5%) is blank paper: the sheet's extent reaches into the box but nothing was printed there."""
+    px = rgb[have].astype(np.int16)
+    if len(px) == 0:
+        return 0.0
+    return float((np.abs(px - np.median(px, axis=0)).max(axis=1) > 40).mean())
+
+
+MIN_INK = 0.005
+
+
 def save_json(path, obj):
-    with open(path, "w") as f:
+    """Write JSON atomically, so a reader (or a second build running in parallel) never sees a half-written file."""
+    tmp = f"{path}.{os.getpid()}.tmp"
+    with open(tmp, "w") as f:
         json.dump(obj, f, indent=1)
+    os.replace(tmp, path)
 
 
 OVERPASS = "https://overpass-api.de/api/interpreter"

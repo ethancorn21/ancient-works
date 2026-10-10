@@ -1,0 +1,17 @@
+{
+ "id": "los-millares",
+ "name": "Los Millares",
+ "place": "Spain",
+ "lon": -2.5222,
+ "lat": 36.9647,
+ "width_m": 1500,
+ "height_m": 1500,
+ "px_m": 1.0,
+ "region": "Spain",
+ "kind": "enclosure",
+ "period": "Chalcolithic c.3200-2200 BC",
+ "summary": "Los Millares is a Chalcolithic occupation site 17\u00a0km north of Almer\u00eda, in the municipality of Santa Fe de Mond\u00fajar, Andaluc\u00eda, Spain. The complex was in use from the fourth millennium BC to the end of the third millennium BC and probably supported around 1,000 people. It was discovered in 1891 during the construction of a railway. It was first excavated by Luis Siret in the succeeding years. Excavations are ongoing. Los Millares is the type site of the Chalcolithic Millaran culture.",
+ "wiki": "https://en.wikipedia.org/wiki/Los_Millares",
+ "status": "standing",
+ "lrm_radius_m": 6
+}

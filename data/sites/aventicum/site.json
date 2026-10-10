@@ -1,0 +1,16 @@
+{
+ "id": "aventicum",
+ "name": "Aventicum (Avenches)",
+ "place": "Switzerland",
+ "lon": 7.042,
+ "lat": 46.881,
+ "width_m": 3000,
+ "height_m": 3000,
+ "px_m": 1.0,
+ "region": "Switzerland",
+ "kind": "roman_fort",
+ "period": "Roman c. 15 BC-AD 260+",
+ "summary": "Aventicum was the largest town and capital of Roman Switzerland. Its remains are beside the modern town of Avenches.",
+ "wiki": "https://en.wikipedia.org/wiki/Aventicum",
+ "status": "plowed"
+}

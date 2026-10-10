@@ -1,0 +1,16 @@
+{
+ "id": "eildon-hill-north",
+ "name": "Eildon Hill North",
+ "place": "Scotland",
+ "lon": -2.7092,
+ "lat": 55.5864,
+ "width_m": 2500,
+ "height_m": 2500,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Late Bronze Age to Iron Age c.1000 BC-AD 100; Roman signal station c. AD 80s",
+ "summary": "Eildon Hill lies just south of Melrose, Scotland in the Scottish Borders, overlooking the town. The name is usually pluralised into \"the Eildons\" or \"Eildon Hills\", because of its triple peak. The 422-metre-high (1,385-foot) eminence overlooks Teviotdale to the South. The igneous rock formation results from volcanic activity 350 million years ago. The north hilltop is surrounded by over five kilometres of ramparts, enclosing an area of about 16 hectares in which at least 300 level platforms have been cut into the rock to provide bases for turf or timber-walled houses, forming one of the largest hill forts known in Scotland. A Roman army signalling station was later constructed on the same site as this hill fort.",
+ "wiki": "https://en.wikipedia.org/wiki/Eildon_Hill",
+ "status": "standing"
+}

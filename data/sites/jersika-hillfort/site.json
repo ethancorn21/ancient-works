@@ -1,0 +1,14 @@
+{
+ "id": "jersika-hillfort",
+ "name": "Jersika hillfort",
+ "place": "Latvia",
+ "lon": 26.202,
+ "lat": 56.2759,
+ "width_m": 1400,
+ "height_m": 1400,
+ "px_m": 1.0,
+ "region": "Latvia",
+ "kind": "hillfort",
+ "period": "Late Iron Age to 13th c. AD (principality 12th-13th c.)",
+ "status": "standing"
+}

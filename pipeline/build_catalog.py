@@ -1,7 +1,11 @@
 """Turn catalog entries (data/catalog/sites.jsonl) into sites on the globe: LiDAR relief + block, old maps, summary.
 
 usage: build_catalog.py [--ids a,b,c] [--region US] [--top N] [--min-p 0.5] [--force]
-For each entry: data/sites/<id>/site.json -> build_site (relief, block) -> depict.py (Europe, Iowa; no USGS topos).
+For each entry: data/sites/<id>/site.json -> build_site (relief, block) -> depict.py (Europe; no USGS topos) -> nls.py (Britain
+and Ireland: Roy's Military Survey and the Ordnance Survey 1st editions).
+Entries come from data/catalog/sites.jsonl (Wikidata) and data/catalog/extras.jsonl (sites outside Wikidata's reach, coordinates
+checked in LiDAR relief: data/catalog/location_checks.json). LiDAR: the live national services (dem_sources.SOURCES) or, for
+pre-built sites only, Scotland's DTM tiles and the open-lidar-data point clouds (dem_sources.STATIC).
 Skips sites already built unless --force. Sites without LiDAR coverage are skipped and listed.
 The summary is the lead paragraph of the site's Wikipedia article (CC BY-SA, linked), never model text.
 """
@@ -20,6 +24,7 @@ import aw  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CAT = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
+EXTRAS = os.path.join(ROOT, "data", "catalog", "extras.jsonl")
 SITES = os.path.join(ROOT, "data", "sites")
 WEB = os.path.join(ROOT, "web", "data")
 
@@ -64,7 +69,9 @@ def wiki_summary(entry):
     return None, None
 
 
-REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France"}
+REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France",
+               "scotland": "Scotland", "ireland": "Ireland", "denmark": "Denmark", "spain": "Spain", "switzerland": "Switzerland",
+               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia"}
 
 
 def place_of(entry):
@@ -81,21 +88,23 @@ def place_of(entry):
     country = REGION_NAME.get(str(entry.get("region", "")).lower(), entry.get("region"))
     if country and country not in seen:
         seen.append(country)
-    return ", ".join(str(p) for p in seen[-3:]) or None
+    return ", ".join(str(p) for p in seen[-3:]) or entry.get("place") or None
 
 
 def make_site(entry):
     sid = re.sub(r"[^a-z0-9_-]+", "-", str(entry["id"]).lower()).strip("-")
-    m = box_m(entry)
+    m = entry.get("box_m") or box_m(entry)
     # hand-set box when the record's point or the kind's default box misses the works (specs/site_boxes.json)
     box = json.load(open(os.path.join(ROOT, "specs", "site_boxes.json"))).get(sid, {})
     m = box.get("m", m)
     text, url = wiki_summary(entry)
-    site = {"id": sid, "name": entry["name"], "place": place_of(entry),
+    site = {"id": sid, "name": box.get("name", entry["name"]), "place": place_of(entry),
             "lon": float(box.get("lon", entry["lon"])), "lat": float(box.get("lat", entry["lat"])),
             "width_m": m, "height_m": m, "px_m": 1.0, "region": REGION_NAME.get(str(entry.get("region", "")).lower()) or "US",
             "kind": entry.get("kind"), "period": entry.get("period"),
-            "qid": entry.get("qid"), "summary": text, "wiki": url,
+            "qid": entry.get("qid"), "summary": text, "wiki": url, "status": entry.get("status"),
+            "lrm_radius_m": box.get("lrm_radius_m", entry.get("lrm_radius_m")), "relief_clip_m": entry.get("relief_clip_m"),
+            "skip_maps": entry.get("skip_maps"),
             "aka": ", ".join(entry.get("aliases", [])[:2]) if isinstance(entry.get("aliases"), list) else entry.get("aliases")}
     return {k: v for k, v in site.items() if v not in (None, "", [])}
 
@@ -111,7 +120,10 @@ def main():
     import build_site
     import dem_sources
     import depict
+    import nls
     rows = [json.loads(l) for l in open(CAT)]
+    if os.path.exists(EXTRAS):
+        rows += [json.loads(l) for l in open(EXTRAS) if l.strip()]
     if a.ids:
         want = set(a.ids.split(","))
         rows = [r for r in rows if r["id"] in want]
@@ -138,7 +150,7 @@ def main():
         if os.path.exists(os.path.join(WEB, "sites", sid, "relief.jpg")) and not a.force:
             continue
         bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
-        src = dem_sources.source_for_bbox(bbox)
+        src = dem_sources.source_for_bbox(bbox) or dem_sources.static_source_for_bbox(bbox)
         if src is None:
             skipped.append((sid, "no LiDAR source"))
             continue
@@ -151,6 +163,7 @@ def main():
             build_site.main(path)
             # no USGS topographic quads: they show roads and fields, not the works (Ethan 2026-10-10)
             depict.build(site)
+            nls.build(path)  # no-op outside Britain and Ireland
             done.append(sid)
             print(f"   ok {time.time() - t:.0f}s", flush=True)
         except Exception as e:

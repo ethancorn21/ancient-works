@@ -29,3 +29,8 @@ web/data/sites.json.*.tmp
 data/db/plan_fit.log
 data/commons/sheets/
 data/sites/*/dem_box.json
+data/sites/*/dem_credit.json
+# Amazon eye review (SFB concession LiDAR): Ethan 2026-10-10, never public. Tiles, index and marks stay on this Mac.
+web/data/amazon/
+data/db/marks/
+data/db/surveyseen/

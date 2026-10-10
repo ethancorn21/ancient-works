@@ -1,0 +1,16 @@
+{
+ "id": "biggs-site",
+ "name": "Biggs Site",
+ "place": "Greenup County, Kentucky",
+ "lon": -82.93444,
+ "lat": 38.734083,
+ "width_m": 800,
+ "height_m": 800,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "enclosure",
+ "period": "c. 100 BCE-CE 500",
+ "summary": "The Biggs Site (15Gp8), also known as the Portsmouth Earthworks Group D, is an Adena culture archaeological site located near South Shore in Greenup County, Kentucky. Biggs was originally a concentric circular embankment and ditch surrounding a central conical burial mound with a causeway crossing the ring and ditch. It was part of a larger complex, the Portsmouth Earthworks, located across the Ohio River and now mostly obliterated by agriculture and the developing city of Portsmouth, Ohio.",
+ "wiki": "https://en.wikipedia.org/wiki/Biggs_site",
+ "status": "standing"
+}

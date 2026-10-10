@@ -1,0 +1,16 @@
+{
+ "id": "inchtuthil",
+ "name": "Inchtuthil Roman legionary fortress",
+ "place": "Scotland",
+ "lon": -3.424,
+ "lat": 56.541,
+ "width_m": 1400,
+ "height_m": 1400,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman_fort",
+ "period": "Roman, AD 83-87",
+ "summary": "Inchtuthil is the site of a Roman legionary fortress situated on a natural platform overlooking the north bank of the River Tay southwest of Blairgowrie, Perth and Kinross, Scotland.",
+ "wiki": "https://en.wikipedia.org/wiki/Inchtuthil",
+ "status": "standing"
+}

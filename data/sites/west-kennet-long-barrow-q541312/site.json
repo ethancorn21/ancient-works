@@ -1,0 +1,19 @@
+{
+ "id": "west-kennet-long-barrow-q541312",
+ "name": "West Kennet Long Barrow",
+ "place": "Avebury, Wiltshire, England",
+ "lon": -1.8511,
+ "lat": 51.4086,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "barrow",
+ "period": [
+  "Neolithic"
+ ],
+ "qid": "Q541312",
+ "summary": "The West Kennet Long Barrow, also known as South Long Barrow, is a chambered long barrow near the village of Avebury in the south-western English county of Wiltshire. Probably constructed in the thirty-seventh century BC, during Britain's Early Neolithic period. Today it survives in a partially reconstructed state.",
+ "wiki": "https://en.wikipedia.org/wiki/West_Kennet_Long_Barrow",
+ "aka": "West Kennet Long Barrow, 800m south-east of Silbury Hill, West Kennet long barrow"
+}

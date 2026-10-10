@@ -1,0 +1,16 @@
+{
+ "id": "balfarg-henge",
+ "name": "Balfarg Henge",
+ "place": "Scotland",
+ "lon": -3.16,
+ "lat": 56.215,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "henge",
+ "period": "Neolithic c.3000-2500 BC",
+ "summary": "Balfarg is a prehistoric monument complex in Glenrothes, Fife, Scotland. It is protected as a scheduled monument. With the development of Glenrothes new town in the latter half of the 20th Century an adjacent residential area was developed around the complex carrying the same name.",
+ "wiki": "https://en.wikipedia.org/wiki/Balfarg",
+ "status": "urban"
+}

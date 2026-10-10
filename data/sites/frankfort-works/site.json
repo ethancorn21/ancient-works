@@ -1,0 +1,14 @@
+{
+ "id": "frankfort-works",
+ "name": "Frankfort Works",
+ "place": "Ross County, Ohio",
+ "lon": -83.1873,
+ "lat": 39.4046,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "enclosure",
+ "period": "c. 100 BCE-CE 500",
+ "status": "plowed"
+}

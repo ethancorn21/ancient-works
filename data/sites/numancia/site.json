@@ -1,0 +1,16 @@
+{
+ "id": "numancia",
+ "name": "Numancia (Cerro de la Muela)",
+ "place": "Spain",
+ "lon": -2.4443,
+ "lat": 41.8096,
+ "width_m": 1100,
+ "height_m": 1100,
+ "px_m": 1.0,
+ "region": "Spain",
+ "kind": "hillfort",
+ "period": "Celtiberian to siege 134-133 BC; Roman town 1st-4th c. AD",
+ "summary": "Numantia is an ancient Celtiberian settlement, whose remains are located on a hill known as Cerro de la Muela in the current municipality of Garray (Soria), Spain.",
+ "wiki": "https://en.wikipedia.org/wiki/Numantia",
+ "status": "standing"
+}

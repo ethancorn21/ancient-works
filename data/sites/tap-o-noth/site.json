@@ -1,0 +1,16 @@
+{
+ "id": "tap-o-noth",
+ "name": "Tap o' Noth",
+ "place": "Scotland",
+ "lon": -2.8586,
+ "lat": 57.3514,
+ "width_m": 1100,
+ "height_m": 1100,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Iron Age c.500 BC-AD 500",
+ "summary": "The Tap o' Noth is a hill and the name of a hillfort on its summit, 8 miles south of Huntly in Aberdeenshire, Scotland at grid reference NJ485293. It is the second highest fort in Scotland and its main feature is its well-preserved vitrified wall which encloses an area of approximately 100 m by 30 m, 0.3 hectares. Archaeological finds from the site include a stone axe head dated to between c. 2000 BC\u2013 c.800 BC, and a decorated bronze rein-ring dated to the 1st\u20133rd century AD. The site has been designated a scheduled monument.",
+ "wiki": "https://en.wikipedia.org/wiki/Tap_o'_Noth",
+ "status": "standing"
+}

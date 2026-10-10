@@ -1,0 +1,14 @@
+{
+ "id": "seip-earthworks-q123916810",
+ "name": "Seip Earthworks",
+ "place": "Ohio",
+ "lon": -83.21983,
+ "lat": 39.23747,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "earthwork",
+ "qid": "Q123916810",
+ "aka": "Seip Earthenworks"
+}

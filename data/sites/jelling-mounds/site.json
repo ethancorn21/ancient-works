@@ -1,0 +1,16 @@
+{
+ "id": "jelling-mounds",
+ "name": "Jelling royal monuments",
+ "place": "Denmark",
+ "lon": 9.42,
+ "lat": 55.7564,
+ "width_m": 1100,
+ "height_m": 1100,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "barrow",
+ "period": "c. AD 958-965 (Gorm and Harald Bluetooth)",
+ "summary": "The Jelling stones are massive carved runestones from the 10th century, found at the town of Jelling in Denmark. The older of the two Jelling stones was raised by King Gorm the Old in memory of his wife Thyra. The larger of the two stones was raised by King Gorm's son, Harald Bluetooth, in memory of his parents, celebrating his conquest of Denmark and Norway, and his conversion of the Danes to Christianity.",
+ "wiki": "https://en.wikipedia.org/wiki/Jelling_stones",
+ "status": "standing"
+}

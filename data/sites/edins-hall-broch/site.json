@@ -1,0 +1,16 @@
+{
+ "id": "edins-hall-broch",
+ "name": "Edin's Hall Broch",
+ "place": "Scotland",
+ "lon": -2.3647,
+ "lat": 55.8352,
+ "width_m": 1800,
+ "height_m": 1800,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "hillfort",
+ "period": "Iron Age / Roman Iron Age c.1st-2nd c. AD",
+ "summary": "Edin's Hall Broch is a 2nd-century broch near Duns in the Borders of Scotland. It is one of very few brochs found in southern Scotland. It is roughly 28 metres in diameter.",
+ "wiki": "https://en.wikipedia.org/wiki/Edin's_Hall_Broch",
+ "status": "standing"
+}

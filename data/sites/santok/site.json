@@ -1,0 +1,16 @@
+{
+ "id": "santok",
+ "name": "Santok stronghold",
+ "place": "Poland",
+ "lon": 15.402,
+ "lat": 52.7338,
+ "width_m": 3000,
+ "height_m": 3000,
+ "px_m": 1.0,
+ "region": "Poland",
+ "kind": "hillfort",
+ "period": "9th-12th c. AD",
+ "summary": "Santok is a village in Gorz\u00f3w County, Lubusz Voivodeship, in western Poland. It is the seat of the gmina called Gmina Santok.",
+ "wiki": "https://en.wikipedia.org/wiki/Santok",
+ "status": "standing"
+}

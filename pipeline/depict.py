@@ -27,6 +27,7 @@ CACHE = os.path.join(ROOT, "data", "raw", "tiles")
 WEB = os.path.join(ROOT, "web", "data", "sites")
 IGN = ("https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER={layer}&STYLE={style}"
        "&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT={fmt}")
+MIN_AGE_YEARS = 150  # survey maps and aerials younger than this are not built (plans and drawings are not surveys)
 TT = "https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/Historische_tijdreis_{year}/MapServer"
 
 # box = rough lon/lat extent where the layer exists (a tile service still answers blank outside its data)
@@ -186,7 +187,10 @@ def covers(L, lon, lat):
 def build(site, names=None):
     sid = site["id"]
     bbox = aw.site_bbox(site["lon"], site["lat"], site["width_m"], site["height_m"])
-    names = names or [n for n, L in LAYERS.items() if covers(L, site["lon"], site["lat"])]
+    # surveys under 150 years old are not shown (Ethan 2026-10-10: age is the point): OS one-inch c. 1900, the French
+    # 1950s aerials and the Iowa 1930s aerials stay in LAYERS for reference but are not built
+    newest = time.gmtime().tm_year - MIN_AGE_YEARS
+    names = names or [n for n, L in LAYERS.items() if covers(L, site["lon"], site["lat"]) and L["year"] <= newest]
     if not names:
         return []
     px = max(1.0, max(site["width_m"], site["height_m"]) / 2400)
@@ -204,6 +208,9 @@ def build(site, names=None):
         blank = (img[..., 3] < 10) | (rgb.min(2) > 250) | (rgb.max(2) < 5)
         if (~blank).mean() < 0.2:
             print(sid, name, "no data here")
+            continue
+        if L["kind"] == "map" and aw.ink_share(img[..., :3], ~blank) < aw.MIN_INK:  # paper with nothing printed: a sheet whose
+            print(sid, name, "blank paper here")  # layer box reaches past the survey's border (Cassini at Avenches, Switzerland)
             continue
         file = f"{name}.webp"
         Image.fromarray(img, "RGBA").save(os.path.join(out_dir, file), quality=82, method=6)

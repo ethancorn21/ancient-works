@@ -1,0 +1,14 @@
+{
+ "id": "trelleborg-slagelse",
+ "name": "Trelleborg (Slagelse)",
+ "place": "Denmark",
+ "lon": 11.2653,
+ "lat": 55.3942,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "military_earthwork",
+ "period": "c. AD 980/981",
+ "status": "standing"
+}

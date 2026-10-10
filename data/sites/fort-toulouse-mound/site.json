@@ -1,0 +1,14 @@
+{
+ "id": "fort-toulouse-mound",
+ "name": "Fort Toulouse Mississippian Mound",
+ "place": "Elmore County, Alabama",
+ "lon": -86.2557,
+ "lat": 32.5043,
+ "width_m": 1400,
+ "height_m": 1400,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "platform_mound",
+ "period": "c. CE 1000-1700",
+ "status": "standing"
+}

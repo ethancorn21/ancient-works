@@ -1,0 +1,17 @@
+{
+ "id": "hopewell-mound-group",
+ "name": "Hopewell Mound Group",
+ "place": "Ross County, Ohio",
+ "lon": -83.09337,
+ "lat": 39.36098,
+ "width_m": 3000,
+ "height_m": 3000,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "enclosure",
+ "period": "c. 100 BCE-CE 500",
+ "summary": "Hopewell Culture National Historical Park is a United States national historical park with earthworks and burial mounds from the Hopewell culture, indigenous peoples who flourished from about 200 BC to 500 AD. The park is composed of four separate sites open to the public in Ross County, Ohio, including the former Mound City Group National Monument. The park includes archaeological resources of the Hopewell culture. It is administered by the United States Department of the Interior's National Park Service. It was designated a part of Hopewell Ceremonial Earthworks World Heritage Site in 2023.",
+ "wiki": "https://en.wikipedia.org/wiki/Hopewell_Mound_Group",
+ "status": "plowed",
+ "lrm_radius_m": 10
+}

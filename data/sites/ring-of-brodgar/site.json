@@ -1,0 +1,16 @@
+{
+ "id": "ring-of-brodgar",
+ "name": "Ring of Brodgar",
+ "place": "Scotland",
+ "lon": -3.2306,
+ "lat": 59.0011,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "henge",
+ "period": "Neolithic c.2500-2000 BC",
+ "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+ "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+ "status": "standing"
+}

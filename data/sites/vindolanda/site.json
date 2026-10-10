@@ -1,0 +1,16 @@
+{
+ "id": "vindolanda",
+ "name": "Vindolanda (Chesterholm)",
+ "place": "England",
+ "lon": -2.3608,
+ "lat": 54.9911,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "roman_fort",
+ "period": "Roman, c. AD 85-370 (earlier timber forts)",
+ "summary": "Vindolanda was a Roman auxiliary fort (castrum) just south of Hadrian's Wall in northern England, which it pre-dated. Archaeological excavations of the site show it was under Roman occupation from roughly 85 AD to 370 AD. Located near the modern village of Bardon Mill in Northumberland, it guarded the Stanegate, the Roman road from the River Tyne to the Solway Firth. It is noted for the Vindolanda tablets, a set of wooden leaf-tablets that were, at the time of their discovery, the oldest surviving handwritten documents in Britain.",
+ "wiki": "https://en.wikipedia.org/wiki/Vindolanda",
+ "status": "standing"
+}

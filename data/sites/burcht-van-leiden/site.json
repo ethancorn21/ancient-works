@@ -1,0 +1,16 @@
+{
+ "id": "burcht-van-leiden",
+ "name": "Burcht van Leiden",
+ "place": "Netherlands",
+ "lon": 4.493,
+ "lat": 52.159,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "motte",
+ "period": "11th c. motte; ring wall 12th-13th c.",
+ "summary": "The Burcht van Leiden is an old shell keep in Leiden constructed in the 11th century. It is located at the spot where two tributaries of the Rhine come together, the Oude Rijn and the Nieuwe Rijn. The structure is on top of a motte, and is today a public park.",
+ "wiki": "https://en.wikipedia.org/wiki/Burcht_van_Leiden",
+ "status": "urban"
+}

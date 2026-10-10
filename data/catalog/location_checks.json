@@ -1,0 +1,1704 @@
+{
+ "serpentmound": {
+  "status": "rejected",
+  "note": "early test build, duplicate of serpent-mound",
+  "checked": "2026-10-10"
+ },
+ "adena-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Chillicothe: dissected spur with houses beside a highway; no mound in the 2 km relief or in the 500 m crop at the Wikidata point; the 1912-1961 quads print only a cemetery symbol",
+  "checked": "2026-10-10"
+ },
+ "albany-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Albany IL: bluff, houses and a field; no mound resolved; quads 'Albany', 'Lusk Cem', 'Oakridge Cem'",
+  "checked": "2026-10-10"
+ },
+ "benham-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: ravine system above a suburb; quads 'Deer ...' (1898), 'FRENCH PARK' (1961) print no mound",
+  "checked": "2026-10-10"
+ },
+ "bottle-creek": {
+  "status": "confirmed",
+  "method": "LiDAR crops 1 km and 500 m at the Wikidata point (1 m ground grid from the USGS_LPC_AL_25Co_B8_2017 point cloud)",
+  "note": "Mound A (~60 m) with a platform and a row of smaller mounds on the delta island; the 3DEP 1 m DEM is not published here, so the DEM comes from the point cloud (the earlier build used the 10 m DEM and was dropped)",
+  "checked": "2026-10-10",
+  "moved_m": 10767,
+  "from": [
+   -87.9,
+   31.1
+  ],
+  "to": [
+   -87.9402,
+   31.009
+  ]
+ },
+ "burrows-park-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the panel is Lake Mendota (no ground returns); built-up shore",
+  "checked": "2026-10-10"
+ },
+ "cedar-bank-works": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Scioto River bend, highway and plowed fields; no works label on the quads",
+  "checked": "2026-10-10"
+ },
+ "chucalissa": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: industrial and port area of Memphis at the Wikidata point and at the museum address; nothing mound-like in the 1 m ground grid (3DEP point cloud) at 600 m and 1.5 km",
+  "checked": "2026-10-10"
+ },
+ "circleville-works": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Circleville street grid; the works were destroyed",
+  "checked": "2026-10-10"
+ },
+ "cowee-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: steep dissected mountains; quads 'COWEE', 'Ridge', 'Tippet Branch'",
+  "checked": "2026-10-10"
+ },
+ "devils-lake-effigies": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Devils Lake (water) between bluffs; no ground returns",
+  "checked": "2026-10-10"
+ },
+ "dickson-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the museum pad and parking lot at the Wikidata point; no mound relief",
+  "checked": "2026-10-10"
+ },
+ "edgewood-college-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Lake Wingra marsh and campus",
+  "checked": "2026-10-10"
+ },
+ "enon-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: suburb with a cul-de-sac; the large soft arc is a natural bluff (the 900 ft contour of the 1968 quad makes the same arc)",
+  "checked": "2026-10-10"
+ },
+ "fort-mountain": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected forested ridge; the stone wall is not resolved (1971 quad 'FORT MOUNTAIN STATE PARK')",
+  "checked": "2026-10-10"
+ },
+ "glenford-fort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: racetrack oval, fields and a highway at the catalogue point; no stone fort",
+  "checked": "2026-10-10"
+ },
+ "high-cliff-effigies": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: lake shore and escarpment ('HIGH CLIFF STATE PARK'); nothing resolved",
+  "checked": "2026-10-10"
+ },
+ "historic-spanish-point": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: subdivision streets and ponds",
+  "checked": "2026-10-10"
+ },
+ "irene-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a kidney-shaped diked basin at a river bend (1993 quad 'RHODES CUT'), not a mound",
+  "checked": "2026-10-10"
+ },
+ "junction-group": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plowed field and a drainage ditch beside a river valley",
+  "checked": "2026-10-10"
+ },
+ "knife-river-villages": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plowed field; no earthlodge depressions resolved at 1 m",
+  "checked": "2026-10-10"
+ },
+ "lake-mills-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: town street grid and houses",
+  "checked": "2026-10-10"
+ },
+ "mckees-rocks-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: canal and industrial yards",
+  "checked": "2026-10-10"
+ },
+ "mendota-hospital-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Lake Mendota (no data)",
+  "checked": "2026-10-10"
+ },
+ "mille-lacs-kathio": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dense forest and kettle terrain; the 1 m DEM is not staged and the point cloud (MN_FullState) has no vertical CRS in WESM, so only the noisy 10 m data is usable: nothing readable",
+  "checked": "2026-10-10"
+ },
+ "mitchell-site": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: highway interchange and suburb ('Maryland Place', 'Dobrey Slough')",
+  "checked": "2026-10-10"
+ },
+ "nikwasi": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Franklin NC downtown; the 1946 quad label is a mill",
+  "checked": "2026-10-10"
+ },
+ "observatory-hill-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: campus buildings and a striped playing field",
+  "checked": "2026-10-10"
+ },
+ "oakville-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a plowed natural knoll at the catalogue point; the Oakville mound group is not identifiable",
+  "checked": "2026-10-10"
+ },
+ "orators-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: only a ~6 m bump in a field at the Wikidata point: too small to show as an earthwork",
+  "checked": "2026-10-10"
+ },
+ "palisades-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected loess hills",
+  "checked": "2026-10-10"
+ },
+ "panther-intaglio": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river and the Fort Atkinson grid",
+  "checked": "2026-10-10"
+ },
+ "parkin": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: flat fields; the rounded rectangle is 'SEWAGE DISPOSAL PONDS' on the 1984 quad; no platform mound resolved",
+  "checked": "2026-10-10"
+ },
+ "picnic-point-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a built-up peninsula in Lake Mendota ('Second Point' on the 1983 quad)",
+  "checked": "2026-10-10"
+ },
+ "pikes-peak-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: open water and islands",
+  "checked": "2026-10-10"
+ },
+ "portsmouth-group-c-ky": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the Ohio River and the Kentucky floodplain; quads 'GREENUP CO', 'Carl Perkins Memorial Bridge'",
+  "checked": "2026-10-10"
+ },
+ "pulcher-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plowed field and levee; only soft bumps ~30 m in the 1 m ground grid, no mound I can call",
+  "checked": "2026-10-10"
+ },
+ "sea-pines-shell-ring": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: golf-course subdivision, marsh and ponds",
+  "checked": "2026-10-10"
+ },
+ "sheboygan-mound-park": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river bend through the town grid",
+  "checked": "2026-10-10"
+ },
+ "story-mound-cincinnati": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Sayler Park street grid; quads 'Sayler Park', 'Fernbank Golf Course', 'Gravel Pit'",
+  "checked": "2026-10-10"
+ },
+ "sugarloaf-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: street grid and a highway ramp at the Wikipedia point; no mound in the 1 m ground grid (3DEP point cloud)",
+  "checked": "2026-10-10"
+ },
+ "toolesboro-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river backwaters and swales; the oval ridge N of the cross is a natural swale",
+  "checked": "2026-10-10"
+ },
+ "trempealeau-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: town, lock and dam",
+  "checked": "2026-10-10"
+ },
+ "troyville-earthworks": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Jonesville street grid; only a 'Mound St' label",
+  "checked": "2026-10-10"
+ },
+ "vilas-park-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Lake Wingra and campus; the crescent bank is modern",
+  "checked": "2026-10-10"
+ },
+ "weedon-island": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a regular lattice of bright dots (a survey / drainage-spoil artefact) and a pond; no mounds",
+  "checked": "2026-10-10"
+ },
+ "wolf-plains-group": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: earthworks destroyed under Athens OH; street grid and a stadium",
+  "checked": "2026-10-10"
+ },
+ "fortified-hill-works": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected hills above the river; the quads print no works label ('Tanglewood Lake', 'Trailer Park', 'JOYCE')",
+  "checked": "2026-10-10"
+ },
+ "mound-hill-ky": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: rolling farmland and creeks ('PRETTY RUN', 'STONER CR'); no mound label on the 1952/1965 quads and no mound in the relief",
+  "checked": "2026-10-10"
+ },
+ "pollock-works": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the rounded square near the edge is the Cedarville reservoir ('Res' on the 1968 quad); hills and a creek, no works label",
+  "checked": "2026-10-10"
+ },
+ "cleaven-dyke": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: River Tay terraces ('The Inch', 'Meikleour', 'North Wood' on both OS editions): no dyke in the relief or on the maps at the catalogue point",
+  "checked": "2026-10-10"
+ },
+ "dorset-cursus": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the box centre is an arbitrary point on a 10 km monument; the OS 1st edition draws the cursus lines ('Supposed British Trackway') but the relief at this scale does not resolve them",
+  "checked": "2026-10-10"
+ },
+ "hunebed-d53-havelte": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: farmland and ponds at the catalogue point; the small rectangle SW of the centre is a plot, not the hunebed",
+  "checked": "2026-10-10"
+ },
+ "thornborough-henges": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the survey has a no-data wedge across the middle that hides two of the three henges",
+  "checked": "2026-10-10"
+ },
+ "bern-engehalbinsel": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Aare loop and houses; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "castro-de-coana": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: rocky spur; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "clunia": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plateau and ravines; no walls resolved",
+  "checked": "2026-10-10"
+ },
+ "entremont-oppidum": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: town and roads",
+  "checked": "2026-10-10"
+ },
+ "gamleborg-bornholm": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: parallel rock ridges",
+  "checked": "2026-10-10"
+ },
+ "gergovie-plateau": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plateau with a village; no works readable",
+  "checked": "2026-10-10"
+ },
+ "keava-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: fields and a ravine; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "kernave": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the Neris valley terraces and the town; the hillforts cannot be told from the terrace edges",
+  "checked": "2026-10-10"
+ },
+ "koknese-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: peninsula at the Perse mouth; the castle ruin is too small to call an earthwork",
+  "checked": "2026-10-10"
+ },
+ "lindholm-hoje": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: the ship-shaped stone settings are not resolved at 2 m per pixel",
+  "checked": "2026-10-10"
+ },
+ "lohavere-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a small bright oval hill among ravines; not an obvious hillfort",
+  "checked": "2026-10-10"
+ },
+ "magdalenska-gora": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forested hill with dark patches; no ramparts readable",
+  "checked": "2026-10-10"
+ },
+ "mont-vully-oppidum": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: steep ridge face above fields; no ramparts readable",
+  "checked": "2026-10-10"
+ },
+ "mur-paien-mont-sainte-odile": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: rocky ridges and a quarry; no wall line identifiable",
+  "checked": "2026-10-10"
+ },
+ "naveta-des-tudons": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forest and field noise",
+  "checked": "2026-10-10"
+ },
+ "spiennes-flint-mines": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: squarish plateau cut by a railway; the mine pits are not resolved",
+  "checked": "2026-10-10"
+ },
+ "odry-stone-circles": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forest noise",
+  "checked": "2026-10-10"
+ },
+ "otepaa-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: town, lake and noisy ground",
+  "checked": "2026-10-10"
+ },
+ "punia-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a big Nemunas meander only",
+  "checked": "2026-10-10"
+ },
+ "rapola-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: lake and forest noise",
+  "checked": "2026-10-10"
+ },
+ "rifnik-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: steep dissected hills with a white patch on a hilltop; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "numancia-siege-camps": {
+  "status": "rejected",
+  "note": "duplicate of numancia (same plateau)",
+  "checked": "2026-10-10"
+ },
+ "sammallahdenmaki": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forest noise",
+  "checked": "2026-10-10"
+ },
+ "sticna-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: karst forest with doline pits",
+  "checked": "2026-10-10"
+ },
+ "talsi-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: town and lake; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "torre-den-galmes": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: rocky knoll with white noise and field walls; nothing readable as a talayotic settlement",
+  "checked": "2026-10-10"
+ },
+ "tervete-hillforts": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: flat plain with ravines; nothing readable",
+  "checked": "2026-10-10"
+ },
+ "uetliberg-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: ridge junction in ravines; no ramparts",
+  "checked": "2026-10-10"
+ },
+ "uxellodunum-puy-d-issolud": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a crisp mesa with an edge scarp; no works readable",
+  "checked": "2026-10-10"
+ },
+ "valjala-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: flat farmland",
+  "checked": "2026-10-10"
+ },
+ "vace-hillfort": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: karst forest",
+  "checked": "2026-10-10"
+ },
+ "wittnauer-horn": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: flat-topped hill with a dot on the summit; no ramparts readable",
+  "checked": "2026-10-10"
+ },
+ "wesiory-stone-circles": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: noise",
+  "checked": "2026-10-10"
+ },
+ "sleza": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forest puffs with white blobs; no earthwork visible",
+  "checked": "2026-10-10"
+ },
+ "effigy-mounds-nm": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forested bluff: the effigies are lower than 1 m and are not resolved; the Wikidata point is the visitor-centre pond and road embankment",
+  "checked": "2026-10-10"
+ },
+ "beloit-college-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: campus: buildings and lawns; the effigy mounds (0.3-1 m) are not resolved at 3 m LRM",
+  "checked": "2026-10-10"
+ },
+ "hunebed-d27-borger": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Borger village houses; the hunebed is not resolved at 4 m LRM at the Wikipedia point",
+  "checked": "2026-10-10"
+ },
+ "hunebedden-rolde-d17-d18": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Rolde village and fields; nothing resolved",
+  "checked": "2026-10-10"
+ },
+ "nonnebakken": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: built over: the Viking ring fortress shows only as a ring road in the Odense suburb",
+  "checked": "2026-10-10"
+ },
+ "heidenschanze-dresden-coschuetz": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: terraces and a quarry on a dissected slope; no rampart ring readable",
+  "checked": "2026-10-10"
+ },
+ "vindonissa": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: Windisch town and the Aare loop; the legionary camp is built over",
+  "checked": "2026-10-10"
+ },
+ "trzcinica-grodzisko": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected agricultural terraces; nothing resolved at the catalogue point (low-confidence coordinate)",
+  "checked": "2026-10-10"
+ },
+ "spruce-hill-works": {
+  "status": "unconfirmed",
+  "note": "the catalogue point (-83.17,39.25) is a creek terrace 4.5 km from the GNIS 'Spruce Hill' ridge (-83.1377,39.2760): retry the stone-walled hilltop there",
+  "checked": "2026-10-10"
+ },
+ "liberty-works": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "turner-group": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "dunlap-works": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "leake-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: buildings, tanks and irrigation circles at the Wikidata point",
+  "checked": "2026-10-10"
+ },
+ "bynum-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a highway and a figure-8 loop road; two tiny bumps ~110 m W of the point; not conclusive",
+  "checked": "2026-10-10"
+ },
+ "menard-hodges": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: fields",
+  "checked": "2026-10-10"
+ },
+ "man-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: fields and farm buildings; no figure resolved",
+  "checked": "2026-10-10"
+ },
+ "castalian-springs-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: one very faint round bump (~25 m) in a field at the Wikidata point in the 1 m ground grid: not conclusive",
+  "checked": "2026-10-10"
+ },
+ "hiwassee-island": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected forested hills in the 1 m ground grid; no mound resolved",
+  "checked": "2026-10-10"
+ },
+ "garden-creek-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: buildings and a highway",
+  "checked": "2026-10-10"
+ },
+ "kituwah-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected hills",
+  "checked": "2026-10-10"
+ },
+ "kingston-lake-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river levee and a plowed field",
+  "checked": "2026-10-10"
+ },
+ "sny-magill-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: flooded backwaters",
+  "checked": "2026-10-10"
+ },
+ "blood-run": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: contour-terraced farm fields",
+  "checked": "2026-10-10"
+ },
+ "utz-site": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: contour-terraced farm fields",
+  "checked": "2026-10-10"
+ },
+ "towosahgy": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plowed fields and ditches",
+  "checked": "2026-10-10"
+ },
+ "lilbourn": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a town grid and a pond ring",
+  "checked": "2026-10-10"
+ },
+ "carter-robinson-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: a village road grid and houses beside the Powell River bend; no mound resolved in the 1 m ground grid",
+  "checked": "2026-10-10"
+ },
+ "ripley-earthwork": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: plough stripes and a road; no earthwork resolved in the 1 m ground grid",
+  "checked": "2026-10-10"
+ },
+ "rock-eagle": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forested hills and a highway",
+  "checked": "2026-10-10"
+ },
+ "bear-creek-mound": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: dissected hills",
+  "checked": "2026-10-10"
+ },
+ "double-ditch": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: field with scattered potholes",
+  "checked": "2026-10-10"
+ },
+ "huff-village": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river meander with scattered round blobs; no readable village",
+  "checked": "2026-10-10"
+ },
+ "on-a-slant-village": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: river and levee",
+  "checked": "2026-10-10"
+ },
+ "owl-creek-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: two tiny domes ~300 m W of the Wikidata point beside a road; too small",
+  "checked": "2026-10-10"
+ },
+ "aztalan": {
+  "status": "confirmed",
+  "method": "LiDAR crops 1.4 km / 700 m / 500 m + 1891/1959 quads",
+  "note": "two platform mounds (~40 m) ~350 m apart on the Crawfish River terrace (43.0677 and 43.0646), a diagonal row of ~7 conical mounds N of them beside the road, and the village / bridge to the N; the 1959 quad prints 'Indian Mounds' / 'AZTALAN STATE PARK' at the N end; centre set between the two platforms",
+  "checked": "2026-10-10",
+  "moved_m": 645,
+  "from": [
+   -88.861,
+   43.073
+  ],
+  "to": [
+   -88.8618,
+   43.0672
+  ]
+ },
+ "cahokia-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crop + GNIS Monks Mound (-90.0621,38.6606)",
+  "note": "platform mounds in a cluster N of the catalogue point; 1888 quad 'Monks Mound' (contour ovals), 1998 quad 'CAHOKIA MOUNDS STATE HISTORIC SITE', 'Rattlesnake Mound'",
+  "checked": "2026-10-10",
+  "moved_m": 290,
+  "from": [
+   -90.062,
+   38.655
+  ],
+  "to": [
+   -90.063,
+   38.6575
+  ]
+ },
+ "criel-mound": {
+  "status": "confirmed",
+  "method": "LiDAR relief + 1909/1996 quads + Wikidata",
+  "note": "round mound at the NE edge of South Charleston ~800 m E of the catalogue point; 1909 quad 'Mound', 1996 quad 'Indian Mound' with the mound symbol",
+  "checked": "2026-10-10",
+  "moved_m": 814,
+  "from": [
+   -81.706,
+   38.368
+  ],
+  "to": [
+   -81.6967,
+   38.3686
+  ]
+ },
+ "etowah": {
+  "status": "confirmed",
+  "method": "numeric relief-peak search (GA_Statewide_2018_B18_DRRA 1 m)",
+  "note": "mound peaks of 5-9 m relief at E-125..-180 m / N-70..-160 m of the old point; 1992 quad 'ETOWAH MOUNDS STATE HISTORIC SITE', 'Indian Mounds'",
+  "checked": "2026-10-10",
+  "moved_m": 184,
+  "from": [
+   -84.806,
+   34.126
+  ],
+  "to": [
+   -84.8076,
+   34.125
+  ]
+ },
+ "florence-indian-mound": {
+  "status": "confirmed",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "square flat-topped mound with its ditch exactly at the Wikidata point (Waumanona Mound); the catalogue point was downtown Florence",
+  "checked": "2026-10-10",
+  "moved_m": 1409,
+  "from": [
+   -87.68,
+   34.8
+  ],
+  "to": [
+   -87.67,
+   34.7903
+  ]
+ },
+ "grave-creek-mound": {
+  "status": "confirmed",
+  "method": "LiDAR relief + 1997 quad + Wikidata",
+  "note": "round mound with a ring in the Moundsville grid; 1997 quad 'Grave Creek Indian Mound Museum'",
+  "checked": "2026-10-10",
+  "moved_m": 261,
+  "from": [
+   -80.743,
+   39.919
+  ],
+  "to": [
+   -80.7444,
+   39.9169
+  ]
+ },
+ "indian-mounds-park-st-paul": {
+  "status": "approx",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "chain of ~6 small round mounds (10-15 m) along the bluff crest ~230 m W of the Wikidata point, above the railway yards; quads 'Mounds Park Jr High Sch'",
+  "checked": "2026-10-10",
+  "moved_m": 1269,
+  "from": [
+   -93.06,
+   44.957
+  ],
+  "to": [
+   -93.0565,
+   44.9458
+  ]
+ },
+ "kolomoki": {
+  "status": "confirmed",
+  "method": "numeric relief-peak search (GA_SW_Georgia_22_County_Lidar_2017_B17 1 m) + Wikidata",
+  "note": "Mound A: the largest relief (12 m, 67 x 92 m) at the Wikidata point; more mounds 300-440 m S; the catalogue point was ~1.6 km NE",
+  "checked": "2026-10-10",
+  "moved_m": 1621,
+  "from": [
+   -84.93,
+   31.48
+  ],
+  "to": [
+   -84.9398,
+   31.468
+  ]
+ },
+ "lake-jackson-mounds": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop at the Wikidata point",
+  "note": "two big round domes with dark halos (~80 m N and ~190 m E / 100 m N of the point) and a smaller bump in a wooded park by the lake; the catalogue point was Tallahassee subdivisions",
+  "checked": "2026-10-10",
+  "moved_m": 1966,
+  "from": [
+   -84.33,
+   30.51
+  ],
+  "to": [
+   -84.312,
+   30.5015
+  ]
+ },
+ "letchworth-love-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "one huge four-lobed platform mound (~75 m, dark moat) ~30 m E / 110 m N of the point",
+  "checked": "2026-10-10",
+  "moved_m": 5880,
+  "from": [
+   -83.93,
+   30.52
+  ],
+  "to": [
+   -83.9913,
+   30.5187
+  ]
+ },
+ "mounds-state-park": {
+  "status": "confirmed",
+  "method": "LiDAR crop 800 m at (-85.6207,40.1004)",
+  "note": "rounded-rectangle ring earthwork (~60 x 35 m) ~130 m E / 285 m N of the old point beside the White River bend (the Great Mound is a separate feature)",
+  "checked": "2026-10-10",
+  "moved_m": 1892,
+  "from": [
+   -85.62,
+   40.12
+  ],
+  "to": [
+   -85.6192,
+   40.1029
+  ]
+ },
+ "moundville": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop + 1924/2002 quads",
+  "note": "oval plaza ringed by ~15 mounds; 1924 quad draws contour ovals, 2002 quad 'Moundville', 'MOUND STATE MON.'",
+  "checked": "2026-10-10",
+  "moved_m": 55,
+  "from": [
+   -87.631,
+   33.005
+  ],
+  "to": [
+   -87.631,
+   33.0055
+  ]
+ },
+ "nacoochee-mound": {
+  "status": "confirmed",
+  "method": "GNIS 'Nacoochee Indian Mound' (summit) + 500 m LiDAR crop",
+  "note": "one bright round mound exactly at the GNIS point in a field; the catalogue point was steep forested mountains (Dukes Creek)",
+  "checked": "2026-10-10",
+  "moved_m": 1960,
+  "from": [
+   -83.73,
+   34.68
+  ],
+  "to": [
+   -83.70902,
+   34.68353
+  ]
+ },
+ "pinson-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crop 1.5 km at the Wikidata point",
+  "note": "big star-shaped Sauls Mound ~250 m S of the Wikidata point and a small rounded enclosure at it; the catalogue point was a highway and two ponds",
+  "checked": "2026-10-10",
+  "moved_m": 3028,
+  "from": [
+   -88.69,
+   35.47
+  ],
+  "to": [
+   -88.6826,
+   35.4967
+  ]
+ },
+ "piketon-works": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop at the Wikidata point ('Piketon Mounds')",
+  "note": "three round mounds (one ~30 m) in a fenced plot beside the highway; the catalogue point was the Scioto River and a railway",
+  "checked": "2026-10-10",
+  "moved_m": 2679,
+  "from": [
+   -83.0,
+   39.07
+  ],
+  "to": [
+   -83.0194,
+   39.0511
+  ]
+ },
+ "poverty-point": {
+  "status": "confirmed",
+  "method": "LiDAR relief + 1959/1986 quads",
+  "note": "concentric curved ridges NE of the old centre and the bird-shaped mound W of them; 1959 quad 'Poverty Pt.' + 'Indian Mounds', 1986 quad 'POVERTY POINT STATE PARK'",
+  "checked": "2026-10-10",
+  "moved_m": 280,
+  "from": [
+   -91.407,
+   32.636
+  ],
+  "to": [
+   -91.4075,
+   32.6385
+  ]
+ },
+ "safety-harbor-mound": {
+  "status": "confirmed",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "bright round mound with a halo at the headland tip exactly at the Wikidata point; the catalogue point was subdivisions",
+  "checked": "2026-10-10",
+  "moved_m": 2421,
+  "from": [
+   -82.7,
+   28.0
+  ],
+  "to": [
+   -82.6775,
+   28.0089
+  ]
+ },
+ "serpent-mound": {
+  "status": "confirmed",
+  "method": "LiDAR crop + Wikidata",
+  "note": "the winding serpent ~60 m W / 60 m N of the old point; 1915 quad 'Serpent Mound', 1961 quad 'SERPENT MOUND STATE MEMORIAL'",
+  "checked": "2026-10-10",
+  "moved_m": 192,
+  "from": [
+   -83.42984,
+   39.02419
+  ],
+  "to": [
+   -83.43044,
+   39.02586
+  ]
+ },
+ "toltec-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR relief + 1942/1987 quads + Wikidata",
+  "note": "two bright round mounds beside the oxbow ~460 m W / 270 m S of the old point; 1942 quad 'Toltec Mounds' with contour circles, 1987 'TOLTEC MOUNDS STATE PARK'",
+  "checked": "2026-10-10",
+  "moved_m": 594,
+  "from": [
+   -92.06,
+   34.65
+  ],
+  "to": [
+   -92.0653,
+   34.6469
+  ]
+ },
+ "turtle-mound": {
+  "status": "confirmed",
+  "method": "LiDAR crop at the GNIS point",
+  "note": "bright shell mound (~40 m, white halo) on the lagoon spit exactly at the GNIS point; the catalogue point was open water 8 km away",
+  "checked": "2026-10-10",
+  "moved_m": 7981,
+  "from": [
+   -80.85,
+   29.0
+  ],
+  "to": [
+   -80.8271,
+   28.9307
+  ]
+ },
+ "winterville-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crop 1 km at the Wikidata point",
+  "note": "Mound A (~60 m) and ~8 smaller mounds in a fenced park; the catalogue point was the levee and river",
+  "checked": "2026-10-10",
+  "moved_m": 2983,
+  "from": [
+   -91.07,
+   33.46
+  ],
+  "to": [
+   -91.0606,
+   33.4858
+  ]
+ },
+ "fort-ancient": {
+  "status": "confirmed",
+  "method": "LiDAR crops (1.4 km, LRM 4) + 1914/1996 quads",
+  "note": "1914 quad 'Fort Ancient', 1996 quad 'FORT ANCIENT STATE MEMORIAL', 'Museum', 'Stone Circle', 'Burial Mounds'; thin wall lines along the plateau edges show at LRM 4",
+  "checked": "2026-10-10",
+  "moved_m": 528,
+  "from": [
+   -84.09255,
+   39.40336
+  ],
+  "to": [
+   -84.0903,
+   39.4078
+  ]
+ },
+ "arledge-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR + 1914 quad",
+  "note": "round mound exactly at the centre; 1914 quad prints 'Indian Mound' with a mound circle there",
+  "checked": "2026-10-10"
+ },
+ "alligator-mound": {
+  "status": "confirmed",
+  "method": "300 m LiDAR crop",
+  "note": "lobed effigy inside the ring road on the hilltop at the centre; 1908/1961 quads label Parnassus Hill / Granville but no mound",
+  "checked": "2026-10-10"
+ },
+ "biggs-site": {
+  "status": "confirmed",
+  "method": "LiDAR + 1926/1968 quads",
+  "note": "ring-ditched round mound and a lattice of small squares on the terrace between the river and the C&O railway; quads 'CHESAPEAKE', 'Frost' = the KENTUCKY bank (Greenup County), not Scioto County OH",
+  "checked": "2026-10-10"
+ },
+ "frankfort-works": {
+  "status": "approx",
+  "method": "LiDAR crop + 1961 quad",
+  "note": "a round mound beside the road; 1961 quad 'Indian Mound' ~100 m W of the centre; the enclosure walls are plowed out and not visible",
+  "checked": "2026-10-10"
+ },
+ "miamisburg-mound": {
+  "status": "confirmed",
+  "method": "LiDAR + 1908/1965 quads",
+  "note": "huge round mound with a dark ring at the centre; 1908 quad 'BIG MOUND', 1965 quad 'MIAMISBURG MOUND STATE MEMORIAL'",
+  "checked": "2026-10-10"
+ },
+ "mound-city": {
+  "status": "confirmed",
+  "method": "LiDAR + 1961 quad",
+  "note": "rounded-rectangle enclosure with ~20 mounds beside the Scioto; 1961 quad 'MOUND CITY GROUP NATIONAL MONUMENT'",
+  "checked": "2026-10-10"
+ },
+ "norwood-mound": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop + 1898 quad",
+  "note": "oval mound (~15 m) in a street block; the 1898 quad draws a small closed contour on the hilltop",
+  "checked": "2026-10-10"
+ },
+ "portsmouth-earthworks": {
+  "status": "approx",
+  "method": "500 m LiDAR crop + 1968 quad",
+  "note": "the U-shaped 'Horseshoe Mound' (~40 m) in the Mound Park block of Portsmouth; the rest of the works are built over; 1968 quad 'Mound Park'",
+  "checked": "2026-10-10"
+ },
+ "seip-earthworks": {
+  "status": "confirmed",
+  "method": "LiDAR + 1915/1961 quads",
+  "note": "circular wall arc (~280 m), the long Seip Mound and a round mound beside Paint Creek; 1915 quad 'Seip Moun[d]', 1961 quad 'SEIP MOUND STATE MEMORIAL'",
+  "checked": "2026-10-10"
+ },
+ "shrum-mound": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop",
+  "note": "round mound in a small square plot beside the road and a lake",
+  "checked": "2026-10-10"
+ },
+ "story-mound-chillicothe": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop",
+  "note": "round mound with a halo among houses",
+  "checked": "2026-10-10"
+ },
+ "tremper-mound": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop + 1961 quad",
+  "note": "faint oval enclosure (~120 m) with the C-shaped mound inside; 1961 quad prints 'Tremper Mound'",
+  "checked": "2026-10-10"
+ },
+ "wickliffe-mounds": {
+  "status": "approx",
+  "method": "500 m LiDAR crop + 1970 quad",
+  "note": "ring-ditched round bump (~30 m) on a bluff-top bench and a second bump to the NE; 1970 quad 'Ancient Buried City'",
+  "checked": "2026-10-10"
+ },
+ "kincaid-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "four or five platform mounds beside the Ohio River terrace, two more NE of them",
+  "checked": "2026-10-10",
+  "moved_m": 31501,
+  "from": [
+   -88.84,
+   37.14
+  ],
+  "to": [
+   -88.4928,
+   37.0807
+  ]
+ },
+ "mount-horeb-earthworks": {
+  "status": "confirmed",
+  "method": "LiDAR crop 500 m at the Wikidata point",
+  "note": "clean circular earthwork (~35 m, gap at lower left) beside a big curved embankment",
+  "checked": "2026-10-10",
+  "moved_m": 13485,
+  "from": [
+   -84.5,
+   38.04
+  ],
+  "to": [
+   -84.4647,
+   38.1587
+  ]
+ },
+ "grand-mound-mn": {
+  "status": "approx",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "a small bright oblong mound on the Rainy River point bar",
+  "checked": "2026-10-10",
+  "moved_m": 10605,
+  "from": [
+   -93.78,
+   48.6
+  ],
+  "to": [
+   -93.7086,
+   48.5167
+  ]
+ },
+ "pharr-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR crops 1.5 km and 500 m at the Wikidata point",
+  "note": "five or six round burial mounds (~20-25 m, bright halos) E and S of the point beside the Natchez Trace Parkway road",
+  "checked": "2026-10-10",
+  "moved_m": 17631,
+  "from": [
+   -88.38,
+   34.31
+  ],
+  "to": [
+   -88.4167,
+   34.4665
+  ]
+ },
+ "mound-bottom": {
+  "status": "confirmed",
+  "method": "LiDAR crops 1.5 km and 500 m at the Wikidata point (1 m ground grid from the TN_Middle_B1_2018 point cloud)",
+  "note": "river-meander plateau (~700 m) with a square platform mound (~40 m, with a ramp) at the point and smaller mounds E and S of it; the 3DEP 1 m DEM is not published for this area, so the DEM comes from the point cloud",
+  "checked": "2026-10-10",
+  "moved_m": 5765,
+  "from": [
+   -87.06,
+   36.1
+  ],
+  "to": [
+   -87.1014,
+   36.1398
+  ]
+ },
+ "lamar-mounds": {
+  "status": "approx",
+  "method": "LiDAR crop at the Wikidata point",
+  "note": "a thin n-shaped embankment (~250 m) with two round mounds beside it",
+  "checked": "2026-10-10",
+  "moved_m": 3739,
+  "from": [
+   -83.58,
+   32.78
+  ],
+  "to": [
+   -83.5922,
+   32.8122
+  ]
+ },
+ "fort-walton-temple-mound": {
+  "status": "confirmed",
+  "method": "LiDAR crop 600 m",
+  "note": "an isolated round platform mound (~35 m) in a downtown block exactly at the point",
+  "checked": "2026-10-10",
+  "moved_m": 263,
+  "from": [
+   -86.61,
+   30.404
+  ],
+  "to": [
+   -86.6073,
+   30.4044
+  ]
+ },
+ "avebury": {
+  "status": "confirmed",
+  "method": "LiDAR + OS six-inch + 1944-50 air photo",
+  "note": "henge ring (~350 m) at the centre; OS 1st 'The Temple (Stone Circle)', 'Avebury'; the air photo labels AVEBURY over the ring",
+  "checked": "2026-10-10"
+ },
+ "badbury-rings": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st + air photo",
+  "note": "three concentric oval ramparts; OS 'Badbury Rings (Camp)', 'Badbury Clump', 'Roman Road'",
+  "checked": "2026-10-10"
+ },
+ "balfarg-henge": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 2nd",
+  "note": "round henge bank (~70 m) inside the estate loop road; OS 2nd 'Standing Stones'",
+  "checked": "2026-10-10"
+ },
+ "clava-cairns": {
+  "status": "approx",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "location confirmed by OS 'Stone Circles and Cairns' (Balnuaran of Clava); the relief shows a few small circles on the terrace",
+  "checked": "2026-10-10"
+ },
+ "bar-hill-fort": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "rectangular fort platform with ramparts; the Antonine Wall crosses; OS 1st 'STATION (Remains of)', 2nd 'ROMAN STATION'",
+  "checked": "2026-10-10"
+ },
+ "berkhamsted-castle": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st",
+  "note": "motte, bailey and double moat; OS 1st 'The Castle (Remains of)'",
+  "checked": "2026-10-10"
+ },
+ "birdoswald": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 2nd",
+  "note": "fort platform (~140 x 120 m) above the river gorge; OS 2nd 'AMBOGLANNA (ROMAN STATION)', 'ROMAN WALL', 'VALLUM'",
+  "checked": "2026-10-10"
+ },
+ "burnswark-hill": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "OS 1st 'Birrenswark Hill' with 'Forts', 'Camp', 'Three Brethren'; ~40% of the western part of the panel is no-data but the hill and camps are inside the data",
+  "checked": "2026-10-10"
+ },
+ "cairnpapple-hill": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "ring (~40 m) on the hilltop; OS 1st 'Cairn-naple Hill' with a ring + 'Fort'",
+  "checked": "2026-10-10"
+ },
+ "cawthorn-camps": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "three small square camps and a fourth larger one SW of the centre; OS 'ROMAN CAMPS'",
+  "checked": "2026-10-10"
+ },
+ "chesters-cilurnum": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "fort platform with the bath-house beside the North Tyne; OS 1st 'CILURNUM Roman Station (Remains of)'",
+  "checked": "2026-10-10"
+ },
+ "craig-phadrig": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "the vitrified fort sits on the craggy hill at the catalogue point (an eyeballed 230 m shift north was wrong: the QC build put the hill 240 m south of the shifted centre); OS 'Craig Phadrig' / 'Vitrified Fort'",
+  "checked": "2026-10-10",
+  "moved_m": 0,
+  "from": [
+   -4.269,
+   57.477
+  ],
+  "to": [
+   -4.269,
+   57.477
+  ]
+ },
+ "danebury": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 25-inch + air photo",
+  "note": "double-rampart hillfort; OS 25-inch 'Intrenchment, Danebury Hill'; the air photo labels it too",
+  "checked": "2026-10-10"
+ },
+ "dunadd": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "craggy fort hill beside the River Add; OS 1st 'Dunadd', 'Dun Add Fort'",
+  "checked": "2026-10-10"
+ },
+ "edins-hall-broch": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "the broch ring (~30 m) is ~90 m S of the catalogue point (an eyeballed 270 m shift north was wrong; read from the QC build, where the ring and the OS 'Edinshall (Remains of)' agree); OS 'Edinshall (Remains of)'",
+  "checked": "2026-10-10",
+  "moved_m": 90,
+  "from": [
+   -2.365,
+   55.836
+  ],
+  "to": [
+   -2.3647,
+   55.8352
+  ]
+ },
+ "eildon-hill-north": {
+  "status": "confirmed",
+  "method": "numeric check of the DEM + OS 'Eildon Hill North Camp'",
+  "note": "the north summit with the concentric rampart ring; the old centre was the saddle near Eildon Mid Hill",
+  "checked": "2026-10-10",
+  "moved_m": 319,
+  "from": [
+   -2.712,
+   55.584
+  ],
+  "to": [
+   -2.7092,
+   55.5864
+  ]
+ },
+ "inchtuthil": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "Roman fortress terrace above the Tay; OS 'ROMAN CAMP ... General Roy', 'Inchtuthill'",
+  "checked": "2026-10-10"
+ },
+ "jarlshof": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st",
+  "note": "headland with the ruined cluster; OS 1st 'Jarlshof (in Ruins)'",
+  "checked": "2026-10-10"
+ },
+ "kilmartin-temple-wood": {
+  "status": "confirmed",
+  "method": "LiDAR crop + OS 1st/2nd",
+  "note": "two small rings on the glen floor (1 km crop, LRM 6); OS 'Standing Stone(s)', 'Cairn' along the glen",
+  "checked": "2026-10-10"
+ },
+ "maeshowe": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "mound with its ring ditch; OS 'Maes Howe (Chambered Mound)'",
+  "checked": "2026-10-10"
+ },
+ "maiden-castle-dorset": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 6-inch + air photo",
+  "note": "multi-rampart oval hillfort; OS 6-inch 'Maiden Castle (Camp)'",
+  "checked": "2026-10-10"
+ },
+ "mount-caburn": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st + air photo",
+  "note": "oval rampart on the hilltop; OS 1st 'Mount Caburn Camp'",
+  "checked": "2026-10-10"
+ },
+ "old-sarum": {
+  "status": "confirmed",
+  "method": "LiDAR",
+  "note": "outer oval rampart, inner ring ditch and castle motte at the centre",
+  "checked": "2026-10-10"
+ },
+ "raedykes": {
+  "status": "approx",
+  "method": "OS 1st/2nd 'CAMP OF RAEDYKES'",
+  "note": "location confirmed by the maps; the relief is forest noise and does not resolve the camp",
+  "checked": "2026-10-10"
+ },
+ "ring-of-brodgar": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "ring ditch (~100 m) and mounds on the Ness; OS 'Stone Circle of Brodgar'",
+  "checked": "2026-10-10"
+ },
+ "rough-castle-fort": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "Antonine Wall ditch and the fort platform; OS 1st 'ROUGH CASTLE (Remains of)'",
+  "checked": "2026-10-10"
+ },
+ "silbury-hill": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st + air photo",
+  "note": "the great mound with its ditch; OS 1st 'Silbury Hill'",
+  "checked": "2026-10-10"
+ },
+ "stones-of-stenness": {
+  "status": "approx",
+  "method": "LiDAR + OS",
+  "note": "a faint ring (~50 m) on the isthmus between the lochs; OS 'Standing Stones'",
+  "checked": "2026-10-10"
+ },
+ "sutton-hoo": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "~7 round barrows with ring ditches ~250 m E of the centre; OS 'Tumuli', 'Sutton Haugh'",
+  "checked": "2026-10-10"
+ },
+ "tap-o-noth": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "oval fort ring on a boulder-strewn summit; OS 'Vitrified Fort (Remains of)', 'Outer Line of Entrenchment'; blocky tile-edge artefacts in the relief",
+  "checked": "2026-10-10"
+ },
+ "the-trundle": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st",
+  "note": "oval ramparted hillfort; OS 1st 'The Trundle, Supposed British Camp'",
+  "checked": "2026-10-10"
+ },
+ "traprain-law": {
+  "status": "confirmed",
+  "method": "LiDAR + OS 1st/2nd",
+  "note": "whale-back hill; OS 'TRAPRAIN LAW', 'Gold Knowe'",
+  "checked": "2026-10-10"
+ },
+ "vindolanda": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "fort platform and annexe terraces; OS 1st 'VINDOLANA (Remains of)', 'Hypocaust'",
+  "checked": "2026-10-10"
+ },
+ "whitley-castle": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "multi-ramparted fort; OS 'Whitley Castle (Roman Station)', 'Maiden Way'",
+  "checked": "2026-10-10"
+ },
+ "wroxeter-viroconium": {
+  "status": "confirmed",
+  "method": "LiDAR + OS",
+  "note": "Severn bend and a faint rectilinear town pattern; OS 1st 'VIROCONIVM', 'City Wall'",
+  "checked": "2026-10-10"
+ },
+ "yeavering-bell": {
+  "status": "approx",
+  "method": "OS 1st/2nd + LiDAR crop",
+  "note": "location confirmed by the OS oval enclosure ('Yeavering Bell', 'Druidical Remains'); the relief is noisy (heather) and shows two ring features",
+  "checked": "2026-10-10"
+ },
+ "aggersborg": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "ring fortress (~240 m) with four gate gaps on the Limfjord shore",
+  "checked": "2026-10-10"
+ },
+ "antequera-menga-dolmen": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop (LRM 5)",
+  "note": "the Menga tumulus (~50 m, with its crescent entrance trench) at the point, the Viera tumulus beside it",
+  "checked": "2026-10-10"
+ },
+ "apuole-hillfort": {
+  "status": "confirmed",
+  "method": "400 m LiDAR crop (LRM 5)",
+  "note": "a rounded-square hillfort (~200 m) with bank and ditch on a promontory above a creek",
+  "checked": "2026-10-10"
+ },
+ "aventicum": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "the walled Roman town outline with the amphitheatre oval inside its upper part",
+  "checked": "2026-10-10"
+ },
+ "borgring": {
+  "status": "approx",
+  "method": "LiDAR relief (coarse cloud)",
+  "note": "a faint ring ~100 m across left of the road at the centre",
+  "checked": "2026-10-10"
+ },
+ "fyrkat": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "ring fortress (~120 m) with four gates",
+  "checked": "2026-10-10"
+ },
+ "jelling-mounds": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "the two great mounds with their halos, the church between them and the ship-setting oval",
+  "checked": "2026-10-10"
+ },
+ "jersika-hillfort": {
+  "status": "approx",
+  "method": "LiDAR relief",
+  "note": "a small oval rise on the Daugava bank in a loop of the river; nothing else readable",
+  "checked": "2026-10-10"
+ },
+ "las-medulas": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "the Roman gold-mining landscape: pinnacles, gullies and a belt of tailings",
+  "checked": "2026-10-10"
+ },
+ "numancia": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "the Cerro de la Muela plateau with a rectilinear street grid and rampart edge at the Duero bend",
+  "checked": "2026-10-10"
+ },
+ "santok": {
+  "status": "confirmed",
+  "method": "LiDAR relief (3 km)",
+  "note": "rounded-square ringwork (~250 m) with bank and ditch on the river bend, ~1 km W of the old point",
+  "checked": "2026-10-10",
+  "moved_m": 1015,
+  "from": [
+   15.417,
+   52.733
+  ],
+  "to": [
+   15.402,
+   52.7338
+  ]
+ },
+ "trelleborg-slagelse": {
+  "status": "confirmed",
+  "method": "LiDAR relief",
+  "note": "a perfect ring fortress with its outer ward",
+  "checked": "2026-10-10"
+ },
+ "los-millares": {
+  "status": "approx",
+  "method": "800 m LiDAR crop (LRM 5)",
+  "note": "~40 small ring-shaped dots over the plateau (probably the collapsed tholos tombs of the necropolis); the fortification walls are not clearly resolved",
+  "checked": "2026-10-10"
+ },
+ "hopewell-mound-group": {
+  "status": "approx",
+  "method": "LiDAR crop 1.5 km at the UNESCO point",
+  "note": "the walls of the great enclosure are plowed flat: a plowed terrace with one fuzzy elongated mound (Mound 25, ~120 m) SW of the point; location is the UNESCO component point",
+  "checked": "2026-10-10"
+ },
+ "ocmulgee": {
+  "status": "confirmed",
+  "method": "800 m LiDAR crop: Great Temple Mound at (-83.6086,32.8369), round mound at the Wikidata point (-83.6051,32.8411)",
+  "note": "the catalogue point was 400 m E of the Great Temple Mound; centre set between the two",
+  "checked": "2026-10-10",
+  "moved_m": 284,
+  "from": [
+   -83.604,
+   32.838
+  ],
+  "to": [
+   -83.6068,
+   32.839
+  ]
+ },
+ "fort-toulouse-mound": {
+  "status": "approx",
+  "method": "GNIS 'Fort Toulouse (historical)' + 800 m LiDAR crop",
+  "note": "the bastioned square fort (Fort Toulouse / Fort Jackson) at the confluence; the Woodland mound is ~400 m NW; quads print 'Fort' and 'Indian Mound'",
+  "checked": "2026-10-10",
+  "moved_m": 624,
+  "from": [
+   -86.26,
+   32.5
+  ],
+  "to": [
+   -86.2557,
+   32.5043
+  ]
+ },
+ "crystal-river": {
+  "status": "approx",
+  "method": "800 m LiDAR crop + 1954 quads 'Indian Mound'",
+  "note": "ring-shaped and round mounds on the north bank at the river mouth, where both 1954 quads print 'Indian Mound'; the catalogue point was marsh and canals",
+  "checked": "2026-10-10",
+  "moved_m": 875,
+  "from": [
+   -82.63,
+   28.9
+  ],
+  "to": [
+   -82.6285,
+   28.9078
+  ]
+ },
+ "angel-mounds": {
+  "status": "confirmed",
+  "method": "800 m LiDAR crop at the Wikidata point",
+  "note": "the large Mound A (a rectangle ~50 x 70 m) inside the D-shaped palisade line on the Ohio terrace; the catalogue point was the Ohio River levee",
+  "checked": "2026-10-10",
+  "moved_m": 1885,
+  "from": [
+   -87.44,
+   37.93
+  ],
+  "to": [
+   -87.4555,
+   37.9418
+  ]
+ },
+ "marksville": {
+  "status": "confirmed",
+  "method": "800 m LiDAR crop at the Wikidata point",
+  "note": "the great D-shaped embankment arc with several round mounds inside it, beside the Marksville town grid",
+  "checked": "2026-10-10",
+  "moved_m": 1274,
+  "from": [
+   -92.06,
+   31.12
+  ],
+  "to": [
+   -92.0478,
+   31.1247
+  ]
+ },
+ "madira-bickel": {
+  "status": "confirmed",
+  "method": "600 m LiDAR crop at the Wikidata point",
+  "note": "a platform mound (~36 m) with a notch at the Wikidata point; the catalogue point was a freeway interchange 2 km away",
+  "checked": "2026-10-10",
+  "moved_m": 2058,
+  "from": [
+   -82.58,
+   27.58
+  ],
+  "to": [
+   -82.5928,
+   27.5653
+  ]
+ },
+ "maumbury-rings": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop at the catalogue point",
+  "note": "the horseshoe-shaped Maumbury Rings (~85 m) in Dorchester ~230 m W / 140 m S of the crop centre, i.e. at the catalogue point",
+  "checked": "2026-10-10"
+ },
+ "mount-pleasant-henge": {
+  "status": "confirmed",
+  "method": "800 m LiDAR crop",
+  "note": "the oval henge enclosure (~360 x 175 m) at the point",
+  "checked": "2026-10-10"
+ },
+ "west-kennet-long-barrow": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop",
+  "note": "the bright elongated barrow (~100 x 25 m) at the point",
+  "checked": "2026-10-10"
+ },
+ "windmill-hill-avebury": {
+  "status": "confirmed",
+  "method": "800 m LiDAR crop (LRM 6)",
+  "note": "the causewayed enclosure's concentric ditches with ring-ditched barrows",
+  "checked": "2026-10-10"
+ },
+ "burcht-van-leiden": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop (AHN4)",
+  "note": "the circular Burcht motte with its ring wall, ~40 m W of the point",
+  "checked": "2026-10-10"
+ },
+ "kong-asgers-hoj": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop",
+  "note": "a round mound (~20 m) with a halo exactly at the point in a field",
+  "checked": "2026-10-10"
+ },
+ "vilnius-gediminas-hill": {
+  "status": "confirmed",
+  "method": "500 m LiDAR crop",
+  "note": "the hill of Gediminas Tower with the castle ruins, ramparts and moat",
+  "checked": "2026-10-10"
+ },
+ "skara-brae": {
+  "status": "approx",
+  "method": "500 m LiDAR crop",
+  "note": "the Bay of Skaill shore with a faint grassy settlement patch ~50 m N of the point; the stone houses are under turf",
+  "checked": "2026-10-10"
+ },
+ "brodgar": {
+  "status": "rejected",
+  "note": "duplicate of ring-of-brodgar (early test build: the ring ~100 m N of its centre is the Ring of Brodgar)",
+  "checked": "2026-10-10"
+ },
+ "wyalusing-mounds": {
+  "status": "rejected",
+  "note": "coordinate or site not confirmed: forested bluff: a cluster of short curved bars (~35 m) 60 m SW of the catalogue point in the 1 m ground grid could be linear mounds but has canopy-noise edges; the rest is gullies and a picnic loop road: not conclusive",
+  "checked": "2026-10-10"
+ },
+ "spiro-mounds": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (crop at 35.2517,-94.5694: a town, a few ring-shaped features and a patch of regular bumps, none conclusive)",
+  "checked": "2026-10-10"
+ },
+ "emerald-mound": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (2.5 km crop at 31.5378,-91.3631: loess ravines, a highway and a long plateau too big to be the 235 m platform)",
+  "checked": "2026-10-10"
+ },
+ "grand-village-natchez": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (Natchez city blocks and a rounded-rectangular compound)",
+  "checked": "2026-10-10"
+ },
+ "pineland-site": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (a subdivision grid with one bright blob that may be Smith Mound)",
+  "checked": "2026-10-10"
+ },
+ "town-creek": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (forested terrain; the platform mound is not resolved)",
+  "checked": "2026-10-10"
+ },
+ "old-stone-fort": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (2.5 km crop: the Duck River forks and the plateau are there, the wall is not separable from the terrain at this setting; worth a LRM 4 crop on the neck of the peninsula)",
+  "checked": "2026-10-10"
+ },
+ "shiloh-mounds": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (Tennessee River bluff and ravines)",
+  "checked": "2026-10-10"
+ },
+ "sellars-farm": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory)",
+  "checked": "2026-10-10"
+ },
+ "caddo-mounds": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (forested hills and drainage)",
+  "checked": "2026-10-10"
+ },
+ "lizard-mound": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (the 1 m-high effigies are not separable from the canopy noise)",
+  "checked": "2026-10-10"
+ },
+ "fort-wayne-mound": {
+  "status": "unconfirmed",
+  "note": "1 m ground grid (3DEP point cloud) at the best-known coordinate: nothing identifiable as the earthwork; the catalogue coordinate is county-level (from memory) (the bastioned 1840s Fort Wayne is clear in Detroit; the Native mound beside it is not separable)",
+  "checked": "2026-10-10"
+ },
+ "mound-key": {
+  "status": "unconfirmed",
+  "note": "not rendered: the data read failed (SSL error) at GNIS 'Mound Key' (-81.864,26.422); retry",
+  "checked": "2026-10-10"
+ },
+ "romney-indian-mound": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "norton-mounds": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "nanih-waiya": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "santee-mound": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ },
+ "blackwater-group": {
+  "status": "unconfirmed",
+  "note": "not checked: the catalogue coordinate is county-level (from memory) and the earthwork could not be located in the sandbox (no GNIS or Wikidata point); needs a verified coordinate",
+  "checked": "2026-10-10"
+ }
+}

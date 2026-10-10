@@ -1,0 +1,16 @@
+{
+ "id": "clava-cairns",
+ "name": "Balnuaran of Clava cairns",
+ "place": "Scotland",
+ "lon": -4.0744,
+ "lat": 57.4737,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "barrow",
+ "period": "Early Bronze Age c.2000 BC",
+ "summary": "The Clava cairn is a type of Bronze Age circular chamber tomb cairn, named after the group of three cairns at Balnuaran of Clava, to the east of Inverness in Scotland. There are about 50 cairns of this type in an area round about Inverness.",
+ "wiki": "https://en.wikipedia.org/wiki/Clava_cairn",
+ "status": "standing"
+}

@@ -1,4 +1,153 @@
 {
- "cahokia-q333661": {"lon": -90.0635, "lat": 38.6572, "m": 2400,
-                     "why": "Wikidata's point is on the Twin Mounds and the 800 m mound box left out Monks Mound; this box holds Monks Mound, the Grand Plaza, the Twin Mounds and Woodhenge"}
+ "cahokia-q333661": {
+  "lon": -90.0635,
+  "lat": 38.6572,
+  "m": 2400,
+  "why": "Wikidata's point is on the Twin Mounds and the 800 m mound box left out Monks Mound; this box holds Monks Mound, the Grand Plaza, the Twin Mounds and Woodhenge"
+ },
+ "etowah-indian-mounds-q4533107": {
+  "lon": -84.8076,
+  "lat": 34.125,
+  "m": 1500,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'etowah')"
+ },
+ "waumanona-mound-q31580080": {
+  "lon": -87.67,
+  "lat": 34.7903,
+  "m": 800,
+  "name": "Florence Indian Mound",
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'florence-indian-mound')"
+ },
+ "indian-mounds-park-q3150092": {
+  "lon": -93.0565,
+  "lat": 44.9458,
+  "m": 900,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'indian-mounds-park-st-paul')"
+ },
+ "kolomoki-mounds-state-park-q4228402": {
+  "lon": -84.9398,
+  "lat": 31.468,
+  "m": 1600,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'kolomoki')"
+ },
+ "mounds-state-park-q1950269": {
+  "lon": -85.6192,
+  "lat": 40.1029,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'mounds-state-park')"
+ },
+ "piketon-mounds-q14716786": {
+  "lon": -83.0194,
+  "lat": 39.0511,
+  "m": 800,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'piketon-works')"
+ },
+ "fort-ancient-q5470727": {
+  "lon": -84.0903,
+  "lat": 39.4078,
+  "m": 2400,
+  "lrm_radius_m": 6,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'fort-ancient')"
+ },
+ "horseshoe-mound-q116268128": {
+  "lon": -82.97733,
+  "lat": 38.74325,
+  "m": 800,
+  "name": "Portsmouth Earthworks (Horseshoe Mound)",
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'portsmouth-earthworks')"
+ },
+ "seip-earthworks-q123916810": {
+  "lon": -83.21983,
+  "lat": 39.23747,
+  "m": 1600,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'seip-earthworks')"
+ },
+ "wickliffe-mounds-q1269580": {
+  "lon": -89.09,
+  "lat": 36.97,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'wickliffe-mounds')"
+ },
+ "grand-mound-q5594814": {
+  "lon": -93.7086,
+  "lat": 48.5167,
+  "m": 800,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'grand-mound-mn')"
+ },
+ "lamar-mounds-and-village-site-q6480896": {
+  "lon": -83.5922,
+  "lat": 32.8122,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'lamar-mounds')"
+ },
+ "birdoswald-roman-fort-and-the-section-of-q17650767": {
+  "lon": -2.6032,
+  "lat": 54.9897,
+  "m": 1000,
+  "name": "Birdoswald Roman Fort (Banna)",
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'birdoswald')"
+ },
+ "cawthorne-camp-q5055239": {
+  "lon": -0.796,
+  "lat": 54.302,
+  "m": 2500,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'cawthorn-camps')"
+ },
+ "the-roman-fort-vicus-bridge-abutments-an-q17650519": {
+  "lon": -2.138,
+  "lat": 55.025,
+  "m": 1100,
+  "name": "Chesters Roman Fort (Cilurnum)",
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'chesters-cilurnum')"
+ },
+ "mount-caburn-q12062109": {
+  "lon": 0.0508,
+  "lat": 50.8619,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'mount-caburn')"
+ },
+ "silbury-hill-q225896": {
+  "lon": -1.8574,
+  "lat": 51.4157,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'silbury-hill')"
+ },
+ "trundle-q7847949": {
+  "lon": -0.7539,
+  "lat": 50.8925,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'the-trundle')"
+ },
+ "yeavering-bell-camp-q17643662": {
+  "lon": -2.114,
+  "lat": 55.557,
+  "m": 1000,
+  "lrm_radius_m": 10,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (approx; data/catalog/location_checks.json 'yeavering-bell')"
+ },
+ "ocmulgee-mounds-national-historical-park-q1517500": {
+  "lon": -83.6068,
+  "lat": 32.839,
+  "m": 2400,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'ocmulgee')"
+ },
+ "maumbury-rings-q1702090": {
+  "lon": -2.44,
+  "lat": 50.708,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'maumbury-rings')"
+ },
+ "henge-enclosure-conquer-barrow-and-barro-q17648364": {
+  "lon": -2.413,
+  "lat": 50.708,
+  "m": 1600,
+  "name": "Mount Pleasant henge",
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'mount-pleasant-henge')"
+ },
+ "west-kennet-long-barrow-q541312": {
+  "lon": -1.8511,
+  "lat": 51.4086,
+  "m": 1000,
+  "why": "coordinate and box checked in LiDAR relief by the cloud branch (confirmed; data/catalog/location_checks.json 'west-kennet-long-barrow')"
+ }
 }

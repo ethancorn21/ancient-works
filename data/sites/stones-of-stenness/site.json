@@ -1,0 +1,16 @@
+{
+ "id": "stones-of-stenness",
+ "name": "Stones of Stenness",
+ "place": "Scotland",
+ "lon": -3.209,
+ "lat": 58.994,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "henge",
+ "period": "Neolithic c.3100 BC",
+ "summary": "Heart of Neolithic Orkney is a group of Neolithic monuments on the Mainland of the Orkney Islands, Scotland. The name was adopted by UNESCO when it proclaimed these sites as a World Heritage Site on 2 December 1999.",
+ "wiki": "https://en.wikipedia.org/wiki/Heart_of_Neolithic_Orkney",
+ "status": "standing"
+}

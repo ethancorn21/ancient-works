@@ -1,0 +1,17 @@
+{
+ "id": "kong-asgers-hoj",
+ "name": "Kong Asgers H\u00f8j",
+ "place": "Denmark",
+ "lon": 12.1403,
+ "lat": 54.9572,
+ "width_m": 1000,
+ "height_m": 1000,
+ "px_m": 1.0,
+ "region": "Denmark",
+ "kind": "barrow",
+ "period": "Funnel Beaker culture c.3300 BC",
+ "summary": "Kong Asgers H\u00f8j is a large passage grave on the island of M\u00f8n in Denmark.",
+ "wiki": "https://en.wikipedia.org/wiki/Kong_Asgers_H%C3%B8j",
+ "status": "standing",
+ "lrm_radius_m": 8
+}

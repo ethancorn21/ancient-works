@@ -1,0 +1,16 @@
+{
+ "id": "raedykes",
+ "name": "Raedykes Roman camp",
+ "place": "Scotland",
+ "lon": -2.2632,
+ "lat": 57.002,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman_fort",
+ "period": "Roman, probably Flavian (c. AD 83-84) or Severan",
+ "summary": "Raedykes is the site of a Roman marching camp located just over three miles northwest of Stonehaven, Aberdeenshire, Scotland. National Grid Reference NO 842902. It is designated as a scheduled monument. A marching camp was a temporary camp used mainly for overnight stops on a long route between more permanent forts, or as a temporary base while on campaign in hostile territory.",
+ "wiki": "https://en.wikipedia.org/wiki/Raedykes",
+ "status": "standing"
+}

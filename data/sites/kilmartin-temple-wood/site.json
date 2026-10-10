@@ -1,0 +1,16 @@
+{
+ "id": "kilmartin-temple-wood",
+ "name": "Kilmartin Glen ritual landscape (Temple Wood, Nether Largie cemetery)",
+ "place": "Scotland",
+ "lon": -5.4987,
+ "lat": 56.1236,
+ "width_m": 3000,
+ "height_m": 3000,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "barrow",
+ "period": "Neolithic to Bronze Age c.3500-1500 BC",
+ "summary": "Temple Wood is an ancient site located in Kilmartin Glen, near Kintyre, Argyll, Scotland. The site includes two circles. The southern circle contains a ring of 13 standing stones about 12 metres in diameter. In the past it may have had 22 stones. In the centre is a burial cist surrounded by a circle of stones about 3 metres in diameter. Other later burials are associated with the circle. According to the Historic Scotland information marker at the site, the southern circle's first incarnation may have been constructed around 3000 BC.",
+ "wiki": "https://en.wikipedia.org/wiki/Temple_Wood",
+ "status": "standing"
+}

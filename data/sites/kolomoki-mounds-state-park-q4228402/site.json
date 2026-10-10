@@ -1,0 +1,16 @@
+{
+ "id": "kolomoki-mounds-state-park-q4228402",
+ "name": "Kolomoki Mounds State Park",
+ "place": "Georgia",
+ "lon": -84.9398,
+ "lat": 31.468,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "US",
+ "kind": "mound_site",
+ "qid": "Q4228402",
+ "summary": "The Kolomoki Mounds is one of the largest and earliest Woodland period earthwork mound complexes in the Southeastern United States and is the largest in Georgia. Constructed from 350 to 600 CE, the mound complex is located in southwest Georgia, in present-day Early County near the Chattahoochee River.",
+ "wiki": "https://en.wikipedia.org/wiki/Kolomoki_Mounds",
+ "aka": "Kolomoki Mounds"
+}
