@@ -215,20 +215,33 @@ class Handler(SimpleHTTPRequestHandler):
             sys.stderr.write("%s %s\n" % (self.client_address[0], fmt % args))
 
 
+_fit_wake = None
+
+
 def after_write(coll):
-    """A saved or deleted plan fit is turned into map overlays in the background (pipeline/plan_fit.py syncs all
-    fits, so overlapping runs only repeat work). The page polls depictions.json for the result."""
+    """A saved or deleted plan fit is turned into map overlays by pipeline/plan_fit.py (which syncs all fits) on one
+    worker thread in this process. The page polls depictions.json for the result.
+    Why in-process: a subprocess launched from here sometimes started and silently did nothing (2026-10-10, twice,
+    each time after the server had run a while); running it by hand always worked."""
+    global _fit_wake
     if coll != "platefits":
         return
-    import subprocess
-    py = os.path.join(ROOT, ".venv", "bin", "python")
-    try:
-        with open(os.path.join(ROOT, "data", "db", "plan_fit.log"), "a") as log:
-            subprocess.Popen([py if os.path.exists(py) else sys.executable, os.path.join(ROOT, "pipeline", "plan_fit.py")],
-                             cwd=ROOT, stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
-        print("  plan_fit started", flush=True)
-    except Exception as e:
-        print(f"  plan_fit could not start: {e!r}", flush=True)
+    import threading
+    if _fit_wake is None:
+        _fit_wake = threading.Event()
+
+        def worker():
+            sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+            import plan_fit
+            while True:
+                _fit_wake.wait()
+                _fit_wake.clear()
+                try:
+                    plan_fit.main([])
+                except BaseException as e:  # SystemExit too: never let one bad fit stop the worker
+                    print(f"  plan_fit failed: {e!r}", flush=True)
+        threading.Thread(target=worker, daemon=True, name="plan_fit").start()
+    _fit_wake.set()
 
 
 def lan_address():

@@ -123,7 +123,7 @@ def save(sid, pid, crop, model, pairs):
         if e:
             print("fit", e[0]["fit"])
             return
-    print("no overlay after 90 s; see data/db/plan_fit.log")
+    print("no overlay after 90 s; see the server log (plan_fit lines)")
 
 
 def check(sid, pid):

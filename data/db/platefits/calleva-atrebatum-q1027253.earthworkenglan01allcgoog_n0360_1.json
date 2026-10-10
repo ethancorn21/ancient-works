@@ -1,0 +1,57 @@
+{
+ "site": "calleva-atrebatum-q1027253",
+ "plan": "earthworkenglan01allcgoog_n0360_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0360.jpg",
+ "crop": [
+  380,
+  1420,
+  2800,
+  3460
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1319.0,
+   1919.0,
+   -1.084432,
+   51.3607808
+  ],
+  [
+   1936.0,
+   2233.0,
+   -1.0765057,
+   51.3581758
+  ],
+  [
+   1010.0,
+   2290.0,
+   -1.0881291,
+   51.3576908
+  ],
+  [
+   1336.0,
+   2722.0,
+   -1.084432,
+   51.3540255
+  ],
+  [
+   1981.0,
+   2149.0,
+   -1.0754699,
+   51.3588945
+  ]
+ ],
+ "label": "",
+ "title": "SILCHESTER.",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:50:46.640072+00:00"
+}
