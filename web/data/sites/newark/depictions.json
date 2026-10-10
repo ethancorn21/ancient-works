@@ -1,0 +1,31 @@
+{
+ "depictions": [
+  {
+   "kind": "topo",
+   "file": "topo_1909_62500.webp",
+   "year": 1909,
+   "label": "USGS topographic map, 1909",
+   "scale": "1:62,500",
+   "corners": [
+    [
+     -82.46231645964284,
+     40.06406585359703
+    ],
+    [
+     -82.41068354035718,
+     40.06406585359703
+    ],
+    [
+     -82.41068354035718,
+     40.02992987294868
+    ],
+    [
+     -82.46231645964284,
+     40.02992987294868
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Newark, OH 1909"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "depictions": [
+  {
+   "kind": "topo",
+   "file": "topo_1915_48000.webp",
+   "year": 1915,
+   "label": "USGS topographic map, 1915",
+   "scale": "1:48,000",
+   "corners": [
+    [
+     -83.41547808150844,
+     39.124482580212764
+    ],
+    [
+     -83.39232191849153,
+     39.124482580212764
+    ],
+    [
+     -83.39232191849153,
+     39.106516274555304
+    ],
+    [
+     -83.41547808150844,
+     39.106516274555304
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Bainbridge, OH 1915"
+  }
+ ]
+}

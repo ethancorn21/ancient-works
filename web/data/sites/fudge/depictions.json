@@ -1,0 +1,31 @@
+{
+ "depictions": [
+  {
+   "kind": "topo",
+   "file": "topo_1916_48000.webp",
+   "year": 1916,
+   "label": "USGS topographic map, 1916",
+   "scale": "1:48,000",
+   "corners": [
+    [
+     -85.0011823587731,
+     40.18933703008471
+    ],
+    [
+     -84.9800176412269,
+     40.18933703008471
+    ],
+    [
+     -84.9800176412269,
+     40.17586230083182
+    ],
+    [
+     -85.0011823587731,
+     40.17586230083182
+    ]
+   ],
+   "coverage": 0.946,
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:48000-scale Quadrangle for Winchester, IN 1916"
+  }
+ ]
+}

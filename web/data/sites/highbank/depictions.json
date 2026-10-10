@@ -1,0 +1,31 @@
+{
+ "depictions": [
+  {
+   "kind": "topo",
+   "file": "topo_1906_62500.webp",
+   "year": 1906,
+   "label": "USGS topographic map, 1906",
+   "scale": "1:62,500",
+   "corners": [
+    [
+     -82.93040837134589,
+     39.30977895341229
+    ],
+    [
+     -82.90719162865413,
+     39.30977895341229
+    ],
+    [
+     -82.90719162865413,
+     39.288219386635404
+    ],
+    [
+     -82.93040837134589,
+     39.288219386635404
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Chillicothe, OH 1906"
+  }
+ ]
+}

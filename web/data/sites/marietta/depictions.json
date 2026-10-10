@@ -1,0 +1,31 @@
+{
+ "depictions": [
+  {
+   "kind": "topo",
+   "file": "topo_1904_62500.webp",
+   "year": 1904,
+   "label": "USGS topographic map, 1904",
+   "scale": "1:62,500",
+   "corners": [
+    [
+     -81.4686167204422,
+     39.428380767726125
+    ],
+    [
+     -81.43838327955783,
+     39.428380767726125
+    ],
+    [
+     -81.43838327955783,
+     39.408617831507264
+    ],
+    [
+     -81.4686167204422,
+     39.408617831507264
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Marietta, OH 1904"
+  }
+ ]
+}
