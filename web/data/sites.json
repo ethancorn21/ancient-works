@@ -230,7 +230,7 @@
   {
    "id": "aggersborg",
    "name": "Aggersborg",
-   "place": "Denmark",
+   "place": "Jutland (Limfjord, L\u00f8gst\u00f8r), Denmark, Denmark",
    "lon": 9.2547,
    "lat": 56.9953,
    "status": "plowed",
@@ -732,7 +732,7 @@
   {
    "id": "antequera-menga-dolmen",
    "name": "Antequera dolmens (Menga, Viera, El Romeral)",
-   "place": "Spain",
+   "place": "M\u00e1laga (Antequera), Spain, Spain",
    "lon": -4.5463,
    "lat": 37.0246,
    "status": "standing",
@@ -778,7 +778,7 @@
   {
    "id": "apuole-hillfort",
    "name": "Apuol\u0117 hillfort",
-   "place": "Lithuania",
+   "place": "Klaip\u0117da County (Skuodas), Lithuania, Lithuania",
    "lon": 21.6781,
    "lat": 56.2464,
    "status": "standing",
@@ -1287,7 +1287,7 @@
   {
    "id": "aventicum",
    "name": "Aventicum (Avenches)",
-   "place": "Switzerland",
+   "place": "Vaud, Switzerland, Switzerland",
    "lon": 7.042,
    "lat": 46.881,
    "status": "plowed",
@@ -1424,7 +1424,7 @@
   {
    "id": "balfarg-henge",
    "name": "Balfarg Henge",
-   "place": "Scotland",
+   "place": "Fife (Glenrothes), Scotland, Scotland",
    "lon": -3.16,
    "lat": 56.215,
    "status": "urban",
@@ -1515,7 +1515,7 @@
   {
    "id": "clava-cairns",
    "name": "Balnuaran of Clava cairns",
-   "place": "Scotland",
+   "place": "Highland (Inverness), Scotland, Scotland",
    "lon": -4.0744,
    "lat": 57.4737,
    "status": "standing",
@@ -1561,7 +1561,7 @@
   {
    "id": "bar-hill-fort",
    "name": "Bar Hill Roman fort (Antonine Wall)",
-   "place": "Scotland",
+   "place": "East Dunbartonshire (Twechar), Scotland, Scotland",
    "lon": -4.072,
    "lat": 55.959,
    "status": "standing",
@@ -1788,7 +1788,7 @@
   {
    "id": "barnwell-castle-q1188983",
    "name": "Barnwell Castle",
-   "place": "England",
+   "place": "Barnwell, England",
    "lon": -0.45742,
    "lat": 52.454929,
    "summary": "Barnwell Castle is a ruined castle, south of the town of Oundle, and north of the village of Barnwell, Northamptonshire. It has been designated by English Heritage as a Grade\u00a0I listed building, and is a Scheduled Ancient Monument. It is under private ownership.",
@@ -2151,7 +2151,7 @@
   {
    "id": "bergues-q244934",
    "name": "Bergues",
-   "place": "France",
+   "place": "canton of Bergues, France",
    "lon": 2.4342,
    "lat": 50.9686,
    "summary": "Bergues is a commune in the Nord department in northern France.",
@@ -2369,7 +2369,7 @@
   {
    "id": "binche-q95121",
    "name": "Binche",
-   "place": "Belgium",
+   "place": "Arrondissement of Thuin, Belgium",
    "lon": 4.1652,
    "lat": 50.4103,
    "summary": "Binche is a city and municipality of Wallonia, in the province of Hainaut, Belgium. Since 1977, the municipality consists of Binche, Bray, Buvrinnes, \u00c9pinois, Leval-Trahegnies, P\u00e9ronnes-lez-Binche, Ressaix, and Waudrez districts.",
@@ -2730,7 +2730,7 @@
   {
    "id": "bolsover-castle-q2968590",
    "name": "Bolsover Castle",
-   "place": "England",
+   "place": "Old Bolsover, England",
    "lon": -1.29611,
    "lat": 53.2307,
    "summary": "Bolsover Castle is in the town of Bolsover, in the north-east of the English county of Derbyshire. Built in the early 17th century, the present castle lies on the earthworks and ruins of the 12th-century medieval castle; the first structure of the present castle was built between 1612 and 1617 by Sir Charles Cavendish. The site is now in the care of the English Heritage charity, as both a Grade I listed building and a Scheduled Ancient Monument.",
@@ -2775,7 +2775,7 @@
   {
    "id": "borgring",
    "name": "Borgring",
-   "place": "Denmark",
+   "place": "Zealand (K\u00f8ge), Denmark, Denmark",
    "lon": 12.1233,
    "lat": 55.4697,
    "status": "plowed",
@@ -3094,7 +3094,7 @@
   {
    "id": "burcht-van-leiden",
    "name": "Burcht van Leiden",
-   "place": "Netherlands",
+   "place": "South Holland (Leiden), Netherlands, Netherlands",
    "lon": 4.493,
    "lat": 52.159,
    "status": "urban",
@@ -3186,7 +3186,7 @@
   {
    "id": "burlington-house-q225471",
    "name": "Burlington House",
-   "place": "England",
+   "place": "City of Westminster, England",
    "lon": -0.139444,
    "lat": 51.508889,
    "summary": "Burlington House is a building on Piccadilly in Mayfair, London. It was originally a private English Baroque and then Neo-Palladian mansion owned by the Earls of Burlington. It was significantly expanded in the mid-19th century after being purchased by the British government. Today, the Royal Academy and five learned societies occupy much of the building.",
@@ -3231,7 +3231,7 @@
   {
    "id": "burnswark-hill",
    "name": "Burnswark Hill",
-   "place": "Scotland",
+   "place": "Dumfries & Galloway (Ecclefechan), Scotland, Scotland",
    "lon": -3.2761,
    "lat": 55.0969,
    "status": "standing",
@@ -3664,7 +3664,7 @@
   {
    "id": "cairnpapple-hill",
    "name": "Cairnpapple Hill",
-   "place": "Scotland",
+   "place": "West Lothian, Scotland, Scotland",
    "lon": -3.6225,
    "lat": 55.9281,
    "status": "standing",
@@ -3710,7 +3710,7 @@
   {
    "id": "caister-castle-q5017844",
    "name": "Caister Castle",
-   "place": "England",
+   "place": "West Caister, England",
    "lon": 1.70113,
    "lat": 52.6505,
    "summary": "Caister Castle is a 15th-century moated castle situated in the parish of West Caister, some 5\u00a0km (3.1\u00a0mi) north of the town of Great Yarmouth in the English county of Norfolk.",
@@ -3755,7 +3755,7 @@
   {
    "id": "caldicot-castle-q2968744",
    "name": "Caldicot Castle",
-   "place": "Wales",
+   "place": "Caldicot, Wales",
    "lon": -2.74225,
    "lat": 51.5931,
    "summary": "Caldicot Castle is an extensive stone medieval castle in the town of Caldicot, Monmouthshire, in southeast Wales, built near the site of Harold Godwinson's former Saxon castle by the Norman earls of Hereford from about 1100. The castle became a Grade I listed building on 10 June 1953.",
@@ -4067,7 +4067,7 @@
   {
    "id": "carisbrooke-castle-q328595",
    "name": "Carisbrooke Castle",
-   "place": "England",
+   "place": "Newport and Carisbrooke, England",
    "lon": -1.31389,
    "lat": 50.6875,
    "summary": "Carisbrooke Castle is a historic motte-and-bailey castle located above, and to the south of, Carisbrooke village centre, on the Isle of Wight, England. Charles I was imprisoned at the castle in the months prior to his trial.",
@@ -4112,7 +4112,7 @@
   {
    "id": "carlisle-castle-q614836",
    "name": "Carlisle Castle",
-   "place": "England",
+   "place": "Carlisle, England",
    "lon": -2.94167,
    "lat": 54.8972,
    "summary": "Carlisle Castle is a medieval stone fortress located in the city of Carlisle, Cumbria, near the site of Hadrian's Wall and the Roman fortress of Luguvalium. The castle was first built during the reign of William II in 1092 and rebuilt in stone under Henry I in 1122. It played an important role in the Wars of Scottish Independence in the later Middle Ages, being besieged several times. During the Jacobite Rising of 1745\u20131746, Carlisle became the last English fortress to undergo a siege. The castle was listed as a Scheduled Ancient Monument on 7 August 1996.",
@@ -4238,7 +4238,7 @@
   {
    "id": "cassiobury-house-q5049456",
    "name": "Cassiobury House",
-   "place": "England",
+   "place": "Watford, England",
    "lon": -0.418889,
    "lat": 51.665,
    "summary": "Cassiobury House was a country house in Cassiobury Park, Watford, England. It was the ancestral seat of the Earls of Essex. Originally a Tudor building, dating from 1546 for Sir Richard Morrison, it was substantially remodelled in the 17th and 19th centuries and ultimately demolished in 1927. The surrounding Cassiobury Park was turned into the main public open space for Watford.",
@@ -4418,7 +4418,7 @@
   {
    "id": "castle-rising-castle-q1049485",
    "name": "Castle Rising Castle",
-   "place": "England",
+   "place": "Castle Rising, England",
    "lon": 0.468956,
    "lat": 52.792939,
    "summary": "Castle Rising is a ruined medieval fortification in the village of Castle Rising, Norfolk, England. It was built soon after 1138 by William d'Aubigny II, who had risen through the ranks of the Anglo-Norman nobility to become the Earl of Arundel. With his new wealth, he constructed Castle Rising and its surrounding deer park, a combination of fortress and palatial hunting lodge. It was inherited by William's descendants before passing into the hands of the de Montalt family in 1243. The Montalts later sold the castle to Queen Isabella, who lived there after her fall from power in 1330. Isabella extended the castle buildings and enjoyed a regal lifestyle, entertaining her son, Edward III, on several occasions. After her death, it was granted to Edward, the Black Prince, to form part of the Duchy of Cornwall.",
@@ -5153,7 +5153,7 @@
   {
    "id": "chevening-q1070927",
    "name": "Chevening",
-   "place": "England",
+   "place": "Chevening, England",
    "lon": 0.13165,
    "lat": 51.2987,
    "summary": "Chevening House is a large country house in the parish of Chevening in Kent, England. Built between 1617 and 1630 to a design reputedly by Inigo Jones and greatly extended after 1717, it is a Grade I listed building. The surrounding gardens, pleasure grounds and park are listed Grade II*.",
@@ -5198,7 +5198,7 @@
   {
    "id": "chiswick-house-q1074877",
    "name": "Chiswick House",
-   "place": "England",
+   "place": "Chiswick, England",
    "lon": -0.258611,
    "lat": 51.483611,
    "summary": "Chiswick House is a Neo-Palladian style villa in the Chiswick district of London, England. A \"glorious\" example of Neo-Palladian architecture in west London, the house was designed and built by Richard Boyle, 3rd Earl of Burlington (1694\u20131753), and completed in 1729. The house and garden occupy 26.33 hectares. The garden was created mainly by the architect and landscape designer William Kent, and it is one of the earliest examples of the English landscape garden.",
@@ -5638,7 +5638,7 @@
   {
    "id": "cooling-castle-q5167493",
    "name": "Cooling Castle",
-   "place": "England",
+   "place": "Cooling, England",
    "lon": 0.522732,
    "lat": 51.4555,
    "summary": "Cooling Castle is a 14th-century quadrangular castle in the village of Cooling, Kent on the Hoo Peninsula about 6 miles (9.7\u00a0km) north of Rochester. It was built in the 1380s by the Cobham family, the local lords of the manor, to guard the area against French raids into the Thames Estuary. The castle has an unusual layout, comprising two walled wards of unequal size next to each other, surrounded by moats and ditches. It was the earliest English castle designed for the use of gunpowder weapons by its defenders.",
@@ -5729,7 +5729,7 @@
   {
    "id": "craig-phadrig",
    "name": "Craig Phadrig",
-   "place": "Scotland",
+   "place": "Highland (Inverness), Scotland, Scotland",
    "lon": -4.269,
    "lat": 57.477,
    "status": "standing",
@@ -5995,7 +5995,7 @@
   {
    "id": "damme-q323408",
    "name": "Damme",
-   "place": "Belgium",
+   "place": "Arrondissement of Bruges, Belgium",
    "lon": 3.2815,
    "lat": 51.251,
    "summary": "Damme is a municipality and city located in the Belgian province of West Flanders, six kilometres northeast of Brugge (Bruges). The municipality comprises the city of Damme proper and the villages of Hoeke, Lapscheure, Moerkerke, Oostkerke, Sijsele, Vivenkapelle, and Sint-Rita. On 1 January 2006, the municipality had a population of 10,899. The total area is 89.52\u00a0km2, giving a population density of 122 inhabitants per km2.",
@@ -6399,7 +6399,7 @@
   {
    "id": "duffield-castle-q2073299",
    "name": "Duffield Castle",
-   "place": "England",
+   "place": "Duffield, England",
    "lon": -1.491939,
    "lat": 52.99225,
    "summary": "Duffield Castle was a Norman castle in Duffield, Derbyshire. The site is a scheduled monument.",
@@ -6444,7 +6444,7 @@
   {
    "id": "dunadd",
    "name": "Dunadd",
-   "place": "Scotland",
+   "place": "Argyll & Bute (Kilmartin), Scotland, Scotland",
    "lon": -5.4786,
    "lat": 56.0861,
    "status": "plowed",
@@ -6720,7 +6720,7 @@
   {
    "id": "edins-hall-broch",
    "name": "Edin's Hall Broch",
-   "place": "Scotland",
+   "place": "Scottish Borders (Cranshaws/Duns), Scotland, Scotland",
    "lon": -2.3647,
    "lat": 55.8352,
    "status": "standing",
@@ -6856,7 +6856,7 @@
   {
    "id": "eildon-hill-north",
    "name": "Eildon Hill North",
-   "place": "Scotland",
+   "place": "Scottish Borders (Melrose), Scotland, Scotland",
    "lon": -2.7092,
    "lat": 55.5864,
    "status": "standing",
@@ -7310,7 +7310,7 @@
   {
    "id": "fairlawne-q17530246",
    "name": "Fairlawne",
-   "place": "England",
+   "place": "Plaxtol, England",
    "lon": 0.283511,
    "lat": 51.2577,
    "summary": "Fairlawne is a Grade I listed house in Shipbourne, Kent, England, about 30 miles southeast of central London. The Fairlawne Estate is extensive and stretches to Plaxtol.",
@@ -7355,7 +7355,7 @@
   {
    "id": "farleigh-hungerford-castle-q5435410",
    "name": "Farleigh Hungerford Castle",
-   "place": "England",
+   "place": "Farleigh Hungerford, England",
    "lon": -2.2869,
    "lat": 51.3174,
    "summary": "Farleigh Hungerford Castle, sometimes called Farleigh Castle or Farley Castle, is a medieval castle in Farleigh Hungerford, Somerset, England. The castle was built in two phases: the inner court was constructed between 1377 and 1383 by Sir Thomas Hungerford, who made his fortune as steward to John of Gaunt. The castle was built to a quadrangular design, already slightly old-fashioned, on the site of an existing manor house overlooking the River Frome. A deer park was attached to the castle, requiring the destruction of the nearby village. Sir Thomas's son, Sir Walter Hungerford, a knight and leading courtier to Henry V, became rich during the Hundred Years War with France and extended the castle with an additional, outer court, enclosing the parish church in the process. By Walter's death in 1449, the substantial castle was richly appointed, and its chapel decorated with murals.",
@@ -7952,7 +7952,7 @@
   {
    "id": "framlingham-castle-q2524183",
    "name": "Framlingham Castle",
-   "place": "England",
+   "place": "Framlingham, England",
    "lon": 1.34661,
    "lat": 52.2246,
    "summary": "Framlingham Castle is a castle in the market town of Framlingham, Suffolk, England. An early motte and bailey or ringwork Norman castle was built on the Framlingham site by 1148, but this was destroyed (slighted) by Henry II of England in the aftermath of the Revolt of 1173\u20131174. Its replacement, constructed by Roger Bigod, the Earl of Norfolk, was unusual for the time in having no central keep, but instead using a curtain wall with thirteen mural towers to defend the centre of the castle. Despite this, the castle was successfully taken by King John in 1216 after a short siege. By the end of the 13th century, Framlingham had become a luxurious home, surrounded by extensive parkland used for hunting.",
@@ -8180,7 +8180,7 @@
   {
    "id": "fyrkat",
    "name": "Fyrkat",
-   "place": "Denmark",
+   "place": "Jutland (Hobro), Denmark, Denmark",
    "lon": 9.7703,
    "lat": 56.6231,
    "status": "standing",
@@ -8270,7 +8270,7 @@
   {
    "id": "vilnius-gediminas-hill",
    "name": "Gediminas Hill (Vilnius Upper Castle)",
-   "place": "Lithuania",
+   "place": "Vilnius, Lithuania, Lithuania",
    "lon": 25.291,
    "lat": 54.687,
    "status": "urban",
@@ -8452,7 +8452,7 @@
   {
    "id": "goodrich-castle-q5583571",
    "name": "Goodrich Castle",
-   "place": "England",
+   "place": "Goodrich, England",
    "lon": -2.6157,
    "lat": 51.8767,
    "summary": "Goodrich Castle is a ruined medieval castle north of the village of Goodrich in Herefordshire, England, controlling a key location between Monmouth and Ross-on-Wye. It was praised by William Wordsworth as the \"noblest ruin in Herefordshire\" and is considered by historian Adrian Pettifer to be the \"most splendid in the county, and one of the best examples of English military architecture\".",
@@ -8497,7 +8497,7 @@
   {
    "id": "gouda-q84125",
    "name": "Gouda",
-   "place": "Netherlands",
+   "place": "South Holland, Netherlands",
    "lon": 4.7105,
    "lat": 52.0117,
    "summary": "Gouda is a city and municipality in the west of the Netherlands, between Rotterdam and Utrecht, in the province of South Holland. Gouda has a population of 75,000 and is famous for its Gouda cheese, stroopwafels, many grachten, smoking pipes, and its 15th-century city hall. Its array of historic churches and other buildings makes it a very popular day-trip destination.",
@@ -8815,7 +8815,7 @@
   {
    "id": "hampton-court-herefordshire-q1443802",
    "name": "Hampton Court, Herefordshire",
-   "place": "England",
+   "place": "Hope under Dinmore, England",
    "lon": -2.70414,
    "lat": 52.1677,
    "summary": "Hampton Court Castle, also known as Hampton Court or Hampton Castle, is a castellated country house in the English county of Herefordshire. The house is in the parish of Hope under Dinmore 4 miles (6.4\u00a0km) south of Leominster and is a Grade I listed building, which is the highest category of architecture in the statutory protection scheme.",
@@ -9078,7 +9078,7 @@
   {
    "id": "herstmonceux-castle-q2652207",
    "name": "Herstmonceux Castle",
-   "place": "England",
+   "place": "Herstmonceux, England",
    "lon": 0.339214,
    "lat": 50.8702,
    "summary": "Herstmonceux Castle is a brick-built castle, dating from the 15th century, near Herstmonceux, East Sussex, England. It is one of the oldest significant brick buildings still standing in England. The castle was renowned for being one of the first buildings to use that material in England, built using bricks made from local clay by builders from Flanders. It dates from 1441. Construction began under the then-owner, Sir Roger Fiennes, and was continued after his death in 1449 by his son, Lord Dacre.",
@@ -9693,7 +9693,7 @@
   {
    "id": "inchtuthil",
    "name": "Inchtuthil Roman legionary fortress",
-   "place": "Scotland",
+   "place": "Perth & Kinross (Meikleour), Scotland, Scotland",
    "lon": -3.424,
    "lat": 56.541,
    "status": "standing",
@@ -9958,7 +9958,7 @@
   {
    "id": "jarlshof",
    "name": "Jarlshof",
-   "place": "Scotland",
+   "place": "Shetland (Sumburgh), Scotland, Scotland",
    "lon": -1.291,
    "lat": 59.8694,
    "status": "standing",
@@ -10050,7 +10050,7 @@
   {
    "id": "jelling-mounds",
    "name": "Jelling royal monuments",
-   "place": "Denmark",
+   "place": "Jutland (Vejle), Denmark, Denmark",
    "lon": 9.42,
    "lat": 55.7564,
    "status": "standing",
@@ -10096,7 +10096,7 @@
   {
    "id": "jersika-hillfort",
    "name": "Jersika hillfort",
-   "place": "Latvia",
+   "place": "Latgale (L\u012bv\u0101ni), Latvia, Latvia",
    "lon": 26.202,
    "lat": 56.2759,
    "status": "standing",
@@ -10183,7 +10183,7 @@
   {
    "id": "kilmartin-temple-wood",
    "name": "Kilmartin Glen ritual landscape (Temple Wood, Nether Largie cemetery)",
-   "place": "Scotland",
+   "place": "Argyll & Bute, Scotland, Scotland",
    "lon": -5.4987,
    "lat": 56.1236,
    "status": "standing",
@@ -10366,7 +10366,7 @@
   {
    "id": "kong-asgers-hoj",
    "name": "Kong Asgers H\u00f8j",
-   "place": "Denmark",
+   "place": "M\u00f8n (Zealand), Denmark, Denmark",
    "lon": 12.1403,
    "lat": 54.9572,
    "status": "standing",
@@ -10593,7 +10593,7 @@
   {
    "id": "lancaster-castle-q2969640",
    "name": "Lancaster Castle",
-   "place": "England",
+   "place": "Lancaster, England",
    "lon": -2.80562,
    "lat": 54.0498,
    "summary": "Lancaster Castle is a medieval castle and former prison in Lancaster in the English county of Lancashire. Its early history is unclear, but it was most likely founded in 1092-4 on the site of a Roman fort overlooking a crossing of the River Lune. In 1164 the Honour of Lancaster, including the castle, came under royal control. In 1322 and 1389 the Scots invaded England, progressing as far as Lancaster and damaging the castle. It was not to see military action again until the English Civil War. The castle was first used as a prison in 1196 although this aspect became more important during the English Civil War. The castle buildings are owned by the British sovereign as Duke of Lancaster; part of the structure is used to host sittings of the Crown Court.",
@@ -10638,7 +10638,7 @@
   {
    "id": "las-medulas",
    "name": "Las M\u00e9dulas",
-   "place": "Spain",
+   "place": "Le\u00f3n (Carucedo, El Bierzo), Spain, Spain",
    "lon": -6.76,
    "lat": 42.4589,
    "status": "standing",
@@ -10776,7 +10776,7 @@
   {
    "id": "leeds-castle-q746876",
    "name": "Leeds Castle",
-   "place": "England",
+   "place": "Leeds, England",
    "lon": 0.63,
    "lat": 51.248889,
    "summary": "Leeds Castle is a castle in Kent, England, 7 miles (11\u00a0km) southeast of Maidstone. It is built on islands in a lake formed by the River Len to the east of the village of Leeds and is a historic Grade\u00a0I listed estate.",
@@ -11094,7 +11094,7 @@
   {
    "id": "los-millares",
    "name": "Los Millares",
-   "place": "Spain",
+   "place": "Almeria (Santa Fe de Mond\u00fajar), Spain, Spain",
    "lon": -2.5222,
    "lat": 36.9647,
    "status": "standing",
@@ -11140,7 +11140,7 @@
   {
    "id": "ludlow-castle-q576369",
    "name": "Ludlow Castle",
-   "place": "England",
+   "place": "Ludlow, England",
    "lon": -2.72301,
    "lat": 52.3672,
    "summary": "Ludlow Castle is a ruined medieval fortification in the town of Ludlow in the English county of Shropshire, standing on a promontory overlooking the River Teme. The castle was probably founded by Walter de Lacy after the Norman Conquest and was one of the first stone castles to be built in England. During the The Anarchy a civil war of the 12th century, the castle changed hands several times between the de Lacys and rival claimants and was further fortified with a Great Tower and a large outer bailey. In the mid-13th century, Ludlow was passed on to Geoffrey de Geneville, who rebuilt part of the inner bailey, and the castle played a part in the Second Barons' War. Roger Mortimer acquired the castle in 1301, further extending the internal complex of buildings.",
@@ -11230,7 +11230,7 @@
   {
    "id": "maeshowe",
    "name": "Maeshowe",
-   "place": "Scotland",
+   "place": "Orkney (Mainland), Scotland, Scotland",
    "lon": -3.1882,
    "lat": 58.9966,
    "status": "standing",
@@ -12796,7 +12796,7 @@
   {
    "id": "norham-castle-q388705",
    "name": "Norham Castle",
-   "place": "England",
+   "place": "Norham, England",
    "lon": -2.150757,
    "lat": 55.721812,
    "summary": "Norham Castle is a castle in Norham, Northumberland, England, overlooking the River Tweed, on the border between England and Scotland. It is a Grade I listed building and a Scheduled Ancient Monument. The castle saw much action during the wars between England and Scotland.",
@@ -12932,7 +12932,7 @@
   {
    "id": "numancia",
    "name": "Numancia (Cerro de la Muela)",
-   "place": "Spain",
+   "place": "Soria (Garray), Spain, Spain",
    "lon": -2.4443,
    "lat": 41.8096,
    "status": "standing",
@@ -13524,7 +13524,7 @@
   {
    "id": "oxford-castle-q2600886",
    "name": "Oxford Castle",
-   "place": "England",
+   "place": "Oxford, England",
    "lon": -1.26248,
    "lat": 51.7518,
    "summary": "Oxford Castle is a large, partly ruined medieval castle on the western side of central Oxford in Oxfordshire, England. Most of the original moated, wooden motte and bailey castle was replaced in stone in the late 12th or early 13th century and the castle played an important role in the conflict known as the Anarchy. In the 14th century the military value of the castle diminished and the site came to be used primarily for county administration and as a prison. The surviving rectangular St George's Tower is now believed to pre-date the remainder of the castle and to have been a watch tower associated with the original Saxon west gate of the city.",
@@ -14366,7 +14366,7 @@
   {
    "id": "raby-castle-q4583646",
    "name": "Raby Castle",
-   "place": "England",
+   "place": "Raby with Keverstone, England",
    "lon": -1.80175,
    "lat": 54.59092,
    "summary": "Raby Castle is a medieval castle located near Staindrop in County Durham, England, among 200 acres (810,000\u00a0m2) of deer park. It was built by John Neville, 3rd Baron Neville de Raby, between approximately 1367 and 1390. Cecily Neville, the mother of the Kings Edward\u00a0IV and Richard\u00a0III, was born here. After Charles Neville, 6th Earl of Westmorland, led the failed Rising of the North in favour of Mary, Queen of Scots in 1569 Raby Castle was taken into royal custody.",
@@ -14411,7 +14411,7 @@
   {
    "id": "raedykes",
    "name": "Raedykes Roman camp",
-   "place": "Scotland",
+   "place": "Aberdeenshire (Stonehaven), Scotland, Scotland",
    "lon": -2.2632,
    "lat": 57.002,
    "status": "standing",
@@ -14550,7 +14550,7 @@
   {
    "id": "ring-of-brodgar",
    "name": "Ring of Brodgar",
-   "place": "Scotland",
+   "place": "Orkney (Mainland), Scotland, Scotland",
    "lon": -3.2306,
    "lat": 59.0011,
    "status": "standing",
@@ -14596,7 +14596,7 @@
   {
    "id": "rockingham-castle-q3939808",
    "name": "Rockingham Castle",
-   "place": "England",
+   "place": "Rockingham, England",
    "lon": -0.724,
    "lat": 52.5129,
    "summary": "Rockingham Castle is a former royal castle and hunting lodge in Rockingham Forest, approximately two miles from the town centre of Corby, Northamptonshire, England.",
@@ -14686,7 +14686,7 @@
   {
    "id": "rough-castle-fort",
    "name": "Rough Castle Roman fort (Antonine Wall)",
-   "place": "Scotland",
+   "place": "Falkirk (Bonnybridge), Scotland, Scotland",
    "lon": -3.856,
    "lat": 55.9978,
    "status": "standing",
@@ -14866,7 +14866,7 @@
   {
    "id": "santok",
    "name": "Santok stronghold",
-   "place": "Poland",
+   "place": "Lubusz (Santok), Poland, Poland",
    "lon": 15.402,
    "lat": 52.7338,
    "status": "standing",
@@ -14912,7 +14912,7 @@
   {
    "id": "scotney-castle-q17530343",
    "name": "Scotney Castle",
-   "place": "England",
+   "place": "Lamberhurst, England",
    "lon": 0.411447,
    "lat": 51.0915,
    "region": "England",
@@ -14955,7 +14955,7 @@
   {
    "id": "sedgwick-castle-q17645407",
    "name": "Sedgwick Castle",
-   "place": "England",
+   "place": "Nuthurst, England",
    "lon": -0.318726,
    "lat": 51.0303,
    "summary": "Sedgwick Castle is a ruined medieval castle in Nuthurst, West Sussex, England. The castle dates to 1258 AD. The remains consist of wall fragments and earthworks. The site also includes two concentric ditches, ponds, and an outer enclosure. S. E. Winbolt led excavations at the castle in 1923 and 1924. Sedgwick Castle was established as a scheduled monument in 1933.",
@@ -15360,7 +15360,7 @@
   {
    "id": "skara-brae",
    "name": "Skara Brae",
-   "place": "Scotland",
+   "place": "Orkney (Mainland), Scotland, Scotland",
    "lon": -3.3416,
    "lat": 59.0488,
    "status": "standing",
@@ -15589,7 +15589,7 @@
   {
    "id": "stokesay-castle-q7618555",
    "name": "Stokesay Castle",
-   "place": "England",
+   "place": "Craven Arms, England",
    "lon": -2.8313,
    "lat": 52.4303,
    "summary": "Stokesay Castle is one of the finest surviving fortified manor houses in England, and situated at Stokesay in Shropshire. It was largely built in its present form in the late 13th century by Laurence of Ludlow, on the earlier castle founded by its original owners the de Lacy family, from whom it passed to their de Verdun heirs, who retained feudal overlordship of Stokesay until at least 1317. Laurence 'of' Ludlow was one of the leading wool merchants in England, who intended it to form a secure private house and generate income as a commercial estate. Laurence's descendants continued to own the castle until the 16th century, when it passed through various private owners. By the time of the outbreak of the First English Civil War in 1642, Stokesay was owned by William Craven, 1st Earl of Craven (1608\u20131697), a supporter of King Charles I. After the Royalist war effort collapsed in 1645, Parliamentary forces besieged the castle in June and quickly forced its garrison to surrender. Parliament ordered the property to be slighted, but only minor damage was done to the walls, allowing Stokesay to continue to be used as a house by the Baldwyn family until the end of the 17th century.",
@@ -15684,7 +15684,7 @@
   {
    "id": "stones-of-stenness",
    "name": "Stones of Stenness",
-   "place": "Scotland",
+   "place": "Orkney (Mainland), Scotland, Scotland",
    "lon": -3.209,
    "lat": 58.994,
    "status": "standing",
@@ -15866,7 +15866,7 @@
   {
    "id": "tap-o-noth",
    "name": "Tap o' Noth",
-   "place": "Scotland",
+   "place": "Aberdeenshire (Rhynie), Scotland, Scotland",
    "lon": -2.8586,
    "lat": 57.3514,
    "status": "standing",
@@ -15912,7 +15912,7 @@
   {
    "id": "taunton-castle-q7688781",
    "name": "Taunton Castle",
-   "place": "England",
+   "place": "Taunton, England",
    "lon": -3.1138,
    "lat": 51.0153,
    "summary": "Taunton Castle is a castle built to defend the town of Taunton, Somerset, England. It has origins in the Anglo Saxon period and was later the site of a priory. The Normans then built a stone structured castle, which belonged to the Bishops of Winchester. The current heavily reconstructed buildings are the inner ward, which now houses the Museum of Somerset and the Somerset Military Museum. The building was designated a grade I listed building in 1952.",
@@ -16312,7 +16312,7 @@
   {
    "id": "traprain-law",
    "name": "Traprain Law",
-   "place": "Scotland",
+   "place": "East Lothian, Scotland, Scotland",
    "lon": -2.6725,
    "lat": 55.9631,
    "status": "standing",
@@ -16392,7 +16392,7 @@
   {
    "id": "trelleborg-slagelse",
    "name": "Trelleborg (Slagelse)",
-   "place": "Denmark",
+   "place": "Zealand (Slagelse), Denmark, Denmark",
    "lon": 11.2653,
    "lat": 55.3942,
    "status": "standing",
@@ -16798,7 +16798,7 @@
   {
    "id": "venlo-q9777",
    "name": "Venlo",
-   "place": "Netherlands",
+   "place": "Limburg, Netherlands",
    "lon": 6.1725,
    "lat": 51.3705,
    "summary": "Venlo is a city and municipality in southeastern Netherlands, close to the border with Germany. It is situated in the province of Limburg. The municipality of Venlo had 101,578 inhabitants in January 2019.",
@@ -16888,7 +16888,7 @@
   {
    "id": "vindolanda",
    "name": "Vindolanda (Chesterholm)",
-   "place": "England",
+   "place": "Northumberland, England, England",
    "lon": -2.3608,
    "lat": 54.9911,
    "status": "standing",
@@ -17618,7 +17618,7 @@
   {
    "id": "zwolle-q793",
    "name": "Zwolle",
-   "place": "Netherlands",
+   "place": "Overijssel, Netherlands",
    "lon": 6.0925,
    "lat": 52.5125,
    "summary": "Zwolle is a city and municipality in the Northeastern Netherlands. It is the capital of the province of Overijssel and the province's second-largest municipality, after Enschede, and has a population of 132,441 as of December 2023. Zwolle borders the province of Gelderland and lies on the eastern side of the River IJssel.",

@@ -82,6 +82,7 @@ def place_of(entry):
         parts = [a.get(k) for k in ("parish", "municipality", "commune", "county", "departement", "province", "state")]
     else:
         parts = [a]
+    parts = [p for p in parts if p] or [entry.get("place")]  # extras rows carry their own place ("Watford", "Greenup County, Kentucky")
     parts = [p for p in parts if p]
     seen = []
     for p in parts:
@@ -90,7 +91,7 @@ def place_of(entry):
     country = REGION_NAME.get(str(entry.get("region", "")).lower(), entry.get("region"))
     if country and country not in seen:
         seen.append(country)
-    return ", ".join(str(p) for p in seen[-3:]) or entry.get("place") or None
+    return ", ".join(str(p) for p in seen[-3:]) or None
 
 
 def make_site(entry):
