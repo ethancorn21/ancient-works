@@ -1,0 +1,51 @@
+{
+ "site": "cahokia-q333661",
+ "plan": "c_aff1b996dce7fe3a",
+ "ia": null,
+ "file": null,
+ "crop": [
+  120,
+  330,
+  1110,
+  1520
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cahokia-q333661/aff1b996dce7fe3a.jpg",
+ "ref": "File:Survey of Cahokia Mound. Executed on November 5th 1876. - DPLA - 2435b31dd28a48775584172239dccfd8.jpg",
+ "size": [
+  1280,
+  1851
+ ],
+ "pairs": [
+  [
+   688.0,
+   1303.0,
+   -90.0622749,
+   38.6589921
+  ],
+  [
+   596.0,
+   417.0,
+   -90.0622634,
+   38.6617678
+  ],
+  [
+   229.0,
+   900.0,
+   -90.0636898,
+   38.6603395
+  ],
+  [
+   963.0,
+   900.0,
+   -90.0608254,
+   38.6603395
+  ]
+ ],
+ "label": "1876",
+ "title": "Survey of Cahokia Mound. Executed on November 5th 1876. - DPLA - 2435b31dd28a48775584172239dccfd8",
+ "book": "Wikimedia Commons",
+ "cite": "by Patrick, J.J.R; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Cahokia_Mound._Executed_on_November_5th_1876._-_DPLA_-_2435b31dd28a48775584172239dccfd8.jpg",
+ "at": "2026-10-10T20:02:29.821496+00:00"
+}

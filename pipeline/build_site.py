@@ -130,11 +130,24 @@ def main(path, refresh_imagery=False):
     w, h = int(site["width_m"] / px_m), int(site["height_m"] / px_m)
 
     dem_cache = os.path.join(sdir, "dem.npy")
+    # the cached DEM, mask and imagery belong to one box: a moved or resized box (specs/site_boxes.json) refetches all
+    # three (before this check a rebuilt Cahokia kept its old 800 m relief under the new 2400 m corners)
+    box_path = os.path.join(sdir, "dem_box.json")
+    key = [round(v, 7) for v in bbox] + [w, h]
+    if os.path.exists(dem_cache) and (json.load(open(box_path)) if os.path.exists(box_path) else None) != key:
+        if os.path.exists(box_path) or np.load(dem_cache, mmap_mode="r").shape != (h, w):
+            for f in ("dem.npy", "modern_mask.npy"):
+                if os.path.exists(os.path.join(sdir, f)):
+                    os.remove(os.path.join(sdir, f))
+            refresh_imagery = True
     if os.path.exists(dem_cache):
         z = np.load(dem_cache)
+        if not os.path.exists(box_path):
+            json.dump(key, open(box_path, "w"))
     else:
         z = aw.fetch_dem(bbox, w, h)
         np.save(dem_cache, z)
+        json.dump(key, open(box_path, "w"))
     mask_path = os.path.join(sdir, "modern_mask.npy")
     ignore = aw.water_mask(z, px_m)
     if os.path.exists(mask_path):

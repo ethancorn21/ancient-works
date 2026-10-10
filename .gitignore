@@ -28,3 +28,4 @@ web/data/sites.json.lock
 web/data/sites.json.*.tmp
 data/db/plan_fit.log
 data/commons/sheets/
+data/sites/*/dem_box.json

@@ -2782,8 +2782,8 @@
    "name": "Cahokia",
    "aka": "Cahokia Mounds State Historic Site, Cahokia Mounds State Park",
    "place": "Illinois",
-   "lon": -90.064444,
-   "lat": 38.653889,
+   "lon": -90.0635,
+   "lat": 38.6572,
    "summary": "The Cahokia Mounds is the site of a Native American city which existed c.\u20091050\u00a0\u2013 c.\u20091350 AD, directly across the Mississippi River from present-day St. Louis. The state archaeology park lies in south-western Illinois between East St. Louis and Collinsville. The park covers 2,200 acres, and contains about 80 manmade mounds, but the ancient city was much larger. At its apex around 1100 AD, the city covered about 6 square miles (16\u00a0km2), included about 120 earthworks in a wide range of sizes, shapes, and functions, and had a population of between 15,000 and 20,000 people.",
    "region": "US",
    "kind": "mound_site",
@@ -2791,35 +2791,35 @@
    "wiki": "https://en.wikipedia.org/wiki/Cahokia",
    "corners": [
     [
-     -90.06904523923447,
-     38.657482171015275
+     -90.07730435577058,
+     38.66797897220718
     ],
     [
-     -90.05984276076553,
-     38.657482171015275
+     -90.04969564422942,
+     38.66797897220718
     ],
     [
-     -90.05984276076553,
-     38.650295648744006
+     -90.04969564422942,
+     38.64641940543411
     ],
     [
-     -90.06904523923447,
-     38.650295648744006
+     -90.07730435577058,
+     38.64641940543411
     ]
    ],
-   "relief_clip_m": 0.83,
+   "relief_clip_m": 1.2,
    "block": {
     "w": 512,
     "h": 512,
-    "zmin": 125.18,
-    "zmax": 141.6,
-    "contour_m": 0.5,
+    "zmin": 121.59,
+    "zmax": 158.09,
+    "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
    "size_m": [
-    800,
-    800
+    2400,
+    2400
    ]
   },
   {

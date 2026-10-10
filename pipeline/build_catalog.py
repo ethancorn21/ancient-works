@@ -87,8 +87,12 @@ def place_of(entry):
 def make_site(entry):
     sid = re.sub(r"[^a-z0-9_-]+", "-", str(entry["id"]).lower()).strip("-")
     m = box_m(entry)
+    # hand-set box when the record's point or the kind's default box misses the works (specs/site_boxes.json)
+    box = json.load(open(os.path.join(ROOT, "specs", "site_boxes.json"))).get(sid, {})
+    m = box.get("m", m)
     text, url = wiki_summary(entry)
-    site = {"id": sid, "name": entry["name"], "place": place_of(entry), "lon": float(entry["lon"]), "lat": float(entry["lat"]),
+    site = {"id": sid, "name": entry["name"], "place": place_of(entry),
+            "lon": float(box.get("lon", entry["lon"])), "lat": float(box.get("lat", entry["lat"])),
             "width_m": m, "height_m": m, "px_m": 1.0, "region": REGION_NAME.get(str(entry.get("region", "")).lower()) or "US",
             "kind": entry.get("kind"), "period": entry.get("period"),
             "qid": entry.get("qid"), "summary": text, "wiki": url,

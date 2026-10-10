@@ -135,6 +135,10 @@ PUBLISHED = re.compile(r"(?:Date of Publishing|Date of publication|Published|Zei
                        r"(1[2-9]\d\d)", re.I)
 LIVED = re.compile(r"Unknown date.*?\)|author lived[^)]*\)", re.I)
 LIFESPAN = re.compile(r"\((?:c\.\s*)?1[2-9]\d\d\s*[-\u2013]\s*(?:c\.\s*)?1[2-9]\d\d\)")  # a painter's life dates in a title
+# the era a title depicts, not when the picture was made: "Kincaid Mounds 1300 CE" (a 2017 painting),
+# "Stonehenge vid midsommar 1700 f Kr" (a reconstruction of 1700 BC), "Caddoan Phases in the 1520s map HRoe 2010"
+ERA = re.compile(r"(?<!\d)\d{3,4}(?:s\b|\s*(?:CE|BCE|BC|AD|A\.D\.|B\.C\.|f\.?\s?Kr\.?|v\.?\s?Chr\.?|"
+                 r"av\.?\s?J\.-C\.)(?![a-z]))", re.I)
 
 
 def year_of(title, m):
@@ -147,7 +151,7 @@ def year_of(title, m):
     pub = PUBLISHED.search(m.get("desc") or "")
     if pub:
         return int(pub.group(1))
-    ty = [int(y) for y in YEAR.findall(LIFESPAN.sub("", title))]
+    ty = [int(y) for y in YEAR.findall(ERA.sub("", LIFESPAN.sub("", title)))]
     ys = [int(y) for y in YEAR.findall(d)]
     if not ys:
         qs = re.search(r"\+(1[2-9]\d\d)-", raw)  # "13th century" -> +1250
