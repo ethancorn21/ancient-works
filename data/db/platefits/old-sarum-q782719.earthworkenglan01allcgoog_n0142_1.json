@@ -1,0 +1,57 @@
+{
+ "site": "old-sarum-q782719",
+ "plan": "earthworkenglan01allcgoog_n0142_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0142.jpg",
+ "crop": [
+  250,
+  700,
+  2900,
+  4450
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1515.0,
+   2834.0,
+   -1.8047148,
+   51.0932297
+  ],
+  [
+   1616.0,
+   1683.0,
+   -1.8009388,
+   51.0929153
+  ],
+  [
+   1150.0,
+   3872.0,
+   -1.8080475,
+   51.0939933
+  ],
+  [
+   449.0,
+   2750.0,
+   -1.8047148,
+   51.0951521
+  ],
+  [
+   2469.0,
+   2778.0,
+   -1.8047148,
+   51.0915498
+  ]
+ ],
+ "label": "Fig. 27",
+ "title": "Old Sarum, WiltH",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:34:03.997206+00:00"
+}

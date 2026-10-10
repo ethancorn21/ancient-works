@@ -222,9 +222,13 @@ def after_write(coll):
         return
     import subprocess
     py = os.path.join(ROOT, ".venv", "bin", "python")
-    log = open(os.path.join(ROOT, "data", "db", "plan_fit.log"), "a")
-    subprocess.Popen([py if os.path.exists(py) else sys.executable, os.path.join(ROOT, "pipeline", "plan_fit.py")],
-                     cwd=ROOT, stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
+    try:
+        with open(os.path.join(ROOT, "data", "db", "plan_fit.log"), "a") as log:
+            subprocess.Popen([py if os.path.exists(py) else sys.executable, os.path.join(ROOT, "pipeline", "plan_fit.py")],
+                             cwd=ROOT, stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
+        print("  plan_fit started", flush=True)
+    except Exception as e:
+        print(f"  plan_fit could not start: {e!r}", flush=True)
 
 
 def lan_address():

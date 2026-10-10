@@ -1,0 +1,51 @@
+{
+ "site": "maiden-castle-q1232816",
+ "plan": "earthworkenglan01allcgoog_n0124_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0124.jpg",
+ "crop": [
+  450,
+  620,
+  2550,
+  4480
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1930.0,
+   725.0,
+   -2.4627746,
+   50.693648
+  ],
+  [
+   1420.0,
+   4380.0,
+   -2.4770836,
+   50.6950225
+  ],
+  [
+   673.0,
+   2636.0,
+   -2.4702198,
+   50.6972412
+  ],
+  [
+   2471.0,
+   2636.0,
+   -2.4702198,
+   50.6925071
+  ]
+ ],
+ "label": "Fig. 18",
+ "title": "Maiden Castle, Dorchester",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:32:00.327822+00:00"
+}

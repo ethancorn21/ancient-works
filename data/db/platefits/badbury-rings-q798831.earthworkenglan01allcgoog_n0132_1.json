@@ -1,0 +1,51 @@
+{
+ "site": "badbury-rings-q798831",
+ "plan": "earthworkenglan01allcgoog_n0132_1",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0132.jpg",
+ "crop": [
+  300,
+  1380,
+  2900,
+  3330
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  3367,
+  5050
+ ],
+ "pairs": [
+  [
+   1627.0,
+   1448.0,
+   -2.0523029,
+   50.828264
+  ],
+  [
+   1599.0,
+   3283.0,
+   -2.0523029,
+   50.8244282
+  ],
+  [
+   477.0,
+   2357.0,
+   -2.0561,
+   50.8263955
+  ],
+  [
+   2721.0,
+   2245.0,
+   -2.0484632,
+   50.8267189
+  ]
+ ],
+ "label": "Fig. 21",
+ "title": "Badbury Rings, Wimbome, Dorset",
+ "book": "Allcroft 1908",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-10T17:38:04.576244+00:00"
+}
