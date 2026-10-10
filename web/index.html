@@ -88,6 +88,13 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .group-title { margin: 6px 0 2px; font: 600 11.5px var(--label); letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid var(--rule); padding-bottom: 3px; display: flex; justify-content: space-between; }
 .group-title span { color: var(--ink-2); font-weight: 400; }
 .lede { margin: 0; font-style: italic; }
+.kinds { display: flex; flex-wrap: wrap; gap: 4px; }
+.kinds button { display: flex; gap: 5px; align-items: center; background: var(--sheet); border: 1px solid var(--rule); padding: 3px 7px; font: 11.5px var(--label); letter-spacing: .04em; color: var(--ink); cursor: pointer; }
+.kinds button[aria-pressed="true"] { border-color: var(--ink); background: var(--paper-2); }
+.kinds i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--ink); display: inline-block; }
+.swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
+.links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
+.links a { color: var(--survey); }
 .deps { display: grid; border: 1px solid var(--ink); }
 .deps button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px 9px; font: 13.5px var(--title); text-align: left; cursor: pointer; }
 .deps button + button { border-top: 1px solid var(--rule); }
@@ -226,6 +233,20 @@ const RELIEF = [
 ];
 RELIEF.forEach(r => r.bounds = [0, 1, 2, 3].map(i => (i < 2 ? Math.min : Math.max)(...r.boxes.map(b => b[i]))));
 const STATUS = { plowed: 'Walls plowed down', standing: 'Walls standing', urban: 'Mostly under a town' };
+// catalog pins (web/data/catalog.json from tools/export_catalog.py): every known earthwork, built or not
+const C = { rows: [], byId: {}, kind: 'all' };
+const KIND = {
+  hillfort: ['Hillfort', 'forts'], enclosure: ['Enclosure', 'enclosures'], causewayed_enclosure: ['Causewayed enclosure', 'enclosures'],
+  henge: ['Henge', 'enclosures'], earthwork: ['Earthwork', 'enclosures'], barrow: ['Barrow', 'mounds'], mound_site: ['Mound site', 'mounds'],
+  platform_mound: ['Platform mound', 'mounds'], effigy_mound: ['Effigy mound', 'mounds'], motte: ['Motte', 'mottes'],
+  roman_fort: ['Roman fort', 'military'], military_earthwork: ['Military earthwork', 'military'], linear_earthwork: ['Dyke or linear earthwork', 'linear'],
+  terp: ['Terp (dwelling mound)', 'terps'],
+};
+const KGROUP = { forts: ['Hillforts', '#CFC6E0'], enclosures: ['Enclosures and henges', '#9ED8D8'], mounds: ['Barrows and mounds', '#F2C48D'],
+  mottes: ['Mottes', '#F2B5C4'], military: ['Roman and military forts', '#D8BCD5'], linear: ['Dykes', '#C4D9A6'], terps: ['Terps', '#EAE2CC'] };
+const kindLabel = k => (KIND[k] || [k.replace(/_/g, ' ')])[0];
+const kindGroup = k => (KIND[k] || [0, 'enclosures'])[1];
+const RELIEF_SRC = { US: 'USGS 3DEP', England: 'Environment Agency', Wales: 'Environment Agency (where it covers Wales)', Netherlands: 'AHN', France: 'IGN LiDAR HD' };
 const S = { sites: [], byId: {}, sel: null, ground: 'relief', plateMode: 'ink', plateOpacity: 0.85, align: {}, loaded: new Set(), db: null };
 const $ = (sel, el = document) => el.querySelector(sel);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -385,6 +406,65 @@ function addMarkers() {
 }
 
 /* ---------- panel ---------- */
+/* ---------- catalog pins ---------- */
+function catFilter() {
+  const f = ['all', ['!', ['get', 'built']]];
+  if (C.kind !== 'all') f.push(['==', ['get', 'g'], C.kind]);
+  return f;
+}
+function addCatalog() {
+  if (!C.rows.length || map.getSource('catalog')) return;
+  const features = C.rows.map((r, i) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [r.lon, r.lat] },
+    properties: { i, g: kindGroup(r.kind), built: !!S.byId[r.id] } }));
+  map.addSource('catalog', { type: 'geojson', data: { type: 'FeatureCollection', features } });
+  map.addLayer({ id: 'catalog-pins', type: 'circle', source: 'catalog', filter: catFilter(), paint: {
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 2, 1.4, 6, 2.4, 10, 4, 14, 6.5],
+    'circle-color': ['match', ['get', 'g'], ...Object.entries(KGROUP).flatMap(([k, v]) => [k, v[1]]), '#EAE2CC'],
+    'circle-stroke-color': '#2B2724', 'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 3, 0.3, 10, 0.9],
+  } });
+  map.on('click', 'catalog-pins', e => selectCat(C.rows[e.features[0].properties.i].id));
+  map.on('mouseenter', 'catalog-pins', () => map.getCanvas().style.cursor = 'pointer');
+  map.on('mouseleave', 'catalog-pins', () => map.getCanvas().style.cursor = '');
+}
+function setKind(k) { C.kind = k; if (map.getLayer('catalog-pins')) map.setFilter('catalog-pins', catFilter()); renderList(); }
+function selectCat(id) {
+  if (S.byId[id]) return select(id);
+  const r = C.byId[id]; if (!r) return;
+  if (B.open) closeBlock();
+  S.sel = null; F.sel = null;
+  $('#body').innerHTML = `
+    <button class="back" id="back">← All sites</button>
+    <div><h2 class="site-title">${esc(r.name)}</h2><p class="site-aka">${esc([kindLabel(r.kind), r.place, r.region].filter(Boolean).join(' · '))}</p></div>
+    <div class="group">
+      <p class="section-title">Ground</p>
+      <div class="seg" role="group" aria-label="Ground layer">
+        <button id="g-relief" aria-pressed="${S.ground === 'relief'}">LiDAR relief</button>
+        <button id="g-imagery" aria-pressed="${S.ground === 'imagery'}">Aerial photograph</button>
+      </div>
+      <p class="fit">${RELIEF_SRC[r.region] ? `Relief streams live from ${esc(RELIEF_SRC[r.region])} as you zoom in (first view of a new area takes a few seconds).` : 'No open LiDAR here.'}</p>
+    </div>
+    ${r.period ? `<p class="summary">Period: ${esc(r.period)}.</p>` : ''}
+    <p class="summary">Not built yet: no block diagram or old maps for this one. The pin comes from the site catalog.</p>
+    <div class="links">${r.wiki ? `<a href="${esc(r.wiki)}" target="_blank" rel="noopener">Wikipedia</a>` : ''}${r.qid ? `<a href="https://www.wikidata.org/wiki/${esc(r.qid)}" target="_blank" rel="noopener">Wikidata</a>` : ''}</div>`;
+  $('#back').onclick = () => { renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
+  $('#g-relief').onclick = () => { setGround('relief'); selectCat(id); };
+  $('#g-imagery').onclick = () => { setGround('imagery'); selectCat(id); };
+  if (narrow()) $('#panel').classList.remove('collapsed');
+  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
+  map.flyTo({ center: [r.lon, r.lat], zoom: narrow() ? 15 : 15.6, duration: 4000, essential: true, padding: pad });
+  try { history.replaceState(null, '', '#c/' + id); } catch {}
+}
+function catMatches() {
+  const q = S.q.trim().toLowerCase();
+  if (!q) return [];
+  const out = [];
+  for (const r of C.rows) {
+    if (S.byId[r.id] || (C.kind !== 'all' && kindGroup(r.kind) !== C.kind)) continue;
+    if (r.name.toLowerCase().includes(q) || (r.place && r.place.toLowerCase().includes(q))) { out.push(r); if (out.length >= 40) break; }
+  }
+  return out;
+}
+
 /* ---------- home: Sites and Finder tabs ---------- */
 S.tab = lsGet('aw.tab', 'sites'); S.q = ''; S.onlyPlate = false;
 const regionOf = s => s.region || String(s.place || '').split(',').pop().trim() || 'Other';
@@ -397,16 +477,24 @@ function siteEntries() {
   const groups = {};
   for (const s of S.sites.filter(siteMatches)) (groups[regionOf(s)] = groups[regionOf(s)] || []).push(s);
   const names = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length || a.localeCompare(b));
-  if (!names.length) return '<p class="status">No site matches.</p>';
+  const cm = catMatches();
+  if (!names.length && !cm.length) return '<p class="status">No site matches.</p>';
   return names.map(g => `
     <p class="group-title">${esc(g)} <span>${groups[g].length}</span></p>
     <ul class="legend-list">${groups[g].map(s => `
       <li><button class="entry" data-id="${esc(s.id)}">
         <span class="swatch ${esc(s.status || 'plowed')}"></span>
         <span><span class="name">${esc(s.name)}</span><span class="desc">${esc(s.place)}.${STATUS[s.status] ? ' ' + esc(STATUS[s.status]) : ''}${s.plate ? `; ${esc(s.plate.label)}` : ''}</span></span>
-      </button></li>`).join('')}</ul>`).join('');
+      </button></li>`).join('')}</ul>`).join('') + (cm.length ? `
+    <p class="group-title">From the catalog <span>${cm.length === 40 ? 'first 40' : cm.length}</span></p>
+    <ul class="legend-list">${cm.map(r => `
+      <li><button class="entry" data-cat="${esc(r.id)}">
+        <span class="swatch dot" style="background:${KGROUP[kindGroup(r.kind)][1]}"></span>
+        <span><span class="name">${esc(r.name)}</span><span class="desc">${esc([kindLabel(r.kind), r.place, r.region].filter(Boolean).join(', '))}</span></span>
+      </button></li>`).join('')}</ul>` : '');
 }
 function bindEntries() {
+  $('#body').querySelectorAll('.entry[data-cat]').forEach(b => b.addEventListener('click', () => selectCat(b.dataset.cat)));
   $('#body').querySelectorAll('.entry[data-id]').forEach(b => b.addEventListener('click', () => select(b.dataset.id)));
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
 }
@@ -415,12 +503,17 @@ function renderList() {
   const n = S.sites.length;
   $('#body').innerHTML = `
     <div class="tabs" role="group" aria-label="Section">
-      <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites · ${n}</button>
+      <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites</button>
       <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
     </div>
     ${S.tab === 'finder' ? finderHome() : `
+    <p class="fit">${n} built in full; ${C.rows.length.toLocaleString()} more known earthworks on the map as dots, with live LiDAR where it exists.</p>
+    <div class="kinds" role="group" aria-label="Kind of earthwork">
+      <button data-kind="all" aria-pressed="${C.kind === 'all'}">All</button>
+      ${Object.entries(KGROUP).map(([k, v]) => `<button data-kind="${k}" aria-pressed="${C.kind === k}"><i style="background:${v[1]}"></i>${esc(v[0])}</button>`).join('')}
+    </div>
     <div class="search">
-      <input id="q" type="search" placeholder="Search ${n} sites" value="${esc(S.q)}" aria-label="Search sites">
+      <input id="q" type="search" placeholder="Search ${(n + C.rows.length).toLocaleString()} sites" value="${esc(S.q)}" aria-label="Search sites">
       <label class="check"><input id="only-plate" type="checkbox" ${S.onlyPlate ? 'checked' : ''}> Fitted plate</label>
     </div>
     <div id="entries">${siteEntries()}</div>
@@ -431,6 +524,7 @@ function renderList() {
     </div>`}`;
   $('#h-sites').onclick = () => setTabHome('sites');
   $('#h-finder').onclick = () => setTabHome('finder');
+  $('#body').querySelectorAll('[data-kind]').forEach(b => b.onclick = () => setKind(b.dataset.kind));
   if ($('#q')) {
     $('#q').oninput = e => { S.q = e.target.value; $('#entries').innerHTML = siteEntries(); bindEntries(); };
     $('#only-plate').onchange = e => { S.onlyPlate = e.target.checked; $('#entries').innerHTML = siteEntries(); bindEntries(); };
@@ -562,7 +656,7 @@ async function saveAlign(s) {
   try { await S.db.doc(`plates/${s.id}`).set({ dx: a.dx, dy: a.dy, rot: a.rot, scale: a.scale, savedAt: new Date().toISOString() }); $('#saved').textContent = 'Saved. This is now the plate position for this site.'; }
   catch (e) { $('#saved').textContent = e && e.code === 'not_granted' ? 'Saving is off for this view. Ask for edit access to keep changes.' : `Could not save (${e && e.code || 'error'}). Try again in a moment.`; }
 }
-function setGround(g, s) { S.ground = g; lsSet('aw.ground', g); applyAll(); renderSite(s); if (B.open) setTab(true); }
+function setGround(g, s) { S.ground = g; lsSet('aw.ground', g); applyAll(); if (s) { renderSite(s); if (B.open) setTab(true); } }
 function setPlateMode(m, s) { S.plateMode = m; lsSet('aw.plateMode', m); applyAll(); renderSite(s); if (B.open) setTab(true); }
 function select(id) {
   const s = S.byId[id]; if (!s) return;
@@ -936,15 +1030,22 @@ async function openDb() {
 async function boot() {
   const data = await fetch('data/sites.json').then(r => r.json());
   S.sites = data.sites; S.sites.forEach(s => S.byId[s.id] = s);
+  try {
+    const cat = await fetch('data/catalog.json').then(r => r.json());
+    C.rows = cat.rows.map(a => Object.fromEntries(cat.cols.map((c, i) => [c, a[i]])));
+    C.rows.forEach(r => C.byId[r.id] = r);
+  } catch {}
   F.scans = await fetch('data/scans.json').then(r => r.ok ? r.json() : { scans: [] }).then(d => d.scans).catch(() => []);
   F.scans.forEach(sc => F.byName[sc.name] = sc);
   addMarkers();
   const start = () => {
     applyAll();
+    addCatalog();
     if (F.scans.length) addScanAreas();
     const id = location.hash.slice(1), m = id.match(/^scan-([\w-]+?)(?:\/(.+))?$/);
     if (id === 'finder') S.tab = 'finder';
-    if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
+    if (id.startsWith('c/') && C.byId[id.slice(2)]) selectCat(id.slice(2));
+    else if (S.byId[id]) select(id); else if (m && F.byName[m[1]]) selectScan(m[1], m[2]); else renderList();
   };
   if (map.isStyleLoaded()) start(); else map.once('load', start);
   openDb().then(async db => {

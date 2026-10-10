@@ -1,6 +1,51 @@
 {
  "sites": [
   {
+   "id": "alesia-q835966",
+   "name": "Alesia",
+   "aka": "site arch\u00e9ologique d'Al\u00e9sia, Al\u00e9sia",
+   "place": "C\u00f4te-d\u2019Or, France",
+   "lon": 4.500556,
+   "lat": 47.539167,
+   "summary": "Alesia was the capital of the Mandubii, one of the Gallic tribes allied with the Aedui. The Celtic oppidum was conquered by Julius Caesar during the Gallic Wars and afterwards became a Gallo-Roman town. Modern understanding of its location was controversial for a long time; however, it is now thought to have been located on Mont-Auxois, near Alise-Sainte-Reine in Burgundy, France.",
+   "region": "France",
+   "kind": "hillfort",
+   "qid": "Q835966",
+   "wiki": "https://en.wikipedia.org/wiki/Alesia_(city)",
+   "corners": [
+    [
+     4.489910657453475,
+     47.546353029751344
+    ],
+    [
+     4.511201342546525,
+     47.546353029751344
+    ],
+    [
+     4.511201342546525,
+     47.53197998519809
+    ],
+    [
+     4.489910657453475,
+     47.53197998519809
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 245.01,
+    "zmax": 408.5,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
+   ]
+  },
+  {
    "id": "forthill",
    "name": "Fort Hill",
    "aka": "Fort Hill Earthworks",
@@ -395,6 +440,55 @@
    }
   },
   {
+   "id": "maiden-castle-q1232816",
+   "name": "Maiden Castle",
+   "aka": "Maiden Castle, Dorchester",
+   "place": "Winterborne St Martin, Dorset, England",
+   "lon": -2.47,
+   "lat": 50.695,
+   "summary": "Maiden Castle is an Iron Age hillfort 1.6\u00a0mi (2.6\u00a0km) southwest of Dorchester, in the English county of Dorset. Hill forts were fortified hill-top settlements constructed across Britain during the Iron Age. The earliest archaeological evidence of human activity on the site consists of a Neolithic causewayed enclosure and bank barrow. In about 1800\u00a0BC, during the Bronze Age, the site was used for growing crops before being abandoned. Maiden Castle itself was built in about 600\u00a0BC; the early phase was a simple and unremarkable site, similar to many other hill forts in Britain and covering 6.4\u00a0ha.",
+   "region": "England",
+   "kind": "hillfort",
+   "qid": "Q1232816",
+   "wiki": "https://en.wikipedia.org/wiki/Maiden_Castle,_Dorset",
+   "period": [
+    "British Iron Age",
+    "Romano-British period"
+   ],
+   "corners": [
+    [
+     -2.4813450792000284,
+     50.7021859717358
+    ],
+    [
+     -2.458654920799972,
+     50.7021859717358
+    ],
+    [
+     -2.458654920799972,
+     50.687812927171336
+    ],
+    [
+     -2.4813450792000284,
+     50.687812927171336
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 63.04,
+    "zmax": 137.29,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1600,
+    1600
+   ]
+  },
+  {
    "id": "marietta",
    "name": "Marietta Works",
    "aka": "Marietta Earthworks",
@@ -605,6 +699,95 @@
     "warped": true,
     "label": "Plate XXV"
    }
+  },
+  {
+   "id": "serpent-mound-q968802",
+   "name": "Serpent Mound",
+   "aka": "Great Serpent Mound",
+   "place": "Ohio",
+   "lon": -83.430444,
+   "lat": 39.025858,
+   "summary": "The Great Serpent Mound is a 1,348-feet-long (411m), four-feet-high precontact effigy mound located in Peebles, Ohio, United States. It was built on what is known as the Serpent Mound crater plateau, running along the Ohio Brush Creek in Adams County, Ohio. The mound is the largest serpent effigy known in the world.",
+   "region": "US",
+   "kind": "effigy_mound",
+   "qid": "Q968802",
+   "wiki": "https://en.wikipedia.org/wiki/Serpent_Mound",
+   "corners": [
+    [
+     -83.43738203099915,
+     39.03124768621829
+    ],
+    [
+     -83.42350596900086,
+     39.03124768621829
+    ],
+    [
+     -83.42350596900086,
+     39.020467902814296
+    ],
+    [
+     -83.43738203099915,
+     39.020467902814296
+    ]
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 201.64,
+    "zmax": 257.69,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1200,
+    1200
+   ]
+  },
+  {
+   "id": "warffum-q1942428",
+   "name": "Warffum",
+   "place": "Het Hogeland, Groningen, Netherlands",
+   "lon": 6.5578,
+   "lat": 53.3933,
+   "summary": "Warffum is a village in the Dutch province of Groningen. It is located in the municipality of Het Hogeland. It had a population of around 2,175 in January 2017.",
+   "region": "Netherlands",
+   "kind": "terp",
+   "qid": "Q1942428",
+   "wiki": "https://en.wikipedia.org/wiki/Warffum",
+   "corners": [
+    [
+     6.548761391529816,
+     53.39868955043335
+    ],
+    [
+     6.566838608470186,
+     53.39868955043335
+    ],
+    [
+     6.566838608470186,
+     53.387909767011
+    ],
+    [
+     6.548761391529816,
+     53.387909767011
+    ]
+   ],
+   "relief_clip_m": 0.92,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.98,
+    "zmax": 6.51,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "size_m": [
+    1200,
+    1200
+   ]
   }
  ]
 }

@@ -41,9 +41,9 @@ def wiki_summary(entry):
     """Lead paragraph of the site's Wikipedia article: (text, url) or (None, None)."""
     urls = []
     for k in ("wikipedia_en", "enwiki", "wikipedia"):
-        if entry.get(k):
+        if isinstance(entry.get(k), str):
             urls.append(entry[k])
-    w = entry.get("wikipedia_urls") or entry.get("wiki") or {}
+    w = entry.get("wikipedia") or entry.get("wikipedia_urls") or entry.get("wiki") or {}
     if isinstance(w, dict):
         urls += [w[k] for k in ("en", "fr", "nl", "de") if w.get(k)]
     elif isinstance(w, list):
@@ -64,14 +64,24 @@ def wiki_summary(entry):
     return None, None
 
 
+REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France"}
+
+
 def place_of(entry):
-    parts = [entry.get(k) for k in ("admin", "admin_area", "county", "state", "region_name")]
+    a = entry.get("admin") or {}
+    if isinstance(a, dict):  # catalog.py: {parish, county, district, state, departement, province, ...}
+        parts = [a.get(k) for k in ("parish", "municipality", "commune", "county", "departement", "province", "state")]
+    else:
+        parts = [a]
     parts = [p for p in parts if p]
-    country = {"US": None, "EN": "England", "GB": "England", "NL": "Netherlands", "FR": "France", "WA": "Wales",
-               "DK": "Denmark", "BE": "Belgium"}.get(str(entry.get("region", "")).upper(), entry.get("region"))
-    if country and country not in parts:
-        parts.append(country)
-    return ", ".join(str(p) for p in parts) or None
+    seen = []
+    for p in parts:
+        if p not in seen:
+            seen.append(p)
+    country = REGION_NAME.get(str(entry.get("region", "")).lower(), entry.get("region"))
+    if country and country not in seen:
+        seen.append(country)
+    return ", ".join(str(p) for p in seen[-3:]) or None
 
 
 def make_site(entry):
@@ -79,7 +89,8 @@ def make_site(entry):
     m = box_m(entry)
     text, url = wiki_summary(entry)
     site = {"id": sid, "name": entry["name"], "place": place_of(entry), "lon": float(entry["lon"]), "lat": float(entry["lat"]),
-            "width_m": m, "height_m": m, "px_m": 1.0, "region": entry.get("region"), "kind": entry.get("kind"),
+            "width_m": m, "height_m": m, "px_m": 1.0, "region": REGION_NAME.get(str(entry.get("region", "")).lower()) or "US",
+            "kind": entry.get("kind"), "period": entry.get("period"),
             "qid": entry.get("qid"), "summary": text, "wiki": url,
             "aka": ", ".join(entry.get("aliases", [])[:2]) if isinstance(entry.get("aliases"), list) else entry.get("aliases")}
     return {k: v for k, v in site.items() if v not in (None, "", [])}
@@ -102,8 +113,8 @@ def main():
         want = set(a.ids.split(","))
         rows = [r for r in rows if r["id"] in want]
     if a.region:
-        rows = [r for r in rows if str(r.get("region", "")).upper() == a.region.upper()]
-    rows.sort(key=lambda r: -(r.get("sitelinks") or r.get("sitelink_count") or 0))
+        rows = [r for r in rows if str(r.get("region", "")).lower() == a.region.lower()]
+    rows.sort(key=lambda r: (-(r.get("wiki_links") or 0), -(r.get("sitelinks") or 0)))
     if a.min_p is not None:
         tp = os.path.join(ROOT, "data", "catalog", "triage_scores.jsonl")
         scores = {}

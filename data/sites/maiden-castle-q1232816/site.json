@@ -1,0 +1,20 @@
+{
+ "id": "maiden-castle-q1232816",
+ "name": "Maiden Castle",
+ "place": "Winterborne St Martin, Dorset, England",
+ "lon": -2.47,
+ "lat": 50.695,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "hillfort",
+ "period": [
+  "British Iron Age",
+  "Romano-British period"
+ ],
+ "qid": "Q1232816",
+ "summary": "Maiden Castle is an Iron Age hillfort 1.6\u00a0mi (2.6\u00a0km) southwest of Dorchester, in the English county of Dorset. Hill forts were fortified hill-top settlements constructed across Britain during the Iron Age. The earliest archaeological evidence of human activity on the site consists of a Neolithic causewayed enclosure and bank barrow. In about 1800\u00a0BC, during the Bronze Age, the site was used for growing crops before being abandoned. Maiden Castle itself was built in about 600\u00a0BC; the early phase was a simple and unremarkable site, similar to many other hill forts in Britain and covering 6.4\u00a0ha.",
+ "wiki": "https://en.wikipedia.org/wiki/Maiden_Castle,_Dorset",
+ "aka": "Maiden Castle, Dorchester"
+}
