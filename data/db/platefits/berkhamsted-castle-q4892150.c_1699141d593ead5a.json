@@ -1,0 +1,51 @@
+{
+ "site": "berkhamsted-castle-q4892150",
+ "plan": "c_1699141d593ead5a",
+ "ia": null,
+ "file": null,
+ "crop": [
+  60,
+  80,
+  918,
+  965
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/berkhamsted-castle-q4892150/1699141d593ead5a.jpg",
+ "ref": "File:177 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148744815).jpg",
+ "size": [
+  918,
+  1073
+ ],
+ "pairs": [
+  [
+   485.0,
+   421.0,
+   -0.5583113,
+   51.7643111
+  ],
+  [
+   464.0,
+   801.0,
+   -0.5589644,
+   51.7630624
+  ],
+  [
+   303.0,
+   657.0,
+   -0.5601546,
+   51.7637991
+  ],
+  [
+   331.0,
+   497.0,
+   -0.5597918,
+   51.7644009
+  ]
+ ],
+ "label": "1897",
+ "title": "177 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148744815)",
+ "book": "Wikimedia Commons",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:177_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148744815).jpg",
+ "at": "2026-10-10T19:50:18.416525+00:00"
+}

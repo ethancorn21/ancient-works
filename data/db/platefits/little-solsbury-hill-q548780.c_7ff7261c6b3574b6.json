@@ -1,0 +1,57 @@
+{
+ "site": "little-solsbury-hill-q548780",
+ "plan": "c_7ff7261c6b3574b6",
+ "ia": null,
+ "file": null,
+ "crop": [
+  0,
+  0,
+  855,
+  635
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/little-solsbury-hill-q548780/7ff7261c6b3574b6.jpg",
+ "ref": "File:Solisbury Camp Somerset Map.jpg",
+ "size": [
+  855,
+  635
+ ],
+ "pairs": [
+  [
+   157.0,
+   76.0,
+   -2.3370092,
+   51.4113633
+  ],
+  [
+   746.0,
+   43.0,
+   -2.3311043,
+   51.4113903
+  ],
+  [
+   399.0,
+   565.0,
+   -2.3342728,
+   51.4085156
+  ],
+  [
+   204.0,
+   399.0,
+   -2.3360443,
+   51.4096565
+  ],
+  [
+   580.0,
+   399.0,
+   -2.3319685,
+   51.4096565
+  ]
+ ],
+ "label": "1911",
+ "title": "Solisbury Camp Somerset Map",
+ "book": "Wikimedia Commons",
+ "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Solisbury_Camp_Somerset_Map.jpg",
+ "at": "2026-10-10T19:52:47.610528+00:00"
+}

@@ -1,0 +1,51 @@
+{
+ "site": "camp-d-attila-q18749222",
+ "plan": "c_6a912845c1e1aa28",
+ "ia": null,
+ "file": null,
+ "crop": [
+  0,
+  0,
+  831,
+  685
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/camp-d-attila-q18749222/6a912845c1e1aa28.jpg",
+ "ref": "File:Camp d'Attila la Cheppe par Barbat.jpg",
+ "size": [
+  831,
+  685
+ ],
+ "pairs": [
+  [
+   251.0,
+   262.0,
+   4.4870169,
+   49.0520084
+  ],
+  [
+   215.0,
+   484.0,
+   4.4852077,
+   49.0478313
+  ],
+  [
+   162.0,
+   407.0,
+   4.4843853,
+   49.049098
+  ],
+  [
+   440.0,
+   432.0,
+   4.4918415,
+   49.0487386
+  ]
+ ],
+ "label": "1853",
+ "title": "Camp d'Attila la Cheppe par Barbat",
+ "book": "Wikimedia Commons",
+ "cite": "by G.Garitan; Public domain; https://commons.wikimedia.org/wiki/File:Camp_d%27Attila_la_Cheppe_par_Barbat.jpg",
+ "at": "2026-10-10T19:56:42.002207+00:00"
+}

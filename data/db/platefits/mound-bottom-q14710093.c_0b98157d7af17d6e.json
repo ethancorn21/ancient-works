@@ -1,0 +1,57 @@
+{
+ "site": "mound-bottom-q14710093",
+ "plan": "c_0b98157d7af17d6e",
+ "ia": null,
+ "file": null,
+ "crop": [
+  12,
+  32,
+  1175,
+  782
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/mound-bottom-q14710093/0b98157d7af17d6e.jpg",
+ "ref": "File:1923 map of Mound bottom.jpg",
+ "size": [
+  1184,
+  792
+ ],
+ "pairs": [
+  [
+   620.0,
+   380.0,
+   -87.1016837,
+   36.1399572
+  ],
+  [
+   625.0,
+   518.0,
+   -87.1016169,
+   36.1386726
+  ],
+  [
+   885.0,
+   337.0,
+   -87.0985913,
+   36.1403704
+  ],
+  [
+   843.0,
+   439.0,
+   -87.0990251,
+   36.1394182
+  ],
+  [
+   839.0,
+   479.0,
+   -87.0990251,
+   36.139023
+  ]
+ ],
+ "label": "1924",
+ "title": "1923 map of Mound bottom",
+ "book": "Wikimedia Commons",
+ "cite": "by William Edward Myer; Public domain; https://commons.wikimedia.org/wiki/File:1923_map_of_Mound_bottom.jpg",
+ "at": "2026-10-10T19:58:51.169791+00:00"
+}

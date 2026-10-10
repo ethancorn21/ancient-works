@@ -1,0 +1,51 @@
+{
+ "site": "cadbury-castle-q1025082",
+ "plan": "c_1fab2a0abe5b99d7",
+ "ia": null,
+ "file": null,
+ "crop": [
+  0,
+  0,
+  825,
+  580
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cadbury-castle-q1025082/1fab2a0abe5b99d7.jpg",
+ "ref": "File:Cadbury Castle Somerset Map.jpg",
+ "size": [
+  825,
+  580
+ ],
+ "pairs": [
+  [
+   590.0,
+   193.0,
+   -2.5301317,
+   51.0257166
+  ],
+  [
+   499.0,
+   391.0,
+   -2.5316599,
+   51.023381
+  ],
+  [
+   369.0,
+   300.0,
+   -2.5339449,
+   51.0250608
+  ],
+  [
+   618.0,
+   386.0,
+   -2.5292177,
+   51.0231294
+  ]
+ ],
+ "label": "1911",
+ "title": "Cadbury Castle Somerset Map",
+ "book": "Wikimedia Commons",
+ "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Cadbury_Castle_Somerset_Map.jpg",
+ "at": "2026-10-10T19:54:26.682134+00:00"
+}

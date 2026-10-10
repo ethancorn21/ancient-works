@@ -1,0 +1,57 @@
+{
+ "site": "old-sarum-q782719",
+ "plan": "c_8192abb966d030a3",
+ "ia": null,
+ "file": null,
+ "crop": [
+  280,
+  60,
+  900,
+  800
+ ],
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/old-sarum-q782719/8192abb966d030a3.jpg",
+ "ref": "File:An Exact Plan and Section of Old Sarum.jpg",
+ "size": [
+  1280,
+  1082
+ ],
+ "pairs": [
+  [
+   614.0,
+   484.0,
+   -1.8048436,
+   51.0933644
+  ],
+  [
+   633.0,
+   210.0,
+   -1.8082763,
+   51.094128
+  ],
+  [
+   626.0,
+   768.0,
+   -1.8010246,
+   51.093086
+  ],
+  [
+   363.0,
+   491.0,
+   -1.8047148,
+   51.0910108
+  ],
+  [
+   889.0,
+   491.0,
+   -1.8053442,
+   51.0957269
+  ]
+ ],
+ "label": "1761",
+ "title": "An Exact Plan and Section of Old Sarum",
+ "book": "Wikimedia Commons",
+ "cite": "by F. Merryweather; Public domain; https://commons.wikimedia.org/wiki/File:An_Exact_Plan_and_Section_of_Old_Sarum.jpg",
+ "at": "2026-10-10T19:57:58.163730+00:00"
+}
