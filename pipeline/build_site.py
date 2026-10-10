@@ -46,7 +46,11 @@ def main(path, refresh_imagery=False):
     else:
         z = aw.fetch_dem(bbox, w, h)
         np.save(dem_cache, z)
-    img, clip = aw.render_relief(z, px_m)
+    mask_path = os.path.join(sdir, "modern_mask.npy")
+    ignore = aw.water_mask(z, px_m)
+    if os.path.exists(mask_path):
+        ignore = ignore | np.load(mask_path)
+    img, clip = aw.render_relief(z, px_m, clip_m=site.get("relief_clip_m"), ignore=ignore)
     Image.fromarray(img).save(os.path.join(out, "relief.jpg"), quality=84, optimize=True)
 
     imagery = os.path.join(out, "imagery.jpg")

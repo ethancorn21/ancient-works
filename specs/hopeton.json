@@ -1,0 +1,68 @@
+{
+ "id": "hopeton",
+ "name": "Hopeton Works",
+ "aka": "Hopeton Earthworks",
+ "place": "Ross County, Ohio",
+ "lon": -82.97892,
+ "lat": 39.38501,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "status": "plowed",
+ "summary": "A 20-acre circle joined to a 20-acre square, with parallel walls running 2400 ft toward the Scioto. Squier and Davis surveyed it in 1846. It is now part of Hopewell Culture National Historical Park.",
+ "plate": {
+  "leaf": "data/plates/sd_n129.jpg",
+  "crop": [
+   450,
+   560,
+   2400,
+   3620
+  ],
+  "label": "Plate XVII",
+  "source": "Squier & Davis 1848, Plate XVII (surveyed by E. G. Squier and E. H. Davis, 1846). Scan: Internet Archive ancientmonuments00squi leaf n129.",
+  "m_per_px": 0.44,
+  "guess": {
+   "rot_deg": -35,
+   "tx": 15,
+   "ty": 0
+  },
+  "rot_max_deg": 6,
+  "search_m": 160,
+  "walls": [
+   {
+    "circle": [
+     1346,
+     1485,
+     375
+    ]
+   },
+   [
+    [
+     1405,
+     1932
+    ],
+    [
+     1875,
+     2334
+    ],
+    [
+     2264,
+     1864
+    ],
+    [
+     1786,
+     1495
+    ],
+    [
+     1405,
+     1932
+    ]
+   ]
+  ]
+ },
+ "notes": [
+  "The circle and the square both show as low rises in the relief. The circle is about 300 m across, close to the plate's 1050 ft (320 m).",
+  "The plate draws the square about 15% smaller than its own 900 ft label, so no single rotation and scale fits both shapes. The fit follows the circle; the real square extends past the drawn one to the south and west.",
+  "The plate is rotated about 34 degrees from page-up to true north."
+ ]
+}

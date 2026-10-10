@@ -68,6 +68,17 @@ def main(path):
     g = plate.get("guess", {})
     rot0 = math.radians(g.get("rot_deg", 0.0))
     tx0, ty0 = g.get("tx", 0.0), g.get("ty", 0.0)
+    if plate.get("control"):
+        # control pairs [u, v, col, row]: plate crop px -> relief image px; solve z = a*w + b (complex least squares)
+        c = np.array(plate["control"], float)
+        wv = (c[:, 0] - u0) - 1j * (c[:, 1] - v0)
+        zv = (c[:, 2] * px_m - site["width_m"] / 2) + 1j * (site["height_m"] / 2 - c[:, 3] * px_m)
+        A = np.stack([wv, np.ones_like(wv)], 1)
+        (a, b), *_ = np.linalg.lstsq(A, zv, rcond=None)
+        s0, rot0, tx0, ty0 = abs(a), float(np.angle(a)), b.real, b.imag
+        resid = np.abs(A @ np.array([a, b]) - zv)
+        print("  control seed: m/px %.3f rot %.1f shift %.0f %.0f, residuals m %s" % (
+            s0, math.degrees(rot0), tx0, ty0, np.round(resid, 1).tolist()))
 
     def relief_at(en):
         col = (en[:, 0] + site["width_m"] / 2) / px_m

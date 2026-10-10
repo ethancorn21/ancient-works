@@ -105,16 +105,18 @@ def hillshade(z, px_m, az=315, alt=35, exag=3.0):
     return np.clip(hs, 0, 1)
 
 
-def render_relief(z, px_m, clip_m=None):
+def render_relief(z, px_m, clip_m=None, ignore=None):
     """Grayscale relief picture: raised = light, sunken = dark, plus a soft hillshade for texture.
 
-    Returns (uint8 image array, clip used in metres).
+    The contrast stretch comes from open ground only (`ignore` masks roads, quarries, water), so highway
+    embankments do not wash out half-metre walls. Returns (uint8 image array, clip used in metres).
     """
     z = fill_nan(z)
     lrm = local_relief(z, px_m)
     if clip_m is None:
-        lo, hi = np.percentile(lrm, [2, 98])
-        clip_m = float(max(abs(lo), abs(hi), 0.15))
+        sample = lrm if ignore is None or ignore.all() else lrm[~ignore]
+        lo, hi = np.percentile(sample, [2, 98])
+        clip_m = float(min(max(abs(lo), abs(hi), 0.15), 1.2))  # bluffs may clip; walls need the contrast
     rel = np.clip(lrm / clip_m, -1, 1) * 0.5 + 0.5
     hs = hillshade(z, px_m)
     mix = 0.78 * rel + 0.22 * hs
@@ -130,12 +132,16 @@ OVERPASS = "https://overpass-api.de/api/interpreter"
 
 
 def osm_ways(bbox):
-    """Roads, rails, buildings and water from OpenStreetMap for a Mercator bbox, as lists of (lon, lat) lines."""
+    """Roads, rails, buildings and water from OpenStreetMap for a Mercator bbox, as lists of (lon, lat) lines.
+
+    Footways, paths and tracks are left out on purpose: at park sites they are mowed along the walls themselves.
+    """
     lon0, lat0 = to_lonlat(bbox[0], bbox[1])
     lon1, lat1 = to_lonlat(bbox[2], bbox[3])
     b = f"{lat0:.6f},{lon0:.6f},{lat1:.6f},{lon1:.6f}"
     q = f"""[out:json][timeout:90];
-(way["highway"]({b});way["railway"]({b});way["building"]({b});way["natural"="water"]({b});
+(way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified|residential|service|living_street|road)(_link)?$"]({b});
+ way["railway"]({b});way["building"]({b});way["natural"="water"]({b});
  way["waterway"]({b});way["landuse"~"quarry|reservoir"]({b}););
 out geom;"""
     req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": q}).encode(), headers=UA)
