@@ -1,4 +1,4 @@
-"""Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.png, z 12-17.
+"""Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17.
 
 Never one upstream request per tile: tiles are grouped in chunks of CHUNK x CHUNK. A chunk's DEM is fetched
 once (plus a margin for the gaussian, so chunk edges match), cached under data/tilecache/dem/, rendered once,
@@ -31,7 +31,7 @@ import dem_sources  # noqa: E402
 ZMIN, ZMAX = 12, 17
 TILE, CHUNK = 256, 6
 RADIUS_M, CLIP_M = 22.0, 1.2
-STYLE = f"v1-r{RADIUS_M:g}-c{CLIP_M:g}"
+STYLE = f"v2-r{RADIUS_M:g}-c{CLIP_M:g}"  # v2: WebP (v1 was PNG, ~5x bigger)
 CACHE = os.path.join(ROOT, "data", "tilecache")
 DEM_DIR = os.path.join(CACHE, "dem")
 PNG_DIR = os.path.join(CACHE, "relief", STYLE)
@@ -79,7 +79,7 @@ class _Newest:
 
 def _blank():
     buf = io.BytesIO()
-    Image.new("RGBA", (TILE, TILE), (0, 0, 0, 0)).save(buf, "PNG", optimize=True)
+    Image.new("RGBA", (TILE, TILE), (0, 0, 0, 0)).save(buf, "WEBP", lossless=True)
     return buf.getvalue()
 
 
@@ -227,11 +227,11 @@ def covered(z, x, y):
 
 
 def tile(z, x, y, alive=lambda: True):
-    """PNG bytes for one tile; BLANK (transparent) outside coverage. Raises Unavailable, Cancelled, ValueError.
+    """WebP bytes for one tile; BLANK (transparent) outside coverage. Raises Unavailable, Cancelled, ValueError.
     `alive()` says whether the browser still wants the tile; it is polled while the request waits."""
     if not (ZMIN <= z <= ZMAX and 0 <= x < 2 ** z and 0 <= y < 2 ** z):
         raise ValueError("tile out of range")
-    path = os.path.join(PNG_DIR, str(z), str(x), f"{y}.png")
+    path = os.path.join(PNG_DIR, str(z), str(x), f"{y}.webp")
     if os.path.exists(path):
         with open(path, "rb") as f:
             return f.read()
@@ -246,7 +246,7 @@ def tile(z, x, y, alive=lambda: True):
         return BLANK
     im = Image.fromarray(t[..., :3], "RGB") if t[..., 3].all() else Image.fromarray(t, "RGBA")
     buf = io.BytesIO()
-    im.save(buf, "PNG", compress_level=6)
+    im.save(buf, "WEBP", quality=82, method=4)
     body = buf.getvalue()
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = f"{path}.{threading.get_ident()}.tmp"

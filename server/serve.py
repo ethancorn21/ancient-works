@@ -17,7 +17,7 @@ Document store (replaces the claude.ai artifact database the page used before):
 Documents live in data/db/<collection>/<doc>.json.
 
 Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv python):
-  GET    /tiles/relief/<z>/<x>/<y>.png -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
+  GET    /tiles/relief/<z>/<x>/<y>.webp -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
                                           service is failing. DEMs and PNGs are cached in data/tilecache/.
 The rest is stdlib only, so the system python3 still runs the site; tiles then answer 404.
 """
@@ -37,7 +37,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
 DB = os.path.join(ROOT, "data", "db")
 SEG = re.compile(r"^[A-Za-z0-9_][A-Za-z0-9_.\-]{0,199}$")
-TILE = re.compile(r"^/tiles/relief/(\d{1,2})/(\d{1,6})/(\d{1,6})\.png$")
+TILE = re.compile(r"^/tiles/relief/(\d{1,2})/(\d{1,6})/(\d{1,6})\.webp$")
 RELIEF = None  # the relief_tiles module, when numpy & co. are importable (see main)
 MAX_BODY = 1 << 20
 
@@ -112,7 +112,7 @@ class Handler(SimpleHTTPRequestHandler):
             super().end_headers()
             return
         self.send_response(HTTPStatus.OK)
-        self.send_header("Content-Type", "image/png")
+        self.send_header("Content-Type", "image/webp")
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "max-age=86400")
         super().end_headers()

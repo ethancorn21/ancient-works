@@ -202,7 +202,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 const WORLD = [[-180, 85.0511], [180, 85.0511], [180, -85.0511], [-180, -85.0511]];
 // live LiDAR relief tiles (server/relief_tiles.py, z12-17). The server picks the DEM for each tile; one source per
 // national DEM only so that each credit shows where its area is on screen and no tiles are asked for elsewhere.
-const RELIEF_URL = location.origin + location.pathname.replace(/[^/]*$/, '') + 'tiles/relief/{z}/{x}/{y}.png';
+const RELIEF_URL = location.origin + location.pathname.replace(/[^/]*$/, '') + 'tiles/relief/{z}/{x}/{y}.webp';
 // `boxes` (rough, from pipeline/dem_sources.py) decide whether a credit is on screen; `bounds` is their union.
 const RELIEF = [
   { id: 'relief-us', attribution: 'LiDAR: USGS 3DEP',
