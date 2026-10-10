@@ -10,6 +10,7 @@ page.on('pageerror', e => console.log('[pageerror]', e.message));
 page.on('requestfailed', r => console.log('[reqfail]', r.url(), r.failure()?.errorText));
 await page.goto(url);
 await page.waitForTimeout(+wait);
-if (js) console.log('[eval]', JSON.stringify(await page.evaluate(js)));
+if (js) { console.log('[eval]', JSON.stringify(await page.evaluate(js))); await page.waitForTimeout(+(process.env.POSTWAIT || 5000)); }
+if (process.env.AFTER) console.log('[after]', JSON.stringify(await page.evaluate(process.env.AFTER)));
 await page.screenshot({ path: out });
 await browser.close();

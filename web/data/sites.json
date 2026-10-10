@@ -34,6 +34,15 @@
     ]
    ],
    "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 427,
+    "zmin": 319.89,
+    "zmax": 335.78,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "size_m": [
     1800,
     1500
@@ -41,32 +50,46 @@
    "plate": {
     "corners": [
      [
-      -84.99396321652844,
-      40.18585307595193
+      -85.0011823587731,
+      40.18933703008471
      ],
      [
-      -84.98536091133695,
-      40.186061302992684
+      -84.9800176412269,
+      40.18933703008471
      ],
      [
-      -84.9851021472662,
-      40.17982200615588
+      -84.9800176412269,
+      40.17586230083182
      ],
      [
-      -84.99370445245768,
-      40.17961375996389
+      -85.0011823587731,
+      40.17586230083182
      ]
     ],
+    "ink": "plate_ink.webp",
+    "paper": "plate_paper.webp",
     "source": "Squier & Davis 1848, Plate XXXIII No. 2 (surveyed by James McBride, 1847). Scan: Internet Archive ancientmonuments00squi leaf n203.",
     "fit": {
      "m_per_px": 0.4633,
      "rot_deg": 1.81,
-     "tx": -11.9,
-     "ty": -15.1,
+     "affine": [
+      0.46304,
+      -0.01467,
+      0.01467,
+      0.46304,
+      -11.85185,
+      -15.14403
+     ],
+     "u0v0": [
+      565.75,
+      832.72
+     ],
      "ridge_contrast_m": 0.307,
      "null_mean_m": -0.103,
      "null_p99_m": -0.033
     },
+    "features": null,
+    "warped": false,
     "label": "Plate XXXIII No. 2"
    }
   },
@@ -103,6 +126,15 @@
     ]
    ],
    "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 184.43,
+    "zmax": 248.49,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "size_m": [
     2000,
     2000
@@ -201,6 +233,15 @@
     ]
    ],
    "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 442,
+    "zmin": 243.15,
+    "zmax": 322.27,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "size_m": [
     4400,
     3800
