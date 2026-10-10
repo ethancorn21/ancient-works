@@ -1,0 +1,37 @@
+{
+ "site": "serpent-mound-q968802",
+ "plan": "ancientmonuments00squi_n0210_1",
+ "ia": "ancientmonuments00squi",
+ "file": "n0210.jpg",
+ "crop": [
+  200,
+  950,
+  2150,
+  3050
+ ],
+ "pairs": [
+  [
+   1000,
+   1453,
+   -83.4311031,
+   39.0264147
+  ],
+  [
+   1327,
+   2273,
+   -83.4306695,
+   39.0252065
+  ],
+  [
+   1567,
+   1933,
+   -83.4300277,
+   39.0256332
+  ]
+ ],
+ "label": "Plate XXXV",
+ "title": "Great Serpent, Adams county, Ohio",
+ "book": "Squier & Davis 1848",
+ "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+ "at": "2026-10-10T17:14:53.290949+00:00"
+}
