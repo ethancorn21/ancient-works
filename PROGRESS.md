@@ -5,8 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van-deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 44 - module fix + lead-doc NL/collection sections written; the module and doc changes
-- `tasks/204-van_deventer.md` ()
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 45 - BE QID batch verified + recorded in TOWNS + lead-doc BE sections written; the
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -17,46 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed
-    Ran `--verify` with no args (every recorded town: the 16 NL + the 6 done) - 28 s, no 429 stalls, exit 0.
-    All 16 NL: labels match (no LABEL CHECK), every P625 within 0.74 km of the recorded old-town point
-    (maxes: Haarlem 0.74, Amsterdam 0.68, Leeuwarden 0.65, Rotterdam 0.63, Sluis 0.59, Goes 0.49 km - the
-    Gouda-800 m class of offset, now computed not eyeballed), P373 matches the table string exactly in all
-    16 (every category-route target confirmed), enwiki matches (Valkenburg's old-town item Q100076 has none,
-    as recorded). The 6 done towns re-confirm the plain-town-category P373 pattern. Three name-search traps
-    (first hit with P625; all within 50 km, so no auto-flag, and the caption route stores the verified site
-    point, so the exposure is documentary only): 'Sluis' resolves FIRST to Q2065987 - a distinct item
-    ('place with town rights and privileges' / 'cadastral populated place in the Netherlands' / 'fortified
-    town', no enwiki, P625 (3.3883, 51.3089) 8 km SW of the town, P373 'Sluis (city)' vs Q10080's 'Sluis';
-    noted on the TOWNS row) - 'Reimerswaal' to the municipality Q10078 (the city Q2590944 is recorded, ~9 km);
-    'Valkenburg' to the modern town Q9771 (the old town Q100076 is recorded, 0.19 km - same spot). Box 4: only
-    the six done QIDs are in the catalog (12575 known sites checked); no other NL QID collides, so no
-    reuse-of-existing-site case yet (the BE/FR/LU batches must re-check per town - stage() already handles it).
-    Module fixes in the same commit (fresh-eyes read of the iteration-40 build): (a) verify_qids crashed with
-    KeyError on the 6 done towns (their TOWNS rows carry no label/lon/lat/p373) - no-args now includes them
-    degraded (no distances, P373 "(none recorded)") and an unknown town name fails loud; (b) cat_chain
-    returned a " -> "-joined string INCLUDING the file category, but evidence_for records t["chain"] as the
-    via and check_category requires via[-1] == site_cat and file_cat not in via - it now returns and prints
-    the via list as JSON (paste into TOWNS) and walks with ciclimit 500 (a parent list over 50 would have
-    silently lost the chain); (c) check_staged's per-row town lookup called _site_row over ALL TOWNS entries
-    -> KeyError on the done towns - now a precomputed sid->town map (slug id and, when the QID is already
-    cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
-    site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
-    Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).
-
-### 2026-10-11 204 DECISION: wrote docs/lead_van_deventer.md (category census + NL QID section + NL traps); fixed two stale TOWNS count comments
-The lead doc now holds the verified material (the pending sections stay marked pending): (1) the category
-section - name/URL, 70 = 66 town + 4 collections, the --list assertion, all 66 town categories listed by
-country with the 6 done marked (NL 19 / BE 22 / FR 24 / LU 1), the 4 collection names incl. the BNE atlas;
-(2) the NL QID table - 16 rows (QID/label/P625/site-point/P625->site distance/enwiki; distances taken from the
-iter-41 transcript /tmp/vd_verify_iter41.txt, all <= 0.74 km, labels/P373 clean, the 3 done NL re-confirmed);
-(3) the three NL name-search traps with measured distances: Sluis first hits Q2065987 (9.0 km SW, P373
-'Sluis (city)', no enwiki) vs recorded Q10080; Reimerswaal first hits the municipality Q10078 (9.1 km, shares
-the P373 with the city so P373 cannot separate them) vs recorded city Q2590944; Valkenburg first hits the
-modern Q9771 (0.14 km, same spot) vs recorded old town Q100076 (no enwiki -> no wikipedia field). Pending
-sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep - record with the BE batch;
-... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed' DECISIONS.md`)
 
 ### 2026-10-11 204 DECISION: town_files() extended to the 4 collections + town subcats at depth 1; the NL file inventory is done - 13 of 16 NL picks recorded in TOWNS, 3 documented drops
 Two module changes (uncommitted in the tree, harness-saved; the lead doc still needs them). (1) town_files()
@@ -125,6 +84,30 @@ PITFALLS.md (new pipeline/commons.py section). NEXT: the BE QID batch (--verify 
 Q1296 already verified in prep, Beaumont's region flips to belgium if the Hainaut item wins), then --files BE,
 lead-doc BE sections, commit; then FR (watch the double plates), then LU; then the one long --chain run +
 stage + test + golden.
+
+### 2026-10-11 204 DECISION: BE QID batch - all 20 verified and recorded (19 from one discovery run, Mons via a limit-20 follow-up); four disambiguated P373s; none in the catalog
+One discovery run (/tmp/vd_verify_be_iter45.txt) resolved 19 of the 20; **Mons was not in its 5-candidate
+search** (the en label search 'Mons' ranks the planetary term 'mons' and French communes Var/Hérault/
+Charente/Gard above the city; it is 11th in the en results, 4th in the fr) - a follow-up search at limit 20
+found Q83407: label 'Mons', P625 (3.9525, 50.454722), P373 'Mons (Hainaut)', P131 'County of Hainaut', enwiki
+'Mons, Belgium' (snippet /tmp/vd_mons*_iter45.py). All 20 recorded in TOWNS (qid/label/lon/lat/p625/place/
+wikipedia/p373; site point = the P625 rounded to 4 dp - the hand check found no old-town-centre offset,
+unlike the NL Gouda 800 m case). Re-verification of the 20 (/tmp/vd_verify_be_recheck_iter45.txt): every
+label matches (no LABEL CHECK), every P373 'ok', every P625 within 0.01 km, every enwiki matches; one
+nuance - Saint-Ghislain Q668950 has no en label on Wikidata (the re-check prints an empty label, not a
+mismatch: the search API's label and the enwiki article 'Saint-Ghislain' confirm the item). Traps measured
+from the re-check: Bruges first hit Q327025 (Bruges, Gironde) 759 km; Leuze first hit Q326134 (Leuze, Aisne)
+92 km; Mons first hit Q1108786 (Mons, Var) 780 km; Mechelen's third candidate is the Dutch Mechelen
+Q100020 (no first-hit trap). The prep's Brussels guess resolved to Q239 (its P373 is 'Brussels
+(municipality)', not 'Brussels' - a new disambiguation class alongside Halle (Belgium), Mons (Hainaut) and
+Leuze-en-Hainaut: the category route targets the exact P373 string, so the chain walk must reach it). Box
+4: none of the 20 QIDs is in the 12575-site catalog - all 20 get new catalog entries, no existing-site
+reuse. Lead doc: new 'QID verification - Belgium' section (method + 20-row table + traps) and the pending
+section split into 'France, Luxembourg (pending)' (24 towns). Also this session: the task file is now
+tasks/204-van_deventer.md (underscore - the name the driver reads; the 0-byte duplicate with the hyphen was
+merged and deleted; the first line was the driver's read-error). Still to file (context limit): the
+PITFALLS entry on the wbsearchentities limit-5 truncation (Wikimedia section) - the next session files it
+with its first commit.
 
 ## Project-wide driver notes (newest)
 
