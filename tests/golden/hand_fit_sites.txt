@@ -1,0 +1,21 @@
+# The sites of the existing hand fits (data/db/platefits/, 20 documents). The human's reference:
+# every one of these sites keeps at least one fitted old drawing, forever.
+arbor-low-q630312
+avebury-q661855
+aztalan-state-park-q4832928
+badbury-rings-q798831
+bergues-q244934
+berkhamsted-castle-q4892150
+cadbury-castle-q1025082
+cahokia-q333661
+calleva-atrebatum-q1027253
+camp-d-attila-q18749222
+castle-rising-castle-q1049485
+hembury-q3784763
+little-solsbury-hill-q548780
+maiden-castle-q1232816
+mayburgh-henge-q1469390
+mound-bottom-q14710093
+old-sarum-q782719
+serpent-mound-q968802
+whitley-castle-q7996561
