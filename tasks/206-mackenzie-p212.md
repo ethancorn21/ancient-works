@@ -39,68 +39,85 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 75 (2026-10-11, agent a) - eighth early bring-back; the driver DID merge main into
-my branch (2224d94): the HUMAN commit cd104ca (Maiden Castle hand-placed DPLA plan) is now IN
-my tree, and everything the hand-over predicted about it held. All 206-owned work re-verified
-green and md5-identical to iters 66-74; the 4 suite reds are unchanged in cause (211 x3,
-218 x1) and 218's gate red now reads "found 22" exactly as predicted. Deps 211+218 still
-open -> Status stays open. Re-run the same battery at the next bring-back; when 211+218
-have merged, expect 0 reds (or reds no longer touching this task's files) and set done.**
+**Iteration 76 (2026-10-11, agent a) - NINTH early bring-back; main UNMOVED since iter 75
+(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/81, the +3 over
+iter 75 being driver bookkeeping on my branch only). All 206-owned work re-verified green and
+byte-identical to iters 66-75; the 4 suite reds unchanged in cause (211 x3, 218 x1; the gate
+one still "found 22"). Deps 211+218 still open -> Status stays open. CORRECTION: hand-overs
+66-75 wrongly said `data/catalog/extras_mackenzie.jsonl` was "intentionally absent" - it
+EXISTS (tracked since the driver commit ab899eb after iter 65, one row, aerial_ok), is
+required by `check()`, and is documented in docs/lead_mackenzie.md L195-196; the corrected
+artifact list below carries it with its md5. Re-run the same battery at the next bring-back;
+when 211+218 have merged, expect 0 reds (or reds no longer touching this task's files) and
+set done.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
 - `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
   residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.64 s, socket-boom fixture, no network).
-- All 7 committed artifacts md5-identical to iters 66-74: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
+- `tests/test_src_mackenzie.py`: 4/4 green (1.55 s, socket-boom fixture, no network).
+- All 8 committed artifacts byte-identical to iters 66-75: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
   files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
+  extras_mackenzie a7060e1292d2607c657a43200dd20b94 (new in this list - see the correction),
   shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
   test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 60 passed, 4 failed (62.79 s) - same 4 as iter 74, causes unchanged:
+- Full suite: 60 passed, 4 failed (63.22 s) - the same 4 as iters 74-75, causes re-verified live:
   1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
      `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
   2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not skipped;
      the live EU list matches docs/batch_eu.md "Sites run").
-  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's): now
-     `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` (was "found 21"
-     pre-cd104ca). Verified store state: 116 docs, 22 non-auto = 20 registered hand-fits + my
-     shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc. 218's box 4 re-registration
-     must absorb BOTH new docs; 218 still open, Depends on 001 only.
+  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's):
+     `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` - 20 registered
+     hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc. 218's box 4
+     re-registration must absorb BOTH new docs; 218 still open, Depends on 001 only, waiting
+     for an agent.
   4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621' in
-     {site ids}` - site unbuilt (catalog row exists by QID, extras intentionally absent). 211's
-     merge build adds it.
-- test_site_done still green (301's a749aa5 landed on main in the f5ea863..cd104ca window; the
-  re-seeded Stonehenge line docs stayed byte-identical through this merge - it passed in the run).
+     {site ids}` - the site is unbuilt in web/data/sites; 211's merge build adds it (it reads the
+     extras row below; the catalog's sites.jsonl already carries the same id by QID with the
+     fuller record).
+- test_site_done still green (301's a749aa5 Stonehenge-line re-seed is on main since the
+  f5ea863..cd104ca window and stayed byte-identical through the iter-75 merge - passed in this
+  run too).
+- Nothing on main moved since iter 75 (head cd104ca; `git diff --stat main agent/a --
+  data/db/platefits` = the shotwick doc only, i.e. my 206 work awaiting acceptance). The shared
+  store (data/db/platefits, web/data/sites) is main-branch-backed: my shotwick doc and the
+  human's maiden-castle doc are both visible to every agent's suite, which is exactly what the
+  gate/batch/serve reds key on.
 
-WHAT MOVED (cd104ca, the only main commit after f5ea863 besides driver/lead bookkeeping):
-- `data/db/platefits/maiden-castle-q1232816.c_c20ff6b1f16d173d.json`: dropped `"auto": true` and
-  `"score"`, crop [165,256,895,663] of the 1280x889 DPLA scan, 3 hand-placed pairs, book
-  "Wikimedia Commons". It is now a hand-fit in the store. Its only effects on this task:
-  (a) the gate red's count 21 -> 22 (as above - expected and predicted in the iter-74 hand-over);
-  (b) it leaves the batch-auto population, so 203b/211's union/"Sites run" expectations may shift -
-  their territory, never 206's to fix (verified above: the batch_eu reds are unchanged in cause).
-  cd104ca touched NO 206-owned file (its diff is that one doc only).
-- Deps status at stop: `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208,
-  209, 210; agent c on 207b/203b/302a, 207c blocked on the human's Roy 1793 copy),
-  `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001; waiting for an agent).
-  Both already on my `Depends on:` line (001, 200, 211, 218) -> nothing to add; per the team
-  rule no stand-ins built. Branch is fully in sync with main (main is 0 commits ahead of agent/a
-  at stop; my 78 commits sit on top).
-
-ALL COMMITTED ARTIFACTS (unchanged since iter 66/67):
+ALL COMMITTED ARTIFACTS (unchanged since iter 65/66; the eight-file list below is CORRECTED
+this session - hand-overs 66-75 dropped the extras file and wrongly called it "intentionally
+absent"):
 - `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks live
-  facts if the driver ever flags drift), `data/commons/files_mackenzie.jsonl` (1 row, 200 category
-  evidence, site by existing QID - NOT in extras), `data/commons/classified_mackenzie.jsonl`
-  (1 row, plan, by=hand), `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json`
-  (full-frame 839x840 crop, 4 corner pairs), `docs/lead_mackenzie.md` (says "26 rows" for the
-  sources.py table - the task's "29" is the book-level count; do not "correct" it),
-  `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_sample.json`.
-  `data/catalog/extras_mackenzie.jsonl` intentionally absent (site is in the catalog by QID).
-- V2 OCR re-download recipe (if the driver ever flags drift): archive.org item castlesofengland02mack,
-  files castlesofengland02mack_hocr_searchtext.txt.gz / ..._hocr_pageindex.json.gz / ...
-  _page_numbers.json (pageindex rows = [textStart, textEnd, byteStart, byteEnd] text offsets, NOT
-  leaves; pagenums maps leafNum->pageNumber as strings).
+  facts if the driver ever flags drift; `check()` REQUIRES exactly one extras row with
+  aerial_ok - the file below is part of the contract, not optional),
+- `data/commons/files_mackenzie.jsonl` (1 row, 200 category evidence, site by existing QID),
+- `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
+- `data/catalog/extras_mackenzie.jsonl` (1 row: id shotwick-castle-q7502621, QID Q7502621,
+  aerial_ok true, source fit/src_mackenzie.py, note "built for the 1897 plan (task 206)").
+  This is the task Notes' "the picture is the reason to build": 211 merges it into the
+  canonical extras.jsonl and builds the unbuilt site with the plan already tied. It coexists
+  with (does not duplicate) the catalog's sites.jsonl row of the same id: check() only forbids
+  the id in the canonical extras.jsonl, and the note says the fuller sites.jsonl record reads
+  first. Tracked since ab899eb (driver commit after iter 65); never modified since.
+- `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840 crop,
+  4 corner pairs),
+- `docs/lead_mackenzie.md` (says "26 rows" for the sources.py table - the task's "29" is the
+  book-level count; do not "correct" it; L195-196 document the extras row),
+- `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_sample.json`.
+- V2 OCR re-download recipe (if the driver ever flags drift): archive.org item
+  castlesofengland02mack, files castlesofengland02mack_hocr_searchtext.txt.gz / ..._hocr_pageindex.json.gz
+  / ..._page_numbers.json (pageindex rows = [textStart, textEnd, byteStart, byteEnd] text
+  offsets, NOT leaves; pagenums maps leafNum->pageNumber as strings).
+
+DEPS at stop (both already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
+stand-ins per the team rule):
+- `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210; agent c
+  on 207b/203b/302a, 207c blocked on the human's Roy 1793 copy) - owns 3 of the 4 reds
+  (batch_eu x2 + serve): its merge build adds the shotwick doc to the batch union and builds
+  the site.
+- `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001) - owns the 4th:
+  re-registers the 22-doc hand-fit partition (20 registered + shotwick + maiden-castle).
 
 WHEN THE DRIVER BRINGS THIS BACK (after 211 + 218 merged): the ONLY remaining step is
 1. `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` (expect exit 0, 1 pass) and
