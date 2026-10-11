@@ -135,3 +135,44 @@ load-bearing in the opener: select() chains loadDeps().then(renderSite) and in t
 select->startFit->openPlan chain that async re-render would otherwise clobber the fit sheet;
 rvStartFitAt awaits the (shared-flight) loadDeps between setGround and startFit - microtask order
 on the same promise guarantees select's .then runs first. Do not reorder.
+
+### 2026-10-11 201 DECISION: prep step 5 in flight (tests/test_review.py written, not yet run) - all five cases dry-run-verified against a conftest-shaped scratch tree; one prep claim corrected (the worker dies at `import plan_fit`, not at the missing scan)
+Wrote tests/test_review.py (5 tests, stdlib-only, ephemeral port, no network): CLI export +
+idempotency, headless Review tab/list/stats, save-resolves via a PUT in the exact saveFit shape,
+(id, sites[0]) keying through the live page, and the one-line index.html footprint. Before writing
+it, every case was dry-run against a scratch tree built exactly like conftest (web/ + server/ +
+data/ minus data/raw) and all passed; the committed test asserts exactly what the dry runs showed.
+Corrections and traps found while doing this (they change how the next session reads the prep):
+1. **The plan_fit worker in the temp tree dies at `import plan_fit`, not at the missing scan.**
+   conftest copies no pipeline/ directory at all, so the worker's first import is a
+   ModuleNotFoundError (printed "Exception in thread plan_fit:" into the server's stdout pipe,
+   which conftest never reads again - harmless, tiny). The prep's case-3 wording "the worker fails
+   on the missing scan and is swallowed" assumed pipeline/ was copied - it is not. Behavior the
+   test relies on: the server stays up, the PUT'd doc is stored, and NOTHING else in the tree
+   changes (a 374-file sha256 snapshot - every platefits doc + every depictions.json - verified
+   byte-identical before/after except the one new doc). The test gives the worker 4 s of bounded
+   liveness polling (GET / every 0.5 s) rather than awaiting it.
+2. **The page CSS uppercases list text.** A headless probe reading #body innerText got "ALLIGATOR
+   EFFIGY MOUND" etc. The committed probe reads textContent (raw DOM case) and the test lowercases
+   both sides before matching phrases - do not switch back to innerText with case-sensitive asserts.
+3. **saveFit crop math: size is [w, h] (2 elements), map_box is 4 (x1, y1, x2, y2).** crop =
+   [x1*w, y1*h, x2*w, y2*h] (same as openPlan). A first dry-run script multiplied element-wise and
+   hit IndexError; the test builds the crop correctly.
+4. **Item files store `no_picture_found`** (the upsert parameter is `no_picture`); a dry-run script
+   KeyError'd on `item["no_picture"]` once; the test's seed helper passes
+   `no_picture=item["no_picture_found"]`.
+5. **`pkill -f serve.py` matches your own shell's command line and kills the shell** (exit 143)
+   - it bit this session twice. Kill stray scratch servers by PID from `ps aux | grep -F serve.py`
+   instead.
+6. **404s in headless runs:** the browser console prints "Failed to load resource: ... 404" with NO
+   URL, so the test asserts the stable COUNT (2: data/scans.json + data/amazon/areas.json - both
+   absent generated files) plus an in-page fetch-status check of exactly those paths (200 for
+   data/review.json, 404 for the two). Verified stable across repeated runs.
+Also verified this iteration (facts for the headless cases): boot completes headless with
+S.ready && S.sites.length && P.rows.length within the probe's 30 s poll; the Review tab reports
+"Review (2)" aria-pressed=true in its own view; the stats `#body .fit` line containing 'built in
+all' ends "...· 2 review items open"; all four duplicate-id sites' fit-list buttons resolve via
+P.byId to rows whose sites include that site (row:true, has:true for every button). State: the
+file is written and uncommitted (the harness saved it); the suite has not been run yet with it -
+the next session runs `.venv/bin/python -m pytest -q` (expect 18) and then does step 6 (tick the
+six boxes, note 203a's imports, final hand-over, commit).
