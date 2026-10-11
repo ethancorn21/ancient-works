@@ -4,10 +4,10 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/201-review.md` (open) - hand-over: Iteration 20 (2026-10-11). Step 1 (prep step 1, the environment) is DONE and committed: Google Chrome
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
-- `tasks/201-review.md`
 - `tasks/202-propose.md`
 - `tasks/801-evidence-no-tie-coverage.md`
 
@@ -15,7 +15,38 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 201 DECISION: settle the environment before any code - Chrome 155 installed, headless page boot verified (prep R1/R2 closed)
+The prep's step 1. `npx -y playwright@1.63.0 install chrome` fails on this VM (its script wants a TTY sudo;
+here only `sudo -n apt-get` is passwordless - sudoers.d/agent-apt), so I ran its steps directly:
+`curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo -n apt-get install -y
+./google-chrome-stable_current_amd64.deb` -> Google Chrome 155.0.8059.39 at /opt/google/chrome/chrome (PITFALLS
+entries record the rebuild recipe). Headless probe (temp-tree `serve.py --port 0` +
+`NODE_PATH=/home/agent/tools/shot/node_modules node tools/shot.mjs <served>/ /tmp/... 10000 1200 800 "<eval>"`):
+the page BOOTS headless - eval reports ready:true, 384 sites, 1166 plans, tab 'sites', stats line present, no
+[pageerror]; only the two expected 404s (data/scans.json, data/amazon/areas.json) and harmless WebGL warnings.
+R1 is resolved: test case 2 (headless load showing the review list) can be built exactly as worded; the R2
+fallbacks (a different launcher / proposed changes to shot.mjs) are no longer needed. Shot.mjs's Mac-path
+createRequire resolves fine via NODE_PATH.
+
+### 2026-10-11 201 DECISION: prep-notes assumption audit against main @ 03b8c06 - five corrections, rest holds
+Wrong/stale in tasks/prep/201.md (checked against main, which gained the 001 merge since the prep was written):
+(1) 001 is DONE, not blocked - the human's ruling (a) accepted the measured gate (commit 88300a0); 201's scope
+is unchanged (zero code dependency on the gate; box 3 "a human save is trusted as-is"), and 203a's dependency on
+001 is now satisfied. (2) web/data/sites.json is a `{"sites": [...]}` wrapper (boot: `S.sites = data.sites`),
+not a bare list. (3) data/raw on this VM is NOT empty dirs (1.4G books, 439M commons, 1.5M aerial) - conftest
+still excludes it from the test tree, so the 404-in-tests behaviour the prep relied on is unchanged. (4)
+data/commons/files.jsonl now has 1490 rows, 1381 with evidence; the 109 null-title rows are exactly the
+no-evidence rows (801's targets) - the "evidence only when present" pass-through still holds, and
+candidate_evidence must return None for a missing row or field. (5) web/index.html is 1703 lines (prep said
+1704) - every line-cited claim I re-read is otherwise accurate. Everything else verified true: 1166 plans rows
+with exactly the two duplicate-id pairs (c_ffb3daac218b481f avebury/stonehenge, c_984782b9e35e8ded
+mayburgh/king-arthur) and (id, sites[0]) composite keys unique across all rows (rows with empty sites key on id
+alone, no collision); 17 lidar-false sites == 17 without relief.jpg; bibracte-q650053 (lidar false) has zero
+plans candidates; alligator-effigy-mound-q4732645 (lidar true, relief.jpg present) has exactly the two seed
+candidates (book ancientmonuments00squi_n0214_2, evidence category; commons c_618a6be74dfaff32, evidence
+present); the 202 contract (tasks/prep/202.md: propose_for -> {pairs, coarse, ground, scale_m_px, rot_deg,
+scale_source, note}, stdlib-only) and 203a/203b's expectation of fit/review.py's upsert/export are unchanged.
+Test baseline on this branch: 12 passed in 9.4s (.venv/bin/python -m pytest -q).
 
 ## Project-wide driver notes (newest)
 
