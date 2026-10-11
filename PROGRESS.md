@@ -23,3 +23,11 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-10 agent/c 200: where I left it
+    fit/evidence.py is written (check + record; 5 tie kinds; fail-closed trap) and tests/evidence_sample/ is
+    built, both uncommitted (harness-saved). Next session: write tests/test_evidence.py, generate
+    tests/golden/evidence_check.txt from the checked output, pytest, then offline `record` on the real
+    files.jsonl/index.jsonl (38 hand-tied + 890 book rows); `record --live` (remaining ~1343 commons rows) is
+    the following step, starting with verifying the file-item HTML extraction. Full sequence + expected 15-line
+    golden: tasks/200-evidence.md Hand-over; reasoning: DECISIONS.md entry of 2026-10-10.

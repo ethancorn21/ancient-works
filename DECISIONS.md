@@ -197,3 +197,28 @@ tests changed. Next session (when the human or the loop's 120-minute answer on t
 recommendation arrives): (a) -> re-word box 2 to the registered contract, tick it, Status:
 done; (b) -> box 2 stays unticked, file task 801 (next free 8xx) for a tighter rule on fresh
 documents; otherwise follow the ruling literally.
+
+## 2026-10-10 200 DECISION: evidence schema - five kinds (hand_tied > category > depicts > caption_coords > none), check = zero-FAIL is "clean", no-tie rows reported as NONE
+Where: fit/evidence.py (written this session, not yet run), tests/evidence_sample/ (built), data/commons/files.jsonl, data/books/index.jsonl.
+The "evidence" field is appended to each row (existing fields byte-identical; files here are pure ASCII so a
+json.dumps(ensure_ascii=False) round-trip is byte-safe - verified 0 non-roundtrip lines in all three jsonl files).
+Kind priority: hand_tied (a repo table in pipeline/sources.py, verified by (qid, title) membership - never re-fetched)
+> category (file's category == or a recorded subcat of the site's P373 category; row.cat cross-checked)
+> depicts (file item P180/P6216 == site qid, or site item P3311/P18 names the file; P3311 cross-checked against
+stored wd_plan) > caption_coords (named place printed in title/desc, resolved coords within 50 km of the site)
+> none. Fail-closed: a caption resolving beyond 50 km (the Hampton Court trap: the Herefordshire seat vs the
+palace, ~194 km) is stored as kind "none" WITH the conflict (coords of both), never as a pass; check recomputes
+the distance from stored fields. "check runs clean" = exit 0 = zero FAIL; NONE rows are printed (box 3: reported,
+not silently kept) but do not fail it. Book rows: record runs pipeline/books_match (row + catalog, + HAND
+override) once and stores the decision (named place, place words, site snapshot, score/runner_up/why); check
+re-verifies the stored record against the printed text (same norm/place_of/name_keys/HAND imported from
+books_match - the check must use the matcher's own rules), the current catalog row (site stability) and the HAND
+table. Deliberately NOT a full matcher re-run: the catalog is not monotone (new sites change margins), so a
+re-run would produce spurious failures on data growth. Live fetch routes (record --live, next session): file
+categories (50/batch, prop=categories), site claims (50/batch wbgetentities: P373/P3311/P18/P625), subcats
+(per site category, cached), file item (one HTML GET per file - UNVERIFIED: my probe found the wbmi JSON with
+P6216/P180 statements in the page HTML but no item-id pattern matched yet; probe further before relying on it),
+place resolution (wbsearchentities per name + P625). Pacing: commons.get (1 s/request, 429-aware) - this machine
+bursts 429 easily (shared IP with other agents' checkouts); keep interactive probes to 1-2 requests.
+Session state: module + sample built, uncommitted (harness-saved); test, golden, record-runs all still to do
+(see task hand-over for the exact sequence and the expected 15-line golden).
