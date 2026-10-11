@@ -5,29 +5,45 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
+- `tasks/200-evidence.md` (in-progress) - hand-over: **Where I am (2026-10-10, iteration 10).** `fit/evidence.py` is WRITTEN (uncommitted, harness-saved): the whole
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
-- `tasks/200-evidence.md`
 - `tasks/201-review.md`
 - `tasks/202-propose.md`
+- `tasks/800-requirements-pinned.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-10 200 DECISION: evidence schema - five kinds (hand_tied > category > depicts > caption_coords > none), check = zero-FAIL is "clean", no-tie rows reported as NONE
+Where: fit/evidence.py (written this session, not yet run), tests/evidence_sample/ (built), data/commons/files.jsonl, data/books/index.jsonl.
+The "evidence" field is appended to each row (existing fields byte-identical; files here are pure ASCII so a
+json.dumps(ensure_ascii=False) round-trip is byte-safe - verified 0 non-roundtrip lines in all three jsonl files).
+Kind priority: hand_tied (a repo table in pipeline/sources.py, verified by (qid, title) membership - never re-fetched)
+> category (file's category == or a recorded subcat of the site's P373 category; row.cat cross-checked)
+> depicts (file item P180/P6216 == site qid, or site item P3311/P18 names the file; P3311 cross-checked against
+stored wd_plan) > caption_coords (named place printed in title/desc, resolved coords within 50 km of the site)
+> none. Fail-closed: a caption resolving beyond 50 km (the Hampton Court trap: the Herefordshire seat vs the
+palace, ~194 km) is stored as kind "none" WITH the conflict (coords of both), never as a pass; check recomputes
+the distance from stored fields. "check runs clean" = exit 0 = zero FAIL; NONE rows are printed (box 3: reported,
+not silently kept) but do not fail it. Book rows: record runs pipeline/books_match (row + catalog, + HAND
+override) once and stores the decision (named place, place words, site snapshot, score/runner_up/why); check
+re-verifies the stored record against the printed text (same norm/place_of/name_keys/HAND imported from
+books_match - the check must use the matcher's own rules), the current catalog row (site stability) and the HAND
+table. Deliberately NOT a full matcher re-run: the catalog is not monotone (new sites change margins), so a
+re-run would produce spurious failures on data growth. Live fetch routes (record --live, next session): file
+categories (50/batch, prop=categories), site claims (50/batch wbgetentities: P373/P3311/P18/P625), subcats
+(per site category, cached), file item (one HTML GET per file - UNVERIFIED: my probe found the wbmi JSON with
+P6216/P180 statements in the page HTML but no item-id pattern matched yet; probe further before relying on it),
+place resolution (wbsearchentities per name + P625). Pacing: commons.get (1 s/request, 429-aware) - this machine
+bursts 429 easily (shared IP with other agents' checkouts); keep interactive probes to 1-2 requests.
+Session state: module + sample built, uncommitted (harness-saved); test, golden, record-runs all still to do
+(see task hand-over for the exact sequence and the expected 15-line golden).
 
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-### 2026-10-10 agent/c 200: where I left it
-    fit/evidence.py is written (check + record; 5 tie kinds; fail-closed trap) and tests/evidence_sample/ is
-    built, both uncommitted (harness-saved). Next session: write tests/test_evidence.py, generate
-    tests/golden/evidence_check.txt from the checked output, pytest, then offline `record` on the real
-    files.jsonl/index.jsonl (38 hand-tied + 890 book rows); `record --live` (remaining ~1343 commons rows) is
-    the following step, starting with verifying the file-item HTML extraction. Full sequence + expected 15-line
-    golden: tasks/200-evidence.md Hand-over; reasoning: DECISIONS.md entry of 2026-10-10.
