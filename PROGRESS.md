@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 4e (iteration 40). THE FULL WORKING RUN IS DONE (verify the details below before
+- `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4f (iteration 41). TASK DONE (Status: done, all 6 boxes ticked). The full working run
 - `tasks/203-batch-fit.md` (split)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
@@ -16,49 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 4c - the A/B pilot: 4a's four fabrication modes all route to items, but a FIFTH class (correct scale, wrong translation, points on structureless ground) still auto-passes; add a batch-side feature-presence check before the full run
-Re-ran /tmp/pilot_llm.py (updated: 5 picks, raw answers teed to /tmp/llm_raw_4c.txt, gate verdict
-and routing printed per pick) against the session-4b llm_model. Results: poverty-point -> honest
-0 pairs (its 4a identity map is gone); serpent n0636_1 -> raw diagonal ladder, range validate
-dropped it to 1 pair; cahokia -> 8-point corner/gate answer, stated scale 1.639 vs implied 3.333
-(> 2x) -> cross-check trimmed to 3. All three route to review items as designed. Two auto-passed
-and were eyeballed (overlay script /tmp/eyecheck.py: model points red, 202-seed-mapped same
-features green, on the site's own ground; /tmp/eye_*.jpg):
-- pyramid-mound n0134_1 (stated 0.57 vs seed 0.8806, gate med 24 m): model and seed points
-  coincide within 24-320 m (inside the 460 m map_box span) ON the visible C-embankment and
-  square-mound pit in the ground panel -> a real fit; the auto doc is correct.
-- tremper c_75950f29c23bf033 (stated 1.3245 = the seed scale echoed verbatim from the prompt
-  hint, gate med 0.6 m): model and seed points 120 m apart - inside that seed's 500 m
-  no-map_box uncertainty, so /tmp/quant.py shows seed agreement CANNOT discriminate here - and
-  both sets sit on featureless open ground while the site's real ring is unused; 2 of the 4
-  model points are on the modern highway. A docs/gate.md section-7 consistent global error:
-  correct scale, internally consistent, wrong translation, and the ground shows nothing where
-  the features are claimed. The current code (gate + range validate + scale cross-check) all
-  pass it -> a garbage auto doc in the full run. The full run must not start until this class
-  is handled.
-CHOICE: a third batch-side counterweight (routing only, the gate stays frozen, same status as
-the 4b scale cross-check): a FEATURE-PRESENCE check on the site's own ground image. Calibrated
-on all 20 hand-fit docs + the 2 model answers (/tmp/calibrate3.py, local-std in a 24 m box
-(R=12 px at the 1 m/px ground image) vs a fixed-seed 400-point null drawn from the same image):
-tremper's points 1/4 at or above the null median (0.27-0.65x margin on every variant tried),
-pyramid 3/4 (1.00-1.57x), hand fits over-refuse only serpent 0/3, mayburgh 1/3, little-solsbury
-2/5 - all three genuinely faint features (a strict gate is fine; their model answers, if any,
-still go to the item carrying the pairs as leads). The edge-distance variant was tested and
-dropped: it passes all 20 hand fits but lets tremper through (2 of its 4 points are near the
-highway's edges). Rule implemented as: an answer passes only if >= half of its ground points sit
-on ground at least as textured as the null median; otherwise note + trim to 3 pairs (the <4
-branch routes it to the item). KNOWN residual, to document in the module docstring: a
-fabrication anchored on strong ground texture (road network, field boundaries) passes this check
-and the scale check; section 7's human 18/20 sample remains the backstop for that class. The
-check only ever routes to review, never loosens the gate, so it is a strict improvement over the
-4b state.
-BUG FOUND, fix pending: fit/batch_us.py llm_model scale cross-check computes
-`implied = abs(float(a)) * k` but `a` from plan_fit.similarity is COMPLEX (pipeline/plan_fit.py
-L35-45); float(a) drops the imaginary part, so for a rotated fit implied = |s*cos(theta)|
-(60 deg -> 50% low) and can misfire "not trusted" on a true answer. Fix: `implied = abs(a) * k`
-(abs of a complex is the magnitude). Not applied yet - fit/batch_us.py is unmodified this
-session (all analysis was /tmp throwaway; no tests run, last state 5/5 + 34/34 after 4b).
 
 ### 2026-10-11 203a DECISION: session 4d - the two pending fit/batch_us.py fixes from 4c are in: the scale cross-check uses the complex magnitude, and the feature-presence check lands; the 5-pick pilot now routes all four fabrication classes to items and pyramid (the one real fit) stays auto
 4c's two pending items, implemented in fit/batch_us.py (the task's only code file; the checkout
@@ -141,7 +98,19 @@ THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 
   change only for the sample sites' own item files, asserting same site / resolved unchanged / no
   candidate plan dropped; every other file stays byte-identical - that is box 4). None of these
   weakens a box: box 4's real invariant (the golden 20 docs + 19 site.json byte-identical, no
-... (5.7 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803' DECISIONS.md`)
+... (11.1 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803' DECISIONS.md`)
+
+### 2026-10-11 203a DRIVER: done claim rejected, task reopened
+- Test suite failed twice when the driver ran `.venv/bin/python -m pytest -q`:
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_review.py::test_export_cli
+    tests/test_review.py::test_page_shows_the_review_list
+    tests/test_review.py::test_save_resolves_the_item
+    FAILED tests/test_review.py::test_export_cli - AssertionError: review: 88 ope...
+    FAILED tests/test_review.py::test_page_shows_the_review_list - AssertionError...
+    FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
+    4 failed, 34 passed in 38.24s
+    (full test output: .agent/reports/last-test-output.txt)
 
 ## Project-wide driver notes (newest)
 
