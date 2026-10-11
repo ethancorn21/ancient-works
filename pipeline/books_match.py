@@ -110,23 +110,109 @@ def site_place(site):
     return vals
 
 
+def site_toks(site):
+    """The distinctive tokens of the site's name and aliases - what a row's tokens can hit."""
+    toks = set(tokens(site.get("name", "")))
+    for a in site.get("aliases") or []:
+        toks |= set(tokens(a))
+    return toks
+
+
+def name_lookup_keys(nm, skip_generic=False):
+    """The by_name lookup keys of one name: normalized, whitespace-compressed, trailing descriptors stripped
+    ("Fort Hill State Memorial" -> "fort hill"). skip_generic: an all-generic name ("Roman Camp") yields none -
+    it is no name to look up by."""
+    k = re.sub(r"\s+", " ", norm(nm)).strip()
+    if skip_generic and not tokens(k):
+        return set()
+    return {kk for kk in name_keys(k) if kk}
+
+
+def row_inputs(row):
+    """The matcher's extraction from the row's printed text: the distinctive tokens, the name tokens, the
+    place words (including the book's default state) and the candidate phrases, shaped by the book's scope.
+    Returns (toks, name_toks, place, phrases, regions)."""
+    title = row.get("title") or ""
+    names = row.get("site_names") or []
+    place = {}
+    for t in [title, row.get("place") or ""] + names:
+        for k, v in place_of(t).items():
+            place.setdefault(k, v)
+    regions, default_state = BOOK_SCOPE.get(row.get("book"), (None, None))
+    if default_state and not place.get("state"):
+        place["state"] = default_state
+    if place.get("county"):
+        place_words = PLACE_WORDS | {place["county"]}
+    else:
+        place_words = PLACE_WORDS
+    toks = []
+    for t in [title] + names:
+        for x in tokens(t):
+            if x not in toks and x not in place_words:
+                toks.append(x)
+    phr = phrases(title, names)
+    # name part = first comma part of the title that has a distinctive word, plus names read off the page; the
+    # rest of a title is parish / county ("Gannock's Castle, Tempsford, Beds"), which must not carry a match alone
+    name_toks = set()
+    for part in re.split(r"[,(;]", re.sub(r"(?i)^(plan|plat|map|ground plan)( and section)? of (the )?", "", title)):
+        pt = [x for x in tokens(part) if x not in place_words]
+        if pt:
+            name_toks |= set(pt)
+            break
+    for nm in names:
+        name_toks |= {x for x in tokens(nm) if x not in place_words}
+    return toks, name_toks, place, phr, regions
+
+
+def score_candidate(site, toks, name_toks, place, regions, is_exact):
+    """The matcher's rule for one row side against one catalog site: (score, why) when the site is a
+    candidate, None when it contradicts the row's region, state or county and is rejected outright."""
+    sp = site_place(site)
+    region = site.get("region")
+    if regions and region not in regions:
+        return None
+    if region == "us":
+        if place.get("uk_county"):
+            return None
+        if place.get("state") and sp.get("state") and place["state"] not in sp["state"]:
+            return None
+    elif region in ("england", "wales"):
+        if place.get("state"):
+            return None
+    county_ok = None
+    pc = place.get("uk_county") if region in ("england", "wales") else place.get("county")
+    if pc and sp.get("county"):
+        county_ok = pc in sp["county"]
+        if not county_ok:
+            return None
+    st = site_toks(site)
+    share = len([t for t in toks if t in st]) / len(toks) if toks else 0.0
+    if is_exact:
+        share = max(share, 1.0)
+    why = []
+    if not is_exact:
+        if name_toks and not (name_toks & st):
+            why.append("only a place word matches")
+        if region == "us":
+            if place.get("state") and not sp.get("state"):
+                why.append("catalog site has no state")
+            variants = [site.get("name", "")] + list(site.get("aliases") or [])
+            cover = max((len([t for t in tokens(v) if t in toks]) / len(tokens(v)) for v in variants
+                         if tokens(v)), default=0)
+            if cover <= 0.5:
+                why.append("half or less of the site's name is in the title")
+    return (share + (0.25 if county_ok else 0), why)
+
+
 def load_catalog():
     sites = [json.loads(l) for l in open(CATALOG) if l.strip()]
     idx, by_name = {}, {}
     for s in sites:
         for j, nm in enumerate([s.get("name", "")] + list(s.get("aliases") or [])):
-            k = re.sub(r"\s+", " ", norm(nm)).strip()
-            if j and not tokens(k):  # an all-generic alias ("Roman Camp") is no name to look up by
-                continue
-            for kk in name_keys(k):
-                if kk:
-                    by_name.setdefault(kk, []).append(s)
+            for kk in name_lookup_keys(nm, skip_generic=j > 0):
+                by_name.setdefault(kk, []).append(s)
     for s in sites:
-        toks = set(tokens(s.get("name", "")))
-        for a in s.get("aliases") or []:
-            toks |= set(tokens(a))
-        s["_toks"] = toks
-        for t in toks:
+        for t in site_toks(s):
             idx.setdefault(t, []).append(s)
     return sites, idx, by_name
 
@@ -152,37 +238,9 @@ def phrases(title, names):
 
 
 def match_row(row, idx, by_name):
-    title = row.get("title") or ""
-    names = row.get("site_names") or []
-    place = {}
-    for t in [title, row.get("place") or ""] + names:
-        for k, v in place_of(t).items():
-            place.setdefault(k, v)
-    regions, default_state = BOOK_SCOPE.get(row.get("book"), (None, None))
-    if default_state and not place.get("state"):
-        place["state"] = default_state
-    if place.get("county"):
-        PLACE = PLACE_WORDS | {place["county"]}
-    else:
-        PLACE = PLACE_WORDS
-    toks = []
-    for t in [title] + names:
-        for x in tokens(t):
-            if x not in toks and x not in PLACE:
-                toks.append(x)
-    phr = phrases(title, names)
+    toks, name_toks, place, phr, regions = row_inputs(row)
     if not toks and not phr:
         return {"status": "generic", "place": place}
-    # name part = first comma part of the title that has a distinctive word, plus names read off the page; the rest
-    # of a title is parish / county ("Gannock's Castle, Tempsford, Beds"), which must not carry a match on its own
-    name_toks = set()
-    for part in re.split(r"[,(;]", re.sub(r"(?i)^(plan|plat|map|ground plan)( and section)? of (the )?", "", title)):
-        pt = [x for x in tokens(part) if x not in PLACE]
-        if pt:
-            name_toks |= set(pt)
-            break
-    for nm in names:
-        name_toks |= {x for x in tokens(nm) if x not in PLACE}
     cands = {}
     exact = set()
     for ph in phr:
@@ -194,42 +252,9 @@ def match_row(row, idx, by_name):
             cands[s.get("qid") or s["id"]] = s
     scored = []
     for s in cands.values():
-        sp = site_place(s)
-        spt = " ".join(sp.values())
-        region = s.get("region")
-        if regions and region not in regions:
-            continue
-        if region == "us":
-            if place.get("uk_county"):
-                continue
-            if place.get("state") and sp.get("state") and place["state"] not in sp["state"]:
-                continue
-        elif region in ("england", "wales"):
-            if place.get("state"):
-                continue
-        county_ok = None
-        pc = place.get("uk_county") if region in ("england", "wales") else place.get("county")
-        if pc and sp.get("county"):
-            county_ok = pc in sp["county"]
-            if not county_ok:
-                continue
-        share = len([t for t in toks if t in s["_toks"]]) / len(toks) if toks else 0.0
-        is_exact = (s.get("qid") or s["id"]) in exact
-        if is_exact:
-            share = max(share, 1.0)
-        why = []
-        if not is_exact:
-            if name_toks and not (name_toks & s["_toks"]):
-                why.append("only a place word matches")
-            if region == "us":
-                if place.get("state") and not sp.get("state"):
-                    why.append("catalog site has no state")
-                variants = [s.get("name", "")] + list(s.get("aliases") or [])
-                cover = max((len([t for t in tokens(v) if t in toks]) / len(tokens(v)) for v in variants
-                             if tokens(v)), default=0)
-                if cover <= 0.5:
-                    why.append("half or less of the site's name is in the title")
-        scored.append((share + (0.25 if county_ok else 0), s, why))
+        r = score_candidate(s, toks, name_toks, place, regions, (s.get("qid") or s["id"]) in exact)
+        if r is not None:
+            scored.append((r[0], s, r[1]))
     scored.sort(key=lambda x: (-x[0], len(x[2])))
     if not scored:
         return {"status": "no_candidate", "tokens": toks, "place": place}
