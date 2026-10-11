@@ -732,6 +732,23 @@ Why: `main` catches `SystemExit` per doc (site not built, bad pairs, task-303 pr
       run that wakes the worker against a tree with a bad doc must expect a partial sweep; making the
       sweep per-doc-proof is not task 303's job.
 
+#### Running the one-site line live in the REAL checkout (no --root) is the intended use of tools/site_done.py, and its write set is exactly one site's files plus the two page files
+Where: `tools/site_done.py` (main: fit -> sync -> entry -> review) run without `--root` in this checkout
+      (303 step 5, 2026-10-11: shotwick; 302d does the same for stonehenge)
+Symptom: a finished run (exit 0, "done") leaves git status with exactly: M web/data/sites.json (the
+      site's drawings count), M web/data/review.json (the page re-publishes the WHOLE queue on every
+      run, by contract), at most one new/changed data/review/<site>.<lead>.json, and - gitignored -
+      the site's own web/data/sites/<site>/ overlays/depictions plus any new big-jpg caches in
+      data/raw/commons/big/ (the shared symlinked store; one paced download per built commons doc).
+      The site's platefit documents are never rewritten by the line (a pattern doc is deleted, an
+      unmarked auto doc gets by: agent stamped - those two exceptions are the only doc writes).
+Why: the line is scoped to one site by design (docs/site_flow.md, "Files the line touches"), and the
+      only cross-site writes are the two page files, which every live run necessarily rewrites. Network
+      is OK on this machine; the only network work is the paced big-picture download(s). Do not treat
+      the page-file diffs of a live run as accidents: add them to the task's Touches line (303 added
+      web/data/review.json and data/review/) before the run, and record the outcome in the task's
+      docs as its acceptance asks.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification

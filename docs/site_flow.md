@@ -246,3 +246,44 @@ instead of the three numbers.
 | 19 | old-sarum-q782719.earthworkenglan01allcgoog_n0142_1 | 717.3 | 76.39 | 0.6658 | 0.1988 | 0.1295 | 0.0693 | accept | silent |
 | 20 | serpent-mound-q968802.ancientmonuments00squi_n0210_1 | 478.8 | -12.62 | 2.0411 | 0.2007 | 0.2332 | -0.0325 | accept | silent |
 | 21 | whitley-castle-q7996561.c_802bb5ba395d4d29 | 1078.7 | -126.09 | 2.0789 | 0.0173 | 0.0274 | -0.0101 | accept | silent |
+
+## Shotwick Castle: the first agent-placed fit through the line (task 303, 2026-10-11)
+
+206's session placed Shotwick's plan (Mackenzie, The Castles of England, 1897, a Wikimedia
+Commons file) on the page's 1280-px thumbnail and saved it with four pairs of round page-px
+coordinates (405,25 / 827,570 / 620,835 / 30,690). Before 303 such a document carried no mark
+at all, and the line would have carried it to the map as though the owner had placed it.
+303's migration stamped it `by: agent`, and from then on a document without `by: hand` is
+treated as automatic, so this document went through the line's fabrication check like any
+batch fit. The live run (`.venv/bin/python tools/site_done.py shotwick-castle-q7502621`,
+2026-10-11):
+
+- **fit** — the site's one candidate picture in `web/data/plans.json` (the Allcroft 1908
+  "EARTHWORKS" plate, shared by four sites) has neither a fit document nor a model answer:
+  it became the site's new review item, candidate why "no model answer". The 206 document is
+  covered, so no batch run re-fits anything.
+- **sync** — `who_placed` = agent (stamped; no auto mark, no gate score: a session, not the
+  batch, placed it, so nothing is stamped back and no gate score exists). The fabrication
+  check on the document's stored page-px pairs does NOT fire. Nearest margins: the 2D
+  lattice clause comes closest, on the u axis (gap ratios max/median 1.744 against the
+  <=1.3 threshold; v axis 3.759; the min/median ratios 0.963 and 0.828 pass their own
+  0.67 floors); the 1D ladder clause has no run of three anchors sharing one coordinate
+  (max run 1); grid roundness is 4 of 8 distinct coordinates on the 10-px grid (0.5 against
+  0.9). The document is built: the big Commons picture is downloaded once (paced, cached in
+  `data/raw/commons/big/`), the similarity fit has residuals 14.2 / 2.0 / 17.5 / 19.4 m
+  (0.2289 m/px, rotation -0.2 deg), the overlay `plan_c_e6e5490609414bb9.webp` and its ink
+  go into the site's panel, and the page's source line says who placed it:
+  "Shotwick Castle, plan from Mackenzie, The Castles of England (1897) (1897), Wikimedia
+  Commons: by The British Library; No restrictions; … Fitted automatically on 4 matching
+  points; one rotation and scale fits them within 20 m." (the first "(1897)" is the
+  picture's title, the second the document's label; both read the book's year).
+- **entry** — the site's `drawings` in `web/data/sites.json` goes 0 -> 1: the page now
+  colours Shotwick's square by it.
+- **review** — the new Allcroft item is open (no resolving document): "review
+  shotwick-castle-q7502621.earthworkenglan01allcgoog_n0575_1.json: 1 candidate(s), open;
+  page now has 340 open of 341 items".
+
+Outcome: **map** — Shotwick's agent fit passes the line's fabrication check and is built
+with the honest automatic source line (no gate score, because a session placed it). A
+second run of the line is a no-op: "skipped: overlay already current", "drawings 1 -> 1",
+the item file and `depictions.json` byte-identical.
