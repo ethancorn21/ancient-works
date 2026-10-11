@@ -6,7 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
-- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 14, agent c).** No code written yet - this session was the census + design
+- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 15, agent c).** Measurement step done (no code yet). RESOLVED the iter-14 open
 
 ## Next open tasks
 - `tasks/201-review.md`
@@ -39,6 +39,29 @@ passes on castrum-levefanum ~Beauvais but stays conflict-none on fletio ~440 km 
 Open risk to measure FIRST next session: whether Clifford's Tower's item Q113551546 carries P625 -
 if not, the 40 photos cannot pass (fail-closed) and the pass set is ~45 of ~85, still a bare
 majority; do not loosen the guard to compensate without logging it.
+
+### 2026-10-11 801 DECISION: Clifford's Tower has P625 (6 m) - the part route adds 40 passes; part-without-P625 falls back to the site's own coords (logged, not a loosening)
+Iter 15 (agent c). Measured P625 of all 343 unique catalog has_part qids (2 full batched runs + 5 spot
+checks, all agree): 332 have P625; 311 are within 50 km of their own site point; 19 are far (14 on the
+LINEAR site lower-german-limes, 50-152 km from its stored end, hopewell-ceremonial-earthworks x3 at
+89-158, poundbury-hill x1 at 168) - those stay fail-closed (conflict-none) if a caption names them; no
+special-casing of linear sites. 11 parts have no P625 (list in the hand-over). Clifford's Tower
+Q113551546 HAS P625 (-1.0800092, 53.9558873) = 6 m from york-castle-q80637's stored point (the iter-14
+open risk resolved in the good direction - the 50 km guard is kept as is); its sibling part Curtain Wall
+Q17530656 is 149 m. Offline pre-census: exactly 40 of the 354 stored-none rows name a has_part of their
+own site (all "Clifford's Tower Survey" titles on york-castle) -> part_mention contributes exactly 40
+passes; the remaining ~45 genuinely-naming rows (Strasbourg/Reims/Orleans/Weesp/Arnhem/Beauvais/
+Cranbourne/Darlington/Monmouth/St Louis/Manchester/Nijmegen/Birmingham/Barkhale) must pass via
+sheet_mention.
+Design decision (logged per the iter-14 rule "do not invent a looser substitute without logging it"):
+for a part WITHOUT P625, part_mention uses the site's own coordinates - the catalog's has_part means the
+part is spatially inside the site, i.e. at the site's point (0 km). No currently-none row names such a
+part, so this is a safety net, not a coverage driver; the 50 km check still applies wherever the part
+carries real P625.
+Unreproduced one-off: my first batch run counted 13 parts without P625; every later run gives 11 and 0
+ids dropped from the batch response (the run-1 count was probably a transient server quirk, not
+reproducible). Not filed as a pitfall (unproven); the new part prefetch re-fetches ids missing from a
+batch response as one-line insurance, keeping the batched shape.
 
 ## Project-wide driver notes (newest)
 
