@@ -72,6 +72,12 @@ compare `git rev-parse <base|main|branch>:<file>` at all three tips (800: base =
 93511f2, branch fda2210 -> the merge lands the pinned file cleanly; had the branch blob
 matched the base, the merge would silently keep main's copy).
 
+#### The driver's done-claim baseline is its own newest loop-start suite note, not your checkout's state at your task's start
+Where: the driver's done-claim re-check (AGENTS.md "Done"), the "test suite failing at loop start (N tests)" notes in `PROGRESS.md`, tests that key on the shared store (`tests/test_batch_eu.py` union checks, `tests/test_serve.py::test_platefits_docs_match_sites`)
+Symptom: a done claim is rejected with "Tests failing that were not failing before this task: <list>" although your checkout has carried exactly those reds for many iterations and you compared against an OLDER loop-start note that also listed them (302a session 7, 2026-10-12: the three shotwick-orphan reds - the older 4-red note listed them, the driver's newest 1-red note did not).
+Why: the driver re-verifies against its own most recent loop-start suite run (the newest such note in PROGRESS.md), and that run is taken on a tree that may predate the shared store's current state (e.g. before a doc landed in data/db/platefits) - no live checkout necessarily mirrors it. A red caused by shared-store state (an orphan doc pointing at a site unbuilt in web/data/sites.json, etc.) therefore counts as a NEW failure for every claim until the task that owns the file (211 for web/data/sites.json) merges.
+What to do: before claiming done, diff your failing tests against the NEWEST "loop start" note only - not against an older one, not against your recollection. If a red is owned by another open task's file, add that task to your `Depends on:` line, commit, and end the session (no stand-ins); the driver brings the task back when the dependency merges, when the suite should be re-run and the claim re-made.
+
 #### sudo on this machine is passwordless for apt-get only
 Where: any `sudo` command (sudoers.d/agent-apt; AGENTS.md's "system packages install with `sudo apt-get install -y`")
 Symptom: `sudo -n true` (or any non-apt command) → `sudo: a password is required`; plain `sudo` without a TTY hangs/asks for a password.

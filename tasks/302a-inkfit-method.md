@@ -1,5 +1,6 @@
 Status: in-progress
 # 302a: The ink-fit method - plate ink against LiDAR relief, no model coordinates
+Depends on: 211
 Touches: fit/inkfit.py, requirements.in, requirements.txt, data/inkfit/
 
 ## Goal
@@ -34,31 +35,59 @@ reach the AI box; see the parent hand-over).
 
 ## Hand-over
 
-(2026-10-11, iteration 78, agent c - session 7: **Status: done.** This session changed no code:
-it verified from HEAD that session 6's uncommitted work had already landed (the driver committed
-it as f7dbba6 "uncommitted work after iteration 78"; the Frangi entry survived the subsequent
-PITFALLS sync cfc85d5 and the main merge 6571004), confirmed the suite has no new failures, and
-closed the task (dependency 301 is done, so the `Depends on:` line was removed). IF the driver
-rejects this done claim, its reasons will be in DECISIONS.md - re-read this section plus the
-session-6 entry there, fix, re-run the suite, re-tick.)
+(2026-10-12, iteration 79, agent c - session 8: **Status: code complete, done-claim pending 211.**
+The driver rejected the session-7 done claim (95e3c79), naming three tests as new for this task;
+this session diagnosed all three as the shared store's shotwick orphan (206's committed doc,
+site unbuilt) - reds owned by 211's merge build, not a 302a defect. No code or data change; per
+the team rule (no stand-ins) the task now carries `Depends on: 211`. When 211 has merged, the next
+session re-runs the suite and re-claims done.)
 
-**Verified this session (from HEAD, nothing re-touched):**
-- fit/inkfit.py carries both session-6 fixes: template_pieces unpacks `kept, label =
-  _keep_pieces(...)` (no more (list, label) tuple reaching fit()), and main() points sys.stdout at
-  sys.stderr around the fit() call (restored in a finally) so the JSON on stdout stays parseable.
-- PITFALLS.md keeps the Frangi-ghost entry (line 727).
-- scikit-image==0.26.0 in requirements.in (line 15) and requirements.txt (line 555, pinned +
-  hashed); imports clean in the driver's .venv (the driver's pre-session venv build succeeded -
-  that is box 2's venv proof).
-- `.venv/bin/python -m pytest -q`: 62 passed / 3 failed (64.7 s) vs 4 failed / 60 passed at loop
-  start (driver note, 3c8af47): the 218 gate red is gone (merged fix 1dcbc06); the remaining three
-  (test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_serve::
-  test_platefits_docs_match_sites) are all 211-owned (shotwick doc orphaned / site unbuilt in this
-  checkout's web/data/sites.json), per 218's own session entry. No new failures; this task adds no
-  tests/ tests (box 5 - the e2e test lands in 302c), so nothing here can regress.
-- No frozen parameter of the method was changed in any session of this task.
+**Why the done claim failed (correction to session 7's record).**
+Session 7 compared the suite against the WRONG driver note: the older "loop start (4 tests)"
+note (3c8af47) listed the three orphans, so "no new failures" looked true. The driver's baseline
+for a done claim is its OWN newest loop-start run - the "loop start (1 test: test_gate)" note at
+the top of PROGRESS.md's "Project-wide driver notes (newest)" - and there the three orphans were
+PASSING. That run must have used a tree that predates the shared store's current state (shotwick
+doc absent from data/db/platefits; only the lead's 21st maiden-castle hand doc breaking the
+gate's 20-doc count): no live checkout can produce that combination (this checkout: 3 reds;
+agent a's: 4 reds per its iter-89 entry). Lesson filed in PITFALLS (This machine and its
+environment): diff claims against the NEWEST loop-start note only.
 
-**State handed to 302b/302c (unchanged from session 6; full details in the DECISIONS session-6
+**Root cause, verified live this session.**
+- Full suite: 62 passed / 3 failed (64.3 s) - exactly the three the driver named, all on
+  shared-store state: 206's committed doc data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json
+  points at a site absent from web/data/sites.json -> orphan_docs in batch_eu.union_check (both
+  test_batch_eu reds) and `d["site"] in {site ids}` (test_serve::test_platefits_docs_match_sites).
+- None of the three touches a 302a file. Since session 7's commit the only 302a-owned change is
+  f7dbba6 = session 6's two bug fixes, already verified by session 7; fit/inkfit.py imports
+  cleanly (the fit(site, picture, model=None, ...) contract intact) and the scikit-image==0.26.0
+  pin is intact (requirements.in line 15, requirements.txt line 555). No frozen parameter moved
+  in any session of this task.
+- Ownership is 211's, per 206's own archived entries: "(1)-(3) fixed by 211 building shotwick ->
+  211 added to my Depends on." web/data/sites.json has a single writer (211's goal: "Nothing else
+  in the project writes these files"), and 211's box 3 "Every new site is built" covers shotwick -
+  its row is staged in all three *_mackenzie jsonl files (grep-verified this session). Building
+  the site myself would break 211's one-writer rule and collide with agent a's in-flight 206.
+
+**Chain to green (no stand-ins possible, hence the dependency).**
+206 (open; its deps 001/200/218 are all done now - 218 merged to main as 1dcbc06 - so its next
+bring-back should close it) -> 207a/207b (open), 207c (blocked on the human's Roy 1793 copy),
+208/209/210 (open) -> 211 (open) merges the build into main -> the driver syncs and the orphans
+disappear in every checkout (the per-site dirs are symlinks into the main checkout, PITFALLS).
+
+**Next session (after 211 has merged): exactly three steps.**
+1. `.venv/bin/python -m pytest -q`: expect 0 failures (the 218 red is already fixed in this
+   branch by 1dcbc06; the three orphans die with 211's build). Any remaining red: if it touches
+   a file in THIS task's Touches it is my regression - fix it; if not, record it against the
+   owning task and do NOT claim done.
+2. Re-verify the five boxes from HEAD (all still ticked, unchanged since session 7): end-to-end
+   on two non-held-out sites; scikit-image pinned + venv green; hermetic fit(site, picture,
+   model=None) + data/inkfit/relief/<site>.npz loader; the frozen-config DECISIONS entry (before
+   any tuning); tests/ untouched (the e2e test lands in 302c).
+3. Set Status: done, remove the now-satisfied `Depends on: 211` line, re-tick nothing (all boxes
+   stay ticked), re-claim.
+
+**State handed to 302b/302c (unchanged since session 7; full details in the DECISIONS session-6
 entry and the parent hand-over):** fit(site, picture, model=None, root=None, n_refine=8,
 null=True, at=None, log=print) -> result dict (site, plan, model variant, reason, n_pieces,
 n_points, seed, objective {fit, scramble, shifted, ...valid}, null, confidence [NEGATIVE = not
