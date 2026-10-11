@@ -120,3 +120,11 @@ Session 6 (after the driver committed the session-5 working tree as a1291a6): th
 - Suite: .venv/bin/python -m pytest -q -> 59 passed / 1 failed (the pre-existing tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees, owned by 218 - gate_heldout expects 20 hand-fit docs but the lead's 21st doc is on main). No new failures from this module.
 - BOX STATUS: 1 (two real non-held-out sites, end to end, no platefit read) TICKED; 2 (scikit-image pinned) done in session 2; 3 (hermetically testable: injectable model + seeded npz relief loader) TICKED - the loader validated shape/px_m/bbox and the whole method ran offline; the committed test-site npz is 302c's build; 4 (frozen configuration recorded) done in session 3; 5 (tests/ untouched) HOLDS - this task wrote no test files.
 - PITFALLS: new entry under pipeline/autowalls.py (the frozen ink extractor) - Frangi ghost-echoes razor-sharp synthetic drawings; soften fixtures to scan-like edges (blur 2.5, 8-12 px walls, light seeded paper noise).
+
+## 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_gate.py:36: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    1 failed, 59 passed in 63.50s (0:01:03)
+    (full test output: .agent/reports/last-test-output.txt)
