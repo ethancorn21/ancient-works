@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/202-propose.md` (open) - hand-over: Iteration 27 (agent c). Step done: **decided Option B** (metric-space sanity checks, no cross-scan
+- `tasks/202-propose.md` (open) - hand-over: Iteration 28 (agent c). Step done: **tests + golden built and passing** (`tests/test_propose.py` 11 passed;
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -12,22 +12,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 202 DECISION: old-style six sanity check = Option B (metric-space envelopes), no cross-scan bridge
-Attempt 3 of the R4 bridge (logged above in the BLOCKER entry) is the last one: the two scans of a plate
-differ by smooth, non-projective paper distortion; a global similarity fails, a 4-point homography is
-unphysical (implied scale 1.51 vs true ~1.06, 5th point off 116 px), the plate_scan crop has no ruled
-frame corners to calibrate against, and eyeballed full-page picks are +/-20-30 px - too coarse to
-condition any 8-parameter solve on a 1500 px span. Option A' (auto-extracted wall centerline
-registration) would be new non-trivial code for a check the box does not require. Decision: B.
-The box's "re-fit from the proposals lands within the hand fit's own residual range" is implemented as
-three metric-space sub-checks (next session's test), all with envelopes recorded in the golden file:
-(a) scale: proposed panel physical size (m) vs hand-fit earthwork bbox (m, from site.json plate.walls x
-fit) per side within 0.2-3x (QID same-frame nine: proposed m/px vs doc m/px within 50%, minus calleva,
-R2); (b) rotation: |delta| <= 15 deg or 70-110 deg for trusted-hint rows, <= 35 deg or 70-110 deg for
-rejected-hint rows (hopeton delta 33.7 is the measured driver of the 35 band); (c) centre: site centre
-vs hand-fit placement of the panel centre (QID same frame) or of the earthwork centre (old-style six,
-the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
 
 ### 2026-10-11 202 DECISION: fit/propose.py built (this session) - stdlib-only, contract dict, parse_scale over the measured corpus
 - fit/review.py is merged (201 done): propose_for(site_id, plan_id) returns the exact 7-key dict its
@@ -68,6 +52,35 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
    regex was fixed for all three. "N unit to the inch" rows with a parenthetical ("2 Ch. (352 Ft.)",
    "12 Rods 200 feet") take the FIRST quantity. Optional polish left: reorder inch alternations to
    (?:inches|inch|in) in the two regexes (no current corpus value needs it).
+
+### 2026-10-11 202 DECISION: tests + golden built and passing (11/11) - three measurement findings that fix the sanity design
+- tests/test_propose.py (11 tests, no network/server/writes) + tests/golden/propose_202.json (18 sample
+  proposals + measured sanity) written; `.venv/bin/python -m pytest tests/test_propose.py -q` -> 11
+  passed. The golden's sample is 18, not the iter-27 count of 19: bibracte has NO plans.json row
+  (re-verified this session: 0 rows for any of the 17 no-LiDAR sites), so the aerial branch stays a
+  rule-level assertion per the prep, not a golden pair.
+- NEW EXCLUSION (measured, recorded per the R2/R6 honest-exclusion rule - never loosen an envelope for
+  one site): **marietta** fails Option B check (a) - its site.json `plate.walls` is a SINGLE 73-pt
+  polyline spanning only 110 plate-scan px (80.3 m at 0.7296 m/px) inside a 1535.2 x 2091.0 m panel:
+  side ratios 0.052/0.038, outside the 0.2-3 envelope. The wall trace is one wall segment, not the
+  drawn extent (marietta's fit model is "control" - the walls list never traced the full earthwork).
+  The other five old-style sites pass with ratios 0.48-1.54. The test asserts the exclusion stays
+  necessary (min ratio < 0.2) so it is dropped automatically if the data ever supports it.
+- Coarse rows are NOT held to the hand-fit scale in the QID check (the prep's rule, now in code):
+  serpent +198.7%, arbor-low +970.1%, aztalan +32.3% would all fail 50% (aztalan by luck passes). The
+  50% check applies only to `scale_source == "bar"` rows (hembury/avebury/badbury/maiden/old-sarum all
+  pass; calleva excluded per R2, -73%).
+- old-sarum's COMMONS doc is a 90-degree class (hand rot 86.1 -> drot -86.1): the commons sanity uses
+  the same band rule as the book rows (no hint = trusted band: |d|<=15 or 70-110), not a plain +/-15.
+- Iter-27 hand-over typo corrected: fudge's S&D ratio is 0.2438 m/px (400 ft / 500 ppi), not 0.3048.
+- Self-consistency tolerance confirmed against all 18 emitted (rounded) pairs: worst 5.2e-5 m/px
+  absolute (well under 1e-3) and 0.0003 deg (under 0.1 deg) - the iter-27 tolerances stand.
+- `plate.walls` shape (data/sites/<sid>/site.json): a LIST OF POLYLINES, each a list of [u, v] points
+  (u/v in plate-scan px); the old fit's affine is M @ [u-u0, -(v-v0)] + t with t the ground position of
+  (u0, v0), metres relative to the relief-image centre (= site centre).
+- Next (next session): full suite `.venv/bin/python -m pytest -q` (expect 29: 18 baseline + 11 new),
+  tick the four boxes, Status: done, commit (the two new files are uncommitted - the harness holds
+  them).
 
 ## Project-wide driver notes (newest)
 
