@@ -60,6 +60,23 @@ puts the first drawing on this site. What the page shows now:
   The old 7 drawings that the first run put here are the fabricated pattern fits described
   below; they sit in the review item until a human places a real one.
 
+Argentoratum (Strasbourg, the second site through the line, 2026-10-11): all 42 candidate pictures
+were already covered by the batch (8 automatic documents, 34 in one review item), so no batch run
+was needed — and the pre-sync fabrication check hit all 8 automatic documents, exactly as it had on
+Stonehenge: each went into the site's review item with the reason and its gate score, and its
+document was deleted. The site ends with 0 drawings, its entry stays at 0, and its one review item
+grew from 34 to 42 candidates (the page still has 339 open of 340 items). Nothing new broke on this
+site: the check caught the class before a single download, and a second run of the command is a
+no-op (the item file byte-identical, only the page's timestamp refreshed). A human's saved fit is
+what puts the first drawing on this site. What the page shows now:
+
+- `docs/site_flow/argentoratum.png` — Argentoratum open on the aerial photograph with no drawing on
+  it at all: the panel's group is "Old maps and aerials" and offers the Cassini map (1756-1815) and
+  the Etat-major map (1820-1866) (the 1950 aerial is hidden by the 150-year rule), the map's marker
+  is uncoloured, the panel's "old plans in books" box waits for a human to place one of the site's 42
+  candidate pictures, and all 42 sit in its review item (one of the 339 open). The 8 automatic
+  documents the batch had scored are the fabricated pattern class, so they wait there too.
+
 ## What broke on Stonehenge, and the fix (so the next site does not meet it again)
 
 - **The download burst got 429'd.** `plan_fit.load_picture` used bare `urllib` for the Commons
