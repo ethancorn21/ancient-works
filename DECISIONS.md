@@ -90,3 +90,33 @@ iteration 24, staging files untouched since); --golden; tests/test_src_artists.p
 control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1, 5, 6 then box 4 LAST;
 211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
 jobs outlive sessions).
+
+## 2026-10-11 213a DECISION: mapping RESOLVED - triage file nNNNN.jpg = A-row NNNN = 1-based leaf NNNN+1; iteration-29's 10 reads were each off by one leaf (the parent's 19 stand)
+The CRITICAL blocker of the iteration-29 hand-over is settled, four independent lines of evidence:
+(1) CODE: books.py:119 triage_path(ia_id, n) = triage/n{n:04d}.jpg with the same 0-based BookReader
+index n that stage A stores in the row ("n": n, books.py:284). (2) ASPECT RATIOS: all 292 triage jpgs
+match the CURRENT bookreader.json page index n at <=1% (292/292; the shifted hypothesis only 290/292,
+and file n0000 - which cannot exist under the shifted reading - matches page 0's aspect 0.6117).
+(3) leafNum IDENTITY: leafNum(i) = i+1 for all 292 in BOTH the committed A file and the current
+bookreader.json; leafNum is the stable jp2 file number, so a leaf-order shift between the triage run
+and now is impossible (a shift would change the count or break the 1..292 sequence). (4) DIRECT
+RE-READS of seven contested images: n0198 = the CRISP Milan fold-out (MEDIOLANVM cartouche = A198's
+garbled "METOLACOL"; Visconti serpent; CVM PRIVILEGIO), n0199 = the faded BLANK VERSO (A199, no
+caption, typed plate_site_plan - the ghost image is what made A type it), n0197 = the Armes-de-Milan
+page (A197 "Armes de ceste Ville de Milan"), n0186 = the CRISP Augsburg fold-out (banner = A186
+"HABET DELINE"), n0187 = faded verso (A187), n0206 = CRISP Genoa+Florence double plate (corner text
+"VA." + "FLORENTIA" = A206 "VA. FLORENTIA"), n0205 = Genoa-harbour+Florence double plate (legend =
+A205 "FLORENTIA urbs est suffragio..."). The iteration-29 10/10 "off-by-one content matches" were an
+artifact: it matched image CONTENT to the A-row caption that fit and thereby attributed every leaf's
+caption to the neighbouring row. Corrections recorded: A205/A206 are BOTH crisp (parent had "n206
+faded"); A50 is crisp (29 had "faded"); n0051/n0207/n0111 are blank/faded VERSOS (text_only rows -
+versos type as text_only or plate_site_plan in A, inconsistently); A53/A54 belong to the
+Burgos/Sebastian section (the double-title leaf is A52), NOT Barcelona (Barcelona = A49/A50 only);
+Amsterdam = A108 title -> A109 plan -> A110 plate (the parent's "plate precedes title leaf n110" was
+the faded A111 verso misread); Messina = A224 title -> A225 plate -> A226 history continuation
+("MESSANÆ urbs est...") - the parent's "sections interleave both ways" claim is a misread, sections
+are strictly title-then-plates. Also verified: F rows' field is "shows" (not "show"): 239 figure
+readings (222 view / 11 plan / 6 other) over 118 rows; F's "plan" leaves = A30/62/65/66/90/93/105/186/229(x2)/237
+- of these only A90 (Ghent) and A237 (Jerusalem old) are true plans, F MISSES the five famous plans
+(A58/85/98/109/238) and flags A186 (a view) - F's plan label is unreliable in BOTH directions for
+this book (lead-doc pitfall; 217 must use hand kind s only).
