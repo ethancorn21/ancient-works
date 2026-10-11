@@ -344,10 +344,19 @@ def _evidence():
 
 
 def _file_row(meta):
+    """The one staged file row: the 29 plates' shape (the sources.py mackenzie template), the 200 evidence
+    field and the date swap (the sources.py rule: when the live date is not the book's 1897 - the scan's page
+    kept only the upload date - date becomes 1897 and date_commons keeps the live one). keep() is judged on
+    the swapped row, never the raw one (the commons pitfall: a post-1925 reproduction of a pre-1925 drawing
+    is dropped otherwise)."""
+    c = _commons()
     m = dict(meta)
-    if _commons().year_of(TITLE, m) != int(YEAR):
+    if c.year_of(TITLE, m) != c.year_of(TITLE, {"date": YEAR}):
         m = dict(m, date=YEAR, date_commons=m.get("date"))  # a scan whose page lost the book's details
-    return {"site": SITE, "qid": QID, "title": TITLE, "year": int(YEAR), "wd_plan": False, "cat": CAT,
+    if not c.keep(TITLE, m):
+        raise SystemExit(f"commons.keep() would drop {TITLE!r} after the date swap: fix the row or record "
+                         f"the drop in docs/lead_mackenzie.md")
+    return {"site": SITE, "qid": QID, "title": TITLE, "year": c.year_of(TITLE, m), "wd_plan": False, "cat": CAT,
             "name": f"Shotwick Castle, plan from Mackenzie, The Castles of England ({YEAR})",
             "by": "fit/src_mackenzie.py", **m, "evidence": _evidence()}
 
@@ -375,8 +384,6 @@ def stage(dry=False):
         raise SystemExit(f"not on Commons (title changed?): {TITLE}")
     if (meta.get("w"), meta.get("h")) != (PAGE_W, PAGE_H):
         raise SystemExit(f"the live file is {meta.get('w')}x{meta.get('h')}, the page is {PAGE_W}x{PAGE_H} - R4 drift")
-    if not c.keep(TITLE, meta):
-        raise SystemExit(f"commons.keep() would drop {TITLE!r}: fix the row or record the drop in docs/lead_mackenzie.md")
     if any(r.get("id") == SITE for r in _load(EXTRAS) + _load(EXTRAS_CANONICAL)):
         raise SystemExit(f"{SITE} already staged or already in the canonical extras.jsonl - no second row")
     f = _file_row(meta)
