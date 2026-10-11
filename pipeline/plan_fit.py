@@ -5,7 +5,12 @@ usage: plan_fit.py            sync every fit in data/db/platefits/ (serve.py run
 
 A fit is saved by the page's plate-fitting tool as data/db/platefits/<site id>.<plan id>.json:
   {"site", "plan", "ia", "file", "crop": [x0, y0, x1, y1] (page px), "pairs": [[u, v, lon, lat], ...] (page px ->
-   ground), "label", "title", "book", "cite", "at"}
+   ground), "label", "title", "book", "cite", "at", "by": "hand" | "agent"}
+Every document says who placed it (task 303): the page's save path stamps "by": "hand" (server/serve.py)
+- the owner's word on every pair - and every script/session path stamps "by": "agent" (the batch in
+fit/batch_us.py write_doc; agent sessions the same). A document without the mark is treated as an agent fit
+only when it carries the batch's own "auto" mark (a batch document predating the mark); any other unmarked
+document has no provenance the line can act on and is refused (who_placed, build, main).
 The fit is a similarity transform (shift, rotation, one scale) by least squares over the pairs, solved in Web
 Mercator metres (conformal, so a similarity there is a similarity on the ground). The page solves the same thing
 for its preview; this file is the one that decides. Pairs are never moved or snapped here.
@@ -41,6 +46,20 @@ Image.MAX_IMAGE_PIXELS = 200_000_000  # fold-out plates are big scans, not decom
 
 PACE_S = 1.0  # commons.get paces Wikimedia calls this way: a burst of bare urllib calls gets 429'd
 _last = 0.0
+
+NO_PROVENANCE = ("no provenance: the doc has no 'by' field (page saves write hand; agent paths write agent)")
+
+
+def who_placed(doc):
+    """Who placed this fit (task 303): "hand" (the page's save - the owner's word) or "agent" (anything a
+    script or a session wrote). A document without a trustworthy "by" mark is an agent fit only when it
+    carries the batch's own "auto" mark - an unmarked auto doc is a batch document predating the mark, and
+    it must never read as hand; any other unmarked document is unplaced: None, and the line refuses it.
+    -> "hand" | "agent" | None."""
+    by = doc.get("by")
+    if by in ("hand", "agent"):
+        return by
+    return "agent" if doc.get("auto") else None
 
 
 def _root(root=None):
@@ -248,6 +267,9 @@ def is_done(doc, name, root=None):
 def build(doc, root=None):
     r = _root(root)
     sid, plan = doc["site"], doc["plan"]
+    who = who_placed(doc)
+    if who is None:
+        raise SystemExit(f"{sid} {plan}: {NO_PROVENANCE}")
     out_dir = os.path.join(r, "web", "data", "sites", sid)
     if not os.path.isdir(out_dir):
         raise SystemExit(f"{sid}: site not built")
@@ -284,17 +306,21 @@ def build(doc, root=None):
     words = doc.get("book", "") + " " + str(doc.get("label") or "")
     ym, cm = re.search(r"(?<!\d)(1[2-9]\d\d)(?!\d)", words), re.search(r"\b(1[2-9])(?:st|nd|rd|th) century", words)
     year = int(ym.group(1)) if ym else (int(cm.group(1)) - 1) * 100 + 50 if cm else None
-    # what the public page's source line says: hand fits were placed by hand; the batch's automatic
-    # documents must not claim that (their fit was made by the working run, gate score on the doc)
-    if doc.get("auto"):
-        how = (f"Fitted automatically by the batch on {len(pairs)} matching points with a perspective fit; all within "
-               f"{math.ceil(resid.max())} m (gate score {doc.get('score')} m)" if view else
-               f"Fitted automatically by the batch on {len(pairs)} matching points; one rotation and scale fits "
-               f"them within {math.ceil(resid.max())} m (gate score {doc.get('score')} m)")
+    # what the public page's source line says: it follows who placed the fit (who_placed) - hand fits were
+    # placed by hand; everything else says it was fitted automatically (the batch's documents add their
+    # gate score; an agent session's do not have one)
+    n, m = len(pairs), math.ceil(resid.max())
+    if who == "hand":
+        how = (f"Placed by hand on {n} matching points with a perspective fit; all within {m} m."
+               if view else f"Placed by hand on {n} matching points; one rotation and scale fits them within {m} m.")
+    elif doc.get("auto") and doc.get("score") is not None:
+        how = (f"Fitted automatically by the batch on {n} matching points with a perspective fit; all within "
+               f"{m} m (gate score {doc['score']} m)" if view else
+               f"Fitted automatically by the batch on {n} matching points; one rotation and scale fits "
+               f"them within {m} m (gate score {doc['score']} m)")
     else:
-        how = (f"Placed by hand on {len(pairs)} matching points with a perspective fit; all within {math.ceil(resid.max())} m."
-               if view else f"Placed by hand on {len(pairs)} matching points; one rotation and scale fits them within "
-                            f"{math.ceil(resid.max())} m.")
+        how = (f"Fitted automatically on {n} matching points with a perspective fit; all within {m} m."
+               if view else f"Fitted automatically on {n} matching points; one rotation and scale fits them within {m} m.")
     src = (f"{doc.get('cite') or doc.get('book')}. {doc.get('label') or ''}. Scan: Internet Archive {doc['ia']} leaf "
            f"{doc['file'][1:-4].lstrip('0') or '0'}." if doc.get("src") != "commons" else
            f"{doc.get('title')} ({doc.get('label') or 'undated'}), Wikimedia Commons: {doc.get('cite')}.")
@@ -350,6 +376,18 @@ def main(args, root=None):
             continue
         doc = json.load(open(p))
         name = os.path.basename(p)[:-5]
+        who = who_placed(doc)
+        if who is None:
+            # an unmarked non-auto doc: the line does not guess what it is (it may be a good hand fit that
+            # lost its mark) - it refuses: no build, no delete; the one-site line sends it to the review item
+            print(f"{name}: refused: {NO_PROVENANCE}", flush=True)
+            continue
+        if doc.get("by") not in ("hand", "agent"):
+            # an unmarked auto doc predates the mark: stamp it back into the file, so the store reads
+            # consistently once documents written before this task land (self-heal for batch documents)
+            doc["by"] = "agent"
+            aw.save_json(p, doc)
+            print(f"{name}: stamped by: agent (batch's own auto mark, no by yet)", flush=True)
         if not is_done(doc, name, root) or args:  # explicit args always rebuild
             try:
                 build(doc, root)
