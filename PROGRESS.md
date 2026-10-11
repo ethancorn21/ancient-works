@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4f (iteration 41). TASK DONE (Status: done, all 6 boxes ticked). The full working run
+- `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4g (iteration 42). Status: in-progress. The driver REJECTED the 4f done claim
 - `tasks/203-batch-fit.md` (split)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
@@ -16,45 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 4d - the two pending fit/batch_us.py fixes from 4c are in: the scale cross-check uses the complex magnitude, and the feature-presence check lands; the 5-pick pilot now routes all four fabrication classes to items and pyramid (the one real fit) stays auto
-4c's two pending items, implemented in fit/batch_us.py (the task's only code file; the checkout
-elsewhere is untouched, and the pilot writes nothing):
-1. BUG FIX: the scale cross-check was `implied = abs(float(a)) * k` but `a` from
-   plan_fit.similarity is complex (scale + rotation). numpy's float() discards the imaginary part
-   (ComplexWarning), so for a rotated fit implied = |s*cos(theta)|*k - measured on a real hand
-   fit (mound-bottom) rotated 60 deg: old 0.5243 vs true 1.0597 m/px, a 2.02x ratio that would
-   misfire "not trusted" on a TRUE answer. Now `implied = abs(a) * k` (the magnitude IS the
-   scale): the same rotated fit gives exactly ratio 1.000, no misfire. The NaN guard is unchanged.
-2. FEATURE-PRESENCE CHECK (the 4c decision, now code): new `_feature_present(site, pts_ll,
-   gpath)` after _parse_answer. Grayscale array of the site's own ground image (PIL "L" /255);
-   each answer ground point scored by the std of a 24 m box (R=12 px at 1 m/px, centre clamped
-   to [R, W-R-1], the inverse of _ground_lonlat through the site corners); null = 400 boxes at
-   np.random.default_rng(20261011) (distinct from the report SEED 20261010); pass iff >= half
-   the points score >= the null median; ANY read failure -> (True, None) (no evidence never
-   blocks; the gate and the human sample are downstream). Wired into the llm_model closure after
-   the scale cross-check, only when len(pairs) >= 4; failure appends the note "only %d%% of the
-   recorded points sit on more textured ground than a typical region of this site: the features
-   are not visible where claimed - not trusted" and trims to 3 pairs (the <4 branch routes the
-   picture to the review item). Module + llm_model docstrings document the check, its deliberate
-   faint-feature over-refusal, and the known residual (fabrications anchored on strong texture
-   - roads, field boundaries - pass it; docs/gate.md section 7's human 18/20 sample is the
-   backstop).
-3. VERIFIED (offline): _feature_present reproduces the 4c calibration on the recorded 4c points:
-   tremper 1/4 -> (False, 0.25), pyramid 3/4 -> (True, 0.75); hand-fit over-refusals serpent 0/3,
-   mayburgh 1/3, little-solsbury 2/5 (all genuinely faint - deliberate). Recorded-answer tests
-   bypass llm_model by design, so the suite is unaffected: tests/test_batch_us.py 5/5 (5.0 s),
-   full suite 34/34 in .venv (42 s).
-4. PILOT RE-RUN (tunnel re-verified UP on 8080/8081; /tmp/pilot_llm.py, raw answers now
-   /tmp/llm_raw_4c.txt - the 2nd run overwrote the 1st; the answers were identical to 4c, the
-   model is deterministic at this temperature): tremper -> could-not-fit item carrying the new
-   note (25% of points on textured ground) - the fifth class is now handled; pyramid -> AUTO
-   DOC (gate med 24 m, the real fit, unchanged); poverty-point -> 0 pairs -> item; serpent
-   n0636_1 -> range-validate drops the ladder to 1 pair -> item; cahokia -> scale cross-check
-   (1.639 vs 3.333) trims to 3 -> item. Exactly the expected routing, no regressions.
-PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitude fix (a
-complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
-exact command and the box checks).
 
 ### 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803
 CHOICE: ran the full working phase as the 4d hand-over prescribed, backgrounded
@@ -111,6 +72,46 @@ THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 
     FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
     4 failed, 34 passed in 38.24s
     (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 203a DECISION: session 4g - done claim rejected on the 4 cross-task failures; unblocked the self-created dependency inversion by re-filing 802/803 state-agnostic (Depends on: 001/201) and adding them to 203a's Depends on
+The driver rejected the 4f done claim (reopened the task; suite run twice): 4 failed /
+34 passed - EXACTLY the 4 cross-task failures 4e/4f predicted and recorded (test_gate
+partition precondition 20 vs 36; the three test_review pre-batch population pins). 4g
+verified the state first: golden 39/39 byte-identical; my 5/5 test_batch_us green; 36
+docs = 16 auto (all carrying "auto": true) + 20 non-auto (the golden hand fits).
+ROOT CAUSE (each confirmed by reading the code, not guessed):
+- 802's failure: tools/gate_heldout.py partition() fails loudly when the doc count is
+  not 20. Deriving the name list over NON-auto documents reduces to the IDENTICAL 20
+  names pre- and post-batch (no hand-fit doc ever gains "auto"), so the partition and
+  the golden tables reproduce byte for byte in both states.
+- 803's failures: hardcoded pre-batch population pins (2 open of 2; [alligator,
+  bibracte]; Review (2)/rvn 2/stats line). Deriving them from the repo items through
+  201's own export derivation reduces to exactly those pinned values pre-batch and
+  holds post-batch (88 open of 89; alligator derived-resolved via its c_618a auto doc).
+- test_save's KeyError 'map_box' is a TEST artifact, not a data defect: the page's
+  rvResolveRow (web/review.js) resolves the candidate's row from web/data/plans.json by
+  (plan, site) FIRST; stored entry fields are only a fallback for rows absent from the
+  build, and a missing map_box is tolerated (openPlan falls back to the full frame).
+  The batch's upsert (201's documented "same-plan entry replaces in place") wrote
+  203a-shaped entries that lack the denormalized row fields, but the page never needs
+  them when the row is present (n0214_2 is in plans.json). NO repair of my 88 item
+  files, no fit/review.py change, and no field-shape change in my write_item are
+  needed: 803's fix is to build the save document from the ROW (all of map_box/size/
+  ia/file/label/book/cite are plans.json columns).
+CHOICE: 4f had filed 802/803 with "Depends on: 203a", while 203a's claim can only pass
+once those tests are green - a pure inversion (203a waits on them, they wait on 203a).
+Since both fixes are state-agnostic (above), 4g re-filed them (they are my own filings,
+unassigned, on this branch; their paths were added to 203a's Touches line first, per
+the team-mode rule): "Depends on: 001" and "Depends on: 201" (both done), each spec now
+carrying the two-state reduction as the explicit correctness bar (pre-batch must
+reproduce the pinned values byte/word for word; post-batch must hold). An implementer
+on any main-based branch - with or without 203a's data - lands green, and either merge
+order keeps main green: 802/803 first (pre-batch state on main), then 203a merges and
+the derived tests keep passing on the post-batch population. 203a's Depends on: now
+lists 802, 803 so the driver holds my claim until both are in main. Per the team rule
+I committed and stopped; the driver hands me other work and brings 203a back once
+802/803 merge. No ask_human: this is a dependency-order fix inside my own filings, not
+a blocker needing a human decision.
 
 ## Project-wide driver notes (newest)
 
