@@ -5,7 +5,6 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
-- `tasks/200-evidence.md` (in-progress) - hand-over: **Where I am (2026-10-10, iteration 12).** Offline record done and committed; check is clean; boxes 2 and 4
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -17,55 +16,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-10 200 DECISION: set_field dropped the line terminator - record would have glued jsonl rows; fixed before the first real run
-Where: fit/evidence.py (set_field, rewrite, record); tests/test_evidence.py (new test_record_appends_evidence_without_touching_existing_bytes)
-json.dumps never emits a trailing newline and record's rewrite() replaces whole lines via writelines, so every
-recorded line would have been concatenated with the next (corrupt jsonl). The bug was latent since iteration 10
-(the sample file predates the final set_field; record had never run on a real file). Caught this session by
-running the real set_field on a real line before the record run. Fix: set_field appends "\n" iff the input line
-ended with one. The new test runs the record CLI on a tmp fixture (a hand-tied, an unrecorded and a sentinel
-commons row, two book rows) and asserts: line count and terminators intact, untouched rows byte-identical,
-recorded rows keep every original byte as a prefix, "evidence" is the only and last key added. The test first
-failed after its own source rows got recorded (it compared against the raw line, which then contained the
-evidence key the fixture strips) - fixed to compare against the stripped fixture line; that comparison is what
-pins "extend rows, never move or delete them".
-
-### 2026-10-10 200 DECISION: check must use the matcher's own one-pair rule (books_match refactor) - the 52 spurious book FAILs are gone
-Where: pipeline/books_match.py (new row_inputs, score_candidate, site_toks, name_lookup_keys; match_row and load_catalog use them), fit/evidence.py (check_book_caption), data/books/index.jsonl
-check over the recorded book rows FAILed 52 of the 135 legitimate matches, two families: (a) "stored place
-state='ohio|wisconsin' recomputes to None" - match_row injects the book-scope default state (BOOK_SCOPE) into
-the place when the printed text names none; my check recomputed from printed text only. (b) "the row does not
-name 'X'" - the matcher ties rows by distinctive-token sharing and exact phrase/alias lookup (a title printing
-"Pulpit Hill" ties "Small multivallate hillfort on Pulpit Hill" via an alias; "The Square at Newark" ties
-"Newark Earthworks"); my check required the site's full name as a substring of the printed text - stricter than
-the rule the match was made under. Both are the same failure mode as iteration 11's name_keys bug: check
-re-stating the matcher's rules instead of using them. Fix per the module's own contract ("the check must use
-the matcher's own rules"): extracted the row-side extraction (row_inputs: toks, name_toks, place incl. the
-book-scope default, phrases, regions) and the per-candidate rule (score_candidate: region/state/county
-contradictions -> reject, county bonus, token share, exact bump, the three why clauses) from match_row into
-functions both sides share. check_book_caption now: recomputes the row side from the printed text (must equal
-the stored place dict exactly), checks the site snapshot (id/qid/name/lon/lat), the HAND table, then the
-matcher's one-pair evaluation (is_exact via the site's current lookup keys vs the row's phrase keys) must
-reproduce the stored score (round(…,2) equality) with an empty why and both thresholds. The runner-up margin
-stays stored (the catalog is not monotone - a new site can take the margin; a full re-run would fail on data
-growth, decided iteration 10). No record-format change was needed: tokens and place are recomputable from the
-printed text, so the existing "evidence/1" records work as is. The refactor was proven behavior-neutral with a
-one-off before/after run (matches.jsonl hash 30f099b1… and the stdout summary byte-identical; matches.jsonl left
-untouched in the tree) - deliberately no persistent golden, because tasks 204-211 grow index.jsonl/catalog and
-a pinned matcher output would break on their merges (PITFALLS entry). Result: check on the real files exits 0
-(2271 rows, 173 pass = 38 hand_tied + 135 book, 0 fail, 2098 no-tie); the sample verdicts are unchanged (golden
-intact); suite 12/12.
-
-### 2026-10-10 200 DECISION: box 2 ticked, box 1 deliberately NOT ticked (correcting the iteration-11 plan)
-Box 2 ("check re-verifies every row offline from the stored fields only and lists failures; it runs clean on
-the committed rows") is verified: the check path makes no network call, prints one line per row, lists failures
-(the sample golden pins that), and exits 0 on the committed real files. Box 1 says the evidence field goes in
-EACH picture row; after the offline record only the 38 hand-tied commons rows (plus all 890 book rows) carry
-it - the 1343 remaining commons rows need record --live, so box 1 stays unticked. The iteration-11 hand-over
-planned to tick box 1 after the offline record; a fresh read of the acceptance wording says that was premature.
-Box 3 is verified in the sample (the Hampton Court trap row is NONE-with-conflict, never a pass; no-tie rows
-are printed) and gets its real-data confirmation with the live record (no row with a stored conflict may ever
-carry a passing field).
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
