@@ -39,54 +39,58 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 71 (2026-10-11, agent a) - re-verified the full state (the driver brought 206 back early, 211+218
-STILL open): main has not moved since iter 70 (`git log agent/a..main` empty, head f5ea863), all 206-owned
-artifacts md5-identical to iters 66-70, --check/--gate/4-tests green with byte-identical stats, full suite
-59/5 with the same dependency-owned reds (211 x3, 218 x1, 300/301 x1). Deps already on the `Depends on:`
-line, so nothing to add and no stand-ins (team rule). Status stays open.**
+**Iteration 72 (2026-10-11, agent a) - re-verified the full state (the driver brought 206 back early, 211+218
+STILL open, main STILL unmoved since iter 71: `git log agent/a..main` empty, main head f5ea863): all 206-owned
+artifacts md5-identical to iters 66-71, --check/--gate/4-tests green with byte-identical stats, full suite
+59/5 with the same dependency-owned reds (211 x3, 218 x1, 300/301 x1), each red's live failure text
+re-captured this session. Deps already on the `Depends on:` line -> nothing to add, no stand-ins (team rule).
+Status stays open.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
 - `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
   residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.63 s, socket-boom fixture, no network).
-- All 7 committed artifacts md5-identical to iters 66/67/68/69/70: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
+- `tests/test_src_mackenzie.py`: 4/4 green (1.57 s, socket-boom fixture, no network).
+- All 7 committed artifacts md5-identical to iters 66-71: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
   files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
   shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
   test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 59 passed, 5 failed (75 s) - the same set as iters 68/69/70, each red's live cause re-confirmed
-  this session (failure text below; none touches a 206 file):
-  1. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218): `gate_heldout held failed: expected
-     20 hand-fit documents in data/db/platefits/, found 21; the registered partition is void,
-     see docs/gate.md section 1`. The 21st doc is 206's shotwick doc; 218's box 4 names exactly this red (218 relaxes
-     the expected-count check). Not a 206 fix; 206 never touches tools/gate_heldout.py or tests/test_gate.py.
-  2. `test_serve::test_platefits_docs_match_sites` (211): `'shotwick-castle-q7502621' not in sites.json ids` -
-     re-confirmed live this session (site unbuilt; the catalog row exists by QID, extras intentionally absent).
-     211's merge build adds the site.
-  3. `test_batch_eu::test_union_check` (211): union must contain `shotwick-castle-q7502621.c_e6e5490609414bb9.json`.
-  4. `test_batch_eu::test_union_full_coverage_live` (211): same missing doc.
-  5. `test_site_done::test_site_done_line` (300's file, in 301's Touches): still the depictions.json byte
-     compare at index 35 (b'p' != b'm', plan vs map). Its compare target `web/data/sites/stonehenge-q39671/
-     depictions.json` (reached THROUGH the per-site directory symlink into the shared main-branch store -
-     the directory is the symlink; the file itself is a regular file there - PITFALLS "This machine and
-     its environment") STILL carries the pre-sync state: mtime 2026-10-11 14:48:36 (unchanged since the
-     iter-67 observation), 2 entries, first kind "map". Agent c is still mid-301 (the prompt lists 301 in
-     c's work). It settles when 301 lands; NOT 206's to fix; do not "fix" it.
-- Deps status at stop: `tasks/211-merge-build.md` = open (it Depends on 207, which is still split/in flight
-  via 207a/207b/207c - agent c is on 207b now), `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on
-  001 only; waiting for an agent to pick it up). Both are already on the `Depends on:` line (001, 200, 211,
-  218) -> nothing to add; per the team rule no stand-ins were built; the driver gives this agent other
-  work and brings 206 back once both merge.
-- Main-branch check: `git log agent/a..main` empty at session start (main head f5ea863, a lead web-only
-  commit, unchanged since iter 70); nothing merged since iter 70 touched 206's files.
-- Nothing in this task's files changed this session (verification only); working tree clean apart from
-  this memory update.
+- Full suite: 59 passed, 5 failed (72.8 s) - the same set as iters 68-71, each red's live failure text
+  re-captured this session (none touches a 206 file):
+  1. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218): `gate_heldout held failed: gate_heldout:
+     expected 20 hand-fit documents in data/db/platefits/, found 21; the registered partition is void,
+     see docs/gate.md section 1`. The 21st doc is 206's shotwick doc; 218's box 4 names exactly this red
+     (218 relaxes the expected-count check). Not a 206 fix; 206 never touches tools/gate_heldout.py or
+     tests/test_gate.py.
+  2. `test_serve::test_platefits_docs_match_sites` (211): `assert 'shotwick-castle-q7502621' in <sites.json ids>`
+     fails - site unbuilt (catalog row exists by QID, extras intentionally absent). 211's merge build adds it.
+  3. `test_batch_eu::test_union_check` (211): `assert (not ['shotwick-castle-q7502621.c_e6e5490609414bb9.json'])`
+     - the doc must be in the batch union; 211's.
+  4. `test_batch_eu::test_union_full_coverage_live` (211): same missing doc in the union.
+  5. `test_site_done::test_site_done_line` (300's file, in 301's Touches): the depictions.json byte compare at
+     index 35 (b'p' != b'm'): the test-built site expects kind "plan" first, the repo file has "map" first. The
+     compare target `web/data/sites/stonehenge-q39671/depictions.json` (reached THROUGH the per-site directory
+     symlink into the shared main-branch store - the directory is the symlink, the file a regular file there;
+     PITFALLS "This machine and its environment") is UNCHANGED since the iter-67 observation: mtime
+     2026-10-11 14:48:36.649, 2 entries, both kind "map" (six-inch-1st 1842, os1inch 1900). Agent c is still
+     mid-301 (301's Touches include that dir + docs/site_flow + tools/site_done.py); it settles when 301 lands;
+     NOT 206's to fix; do not "fix" it.
+- Deps status at stop: `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210 -
+  207 still in flight via 207a/207b/207c, agent c on 207b now), `tasks/218-gate-holdout-new-hand-docs.md` = open
+  (Depends on 001 only; waiting for an agent). Both already on the `Depends on:` line (001, 200, 211, 218)
+  -> nothing to add; per the team rule no stand-ins were built; the driver brings 206 back once both merge.
+- Main-branch check: `git log agent/a..main` empty at session start (main head f5ea863, a lead web-only commit,
+  unchanged since iter 71); nothing merged since iter 71 touched 206's files. Shared-store mtimes unchanged:
+  platefits dir Oct 11 14:04 (131 docs: 21 hand-fit incl. shotwick + batch docs), Stonehenge depictions.json
+  Oct 11 14:48:36, web/data/sites dir Oct 10 20:06.
+- Nothing in this task's files changed this session (verification only); working tree clean apart from this
+  memory update.
 
 ALL COMMITTED ARTIFACTS (unchanged since iter 66/67):
-- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks live facts if
-  the driver ever flags drift), `data/commons/files_mackenzie.jsonl` (1 row, 200 category evidence,
-  site by existing QID - NOT in extras), `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
+- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks live facts if the
+  driver ever flags drift), `data/commons/files_mackenzie.jsonl` (1 row, 200 category evidence, site by
+  existing QID - NOT in extras), `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
   `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840 crop, 4 corner
   pairs), `docs/lead_mackenzie.md` (says "26 rows" for the sources.py table - the task's "29" is the
   book-level count; do not "correct" it), `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_
