@@ -622,6 +622,20 @@ Why: the writer's default path is the US report's name, and 203b's thin wrapper 
       its `at` parameter is vestigial - the body never uses it, so the report's determinism does
       not depend on it.
 
+#### The inkfit one-shot run (302b) takes ~35 min for 21 held-out docs in the working phase; overpass 504s mid-run are harmless
+Where: `fit/inkfit_heldout.py` (`run`; the `data/inkfit/heldout/results.json` checkpoint),
+      `fit/inkfit.py` (`relief`, `run_search`), `data/sites/<id>/dem.npy` (working cache)
+Symptom: "overpass retry HTTP Error 504: Gateway Timeout" lines interleaved with "coarse: 27
+      rotations x 17-18 scales" blocks during the run; a finished doc row with gate "—" and a
+      reason in the fabrication cell
+Why: each doc runs three searches (fit + the two nulls) over a 27 x 17-18 coarse grid on an
+      800-2400 px 1 m/px DEM, so 32-219 s per doc (the 21-doc one-shot fit in one ~35 min
+      session, iteration 82). The OSM 504s hit the modern-mask fetch only: it degrades to
+      no-mask (recorded in the entry's notes) and never fails the doc. A resumed run
+      re-measures only entries carrying an "error" key - never a completed measurement.
+      Hermetic tests (302c) use the committed data/inkfit/relief/<site>.npz cache instead of
+      a DEM fetch.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
