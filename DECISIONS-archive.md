@@ -1029,6 +1029,49 @@ sum to 90 (box 3); 4) tick 3/4/5, commit docs + items + docs/batch_us.md (the al
 mound item merges via upsert, not in the golden). Expect a LOW auto-doc rate; do NOT weaken the
 gate or the tests.
 
+## 2026-10-11 203a DECISION: session 4c - the A/B pilot: 4a's four fabrication modes all route to items, but a FIFTH class (correct scale, wrong translation, points on structureless ground) still auto-passes; add a batch-side feature-presence check before the full run
+Re-ran /tmp/pilot_llm.py (updated: 5 picks, raw answers teed to /tmp/llm_raw_4c.txt, gate verdict
+and routing printed per pick) against the session-4b llm_model. Results: poverty-point -> honest
+0 pairs (its 4a identity map is gone); serpent n0636_1 -> raw diagonal ladder, range validate
+dropped it to 1 pair; cahokia -> 8-point corner/gate answer, stated scale 1.639 vs implied 3.333
+(> 2x) -> cross-check trimmed to 3. All three route to review items as designed. Two auto-passed
+and were eyeballed (overlay script /tmp/eyecheck.py: model points red, 202-seed-mapped same
+features green, on the site's own ground; /tmp/eye_*.jpg):
+- pyramid-mound n0134_1 (stated 0.57 vs seed 0.8806, gate med 24 m): model and seed points
+  coincide within 24-320 m (inside the 460 m map_box span) ON the visible C-embankment and
+  square-mound pit in the ground panel -> a real fit; the auto doc is correct.
+- tremper c_75950f29c23bf033 (stated 1.3245 = the seed scale echoed verbatim from the prompt
+  hint, gate med 0.6 m): model and seed points 120 m apart - inside that seed's 500 m
+  no-map_box uncertainty, so /tmp/quant.py shows seed agreement CANNOT discriminate here - and
+  both sets sit on featureless open ground while the site's real ring is unused; 2 of the 4
+  model points are on the modern highway. A docs/gate.md section-7 consistent global error:
+  correct scale, internally consistent, wrong translation, and the ground shows nothing where
+  the features are claimed. The current code (gate + range validate + scale cross-check) all
+  pass it -> a garbage auto doc in the full run. The full run must not start until this class
+  is handled.
+CHOICE: a third batch-side counterweight (routing only, the gate stays frozen, same status as
+the 4b scale cross-check): a FEATURE-PRESENCE check on the site's own ground image. Calibrated
+on all 20 hand-fit docs + the 2 model answers (/tmp/calibrate3.py, local-std in a 24 m box
+(R=12 px at the 1 m/px ground image) vs a fixed-seed 400-point null drawn from the same image):
+tremper's points 1/4 at or above the null median (0.27-0.65x margin on every variant tried),
+pyramid 3/4 (1.00-1.57x), hand fits over-refuse only serpent 0/3, mayburgh 1/3, little-solsbury
+2/5 - all three genuinely faint features (a strict gate is fine; their model answers, if any,
+still go to the item carrying the pairs as leads). The edge-distance variant was tested and
+dropped: it passes all 20 hand fits but lets tremper through (2 of its 4 points are near the
+highway's edges). Rule implemented as: an answer passes only if >= half of its ground points sit
+on ground at least as textured as the null median; otherwise note + trim to 3 pairs (the <4
+branch routes it to the item). KNOWN residual, to document in the module docstring: a
+fabrication anchored on strong ground texture (road network, field boundaries) passes this check
+and the scale check; section 7's human 18/20 sample remains the backstop for that class. The
+check only ever routes to review, never loosens the gate, so it is a strict improvement over the
+4b state.
+BUG FOUND, fix pending: fit/batch_us.py llm_model scale cross-check computes
+`implied = abs(float(a)) * k` but `a` from plan_fit.similarity is COMPLEX (pipeline/plan_fit.py
+L35-45); float(a) drops the imaginary part, so for a rotated fit implied = |s*cos(theta)|
+(60 deg -> 50% low) and can misfire "not trusted" on a true answer. Fix: `implied = abs(a) * k`
+(abs of a complex is the magnitude). Not applied yet - fit/batch_us.py is unmodified this
+session (all analysis was /tmp throwaway; no tests run, last state 5/5 + 34/34 after 4b).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
@@ -1142,6 +1185,62 @@ books.LLM_URLS in-process to the three live ports and injects BOOKS["civitates"]
 "civitatesorbiste00brau", region="Italy", year=1575); the run is idempotent (latest row per n; error rows
 excluded from done). Filed as task 215 (port fix + a PITFALLS entry). The same trap will hit 207/208/209
 when they reach their triage B/F stages - 215 is their unblock.
+
+## 2026-10-11 213 DECISION: iteration 25's orphaned triage process kept appending after the driver's snapshot commit
+The driver's "uncommitted work after iteration 25" commit captured civitatesorbiste00brau.A.jsonl at 191
+lines; the orphaned run kept appending until 04:03 (211 pages, n 0-210 complete, no error rows) and exited.
+Nothing was corrupt: the file is append-only and run_stage/latest() is re-runnable (done = rows without
+error). Lesson: before committing (or trusting) a data file a background job may still be writing, check
+its mtime against now and whether a writer process is alive; otherwise the driver's snapshot commits
+mid-growth states. (Recorded here because the context-limit step allowed only DECISIONS/tasks edits; the
+next agent files the PITFALLS entry.)
+
+## 2026-10-11 213 DECISION: civitates triage COMPLETE (A 292/292 + F 118/118, zero error rows) - committed; list transcription is image-based, hOCR abandoned for this book
+The iteration-26 background run (/tmp/civitates_triage.py, LLM ports 8080-8082 patched in-process) printed
+DONE and exited: data/books/triage/civitatesorbiste00brau.A.jsonl = 292 unique rows (complete, no errors,
+no duplicates) and .F.jsonl = 118 rows (0 error rows; 239 figure readings: 222 view / 11 plan / 6 other).
+Both committed with this entry - the append-only files are final, no re-run needed. While it ran I read the
+cached triage images (LOCAL: data/raw/books/civitatesorbiste00brau/triage/nNNNN.jpg = leaf n+1) for 16
+figure leaves. Findings: n58 = bird's-eye PLAN of Paris (poem cartouche); n85/n90/n98/n109 = bird's-eye
+PLANS (Flemish/German; n98 = the famous Antwerp plan, n109 = Amsterdam, whose plate PRECEDES its title
+leaf n110); n237/238 = the two Jerusalem PLANS (old city numbered walls/Temple/Tower of David + new city
+Declaratio A-Z). Corrected the iteration-26 hand-over: n157/n158 ("DECEM ET TRIA LOCA" / "FEDERATORVM
+HELVETIAE") are NOT maps - sheets of small town VIEWS of the 13 Swiss cantons (kind o). Views confirmed:
+n194 (two Vienna views, S. Steffans labelled), n202 (the famous oblique bird's-eye VIEW of Venice,
+153-item Italian legend), n214 (Ancona), n217/n218 (two Naples views), n225 (Messina view; title leaf
+n226 follows it - sections interleave both ways). n52 = double title page (Burgos + S. Sebastian), n54 =
+their two views; n53 = two more plates (46-item Dutch legend view + sea view) - likely the 2nd/3rd
+Barcelona plates, confirm with n50/n51. n187/n199 = faded blank VERSO of the fold-outs (plates n186
+Augsburg, n198 Milan; "RFPCB" stamp). TWO PITFALLS (next agent files them in PITFALLS.md): (1) the hOCR
+page index for this book is MISALIGNED with the jp2 leaf sequence by a drifting 0-2 leaves (hOCR leaf 85
+holds the Brussels title text that A reads on leaf 87; leaf 53 matches; leaf 109 off by 2) -
+books_ia.page_texts()/ocr_captions are UNRELIABLE here; the image-based A rows are the ground truth and
+217 must not use page_texts for civitates. (2) Stage F under-detects plans: its earthwork-biased prompt
+flagged only 11/121 figure pages as containing a "plan" while 7+ are visually confirmed plans - 217 must
+not trust F's "plan" label for kind calls on this book.
+
+## 2026-10-11 213 DECISION: list structure decided - one entry per figure leaf keyed on leaf n, title = the plate's own inscription or the section's title leaf, kind o/s/u with kind_by hand|A
+The book has no printed town list (confirmed: no list leaf in the A data). Each city section = a TITLE
+LEAF (big Latin title + history text; A reads it) + 1-3 PLATE leaves (views/plans; A caption = the
+plate's own inscription, often a legend or poem, often empty), interleaved both ways, so a plate's city =
+its section (nearest title leaf either side). Printed page numbers exist ONLY on leaves 193-196 (1-4)
+and 280-284 (I-V) (data/raw/books/civitatesorbiste00brau/civitatesorbiste00brau_page_numbers.json) - all
+other `page` values null. Plan for data/books/lists/civitatesorbiste00brau.json: {"plates": null,
+"figures": [{"fig": <0-based leaf n>, "title": <inscription as printed, or the city name from the section
+title leaf when the plate has none>, "page": null-or-printed, "kind": "o"|"s"|"u",
+"kind_by": "hand" (I read the image) or "A" (derived from stage A, unverified)}]} covering all 121 figure
+leaves; .map.json = [] (list_pages maps only kind s/u and has no printed page numbers for these leaves,
+so it is honestly empty - 217 extends the machinery, not 213). Visually confirmed so far: plans
+n58/85/90/98/109/237/238 (s); views n194/202/214/217/218/225/157/158 (o). Remaining reads (cheap - the
+images are local): n209 Rome, n205/n206 Florence, n198 Milan fold-out (view or plan?), n197 Milan arms
+(excluded from drawings), n86/n97/n193 title leaves, n186 Augsburg fold-out, n50/n51. Then: 7
+verified-town QIDs (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp; paced Wikidata incl.
+search-trap check) into fit/src_artists.py:BOOKS["civitates"]["sites"] + lead doc; update the lead-doc
+books section (FEDERATORVM = views, fold-out versos, the two pitfalls); --check (last passed 2/2 in
+iteration 24, staging files untouched since); --golden; tests/test_src_artists.py per prep §4 (negative
+control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1, 5, 6 then box 4 LAST;
+211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
+jobs outlive sessions).
 
 
 <!-- task 213a -->
