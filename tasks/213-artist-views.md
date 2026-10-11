@@ -88,16 +88,14 @@ TICKED. Boxes 1, 4, 5, 6 open. Imola row: date "" year 1502 (file page has no Da
 box-1 case, documented in the lead doc); Venice row: date 1500. Staged region "Italy" (built sites show
 "US" until 214 merges - transient, DECISIONS 2026-10-11).
 
-**Next step - session 3:** (1) Fix the PITFALLS line-209 entry as above (+ optional Nominatim-viewbox entry).
+**Next step - session 3:** (0) Add `tests/golden/src_artists_sample.json` to this task's `Touches:` line (a new
+artifact of this task, not yet listed) and commit, before any golden write. (1) Fix the PITFALLS line-209 entry as above (+ optional Nominatim-viewbox entry).
 (2) Books (box 5, stretch): check IA metadata for the BOOKS-table ids (208's OQ-2 recipe in tasks/prep/208.md
 for BookReader vs .pdf); if indexable: add `data/books/triage/<ia>.*` + `data/books/lists/<ia>.json` (the
 exact ia ids you write) to THIS task's Touches line FIRST, then work one book, a few hand-verified towns, or
 document a drop; the books.py:BOOKS entry is a shared-module change -> file a new task (lowest free 2xx,
 Depends on: none, Touches: pipeline/books.py etc.), never write it. (3) `--golden` (writes
-tests/golden/src_artists_sample.json - add that path to Touches first? No: the golden path is named in the
-module and in box 6; it is inside tests/ and the Touches line covers tests/test_src_artists.py - add
-tests/golden/src_artists_sample.json to Touches if the driver complains, it is a new artifact of this task).
-(4) Session 4: tests/test_src_artists.py per prep plan section 4 - the join; table completeness (rows' qid
+tests/golden/src_artists_sample.json from the staged rows - path in Touches after step (0)). (4) Session 4: tests/test_src_artists.py per prep plan section 4 - the join; table completeness (rows' qid
 == the module table; dates 1502/1500; extras rows complete incl. region "Italy", kind "town"); offline
 evidence check (check(FILES_ARTISTS, NO_BOOKS, catalog=EXTRAS_ARTISTS) exit 0, zero FAIL) with a NEGATIVE
 CONTROL built in-test: the Imola row with the WRONG centre 44.245/12.367 (Cervia - the prep's error, now
