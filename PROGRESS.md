@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 1 done (2026-10-11): box 1 committed, module built and smoke-verified. State of this checkout:
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 2 (2026-10-11, cut at context limit): `tests/test_batch_us.py` WRITTEN (5 tests, ~560 lines, see the file; it is on disk but UNCOMMITTED - the
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -38,16 +38,28 @@ The driver's ".venv could not be built" note is stale: 800-requirements-pinned i
 fully pinned + hashed) and .venv builds; the suite runs green in .venv/bin/python (29 passed). Run batch
 work and tests in .venv.
 
+### 2026-10-11 203a DECISION: tests/test_batch_us.py built - 2 of 5 pass, all three failures diagnosed (session 2)
+Wrote the hermetic test file (5 tests): real-gate sample run (serpent-mound's 15 pinned 202-proposal answers
+-> automatic docs; cahokia's two-pair + no-answer pictures -> one item; mound-bottom's hand-fit-only
+candidate -> skip, nothing written; first zero-candidate US site -> no-picture item), stub-gate
+always-accept / always-reject (pins the doc and item writers independently of 001's thresholds; the
+reject test also pins the upsert: merge into a pre-existing item, move it to its lead name, never clear
+`resolved`), golden invariance (every data/ + web/ file hashed before/after the run; new files only under
+data/db/platefits as auto docs or data/review for sample sites), report reproducibility from SEED
+(two writes byte-identical; counts; the seeded sample; a synthetic 22-doc case for the 20-of-20-or-more
+branch). Ran in .venv: 2 passed, 3 failed. Diagnosed: (1) `/` and `%` are same-precedence, left-
+associative: `Path / ... / "%s.%s.json" % (a, b)` parses as `(Path / str) % tuple` -> TypeError
+(fix: parenthesize the format; hit in _check_doc_stub, verify _check_doc too); (2) _table used the wrong
+section header - the report's is "## Sample of automatically accepted fits (for the human's 18/20 check)";
+(3) in test_sample_run_real_gate the batch auto-accepted all 15 serpent candidates while my independent
+_expected() (same plan_fit.similarity + fit_gate.gate on the same pairs) said "item" for all of them, yet
+the identical computation ACCEPTs (med 0.001-0.022) in a standalone probe - suspected state pollution in
+the shared pytest process (earlier test modules import fit_gate/plan_fit/aw/propose); next step is to run
+that test alone in a fresh process and instrument _expected vs gate_placement, or drop the pre-run
+expectation in favour of asserting on the written artifacts (which _check_doc / _check_entry already do).
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-## Where we are now (iteration 31, agent c, 203a)
-Session 2 wrote tests/test_batch_us.py (on disk, uncommitted - the harness saved it). State: 2 of its 5
-tests pass; three failures diagnosed in DECISIONS.md (2026-10-11 session-2 entry): a Path/"%" operator-
-precedence TypeError (parenthesize the format string, check _check_doc too), a wrong report section
-header in _table, and a suspected cross-test-module state pollution in the real-gate expectation
-(run that test alone in a fresh process next). Then: full .venv suite, tick boxes 2 and 6, then the
-working phase (--working over all 90 US sites, docs/batch_us.md, golden re-verified).
