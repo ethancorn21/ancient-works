@@ -5,7 +5,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Agent tools and harness (1)
 - This machine and its environment (8)
 - Libraries and frameworks (0)
-- This codebase (15): Wikimedia APIs (Commons, Wikidata) 3, fit/ 2
+- This codebase (17): Wikimedia APIs (Commons, Wikidata) 3, fit/ 3, pipeline/ 1
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
