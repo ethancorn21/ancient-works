@@ -23,12 +23,12 @@ and its streets carry the fit.
       an upload date, the known drawing date is used and noted), and exactly which files
       are staged; unusable sources or files (paywalled, too small, no place tie) are
       listed with the reason - a documented drop beats a guessed row.
-- [ ] Imola staged as a new site: an extras_artists.jsonl entry (id, name, place,
+- [x] Imola staged as a new site: an extras_artists.jsonl entry (id, name, place,
       lon/lat, region, kind, QID, wikipedia), a files_artists.jsonl row for the plan in
       the files.jsonl shape with the 200 evidence field, and a classified_artists.jsonl
       row; the row notes no open LiDAR here (aerial-photograph ground,
       FITKIT_GROUND=aerial). fit/evidence.py check passes offline on every staged row.
-- [ ] The hand-checked file -> QID table lives in fit/src_artists.py (the sources.py
+- [x] The hand-checked file -> QID table lives in fit/src_artists.py (the sources.py
       pattern): every QID verified against its label and coordinates - a name search
       alone gives the wrong place (the Barnard Castle trap); a picture of a site whose
       QID is already in the catalog gets a picture row for that existing site id, no new
@@ -56,53 +56,63 @@ and its streets carry the fit.
   the feature pairs the sheet shows on both sides, not walls in relief.
 
 ## Hand-over
-**Step 1 done (iteration 23, 2026-10-11): module + verified table + live checks.** `fit/src_artists.py` exists
-(uncommitted, saved by the harness): SITES table (Q50195 Imola, Q641 Venice - QIDs verified live this session:
-labels, enwiki, P373 'Imola'/'Venice', P131 provinces, P625 traps recorded), SOURCES (leonardo_imola: RCIN
-912284 file; barbari_venice: Museo Correr file), BOOKS (civitates/merian IA ids), and verify_qids / stage / 
-check_staged / golden with CLI `--verify` / `[--dry]` / `--check` / `--golden`. All smoke-tested under
-`.venv/bin/python`: `--verify` clean (search traps confirmed: Imola -> Q50195's bad P625 53 km; Venice ->
-Q773853 LA 9891 km); `--check` exit 0 (0 rows staged yet); `--dry` stages 2 sites / 2 pictures, both files
-pass commons.keep(). File metadata verified live: RCIN 912284 = 2000x1483, NO DateTimeOriginal/desc, year
-1502 from the title (so stage() fires no date/date_commons override; the row's `date` stays "" and `year`
-1502 - note that in the lead doc), public domain; Correr Venice = 11800x5856, DateTimeOriginal 1500, public
-domain. Task 214 filed (REGION_NAME "italy"->"Italy" + tests/test_region.py; the staged rows use region
-"Italy" - built sites will show "US" until 214 lands, transient and fine). No acceptance boxes ticked yet.
+**Step 2 done (iteration 24, 2026-10-11): Imola pinned, triaged, staged; Venice staged; boxes 2 + 3 ticked.**
+UNCOMMITTED (harness-saved, next agent commits with the rest): `fit/src_artists.py` (SITES[Q50195] centre now
+the walled town 11.7112/44.3535; docstring + drop comments corrected), the three staging files (2 sites /
+2 pictures / 2 classified rows), `docs/lead_artists.md` (full Imola + Venice sections, the 2026-10-11
+`--verify` block verbatim, book stub, offline-check output).
 
-**Next step - session 2: Imola (box 2, the anchor).** (1) Settle Imola's old-town centre: the table holds the
-prep's placeholder (12.367, 44.245). The enwiki/Wikidata coords are the SAME bad value (P625), so pin the
-centre from the drawing itself (the sheet shows the walled town + Savena crossing) or another reliable
-geographic reference, and record the value + source in docs/lead_artists.md. (2) Triage the remaining Imola
-candidates live (one paced commons.info run, record verdicts in the lead doc): File:Leonardo da vinci, Town
-plan of Imola.jpg (possibly a third scan of the same sheet - check w/h/license); File:...RCIN 912686 (different
-work: recto sketches - drop); File:Imola 1705.jpg (1705, not Leonardo - drop). (3) Stage: `.venv/bin/python
-fit/src_artists.py` (stages BOTH sites' rows - that also stages Venice, which is correct; box 4 needs it);
-then `--check` must pass with one PASS line per staged row (kind caption_coords). (4) Tick box 2 and box 3
-(the table is done - QIDs verified, existing-QID rule in stage()/check_staged()).
+**MAJOR CORRECTION (the prep was wrong):** the prep's "Imola old-town centre ~ 44.245 N, 12.367 E" was
+CERVIA on the Ravenna coast (~50 km SE of Imola); the prep then mislabelled Q50195's P625 as "bad, 53 km NW
+of the town". The truth (verified live this session): real Imola = 44.353 N, 11.715 E (NE of Bologna, on the
+Santerno); enwiki infobox 44°21'11"N 11°42'53"E == Q50195 P625 == OSM town node (with the F1 circuit beside
+it); P625 was never bad. OSM's comune boundary is mis-drawn (Nominatim shows the urban area as "Imola,
+Nuovo Circondario Imolese") - never geocode Imola from OSM/Nominatim, use enwiki/P625. The river in the
+drawing is the **Santerno** (Leonardo labels it "Sant'Arno", mirror script - read off the sheet; the prep's
+"Savena crossing" was a second error). The sheet: south-up (per the literature), walled town at the centre
+of the circular view, Rocca Sforzesca at its edge = the identifying feature. **The PITFALLS entry at line
+~209 ("Q50195 (Imola) carries a bad P625 (~53 km NW)...") is now WRONG in its Imola half - fix it in your
+first session** (keep the Venice half: search "Venice" hits Q773853 LA 9891 km first; that trap is real and
+is why the hand record stands). New pitfall worth an entry: Nominatim `viewbox` is left,top,right,bottom =
+min_lon,MAX_lat,max_lon,min_lat (I burned a session passing lon,lat,lon,lat).
 
-**Then (plan, from tasks/prep/213.md):** session 3 Venice (box 4) - rows already staged with Imola; this is
-the Venice-side documentation (NGA block files = detail crops - drop; GAp scan - drop; the R2 fit-scale
-caveat: the woodcut spans ~8 km vs the 2000 m town box, the fit likely ends a review item in 212). Session 4
-(stretch, box 5): Civitates/Merian book work - check IA metadata first (BookReader vs .pdf: 208's OQ-2 recipe
-in its prep notes); per-book files (data/books/triage/<ia>.*, data/books/lists/<ia>.json) ONLY after adding
-those exact paths to this task's Touches line (box 5); the books.py:BOOKS entry is a SHARED-module change ->
-file a new task for it, never write it; scope = one book, a few hand-verified towns, or a documented status
-(R3 - Venice already meets box 4). Session 5 (boxes 1 + 6): docs/lead_artists.md (per source: what it is,
-where the files live (URLs/categories/IA ids), the drawing's date (+ the noted upload-only case), exactly which
-files staged, documented drops, the --verify output (re-run it - it is deterministic) with the checked date,
-the Q50195/Q773853/Q16139 trap notes) + tests/test_src_artists.py (prep plan section 4: the join; the table
-completeness; the offline evidence check over the staged files with a NEGATIVE CONTROL built in-test - the
-Imola row with the bad P625 44.353/11.715, never written, must be reported not kept; the golden file via
---golden, checked/date_commons normalized; run under .venv/bin/python, socket-blocking fixture) + tick the
-rest (box 4 last - it is the count check).
+**Triage verdicts (one paced commons.info run, 2026-10-11, all PD, all pass keep()):** "File:Leonardo da
+vinci, Town plan of Imola.jpg" (1030x774, circa 1502) = ANOTHER SCAN OF THE SAME RCIN 912284 SHEET (verified
+visually) -> drop, one row per picture; "File:...RCIN 912686, Recto Sketches..." (1517x2000 portrait,
+undated) = different work (the measured survey sketches) -> drop; "File:Imola 1705.jpg" (942x710, 1705,
+Antonio Ferri) = flat plan, other hand, other century -> drop. GAp Imola scan (6164x4545) stays a
+commons.NO "google" drop. All five verdicts are in docs/lead_artists.md.
 
-**Re-read on return:** fit/evidence.py:check_caption (my caption_coords rows check offline from stored fields
-only: norm(named) in norm(title+desc), stored distance reproduces dist_m +/-1 km, <=50 km); fit/evidence.py:
-source_tables (hand_tied registry = pipeline/sources.py only; if it ever extends to fit/src_*.py, convert my
-rows to hand_tied and drop the hand record); fit/evidence.py:record (skips rows with rec==evidence/1, so
-211's record runs leave my rows alone).
+**State:** `--check` PASSES (2/2 caption_coords, no join problems, exit 0) - last test run. Boxes 2, 3
+TICKED. Boxes 1, 4, 5, 6 open. Imola row: date "" year 1502 (file page has no DateTimeOriginal - the noted
+box-1 case, documented in the lead doc); Venice row: date 1500. Staged region "Italy" (built sites show
+"US" until 214 merges - transient, DECISIONS 2026-10-11).
 
-**Invariants:** staged files are append-only + idempotent on (site,title) - never rewrite an existing line;
-do not touch fit/evidence.py (not in my Touches); the GAp scans must never be staged (commons.NO "google" +
-commons.rows() re-drop, DECISIONS 2026-10-11); Civitates/Merian per-book paths go in the Touches line BEFORE
-writing them.
+**Next step - session 3:** (1) Fix the PITFALLS line-209 entry as above (+ optional Nominatim-viewbox entry).
+(2) Books (box 5, stretch): check IA metadata for the BOOKS-table ids (208's OQ-2 recipe in tasks/prep/208.md
+for BookReader vs .pdf); if indexable: add `data/books/triage/<ia>.*` + `data/books/lists/<ia>.json` (the
+exact ia ids you write) to THIS task's Touches line FIRST, then work one book, a few hand-verified towns, or
+document a drop; the books.py:BOOKS entry is a shared-module change -> file a new task (lowest free 2xx,
+Depends on: none, Touches: pipeline/books.py etc.), never write it. (3) `--golden` (writes
+tests/golden/src_artists_sample.json - add that path to Touches first? No: the golden path is named in the
+module and in box 6; it is inside tests/ and the Touches line covers tests/test_src_artists.py - add
+tests/golden/src_artists_sample.json to Touches if the driver complains, it is a new artifact of this task).
+(4) Session 4: tests/test_src_artists.py per prep plan section 4 - the join; table completeness (rows' qid
+== the module table; dates 1502/1500; extras rows complete incl. region "Italy", kind "town"); offline
+evidence check (check(FILES_ARTISTS, NO_BOOKS, catalog=EXTRAS_ARTISTS) exit 0, zero FAIL) with a NEGATIVE
+CONTROL built in-test: the Imola row with the WRONG centre 44.245/12.367 (Cervia - the prep's error, now
+~53 km from the site point) must be reported FAIL, not kept; golden compare. Socket-blocking fixture; run
+under .venv/bin/python. (5) Tick the rest: box 1 (when the book section is final), box 5, box 6, box 4 LAST
+(the count check). (6) At the done-claim: record in 211's Hand-over that the *_artists* staging files (+ any
+per-book files) exist and must be merged (prep R6). 801 is DONE (its evidence.py is on main - part/sheet
+kinds exist; my rows are unaffected).
+
+**Re-read on return:** fit/src_artists.py:stage (idempotent on (site,title) - re-running is a no-op now the
+files exist; `--dry` shows "staged: 0"); fit/evidence.py:check_caption (caption_coords: named in
+norm(title+desc), stored dist reproduces dist_m ±1 km, ≤50 km - my rows store dist 0.0, place = site point);
+fit/evidence.py:record (skips rec==evidence/1 - 211's record runs leave my rows alone); fit/evidence.py:
+source_tables (hand_tied registry = pipeline/sources.py only - I use caption_coords, not hand_tied).
+
+**Invariants:** staged files append-only + idempotent - never rewrite an existing line; do not touch
+fit/evidence.py (not in my Touches); GAp scans never staged; per-book paths into the Touches line BEFORE
+writing; box 4 last; the golden file regenerates only via `--golden` for an intended change.
