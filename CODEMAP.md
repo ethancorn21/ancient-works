@@ -17,6 +17,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## fit/
 - `fit/evidence.py` (850 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L67-70, now L73-74, load_jsonl L77-78, set_field L81-87, rewrite L90-98, catalog_map L101-112, source_tables L115-120, check_commons L125-142, check_hand_tied L145-152, check_category L155-168, ... (+26 more).
+- `fit/review.py` (237 lines) - Review queue: items the human finishes by dragging (task 201). Exports: item_path L48-51, upsert_item L72-110, candidate_evidence L117-145, resolved_doc L148-164, export L179-220, main L223-237.
 - `fit/src_artists.py` (358 lines) - Artists' aerial and bird's-eye views as sources of old pictures (task 213, GOAL.md point 5: artists' views count as drawings as much as surveys - of Leonardo's 1502 aerial plan... Exports: now L109-110, known_sites L130-140, verify_qids L143-188, evidence_for L191-198, stage L221-270, check_staged L273-315, golden L333-358.
 
 ## pipeline/
@@ -98,6 +99,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
 - `tests/test_evidence_801.py` (86 lines) - The part and sheet evidence routes (task 801), end to end through the real CLI. Exports: fixture, test_part_and_sheet_routes_match_golden.
 - `tests/test_gate.py` (107 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4). Exports: test_recorded_measurement_reproduces_and_agrees, test_fit_gate_constants_are_the_frozen_section2_rule.
+- `tests/test_review.py` (316 lines) - The review queue (task 201, GOAL points 1-2): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word. Exports: repo_items L92-99, run_export L102-106, seed_queue L109-125, queue L126-129, test_export_cli L155-186, test_page_shows_the_review_list L189-216, test_save_resolves_the_item L219-273, test_plan_lookup_is_keyed_by_id_and_site L276-304, test_index_html_review_footprint L307-316.
 - `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
 ## tools/
@@ -110,7 +112,8 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
 
 ## web/
-- `web/index.html` (1703 lines) - (no header comment - add one)
+- `web/index.html` (1707 lines) - (no header comment - add one)
+- `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
 ## web/vendor/
