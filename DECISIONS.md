@@ -83,3 +83,57 @@ byte-identical - it contains none of the 354). The two PITFALLS entries the iter
 PENDING were in fact committed already (feddcf0, iter 18) - verified present in PITFALLS.md,
 nothing to add. Next session: poll the log, audit the files.jsonl diff, then check + pytest +
 data commit (details in the task hand-over).
+
+### 2026-10-11 801 DECISION: live redo of the 354 no-tie rows done - 90 new ties (40 part + 50 sheet), fail-closed verified, task complete
+Iter 22 (agent a). The background run (started iter 21, PID 1032856) finished 02:23 with
+"evidence recorded: 0 hand-tied, 0 book, 354 live" (1047 unique names searched, 4679
+candidates, 24 min of paced searches). Audit against git HEAD (by line index, not title -
+the file has 1490 rows but only 1357 unique titles): exactly the 354 none rows changed,
+only their evidence field (every other byte and the 1490-row count preserved), and every
+one of the 74 stored caption conflicts re-verified as a conflict (none promoted, none
+downgraded). New passes: part_mention 40 (Clifford's Tower, 6.1 m, all york-castle, as
+expected) and sheet_mention 50: argentoratum 33 (Strasbourg 30, Straatsburg 2 - the Dutch
+alias resolved to Q6602 - Neudorf 1), cenabum 2 (Orleans 0.4 km), blestium 2 (Monmouth
+Castle, Monmouthshire), dudley-castle 2 (Dudley, Birmingham), plus Darlington (barnard,
+23.9 km), Barkhale, Pontefract, Nijmegen (a find "found in Nijmegen", 1.1 km), Gorton
+(Manchester district, 5.2 km), Musis Sacrum (Arnhem concert hall, 7 km), Somerset
+(Moll's Somerset Shire map), Alfred Jewel (Q762738, the jewel found at Athelney; 49.25
+km - the closest pass to the 50 km guard, 0.75 km margin), Peterborough Cathedral
+(14.3 km, x2 on fotheringhay), Braunstone Hall (2.6 km, leicester-castle). check: exit
+0, 0 FAIL, no-tie 1109 -> 1019. 13/13 tests; the 15-row sample golden
+tests/golden/evidence_check.txt byte-identical (it contains none of the 354). Whole-file
+fail-closed re-verified: 254 passes, 0 resolving >50 km; 247 conflicts (173 sheet +
+74 caption), 0 resolving <=50 km.
+
+Shortfall vs the iter-17/18 expectation (~10-15 genuinely-naming rows that stayed
+none), all fail-closed, in three classes: (1) FIRST-HIT DISAMBIGUATION FAILURES in the
+walk - "Cranbourne" -> Q3309297 (Victoria, AUSTRALIA) on the Hampshire OSD sheet (the
+UK village has no item; the search's first hit with P625 is abroad), "City" -> Q90
+(Paris!) on the York 1914 tin (its true "York" 19 km away was never reached; the walk
+stops at the first resolution), "Wit" -> Isle of Wight on the Atlas-de-Wit Weesp plate
+(the atlas maker's surname precedes Weesp in the title), "Leffingwell" (the map's
+engraver, from the title) on the Leffingwell St. Louis map, plus Morse/Peutinger as
+documented; (2) a CATALOG COORDINATE QUIRK, not a route bug: Durocortorum's stored point
+(4.8422E) sits 59 km EAST of Reims city centre (Q41876 at 4.0286E), so the 2
+Reims-titled map rows plus 3 junk-first rows conflict at >50 km from the same city's
+centre - the guard did exactly what it is for; fixing the site point is a catalog task,
+not this one's files; (3) junk candidates in book scans resolving first (France, Rhin,
+Ecole, Ville, Vandernoot on 6 argentoratum rows; artist names like Thomas/Claude/Rosa on
+most of the 32 barnard-castle rows). A disambiguation upgrade (multi-hit resolution or
+region-biased searching) is the natural follow-up to recover these; not done here - the
+50 km guard is this task's mechanism and it held.
+
+New name-sharing classes accepted (logged per the hand-over's step 2c): (a) a
+town/county/district containing the site named (Somerset, Monmouthshire, Dudley,
+Birmingham, Pontefract, Darlington, Gorton, Nijmegen, Straatsburg, Neudorf) - the file
+genuinely depicts that place and the site is inside it; (b) a landmark found at or in
+the site's town (Alfred Jewel found at Athelney, Musis Sacrum in Arnhem, Peterborough
+Cathedral 14.3 km from Fotheringhay, Braunstone Hall 2.6 km from Leicester Castle). The
+last two are the weakest in (b) (photos of a different building that the 50 km guard
+cannot tell apart from a sheet covering the site); recommend the driver/human route
+those 3 rows (2 fotheringhay, 1 leicester) into the 201 review queue for a human eye -
+filed no new task to avoid colliding with agent c's 201.
+
+Audit gotcha (this session): the first snapshot script keyed rows by row.get("file") -
+there is no such field, the key is "title" - producing an all-None snapshot; the audit
+was redone against git show HEAD: and by line position.
