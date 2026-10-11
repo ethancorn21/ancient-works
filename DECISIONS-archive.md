@@ -19,3 +19,18 @@ consistency residuals, old-map correlation (spike 4, pending), DEM-vs-search-mat
 Chosen over a single relief score because docs/autofit.md finding 2 already proved the relief score has false
 peaks; the 4th wrong-fit type (best placement on another site's ground) is constructed to beat any single-score
 gate, so evidence must be independent per layer.
+<!-- task 000 -->
+# Task 000 plan
+
+## 2026-10-10 000 DECISION: new fitting-pipeline modules live in a new top-level fit/ directory, not pipeline/
+    Chose a new `fit/` directory over adding to `pipeline/` because the seeded gate task 001 declares
+    `Touches: pipeline/, tools/, docs/gate.md, tests/` and runs in wave 1 alongside 200/201/202; the team rule
+    is per-file, and a directory-level declaration must be treated as covering the whole directory. fit/
+    modules import pipeline/aw.py and pipeline/plan_fit.py read-only.
+
+## 2026-10-10 000 DECISION: pinned requirements.txt generated with pip-compile --generate-hashes from a throwaway venv
+    The driver's venv build failed (unpinned requirements.txt, see PROGRESS). Created requirements.in
+    (numpy, scipy, pillow, tifffile, pyproj, rasterio, laspy[lazrs], requests, pyshp, pytest) and generated
+    requirements.txt with pip-compile 7.6.2 from /tmp/aw-pto (throwaway venv outside the project, per AGENTS.md).
+    Verified the driver's exact flow: .venv built with `pip install --require-hashes -r requirements.txt`, and
+    `python3 -m pytest -q` passes (8 tests) under both .venv and system python. PyPI is reachable from this VM.
