@@ -278,5 +278,66 @@ per the hand-over invariant) and set Status: done. Also: the R6 note is written 
 Hand-over (merge the *_artists* staging files; the civitates index rows wait on 217 - zero rows from
 the book before 217 is not a 211 failure); four PITFALLS entries filed (LLM ports 8080-8082 vs
 books.py's stale 18080/18081; civitates hOCR index misaligned 0-2 leaves; A/F plan labels unreliable
-in both directions; long background data jobs outlive sessions - the driver snapshot can commit a
-mid-growth file).
+### 2026-10-11 203a DECISION: session 4f - the four 4e-designed test re-baselines are implemented (5/5); the full suite is red on exactly the four predicted cross-task failures; 802/803 filed and 203a set done
+VERIFIED at start: the driver had committed 4e's uncommitted run artifacts (6ea8bbb
+"uncommitted work after iteration 40": 16 auto docs, 88 new items + 1 merged, docs/batch_us.md);
+working tree clean.
+CHOICE: implemented, exactly as designed in the 4e hand-over, the four re-baselines of
+TESTS/TEST_BATCH_US.PY (no code change to fit/batch_us.py; no box loosened - box 4's real
+invariant, the golden 20 docs + 19 site.json byte-identical, is asserted exactly as before):
+(1) test_sample_run_real_gate: the serpent assert became `set(rec["auto"]) >=
+set(SERPENT_ANSWER_PLANS) - set(pre_docs_before[SERPENT])` (7 of the 15 pinned plans are now
+pre-docs and are skipped, never re-fit; the per-plan gate-acceptance loop over all 15 stays - it
+is a property of the frozen gate, not of repo state); the cahokia expected item set is now
+computed with upsert semantics `(pre_plans - nonpre) | nonpre` (n0200_1 became a pre-doc in the
+run; c_aff1b, the hand fit, is also a pre-doc); the generic per-site block now asserts set
+equality on item candidates (upsert preserves pre-existing order and appends - 201's writer
+business, pinned by test_review) and applies _check_entry only to candidates re-proposed this
+run, a preserved candidate being asserted to have come from the pre-existing item.
+(2) test_stub_gate_always_accept: _stub_site's criterion is now "first US site, sorted, with >=2
+candidates and no pre-fit" (still angel-mounds-q4530064: alligator is now pre-fitted by its c_618a
+auto doc, which is why the old "no existing item" clause - void post-batch - was dropped); the
+final `assert _item(tree, sid) is None` is now a byte snapshot: an all-accepted run writes no
+entries, so the upsert is never called and the item is byte-identical if present, absent if not.
+(3) test_stub_gate_always_reject: before seeding the resolved item it now deletes the site's
+existing item file(s) in the temp tree (hard-linked: unlinking the temp path leaves the checkout
+original intact) - without that, upsert's _find_item (sort order) finds the batch's
+<sid>.<lead>.json before the seeded <sid>.json and the resolved/lead assertions break.
+(4) test_batch_adds_files_rewrites_none: a differing before/after hash is allowed ONLY for
+data/review/ item files whose parsed site is in the sample (201's live-merge contract: the upsert
+re-saves an item it touches, a re-upserted no-picture record carries a fresh "at"); for those the
+test asserts same site, resolved unchanged, no candidate plan dropped; every other pre-existing
+file stays under the strict byte-identical assert.
+RESULTS: tests/test_batch_us.py 5/5 in .venv; full suite 4 failed / 34 passed (38 collected -
+the suite grew since 4e's 34: other tasks' tests merged in, e.g. tests/test_src_artists.py).
+The 4 failures are verbatim the 4e prediction, all in files this task may not touch (team mode):
+tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees (gate_heldout aborts
+"expected 20 hand-fit documents in data/db/platefits/, found 36; the registered partition is
+void") and tests/test_review.py::test_export_cli ("review: 88 open of 89 items" vs the pinned
+2/2 + open list [alligator, bibracte]; alligator is derived-resolved via its auto doc
+c_618a6be74dfaff32), ::test_page_shows_the_review_list (Review (2) -> (88), stats line, rvn),
+::test_save_resolves_the_item (KeyError 'map_box': the batch's upsert replaced alligator's LEAD
+n0214_2 entry with 203a's entry shape - plan/title/url/evidence/pairs/why/gate_score, no
+map_box/ia/file/label/book/cite - and the item is no longer open after derivation). NO test was
+loosened or deleted; the two stub tests and the adds-files test check strictly more than before
+in some respects (item byte-snapshot, resolved write-once, no plan dropped).
+TASKS FILED (lowest free numbers in 800-1099, both Status: open, both Depends on: 203a, so the
+driver hands them out only after 203a merges): tasks/802-gate-holdout-auto-docs.md (gate_heldout
+partition() derives its 20-name set from non-automatic docs only - the write_golden convention:
+auto docs were never part of the golden/held-out reference; tests/golden/gate_heldout.txt and
+docs/gate.md section 9 must come out UNCHANGED - the 20 hand fits are byte-identical - and a
+diff is a finding to record, not a silent golden rewrite) and tasks/803-review-queue-rebaseline.md
+(re-baseline test_review's expectations from the repo state via 201's own upsert/export rules;
+the save-resolves test picks its row from plans.json - a book row with map_box + size whose
+site's item is still open - instead of the item entry's stored fields; no fit/review.py change
+unless a failure proves the writer wrong).
+STATUS: 203a set done (all six boxes ticked; boxes 1-5 by 4e, box 6 by this re-baseline).
+KNOWN LOOP, on record for the driver's done-claim re-check: the suite on this branch stays red
+on exactly those 4 tests until 802/803 merge, and both depend on 203a's merge (the classic
+batch-footprint loop: the run that 203a delivers is what broke 001's and 201's tests). Neither
+file is in 203a's Touches, so I did not edit them (team mode). Recommendation: accept the done
+claim with those 4 failures owned by 802/803; if the driver rejects on the red-suite account,
+the rejection note decides the next move (possible ask_human, non-blocking). Nothing left to do
+in 203a itself; 203b imports run_sites/write_report and the notes in the hand-over (site list,
+region-less branch, docs/batch_eu.md, shared SEED 20261010, the aerial no-op of the
+feature-presence check).
