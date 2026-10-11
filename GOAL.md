@@ -16,16 +16,24 @@ site should have at least one, and the map should keep growing with new sites th
    has at least one drawing fitted to the ground (`"drawings" >= 1`), or has a review item in `data/review/` with its
    best candidate pictures and proposed point pairs, which the human opens in the page, corrects by dragging, and
    saves with the existing fit tool. Opening a review item and saving it takes the human under a minute.
-2. **A fit is accepted by numbers, never by a model's opinion.** Automatic acceptance goes through a gate validated
+2. **The local model does the fitting itself.** The owner wants far more fitted drawings than the 25 made by hand,
+   without making them by hand. So the fitting is done here, by the model, the way those 25 were made: it looks at the
+   drawing and at the site's ground (`tools/fitkit.py` sheets, reading their grid labels), finds the same features on
+   both (wall corners, gate gaps, bastion tips, road junctions, church footprints, river crossings), records at least
+   four such point pairs, and saves the fit. Pairs placed only from a scale bar, a north arrow and the site centre are
+   a starting point, not a fit: they say nothing about whether the drawing matches the ground. Every fit the model
+   makes goes to the gate (point 3); the review queue is for the fits the gate refuses and the pictures the model could
+   not fit, not the plan for every site. The number to grow is the count of fitted drawings.
+3. **A fit is accepted by numbers, never by a model's opinion.** Automatic acceptance goes through a gate validated
    on the existing hand fits with a held-out set (task 001). The human will check a random sample of 20 automatically
    accepted fits on the map; at least 18 must be right (the drawing's walls, streets or gardens on the matching
    features of today's ground). Anything the gate does not accept goes to the review queue.
-3. **Every picture is tied to its place with evidence a program can check**, recorded in its row: the file is in the
+4. **Every picture is tied to its place with evidence a program can check**, recorded in its row: the file is in the
    Commons category of the site's Wikidata item (P373), or its structured data says it depicts (P180) that item, or
    its title or caption names the place and the coordinates agree. Why: the Rijksmuseum's "Gezicht op Hampton Court"
    is Hampton Court in Herefordshire (its caption says so), not the palace; a name search alone gives the town for
    Barnard Castle and the village for Richard's Castle.
-4. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
+5. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
    Leads, none of them verified yet (check each one exists and is old enough before using it):
    - Jacob van Deventer's town plans: 64 towns not yet added (Commons "Maps by Jacob van Deventer").
    - Kip's bird's-eye views of houses and gardens: the large scans in Commons "Johannes Kip", "Britannia Illustrata".
@@ -34,7 +42,7 @@ site should have at least one, and the map should keep growing with new sites th
      (1732); Maclauchlan's survey of the Roman Wall (1857); the German Limes reports (ORL, fort plans).
    - Stonehenge and Avebury: Hoare, *Ancient Wiltshire* (1812-21); Stukeley (1740s); Petrie's Stonehenge plan (1880).
    - Numancia: the 1860s excavation plans.
-5. **The page shows what changed.** New sites, new fits and review items appear on the existing page
+6. **The page shows what changed.** New sites, new fits and review items appear on the existing page
    (`web/index.html`, served by `server/serve.py`) without breaking anything that works today.
 
 ## Rules that do not change
