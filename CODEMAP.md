@@ -12,7 +12,7 @@ Architecture rules:
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
 ## fit/
-- `fit/evidence.py` (531 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L58-61, now L64-65, load_jsonl L68-69, set_field L72-76, rewrite L79-87, catalog_map L90-101, source_tables L104-109, check_commons L114-126, check_hand_tied L129-136, check_category L139-152, ... (+16 more).
+- `fit/evidence.py` (532 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L60-63, now L66-67, load_jsonl L70-71, set_field L74-80, rewrite L83-91, catalog_map L94-105, source_tables L108-113, check_commons L118-130, check_hand_tied L133-140, check_category L143-156, ... (+16 more).
 
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
@@ -30,7 +30,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `pipeline/books.py` (546 lines) - Index the site plans (plates and text figures) in the key public-domain books on ancient earthworks. Exports: book L97-98, keys L101-102, iiif_url L107-112, triage_path L118-119, fetch_triage L122-141, cmd_fetch L144-160, repair_json L212-220, ask L227-240, llm_up L243-248, run_stage L257-299, ... (+20 more).
 - `pipeline/books_ia.py` (108 lines) - Internet Archive helpers for the book index: metadata, BookReader page list, OCR text, page images. Exports: get, cached, metadata, pages, djvu_txt, page_image_url, full_url, triage_scale, page_texts.
 - `pipeline/books_lists.py` (961 lines) - Ground truth from each book's own printed lists, OCR page mapping, validation of Qwen's triage, and the index. Exports: parse_plates L310-318, squier_ny_gt L321-333, kind_of L377-384, parse_figures L408-475, pagenum_map L507-518, roman L527-534, ocr_numerals L543-550, numerals_in L553-567, map_plates L570-643, plate_key L648-649, ... (+8 more).
-- `pipeline/books_match.py` (303 lines) - Match book index rows (data/books/index.jsonl) to catalog sites (data/catalog/sites.jsonl) by name + place. Exports: norm L58-61, name_keys L69-77, tokens L80-81, place_of L84-104, site_place L107-110, load_catalog L113-131, phrases L141-151, match_row L154-249, main L274-303.
+- `pipeline/books_match.py` (328 lines) - Match book index rows (data/books/index.jsonl) to catalog sites (data/catalog/sites.jsonl) by name + place. Exports: norm L58-61, name_keys L69-77, tokens L80-81, place_of L84-104, site_place L107-110, site_toks L113-118, name_lookup_keys L121-128, row_inputs L131-164, score_candidate L167-204, load_catalog L207-217, ... (+3 more).
 - `pipeline/books_mills.py` (99 lines) - Mills 1914, Archeological Atlas of Ohio: county site maps -> data/books/mills_county_maps.jsonl + full-res images. Exports: check_names, county_of, maps, full.
 - `pipeline/books_summary.py` (68 lines) - Tables for data/books/summary.md, computed from the files (validation.json, index.jsonl, mills, matches). Exports: jl, main.
 - `pipeline/build_catalog.py` (196 lines) - Turn catalog entries (data/catalog/sites.jsonl) into sites on the globe: LiDAR relief + block, old maps, summary. Exports: box_m L38-43, wiki_summary L46-71, place_of L79-94, make_site L97-112, main L115-196.
@@ -90,7 +90,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
-- `tests/test_evidence.py` (23 lines) - The evidence check (task 200, GOAL.md point 4): a fixed in-repo sample of picture rows with known-good and known-bad ties; the check re-verifies every row offline from stored fi... Exports: test_check_over_sample_matches_golden.
+- `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
 - `tests/test_gate.py` (107 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4). Exports: test_recorded_measurement_reproduces_and_agrees, test_fit_gate_constants_are_the_frozen_section2_rule.
 - `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
