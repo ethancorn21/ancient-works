@@ -176,3 +176,34 @@ P.byId to rows whose sites include that site (row:true, has:true for every butto
 file is written and uncommitted (the harness saved it); the suite has not been run yet with it -
 the next session runs `.venv/bin/python -m pytest -q` (expect 18) and then does step 6 (tick the
 six boxes, note 203a's imports, final hand-over, commit).
+
+### 2026-10-11 201 DECISION: prep step 5 made green - two bugs in the committed test's probes (the check loop inflated the 404 count to 4; PROBE_KEYING returned no `boot` key); 18 passed; all six boxes ticked, task done
+First suite run with the written tests: 2 failed, 16 passed. Both failures were bugs in
+tests/test_review.py, not in the product:
+1. PROBE_LIST's in-page check loop re-fetched data/scans.json and data/amazon/areas.json
+   (both expected-404): Chrome logs one `[console] error ... 404` line per failed request
+   with no URL, so the count became 4 against the assertion n404 == 2 (the page's own
+   boot fetches, one each). The dry-run record's "stable at 2 across runs" must have come
+   from a probe variant that did not re-fetch them. Verified with a throwaway node script
+   (a page.on('response') URL logger, run through a throwaway pytest file against the real
+   conftest `served` fixture; both deleted, never committed): a bare page load produced
+   exactly those two URLs, each once, stable across two runs; with the re-fetch, four.
+   Fix: the probe re-fetches only data/review.json (a 200 - adds no 404 line); the test
+   asserts check == 200, n404 stays 2 with a comment explaining the attribution.
+2. PROBE_KEYING's success path returned {dups, per} without the `boot: true` key the test
+   asserted - the case failed on a successful boot. Fix: return {boot: true, dups, per}.
+   The data was already fully correct (both shared ids keep both composite keys, each
+   site's fit-list buttons resolve to their own row and url).
+After the fix, .venv/bin/python -m pytest -q: 18 passed in 37 s (the driver's run).
+System-python sanity: bare `python3 -m pytest -q` now dies at collection -
+tests/test_evidence_801.py (task 801's, merged since iteration 23) imports
+pipeline/books_match -> books -> PIL at module level; with
+--ignore=tests/test_evidence_801.py: 13 passed, 4 failed - exactly the pre-existing
+PIL/numpy failures (test_gate 2, test_evidence 2); our 5 new tests pass under system
+python too. Both facts recorded in PITFALLS.
+Step 6: all six boxes ticked (box 1: case 1; box 2: cases 2 + 5 and step 4's headless
+open-item run; box 3: case 3 + step 4's real save (overlay + red square); box 4: case 1's
+computed body + case 2's stats line + case 5's no-hardcoded-count; box 5: case 4; box 6:
+the test file itself). 203a/203b/212 import fit.review.upsert_item / candidate_evidence /
+resolved_doc and read data/review/README.md; only export writes web/data/review.json (212
+re-exports at project end). Task 201 is done.

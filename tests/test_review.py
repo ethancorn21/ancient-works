@@ -45,10 +45,12 @@ PROBE_LIST = """(async () => {
   const list = (document.querySelector('#body') || {}).textContent || '';
   S.tab = 'sites'; renderList();
   const fits = [...document.querySelectorAll('#body .fit')].map(p => p.textContent);
-  const check = {};
-  for (const u of ['data/review.json', 'data/scans.json', 'data/amazon/areas.json']) {
-    try { check[u] = (await fetch(u)).status; } catch (e) { check[u] = 'error'; }
-  }
+  // The probe re-fetches only the path that must exist (data/review.json). Re-fetching the two
+  // expected-404 paths (data/scans.json, data/amazon/areas.json) would add two more console 404
+  // lines on top of the page's own boot fetches, which the n404 count in the test (== 2) cannot
+  // attribute: the browser console prints no URL, only the count.
+  let check;
+  try { check = (await fetch('data/review.json')).status; } catch (e) { check = 'error'; }
   return { boot: true, tabs, list, fits, rvn: RV.items.length, check };
 })()"""
 
@@ -83,7 +85,7 @@ PROBE_KEYING = """(async () => {
     });
     endFit();
   }
-  return { dups, per };
+  return { boot: true, dups, per };
 })()"""
 
 
@@ -195,12 +197,13 @@ def test_page_shows_the_review_list(queue, tmp_path_factory):
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
     assert "[reqfail]" not in p.stdout, p.stdout[-2000:]
     # the only 404s a page load can make in this tree: data/scans.json and data/amazon/areas.json
-    # (absent generated files; the browser console does not print their urls, only the count is stable)
+    # (absent generated files, each fetched once at boot; a response-level probe that logs every
+    # url found exactly these two). The browser console prints no URL, only the count, which the
+    # probe's own fetches must not inflate - hence the check loop above re-fetches review.json only
     n404 = sum(1 for ln in p.stdout.splitlines()
                if ln.startswith("[console] error") and "404" in ln)
     assert n404 == 2, p.stdout
-    assert data["check"] == {"data/review.json": 200, "data/scans.json": 404,
-                             "data/amazon/areas.json": 404}, data["check"]
+    assert data["check"] == 200, data["check"]
     tabs = {t.split("=", 1)[0]: t.split("=", 1)[1] for t in data["tabs"]}
     assert tabs["h-review"] == "Review (2):true", tabs
     lst = data["list"].lower()

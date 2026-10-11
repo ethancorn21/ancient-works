@@ -76,6 +76,18 @@ Where: `web/index.html` (MapLibre map, `boot()`), `tools/shot.mjs`
 Symptom: none fatal. Only WebGL performance warnings (`GPU stall due to ReadPixels`) and two harmless 404s (`data/scans.json`, `data/amazon/areas.json` — both `.catch(() => [])`'d in boot, and absent from web/data).
 Verified 2026-10-11, Chrome 155, against a temp-tree `serve.py --port 0` copy: eval after boot reports `ready: true`, 384 sites, 1166 plans, the Sites tab with its stats line rendered; screenshot shows the globe and site list. So page-level tests (task 201's review list) can run headless here. shot.mjs's macOS flag `--use-angle=metal` is silently ignored on Linux; the 404s are also visible as `[console] error` lines from the browser's own network logging, not as `[reqfail]`.
 
+#### shot.mjs's `[console]` 404 lines carry no URL, one per failed request - a probe that re-fetches an expected-404 path inflates any count assertion
+Where: `tools/shot.mjs` (logs every console message as `[console] <type> <text>`), `tests/test_review.py` (the n404 count assertion)
+Symptom: a headless test asserting "exactly two `[console] error ... 404` lines per page load" fails with four - the probe's own in-page check loop re-fetched the two expected-404 paths (data/scans.json, data/amazon/areas.json), and Chrome logs one line per failed request, not per unique URL.
+Why: the browser's network line ("Failed to load resource: ... 404 (File not found)") prints no URL at all, so a count cannot be attributed to a path. In this tree the page's boot fetches exactly those two paths, once each (verified 2026-10-11 with a throwaway node script carrying a `page.on('response')` URL logger: a bare load produced exactly those two 404s, stable across runs; adding the probe's re-fetches made four).
+What to do: in probes that assert the 404 count, re-fetch only paths that must return 200; check expected-404 paths through the count itself, or attribute them with a throwaway node script that logs `page.on('response')` (URLs come free).
+
+#### On this branch, system python3 cannot collect the whole test suite (task 801's test imports PIL at module level)
+Where: `tests/test_evidence_801.py` (imports `pipeline/books_match` -> `pipeline/books` -> `from PIL import Image`), `python3 -m pytest` (system interpreter: no PIL/numpy)
+Symptom: `python3 -m pytest -q` dies during collection with `pipeline/books.py:27: from PIL import Image, ImageDraw / ModuleNotFoundError: No module named 'PIL' / ERROR tests/test_evidence_801.py / Interrupted: 1 error during collection` - the whole run, not just that test.
+Why: collection imports every test module, and PIL exists only in the driver's .venv. As of 2026-10-11 the driver's own run (.venv/bin/python -m pytest -q) is unaffected (18 passed).
+What to do: system-python sanity runs use `python3 -m pytest -q --ignore=tests/test_evidence_801.py` (expect only the 4 pre-existing test_gate/test_evidence PIL/numpy failures). The file belongs to task 801; if its import needs to move, that is 801's change, not another task's.
+
 #### data/raw in the repo is a symlink to a sibling project - copies follow it, `du` shows 0
 Where: `data/raw` (-> /home/agent/projects/ancient-works/data/raw), `tests/conftest.py` (the temp-tree copy), any scratch `cp -r` of the project
 Symptom: `du -sh data/raw` reports 0, and `ls data/raw` looks nearly empty at the link level, so a scratch tree built by `cp -r data /tmp/...` appears raw-less - until the server happily serves 1.4G of real book scans and Commons images through the link.
