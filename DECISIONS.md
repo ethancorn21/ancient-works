@@ -83,3 +83,41 @@ design, like 803's re-baseline: it never pins the live population to 384, becaus
 will grow sites.json and 212 re-covers the growth (the parent's tests/test_batch.py owns the
 frozen original set). The union check keys items by the item's site FIELD (the file name's lead
 plan moves under upsert) and docs by the site field with a name-prefix consistency check.
+
+## 2026-10-11 203b DECISION: session 2 - tests/test_batch_eu.py written and green (45 passed, 1 skipped); self-contained helpers, exact seeded sample, dynamic live-union skip gate
+The 8-test file (per the session-1 hand-over design): sample = the 6 region-less sites
+(newark 21 / forthill 4 / marietta 4 candidates all pass the frozen gate with 202's
+proposals -> 29 auto docs, 0 items; fudge/highbank/hopeton 0 candidates + old-style fit
+-> hand-fitted bucket, NO item) + bibracte-q650053 (no-picture re-upsert: the batch's
+searched wording replaces the 201-era one, candidates [], resolved null) +
+avebury-q661855 / old-sarum-q782719 (pre-docs skipped, fresh commons rows get short
+2-pair answers -> could-not-fit entries, lead moves the item file). Decisions: (1)
+helpers are self-contained, NOT imported from test_batch_us - the two test files change
+for different reasons (separate tasks; "two things that merely look alike stay
+separate"); if a shared test-helper module is wanted that is a 203a-owner decision.
+(2) The report test asserts the EXACT seeded sample list (re-computed as
+random.Random(SEED).sample over the auto docs) plus every row's page URL - stricter
+than 203a's len+membership check, safe because the records are deterministic for the
+shared SEED 20261010. (3) The full live union test's skip gate is DYNAMIC: the report's
+"Sites run" must equal the live EU partition size (294 today) rather than the literal
+string "Sites run: 294" - the hand-over's wording is that check expressed for the
+current population; the dynamic form stays correct after 211 grows sites.json and is
+what makes a stale report fail the gate. (4) The stub tests monkeypatch
+batch_us.gate_placement (203a's pattern) on an EU site COMPUTED in the test (today
+alauna-q4708853: 5 sized candidates, no pre-fit, no pre-existing item). Suite after:
+45 passed, 1 skipped (the live union test) in 47 s. tests/test_batch_eu.py and the
+PITFALLS.md edit were left uncommitted for the harness (the hand-over is committed).
+
+## 2026-10-11 203b DECISION: correction - the Larned duplicate plan id persists as two per-site rows (session 1's "one row now" was wrong)
+Session 1 recorded "Avebury's prep-note duplicate-id Larned row no longer exists (one
+c_ffb3daac218b481f row now)". Re-verified in session 2: plans.json still carries TWO
+rows with id c_ffb3daac218b481f - one per depicted site (avebury-q661855,
+stonehenge-q39671) with DIFFERENT per-site urls (media/commons/<site>/<hash>.jpg);
+c_984782b9e35e8ded does the same (mayburgh-henge + king-arthur-s-round-table). The
+first test run failed on exactly this: a global id->row dict returns the last row
+(stonehenge), so the avebury entry was checked against the stonehenge url. The loop
+itself is correct (candidates(sid) yields each site's own row; docs are named per
+(site, plan) so nothing collides) - only id-keyed lookups are wrong. Fix in the test:
+_row_for(sid, plan) from the site's own candidate list; PITFALLS.md's plans.json
+entry rewritten to the per-site-row shape (uncommitted, harness saves it).
+

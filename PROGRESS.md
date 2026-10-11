@@ -66,3 +66,12 @@ plan moves under upsert) and docs by the site field with a name-prefix consisten
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 agent/c (203b) hand-over note
+    Session 2 of 203b done mid-iteration 49: tests/test_batch_eu.py written (8 tests)
+    and the full suite is green (45 passed, 1 skipped - the skip-gated live union
+    test). tests/test_batch_eu.py and a PITFALLS.md edit (plans.json duplicate plan
+    ids, per-site rows) are in the working tree, uncommitted (harness saves them);
+    the hand-over is committed. Next session: the --working run over all 294 EU sites
+    (AI-box tunnel), then golden checks, commit, tick boxes, done claim. Details in
+    tasks/203b-batch-eu.md ## Hand-over.
