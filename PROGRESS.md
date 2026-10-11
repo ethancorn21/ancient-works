@@ -6,12 +6,11 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
-- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 15, agent c).** Measurement step done (no code yet). RESOLVED the iter-14 open
+- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 16, agent c).** Offline prototype of the sheet-candidate extractor DONE and
 
 ## Next open tasks
 - `tasks/201-review.md`
 - `tasks/202-propose.md`
-- `tasks/800-requirements-pinned.md`
 
 ## Your task's journal
 
@@ -62,6 +61,44 @@ Unreproduced one-off: my first batch run counted 13 parts without P625; every la
 ids dropped from the batch response (the run-1 count was probably a transient server quirk, not
 reproducible). Not filed as a pitfall (unproven); the new part prefetch re-fetches ids missing from a
 batch response as one-line insurance, keeping the batched shape.
+
+### 2026-10-11 801 DECISION: offline candidate prototype done - extractor rules finalized (NFKD mandatory; pairs-before-singles order; title-only-pass rejected)
+Iter 16 (agent c). Built /tmp/sheet_proto.py (v1) and /tmp/sheet_proto2.py (v2, throwaway, no repo
+changes) and eyeballed ALL 354 stored-none rows per site against the iter-14 census. Findings that
+changed the iter-15 design:
+1. NFKD-normalize BEFORE tokenizing - mandatory. v1 tokenized raw text: "Orléans" -> "O"+"rl"+"ans"
+   (zero candidates), which would have cost the 4 cenabum pass rows; "Bethléem"/"Maastricht" variants
+   likewise. Candidates are stored in the normalized form (the check's norm-substring test stays
+   valid because check() normalizes both sides).
+2. Strip the "File:" prefix and truncate desc at a word boundary at 600 chars (a cut word like
+   "Bethl" becomes a phantom candidate otherwise). Digits are never kept tokens (v1 bug: "000",
+   "1870" leaked and formed junk pairs).
+3. Run splitting: a comma OR a real lowercase word (len>=3) between two kept words breaks the run.
+   Keeps "New Orleans" / "Cranbourne Hampshire" / "Monmouth Castle" as phrases while breaking OS
+   place lists (v1's greedy 3-merge turned them into unresolvable garbage and lost the singles).
+4. Candidate order per run: 2-word pairs, then 3-word phrases, then singles. Decisive: the lone
+   "Orleans" resolves to Orléans (the cenabum site itself); trying it before "New Orleans" would
+   FALSE-PASS the New-Orleans junk rows. Pairs-first prevents that.
+5. Verdict = the existing caption-route best/conflict logic over the candidate set (nearest <=50 km
+   -> sheet_mention pass; nearest far -> none+conflict; else plain none). Title-preference for
+   PASSES was tested and rejected: the cenabum New-Orleans junk names the place only in the DESC and
+   box 2 demands the conflict there.
+6. STOP list mined from the 354 rows' capitalized-word frequency table (EN metadata labels + NL/FR
+   field words + adjectives English/Roman/...); NEVER stop place-name components (New, Great, Old,
+   North/South, City, Church, Tower, River, Park, Garden). v2's list accidentally DROPPED the
+   preposition block (The/Of/De/Van/La/Le...) and "ordnance/quartier/house/design/pattern/textile/
+   numerisation/onderdeel" - those additions + the digit exclusion are still PENDING (my edit call
+   failed atomically); they are listed in the task hand-over.
+Expected after the fixes: ~1400-1600 unique candidates (v2 measured 2078); the tail is person names
+(authors/artists/publishers of the ~180 book-scan rows) - harmless (no P625, the distance guard is
+the mechanism), just one-off search cost (~25-35 min at 1 req/s).
+Accepted consequence (logged per the iter-14 rule): a city name shared with a person/family name
+("York" on the 1914 Christmas tin on york-castle, "Dudley" on a genealogy book) will pass when the
+site sits in that city - keyword+50km cannot distinguish a depiction from a name mention; the
+never-pass-far guarantee holds and box 1 only needs the majority of the genuinely-naming rows (the
+40 Clifford rows pass via the part route, which runs before sheet).
+Part-route check: EXACTLY 40 of the 354 none rows name a has_part of their own site (all
+Clifford's Tower) - matches the iter-15 census.
 
 ## Project-wide driver notes (newest)
 
