@@ -488,6 +488,40 @@ def named_places_in(row, site):
     return out
 
 
+def caption_route(row, site, claims, places):
+    """The caption route: the site's own names printed by the title/desc, resolved to coordinates - the
+    nearest resolution within 50 km proves the caption_coords tie; when every resolution is farther, the
+    nearest one is recorded as the conflict (the Hampton-Court trap, never a pass). Returns None when the
+    caption does not decide the row (no coordinates, no place named, or no place resolved), so the caller
+    can try further routes."""
+    slon, slat = site.get("lon"), site.get("lat")
+    if slon is None:
+        slon, slat = claims.get("p625", (None, None))
+    if slon is None:
+        return None
+    best, conflicts = None, []
+    for nm in named_places_in(row, site):
+        r = places.get(nm)
+        if not r:
+            continue
+        d = hav_m(slon, slat, r[2], r[3])
+        if d <= DIST_TOL_M and (best is None or d < best[0]):
+            best = (d, nm, r)
+        else:
+            conflicts.append((d, nm, r))
+    if best:
+        d, nm, (pqid, plab, plon, plat) = best
+        return {"rec": REC, "kind": "caption_coords", "checked": now(), "named_place": nm,
+                "place_qid": pqid, "place_label": plab, "place_lon": plon, "place_lat": plat,
+                "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
+    if conflicts:
+        d, nm, (pqid, plab, plon, plat) = min(conflicts, key=lambda x: x[0])
+        return {"rec": REC, "kind": "none", "checked": now(),
+                "conflict": {"named_place": nm, "place_qid": pqid, "place_label": plab,
+                             "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
+    return None
+
+
 def live_evidence(row, ctx):
     """The evidence for one commons row, computed offline from the live facts prefetched into ctx
     (categories, site claims, the file's own item, resolved places) - no network here."""
@@ -515,32 +549,9 @@ def live_evidence(row, ctx):
     if fe and row.get("qid") in fe["p180"]:
         return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P180",
                 "file_qid": fe["item"], "value": row["qid"]}
-    slon, slat = site.get("lon"), site.get("lat")
-    if slon is None:
-        slon, slat = claims.get("p625", (None, None))
-    nameds = named_places_in(row, site)
-    if slon is not None:
-        res = ctx["places"]
-        best, conflicts = None, []
-        for nm in nameds:
-            r = res.get(nm)
-            if not r:
-                continue
-            d = hav_m(slon, slat, r[2], r[3])
-            if d <= DIST_TOL_M and (best is None or d < best[0]):
-                best = (d, nm, r)
-            else:
-                conflicts.append((d, nm, r))
-        if best:
-            d, nm, (pqid, plab, plon, plat) = best
-            return {"rec": REC, "kind": "caption_coords", "checked": now(), "named_place": nm,
-                    "place_qid": pqid, "place_label": plab, "place_lon": plon, "place_lat": plat,
-                    "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
-        if conflicts:
-            d, nm, (pqid, plab, plon, plat) = min(conflicts, key=lambda x: x[0])
-            return {"rec": REC, "kind": "none", "checked": now(),
-                    "conflict": {"named_place": nm, "place_qid": pqid, "place_label": plab,
-                                 "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
+    ev = caption_route(row, site, claims, ctx["places"])
+    if ev is not None:
+        return ev
     return {"rec": REC, "kind": "none", "checked": now(),
             "reason": "no tie: not in the site's category, no item claim, no place named in the caption"}
 
