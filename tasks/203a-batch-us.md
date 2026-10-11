@@ -56,54 +56,75 @@ the world) reuses this module's loop.
   model says is a lead to check, not a fact — the gate is the check).
 
 ## Hand-over
-Session 3 (2026-10-11): `tests/test_batch_us.py` is GREEN (5/5, 15.4 s) and committed; full suite
-34/34 in .venv (53 s). All three session-2 failures were in the TEST file - fit/batch_us.py never
-needed a change:
-(1) `/` and `%` are same-precedence, left-associative: the format strings needed parentheses in
-    both `_check_doc` and `_check_doc_stub` (PITFALLS has the family);
-(2) `_table` needed the report's exact header "## Sample of automatically accepted fits (for the
-    human's 18/20 check)";
-(3) NOT state pollution: `fit_gate.gate` is a pure function of (pairs, transform) plus frozen
-    module constants (verified by reading pipeline/fit_gate.py), and within the same test the
-    batch's own in-process gate calls had already ACCEPTed all 15 serpent proposals. The real bug:
-    `pre_docs` matches any `<site>.*.json` in data/db/platefits - including the automatic docs the
-    run itself just wrote - so the test's post-run "pre" snapshot swallowed the batch's output and
-    the expected set came out empty ({15} != set()). Fix: snapshot pre_docs/is_pre_fit BEFORE
-    run_sites (pre_docs_before / pre_fit_before).
+Session 4a (2026-10-11, iteration 37). Two things happened:
 
-State of this checkout:
-- Boxes 1, 2, 6 ticked. 3, 4, 5 all say "after the full working-phase run" - they wait for it.
-- tests/test_batch_us.py: 5 hermetic tests (the no_network fixture monkeypatches
-  socket.connect/create_connection to raise - no network, no port at all: the batch is a file
-  loop, and the page's view of results is 212's). The `tree` fixture copies web/ + data/ minus
-  data/raw/ (~29+39 MB, ~0.2 s) to tmp_path. Fixed sample: serpent-mound-q968802 (16 candidates,
-  1 pre; 15 pinned 202 proposals -> automatic docs, gate med 0.001-0.022), cahokia-q333661
-  (two-pair x3 + no-answer x1 -> one item), mound-bottom-q14710093 (only its pre doc -> nothing
-  written), the first zero-candidate US site (aberdeen-mound-q4666953 -> no-picture item). The
-  stub tests use the first US site with >= 2 non-pre candidates, no pre-fit and no existing item
-  (angel-mounds-q4530064).
-- data/db/platefits/ here still has exactly the 20 pre-batch docs (the batch has never written
-  into this checkout). data/review/ has alligator-effigy-mound-q4732645 (region US, 2 candidates,
-  201's seed - the working run's upsert will MERGE into that file: same-plan entries replaced,
-  `resolved` never cleared) and the bibracte item (France, never touched by 203a). Expect the
-  alligator file to change in the working-phase commit; it is NOT part of the golden.
-- The golden (fe84152) is checked by test 4 against the temp copy; after the working run re-verify
-  against THIS checkout: `sha256sum -c tests/golden/hand_fit_docs.sha256` (all 39 must be OK).
+1. LEAD'S DISK FIX - DONE + COMMITTED (eea8852). tests/test_batch_us.py: the `tree` fixture now
+   HARD-LINKS web/ + data/ into tmp (os.link, symlink fallback cross-device; data/raw stays a symlink
+   to the shared store) and copies only files the batch rewrites in place (only candidate:
+   docs/batch_us.md; write_doc/upsert_item are atomic new-inode writers, so linked originals are safe).
+   Added tmp_path_retention_policy="failed" (successful runs' temp trees no longer retained). Verified:
+   5 tests 15.4 s -> 4.9 s; 3 consecutive runs add ~0 disk; full suite 34/34 in .venv (44 s).
+   (Background: this checkout's data/raw is a SYMLINK to /home/agent/projects/ancient-works/data/raw,
+   1.9 G shared images; du -sh data/raw shows 0 - check file validity via the target, e.g. PIL.open.)
 
-NEXT (session 4) - the WORKING phase (network allowed, .venv):
-1. Check the AI-box tunnel is up before running (pipeline/llm.py - its base URL). If it is down
-   and you cannot bring it up yourself, ask_human (the machine side) - everything else of this
-   task is done.
-2. `.venv/bin/python fit/batch_us.py --working` (all 90 US sites; fetches missing
-   pictures/aerials as needed; writes docs + items + docs/batch_us.md).
-3. Re-read: fit/batch_us.py llm_model - the prompt has never seen the model. On the first run,
-   check a few real Qwen answers against the parsing (JSON shape, u/v in plan-px, lon/lat via
-   _ground_lonlat) and adjust the prompt/parsing if needed (my file).
-4. Then verify: the golden `sha256sum -c`; the report's "error (no outcome)" bucket empty and the
-   counts sum to 90 (box 3: every US site ends auto-doc OR item OR pre-fit); tick 3, 4, 5; commit
-   the docs + items + docs/batch_us.md.
+2. WORKING PHASE - IN PROGRESS. Tunnel UP: qwen3.8-27b on 127.0.0.1:8080/:8081 (vLLM), :8082 (llama.cpp);
+   run with AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions (llm.py reads that env var; default
+   18080 is wrong here; and llm.ask's default url= arg binds at def time - env var, not reassignment).
+   All 58 working candidates' images are LOCAL (37 book pages + 21 commons thumbs); 18 candidate sites,
+   all with relief.jpg (no fetches needed). The full run command:
+   `AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working`
 
-For 203b (when it starts): import run_sites/write_report from fit.batch_us; its site list =
-region != "US" plus the 6 region-less sites (they include the old-style fudge/hopeton/newark/
-marietta/forthill/highbank - keep the site.json["plate"]["fit"] branch of is_pre_fit, R9); report
-to docs/batch_eu.md; the SEED 20261010 is shared (both reports sample from it).
+   PILOT RESULT (15 real Qwen calls; scripts /tmp/pilot_llm.py, /tmp/pilot_llm2.py still on disk):
+   parsing works, but the CURRENT prompt makes the model FABRICATE regular patterns (identity maps,
+   1:1 grid lines, diagonal ladders, corners-to-corners) that are internally perfect (gate med 0.0)
+   and PASS the frozen gate - docs/gate.md section 7's "consistent global error" as a systematic
+   model failure. Left as is, the auto docs would be garbage. An improved-prompt A/B (metre coverage,
+   labelled ranges, seed scale window, anti-pattern + honesty clauses, stated scale + feature names)
+   routed 4/5 fabrications to review items (correctly); one small commons picture still 1:1-passes.
+   Root cause also visible in the sheets themselves: map_box-less book rows = FULL TEXT PAGES with the
+   figure ~15% of the panel, gridded in PIL's tiny default font, downscaled to 1600 px - illegible.
+
+   batch_us.py ON DISK IS UNCHANGED (my rewrite edit failed on exact-match; the composed text is not
+   saved). RE-IMPLEMENT in fit/batch_us.py (my file), replacing llm_model and adding helpers:
+   - _sheet(site,row,box): fitkit.plan_image(row).crop(box) + fitkit.ground/ground_view, 900-px panels;
+     own grid: DejaVuSans-Bold 22 px (path /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf, exists)
+     labels at BOTH ends of every line; step = first of (100,200,500,1000) with step*scale >= 90 sheet px;
+     plan blue (0,0,200) / ground red (200,0,0); save fitkit.OUT/fit_<sid>_<pid>.jpg; return
+     (path, ground_size, ground_m) where ground_m = corners' Mercator x-span (aw.to_merc).
+   - _model_prompt: "left panel crop ... labels run x0-x2 across, y1-y3 down (WxH px crop; covers
+     ~(box_w*scale) x (box_h*scale) m when the proposal has scale_m_px)"; right panel "0-gw across,
+     0-gh down (covers ~G x G m)"; seed hint "proposed starting placement ... %s m/px and rotation
+     %s deg (coarse=%s); a true match should be within about 50%% of that scale"; "Match 4 to 8
+     features that are the SAME real feature on both sides: wall or rampart corners, gate gaps,
+     bastion or mound tips, road junctions, church footprints, river crossings, field edges"; "every
+     coordinate must lie inside its panel's labelled range above"; "Do NOT pick grid-line
+     intersections, evenly spaced points or points along a straight line: real features have irregular
+     spacing ... at least three of your points must not lie on one straight line"; "If you cannot
+     confidently identify 4 ... answer with only the pairs you truly see (even 0 or 1) - never pad a
+     list with guessed or evenly spaced points"; JSON: {"scale_m_px": <estimate>, "features":
+     [short name per pair], "pairs": [[u_plan,v_plan,u_ground,v_ground], ...]}; pass to llm.ask_json
+     with images=[sheet].
+   - _parse_answer: drop pairs with (u,v) outside [box] or ground px outside [0,gsz]; collect feature
+     names; return (pairs, feats).
+   - model(): after parse, if len(pairs)>=3 and ans has numeric scale_m_px>0: implied = abs(a)*k from
+     plan_fit.similarity(pairs[:min(8,len)]); if max(implied/stated, stated/implied) > 2.0 -> note
+     "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted" and trim pairs (and
+     feats) to 3 => the <4 branch routes it to the item. Note = "features: ..." + any mismatch note;
+     empty pairs -> note "the model recorded no usable pairs". Keep the existing exception handling
+     (sheet build / call failures -> note, never raise).
+   Tests are UNAFFECTED (recorded answers bypass llm_model) - keep 5/5 + full suite green.
+
+   Then: re-run the A/B pilot (tee raw answers to a file; I can also READ the sheet jpgs with the read
+   tool and eyeball pairs - use that to judge any auto-passing answer); then the full --working run
+   (58 candidates, ~10-40 min, long timeout); then verify in THIS checkout: `sha256sum -c
+   tests/golden/hand_fit_docs.sha256` (all 39 OK - box 4), report's "error (no outcome)" bucket empty
+   and counts sum to 90 (box 3); tick 3/4/5; commit (llm_model change + docs + items + docs/batch_us.md;
+   the alligator-effigy-mound item merges via upsert and will change - not in the golden). EXPECT a LOW
+   auto-doc rate (most sites end as review items carrying the model's pairs - box 3 is satisfied by
+   design: a fit OR a ready item; the human's drag is the authority, the 18/20 sample is the backstop).
+   Do NOT weaken the gate or the tests to raise the auto rate.
+
+State of this checkout: boxes 1, 2, 6 ticked; 3, 4, 5 pending the working run. data/db/platefits/ still
+exactly the 20 pre-batch docs; data/review/ has the alligator + bibracte items. For 203b (later):
+import run_sites/write_report; site list = region != "US" plus the 6 region-less sites (keep the
+site.json["plate"]["fit"] branch of is_pre_fit, R9); report docs/batch_eu.md; shared SEED 20261010.
