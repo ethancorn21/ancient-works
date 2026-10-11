@@ -23,28 +23,106 @@ GOAL.md says, in the human's own words, what this project should be. Turn it int
 - When every box above is ticked, set this file's first line to `Status: done`: that is what ends the planning task.
 - Two agents build this project at the same time, each in its own checkout; a task goes to one agent once all its `Depends on:` tasks are finished, and never while the other agent works on a task that touches the same files. Put shared foundations first (project skeleton, data model, the interfaces between modules), so the later tasks can go ahead independently. A subtask that needs the result of another task says so in its own `Depends on:` line. Avoid hotspot files: when many tasks would edit the same file (README, a central config module, the sample config), give each module its own file or section, or make those edits once in an early task; the driver replays the schedule and sends the plan back once if shared files make tasks wait that their dependencies would let run at once. List only real dependencies: tasks that touch the same files are already kept apart.
 
+## GOAL.md changed (2026-10-10 21:11)
+The human changed GOAL.md. Update PLAN.md and the task queue to match: add tasks, change your own tasks, or set tasks that no longer fit to `Status: dropped`; keep finished work that still fits. Then check and tick the boxes above again. The change:
+```diff
+@@ -16,16 +16,24 @@
+    has at least one drawing fitted to the ground (`"drawings" >= 1`), or has a review item in `data/review/` with its
+    best candidate pictures and proposed point pairs, which the human opens in the page, corrects by dragging, and
+    saves with the existing fit tool. Opening a review item and saving it takes the human under a minute.
+-2. **A fit is accepted by numbers, never by a model's opinion.** Automatic acceptance goes through a gate validated
++2. **The local model does the fitting itself.** The owner wants far more fitted drawings than the 25 made by hand,
++   without making them by hand. So the fitting is done here, by the model, the way those 25 were made: it looks at the
++   drawing and at the site's ground (`tools/fitkit.py` sheets, reading their grid labels), finds the same features on
++   both (wall corners, gate gaps, bastion tips, road junctions, church footprints, river crossings), records at least
++   four such point pairs, and saves the fit. Pairs placed only from a scale bar, a north arrow and the site centre are
++   a starting point, not a fit: they say nothing about whether the drawing matches the ground. Every fit the model
++   makes goes to the gate (point 3); the review queue is for the fits the gate refuses and the pictures the model could
++   not fit, not the plan for every site. The number to grow is the count of fitted drawings.
++3. **A fit is accepted by numbers, never by a model's opinion.** Automatic acceptance goes through a gate validated
+    on the existing hand fits with a held-out set (task 001). The human will check a random sample of 20 automatically
+    accepted fits on the map; at least 18 must be right (the drawing's walls, streets or gardens on the matching
+    features of today's ground). Anything the gate does not accept goes to the review queue.
+-3. **Every picture is tied to its place with evidence a program can check**, recorded in its row: the file is in the
++4. **Every picture is tied to its place with evidence a program can check**, recorded in its row: the file is in the
+    Commons category of the site's Wikidata item (P373), or its structured data says it depicts (P180) that item, or
+    its title or caption names the place and the coordinates agree. Why: the Rijksmuseum's "Gezicht op Hampton Court"
+    is Hampton Court in Herefordshire (its caption says so), not the palace; a name search alone gives the town for
+    Barnard Castle and the village for Richard's Castle.
+-4. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
++5. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
+    Leads, none of them verified yet (check each one exists and is old enough before using it):
+    - Jacob van Deventer's town plans: 64 towns not yet added (Commons "Maps by Jacob van Deventer").
+    - Kip's bird's-eye views of houses and gardens: the large scans in Commons "Johannes Kip", "Britannia Illustrata".
+@@ -34,7 +42,7 @@
+      (1732); Maclauchlan's survey of the Roman Wall (1857); the German Limes reports (ORL, fort plans).
+    - Stonehenge and Avebury: Hoare, *Ancient Wiltshire* (1812-21); Stukeley (1740s); Petrie's Stonehenge plan (1880).
+    - Numancia: the 1860s excavation plans.
+-5. **The page shows what changed.** New sites, new fits and review items appear on the existing page
++6. **The page shows what changed.** New sites, new fits and review items appear on the existing page
+    (`web/index.html`, served by `server/serve.py`) without breaking anything that works today.
+ 
+ ## Rules that do not change
+```
+
+## GOAL.md changed (2026-10-10 22:58)
+The human changed GOAL.md. Update PLAN.md and the task queue to match: add tasks, change your own tasks, or set tasks that no longer fit to `Status: dropped`; keep finished work that still fits. Then check and tick the boxes above again. The change:
+```diff
+@@ -3,12 +3,15 @@
+ Ancient Works is a map of old earthworks, castles, Roman forts, walled towns and lost gardens. Each built site shows
+ today's ground (LiDAR relief where there is open LiDAR, the aerial photograph everywhere) and, on top of it, old
+ pictures of the place. What makes a site worth opening is an **old drawing of the structure itself** (an
+-antiquarian plan, a survey plate, a castle plan, a town plan, a bird's-eye view) laid over today's ground, so you see
++antiquarian plan, a survey plate, a castle plan, a town plan, a bird's-eye view, an artist's aerial view) laid over
++today's ground, so you see
+ how little has changed. Plain survey sheets (Ordnance Survey, Cassini) do not count; they are background.
+ 
+-Today 25 of 384 built sites have such a drawing fitted. On the map they are the red squares; the rest are small plain
+-squares. The owner wants the red squares to be the rule: Stonehenge, Numancia, the Roman forts and every other built
+-site should have at least one, and the map should keep growing with new sites that come with their own old pictures.
++Today 25 of 384 built sites have such a drawing fitted. The owner wants that to be the rule: Stonehenge, Numancia, the
++Roman forts and every other built site should have at least one, and the map should keep growing with new sites that
++come with their own old pictures. (Since 2026-10-10 the owner's copy of the map also colours sites whose only overlay
++is a survey sheet 150 or more years old. That does not change this goal: survey sheets are not drawings, and the
++number to grow is the count of fitted drawings.)
+ 
+ ## What done looks like
+ 
+@@ -35,6 +38,11 @@
+    Barnard Castle and the village for Richard's Castle.
+ 5. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
+    Leads, none of them verified yet (check each one exists and is old enough before using it):
++   - Artists' aerial and bird's-eye views count as much as surveys (owner, 2026-10-10, of Leonardo da Vinci's aerial
++     plan of Imola, 1502: "should 100% be on our map"). Leonardo's plan of Imola (Royal Collection, RCIN 912284;
++     there is no open LiDAR at Imola here, so it is an aerial-photograph site and its streets carry the fit); Jacopo
++     de' Barbari's view of Venice (1500); Braun and Hogenberg, *Civitates Orbis Terrarum* (1572-1617), hundreds of
++     walled towns; Merian, *Topographia* (1640s-1680s).
+    - Jacob van Deventer's town plans: 64 towns not yet added (Commons "Maps by Jacob van Deventer").
+    - Kip's bird's-eye views of houses and gardens: the large scans in Commons "Johannes Kip", "Britannia Illustrata".
+    - Mackenzie, *The Castles of England* (1897): page 212, a five-towered castle with no caption.
+```
+
 ## Hand-over
 
-Iter 2 (2026-10-10). **Task finished** (Status: done). Final state for anyone who reads this later
-(mostly the 999 goal check):
+Done (iteration 13, 2026-10-10). The plan update for the two GOAL.md changes is complete and 000 is
+closed:
+- PLAN.md: the six-point GOAL->task map (point 2 = the model's fitting loop: 202 starting point,
+  203a/203b sheet->model->solver->gate, 201 overflow queue, 001 the gate; point 5 = the eight leads
+  incl. 213), waves 4/7/3/2/1, the tech choice "The model fits, the gate decides" (injectable model
+  step; no test calls the model server), assumption 9 + the out-of-scope bullet for the owner's-copy
+  survey-sheet colouring, Deviations = the 001 box-2 ruling only.
+- Tasks 001, 200-213, 800, 801 all exist with Depends on: and Touches: (grep -L verified empty).
+  212's three rewordings landed (loop = fitkit sheet -> model fit -> fit -> gate; the 18/20 check is
+  GOAL.md point 3); 213 (artists' views) created - Imola is the anchor: new site, no open LiDAR,
+  FITKIT_GROUND=aerial (verified at tools/fitkit.py:38), its streets carry the fit; the conditional
+  IA-book machinery follows the 208 pattern (declare per-book paths in Touches before writing).
+  CODEMAP's Architecture rules block written (five standing rules; they had been claimed in the
+  iteration-2 hand-over but never written).
+- Test command verified in this checkout: .venv (pinned requirements.txt, commit 676a0d4) runs the
+  suite green, 12 passed. The driver's ".venv could not be built" note is about main, which still
+  carries the unpinned file (e2d4060, verified with git show); open 800 (agent c) lands the pinned
+  file on main. This session left requirements.in/requirements.txt untouched (800's files).
 
-- PLAN.md is final: current state / architecture (the new `fit/` directory, module map, data flow) /
-  tech choices with reasons / 8 assumptions / out of scope / GOAL→task map / waves 4/6/3/2/1 /
-  test policy / empty `## Deviations from GOAL.md`. Re-read it before touching the task queue.
-- Task queue complete: 001 (seed, wave 1), 200/201/202 (wave 1), 203 parent (split) with 203a/203b
-  (waves 2/3), 204-210 (the seven growth leads), 211 (wave 4), 212 (wave 5, last). Every file has
-  Status / Depends on / Touches; the book-machinery leads (207, 209) are in different waves because
-  they share the data/books/ directory (per-book files only; 211 rebuilds the shared index).
-- Test harness (owned by this task): tests/conftest.py (session `served` fixture: real serve.py on
-  --port 0 against a temp copy of web/ + server/ + data/ minus data/raw/; `golden_sites` fixture),
-  tests/test_serve.py, tests/test_data.py, tests/golden/hand_fit_sites.txt (19 hand-fit sites). Test
-  state at close: 8 passed (both `.venv/bin/python -m pytest -q` and system `python3 -m pytest -q`).
-  requirements.in/requirements.txt are pinned + hashed (the driver builds .venv from them).
-- Standing rules for the build (also in CODEMAP.md top and PITFALLS.md): hand fits + private
-  Finder/Amazon data never change; canonical data files only via 211/212; per-source staging only;
-  one test file per task (conftest is this task's property); hermetic tests (port 0, temp tree, no
-  network); the page's index.html gets exactly one edit (201's script tag).
-- If the driver ever sends this task back: the likely cause is the schedule replay flagging shared
-  files between same-wave tasks (most probable: 001's seeded `Touches: tests/` directory vs the
-  specific test files of wave 1). Adjust the PLAN.md wave table, not the seeded 001 (it is the
-  human's).
+If the driver reopens 000 for another GOAL.md change: diff GOAL.md against PLAN.md's task map, edit
+only planner-created task files (never 001), new leads take the lowest free 200-499 number (214
+next) with Depends on + Touches, re-check the seven boxes, re-set Status.

@@ -4,13 +4,14 @@ Depends on: 001, 200, 201, 202
 Touches: tests/test_batch.py
 
 ## Goal
-The heart of GOAL.md point 1. For every built site in web/data/sites.json: take its candidate
-pictures (web/data/plans.json, evidence-checked by 200), propose point pairs (202), fit with the
-existing plan_fit similarity solver, and hand the result to the gate (001): accepted -> an
-automatic platefit document with the gate's score; rejected or failed -> a review item (201's
-format) the human finishes by dragging in under a minute. The 25 hand fits are never touched.
-Split into 203a (US built sites) and 203b (all the rest); this parent comes back when both are
-done and verifies the whole original site set.
+The heart of GOAL.md points 1 and 2. For every built site in web/data/sites.json: take its candidate
+pictures (web/data/plans.json, evidence-checked by 200), and have the local model fit each one the way
+the 25 hand fits were made — fitkit sheet, grid labels, at least four matched-feature pairs, 202's
+scale/north/centre seed as the starting point (never the fit). The fitted pairs go through the existing
+plan_fit similarity solver and then the gate (001): accepted -> an automatic platefit document with the
+gate's score; refused or could-not-fit -> a review item (201's format) the human finishes by dragging in
+under a minute. The 25 hand fits are never touched. Split into 203a (US built sites) and 203b (all the
+rest); this parent comes back when both are done and verifies the whole original site set.
 
 ## Acceptance criteria
 - [ ] (203a) every built site with region "US" (90 of 384) has run through the loop: at least one
@@ -35,8 +36,8 @@ done and verifies the whole original site set.
       here (212 runs after the parent and re-covers the new material itself).
 
 ## Notes
-- The shared loop (candidates -> propose -> fit -> gate -> document or item) lives in
-  fit/batch_us.py (203a's); 203b imports it and does not rewrite it.
+- The shared loop (candidates -> fitkit sheet -> model fit -> fit -> gate -> document or item) lives
+  in fit/batch_us.py (203a's); 203b imports it and does not rewrite it.
 - A site whose pictures all fail the gate gets its review item anyway: GOAL.md wants a fit OR a
   ready item, and the human's drag is the authority. A site with no candidate at all gets a
   review item marked "no picture found" (212 later searches harder).

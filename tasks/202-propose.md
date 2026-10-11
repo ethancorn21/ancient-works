@@ -4,11 +4,15 @@ Depends on: none
 Touches: fit/propose.py, tests/test_propose.py
 
 ## Goal
-Given a site and an old picture, produce the proposed point pairs that a review item (201) shows the human
-and that the fit (the existing `plan_fit` similarity solver) turns into a placement: a good seed, not an
-answer. Fitting by matching point pairs works (25 hand fits); fully automatic fitting failed its
-pre-registered test (docs/autofit.md, 0/5) and is not re-run here — a wrong proposal just costs the human a
-few extra drag-steps, a wrong auto-fit would sit on the map.
+Given a site and an old picture, produce the STARTING POINT for the fit: the anchor (scale bar and
+north arrow where recorded, else the site centre) plus 3-5 pairs on drawn features. Since the GOAL
+change of 2026-10-10 (point 2), the primary consumer is the model's fitting pass (203a/203b): the
+model starts from this anchor and the few pairs, then looks at the fitkit sheet and records at least
+four matched-feature pairs of its own. A review item (201) shows the same starting point to the human
+when the model could not fit. Explicitly: a placement from a scale bar, a north arrow and the site
+centre alone is a starting point, not a fit — it never goes to the gate as a fit and never becomes a
+platefit on its own. Fitting by matching point pairs works (25 hand fits); the fully automatic
+fitting bet (docs/autofit.md, 0/5) is not re-run.
 
 ## Acceptance criteria
 - [ ] For a book plate with a scale bar and north arrow (the stage-B fields of data/books/index.jsonl:
@@ -31,3 +35,5 @@ few extra drag-steps, a wrong auto-fit would sit on the map.
   evaluate your own proposals in the test).
 - The proposal is deliberately crude where the evidence is crude: a scale-bar anchor beats a texture
   search, which is the bet that already failed.
+- The model's own pair recording (203a/203b) supersedes this seed wherever the model does better; this
+  output is never treated as the fit (GOAL point 2).
