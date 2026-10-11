@@ -289,3 +289,50 @@ Clifford's Tower) - matches the iter-15 census.
 - Fresh-venv proof of the driver's exact command: `python3 -m venv /tmp/aw-800-venv; /tmp/aw-800-venv/bin/pip install --require-hashes -r requirements.txt` -> all 23 packages installed, `pip check` clean; `pytest` in that venv -> 12 passed in 8.8 s. The driver's `.venv` run is green too (12 passed, 8.7 s).
 - Chose not to regenerate (the task offered that as the alternative): regenerating today could move versions off the set already proven on this machine (numpy 2.5.4, scipy 1.18.1, ...); the committed file is already the `pip-compile --generate-hashes` output for the current `requirements.in` (generator header present).
 - Effect: the driver's 2026-10-10 "venv could not be built" failure clears once 800 merges into main; agent/c's branch carries the same blob fda2210, so the main-into-c sync for this file is a no-op.
+## 2026-10-11 801 DECISION: extractor v3 final (digits out, "St" merge fixed, STOP extended to 1483 uniques) - live run is the next step
+Iter 17 (agent c). Applied the two pending iter-16 fixes to /tmp/sheet_proto2.py (now v3) and re-ran offline
+over all 354 none rows (no network, no repo change). (1) Digits never kept (t[0].isalpha()) and a digit
+between two kept words now breaks a run - kills the NYPL barcodes ("11707950 000", "000 019"), year-range
+pairs ("1806 1820") and hex-fragment glue. (2) The St-merge marker only matched all-caps "ST" in v2, but
+the tokenizer yields mixed-case "St" from "St." - the "St. Louis" candidate (cahokia) was silently LOST;
+fixed to accept both, merging only when no comma/len>=3-lowercase/digit sits between "St" and the next
+kept word. (3) STOP extended with the iter-16 pending words (preposition block the/van/les/des/and/for/
+with/from/bij/met/naar/per + harmless 2-letter ones; ordnance quartier house design pattern textile
+numerisation onderdeel english roman) plus words mined from the v2 dump (bewerkt nativite nativity
+gemeentelijke deze rotterdamblindstempel reisalbum georeferencer dessins digue digues amenagement dyffryn
+jazz built ancient archaeological biodiversity center home nursing prospect fleuron bowes click landscape
+appearing text everything figures franse internet archive before history - full list in the task file's
+v3 description). Measured: 1483 unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows
+with >=1 sheet candidate, EXACTLY 40 part hits (unchanged). Eyeballed the top ~130 of the frequency list:
+remainder is genuine place names (real passes), person names (expected, no P625, one search each) and junk
+now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowes MUSEUM paintings; Bowes
+is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
+Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
+name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
+## 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
+Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
+singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
+ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
+FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
+skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
+York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
+"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
+from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
+caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
+sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
+without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
+6.61E 53.38N is NOT near Maastricht).
+## 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
+Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
+castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
+Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
+Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
+and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
+(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
+walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
+castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
+holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
+~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
+from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
+Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
+edited; add them next session.)
