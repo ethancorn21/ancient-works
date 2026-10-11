@@ -1593,6 +1593,30 @@ Q1296 already verified in prep, Beaumont's region flips to belgium if the Hainau
 lead-doc BE sections, commit; then FR (watch the double plates), then LU; then the one long --chain run +
 stage + test + golden.
 
+## 2026-10-11 204 DECISION: BE QID batch - all 20 verified and recorded (19 from one discovery run, Mons via a limit-20 follow-up); four disambiguated P373s; none in the catalog
+One discovery run (/tmp/vd_verify_be_iter45.txt) resolved 19 of the 20; **Mons was not in its 5-candidate
+search** (the en label search 'Mons' ranks the planetary term 'mons' and French communes Var/Hérault/
+Charente/Gard above the city; it is 11th in the en results, 4th in the fr) - a follow-up search at limit 20
+found Q83407: label 'Mons', P625 (3.9525, 50.454722), P373 'Mons (Hainaut)', P131 'County of Hainaut', enwiki
+'Mons, Belgium' (snippet /tmp/vd_mons*_iter45.py). All 20 recorded in TOWNS (qid/label/lon/lat/p625/place/
+wikipedia/p373; site point = the P625 rounded to 4 dp - the hand check found no old-town-centre offset,
+unlike the NL Gouda 800 m case). Re-verification of the 20 (/tmp/vd_verify_be_recheck_iter45.txt): every
+label matches (no LABEL CHECK), every P373 'ok', every P625 within 0.01 km, every enwiki matches; one
+nuance - Saint-Ghislain Q668950 has no en label on Wikidata (the re-check prints an empty label, not a
+mismatch: the search API's label and the enwiki article 'Saint-Ghislain' confirm the item). Traps measured
+from the re-check: Bruges first hit Q327025 (Bruges, Gironde) 759 km; Leuze first hit Q326134 (Leuze, Aisne)
+92 km; Mons first hit Q1108786 (Mons, Var) 780 km; Mechelen's third candidate is the Dutch Mechelen
+Q100020 (no first-hit trap). The prep's Brussels guess resolved to Q239 (its P373 is 'Brussels
+(municipality)', not 'Brussels' - a new disambiguation class alongside Halle (Belgium), Mons (Hainaut) and
+Leuze-en-Hainaut: the category route targets the exact P373 string, so the chain walk must reach it). Box
+4: none of the 20 QIDs is in the 12575-site catalog - all 20 get new catalog entries, no existing-site
+reuse. Lead doc: new 'QID verification - Belgium' section (method + 20-row table + traps) and the pending
+section split into 'France, Luxembourg (pending)' (24 towns). Also this session: the task file is now
+tasks/204-van_deventer.md (underscore - the name the driver reads; the 0-byte duplicate with the hyphen was
+merged and deleted; the first line was the driver's read-error). Still to file (context limit): the
+PITFALLS entry on the wbsearchentities limit-5 truncation (Wikimedia section) - the next session files it
+with its first commit.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
