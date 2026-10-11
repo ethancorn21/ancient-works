@@ -33,3 +33,28 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+## 2026-10-11 203a DECISION: golden pinned first, then the loop module (prep session 1)
+Committed tests/golden/hand_fit_docs.sha256 (box 1) BEFORE writing any batch doc: 39 sha256sum -c lines
+(20 pre-batch data/db/platefits docs + the 19 data/sites/<id>/site.json from hand_fit_sites.txt); verified
+with sha256sum -c. `fit/batch_us.py --golden` regenerates it, excluding docs carrying "auto": true, so a
+partially-run batch can be pinned back to the hand-fit state without hand-editing. Then built
+fit/batch_us.py (loop + gate adapter + writers + report + CLI); smoke-verified in a temp tree: 202's
+proposed pairs pass the gate (med 0.0, the documented "true case"), could-not-fit and no-picture items in
+201's shape, hand-fit-only site untouched, report deterministic, full suite 29 green.
+
+## 2026-10-11 203a DECISION: the 001 gate is a pure-statistics one-shot - R1 resolved, adapter is thin
+The prep notes (R1) inferred an ink/DEM conjunct gate; the MERGED 001 is different: fit_gate.gate(pairs,
+transform=None) -> (verdict, stats {n, med, slope_o, io}) - numpy only, no images, no network
+(docs/gate.md s.2). So the batch needs no fail-closed gate inputs, no DEM, no old-map ink. The adapter
+fit/batch_us.py gate_placement solves plan_fit.similarity from the model's pairs, scores the claimed
+placement against the recorded anchors, and records the gate's median residual (m) as the doc's score.
+Caveat (by design, docs/gate.md s.7): when the placement is the least-squares fit of the same pairs the
+gate sees ~0 residuals ("true case"); it rejects degenerate/nan anchor sets (n<3, no radial spread) and a
+claimed placement inconsistent with its anchors. The real check on the auto fits is the human's 18/20
+sample - the report lists every auto doc's median for that.
+
+## 2026-10-11 203a DECISION: venv note resolved (driver note 2026-10-10)
+The driver's ".venv could not be built" note is stale: 800-requirements-pinned is done (requirements.txt
+fully pinned + hashed) and .venv builds; the suite runs green in .venv/bin/python (29 passed). Run batch
+work and tests in .venv.
