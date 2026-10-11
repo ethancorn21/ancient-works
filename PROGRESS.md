@@ -5,6 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/204-van-deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 40, after the first working session - module built, NL batch QIDs hand-verified.)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -16,7 +17,29 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 204 DECISION: built fit/src_van_deventer.py in full (module-first) and verified the NL batch of QIDs
+    Chose module-first (skeleton with all functions + the 66-town table, then per-country QID batches) over
+    running the whole live inventory in one session: the session budget cannot hold ~300 paced API calls, and
+    the module is the vehicle for every later step (verify/files/chain/stage/check). The 70-subcategory list
+    (prep's 2026-10-10 constant) re-verified live today. The 16 NL towns hand-verified (search candidates
+    checked against label + P625 + P373 + enwiki; every city item's P373 is its own town category): Aardenburg
+    Q955, Alkmaar Q972, Amsterdam Q727, Enkhuizen Q9918, Goes Q81220, Groningen Q749, Groningen (province)
+    Q752 (drop: province map, not a town), Haarlem Q9920, Leeuwarden Q25390, Middelburg Q52101, Reimerswaal
+    Q2590944 (city, not the municipality Q10078 - they share P373 'Reimerswaal'), Rotterdam Q34370, Sluis
+    Q10080 (NL city, not Q2289934 Sluis-in-Mol), The Hague Q36600, Utrecht Q803, Valkenburg Q100076 (the old
+    town item, P373 'Valkenburg, Limburg'; Q9771 is the modern town; no enwiki on Q100076 -> no wikipedia
+    field, sources.py's own rule). Site points: old-town centres hand-recorded in TOWNS (lon/lat), the
+    p625 municipality point recorded beside each; per-town distances go to the lead doc (computed, not
+    eyeballed). Next: re-verify the recorded table, lead doc (category + NL sections), the --files NL
+    inventory, then the BE batch (incl. recording Ghent Q1296 and settling Beaumont's BE-vs-FR region - the
+    TOWNS 'france' guess for Beaumont flips if the verified item is Hainaut).
+
+### 2026-10-11 204 DECISION: region values lowercase in the staged catalog rows (deventer-lead convention)
+    The six done deventer rows use lowercase netherlands/belgium/france and build_catalog.place_of/make_site
+    look REGION_NAME up by str(region).lower(), so lowercase is the convention this lead continues (213's
+    display-case "Italy" was the exception made while waiting for 214). Luxembourg City is the one new value
+    "luxembourg": REGION_NAME has no key for it, so the site display falls back to the raw lowercase string
+    (works; noted in the lead doc; a REGION_NAME key would be a small follow-on task, not mine).
 
 ## Project-wide driver notes (newest)
 
