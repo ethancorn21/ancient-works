@@ -113,3 +113,41 @@ the five verified recipes). The existing suite (8 tests, other tasks') passes in
 was simply older than requirements.txt - I installed pytest 9.1.1 into the local venv to run the suite; the
 driver rebuilds the venv from requirements.txt before its own runs, so that is only a convenience). Next step:
 tools/gate_heldout.py (the next session), then the one-shot run.
+
+### 2026-10-10 001 DECISION: one-shot held-out run done - true 7/8 (passes), wrong 4/32 all scale15 (misses 1 in 20) -> registered no-re-tune, review queue absorbs
+Ran `.venv/bin/python tools/gate_heldout.py` after committing the tool (67c9f14); its dev run
+reproduced the section-5 calibration exactly, so the tool was trusted without further dev
+verification. Verbatim stdout appended to docs/gate.md section 9 (committed fdc37a0, a separate
+commit as the registration demands; sections 1-8 untouched).
+- **true 7/8 accepted**: arbor-low, avebury, aztalan, badbury-rings, cahokia, camp-d-attila,
+  old-sarum n0142 (med 2.5-31.9). Rejected: cadbury-castle (med 31.9, slope_o 0.1792, io -15.3) -
+  a genuinely radial own-residual pattern, the same class as the 2 dev true rejections (berkhamsted
+  0.2297, old-sarum c_8192 0.1611).
+- **wrong 4/32 accepted = 1 in 8** (criterion: at most 1; section 6 expected 0-2): all scale15 -
+  avebury (28.3/0.1324/-4.9), badbury-rings (36.8/0.1310/-0.5), camp-d-attila (43.5/0.1438/-9.2),
+  old-sarum n0142 (29.2/0.1344/+6.5). All in the attenuated 0.131-0.144 band under the frozen
+  0.145 threshold (dev band 0.130-0.141), none deep enough for the io < -10 clause: the section-2
+  conjunction structurally cannot catch a 15% scale at n = 3-6 (the documented section-7 limit, now
+  measured on both sets). moved 0/8 (med 56.2-64.7), rot10 0/8 (slope 0.1745-0.2273), xsite 0/8
+  (med 31 km-8.2M m).
+Per the registered section-6 rule: NO re-tuning on this set (it is spent; a future re-derivation
+needs fresh documents and a fresh seed). Boxes 1 and 3 ticked; box 2 unmet -> `## Proposed changes`
+on the task file (my recommendation: accept the gate as measured - its job, not auto-accepting
+garbage, is met: 7/8 true, 0/24 moved/rot/xsite; the 1-in-8 scale-error acceptance is what the
+review queue + the 18/20 human sample are for; alternative: a future fresh-seed re-derivation on
+new hand fits, which stays at 1 in 8 until it). Box 4: table + command in section 9; the test is
+the next step.
+
+### 2026-10-10 001 DECISION: the driver's "requirements.txt not pinned" note is REAL for main - created task 800
+Iteration 6 called the PROGRESS note stale (my checkout's requirements.txt is fully pinned; its
+.venv builds and runs everything). That was only true for this checkout: `git show
+origin/main:requirements.txt` is the bare unpinned source list (commit e2d4060: 9 unpinned
+lines, no ==, no hashes), while the fully pinned + hashed compiled version (same 10 packages,
+pip-compile --generate-hashes) was committed on agent/c at iteration 1 and has never reached
+main - so the driver's `pip install --require-hashes` venv build fails on main and on any
+checkout without my branch's copy. requirements.* is not in my Touches (it belongs to the
+scaffolding of task 000), so I filed tasks/800-requirements-pinned.md (Depends on: none;
+Touches: requirements.in, requirements.txt): land the pinned file on main or regenerate from
+requirements.in; do not change the package set. Lesson: before calling a driver note about a
+shared file stale, diff origin/main against my checkout, not just the working tree (now a
+PITFALLS entry).

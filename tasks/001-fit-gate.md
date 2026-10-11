@@ -10,13 +10,13 @@ is trusted: the hand fits are the only fits known to be right. Everything the ga
 queue (GOAL.md point 1), so a strict gate is fine; a gate that accepts wrong fits is not.
 
 ## Acceptance criteria
-- [ ] `docs/gate.md`, written and committed BEFORE the gate is first run on the held-out set, says: which hand fits
+- [x] `docs/gate.md`, written and committed BEFORE the gate is first run on the held-out set, says: which hand fits
       are held out (at least 8, chosen by a recorded random seed, never looked at while building the gate), the rule
       the gate applies, its thresholds, and how a wrong fit is made for the test
 - [ ] Wrong fits for the test are made from each held-out hand fit at least these ways: moved 60 m, turned 10
       degrees, scaled 15%, and the best placement the same search finds on a different site's ground. On these the
       gate accepts at most 1 in 20
-- [ ] On the held-out hand fits themselves the gate accepts at least half (if it cannot, `docs/gate.md` says so with
+- [x] On the held-out hand fits themselves the gate accepts at least half (if it cannot, `docs/gate.md` says so with
       the numbers, and the project sends every fit to the review queue instead)
 - [ ] The results table is in `docs/gate.md`, with the command that reproduces it, and a test re-runs it
 
@@ -24,73 +24,85 @@ queue (GOAL.md point 1), so a strict gate is fine; a gate that accepts wrong fit
 - `docs/autofit.md` section 4, finding 2: random placements are not a fair null; a searched fit beats them easily.
 - The numbers here are the owner's intuition; settle a different number only with evidence of what he would notice.
 
-## Hand-over (iteration 6, agent c)
+## Proposed changes
 
-**Where I am.** Steps of the plan: (1) fit_gate.py = DONE this session, committed; (2) tools/gate_heldout.py
-= next; (3) one-shot run = the session after (or the same, after committing the tool); (4) tests/test_gate.py
-= after the run. `docs/gate.md` remains as committed in iteration 5 (the registered version); only its
-section 9 may change later (append-only, separate commit). The 8 held-out docs remain UNREAD — the one-shot
-run is still the authorized first look; do not open any held-out file by hand before it (names only, as the
-selection rule needs).
+Box 2 ("on these the gate accepts at most 1 in 20") cannot be met by this gate, and the
+registration forbids making it so: the one-shot run (recorded in `docs/gate.md` section 9)
+accepted 4 of 32 wrong placements (1 in 8), all 15% scale errors, and section 6 says the
+thresholds must not be re-tuned on the held-out set (that would void the measurement). The
+misses are the documented limit of section 7: at n = 3-6 anchors a 15% scale's residual
+pattern is indistinguishable from a true fit's own scatter (the dev set shows the same
+2 of 12, section 5). Options:
 
-**What iteration 6 did.** Wrote `pipeline/fit_gate.py` implementing gate.md §2 exactly:
-`gate(pairs, transform=None) -> (verdict, stats)`, stats = {n, med, slope_o, io} (ground metres); transform is
-a Web-Mercator similarity (a, b) scored as T(w) = k(a w + b), k = cos(mean anchor latitude); transform None =
-the canonical `plan_fit.similarity` (read-only import, same code path — canonical r equals plan_fit's own
-residuals to 6e-10 m); constants N_MIN=3, RHO2_MIN=1.0 m², MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11,
-IO_MIN=−10, verbatim from §2; n<3 or Σρ²<1 → REJECT with nan pattern stats. Proven correct without touching
-held-out data: a throwaway script ran all 12 dev docs × the 5 placements and reproduced every number recorded
-in gate.md §5 to its stated precision (true 10/12 accepted, rejected = berkhamsted slope 0.2297 and old-sarum
-c_8192 0.1611/io −20.3; moved med 59.1–68.5; rot10 med 12.3–75.9, slope 0.1747–0.2296 with floor 2·sin5°=0.1747
-exact; scale15 slope 0.1305–0.2399, the 2 accepted = castle-rising 15.8/0.1409/−8.7 and whitley
-11.7/0.1355/−7.4 = 2/48 wrongs = 1 in 24; xsite med 19.5 km–7734 km). Existing suite (8 tests of other
-tasks) passes, 2.45 s.
+- (recommend) Accept the gate as measured. It does what the gate is for: the true fits it
+  must not mangle pass 7/8 (the one refusal, cadbury-castle, is a genuinely radial fit the
+  gate cannot see as true at n = 4), and moved / rotated / cross-site wrong fits pass 0/24.
+  The residual 1-in-8 acceptance of 15% scale errors is exactly what GOAL point 1's review
+  queue and GOAL point 3's 18/20 human sample of auto-accepted fits are the check for.
+  Re-word box 2 to the registered contract: "wrong fits: at most 1 in 20, or the measured
+  numbers are recorded in docs/gate.md section 9 and the review queue absorbs the
+  difference".
+- (alternative) Keep box 2 as written: the task stays not-done, and a tighter rule can
+  only be derived later on fresh documents (new hand fits as they are made in production,
+  a fresh seed — section 9's last line). That would be a future task, and the gate stays
+  at 1 in 8 until it.
 
-**Next step: write `tools/gate_heldout.py` (step 2), commit it, then in the SAME or NEXT session do the
-one-shot run (step 3).** The tool (deterministic, offline, numpy-only, no ports, no writes outside the repo;
-usage `tools/gate_heldout.py [--set held|dev]`, default held):
-1. Re-derive the partition: names = sorted basenames (minus .json) of `data/db/platefits/*.json` (20);
-   held = {names[int(i)] for i in numpy.random.default_rng(20260108).choice(20, 8, replace=False)} — index
-   the list element by element, a Python list does not accept a numpy-array index; dev = the complement.
-   With `--set held` assert the derived 8 equal the names listed in gate.md §3 (fail loudly if not).
-2. For each doc D of the set, read its JSON (pairs = D's own pairs — the doc's `site` field is its site id).
-   Canonical: a, b = plan_fit.similarity(pairs)[:2]; k = aw.ground_scale(mean anchor lat); C = mean(k(a w + b))
-   (ground-metre centroid); C_m = C/k. The five placements, as (a', b') in Web-Mercator (verified this
-   session to reproduce §5; the full-transform form is a PITFALLS entry — do not use the short form):
-   - true: (a, b)
-   - moved: (a, b + 60/√2·(1+1j)/k)
-   - rot10: (e^(i·10°)·a, e^(i·10°)·b + (1 − e^(i·10°))·C_m)
-   - scale15: (1.15·a, 1.15·b − 0.15·C_m)
-   - xsite: (a, b + (C_next − C)/k), C_next = ground-metre box centre of the NEXT site of THIS set: site ids
-     of the set (doc["site"]), sorted, next index cycling (8th wraps to 1st for held; 12 dev docs for dev);
-     box centre = mean of the site's `corners` ([[lon, lat]...] in web/data/sites.json) → aw.to_merc → ×
-     aw.ground_scale(site lat).
-   Score each with fit_gate.gate(pairs, (a', b')).
-3. Print, for docs in sorted order and cases in order true, moved, rot10, scale15, xsite, one fixed-format
-   line each: `<doc>  <case>  n=<n>  med=<x.1f>  slope_o=<y.4f>  io=<z.1f>  <verdict>` (the exact stdout is
-   what gets appended to §9, so keep it machine-stable; no timestamps, no absolute paths).
-4. ONE-SHOT RUN (exactly once, first read of held-out contents, only AFTER the tool is committed):
-   `.venv/bin/python tools/gate_heldout.py`. Capture the stdout verbatim; in a SEPARATE commit append it to
-   gate.md §9 (replacing the placeholder) with a summary line: how many of the 32 wrong rows were accepted
-   and which, how many of the 8 true rows, and the verdict on §6's pass criteria (wrong ≤ 1/32; true ≥ 4/8).
-   Then evaluate §6: true < 4 → project sends every fit to the review queue (no auto-accept); wrong > 1/32 →
-   DO NOT re-tune (that voids the registration) — record the numbers, the review queue absorbs it. Do not
-   "peek" at held-out docs to check the outcome: the numbers come from the run.
+## Hand-over (iteration 7, agent c)
+## Hand-over (iteration 7, agent c)
 
-**Step 4 (after §9 is committed):** `tests/test_gate.py` — re-run the conjunction on dev AND held-out via
-tools/gate_heldout (import it or call fit_gate directly), compare the generated table against the committed
-golden (e.g. tests/golden/gate_heldout.txt: the 40 held-out rows + 60 dev rows) and pin fit_gate's constants
-to gate.md §2 (a drift in a constant fails the test). No fixed ports, no network, writes only in project +
-temp dir. Note conftest.py exists but this test needs no server fixture — plain pytest is fine (pytest 9.1.1
-is in requirements.txt; the driver's venv rebuild picks it up).
+**Where I am.** Steps: (1) fit_gate.py = DONE (iter 6); (2) tools/gate_heldout.py = DONE,
+committed 67c9f14; (3) ONE-SHOT RUN = DONE this session, results recorded in gate.md §9,
+committed fdc37a0 (separate commit, as the registration demands); (4) tests/test_gate.py =
+NEXT step. Docs discipline now: gate.md §1–8 are the frozen registration (7d51438) — never
+change them (the registration is void if they do); §9 is the final, spent record — don't
+alter it either. The held-out documents have been read (by the one-shot run, as
+authorized): any future work on this gate must use them only as a fixed measurement, never
+as tuning data.
 
-**Team-mode boundaries (unchanged):** I own pipeline/fit_gate.py, tools/gate_heldout.py, docs/gate.md
-(§9 append only — never touch §1–8), tests/test_gate.py, tests/golden/. The 20 hand-fit docs in
-data/db/platefits/ and web/data/sites.json are READ-ONLY (never change/delete — GOAL).
+**What iteration 7 did.**
+- `tools/gate_heldout.py` exactly per the previous hand-over spec: re-derives the
+  seed-20260108 partition from the directory listing and asserts it against the registered
+  §3 names (fails loudly on any universe drift, including a 21st document); builds the
+  five §4 placements as Web-Mercator (a, b) with the full a*w + b composition (PITFALLS
+  recipes); prints one fixed-format line per (doc, case) — `<doc>  <case>  n=<n>  med=<x.1f>
+  slope_o=<y.4f>  io=<z.1f>  <verdict>` — docs in sorted order, cases in §4 order; no
+  writes, no network, no ports. Before committing, its `--set dev` run reproduced the §5
+  calibration exactly (true 10/12; wrong 2/48 = castle-rising + whitley scale15; moved
+  med 59.1–68.5; rot10 slope 0.1747–0.2296; scale15 band 0.1305–0.2399; xsite 19.5
+  km–7734 km).
+- ONE-SHOT RUN (first and only read of the held-out contents): `.venv/bin/python
+  tools/gate_heldout.py`. Results: **true 7/8 accepted** (rejected: cadbury-castle's own
+  fit, med 31.9, slope_o 0.1792, io −15.3 — genuinely radial, same class as the 2 dev true
+  rejections); **wrong 4/32 accepted = 1 in 8** (target ≤ 1, §6 expected 0–2) — all
+  scale15: avebury (28.3/0.1324/−4.9), badbury-rings (36.8/0.1310/−0.5), camp-d-attila
+  (43.5/0.1438/−9.2), old-sarum n0142 (29.2/0.1344/+6.5) — the attenuated 0.131–0.144 band
+  under the frozen 0.145 (dev: 0.130–0.141); moved/rot10/xsite = 0 of 24. §6 verdict:
+  true passes (auto-accept stands), wrong misses → the registered no-re-tuning clause
+  applies; the review queue absorbs it. Verbatim stdout + summary + verdict appended to
+  §9 (fdc37a0).
+- Acceptance boxes: 1 and 3 ticked (both verified). Box 2 (≤ 1 in 20) is NOT met and not
+  re-tunable — see `## Proposed changes` for the decision I ask of the human. Box 4:
+  table + reproduce command are in §9; the test that re-runs it is next.
+- Created `tasks/800-requirements-pinned.md`: the driver's venv-build note is REAL for
+  main (main's requirements.txt is the unpinned 9-line source list from e2d4060; the
+  pinned compiled file lives only on this branch since iteration 1). Not in my Touches,
+  so a task, not a fix (details in DECISIONS).
+- Existing suite (8 tests of other tasks) still passes in the local .venv (numpy 2.5.4,
+  scipy 1.18.1, pytest 9.1.1).
 
-**Environment note:** .venv here is current (numpy 2.5.4, scipy 1.18.1, pytest 9.1.1 — I installed pytest
-into the LOCAL venv this session for my own runs; the driver rebuilds its venv from requirements.txt before
-its test runs regardless). The driver's "requirements.txt not pinned" note in PROGRESS is stale for this
-checkout, confirmed twice (0 unpinned requirement lines; the `# via` lines are comments). If the driver
-re-flags it, check whether a merge into main changed requirements.txt — it is not in my Touches, so I cannot
-fix it in my branch.
+**Next step: write `tests/test_gate.py` (step 4), run it, tick box 4, commit.** Plan
+(unchanged from last hand-over): a plain-pytest test (no server fixture needed) that
+subprocess-runs the committed tool with `sys.executable` (`--set held`, then `--set
+dev`), captures stdout, and compares it byte-for-byte against a committed golden
+`tests/golden/gate_heldout.txt` (40 held-out lines then 60 dev lines — generate the
+golden WITH the committed tool, never hand-type it); plus a check that `fit_gate`'s
+frozen constants equal the ones stated in gate.md §2 (N_MIN=3, RHO2_MIN=1.0, MED_MAX=45,
+SLOPE_MAX=0.145, SLOPE_PATTERN=0.11, IO_MIN=−10) so code drift from the doc fails.
+No ports, no network, writes only in project + temp. After it passes: box 4 is
+tickable. Then the task waits on the human's call in `## Proposed changes` (box 2): do
+NOT mark the task done myself while box 2 is unticked; if the human rewords or drops
+it, tick per their wording and close.
+
+**Team-mode boundaries (unchanged):** I own pipeline/fit_gate.py, tools/gate_heldout.py,
+docs/gate.md (§1–8 frozen, §9 final), tests/test_gate.py, tests/golden/. The 20
+hand-fit docs in data/db/platefits/ and web/data/sites.json are READ-ONLY.

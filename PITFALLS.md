@@ -36,6 +36,19 @@ from a throwaway venv outside the project (pip-tools itself goes there, e.g. `/t
 PyPI is reachable from this machine and cp312 wheels for the current requirements install fine (2026-10-10:
 the built `.venv` ran the 8-test suite).
 
+
+#### A driver PROGRESS note about a shared file may describe main, not your checkout
+Where: `PROGRESS.md` (project-wide driver notes), any shared file (e.g. `requirements.txt`)
+Symptom: a driver note reports a build/test failure (e.g. `ERROR: In --require-hashes mode,
+all requirements must have their versions pinned with ==. These do not:`) but your checkout's
+copy of the file is fine and your local runs work.
+Why: the driver rebuilds from main, while your branch may carry a newer copy of the file that
+has not been merged (requirements.txt: the pinned compiled version was committed on agent/c at
+iteration 1; main still has the unpinned source list from e2d4060). Checking only the working
+tree (as iteration 6 did) says "stale"; `git diff origin/main -- <file>` and
+`git show origin/main:<file>` is the real check. If the file is not in your task's Touches,
+file a task for its owner (done: tasks/800-requirements-pinned.md) instead of "fixing" it.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -80,3 +93,18 @@ transformed b, b' = s*e^(iθ)*b + (1 - s*e^(iθ))*C_m (C_m = C/k in Mercator met
 centroid). The short form is only right when b = 0 (anchor centroid at the origin). The five verified
 recipes (they reproduce docs/gate.md section 5 exactly): true (a, b); moved (a, b + d/k); rot10
 (e^(i10°)*a, e^(i10°)*b + (1 - e^(i10°))*C_m); scale15 (1.15*a, 1.15*b - 0.15*C_m); xsite (a, b + (C_next - C)/k).
+
+#### fit_gate cannot reject a 15% scale error at n = 3-6 anchors - a structural limit, not a bug
+Where: `pipeline/fit_gate.py`, `tools/gate_heldout.py`, `docs/gate.md` sections 7 and 9
+Symptom: the gate ACCEPTS scale15 placements: dev 2/12 (castle-rising, whitley), held-out 4/8
+(avebury, badbury-rings, camp-d-attila, old-sarum n0142) - slope_o 0.130-0.144, all under the
+frozen 0.145, none deep enough for the io < -10 clause.
+Why: the theoretical 0.15*rho slope is attenuated by anchor noise in a through-origin fit at
+n = 3-6 (dev band 0.130-0.141, held-out band 0.131-0.144 - the same band on both sets, so it
+is not a threshold accident), and the residual pattern of a 15% scale sits inside a true
+fit's own scatter: no pure-geometry statistic of these anchors can tell them apart. Do not
+re-tune on the dev/held-out documents (the registration in docs/gate.md section 1 is void if
+the frozen constants change) and do not add a scale-specific clause trained on this data.
+Accept the 1-in-8 scale-error acceptance, backstopped by the review queue (GOAL 1) and the
+human's 18/20 sample of auto-accepted fits (GOAL 3); a tighter rule may only be derived on
+fresh documents with a fresh seed.
