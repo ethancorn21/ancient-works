@@ -1,0 +1,1204 @@
+{
+ "note": "Task 202 golden: the 18 proposed starting placements (sample) and the measured hand-fit comparisons (sanity) a starting point must pass; exclusions are recorded in the checks nulls. Regenerate only for an intended change: .venv/bin/python tests/test_propose.py --regen",
+ "sample": {
+  "arbor-low-q630312 earthworkenglan01allcgoog_n0597_1": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "no scale text recorded",
+   "pairs": [
+    [
+     707.1,
+     1060.5,
+     -1.7688028,
+     53.1724913
+    ],
+    [
+     2963.0,
+     1060.5,
+     -1.7556772,
+     53.1724913
+    ],
+    [
+     2963.0,
+     3636.0,
+     -1.7556772,
+     53.1635082
+    ],
+    [
+     707.1,
+     3636.0,
+     -1.7688028,
+     53.1635082
+    ],
+    [
+     1835.0,
+     2348.2,
+     -1.76224,
+     53.168
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.3883,
+   "scale_source": "picture_size"
+  },
+  "avebury-q661855 earthworkenglan01allcgoog_n0581_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 500 feet'",
+   "pairs": [
+    [
+     505.0,
+     1035.2,
+     -1.8576894,
+     51.4308782
+    ],
+    [
+     3097.6,
+     1035.2,
+     -1.8506446,
+     51.4308782
+    ],
+    [
+     3097.6,
+     3711.8,
+     -1.8506446,
+     51.4263437
+    ],
+    [
+     505.0,
+     3711.8,
+     -1.8576894,
+     51.4263437
+    ],
+    [
+     1801.3,
+     2373.5,
+     -1.854167,
+     51.428611
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.1886,
+   "scale_source": "bar"
+  },
+  "aztalan-state-park-q4832928 antiquitiesofwis00saph_n0182_1": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "ratio 'Scale 20 ft. to an inch.' unusable: lapham_1855 scan ppi not recorded",
+   "pairs": [
+    [
+     259.6,
+     419.0,
+     -88.8702776,
+     43.0688662
+    ],
+    [
+     5652.6,
+     419.0,
+     -88.8555224,
+     43.0688662
+    ],
+    [
+     5652.6,
+     3687.2,
+     -88.8555224,
+     43.0623336
+    ],
+    [
+     259.6,
+     3687.2,
+     -88.8702776,
+     43.0623336
+    ],
+    [
+     2956.1,
+     2053.1,
+     -88.8629,
+     43.0656
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.2225,
+   "scale_source": "picture_size"
+  },
+  "badbury-rings-q798831 earthworkenglan01allcgoog_n0132_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 100 200 300 400 500 Scale of Feet'",
+   "pairs": [
+    [
+     360.3,
+     1403.9,
+     -2.0557249,
+     50.8280392
+    ],
+    [
+     2885.5,
+     1403.9,
+     -2.0488951,
+     50.8280392
+    ],
+    [
+     2885.5,
+     3322.9,
+     -2.0488951,
+     50.8247607
+    ],
+    [
+     360.3,
+     3322.9,
+     -2.0557249,
+     50.8247607
+    ],
+    [
+     1622.9,
+     2363.4,
+     -2.05231,
+     50.8264
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.1902,
+   "scale_source": "bar"
+  },
+  "calleva-atrebatum-q1027253 earthworkenglan01allcgoog_n0360_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 100 200 300 feet'",
+   "pairs": [
+    [
+     404.0,
+     1414.0,
+     -1.0870256,
+     51.359596
+    ],
+    [
+     2727.3,
+     1414.0,
+     -1.0787744,
+     51.359596
+    ],
+    [
+     2727.3,
+     3484.5,
+     -1.0787744,
+     51.3550039
+    ],
+    [
+     404.0,
+     3484.5,
+     -1.0870256,
+     51.3550039
+    ],
+    [
+     1565.7,
+     2449.2,
+     -1.0829,
+     51.3573
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.2469,
+   "scale_source": "bar"
+  },
+  "castle-rising-castle-q1049485 c_70f937b71ae63d6a": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     0.4630138,
+     52.7953883
+    ],
+    [
+     1090.0,
+     0.0,
+     0.4748982,
+     52.7953883
+    ],
+    [
+     1090.0,
+     743.0,
+     0.4748982,
+     52.7904896
+    ],
+    [
+     0.0,
+     743.0,
+     0.4630138,
+     52.7904896
+    ],
+    [
+     545.0,
+     371.5,
+     0.468956,
+     52.792939
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.7339,
+   "scale_source": "picture_size"
+  },
+  "forthill ancientmonuments00squi_n0068_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "pairs": [
+    [
+     170.6,
+     365.8,
+     -83.4054921,
+     39.1186339
+    ],
+    [
+     2616.5,
+     365.8,
+     -83.4004921,
+     39.1175872
+    ],
+    [
+     2616.5,
+     3657.6,
+     -83.4023079,
+     39.1123659
+    ],
+    [
+     170.6,
+     3657.6,
+     -83.4073079,
+     39.1134127
+    ],
+    [
+     1393.6,
+     2011.7,
+     -83.4039,
+     39.1155
+    ]
+   ],
+   "rot_deg": -15.1,
+   "scale_m_px": 0.1829,
+   "scale_source": "ratio"
+  },
+  "fudge ancientmonuments00squi_n0203_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "pairs": [
+    [
+     216.3,
+     307.5,
+     -84.9941762,
+     40.1843961
+    ],
+    [
+     2711.0,
+     307.5,
+     -84.9870238,
+     40.1843961
+    ],
+    [
+     2711.0,
+     1947.5,
+     -84.9870238,
+     40.1808038
+    ],
+    [
+     216.3,
+     1947.5,
+     -84.9941762,
+     40.1808038
+    ],
+    [
+     1463.6,
+     1127.5,
+     -84.9906,
+     40.1826
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.2438,
+   "scale_source": "ratio"
+  },
+  "hembury-q3784763 earthworkenglan01allcgoog_n0108_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "pairs": [
+    [
+     383.8,
+     959.5,
+     -3.2640499,
+     50.822669
+    ],
+    [
+     2754.2,
+     959.5,
+     -3.2587281,
+     50.822669
+    ],
+    [
+     2754.2,
+     3939.0,
+     -3.2587281,
+     50.8184429
+    ],
+    [
+     383.8,
+     3939.0,
+     -3.2640499,
+     50.8184429
+    ],
+    [
+     1569.0,
+     2449.2,
+     -3.261389,
+     50.820556
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.1579,
+   "scale_source": "bar"
+  },
+  "highbank ancientmonuments00squi_n0126_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "pairs": [
+    [
+     139.0,
+     345.8,
+     -82.9230788,
+     39.3035388
+    ],
+    [
+     2557.6,
+     345.8,
+     -82.9145212,
+     39.3035388
+    ],
+    [
+     2557.6,
+     3661.2,
+     -82.9145212,
+     39.2944609
+    ],
+    [
+     139.0,
+     3661.2,
+     -82.9230788,
+     39.2944609
+    ],
+    [
+     1348.3,
+     2003.5,
+     -82.9188,
+     39.299
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.3048,
+   "scale_source": "ratio"
+  },
+  "hopeton ancientmonuments00squi_n0129_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks); north hint 131.1 deg rejected (|deg| > 60): plate left north-up",
+   "pairs": [
+    [
+     469.2,
+     409.6,
+     -82.9833525,
+     39.389608
+    ],
+    [
+     2971.6,
+     409.6,
+     -82.9744875,
+     39.389608
+    ],
+    [
+     2971.6,
+     3768.3,
+     -82.9744875,
+     39.3804117
+    ],
+    [
+     469.2,
+     3768.3,
+     -82.9833525,
+     39.3804117
+    ],
+    [
+     1720.4,
+     2089.0,
+     -82.97892,
+     39.38501
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.3048,
+   "scale_source": "ratio"
+  },
+  "maiden-castle-q1232816 earthworkenglan01allcgoog_n0124_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "pairs": [
+    [
+     505.0,
+     656.5,
+     -2.4732962,
+     50.6988502
+    ],
+    [
+     2558.9,
+     656.5,
+     -2.4667038,
+     50.6988502
+    ],
+    [
+     2558.9,
+     4444.0,
+     -2.4667038,
+     50.6911494
+    ],
+    [
+     505.0,
+     4444.0,
+     -2.4732962,
+     50.6911494
+    ],
+    [
+     1532.0,
+     2550.2,
+     -2.47,
+     50.695
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.2263,
+   "scale_source": "bar"
+  },
+  "marietta ancientmonuments00squi_n0169_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "pairs": [
+    [
+     377.0,
+     349.2,
+     -81.4624258,
+     39.4278914
+    ],
+    [
+     2895.4,
+     349.2,
+     -81.4445742,
+     39.4278914
+    ],
+    [
+     2895.4,
+     3779.4,
+     -81.4445742,
+     39.4091073
+    ],
+    [
+     377.0,
+     3779.4,
+     -81.4624258,
+     39.4091073
+    ],
+    [
+     1636.2,
+     2064.3,
+     -81.4535,
+     39.4185
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.6096,
+   "scale_source": "ratio"
+  },
+  "mayburgh-henge-q1469390 c_984782b9e35e8ded": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     -2.754383,
+     54.6518931
+    ],
+    [
+     1280.0,
+     0.0,
+     -2.738857,
+     54.6518931
+    ],
+    [
+     1280.0,
+     910.0,
+     -2.738857,
+     54.6455066
+    ],
+    [
+     0.0,
+     910.0,
+     -2.754383,
+     54.6455066
+    ],
+    [
+     640.0,
+     455.0,
+     -2.74662,
+     54.6487
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.7812,
+   "scale_source": "picture_size"
+  },
+  "newark ancientmonuments00squi_n0161_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "pairs": [
+    [
+     459.0,
+     327.7,
+     -82.4464598,
+     40.0582254
+    ],
+    [
+     2601.0,
+     327.7,
+     -82.4265402,
+     40.0582254
+    ],
+    [
+     2601.0,
+     3481.6,
+     -82.4265402,
+     40.0357727
+    ],
+    [
+     459.0,
+     3481.6,
+     -82.4464598,
+     40.0357727
+    ],
+    [
+     1530.0,
+     1904.6,
+     -82.4365,
+     40.047
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.7925,
+   "scale_source": "ratio"
+  },
+  "old-sarum-q782719 c_8192abb966d030a3": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     -1.8161645,
+     51.0994075
+    ],
+    [
+     1280.0,
+     0.0,
+     -1.7932795,
+     51.0994075
+    ],
+    [
+     1280.0,
+     1082.0,
+     -1.7932795,
+     51.0872577
+    ],
+    [
+     0.0,
+     1082.0,
+     -1.8161645,
+     51.0872577
+    ],
+    [
+     640.0,
+     541.0,
+     -1.804722,
+     51.093333
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 1.25,
+   "scale_source": "picture_size"
+  },
+  "old-sarum-q782719 earthworkenglan01allcgoog_n0142_1": {
+   "coarse": false,
+   "ground": "relief",
+   "note": "scale from the scale bar: '0 100 200 300 feet'",
+   "pairs": [
+    [
+     336.7,
+     1515.0,
+     -1.8075758,
+     51.0954985
+    ],
+    [
+     2760.9,
+     1515.0,
+     -1.8018682,
+     51.0954985
+    ],
+    [
+     2760.9,
+     4444.0,
+     -1.8018682,
+     51.0911674
+    ],
+    [
+     336.7,
+     4444.0,
+     -1.8075758,
+     51.0911674
+    ],
+    [
+     1548.8,
+     2979.5,
+     -1.804722,
+     51.093333
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.1646,
+   "scale_source": "bar"
+  },
+  "serpent-mound-q968802 ancientmonuments00squi_n0210_1": {
+   "coarse": true,
+   "ground": "relief",
+   "note": "no scale text recorded",
+   "pairs": [
+    [
+     193.2,
+     609.6,
+     -83.4360486,
+     39.0312477
+    ],
+    [
+     2163.0,
+     609.6,
+     -83.4248394,
+     39.0312477
+    ],
+    [
+     2163.0,
+     3048.0,
+     -83.4248394,
+     39.0204679
+    ],
+    [
+     193.2,
+     3048.0,
+     -83.4360486,
+     39.0204679
+    ],
+    [
+     1178.1,
+     1828.8,
+     -83.430444,
+     39.025858
+    ]
+   ],
+   "rot_deg": 0.0,
+   "scale_m_px": 0.4921,
+   "scale_source": "picture_size"
+  }
+ },
+ "sanity": {
+  "commons": {
+   "castle-rising-castle-q1049485": {
+    "hand": {
+     "m_per_px": 0.3223,
+     "maxresid_m": 11.5,
+     "rot_deg": -0.6
+    },
+    "measured": {
+     "checks": {
+      "rot": true
+     },
+     "drot_deg": 0.6
+    },
+    "plan": "c_70f937b71ae63d6a"
+   },
+   "mayburgh-henge-q1469390": {
+    "hand": {
+     "m_per_px": 0.6033,
+     "maxresid_m": 2.7,
+     "rot_deg": 4.03
+    },
+    "measured": {
+     "checks": {
+      "rot": true
+     },
+     "drot_deg": -4.0
+    },
+    "plan": "c_984782b9e35e8ded"
+   },
+   "old-sarum-q782719": {
+    "hand": {
+     "m_per_px": 0.9542,
+     "maxresid_m": 54.4,
+     "rot_deg": 86.1
+    },
+    "measured": {
+     "checks": {
+      "rot": true
+     },
+     "drot_deg": -86.1
+    },
+    "plan": "c_8192abb966d030a3"
+   }
+  },
+  "old_style": {
+   "forthill": {
+    "hand": {
+     "m_per_px": 0.4134,
+     "maxresid_m": 20.4,
+     "model": "similarity",
+     "resid_source": "control_resid_m",
+     "rot_deg": -6.17
+    },
+    "measured": {
+     "centre_dist_m": 34.7,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "diag_m": 750.1,
+     "drot_deg": -8.9,
+     "earthwork_centre_m": [
+      10.4,
+      33.1
+     ],
+     "earthwork_m": [
+      660.2,
+      924.3
+     ],
+     "envelope_m": 750.1,
+     "panel_m": [
+      447.3,
+      602.1
+     ],
+     "side_ratios": [
+      1.476,
+      1.535
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0068_1"
+   },
+   "fudge": {
+    "hand": {
+     "m_per_px": 0.4633,
+     "maxresid_m": null,
+     "model": null,
+     "resid_source": "none",
+     "rot_deg": 1.81
+    },
+    "measured": {
+     "centre_dist_m": 17.6,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "diag_m": 727.9,
+     "drot_deg": -1.8,
+     "earthwork_centre_m": [
+      -10.7,
+      -14.0
+     ],
+     "earthwork_m": [
+      423.3,
+      384.6
+     ],
+     "envelope_m": 727.9,
+     "panel_m": [
+      608.2,
+      399.8
+     ],
+     "side_ratios": [
+      0.696,
+      0.962
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0203_1"
+   },
+   "highbank": {
+    "hand": {
+     "m_per_px": 0.4446,
+     "maxresid_m": null,
+     "model": "similarity",
+     "resid_source": "none",
+     "rot_deg": -1.73
+    },
+    "measured": {
+     "centre_dist_m": 64.0,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "diag_m": 1250.9,
+     "drot_deg": 1.7,
+     "earthwork_centre_m": [
+      -49.4,
+      40.7
+     ],
+     "earthwork_m": [
+      535.2,
+      570.3
+     ],
+     "envelope_m": 1250.9,
+     "panel_m": [
+      737.2,
+      1010.5
+     ],
+     "side_ratios": [
+      0.726,
+      0.564
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0126_1"
+   },
+   "hopeton": {
+    "hand": {
+     "m_per_px": 0.3939,
+     "maxresid_m": null,
+     "model": null,
+     "resid_source": "none",
+     "rot_deg": -33.7
+    },
+    "measured": {
+     "centre_dist_m": 117.4,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "diag_m": 1276.6,
+     "drot_deg": 33.7,
+     "earthwork_centre_m": [
+      -12.6,
+      116.7
+     ],
+     "earthwork_m": [
+      365.7,
+      541.6
+     ],
+     "envelope_m": 1276.6,
+     "panel_m": [
+      762.7,
+      1023.7
+     ],
+     "side_ratios": [
+      0.479,
+      0.529
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0129_1"
+   },
+   "marietta": {
+    "hand": {
+     "m_per_px": 0.7296,
+     "maxresid_m": 1.7,
+     "model": "control",
+     "resid_source": "control_resid_m",
+     "rot_deg": -4.3
+    },
+    "measured": {
+     "centre_dist_m": 267.5,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": null
+     },
+     "diag_m": 2594.1,
+     "drot_deg": 4.3,
+     "earthwork_centre_m": [
+      166.3,
+      209.5
+     ],
+     "earthwork_m": [
+      80.3,
+      80.3
+     ],
+     "envelope_m": 2594.1,
+     "panel_m": [
+      1535.2,
+      2091.0
+     ],
+     "side_ratios": [
+      0.052,
+      0.038
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0169_1"
+   },
+   "newark": {
+    "hand": {
+     "m_per_px": 1.0395,
+     "maxresid_m": null,
+     "model": null,
+     "resid_source": "none",
+     "rot_deg": -95.39
+    },
+    "measured": {
+     "centre_dist_m": 262.3,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "diag_m": 3021.4,
+     "drot_deg": 95.4,
+     "earthwork_centre_m": [
+      -258.6,
+      -44.2
+     ],
+     "earthwork_m": [
+      1743.8,
+      1805.3
+     ],
+     "envelope_m": 3021.4,
+     "panel_m": [
+      1697.5,
+      2499.5
+     ],
+     "side_ratios": [
+      1.027,
+      0.722
+     ]
+    },
+    "plan": "ancientmonuments00squi_n0161_1"
+   }
+  },
+  "qid": {
+   "arbor-low-q630312": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.0363,
+     "maxresid_m": 5.1,
+     "rot_deg": -3.38
+    },
+    "measured": {
+     "centre_dist_m": 107.3,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": null
+     },
+     "drot_deg": 3.4,
+     "envelope_m": 1329.5,
+     "scale_dev_pct": 970.1
+    },
+    "plan": "earthworkenglan01allcgoog_n0597_1"
+   },
+   "avebury-q661855": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.2184,
+     "maxresid_m": 8.7,
+     "rot_deg": 2.41
+    },
+    "measured": {
+     "centre_dist_m": 3.2,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "drot_deg": -2.4,
+     "envelope_m": 702.8,
+     "scale_dev_pct": -13.6
+    },
+    "plan": "earthworkenglan01allcgoog_n0581_1"
+   },
+   "aztalan-state-park-q4832928": {
+    "frame": [
+     5768,
+     4190
+    ],
+    "hand": {
+     "m_per_px": 0.1681,
+     "maxresid_m": 3.0,
+     "rot_deg": 74.96
+    },
+    "measured": {
+     "centre_dist_m": 297.4,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": null
+     },
+     "drot_deg": -75.0,
+     "envelope_m": 1403.1,
+     "scale_dev_pct": 32.3
+    },
+    "plan": "antiquitiesofwis00saph_n0182_1"
+   },
+   "badbury-rings-q798831": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.2369,
+     "maxresid_m": 8.4,
+     "rot_deg": 0.91
+    },
+    "measured": {
+     "centre_dist_m": 5.5,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "drot_deg": -0.9,
+     "envelope_m": 603.3,
+     "scale_dev_pct": -19.7
+    },
+    "plan": "earthworkenglan01allcgoog_n0132_1"
+   },
+   "calleva-atrebatum-q1027253": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.9151,
+     "maxresid_m": 23.1,
+     "rot_deg": -0.21
+    },
+    "measured": {
+     "centre_dist_m": 159.0,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": null
+     },
+     "drot_deg": 0.2,
+     "envelope_m": 768.3,
+     "scale_dev_pct": -73.0
+    },
+    "plan": "earthworkenglan01allcgoog_n0360_1"
+   },
+   "hembury-q3784763": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.2354,
+     "maxresid_m": 33.7,
+     "rot_deg": 0.6
+    },
+    "measured": {
+     "centre_dist_m": 87.0,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "drot_deg": -0.6,
+     "envelope_m": 601.2,
+     "scale_dev_pct": -32.9
+    },
+    "plan": "earthworkenglan01allcgoog_n0108_1"
+   },
+   "maiden-castle-q1232816": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.2801,
+     "maxresid_m": 27.2,
+     "rot_deg": -90.61
+    },
+    "measured": {
+     "centre_dist_m": 19.9,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "drot_deg": 90.6,
+     "envelope_m": 975.0,
+     "scale_dev_pct": -19.2
+    },
+    "plan": "earthworkenglan01allcgoog_n0124_1"
+   },
+   "old-sarum-q782719": {
+    "frame": [
+     3367,
+     5050
+    ],
+    "hand": {
+     "m_per_px": 0.2147,
+     "maxresid_m": 24.1,
+     "rot_deg": -90.64
+    },
+    "measured": {
+     "centre_dist_m": 40.4,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": true
+     },
+     "drot_deg": 90.6,
+     "envelope_m": 625.8,
+     "scale_dev_pct": -23.4
+    },
+    "plan": "earthworkenglan01allcgoog_n0142_1"
+   },
+   "serpent-mound-q968802": {
+    "frame": [
+     2884,
+     4064
+    ],
+    "hand": {
+     "m_per_px": 0.1647,
+     "maxresid_m": 6.3,
+     "rot_deg": -5.88
+    },
+    "measured": {
+     "centre_dist_m": 32.2,
+     "checks": {
+      "centre": true,
+      "rot": true,
+      "scale": null
+     },
+     "drot_deg": 5.9,
+     "envelope_m": 1542.5,
+     "scale_dev_pct": 198.7
+    },
+    "plan": "ancientmonuments00squi_n0210_1"
+   }
+  }
+ }
+}
