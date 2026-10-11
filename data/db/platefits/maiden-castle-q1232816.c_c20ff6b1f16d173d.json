@@ -1,58 +1,14 @@
 {
  "site": "maiden-castle-q1232816",
  "plan": "c_c20ff6b1f16d173d",
- "crop": [
-  0,
-  0,
-  1280,
-  889
- ],
- "pairs": [
-  [
-   150.0,
-   250.0,
-   -2.4749564,
-   50.6972412
-  ],
-  [
-   750.0,
-   250.0,
-   -2.4650294,
-   50.6972412
-  ],
-  [
-   750.0,
-   550.0,
-   -2.4650294,
-   50.693648
-  ],
-  [
-   150.0,
-   550.0,
-   -2.4749564,
-   50.693648
-  ],
-  [
-   450.0,
-   400.0,
-   -2.4699929,
-   50.6954447
-  ],
-  [
-   450.0,
-   300.0,
-   -2.4699929,
-   50.696343
-  ]
- ],
- "label": "1806",
- "title": "Cerne Abbas Giant and Maiden Castle ground plan - DPLA - 16c54b3ffdf17eeba0907cd1afebd14f",
- "cite": "by Camden, William, 1551-1623; Cary, Francis; Public domain; https://commons.wikimedia.org/wiki/File:Cerne_Abbas_Giant_and_Maiden_Castle_ground_plan_-_DPLA_-_16c54b3ffdf17eeba0907cd1afebd14f.jpg",
- "at": "2026-10-11T14:11:44.454175+00:00",
- "auto": true,
- "score": 19.4,
  "ia": null,
  "file": null,
+ "crop": [
+  165,
+  256,
+  895,
+  663
+ ],
  "model": "similarity",
  "src": "commons",
  "url": "media/commons/maiden-castle-q1232816/c20ff6b1f16d173d.jpg",
@@ -60,5 +16,30 @@
  "size": [
   1280,
   889
- ]
+ ],
+ "pairs": [
+  [
+   551.9,
+   461.3,
+   -2.4691357,
+   50.6948631
+  ],
+  [
+   310.1,
+   422.5,
+   -2.4746373,
+   50.695179
+  ],
+  [
+   738,
+   516.1,
+   -2.4649471,
+   50.6941682
+  ]
+ ],
+ "label": "1806",
+ "title": "Cerne Abbas Giant and Maiden Castle ground plan - DPLA - 16c54b3ffdf17eeba0907cd1afebd14f",
+ "book": "Wikimedia Commons",
+ "cite": "by Camden, William, 1551-1623; Cary, Francis; Public domain; https://commons.wikimedia.org/wiki/File:Cerne_Abbas_Giant_and_Maiden_Castle_ground_plan_-_DPLA_-_16c54b3ffdf17eeba0907cd1afebd14f.jpg",
+ "at": "2026-10-11T19:52:41.708Z"
 }
