@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 75, agent c - session 3: investigation + FROZEN CONFIG recorded in DECISIONS. No code written yet. NEXT: verify the geometry sc
+- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 76, agent c - session 4: geometry derivation VERIFIED with a critical b-convention
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 
 ## Next open tasks
@@ -102,6 +102,12 @@ Session 3: investigation only (all modules the method imports were read in full;
 - Null (search-matched, docs/autofit.md finding 2): null = max of the SAME search (identical seed/window/grid/n_refine) over (a) the scrambled template - each piece rigidly rotated U(0,2pi) and translated by U(-0.4,0.4) of the panel extent, clamped inside, all from np.random.default_rng(20261012) - reusing the same Coarse (unchanged ground); and (b) the DEM shifted by half the box north and half east (ndi.shift order=0, cval=NaN; new Coarse). Fewer than 100 valid draws in a null search is recorded (newark's 10-10 problem); a -9 objective counts low.
 - Confidence: obj_fit - null (both on the floored-mean objective, metres). The sync-vs-review threshold is NOT set here: box 3 authorises setting it on 302b's held-out table (302c applies it).
 ... (1.2 KB more: `grep -n -A 200 -F '## 2026-10-11 302a DECISION: frozen configuration of fit/inkfit.py (recorded BEFORE the first fit run; 10-10 pre-registration discipline - bug fixes allowed later, any parameter change must be labelled exploratory and reported separately)' DECISIONS.md`)
+
+### 2026-10-11 302a DECISION: placement->similarity geometry verified; b convention is complex(u0c, -v0c) (MINUS-v) - the session-3 script's +v0c was an 860 m near-miss
+Session 4: re-ran the session-3 verification script (kept in the iter-0075 log) and found it had a SECOND bug beyond the noted broadcast fix: it applied M to [du, dv] instead of the autofit convention d = [du, -(v - v0)]. With both fixed (d = [u-u0c, -(v-v0c)], en = d @ M.T + t; lon/lat = aw.to_lonlat(cx + e/k, cy + n/k), k = 1/aw.ground_scale(lat)):
+- plan_fit.similarity recovers a = k*s*exp(i*rot) to relative error 7e-6 (= the 1 dp px / 7 dp lon-lat rounding limit of the synthetic pairs), residuals 1.4-4.6 mm; fit_gate.gate accepts (med 3 mm).
+- **b = (cx + k*tE) + i(cy + k*tN) - a*complex(u0c, -v0c)** — the minus-v form. The session-3 script used complex(u0c, +v0c) and reported a relative error of 1.3e-4, which looked fine only because |b| ~ 6.6e6 m absorbs the 860 m disagreement. Cross-checked both ways: the solved b matches zc - a*complex(u0,-v0) to the rounding limit, and re-fitting propose._anchor_pairs' 5 pairs recovers that anchor's a and b exactly (a = (m_per_px/ground_scale)*e^(i*rot), b = zc - a*complex(u0, -v0)).
+fit/inkfit.py's placement_of and map_pairs must use the minus-v w0 and the flipped-v d; the rest of the design stands as recorded in the task file.
 
 ## Project-wide driver notes (newest)
 
