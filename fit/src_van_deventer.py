@@ -163,7 +163,8 @@ TOWNS = {
     "Gouda": dict(region="netherlands", cat="Map of Gouda by Jacob van Deventer", qid="Q84125", done=True),
     "Zwolle": dict(region="netherlands", cat="Map of Zwolle by Jacob van Deventer", qid="Q793", done=True),
     "Venlo": dict(region="netherlands", cat="Map of Venlo by Jacob van Deventer", qid="Q9777", done=True),
-    # -- Belgium (22 categories: 20 to stage + the 2 done). QIDs hand-verified 2026-10-11 in one --verify
+    # -- Belgium (23 categories: 21 to stage + the 2 done; Le Rœulx joined from the prep's France list in iter 49 -
+    # its verified item sits in Hainaut, Belgium). QIDs hand-verified 2026-10-11 in one --verify
     # discovery run (transcript /tmp/vd_verify_be_iter45.txt): every label matches the town (Leuze's
     # verified item carries the official disambiguated name 'Leuze-en-Hainaut'), every P373 is its exact
     # recorded string, every P625 sits at the town; the site point is the P625 rounded (the hand check
@@ -244,6 +245,15 @@ TOWNS = {
                      qid="Q667790", label="Lessines", lon=3.83, lat=50.7117, p625=(3.83, 50.7117),
                      place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Lessines",
                      p373="Lessines", file="File:Lessines - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
+    "Le Rœulx": dict(region="belgium", cat="Map of Le Rœulx by Jacob van Deventer",
+                     qid="Q668861", label="Le Rœulx", lon=4.1116, lat=50.5036, p625=(4.1, 50.5),
+                     place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Le_R%C5%93ulx",
+                     p373="Le Roeulx"),  # discovered in the FR batch (iter 49) and moved here: the item is in
+    # Hainaut, Belgium (the enwiki lead: "a city and municipality of Wallonia ... in the province of Hainaut,
+    # Belgium") - the prep's france region guess was wrong. The recorded item's P625 (4.1, 50.5) is a rounded
+    # value; the site point is the precise P625 of its subdivision item Q21764574 (4.11163, 50.50365) - the town
+    # centre. P373 is 'Le Roeulx' without the diaeresis. The 1545 BNE atlas plate is the expected pick
+    # (--files pending, lead doc)
     "Leuze": dict(region="belgium", cat="Map of Leuze by Jacob van Deventer",
                   qid="Q667862", label="Leuze-en-Hainaut", lon=3.6167, lat=50.6, p625=(3.616667, 50.6),
                   place="Arrondissement of Tournai", wikipedia="https://en.wikipedia.org/wiki/Leuze-en-Hainaut",
@@ -304,36 +314,109 @@ TOWNS = {
                        # copy (986x1000, uploaded 2005) and the Version Brussels copy (948x1070, uploaded 2012)
     "Damme": dict(region="belgium", cat="Map of Damme by Jacob van Deventer", qid="Q323408", done=True),
     "Binche": dict(region="belgium", cat="Map of Binche by Jacob van Deventer", qid="Q95121", done=True),
-    # -- France (24 categories: 23 to stage + the 1 done; Beaumont's country settles at verification: the
-    # Hainaut candidate (Belgium) vs the northern-France candidates decide it, the Barnard-Castle-style trap) --
-    "Aire-sur-la-Lys": dict(region="france", cat="Map of Aire-sur-la-Lys by Jacob van Deventer"),
-    "Arras": dict(region="france", cat="Map of Arras by Jacob van Deventer"),
-    "Avesnes-sur-Helpe": dict(region="france", cat="Map of Avesnes-sur-Helpe by Jacob van Deventer"),
-    "Bapaume": dict(region="france", cat="Map of Bapaume by Jacob van Deventer"),
-    "Bavay": dict(region="france", cat="Map of Bavay by Jacob van Deventer"),
-    "Beaumont": dict(region="france", cat="Map of Beaumont by Jacob van Deventer"),
-    "Bouchain": dict(region="france", cat="Map of Bouchain by Jacob van Deventer"),
-    "Béthune": dict(region="france", cat="Map of Béthune by Jacob van Deventer"),
-    "Cambrai": dict(region="france", cat="Map of Cambrai by Jacob van Deventer"),
+    # -- France (23 categories: 22 to stage + the 1 done; Le Rœulx moved to the Belgium section above: its verified
+    # item sits in Hainaut, Belgium - the prep's france guess was wrong, iter 49). QIDs hand-verified 2026-10-11
+    # (iter 49) in one --verify discovery run (transcript /tmp/vd_verify_fr_iter49.txt; the Luxembourg City and
+    # Beaumont follow-up: /tmp/vd_lu_iter49.txt): every label matches the town, every P373 is its exact recorded
+    # string, every P625 sits at the town (the site point is the P625 rounded - the BE convention; an
+    # old-town-centre offset is the watch item once the drawings are eye-checked), every item has an enwiki link.
+    # None of the 23 QIDs is in the built catalog (the 12575-site check of 2026-10-11): all get new entries.
+    # Beaumont's QID is PENDING the atlas-plate settlement (see its note). file= for the 22 is still pending the
+    # --files inventory (the 1545 BNE atlas plates are the expected picks, lead doc). --
+    "Aire-sur-la-Lys": dict(region="france", cat="Map of Aire-sur-la-Lys by Jacob van Deventer",
+                            qid="Q259903", label="Aire-sur-la-Lys", lon=2.3967, lat=50.6386, p625=(2.396667, 50.638611),
+                            place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Aire-sur-la-Lys",
+                            p373="Aire-sur-la-Lys"),
+    "Arras": dict(region="france", cat="Map of Arras by Jacob van Deventer",
+                  qid="Q131329", label="Arras", lon=2.78, lat=50.2892, p625=(2.78, 50.289167),
+                  place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Arras", p373="Arras"),
+    "Avesnes-sur-Helpe": dict(region="france", cat="Map of Avesnes-sur-Helpe by Jacob van Deventer",
+                              qid="Q217178", label="Avesnes-sur-Helpe", lon=3.9327, lat=50.1224, p625=(3.932676, 50.122394),
+                              place="Nord", wikipedia="https://en.wikipedia.org/wiki/Avesnes-sur-Helpe",
+                              p373="Avesnes-sur-Helpe"),
+    "Bapaume": dict(region="france", cat="Map of Bapaume by Jacob van Deventer",
+                    qid="Q317235", label="Bapaume", lon=2.8511, lat=50.1036, p625=(2.851111, 50.103611),
+                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Bapaume", p373="Bapaume"),
+    "Bavay": dict(region="france", cat="Map of Bavay by Jacob van Deventer",
+                  qid="Q477176", label="Bavay", lon=3.7981, lat=50.2975, p625=(3.798056, 50.2975),
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bavay", p373="Bavay"),
+    "Beaumont": dict(region="france", cat="Map of Beaumont by Jacob van Deventer",
+                     note="QID pending the atlas-plate settlement (the --files inventory + the eye check of the "
+                          "drawing, lead doc): the only plausible search candidate is Q95100, the Hainaut "
+                          "(Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; enwiki 'Beaumont, "
+                          "Belgium') - the northern-France Beaumont (Nord) is ABSENT from the en search top 20, so "
+                          "a follow-up at limit 50 or the fr search is needed if it wins; if the Hainaut item "
+                          "wins, the region flips france -> belgium"),
+    "Bouchain": dict(region="france", cat="Map of Bouchain by Jacob van Deventer",
+                     qid="Q632348", label="Bouchain", lon=3.3169, lat=50.2842, p625=(3.316944, 50.284167),
+                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bouchain", p373="Bouchain"),
+    "Béthune": dict(region="france", cat="Map of Béthune by Jacob van Deventer",
+                    qid="Q207145", label="Béthune", lon=2.6393, lat=50.531, p625=(2.639326, 50.53095),
+                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/B%C3%A9thune", p373="Béthune"),
+    "Cambrai": dict(region="france", cat="Map of Cambrai by Jacob van Deventer",
+                    qid="Q181285", label="Cambrai", lon=3.2347, lat=50.1758, p625=(3.234722, 50.175833),
+                    place="Nord", wikipedia="https://en.wikipedia.org/wiki/Cambrai", p373="Cambrai"),
     "Condé-sur-l'Escaut": dict(region="france", cat="Map of Condé-sur-l'Escaut by Jacob van Deventer",
-                               search="Condé-sur-l'Escaut"),
-    "Douai": dict(region="france", cat="Map of Douai by Jacob van Deventer"),
-    "Gravelines": dict(region="france", cat="Map of Gravelines by Jacob van Deventer"),
-    "Hesdin": dict(region="france", cat="Map of Hesdin by Jacob van Deventer"),
-    "Landrecies": dict(region="france", cat="Map of Landrecies by Jacob van Deventer"),
-    "Le Cateau-Cambrésis": dict(region="france", cat="Map of Le Cateau-Cambrésis by Jacob van Deventer"),
-    "Le Quesnoy": dict(region="france", cat="Map of Le Quesnoy by Jacob van Deventer"),
-    "Le Rœulx": dict(region="france", cat="Map of Le Rœulx by Jacob van Deventer", search="Le Rœulx"),
-    "Lille": dict(region="france", cat="Map of Lille by Jacob van Deventer"),
-    "Maubeuge": dict(region="france", cat="Map of Maubeuge by Jacob van Deventer"),
-    "Saint-Omer": dict(region="france", cat="Map of Saint-Omer by Jacob van Deventer"),
-    "Thérouanne": dict(region="france", cat="Map of Thérouanne by Jacob van Deventer"),
-    "Valenciennes": dict(region="france", cat="Map of Valenciennes by Jacob van Deventer"),
-    "Vieil-Hesdin": dict(region="france", cat="Map of Vieil-Hesdin by Jacob van Deventer"),
+                               search="Condé-sur-l'Escaut",
+                               qid="Q494533", label="Condé-sur-l'Escaut", lon=3.5906, lat=50.4492,
+                               p625=(3.590556, 50.449167),
+                               place="Nord", wikipedia="https://en.wikipedia.org/wiki/Cond%C3%A9-sur-l%27Escaut",
+                               p373="Condé-sur-l'Escaut"),
+    "Douai": dict(region="france", cat="Map of Douai by Jacob van Deventer",
+                  qid="Q193826", label="Douai", lon=3.0792, lat=50.3708, p625=(3.079167, 50.370833),
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Douai", p373="Douai"),  # P131 also carries
+    # the historical 'County of Flanders' (the c. 1550 context of the drawing); the row's place is the modern
+    # department (lead doc)
+    "Gravelines": dict(region="france", cat="Map of Gravelines by Jacob van Deventer",
+                       qid="Q323399", label="Gravelines", lon=2.1275, lat=50.9864, p625=(2.1275, 50.986389),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Gravelines", p373="Gravelines"),
+    "Hesdin": dict(region="france", cat="Map of Hesdin by Jacob van Deventer",
+                   qid="Q467366", label="Hesdin", lon=2.0367, lat=50.3742, p625=(2.036667, 50.374167),
+                   place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Hesdin", p373="Hesdin"),
+    "Landrecies": dict(region="france", cat="Map of Landrecies by Jacob van Deventer",
+                       qid="Q632808", label="Landrecies", lon=3.69, lat=50.1256, p625=(3.69, 50.125556),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Landrecies", p373="Landrecies"),
+    "Le Cateau-Cambrésis": dict(region="france", cat="Map of Le Cateau-Cambrésis by Jacob van Deventer",
+                                qid="Q329103", label="Le Cateau-Cambrésis", lon=3.5411, lat=50.1053,
+                                p625=(3.541111, 50.105278),
+                                place="Nord", wikipedia="https://en.wikipedia.org/wiki/Le_Cateau-Cambr%C3%A9sis",
+                                p373="Le Cateau-Cambrésis"),
+    "Le Quesnoy": dict(region="france", cat="Map of Le Quesnoy by Jacob van Deventer",
+                       qid="Q180067", label="Le Quesnoy", lon=3.6375, lat=50.2489, p625=(3.6375, 50.248889),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Le_Quesnoy", p373="Le Quesnoy"),
+    "Lille": dict(region="france", cat="Map of Lille by Jacob van Deventer",
+                  qid="Q648", label="Lille", lon=3.0575, lat=50.6319, p625=(3.0575, 50.631944),
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Lille", p373="Lille"),
+    "Maubeuge": dict(region="france", cat="Map of Maubeuge by Jacob van Deventer",
+                     qid="Q138648", label="Maubeuge", lon=3.9725, lat=50.2769, p625=(3.9725, 50.276944),
+                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Maubeuge", p373="Maubeuge"),
+    "Saint-Omer": dict(region="france", cat="Map of Saint-Omer by Jacob van Deventer",
+                       qid="Q208793", label="Saint-Omer", lon=2.2608, lat=50.7483, p625=(2.260833, 50.748333),
+                       place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Saint-Omer",
+                       p373="Saint-Omer"),
+    "Thérouanne": dict(region="france", cat="Map of Thérouanne by Jacob van Deventer",
+                       qid="Q261399", label="Thérouanne", lon=2.2589, lat=50.6367, p625=(2.258889, 50.636667),
+                       place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Th%C3%A9rouanne",
+                       p373="Thérouanne"),
+    "Valenciennes": dict(region="france", cat="Map of Valenciennes by Jacob van Deventer",
+                         qid="Q163795", label="Valenciennes", lon=3.5233, lat=50.3581, p625=(3.523333, 50.358056),
+                         place="Nord", wikipedia="https://en.wikipedia.org/wiki/Valenciennes", p373="Valenciennes"),
+    "Vieil-Hesdin": dict(region="france", cat="Map of Vieil-Hesdin by Jacob van Deventer",
+                         qid="Q1022768", label="Vieil-Hesdin", lon=2.0989, lat=50.3575, p625=(2.098889, 50.3575),
+                         place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Vieil-Hesdin",
+                         p373="Vieil-Hesdin"),
     "Bergues": dict(region="france", cat="Map of Bergues by Jacob van Deventer", qid="Q244934", done=True),
     # -- Luxembourg (1 category; the city) --
     "Luxembourg City": dict(region="luxembourg", cat="Maps of Luxembourg City Jacob van Deventer",
-                            search="Luxembourg (city)"),
+                            search="Luxembourg City",
+                            qid="Q1842", label="Luxembourg", lon=6.13, lat=49.6114, p625=(6.13, 49.611389),
+                            place="Canton of Luxembourg", wikipedia="https://en.wikipedia.org/wiki/Luxembourg_City",
+                            p373="Luxembourg City"),  # the city's item is Q1842 (the hand-over's Q1564 now holds
+    # 'Borgfelde', Hamburg - that id was merged away; the search 'Luxembourg (city)' returned EMPTY, the
+    # parenthesized-label quirk, so search="Luxembourg City" - it hits Q1842 first; transcript
+    # /tmp/vd_lu_iter49.txt). region "luxembourg" is a NEW value build_catalog's REGION_NAME has no key for (the
+    # display falls back to the raw value - flagged in the lead doc). Q1842 is not in the built catalog.
+    # file= pending the --files run (the KBR / National Library scan expected, lead doc)
 }
 
 # The verified category chains, per town: the parents of the town file category up to the town's P373 category
