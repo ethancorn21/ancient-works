@@ -113,3 +113,24 @@ fails on both clauses. Unexplained transient: one throwaway-script label batch c
 labels returned) vs `languages` (plural) filters - not the cause; not reproduced since. Next: --golden
 (first-time write of tests/golden/src_artists_sample.json), then tests/test_src_artists.py (prep §4 +
 boxes 2-4), then the lead-doc box-1 final read.
+
+### 2026-10-11 213 DECISION: parent done-claim - all six boxes verified fresh, 213 set done (R6 note to 211; four PITFALLS entries filed)
+With both subtasks done (213a: the civitates hand list + lead-doc books section; 213b: the seven
+book-town QIDs, --golden, tests/test_src_artists.py, lead-doc final), this session re-verified the
+parent's boxes independently: --check exit 0, 2/2 PASS caption_coords; --golden rewrote
+tests/golden/src_artists_sample.json with a ZERO diff (the golden pins the staged rows exactly);
+.venv pytest 33/33 green (test_src_artists.py: the join, the table, the offline evidence check with
+the Cervia negative control, the golden compare, under the socket-blocking fixture). Box 4 (the
+count, checked last): Imola (the anchor, Leonardo 1502 RCIN 912284) + Venice (Barbari 1500, Museo
+Correr) = two sources staged, 2 rows per staging file, and the lead doc accounts for every unstaged
+source (Civitates worked per-book, its rows coming via 211's index rebuild once 217 lands; the other
+five IA books present and untriaged - 216/217 follow-on). Box 5: the four civitates per-book paths
+written and declared in the parent's Touches line; git diff main...HEAD over index.jsonl /
+validation.json / pipeline/ / fit/evidence.py is empty (no shared-module writes). Box 1:
+docs/lead_artists.md read in full - complete for all four sources. Ticked boxes 1, 4, 5, 6 (4 last,
+per the hand-over invariant) and set Status: done. Also: the R6 note is written in 211's ##
+Hand-over (merge the *_artists* staging files; the civitates index rows wait on 217 - zero rows from
+the book before 217 is not a 211 failure); four PITFALLS entries filed (LLM ports 8080-8082 vs
+books.py's stale 18080/18081; civitates hOCR index misaligned 0-2 leaves; A/F plan labels unreliable
+in both directions; long background data jobs outlive sessions - the driver snapshot can commit a
+mid-growth file).
