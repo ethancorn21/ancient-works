@@ -10,14 +10,21 @@ uses only code that already exists:
            the batch's item upsert replaces a candidate's entry whole, so a blind re-run would swap
            the rich entries (gate scores, pairs, the why) for "no model answer" stubs.
   2. sync  pipeline/plan_fit.py build for every one of the site's fit documents (the overlay on the
-           map); a document whose overlay is already current is left as is.
+           map); a document whose overlay is already current is left as is. Except the documents the
+           line's fabrication check refuses first: the batch model's documented fabrication class
+           (internally perfect regular patterns on the fit sheet's grid, plan_fit.fabrication_pattern)
+           passes the gate by construction, because the gate scores the fit against the same points
+           the model invented (docs/gate.md section 7). A pattern document is never built: it is
+           recorded in the site's review item with the reason and its fit document is deleted, so no
+           future run rebuilds the pattern and a later batch run re-fits the picture (the human's
+           drag on the item is the last word).
   3. entry pipeline/build_site.py set_drawings: the site's drawing count in web/data/sites.json
            (the page colours its square by it).
   4. review fit/review.py export (scoped to this site: it publishes web/data/review.json over the
            whole queue but records resolution only into this site's item file).
 
-Prints what it did per picture: synced to the map, sent to the review queue (with the why), or
-skipped with the reason. --root redirects the DATA paths (the test runs it on a copy of one
+Prints what it did per picture: synced to the map, sent to the review queue (with the why, including
+the line check's reason for a fabricated pattern), or skipped with the reason. --root redirects the DATA paths (the test runs it on a copy of one
 site's files; the code stays this checkout's). Exit codes: 2 = the site is not built,
 1 = a document failed to sync, 0 = done.
 """
@@ -93,11 +100,49 @@ def _fit(root, sid, model):
     return docs, item_path, item, item_cands
 
 
+def _pattern_entry(doc, pattern, root):
+    """The review-item candidate for a fabrication-pattern document (the data/review/README.md
+    format): the picture, the anchors the document carried, and the why the line records -
+    the gate's score measures the pattern's internal consistency, never the anchors' truth."""
+    plan = doc["plan"]
+    score = doc.get("score")
+    why = "line check: " + pattern
+    if score is not None:
+        why += "; the gate's %s m measures internal consistency of the anchors, not their truth" % score
+    entry = {
+        "plan": plan,
+        "title": doc.get("title") or plan,
+        "url": doc.get("url") or ("books/%s/%s" % (doc["ia"], doc["file"]) if doc.get("ia") else None),
+        "pairs": doc.get("pairs") or [],
+        "why": why,
+    }
+    ev = review.candidate_evidence(plan, str(root))
+    if ev is not None:
+        entry["evidence"] = ev
+    if score is not None:
+        entry["gate_score"] = score
+    return entry
+
+
 def _sync(root, sid, docs):
-    """Build the map overlay for each of the site's fit documents. Returns the number that failed."""
+    """Build the map overlay for each of the site's fit documents, except the ones the line's
+    fabrication check refuses (plan_fit.fabrication_pattern, run on the document's stored pairs
+    before any download). A pattern document is sent to the site's review item and its fit
+    document deleted: the item is the record the human works from, and deleting the document
+    keeps no overlay (plan_fit.prune drops what was already built) and makes a later batch run
+    re-fit the picture instead of rebuilding the pattern. Returns (failed, sent); sent maps
+    plan -> the pattern reason."""
     failed = 0
+    sent = {}
     for plan, doc in sorted(docs.items()):
         title = doc.get("title") or plan
+        pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
+        if pattern:
+            review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
+            batch_us._doc_path(str(root), sid, plan).unlink()
+            sent[plan] = pattern
+            print(f"sync {title}: sent to the review queue (line check: {pattern})")
+            continue
         if plan_fit.is_done(doc, f"{sid}.{plan}", root):
             print(f"sync {title}: skipped: overlay already current (at {doc.get('at')})")
             continue
@@ -109,7 +154,9 @@ def _sync(root, sid, docs):
         else:
             sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
             print(f"sync {title}: synced to the map (plan_{plan}.webp, {len(doc.get('pairs') or [])} pairs{sc})")
-    return failed
+    if sent:
+        plan_fit.prune(root, sid)  # drop the overlays the deleted pattern documents left behind
+    return failed, sent
 
 
 def _entry(root, sid, before):
@@ -133,7 +180,7 @@ def _review(root, sid, item_path, item, resolved):
           f"page now has {n_open} open of {n_total} items")
 
 
-def _summary(root, sid, docs, item, item_cands, resolved):
+def _summary(root, sid, docs, item, item_cands, resolved, sent):
     """One line per candidate picture of the site: where it ended up."""
     rows = batch_us.candidates(sid, batch_us._plans_rows(str(root)))
     if not rows and item is None:
@@ -141,7 +188,11 @@ def _summary(root, sid, docs, item, item_cands, resolved):
         return
     for row in sorted(rows, key=lambda r: r["id"]):
         pid, title = row["id"], row.get("title") or row.get("label") or pid
-        if pid in docs:
+        if pid in sent:
+            doc = docs.get(pid) or {}
+            sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
+            print(f"  {title} ({pid}): sent to the review queue (line check: {sent[pid]}{sc})")
+        elif pid in docs:
             doc = docs[pid]
             sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
             print(f"  {title} ({pid}): synced to the map{sc}")
@@ -182,11 +233,15 @@ def main(argv=None):
     docs, item_path, item, item_cands = _fit(a.root, a.site, model)
     before = next(s.get("drawings") for s in _sites_list(
         json.loads((Path(a.root) / "web" / "data" / "sites.json").read_text())) if s["id"] == a.site)
-    failed = _sync(a.root, a.site, docs)
+    failed, sent = _sync(a.root, a.site, docs)
     _entry(a.root, a.site, before)
+    # the sync may have added candidates to the item (a pattern document): re-read it, so the
+    # published count, the derived resolution and the per-picture report all see the new entries
+    item_path, item = review._find_item(a.root, a.site)
+    item_cands = {c.get("plan"): c for c in (item.get("candidates") or [])} if item else {}
     resolved = review.resolved_doc(item, str(a.root)) if item else None
     _review(a.root, a.site, item_path, item, resolved)
-    _summary(a.root, a.site, docs, item, item_cands, resolved)
+    _summary(a.root, a.site, docs, item, item_cands, resolved, sent)
     if failed:
         print(f"done with {failed} document(s) that failed to sync")
         return 1
