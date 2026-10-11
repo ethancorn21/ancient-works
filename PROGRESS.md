@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** Recon done (no code in the repo yet; everything below is findings + a half-built experiment).
+- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** All six image-structure metric experiments (spikes 1-6) FAILED to separate the four wrong-fit
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -16,26 +16,42 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-10 001 DECISION: held-out selection and test strategy
-Held-out = 8 of the 21 fits by numpy.random.default_rng(20260101).choice over sorted filenames (to be written in
-docs/gate.md before the run); the other 13 are the dev set for threshold selection only. Test re-run strategy:
-commit per-fit input caches as data/gate/*.npz (DEM, map ink, plate ink, wall template, pairs) so the test is
-offline and deterministic; the gate program itself fetches DEMs at runtime when its cache is absent. .npy is
-gitignored globally but .npz is not (only data/autofit/*.npz is).
+### 2026-10-10 001 DECISION: held-out set moves to seed 20260108 - seeds 20260101-0107 all overlap the design set
+The hand-over planned `default_rng(20260101).choice` over "21 sorted docs" but there are 20 docs (hand-over
+miscounted: 19 sites, old-sarum has 2). Seeds 20260101-20260107 all place at least one of the four design fits
+(bergues, castle-rising, maiden-castle, serpent-mound - the ones spikes 1-6 inspected) in the held-out set.
+Procedure now fixed and to be recorded in docs/gate.md: try seeds 20260101, 20260102, ... in ascending order;
+the first seed whose rng.choice(20, 8, replace=False) over the sorted doc names is disjoint from the design set
+wins. That is 20260108: held-out = arbor-low, avebury, aztalan, badbury, cadbury, cahokia, camp-d-attila,
+old-sarum (earthworkenglan01allcgoog_n0142_1); dev = the other 12 (includes all 4 design fits). Held-out is
+not looked at until the one-shot run after docs/gate.md is committed.
 
-### 2026-10-10 001 BLOCKER: none yet - design iteration, not a repeated failure
-Attempts so far are distinct metric experiments (spikes 1-3 failed, spike 4 pending), each with a different cause;
-not a stuck blocker. If spike 4 (old-map correlation) also fails to separate the four wrong-fit types, next
-candidate: placement-centre-vs-catalog-position + plate-extent-vs-site-box checks for the cross-site type.
+### 2026-10-10 001 DECISION: pair-consistency residuals alone cannot be the gate - dev true fits are sloppy
+Solved-transform per-pair residuals on the 12 DEV fits (held-out untouched): medians 3.7-53.1 m, maxes
+4.6-86.7 m (old-sarum c_8192: 53.1/86.7; hembury 40.3/53.3; little-solsbury 46.8/65.0; bergues 29.9/51.7;
+castle-rising 12.0/19.0; mayburgh/mound-bottom/serpent-mound/whitley tight, < 11 m). A 60 m move (60 m per
+point) and cross-site (km-scale) are caught by any threshold above the dev max, but 10 deg / x1.15 add only
+~0.1745 r / 0.15 r per point (~9/15 m on a 100 m-radius site) - inside the dev true-fit spread. So residuals
+are the 60 m / cross-site layer of the conjunction; rotation/scale need the image conjunct (spike 6 dir_frac
+is the candidate, run in progress).
 
-### 2026-10-10 001 NOTE: environment
-.venv created in this checkout (numpy scipy pillow tifffile pyproj rasterio requests scikit-image). requirements.txt
-has no hashes (driver baseline is empty for 001) and lacks scikit-image, which pipeline/autowalls.py needs; if the
-gate uses autowalls.extract, requirements.txt (root, outside this task's Touches) must gain skimage and be added
-to the task's Touches line first.
-2 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
-
-- 000 plan (2 entries, older ones; the task is still open)
+### 2026-10-10 001 DECISION: all six image-structure metrics fail (spikes 1-6) - the gate pivots to pure geometry
+Spike 4 (blurred plate-ink vs blurred map-ink Pearson): castle-rising true +0.386 < null_max +0.424; bergues true
++0.052 < null +0.484; maiden-castle true -0.048 < null +0.411 (mirrored +0.379); serpent-mound true -0.111 <
+null +0.645. Cross-site searches scored +0.653 and +0.972 - dense maps correlate with anything. FAIL.
+Spike 5 (autowalls wall points within 10 m of density-filtered map strokes): no separation at any site
+(castle-rising true 0.718 vs moved 0.720 / x0.85 0.841; bergues off-grid; mirrored is the only case killed). FAIL.
+Spike 6 (same but requiring the wall normal to align with the stroke across-direction, |cos| >= 0.7, 15 m
+window): castle-rising true 0.420 vs x0.85 0.450 (wrong HIGHER); bergues true 0.056 (only 23% of its wall points
+in-box) with all cases 0.03-0.06; maiden-castle true 0.259 vs x0.85 0.331; serpent-mound true 0.252 vs x1.15
+0.338. Cross-site: castle plate on bergues map 0.457 (> bergues's own true). corr_ws returned n/a everywhere.
+FAIL. Combined with spikes 1-3 (DEM ridge, DEM wall contrast, ink proximity - see archive), no image statistic
+separates 60 m / 10 deg / 15% / cross-site on dense old maps, because those shifts (<= 0.1745 r, 0.15 r, 60 m)
+are smaller than the map's structural wavelength. The gate will therefore be geometric: pair-residual magnitude
+catches 60 m move (median exactly 60 m vs dev max 53.1 m) and cross-site (km-scale), and a residual-vs-radius
+pattern (10 deg / x1.15 add 0.1745 r / 0.15 r per point, a radial gradient a true sloppy fit does not have)
+must catch rotation/scale. Spike 7 (next session): measure those statistics on the 12 dev docs and the four
+wrong types to set thresholds. The gate stays image-free -> no skimage, no requirements.txt change needed.
 
 ## Project-wide driver notes (newest)
 
