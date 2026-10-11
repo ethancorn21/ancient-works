@@ -26,6 +26,12 @@ WATER = np.array([196, 222, 220], float)
 CONTOUR = np.array([132, 98, 80], float)
 
 
+def _root(root=None):
+    """The project root for this call: an explicit root (a one-site run against a copy of the
+    site's files, tools/site_done.py) or this checkout (the module constants keep working)."""
+    return os.path.abspath(str(root)) if root else ROOT
+
+
 def duotone(gray):
     t = gray.astype(float) / 255.0
     lo = SEPIA[0] + (SEPIA[1] - SEPIA[0]) * np.clip(t * 2, 0, 1)[..., None]
@@ -170,29 +176,29 @@ def entry_of(site, bbox):
 DRAWING = ("plan", "drawing", "view")
 
 
-def drawings(sid, has_plate=False):
+def drawings(sid, has_plate=False, root=None):
     """Fitted old drawings of the structure itself (plate, plan, drawing, bird's-eye view). Ethan 2026-10-10: the red
     square marks a flagship site, and a flagship must have one; plain survey sheets (OS, Cassini) do not count."""
-    p = os.path.join(WEB, "sites", sid, "depictions.json")
+    p = os.path.join(_root(root), "web", "data", "sites", sid, "depictions.json")
     n = sum(1 for d in json.load(open(p))["depictions"] if d.get("kind") in DRAWING) if os.path.exists(p) else 0
     return n + int(bool(has_plate))
 
 
-def set_drawings(sid):
+def set_drawings(sid, root=None):
     """Refresh one site's count in sites.json (plan_fit.py calls this after a fit is saved or deleted)."""
-    index_path = os.path.join(WEB, "sites.json")
+    index_path = os.path.join(_root(root), "web", "data", "sites.json")
     with open(index_path + ".lock", "w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         index = json.load(open(index_path))
         for s in index["sites"]:
             if s["id"] == sid:
-                s["drawings"] = drawings(sid, s.get("plate"))
+                s["drawings"] = drawings(sid, s.get("plate"), root)
         aw.save_json(index_path, index)
 
 
-def write_entry(entry):
-    entry["drawings"] = drawings(entry["id"], entry.get("plate"))
-    index_path = os.path.join(WEB, "sites.json")
+def write_entry(entry, root=None):
+    entry["drawings"] = drawings(entry["id"], entry.get("plate"), root)
+    index_path = os.path.join(_root(root), "web", "data", "sites.json")
     # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
     with open(index_path + ".lock", "w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)

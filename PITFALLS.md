@@ -600,7 +600,9 @@ Why: the documented format is "viewbox=min_lon,max_lat,max_lon,min_lat" (left,to
       f"{min_lon},{max_lat},{max_lon},{min_lat}". (Burned a 213 session on this, 2026-10-11.)
 
 #### The Wikimedia APIs 429 after ~12-20 back-to-back calls even at 1-2 s pacing; commons.get's Retry-After handling absorbs it
-Where: `pipeline/commons.py` (`get`, `PACE_S = 1.0`); every live-fetching module (fit/evidence.py record,
+Where: `pipeline/commons.py` (`get`, `PACE_S = 1.0`); `pipeline/plan_fit.py` (`_fetch`, same pacing -
+      added 2026-10-11 by task 300 after its bare-urllib `load_picture` was the one unpaced live fetcher);
+      every live-fetching module (fit/evidence.py record,
       fit/src_van_deventer.py --list/--verify/--files/--chain)
 Symptom: HTTP 429 from commons.wikimedia.org or wikidata.org `w/api.php` after a dozen or so consecutive
       calls, even when paced 1-2 s apart
