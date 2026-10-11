@@ -39,15 +39,14 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 80 (2026-10-11, agent a) - THIRTEENTH early bring-back; main UNMOVED since iter 75
-(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/93, the +3 over
-iter 79 are driver bookkeeping on my branch only: b87cb73 (my iter-79 commit), 59eb7d8,
-78f137a - zero tree change since iter 79's stop). All 206-owned work re-verified green and
-byte-identical to iters 66-79 (all 8 md5s stable); check + 4 tests + full suite re-run this
-session (gate not re-run: its two inputs - the platefit doc and tools/gate_heldout.py - are
-md5-identical to iter 79 where it passed; see the battery below). The 4 suite reds unchanged
-in cause (211 x3, 218 x1; gate still "found 22", store re-counted 116 docs / 94 auto /
-22 non-auto). Deps 211+218 still open -> Status stays open. No code or data change this
+**Iteration 81 (2026-10-11, agent a) - FOURTEENTH early bring-back; main UNMOVED since iter 75
+(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/96, the +3 over
+iter 80 are driver bookkeeping on my branch only: 78f137a, 6cf73b3 (my iter-80 commit),
+59eb7d8-era entries - zero tree change since iter 80's stop). Full battery re-run this
+session INCLUDING --gate (accept, stats identical to the committed doc). All 206-owned work
+green and byte-identical to iters 66-80 (all 8 md5s stable). The 4 suite reds unchanged in
+cause (211 x3, 218 x1; store re-counted 116 docs / 94 auto / 22 non-auto, gate still
+"found 22"). Deps 211+218 still open -> Status stays open. No code or data change this
 session (none available: the only remaining work is owned by 211/218). Re-run the same
 battery at the next bring-back; when 211+218 have merged, expect 0 reds (or reds no longer
 touching this task's files) and set done.**
@@ -55,20 +54,19 @@ touching this task's files) and set done.**
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
   (PASS category shotwick-castle-q7502621|File:212 of 'The Castles of England...').
-- `fit/src_mackenzie.py --gate`: not re-run this session; last run (iter 79) exit 0,
+- `fit/src_mackenzie.py --gate`: exit 0 this session,
   `gate: accept {'n': 4, 'med': 15.810503946029705,
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc,
   rot -0.20 deg, residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc
-  and the golden; its inputs (doc md5 9a1924cf..., tools/gate_heldout.py untouched since main
-  head cd104ca) are byte-identical to that passing run, so the pass is unchanged.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.56 s, socket-boom fixture, no network).
+  and the golden (also iters 78-80).
+- `tests/test_src_mackenzie.py`: 4/4 green (1.59 s, socket-boom fixture, no network).
 - All 8 committed artifacts byte-identical to iters 66-79 (re-checked this session):
   src_mackenzie 77a47defd606a8599e3af9e28b74894f, files_mackenzie f637c4bebbd98ebb059652936e06646d,
   classified_mackenzie 2ed56b79bbd356aced13230978e8536f, extras_mackenzie
   a7060e1292d2607c657a43200dd20b94, shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2,
   lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4, test_src_mackenzie
   ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 60 passed, 4 failed (62.80 s) - the same 4 as iters 74-79, causes re-verified live:
+- Full suite: 60 passed, 4 failed (63.40 s) - the same 4 as iters 74-80, causes re-verified live:
   1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
      `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
   2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not
@@ -114,7 +112,7 @@ from iter 76):
   byteStart, byteEnd] text offsets, NOT leaves; pagenums maps leafNum->pageNumber as strings).
 
 DEPS at stop (all already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
-stand-ins per the team rule):
+stand-ins per the team rule; re-checked this session, both still `open`):
 - `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210; agent c
   on 203b/207/302a, 207c blocked on the human's Roy 1793 copy) - owns 3 of the 4 reds
   (batch_eu x2 + serve): its merge build adds the shotwick doc to the batch union and builds
