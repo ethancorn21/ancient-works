@@ -334,6 +334,18 @@ Why: `upsert_item`'s documented merge is "a same-plan entry replaces the existin
       file, label, book, cite, view are all row columns) - never from an item's entry, which
       any later upsert may have re-shaped.
 
+#### `batch_us.write_report(path=None)` silently falls back to `docs/batch_us.md` - a reuser must pin its own default before calling
+Where: `fit/batch_us.py` (`write_report`: `out = Path(root) / (path or "docs/batch_us.md")`),
+      `fit/batch_eu.py` (`write_report`, which pins `path or "docs/batch_eu.md"`)
+Symptom: a second batch passing `path=None` writes (and in a hard-linked test tree, overwrites
+      in place) the US batch's report file instead of its own - the content says "The batch, EU
+      (203b)" but the path says batch_us.md.
+Why: the writer's default path is the US report's name, and 203b's thin wrapper initially
+      forwarded `None` straight through (caught in the first dry run). Any module that reuses
+      `batch_us.write_report` for a different file must supply a non-None default itself. Also:
+      its `at` parameter is vestigial - the body never uses it, so the report's determinism does
+      not depend on it.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
