@@ -13,7 +13,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## fit/
 - `fit/batch_eu.py` (203 lines) - The batch, EU (task 203b, GOAL.md points 1-2): every built site other than the US goes through the same fitting loop as 203a's US batch (candidates -> fitkit sheet -> local mode... Exports: eu_sites L34-37, run_eu L40-42, union_check L45-124, union_section L127-157, write_report L160-168, main L171-203.
-- `fit/batch_us.py` (762 lines) - The batch, US (task 203a, GOAL.md points 1-2): the 90 built US sites go through the fitting loop. Exports: us_sites L78-80, candidates L89-91, pre_docs L98-108, is_pre_fit L111-121, gate_placement L124-152, write_doc L183-209, write_item L243-247, run_sites L250-323, classify L326-347, write_report L363-424, ... (+4 more).
+- `fit/batch_us.py` (766 lines) - The batch, US (task 203a, GOAL.md points 1-2): the 90 built US sites go through the fitting loop. Exports: us_sites L80-82, candidates L91-93, pre_docs L100-110, is_pre_fit L113-123, gate_placement L126-154, write_doc L185-212, write_item L246-250, run_sites L253-326, classify L329-350, write_report L366-427, ... (+4 more).
 - `fit/evidence.py` (850 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L67-70, now L73-74, load_jsonl L77-78, set_field L81-87, rewrite L90-98, catalog_map L101-112, source_tables L115-120, check_commons L125-142, check_hand_tied L145-152, check_category L155-168, ... (+26 more).
 - `fit/inkfit.py` (659 lines) - The ink fit: an automatic fit of one candidate picture of one site whose matching points come from the picture itself (task 302a; the 302 method, docs/autofit.md sections 3-4 an... Exports: load_panel L145-162, relief L213-237, InkSite L242-291, run_search L294-298, seed_for L303-315, template_pieces L374-394, scramble_pieces L401-417, choose_points L439-459, map_pairs L464-474, placement_of L477-492, ... (+2 more).
 - `fit/inkfit_heldout.py` (340 lines) - The one-shot held-out measurement of the ink fit (task 302b). Exports: golden_docs L56-66, doc_ids L69-71, precheck L74-98, load_results L109-116, save_results L119-123, corner_metrics L128-141, hand_similarity L144-154, measure L157-187, run L206-251, table L260-304, ... (+2 more).
@@ -76,7 +76,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `pipeline/new_site.py` (71 lines) - Create data/sites/<id>/site.json + plate_scan.jpg from a traced spec. Exports: to_lines, main.
 - `pipeline/nls.py` (244 lines) - National Library of Scotland map tiles for a site: Roy's Military Survey and the Ordnance Survey 1st editions of Britain and Ireland, mosaicked onto the site box. Exports: set_names L63-85, world_px L88-92, tile_range L95-97, tile L100-124, has_tile L127-131, mosaic L134-148, merge_counties L151-166, covers L169-170, build L173-244.
 - `pipeline/peek.py` (13 lines) - Quick look: relief image for lon lat width_m height_m [px_m] -> out.png
-- `pipeline/plan_fit.py` (363 lines) - Hand-fitted plans from the old books -> overlays on a site (kind "plan" in its depictions.json). Exports: similarity L75-85, homography L88-111, fabrication_pattern L127-181, load_picture L184-203, warp_view L206-234, is_done L237-245, build L248-319, prune L322-341, main L344-363.
+- `pipeline/plan_fit.py` (401 lines) - Hand-fitted plans from the old books -> overlays on a site (kind "plan" in its depictions.json). Exports: who_placed L53-62, similarity L94-104, homography L107-130, fabrication_pattern L146-200, load_picture L203-222, warp_view L225-253, is_done L256-264, build L267-345, prune L348-367, main L370-401.
 - `pipeline/preview.py` (83 lines) - Wide LiDAR relief previews with a labelled metre grid, for finding an earthwork whose coordinates are only roughly known. Exports: dem, preview, main.
 - `pipeline/remote_zip.py` (108 lines) - Read members of a large remote .zip (Zenodo serves byte ranges) without downloading the whole archive. Exports: HttpFile, open_zip, get.
 - `pipeline/s3.py` (101 lines) - Public S3 buckets over plain HTTPS: list, size, whole-object download. Exports: host, url, ls, size, get.
@@ -95,7 +95,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## server/
 - `server/relief_tiles.py` (256 lines) - Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17. Exports: Unavailable L43-44, Cancelled L47-48, covered L224-226, tile L229-256.
-- `server/serve.py` (288 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L51-215, after_write L221-244, lan_address L247-256, main L259-288.
+- `server/serve.py` (296 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L53-223, after_write L229-252, lan_address L255-264, main L267-296.
 
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
@@ -104,6 +104,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
 - `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
 - `tests/test_evidence_801.py` (86 lines) - The part and sheet evidence routes (task 801), end to end through the real CLI. Exports: fixture, test_part_and_sheet_routes_match_golden.
+- `tests/test_fit_provenance.py` (547 lines) - Fit provenance (task 303): every platefit document says who placed it, and the line never passes an agent fit as a hand fit. Exports: put_json L171-175, get_json L178-180, test_every_doc_carries_provenance L187-220, test_line_refuses_unmarked_non_auto_doc L282-391, test_unmarked_auto_doc_is_an_agent L421-478, test_page_save_stamps_hand L505-547.
 - `tests/test_gate.py` (181 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4), and the frozen-set partition semantics (task 218). Exports: test_recorded_measurement_reproduces_and_agrees L62-95, test_fit_gate_constants_are_the_frozen_section2_rule L98-109, test_partition_frozen_set_tolerates_post_registration_docs L130-181.
 - `tests/test_propose.py` (472 lines) - Task 202: the proposed starting placement for a (site, picture) pair - fit/propose.py, end to end. Exports: build_sample L142-143, build_sanity_qid L159-196, build_sanity_old_style L199-240, build_sanity_commons L243-255, build_golden_text L258-271, test_parse_scale_table L276-301, test_sample_format L304-330, test_no_snapping L333-345, test_ground_rule_aerial L348-359, test_self_consistency L360-372, ... (+6 more).
 - `tests/test_review.py` (424 lines) - The review queue (task 201, GOAL points 1-2): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word. Exports: repo_items L98-105, run_export L108-112, seed_queue L144-161, queue L162-165, test_export_cli L191-225, test_page_shows_the_review_list L228-288, test_save_resolves_the_item L291-381, test_plan_lookup_is_keyed_by_id_and_site L384-412, test_index_html_review_footprint L415-424.
@@ -122,7 +123,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/gate_heldout.py` (174 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L78-104, check_registered L107-114, load_sites L117-118, box_centre_ground L121-126, placements L129-152, main L155-174.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
-- `tools/site_done.py` (253 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L211-253.
+- `tools/site_done.py` (323 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L281-323.
 
 ## web/
 - `web/index.html` (1709 lines) - (no header comment - add one)

@@ -6,6 +6,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (17)
 - Libraries and frameworks (6): pyproj (3.8, project .venv) 2, Python (3.12.3) 4
 - This codebase (43): Wikimedia APIs (Commons, Wikidata) 10, fit/ 10, pipeline/ 5, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 1
+- This codebase (46): Wikimedia APIs (Commons, Wikidata) 10, fit/ 10, pipeline/ 7, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -537,7 +538,12 @@ Why: the batch writes its accepted fits into that same directory (`write_doc`), 
       only ever ADD names - a hand-fit doc never gains the field - so any derivation over the
       non-auto name list is state-agnostic: identical before and after a batch, and a hand-fit doc
       that did gain the field drops the count below 20 and fails loudly (correct: the reference
-      was changed).
+      was changed). UPDATE (303, 2026-10-11): every doc also carries a `"by"` field ("hand" = the
+      page's save, the owner; "agent" = anything a script or session wrote; the batch writes `auto`
+      and `by: agent` together, fit/batch_us.py write_doc). `gate_heldout` still keys on `auto`
+      (303 must not touch that frozen derivation); `write_golden` now keys the golden on
+      `by == "hand"` instead of not-auto - identical set today, but it excludes an unmarked or
+      agent doc (shotwick) that the old criterion would have pinned as a hand fit.
 
 #### The one-shot gate registration is frozen at the 20 NAMED hand-fit docs, not "whatever is in the directory" - post-218 partition() derives over exactly those names and excludes all post-registration docs; a registered name that stops being non-automatic genuinely voids the registration (before 218 merged, a 21st hand doc instead tripped the "expected 20" precondition)
 Where: `tools/gate_heldout.py` (`partition`, `REGISTERED`), `data/db/platefits/`, `tests/test_gate.py`, docs/gate.md sections 1 and 3
@@ -696,6 +702,54 @@ Why: the page's plate tool places `pairs`/`crop` in the displayed image's pixels
       byte-for-byte with any pixel content (flat colour is fine); one sized like `doc["size"]` (fs=1) does
       not. That is how tests/test_site_done.py stays network-free and byte-exact (task 300).
 
+#### `plan_fit.main()` with no root (and the CLI, which has no --root flag) sweeps the real checkout's whole store - never call it bare in verification
+Where: `pipeline/plan_fit.py` (`main`, `build`, `load_picture`, the `if __name__` block); any interactive
+      or test session that wants to exercise the sync loop
+Symptom: a verification that calls `plan_fit.main([])` (or `plan_fit.py [args]`) without a `root=`/temp
+      tree rebuilds EVERY not-current document in the checkout's data/db/platefits (as of 2026-10-11 that
+      was ~76 docs), downloads each commons picture's big jpg from Wikimedia at 1/s pacing (tens of
+      minutes), and calls `build_site.set_drawings` per site - i.e. it mutates web/data/sites.json -
+      until a hard timeout kills it mid-sweep (burned an iteration-94 session; the rebuilt webps turned
+      out byte-identical and the only diff was the sites.json drawing refresh).
+Why: `main` defaults `_root(None)` to this checkout's ROOT, and the CLI passes `sys.argv[1:]` straight
+      in as doc ids (an arg like `--root` is parsed as a doc id). For hermetic verification call
+      `plan_fit.main(args, root=<temp tree>)` in-process and seed the tree's
+      `web/data/sites/<sid>/depictions.json` with matching `fit.at`/`fit.doc` entries where you want
+      `is_done` to skip the build (an unseeded doc's build reaches `load_picture`: book docs fail fast
+      with FileNotFoundError, commons docs hit the network).
+
+#### The serve worker's plan_fit sweep aborts on any non-SystemExit mid-sweep - one bad doc strands the rest of that wake
+Where: `server/serve.py` (`after_write`'s worker thread: `except BaseException: print(...)` around
+      `plan_fit.main([])`); `pipeline/plan_fit.py` (`main`'s per-doc `except SystemExit` only)
+Symptom: after a page save, only the documents earlier in alphabetical order get synced; the worker
+      prints `plan_fit failed: KeyError('imageinfo')` (a bad commons `ref`) or a 429/urllib error, and
+      the remaining docs of that wake are simply never built - they stay not-current until the next
+      save. As of 2026-10-11, 76 of the checkout's 116 platefit docs are in that not-current state
+      (nearly all commons-sourced, only one with its big jpg cached).
+Why: `main` catches `SystemExit` per doc (site not built, bad pairs, task-303 provenance refusal all
+      stop only that doc) but any other exception (FileNotFoundError on a missing book scan,
+      `KeyError` from an API answer without `imageinfo`, a timeout) escapes `main` into the worker's
+      catch-all, which logs it and waits for the NEXT wake - the rest of this wake is lost. A test or
+      run that wakes the worker against a tree with a bad doc must expect a partial sweep; making the
+      sweep per-doc-proof is not task 303's job.
+
+#### Running the one-site line live in the REAL checkout (no --root) is the intended use of tools/site_done.py, and its write set is exactly one site's files plus the two page files
+Where: `tools/site_done.py` (main: fit -> sync -> entry -> review) run without `--root` in this checkout
+      (303 step 5, 2026-10-11: shotwick; 302d does the same for stonehenge)
+Symptom: a finished run (exit 0, "done") leaves git status with exactly: M web/data/sites.json (the
+      site's drawings count), M web/data/review.json (the page re-publishes the WHOLE queue on every
+      run, by contract), at most one new/changed data/review/<site>.<lead>.json, and - gitignored -
+      the site's own web/data/sites/<site>/ overlays/depictions plus any new big-jpg caches in
+      data/raw/commons/big/ (the shared symlinked store; one paced download per built commons doc).
+      The site's platefit documents are never rewritten by the line (a pattern doc is deleted, an
+      unmarked auto doc gets by: agent stamped - those two exceptions are the only doc writes).
+Why: the line is scoped to one site by design (docs/site_flow.md, "Files the line touches"), and the
+      only cross-site writes are the two page files, which every live run necessarily rewrites. Network
+      is OK on this machine; the only network work is the paced big-picture download(s). Do not treat
+      the page-file diffs of a live run as accidents: add them to the task's Touches line (303 added
+      web/data/review.json and data/review/) before the run, and record the outcome in the task's
+      docs as its acceptance asks.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
@@ -755,3 +809,8 @@ What to do: fixtures should look like scans: 8-12 px wall bands (real plate wall
 Where: `data/db/platefits/*.json`, `web/data/sites.json`, `fit/batch_eu.py` (`union_check` -> `orphan_docs`), `tests/test_batch_eu.py` (`test_union_check`, `test_union_full_coverage_live`), `tests/test_serve.py` (`test_platefits_docs_match_sites`), `pipeline/build_catalog.py`, `pipeline/build_site.py` (`write_entry`)
 Symptom: three new reds from one commit, all in tests the committing task does not own: `assert (not ['<site>.<plan>.json'])` in both batch union tests (orphan_docs) and `assert d["site"] in ids` in the serve test.
 Why: the store's invariant is "every fit doc names a built site" (built = an entry in web/data/sites.json). The eu/us partition is region != "US" vs == "US" (batch_eu.eu_sites), so an England build lands in the EU list and its own doc marks it "covered" - building the site breaks nothing else, and the live full-coverage test only skip-gates on the grown population (its "Sites run" number vs the live EU list; 212 re-covers growth). A doc committed before its site is built orphans in all three at once, and the driver counts them as new failures of the committing task. Fix: build the site with the project's own entry point - `.venv/bin/python pipeline/build_catalog.py --ids <sid>` (fetches the DEM; build_site writes the web/data/sites/<id>/ images and appends the sites.json entry via write_entry - the same path plan_fit uses after a fit save; no LiDAR in the box -> the entry's aerial_ok or an old-map cover keeps it, standalone `build_site.py <site.json> --aerial-ok` does the same) - then commit `data/sites/<sid>/site.json` and the sites.json entry (per-site web images, dem.npy, dem_box.json, dem_credit.json are all gitignored and rebuilt by the pipeline) and add both paths to the task's Touches. Do not delete the doc instead: it is the fit's record. 211's merge skips already-built sites (build_catalog skips them), so no stand-in is needed.
+
+#### A fit doc that EXISTS auto-resolves its site's review item (201's derived resolution) - so a 303-refused (kept, unmarked) doc closes the item and the page's Review tab never shows it
+Where: `fit/review.py` (`resolved_doc`, `export`), `data/review/README.md` ("Resolution is derived, never a second store"), `tools/site_done.py` (`_sync_doc`'s refusal path), `web/review.js`
+Symptom: after a 303 refusal (an unmarked non-auto doc stays in `data/db/platefits/`), the next `review.export` records `resolved: {"doc": ..., "at": ...}` into the item file (write-once) and the item drops out of `web/data/review.json`'s items - the Review tab (open items only) never lists it again, even though the human is supposed to act on the recorded refusal.
+Why: 201's contract derives resolution from doc existence alone (a human save is the record; only export writes the `resolved` field), while 303's refusal keeps the doc (no build, no delete). The refusal record survives in the item file (`data/review/<site>.<lead>.json`, candidate `why` = `plan_fit.NO_PROVENANCE`), and once a human places the pairs from the page the PUT stamps `by:hand` and the doc resolves the item for good - the loop closes, the page just doesn't advertise the open middle. 303 conforms to the contract (fit/review.py is not in its Touches; 212/serve rely on it). A fix (e.g. only a doc with a trustworthy `by` resolves) is a 201 contract change: product decision, new task, not a drive-by patch. Verified 2026-10-11 (303 step 3, hermetic: refusal + export recorded resolved and the item left the published queue, second run byte-stable).
