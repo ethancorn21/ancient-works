@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/205-kip.md` (open) - hand-over: From 205 (2026-10-13, iteration 54): docs/lead_kip.md §1+§3 committed (category map + the 132-row verdict table) and tests/test_src_kip.py pins the 
+- `tasks/205-kip.md` (open) - hand-over: From 205 (2026-10-13, iteration 55): QID research DONE for all 11 SITES (8 with QIDs, 3 without - no Wikidata item); module code NOT yet changed this session (research only); 49 tests green at iter 54, no code changed since. 
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
