@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 47 - **BE file picks RECORDED and everything about BE is done**: 19 `file=` entries
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 49 - **FR+LU QID discovery DONE and TOWNS edited (edit uncommitted - the harness saved it for
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -109,6 +109,21 @@ the true primary, note the second; Beaumont's region flips france->belgium if th
 Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
 build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
 --check, tests/test_src_van_deventer.py, --golden.
+
+### 2026-10-11 204 DECISION: FR+LU QID batch - 22 FR QIDs + Luxembourg City Q1842 verified and recorded in TOWNS (Le Rœulx moved to Belgium, Beaumont pending the atlas plate); TOWNS edit uncommitted, re-verify + lead doc next
+Discovered in one --verify run (/tmp/vd_verify_fr_iter49.txt, 24 towns, exit 0 - the FIRST attempt of the
+session failed locally with "unknown town 'Le'": shell quoting, the Le X names were unquoted; no API calls
+happened, the quoted re-run succeeded): all 23 FR fact sheets came back; the 22 non-Beaumont towns each have
+a clear first-hit item (label = the town, P625 at the town, P373 = the plain town category, enwiki present)
+- recorded in TOWNS with site point = P625 rounded (the BE convention; an old-town-centre offset is the watch
+item once the drawings are eye-checked) and place = the modern department (Nord / Pas-de-Calais; Douai's and
+Valenciennes' items also carry the historical P131 'County of Flanders' / 'County of Hainaut' - the c. 1550
+context, noted in comments, the row's place stays the department). Two surprises:
+- **Luxembourg City = Q1842, not the hand-over's Q1564** (Q1564 now holds 'Borgfelde', Hamburg - merged
+  away). Q1842: label 'Luxembourg', P625 (6.13, 49.611389), P373 'Luxembourg City', P131 'Canton of
+  Luxembourg', enwiki 'Luxembourg City'. The entry's search="Luxembourg (city)" returned EMPTY (the
+  parenthesized label search - a new instance of the prep's "qualified strings return EMPTY" quirk); the
+... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
