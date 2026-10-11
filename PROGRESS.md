@@ -9,6 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 74, agent c - session 2: scikit-image pinned, venv rebuilt, suite proven green modulo one pre-existing failure. NEXT: write fit
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 
 ## Next open tasks
@@ -57,6 +58,38 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
     stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
     junction/feature points, never a fixed stride on a straight run.
+
+### 2026-10-11 302a DECISION: scikit-image pinned at 0.26.0 (minimal-diff requirements regeneration); suite green except one pre-existing failure owned by 218; next step is writing fit/inkfit.py
+    Parent plan step (1) verified after the driver's main sync: data/db/platefits/maiden-castle-q1232816.c_c20ff6b1f16d173d.json
+    is the no-auto version (no `auto` key, the 3 hand pairs, crop [165,256,895,663], size [1280,889]), and
+    tests/golden/hand_fit_docs.sha256 (20 docs + 19 site.json) / hand_fit_sites.txt are byte-identical to
+    origin/main (the new commons doc is not in the golden, per the task Notes).
+    Step (2): added `scikit-image` to requirements.in and regenerated requirements.txt with
+    /tmp/aw-pto/bin/pip-compile --generate-hashes --no-emit-index-url (pip-tools 7.6.2, Python 3.12,
+    throwaway venv outside the project). The diff is additions ONLY: scikit-image==0.26.0 plus its deps
+    imageio==2.38.1, lazy-loader==0.6, networkx==3.7; all 10 pre-existing direct pins kept their exact
+    versions, because PyPI's current latests happened to match the earlier compilation - so no
+    re-pinning in requirements.in was necessary. (Had any pin moved, the fallback would have been to pin
+    the movers at their old versions in requirements.in.) Rebuilt .venv with the driver's exact command
+    (.venv/bin/pip install --require-hashes -r requirements.txt): clean install of the four new packages;
+    import check passed (skimage 0.26.0 beside numpy 2.5.4 / scipy 1.18.1 / PIL 12.3.0 / rasterio 1.5.2 /
+    pyproj 3.8.0 / laspy 2.7.0).
+    Full suite (.venv/bin/python -m pytest -q): 59 passed, 1 failed. The one failure -
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees, with gate_heldout aborting on
+    "expected 20 hand-fit documents in data/db/platefits/, found 21" - is PRE-EXISTING on main: the
+    driver's .agent/reports/last-failing-tests.txt (written before this session's venv change) records the
+    same single test with the same message, and my run reproduced it byte-identically. Cause: the gate's
+    frozen one-shot registration (docs/gate.md section 3) re-derives its 20-name partition from ALL
+    non-auto docs, and post-registration hand fits (lead's cd104ca; 206's shotwick) break the count. The
+    fix is tasks/218 (agent a, open; Touches: tools/gate_heldout.py + tests/test_gate.py) - neither file is
+    in 302a's Touches, so I left both untouched and recorded the trap in PITFALLS instead.
+    Next (3): write fit/inkfit.py per the parent's frozen design (the method paragraph of the 302
+    hand-over; frozen extractor in docs/autofit.md section 3; ridge-contrast objective in fit_plate.py;
+    coarse-FFT + refine in pipeline/autofit.py; seed in fit/propose.py). Model steps injectable with a
+    deterministic no-model default (AI box unreachable from this VM). Relief loader order:
+    data/inkfit/relief/<site>.npz (accept; file built in 302c) -> data/sites/<id>/dem.npy -> dem_sources
+    fetch (working phase only). Smoke-run on 1-2 NON-held-out sites only; every parameter frozen before
+    302b's registration commit, with this config recorded here first (acceptance box 4).
 
 ## Project-wide driver notes (newest)
 
