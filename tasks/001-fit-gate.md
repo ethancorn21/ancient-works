@@ -1,4 +1,4 @@
-Status: blocked
+Status: in-progress
 # 001: The fit gate, measured on held-out hand fits
 Depends on: none
 Touches: pipeline/, tools/, docs/gate.md, tests/, PLAN.md
