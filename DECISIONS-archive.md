@@ -1564,6 +1564,35 @@ section, collection-categories section, NL subtotal in Summary), then the BE QID
 Ghent Q1296 already verified, Beaumont's region flips if the Hainaut item wins), then FR, then LU, then the
 one long --chain run + stage + test + golden.
 
+## 2026-10-11 204 DECISION: stage() order fixed - the date/date_commons swap runs BEFORE commons.keep() (the sources.py pattern); sanity runs green; lead doc's NL and collection sections written
+The hand-over's step 1 predicted `stage --dry` would print "staged: 13 new sites, 13 new pictures" - it instead
+raised on the Sluis 1980 RCE-album reproduction: stage() evaluated commons.keep() on the RAW page metadata
+before the known-drawing-date swap, and keep() judges via year_of() from m["date"] (1980 > MAX_YEAR 1925 ->
+drop). The pattern it was copied from (sources.py run()) swaps first and gates second: the done Zwolle row is
+the proof (date "circa 1560", date_commons "1980", the same album family) - a post-1925 reproduction of a
+c. 1550 drawing must pass, judged on the drawing's year. My ordering was a deviation, now fixed (swap moved
+before keep(), with the comment); the Rotterdam TOWNS comment was corrected too (the page's date is the
+year-1563 field, one year of the drawing's 1558-1563 window - not an upload timestamp). stage --dry now
+green: "staged: 13 new sites, 13 new pictures" (the 13 slugs + the build list; transcript
+/tmp/vd_stage_dry_iter44.txt); --check exit 0 (staging files still absent: joins empty, 0 evidence rows);
+suite 33/33; --list passed again (fifth live run of 2026-10-11, after the town_files extension). Lead doc:
+(a) category section records the re-runs; (b) the Per-town section now holds the 16 NL towns - 13 staged with
+file/size/row-date and the not-staged candidates named briefly each, 3 documented drops (Groningen province =
+province map; Leeuwarden = 1975 redrawn model; Middelburg = stadhuis detail crop only), the R5 Damme
+misfiled-in-Sluis note; (c) The collection categories section written: BNE 61 (the "Planos de ciudades"
+atlas plates - all 23 FR towns + 16 of the 20 BE towns + the done Binche/Venlo; the Aire+Thérouanne and
+Hesdin+Vieil-Hesdin double plates; [also-in] duplicates; the out-of-scope places named), NA 2 (The Hague
+autograph = the staged file; the Schoonhoven+Nieuwpoort sheet out of scope), RCE 69 (supplied the Sluis and
+Valkenburg staged rows + the done Zwolle/Venlo rows; the rest non-60 NL towns or duplicates - full town list
+in the doc), Atlas 6 (Deventer-Dionantum root out of scope; the one Landrecies subcat with its 5 KBR detail
+scans, double-parented under the plain town cat - why the depth-1 inventory exists); counts verified
+programmatically against the iter-43 transcript (61/2/69/6); (d) Summary carries the NL subtotal (13 of 16
+staged, 3 drops) and stays (pending) until all 60 are in. The keep()/swap-order fact is filed in
+PITFALLS.md (new pipeline/commons.py section). NEXT: the BE QID batch (--verify the 20 BE towns, Ghent
+Q1296 already verified in prep, Beaumont's region flips to belgium if the Hainaut item wins), then --files BE,
+lead-doc BE sections, commit; then FR (watch the double plates), then LU; then the one long --chain run +
+stage + test + golden.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
