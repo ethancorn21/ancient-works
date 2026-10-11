@@ -171,87 +171,137 @@ TOWNS = {
     # disambiguated P373 (Brussels 'Brussels (municipality)', Halle 'Halle (Belgium)', Mons
     # 'Mons (Hainaut)', Leuze 'Leuze-en-Hainaut') - the category route targets that exact string, the
     # chain walk must reach it. Mons was NOT in its search's top 5 (the French communes outrank it - the
-    # batch's biggest trap, found by a follow-up search at limit 20; lead doc). No BE QID is in the built
-    # catalog (the 12575-site check of 2026-10-11): all 20 get new catalog entries. --
+    # batch's biggest trap, found by a follow-up search at limit 20; lead doc). file/date recorded 2026-10-11
+    # (iter 46) from the live --files inventory (transcript /tmp/vd_files_be_iter46.txt) plus a 1200 px
+    # thumb eye check of every ambiguous candidate: 19 of the 20 carry their one staged picture (16 of the
+    # BNE atlas plates - 15 of the 1545 sheets + the Ostend plate, circa 1562 - plus the KBR Brussels and
+    # Mechelen autographs and the full, caption-dated Bruges plan); Aarschot is a documented drop (both
+    # files dated 1570, outside the c. 1545-1565 window - the reason in `note` and the lead doc). No BE QID
+    # is in the built catalog (the 12575-site check of 2026-10-11): all 20 get new catalog entries. --
     "Ath": dict(region="belgium", cat="Map of Ath by Jacob van Deventer",
                 qid="Q95096", label="Ath", lon=3.7769, lat=50.6311, p625=(3.776941, 50.631139),
-                place="Arrondissement of Ath", wikipedia="https://en.wikipedia.org/wiki/Ath", p373="Ath"),
+                place="Arrondissement of Ath", wikipedia="https://en.wikipedia.org/wiki/Ath", p373="Ath",
+                file="File:Ath - Deventer.jpg"),  # the 1545 BNE atlas plate (3438x2614; page date 1545 = the drawing's)
     "Braine-le-Comte": dict(region="belgium", cat="Map of Braine-le-Comte by Jacob van Deventer",
                             qid="Q95129", label="Braine-le-Comte", lon=4.1361, lat=50.6097, p625=(4.136111, 50.609722),
                             place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Braine-le-Comte",
-                            p373="Braine-le-Comte"),
+                            p373="Braine-le-Comte",
+                            file="File:Braine-le-Comte - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Bruges": dict(region="belgium", cat="Maps of Bruges by Jacob van Deventer",
                    qid="Q12994", label="Bruges", lon=3.2242, lat=51.2089, p625=(3.224167, 51.208889),
-                   place="Arrondissement of Bruges", wikipedia="https://en.wikipedia.org/wiki/Bruges", p373="Bruges"),
+                   place="Arrondissement of Bruges", wikipedia="https://en.wikipedia.org/wiki/Bruges",
+                   p373="Bruges", file="File:Map of Bruges by Jacob van Deventer.jpg",
+                   date="circa 1550"),  # the full plan (2770x4659): the page date 2013-01-17 12:04:47 is an upload
+                   # timestamp, but the sheet's own caption block (bottom edge, partly torn away) reads "en
+                   # omgeving omstreeks den jare 1550. Plattegrond in kleuren. Originalade Teckening van den
+                   # be-Keizerlijken..." - the drawing dates itself c. 1550, so the row carries the known date
+                   # and keeps the page value as date_commons (the Gouda/Zwolle precedent). Not staged: the five
+                   # detail crops (573-1180 px; their QS 'circa 1558' loses to the sheet's own caption) and
+                   # 'Plan Brugge Jacob van Deventer ca.1560.jpg' (1400x1867, a published reproduction per
+                   # C. Ruelen) - lead doc
     "Brussels": dict(region="belgium", cat="Maps of Brussels by Jacob van Deventer",
                      qid="Q239", label="Brussels", lon=4.3517, lat=50.8467, p625=(4.351667, 50.846667),
                      place="Arrondissement of Brussels-Capital",
-                     wikipedia="https://en.wikipedia.org/wiki/City_of_Brussels", p373="Brussels (municipality)"),
+                     wikipedia="https://en.wikipedia.org/wiki/City_of_Brussels", p373="Brussels (municipality)",
+                     file="File:Brussels map by Jacob van Deventer, Atlas des villes des Pays-Bas, 73 places levées, ca. 1555 (2) 01.png"),
+                     # the KBR autograph (8908x10941), page 'circa 1555' = the drawing's date, cleanly cropped.
+                     # Not staged: the same sheet WITH a TIFFEN colour-calibration strip ('(2).png', 9216x12288),
+                     # the '(2) 02' detail (5580x5478), the three small Brussel 1550/1555/1560 scans (470-1233 px;
+                     # the 1560 one is the 'minuut' per the desc) and Molenbeek.1550.jpg (378x565, Molenbeek +
+                     # the west of the 2e enceinte - a partial, the work list's 'Brussel, 1550 (westelijk gedeelte)')
     "Chimay": dict(region="belgium", cat="Map of Chimay by Jacob van Deventer",
                    qid="Q95380", label="Chimay", lon=4.3173, lat=50.0479, p625=(4.317334, 50.047927),
-                   place="Arrondissement of Thuin", wikipedia="https://en.wikipedia.org/wiki/Chimay", p373="Chimay"),
+                   place="Arrondissement of Thuin", wikipedia="https://en.wikipedia.org/wiki/Chimay", p373="Chimay",
+                   file="File:Chimay - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Chièvres": dict(region="belgium", cat="Map of Chièvres by Jacob van Deventer",
                      qid="Q95318", label="Chièvres", lon=3.8, lat=50.5833, p625=(3.8, 50.583333),
-                     place="Arrondissement of Ath", wikipedia="https://en.wikipedia.org/wiki/Chièvres", p373="Chièvres"),
+                     place="Arrondissement of Ath", wikipedia="https://en.wikipedia.org/wiki/Chièvres", p373="Chièvres",
+                     file="File:Chièvres - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Enghien": dict(region="belgium", cat="Map of Enghien by Jacob van Deventer",
                     qid="Q666238", label="Enghien", lon=4.0411, lat=50.6956, p625=(4.041111, 50.695556),
-                    place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Enghien", p373="Enghien"),
+                    place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Enghien", p373="Enghien",
+                    file="File:Enghien - Deventer.jpg"),  # the 1545 BNE atlas plate (3425x2614)
     "Ghent": dict(region="belgium", cat="Map of Ghent by Jacob van Deventer",
                   qid="Q1296", label="Ghent", lon=3.7253, lat=51.0536, p625=(3.725278, 51.053611),
-                  place="East Flanders", wikipedia="https://en.wikipedia.org/wiki/Ghent", p373="Ghent"),
+                  place="East Flanders", wikipedia="https://en.wikipedia.org/wiki/Ghent", p373="Ghent",
+                  file="File:Ghent by Jacob Van Deventer, BN 1.jpg"),  # the 1545 BNE plate (4919x5046): the sheet
+                  # labelled 'Gande', the city between its two rivers. BN 2 (2834x3631, 1545) is a DIFFERENT
+                  # unlabelled sheet (a fortified town, no city label in the centre crop) - not staged; neither are
+                  # the 1559 Donato Buoni print (another cartographer) and the five small 2007-2012 scans/crops
+                  # (457-1510 px) - lead doc
                   # Q1296 was already hand-verified in the prep (2026-10-11 01:32: label, P373, P625 at the city
-                  # centre, enwiki) - the only QID verified before the batch; this run re-confirms it
+                  # centre, enwiki) - the only QID verified before the batch; the iter-45 run re-confirms it
     "Halle": dict(region="belgium", cat="Map of Halle by Jacob van Deventer",
                   qid="Q210003", label="Halle", lon=4.2372, lat=50.7361, p625=(4.237222, 50.736111),
                   place="Arrondissement of Halle-Vilvoorde",
-                  wikipedia="https://en.wikipedia.org/wiki/Halle,_Belgium", p373="Halle (Belgium)"),
+                  wikipedia="https://en.wikipedia.org/wiki/Halle,_Belgium", p373="Halle (Belgium)",
+                  file="File:Halle - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614; the desc names it 'Hal')
     "Kortrijk": dict(region="belgium", cat="Map of Kortrijk by Jacob van Deventer",
                      qid="Q12995", label="Kortrijk", lon=3.2658, lat=50.8275, p625=(3.265833, 50.8275),
                      place="Arrondissement of Kortrijk", wikipedia="https://en.wikipedia.org/wiki/Kortrijk",
-                     p373="Kortrijk"),
+                     p373="Kortrijk", file="File:Kortrijk, map by Jacob van Deventer.JPG"),  # the 1545 BNE plate (3753x2614)
     "Lessines": dict(region="belgium", cat="Map of Lessines by Jacob van Deventer",
                      qid="Q667790", label="Lessines", lon=3.83, lat=50.7117, p625=(3.83, 50.7117),
                      place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Lessines",
-                     p373="Lessines"),
+                     p373="Lessines", file="File:Lessines - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Leuze": dict(region="belgium", cat="Map of Leuze by Jacob van Deventer",
                   qid="Q667862", label="Leuze-en-Hainaut", lon=3.6167, lat=50.6, p625=(3.616667, 50.6),
                   place="Arrondissement of Tournai", wikipedia="https://en.wikipedia.org/wiki/Leuze-en-Hainaut",
-                  p373="Leuze-en-Hainaut"),
+                  p373="Leuze-en-Hainaut", file="File:Leuze - Deventer.jpg",
+                  caption="Leuze"),  # the 1545 BNE atlas plate (1816x2614, desc 'Leuze'): the caption route
+                  # names the town as the file prints it - the item's official label 'Leuze-en-Hainaut' is not in
+                  # the title/desc, so without caption= the caption check would fail
                   # the verified item's label is the official disambiguated name (the search 'Leuze' first hits
                   # the French Leuze (Aisne), Q326134 - the trap, lead doc)
     "Mechelen": dict(region="belgium", cat="Map of Mechelen by Jacob van Deventer",
                      qid="Q162022", label="Mechelen", lon=4.4803, lat=51.0281, p625=(4.480278, 51.028056),
                      place="Arrondissement of Mechelen", wikipedia="https://en.wikipedia.org/wiki/Mechelen",
-                     p373="Mechelen"),
+                     p373="Mechelen", file="File:Mechelen, Belgium, Deventer, 1550.png"),  # the KBR autograph
+                     # (3558x3305; page date 1550 = the drawing's - the work list 'Mechelen, 1550' agrees;
+                     # the desc names the atlas the KBR bought in 1866)
     "Mons": dict(region="belgium", cat="Map of Mons by Jacob van Deventer",
                  qid="Q83407", label="Mons", lon=3.9525, lat=50.4547, p625=(3.9525, 50.454722),
                  place="County of Hainaut", wikipedia="https://en.wikipedia.org/wiki/Mons,_Belgium",
-                 p373="Mons (Hainaut)"),
+                 p373="Mons (Hainaut)", file="File:Mons (2) - Deventer.jpg"),  # the 1545 BNE wide two-page sheet
+                 # (4393x2614) labelled 'Mons en Henault' (Ocidente/Oriens/Meridies/Septentrio); (1)
+                 # (1816x2614, 1545) is a portrait plate of the same fortified town - not staged (lead doc)
                  # the search 'Mons' (limit 5) returns only the planetary term and French communes; the Belgian
                  # city is 11th in the en results (4th in the fr) - found by a follow-up search at limit 20 (lead doc)
     "Ostend": dict(region="belgium", cat="Map of Ostend by Jacob van Deventer",
                    qid="Q12996", label="Ostend", lon=2.9194, lat=51.2258, p625=(2.919444, 51.225833),
-                   place="Arrondissement of Ostend", wikipedia="https://en.wikipedia.org/wiki/Ostend", p373="Ostend"),
+                   place="Arrondissement of Ostend", wikipedia="https://en.wikipedia.org/wiki/Ostend",
+                   p373="Ostend", file="File:Oostende map Jacob van Deventer.png"),  # the BNE plate (872x1255;
+                   # page 'circa 1562' = the drawing's date): the ONLY Ostend plan on Commons - staged despite
+                   # the <~1000 px width heuristic (the Aardenburg case; the caveat is in the lead doc)
     "Saint-Ghislain": dict(region="belgium", cat="Map of Saint-Ghislain by Jacob van Deventer",
                            qid="Q668950", label="Saint-Ghislain", lon=3.8167, lat=50.45, p625=(3.816667, 50.45),
                            place="Arrondissement of Mons", wikipedia="https://en.wikipedia.org/wiki/Saint-Ghislain",
-                           p373="Saint-Ghislain"),
+                           p373="Saint-Ghislain", file="File:Saint-Ghislain - Deventer.jpg"),  # the 1545 BNE plate (1816x2614)
     "Soignies": dict(region="belgium", cat="Map of Soignies by Jacob van Deventer",
                      qid="Q462985", label="Soignies", lon=4.0667, lat=50.5667, p625=(4.066667, 50.566667),
                      place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Soignies",
-                     p373="Soignies"),
+                     p373="Soignies", file="File:Soignies - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614);
+                     # the two 2011 copies (a 'd'apres' redraw, 2362x2468, and a 291x298 scan) are not staged
     "Tournai": dict(region="belgium", cat="Map of Tournai by Jacob van Deventer",
                     qid="Q173219", label="Tournai", lon=3.3881, lat=50.6056, p625=(3.388056, 50.605556),
                     place="Arrondissement of Tournai", wikipedia="https://en.wikipedia.org/wiki/Tournai",
-                    p373="Tournai"),
+                    p373="Tournai", file="File:Tournai - Deventer.jpg"),  # the 1545 BNE atlas plate (3296x2608)
     "Aarschot": dict(region="belgium", cat="Maps of Aarschot by Jacob van Deventer",
                      qid="Q273442", label="Aarschot", lon=4.8333, lat=50.9842, p625=(4.8333, 50.9842),
                      place="Arrondissement of Leuven", wikipedia="https://en.wikipedia.org/wiki/Aarschot",
-                     p373="Aarschot"),
+                     p373="Aarschot",
+                     note="drop: both files carry page date 1570 ('Aarschot 1570.png', 5877x6291, a genuine autograph"
+                          " with the town labelled 'Aersfot' on the Dijle, and its 1278x1024 jpg copy) - outside"
+                          " the c. 1545-1565 drawing window: no site, no picture. Cross-checked against the"
+                          " nl.wikipedia work list ('Aarschot, 1570', the Philip II period) - lead doc"),
     "Oudenaarde": dict(region="belgium", cat="Maps of Oudenaarde by Jacob van Deventer",
                        qid="Q12992", label="Oudenaarde", lon=3.6, lat=50.85, p625=(3.6, 50.85),
                        place="Arrondissement of Oudenaarde", wikipedia="https://en.wikipedia.org/wiki/Oudenaarde",
-                       p373="Oudenaarde"),
+                       p373="Oudenaarde",
+                       file="File:Oudenaarde, map by Jacob van Deventer, Version Madrid.JPG"),  # the 1545 BNE
+                       # plate (3368x2614; the page date 1545 is kept - the work list dates the netkaart 1564,
+                       # noted in the lead doc). Not staged: the detail (710x564, QS 'circa 1558'), the DI-676
+                       # copy (986x1000, uploaded 2005) and the Version Brussels copy (948x1070, uploaded 2012)
     "Damme": dict(region="belgium", cat="Map of Damme by Jacob van Deventer", qid="Q323408", done=True),
     "Binche": dict(region="belgium", cat="Map of Binche by Jacob van Deventer", qid="Q95121", done=True),
     # -- France (24 categories: 23 to stage + the 1 done; Beaumont's country settles at verification: the

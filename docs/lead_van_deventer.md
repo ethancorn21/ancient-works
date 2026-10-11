@@ -249,10 +249,76 @@ specific reason.
   and keeps 1980 as `date_commons`. Not staged: the other nine files (346-2658 px: Limburgish-dialect wiki
   crops, the 1961/1955 RCE details, two 2013/2014 photos, the 500x501 "16th century" scan).
 
-### Belgium, France, Luxembourg (pending)
+### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, `--files` transcript
+`/tmp/vd_files_be_iter46.txt` - re-run: `.venv/bin/python fit/src_van_deventer.py --files <towns>`)
 
-44 towns left (BE 20 + FR 23 + LU 1), one bullet per town as the `--files` inventories run; the BNE atlas
-plates are the expected picks there (the collection section below).
+One 1545 BNE atlas plate per town (page date 1545 = the drawing's date, no `date` swap), except the four named
+below: Brussels and Mechelen are KBR autographs (their own page dates are the drawing's), Bruges is the full
+plan dated by its own caption, Ostend the BNE plate (circa 1562). Every ambiguous candidate (Ghent BN 1 vs
+BN 2, Mons (1) vs (2), the three Brussels sheet versions, Bruges full vs detail, Aarschot) was eye-checked
+from 1200 px thumbs + full-size crops before being picked or rejected (the /tmp/vd_be_thumbs/ set of 2026-10-11;
+re-download via `commons.info` with the `aw.UA` User-Agent - the Commons API 403s without one).
+
+- **Ath** - staged `Ath - Deventer.jpg` (3438x2614, 1545). Not staged: `Plan Ath Deventer.jpg` (2055x2098,
+  "before 1575" QS) - a later revision.
+- **Braine-le-Comte** - staged `Braine-le-Comte - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Bruges** - staged `Map of Bruges by Jacob van Deventer.jpg` (2770x4659): the full plan. The page date
+  2013-01-17 12:04:47 is an upload timestamp, but the sheet's OWN caption block (bottom edge, partly torn
+  away) reads "Brugge (West Flan...) ... en omgeving omstreeks den jare 1550. Plattegrond in kleuren.
+  Originalade Teckening van den be-Keizerlijken..." - the drawing dates itself c. 1550, so the row carries
+  `date` "circa 1550" and keeps 2013 as `date_commons` (the Gouda/Zwolle precedent). The three category detail
+  files carry QS 'circa 1558' for the same map - the sheet's own caption wins. Not staged: the five detail
+  crops (846x522, 1180x668 x2, 573x564, 650x832) and `Plan Brugge Jacob van Deventer ca.1560.jpg` (1400x1867,
+  a published reproduction per C. Ruelen).
+- **Brussels** - staged `... 73 places levées, ca. 1555 (2) 01.png` (8908x10941, page 'circa 1555' = the
+  drawing's date): the KBR autograph, cleanly cropped. Not staged: `...(2).png` (9216x12288) - the same sheet
+  WITH a TIFFEN colour-calibration strip (the ugly duplicate); `...(2) 02.png` (5580x5478) - an explicit
+  detail; `Brussel 1550 v Deventer¹.JPG` (470x561), `Brussel 1555 Deventer.jpg` (600x752) and `Brussel 1560 v
+  Deventer.jpg` (1233x1479, the 'minuut' per the desc) - three small scans; `Molenbeek.1550.jpg` (378x565,
+  Molenbeek + the west of the 2e enceinte - a partial: the work list's 'Brussel, 1550 (westelijk gedeelte)').
+- **Chimay** - staged `Chimay - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Chièvres** - staged `Chièvres - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Enghien** - staged `Enghien - Deventer.jpg` (3425x2614, 1545): the only file.
+- **Ghent** - staged `Ghent by Jacob Van Deventer, BN 1.jpg` (4919x5046, 1545): the sheet labelled 'Gande'
+  (the city between its two rivers). Not staged: `... BN 2.jpg` (2834x3631, 1545) - a DIFFERENT unlabelled
+  sheet (a fortified town, no city label in the centre crop); `Map of Ghent, Belgium, Donato Buoni di
+  Pellezuoli.jpg` (1600x1600, 1559) - a later print by another cartographer; five small 2007-2012
+  scans/crops (457-1510 px).
+- **Halle** - staged `Halle - Deventer.jpg` (1816x2614, 1545; the desc names the town 'Hal'): the only file.
+- **Kortrijk** - staged `Kortrijk, map by Jacob van Deventer.JPG` (3753x2614, 1545): the only file.
+- **Lessines** - staged `Lessines - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Leuze** - staged `Leuze - Deventer.jpg` (1816x2614, 1545, desc 'Leuze'): the only file. The caption route
+  names the town 'Leuze' - as the file prints it, not the item's official label 'Leuze-en-Hainaut'.
+- **Mechelen** - staged `Mechelen, Belgium, Deventer, 1550.png` (3558x3305, page date 1550 = the drawing's;
+  the work list 'Mechelen, 1550' agrees): the KBR autograph (the desc names the atlas the KBR bought in 1866).
+- **Mons** - staged `Mons (2) - Deventer.jpg` (4393x2614, 1545): the wide two-page sheet labelled 'Mons en
+  Henault' (Ocidente/Oriens/Meridies/Septentrio). Not staged: `Mons (1) - Deventer.jpg` (1816x2614, 1545) -
+  a portrait plate of the same fortified town.
+- **Ostend** - staged `Oostende map Jacob van Deventer.png` (872x1255, page 'circa 1562' = the drawing's
+  date): the full BNE atlas plate (the town + a harbour detail box, labelled 'Oostende') - the ONLY Ostend
+  plan on Commons, staged despite the <~1000 px width heuristic (the Aardenburg case; this is the caveat).
+- **Saint-Ghislain** - staged `Saint-Ghislain - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Soignies** - staged `Soignies - Deventer.jpg` (1816x2614, 1545). Not staged: `Carte de Soignies
+  d'après la carte Deventer.jpg` (2362x2468, 2011 - a redrawn copy) and `Carte jacques deventer
+  soignies.jpg` (291x298, 2011 - a tiny scan).
+- **Tournai** - staged `Tournai - Deventer.jpg` (3296x2608, 1545): the only file.
+- **Oudenaarde** - staged `Oudenaarde, map by Jacob van Deventer, Version Madrid.JPG` (3368x2614; the page
+  date 1545 is kept - the nl.wikipedia work list dates the netkaart 1564, noted here). Not staged: the detail
+  (710x564, QS 'circa 1558'), `Oudenaarde plan Deventer DI-676.jpg` (986x1000, uploaded 2005) and `... Version
+  Brussels.jpg` (948x1070, uploaded 2012) - copies.
+- **Aarschot** - DROP (no site, no picture): both files are dated **1570** - `Aarschot 1570.png` (5877x6291,
+  a genuine autograph: the town labelled 'Aersfot' on the Dijle, the fortress on the north bank) and its
+  `Aarschot, Belgium, Jacob van Deventer, 1570.jpg` copy (1278x1024). 1570 is outside this task's c. 1545-1565
+  drawing window, so no row can be staged honestly (box 6 checks the row date's year in the window); the
+  documented drop (box 5) beats a guessed date. Cross-checked on the web: the nl.wikipedia article 'Jacob
+  van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his career ran to
+  his death in 1575, and the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
+
+### France, Luxembourg (pending)
+
+24 towns left (FR 23 + LU 1), one bullet per town as the `--files` inventories run; the BNE atlas plates are
+the expected picks there (the collection section below), and the Aire+Thérouanne and Hesdin+Vieil-Hesdin
+double plates the watch items (stage once under the true primary, note the second).
 
 ## The collection categories (checked 2026-10-11, the `--files` run)
 
@@ -288,9 +354,11 @@ plates are the expected picks there (the collection section below).
   `town_files` inventories each town category's own subcategories at depth 1) - the Landrecies batch picks
   from the town category, the KBR details are the fallback candidates.
 
-## Summary (pending - the NL subtotal is in, the BE/FR/LU batches fill the rest)
+## Summary (pending - the NL and BE subtotals are in, the FR/LU batches fill the rest)
 
-Netherlands: 13 of 16 staged, 3 documented drops (Groningen province, Leeuwarden, Middelburg). Belgium,
-France, Luxembourg: 44 towns pending. Box 5: >= 50 of 60 staged, or every missing one accounted for in the
+Netherlands: 13 of 16 staged, 3 documented drops (Groningen province, Leeuwarden, Middelburg). Belgium:
+19 of 20 staged, 1 documented drop (Aarschot - both files dated 1570, outside the c. 1545-1565 window). So
+far 32 of 59 stageable towns staged (NL 13 + BE 19). France, Luxembourg: 24 towns pending (the BNE atlas
+plates are the expected picks there). Box 5: >= 50 of 60 staged, or every missing one accounted for in the
 sections above; every unverifiable QID named with its reason (box 2). The six done towns appear nowhere in
 this task's staging files.

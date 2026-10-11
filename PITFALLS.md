@@ -269,6 +269,25 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
 
+#### wbsearchentities with limit=5 misses well-known short names - Mons (Belgium) ranks 11th in the en search
+Where: `fit/src_van_deventer.py` (`_search_candidates`, the default limit 5) and any script calling the
+      Wikidata wbsearchentities API for a short, common town name
+Symptom: the town's item is simply absent from the five candidates (no error, just a short list) - the
+      discovery run records a wrong or no QID; for 'Mons' the five were the planetary nomenclature term 'mons'
+      plus French communes (Var, Hérault, Charente, Gard) while the Belgian city Q83407 was 11th (4th in the
+      fr search)
+Why: short common names get outranked by their many homonyms. When the expected item is not among the five,
+      re-search at limit 20 (and in the other language), then re-check label + P625 + P373 + enwiki before
+      recording - the 204 BE batch found Mons only this way (lead doc, QID verification - Belgium).
+
+#### A Wikimedia API call with no User-Agent gets HTTP 403; commons.get already sets one, a raw script must too
+Where: `pipeline/commons.py` (`get`, sets `aw.UA`) and any throwaway script hitting the Wikimedia APIs
+      directly (e.g. the thumb download snippet of the 204 BE eye check)
+Symptom: HTTP Error 403: Forbidden on the very first request; the same request works once a User-Agent is sent
+Why: Wikimedia's robot policy rejects requests without a descriptive User-Agent. `aw.UA` is the project's
+      standard value - a raw urllib script must set it (or go through `commons.get`, which paces and retries
+      too).
+
 ### fit/
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both

@@ -145,3 +145,28 @@ are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs
 **NOT YET DONE (next session, one step):** record the 19 file= values (+ Bruges date, Leuze caption,
 Aarschot note) in TOWNS, the lead-doc Belgium Per-town section, the Mons limit-5 PITFALLS entry, then
 pytest + --check + commit. See the task hand-over for the exact title strings.
+
+## 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed
+The iteration-46 picks (the analysis above; /tmp/vd_files_be_iter46.txt still on disk, re-read to verify every
+exact title before recording) are now in TOWNS: file= on all 19 staged towns (15 of the 1545 BNE plates:
+Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent BN 1, Halle, Kortrijk, Lessines, Leuze, Mons (2),
+Saint-Ghislain, Soignies, Tournai, Oudenaarde Version Madrid; + Ostend BNE plate circa 1562 + KBR Brussels
+(2) 01 + KBR Mechelen + Bruges full plan), date="circa 1550" on Bruges (page 2013-01-17 12:04:47 is the
+upload timestamp; the sheet's own caption block dates it), caption="Leuze" on Leuze (its official label
+'Leuze-en-Hainaut' is not in the title/desc), note= on Aarschot (the 1570 documented drop). The Belgium
+section-header comment now records the iter-46 inventory + thumb eye check. Lead doc: the pending
+subsection is now '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, --files
+transcript /tmp/vd_files_be_iter46.txt)' with one bullet per town (staged file + size + date and every
+not-staged file with its specific reason; Aarschot the documented drop with the nl.wikipedia work-list
+cross-check), a new '### France, Luxembourg (pending)' (24 towns; the double plates as watch items), and
+the Summary updated (running total 32 of 59 staged: NL 13 + BE 19). PITFALLS filed: (1) wbsearchentities
+limit=5 misses well-known short names - Mons 11th in the en search, follow up at limit 20; (2) a Commons
+API call with no User-Agent gets HTTP 403 - commons.get sets aw.UA, a raw script must too. Verified after
+the edit: `--check` exit 0 (staging files still absent - stage runs after FR/LU), module parses clean
+(the PITFALLS comment-gluing rule observed: every entry's dict closed with `),` before its comments).
+NEXT: the FR batch (23 towns: --verify first - QIDs still empty in TOWNS; the BNE plates cover all 23 per
+the collections section; watch the Aire+Thérouanne and Hesdin+Vieil-Hesdin double plates - stage once under
+the true primary, note the second; Beaumont's region flips france->belgium if the Hainaut item wins) +
+Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
+build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
+--check, tests/test_src_van_deventer.py, --golden.
