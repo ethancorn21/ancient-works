@@ -128,3 +128,12 @@ the first seed whose rng.choice(20, 8, replace=False) over the sorted doc names 
 wins. That is 20260108: held-out = arbor-low, avebury, aztalan, badbury, cadbury, cahokia, camp-d-attila,
 old-sarum (earthworkenglan01allcgoog_n0142_1); dev = the other 12 (includes all 4 design fits). Held-out is
 not looked at until the one-shot run after docs/gate.md is committed.
+
+## 2026-10-10 001 DECISION: pair-consistency residuals alone cannot be the gate - dev true fits are sloppy
+Solved-transform per-pair residuals on the 12 DEV fits (held-out untouched): medians 3.7-53.1 m, maxes
+4.6-86.7 m (old-sarum c_8192: 53.1/86.7; hembury 40.3/53.3; little-solsbury 46.8/65.0; bergues 29.9/51.7;
+castle-rising 12.0/19.0; mayburgh/mound-bottom/serpent-mound/whitley tight, < 11 m). A 60 m move (60 m per
+point) and cross-site (km-scale) are caught by any threshold above the dev max, but 10 deg / x1.15 add only
+~0.1745 r / 0.15 r per point (~9/15 m on a 100 m-radius site) - inside the dev true-fit spread. So residuals
+are the 60 m / cross-site layer of the conjunction; rotation/scale need the image conjunct (spike 6 dir_frac
+is the candidate, run in progress).
