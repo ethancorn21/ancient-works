@@ -525,18 +525,27 @@ Why: the batch writes its accepted fits into that same directory (`write_doc`), 
       that did gain the field drops the count below 20 and fails loudly (correct: the reference
       was changed).
 
-#### The one-shot gate registration is frozen at exactly 20 named hand-fit docs - a 21st hand doc (a post-registration hand fit) trips gate_heldout's "expected 20" precondition; the fix is owned by task 218, don't work around it
-Where: `tools/gate_heldout.py` (`partition`, `REGISTERED`), `data/db/platefits/`, `tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees`, docs/gate.md sections 1 and 3
+#### The one-shot gate registration is frozen at the 20 NAMED hand-fit docs, not "whatever is in the directory" - post-218 partition() derives over exactly those names and excludes all post-registration docs; a registered name that stops being non-automatic genuinely voids the registration (before 218 merged, a 21st hand doc instead tripped the "expected 20" precondition)
+Where: `tools/gate_heldout.py` (`partition`, `REGISTERED`), `data/db/platefits/`, `tests/test_gate.py`, docs/gate.md sections 1 and 3
 Symptom: "gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 21; the
-      registered partition is void, see docs/gate.md section 1" - appears on the full suite once a
-      hand-fit doc added after the registration (206's shotwick-castle-q7502621; then 207a/b/c's
-      Roman hand fits) lands in the directory
-Why: 802 excluded the auto docs from the count, but the precondition `len(names) != 20` still
-      counts every hand doc: the registration names the 20, it does not say "whatever is in the
-      directory". When you hit this (a branch carrying a post-registration hand doc), the failing
-      test is owned by 218 - do not rename or delete the hand doc, do not touch the REGISTERED
-      list, tests/golden/gate_heldout.txt or docs/gate.md, and do not loosen the test; add 218 to
-      your own `Depends on:` and wait for it to merge (the driver resyncs the branch).
+      registered partition is void, see docs/gate.md section 1" - ONLY on branches from before
+      task 218 (agent a, iteration 90) merged: 802's count precondition `len(names) != 20` still
+      counted every hand doc, so 206's shotwick-castle-q7502621 (then 207a/b/c's Roman hand fits)
+      aborted the section-6 command. The post-218 failure mode is "registered documents missing
+      from the non-automatic documents ... (renamed, deleted, or gained \"auto\": true): [...];
+      the registered partition is void": that means a registered name genuinely dropped out of
+      the reference set - fix the data, do not loosen the tool or the test, and do not touch
+      the REGISTERED list, tests/golden/gate_heldout.txt or docs/gate.md
+Why: the registration names the 20, it does not say "whatever is in the directory". Task 218
+      made partition() check the 20 registered names against the non-automatic set (a doc's
+      "auto": true marks batch output; no hand-fit doc ever gains the field) and derive the
+      seed-20260108 partition over exactly the named 20 - so the one-shot proof (the golden,
+      docs/gate.md section 9) is byte-identical whether the directory holds 20 or 20 plus any
+      number of post-registration docs. New hand fits stay fully gated in production
+      (fit_gate.gate at fit time); this tool only excludes them from the one-shot measurement.
+      If you hit the OLD symptom on a branch that has not merged 218 yet: do not rename or
+      delete the hand doc; add 218 to your own `Depends on:` and wait for it to merge (the
+      driver resyncs the branch).
 
 #### This Qwen fabricates correspondences that pass a consistency-only gate; the batch's prompt/parse/scale/texture checks are the counterweight
 Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`, `_feature_present`), the local qwen3.8-27b via
