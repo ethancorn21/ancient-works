@@ -1,5 +1,4 @@
-Status: open
-Depends on: 301
+Status: done
 # 302a: The ink-fit method - plate ink against LiDAR relief, no model coordinates
 Touches: fit/inkfit.py, requirements.in, requirements.txt, data/inkfit/
 
@@ -35,94 +34,49 @@ reach the AI box; see the parent hand-over).
 
 ## Hand-over
 
-(2026-10-11, iteration 78, agent c - session 6: **ALL FIVE BOXES TICKED - 302a is done.**
-fit/inkfit.py is verified end to end hermetically AND on two real non-held-out sites in the working
-phase; two real bugs were found and fixed along the way. Uncommitted at hand-over time: fit/inkfit.py
-(the two fixes) and PITFALLS.md (new Frangi-ghost entry) - the harness saved them; COMMIT THEM next
-session (they are ready: no further changes needed). The DECISIONS session-6 entry is committed.
+(2026-10-11, iteration 78, agent c - session 7: **Status: done.** This session changed no code:
+it verified from HEAD that session 6's uncommitted work had already landed (the driver committed
+it as f7dbba6 "uncommitted work after iteration 78"; the Frangi entry survived the subsequent
+PITFALLS sync cfc85d5 and the main merge 6571004), confirmed the suite has no new failures, and
+closed the task (dependency 301 is done, so the `Depends on:` line was removed). IF the driver
+rejects this done claim, its reasons will be in DECISIONS.md - re-read this section plus the
+session-6 entry there, fix, re-run the suite, re-tick.)
 
-**State.** Box 1 (two real non-held-out sites, end to end, no platefit read) and box 3 (hermetic:
-injectable model + seeded-npz loader) ticked this session after the runs below; boxes 2 and 4 were
-done in sessions 2-3; box 5 holds (tests/ untouched by this task; its e2e test lands in 302c).
-Suite at last run this session: `.venv/bin/python -m pytest -q` -> 59 passed / 1 failed, the failure
-being the PRE-EXISTING tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees (218 owns
-it: gate_heldout expects 20 hand-fit docs but main has 21). No new failures from this module. No
-frozen parameter of the method was changed in any session.
+**Verified this session (from HEAD, nothing re-touched):**
+- fit/inkfit.py carries both session-6 fixes: template_pieces unpacks `kept, label =
+  _keep_pieces(...)` (no more (list, label) tuple reaching fit()), and main() points sys.stdout at
+  sys.stderr around the fit() call (restored in a finally) so the JSON on stdout stays parseable.
+- PITFALLS.md keeps the Frangi-ghost entry (line 727).
+- scikit-image==0.26.0 in requirements.in (line 15) and requirements.txt (line 555, pinned +
+  hashed); imports clean in the driver's .venv (the driver's pre-session venv build succeeded -
+  that is box 2's venv proof).
+- `.venv/bin/python -m pytest -q`: 62 passed / 3 failed (64.7 s) vs 4 failed / 60 passed at loop
+  start (driver note, 3c8af47): the 218 gate red is gone (merged fix 1dcbc06); the remaining three
+  (test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_serve::
+  test_platefits_docs_match_sites) are all 211-owned (shotwick doc orphaned / site unbuilt in this
+  checkout's web/data/sites.json), per 218's own session entry. No new failures; this task adds no
+  tests/ tests (box 5 - the e2e test lands in 302c), so nothing here can regress.
+- No frozen parameter of the method was changed in any session of this task.
 
-**This session (verified by running):**
-- Bug fix 1 (fit/inkfit.py:template_pieces): it returned `_keep_pieces(...)` as the first element,
-  but that function returns a (list, label) TUPLE, so fit() got pieces=(list_of_dicts, "") and
-  crashed ("list indices must be integers or slices, not str") the first time a non-empty piece
-  list was produced (masked in session 5 by the "no wall ink extracted" early return, whose [] is
-  falsy). Now unpacked inside template_pieces.
-- Bug fix 2 (fit/inkfit.py:main): the CLI let the search progress and aw's fetch chatter (overpass
-  504 retries) land on stdout, corrupting the JSON result file. main() now points sys.stdout at
-  stderr around the fit() call (print() resolves sys.stdout dynamically, so aw.py's own prints are
-  caught too) and emits only the JSON document on stdout (verified on the pyramid-mound run).
-- Hermetic run: the 8 px SHARP drawing was not the fix - a razor-sharp 0/1 step makes the frozen
-  Frangi (gamma 0.013, calibrated on soft real-scan edges) ghost-echo a ring ~5-8 px OUTSIDE the
-  drawn walls (even inside the zeroed margin), and a blurred 8 px line falls under the ridge
-  threshold. The scan-realistic fixture (8 px rectangle [62,52,178,128] + 12 px interior line
-  [70,90,170,90], gaussian_filter 2.5, +-2/255 paper noise, rng seed 7; 12 px is inside the real
-  6-20 px wall band) gives exactly the 3 true centre lines, no ghosts, fully deterministic. fit()
-  ran fully offline in 8.1 s against the seeded data/inkfit/relief/herm-site-q1.npz (shape/px_m/
-  bbox validated, modern from the npz, zero network): 3 pieces/81 pts, seed 0.75 (hermetic
-  picture-size fallback), search on the TRUE placement (s 0.7408, rot -0.5 deg, t [-17,0] vs true
-  0.75/0/0), both nulls recorded (scramble 0.7404, shifted -9/invalid - see below), gate accept
-  (n 6, 4 mm), fabrication silent, doc returned (fitter "ink", batch_us field shape, "at"
-  injectable). Confidence NEGATIVE (-0.025) - the method answered "not confident", which is the
-  decision layer working, not a failure.
-- Smoke 1: `.venv/bin/python fit/inkfit.py stonehenge-q39671 earthworkenglan01allcgoog_n0582_1`
-  (site NOT among the 19 held-out - checked against tests/golden/hand_fit_sites.txt): 134.5 s,
-  19 pieces/1952 pts, seed 0.5034 (picture_size; the 64.3 deg north hint rejected, north-up),
-  FALSE peak at the window edge (s 0.3716, rot +25.5 deg, t [177,-149]) exactly as 10-10 predicted;
-  fit 0.0468 vs scramble 0.1227 (null) vs shifted 0.0114 -> confidence -0.076 -> "not confident";
-  gate accept (n 10, 12 mm); fabrication silent (10 irregular pairs); corners inside the 1000x1000 m
-  site box; OSM modern mask after 3 overpass 504 retries then OK; DEM 8.0 MB to
-  data/sites/stonehenge-q39671/dem.npy (gitignored).
-- Smoke 2: `.venv/bin/python fit/inkfit.py pyramid-mound-q7263260 ancientmonuments00squi_n0134_1`
-  (also not held-out): 74.4 s, 4 pieces/273 pts, seed 0.8806, placement s 0.752 / rot 10 deg /
-  t [-123,-197] (inside window, near the seed), fit 0.311 vs null 0.442 vs shifted 0.1703 ->
-  confidence -0.131, gate accept (n 8, 4 mm), fabrication silent, 8 pairs, DEM 5.1 MB to
-  data/sites/pyramid-mound-q7263260/dem.npy.
-  Both sites answering "not confident" is consistent with the 10-10 pre-registration (relief scores
-  have false peaks; only a search-matched null can say so) and with this task's remit (box 1 asks
-  for machinery end to end + placement + pairs, which both deliver; neither site is held-out, so
-  nothing was tuned to these outcomes). The held-out table (302b) shows whether the margin is
-  positive on the truth sites; if the no-model variant stays negative there, that IS the reported
-  result (302: report the numbers as they are).
+**State handed to 302b/302c (unchanged from session 6; full details in the DECISIONS session-6
+entry and the parent hand-over):** fit(site, picture, model=None, root=None, n_refine=8,
+null=True, at=None, log=print) -> result dict (site, plan, model variant, reason, n_pieces,
+n_points, seed, objective {fit, scramble, shifted, ...valid}, null, confidence [NEGATIVE = not
+confident; no threshold yet - 302b sets it on the held-out table, 302c applies it], placement
+{a, b, s_m_px, rot_deg, t_m, u0v0, k}, corners, gate, fabrication, pairs [[u,v,lon,lat]...], doc
+[UNWRITTEN, fitter "ink"], notes, seconds). The npz loader reads data/inkfit/relief/<site>.npz
+(z, px_m, bbox, optional modern), so 302c's committed test-site npz makes the method fully
+hermetic; the data/inkfit/ directory does not exist in the repo yet - 302c creates it. fit() is
+deterministic for a fixed image (seed 20261012), never reads data/db/platefits/, and only writes
+work-phase dem.npy caches. 302c's committed test-site lessons: box ~1000 m-class around a ~100 m
+earthwork (keeps the half-box-shift null valid), and a template with several pieces of differing
+lengths/angles (keeps the scramble null discriminating). Measured costs: 1000x1000 m site +
+3 searches ~135 s; no fixed ports; writes only data/sites/<sid>/dem.npy (work phase) and, in
+tests, the seeded npz under the test root.
 
-**For 302b/302c (reading the method's output):** fit() result keys - site, plan, model (variant
-label: "no-model" or the model's name/label), reason (None or the review reason: "no wall ink
-extracted", "search found no valid placement", the fabrication string), n_pieces, n_points, seed
-{s_m_px, rot_deg, source, note}, objective {fit[, scramble, shifted, scramble_valid,
-shifted_valid]}, null (the higher null objective or None), confidence (obj_fit - null or None;
-NEGATIVE = not confident - no threshold yet: 302b sets it on the held-out table, 302c applies it),
-placement {a, b, s_m_px, rot_deg, t_m, u0v0, k}, corners (panel corners' lon/lat), gate {verdict,
-n, med, slope_o, io}, fabrication (None on success), pairs [[u,v,lon,lat]...], doc (UNWRITTEN:
-batch_us.write_doc fields + "fitter":"ink"; "at" injectable via fit(at=...)), notes, seconds.
-fit(site, picture, model=None, root=None, n_refine=8, null=True, at=None, log=print): root lets
-tests redirect the data tree; the npz loader (data/inkfit/relief/<site>.npz: z, px_m, bbox,
-optional modern) accepts a seeded cache, so 302c's committed test-site npz makes the whole method
-hermetic. fit() is deterministic for a fixed input image (fixed seeds 20261012; frangi/skeletonize
-deterministic). It never writes except work-phase dem.npy caches; it never reads data/db/platefits/.
-
-**302c test-fixture lessons (from the hermetic run):** (a) the half-box-shift null goes -9 (invalid)
-when the box is small: shifting the 120x100 m toy box leaves a 60x40 m valid region smaller than
-the 120x90 m template -> < 50% valid -> -9 (recorded as designed, shifted_valid:false). Make the
-test site box ~1000 m-class with a ~100 m earthwork so both nulls stay valid. (b) A template of one
-two long straight pieces keeps SCRAMBLE signal (a long wall re-aligned to any one ridge side still
-scores high) - use several pieces of differing lengths/angles so the null discriminates.
-
-**Costs/limits (measured):** 1000x1000 m site + 3 searches ~135 s; 800x800 ~75 s (the OSM
-modern-mask fetch with overpass retries is the variable part; 14 GB RAM / 6 cores, headroom to
-spare; no fixed ports; writes only data/sites/<sid>/dem.npy in the work phase and, in tests, the
-seeded npz under the test root).
-
-**Re-read (for 302c, not 302a's job):** pipeline/plan_fit.py:build (lines ~290-292) - the "how"
-string for auto:true docs still says "Fitted automatically by the batch..." for a fitter:"ink" doc;
-302c's wording fix (plan_fit.py is in the parent's Touches, not this task's). tools/site_done.py:
-_fit - the 302c replacement of the batch model loop must keep the covered-pictures rule and the
-exit codes. fit/inkfit.py:fit - the review reason should name the margin and which null beat the
-fit when 302c routes an unsure fit to the queue. Also commit this task's two uncommitted files
-(fit/inkfit.py, PITFALLS.md) if the harness did not already.
+**Re-read (for 302c, not this task's job):** pipeline/plan_fit.py:build - the "how" string for
+auto:true docs still says "Fitted automatically by the batch..." for a fitter:"ink" doc (the
+wording fix is 302c's; plan_fit.py is in the parent's Touches). tools/site_done.py:_fit - the
+302c replacement of the batch model loop must keep the covered-pictures rule and the exit codes.
+fit/inkfit.py:fit - when 302c routes an unsure fit to the queue, the review reason should name
+the margin and which null beat the fit.
