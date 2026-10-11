@@ -34,9 +34,32 @@ Out-of-scope sibling categories (checked 2026-10-10, re-checked 2026-10-13; not 
 | Jan Kip - Fair Lawn in ye County of Kent - B2017.35.2 - Yale Center for British Art.jpg | Fairlawne (Q17530246) |
 | Jan Kip - The House at Chiswick in the County of Middlesex one of the Seats of the Rt Hon Charles Boyle - B1977.14.18672 - Yale Center for British Art.jpg | Chiswick House (Q1074877) |
 
-## 2. Verified site QIDs
+## 2. Verified sites (checked 2026-10-13: `fit/src_kip.py --verify` live run - no duplicate, no >50 km P625 flag, no missing item; `--verify` re-runs all of it on every live run)
 
-_(pending - sessions 2-3, after `SITES` is filled and `--verify` runs.)_ The 12 staged views will verify against eleven sites (one QID each; St James's Palace is one site for two plates): Badminton, Temple Newsam, Hutton Hall (the Cumbrian Fletcher seat), Stoke Bishop, Stanway, Kingsweston, the House at Windsor (the duke of St Albans'), St James's Palace, Lambeth Palace, Somerset House, and the Hampton Court Palace on the Thames (a NEW site - its QID still to find; note the hand-tied Q1443802 is the Herefordshire seat). Each entry: Wikidata label, P625 vs the recorded landmark point, enwiki, P373, plus the `known_sites()` duplicate check (no new site for a QID already in the catalog). The four review-queue views get no site row here - 201 owns the queue; this document only names them.
+The 12 staged views verify against **eleven sites** - one new `garden` site per view, St James's Palace shared by its two 1707 plates. Eight carry a Wikidata QID; three have **no** item for the house at all (checked 2026-10-13) and carry `qid=None`, which the model handles (42 of the 78 extras.jsonl rows carry no qid). Duplicate check: `known_sites()` over the eight QIDs against the current catalog (sites.jsonl + extras.jsonl + web/data/sites.json = 12,575 known QIDs at check time): **none** - no new site collides with an existing one, so all eleven are genuinely new. (A future catalog growth that adds a colliding QID fails the next `--verify` loudly.)
+
+| id | QID | Label | Landmark (lon, lat) | P625 Δ | P373 | P131 | enwiki | First name-search hit with P625 |
+|---|---|---|---|---|---|---|---|---|
+| badminton-house-q2628510 | Q2628510 | Badminton House | -2.28045, 51.5455 | 0.00 km | Badminton House | Badminton (village) | Badminton House | itself |
+| temple-newsam-q2748017 | Q2748017 | Temple Newsam | -1.4595, 53.7842 | 0.00 km | Temple Newsam | Leeds | Temple Newsam | itself |
+| hutton-hall-q5951100 | Q5951100 | Hutton in the Forest | -2.839, 54.714 | 0.00 km | Hutton-in-the-Forest | Skelton | Hutton in the Forest | **Q5951058 'Hutton Hall' - 116 km away (trap)** |
+| stanway-house-q7600303 | Q7600303 | Stanway House | -1.9122, 51.9899 | 0.00 km | Stanway House | Stanway | Stanway House | itself |
+| st-james-palace-q272162 | Q272162 | St James's Palace | -0.137778, 51.504722 | 0.00 km | St. James's Palace | City of Westminster | St James's Palace | itself |
+| lambeth-palace-q1130266 | Q1130266 | Lambeth Palace | -0.11972, 51.49556 | 0.00 km | Lambeth Palace | LB Lambeth + Lambeth (historic) | Lambeth Palace | itself |
+| somerset-house-q1344889 | Q1344889 | Somerset House | -0.117778, 51.511111 | 0.00 km | Somerset House | City of Westminster | Somerset House | itself |
+| hampton-court-palace-q205666 | Q205666 | Hampton Court Palace | -0.337499, 51.4034 | 0.00 km | Hampton Court Palace | LB Richmond upon Thames | Hampton Court Palace | itself |
+
+Every P625 of every item coincides with the recorded landmark point (Δ = 0.00 km; a >50 km value would flag the entry as a wrong item and fail the run). The landmark point is the fixed thing that carries the fit - the house or palace itself, never the QID's municipality point. P131 is the item's current administrative division; the table's `place` is the county the plate describes (the palace sits on the Richmond-upon-Thames/Kingston-upon-Thames boundary; its item carries the former). The one live name-search trap: a caption route that resolved "Hutton Hall" by name would pick Q5951058 (a different Hutton Hall near Guisborough, 116 km away) - the staged rows therefore carry the verified QID and the plate's caption, never a name lookup; the other seven searches return the correct item first.
+
+The three without a QID (no Wikidata item for the house, checked 2026-10-13):
+
+| id | Landmark (lon, lat) | Source of the point |
+|---|---|---|
+| kings-weston-house | -2.661541, 51.494382 | enwiki infobox (WGS84) of the "Kings Weston House" article; Nominatim/OSM "Kings Weston House, Bristol" (51.4944124, -2.6614991) confirms it to 4 m (re-checked today). The article's own grid ref ST529771 converts to 1.3 km W (OSGB36 to WGS84, no grid shift) - the article's two position statements disagree, so the grid ref is NOT a confirmation; the infobox/OSM pair is. (Not the Bristol suburb Q6413746, not the hill Q6413747.) The house Kip drew was the earlier Elizabethan house; the house standing on the site is the Vanbrugh rebuild of 1712-19 for the Southwells. |
+| stoke-house | -2.6294812, 51.4767404 | Nominatim/OSM amenity point of "Trinity Theological College, Bristol" - the house is the Grade II* Stoke Bishop manor (built 1669 for Sir Robert Cann, Bristol MP and Mayor; the 1709 plate's "Sr. Thomas Cann" is his son), now the college. Re-checked today: 0 m. (The suburb Q7618438 is not the house; the enwiki article is "Stoke Bishop".) |
+| burford-house-windsor | -0.6056, 51.4810 | the Mews / Saint Alban's Street site: two geograph photos in the Commons category "Burford House, Windsor" carry WGS-84 EXIF GPS (51.481051, -0.605551 and 51.480870, -0.605556); Nominatim "Royal Mews, Windsor" is 72 m away, same street (re-checked today). The house (the duke of St Albans', Nell Gwyn's former house) is GONE - sold to George III in the 1770s, absorbed into the Royal Mews - but the 1707 view is locked to the standing Windsor Castle (Q42646, ~325 m N of the site point) in the same view. No enwiki article ("Burford House" is a 4-way disambiguation with a red Windsor link); the house is described in the "Nell Gwyn" article, which the site row's wikipedia carries. |
+
+The four review-queue views (Beaufort House, both impressions; Swillington; Stoke Gifford) get no site row here - 201 owns the queue; this document only names them.
 
 ## 3. The 132-file verdict table
 

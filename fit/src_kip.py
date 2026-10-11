@@ -272,12 +272,13 @@ SITES = {
     "kings-weston-house": dict(qid=None, name="Kings Weston House", lon=-2.661541, lat=51.494382,
         place="Bristol", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Kings_Weston_House",
-        note="1710 plate ('Birds-eye view of the Kingsweston estate', Atkyns' Glocestershire); the house Kip drew "
-             "(Elizabethan, on the site of the Vanbrugh house rebuilt 1712-19) still stands. No Wikidata item for "
-             "the house (not the Bristol suburb Q6413746, not the hill Q6413747); the point is the enwiki infobox "
-             "WGS84 51.494382, -2.661541: Nominatim 'Kings Weston House, Bristol' resolves 4 m from it, and the "
-             "article's grid ref ST529771 = 352900, 177100 (the ST 100 km square's origin is 300000, 100000) agrees "
-             "with it within the WGS84/OSGB36 datum offset"),
+        note="1710 plate ('Birds-eye view of the Kingsweston estate', Atkyns' Glocestershire); the view shows the earlier "
+             "Elizabethan house - the house standing on the site is the Vanbrugh rebuild of 1712-19 for the "
+             "Southwells. No Wikidata item for the house (not the Bristol suburb Q6413746, not the hill Q6413747); the point is the enwiki infobox "
+             "WGS84 51.494382, -2.661541, which Nominatim/OSM 'Kings Weston House, Bristol' (51.4944124, "
+             "-2.6614991) confirms to 4 m (checked 2026-10-13). The article's own grid ref ST529771 converts to "
+             "1.3 km W of that (the article's two position statements disagree) - it is NOT an independent "
+             "confirmation, the infobox/OSM pair is (docs/lead_kip.md §2)"),
     "stoke-house": dict(qid=None, name="Stoke House", lon=-2.6294812, lat=51.4767404,
         place="Bristol", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Stoke_Bishop",

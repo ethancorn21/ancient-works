@@ -121,9 +121,43 @@ Why: Python evaluates the receiver expression (`open(path,"w")` - whose side eff
       whole new content into a variable FIRST (and `assert`/validate it), and only call the write as the final step.
       When a file is precious and uncommitted, keep a backup copy or stage to a temp path and `mv` it in.
 
+#### Nominatim and the en.wikipedia API are reachable through `commons.get` (the project UA); Nominatim at 1 request/second
+Where: `https://nominatim.openstreetmap.org/search` and `https://en.wikipedia.org/w/api.php` via
+      `pipeline/commons.py:get`; task 205's SITES cross-checks
+Symptom: none - it works, in contrast to the MET/AIC APIs which are TLS-refused from this VM.
+Why: the egress allowlist covers both hosts and `commons.get` sets the UA Nominatim's policy requires; pace
+      Nominatim at 1 request/second. Verified live 2026-10-13 (task 205): "Kings Weston House, Bristol" 4 m from
+      the enwiki infobox point, "Trinity Theological College, Bristol" 0 m, "Royal Mews, Windsor" 72 m.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
+
+### pyproj (3.8, project .venv)
+
+#### `pyproj.CRS("OSGB36")` is NOT the British National Grid, and EPSG:4326's authority axis order is (lat, lon)
+Where: any OSGB36/BNG to WGS84 conversion (task 205's Kings Weston grid-ref check); `pyproj.Transformer.from_crs`
+Symptom: `Transformer.from_crs("OSGB36", "WGS84").transform(352900, 177100)` returns (51.490873, -2.679790) with
+      the two VALUES SWAPPED in meaning (x=lat, y=lon) - and with a plain geographic name like "OSGB36" the
+      transform degrades toward a pass-through (the first attempt returned the inputs essentially unchanged). A
+      default Transformer TO EPSG:4326 emits (lat, lon), because 4326's authority axis order is lat, lon.
+Why: the projected British National Grid is EPSG:27700; "OSGB36" is the datum's geographic system. Use
+      `pyproj.Transformer.from_crs('EPSG:27700', 'EPSG:4326', always_xy=True)` and read the result as
+      (lon, lat). Verified 2026-10-13, both directions: BNG (352900, 177100) -> (lon -2.679790, lat 51.490873)
+      near SW Bristol; Bristol centre (51.4545, -2.5879) -> (359247, 173000) = ST5927, the well-known centre of
+      Bristol.
+
+#### A 6-figure OS grid ref's digits are relative to its 100 km square's origin - the ST square is (300000, 100000), not (400000, 700000)
+Where: any decoding of a UK 6-figure grid ref before a pyproj conversion (e.g. the enwiki
+      `{{gbmapping|ST529771}}` on the Kings Weston House page; task 205)
+Symptom: decoding the digits as (400000 + 52900, 700000 + 77100) and converting to WGS84 lands near (-1.13,
+      56.88) - the Scottish border, ~600 km from Bristol.
+Why: the three digit-pairs are 100 m offsets from the 100 km square's OWN origin; each square has a different
+      origin (TQ = 400000/100000 - that is why Greenwich is TQ3280; S is one easting square west of T, so
+      ST = 300000/100000). Verified 2026-10-13 by the round-trip: ST529771 = (352900, 177100) -> (51.490873,
+      -2.679790), SW Bristol, which converts back to exactly (352900, 177100). Note this also means a grid ref in
+      an enwiki article can disagree with the article's infobox coordinates (Kings Weston House: 1.3 km) -
+      cross-check both against Nominatim/OSM before quoting either.
 
 ## This codebase
 
@@ -293,6 +327,28 @@ Why: curators fill DateTimeOriginal inconsistently: for photos it is the shootin
       the file is (plate scan / photo / book page): the plate's date usually sits in the TITLE or in the
       Rijks-style `Titel(s):` line of the description (the `desc` field), and `stage()` should take it from
       there.
+
+#### From this VM, `iiprop=wbentity` returns nothing for ANY file - the depicts/M-item route is unusable
+Where: the Commons API `iiprop=wbentity` (a file -> its MediaInfo item); the planned P180 (depicts) evidence
+      route for staged file rows (task 205)
+Symptom: the response has no `item` for every file tried: the Gott 112a Temple Newsam scan, the Rijksmuseum
+      "Gezicht op Stanway" file, and even "File:Mona Lisa, by Leonardo da Vinci.jpg" (which certainly has a
+      rich M-item) - checked 2026-10-13, task 205.
+Why: the mechanism yields nothing from this VM (server-side gating, or the parameter is not served here); it
+      was tested on a file guaranteed to have an item, so it is not a per-file data gap. Do not retry per file:
+      staged rows use `caption_coords` (the plate's caption + the verified site point) or the hand-tied QID, and
+      the lead doc records that the depicts route was unavailable.
+
+#### The en.wikipedia API: `action=query` and `action=parse` own disjoint property sets; a missing page is `missing:""` in query, `missingtitle` in parse
+Where: `https://en.wikipedia.org/w/api.php` (via `commons.get`, which sets the UA); task 205's infobox checks
+      (Kings Weston House, pageid 10102492)
+Symptom: `action=parse&prop=coordinates` errors (coordinates is a query prop); `action=query&prop=wikitext`
+      errors (wikitext is a parse prop); an absent page under `action=query&titles=` comes back as a page object
+      with `"missing":""` - an EMPTY STRING, falsy, so `if page.get("missing")` reads as "present". Under
+      `action=parse` the same page gives `"missingtitle":"true"`.
+Why: two actions, disjoint prop namespaces; the query missing-marker is the empty string. Test for
+      `"missing" in page`. Get the infobox coordinates from `action=query&prop=coordinates` and the article body
+      from `action=parse&prop=wikitext` - two calls, never one.
 
 ### fit/
 
