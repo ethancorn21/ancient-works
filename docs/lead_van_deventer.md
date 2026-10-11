@@ -214,16 +214,18 @@ Three things the discovery run changed from the prep's list:
   be a NEW lowercase value `luxembourg`; `build_catalog`'s REGION_NAME has keys for belgium/netherlands/
   france but no luxembourg, so the site display falls back to the raw value (its line-91 default) -
   acceptable, but a REGION_NAME key is a small follow-on task.
-- **Beaumont is the only town whose QID is still unverified** (box 2): the en search top 20 holds only one
-  plausible item, Q95100, the Hainaut (Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; P131
-  'Arrondissement of Thuin'; enwiki 'Beaumont, Belgium') - the northern-France Beaumont (Nord) the TOWNS region
-  guess implies is ABSENT from the en top 20. The atlas plate settles it: the --files run's desc/eye check of
-  the drawing decides Hainaut vs Nord (the Hainaut town sits on the Sambre at the French border, the Nord one
-  is inland near Seclin). If Hainaut wins, the region flips france → belgium and the QID is Q95100; the TOWNS
-  entry keeps region='france' with a note= pending until then.
+- **Beaumont is settled: Q95100, the Hainaut (Belgium) city - the region flipped france → belgium (iter 52)
+  and its QID row is in the Belgium section above.** The en search top 20 holds only this one plausible item
+  (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; P131 'Arrondissement of Thuin'; enwiki 'Beaumont,
+  Belgium') - the northern-France Beaumont (Nord) is ABSENT from it. Its 1545 atlas plate settled it on the
+  drawing: a fortified town BISECTED by the Sambre with a bridge, the counts of Hainaut's chateau on the west
+  bank, Charles V's new walled grid town on the east - Beaumont (Nord) has neither river nor chateau.
+  Re-verified on its own (transcript /tmp/vd_verify_beaumont_iter53.txt: label 'Beaumont', P373 'Beaumont
+  (Hainaut)', enwiki 'Beaumont, Belgium' all match; the first search hit WITH a P625 is the Q128282
+  'Beaumont' (Texas) trap, 8035 km away - the traps below).
 
-None of the QIDs verified here (the 22 non-Beaumont FR towns, the moved Le Rœulx, Luxembourg City, and the
-done Bergues) is in the built catalog (checked against the 12575-site catalog on 2026-10-11): all get new
+None of the QIDs verified here (the 21 FR towns, the moved Le Rœulx, the moved Beaumont, Luxembourg City, and
+the done Bergues) is in the built catalog (checked against the 12575-site catalog on 2026-10-11): all get new
 catalog entries (box 4 - no existing-site reuse). The Douai and Valenciennes items also carry the historical
 P131 'County of Flanders' / 'County of Hainaut' (the c. 1550 context of the drawings); the rows' place is the
 modern department (Nord).
@@ -254,8 +256,8 @@ modern department (Nord).
 | Luxembourg City | Q1842 | Luxembourg | 6.13, 49.611389 | 6.13, 49.6114 | 0.00 km | Luxembourg City |
 | Bergues (done) | Q244934 | Bergues | 2.434167, 50.968611 | 2.4342, 50.9686 | 0.00 km | Bergues - stays in pipeline/sources.py |
 
-23 rows: the 21 FR towns to stage + Luxembourg City + the done Bergues (the 22nd FR town, Beaumont, has no
-verified QID yet - see the pending paragraph above).
+23 rows: the 21 FR towns to stage + Luxembourg City + the done Bergues (the 22nd FR town, Beaumont, is in the
+Belgium table above - its atlas plate settled the Hainaut identification, iter 52).
 
 ### Name-search traps - France, Luxembourg
 
@@ -278,8 +280,9 @@ verified QID yet - see the pending paragraph above).
 - **Luxembourg City** - the qualified label search 'Luxembourg (city)' returns EMPTY (the parentheses quirk,
   PITFALLS); the unqualified 'Luxembourg' (limit 20, en) ranks the country Q32 first, 'Luxembourg Province'
   (Q1126, Wallonia) second and the city Q1842 third; the follow-up search 'Luxembourg City' hits Q1842 first.
-- **Beaumont** - the Barnard-Castle-style trap the search alone did not settle: see the pending paragraph
-  above (only the Hainaut item in the en top 20; the Nord town absent from it).
+- **Beaumont** - settled by its atlas plate (the Hainaut city Q95100; the region flipped - the QID paragraph
+  above): the name-search trap was Q128282 'Beaumont' (Texas), 8035 km from the Hainaut site - the full
+  account is in the Belgium traps above.
 - The rest had a correct first hit; the notable near-misses: Cambrai Q84243457 (a near-duplicate item at the
   same coordinates, no P373, no enwiki) and Q5025235 (Cambrai, South Australia); Aire-sur-la-Lys Q38375111
   (same label, no P625) and Q127729933 (label 'Aire-sur-la-Lys', P625 in Ecques, no P373); Le Rœulx's own
@@ -426,32 +429,103 @@ rejected (the /tmp/vd_be_thumbs/ set of iter 46 and the /tmp/vd_fr_thumbs/ set o
   van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his career ran to
   his death in 1575, and the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
 
-### France, Luxembourg (QIDs verified 2026-10-11, iter 49; file= pending the --files run)
+### France (22 categories: 21 staged, 1 done; checked 2026-10-11, iter 52, `--files` transcript
+`/tmp/vd_files_fr_iter50.txt` - re-run: `.venv/bin/python fit/src_van_deventer.py --files <towns>`)
 
-23 towns to stage (FR 22 + LU 1); one bullet per town as the `--files` inventories run. The 1545 BNE atlas
-plates cover all 23 FR towns (the collection section below) and are the expected picks; watch items: the two
-double plates (one file, two towns - stage once under the true primary, give the second its own row only if a
-full plan of its own exists): `Aire-sur-la-Lys - Deventer.jpg` (3395x2614, "Aire-sur-la-Lys & Thérouanne") and
-`Hesdin - Deventer.jpg` (3408x2614, "Hesdin & Vieil-Hesdin"). Beaumont: the plate's desc/eye check settles
-Hainaut vs Nord (its QID is pending; the region flips if Hainaut wins). Luxembourg City: the KBR / National
-Library scan is the expected pick; the KBR details in the Landrecies atlas subcategory (5 files, 1091-1805
-px) are the fallback if the town-category file is weak.
+One 1545 BNE atlas plate per town (page date 1545 = the drawing's date - no `date` swap anywhere in this
+batch), except the five (1)/(2) pairs, which stage the (2) wide sheet (the full two-page drawing with the
+town label, shield, compass points and scale; the (1) is a single page of the same drawing - the Mons
+(1)/(2) precedent), and the two double sheets, which stage once under the first-named town (each also gets
+its own standalone plan where one exists: Thérouanne, Vieil-Hesdin). Every ambiguous candidate was
+eye-checked from 1280 px thumbs + full-size crops (/tmp/vd_fr_thumbs/) before being picked or rejected.
+
+- **Aire-sur-la-Lys** - staged `Aire-sur-la-Lys - Deventer.jpg` (3395x2614, 1545, desc 'Aire-sur-la-Lys &
+  Thérouanne'): the two-page spread - RIGHT page = the full Aire plan (label 'Aire.', the town on its Lys
+  peninsula, compass points, page no. 33), LEFT page = two framed insets ('Terwan' = the Thérouanne pentagon
+  and a second small water-bound settlement). Staged ONCE under Aire; Thérouanne gets its own standalone row
+  (below). Not staged: the two SVG redraws (900x768, 2540x2677) and `Aire-sur-la-Lys - Plan de Deventer.jpg`
+  (992x800, QS 1550-1565) - a grainy halftone book reproduction of the same town (label 'Aire' + shield),
+  redundant with the BNE sheet.
+- **Arras** - staged `Arras (2) - Deventer.jpg` (3184x2614, 1545): the wide sheet (the full two-page drawing
+  with the town label, shield, compass points and scale). Not staged: `Arras (1) - Deventer.jpg` (1816x2614)
+  - a single page of the same drawing (the old town cut off at the right edge).
+- **Avesnes-sur-Helpe** - staged `Avesnes-sur-Helpe - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas
+  plate; the only file.
+- **Bapaume** - staged `Bapaume - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas plate; the only file.
+- **Bavay** - staged `Bavay - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas plate; the only file.
+- **Bouchain** - staged `Bouchain - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas plate; the only file.
+- **Béthune** - staged `Béthune - Deventer.jpg` (3442x2614, 1545): the 1545 wide sheet. Not staged: the two
+  SVG redraws (656x687, 2585x2477).
+- **Cambrai** - staged `Cambrai - Deventer.jpg` (3722x2614, 1545): the 1545 wide sheet; the only file.
+- **Condé-sur-l'Escaut** - staged `Condé-sur-l'Escaut - Deventer.jpg` (3529x2614, 1545): the 1545 wide sheet;
+  the only file.
+- **Douai** - staged `Douai (2) - Deventer.jpg` (3665x2614, 1545): the wide sheet (the full two-page drawing
+  with the town label, shield, compass points and scale). Not staged: `Douai (1) - Deventer.jpg` (1816x2614)
+  - the drawing on its own page (larger scale, no label/compass). The item's P131 also carries the
+  historical 'County of Flanders' (the c. 1550 context); the row's place is the modern department (Nord).
+- **Gravelines** - staged `Gravelines - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas plate; the only
+  file.
+- **Hesdin** - staged `Hesdin - Deventer.jpg` (3408x2614, page 30): the double sheet. LEFT page = the big
+  bastioned star fort labelled 'Hesdyn fort.' + a blank shield (the 1554-1575 fortification) with a small
+  framed inset; RIGHT page = the framed pentagon 'Hesdyn' - the moated old town with its hill-top fort, i.e.
+  the Vieil-Hesdin plan. The page date is a French note (Hesdin plan 1554-1575; Vieil-Hesdin 'probablement
+  1545') - kept as-is: `year_of` takes the min (1545, inside the c. 1545-1565 window - box 6). Staged ONCE
+  under Hesdin; Vieil-Hesdin gets its own standalone scan (below).
+- **Landrecies** - staged `Landrecies - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas plate. Not
+  staged: the five 'Plan de Landrecies, détail ... KBR' files (1091-1805 px, QS 1550-1565, in the Atlas
+  subcategory) - detail crops, two of them annotated.
+- **Le Cateau-Cambrésis** - staged `Le Cateau-Cambrésis - Deventer.jpg` (1816x2614, 1545): the 1545 BNE atlas
+  plate; the only file.
+- **Le Quesnoy** - staged `Le Quesnoy - Deventer.jpg` (3447x2614, 1545): the 1545 wide sheet. Not staged: the
+  two SVG redraws (760x686, 2624x2352).
+- **Lille** - staged `Lille (2) - Deventer.jpg` (3614x2614, 1545): the wide sheet (the full two-page drawing
+  with the town label, shield, compass points and scale). Not staged: `Lille (1) - Deventer.jpg` (1816x2614)
+  - the drawing on its own page; 'Lille vers 1550 sur plan Deventer.png' (625x452, uploaded 2022) - a small
+  scan; the two SVG redraws of (2) (1340x1410, 3800x3055).
+- **Maubeuge** - staged `Maubeuge - Deventer.jpg` (3481x2614, 1545): the 1545 wide sheet; the only file.
+- **Saint-Omer** - staged `Saint-Omer (2) - Deventer.jpg` (3449x2614, 1545): the wide sheet, sheet label
+  'S. Omeri', page 34. Not staged: `Saint-Omer (1) - Deventer.jpg` (1816x2614) - the drawing on its own page.
+- **Thérouanne** - staged `Thérouanne - Deventer.jpg` (986x867, 1545): the standalone 'Terwan' plan
+  (pentagon, compass, bridge) - the ONLY Thérouanne plan on Commons, staged with the Ostend/Aardenburg size
+  caveat; the 3395x2614 Aire/Thérouanne spread is staged under Aire (this plan is the spread's left-page
+  inset).
+- **Valenciennes** - staged `Valenciennes (2) - Deventer.jpg` (4156x2614, 1545): the wide sheet (the full
+  two-page drawing with the cursive town label). Not staged: `Valenciennes (1) - Deventer.jpg` (1816x2614) -
+  the drawing on its own page.
+- **Vieil-Hesdin** - staged `Vieil-Hesdin - Deventer.jpg` (757x857, 1545, desc 'Vieil-Hesdin'): the
+  standalone scan of the right-page inset of the Hesdin double sheet (compared pixel-for-pixel) - the only
+  standalone Vieil-Hesdin plan, staged with the size caveat.
+- **Bergues** - done (a hand-tie in `pipeline/sources.py`), not re-staged here.
+
+### Luxembourg (1 category: 1 staged; checked 2026-10-11, iter 52, the same `--files` run)
+
+- **Luxembourg City** - staged `Luxemburg 1550 65 v Deventer.jpg` (2261x1878, page date 1550 = the drawing's,
+  desc 'Lutzenburg'): the hand-coloured drawing on laid paper (label 'Lutzenburg' + a blank shield, the
+  Dutch compass Noorde/West/Oost/Zuydt, the Alzette with the Bock rock and the old castle, the new bastioned
+  fort to the west). The caption route is REQUIRED: the label 'Luxembourg' is not in the title or the desc
+  (the file prints the historical spelling), so the row carries `caption="Lutzenburg"`. Not staged:
+  `Lutzenburg.jpg` (1600x1200, uploaded 2005, desc 'published first 1609') - not the drawing; `Lutzenburg
+  1581 Sanderus.jpg` (1909x1599, the 1581 Sanderus print) and `Couvent Knödler 1550.jpg` (644x468, a detail
+  crop). The row's region is a NEW lowercase value `luxembourg`: `build_catalog`'s REGION_NAME has no key
+  for it yet, so the site display falls back to the raw value (its line-91 default) - a REGION_NAME key is a
+  small follow-on task.
 
 ## The collection categories (checked 2026-10-11, the `--files` run)
 
 - **BNE - 61 files**: the "Planos de ciudades de los Países Bajos" atlas (Part II and III); nearly all
-  page-date 1545 (the Charles V campaign) - the expected picks for the FR/BE batches. It covers all 23 FR
-  towns (Arras, Douai, Lille, Mons, Saint-Omer, Valenciennes as (1)/(2) double plates) and 16 of the 20 BE
-  towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent as BN 1/2, Halle as "Hal", Kortrijk, Lessines,
-  Leuze, Mons, Ostend, Oudenaarde as the "Version Madrid" plate, Saint-Ghislain, Soignies, Tournai; Bruges,
-  Brussels, Mechelen and Aarschot are not there; plus done Binche). Double plates - one file, two towns (stage
-  once under the true primary town, note the second): `Aire-sur-la-Lys - Deventer.jpg` (3395x2614) is
-  "Aire-sur-la-Lys & Thérouanne"; `Hesdin - Deventer.jpg` (3408x2614) is "Hesdin & Vieil-Hesdin" (French desc,
-  odd date field: Hesdin 1554-1575, Vieil-Hesdin "probablement 1545"). Files that duplicate a town-category
-  file (the inventory's `[also in: ...]` tag): Alkmaar, Damme, Goes, Reimerswaal, Amsterdam - same files, not
-  double-staged. Out of scope (no town category among the 66): Appingedam, IJlst, Woudrichem/Gorinchem
-  (2 files), Nieuwpoort+Dunkerque (Manuscrito 75, 2 files), Hontscoten+Veurne (Manuscrito 74, 3 files), plus
-  done Venlo.
+  page-date 1545 (the Charles V campaign) - the expected picks for the FR/BE batches. It covers all 22 FR
+  towns (Arras, Douai, Lille, Saint-Omer, Valenciennes as (1)/(2) double plates) and 18 of the 22 BE towns
+  (Ath, Beaumont, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent as BN 1/2, Halle as "Hal", Kortrijk,
+  Lessines, Le Rœulx, Leuze, Mons, Ostend, Oudenaarde as the "Version Madrid" plate, Saint-Ghislain, Soignies,
+  Tournai; Bruges, Brussels, Mechelen and Aarschot are not there; plus done Binche). Double plates - one
+  file, two towns (both settled, iter 52): `Aire-sur-la-Lys - Deventer.jpg` (3395x2614) is
+  "Aire-sur-la-Lys & Thérouanne" - staged once under Aire, Thérouanne its own standalone 'Terwan' row;
+  `Hesdin - Deventer.jpg` (3408x2614) is "Hesdin & Vieil-Hesdin" (French desc, odd date field: Hesdin
+  1554-1575, Vieil-Hesdin "probablement 1545" - `year_of` takes the min, 1545) - staged once under Hesdin,
+  Vieil-Hesdin its own standalone scan. Files that duplicate a town-category file (the inventory's `[also in:
+  ...]` tag): Alkmaar, Damme, Goes, Reimerswaal, Amsterdam - same files, not double-staged. Out of scope (no
+  town category among the 66): Appingedam, IJlst, Woudrichem/Gorinchem (2 files), Nieuwpoort+Dunkerque
+  (Manuscrito 75, 2 files), Hontscoten+Veurne (Manuscrito 74, 3 files), plus done Venlo.
 - **NA - 2 files**: the The Hague autograph (the staged file; the same file also sits in The Hague's town
   category) and the Schoonhoven & Nieuwpoort two-town sheet (c. 1550, 5161x4430 - out of scope, neither town
   has a category).
@@ -471,13 +545,13 @@ px) are the fallback if the town-category file is weak.
   `town_files` inventories each town category's own subcategories at depth 1) - the Landrecies batch picks
   from the town category, the KBR details are the fallback candidates.
 
-## Summary (running total: 32 of 60 stageable town categories staged)
+## Summary (running total: 56 of 60 stageable town categories staged)
 
 Netherlands: 13 of 16 staged, 3 documented drops (Groningen province, Leeuwarden, Middelburg). Belgium:
-19 of 21 staged - 1 documented drop (Aarschot - both files dated 1570, outside the c. 1545-1565 window),
-1 pending (Le Rœulx - QID verified, file= pending the --files run). France: 0 of 22 staged (21 QIDs
-verified, Beaumont's QID pending the atlas-plate settlement; files pending the --files run). Luxembourg:
-0 of 1 (QID verified; file pending). So far 32 of 60 stageable town categories staged (32 of the 59 town
-plans: NL 13 + BE 19). Box 5: >= 50 of 60 staged, or every missing one accounted for in the sections above
-(a documented drop beats a guessed row); every unverifiable QID named with its reason (box 2 - currently
-Beaumont, pending). The six done towns appear nowhere in this task's staging files.
+21 of 22 staged - 1 documented drop (Aarschot - both files dated 1570, outside the c. 1545-1565 window);
+Le Rœulx and Beaumont staged from the FR batch (moved to Belgium, iter 52). France: 21 of 21 staged - no
+drops (the not-staged files are copies, SVG redraws, detail crops and one halftone book reproduction).
+Luxembourg: 1 of 1 staged. So 56 of the 60 stageable town categories are staged (56 of the 59 town plans:
+NL 13 + BE 21 + FR 21 + LU 1) - box 5 met: >= 50 staged, and every non-staged town is accounted for in the
+sections above (a documented drop beats a guessed row). Box 2: every QID is verified (Beaumont settled by
+its atlas plate as the Hainaut city - none pending; every name-search trap is named in the sections above).

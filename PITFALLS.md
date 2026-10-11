@@ -33,6 +33,15 @@ this way at iteration 12; landed at iteration 13).
 Why/fix: capture the exact bytes first: `sed -n 'A,Bp' <file> | cat -A`, and copy the physical lines
 verbatim (wrap points and indentation included) into oldText.
 
+#### The read tool's output of fit/src_van_deventer.py is not byte-faithful - source edit oldText from sed/grep
+Where: the read tool on `fit/src_van_deventer.py` (and any edit call whose oldText came from its view)
+Symptom: an edit call is rejected (oldText "not found") although the read-tool view looks identical - the
+view dropped a word (204 iter 52: it showed "21 to stage + 2 done" where the file has "21 to stage + the 2
+done"; two edit calls failed on it)
+Why/fix: the read tool's rendering of that long file is not byte-for-byte reliable. Capture the exact physical
+lines with `sed -n 'N,Mp'` / `grep -n` and copy them verbatim into oldText (iter 53's 28 sed-derived blocks
+and iter 54's 7 lead-doc blocks all applied clean on the first try).
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
@@ -301,8 +310,9 @@ Where: `pipeline/commons.py` (`get`, sets `aw.UA`) and any throwaway script hitt
       directly (e.g. the thumb download snippet of the 204 BE eye check)
 Symptom: HTTP Error 403: Forbidden on the very first request; the same request works once a User-Agent is sent
 Why: Wikimedia's robot policy rejects requests without a descriptive User-Agent. `aw.UA` is the project's
-      standard value - a raw urllib script must set it (or go through `commons.get`, which paces and retries
-      too).
+      standard value: a DICT ({"User-Agent": ...}), not a string - pass it to urllib's Request(headers=)
+      as-is, but slicing it like a string (UA[:60]) raises KeyError. A raw urllib script must set it (or go
+      through `commons.get`, which paces and retries too).
 
 ### fit/
 
