@@ -13,20 +13,20 @@ the fit prove the identification. If it cannot be identified with evidence, docu
 search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Acceptance criteria
-- [ ] The p.212 scan is found (the British Library's Flickr scans, the same URL pattern as
+- [x] The p.212 scan is found (the British Library's Flickr scans, the same URL pattern as
       the hand-tied rows) and downloaded to data/raw/books/ in the working phase; the
       five-towered plan is drawn out and available for comparison (its shape, tower count,
       and any scale/north information recorded in docs/lead_mackenzie.md).
-- [ ] The castle is identified by evidence recorded in docs/lead_mackenzie.md: the book's
+- [x] The castle is identified by evidence recorded in docs/lead_mackenzie.md: the book's
       county context, the plan's shape against candidate castles, and the surviving ground
       (relief/aerial) matching the plan - or the lead is dropped, and the file says exactly
       what was searched, what candidates were considered, and why none was accepted.
-- [ ] If identified: the site (an existing one by QID, or a new extras row) and the picture
+- [x] If identified: the site (an existing one by QID, or a new extras row) and the picture
       row are staged (files_mackenzie.jsonl with the 200 evidence field - caption+coords or
       QID, the source book recorded - and a classified row "plan" by hand), and a fit of the
       plan on the site's ground passes the gate (001): the identification is proven by
       numbers, not just asserted.
-- [ ] Test (no network): the staged row joins and passes fit/evidence.py check offline, with
+- [x] Test (no network): the staged row joins and passes fit/evidence.py check offline, with
       a golden sample. If the lead was dropped, the test asserts the documentation exists
       and the staging files are absent or empty.
 
@@ -39,63 +39,99 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 64 (2026-10-11, agent a) - the missing part is filed: tasks/218-gate-holdout-new-hand-docs.md is in the queue (Status: open, Depends on: 001, Touches: tools/gate_heldout.py + tests/test_gate.py - one tool and its test, the 802 pattern; state-agnostic, so it does not wait on 206 or 207). Audited 206's boxes/Touches against it: nothing moves - no 206 box describes gate_heldout work (box 4 is 206's own test file), and 218's two files were never in 206's Touches line (all eight of 206's paths stay its own); the done-claim's suite-green requirement stays on the Depends on line (001, 200, 211, 218) - the driver holds the claim until 211 and 218 are in main. Working tree clean (the driver committed the platefit doc in d7dde6f). The 4 known-red tests are unchanged: (1) tests/test_serve.py::test_platefits_docs_match_sites, (2)+(3) the two union tests in tests/test_batch_eu.py - owned by 211 (it builds shotwick's site); (4) tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - owned by 218 (21 non-auto docs in data/db/platefits: the 20 registered + shotwick; partition()'s "expected 20" SystemExit). Next session: the staging session, steps 1-6. No Re-read items pending.**
+**Iteration 88 (2026-10-11, agent a) - TWENTY-FIRST early bring-back; main UNMOVED since
+iter 75 (head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/117,
+the +3 over iter 87 = my iter-87 commit 4985cb0 + driver bookkeeping f6204c7, 9801cbd
+- zero tree change since iter 87's stop). FULL battery re-run this session INCLUDING
+--gate (accept, stats identical to the committed doc). All 206-owned work green and
+byte-identical to iters 66-87 (all 8 md5s stable). The 4 suite reds unchanged in cause
+(211 x3, 218 x1; gate still "expected 20 ... found 22"). Deps 211+218 still open ->
+Status stays open. No code or data change this session (none available: the only
+remaining work is owned by 211/218; per the team rule no stand-ins). Re-run the same
+battery at the next bring-back; when 211+218 have merged, expect 0 reds and set done.**
 
-**Facts the lead doc and the test need (all verified; the full detail is in the DECISIONS entry "the corner-based fit is resolved"):**
+STATE at stop (all re-run this session, offline):
+- `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
+  (PASS category shotwick-castle-q7502621|File:212 of 'The Castles of England...').
+- `fit/src_mackenzie.py --gate`: exit 0 this session,
+  `gate: accept {'n': 4, 'med': 15.810503946029705,
+  'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc,
+  rot -0.20 deg, residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc
+  and the golden (also iters 78-86; re-run this session).
+- `tests/test_src_mackenzie.py`: 4/4 green (1.57 s, socket-boom fixture, no network).
+  - re-run this session.
+- All 8 committed artifacts byte-identical to iters 66-86 (re-checked this session):
+  md5sum output identical to iters 66-86's list; no file moved.
+  src_mackenzie 77a47defd606a8599e3af9e28b74894f, files_mackenzie f637c4bebbd98ebb059652936e06646d,
+  classified_mackenzie 2ed56b79bbd356aced13230978e8536f, extras_mackenzie
+  a7060e1292d2607c657a43200dd20b94, shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2,
+  lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4, test_src_mackenzie
+  ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
+- Full suite: 60 passed, 4 failed (62.72 s) - the same 4 as iters 74-86, causes re-verified live:
+  1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
+     `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
+  2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not
+     skipped; the live EU list matches docs/batch_eu.md "Sites run").
+  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's):
+     `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` - 20
+     registered hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc
+     (store re-counted this session: 116 docs, 94 with auto:true, 22 without
+     = 20 registered + shotwick + maiden-castle). 218's box 4
+     re-registration must absorb BOTH new docs.
+  4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621'
+     in {site ids}` - the site is unbuilt in web/data/sites; 211's merge build adds it (it
+     reads the extras row below; the catalog's sites.jsonl already carries the same id by QID
+     with the fuller record).
+- test_site_done still green.
+- Deps re-checked this session: tasks/211-merge-build.md = Status open; tasks/218-gate-holdout-new-hand-docs.md = Status open.
+- Nothing on main moved since iter 75 (head cd104ca; `git diff --stat main agent/a` = the 8
+  206-owned files + memory-file diffs only, i.e. my 206 work awaiting acceptance). The shared
+  store (data/db/platefits, web/data/sites) is main-branch-backed: my shotwick doc and the
+  human's maiden-castle doc are both visible to every agent's suite, which is exactly what
+  the gate/batch/serve reds key on. (No red touches a 206-owned file.)
 
-- The doc (committed d7dde6f): data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json -
-  crop [0,0,839,840] (the ink spans the whole page: full-frame, the alligator/barnard convention),
-  size [839,840], src "commons", book "Wikimedia Commons", label 1897, title "Shotwick Castle, plan
-  from Mackenzie, The Castles of England (1897)", ref = the file title "File:212 of 'The Castles of
-  England- ... plans' (11296081346).jpg", cite "by The British Library; No restrictions; <commons
-  url>", pairs [405,25,-2.9756073,53.2282398] [827,570,-2.9742830,53.2272404] [620,835,
-  -2.9747557,53.2267733] [30,690,-2.9772880,53.2270046] (page px -> lon/lat: catalog point + ground
-  metres via to_merc).
-- The fit: 4 ground corners, dropping the weakest-prominence corner (NW) -> ACCEPT: n 4, med 15.81,
-  slope_o 0.1385 (the 0.11-0.145 band - the lead doc must say so), io -7.04 (no second clause),
-  residuals N 14.2 / E 2.0 / S-SW 17.5 / W-SW 19.4, rotation -0.20 deg, ground scale 0.229 m/px
-  (= |a|*k, k = cos 53.2272; a is MERCATOR m/px). Rejected sets to record: 5 corners (med 14.96,
-  slope_o 0.167 > 0.145, io +17.7) and 5+gate-gap (slope_o 0.315; the phi-27 cleft between the E
-  lobe and the NE finger tangle is NOT the plan's gate gap). Ground: segmentation verbatim from
-  mack_poly5 (2.19 ha, centroid (27.2,9.4)); radial r_out, peaks prominence >= 3 m and >= 20 deg
-  apart: N (31.5,115.8), E (119.8,4.5), S-SW (88.2,-47.5), W-SW (-80.5,-21.8), NW (-27.2,53.5);
-  clockwise gaps 89/41/121/53/56 vs the plan's 95.6/46.5/98.9/40.2/78.8. Predicted (recorded, not
-  pairs): pentagon centre (20.5,17.4) vs the centroid (27.2,9.4); the C11 motte ring at (80,-5),
-  63.6 m from the centre (in the eastern bailey); the hall (41,78) on the dark tree clumps, NOT a
-  building; centre160 crops: a grassed oval + a faint ring in its eastern part, no towers or hall -
-  matching the book's own 1897 words ("a large mound ... a huge earthwork of crescent form, and two
-  deep entrenchments").
-- The evidence chain (prep section 3.3, items a-f): (a) the file's Commons category = Q7502621's
-  P373 "Shotwick Castle" (verified live 2026-10-11; row cat "Shotwick Castle", evidence kind
-  "category" - the 29 hand-tied rows are kind hand_tied with cat null: different tie, different
-  field); (b) the book's index "Shotwick, ii. 180"; (c) the V2 chapter (printed p.180, running head
-  CHESHIRE 181 on the continuation page, next chapter STOCKPORT): the plan is Holme's c.1600
-  drawing, "a pentagon strengthened by six towers"; (d) the county context: p.212 and p.231
-  Lancaster are both V2, 19 leaves apart; p.207 Oxford is V1 - the task's bracket is half true;
-  the actual V2 county headings around printed pp.~179-199 (OQ-3) get filled in from the V2 OCR
-  (recipe in prep section 6); (e) the surviving ground as above (no standing towers, no visible
-  hall); (f) candidates: no five-towered pentagon plan in the V2 county range matches a-f ->
-  Shotwick is unique.
-- The page: data/raw/books/mackenzie/212.jpg (persisted). /tmp artifacts (if still there):
-  mack_poly6.py (offline-rerunnable corner fit), mack_fit_poly6.json/.jpg (the overlay),
-  mack_centre160b.jpg, mack_centre160_eq.jpg (the faint motte ring), mack_400z.jpg, mack_poly5.py;
-  re-fetch: fit/src_mackenzie.py --zoom (deterministic).
+ALL COMMITTED ARTIFACTS (unchanged since iter 65/66; the eight-file list is the corrected one
+from iter 76):
+- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks
+  live facts if the driver ever flags drift; `check()` REQUIRES exactly one extras row with
+  aerial_ok - the file below is part of the contract, not optional),
+- `data/commons/files_mackenzie.jsonl` (1 row, 200 evidence field, site by existing QID),
+- `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
+- `data/catalog/extras_mackenzie.jsonl` (1 row: id shotwick-castle-q7502621, QID Q7502621,
+  aerial_ok true, source fit/src_mackenzie.py, note "built for the 1897 plan (task 206)").
+  This is the task Notes' "the picture is the reason to build": 211 merges it into the
+  canonical extras.jsonl and builds the unbuilt site with the plan already tied. It coexists
+  with (does not duplicate) the catalog's sites.jsonl row of the same id: check() only
+  forbids the id in the canonical extras.jsonl, and the note says the fuller sites.jsonl
+  record reads first. Tracked since ab899eb (driver commit after iter 65); never modified.
+- `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840
+  crop, 4 corner pairs),
+- `docs/lead_mackenzie.md` (says "26 rows" for the sources.py table - the task's "29" is the
+  book-level count; do not "correct" it; L195-196 document the extras row),
+- `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_sample.json`.
+- V2 OCR re-download recipe (if the driver ever flags drift): archive.org item
+  castlesofengland02mack, files castlesofengland02mack_hocr_searchtext.txt.gz /
+  ..._hocr_pageindex.json.gz / ..._page_numbers.json (pageindex rows = [textStart, textEnd,
+  byteStart, byteEnd] text offsets, NOT leaves; pagenums maps leafNum->pageNumber as strings).
 
-**Next session (in order):**
-1. `.venv/bin/python fit/src_mackenzie.py --dry`, then without the flag (network; re-verifies the
-   live Commons file; idempotent, keep/keep-extras) -> writes data/commons/files_mackenzie.jsonl,
-   data/commons/classified_mackenzie.jsonl and data/catalog/extras_mackenzie.jsonl (the extras row
-   aerial_ok: the picture is the reason to build - 211 builds the site with the plan already tied).
-2. `.venv/bin/python fit/src_mackenzie.py --verify` (network: the Q7502621 fact sheet + the live
-   file facts, with the checked date the lead doc records).
-3. Write docs/lead_mackenzie.md per prep section 3 (the five sections; the fit section = the
-   numbers above + the rejected sets + the predictions/why-not-pairs; the county context from
-   step 2 + the V2 OCR).
-4. Write tests/test_src_mackenzie.py per prep section 3 (the socket-blocking fixture; the join;
-   evidence.check offline over the staged row + the negative control; the gate re-run on the
-   committed doc -> accept; the golden via --golden). My test does NOT need the site built.
-5. `.venv/bin/python -m pytest -q` - expect my test green and the 4 known-red still red until
-   211 + 218 merge into main (the driver's sync then turns the suite green). Do not touch the 4.
-6. Tick the boxes: 1 and 2 with the lead doc, 3 LAST (on the committed doc), 4 when my test is
-   green. Status: done only with the full suite green (after 211 + 218 merge - the driver brings
-   the task back).
+DEPS at stop (all already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
+stand-ins per the team rule; re-checked this session, both still `open`):
+- `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210; agent c
+  on 203b/207/302a, 207c blocked on the human's Roy 1793 copy - re-checked this session; its
+  hand-over (from 213's done-claim) lists the staging files to merge: extras/files/classified
+  *_artists.jsonl (2 new town sites + 2 picture rows) and the civitates books files) - owns 3 of the 4 reds
+  (batch_eu x2 + serve): its merge build adds the shotwick doc to the batch union and builds
+  the site.
+- `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001) - owns the 4th:
+  re-registers the 22-doc hand-fit partition (20 registered + shotwick + maiden-castle).
+
+WHEN THE DRIVER BRINGS THIS BACK (after 211 + 218 merged): the ONLY remaining step is
+1. `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` (expect exit 0, 1 pass) and
+   `timeout 300 .venv/bin/python -m pytest -q tests/test_src_mackenzie.py` (expect 4 passed);
+   also re-run the full suite once and note the reds - if 211+218 have merged, expect 0 reds
+   (211 clears batch_eu x2 + serve; 218's re-registration clears the gate one with 22 docs:
+   20 registered + shotwick + maiden-castle-c_c20ff6b1f16d173d; if more reds appear, they
+   must come from other in-flight tasks - any red touching a 206-owned file is a regression
+   to investigate, not a known-red to ignore);
+2. if all green for this task: set `Status: done` and commit (`206: done - <one line>`). No
+   further code work is expected.
