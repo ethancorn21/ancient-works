@@ -8,7 +8,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/213-artist-views.md` (open) - hand-over: **Step 2 done (iteration 24, 2026-10-11): Imola pinned, triaged, staged; Venice staged; boxes 2 + 3 ticked.**
 
 ## Next open tasks
-- `tasks/201-review.md`
 - `tasks/202-propose.md`
 
 ## Your task's journal
