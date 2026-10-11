@@ -154,3 +154,29 @@ no_picture lifecycle, resolved_doc via a real doc / via the recorded field, expo
 missing-site fallback (stderr warning, id as name), idempotent re-export (identical body modulo at), --root.
 Suite: 12 passed under .venv/bin/python (the driver's run). System python3 fails 4 (test_gate, test_evidence
 CLI) - pre-existing PIL/numpy absence, not this step.
+
+## 2026-10-11 201 DECISION: prep step 3 shipped (commit 0b65deb) - web/index.html alone: P.byId keyed by planKey(r) = id.sites[0] (id when sites empty); fit-list buttons carry the composite key, the data-plan binding is unchanged
+Box-5 keying fix, committed alone as the hand-over ordered. The change (all in the one inline script): a
+`function planKey(r) { return r.sites.length ? r.id + '.' + r.sites[0] : r.id; }` placed just above
+`loadPlans()` with a comment; line 819 now `P.byId[planKey(r)] = r`; the fit-list markup (was line 853) now
+`data-plan="${esc(planKey(r))}"`. The binding `openPlan(P.byId[b.dataset.plan])` is untouched - the button
+carries the full composite, so no site parameter is needed (the prep's "cleaner" variant, as the hand-over
+had it). No other change to index.html; the script tag (step 4) is still not added, so the served page today
+still has zero review footprint.
+
+Verification before committing (no test file yet - step 5 writes the committed cases):
+1. Composite-key facts re-checked on this branch's served plans.json: 1166 rows, 0 ids containing '.', exactly
+   the two known duplicate-id pairs, all 1166 (id, sites[0]) composite keys unique, empty-site rows' bare ids
+   colliding with no composite key (python3 over web/data/plans.json).
+2. Suite: 12 passed under .venv/bin/python (same as baseline, no assertion touched) - "nothing changed" per
+   the refactor-first rule; loadPlans is ~6 lines, no flag/branch added, so no separate refactor was owed.
+3. Headless behaviour check through the real page (scratch server on port 0 + tools/shot.mjs, /tmp throwaway):
+   after boot, `Object.keys(P.byId)` contains BOTH rows of each duplicate id (c_ffb3daac218b481f.
+   {avebury-q661855,stonehenge-q39671}; c_984782b9e35e8ded.{king-arthur-s-round-table-q283800,
+   mayburgh-henge-q1469390}); opening each of the four sites' fit lists, every [data-plan] button's key
+   resolved via P.byId to the row whose url is that site's own media copy (e.g. the avebury button ->
+   media/commons/avebury-q661855/ffb3daac218b481f.jpg, the stonehenge button -> the stonehenge copy). Before
+   the fix the map was last-row-wins, so one of each pair resolved to the other site's picture - the exact
+   bug the box describes. No [pageerror]; only the two expected 404s (data/scans.json, amazon areas).
+   The committed test (step 5, case 4) will assert the same through the temp-tree served fixture, per the
+   hand-over's data-level fallback if headless degrades there.
