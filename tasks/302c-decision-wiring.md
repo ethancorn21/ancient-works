@@ -137,8 +137,8 @@ both are in web/data/sites.json (committed) and in hand_fit_sites.txt. Tree buil
 copy tools/, fit/, pipeline/; web/data/{sites.json, plans.json, review.json} whole (committed;
 propose reads the REAL checkout's catalog via its own ROOT anyway - same values); create an EMPTY
 web/data/sites/<sid>/ dir (plan_fit.build only needs the dir; it creates/updates depictions.json
-itself; the 19 hand-fit sites have no committed site dirs, so an empty stub is the hermetic way -
-aone of the 6 committed site dirs would NOT work, they are not hand-fit sites); data/inkfit/
+itself; the 19 hand-fit sites have no committed site dirs, so an empty stub is the hermetic way - none of the 6 committed site dirs would work, they are not
+hand-fit sites); data/inkfit/
 relief/<sid>.npz copied in (committed by me, see below); the plate at data/raw/books/
 earthworkenglan01allcgoog/full/n0132.jpg (badbury) / n0360.jpg (calleva) copied from committed
 golden copies (data/raw is gitignored in every checkout - the committed copies are what make
