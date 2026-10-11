@@ -4,31 +4,18 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 4b (2026-10-11, iteration 37). Step done: the session-4a-specified `llm_model` rewrite is
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 4c (2026-10-11, iteration 38). Step done: the A/B pilot of the 4b `llm_model` on the 5
 - `tasks/203-batch-fit.md` (split)
+- `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
 ## Next open tasks
+- `tasks/213b-qids-tests.md`
+- `tasks/215-books-llm-ports.md`
+- `tasks/216-view-books-entries.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 3 - all 5 tests green; failure 3 was a post-run pre_docs snapshot, not state pollution
-Fixed the remaining session-2 failures in tests/test_batch_us.py only (fit/batch_us.py untouched):
-(1) parenthesized the format strings in `_check_doc` and `_check_doc_stub` (`/` and `%` are the same
-precedence, left-associative - now a PITFALLS entry); (2) `_table` uses the report's exact section
-header; (3) the "state pollution" diagnosis was wrong. fit_gate.gate is a pure function of
-(pairs, transform) plus frozen module constants (read pipeline/fit_gate.py: no mutable state, no
-monkeypatched globals in play), and within the same test the batch's own in-process gate calls had
-already ACCEPTed all 15 serpent proposals - two identical calls cannot disagree. The real bug:
-batch_us.pre_docs matches ANY existing <site>.*.json in data/db/platefits - including the automatic
-documents the run itself just wrote - so the test's post-run "pre" snapshot made every candidate
-look pre-fit, the expected set came out empty, and `set(rec["auto"]) == auto` failed as {15} != set().
-Fix: snapshot pre_docs/is_pre_fit BEFORE run_sites (pre_docs_before / pre_fit_before). Result:
-tests/test_batch_us.py 5/5 (15.4 s); full suite 34/34 in .venv (53 s). Ticked boxes 2 and 6 (1 was
-already ticked). PITFALLS gains a `### fit/` subsection (the precedence family; pre_docs matching
-new auto docs). Next: the working phase (--working over all 90; llm_model on the fitkit sheet - the
-prompt has never seen the model, check the answer parsing on the first run), then boxes 3/4/5 and done.
 
 ### 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns
 Lead note (iteration 37): the 48 GB VM filled twice; my test's per-test 549 MB tree copies (5 per run, retained by pytest) were the cause. FIXED in tests/test_batch_us.py only: the `tree` fixture now hard-links web/ + data/ (os.link; symlink fallback across devices; data/raw stays a symlink to the shared store /home/agent/projects/ancient-works/data/raw) and copies only files the batch rewrites in place (only candidate: docs/batch_us.md, which the test tree does not even contain - write_doc/upsert_item are atomic new-inode writers); added a tmp_path_retention_policy="failed" fixture. Result: 5 tests 15.4 s -> 4.9 s, runs add ~0 disk (3 consecutive runs, no growth; the old 2.7 G pytest-2 dir had already been cleaned externally), full suite 34/34 in .venv (44 s). Committed eea8852.
@@ -83,6 +70,49 @@ local, all 18 sites have relief.jpg - re-verify the tunnel is UP first); 3) sha2
 tests/golden/hand_fit_docs.sha256 (39 files -> box 4) + report's error bucket empty and counts
 sum to 90 (box 3); 4) tick 3/4/5, commit docs + items + docs/batch_us.md (the alligator-effigy-
 ... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green' DECISIONS.md`)
+
+### 2026-10-11 203a DECISION: session 4c - the A/B pilot: 4a's four fabrication modes all route to items, but a FIFTH class (correct scale, wrong translation, points on structureless ground) still auto-passes; add a batch-side feature-presence check before the full run
+Re-ran /tmp/pilot_llm.py (updated: 5 picks, raw answers teed to /tmp/llm_raw_4c.txt, gate verdict
+and routing printed per pick) against the session-4b llm_model. Results: poverty-point -> honest
+0 pairs (its 4a identity map is gone); serpent n0636_1 -> raw diagonal ladder, range validate
+dropped it to 1 pair; cahokia -> 8-point corner/gate answer, stated scale 1.639 vs implied 3.333
+(> 2x) -> cross-check trimmed to 3. All three route to review items as designed. Two auto-passed
+and were eyeballed (overlay script /tmp/eyecheck.py: model points red, 202-seed-mapped same
+features green, on the site's own ground; /tmp/eye_*.jpg):
+- pyramid-mound n0134_1 (stated 0.57 vs seed 0.8806, gate med 24 m): model and seed points
+  coincide within 24-320 m (inside the 460 m map_box span) ON the visible C-embankment and
+  square-mound pit in the ground panel -> a real fit; the auto doc is correct.
+- tremper c_75950f29c23bf033 (stated 1.3245 = the seed scale echoed verbatim from the prompt
+  hint, gate med 0.6 m): model and seed points 120 m apart - inside that seed's 500 m
+  no-map_box uncertainty, so /tmp/quant.py shows seed agreement CANNOT discriminate here - and
+  both sets sit on featureless open ground while the site's real ring is unused; 2 of the 4
+  model points are on the modern highway. A docs/gate.md section-7 consistent global error:
+  correct scale, internally consistent, wrong translation, and the ground shows nothing where
+  the features are claimed. The current code (gate + range validate + scale cross-check) all
+  pass it -> a garbage auto doc in the full run. The full run must not start until this class
+  is handled.
+CHOICE: a third batch-side counterweight (routing only, the gate stays frozen, same status as
+the 4b scale cross-check): a FEATURE-PRESENCE check on the site's own ground image. Calibrated
+on all 20 hand-fit docs + the 2 model answers (/tmp/calibrate3.py, local-std in a 24 m box
+(R=12 px at the 1 m/px ground image) vs a fixed-seed 400-point null drawn from the same image):
+tremper's points 1/4 at or above the null median (0.27-0.65x margin on every variant tried),
+pyramid 3/4 (1.00-1.57x), hand fits over-refuse only serpent 0/3, mayburgh 1/3, little-solsbury
+2/5 - all three genuinely faint features (a strict gate is fine; their model answers, if any,
+still go to the item carrying the pairs as leads). The edge-distance variant was tested and
+dropped: it passes all 20 hand fits but lets tremper through (2 of its 4 points are near the
+highway's edges). Rule implemented as: an answer passes only if >= half of its ground points sit
+on ground at least as textured as the null median; otherwise note + trim to 3 pairs (the <4
+branch routes it to the item). KNOWN residual, to document in the module docstring: a
+fabrication anchored on strong ground texture (road network, field boundaries) passes this check
+and the scale check; section 7's human 18/20 sample remains the backstop for that class. The
+check only ever routes to review, never loosens the gate, so it is a strict improvement over the
+4b state.
+BUG FOUND, fix pending: fit/batch_us.py llm_model scale cross-check computes
+`implied = abs(float(a)) * k` but `a` from plan_fit.similarity is COMPLEX (pipeline/plan_fit.py
+L35-45); float(a) drops the imaginary part, so for a rotated fit implied = |s*cos(theta)|
+(60 deg -> 50% low) and can misfire "not trusted" on a true answer. Fix: `implied = abs(a) * k`
+(abs of a complex is the magnitude). Not applied yet - fit/batch_us.py is unmodified this
+session (all analysis was /tmp throwaway; no tests run, last state 5/5 + 34/34 after 4b).
 
 ## Project-wide driver notes (newest)
 
