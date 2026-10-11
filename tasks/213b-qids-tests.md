@@ -1,4 +1,4 @@
-Status: open
+Status: done
 # 213b: The seven verified town QIDs, the golden sample and the test - the lead doc final
 Depends on: 213a
 Touches: fit/src_artists.py, docs/lead_artists.md, tests/test_src_artists.py, tests/golden/src_artists_sample.json
@@ -29,13 +29,13 @@ reason.
 - [x] `BOOKS["civitates"]["sites"]`: seven towns, each {qid, name, lon, lat, place, wikipedia,
       cat}, no name-search-only QID; docs/lead_artists.md records the checked date, the P625 values
       and the search-trap notes for each.
-- [ ] `.venv/bin/python fit/src_artists.py --check`: exit 0, no join problems, 2/2 PASS.
-- [ ] `.venv/bin/python fit/src_artists.py --golden` regenerates tests/golden/src_artists_sample.json
+- [x] `.venv/bin/python fit/src_artists.py --check`: exit 0, no join problems, 2/2 PASS.
+- [x] `.venv/bin/python fit/src_artists.py --golden` regenerates tests/golden/src_artists_sample.json
       only for an intended change; the test compares the staged rows against it (keys sorted,
       checked/date_commons normalized).
-- [ ] tests/test_src_artists.py passes under `.venv/bin/python` with no network (the
+- [x] tests/test_src_artists.py passes under `.venv/bin/python` with no network (the
       socket-blocking fixture), including the negative control; the full pytest suite stays green.
-- [ ] docs/lead_artists.md is complete for all four sources (box 1): 213a's books section plus the
+- [x] docs/lead_artists.md is complete for all four sources (box 1): 213a's books section plus the
       QID-table section; every staged file, every documented drop, every date.
 
 ## Notes
@@ -48,63 +48,61 @@ reason.
   into the canonical ones), and sets the parent done.
 
 ## Hand-over
-**Iteration 37 (2026-10-11): 213b item (1) DONE - the seven book-town QIDs are verified live and in the
-table; lead doc's QID section rewritten. Box 1 ticked. UNCOMMITTED on disk: fit/src_artists.py +
-docs/lead_artists.md (the harness saves them - commit them first thing with this task's id).**
+**Iteration 38 (2026-10-11): 213b DONE - all five boxes ticked, Status: done.** Item (1) landed in
+iteration 37 (the seven book-town QIDs in `BOOKS["civitates"]["sites"]`, --verify clean, lead-doc QID
+section; the driver committed that work). This session: box 2 (--check re-run), box 3 (--golden first
+write), box 4 (tests/test_src_artists.py), box 5 (lead-doc final read). Everything is committed in this
+session's commit; the parent 213 picks up next.
 
-**What was done (all verified by running, not reasoning):**
-- `fit/src_artists.py:BOOKS["civitates"]["sites"]` = the seven hand-verified towns, keyed by QID in the
-  book's plate order, each {name, lon, lat, place, wikipedia, cat}: Q239 Brussels (fig 85 BRVXELLA),
-  Q12892 Antwerp (98 ANVERPIA), Q1741 Vienna (193/194 VIENNA AVSTRIAE), Q490 Milan (198/199 MEDIOLANVM),
-  Q641 Venice (201/202 VENETIA - same values as SITES), Q2044 Florence (205/206 FLORENTIA), Q220 Rome
-  (209 ROMA). Table point = the verified P625 city point (the book views centre on the walled old towns,
-  within a few km - recorded in the lead doc). `table_sites()` added (SITES + book towns, SITES wins the
-  Q641 clash); `verify_qids()` now covers both tables (8 unique QIDs) with P131-label fetch chunked at 50
-  (wbgetentities max); docstring usage line updated.
-- `.venv/bin/python fit/src_artists.py --verify` (live, paced, 2026-10-11): exit 0, 8/8 QIDs verified
-  (label + every P625 + P373 + P131 + enwiki + search trap per town); **no P625 >50 km flag fired**
-  (all within 0.27 km of their table point). Search traps found: **Florence** first hit with P625 =
-  Q597842 Florence, South Carolina (7538 km); **Venice** = Q773853 Venice, Los Angeles (9891 km, the
-  known one). **Brussels data trap**: the enwiki "Brussels" article is the region Q240; the city is Q239
-  ("City of Brussels", P373 "Brussels (municipality)") - Q240's P625 is only 85 m away, so only the
-  P373/enwiki check separates them. (My own memory-guessed QIDs - Q374 "Rome", Q2140 "Vienna" - were
-  WRONG: Q374 is vodka; the real ones are Q220/Q1741. Search + the five-fact verification is the only
-  route; memory is not a source.)
-- `docs/lead_artists.md`: the QID-verification section now carries the full 8-QID --verify output (checked
-  2026-10-11) + per-town trap notes; intro paragraph points 216/217 at the table; the per-book status
-  bullet for civitatesorbiste00brau now names the table and what 216/217 take from it.
-- `.venv/bin/python fit/src_artists.py --check` re-run after the edits: exit 0, no join problems, 2/2 PASS
-  caption_coords. Full suite: 29 passed in 37.22 s under .venv.
+**What was done (all verified by running):**
+- **Box 2:** `.venv/bin/python fit/src_artists.py --check` re-run today: exit 0, no join problems,
+  `evidence: 2 rows, 2 pass, 0 fail, 0 no-tie` (both rows PASS caption_coords).
+- **Box 3:** `tests/golden/src_artists_sample.json` created by ONE `--golden` run (it did not exist;
+  the staging files are final, so this was the intended first write - never hand-edit afterwards).
+  `_norm` normalized two `"checked"` fields to `0000-00-00` (one per files-row evidence field; neither
+  files row has a `date_commons` - Imola's file page has no DateTimeOriginal, Venice's date sits in
+  `date`).
+- **Box 4:** `tests/test_src_artists.py` - 4 tests, all offline. Autouse `no_network` fixture
+  (module-scoped: monkeypatches `socket.socket`/`create_connection`/`getaddrinfo` to raise
+  AssertionError, so any fetch in this file's tests fails loud; no conftest.py edit - 000 owns it, and
+  the module scope leaves test_serve's ephemeral-port server untouched):
+  (1) `test_check_staged_files_join_and_pass` - calls `src_artists.check_staged()` (the same function
+  the `--check` branch runs) -> 0, no "join:" lines, the 2/2 PASS summary, both PASS lines;
+  (2) `test_qid_table_and_staged_rows` - `table_sites()` = the 8 expected QIDs, the book towns in
+  plate order (Q239/Q12892/Q1741/Q490/Q641/Q2044/Q220), every table entry complete
+  (name/lon/lat/place/wikipedia/cat), extras rows complete + matching SITES, file rows = the SOURCES
+  titles with the known drawing dates 1502/1500;
+  (3) `test_evidence_offline_and_negative_control` - `evidence.check(FILES_ARTISTS, NO_BOOKS,
+  catalog=EXTRAS_ARTISTS)` -> (0, "2 pass, 0 fail"); the NEGATIVE CONTROL built in-test (copy of the
+  Imola row with evidence `place_*` = the Cervia point 44.245 N/12.367 E, `site_*` unchanged,
+  `dist_m` 0.0, written only to tmp_path) -> check (1, FAIL `imola-q50195 ... does not reproduce
+  (53566 m)`) - 53.6 km, both fail clauses fire, the reproduction clause is reported first; asserts
+  the staged row's own evidence is untouched;
+  (4) `test_golden_sample_matches_staged_rows` - the golden file == `_norm` of the three staged files.
+  Full suite: **33 passed** under .venv (was 29 before this file).
+- **Box 5:** final read of `docs/lead_artists.md` against the parent's box 1 - COMPLETE for all four
+  sources, no edits needed: Imola (what/where/date incl. the upload-only case, four documented drops,
+  the site point with the prep correction); Venice (three drops, the Q2194/Q773853 traps, the R2 fit
+  caveat); Civitates (the six-IA table with dates + cite strings, the Liber secundus structure, triage
+  stats, the 121-entry hand-list scheme + tally, both pitfalls, per-book status, the documented
+  "no staged rows" reason); Merian (two IA items; not triaged yet = the 216/217 follow-on).
+- **Trivia (cost one failed assert):** `evidence._line` is `f"{v:4s} {kind:15s} {key}"` - a PASS line
+  prints as `PASS caption_coords  <site|title>` (1 space after the verdict, 2 after the kind).
+  Don't eyeball the spacing; run it once.
+- **The done-claim, per the prep's "say in the done-claim":** all prep §1 assumptions hold on the
+  current (801-merged) code, re-verified this session: `evidence.check(files, books, catalog=)` is
+  offline and `check_caption` fails on a stored-dist reproduction miss (±1 km) OR distance >50 km -
+  the Cervia control (53.6 km) fails both; the 2026-10-10 driver .venv note is stale (.venv builds,
+  numpy present, suite green). (The iteration-37 unexplained transient - one throwaway script's last
+  P131-label batch came back empty, not reproducible, `language` vs `languages` ruled out - is in the
+  iteration-37 DECISIONS entry.)
 
-**Prep assumptions checked against main (say in the done-claim):** all of prep §1 holds on the current
-(801-merged) code - `evidence.check(files, books, catalog=...)` is offline and check_caption (fit/
-evidence.py L190-207) fails when stored dist_m doesn't reproduce ±1 km OR distance > 50 km, so the
-Cervia-point negative control (44.245/12.367, ~53.5 km from Imola's site point) fails on BOTH clauses;
-the "wait for 801" is over (801 done/merged); the 2026-10-10 driver note about the .venv rebuild is stale
-(800 done; .venv works, numpy present). Prep §2's Imola "bad P625 / 53 km NW" was already corrected before
-this task (that point is Cervia; 213b's task file carries the corrected negative control). One
-unexplained transient: a throwaway discovery script's last P131-label batch came back empty (no 429, no
-error key) after ~13 paced calls; NOT reproducible, and an A/B test proved `language` (singular) is simply
-ignored by wbgetentities (returns ALL labels) while `languages` (plural) filters - the parameter is not
-the cause; the canonical verify_qids uses `languages` and ran clean three times this session.
-
-**Remaining (213b items 2-4, then the parent):** (2) run `.venv/bin/python fit/src_artists.py --golden`
-ONCE to create tests/golden/src_artists_sample.json (it does not exist yet; staging files are final, so
-this is the intended first write - never hand-edit afterwards); (3) write tests/test_src_artists.py per
-prep §4 + this task's boxes: socket-blocking fixture (tests must not touch the network); the join over the
-staged files (re-check what check_staged() enforces: file rows name staged-or-existing sites, no staged
-id/QID pre-exists, every staged site has a picture, (site,title) unique, no clash with canonical
-files.jsonl, classified 1:1); table completeness (SITES + the BOOKS towns); offline evidence check
-(import fit/evidence.py, check(FILES_ARTISTS, an absent books path, catalog=EXTRAS_ARTISTS) -> exit 0,
-zero FAIL, every staged row PASS caption_coords); the NEGATIVE CONTROL built in-test (copy of the Imola
-files row with evidence place_* = Cervia 44.245/12.367, site_* unchanged, dist_m 0.0 -> must be reported
-FAIL, never written to any file); golden comparison (keys sorted, checked/date_commons normalized the way
-src_artists._norm does). Run under .venv/bin/python. (4) final read of docs/lead_artists.md against the
-parent's box 1 (what/where/date/staged/drops for all four sources - it looks complete already: Imola,
-Venice and the books sections + this session's QID section). Then commit: "213b: ... - ...". The parent
-213 then does boxes 1/5/6, box 4 last, the 211 R6 note, done. Invariants: staging files never re-staged;
-no shared-module writes (fit/evidence.py, pipeline/*, data/books/index.jsonl, validation.json are off
-limits); tests: no fixed ports, no network, no writes outside project+temp.
+**Next (the parent 213's session, not this task):** verify --check/test/golden/lead-doc, tick the
+parent's boxes 1, 5, 6, then box 4 (the count check) LAST, write the R6 note in 211's ## Hand-over
+(the *_artists* staging files + the civitates per-book files must be merged into the canonical ones),
+set the parent done. Invariants (unchanged): staging files append-only, never re-staged; no
+shared-module writes (fit/evidence.py, pipeline/*, data/books/index.jsonl, validation.json); tests:
+no fixed ports, no network, no writes outside project+temp.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 

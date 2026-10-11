@@ -112,3 +112,24 @@ fails on both clauses. Unexplained transient: one throwaway-script label batch c
 labels returned) vs `languages` (plural) filters - not the cause; not reproduced since. Next: --golden
 (first-time write of tests/golden/src_artists_sample.json), then tests/test_src_artists.py (prep §4 +
 boxes 2-4), then the lead-doc box-1 final read.
+
+## 2026-10-11 213b DECISION: 213b done - golden sample (--golden first write) + 4 offline tests (socket-blocking fixture, the Cervia 53.6 km negative control, golden equality); lead-doc final read complete (box 5); suite 33/33
+Items 2-5 finished in one session. (2) `--check` re-ran clean: exit 0, no join problems, 2/2 PASS
+caption_coords. (3) `tests/golden/src_artists_sample.json` written by one `--golden` run (first time;
+staging files final): `_norm` normalized two `checked` fields, and neither files row has
+`date_commons` (Imola's page has no DateTimeOriginal; Venice's date sits in `date`). (4)
+`tests/test_src_artists.py`: 4 tests, all offline via a module-scoped autouse fixture that
+monkeypatches `socket.socket`/`create_connection`/`getaddrinfo` (no conftest edit - 000 owns it;
+module scope leaves test_serve's ephemeral-port server untouched). The join/evidence test calls
+`src_artists.check_staged()` (the `--check` branch's own function) and asserts no "join:" lines and
+`evidence: 2 rows, 2 pass, 0 fail, 0 no-tie`; the table test pins `table_sites()` = the 8 QIDs (book
+towns in plate order), extras-row completeness, and the 1502/1500 drawing dates; the negative control
+is built in-test (Imola row, evidence `place_*` = Cervia 44.245/12.367, `site_*` unchanged, `dist_m`
+0.0, written only to tmp_path) and `evidence.check` reports FAIL `does not reproduce (53566 m)`
+(53.6 km: both fail clauses fire, the reproduction clause is reported first) with exit 1; the golden
+test compares the file against `_norm` of the three staged files. Full suite 33 passed (was 29).
+(5) `docs/lead_artists.md` re-read against the parent's box 1: complete for all four sources, no edits
+needed. Trivia: `evidence._line` prints `PASS caption_coords  <key>` (1 space after the 4-char verdict,
+2 after the 15-char-padded kind) - my first assert guessed 6 spaces and failed once; the format is
+`f"{v:4s} {kind:15s} {key}"`. All boxes ticked, Status: done; the parent 213 does boxes 1/5/6 (box 4
+last) + the 211 R6 note next.
