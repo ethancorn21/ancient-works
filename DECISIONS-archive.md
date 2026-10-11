@@ -908,7 +908,7 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
 
 
 <!-- task 204 -->
-# Task 204 van-deventer
+# Task 204 van_deventer
 
 ## 2026-10-11 204 DECISION: built fit/src_van_deventer.py in full (module-first) and verified the NL batch of QIDs
     Chose module-first (skeleton with all functions + the 66-town table, then per-country QID batches) over
@@ -933,6 +933,56 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
     display-case "Italy" was the exception made while waiting for 214). Luxembourg City is the one new value
     "luxembourg": REGION_NAME has no key for it, so the site display falls back to the raw lowercase string
     (works; noted in the lead doc; a REGION_NAME key would be a small follow-on task, not mine).
+
+## 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed
+    Ran `--verify` with no args (every recorded town: the 16 NL + the 6 done) - 28 s, no 429 stalls, exit 0.
+    All 16 NL: labels match (no LABEL CHECK), every P625 within 0.74 km of the recorded old-town point
+    (maxes: Haarlem 0.74, Amsterdam 0.68, Leeuwarden 0.65, Rotterdam 0.63, Sluis 0.59, Goes 0.49 km - the
+    Gouda-800 m class of offset, now computed not eyeballed), P373 matches the table string exactly in all
+    16 (every category-route target confirmed), enwiki matches (Valkenburg's old-town item Q100076 has none,
+    as recorded). The 6 done towns re-confirm the plain-town-category P373 pattern. Three name-search traps
+    (first hit with P625; all within 50 km, so no auto-flag, and the caption route stores the verified site
+    point, so the exposure is documentary only): 'Sluis' resolves FIRST to Q2065987 - a distinct item
+    ('place with town rights and privileges' / 'cadastral populated place in the Netherlands' / 'fortified
+    town', no enwiki, P625 (3.3883, 51.3089) 8 km SW of the town, P373 'Sluis (city)' vs Q10080's 'Sluis';
+    noted on the TOWNS row) - 'Reimerswaal' to the municipality Q10078 (the city Q2590944 is recorded, ~9 km);
+    'Valkenburg' to the modern town Q9771 (the old town Q100076 is recorded, 0.19 km - same spot). Box 4: only
+    the six done QIDs are in the catalog (12575 known sites checked); no other NL QID collides, so no
+    reuse-of-existing-site case yet (the BE/FR/LU batches must re-check per town - stage() already handles it).
+    Module fixes in the same commit (fresh-eyes read of the iteration-40 build): (a) verify_qids crashed with
+    KeyError on the 6 done towns (their TOWNS rows carry no label/lon/lat/p373) - no-args now includes them
+    degraded (no distances, P373 "(none recorded)") and an unknown town name fails loud; (b) cat_chain
+    returned a " -> "-joined string INCLUDING the file category, but evidence_for records t["chain"] as the
+    via and check_category requires via[-1] == site_cat and file_cat not in via - it now returns and prints
+    the via list as JSON (paste into TOWNS) and walks with ciclimit 500 (a parent list over 50 would have
+    silently lost the chain); (c) check_staged's per-row town lookup called _site_row over ALL TOWNS entries
+    -> KeyError on the done towns - now a precomputed sid->town map (slug id and, when the QID is already
+    cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
+    site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
+    Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).
+
+### 2026-10-11 204 DECISION: wrote docs/lead_van_deventer.md (category census + NL QID section + NL traps); fixed two stale TOWNS count comments
+The lead doc now holds the verified material (the pending sections stay marked pending): (1) the category
+section - name/URL, 70 = 66 town + 4 collections, the --list assertion, all 66 town categories listed by
+country with the 6 done marked (NL 19 / BE 22 / FR 24 / LU 1), the 4 collection names incl. the BNE atlas;
+(2) the NL QID table - 16 rows (QID/label/P625/site-point/P625->site distance/enwiki; distances taken from the
+iter-41 transcript /tmp/vd_verify_iter41.txt, all <= 0.74 km, labels/P373 clean, the 3 done NL re-confirmed);
+(3) the three NL name-search traps with measured distances: Sluis first hits Q2065987 (9.0 km SW, P373
+'Sluis (city)', no enwiki) vs recorded Q10080; Reimerswaal first hits the municipality Q10078 (9.1 km, shares
+the P373 with the city so P373 cannot separate them) vs recorded city Q2590944; Valkenburg first hits the
+modern Q9771 (0.14 km, same spot) vs recorded old town Q100076 (no enwiki -> no wikipedia field). Pending
+sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep - record with the BE batch;
+Beaumont's region flips to belgium if the verified item is the Hainaut one; Luxembourg City Q1564 expected -
+verified in this session that build_catalog.REGION_NAME (line 74) has belgium but no luxembourg and the
+line-91 lookup falls back to the raw value), per-town file picks/drops, the collection categories, the
+summary (box 5: >= 50 of 60 staged or each missing one accounted). Also fixed two stale TOWNS section-header
+counts in fit/src_van_deventer.py: BE is 22 categories (20 to stage + 2 done), FR 24 (23 + 1) - the comments
+said 21/19 and 25/24 (miscounted from the prep's list); the live --list (70 = 66 + 4) passes against the
+real table. GAP found while writing: town_files() lists only the towns' own categories - the 4 collection
+categories are not covered (the prep §2.1 spec had them), so the collections section and the R5
+misfiled-file mapping (a file in a collection cat belonging to a town) need a small town_files extension
+(c.members per collection cat; the BNE atlas at depth 1) - next session's first act. Suite 33/33 green
+(comment-only module change).
 
 
 <!-- task 213 -->
