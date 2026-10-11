@@ -971,6 +971,19 @@ tests/test_batch_us.py 5/5 (15.4 s); full suite 34/34 in .venv (53 s). Ticked bo
 already ticked). PITFALLS gains a `### fit/` subsection (the precedence family; pre_docs matching
 new auto docs). Next: the working phase (--working over all 90; llm_model on the fitkit sheet - the
 prompt has never seen the model, check the answer parsing on the first run), then boxes 3/4/5 and done.
+
+## 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns
+Lead note (iteration 37): the 48 GB VM filled twice; my test's per-test 549 MB tree copies (5 per run, retained by pytest) were the cause. FIXED in tests/test_batch_us.py only: the `tree` fixture now hard-links web/ + data/ (os.link; symlink fallback across devices; data/raw stays a symlink to the shared store /home/agent/projects/ancient-works/data/raw) and copies only files the batch rewrites in place (only candidate: docs/batch_us.md, which the test tree does not even contain - write_doc/upsert_item are atomic new-inode writers); added a tmp_path_retention_policy="failed" fixture. Result: 5 tests 15.4 s -> 4.9 s, runs add ~0 disk (3 consecutive runs, no growth; the old 2.7 G pytest-2 dir had already been cleaned externally), full suite 34/34 in .venv (44 s). Committed eea8852.
+
+Working-phase start (this session): AI-box tunnel is UP - qwen3.8-27b on 127.0.0.1:8080 AND :8081 (two vLLM instances), :8082 llama.cpp; harness env LLM_URL=http://127.0.0.1:8081. pipeline/llm.py reads $AW_LLM_URL (default 18080 = wrong here): run with AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions. PITFALL to file: llm.ask's default `url=URL` binds at def time - reassigning llm.URL after import does nothing (set the env var or pass url=). All 58 working candidates' images are already local (37 book pages + 21 commons thumbs; data/raw is a shared symlink, 1.9 G); all 18 candidate sites have relief.jpg (no aerial fetch needed). Workload: 18 sites, 58 new candidate rows (recompute: batch_us.candidates minus pre_docs, url rows -> data/raw/commons/<site>/<h16>.jpg, book rows -> data/raw/books/<ia>/full/<file>).
+
+PILOT (15 real Qwen calls, scripts /tmp/pilot_llm.py + /tmp/pilot_llm2.py, still on disk): parsing of the CURRENT production prompt WORKS (JSON, 4-element pairs, _ground_lonlat) but the model SYSTEMATICALLY FABRICATES regular patterns - poverty-point: the identity map (100,100)->(100,100)...; serpent n0636: the 4 corners mapped to the 4 corners; pyramid-mound: a 5-point diagonal ladder with v-coords OUTSIDE the labelled crop; tremper: 1:1 pixel lines (281 m off the seed placement). All internally perfect (gate med 0.0) and PASS the frozen gate - the docs/gate.md section-7 "consistent global error" limit as a systematic model failure: left as is, every auto doc would be garbage and the human's 18/20 check would fail. A/B with an improved prompt (both panels' metre coverage, labelled coordinate ranges, seed scale +-50%, anti-pattern + honesty clauses, require feature names + a stated scale): 4 of 5 answers then FAIL the gate (correctly routed to review items carrying the pairs as leads); tremper still returns 1:1 and still passes. Root cause seen in the sheet image itself: poverty-point's row has no map_box, so the sheet is a FULL TEXT PAGE (the mound figure is ~15% of it) gridded with PIL's tiny default bitmap font, further downscaled to 1600 px by llm._image_part - illegible to a 27 B model. 202's proposals are the map-panel corners + centre: map_box rows bracket the real figure, map_box-less rows bracket the whole page (anchor wrong by construction, coarse=True).
+
+PLAN (my file, NOT yet applied - the edit call failed on exact-match; batch_us.py on disk is UNCHANGED): rewrite llm_model's sheet/prompt/parse: (1) own sheet builder reusing fitkit's image sources (fitkit.plan_image/ground/ground_view), bold DejaVuSans-Bold 22 px grid labels at BOTH ends of every line, step from (100,200,500,1000) so lines stay >=90 sheet px apart, sheet to fitkit.OUT; (2) prompt: both panels' metre coverage + labelled coordinate ranges + seed scale window ("within about 50% of the proposed scale") + same-real-feature + no grid intersections/even spacing/collinear ("at least three must not lie on one line") + "if <4 confident pairs answer with only those, never pad" + JSON {"scale_m_px", "features", "pairs"}; (3) parser drops pairs whose (u,v) is outside the crop box or whose ground px is outside the ground image (fabrication visible in the labelled range); (4) stated-scale cross-check: if the model's stated scale disagrees >=2x with the scale solved from its own points -> trim to 3 pairs + note (forces the item, not an auto doc). The full rewrite text I composed is NOT saved anywhere - re-implement from this description.
+
+NEXT (session 4b): 1) re-implement that llm_model rewrite in fit/batch_us.py (fresh edit; verify import + tests still 5/5 - recorded answers bypass llm_model so tests are unaffected); 2) re-run the A/B pilot on the same 5 candidates, TEE the raw answers to a file this time (/tmp/ is fine); accept if the fabrications route to items and any remaining auto-passing answers are plausibly real (I can READ the sheet jpgs with the read tool and eyeball the pairs); 3) full run: `AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working` (58 candidates, ~10-40 min; sheets land in /tmp; give it a long timeout and check it finishes); 4) verify in THIS checkout: `sha256sum -c tests/golden/hand_fit_docs.sha256` (all 39 OK), report's error bucket empty and counts sum to 90 (box 3); 5) tick boxes 3, 4, 5; 6) commit docs + items + docs/batch_us.md + the llm_model change. Expect: auto-doc rate LOW, most of the 18 candidate sites end as review items carrying the model's pairs - that satisfies box 3 by design (a fit OR a ready item; the human's drag is the authority). The alligator-effigy-mound item will be MERGED by the upsert (its file changes in the working commit; it is NOT in the golden). Do NOT weaken the gate or the tests to raise the auto rate; the human's 18/20 check of the report sample is the backstop (docs/gate.md section 7). PITFALLS to file next session: llm.ask default-arg URL binding; data/raw is a symlink (du -sh shows 0, files are real - check via the target); this Qwen fabricates identity/1:1/diagonal patterns that pass a consistency-only gate.
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
@@ -1083,6 +1096,125 @@ books.LLM_URLS in-process to the three live ports and injects BOOKS["civitates"]
 "civitatesorbiste00brau", region="Italy", year=1575); the run is idempotent (latest row per n; error rows
 excluded from done). Filed as task 215 (port fix + a PITFALLS entry). The same trap will hit 207/208/209
 when they reach their triage B/F stages - 215 is their unblock.
+
+
+<!-- task 213a -->
+# Task 213a civitates-list
+
+## 2026-10-11 213a DECISION: mapping RESOLVED - triage file nNNNN.jpg = A-row NNNN = 1-based leaf NNNN+1; iteration-29's 10 reads were each off by one leaf (the parent's 19 stand)
+The CRITICAL blocker of the iteration-29 hand-over is settled, four independent lines of evidence:
+(1) CODE: books.py:119 triage_path(ia_id, n) = triage/n{n:04d}.jpg with the same 0-based BookReader
+index n that stage A stores in the row ("n": n, books.py:284). (2) ASPECT RATIOS: all 292 triage jpgs
+match the CURRENT bookreader.json page index n at <=1% (292/292; the shifted hypothesis only 290/292,
+and file n0000 - which cannot exist under the shifted reading - matches page 0's aspect 0.6117).
+(3) leafNum IDENTITY: leafNum(i) = i+1 for all 292 in BOTH the committed A file and the current
+bookreader.json; leafNum is the stable jp2 file number, so a leaf-order shift between the triage run
+and now is impossible (a shift would change the count or break the 1..292 sequence). (4) DIRECT
+RE-READS of seven contested images: n0198 = the CRISP Milan fold-out (MEDIOLANVM cartouche = A198's
+garbled "METOLACOL"; Visconti serpent; CVM PRIVILEGIO), n0199 = the faded BLANK VERSO (A199, no
+caption, typed plate_site_plan - the ghost image is what made A type it), n0197 = the Armes-de-Milan
+page (A197 "Armes de ceste Ville de Milan"), n0186 = the CRISP Augsburg fold-out (banner = A186
+"HABET DELINE"), n0187 = faded verso (A187), n0206 = CRISP Genoa+Florence double plate (corner text
+"VA." + "FLORENTIA" = A206 "VA. FLORENTIA"), n0205 = Genoa-harbour+Florence double plate (legend =
+A205 "FLORENTIA urbs est suffragio..."). The iteration-29 10/10 "off-by-one content matches" were an
+artifact: it matched image CONTENT to the A-row caption that fit and thereby attributed every leaf's
+caption to the neighbouring row. Corrections recorded: A205/A206 are BOTH crisp (parent had "n206
+faded"); A50 is crisp (29 had "faded"); n0051/n0207/n0111 are blank/faded VERSOS (text_only rows -
+versos type as text_only or plate_site_plan in A, inconsistently); A53/A54 belong to the
+Burgos/Sebastian section (the double-title leaf is A52), NOT Barcelona (Barcelona = A49/A50 only);
+Amsterdam = A108 title -> A109 plan -> A110 plate (the parent's "plate precedes title leaf n110" was
+the faded A111 verso misread); Messina = A224 title -> A225 plate -> A226 history continuation
+("MESSANÆ urbs est...") - the parent's "sections interleave both ways" claim is a misread, sections
+are strictly title-then-plates. Also verified: F rows' field is "shows" (not "show"): 239 figure
+readings (222 view / 11 plan / 6 other) over 118 rows; F's "plan" leaves = A30/62/65/66/90/93/105/186/229(x2)/237
+- of these only A90 (Ghent) and A237 (Jerusalem old) are true plans, F MISSES the five famous plans
+(A58/85/98/109/238) and flags A186 (a view) - F's plan label is unreliable in BOTH directions for
+this book (lead-doc pitfall; 217 must use hand kind s only).
+
+### 2026-10-11 213a DECISION: list files written + validated (boxes 1-4) - 121 entries, s7/u3/o111, hand 30 / A 91; pages only on fig 193/194; .map.json = []
+Built data/books/lists/civitatesorbiste00brau.json ("{"plates": null, "figures": [121]}", sorted
+by fig, indent=0 like the 12 sibling dumps) from the committed A file + the recorded hand reads:
+kind s (hand) = 58/85/90/98/109/237/238; kind u (hand) = 187/197/199; the other 111 = o (hand 20:
+50/53/54/86/97/157/158/186/193/194/198/201/202/205/206/209/214/217/218/225; A 91). Titles: A caption
+as-is except two corrections where I verified the true printed inscription on the leaf image -
+fig 50 "Cum Pristelio" -> "Cum Privilegio" (banner), fig 198 "METOLACOL" -> "MEDIOLANVM"
+(cartouche) - and the 14 empty-caption leaves take the section's city name (53 Burgos + S.
+Sebastian, 58 LVTETIA PARISIORVM, 85 BRVXELLA, 90 GANDANVM, 98 ANVERPIA, 109 AMSTELEDAVM, 187
+AVGVSTA verso, 194 VIENNA AVSTRIAE, 199 MEDIOLANVM verso, 202 VENETIA verso, 214 ANCONA, 217/218
+NEAPOLIS, 225 MESSANA); the five double-plate leaves (50/54/193/205/206) carry the second half's
+printed inscription in "[other plate: ...]" brackets (A54's bottom inscription read in full this
+session: "SANCT. SEBASTIANVM vulgo Donostien ad mare Oceanum insigne regni Guipuzcoa oppidum").
+page = "2"/"3" on fig 193/194 only (the only figure leaves within leaves 193-196 with printed
+numbers; 280-284/I-V are all text leaves). .map.json = [] (list_pages maps kind s/u by printed
+page number; none exists for these leaves). Validation: 121 entries, fig set == the 121 figure
+A-rows, kinds/kind_by sets as above, all five fields present, .map.json == [] - passed.
+
+### 2026-10-11 213a DECISION: the Venice plate is a two-sided fold-out - A201 (recto) and A202 (verso) are BOTH real views; the iteration-33 "A201 = title leaf" assumption is corrected
+Re-reading file n0201 (A201, A: other_illustration, caption "VENETIA") shows the famous bird's-eye
+view of Venice - printed title "VENETIA" top right, legend items 1-~52, Cum Privilegio cartouche -
+and file n0202 (A202, A: other_illustration, empty caption) shows the VERSO of the same fold-out:
+a second full view of Venice (legend items 53-153, ALTRI CHIESE, DELLE COSE PIÙ NOTABILI). So:
+(1) the iteration-33 plan's "A202 = VENETIA (A201)" was right on the city but wrong on the role -
+A201 is the recto plate, not the section's title leaf (that is A200, A caption empty); (2) the
+parent's iteration-27 read "n202 = the famous oblique bird's-eye view of Venice (153-item Italian
+legend)" was correct about the file - it is the verso half, not a misread; (3) unlike the blank
+fold-out versos A187/A199 (kind u), A202 carries a real picture -> kind o, kind_by hand (parent)
+for A202 and hand (this session) for A201. The hand set grew 29 -> 30 on this; the section order
+stays strictly title -> plates (no interleaving - the Venice case is a fold-out, not an interleave).
+
+## 2026-10-11 213a DECISION: lead-doc books section rewritten (box 5) + box 6 verified - 213a finished
+The only change this session: the books section of docs/lead_artists.md (replaces the iteration-26
+text). All content verified against the committed files first (list json tallies, A/F jsonl typing,
+page_numbers file, cached IA metadata for all six items, books.py BOOKS cite convention,
+books_ia.page_texts source). What the section now carries (the goal's (a)-(f)): (a) identity + the
+six-item table gained a **cite-string column for 216** - verbatim BOOKS values backed by the cached
+metadata (Liber secundus: "Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber
+secundus, Antwerp 1575 (Aegidius Rade)"; topographiahelve00zeil: Merian + Zeiller, Frankfurt 1654,
+Merianischen Erben; PAN item: Merian, 1642) - plus the note that the book-level `region` is 216's
+call (the town's region comes from the row; pick the dominant one, say so in the cite string).
+(b) Section structure: strictly title leaf -> 1-3 plate leaves -> more history (the
+"interleave both ways" note dropped as a faded-verso misread); the six blank versos type
+inconsistently (A51/111/207/227 text_only vs A187/199 plate_site_plan); the three fold-outs incl.
+Venice = views on both sides (recto A201 = the famous view, verso A202 = second view, legend from
+item 53). (c) Two pitfalls for 216/217: hOCR page index misaligned 0-2 leaves (books_ia.
+page_texts()/djvu_txt() unreliable for this book - the image-based A rows are ground truth; 217
+must not use page_texts for civitates); machines under-detect plans in BOTH directions (A typed
+only 3/121 as plate_site_plan - A187/199 blank versos + A238 Jerusalem-new; F's 10 distinct plan
+leaves hold only 2 true plans A90/A237; F misses A58/85/98/109/238, flags A186 a view) - the hand
+list's kind s (7 verified) is the only plan source. (d) Corrections: FEDERATORVM sheets = views of
+the 13 Swiss cantons (o), not maps; the 7 true plans incl. both Jerusalems; A187/199 blank versos
+(u, no picture), A197 Milan arms (u); the two garble corrections (fig 50 Cum Privilegio, fig 198
+MEDIOLANVM). (e) The transcription scheme + tally: one entry per 121 figure leaf, title = printed
+inscription or section city name (14 leaves listed), double-plate brackets on 50/54/193/205/206,
+page only fig 193/194 (leaves 280-284 carry I-V but no figure leaf falls there), kinds s7/u3/o111,
+kind_by hand 30/A 91, .map.json = [] honestly empty (list_pages maps by printed page number).
+(f) Per-book status of all six: liber2 = fully worked (triage + list + map); the other five =
+metadata verified, untriaged = 216/217 follow-on scope. Box 6 verified: git status shows only
+docs/lead_artists.md; scoped diff of books.py/books_lists.py/index.jsonl/validation.json/triage/fit
+= 0 lines. The parent 213 keeps its own lead-doc duties (QID table, --check/--golden, test,
+PITFALLS entries) - untouched this session; parent's box 5 stays unticked (213b's work not in).
+
+## 2026-10-11 213a DECISION: iteration-36 re-verification of all six boxes from scratch; set Status: done (iteration 35 left it "open")
+Every box re-checked against the committed files, not the notes: (1) the list file parses to
+{"plates": null, "figures": [121]} sorted by unique fig; the fig set equals EXACTLY the A file's
+118 other_illustration + 3 plate_site_plan (A187/199/238) rows; kinds s7/u3/o111, kind_by hand
+30/A 91; every kind_by "A" title equals the A caption (0 mismatches outside the two recorded
+corrections fig 50 "Cum Privilegio" / fig 198 "MEDIOLANVM"); the 14 empty-caption leaves all carry
+the section city name; non-null pages are only fig 193 "2" / fig 194 "3" - correct against the
+source civitatesorbiste00brau_page_numbers.json, whose leafNum is 1-BASED (leafNum 193-196 = "1"-"4",
+280-284 = "I"-"V"), so fig (0-based) 193 = leaf 194 = printed "2", fig 194 = leaf 195 = "3"; no
+figure leaf falls in leaves 279-283. (2) The 11 box-2 leaves are all kind_by hand in the list
+(n51 is the one exception by design: a blank/faded verso, not a figure leaf - no entry needed,
+read recorded in iteration-30's entry). (3) s-hand = 58/85/90/98/109/237/238, u-hand = 187/197/199,
+FEDERATORVM 157/158 = o. (4) .map.json = []. (5) Read the lead-doc books section in full - it
+carries the goal's (a)-(f) incl. the 216 cite-string column. (6) git log of the four 213a commits
+touches only the three Touches files plus the task file and DECISIONS.md (memory files); books.py,
+books_lists.py, index.jsonl, validation.json, the triage A/F files, fit/, PITFALLS.md untouched.
+Ran the full test suite in the existing .venv: 29/29 pass in 36 s (the driver's .venv REBUILD from
+requirements.txt is the known project-wide failure - unpinned hashes, driver note 2026-10-10; the
+existing .venv lacks pyshp but no test path imports it, so the suite is green as-is; fixing the
+pinned build is not in 213a's Touches). Choice: set Status: done - the driver's re-check should
+find all boxes ticked and the suite green.
 
 
 <!-- task 800 -->
