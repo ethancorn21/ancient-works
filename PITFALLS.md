@@ -5,9 +5,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Agent tools and harness (1)
 - This machine and its environment (10)
 - Libraries and frameworks (2): Python (3.12.3) 2
-- This codebase (20): Wikimedia APIs (Commons, Wikidata) 6, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
-- Libraries and frameworks (0)
-- This codebase (23): Wikimedia APIs (Commons, Wikidata) 3, fit/ 5, pipeline/ 3, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
+- This codebase (26): Wikimedia APIs (Commons, Wikidata) 3, fit/ 5, pipeline/ 4, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
