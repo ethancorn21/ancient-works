@@ -43,3 +43,11 @@ work and tests in .venv.
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+## Where we are now (iteration 31, agent c, 203a)
+Session 2 wrote tests/test_batch_us.py (on disk, uncommitted - the harness saved it). State: 2 of its 5
+tests pass; three failures diagnosed in DECISIONS.md (2026-10-11 session-2 entry): a Path/"%" operator-
+precedence TypeError (parenthesize the format string, check _check_doc too), a wrong report section
+header in _table, and a suspected cross-test-module state pollution in the real-gate expectation
+(run that test alone in a fresh process next). Then: full .venv suite, tick boxes 2 and 6, then the
+working phase (--working over all 90 US sites, docs/batch_us.md, golden re-verified).
