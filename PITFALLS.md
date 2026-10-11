@@ -61,6 +61,21 @@ compare `git rev-parse <base|main|branch>:<file>` at all three tips (800: base =
 93511f2, branch fda2210 -> the merge lands the pinned file cleanly; had the branch blob
 matched the base, the merge would silently keep main's copy).
 
+#### sudo on this machine is passwordless for apt-get only
+Where: any `sudo` command (sudoers.d/agent-apt; AGENTS.md's "system packages install with `sudo apt-get install -y`")
+Symptom: `sudo -n true` (or any non-apt command) → `sudo: a password is required`; plain `sudo` without a TTY hangs/asks for a password.
+Why and what to do: the agent user's sudoers rule whitelists apt-get only. System installs must go through apt: download the package to /tmp, then `sudo -n apt-get install -y /tmp/<pkg>.deb` (apt resolves and installs the dependencies). Tools that shell out to a generic `sudo` fail here — e.g. `npx playwright@1.63.0 install chrome` (its reinstall script runs `apt-get` via a sudo that wants a TTY).
+
+#### Google Chrome 155.0.8059.39 is installed for tools/shot.mjs (headless `channel: 'chrome'`)
+Where: `tools/shot.mjs` (hardcodes `chromium.launch({channel:'chrome'})` → /opt/google/chrome/chrome on Linux; its `createRequire('/Users/ethan/...')` Mac path resolves only because of NODE_PATH), /opt/google/chrome/
+Symptom: without this, shot.mjs's launch fails with "Executable doesn't exist at /opt/google/chrome/chrome"; the Playwright-bundled chromium-1243 in ~/.cache/ms-playwright is NOT used by the `chrome` channel.
+Why and what to do (machine rebuild recipe, 2026-10-11): `cd /tmp && curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb` — the same steps Playwright's own reinstall script does, run with the agent's apt-only sudo. Run shot.mjs with `NODE_PATH=/home/agent/tools/shot/node_modules` (playwright + playwright-core 1.63).
+
+#### The full Ancient Works page boots headless on this VM (MapLibre WebGL works)
+Where: `web/index.html` (MapLibre map, `boot()`), `tools/shot.mjs`
+Symptom: none fatal. Only WebGL performance warnings (`GPU stall due to ReadPixels`) and two harmless 404s (`data/scans.json`, `data/amazon/areas.json` — both `.catch(() => [])`'d in boot, and absent from web/data).
+Verified 2026-10-11, Chrome 155, against a temp-tree `serve.py --port 0` copy: eval after boot reports `ready: true`, 384 sites, 1166 plans, the Sites tab with its stats line rendered; screenshot shows the globe and site list. So page-level tests (task 201's review list) can run headless here. shot.mjs's macOS flag `--use-angle=metal` is silently ignored on Linux; the 404s are also visible as `[console] error` lines from the browser's own network logging, not as `[reqfail]`.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
