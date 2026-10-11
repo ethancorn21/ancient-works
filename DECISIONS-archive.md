@@ -1446,6 +1446,41 @@ suite on my branch; the suite is green). Hand-over rewritten to the final state
 (it still said BLOCKED from 4i).
 
 
+<!-- task 203b -->
+# Task 203b batch-eu
+
+## 2026-10-11 203b DECISION: import the 203a loop verbatim and use its shared SEED 20261010 (prep note's separate SEED_EU dropped)
+fit/batch_eu.py (session 1, built and verified) imports run_sites/llm_model/recorded_model/
+write_report from fit/batch_us.py and owns only eu_sites (region != "US": 294 of 384, incl. the 6
+region-less - verified), the report's union section, and the CLI. The prep note (written before
+203a was built) proposed its own SEED_EU so 212's combined sample would be unambiguous; 203a's
+final hand-over (the newer, authoritative word from the loop's owner) says "shared SEED
+20261010", and write_report/_sample take no seed parameter - the module constant is the only
+one. The two reports' samples draw from disjoint doc sets (US docs vs EU docs), so one seed
+reproduces both unambiguously; 212 later draws the combined 20-sample from the union with its
+own seed. No loop change requested from 203a: its seams matched the prep contract, except
+run_sites' signature is (root, site_ids, model) not (root, site_ids, working, gate) - the gate is
+always the real frozen one (injectable in tests by monkeypatching batch_us.gate_placement, the
+pattern 203a's own test uses).
+
+## 2026-10-11 203b DECISION: hand-fitted sites with zero candidates get NO no-picture item - the EU run writes 175, not 178, no-picture items
+Verified on the merged loop: run_sites writes a no-picture item only when `not cands and not
+rec["pre_fit"]`, and is_pre_fit counts the old-style data/sites/<id>/site.json plate fit (kept by
+design, 203a's R9). Of the 178 candidate-less EU sites, fudge/highbank/hopeton carry old-style
+fits, so they end in the "already hand-fitted" bucket with no item (box 1's "or an existing hand
+fit" covers them; prep note section 1's "those three become no-picture-found items" is void
+against the merged loop - changing the guard would be a 203a loop edit and is not needed).
+bibracte (France, zero candidates, an existing 201-era no-picture item) has its item re-upserted
+with the batch's searched wording. So the full EU run is expected to: write 175 no-picture items
+(174 new files + bibracte's re-save), classify 175 as "no picture found", and the remaining 119
+candidate sites split between automatic fit / review item / already hand-fitted per the LLM's
+answers. Dry run of the 6 region-less sample with 202's recorded proposals: all 29 candidates
+(newark 21, forthill 4, marietta 4) PASS the real gate (median <= 0.14 m) - the documented
+"true case" holds for EU ground too, so the test's expected outcome is 29 new auto docs, 0 items,
+3 sites hand-fitted. Avebury's prep-note duplicate-id Larned row no longer exists (one
+c_ffb3daac218b481f row now); avebury has 6 candidates (1 pre-doc), old-sarum 5 (2 pre-docs).
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
