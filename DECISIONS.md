@@ -32,3 +32,57 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+## 2026-10-11 202 DECISION: prep §2 re-verified against main; one correction (fudge row) + one refinement (cross-scan bridge)
+    Re-ran every §2 measurement of tasks/prep/202.md against current main: all hold (20 docs; the 9 book rows'
+    m/px/rot/maxres exactly as tabled; the six old-style sites; 384 sites / 17 lidar:false; plans.json; ppi in
+    summary.md). Two deltas:
+    1. CORRECTION - fudge's row: the old fit (site.json: plate_scan = crop of Plate XXXIII No. 2,
+       "Ancient work near Winchester, Indiana") corresponds to stage-B row ancientmonuments00squi_n0203_2
+       (map_box [0.075,0.49,0.62,0.895], ratio text "SCALE 500 ft to the Inch.", no bar box), NOT n0203_1 as the
+       prep identified. n0203_1 is the No. 1 panel (Brush Creek, Kentucky - a different place). n0203_1 also has
+       two scale_bar boxes (prep said one); moot once _2 is the row. The other five sample pairs stand (n0068_1,
+       n0126_1, n0129_1, n0161_1, n0169_1; n0129_2 is the inset, not the hopeton main plan).
+    2. 201 is merged: fit/review.py seed items (data/review/*.json, committed by 201) already carry the exact
+       dict contract 202 must emit (pairs/coarse/ground/scale_m_px/rot_deg/scale_source/note, 1dp/7dp) and say
+       "202's propose_for replaces these pairs when it lands" - that replacement happens via 203a's upsert, so
+       202 writes no data/review/ or web/data/review.json (outside my Touches). R5 (contract drift) resolved by
+       the merged code, not the prep.
+    Small data deltas since prep (not contract-relevant): scale_bar None 15->26, map_box None 29->40,
+    scale_text None 371->382 of 890. data/raw/ is gitignored but present locally: the test must not read it at
+    run time (hardcode calibrated numbers instead).
+
+## 2026-10-11 202 BLOCKER: the forthill cross-scan bridge is not a clean similarity nor a clean projective
+    (prep R4 / Option A, as specified, fails)
+    - Attempt 1: whole-plate FFT cross-correlation (both scans normalised to 1600px wide; scale ladder
+      0.85-1.20): best NCC 0.24 (forthill), 0.37 (highbank), 0.27 (marietta), 0.036 (fudge), 0.066 (newark) -
+      diluted by margins/crop differences, no decisive match. (Prep had tried this too; same result class.)
+    - Attempt 2: 4-point procrustes (similarity) on eyeballed earthwork vertices (N/S/W/E tips picked from
+      1.6x-zoomed grid crops of the full page; plate_scan side exact from site.json plate.walls extremes),
+      then a local NCC refinement (scale +/-4%, rot +/-1.5deg, translation +/-16px) over the 650x900
+      earthwork patch: NCC went from -0.04 to -0.02 (no match at all); a 360x360 S-V-bend patch search peaked
+      at 0.19 (scale 1.0). Side-by-side crops of the S V-bend show genuine local geometric difference (the
+      bend is longer/flatter in the LoC scan, steeper in the plate_scan) => the two are different physical
+      copies with smooth but non-projective paper distortion.
+    - Attempt 3: 4-point homography through the same eyeballed points: implied scale 1.51 (true ~1.06,
+      eyeballed), 5th-landmark error 116px, and the transformed wall polyline overlay bulges off the drawn
+      wall along the earthwork's long sides => not projective either; eyeballed picks (+/-20-30px) are too
+      coarse to condition an 8-param solve on a 1500px span. Also: the plate_scan crop does NOT contain the
+      plate's ruled frame (four corner crops checked: blank, one cut line at the bottom edge), so
+      frame-corner calibration is impossible; only the full-page side has frame corners.
+    Decision for next session (lean B): drop the per-site homography; do metric-space sanity checks (scale
+    ratio, rotation band, panel-centre distance with prep's envelopes, hand-fit earthwork centre as the
+    panel-centre proxy) unless a cheap auto-extracted wall-centerline registration (A') proves out in
+    scratch first. The box ("re-fit ... lands within the hand fit's own residual range") is implemented via
+    those envelopes; the golden file records the measured numbers so the check is inspectable.
+
+## 2026-10-11 202 DECISION: recorded-scale anchor vs the sanity box - the envelopes, not a literal residual match
+    Measured: for the six S&D rows the printed ratio text at the book's nominal ppi (500) underestimates the
+    hand-fit truth by 1.2-2.3x (forthill 2.26x ... marietta 1.20x; implied ppi 222-417, not constant =>
+    variable plate reduction; prep's "2-17x" covered aztalan's 8-14x). Consequences: (a) box 1's "recorded
+    scale" anchor is 16-56% small vs truth - that is the honest "recorded" scale, kept as the box says;
+    (b) box 4 read literally (proposal placement within the hand fit's 2-20m residual at the earthwork)
+    cannot hold for a recorded-scale anchor (error = scale error x distance, hundreds of m) - the test
+    asserts the prep's envelope form instead (scale within 50% of truth, rotation in the per-hint bands,
+    panel-centre distance <= max(3x maxresid, 100m, 1.0x panel diagonal)); (c) never source the proposal's
+    scale from the site.json fits (circular: the proposal must work for sites with no fit yet).
