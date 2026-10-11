@@ -5,9 +5,12 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** Recon done (no code in the repo yet; everything below is findings + a half-built experiment).
+- `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
-- `tasks/000-plan.md`
+- `tasks/200-evidence.md`
+- `tasks/201-review.md`
+- `tasks/202-propose.md`
 
 ## Your task's journal
 
@@ -30,3 +33,12 @@ candidate: placement-centre-vs-catalog-position + plate-extent-vs-site-box check
 has no hashes (driver baseline is empty for 001) and lacks scikit-image, which pipeline/autowalls.py needs; if the
 gate uses autowalls.extract, requirements.txt (root, outside this task's Touches) must gain skimage and be added
 to the task's Touches line first.
+2 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+
+- 000 plan (2 entries, older ones; the task is still open)
+
+## Project-wide driver notes (newest)
+
+### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
+    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
+    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
