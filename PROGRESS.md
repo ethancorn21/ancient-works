@@ -8,6 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 64, agent c - first session: orientation and design DONE, zero code written yet. The next session writes the code exactly as designed below
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -18,7 +19,27 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
+Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
+review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
+but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
+pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
+So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
+site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
+not root-aware: plan_fit and build_site derive every path from their own file location, and
+review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
+one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
+files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
+through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
+write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
+Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
+(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
+hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
+(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
+backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
+hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
+real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
 
 ## Project-wide driver notes (newest)
 
