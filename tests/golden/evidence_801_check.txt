@@ -1,0 +1,8 @@
+PASS part_mention    test-castle|A view of Test Castle and its Test Tower
+FAIL part_mention    test-castle|A view of Test Castle and its Test Tower  part Q9 no longer a part of the site
+PASS sheet_mention   test-castle|File:Testville Testham 1840, sheet by the survey
+FAIL sheet_mention   test-castle|File:Nowhere Somewhere 1840, sheet by the survey  the title/description no longer yields the candidate 'Testville'
+NONE none            bare-castle|File:Far Sheet 1840, sheet by the survey  conflict: sheet 'Testville' resolves to Q10, 334 km from the site
+NONE none            test-castle|An old view of Test Castle, the Test Tower  conflict: part 'Test Tower' resolves to Q2, 389 km from the site
+FAIL part_mention    test-castle|A view of Test Castle and its Test Tower  part is 445 km from the site (the trap), not a tie
+evidence: 7 rows, 2 pass, 3 fail, 2 no-tie

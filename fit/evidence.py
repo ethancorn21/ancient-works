@@ -12,6 +12,12 @@ appended "evidence" field naming which kind of tie holds and the specifics that 
                    the item)
   caption_coords   the title or caption names the place and that place resolves to coordinates within 50 km of the
                    site (specifics: the place named, its resolved item/coordinates, the distance to the site)
+  part_mention     the title or caption names a documented part of the site (the catalog's has_part) and that
+                   part's coordinates (the site's own point when the part has none) sit within 50 km of the site
+  sheet_mention    the map's own place list (the title/description, walked in reading order: 2-word pairs, then
+                   3-word phrases, then singles): the first candidate that resolves to coordinates within 50 km of
+                   the site names the sheet's subject (specifics: the candidate, its resolved item/coordinates,
+                   the distance)
   none             no tie holds: the row is reported by check, never silently kept
 
 Fail-closed: a caption that names a place resolving to a different location (the Hampton Court trap: the
@@ -30,16 +36,20 @@ record at the stored score. Only the runner-up margin stays stored: the catalog 
 can take the margin - and a full re-run would fail on data growth.
 
 usage: fit/evidence.py check  [--files P] [--books P] [--catalog P]
-       fit/evidence.py record [--live] [--only SITE ...]
+       fit/evidence.py record [--live] [--redo-none] [--only SITE ...]
 `record` appends the "evidence" field (existing fields keep their order and bytes): the hand-tied sources rows
 and the book rows are recorded offline; with --live it also fetches Commons/Wikidata (paced) for the remaining
-commons rows - categories, site claims, file items, place resolutions.
+commons rows - categories, site claims, file items, place resolutions. With --live and --redo-none it re-runs
+that fetch for the rows already recorded as "none" (including their stored conflicts), so the part and sheet
+routes can pick them up; every other recorded row is skipped, so a plain rerun stays a no-op.
 """
 import json
 import math
 import os
+import re
 import sys
 import time
+import unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
@@ -112,18 +122,23 @@ def source_tables():
 
 # ---------------------------------------------------------------- the check
 
-def check_commons(row):
+def check_commons(row, cats):
     """Verdict for one commons row, from stored fields only. Returns (verdict, kind, reason)."""
     ev = row.get("evidence")
     if ev is None:
         return "NONE", "-", "no evidence recorded"
     kind = ev.get("kind")
-    if kind not in ("hand_tied", "category", "depicts", "caption_coords", "none"):
+    if kind not in ("hand_tied", "category", "depicts", "caption_coords", "part_mention", "sheet_mention", "none"):
         return "FAIL", kind or "?", "unknown kind"
     if kind == "none":
         return check_none(ev)
-    ok, reason = {"hand_tied": check_hand_tied, "category": check_category,
-                  "depicts": check_depicts, "caption_coords": check_caption}[kind](row, ev)
+    if kind == "part_mention":
+        ok, reason = check_part(row, ev, cats)
+    elif kind == "sheet_mention":
+        ok, reason = check_sheet(row, ev)
+    else:
+        ok, reason = {"hand_tied": check_hand_tied, "category": check_category,
+                      "depicts": check_depicts, "caption_coords": check_caption}[kind](row, ev)
     return ("PASS" if ok else "FAIL"), kind, reason
 
 
@@ -190,6 +205,49 @@ def check_caption(row, ev):
     return True, ""
 
 
+def check_part(row, ev, cats):
+    site = cats.get(row.get("site"))
+    if site is None:
+        return False, f"site {row.get('site')!r} no longer in the catalog"
+    named = ev.get("named_place")
+    if not named:
+        return False, "no part named"
+    hay = books_match.norm((row.get("title") or "") + " " + (row.get("desc") or ""))
+    if books_match.norm(named) not in hay:
+        return False, f"the caption no longer names the part {named!r}"
+    if not any(p.get("qid") == ev.get("part_qid") for p in (site.get("has_part") or [])):
+        return False, f"part {ev.get('part_qid')} no longer a part of the site"
+    try:
+        d = hav_m(ev["site_lon"], ev["site_lat"], ev["place_lon"], ev["place_lat"])
+    except (KeyError, TypeError):
+        return False, "no stored coordinates"
+    if abs(d - (ev.get("dist_m") or 0)) > 1000:
+        return False, f"stored distance {ev.get('dist_m')} m does not reproduce ({d:.0f} m)"
+    if d > DIST_TOL_M:
+        return False, f"part is {d / 1000:.0f} km from the site (the trap), not a tie"
+    return True, ""
+
+
+def check_sheet(row, ev):
+    named = ev.get("named_place")
+    if not named:
+        return False, "no place named"
+    # the candidate is a glued run of the title/description's own words (e.g. "York Castle" out of
+    # "New York. Castle Garden") that a plain norm-substring would miss, so re-run the extractor: the
+    # stored candidate must still be derivable from the row's printed text
+    if named not in sheet_candidates(row.get("title"), row.get("desc")):
+        return False, f"the title/description no longer yields the candidate {named!r}"
+    try:
+        d = hav_m(ev["site_lon"], ev["site_lat"], ev["place_lon"], ev["place_lat"])
+    except (KeyError, TypeError):
+        return False, "no stored coordinates"
+    if abs(d - (ev.get("dist_m") or 0)) > 1000:
+        return False, f"stored distance {ev.get('dist_m')} m does not reproduce ({d:.0f} m)"
+    if d > DIST_TOL_M:
+        return False, f"named place is {d / 1000:.0f} km from the site (the trap), not a tie"
+    return True, ""
+
+
 def check_none(ev):
     c = ev.get("conflict")
     if c:
@@ -199,8 +257,8 @@ def check_none(ev):
             return "FAIL", "none", "recorded conflict without coordinates"
         if d <= DIST_TOL_M:
             return "FAIL", "none", f"recorded conflict no longer conflicts ({d / 1000:.0f} km)"
-        return "NONE", "none", (f"conflict: caption {c.get('named_place')!r} resolves to {c.get('place_qid')}, "
-                                f"{d / 1000:.0f} km from the site")
+        return "NONE", "none", (f"conflict: {c.get('route', 'caption')} {c.get('named_place')!r} resolves to "
+                                f"{c.get('place_qid')}, {d / 1000:.0f} km from the site")
     return "NONE", "none", ev.get("reason") or "no tie"
 
 
@@ -269,7 +327,7 @@ def check(files, books, catalog=CATALOG_SITES):
         if not r.get("title"):
             continue  # a sentinel row records a site with no old files, not a picture
         n += 1
-        v, kind, reason = check_commons(r)
+        v, kind, reason = check_commons(r, cats)
         cnt[v] += 1
         out.append(_line(v, kind, f'{r["site"]}|{r["title"]}', reason))
     if os.path.exists(books):
@@ -316,7 +374,7 @@ def record_book_row(row, idx, by_name, cats):
     return {**base, "kind": "none", "reason": reason}
 
 
-def record(files, books, live=False, only=None):
+def record(files, books, live=False, only=None, redo_none=False):
     """Append the "evidence" field to every picture row lacking it (resumable). Prints the counts."""
     n_hand = n_book = n_live = 0
     chg, pend = {}, []
@@ -326,7 +384,8 @@ def record(files, books, live=False, only=None):
         r = json.loads(l)
         if not r.get("title") or (only and r["site"] not in only):
             continue
-        if r.get("evidence", {}).get("rec") == REC:
+        ev = r.get("evidence") or {}
+        if ev.get("rec") == REC and not (redo_none and ev.get("kind") == "none"):
             continue
         ev = record_commons_row(r)
         if ev is None:
@@ -488,9 +547,219 @@ def named_places_in(row, site):
     return out
 
 
+# ---------------------------------------------------------------- the sheet-mention extractor (task 801)
+
+# The capitalized-word candidates of a map's own place list (an OS sheet's description enumerates every place
+# on the map): NFKD-normalize, strip the "File:" prefix, truncate the description to a word boundary at 600,
+# split on non-letters AND case/digit boundaries, keep capitalized words (never digits, never all-caps
+# acronyms, never the STOP list - mined from the 354 no-tie rows' capitalized-word frequencies), merge a lone
+# "St" with the next kept word ("St. Louis" -> "St Louis"), and read the runs of adjacent kept words (a comma,
+# a lowercase word of len>=3 or a digit between them breaks a run) into, per run: 2-word pairs, then 3-word
+# phrases, then singles. The STOP list only cuts cost: the 50 km distance guard is the mechanism, a person name
+# or a mis-resolved place simply does not pass it.
+TOKEN = re.compile(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|[0-9]+")
+REAL_WORD = re.compile(r"[a-z]{3,}")  # a lowercase word of len>=3 between kept words breaks a run
+STOP = set("""file book this that all image images page pages title year years author authors identifier
+subjects subject publisher catalog catalogs catalogue viewer digitizing sponsor contributing library
+libraries collection collections about entry description describes includes volume volumes edition
+shelfmark date dates dimension dimensions medium media technique techniek materiaal material
+afmetingen afmeting fysiek omschrijving opschriften merken datering plaats afbeelding afbeeldingen
+naaukeurige voornaamste sterke steden stad gezichten gezicht detail details extrait avec sur sous
+entre pour dans une carte cartes plan plano vue vues planche legende echelle hauteur largeur
+couverture langue editeur appartient publicatie uitgave datum nummer num code bron texte photo
+photograph photographs museum exhibit exhibits display art arts sciences academy institute society
+royal navy army military engineers board office commission committee department bureau service
+company limited inc corp trust foundation bank railroad railway railways road bridge highway avenue
+lane street streets district historic heritage historyworks creative commons license licence rights
+reserved public domain work works note notes source sources reference references transcription
+program number numbers copy copies printed print engraved engraving sheet sheets map maps atlas
+atlases survey surveys view views plan plans drawing drawings one inich inch published plattegrond
+reproductie identificatie titel objecttype objectnummer vervaardiging vervaardiger auteur sujet
+zeven
+the of de van la le les du des en on in by at to or and for with from op bij met naar per
+ordnance quartier house design pattern textile numerisation onderdeel english roman
+bewerkt nativite nativity gemeentelijke deze rotterdamblindstempel reisalbum georeferencer
+dessins digue digues amenagement dyffryn jazz built ancient archaeological biodiversity center
+home nursing prospect fleuron bowes click landscape appearing text everything figures franse
+internet archive before history
+""".split())
+
+
+def sheet_candidates(title, desc):
+    """The ordered place candidates of a picture's title/description, for the sheet route: per run in order of
+    appearance, 2-word pairs, then 3-word phrases, then singles; title before description; <=12, deduped.
+    Deterministic over the stored text, so check_sheet re-runs it to re-verify a stored candidate."""
+    d = (desc or "")[:600]
+    if len(desc or "") > 600 and " " in d:
+        d = d[:d.rfind(" ")]  # word boundary: never present a cut-off word as a candidate
+    text = unicodedata.normalize("NFKD", (title or "") + " " + d).encode("ascii", "ignore").decode()
+    if text.startswith("File:"):
+        text = text[5:]
+    toks = TOKEN.findall(text)
+    spans = [(m.start(), m.end()) for m in TOKEN.finditer(text)]
+    kept = []  # (tok, is_first_token, orig_tok_index)
+    for i, t in enumerate(toks):
+        if t.upper() == "ST" and len(t) <= 2:
+            kept.append(("St", i == 0, i))  # merge marker: "St. Louis" -> "St Louis"
+            continue
+        # a digit is never kept (it leaked into v2 and formed junk pairs: barcodes, year ranges, hex fragments)
+        if (t[0].isalpha() and len(t) >= 3 and not t.islower()
+                and not (t == t.upper() and t.isalpha()) and t.lower() not in STOP):
+            kept.append((t, i == 0, i))
+    # merge a lone "St" with the next kept word ("St. Louis" -> "St Louis"): only when no comma, no lowercase
+    # word and no digit sits between them (else "St" would swallow an unrelated word)
+    merged, skip = [], set()
+    for j, (t, first, oi) in enumerate(kept):
+        if j in skip:
+            continue
+        if t == "St" and j + 1 < len(kept):
+            _, _, ni = kept[j + 1]
+            between = text[spans[oi][1]:spans[ni][0]]
+            if not ("," in between or REAL_WORD.search(between) or any(c.isdigit() for c in between)):
+                merged.append(("St " + kept[j + 1][0], first, oi))
+                skip.add(j + 1)
+                continue
+        merged.append((t, first, oi))
+    kept = merged
+    if len(kept) == 1 and kept[0][1]:
+        kept = []  # a lone leading word is a heading, not a place
+    runs, run = [], []
+    prev_i = None
+    for j, (t, first, oi) in enumerate(kept):
+        if prev_i is not None:
+            between = text[spans[prev_i][1]:spans[oi][0]]
+            if ("," in between or REAL_WORD.search(between) or any(c.isdigit() for c in between)):
+                runs.append(run)
+                run = []
+        run.append(t)
+        prev_i = oi
+    if run:
+        runs.append(run)
+    out = []
+    for r in runs:
+        for L in (2, 3):  # pairs first, then 3-word phrases, then singles
+            for i in range(len(r) - L + 1):
+                out.append(" ".join(r[i:i + L]))
+        out += r
+    seen, ded = set(), []
+    for c in out:
+        if c not in seen:
+            seen.add(c)
+            ded.append(c)
+    return ded[:12]
+
+
+def part_hits(row, site):
+    """The site's documented parts (the catalog's has_part) whose name the row's title/desc actually prints."""
+    hay = books_match.norm((row.get("title") or "") + " " + (row.get("desc") or ""))
+    return [p for p in (site.get("has_part") or []) if p.get("name") and books_match.norm(p["name"]) in hay]
+
+
+def site_point(site, claims):
+    """The site's own coordinates: the catalog's lon/lat, falling back to the site item's P625 claim."""
+    lon, lat = site.get("lon"), site.get("lat")
+    if lon is None:
+        lon, lat = claims.get("p625", (None, None))
+    return lon, lat
+
+
+def caption_route(row, site, claims, places):
+    """The caption route: the site's own names printed by the title/desc, resolved to coordinates - the
+    nearest resolution within 50 km proves the caption_coords tie; when every resolution is farther, the
+    nearest one is recorded as the conflict (the Hampton-Court trap, never a pass). Returns None when the
+    caption does not decide the row (no coordinates, no place named, or no place resolved), so the caller
+    can try further routes."""
+    slon, slat = site_point(site, claims)
+    if slon is None:
+        return None
+    best, conflicts = None, []
+    for nm in named_places_in(row, site):
+        r = places.get(nm)
+        if not r:
+            continue
+        d = hav_m(slon, slat, r[2], r[3])
+        if d <= DIST_TOL_M and (best is None or d < best[0]):
+            best = (d, nm, r)
+        else:
+            conflicts.append((d, nm, r))
+    if best:
+        d, nm, (pqid, plab, plon, plat) = best
+        return {"rec": REC, "kind": "caption_coords", "checked": now(), "named_place": nm,
+                "place_qid": pqid, "place_label": plab, "place_lon": plon, "place_lat": plat,
+                "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
+    if conflicts:
+        d, nm, (pqid, plab, plon, plat) = min(conflicts, key=lambda x: x[0])
+        return {"rec": REC, "kind": "none", "checked": now(),
+                "conflict": {"named_place": nm, "place_qid": pqid, "place_label": plab,
+                             "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
+    return None
+
+
+def part_route(row, site, claims, part_coords):
+    """The part route: the row prints the name of a documented part of the site (the catalog's has_part) and
+    that part's own coordinates (the site's own point when the part has none) sit within 50 km of the site -
+    the Clifford's-Tower-on-York-castle tie. The nearest hit within 50 km passes (kind part_mention); when
+    every hit is farther, the nearest one is stored as the conflict. Returns None when no part decides the
+    row, so the caller can try further routes."""
+    slon, slat = site_point(site, claims)
+    if slon is None:
+        return None
+    best, conflicts = None, []
+    for p in part_hits(row, site):
+        qid = p.get("qid")
+        lon, lat = (part_coords or {}).get(qid, (None, None))
+        if lon is None:  # the part has no coordinates: the site's own point (0 m, always a pass)
+            lon, lat, src_qid = slon, slat, site.get("qid")
+        else:
+            src_qid = qid
+        d = hav_m(slon, slat, lon, lat)
+        if d <= DIST_TOL_M and (best is None or d < best[0]):
+            best = (d, p, src_qid, lon, lat)
+        else:
+            conflicts.append((d, p, src_qid, lon, lat))
+    if best:
+        d, p, src_qid, plon, plat = best
+        return {"rec": REC, "kind": "part_mention", "checked": now(), "named_place": p["name"],
+                "part_qid": p.get("qid"), "place_qid": src_qid, "place_label": p.get("name"),
+                "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
+    if conflicts:
+        d, p, src_qid, plon, plat = min(conflicts, key=lambda x: x[0])
+        return {"rec": REC, "kind": "none", "checked": now(),
+                "conflict": {"route": "part", "named_place": p["name"], "place_qid": src_qid,
+                             "place_label": p.get("name"), "place_lon": plon, "place_lat": plat,
+                             "site_lon": slon, "site_lat": slat}}
+    return None
+
+
+def sheet_route(row, site, claims, places):
+    """The sheet route: an OS-sheet-like picture names many places in its title/description; WALK the ordered
+    candidates (per run: pairs, then phrases, then singles; title before description) and let the FIRST
+    candidate that resolves to coordinates decide the row: within 50 km of the site the sheet mentions the
+    site (kind sheet_mention), farther the row keeps kind "none" with that resolution stored as the conflict.
+    A walk, not a nearest-wins: a glued word inside a farther place ("York" inside "New York") must not pass
+    a New York row. Returns None when no candidate resolves, so the caller can keep the row "none"."""
+    slon, slat = site_point(site, claims)
+    if slon is None:
+        return None
+    for c in sheet_candidates(row.get("title"), row.get("desc")):
+        r = (places or {}).get(c)
+        if not r:
+            continue
+        d = hav_m(slon, slat, r[2], r[3])
+        if d <= DIST_TOL_M:
+            return {"rec": REC, "kind": "sheet_mention", "checked": now(), "named_place": c,
+                    "place_qid": r[0], "place_label": r[1], "place_lon": r[2], "place_lat": r[3],
+                    "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
+        return {"rec": REC, "kind": "none", "checked": now(),
+                "conflict": {"route": "sheet", "named_place": c, "place_qid": r[0], "place_label": r[1],
+                             "place_lon": r[2], "place_lat": r[3], "site_lon": slon, "site_lat": slat}}
+    return None
+
+
 def live_evidence(row, ctx):
     """The evidence for one commons row, computed offline from the live facts prefetched into ctx
-    (categories, site claims, the file's own item, resolved places) - no network here."""
+    (categories, site claims, the file's own item, part coordinates, resolved places) - no network here.
+    The routes cascade: the first one to return a pass or a conflict decides the row."""
     site = ctx["cats"].get(row.get("site")) or {}
     claims = ctx["claims"].get(row.get("qid"), {})
     fcats = ctx["file_cats"].get(row["title"], [])
@@ -515,32 +784,15 @@ def live_evidence(row, ctx):
     if fe and row.get("qid") in fe["p180"]:
         return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P180",
                 "file_qid": fe["item"], "value": row["qid"]}
-    slon, slat = site.get("lon"), site.get("lat")
-    if slon is None:
-        slon, slat = claims.get("p625", (None, None))
-    nameds = named_places_in(row, site)
-    if slon is not None:
-        res = ctx["places"]
-        best, conflicts = None, []
-        for nm in nameds:
-            r = res.get(nm)
-            if not r:
-                continue
-            d = hav_m(slon, slat, r[2], r[3])
-            if d <= DIST_TOL_M and (best is None or d < best[0]):
-                best = (d, nm, r)
-            else:
-                conflicts.append((d, nm, r))
-        if best:
-            d, nm, (pqid, plab, plon, plat) = best
-            return {"rec": REC, "kind": "caption_coords", "checked": now(), "named_place": nm,
-                    "place_qid": pqid, "place_label": plab, "place_lon": plon, "place_lat": plat,
-                    "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
-        if conflicts:
-            d, nm, (pqid, plab, plon, plat) = min(conflicts, key=lambda x: x[0])
-            return {"rec": REC, "kind": "none", "checked": now(),
-                    "conflict": {"named_place": nm, "place_qid": pqid, "place_label": plab,
-                                 "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
+    ev = caption_route(row, site, claims, ctx["places"])
+    if ev is not None:
+        return ev
+    ev = part_route(row, site, claims, ctx.get("part_coords"))
+    if ev is not None:
+        return ev
+    ev = sheet_route(row, site, claims, ctx["places"])
+    if ev is not None:
+        return ev
     return {"rec": REC, "kind": "none", "checked": now(),
             "reason": "no tie: not in the site's category, no item claim, no place named in the caption"}
 
@@ -555,8 +807,15 @@ def record_live(pend, files):
            "claims": fetch_site_claims(sorted({r["qid"] for _, _, r in pend if r.get("qid")})),
            "subcats": {}}
     ctx["file_entities"] = fetch_file_entities(fetch_page_ids(titles))
-    ctx["places"] = resolve_places(set(nm for _, _, r in pend
-                                       for nm in named_places_in(r, cats.get(r.get("site")) or {})))
+    part_qids = sorted({p.get("qid") for _, _, r in pend
+                        for p in ((cats.get(r.get("site")) or {}).get("has_part") or []) if p.get("qid")})
+    ctx["part_coords"] = {q: c["p625"] for q, c in fetch_site_claims(part_qids).items()} if part_qids else {}
+    names = set()
+    for _, _, r in pend:
+        s = cats.get(r.get("site")) or {}
+        names |= set(named_places_in(r, s))
+        names |= set(sheet_candidates(r.get("title"), r.get("desc")))
+    ctx["places"] = resolve_places(names)
     chg, done = {}, 0
     for i, l, r in pend:
         chg[i] = set_field(l, "evidence", live_evidence(r, ctx))
@@ -583,6 +842,9 @@ if __name__ == "__main__":
         print(text)
         raise SystemExit(code)
     only = set(args[args.index("--only") + 1:]) if "--only" in args else None
+    live = "--live" in args
+    if "--redo-none" in args and not live:
+        print("note: --redo-none only applies with --live", file=sys.stderr)
     record(opt("--files", os.path.join(ROOT, "data", "commons", "files.jsonl")),
            opt("--books", os.path.join(ROOT, "data", "books", "index.jsonl")),
-           live="--live" in args, only=only)
+           live=live, only=only, redo_none="--redo-none" in args and live)

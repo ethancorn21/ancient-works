@@ -653,3 +653,33 @@ never-pass-far guarantee holds and box 1 only needs the majority of the genuinel
 40 Clifford rows pass via the part route, which runs before sheet).
 Part-route check: EXACTLY 40 of the 354 none rows name a has_part of their own site (all
 Clifford's Tower) - matches the iter-15 census.
+
+## 2026-10-11 801 DECISION: implemented part/sheet routes in fit/evidence.py (2 commits) instead of agent c's prototype-first live run - the live run of the IMPLEMENTED code IS the validation (git diff audit), and the port-fidelity check proves the candidates are identical to the prototype's
+The carry-over (c@42f5d6f) had already done the refactor-first half (caption_route extracted). I did: 5f04b9c extract site_point (proven zero-change: 12/12, real check byte-identical); 0134ba4 the feature (extractor ported verbatim, part_route/sheet_route, check_part/check_sheet, --redo-none, docstring). Verified: port fidelity vs /tmp/sheet_proto2.py over all 354 rows = 0 mismatches / 1483 unique / dump byte-equal; 7 synthetic wiring checks (incl. the walk-trap and a stored-trap FAIL). Next: background live run `record --live --redo-none` (see task hand-over), then the new test + golden, data commit.
+
+## 2026-10-11 801 DECISION: check_sheet re-runs the extractor instead of a norm-substring check - agent c's "candidates are norm-substrings by construction" claim is false
+Measured: 392 of the 1483 sheet candidates fail `norm(candidate) in norm(title+desc)` (e.g. "Robert Dennis" out of "Robert N. Dennis" - a 1-letter non-kept token survives in norm(hay) and splits the pair; "York Castle" out of "New York. Castle Garden"). check_sheet therefore requires the stored named_place to be in `sheet_candidates(title, desc)` (the extractor is deterministic and offline - the same re-derive-from-printed-text pattern check_book uses for the matcher). check_part keeps norm-substring (a part name is the catalog's own string, norm applied symmetrically both sides - always re-verifies). Pitfall filed separately.
+
+## 2026-10-11 801 DECISION: an edit dropped the `def check_none(ev):` line (NameError at check runtime) - caught by the real-file check run before committing, restored in the same session
+When inserting check_part/check_sheet after check_caption, the edit's oldText ended at `def check_none(ev):` but the newText did not repeat it, leaving check_none's body as orphaned dead code under check_sheet and a NameError in check_commons. Symptom: `fit/evidence.py check` dies with `NameError: name 'check_none' is not defined`. Lesson: when a block insertion lands between two functions, the trailing `def` line of the NEXT function belongs in the newText.
+
+## 2026-10-11 801 DECISION: extractor v3 final (digits out, "St" merge fixed, STOP extended to 1483 uniques) - live run is the next step
+Iter 17 (agent c). Applied the two pending iter-16 fixes to /tmp/sheet_proto2.py (now v3) and re-ran offline
+over all 354 none rows (no network, no repo change). (1) Digits never kept (t[0].isalpha()) and a digit
+between two kept words now breaks a run - kills the NYPL barcodes ("11707950 000", "000 019"), year-range
+pairs ("1806 1820") and hex-fragment glue. (2) The St-merge marker only matched all-caps "ST" in v2, but
+the tokenizer yields mixed-case "St" from "St." - the "St. Louis" candidate (cahokia) was silently LOST;
+fixed to accept both, merging only when no comma/len>=3-lowercase/digit sits between "St" and the next
+kept word. (3) STOP extended with the iter-16 pending words (preposition block the/van/les/des/and/for/
+with/from/bij/met/naar/per + harmless 2-letter ones; ordnance quartier house design pattern textile
+numerisation onderdeel english roman) plus words mined from the v2 dump (bewerkt nativite nativity
+gemeentelijke deze rotterdamblindstempel reisalbum georeferencer dessins digue digues amenagement dyffryn
+jazz built ancient archaeological biodiversity center home nursing prospect fleuron bowes click landscape
+appearing text everything figures franse internet archive before history - full list in the task file's
+v3 description). Measured: 1483 unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows
+with >=1 sheet candidate, EXACTLY 40 part hits (unchanged). Eyeballed the top ~130 of the frequency list:
+remainder is genuine place names (real passes), person names (expected, no P625, one search each) and junk
+now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowes MUSEUM paintings; Bowes
+is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
+Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
+name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
