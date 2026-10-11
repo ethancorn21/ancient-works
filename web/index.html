@@ -812,11 +812,14 @@ $('#grab').onclick = () => $('#panel').classList.toggle('collapsed');
 // runs pipeline/plan_fit.py, which solves the same fit and writes the overlay into the site's depictions.json.
 const P = { rows: [], byId: {}, bySite: {}, active: false, site: null, plan: null, img: null, crop: null, pairs: [], pending: null,
   view: { x: 0, y: 0, k: 1 }, cropMode: false, cropA: null, marks: [], q: '', inkUrl: null, ink: null, op: 0.85, fit: null, model: 'plan' };
+// One picture can depict two sites (one row per site, shared plan id): key the row by (id, sites[0]),
+// the composite tests/test_data.py proves unique, so no row is lost from P.byId.
+function planKey(r) { return r.sites.length ? r.id + '.' + r.sites[0] : r.id; }
 async function loadPlans() {
   try {
     const d = await fetch('data/plans.json').then(r => r.json());
     P.rows = d.rows.map(a => Object.fromEntries(d.cols.map((c, i) => [c, a[i]])));
-    for (const r of P.rows) { P.byId[r.id] = r; for (const sid of r.sites) (P.bySite[sid] ||= []).push(r); }
+    for (const r of P.rows) { P.byId[planKey(r)] = r; for (const sid of r.sites) (P.bySite[sid] ||= []).push(r); }
   } catch {}
 }
 function startFit(s) {
@@ -850,7 +853,7 @@ function renderFit() {
       <p class="fit">The plans come from eight books of 1848 to 1914 (Squier &amp; Davis, Lapham, Whittlesey, Squier, Thomas, Fowke, Allcroft, Mills). Pick one; it opens beside the map.</p>
       <div class="search"><input id="fq" type="search" placeholder="Search ${P.rows.length} plans by title or book" value="${esc(P.q)}" aria-label="Search plans"></div>
       ${list.length ? `<p class="group-title">${P.q ? 'Plans matching your search' : 'May show this site'} <span>${list.length}</span></p>
-      <ul class="plans">${list.map(r => `<li><button data-plan="${esc(r.id)}">${planLine(r)}</button></li>`).join('')}</ul>`
+      <ul class="plans">${list.map(r => `<li><button data-plan="${esc(planKey(r))}">${planLine(r)}</button></li>`).join('')}</ul>`
       : `<p class="status">${P.q ? 'No plan matches.' : 'None of the plans is matched to this site by name. Search for its name, county or the book.'}</p>`}`;
     $('#fitback').onclick = () => endFit();
     const q = $('#fq');
