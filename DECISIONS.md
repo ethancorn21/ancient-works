@@ -31,3 +31,52 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+## 2026-10-11 213 DECISION: staged rows use hand-recorded caption_coords evidence; record --live is the wrong route (traps confirmed live)
+`fit/evidence.py:source_tables()` only reads `pipeline/sources.py:SOURCES`, and fit/evidence.py is not in my
+Touches, so a `hand_tied` row for "fit/src_artists.py" would FAIL check. I hand-record the `caption_coords`
+field in caption_route's key order (rec/kind/checked/named_place/place_qid/place_label/place_lon/place_lat/
+site_lon/site_lat/dist_m). `record` skips rows that already carry rec==evidence/1, so 211's later record runs
+leave them alone. Prep OQ-1 (a byte-identical live record for Venice) is unachievable: `record --live` resolves
+the caption by NAME SEARCH, and --verify confirmed the first hit with P625 is the trap for BOTH sites: search
+"Imola" -> Q50195 itself, which carries the bad P625 (11.7147, 44.3531), 53 km NW -> conflict -> kind none;
+search "Venice" -> Q773853 (Venice, Los Angeles, -118.46, 33.99), 9891 km -> conflict -> kind none. The hand
+record stores the verified resolution instead (Imola: old-town centre as both site and place; Venice: its own
+P625, which is sane). Also verified live 2026-10-11: labels 'Imola'/'Venice' (enwiki sitelinks), P373
+'Imola'/'Venice' (so the row's `cat` field is the P373 category, though the file categories don't chain into
+it -> caption_coords), P131 = provinces (Imola: Q16139 Province of Bologna + Q18288145 Metropolitan City of
+Bologna - the prep misread Q16139 as Italy; Italy is Q38; Venice: four Venice-province variants Q6360367/
+Q3924689/Q16310/Q3678587) -> the extras `place` strings are composed by hand (region, country). File metadata
+confirmed: RCIN 912284 = 2000x1483, no DateTimeOriginal and no description, year 1502 from the title (year_of
+agrees with the table's date, so no date/date_commons override fires), public domain; Correr Venice =
+11800x5856, DateTimeOriginal "1500 ... /9", public domain. Both pass commons.keep().
+
+## 2026-10-11 213 DECISION: new-site region is "Italy" (display case); filed task 214 for REGION_NAME
+REGION_NAME (build_catalog.py) has no "italy" key. `place_of` uses `.get(x, x)` (the display-case "Italy"
+dedupes cleanly in the place string; lowercase "italy" would print lowercase), but `make_site` uses
+`REGION_NAME.get(...) or "US"` - until the key exists, the built sites display as "US" on the page. Task 214
+filed (one module: pipeline/build_catalog.py + new tests/test_region.py; Depends on: none, so it can run in
+parallel with the rest of 213).
+
+## 2026-10-11 213 DECISION: the "Google Art Project" scans are documented drops, not staged
+commons.NO's regex contains "google" (a harvest heuristic against map-screenshot junk), so both GAp scans fail
+commons.keep() - and even if staged they would be dead rows: 211's merge feeds commons.rows(), which re-judges
+every row with keep() and would drop them from the plan list. Instead I stage the surviving scans (RCIN 912284
+for Imola; the 11800x5856 Museo Correr scan for Venice). Also to be documented as drops in the lead doc: the
+NGA "block" files (detail crops of Barbari's woodcut, not separate pictures), File:...RCIN 912686 (a different
+work: recto sketches), File:Imola 1705.jpg (a 1705 view, not Leonardo), and File:Leonardo da vinci, Town plan
+of Imola.jpg (triage pending session 2 - possibly a third scan of the same sheet).
+
+## 2026-10-11 213 DECISION: module shape - SITES table + per-source row tuples, stdlib-only at the top
+fit/src_artists.py: SITES{qid: site facts (id/name/lon/lat/place/region/kind/wikipedia/cat/p625/note)};
+SOURCES{name: rows + display label + p-field} for the two image-level sources (row tuple (title, qid, label,
+opts) - a variant of sources.py: the region lives on the site, since all its rows share it); BOOKS{civitates,
+merian} with the IA identifiers (per-book flow is session 4; the books.py:BOOKS entry is a shared-module
+change -> file a task, never write it). Top-level imports are stdlib only (json/os/sys/time); commons/evidence
+are imported lazily inside functions because commons->aw needs numpy (absent from the system python3) - live
+commands run under .venv/bin/python. CLI: --verify (live QID re-check, prints the search traps next to the
+table values for the lead doc), [--dry] (stage), --check (offline join + evidence.check over the staged rows;
+books arg = a never-existing path), --golden (normalized staged rows -> tests/golden/src_artists_sample.json,
+checked/date_commons zeroed). check_staged() join: file rows may name staged OR existing sites (box-3 rule:
+existing QID -> picture row on the existing site id, no new catalog entry); staged ids/QIDs must not pre-exist;
+classified rows 1:1 with file rows.
