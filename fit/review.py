@@ -10,8 +10,11 @@ store), records it into the item file, and writes the open list to
 ``web/data/review.json`` for the page's Review section (web/review.js).
 
 Producers: the batch tasks (203a/203b/212) call ``upsert_item`` to create and update
-items; only ``export`` writes the page file. ``resolved`` is write-once: an upsert never
-clears or overwrites it. The contract the producers read is data/review/README.md.
+items; only ``export`` writes the page file. ``export(root, site_id)`` records resolution
+into item files only for ``site_id`` (tools/site_done.py runs one site at a time and must
+not touch another site's files); the page file is always computed over the whole queue.
+``resolved`` is write-once: an upsert never clears or overwrites it. The contract the
+producers read is data/review/README.md.
 
 Stdlib-only: importable by 203a/203b/212 in any environment (no numpy, no network).
 CLI: ``python3 fit/review.py export [--root DIR]``.
@@ -176,15 +179,16 @@ def _site_names(root):
     return names
 
 
-def export(root):
+def export(root, site_id=None):
     """Write web/data/review.json: the OPEN items for the page's Review section.
 
     Open = resolved not recorded AND no platefits doc for any candidate. When it finds
     a resolving doc it records ``resolved: {doc, at: <the doc's at>}`` into the item
-    file (write-once). Output entries: {site, name, lead, candidates (verbatim,
-    producer extras included), no_picture_found}, open items only, sorted by site name
-    (name from web/data/sites.json; a missing site falls back to the raw id).
-    Returns (n_open, n_total).
+    file (write-once) - only into that item file when ``site_id`` is given (a one-site
+    run touches no other site's files); the page file is always computed over the whole
+    queue. Output entries: {site, name, lead, candidates (verbatim, producer extras
+    included), no_picture_found}, open items only, sorted by site name (name from
+    web/data/sites.json; a missing site falls back to the raw id). Returns (n_open, n_total).
     """
     root = Path(root)
     names = _site_names(root)
@@ -195,7 +199,8 @@ def export(root):
             continue
         n_total += 1
         doc = resolved_doc(item, root)
-        if doc and not (item.get("resolved") or {}).get("doc"):
+        if doc and not (item.get("resolved") or {}).get("doc") \
+                and (site_id is None or item.get("site") == site_id):
             docj = json.loads((root / "data" / "db" / "platefits" / (doc + ".json")).read_text())
             item["resolved"] = {"doc": doc, "at": docj.get("at")}
             _save_json(p, item)

@@ -5,40 +5,66 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/205-kip.md` (open) - hand-over: From 205 (iteration 61): **the staging code is WRITTEN and its live dry run PASSED; nothing is staged yet, tests not re-run this session.** `fit/src_k
+- `tasks/207c-roy.md` (blocked)
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 65, agent c - the line is BUILT and RAN on the real tree; the browser check passed; ONLY box 4 remains: tests/test_site_done.py, then the t
 
 ## Next open tasks
+- `tasks/207a-horsley.md`
+- `tasks/207b-maclauchlan.md`
 - `tasks/215-books-llm-ports.md`
-- `tasks/216-view-books-entries.md`
-- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 205 DECISION: lead-doc section 2 written from the first live --verify run (8 QIDs verified, no duplicate, one real name-search trap: Hutton Hall -> Q5951058 116 km); the Kings Weston cross-checks exposed and fixed a wrong SITES-note claim
-- **Bookkeeping:** iteration 57 wrote SITES (11 entries) + verify_sites() + the --verify CLI into fit/src_kip.py but left NO journal entry and NO hand-over update; the driver swept it in as "uncommitted work after iteration 57". The last entry's state line ("SITES = {}") is stale from that moment. This session ran the first live --verify and filled section 2.
-- **--verify live (exit 0):** every one of the 8 items: label as expected, ALL P625 values coincide with the stored landmark point (0.00 km; a >50 km value would flag a wrong item), P373 = the house name, P131 = the current division (Badminton village; Leeds; Skelton; Stanway; City of Westminster x2; LB Lambeth + historic Lambeth; LB Richmond upon Thames), enwiki title matches the URL slug. Name searches: 7 of 8 return the correct item first with a P625; **Hutton Hall is a genuine trap - first hit with P625 is Q5951058 'Hutton Hall' (-1.0757, 54.5222, near Guisborough), 116 km from the Cumbrian Fletcher seat** - the staged rows therefore carry the verified QID + the plate caption, never a name lookup (recorded in section 2). known_sites() duplicate over the 8 QIDs against the current catalog (12,575 known QIDs, counted today): none.
-- **Kings Weston cross-checks (the two "left for 2 minutes" items):** (a) Nominatim "Kings Weston House, Bristol" = 51.4944124, -2.6614991 -> 4 m from the enwiki infobox point 51.494382, -2.661541: the infobox/OSM pair is the confirmation. (b) **The article's own grid ref ST529771 does NOT confirm it:** the ST 100 km square's origin is (300000, 100000) (proven via the Bristol-centre anchor: (51.4545, -2.5879) -> 359247, 173000 = ST5927, the well-known centre), so ST529771 = (352900, 177100) -> (51.490873, -2.679790) via EPSG:27700->4326 (no grid file; "OSGB36" as a CRS name is a pass-through, 4326's authority axis order is lat,lon) = **1.3 km W of the infobox** - the article's two position statements disagree, so the grid ref is not an independent confirmation (the datum offset there is ~100 m, not 1.3 km). The previous SITES note ("agrees with it within the WGS84/OSGB36 datum offset") was WRONG - rewritten; its first sentence too (Kip's 1710 view shows the earlier Elizabethan house; the house standing on the site is the Vanbrugh rebuild of 1712-19). The other two qid=None notes re-verified live today: Trinity Theological College = 0 m; Royal Mews, Windsor = 72 m.
-- **docs/lead_kip.md section 2** (replaced the pending placeholder): the checked-date header; the duplicate line; the 8-row QID table (id, QID, label, landmark, P625 delta, P373, P131, enwiki, first name-search hit incl. the Hutton trap); the landmark paragraph; the 3-row no-QID table with source notes (incl. the 1.3 km grid-ref caveat and the ~325 m south-of-castle note); the review-queue line. The section 4 placeholder is untouched (staging step). No test touched section 2 (the mirror test pins sections 1 and 3 only); a section 2 mirror comes with the staging tests.
-- **PITFALLS filed (5):** iiprop=wbentity returns nothing for any file from this VM (the depicts/M-item route is dead; tested incl. the Mona Lisa); the enwiki query-vs-parse disjoint prop sets + the missing:"" marker; pyproj "OSGB36" is not the BNG + 4326's authority axis order (use EPSG:27700 with always_xy=True; verified both directions); the 6-figure OS grid ref digits are relative to the 100 km square origin (ST = 300000/100000, TQ = 400000/100000); Nominatim + the enwiki API are reachable through commons.get (1 r/s).
-- Full pytest -q: 49 passed (no test changes this session).
-... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-13 205 DECISION: lead-doc section 2 written from the first live --verify run (8 QIDs verified, no duplicate, one real name-search trap: Hutton Hall -> Q5951058 116 km); the Kings Weston cross-checks exposed and fixed a wrong SITES-note claim' DECISIONS.md`)
+### 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
+Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
+review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
+but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
+pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
+So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
+site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
+not root-aware: plan_fit and build_site derive every path from their own file location, and
+review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
+one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
+files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
+through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
+write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
+Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
+(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
+hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
+(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
+backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
+hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
+real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
 
-### 2026-10-13 205 DECISION: iteration 59 - staging pre-flight (read-only): live info() for the 12 staged titles; Temple Newsam's live desc already carries the plate title (no enrichment needed); Somerset House plate = 1707 Britannia Illustrata (BM + DCMS), the Yale "1711-31" is a later state; no code written (context limit)
-- **Baseline:** .venv fine (numpy 2.5.4); full pytest -q: **53 passed** (up from 49: other agents' tests merged in). All re-reads done: src_artists (the pattern), evidence.py (check_caption uses ONLY named_place + the 4 stored coords + dist_m - the catalog is never consulted for caption_coords, so the offline check passes from stored fields; check(files, books, catalog) takes paths = OQ-1 resolved), sources.py KIP, the six canonical rows (files.jsonl 1485-1490: cat is null, by "pipeline/sources.py kip", evidence hand_tied), build_catalog.make_site (sanitizes the id but does NOT re-slug: "burford-house-windsor" stays).
-- **Live info() for the 12 staged titles (one paced batch call, no 429s):** dump dates - Stanway/Stoke Bishop/Badminton "1709"; Hutton "by 1709 date QS:.." (year_of -> 1709); House at Windsor + St James^s House "1707"; Kingsweston "1710"; AIC Hampton Court **"2016-10-26 20:13:11" (a photo date -> override to 1707 from the title, keep date_commons)**; Gott 112a **"between 1680 and 1722 date QS:.." = Kip's life dates, boilerplate (year_of would return 1680 = his birth -> override to "between 1707 and 1709" -> 1707, keep date_commons)**; Lambeth/Somerset House/Palace-and-Park-of-St-James's: **empty date** -> override from the SITES-note Yale records (Lambeth c.1711-12; Somerset House see below; St James's Park 1707 per the SITES note "two 1707 plates").
-- **Temple Newsam (Gott 112a) plan change:** the LIVE desc (info()'s 600-char window) contains "Showing Temple Newsam. The engraving is entitled: 'Temple Newsam, the seat of the Rt Hon.able Arthur Lord Ingram Viscount Irwin in the West Riding of the County of Yorke, Governor of Scarborough and Ld L.nt of the North Rideing of York Shire.'" - iteration 56's premise ("Hepworth boilerplate with no place name") was about the 566 px "Temple Newsam Kip.jpg" (which does have an empty desc), not the staged 3576 px file. **No desc enrichment needed**: the stored desc carries the title and agrees with the 6-source-verified one (BM M,21.42 etc.) in all identifying particulars. The SITES temple-newsam note ("the staged row's desc is enriched with the plate's own printed title") must be rewritten accordingly when staging.
-- **Somerset House date refined:** BM bmimages 00067960001 ("Somerset House, Britannia Illustrata, print, London. 1707, this state later") + DCMS GAC 659 (Knyff & Kip coloured engraving, "published 1707", from Britannia Illustrata first published 1707) - the plate is a **1707 BI plate**; the Yale record's "1711-31" (in the SITES note) is a later state. Row: date 1707 + date_commons; SITES note to be updated.
-- **Yale CBA is IP-blocked from this VM:** collections.britishart.yale.edu 403s with the project UA, a browser UA and on .json; smartify.org mirrors 403 too; web_search for the accession numbers (B1977.14.17372/.18272/.18146) and the plate titles returns nothing. The Commons file-page wikitexts DO link the Yale TMS records (tms:41538 Lambeth, tms:35332 Somerset House, tms:35031 Palace and Park) - recorded in case a mirror becomes reachable. Wikidata engraving items exist for Lambeth (Q110072459) and Somerset House (Q110073896) but carry only P195 = Q6352575 (the Yale CBA), no P571 date; no item for the St James's Park plate (3 searches empty). **Net: the Lambeth c.1711-12 and St James's-Park 1707 dates stand as recorded in the SITES notes (iter-56/57 research, detail lost in the uncommitted sweep) - not re-verifiable live from this VM.**
-... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-13 205 DECISION: iteration 59 - staging pre-flight (read-only): live info() for the 12 staged titles; Temple Newsam's live desc already carries the plate title (no enrichment needed); Somerset House plate = 1707 Britannia Illustrata (BM + DCMS), the Yale "1711-31" is a later state; no code written (context limit)' DECISIONS.md`)
-
-### 2026-10-13 205 DECISION: iteration 61 - stage()/check_staged()/golden() written (src_artists pattern) and the live dry run passed; the staging files are not yet written (session cut by context limit at the dry run)
-- **Code (uncommitted, in fit/src_kip.py on agent/c):** `STAGED` (12 rows: title, SITES key, named_place, want date) + `GOLDEN_TITLES` (3: Badminton QID row, Burford qid=None row, Temple Newsam desc-carries-the-title row) + `evidence_for`/`_site_row`/`_append`/`stage`/`check_staged`/`_norm`/`golden` + the full CLI (bare run = stage for real, `--dry`, `--check`, `--golden`, `--list`, `--verify`). stage() guard order: INVENTORY membership -> url present -> live size == INVENTORY size AND >= MIN_EDGE -> named_place is a norm-substring of the live title+desc -> QID re-home if the catalog since grew -> (site,title) not in canonical files.jsonl (the six hand-tied; title-level check too) -> have-skip (idempotent) -> date override -> commons.keep(). check_staged() = src_artists' join + a Kip-specific title-level check that none of the six hand-tied titles appears in files_kip; then `evidence.check(FILES_KIP, NO_BOOKS, catalog=EXTRAS_KIP)`. tests/golden/src_kip_sample.json was added to the task's Touches line (needed by --golden).
-- **Re-read items resolved:** (a) the "enriched" wording was ALREADY gone from the SITES note (grep clean) - no fix needed, iter-59's wording stands; (b) year_of verified in code for every date string (1709, "by 1709", "between 1680 and 1722" -> 1680, "1711-31" -> 1711, "1711-12" -> 1711, "between 1707 and 1709" -> 1707, "1707", "2016-10-26 20:13:11" -> 2016, "" -> None); (c) src_artists' stage/check_staged/golden/_norm read and copied.
-- **Live dry run (one paced info() batch for the 12 titles; exit 0):** 11 new sites + 12 new pictures, all guards passed, no 429s. Dates as designed, with ONE deviation from the iter-59 plan: **the AIC Hampton Court row needs NO override** - year_of's title-year idiom (a `\d{4}-\d\d-\d\d` upload date with a <=1925 year in the title) already returns 1707, so the row keeps the raw `date="2016-10-26 20:13:11"` (no date_commons) and year 1707 - better than the planned override (raw Commons metadata kept, the burlington hand-tied precedent, and §3 already documents it that way). The other overrides all fired as planned: Temple Newsam 112a -> date "between 1707 and 1709" (date_commons = the life-dates boilerplate with its raw QS suffix), Palace and Park of St James's -> "1707"/date_commons "", Lambeth -> "1711-12" (year 1711)/date_commons "", Somerset House -> "1707"/date_commons "". The Hutton row keeps its raw date "by 1709 date QS:..." (year 1709; the §3 table shows the cleaned form). The exact per-row date values are in the task's hand-over.
-- **Not done (session cut):** the REAL stage run, --check, --golden, docs/lead_kip.md §4 (wording in the hand-over), the new tests (list in the hand-over), full pytest, ticking the five boxes. Last full pytest run: iter 59, 53 passed. The VM clock is 2026-10-11 (lags the journal ~2 days) - §4's checked date must say so, and the full --list census was deliberately NOT re-run (it would print a date earlier than §1's 2026-10-13 4th-census date).
+### 2026-10-11 300 DECISION: the one-site line is implemented and has taken Stonehenge to the map; one session remains (tests/test_site_done.py)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py, docs/site_flow.md, docs/site_flow/stonehenge.png, web/data/{sites.json,review.json,sites/stonehenge-q39671/}, data/raw/commons/big/
+Rationale: iteration 65 implemented exactly the previous session's design and ran the line on the real
+`tree with no model flag. Results, all verified on disk: (1) fit - "13 candidate picture(s): 7 fitted (doc),
+6 in the review item -> no batch run needed" (the covered/uncovered distinction worked: run_sites was never
+called, so no item entry was clobbered); (2) sync - 7 documents synced, each big picture downloaded from
+Commons through the new paced _fetch (14 requests, no 429, ~35 s); (3) entry - drawings 0 -> 7; (4) review -
+the item published (339 open of 340 - the batch's population, unchanged), no `resolved` recorded anywhere
+(stonehenge's 6 candidates have no resolving doc; the scoped export also left alligator's derived-resolved
+item untouched - all 340 item files byte-identical, all 130 platefits docs byte-identical, only the stonehenge
+entry in sites.json changed, hand-fit golden green, suite 59 green both before and after). Re-run of the
+command: every doc "skipped: overlay already current", sites.json and platefits byte-identical - idempotent.
+Browser check (box 3): serve.py --port 0 + shot.mjs with `select('stonehenge-q39671')` - probe reports
+drawings 7, marker class without `plain` (the square is coloured), the 1800 Rijksmuseum plan auto-selected
+and rendered in red ink exactly on the real sarsen circles over the aerial photograph; screenshot committed
+as docs/site_flow/stonehenge.png with its one-line description in docs/site_flow.md.
+What broke this session (all fixed, all documented in docs/site_flow.md for the next site): the entry line
+first printed "drawings 7 -> 7" because plan_fit.build calls set_drawings after every fit, so a "before" read
+taken AFTER the sync sees the final value - the before is now captured before the sync. (The 429 risk did
+not materialise: the paced _fetch absorbed a 14-request burst cleanly.)
+Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the site stripped to pre-sync +
+synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
+exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
+file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
 
 ## Project-wide driver notes (newest)
 
