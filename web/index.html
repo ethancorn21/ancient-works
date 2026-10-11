@@ -158,6 +158,10 @@ details.plain summary { cursor: pointer; font: 600 11.5px var(--label); letter-s
 
 /* ---------- markers ---------- */
 .marker { display: flex; align-items: center; gap: 0; cursor: pointer; background: none; border: 0; padding: 0; }
+/* only the square and a showing label take clicks: a hidden label still widened its button, so clicking Old Sarum's
+   square from z6 opened Taunton Castle, 90 km west (Ethan 2026-10-10). Higher tiers sit on top where squares overlap. */
+.marker { pointer-events: none; } .marker .sq, .marker .tag { pointer-events: auto; }
+.marker.t4 { z-index: 4; } .marker.t3 { z-index: 3; } .marker.t2 { z-index: 2; } .marker.t1 { z-index: 1; }
 .marker .sq { width: 11px; height: 11px; border: 1.5px solid var(--ink); background: var(--survey); }
 /* tiers by score (TIERS in the script): bigger and darker = older overlays that line up with the ground.
    plain = no overlay 150+ years old (LiDAR or the photograph only), shown only with More sites */
@@ -320,10 +324,15 @@ const map = new maplibregl.Map({
     ],
     sky: { 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0] },
   },
-  center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
+  // over the Atlantic: the Ohio plates and the European sites (most of the squares) both on the first view
+  center: [-35, 45], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
 // on phones the bottom sheet covers the lower half: centre the globe in the visible part
-if (narrow()) map.setPadding({ top: 0, left: 0, right: 0, bottom: innerHeight * 0.5 });
+// centre the globe in the part of the screen the panel leaves free: the bottom sheet on phones, the left panel on
+// wider screens (without it the globe sat behind the panel's edge, Ethan 2026-10-10: "it doesn't feel centered")
+map.setPadding(narrow() ? { top: 0, left: 0, right: 0, bottom: innerHeight * 0.5 } : { top: 0, left: 390, right: 0, bottom: 0 });
+// "All sites" zooms out where you are, to about a country across; it used to fly back to North America every time
+const zoomOut = () => map.flyTo({ center: map.getCenter(), zoom: Math.min(map.getZoom(), 5), duration: 2500 });
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
@@ -513,7 +522,7 @@ function selectCat(id) {
     ${r.period ? `<p class="summary">Period: ${esc(r.period)}.</p>` : ''}
     <p class="summary">Not built yet: no block diagram or old maps for this one. The pin comes from the site catalog.</p>
     <div class="links">${r.wiki ? `<a href="${esc(r.wiki)}" target="_blank" rel="noopener">Wikipedia</a>` : ''}${r.qid ? `<a href="https://www.wikidata.org/wiki/${esc(r.qid)}" target="_blank" rel="noopener">Wikidata</a>` : ''}</div>`;
-  $('#back').onclick = () => { renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
+  $('#back').onclick = () => { renderList(); zoomOut(); };
   $('#g-relief').onclick = () => { setGround('relief'); selectCat(id); };
   $('#g-imagery').onclick = () => { setGround('imagery'); selectCat(id); };
   if (narrow()) $('#panel').classList.remove('collapsed');
@@ -762,7 +771,7 @@ function renderSite(s) {
     </div>` : ''}
     ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}
     ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
-  $('#back').onclick = () => { closeBlock(); S.sel = null; syncMarkers(); renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); };
+  $('#back').onclick = () => { closeBlock(); S.sel = null; syncMarkers(); renderList(); zoomOut(); };
   if (s.block) { $('#t-map').onclick = () => closeBlock(); $('#t-block').onclick = () => openBlock(s); }
   if ($('#g-relief')) { $('#g-relief').onclick = () => setGround('relief', s); $('#g-imagery').onclick = () => setGround('imagery', s); }
   $('#body').querySelectorAll('[data-dep]').forEach(b => b.onclick = () => setDep(s, b.dataset.dep));
@@ -1290,7 +1299,7 @@ function renderScan(name) {
       <p>A candidate is a shape, not a find. Meander scars, sinkholes, farm ponds, tracks and old field edges all make rings. The known works above are the check: a ring that the scan cannot find where one is known to exist says how much it misses elsewhere.</p>
       <p>Private: candidates may mark unrecorded sites. Keep this page and its verdicts to yourself.</p>
     </div>`;
-  $('#back').onclick = () => { F.sel = null; F.cand = null; renderList(); map.flyTo({ center: [-86, 38.5], zoom: 2.3, duration: 2500 }); try { history.replaceState(null, '', '#'); } catch {} };
+  $('#back').onclick = () => { F.sel = null; F.cand = null; renderList(); zoomOut(); try { history.replaceState(null, '', '#'); } catch {} };
   $('#body').querySelectorAll('[data-c]').forEach(b => b.onclick = () => selectCand(name, b.dataset.c));
   $('#body').querySelectorAll('[data-f]').forEach(b => b.onclick = () => { F.filter = b.dataset.f; renderScan(name); });
   if (c) {
