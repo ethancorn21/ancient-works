@@ -27,7 +27,9 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
 
 (iteration 97, agent a - steps 1-4 done; step 5 (shotwick live run + site_flow.md) pending)
 
-**Done and committed on this branch (all verified, suite 68 passed / 1 skipped / 0 failed at loop end):**
+**Done (all verified, suite 68 passed / 1 skipped / 0 failed at loop end). Steps 1-3 are committed on this
+branch; step 4's test file is UNTRACKED - the session hit its context limit before committing and the
+harness saved the file (next agent: commit it, it passes).
 - Migration (iter 93, 1f562ca): all 116 platefit docs carry `by` (21 hand = 20 golden + maiden-castle
   c20ff6b1; 95 agent incl. shotwick's 206 doc); `fit/batch_us.py` write_doc stamps `by: agent`
   (batch_eu shares it); golden re-keyed on `by == "hand"` (40 lines: 21 docs + 19 site.json, shotwick
@@ -50,7 +52,7 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
   by:agent into the doc file first; (3) who != hand -> fabrication check as before (pattern: upsert
   _pattern_entry + unlink) then is_done/build (plan_fit.build's guard is the double protection);
   (4) who hand -> straight to is_done/build, check skipped. Refusal precedes EVERYTHING.
-- Step 4 (iter 97, THIS session) `tests/test_fit_provenance.py` (4 tests, all hermetic, ephemeral
+- Step 4 (iter 97) `tests/test_fit_provenance.py` (4 tests, all hermetic, ephemeral
   ports, system temp dir only): (a) repo store - every doc has by in {hand, agent} or at least the
   batch's own auto mark (never unmarked non-auto; unmarked-auto tolerated: 203b may merge
   pre-migration EU docs, the self-heal stamps them), hand set == the golden's 21 platefit entries,
