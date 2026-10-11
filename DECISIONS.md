@@ -99,3 +99,28 @@ Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the sit
 synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
 exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
 file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
+
+## 2026-10-11 300 DECISION: tests/test_site_done.py runs the copied one-site line on a copy of Stonehenge's files with a socket-dead subprocess and big pictures at the REAL cache dimensions; task done
+Where: tests/test_site_done.py (new)
+Rationale: box 4, the last box. The test builds a throwaway tree in tmp_path: the code copied whole
+(tools/, fit/, pipeline/ - site_done resolves its data root from its own path, so the copied code runs on
+the copied data), all of web/data/{sites.json (stonehenge's drawings zeroed to pre-sync), plans.json,
+review.json}, data/review/ (all 340 items) and data/db/platefits/ (all 130 docs), and the site dir minus its
+14 plan webps with depictions.json stripped to its 2 maps. The 7 Commons big pictures the sync would
+otherwise download are seeded as flat-colour JPEGs at the EXACT real cache dimensions (headers read through
+the checkout's committed data/raw symlink; the batch tests link the same store) - one twist vs the iter 65
+design, which assumed fs=1: 3 of the 7 big files are 1.19-1.75x the doc's `size` and m_per_px in
+depictions.json depends on that factor (now a PITFALLS entry under pipeline/); the fit math is
+content-free, so only the dimensions matter and depictions.json comes out byte-identical to the repo's.
+The subprocess guard is `sys.executable -c GUARD tree/tools/site_done.py stonehenge-q39671`: GUARD kills
+socket.socket.connect/connect_ex and socket.create_connection, then runpy.run_path(run_name="__main__") -
+a monkeypatch in the parent pytest process cannot protect a child (PITFALLS Python). Checked: exit 0, empty
+stderr, the exact per-picture report (fit/entry/review lines, 7 "synced to the map", 6 "sent to the review
+queue", final "done"); depictions.json and sites.json byte-identical to the repo's synced state; the
+recomputed review page equal to the published queue (only its `at` differs); every other item file and all
+130 docs byte-identical; the checkout itself untouched (hash snapshot before/after); and a second run with
+every document "skipped: overlay already current" and every file still unchanged (idempotent). Pinned
+preconditions fail loudly (pytest.fail) if Stonehenge's plans.json/queue ever changes so a batch run would
+be needed. Two trivial write bugs fixed while iterating (list|list TypeError; helper named _h not _hash).
+Timing: first run 14.7 s, whole test 17 s; full suite 60 passed in 76.8 s (was 59/59.8). All five boxes
+ticked; Status: done.

@@ -214,6 +214,20 @@ Why: in a generator expression the text after the first `for <name> in <expr>` i
       iterable `<expr>` must not reference the loop variable. Write the conjunction inside the body:
       `any(r.get("site") == s["id"] and r.get("title") in picked for r in files)`.
 
+#### A monkeypatched socket in the parent process never reaches a subprocess - guard the subprocess itself with `python -c` + runpy (and there sys.argv[0] == "-c")
+Where: tests that run the product's CLI as a subprocess (tests/test_site_done.py's GUARD); the in-process pattern
+      is tests/test_batch_us.py's `no_network` fixture
+Symptom: `monkeypatch.setattr(socket.socket, "connect", dead)` in the pytest process does nothing to a child
+      spawned afterwards (separate interpreter, fresh socket module) - the child can hit the network, so the
+      "hermetic" test is not hermetic (no loud failure, just a download).
+Why: patches are per-process. Run the child as `[sys.executable, "-c", GUARD, script, *args]` where GUARD
+      patches `socket.socket.connect`/`connect_ex` and `socket.create_connection` to raise, then
+      `runpy.run_path(script, run_name="__main__")` - the script's own `__main__` block runs with `__file__`
+      set, so a module that derives its data root from its own path runs on the intended tree. Two gotchas:
+      in a `-c` process `sys.argv[0]` is the literal string "-c" (the real arguments start at argv[1]); and
+      pass `PYTHONIOENCODING=utf-8` in the child's env so non-ASCII output (em-dashes in Commons titles)
+      cannot crash it or the decoding under a non-UTF-8 locale.
+
 ## This codebase
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
@@ -610,6 +624,21 @@ Why: Wikimedia rate-limits per-client bursts well below 1 req/s in practice. `co
       Retry-After-aware (it sleeps the server's value and retries) - use it (or replicate its pacing) instead
       of a bare urllib call with a fixed sleep; a 26-call verify run completed in ~30 s wall on 2026-10-11
       with no manual intervention. Never loop a hand-rolled fetcher without the Retry-After handling.
+
+#### A platefit doc's `size` is the browser image's size, not the big cache file's - `m_per_px` in depictions.json depends on the big image's dimensions
+Where: `pipeline/plan_fit.py` (`load_picture`, `similarity`, `build`); `data/db/platefits/*.json`
+      (`size`, `crop`, `pairs`); `web/data/sites/*/depictions.json` (`fit.m_per_px`)
+Symptom: re-running plan_fit.build on a stand-in picture sized like `doc["size"]` writes a depictions entry
+      whose `m_per_px` differs from the stored one (for stonehenge's 7 docs, 3 of the big cache files are
+      1.19-1.75x the doc size: c_098c4cb138676939's stored m_per_px 0.6686 becomes 0.5622 at fs=1), while
+      every other field (corners, resid_m, rot_deg, source line) is unchanged.
+Why: the page's plate tool places `pairs`/`crop` in the displayed image's pixels (`doc["size"]`), and the
+      overlay is built from a bigger rendering of the same file: `load_picture` returns `fs =
+      big.width/size[0]`, and solving the similarity on the scaled pairs divides m_per_px by fs. The pixels
+      never enter the fit at all (pure least squares over the point pairs), so a stand-in image at the
+      EXACT big-image dimensions (read from the cache file's PIL header) reproduces depictions.json
+      byte-for-byte with any pixel content (flat colour is fine); one sized like `doc["size"]` (fs=1) does
+      not. That is how tests/test_site_done.py stays network-free and byte-exact (task 300).
 
 ### fit/evidence.py (the evidence contract)
 
