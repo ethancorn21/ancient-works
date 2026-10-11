@@ -11,6 +11,9 @@ Architecture rules:
 
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
+## fit/
+- `fit/evidence.py` (528 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L58-61, now L64-65, load_jsonl L68-69, set_field L72-76, rewrite L79-87, catalog_map L90-101, source_tables L104-109, check_commons L114-126, check_hand_tied L129-136, check_category L139-152, ... (+16 more).
+
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
 - `pipeline/amazon_find.py` (285 lines) - Find geometric earthworks (ditched enclosures, ring ditches, geoglyphs) in an Amazon ground model. Exports: ring_width L47-48, radii L51-56, load L62-78, to_xy L81-85, trench_maps L88-97, sector_kernels L100-106, ring_detector L109-137, enclosure_detector L140-187, verify L190-247, find L250-285.
