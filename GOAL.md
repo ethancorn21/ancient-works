@@ -3,12 +3,15 @@
 Ancient Works is a map of old earthworks, castles, Roman forts, walled towns and lost gardens. Each built site shows
 today's ground (LiDAR relief where there is open LiDAR, the aerial photograph everywhere) and, on top of it, old
 pictures of the place. What makes a site worth opening is an **old drawing of the structure itself** (an
-antiquarian plan, a survey plate, a castle plan, a town plan, a bird's-eye view) laid over today's ground, so you see
+antiquarian plan, a survey plate, a castle plan, a town plan, a bird's-eye view, an artist's aerial view) laid over
+today's ground, so you see
 how little has changed. Plain survey sheets (Ordnance Survey, Cassini) do not count; they are background.
 
-Today 25 of 384 built sites have such a drawing fitted. On the map they are the red squares; the rest are small plain
-squares. The owner wants the red squares to be the rule: Stonehenge, Numancia, the Roman forts and every other built
-site should have at least one, and the map should keep growing with new sites that come with their own old pictures.
+Today 25 of 384 built sites have such a drawing fitted. The owner wants that to be the rule: Stonehenge, Numancia, the
+Roman forts and every other built site should have at least one, and the map should keep growing with new sites that
+come with their own old pictures. (Since 2026-10-10 the owner's copy of the map also colours sites whose only overlay
+is a survey sheet 150 or more years old. That does not change this goal: survey sheets are not drawings, and the
+number to grow is the count of fitted drawings.)
 
 ## What done looks like
 
@@ -35,6 +38,11 @@ site should have at least one, and the map should keep growing with new sites th
    Barnard Castle and the village for Richard's Castle.
 5. **The map grows.** New sites come with their own old pictures, through `pipeline/sources.py` or something better.
    Leads, none of them verified yet (check each one exists and is old enough before using it):
+   - Artists' aerial and bird's-eye views count as much as surveys (owner, 2026-10-10, of Leonardo da Vinci's aerial
+     plan of Imola, 1502: "should 100% be on our map"). Leonardo's plan of Imola (Royal Collection, RCIN 912284;
+     there is no open LiDAR at Imola here, so it is an aerial-photograph site and its streets carry the fit); Jacopo
+     de' Barbari's view of Venice (1500); Braun and Hogenberg, *Civitates Orbis Terrarum* (1572-1617), hundreds of
+     walled towns; Merian, *Topographia* (1640s-1680s).
    - Jacob van Deventer's town plans: 64 towns not yet added (Commons "Maps by Jacob van Deventer").
    - Kip's bird's-eye views of houses and gardens: the large scans in Commons "Johannes Kip", "Britannia Illustrata".
    - Mackenzie, *The Castles of England* (1897): page 212, a five-towered castle with no caption.
