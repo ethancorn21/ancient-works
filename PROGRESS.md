@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 58 (2026-10-11, agent a) - fit session: plan + ground measured, ORIENTATION RESOLVED (page top = north); next: measure 3 anchors precisely
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 59 (2026-10-11, agent a) - measurement session. BIG FIX: my iter-58 PAGE coordinates are VOID (I misread a shrunken 2x sheet: the drawing 
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -45,11 +45,11 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 ### 2026-10-11 206 DECISION: the book's own V2 text identifies the plate's castle (OQ-3 resolved); the plan is the 1600 Randle Holme drawing, a pentagon with SIX towers, five drawn
     Re-downloaded the V2 OCR (archive.org castlesofengland02mack: hocr searchtext/pageindex + page_numbers; the page_numbers file is format v2 {identifier, format-version, confidence, pages:[{leafNum, pageNumber}]} and pageindex rows are [leafStart, leafEnd, textStart, textEnd] - the prep's "leaf->printed map" guess was wrong). The Shotwick chapter (printed p.180, running head CHESHIRE 181 on the continuation page; next chapter STOCKPORT) says: the plan is "a drawing and plan of this fortress by Kendle [Randle] Holme, as it appeared then, in a ruinous condition. Its trace was a pentagon strengthened by six towers, one of which, according to Camden, was five storeys high", and of the 1897 remains: "those seen at present consisting merely of a large mound, supported by a huge earthwork of crescent form, and two deep entrenchments on the land side". The index reads "Shotlack, ii. 179, Shotwick, ii. 180". So the p.212 plate (leaf 212 = printed 164; the Lancaster plate leaf 231 = printed 183, 19 pages on) is a plan of Shotwick drawn from Holme's c.1600 depiction of the ruined fortress - which explains the five (of six) towers, the thick bank, and why the modern ground only carries the motte + crescent + entrenchments. This is the backbone of docs/lead_mackenzie.md section 3 (evidence chain a-f) and of the fit's expectations.
 
+### 2026-10-11 206 DECISION: iter-58 page measurements are VOID - the p.212 drawing spans the whole page, not the top-left quadrant; corrected page map recorded
+... (3.3 KB more: `grep -n -A 200 -F '## 2026-10-11 206 DECISION: the p.212 plate is Volume 2, not bracketed by Oxford p.207 as the task framing said' DECISIONS.md`)
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-## Agent a current position (206, iteration 59)
-Fit-measurement session, interrupted at context limit. FINDING: iter-58 page coordinates are VOID - the p.212 drawing spans the whole 839x840 page (I misread a shrunken 2x sheet); corrected full page map (pentagon vertices, 5 C-towers, hall, dashed building, west-pointing arrow with crossbar at (455,472), gate gap (300-335,745-765)) is in the task hand-over and DECISIONS.md. Ground re-measured with corrected 10 m grids (200 m crop is authoritative; 800 m = context). EA LiDAR now 500-erroring (space requests). Nothing written yet (no doc/staging/test); module + raw files committed. NEXT: fit session per task hand-over step list - regenerate sheets, re-pick 4-6 pairs on the corrected map (n>=4, re-derive orientation), --write-doc + --gate, then stage + lead doc + test + golden.
