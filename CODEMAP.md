@@ -108,7 +108,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/export_catalog.py` (52 lines) - Compact catalog for the page: web/data/catalog.json (every catalog entry as a pin; built sites are the full pages). Exports: dist_m, main.
 - `tools/export_plans.py` (88 lines) - Site plans from the old books (data/books/index.jsonl) as a compact list for the page's plate-fitting tool. Exports: commons_rows, main.
 - `tools/fitkit.py` (223 lines) - Hand-fitting helper for Claude (the page's plate-fitting tool does the same for people). Exports: ground L35-52, ground_view L55-59, site L62-63, plan L66-74, plan_image L77-80, grid L83-99, sheet L102-123, zoom L126-135, lonlat L138-143, save L146-167, ... (+2 more).
-- `tools/gate_heldout.py` (151 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L70-81, check_registered L84-91, load_sites L94-95, box_centre_ground L98-103, placements L106-129, main L132-151.
+- `tools/gate_heldout.py` (157 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L72-87, check_registered L90-97, load_sites L100-101, box_centre_ground L104-109, placements L112-135, main L138-157.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
 
