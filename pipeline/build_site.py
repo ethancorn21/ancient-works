@@ -167,7 +167,31 @@ def entry_of(site, bbox):
     return entry
 
 
+DRAWING = ("plan", "drawing", "view")
+
+
+def drawings(sid, has_plate=False):
+    """Fitted old drawings of the structure itself (plate, plan, drawing, bird's-eye view). Ethan 2026-10-10: the red
+    square marks a flagship site, and a flagship must have one; plain survey sheets (OS, Cassini) do not count."""
+    p = os.path.join(WEB, "sites", sid, "depictions.json")
+    n = sum(1 for d in json.load(open(p))["depictions"] if d.get("kind") in DRAWING) if os.path.exists(p) else 0
+    return n + int(bool(has_plate))
+
+
+def set_drawings(sid):
+    """Refresh one site's count in sites.json (plan_fit.py calls this after a fit is saved or deleted)."""
+    index_path = os.path.join(WEB, "sites.json")
+    with open(index_path + ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        index = json.load(open(index_path))
+        for s in index["sites"]:
+            if s["id"] == sid:
+                s["drawings"] = drawings(sid, s.get("plate"))
+        aw.save_json(index_path, index)
+
+
 def write_entry(entry):
+    entry["drawings"] = drawings(entry["id"], entry.get("plate"))
     index_path = os.path.join(WEB, "sites.json")
     # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
     with open(index_path + ".lock", "w") as lock:

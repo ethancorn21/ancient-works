@@ -159,6 +159,9 @@ details.plain summary { cursor: pointer; font: 600 11.5px var(--label); letter-s
 /* ---------- markers ---------- */
 .marker { display: flex; align-items: center; gap: 0; cursor: pointer; background: none; border: 0; padding: 0; }
 .marker .sq { width: 11px; height: 11px; border: 1.5px solid var(--ink); background: var(--survey); }
+/* a built site with no fitted old drawing yet (relief and plain survey sheets only): small, unfilled, label from zoom 9.
+   Ethan 2026-10-10: the red square is the flagship mark, so it must mean "an old drawing of this place is on the map" */
+.marker.plain .sq { width: 7px; height: 7px; border-width: 1.5px; background: var(--sheet); }
 .marker .tag { margin-left: 5px; padding: 1px 6px; background: var(--sheet); border: 1px solid var(--ink); font: 600 11px var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
 
 .maplibregl-ctrl-attrib { font: 10.5px var(--label) !important; background: rgba(248, 244, 232, .85) !important; }
@@ -432,14 +435,14 @@ const markers = [];
 function addMarkers() {
   for (const s of S.sites) {
     const el = document.createElement('button');
-    el.className = 'marker'; el.type = 'button'; el.setAttribute('aria-label', `Open ${s.name}`);
+    el.className = s.drawings ? 'marker' : 'marker plain'; el.type = 'button'; el.setAttribute('aria-label', `Open ${s.name}`);
     el.innerHTML = `<span class="sq"></span><span class="tag">${esc(s.name)}</span>`;
     el.addEventListener('click', e => { e.stopPropagation(); select(s.id); });
     markers.push({ id: s.id, el, m: new maplibregl.Marker({ element: el, anchor: 'left', offset: [-6, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
   }
   // hide a label (not its square) when it would overlap another square or a label already placed;
-  // sites with a fitted plate get their labels first
-  const order = [...markers].sort((a, b) => !!S.byId[b.id]?.plate - !!S.byId[a.id]?.plate);
+  // sites with a fitted old drawing get their labels first, the others only from zoom 9
+  const order = [...markers].sort((a, b) => (S.byId[b.id]?.drawings || 0) - (S.byId[a.id]?.drawings || 0));
   const sync = () => {
     const z = map.getZoom(), pts = new Map(), placed = [];
     for (const k of markers) {
@@ -450,9 +453,12 @@ function addMarkers() {
     const squares = markers.map(k => { const p = pts.get(k); return [p.x - 7, p.y - 7, p.x + 7, p.y + 7, k]; });
     for (const k of order) {
       const tag = k.el.querySelector('.tag'), p = pts.get(k);
+      if (!S.byId[k.id]?.drawings && z < 9) { tag.style.visibility = 'hidden'; continue; }
       const box = [p.x + 6, p.y - 10, p.x + 12 + tag.offsetWidth, p.y + 10];
       const over = b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1];
-      const hit = placed.some(over) || squares.some(b => b[4] !== k && over(b));
+      // a flagship's label may cover plain squares; a plain site's label yields to every square
+      const flag = S.byId[k.id]?.drawings;
+      const hit = placed.some(over) || squares.some(b => b[4] !== k && over(b) && (!flag || S.byId[b[4].id]?.drawings));
       tag.style.visibility = hit ? 'hidden' : '';
       if (!hit) placed.push(box);
     }
@@ -525,7 +531,7 @@ function catMatches() {
 S.tab = lsGet('aw.tab', 'sites'); S.q = ''; S.onlyPlate = false;
 const regionOf = s => s.region || String(s.place || '').split(',').pop().trim() || 'Other';
 function siteMatches(s) {
-  if (S.onlyPlate && !s.plate) return false;
+  if (S.onlyPlate && !s.drawings) return false;
   const q = S.q.trim().toLowerCase();
   return !q || [s.name, s.aka, s.place, s.kind].some(v => v && String(v).toLowerCase().includes(q));
 }
@@ -564,14 +570,14 @@ function renderList() {
       <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
     </div>
     ${S.tab === 'finder' ? finderHome() : `
-    <p class="fit">${n} built in full; ${nc.toLocaleString()} more known earthworks on the map as dots, with live LiDAR where it exists.</p>
+    <p class="fit">${S.sites.filter(x => x.drawings).length} with an old drawing fitted to the ground (red squares); ${n} built in all; ${nc.toLocaleString()} more known earthworks on the map as dots, with live LiDAR where it exists.</p>
     <div class="kinds" role="group" aria-label="Kind of earthwork">
       <button data-kind="all" aria-pressed="${C.kind === 'all'}">All</button>
       ${Object.entries(KGROUP).map(([k, v]) => `<button data-kind="${k}" aria-pressed="${C.kind === k}"><i style="background:${v[1]}"></i>${esc(v[0])}</button>`).join('')}
     </div>
     <div class="search">
       <input id="q" type="search" placeholder="Search ${(n + nc).toLocaleString()} sites" value="${esc(S.q)}" aria-label="Search sites">
-      <label class="check"><input id="only-plate" type="checkbox" ${S.onlyPlate ? 'checked' : ''}> Fitted plate</label>
+      <label class="check"><input id="only-plate" type="checkbox" ${S.onlyPlate ? 'checked' : ''}> Old drawing on the map</label>
     </div>
     <div id="entries">${siteEntries()}</div>
     <div class="about">
@@ -1118,6 +1124,8 @@ async function saveFit() {
       const e = (d.depictions || []).find(x => (x.kind === 'plan' || x.kind === 'view') && x.fit && x.fit.at === at);
       if (e) {
         S.dep[s.id] = d.depictions; S.depSel[s.id] = e.file; lsSet('aw.depSel', S.depSel);
+        s.drawings = d.depictions.filter(x => DRAWING.has(x.kind)).length + (s.plate ? 1 : 0);
+        const mk = markers.find(k => k.id === s.id); if (mk) mk.el.className = 'marker';
         if (map.getSource(`dep-${s.id}`)) { map.removeLayer(`dep-${s.id}`); map.removeSource(`dep-${s.id}`); S.depUrl[`dep-${s.id}`] = null; }
         endFit(); applyDep(s); return;
       }

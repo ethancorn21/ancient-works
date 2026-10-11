@@ -43,7 +43,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "abbotsbury-castle-q3662453",
@@ -89,7 +90,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "aberdeen-mound-q4666953",
@@ -134,7 +136,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "aden-site-q4682175",
@@ -179,7 +182,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "aesica-q4688554",
@@ -225,7 +229,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "aggersborg",
@@ -269,7 +274,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "alauna-q4708853",
@@ -315,7 +321,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "aldenhaag-q23650779",
@@ -360,7 +367,8 @@
     800,
     800
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "aldford-castle-q4713789",
@@ -406,7 +414,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "alesia-q835966",
@@ -452,7 +461,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "alignement-du-camp-de-la-justice-q22965925",
@@ -498,7 +508,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "alligator-effigy-mound-q4732645",
@@ -543,7 +554,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "ambrussum-q1458146",
@@ -589,7 +601,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "andone-castrum-q2941535",
@@ -635,7 +648,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "angel-mounds-q4530064",
@@ -681,7 +695,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "anstey-castle-q4770776",
@@ -727,7 +742,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "antequera-menga-dolmen",
@@ -773,7 +789,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "apuole-hillfort",
@@ -819,7 +836,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "araghju-q2859432",
@@ -865,7 +883,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "arbeia-q1131391",
@@ -914,7 +933,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "arbor-low-q630312",
@@ -960,7 +980,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "ardotalia-q4788242",
@@ -1006,7 +1027,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "argentomagus-q2860982",
@@ -1051,7 +1073,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "argentoratum-q2361353",
@@ -1097,7 +1120,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "arledge-mounds-i-and-ii-q4792111",
@@ -1142,7 +1166,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "athelney-q3496233",
@@ -1188,7 +1213,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "avaricum-q281826",
@@ -1233,7 +1259,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "avebury-q661855",
@@ -1282,7 +1309,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "aventicum",
@@ -1328,7 +1356,8 @@
    "size_m": [
     3000,
     3000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "aztalan-state-park-q4832928",
@@ -1373,7 +1402,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "badbury-rings-q798831",
@@ -1419,7 +1449,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "balfarg-henge",
@@ -1465,7 +1496,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "balmoral-mounds-q4852392",
@@ -1510,7 +1542,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "clava-cairns",
@@ -1556,7 +1589,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "bar-hill-fort",
@@ -1602,7 +1636,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "barbury-castle-q807881",
@@ -1648,7 +1683,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "barkhale-camp-causewayed-enclosure-q17645213",
@@ -1693,7 +1729,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "barnard-castle-q4185811",
@@ -1738,7 +1775,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "barnstaple-castle-q808516",
@@ -1783,7 +1821,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "barnwell-castle-q1188983",
@@ -1828,7 +1867,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "barwick-in-elmet-castle-q4865964",
@@ -1874,7 +1914,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "batesville-mounds-q68034246",
@@ -1919,7 +1960,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "battle-mound-site-q4870073",
@@ -1964,7 +2006,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "bayou-grande-cheniere-mounds-q4874725",
@@ -2009,7 +2052,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "beam-farm-woodland-archaeological-distri-q4876173",
@@ -2054,7 +2098,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "beaudesert-castle-q4877442",
@@ -2100,7 +2145,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bedford-castle-q4879112",
@@ -2146,7 +2192,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bergues-q244934",
@@ -2191,7 +2238,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 1
   },
   {
    "id": "berkhamsted-castle-q4892150",
@@ -2237,7 +2285,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "bethlehem-q2523914",
@@ -2282,7 +2331,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "bibracte-q650053",
@@ -2318,7 +2368,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "biggs-site",
@@ -2364,7 +2415,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "binche-q95121",
@@ -2409,7 +2461,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "binchester-roman-fort-q4913955",
@@ -2455,7 +2508,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bincknoll-castle-q4913961",
@@ -2501,7 +2555,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "birdoswald-roman-fort-and-the-section-of-q17650767",
@@ -2544,7 +2599,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "blackhawk-country-club-mound-group-q117715185",
@@ -2588,7 +2644,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "blestium-q572453",
@@ -2634,7 +2691,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "blijdestein-q18812970",
@@ -2680,7 +2738,8 @@
     800,
     800
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "bokerley-dyke-q891218",
@@ -2725,7 +2784,8 @@
     2000,
     2000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bolsover-castle-q2968590",
@@ -2770,7 +2830,8 @@
     "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "borgring",
@@ -2814,7 +2875,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "bottle-creek-indian-mounds-q4949038",
@@ -2859,7 +2921,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "bramber-castle-q897538",
@@ -2905,7 +2968,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bremetennacum-q4960578",
@@ -2954,7 +3018,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "britzgyberg-oppidum-q14627810",
@@ -2998,7 +3063,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "brocavum-q16824574",
@@ -3043,7 +3109,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bryn-amlwg-castle-q4980826",
@@ -3089,7 +3156,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "burcht-van-leiden",
@@ -3135,7 +3203,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "burcht-van-voorne-q2765622",
@@ -3181,7 +3250,8 @@
     800,
     800
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "burlington-house-q225471",
@@ -3226,7 +3296,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "burnswark-hill",
@@ -3272,7 +3343,8 @@
    "size_m": [
     1900,
     1900
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "burrium-q602000",
@@ -3308,7 +3380,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "burrow-mump-q3647450",
@@ -3353,7 +3426,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "bury-castle-q5001077",
@@ -3399,7 +3473,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "butte-saint-clair-du-mesnil-vigot-q22963275",
@@ -3445,7 +3520,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "cadbury-castle-q1025082",
@@ -3496,7 +3572,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "caddo-mounds-state-historic-site-q5016312",
@@ -3541,7 +3618,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "caer-castell-q13126473",
@@ -3577,7 +3655,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "caerau-hillfort-q5016882",
@@ -3613,7 +3692,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "cahokia-q333661",
@@ -3659,7 +3739,8 @@
     2400,
     2400
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "cairnpapple-hill",
@@ -3705,7 +3786,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "caister-castle-q5017844",
@@ -3750,7 +3832,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "caldicot-castle-q2968744",
@@ -3795,7 +3878,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "calleva-atrebatum-q1027253",
@@ -3844,7 +3928,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "camp-celtique-de-la-bure-q2935231",
@@ -3890,7 +3975,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "camp-d-attila-q18749222",
@@ -3936,7 +4022,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 1
   },
   {
    "id": "camp-des-rouets-q22992059",
@@ -3980,7 +4067,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "camp-gaulois-de-la-pointe-de-kervedan-q22991880",
@@ -4016,7 +4104,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "camulodunum-q630604",
@@ -4062,7 +4151,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "carisbrooke-castle-q328595",
@@ -4107,7 +4197,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "carlisle-castle-q614836",
@@ -4152,7 +4243,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "carnac-stones-q833850",
@@ -4188,7 +4280,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "carvium-q1046167",
@@ -4233,7 +4326,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "cassiobury-house-q5049456",
@@ -4278,7 +4372,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "castalian-springs-mound-site-q5049584",
@@ -4321,7 +4416,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "castle-dore-q5050057",
@@ -4367,7 +4463,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castle-neroche-q5050201",
@@ -4413,7 +4510,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castle-rising-castle-q1049485",
@@ -4458,7 +4556,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 1
   },
   {
    "id": "castra-argentovaria-q2654537",
@@ -4504,7 +4603,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "castra-deva-victrix-q2450247",
@@ -4550,7 +4650,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castra-exploratorum-q51433287",
@@ -4599,7 +4700,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castra-herculis-q515850",
@@ -4644,7 +4746,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "castra-lemanis-q499898",
@@ -4690,7 +4793,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castrum-anderitum-q943660",
@@ -4736,7 +4840,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castrum-carvo-q1046175",
@@ -4782,7 +4887,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "castrum-gariannonum-q1735346",
@@ -4828,7 +4934,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "castrum-levefanum-q1309559",
@@ -4872,7 +4979,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "castrum-mannaricium-q1309550",
@@ -4918,7 +5026,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "castrum-segedunum-q637958",
@@ -4967,7 +5076,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "caus-castle-q5054556",
@@ -5013,7 +5123,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "cawthorne-camp-q5055239",
@@ -5059,7 +5170,8 @@
    "size_m": [
     2500,
     2500
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "cenabum-q2710144",
@@ -5105,7 +5217,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
@@ -5148,7 +5261,8 @@
    "size_m": [
     1100,
     1100
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "chevening-q1070927",
@@ -5193,7 +5307,8 @@
     "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "chiswick-house-q1074877",
@@ -5238,7 +5353,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "chateau-d-olivet-q2968304",
@@ -5282,7 +5398,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "chateau-de-fecamp-q2969286",
@@ -5326,7 +5443,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "chateau-de-labrit-q2969604",
@@ -5370,7 +5488,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "chateau-du-kochersberg-q1012697",
@@ -5414,7 +5533,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "civil-war-earthworks-at-tallahatchie-cro-q61456836",
@@ -5459,7 +5579,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "clun-castle-q5136615",
@@ -5505,7 +5626,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "cockermouth-castle-q5139587",
@@ -5551,7 +5673,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "colwyn-castle-q5150338",
@@ -5587,7 +5710,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "concangis-q5158253",
@@ -5633,7 +5757,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "cooling-castle-q5167493",
@@ -5678,7 +5803,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "coria-q3819299",
@@ -5724,7 +5850,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "craig-phadrig",
@@ -5770,7 +5897,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "cranmore-castle-q5182226",
@@ -5816,7 +5944,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "crayke-castle-q5183045",
@@ -5862,7 +5991,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "criel-mound-q5185117",
@@ -5908,7 +6038,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "crug-hywel-q851344",
@@ -5944,7 +6075,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "crystal-river",
@@ -5990,7 +6122,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "damme-q323408",
@@ -6035,7 +6168,8 @@
     "contour_m": 0.25,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "danebury-hill-camp-q677333",
@@ -6084,7 +6218,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "daw-s-castle-q5242247",
@@ -6130,7 +6265,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "de-thombe-q2359601",
@@ -6176,7 +6312,8 @@
     800,
     800
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "desborough-castle-q5263651",
@@ -6222,7 +6359,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "devil-s-dyke-q3307343",
@@ -6268,7 +6406,8 @@
     2000,
     2000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "dolforwyn-castle-q1235495",
@@ -6304,7 +6443,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "dorset-cursus-q5298848",
@@ -6349,7 +6489,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "dudley-castle-q5311832",
@@ -6394,7 +6535,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "duffield-castle-q2073299",
@@ -6439,7 +6581,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "dunadd",
@@ -6485,7 +6628,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "duno-q17454361",
@@ -6531,7 +6675,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "dunster-castle-q2969173",
@@ -6577,7 +6722,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "durocortorum-q4896307",
@@ -6623,7 +6769,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "eaton-socon-castle-q5331372",
@@ -6669,7 +6816,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "eddisbury-hill-fort-q5336613",
@@ -6715,7 +6863,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "edins-hall-broch",
@@ -6761,7 +6910,8 @@
    "size_m": [
     1800,
     1800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "eelswerd-q1926527",
@@ -6806,7 +6956,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "egremont-castle-q15216185",
@@ -6851,7 +7002,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "eildon-hill-north",
@@ -6897,7 +7049,8 @@
    "size_m": [
     2500,
     2500
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "elens-q2132755",
@@ -6940,7 +7093,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "emerald-mound-site-q5370466",
@@ -6985,7 +7139,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "emerald-mound-and-village-site-q16891077",
@@ -7030,7 +7185,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "emmeloord-q4604102",
@@ -7075,7 +7231,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "ensemble-castral-de-vesvre-q3054866",
@@ -7121,7 +7278,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "entremont-q281494",
@@ -7167,7 +7325,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "etowah-indian-mounds-q4533107",
@@ -7213,7 +7372,8 @@
    "size_m": [
     1500,
     1500
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "ewyas-harold-castle-q5419097",
@@ -7259,7 +7419,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "eye-castle-q5422609",
@@ -7305,7 +7466,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "fairlawne-q17530246",
@@ -7350,7 +7512,8 @@
     "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "farleigh-hungerford-castle-q5435410",
@@ -7395,7 +7558,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "ferme-d-azincourt-q20669811",
@@ -7441,7 +7605,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "fletio-q2072212",
@@ -7486,7 +7651,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "flevum-q615397",
@@ -7531,7 +7697,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "flitwick-castle-q5459772",
@@ -7577,7 +7744,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "waumanona-mound-q31580080",
@@ -7620,7 +7788,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "fort-ancient-q5470727",
@@ -7666,7 +7835,8 @@
    "size_m": [
     2400,
     2400
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "forthill",
@@ -7766,7 +7936,8 @@
     "warped": false,
     "label": "Plate V"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "fort-toulouse-mound",
@@ -7810,7 +7981,8 @@
    "size_m": [
     1400,
     1400
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "fort-walton-mound-q5472236",
@@ -7855,7 +8027,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "fort-du-muret-q48757768",
@@ -7901,7 +8074,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "fotheringhay-castle-q1439593",
@@ -7947,7 +8121,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "framlingham-castle-q2524183",
@@ -7992,7 +8167,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "frankfort-works",
@@ -8036,7 +8212,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "frogmore-mound-site-q5505287",
@@ -8081,7 +8258,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "fudge",
@@ -8175,7 +8353,8 @@
     "warped": false,
     "label": "Plate XXXIII No. 2"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "fyrkat",
@@ -8219,7 +8398,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "galava-q3094516",
@@ -8265,7 +8445,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "vilnius-gediminas-hill",
@@ -8309,7 +8490,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "glannoventa-q16839208",
@@ -8355,7 +8537,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "glevum-q360974",
@@ -8401,7 +8584,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "gondole-q775166",
@@ -8447,7 +8631,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "goodrich-castle-q5583571",
@@ -8492,7 +8677,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "gouda-q84125",
@@ -8537,7 +8723,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "grand-mound-q5594814",
@@ -8582,7 +8769,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "grave-creek-mound-q5597781",
@@ -8628,7 +8816,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "groby-castle-q5609924",
@@ -8674,7 +8863,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "gurnard-s-head-q5620199",
@@ -8720,7 +8910,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "habitancum-q5636876",
@@ -8766,7 +8957,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "halvorson-mound-group-q117715230",
@@ -8810,7 +9002,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "hampton-court-herefordshire-q1443802",
@@ -8855,7 +9048,8 @@
     "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "harbottle-castle-q5654774",
@@ -8900,7 +9094,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "hardknott-roman-fort-q1584994",
@@ -8946,7 +9141,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "hartshill-castle-q15223134",
@@ -8991,7 +9187,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "hembury-q3784763",
@@ -9037,7 +9234,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "hen-domen-q5712905",
@@ -9073,7 +9271,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "herstmonceux-castle-q2652207",
@@ -9118,7 +9317,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "heveskesklooster-q3276052",
@@ -9164,7 +9364,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "highbank",
@@ -9260,7 +9461,8 @@
     "warped": false,
     "label": "Plate XVI"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "hodgen-s-cemetery-mound-q5876069",
@@ -9305,7 +9507,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "holly-bluff-site-q12060418",
@@ -9351,7 +9554,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "hopeton",
@@ -9459,7 +9663,8 @@
     "warped": true,
     "label": "Plate XVII"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "hopewell-culture-national-historical-par-q4315010",
@@ -9505,7 +9710,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "hopewell-mound-group",
@@ -9551,7 +9757,8 @@
    "size_m": [
     3000,
     3000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "hunnum-q12060606",
@@ -9596,7 +9803,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "huntingdon-castle-q5945108",
@@ -9642,7 +9850,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "ilkley-roman-fort-q7086777",
@@ -9688,7 +9897,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "inchtuthil",
@@ -9734,7 +9944,8 @@
    "size_m": [
     1400,
     1400
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "indian-mound-park-q6020971",
@@ -9779,7 +9990,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "indian-mound-reserve-q2493254",
@@ -9824,7 +10036,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "indian-mounds-park-q3150092",
@@ -9869,7 +10082,8 @@
    "size_m": [
     900,
     900
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "isca-augusta-q929778",
@@ -9908,7 +10122,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "jaketown-site-q6125125",
@@ -9953,7 +10168,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "jarlshof",
@@ -9999,7 +10215,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "jastres-nord-q603603",
@@ -10045,7 +10262,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "jelling-mounds",
@@ -10091,7 +10309,8 @@
    "size_m": [
     1100,
     1100
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "jersika-hillfort",
@@ -10135,7 +10354,8 @@
    "size_m": [
     1400,
     1400
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "kastell-lostmarc-h-q22925755",
@@ -10178,7 +10398,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "kilmartin-temple-wood",
@@ -10224,7 +10445,8 @@
    "size_m": [
     3000,
     3000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "kincaid-mounds-state-historic-site-q4220862",
@@ -10269,7 +10491,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "king-arthur-s-round-table-q283800",
@@ -10315,7 +10538,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "kolomoki-mounds-state-park-q4228402",
@@ -10361,7 +10585,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "kong-asgers-hoj",
@@ -10407,7 +10632,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "kops-plateau-q3921197",
@@ -10453,7 +10679,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "lsu-campus-mounds-q6460005",
@@ -10498,7 +10725,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "lake-jackson-mounds-archaeological-state-q6476328",
@@ -10543,7 +10771,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "lamar-mounds-and-village-site-q6480896",
@@ -10588,7 +10817,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "lancaster-castle-q2969640",
@@ -10633,7 +10863,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "las-medulas",
@@ -10679,7 +10910,8 @@
    "size_m": [
     3000,
     3000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "laurium-q2089258",
@@ -10725,7 +10957,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "lavendon-castle-q6502549",
@@ -10771,7 +11004,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "leeds-castle-q746876",
@@ -10816,7 +11050,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "leicester-castle-q6519156",
@@ -10861,7 +11096,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "letchworth-love-mounds-archaeological-st-q6533192",
@@ -10907,7 +11143,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "lincoln-castle-q727760",
@@ -10952,7 +11189,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "little-solsbury-hill-q548780",
@@ -10998,7 +11236,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "lizard-mound-county-park-q6660528",
@@ -11043,7 +11282,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "longovicium-q6674222",
@@ -11089,7 +11329,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "los-millares",
@@ -11135,7 +11376,8 @@
    "size_m": [
     1500,
     1500
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "ludlow-castle-q576369",
@@ -11180,7 +11422,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "madira-bickel-mound-state-archeological-q6727810",
@@ -11225,7 +11468,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "maeshowe",
@@ -11271,7 +11515,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "maiden-castle-q1232816",
@@ -11321,7 +11566,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "mamucium-q3285089",
@@ -11367,7 +11613,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "marden-henge-q139573",
@@ -11413,7 +11660,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "marietta",
@@ -11512,7 +11760,8 @@
     "warped": false,
     "label": "Plate XXVI"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "marksville-prehistoric-indian-site-q6771408",
@@ -11557,7 +11806,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "maumbury-rings-q1702090",
@@ -11603,7 +11853,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "mayburgh-henge-q1469390",
@@ -11649,7 +11900,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "miamisburg-mound-q34827561",
@@ -11694,7 +11946,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "mitford-castle-q6881554",
@@ -11740,7 +11993,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "mold-castle-q6895734",
@@ -11776,7 +12030,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "montlaures-q3322814",
@@ -11820,7 +12075,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "motte-montferland-q2845894",
@@ -11866,7 +12122,8 @@
     800,
     800
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "motte-castrale-quiquempois-q22961457",
@@ -11902,7 +12159,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "motte-castrale-de-bailleul-q22963648",
@@ -11948,7 +12206,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "motte-castrale-de-brion-q58580090",
@@ -11994,7 +12253,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "motte-castrale-de-doue-la-fontaine-q3325341",
@@ -12038,7 +12298,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "motte-castrale-de-garenne-de-la-motte-q14689836",
@@ -12084,7 +12345,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "motte-de-la-jacquille-q3325352",
@@ -12130,7 +12392,8 @@
     800,
     800
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "mound-bottom-q14710093",
@@ -12175,7 +12438,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "mound-cemetery-q6919104",
@@ -12220,7 +12484,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "mound-key-archeological-state-park-q6919120",
@@ -12266,7 +12531,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "mounds-state-park-q1950269",
@@ -12311,7 +12577,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "moundville-archaeological-site-q1320821",
@@ -12356,7 +12623,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "mount-caburn-q12062109",
@@ -12402,7 +12670,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "mount-horeb-earthworks-complex-q6921321",
@@ -12447,7 +12716,8 @@
     2000,
     2000
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "henge-enclosure-conquer-barrow-and-barro-q17648364",
@@ -12491,7 +12761,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "municipium-ulpia-noviomagus-batavorum-q1309708",
@@ -12536,7 +12807,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "nacoochee-mound-q4312576",
@@ -12581,7 +12853,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "nanih-waiya-q6963605",
@@ -12627,7 +12900,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "navio-roman-fort-q17667745",
@@ -12676,7 +12950,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "newark",
@@ -12791,7 +13066,8 @@
     "warped": true,
     "label": "Plate XXV"
    },
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "norham-castle-q388705",
@@ -12836,7 +13112,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "norwich-castle-q1672292",
@@ -12882,7 +13159,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "norwood-mound-q7061637",
@@ -12927,7 +13205,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "numancia",
@@ -12973,7 +13252,8 @@
    "size_m": [
     1100,
     1100
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "oakham-castle-q2968294",
@@ -13019,7 +13299,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "ocmulgee-mounds-national-historical-park-q1517500",
@@ -13065,7 +13346,8 @@
    "size_m": [
     2400,
     2400
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "odd-fellows-cemetery-mound-q7077319",
@@ -13110,7 +13392,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "offa-s-dyke-q1127343",
@@ -13156,7 +13439,8 @@
     2000,
     2000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "okehampton-castle-q1419982",
@@ -13201,7 +13485,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "old-sarum-q782719",
@@ -13247,7 +13532,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 2
   },
   {
    "id": "oldorp-q931301",
@@ -13292,7 +13578,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "oostum-q2598567",
@@ -13337,7 +13624,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "oppidum-d-altimurium-q3354357",
@@ -13383,7 +13671,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "oppidum-d-enserune-q77221",
@@ -13427,7 +13716,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "oppidum-of-corent-q3354365",
@@ -13473,7 +13763,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "oswestry-castle-q20713795",
@@ -13519,7 +13810,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "oxford-castle-q2600886",
@@ -13564,7 +13856,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "painscastle-castle-q24659303",
@@ -13600,7 +13893,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "parkin-archeological-state-park-q7138516",
@@ -13645,7 +13939,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "pech-maho-q3373902",
@@ -13691,7 +13986,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "pen-y-clawdd-castle-q7162124",
@@ -13727,7 +14023,8 @@
     800,
     800
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "pharr-mounds-q7180861",
@@ -13772,7 +14069,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "pickering-castle-q7190805",
@@ -13817,7 +14115,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "piketon-mounds-q14716786",
@@ -13863,7 +14162,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "pilsbury-castle-q7194511",
@@ -13909,7 +14209,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "pinson-mounds-q4363053",
@@ -13954,7 +14255,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "plum-bayou-mounds-archeological-state-pa-q7814641",
@@ -14000,7 +14302,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "pocahontas-mounds-q14693354",
@@ -14045,7 +14348,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "pons-aelius-q7227963",
@@ -14091,7 +14395,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "pontefract-castle-q1949590",
@@ -14137,7 +14442,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "portavant-mound-q7231529",
@@ -14182,7 +14488,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "horseshoe-mound-q116268128",
@@ -14225,7 +14532,8 @@
    "size_m": [
     800,
     800
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "portus-adurni-q762664",
@@ -14270,7 +14578,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "poverty-point-q964745",
@@ -14316,7 +14625,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "pyramid-mound-q7263260",
@@ -14361,7 +14671,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "raby-castle-q4583646",
@@ -14406,7 +14717,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "raedykes",
@@ -14452,7 +14764,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "richard-s-castle-q17650937",
@@ -14496,7 +14809,8 @@
     "contour_m": 5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "richborough-roman-fort-q1309736",
@@ -14545,7 +14859,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "ring-of-brodgar",
@@ -14591,7 +14906,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "rockingham-castle-q3939808",
@@ -14636,7 +14952,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "rookery-mound-q7366204",
@@ -14681,7 +14998,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "rough-castle-fort",
@@ -14727,7 +15045,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "safety-harbor-site-q7398614",
@@ -14770,7 +15089,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "sandal-castle-q1760652",
@@ -14816,7 +15136,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "santee-indian-mound-and-fort-watson-q17030623",
@@ -14861,7 +15182,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "santok",
@@ -14907,7 +15229,8 @@
    "size_m": [
     3000,
     3000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "scotney-castle-q17530343",
@@ -14950,7 +15273,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "sedgwick-castle-q17645407",
@@ -14995,7 +15319,8 @@
     "contour_m": 1,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "seip-earthworks-q123916810",
@@ -15039,7 +15364,8 @@
    "size_m": [
     1600,
     1600
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "sellars-indian-mound-q14710174",
@@ -15084,7 +15410,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "serpent-mound-q968802",
@@ -15130,7 +15457,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 1
   },
   {
    "id": "sewee-mound-q18157936",
@@ -15175,7 +15503,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "shiloh-indian-mounds-site-q7496730",
@@ -15220,7 +15549,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "shrum-mound-q28403189",
@@ -15265,7 +15595,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "silbury-hill-q225896",
@@ -15310,7 +15641,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "sinnissippi-mounds-q7524732",
@@ -15355,7 +15687,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "skara-brae",
@@ -15401,7 +15734,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "skipsea-castle-q7535837",
@@ -15447,7 +15781,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "spiro-mounds-q2044290",
@@ -15492,7 +15827,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "stanton-drew-stone-circles-q1516300",
@@ -15538,7 +15874,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "stanwick-camp-q15242545",
@@ -15584,7 +15921,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "stokesay-castle-q7618555",
@@ -15629,7 +15967,8 @@
     "contour_m": 2,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "stonehenge-q39671",
@@ -15679,7 +16018,8 @@
     1000,
     1000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "stones-of-stenness",
@@ -15725,7 +16065,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "story-mound-state-memorial-q18617458",
@@ -15770,7 +16111,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "strutt-s-park-roman-fort-q1241270",
@@ -15815,7 +16157,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "sutton-hoo-q503256",
@@ -15861,7 +16204,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "tap-o-noth",
@@ -15907,7 +16251,8 @@
    "size_m": [
     1100,
     1100
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "taunton-castle-q7688781",
@@ -15952,7 +16297,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "teerd-q13138282",
@@ -15996,7 +16342,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "terpensmole-q4687217",
@@ -16042,7 +16389,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "terpzigt-q1919205",
@@ -16088,7 +16436,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "thurnham-castle-q7799359",
@@ -16134,7 +16483,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "tinboeth-castle-q7808013",
@@ -16170,7 +16520,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "totnes-castle-q2445840",
@@ -16215,7 +16566,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "totternhoe-castle-q7828481",
@@ -16261,7 +16613,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "traiectum-q2199749",
@@ -16307,7 +16660,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "traprain-law",
@@ -16353,7 +16707,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "tredegar-fort-q20584714",
@@ -16387,7 +16742,8 @@
     1600,
     1600
    ],
-   "lidar": false
+   "lidar": false,
+   "drawings": 0
   },
   {
    "id": "trelleborg-slagelse",
@@ -16431,7 +16787,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "trematon-castle-q7838051",
@@ -16476,7 +16833,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "tremper-mound-and-works-q7838197",
@@ -16521,7 +16879,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "trundle-q7847949",
@@ -16567,7 +16926,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "turtle-mound-q7856427",
@@ -16612,7 +16972,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "uffington-castle-q2473790",
@@ -16658,7 +17019,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "uxellodunum-q1290232",
@@ -16703,7 +17065,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "velda-mound-q7918862",
@@ -16748,7 +17111,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "vellaunodunum-q673209",
@@ -16793,7 +17157,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "venlo-q9777",
@@ -16838,7 +17203,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   },
   {
    "id": "vertillum-q7922962",
@@ -16883,7 +17249,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)"
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0
   },
   {
    "id": "vindolanda",
@@ -16929,7 +17296,8 @@
    "size_m": [
     1200,
     1200
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "vindomora-q7932358",
@@ -16975,7 +17343,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "viroconium-cornoviorum-q1361580",
@@ -17021,7 +17390,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "warffum-q1942428",
@@ -17066,7 +17436,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "AHN (Rijkswaterstaat)"
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "drawings": 0
   },
   {
    "id": "wark-in-tyndale-castle-q7969465",
@@ -17112,7 +17483,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "warkworth-castle-q922422",
@@ -17157,7 +17529,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "wat-s-dyke-q696088",
@@ -17203,7 +17576,8 @@
     2000,
     2000
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "watson-brake-q2552689",
@@ -17248,7 +17622,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "west-kennet-long-barrow-q541312",
@@ -17297,7 +17672,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "whitley-castle-q7996561",
@@ -17343,7 +17719,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 1
   },
   {
    "id": "wickliffe-mounds-q1269580",
@@ -17388,7 +17765,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "windmill-hill-q4348373",
@@ -17433,7 +17811,8 @@
     1200,
     1200
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "winterville-site-q4470180",
@@ -17479,7 +17858,8 @@
     800,
     800
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "yeavering-bell-camp-q17643662",
@@ -17523,7 +17903,8 @@
    "size_m": [
     1000,
     1000
-   ]
+   ],
+   "drawings": 0
   },
   {
    "id": "york-castle-q80637",
@@ -17568,7 +17949,8 @@
     800,
     800
    ],
-   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0"
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0
   },
   {
    "id": "zaleski-mound-group-q8065456",
@@ -17613,7 +17995,8 @@
     1600,
     1600
    ],
-   "lidar_credit": "USGS 3DEP"
+   "lidar_credit": "USGS 3DEP",
+   "drawings": 0
   },
   {
    "id": "zwolle-q793",
@@ -17658,7 +18041,8 @@
     "contour_m": 0.5,
     "height": "block_h.png",
     "top": "block_top.jpg"
-   }
+   },
+   "drawings": 0
   }
  ]
 }

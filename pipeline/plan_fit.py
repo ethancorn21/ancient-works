@@ -188,6 +188,8 @@ def build(doc):
     os.replace(tmp, dep_path)
     print(f"{sid} {plan}: {len(pairs)} pairs, {doc.get('model', 'similarity')}, residuals m {entry['fit']['resid_m']}",
           flush=True)
+    import build_site
+    build_site.set_drawings(sid)  # the page's flagship marker follows the count of fitted drawings
 
 
 def prune():
@@ -206,6 +208,8 @@ def prune():
             aw.save_json(dep_path + ".tmp", deps)
             os.replace(dep_path + ".tmp", dep_path)
             print("pruned", dep_path, flush=True)
+            import build_site
+            build_site.set_drawings(os.path.basename(os.path.dirname(dep_path)))
 
 
 def main(args):
