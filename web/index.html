@@ -95,7 +95,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
 .links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
 .links a { color: var(--survey); }
-details.plain summary { cursor: pointer; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 6px 0 4px; }
+.plain-title { font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 6px 0 4px; }
 /* plate-fitting tool: an old book page beside the map, matching points clicked on both */
 .fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: 398px; width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
 .fitpane canvas { flex: 1; width: 100%; min-height: 0; cursor: crosshair; touch-action: none; background: var(--paper); display: block; }
@@ -614,7 +614,9 @@ function finderHome() {
     </div>`;
 }
 // Ethan 2026-10-10: plain survey sheets (USGS topos, OS, Cassini) only show roads and fields around a site; what is
-// worth seeing is a drawing of the work itself over today's ground. Drawings first, plain sheets folded away.
+// worth seeing is a drawing of the work itself over today's ground. Drawings first, plain sheets below them.
+// Ethan 2026-10-11: the plain sheets are "just as cool" (OS six-inch over Maiden Castle) but were hidden behind a
+// collapsed fold, so they are listed open under their own heading.
 const DRAWING = new Set(['plan', 'drawing', 'view']);
 function depGroup(s) {
   const list = S.dep[s.id] || [];
@@ -628,7 +630,7 @@ function depGroup(s) {
       <div class="deps" role="group" aria-label="Old drawing, map or aerial photograph">
         <button data-dep="" aria-pressed="${!d}">None</button>
         ${draw.map(btn).join('')}
-        ${draw.length && plain.length ? `</div><details class="plain" ${d && !DRAWING.has(d.kind) ? 'open' : ''}><summary>Plain survey maps and aerials (${plain.length})</summary><div class="deps">${plain.map(btn).join('')}</div></details><div>` : plain.map(btn).join('')}
+        ${draw.length && plain.length ? `</div><p class="plain-title">Survey maps and aerials</p><div class="deps">${plain.map(btn).join('')}</div><div>` : plain.map(btn).join('')}
       </div>
       ${d && d.ink ? `<div class="seg" role="group" aria-label="Map style">
         <button id="d-ink" aria-pressed="${S.depMode === 'ink'}">Ink lines</button>
