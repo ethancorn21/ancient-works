@@ -2284,6 +2284,23 @@ print("spliced into", path)
 - **Boxes and status:** all five acceptance boxes re-verified and ticked; task file set to Status: done. **Not committed this session (context limit before the commit step):** the 3 staging files, tests/golden/src_kip_sample.json, docs/lead_kip.md §4 and tests/test_src_kip.py sit uncommitted in the working tree (the harness saves them). Next agent's one step: `git add -A && git commit -m "205: stage the 11 sites and 12 Kip views into the task's staging files"` and stop - the driver re-checks the done claim against the suite.
 
 
+<!-- task 206 -->
+# Task 206 mackenzie-p212
+
+## 2026-10-11 206 DECISION: evidence kind for the p.212 row is "category", and an extras row IS staged (R3 resolved)
+    Two prep assumptions settled against the merged code: (1) OQ-1 - fit/evidence.py `check(files, books,
+    catalog)` takes file paths (CLI --files/--books/--catalog), so the 206 test runs the real check over the
+    staging file, no re-implementation; the row's own evidence field is kind "category" (the file's Commons
+    category == Q7502621's P373 "Shotwick Castle", both verified live 2026-10-11), so row.cat must be
+    "Shotwick Castle" (the 29 hand-tied rows are cat null + kind hand_tied: different tie, different field).
+    (2) R3/OQ-2 - build_catalog.main() has NO picture-based selection over the 12,603-row sites.jsonl (it
+    builds whatever --ids/region/top/min-p picks; both files read into one row list), and 211's box 3 builds
+    the extras-derived new sites, so the prep's "no new extras row needed" is superseded: stage an extras row
+    {id shotwick-castle-q7502621, qid Q7502621, aerial_ok: true, source: fit/src_mackenzie.py} exactly as the
+    task Notes prescribe for an unbuilt castle; build_catalog reads the catalog row first (CAT before EXTRAS)
+    and its `sid in built` skip makes the duplicate harmless; 211 logs the duplicate.
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
