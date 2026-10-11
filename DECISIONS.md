@@ -60,3 +60,30 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     display-case "Italy" was the exception made while waiting for 214). Luxembourg City is the one new value
     "luxembourg": REGION_NAME has no key for it, so the site display falls back to the raw lowercase string
     (works; noted in the lead doc; a REGION_NAME key would be a small follow-on task, not mine).
+
+## 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed
+    Ran `--verify` with no args (every recorded town: the 16 NL + the 6 done) - 28 s, no 429 stalls, exit 0.
+    All 16 NL: labels match (no LABEL CHECK), every P625 within 0.74 km of the recorded old-town point
+    (maxes: Haarlem 0.74, Amsterdam 0.68, Leeuwarden 0.65, Rotterdam 0.63, Sluis 0.59, Goes 0.49 km - the
+    Gouda-800 m class of offset, now computed not eyeballed), P373 matches the table string exactly in all
+    16 (every category-route target confirmed), enwiki matches (Valkenburg's old-town item Q100076 has none,
+    as recorded). The 6 done towns re-confirm the plain-town-category P373 pattern. Three name-search traps
+    (first hit with P625; all within 50 km, so no auto-flag, and the caption route stores the verified site
+    point, so the exposure is documentary only): 'Sluis' resolves FIRST to Q2065987 - a distinct item
+    ('place with town rights and privileges' / 'cadastral populated place in the Netherlands' / 'fortified
+    town', no enwiki, P625 (3.3883, 51.3089) 8 km SW of the town, P373 'Sluis (city)' vs Q10080's 'Sluis';
+    noted on the TOWNS row) - 'Reimerswaal' to the municipality Q10078 (the city Q2590944 is recorded, ~9 km);
+    'Valkenburg' to the modern town Q9771 (the old town Q100076 is recorded, 0.19 km - same spot). Box 4: only
+    the six done QIDs are in the catalog (12575 known sites checked); no other NL QID collides, so no
+    reuse-of-existing-site case yet (the BE/FR/LU batches must re-check per town - stage() already handles it).
+    Module fixes in the same commit (fresh-eyes read of the iteration-40 build): (a) verify_qids crashed with
+    KeyError on the 6 done towns (their TOWNS rows carry no label/lon/lat/p373) - no-args now includes them
+    degraded (no distances, P373 "(none recorded)") and an unknown town name fails loud; (b) cat_chain
+    returned a " -> "-joined string INCLUDING the file category, but evidence_for records t["chain"] as the
+    via and check_category requires via[-1] == site_cat and file_cat not in via - it now returns and prints
+    the via list as JSON (paste into TOWNS) and walks with ciclimit 500 (a parent list over 50 would have
+    silently lost the chain); (c) check_staged's per-row town lookup called _site_row over ALL TOWNS entries
+    -> KeyError on the done towns - now a precomputed sid->town map (slug id and, when the QID is already
+    cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
+    site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
+    Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).

@@ -107,7 +107,8 @@ TOWNS = {
     "Rotterdam": dict(region="netherlands", cat="Maps of Rotterdam by Jacob van Deventer",
                       qid="Q34370", label="Rotterdam", lon=4.4745, lat=51.9155, p625=(4.48, 51.92),
                       place="South Holland", wikipedia="https://en.wikipedia.org/wiki/Rotterdam", p373="Rotterdam"),
-    "Sluis": dict(region="netherlands", cat="Map of Sluis by Jacob van Deventer",
+    "Sluis": dict(region="netherlands", cat="Map of Sluis by Jacob van Deventer",  # the name search "Sluis"
+                  # resolves FIRST to Q2065987 (no enwiki, P625 8 km SW, P373 'Sluis (city)') - the trap, lead doc
                   qid="Q10080", label="Sluis", lon=3.493, lat=51.347, p625=(3.5, 51.35),
                   place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Sluis", p373="Sluis"),
     "The Hague": dict(region="netherlands", cat="Map of The Hague by Jacob van Deventer",
@@ -258,6 +259,9 @@ def verify_qids(only=None):
     import evidence  # hav_m
     c = _commons()
     towns = list(only) if only else [t for t in TOWNS if TOWNS[t].get("qid")]
+    for town in towns:
+        if town not in TOWNS:
+            raise SystemExit(f"unknown town {town!r} (not a TOWNS key)")
     search = {}
     for town in towns:
         search[town] = _search_candidates(c, town, TOWNS[town])
@@ -293,22 +297,29 @@ def verify_qids(only=None):
         cl = e.get("claims", {})
         p625 = [(v["longitude"], v["latitude"]) for v in _datavalues(cl.get("P625", [])) if v]
         en = e.get("labels", {}).get("en", {}).get("value", "")
-        print(f"  {town}  {t['qid']}  {en!r}  (table: {t['label']!r})"
-              + ("" if en and (not t.get("label") or en.lower() == t["label"].lower()) else "   <- LABEL CHECK"))
+        tbl = t.get("label")  # the six done towns have no label/point/p373 here (sources.py verifies them)
+        have_pt = "lon" in t and "lat" in t
+        print(f"  {town}  {t['qid']}  {en!r}" + (f"  (table: {tbl!r})" if tbl is not None else "")
+              + ("" if tbl is None or not en or en.lower() == tbl.lower() else "   <- LABEL CHECK"))
         for lon, lat in p625:
-            dist = evidence.hav_m(lon, lat, t["lon"], t["lat"])
-            flag = "" if dist <= 50e3 else f"   <- a P625 is {dist / 1000:.0f} km from the table point (recorded)"
-            print(f"      P625: ({lon}, {lat})  table point ({t['lon']}, {t['lat']}), {dist / 1000:.2f} km{flag}")
+            if have_pt:
+                dist = evidence.hav_m(lon, lat, t["lon"], t["lat"])
+                flag = "" if dist <= 50e3 else f"   <- a P625 is {dist / 1000:.0f} km from the table point (recorded)"
+                print(f"      P625: ({lon}, {lat})  table point ({t['lon']}, {t['lat']}), {dist / 1000:.2f} km{flag}")
+            else:
+                print(f"      P625: ({lon}, {lat})  (no table point here: recorded in pipeline/sources.py)")
         p373 = _datavalues(cl.get("P373", []))
-        ok = "ok" if p373 and t.get("p373") and p373[0] == t["p373"] else f"MISMATCH (table: {t.get('p373')!r})"
+        ok = ("ok" if p373 and p373[0] == t["p373"] else f"MISMATCH (table: {t['p373']!r})") if t.get("p373") else "(none recorded)"
         print(f"      P373: {p373}  ({ok})   P131: {[labels.get(i) for i in _ids(cl.get('P131', []))]}"
               f"  (table place: {t.get('place')!r})")
         print(f"      enwiki: {e.get('sitelinks', {}).get('enwiki', {}).get('title')!r}  (table: {t.get('wikipedia')!r})")
         for q, _ in search.get(town, []):
             p = [(v["longitude"], v["latitude"]) for v in _datavalues((ents.get(q) or {}).get("claims", {}).get("P625", [])) if v]
             if p:
-                d = evidence.hav_m(p[0][0], p[0][1], t["lon"], t["lat"])
-                flag = "" if d <= 50e3 else f"   <- TRAP: a name search would resolve {q} {d / 1000:.0f} km away"
+                flag = ""
+                if have_pt:
+                    d = evidence.hav_m(p[0][0], p[0][1], t["lon"], t["lat"])
+                    flag = "" if d <= 50e3 else f"   <- TRAP: a name search would resolve {q} {d / 1000:.0f} km away"
                 print(f"      search: first hit with P625 is {q} "
                       f"{(ents.get(q) or {}).get('labels', {}).get('en', {}).get('value')!r} ({p[0]}){flag}")
                 break
@@ -343,8 +354,9 @@ def town_files(only=None):
 def cat_chain(town):
     """Live: walk the parents of the town file's category (the town's van Deventer category) up to the town's
     P373 category: BFS over the category page's containing categories, town-name parents first (they shorten
-    the walk), depth cap 6, a visited set. Prints the via list (via[-1] == the P373 string) to record in the
-    TOWNS entry, or a failed walk (the town then rides the caption route)."""
+    the walk), depth cap 6, a visited set. Prints the walked via list as JSON (record it in the TOWNS entry as
+    "chain": via[-1] == the P373 string, the file category NOT in via - check_category re-verifies the shape,
+    the walk is the verification), or reports the failed walk (the town then rides the caption route)."""
     c = _commons()
     t = TOWNS[town]
     if not t.get("p373"):
@@ -360,9 +372,10 @@ def cat_chain(town):
             if cat == target:
                 chain = via[cat]
                 print(f"{town}: chain holds ({len(chain)} hops): {start} -> " + " -> ".join(chain))
-                return " -> ".join([start] + chain)
+                print("record: \"chain\": " + json.dumps(chain))
+                return chain
             d = c.get(c.CM, {"action": "query", "titles": "Category:" + cat,
-                             "prop": "categoryinfo", "cicategories": "1", "ciclimit": "50"})
+                             "prop": "categoryinfo", "cicategories": "1", "ciclimit": "500"})
             pages = d.get("query", {}).get("pages", {}).values()
             parents = [p.get("allcategories", [{}])[i].get("title", "").split(":", 1)[-1]
                        for p in pages for i in range(len(p.get("allcategories", [])))]
@@ -494,6 +507,13 @@ def check_staged():
         problems.append(f"the six done towns are re-staged: {sorted(done & {s.get('qid') for s in sites})}")
     pics = {s["id"]: 0 for s in sites}
     valid = set(pics) | set(known.values())
+    town_of = {}  # staged site id -> TOWNS key, over the fully recorded towns (slug id and, when the QID is
+    # already cataloged, the existing site id it stages under; the six done towns are never staged)
+    for tn, td in TOWNS.items():
+        if td.get("qid") and "lon" in td and not td.get("done"):
+            town_of[_site_row(tn, td)["id"]] = tn
+            if known.get(td["qid"]):
+                town_of[known[td["qid"]]] = tn
     seen, canonical = set(), {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
     for r in files:
         sid = r.get("site")
@@ -508,8 +528,8 @@ def check_staged():
         if k in canonical:
             problems.append(f"staged title already in the canonical files.jsonl: {k}")
         seen.add(k)
-        town = next((t for t in TOWNS if _site_row(t, TOWNS[t])["id"] == sid), None)
-        if town and TOWNS[town].get("qid") and r.get("qid") != TOWNS[town]["qid"]:
+        town = town_of.get(sid)
+        if town and r.get("qid") != TOWNS[town]["qid"]:
             problems.append(f"file row {k} carries QID {r.get('qid')}, the table has {TOWNS[town]['qid']}")
         if town and r.get("title") != TOWNS[town].get("file"):
             problems.append(f"file row {k} is not the table's file for {town}")
@@ -548,11 +568,15 @@ def golden(path=None):
     files = _load(FILES)
     sites = _load(EXTRAS)
     cls = _load(CLASSIFIED)
-    by_site = {r.get("site"): r for r in files}
+    known = known_sites()
+    files_by_site = {r.get("site"): r for r in files}
+    row_of = {}  # TOWNS key -> its staged file row (under the slug id or the existing site id)
+    for town, t in TOWNS.items():
+        if t.get("qid") and t.get("file") and not t.get("done"):
+            row_of[town] = files_by_site.get(known.get(t["qid"]) or _site_row(town, t)["id"])
     picks = []
     for kind in ("category", "caption_coords"):
-        picks += [s for s in TOWNS
-                  if s in by_site and (by_site[s].get("evidence") or {}).get("kind") == kind][:2]
+        picks += [t for t in TOWNS if (row_of.get(t) or {}).get("evidence", {}).get("kind") == kind][:2]
     out = {"count": {"extras": len(sites), "files": len(files), "classified": len(cls)},
            "extras": _norm([s for s in sites if any(s["id"] == r.get("site") for r in files
                                                    and r.get("title") in (TOWNS.get(t, {}).get("file") for t in picks))]),

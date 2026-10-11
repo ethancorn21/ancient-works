@@ -107,6 +107,26 @@ Why: ending a session (context limit) does not kill a nohup'd process; run_stage
 
 One `### <library>` subsection per library or tool, with its version.
 
+### Python (3.12.3)
+
+#### A trailing comment after a complete expression inside an unbalanced-bracket display does not end the logical line
+Where: any multi-line dict/list literal (hit in fit/src_van_deventer.py's TOWNS: a `"Sluis": dict(...)` entry
+      whose last line read `p373="Sluis")  # the name search` - the comma was missing)
+Symptom: `SyntaxError: invalid syntax. Perhaps you forgot a comma?` reported at the NEXT key's line, several
+      lines below where the comma is actually missing (the comment hid it)
+Why: inside `{...}`/`[...]` physical lines are joined into one logical line until the brackets balance; a
+      trailing comment on a bracket-balanced line does not end that logical line, so the next physical line
+      gets glued on and the following `key: value` lands where a comma was expected. Put comments INSIDE the
+      parentheses, or after the closing `),` - never after a `)` whose comma you might have dropped.
+
+#### dict.update() of a list of 2-tuples builds {first: second}, not a {key: [values]} mapping
+Where: fit/src_van_deventer.py (verify_qids candidate collection - the shape was wrong there once; the trap
+      stays for anyone rebuilding a town -> [candidates] map)
+Symptom: expecting {town: [candidates]} and getting {qid: label}; the next unpack crashes with "too many
+      values to unpack"
+Why: update() treats an iterable of 2-element sequences as (key, value) pairs. To collect values per key,
+      accumulate explicitly: `d.setdefault(key, []).append(item)` - never `d.update(pairs)` for that shape.
+
 ## This codebase
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
@@ -272,6 +292,29 @@ Symptom: passing the bounding box as (lon1, lat1, lon2, lat2) makes Nominatim re
       back ordered toward the wrong corner).
 Why: the documented format is "viewbox=min_lon,max_lat,max_lon,min_lat" (left,top,right,bottom). Build it as
       f"{min_lon},{max_lat},{max_lon},{min_lat}". (Burned a 213 session on this, 2026-10-11.)
+
+#### The Wikimedia APIs 429 after ~12-20 back-to-back calls even at 1-2 s pacing; commons.get's Retry-After handling absorbs it
+Where: `pipeline/commons.py` (`get`, `PACE_S = 1.0`); every live-fetching module (fit/evidence.py record,
+      fit/src_van_deventer.py --list/--verify/--files/--chain)
+Symptom: HTTP 429 from commons.wikimedia.org or wikidata.org `w/api.php` after a dozen or so consecutive
+      calls, even when paced 1-2 s apart
+Why: Wikimedia rate-limits per-client bursts well below 1 req/s in practice. `commons.get()` is
+      Retry-After-aware (it sleeps the server's value and retries) - use it (or replicate its pacing) instead
+      of a bare urllib call with a fixed sleep; a 26-call verify run completed in ~30 s wall on 2026-10-11
+      with no manual intervention. Never loop a hand-rolled fetcher without the Retry-After handling.
+
+### fit/evidence.py (the evidence contract)
+
+#### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
+Where: `fit/evidence.py` (`check_category`); every module that records `kind: category` evidence
+      (fit/src_van_deventer.py's cat_chain -> TOWNS["chain"] -> evidence_for)
+Symptom: nothing fails: a hand-typed or transformed "via" (a " -> "-joined string, a list that includes the
+      file's own category, a chain that skips a hop) passes the offline check, and a picture ends up tied to
+      the wrong place
+Why: `check_category` only asserts row.cat == site_cat, via[-1] == cat, file_cat not in via - it cannot
+      re-walk Commons offline. Record ONLY the actually walked parent list (the JSON a chain walker prints),
+      with via[-1] == the site's exact P373 string and the file's category absent from it; a failed walk is
+      the caption route or a documented drop, never a guessed chain.
 
 ### pipeline/books.py, pipeline/books_ia.py (the book machinery)
 
