@@ -1,5 +1,5 @@
 Status: in-progress
-Depends on: 001
+Depends on: 001, 803
 Touches: tools/gate_heldout.py, tests/test_gate.py
 
 # 802: gate-holdout: ignore the batch's automatic documents
@@ -55,33 +55,38 @@ is therefore still meaningful - it just must be derived over the non-automatic s
   pre-registration ("not to be changed") and never promised to count every .json in the
   directory; section 3's "the 20 hand-fit documents in data/db/platefits/" stays literally
   true. The clarification lives in the tool's docstrings. docs/gate.md untouched. See DECISIONS.)
+- 2026-10-11 iteration 46 (agent c): the driver rejected the done claim - its re-verification runs the FULL
+  suite and it was red: 3 failed / 35 passed, all in tests/test_review.py, which is task 803's file
+  (`Touches: tests/test_review.py`; 803 is open, its dependency 201 is done, unassigned). Those 3 tests
+  fail identically without this task's change (pre-802 suite: 4 failed / 34 passed; the 4th was 802's
+  own, fixed), so the implementation stands as verified in iteration 45 and nothing in it changed.
+  802 cannot pass the re-check until 803 is done and merged, so per the team-mode rule `Depends on:`
+  now lists 803 and the task parks until 803 is in main. The human already knows about the 802/803 pair
+  (203a's ask_human 002).
 
 ## Hand-over
 
-**2026-10-11, iteration 45 (agent c): DONE - implemented and verified; nothing left for the driver
-but the re-check.**
+**2026-10-11, iteration 46 (agent c): implementation unchanged and verified; the task now parks on
+803 (its tests are the only red in the suite) and the driver brings it back when 803 merges.**
 
-- What changed (2 files, both on the Touches line): `tools/gate_heldout.py` `partition()` now
-  builds the name list as `[basename[:-5] for p in sorted(glob(...)) if not json.load(open(p))
-  .get("auto")]` - the same `doc.get("auto")` criterion as `fit/batch_us.py write_golden`; a doc
-  without the field is a hand fit. The 20-doc precondition, the seed-20260108 derivation, the
-  REGISTERED tables, `check_registered` and the five section-4 recipes are untouched. Module
-  docstring, REGISTERED comment block and partition docstring updated to say the name list is
-  the non-automatic one. `tests/test_gate.py`: only the offline-note in the docstring changed
-  ("the 20 documents in data/db/platefits/" -> "data/db/platefits/"), no test logic or assertion
-  touched; docs/gate.md and the golden are untouched in the diff.
-- Verification (this checkout: 36 docs = 20 hand + 16 auto from 203a): non-auto names ==
-  REGISTERED held+dev exactly; section-6 command runs to completion for held and dev; combined
-  stdout is byte-identical to tests/golden/gate_heldout.txt; `pytest -q tests/test_gate.py` =
-  2 passed; full suite = 3 failed / 35 passed, all 3 in tests/test_review.py (task 803's
-  territory, failing before this task as well: 4 failed / 34 passed before it) - so the 802
-  failure is gone and nothing else moved.
-- State-agnostic, as the re-baselined spec required: on a plain main-based checkout (20 docs,
-  none with the field) `doc.get("auto")` is falsy for every doc, so the name list equals the
-  old all-files list exactly and the tool behaves identically to pre-802 (it just reads the 20
-  small JSONs to check the flag). One commit passes in both states. No findings to record:
-  the recorded tables came out unchanged, no silent golden rewrite was needed.
-- Next (only if the driver reopens): if the done claim is rejected, the driver's reasons will be
-  in this task's DECISIONS entries - the likely touchpoints are the docs/gate.md decision above
-  (I chose not to add the optional section-1 sentence) and 803's review pins, which are 803's to
-  fix, not this task's.
+- State: `Depends on:` is now `001, 803` (was `001`); status stays in-progress with both boxes
+  ticked. The driver's rejection of the iteration-45 done claim was purely the suite being red,
+  not anything in this task's two files. No code changed this iteration; the implementation is
+  commit af830fb and `git log` shows nothing later touching tools/gate_heldout.py or
+  tests/test_gate.py.
+- Verified this iteration in the current checkout: full suite `.venv/bin/python -m pytest -q` =
+  3 failed / 35 passed; the 3 failures are exactly 803's population
+  (test_export_cli, test_page_shows_the_review_list, test_save_resolves_the_item) and they
+  pre-date 802 (pre-802 suite: 4 failed / 34 passed; the 4th was 802's own test_gate failure,
+  fixed). tests/test_gate.py is green inside the 35.
+- Why park, not patch: tests/test_review.py is 803's file (not on my Touches line) and 803 is
+  the task that re-baselines those pins to the 89-item post-batch population (803: open,
+  `Depends on: 201` - done, `Touches: tests/test_review.py`, unassigned). Patching it here
+  would collide with 803's branch and re-litigate its scope; the driver hands it out and merges
+  it, and the human has already been told about the 802/803 pair (203a's ask_human 002).
+- Next session (when the driver brings 802 back after 803 merged into main): run
+  `.venv/bin/python -m pytest -q` in the current checkout; expect 0 failed, then re-file the
+  done claim (Status: done). If my two files' tests are red instead, something on main since
+  af830fb touched tools/gate_heldout.py / tests/test_gate.py / the data they read - check
+  `git log` on those paths and re-derive: the name list must still be the sorted NON-automatic
+  documents (20 of them) and the golden must still reproduce byte for byte.

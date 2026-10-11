@@ -201,3 +201,28 @@ STATE-AGNOSTIC: on a plain main-based checkout (20 docs, none carrying the field
     FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
     3 failed, 35 passed in 38.62s
     (full test output: .agent/reports/last-test-output.txt)
+
+## 2026-10-11 802 DECISION: iteration 46 - done claim rejected on the suite being red (803's tests); implementation untouched, task parked on Depends on: 001, 803
+
+CONTEXT: iteration 45 verified both boxes and filed the done claim; the driver's re-verification
+      ran `.venv/bin/python -m pytest -q` twice and it was red both times: 3 failed / 35 passed,
+      all in tests/test_review.py (test_export_cli, test_page_shows_the_review_list,
+      test_save_resolves_the_item), and it reopened the task (commit 98b6ef5). This is not a bug
+      in this task's code: the same 3 fail without af830fb (pre-802 suite: 4 failed / 34 passed,
+      the 4th being 802's own test_gate failure, fixed).
+WHAT: no code change this iteration. Re-ran the full suite in the current checkout: identical
+      3 failed / 35 passed, tests/test_gate.py green (2 of the 35); `git log` confirms nothing
+      after af830fb touched tools/gate_heldout.py or tests/test_gate.py; confirmed 803 is open
+      with `Depends on: 201` (201 done) and `Touches: tests/test_review.py` - exactly the failing
+      population, unassigned (the human's queue; 203a's ask_human 002 already flagged the
+      802/803 pair). Added 803 to my `Depends on:` line (now `001, 803`) and parked the task per
+      the team-mode rule; the driver gives me other work and brings 802 back when 803 is merged.
+WHY NOT ELSE: tests/test_review.py is not on my Touches line and is 803's to change; adding it to
+      my own line to fix it here would collide with 803's parallel work and re-litigate its
+      scope. The written rule ("no test failing that was not already failing before") does
+      describe my situation, but the driver's implemented re-check treats any red suite as a
+      failed claim, so waiting for 803's merge is the only clean path - arguing it or patching
+      803's file would not stand a re-check either.
+RE-VERIFY ON RETURN: when 802 comes back (803 merged into main), run the full suite; expect 0
+      failed; re-file the done claim. If my two files are red, check `git log` on them since
+      af830fb first.
