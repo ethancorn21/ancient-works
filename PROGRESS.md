@@ -4,29 +4,15 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/201-review.md` (open) - hand-over: Iteration 21 (2026-10-11). Steps 1 (environment) and 2 (fit/review.py + seeds + first export) are DONE and
+- `tasks/201-review.md` (open) - hand-over: Iteration 22 (2026-10-11). Steps 1 (environment), 2 (fit/review.py + seeds + first export, commit ad8dbc1)
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
 - `tasks/202-propose.md`
-- `tasks/801-evidence-no-tie-coverage.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 201 DECISION: settle the environment before any code - Chrome 155 installed, headless page boot verified (prep R1/R2 closed)
-The prep's step 1. `npx -y playwright@1.63.0 install chrome` fails on this VM (its script wants a TTY sudo;
-here only `sudo -n apt-get` is passwordless - sudoers.d/agent-apt), so I ran its steps directly:
-`curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo -n apt-get install -y
-./google-chrome-stable_current_amd64.deb` -> Google Chrome 155.0.8059.39 at /opt/google/chrome/chrome (PITFALLS
-entries record the rebuild recipe). Headless probe (temp-tree `serve.py --port 0` +
-`NODE_PATH=/home/agent/tools/shot/node_modules node tools/shot.mjs <served>/ /tmp/... 10000 1200 800 "<eval>"`):
-the page BOOTS headless - eval reports ready:true, 384 sites, 1166 plans, tab 'sites', stats line present, no
-[pageerror]; only the two expected 404s (data/scans.json, data/amazon/areas.json) and harmless WebGL warnings.
-R1 is resolved: test case 2 (headless load showing the review list) can be built exactly as worded; the R2
-fallbacks (a different launcher / proposed changes to shot.mjs) are no longer needed. Shot.mjs's Mac-path
-createRequire resolves fine via NODE_PATH.
 
 ### 2026-10-11 201 DECISION: prep-notes assumption audit against main @ 03b8c06 - five corrections, rest holds
 Wrong/stale in tasks/prep/201.md (checked against main, which gained the 001 merge since the prep was written):
@@ -87,6 +73,32 @@ no_picture lifecycle, resolved_doc via a real doc / via the recorded field, expo
 missing-site fallback (stderr warning, id as name), idempotent re-export (identical body modulo at), --root.
 Suite: 12 passed under .venv/bin/python (the driver's run). System python3 fails 4 (test_gate, test_evidence
 CLI) - pre-existing PIL/numpy absence, not this step.
+
+### 2026-10-11 201 DECISION: prep step 3 shipped (commit 0b65deb) - web/index.html alone: P.byId keyed by planKey(r) = id.sites[0] (id when sites empty); fit-list buttons carry the composite key, the data-plan binding is unchanged
+Box-5 keying fix, committed alone as the hand-over ordered. The change (all in the one inline script): a
+`function planKey(r) { return r.sites.length ? r.id + '.' + r.sites[0] : r.id; }` placed just above
+`loadPlans()` with a comment; line 819 now `P.byId[planKey(r)] = r`; the fit-list markup (was line 853) now
+`data-plan="${esc(planKey(r))}"`. The binding `openPlan(P.byId[b.dataset.plan])` is untouched - the button
+carries the full composite, so no site parameter is needed (the prep's "cleaner" variant, as the hand-over
+had it). No other change to index.html; the script tag (step 4) is still not added, so the served page today
+still has zero review footprint.
+
+Verification before committing (no test file yet - step 5 writes the committed cases):
+1. Composite-key facts re-checked on this branch's served plans.json: 1166 rows, 0 ids containing '.', exactly
+   the two known duplicate-id pairs, all 1166 (id, sites[0]) composite keys unique, empty-site rows' bare ids
+   colliding with no composite key (python3 over web/data/plans.json).
+2. Suite: 12 passed under .venv/bin/python (same as baseline, no assertion touched) - "nothing changed" per
+   the refactor-first rule; loadPlans is ~6 lines, no flag/branch added, so no separate refactor was owed.
+3. Headless behaviour check through the real page (scratch server on port 0 + tools/shot.mjs, /tmp throwaway):
+   after boot, `Object.keys(P.byId)` contains BOTH rows of each duplicate id (c_ffb3daac218b481f.
+   {avebury-q661855,stonehenge-q39671}; c_984782b9e35e8ded.{king-arthur-s-round-table-q283800,
+   mayburgh-henge-q1469390}); opening each of the four sites' fit lists, every [data-plan] button's key
+   resolved via P.byId to the row whose url is that site's own media copy (e.g. the avebury button ->
+   media/commons/avebury-q661855/ffb3daac218b481f.jpg, the stonehenge button -> the stonehenge copy). Before
+   the fix the map was last-row-wins, so one of each pair resolved to the other site's picture - the exact
+   bug the box describes. No [pageerror]; only the two expected 404s (data/scans.json, amazon areas).
+   The committed test (step 5, case 4) will assert the same through the temp-tree served fixture, per the
+   hand-over's data-level fallback if headless degrades there.
 
 ## Project-wide driver notes (newest)
 
