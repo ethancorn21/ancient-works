@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/213a-civitates-list.md` (open) - hand-over: **Iteration 34 (2026-10-11): the two list files are WRITTEN + VALIDATED - boxes 1-4 ticked. Only
+- `tasks/213a-civitates-list.md` (open) - hand-over: **Iteration 35 (2026-10-11): ALL SIX BOXES DONE - 213a is finished.** Box 5: rewrote the books
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
 ## Next open tasks
@@ -115,6 +115,38 @@ Sebastian, 58 LVTETIA PARISIORVM, 85 BRVXELLA, 90 GANDANVM, 98 ANVERPIA, 109 AMS
 AVGVSTA verso, 194 VIENNA AVSTRIAE, 199 MEDIOLANVM verso, 202 VENETIA verso, 214 ANCONA, 217/218
 NEAPOLIS, 225 MESSANA); the five double-plate leaves (50/54/193/205/206) carry the second half's
 ... (1.8 KB more: `grep -n -A 200 -F '## 2026-10-11 213a DECISION: mapping RESOLVED - triage file nNNNN.jpg = A-row NNNN = 1-based leaf NNNN+1; iteration-29's 10 reads were each off by one leaf (the parent's 19 stand)' DECISIONS.md`)
+
+### 2026-10-11 213a DECISION: lead-doc books section rewritten (box 5) + box 6 verified - 213a finished
+The only change this session: the books section of docs/lead_artists.md (replaces the iteration-26
+text). All content verified against the committed files first (list json tallies, A/F jsonl typing,
+page_numbers file, cached IA metadata for all six items, books.py BOOKS cite convention,
+books_ia.page_texts source). What the section now carries (the goal's (a)-(f)): (a) identity + the
+six-item table gained a **cite-string column for 216** - verbatim BOOKS values backed by the cached
+metadata (Liber secundus: "Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber
+secundus, Antwerp 1575 (Aegidius Rade)"; topographiahelve00zeil: Merian + Zeiller, Frankfurt 1654,
+Merianischen Erben; PAN item: Merian, 1642) - plus the note that the book-level `region` is 216's
+call (the town's region comes from the row; pick the dominant one, say so in the cite string).
+(b) Section structure: strictly title leaf -> 1-3 plate leaves -> more history (the
+"interleave both ways" note dropped as a faded-verso misread); the six blank versos type
+inconsistently (A51/111/207/227 text_only vs A187/199 plate_site_plan); the three fold-outs incl.
+Venice = views on both sides (recto A201 = the famous view, verso A202 = second view, legend from
+item 53). (c) Two pitfalls for 216/217: hOCR page index misaligned 0-2 leaves (books_ia.
+page_texts()/djvu_txt() unreliable for this book - the image-based A rows are ground truth; 217
+must not use page_texts for civitates); machines under-detect plans in BOTH directions (A typed
+only 3/121 as plate_site_plan - A187/199 blank versos + A238 Jerusalem-new; F's 10 distinct plan
+leaves hold only 2 true plans A90/A237; F misses A58/85/98/109/238, flags A186 a view) - the hand
+list's kind s (7 verified) is the only plan source. (d) Corrections: FEDERATORVM sheets = views of
+the 13 Swiss cantons (o), not maps; the 7 true plans incl. both Jerusalems; A187/199 blank versos
+(u, no picture), A197 Milan arms (u); the two garble corrections (fig 50 Cum Privilegio, fig 198
+MEDIOLANVM). (e) The transcription scheme + tally: one entry per 121 figure leaf, title = printed
+inscription or section city name (14 leaves listed), double-plate brackets on 50/54/193/205/206,
+page only fig 193/194 (leaves 280-284 carry I-V but no figure leaf falls there), kinds s7/u3/o111,
+kind_by hand 30/A 91, .map.json = [] honestly empty (list_pages maps by printed page number).
+(f) Per-book status of all six: liber2 = fully worked (triage + list + map); the other five =
+metadata verified, untriaged = 216/217 follow-on scope. Box 6 verified: git status shows only
+docs/lead_artists.md; scoped diff of books.py/books_lists.py/index.jsonl/validation.json/triage/fit
+= 0 lines. The parent 213 keeps its own lead-doc duties (QID table, --check/--golden, test,
+PITFALLS entries) - untouched this session; parent's box 5 stays unticked (213b's work not in).
 
 ## Project-wide driver notes (newest)
 
