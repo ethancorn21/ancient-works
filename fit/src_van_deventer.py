@@ -42,6 +42,9 @@ FILES_CANONICAL = os.path.join(ROOT, "data", "commons", "files.jsonl")
 NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: check() skips an absent books file
 
 CATALOG_PARENT = "Maps by Jacob van Deventer"
+CHAIN_FETCH_CAP = 60  # the --chain BFS's per-town fetch budget: measured chains are 3-5 hops and a few
+                      # dozen fetches, but a frontier the map tree does not close within 6 hops (a
+                      # disambiguated p373) explodes - the cap sends that town to the caption route
 COLLECTIONS = [
     "Maps by Jacob van Deventer (Biblioteca Nacional de España)",
     "Maps by Jacob van Deventer (Nationaal Archief)",
@@ -58,7 +61,8 @@ COLLECTIONS = [
 # P373 category string (the category route's target and the staged row's "cat"). date is the known drawing date
 # used when the file page carries only an upload date (the Gouda/Zwolle precedent). done: the six already
 # hand-tied in pipeline/sources.py (never re-staged here). file: the one staged picture (the best full plan).
-# chain: the verified category chain (the file category's parents up to p373; the category evidence kind).
+# chain: the verified category chain (the file category's parents up to p373; the category evidence kind),
+# kept in the CHAINS table below (one place for the walked paths) and read through chain_of().
 # caption: the place string the file's title/desc actually prints (the caption route's named_place).
 TOWNS = {
     # -- the Netherlands (19 categories: 16 to stage + the 3 done; "Groningen (province)" is a province map, a
@@ -498,8 +502,19 @@ TOWNS = {
 }
 
 # The verified category chains, per town: the parents of the town file category up to the town's P373 category
-# (live-walked by --chain; via[-1] == p373, the file category is not in via). Recorded in the TOWNS entry as
-# "chain" once the walk succeeds; a failed walk goes to the caption route (or a documented drop).
+# (live-walked by --chain on 2026-10-11, iteration 55; transcript /tmp/vd_chains_iter55.txt). Each value is the
+# walked via list EXACTLY as --chain prints it: via[-1] == p373, the file category is not in via.
+# check_category re-verifies only the chain's shape, so the walked path recorded here IS the verification -
+# never type or edit one by hand. A town absent from this table failed its walk (depth cap 6 or the fetch
+# cap) and rides the caption route; the per-town reasons are in docs/lead_van_deventer.md.
+CHAINS = {
+}
+
+
+def chain_of(town):
+    """The verified category chain of the town's staged file (the CHAINS table, or an inline TOWNS "chain"): None
+    when the walk failed - the town then rides the caption route."""
+    return TOWNS[town].get("chain") or CHAINS.get(town)
 
 
 def now():
@@ -696,10 +711,11 @@ def town_files(only=None):
 
 def cat_chain(town):
     """Live: walk the parents of the town file's category (the town's van Deventer category) up to the town's
-    P373 category: BFS over the category page's containing categories, town-name parents first (they shorten
-    the walk), depth cap 6, a visited set. Prints the walked via list as JSON (record it in the TOWNS entry as
-    "chain": via[-1] == the P373 string, the file category NOT in via - check_category re-verifies the shape,
-    the walk is the verification), or reports the failed walk (the town then rides the caption route)."""
+    P373 category: BFS over the category page's containing categories (prop=categories), town-name parents
+    first (they shorten the walk), depth cap 6, CHAIN_FETCH_CAP fetches, a visited set. Prints the walked via
+    list as JSON (record it in the CHAINS table: via[-1] == the P373 string, the file category NOT in via -
+    check_category re-verifies the shape, the walk is the verification), or reports the failed walk (the town
+    then rides the caption route)."""
     c = _commons()
     t = TOWNS[town]
     if not t.get("p373"):
@@ -708,28 +724,47 @@ def cat_chain(town):
     start = t.get("filecat") or t["cat"]
     queue, visited = [start], set()
     via = {start: []}
-    depth = 0
+    fetches, depth = 0, 0
     while queue and depth <= 6:
         nxt = []
         for cat in queue:
-            if cat == target:
+            if cat == target:  # checked before the cap: a budget overrun never hides a hit
                 chain = via[cat]
                 print(f"{town}: chain holds ({len(chain)} hops): {start} -> " + " -> ".join(chain))
                 print("record: \"chain\": " + json.dumps(chain))
                 return chain
+            if fetches >= CHAIN_FETCH_CAP:
+                break
+            # prop=categories lists the CONTAINING categories of a category page; the old categoryinfo
+            # cicategories/ciclimit parameters are unrecognized by the current MediaWiki and are ignored
+            # with a warning (the walk would then see zero parents and silently fail for every town).
             d = c.get(c.CM, {"action": "query", "titles": "Category:" + cat,
-                             "prop": "categoryinfo", "cicategories": "1", "ciclimit": "500"})
-            pages = d.get("query", {}).get("pages", {}).values()
-            parents = [p.get("allcategories", [{}])[i].get("title", "").split(":", 1)[-1]
-                       for p in pages for i in range(len(p.get("allcategories", [])))]
+                             "prop": "categories", "cllimit": "500"})
+            if "error" in d or d.get("warnings"):
+                raise SystemExit(f"{cat}: API shape change - the walk is not verified: "
+                                 f"{d.get('error') or d.get('warnings')}")
+            fetches += 1
+            parents = [pc.get("title", "").split(":", 1)[-1]
+                       for p in d.get("query", {}).get("pages", {}).values()
+                       for pc in p.get("categories", [])]
             for p in sorted(parents, key=lambda n: (t.get("label") or town).lower() not in n.lower()):
                 if p not in visited:
                     visited.add(p)
                     via[p] = via[cat] + [p]
                     nxt.append(p)
-        queue = nxt
-        depth += 1
-    print(f"{town}: no chain from {start} to {target} within 6 hops (the caption route)")
+        print(f"  {town} level {depth}: queue {len(queue)}, next {len(nxt)}, fetches {fetches}", flush=True)
+        queue, depth = nxt, depth + 1
+    if target in visited:  # added by a real fetch (every edge of via[target] was returned by an API response),
+        chain = via[target]  # so the path is the walked one even if the fetch cap stopped the pops first
+        if len(chain) <= 6:
+            print(f"{town}: chain holds ({len(chain)} hops): {start} -> " + " -> ".join(chain))
+            print("record: \"chain\": " + json.dumps(chain))
+            return chain
+        print(f"{town}: {target!r} sits {len(chain)} hops out, beyond the depth cap (the caption route)")
+    elif fetches >= CHAIN_FETCH_CAP:
+        print(f"{town}: walk capped at {CHAIN_FETCH_CAP} fetches without reaching {target!r} (the caption route)")
+    else:
+        print(f"{town}: no chain from {start} to {target} within 6 hops (the caption route)")
     return None
 
 
@@ -753,9 +788,10 @@ def evidence_for(town, m):
     first name-search hit instead, the trap), else None (a documented drop, never staged)."""
     import books_match
     t = TOWNS[town]
-    if t.get("chain"):
+    chain = chain_of(town)
+    if chain:
         return {"rec": "evidence/1", "kind": "category", "checked": now(),
-                "site_cat": t["p373"], "file_cat": t["cat"], "via": t["chain"]}
+                "site_cat": t["p373"], "file_cat": t["cat"], "via": chain}
     named = t.get("caption") or t.get("label") or town
     hay = books_match.norm(t["file"] + " " + (m.get("desc") or ""))
     if books_match.norm(named) not in hay:
@@ -804,7 +840,7 @@ def stage(dry=False):
             raise SystemExit(f"{town}: no evidence route (chain missing and the file does not name the town) - "
                              f"pick a file that does, or record the drop in docs/lead_van_deventer.md")
         f = {"site": sid, "qid": t["qid"], "title": t["file"], "year": c.year_of(t["file"], m),
-             "wd_plan": False, "cat": t["p373"] if t.get("chain") else None,
+             "wd_plan": False, "cat": t["p373"] if chain_of(town) else None,
              "name": f"{t.get('label') or town}, town plan by Jacob van Deventer",
              "by": "fit/src_van_deventer.py", **m}
         f["evidence"] = evidence_for(town, m)

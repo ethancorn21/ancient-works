@@ -157,3 +157,36 @@ row), tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socke
 fixture, check_staged(), subprocess `fit/evidence.py check --files <staged> --books <absent path>`, golden
 sample, negative control; box 6: year_of of every staged row in 1545-1565), `--golden`
 (tests/golden/src_van_deventer_sample.json), full pytest.
+
+## 2026-10-11 204 DECISION: cat_chain fixed for the current MediaWiki (prop=categories, fail-loud on warnings) + 60-fetch cap + CHAINS table - 56 walks launched
+The first `--chain` probe of the long run (Ghent / Brussels / Luxembourg City) exposed a broken walker: `cat_chain`
+fetched a category's parents with `action=query&prop=categoryinfo&cicategories=1&ciclimit=500`, but the current
+MediaWiki API does not recognize those parameters (response carries `warnings.main.*: "Unrecognized parameters:
+cicategories, ciclimit."` - and `commons.get` returns the body without surfacing the warning). So every walk saw
+ZERO parents and silently "failed" in ~1 s per town (even Ghent, which the 2026-10-10 prep measured as holding at
+4 hops). Two fixes in fit/src_van_deventer.py (my own file):
+- **`prop=categories` + `cllimit=500`** for a category page's CONTAINING categories (verified live: Ghent's van
+  Deventer category returns '16th-century maps of Ghent' + 'Maps by Jacob van Deventer'), plus a fail-loud guard:
+  any response with `error` or `warnings` -> SystemExit. The silent zero-parents degradation is exactly the case
+  prep R7 warned about ("the walk is the verification" - a walk that fetches nothing verifies nothing).
+- **`CHAIN_FETCH_CAP = 60` per walk + per-level progress lines** (the transcript gets `level k: queue N, next M,
+  fetches F` per town). Measured chains are 3-5 hops and a few dozen fetches (Ghent holds at 38), but the BFS
+  expands ALL parents, so a disambiguated p373 the map tree does not hold within 6 hops explodes the frontier
+  (Brussels (municipality): 730 s and the full 6-level frontier pre-fix, still no hit - genuinely absent, the map
+  tree uses the plain 'Brussels' name). The cap bounds that town to ~a minute and sends it to the caption route.
+  Refinement found by the probe: when the target was added to the visited set by a REAL fetch before the cap
+  stopped the pop loop, the `via[target]` path is fully walked (every edge was returned by an API response), so
+  it is returned when it is within the depth cap - that is how Luxembourg City's 4-hop chain is recovered from a
+  capped walk. The final message now distinguishes "sits N hops out, beyond the depth cap" / "capped at 60
+  fetches" / "no chain within 6 hops".
+- **The recording home moved from an inline TOWNS "chain" key to a module-level `CHAINS` table** (the stub comment
+  after TOWNS that existed for exactly this) plus a `chain_of(town)` helper used by `evidence_for` and `stage`.
+  Rationale: the read tool has not been byte-faithful on this .py file (PITFALLS) and 56 multi-line dict edits
+  would be fragile; one mechanical table is reviewable. TOWNS header comment, the cat_chain docstring and the
+  stub comment all document the new home; an inline "chain" is still honoured (chain_of checks it first).
+Probe results (post-fix, capped): Ghent HOLDS 4 hops via 'Historical images of Ghent' (a different middle than the
+prep's 'Maps of Ghent' - both real, this is the actually-walked one); Luxembourg City HOLDS 4 hops via
+'Geography of Luxembourg City'; Brussels CAPPED -> caption route (file title names the town). The full 56-town
+walk runs in the background (transcript /tmp/vd_chains_iter55.txt, PID file /tmp/vd_chains_iter55.pid); the CHAINS
+table gets filled from the transcript's `record:` lines next session after an eyeball pass of every path against
+its P373.
