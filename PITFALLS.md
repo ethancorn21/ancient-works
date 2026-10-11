@@ -280,6 +280,18 @@ Why: short common names get outranked by their many homonyms. When the expected 
       re-search at limit 20 (and in the other language), then re-check label + P625 + P373 + enwiki before
       recording - the 204 BE batch found Mons only this way (lead doc, QID verification - Belgium).
 
+#### A wbsearchentities label search containing parentheses returns EMPTY
+Where: the Wikidata wbsearchentities API for a label-based search (fit/src_van_deventer.py
+      `_search_candidates`; task 204's 'Luxembourg (city)' lookup)
+Symptom: search='Luxembourg (city)' returns [] - no candidates, no error - while the item exists and the
+      unparenthesized search 'Luxembourg City' hits it (Q1842 came first at limit 20; the
+      plain 'Luxembourg' search ranks the country Q32 and the Belgian province Q1126 ahead of it)
+Why: the search matches labels, and '(city)' is a Wikipedia-style disambiguation that no Wikidata label
+      carries (the item's label is just 'Luxembourg'). A parenthesized or otherwise qualified search term is a
+      guess about a label that does not exist and silently returns nothing. Search the unparenthesized form
+      (or a label form that actually exists) and let the candidate fact sheet (label + P625 + P373 + enwiki)
+      do the disambiguation.
+
 #### A Wikimedia API call with no User-Agent gets HTTP 403; commons.get already sets one, a raw script must too
 Where: `pipeline/commons.py` (`get`, sets `aw.UA`) and any throwaway script hitting the Wikimedia APIs
       directly (e.g. the thumb download snippet of the 204 BE eye check)

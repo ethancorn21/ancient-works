@@ -37,14 +37,14 @@ Deventer" except where noted):
   drop, not a town plan; Maps of Haarlem; Map of Leeuwarden; Map of Middelburg; Map of Reimerswaal; Maps of
   Rotterdam; Map of Sluis; Map of The Hague; Maps of Utrecht (city); Map of Valkenburg, Limburg; (done) Map of
   Gouda; Map of Zwolle; Map of Venlo.
-- **Belgium (22 = 20 to stage + 2 done):** Map of Ath; Map of Braine-le-Comte; Maps of Bruges; Maps of Brussels;
+- **Belgium (23 = 21 to stage + 2 done):** Map of Ath; Map of Braine-le-Comte; Maps of Bruges; Maps of Brussels;
   Map of Chimay; Map of Chièvres; Map of Enghien; Map of Ghent; Map of Halle; Map of Kortrijk; Map of Lessines;
-  Map of Leuze; Map of Mechelen; Map of Mons; Map of Ostend; Map of Saint-Ghislain; Map of Soignies; Map of
-  Tournai; Maps of Aarschot; Maps of Oudenaarde; (done) Map of Damme; Map of Binche.
-- **France (24 = 23 to stage + 1 done):** Map of Aire-sur-la-Lys; Map of Arras; Map of Avesnes-sur-Helpe; Map of
+  Map of Le Rœulx; Map of Leuze; Map of Mechelen; Map of Mons; Map of Ostend; Map of Saint-Ghislain; Map of
+  Soignies; Map of Tournai; Maps of Aarschot; Maps of Oudenaarde; (done) Map of Damme; Map of Binche.
+- **France (23 = 22 to stage + 1 done):** Map of Aire-sur-la-Lys; Map of Arras; Map of Avesnes-sur-Helpe; Map of
   Bapaume; Map of Bavay; Map of Beaumont; Map of Bouchain; Map of Béthune; Map of Cambrai; Map of
   Condé-sur-l'Escaut; Map of Douai; Map of Gravelines; Map of Hesdin; Map of Landrecies; Map of
-  Le Cateau-Cambrésis; Map of Le Quesnoy; Map of Le Rœulx; Map of Lille; Map of Maubeuge; Map of Saint-Omer;
+  Le Cateau-Cambrésis; Map of Le Quesnoy; Map of Lille; Map of Maubeuge; Map of Saint-Omer;
   Map of Thérouanne; Map of Valenciennes; Map of Vieil-Hesdin; (done) Map of Bergues.
 - **Luxembourg (1 to stage):** Maps of Luxembourg City Jacob van Deventer (no "by" - the only irregular title).
 
@@ -124,8 +124,15 @@ staged `wikipedia` field. Four items carry a disambiguated P373 ('Brussels (muni
 (Belgium)', 'Mons (Hainaut)', 'Leuze-en-Hainaut') - the category route's target is that exact string, so the
 chain walk must reach it (the --chain step of each of these four towns is the watch item). Saint-Ghislain's
 item (Q668950) has no en label on Wikidata (the re-check prints an empty label, not a mismatch: the search
-API's label and the enwiki article 'Saint-Ghislain' both confirm it). No BE QID is in the built catalog
-(checked against the 12575-site catalog on 2026-10-11): all 20 get new catalog entries.
+API's label and the enwiki article 'Saint-Ghislain' both confirm it). Le Rœulx (Q668861) was discovered in the
+FR batch (iter 49) and moved here from the prep's France list: its verified item sits in Hainaut, Belgium
+(enwiki lead: "a city and municipality of Wallonia located in the province of Hainaut, Belgium"). Its recorded
+item's P625 (4.1, 50.5) is a rounded value, so the recorded site point is the precise P625 of its subdivision
+item Q21764574 (4.11163, 50.50365) - the 0.91 km P625 → site distance in the table is that rounded-value
+offset, expected; re-verified in the FR batch's re-check (transcript /tmp/vd_verify_fr_recheck_iter49.txt):
+label match, P373 'Le Roeulx' (without the diaeresis) ok, enwiki matches. No BE QID is in the built catalog
+(checked against the 12575-site catalog on 2026-10-11, the 21 including Le Rœulx): all 21 get new catalog
+entries.
 
 | Town | QID | Label | P625 (lon, lat) | Site point (lon, lat) | P625 → site | enwiki |
 |---|---|---|---|---|---|---|
@@ -140,6 +147,7 @@ API's label and the enwiki article 'Saint-Ghislain' both confirm it). No BE QID 
 | Halle | Q210003 | Halle | 4.237222, 50.736111 | 4.2372, 50.7361 | 0.00 km | Halle, Belgium |
 | Kortrijk | Q12995 | Kortrijk | 3.265833, 50.8275 | 3.2658, 50.8275 | 0.00 km | Kortrijk |
 | Lessines | Q667790 | Lessines | 3.83, 50.7117 | 3.83, 50.7117 | 0.00 km | Lessines |
+| Le Rœulx | Q668861 | Le Rœulx | 4.1, 50.5 | 4.1116, 50.5036 | 0.91 km | Le Rœulx |
 | Leuze | Q667862 | Leuze-en-Hainaut | 3.616667, 50.6 | 3.6167, 50.6 | 0.00 km | Leuze-en-Hainaut |
 | Mechelen | Q162022 | Mechelen | 4.480278, 51.028056 | 4.4803, 51.0281 | 0.01 km | Mechelen |
 | Mons | Q83407 | Mons | 3.9525, 50.454722 | 3.9525, 50.4547 | 0.00 km | Mons, Belgium |
@@ -168,21 +176,103 @@ catalog, so no BE town stages under an existing site id.
 - **Mechelen** - no trap on the first hit, but the third candidate is the Dutch Mechelen (Gulpen-Wittem,
   Q100020) - the label + P373 checks ('Mechelen' vs 'Mechelen (Netherlands)') separate them.
 
-## France, Luxembourg (pending)
+## QID verification - France, Luxembourg (checked 2026-10-11, iter 49; re-run with `.venv/bin/python fit/src_van_deventer.py --verify`)
 
-24 towns left to verify with the same method (FR 23 + LU 1); this section grows per batch, and every
-unverifiable QID lands here with its reason (box 2).
+Method: the same as the NL and BE batches. One discovery run (24 towns, transcript
+/tmp/vd_verify_fr_iter49.txt) returned the fact sheets (label, every P625, P373, P131, enwiki) for all 23 FR
+towns to stage plus Luxembourg City; the first candidate was the right item for every one of the 22
+non-Beaumont FR towns. The 23 QID-verified towns (21 FR, the moved Le Rœulx and Luxembourg City) were then
+re-verified in one batch (transcript /tmp/vd_verify_fr_recheck_iter49.txt): **every label matches, every P373
+equals the recorded category string (the category route's target), every P625 sits within 0.91 km of the
+recorded site point, and every enwiki matches** - 0.00-0.01 km for all but Le Rœulx (0.91 km, the rounded-P625
+offset, Belgium section above). The site point is the P625 rounded (the BE convention); an old-town-centre
+offset is the watch item once the drawings are eye-checked.
 
-- **Beaumont's country settles at verification**: the candidate list holds a Hainaut (Belgium) town and
-  northern-France towns - the Barnard-Castle-style trap. The TOWNS region value is the `france` guess; it
-  flips to `belgium` if the verified item is the Hainaut one.
-- **Luxembourg City** (Q1564 expected from the search 'Luxembourg (city)'): the staged row's region will be a
-  NEW lowercase value `luxembourg`. `build_catalog`'s REGION_NAME has keys for belgium/netherlands/france but
-  no luxembourg, so the site display falls back to the raw value (its line-91 default) - acceptable, but a
-  REGION_NAME key is a small follow-on task.
-- The prep's "from general knowledge" candidates are all discarded: Brussels Q239 is now the verified BE row
-  above (its P373 is 'Brussels (municipality)', not 'Brussels'); Lille (the prep's Q1793) waits for the FR
-  batch; The Hague Q36600 and Groningen Q749 are the verified NL rows (neither is the prep's guess).
+Three things the discovery run changed from the prep's list:
+
+- **Le Rœulx is Belgian, not French** (the prep's France list was wrong): its verified item Q668861 sits in
+  Hainaut, Belgium (enwiki lead: "a city and municipality of Wallonia located in the province of Hainaut,
+  Belgium"). It is now a row in the Belgium section above; the Commons category count moved with it (FR
+  24 → 23, BE 22 → 23).
+- **Luxembourg City is Q1842, not the prep's Q1564**: the qualified search 'Luxembourg (city)' returned EMPTY
+  (a wbsearchentities label search containing parentheses returns nothing - the known quirk, PITFALLS); a
+  follow-up at limit 20 searching 'Luxembourg City' (transcript /tmp/vd_lu_iter49.txt) hits Q1842 first: label
+  'Luxembourg', P625 (6.13, 49.611389), P373 'Luxembourg City', P131 'Canton of Luxembourg', enwiki
+  'Luxembourg City'. Q1564 was merged away (it now holds 'Borgfelde', Hamburg). The staged row's region will
+  be a NEW lowercase value `luxembourg`; `build_catalog`'s REGION_NAME has keys for belgium/netherlands/
+  france but no luxembourg, so the site display falls back to the raw value (its line-91 default) -
+  acceptable, but a REGION_NAME key is a small follow-on task.
+- **Beaumont is the only town whose QID is still unverified** (box 2): the en search top 20 holds only one
+  plausible item, Q95100, the Hainaut (Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; P131
+  'Arrondissement of Thuin'; enwiki 'Beaumont, Belgium') - the northern-France Beaumont (Nord) the TOWNS region
+  guess implies is ABSENT from the en top 20. The atlas plate settles it: the --files run's desc/eye check of
+  the drawing decides Hainaut vs Nord (the Hainaut town sits on the Sambre at the French border, the Nord one
+  is inland near Seclin). If Hainaut wins, the region flips france → belgium and the QID is Q95100; the TOWNS
+  entry keeps region='france' with a note= pending until then.
+
+None of the QIDs verified here (the 22 non-Beaumont FR towns, the moved Le Rœulx, Luxembourg City, and the
+done Bergues) is in the built catalog (checked against the 12575-site catalog on 2026-10-11): all get new
+catalog entries (box 4 - no existing-site reuse). The Douai and Valenciennes items also carry the historical
+P131 'County of Flanders' / 'County of Hainaut' (the c. 1550 context of the drawings); the rows' place is the
+modern department (Nord).
+
+| Town | QID | Label | P625 (lon, lat) | Site point (lon, lat) | P625 → site | enwiki |
+|---|---|---|---|---|---|---|
+| Aire-sur-la-Lys | Q259903 | Aire-sur-la-Lys | 2.396667, 50.638611 | 2.3967, 50.6386 | 0.00 km | Aire-sur-la-Lys |
+| Arras | Q131329 | Arras | 2.78, 50.289167 | 2.78, 50.2892 | 0.00 km | Arras |
+| Avesnes-sur-Helpe | Q217178 | Avesnes-sur-Helpe | 3.932676, 50.122394 | 3.9327, 50.1224 | 0.00 km | Avesnes-sur-Helpe |
+| Bapaume | Q317235 | Bapaume | 2.851111, 50.103611 | 2.8511, 50.1036 | 0.00 km | Bapaume |
+| Bavay | Q477176 | Bavay | 3.798056, 50.2975 | 3.7981, 50.2975 | 0.00 km | Bavay |
+| Bouchain | Q632348 | Bouchain | 3.316944, 50.284167 | 3.3169, 50.2842 | 0.00 km | Bouchain |
+| Béthune | Q207145 | Béthune | 2.639326, 50.53095 | 2.6393, 50.531 | 0.01 km | Béthune |
+| Cambrai | Q181285 | Cambrai | 3.234722, 50.175833 | 3.2347, 50.1758 | 0.00 km | Cambrai |
+| Condé-sur-l'Escaut | Q494533 | Condé-sur-l'Escaut | 3.590556, 50.449167 | 3.5906, 50.4492 | 0.00 km | Condé-sur-l'Escaut |
+| Douai | Q193826 | Douai | 3.079167, 50.370833 | 3.0792, 50.3708 | 0.00 km | Douai |
+| Gravelines | Q323399 | Gravelines | 2.1275, 50.986389 | 2.1275, 50.9864 | 0.00 km | Gravelines |
+| Hesdin | Q467366 | Hesdin | 2.036667, 50.374167 | 2.0367, 50.3742 | 0.00 km | Hesdin |
+| Landrecies | Q632808 | Landrecies | 3.69, 50.125556 | 3.69, 50.1256 | 0.00 km | Landrecies |
+| Le Cateau-Cambrésis | Q329103 | Le Cateau-Cambrésis | 3.541111, 50.105278 | 3.5411, 50.1053 | 0.00 km | Le Cateau-Cambrésis |
+| Le Quesnoy | Q180067 | Le Quesnoy | 3.6375, 50.248889 | 3.6375, 50.2489 | 0.00 km | Le Quesnoy |
+| Lille | Q648 | Lille | 3.0575, 50.631944 | 3.0575, 50.6319 | 0.00 km | Lille |
+| Maubeuge | Q138648 | Maubeuge | 3.9725, 50.276944 | 3.9725, 50.2769 | 0.00 km | Maubeuge |
+| Saint-Omer | Q208793 | Saint-Omer | 2.260833, 50.748333 | 2.2608, 50.7483 | 0.00 km | Saint-Omer |
+| Thérouanne | Q261399 | Thérouanne | 2.258889, 50.636667 | 2.2589, 50.6367 | 0.00 km | Thérouanne |
+| Valenciennes | Q163795 | Valenciennes | 3.523333, 50.358056 | 3.5233, 50.3581 | 0.01 km | Valenciennes |
+| Vieil-Hesdin | Q1022768 | Vieil-Hesdin | 2.098889, 50.3575 | 2.0989, 50.3575 | 0.00 km | Vieil-Hesdin |
+| Luxembourg City | Q1842 | Luxembourg | 6.13, 49.611389 | 6.13, 49.6114 | 0.00 km | Luxembourg City |
+| Bergues (done) | Q244934 | Bergues | 2.434167, 50.968611 | 2.4342, 50.9686 | 0.00 km | Bergues - stays in pipeline/sources.py |
+
+23 rows: the 21 FR towns to stage + Luxembourg City + the done Bergues (the 22nd FR town, Beaumont, has no
+verified QID yet - see the pending paragraph above).
+
+### Name-search traps - France, Luxembourg
+
+- **Le Quesnoy** - the one case where the label check cannot help: the search holds TWO items with the exact
+  label 'Le Quesnoy' - the recorded Q180067 (Nord, P625 3.6375, 50.248889, enwiki 'Le Quesnoy') and Q109413780
+  (Somme, P625 1.936083, 50.194902, no P373, no enwiki). The first hit with P625 was the right one; the
+  coordinates and the enwiki link are what separate the twins.
+- **Lille** - the fourth candidate is the Belgian Lille (Turnhout) Q725235 (P625 4.824167, 51.238333; P373
+  'Lille, Belgium'; enwiki 'Lille, Belgium'). The recorded Q648 is the French city (P373 'Lille', enwiki
+  'Lille'). The prep's "from general knowledge" Q1793 is neither.
+- **Saint-Omer** - the label is shared with Q844283 'Saint-Omer (Calvados)' (P625 -0.453333, 48.925833) and
+  Q3463075 'Saint-Omer, Chaudière-Appalaches, Quebec' (P625 -69.7333, 47.05); the recorded Q208793 is the
+  Pas-de-Calais town.
+- **Thérouanne** - the second candidate Q428296 is the river Thérouanne (Seine-et-Marne, P625 2.961389,
+  49.004444, P373 'Thérouanne (rivière)'), with the Thérouanne Viaduct (Q109252867) alongside; the recorded
+  Q261399 is the town.
+- **Bapaume** - Q19543896 is the French aviso Bapaume (a ship, 1918; no P625, enwiki 'French aviso Bapaume')
+  and Q48807630 is Bapaume, Queensland (P625 151.8408, -28.5752); the recorded Q317235 is the Pas-de-Calais
+  town.
+- **Luxembourg City** - the qualified label search 'Luxembourg (city)' returns EMPTY (the parentheses quirk,
+  PITFALLS); the unqualified 'Luxembourg' (limit 20, en) ranks the country Q32 first, 'Luxembourg Province'
+  (Q1126, Wallonia) second and the city Q1842 third; the follow-up search 'Luxembourg City' hits Q1842 first.
+- **Beaumont** - the Barnard-Castle-style trap the search alone did not settle: see the pending paragraph
+  above (only the Hainaut item in the en top 20; the Nord town absent from it).
+- The rest had a correct first hit; the notable near-misses: Cambrai Q84243457 (a near-duplicate item at the
+  same coordinates, no P373, no enwiki) and Q5025235 (Cambrai, South Australia); Aire-sur-la-Lys Q38375111
+  (same label, no P625) and Q127729933 (label 'Aire-sur-la-Lys', P625 in Ecques, no P373); Le Rœulx's own
+  subdivision item Q21764574 'Le Roeulx' (the source of its recorded site point); and stations, cemeteries,
+  cantons and person items in nearly every town's candidate list.
 
 ## Per town: staged picture or documented drop
 
@@ -314,11 +404,16 @@ re-download via `commons.info` with the `aw.UA` User-Agent - the Commons API 403
   van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his career ran to
   his death in 1575, and the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
 
-### France, Luxembourg (pending)
+### France, Luxembourg (QIDs verified 2026-10-11, iter 49; file= pending the --files run)
 
-24 towns left (FR 23 + LU 1), one bullet per town as the `--files` inventories run; the BNE atlas plates are
-the expected picks there (the collection section below), and the Aire+Thérouanne and Hesdin+Vieil-Hesdin
-double plates the watch items (stage once under the true primary, note the second).
+23 towns to stage (FR 22 + LU 1); one bullet per town as the `--files` inventories run. The 1545 BNE atlas
+plates cover all 23 FR towns (the collection section below) and are the expected picks; watch items: the two
+double plates (one file, two towns - stage once under the true primary, give the second its own row only if a
+full plan of its own exists): `Aire-sur-la-Lys - Deventer.jpg` (3395x2614, "Aire-sur-la-Lys & Thérouanne") and
+`Hesdin - Deventer.jpg` (3408x2614, "Hesdin & Vieil-Hesdin"). Beaumont: the plate's desc/eye check settles
+Hainaut vs Nord (its QID is pending; the region flips if Hainaut wins). Luxembourg City: the KBR / National
+Library scan is the expected pick; the KBR details in the Landrecies atlas subcategory (5 files, 1091-1805
+px) are the fallback if the town-category file is weak.
 
 ## The collection categories (checked 2026-10-11, the `--files` run)
 
@@ -354,11 +449,13 @@ double plates the watch items (stage once under the true primary, note the secon
   `town_files` inventories each town category's own subcategories at depth 1) - the Landrecies batch picks
   from the town category, the KBR details are the fallback candidates.
 
-## Summary (pending - the NL and BE subtotals are in, the FR/LU batches fill the rest)
+## Summary (running total: 32 of 60 stageable town categories staged)
 
 Netherlands: 13 of 16 staged, 3 documented drops (Groningen province, Leeuwarden, Middelburg). Belgium:
-19 of 20 staged, 1 documented drop (Aarschot - both files dated 1570, outside the c. 1545-1565 window). So
-far 32 of 59 stageable towns staged (NL 13 + BE 19). France, Luxembourg: 24 towns pending (the BNE atlas
-plates are the expected picks there). Box 5: >= 50 of 60 staged, or every missing one accounted for in the
-sections above; every unverifiable QID named with its reason (box 2). The six done towns appear nowhere in
-this task's staging files.
+19 of 21 staged - 1 documented drop (Aarschot - both files dated 1570, outside the c. 1545-1565 window),
+1 pending (Le Rœulx - QID verified, file= pending the --files run). France: 0 of 22 staged (21 QIDs
+verified, Beaumont's QID pending the atlas-plate settlement; files pending the --files run). Luxembourg:
+0 of 1 (QID verified; file pending). So far 32 of 60 stageable town categories staged (32 of the 59 town
+plans: NL 13 + BE 19). Box 5: >= 50 of 60 staged, or every missing one accounted for in the sections above
+(a documented drop beats a guessed row); every unverifiable QID named with its reason (box 2 - currently
+Beaumont, pending). The six done towns appear nowhere in this task's staging files.

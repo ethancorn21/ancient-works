@@ -183,3 +183,41 @@ Saint-Omer's Calvados/Quebec, the Thérouanne river Q428296, the Bapaume QLD, Be
 search-empty quirk as the watch items), and commits module + doc together. NEXT: the --files FR/LU batch
 (double plates Aire+Thérouanne and Hesdin+Vieil-Hesdin to eye-check; Beaumont's plate settles Hainaut/Nord),
 then the one long run (--chain per town, stage, --check, tests, --golden).
+
+## 2026-10-11 204 DECISION: FR+LU re-verify clean (23 towns) + lead-doc FR/LU section written (23-row table, traps, Beaumont pending) + parentheses-search PITFALLS filed
+Session started from the driver-committed TOWNS edit (6b8f85a; parse-check passed: 66 towns, 32 stageable, as
+predicted). The planned re-verify run then went cleanly (23 towns = 21 FR with QIDs + Le Rœulx + Luxembourg
+City; Beaumont omitted - no QID; transcript /tmp/vd_verify_fr_recheck_iter49.txt, exit 0): **every label
+matches, every P373 'ok', every enwiki matches, and the first search hit with P625 is exactly the recorded QID
+for all 23** (no first-hit trap in the verified set); P625→site is 0.00-0.01 km everywhere except Le Rœulx
+0.91 km (the recorded item's P625 (4.1, 50.5) is rounded; the site point is the subdivision item Q21764574's
+precise P625 - expected, documented). Bergues (done FR) fetched in one extra call: Q244934 label 'Bergues',
+P625 2.434167, 50.968611 (→ site 0.00 km), P373 'Bergues', enwiki 'Bergues' - row added to the lead-doc
+table.
+
+Lead doc (docs/lead_van_deventer.md) updated per the hand-over: (a) Commons category counts moved with
+Le Rœulx (BE 22→23 categories, FR 24→23); (b) Belgium section: Le Rœulx table row + method sentence (found
+in the FR batch, moved from the prep's France list; 0.91 km explained), BE catalog count 20→21; (c) '##
+France, Luxembourg (pending)' replaced by '## QID verification - France, Luxembourg (checked 2026-10-11,
+iter 49; ...)': method (discovery /tmp/vd_verify_fr_iter49.txt + re-check transcripts), the three changes
+from the prep's list (Le Rœulx→Belgium; Luxembourg City = Q1842 not Q1564 - that id was merged away into
+'Borgfelde' Hamburg, and the 'Luxembourg (city)' search returned EMPTY, the parentheses quirk; Beaumont
+pending: only Q95100 Hainaut is plausible in the en top 20, the Nord town absent, the atlas plate settles
+it, region flips if Hainaut wins), the 23-row table (21 FR to stage + Luxembourg City + done Bergues) with
+the re-verify distances, and '### Name-search traps - France, Luxembourg' (Le Quesnoy: exact-label twin
+Q109413780 (Somme) - coordinates+enwiki decide; Lille: Belgian twin Q725235; Saint-Omer: Calvados Q844283 +
+Quebec Q3463075; Thérouanne: the river Q428296; Bapaume: the 1918 ship Q19543896 + Queensland Q48807630;
+Luxembourg's search chain Q32→Q1126→Q1842; Beaumont; plus the minor near-misses, notably the Cambrai
+near-duplicate Q84243457 at the same coordinates); (d) the per-town subsection retitled (QIDs verified,
+file= pending the --files run) keeping the double-plate watch items; (e) Summary: NL 13/16, BE 19/21
+(Le Rœulx file pending), FR 0/22 (Beaumont QID pending), LU 0/1 - running total 32 of 60 stageable
+categories, box 5 unchanged.
+
+PITFALLS filed (Wikimedia section): a wbsearchentities label search containing parentheses returns EMPTY
+('Luxembourg (city)' case) - search the unparenthesized label form and let the fact sheet disambiguate.
+
+Verified: --check exit 0 (staging files still absent - stage runs after the --files picks); module parses
+(66/32); this session changed no module code (the iter-49 TOWNS edit was already driver-committed).
+NEXT: the FR/LU --files batch (24 towns: the 22 FR to stage incl. Beaumont + Le Rœulx + Luxembourg City),
+then record file=/date=/caption= picks, then the one long run (--chain per staged town, stage, --check,
+tests/test_src_van_deventer.py, --golden).
