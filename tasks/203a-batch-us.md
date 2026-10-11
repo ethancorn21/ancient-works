@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 203a: The batch, US - the 90 US built sites
 Depends on: 001, 200, 201, 202
 Touches: fit/batch_us.py, data/db/platefits/, data/review/, docs/batch_us.md, tests/test_batch_us.py, tests/golden/hand_fit_docs.sha256

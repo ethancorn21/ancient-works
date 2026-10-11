@@ -341,3 +341,15 @@ the rejection note decides the next move (possible ask_human, non-blocking). Not
 in 203a itself; 203b imports run_sites/write_report and the notes in the hand-over (site list,
 region-less branch, docs/batch_eu.md, shared SEED 20261010, the aerial no-op of the
 feature-presence check).
+
+## 2026-10-11 203a DRIVER: done claim rejected, task reopened
+- Test suite failed twice when the driver ran `.venv/bin/python -m pytest -q`:
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_review.py::test_export_cli
+    tests/test_review.py::test_page_shows_the_review_list
+    tests/test_review.py::test_save_resolves_the_item
+    FAILED tests/test_review.py::test_export_cli - AssertionError: review: 88 ope...
+    FAILED tests/test_review.py::test_page_shows_the_review_list - AssertionError...
+    FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
+    4 failed, 34 passed in 38.24s
+    (full test output: .agent/reports/last-test-output.txt)
