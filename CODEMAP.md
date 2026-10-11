@@ -13,6 +13,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## fit/
 - `fit/evidence.py` (850 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L67-70, now L73-74, load_jsonl L77-78, set_field L81-87, rewrite L90-98, catalog_map L101-112, source_tables L115-120, check_commons L125-142, check_hand_tied L145-152, check_category L155-168, ... (+26 more).
+- `fit/propose.py` (422 lines) - Propose a starting placement for a (site, picture) pair, for the model's fitting pass (task 202, GOAL.md point 2). Exports: to_merc L88-89, to_lonlat L92-93, ground_scale L96-98, parse_scale L197-216, propose_for L379-407, main L410-422.
 - `fit/review.py` (237 lines) - Review queue: items the human finishes by dragging (task 201). Exports: item_path L48-51, upsert_item L72-110, candidate_evidence L117-145, resolved_doc L148-164, export L179-220, main L223-237.
 
 ## pipeline/
