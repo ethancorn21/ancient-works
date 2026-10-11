@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
+- `tasks/001-fit-gate.md` (in-progress) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
 - `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 17, agent c).** Extractor v3 FINAL (offline, verified over all 354 none rows) +
 
@@ -16,55 +16,87 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 801 DECISION: extractor v3 final (digits out, "St" merge fixed, STOP extended to 1483 uniques) - live run is the next step
-Iter 17 (agent c). Applied the two pending iter-16 fixes to /tmp/sheet_proto2.py (now v3) and re-ran offline
-over all 354 none rows (no network, no repo change). (1) Digits never kept (t[0].isalpha()) and a digit
-between two kept words now breaks a run - kills the NYPL barcodes ("11707950 000", "000 019"), year-range
-pairs ("1806 1820") and hex-fragment glue. (2) The St-merge marker only matched all-caps "ST" in v2, but
-the tokenizer yields mixed-case "St" from "St." - the "St. Louis" candidate (cahokia) was silently LOST;
-fixed to accept both, merging only when no comma/len>=3-lowercase/digit sits between "St" and the next
-kept word. (3) STOP extended with the iter-16 pending words (preposition block the/van/les/des/and/for/
-with/from/bij/met/naar/per + harmless 2-letter ones; ordnance quartier house design pattern textile
-numerisation onderdeel english roman) plus words mined from the v2 dump (bewerkt nativite nativity
-gemeentelijke deze rotterdamblindstempel reisalbum georeferencer dessins digue digues amenagement dyffryn
-jazz built ancient archaeological biodiversity center home nursing prospect fleuron bowes click landscape
-appearing text everything figures franse internet archive before history - full list in the task file's
-v3 description). Measured: 1483 unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows
-with >=1 sheet candidate, EXACTLY 40 part hits (unchanged). Eyeballed the top ~130 of the frequency list:
-remainder is genuine place names (real passes), person names (expected, no P625, one search each) and junk
-now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowes MUSEUM paintings; Bowes
-is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
-Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
-name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
+### 2026-10-10 001 DECISION: all six image-structure metrics fail (spikes 1-6) - the gate pivots to pure geometry
+Spike 4 (blurred plate-ink vs blurred map-ink Pearson): castle-rising true +0.386 < null_max +0.424; bergues true
++0.052 < null +0.484; maiden-castle true -0.048 < null +0.411 (mirrored +0.379); serpent-mound true -0.111 <
+null +0.645. Cross-site searches scored +0.653 and +0.972 - dense maps correlate with anything. FAIL.
+Spike 5 (autowalls wall points within 10 m of density-filtered map strokes): no separation at any site
+(castle-rising true 0.718 vs moved 0.720 / x0.85 0.841; bergues off-grid; mirrored is the only case killed). FAIL.
+Spike 6 (same but requiring the wall normal to align with the stroke across-direction, |cos| >= 0.7, 15 m
+window): castle-rising true 0.420 vs x0.85 0.450 (wrong HIGHER); bergues true 0.056 (only 23% of its wall points
+in-box) with all cases 0.03-0.06; maiden-castle true 0.259 vs x0.85 0.331; serpent-mound true 0.252 vs x1.15
+0.338. Cross-site: castle plate on bergues map 0.457 (> bergues's own true). corr_ws returned n/a everywhere.
+FAIL. Combined with spikes 1-3 (DEM ridge, DEM wall contrast, ink proximity - see archive), no image statistic
+separates 60 m / 10 deg / 15% / cross-site on dense old maps, because those shifts (<= 0.1745 r, 0.15 r, 60 m)
+are smaller than the map's structural wavelength. The gate will therefore be geometric: pair-residual magnitude
+catches 60 m move (median exactly 60 m vs dev max 53.1 m) and cross-site (km-scale), and a residual-vs-radius
+pattern (10 deg / x1.15 add 0.1745 r / 0.15 r per point, a radial gradient a true sloppy fit does not have)
+must catch rotation/scale. Spike 7 (next session): measure those statistics on the 12 dev docs and the four
+wrong types to set thresholds. The gate stays image-free -> no skimage, no requirements.txt change needed.
 
-### 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
-Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
-singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
-ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
-FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
-skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
-York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
-"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
-from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
-caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
-sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
-without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
-6.61E 53.38N is NOT near Maastricht).
+### 2026-10-10 001 DECISION: spike 7 done - conjunction frozen: reject if med>45 m OR slope_o>0.145 OR (slope_o>0.11 AND io<-10 m)
+Spike 7 (/tmp/spike_gate7.py, /tmp/spike7_out.txt): 12 dev docs x {true, moved 60 m NE, turned 10 deg about the
+placement centroid, scaled x1.15, cross-site re-centre onto the next dev site's box centre}, scored as
+|placement - anchor| (ground m, k=cos(lat0); anchors = the doc's own pairs; true case = solved transform vs own
+pairs, verified identical to the canonical depictions fit.resid_m: bergues 18.8/32.6, berkhamsted 17.4/21.8,
+old-sarum c_8192 33.3/54.4 - the old hand-over's 53.1/86.7 etc. were Web-Mercator m = these x1.59). Results:
+true med 2.2-33.3 (all pass med>45); moved med 59.1-68.5 and xsite 19 km-7700 km (all killed by med>45, margin
+~30% both sides); rot10 slope_o 0.1747-0.230 (all killed by slope_o>0.145; 2sin5 deg pins the floor); scale15
+slope_o 0.130-0.240 with the MASS at 0.130-0.141 BELOW the 0.15 theory (through-origin OLS is attenuated by
+the anchor noise at n=3-6) -> the two-clause pattern test: slope_o>0.145 OR (slope_o>0.11 AND io<-10 m, io =
+inner-half minus outer-half mean residual). Dev outcome: 48 wrong -> 2 accepted (castle-rising scale15:
+med 15.8/slope 0.141/io -8.7; whitley scale15: med 11.7/slope 0.136/io -7.4 = 1 in 24 <= 1 in 20) and 12 true ->
+10 accepted (rejected: berkhamsted slope 0.230, old-sarum c_8192 slope 0.161+io -20.3 - both have a genuinely
+radial own-residual pattern, indistinguishable from a scale error at n=4-5). Thin margins (calleva scale15
+io -10.1 vs -10; castle-rising slope 0.141 vs 0.145) are inherent to n=3-6 and must NOT be re-tuned on the
+held-out set: if the one-shot run shows more than 1-in-20 wrong acceptance, document the numbers in gate.md and
+let the review queue backstop, per the acceptance criteria. The gate's production contract: score the model's
+claimed placement against its recorded anchor pairs; a consistent global error (anchors AND placement both off)
+passes by pure geometry - documented limit, backstopped by GOAL's 18/20 human sample. Next: commit docs/gate.md
+(pre-registration: 20260108 partition, the rule, the four recipes, reproduce command) BEFORE any held-out look,
+then pipeline/fit_gate.py, tools/gate_heldout.py (one-shot run -> table in gate.md), tests/test_gate.py (offline
+golden re-run, no ports, project+tmp writes only).
 
-### 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
-Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
-castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
-Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
-Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
-and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
-(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
-walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
-castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
-holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
-~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
-from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
-Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
-edited; add them next session.)
+### 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run
+Wrote docs/gate.md (pre-registration; sections 2-8 fixed, section 9 placeholder) and committed it as the
+registered version. Contents: the frozen rule verbatim (reject if n<3 or sum rho_i^2 < 1 m^2 [degenerate] or
+med > 45 m or slope_o > 0.145 or (slope_o > 0.11 and io < -10 m); stats: r_i = |T(w_i) - k z_i| ground m,
+T = k(a w + b) canonical Web-Mercator similarity when no placement given, C = centroid of placement anchors,
+rho_i = |T(w_i) - C|, med, slope_o through-origin, io inner-minus-outer by rho with middle anchor dropped for
+odd n); the held-out selection rule (sort the 20 doc names in data/db/platefits/, try seeds 20260101,
+20260102, ...; first seed whose default_rng(s).choice(20, 8, replace=False) is disjoint from the 4 design fits
+= 20260108 -> the 8 held-out docs listed); the four deterministic wrong-fit recipes (moved 60/2^(1/2)(1+i) NE,
+rot10 and scale15 about C, xsite = re-centre onto the next held-out site's box centre, box = mean of
+sites.json "corners" Mercator x k, held-out site ids sorted + cyclic); pass criteria (32 wrong rows: at most
+1 accepted = 1-in-20; 8 true rows: at least 4; on miss, no re-tuning on held-out, numbers recorded and review
+queue backstops); reproduce command (.venv/bin/python tools/gate_heldout.py) and the test plan (re-run the
+conjunction on dev + held-out, golden compare, pin the code's constants to the doc). Verification this
+session (filenames only, held-out contents still untouched): the seed rule reproduces the hand-over's 8
+held-out names exactly, the dev list is exactly the complement (12), the xsite site cycle is the sorted held-out
+site ids, and the degenerate threshold is orders of magnitude below real inputs (dev n = 3-6, max rho
+86.6-530.5 m -> min sum rho^2 ~ 7.5k m^2 vs the 1 m^2 guard). The dev calibration numbers quoted in section 5
+are the spike-7 record (this entry's predecessor). The one-shot run is now authorized (gate.md committed);
+it happens next session, before fit_gate.py exists the table comes from the tool that implements exactly
+section 2. If the run shows more than 1-in-20 wrong acceptance, per the registered rule the thresholds are NOT
+re-tuned on the held-out set.
+
+### 2026-10-10 001 DECISION: pipeline/fit_gate.py written - full implementation of the frozen section-2 rule, proven by reproducing the spike-7 dev calibration exactly
+pipeline/fit_gate.py (the only new file this session): gate(pairs, transform=None) -> (verdict, stats),
+stats = {n, med, slope_o, io} all ground metres; transform is a Web-Mercator similarity (a, b) scored as
+T(w) = k(a w + b) with k = cos(mean anchor latitude), None = the canonical plan_fit.similarity (imported
+read-only, same code path - the canonical r equals plan_fit's own residuals to 6e-10 m); frozen constants
+N_MIN=3, RHO2_MIN=1.0 m^2, MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11, IO_MIN=-10 exactly as gate.md
+section 2; n<3 or sum(rho^2)<1 -> REJECT with nan pattern stats (checked: n=2 and 3-same-point both reject).
+Verification (throwaway /tmp/verify_fitgate.py; dev documents only, held-out still unread): all 12 dev docs x
+the 5 placements of section 4 reproduce every number recorded in section 5 to its stated precision - true med
+2.2-33.3 with 10/12 accepted (rejected: berkhamsted slope 0.2297, old-sarum c_8192 0.1611/io -20.3); moved med
+59.1-68.5; rot10 med 12.3-75.9, slope 0.1747-0.2296 (floor 2 sin 5 deg = 0.1747 exact); scale15 slope
+0.1305-0.2399 with exactly the 2 recorded accepts (castle-rising 15.8/0.1409/-8.7, whitley 11.7/0.1355/-7.4)
+= 2 of 48 wrongs (1 in 24); xsite med 19.5 km-7734 km. The one stumble this session was in my THROWAWAY script,
+not in fit_gate: composing a rotation/scale about the placement centroid as (s e^iθ a, (1-s e^iθ) C_m) moves
+anchors km-scale - b must be transformed too, b' = s e^iθ b + (1-s e^iθ) C_m (recorded as a PITFALLS entry with
+the five verified recipes). The existing suite (8 tests, other tasks') passes in 2.45 s. The driver's stale
+... (7.5 KB more: `grep -n -A 200 -F '## 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
