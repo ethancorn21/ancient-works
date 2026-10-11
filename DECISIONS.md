@@ -110,3 +110,44 @@ categories are not covered (the prep §2.1 spec had them), so the collections se
 misfiled-file mapping (a file in a collection cat belonging to a town) need a small town_files extension
 (c.members per collection cat; the BNE atlas at depth 1) - next session's first act. Suite 33/33 green
 (comment-only module change).
+
+## 2026-10-11 204 DECISION: town_files() extended to the 4 collections + town subcats at depth 1; the NL file inventory is done - 13 of 16 NL picks recorded in TOWNS, 3 documented drops
+Two module changes (uncommitted in the tree, harness-saved; the lead doc still needs them). (1) town_files()
+now inventories the 4 COLLECTIONS after the towns (same line format; a collection file that also sits in an
+inventoried town cat gets the [also in: ...] tag - the R5 cross reference) and each town cat's own
+subcategories at depth 1 (tagged [sub: ...]). The depth-1 walk was justified by a live probe: the BNE atlas
+category holds only 1 root file (Deventer-Dionantum.jpg, 6144x6144, 1550-1565) + 1 subcat, and that subcat
+(Map of Landrecies ... (Atlas des villes des Pays-Bas : ...), 5 KBR detail scans) ALSO hangs under the plain
+Landrecies town cat - the atlas keeps its per-place plates inside the towns' categories, so a flat town-cat
+inventory would have missed them. (2) The 13 staged NL TOWNS rows now carry file= (and date= where the page
+date is not the drawing's: Rotterdam "circa 1560" - the page date is an upload timestamp and the desc dates
+the drawing 1558-1563; Sluis and Valkenburg "circa 1545-1565" - 1980 RCE album reproductions are the only
+full-plan candidates, the Zwolle done-row precedent, date_commons keeps 1980); the 3 drops carry note=
+(Groningen (province): province map, its files are Friesland-gewestkaart crops; Leeuwarden: only file is a
+1975 redrawn model, 593x636; Middelburg: only file is a 1942 RCE detail crop of the stadhuis). Picks:
+Aardenburg Aardenburg 1560.jpg (500x500 - staged against the <~1000px heuristic: the ONLY Aardenburg plan on
+Commons, a full plan, caveat noted); Alkmaar Kaart van Alkmaar en Oudorp ... 01.jpg (5019x4971, 1550-1570);
+Amsterdam Kaart van Amsterdam c1550 (City Map) ... (4283x5229, 1550-1570); Enkhuizen ... Enkhuizen
+1558-1560.jpg (full, not the detail); Goes 1572 Bijkrt ... (the only Goes row in the c. 1545-1565 window;
+the netkaart is dated 1572/1575 - a later revision, and also in the BNE cat); Groningen ... volledig.jpg
+(6568x5088, 1563-1567); Haarlem ... KNA006000046.JPG (2359x2272, 1565, the municipal collection scan; the two
+identical 3306x8152 no-desc uploads are duplicates of a tall sheet - not staged); Reimerswaal 1560 Minuut ...
+(3501x2541, 1560 original); Rotterdam Map of Rotterdam around 1560s ... (2953x2033); Sluis 20201361 - RCE
+(2900x2137); The Hague 1558, Den Haag. ... (4413x4705, 1558; the same file is the autograph in the NA cat);
+Utrecht Utrecht.jpg (2164x2155, 1565-1570); Valkenburg 20237999 - RCE (2878x2102). R5 found: the Sluis cat
+holds 227 Damme.jpg (Damme's netkaart, 1545, also in the BNE cat) - a Damme plan misfiled in the Sluis cat;
+Damme is a done town (canonical row uses its own file) -> note only, never stage. Collections: BNE 61 = the
+1545-dated "Planos de ciudades de los Países Bajos" Part II/III plates covering the FR/BE towns (plus double
+plates Aire-sur-la-Lys+Thérouanne and Hesdin+Vieil-Hesdin - one file, two towns, for the FR batch; and
+Amsterdam/Alkmaar/Goes/Reimerswaal files that are the SAME files as the town cats); NA 2 = The Hague autograph
++ Schoonhoven/Nieuwpoort (out of scope); RCE 69 = the Zeist album reproductions (supplied the Sluis/Valkenburg
+staged rows; Middelburg detail-only); the atlas's Deventer-Dionantum and the Landrecies KBR details are for the
+FR batch. fit/evidence.py (801 merged) re-read: check_caption is OFFLINE-from-stored-fields only (no live
+re-resolution: named substring of title+desc, stored place/site distance reproduces dist_m within 1000 m,
+<= 50 km), so evidence_for's stored-verified-point rows pass for every pick (each names the town in title or
+desc); 801 added part_mention/sheet_mention kinds - my rows use only category/caption_coords. --list passed
+again (70 = 66 + 4, fourth re-run of 2026-10-11). NEXT (hand-over has the detail): sanity stage --dry +
+--check + pytest (last ran 33/33), commit module + lead doc (category-section live-run count, Per-town NL
+section, collection-categories section, NL subtotal in Summary), then the BE QID batch (--verify 20 towns,
+Ghent Q1296 already verified, Beaumont's region flips if the Hainaut item wins), then FR, then LU, then the
+one long --chain run + stage + test + golden.

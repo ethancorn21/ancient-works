@@ -47,62 +47,109 @@ consolidates the staging into the canonical files and builds the sites.
   files exist.
 
 ## Hand-over
-(2026-10-11, iteration 42 - lead doc written: category census + NL QID section + NL traps; next: close the
-town_files collections gap, then the NL file inventory.)
+(2026-10-11, iteration 43 - NL file inventory DONE: town_files() now covers the 4 collections + town-subcats at
+depth 1; 13 of 16 NL picks recorded in TOWNS (file + date); next: lead-doc NL + collection sections, then BE QIDs.)
 
-**Where I am.** `docs/lead_van_deventer.md` now holds all the verified material so far: (1) the category
-section (name/URL, 70 = 66 town + 4 collections, the --list assertion note, all 66 town categories listed by
-country with the 6 done marked, the 4 collection names); (2) the NL QID table (16 rows: QID/label/P625/
-site-point/distance/enwiki; distances from the iter-41 transcript /tmp/vd_verify_iter41.txt - if it is gone,
-re-run --verify, 28 s; all <= 0.74 km, labels and P373 clean, the 3 done NL towns re-confirmed); (3) the
-three NL name-search traps with measured distances (Sluis Q2065987 9.0 km SW / Reimerswaal municipality
-Q10078 9.1 km / Valkenburg modern Q9771 0.14 km). Four sections are marked (pending): BE/FR/LU QID batches
-(Ghent Q1296 already verified in the prep - record with the BE batch; Beaumont's region flips to belgium if
-the verified item is the Hainaut one; Luxembourg City Q1564 expected, region value luxembourg has no
-build_catalog.REGION_NAME key - the line-91 fallback to the raw value, confirmed in the doc), per-town file
-picks/drops, the collection categories, the summary (box 5: >= 50 of 60 staged or each missing one
-accounted). `fit/src_van_deventer.py`: this session only fixed two stale TOWNS section-header counts
-(BE 22 = 20 to stage + 2 done, FR 24 = 23 + 1; the comments had said 21/19 and 25/24) - everything else is
-as of iteration 41 (module functions, NL table re-verified, 4 bug fixes). The live `--list` passed AGAIN this
-session (70 = 66 + 4, the third live confirmation).
+**UNCOMMITTED in the working tree (the harness saved these; commit them with your lead-doc edits):**
+`fit/src_van_deventer.py` (my only touched file this session): (1) `town_files()` extended - after the towns it
+prints the 4 COLLECTIONS (same line format; a collection file that also sits in an inventoried town cat gets the
+`[also in: ...]` tag; the atlas at depth 1) and it inventories each town cat's own subcategories at depth 1
+(tagged `[sub: ...]`, prefix stripped when the subcat extends the town cat name); (2) the 13 staged NL TOWNS rows
+carry `file=` (+ `date=` where the page date is not the drawing's: Rotterdam "circa 1560"; Sluis and Valkenburg
+"circa 1545-1565"); (3) the 3 NL drops carry `note=` (Groningen (province) note enriched with its file facts;
+Leeuwarden and Middelburg new notes). Module docstring usage line updated. Everything else as of iteration 42.
 
-**GAP (next session's first act): town_files() lists only the towns' own categories - the 4 collection
-categories are NOT covered (the prep §2.1 spec had them in).** Needed for the lead doc's collections section
-and the R5 misfiled-file mapping (a file that lives in a collection cat but belongs to a town - the old prep
-saw the Sluis town cat holding a "Damme" file). Fix: extend town_files() with a COLLECTIONS block (c.members
-per collection cat; the BNE atlas at depth 1 - list its subcats, then their files, R4). Small change, keep
-the towns' output format, stdlib top + lazy imports as the module already has.
+**Verified this session (run, not reasoned):** `--list` passed AGAIN (70 = 66 + 4; fourth re-run on 2026-10-11).
+`--files <16 NL towns>` ran clean under .venv: transcript `/tmp/vd_files_nl_iter43.txt` (217 lines; if gone,
+re-run the command, ~2 min at 429 pacing). Live probes: the BNE atlas category holds only 1 root file
+(`Deventer-Dionantum.jpg` 6144x6144, 1550-1565) + 1 subcat (`Map of Landrecies by Jacob van Deventer (Atlas des
+villes des Pays-Bas ...)` with 5 KBR detail scans) - and that same subcat ALSO hangs under the plain Landrecies
+town cat (why the depth-1 town-subcat inventory was added). The 16 NL town cats have no other subcats. `stage
+--dry` and `--check` were NOT yet run this session (see next step 1).
 
-**Next step (exact):**
-1. Close the gap (above): add the collection inventory to town_files; re-run --list first (2 calls, keeps
-   the census fresh).
-2. `.venv/bin/python fit/src_van_deventer.py --files <the 16 NL towns>` (the 16 = every non-done NL TOWNS
-   key: Aardenburg Alkmaar Amsterdam Enkhuizen Goes Groningen "Groningen (province)" Haarlem Leeuwarden
-   Middelburg Reimerswaal Rotterdam Sluis "The Hague" Utrecht Valkenburg) plus the collections from step 1.
-   Hand-pick the one best full plan per town (a detail crop / photo / modern reprint / <~1000 px -> a
-   documented drop in the lead doc's (pending) "Per town" section, replacing the placeholder); record each
-   pick as TOWNS[...]["file"] and the drawing date as TOWNS[...]["date"] (stage() swaps a scan whose page
-   lost the drawing's date into date_commons). R5: watch the "[also in:]" notes for misfiled files - stage
-   once under the true town, note every anomaly in the lead doc.
-3. Then the BE batch (20 towns incl. recording Ghent Q1296; Beaumont's BE-vs-FR settles here), then FR (23),
-   then Luxembourg City (1: search "Luxembourg (city)", Q1564 expected).
-4. Then the one long run: --chain per town (depth cap 6; paste the printed JSON via list into TOWNS["chain"])
-   + stage() + --check + tests/test_src_van_deventer.py (pattern = tests/test_src_artists.py: socket-blocking
-   fixture, check_staged assertions, subprocess fit/evidence.py check --files, golden sample, negative
-   control) + --golden. If a batch overruns the session budget, split per the task Notes (204a NL / 204b BE /
-   204c FR / 204d LU) with per-subtask staging files files_van_deventer_<x>.jsonl etc. (the module stages
-   whichever towns are verified; a split is a hand-over + filenames change, and this parent's Touches line
-   grows with the subtask files).
+**evidence.py semantics re-read (801 merged in main; check is OFFLINE from stored fields only):**
+`check_caption`: `norm(named_place)` substring of `norm(title+desc)`, then stored `place_lon/lat` vs
+`site_lon/lat` distance must reproduce stored `dist_m` within 1000 m and be <= 50 km - NO live re-resolution
+(`resolve_places` is record-side only), so `evidence_for` (stored resolution = the verified site point,
+dist_m 0.0) passes for any file that names the town. `check_category`: `row["cat"] == site_cat`, `via[-1] ==
+cat`, `file_cat not in via`. 801 added kinds `part_mention`/`sheet_mention` (and book checks) - my rows use
+only `category`/`caption_coords`. `check(files, books, catalog=EXTRAS)` is how `--check` runs it (NO_BOOKS =
+absent path, skipped).
 
-**Tests:** none of mine yet (tests/test_src_van_deventer.py is in my Touches; the 3 staging jsonl files do
-not exist yet - created by stage()). Suite 33/33 green this session (comment-only module change).
+**The NL picks (13 staged) and drops (3) - detail goes into the lead doc (next step 2):**
+Staged: Aardenburg `Aardenburg 1560.jpg` (500x500 - STAGED despite the <~1000px heuristic: it is the only
+Aardenburg plan on Commons, a full plan, circa 1560; caveat goes in the lead doc), Alkmaar `Kaart van Alkmaar
+en Oudorp door Jacob van Deventer 01.jpg` (5019x4971, 1550-1570; the BNE plate/1900-RAA/1920/RCE copies not
+staged), Amsterdam `Kaart van Amsterdam c1550 (City Map) Jacob van Deventer.jpg` (4283x5229, 1550-1570),
+Enkhuizen `... Enkhuizen 1558-1560.jpg` (2514x2387; the detail twin not), Goes `Goes 1572 Bijkrt v Deventer.jpg`
+(1412x1784, page date 1560 - the ONLY Goes row inside the c. 1545-1565 window; the netkaart 4276x3341 is dated
+1572/1575 = a later revision, and also in the BNE cat; 1988 RCE not), Groningen `... Groningen volledig.jpg`
+(6568x5088, 1563-1567, netkaart+carton; the 1282 ca-1565 scan and the carton crop not), Haarlem `Kaart van de
+stad Haarlem ... NL-HlmNHA 1100 KNA006000046.JPG` (2359x2272, 1565, Haarlem municipal collection; the two
+identical 3306x8152 no-desc uploads, the "Kopie" and the "volgens de oude teekening" repro and the undated
+1213x1332 and the gracht crop not), Reimerswaal `Reimerswaal 1560 Minuut v Deventer.jpg` (3501x2541, 1560,
+original; bijkaart/netkaart/circa-1560/1545-BNE-plate copies not), Rotterdam `Map of Rotterdam around 1560s by
+Jacob van Deventer.jpg` (2953x2033; page date is an upload timestamp, desc dates the drawing 1558-1563 -> TOWNS
+date "circa 1560", date_commons keeps the page value; the uitsnede/photo/1918-book-crop/1911-scan not), Sluis
+`... Zeist en Sint Anna ter Muiden - Sluis - 20201361 - RCE.jpg` (2900x2137, 1980 RCE album reproduction = the
+only full-plan candidate, the Zwolle done-row precedent; TOWNS date "circa 1545-1565" the known window,
+date_commons 1980), The Hague `1558, Den Haag. Jacob van Deventer.jpg` (4413x4705, 1558; same file = the
+autograph in the NA cat), Utrecht `Utrecht.jpg` (2164x2155, 1565-1570; the 1955/1955-glasplaat/1982 RCE
+repros and the Buiten-Wittevrouwen 1000x557 not), Valkenburg `... te Zeist - Valkenburg - 20237999 - RCE.jpg`
+(2878x2102, 1980 RCE album reproduction, only full-plan candidate, also in the RCE cat; TOWNS date "circa
+1545-1565"; the nine detail/small files not). DROPS: Groningen (province) (province map; its 2 files are crops
+of the Friesland gewestkaart), Leeuwarden (only file 593x636 is a 1975 redrawn model after Deventer, not the
+plan), Middelburg (only file 2412x3233 is a 1942 RCE detail crop of the stadhuis). **R5 found:** the Sluis cat
+holds `227 Damme.jpg` (2684x2606, 1545, Damme's netkaart, also in the BNE cat) - a Damme plan misfiled in the
+Sluis cat; Damme is a done town (its canonical row uses its own file) -> note only, never stage.
 
-**Pitfalls:** filed in PITFALLS.md: Python trailing-comment-joins-lines (iter 41, bit on the Sluis TOWNS
-row), dict.update 2-tuples (iter 40), Wikimedia 429 + Retry-After via commons.get (iter 40), and
-check_category re-verifies only the SHAPE of the stored chain (the walk is the verification: paste only the
-cat_chain JSON list into TOWNS["chain"] - a " -> " string or a skipped hop passes check but is a lie).
+**Next steps (exact):**
+1. Sanity: `.venv/bin/python fit/src_van_deventer.py stage --dry` (live c.info for the 13 titles, ~1-2 calls:
+   exercises keep() + evidence_for on every pick; must print "staged: 13 new sites, 13 new pictures" + no
+   raise), then `--check` (staging files still absent: joins empty, evidence over 0 rows, exit 0), then the
+   `.venv/bin/python -m pytest -q` suite (was 33/33 green at iteration 42; my change is TOWNS data + town_files
+   only - expect still green). Then COMMIT everything (module + the lead doc below): "204: NL file picks in
+   TOWNS + town_files collection/depth-1 inventory - ...".
+2. Lead doc (still at iteration 42 state - the (pending) sections need the NL material from this session):
+   (a) category section: "(two more live runs on 2026-10-11)" -> four re-runs (latest after the town_files
+   extension); (b) replace "Per town: staged picture or documented drop (pending)" with the NL section per the
+   picks/drops/R5 above (one bullet per town: staged file (title, size, date on the row) or drop reason; the
+   not-staged candidates named briefly); (c) replace "The collection categories (pending)" with the four found:
+   BNE 61 = the "Planos de ciudades de los Países Bajos" atlas plates (Part II/III; most page-date 1545 = the
+   Charles V campaign; covers the 23 FR + 17 of the 20 BE towns incl. Halle as "Hal"; double-plates: Aire-sur-la-
+   Lys+Thérouanne, Hesdin+Vieil-Hesdin (French desc, odd date field) - matters for the FR batch; plus Amsterdam
+   vol3-map35 1560-61, Alkmaar, Reimerswaal Manuscrito 13, Ghent BN 1/2, Goes 1572, Oostende c.1562, IJlst
+   c.1575, Nieuwpoort+Dunkerque and Hontscoten+Veurne "16th C" two-town sheets, Woudrichem/Gorinchem, Appingedam
+   - the non-60 places stay out of scope), NA 2 = The Hague autograph (the staged file) + Schoonhoven/Nieuwpoort
+   two-town sheet (out of scope), RCE 69 = the Zeist album reproductions 1955-1981 (supplied the Sluis and
+   Valkenburg staged rows; Middelburg detail-only; the rest are non-60 NL towns or the done Venlo/Zwolle),
+   Atlas = Deventer-Dionantum root (out of scope) + the one Landrecies subcat with its 5 KBR detail scans (1091-
+   1805 px, 1550-1565; the subcat double-parents under the atlas AND the plain Landrecies town cat - for the FR
+   batch). (d) Summary section: add the NL subtotal (13/16 staged, 3 documented drops) but keep it (pending) until
+   all 60 are in.
+3. Then the BE batch per the previous hand-over step 3: `.venv/bin/python fit/src_van_deventer.py --verify <20 BE
+towns>` (discovery mode: search candidates; record qid/label/lon/lat/p625/place/wikipedia/p373 per town; Ghent
+Q1296 is already verified in prep - record it; Beaumont's region flips to belgium if the Hainaut item wins; the
+BNE 1545 plates are the expected BE file picks - check them in the BE --files run). Then FR (23; watch the
+Aire+Thérouanne and Hesdin+Vieil-Hesdin double-plates - one file, two towns: stage once, note the second), then
+Luxembourg City (search "Luxembourg (city)", Q1564 expected, region luxembourg - no REGION_NAME key, fallback
+noted). Each batch: --verify, then --files (the picks), then lead-doc batch section, commit.
+4. Then the one long run (hand-over step 4 from iteration 42, unchanged): `--chain <town>` per staged town (depth
+cap 6; paste the printed JSON via list into TOWNS["chain"]; for towns whose picked file sits in a collection
+cat, record `filecat` = that cat - cat_chain starts from filecat), then `stage` (not dry), `--check`, write
+`tests/test_src_van_deventer.py` (pattern tests/test_src_artists.py: socket-blocking fixture, check_staged,
+subprocess `fit/evidence.py check --files ... --books <absent>`, golden sample via --golden, negative control;
+box-6 date rule: year_of of the row date must land in 1545-1565 - note "circa 1545-1565" parses to 1545,
+"circa 1560" to 1560) and `--golden`. If a batch overruns the budget, split per the task Notes (204a NL/204b
+BE/204c FR/204d LU) with per-subtask staging files; note the NL picks are then ALREADY in the parent's TOWNS.
 
-**Environment:** .venv OK. Team mode: agent c works 203a in its own checkout (fit/batch_us.py, data/db/
-platefits, data/review, docs/batch_us.md, tests/test_batch_us.py, tests/golden/hand_fit_docs.sha256,
-tasks/802-*, tasks/803-*) - do not touch its files; my Touches are only this task's (module + 3 staging
-jsonl + lead doc + test).
+**Tests:** suite last ran 33/33 green (iteration 42, before this session's module change). No test of mine yet
+(tests/test_src_van_deventer.py not created; the 3 staging jsonl files don't exist yet - created by stage()).
+
+**Pitfalls:** no new entries filed this session; the existing ones (trailing-comment-joins-lines, dict.update
+2-tuples, Wikimedia 429 + Retry-After via commons.get, check_category shape-only) all still apply - the TOWNS
+edits this session used comment lines INSIDE dict(...) calls (legal, but the trailing-comment trap from iter 41
+is why each comment starts on its own line). Team mode: agent c on 203a (fit/batch_us.py, data/db/platefits,
+data/review, docs/batch_us.md, tests/test_batch_us.py, tests/golden/hand_fit_docs.sha256, tasks/802-*,
+tasks/803-*) - untouched; my Touches: fit/src_van_deventer.py, the 3 staging jsonl, docs/lead_van_deventer.md,
+tests/test_src_van_deventer.py.

@@ -86,3 +86,12 @@ sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep -
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 204 (agent a, iteration 43) HAND-OVER: NL file inventory done - 13/16 picks in TOWNS
+    town_files() extended (the 4 collections + town subcats at depth 1; the atlas keeps its per-place plates
+    inside the towns' categories - Landrecies's 5 KBR detail scans) and the 13 staged NL TOWNS rows carry file=
+    (+ date= for Rotterdam/Sluis/Valkenburg); 3 NL drops documented (Groningen province, Leeuwarden, Middelburg).
+    These module changes are UNCOMMITTED (harness-saved). Lead doc's Per-town and collection-categories sections
+    are still (pending). Next: sanity `stage --dry` + `--check` + pytest (last 33/33), commit module + lead doc,
+    then the BE QID batch, FR, LU, then the one long --chain run + stage + test + golden. Full detail:
+    tasks/204-van-deventer.md and the DECISIONS entry above.
