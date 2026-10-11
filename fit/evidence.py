@@ -226,7 +226,10 @@ def check_book_caption(row, ev, cats):
         return "FAIL", "caption_coords", "no place named"
     hay = books_match.norm(" ".join([row.get("title") or "", " ".join(row.get("site_names") or []),
                                      row.get("place") or "", " ".join(row.get("captions_ocr") or [])]))
-    if not any(books_match.norm(k) in hay for k in books_match.name_keys(named)):
+    # name_keys strips descriptors only from a normalized name (its SUFFIX regex is lowercase), as all of
+    # books_match's own call sites do - so normalize first, the way the matcher looks names up
+    keys = books_match.name_keys(re.sub(r"\s+", " ", books_match.norm(named)).strip())
+    if not any(k in hay for k in keys):
         return "FAIL", "caption_coords", f"the row does not name {named!r}"
     # the place words recompute from the printed text, exactly as the matcher unions them
     rec = {}

@@ -1,0 +1,16 @@
+PASS category        old-sarum-q782719|File:An Exact Plan and Section of Old Sarum.jpg
+PASS category        old-sarum-q782719|File:Old Sarum cathedral ruins plan 1850.jpg
+PASS depicts         old-sarum-q782719|File:Old Sarum cathedral plan, hand-coloured 1860.jpg
+PASS depicts         old-sarum-q782719|File:Old Sarum plan from the 1755 survey.jpg
+PASS caption_coords  caister-castle-q5017844|File:Plan of Caister Castle, drawn from the tower.jpg
+NONE none            hampton-court-herefordshire-q1443802|File:Gezicht op Hampton Court RP-P-1905-195.jpg  conflict: caption 'Hampton Court' resolves to Q571484, 187 km from the site
+PASS hand_tied       hampton-court-herefordshire-q1443802|File:Gezicht op Hampton Court, RP-P-1905-194.jpg
+NONE -               old-sarum-q782719|File:Antiquarian sketch of an English castle.jpg  no evidence recorded
+FAIL category        old-sarum-q782719|File:Broken evidence chain.jpg  site category 'Old Sarum West' differs from the row's 'Old Sarum'
+FAIL depicts         old-sarum-q782719|File:Depicts the wrong item.jpg  depicts Q9999999, not the site's Q782719
+FAIL caption_coords  caister-castle-q5017844|File:Caister Castle with a wrong distance.jpg  stored distance 200000.0 m does not reproduce (0 m)
+PASS caption_coords  ancientmonuments00squi_n0068_1
+NONE none            ArcheologicalAtlasOfOhio_n0176_1  hand-rejected: different effigy: Warren County serpent, not Adams County Serpent Mound
+NONE none            earthworkenglan01allcgoog_n0576_1  hand-rejected: the cross earthwork, not the hillfort Banwell Camp
+NONE none            ancientmonuments00squi_n0054_1  ambiguous: half or less of the site's name is in the title
+evidence: 15 rows, 7 pass, 3 fail, 5 no-tie

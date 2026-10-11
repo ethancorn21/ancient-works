@@ -57,6 +57,16 @@ One `### <library>` subsection per library or tool, with its version.
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
 a trap in one part often shows up in another.
 
+#### books_match `name_keys` strips descriptors only from already-normalized (lowercase) names
+Where: `pipeline/books_match.py` (`SUFFIX`, `name_keys`; its own callers `load_catalog` and `phrases`/`match_row`),
+      `fit/evidence.py` (`check_book_caption`)
+Symptom: passing a raw name ("Fort Hill State Memorial") to `name_keys` returns the one-element set {that
+      name} - the " State Memorial" suffix survives, so a substring test against normalized row text
+      ("fort hill") fails: "the row does not name 'Fort Hill State Memorial'" on a row that plainly does.
+Why: `SUFFIX` is a case-sensitive regex over lowercase forms, and every call site inside books_match
+      normalizes first, so the convention is invisible from inside the module. Outside callers must do the
+      same: `name_keys(re.sub(r"\s+", " ", norm(name)).strip())`, then test keys against normalized text.
+
 #### `web/data/sites.json`: the only universal keys are id/name/lon/lat/corners/size_m/drawings
 Where: `web/data/sites.json`, `tests/test_serve.py`, the batch tasks (203a/203b)
 Symptom: a test or tool that requires `place`, `kind`, `qid` or `region` fails for some sites: of the 384,
