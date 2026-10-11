@@ -5,12 +5,13 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/213a-civitates-list.md` (open) - hand-over: **Iteration 34 (2026-10-11): the two list files are WRITTEN + VALIDATED - boxes 1-4 ticked. Only
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
 ## Next open tasks
-- `tasks/213a-civitates-list.md`
 - `tasks/213b-qids-tests.md`
 - `tasks/215-books-llm-ports.md`
+- `tasks/216-view-books-entries.md`
 
 ## Your task's journal
 
@@ -101,6 +102,19 @@ readings (222 view / 11 plan / 6 other) over 118 rows; F's "plan" leaves = A30/6
 - of these only A90 (Ghent) and A237 (Jerusalem old) are true plans, F MISSES the five famous plans
 (A58/85/98/109/238) and flags A186 (a view) - F's plan label is unreliable in BOTH directions for
 this book (lead-doc pitfall; 217 must use hand kind s only).
+
+### 2026-10-11 213a DECISION: list files written + validated (boxes 1-4) - 121 entries, s7/u3/o111, hand 30 / A 91; pages only on fig 193/194; .map.json = []
+Built data/books/lists/civitatesorbiste00brau.json ("{"plates": null, "figures": [121]}", sorted
+by fig, indent=0 like the 12 sibling dumps) from the committed A file + the recorded hand reads:
+kind s (hand) = 58/85/90/98/109/237/238; kind u (hand) = 187/197/199; the other 111 = o (hand 20:
+50/53/54/86/97/157/158/186/193/194/198/201/202/205/206/209/214/217/218/225; A 91). Titles: A caption
+as-is except two corrections where I verified the true printed inscription on the leaf image -
+fig 50 "Cum Pristelio" -> "Cum Privilegio" (banner), fig 198 "METOLACOL" -> "MEDIOLANVM"
+(cartouche) - and the 14 empty-caption leaves take the section's city name (53 Burgos + S.
+Sebastian, 58 LVTETIA PARISIORVM, 85 BRVXELLA, 90 GANDANVM, 98 ANVERPIA, 109 AMSTELEDAVM, 187
+AVGVSTA verso, 194 VIENNA AVSTRIAE, 199 MEDIOLANVM verso, 202 VENETIA verso, 214 ANCONA, 217/218
+NEAPOLIS, 225 MESSANA); the five double-plate leaves (50/54/193/205/206) carry the second half's
+... (1.8 KB more: `grep -n -A 200 -F '## 2026-10-11 213a DECISION: mapping RESOLVED - triage file nNNNN.jpg = A-row NNNN = 1-based leaf NNNN+1; iteration-29's 10 reads were each off by one leaf (the parent's 19 stand)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
