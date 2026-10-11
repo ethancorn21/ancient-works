@@ -124,6 +124,31 @@ def _pattern_entry(doc, pattern, root):
     return entry
 
 
+def _sync_doc(root, sid, plan, doc):
+    """The one document's sync, in the line's order: the fabrication check first (a pattern is
+    sent to the site's review item and its fit document deleted, never built), then the build
+    (skipped when the overlay is already current). Prints its own line. -> (action, detail):
+    "sent" (the pattern reason), "skipped", "synced", or "failed" (the SystemExit message)."""
+    title = doc.get("title") or plan
+    pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
+    if pattern:
+        review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
+        batch_us._doc_path(str(root), sid, plan).unlink()
+        print(f"sync {title}: sent to the review queue (line check: {pattern})")
+        return "sent", pattern
+    if plan_fit.is_done(doc, f"{sid}.{plan}", root):
+        print(f"sync {title}: skipped: overlay already current (at {doc.get('at')})")
+        return "skipped", None
+    try:
+        plan_fit.build(doc, root)
+    except SystemExit as e:
+        print(f"sync {title}: FAILED: {e}")
+        return "failed", str(e)
+    sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
+    print(f"sync {title}: synced to the map (plan_{plan}.webp, {len(doc.get('pairs') or [])} pairs{sc})")
+    return "synced", None
+
+
 def _sync(root, sid, docs):
     """Build the map overlay for each of the site's fit documents, except the ones the line's
     fabrication check refuses (plan_fit.fabrication_pattern, run on the document's stored pairs
@@ -135,25 +160,11 @@ def _sync(root, sid, docs):
     failed = 0
     sent = {}
     for plan, doc in sorted(docs.items()):
-        title = doc.get("title") or plan
-        pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
-        if pattern:
-            review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
-            batch_us._doc_path(str(root), sid, plan).unlink()
-            sent[plan] = pattern
-            print(f"sync {title}: sent to the review queue (line check: {pattern})")
-            continue
-        if plan_fit.is_done(doc, f"{sid}.{plan}", root):
-            print(f"sync {title}: skipped: overlay already current (at {doc.get('at')})")
-            continue
-        try:
-            plan_fit.build(doc, root)
-        except SystemExit as e:
+        action, detail = _sync_doc(root, sid, plan, doc)
+        if action == "failed":
             failed += 1
-            print(f"sync {title}: FAILED: {e}")
-        else:
-            sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
-            print(f"sync {title}: synced to the map (plan_{plan}.webp, {len(doc.get('pairs') or [])} pairs{sc})")
+        elif action == "sent":
+            sent[plan] = detail
     if sent:
         plan_fit.prune(root, sid)  # drop the overlays the deleted pattern documents left behind
     return failed, sent
