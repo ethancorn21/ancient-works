@@ -180,3 +180,47 @@ raises KeyError):
   (Lutzenburg 2005, Sanderus 1581) are the non-Deventer prints, consistent.
 TOWNS/lead-doc untouched this session (66 towns, 32 stageable, staging files absent); the whole recording
 step is the next session's first work (hand-over has the per-town list).
+
+## 2026-10-11 204 DECISION: FR/LU picks RECORDED in TOWNS (24 file= incl. Beaumont moved to Belgium + LU caption) - lead doc BE side done, FR/LU side next; --verify Beaumont clean (the Q128282 Texas trap, transcript /tmp/vd_verify_beaumont_iter53.txt); (66, 56) -> box 5 met
+
+Iteration 53 recorded the iter-52 eye-check decisions in fit/src_van_deventer.py's TOWNS table (and the lead
+doc's BE side); this session (54) finished the lead doc's FR/LU side. The recording:
+- **Beaumont's full entry moved to the BELGIUM section**: region="belgium" (flipped from france), qid="Q95100",
+  label "Beaumont", site point 4.2383/50.2355 (P625 4.2383115, 50.2355294 rounded), place "Arrondissement of
+  Thuin", enwiki, p373 "Beaumont (Hainaut)", file="File:Beaumont - Deventer.jpg" + the not-staged detail-crop
+  reason.
+- **file= on all 21 FR towns** (every one the 1545 BNE atlas plate, or its (2) wide-sheet twin: Arras 3184,
+  Douai 3665, Lille 3614, Saint-Omer 3449, Valenciennes 4156; the 3395x2614 Aire spread staged once under
+  Aire; the Hesdin double sheet staged once; Thérouanne 986x867 + Vieil-Hesdin 757x857 standalone plans with
+  the size caveat) + Le Rœulx (1545 plate, desc 'Le Rœulx') + Luxembourg City
+  (file="File:Luxemburg 1550 65 v Deventer.jpg" + caption="Lutzenburg" - REQUIRED: the label 'Luxembourg' is
+  not in the title/desc). **No date= anywhere in the batch**: every page date is 1545/1550 = the drawing's
+  (the Hesdin French page note yields year_of 1545 = the min, in-window).
+- **Verified:** `--verify Beaumont` exit 0 (transcript /tmp/vd_verify_beaumont_iter53.txt: label 'Beaumont',
+  P373 'Beaumont (Hainaut)', enwiki 'Beaumont, Belgium' all match; the predicted TRAP line: first P625 hit
+  Q128282 'Beaumont' (Texas) 8035 km). `--check` exit 0 (staging files absent - `stage` runs later). Module
+  parse (66, 56) = 66 towns, 56 stageable (NL 13 + BE 21 + FR 21 + LU 1) -> box 5 met; box 2 met (every QID
+  verified, none pending).
+- **Lead doc finished this session** (docs/lead_van_deventer.md, 7 edit blocks, all applied first try from
+  sed-extracted oldText): (a) FR/LU QID section - Beaumont bullet -> settled (Q95100, region flip, the
+  re-verify transcript, the Q128282 trap), the 'None of the QIDs verified here' list gains Beaumont, the
+  23-row note points to the BE table, the FR-traps Beaumont bullet -> settled; (b) the '### France,
+  Luxembourg (pending)' stub -> '### France (22 categories: 21 staged, 1 done; ...)' with one bullet per town
+  (staged file + size + date, every not-staged file with its reason - from the TOWNS comments, cross-checked
+  against /tmp/vd_files_fr_iter50.txt) + '### Luxembourg (1 category: 1 staged; ...)' (caption route, the
+  three drops, the NEW region value luxembourg with the REGION_NAME display fallback); (c) BNE bullet -> all
+  22 FR towns (Mons is BE) + 18 of the 22 BE towns (+ Le Rœulx, Beaumont), double-plate lines settled; (d)
+  Summary -> 56 of 60 staged, box 5 met, box 2 met, done towns no longer mentioned.
+
+PITFALLS filed (the two still unfiled from iter 51/52): (0) Agent tools and harness - the read tool's output
+of fit/src_van_deventer.py was not byte-faithful once (iter 52: '21 to stage + 2 done' where the file has
+'+ the 2 done'); sed -n/grep is the source for edit oldText of that file (iter 53's 28 blocks and this
+session's 7 applied clean). (1) the aw.UA entry extended: aw.UA is a DICT, not a string (slicing it raises
+KeyError).
+
+NEXT (one long session, all under .venv): `--chain` per staged town with no chain yet (record the walked
+chains in TOWNS as "chain"), `stage` (NOT --dry; writes the 3 staging jsonl), `--check` (evidence on every
+row), tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socket-blocking no_network
+fixture, check_staged(), subprocess `fit/evidence.py check --files <staged> --books <absent path>`, golden
+sample, negative control; box 6: year_of of every staged row in 1545-1565), `--golden`
+(tests/golden/src_van_deventer_sample.json), full pytest.
