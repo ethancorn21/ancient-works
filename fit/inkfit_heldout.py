@@ -213,7 +213,7 @@ def run(argv):
         ids = doc_ids()
         res = load_results()
         precheck(ids)
-        done_before = sum(1 for d in ids if "error" not in res["docs"].get(d, {}))
+        done_before = sum(1 for d in ids if d in res["docs"] and "error" not in res["docs"][d])
         print("one-shot run: %d/21 measured already, run at %s" % (done_before, res["at"]))
         for i, doc in enumerate(ids, 1):
             e = res["docs"].get(doc)

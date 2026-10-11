@@ -220,3 +220,29 @@ Mercator metre at lat0, the mean of the hand pairs' latitudes) converts it - the
 metres). Rotation error = arg(a_m) - arg(a_h) normalised to (-180, 180] degrees. Scale
 ratio = |a_m| / |a_h|. A document the method could not place gets the method's reason
 instead of the three numbers.
+
+**Measured one-shot, run at 2026-10-11T22:47:37.081160+00:00.** Method: `fit/inkfit.py` as of commit f7dbba6, the frozen no-model variant (the protocol above). Each document measured once; a document the method could not place carries the method's reason in the corner-error cell. Rounding: corner error 0.1 m, rotation 0.01 deg, scale 0.0001, objectives 0.0001.
+
+| # | document | corner error (m) | rotation error (deg) | scale ratio | objective | null | null margin | gate | fabrication |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | arbor-low-q630312.earthworkenglan01allcgoog_n0597_1 | 1399.1 | 27.63 | 13.2140 | -0.0144 | 0.0076 | -0.0219 | accept | silent |
+| 2 | avebury-q661855.earthworkenglan01allcgoog_n0581_1 | 376.1 | -13.41 | 0.5925 | 0.5460 | 0.5178 | 0.0281 | accept | silent |
+| 3 | aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1 | 544.1 | -50.71 | 0.9880 | 0.0147 | 0.0359 | -0.0212 | accept | silent |
+| 4 | badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1 | 264.5 | -1.16 | 0.7048 | 0.5913 | 0.4042 | 0.1871 | accept | silent |
+| 5 | bergues-q244934.c_4bbca705be732b1c | 1283.0 | 20.97 | 0.4624 | 0.0826 | 0.0633 | 0.0192 | accept | silent |
+| 6 | berkhamsted-castle-q4892150.c_1699141d593ead5a | 231.2 | 1.40 | 1.4181 | 0.1666 | 0.1431 | 0.0235 | accept | silent |
+| 7 | cadbury-castle-q1025082.c_1fab2a0abe5b99d7 | 377.4 | 30.14 | 1.0667 | 0.2117 | 0.2303 | -0.0186 | accept | silent |
+| 8 | cahokia-q333661.c_aff1b996dce7fe3a | 831.1 | 1.86 | 3.0468 | 0.0210 | 0.0728 | -0.0518 | accept | silent |
+| 9 | calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1 | 2203.6 | -17.79 | 0.2378 | 0.3386 | 0.2316 | 0.1070 | accept | silent |
+| 10 | camp-d-attila-q18749222.c_6a912845c1e1aa28 | 634.3 | -19.95 | 0.9269 | 0.4540 | 0.9690 | -0.5150 | — | not enough wall ink (2 candidate points, need 4) |
+| 11 | castle-rising-castle-q1049485.c_70f937b71ae63d6a | 313.2 | 19.85 | 1.9200 | 0.3466 | 0.2660 | 0.0806 | accept | silent |
+| 12 | hembury-q3784763.earthworkenglan01allcgoog_n0108_1 | 424.0 | 23.15 | 0.5388 | 0.1271 | 0.1355 | -0.0083 | accept | silent |
+| 13 | little-solsbury-hill-q548780.c_7ff7261c6b3574b6 | 784.6 | -6.45 | 3.1200 | 0.1059 | 0.2998 | -0.1940 | accept | silent |
+| 14 | maiden-castle-q1232816.c_c20ff6b1f16d173d | 536.0 | -1.52 | 0.6134 | 0.2608 | 0.2462 | 0.0146 | accept | silent |
+| 15 | maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1 | 1160.5 | 97.86 | 0.7809 | 0.2193 | 0.1345 | 0.0848 | accept | silent |
+| 16 | mayburgh-henge-q1469390.c_984782b9e35e8ded | 469.2 | -27.28 | 0.9611 | 0.1155 | 0.1579 | -0.0424 | accept | silent |
+| 17 | mound-bottom-q14710093.c_0b98157d7af17d6e | 488.8 | 23.65 | 0.4663 | 0.1536 | 0.0784 | 0.0752 | accept | silent |
+| 18 | old-sarum-q782719.c_8192abb966d030a3 | 1138.6 | -90.85 | 0.9969 | 0.1207 | 0.1093 | 0.0114 | accept | silent |
+| 19 | old-sarum-q782719.earthworkenglan01allcgoog_n0142_1 | 717.3 | 76.39 | 0.6658 | 0.1988 | 0.1295 | 0.0693 | accept | silent |
+| 20 | serpent-mound-q968802.ancientmonuments00squi_n0210_1 | 478.8 | -12.62 | 2.0411 | 0.2007 | 0.2332 | -0.0325 | accept | silent |
+| 21 | whitley-castle-q7996561.c_802bb5ba395d4d29 | 1078.7 | -126.09 | 2.0789 | 0.0173 | 0.0274 | -0.0101 | accept | silent |
