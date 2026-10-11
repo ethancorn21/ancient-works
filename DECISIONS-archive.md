@@ -907,6 +907,19 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
   rule); 4 = byte-exact golden + the three sanity tests (Option B reading).
 
 
+<!-- task 203a -->
+# Task 203a batch-us
+
+## 2026-10-11 203a DECISION: golden pinned first, then the loop module (prep session 1)
+Committed tests/golden/hand_fit_docs.sha256 (box 1) BEFORE writing any batch doc: 39 sha256sum -c lines
+(20 pre-batch data/db/platefits docs + the 19 data/sites/<id>/site.json from hand_fit_sites.txt); verified
+with sha256sum -c. `fit/batch_us.py --golden` regenerates it, excluding docs carrying "auto": true, so a
+partially-run batch can be pinned back to the hand-fit state without hand-editing. Then built
+fit/batch_us.py (loop + gate adapter + writers + report + CLI); smoke-verified in a temp tree: 202's
+proposed pairs pass the gate (med 0.0, the documented "true case"), could-not-fit and no-picture items in
+201's shape, hand-fit-only site untouched, report deterministic, full suite 29 green.
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
