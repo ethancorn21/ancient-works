@@ -65,3 +65,26 @@ catches 60 m move (median exactly 60 m vs dev max 53.1 m) and cross-site (km-sca
 pattern (10 deg / x1.15 add 0.1745 r / 0.15 r per point, a radial gradient a true sloppy fit does not have)
 must catch rotation/scale. Spike 7 (next session): measure those statistics on the 12 dev docs and the four
 wrong types to set thresholds. The gate stays image-free -> no skimage, no requirements.txt change needed.
+
+## 2026-10-10 001 DECISION: spike 7 done - conjunction frozen: reject if med>45 m OR slope_o>0.145 OR (slope_o>0.11 AND io<-10 m)
+Spike 7 (/tmp/spike_gate7.py, /tmp/spike7_out.txt): 12 dev docs x {true, moved 60 m NE, turned 10 deg about the
+placement centroid, scaled x1.15, cross-site re-centre onto the next dev site's box centre}, scored as
+|placement - anchor| (ground m, k=cos(lat0); anchors = the doc's own pairs; true case = solved transform vs own
+pairs, verified identical to the canonical depictions fit.resid_m: bergues 18.8/32.6, berkhamsted 17.4/21.8,
+old-sarum c_8192 33.3/54.4 - the old hand-over's 53.1/86.7 etc. were Web-Mercator m = these x1.59). Results:
+true med 2.2-33.3 (all pass med>45); moved med 59.1-68.5 and xsite 19 km-7700 km (all killed by med>45, margin
+~30% both sides); rot10 slope_o 0.1747-0.230 (all killed by slope_o>0.145; 2sin5 deg pins the floor); scale15
+slope_o 0.130-0.240 with the MASS at 0.130-0.141 BELOW the 0.15 theory (through-origin OLS is attenuated by
+the anchor noise at n=3-6) -> the two-clause pattern test: slope_o>0.145 OR (slope_o>0.11 AND io<-10 m, io =
+inner-half minus outer-half mean residual). Dev outcome: 48 wrong -> 2 accepted (castle-rising scale15:
+med 15.8/slope 0.141/io -8.7; whitley scale15: med 11.7/slope 0.136/io -7.4 = 1 in 24 <= 1 in 20) and 12 true ->
+10 accepted (rejected: berkhamsted slope 0.230, old-sarum c_8192 slope 0.161+io -20.3 - both have a genuinely
+radial own-residual pattern, indistinguishable from a scale error at n=4-5). Thin margins (calleva scale15
+io -10.1 vs -10; castle-rising slope 0.141 vs 0.145) are inherent to n=3-6 and must NOT be re-tuned on the
+held-out set: if the one-shot run shows more than 1-in-20 wrong acceptance, document the numbers in gate.md and
+let the review queue backstop, per the acceptance criteria. The gate's production contract: score the model's
+claimed placement against its recorded anchor pairs; a consistent global error (anchors AND placement both off)
+passes by pure geometry - documented limit, backstopped by GOAL's 18/20 human sample. Next: commit docs/gate.md
+(pre-registration: 20260108 partition, the rule, the four recipes, reproduce command) BEFORE any held-out look,
+then pipeline/fit_gate.py, tools/gate_heldout.py (one-shot run -> table in gate.md), tests/test_gate.py (offline
+golden re-run, no ports, project+tmp writes only).

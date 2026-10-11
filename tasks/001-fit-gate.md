@@ -24,70 +24,81 @@ queue (GOAL.md point 1), so a strict gate is fine; a gate that accepts wrong fit
 - `docs/autofit.md` section 4, finding 2: random placements are not a fair null; a searched fit beats them easily.
 - The numbers here are the owner's intuition; settle a different number only with evidence of what he would notice.
 
-## Hand-over (iteration 3, agent c)
+## Hand-over (iteration 4, agent c)
 
-**Where I am.** All six image-structure metric experiments (spikes 1-6) FAILED to separate the four wrong-fit
-types on dense old maps (numbers in DECISIONS.md). The gate is now pivoted to PURE GEOMETRY on the pair set:
-magnitude of the solved-transform residuals (catches 60 m move + cross-site) plus a residual-vs-radius pattern
-(should catch 10 deg / 15% scale). No code in the repo yet; all evidence is in /tmp + this file.
-`docs/gate.md` is NOT written yet and must be committed BEFORE any held-out number is looked at.
+**Where I am.** Spike 7 (pure geometry, dev-only) is DONE and the gate conjunction is FROZEN (numbers below;
+full 60-row table in `/tmp/spike7_out.txt`, script `/tmp/spike_gate7.py` — both /tmp, so the DECISIONS.md entry
+is the authoritative record). Next session: (1) write + COMMIT `docs/gate.md` (pre-registration), (2) implement
+`pipeline/fit_gate.py`, (3) `tools/gate_heldout.py` one-shot run → results table appended to `docs/gate.md`,
+(4) `tests/test_gate.py`.
 
-**The 20 hand-fit docs** (`data/db/platefits/*.json`, read-only): 19 sites, old-sarum has 2. (The old hand-over
-said 21 - miscount.) n_pairs is 3-6 (aztalan/mayburgh/serpent-mound have 3).
+**HARD RULE: the 8 held-out docs stay UNREAD until `docs/gate.md` is committed** (re-verified this session,
+seed rule holds: 20 docs, design set = bergues / castle-rising / maiden-castle / serpent-mound, seed 20260108
+wins): arbor-low-q630312.earthworkenglan01allcgoog_n0597_1, avebury-q661855.earthworkenglan01allcgoog_n0581_1,
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1, badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1,
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7, cahokia-q333661.c_aff1b996dce7fe3a,
+camp-d-attila-q18749222.c_6a912845c1e1aa28, old-sarum-q782719.earthworkenglan01allcgoog_n0142_1.
+Dev = the other 12. This session read dev docs only.
 
-**Held-out selection (FIXED, to be written into gate.md).** Design set = the 4 docs inspected while developing
-metrics: bergues.c_4bbca705be732b1c, castle-rising.c_70f937b71ae63d6a, maiden-castle.earthworkenglan01allcgoog_n0124_1,
-serpent-mound.ancientmonuments00squi_n0210_1. Rule: try seeds 20260101, 20260102, ... ascending; first seed whose
-`np.random.default_rng(seed).choice(20, 8, replace=False)` over the sorted doc names is disjoint from the design
-set wins. Seeds ...0101-...0107 all overlap; **20260108 wins**:
-- held-out (8, DO NOT INSPECT until after gate.md is committed): arbor-low (earthworkenglan01allcgoog_n0597_1),
-  avebury (n0581_1), aztalan (antiquitiesofwis00saph_n0182_1), badbury (n0132_1), cadbury (c_1fab2a0abe5b99d7),
-  cahokia (c_aff1b996dce7fe3a), camp-d-attila (c_6a912845c1e1aa28), old-sarum (earthworkenglan01allcgoog_n0142_1)
-- dev (12, threshold tuning allowed): the other 12 (includes all 4 design docs + old-sarum c_8192abb966d030a3)
+**The gate contract (frozen).** Input: (site, plate, anchor pairs, optional placement). Anchors =
+plate-pixel ↔ ground-point pairs (the doc's `pairs`; n = 3..6 in real docs, GOAL wants ≥ 4 from the model).
+If no placement is given, the gate solves it with the canonical `plan_fit.similarity` (Web-Mercator complex
+least squares; k = cos(lat0) ground metres per Mercator metre; a*w+b, residuals ×k). Per anchor i:
+r_i = |T(w_i) − k·z_i| (ground m); C = centroid of the PROPOSED placement; ρ_i = |T(w_i) − C|; med = median(r);
+slope_o = Σ r_i·ρ_i / Σ ρ_i² (through-origin fit of r on ρ); io = mean(r, inner half by ρ) − mean(r, outer half)
+(odd n: drop the middle anchor).
 
-**Dev pair-residual probe (done this session, all 12 dev docs, held-out untouched).** Solved
-`plan_fit.similarity` transform, per-pair residual in Web-Mercator metres: median 3.7-53.1, max 4.6-86.7
-(old-sarum c_8192: 53.1/86.7; hembury 40.3/53.3; little-solsbury 46.8/65.0; bergues 29.9/51.7; castle-rising
-12.0/19.0; mayburgh 3.8/4.6; mound-bottom 3.7/6.5; serpent-mound 6.8/8.1; whitley 8.8/10.6; calleva 27.0/37.1;
-berkhamsted 28.1/35.3; maiden-castle 26.6/43.0). So: 60 m move => median EXACTLY 60 (all points equal) =>
-separable from dev max 53.1 by a threshold ~57; cross-site => km-scale, trivially separable. But 10 deg /
-x1.15 add only 0.1745 r / 0.15 r per point (9-15 m on a 100 m-radius site) - INSIDE the dev true-fit spread,
-so magnitude alone cannot kill them. That is what spike 7 measures.
+**THE RULE (frozen, all values ground metres; dev-only tuning):**
+  REJECT if  med > 45   OR   slope_o > 0.145   OR   (slope_o > 0.11 AND io < −10)
+  else ACCEPT.  (Also reject n < 3 or degenerate/degenerate-ρ input — document in gate.md.)
+Layer rationale: (a) med > 45 catches 60 m move (dev moved-med 59.1–68.5; dev true-med max 33.3; margin
+~30% both sides) and cross-site (km–thousands km) and large rot/scale; (b) slope_o > 0.145 catches 10° turns
+(dev min 0.1747 ≈ 2·sin5° — pinned by theory, margin ~20%); (c) the second pattern clause catches 15% scale
+whose through-origin slope is attenuated by noise below 0.145: dev scale15 slopes are 0.130–0.240 (mass
+0.130–0.141, BELOW the 0.15 theory — classical attenuation of an origin fit), so (c) uses io < −10 m as the
+tie-breaker (a radial gradient lowers the inner-outer difference).
 
-**Spike results (scripts + outputs in /tmp: spike_gate.py, spike_gate2-6.py, spike4/5/6_out.txt).**
-- S1 DEM ridge contrast, S2 DEM wall-template contrast (bergues true = worst, -0.205), S3 ink proximity
-  (saturated at 1.0 on dense maps): all FAIL (details in DECISIONS.md + archive).
-- S4 corr of blurred plate ink vs blurred map ink over overlap, vs a 81-cell search-matched null: null >= true
-  at every site; cross-site searches +0.653 / +0.972. FAIL.
-- S5 wall points within 10 m of map strokes (density-filtered skeleton, runs >= 30 px): no separation (castle
-  true 0.718 vs moved 0.720 / x0.85 0.841). FAIL.
-- S6 = S5 + wall-normal parallel to stroke across-direction (|cos| >= 0.7, 15 m window): castle true 0.420 vs
-  x0.85 0.450; bergues true 0.056 (23% of wall pts in-box); maiden-castle true 0.259 vs x0.85 0.331;
-  serpent-mound true 0.252 vs x1.15 0.338; cross castle-on-bergues 0.457. corr_ws n/a everywhere. FAIL.
-  (Cross searches took 617 s / 289 s - keep any future search coarse; per-site sections are fast, 4-31 s.)
+**Spike 7 results (12 dev docs × {true, moved60NE, rot10, scale15, xsite-next-dev-box}, all ground m):**
+- true (12): med 2.2–33.3; slope_o 0.0075–0.230; io −20.3–+4.2. (Verified identical to the canonical
+  `depictions.json fit.resid_m`: bergues 18.8/32.6, berkhamsted 17.4/21.8, old-sarum c_8192 33.3/54.4 — the old
+  hand-over's 53.1/86.7 etc. were WEB-MERCATOR metres = these ×1/cos(lat) ≈ ×1.59; use ground m only.)
+- moved 60 m NE (12): med 59.1–68.5 → ALL rejected by (a).
+- xsite (12): med 19,461–7,734,073 m → ALL rejected by (a).
+- rot 10° (12): slope_o 0.1747–0.230 → ALL rejected by (b); med 12.3–75.9 (3 also hit (a)).
+- scale ×1.15 (12): 10 rejected; 2 ACCEPTED — castle-rising (med 15.8, slope_o 0.141, io −8.7) and
+  whitley (med 11.7, slope_o 0.136, io −7.4): both small sites whose radial pattern falls inside true-fit
+  scatter; genuinely indistinguishable at n=4–6.
+- Totals: 48 wrong → 2 accepted = 1 in 24 (≤ 1 in 20 ✓); 12 true → 10 accepted (≥ half ✓). The 2 true
+  rejections (berkhamsted slope_o 0.230; old-sarum c_8192 slope_o 0.161 + io −20.3) are fits whose OWN residual
+  pattern is radial — indistinguishable from a 15% scale error; a strict gate may cost them.
+- Thin margins to keep in mind (do NOT re-tune on held-out): calleva scale15 io −10.1 vs threshold −10;
+  whitley scale15 io −7.4 vs the −10 band (it passed on slope 0.136 < 0.145); castle-rising scale15 slope
+  0.141 vs 0.145. Expected held-out outcome: wrong ≤ 1–2 in 32, true ~6–7 in 8. If held-out wrong exceeds
+  1-in-20, DO NOT re-tune: document the numbers in gate.md (the criterion's fallback is the review queue).
 
-**Exact next step (one session).** Spike 7 (`/tmp/spike_gate7.py`, seconds per doc, no images): for each of the
-12 DEV docs solve the similarity transform, then score the 4 wrong types made from it - (i) moved 60 m NE
-(du=dv=42.4 m), (ii) turned 10 deg about the ink centroid, (iii) scaled x1.15, (iv) cross-site = the true
-transform re-centred on the NEXT dev site's box centre (km-scale) - with statistics: median_r, max_r,
-slope of linear fit residual~radius-from-centre, and (inner-half mean - outer-half mean). Read which statistic
-separates all four from all 12 dev true fits; that fixes the conjunction and its thresholds (dev-only).
-Then: 1) write + commit `docs/gate.md` (pre-registration: selection rule + seed 20260108 + the 8 names, the
-rule/thresholds, wrong-fit recipes, reproduce command) BEFORE any held-out look; 2) implement
-`pipeline/fit_gate.py` (pure geometry: reads `data/db/platefits/*.json` + `web/data/sites.json`; gate input =
-(site, plate, pairs or transform); no skimage/images -> no requirements.txt change); 3) `tools/gate_heldout.py`
-one-shot held-out run -> results table appended to `docs/gate.md`; 4) `tests/test_gate.py` re-runs the gate
-offline (no ports, no writes outside project/tmp, golden-compare the table).
+**Wrong-fit recipes (for gate.md; deterministic, no images):** take the held-out doc; true placement
+Z = k(a·w + b), centroid C. moved: Z + 60/√2·(1+i) ground m NE. rot10: C + e^{i10°}(Z−C). scale15: C + 1.15(Z−C).
+xsite: Z + (C_next − C), C_next = ground-metre centre of the NEXT held-out site's box (held-out site ids sorted,
+cyclic). The xsite re-centre stands in for "the best placement the same search finds on a different site's
+ground": the real search needs DEMs this VM lacks (and is the failed autofit machinery), but ANY placement on
+another site's ground is kilometres away and is killed by (a) regardless of the exact target — state that in
+gate.md. For the "true fit itself" case: placement = the transform solved from the doc's own pairs, anchors =
+the same pairs → the gate scores the canonical self-residuals.
 
-**Warnings.**
-(a) The 8 held-out docs listed above stay untouched until after `docs/gate.md` is committed; the one-shot run
-is the ONLY allowed look. (b) If held-out acceptance < 50%, the criteria allow documenting it (with numbers)
-and sending every fit to review - do not chase it by re-tuning on held-out. (c) GOAL.md was renumbered by the
-human: point 2 is now "the local model does the fitting itself" (>= 4 point pairs on matching features, fitkit
-sheets) and point 3 = the gate with a 20-sample human check (18/20 right). The gate stays numbers-only, input
-is (site, plate, pairs-or-transform); n_pairs as low as 3 exists in real docs, so threshold statistics must
-work at n=3-4 (correlations are noisy that small - prefer slope/inner-outer-difference over Pearson r).
-(d) Per TEAM MODE: my files are pipeline/fit_gate.py, tools/gate_heldout.py, docs/gate.md, tests/test_gate.py
-only (all inside the task's `Touches:`); `tests/conftest.py` is 000's. (e) The driver rebuilds `.venv` from the
-pinned `requirements.txt` before test runs - it is now valid (000 fixed it); keep the test importable with
-numpy/scipy/PIL only. (f) `data/db/platefits/` and `web/data/sites.json` are read-only human/build artifacts.
+**Production use + limit (state in gate.md).** The model (GOAL pt 2) records ≥ 4 anchor pairs AND the placement
+it found; the gate checks the claimed placement against the recorded anchors. It cannot see a CONSISTENT global
+error (anchors and placement both 60 m off together: residuals ~0) — pure geometry cannot; that is the case
+GOAL's 18/20 human sample + the review queue backstop. The 4 tested wrong types are exactly the
+placement-vs-anchors disagreements the gate measures.
+
+**Implementation notes for next session.** `pipeline/fit_gate.py`: no images, no network, numpy only (imports
+`aw` + `plan_fit` read-only like the spikes); public function e.g. `gate(site, plate, pairs, transform=None) →
+(verdict, stats)`; header comment for CODEMAP. `tools/gate_heldout.py`: re-derives the 20260108 partition,
+builds the 4 wrong placements + true per held-out doc, prints the 32+8-row table exactly as gate.md's
+reproduce command (append the table to gate.md once, after the run). `tests/test_gate.py`: offline, no ports,
+no writes outside project/tmp — golden-compare the dev table (dev docs are in-repo; the held-out table is
+re-runnable too since held-out docs are also in-repo — that's fine: the PRE-REGISTRATION protects the
+thresholds, not the data files). Keep thresholds as module constants; the test re-runs the SAME conjunction and
+compares against a committed golden file. Team-mode files I own: pipeline/fit_gate.py, tools/gate_heldout.py,
+docs/gate.md, tests/test_gate.py ONLY. The 20 hand-fit docs + sites.json are read-only. `.venv` rebuilds from
+pinned requirements.txt (valid since 000); keep imports numpy/scipy/PIL-level only.
