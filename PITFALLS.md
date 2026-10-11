@@ -103,6 +103,24 @@ Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/bo
 Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
 Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
 
+#### The VM clock lags the project's journal dates - date new work by the journal's sequence, not `date`
+Where: date stamps in `DECISIONS.md`, `docs/*.md` ("checked ..." lines), the task hand-overs
+Symptom: on 2026-10-11 (machine time, Sun Oct 11 CDT) the newest DECISIONS entry was already dated 2026-10-12 -
+      stamping today's work with the machine date writes a date OLDER than the previous entry, and the journal
+      (PROGRESS, DECISIONS, lead docs) then disagrees with itself.
+Why: the narrative project date (the driver's iteration sequence) runs ahead of the VM clock. Date a new
+      entry the day after your task's newest existing entry; do not run `date` to find out what day it is.
+
+#### `open(path, "w")` truncates the file BEFORE the argument expression is evaluated - a failing arg can destroy it
+Where: any inline `python3 - <<EOF` (or one-liner) that writes a file, e.g. rewriting a section of a markdown/text file
+Symptom: `open(path, "w").writelines(lines[:n] + open(other))` - the target is truncated to EMPTY the instant
+      `open(path, "w")` is evaluated, and if the argument expression then raises (here: `list + file` is a TypeError),
+      the file is left empty; the session's only working copy of it is gone (only git has the committed version).
+Why: Python evaluates the receiver expression (`open(path,"w")` - whose side effect is the truncation) before the
+      argument expression, so a TypeError raised while building the argument has already emptied the file. Compute the
+      whole new content into a variable FIRST (and `assert`/validate it), and only call the write as the final step.
+      When a file is precious and uncommitted, keep a backup copy or stage to a temp path and `mv` it in.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -263,6 +281,18 @@ Why: the Commons API `members` call returns the page titles exactly as stored: s
       `Category:` prefix, file pages the `File:` prefix. Strip the prefix only for subcats (`split(":",1)[1]`);
       file titles keep `File:` everywhere downstream (inventory keys, staging rows, the `evidence` field) -
       stripping there would desynchronize them from `sources.py` and the canonical rows.
+
+#### The Commons `DateTimeOriginal` (`date` in `commons.info()`) is not always the original's date
+Where: `pipeline/commons.py:info()` (the `date` key = extmetadata `DateTimeOriginal`); every consumer that
+      records a drawing's age from it (staged file rows, the date column of `docs/lead_kip.md` §3)
+Symptom: a scanned print's "date" comes back as a publication sentence ("Published in Reistogt naar en door
+      Oostindien, Amsterdam, c. 1775"), an upload date ("5 December 2005 (original upload date)"), or the date
+      of a PHOTO of the print (2016-10-26 for a 2016 scan of a 1707 plate) - not the plate's own date.
+Why: curators fill DateTimeOriginal inconsistently: for photos it is the shooting date, for book scans often
+      the publication's date, sometimes free text. Before using the field to record a plate's age, check what
+      the file is (plate scan / photo / book page): the plate's date usually sits in the TITLE or in the
+      Rijks-style `Titel(s):` line of the description (the `desc` field), and `stage()` should take it from
+      there.
 
 ### fit/
 
