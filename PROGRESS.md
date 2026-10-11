@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 64, agent c - first session: orientation and design DONE, zero code written yet. The next session writes the code exactly as designed below
+- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 65, agent c - the line is BUILT and RAN on the real tree; the browser check passed; ONLY box 4 remains: tests/test_site_done.py, then the t
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -40,6 +40,31 @@ hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pac
 backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
 hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
 real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
+
+### 2026-10-11 300 DECISION: the one-site line is implemented and has taken Stonehenge to the map; one session remains (tests/test_site_done.py)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py, docs/site_flow.md, docs/site_flow/stonehenge.png, web/data/{sites.json,review.json,sites/stonehenge-q39671/}, data/raw/commons/big/
+Rationale: iteration 65 implemented exactly the previous session's design and ran the line on the real
+`tree with no model flag. Results, all verified on disk: (1) fit - "13 candidate picture(s): 7 fitted (doc),
+6 in the review item -> no batch run needed" (the covered/uncovered distinction worked: run_sites was never
+called, so no item entry was clobbered); (2) sync - 7 documents synced, each big picture downloaded from
+Commons through the new paced _fetch (14 requests, no 429, ~35 s); (3) entry - drawings 0 -> 7; (4) review -
+the item published (339 open of 340 - the batch's population, unchanged), no `resolved` recorded anywhere
+(stonehenge's 6 candidates have no resolving doc; the scoped export also left alligator's derived-resolved
+item untouched - all 340 item files byte-identical, all 130 platefits docs byte-identical, only the stonehenge
+entry in sites.json changed, hand-fit golden green, suite 59 green both before and after). Re-run of the
+command: every doc "skipped: overlay already current", sites.json and platefits byte-identical - idempotent.
+Browser check (box 3): serve.py --port 0 + shot.mjs with `select('stonehenge-q39671')` - probe reports
+drawings 7, marker class without `plain` (the square is coloured), the 1800 Rijksmuseum plan auto-selected
+and rendered in red ink exactly on the real sarsen circles over the aerial photograph; screenshot committed
+as docs/site_flow/stonehenge.png with its one-line description in docs/site_flow.md.
+What broke this session (all fixed, all documented in docs/site_flow.md for the next site): the entry line
+first printed "drawings 7 -> 7" because plan_fit.build calls set_drawings after every fit, so a "before" read
+taken AFTER the sync sees the final value - the before is now captured before the sync. (The 429 risk did
+not materialise: the paced _fetch absorbed a 14-request burst cleanly.)
+Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the site stripped to pre-sync +
+synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
+exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
+file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
 
 ## Project-wide driver notes (newest)
 
