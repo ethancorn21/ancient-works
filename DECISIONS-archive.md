@@ -930,6 +930,11 @@ gate sees ~0 residuals ("true case"); it rejects degenerate/nan anchor sets (n<3
 claimed placement inconsistent with its anchors. The real check on the auto fits is the human's 18/20
 sample - the report lists every auto doc's median for that.
 
+## 2026-10-11 203a DECISION: venv note resolved (driver note 2026-10-10)
+The driver's ".venv could not be built" note is stale: 800-requirements-pinned is done (requirements.txt
+fully pinned + hashed) and .venv builds; the suite runs green in .venv/bin/python (29 passed). Run batch
+work and tests in .venv.
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
