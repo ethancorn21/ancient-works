@@ -81,7 +81,12 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## server/
 - `server/relief_tiles.py` (256 lines) - Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17. Exports: Unavailable L43-44, Cancelled L47-48, covered L224-226, tile L229-256.
-- `server/serve.py` (287 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L51-215, after_write L221-244, lan_address L247-256, main L259-287.
+- `server/serve.py` (288 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L51-215, after_write L221-244, lan_address L247-256, main L259-288.
+
+## tests/
+- `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
+- `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
+- `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
 ## tools/
 - `tools/composite.py` (16 lines) - Preview: site relief with the exported plate ink on top.
