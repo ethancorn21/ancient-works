@@ -21,7 +21,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
 }
 html, body { height: 100%; }
 body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--title); overflow: hidden; }
-#map { position: fixed; inset: 0; background: var(--paper); }
+#map { position: fixed; inset: 0; background: #10141C; }  /* space around the globe */
 .caps { font-family: var(--label); text-transform: uppercase; letter-spacing: .09em; font-size: 11px; }
 
 /* ---------- panel: the EXPLANATION column ---------- */
@@ -297,63 +297,15 @@ function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch
 S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.85);
 S.dep = {}; S.depUrl = {}; S.depAlign = {}; S.alignStep = lsGet('aw.alignStep', 'fine'); S.drag = null; S.depSel = lsGet('aw.depSel', {}); S.depOpacity = lsGet('aw.depOpacity', 0.85); S.depMode = lsGet('aw.depMode', 'ink');
 
-// The base map (Ethan 2026-10-10: the old 4096 px world picture "gets blurry and ugly" and "has no drip", and the
-// satellite came in only about 50 km out). Two to compare, picked by ?base=: 'plate' (default) is a flat sheet drawn
-// like a USGS plate (cream land, shaded hills, aqua water, spaced capitals) from OpenFreeMap vector tiles and
-// Mapterhorn elevation, sharp at every zoom, with the aerial photograph fading in from about 200 km across;
-// 'satellite' is the aerial photograph on the globe all the way out.
-const BASE = new URLSearchParams(location.search).get('base') === 'satellite' ? 'satellite' : 'plate';
-const LABEL_FONT = ['noto_sans_regular'], LABEL_BOLD = ['noto_sans_bold'], LABEL_ITALIC = ['noto_sans_regular_italic'];
-const SAT_FROM = BASE === 'plate' ? [7, 8.5] : null;  // zoom where the photograph starts and finishes fading in
-const fadeOut = (z0, z1) => ['interpolate', ['linear'], ['zoom'], z0, 1, z1, 0];
-const nameOf = ['coalesce', ['get', 'name:en'], ['get', 'name:latin'], ['get', 'name']];
-const label = (id, filter, minzoom, maxzoom, size, font, color, spacing, extra = {}) => ({
-  id, type: 'symbol', source: 'omt', 'source-layer': id.startsWith('lbl-water') ? 'water_name' : 'place', minzoom, maxzoom, filter,
-  layout: { 'text-field': nameOf, 'text-font': font, 'text-size': size, 'text-transform': 'uppercase',
-            'text-letter-spacing': spacing, 'text-max-width': 8, ...extra },
-  paint: { 'text-color': color, 'text-halo-color': 'rgba(248,244,232,0.9)', 'text-halo-width': 1.4, 'text-opacity': fadeOut(9, 10.5) } });
-const PLATE_LAYERS = [
-  { id: 'land', type: 'background', paint: { 'background-color': '#F3EDDC' } },
-  { id: 'wood', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['in', ['get', 'class'], ['literal', ['wood', 'forest']]],
-    paint: { 'fill-color': '#DDE2C4', 'fill-opacity': 0.55 } },
-  { id: 'ice', type: 'fill', source: 'omt', 'source-layer': 'landcover', filter: ['==', ['get', 'class'], 'ice'], paint: { 'fill-color': '#FAF7EE' } },
-  { id: 'hills', type: 'hillshade', source: 'dem', paint: { 'hillshade-shadow-color': '#7A6656', 'hillshade-highlight-color': '#FFFBF0',
-    'hillshade-accent-color': '#A8927E', 'hillshade-exaggeration': ['interpolate', ['linear'], ['zoom'], 2, 0.55, 8, 0.4, 12, 0.3] } },
-  { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#C4DEDC' } },
-  { id: 'shore', type: 'line', source: 'omt', 'source-layer': 'water', filter: ['==', ['get', 'class'], 'ocean'],
-    paint: { 'line-color': '#5E8A88', 'line-width': ['interpolate', ['linear'], ['zoom'], 2, 0.4, 8, 1.1] } },
-  { id: 'rivers', type: 'line', source: 'omt', 'source-layer': 'waterway', filter: ['==', ['get', 'class'], 'river'],
-    paint: { 'line-color': '#7FA9A7', 'line-width': ['interpolate', ['linear'], ['zoom'], 4, 0.4, 10, 1.6] } },
-  { id: 'states', type: 'line', source: 'omt', 'source-layer': 'boundary', minzoom: 3,
-    filter: ['all', ['==', ['get', 'admin_level'], 4], ['!=', ['get', 'maritime'], 1]],
-    paint: { 'line-color': '#8E8478', 'line-width': 0.7, 'line-dasharray': [1, 2] } },
-  { id: 'countries', type: 'line', source: 'omt', 'source-layer': 'boundary',
-    filter: ['all', ['==', ['get', 'admin_level'], 2], ['!=', ['get', 'maritime'], 1], ['!=', ['get', 'disputed'], 1]],
-    paint: { 'line-color': '#2B2724', 'line-width': ['interpolate', ['linear'], ['zoom'], 2, 0.6, 8, 1.4], 'line-dasharray': [6, 2, 1, 2] } },
-  { id: 'roads', type: 'line', source: 'omt', 'source-layer': 'transportation', minzoom: 6,
-    filter: ['in', ['get', 'class'], ['literal', ['motorway', 'trunk', 'primary']]],
-    paint: { 'line-color': '#B4906F', 'line-width': ['interpolate', ['linear'], ['zoom'], 6, 0.4, 10, 1.3], 'line-opacity': 0.8 } },
-];
-const PLATE_LABELS = [
-  label('lbl-water-ocean', ['in', ['get', 'class'], ['literal', ['ocean', 'sea']]], 1, 10, ['interpolate', ['linear'], ['zoom'], 2, 10, 6, 14],
-    LABEL_ITALIC, '#4E7472', 0.3, { 'symbol-placement': 'point' }),
-  label('lbl-country', ['==', ['get', 'class'], 'country'], 1, 7, ['interpolate', ['linear'], ['zoom'], 2, 10, 5, 14], LABEL_BOLD, '#2B2724', 0.25),
-  label('lbl-state', ['==', ['get', 'class'], 'state'], 4, 8, 10.5, LABEL_ITALIC, '#6B625A', 0.2),
-  label('lbl-city', ['==', ['get', 'class'], 'city'], 4, 11, ['interpolate', ['linear'], ['zoom'], 4, 10, 9, 13], LABEL_FONT, '#2B2724', 0.12,
-    { 'symbol-sort-key': ['get', 'rank'] }),
-  label('lbl-town', ['==', ['get', 'class'], 'town'], 7, 11, 10.5, LABEL_FONT, '#4A423C', 0.1),
-];
+// The base map is the aerial photograph on the globe, all the way out. Ethan 2026-10-10: the old 4096 px world
+// picture "gets blurry and ugly" and "has no drip", and the photograph only came in about 50 km out; a plate-style
+// vector map (OpenFreeMap + Mapterhorn hill shading, d939bd2) was tried side by side and lost: "satellite global all
+// the way out is better and way faster".
 const map = new maplibregl.Map({
   container: 'map',
   style: {
-    version: 8, projection: { type: BASE === 'plate' ? 'mercator' : 'globe' },
-    glyphs: 'https://tiles.versatiles.org/assets/glyphs/{fontstack}/{range}.pbf',
+    version: 8, projection: { type: 'globe' },
     sources: {
-      omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet',
-             attribution: '<a href="https://openfreemap.org">OpenFreeMap</a> &copy; <a href="https://www.openmaptiles.org/">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' },
-      dem: { type: 'raster-dem', tiles: ['https://tiles.mapterhorn.com/{z}/{x}/{y}.webp'], encoding: 'terrarium', tileSize: 512, maxzoom: 12,
-             attribution: '<a href="https://mapterhorn.com/attribution">&copy; Mapterhorn</a>' },
-      // the aerial photograph: the ground under every site, and in between from about 200 km across
       sat: { type: 'raster', tileSize: 256, maxzoom: 19,
              tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
       // source minzoom (not layer minzoom): no tiles below z12, but the credit stays while per-site relief shows
@@ -361,19 +313,15 @@ const map = new maplibregl.Map({
         bounds: r.bounds, attribution: r.attribution, tiles: [RELIEF_URL] }])),
     },
     layers: [
-      ...(BASE === 'plate' ? PLATE_LAYERS : []),
-      { id: 'sat', type: 'raster', source: 'sat', ...(SAT_FROM ? { minzoom: SAT_FROM[0] } : {}),
-        paint: { 'raster-fade-duration': 0, 'raster-opacity': SAT_FROM ? ['interpolate', ['linear'], ['zoom'], ...SAT_FROM.flatMap((z, i) => [z, i])] : 1 } },
+      { id: 'sat', type: 'raster', source: 'sat', paint: { 'raster-fade-duration': 0 } },
       // beneath everything added later (per-site relief, plates, finder crops)
       ...RELIEF.map(r => ({ id: r.id, type: 'raster', source: r.id, layout: { visibility: 'none' },
         paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear' } })),
-      ...(BASE === 'plate' ? PLATE_LABELS : []),
     ],
-    ...(BASE === 'satellite' ? { sky: { 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0] } } : {}),
+    sky: { 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0] },
   },
   center: [-86, 38.5], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
-if (BASE === 'satellite') document.getElementById('map').style.background = '#10141C';
 // on phones the bottom sheet covers the lower half: centre the globe in the visible part
 if (narrow()) map.setPadding({ top: 0, left: 0, right: 0, bottom: innerHeight * 0.5 });
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
