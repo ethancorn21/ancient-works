@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 4a (2026-10-11, iteration 37). Two things happened:
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 4b (2026-10-11, iteration 37). Step done: the session-4a-specified `llm_model` rewrite is
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -12,26 +12,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: tests/test_batch_us.py built - 2 of 5 pass, all three failures diagnosed (session 2)
-Wrote the hermetic test file (5 tests): real-gate sample run (serpent-mound's 15 pinned 202-proposal answers
--> automatic docs; cahokia's two-pair + no-answer pictures -> one item; mound-bottom's hand-fit-only
-candidate -> skip, nothing written; first zero-candidate US site -> no-picture item), stub-gate
-always-accept / always-reject (pins the doc and item writers independently of 001's thresholds; the
-reject test also pins the upsert: merge into a pre-existing item, move it to its lead name, never clear
-`resolved`), golden invariance (every data/ + web/ file hashed before/after the run; new files only under
-data/db/platefits as auto docs or data/review for sample sites), report reproducibility from SEED
-(two writes byte-identical; counts; the seeded sample; a synthetic 22-doc case for the 20-of-20-or-more
-branch). Ran in .venv: 2 passed, 3 failed. Diagnosed: (1) `/` and `%` are same-precedence, left-
-associative: `Path / ... / "%s.%s.json" % (a, b)` parses as `(Path / str) % tuple` -> TypeError
-(fix: parenthesize the format; hit in _check_doc_stub, verify _check_doc too); (2) _table used the wrong
-section header - the report's is "## Sample of automatically accepted fits (for the human's 18/20 check)";
-(3) in test_sample_run_real_gate the batch auto-accepted all 15 serpent candidates while my independent
-_expected() (same plan_fit.similarity + fit_gate.gate on the same pairs) said "item" for all of them, yet
-the identical computation ACCEPTs (med 0.001-0.022) in a standalone probe - suspected state pollution in
-the shared pytest process (earlier test modules import fit_gate/plan_fit/aw/propose); next step is to run
-that test alone in a fresh process and instrument _expected vs gate_placement, or drop the pre-run
-expectation in favour of asserting on the written artifacts (which _check_doc / _check_entry already do).
 
 ### 2026-10-11 203a DECISION: session 3 - all 5 tests green; failure 3 was a post-run pre_docs snapshot, not state pollution
 Fixed the remaining session-2 failures in tests/test_batch_us.py only (fit/batch_us.py untouched):
@@ -58,6 +38,51 @@ Working-phase start (this session): AI-box tunnel is UP - qwen3.8-27b on 127.0.0
 PILOT (15 real Qwen calls, scripts /tmp/pilot_llm.py + /tmp/pilot_llm2.py, still on disk): parsing of the CURRENT production prompt WORKS (JSON, 4-element pairs, _ground_lonlat) but the model SYSTEMATICALLY FABRICATES regular patterns - poverty-point: the identity map (100,100)->(100,100)...; serpent n0636: the 4 corners mapped to the 4 corners; pyramid-mound: a 5-point diagonal ladder with v-coords OUTSIDE the labelled crop; tremper: 1:1 pixel lines (281 m off the seed placement). All internally perfect (gate med 0.0) and PASS the frozen gate - the docs/gate.md section-7 "consistent global error" limit as a systematic model failure: left as is, every auto doc would be garbage and the human's 18/20 check would fail. A/B with an improved prompt (both panels' metre coverage, labelled coordinate ranges, seed scale +-50%, anti-pattern + honesty clauses, require feature names + a stated scale): 4 of 5 answers then FAIL the gate (correctly routed to review items carrying the pairs as leads); tremper still returns 1:1 and still passes. Root cause seen in the sheet image itself: poverty-point's row has no map_box, so the sheet is a FULL TEXT PAGE (the mound figure is ~15% of it) gridded with PIL's tiny default bitmap font, further downscaled to 1600 px by llm._image_part - illegible to a 27 B model. 202's proposals are the map-panel corners + centre: map_box rows bracket the real figure, map_box-less rows bracket the whole page (anchor wrong by construction, coarse=True).
 
 ... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns' DECISIONS.md`)
+
+### 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green
+Session 4a's composed rewrite text was lost (its edit call failed on exact-match; only the spec
+survived, in the 4a hand-over/DECISIONS). Re-implemented exactly that spec in fit/batch_us.py:
+(1) _font/_step/_grid - DejaVuSans-Bold 22 px (verified present at
+/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf in .venv), a label at BOTH ends of every
+grid line (top/bottom on vertical, left/right on horizontal), step the first of 100/200/500/1000
+with step*scale >= 90 sheet px on the 900 px panels; (2) _sheet - fitkit.plan_image(row).crop(box)
++ fitkit.ground/ground_view, plan blue (0,0,200) / ground red (200,0,0), saved to
+fitkit.OUT/fit_<sid>_<pid>.jpg (fitkit's own name), returns (path, ground size, the site
+corners' Mercator x-span in metres via aw.to_merc); (3) _model_prompt - the 4a improved prompt:
+both panels' labelled coordinate ranges (the crop box / 0..ground size) and metre coverage,
+the 202 seed as "within about 50% of that scale", same-real-feature list, "every coordinate
+must lie inside its panel's labelled range", anti-fabrication clauses (no grid-line
+intersections / even spacing / >=3 collinear), "answer with only the pairs you truly see
+(even 0 or 1) - never pad", JSON {"scale_m_px", "features", "pairs"}; (4) _parse_answer - drops
+pairs whose (u,v) is outside the crop box or whose (ug,vg) is outside [0, ground size], converts
+the survivors to [u,v,lon,lat] via _ground_lonlat, keeps feature names index-aligned; (5)
+llm_model closure - after parsing, with >=3 pairs and a numeric stated scale_m_px > 0: implied
+= |a|*k from plan_fit.similarity(pairs[:min(8,len)]); if max(implied/stated, stated/implied) >
+2.0 -> note "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted" and trim
+pairs (and feats) to 3 so run_sites' <4 branch routes the picture to the review item (nan
+implied is not treated as a mismatch - the gate's degenerate clauses own that); sheet-build and
+call failures still -> note, never raised. Module docstring updated (fitkit-STYLE sheet; the
+anti-fabrication design rationale). Verification this session: import ok; built poverty-point's
+sheet and READ it with the read tool - the full-text-page root case now has legible bold labels
+at both ends and the ground panel shows the mound clearly (4a's sheet was illegible default-bitmap
+font); a synthetic out-of-range answer drops exactly the 2 bad points (3 of 5 kept, feature
+names follow the survivors); the prompt renders without format glitches (fixed a double-paren
+in the coverage clause found while eyeballing it). Tests: recorded answers bypass llm_model by
+design, so tests/test_batch_us.py 5/5 (4.9 s) and the full suite 34/34 in .venv (42 s) are
+unchanged. Committed the rewrite alone. PITFALLS filed: llm.ask's default url= binds at def time
+(set $AW_LLM_URL or pass url=); this Qwen fabricates gate-passing regular patterns (docs/gate.md
+section 7) with the batch-side counterweight described.
+NEXT (session 4c): 1) re-run the A/B pilot - /tmp/pilot_llm.py (it wraps llm.ask and calls
+b.llm_model, now the new one; update it to tee raw answers to /tmp/llm_raw_4c.txt and print the
+gate verdict per pick) on the same 5 candidates as 4a (tremper c_75950f29c23bf033, pyramid-mound
+n0134_1, poverty-point n0138_1, serpent n0636_1, cahokia c_8c44bb427b76aa7a); accept when the
+4a fabrications route to items and any remaining auto-passer is eyeballed against its sheet
+(read tool); 2) full run AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions
+.venv/bin/python fit/batch_us.py --working (58 candidates, ~10-40 min, long timeout; images all
+local, all 18 sites have relief.jpg - re-verify the tunnel is UP first); 3) sha256sum -c
+tests/golden/hand_fit_docs.sha256 (39 files -> box 4) + report's error bucket empty and counts
+sum to 90 (box 3); 4) tick 3/4/5, commit docs + items + docs/batch_us.md (the alligator-effigy-
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
