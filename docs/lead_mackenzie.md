@@ -5,13 +5,16 @@ already hand-tied plates: the MACKENZIE table in `pipeline/sources.py` (26 rows:
 5 separately uploaded "Plan of ..." crops; six further plates were already harvested for their sites
 before that table) names it in its comment: "Left out: ... page 212 (a five-towered castle with no
 caption)." This document is the record of the identification: **Shotwick Castle, Q7502621** (Saughall
-and Shotwick Park, Cheshire; the existing catalog row in `data/catalog/sites.jsonl`, not yet built).
+and Shotwick Park, Cheshire; the existing catalog row in `data/catalog/sites.jsonl`; the site is
+built - this task ran `pipeline/build_catalog.py --ids shotwick-castle-q7502621`, so the fit doc
+below names a built site and is not orphaned in the shared store).
 The evidence chain is §3 - the file's Commons category is the site's own P373, the book's index and
 V2 chapter text name Shotwick, the plate sits in V2's Cheshire/Wirral zone nineteen leaves before the
 Lancashire part, and the surviving ground matches the plan - and the fit proves the identification by
 numbers (§4): the plan's pentagon bank and the ground's pentagon solve one similarity (rotation
 -0.20 deg, i.e. the plan is printed north-up) with a median residual of 15.8 m, and the gate (001)
-accepts. One row was staged by `fit/src_mackenzie.py` (§5); 211 consolidates and builds the site.
+accepts. One row was staged and the site built by `fit/src_mackenzie.py` (§5); 211 only
+consolidates the rows (the site is already built, so its build skips it).
 
 ## 1. The scan (checked 2026-10-11 live; `fit/src_mackenzie.py --verify` re-checks the live title, size, description and categories and fails loud on drift)
 
@@ -193,14 +196,22 @@ offline, exit 0):
   Castle", via []}.
 - `data/commons/classified_mackenzie.jsonl` - one row: p_plan 1.0, by "hand".
 - `data/catalog/extras_mackenzie.jsonl` - one row: aerial_ok true, source "fit/src_mackenzie.py" -
-  the reason to build the unbuilt site (task Notes): 211 merges it into extras.jsonl and builds the
-  site with the plan already tied; the catalog's sites.jsonl row carries the same id and the full
-  record (admin, heritage, designation) and reads first in the merge (211 logs the duplicate).
+  the reason to build (task Notes): this task built the site itself on 2026-10-11 (the lead
+dropped the 211 dependency and the shared-store tests require every fit doc to name a built
+  site); 211 merges the row into extras.jsonl, sees the site already built and skips it; the
+catalog's sites.jsonl row carries the same id and the full record (admin, heritage, designation)
+  and reads first in the merge (211 logs the duplicate).
 
 **What 211 must know:** the doc id `c_e6e5490609414bb9`
 (`data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json`, committed); the image
 `data/raw/commons/shotwick-castle-q7502621/e6e5490609414bb9.jpg` (gitignored, re-fetch via
 `--fetch`); the three staged rows above; and that this doc is the **first hand-fit doc after the
-gate registration** - the four red tests (test_serve's platefits-docs check, the two test_batch_eu
-union tests, test_gate's recorded-measurement partition) turn green when 211 builds the site and
-218 (the gate-holdout tolerance for post-registration hand docs) lands.
+gate registration** - 218 (the gate-holdout tolerance for post-registration hand docs) covers the
+gate test, and this task built the site on 2026-10-11 (`pipeline/build_catalog.py --ids shotwick-
+castle-q7502621`: Environment Agency 1 m LiDAR relief and block diagram, the Ordnance Survey
+six-inch 1st edition map from NLS; `data/sites/shotwick-castle-q7502621/site.json` committed, the
+`web/data/sites.json` entry is the 385th site, per-site images gitignored and rebuilt by the
+pipeline), which turned test_serve's platefits-docs check and test_batch_eu's temp-tree union
+test green on this task's merge. The live full-coverage union test stays skip-gated until 203b's
+`docs/batch_eu.md` "Sites run" matches the grown EU list (212 re-covers the growth). 211's merge
+builds no site here - build_catalog skips an already-built site - and only consolidates the rows.
