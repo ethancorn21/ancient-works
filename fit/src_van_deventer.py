@@ -163,22 +163,27 @@ TOWNS = {
     "Gouda": dict(region="netherlands", cat="Map of Gouda by Jacob van Deventer", qid="Q84125", done=True),
     "Zwolle": dict(region="netherlands", cat="Map of Zwolle by Jacob van Deventer", qid="Q793", done=True),
     "Venlo": dict(region="netherlands", cat="Map of Venlo by Jacob van Deventer", qid="Q9777", done=True),
-    # -- Belgium (23 categories: 21 to stage + the 2 done; Le Rœulx joined from the prep's France list in iter 49 -
-    # its verified item sits in Hainaut, Belgium). QIDs hand-verified 2026-10-11 in one --verify
-    # discovery run (transcript /tmp/vd_verify_be_iter45.txt): every label matches the town (Leuze's
-    # verified item carries the official disambiguated name 'Leuze-en-Hainaut'), every P373 is its exact
-    # recorded string, every P625 sits at the town; the site point is the P625 rounded (the hand check
-    # found no offset from the old-town centre, unlike the NL Gouda 800 m case). Four items carry a
-    # disambiguated P373 (Brussels 'Brussels (municipality)', Halle 'Halle (Belgium)', Mons
-    # 'Mons (Hainaut)', Leuze 'Leuze-en-Hainaut') - the category route targets that exact string, the
-    # chain walk must reach it. Mons was NOT in its search's top 5 (the French communes outrank it - the
-    # batch's biggest trap, found by a follow-up search at limit 20; lead doc). file/date recorded 2026-10-11
-    # (iter 46) from the live --files inventory (transcript /tmp/vd_files_be_iter46.txt) plus a 1200 px
-    # thumb eye check of every ambiguous candidate: 19 of the 20 carry their one staged picture (16 of the
-    # BNE atlas plates - 15 of the 1545 sheets + the Ostend plate, circa 1562 - plus the KBR Brussels and
-    # Mechelen autographs and the full, caption-dated Bruges plan); Aarschot is a documented drop (both
-    # files dated 1570, outside the c. 1545-1565 window - the reason in `note` and the lead doc). No BE QID
-    # is in the built catalog (the 12575-site check of 2026-10-11): all 20 get new catalog entries. --
+    # -- Belgium (24 categories: 22 to stage + the 2 done; Le Rœulx joined from the prep's France list in
+    # iter 49 - its verified item sits in Hainaut, Belgium - and Beaumont joined in iter 52, its atlas plate
+    # showing the Sambre bisecting the town and the counts' chateau (Beaumont (Nord) has neither)). QIDs
+    # hand-verified 2026-10-11 in one --verify discovery run (transcript /tmp/vd_verify_be_iter45.txt;
+    # Beaumont re-verified in iter 52 - the first search hit WITH a P625 is Q128282 'Beaumont' (Texas),
+    # ~7000 km away, the trap; the recorded label, P373 and enwiki confirm Q95100): every label matches the
+    # town (Leuze's verified item carries the official disambiguated name 'Leuze-en-Hainaut'), every P373 is
+    # its exact recorded string, every P625 sits at the town; the site point is the P625 rounded (the hand
+    # check found no offset from the old-town centre, unlike the NL Gouda 800 m case). Five items carry a
+    # disambiguated P373 (Brussels 'Brussels (municipality)', Halle 'Halle (Belgium)', Mons 'Mons (Hainaut)',
+    # Leuze 'Leuze-en-Hainaut', Beaumont 'Beaumont (Hainaut)') - the category route targets that exact
+    # string, the chain walk must reach it. Mons was NOT in its search's top 5 (the French communes outrank
+    # it - the batch's biggest trap, found by a follow-up search at limit 20; lead doc). file/date recorded
+    # 2026-10-11 (iter 46) from the live --files inventory (transcript /tmp/vd_files_be_iter46.txt) plus a
+    # 1200 px thumb eye check of every ambiguous candidate; Le Rœulx's and Beaumont's file= came in iter 52
+    # (the 1545 BNE atlas plates; transcript /tmp/vd_files_fr_iter50.txt + the 1280 px eye check
+    # /tmp/vd_fr_thumbs/): 21 of the 22 carry their one staged picture (17 of the BNE atlas 1545 sheets +
+    # the Ostend plate, circa 1562 + the KBR Brussels and Mechelen autographs and the full, caption-dated
+    # Bruges plan); Aarschot is the documented drop (both files dated 1570, outside the c. 1545-1565 window
+    # - the reason in `note` and the lead doc). No BE QID is in the built catalog (the 12575-site check of
+    # 2026-10-11): all 22 get new catalog entries. --
     "Ath": dict(region="belgium", cat="Map of Ath by Jacob van Deventer",
                 qid="Q95096", label="Ath", lon=3.7769, lat=50.6311, p625=(3.776941, 50.631139),
                 place="Arrondissement of Ath", wikipedia="https://en.wikipedia.org/wiki/Ath", p373="Ath",
@@ -248,12 +253,13 @@ TOWNS = {
     "Le Rœulx": dict(region="belgium", cat="Map of Le Rœulx by Jacob van Deventer",
                      qid="Q668861", label="Le Rœulx", lon=4.1116, lat=50.5036, p625=(4.1, 50.5),
                      place="Arrondissement of Soignies", wikipedia="https://en.wikipedia.org/wiki/Le_R%C5%93ulx",
-                     p373="Le Roeulx"),  # discovered in the FR batch (iter 49) and moved here: the item is in
-    # Hainaut, Belgium (the enwiki lead: "a city and municipality of Wallonia ... in the province of Hainaut,
-    # Belgium") - the prep's france region guess was wrong. The recorded item's P625 (4.1, 50.5) is a rounded
-    # value; the site point is the precise P625 of its subdivision item Q21764574 (4.11163, 50.50365) - the town
-    # centre. P373 is 'Le Roeulx' without the diaeresis. The 1545 BNE atlas plate is the expected pick
-    # (--files pending, lead doc)
+                     p373="Le Roeulx",
+                     file="File:Le Rœulx - Deventer.jpg"),  # discovered in the FR batch (iter 49) and moved
+    # here: the item is in Hainaut, Belgium (the enwiki lead: "a city and municipality of Wallonia ... in the
+    # province of Hainaut, Belgium") - the prep's france region guess was wrong. The recorded item's P625
+    # (4.1, 50.5) is a rounded value; the site point is the precise P625 of its subdivision item Q21764574
+    # (4.11163, 50.50365) - the town centre. P373 is 'Le Roeulx' without the diaeresis. file= (iter 52,
+    # transcript /tmp/vd_files_fr_iter50.txt): the 1545 BNE atlas plate (1816x2614, desc 'Le Rœulx')
     "Leuze": dict(region="belgium", cat="Map of Leuze by Jacob van Deventer",
                   qid="Q667862", label="Leuze-en-Hainaut", lon=3.6167, lat=50.6, p625=(3.616667, 50.6),
                   place="Arrondissement of Tournai", wikipedia="https://en.wikipedia.org/wiki/Leuze-en-Hainaut",
@@ -304,6 +310,18 @@ TOWNS = {
                           " with the town labelled 'Aersfot' on the Dijle, and its 1278x1024 jpg copy) - outside"
                           " the c. 1545-1565 drawing window: no site, no picture. Cross-checked against the"
                           " nl.wikipedia work list ('Aarschot, 1570', the Philip II period) - lead doc"),
+    "Beaumont": dict(region="belgium", cat="Map of Beaumont by Jacob van Deventer",
+                     qid="Q95100", label="Beaumont", lon=4.2383, lat=50.2355, p625=(4.2383115, 50.2355294),
+                     place="Arrondissement of Thuin", wikipedia="https://en.wikipedia.org/wiki/Beaumont,_Belgium",
+                     p373="Beaumont (Hainaut)",
+                     file="File:Beaumont - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614, desc
+    # 'Beaumont'): a fortified town BISECTED by a river (the Sambre) with a bridge, the moated square chateau
+    # of the counts of Hainaut (the sheet's lower-left inset = that chateau; confirmed by the 1049x932
+    # '...detail - City and Chateau de Beaumont.jpg' - not staged, a detail crop) on the west bank and
+    # Charles V's new walled grid town on the east bank. Beaumont (Nord) has no river and no chateau: the
+    # drawing settles the Hainaut identification, so the region flipped france -> belgium in iter 52
+    # (lead doc). The Q128282 'Beaumont' (Texas) ~7000 km trap is the first P625 search hit (--verify
+    # Beaumont, iter 52); the recorded label, P373 and enwiki confirm Q95100
     "Oudenaarde": dict(region="belgium", cat="Maps of Oudenaarde by Jacob van Deventer",
                        qid="Q12992", label="Oudenaarde", lon=3.6, lat=50.85, p625=(3.6, 50.85),
                        place="Arrondissement of Oudenaarde", wikipedia="https://en.wikipedia.org/wiki/Oudenaarde",
@@ -314,109 +332,169 @@ TOWNS = {
                        # copy (986x1000, uploaded 2005) and the Version Brussels copy (948x1070, uploaded 2012)
     "Damme": dict(region="belgium", cat="Map of Damme by Jacob van Deventer", qid="Q323408", done=True),
     "Binche": dict(region="belgium", cat="Map of Binche by Jacob van Deventer", qid="Q95121", done=True),
-    # -- France (23 categories: 22 to stage + the 1 done; Le Rœulx moved to the Belgium section above: its verified
-    # item sits in Hainaut, Belgium - the prep's france guess was wrong, iter 49). QIDs hand-verified 2026-10-11
-    # (iter 49) in one --verify discovery run (transcript /tmp/vd_verify_fr_iter49.txt; the Luxembourg City and
-    # Beaumont follow-up: /tmp/vd_lu_iter49.txt): every label matches the town, every P373 is its exact recorded
-    # string, every P625 sits at the town (the site point is the P625 rounded - the BE convention; an
-    # old-town-centre offset is the watch item once the drawings are eye-checked), every item has an enwiki link.
-    # None of the 23 QIDs is in the built catalog (the 12575-site check of 2026-10-11): all get new entries.
-    # Beaumont's QID is PENDING the atlas-plate settlement (see its note). file= for the 22 is still pending the
-    # --files inventory (the 1545 BNE atlas plates are the expected picks, lead doc). --
+    # -- France (22 categories: 21 to stage + the 1 done; Le Rœulx moved to the Belgium section above: its
+    # verified item sits in Hainaut, Belgium - the prep's france guess was wrong, iter 49 - and Beaumont
+    # moved there too, its atlas plate settling the Hainaut identification, iter 52). QIDs hand-verified
+    # 2026-10-11 (iter 49) in one --verify discovery run (transcript /tmp/vd_verify_fr_iter49.txt; the
+    # Luxembourg City and Beaumont follow-up: /tmp/vd_lu_iter49.txt): every label matches the town, every
+    # P373 is its exact recorded string, every P625 sits at the town (the site point is the P625 rounded -
+    # the BE convention), every item has an enwiki link. None of the 22 QIDs is in the built catalog (the
+    # 12575-site check of 2026-10-11): all get new entries. file= for the 21 recorded 2026-10-11 (iter 52)
+    # from the live --files inventory (transcript /tmp/vd_files_fr_iter50.txt) plus a 1280 px thumb eye
+    # check of every ambiguous candidate (/tmp/vd_fr_thumbs/): the 1545 BNE atlas plate is the pick in every
+    # category, but the five (1)/(2) pairs stage the (2) wide sheet (the full two-page drawing with the town
+    # label, shield, compass points and scale; (1) is a single page of the same drawing), the
+    # Aire/Thérouanne and Hesdin/Vieil-Hesdin double sheets stage once under the first-named town (each
+    # also gets its own standalone plan where one exists - Thérouanne, Vieil-Hesdin), and Thérouanne and
+    # Vieil-Hesdin carry the <~1000 px size caveat (the only plans of those towns on Commons). No date=
+    # swap is needed in this batch: every page date is 1545 = the drawing's (the Hesdin double sheet carries
+    # a French page note - year_of takes the min, 1545). --
     "Aire-sur-la-Lys": dict(region="france", cat="Map of Aire-sur-la-Lys by Jacob van Deventer",
                             qid="Q259903", label="Aire-sur-la-Lys", lon=2.3967, lat=50.6386, p625=(2.396667, 50.638611),
                             place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Aire-sur-la-Lys",
-                            p373="Aire-sur-la-Lys"),
+                            p373="Aire-sur-la-Lys",
+                            file="File:Aire-sur-la-Lys - Deventer.jpg"),  # the 1545 two-page spread (3395x2614,
+    # desc 'Aire-sur-la-Lys & Thérouanne'): RIGHT page = the full Aire plan (label 'Aire.', the town on its Lys
+    # peninsula, compass points, page no. 33); LEFT page = two framed insets, 'Terwan' (the Thérouanne
+    # pentagon) and a second small settlement. Staged ONCE under Aire; Thérouanne gets its own standalone row
+    # (iter 52, eye check /tmp/vd_fr_thumbs/, lead doc). Not staged: the two SVG redraws (900x768, 2540x2677)
+    # and the 992x800 '...Plan de Deventer.jpg' (QS 1550-1565, a grainy halftone book reproduction - redundant
+    # with this sheet)
     "Arras": dict(region="france", cat="Map of Arras by Jacob van Deventer",
                   qid="Q131329", label="Arras", lon=2.78, lat=50.2892, p625=(2.78, 50.289167),
-                  place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Arras", p373="Arras"),
+                  place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Arras", p373="Arras",
+                  file="File:Arras (2) - Deventer.jpg"),  # the wide sheet (3184x2614): the full two-page
+    # drawing with the town label, shield, compass points and scale; (1) (1816x2614) is a single page of the
+    # same drawing (the old town cut off at the right edge) - not staged (the Mons (1)/(2) precedent; iter 52)
     "Avesnes-sur-Helpe": dict(region="france", cat="Map of Avesnes-sur-Helpe by Jacob van Deventer",
                               qid="Q217178", label="Avesnes-sur-Helpe", lon=3.9327, lat=50.1224, p625=(3.932676, 50.122394),
                               place="Nord", wikipedia="https://en.wikipedia.org/wiki/Avesnes-sur-Helpe",
-                              p373="Avesnes-sur-Helpe"),
+                              p373="Avesnes-sur-Helpe",
+                              file="File:Avesnes-sur-Helpe - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Bapaume": dict(region="france", cat="Map of Bapaume by Jacob van Deventer",
                     qid="Q317235", label="Bapaume", lon=2.8511, lat=50.1036, p625=(2.851111, 50.103611),
-                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Bapaume", p373="Bapaume"),
+                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Bapaume", p373="Bapaume",
+                    file="File:Bapaume - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Bavay": dict(region="france", cat="Map of Bavay by Jacob van Deventer",
                   qid="Q477176", label="Bavay", lon=3.7981, lat=50.2975, p625=(3.798056, 50.2975),
-                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bavay", p373="Bavay"),
-    "Beaumont": dict(region="france", cat="Map of Beaumont by Jacob van Deventer",
-                     note="QID pending the atlas-plate settlement (the --files inventory + the eye check of the "
-                          "drawing, lead doc): the only plausible search candidate is Q95100, the Hainaut "
-                          "(Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; enwiki 'Beaumont, "
-                          "Belgium') - the northern-France Beaumont (Nord) is ABSENT from the en search top 20, so "
-                          "a follow-up at limit 50 or the fr search is needed if it wins; if the Hainaut item "
-                          "wins, the region flips france -> belgium"),
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bavay", p373="Bavay",
+                  file="File:Bavay - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Bouchain": dict(region="france", cat="Map of Bouchain by Jacob van Deventer",
                      qid="Q632348", label="Bouchain", lon=3.3169, lat=50.2842, p625=(3.316944, 50.284167),
-                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bouchain", p373="Bouchain"),
+                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Bouchain", p373="Bouchain",
+                     file="File:Bouchain - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Béthune": dict(region="france", cat="Map of Béthune by Jacob van Deventer",
                     qid="Q207145", label="Béthune", lon=2.6393, lat=50.531, p625=(2.639326, 50.53095),
-                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/B%C3%A9thune", p373="Béthune"),
+                    place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/B%C3%A9thune", p373="Béthune",
+                    file="File:Béthune - Deventer.jpg"),  # the 1545 wide sheet (3442x2614); the two SVG
+    # redraws (656x687, 2585x2477) are not staged
     "Cambrai": dict(region="france", cat="Map of Cambrai by Jacob van Deventer",
                     qid="Q181285", label="Cambrai", lon=3.2347, lat=50.1758, p625=(3.234722, 50.175833),
-                    place="Nord", wikipedia="https://en.wikipedia.org/wiki/Cambrai", p373="Cambrai"),
+                    place="Nord", wikipedia="https://en.wikipedia.org/wiki/Cambrai", p373="Cambrai",
+                    file="File:Cambrai - Deventer.jpg"),  # the 1545 wide sheet (3722x2614)
     "Condé-sur-l'Escaut": dict(region="france", cat="Map of Condé-sur-l'Escaut by Jacob van Deventer",
                                search="Condé-sur-l'Escaut",
                                qid="Q494533", label="Condé-sur-l'Escaut", lon=3.5906, lat=50.4492,
                                p625=(3.590556, 50.449167),
                                place="Nord", wikipedia="https://en.wikipedia.org/wiki/Cond%C3%A9-sur-l%27Escaut",
-                               p373="Condé-sur-l'Escaut"),
+                               p373="Condé-sur-l'Escaut",
+                               file="File:Condé-sur-l'Escaut - Deventer.jpg"),  # the 1545 wide sheet (3529x2614)
     "Douai": dict(region="france", cat="Map of Douai by Jacob van Deventer",
                   qid="Q193826", label="Douai", lon=3.0792, lat=50.3708, p625=(3.079167, 50.370833),
-                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Douai", p373="Douai"),  # P131 also carries
-    # the historical 'County of Flanders' (the c. 1550 context of the drawing); the row's place is the modern
-    # department (lead doc)
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Douai", p373="Douai",
+                  file="File:Douai (2) - Deventer.jpg"),  # the wide sheet (3665x2614): the full two-page
+    # drawing (the town label, shield, compass points and scale); (1) (1816x2614) is the drawing on its own
+    # page (larger scale, no label/compass) - not staged (iter 52). P131 also carries the historical
+    # 'County of Flanders' (the c. 1550 context of the drawing); the row's place is the modern department
+    # (lead doc)
     "Gravelines": dict(region="france", cat="Map of Gravelines by Jacob van Deventer",
                        qid="Q323399", label="Gravelines", lon=2.1275, lat=50.9864, p625=(2.1275, 50.986389),
-                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Gravelines", p373="Gravelines"),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Gravelines", p373="Gravelines",
+                       file="File:Gravelines - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Hesdin": dict(region="france", cat="Map of Hesdin by Jacob van Deventer",
                    qid="Q467366", label="Hesdin", lon=2.0367, lat=50.3742, p625=(2.036667, 50.374167),
-                   place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Hesdin", p373="Hesdin"),
+                   place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Hesdin", p373="Hesdin",
+                   file="File:Hesdin - Deventer.jpg"),  # the double sheet (3408x2614, page 30): LEFT = the big
+    # bastioned star fort labelled 'Hesdyn fort.' + a blank shield (the 1554-1575 fortification) + a small
+    # framed inset; RIGHT = the framed pentagon 'Hesdyn' (the moated old town with its hill-top fort) = the
+    # Vieil-Hesdin plan. The page date is a French note (Hesdin plan 1554-1575; Vieil-Hesdin 'probablement
+    # 1545') - kept as-is, year_of takes the min (1545, in the c. 1545-1565 window). Staged ONCE under Hesdin;
+    # Vieil-Hesdin gets its own standalone scan (iter 52, eye check, lead doc)
     "Landrecies": dict(region="france", cat="Map of Landrecies by Jacob van Deventer",
                        qid="Q632808", label="Landrecies", lon=3.69, lat=50.1256, p625=(3.69, 50.125556),
-                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Landrecies", p373="Landrecies"),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Landrecies", p373="Landrecies",
+                       file="File:Landrecies - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614). Not
+    # staged: the five 'Plan de Landrecies, détail ... KBR' files (1091-1805 px, QS 1550-1565, detail crops,
+    # two of them annotated) - lead doc
     "Le Cateau-Cambrésis": dict(region="france", cat="Map of Le Cateau-Cambrésis by Jacob van Deventer",
                                 qid="Q329103", label="Le Cateau-Cambrésis", lon=3.5411, lat=50.1053,
                                 p625=(3.541111, 50.105278),
                                 place="Nord", wikipedia="https://en.wikipedia.org/wiki/Le_Cateau-Cambr%C3%A9sis",
-                                p373="Le Cateau-Cambrésis"),
+                                p373="Le Cateau-Cambrésis",
+                                file="File:Le Cateau-Cambrésis - Deventer.jpg"),  # the 1545 BNE atlas plate (1816x2614)
     "Le Quesnoy": dict(region="france", cat="Map of Le Quesnoy by Jacob van Deventer",
                        qid="Q180067", label="Le Quesnoy", lon=3.6375, lat=50.2489, p625=(3.6375, 50.248889),
-                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Le_Quesnoy", p373="Le Quesnoy"),
+                       place="Nord", wikipedia="https://en.wikipedia.org/wiki/Le_Quesnoy", p373="Le Quesnoy",
+                       file="File:Le Quesnoy - Deventer.jpg"),  # the 1545 wide sheet (3447x2614); the two
+    # SVG redraws (760x686, 2624x2352) are not staged
     "Lille": dict(region="france", cat="Map of Lille by Jacob van Deventer",
                   qid="Q648", label="Lille", lon=3.0575, lat=50.6319, p625=(3.0575, 50.631944),
-                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Lille", p373="Lille"),
+                  place="Nord", wikipedia="https://en.wikipedia.org/wiki/Lille", p373="Lille",
+                  file="File:Lille (2) - Deventer.jpg"),  # the wide sheet (3614x2614): the full two-page
+    # drawing (the town label, shield, compass points and scale); (1) (1816x2614) is the drawing on its own
+    # page - not staged. Also not staged: 'Lille vers 1550 sur plan Deventer.png' (625x452, uploaded 2022)
+    # and the two SVG redraws of (2) (1340x1410, 3800x3055)
     "Maubeuge": dict(region="france", cat="Map of Maubeuge by Jacob van Deventer",
                      qid="Q138648", label="Maubeuge", lon=3.9725, lat=50.2769, p625=(3.9725, 50.276944),
-                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Maubeuge", p373="Maubeuge"),
+                     place="Nord", wikipedia="https://en.wikipedia.org/wiki/Maubeuge", p373="Maubeuge",
+                     file="File:Maubeuge - Deventer.jpg"),  # the 1545 wide sheet (3481x2614)
     "Saint-Omer": dict(region="france", cat="Map of Saint-Omer by Jacob van Deventer",
                        qid="Q208793", label="Saint-Omer", lon=2.2608, lat=50.7483, p625=(2.260833, 50.748333),
                        place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Saint-Omer",
-                       p373="Saint-Omer"),
+                       p373="Saint-Omer",
+                       file="File:Saint-Omer (2) - Deventer.jpg"),  # the wide sheet (3449x2614): the full
+    # two-page drawing, sheet label 'S. Omeri', page 34; (1) (1816x2614) is the drawing on its own page -
+    # not staged
     "Thérouanne": dict(region="france", cat="Map of Thérouanne by Jacob van Deventer",
                        qid="Q261399", label="Thérouanne", lon=2.2589, lat=50.6367, p625=(2.258889, 50.636667),
                        place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Th%C3%A9rouanne",
-                       p373="Thérouanne"),
+                       p373="Thérouanne",
+                       file="File:Thérouanne - Deventer.jpg"),  # the standalone 'Terwan' plan (986x867, 1545:
+    # pentagon, compass, bridge) - the ONLY Thérouanne plan on Commons, staged with the Ostend/Aardenburg
+    # size caveat; the 3395x2614 Aire/Thérouanne spread is staged under Aire (its left-page inset), iter 52
     "Valenciennes": dict(region="france", cat="Map of Valenciennes by Jacob van Deventer",
                          qid="Q163795", label="Valenciennes", lon=3.5233, lat=50.3581, p625=(3.523333, 50.358056),
-                         place="Nord", wikipedia="https://en.wikipedia.org/wiki/Valenciennes", p373="Valenciennes"),
+                         place="Nord", wikipedia="https://en.wikipedia.org/wiki/Valenciennes", p373="Valenciennes",
+                         file="File:Valenciennes (2) - Deventer.jpg"),  # the wide sheet (4156x2614): the full
+    # two-page drawing with the cursive town label; (1) (1816x2614) is the drawing on its own page - not
+    # staged
     "Vieil-Hesdin": dict(region="france", cat="Map of Vieil-Hesdin by Jacob van Deventer",
                          qid="Q1022768", label="Vieil-Hesdin", lon=2.0989, lat=50.3575, p625=(2.098889, 50.3575),
                          place="Pas-de-Calais", wikipedia="https://en.wikipedia.org/wiki/Vieil-Hesdin",
-                         p373="Vieil-Hesdin"),
+                         p373="Vieil-Hesdin",
+                         file="File:Vieil-Hesdin - Deventer.jpg"),  # the standalone scan (757x857, 1545) of
+    # the right-page inset of the Hesdin double sheet (compared pixel-for-pixel, iter 52) - the only
+    # standalone Vieil-Hesdin plan, staged with the size caveat
     "Bergues": dict(region="france", cat="Map of Bergues by Jacob van Deventer", qid="Q244934", done=True),
-    # -- Luxembourg (1 category; the city) --
+    # -- Luxembourg (1 category; the city). file= recorded in iter 52 (transcript /tmp/vd_files_fr_iter50.txt
+    # + the 1280 px eye check /tmp/vd_fr_thumbs/): the 1550 hand-coloured drawing, desc 'Lutzenburg'. --
     "Luxembourg City": dict(region="luxembourg", cat="Maps of Luxembourg City Jacob van Deventer",
                             search="Luxembourg City",
                             qid="Q1842", label="Luxembourg", lon=6.13, lat=49.6114, p625=(6.13, 49.611389),
                             place="Canton of Luxembourg", wikipedia="https://en.wikipedia.org/wiki/Luxembourg_City",
-                            p373="Luxembourg City"),  # the city's item is Q1842 (the hand-over's Q1564 now holds
-    # 'Borgfelde', Hamburg - that id was merged away; the search 'Luxembourg (city)' returned EMPTY, the
-    # parenthesized-label quirk, so search="Luxembourg City" - it hits Q1842 first; transcript
-    # /tmp/vd_lu_iter49.txt). region "luxembourg" is a NEW value build_catalog's REGION_NAME has no key for (the
-    # display falls back to the raw value - flagged in the lead doc). Q1842 is not in the built catalog.
-    # file= pending the --files run (the KBR / National Library scan expected, lead doc)
+                            p373="Luxembourg City",
+                            file="File:Luxemburg 1550 65 v Deventer.jpg", caption="Lutzenburg"),  # the city's
+    # item is Q1842 (the hand-over's Q1564 now holds 'Borgfelde', Hamburg - that id was merged away; the search
+    # 'Luxembourg (city)' returned EMPTY, the parenthesized-label quirk, so search="Luxembourg City" - it hits
+    # Q1842 first; transcript /tmp/vd_lu_iter49.txt). region "luxembourg" is a NEW value build_catalog's
+    # REGION_NAME has no key for (the display falls back to the raw value - flagged in the lead doc). Q1842 is
+    # not in the built catalog. file= (iter 52): the 2261x1878 hand-coloured drawing on laid paper (page date
+    # 1550 = the drawing's, desc 'Lutzenburg'): the label 'Lutzenburg' + a blank shield, the Dutch compass
+    # Noorde/West/Oost/Zuydt, the Alzette with the Bock rock and the old castle, the new bastioned fort to the
+    # west. caption="Lutzenburg" is REQUIRED: the label 'Luxembourg' is not in the title/desc (the file prints
+    # the historical spelling) - without it the caption check fails. Not staged: 'Lutzenburg.jpg' (1600x1200,
+    # uploaded 2005, desc 'published first 1609'), 'Lutzenburg 1581 Sanderus.jpg' (1909x1599, the 1581 Sanderus
+    # print) and 'Couvent Knödler 1550.jpg' (644x468, a detail crop)
 }
 
 # The verified category chains, per town: the parents of the town file category up to the town's P373 category

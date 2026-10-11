@@ -37,12 +37,13 @@ Deventer" except where noted):
   drop, not a town plan; Maps of Haarlem; Map of Leeuwarden; Map of Middelburg; Map of Reimerswaal; Maps of
   Rotterdam; Map of Sluis; Map of The Hague; Maps of Utrecht (city); Map of Valkenburg, Limburg; (done) Map of
   Gouda; Map of Zwolle; Map of Venlo.
-- **Belgium (23 = 21 to stage + 2 done):** Map of Ath; Map of Braine-le-Comte; Maps of Bruges; Maps of Brussels;
-  Map of Chimay; Map of Chièvres; Map of Enghien; Map of Ghent; Map of Halle; Map of Kortrijk; Map of Lessines;
-  Map of Le Rœulx; Map of Leuze; Map of Mechelen; Map of Mons; Map of Ostend; Map of Saint-Ghislain; Map of
-  Soignies; Map of Tournai; Maps of Aarschot; Maps of Oudenaarde; (done) Map of Damme; Map of Binche.
-- **France (23 = 22 to stage + 1 done):** Map of Aire-sur-la-Lys; Map of Arras; Map of Avesnes-sur-Helpe; Map of
-  Bapaume; Map of Bavay; Map of Beaumont; Map of Bouchain; Map of Béthune; Map of Cambrai; Map of
+- **Belgium (24 = 22 to stage + 2 done):** Map of Ath; Map of Beaumont; Map of Braine-le-Comte; Maps of
+  Bruges; Maps of Brussels; Map of Chimay; Map of Chièvres; Map of Enghien; Map of Ghent; Map of Halle;
+  Map of Kortrijk; Map of Lessines; Map of Le Rœulx; Map of Leuze; Map of Mechelen; Map of Mons; Map of
+  Ostend; Map of Saint-Ghislain; Map of Soignies; Map of Tournai; Maps of Aarschot; Maps of Oudenaarde;
+  (done) Map of Damme; Map of Binche.
+- **France (22 = 21 to stage + 1 done):** Map of Aire-sur-la-Lys; Map of Arras; Map of Avesnes-sur-Helpe;
+  Map of Bapaume; Map of Bavay; Map of Bouchain; Map of Béthune; Map of Cambrai; Map of
   Condé-sur-l'Escaut; Map of Douai; Map of Gravelines; Map of Hesdin; Map of Landrecies; Map of
   Le Cateau-Cambrésis; Map of Le Quesnoy; Map of Lille; Map of Maubeuge; Map of Saint-Omer;
   Map of Thérouanne; Map of Valenciennes; Map of Vieil-Hesdin; (done) Map of Bergues.
@@ -130,13 +131,19 @@ FR batch (iter 49) and moved here from the prep's France list: its verified item
 item's P625 (4.1, 50.5) is a rounded value, so the recorded site point is the precise P625 of its subdivision
 item Q21764574 (4.11163, 50.50365) - the 0.91 km P625 → site distance in the table is that rounded-value
 offset, expected; re-verified in the FR batch's re-check (transcript /tmp/vd_verify_fr_recheck_iter49.txt):
-label match, P373 'Le Roeulx' (without the diaeresis) ok, enwiki matches. No BE QID is in the built catalog
-(checked against the 12575-site catalog on 2026-10-11, the 21 including Le Rœulx): all 21 get new catalog
-entries.
+label match, P373 'Le Roeulx' (without the diaeresis) ok, enwiki matches. Beaumont (Q95100) was discovered in
+the FR batch and settled by its atlas plate in iter 52 (the drawing shows the Sambre bisecting the town and
+the counts' chateau - Beaumont (Nord) has neither; the region flipped france → belgium) and re-verified on
+its own that day (transcript /tmp/vd_verify_beaumont_iter53.txt: label 'Beaumont', P373 'Beaumont (Hainaut)',
+enwiki 'Beaumont, Belgium' all match; the first search hit WITH a P625 is the Q128282 'Beaumont' (Texas)
+trap, 8035 km away - a name search alone would have resolved the Texas town). No BE QID is in the built
+catalog (checked against the 12575-site catalog on 2026-10-11, the 22 including Le Rœulx and Beaumont): all
+22 get new catalog entries.
 
 | Town | QID | Label | P625 (lon, lat) | Site point (lon, lat) | P625 → site | enwiki |
 |---|---|---|---|---|---|---|
 | Ath | Q95096 | Ath | 3.776941, 50.631139 | 3.7769, 50.6311 | 0.01 km | Ath |
+| Beaumont | Q95100 | Beaumont | 4.2383115, 50.2355294 | 4.2383, 50.2355 | 0.00 km | Beaumont, Belgium (joined from the FR batch, iter 52) |
 | Braine-le-Comte | Q95129 | Braine-le-Comte | 4.136111, 50.609722 | 4.1361, 50.6097 | 0.00 km | Braine-le-Comte |
 | Bruges | Q12994 | Bruges | 3.224167, 51.208889 | 3.2242, 51.2089 | 0.00 km | Bruges |
 | Brussels | Q239 | Brussels | 4.351667, 50.846667 | 4.3517, 50.8467 | 0.00 km | City of Brussels |
@@ -175,6 +182,11 @@ catalog, so no BE town stages under an existing site id.
   (P373 'Bruges (Gironde)' separates it from the verified Q12994, P373 'Bruges').
 - **Mechelen** - no trap on the first hit, but the third candidate is the Dutch Mechelen (Gulpen-Wittem,
   Q100020) - the label + P373 checks ('Mechelen' vs 'Mechelen (Netherlands)') separate them.
+- **Beaumont** - the Barnard-Castle trap in full: the first search hit WITH a P625 is Q128282 'Beaumont',
+  Texas (P625 -94.126666666667, 30.08 - 8035 km from the Hainaut site; a bare name search ranks it first),
+  so a bare resolution would have staged the plate under a Texas town. The recorded Q95100 is confirmed by
+  its label 'Beaumont', P373 'Beaumont (Hainaut)' and enwiki 'Beaumont, Belgium'; the drawing itself settles
+  it (the Sambre bisecting the town + the counts' chateau, which Beaumont (Nord) lacks).
 
 ## QID verification - France, Luxembourg (checked 2026-10-11, iter 49; re-run with `.venv/bin/python fit/src_van_deventer.py --verify`)
 
@@ -339,18 +351,26 @@ specific reason.
   and keeps 1980 as `date_commons`. Not staged: the other nine files (346-2658 px: Limburgish-dialect wiki
   crops, the 1961/1955 RCE details, two 2013/2014 photos, the 500x501 "16th century" scan).
 
-### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, `--files` transcript
-`/tmp/vd_files_be_iter46.txt` - re-run: `.venv/bin/python fit/src_van_deventer.py --files <towns>`)
+### Belgium (24 categories: 21 staged, 1 documented drop, 2 done; checked 2026-10-11, `--files` transcripts
+`/tmp/vd_files_be_iter46.txt` (iter 46) + `/tmp/vd_files_fr_iter50.txt` (Le Rœulx, Beaumont; iter 52) -
+re-run: `.venv/bin/python fit/src_van_deventer.py --files <towns>`)
 
 One 1545 BNE atlas plate per town (page date 1545 = the drawing's date, no `date` swap), except the four named
 below: Brussels and Mechelen are KBR autographs (their own page dates are the drawing's), Bruges is the full
 plan dated by its own caption, Ostend the BNE plate (circa 1562). Every ambiguous candidate (Ghent BN 1 vs
-BN 2, Mons (1) vs (2), the three Brussels sheet versions, Bruges full vs detail, Aarschot) was eye-checked
-from 1200 px thumbs + full-size crops before being picked or rejected (the /tmp/vd_be_thumbs/ set of 2026-10-11;
-re-download via `commons.info` with the `aw.UA` User-Agent - the Commons API 403s without one).
+BN 2, Mons (1) vs (2), the three Brussels sheet versions, Bruges full vs detail, Aarschot, and the Beaumont
+Hainaut-vs-Nord question) was eye-checked from 1200/1280 px thumbs + full-size crops before being picked or
+rejected (the /tmp/vd_be_thumbs/ set of iter 46 and the /tmp/vd_fr_thumbs/ set of iter 52; re-download via
+`commons.info` with the `aw.UA` User-Agent - the Commons API 403s without one).
 
 - **Ath** - staged `Ath - Deventer.jpg` (3438x2614, 1545). Not staged: `Plan Ath Deventer.jpg` (2055x2098,
   "before 1575" QS) - a later revision.
+- **Beaumont** - staged `Beaumont - Deventer.jpg` (1816x2614, 1545, desc 'Beaumont'): the fortified town
+  BISECTED by the Sambre with a bridge, the moated square chateau of the counts of Hainaut on the west bank
+  (the sheet's lower-left inset = that chateau) and Charles V's new walled grid town on the east bank. The
+  drawing settled the QID (Q95100, the Hainaut city) and the region (flipped france → belgium): Beaumont
+  (Nord) has no river and no chateau. Not staged: `Beaumont - Deventer detail - City and Chateau de
+  Beaumont.jpg` (1049x932, 1545) - a detail crop of the chateau.
 - **Braine-le-Comte** - staged `Braine-le-Comte - Deventer.jpg` (1816x2614, 1545): the only file.
 - **Bruges** - staged `Map of Bruges by Jacob van Deventer.jpg` (2770x4659): the full plan. The page date
   2013-01-17 12:04:47 is an upload timestamp, but the sheet's OWN caption block (bottom edge, partly torn
@@ -377,6 +397,8 @@ re-download via `commons.info` with the `aw.UA` User-Agent - the Commons API 403
 - **Halle** - staged `Halle - Deventer.jpg` (1816x2614, 1545; the desc names the town 'Hal'): the only file.
 - **Kortrijk** - staged `Kortrijk, map by Jacob van Deventer.JPG` (3753x2614, 1545): the only file.
 - **Lessines** - staged `Lessines - Deventer.jpg` (1816x2614, 1545): the only file.
+- **Le Rœulx** - staged `Le Rœulx - Deventer.jpg` (1816x2614, 1545, desc 'Le Rœulx'): the only file. Moved
+  here from the France list in iter 49 (its verified item sits in Hainaut, Belgium).
 - **Leuze** - staged `Leuze - Deventer.jpg` (1816x2614, 1545, desc 'Leuze'): the only file. The caption route
   names the town 'Leuze' - as the file prints it, not the item's official label 'Leuze-en-Hainaut'.
 - **Mechelen** - staged `Mechelen, Belgium, Deventer, 1550.png` (3558x3305, page date 1550 = the drawing's;
