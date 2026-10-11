@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 63 (2026-10-11, agent a) - corner-fit session: the 4-corner fit ACCEPTS; the platefit doc is WRITTEN (working tree, uncommitted - the harn
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 64 (2026-10-11, agent a) - the missing part is filed: tasks/218-gate-holdout-new-hand-docs.md is in the queue (Status: open, Depends on: 0
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
@@ -18,19 +18,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 206 DECISION: evidence kind for the p.212 row is "category", and an extras row IS staged (R3 resolved)
-    Two prep assumptions settled against the merged code: (1) OQ-1 - fit/evidence.py `check(files, books,
-    catalog)` takes file paths (CLI --files/--books/--catalog), so the 206 test runs the real check over the
-    staging file, no re-implementation; the row's own evidence field is kind "category" (the file's Commons
-    category == Q7502621's P373 "Shotwick Castle", both verified live 2026-10-11), so row.cat must be
-    "Shotwick Castle" (the 29 hand-tied rows are cat null + kind hand_tied: different tie, different field).
-    (2) R3/OQ-2 - build_catalog.main() has NO picture-based selection over the 12,603-row sites.jsonl (it
-    builds whatever --ids/region/top/min-p picks; both files read into one row list), and 211's box 3 builds
-    the extras-derived new sites, so the prep's "no new extras row needed" is superseded: stage an extras row
-    {id shotwick-castle-q7502621, qid Q7502621, aerial_ok: true, source: fit/src_mackenzie.py} exactly as the
-    task Notes prescribe for an unbuilt castle; build_catalog reads the catalog row first (CAT before EXTRAS)
-    and its `sid in built` skip makes the duplicate harmless; 211 logs the duplicate.
 
 ### 2026-10-11 206 DECISION: the p.212 plate is Volume 2, not bracketed by Oxford p.207 as the task framing said
     The live file description (verified 2026-10-11) says "Volume : 02, Page : 212" for p.212 while the p.207
@@ -55,6 +42,10 @@ Where: /tmp/mack_poly6.py (new, offline-rerunnable), data/db/platefits/shotwick-
 FIT: segmentation verbatim from mack_poly5 (2.19 ha, centroid (27.2,9.4)). r_out(phi) = max boundary radius per 1-deg bin around the centroid (no ordering), 5-pt circular smooth, peaks prominence >= 3 m and >= 20 deg apart, top 5: N phi 87 (+31.5,+115.8), E phi 358 (+119.8,+4.5), S-SW phi 317 (+88.2,-47.5), W-SW phi 196 (-80.5,-21.8), NW phi 143 (-27.2,+53.5); clockwise gaps 89/41/121/53/56 vs plan 95.6/46.5/98.9/40.2/78.8 (the ground pentagon is a rounded, slightly squashed version of the plan's; north-up). Gate exactly fit_gate.gate(pairs, transform=None): (a) 5 corners REJECT (med 14.96, slope_o 0.167 > 0.145, io +17.7; resids 12.0/2.9/15.0/27.7/22.6); (b) 5 + gate-gap REJECT (slope_o 0.315, gap resid 76.8 m - the local r_out min in phi [-10,60] is phi 27 = (+81.2,+33.5), the cleft between the E lobe and the NE tangle, NOT the plan's gate gap; use neither); (c) 4 corners dropping the weakest-prominence corner (NW) ACCEPT: med 15.81, slope_o 0.1385 (the 0.11-0.145 "usable, must be said" band), io -7.04 (> -10), residuals N 14.2 / E 2.0 / S-SW 17.5 / W-SW 19.4, rotation -0.20 deg, ground scale |a|*k = 0.229 m/px (k = cos 53.2272; CAVEAT: similarity's a is MERCATOR m/px - ground scale is |a|*k, first printed |a|/k = off by 1/k^2; the gate math itself is from the real code, unaffected; iter-59's "0.41" is not comparable). Predicted: pentagon centre (20.5,17.4) vs centroid (27.2,9.4) and vs the motte ring (80,-5) 63.6 m (the C11 motte in the eastern bailey - recorded, not a pair); hall (475,245) -> (+41,+78) on the tree clumps, NOT a building; centre160 crops show the grassed oval, a faint ring in its eastern part, no visible hall or towers - matching the book's own text (the 1600 Holme drawing of the ruin).
 DOC: --write-doc (network up; cite "by The British Library; No restrictions; <commons url>"): crop [0,0,839,840] (ink spans x 9..829 y 10..832 = whole page -> full-frame crop per the alligator/barnard convention); pairs [405,25,-2.9756073,53.2282398] [827,570,-2.9742830,53.2272404] [620,835,-2.9747557,53.2267733] [30,690,-2.9772880,53.2270046]. --gate (offline): accept, med 15.81, slope_o 0.1385, io -7.04.
 ... (2.2 KB more: `grep -n -A 200 -F '## 2026-10-11 206 DECISION: the corner-based fit is resolved - 4 corners (drop NW, weakest prominence) ACCEPT the gate; the platefit doc is written; its committed state depends on 211 (site build) and a new 218 (gate registration for post-registration hand docs)' DECISIONS.md`)
+
+### 2026-10-11 206 DECISION: 218 (gate-holdout: post-registration hand fits) filed as its own task; 206's boxes and Touches audited - none move to it
+Where: tasks/218-gate-holdout-new-hand-docs.md (new), tasks/206-mackenzie-p212.md (Hand-over rewritten)
+The driver's prompt named 218 as this task's missing part, so this session filed it (the driver puts the file in main at once). 218 = the lowest free number in 200-499 (verified: 200-217 all exist; the other ranges are 300/301 and 8xx). The design follows the iter-63 hand-over spec + the 802/803 precedent: Touches: tools/gate_heldout.py, tests/test_gate.py (one tool and its test, the 802 pattern); Depends on: 001 only (done) - state-agnostic per the 203a-4g lesson (it must pass on any checkout, so it does not wait on 206 or 207; the dependency is one-way). Acceptance: (1) partition() still fails loudly when any of the 20 REGISTERED names (docs/gate.md section 3) is missing or renamed among the non-auto docs; (2) additional hand docs are tolerated - excluded from the held/dev derivation, so the golden stdout (40+60 lines) and docs/gate.md section 9 stay byte-identical for ANY number of post-registration hand docs, and the new docs remain subject to the production fit_gate.gate as usual; (3) tests/test_gate.py green and pinning both the tolerance and the void failure, verified in both states per 803's temp-copy bar; (4) the current checkout (21 non-auto: 20 + shotwick) runs the section-6 command to the registered tables and 206's fourth red test passes. Box audit (the prompt asked to move out of 206 the boxes a part delivers, and to cut its Touches): nothing moves - none of 206's four boxes describes gate_heldout work (box 4 is 206's own test file), and 218's two files were never in 206's Touches line (all eight of 206's paths stay its own); the suite-green requirement for the done-claim stays on the Depends on line (001, 200, 211, 218). State verified: working tree clean (the driver committed the platefit doc in d7dde6f); the suite is still red on exactly the four known tests (three owned by 211, one by 218); 207a/b/c will hit the same wall - 218's Notes tell them to add 218 to their own Depends on when they do.
 
 ## Project-wide driver notes (newest)
 
