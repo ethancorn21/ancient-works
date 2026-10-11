@@ -233,4 +233,21 @@ One line per view whose verdict is staged, hand-tied or review-queue. The captio
 
 ## 4. Staged vs verified large-scan views (the half-or-more check)
 
-_(pending - sessions 2-3, once §2's QID verification is done.)_ Expected: 22 verified large-scan UK house/garden views in the inventory = 6 hand-tied + 12 staged + 4 review-queue; 12 of 22 are staged (≥ half), and every view that is not staged is named in §3 with its verified reason, so the box is met.
+Checked 2026-10-11 (the VM clock lags the journal ~2 days; the stage run re-asserted the 12 staged titles against INVENTORY and re-fetched their metadata in one paced batch - no drift): **12 of the 22 verified large-scan UK house/garden views are staged - ≥ half, the box is met.** The 22 = the 6 hand-tied (never re-staged; their canonical rows keep the evidence kind `hand_tied`) + the 12 staged here (11 new `garden` sites, §2; St James's Palace carries two 1707 plates) + the 4 review-queue views named in §3 with their verified reason (Beaufort House, both impressions - demolished 1739-40, nothing fixed remains; Swillington - demolished 1952, no fixed landmark remains; Stoke Gifford - the house's survival unverified, the estate built over). Every other file in the inventory is a documented drop in §3.
+
+| Site | QID | File | Year | Date on the row |
+|---|---|---|---|---|
+| badminton-house-q2628510 | Q2628510 | Landgoed Badminton, RP-P-1949-371.jpg | 1709 | 1709 |
+| temple-newsam-q2748017 | Q2748017 | Gott Collection at Hepworth Gallery (112a).JPG | 1707 | between 1707 and 1709 (override; the dump's life-dates boilerplate kept in `date_commons`) |
+| hutton-hall-q5951100 | Q5951100 | Hutton Hall Kip.jpg | 1709 | by 1709 (raw, with its `date QS:` suffix; §3 shows the cleaned form) |
+| stanway-house-q7600303 | Q7600303 | Gezicht op Stanway, RP-P-1949-369.jpg | 1709 | 1709 |
+| stoke-house | none | Gezicht op Stoke Bishop, RP-P-1949-367.jpg | 1709 | 1709 |
+| burford-house-windsor | none | Jan Kip - A Prospect of the House at Windsor, Belonging to his Grace Charles Beauclerck - B2017.35.1 - Yale Center for British Art.jpg | 1707 | 1707 |
+| st-james-palace-q272162 | Q272162 | Jan Kip - St James^s House, Le Palais Royal de St James - B2017.35.3 - Yale Center for British Art.jpg | 1707 | 1707 |
+| st-james-palace-q272162 | Q272162 | Jan Kip - The Palace and Park of St James's - B1977.14.18146 - Yale Center for British Art.jpg | 1707 | 1707 (override; the dump date was empty, kept as the empty `date_commons`) |
+| lambeth-palace-q1130266 | Q1130266 | Jan Kip - Lambeth, His Grace the Lord Archbishop of Canterbury Palace - B1977.14.17372 - Yale Center for British Art.jpg | 1711 | 1711-12 (override; the dump date was empty, kept as the empty `date_commons`) |
+| somerset-house-q1344889 | Q1344889 | Jan Kip - Somerset House - B1977.14.18272 - Yale Center for British Art.jpg | 1707 | 1707 (override; the dump date was empty, kept as the empty `date_commons`) |
+| hampton-court-palace-q205666 | Q205666 | Jan kip per david mortier, hampton court (da leonard mortier), dalla britannia illustrata, 1707.jpg | 1707 | 2016-10-26 (the dump's photo date kept raw; `year_of`'s title-year idiom returns 1707 from the title, so no override fired) |
+| kings-weston-house | none | Kingsweston Kip.jpg | 1710 | 1710 |
+
+All 12 rows carry the evidence kind `caption_coords` (the caption names the place; the stored place coordinates are the site's own verified landmark, so `dist_m` is 0.0) and are classified `p_birdseye 1.0` by hand. Five rows record a year other than their dump date's - four date overrides (Temple Newsam "between 1707 and 1709"; the St James's Park and Somerset House plates 1707; Lambeth "1711-12"; each keeps the raw or empty dump value in `date_commons`) and the AIC Hampton Court row, where `year_of`'s title-year idiom already returns 1707, so its 2016 photo date stays raw with no override; plus the two raw dates that still carry their `date QS:` suffix (Hutton's `date`, Temple Newsam's `date_commons`). Those are the only fields that differ from the dump. 211 consolidates and builds.
