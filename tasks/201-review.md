@@ -4,11 +4,15 @@ Depends on: none
 Touches: fit/review.py, web/review.js, web/index.html, data/review/, web/data/review.json, tests/test_review.py
 
 ## Goal
-GOAL.md points 1 and 5: every built site without a fitted drawing gets a review item in `data/review/` —
-the site, its best candidate pictures (with their evidence field when 200 has produced one), and proposed
-point pairs per picture. The human opens the item on the page, drags the pairs onto today's ground, and
-saves with the existing fit tool in under a minute. Saving resolves the item; the page shows how many are
-left.
+GOAL.md points 1 and 2: the review queue for the fits the gate (001) refuses, the pictures the model
+could not fit (fewer than four matched-feature pairs), and the sites with no picture found at all —
+the human's drag is the authority there. Since the GOAL change of 2026-10-10 the queue is explicitly
+that overflow, not a plan for every site; point 1 still holds, so every built site without a fitted
+drawing ends with an item in `data/review/` — the site, its best candidate pictures (with their
+evidence field when 200 has produced one), and the pairs to drag (the model's where it made any, else
+the 202 starting point). The human opens the item on the page, drags the pairs onto today's ground, and
+saves with the existing fit tool in under a minute. Saving resolves the item; the page shows how many
+are left.
 
 ## Acceptance criteria
 - [ ] A review item is `data/review/<site>.<plan>.json`: the site id, one entry per candidate picture (plan

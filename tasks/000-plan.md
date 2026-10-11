@@ -104,26 +104,79 @@ The human changed GOAL.md. Update PLAN.md and the task queue to match: add tasks
 
 ## Hand-over
 
-Iter 2 (2026-10-10). **Task finished** (Status: done). Final state for anyone who reads this later
-(mostly the 999 goal check):
+Iter 12 (2026-10-10). Driver reopened 000 for two GOAL.md changes (21:11: new point 2 — the local
+model does the fitting itself; 22:58: artists' aerial/bird's-eye views count as drawings, new lead;
+owner's copy also colours >=150-year survey-sheet-only sites — explicitly not a goal change).
+This session did the planning update; it was cut near the end. **Remaining work is small (steps 1-6
+below), then set Status: done.**
 
-- PLAN.md is final: current state / architecture (the new `fit/` directory, module map, data flow) /
-  tech choices with reasons / 8 assumptions / out of scope / GOAL→task map / waves 4/6/3/2/1 /
-  test policy / empty `## Deviations from GOAL.md`. Re-read it before touching the task queue.
-- Task queue complete: 001 (seed, wave 1), 200/201/202 (wave 1), 203 parent (split) with 203a/203b
-  (waves 2/3), 204-210 (the seven growth leads), 211 (wave 4), 212 (wave 5, last). Every file has
-  Status / Depends on / Touches; the book-machinery leads (207, 209) are in different waves because
-  they share the data/books/ directory (per-book files only; 211 rebuilds the shared index).
-- Test harness (owned by this task): tests/conftest.py (session `served` fixture: real serve.py on
-  --port 0 against a temp copy of web/ + server/ + data/ minus data/raw/; `golden_sites` fixture),
-  tests/test_serve.py, tests/test_data.py, tests/golden/hand_fit_sites.txt (19 hand-fit sites). Test
-  state at close: 8 passed (both `.venv/bin/python -m pytest -q` and system `python3 -m pytest -q`).
-  requirements.in/requirements.txt are pinned + hashed (the driver builds .venv from them).
-- Standing rules for the build (also in CODEMAP.md top and PITFALLS.md): hand fits + private
-  Finder/Amazon data never change; canonical data files only via 211/212; per-source staging only;
-  one test file per task (conftest is this task's property); hermetic tests (port 0, temp tree, no
-  network); the page's index.html gets exactly one edit (201's script tag).
-- If the driver ever sends this task back: the likely cause is the schedule replay flagging shared
-  files between same-wave tasks (most probable: 001's seeded `Touches: tests/` directory vs the
-  specific test files of wave 1). Adjust the PLAN.md wave table, not the seeded 001 (it is the
-  human's).
+Done in this session (on disk; the task-file edits below ride in this commit, PLAN.md's edits are
+uncommitted — the harness saves them):
+- PLAN.md: current state (eight leads + the GOAL-change note), architecture diagram (fitkit sheet ->
+  model -> solver -> gate; queue = overflow, not a plan for every site), module map (202 = starting
+  point; 203a/203b = the model's fitting loop; `fit/src_artists.py` added), new tech choice "The model
+  fits, the gate decides" (pipeline/llm.py at $AW_LLM_URL; the model step is an injectable function so
+  tests stay hermetic), assumption 3 reworded, NEW assumption 9 (owner's-copy survey colouring is out
+  of scope), out-of-scope bullet, six-point GOAL->task map, waves 4/7/3/2/1 (213 in wave 2), test
+  policy (no test calls the model server).
+- Tasks: 202 (goal: starting point, never a fit), 201 (queue = overflow per point 2), 203 (parent goal
+  + loop note), 203a (model loop: fitkit sheet -> >=4 matched-feature pairs -> solver -> gate;
+  injectable model step; test = no model-server call), 203b (goal wording).
+- Verified facts: no package.json (test command `python3 -m pytest -q`); .venv exists here and has the
+  deps (system python3 does NOT); fitkit has `sheet`/`zoom`/`save`/`check`/`lonlat`; pipeline/llm.py
+  has `ask`/`ask_json` (URL = $AW_LLM_URL, default 127.0.0.1:18080); 001 is blocked awaiting the
+  owner's box-2 ruling (1 in 8 vs 1 in 20) — the batch stays behind it, which is why it could be edited
+  pre-run.
+
+Next steps (in order):
+1. `tasks/212-cover-final.md`: my 3 edits were rejected atomically (whitespace mismatch — the file
+   wraps lines differently than head showed). Redo after checking exact text with `sed -n '25,35p'
+   tasks/212-cover-final.md | cat -A` and `sed -n '55,70p' ... | cat -A`: (a) goal line "a found picture
+   becomes a candidate through the normal loop (propose ->\n      fit -> gate)" -> "(fitkit sheet ->\n
+   model fit -> fit -> gate)"; (b) box 1 "the site goes through the normal loop (propose -> fit ->
+   gate)" -> "(fitkit sheet -> model fit -> fit -> gate)"; (c) Notes "the human's 18/20 check
+   (GOAL.md point 2)" -> "(GOAL.md point 3)".
+2. CREATE `tasks/213-artist-views.md` (lowest free number in 200-499; 200-212 taken, 800/801 outside
+   the band). Format like tasks/204-van-deventer.md. `Status: open` / `# 213: Artists' views -
+   Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian` / `Depends on: 200` / `Touches:
+   fit/src_artists.py, data/catalog/extras_artists.jsonl, data/commons/files_artists.jsonl,
+   data/commons/classified_artists.jsonl, docs/lead_artists.md, tests/test_src_artists.py`. Goal:
+   GOAL point 5's new lead (owner, of Leonardo's 1502 Imola plan: "should 100% be on our map"): verify
+   each source exists + age + free machine-readable access (views of the structure are exempt from the
+   150-year rule), tie with 200's evidence, stage in this task's own files; 211 consolidates + builds,
+   212's cover pass runs the model's fitting loop. Imola is the anchor: NEW site, no open LiDAR here ->
+   aerial-photograph site, its streets carry the fit (FITKIT_GROUND=aerial, fixed landmarks). Boxes:
+   per-source verification in docs/lead_artists.md (documented drop beats a guessed row); Imola staged
+   as a new site (extras row: id/name/place/lon-lat/region/kind/QID/wikipedia; files row with 200
+   evidence + classified row; row notes no LiDAR/aerial ground); hand-checked file->QID table in
+   fit/src_artists.py (sources.py pattern; Barnard Castle trap; existing-catalog QID -> picture row for
+   the existing site, no new entry); at least Imola + one further source staged; IF Civitates/Merian
+   turn out to be IA books, declare the exact per-book data/books/ paths in this task's Touches first
+   (the 208 pattern); hermetic test (staged files join + evidence check + golden sample). Notes:
+   Leonardo (Royal Collection) and Barbari are image-level like leads 204-206; split into 213a-... by
+   source if it grows past a few sessions.
+3. `CODEMAP.md` top: replace "- (none yet: add the rules every change must respect, e.g. ..." under
+   "Architecture rules:" with the standing rules (my iter-2 hand-over claimed they were here; they
+   were never written): (1) the 25 hand fits (pre-batch data/db/platefits/ docs, data/sites/*/site.json
+   plates) and the private Finder/Amazon data are never changed or deleted by new code or tests; (2)
+   new fitting code lives in fit/ (one module per task) and imports pipeline/ (aw.py, plan_fit.py,
+   llm.py, books.py) read-only; (3) per-source staging only — canonical files (data/catalog/extras
+   .jsonl, data/commons/files.jsonl + classified.jsonl, data/books/index.jsonl + validation.json,
+   web/data/sites.json, web/data/plans.json) written only by 211 (merge) and 212 (cover/sync); (4) the
+   fitting loop treats the model as a lead, not a fact: fitkit sheet, >= 4 matched-feature pairs, gate
+   (001) score required before anything reaches data/db/platefits/; the model step is injectable so
+   tests never call the model server (no network, port 0, temp tree); (5) web/index.html takes exactly
+   one change for the whole build (201's script tag); the review section lives in web/review.js.
+4. Append the DECISIONS.md entry (header `## 2026-10-10 000 DECISION: plan re-checked for the two GOAL
+   changes - batch becomes the model's fitting loop, 213 added`): summarize the plan/queue changes
+   above; note all edited tasks were still open (blocked behind 001) so editing them pre-run is safe;
+   no new deviation (the only deviation stays 001's box-2, pending the owner's ruling; 001 blocked).
+5. Check every task file (001, 200-213, 800, 801) has `Depends on:` and `Touches:` lines:
+   `grep -L "Depends on:" tasks/*.md; grep -L "Touches:" tasks/*.md` (expect no output).
+6. Verify the test command: `.venv/bin/python -m pytest -q` in the checkout (expect the suite green —
+   last known: 8 passed at iter 2 close; nothing here touches code). Then tick all seven acceptance
+   boxes of 000 (they are all met by the state above) and set the first line to `Status: done`.
+
+If the driver sends this back again: same procedure — diff GOAL.md against PLAN.md's task map, edit
+only planner-created task files (never 001), new leads take the lowest free 200-499 number with
+Depends on + Touches, re-check the boxes, re-set Status.

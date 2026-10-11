@@ -4,10 +4,11 @@ Depends on: 203a
 Touches: fit/batch_eu.py, data/db/platefits/, data/review/, docs/batch_eu.md, tests/test_batch_eu.py
 
 ## Goal
-The same loop as 203a, for every other built site: all sites with region != "US" plus the 6
-sites with no region field at all (294 of 384) - none of them may be skipped. The shared loop
-is imported from fit/batch_us.py (203a's module); this task writes only the non-US documents
-and items. 203a's US output is already merged into this branch when the task starts.
+The same model-fitting loop as 203a (fitkit sheet -> model -> solver -> gate), for every other built
+site: all sites with region != "US" plus the 6 sites with no region field at all (294 of 384) - none
+of them may be skipped. The shared loop is imported from fit/batch_us.py (203a's module); this task
+writes only the non-US documents and items. 203a's US output is already merged into this branch when
+the task starts.
 
 ## Acceptance criteria
 - [ ] fit/batch_eu.py imports the loop from fit/batch_us.py and runs it over every non-US built
