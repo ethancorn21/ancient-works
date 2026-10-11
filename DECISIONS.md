@@ -120,3 +120,34 @@ readings (222 view / 11 plan / 6 other) over 118 rows; F's "plan" leaves = A30/6
 - of these only A90 (Ghent) and A237 (Jerusalem old) are true plans, F MISSES the five famous plans
 (A58/85/98/109/238) and flags A186 (a view) - F's plan label is unreliable in BOTH directions for
 this book (lead-doc pitfall; 217 must use hand kind s only).
+
+### 2026-10-11 213a DECISION: list files written + validated (boxes 1-4) - 121 entries, s7/u3/o111, hand 30 / A 91; pages only on fig 193/194; .map.json = []
+Built data/books/lists/civitatesorbiste00brau.json ("{"plates": null, "figures": [121]}", sorted
+by fig, indent=0 like the 12 sibling dumps) from the committed A file + the recorded hand reads:
+kind s (hand) = 58/85/90/98/109/237/238; kind u (hand) = 187/197/199; the other 111 = o (hand 20:
+50/53/54/86/97/157/158/186/193/194/198/201/202/205/206/209/214/217/218/225; A 91). Titles: A caption
+as-is except two corrections where I verified the true printed inscription on the leaf image -
+fig 50 "Cum Pristelio" -> "Cum Privilegio" (banner), fig 198 "METOLACOL" -> "MEDIOLANVM"
+(cartouche) - and the 14 empty-caption leaves take the section's city name (53 Burgos + S.
+Sebastian, 58 LVTETIA PARISIORVM, 85 BRVXELLA, 90 GANDANVM, 98 ANVERPIA, 109 AMSTELEDAVM, 187
+AVGVSTA verso, 194 VIENNA AVSTRIAE, 199 MEDIOLANVM verso, 202 VENETIA verso, 214 ANCONA, 217/218
+NEAPOLIS, 225 MESSANA); the five double-plate leaves (50/54/193/205/206) carry the second half's
+printed inscription in "[other plate: ...]" brackets (A54's bottom inscription read in full this
+session: "SANCT. SEBASTIANVM vulgo Donostien ad mare Oceanum insigne regni Guipuzcoa oppidum").
+page = "2"/"3" on fig 193/194 only (the only figure leaves within leaves 193-196 with printed
+numbers; 280-284/I-V are all text leaves). .map.json = [] (list_pages maps kind s/u by printed
+page number; none exists for these leaves). Validation: 121 entries, fig set == the 121 figure
+A-rows, kinds/kind_by sets as above, all five fields present, .map.json == [] - passed.
+
+### 2026-10-11 213a DECISION: the Venice plate is a two-sided fold-out - A201 (recto) and A202 (verso) are BOTH real views; the iteration-33 "A201 = title leaf" assumption is corrected
+Re-reading file n0201 (A201, A: other_illustration, caption "VENETIA") shows the famous bird's-eye
+view of Venice - printed title "VENETIA" top right, legend items 1-~52, Cum Privilegio cartouche -
+and file n0202 (A202, A: other_illustration, empty caption) shows the VERSO of the same fold-out:
+a second full view of Venice (legend items 53-153, ALTRI CHIESE, DELLE COSE PIÙ NOTABILI). So:
+(1) the iteration-33 plan's "A202 = VENETIA (A201)" was right on the city but wrong on the role -
+A201 is the recto plate, not the section's title leaf (that is A200, A caption empty); (2) the
+parent's iteration-27 read "n202 = the famous oblique bird's-eye view of Venice (153-item Italian
+legend)" was correct about the file - it is the verso half, not a misread; (3) unlike the blank
+fold-out versos A187/A199 (kind u), A202 carries a real picture -> kind o, kind_by hand (parent)
+for A202 and hand (this session) for A201. The hand set grew 29 -> 30 on this; the section order
+stays strictly title -> plates (no interleaving - the Venice case is a fold-out, not an interleave).
