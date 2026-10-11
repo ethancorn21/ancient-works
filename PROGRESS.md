@@ -4,13 +4,29 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** Recon done (no code in the repo yet; everything below is findings + a half-built experiment).
 
 ## Next open tasks
 - `tasks/000-plan.md`
-- `tasks/001-fit-gate.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-10 001 DECISION: held-out selection and test strategy
+Held-out = 8 of the 21 fits by numpy.random.default_rng(20260101).choice over sorted filenames (to be written in
+docs/gate.md before the run); the other 13 are the dev set for threshold selection only. Test re-run strategy:
+commit per-fit input caches as data/gate/*.npz (DEM, map ink, plate ink, wall template, pairs) so the test is
+offline and deterministic; the gate program itself fetches DEMs at runtime when its cache is absent. .npy is
+gitignored globally but .npz is not (only data/autofit/*.npz is).
+
+### 2026-10-10 001 BLOCKER: none yet - design iteration, not a repeated failure
+Attempts so far are distinct metric experiments (spikes 1-3 failed, spike 4 pending), each with a different cause;
+not a stuck blocker. If spike 4 (old-map correlation) also fails to separate the four wrong-fit types, next
+candidate: placement-centre-vs-catalog-position + plate-extent-vs-site-box checks for the cross-site type.
+
+### 2026-10-10 001 NOTE: environment
+.venv created in this checkout (numpy scipy pillow tifffile pyproj rasterio requests scikit-image). requirements.txt
+has no hashes (driver baseline is empty for 001) and lacks scikit-image, which pipeline/autowalls.py needs; if the
+gate uses autowalls.extract, requirements.txt (root, outside this task's Touches) must gain skimage and be added
+to the task's Touches line first.
