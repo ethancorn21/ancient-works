@@ -42,96 +42,91 @@ mechanics).
 
 ## Hand-over
 
-**Where I am (iteration 16, agent c).** Offline prototype of the sheet-candidate extractor DONE and
-eyeballed over ALL census sites (no network, no repo changes this session - the prototype lives in
-/tmp/sheet_proto2.py, /tmp/sheet_proto2_out.txt, /tmp/sheet_proto2_dump.txt; recreate if /tmp was
-wiped, rules below). Design now FINAL (iter-15 design + 6 deltas found by the data). No code in
-fit/evidence.py yet; tests never ran this session (nothing changed in the repo).
+**Where I am (iteration 17, agent c).** Extractor v3 FINAL (offline, verified over all 354 none rows) +
+verdict-logic design settled (fixes the iter-16 contradiction) + one census correction (castrum-levefanum
+is the Dutch site, not Beauvais). No repo changes this session (all work in /tmp; repo byte-identical to
+iter-16's commit e6ebbaa; tests not re-run because nothing in the repo changed - last full run was 12/12
+green in the 800 verification). NEXT = the live resolution run, then the fit/evidence.py implementation.
 
-**Iter-15 facts that stay true:** Clifford's Tower HAS P625 (6 m) -> part_mention passes the 40
-york-castle rows; 332/343 part qids have P625 (311 within 50 km of own site; 19 far -> stay
-fail-closed; 11 without P625 -> site-coord safety net); part census dump: 175 catalog sites carry
-has_part [{qid, name}] (names are in the catalog - part matching is OFFLINE, only P625 needs the
-batched claims prefetch). The 354 stored-none rows: 74 with conflict, 280 plain. Census of the 280
-is in DECISIONS (2026-10-10 801 entry) - keep consulting it for expected verdicts.
+**Prototype (recreate if /tmp wiped):** /tmp/sheet_proto2.py = v3 (final rules); /tmp/sheet_proto2_out_v3.txt
+= its frequency list; /tmp/sheet_proto2_dump.txt = per-row candidates for all 354 none rows (94 KB);
+/tmp/sheet_proto2_v2.py + /tmp/sheet_proto2_out_v2.txt = iter-16 version (kept to diff). v3 deltas vs v2:
+(1) digits never kept (t[0].isalpha()) and a digit between two kept words BREAKS a run (kills NYPL
+barcodes "11707950 000", year-range pairs "1806 1820", hex-fragment glue); (2) the St-merge marker now
+accepts mixed-case "St" too (v2 matched only "ST" - "St. Louis" was silently LOST; the cahokia row needs
+it) and merges only when no comma / len>=3 lowercase word / digit sits between "St" and the next kept
+word; (3) STOP extended: iter-16's pending words (prepositions the/van/les/des/and/for/with/from/bij/met/
+naar/per + harmless 2-letters; ordnance quartier house design pattern textile numerisation onderdeel
+english roman) PLUS words mined from the v2 dump (full list in DECISIONS 2026-10-11 801). Measured: 1483
+unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows with >=1 sheet candidate, EXACTLY
+40 part hits (all Clifford's Tower, unchanged). The 8 rows now with zero candidates are legit: 6 BHL
+garden-manual book scans (name nothing) + 2 all-caps titles ("PLAN BASILIQUE DE BETHLÉHEM",
+"PLAN SOUTERRAINS DE LA BASILIQUE") - all-caps is dropped as acronym, so they stay none; KNOWN
+LIMITATION, do not loosen the acronym rule without a per-row re-review. Tail = person names (Seyboth,
+Dennis, Robert, Adam, Mignon...) - expected, harmless (no P625; one search each; ~25-35 min one-off at
+1 req/s). STOP only cuts cost - the distance guard is the mechanism.
 
-**Extractor (final rules, verified offline):** input = NFKD-normalize(title + ' ' + desc truncated at
-the last word boundary <= 600 chars), strip leading "File:". (1) tokenize
-`[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|[0-9]+` (handles Maastricht1749LarcherDAubencourt2).
-(2) KEEP a token iff: starts with a letter (digits NEVER kept - v1 bug), len>=3, not all-lower,
-not ALL-CAPS (acronyms), lowercase not in STOP. A token "ST" (2 chars) is kept only to merge with the
-next kept word -> "St Louis" (the cahokia row needs it). (3) STOP list: mined from the 354 rows'
-capitalized-word frequency table - the full list is in /tmp/sheet_proto2.py; it covers EN metadata
-(File Book This All Images Page Title Year Authors Identifier Subjects Publisher Catalog Viewer
-Digitizing Sponsor Contributing Library About Entry Edition Shelfmark Date Dimensions Medium Credit
-Transcription Program Number Copy Printed Engraved Sheet Map Atlas Survey View Plan Drawings One-inich
-Published House Design Pattern Textile Garden? NO - keep Garden, City, Church, Tower, River, Park, New,
-Great/Little/High/Old/North/South - those are place-name components, NEVER stop them) + NL (Plattegrond
-Reproductie Identificatie Titel Objecttype Objectnummer Vervaardiging Vervaardiger Omschrijving
-Opschriften Merken Datering Plaats Afbeeldingen Naaukeurige Voornaamste Sterke Steden Gezicht(en)
-Onderdeel Zeven) + FR (Sujet Echelle Couverture Langue Editeur Appartient Plattegrond? no - that's NL;
-Carte(s) Plano Vue(s) Planche Legende Echelle Hauteur Largeur Detail(s) Extrait Avec Sur Sous Entre
-Pour Dans Une Numerisation). (4) RUNS: kept words form a run unless a COMMA or a real lowercase word
-(len>=3) sits between two consecutive kept words in the source (protects "New Orleans",
-"Cranbourne Hampshire", "Monmouth Castle"; breaks the OS place lists "Sammarobriva Amiens Cenabo").
-(5) Per run, in order of appearance: 2-word pairs, then 3-word phrases, then the singles (this order
-matters: "New Orleans" must be TRIED BEFORE the lone "Orleans" - the lone word resolves to Orléans
-= the cenabum site and would be a FALSE PASS for the New-Orleans junk rows). (6) <=12 candidates per
-row, deduped, title candidates before desc ones. A lone leading word that is the row's ONLY kept word
-is dropped (heading, not a place).
+**Verdict logic (FINAL - supersedes iter-16's "nearest <=50 km wins" wording; iter-16 finding #4 only
+makes sense with a walk):** routes cascade; the first route to return pass or conflict decides the row:
+(1) caption - UNCHANGED (site names printed -> best<=50km pass / nearest-far conflict / none; keeps the
+74 stored conflicts re-verifying); (2) part - a site has_part name printed (norm substring) -> its P625
+(site's own coords when the part has none) -> nearest <=50 km PASS kind part_mention / nearest far
+CONFLICT / none; (3) sheet - WALK the ordered candidates (per run: 2-word pairs, then 3-word phrases,
+then singles; title before desc; <=12, deduped); the FIRST candidate that resolves decides: <=50 km
+PASS kind sheet_mention, >50 km CONFLICT (store that resolution). Why not "any-nearest<=50km wins"
+(data-verified false passes the walk prevents): "York" (a word inside "New York") resolves ~2 km from
+york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside "New Orleans") resolves
+onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued from "New York. Castle
+Garden") resolves to the site itself and would pass those same rows - the walk stops at the first
+resolution ("New York" / "New Orleans" / "Peutinger"), all far -> conflict. Both new kinds store the
+caption_coords shape (named_place, place_qid, place_label, place_lon/lat, site_lon/lat, dist_m);
+check_part additionally re-verifies part_qid in the catalog site's has_part at check time; check_sheet
+re-verifies the norm-substring of named_place in title+desc (candidates are norm-substrings by
+construction and check() normalizes both sides).
 
-**Verdict logic (final, mirrors the existing caption route):** candidates resolved by the EXISTING
-batched shape (one wbsearchentities per unique name, then ONE batched wbgetentities 50/batch, all via
-commons.get pacing; ~1500-2078 unique names -> 25-35 min one-off manual cost, logged). Among resolved
-candidates: nearest <=50 km -> sheet_mention PASS ({named_place, place_qid, place_label, place_lon,
-place_lat, site_lon, site_lat, dist_m}); else nearest far -> none WITH the conflict (existing shape,
-check re-verifies distance from stored coords only); else plain none (reason lists routes tried).
-Title-preference for PASSES was considered and REJECTED: the cenabum New-Orleans junk rows carry the
-place only in the DESC and box 2 demands the conflict. Known accepted consequence (logged): a
-proper noun that is also a city name ("York" on the 1914 tin, "Dudley" on a genealogy book) will
-pass when the site sits in that city - keyword+50km cannot see depiction; the never-pass-far guard
-holds, and box 1 only needs the majority of genuinely-naming rows (they pass; the extra city-level
-passes are in GOAL's spirit).
+**Live-run expectations (distances measured this session vs stored site coords):**
+- part PASS: 40 Clifford's Tower rows on york-castle (Q113551546, 6 m).
+- sheet PASS (~60-65): Strasbourg 36-39 (argentoratum; "Strasbourg"/"Strabourg" old spelling), Reims 4-5
+  (durocortorum; incl. "Val Mont"), Orleans 1-5 (cenabum: "d'Orleans" NFKD -> 0.4 km), St Louis 1
+  (cahokia, via the merged "St Louis"), Barkhale 1, Weesp 1 (fletio, 25 km), Arnhem 1 (duno, 5.5 km),
+  Cranbourne 1 (badbury-rings, 21 km), Darlington 1 (barnard-castle, 33 km), Monmouth 2 (blestium, 25 km),
+  Birmingham 1 (dudley-castle, 13 km), York 1 (york-castle 1914 tin - the accepted name-sharing class).
+- CONFLICT: New-Orleans-on-cenabum (~13), the bethlehem-q2523914 rows naming Bethlehem/Palestine/
+  Jerusalem/Maastricht/Prospect House (~30; "Bethlehem" -> Q5776 Holy Land 4700 km is ALREADY stored in
+  the existing conflicts, no new search needed; Maastricht is ~290 km from the site's stored point -
+  bethlehem-q2523914 sits at 6.61E 53.38N, NOT near Maastricht), Bristol (4 sites), Venice/Gondole (7),
+  Chirk (2, 57 km), Coria rows (5; person name "Lorenzo Coria" -> "Coria" decides), Castle Garden (4;
+  "New York" decides), Morse-atlas cahokia row ("New Haven"), Britannia-on-alauna row ("Britain").
+- plain none: the remaining book-scan/painting rows where nothing resolves.
+- WATCH for the live run: (a) "Bethleem" search first hit (File:BethleemPlan.png - a plan of the site's
+  own basilica; PASSES if it resolves to the Dutch site, conflicts if to the Holy Land); (b) "Coria"
+  first hit (Spain? Mexico? Corbridge?); (c) any NEW name-sharing pass beyond the accepted class - log
+  each before keeping it. If passes land below a majority of the ~85-90 genuinely-naming rows, log the
+  shortfall in DECISIONS before relaxing anything.
 
-**Prototype findings (v2, run this session, 2078 unique candidates):** digit tokens leaked ("000",
-"1870", "2369494") and my v2 STOP list had DROPPED the preposition block ("The" x26, "Ordnance" x5,
-"Quartier" x16, "House" x16, "Design" x5, "Textile" x5, "Pattern" x5, "English" x40, "Roman" x4,
-"Numerisation" x6, "Onderdeel" x5). The fix (require first char isalpha; add those words to STOP;
-NOTE: store "numerisation" ASCII, the STOP match runs on NFKD text) was NOT YET APPLIED - my edit
-call failed atomically (a bad oldText in a sibling edit), so /tmp/sheet_proto2.py still has the old
-STOP list. Eyeball of the census sites confirmed the approach: standalone singles appear for
-Strasbourg x36-39, Reims x4, Orleans (only AFTER NFKD - v1 tokenized "Orléans" as "O"+"rl"+"ans" =
-zero candidates! NFKD is mandatory), Weesp, Arnhem, Casaromago, Barkhale, Monmouth, Manchester,
-Nijmegen, Birmingham; per-site verdicts behave as censused (fletio must stay none: its first resolved
-candidate Casaromago is 440 km; the same file passes on castrum-levefanum at 0 km). Part hits =
-EXACTLY 40 (all Clifford's Tower) - matches census.
+**Exact next step (iter 18):** (1) LIVE prototype (manual, paced via commons.get, ~25-35 min one-off):
+resolve the 1483 uniques exactly like resolve_places (one wbsearchentities per unique name, then ONE
+batched wbgetentities claims 50/batch), apply the walk per row, dump to /tmp/sheet_verdicts.txt; compare
+with the expectations above - especially the WATCH items. (2) IMPLEMENT in fit/evidence.py (Touches):
+refactor-first commit - extract live_evidence's caption block into _caption_route, zero behavior change,
+tests green; then part/sheet routes + kinds part_mention/sheet_mention + check_part/check_sheet + docstring
+kind list + `--redo-none` (live-only; plain `record` stdout must stay exactly "evidence recorded: N
+hand-tied, N book, N live"). (3) Run `record --live --redo-none` on the real files (diff: ONLY the 354
+none rows' evidence field changes; a stored conflict is rewritten only when the walk still yields a
+conflict, else per the verdict) then `check` (exit 0, 1490 rows, zero FAIL) then
+.venv/bin/python -m pytest -q (12/12). The golden sample (tests/evidence_sample/*, 15 rows:
+old-sarum/hampton-court/caister fixtures + book fixtures) contains NONE of the 354 none rows, so it must
+stay byte-identical - verify, do not regenerate. (4) Add the two pending PITFALLS entries (context
+limit cut them last session): "Latin Peutinger names (Casaromago, Sammarobriva) have no Wikidata items;
+'Peutinger' resolves to Q2081791 Ellwangen gymnasium 475-500 km from the Dutch Limes sites" under the
+Wikimedia-APIs subsection, and "catalog castrum-levefanum-q1309559 is the DUTCH Limes fort (5.35E 51.96N),
+not Beauvais (1.99E 49.42N) - don't assume geography from the name" under This codebase.
 
-**Exact next step (iter 17):** (1) if /tmp/sheet_proto2.py is gone, recreate it from the rules above;
-apply the two pending fixes (digit exclusion + STOP additions listed above) and re-run - expect
-~1400-1600 unique candidates; eyeball the top ~50 of the frequency list for any remaining non-place
-junk (person names like Seyboth/Bolgiano/Dennis are EXPECTED and harmless - they have no P625; the
-distance guard is the mechanism, the STOP list only cuts cost). (2) Live prototype (manual, paced):
-resolve those uniques via commons.get (search + batched claims, dump to /tmp/sheet_verdicts.txt) and
-compare per-row verdicts with the census - WATCH: what does the "Bethlehem" search return first? The
-74 stored conflict rows ALREADY encode the answer for the caption route (read their stored
-conflict.place_qid in data/commons/files.jsonl before spending searches); if the search top hit with
-P625 is the Dutch Bethlehem, the 51 bethlehem rows would falsely PASS - in that case restrict the
-bethlehem site's candidates or log it. (3) Implement in fit/evidence.py: refactor-first commit
-(extract the caption-route block of live_evidence into _caption_route, no behavior change, tests
-green), then part/sheet routes + the two new kinds + checkers (check_part re-verifies part_qid in
-the catalog site's has_part qids at check time; check_sheet mirrors check_caption incl. the norm
-substring - candidates are norm-substrings of title+desc by construction) + docstring kind list,
-then `--redo-none` (only with --live; plain record stdout stays EXACTLY "evidence recorded: N
-hand-tied, N book, N live"). (4) Run `record --live --redo-none` on the real files (diff:
-ONLY the 354 none rows' evidence field may change; a stored conflict is rewritten only when the
-resolution is still >50 km, else the row becomes a pass or plain none per the verdict logic), then
-`check` (exit 0, 1490 rows, zero FAIL, golden byte-identical), then .venv/bin/python -m pytest -q
-(12/12). (5) If passes land below a majority of the ~85-90 genuinely-naming rows, log the shortfall
-in DECISIONS before relaxing anything.
-
-**Gotchas (unchanged + new):** run everything through .venv/bin/python (books_match imports books.py
--> PIL); do NOT touch requirements.* (agent a's task 800); tests never use the network, no fixed
-ports, no writes outside project + /tmp; never rebase/merge (driver handles branches); set_field
-preserves line bytes; the 74 existing conflict rows must keep re-verifying after the run; desc
-truncation is at a WORD boundary (a cut-off word like "Bethl" would otherwise become a phantom
-candidate).
+**Gotchas (unchanged + new):** run everything through .venv/bin/python (books_match imports PIL); do NOT
+touch requirements.* (agent a's task 800); tests: no network, no fixed ports, no writes outside project
++ /tmp; never rebase/merge/stash (driver handles branches); set_field preserves line bytes; the 74
+existing conflict rows must keep re-verifying after the run; desc truncation is at a WORD boundary at 600
+(a cut-off word like "Bethl" becomes a phantom candidate); NFKD-normalize BEFORE tokenizing (v1's
+"Orléans" disaster); keep the batched prefetch shape (one search per unique name + one batched claims);
+the iter-14 census in DECISIONS (2026-10-10 801) is still the best per-site reference, with this
+hand-over's corrections (castrum-levefanum Dutch; bethlehem far-from-Maastricht).
