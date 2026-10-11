@@ -1,0 +1,111 @@
+{
+ "site": "fort-ancient-q5470727",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0076_1",
+   "title": "\"Fort Ancient,\" Warren county, Ohio",
+   "url": "books/ancientmonuments00squi/n0076.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Ancient",
+    "place": {
+     "county": "warren",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-ancient-q5470727",
+     "qid": "Q5470727",
+     "name": "Fort Ancient",
+     "lon": -84.090253,
+     "lat": 39.407783,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -84.0926195,
+     39.4095921
+    ],
+    [
+     1500.0,
+     1000.0,
+     -84.0868062,
+     39.4095921
+    ],
+    [
+     2000.0,
+     1000.0,
+     -84.080993,
+     39.4095921
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1981,
+   "rot_deg": 0.0,
+   "scale_source": "ratio",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "why": "features: Northwest corner of the main earthwork, North gate gap in the rampart, Northeast corner of the main earthwork, East gate gap in the rampart, Southwest corner of the main earthwork, South gate gap in the rampart, Southeast corner of the main earthwork, River crossing on the western bank; stated scale 0.198 disagrees with its own points (1.000 m/px): not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0188_1",
+   "title": "MAP OF FORT ANCIENT",
+   "url": "books/ArcheologicalAtlasOfOhio/n0188.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Ancient",
+    "place": {
+     "county": "franklin",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-ancient-q5470727",
+     "qid": "Q5470727",
+     "name": "Fort Ancient",
+     "lon": -84.090253,
+     "lat": 39.407783,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1500.0,
+     800.0,
+     -84.080993,
+     39.4051005
+    ],
+    [
+     100.0,
+     800.0,
+     -84.0926195,
+     39.4051005
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2032,
+   "rot_deg": 0.0,
+   "scale_source": "ratio",
+   "note": "scale from the printed ratio at 150 ppi; north hint 69.7 deg rejected (|deg| > 60): plate left north-up",
+   "why": "features: East gate gap, West gate gap"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

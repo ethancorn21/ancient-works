@@ -1,0 +1,102 @@
+{
+ "site": "hopewell-culture-national-historical-par-q4315010",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0138_1",
+   "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+   "url": "books/annualreportofbu1218901891smit/n0138.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: only a place word matches; half or less of the site's name is in the title"
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.2432,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "the model recorded no usable pairs"
+  },
+  {
+   "plan": "b24849959_n0228_1",
+   "title": "Clark\u2019s works, or Hopewell group, Ross county",
+   "url": "books/b24849959/n0228.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: half or less of the site's name is in the title"
+   },
+   "pairs": [
+    [
+     1500.0,
+     1000.0,
+     -83.00407,
+     39.3775921
+    ],
+    [
+     1500.0,
+     3000.0,
+     -83.00407,
+     39.3739989
+    ],
+    [
+     1000.0,
+     1500.0,
+     -83.0052321,
+     39.3757955
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1995,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: 'Scale 200 Feet'",
+   "why": "features: North-east corner of the large enclosure, South-east corner of the large enclosure, Central circular earthwork, Oval earthwork in the lower field; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0152_2",
+   "title": "HOPEWELL WORKS",
+   "url": "books/ArcheologicalAtlasOfOhio/n0152.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: half or less of the site's name is in the title"
+   },
+   "pairs": [
+    [
+     1050.0,
+     450.0,
+     -83.0098805,
+     39.3757955
+    ],
+    [
+     1350.0,
+     200.0,
+     -83.0069752,
+     39.3780413
+    ],
+    [
+     1600.0,
+     200.0,
+     -83.00407,
+     39.3780413
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.9522,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "scale text '500 FEET' is a bar span but no scale-bar box is recorded",
+   "why": "features: Northwest corner of the main earthwork, North gate gap, Northeast corner of the main earthwork, Southwest corner of the main earthwork, Southeast corner of the main earthwork, Center of the circular earthwork, Center of the D-shaped earthwork, Southwest corner of the 16-acre field; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

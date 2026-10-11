@@ -1,0 +1,367 @@
+{
+ "site": "serpent-mound-q968802",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0636_1",
+   "title": "The Serpent mound, Adams county, Ohio",
+   "url": "books/annualreportofbu1218901891smit/n0636.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "county": "adams",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1200.0,
+     1200.0,
+     -83.4235002,
+     39.0204634
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2508,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'; north hint -68 deg rejected (|deg| > 60): plate left north-up",
+   "why": "features: Serpent tail"
+  },
+  {
+   "plan": "b24849959_n0306_1",
+   "title": "Serpent Mound; from Squier and Davis",
+   "url": "books/b24849959/n0306.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.2,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -83.4327509,
+     39.0276501
+    ],
+    [
+     1000.0,
+     2500.0,
+     -83.4327509,
+     39.0222602
+    ],
+    [
+     1500.0,
+     3000.0,
+     -83.4304382,
+     39.0204634
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.4148,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Serpent head, Serpent tail, Mound, Creek crossing; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "b24849959_n0308_1",
+   "title": "Map of Serpent Mound Park; from Putnam",
+   "url": "books/b24849959/n0308.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "county": "adams",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -83.4327509,
+     39.0276501
+    ],
+    [
+     1500.0,
+     1500.0,
+     -83.4304382,
+     39.0258535
+    ],
+    [
+     2000.0,
+     2000.0,
+     -83.4281255,
+     39.0240569
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5354,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "scale text '0 100 200 300 400 FEET' is a bar span but no scale-bar box is recorded",
+   "why": "features: East Creek bend, Serpent head, Serpent tail"
+  },
+  {
+   "plan": "b24849959_n0309_1",
+   "title": "Serpent Mound; from McLean",
+   "url": "books/b24849959/n0309.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     300.0,
+     1800.0,
+     -83.4362199,
+     39.0222602
+    ],
+    [
+     1900.0,
+     1900.0,
+     -83.4246565,
+     39.0213618
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5915,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Serpent head tip, Serpent tail spiral"
+  },
+  {
+   "plan": "c_27c818e3c6c9b9c8",
+   "title": "156 of 'The Serpent Symbol and the worship of the reciprocal symbols of nature in America' (11036769706)",
+   "url": "media/commons/serpent-mound-q968802/27c818e3c6c9b9c8.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     -83.4356417,
+     39.0298958
+    ],
+    [
+     250.0,
+     250.0,
+     -83.4344854,
+     39.0289975
+    ],
+    [
+     450.0,
+     350.0,
+     -83.4321727,
+     39.0280993
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.9375,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest rampart tip, Northwest gate gap, Central mound tip, Southwest rampart tip, Southwest gate gap, Southeast rampart tip; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_393a505b4f0e4c81",
+   "title": "SD35 Serpent Mound Squier and Davis Plate XXXV gray-levels-cropped",
+   "url": "media/commons/serpent-mound-q968802/393a505b4f0e4c81.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     -83.4356417,
+     39.0289975
+    ],
+    [
+     250.0,
+     500.0,
+     -83.4344854,
+     39.0267518
+    ],
+    [
+     200.0,
+     800.0,
+     -83.4350636,
+     39.0240569
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6869,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Upper river bend, Mid river bend, Lower river bend, Mound tip; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_ad1c0730a0fa94c3",
+   "title": "Serpent Mound - The Century",
+   "url": "media/commons/serpent-mound-q968802/ad1c0730a0fa94c3.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "pairs": [
+    [
+     130.0,
+     130.0,
+     -83.4339072,
+     39.0285484
+    ],
+    [
+     450.0,
+     130.0,
+     -83.4246565,
+     39.0285484
+    ],
+    [
+     250.0,
+     100.0,
+     -83.4304382,
+     39.0285484
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.3438,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: Serpent head, Serpent tail, Serpent body bend, Serpent body bend 2; stated scale 1.170 disagrees with its own points (2.461 m/px): not trusted"
+  },
+  {
+   "plan": "c_b07ef12c515af39b",
+   "title": "The World's Columbian exposition, Chicago, 1893 (1893) (14780333052)",
+   "url": "media/commons/serpent-mound-q968802/b07ef12c515af39b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "pairs": [
+    [
+     400.0,
+     300.0,
+     -83.43304,
+     39.0287191
+    ],
+    [
+     500.0,
+     250.0,
+     -83.431953,
+     39.0291413
+    ],
+    [
+     600.0,
+     220.0,
+     -83.4308661,
+     39.0293928
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.9375,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: Serpent head, Serpent body curve 1, Serpent body curve 2, Serpent tail tip; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

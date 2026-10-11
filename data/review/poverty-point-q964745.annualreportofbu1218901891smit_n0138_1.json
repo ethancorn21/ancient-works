@@ -1,0 +1,26 @@
+{
+ "site": "poverty-point-q964745",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0138_1",
+   "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+   "url": "books/annualreportofbu1218901891smit/n0138.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: only a place word matches; half or less of the site's name is in the title"
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.2432,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "the model recorded no usable pairs"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

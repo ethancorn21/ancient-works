@@ -1,0 +1,87 @@
+{
+ "site": "watson-brake-q2552689",
+ "candidates": [
+  {
+   "plan": "c_5e7bb19c79b509ed",
+   "title": "Watson Brake - Map",
+   "url": "media/commons/watson-brake-q2552689/5e7bb19c79b509ed.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Watson Brake",
+    "file_cat": "Watson Brake",
+    "via": []
+   },
+   "pairs": [
+    [
+     420.0,
+     180.0,
+     -92.1324583,
+     32.3706413
+    ],
+    [
+     520.0,
+     220.0,
+     -92.1308629,
+     32.3701921
+    ],
+    [
+     380.0,
+     320.0,
+     -92.13299,
+     32.3688447
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Gentry Mound tip, North Mounds east tip, South Mounds west tip, South Mounds east tip; stated scale 0.625 disagrees with its own points (1.448 m/px): not trusted"
+  },
+  {
+   "plan": "c_b52ddcad2ee295c4",
+   "title": "Watson Brake Mounds - Map",
+   "url": "media/commons/watson-brake-q2552689/b52ddcad2ee295c4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Watson Brake",
+    "file_cat": "Watson Brake",
+    "via": []
+   },
+   "pairs": [
+    [
+     550.0,
+     150.0,
+     -92.1319903,
+     32.3711443
+    ],
+    [
+     400.0,
+     250.0,
+     -92.13299,
+     32.3705874
+    ],
+    [
+     400.0,
+     550.0,
+     -92.13299,
+     32.3688986
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Gentry Mound, North Mounds, South Mounds, Watson Bayou; only 0% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

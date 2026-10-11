@@ -13,34 +13,34 @@
    },
    "pairs": [
     [
-     86.3,
-     366.1,
-     -82.5062594,
-     40.0753227
+     400.0,
+     600.0,
+     -82.5045467,
+     40.071276
     ],
     [
-     1294.2,
-     366.1,
-     -82.4958026,
-     40.0753227
+     1000.0,
+     600.0,
+     -82.4975035,
+     40.071276
     ],
     [
-     1294.2,
-     1993.3,
-     -82.4958026,
-     40.0645429
+     400.0,
+     1400.0,
+     -82.5045467,
+     40.065886
     ],
     [
-     86.3,
-     1993.3,
-     -82.5062594,
-     40.0645429
+     1000.0,
+     1400.0,
+     -82.4975035,
+     40.065886
     ],
     [
-     690.2,
-     1179.7,
-     -82.501031,
-     40.069933
+     700.0,
+     1000.0,
+     -82.5010251,
+     40.068581
     ]
    ],
    "coarse": true,
@@ -48,23 +48,9 @@
    "scale_m_px": 0.7375,
    "rot_deg": 0.0,
    "scale_source": "picture_size",
-   "note": "202-style coarse starting point, computed before 202 merged: the map panel's centre sits on the site centre, scale from the site box (picture_size), north-up; 4 panel corners + centre in the candidate's image frame. 202's propose_for replaces these pairs when it lands; the human drag is expected to do the rest.",
-   "ia": "ancientmonuments00squi",
-   "file": "n0214.jpg",
-   "book": "Squier & Davis 1848",
-   "label": "Plate XXXVI2",
-   "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
-   "map_box": [
-    0.03,
-    0.09,
-    0.45,
-    0.49
-   ],
-   "view": false,
-   "size": [
-    2876,
-    4068
-   ]
+   "note": "no scale text recorded",
+   "why": "median residual 60.00119095519185 m > 45.0 m",
+   "gate_score": 60.0
   },
   {
    "plan": "c_618a6be74dfaff32",

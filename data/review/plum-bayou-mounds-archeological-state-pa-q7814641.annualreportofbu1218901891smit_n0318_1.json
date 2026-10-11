@@ -1,0 +1,69 @@
+{
+ "site": "plum-bayou-mounds-archeological-state-pa-q7814641",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0318_1",
+   "title": "Plat of the Knapp mounds, Pulaski county, Arkansas",
+   "url": "books/annualreportofbu1218901891smit/n0318.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Plum Bayou Mounds Archeological State Park",
+    "place": {
+     "county": "pulaski",
+     "state": "arkansas"
+    },
+    "site": {
+     "id": "plum-bayou-mounds-archeological-state-pa-q7814641",
+     "qid": "Q7814641",
+     "name": "Plum Bayou Mounds Archeological State Park",
+     "lon": -92.0653,
+     "lat": 34.6469,
+     "admin": {
+      "state": "Arkansas"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -92.0652945,
+     34.6468955
+    ],
+    [
+     1500.0,
+     1500.0,
+     -92.0674784,
+     34.6459972
+    ],
+    [
+     1000.0,
+     2000.0,
+     -92.0663865,
+     34.6450989
+    ],
+    [
+     500.0,
+     2500.0,
+     -92.0685704,
+     34.6442005
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.3614,
+   "rot_deg": -30.1,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "median residual 86.97443135449925 m > 45.0 m",
+   "gate_score": 87.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

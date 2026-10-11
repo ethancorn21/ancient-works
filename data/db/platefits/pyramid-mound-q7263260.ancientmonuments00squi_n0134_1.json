@@ -1,0 +1,45 @@
+{
+ "site": "pyramid-mound-q7263260",
+ "plan": "ancientmonuments00squi_n0134_1",
+ "crop": [
+  360,
+  2235,
+  1269,
+  2764
+ ],
+ "pairs": [
+  [
+   1000.0,
+   2400.0,
+   -87.5066695,
+   38.6710447
+  ],
+  [
+   850.0,
+   2500.0,
+   -87.5078201,
+   38.6701463
+  ],
+  [
+   1150.0,
+   2500.0,
+   -87.505519,
+   38.6701463
+  ],
+  [
+   500.0,
+   2500.0,
+   -87.509546,
+   38.6705955
+  ]
+ ],
+ "label": null,
+ "title": null,
+ "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+ "at": "2026-10-11T11:35:27.546350+00:00",
+ "auto": true,
+ "score": 24.0,
+ "ia": "ancientmonuments00squi",
+ "file": "n0134.jpg",
+ "book": "Squier & Davis 1848"
+}

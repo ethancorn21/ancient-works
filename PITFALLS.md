@@ -6,6 +6,8 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (10)
 - Libraries and frameworks (2): Python (3.12.3) 2
 - This codebase (20): Wikimedia APIs (Commons, Wikidata) 6, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
+- Libraries and frameworks (0)
+- This codebase (23): Wikimedia APIs (Commons, Wikidata) 3, fit/ 5, pipeline/ 3, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -268,6 +270,105 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       gymnasium named after the map's owner. A first-resolved walk over such rows lands on that far item and
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
+
+### fit/
+
+#### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
+Where: `fit/batch_us.py` (`write_report`, path building), `tests/test_batch_us.py`
+      (`_check_doc`, `_check_doc_stub`)
+Symptom: `Path(root) / "a" / "%s.json" % (x, y)` raises `TypeError: unsupported operand type(s)
+      for %: 'PosixPath' and 'tuple'` - the expression parses as `(Path(root) / "a" / "%s.json") %
+      (x, y)`. Likewise `"a" or "b" / "c"` parses as `"a" or ("b" / "c")` (one silent wrong-value
+      hit and one crash in the batch work).
+Why: in Python's precedence table `* / // %` form one level, `+ -` the next, then comparisons,
+      then `not` / `and` / `or`. So a `%` formatting applied to a path string is swallowed into the
+      `/` chain before it, and a `/` into an `or`. Always parenthesize a format string inside a
+      chain: `Path(root) / ("a%s.json" % (x, y))`; never mix `/` with `or` unparenthesized.
+
+#### `batch_us.pre_docs` matches any existing `<site>.*.json` document - including automatic docs the current run just wrote
+Where: `fit/batch_us.py` (`pre_docs`, `run_sites`), `tests/test_batch_us.py`
+Symptom: code that computes a site's "pre-batch" state AFTER `run_sites` treats every candidate as
+      already pre-fit: for serpent-mound the expected set comes out empty and an assertion compares
+      15 new automatic documents against `set()` - which looks like a gate-verdict mismatch, but
+      the gate (pipeline/fit_gate.py) is a pure function of (pairs, transform) plus frozen module
+      constants, so two identical calls cannot disagree.
+Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batch writes its
+      automatic documents into that same directory during the run. Snapshot the pre-run state
+      (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
+      "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
+
+#### `data/db/platefits/` mixes hand fits and automatic ones (`"auto": true`) - code that counts the directory's files must filter `doc.get("auto")`
+Where: `tools/gate_heldout.py` (`partition`), `fit/batch_us.py` (`write_doc`, `write_golden`), `data/db/platefits/`
+Symptom: code that treats every `data/db/platefits/*.json` as a hand-fit reference breaks once a batch
+      lands: after 203a's US batch the directory holds 36 documents (20 hand + 16 auto), and the
+      pre-802 `gate_heldout partition()` aborted with "expected 20 hand-fit documents in
+      data/db/platefits/, found 36; the registered partition is void" (the suite's red test_gate).
+Why: the batch writes its accepted fits into that same directory (`write_doc`), but the
+      golden/held-out reference is the 20 hand fits, which 203a's golden pins byte-identical after
+      the run. Count or list the NON-automatic set: `if not json.load(open(p)).get("auto")`
+      (the `write_golden` criterion; a doc without the field is a hand fit). Automatic documents
+      only ever ADD names - a hand-fit doc never gains the field - so any derivation over the
+      non-auto name list is state-agnostic: identical before and after a batch, and a hand-fit doc
+      that did gain the field drops the count below 20 and fails loudly (correct: the reference
+      was changed).
+
+#### This Qwen fabricates correspondences that pass a consistency-only gate; the batch's prompt/parse/scale/texture checks are the counterweight
+Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`, `_feature_present`), the local qwen3.8-27b via
+      `pipeline/llm.py`, docs/gate.md section 7
+Symptom: asked to match features between two gridded panels, the model answers with internally
+      perfect but false correspondences (identity (100,100)->(100,100)..., the four corners to the
+      four corners, a 5-point diagonal ladder, a 1:1 pixel line ~281 m off the 202 seed): gate med
+      ~0.0 m, and the frozen gate ACCEPTS them - docs/gate.md section 7: a consistency check cannot
+      see a consistent global error. Unopposed, every automatic batch document would be garbage and
+      the human's 18/20 report-sample check would fail.
+Why: a 27 B vision model that cannot confidently read a figure (e.g. a small figure on a dense
+      text page) invents a regular grid-like correspondence instead of reporting few pairs. The
+      gate is frozen, so the counterweight is batch-side: a prompt giving both panels' labelled
+      coordinate ranges + metre coverage, a +/-50% seed-scale window, anti-pattern clauses (no
+      grid-line intersections / even spacing / >=3 collinear; never pad a list) and asking for
+      named features plus a stated scale; parsing drops pairs outside the labelled ranges; a
+      stated scale that disagrees >=2x with the MAGNITUDE of the model's own points' similarity
+      trims the answer to 3 pairs (a review item, never an automatic document); and a
+      feature-presence check (`_feature_present`) trims an answer whose ground points mostly sit
+      on less textured ground than the median of a 400-point null of the site's own image. The
+      last one is needed for a fifth class the other checks all pass (4c pilot, tremper): a
+      correct-scale, wrong-translation answer whose points sit on structureless ground. The
+      checks only ever route to review; a fabrication anchored on strong texture (roads, field
+      boundaries) passes all of them - docs/gate.md section 7's human 18/20 sample is the
+      backstop for that class.
+
+#### 201's upsert merges item candidates by whole-entry replacement per plan - a subset-shaped entry drops the denormalized row fields; the page's row lookup, not the entry, covers the save flow
+Where: `fit/review.py` (`upsert_item`), `fit/batch_us.py` (`write_item`), `data/review/*.json`,
+      `web/review.js` (`rvResolveRow`), `web/index.html` (`openPlan`), `tests/test_review.py`
+      (`test_save_resolves_the_item`)
+Symptom: after a consumer upserts a candidate whose entry lacks the page-save fields, code that
+      reads them from the ITEM ENTRY fails with KeyError: the 203a batch's entry shape (plan,
+      title, url, evidence, pairs, coarse, ground, scale_m_px, rot_deg, scale_source, note,
+      why, gate_score) replaced the 201-seed entry for alligator's n0214_2 (which also stored
+      map_box, size, ia, file, label, book, cite, view), and the test died with
+      `KeyError: 'map_box'`. The page itself never misbehaved.
+Why: `upsert_item`'s documented merge is "a same-plan entry replaces the existing one in
+      place" - fields absent from the incoming entry are simply gone. But the page does not
+      rely on the stored copies: `rvResolveRow` resolves the candidate's row from
+      web/data/plans.json by (plan, site) FIRST, and the stored-field fallback (missing
+      map_box tolerated, `openPlan` falls back to the full frame) exists only for rows absent
+      from the current build. Read those fields from the plans.json ROW (map_box, size, ia,
+      file, label, book, cite, view are all row columns) - never from an item's entry, which
+      any later upsert may have re-shaped.
+
+### pipeline/
+
+#### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
+Where: `pipeline/llm.py` (`URL = os.environ.get("AW_LLM_URL", "http://127.0.0.1:18080/...")` read
+      once at module level; `ask(prompt, images=(), ..., url=URL)`) and any caller that imports it
+      (`fit/batch_us.py`'s `llm_model`)
+Symptom: after `import llm; llm.URL = "http://127.0.0.1:8081/..."` the requests still go to the
+      module default (18080 on this machine, where nothing listens; the AI-box tunnel serves
+      8080/8081 vLLM and 8082 llama.cpp) - a confusing connection error instead of a visible
+      wrong-URL error.
+Why: default arguments capture the value at function-definition time, not the module attribute at
+      call time. Set `AW_LLM_URL` in the environment BEFORE the import (read once, at module level)
+or pass `url=` explicitly to `ask`/`ask_json`.
 #### Q50195 (Imola) P625 is the correct city point - the prep's "old-town centre" was Cervia; never geocode Imola from OSM/Nominatim; "Venice" search hits Venice, California, first
 Where: `fit/src_artists.py` (SITES, `verify_qids`, task 213); `fit/evidence.py` (`resolve_places`, `caption_route`); OSM/Nominatim geocoding of Imola
 Symptom: a prep-era "old-town centre" (44.245 N, 12.367 E) was called Imola's, and Q50195's P625 (44.3531,

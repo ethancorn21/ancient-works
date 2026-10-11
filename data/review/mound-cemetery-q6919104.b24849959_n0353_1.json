@@ -1,0 +1,173 @@
+{
+ "site": "mound-cemetery-q6919104",
+ "candidates": [
+  {
+   "plan": "b24849959_n0353_1",
+   "title": "Plan of mound at Mt. Vernon",
+   "url": "books/b24849959/n0353.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     1100.0,
+     1300.0,
+     -81.4519382,
+     39.4208938
+    ],
+    [
+     1100.0,
+     1500.0,
+     -81.4519382,
+     39.4190972
+    ],
+    [
+     1300.0,
+     1500.0,
+     -81.4507753,
+     39.4190972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.4935,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Northwest corner of the central mound, Southwest corner of the central mound, Southeast corner of the central mound, Northwest corner of the outer rampart, Southwest corner of the outer rampart, Southeast corner of the outer rampart; only 17% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0092_1",
+   "title": "Plan of Cemetery Mound, Mt. Vernon.",
+   "url": "books/ArcheologicalAtlasOfOhio/n0092.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     1410.0,
+     580.0,
+     -81.4519382,
+     39.4208938
+    ],
+    [
+     1410.0,
+     680.0,
+     -81.4519382,
+     39.4190972
+    ],
+    [
+     1510.0,
+     680.0,
+     -81.4507753,
+     39.4190972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.6639,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Northwest corner of the central mound, Southwest corner of the central mound, Southeast corner of the central mound, Northwest corner of the outer rampart, Southwest corner of the outer rampart, Southeast corner of the outer rampart; only 17% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_5d150a48c7b88b60",
+   "title": "Ohio - Marietta Earth Works",
+   "url": "media/commons/mound-cemetery-q6919104/5d150a48c7b88b60.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Mound Cemetery",
+    "place_qid": "Q6919104",
+    "place_label": "Mound Cemetery",
+    "place_lon": -81.451944,
+    "place_lat": 39.42,
+    "site_lon": -81.451944,
+    "site_lat": 39.42,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -81.4554267,
+     39.4226904
+    ],
+    [
+     300.0,
+     300.0,
+     -81.453101,
+     39.4208938
+    ],
+    [
+     100.0,
+     500.0,
+     -81.4554267,
+     39.4190972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.9259,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the main enclosure, Central mound tip, Southwest corner of the main enclosure, River crossing / bridge on the west bank; only 0% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_c38f017c2e104081",
+   "title": "Plan of Mound Cemetery - DPLA - e647766aa7a89dca7db59e4d013847ea",
+   "url": "media/commons/mound-cemetery-q6919104/c38f017c2e104081.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Mound Cemetery",
+    "place_qid": "Q6919104",
+    "place_label": "Mound Cemetery",
+    "place_lon": -81.451944,
+    "place_lat": 39.42,
+    "site_lon": -81.451944,
+    "site_lat": 39.42,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     640.0,
+     400.0,
+     -81.4519382,
+     39.4199955
+    ],
+    [
+     100.0,
+     100.0,
+     -81.4554267,
+     39.4226904
+    ],
+    [
+     1100.0,
+     100.0,
+     -81.4484496,
+     39.4226904
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: central_circular_mound, northwest_grave_row_corner, northeast_grave_row_corner, southwest_grave_row_corner, southeast_grave_row_corner, central_grave_row_corner; only 17% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
