@@ -39,60 +39,50 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 67 (2026-10-11, agent a) - the test is written and green; all four boxes ticked. Status stays
-open: the done-claim waits on 211 (site build) + 218 (gate registration for the 21st hand doc) per the
-Depends on line; a later session (after the driver brings the task back) sets done.**
+**Iteration 68 (2026-10-11, agent a) - re-verified the full state after the driver's main sync: everything
+this task owns is green and byte-identical to iter 67; the suite still fails only on the 5 dependency-owned
+reds; 211 and 218 are both still `open`, so the done-claim stays held (no stand-ins, per the rule).**
 
-STATE at stop:
-- `tests/test_src_mackenzie.py`: WRITTEN and committed this session, exactly per the iter-66 TEST SPEC
-  (module docstring; fit/+pipeline/ sys.path inserts; `evidence`, `fit_gate`, `plan_fit`, `sources`,
-  `src_mackenzie as mack` imports; `NO_BOOKS = data/books/.no-books` absent-on-purpose; autouse
-  `no_network` socket-boom fixture). Four tests, all green (1.6 s):
-  1. `test_staged_row_and_join` - one row per staging file with every field pinned (incl. the 200
-     category evidence), site existing-by-QID in sites.jsonl and NOT in extras.jsonl, no clash with the
-     canonical files or the 26-row sources.py MACKENZIE table, classified 1:1 (plan, by=hand), and the
-     platefit doc's plan id / full-frame crop / 4 in-frame pairs each < 200 m from the catalog point.
-  2. `test_evidence_offline_and_negative_control` - `evidence.check(FILES, NO_BOOKS)` exit 0 with the
-     exact PASS line; never-written copy with `file_cat="Not the Castle's Category"` -> FAIL
-     ("differs from the site's with no recorded chain"), staged row provably untouched.
-  3. `test_gate_accepts_the_committed_doc` - `fit_gate.gate(doc pairs)` ACCEPT, n 4, med 15.81
-     (abs 0.01), slope_o 0.1385 (abs 0.001, the 0.11-0.145 "must be said" band), io -7.04 (abs 0.01);
-     `plan_fit.similarity` residuals finite, max 19.36 < 45, rotation -0.20 deg (abs 0.05, north-up).
-  4. `test_golden_sample_matches_staged` - golden == `_norm(staged rows)` and doc with at=normalized
-     (mirrors the module's `golden()`).
-- Full suite: 59 passed, 5 failed = the 4 known-reds (test_serve::test_platefits_docs_match_sites,
-  test_batch_eu::test_union_check + test_union_full_coverage_live, test_gate::test_recorded_
-  measurement_reproduces_and_agrees - owned by 211/218, DO NOT "fix") + ONE NEW red,
-  `test_site_done::test_site_done_line` (iter-67 session's 5th failure): NOT caused by this branch and
-  NOT fixable from it (see the DECISIONS entry of this date). It compares the freshly rebuilt
-  Stonehenge depictions.json (with the 7 plan entries) against `web/data/sites/stonehenge-q39671/
-  depictions.json`, which in every checkout is a SYMLINK into the shared main-branch store
-  (/home/agent/projects/ancient-works/...); that store file was reset to the pre-sync state (2 maps,
-  no plans, no plan_*.webp overlays) at 14:48 local during this session's window - while agent c was
-  actively in 301 (whose Touches explicitly include web/data/sites/stonehenge-q39671 and docs/site_flow;
-  c's checkout had docs/site_flow/stonehenge.png modified). Transient 301/lead shared-store churn; it
-  should settle when 301 lands. My branch diff vs main is exactly the mackenzie artifacts + memory
-  files (the 8-line web/index.html hunk in `git diff main` is the lead's 14:58 commit f5ea863, newer
-  than this checkout's local main ref - not mine).
-- Boxes 1-4 all ticked this session (box 3 last: the gate is proven on the committed doc). Everything
-  else from iter 65/66 unchanged and committed: fit/src_mackenzie.py, the 3 staged files, the platefit
-  doc, docs/lead_mackenzie.md (says "26 rows" for the sources.py table - the task's "29" is the
-  book-level count; do not "correct" it), tests/golden/src_mackenzie_sample.json.
+STATE at stop (all re-run this session, offline):
+- `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
+- `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
+  'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
+  residuals [14.2, 2.0, 17.5, 19.4] - identical to the committed doc and the golden.
+- `tests/test_src_mackenzie.py`: 4/4 green (1.63 s, socket-boom fixture, no network).
+- Full suite: 59 passed, 5 failed - EXACTLY the iter-67 set, none owned by 206:
+  1. `test_batch_eu::test_union_check` + `test_union_full_coverage_live` - owned by 211.
+  2. `test_serve::test_platefits_docs_match_sites` - owned by 211.
+  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` - owned by 218.
+  4. `test_site_done::test_site_done_line` - 300's hermetic test; its compare target
+     `web/data/sites/stonehenge-q39671/depictions.json` (a SYMLINK into the shared main-branch store in
+     every checkout - see the PITFALLS entry "This machine and its environment") was still in the
+     pre-sync state this session (mtime 2026-10-11 14:48, first entry kind "map" not "plan" - same as the
+     reset observed in iter 67 while agent c was mid-301; agent c is on 301 still). 301's Touches include
+     that dir and docs/site_flow; it settles when 301 lands. NOT 206's to fix; do not "fix" it.
+- Deps status at stop: `tasks/211-merge-build.md` = open, `tasks/218-gate-holdout-new-hand-docs.md` = open.
+  Both in the Depends on line, so no action: the done-claim waits; no stand-ins built (per the rule).
+- Nothing in this task's files changed this session (verification only); working tree clean apart from
+  this memory update.
 
-WHEN THE DRIVER BRINGS THIS BACK (211 + 218 merged): the only remaining step is
-1. re-run `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` (offline) and
-   `timeout 300 .venv/bin/python -m pytest -q tests/test_src_mackenzie.py` (expect green);
-   also re-run the full suite once and note the reds (the 4 known-reds should be gone by then:
-   211 clears the batch_eu/serve ones, 218 the gate one; test_site_done should be green once 301
-   has settled the shared Stonehenge store - if it is still red, it is 300/301's to fix, not 206's);
-2. if all green for this task: set `Status: done` and commit (`206: done - <one line>`); no further
-   code work is expected.
+ALL COMMITTED ARTIFACTS (unchanged since iter 66/67):
+- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks live facts if
+  the driver ever flags drift), `data/commons/files_mackenzie.jsonl` (1 row, 200 category evidence,
+  site by existing QID - NOT in extras), `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
+  `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840 crop, 4 corner
+  pairs), `docs/lead_mackenzie.md` (says "26 rows" for the sources.py table - the task's "29" is the
+  book-level count; do not "correct" it), `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_
+  sample.json`. `data/catalog/extras_mackenzie.jsonl` intentionally absent (site is in the catalog by QID).
+- V2 OCR re-download recipe (if the driver ever flags drift): archive.org item castlesofengland02mack,
+  files castlesofengland02mack_hocr_searchtext.txt.gz / ..._hocr_pageindex.json.gz / ...
+  _page_numbers.json (pageindex rows = [textStart, textEnd, byteStart, byteEnd] text offsets, NOT leaves;
+  pagenums maps leafNum->pageNumber as strings).
 
-Re-verify recipe (offline): `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` and `--gate`
-(both must be exit 0; --gate prints accept n 4 med 15.810503946029705 slope_o 0.13850057306409141
-io -7.041363723612259, similarity rotation -0.2005 deg, residuals 14.16/1.98/17.46/19.36). Staging is
-idempotent (re-running stage() is a no-op). `--verify` re-checks the live facts (network, paced) if
-the driver ever flags drift. V2 OCR re-download recipe: archive.org item castlesofengland02mack,
-files castlesofengland02mack_hocr_searchtext.txt.gz / ..._hocr_pageindex.json.gz /
-..._page_numbers.json (pageindex rows = [textStart, textEnd, byteStart, byteEnd] text offsets, NOT
-leaves; pagenums maps leafNum->pageNumber as strings).
+WHEN THE DRIVER BRINGS THIS BACK (after 211 + 218 merged): the ONLY remaining step is
+1. `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` (expect exit 0, 1 pass) and
+   `timeout 300 .venv/bin/python -m pytest -q tests/test_src_mackenzie.py` (expect 4 passed);
+   also re-run the full suite once and note the reds (211 should clear batch_eu + serve, 218 the gate one;
+   test_site_done should be green once 301 has settled the shared Stonehenge store - if it is still red,
+   it is 300/301's to fix, never 206's; if any red turns out to touch a 206 file, that is a regression to
+   investigate, not a known-red to ignore);
+2. if all green for this task: set `Status: done` and commit (`206: done - <one line>`). No further code
+   work is expected.
