@@ -6,6 +6,9 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (1)
 - Libraries and frameworks (0)
 - This codebase (3)
+- This machine and its environment (2)
+- Libraries and frameworks (0)
+- This codebase (9)
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -36,6 +39,18 @@ from a throwaway venv outside the project (pip-tools itself goes there, e.g. `/t
 PyPI is reachable from this machine and cp312 wheels for the current requirements install fine (2026-10-10:
 the built `.venv` ran the 8-test suite).
 
+#### A driver PROGRESS note about a shared file may describe main, not your checkout
+Where: `PROGRESS.md` (project-wide driver notes), any shared file (e.g. `requirements.txt`)
+Symptom: a driver note reports a build/test failure (e.g. `ERROR: In --require-hashes mode,
+all requirements must have their versions pinned with ==. These do not:`) but your checkout's
+copy of the file is fine and your local runs work.
+Why: the driver rebuilds from main, while your branch may carry a newer copy of the file that
+has not been merged (requirements.txt: the pinned compiled version was committed on agent/c at
+iteration 1; main still has the unpinned source list from e2d4060). Checking only the working
+tree (as iteration 6 did) says "stale"; `git diff origin/main -- <file>` and
+`git show origin/main:<file>` is the real check. If the file is not in your task's Touches,
+file a task for its owner (done: tasks/800-requirements-pinned.md) instead of "fixing" it.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -44,6 +59,16 @@ One `### <library>` subsection per library or tool, with its version.
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
 a trap in one part often shows up in another.
+
+#### books_match `name_keys` strips descriptors only from already-normalized (lowercase) names
+Where: `pipeline/books_match.py` (`SUFFIX`, `name_keys`; its own callers `load_catalog` and `phrases`/`match_row`),
+      `fit/evidence.py` (`check_book_caption`)
+Symptom: passing a raw name ("Fort Hill State Memorial") to `name_keys` returns the one-element set {that
+      name} - the " State Memorial" suffix survives, so a substring test against normalized row text
+      ("fort hill") fails: "the row does not name 'Fort Hill State Memorial'" on a row that plainly does.
+Why: `SUFFIX` is a case-sensitive regex over lowercase forms, and every call site inside books_match
+      normalizes first, so the convention is invisible from inside the module. Outside callers must do the
+      same: `name_keys(re.sub(r"\s+", " ", norm(name)).strip())`, then test keys against normalized text.
 
 #### `web/data/sites.json`: the only universal keys are id/name/lon/lat/corners/size_m/drawings
 Where: `web/data/sites.json`, `tests/test_serve.py`, the batch tasks (203a/203b)
@@ -68,3 +93,86 @@ and the page polls `depictions.json` for the result.
 Why: `after_write()` wakes the worker only for the `platefits` collection (its comment records that a
 subprocess launched from the server silently died). GET-only tests are therefore safe and offline; a test
 that PUTs a platefit should poll the site's `depictions.json`, not run `plan_fit` itself.
+
+#### Composing a rotated/scaled Web-Mercator similarity about a centroid needs the full `a*w + b`, not just `a`
+Where: `pipeline/plan_fit.py` (`similarity`), `pipeline/fit_gate.py` (`placement`), anything that derives a
+wrong-placement variant of a fit (spike 7, `tools/gate_heldout.py`)
+Symptom: a 10 deg turn or 15% scale about the placement centroid built as (a', b') =
+(s*e^(iθ)*a, (1 - s*e^(iθ))*C_m) puts every anchor kilometres away (residuals ~4e6 m, gate kills the case
+for the wrong reason, and a per-case pattern like the 0.1745 rot10 slope floor no longer appears).
+Why: T'(w) = C + s*e^(iθ)*(T(w) - C) expands to s*e^(iθ)*T(w) + (1 - s*e^(iθ))*C, so b' must carry the
+transformed b, b' = s*e^(iθ)*b + (1 - s*e^(iθ))*C_m (C_m = C/k in Mercator metres; C the placement's ground
+centroid). The short form is only right when b = 0 (anchor centroid at the origin). The five verified
+recipes (they reproduce docs/gate.md section 5 exactly): true (a, b); moved (a, b + d/k); rot10
+(e^(i10°)*a, e^(i10°)*b + (1 - e^(i10°))*C_m); scale15 (1.15*a, 1.15*b - 0.15*C_m); xsite (a, b + (C_next - C)/k).
+
+#### fit_gate cannot reject a 15% scale error at n = 3-6 anchors - a structural limit, not a bug
+Where: `pipeline/fit_gate.py`, `tools/gate_heldout.py`, `docs/gate.md` sections 7 and 9
+Symptom: the gate ACCEPTS scale15 placements: dev 2/12 (castle-rising, whitley), held-out 4/8
+(avebury, badbury-rings, camp-d-attila, old-sarum n0142) - slope_o 0.130-0.144, all under the
+frozen 0.145, none deep enough for the io < -10 clause.
+Why: the theoretical 0.15*rho slope is attenuated by anchor noise in a through-origin fit at
+n = 3-6 (dev band 0.130-0.141, held-out band 0.131-0.144 - the same band on both sets, so it
+is not a threshold accident), and the residual pattern of a 15% scale sits inside a true
+fit's own scatter: no pure-geometry statistic of these anchors can tell them apart. Do not
+re-tune on the dev/held-out documents (the registration in docs/gate.md section 1 is void if
+the frozen constants change) and do not add a scale-specific clause trained on this data.
+Accept the 1-in-8 scale-error acceptance, backstopped by the review queue (GOAL 1) and the
+human's 18/20 sample of auto-accepted fits (GOAL 3); a tighter rule may only be derived on
+fresh documents with a fresh seed.
+
+#### In-place re-dump of a jsonl line must carry the line terminator or rows glue together
+Where: `fit/evidence.py` (`set_field`, `rewrite`, `record`); the test that guards it: `tests/test_evidence.py` (`test_record_appends_evidence_without_touching_existing_bytes`)
+Symptom: after a `record`-style rewrite, one line of a jsonl file contains two JSON objects (this line
+plus the next), the line count looks normal, and parsing the line as one object fails.
+Why: `json.dumps` never emits a trailing newline, and a writer that replaces whole lines (readlines +
+writelines) glues the next row onto the re-dumped one. `set_field` now appends `"\n"` iff the input line
+had one. Any new in-place re-dump of a line-oriented file must do the same; verify with a per-line
+parse + line-count + terminator check after the write.
+
+#### The book matcher injects the book's default state and ties rows by token / exact-phrase lookup, never by full-name substring
+Where: `pipeline/books_match.py` (`BOOK_SCOPE`, `row_inputs`, `score_candidate`, `match_row`), `fit/evidence.py` (`check_book_caption`)
+Symptom: a re-verification of the matcher's own stored decisions FAILs matched rows with "stored place
+state='ohio' recomputes to None" or "the row does not name 'Small multivallate hillfort on Pulpit Hill'"
+(52 of the 135 matched book rows, found when 200 ran check on the real index).
+Why: `match_row`'s place includes the BOOK_SCOPE default state (lapham_1855 wisconsin; fowke_1902 /
+whittlesey_1850 / mills_1914 ohio; squier_1851 new york) when the printed text names none, and it ties a
+row to a site by distinctive-token sharing or an exact phrase/alias lookup - the site's full name is
+rarely printed (a title printing "Pulpit Hill" ties the site whose name is "Small multivallate hillfort on
+Pulpit Hill"). Any consumer that re-verifies matcher decisions must call the matcher's own extracted
+rules (`row_inputs` + `score_candidate`), never a stricter restatement of them.
+
+#### The matcher's full output is non-monotone in catalog growth - never golden-pin it against the growing files
+Where: `pipeline/books_match.py` (`main`, `match_row`), `data/books/matches.jsonl` (tracked), tasks 204-211 (they grow `data/books/index.jsonl` and the catalog)
+Symptom: a persistent golden over `matches.jsonl` or the per-book status counts breaks when another task
+merges new catalog sites or book rows (a new site can take the runner-up margin and flip matched -> ambiguous).
+Why: the margin is a property of the whole candidate pool, not of one pair. To prove a matcher refactor
+behavior-neutral, do a one-off before/after run and byte-compare (`matches.jsonl` hash + printed summary),
+as 200 did. The evidence check deliberately stores the runner-up margin and does not re-run the matcher
+over the catalog.
+
+### Wikimedia APIs (Commons, Wikidata)
+
+#### A Commons file page's structured data is a local MediaInfo item (M<page id>), not a global Wikidata item
+Where: `fit/evidence.py` (`fetch_page_ids`, `fetch_file_entities`); the Commons API `w/api.php`; any future
+      per-file metadata fetching (task 801, and the batch tasks that harvest file pages)
+Symptom: searching a file page's HTML for its Wikidata item id (`ItemPage/(Q\d+)`, `"wikibaseItem"`,
+      `"globalItem"`) finds nothing (or finds unrelated items: Q13414952 is MD5 - it appears as a P459
+      qualifier on the file's content-hash statement; Q19652 is "public domain" - the P6216 license). The
+      page's `mw.config` carries `"wbEntityId":"M<page id>"` instead.
+Why: files uploaded without a global Wikidata item get a *local* Wikibase entity on Commons (the
+      wbmi/"MediaInfo" integration), and its statements are what the file page's "Structured data" tab
+      shows. The local wiki's `wbgetentities` answers `ids=M<page id>` directly (the `site` parameter is
+      rejected with a warning but not needed; the entity comes back under `"statements"`, not the WD
+      service's `"claims"`), and a page that does have a global item answers with `{"missing":"true",
+      "normalized":{"item":"Q…"}}` - chase that Q id through the Wikidata service for the real claims.
+      Batch 50 ids per call, pace with `commons.get` (1 s).
+
+#### P6216 is the license property, never a depicts claim - do not group it with P180
+Where: `fit/evidence.py` (`fetch_file_entities`, `check_depicts`); any regex or dict over wbmi/Wikidata
+      statements that treats property lists loosely
+Symptom: a statement matcher over the file item that accepts "P180|P6216" as depictions reports
+      "public domain" (Q19652) or other license items as depicted entities - a false depiction tie.
+Why: MediaInfo items always carry a P6216 (license) statement, so any P180|P6216 alternation is
+      guaranteed to pick up licenses. Only P180 (depicts) is a depiction; the site-side depiction
+      evidence is P3311 (plan) / P18 (image) on the site's item.

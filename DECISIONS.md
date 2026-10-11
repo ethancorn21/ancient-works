@@ -21,6 +21,11 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 7 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (7 entries, older ones; the task is still open)
+18 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+
+- 000 plan (10 entries)
+- 001 fit-gate (6 entries, older ones; the task is still open)
+- 200 evidence (2 entries, older ones; the task is still open)
 
 <!-- archive-index:end -->
 
@@ -34,17 +39,261 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     have neither a fit nor a review item until 212's cover pass. So the parent only runs
     tests/test_batch.py over the pre-growth site set; 212 asserts "every built site has a fit or an open
     review item" over the final set (GOAL.md point 1, in full).
+## 2026-10-10 001 DECISION: all six image-structure metrics fail (spikes 1-6) - the gate pivots to pure geometry
+Spike 4 (blurred plate-ink vs blurred map-ink Pearson): castle-rising true +0.386 < null_max +0.424; bergues true
++0.052 < null +0.484; maiden-castle true -0.048 < null +0.411 (mirrored +0.379); serpent-mound true -0.111 <
+null +0.645. Cross-site searches scored +0.653 and +0.972 - dense maps correlate with anything. FAIL.
+Spike 5 (autowalls wall points within 10 m of density-filtered map strokes): no separation at any site
+(castle-rising true 0.718 vs moved 0.720 / x0.85 0.841; bergues off-grid; mirrored is the only case killed). FAIL.
+Spike 6 (same but requiring the wall normal to align with the stroke across-direction, |cos| >= 0.7, 15 m
+window): castle-rising true 0.420 vs x0.85 0.450 (wrong HIGHER); bergues true 0.056 (only 23% of its wall points
+in-box) with all cases 0.03-0.06; maiden-castle true 0.259 vs x0.85 0.331; serpent-mound true 0.252 vs x1.15
+0.338. Cross-site: castle plate on bergues map 0.457 (> bergues's own true). corr_ws returned n/a everywhere.
+FAIL. Combined with spikes 1-3 (DEM ridge, DEM wall contrast, ink proximity - see archive), no image statistic
+separates 60 m / 10 deg / 15% / cross-site on dense old maps, because those shifts (<= 0.1745 r, 0.15 r, 60 m)
+are smaller than the map's structural wavelength. The gate will therefore be geometric: pair-residual magnitude
+catches 60 m move (median exactly 60 m vs dev max 53.1 m) and cross-site (km-scale), and a residual-vs-radius
+pattern (10 deg / x1.15 add 0.1745 r / 0.15 r per point, a radial gradient a true sloppy fit does not have)
+must catch rotation/scale. Spike 7 (next session): measure those statistics on the 12 dev docs and the four
+wrong types to set thresholds. The gate stays image-free -> no skimage, no requirements.txt change needed.
 
-## 2026-10-10 000 DECISION: 206 (Mackenzie p.212) depends on 001
-    The identification of the uncaptioned five-towered castle must be proven by a fit that passes the
-    numerical gate (GOAL.md point 2: acceptance is by numbers, never a model's opinion), not by shape or
-    county context alone. 001 is wave 1, so this does not change the wave layout.
+## 2026-10-10 001 DECISION: spike 7 done - conjunction frozen: reject if med>45 m OR slope_o>0.145 OR (slope_o>0.11 AND io<-10 m)
+Spike 7 (/tmp/spike_gate7.py, /tmp/spike7_out.txt): 12 dev docs x {true, moved 60 m NE, turned 10 deg about the
+placement centroid, scaled x1.15, cross-site re-centre onto the next dev site's box centre}, scored as
+|placement - anchor| (ground m, k=cos(lat0); anchors = the doc's own pairs; true case = solved transform vs own
+pairs, verified identical to the canonical depictions fit.resid_m: bergues 18.8/32.6, berkhamsted 17.4/21.8,
+old-sarum c_8192 33.3/54.4 - the old hand-over's 53.1/86.7 etc. were Web-Mercator m = these x1.59). Results:
+true med 2.2-33.3 (all pass med>45); moved med 59.1-68.5 and xsite 19 km-7700 km (all killed by med>45, margin
+~30% both sides); rot10 slope_o 0.1747-0.230 (all killed by slope_o>0.145; 2sin5 deg pins the floor); scale15
+slope_o 0.130-0.240 with the MASS at 0.130-0.141 BELOW the 0.15 theory (through-origin OLS is attenuated by
+the anchor noise at n=3-6) -> the two-clause pattern test: slope_o>0.145 OR (slope_o>0.11 AND io<-10 m, io =
+inner-half minus outer-half mean residual). Dev outcome: 48 wrong -> 2 accepted (castle-rising scale15:
+med 15.8/slope 0.141/io -8.7; whitley scale15: med 11.7/slope 0.136/io -7.4 = 1 in 24 <= 1 in 20) and 12 true ->
+10 accepted (rejected: berkhamsted slope 0.230, old-sarum c_8192 slope 0.161+io -20.3 - both have a genuinely
+radial own-residual pattern, indistinguishable from a scale error at n=4-5). Thin margins (calleva scale15
+io -10.1 vs -10; castle-rising slope 0.141 vs 0.145) are inherent to n=3-6 and must NOT be re-tuned on the
+held-out set: if the one-shot run shows more than 1-in-20 wrong acceptance, document the numbers in gate.md and
+let the review queue backstop, per the acceptance criteria. The gate's production contract: score the model's
+claimed placement against its recorded anchor pairs; a consistent global error (anchors AND placement both off)
+passes by pure geometry - documented limit, backstopped by GOAL's 18/20 human sample. Next: commit docs/gate.md
+(pre-registration: 20260108 partition, the rule, the four recipes, reproduce command) BEFORE any held-out look,
+then pipeline/fit_gate.py, tools/gate_heldout.py (one-shot run -> table in gate.md), tests/test_gate.py (offline
+golden re-run, no ports, project+tmp writes only).
 
-## 2026-10-10 000 OBSERVATION: sites.json and book-index facts behind the wave layout
-    sites.json: 384 sites, 378 carry a region field (90 "US" -> 203a; the other 294, including the 6 with
-    no region, -> 203b). The books indexed in data/books/index.jsonl are exactly 8 (squier_davis_1848,
-    lapham_1855, thomas_1894, fowke_1902, squier_1851, whittlesey_1850, allcroft_1908, mills_1914); none
-    of the growth-lead books (Roy, Horsley, Maclauchlan, Hoare, Stukeley, Petrie, Mackenzie, Kip) is
-    indexed and none has a data/raw/books directory, so every book lead fetches in its working phase.
-    pipeline/sources.py already hand-ties 29 Mackenzie plates, 6 Van Deventer towns (including the
-    hand-fitted Bergues) and 6 Kip views; those are not re-staged by 204-206.
+## 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run
+Wrote docs/gate.md (pre-registration; sections 2-8 fixed, section 9 placeholder) and committed it as the
+registered version. Contents: the frozen rule verbatim (reject if n<3 or sum rho_i^2 < 1 m^2 [degenerate] or
+med > 45 m or slope_o > 0.145 or (slope_o > 0.11 and io < -10 m); stats: r_i = |T(w_i) - k z_i| ground m,
+T = k(a w + b) canonical Web-Mercator similarity when no placement given, C = centroid of placement anchors,
+rho_i = |T(w_i) - C|, med, slope_o through-origin, io inner-minus-outer by rho with middle anchor dropped for
+odd n); the held-out selection rule (sort the 20 doc names in data/db/platefits/, try seeds 20260101,
+20260102, ...; first seed whose default_rng(s).choice(20, 8, replace=False) is disjoint from the 4 design fits
+= 20260108 -> the 8 held-out docs listed); the four deterministic wrong-fit recipes (moved 60/2^(1/2)(1+i) NE,
+rot10 and scale15 about C, xsite = re-centre onto the next held-out site's box centre, box = mean of
+sites.json "corners" Mercator x k, held-out site ids sorted + cyclic); pass criteria (32 wrong rows: at most
+1 accepted = 1-in-20; 8 true rows: at least 4; on miss, no re-tuning on held-out, numbers recorded and review
+queue backstops); reproduce command (.venv/bin/python tools/gate_heldout.py) and the test plan (re-run the
+conjunction on dev + held-out, golden compare, pin the code's constants to the doc). Verification this
+session (filenames only, held-out contents still untouched): the seed rule reproduces the hand-over's 8
+held-out names exactly, the dev list is exactly the complement (12), the xsite site cycle is the sorted held-out
+site ids, and the degenerate threshold is orders of magnitude below real inputs (dev n = 3-6, max rho
+86.6-530.5 m -> min sum rho^2 ~ 7.5k m^2 vs the 1 m^2 guard). The dev calibration numbers quoted in section 5
+are the spike-7 record (this entry's predecessor). The one-shot run is now authorized (gate.md committed);
+it happens next session, before fit_gate.py exists the table comes from the tool that implements exactly
+section 2. If the run shows more than 1-in-20 wrong acceptance, per the registered rule the thresholds are NOT
+re-tuned on the held-out set.
+
+### 2026-10-10 001 DECISION: pipeline/fit_gate.py written - full implementation of the frozen section-2 rule, proven by reproducing the spike-7 dev calibration exactly
+pipeline/fit_gate.py (the only new file this session): gate(pairs, transform=None) -> (verdict, stats),
+stats = {n, med, slope_o, io} all ground metres; transform is a Web-Mercator similarity (a, b) scored as
+T(w) = k(a w + b) with k = cos(mean anchor latitude), None = the canonical plan_fit.similarity (imported
+read-only, same code path - the canonical r equals plan_fit's own residuals to 6e-10 m); frozen constants
+N_MIN=3, RHO2_MIN=1.0 m^2, MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11, IO_MIN=-10 exactly as gate.md
+section 2; n<3 or sum(rho^2)<1 -> REJECT with nan pattern stats (checked: n=2 and 3-same-point both reject).
+Verification (throwaway /tmp/verify_fitgate.py; dev documents only, held-out still unread): all 12 dev docs x
+the 5 placements of section 4 reproduce every number recorded in section 5 to its stated precision - true med
+2.2-33.3 with 10/12 accepted (rejected: berkhamsted slope 0.2297, old-sarum c_8192 0.1611/io -20.3); moved med
+59.1-68.5; rot10 med 12.3-75.9, slope 0.1747-0.2296 (floor 2 sin 5 deg = 0.1747 exact); scale15 slope
+0.1305-0.2399 with exactly the 2 recorded accepts (castle-rising 15.8/0.1409/-8.7, whitley 11.7/0.1355/-7.4)
+= 2 of 48 wrongs (1 in 24); xsite med 19.5 km-7734 km. The one stumble this session was in my THROWAWAY script,
+not in fit_gate: composing a rotation/scale about the placement centroid as (s e^iθ a, (1-s e^iθ) C_m) moves
+anchors km-scale - b must be transformed too, b' = s e^iθ b + (1-s e^iθ) C_m (recorded as a PITFALLS entry with
+the five verified recipes). The existing suite (8 tests, other tasks') passes in 2.45 s. The driver's stale
+.venv/requirements.txt note is confirmed stale again (0 unpinned lines, pytest==9.1.1 pinned; the local venv
+was simply older than requirements.txt - I installed pytest 9.1.1 into the local venv to run the suite; the
+driver rebuilds the venv from requirements.txt before its own runs, so that is only a convenience). Next step:
+tools/gate_heldout.py (the next session), then the one-shot run.
+
+### 2026-10-10 001 DECISION: one-shot held-out run done - true 7/8 (passes), wrong 4/32 all scale15 (misses 1 in 20) -> registered no-re-tune, review queue absorbs
+Ran `.venv/bin/python tools/gate_heldout.py` after committing the tool (67c9f14); its dev run
+reproduced the section-5 calibration exactly, so the tool was trusted without further dev
+verification. Verbatim stdout appended to docs/gate.md section 9 (committed fdc37a0, a separate
+commit as the registration demands; sections 1-8 untouched).
+- **true 7/8 accepted**: arbor-low, avebury, aztalan, badbury-rings, cahokia, camp-d-attila,
+  old-sarum n0142 (med 2.5-31.9). Rejected: cadbury-castle (med 31.9, slope_o 0.1792, io -15.3) -
+  a genuinely radial own-residual pattern, the same class as the 2 dev true rejections (berkhamsted
+  0.2297, old-sarum c_8192 0.1611).
+- **wrong 4/32 accepted = 1 in 8** (criterion: at most 1; section 6 expected 0-2): all scale15 -
+  avebury (28.3/0.1324/-4.9), badbury-rings (36.8/0.1310/-0.5), camp-d-attila (43.5/0.1438/-9.2),
+  old-sarum n0142 (29.2/0.1344/+6.5). All in the attenuated 0.131-0.144 band under the frozen
+  0.145 threshold (dev band 0.130-0.141), none deep enough for the io < -10 clause: the section-2
+  conjunction structurally cannot catch a 15% scale at n = 3-6 (the documented section-7 limit, now
+  measured on both sets). moved 0/8 (med 56.2-64.7), rot10 0/8 (slope 0.1745-0.2273), xsite 0/8
+  (med 31 km-8.2M m).
+Per the registered section-6 rule: NO re-tuning on this set (it is spent; a future re-derivation
+needs fresh documents and a fresh seed). Boxes 1 and 3 ticked; box 2 unmet -> `## Proposed changes`
+on the task file (my recommendation: accept the gate as measured - its job, not auto-accepting
+garbage, is met: 7/8 true, 0/24 moved/rot/xsite; the 1-in-8 scale-error acceptance is what the
+review queue + the 18/20 human sample are for; alternative: a future fresh-seed re-derivation on
+new hand fits, which stays at 1 in 8 until it). Box 4: table + command in section 9; the test is
+the next step.
+
+### 2026-10-10 001 DECISION: the driver's "requirements.txt not pinned" note is REAL for main - created task 800
+Iteration 6 called the PROGRESS note stale (my checkout's requirements.txt is fully pinned; its
+.venv builds and runs everything). That was only true for this checkout: `git show
+origin/main:requirements.txt` is the bare unpinned source list (commit e2d4060: 9 unpinned
+lines, no ==, no hashes), while the fully pinned + hashed compiled version (same 10 packages,
+pip-compile --generate-hashes) was committed on agent/c at iteration 1 and has never reached
+main - so the driver's `pip install --require-hashes` venv build fails on main and on any
+checkout without my branch's copy. requirements.* is not in my Touches (it belongs to the
+scaffolding of task 000), so I filed tasks/800-requirements-pinned.md (Depends on: none;
+Touches: requirements.in, requirements.txt): land the pinned file on main or regenerate from
+requirements.in; do not change the package set. Lesson: before calling a driver note about a
+shared file stale, diff origin/main against my checkout, not just the working tree (now a
+PITFALLS entry).
+
+### 2026-10-10 001 DECISION: tests/test_gate.py + golden written - the one-shot measurement re-runs in the suite; box 4 ticked; task now parks on the human's box-2 call
+tests/golden/gate_heldout.txt (100 lines: 40 held, 60 dev) generated by running the committed
+tools/gate_heldout.py - never hand-typed; the held half is byte-identical to the docs/gate.md
+section-9 table (verified before commit). tests/test_gate.py has two tests, both offline (no
+server fixture, no ports, no writes): (1) re-runs the section-6 command via subprocess for both
+sets and byte-compares against the golden, extracts the section-9 fenced table from docs/gate.md
+and requires it to equal the golden's held half, and re-derives the section-9 summary (7 of 8
+true; 4 of 32 wrong, all scale15; moved/rot10/xsite 0/24) and section-5 (10 of 12 true; 2 of 48
+wrong) from the live output; (2) pins fit_gate's six frozen constants and the accept/reject
+strings to section 2 so a threshold change fails the suite. Verified: full suite 10 passed in
+3.5 s. Mutation check in a /tmp copy (MED_MAX 45->70): the constants test fails immediately and
+the dev byte-compare fails (bergues scale15 med 51.6 flips reject->accept); the held table is
+insensitive to that particular mutation because all 8 held moved rows also trip slope_o > 0.145
+(e.g. arbor-low 2.0909), so MED_MAX drift is caught by the dev half and the pin, and a change
+that touches a held row fails the held half directly. Driver's .venv note: this branch's
+requirements.txt is fully pinned and matches the local .venv that produced the section-9 table
+(numpy==2.5.4, scipy==1.18.1, pytest==9.1.1), so the driver's rebuild is bit-identical; the
+main-branch breakage remains task 800. Box 4 ticked (table in section 9, section-6 command,
+test re-runs it, all verified). Boxes 1 and 3 were already ticked. Box 2 (at most 1 in 20 wrong)
+is the only box left and it is unmeetable as written under the registered no-re-tune clause -
+the task stays open, parked on the human's answer to `## Proposed changes` (recommendation:
+accept the gate as measured and re-word box 2 to the recorded contract; the review queue and
+the 18/20 human sample are the backstops).
+
+### 2026-10-10 001 DECISION: build complete, parked twice without a reply - filed the blocking ask_human (recommend: accept the gate as measured, re-word box 2) and set Status: blocked
+First session with nothing left to build: iterations 7-8 finished the build (one-shot run,
+section-9 record, tests + golden) and parked on the human's call, and iterations.jsonl shows no
+reply since (asks_filed 0, human_messages 0 for iters 4-8) while the task keeps being re-hand.
+This session: (1) verified the post-merge state - .venv/bin/python -m pytest -q, 10 passed in
+6.5 s; the project-wide driver note about a failed .venv build is NOT this checkout
+(requirements.txt here fully pinned + hashed, local .venv works, no .agent/reports/ here;
+main's unpinned file is task 800). (2) Filled PLAN.md's Deviations-from-GOAL.md, still
+"(empty)" although box 2's number has settled: the point (task 001 box 2, the owner's number
+per the task's own notes), what GOAL point 3 says (gate validated on held-out fits; 18/20 of a
+20-sample of auto-accepted fits), what the project does (1-in-8 on the registered one-shot, all
+15% scale; 0/24 for move/rotate/cross-site), the evidence (gate.md section 7 structural limit
+at n=3-6, section 9 record, dev corroboration 2/12, review queue + 18/20 sample as the
+production checks). Added PLAN.md to the task's Touches. (3) Filed the blocking ask_human with
+the two options from `## Proposed changes` and recommendation (a) - filed as request 001
+(.agent/asks/001.md). (4) Status: open -> blocked
+so the driver waits on the open request instead of re-handing a complete task. No code, docs or
+tests changed. Next session (when the human or the loop's 120-minute answer on the
+recommendation arrives): (a) -> re-word box 2 to the registered contract, tick it, Status:
+done; (b) -> box 2 stays unticked, file task 801 (next free 8xx) for a tighter rule on fresh
+documents; otherwise follow the ruling literally.
+
+## 2026-10-10 200 DECISION: set_field dropped the line terminator - record would have glued jsonl rows; fixed before the first real run
+Where: fit/evidence.py (set_field, rewrite, record); tests/test_evidence.py (new test_record_appends_evidence_without_touching_existing_bytes)
+json.dumps never emits a trailing newline and record's rewrite() replaces whole lines via writelines, so every
+recorded line would have been concatenated with the next (corrupt jsonl). The bug was latent since iteration 10
+(the sample file predates the final set_field; record had never run on a real file). Caught this session by
+running the real set_field on a real line before the record run. Fix: set_field appends "\n" iff the input line
+ended with one. The new test runs the record CLI on a tmp fixture (a hand-tied, an unrecorded and a sentinel
+commons row, two book rows) and asserts: line count and terminators intact, untouched rows byte-identical,
+recorded rows keep every original byte as a prefix, "evidence" is the only and last key added. The test first
+failed after its own source rows got recorded (it compared against the raw line, which then contained the
+evidence key the fixture strips) - fixed to compare against the stripped fixture line; that comparison is what
+pins "extend rows, never move or delete them".
+
+## 2026-10-10 200 DECISION: check must use the matcher's own one-pair rule (books_match refactor) - the 52 spurious book FAILs are gone
+Where: pipeline/books_match.py (new row_inputs, score_candidate, site_toks, name_lookup_keys; match_row and load_catalog use them), fit/evidence.py (check_book_caption), data/books/index.jsonl
+check over the recorded book rows FAILed 52 of the 135 legitimate matches, two families: (a) "stored place
+state='ohio|wisconsin' recomputes to None" - match_row injects the book-scope default state (BOOK_SCOPE) into
+the place when the printed text names none; my check recomputed from printed text only. (b) "the row does not
+name 'X'" - the matcher ties rows by distinctive-token sharing and exact phrase/alias lookup (a title printing
+"Pulpit Hill" ties "Small multivallate hillfort on Pulpit Hill" via an alias; "The Square at Newark" ties
+"Newark Earthworks"); my check required the site's full name as a substring of the printed text - stricter than
+the rule the match was made under. Both are the same failure mode as iteration 11's name_keys bug: check
+re-stating the matcher's rules instead of using them. Fix per the module's own contract ("the check must use
+the matcher's own rules"): extracted the row-side extraction (row_inputs: toks, name_toks, place incl. the
+book-scope default, phrases, regions) and the per-candidate rule (score_candidate: region/state/county
+contradictions -> reject, county bonus, token share, exact bump, the three why clauses) from match_row into
+functions both sides share. check_book_caption now: recomputes the row side from the printed text (must equal
+the stored place dict exactly), checks the site snapshot (id/qid/name/lon/lat), the HAND table, then the
+matcher's one-pair evaluation (is_exact via the site's current lookup keys vs the row's phrase keys) must
+reproduce the stored score (round(…,2) equality) with an empty why and both thresholds. The runner-up margin
+stays stored (the catalog is not monotone - a new site can take the margin; a full re-run would fail on data
+growth, decided iteration 10). No record-format change was needed: tokens and place are recomputable from the
+printed text, so the existing "evidence/1" records work as is. The refactor was proven behavior-neutral with a
+one-off before/after run (matches.jsonl hash 30f099b1… and the stdout summary byte-identical; matches.jsonl left
+untouched in the tree) - deliberately no persistent golden, because tasks 204-211 grow index.jsonl/catalog and
+a pinned matcher output would break on their merges (PITFALLS entry). Result: check on the real files exits 0
+(2271 rows, 173 pass = 38 hand_tied + 135 book, 0 fail, 2098 no-tie); the sample verdicts are unchanged (golden
+intact); suite 12/12.
+
+## 2026-10-10 200 DECISION: box 2 ticked, box 1 deliberately NOT ticked (correcting the iteration-11 plan)
+Box 2 ("check re-verifies every row offline from the stored fields only and lists failures; it runs clean on
+the committed rows") is verified: the check path makes no network call, prints one line per row, lists failures
+(the sample golden pins that), and exits 0 on the committed real files. Box 1 says the evidence field goes in
+EACH picture row; after the offline record only the 38 hand-tied commons rows (plus all 890 book rows) carry
+it - the 1343 remaining commons rows need record --live, so box 1 stays unticked. The iteration-11 hand-over
+planned to tick box 1 after the offline record; a fresh read of the acceptance wording says that was premature.
+Box 3 is verified in the sample (the Hampton Court trap row is NONE-with-conflict, never a pass; no-tie rows
+are printed) and gets its real-data confirmation with the live record (no row with a stored conflict may ever
+carry a passing field).
+
+## 2026-10-10 200 DECISION: the P180 live route was broken (HTML scraping); replaced with a batched API route (local M<pageid> items, normalized-global chase), P6216 excluded
+Where: fit/evidence.py (fetch_page_ids, fetch_file_entities, live_evidence, record_live; fetch_file_item and the UA constant deleted), the depicts bullet of the module docstring, check_depicts
+Probing before the first live run (per the iteration-12 plan) showed the old fetch_file_item was wrong in
+two ways: (1) the item-QID patterns (ItemPage/(Q\d+), "wikibaseItem", "globalItem") match nothing, because
+old file pages carry only a LOCAL MediaInfo entity - the page's mw.config has "wbEntityId":"M<page id>"
+(M37646731 for the probe file) and the embedded JSON is that local entity's statements; (2) the P180|P6216
+regex matched P6216 *license* statements (Q19652 "public domain") and reported them as depicts values, and
+the only Q ids in the page at all were Q13414952 (MD5 - a P459 qualifier on the file's hash statement) and
+the license. So the route would have mis-recorded licenses as depictions and never found a real file item.
+Fix, verified with live probes: fetch_page_ids (action=query prop=info, 50/batch) gives the page id;
+fetch_file_entities then calls the Commons API wbgetentities with ids=M<pid> (the "site" parameter is
+rejected by the API but unnecessary; the local wiki returns the entity under "statements", not "claims")
+in batches of 50, and for pages whose local entity normalizes to a global item ({"normalized":{"item":"Q…"}}
++ missing) it chases that Q id through the Wikidata service. Only P180 is read as a depiction; P6216 was
+also removed from check_depicts (it is a license, never a depicts). The recorded "file_qid" is the item id
+actually used (M for local, Q for global). The probe files had no P180 at all, which foreshadowed the
+corpus-wide result (next entry).
+
+## 2026-10-10 200 DECISION: record --live batched + chunked; full run recorded all 1338 rows in one session - boxes 1 and 3 verified, task done
+Where: fit/evidence.py (record, record_live, live_evidence, resolve_places), data/commons/files.jsonl, tasks/200-evidence.md, tasks/801-evidence-no-tie-coverage.md
+Chose batched prefetch + chunked flush over the old per-row fetching: the old record_live_row did
+categories/claims/entities/HTML per row (1338 x 4+ requests, hours, and an all-or-nothing rewrite at the
+end). Now record_live prefetches once for all pending rows (file categories 50/batch, site claims 50/batch
+for 164 unique qids, page ids 50/batch, file entities 50/batch, place searches per unique name with one
+batched claims fetch, subcats lazily per site category and cached across rows) and computes each row's
+evidence offline from that context (live_evidence - no network in the row loop), flushing files.jsonl in
+chunks of 25 so an interrupted run keeps progress (a rerun skips rows on rec == "evidence/1"). The full run
+took well under an hour, hit no 429s (commons.get's Retry-After backoff stood by unused), and finished:
+825 category, 164 caption_coords, 38 hand_tied (earlier), 354 none (74 with stored conflicts, 280 plain
+no-tie). Result: every one of the 1381 titled commons rows + all 890 book rows carries evidence with
+specifics and a checked date (box 1); check exits 0 (1162 pass / 0 fail / 1109 no-tie) with the 74
+conflict rows stored none-with-conflict, never pass (box 3, real-data confirmation; the sample golden
+pins the same behaviour). 1343 lines of files.jsonl changed vs HEAD, every one byte-preserving with
+evidence the only and last key added; 147 lines untouched; books file byte-identical; 12/12 tests.
+Measured corpus fact: the depicts kind has 0 hits - no site item lists any of these files in P3311/P18
+(those files are in the category too and take the category kind first) and no file item depicts the
+site's item; the route stays implemented and is pinned by the sample golden (a PASS and a FAIL P180
+row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the acceptance wording
+allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
