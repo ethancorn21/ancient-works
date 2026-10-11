@@ -47,3 +47,16 @@ the result with no page change (GOAL.md point 5).
   task only reads them and writes the two shared files (index.jsonl, validation.json).
 
 ## Hand-over
+**From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+must be merged into the canonical files by fit/merge.py: data/catalog/extras_artists.jsonl (two NEW
+sites: imola-q50195, venice-q641 - both kind "town", aerial-photograph ground, region "Italy"),
+data/commons/files_artists.jsonl and data/commons/classified_artists.jsonl (2 rows each; every row
+already carries the 200 evidence field - hand-recorded caption_coords, verified by
+.venv/bin/python fit/src_artists.py --check, 2/2 PASS). Per-book civitates files also exist and feed
+the index.jsonl rebuild: data/books/triage/civitatesorbiste00brau.{A,F}.jsonl (A 292/292, F 118/118,
+zero errors), data/books/lists/civitatesorbiste00brau.json (121 figure entries, 7 hand-verified plans)
+and .map.json ([]). NOTE: the current books_lists machinery emits an index row only for kind "s";
+Liber secundus's bird's-eye VIEWS reach the plan list only after 217 lands its view-as-drawing index
+(order 215 -> 216 -> 217). Until then, zero index rows from this book is 217's pending gap, NOT a
+211 merge failure - do not invent rows to compensate. 211's Depends omits 213 by design (wave order
+2 -> 4 covers it; the merge is idempotent over whatever staging files exist).

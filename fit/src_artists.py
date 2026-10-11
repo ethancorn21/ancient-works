@@ -4,9 +4,10 @@ map"): Leonardo's 1502 plan of Imola (Royal Collection RCIN 912284), Jacopo de' 
 the bird's-eye town views of Braun & Hogenberg's Civitates Orbis Terrarum (1572-1617) and Merian's Topographia
 (1640s-1680s).
 
-usage: src_artists.py --verify     re-verify every table QID against Wikidata (label, every P625 value, P373,
-                                   P131, enwiki, the first name-search hit with coordinates - what record --live
-                                   would resolve); copy the output into docs/lead_artists.md
+usage: src_artists.py --verify     re-verify every table QID (SITES + the book towns) against Wikidata
+                                   (label, every P625 value, P373, P131, enwiki, the first name-search hit
+                                   with coordinates - what record --live would resolve); copy the output into
+                                   docs/lead_artists.md
        src_artists.py [--dry]      stage the image-level sources into this task's own staging files
        src_artists.py --check      offline (no network): join the staged files and run fit/evidence.py's check
        src_artists.py --golden     write tests/golden/src_artists_sample.json (the staged rows, normalized)
@@ -86,13 +87,61 @@ BARBARI_VENICE = [
      dict()),  # DateTimeOriginal 1500 on the file page
 ]
 
-# Book-scale leads (confirmed on the Internet Archive in the prep 2026-10-10; content pending): at most a few
-# hand-verified towns per book. The per-book files (data/books/triage/<ia>.*, data/books/lists/<ia>.json) are
-# written only after those exact paths are added to this task's Touches line; the books.py:BOOKS entry is a
-# shared-module change - file a task for it, never write it here.
+# Book-scale leads (confirmed on the Internet Archive in the prep 2026-10-10): at most a few hand-verified
+# towns per book. The per-book files (data/books/triage/<ia>.*, data/books/lists/<ia>.json) are written only
+# after those exact paths are added to this task's Touches line; the books.py:BOOKS entry is a
+# shared-module change - file a task for it, never write it here. Liber secundus is fully worked (213a: triage
+# A/F + the hand list); the other five items are 216/217's follow-on scope.
+#
+# The seven hand-verified towns of Liber secundus (BOOKS["civitates"]["sites"]): every QID verified against
+# its label, every P625 value, P373, P131, the enwiki article and the first name-search hit with coordinates -
+# never name-search alone (checked 2026-10-11, --verify re-checks; the full fact sheet and the search-trap
+# notes are in docs/lead_artists.md). The table point is the verified P625 city point (the book's views centre
+# on the walled old towns, within a few km - recorded per town in the lead doc). 216 takes its cite strings
+# from the lead doc; 217 takes these QIDs to match the book-index rows to the catalog. The keys run in the
+# book's plate order: fig 85 Brussels, 98 Antwerp, 193/194 Vienna, 198/199 Milan, 201/202 Venice, 205/206
+# Florence, 209 Rome.
 BOOKS = {
     "civitates": dict(years="1572-1617", ia=["civitatesorbiste00brau", "ARes73114", "ARes73115",
-                                            "17095748888888bsb-00105587"]),
+                                            "17095748888888bsb-00105587"],
+                      sites={
+                          # fig 85 BRVXELLA - data trap: the enwiki "Brussels" article is the region (Q240); the
+                          # city is Q239 ("City of Brussels"), P373 "Brussels (municipality)".
+                          "Q239": dict(name="Brussels", lon=4.351666666666667, lat=50.846666666666664,
+                                       place="Brussels-Capital, Belgium",
+                                       wikipedia="https://en.wikipedia.org/wiki/City_of_Brussels",
+                                       cat="Brussels (municipality)"),
+                          # fig 98 ANVERPIA - the title leaf calls it "pars Flandriae".
+                          "Q12892": dict(name="Antwerp", lon=4.3997222222222225, lat=51.221111111111114,
+                                        place="Flanders, Belgium",
+                                        wikipedia="https://en.wikipedia.org/wiki/Antwerp",
+                                        cat="Antwerp"),
+                          # fig 193/194 VIENNA AVSTRIAE - a federal state; the modern P131 is the country itself.
+                          "Q1741": dict(name="Vienna", lon=16.3725, lat=48.208333333333336,
+                                        place="Austria",
+                                        wikipedia="https://en.wikipedia.org/wiki/Vienna",
+                                        cat="Vienna"),
+                          # fig 198/199 MEDIOLANVM (the fold-out).
+                          "Q490": dict(name="Milan", lon=9.19, lat=45.466944444444,
+                                       place="Lombardy, Italy",
+                                       wikipedia="https://en.wikipedia.org/wiki/Milan",
+                                       cat="Milan"),
+                          # fig 201/202 VENETIA (the fold-out, a view on both sides) - also the Barbari staged site.
+                          "Q641": dict(name="Venice", lon=12.331944, lat=45.439722,
+                                       place="Veneto, Italy",
+                                       wikipedia="https://en.wikipedia.org/wiki/Venice",
+                                       cat="Venice"),
+                          # fig 205/206 FLORENTIA.
+                          "Q2044": dict(name="Florence", lon=11.254166666667, lat=43.771388888889,
+                                       place="Tuscany, Italy",
+                                       wikipedia="https://en.wikipedia.org/wiki/Florence",
+                                       cat="Florence"),
+                          # fig 209 ROMA.
+                          "Q220": dict(name="Rome", lon=12.482777777778, lat=41.893055555556,
+                                       place="Lazio, Italy",
+                                       wikipedia="https://en.wikipedia.org/wiki/Rome",
+                                       cat="Rome"),
+                      }),
     "merian": dict(years="1640s-1680s",
                   ia=["topographiahelve00zeil",
                       "rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915"]),
@@ -140,25 +189,37 @@ def known_sites():
     return out
 
 
+def table_sites():
+    """{qid: site facts} over the SITES table and the book towns (SITES wins a clash: Q641 Venice is both a
+    staged site and a book town)."""
+    out = {}
+    for b in BOOKS.values():
+        out.update(b.get("sites", {}))
+    out.update(SITES)
+    return out
+
+
 def verify_qids():
-    """Re-verify every table QID against Wikidata (paced) and print the facts for the lead doc: the label, every
-    P625 value (flagged when >50 km from the table's site point), P373, P131 (with labels), the enwiki title, and
-    the first name-search hit with coordinates (what record --live would resolve for the caption route)."""
+    """Re-verify every table QID (the SITES table and the book towns) against Wikidata (paced) and print the
+    facts for the lead doc: the label, every P625 value (flagged when >50 km from the table's site point),
+    P373, P131 (with labels), the enwiki title, and the first name-search hit with coordinates (what
+    record --live would resolve for the caption route)."""
     import evidence  # hav_m (the fit/ sibling; needs numpy, run under .venv)
     c = _commons()
-    qids = sorted(SITES)
+    table = table_sites()
+    qids = sorted(table)
     d = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(qids), "props": "claims|sitelinks|labels", "languages": "en"})
     ents = d.get("entities", {})
     p131s = sorted({i for q in qids for i in _ids(ents.get(q, {}).get("claims", {}).get("P131", []))})
     labels = {}
-    if p131s:
-        d2 = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(p131s), "props": "labels", "languages": "en"})
-        labels = {k: v.get("labels", {}).get("en", {}).get("value") for k, v in d2.get("entities", {}).items()}
+    for i in range(0, len(p131s), 50):  # wbgetentities takes at most 50 ids per call
+        d2 = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(p131s[i:i + 50]), "props": "labels", "languages": "en"})
+        labels.update({k: v.get("labels", {}).get("en", {}).get("value") for k, v in d2.get("entities", {}).items()})
     print(f"checked {now()} - {len(qids)} QIDs (Wikidata)")
     for qid in qids:
         e = ents.get(qid) or {}
         cl = e.get("claims", {})
-        s = SITES[qid]
+        s = table[qid]
         print(f"  {qid}  {e.get('labels', {}).get('en', {}).get('value')!r}")
         p625 = [(v["longitude"], v["latitude"]) for v in _datavalues(cl.get("P625", [])) if v]
         print(f"      P625: {p625}  (table site point: {s['lon']}, {s['lat']})")

@@ -93,6 +93,16 @@ Where: `data/raw` (-> /home/agent/projects/ancient-works/data/raw), `tests/conft
 Symptom: `du -sh data/raw` reports 0, and `ls data/raw` looks nearly empty at the link level, so a scratch tree built by `cp -r data /tmp/...` appears raw-less - until the server happily serves 1.4G of real book scans and Commons images through the link.
 Why: `du`/`cp` without following links treat it as an empty directory; the target holds the real raw data (books ~1.4G, commons ~439M, aerial ~1.5M). Consequence: a /tmp scratch tree DOES serve pictures (use that to test happy paths headless), while the pytest temp tree - conftest.py excludes `data/raw` by path when copying - genuinely has none, so book/media images 404 there (the fit tool's "Could not load the page scan." path).
 
+#### The LLM replicas serve on 127.0.0.1:8080-8082; pipeline/books.py's LLM_URLS (18080/18081) are stale
+Where: the llmtunnel ssh forwarder (user llmtunn, `-L 127.0.0.1:8080/8081/8082 -> 10.0.10.75`, running since 2026-10-06), `pipeline/books.py` (`LLM_URLS`, `run_stage`), task 215
+Symptom: every book triage stage exits "LLM tunnels 127.0.0.1:18080/18081 are down" (207, 208, 209 and 213 all hit it); `ss -ltnp` shows no listener on 18080/18081, while `curl` on 127.0.0.1:8080-8082/v1/models returns 200 on all three ports.
+Why: the forwarder serves the replicas on 8080-8082; books.py was written for an earlier 18080/18081 layout. Until 215 re-points `LLM_URLS`, a throwaway driver must patch `books.LLM_URLS` in-process to the three live ports before calling `run_stage` (213's /tmp/civitates_triage.py pattern).
+
+#### Long background data jobs outlive sessions - check the writer before committing or trusting its file
+Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/books/triage/*.jsonl), append-only jsonl data files, the driver's "uncommitted work after iteration N" snapshot commits
+Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
+Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -327,3 +337,15 @@ Symptom: passing the bounding box as (lon1, lat1, lon2, lat2) makes Nominatim re
       back ordered toward the wrong corner).
 Why: the documented format is "viewbox=min_lon,max_lat,max_lon,min_lat" (left,top,right,bottom). Build it as
       f"{min_lon},{max_lat},{max_lon},{min_lat}". (Burned a 213 session on this, 2026-10-11.)
+
+### pipeline/books.py, pipeline/books_ia.py (the book machinery)
+
+#### civitatesorbiste00brau's hOCR page index is misaligned with the jp2 leaf sequence - page_texts is unreliable for this book
+Where: `pipeline/books_ia.py` (`page_texts`, `djvu_txt`, `ocr_captions`) for IA id civitatesorbiste00brau (Civitates Orbis Terrarum, Liber secundus, 1575); `data/books/triage/civitatesorbiste00brau.A.jsonl`; task 217
+Symptom: the hOCR leaf 85 text holds the Brussels title that stage A reads on leaf 87; the drift is not constant - it runs 0-2 leaves down the book (leaf 53 matches, leaf 109 is off by two) - so text looked up through the page index lands on the wrong leaf.
+Why: this BookReader scan's hOCR stream and jp2 leaf sequence do not line up. The image-based stage A rows (read from the leaf image) are the ground truth for this book; 217's view-as-drawing index must key on leaf n, never on the hOCR page index.
+
+#### The civitates A/F "plan" labels are unreliable in both directions - the hand list's kind is the only source
+Where: `pipeline/books.py` stage A/F prompts, `data/books/triage/civitatesorbiste00brau.{A,F}.jsonl`, `data/books/lists/civitatesorbiste00brau.json`; tasks 216/217
+Symptom: F flags 11 of the 121 figure pages as containing a "plan", but of F's ten distinct plan leaves (A30, 62, 65, 66, 90, 93, 105, 186, 229x2, 237) only A90 (Ghent) and A237 (Jerusalem old) are true plans - it misses the five famous plans (A58 Paris, A85 Brussels, A98 Antwerp, A109 Amsterdam, A238 Jerusalem new) and false-flags A186 (the Augsburg view); stage A typed only 3 of 121 figure leaves as plate_site_plan (A187/A199 are blank fold-out versos).
+Why: both prompts are biased toward earthwork survey plans, not engraved bird's-eye plans. The hand list's `kind` field (7 plans, kind_by "hand") is the only source for plan calls on this book. The same view-plate bias applies to the other five untriaged civitates/Merian volumes (ARes73114, ARes73115, 17095748888888bsb-00105587, topographiahelve00zeil, rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915).

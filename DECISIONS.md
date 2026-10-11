@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 73 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+67 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -28,6 +29,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 203a batch-us (7 entries, older ones; the task is still open)
 - 213 artist-views (8 entries, older ones; the task is still open)
 - 213a civitates-list (3 entries)
+- 213b qids-tests (1 entry)
 - 800 requirements-pinned (1 entry)
 - 801 evidence-no-tie-coverage (11 entries)
 
@@ -237,3 +239,44 @@ required output; no test was loosed or deleted), or reject with that note and le
 handle it per the rejection. NEXT (session 4f, its own): implement the 4 test fixes, verify 5/5
 + exactly 4 cross-task failures, create 802/803, set Status: done, commit the run artifacts +
 changes with the hand-over's message.
+### 2026-10-11 213b DECISION: the seven Liber secundus towns verified live (Q239 Brussels, Q12892 Antwerp, Q1741 Vienna, Q490 Milan, Q641 Venice, Q2044 Florence, Q220 Rome) and put in BOOKS["civitates"]["sites"]; verify_qids extended to SITES + book towns; lead-doc QID section rewritten - box 1
+Paced Wikidata discovery + the five-fact verification (label, every P625, P373, P131, enwiki, first
+name-search hit with coordinates) found the seven QIDs above; memory-guessed ids were wrong (Q374 is
+"vodka", not Rome - Q220 is; Vienna is Q1741, not Q2140), so search + verification is the only route.
+Every P625 sits within 0.27 km of its table point (book-town table point = the P625 itself; the book's
+views centre on the walled old towns, within a few km - recorded per town). Traps recorded in the lead
+doc: Florence search (first hit with P625 = Q597842 Florence, South Carolina, 7538 km), Venice search
+(Q773853 Los Angeles, 9891 km), and a Wikidata/enwiki DATA trap for Brussels: the enwiki "Brussels"
+article belongs to the region Q240 while the city is Q239 ("City of Brussels", P373
+"Brussels (municipality)") - Q240's P625 is only 85 m from Q239's, so only the P373/enwiki check
+separates them. verify_qids() now covers SITES + the book towns (8 unique QIDs, P131 fetch chunked at
+50); --verify ran clean twice (exit 0, no flags); --check still 2/2 PASS exit 0; suite 29 passed.
+Box 1 of 213b ticked (table + lead-doc records). Prep §1 assumptions re-checked on the 801-merged
+evidence.py: check(files, books, catalog=) offline, check_caption (L190-207) fails on ±1 km dist_m
+reproduction OR >50 km distance - so the next step's Cervia negative control (44.245/12.367, ~53.5 km)
+fails on both clauses. Unexplained transient: one throwaway-script label batch came back empty after
+~13 paced calls (no 429/error); A/B proved `language` (singular) is ignored by wbgetentities (ALL
+labels returned) vs `languages` (plural) filters - not the cause; not reproduced since. Next: --golden
+(first-time write of tests/golden/src_artists_sample.json), then tests/test_src_artists.py (prep §4 +
+boxes 2-4), then the lead-doc box-1 final read.
+
+### 2026-10-11 213 DECISION: parent done-claim - all six boxes verified fresh, 213 set done (R6 note to 211; four PITFALLS entries filed)
+With both subtasks done (213a: the civitates hand list + lead-doc books section; 213b: the seven
+book-town QIDs, --golden, tests/test_src_artists.py, lead-doc final), this session re-verified the
+parent's boxes independently: --check exit 0, 2/2 PASS caption_coords; --golden rewrote
+tests/golden/src_artists_sample.json with a ZERO diff (the golden pins the staged rows exactly);
+.venv pytest 33/33 green (test_src_artists.py: the join, the table, the offline evidence check with
+the Cervia negative control, the golden compare, under the socket-blocking fixture). Box 4 (the
+count, checked last): Imola (the anchor, Leonardo 1502 RCIN 912284) + Venice (Barbari 1500, Museo
+Correr) = two sources staged, 2 rows per staging file, and the lead doc accounts for every unstaged
+source (Civitates worked per-book, its rows coming via 211's index rebuild once 217 lands; the other
+five IA books present and untriaged - 216/217 follow-on). Box 5: the four civitates per-book paths
+written and declared in the parent's Touches line; git diff main...HEAD over index.jsonl /
+validation.json / pipeline/ / fit/evidence.py is empty (no shared-module writes). Box 1:
+docs/lead_artists.md read in full - complete for all four sources. Ticked boxes 1, 4, 5, 6 (4 last,
+per the hand-over invariant) and set Status: done. Also: the R6 note is written in 211's ##
+Hand-over (merge the *_artists* staging files; the civitates index rows wait on 217 - zero rows from
+the book before 217 is not a 211 failure); four PITFALLS entries filed (LLM ports 8080-8082 vs
+books.py's stale 18080/18081; civitates hOCR index misaligned 0-2 leaves; A/F plan labels unreliable
+in both directions; long background data jobs outlive sessions - the driver snapshot can commit a
+mid-growth file).
