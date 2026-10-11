@@ -6,6 +6,10 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (13)
 - Libraries and frameworks (2): pyproj (3.8, project .venv) 2
 - This codebase (29): Wikimedia APIs (Commons, Wikidata) 7, fit/ 7, pipeline/ 3, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
+- Agent tools and harness (2)
+- This machine and its environment (10)
+- Libraries and frameworks (2): Python (3.12.3) 2
+- This codebase (31): Wikimedia APIs (Commons, Wikidata) 6, fit/ 7, pipeline/ 4, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -32,6 +36,15 @@ view shows different breaks than the file actually holds (the task-000 edits to 
 this way at iteration 12; landed at iteration 13).
 Why/fix: capture the exact bytes first: `sed -n 'A,Bp' <file> | cat -A`, and copy the physical lines
 verbatim (wrap points and indentation included) into oldText.
+
+#### The read tool's output of fit/src_van_deventer.py is not byte-faithful - source edit oldText from sed/grep
+Where: the read tool on `fit/src_van_deventer.py` (and any edit call whose oldText came from its view)
+Symptom: an edit call is rejected (oldText "not found") although the read-tool view looks identical - the
+view dropped a word (204 iter 52: it showed "21 to stage + 2 done" where the file has "21 to stage + the 2
+done"; two edit calls failed on it)
+Why/fix: the read tool's rendering of that long file is not byte-for-byte reliable. Capture the exact physical
+lines with `sed -n 'N,Mp'` / `grep -n` and copy them verbatim into oldText (iter 53's 28 sed-derived blocks
+and iter 54's 7 lead-doc blocks all applied clean on the first try).
 
 ## This machine and its environment
 
@@ -128,6 +141,18 @@ Symptom: none - it works, in contrast to the MET/AIC APIs which are TLS-refused 
 Why: the egress allowlist covers both hosts and `commons.get` sets the UA Nominatim's policy requires; pace
       Nominatim at 1 request/second. Verified live 2026-10-13 (task 205): "Kings Weston House, Bristol" 4 m from
       the enwiki infobox point, "Trinity Theological College, Bristol" 0 m, "Royal Mews, Windsor" 72 m.
+#### NFKD on this machine does NOT apply Unicode compatibility (F-type) decompositions
+Where: `unicodedata.normalize("NFKD", ...)` anywhere on this machine - `pipeline/catalog.py`'s `slug()`,
+      `pipeline/books_match.py`'s `norm()`, and hence every site id built from a town name (`fit/
+      src_van_deventer.py`'s `_site_row`)
+Symptom: the compatibility chars U+0153 œ, U+0152 Œ, U+00E6 æ, U+00C6 Æ, U+00DF ß survive NFKD and are then
+      dropped by `.encode("ascii", "ignore")` - "Le Rœulx" slugs to "le-rulx" (not "le-roeulx"), so the
+      staged site id is `le-rulx-q668861`.
+Why: CPython 3.12.3 here (Unicode 15.0.0) applies only canonical (D-type) decompositions: é/è/à decompose,
+      œ/æ/ß do not (verified against explicit code points). The behaviour is consistent across the whole
+      pipeline on this machine, so ids built from `catalog.slug` are internally consistent - do not
+      "fix" one name with a per-name override: that would break the one-place rule for the slug rule and
+      desync from every other slugification of the same name.
 
 ## Libraries and frameworks
 
@@ -158,6 +183,35 @@ Why: the three digit-pairs are 100 m offsets from the 100 km square's OWN origin
       -2.679790), SW Bristol, which converts back to exactly (352900, 177100). Note this also means a grid ref in
       an enwiki article can disagree with the article's infobox coordinates (Kings Weston House: 1.3 km) -
       cross-check both against Nominatim/OSM before quoting either.
+### Python (3.12.3)
+
+#### A trailing comment after a complete expression inside an unbalanced-bracket display does not end the logical line
+Where: any multi-line dict/list literal (hit in fit/src_van_deventer.py's TOWNS: a `"Sluis": dict(...)` entry
+      whose last line read `p373="Sluis")  # the name search` - the comma was missing)
+Symptom: `SyntaxError: invalid syntax. Perhaps you forgot a comma?` reported at the NEXT key's line, several
+      lines below where the comma is actually missing (the comment hid it)
+Why: inside `{...}`/`[...]` physical lines are joined into one logical line until the brackets balance; a
+      trailing comment on a bracket-balanced line does not end that logical line, so the next physical line
+      gets glued on and the following `key: value` lands where a comma was expected. Put comments INSIDE the
+      parentheses, or after the closing `),` - never after a `)` whose comma you might have dropped.
+
+#### dict.update() of a list of 2-tuples builds {first: second}, not a {key: [values]} mapping
+Where: fit/src_van_deventer.py (verify_qids candidate collection - the shape was wrong there once; the trap
+      stays for anyone rebuilding a town -> [candidates] map)
+Symptom: expecting {town: [candidates]} and getting {qid: label}; the next unpack crashes with "too many
+      values to unpack"
+Why: update() treats an iterable of 2-element sequences as (key, value) pairs. To collect values per key,
+      accumulate explicitly: `d.setdefault(key, []).append(item)` - never `d.update(pairs)` for that shape.
+
+#### In a generator expression `for r in files and cond` binds the `and` to the ITERABLE
+Where: `fit/src_van_deventer.py`'s `golden()` (crashed at `--golden`, fixed iter 56); any
+      `any(... for x in LIST and x.attr in SET)` pattern
+Symptom: `UnboundLocalError: cannot access local variable 'r' where it is not associated with a value` -
+      the expression parses as `for r in (files and r.get("title") in ...)`, so the iterable itself
+      references `r` before the loop binds it.
+Why: in a generator expression the text after the first `for <name> in <expr>` is the FILTER test; the
+      iterable `<expr>` must not reference the loop variable. Write the conjunction inside the body:
+      `any(r.get("site") == s["id"] and r.get("title") in picked for r in files)`.
 
 ## This codebase
 
@@ -269,6 +323,17 @@ Why: the name does not carry the geography - the catalog records the Dutch ident
       the name (found task 801, iteration 17: the "Peutinger Casaromago" rows were expected to pass on a
       Beauvais-distance, but the site is 314-368 km from Beauvais).
 
+#### stage() staging files are append-only and idempotent on (site, title) - a changed id rule leaves the old rows behind
+Where: `stage()` in `fit/src_van_deventer.py` / `fit/src_artists.py` (the per-source staging
+      `extras_*.jsonl` / `files_*.jsonl` / `classified_*.jsonl`)
+Symptom: after a re-stage where the site-id rule changed (e.g. an inline slug replaced by `catalog.slug`,
+      "chi-vres" -> "chievres"), the files hold a row per town under the OLD id plus a second row with the
+      same title under the NEW id - the (old_sid, title) pair is already in `have`, so the old row is never
+      rewritten or dropped.
+Why: stage() appends, and idempotency is per (site, title) pair; a changed id is a new pair. The staging
+      files are the task's own and are consolidated by 211 later, so when the id key changes before 211
+      runs: delete the three staging files and re-run `stage` (the files then hold one id generation only).
+
 ### Wikimedia APIs (Commons, Wikidata)
 
 #### A Commons file page's structured data is a local MediaInfo item (M<page id>), not a global Wikidata item
@@ -349,6 +414,37 @@ Symptom: `action=parse&prop=coordinates` errors (coordinates is a query prop); `
 Why: two actions, disjoint prop namespaces; the query missing-marker is the empty string. Test for
       `"missing" in page`. Get the infobox coordinates from `action=query&prop=coordinates` and the article body
       from `action=parse&prop=wikitext` - two calls, never one.
+#### wbsearchentities with limit=5 misses well-known short names - Mons (Belgium) ranks 11th in the en search
+Where: `fit/src_van_deventer.py` (`_search_candidates`, the default limit 5) and any script calling the
+      Wikidata wbsearchentities API for a short, common town name
+Symptom: the town's item is simply absent from the five candidates (no error, just a short list) - the
+      discovery run records a wrong or no QID; for 'Mons' the five were the planetary nomenclature term 'mons'
+      plus French communes (Var, Hérault, Charente, Gard) while the Belgian city Q83407 was 11th (4th in the
+      fr search)
+Why: short common names get outranked by their many homonyms. When the expected item is not among the five,
+      re-search at limit 20 (and in the other language), then re-check label + P625 + P373 + enwiki before
+      recording - the 204 BE batch found Mons only this way (lead doc, QID verification - Belgium).
+
+#### A wbsearchentities label search containing parentheses returns EMPTY
+Where: the Wikidata wbsearchentities API for a label-based search (fit/src_van_deventer.py
+      `_search_candidates`; task 204's 'Luxembourg (city)' lookup)
+Symptom: search='Luxembourg (city)' returns [] - no candidates, no error - while the item exists and the
+      unparenthesized search 'Luxembourg City' hits it (Q1842 came first at limit 20; the
+      plain 'Luxembourg' search ranks the country Q32 and the Belgian province Q1126 ahead of it)
+Why: the search matches labels, and '(city)' is a Wikipedia-style disambiguation that no Wikidata label
+      carries (the item's label is just 'Luxembourg'). A parenthesized or otherwise qualified search term is a
+      guess about a label that does not exist and silently returns nothing. Search the unparenthesized form
+      (or a label form that actually exists) and let the candidate fact sheet (label + P625 + P373 + enwiki)
+      do the disambiguation.
+
+#### A Wikimedia API call with no User-Agent gets HTTP 403; commons.get already sets one, a raw script must too
+Where: `pipeline/commons.py` (`get`, sets `aw.UA`) and any throwaway script hitting the Wikimedia APIs
+      directly (e.g. the thumb download snippet of the 204 BE eye check)
+Symptom: HTTP Error 403: Forbidden on the very first request; the same request works once a User-Agent is sent
+Why: Wikimedia's robot policy rejects requests without a descriptive User-Agent. `aw.UA` is the project's
+      standard value: a DICT ({"User-Agent": ...}), not a string - pass it to urllib's Request(headers=)
+      as-is, but slicing it like a string (UA[:60]) raises KeyError. A raw urllib script must set it (or go
+      through `commons.get`, which paces and retries too).
 
 ### fit/
 
@@ -501,6 +597,45 @@ Symptom: passing the bounding box as (lon1, lat1, lon2, lat2) makes Nominatim re
       back ordered toward the wrong corner).
 Why: the documented format is "viewbox=min_lon,max_lat,max_lon,min_lat" (left,top,right,bottom). Build it as
       f"{min_lon},{max_lat},{max_lon},{min_lat}". (Burned a 213 session on this, 2026-10-11.)
+
+#### The Wikimedia APIs 429 after ~12-20 back-to-back calls even at 1-2 s pacing; commons.get's Retry-After handling absorbs it
+Where: `pipeline/commons.py` (`get`, `PACE_S = 1.0`); every live-fetching module (fit/evidence.py record,
+      fit/src_van_deventer.py --list/--verify/--files/--chain)
+Symptom: HTTP 429 from commons.wikimedia.org or wikidata.org `w/api.php` after a dozen or so consecutive
+      calls, even when paced 1-2 s apart
+Why: Wikimedia rate-limits per-client bursts well below 1 req/s in practice. `commons.get()` is
+      Retry-After-aware (it sleeps the server's value and retries) - use it (or replicate its pacing) instead
+      of a bare urllib call with a fixed sleep; a 26-call verify run completed in ~30 s wall on 2026-10-11
+      with no manual intervention. Never loop a hand-rolled fetcher without the Retry-After handling.
+
+### fit/evidence.py (the evidence contract)
+
+#### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
+Where: `fit/evidence.py` (`check_category`); every module that records `kind: category` evidence
+      (fit/src_van_deventer.py's cat_chain -> TOWNS["chain"] -> evidence_for)
+Symptom: nothing fails: a hand-typed or transformed "via" (a " -> "-joined string, a list that includes the
+      file's own category, a chain that skips a hop) passes the offline check, and a picture ends up tied to
+      the wrong place
+Why: `check_category` only asserts row.cat == site_cat, via[-1] == cat, file_cat not in via - it cannot
+      re-walk Commons offline. Record ONLY the actually walked parent list (the JSON a chain walker prints),
+      with via[-1] == the site's exact P373 string and the file's category absent from it; a failed walk is
+      the caption route or a documented drop, never a guessed chain.
+
+### pipeline/commons.py
+
+#### keep() must be judged AFTER the date/date_commons swap - a post-1925 reproduction of a pre-1925 drawing is dropped otherwise
+Where: `pipeline/commons.py` (`keep`, `year_of`, `MAX_YEAR`); `pipeline/sources.py` (`run` - the correct
+      order: swap, then gate); `fit/src_van_deventer.py` (`stage` - had the wrong order, fixed 2026-10-11)
+Symptom: a staging run raises on a reproduction: "commons.keep() would drop 'File:Plattegrond van J. van
+      Deventer, reproductie uit album ... - Sluis - 20201361 - RCE.jpg': fix the table or record the drop" -
+      although the byte-same Zwolle done row sits in the canonical files.jsonl (date "circa 1560",
+      date_commons "1980")
+Why: keep() judges via year_of(title, m), which reads m["date"] (the page/scan date) first. A scan whose page
+      date is post-1925 but whose subject is a pre-1925 drawing must be passed the known drawing date FIRST
+      (date=want, date_commons=the page value) - sources.py's run() swaps and only then calls keep(), so the
+      drawing's year (1560) is what gets judged, not the scan's (1980 > 1925). The done Zwolle row (a 1980 RCE
+      album reproduction of a c. 1560 drawing) is the template; any staging module that gates before swapping
+      silently drops exactly those reproductions.
 
 ### pipeline/books.py, pipeline/books_ia.py (the book machinery)
 

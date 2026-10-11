@@ -1,0 +1,227 @@
+{
+ "classified": [
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "aardenburg-q955",
+   "title": "File:Aardenburg 1560.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "alkmaar-q972",
+   "title": "File:Kaart van Alkmaar en Oudorp door Jacob van Deventer 01.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "valkenburg-q100076",
+   "title": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist - Valkenburg - 20237999 - RCE.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "brussels-q239",
+   "title": "File:Brussels map by Jacob van Deventer, Atlas des villes des Pays-Bas, 73 places levées, ca. 1555 (2) 01.png"
+  }
+ ],
+ "count": {
+  "classified": 56,
+  "extras": 56,
+  "files": 56
+ },
+ "extras": [
+  {
+   "aerial_ok": true,
+   "id": "aardenburg-q955",
+   "kind": "town",
+   "lat": 51.2744,
+   "lon": 3.4453,
+   "name": "Aardenburg",
+   "place": "Sluis",
+   "qid": "Q955",
+   "region": "netherlands",
+   "source": "fit/src_van_deventer.py",
+   "wikipedia": "https://en.wikipedia.org/wiki/Aardenburg"
+  },
+  {
+   "aerial_ok": true,
+   "id": "alkmaar-q972",
+   "kind": "town",
+   "lat": 52.6285,
+   "lon": 4.7427,
+   "name": "Alkmaar",
+   "place": "North Holland",
+   "qid": "Q972",
+   "region": "netherlands",
+   "source": "fit/src_van_deventer.py",
+   "wikipedia": "https://en.wikipedia.org/wiki/Alkmaar"
+  },
+  {
+   "aerial_ok": true,
+   "id": "valkenburg-q100076",
+   "kind": "town",
+   "lat": 50.86523,
+   "lon": 5.83205,
+   "name": "Valkenburg",
+   "place": "Limburg",
+   "qid": "Q100076",
+   "region": "netherlands",
+   "source": "fit/src_van_deventer.py"
+  },
+  {
+   "aerial_ok": true,
+   "id": "brussels-q239",
+   "kind": "town",
+   "lat": 50.8467,
+   "lon": 4.3517,
+   "name": "Brussels",
+   "place": "Arrondissement of Brussels-Capital",
+   "qid": "Q239",
+   "region": "belgium",
+   "source": "fit/src_van_deventer.py",
+   "wikipedia": "https://en.wikipedia.org/wiki/City_of_Brussels"
+  }
+ ],
+ "files": [
+  {
+   "artist": "Jacob van Deventer (c1505-1575)",
+   "by": "fit/src_van_deventer.py",
+   "cat": "Aardenburg",
+   "date": "circa 1560 date QS:P,+1560-00-00T00:00:00Z/9,P1480,Q5727902",
+   "desc": "Map of the city of Aardenburg",
+   "evidence": {
+    "checked": "0000-00-00",
+    "file_cat": "Map of Aardenburg by Jacob van Deventer",
+    "kind": "category",
+    "rec": "evidence/1",
+    "site_cat": "Aardenburg",
+    "via": [
+     "Old maps of Aardenburg",
+     "Maps of Aardenburg",
+     "Aardenburg"
+    ]
+   },
+   "h": 500,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Aardenburg, town plan by Jacob van Deventer",
+   "page": "https://commons.wikimedia.org/wiki/File:Aardenburg_1560.jpg",
+   "qid": "Q955",
+   "site": "aardenburg-q955",
+   "thumb": "https://upload.wikimedia.org/wikipedia/commons/0/02/Aardenburg_1560.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "title": "File:Aardenburg 1560.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Aardenburg_1560.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 500,
+   "wd_plan": false,
+   "year": 1560
+  },
+  {
+   "artist": "Jacob van Deventer",
+   "by": "fit/src_van_deventer.py",
+   "cat": "Alkmaar",
+   "date": "1550-1570",
+   "desc": "Map of Alkmaar by Jacob van Deventer",
+   "evidence": {
+    "checked": "0000-00-00",
+    "file_cat": "Maps of Alkmaar by Jacob van Deventer",
+    "kind": "category",
+    "rec": "evidence/1",
+    "site_cat": "Alkmaar",
+    "via": [
+     "Old maps of Alkmaar",
+     "History of Alkmaar",
+     "Alkmaar"
+    ]
+   },
+   "h": 4971,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Alkmaar, town plan by Jacob van Deventer",
+   "page": "https://commons.wikimedia.org/wiki/File:Kaart_van_Alkmaar_en_Oudorp_door_Jacob_van_Deventer_01.jpg",
+   "qid": "Q972",
+   "site": "alkmaar-q972",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Kaart_van_Alkmaar_en_Oudorp_door_Jacob_van_Deventer_01.jpg/1280px-Kaart_van_Alkmaar_en_Oudorp_door_Jacob_van_Deventer_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Kaart van Alkmaar en Oudorp door Jacob van Deventer 01.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Kaart_van_Alkmaar_en_Oudorp_door_Jacob_van_Deventer_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 5019,
+   "wd_plan": false,
+   "year": 1550
+  },
+  {
+   "artist": "Ton Schollen",
+   "by": "fit/src_van_deventer.py",
+   "cat": null,
+   "date": "circa 1545-1565",
+   "date_commons": "0000-00-00",
+   "desc": "plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Valkenburg",
+    "place_label": "Valkenburg",
+    "place_lat": 50.86523,
+    "place_lon": 5.83205,
+    "place_qid": "Q100076",
+    "rec": "evidence/1",
+    "site_lat": 50.86523,
+    "site_lon": 5.83205
+   },
+   "h": 2102,
+   "license": "CC BY-SA 4.0",
+   "mime": "image/jpeg",
+   "name": "Valkenburg, town plan by Jacob van Deventer",
+   "page": "https://commons.wikimedia.org/wiki/File:Plattegrond_van_J._van_Deventer,_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Valkenburg_-_20237999_-_RCE.jpg",
+   "qid": "Q100076",
+   "site": "valkenburg-q100076",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Plattegrond_van_J._van_Deventer%2C_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Valkenburg_-_20237999_-_RCE.jpg/1280px-Plattegrond_van_J._van_Deventer%2C_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Valkenburg_-_20237999_-_RCE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist - Valkenburg - 20237999 - RCE.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Plattegrond_van_J._van_Deventer%2C_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Valkenburg_-_20237999_-_RCE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2878,
+   "wd_plan": false,
+   "year": 1545
+  },
+  {
+   "artist": "Jacob van Deventer",
+   "by": "fit/src_van_deventer.py",
+   "cat": null,
+   "date": "circa 1555 date QS:P,+1555-00-00T00:00:00Z/9,P1480,Q5727902",
+   "desc": "Brussels map by Jacob van Deventer,  Atlas des villes des Pays-Bas, 73 places levées , c.1555",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Brussels",
+    "place_label": "Brussels",
+    "place_lat": 50.8467,
+    "place_lon": 4.3517,
+    "place_qid": "Q239",
+    "rec": "evidence/1",
+    "site_lat": 50.8467,
+    "site_lon": 4.3517
+   },
+   "h": 10941,
+   "license": "Public domain",
+   "mime": "image/png",
+   "name": "Brussels, town plan by Jacob van Deventer",
+   "page": "https://commons.wikimedia.org/wiki/File:Brussels_map_by_Jacob_van_Deventer,_Atlas_des_villes_des_Pays-Bas,_73_places_lev%C3%A9es,_ca._1555_(2)_01.png",
+   "qid": "Q239",
+   "site": "brussels-q239",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Brussels_map_by_Jacob_van_Deventer%2C_Atlas_des_villes_des_Pays-Bas%2C_73_places_lev%C3%A9es%2C_ca._1555_%282%29_01.png/1280px-Brussels_map_by_Jacob_van_Deventer%2C_Atlas_des_villes_des_Pays-Bas%2C_73_places_lev%C3%A9es%2C_ca._1555_%282%29_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Brussels map by Jacob van Deventer, Atlas des villes des Pays-Bas, 73 places levées, ca. 1555 (2) 01.png",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Brussels_map_by_Jacob_van_Deventer%2C_Atlas_des_villes_des_Pays-Bas%2C_73_places_lev%C3%A9es%2C_ca._1555_%282%29_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 8908,
+   "wd_plan": false,
+   "year": 1555
+  }
+ ]
+}

@@ -1791,6 +1791,333 @@ print("spliced into", path)
 - INCIDENT: an inline python script that rewrites tasks/205-kip.md truncated it to empty (open(path,"w") ran before a TypeError in the writelines argument); recovered from git HEAD and re-applied the hand-over. PITFALLS filed (write the full content into a variable first; write only as the final step).
 - PITFALLS: two entries (DateTimeOriginal semantics in the Wikimedia section; the VM clock lagging the journal dates - date new work by the journal's sequence).
 - NEXT (sessions 2-3): SITES + `verify_sites()` for the 11 sites (Badminton, Temple Newsam, Hutton Hall Cumbria, Stoke Bishop, Stanway, Kingsweston, the House at Windsor, St James's, Lambeth, Somerset House, Hampton Court Palace on the Thames - new site, find its QID); fill lead doc §2 from the `--verify` output and §4 (12 of 22). Then session 4: stage() the 3 staging files + --check/--golden + the rest of the test file.
+<!-- task 204 -->
+# Task 204 van_deventer
+
+## 2026-10-11 204 DECISION: built fit/src_van_deventer.py in full (module-first) and verified the NL batch of QIDs
+    Chose module-first (skeleton with all functions + the 66-town table, then per-country QID batches) over
+    running the whole live inventory in one session: the session budget cannot hold ~300 paced API calls, and
+    the module is the vehicle for every later step (verify/files/chain/stage/check). The 70-subcategory list
+    (prep's 2026-10-10 constant) re-verified live today. The 16 NL towns hand-verified (search candidates
+    checked against label + P625 + P373 + enwiki; every city item's P373 is its own town category): Aardenburg
+    Q955, Alkmaar Q972, Amsterdam Q727, Enkhuizen Q9918, Goes Q81220, Groningen Q749, Groningen (province)
+    Q752 (drop: province map, not a town), Haarlem Q9920, Leeuwarden Q25390, Middelburg Q52101, Reimerswaal
+    Q2590944 (city, not the municipality Q10078 - they share P373 'Reimerswaal'), Rotterdam Q34370, Sluis
+    Q10080 (NL city, not Q2289934 Sluis-in-Mol), The Hague Q36600, Utrecht Q803, Valkenburg Q100076 (the old
+    town item, P373 'Valkenburg, Limburg'; Q9771 is the modern town; no enwiki on Q100076 -> no wikipedia
+    field, sources.py's own rule). Site points: old-town centres hand-recorded in TOWNS (lon/lat), the
+    p625 municipality point recorded beside each; per-town distances go to the lead doc (computed, not
+    eyeballed). Next: re-verify the recorded table, lead doc (category + NL sections), the --files NL
+    inventory, then the BE batch (incl. recording Ghent Q1296 and settling Beaumont's BE-vs-FR region - the
+    TOWNS 'france' guess for Beaumont flips if the verified item is Hainaut).
+
+## 2026-10-11 204 DECISION: region values lowercase in the staged catalog rows (deventer-lead convention)
+    The six done deventer rows use lowercase netherlands/belgium/france and build_catalog.place_of/make_site
+    look REGION_NAME up by str(region).lower(), so lowercase is the convention this lead continues (213's
+    display-case "Italy" was the exception made while waiting for 214). Luxembourg City is the one new value
+    "luxembourg": REGION_NAME has no key for it, so the site display falls back to the raw lowercase string
+    (works; noted in the lead doc; a REGION_NAME key would be a small follow-on task, not mine).
+
+## 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed
+    Ran `--verify` with no args (every recorded town: the 16 NL + the 6 done) - 28 s, no 429 stalls, exit 0.
+    All 16 NL: labels match (no LABEL CHECK), every P625 within 0.74 km of the recorded old-town point
+    (maxes: Haarlem 0.74, Amsterdam 0.68, Leeuwarden 0.65, Rotterdam 0.63, Sluis 0.59, Goes 0.49 km - the
+    Gouda-800 m class of offset, now computed not eyeballed), P373 matches the table string exactly in all
+    16 (every category-route target confirmed), enwiki matches (Valkenburg's old-town item Q100076 has none,
+    as recorded). The 6 done towns re-confirm the plain-town-category P373 pattern. Three name-search traps
+    (first hit with P625; all within 50 km, so no auto-flag, and the caption route stores the verified site
+    point, so the exposure is documentary only): 'Sluis' resolves FIRST to Q2065987 - a distinct item
+    ('place with town rights and privileges' / 'cadastral populated place in the Netherlands' / 'fortified
+    town', no enwiki, P625 (3.3883, 51.3089) 8 km SW of the town, P373 'Sluis (city)' vs Q10080's 'Sluis';
+    noted on the TOWNS row) - 'Reimerswaal' to the municipality Q10078 (the city Q2590944 is recorded, ~9 km);
+    'Valkenburg' to the modern town Q9771 (the old town Q100076 is recorded, 0.19 km - same spot). Box 4: only
+    the six done QIDs are in the catalog (12575 known sites checked); no other NL QID collides, so no
+    reuse-of-existing-site case yet (the BE/FR/LU batches must re-check per town - stage() already handles it).
+    Module fixes in the same commit (fresh-eyes read of the iteration-40 build): (a) verify_qids crashed with
+    KeyError on the 6 done towns (their TOWNS rows carry no label/lon/lat/p373) - no-args now includes them
+    degraded (no distances, P373 "(none recorded)") and an unknown town name fails loud; (b) cat_chain
+    returned a " -> "-joined string INCLUDING the file category, but evidence_for records t["chain"] as the
+    via and check_category requires via[-1] == site_cat and file_cat not in via - it now returns and prints
+    the via list as JSON (paste into TOWNS) and walks with ciclimit 500 (a parent list over 50 would have
+    silently lost the chain); (c) check_staged's per-row town lookup called _site_row over ALL TOWNS entries
+    -> KeyError on the done towns - now a precomputed sid->town map (slug id and, when the QID is already
+    cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
+    site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
+    Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).
+
+### 2026-10-11 204 DECISION: wrote docs/lead_van_deventer.md (category census + NL QID section + NL traps); fixed two stale TOWNS count comments
+The lead doc now holds the verified material (the pending sections stay marked pending): (1) the category
+section - name/URL, 70 = 66 town + 4 collections, the --list assertion, all 66 town categories listed by
+country with the 6 done marked (NL 19 / BE 22 / FR 24 / LU 1), the 4 collection names incl. the BNE atlas;
+(2) the NL QID table - 16 rows (QID/label/P625/site-point/P625->site distance/enwiki; distances taken from the
+iter-41 transcript /tmp/vd_verify_iter41.txt, all <= 0.74 km, labels/P373 clean, the 3 done NL re-confirmed);
+(3) the three NL name-search traps with measured distances: Sluis first hits Q2065987 (9.0 km SW, P373
+'Sluis (city)', no enwiki) vs recorded Q10080; Reimerswaal first hits the municipality Q10078 (9.1 km, shares
+the P373 with the city so P373 cannot separate them) vs recorded city Q2590944; Valkenburg first hits the
+modern Q9771 (0.14 km, same spot) vs recorded old town Q100076 (no enwiki -> no wikipedia field). Pending
+sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep - record with the BE batch;
+Beaumont's region flips to belgium if the verified item is the Hainaut one; Luxembourg City Q1564 expected -
+verified in this session that build_catalog.REGION_NAME (line 74) has belgium but no luxembourg and the
+line-91 lookup falls back to the raw value), per-town file picks/drops, the collection categories, the
+summary (box 5: >= 50 of 60 staged or each missing one accounted). Also fixed two stale TOWNS section-header
+counts in fit/src_van_deventer.py: BE is 22 categories (20 to stage + 2 done), FR 24 (23 + 1) - the comments
+said 21/19 and 25/24 (miscounted from the prep's list); the live --list (70 = 66 + 4) passes against the
+real table. GAP found while writing: town_files() lists only the towns' own categories - the 4 collection
+categories are not covered (the prep §2.1 spec had them), so the collections section and the R5
+misfiled-file mapping (a file in a collection cat belonging to a town) need a small town_files extension
+(c.members per collection cat; the BNE atlas at depth 1) - next session's first act. Suite 33/33 green
+(comment-only module change).
+
+## 2026-10-11 204 DECISION: town_files() extended to the 4 collections + town subcats at depth 1; the NL file inventory is done - 13 of 16 NL picks recorded in TOWNS, 3 documented drops
+Two module changes (uncommitted in the tree, harness-saved; the lead doc still needs them). (1) town_files()
+now inventories the 4 COLLECTIONS after the towns (same line format; a collection file that also sits in an
+inventoried town cat gets the [also in: ...] tag - the R5 cross reference) and each town cat's own
+subcategories at depth 1 (tagged [sub: ...]). The depth-1 walk was justified by a live probe: the BNE atlas
+category holds only 1 root file (Deventer-Dionantum.jpg, 6144x6144, 1550-1565) + 1 subcat, and that subcat
+(Map of Landrecies ... (Atlas des villes des Pays-Bas : ...), 5 KBR detail scans) ALSO hangs under the plain
+Landrecies town cat - the atlas keeps its per-place plates inside the towns' categories, so a flat town-cat
+inventory would have missed them. (2) The 13 staged NL TOWNS rows now carry file= (and date= where the page
+date is not the drawing's: Rotterdam "circa 1560" - the page date is an upload timestamp and the desc dates
+the drawing 1558-1563; Sluis and Valkenburg "circa 1545-1565" - 1980 RCE album reproductions are the only
+full-plan candidates, the Zwolle done-row precedent, date_commons keeps 1980); the 3 drops carry note=
+(Groningen (province): province map, its files are Friesland-gewestkaart crops; Leeuwarden: only file is a
+1975 redrawn model, 593x636; Middelburg: only file is a 1942 RCE detail crop of the stadhuis). Picks:
+Aardenburg Aardenburg 1560.jpg (500x500 - staged against the <~1000px heuristic: the ONLY Aardenburg plan on
+Commons, a full plan, caveat noted); Alkmaar Kaart van Alkmaar en Oudorp ... 01.jpg (5019x4971, 1550-1570);
+Amsterdam Kaart van Amsterdam c1550 (City Map) ... (4283x5229, 1550-1570); Enkhuizen ... Enkhuizen
+1558-1560.jpg (full, not the detail); Goes 1572 Bijkrt ... (the only Goes row in the c. 1545-1565 window;
+the netkaart is dated 1572/1575 - a later revision, and also in the BNE cat); Groningen ... volledig.jpg
+(6568x5088, 1563-1567); Haarlem ... KNA006000046.JPG (2359x2272, 1565, the municipal collection scan; the two
+identical 3306x8152 no-desc uploads are duplicates of a tall sheet - not staged); Reimerswaal 1560 Minuut ...
+(3501x2541, 1560 original); Rotterdam Map of Rotterdam around 1560s ... (2953x2033); Sluis 20201361 - RCE
+(2900x2137); The Hague 1558, Den Haag. ... (4413x4705, 1558; the same file is the autograph in the NA cat);
+Utrecht Utrecht.jpg (2164x2155, 1565-1570); Valkenburg 20237999 - RCE (2878x2102). R5 found: the Sluis cat
+holds 227 Damme.jpg (Damme's netkaart, 1545, also in the BNE cat) - a Damme plan misfiled in the Sluis cat;
+Damme is a done town (canonical row uses its own file) -> note only, never stage. Collections: BNE 61 = the
+1545-dated "Planos de ciudades de los Países Bajos" Part II/III plates covering the FR/BE towns (plus double
+plates Aire-sur-la-Lys+Thérouanne and Hesdin+Vieil-Hesdin - one file, two towns, for the FR batch; and
+Amsterdam/Alkmaar/Goes/Reimerswaal files that are the SAME files as the town cats); NA 2 = The Hague autograph
++ Schoonhoven/Nieuwpoort (out of scope); RCE 69 = the Zeist album reproductions (supplied the Sluis/Valkenburg
+staged rows; Middelburg detail-only); the atlas's Deventer-Dionantum and the Landrecies KBR details are for the
+FR batch. fit/evidence.py (801 merged) re-read: check_caption is OFFLINE-from-stored-fields only (no live
+re-resolution: named substring of title+desc, stored place/site distance reproduces dist_m within 1000 m,
+<= 50 km), so evidence_for's stored-verified-point rows pass for every pick (each names the town in title or
+desc); 801 added part_mention/sheet_mention kinds - my rows use only category/caption_coords. --list passed
+again (70 = 66 + 4, fourth re-run of 2026-10-11). NEXT (hand-over has the detail): sanity stage --dry +
+--check + pytest (last ran 33/33), commit module + lead doc (category-section live-run count, Per-town NL
+section, collection-categories section, NL subtotal in Summary), then the BE QID batch (--verify 20 towns,
+Ghent Q1296 already verified, Beaumont's region flips if the Hainaut item wins), then FR, then LU, then the
+one long --chain run + stage + test + golden.
+
+## 2026-10-11 204 DECISION: stage() order fixed - the date/date_commons swap runs BEFORE commons.keep() (the sources.py pattern); sanity runs green; lead doc's NL and collection sections written
+The hand-over's step 1 predicted `stage --dry` would print "staged: 13 new sites, 13 new pictures" - it instead
+raised on the Sluis 1980 RCE-album reproduction: stage() evaluated commons.keep() on the RAW page metadata
+before the known-drawing-date swap, and keep() judges via year_of() from m["date"] (1980 > MAX_YEAR 1925 ->
+drop). The pattern it was copied from (sources.py run()) swaps first and gates second: the done Zwolle row is
+the proof (date "circa 1560", date_commons "1980", the same album family) - a post-1925 reproduction of a
+c. 1550 drawing must pass, judged on the drawing's year. My ordering was a deviation, now fixed (swap moved
+before keep(), with the comment); the Rotterdam TOWNS comment was corrected too (the page's date is the
+year-1563 field, one year of the drawing's 1558-1563 window - not an upload timestamp). stage --dry now
+green: "staged: 13 new sites, 13 new pictures" (the 13 slugs + the build list; transcript
+/tmp/vd_stage_dry_iter44.txt); --check exit 0 (staging files still absent: joins empty, 0 evidence rows);
+suite 33/33; --list passed again (fifth live run of 2026-10-11, after the town_files extension). Lead doc:
+(a) category section records the re-runs; (b) the Per-town section now holds the 16 NL towns - 13 staged with
+file/size/row-date and the not-staged candidates named briefly each, 3 documented drops (Groningen province =
+province map; Leeuwarden = 1975 redrawn model; Middelburg = stadhuis detail crop only), the R5 Damme
+misfiled-in-Sluis note; (c) The collection categories section written: BNE 61 (the "Planos de ciudades"
+atlas plates - all 23 FR towns + 16 of the 20 BE towns + the done Binche/Venlo; the Aire+Thérouanne and
+Hesdin+Vieil-Hesdin double plates; [also-in] duplicates; the out-of-scope places named), NA 2 (The Hague
+autograph = the staged file; the Schoonhoven+Nieuwpoort sheet out of scope), RCE 69 (supplied the Sluis and
+Valkenburg staged rows + the done Zwolle/Venlo rows; the rest non-60 NL towns or duplicates - full town list
+in the doc), Atlas 6 (Deventer-Dionantum root out of scope; the one Landrecies subcat with its 5 KBR detail
+scans, double-parented under the plain town cat - why the depth-1 inventory exists); counts verified
+programmatically against the iter-43 transcript (61/2/69/6); (d) Summary carries the NL subtotal (13 of 16
+staged, 3 drops) and stays (pending) until all 60 are in. The keep()/swap-order fact is filed in
+PITFALLS.md (new pipeline/commons.py section). NEXT: the BE QID batch (--verify the 20 BE towns, Ghent
+Q1296 already verified in prep, Beaumont's region flips to belgium if the Hainaut item wins), then --files BE,
+lead-doc BE sections, commit; then FR (watch the double plates), then LU; then the one long --chain run +
+stage + test + golden.
+
+## 2026-10-11 204 DECISION: BE QID batch - all 20 verified and recorded (19 from one discovery run, Mons via a limit-20 follow-up); four disambiguated P373s; none in the catalog
+One discovery run (/tmp/vd_verify_be_iter45.txt) resolved 19 of the 20; **Mons was not in its 5-candidate
+search** (the en label search 'Mons' ranks the planetary term 'mons' and French communes Var/Hérault/
+Charente/Gard above the city; it is 11th in the en results, 4th in the fr) - a follow-up search at limit 20
+found Q83407: label 'Mons', P625 (3.9525, 50.454722), P373 'Mons (Hainaut)', P131 'County of Hainaut', enwiki
+'Mons, Belgium' (snippet /tmp/vd_mons*_iter45.py). All 20 recorded in TOWNS (qid/label/lon/lat/p625/place/
+wikipedia/p373; site point = the P625 rounded to 4 dp - the hand check found no old-town-centre offset,
+unlike the NL Gouda 800 m case). Re-verification of the 20 (/tmp/vd_verify_be_recheck_iter45.txt): every
+label matches (no LABEL CHECK), every P373 'ok', every P625 within 0.01 km, every enwiki matches; one
+nuance - Saint-Ghislain Q668950 has no en label on Wikidata (the re-check prints an empty label, not a
+mismatch: the search API's label and the enwiki article 'Saint-Ghislain' confirm the item). Traps measured
+from the re-check: Bruges first hit Q327025 (Bruges, Gironde) 759 km; Leuze first hit Q326134 (Leuze, Aisne)
+92 km; Mons first hit Q1108786 (Mons, Var) 780 km; Mechelen's third candidate is the Dutch Mechelen
+Q100020 (no first-hit trap). The prep's Brussels guess resolved to Q239 (its P373 is 'Brussels
+(municipality)', not 'Brussels' - a new disambiguation class alongside Halle (Belgium), Mons (Hainaut) and
+Leuze-en-Hainaut: the category route targets the exact P373 string, so the chain walk must reach it). Box
+4: none of the 20 QIDs is in the 12575-site catalog - all 20 get new catalog entries, no existing-site
+reuse. Lead doc: new 'QID verification - Belgium' section (method + 20-row table + traps) and the pending
+section split into 'France, Luxembourg (pending)' (24 towns). Also this session: the task file is now
+tasks/204-van_deventer.md (underscore - the name the driver reads; the 0-byte duplicate with the hyphen was
+merged and deleted; the first line was the driver's read-error). Still to file (context limit): the
+PITFALLS entry on the wbsearchentities limit-5 truncation (Wikimedia section) - the next session files it
+with its first commit.
+
+## 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)
+`--files` for the 20 BE towns (transcript /tmp/vd_files_be_iter46.txt, 212 lines, exit 0) confirmed the
+prediction: the 1545 BNE atlas plates sit in the town categories for 16 of the 20 (Ghent as BN 1/BN 2,
+Mons as (1)/(2), Oudenaarde as Version Madrid); Bruges (7), Brussels (7), Mechelen (1) and Aarschot (2)
+are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs + full-size crops
+(/tmp/vd_be_thumbs/, re-download via commons.info + aw.UA; the `read` tool views images):
+- **Ghent BN 1** (4919x5046, 1545) = the labelled 'Gande' sheet (city between the two rivers) - STAGED.
+  **BN 2** (2834x3631, 1545) is a DIFFERENT sheet (a fortified town, no city label in the centre crop) -
+  not staged, noted. Also not staged: the 1559 Donato Buoni di Pellezuoli print (a later print by another
+  cartographer) and five small 2007-2012 scans/crops.
+- **Mons (2)** (4393x2614, 1545) = the wide two-page sheet labelled 'Mons en Henault' (Ocidente/Oriens/
+  Meridies/Septentrio) - STAGED. Mons (1) (1816x2614) is a portrait plate of the same fortified town -
+  not staged, noted.
+- **Brussels '(2) 01.png'** (8908x10941, circa 1555) = the KBR autograph cleanly cropped - STAGED.
+  '(2).png' (9216x12288) is the same sheet WITH a TIFFEN colour-calibration strip (the ugly duplicate);
+  '(2) 02' is the explicit detail; the three small Brussel 1550/1555/1560 scans (470-1233 px) and
+  Molenbeek.1550.jpg (378x565, Molenbeek + the west of the 2e enceinte - the work list's 'Brussel, 1550
+  (westelijk gedeelte)', partial) - all not staged.
+- **Bruges 'Map of Bruges by Jacob van Deventer.jpg'** (2770x4659) - the full plan; the sheet's OWN
+  caption block (bottom of the sheet, partially torn away) reads "Brugge (West Flan...) ... en omgeving
+  omstreeks den jare 1550. Plattegrond in kleuren. Originade Teckening van den be-Keizerlijken..." -
+  the drawing dates itself c. 1550 -> row date="circa 1550", the 2013-01-17 12:04:47 page value (an
+  upload timestamp) kept as date_commons by the stage() swap. The three category detail files carry QS
+  'circa 1558' for the same map - the sheet's own caption wins (recorded in the lead doc). Not staged:
+  five detail crops (846x522, 1180x668 x2, 573x564, 650x832) and 'Plan Brugge ... ca.1560.jpg' (1400x1867,
+  a published reproduction per C. Ruelen).
+- **Mechelen** (3558x3305, page date 1550) = the KBR autograph (desc: from the atlas KBR bought in 1866)
+  - STAGED; page date is the drawing date (work list 'Mechelen, 1550' agrees), no swap.
+- **Ostend** (872x1255, page 'circa 1562' QS) = the full BNE atlas plate (labeled 'Oostende', the town +
+  the harbour detail box) - STAGED despite the 872 px width: the only Ostend plan on Commons (the
+  Aardenburg precedent, caveat in the lead doc). No swap (1562 in window).
+- **Aarschot - DOCUMENTED DROP, no site, no picture:** both files ('Aarschot 1570.png', 5877x6291 - a
+  genuine autograph, town labelled 'Aersfot' on the Dijle, fortress on the north bank - and its
+  1278x1024 jpg copy) carry page date **1570**. Verified against the web: the nl.wikipedia article
+  'Jacob van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his
+  career ran to his death in 1575, the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
+  1570 is outside this task's c. 1545-1565 drawing window, and box 6's test checks the row date's
+  year_of in 1545-1565 - a 1570 row cannot be staged honestly. The documented drop (box 5) beats a
+  guessed date. (The same work list cross-confirms the other picks: Gent 1545, Doornik 1545, Den Haag
+  1558, Utrecht 1565-1570, Oudenaarde minuut 1563 / netkaart 1564.)
+- The 12 single-file towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Halle, Kortrijk, Lessines,
+  Leuze, Saint-Ghislain, Soignies, Tournai): the one 1545 BNE plate each - all staged, no swap. Leuze
+  needs caption="Leuze" in TOWNS (its verified label 'Leuze-en-Hainaut' does not appear in the file
+  title/desc, but 'Leuze' does - otherwise the caption route would fail). Soignies: the 1545 plate
+  staged, the two 2011 files dropped (a 'd'apres' reproduction 2362x2468, a 291x298 tiny scan).
+  Oudenaarde: Version Madrid (3368x2614, page 1545) staged; the detail (710x564, QS circa 1558), the
+  DI-676 copy (986x1000, 2005, 'ca. 1558') and the Version Brussels copy (948x1070, 2012) not staged.
+
+**NOT YET DONE (next session, one step):** record the 19 file= values (+ Bruges date, Leuze caption,
+Aarschot note) in TOWNS, the lead-doc Belgium Per-town section, the Mons limit-5 PITFALLS entry, then
+pytest + --check + commit. See the task hand-over for the exact title strings.
+
+## 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed
+The iteration-46 picks (the analysis above; /tmp/vd_files_be_iter46.txt still on disk, re-read to verify every
+exact title before recording) are now in TOWNS: file= on all 19 staged towns (15 of the 1545 BNE plates:
+Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent BN 1, Halle, Kortrijk, Lessines, Leuze, Mons (2),
+Saint-Ghislain, Soignies, Tournai, Oudenaarde Version Madrid; + Ostend BNE plate circa 1562 + KBR Brussels
+(2) 01 + KBR Mechelen + Bruges full plan), date="circa 1550" on Bruges (page 2013-01-17 12:04:47 is the
+upload timestamp; the sheet's own caption block dates it), caption="Leuze" on Leuze (its official label
+'Leuze-en-Hainaut' is not in the title/desc), note= on Aarschot (the 1570 documented drop). The Belgium
+section-header comment now records the iter-46 inventory + thumb eye check. Lead doc: the pending
+subsection is now '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, --files
+transcript /tmp/vd_files_be_iter46.txt)' with one bullet per town (staged file + size + date and every
+not-staged file with its specific reason; Aarschot the documented drop with the nl.wikipedia work-list
+cross-check), a new '### France, Luxembourg (pending)' (24 towns; the double plates as watch items), and
+the Summary updated (running total 32 of 59 staged: NL 13 + BE 19). PITFALLS filed: (1) wbsearchentities
+limit=5 misses well-known short names - Mons 11th in the en search, follow up at limit 20; (2) a Commons
+API call with no User-Agent gets HTTP 403 - commons.get sets aw.UA, a raw script must too. Verified after
+the edit: `--check` exit 0 (staging files still absent - stage runs after FR/LU), module parses clean
+(the PITFALLS comment-gluing rule observed: every entry's dict closed with `),` before its comments).
+NEXT: the FR batch (23 towns: --verify first - QIDs still empty in TOWNS; the BNE plates cover all 23 per
+the collections section; watch the Aire+Thérouanne and Hesdin+Vieil-Hesdin double plates - stage once under
+the true primary, note the second; Beaumont's region flips france->belgium if the Hainaut item wins) +
+Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
+build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
+--check, tests/test_src_van_deventer.py, --golden.
+
+### 2026-10-11 204 DECISION: FR+LU QID batch - 22 FR QIDs + Luxembourg City Q1842 verified and recorded in TOWNS (Le Rœulx moved to Belgium, Beaumont pending the atlas plate); TOWNS edit uncommitted, re-verify + lead doc next
+Discovered in one --verify run (/tmp/vd_verify_fr_iter49.txt, 24 towns, exit 0 - the FIRST attempt of the
+session failed locally with "unknown town 'Le'": shell quoting, the Le X names were unquoted; no API calls
+happened, the quoted re-run succeeded): all 23 FR fact sheets came back; the 22 non-Beaumont towns each have
+a clear first-hit item (label = the town, P625 at the town, P373 = the plain town category, enwiki present)
+- recorded in TOWNS with site point = P625 rounded (the BE convention; an old-town-centre offset is the watch
+item once the drawings are eye-checked) and place = the modern department (Nord / Pas-de-Calais; Douai's and
+Valenciennes' items also carry the historical P131 'County of Flanders' / 'County of Hainaut' - the c. 1550
+context, noted in comments, the row's place stays the department). Two surprises:
+- **Luxembourg City = Q1842, not the hand-over's Q1564** (Q1564 now holds 'Borgfelde', Hamburg - merged
+  away). Q1842: label 'Luxembourg', P625 (6.13, 49.611389), P373 'Luxembourg City', P131 'Canton of
+  Luxembourg', enwiki 'Luxembourg City'. The entry's search="Luxembourg (city)" returned EMPTY (the
+  parenthesized label search - a new instance of the prep's "qualified strings return EMPTY" quirk); the
+  follow-up (/tmp/vd_lu_iter49.py, transcript /tmp/vd_lu_iter49.txt) searched "Luxembourg" and "Luxembourg
+  City" (both hit Q1842 first) and set search="Luxembourg City". region="luxembourg" stays a new value (no
+  REGION_NAME key, the display fallback flagged in the lead doc).
+- **Le Rœulx is Belgian, not French** (the prep's FR-list guess): Q668861, enwiki lead "a city and
+  municipality of Wallonia located in the province of Hainaut, Belgium", P131 'Arrondissement of Soignies' (the
+  same as Lessines/Soignies). Moved from the FR section to the BE section: region="belgium", site point
+  (4.1116, 50.5036) = the precise P625 of its subdivision item Q21764574 (the recorded item's P625 (4.1,
+  50.5) is rounded - the re-verify will print ~1.06 km, expected), P373 'Le Roeulx' WITHOUT the diaeresis
+  (the exact string). BE section is now 23 categories (21 to stage + 2 done), FR 23 (22 to stage + Bergues
+  done); the stageable total stays 60.
+- **Beaumont stays PENDING** (no QID recorded): the only plausible search candidate is Q95100, the Hainaut
+  (Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; enwiki 'Beaumont, Belgium'); the
+  northern-France Beaumont (Nord) is ABSENT from even the en search top 20 (checked at limit 20 in the
+  follow-up). The atlas-plate settlement (the --files inventory + eye check: the Hainaut town sits on the
+  Sambre at the French border, the Nord one is inland near Seclin) decides; if Hainaut wins, region flips to
+  belgium and the QID is Q95100 (a follow-up search at limit 50 or in fr is needed for the Nord item first).
+Catalog check (live, the 12575-site catalog): **none of the 23 recorded QIDs is in the built catalog** - all
+get new entries (box 4, no existing-site reuse). Wikipedia URL percent-encoding convention confirmed
+(extras.jsonl: Apuol%C4%97, Las_M%C3%A9dulas) - the FR/LU/Le Rœulx entries use it (B%C3%A9thune,
+Cond%C3%A9-sur-l%27Escaut, Le_Cateau-Cambr%C3%A9sis, Th%C3%A9rouanne, Le_R%C5%93ulx). **TOWNS edit done but
+UNCOMMITTED and not yet parse-checked** (context limit landed right after the edit; the harness saves it) -
+the next session parses the module FIRST (expect 66 towns, 32 stageable), then runs the re-verify
+(24 towns with a QID, Beaumont omitted), writes the lead-doc 'QID verification - France, Luxembourg'
+section (table + traps: Le Quesnoy's exact-label Somme twin Q109413780, the Belgian Lille Q725235,
+Saint-Omer's Calvados/Quebec, the Thérouanne river Q428296, the Bapaume QLD, Beaumont + the parenthesized-
+search-empty quirk as the watch items), and commits module + doc together. NEXT: the --files FR/LU batch
+(double plates Aire+Thérouanne and Hesdin+Vieil-Hesdin to eye-check; Beaumont's plate settles Hainaut/Nord),
+then the one long run (--chain per town, stage, --check, tests, --golden).
+
+## 2026-10-11 204 DECISION: FR+LU re-verify clean (23 towns) + lead-doc FR/LU section written (23-row table, traps, Beaumont pending) + parentheses-search PITFALLS filed
+Session started from the driver-committed TOWNS edit (6b8f85a; parse-check passed: 66 towns, 32 stageable, as
+predicted). The planned re-verify run then went cleanly (23 towns = 21 FR with QIDs + Le Rœulx + Luxembourg
+City; Beaumont omitted - no QID; transcript /tmp/vd_verify_fr_recheck_iter49.txt, exit 0): **every label
+matches, every P373 'ok', every enwiki matches, and the first search hit with P625 is exactly the recorded QID
+for all 23** (no first-hit trap in the verified set); P625→site is 0.00-0.01 km everywhere except Le Rœulx
+0.91 km (the recorded item's P625 (4.1, 50.5) is rounded; the site point is the subdivision item Q21764574's
+precise P625 - expected, documented). Bergues (done FR) fetched in one extra call: Q244934 label 'Bergues',
+P625 2.434167, 50.968611 (→ site 0.00 km), P373 'Bergues', enwiki 'Bergues' - row added to the lead-doc
+table.
+
+Lead doc (docs/lead_van_deventer.md) updated per the hand-over: (a) Commons category counts moved with
+Le Rœulx (BE 22→23 categories, FR 24→23); (b) Belgium section: Le Rœulx table row + method sentence (found
+in the FR batch, moved from the prep's France list; 0.91 km explained), BE catalog count 20→21; (c) '##
+France, Luxembourg (pending)' replaced by '## QID verification - France, Luxembourg (checked 2026-10-11,
+iter 49; ...)': method (discovery /tmp/vd_verify_fr_iter49.txt + re-check transcripts), the three changes
+from the prep's list (Le Rœulx→Belgium; Luxembourg City = Q1842 not Q1564 - that id was merged away into
+'Borgfelde' Hamburg, and the 'Luxembourg (city)' search returned EMPTY, the parentheses quirk; Beaumont
+pending: only Q95100 Hainaut is plausible in the en top 20, the Nord town absent, the atlas plate settles
+it, region flips if Hainaut wins), the 23-row table (21 FR to stage + Luxembourg City + done Bergues) with
+the re-verify distances, and '### Name-search traps - France, Luxembourg' (Le Quesnoy: exact-label twin
+Q109413780 (Somme) - coordinates+enwiki decide; Lille: Belgian twin Q725235; Saint-Omer: Calvados Q844283 +
+Quebec Q3463075; Thérouanne: the river Q428296; Bapaume: the 1918 ship Q19543896 + Queensland Q48807630;
+Luxembourg's search chain Q32→Q1126→Q1842; Beaumont; plus the minor near-misses, notably the Cambrai
+near-duplicate Q84243457 at the same coordinates); (d) the per-town subsection retitled (QIDs verified,
+file= pending the --files run) keeping the double-plate watch items; (e) Summary: NL 13/16, BE 19/21
+(Le Rœulx file pending), FR 0/22 (Beaumont QID pending), LU 0/1 - running total 32 of 60 stageable
+categories, box 5 unchanged.
+
+PITFALLS filed (Wikimedia section): a wbsearchentities label search containing parentheses returns EMPTY
+('Luxembourg (city)' case) - search the unparenthesized label form and let the fact sheet disambiguate.
+
+Verified: --check exit 0 (staging files still absent - stage runs after the --files picks); module parses
+(66/32); this session changed no module code (the iter-49 TOWNS edit was already driver-committed).
+NEXT: the FR/LU --files batch (24 towns: the 22 FR to stage incl. Beaumont + Le Rœulx + Luxembourg City),
+then record file=/date=/caption= picks, then the one long run (--chain per staged town, stage, --check,
+tests/test_src_van_deventer.py, --golden).
 
 
 <!-- task 213 -->
@@ -1961,6 +2288,48 @@ iteration 24, staging files untouched since); --golden; tests/test_src_artists.p
 control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1, 5, 6 then box 4 LAST;
 211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
 jobs outlive sessions).
+
+### 2026-10-11 213b DECISION: the seven Liber secundus towns verified live (Q239 Brussels, Q12892 Antwerp, Q1741 Vienna, Q490 Milan, Q641 Venice, Q2044 Florence, Q220 Rome) and put in BOOKS["civitates"]["sites"]; verify_qids extended to SITES + book towns; lead-doc QID section rewritten - box 1
+Paced Wikidata discovery + the five-fact verification (label, every P625, P373, P131, enwiki, first
+name-search hit with coordinates) found the seven QIDs above; memory-guessed ids were wrong (Q374 is
+"vodka", not Rome - Q220 is; Vienna is Q1741, not Q2140), so search + verification is the only route.
+Every P625 sits within 0.27 km of its table point (book-town table point = the P625 itself; the book's
+views centre on the walled old towns, within a few km - recorded per town). Traps recorded in the lead
+doc: Florence search (first hit with P625 = Q597842 Florence, South Carolina, 7538 km), Venice search
+(Q773853 Los Angeles, 9891 km), and a Wikidata/enwiki DATA trap for Brussels: the enwiki "Brussels"
+article belongs to the region Q240 while the city is Q239 ("City of Brussels", P373
+"Brussels (municipality)") - Q240's P625 is only 85 m from Q239's, so only the P373/enwiki check
+separates them. verify_qids() now covers SITES + the book towns (8 unique QIDs, P131 fetch chunked at
+50); --verify ran clean twice (exit 0, no flags); --check still 2/2 PASS exit 0; suite 29 passed.
+Box 1 of 213b ticked (table + lead-doc records). Prep §1 assumptions re-checked on the 801-merged
+evidence.py: check(files, books, catalog=) offline, check_caption (L190-207) fails on ±1 km dist_m
+reproduction OR >50 km distance - so the next step's Cervia negative control (44.245/12.367, ~53.5 km)
+fails on both clauses. Unexplained transient: one throwaway-script label batch came back empty after
+~13 paced calls (no 429/error); A/B proved `language` (singular) is ignored by wbgetentities (ALL
+labels returned) vs `languages` (plural) filters - not the cause; not reproduced since. Next: --golden
+(first-time write of tests/golden/src_artists_sample.json), then tests/test_src_artists.py (prep §4 +
+boxes 2-4), then the lead-doc box-1 final read.
+
+### 2026-10-11 213 DECISION: parent done-claim - all six boxes verified fresh, 213 set done (R6 note to 211; four PITFALLS entries filed)
+With both subtasks done (213a: the civitates hand list + lead-doc books section; 213b: the seven
+book-town QIDs, --golden, tests/test_src_artists.py, lead-doc final), this session re-verified the
+parent's boxes independently: --check exit 0, 2/2 PASS caption_coords; --golden rewrote
+tests/golden/src_artists_sample.json with a ZERO diff (the golden pins the staged rows exactly);
+.venv pytest 33/33 green (test_src_artists.py: the join, the table, the offline evidence check with
+the Cervia negative control, the golden compare, under the socket-blocking fixture). Box 4 (the
+count, checked last): Imola (the anchor, Leonardo 1502 RCIN 912284) + Venice (Barbari 1500, Museo
+Correr) = two sources staged, 2 rows per staging file, and the lead doc accounts for every unstaged
+source (Civitates worked per-book, its rows coming via 211's index rebuild once 217 lands; the other
+five IA books present and untriaged - 216/217 follow-on). Box 5: the four civitates per-book paths
+written and declared in the parent's Touches line; git diff main...HEAD over index.jsonl /
+validation.json / pipeline/ / fit/evidence.py is empty (no shared-module writes). Box 1:
+docs/lead_artists.md read in full - complete for all four sources. Ticked boxes 1, 4, 5, 6 (4 last,
+per the hand-over invariant) and set Status: done. Also: the R6 note is written in 211's ##
+Hand-over (merge the *_artists* staging files; the civitates index rows wait on 217 - zero rows from
+the book before 217 is not a 211 failure); four PITFALLS entries filed (LLM ports 8080-8082 vs
+books.py's stale 18080/18081; civitates hOCR index misaligned 0-2 leaves; A/F plan labels unreliable
+in both directions; long background data jobs outlive sessions - the driver snapshot can commit a
+mid-growth file).
 
 
 <!-- task 213a -->
