@@ -42,32 +42,66 @@ are left.
   platefit doc); read the grid labels on a fitkit sheet, never its own pixels.
 
 ## Hand-over
-Iteration 23 (2026-10-11). Steps 1-4 are DONE (step 2: commit ad8dbc1; step 3: 0b65deb; step 4: the commit after this edit). State:
-- `fit/review.py` + `data/review/` (README + 2 seeds) + `web/data/review.json` (2 open) as before.
-- `web/index.html`: only +1 line (`<script src="review.js"></script>` between `</script>` and `</body>`) plus the step-3 keying fix. 1707 lines now.
-- `web/review.js` (new, ~200 lines, vanilla, no deps): `RV = {items, seen (localStorage 'aw.reviewResolved'), loaded, fetching, pending}`.
-  Wraps the page's globals (installed once at load, all reassignments of the big script's function globals):
-  * `renderList`: original first, then - S.tab==='review' -> `rvRender()` (tabs row + lede + items); else `rvPatchTabs()` (appends `<button id="h-review">` spanning the 1fr-1fr grid, via injected `<style id="review-style">`) + `rvPatchStats()`; kicks `rvLoad()` once.
-  * `rvLoad()`: fetch `data/review.json` (404 = empty queue); filters `RV.seen`.
-  * `rvPatchStats()`: finds the home stats `<p class="fit">` BY THE TEXT 'built in all' (not by position), appends a `<button id="rvcount">` "· N review items open" (only when N>0; removed when 0). Original sentence stays byte-for-byte.
-  * `setTabHome('review')`: S.tab='review', clears hash, re-renders. NEVER writes 'aw.tab' (index.html line 531 restores S.tab from it at boot; review is session-only by that omission).
-  * `openPlan`: after the original, if `P.img && RV.pending`: push each pair then `addPairMarker(p)` then `refit()` (map-click order: markers number 1..n); on 404 (no `data/raw`) clears pending silently.
-  * `saveFit`: after the original (both overlay-found and 90 s timeout paths reach here), GETs `platefits/<site>.<plan>`; if it exists and the plan is one of the item's candidates, `rvResolved()` (seen + lsSet + splice out of RV.items). No second PUT, no data/review write; the item's `resolved` is caught up by the next export. `rvResolved` mirrors the export's derivation (any candidate's doc resolves the item).
-  * `loadDeps`: dedupes in-flight fetches per site (rvDepFlight) - REQUIRED: without it, `select()`'s async `loadDeps().then(renderSite)` lands after `startFit`/`openPlan` and clobbers the fit sheet. `rvStartFitAt` awaits it between `setGround` and `startFit` (microtask order: select's .then runs first, on the same promise).
-  * Opener `rvStartFitAt(it, c)`: `if (P.active) endFit()` -> `select(site.id)` -> `setGround(lidar===false?'imagery':'relief', site)` (select force-sets imagery; this restores fitkit) -> `await loadDeps` -> `startFit` -> `openPlan(row)`. Row = `P.rows.find(r => r.id===plan && r.sites.includes(siteId))` (the step-3 keying makes duplicate-id rows resolvable) else synthesized from the candidate's stored fields (missing map_box -> null -> whole page; missing view -> false).
-  Headless-verified this iteration (scratch tree + tools/shot.mjs, Chrome 155): tab "Review (2)" + aria-pressed, list rows (Alligator 2 candidates lead first; Bibracte no-picture chip + searched + "Open this site's plan search"), stats line "…384 built in all; … · 2 review items open"; opening the alligator item: ground=relief, book row loaded 2876x4068, crop from map_box, 5 pairs pre-placed, markers "1..5", fit mpx 0.7374 (seed 0.7375), Save enabled; no-picture item: ground=imagery, plan search with status; then real save via the page: PUT 200 -> worker (pipeline + .venv python) ran plan_fit (resids ~0) -> overlay depiction in ~14 s, red-square map source added, item gone, badge "Review (1)", stats 25->26 drawings.
-NEXT STEP 5: `tests/test_review.py` per prep §4 (keep stdlib-runnable, port 0, no network). Details that matter now that 4 is built:
-- Module fixture: reset the temp tree's queue: delete `tree/data/review/*` and the copied `tree/web/data/review.json`, then write seed item(s) via `import fit.review` (`upsert_item`, NOT the CLI - the CLI is case 1). The repo's two seeds ARE copied into the tree by conftest, so deleting first is essential (the test owns the queue).
-- Case 1: CLI export (subprocess `[sys.executable, 'fit/review.py', 'export', '--root', str(tree)]`) -> GET data/review.json (200, items, name, lead, candidate fields, no-picture searched); idempotent re-run (same body modulo `at`).
-- Case 2: headless via `NODE_PATH=/home/agent/tools/shot/node_modules node tools/shot.mjs <served>/ <tmpfile.png> 8000 1200 800 "<js>"` (the png path must be in a temp dir). Probe pattern that WORKS (used above): an async IIFE that polls `S.sites.length && RV.loaded`, then `S.tab='review'; renderList();` and reads `#body .tabs button` text + `#body` innerText, then `S.tab='sites'; renderList();` and reads the stats `#body .fit`. Assert badge count, item rows, stats number; assert no `[pageerror]` in the subprocess stdout and 404s only the expected ones (scans.json, amazon areas, and - in the raw-less temp tree - the book/media image of the opened plan, IF the probe opens one). In the pytest tree `data/raw` is ABSENT (conftest excludes the symlink) so any opened picture 404s: assert the list/count/stats, not the pre-placed pairs (the happy path was verified against a scratch tree where raw resolved).
-- Case 3: PUT a BOOK-src doc (ia set, url null, model similarity, >=3 pairs, at) to `api/db/platefits/alligator-effigy-mound-q4732645.ancientmonuments00squi_n0214_2` in the exact saveFit shape -> 200; the worker (venv python HAS numpy; no raw) fails on the missing scan and is swallowed - assert the server still answers GET / and the 20 golden hand-fit docs are byte-unchanged in the tree; re-run the export -> alligator item gone with `resolved.doc` recorded in the item file, the other seeded item still open.
-- Case 4: (id,site) keying - the iteration-22 scratch check PASSED against the live web/ root; repeat through the temp tree if cheap (evaluate P.byId composite keys + the four duplicate-id sites' fit-list buttons), else data-level fallback: composite-key uniqueness over served plans.json + test_data still passing; note the gap in DECISIONS if degraded.
-- Case 5: guards: served index.html contains exactly one `src="review.js"` and no review count in the raw HTML; review.json numbers are computed (case 1 already checks the body).
-Run `.venv/bin/python -m pytest -q` (suite is 13 at this commit: 12 + 801's; all pass) - new cases must not bind fixed ports or write outside the tree/temp dir.
-Then step 6: tick the six boxes in order, note what 203a imports (`fit.review.upsert_item` + `data/review/README.md`), final hand-over.
-Re-read (fresh eyes):
-- web/review.js `rvPatchStats` - the stats line is located by the literal text 'built in all'; if a later task changes that sentence, the review count clause silently disappears (no error). 211/212 touch the page data - watch this.
-- web/review.js `rvStartFitAt` - the `await loadDeps(site)` between `setGround` and `startFit` is load-bearing (select's async renderSite otherwise clobbers the fit sheet); do not reorder.
-- web/index.html line 531 `S.tab = lsGet('aw.tab', 'sites')` - the prep's claim "S.tab is never read from localStorage at boot" was WRONG; review.js keeps review session-only by never writing 'review' to 'aw.tab' (the setTabHome wrapper). If a future task stores other tab values there, this stays correct only while 'review' itself is never stored.
-- tests/conftest.py line 56 - the temp tree EXCLUDES `data/raw` (a symlink to /home/agent/projects/ancient-works/data/raw in the repo; `du` on it shows 0 - it is NOT empty, it is a link; my /tmp scratch copies followed it, which is why the scratch "test tree" served real pictures).
-Env: suite = 13 passed under .venv/bin/python (driver); system python3 fails 4 (test_gate, test_evidence CLI - no PIL/numpy there) PRE-EXISTING, do not chase. Chrome at /opt/google/chrome/chrome; shot.mjs needs `NODE_PATH=/home/agent/tools/shot/node_modules` (Mac-path createRequire in shot.mjs resolves only with it). The page boots headless here (WebGL warnings are noise; GPU-stall warnings are noise).
+Iteration 24 (2026-10-11). Steps 1-4 are DONE as before (ad8dbc1, 0b65deb, 6835279). Step 5 is IN
+PROGRESS: `tests/test_review.py` is WRITTEN (new file, 5 tests per prep §4, stdlib-only, ~230 lines)
+but NOT YET RUN — the session hit its context limit right after writing it. The file is uncommitted
+in the working tree; the harness saved it.
+
+NEXT STEP (one step): make it green, then finish the task:
+1. `.venv/bin/python -m pytest -q` — expect 18 (13 + the 5 new). Sanity: `python3 -m pytest
+   tests/test_review.py -q` (system python has no PIL/numpy; the 4 pre-existing failures in
+   test_gate/test_evidence are not this task's).
+2. If a new test fails, the dry-run record below is the ground truth of what each case saw.
+3. Then step 6: tick the six boxes in order (box 1: case 1; box 2: cases 2+5; box 3: case 3; box 4:
+   case 1's computed body + case 2's stats check; box 5: case 4), note for 203a what it imports
+   (`fit.review.upsert_item` + `data/review/README.md`), final hand-over, commit.
+
+Dry-run record (scratch tree built exactly like conftest — web/ + server/ + data/ minus data/raw;
+venv and system pythons behave identically for these cases): ALL FIVE CASES VERIFIED.
+- Case 1 (CLI export): `python3 fit/review.py export --root tree` prints exactly
+  "review: 2 open of 2 items -> web/data/review.json\n"; re-run is idempotent (body equal modulo at).
+- Case 2 (headless list): shot.mjs probe (tools/shot.mjs, NODE_PATH=/home/agent/tools/shot/node_modules,
+  POSTWAIT=300) boots (polls S.ready && S.sites.length && RV.loaded, 30 s budget). After `S.tab=
+  'review'; renderList();` the tabs come back `["h-sites=Sites:false","h-finder=Finder:false",
+  "h-review=Review (2):true"]`. NOTE: page CSS uppercases list text — innerText came back
+  "ALLIGATOR EFFIGY MOUND" etc.; the committed probe reads textContent (raw case) and the test
+  lowercases before matching. Stats: the one `#body .fit` containing 'built in all' ends
+  "...· 2 review items open". In-page: `data/review.json` fetches 200, `data/scans.json` and
+  `data/amazon/areas.json` 404; exactly 2 `[console] error ... 404` lines per load (stable across
+  runs; the browser console prints no URL, only the count); no [pageerror], no [reqfail].
+- Case 3 (save resolves): PUT the book doc in the exact saveFit shape (built from the seeded
+  candidate; crop = [x1*w, y1*h, x2*w, y2*h] from map_box×size — size is [w,h] TWO elements, map_box
+  FOUR; an early dry-run script indexed them together and hit IndexError — the test has the right
+  form) → 200 {"ok": true}. IMPORTANT CORRECTION to the prep: in the temp tree the plan_fit worker
+  does NOT "fail on the missing scan" — conftest copies no pipeline/ at all, so the worker thread
+  DIES at `import plan_fit` with ModuleNotFoundError (printed "Exception in thread plan_fit:"
+  into the server's stdout pipe, which conftest never reads again — harmless, tiny). Server stays up
+  (4× GET / all 200 over 4 s). A 374-file sha256 snapshot (all platefits docs + all depictions.json)
+  before/after: the ONLY change is the one new doc file. Re-export → stdout "review: 1 open of 2
+  items -> web/data/review.json\n", review.json has bibracte only (still open, searched intact), the
+  item file gains `resolved: {doc: "alligator-effigy-mound-q4732645.ancientmonuments00squi_n0214_2",
+  at: <PUT at>}` (the test PUTs a fixed at "2026-10-11T12:00:00.000Z" for determinism).
+- Case 4 (keying): probe selects each of the four duplicate-id sites, awaits loadDeps, startFit,
+  reads `#body [data-plan]` buttons. All four composite keys present in P.byId, each resolving to its
+  site's own media url (c_ffb3daac218b481f → ffb3daac218b481f.jpg per site;
+  c_984782b9e35e8ded → 984782b9e35e8ded.jpg per site); every button on every site's fit list has
+  row:true and has:true; no pageerror. The test checks presence + urls (not set equality), so a
+  future task adding rows sharing these ids won't false-fail it.
+- Case 5 (guards): served index.html contains src="review.js" exactly once; h-review / rvcount /
+  "Review (" all absent from the raw HTML; GET /review.js → 200 (10219 bytes).
+
+Field-name trap hit once: the item file field is `no_picture_found` (not no_picture); the test's
+seed helper passes `no_picture=item["no_picture_found"]` to `review.upsert_item`.
+
+Housekeeping for the next agent: leftover scratch artifacts in /tmp (rvtest24_*.py, rvtest24_*
+.log, probe2.js, probe4.js, rv24_*.png, rvtest24_url*.txt); a scratch serve.py may still be running
+on an ephemeral port — check `ps aux | grep -F serve.py` and kill by PID (NEVER `pkill -f serve.py`:
+the pattern matches your own shell's command line and kills the shell — it bit this session).
+Re-read (fresh eyes): web/review.js rvPatchStats (the stats line is located by the literal text
+'built in all' — silent disappearance if that sentence ever changes); web/review.js rvStartFitAt
+(the `await loadDeps` between setGround and startFit is load-bearing — do not reorder);
+tests/test_review.py `_shot`/`_probe` (shot.mjs contract: `<url> <png> [waitMs=8000] [1200] [800]
+[js]`, one argv element, no shell; the `[eval]` line is JSON.stringify of the probe's return);
+index.html line ~531 (`S.tab = lsGet('aw.tab', 'sites')` — review stays session-only by never
+writing 'review' there); tests/conftest.py line ~56 (temp tree EXCLUDES data/raw AND has no
+pipeline/ — that is why the worker dies on import, case 3).
