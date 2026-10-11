@@ -1,0 +1,52 @@
+{
+ "site": "serpent-mound-q968802",
+ "plan": "c_2c260a03d1f8df1c",
+ "crop": [
+  0,
+  0,
+  1280,
+  1883
+ ],
+ "pairs": [
+  [
+   350.0,
+   250.0,
+   -83.4333291,
+   39.0289975
+  ],
+  [
+   450.0,
+   550.0,
+   -83.4321727,
+   39.0263027
+  ],
+  [
+   350.0,
+   850.0,
+   -83.4333291,
+   39.0236077
+  ],
+  [
+   550.0,
+   400.0,
+   -83.4310164,
+   39.0276501
+  ]
+ ],
+ "label": "1848",
+ "title": "SD35 Serpent Mound Squier and Davis Plate XXXV",
+ "cite": "by Ephraim George Squier and Edwin Hamilton Davis; Public domain; https://commons.wikimedia.org/wiki/File:SD35_Serpent_Mound_Squier_and_Davis_Plate_XXXV.png",
+ "at": "2026-10-11T11:36:14.114222+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/serpent-mound-q968802/2c260a03d1f8df1c.jpg",
+ "ref": "File:SD35 Serpent Mound Squier and Davis Plate XXXV.png",
+ "size": [
+  1280,
+  1883
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "site": "serpent-mound-q968802",
+ "plan": "c_52dfe1fc979edf2c",
+ "crop": [
+  0,
+  0,
+  1280,
+  1086
+ ],
+ "pairs": [
+  [
+   150.0,
+   550.0,
+   -83.4362199,
+   39.0267518
+  ],
+  [
+   400.0,
+   350.0,
+   -83.4333291,
+   39.0285484
+  ],
+  [
+   250.0,
+   450.0,
+   -83.4350636,
+   39.0276501
+  ],
+  [
+   300.0,
+   400.0,
+   -83.4344854,
+   39.0280993
+  ],
+  [
+   350.0,
+   380.0,
+   -83.4339072,
+   39.0282789
+  ],
+  [
+   380.0,
+   360.0,
+   -83.4335603,
+   39.0284586
+  ],
+  [
+   420.0,
+   340.0,
+   -83.4330978,
+   39.0286382
+  ],
+  [
+   450.0,
+   330.0,
+   -83.4327509,
+   39.0287281
+  ]
+ ],
+ "label": "1902",
+ "title": "Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263)",
+ "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Harper%27s_New_Monthly_Magazine_Volume_104_December_1901_to_May_1902_(1902)_(14803170263).jpg",
+ "at": "2026-10-11T11:36:10.494728+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/serpent-mound-q968802/52dfe1fc979edf2c.jpg",
+ "ref": "File:Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263).jpg",
+ "size": [
+  1280,
+  1086
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "site": "mount-horeb-earthworks-complex-q6921321",
+ "candidates": [
+  {
+   "plan": "c_45d5d0b95cf55a09",
+   "title": "Grimes Village enclosure Squier and Davis Plate XIV Figure 4",
+   "url": "media/commons/mount-horeb-earthworks-complex-q6921321/45d5d0b95cf55a09.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Mount Horeb Earthworks Complex",
+    "file_cat": "Mount Horeb Earthworks Complex",
+    "via": []
+   },
+   "pairs": [
+    [
+     110.0,
+     280.0,
+     -84.4644518,
+     38.1579972
+    ],
+    [
+     650.0,
+     150.0,
+     -84.4581683,
+     38.1588955
+    ],
+    [
+     650.0,
+     400.0,
+     -84.4581683,
+     38.1544038
+    ],
+    [
+     120.0,
+     400.0,
+     -84.4644518,
+     38.1544038
+    ],
+    [
+     110.0,
+     350.0,
+     -84.4644518,
+     38.1562005
+    ],
+    [
+     650.0,
+     300.0,
+     -84.4581683,
+     38.1570989
+    ],
+    [
+     800.0,
+     350.0,
+     -84.4564546,
+     38.1562005
+    ],
+    [
+     380.0,
+     500.0,
+     -84.4612529,
+     38.1544038
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.0,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 71.51380647631706 m > 45.0 m",
+   "gate_score": 71.5
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

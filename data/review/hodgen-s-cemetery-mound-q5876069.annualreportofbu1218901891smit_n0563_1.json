@@ -1,0 +1,45 @@
+{
+ "site": "hodgen-s-cemetery-mound-q5876069",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0563_1",
+   "title": "Plan of Cemetery mouud, Mt. Vernon. Knox county, Ohio",
+   "url": "books/annualreportofbu1218901891smit/n0563.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     950.0,
+     1550.0,
+     -80.6970455,
+     40.1761921
+    ],
+    [
+     1150.0,
+     1550.0,
+     -80.6946941,
+     40.1761921
+    ],
+    [
+     1150.0,
+     1750.0,
+     -80.6946941,
+     40.1743955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7951,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Northwest corner of the mound, North-east corner of the mound, South-east corner of the mound, South-west corner of the mound; stated scale 0.400 disagrees with its own points (1.000 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

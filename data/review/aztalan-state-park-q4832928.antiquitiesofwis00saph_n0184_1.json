@@ -1,0 +1,120 @@
+{
+ "site": "aztalan-state-park-q4832928",
+ "candidates": [
+  {
+   "plan": "antiquitiesofwis00saph_n0184_1",
+   "title": "Map of Ancient Works at Aztalan",
+   "url": "books/antiquitiesofwis00saph/n0184.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Aztalan State Park",
+    "place": {
+     "state": "wisconsin"
+    },
+    "site": {
+     "id": "aztalan-state-park-q4832928",
+     "qid": "Q4832928",
+     "name": "Aztalan State Park",
+     "lon": -88.8629,
+     "lat": 43.0656,
+     "admin": {
+      "state": "Wisconsin"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1400.0,
+     500.0,
+     -88.8604346,
+     43.0691887
+    ],
+    [
+     1300.0,
+     1500.0,
+     -88.8610494,
+     43.0655955
+    ],
+    [
+     1200.0,
+     2500.0,
+     -88.8616642,
+     43.0620021
+    ],
+    [
+     1000.0,
+     2000.0,
+     -88.8641235,
+     43.0637989
+    ],
+    [
+     1500.0,
+     1000.0,
+     -88.859205,
+     43.0673921
+    ],
+    [
+     800.0,
+     1500.0,
+     -88.8665827,
+     43.0655955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.3623,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "ratio 'SCALE 4000 ft to an inch.' unusable: lapham_1855 scan ppi not recorded",
+   "why": "median residual 67.9303566261735 m > 45.0 m",
+   "gate_score": 67.9
+  },
+  {
+   "plan": "c_72088b09cf98fbec",
+   "title": "Aztalan Plate 34",
+   "url": "media/commons/aztalan-state-park-q4832928/72088b09cf98fbec.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Aztalan State Park",
+    "file_cat": "Aztalan State Park",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     300.0,
+     -88.8690419,
+     43.0682904
+    ],
+    [
+     300.0,
+     300.0,
+     -88.8665827,
+     43.0682904
+    ],
+    [
+     100.0,
+     500.0,
+     -88.8690419,
+     43.0664938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.0,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the main enclosure, North wall of the main enclosure, Southwest corner of the main enclosure, South wall of the main enclosure, West wall of the main enclosure, East wall of the main enclosure, River crossing on the west, River crossing on the east; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
