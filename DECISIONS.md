@@ -92,3 +92,24 @@ are the spike-7 record (this entry's predecessor). The one-shot run is now autho
 it happens next session, before fit_gate.py exists the table comes from the tool that implements exactly
 section 2. If the run shows more than 1-in-20 wrong acceptance, per the registered rule the thresholds are NOT
 re-tuned on the held-out set.
+
+### 2026-10-10 001 DECISION: pipeline/fit_gate.py written - full implementation of the frozen section-2 rule, proven by reproducing the spike-7 dev calibration exactly
+pipeline/fit_gate.py (the only new file this session): gate(pairs, transform=None) -> (verdict, stats),
+stats = {n, med, slope_o, io} all ground metres; transform is a Web-Mercator similarity (a, b) scored as
+T(w) = k(a w + b) with k = cos(mean anchor latitude), None = the canonical plan_fit.similarity (imported
+read-only, same code path - the canonical r equals plan_fit's own residuals to 6e-10 m); frozen constants
+N_MIN=3, RHO2_MIN=1.0 m^2, MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11, IO_MIN=-10 exactly as gate.md
+section 2; n<3 or sum(rho^2)<1 -> REJECT with nan pattern stats (checked: n=2 and 3-same-point both reject).
+Verification (throwaway /tmp/verify_fitgate.py; dev documents only, held-out still unread): all 12 dev docs x
+the 5 placements of section 4 reproduce every number recorded in section 5 to its stated precision - true med
+2.2-33.3 with 10/12 accepted (rejected: berkhamsted slope 0.2297, old-sarum c_8192 0.1611/io -20.3); moved med
+59.1-68.5; rot10 med 12.3-75.9, slope 0.1747-0.2296 (floor 2 sin 5 deg = 0.1747 exact); scale15 slope
+0.1305-0.2399 with exactly the 2 recorded accepts (castle-rising 15.8/0.1409/-8.7, whitley 11.7/0.1355/-7.4)
+= 2 of 48 wrongs (1 in 24); xsite med 19.5 km-7734 km. The one stumble this session was in my THROWAWAY script,
+not in fit_gate: composing a rotation/scale about the placement centroid as (s e^iθ a, (1-s e^iθ) C_m) moves
+anchors km-scale - b must be transformed too, b' = s e^iθ b + (1-s e^iθ) C_m (recorded as a PITFALLS entry with
+the five verified recipes). The existing suite (8 tests, other tasks') passes in 2.45 s. The driver's stale
+.venv/requirements.txt note is confirmed stale again (0 unpinned lines, pytest==9.1.1 pinned; the local venv
+was simply older than requirements.txt - I installed pytest 9.1.1 into the local venv to run the suite; the
+driver rebuilds the venv from requirements.txt before its own runs, so that is only a convenience). Next step:
+tools/gate_heldout.py (the next session), then the one-shot run.

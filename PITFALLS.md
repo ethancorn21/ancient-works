@@ -68,3 +68,15 @@ and the page polls `depictions.json` for the result.
 Why: `after_write()` wakes the worker only for the `platefits` collection (its comment records that a
 subprocess launched from the server silently died). GET-only tests are therefore safe and offline; a test
 that PUTs a platefit should poll the site's `depictions.json`, not run `plan_fit` itself.
+
+#### Composing a rotated/scaled Web-Mercator similarity about a centroid needs the full `a*w + b`, not just `a`
+Where: `pipeline/plan_fit.py` (`similarity`), `pipeline/fit_gate.py` (`placement`), anything that derives a
+wrong-placement variant of a fit (spike 7, `tools/gate_heldout.py`)
+Symptom: a 10 deg turn or 15% scale about the placement centroid built as (a', b') =
+(s*e^(iθ)*a, (1 - s*e^(iθ))*C_m) puts every anchor kilometres away (residuals ~4e6 m, gate kills the case
+for the wrong reason, and a per-case pattern like the 0.1745 rot10 slope floor no longer appears).
+Why: T'(w) = C + s*e^(iθ)*(T(w) - C) expands to s*e^(iθ)*T(w) + (1 - s*e^(iθ))*C, so b' must carry the
+transformed b, b' = s*e^(iθ)*b + (1 - s*e^(iθ))*C_m (C_m = C/k in Mercator metres; C the placement's ground
+centroid). The short form is only right when b = 0 (anchor centroid at the origin). The five verified
+recipes (they reproduce docs/gate.md section 5 exactly): true (a, b); moved (a, b + d/k); rot10
+(e^(i10°)*a, e^(i10°)*b + (1 - e^(i10°))*C_m); scale15 (1.15*a, 1.15*b - 0.15*C_m); xsite (a, b + (C_next - C)/k).

@@ -24,54 +24,73 @@ queue (GOAL.md point 1), so a strict gate is fine; a gate that accepts wrong fit
 - `docs/autofit.md` section 4, finding 2: random placements are not a fair null; a searched fit beats them easily.
 - The numbers here are the owner's intuition; settle a different number only with evidence of what he would notice.
 
-## Hand-over (iteration 5, agent c)
+## Hand-over (iteration 6, agent c)
 
-**Where I am.** `docs/gate.md` (pre-registration) is WRITTEN, VERIFIED and COMMITTED in this session — this
-commit is the registered version; it contains no held-out numbers (§9 is a placeholder). The 8 held-out docs
-remain UNREAD: this session touched only their file names (to re-verify the seed partition, which reproduced
-exactly: seed 20260108 → the 8 names in gate.md §3, dev = exact complement of 12). The one-shot run is the
-AUTHORIZED FIRST LOOK and must happen AFTER this commit (it does: next session).
+**Where I am.** Steps of the plan: (1) fit_gate.py = DONE this session, committed; (2) tools/gate_heldout.py
+= next; (3) one-shot run = the session after (or the same, after committing the tool); (4) tests/test_gate.py
+= after the run. `docs/gate.md` remains as committed in iteration 5 (the registered version); only its
+section 9 may change later (append-only, separate commit). The 8 held-out docs remain UNREAD — the one-shot
+run is still the authorized first look; do not open any held-out file by hand before it (names only, as the
+selection rule needs).
 
-**Next steps, in order (each can be its own session; gate.md §6/§8 define the rest):**
-1. `pipeline/fit_gate.py` — implement EXACTLY gate.md §2. Thresholds as module constants matching §2 verbatim:
-   N_MIN=3, RHO2_MIN=1.0 (m², degenerate: dev min Σρ² ≈ 7.5k m², so 1 m² is orders below any real input),
-   MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11, IO_MIN=−10 (m). `gate(pairs, transform=None) →
-   (verdict, stats)`; transform None → canonical `plan_fit.similarity` (Web-Mercator complex LS, k =
-   cos(mean-lat)); stats dict = {n, med, slope_o, io}. No images, no network, numpy-only; imports
-   `aw`/`plan_fit` read-only; header comment for CODEMAP.
-2. `tools/gate_heldout.py` — re-derives the partition from `data/db/platefits/` filenames with the EXACT rng
-   call of gate.md §3 (`default_rng(20260108).choice(20, 8, replace=False)` over sorted names); for each doc of
-   `--set {held (default), dev}` builds the 5 placements of §4 (true, moved 60/√2·(1+i) NE, rot10 about C,
-   scale15 about C, xsite = shift to next site's box-centre C_next = mean of that site's `corners` in
-   `web/data/sites.json`, Mercator ×k, held-out site ids sorted + cyclic — see §4 for the exact cycle) and
-   prints the table: doc | case | n | med | slope_o | io | verdict. Deterministic, offline, no writes outside
-   the repo, no ports.
-3. ONE-SHOT RUN (exactly once, this is the first look at held-out): `.venv/bin/python tools/gate_heldout.py`.
-   Capture output; append it as gate.md §9 in a SEPARATE commit; then evaluate §6: wrong ≤ 1 of 32 accepted,
-   true ≥ 4 of 8. If true < half: record numbers in §9, project sends every fit to the review queue (no
-   auto-accept). If wrong > 1-in-20: DO NOT re-tune (that voids the registration) — record in §9, review queue
-   absorbs it. Expected from dev: 0–2 wrong, 6–7 true.
-4. `tests/test_gate.py` — re-runs the same conjunction on dev + held-out (both in-repo, offline) and compares
-   against the committed golden (e.g. tests/golden/gate_heldout.txt: 40 held-out + 60 dev rows, from step 3's
-   `--set held` and `--set dev` output); also pins fit_gate's constants to gate.md §2. No fixed ports, no
-   network, writes only in project + temp dir.
+**What iteration 6 did.** Wrote `pipeline/fit_gate.py` implementing gate.md §2 exactly:
+`gate(pairs, transform=None) -> (verdict, stats)`, stats = {n, med, slope_o, io} (ground metres); transform is
+a Web-Mercator similarity (a, b) scored as T(w) = k(a w + b), k = cos(mean anchor latitude); transform None =
+the canonical `plan_fit.similarity` (read-only import, same code path — canonical r equals plan_fit's own
+residuals to 6e-10 m); constants N_MIN=3, RHO2_MIN=1.0 m², MED_MAX=45, SLOPE_MAX=0.145, SLOPE_PATTERN=0.11,
+IO_MIN=−10, verbatim from §2; n<3 or Σρ²<1 → REJECT with nan pattern stats. Proven correct without touching
+held-out data: a throwaway script ran all 12 dev docs × the 5 placements and reproduced every number recorded
+in gate.md §5 to its stated precision (true 10/12 accepted, rejected = berkhamsted slope 0.2297 and old-sarum
+c_8192 0.1611/io −20.3; moved med 59.1–68.5; rot10 med 12.3–75.9, slope 0.1747–0.2296 with floor 2·sin5°=0.1747
+exact; scale15 slope 0.1305–0.2399, the 2 accepted = castle-rising 15.8/0.1409/−8.7 and whitley
+11.7/0.1355/−7.4 = 2/48 wrongs = 1 in 24; xsite med 19.5 km–7734 km). Existing suite (8 tests of other
+tasks) passes, 2.45 s.
 
-**Team-mode boundaries (unchanged):** I own `pipeline/fit_gate.py`, `tools/gate_heldout.py`, `docs/gate.md`,
-`tests/test_gate.py` only. The 20 hand-fit docs in `data/db/platefits/` and `web/data/sites.json` are READ-ONLY
-(never change/delete — GOAL). The held-out docs' contents must first be read by the one-shot run, never by
-hand before it.
+**Next step: write `tools/gate_heldout.py` (step 2), commit it, then in the SAME or NEXT session do the
+one-shot run (step 3).** The tool (deterministic, offline, numpy-only, no ports, no writes outside the repo;
+usage `tools/gate_heldout.py [--set held|dev]`, default held):
+1. Re-derive the partition: names = sorted basenames (minus .json) of `data/db/platefits/*.json` (20);
+   held = {names[int(i)] for i in numpy.random.default_rng(20260108).choice(20, 8, replace=False)} — index
+   the list element by element, a Python list does not accept a numpy-array index; dev = the complement.
+   With `--set held` assert the derived 8 equal the names listed in gate.md §3 (fail loudly if not).
+2. For each doc D of the set, read its JSON (pairs = D's own pairs — the doc's `site` field is its site id).
+   Canonical: a, b = plan_fit.similarity(pairs)[:2]; k = aw.ground_scale(mean anchor lat); C = mean(k(a w + b))
+   (ground-metre centroid); C_m = C/k. The five placements, as (a', b') in Web-Mercator (verified this
+   session to reproduce §5; the full-transform form is a PITFALLS entry — do not use the short form):
+   - true: (a, b)
+   - moved: (a, b + 60/√2·(1+1j)/k)
+   - rot10: (e^(i·10°)·a, e^(i·10°)·b + (1 − e^(i·10°))·C_m)
+   - scale15: (1.15·a, 1.15·b − 0.15·C_m)
+   - xsite: (a, b + (C_next − C)/k), C_next = ground-metre box centre of the NEXT site of THIS set: site ids
+     of the set (doc["site"]), sorted, next index cycling (8th wraps to 1st for held; 12 dev docs for dev);
+     box centre = mean of the site's `corners` ([[lon, lat]...] in web/data/sites.json) → aw.to_merc → ×
+     aw.ground_scale(site lat).
+   Score each with fit_gate.gate(pairs, (a', b')).
+3. Print, for docs in sorted order and cases in order true, moved, rot10, scale15, xsite, one fixed-format
+   line each: `<doc>  <case>  n=<n>  med=<x.1f>  slope_o=<y.4f>  io=<z.1f>  <verdict>` (the exact stdout is
+   what gets appended to §9, so keep it machine-stable; no timestamps, no absolute paths).
+4. ONE-SHOT RUN (exactly once, first read of held-out contents, only AFTER the tool is committed):
+   `.venv/bin/python tools/gate_heldout.py`. Capture the stdout verbatim; in a SEPARATE commit append it to
+   gate.md §9 (replacing the placeholder) with a summary line: how many of the 32 wrong rows were accepted
+   and which, how many of the 8 true rows, and the verdict on §6's pass criteria (wrong ≤ 1/32; true ≥ 4/8).
+   Then evaluate §6: true < 4 → project sends every fit to the review queue (no auto-accept); wrong > 1/32 →
+   DO NOT re-tune (that voids the registration) — record the numbers, the review queue absorbs it. Do not
+   "peek" at held-out docs to check the outcome: the numbers come from the run.
 
-**Environment note:** `.venv` builds and works here (numpy 2.5.4, scipy 1.18.1, PIL import fine); the
-PROGRESS driver note "requirements.txt not pinned" is stale for this checkout (verified: every requirement
-pinned `==` with sha256 hashes; the unpinned-looking lines are `# via` comments). If the driver re-flags it
-after a merge, check whether another task's merge unpinned something in main first — requirements.txt is not
-in my Touches.
+**Step 4 (after §9 is committed):** `tests/test_gate.py` — re-run the conjunction on dev AND held-out via
+tools/gate_heldout (import it or call fit_gate directly), compare the generated table against the committed
+golden (e.g. tests/golden/gate_heldout.txt: the 40 held-out rows + 60 dev rows) and pin fit_gate's constants
+to gate.md §2 (a drift in a constant fails the test). No fixed ports, no network, writes only in project +
+temp dir. Note conftest.py exists but this test needs no server fixture — plain pytest is fine (pytest 9.1.1
+is in requirements.txt; the driver's venv rebuild picks it up).
 
-**Key facts (unchanged from iteration 4, authoritative record = DECISIONS.md spike-7 entry):** rule =
-REJECT if n<3 or Σρ²<1 or med>45 m or slope_o>0.145 or (slope_o>0.11 and io<−10); dev calibration: 48 wrong →
-2 accepted (castle-rising/whitley scale15, indistinguishable at n=4–6), 12 true → 10 (berkhamsted, old-sarum
-c_8192 have genuinely radial own-residuals); dev n = 3–6, max ρ = 86.6–530.5 m (checked this session,
-dev-only). Gate's documented blind spot = consistent global error (anchors AND placement off together) →
-backstop: GOAL pt 3 human 18/20 sample + review queue. Re-read after step 3: gate.md §9 — confirm the
-committed table matches a fresh `tools/gate_heldout.py` run (determinism check), and that no step-1/2 code was
-looked at for tuning (if you were tempted to, stop: it voids the registration).
+**Team-mode boundaries (unchanged):** I own pipeline/fit_gate.py, tools/gate_heldout.py, docs/gate.md
+(§9 append only — never touch §1–8), tests/test_gate.py, tests/golden/. The 20 hand-fit docs in
+data/db/platefits/ and web/data/sites.json are READ-ONLY (never change/delete — GOAL).
+
+**Environment note:** .venv here is current (numpy 2.5.4, scipy 1.18.1, pytest 9.1.1 — I installed pytest
+into the LOCAL venv this session for my own runs; the driver rebuilds its venv from requirements.txt before
+its test runs regardless). The driver's "requirements.txt not pinned" note in PROGRESS is stale for this
+checkout, confirmed twice (0 unpinned requirement lines; the `# via` lines are comments). If the driver
+re-flags it, check whether a merge into main changed requirements.txt — it is not in my Touches, so I cannot
+fix it in my branch.
