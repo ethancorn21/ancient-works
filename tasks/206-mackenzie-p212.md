@@ -39,12 +39,14 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 73 (2026-10-11, agent a) - sixth early bring-back (the driver brought 206 back again, 211+218
-STILL open, main STILL unmoved since iter 71: `git log agent/a..main` empty, main head f5ea863):
-re-ran the full verification battery - all 206-owned artifacts md5-identical to iters 66-72,
---check/--gate/4-tests green with byte-identical stats, full suite 59/5 with the same
-dependency-owned reds (211 x3, 218 x1, 300/301 x1), each red's live failure text re-captured.
-Deps already on the `Depends on:` line -> nothing to add, no stand-ins (team rule). Status stays open.**
+**Iteration 74 (2026-10-11, agent a) - seventh early bring-back, but main HAS moved since iter
+73 (f5ea863 -> cd104ca): 301's re-seed test landed (the 5th red, test_site_done, is now GREEN)
+and a HUMAN commit cd104ca replaced Maiden Castle's batch auto-fit with a hand-placed DPLA
+ground plan - cd104ca is NOT in my branch yet (driver merged main only up to 2eb60f2,
+merge-base 2eb60f2; team rule: I never merge; the driver brings it next session). Re-ran the
+full battery: all 206-owned artifacts md5-identical to iters 66-73, --check/--gate/4-tests
+green, full suite now 60 passed / 4 failed (down from 59/5): batch_eu x2 + serve (211's) and
+gate (218's). Deps 211+218 still open -> Status stays open.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
@@ -52,36 +54,53 @@ STATE at stop (all re-run this session, offline):
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
   residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
 - `tests/test_src_mackenzie.py`: 4/4 green (1.56 s, socket-boom fixture, no network).
-- All 7 committed artifacts md5-identical to iters 66-72: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
+- All 7 committed artifacts md5-identical to iters 66-73: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
   files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
   shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
   test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 59 passed, 5 failed (75.11 s) - the same set as iters 68-72, each red's live failure text
-  re-captured this session (none touches a 206 file):
-  1. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218): `gate_heldout held failed:
-     gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 21; the registered partition is
-     void, see docs/gate.md section 1` (the 21st doc is 206's shotwick doc; 218's box 4 names exactly this red;
-     218 Depends on 001 only and is waiting for an agent). Not a 206 fix; 206 never touches
-     tools/gate_heldout.py or tests/test_gate.py.
-  2. `test_serve::test_platefits_docs_match_sites` (211): `assert 'shotwick-castle-q7502621' in {site ids}`
+- Full suite: 60 passed, 4 failed (62.68 s) - DOWN from 59/5:
+  1. `test_batch_eu::test_union_check` (211's): `check["orphan_docs"] == []` fails with
+     `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:835). NOTE: the
+     assertion text moved vs iters 68-73 (`assert (not [...])` -> the `orphan_docs` check) - 301's
+     f0d8c0b merged main through; the CAUSE is unchanged: the shotwick doc is not in the EU batch union.
+  2. `test_batch_eu::test_union_full_coverage_live` (211's): same `orphan_docs` failure at :835, same
+     shotwick doc. The test is NOT skipped this time (docs/batch_eu.md "Sites run" matches the live EU
+     list), so the orphan check actually ran - the cause is still 211's merge adding the doc to the union.
+  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's): `gate_heldout held failed:
+     gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 21; the registered
+     partition is void, see docs/gate.md section 1` (unchanged in MY checkout: 21 = 20 registered + shotwick;
+     see the cd104ca note below - once the driver merges it the message will say **found 22**).
+  4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621' in {site ids}`
      - site unbuilt (catalog row exists by QID, extras intentionally absent). 211's merge build adds it.
-  3. `test_batch_eu::test_union_check` (211): `assert (not ['shotwick-castle-q7502621.c_e6e5490609414bb9.json'])`.
-  4. `test_batch_eu::test_union_full_coverage_live` (211): same missing doc in the batch union.
-  5. `test_site_done::test_site_done_line` (300's file, in 301's Touches): depictions.json byte compare at
-     index 35 (b'p' != b'm'): the test-built site expects kind "plan" first, the repo file has "map" first. The
-     compare target `web/data/sites/stonehenge-q39671/depictions.json` (reached THROUGH the per-site directory
-     symlink into the shared main-branch store) is UNCHANGED since the iter-67 observation: mtime
-     2026-10-11 14:48:36.649, 2 entries, both kind "map" (six-inch-1st 1842, os1inch 1900). Agent c is still
-     mid-301; it settles when 301 lands; NOT 206's to fix; do not "fix" it.
-- Deps status at stop: `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210 -
-  207 still in flight via 207a/207b/207c: 207a+207b open, 207c blocked on the human's Roy 1793 copy; per the
-  driver's prep note agent c is on 207b now), `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001
-  only; waiting for an agent). Both already on the `Depends on:` line (001, 200, 211, 218) -> nothing to add;
-  per the team rule no stand-ins were built; the driver brings 206 back once both merge.
-- Main-branch check: `git log agent/a..main` empty at session start (main head f5ea863, a lead web-only commit,
-  unchanged since iter 71); the tree is byte-identical to where iter 72 stopped (shared-store mtimes unchanged:
-  platefits dir Oct 11 14:04:44, 131 docs: 21 hand-fit incl. shotwick + batch docs; Stonehenge depictions.json
-  Oct 11 14:48:36.649; web/data/sites dir Oct 10 20:06:25).
+  5. `test_site_done::test_site_done_line` is NOW GREEN (passed, 3.93 s, verified in isolation): 301's
+     a749aa5 re-seeded the 7 fabricated Stonehenge docs into tests/golden/stonehenge_linecheck_docs/ and the
+     re-run is byte-identical - it landed on main and merged into my branch. The shared-store depictions.json
+     (mtime still Oct 11 14:48:36.649, unchanged) no longer trips it. Resolved by 301, never 206's fix.
+
+MAIN MOVED (since iter 73's f5ea863 head) - the commits and their effect on this task:
+- a749aa5 (301): test_site_done re-seed (red #5 gone, above).
+- f0d8c0b (301): Argentoratum through the line - all 8 batch docs were the fabricated pattern class,
+  sent to the review item (34 -> 42) and DELETED from the platefits store. Together with 7 more
+  Stonehenge-fabricated deletions that landed on main in the f5ea863..2eb60f2 window, the platefits
+  store in my checkout shrank 131 -> 116 docs (95 `auto: true` + 21 non-auto; the 21 = the 20
+  registered hand-fits + my shotwick doc - the SAME set the gate test observes).
+- 2eb60f2 ([lead] 302): lead only, no data.
+- **cd104ca (HUMAN, main head, NOT in my branch yet): "Maiden Castle: the owner placed the DPLA ground
+  plan by hand on the Mac page (3e7daea), copied here; it replaces the batch automatic fit."** It edits
+  `data/db/platefits/maiden-castle-q1232816.c_c20ff6b1f16d173d.json`: drops `"auto": true` and `"score"`,
+  new crop [165,256,895,663] of the 1280x889 DPLA scan, 3 hand-placed pairs, `"book": "Wikimedia Commons"`,
+  `at 2026-10-11T19:52:41Z`. CONSEQUENCES once the driver merges it into my branch (next session):
+  (a) gate_heldout's non-auto count goes 21 -> 22, so red #3's message becomes "found 22" - 218's
+  re-registration (its box 4) must absorb BOTH the shotwick and the maiden-castle-c_c20ff6b1f16d173d docs;
+  (b) the doc leaves the batch-auto population, so the batch union/"Sites run" expectations (203b's
+  fit/batch_eu.py - agent c, and 211's merge) may shift; that is their territory, never 206's to fix.
+  My 206-owned files are untouched by cd104ca. I did NOT merge it into my branch (team rule: no git merge
+  unless the prompt asks for merge resolution) - my checkout is at merge-base 2eb60f2, so all battery
+  results above are pre-cd104ca.
+- Deps status at stop: `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210;
+  207 still in flight: 207a+207b open, 207c blocked on the human's Roy 1793 copy; agent c on 207b/203b/302),
+  `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001 only; waiting for an agent). Both already
+  on the `Depends on:` line (001, 200, 211, 218) -> nothing to add; per the team rule no stand-ins built.
 - Nothing in this task's files changed this session (verification only); working tree clean apart from this
   memory update.
 
@@ -101,9 +120,9 @@ ALL COMMITTED ARTIFACTS (unchanged since iter 66/67):
 WHEN THE DRIVER BRINGS THIS BACK (after 211 + 218 merged): the ONLY remaining step is
 1. `timeout 300 .venv/bin/python fit/src_mackenzie.py --check` (expect exit 0, 1 pass) and
    `timeout 300 .venv/bin/python -m pytest -q tests/test_src_mackenzie.py` (expect 4 passed);
-   also re-run the full suite once and note the reds (211 should clear batch_eu + serve, 218 the gate one;
-   test_site_done should be green once 301 has settled the shared Stonehenge store - if it is still red,
-   it is 300/301's to fix, never 206's; if any red turns out to touch a 206 file, that is a regression to
-   investigate, not a known-red to ignore);
+   also re-run the full suite once and note the reds (211 should clear batch_eu + serve; 218 the gate one -
+   and if cd104ca has merged by then the gate red's "found N" should read 22 with 218's re-registration
+   covering shotwick AND maiden-castle-c_c20ff6b1f16d173d; test_site_done is green since 301's a749aa5 -
+   if any red turns out to touch a 206 file, that is a regression to investigate, not a known-red to ignore);
 2. if all green for this task: set `Status: done` and commit (`206: done - <one line>`). No further code
    work is expected.
