@@ -8,6 +8,8 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/303-fit-provenance.md` (in-progress) - hand-over: (iteration 93, agent a - MIGRATION DONE, code steps pending)
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -18,13 +20,32 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 303 DECISION: the provenance migration lands as data first - every existing doc stamped "by", golden re-keyed on by:hand
+Stamped all 116 existing platefit docs (the 21 hand fits = the 20 of the pre-migration golden +
+maiden-castle-q1232816.c_c20ff6b1f16d173d get "hand"; the 94 auto + shotwick's 206 agent doc get
+"agent"), before any code starts trusting the field - a migration ahead of the code keeps every
+parallel checkout consistent (the field is inert until the code reads it). fit/batch_us.py now
+stamps "by": "agent" in write_doc (batch_eu imports this writer, so both batches are covered) and
+write_golden keys the golden on by == "hand" instead of not-auto: the golden is the hand fits, and
+shotwick (an agent fit) drops out of it - regenerating with the old criterion would have pinned an
+agent doc as a hand fit. Regenerated golden = 40 lines (21 docs + 19 site.json), sha256sum -c OK.
+The "auto" field is untouched everywhere, so gate_heldout's 20-name derivation and the 802/218
+preconditions are unaffected. One side effect needed re-baselining: tests/golden/
+src_mackenzie_sample.json pins the shotwick doc byte-for-byte (206's golden) - regenerated with
+the module's own --golden flag, the mechanism its docstring names for exactly an intended change
+(206 is done; added the file to this task's Touches). The batch tests never regenerate or
+re-compare the golden set (they only require the golden files to stay byte-identical around a
+batch run), so no 203a/203b test edit was needed.
 
 ## Project-wide driver notes (newest)
 
-### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
-    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
-    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_gate.py:36: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    1 failed, 59 passed in 63.50s (0:01:03)
+    (full test output: .agent/reports/last-test-output.txt)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
     tests/test_batch_eu.py::test_union_check
