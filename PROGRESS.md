@@ -8,39 +8,13 @@ task file (for a subtask, read its parent's too).
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
 ## Next open tasks
-- `tasks/202-propose.md`
 - `tasks/215-books-llm-ports.md`
 - `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 213 DECISION: books step (box 5) - civitates worked in per-book files; views can't pass the machinery's plan-only index; shared-module gaps filed as 215/216/217
-civitatesorbiste00brau identified as **Liber secundus (1575)**, 292 leaves (from its imperial-privilege OCR
-page: "PRIVILEGIUM CAESAREAE MAJESTATIS ... Hogenberg ... vanden Noeurt ... Bruin ... Ciuitates Orbis
-Terrarum"). All six IA items in the BOOKS table are BookReader streams (jp2 + PDF + hocr OCR, unrestricted)
-- the OQ-2 style question is settled: every one is indexable by fetch/triageA. Stage A triaged the volume
-(background run this session; 262/292 at hand-over, 0 errors so far) - view plates come back
-other_illustration, the Jerusalem plan (n237/238) plate_site_plan. The DECISIVE fact: books_lists's
-taxonomy is kind s = plan view, kind o = "views, sections alone, ..." and cmd_index emits rows only for
-kind s - so a book of town views triages cleanly but indexes to nothing; the views cannot reach the map
-through the machinery as it stands. GOAL point 5 (2026-10-10) says views count as drawings, so the gap is
-real, not a 213 problem to fix inside its Touches. Decision: 213 owns the per-book files only (triage
-A/F, the hand list, the lead-doc status); the machinery extension is filed as three one-module tasks -
-215 (books.py LLM ports; no deps), 216 (books.py BOOKS entries for the six items; Depends 213+215), 217
-(books_lists lists + view-as-drawing index; Depends 216). No picture rows are staged by 213 for the books
-(there is no per-file Commons row to stage; the rows come via 211's rebuild once 217 lands).
-
-### 2026-10-11 213 DECISION: books.py LLM_URLS (18080/18081) are stale - the replicas serve on 8080-8082; 213 works around in-process
-books.py run_stage() exits "LLM tunnels 127.0.0.1:18080/18081 are down" on this machine: ss -ltnp shows no
-listener on 18080/18081, while the llmtunnel ssh forwarders (user llmtunn, running since Oct 6: -L
-127.0.0.1:8080/8081/8082 -> 10.0.10.75) answer /v1/models 200 on all three ports. 213 cannot edit
-pipeline/books.py (not in its Touches), so the throwaway driver /tmp/civitates_triage.py patches
-books.LLM_URLS in-process to the three live ports and injects BOOKS["civitates"] = dict(ia=
-"civitatesorbiste00brau", region="Italy", year=1575); the run is idempotent (latest row per n; error rows
-excluded from done). Filed as task 215 (port fix + a PITFALLS entry). The same trap will hit 207/208/209
-when they reach their triage B/F stages - 215 is their unblock.
 
 ### 2026-10-11 213 DECISION: iteration 25's orphaned triage process kept appending after the driver's snapshot commit
 The driver's "uncommitted work after iteration 25" commit captured civitatesorbiste00brau.A.jsonl at 191
