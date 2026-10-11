@@ -184,3 +184,93 @@ recompute, catalog snapshot, score 1.0/0, no why, not hand-rejected). (b) the ha
 Next: offline `record` on the real data files (38 sources rows + book rows), verify byte-identity of every
 pre-existing field, then `check` clean on the committed rows; `record --live` after that (fetch_file_item's
 file-item QID extraction still unverified - probe first).
+
+## 2026-10-10 200 DECISION: set_field dropped the line terminator - record would have glued jsonl rows; fixed before the first real run
+Where: fit/evidence.py (set_field, rewrite, record); tests/test_evidence.py (new test_record_appends_evidence_without_touching_existing_bytes)
+json.dumps never emits a trailing newline and record's rewrite() replaces whole lines via writelines, so every
+recorded line would have been concatenated with the next (corrupt jsonl). The bug was latent since iteration 10
+(the sample file predates the final set_field; record had never run on a real file). Caught this session by
+running the real set_field on a real line before the record run. Fix: set_field appends "\n" iff the input line
+ended with one. The new test runs the record CLI on a tmp fixture (a hand-tied, an unrecorded and a sentinel
+commons row, two book rows) and asserts: line count and terminators intact, untouched rows byte-identical,
+recorded rows keep every original byte as a prefix, "evidence" is the only and last key added. The test first
+failed after its own source rows got recorded (it compared against the raw line, which then contained the
+evidence key the fixture strips) - fixed to compare against the stripped fixture line; that comparison is what
+pins "extend rows, never move or delete them".
+
+## 2026-10-10 200 DECISION: check must use the matcher's own one-pair rule (books_match refactor) - the 52 spurious book FAILs are gone
+Where: pipeline/books_match.py (new row_inputs, score_candidate, site_toks, name_lookup_keys; match_row and load_catalog use them), fit/evidence.py (check_book_caption), data/books/index.jsonl
+check over the recorded book rows FAILed 52 of the 135 legitimate matches, two families: (a) "stored place
+state='ohio|wisconsin' recomputes to None" - match_row injects the book-scope default state (BOOK_SCOPE) into
+the place when the printed text names none; my check recomputed from printed text only. (b) "the row does not
+name 'X'" - the matcher ties rows by distinctive-token sharing and exact phrase/alias lookup (a title printing
+"Pulpit Hill" ties "Small multivallate hillfort on Pulpit Hill" via an alias; "The Square at Newark" ties
+"Newark Earthworks"); my check required the site's full name as a substring of the printed text - stricter than
+the rule the match was made under. Both are the same failure mode as iteration 11's name_keys bug: check
+re-stating the matcher's rules instead of using them. Fix per the module's own contract ("the check must use
+the matcher's own rules"): extracted the row-side extraction (row_inputs: toks, name_toks, place incl. the
+book-scope default, phrases, regions) and the per-candidate rule (score_candidate: region/state/county
+contradictions -> reject, county bonus, token share, exact bump, the three why clauses) from match_row into
+functions both sides share. check_book_caption now: recomputes the row side from the printed text (must equal
+the stored place dict exactly), checks the site snapshot (id/qid/name/lon/lat), the HAND table, then the
+matcher's one-pair evaluation (is_exact via the site's current lookup keys vs the row's phrase keys) must
+reproduce the stored score (round(…,2) equality) with an empty why and both thresholds. The runner-up margin
+stays stored (the catalog is not monotone - a new site can take the margin; a full re-run would fail on data
+growth, decided iteration 10). No record-format change was needed: tokens and place are recomputable from the
+printed text, so the existing "evidence/1" records work as is. The refactor was proven behavior-neutral with a
+one-off before/after run (matches.jsonl hash 30f099b1… and the stdout summary byte-identical; matches.jsonl left
+untouched in the tree) - deliberately no persistent golden, because tasks 204-211 grow index.jsonl/catalog and
+a pinned matcher output would break on their merges (PITFALLS entry). Result: check on the real files exits 0
+(2271 rows, 173 pass = 38 hand_tied + 135 book, 0 fail, 2098 no-tie); the sample verdicts are unchanged (golden
+intact); suite 12/12.
+
+## 2026-10-10 200 DECISION: box 2 ticked, box 1 deliberately NOT ticked (correcting the iteration-11 plan)
+Box 2 ("check re-verifies every row offline from the stored fields only and lists failures; it runs clean on
+the committed rows") is verified: the check path makes no network call, prints one line per row, lists failures
+(the sample golden pins that), and exits 0 on the committed real files. Box 1 says the evidence field goes in
+EACH picture row; after the offline record only the 38 hand-tied commons rows (plus all 890 book rows) carry
+it - the 1343 remaining commons rows need record --live, so box 1 stays unticked. The iteration-11 hand-over
+planned to tick box 1 after the offline record; a fresh read of the acceptance wording says that was premature.
+Box 3 is verified in the sample (the Hampton Court trap row is NONE-with-conflict, never a pass; no-tie rows
+are printed) and gets its real-data confirmation with the live record (no row with a stored conflict may ever
+carry a passing field).
+
+## 2026-10-10 200 DECISION: the P180 live route was broken (HTML scraping); replaced with a batched API route (local M<pageid> items, normalized-global chase), P6216 excluded
+Where: fit/evidence.py (fetch_page_ids, fetch_file_entities, live_evidence, record_live; fetch_file_item and the UA constant deleted), the depicts bullet of the module docstring, check_depicts
+Probing before the first live run (per the iteration-12 plan) showed the old fetch_file_item was wrong in
+two ways: (1) the item-QID patterns (ItemPage/(Q\d+), "wikibaseItem", "globalItem") match nothing, because
+old file pages carry only a LOCAL MediaInfo entity - the page's mw.config has "wbEntityId":"M<page id>"
+(M37646731 for the probe file) and the embedded JSON is that local entity's statements; (2) the P180|P6216
+regex matched P6216 *license* statements (Q19652 "public domain") and reported them as depicts values, and
+the only Q ids in the page at all were Q13414952 (MD5 - a P459 qualifier on the file's hash statement) and
+the license. So the route would have mis-recorded licenses as depictions and never found a real file item.
+Fix, verified with live probes: fetch_page_ids (action=query prop=info, 50/batch) gives the page id;
+fetch_file_entities then calls the Commons API wbgetentities with ids=M<pid> (the "site" parameter is
+rejected by the API but unnecessary; the local wiki returns the entity under "statements", not "claims")
+in batches of 50, and for pages whose local entity normalizes to a global item ({"normalized":{"item":"Q…"}}
++ missing) it chases that Q id through the Wikidata service. Only P180 is read as a depiction; P6216 was
+also removed from check_depicts (it is a license, never a depicts). The recorded "file_qid" is the item id
+actually used (M for local, Q for global). The probe files had no P180 at all, which foreshadowed the
+corpus-wide result (next entry).
+
+## 2026-10-10 200 DECISION: record --live batched + chunked; full run recorded all 1338 rows in one session - boxes 1 and 3 verified, task done
+Where: fit/evidence.py (record, record_live, live_evidence, resolve_places), data/commons/files.jsonl, tasks/200-evidence.md, tasks/801-evidence-no-tie-coverage.md
+Chose batched prefetch + chunked flush over the old per-row fetching: the old record_live_row did
+categories/claims/entities/HTML per row (1338 x 4+ requests, hours, and an all-or-nothing rewrite at the
+end). Now record_live prefetches once for all pending rows (file categories 50/batch, site claims 50/batch
+for 164 unique qids, page ids 50/batch, file entities 50/batch, place searches per unique name with one
+batched claims fetch, subcats lazily per site category and cached across rows) and computes each row's
+evidence offline from that context (live_evidence - no network in the row loop), flushing files.jsonl in
+chunks of 25 so an interrupted run keeps progress (a rerun skips rows on rec == "evidence/1"). The full run
+took well under an hour, hit no 429s (commons.get's Retry-After backoff stood by unused), and finished:
+825 category, 164 caption_coords, 38 hand_tied (earlier), 354 none (74 with stored conflicts, 280 plain
+no-tie). Result: every one of the 1381 titled commons rows + all 890 book rows carries evidence with
+specifics and a checked date (box 1); check exits 0 (1162 pass / 0 fail / 1109 no-tie) with the 74
+conflict rows stored none-with-conflict, never pass (box 3, real-data confirmation; the sample golden
+pins the same behaviour). 1343 lines of files.jsonl changed vs HEAD, every one byte-preserving with
+evidence the only and last key added; 147 lines untouched; books file byte-identical; 12/12 tests.
+Measured corpus fact: the depicts kind has 0 hits - no site item lists any of these files in P3311/P18
+(those files are in the category too and take the category kind first) and no file item depicts the
+site's item; the route stays implemented and is pinned by the sample golden (a PASS and a FAIL P180
+row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the acceptance wording
+allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
