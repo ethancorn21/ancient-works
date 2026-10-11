@@ -34,3 +34,6 @@ data/sites/*/dem_credit.json
 web/data/amazon/
 data/db/marks/
 data/db/surveyseen/
+
+# harness (agent-loop): per-checkout state and logs
+.agent/
