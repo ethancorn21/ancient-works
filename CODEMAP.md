@@ -94,7 +94,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## server/
 - `server/relief_tiles.py` (256 lines) - Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17. Exports: Unavailable L43-44, Cancelled L47-48, covered L224-226, tile L229-256.
-- `server/serve.py` (288 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L51-215, after_write L221-244, lan_address L247-256, main L259-288.
+- `server/serve.py` (296 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L53-223, after_write L229-252, lan_address L255-264, main L267-296.
 
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
