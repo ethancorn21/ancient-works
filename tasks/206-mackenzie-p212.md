@@ -39,80 +39,79 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 77 (2026-10-11, agent a) - TENTH early bring-back; main UNMOVED since iter 75
-(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/84, all +84
-commits driver bookkeeping on my branch - zero tree change since iter 76's stop). All
-206-owned work re-verified green and byte-identical to iters 66-76 (all 8 md5s stable);
-the 4 suite reds unchanged in cause (211 x3, 218 x1; gate still "found 22": 94 auto +
-22 non-auto in the shared store). Deps 211+218 still open -> Status stays open. No code
-or data change this session (none available: the only remaining work is owned by 211/218).
-Re-run the same battery at the next bring-back; when 211+218 have merged, expect 0 reds
-(or reds no longer touching this task's files) and set done.**
+**Iteration 78 (2026-10-11, agent a) - ELEVENTH early bring-back; main UNMOVED since iter 75
+(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/87, the +3 over
+iter 77 are driver bookkeeping on my branch only: 5ad5e72, 96bc102, b3e0458 - zero tree change
+since iter 77's stop). All 206-owned work re-verified green and byte-identical to iters 66-77
+(all 8 md5s stable); the 4 suite reds unchanged in cause (211 x3, 218 x1; gate still "found
+22", store re-counted 116 docs / 94 auto / 22 non-auto). Deps 211+218 still open -> Status
+stays open. No code or data change this session (none available: the only remaining work is
+owned by 211/218). Re-run the same battery at the next bring-back; when 211+218 have merged,
+expect 0 reds (or reds no longer touching this task's files) and set done.**
 
 STATE at stop (all re-run this session, offline):
-- `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
+- `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
+  (PASS category shotwick-castle-q7502621|File:212 of 'The Castles of England...').
 - `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
-  'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
-  residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.55 s, socket-boom fixture, no network).
-- All 8 committed artifacts byte-identical to iters 66-76 (re-checked this session): src_mackenzie 77a47defd606a8599e3af9e28b74894f,
-  files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
-  extras_mackenzie a7060e1292d2607c657a43200dd20b94 (new in this list - see the correction),
-  shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
-  test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 60 passed, 4 failed (62.38 s) - the same 4 as iters 74-76, causes re-verified live:
+  'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc,
+  rot -0.20 deg, residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc
+  and the golden (verified by byte-identical md5s; not re-run this session, unchanged tree).
+- `tests/test_src_mackenzie.py`: 4/4 green (1.53 s, socket-boom fixture, no network).
+- All 8 committed artifacts byte-identical to iters 66-77 (re-checked this session):
+  src_mackenzie 77a47defd606a8599e3af9e28b74894f, files_mackenzie f637c4bebbd98ebb059652936e06646d,
+  classified_mackenzie 2ed56b79bbd356aced13230978e8536f, extras_mackenzie
+  a7060e1292d2607c657a43200dd20b94, shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2,
+  lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4, test_src_mackenzie
+  ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
+- Full suite: 60 passed, 4 failed (62.54 s) - the same 4 as iters 74-77, causes re-verified live:
   1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
      `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
-  2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not skipped;
-     the live EU list matches docs/batch_eu.md "Sites run").
+  2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not
+     skipped; the live EU list matches docs/batch_eu.md "Sites run").
   3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's):
-     `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` - 20 registered
-     hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc (store re-counted
-     this session: 116 docs, 94 with auto:true, 22 without). 218's box 4
-     re-registration must absorb BOTH new docs; 218 still open, Depends on 001 only, waiting
-     for an agent.
-  4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621' in
-     {site ids}` - the site is unbuilt in web/data/sites; 211's merge build adds it (it reads the
-     extras row below; the catalog's sites.jsonl already carries the same id by QID with the
-     fuller record).
-- test_site_done still green (301's a749aa5 Stonehenge-line re-seed is on main since the
-  f5ea863..cd104ca window and stayed byte-identical through the iter-75 merge - passed in this
-  run too).
-- Nothing on main moved since iter 75 (head cd104ca; `git diff --stat main agent/a --
-  data/db/platefits` = the shotwick doc only, i.e. my 206 work awaiting acceptance). The shared
+     `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` - 20
+     registered hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc
+     (store re-counted this session: 116 docs, 94 with auto:true, 22 without). 218's box 4
+     re-registration must absorb BOTH new docs.
+  4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621'
+     in {site ids}` - the site is unbuilt in web/data/sites; 211's merge build adds it (it
+     reads the extras row below; the catalog's sites.jsonl already carries the same id by QID
+     with the fuller record).
+- test_site_done still green.
+- Nothing on main moved since iter 75 (head cd104ca; `git diff --stat main agent/a` = the 8
+  206-owned files + memory-file diffs only, i.e. my 206 work awaiting acceptance). The shared
   store (data/db/platefits, web/data/sites) is main-branch-backed: my shotwick doc and the
-  human's maiden-castle doc are both visible to every agent's suite, which is exactly what the
-  gate/batch/serve reds key on.
+  human's maiden-castle doc are both visible to every agent's suite, which is exactly what
+  the gate/batch/serve reds key on.
 
-ALL COMMITTED ARTIFACTS (unchanged since iter 65/66; the eight-file list below is CORRECTED
-this session - hand-overs 66-75 dropped the extras file and wrongly called it "intentionally
-absent"):
-- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks live
-  facts if the driver ever flags drift; `check()` REQUIRES exactly one extras row with
+ALL COMMITTED ARTIFACTS (unchanged since iter 65/66; the eight-file list is the corrected one
+from iter 76):
+- `fit/src_mackenzie.py` (stage/fetch/sheet/gate; staging idempotent; `--verify` re-checks
+  live facts if the driver ever flags drift; `check()` REQUIRES exactly one extras row with
   aerial_ok - the file below is part of the contract, not optional),
-- `data/commons/files_mackenzie.jsonl` (1 row, 200 category evidence, site by existing QID),
+- `data/commons/files_mackenzie.jsonl` (1 row, 200 evidence field, site by existing QID),
 - `data/commons/classified_mackenzie.jsonl` (1 row, plan, by=hand),
 - `data/catalog/extras_mackenzie.jsonl` (1 row: id shotwick-castle-q7502621, QID Q7502621,
   aerial_ok true, source fit/src_mackenzie.py, note "built for the 1897 plan (task 206)").
   This is the task Notes' "the picture is the reason to build": 211 merges it into the
   canonical extras.jsonl and builds the unbuilt site with the plan already tied. It coexists
-  with (does not duplicate) the catalog's sites.jsonl row of the same id: check() only forbids
-  the id in the canonical extras.jsonl, and the note says the fuller sites.jsonl record reads
-  first. Tracked since ab899eb (driver commit after iter 65); never modified since.
-- `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840 crop,
-  4 corner pairs),
+  with (does not duplicate) the catalog's sites.jsonl row of the same id: check() only
+  forbids the id in the canonical extras.jsonl, and the note says the fuller sites.jsonl
+  record reads first. Tracked since ab899eb (driver commit after iter 65); never modified.
+- `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` (full-frame 839x840
+  crop, 4 corner pairs),
 - `docs/lead_mackenzie.md` (says "26 rows" for the sources.py table - the task's "29" is the
   book-level count; do not "correct" it; L195-196 document the extras row),
 - `tests/test_src_mackenzie.py` + `tests/golden/src_mackenzie_sample.json`.
 - V2 OCR re-download recipe (if the driver ever flags drift): archive.org item
-  castlesofengland02mack, files castlesofengland02mack_hocr_searchtext.txt.gz / ..._hocr_pageindex.json.gz
-  / ..._page_numbers.json (pageindex rows = [textStart, textEnd, byteStart, byteEnd] text
-  offsets, NOT leaves; pagenums maps leafNum->pageNumber as strings).
+  castlesofengland02mack, files castlesofengland02mack_hocr_searchtext.txt.gz /
+  ..._hocr_pageindex.json.gz / ..._page_numbers.json (pageindex rows = [textStart, textEnd,
+  byteStart, byteEnd] text offsets, NOT leaves; pagenums maps leafNum->pageNumber as strings).
 
-DEPS at stop (both already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
+DEPS at stop (all already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
 stand-ins per the team rule):
 - `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210; agent c
-  on 207b/203b/302a, 207c blocked on the human's Roy 1793 copy) - owns 3 of the 4 reds
+  on 203b/207/302a, 207c blocked on the human's Roy 1793 copy) - owns 3 of the 4 reds
   (batch_eu x2 + serve): its merge build adds the shotwick doc to the batch union and builds
   the site.
 - `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001) - owns the 4th:
@@ -123,8 +122,8 @@ WHEN THE DRIVER BRINGS THIS BACK (after 211 + 218 merged): the ONLY remaining st
    `timeout 300 .venv/bin/python -m pytest -q tests/test_src_mackenzie.py` (expect 4 passed);
    also re-run the full suite once and note the reds - if 211+218 have merged, expect 0 reds
    (211 clears batch_eu x2 + serve; 218's re-registration clears the gate one with 22 docs:
-   20 registered + shotwick + maiden-castle-c_c20ff6b1f16d173d; if more reds appear, they must
-   come from other in-flight tasks - any red touching a 206-owned file is a regression to
-   investigate, not a known-red to ignore);
+   20 registered + shotwick + maiden-castle-c_c20ff6b1f16d173d; if more reds appear, they
+   must come from other in-flight tasks - any red touching a 206-owned file is a regression
+   to investigate, not a known-red to ignore);
 2. if all green for this task: set `Status: done` and commit (`206: done - <one line>`). No
    further code work is expected.
