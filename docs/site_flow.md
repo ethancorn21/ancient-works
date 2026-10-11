@@ -125,3 +125,98 @@ it only deletes a document whose page-px pairs match the fabrication pattern (th
 goes to the review item first), so the rest of `data/db/platefits/` is byte-identical across
 runs — never another site's files, and never the 20 hand-fit documents
 (`tests/golden/hand_fit_docs.sha256` stays green).
+
+## The one-shot held-out measurement of the ink fit (task 302b, pre-registered before the run)
+
+Pre-registered 2026-10-11, before any document of the set below was measured. The method is
+`fit/inkfit.py` as of commit f7dbba6 (task 302a, done). The run happens ONCE per document,
+after this commit, and the table below is pasted verbatim from the checkpoint
+(`data/inkfit/heldout/results.json`) - no cherry-picking, no re-tuning of anything on this
+table (the single exception the parent task authorises: the sync/review confidence threshold,
+set on this table and applied in 302c).
+
+**The method never sees the hand fits.** `fit/inkfit.py` reads only the site catalog
+(`web/data/sites.json`), the plate image and the site's relief; it never opens a platefit
+document. The comparison with the hand fits happens only in the evaluator,
+`fit/inkfit_heldout.py`, which reads each hand document's stored pairs solely to compute the
+numbers in this table. The 21 documents below are the held-out truth set; no parameter of the
+method is chosen or adjusted against them.
+
+**The 21 held-out documents (sorted; the original 20 of `tests/golden/hand_fit_docs.sha256`
+plus the lead's 21st, the DPLA Maiden Castle plan - all verified to carry no `auto` flag as of
+this commit; 19 sites, Maiden Castle and Old Sarum twice each):**
+
+1. arbor-low-q630312.earthworkenglan01allcgoog_n0597_1
+2. avebury-q661855.earthworkenglan01allcgoog_n0581_1
+3. aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1
+4. badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1
+5. bergues-q244934.c_4bbca705be732b1c
+6. berkhamsted-castle-q4892150.c_1699141d593ead5a
+7. cadbury-castle-q1025082.c_1fab2a0abe5b99d7
+8. cahokia-q333661.c_aff1b996dce7fe3a
+9. calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1
+10. camp-d-attila-q18749222.c_6a912845c1e1aa28
+11. castle-rising-castle-q1049485.c_70f937b71ae63d6a
+12. hembury-q3784763.earthworkenglan01allcgoog_n0108_1
+13. little-solsbury-hill-q548780.c_7ff7261c6b3574b6
+14. maiden-castle-q1232816.c_c20ff6b1f16d173d
+15. maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1
+16. mayburgh-henge-q1469390.c_984782b9e35e8ded
+17. mound-bottom-q14710093.c_0b98157d7af17d6e
+18. old-sarum-q782719.c_8192abb966d030a3
+19. old-sarum-q782719.earthworkenglan01allcgoog_n0142_1
+20. serpent-mound-q968802.ancientmonuments00squi_n0210_1
+21. whitley-castle-q7996561.c_802bb5ba395d4d29
+
+**Frozen configuration (all in `fit/inkfit.py`; unchanged after this commit except bug fixes):**
+- Ink extraction: `pipeline/autowalls.py` frozen config (docs/autofit.md section 3): ink level
+  0..1 from grey (paper 85th / ink 1st percentile), 20 px border zeroed, Frangi sigmas
+  (4, 6, 9) px beta 0.5 gamma 0.013, threshold 0.25, skeletonise, drop pieces under 50
+  skeleton px or 50 px bounding box, 25 px orientation coherence >= 0.6, length filter,
+  structure-tensor normals (4 px), about one skeleton pixel in two kept as template points.
+- Variant: **no-model** - the AI box is not reachable from this VM, so there are no
+  blanking boxes and no per-piece keep/drop: every surviving piece is kept (the model step
+  is injectable but is not used in this run).
+- Relief: `dem_sources` at 1.0 m/px (PX_M) over the catalog `site_bbox` (the site's `size_m`,
+  all 19 sites have one), local relief = DEM minus a 24 m-radius smoothed copy, clipped to
+  +/-1 m, water (flood plain) and OSM modern features masked to NaN.
+- Seed (never a coordinate): `fit/propose.py` anchor - scale from the scale bar, else the
+  ratio text at the book's recorded ppi, else the picture size; north from the arrow unless
+  untrustworthy, else north-up; centre the site.
+- Search: the seed is the only anchor; window rotation +/-25 deg, scale x0.74..x1.36, centre
+  +/-200 m; coarse grid rotation 2 deg / scale 0.04 log / 4 m cells (FFT correlation of the
+  rendered template against 8 per-direction contrast images), top 3 peaks per map per seed,
+  8 best distinct candidates (apart by >4 deg / >8% scale / >30 m), pattern-search refine
+  (1/0.5/0.25 deg, 2/1/0.5%, 4/2/1 m), n_refine = 8.
+- Objective: mean over template points of max(contrast, -0.2 m) (fit_plate's ridge contrast:
+  the line minus the higher of its two sides 20 m away, on the LRM); a placement with fewer
+  than 50% of its points on valid relief scores -9.0 (no fit).
+- **Null recipe (search-matched):** the SAME search (identical seed, window, grid, refine)
+  run twice more: (a) on a scrambled template - each piece rigidly rotated U(0, 2 pi) about
+  its centroid, centroid translated U(-0.4, 0.4) of the panel extent in x and y, clipped to
+  the panel, normals rotated with the piece, one seeded RNG (seed 20261012, pieces in
+  order); (b) on the DEM shifted half the box north and half the box east (the LRM grid
+  shifted -H/2 and +W/2 px, order 0, NaN fill; the masks' NaN holes move with the terrain).
+  null = the HIGHER of the two null objectives; margin = objective(fit) - null.
+- Reported points: per piece the two points nearest the 0.23 / 0.71 quantiles of its own
+  principal axis, at most 2 per piece, longest pieces first, at most 10 in total, at least 4;
+  redrawn (quantiles jittered +/-0.03, seeded 20261012) until `plan_fit.fabrication_pattern`
+  is silent, 8 attempts; the final pattern check is re-run on the mapped pairs (a firing is
+  a method defect, recorded, never edited away).
+- Gate: the frozen `fit_gate.gate` (docs/gate.md section 2) on the method's own reported
+  pairs with the method's own placement as the transform.
+- One-shot: the runner checkpoints per document into `data/inkfit/heldout/results.json` as
+  each document completes (a cut session resumes from the checkpoint); each document is
+  measured exactly once; network (DEM / big pictures) is used only in this working phase.
+
+**Corner-error metric.** Both similarities are Web-Mercator similarities in the document's
+size frame, `merc = a * (u - i v) + b`: the hand fit's from `plan_fit.similarity` on the
+document's stored pairs, the method's from its placement. Let (W, H) be the size frame and
+C the four full-image corners (0,0), (W,0), (W,H), (0,H). Corner error (ground metres) =
+k0 * sqrt( mean over C of | (a_m - a_h)*(u - i v) + (b_m - b_h) |^2 ), where the term in
+brackets is in Web-Mercator metres and k0 = aw.ground_scale(lat0) (ground metres per
+Mercator metre at lat0, the mean of the hand pairs' latitudes) converts it - the
+`autofit.Site.corner_rms` convention (four full-image corners, two placements, ground
+metres). Rotation error = arg(a_m) - arg(a_h) normalised to (-180, 180] degrees. Scale
+ratio = |a_m| / |a_h|. A document the method could not place gets the method's reason
+instead of the three numbers.
