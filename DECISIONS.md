@@ -226,3 +226,61 @@ WHY NOT ELSE: tests/test_review.py is not on my Touches line and is 803's to cha
 RE-VERIFY ON RETURN: when 802 comes back (803 merged into main), run the full suite; expect 0
       failed; re-file the done claim. If my two files are red, check `git log` on them since
       af830fb first.
+
+## 2026-10-11 803 DECISION: re-baseline the review-queue tests to DERIVED expectations (human-approved via ask 002, implemented by the 203a holder); both states verified, done
+
+CONTEXT: the driver handed 802 back at iteration 47 (my Depends-on-803 park did not stop the hand-out),
+      and .agent/asks/002.md carried the human's (lead claude) answer: "approved, your recommendation.
+      You get 802 as a job now, then 803, then 203a again to re-file the done claim. Add only the files
+      those two tasks name to their own Touches lines." 802's implementation had already landed (af830fb),
+      so this session did 803 - the only red in the suite and the blocker on both done claims. I (agent c)
+      own 803 (I filed it from 203a iteration 41), and the human's approval covers editing its file;
+      each task keeps its own Touches line (no cross-additions, per the answer). 201's writer, the page
+      and all data files are untouched (box 3).
+WHAT: tests/test_review.py only. (1) test_export_cli: the expected stdout "N open of M items", the open
+      list and every per-item field (name from web/data/sites.json with id fallback, lead = first
+      candidate's plan, candidates and no_picture_found VERBATIM) are computed from the temp queue through
+      review.resolved_doc (recorded field, else any candidate's platefits doc) and the export's documented
+      stable name-sort - new in-test helpers _open_items(tree)/_site_names(root); a n_total >= 1 guard
+      kills vacuous passes. (2) test_page_shows_the_review_list: tab label "Review (N)" (bare "Review" at
+      N=0), the stats clause "\u00a0\u00b7 N review item(s) open" (absent at N=0, "nothing left to review"
+      instead), rvn == N, and the list phrases derived from the first open item (name, head, first
+      candidate title, or the no-picture searched text) plus the first open item that HAS candidates;
+      the 404/boot/no-error checks are unchanged. (3) test_save_resolves_the_item: the doc is built from
+      the web/data/plans.json ROW exactly as the page's saveFit does (ia/file/label/book/cite from the row,
+      crop = map_box x size, src 'book', url/ref from the row; pairs from the item's candidate entry = the
+      human's proposed pairs), never from the item entry's stored fields (which 203a's upsert replaced
+      with its slim shape - the original KeyError 'map_box'). The pick is deterministic: first plans.json
+      row (file order) with ia+map_box+size whose site has an OPEN item carrying that candidate - post-batch
+      (fort-ancient-q5470727, ancientmonuments00squi_n0076_1); the 4s worker poll, the snapshot and the
+      resolved/round-trip checks are unchanged. ALLIGATOR/BIBRACTE/LEAD constants deleted.
+EVIDENCE (the two-state bar, both directions verified): POST-BATCH (this branch, 89 items, 88 open):
+      full suite `.venv/bin/python -m pytest -q` = 38 passed / 0 failed (42.9s, headless ran). PRE-BATCH:
+      /tmp/prebatch-803 = this checkout with 203a's data diff inverted (the 103 data/ A-files removed -
+      16 auto platefits + 87 review items; the one data/ M, alligator's item - restored from main;
+      203a touched no other data/), then tests/test_review.py + tests/test_gate.py run with the project's
+      .venv: 7 passed (31.4s). The derivation reduces exactly to the old pins pre-batch: "2 open of 2",
+      open list [alligator, bibracte], Review (2) / rvn == 2 / "2 review items open", pick
+      (alligator, ancientmonuments00squi_n0214_2); the bibracte no-picture check survives as "first
+      remaining open item served verbatim". The temp tree was deleted after the run.
+BOOKKEEPING: 803 set done (all three boxes ticked on the evidence above); 802's done claim re-filed in the
+      same commit (a35c37c) - its only rejection reason (the suite red on 803's tests) is gone. The
+      tests/test_review.py change was UNCOMMITTED when the session hit its context limit; the harness
+      saved it for the next agent, which commits it first (exact wording in the 802 hand-over).
+FOLLOW-UP (optional, next session): a PITFALLS entry under This codebase / fit/ - "batch upserts replace a
+      review item's rich candidate entries (201's map_box/ia/file/label/book/cite) in place with the
+      batch's slim shape (plan/title/url/evidence/pairs/why/gate_score, no map_box); web/review.js
+      rvResolveRow falls back to the plans.json row for those fields, so tests build save docs from the
+      row. Symptom: KeyError 'map_box'."
+
+## 2026-10-11 802 DECISION: iteration 47 - done claim re-filed on a green suite (803's tests fixed per the human-approved sequence); implementation unchanged since af830fb
+
+The driver's rejection of the iteration-45 claim was purely the suite being red on 803's three
+      test_review.py pins. The human's ask-002 answer approved the 203a holder (me) to implement 803
+      next, so this session did exactly that (entry above): the full suite is now 38/38 green on this
+      branch and the 802/803 pair also verified green on a reconstructed pre-batch tree (7/7 for
+      test_gate + test_review). Nothing in 802's two files changed this iteration (af830fb stands;
+      `git log` on tools/gate_heldout.py and tests/test_gate.py since af830fb is empty), so both boxes
+      stay as verified in iteration 45 and Status goes back to done, awaiting the driver's re-check.
+      If the re-check fails again, its reasons will name the failing tests; given the two-state
+      evidence above, that would point at driver-side or main-side drift, not at this implementation.
