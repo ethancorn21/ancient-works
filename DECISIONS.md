@@ -183,3 +183,25 @@ metadata verified, untriaged = 216/217 follow-on scope. Box 6 verified: git stat
 docs/lead_artists.md; scoped diff of books.py/books_lists.py/index.jsonl/validation.json/triage/fit
 = 0 lines. The parent 213 keeps its own lead-doc duties (QID table, --check/--golden, test,
 PITFALLS entries) - untouched this session; parent's box 5 stays unticked (213b's work not in).
+
+## 2026-10-11 213a DECISION: iteration-36 re-verification of all six boxes from scratch; set Status: done (iteration 35 left it "open")
+Every box re-checked against the committed files, not the notes: (1) the list file parses to
+{"plates": null, "figures": [121]} sorted by unique fig; the fig set equals EXACTLY the A file's
+118 other_illustration + 3 plate_site_plan (A187/199/238) rows; kinds s7/u3/o111, kind_by hand
+30/A 91; every kind_by "A" title equals the A caption (0 mismatches outside the two recorded
+corrections fig 50 "Cum Privilegio" / fig 198 "MEDIOLANVM"); the 14 empty-caption leaves all carry
+the section city name; non-null pages are only fig 193 "2" / fig 194 "3" - correct against the
+source civitatesorbiste00brau_page_numbers.json, whose leafNum is 1-BASED (leafNum 193-196 = "1"-"4",
+280-284 = "I"-"V"), so fig (0-based) 193 = leaf 194 = printed "2", fig 194 = leaf 195 = "3"; no
+figure leaf falls in leaves 279-283. (2) The 11 box-2 leaves are all kind_by hand in the list
+(n51 is the one exception by design: a blank/faded verso, not a figure leaf - no entry needed,
+read recorded in iteration-30's entry). (3) s-hand = 58/85/90/98/109/237/238, u-hand = 187/197/199,
+FEDERATORVM 157/158 = o. (4) .map.json = []. (5) Read the lead-doc books section in full - it
+carries the goal's (a)-(f) incl. the 216 cite-string column. (6) git log of the four 213a commits
+touches only the three Touches files plus the task file and DECISIONS.md (memory files); books.py,
+books_lists.py, index.jsonl, validation.json, the triage A/F files, fit/, PITFALLS.md untouched.
+Ran the full test suite in the existing .venv: 29/29 pass in 36 s (the driver's .venv REBUILD from
+requirements.txt is the known project-wide failure - unpinned hashes, driver note 2026-10-10; the
+existing .venv lacks pyshp but no test path imports it, so the suite is green as-is; fixing the
+pinned build is not in 213a's Touches). Choice: set Status: done - the driver's re-check should
+find all boxes ticked and the suite green.
