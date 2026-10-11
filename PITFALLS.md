@@ -76,6 +76,11 @@ Where: `web/index.html` (MapLibre map, `boot()`), `tools/shot.mjs`
 Symptom: none fatal. Only WebGL performance warnings (`GPU stall due to ReadPixels`) and two harmless 404s (`data/scans.json`, `data/amazon/areas.json` — both `.catch(() => [])`'d in boot, and absent from web/data).
 Verified 2026-10-11, Chrome 155, against a temp-tree `serve.py --port 0` copy: eval after boot reports `ready: true`, 384 sites, 1166 plans, the Sites tab with its stats line rendered; screenshot shows the globe and site list. So page-level tests (task 201's review list) can run headless here. shot.mjs's macOS flag `--use-angle=metal` is silently ignored on Linux; the 404s are also visible as `[console] error` lines from the browser's own network logging, not as `[reqfail]`.
 
+#### data/raw in the repo is a symlink to a sibling project - copies follow it, `du` shows 0
+Where: `data/raw` (-> /home/agent/projects/ancient-works/data/raw), `tests/conftest.py` (the temp-tree copy), any scratch `cp -r` of the project
+Symptom: `du -sh data/raw` reports 0, and `ls data/raw` looks nearly empty at the link level, so a scratch tree built by `cp -r data /tmp/...` appears raw-less - until the server happily serves 1.4G of real book scans and Commons images through the link.
+Why: `du`/`cp` without following links treat it as an empty directory; the target holds the real raw data (books ~1.4G, commons ~439M, aerial ~1.5M). Consequence: a /tmp scratch tree DOES serve pictures (use that to test happy paths headless), while the pytest temp tree - conftest.py excludes `data/raw` by path when copying - genuinely has none, so book/media images 404 there (the fit tool's "Could not load the page scan." path).
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.

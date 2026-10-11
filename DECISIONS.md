@@ -245,3 +245,40 @@ filed no new task to avoid colliding with agent c's 201.
 Audit gotcha (this session): the first snapshot script keyed rows by row.get("file") -
 there is no such field, the key is "title" - producing an all-None snapshot; the audit
 was redone against git show HEAD: and by line position.
+
+## 2026-10-11 201 DECISION: prep step 4 shipped - web/review.js (the page's Review section) + the one script tag in index.html; headless-verified tab/list/opener/pre-placement/save-resolves end to end; two prep claims corrected
+
+web/review.js wraps the big inline script's globals (renderList, setTabHome, openPlan, saveFit,
+loadDeps) - no other change to index.html (the script tag is its only review footprint). Verified
+headless this iteration against a scratch tree (Chrome 155 via tools/shot.mjs, port 0):
+(1) the Review tab renders "Review (2)" with aria-pressed, the list shows the alligator item (2
+candidates, book lead first) and bibracte (no-picture chip + searched + plan-search button);
+(2) opening the alligator item: select forces imagery, setGround restores relief (fitkit), the book
+picture loads 2876x4068, crop from map_box, all 5 seed pairs pre-placed with markers numbered 1..5,
+fit computes mpx 0.7374 (seed's 0.7375) with resids < 0.03 m, Save enabled; (3) the no-picture item
+opens the plan search on the aerial photograph (lidar false); (4) a REAL save through the page:
+PUT 200, the worker (pipeline/ + .venv python in the scratch tree) ran plan_fit (resids ~0), the
+overlay depiction appeared in ~14 s, the red-square map source was added, RV.seen recorded
+{doc, at}, the item left the list (badge "Review (1)"), the home stats line's drawing count went
+25->26 with the appended "· N review items open" clause. No pageerror in any run; 404s only the
+expected ones.
+
+Bugs found and fixed while verifying (both in rvPatchStats, the stats-line patch): after creating
+the #rvcount button I set .textContent on the stale null reference instead of the new element
+("Cannot set properties of null") - fix creates then assigns; that fix then hit "Assignment to
+constant variable" (b was const) - let. node --check catches neither (runtime-only), which is why
+the headless probe is the check for this file.
+
+Corrections to the prep's code-fact list (keep for 203a/212 readers): (a) line 531
+`S.tab = lsGet('aw.tab', 'sites')` - S.tab IS read from localStorage at boot (the prep said it
+wasn't); review.js therefore keeps the Review tab session-only by never writing 'review' to
+'aw.tab' (its setTabHome wrapper omits the lsSet), so a reload lands on the site list as intended.
+(b) data/raw in this repo is a SYMLINK to /home/agent/projects/ancient-works/data/raw (1.4G there) -
+`du` on the link shows 0, which iteration 22's audit misread as "empty dirs" being the whole story.
+tests/conftest.py still EXCLUDES it by path, so the pytest temp tree genuinely has no raw and
+book/media images 404 there (the pre-placement skip path); a /tmp scratch copy follows the link,
+which is why this step's happy-path probe could serve real pictures. (c) `loadDeps` dedupe is
+load-bearing in the opener: select() chains loadDeps().then(renderSite) and in the fast
+select->startFit->openPlan chain that async re-render would otherwise clobber the fit sheet;
+rvStartFitAt awaits the (shared-flight) loadDeps between setGround and startFit - microtask order
+on the same promise guarantees select's .then runs first. Do not reorder.
