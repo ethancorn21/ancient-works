@@ -1798,6 +1798,73 @@ are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs
 Aarschot note) in TOWNS, the lead-doc Belgium Per-town section, the Mons limit-5 PITFALLS entry, then
 pytest + --check + commit. See the task hand-over for the exact title strings.
 
+## 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed
+The iteration-46 picks (the analysis above; /tmp/vd_files_be_iter46.txt still on disk, re-read to verify every
+exact title before recording) are now in TOWNS: file= on all 19 staged towns (15 of the 1545 BNE plates:
+Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent BN 1, Halle, Kortrijk, Lessines, Leuze, Mons (2),
+Saint-Ghislain, Soignies, Tournai, Oudenaarde Version Madrid; + Ostend BNE plate circa 1562 + KBR Brussels
+(2) 01 + KBR Mechelen + Bruges full plan), date="circa 1550" on Bruges (page 2013-01-17 12:04:47 is the
+upload timestamp; the sheet's own caption block dates it), caption="Leuze" on Leuze (its official label
+'Leuze-en-Hainaut' is not in the title/desc), note= on Aarschot (the 1570 documented drop). The Belgium
+section-header comment now records the iter-46 inventory + thumb eye check. Lead doc: the pending
+subsection is now '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, --files
+transcript /tmp/vd_files_be_iter46.txt)' with one bullet per town (staged file + size + date and every
+not-staged file with its specific reason; Aarschot the documented drop with the nl.wikipedia work-list
+cross-check), a new '### France, Luxembourg (pending)' (24 towns; the double plates as watch items), and
+the Summary updated (running total 32 of 59 staged: NL 13 + BE 19). PITFALLS filed: (1) wbsearchentities
+limit=5 misses well-known short names - Mons 11th in the en search, follow up at limit 20; (2) a Commons
+API call with no User-Agent gets HTTP 403 - commons.get sets aw.UA, a raw script must too. Verified after
+the edit: `--check` exit 0 (staging files still absent - stage runs after FR/LU), module parses clean
+(the PITFALLS comment-gluing rule observed: every entry's dict closed with `),` before its comments).
+NEXT: the FR batch (23 towns: --verify first - QIDs still empty in TOWNS; the BNE plates cover all 23 per
+the collections section; watch the Aire+Thérouanne and Hesdin+Vieil-Hesdin double plates - stage once under
+the true primary, note the second; Beaumont's region flips france->belgium if the Hainaut item wins) +
+Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
+build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
+--check, tests/test_src_van_deventer.py, --golden.
+
+### 2026-10-11 204 DECISION: FR+LU QID batch - 22 FR QIDs + Luxembourg City Q1842 verified and recorded in TOWNS (Le Rœulx moved to Belgium, Beaumont pending the atlas plate); TOWNS edit uncommitted, re-verify + lead doc next
+Discovered in one --verify run (/tmp/vd_verify_fr_iter49.txt, 24 towns, exit 0 - the FIRST attempt of the
+session failed locally with "unknown town 'Le'": shell quoting, the Le X names were unquoted; no API calls
+happened, the quoted re-run succeeded): all 23 FR fact sheets came back; the 22 non-Beaumont towns each have
+a clear first-hit item (label = the town, P625 at the town, P373 = the plain town category, enwiki present)
+- recorded in TOWNS with site point = P625 rounded (the BE convention; an old-town-centre offset is the watch
+item once the drawings are eye-checked) and place = the modern department (Nord / Pas-de-Calais; Douai's and
+Valenciennes' items also carry the historical P131 'County of Flanders' / 'County of Hainaut' - the c. 1550
+context, noted in comments, the row's place stays the department). Two surprises:
+- **Luxembourg City = Q1842, not the hand-over's Q1564** (Q1564 now holds 'Borgfelde', Hamburg - merged
+  away). Q1842: label 'Luxembourg', P625 (6.13, 49.611389), P373 'Luxembourg City', P131 'Canton of
+  Luxembourg', enwiki 'Luxembourg City'. The entry's search="Luxembourg (city)" returned EMPTY (the
+  parenthesized label search - a new instance of the prep's "qualified strings return EMPTY" quirk); the
+  follow-up (/tmp/vd_lu_iter49.py, transcript /tmp/vd_lu_iter49.txt) searched "Luxembourg" and "Luxembourg
+  City" (both hit Q1842 first) and set search="Luxembourg City". region="luxembourg" stays a new value (no
+  REGION_NAME key, the display fallback flagged in the lead doc).
+- **Le Rœulx is Belgian, not French** (the prep's FR-list guess): Q668861, enwiki lead "a city and
+  municipality of Wallonia located in the province of Hainaut, Belgium", P131 'Arrondissement of Soignies' (the
+  same as Lessines/Soignies). Moved from the FR section to the BE section: region="belgium", site point
+  (4.1116, 50.5036) = the precise P625 of its subdivision item Q21764574 (the recorded item's P625 (4.1,
+  50.5) is rounded - the re-verify will print ~1.06 km, expected), P373 'Le Roeulx' WITHOUT the diaeresis
+  (the exact string). BE section is now 23 categories (21 to stage + 2 done), FR 23 (22 to stage + Bergues
+  done); the stageable total stays 60.
+- **Beaumont stays PENDING** (no QID recorded): the only plausible search candidate is Q95100, the Hainaut
+  (Belgium) city (P625 4.2383, 50.2355; P373 'Beaumont (Hainaut)'; enwiki 'Beaumont, Belgium'); the
+  northern-France Beaumont (Nord) is ABSENT from even the en search top 20 (checked at limit 20 in the
+  follow-up). The atlas-plate settlement (the --files inventory + eye check: the Hainaut town sits on the
+  Sambre at the French border, the Nord one is inland near Seclin) decides; if Hainaut wins, region flips to
+  belgium and the QID is Q95100 (a follow-up search at limit 50 or in fr is needed for the Nord item first).
+Catalog check (live, the 12575-site catalog): **none of the 23 recorded QIDs is in the built catalog** - all
+get new entries (box 4, no existing-site reuse). Wikipedia URL percent-encoding convention confirmed
+(extras.jsonl: Apuol%C4%97, Las_M%C3%A9dulas) - the FR/LU/Le Rœulx entries use it (B%C3%A9thune,
+Cond%C3%A9-sur-l%27Escaut, Le_Cateau-Cambr%C3%A9sis, Th%C3%A9rouanne, Le_R%C5%93ulx). **TOWNS edit done but
+UNCOMMITTED and not yet parse-checked** (context limit landed right after the edit; the harness saves it) -
+the next session parses the module FIRST (expect 66 towns, 32 stageable), then runs the re-verify
+(24 towns with a QID, Beaumont omitted), writes the lead-doc 'QID verification - France, Luxembourg'
+section (table + traps: Le Quesnoy's exact-label Somme twin Q109413780, the Belgian Lille Q725235,
+Saint-Omer's Calvados/Quebec, the Thérouanne river Q428296, the Bapaume QLD, Beaumont + the parenthesized-
+search-empty quirk as the watch items), and commits module + doc together. NEXT: the --files FR/LU batch
+(double plates Aire+Thérouanne and Hesdin+Vieil-Hesdin to eye-check; Beaumont's plate settles Hainaut/Nord),
+then the one long run (--chain per town, stage, --check, tests, --golden).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
