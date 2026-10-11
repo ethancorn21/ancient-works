@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/201-review.md` (open) - hand-over: Iteration 24 (2026-10-11). Steps 1-4 are DONE as before (ad8dbc1, 0b65deb, 6835279). Step 5 is IN
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -14,118 +13,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 201 DECISION: prep step 2 shipped (commit ad8dbc1) - fit/review.py API + README contract + 2 seed items + first export; merge keeps candidate order (lead stable), no_picture lifecycle settled, aw.py NOT stdlib-only on this branch
-
-Prep step 2 done. fit/review.py is stdlib-only (imports under system python3, no numpy/PIL) and offers the
-documented API: item_path, upsert_item, candidate_evidence (books by id; commons by c_+sha1(title)[:16]
-full-file scan; None when the row or its evidence field is missing), resolved_doc, export(root) ->
-(n_open, n_total), CLI `export [--root DIR]` (the --root flag is what test case 1 needs for the temp tree).
-data/review/ holds the README (the contract 203a/203b/212 read) and the two seed items; web/data/review.json
-is committed (2 open). Decisions taken while building it:
-1. **upsert merge semantics:** a same-plan entry replaces its twin IN PLACE, new plans append, existing
-candidates keep their position - so the lead (candidates[0].plan) is stable once set; the file move (the
-file name's lead follows candidates[0].plan) fires only on drift (a hand-written item, a producer that wrote
-a different first candidate). My first scratch check expected the lead to REORDER after a merge - that was
-my test's error, not the code's; the documented rule ("the file name's lead follows candidates[0].plan") is
-unchanged and the move branch is exercised by the drift case.
-2. **no_picture lifecycle:** dict -> set the record; None + entries -> null (candidates exist again, the note
-is stale); None + no entries -> keep the existing record (a re-run of "still no picture"). Producers pass
-None to mean "don't invent one".
-3. **pipeline/aw.py is NOT stdlib-only on this branch** (numpy/PIL/scipy at its top) - the 202 prep's claim
-"import pipeline.aw read-only (pure stdlib; verified no third-party at its top)" is STALE: the 202 agent
-will hit the same wall; the fix there is to inline the three one-line Mercator/ground-scale helpers (as
-201's seed script does: R=6378137, to_merc/to_lonlat/ground_scale copied verbatim from aw.py). fit/review.py
-inlines its own atomic save_json (indent=1, os.replace - the repo's convention from aw.save_json) for the same
-reason; it never imports pipeline.
-4. **Seed pairs** (202 not merged yet, per the hand-over's instruction): the 202-style COARSE anchor exactly
-as 202's prep §3.1 defines it - map-panel centre -> site centre, scale = max(size_m)/max(panel extent px),
-rotation 0; 4 panel corners + centre; 1dp px / 7dp lon-lat. Book scale 0.7375 m/px, commons 0.9375 (whole-
-frame panel). The centre pair maps exactly onto the site centre (checked). The book row's evidence is kind
-"none" ("ambiguous: score below 0.75") - stored verbatim and displayed honestly (the Hampton-Court trap made
-visible). The note field in both candidates says 202's propose_for replaces these when it lands.
-5. **Bibracte no_picture_found.searched** mirrors the 212 goal's wording: "Q650053 Commons categories, P180
-depictions, and a title search (the Commons files and the book rows of web/data/plans.json)".
-6. **Seed generation** is a one-off /tmp/seed_review.py (not in the repo; the data files are the committed
-output; the algorithm is recorded here and in the candidates' note fields). Deterministic apart from the two
-ISO `at` timestamps. Re-running it is idempotent (upsert replaces by plan).
-Scratch-tree verification (all passed): merge/replace/append, lead-drift file move, resolved write-once,
-no_picture lifecycle, resolved_doc via a real doc / via the recorded field, export open-only + name-sorted +
-missing-site fallback (stderr warning, id as name), idempotent re-export (identical body modulo at), --root.
-Suite: 12 passed under .venv/bin/python (the driver's run). System python3 fails 4 (test_gate, test_evidence
-CLI) - pre-existing PIL/numpy absence, not this step.
-
-### 2026-10-11 201 DECISION: prep step 3 shipped (commit 0b65deb) - web/index.html alone: P.byId keyed by planKey(r) = id.sites[0] (id when sites empty); fit-list buttons carry the composite key, the data-plan binding is unchanged
-Box-5 keying fix, committed alone as the hand-over ordered. The change (all in the one inline script): a
-`function planKey(r) { return r.sites.length ? r.id + '.' + r.sites[0] : r.id; }` placed just above
-`loadPlans()` with a comment; line 819 now `P.byId[planKey(r)] = r`; the fit-list markup (was line 853) now
-`data-plan="${esc(planKey(r))}"`. The binding `openPlan(P.byId[b.dataset.plan])` is untouched - the button
-carries the full composite, so no site parameter is needed (the prep's "cleaner" variant, as the hand-over
-had it). No other change to index.html; the script tag (step 4) is still not added, so the served page today
-still has zero review footprint.
-
-Verification before committing (no test file yet - step 5 writes the committed cases):
-1. Composite-key facts re-checked on this branch's served plans.json: 1166 rows, 0 ids containing '.', exactly
-   the two known duplicate-id pairs, all 1166 (id, sites[0]) composite keys unique, empty-site rows' bare ids
-   colliding with no composite key (python3 over web/data/plans.json).
-2. Suite: 12 passed under .venv/bin/python (same as baseline, no assertion touched) - "nothing changed" per
-   the refactor-first rule; loadPlans is ~6 lines, no flag/branch added, so no separate refactor was owed.
-3. Headless behaviour check through the real page (scratch server on port 0 + tools/shot.mjs, /tmp throwaway):
-   after boot, `Object.keys(P.byId)` contains BOTH rows of each duplicate id (c_ffb3daac218b481f.
-   {avebury-q661855,stonehenge-q39671}; c_984782b9e35e8ded.{king-arthur-s-round-table-q283800,
-   mayburgh-henge-q1469390}); opening each of the four sites' fit lists, every [data-plan] button's key
-   resolved via P.byId to the row whose url is that site's own media copy (e.g. the avebury button ->
-   media/commons/avebury-q661855/ffb3daac218b481f.jpg, the stonehenge button -> the stonehenge copy). Before
-   the fix the map was last-row-wins, so one of each pair resolved to the other site's picture - the exact
-   bug the box describes. No [pageerror]; only the two expected 404s (data/scans.json, amazon areas).
-   The committed test (step 5, case 4) will assert the same through the temp-tree served fixture, per the
-   hand-over's data-level fallback if headless degrades there.
-
-### 2026-10-11 201 DECISION: prep step 4 shipped - web/review.js (the page's Review section) + the one script tag in index.html; headless-verified tab/list/opener/pre-placement/save-resolves end to end; two prep claims corrected
-
-web/review.js wraps the big inline script's globals (renderList, setTabHome, openPlan, saveFit,
-loadDeps) - no other change to index.html (the script tag is its only review footprint). Verified
-headless this iteration against a scratch tree (Chrome 155 via tools/shot.mjs, port 0):
-(1) the Review tab renders "Review (2)" with aria-pressed, the list shows the alligator item (2
-candidates, book lead first) and bibracte (no-picture chip + searched + plan-search button);
-(2) opening the alligator item: select forces imagery, setGround restores relief (fitkit), the book
-picture loads 2876x4068, crop from map_box, all 5 seed pairs pre-placed with markers numbered 1..5,
-fit computes mpx 0.7374 (seed's 0.7375) with resids < 0.03 m, Save enabled; (3) the no-picture item
-opens the plan search on the aerial photograph (lidar false); (4) a REAL save through the page:
-PUT 200, the worker (pipeline/ + .venv python in the scratch tree) ran plan_fit (resids ~0), the
-overlay depiction appeared in ~14 s, the red-square map source was added, RV.seen recorded
-{doc, at}, the item left the list (badge "Review (1)"), the home stats line's drawing count went
-25->26 with the appended "· N review items open" clause. No pageerror in any run; 404s only the
-expected ones.
-
-Bugs found and fixed while verifying (both in rvPatchStats, the stats-line patch): after creating
-the #rvcount button I set .textContent on the stale null reference instead of the new element
-("Cannot set properties of null") - fix creates then assigns; that fix then hit "Assignment to
-constant variable" (b was const) - let. node --check catches neither (runtime-only), which is why
-the headless probe is the check for this file.
-
-Corrections to the prep's code-fact list (keep for 203a/212 readers): (a) line 531
-`S.tab = lsGet('aw.tab', 'sites')` - S.tab IS read from localStorage at boot (the prep said it
-wasn't); review.js therefore keeps the Review tab session-only by never writing 'review' to
-'aw.tab' (its setTabHome wrapper omits the lsSet), so a reload lands on the site list as intended.
-(b) data/raw in this repo is a SYMLINK to /home/agent/projects/ancient-works/data/raw (1.4G there) -
-`du` on the link shows 0, which iteration 22's audit misread as "empty dirs" being the whole story.
-tests/conftest.py still EXCLUDES it by path, so the pytest temp tree genuinely has no raw and
-book/media images 404 there (the pre-placement skip path); a /tmp scratch copy follows the link,
-which is why this step's happy-path probe could serve real pictures. (c) `loadDeps` dedupe is
-load-bearing in the opener: select() chains loadDeps().then(renderSite) and in the fast
-select->startFit->openPlan chain that async re-render would otherwise clobber the fit sheet;
-rvStartFitAt awaits the (shared-flight) loadDeps between setGround and startFit - microtask order
-on the same promise guarantees select's .then runs first. Do not reorder.
-
-### 2026-10-11 201 DECISION: prep step 5 in flight (tests/test_review.py written, not yet run) - all five cases dry-run-verified against a conftest-shaped scratch tree; one prep claim corrected (the worker dies at `import plan_fit`, not at the missing scan)
-Wrote tests/test_review.py (5 tests, stdlib-only, ephemeral port, no network): CLI export +
-idempotency, headless Review tab/list/stats, save-resolves via a PUT in the exact saveFit shape,
-(id, sites[0]) keying through the live page, and the one-line index.html footprint. Before writing
-it, every case was dry-run against a scratch tree built exactly like conftest (web/ + server/ +
-data/ minus data/raw) and all passed; the committed test asserts exactly what the dry runs showed.
-Corrections and traps found while doing this (they change how the next session reads the prep):
-1. **The plan_fit worker in the temp tree dies at `import plan_fit`, not at the missing scan.**
-... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 201 DECISION: prep step 4 shipped - web/review.js (the page's Review section) + the one script tag in index.html; headless-verified tab/list/opener/pre-placement/save-resolves end to end; two prep claims corrected' DECISIONS.md`)
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
