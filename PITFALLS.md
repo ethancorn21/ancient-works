@@ -104,7 +104,7 @@ Why: `du`/`cp` without following links treat it as an empty directory; the targe
 
 #### The LLM replicas serve on 127.0.0.1:8080-8082; pipeline/books.py's LLM_URLS (18080/18081) are stale
 Where: the llmtunnel ssh forwarder (user llmtunn, `-L 127.0.0.1:8080/8081/8082 -> 10.0.10.75`, running since 2026-10-06), `pipeline/books.py` (`LLM_URLS`, `run_stage`), task 215
-Symptom: every book triage stage exits "LLM tunnels 127.0.0.1:18080/18081 are down" (207, 208, 209 and 213 all hit it); `ss -ltnp` shows no listener on 18080/18081, while `curl` on 127.0.0.1:8080-8082/v1/models returns 200 on all three ports.
+Symptom: every book triage stage exits "LLM tunnels 127.0.0.1:18080/18081 are down" (207, 208, 209 and 213 all hit it); `ss -ltnp` shows no listener on 18080/18081, while `curl` on 127.0.0.1:8080-8082/v1/models returns 200 on all three ports; all three serve model qwen3.8-27b (verified 2026-10-11).
 Why: the forwarder serves the replicas on 8080-8082; books.py was written for an earlier 18080/18081 layout. Until 215 re-points `LLM_URLS`, a throwaway driver must patch `books.LLM_URLS` in-process to the three live ports before calling `run_stage` (213's /tmp/civitates_triage.py pattern).
 
 #### Long background data jobs outlive sessions - check the writer before committing or trusting its file
@@ -149,6 +149,11 @@ Why: CPython 3.12.3 here (Unicode 15.0.0) applies only canonical (D-type) decomp
       pipeline on this machine, so ids built from `catalog.slug` are internally consistent - do not
       "fix" one name with a per-name override: that would break the one-place rule for the slug rule and
       desync from every other slugification of the same name.
+
+#### maps.nls.uk is behind an AWS-WAF captcha challenge from this VM (405 on every path, every UA)
+Where: any URL on https://maps.nls.uk (e.g. the Roy 1793 facsimile under /roy/antiquities/); the open S3 tile bucket mapseries-tilesets (the viewer's tile source)
+Symptom: web_fetch and curl (three browser UAs tried) get HTTP 405 with a "Human Verification" page (AwsWafIntegration captcha.js) for every path - HTML, images and guessed image URLs alike; the S3 bucket mapseries-tilesets is open and listable but holds only survey/OS map sets, not book facsimiles (roy/ = the 1747-55 military survey only).
+Why: NLS fronts maps.nls.uk with an AWS WAF bot challenge that only a real browser passes; this VM cannot. Consequence: the NLS-hosted Roy 1793 book (the only complete online facsimile of it) needs a human download (207c). pipeline/nls.py is unaffected: it fetches only from the open S3 bucket.
 
 ## Libraries and frameworks
 
@@ -644,3 +649,8 @@ Why: this BookReader scan's hOCR stream and jp2 leaf sequence do not line up. Th
 Where: `pipeline/books.py` stage A/F prompts, `data/books/triage/civitatesorbiste00brau.{A,F}.jsonl`, `data/books/lists/civitatesorbiste00brau.json`; tasks 216/217
 Symptom: F flags 11 of the 121 figure pages as containing a "plan", but of F's ten distinct plan leaves (A30, 62, 65, 66, 90, 93, 105, 186, 229x2, 237) only A90 (Ghent) and A237 (Jerusalem old) are true plans - it misses the five famous plans (A58 Paris, A85 Brussels, A98 Antwerp, A109 Amsterdam, A238 Jerusalem new) and false-flags A186 (the Augsburg view); stage A typed only 3 of 121 figure leaves as plate_site_plan (A187/A199 are blank fold-out versos).
 Why: both prompts are biased toward earthwork survey plans, not engraved bird's-eye plans. The hand list's `kind` field (7 plans, kind_by "hand") is the only source for plan calls on this book. The same view-plate bias applies to the other five untriaged civitates/Merian volumes (ARes73114, ARes73115, 17095748888888bsb-00105587, topographiahelve00zeil, rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915).
+
+#### Roy, Military Antiquities of the Romans in North Britain (1793), is not on the Internet Archive
+Where: task 207c; IA advancedsearch (exact title, creator, full-text phrases, 1790-1800 year range, ten guessed identifier patterns); the only related IA item macdonald-1917-roy (a 1917 dissertation about Roy)
+Symptom: no IA copy of the book under any searched title/creator/phrase; ten guessed identifiers (militaryantiquit00roy*) all return {}.
+Why: the 1793 Society of Antiquaries folio (174 text pages + 51 map plates) was never scanned by a library that uploads to IA. The complete online facsimile is NLS (maps.nls.uk/roy/antiquities/), which is WAF-blocked from this VM. A human-provided copy in data/raw/books/roy1793/ is the only route (207c blocked on it, open ask_human).
