@@ -2,8 +2,9 @@
 
 Deterministic, offline, numpy only - no network, no ports, no writes. For each document of a set
 (default held; `--set dev` for the 12 documents the thresholds were chosen on) it re-derives the
-registered partition (sorted document names, seed 20260108; it fails loudly if the derivation no
-longer reproduces the names section 3 registered, because then the registration is void), builds
+registered partition (sorted NON-automatic document names - a document's `"auto": true` marks the
+batch's own output, never part of the reference - seed 20260108; it fails loudly if the derivation
+no longer reproduces the names section 3 registered, because then the registration is void), builds
 the five placements of section 4 - true; moved 60 m NE; turned 10 deg; scaled 15% (each about the
 placement's centroid); cross-site, re-centred onto the next site's box centre, cycling - and
 scores each with fit_gate.gate, printing one machine-stable line per (doc, case):
@@ -12,10 +13,10 @@ scores each with fit_gate.gate, printing one machine-stable line per (doc, case)
 
 The section-6 command is `.venv/bin/python tools/gate_heldout.py`; its stdout (40 lines for held,
 60 for dev) is what section 9 records. It only reads data/db/platefits/*.json and
-web/data/sites.json (both read-only per GOAL); the held-out documents' contents are read by this
-tool only in the one-shot run. The five recipes are section 4 in Web-Mercator (a, b) form - the
-full a*w + b composition, not the short form (see PITFALLS, "composing a rotated/scaled
-Web-Mercator similarity about a centroid").
+web/data/sites.json (both read-only per GOAL); the partition step reads each document only for its
+`auto` flag, and the held-out documents' contents are scored by this tool only in the one-shot run.
+The five recipes are section 4 in Web-Mercator (a, b) form - the full a*w + b composition, not the
+short form (see PITFALLS, "composing a rotated/scaled Web-Mercator similarity about a centroid").
 """
 import argparse
 import glob
@@ -35,8 +36,9 @@ import plan_fit  # noqa: E402
 SEED = 20260108  # the registered winning seed (docs/gate.md section 3)
 
 # The sets registered in docs/gate.md section 3 (names only). If the derivation below stops
-# reproducing them - a document added, renamed or deleted - the registered partition is void:
-# fail loudly instead of scoring a silently different set.
+# reproducing them - a hand-fit document added, renamed or deleted - the registered partition is
+# void: fail loudly instead of scoring a silently different set. (Automatic documents, the batch's
+# own output, are excluded from the name list by partition(); they only ever ADD names.)
 REGISTERED = {
     "held": [
         "arbor-low-q630312.earthworkenglan01allcgoog_n0597_1",
@@ -68,10 +70,14 @@ CASES = ("true", "moved", "rot10", "scale15", "xsite")
 
 
 def partition():
-    """(names, held, dev): the registered partition re-derived from the directory listing -
-    sort the 20 names, seed 20260108 picks 8 positions (docs/gate.md section 3), dev is the rest."""
-    names = sorted(os.path.basename(p)[:-5]
-                   for p in glob.glob(os.path.join(ROOT, "data", "db", "platefits", "*.json")))
+    """(names, held, dev): the registered partition re-derived over the NON-automatic documents -
+    a document's "auto": true is the batch's own output (fit/batch_us.py), never part of the
+    golden/held-out reference; automatic documents only ADD names (no hand-fit document ever gains
+    the field), so the name list is the same before and after any batch. Sort the 20 names, seed
+    20260108 picks 8 positions (docs/gate.md section 3), dev is the rest."""
+    names = [os.path.basename(p)[:-5]
+             for p in sorted(glob.glob(os.path.join(ROOT, "data", "db", "platefits", "*.json")))
+             if not json.load(open(p)).get("auto")]  # a doc without the field is a hand fit
     if len(names) != 20:
         raise SystemExit(
             f"gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found {len(names)}; "

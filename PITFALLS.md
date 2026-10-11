@@ -275,6 +275,21 @@ Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batc
       (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
       "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
 
+#### `data/db/platefits/` mixes hand fits and automatic ones (`"auto": true`) - code that counts the directory's files must filter `doc.get("auto")`
+Where: `tools/gate_heldout.py` (`partition`), `fit/batch_us.py` (`write_doc`, `write_golden`), `data/db/platefits/`
+Symptom: code that treats every `data/db/platefits/*.json` as a hand-fit reference breaks once a batch
+      lands: after 203a's US batch the directory holds 36 documents (20 hand + 16 auto), and the
+      pre-802 `gate_heldout partition()` aborted with "expected 20 hand-fit documents in
+      data/db/platefits/, found 36; the registered partition is void" (the suite's red test_gate).
+Why: the batch writes its accepted fits into that same directory (`write_doc`), but the
+      golden/held-out reference is the 20 hand fits, which 203a's golden pins byte-identical after
+      the run. Count or list the NON-automatic set: `if not json.load(open(p)).get("auto")`
+      (the `write_golden` criterion; a doc without the field is a hand fit). Automatic documents
+      only ever ADD names - a hand-fit doc never gains the field - so any derivation over the
+      non-auto name list is state-agnostic: identical before and after a batch, and a hand-fit doc
+      that did gain the field drops the count below 20 and fails loudly (correct: the reference
+      was changed).
+
 #### This Qwen fabricates correspondences that pass a consistency-only gate; the batch's prompt/parse/scale/texture checks are the counterweight
 Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`, `_feature_present`), the local qwen3.8-27b via
       `pipeline/llm.py`, docs/gate.md section 7

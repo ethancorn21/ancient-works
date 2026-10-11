@@ -15,9 +15,9 @@ the frozen record in docs/gate.md section 9. This test re-runs the registered se
    a change there re-tunes the gate on spent data and voids the registration, so it must fail
    here, not silently change the table.
 
-Offline: the tool reads only the 20 documents in data/db/platefits/ and web/data/sites.json,
-writes nothing, uses no network and no ports (it runs as a subprocess, so even a stray write
-lands in the checkout the tool itself is in, and it has none).
+Offline: the tool reads only data/db/platefits/ and web/data/sites.json, writes nothing, uses no
+network and no ports (it runs as a subprocess, so even a stray write lands in the checkout the
+tool itself is in, and it has none).
 """
 import os
 import re
