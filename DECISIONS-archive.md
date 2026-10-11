@@ -2716,6 +2716,14 @@ Timing: first run 14.7 s, whole test 17 s; full suite 60 passed in 76.8 s (was 5
 ticked; Status: done.
 
 
+<!-- task 301 -->
+# Task 301 site-argentoratum
+
+## 2026-10-11 301 DECISION: lead redirect - Stonehenge is not done first; its 7 batch fits are all fabricated frame-to-box identity maps, and the gate passed them by construction
+The lead (mid-session, 2026-10-11): before Argentoratum, check each of Stonehenge's 7 synced drawings; anything visibly off goes to the review queue with the reason; find why the gate passed the Rijksmuseum plan (16.7 m, 2-3x too big, off-centre) and make the LINE catch it, with a test; correct the false sentence in docs/site_flow.md; then Argentoratum.
+Root cause (verified this session): all 7 stonehenge auto docs (c_0226 23.2 m, c_098c 7.4 m, c_20f9 44.1 m, c_6933 26.8 m, c_83b4 16.7 m, c_897a 38.0 m, c_f838 0.0 m) are the model's documented fabrication class (batch_us.llm_model docstring, pilots 4a/4c: "internally perfect regular patterns (identity maps, corner-to-corner, diagonal ladders)"): regular ladders of round page-px coordinates (u 200-1080 step ~200-400, v 150-1200 step ~100-200) mapped to regular ground ladders (points on shared lon/lat lines 100-450 m from the site centre; 4 of the 7 have one anchor within ~1 m of the site's NOMINAL centre - the catalog coordinate, not a feature), implied scale 0.80-1.07 m/px = box width / page px (the model treated the page frame as the 1000x1000 m site box). Why the gate passed it: run_sites never asks the model for a placement - it SOLVES the similarity from the model's own pairs and the gate scores that least-squares fit against the same points, so the residuals are only the ladder's ~20-25% anisotropy + jitter (med 0-44 m < 45, slope_o 0.02-0.12 < 0.145, no radial pattern) -> ACCEPT. That is gate.md section 7's registered limit verbatim ("a consistent global error passes"; the gate does not re-verify the anchors are the right features) - the gate did its registered job. The batch's three pre-gate counterchecks all pass BY CONSTRUCTION on this class: the stated-scale cross-check compares the model's stated scale with its own ladder's implied scale (they agree by construction), and _feature_present passes because ladder points scattered over structureless Salisbury Plain sit at/above the 400-point null median (the next-door candidate c_ffb3d drew the 25% verdict). All 7 verified visually (composites over relief.jpg, /tmp/stonehenge_overlay_check.png): none sits on the sarsens - c_83b4 is 2-3x too big AND ~70 m off-centre (the lead's exact description), the other six likewise off in scale and/or position. Consequence the lead accepts: all 13 of Stonehenge's candidates end in the review item (human's drag is the last word) and the site shows 0 drawings until a human fits at least one.
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
