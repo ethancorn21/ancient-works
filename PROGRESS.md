@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
+- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
 - `tasks/215-books-llm-ports.md`
@@ -16,79 +16,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 213 DECISION: iteration 25's orphaned triage process kept appending after the driver's snapshot commit
-The driver's "uncommitted work after iteration 25" commit captured civitatesorbiste00brau.A.jsonl at 191
-lines; the orphaned run kept appending until 04:03 (211 pages, n 0-210 complete, no error rows) and exited.
-Nothing was corrupt: the file is append-only and run_stage/latest() is re-runnable (done = rows without
-error). Lesson: before committing (or trusting) a data file a background job may still be writing, check
-its mtime against now and whether a writer process is alive; otherwise the driver's snapshot commits
-mid-growth states. (Recorded here because the context-limit step allowed only DECISIONS/tasks edits; the
-next agent files the PITFALLS entry.)
-
-### 2026-10-11 213 DECISION: civitates triage COMPLETE (A 292/292 + F 118/118, zero error rows) - committed; list transcription is image-based, hOCR abandoned for this book
-The iteration-26 background run (/tmp/civitates_triage.py, LLM ports 8080-8082 patched in-process) printed
-DONE and exited: data/books/triage/civitatesorbiste00brau.A.jsonl = 292 unique rows (complete, no errors,
-no duplicates) and .F.jsonl = 118 rows (0 error rows; 239 figure readings: 222 view / 11 plan / 6 other).
-Both committed with this entry - the append-only files are final, no re-run needed. While it ran I read the
-cached triage images (LOCAL: data/raw/books/civitatesorbiste00brau/triage/nNNNN.jpg = leaf n+1) for 16
-figure leaves. Findings: n58 = bird's-eye PLAN of Paris (poem cartouche); n85/n90/n98/n109 = bird's-eye
-PLANS (Flemish/German; n98 = the famous Antwerp plan, n109 = Amsterdam, whose plate PRECEDES its title
-leaf n110); n237/238 = the two Jerusalem PLANS (old city numbered walls/Temple/Tower of David + new city
-Declaratio A-Z). Corrected the iteration-26 hand-over: n157/n158 ("DECEM ET TRIA LOCA" / "FEDERATORVM
-HELVETIAE") are NOT maps - sheets of small town VIEWS of the 13 Swiss cantons (kind o). Views confirmed:
-n194 (two Vienna views, S. Steffans labelled), n202 (the famous oblique bird's-eye VIEW of Venice,
-153-item Italian legend), n214 (Ancona), n217/n218 (two Naples views), n225 (Messina view; title leaf
-n226 follows it - sections interleave both ways). n52 = double title page (Burgos + S. Sebastian), n54 =
-their two views; n53 = two more plates (46-item Dutch legend view + sea view) - likely the 2nd/3rd
-Barcelona plates, confirm with n50/n51. n187/n199 = faded blank VERSO of the fold-outs (plates n186
-Augsburg, n198 Milan; "RFPCB" stamp). TWO PITFALLS (next agent files them in PITFALLS.md): (1) the hOCR
-page index for this book is MISALIGNED with the jp2 leaf sequence by a drifting 0-2 leaves (hOCR leaf 85
-holds the Brussels title text that A reads on leaf 87; leaf 53 matches; leaf 109 off by 2) -
-books_ia.page_texts()/ocr_captions are UNRELIABLE here; the image-based A rows are the ground truth and
-217 must not use page_texts for civitates. (2) Stage F under-detects plans: its earthwork-biased prompt
-flagged only 11/121 figure pages as containing a "plan" while 7+ are visually confirmed plans - 217 must
-not trust F's "plan" label for kind calls on this book.
-
-### 2026-10-11 213 DECISION: list structure decided - one entry per figure leaf keyed on leaf n, title = the plate's own inscription or the section's title leaf, kind o/s/u with kind_by hand|A
-The book has no printed town list (confirmed: no list leaf in the A data). Each city section = a TITLE
-LEAF (big Latin title + history text; A reads it) + 1-3 PLATE leaves (views/plans; A caption = the
-plate's own inscription, often a legend or poem, often empty), interleaved both ways, so a plate's city =
-its section (nearest title leaf either side). Printed page numbers exist ONLY on leaves 193-196 (1-4)
-and 280-284 (I-V) (data/raw/books/civitatesorbiste00brau/civitatesorbiste00brau_page_numbers.json) - all
-other `page` values null. Plan for data/books/lists/civitatesorbiste00brau.json: {"plates": null,
-"figures": [{"fig": <0-based leaf n>, "title": <inscription as printed, or the city name from the section
-title leaf when the plate has none>, "page": null-or-printed, "kind": "o"|"s"|"u",
-"kind_by": "hand" (I read the image) or "A" (derived from stage A, unverified)}]} covering all 121 figure
-leaves; .map.json = [] (list_pages maps only kind s/u and has no printed page numbers for these leaves,
-so it is honestly empty - 217 extends the machinery, not 213). Visually confirmed so far: plans
-n58/85/90/98/109/237/238 (s); views n194/202/214/217/218/225/157/158 (o). Remaining reads (cheap - the
-images are local): n209 Rome, n205/n206 Florence, n198 Milan fold-out (view or plan?), n197 Milan arms
-(excluded from drawings), n86/n97/n193 title leaves, n186 Augsburg fold-out, n50/n51. Then: 7
-verified-town QIDs (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp; paced Wikidata incl.
-search-trap check) into fit/src_artists.py:BOOKS["civitates"]["sites"] + lead doc; update the lead-doc
-books section (FEDERATORVM = views, fold-out versos, the two pitfalls); --check (last passed 2/2 in
-iteration 24, staging files untouched since); --golden; tests/test_src_artists.py per prep §4 (negative
-control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1, 5, 6 then box 4 LAST;
-211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
-jobs outlive sessions).
-
-### 2026-10-11 213b DECISION: the seven Liber secundus towns verified live (Q239 Brussels, Q12892 Antwerp, Q1741 Vienna, Q490 Milan, Q641 Venice, Q2044 Florence, Q220 Rome) and put in BOOKS["civitates"]["sites"]; verify_qids extended to SITES + book towns; lead-doc QID section rewritten - box 1
-Paced Wikidata discovery + the five-fact verification (label, every P625, P373, P131, enwiki, first
-name-search hit with coordinates) found the seven QIDs above; memory-guessed ids were wrong (Q374 is
-"vodka", not Rome - Q220 is; Vienna is Q1741, not Q2140), so search + verification is the only route.
-Every P625 sits within 0.27 km of its table point (book-town table point = the P625 itself; the book's
-views centre on the walled old towns, within a few km - recorded per town). Traps recorded in the lead
-doc: Florence search (first hit with P625 = Q597842 Florence, South Carolina, 7538 km), Venice search
-(Q773853 Los Angeles, 9891 km), and a Wikidata/enwiki DATA trap for Brussels: the enwiki "Brussels"
-article belongs to the region Q240 while the city is Q239 ("City of Brussels", P373
-"Brussels (municipality)") - Q240's P625 is only 85 m from Q239's, so only the P373/enwiki check
-separates them. verify_qids() now covers SITES + the book towns (8 unique QIDs, P131 fetch chunked at
-50); --verify ran clean twice (exit 0, no flags); --check still 2/2 PASS exit 0; suite 29 passed.
-Box 1 of 213b ticked (table + lead-doc records). Prep §1 assumptions re-checked on the 801-merged
-evidence.py: check(files, books, catalog=) offline, check_caption (L190-207) fails on ±1 km dist_m
-reproduction OR >50 km distance - so the next step's Cervia negative control (44.245/12.367, ~53.5 km)
-fails on both clauses. Unexplained transient: one throwaway-script label batch came back empty after
-... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-11 213 DECISION: list structure decided - one entry per figure leaf keyed on leaf n, title = the plate's own inscription or the section's title leaf, kind o/s/u with kind_by hand|A' DECISIONS.md`)
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
