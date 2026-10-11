@@ -18,12 +18,58 @@ hand record pins the sheet's own centre (the walled old town).
 
 The hand-checked file → site table lives in `fit/src_artists.py` (the `pipeline/sources.py` pattern). A
 picture of a site whose QID is already in the catalog gets a picture row for that existing site id, never a
-new catalog entry (`stage()`/`check_staged()` enforce it).
+new catalog entry (`stage()`/`check_staged()` enforce it). The book's towns get the same treatment:
+`BOOKS["civitates"]["sites"]` is the hand-verified QID table for the seven Liber secundus towns - the
+reference 216 (cite strings) and 217 (book-index rows → catalog matching) take from it (verified in the QID
+section below).
 
 ## QID verification (checked 2026-10-11, re-run with `.venv/bin/python fit/src_artists.py --verify`)
 
+Every table QID - the two staged image-level sites (`SITES`) and the seven book towns of Liber
+secundus (`BOOKS["civitates"]["sites"]`) - re-verified against Wikidata: label, every P625 value
+(flagged when >50 km off the table point), P373, P131 (with labels), the enwiki article, and the first
+name-search hit with coordinates (what `record --live` would resolve for the caption route). No P625 flag
+fired: every P625 sits within 0.27 km of its table point (for the book towns the table point is the P625
+itself).
+
 ```
-checked 2026-10-11 - 2 QIDs (Wikidata)
+checked 2026-10-11 - 8 QIDs (Wikidata)
+  Q12892  'Antwerp'
+      P625: [(4.3997222222222225, 51.221111111111114)]  (table site point: 4.3997222222222225, 51.221111111111114)
+      P373: ['Antwerp']  (table cat: 'Antwerp')
+      P131: [('Arrondissement of Antwerp', 'Q90895'), ('Margraviate of Antwerp', 'Q772861'), ('Duchy of Brabant', 'Q159856')]  (table place: 'Flanders, Belgium')
+      enwiki: 'Antwerp'  (table wikipedia: 'https://en.wikipedia.org/wiki/Antwerp')
+      search 'Antwerp': first hit with P625 is Q12892 'Antwerp' (4.3997222222222225, 51.221111111111114)
+  Q1741  'Vienna'
+      P625: [(16.3725, 48.208333333333336)]  (table site point: 16.3725, 48.208333333333336)
+      P373: ['Vienna']  (table cat: 'Vienna')
+      P131: [('Austria', 'Q40'), ('Allied-occupied Austria', 'Q596239'), ('Nazi Germany', 'Q7318'), ('Federal State of Austria', 'Q176495'), ('First Republic of Austria', 'Q518101'), ('Republic of German-Austria', 'Q268970'), ('Austria–Hungary', 'Q28513'), ('Austrian Empire', 'Q131964')]  (table place: 'Austria')
+      enwiki: 'Vienna'  (table wikipedia: 'https://en.wikipedia.org/wiki/Vienna')
+      search 'Vienna': first hit with P625 is Q1741 'Vienna' (16.3725, 48.208333333333336)
+  Q2044  'Florence'
+      P625: [(11.254166666667, 43.771388888889)]  (table site point: 11.254166666667, 43.771388888889)
+      P373: ['Florence']  (table cat: 'Florence')
+      P131: [('Province of Florence', 'Q16172'), ('Metropolitan City of Florence', 'Q18288148')]  (table place: 'Tuscany, Italy')
+      enwiki: 'Florence'  (table wikipedia: 'https://en.wikipedia.org/wiki/Florence')
+      search 'Florence': first hit with P625 is Q597842 'Florence' (-79.774166666667, 34.183888888889)   <- TRAP: 7538 km, the live record would store a conflict (kind none)
+  Q220  'Rome'
+      P625: [(12.482777777778, 41.893055555556)]  (table site point: 12.482777777778, 41.893055555556)
+      P373: ['Rome']  (table cat: 'Rome')
+      P131: [('Province of Rome', 'Q15119'), ('Papal States', 'Q170174'), ('Rome', 'Q1558632'), ('Ancient Rome', 'Q1747689'), ('Roman Republic', 'Q17167'), ('Roman Empire', 'Q2277'), ('Western Roman Empire', 'Q42834'), ('Metropolitan City of Rome', 'Q18288160'), ('circle of Rome', 'Q3677829')]  (table place: 'Lazio, Italy')
+      enwiki: 'Rome'  (table wikipedia: 'https://en.wikipedia.org/wiki/Rome')
+      search 'Rome': first hit with P625 is Q220 'Rome' (12.482777777778, 41.893055555556)
+  Q239  'Brussels'
+      P625: [(4.351666666666667, 50.846666666666664)]  (table site point: 4.351666666666667, 50.846666666666664)
+      P373: ['Brussels (municipality)']  (table cat: 'Brussels (municipality)')
+      P131: [('Arrondissement of Brussels-Capital', 'Q90870')]  (table place: 'Brussels-Capital, Belgium')
+      enwiki: 'City of Brussels'  (table wikipedia: 'https://en.wikipedia.org/wiki/City_of_Brussels')
+      search 'Brussels': first hit with P625 is Q239 'Brussels' (4.351666666666667, 50.846666666666664)
+  Q490  'Milan'
+      P625: [(9.19, 45.466944444444)]  (table site point: 9.19, 45.466944444444)
+      P373: ['Milan']  (table cat: 'Milan')
+      P131: [('province of Milan', 'Q15121'), ('province of Milan', 'Q3924622'), ('province of Milan', 'Q3924625'), ('Metropolitan City of Milan', 'Q18288155'), ('Cisalpine Gaul', 'Q199728')]  (table place: 'Lombardy, Italy')
+      enwiki: 'Milan'  (table wikipedia: 'https://en.wikipedia.org/wiki/Milan')
+      search 'Milan': first hit with P625 is Q490 'Milan' (9.19, 45.466944444444)
   Q50195  'Imola'
       P625: [(11.714722222222, 44.353055555556)]  (table site point: 11.7112, 44.3535)
       P373: ['Imola']  (table cat: 'Imola')
@@ -38,10 +84,25 @@ checked 2026-10-11 - 2 QIDs (Wikidata)
       search 'Venice': first hit with P625 is Q773853 'Venice' (-118.45916666666666, 33.990833333333335)   <- TRAP: 9891 km, the live record would store a conflict (kind none)
 ```
 
-Trap notes: a **name search alone gives the wrong place** - "Venice" resolves to Venice, California first
-(9891 km), and "Imola" is a common toponym (Hungary, California; and an OSM hamlet near Vergato that
-Nominatim ranks first). The table points are hand-checked against the enwiki/Wikidata values above, never
-taken from a name search.
+Trap notes - **a name search alone gives the wrong place** (the QIDs are verified, never searched):
+- **Venice** (Q641): the first search hit with coordinates is Q773853 "Venice", Los Angeles (9891 km) -
+  the live record would store a conflict (kind none); the hand record stands (the Venice section).
+- **Florence** (Q2044): the first search hit with coordinates is Q597842 "Florence", South Carolina
+  (7538 km) - a live trap for any caption route on this town's name.
+- **Brussels** (Q239): a Wikidata/enwiki data trap - the enwiki "Brussels" article belongs to the
+  **region** (Q240), while the **city** is Q239 ("City of Brussels", P373 "Brussels (municipality)").
+  The book's BRVXELLA is the walled city: Q239, never Q240 (whose P625 is only 85 m away - the
+  coordinates cannot separate them; the P373/enwiki check can).
+- **Imola** (Q50195): a common toponym (Hungary, California; an OSM hamlet near Vergato that Nominatim
+  ranks first), but the first Wikidata search hit with coordinates is the right item - no trap this time.
+- **Rome, Vienna, Milan, Antwerp**: the first search hit with coordinates is the right item (Milan's
+  search list does carry "Milan, Ohio" at rank 4, 7005 km - the check ran, it just did not fire).
+
+The table points are hand-verified against the enwiki/Wikidata values above, never taken from a name
+search. For the book towns the table point is the P625 city point: the book's views centre on the walled
+old towns, within a few km of it for all seven (within ~0.5 km for all but Antwerp, whose P625 sits ~3 km
+west of the cathedral quarter - approximate, from the old-town anchors; none comes close to the 50 km
+flag).
 
 ## Imola - Leonardo da Vinci, aerial plan, 1502 (the anchor)
 
@@ -206,8 +267,10 @@ leaf of this book carries one; extending the machinery for page-less figures is 
 **Per-book status (all six items):**
 - **`civitatesorbiste00brau` (1575, Liber secundus) = fully worked.** Triage A 292/292 + F 118/118
   committed; the hand list (121 entries) + the map `[]` written; the seven hand-verified towns
-  (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp) are what 213's hand-checked QID table
-  in `fit/src_artists.py` covers.
+  (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp) live in
+  `fit/src_artists.py:BOOKS["civitates"]["sites"]` (qid, name, P625 point, place, wikipedia, P373 cat -
+  verified in the QID section above): 217 takes those QIDs to match the book-index rows to the catalog,
+  216 takes the cite strings from the table above.
 - **The other five** (`ARes73114`, `ARes73115`, `17095748888888bsb-00105587`, `topographiahelve00zeil`,
   `rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915`) = verified present on IA as
   BookReader streams (table above; metadata cached, unrestricted) but **not triaged yet** - the
