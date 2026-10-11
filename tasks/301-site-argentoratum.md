@@ -24,113 +24,82 @@ the result the way a visitor does before calling it done.
 - Do not start 207 or any other task: the lead gives the next site when this one is done.
 
 ## Hand-over
-(iteration 68, agent c - NO code changed this session; the fabrication-pattern check is CALIBRATED
-but not yet written into pipeline/plan_fit.py. Tests last run iteration 66: 60 passed, green.
-Order unchanged: the line's fix -> run it on Stonehenge -> Argentoratum.)
+(iteration 69, agent c - fabrication_pattern IMPLEMENTED in pipeline/plan_fit.py and validated;
+suite green 60 passed after the change. The code change was UNCOMMITTED at session end (harness
+saves it - re-verify it is there first). Order: wire into site_done._sync -> run line on
+Stonehenge -> docs -> test -> Argentoratum.)
 
-**The lead's redirect stands (DECISIONS 2026-10-11 301, first two entries):** all 7 Stonehenge auto
-docs are fabricated (identity maps / corner-to-corner / diagonal ladders), none sits on the sarsens,
-all 13 of the site's candidates end in the review item, the site shows 0 drawings until a human fits
-one. The gate passed them by construction (gate.md s.7 blind spot) and stays frozen (test_gate pins
-its constants); the fix belongs in the line.
+**What is done and committed (iteration 69):** pipeline/plan_fit.py now has
+`fabrication_pattern(pairs) -> None | reason` - pure numpy, no download; docstring carries the
+calibration summary. Clauses: (a) 2D lattice (>=4 anchors, >=3 distinct u AND v, per-axis
+distinct-value gaps max/med <= 1.3 AND min/med >= 0.67); (b) 1D ladder (>=3 anchors sharing one
+coord, spread <= 2 px, other-axis gaps max/med <= 1.5 AND min/med >= 0.9); (c) grid-round (>=4
+anchors, >=90% of PER-AXIS distinct coords within 0.5 of a multiple of 10 px). VALIDATED against
+the real function: fires 15/15 stonehenge + argentoratum auto docs (c_098c fires all three;
+reason strings name each clause) and 110/110 repo batch docs, 0/20 hand fits. Suite 60 passed
+after the change. The code edit was uncommitted at session end (harness saved it): FIRST verify
+pipeline/plan_fit.py still contains fabrication_pattern (grep it; if the harness dropped it,
+re-add per the DECISIONS 2026-10-11 entry).
 
-**Calibration done (scratch /tmp/calib.py - re-create if lost; every number below was run, not
-guessed, with .venv/bin/python). The PREVIOUS hand-over's tolerances are wrong - do not use them
-as-is.** The provisional tolerances (1.5/0.67 gaps, 20 px shared-coordinate grouping, C window
-25%/[0.7,1.4]) fire on 6 of the 20 hand fits (the golden reference) - a hard failure of the
-validation requirement:
-- A (2D lattice): fires hand-fit maiden-castle n0124 (u margins 1.381/0.943, v 1.046/0.954 both
-  inside 1.5/0.67).
-- B (1D ladder, 20 px grouping): fires castle-rising (v=484 x3, u line [269,696,981], gap margins
-  1.199/0.801) and old-sarum c_8192 (u values 614,626,633 = 19 px spread, v line [210,484,768],
-  margins 1.018/0.982; and v values 484,491,491, u line [363,614,889], margins 1.046/0.954).
-- C (frame-identity alone): fires 4 hand fits that are LEGITIMATE "the drawing covers the site
-  box" maps: avebury n0581 (full 3367x5050 frame -> 1000 m box: d=(-22.8,-46.6) m, rx=0.781,
-  ry=1.133), bergues c_4bbca7 (rx=1.281, ry=1.234, box 2000), calleva n0360 (rx=1.388, ry=1.172,
-  box 1600), camp-d c_6a912845 (d=(274,99.8) m, rx=1.097, ry=0.918, box 1600). Rotation CANNOT
-  separate them (tested: old book maps are north-up - calleva 0.21 deg, camp-d 2.30 deg, avebury
-  2.41 deg off axis, vs stonehenge fakes at 0.0-1.9 deg). Dead end.
+**Decision made (was open):** standalone-round, no frame-identity -> the function takes pairs
+only (no crop/size/box). (b) kept: pontefract c_3213 (22% round) is a ladder, so the union
+catches every batch doc. See DECISIONS 2026-10-11 301 third entry.
 
-**The real signature: grid-round coordinates.** Fraction of DISTINCT anchor page-px values that
-are multiples of 10 (+-0.5): ALL 15 auto docs (7 stonehenge + 8 argentoratum) are >= 0.9 - 14 are
-exactly 1.0; stonehenge c_098c is 9/10 (v=648 x3 is its only non-multiple). ALL 20 hand docs are
-<= ~0.5 (worst: castle-rising 12 of 24 coordinates; hand pairs carry 1-dp positions like 614.3,
-484.7 - the page tool records drag positions, the model reads grid labels). The batch's own pilots
-(llm_model docstring, gate.md s.7) document this fabrication class; this check is independent of
-the batch's three pre-gate checks (stated-scale cross-check, feature-presence texture, range
-clipping).
+**State on disk (verified this session):**
+- stonehenge-q39671: sites.json drawings 7; depictions = 7 plan webps + 2 maps (six-inch-1st,
+  os1inch); item data/review/stonehenge-q39671.earthworkenglan01allcgoog_n0582_1.json has 6
+candidates (5 with gate scores, 2 "no model answer"); the 7 auto docs are NOT in the item.
+- argentoratum-q2361353: sites.json drawings 0; depictions = 3 maps only (cassini, etatmajor,
+  fr_ortho1950); item data/review/argentoratum-q2361353.c_6acfd94dec8c011b.json has 34
+candidates; the 8 auto docs are NOT in the item.
+- web/data/review.json items: {site, name, lead, candidates, no_picture_found}. Candidate entry
+  shape (batch's write_item): plan, title, url, pairs, gate_score, why, note, evidence, ground,
+  coarse, rot_deg, scale_m_px, scale_source. review.upsert_item merges by plan (same-plan
+  replaced, new appended, never clears resolved) - safe to add the 8/7 pattern candidates.
+- review.export derives resolution from platefits docs: deleting a doc keeps its item open
+  (correct: the human's drag resolves it).
 
-**Design decision (next agent, ONE of two - then implement `fabrication_pattern(pairs, crop,
-size, box)` in pipeline/plan_fit.py as a pure numpy function, no network; box = the site's
-ground-metre box from web/data/sites.json corners x aw.ground_scale(lat) - data/sites/<sid>/
-site.json has NO corners, the previous hand-over's "box from site.json" was wrong there; both
-site entries EXIST in web/data/sites.json now with drawings 0 - the "entry MISSING" caution is
-STALE, verified this session):**
-- (a) 2D lattice, TIGHTENED: >=3 distinct u AND >=3 distinct v, >=4 anchors, consecutive gaps
-  near-arithmetic on both axes with max/median <= 1.3 (NOT 1.5) and min/median >= 0.67. hi=1.3
-  excludes maiden (1.381), whitley (1.307), arbor-low (1.316), cahokia (1.335), hembury-v (1.305)
-  - margins 0.007-0.08, thin but the docs are golden-pinned; fires c_098c (1.091/0.909 u,
-  1.125/0.893 v), c_83b4 (1.048/0.952 u, 1.2/0.8 v), argentoratum c_cd8109 (perfect 1.0/1.0 both).
-- (b) 1D ladder, TIGHTENED: >=3 anchors sharing one coordinate with spread <= 2 px (the model's
-  ladders are exactly 0: 640,640,640) with near-arithmetic spacing on the other axis
-  max/median <= 1.5 AND min/median >= 0.9. Excludes castle-rising (0.801 < 0.9) and old-sarum
-  (19 px / 7 px spread > 2); fires c_0226 (u=640, v gaps 400/400 -> 1.0/1.0), c_098c (two groups:
-  1.004/0.996 and 1.0/1.0), argentoratum c_0a0173 (v=480, u gaps 400/400). STILL RE-VERIFY all 20
-  hand docs against exactly these B params before cutting (only the two named above were checked).
-- (c) THE DECISION: grid-roundness as a STANDALONE clause (>=4 anchors and >= 90% of DISTINCT
-  anchor coordinates within 0.5 of a multiple of 10) vs the previous hand-over's frame-identity
-  PLUS the roundness requirement. Standalone fires on ALL 8 argentoratum docs (all 1.0 round) ->
-  the site ends 0 drawings, all 8 wait for the human's drag; it also fires all 7 stonehenge (so
-  (c) alone would already satisfy the validation). Frame-identity+round fires only 5 of 8
-  argentoratum (c_139946, c_1cb316, c_751f93, c_cd8109, c_0a0173) and leaves c_5bfb04 (gate 0.0
-  m, octagon ring), c_6ba6bb (gate 8.7 m - the BEST of the 8) and c_7e281c (40.1 m) to the
-  browser check. I viewed composites of c_5bfb04 and c_6ba6bb over relief.jpg (regen recipe in
-  the DECISIONS third entry; /tmp/arg_*.png may be wiped): both frames plausibly match the real
-  old-town block (the canal ring is visible in the relief) but the 8 anchor rings sit on nothing
-  visible - no canal line, no street corner; looks fabricated, less starkly than Stonehenge.
-  c_7e281c/c_0a0173/c_cd8109 composites were generated but NOT viewed. My recommendation:
-  standalone-round - the strict gate is the project's stated direction (gate.md: "a strict gate
-  that over-refuses is fine"), the human's drag is the last word and the pairs ride to the item
-  as a lead, and c_6ba6bb's 8.7 m is the weakest kind of evidence the lead already flagged.
-  Note all 7 stonehenge docs fire (a) or (b) as well, so the reason string should name which
-  clause(s) fired.
+**Next step (ONE step, then commit):** wire the check into tools/site_done.py:_sync. For each
+doc, BEFORE the is_done/build branch: `why = plan_fit.fabrication_pattern(doc["pairs"])`; on a
+hit: (1) upsert_item the candidate into the site's item (preserve existing entries: merge by
+plan; candidate carries plan/title/url/pairs/gate_score/why where why = "line check: " +
+reason + "; the gate's X m measures internal consistency of the anchors, not their truth");
+(2) DELETE the doc file from data/db/platefits/ so plan_fit.prune() (which keys on the
+doc-file set) drops the existing overlay and so no future plan_fit.main/serve.py run rebuilds
+it - the item is the record; (3) print a summary line "sent to the review queue (line check: ...)",
+never count it as synced. Do NOT build, do NOT touch non-hit docs. Then re-run the line on
+stonehenge: `.venv/bin/python tools/site_done.py stonehenge-q39671` (no --model; all 13
+candidates covered -> no batch run) - expected: exit 0, 7 plan webps pruned, depictions = 2
+maps, drawings 7 -> 0, item 6 -> 13 candidates (7 with the pattern reason), web/data/review.json
+republished, second run idempotent.
 
-**Then, unchanged from the previous hand-over:**
-- site_done._sync: run the check BEFORE any download; on a hit skip the build, prune any
-  existing overlay (plan_fit.prune), upsert the review candidate (plan/title/url/pairs/
-  gate_score/why "line check: fabricated anchor pattern - <which>; the gate's X m measures
-  internal consistency of the anchors, not their truth"), include it in the review step and the
-  per-picture summary; _entry/_review recompute (stonehenge: drawings 7 -> 0, item 6 -> 13);
-  idempotent re-run; then RUN `.venv/bin/python tools/site_done.py stonehenge-q39671` (no
-  --model: all 13 candidates covered -> no batch run, no network).
-- Docs: correct docs/site_flow.md's Stonehenge paragraph ("its circles and stones sit on the real
-  sarsens" is false), replace docs/site_flow/stonehenge.png (shoot the new state with
-  server/serve.py + tools/shot.mjs, true one-line caption), add the entry under "What broke".
-- Test: extend tests/test_site_done.py's hermetic harness (socket-dead child, tmp copy):
-  (i) the check fires on all 7 stonehenge docs and none of the 20 hand docs; (ii) the line run on
-  the copied site: exit 0, 0 plan webp (pruned), depictions = the 2 maps, sites.json drawings 0,
-  item 13 candidates (7 with the pattern reason), review.json republished, second run
-  idempotent. The existing test's goldens pin the OLD (wrong) 7-synced state - rewrite them.
-- Then ARGENTORATUM: `.venv/bin/python tools/site_done.py argentoratum-q2361353` - 8 auto docs
-  (c_0a0173 19.9, c_139946 25.7, c_1cb316 25.7, c_5bfb04 0.0, c_6ba6bb 8.7, c_751f93 32.4,
-  c_7e281c 40.1, c_cd8109 0.0; all similarity, all src commons); whatever passes the check goes
-  on the map, the rest to the queue with the reason; browser-check every synced drawing;
-  screenshot the best to docs/site_flow/argentoratum.png + one line; add anything that broke in
-  the line to "What broke".
+**Then (order):** docs - correct docs/site_flow.md's Stonehenge paragraph ("its circles and
+stones sit on the real sarsens" is false), replace docs/site_flow/stonehenge.png (server/serve.py
++ tools/shot.mjs, true one-line caption), add the entry under "What broke". Test - extend
+tests/test_site_done.py's hermetic harness (socket-dead child, tmp copy): the check fires on all
+7 stonehenge docs and none of the 20 hand docs; the line run: exit 0, 0 plan webp, depictions =
+the 2 maps, sites.json drawings 0, item 13 candidates, review.json republished, second run
+idempotent; REWRITE the existing goldens that pin the OLD 7-synced state. Then ARGENTORATUM:
+`.venv/bin/python tools/site_done.py argentoratum-q2361353` - all 8 auto docs fire the check
+(all 100% round, verified) -> all 8 upserted to the item (34 -> 42 candidates, resolved stays
+None), 0 drawings, exit 0; the "browser-check each synced drawing" box is satisfied vacuously
+(0 synced); screenshot the site page to docs/site_flow/argentoratum.png (the state a visitor
+sees: 0 drawings, item in the review queue) with a one-line caption; add anything that broke in
+the line to "What broke". The 20 hand fits and their golden file stay untouched.
 
 **Re-read:**
-- Re-read: fit/batch_us.py:llm_model + _parse_answer + _feature_present - confirm the new line
-  check is independent of (not a copy of) those three pre-gate checks, and that the 7 docs are
-  the ones the pre-gate checks let through (not the 6 in the item).
-- Re-read: pipeline/plan_fit.py:prune - exactly what it removes (webp, ink, depiction entry,
-  count refresh) so the line's prune path leaves no stale files or stale depiction rows.
-- Re-read: tools/site_done.py:_fit - `need_fit` for a site whose docs all pattern-reject (they
-  still cover their candidates via pre_docs, so no batch run; confirm the covered count and the
-  summary still hold when a doc is both in pre_docs and (newly) in the item).
+- Re-read: tools/site_done.py:_fit + _sync + _summary - when a doc is deleted after being in
+  pre_docs, confirm the candidate is covered via item_cands so no batch run is triggered, and
+  that _summary's per-picture lines come from the item (pid in item_cands) not the docs dict.
+- Re-read: fit/review.py:upsert_item + export - merge-by-plan keeps the 6/34 existing candidates;
+  export(root, site_id) writes web/data/review.json over the WHOLE queue but records resolution
+  only into this site's item file.
+- Re-read: plan_fit.prune - keys on the set of existing doc file names, so the overlay removal
+  depends on the doc file being deleted first.
 
-**Environment:** system python3 has NO numpy - use .venv/bin/python for anything importing
-pipeline/ or fit/. The driver's ".venv could not be built" note (2026-10-10, PROGRESS.md) is
-STALE: task 800 pinned requirements.txt and the venv builds; the suite ran green (60 passed) at
-iteration 66. Do not run git merge/rebase/reset/stash/branch switches. Agent a works on 206 in
-its own checkout; 207 waits on the human - neither is yours.
+**Environment:** .venv/bin/python for anything importing pipeline/ or fit/ (system python3 has no
+numpy; the venv builds fine - the driver's 2026-10-10 note is stale). No fixed network ports in
+tests; do not write outside project + temp dir. Do not run git merge/rebase/reset/stash/branch
+switches. Agent a works on 206 in its own checkout; 207/207a/b/c wait on the human - neither is
+yours. Do not start other tasks.
 
