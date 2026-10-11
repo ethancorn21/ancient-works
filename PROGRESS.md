@@ -26,6 +26,30 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   - Gott prints resolved (prep R2): (112a)+(113a-115) = Temple Newsam (full plate + 3 detail crops), (80a)+(81-85) = Swillington (full plate + 5 detail crops), (31)+(32)+(33) = Sedbergh School plans (drop - not a country house). Full plates are clean and fit-sized; the detail crops are documented drops of the same picture.
 - Open questions for next session: does any of Hampton Court Palace / Temple Newsam / Swillington already exist in the catalog (last session's broad grep flooded with castle rows and proved nothing); is Swillington Hall demolished (review-queue if nothing fixed survives); is Beaufort House (Chelsea) demolished (review-queue per prep R3).
 
+### 2026-10-12 205 DECISION: inventory verdicts decided (132 files); INVENTORY block generated, splice left to next session
+- Live re-run: `--list --out /tmp/kip_inventory.jsonl` under `.venv/bin/python`: 10 s, no 429, 132 distinct files (same census as 2026-10-10/11).
+- **Catalog dup check (precise):** none of the stage-candidate places exists in the catalog yet (checked: badminton, temple newsam, swillington, hutton, stoke bishop/gifford, stanway, kingsweston, windsor, st james, lambeth, somerset, beaufort, hampton court, chevening, cassiobury, chiswick, fair lawn, burlington in sites.jsonl/extras.jsonl/web sites.json). Only the six hand-tied exist (extras 73-78 + built). Near-misses, NOT dups: Kingsweston Hill (Q6413747, a hill), "Hailes Castle, Stanway" (a motte, not the Tracey seat), Beaufort-Blavincourt (France), Kleinkastell Scheveningseweg (NL).
+- **Prep's "1667 text page" and "Cantium armorial plate" drops are NOT in the live set** (searched the dump) - do not invent them in the lead doc.
+- **Survival checks (web, 2026-10-12):** Swillington Hall (Lowthers, Yorks) demolished 1952, mineworkings subsidence -> review-queue. Beaufort House, Chelsea demolished 1739/40 (Wikipedia/London Museum/London Remembers agree) -> review-queue (both plates). Hutton Hall plate = the CUMBRIAN Fletcher seat (Hutton-in-the-Forest near Skelton, Grade I, NHLE 1210817: pele tower + 1680 hall + 1730s walled garden all stand) - NOT the Derbyshire parish of the same name. Kingsweston: present house built 1720 on the estate (Kip's 1710 view of the earlier house); estate gardens/trees survive -> staged. Stanway House (Jacobean, Charteris family, baroque water gardens) stands -> staged. Stoke Bishop: the Cann seat still stands (rebuilt c.1765-73; porch photographed, Tibblestone) -> staged. Stoke Gifford: seat rebuilt 1750 (Thomas Wright) and LOST, estate built over (1980s expansion) -> review-queue (survival unverified; fails closed). House at Windsor = duke of St Albans' (Charles Beauclerk) house: read the plate itself (downloaded image; cartouche "Beauclerck Duke of St Albans, Earle of Burford...") - locked to standing Windsor Castle in the same view -> staged with that caveat. Badminton and Temple Newsam houses stand (National Trust).
+- **Verdicts: 132 = 6 hand-tied + 12 staged + 4 review-queue + 11 dup-impression + 18 not-a-house + 7 church + 19 foreign + 11 city-prospect + 8 photo + 36 too-small.** The INVENTORY block (all 132 tuples, generated from that day's dump, coverage asserted) is NOT yet in the module - `fit/src_kip.py` still has `INVENTORY = []`. **NEXT (session N+1):** `.venv/bin/python fit/src_kip.py --list --out /tmp/kip_inventory.jsonl` then run the generator below (save it as /tmp/gen_kip.py first; it regenerates the identical block and splices it into the module + fixes the stale docstring line). /tmp is ephemeral across sessions - the generator, not the block, is the source of truth.
+- Egress note: `commons.get()` JSON-decodes its response - it cannot fetch binary images (UnicodeDecodeError on JPEG magic bytes). To download a Commons image: get the `imageinfo` `thumburl` via `commons.get` (API works), then plain `urllib.request` with a browser-like UA (`Special:FilePath` gave 403 with a bare UA). MET/AIC APIs still TLS-refused from this VM.
+- PITFALLS: filed the `commons.members()` namespaced-titles entry (Wikimedia APIs section) - this session, uncommitted.
+- Generator script (verbatim as run 2026-10-12; asserts every title matches exactly one rule, staged >= 1000, too-small < 1000; splices the block over the `INVENTORY = []` line and the docstring parenthetical):
+```python
+# /tmp/gen_kip.py  (run: python3 /tmp/gen_kip.py from the project root)
+import json
+
+rows = {}
+for l in open("/tmp/kip_inventory.jsonl"):
+    r = json.loads(l)
+    rows[r["title"]] = r
+assert len(rows) == 132, len(rows)
+
+R = [
+ # hand-tied (pipeline/sources.py KIP table - never re-staged)
+ ("Gezicht op Hampton Court, RP-P-1905-194", "hand-tied", "sources.py KIP: Hampton Court, Herefordshire (Q1443802)"),
+... (13.6 KB more: `grep -n -A 200 -F '## 2026-10-12 205 DECISION: inventory verdicts decided (132 files); INVENTORY block generated, splice left to next session' DECISIONS.md`)
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
