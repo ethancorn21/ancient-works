@@ -1,31 +1,37 @@
-"""The one-site line (task 300): tools/site_done.py, end to end, hermetic.
+"""The one-site line (task 300): tools/site_done.py, end to end, hermetic - with Stonehenge's
+fabrication-check incident re-seeded, so the check itself is re-verified on every run (task 301).
 
-The command takes one site through every remaining step - fit the pictures not fitted
-yet, sync each fit document to the map, refresh the site's entry in web/data/sites.json,
-publish the review queue - and this test runs it on a COPY of Stonehenge's files in the
-system temp dir, with the site stripped back to pre-sync (no plan overlay, drawings 0),
-so the whole line runs and every output is checked. No network: the subprocess's sockets
-are patched to fail loudly, and the big pictures it would otherwise download from
-Wikimedia Commons are pre-seeded as flat-colour JPEGs at the exact dimensions of the
-real cache files (data/raw/commons/big/<plan>.jpg, read through this checkout's committed
-data/raw symlink - the same store the batch tests link into their throwaway trees). The
-fit is a similarity transform over the document's point pairs, which depends only on
-those dimensions, not on the pixels, so the run reproduces the repository's synced state
-exactly. What is checked: exit 0 and the per-picture report (synced / review queue /
-skipped, as docs/site_flow.md promises); the site's depictions.json and sites.json
-byte-identical to the repository's (the automatic fit is an overlay exactly like a hand
-fit, and the entry's drawings count colours the site's square on the map); the review
-page recomputed over the whole copied queue equal to the published one; every other
-site's item file and every platefit document byte-identical (a one-site run touches only
-that site's files); and nothing in this checkout changed. Then a second run: every
-document "skipped: overlay already current", all files still byte-identical (the line
-is idempotent). The preconditions are pinned like test_batch_us pins its sample: today
-Stonehenge's 13 candidate pictures are all covered (7 automatic fit documents + 6
-candidates in its review item, disjoint), so no batch run (no model, no network) is
-needed; if plans.json or the queue changes for Stonehenge the preconditions fail loudly
-and this test must be extended on purpose.
+The batch's gate passes the model's documented fabrication class by construction (the gate scores
+the fit against the same points the model invented - docs/gate.md section 7), so the line
+re-checks every document's stored page-px pairs with plan_fit.fabrication_pattern before syncing:
+a pattern document is never built, its candidate is upserted into the site's review item with the
+reason, and its fit document is deleted. This test re-creates that incident in the system temp
+dir and runs the copied line on it:
+
+  seed   the 7 fabricated Stonehenge documents, recovered verbatim from git history
+         (tests/golden/stonehenge_linecheck_docs/), back into the tree's data/db/platefits, and
+         the site's review item rewound to the 6 batch candidates the line's upsert only appended
+         to; the site dir and sites.json stay exactly as in the repo (2 survey maps, 0 drawings);
+  run    the copied line (this checkout's code, run against the copied data, sockets dead - any
+         network attempt fails loudly; no model is needed and no picture is fetched);
+  check  exit 0; the per-picture report, line by line (7 "sent to the review queue (line check:
+         ...)" and no overlay built); the site's depictions.json and sites.json byte-identical to
+         the repo's (the entry stays at 0 drawings); the upserted item byte-identical to the
+         repo's current 13-candidate item (the run reproduces the live run exactly); the 7
+         pattern documents gone from the tree's store; every other item and every other fit
+         document byte-identical (a one-site run touches only that site's files); the published
+         review page's queue equal to the repo's. Then a second run: 0 documents -> no batch
+         run, the 13 item candidates reported, and only the review page's timestamp changed.
+
+The preconditions are pinned like test_batch_us pins its sample: the repo holds no Stonehenge
+documents; its item holds exactly the 7 "line check:" candidates the golden documents would
+produce (recomputed with the line's own _pattern_entry - so drift in the check, the documents,
+or the evidence rows fails loudly); and plans.json's 13 Stonehenge rows equal the documents plus
+the item's other 6 candidates (the no-batch-run precondition). If any of that changes, this test
+fails before it seeds and must be extended on purpose.
 """
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
@@ -34,15 +40,15 @@ import sys
 from pathlib import Path
 
 import pytest
-from PIL import Image
 
 ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SID = "stonehenge-q39671"
+GOLDEN = ROOT / "tests" / "golden" / "stonehenge_linecheck_docs"
 
 # The subprocess guard: every socket dies loudly, then the copied command runs exactly
 # as `tools/site_done.py <site>` would (runpy with run_name="__main__" executes its
-# __main__ block; site_done resolves its data root from its own path, so the COPYED
-# code runs on the COPYED data, never on this checkout).
+# __main__ block; site_done resolves its data root from its own path, so the COPIED
+# code runs on the COPIED data, never on this checkout).
 GUARD = r"""
 import runpy
 import socket
@@ -90,15 +96,6 @@ def _hash_all(paths):
     return out
 
 
-def _docs():
-    """The site's platefit documents in this checkout, by plan id."""
-    out = {}
-    for p in sorted((ROOT / "data" / "db" / "platefits").glob(SID + ".*.json")):
-        doc = json.loads(p.read_text())
-        out[doc["plan"]] = doc
-    return out
-
-
 def _item():
     """The site's review item (path, dict) in this checkout, keyed by its site field."""
     for p in sorted((ROOT / "data" / "review").glob("*.json")):
@@ -109,56 +106,130 @@ def _item():
 
 
 def _rows():
-    """The site's candidate pictures: the web/data/plans.json rows naming it (batch_us' own view)."""
+    """The site's candidate pictures: the web/data/plans.json rows naming it."""
     d = json.loads((ROOT / "web" / "data" / "plans.json").read_text())
     cols = {c: i for i, c in enumerate(d["cols"])}
     rows = [{k: r[i] for k, i in cols.items()} for r in d["rows"]]
     return [r for r in rows if SID in (r.get("sites") or [])]
 
 
-def _seed_big(tree, docs):
-    """The flat-colour stand-ins for the Commons big pictures, at the real images' dimensions."""
-    big = tree / "data" / "raw" / "commons" / "big"
-    big.mkdir(parents=True)
-    for i, (plan, doc) in enumerate(sorted(docs.items())):
-        real = ROOT / "data" / "raw" / "commons" / "big" / (plan + ".jpg")
-        if not real.is_file():
-            pytest.fail(f"data/raw/commons/big/{plan}.jpg is missing: the data/raw image store "
-                        "is not available on this machine (the batch tests link the same store)")
-        with Image.open(real) as im:
-            size = im.size  # the header only: the pixels never enter a similarity fit
-        color = (i * 30 % 250, i * 50 % 250, 200)
-        Image.new("RGB", size, color).save(big / (plan + ".jpg"), quality=92)
+def _save_json(path, obj):
+    """Same convention as fit/review.py _save_json (indent=1, no trailing newline)."""
+    path = Path(path)
+    tmp = str(path) + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(obj, f, indent=1)
+    os.replace(tmp, path)
 
 
-def _build_tree(tmp_path, docs):
-    """The throwaway tree: the code, the site's data stripped to pre-sync, the rest of the
-    world (the review queue, every fit document, the full sites.json) copied whole."""
+# The line under test, loaded from this checkout (its own sys.path inserts make batch_us,
+# build_site, plan_fit and review import exactly as they do in the subprocess).
+def _load_site_done():
+    spec = importlib.util.spec_from_file_location("site_done_under_test", ROOT / "tools" / "site_done.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+SITE_DONE = _load_site_done()
+plan_fit = SITE_DONE.plan_fit
+review = SITE_DONE.review
+
+
+def _golden_docs():
+    """The 7 fabricated Stonehenge documents, recovered from git history, by plan id."""
+    docs = {}
+    for f in sorted(GOLDEN.glob("*.json")):
+        doc = json.loads(f.read_text())
+        docs[doc["plan"]] = doc
+    return docs
+
+
+def _preconditions():
+    """Fail loudly if the repo state this test pins has drifted (before anything is seeded)."""
+    golden_files = sorted(GOLDEN.glob("*.json"))
+    if len(golden_files) != 7:
+        pytest.fail(f"tests/golden/stonehenge_linecheck_docs must hold exactly the 7 deleted "
+                    f"Stonehenge pattern documents, found {len(golden_files)}")
+    docs = {}
+    for f in golden_files:
+        doc = json.loads(f.read_text())
+        if doc.get("site") != SID or doc.get("plan") != f.name[len(SID) + 1:-5]:
+            pytest.fail(f"golden doc {f.name} no longer matches its file name/site")
+        docs[doc["plan"]] = doc
+
+    if list((ROOT / "data" / "db" / "platefits").glob(SID + ".*.json")):
+        pytest.fail(f"the repo holds {SID} fit documents again: the test expects the post-line state "
+                    "(the line deleted them; the goldens are the record)")
+
+    item_path, item = _item()
+    if item is None:
+        pytest.fail(f"the {SID} review item is missing")
+    cands = item.get("candidates") or []
+    pat = [c for c in cands if (c.get("why") or "").startswith("line check:")]
+    orig = [c for c in cands if not (c.get("why") or "").startswith("line check:")]
+    if len(cands) != 13 or len(pat) != 7 or len(orig) != 6:
+        pytest.fail(f"the {SID} item no longer holds 13 candidates (7 line check + 6 batch); "
+                    f"found {len(cands)} ({len(pat)} line check, {len(orig)} batch)")
+    if {c["plan"] for c in pat} != set(docs):
+        pytest.fail("the item's line-check candidates and the golden documents disagree on plans")
+    if {c["plan"] for c in orig} & set(docs):
+        pytest.fail("the item's batch candidates and the golden documents overlap on plans")
+
+    # the check still fires, and the repo's recorded entry is exactly what the line would build today
+    for plan, doc in docs.items():
+        pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
+        if not pattern:
+            pytest.fail(f"the line's fabrication check no longer fires on golden doc {plan}: the check drifted")
+        expected = SITE_DONE._pattern_entry(doc, pattern, str(ROOT))
+        actual = next(c for c in pat if c["plan"] == plan)
+        if actual != expected:
+            pytest.fail(f"the recorded line-check entry for {plan} no longer matches what the line "
+                        f"would build today (drift in the golden doc, the check, or the evidence row): "
+                        f"recorded {actual}, rebuilt {expected}")
+
+    rows = _rows()
+    row_ids = {r["id"] for r in rows}
+    covered = set(docs) | {c["plan"] for c in orig}
+    if len(rows) != 13 or covered != row_ids:
+        pytest.fail(f"plans.json no longer lists exactly the 13 {SID} candidates "
+                    f"({len(rows)} rows): the no-batch-run precondition is void")
+
+    rr = json.loads((ROOT / "web" / "data" / "review.json").read_text())
+    for e in rr["items"]:
+        if e.get("site") == SID:
+            if e.get("candidates") != cands:
+                pytest.fail("the published review page's Stonehenge entry no longer matches its item file")
+            return
+    pytest.fail("the open review page no longer lists the Stonehenge item")
+
+
+def _build_tree(tmp_path, docs, item, pre_item):
+    """The throwaway tree: the code, the site's data as in the repo, the full review queue and
+    fit document store, plus the 7 golden pattern documents and the item rewound to pre-line."""
     tree = tmp_path / "tree"
     for d in ("tools", "fit", "pipeline"):
         shutil.copytree(ROOT / d, tree / d, ignore=shutil.ignore_patterns("__pycache__"))
     wd = tree / "web" / "data"
     wd.mkdir(parents=True)
-    shutil.copy2(ROOT / "web" / "data" / "plans.json", wd / "plans.json")
-    shutil.copy2(ROOT / "web" / "data" / "review.json", wd / "review.json")
-    index = json.loads((ROOT / "web" / "data" / "sites.json").read_text())
-    for s in index["sites"]:
-        if s["id"] == SID:
-            s["drawings"] = 0  # pre-sync: the entry gains its drawings from this run
-    (wd / "sites.json").write_text(json.dumps(index, indent=1))
+    for name in ("plans.json", "review.json", "sites.json"):
+        shutil.copy2(ROOT / "web" / "data" / name, wd / name)
+    shutil.copytree(ROOT / "web" / "data" / "sites" / SID, wd / "sites" / SID)
     shutil.copytree(ROOT / "data" / "review", tree / "data" / "review")
-    shutil.copytree(ROOT / "data" / "db" / "platefits", tree / "data" / "db" / "platefits")
-    src = ROOT / "web" / "data" / "sites" / SID
-    dst = tree / "web" / "data" / "sites" / SID
-    dst.mkdir(parents=True)
-    for f in src.iterdir():
-        if f.name.startswith("plan_") and f.suffix == ".webp":
-            continue  # the plan overlays: the sync recreates them
-        shutil.copy2(f, dst / f.name)
-    deps = json.loads((src / "depictions.json").read_text())
-    deps["depictions"] = [d for d in deps["depictions"] if d.get("kind") not in ("plan", "view")]
-    (dst / "depictions.json").write_text(json.dumps(deps, indent=1))
-    _seed_big(tree, docs)
+    pf = tree / "data" / "db" / "platefits"
+    pf.mkdir(parents=True)
+    for f in sorted((ROOT / "data" / "db" / "platefits").iterdir()):
+        if f.is_file():
+            shutil.copy2(f, pf / f.name)
+    for f in sorted(GOLDEN.glob("*.json")):
+        shutil.copy2(f, pf / f.name)
+    # the commons row store: _pattern_entry records the 200 evidence field from here
+    cd = tree / "data" / "commons"
+    cd.mkdir(parents=True)
+    shutil.copy2(ROOT / "data" / "commons" / "files.jsonl", cd / "files.jsonl")
+    # the item rewound to pre-line: the upsert only appended the 7 line-check candidates,
+    # so removing them restores the file the batch left (written in the item's own convention)
+    _save_json(tree / "data" / "review" / Path(item).name, pre_item)
     return tree
 
 
@@ -170,91 +241,116 @@ def _run(tree):
 
 
 def test_site_done_line(tmp_path):
-    docs = _docs()
+    _preconditions()
+    docs = _golden_docs()
     item_path, item = _item()
+    cands = item["candidates"]
+    pat = {c["plan"]: c for c in cands if (c.get("why") or "").startswith("line check:")}
+    orig = [c for c in cands if c["plan"] not in pat]
+    pre_item = {**item, "candidates": list(orig)}
     rows = _rows()
-    n_docs = len(docs)
-    n_item = len((item or {}).get("candidates") or [])
-    n_rows = len(rows)
-    n_doc_rows = sum(1 for r in rows if r["id"] in docs)
-    item_plans = {c.get("plan") for c in (item or {}).get("candidates") or []}
-    # the pinned preconditions: every candidate picture covered (a doc or the item), the
-    # document/item sets disjoint and both inside plans.json, so the line needs no batch run
-    if item is None or n_doc_rows != n_docs or n_rows != n_docs + n_item \
-            or not item_plans <= {r["id"] for r in rows}:
-        pytest.fail("Stonehenge's candidate pictures are no longer fully covered by its fit "
-                    "documents and review item (the no-batch-run precondition is void): "
-                    f"{n_rows} rows, {n_docs} docs, {n_item} in the item")
+    n_open = len(json.loads((ROOT / "web" / "data" / "review.json").read_text())["items"])
+    n_total = len(list((ROOT / "data" / "review").glob("*.json")))
+    review_json = json.loads((ROOT / "web" / "data" / "review.json").read_text())
 
     checkout = [ROOT / "web" / "data" / "sites.json",
                 ROOT / "web" / "data" / "review.json",
+                ROOT / "web" / "data" / "plans.json",
                 ROOT / "web" / "data" / "sites" / SID,
                 ROOT / "data" / "review",
-                ROOT / "data" / "db" / "platefits"]
-    checkout += [ROOT / "data" / "raw" / "commons" / "big" / (plan + ".jpg") for plan in docs]
+                ROOT / "data" / "db" / "platefits",
+                ROOT / "data" / "commons" / "files.jsonl",
+                GOLDEN]
     before = _hash_all(checkout)
 
-    tree = _build_tree(tmp_path, docs)
+    tree = _build_tree(tmp_path, docs, item_path, pre_item)
     proc = _run(tree)
     out = proc.stdout.decode("utf-8")
     err = proc.stderr.decode("utf-8")
     assert proc.returncode == 0, out + err
     assert err == ""
+    lines = out.splitlines()
     site = tree / "web" / "data" / "sites" / SID
+    patterns = {p: plan_fit.fabrication_pattern(d["pairs"]) for p, d in docs.items()}
 
-    # the per-picture report, exactly as the line prints it
-    assert f"fit  {n_rows} candidate picture(s): {n_docs} fitted (doc), " \
-           f"{n_item} in the review item -> no batch run needed" in out
-    for plan, doc in docs.items():
-        assert f"({plan}): synced to the map" in out
-    assert out.count("sent to the review queue") == n_item
-    assert f"entry  web/data/sites.json: drawings 0 -> {n_docs}" in out
-    n_open = len(json.loads((ROOT / "web" / "data" / "review.json").read_text())["items"])
-    n_total = len(list((ROOT / "data" / "review").glob("*.json")))
-    assert f"review {item_path.name}: {n_item} candidate(s), open; " \
-           f"page now has {n_open} open of {n_total} items" in out
-    assert out.splitlines()[-1] == "done"
+    # the whole run, line by line: the seeded pattern documents hit the pre-sync check, go to
+    # the item with the reason, and are deleted - none of them is built
+    assert lines[0] == 'fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"'
+    assert lines[1] == f"site {SID}: the one-site line (fit -> sync -> entry -> review)"
+    assert lines[2] == (f"fit  {len(rows)} candidate picture(s): {len(docs)} fitted (doc), "
+                        f"{len(orig)} in the review item -> no batch run needed")
+    for plan in sorted(docs):
+        title = docs[plan].get("title") or plan
+        assert f"sync {title}: sent to the review queue (line check: {patterns[plan]})" in lines
+    assert f"entry  web/data/sites.json: drawings 0 -> 0" in lines
+    review_line = (f"review {Path(item_path).name}: {len(cands)} candidate(s), open; "
+                   f"page now has {n_open} open of {n_total} items")
+    assert review_line in lines
+    # the per-picture report: every candidate picture named, and only the line's own lines exist
+    expected_summary = []
+    for row in sorted(rows, key=lambda r: r["id"]):
+        pid, title = row["id"], row.get("title") or row.get("label") or pid
+        if pid in patterns:
+            sc = f", gate {docs[pid].get('score')} m" if docs[pid].get("score") is not None else ""
+            expected_summary.append(f"  {title} ({pid}): sent to the review queue (line check: {patterns[pid]}{sc})")
+        else:
+            cand = next(c for c in orig if c["plan"] == pid)
+            gate = cand.get("gate_score")
+            why = (f"gate {gate} m - " if gate is not None else "") + (cand.get("why") or "no model answer")
+            expected_summary.append(f"  {title} ({pid}): sent to the review queue ({why})")
+    assert lines[lines.index(review_line) + 1:] == expected_summary + ["done"]
+    assert len(lines) == 3 + len(docs) + 2 + len(rows) + 1
 
-    # the overlay and the entry: byte-identical to the repository's synced state
+    # nothing was built: the site dir is still exactly the repo's (2 survey maps, 0 drawings)
+    assert {f.name for f in site.iterdir() if f.name.startswith("plan_")} == set()
     assert (site / "depictions.json").read_bytes() == \
         (ROOT / "web" / "data" / "sites" / SID / "depictions.json").read_bytes()
     assert (tree / "web" / "data" / "sites.json").read_bytes() == \
         (ROOT / "web" / "data" / "sites.json").read_bytes()
-    expected = {f"plan_{p}.webp" for p in docs} | {f"plan_{p}_ink.webp" for p in docs}
-    assert {f.name for f in site.iterdir() if f.name.startswith("plan_")} == expected
-    for f in site.iterdir():
-        if f.name.startswith("plan_"):
-            assert f.stat().st_size > 0
-
-    # the review page recomputed over the whole copied queue is the published queue
-    tr = json.loads((tree / "web" / "data" / "review.json").read_text())
-    rr = json.loads((ROOT / "web" / "data" / "review.json").read_text())
-    assert tr["items"] == rr["items"]
-    sh = [i for i in tr["items"] if i["site"] == SID]
-    assert len(sh) == 1 and [c["plan"] for c in sh[0]["candidates"]] == \
-        [c["plan"] for c in item["candidates"]]
-
-    # a one-site run touches only that site's files: no other item, no document, changed
+    # the upserted item is byte-identical to the repo's current 13-candidate item: the run
+    # reproduces the live run exactly (same entries, same order, same serialization)
+    assert (tree / "data" / "review" / Path(item_path).name).read_bytes() == Path(item_path).read_bytes()
+    # the pattern documents are gone, so a later batch run re-fits the pictures
+    assert list((tree / "data" / "db" / "platefits").glob(SID + ".*.json")) == []
+    # a one-site run touches only that site's files: every other item and every other document
     for name in sorted(set(os.listdir(tree / "data" / "review")) | set(os.listdir(ROOT / "data" / "review"))):
         assert _h(tree / "data" / "review" / name) == _h(ROOT / "data" / "review" / name), name
     for name in sorted(set(os.listdir(tree / "data" / "db" / "platefits")) |
                       set(os.listdir(ROOT / "data" / "db" / "platefits"))):
         assert _h(tree / "data" / "db" / "platefits" / name) == _h(ROOT / "data" / "db" / "platefits" / name), name
+    # the published page: the same open queue as the repo's (only the timestamp is new)
+    tr = json.loads((tree / "web" / "data" / "review.json").read_text())
+    assert tr["items"] == review_json["items"]
     assert _hash_all(checkout) == before  # and the checkout itself is untouched
 
-    # a second run: nothing to do, nothing to change
-    hashes = _hash_all([site, tree / "web" / "data" / "sites.json",
-                        tree / "web" / "data" / "review.json"])
+    # a second run: the documents are gone, so every picture is an item candidate; the line
+    # re-confirms and changes nothing but the review page's timestamp
+    hashes = _hash_all([site, tree / "web" / "data" / "sites.json", tree / "web" / "data" / "review.json",
+                        tree / "data" / "review", tree / "data" / "db" / "platefits"])
     proc2 = _run(tree)
     out2 = proc2.stdout.decode("utf-8")
     assert proc2.returncode == 0, out2 + proc2.stderr.decode("utf-8")
-    assert out2.count("skipped: overlay already current") == n_docs
-    assert f"entry  web/data/sites.json: drawings {n_docs} -> {n_docs}" in out2
-    assert out2.splitlines()[-1] == "done"
-    # review.json carries a fresh timestamp; compare everything but that
+    lines2 = out2.splitlines()
+    assert lines2[0] == lines[0]
+    assert lines2[1] == lines[1]
+    assert lines2[2] == (f"fit  {len(rows)} candidate picture(s): 0 fitted (doc), "
+                         f"{len(cands)} in the review item -> no batch run needed")
+    assert not any(l.startswith("sync ") for l in lines2)
+    # every picture is reported from the item: the 7 line-check candidates with their
+    # recorded reason and gate score, the 6 batch candidates with theirs
+    expected_summary2 = []
+    for row in sorted(rows, key=lambda r: r["id"]):
+        title = row.get("title") or row.get("label") or row["id"]
+        cand = next(c for c in cands if c["plan"] == row["id"])
+        gate = cand.get("gate_score")
+        why = (f"gate {gate} m - " if gate is not None else "") + (cand.get("why") or "no model answer")
+        expected_summary2.append(f"  {title} ({row['id']}): sent to the review queue ({why})")
+    assert lines2[lines2.index(review_line) + 1:] == expected_summary2 + ["done"]
+    # nothing but the review page's timestamp changed
     review_key = _key(tree / "web" / "data" / "review.json")
-    h2 = _hash_all([site, tree / "web" / "data" / "sites.json"])
-    assert h2 == {k: v for k, v in hashes.items() if k != review_key}
+    assert _hash_all([site, tree / "web" / "data" / "sites.json",
+                      tree / "data" / "review", tree / "data" / "db" / "platefits"]) == \
+        {k: v for k, v in hashes.items() if k != review_key}
     tr2 = json.loads((tree / "web" / "data" / "review.json").read_text())
-    assert tr2["items"] == rr["items"]
+    assert tr2["items"] == review_json["items"]
     assert _hash_all(checkout) == before

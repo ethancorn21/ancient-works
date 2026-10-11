@@ -23,7 +23,12 @@ Exit codes: 2 = the site is not built, 1 = a document failed to sync, 0 = done.
    A brand-new site needs a model here: `--working` (the local vision model on the AI box) or
    `--model-json` (recorded answers, a dry run); with neither, unfitted pictures land in the
    review item as "no model answer".
-2. **sync** — `pipeline/plan_fit.py build` for every one of the site's fit documents: the big
+2. **sync** — before any of them, the line's fabrication check: `plan_fit.fabrication_pattern`
+   on every document's stored page-px pairs (the batch's gate passes the model's pattern class
+   by construction — see What broke on Stonehenge). A document that hits is never synced: its
+   candidate is upserted into the site's review item with the reason, the document is deleted
+   (a later batch run re-fits the picture from scratch), and the line prints where it went. Then
+   `pipeline/plan_fit.py build` for every remaining document: the big
    picture (a Commons file is downloaded once and cached in `data/raw/commons/big/`, paced like
    `pipeline/commons.py`), the similarity or homography fit, `plan_<id>.webp` + `plan_<id>_ink.webp`
    in `web/data/sites/<site>/`, and the entry in its `depictions.json` (kind "plan"/"view",
@@ -40,13 +45,37 @@ The output names every picture of the site and where it ended up: *synced to the
 *sent to the review queue (why)*, or *skipped: overlay already current*.
 
 Stonehenge (the first site through the line, 2026-10-11): all 13 candidates were already covered
-by the batch (7 automatic documents, 6 in one review item), so the line synced the 7 documents,
-took the entry from 0 to 7 drawings, and published the item (the page then has 339 open of
-340 items). What the page shows:
+by the batch (7 automatic documents, 6 in one review item), so no batch run was needed — but the
+line re-checked all 7 documents before syncing and found every one of them to be the model's
+documented fabrication class (the batch's gate passed that class by construction, see below), so
+not one was synced: the line sent all 7 into the site's review item with the reason and deleted
+the documents. The site ends with 0 drawings, its entry stays at 0, and its one review item grew
+from 6 to 13 candidates (the page then has 339 open of 340 items). A human's saved fit is what
+puts the first drawing on this site. What the page shows now:
 
-- `docs/site_flow/stonehenge.png` — the site open on the aerial photograph with the 1800
-  Rijksmuseum plan in red ink over the ground (its circles and stones sit on the real sarsens),
-  the site panel listing all 7 drawings, and its map square coloured (7 drawings).
+- `docs/site_flow/stonehenge.png` — Stonehenge open on the aerial photograph with no drawing on
+  it at all: the panel's group is "Old maps and aerials" and offers only the 1842 six-inch OS
+  survey (the 1900 one-inch map is hidden by the 150-year rule), the map's marker is uncoloured,
+  and all 13 of the site's candidate pictures wait in its review item (one of the 339 open).
+  The old 7 drawings that the first run put here are the fabricated pattern fits described
+  below; they sit in the review item until a human places a real one.
+
+Argentoratum (Strasbourg, the second site through the line, 2026-10-11): all 42 candidate pictures
+were already covered by the batch (8 automatic documents, 34 in one review item), so no batch run
+was needed — and the pre-sync fabrication check hit all 8 automatic documents, exactly as it had on
+Stonehenge: each went into the site's review item with the reason and its gate score, and its
+document was deleted. The site ends with 0 drawings, its entry stays at 0, and its one review item
+grew from 34 to 42 candidates (the page still has 339 open of 340 items). Nothing new broke on this
+site: the check caught the class before a single download, and a second run of the command is a
+no-op (the item file byte-identical, only the page's timestamp refreshed). A human's saved fit is
+what puts the first drawing on this site. What the page shows now:
+
+- `docs/site_flow/argentoratum.png` — Argentoratum open on the aerial photograph with no drawing on
+  it at all: the panel's group is "Old maps and aerials" and offers the Cassini map (1756-1815) and
+  the Etat-major map (1820-1866) (the 1950 aerial is hidden by the 150-year rule), the map's marker
+  is uncoloured, the panel's "old plans in books" box waits for a human to place one of the site's 42
+  candidate pictures, and all 42 sit in its review item (one of the 339 open). The 8 automatic
+  documents the batch had scored are the fabricated pattern class, so they wait there too.
 
 ## What broke on Stonehenge, and the fix (so the next site does not meet it again)
 
@@ -70,12 +99,29 @@ took the entry from 0 to 7 drawings, and published the item (the page then has 3
   (only plans/drawings and 150+ year-old surveys show). Stonehenge's 1900 OS map therefore never
   appears; its 1842 six-inch map does. A site with only recent maps will look aerial-only in the
   panel even though the files are built.
+- **The gate passed 7 fabricated fits by construction.** Every one of Stonehenge's automatic
+  documents was the model's documented fabrication class (the `batch_us.llm_model` docstring:
+  "internally perfect regular patterns"): a regular ladder of round page-px coordinates mapped
+  to a regular ladder of ground points, implied scale = the site box's width over the page's
+  pixels. The batch never asks the model for a placement — it solves the similarity from the
+  model's own pairs and the gate scores that solution against the same points — so the
+  residuals (0–44 m) and all three pre-gate counterchecks passed by construction: gate.md
+  section 7's registered limit verbatim ("a consistent global error passes"). None of the 7
+  sat on the real sarsens (one was 2–3× too large and ~70 m off-centre). The line is the last
+  gate before the map, so it catches the class itself: `plan_fit.fabrication_pattern` (grid
+  roundness, a 2D lattice clause, a 1D ladder clause — on the document's stored page-px
+  pairs, pure, no download) runs on every document in `tools/site_done.py` before any sync; a
+  hit goes to the site's review item with the reason and its document is deleted, never to the
+  map. Verified to fire on every batch document in the repo (110 of 110 at calibration, before
+  the line deleted its 7) and on none of the 20 hand-fit documents.
 
 ## Files the line touches (one site only)
 
 `web/data/sites/<site>/**` (the overlays, `depictions.json`), the site's entry in
 `web/data/sites.json`, `web/data/review.json` (always the whole queue), the site's own item in
-`data/review/` (only to record a resolution), new big-picture caches in
-`data/raw/commons/big/`. It never rewrites a fit document (`data/db/platefits/` is byte-
-identical across runs), never another site's files, and never the 20 hand-fit documents
+`data/review/` (a resolution, or a fabrication-pattern candidate before its document is
+deleted), new big-picture caches in `data/raw/commons/big/`. It never rewrites a fit document —
+it only deletes a document whose page-px pairs match the fabrication pattern (the candidate
+goes to the review item first), so the rest of `data/db/platefits/` is byte-identical across
+runs — never another site's files, and never the 20 hand-fit documents
 (`tests/golden/hand_fit_docs.sha256` stays green).

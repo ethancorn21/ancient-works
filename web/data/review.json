@@ -1,5 +1,5 @@
 {
- "at": "2026-10-11T18:54:19.581512+00:00",
+ "at": "2026-10-11T20:27:33.402416+00:00",
  "items": [
   {
    "site": "aalsum-q3902030",
@@ -2885,6 +2885,551 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "features: Northwest bastion tip, Northwest wall corner, North wall corner, Northeast wall corner, East wall corner, Southeast wall corner, South wall corner, Southwest wall corner; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "c_0a017388dd93d0a0",
+     "title": "Plan Strasbourg 1720",
+     "url": "media/commons/argentoratum-q2361353/0a017388dd93d0a0.jpg",
+     "pairs": [
+      [
+       180.0,
+       280.0,
+       7.7431988,
+       48.5867378
+      ],
+      [
+       480.0,
+       220.0,
+       7.748291,
+       48.5874114
+      ],
+      [
+       780.0,
+       280.0,
+       7.7523647,
+       48.5867378
+      ],
+      [
+       880.0,
+       480.0,
+       7.7550805,
+       48.5844921
+      ],
+      [
+       780.0,
+       680.0,
+       7.7523647,
+       48.5822463
+      ],
+      [
+       180.0,
+       680.0,
+       7.7431988,
+       48.5822463
+      ],
+      [
+       80.0,
+       480.0,
+       7.7415014,
+       48.5844921
+      ],
+      [
+       480.0,
+       480.0,
+       7.748291,
+       48.5844921
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 19.9 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Strasbourg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 19.9
+    },
+    {
+     "plan": "c_13994601c91902bc",
+     "title": "ND Vignette des Comes Argentoratensis",
+     "url": "media/commons/argentoratum-q2361353/13994601c91902bc.jpg",
+     "pairs": [
+      [
+       100.0,
+       200.0,
+       7.7455751,
+       48.5862886
+      ],
+      [
+       200.0,
+       150.0,
+       7.7510068,
+       48.5871869
+      ],
+      [
+       300.0,
+       200.0,
+       7.7564385,
+       48.5862886
+      ],
+      [
+       350.0,
+       300.0,
+       7.7591543,
+       48.5826955
+      ],
+      [
+       300.0,
+       400.0,
+       7.7564385,
+       48.5791021
+      ],
+      [
+       200.0,
+       450.0,
+       7.7510068,
+       48.5782037
+      ],
+      [
+       100.0,
+       400.0,
+       7.7455751,
+       48.5791021
+      ],
+      [
+       50.0,
+       300.0,
+       7.7428593,
+       48.5826955
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 25.7 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Argentoratum",
+      "file_cat": "Argentoratum",
+      "via": []
+     },
+     "gate_score": 25.7
+    },
+    {
+     "plan": "c_1cb3168933122090",
+     "title": "Plan citadelle de Strasbourg (avant 1800)",
+     "url": "media/commons/argentoratum-q2361353/1cb3168933122090.jpg",
+     "pairs": [
+      [
+       180.0,
+       280.0,
+       7.7431309,
+       48.5867378
+      ],
+      [
+       600.0,
+       180.0,
+       7.7503278,
+       48.5873665
+      ],
+      [
+       850.0,
+       450.0,
+       7.7544016,
+       48.5849412
+      ],
+      [
+       800.0,
+       750.0,
+       7.7537226,
+       48.5817972
+      ],
+      [
+       500.0,
+       850.0,
+       7.7489699,
+       48.5804497
+      ],
+      [
+       250.0,
+       750.0,
+       7.7448962,
+       48.581348
+      ],
+      [
+       150.0,
+       500.0,
+       7.7428593,
+       48.5844921
+      ],
+      [
+       450.0,
+       500.0,
+       7.748291,
+       48.584043
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (14 of 14 distinct values on a 10-px grid); the gate's 25.7 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Strasbourg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 25.7
+    },
+    {
+     "plan": "c_5bfb0472f266c056",
+     "title": "1831. Strasbourg (Tirage avec changement) - d'apr\u00e8s le plan g\u00e9n\u00e9ral dress\u00e9 par J. N. Villot, Architecte de la ville - btv1b8444895n",
+     "url": "media/commons/argentoratum-q2361353/5bfb0472f266c056.jpg",
+     "pairs": [
+      [
+       150.0,
+       150.0,
+       7.7417729,
+       48.5888037
+      ],
+      [
+       400.0,
+       100.0,
+       7.7444888,
+       48.589163
+      ],
+      [
+       650.0,
+       150.0,
+       7.7472046,
+       48.5888037
+      ],
+      [
+       700.0,
+       400.0,
+       7.7477478,
+       48.5870072
+      ],
+      [
+       650.0,
+       650.0,
+       7.7472046,
+       48.5852107
+      ],
+      [
+       400.0,
+       700.0,
+       7.7444888,
+       48.5848514
+      ],
+      [
+       150.0,
+       650.0,
+       7.7417729,
+       48.5852107
+      ],
+      [
+       100.0,
+       400.0,
+       7.7412298,
+       48.5870072
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Strasbourg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 0.0
+    },
+    {
+     "plan": "c_6ba6bb7b49a78014",
+     "title": "3e Plan du front de fortification construit \u00e0 l'Ecole militaire etablie pour l'Artillerie \u00e0 Strabourg et des attaques de ce front projett\u00e9es pour l'instruction de cette \u00e9cole pendant la campagne 1755 - btv1b55001392s (1 of 2)",
+     "url": "media/commons/argentoratum-q2361353/6ba6bb7b49a78014.jpg",
+     "pairs": [
+      [
+       380.0,
+       220.0,
+       7.7466614,
+       48.5864683
+      ],
+      [
+       480.0,
+       280.0,
+       7.7480194,
+       48.58557
+      ],
+      [
+       600.0,
+       400.0,
+       7.7496489,
+       48.5844921
+      ],
+      [
+       480.0,
+       520.0,
+       7.7480194,
+       48.5834142
+      ],
+      [
+       580.0,
+       480.0,
+       7.7493773,
+       48.5837735
+      ],
+      [
+       720.0,
+       520.0,
+       7.7512784,
+       48.5834142
+      ],
+      [
+       620.0,
+       480.0,
+       7.7499205,
+       48.5837735
+      ],
+      [
+       720.0,
+       220.0,
+       7.7512784,
+       48.5864683
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 8.7 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Ecole",
+       "place_qid": "Q83259",
+       "place_label": "\u00c9cole Normale Sup\u00e9rieure",
+       "place_lon": 2.34472222,
+       "place_lat": 48.84194444,
+       "site_lon": 7.751,
+       "site_lat": 48.5827
+      }
+     },
+     "gate_score": 8.7
+    },
+    {
+     "plan": "c_751f9350136c699c",
+     "title": "Strasbourg-Krutenau-Plan de 1852-Rue de la Bruche",
+     "url": "media/commons/argentoratum-q2361353/751f9350136c699c.jpg",
+     "pairs": [
+      [
+       350.0,
+       450.0,
+       7.7462541,
+       48.5867378
+      ],
+      [
+       1050.0,
+       450.0,
+       7.7571174,
+       48.5858395
+      ],
+      [
+       1050.0,
+       1150.0,
+       7.7571174,
+       48.5795513
+      ],
+      [
+       350.0,
+       1150.0,
+       7.7462541,
+       48.5795513
+      ],
+      [
+       250.0,
+       800.0,
+       7.7448962,
+       48.5826955
+      ],
+      [
+       1150.0,
+       800.0,
+       7.7584753,
+       48.5826955
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 32.4 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Strasbourg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 32.4
+    },
+    {
+     "plan": "c_7e281c4136c9f7f5",
+     "title": "Plattegrond van Straatsburg, ca. 1701-1713, RP-P-OB-83.037-29",
+     "url": "media/commons/argentoratum-q2361353/7e281c4136c9f7f5.jpg",
+     "pairs": [
+      [
+       380.0,
+       180.0,
+       7.7480194,
+       48.5873665
+      ],
+      [
+       480.0,
+       220.0,
+       7.7496489,
+       48.5870072
+      ],
+      [
+       680.0,
+       180.0,
+       7.7523647,
+       48.5873665
+      ],
+      [
+       880.0,
+       220.0,
+       7.7550805,
+       48.5870072
+      ],
+      [
+       980.0,
+       420.0,
+       7.7561669,
+       48.5852107
+      ],
+      [
+       880.0,
+       580.0,
+       7.7537226,
+       48.5834142
+      ],
+      [
+       680.0,
+       620.0,
+       7.7510068,
+       48.5828752
+      ],
+      [
+       480.0,
+       580.0,
+       7.748291,
+       48.5834142
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 40.1 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Straatsburg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 40.1
+    },
+    {
+     "plan": "c_cd8109001e6616f1",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (8)",
+     "url": "media/commons/argentoratum-q2361353/cd8109001e6616f1.jpg",
+     "pairs": [
+      [
+       200.0,
+       200.0,
+       7.7435382,
+       48.587636
+      ],
+      [
+       1000.0,
+       200.0,
+       7.7571174,
+       48.587636
+      ],
+      [
+       1000.0,
+       800.0,
+       7.7571174,
+       48.5808988
+      ],
+      [
+       200.0,
+       800.0,
+       7.7435382,
+       48.5808988
+      ],
+      [
+       600.0,
+       600.0,
+       7.7503278,
+       48.5831447
+      ],
+      [
+       400.0,
+       400.0,
+       7.746933,
+       48.5853904
+      ],
+      [
+       800.0,
+       400.0,
+       7.7537226,
+       48.5853904
+      ],
+      [
+       400.0,
+       800.0,
+       7.746933,
+       48.5808988
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "sheet_mention",
+      "checked": "2026-10-11",
+      "named_place": "Strasbourg",
+      "place_qid": "Q6602",
+      "place_label": "Strasbourg",
+      "place_lon": 7.7522222222222,
+      "place_lat": 48.573333333333,
+      "site_lon": 7.751,
+      "site_lat": 48.5827,
+      "dist_m": 1045.4
+     },
+     "gate_score": 0.0
     }
    ],
    "no_picture_found": null
@@ -14597,6 +15142,390 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "c_022604d2be0becdc",
+     "title": "47 of 'Stonehenge- plans, descriptions and theories' (11135894643)",
+     "url": "media/commons/stonehenge-q39671/022604d2be0becdc.jpg",
+     "pairs": [
+      [
+       640.0,
+       800.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       640.0,
+       400.0,
+       -1.8261038,
+       51.1815794
+      ],
+      [
+       640.0,
+       1200.0,
+       -1.8261038,
+       51.1761895
+      ],
+      [
+       200.0,
+       800.0,
+       -1.8318357,
+       51.1788845
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 23.2
+    },
+    {
+     "plan": "c_098c4cb138676939",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 143.\u2014Ground-plan of Stonehenge as it probably was. (Stevens.)",
+     "url": "media/commons/stonehenge-q39671/098c4cb138676939.jpg",
+     "pairs": [
+      [
+       640.0,
+       648.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       640.0,
+       200.0,
+       -1.8261038,
+       51.1820285
+      ],
+      [
+       640.0,
+       1100.0,
+       -1.8261038,
+       51.1757403
+      ],
+      [
+       200.0,
+       648.0,
+       -1.8311192,
+       51.1788845
+      ],
+      [
+       1080.0,
+       648.0,
+       -1.8210884,
+       51.1788845
+      ],
+      [
+       400.0,
+       400.0,
+       -1.8289698,
+       51.1806811
+      ],
+      [
+       880.0,
+       400.0,
+       -1.8232379,
+       51.1806811
+      ],
+      [
+       400.0,
+       900.0,
+       -1.8289698,
+       51.1770878
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 10 distinct values on a 10-px grid); the gate's 7.4 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 7.4
+    },
+    {
+     "plan": "c_20f9f11153a0b7f0",
+     "title": "Knight-Stonehenge-Restored-plan-q85-1165x1066",
+     "url": "media/commons/stonehenge-q39671/20f9f11153a0b7f0.jpg",
+     "pairs": [
+      [
+       580.0,
+       380.0,
+       -1.8262471,
+       51.1789743
+      ],
+      [
+       580.0,
+       380.0,
+       -1.8262471,
+       51.1789743
+      ],
+      [
+       850.0,
+       200.0,
+       -1.8225214,
+       51.1815794
+      ],
+      [
+       850.0,
+       800.0,
+       -1.8225214,
+       51.1761895
+      ],
+      [
+       300.0,
+       800.0,
+       -1.8304027,
+       51.1761895
+      ],
+      [
+       300.0,
+       200.0,
+       -1.8304027,
+       51.1815794
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 44.1 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 44.1
+    },
+    {
+     "plan": "c_6933e3a931a0240a",
+     "title": "Rude Stone Monuments 0128",
+     "url": "media/commons/stonehenge-q39671/6933e3a931a0240a.jpg",
+     "pairs": [
+      [
+       550.0,
+       650.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       650.0,
+       600.0,
+       -1.8246709,
+       51.1784353
+      ],
+      [
+       400.0,
+       400.0,
+       -1.8282533,
+       51.180232
+      ],
+      [
+       850.0,
+       800.0,
+       -1.8218049,
+       51.1766387
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.8 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 26.8
+    },
+    {
+     "plan": "c_83b4d6df7a6d2383",
+     "title": "Plattegrond van de Stonehenge, RP-P-2018-849",
+     "url": "media/commons/stonehenge-q39671/83b4d6df7a6d2383.jpg",
+     "pairs": [
+      [
+       640.0,
+       150.0,
+       -1.8268203,
+       51.180232
+      ],
+      [
+       850.0,
+       400.0,
+       -1.8239544,
+       51.1784353
+      ],
+      [
+       640.0,
+       650.0,
+       -1.8268203,
+       51.1766387
+      ],
+      [
+       430.0,
+       400.0,
+       -1.8296863,
+       51.1784353
+      ],
+      [
+       640.0,
+       250.0,
+       -1.8268203,
+       51.1793337
+      ],
+      [
+       750.0,
+       400.0,
+       -1.8253874,
+       51.1784353
+      ],
+      [
+       640.0,
+       550.0,
+       -1.8268203,
+       51.177537
+      ],
+      [
+       530.0,
+       400.0,
+       -1.8282533,
+       51.1784353
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 16.7 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 16.7
+    },
+    {
+     "plan": "c_897a5c1632e2fdd6",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.\u2014Ground-plan of Stonehenge as it is. (Stevens.)",
+     "url": "media/commons/stonehenge-q39671/897a5c1632e2fdd6.jpg",
+     "pairs": [
+      [
+       150.0,
+       250.0,
+       -1.8311192,
+       51.1820285
+      ],
+      [
+       850.0,
+       250.0,
+       -1.8210884,
+       51.1820285
+      ],
+      [
+       850.0,
+       850.0,
+       -1.8210884,
+       51.1757403
+      ],
+      [
+       150.0,
+       850.0,
+       -1.8311192,
+       51.1757403
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 38.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 38.0
+    },
+    {
+     "plan": "c_f8386b6404e4ee63",
+     "title": "29 of '(Our own country. Descriptive, historical, pictorial.)' (11298369994)",
+     "url": "media/commons/stonehenge-q39671/f8386b6404e4ee63.jpg",
+     "pairs": [
+      [
+       500.0,
+       500.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       300.0,
+       700.0,
+       -1.8289698,
+       51.1770878
+      ],
+      [
+       700.0,
+       300.0,
+       -1.8232379,
+       51.1806811
+      ],
+      [
+       800.0,
+       600.0,
+       -1.8218049,
+       51.1779862
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Our",
+       "place_qid": "Q650039",
+       "place_label": "Our",
+       "place_lon": 5.6505555555556,
+       "place_lat": 47.130555555556,
+       "site_lon": -1.826111,
+       "site_lat": 51.178889
+      }
+     },
+     "gate_score": 0.0
     }
    ],
    "no_picture_found": null

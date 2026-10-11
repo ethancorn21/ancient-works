@@ -389,10 +389,10 @@
     800
    ],
    "lidar_credit": "AHN (Rijkswaterstaat)",
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 1,
+   "score": 2.17,
+   "oldest": 1832,
+   "overlays": 2
   },
   {
    "id": "aldford-castle-q4713789",
@@ -17036,10 +17036,10 @@
     1000
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 7,
-   "score": 4.51,
-   "oldest": 1800,
-   "overlays": 8
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "stones-of-stenness",

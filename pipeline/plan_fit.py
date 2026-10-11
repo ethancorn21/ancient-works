@@ -9,6 +9,9 @@ A fit is saved by the page's plate-fitting tool as data/db/platefits/<site id>.<
 The fit is a similarity transform (shift, rotation, one scale) by least squares over the pairs, solved in Web
 Mercator metres (conformal, so a similarity there is a similarity on the ground). The page solves the same thing
 for its preview; this file is the one that decides. Pairs are never moved or snapped here.
+
+Also here, next to the fit math it guards: fabrication_pattern, the one-site line's check for the batch
+model's fabricated anchor patterns (tools/site_done.py runs it on every doc before it syncs).
 """
 import glob
 import io
@@ -106,6 +109,76 @@ def homography(pairs):
     q = (H @ np.c_[U, np.ones(len(U))].T).T
     k = aw.ground_scale(float(p[:, 3].mean()))
     return H, np.hypot(*(q[:, :2] / q[:, 2:3] - Z).T) * k, k
+
+
+def _gap_ratios(axis):
+    """Consecutive gaps between the distinct sorted values -> (max/median, min/median), or None.
+    Near-arithmetic spacing is small ratios in both directions (exact arithmetic: 1.0, 1.0)."""
+    d = np.unique(np.asarray(axis, float))
+    if d.size < 2:
+        return None
+    g = np.diff(d)
+    med = float(np.median(g))
+    if med <= 0:
+        return None
+    return float(g.max() / med), float(g.min() / med)
+
+
+def fabrication_pattern(pairs):
+    """The line's check for the batch model's documented fabrication class (fit/batch_us.py
+    llm_model, docs/gate.md section 7): internally perfect regular patterns on the fit sheet's
+    page grid, which the batch's pre-gate checks and the gate all pass by construction (the gate
+    scores the least-squares fit against the same points the model invented), so the one-site
+    line re-checks the pattern before it syncs a doc to the map. Any one clause fires:
+      (a) 2D lattice - >=4 anchors, >=3 distinct u AND >=3 distinct v, near-arithmetic spacing
+          between distinct values on BOTH axes (max/median <= 1.3 and min/median >= 0.67);
+      (b) 1D ladder - >=3 anchors sharing one coordinate (spread <= 2 px) with near-arithmetic
+          spacing on the other (max/median <= 1.5 and min/median >= 0.9);
+      (c) grid-round page coordinates - >=4 anchors and >=90% of the distinct anchor coordinates
+          (per axis) within 0.5 px of a multiple of 10 px: the fit sheet's grid is labelled every
+          100-1000 source px (fit/batch_us.py _step), so a model that reads labels lands on
+          multiples of 10, while the page tool records a human's drag with one decimal (the 20
+          hand fits in the repo are <=43% round).
+    Calibrated on this repo (301): fires on all 15 stonehenge + argentoratum batch docs and on
+    every other batch doc, and on none of the 20 hand fits (tests/golden/hand_fit_docs.sha256);
+    nearest hand margins: (a) max/median 1.307-1.429 vs 1.3, (b) min/median 0.801 vs 0.9,
+    (c) 0.43 vs 0.9. Pairs are the doc's [[u, v, lon, lat], ...] in the picture's size frame;
+    no download, no network. -> None, or a reason string naming the clause(s) that fired.
+    """
+    p = np.asarray(pairs, float)
+    if p.size == 0 or p.shape[1] < 2:
+        return None
+    u, v = p[:, 0], p[:, 1]
+    clauses = []
+    if len(p) >= 4 and np.unique(u).size >= 3 and np.unique(v).size >= 3:
+        gu, gv = _gap_ratios(u), _gap_ratios(v)
+        if gu and gv and gu[0] <= 1.3 and gu[1] >= 0.67 and gv[0] <= 1.3 and gv[1] >= 0.67:
+            clauses.append("2D lattice (regular ladders on both page axes)")
+    if len(p) >= 3:
+        for shared in (1, 0):  # v-shared and u-shared orientations
+            s = p[np.argsort(p[:, shared])]
+            i = 0
+            for j in range(s.shape[0]):
+                while s[j, shared] - s[i, shared] > 2:
+                    i += 1
+                if j - i + 1 >= 3:
+                    g = _gap_ratios(s[i:j + 1, 1 - shared])
+                    if g and g[0] <= 1.5 and g[1] >= 0.9:
+                        clauses.append("1D ladder (%d anchors share one coordinate, regular spacing on the other)"
+                                       % (j - i + 1))
+                        break
+            if len(clauses) > 1:
+                break
+    if len(p) >= 4:
+        def round_counts(axis):
+            d = np.unique(axis)
+            return int(sum(abs(x / 10.0 - round(x / 10.0)) <= 0.05 + 1e-9 for x in d)), int(d.size)
+        (ru, nu), (rv, nv) = round_counts(u), round_counts(v)
+        if nu + nv and (ru + rv) / (nu + nv) >= 0.9:
+            clauses.append("grid-round page coordinates (%d of %d distinct values on a 10-px grid)" % (ru + rv, nu + nv))
+    if not clauses:
+        return None
+    return "fabricated anchor pattern: " + "; ".join(clauses)
 
 
 def load_picture(doc, root=None):
@@ -246,11 +319,12 @@ def build(doc, root=None):
     build_site.set_drawings(sid, r)  # the page's flagship marker follows the count of fitted drawings
 
 
-def prune(root=None):
-    """Drop plan overlays whose fit was deleted."""
+def prune(root=None, site=None):
+    """Drop plan overlays whose fit was deleted (this site only when `site` is given - the one-site
+    line must not write another site's files; the CLI keeps the global sweep)."""
     r = _root(root)
     have = {os.path.basename(p)[:-5] for p in glob.glob(os.path.join(r, "data", "db", "platefits", "*.json"))}
-    for dep_path in glob.glob(os.path.join(r, "web", "data", "sites", "*", "depictions.json")):
+    for dep_path in glob.glob(os.path.join(r, "web", "data", "sites", site or "*", "depictions.json")):
         deps = json.load(open(dep_path))
         keep = [d for d in deps["depictions"] if d.get("kind") not in ("plan", "view") or (d.get("fit") or {}).get("doc") in have]
         if len(keep) != len(deps["depictions"]):

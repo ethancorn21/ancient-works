@@ -5,10 +5,11 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 64 (2026-10-11, agent a) - the missing part is filed: tasks/218-gate-holdout-new-hand-docs.md is in the queue (Status: open, Depends on: 0
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 65, agent c - the line is BUILT and RAN on the real tree; the browser check passed; ONLY box 4 remains: tests/test_site_done.py, then the t
+- `tasks/301-site-argentoratum.md` (in-progress) - hand-over: (iteration 72, agent c - tests/test_site_done.py rewritten golden-seeded and passing: the test recovers
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,52 +20,16 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
-Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
-Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
-review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
-but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
-pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
-So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
-site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
-not root-aware: plan_fit and build_site derive every path from their own file location, and
-review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
-one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
-files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
-through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
-write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
-Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
-(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
-hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
-(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
-backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
-hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
-real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
+### 2026-10-11 301 DECISION: the fabrication check is wired into the line (tools/site_done.py:_sync, run BEFORE any build/download); the line took Stonehenge to the map as 0 drawings / 13 review candidates; two line defects found and fixed in the line (scoped prune, stale item re-read)
+Where: tools/site_done.py, pipeline/plan_fit.py (prune), data/db/platefits/stonehenge-q39671.* (7 deleted), data/review/stonehenge-*, web/data/{sites.json,review.json}
+Rationale: _sync runs plan_fit.fabrication_pattern(doc pairs) on every doc before the is_done/build branch; on a hit it (1) upserts the candidate into the site's item via a new _pattern_entry (plan/title/url/pairs/evidence/gate_score, why = "line check: <reason>; the gate's X m measures internal consistency of the anchors, not their truth"), (2) deletes the doc file (a later batch run re-fits the picture; plan_fit.prune keeps no overlay of it), (3) prints "sent to the review queue (line check: ...)" and never counts it synced; after the loop the line calls plan_fit.prune(root, sid). _sync now returns (failed, sent), and main re-reads the item AFTER the sync (the upsert is invisible to _fit's snapshot) so _review/_summary/resolved all see the new candidates. The real run (no model, no network): 13 rows all covered -> no batch run; all 7 stonehenge docs hit the check; the 7 already-built plan webps + dep entries pruned; drawings 7 -> 0; item 6 -> 13 (the 6 originals byte-identical, order kept, lead unchanged); review.json republished (339 open of 340); second run idempotent (only review.json's "at" changes). Two defects the run exposed, both fixed in the line per the task's "fix in the line" box: (1) prune was a GLOBAL sweep and dropped a stale orphan dep entry of alligator-effigy-mound (a plan overlay referencing a doc that no longer exists in the store - pre-existing since before this task; the dep dir is gitignored/local, the images pipeline-rebuild, and the module's own next global prune would have dropped it anyway) - so plan_fit.prune gained a `site` parameter (site=None keeps the CLI's global sweep) and the line prunes only its own site; (2) _review printed the stale pre-sync item (6 candidates instead of 13) because it used _fit's snapshot - main re-reads after the sync. Suite 60 passed after all of it (hand-fit golden green). test_site_done.py now runs VACUOUSLY against the new repo state (0 docs) - the golden-seeded rewrite that makes it re-verify the check is the next step, after the docs step. The 7 deleted docs live on in git history (this commit's parent): git show <parent>:data/db/platefits/stonehenge-q39671.<plan>.json.
 
-### 2026-10-11 300 DECISION: the one-site line is implemented and has taken Stonehenge to the map; one session remains (tests/test_site_done.py)
-Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py, docs/site_flow.md, docs/site_flow/stonehenge.png, web/data/{sites.json,review.json,sites/stonehenge-q39671/}, data/raw/commons/big/
-Rationale: iteration 65 implemented exactly the previous session's design and ran the line on the real
-`tree with no model flag. Results, all verified on disk: (1) fit - "13 candidate picture(s): 7 fitted (doc),
-6 in the review item -> no batch run needed" (the covered/uncovered distinction worked: run_sites was never
-called, so no item entry was clobbered); (2) sync - 7 documents synced, each big picture downloaded from
-Commons through the new paced _fetch (14 requests, no 429, ~35 s); (3) entry - drawings 0 -> 7; (4) review -
-the item published (339 open of 340 - the batch's population, unchanged), no `resolved` recorded anywhere
-(stonehenge's 6 candidates have no resolving doc; the scoped export also left alligator's derived-resolved
-item untouched - all 340 item files byte-identical, all 130 platefits docs byte-identical, only the stonehenge
-entry in sites.json changed, hand-fit golden green, suite 59 green both before and after). Re-run of the
-command: every doc "skipped: overlay already current", sites.json and platefits byte-identical - idempotent.
-Browser check (box 3): serve.py --port 0 + shot.mjs with `select('stonehenge-q39671')` - probe reports
-drawings 7, marker class without `plain` (the square is coloured), the 1800 Rijksmuseum plan auto-selected
-and rendered in red ink exactly on the real sarsen circles over the aerial photograph; screenshot committed
-as docs/site_flow/stonehenge.png with its one-line description in docs/site_flow.md.
-What broke this session (all fixed, all documented in docs/site_flow.md for the next site): the entry line
-first printed "drawings 7 -> 7" because plan_fit.build calls set_drawings after every fit, so a "before" read
-taken AFTER the sync sees the final value - the before is now captured before the sync. (The 429 risk did
-not materialise: the paced _fetch absorbed a 14-request burst cleanly.)
-Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the site stripped to pre-sync +
-synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
-exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
-file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
+### 2026-10-11 301 DECISION: Stonehenge's record corrected - docs/site_flow.md no longer claims the 7 fabricated fits were synced, and docs/site_flow/stonehenge.png is the CURRENT visitor state (0 drawings, uncoloured marker, 13 candidates in the review item)
+Where: docs/site_flow.md, docs/site_flow/stonehenge.png
+Rationale: the old paragraph said the line "synced the 7 documents, took the entry from 0 to 7 drawings" and the old png's caption claimed the 1800 Rijksmuseum plan "sits on the real sarsens" - both false since the iteration-70 line run (all 7 were the model's fabricated pattern class; the site is 0 drawings with 13 open candidates). New png: the LIVE checkout served with server/serve.py --port 0 (ephemeral port), shot with tools/shot.mjs (NODE_PATH=/home/agent/tools/shot/node_modules; probe polls S.ready && S.sites.length, select('stonehenge-q39671'), awaits loadDeps; POSTWAIT=8000 so the 4.5 s flyTo settles). Its [eval] confirmed drawings: 0, depFiles: ["map:six-inch-1st.webp"] (the 1900 one-inch map is hidden by the 150-year rule), RV loaded with 339 open items; the frame shows the aerial ground, the panel's "Old maps and aerials" group, no drawings, uncoloured markers. Doc edits: the Stonehenge paragraph rewritten (no batch run needed, all 7 hit the pre-sync check, all sent to the item with the reason and deleted, 0 drawings, item 6 -> 13, 339 open of 340, a human's saved fit puts the first drawing on); the png caption true; a new "What broke" entry recording that the gate passed the class by construction (gate.md s.7; residuals 0-44 m; one fit 2-3x too large and ~70 m off-centre) and that the line's fabrication_pattern (grid roundness + 2D lattice + 1D ladder on stored page-px pairs) now catches it before sync (fires on all 110 batch docs at calibration, none of the 20 hand docs); "Files the line touches" no longer claims data/db/platefits is byte-identical (the line deletes pattern docs after upserting the candidate); step 2 (sync) now describes the pre-sync check. ArcGIS World_Imagery ERR_ABORTED lines during the flyTo are normal in-flight aborts - the photograph still renders. Suite: 60 passed, unchanged.
+
+### 2026-10-11 301 DECISION: test_site_done.py re-seeds the Stonehenge fabrication incident from the recovered goldens - the line's pre-sync check is re-verified on every run
+Chosen of the options the hand-over left (golden-seeded rewrite vs extending to a new site vs lighter assertions): golden-seeded rewrite with the STRONGEST pin available - the upserted item must be BYTE-IDENTICAL to the repo's current 13-candidate item, which forces the check function, the 200-evidence row lookup, the upsert's ordering/serialization, and the golden docs all to reproduce the live run exactly. Shape: (1) the 7 deleted docs recovered verbatim from git (b84d147^) into tests/golden/stonehenge_linecheck_docs/ under their original names (Touches already listed tests/golden/); (2) loud preconditions before seeding - the repo holds no stonehenge docs, the item is exactly 7 "line check:" + 6 batch candidates, fabrication_pattern still fires on each golden doc AND the recorded entry equals SITE_DONE._pattern_entry(doc, pattern, repo) (drift in the check, a golden doc, or a files.jsonl evidence row fails before anything is seeded), plans.json's 13 rows == 7+6, the published page matches the item; (3) the tree copies code + full queue + whole doc store + data/commons/files.jsonl, seeds the 7 docs, and rewinds the item to its 6 batch candidates (the upsert only appended, so removal restores the batch's file); the run asserts the ENTIRE output line by line, byte-identity of item/depictions/sites.json (0 drawings), the 7 docs deleted, every other site's files untouched, and second-run idempotency (only review.json's "at"). Two design findings: the old tree omitted data/commons/files.jsonl, which _pattern_entry reads for the evidence field - without the copy the upserted item cannot be byte-identical; and no flat-colour big-image seeding is needed at all, because a pattern doc never reaches load_picture (if the check ever stops firing, the run tries to download and dies on the socket guard). The test loads tools/site_done.py via importlib under the unique name "site_done_under_test" (its own sys.path inserts resolve batch_us/build_site/plan_fit/review; fit/ and pipeline/ have no module-name collisions, so the later test_src_* files in the same pytest process are unaffected). Suite: 60 passed, count unchanged. Next step: Argentoratum through the line (all 8 of its auto docs fire the check; item 34 -> 42, drawings stay 0).
 
 ## Project-wide driver notes (newest)
 

@@ -2640,6 +2640,98 @@ needed. Trivia: `evidence._line` prints `PASS caption_coords  <key>` (1 space af
 last) + the 211 R6 note next.
 
 
+<!-- task 300 -->
+# Task 300 site-stonehenge
+
+## 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
+Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
+review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
+but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
+pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
+So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
+site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
+not root-aware: plan_fit and build_site derive every path from their own file location, and
+review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
+one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
+files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
+through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
+write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
+Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
+(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
+hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
+(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
+backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
+hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
+real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
+
+## 2026-10-11 300 DECISION: the one-site line is implemented and has taken Stonehenge to the map; one session remains (tests/test_site_done.py)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py, docs/site_flow.md, docs/site_flow/stonehenge.png, web/data/{sites.json,review.json,sites/stonehenge-q39671/}, data/raw/commons/big/
+Rationale: iteration 65 implemented exactly the previous session's design and ran the line on the real
+`tree with no model flag. Results, all verified on disk: (1) fit - "13 candidate picture(s): 7 fitted (doc),
+6 in the review item -> no batch run needed" (the covered/uncovered distinction worked: run_sites was never
+called, so no item entry was clobbered); (2) sync - 7 documents synced, each big picture downloaded from
+Commons through the new paced _fetch (14 requests, no 429, ~35 s); (3) entry - drawings 0 -> 7; (4) review -
+the item published (339 open of 340 - the batch's population, unchanged), no `resolved` recorded anywhere
+(stonehenge's 6 candidates have no resolving doc; the scoped export also left alligator's derived-resolved
+item untouched - all 340 item files byte-identical, all 130 platefits docs byte-identical, only the stonehenge
+entry in sites.json changed, hand-fit golden green, suite 59 green both before and after). Re-run of the
+command: every doc "skipped: overlay already current", sites.json and platefits byte-identical - idempotent.
+Browser check (box 3): serve.py --port 0 + shot.mjs with `select('stonehenge-q39671')` - probe reports
+drawings 7, marker class without `plain` (the square is coloured), the 1800 Rijksmuseum plan auto-selected
+and rendered in red ink exactly on the real sarsen circles over the aerial photograph; screenshot committed
+as docs/site_flow/stonehenge.png with its one-line description in docs/site_flow.md.
+What broke this session (all fixed, all documented in docs/site_flow.md for the next site): the entry line
+first printed "drawings 7 -> 7" because plan_fit.build calls set_drawings after every fit, so a "before" read
+taken AFTER the sync sees the final value - the before is now captured before the sync. (The 429 risk did
+not materialise: the paced _fetch absorbed a 14-request burst cleanly.)
+Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the site stripped to pre-sync +
+synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
+exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
+file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
+
+## 2026-10-11 300 DECISION: tests/test_site_done.py runs the copied one-site line on a copy of Stonehenge's files with a socket-dead subprocess and big pictures at the REAL cache dimensions; task done
+Where: tests/test_site_done.py (new)
+Rationale: box 4, the last box. The test builds a throwaway tree in tmp_path: the code copied whole
+(tools/, fit/, pipeline/ - site_done resolves its data root from its own path, so the copied code runs on
+the copied data), all of web/data/{sites.json (stonehenge's drawings zeroed to pre-sync), plans.json,
+review.json}, data/review/ (all 340 items) and data/db/platefits/ (all 130 docs), and the site dir minus its
+14 plan webps with depictions.json stripped to its 2 maps. The 7 Commons big pictures the sync would
+otherwise download are seeded as flat-colour JPEGs at the EXACT real cache dimensions (headers read through
+the checkout's committed data/raw symlink; the batch tests link the same store) - one twist vs the iter 65
+design, which assumed fs=1: 3 of the 7 big files are 1.19-1.75x the doc's `size` and m_per_px in
+depictions.json depends on that factor (now a PITFALLS entry under pipeline/); the fit math is
+content-free, so only the dimensions matter and depictions.json comes out byte-identical to the repo's.
+The subprocess guard is `sys.executable -c GUARD tree/tools/site_done.py stonehenge-q39671`: GUARD kills
+socket.socket.connect/connect_ex and socket.create_connection, then runpy.run_path(run_name="__main__") -
+a monkeypatch in the parent pytest process cannot protect a child (PITFALLS Python). Checked: exit 0, empty
+stderr, the exact per-picture report (fit/entry/review lines, 7 "synced to the map", 6 "sent to the review
+queue", final "done"); depictions.json and sites.json byte-identical to the repo's synced state; the
+recomputed review page equal to the published queue (only its `at` differs); every other item file and all
+130 docs byte-identical; the checkout itself untouched (hash snapshot before/after); and a second run with
+every document "skipped: overlay already current" and every file still unchanged (idempotent). Pinned
+preconditions fail loudly (pytest.fail) if Stonehenge's plans.json/queue ever changes so a batch run would
+be needed. Two trivial write bugs fixed while iterating (list|list TypeError; helper named _h not _hash).
+Timing: first run 14.7 s, whole test 17 s; full suite 60 passed in 76.8 s (was 59/59.8). All five boxes
+ticked; Status: done.
+
+
+<!-- task 301 -->
+# Task 301 site-argentoratum
+
+## 2026-10-11 301 DECISION: lead redirect - Stonehenge is not done first; its 7 batch fits are all fabricated frame-to-box identity maps, and the gate passed them by construction
+The lead (mid-session, 2026-10-11): before Argentoratum, check each of Stonehenge's 7 synced drawings; anything visibly off goes to the review queue with the reason; find why the gate passed the Rijksmuseum plan (16.7 m, 2-3x too big, off-centre) and make the LINE catch it, with a test; correct the false sentence in docs/site_flow.md; then Argentoratum.
+Root cause (verified this session): all 7 stonehenge auto docs (c_0226 23.2 m, c_098c 7.4 m, c_20f9 44.1 m, c_6933 26.8 m, c_83b4 16.7 m, c_897a 38.0 m, c_f838 0.0 m) are the model's documented fabrication class (batch_us.llm_model docstring, pilots 4a/4c: "internally perfect regular patterns (identity maps, corner-to-corner, diagonal ladders)"): regular ladders of round page-px coordinates (u 200-1080 step ~200-400, v 150-1200 step ~100-200) mapped to regular ground ladders (points on shared lon/lat lines 100-450 m from the site centre; 4 of the 7 have one anchor within ~1 m of the site's NOMINAL centre - the catalog coordinate, not a feature), implied scale 0.80-1.07 m/px = box width / page px (the model treated the page frame as the 1000x1000 m site box). Why the gate passed it: run_sites never asks the model for a placement - it SOLVES the similarity from the model's own pairs and the gate scores that least-squares fit against the same points, so the residuals are only the ladder's ~20-25% anisotropy + jitter (med 0-44 m < 45, slope_o 0.02-0.12 < 0.145, no radial pattern) -> ACCEPT. That is gate.md section 7's registered limit verbatim ("a consistent global error passes"; the gate does not re-verify the anchors are the right features) - the gate did its registered job. The batch's three pre-gate counterchecks all pass BY CONSTRUCTION on this class: the stated-scale cross-check compares the model's stated scale with its own ladder's implied scale (they agree by construction), and _feature_present passes because ladder points scattered over structureless Salisbury Plain sit at/above the 400-point null median (the next-door candidate c_ffb3d drew the 25% verdict). All 7 verified visually (composites over relief.jpg, /tmp/stonehenge_overlay_check.png): none sits on the sarsens - c_83b4 is 2-3x too big AND ~70 m off-centre (the lead's exact description), the other six likewise off in scale and/or position. Consequence the lead accepts: all 13 of Stonehenge's candidates end in the review item (human's drag is the last word) and the site shows 0 drawings until a human fits at least one.
+
+## 2026-10-11 301 DECISION: the line's fix - a fabrication-pattern check (2D lattice / 1D ladder / frame-identity) before sync; pattern docs go to the review item with the reason, never to the map
+Chosen over extending the frozen gate (that would void the gate.md registration and test_gate pins its constants) and over re-running the batch (the batch's pre-gate checks are exactly what passed by construction; the line is the last gate before the map and re-validates each site's docs on its turn - no batch-wide re-run needed). Shape (detailed in the task hand-over): a new pure function in pipeline/plan_fit.py, `fabrication_pattern(pairs, crop, size, box) -> None | reason`, three conditions any one of which fires: (a) 2D lattice (>=3 distinct u AND >=3 distinct v, consecutive gaps near-arithmetic on both axes, >=4 anchors) - fires on c_098c, c_83b4; (b) 1D ladder (>=3 anchors collinear with near-arithmetic spacing) - fires on c_0226; (c) frame-identity (the solved similarity maps the crop frame onto the site box: centre within 25% of the box side per axis, size ratio per axis in [0.7, 1.4]) - fires on c_20f9, c_6933, c_897a, c_f838. site_done._sync runs it before any download; on a hit: no build, prune any existing overlay (plan_fit.prune), upsert a review-item candidate carrying the doc's pairs + gate score + the pattern reason, recompute the entry and republish the queue. Tolerances must be validated to fire on all 7 stonehenge docs and on NONE of the 20 hand-fit docs (the golden reference). Test: extend tests/test_site_done.py in its existing hermetic harness (socket-dead child, tmp copy). Then run the line on stonehenge (no model needed: all 13 candidates covered -> no batch run, no network: pattern docs are rejected before any fetch), fix site_flow.md + replace stonehenge.png, then argentoratum.
+
+### 2026-10-11 301 DECISION: the line's fabrication check = standalone grid-roundness plus 2D-lattice and 1D-ladder clauses on the doc's page-px pairs; frame-identity dropped, so the function takes pairs only
+Chosen of the two options the previous hand-over left open: standalone grid-roundness as the primary clause (its own recommendation: a strict gate that over-refuses is fine, the human's drag is the last word, and it fires on ALL 8 argentoratum docs, not just the 5 the frame-identity+round variant caught). Frame-identity is dropped entirely: it fires on 4 legitimate hand maps (avebury/bergues/calleva/camp-d "the drawing covers the site box"; rotation cannot separate them, tested last session) and adds no coverage (roundness already fires all 15 targets). With frame-identity gone, crop/size/box are dead params, so the implemented signature is fabrication_pattern(pairs) in pipeline/plan_fit.py (pure numpy, no download; runs on the doc's stored pairs in the picture's size frame, before any fetch). (b) is kept because it is not redundant: pontefract c_3213 (22% round) is a 1D ladder - the union of the three clauses fires on EVERY batch auto doc in the repo (110/110 in data/db/platefits), not just the 15 targets.
+Validation (the real function, run this session): fires 15/15 stonehenge + argentoratum auto docs - c_098c fires all three (9/10 per-axis-distinct round, lattice gaps 1.091/0.909 u + 1.125/0.893 v, two 3-anchor ladders) - and fires 110/110 repo batch docs; fires 0/20 hand fits (tests/golden/hand_fit_docs.sha256). Nearest hand margins: (a) whitley max/median 1.3066 vs 1.3, (b) castle-rising min/median 0.801 vs 0.9, (c) maiden 0.43 vs 0.9. The previous hand-over's c_098c "9/10" was per-axis-distinct (u distinct + v distinct); union-distinct would be 7/8 = 0.875 and would NOT fire (c) on c_098c - the implementation uses per-axis, the convention that lets (c) alone fire all 15. The 10-px roundness: the fit sheet's grid labels sit at 100/200/500/1000 source px (fit/batch_us._step/_grid), so a model reading labels lands on multiples of 10 px; the page tool records a human's drag with one decimal. The check is independent of the batch's three pre-gate checks (re-read llm_model/_parse_answer/_feature_present: range drop, stated-scale, texture - none look at page-px coordinate patterns).
+Suite: 60 passed after the change (the function is unused until the next step wires it into site_done._sync, so nothing else could break).
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
