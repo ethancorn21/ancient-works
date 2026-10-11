@@ -12,3 +12,4 @@ laspy[lazrs]
 requests
 pyshp
 pytest
+scikit-image

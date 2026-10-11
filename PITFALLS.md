@@ -52,7 +52,9 @@ Symptom: `ERROR: In --require-hashes mode, all requirements must have their vers
 Fix: add the package to `requirements.in`, regenerate `requirements.txt` with `pip-compile --generate-hashes`
 from a throwaway venv outside the project (pip-tools itself goes there, e.g. `/tmp/aw-pto`), commit both.
 PyPI is reachable from this machine and cp312 wheels for the current requirements install fine (2026-10-10:
-the built `.venv` ran the 8-test suite).
+the built `.venv` ran the 8-test suite). 2026-10-11 (302a): scikit-image==0.26.0 was pinned (deps imageio==2.38.1,
+lazy-loader==0.6, networkx==3.7) for fit/inkfit.py; pip-compile re-resolved all other pins unchanged, and
+the rebuilt .venv ran the full suite (59 passed, 1 pre-existing failure, see the gate_heldout entry below).
 
 #### A driver PROGRESS note about a shared file may describe main, not your checkout
 Where: `PROGRESS.md` (project-wide driver notes), any shared file (e.g. `requirements.txt`)
@@ -503,6 +505,12 @@ Do this instead: compute expectations from the live tree state at test time: fre
       item's candidates (a working run may have left one) ∪ fresh (exact equality), and assert the
       post-run invariants (one file per site, named after candidates[0].plan; resolved unchanged).
       The test then passes before and after every run.
+
+#### gate_heldout hard-fails while ANY post-registration hand fit exists - tasks/218 owns the fix; other tasks leave it alone
+Where: `tools/gate_heldout.py` (`partition`), `tests/test_gate.py` (`test_recorded_measurement_reproduces_and_agrees`), `data/db/platefits/`
+Symptom: `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 21; the registered partition is void, see docs/gate.md section 1`; `tests/test_gate.py` is the suite's one red test on main as of 2026-10-11 (the driver's `.agent/reports/last-failing-tests.txt` records it; my 302a run reproduced it byte-identically, 59 passed / 1 failed).
+Why: the one-shot registration (docs/gate.md section 3, seed 20260108) is frozen over exactly the 20 named pre-registration hand fits; `partition()` re-derives the name list from ALL non-auto documents and demands exactly 20, so every new hand fit (the lead's 21st: cd104ca maiden-castle c_c20ff6b1f16d173d; 206's shotwick-castle c_e6e5490609414bb9; the 207 Roman fits) aborts the command.
+Do this instead: do not edit `tools/gate_heldout.py` or `tests/test_gate.py` from any other task, and do not "fix" the failure by touching the registration or the documents. The fix is tasks/218 (agent a, open, `Depends on: 001`): tolerate additional post-registration hand docs while requiring the 20 named ones to stay present and unchanged. If your task needs the suite green, note the failure as pre-existing in your hand-over and move on; the driver's baseline re-check accepts it for other tasks' done claims.
 
 #### `data/db/platefits/` mixes hand fits and automatic ones (`"auto": true`) - code that counts the directory's files must filter `doc.get("auto")`
 Where: `tools/gate_heldout.py` (`partition`), `fit/batch_us.py` (`write_doc`, `write_golden`), `data/db/platefits/`
