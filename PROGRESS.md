@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 62 (2026-10-11, agent a) - fit-pivot session. The pentagon on the ground is ROUNDED, not made of straight edges: all three "fit the edges"
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 63 (2026-10-11, agent a) - corner-fit session: the 4-corner fit ACCEPTS; the platefit doc is WRITTEN (working tree, uncommitted - the harn
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
@@ -49,6 +49,12 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 
 ### 2026-10-11 206 DECISION: iter-58 page measurements are VOID - the p.212 drawing spans the whole page, not the top-left quadrant; corrected page map recorded
 ... (3.3 KB more: `grep -n -A 200 -F '## 2026-10-11 206 DECISION: the p.212 plate is Volume 2, not bracketed by Oxford p.207 as the task framing said' DECISIONS.md`)
+
+### 2026-10-11 206 DECISION: the corner-based fit is resolved - 4 corners (drop NW, weakest prominence) ACCEPT the gate; the platefit doc is written; its committed state depends on 211 (site build) and a new 218 (gate registration for post-registration hand docs)
+Where: /tmp/mack_poly6.py (new, offline-rerunnable), data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json (new, in the working tree - uncommitted at session stop, harness-saved)
+FIT: segmentation verbatim from mack_poly5 (2.19 ha, centroid (27.2,9.4)). r_out(phi) = max boundary radius per 1-deg bin around the centroid (no ordering), 5-pt circular smooth, peaks prominence >= 3 m and >= 20 deg apart, top 5: N phi 87 (+31.5,+115.8), E phi 358 (+119.8,+4.5), S-SW phi 317 (+88.2,-47.5), W-SW phi 196 (-80.5,-21.8), NW phi 143 (-27.2,+53.5); clockwise gaps 89/41/121/53/56 vs plan 95.6/46.5/98.9/40.2/78.8 (the ground pentagon is a rounded, slightly squashed version of the plan's; north-up). Gate exactly fit_gate.gate(pairs, transform=None): (a) 5 corners REJECT (med 14.96, slope_o 0.167 > 0.145, io +17.7; resids 12.0/2.9/15.0/27.7/22.6); (b) 5 + gate-gap REJECT (slope_o 0.315, gap resid 76.8 m - the local r_out min in phi [-10,60] is phi 27 = (+81.2,+33.5), the cleft between the E lobe and the NE tangle, NOT the plan's gate gap; use neither); (c) 4 corners dropping the weakest-prominence corner (NW) ACCEPT: med 15.81, slope_o 0.1385 (the 0.11-0.145 "usable, must be said" band), io -7.04 (> -10), residuals N 14.2 / E 2.0 / S-SW 17.5 / W-SW 19.4, rotation -0.20 deg, ground scale |a|*k = 0.229 m/px (k = cos 53.2272; CAVEAT: similarity's a is MERCATOR m/px - ground scale is |a|*k, first printed |a|/k = off by 1/k^2; the gate math itself is from the real code, unaffected; iter-59's "0.41" is not comparable). Predicted: pentagon centre (20.5,17.4) vs centroid (27.2,9.4) and vs the motte ring (80,-5) 63.6 m (the C11 motte in the eastern bailey - recorded, not a pair); hall (475,245) -> (+41,+78) on the tree clumps, NOT a building; centre160 crops show the grassed oval, a faint ring in its eastern part, no visible hall or towers - matching the book's own text (the 1600 Holme drawing of the ruin).
+DOC: --write-doc (network up; cite "by The British Library; No restrictions; <commons url>"): crop [0,0,839,840] (ink spans x 9..829 y 10..832 = whole page -> full-frame crop per the alligator/barnard convention); pairs [405,25,-2.9756073,53.2282398] [827,570,-2.9742830,53.2272404] [620,835,-2.9747557,53.2267733] [30,690,-2.9772880,53.2270046]. --gate (offline): accept, med 15.81, slope_o 0.1385, io -7.04.
+... (2.2 KB more: `grep -n -A 200 -F '## 2026-10-11 206 DECISION: the corner-based fit is resolved - 4 corners (drop NW, weakest prominence) ACCEPT the gate; the platefit doc is written; its committed state depends on 211 (site build) and a new 218 (gate registration for post-registration hand docs)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
