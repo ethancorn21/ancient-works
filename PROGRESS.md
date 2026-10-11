@@ -4,63 +4,18 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 4d (2026-10-11, iteration 39). Step done: the two pending 4c code items are in fit/batch_us.py
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 4e (iteration 40). THE FULL WORKING RUN IS DONE (verify the details below before
 - `tasks/203-batch-fit.md` (split)
-- `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
+- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
-- `tasks/213b-qids-tests.md`
 - `tasks/215-books-llm-ports.md`
 - `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green
-Session 4a's composed rewrite text was lost (its edit call failed on exact-match; only the spec
-survived, in the 4a hand-over/DECISIONS). Re-implemented exactly that spec in fit/batch_us.py:
-(1) _font/_step/_grid - DejaVuSans-Bold 22 px (verified present at
-/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf in .venv), a label at BOTH ends of every
-grid line (top/bottom on vertical, left/right on horizontal), step the first of 100/200/500/1000
-with step*scale >= 90 sheet px on the 900 px panels; (2) _sheet - fitkit.plan_image(row).crop(box)
-+ fitkit.ground/ground_view, plan blue (0,0,200) / ground red (200,0,0), saved to
-fitkit.OUT/fit_<sid>_<pid>.jpg (fitkit's own name), returns (path, ground size, the site
-corners' Mercator x-span in metres via aw.to_merc); (3) _model_prompt - the 4a improved prompt:
-both panels' labelled coordinate ranges (the crop box / 0..ground size) and metre coverage,
-the 202 seed as "within about 50% of that scale", same-real-feature list, "every coordinate
-must lie inside its panel's labelled range", anti-fabrication clauses (no grid-line
-intersections / even spacing / >=3 collinear), "answer with only the pairs you truly see
-(even 0 or 1) - never pad", JSON {"scale_m_px", "features", "pairs"}; (4) _parse_answer - drops
-pairs whose (u,v) is outside the crop box or whose (ug,vg) is outside [0, ground size], converts
-the survivors to [u,v,lon,lat] via _ground_lonlat, keeps feature names index-aligned; (5)
-llm_model closure - after parsing, with >=3 pairs and a numeric stated scale_m_px > 0: implied
-= |a|*k from plan_fit.similarity(pairs[:min(8,len)]); if max(implied/stated, stated/implied) >
-2.0 -> note "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted" and trim
-pairs (and feats) to 3 so run_sites' <4 branch routes the picture to the review item (nan
-implied is not treated as a mismatch - the gate's degenerate clauses own that); sheet-build and
-call failures still -> note, never raised. Module docstring updated (fitkit-STYLE sheet; the
-anti-fabrication design rationale). Verification this session: import ok; built poverty-point's
-sheet and READ it with the read tool - the full-text-page root case now has legible bold labels
-at both ends and the ground panel shows the mound clearly (4a's sheet was illegible default-bitmap
-font); a synthetic out-of-range answer drops exactly the 2 bad points (3 of 5 kept, feature
-names follow the survivors); the prompt renders without format glitches (fixed a double-paren
-in the coverage clause found while eyeballing it). Tests: recorded answers bypass llm_model by
-design, so tests/test_batch_us.py 5/5 (4.9 s) and the full suite 34/34 in .venv (42 s) are
-unchanged. Committed the rewrite alone. PITFALLS filed: llm.ask's default url= binds at def time
-(set $AW_LLM_URL or pass url=); this Qwen fabricates gate-passing regular patterns (docs/gate.md
-section 7) with the batch-side counterweight described.
-NEXT (session 4c): 1) re-run the A/B pilot - /tmp/pilot_llm.py (it wraps llm.ask and calls
-b.llm_model, now the new one; update it to tee raw answers to /tmp/llm_raw_4c.txt and print the
-gate verdict per pick) on the same 5 candidates as 4a (tremper c_75950f29c23bf033, pyramid-mound
-n0134_1, poverty-point n0138_1, serpent n0636_1, cahokia c_8c44bb427b76aa7a); accept when the
-4a fabrications route to items and any remaining auto-passer is eyeballed against its sheet
-(read tool); 2) full run AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions
-.venv/bin/python fit/batch_us.py --working (58 candidates, ~10-40 min, long timeout; images all
-local, all 18 sites have relief.jpg - re-verify the tunnel is UP first); 3) sha256sum -c
-tests/golden/hand_fit_docs.sha256 (39 files -> box 4) + report's error bucket empty and counts
-sum to 90 (box 3); 4) tick 3/4/5, commit docs + items + docs/batch_us.md (the alligator-effigy-
-... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green' DECISIONS.md`)
 
 ### 2026-10-11 203a DECISION: session 4c - the A/B pilot: 4a's four fabrication modes all route to items, but a FIFTH class (correct scale, wrong translation, points on structureless ground) still auto-passes; add a batch-side feature-presence check before the full run
 Re-ran /tmp/pilot_llm.py (updated: 5 picks, raw answers teed to /tmp/llm_raw_4c.txt, gate verdict
@@ -143,6 +98,50 @@ elsewhere is untouched, and the pilot writes nothing):
 PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitude fix (a
 complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
 exact command and the box checks).
+
+### 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803
+CHOICE: ran the full working phase as the 4d hand-over prescribed, backgrounded
+(AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working;
+~6 min, log /tmp/batch_us_4e.log): 62 candidate pictures across 19 US sites (4d's note said
+58/18 - stale; plans.json is byte-identical to origin/main, 1166 rows, and 35 book + 23 commons
+rows = 62 (site,row) pairs, matching the prep notes) went through sheet -> model -> similarity ->
+gate. The model is deterministic at temperature 0: the 5-pick pilot's answers recurred in the
+full run (pyramid n0134_1 -> AUTO 24.0 m, unchanged; tremper, poverty-point, serpent n0636_1,
+cahokia c_8c44bb427b76aa7a all routed to items by the same checks as 4d).
+OUTCOME (docs/batch_us.md): 90 sites, 0 error bucket: 9 automatic fit, 8 review item, 2 already
+hand-fitted (aztalan, mound-bottom), 71 no picture found; 88 item files written (89 with the
+pre-batch bibracte); 16 new auto docs (20 -> 36 in data/db/platefits/): serpent-mound 7, alligator
+c_618a6be74dfaff32, cahokia n0200_1 (33.9), etowah n0386_1 (0.0), fort-ancient n0264_1 (0.0),
+hodgen-s n0092_1 (0.0) + n0353_1 (17.3), mound-cemetery n0563_1 (0.0), mount-horeb c_d1dff (0.0),
+pyramid n0134_1 (24.0). Report: seed 20261010, sample = all 16 auto docs (fewer than 20, so all),
+page URL each, gate med per doc - ready for the human's 18/20 check. BOXES: 3 (all 90 covered,
+error bucket empty), 4 (sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK: 20 docs + 19
+site.json byte-identical; the batch only added), 5 (the report) all verified and ticked this
+session.
+NOTES OF RECORD: (1) alligator-effigy-mound's 201 seed item was MERGED by the upsert (its
+candidates: the model's rejected n0214_2 answer + the seed's c_618a, which became the site's auto
+doc; evidence field and resolved=null preserved; 201's export will derive it resolved from the
+doc) - its hash is deliberately not in the golden. (2) the frozen GATE itself (no counterweight)
+caught alligator n0214_2's even-spaced grid answer: median residual 60 m > 45 m. (3) several auto
+docs have gate med 0.0 (exact-similarity anchors, N-4 residual freedom at small N) - expected
+under 001's frozen design where the batch passes the transform solved from its own pairs; the
+radial-gradient clause and the human 18/20 sample own that class, not a threshold change.
+THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 34/34):
+- 4 in MY file tests/test_batch_us.py (all from the tests' pre-batch assumptions, designed in the
+  4e hand-over section with exact fixes): test_sample_run_real_gate (SERPENT
+  rec["auto"]=8 < the 15 pinned plans now 7 of which are pre-docs -> assert >= ANSWER_PLANS -
+  pre_docs_before; CAHOKIA item set now excludes pre-doc n0200_1 -> upsert-semantics expectation
+  (pre_plans - nonpre) | nonpre; item-candidate order relaxed to set equality, _check_entry only
+  for re-proposed candidates), test_stub_gate_always_accept and _reject (the _stub_site
+  "no existing item" precondition is void post-batch -> select ">=2 candidates, no pre-fit";
+  accept: assert the pre-existing item is byte-unchanged; reject: delete the site's existing
+  item file in the temp tree before seeding, else _find_item's sort order finds the batch's item
+  first), test_batch_adds_files_rewrites_none (the sample's zero-candidate site's no-picture item
+  is legitimately re-upserted by 201's live-merge contract - new "at" timestamp; allow a hash
+  change only for the sample sites' own item files, asserting same site / resolved unchanged / no
+  candidate plan dropped; every other file stays byte-identical - that is box 4). None of these
+  weakens a box: box 4's real invariant (the golden 20 docs + 19 site.json byte-identical, no
+... (5.7 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
