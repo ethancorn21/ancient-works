@@ -63,4 +63,3 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     index name Shotwick: "Shotwick, ii. 180"). The lead doc must record the true layout (OQ-3: the actual
     county headings in the V2 OCR, from archive.org castlesofengland02mack hocr) - it still constrains the
     plate, just not the way the task file phrases it.
-
