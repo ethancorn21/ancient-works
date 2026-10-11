@@ -1770,6 +1770,14 @@ open(path, "w").write(src)
 print("spliced into", path)
 ```
 
+## 2026-10-12 205 DECISION: INVENTORY committed (132 rows) - live drift-check active; the splice needed a docstring-wrap patch and exposed a latent unpack bug
+- Live re-run (`.venv/bin/python fit/src_kip.py --list --out /tmp/kip_inventory.jsonl`): 132 files, 10 s, no 429 - census unchanged from 2026-10-10/11.
+- Ran the generator extracted from the previous entry. **FAILED first:** the generator's `old_doc` for the usage docstring is a single line, but the module wraps that phrase across two 40-space-indented lines ("...the first run" / "builds it); JSON lines..."), so `src.count(old_doc) == 1` was 0. No harm: the INVENTORY replace happened in memory before the failing assert and the file is only written at the end, so the module on disk was untouched. **Fix:** patch the generator to match the two-line wrap and rewrite it as "INVENTORY (the committed 132-row table; a renamed, re-filed or replaced file fails loud)"; re-ran - spliced cleanly.
+- **Latent bug fixed in `fit/src_kip.py:list_files()`:** the size-drift check unpacked an inventory row as `_, w, h` (a 3-tuple) but INVENTORY rows are 5-tuples (title, w, h, verdict, reason) - ValueError "too many values to unpack" on the first run with a non-empty table. Branch never executed before because INVENTORY was empty. Now index access `r[1], r[2]` (condition + error message).
+- Verified: live re-run passes the drift assert against the committed 132-row table (titles AND sizes) - two successful runs today (~10 s each). Full `pytest -q`: 46 pass.
+- Size distribution (for the lead doc): 92 of 132 >= 1000 px; 40 < 1000 = 36 "too small" + 4 others (the 982 px Fair Lawn crop, one foreign map, one church, one photo); largest too-small 822 px - no 900-1000 gap, the threshold needs no exception list.
+- NEXT: write docs/lead_kip.md sections 1 (category map, counts, 1000 px threshold, size distribution) and 3 (the 132-row verdict table, generated from the module's INVENTORY + a fresh --list dump for date/desc). Sections 2 (verified QID table) and 4 (half-or-more: 12 of 22) wait for the SITES verification. The generator in the previous entry is now stale (splice done; only re-usable on live drift, and it needs this docstring patch + new verdict rules for new files).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
