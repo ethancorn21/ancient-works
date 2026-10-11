@@ -291,3 +291,55 @@ only the task file's status + hand-over and this journal entry.
 ACTION: set Status: done and file the claim (the driver re-checks boxes + full
 suite on my branch; the suite is green). Hand-over rewritten to the final state
 (it still said BLOCKED from 4i).
+
+## 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)
+`--files` for the 20 BE towns (transcript /tmp/vd_files_be_iter46.txt, 212 lines, exit 0) confirmed the
+prediction: the 1545 BNE atlas plates sit in the town categories for 16 of the 20 (Ghent as BN 1/BN 2,
+Mons as (1)/(2), Oudenaarde as Version Madrid); Bruges (7), Brussels (7), Mechelen (1) and Aarschot (2)
+are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs + full-size crops
+(/tmp/vd_be_thumbs/, re-download via commons.info + aw.UA; the `read` tool views images):
+- **Ghent BN 1** (4919x5046, 1545) = the labelled 'Gande' sheet (city between the two rivers) - STAGED.
+  **BN 2** (2834x3631, 1545) is a DIFFERENT sheet (a fortified town, no city label in the centre crop) -
+  not staged, noted. Also not staged: the 1559 Donato Buoni di Pellezuoli print (a later print by another
+  cartographer) and five small 2007-2012 scans/crops.
+- **Mons (2)** (4393x2614, 1545) = the wide two-page sheet labelled 'Mons en Henault' (Ocidente/Oriens/
+  Meridies/Septentrio) - STAGED. Mons (1) (1816x2614) is a portrait plate of the same fortified town -
+  not staged, noted.
+- **Brussels '(2) 01.png'** (8908x10941, circa 1555) = the KBR autograph cleanly cropped - STAGED.
+  '(2).png' (9216x12288) is the same sheet WITH a TIFFEN colour-calibration strip (the ugly duplicate);
+  '(2) 02' is the explicit detail; the three small Brussel 1550/1555/1560 scans (470-1233 px) and
+  Molenbeek.1550.jpg (378x565, Molenbeek + the west of the 2e enceinte - the work list's 'Brussel, 1550
+  (westelijk gedeelte)', partial) - all not staged.
+- **Bruges 'Map of Bruges by Jacob van Deventer.jpg'** (2770x4659) - the full plan; the sheet's OWN
+  caption block (bottom of the sheet, partially torn away) reads "Brugge (West Flan...) ... en omgeving
+  omstreeks den jare 1550. Plattegrond in kleuren. Originade Teckening van den be-Keizerlijken..." -
+  the drawing dates itself c. 1550 -> row date="circa 1550", the 2013-01-17 12:04:47 page value (an
+  upload timestamp) kept as date_commons by the stage() swap. The three category detail files carry QS
+  'circa 1558' for the same map - the sheet's own caption wins (recorded in the lead doc). Not staged:
+  five detail crops (846x522, 1180x668 x2, 573x564, 650x832) and 'Plan Brugge ... ca.1560.jpg' (1400x1867,
+  a published reproduction per C. Ruelen).
+- **Mechelen** (3558x3305, page date 1550) = the KBR autograph (desc: from the atlas KBR bought in 1866)
+  - STAGED; page date is the drawing date (work list 'Mechelen, 1550' agrees), no swap.
+- **Ostend** (872x1255, page 'circa 1562' QS) = the full BNE atlas plate (labeled 'Oostende', the town +
+  the harbour detail box) - STAGED despite the 872 px width: the only Ostend plan on Commons (the
+  Aardenburg precedent, caveat in the lead doc). No swap (1562 in window).
+- **Aarschot - DOCUMENTED DROP, no site, no picture:** both files ('Aarschot 1570.png', 5877x6291 - a
+  genuine autograph, town labelled 'Aersfot' on the Dijle, fortress on the north bank - and its
+  1278x1024 jpg copy) carry page date **1570**. Verified against the web: the nl.wikipedia article
+  'Jacob van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his
+  career ran to his death in 1575, the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
+  1570 is outside this task's c. 1545-1565 drawing window, and box 6's test checks the row date's
+  year_of in 1545-1565 - a 1570 row cannot be staged honestly. The documented drop (box 5) beats a
+  guessed date. (The same work list cross-confirms the other picks: Gent 1545, Doornik 1545, Den Haag
+  1558, Utrecht 1565-1570, Oudenaarde minuut 1563 / netkaart 1564.)
+- The 12 single-file towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Halle, Kortrijk, Lessines,
+  Leuze, Saint-Ghislain, Soignies, Tournai): the one 1545 BNE plate each - all staged, no swap. Leuze
+  needs caption="Leuze" in TOWNS (its verified label 'Leuze-en-Hainaut' does not appear in the file
+  title/desc, but 'Leuze' does - otherwise the caption route would fail). Soignies: the 1545 plate
+  staged, the two 2011 files dropped (a 'd'apres' reproduction 2362x2468, a 291x298 tiny scan).
+  Oudenaarde: Version Madrid (3368x2614, page 1545) staged; the detail (710x564, QS circa 1558), the
+  DI-676 copy (986x1000, 2005, 'ca. 1558') and the Version Brussels copy (948x1070, 2012) not staged.
+
+**NOT YET DONE (next session, one step):** record the 19 file= values (+ Bruges date, Leuze caption,
+Aarschot note) in TOWNS, the lead-doc Belgium Per-town section, the Mons limit-5 PITFALLS entry, then
+pytest + --check + commit. See the task hand-over for the exact title strings.

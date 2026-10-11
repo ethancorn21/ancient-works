@@ -47,81 +47,129 @@ consolidates the staging into the canonical files and builds the sites.
   files exist.
 
 ## Hand-over
-(2026-10-11, iteration 45 - BE QID batch verified + recorded in TOWNS + lead-doc BE sections written; the
-module and doc edits are in the working tree UNCOMMITTED - commit them with your first edit. The task file
-itself was renamed this iteration: it is tasks/204-van_deventer.md (underscore; a 0-byte duplicate
-204-van-deventer.md existed and was merged into this one, then deleted - git shows it as a rename/deletion,
-no content lost). Next: the BE --files inventory.)
+(2026-10-11, iteration 46 - BE `--files` inventory DONE and every BE pick decided + eye-verified;
+**no TOWNS/doc edits written yet** - the picks are fully analyzed below, the next agent just records them.
+Working tree is clean (the driver committed iteration-45's work as 4d6dbf2). Tests: 38/38 green and
+`--check` exit 0, both run this session BEFORE any edit (the suite grew from 33 via merged 802/803 tests).
+Next step: write the 21 BE TOWNS edits below, the lead-doc BE section, the Mons PITFALLS entry, DECISIONS,
+then `pytest -q` + `--check` + commit.)
 
 **Done this session (verified by running):**
-1. Task-file fix the driver demanded: consolidated the empty tasks/204-van_deventer.md with the real content
-   from tasks/204-van-deventer.md (hyphen); first line now `Status: in-progress`.
-2. BE discovery: `.venv/bin/python fit/src_van_deventer.py --verify <the 20 BE towns>` (transcript
-   /tmp/vd_verify_be_iter45.txt, 110 lines; /tmp may be wiped). All 19 without a recorded QID resolved from
-   the printed candidates; **Mons was NOT in its 5-candidate search** (planetary 'mons' + 4 French communes
-   outrank it; the city is 11th in the en results, 4th in fr) - found by a follow-up search at limit 20:
-   **Q83407**, label 'Mons', P625 (3.9525, 50.454722), P373 'Mons (Hainaut)', P131 'County of Hainaut',
-   enwiki 'Mons, Belgium' (snippet scripts /tmp/vd_mons_iter45.py, /tmp/vd_mons2_iter45.py).
-3. TOWNS (fit/src_van_deventer.py): all 20 BE rows now carry qid/label/lon/lat/p625/place/wikipedia/p373
-   (site point = P625 rounded to 4 dp - the hand check found no old-town-centre offset). Four P373s are
-   disambiguated: Brussels 'Brussels (municipality)', Halle 'Halle (Belgium)', Mons 'Mons (Hainaut)', Leuze
-   'Leuze-en-Hainaut' (Leuze's item label IS 'Leuze-en-Hainaut'). Ghent = Q1296 (the prep's verified one,
-   re-confirmed).
-4. Re-verification of the 20 (transcript /tmp/vd_verify_be_recheck_iter45.txt): **all labels match (no LABEL
-   CHECK), all P373 'ok', all P625 within 0.01 km of the table point, enwiki all match**. One nuance:
-   Saint-Ghislain Q668950 has NO en label on Wikidata (the re-check prints an empty label - the search API's
-   label and the enwiki article confirm the item; not a mismatch, documented in the lead doc).
-   Traps measured: Bruges first hit Q327025 759 km (Bruges, Gironde); Leuze first hit Q326134 92 km
-   (Leuze, Aisne); Mons first hit Q1108786 780 km (Mons, Var); Mechelen's 3rd candidate is the Dutch
-   Mechelen Q100020 (no first-hit trap). The other 16: first hit = the recorded item.
-5. Box 4 for the BE batch: offline known_sites() check (12575 sites) - **none of the 20 BE QIDs in the
-   catalog**: all 20 get new catalog entries (no existing-site reuse, no done-QID clash).
-6. docs/lead_van_deventer.md: new '## QID verification - Belgium' section (method, the 20-row table with
-   measured distances, the Mons follow-up, the disambiguated-P373 note, the Saint-Ghislain label gap) +
-   '### Name-search traps - Belgium' (Mons/Leuze/Bruges/Mechelen); the old combined pending section became
-   '## France, Luxembourg (pending)' (24 towns: FR 23 + LU 1; Beaumont's country, Luxembourg City region,
-   and the prep-candidate discard notes carried over - Brussels now resolved in BE).
+1. Sanity: `pytest -q` 38/38 (43 s); `fit/src_van_deventer.py --check` exit 0 (0 rows - staging still
+   absent). Confirmed the BE QID table + lead-doc BE sections are committed in main (4d6dbf2).
+2. BE inventory: `.venv/bin/python fit/src_van_deventer.py --files Ath Braine-le-Comte Bruges Brussels
+   Chimay Chièvres Enghien Ghent Halle Kortrijk Lessines Leuze Mechelen Mons Ostend Saint-Ghislain
+   Soignies Tournai Aarschot Oudenaarde > /tmp/vd_files_be_iter46.txt` (212 lines, exit 0, ~2 min):
+   the 1545 BNE atlas plates in the town cats for Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent
+   (BN 1 + BN 2), Halle, Kortrijk, Lessines, Leuze, Mons ((1)+(2)), Ostend (png, ca.1562), Saint-Ghislain,
+   Soignies, Tournai, Oudenaarde (Version Madrid); **not in BNE**: Bruges (7 files), Brussels (7), Mechelen
+   (1), Aarschot (2) - exactly as the hand-over predicted.
+3. Eye check of all 9 ambiguous candidates: downloaded 1200 px thumbs + full-size crops to
+   /tmp/vd_be_thumbs/ (may be wiped; re-run snippet was inline - `commons.info` + `aw.UA` download; the
+   `read` tool views images fine). Verified: Ghent BN 1 = the labelled 'Gande' sheet; BN 2 = a DIFFERENT
+   unlabelled sheet (centre-cropped, no city label); Mons (2) = wide two-page sheet labelled 'Mons en
+   Henault', (1) = portrait plate of the same fortified town; Brussels '(2) 01.png' (8908x10941) = the KBR
+   autograph cleanly cropped, '(2).png' (9216x12288) = same sheet WITH a TIFFEN calibration strip, '(2) 02'
+   = its detail; Bruges full map (2770x4659) has a caption block at the sheet's bottom reading
+   "Brugge (West Flan...) ... en omgeving omstreeks den jare 1550. Plattegrond in kleuren. Originade
+   Teckening..." - the sheet dates ITSELF c. 1550 (full-size crop /tmp/vd_be_thumbs/bruges_caption.png);
+   Mechelen (3558x3305) = KBR autograph (desc: from the atlas KBR bought in 1866); Ostend (872x1255) =
+   full BNE plate; Aarschot (5877x6291) = a genuine autograph (town labelled 'Aersfot' on the Dijle) but
+   dated 1570.
+4. **Aarschot = documented DROP (the one BE drop):** both files are dated 1570 (page dates; the jpg copy
+   1278x1024 too). Cross-checked on the web: the nl.wikipedia article 'Jacob van Deventer (cartograaf)'
+   work list says "Aarschot, 1570" (Philip II period, after the c. 1545-1565 window; its bibliography's
+   Rutte & Vannieuwenhuyze Stedenatlas spans 1545-1575 overall, but this task's window is 1545-1565 and box
+   6 checks row dates in that window, so a 1570 row cannot be staged). Documented drop, no site, no picture.
+   The same work list cross-confirms the other picks' dates: Gent 1545, Mechelen 1550, Doornik 1545,
+   Brussel 1550 (westelijk gedeelte = the Molenbeek.1550.jpg partial, dropped), Den Haag 1558, Utrecht
+   1565-1570, Oudenaarde minuut 1563 / netkaart 1564.
 
-**Tests:** last run 33/33 green (iteration 44; the TOWNS edit compiles and both --verify runs above imported
-it fine, but `pytest -q` and `--check` have NOT been re-run since the TOWNS edit - do that first).
+**The 20 BE picks (record these in TOWNS next session - file/ are exact Commons titles):**
+- BNE 1545 plates (page date 1545 = drawing date, NO date= swap needed): Ath `File:Ath - Deventer.jpg`
+  (3438x2614); Braine-le-Comte `File:Braine-le-Comte - Deventer.jpg`; Chimay `File:Chimay - Deventer.jpg`;
+  Chièvres `File:Chièvres - Deventer.jpg`; Enghien `File:Enghien - Deventer.jpg`; Ghent
+  `File:Ghent by Jacob Van Deventer, BN 1.jpg` (4919x5046, the 'Gande' sheet - BN 2 not staged: different
+  unlabelled sheet; also not staged: the 1559 Donato Buoni print and five small 2007-2012 scans); Halle
+  `File:Halle - Deventer.jpg` (desc is the French 'Hal'); Kortrijk `File:Kortrijk, map by Jacob van
+  Deventer.JPG`; Lessines `File:Lessines - Deventer.jpg`; Leuze `File:Leuze - Deventer.jpg` +
+  **caption="Leuze"** (label 'Leuze-en-Hainaut' is not in the title/desc - without caption= the caption
+  route would fail); Mons `File:Mons (2) - Deventer.jpg` (4393x2614, the labelled two-pager - (1) is a
+  portrait plate of the same fortified town); Saint-Ghislain `File:Saint-Ghislain - Deventer.jpg`;
+  Soignies `File:Soignies - Deventer.jpg` (the two 2011 'd'apres'/tiny copies not staged); Tournai
+  `File:Tournai - Deventer.jpg`; Oudenaarde `File:Oudenaarde, map by Jacob van Deventer, Version Madrid.JPG`
+  (3368x2614, page 1545 - keep the page date; the work list dates the netkaart 1564, note it; the detail +
+  DI-676 + Version Brussels copies not staged).
+- Ostend `File:Oostende map Jacob van Deventer.png` (872x1255, page 'circa 1562' = drawing date, no swap):
+  the ONLY Ostend plan and a full BNE plate - staged against the <~1000 px width heuristic (Aardenburg
+  case), caveat in the lead doc.
+- Mechelen `File:Mechelen, Belgium, Deventer, 1550.png` (3558x3305, page 1550, KBR autograph).
+- Brussels `File:Brussels map by Jacob van Deventer, Atlas des villes des Pays-Bas, 73 places levées, ca.
+  1555 (2) 01.png` (8908x10941, page 'circa 1555' = drawing date, no swap): the KBR autograph cleanly
+  cropped. NOT staged: (2).png (same sheet + TIFFEN strip), (2) 02 (detail), Brussel 1550 v Deventer¹.JPG
+  (470x561), Brussel 1555 Deventer.jpg (600x752), Brussel 1560 v Deventer.jpg (1233x1479, the 'minuut'),
+  Molenbeek.1550.jpg (378x565, Molenbeek + west of the 2e enceinte - partial, the work list's 'Brussel
+  1550 (westelijk gedeelte)').
+- Bruges `File:Map of Bruges by Jacob van Deventer.jpg` (2770x4659) + **date="circa 1550"** (the sheet's own
+  caption block 'omstreeks den jare 1550'; the page date 2013-01-17 12:04:47 is an upload timestamp -> the
+  stage() swap keeps it as date_commons). The three category detail files carry QS 'circa 1558' - the
+  sheet's own caption wins (note this in the lead doc). NOT staged: the 5 detail crops (846x522, 1180x668
+  x2, 573x564, 650x832) and `Plan Brugge Jacob van Deventer ca.1560.jpg` (1400x1867, published reproduction
+  per C. Ruelen).
+- Aarschot: **note= drop** (no file=): text above (1570, both files, work list, window).
 
-**Next step - the BE file batch** (previous hand-over step 2, unchanged):
-1. `cd` + sanity first: `.venv/bin/python -m pytest -q` (expect 33/33) and `.venv/bin/python
-   fit/src_van_deventer.py --check` (expect exit 0: staging jsonl still absent -> joins empty, 0 evidence
-   rows) - the TOWNS edit is data-only, both must pass. Then commit the iteration-45 work:
-   `git add -A && git commit -m "204: BE QID table verified + recorded; lead-doc BE sections"` (task file,
-   module, doc, DECISIONS, PITFALLS all in the tree).
-2. `.venv/bin/python fit/src_van_deventer.py --files <the 20 BE towns>` (~2-4 min, 429-paced; transcript to
-   /tmp/vd_files_be_iterNN.txt): picks expected = the BNE atlas 1545 plates for 16 of the 20 (Ath,
-   Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent, Halle, Kortrijk, Lessines, Leuze, Mons, Ostend,
-   Oudenaarde, Saint-Ghislain, Soignies, Tournai); **Bruges, Brussels, Mechelen and Aarschot are NOT in the
-   BNE** - their picks must come from their own town categories (the "Maps of ..." cats hold 7/7/7/2 files
-   per the old prep). Record picks in TOWNS (file=, +date= where the page date is not the drawing's), write
-   the lead-doc 'Per town' BE bullets (staged vs not-staged per file, sizes + dates from the transcript),
-   update the pending 'Per town' section to '### Belgium', commit.
-3. Then FR (23 towns; BNE plates cover all of them; watch the double plates: 'Aire-sur-la-Lys - Deventer.jpg'
-   = Aire+Thérouanne, 'Hesdin - Deventer.jpg' = Hesdin+Vieil-Hesdin - stage once under the true primary town,
-   note the second; Beaumont's region flips france->belgium if the Hainaut item wins) + Luxembourg City
-   (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - new region value, noted in the lead
-   doc). Then the one long run: `--chain <town>` per staged town (depth cap 6; paste the printed JSON into
-   TOWNS['chain']; towns whose picked file sits in a collection cat need filecat = that cat), `stage` (NOT
-   dry), `--check`, write tests/test_src_van_deventer.py (pattern tests/test_src_artists.py: socket-blocking
-   fixture, check_staged, subprocess `fit/evidence.py check --files ... --books <absent>`, golden sample via
-   --golden, negative control; box-6 date rule: year_of of the row date in 1545-1565), `--golden`.
+**Exact next step (one session):**
+1. fit/src_van_deventer.py: extend the Belgium section-header comment (line ~166) to say the picks were
+   recorded 2026-10-11 (iter 46) from the --files inventory + thumb eye check; add `file=` to the 19 staged
+   entries + `date="circa 1550"` (Bruges) + `caption="Leuze"` + `note=` (Aarschot), per the pick list
+   above. **Watch the PITFALLS rule: a trailing comment after `)` inside the unbalanced `{...}` display
+   glues the next line onto the logical line - put comments INSIDE the dict parentheses or after the
+   closing `),`, and keep every entry's comma.** Verify: `.venv/bin/python fit/src_van_deventer.py --check`
+   (parses the module, exit 0) and `pytest -q` (expect 38/38).
+2. docs/lead_van_deventer.md: replace '### Belgium, France, Luxembourg (pending)' (line ~252) with
+   '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, `--files` transcript
+   /tmp/vd_files_be_iter46.txt - re-run: .venv/bin/python fit/src_van_deventer.py --files <towns>)' + one
+   bullet per town (staged file with size/date + every not-staged file named with its specific reason,
+   using the pick list above) + '### France, Luxembourg (pending)' (24 towns; the old pending text
+   '44 towns left' moves there, corrected to 24). Update the '## Summary' paragraph (line ~281): BE 19 of
+   20 staged, 1 documented drop (Aarschot); running total 32 of 59 stageable (NL 13 + BE 19); FR 23 + LU 1
+   pending. Note in the Aarschot bullet the nl.wikipedia source (article 'Jacob van Deventer
+   (cartograaf)', work list 'Aarschot, 1570') and the Rutte & Vannieuwenhuyze Stedenatlas (1545-1575) for
+   the window context.
+3. PITFALLS.md, under '### Wikimedia APIs (Commons, Wikidata)': file the deferred Mons entry -
+   wbsearchentities limit=5 truncation hides well-known short names: Mons (Belgium) Q83407 ranks 11th in
+   the en search (the planetary term 'mons' + French communes Var/Hérault/Charente/Gard outrank it; 4th in
+   the fr search) - when the item is not among the five, follow up at limit 20. Where: _search_candidates
+   in fit/src_van_deventer.py + the Wikidata wbsearchentities API. Symptom: the town's item simply absent
+   from the 5 candidates. (Also a small fact worth the same entry or a new one: a Commons API call with no
+   User-Agent gets HTTP 403 - commons.get sets aw.UA; a raw urllib script must too.)
+4. DECISIONS.md entry: 'BE file batch done - 19/20 picks recorded (16 BNE plates + KBR Brussels/Mechelen +
+   caption-dated Bruges + BNE Ostend); Aarschot documented drop (1570, outside the c. 1545-1565 window -
+   both files + the nl.wikipedia work list agree)'.
+5. Commit: `git add -A && git commit -m "204: BE file picks recorded + lead-doc Belgium section; Aarschot
+documented drop (1570, out of window)"`.
+6. Then FR (23 towns; `--verify` the 23 first - QIDs still empty in TOWNS; BNE plates cover all; watch the
+   double plates 'Aire-sur-la-Lys - Deventer.jpg' (Aire+Thérouanne) and 'Hesdin - Deventer.jpg' (Hesdin+
+   Vieil-Hesdin): stage once under the true primary, note the second; Beaumont's region flips
+   france->belgium if the Hainaut item wins) + Luxembourg City (search 'Luxembourg (city)', Q1564 expected,
+   region 'luxembourg' - new region value). Then the one long run: `--chain <town>` per staged town (paste
+   the printed JSON into TOWNS['chain']; towns whose picked file sits in a collection cat need
+   filecat = that cat - check per town), `stage` (NOT dry), `--check`, write tests/test_src_van_deventer.py
+   (pattern tests/test_src_artists.py: socket-blocking fixture, check_staged, subprocess
+   `fit/evidence.py check --files ... --books <absent>`, golden sample via `--golden`, negative control;
+   box-6 date rule: year_of of the row date in 1545-1565), `--golden`.
 
-**Transcripts** (/tmp may be wiped - re-run): /tmp/vd_verify_be_iter45.txt (discovery, 20 towns),
-/tmp/vd_verify_be_recheck_iter45.txt (re-verification), /tmp/vd_mons*_iter45.py (the Mons follow-up
-snippets, reusable). The NL-era ones (vd_files_nl_iter43, vd_verify_iter41, vd_stage_dry_iter44,
-vd_list_iter44) are gone if /tmp was cleaned.
+**Transcripts** (/tmp may be wiped - re-run): /tmp/vd_files_be_iter46.txt (this session's BE inventory,
+212 lines); /tmp/vd_be_thumbs/ (the 11 thumb PNGs/JPGs + bruges_caption.png + ghent_bn2_center.jpg -
+re-download with commons.info + aw.UA if needed); /tmp/vd_be_thumbs_iter46.py (the download snippet -
+reusable). Iteration-45 transcripts (vd_verify_be*, vd_mons*) are gone if /tmp was cleaned - the lead-doc
+'QID verification - Belgium' section carries all the results.
 
-**Pitfalls:** NOT yet filed (cut off by the context limit - file it with the next commit): a PITFALLS entry
-under 'Wikimedia APIs (Commons, Wikidata)': wbsearchentities' limit=5 truncation hides well-known short
-names - Mons (Belgium) Q83407 ranks 11th in the en search (the planetary term 'mons' and ten French
-communes outrank it; it is 4th in the fr search) - when the town's item is not among the five, follow up
-with a higher limit (20 worked). The keep()/swap-order entry (pipeline/commons.py)
-and the trailing-comment-joins-lines entry still apply (the TOWNS comments this session are all inside-
-parenthesis, per that rule). Team mode: agent c on 203a (fit/batch_us.py, data/db/platefits, data/review,
-docs/batch_us.md, tests/test_batch_us.py, tests/golden/hand_fit_docs.sha256, tasks/802-*, tasks/803-*) -
-untouched; agent c also on 802 (tools/gate_heldout.py, tests/test_gate.py) - untouched; my Touches:
-fit/src_van_deventer.py, the 3 staging jsonl, docs/lead_van_deventer.md, tests/test_src_van_deventer.py,
-plus the task file rename.
+**Pitfalls:** the Mons limit-5 entry is STILL not filed (do it in step 3). The trailing-comment-joins-
+lines entry (PITFALLS line ~112) applies to every TOWNS edit - comments inside the parentheses or after
+the `),` only. The keep()/swap-order entry (pipeline/commons.py) is why Bruges gets date= (the 2013
+upload timestamp would fail keep() otherwise). Team mode: agent c on 203a (fit/batch_us.py, data/db/
+platefits, data/review, docs/batch_us.md, tests/test_batch_us.py, tests/golden/hand_fit_docs.sha256,
+tasks/802-*, tasks/803-*) - untouched; agent c also on 802 (tools/gate_heldout.py, tests/test_gate.py) -
+untouched. My Touches: fit/src_van_deventer.py, the 3 staging jsonl, docs/lead_van_deventer.md,
+tests/test_src_van_deventer.py, plus this task file.
