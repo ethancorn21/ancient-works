@@ -8,9 +8,9 @@ task file (for a subtask, read its parent's too).
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
 ## Next open tasks
+- `tasks/213a-civitates-list.md`
+- `tasks/213b-qids-tests.md`
 - `tasks/215-books-llm-ports.md`
-- `tasks/216-view-books-entries.md`
-- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
