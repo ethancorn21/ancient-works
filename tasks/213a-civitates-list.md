@@ -39,9 +39,9 @@ consume this list file as the single source of truth - they must not have to gue
       are kind u (fold-out versos - A misread them as plate_site_plan); the FEDERATORVM sheets
       n157/n158 are kind o (views of the 13 Swiss cantons, not maps).
 - [x] `data/books/lists/civitatesorbiste00brau.map.json` = `[]`.
-- [ ] docs/lead_artists.md books section rewritten per the goal (structure, pitfalls, corrections,
+- [x] docs/lead_artists.md books section rewritten per the goal (structure, pitfalls, corrections,
       scheme, kind tally, per-book status for all six items - the cite strings 216 needs).
-- [ ] No shared-module writes: books.py, books_lists.py, data/books/index.jsonl, validation.json and
+- [x] No shared-module writes: books.py, books_lists.py, data/books/index.jsonl, validation.json and
       the committed triage A/F files untouched.
 
 ## Notes
@@ -49,8 +49,45 @@ consume this list file as the single source of truth - they must not have to gue
   of 213 (QIDs, golden, test); 213a owns only the two list files and the lead-doc books section.
 
 ## Hand-over
-**Iteration 34 (2026-10-11): the two list files are WRITTEN + VALIDATED - boxes 1-4 ticked. Only
-box 5 (the lead-doc books section) and then box 6 remain.**
+**Iteration 35 (2026-10-11): ALL SIX BOXES DONE - 213a is finished.** Box 5: rewrote the books
+section of `docs/lead_artists.md` (only change this session; ~80/19 lines). Content: the six-item
+table gained a **cite-string column for 216** (verbatim `BOOKS` values, backed by the cached IA
+metadata: publisher Rade 1575 / Zeiller+Merian-Frankfurt 1654 / Merian-PAN 1642; region notes:
+western Europe + Mediterranean for liber2, Swiss cantons for the Merian volumes; the book-level
+`region` is 216's call - the doc says so); new **Triage** paragraph (A 171/118/3 typing, F 239
+readings, 121 figure leaves = exactly the list's set); **Section structure** (strict
+title-then-plates - the interleave note was a faded-verso misread; six blank versos typed
+inconsistently A51/111/207/227 vs A187/199; the three fold-outs incl. Venice = views on BOTH
+sides, recto A201 is the famous view); **two pitfalls for 216/217** (hOCR page index misaligned
+0-2 leaves -> page_texts/djvu_txt unreliable, image-based A rows are ground truth; machines
+under-detect plans in BOTH directions - A typed only 3/121, F's 10 plan leaves hold only 2 true
+plans A90/A237, the hand list's kind s is the only plan source); **corrections** (FEDERATORVM =
+views not maps, the 7 true plans, A187/197/199 versos+arms, the two caption fixes); the
+**transcription scheme + tally** (121 = s7/u3/o111, hand 30/A 91, pages only fig 193/194, map []
+honestly empty); **per-book status of all six** (liber2 fully worked; the other five metadata
+verified, untriaged = 216/217 scope) - 216 takes its cite strings from this section. Box 6:
+`git status --short` = only docs/lead_artists.md; books.py/books_lists.py/index.jsonl/
+validation.json/triage A/F untouched (verified with a scoped diff).
+
+**State of the files (all committed with this session):**
+- `data/books/lists/civitatesorbiste00brau.json` = `{"plates": null, "figures": [121]}` sorted by
+  fig; kinds o=111 / s=7 / u=3; kind_by hand=30 / A=91; `page` non-null only for fig 193 ("2") and
+  194 ("3") (strings, as in the page_numbers file; no figure leaf falls in leaves 280-284).
+- `data/books/lists/civitatesorbiste00brau.map.json` = `[]` (honestly empty: `list_pages` maps
+  only kind s/u BY PRINTED PAGE NUMBER and no figure leaf carries one; 217 extends the machinery).
+- `docs/lead_artists.md` books section = the lead-doc home of every 213a finding (structure,
+  pitfalls, corrections, scheme, tally, per-book status). The parent 213 still owes: its QID table
+  for the 7 verified towns (fit/src_artists.py + lead doc), --check/--golden, the test, and the
+  PITFALLS.md entries (its step 10) - the lead doc carries the same content meanwhile.
+
+**Nothing left for 213a.** If reopened: the list file is self-documenting (each entry's
+kind/kind_by/title per the scheme); a future correction = edit the JSON, then re-check the
+invariants against the A file (fig set = A's 118 other_illustration + 3 plate_site_plan; tally
+s7/u3/o111; pages only 193/194). Invariants held throughout: Touches = the 3 files; never the
+triage A/F, books.py, books_lists.py, index.jsonl, validation.json, fit/, PITFALLS.md; no network,
+no ports, no writes outside the project; triage images local (nNNNN.jpg = leaf n+1 = A row NNNN).
+
+**Iteration 34 (2026-10-11): the two list files are WRITTEN + VALIDATED - boxes 1-4 ticked.**
 
 **State of the files (committed with this session):**
 - `data/books/lists/civitatesorbiste00brau.json` = `{"plates": null, "figures": [121]}` sorted by

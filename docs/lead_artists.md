@@ -122,16 +122,19 @@ taken from a name search.
 
 Book-scale sources (hundreds of bird's-eye town views each). Both **exist and are freely
 machine-readable** - all six Internet Archive copies are BookReader streams (jp2 + PDF + hocr OCR,
-not restricted; metadata cached 2026-10-11 in `data/raw/books/<ia>/`):
+not restricted; metadata cached 2026-10-11 in `data/raw/books/<ia>/`). The **cite string** column is
+what 216 puts into `books.py:BOOKS` (take it verbatim). The book-level `region` is 216's call:
+the town's region comes from the row, not the book, so 216 picks the dominant one for the volume and
+says so in the cite string (for the untriaged books, from the triaged town names).
 
-| IA id | book | drawing date |
-|---|---|---|
-| `civitatesorbiste00brau` | Civitates Orbis Terrarum, **Liber secundus** (292 leaves) | 1575 (the volume) |
-| `ARes73114` | Civitates Orbis Terrarum, Tomus quartus | 1586 |
-| `ARes73115` | Civitates Orbis Terrarum, Liber quintus | 1597 |
-| `17095748888888bsb-00105587` | Civitates Orbis Terrarum, Liber primus (BSB scan) | 1600 |
-| `topographiahelve00zeil` | Merian, Topographia Helvetiae | 1654 |
-| `rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915` | Topographia Helvetiae (PAN Poland) | 1642 |
+| IA id | book | drawing date | cite string (for 216) |
+|---|---|---|---|
+| `civitatesorbiste00brau` | Civitates Orbis Terrarum, **Liber secundus** (292 leaves) | 1575 (the volume) | Georg Braun and Frans Hogenberg, *Civitates Orbis Terrarum*, Liber secundus, Antwerp 1575 (Aegidius Rade) - towns of western Europe and the Mediterranean |
+| `ARes73114` | Civitates Orbis Terrarum, Tomus quartus | 1586 | Georg Braun and Frans Hogenberg, *Civitates Orbis Terrarum*, Tomus quartus, 1586 |
+| `ARes73115` | Civitates Orbis Terrarum, Liber quintus | 1597 | Georg Braun and Frans Hogenberg, *Civitates Orbis Terrarum*, Liber quintus, 1597 |
+| `17095748888888bsb-00105587` | Civitates Orbis Terrarum, Liber primus (BSB scan) | 1600 | Georg Braun and Frans Hogenberg, *Civitates Orbis Terrarum*, Liber primus, 1600 (BSB scan) |
+| `topographiahelve00zeil` | Merian, Topographia Helvetiae, Rhaetiae et Valesiae (Zeiller) | 1654 | Matthaeus Merian and Martin Zeiller, *Topographia Helvetiae, Rhaetiae et Valesiae*, Frankfurt 1654 (Merianischen Erben) - the Swiss cantons |
+| `rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915` | Topographia Helvetiae (PAN Poland) | 1642 | Matthaeus Merian, *Topographia Helvetiae, Rhaetiae et Valesiae*, 1642 (PAN Poland) - the Swiss cantons |
 
 **What `civitatesorbiste00brau` is** (verified from the item's own OCR, 2026-10-11): Braun & Hogenberg's
 *Civitates Orbis Terrarum*, **Liber secundus (1575)** - the volume opens with the Imperial Privilege
@@ -145,11 +148,73 @@ Vienna, Milan, Venice, Innsbruck, Florence, Rome, Parma, Messina, Malta, Constan
 is old enough (a view of the structure, exempt from the 150-year rule) and freely machine-readable
 (public-domain scans, BookReader images).
 
-**Status: worked in per-book files, not staged as rows.** The book machinery's triage ran over the whole
-volume (stage A: every page typed - the view plates come back `other_illustration`, the few plan views
-`plate_site_plan`; stage F: per-figure pass over the illustration pages). The town list is hand-
-transcribed into `data/books/lists/civitatesorbiste00brau.json` (+ `.map.json`) from the plate
-inscriptions - the book has no printed list of its own. **No picture rows are staged by this task**
+**Triage (committed, zero error rows).** `data/books/triage/civitatesorbiste00brau.A.jsonl` types all
+292 leaves: 171 `text_only`, 118 `other_illustration`, 3 `plate_site_plan` (A187/A199 = the blank
+fold-out versos, A238 = the Jerusalem-new plan). `.F.jsonl` is the per-figure pass over the 118
+illustration leaves: 239 figure readings, 222 view / 11 plan / 6 other. **The figure leaves are 121**
+(118 other_illustration + 3 plate_site_plan) and the hand list below covers exactly those.
+
+**Section structure.** Each city is a section: a **title leaf** (big Latin title + history text; A
+reads the city name) -> **1-3 plate leaves** (A's `caption` = the plate's own printed inscription - a
+legend, a poem, or empty) -> sometimes more history. The order is strictly title-then-plates (an
+earlier "sections interleave both ways" note was a misread of faded versos). Verso leaves type
+inconsistently in A: `text_only` (A51, A111, A207, A227) and `plate_site_plan` (A187, A199) - all six
+faded blank fold-out versos. Three fold-outs: **Augsburg** (A186 recto view / A187 blank verso),
+**Milan** (A198 recto view / A199 blank verso) and **Venice** (A201/A202 = a real view on BOTH sides -
+the famous bird's-eye view is the recto A201, caption "VENETIA"; the verso A202 is a second view
+continuing the legend at item 53, not a blank).
+
+**Pitfalls for 216/217 (each cost a session of re-reads - do not repeat):**
+- **The hOCR page index is MISALIGNED** with the jp2 leaf sequence by a drifting 0-2 leaves (e.g. hOCR
+  leaf 85 holds the Brussels title text that A reads on leaf 87). `books_ia.page_texts()`/`djvu_txt()`
+  are **unreliable for this book**; the image-based A rows are the ground truth. 217 must not use
+  page_texts for civitates.
+- **The machines under-detect plans in BOTH directions.** A typed only 3 of the 121 figure leaves as
+  `plate_site_plan`, and F's "plan" flag is unreliable too: F flags 11 of the 121 figure pages as
+  containing a plan, and of F's ten distinct plan leaves (A30, 62, 65, 66, 90, 93, 105, 186, 229x2,
+  237) only A90 (Ghent) and A237 (Jerusalem old) are true plans - F misses the five famous plans
+  A58/85/98/109/238 and flags A186 (a view). The hand list's kind "s" (the seven verified plans)
+  is the only source for plan calls on this book.
+
+**Corrections of the machine readings** (all read by eye on the local triage images,
+`data/raw/books/civitatesorbiste00brau/triage/nNNNN.jpg` = leaf n+1 = A row NNNN):
+- A157/A158 "DECEM ET TRIA LOCA" / "FEDERATORVM HELVETIAE" = sheets of small town **views** of the 13
+  Swiss cantons - kind o, **not maps**.
+- The seven true plans: A58 (Paris), A85 (Brussels), A90 (Ghent), A98 (Antwerp), A109 (Amsterdam),
+  A237 (Jerusalem old city), A238 (Jerusalem new city).
+- A187/A199 = blank fold-out versos (kind u, carry no picture); A197 = the Milan arms page (kind u,
+  an image but neither view nor plan).
+- Two garbled A captions corrected against the plate images: fig 50 "Cum Pristelio" ->
+  "Cum Privilegio" (the Barcelona banner) and fig 198 "METOLACOL" -> "MEDIOLANVM" (the Milan
+  fold-out cartouche).
+
+**The hand list (the single source of truth for 216/217).** `data/books/lists/civitatesorbiste00brau.json`
+= `{"plates": null, "figures": [...]}` - the book has no printed town list, so one entry per figure
+leaf: `fig` = 0-based leaf n; `title` = the plate's printed inscription (A's caption, corrected where
+the image showed a garble) or the section's city name where the plate has no inscription (14 such
+leaves: 53 Burgos + S. Sebastian, 58 Lutetia Parisiorum, 85 Bruxella, 90 Gandanum, 98 Anverpia, 109
+Amsteladum, 187 Augusta verso, 194 Vienna, 199 Mediolanum verso, 202 Venetia verso, 214 Ancona, 217/218
+Neapolis, 225 Messina); the five double-plate leaves (50, 54, 193, 205, 206) carry the second plate's
+inscription in a `[other plate: ...]` bracket; `page` = the printed number only for fig 193 ("2") and
+194 ("3") - the only printed page numbers in the whole book are on leaves 193-196 (1-4) and 280-284
+(I-V), and no figure leaf falls in 280-284; `kind` = o view / s plan / u other; `kind_by` = `hand`
+(read the leaf image) or `A` (derived from stage A's typing, unverified). Tally: **121 entries =
+s 7 / u 3 / o 111; kind_by hand 30 / A 91**. `data/books/lists/civitatesorbiste00brau.map.json` = `[]`
+- honestly empty: `books_lists.list_pages` maps kind s/u entries BY PRINTED PAGE NUMBER and no figure
+leaf of this book carries one; extending the machinery for page-less figures is 217, not 213.
+
+**Per-book status (all six items):**
+- **`civitatesorbiste00brau` (1575, Liber secundus) = fully worked.** Triage A 292/292 + F 118/118
+  committed; the hand list (121 entries) + the map `[]` written; the seven hand-verified towns
+  (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp) are what 213's hand-checked QID table
+  in `fit/src_artists.py` covers.
+- **The other five** (`ARes73114`, `ARes73115`, `17095748888888bsb-00105587`, `topographiahelve00zeil`,
+  `rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915`) = verified present on IA as
+  BookReader streams (table above; metadata cached, unrestricted) but **not triaged yet** - the
+  follow-on scope of 216/217 (fetch -> triageA/F -> hand list, the same flow as Liber secundus). The
+  Merian volumes are the same bird's-eye-view genre, so both pitfalls above apply to them as well.
+
+**Status: worked in per-book files, not staged as rows.** **No picture rows are staged by this task**
 (there are no per-file Commons rows to stage; the book flow goes through 211's index rebuild). Why the
 rows cannot come out of the machinery yet: its list taxonomy classifies views as kind "o" ("other: views,
 sections alone, ...") and `books_lists.cmd_index` emits an index row only for kind "s" (site plan) - so a
@@ -158,10 +223,6 @@ lists, the view-as-drawing index, plus the stale LLM tunnel ports that currently
 triage stages) is shared-module work, filed as tasks **215** (books.py ports), **216** (books.py BOOKS
 entries for the six items above) and **217** (books_lists.py lists + taxonomy), in the order 215 -> 216
 -> 217 with 216 depending on this task's verified facts.
-
-**The other five items**: metadata verified (table above) but not triaged - the bar for this task is one
-book (box 4 is met by Imola + Venice; the per-book files for Liber secundus are written). The other
-tomes and the Merian volumes are the follow-on scope of 216/217, not of 213.
 
 ## Offline check
 
