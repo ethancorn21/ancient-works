@@ -5,12 +5,14 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/207c-roy.md` (blocked)
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
+- `tasks/207a-horsley.md`
+- `tasks/207b-maclauchlan.md`
 - `tasks/215-books-llm-ports.md`
-- `tasks/216-view-books-entries.md`
-- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
