@@ -5,11 +5,11 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 64 (2026-10-11, agent a) - the missing part is filed: tasks/218-gate-holdout-new-hand-docs.md is in the queue (Status: open, Depends on: 0
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 88 (2026-10-11, agent a) - TWENTY-FIRST early bring-back; main UNMOVED since
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 77, agent c - session 5: **fit/inkfit.py is WRITTEN** (in the working tree,
+- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 78, agent c - session 6: **ALL FIVE BOXES TICKED - 302a is done.**
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 
 ## Next open tasks
@@ -59,18 +59,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
     junction/feature points, never a fixed stride on a straight run.
 
-### 2026-10-11 302a DECISION: frozen configuration of fit/inkfit.py (recorded BEFORE the first fit run; 10-10 pre-registration discipline - bug fixes allowed later, any parameter change must be labelled exploratory and reported separately)
-Session 3: investigation only (all modules the method imports were read in full; llm.py confirmed to have no import-time network; skimage 0.26.0 import-verified in .venv). The method's parameters are frozen here, on a priori ground (reused from the documented 10-10 run), before any site is fitted; the smoke run (next session) happens AFTER this entry. No parameter below may be chosen or changed using any of the 19 held-out sites.
-- Extractor: pipeline/autowalls.py P unchanged (docs/autofit.md section 3): sigmas (4,6,9), ridge_thr 0.25, gamma 0.013, coh_sigma 25.0, coh_min 0.6, min_len 50, min_extent 50, normal_sigma 4.0, step 2, margin 20 px. Applied to the picture's panel crop (map_box, or full frame) in the picture's own pixel frame; points later rescaled to the doc's size frame by im.width/size[0].
-- No-model fallback rule: NO blanking boxes (the 10-10 auto_noqwen behaviour; the 50-px length filter already drops most lettering) and KEEP ALL surviving pieces. A model (duck-typed: .boxes(im) -> 0-1000-normalised non-map boxes, .label_pieces(im, pieces) -> per-piece kind) may blank non-map boxes and keep only wall-labelled pieces; an absent/unusable answer falls back to the no-model rule and is labelled as such in the result.
-- Seed: fit/propose.propose_for (scale bar > ratio at recorded ppi > picture-size; north arrow unless |deg|>60 or unrecorded -> north-up; centre = site centre, i.e. t0 = (0,0) in relief-box-centre metres). Fallback when propose raises (no scale at all): max(size_m)/max(panel px extent), north-up, site centre.
-- Search window (reused unchanged from pipeline/autofit.py's frozen 10-10 constants): rotation +-25 deg, scale x0.74..x1.36, centre +-200 m; coarse FFT on an absolute grid ROT_STEP 2 deg, LOGS_STEP 0.04, K_BINS 8 direction bins, CELL_M 4.0 m, NEG_FLOOR -0.2 m; refine = pattern search (0.02/1 deg/4 m -> 0.01/0.5/2 -> 0.005/0.25/1), n_refine 8 candidates, single seed via fit_site with the seed dict at scale_factor 1 / offset 0.
-- Objective (selection): mean over template points of max(contrast, -0.2 m); contrast = fit_plate's ridge contrast (relief on the line minus the HIGHER of the two sides side_m away); LRM = aw.local_relief(radius_m 24), clipped +-1.0 m, modern_mask and water_mask set to NaN (fit_plate's defaults; the per-site hand knobs in data/sites/<id>/site.json are hand-fit artefacts and are NEVER read by the method); >= 50% of points on valid relief else score -9.
-- Relief: box = aw.site_bbox(site.lon, site.lat, site.size_m or 1000x1000 m), px_m = 1.0 (all held-out and smoke sites have 1 m-class sources, verified in session 1); loader order data/inkfit/relief/<site>.npz (z, px_m, bbox; shape-checked against the expected w x h) -> data/sites/<site>/dem.npy -> aw.fetch_dem (working phase only).
-- Null (search-matched, docs/autofit.md finding 2): null = max of the SAME search (identical seed/window/grid/n_refine) over (a) the scrambled template - each piece rigidly rotated U(0,2pi) and translated by U(-0.4,0.4) of the panel extent, clamped inside, all from np.random.default_rng(20261012) - reusing the same Coarse (unchanged ground); and (b) the DEM shifted by half the box north and half east (ndi.shift order=0, cval=NaN; new Coarse). Fewer than 100 valid draws in a null search is recorded (newark's 10-10 problem); a -9 objective counts low.
-- Confidence: obj_fit - null (both on the floored-mean objective, metres). The sync-vs-review threshold is NOT set here: box 3 authorises setting it on 302b's held-out table (302c applies it).
-... (1.2 KB more: `grep -n -A 200 -F '## 2026-10-11 302a DECISION: frozen configuration of fit/inkfit.py (recorded BEFORE the first fit run; 10-10 pre-registration discipline - bug fixes allowed later, any parameter change must be labelled exploratory and reported separately)' DECISIONS.md`)
-
 ### 2026-10-11 302a DECISION: placement->similarity geometry verified; b convention is complex(u0c, -v0c) (MINUS-v) - the session-3 script's +v0c was an 860 m near-miss
 Session 4: re-ran the session-3 verification script (kept in the iter-0075 log) and found it had a SECOND bug beyond the noted broadcast fix: it applied M to [du, dv] instead of the autofit convention d = [du, -(v - v0)]. With both fixed (d = [u-u0c, -(v-v0c)], en = d @ M.T + t; lon/lat = aw.to_lonlat(cx + e/k, cy + n/k), k = 1/aw.ground_scale(lat)):
 - plan_fit.similarity recovers a = k*s*exp(i*rot) to relative error 7e-6 (= the 1 dp px / 7 dp lon-lat rounding limit of the synthetic pairs), residuals 1.4-4.6 mm; fit_gate.gate accepts (med 3 mm).
@@ -86,8 +74,34 @@ Verified by running this session (all in .venv):
 - SIGN FIX (a bug fix, not tuning - the magnitudes are the frozen ones): the session-4 task-file note said ndi.shift(lrm, (H_m/2/1.0, W_m/2/1.0)); with scipy's out[i] = in[i - shift] and row index increasing south, both-positive moves the DEM CONTENT half box SOUTH + EAST, but the frozen registration (box 4 entry) says "the DEM shifted by half the box north and half east". Implemented ndi.shift(lrm, (-S.H_m/2/PX_M, +S.W_m/2/PX_M), order=0, cval=np.nan) = content half box north + half east, per the registration. The masks' NaN holes shift with the terrain; water/modern masks are not re-fetched (frozen "masks unchanged").
 Remaining (in order): (1) thicken the synthetic drawing, re-run the hermetic script - expect pieces, search, both nulls, pairs, placement, gate, doc offline; (2) smoke-run the two real sites in the working phase (.venv/bin/python fit/inkfit.py <site> <plan>; each fetches dem.npy + the OSM modern mask, ~1-3 min); (3) .venv/bin/python -m pytest -q (expect 59 passed / 1 pre-existing test_gate failure owned by 218); (4) commit the module and tick boxes 1 and 3.
 
+### 2026-10-11 302a DECISION: session 6 - the method verified end to end (hermetic + 2 real sites); two bug fixes; boxes 1 and 3 ticked
+Session 6 (after the driver committed the session-5 working tree as a1291a6): thinned-thickened the synthetic plate, found and fixed two real bugs, completed the hermetic run, and smoke-ran both real sites in the working phase. All parameters still exactly the frozen registration; both fixes below are bug fixes, not tuning.
+- BUG FIX (module): template_pieces returned `_keep_pieces(...)` as its first element, but that function returns a (list, label) TUPLE - so fit() received pieces = (list_of_dicts, "") and the iteration blew up with "list indices must be integers or slices, not str" the moment a non-empty piece list was produced. It was masked in session 5 because every run so far had early-returned at "no wall ink extracted" (empty list = falsy). Fixed by unpacking inside template_pieces (kept, label = _keep_pieces(...); return kept, _variant(model) + label, notes).
+- BUG FIX (CLI hygiene): the CLI printed the search progress and aw's fetch chatter (overpass retries) to stdout, corrupting the JSON result file. main() now redirects sys.stdout to sys.stderr around the fit() call (print() resolves sys.stdout dynamically, so this catches aw.py's own prints too) and emits only the JSON document on stdout. No changes outside fit/inkfit.py.
+- Hermetic run (the /tmp/aw-inkfit-herm/root fixture, recreated this session): the 8 px sharp drawing was NOT the fix - a razor-sharp 0/1 step makes the frozen Frangi (gamma 0.013, calibrated on soft real-scan edges) ghost-echo a ring ~5-8 px OUTSIDE the drawn walls (even inside the zeroed margin), and a blurred 8 px line falls under the ridge threshold. The scan-realistic fixture (8 px rectangle + 12 px interior line, gaussian_filter 2.5 px, +-2/255 paper noise, rng seed 7; 12 px is inside the real 6-20 px wall band) gives exactly the 3 true centre lines, no ghosts. fit() then ran fully offline in 8.1 s: 3 pieces / 81 template points, seed 0.75 (the hermetic picture-size fallback - propose_for has no catalog in the temp root, as designed), search landed on the TRUE placement (s 0.7408, rot -0.5 deg, t [-17, 0] vs true 0.75/0/0), both nulls valid, gate accept (n 6, 4 mm), fabrication silent, doc returned with fitter:"ink" and batch_us's field shape. CONFIDENCE WAS NEGATIVE (-0.025): fit 0.7152 vs scramble 0.7404; the shifted-DEM null was -9 (invalid: shifting the 120x100 m box half its size leaves a 60x40 m valid region smaller than the 120x90 m template - recorded by design, shifted_valid:false). Two toy-geometry lessons for 302c's committed test site: (a) make the site box much larger than the earthwork (a 1000 m-class box with a ~100 m earthwork) so the half-box shift keeps >= 50% of the template valid; (b) a template of one or two long straight pieces keeps scramble signal (a long straight wall re-aligned to any one ridge side still scores) - a fixture with several pieces of different lengths/angles makes the null discriminating. The method ANSWERED "not confident" on the toy site - that is the decision layer working, not a failure.
+... (2.9 KB more: `grep -n -A 200 -F '## 2026-10-11 302a DECISION: session 6 - the method verified end to end (hermetic + 2 real sites); two bug fixes; boxes 1 and 3 ticked' DECISIONS.md`)
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_gate.py:36: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    1 failed, 59 passed in 63.50s (0:01:03)
+    (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_serve.py::test_platefits_docs_match_sites
+    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
+    4 failed, 60 passed in 64.37s (0:01:04)
+    (full test output: .agent/reports/last-test-output.txt)
