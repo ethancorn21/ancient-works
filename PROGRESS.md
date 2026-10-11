@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/001-fit-gate.md` (open) - hand-over: ## Hand-over (iteration 7, agent c)
+- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** All four build steps are done: (1) docs/gate.md pre-registration (7d51438), (2)
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -96,7 +96,7 @@ the 5 placements of section 4 reproduce every number recorded in section 5 to it
 not in fit_gate: composing a rotation/scale about the placement centroid as (s e^iθ a, (1-s e^iθ) C_m) moves
 anchors km-scale - b must be transformed too, b' = s e^iθ b + (1-s e^iθ) C_m (recorded as a PITFALLS entry with
 the five verified recipes). The existing suite (8 tests, other tasks') passes in 2.45 s. The driver's stale
-... (3.5 KB more: `grep -n -A 200 -F '## 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run' DECISIONS.md`)
+... (5.6 KB more: `grep -n -A 200 -F '## 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
