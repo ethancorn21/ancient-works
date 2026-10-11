@@ -185,7 +185,75 @@ Expected, from the dev margins: 0–2 of the 32 wrong accepted, 6–7 of the 8 t
   against the committed table, and pins the constants of `pipeline/fit_gate.py` to this file: if the code
   drifts from section 2, the test fails.
 
-## 9. Results
+## 9. Results (the one-shot run of section 6, 2026-10-10; the first and only read of the held-out contents)
 
-_Appended by the one-shot run of section 6 (separate commit). Until that commit, this file contains no
-held-out numbers; the registered version is the first commit of this file._
+The table below is the verbatim stdout of `.venv/bin/python tools/gate_heldout.py` (40 lines: the 8
+held-out documents, sorted, times the five section-4 placements in section-4 order).
+
+```
+arbor-low-q630312.earthworkenglan01allcgoog_n0597_1  true  n=4  med=4.0  slope_o=0.1194  io=0.7  accept
+arbor-low-q630312.earthworkenglan01allcgoog_n0597_1  moved  n=4  med=59.7  slope_o=2.0909  io=-6.3  reject
+arbor-low-q630312.earthworkenglan01allcgoog_n0597_1  rot10  n=4  med=5.4  slope_o=0.2044  io=-3.7  reject
+arbor-low-q630312.earthworkenglan01allcgoog_n0597_1  scale15  n=4  med=5.2  slope_o=0.1711  io=0.1  reject
+arbor-low-q630312.earthworkenglan01allcgoog_n0597_1  xsite  n=4  med=31046.2  slope_o=1070.7985  io=5.8  reject
+avebury-q661855.earthworkenglan01allcgoog_n0581_1  true  n=4  med=6.0  slope_o=0.0350  io=0.5  accept
+avebury-q661855.earthworkenglan01allcgoog_n0581_1  moved  n=4  med=60.9  slope_o=0.3197  io=6.8  reject
+avebury-q661855.earthworkenglan01allcgoog_n0581_1  rot10  n=4  med=30.8  slope_o=0.1763  io=-20.7  reject
+avebury-q661855.earthworkenglan01allcgoog_n0581_1  scale15  n=4  med=28.3  slope_o=0.1324  io=-4.9  accept
+avebury-q661855.earthworkenglan01allcgoog_n0581_1  xsite  n=4  med=7104127.5  slope_o=38080.4929  io=-6.6  reject
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1  true  n=3  med=2.5  slope_o=0.0092  io=2.0  accept
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1  moved  n=3  med=60.6  slope_o=0.2922  io=-0.1  reject
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1  rot10  n=3  med=29.0  slope_o=0.1745  io=-25.2  reject
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1  scale15  n=3  med=25.8  slope_o=0.1306  io=-18.9  reject
+aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1  xsite  n=3  med=7087669.1  slope_o=34473.5191  io=-2.6  reject
+badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1  true  n=4  med=5.4  slope_o=0.0221  io=0.1  accept
+badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1  moved  n=4  med=59.9  slope_o=0.2436  io=9.5  reject
+badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1  rot10  n=4  med=42.5  slope_o=0.1756  io=-8.5  reject
+badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1  scale15  n=4  med=36.8  slope_o=0.1310  io=-0.5  accept
+badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1  xsite  n=4  med=33232.5  slope_o=135.9767  io=-3.9  reject
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7  true  n=4  med=31.9  slope_o=0.1792  io=-15.3  reject
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7  moved  n=4  med=64.7  slope_o=0.3615  io=1.2  reject
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7  rot10  n=4  med=33.8  slope_o=0.2273  io=-19.2  reject
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7  scale15  n=4  med=32.3  slope_o=0.1827  io=-43.2  reject
+cadbury-castle-q1025082.c_1fab2a0abe5b99d7  xsite  n=4  med=7669464.4  slope_o=43370.9739  io=27.9  reject
+cahokia-q333661.c_aff1b996dce7fe3a  true  n=4  med=12.3  slope_o=0.0759  io=2.6  accept
+cahokia-q333661.c_aff1b996dce7fe3a  moved  n=4  med=59.7  slope_o=0.4349  io=-17.9  reject
+cahokia-q333661.c_aff1b996dce7fe3a  rot10  n=4  med=23.1  slope_o=0.1828  io=-17.6  reject
+cahokia-q333661.c_aff1b996dce7fe3a  scale15  n=4  med=24.4  slope_o=0.1490  io=-1.1  reject
+cahokia-q333661.c_aff1b996dce7fe3a  xsite  n=4  med=8169567.5  slope_o=58102.1792  io=-18.0  reject
+camp-d-attila-q18749222.c_6a912845c1e1aa28  true  n=4  med=22.4  slope_o=0.0717  io=10.6  accept
+camp-d-attila-q18749222.c_6a912845c1e1aa28  moved  n=4  med=63.5  slope_o=0.2150  io=26.3  reject
+camp-d-attila-q18749222.c_6a912845c1e1aa28  rot10  n=4  med=56.3  slope_o=0.1806  io=-20.2  reject
+camp-d-attila-q18749222.c_6a912845c1e1aa28  scale15  n=4  med=43.5  slope_o=0.1438  io=-9.2  accept
+camp-d-attila-q18749222.c_6a912845c1e1aa28  xsite  n=4  med=456395.5  slope_o=1631.0541  io=-6.2  reject
+old-sarum-q782719.earthworkenglan01allcgoog_n0142_1  true  n=5  med=19.2  slope_o=0.0784  io=-2.9  accept
+old-sarum-q782719.earthworkenglan01allcgoog_n0142_1  moved  n=5  med=56.2  slope_o=0.2776  io=9.8  reject
+old-sarum-q782719.earthworkenglan01allcgoog_n0142_1  rot10  n=5  med=46.0  slope_o=0.1891  io=-36.6  reject
+old-sarum-q782719.earthworkenglan01allcgoog_n0142_1  scale15  n=5  med=29.2  slope_o=0.1344  io=6.5  accept
+old-sarum-q782719.earthworkenglan01allcgoog_n0142_1  xsite  n=5  med=36868.7  slope_o=163.8232  io=7.1  reject
+```
+
+Summary against section 6's criteria (all values ground metres; the full numbers are in the table):
+
+- **True fits: 7 of 8 accepted** (criterion: at least 4) − pass. med 2.5−31.9. The one rejection is
+  cadbury-castle's own fit (med 31.9, slope_o 0.1792, io −15.3): a genuinely radial own-residual
+  pattern − the same class as the two dev true rejections (section 5), indistinguishable from a
+  15% scale error at n = 4, so the gate refuses it. A strict gate may cost that one fit.
+- **Wrong fits: 4 of 32 accepted** (criterion: at most 1 − 1 in 20; section 6 expected 0−2) − not
+  met. All four are scale15: avebury (med 28.3, slope_o 0.1324, io −4.9), badbury-rings
+  (med 36.8, slope_o 0.1310, io −0.5), camp-d-attila (med 43.5, slope_o 0.1438, io −9.2),
+  old-sarum n0142 (med 29.2, slope_o 0.1344, io +6.5) − slope_o in the attenuated 0.131−0.144
+  band under the frozen 0.145 threshold, exactly the band the two dev scale15 accepts sit in
+  (section 5), and none deep enough for the io < −10 clause. moved 0/8, rot10 0/8, xsite 0/8
+  (0 of 24).
+
+**Verdict.** The true-fit criterion passes, so the gate may show accepted fits without a human
+looking, as GOAL point 3 asks. The wrong-fit criterion misses: 1 in 8, not 1 in 20. Per section 6
+the thresholds are **not** re-tuned on this set − that would turn it into dev data and void the
+registration. The misses are the documented limit of section 7 ("errors below the test set may
+pass"): at n = 3−6 the through-origin slope of a 15% scale is attenuated below the 0.15 theory
+(held-out: 0.131−0.144, dev: 0.130−0.141), inside a true fit's own scatter, so no pure-geometry
+statistic of these anchors can tell them apart. The review queue (GOAL point 1) absorbs the
+difference: an auto-accepted fit may sit 15% off in scale, which is exactly what the human's 18/20
+sample of auto-accepted fits (GOAL point 3) is the check for. A future re-derivation may tune a
+tighter rule, but only on documents this registration never saw − this set is spent.
