@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/201-review.md` (open) - hand-over: Iteration 23 (2026-10-11). Steps 1-4 are DONE (step 2: commit ad8dbc1; step 3: 0b65deb; step 4: the commit after this edit). State:
+- `tasks/201-review.md` (open) - hand-over: Iteration 24 (2026-10-11). Steps 1-4 are DONE as before (ad8dbc1, 0b65deb, 6835279). Step 5 is IN
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -116,6 +116,16 @@ load-bearing in the opener: select() chains loadDeps().then(renderSite) and in t
 select->startFit->openPlan chain that async re-render would otherwise clobber the fit sheet;
 rvStartFitAt awaits the (shared-flight) loadDeps between setGround and startFit - microtask order
 on the same promise guarantees select's .then runs first. Do not reorder.
+
+### 2026-10-11 201 DECISION: prep step 5 in flight (tests/test_review.py written, not yet run) - all five cases dry-run-verified against a conftest-shaped scratch tree; one prep claim corrected (the worker dies at `import plan_fit`, not at the missing scan)
+Wrote tests/test_review.py (5 tests, stdlib-only, ephemeral port, no network): CLI export +
+idempotency, headless Review tab/list/stats, save-resolves via a PUT in the exact saveFit shape,
+(id, sites[0]) keying through the live page, and the one-line index.html footprint. Before writing
+it, every case was dry-run against a scratch tree built exactly like conftest (web/ + server/ +
+data/ minus data/raw) and all passed; the committed test asserts exactly what the dry runs showed.
+Corrections and traps found while doing this (they change how the next session reads the prep):
+1. **The plan_fit worker in the temp tree dies at `import plan_fit`, not at the missing scan.**
+... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 201 DECISION: prep step 4 shipped - web/review.js (the page's Review section) + the one script tag in index.html; headless-verified tab/list/opener/pre-placement/save-resolves end to end; two prep claims corrected' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
