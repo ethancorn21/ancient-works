@@ -56,6 +56,10 @@ iteration 1; main still has the unpinned source list from e2d4060). Checking onl
 tree (as iteration 6 did) says "stale"; `git diff origin/main -- <file>` and
 `git show origin/main:<file>` is the real check. If the file is not in your task's Touches,
 file a task for its owner (done: tasks/800-requirements-pinned.md) instead of "fixing" it.
+Merges only land a branch's copy of a shared file when it differs from the merge base:
+compare `git rev-parse <base|main|branch>:<file>` at all three tips (800: base == main ==
+93511f2, branch fda2210 -> the merge lands the pinned file cleanly; had the branch blob
+matched the base, the merge would silently keep main's copy).
 
 ## Libraries and frameworks
 
