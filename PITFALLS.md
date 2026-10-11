@@ -687,6 +687,37 @@ Why: the page's plate tool places `pairs`/`crop` in the displayed image's pixels
       byte-for-byte with any pixel content (flat colour is fine); one sized like `doc["size"]` (fs=1) does
       not. That is how tests/test_site_done.py stays network-free and byte-exact (task 300).
 
+#### `plan_fit.main()` with no root (and the CLI, which has no --root flag) sweeps the real checkout's whole store - never call it bare in verification
+Where: `pipeline/plan_fit.py` (`main`, `build`, `load_picture`, the `if __name__` block); any interactive
+      or test session that wants to exercise the sync loop
+Symptom: a verification that calls `plan_fit.main([])` (or `plan_fit.py [args]`) without a `root=`/temp
+      tree rebuilds EVERY not-current document in the checkout's data/db/platefits (as of 2026-10-11 that
+      was ~76 docs), downloads each commons picture's big jpg from Wikimedia at 1/s pacing (tens of
+      minutes), and calls `build_site.set_drawings` per site - i.e. it mutates web/data/sites.json -
+      until a hard timeout kills it mid-sweep (burned an iteration-94 session; the rebuilt webps turned
+      out byte-identical and the only diff was the sites.json drawing refresh).
+Why: `main` defaults `_root(None)` to this checkout's ROOT, and the CLI passes `sys.argv[1:]` straight
+      in as doc ids (an arg like `--root` is parsed as a doc id). For hermetic verification call
+      `plan_fit.main(args, root=<temp tree>)` in-process and seed the tree's
+      `web/data/sites/<sid>/depictions.json` with matching `fit.at`/`fit.doc` entries where you want
+      `is_done` to skip the build (an unseeded doc's build reaches `load_picture`: book docs fail fast
+      with FileNotFoundError, commons docs hit the network).
+
+#### The serve worker's plan_fit sweep aborts on any non-SystemExit mid-sweep - one bad doc strands the rest of that wake
+Where: `server/serve.py` (`after_write`'s worker thread: `except BaseException: print(...)` around
+      `plan_fit.main([])`); `pipeline/plan_fit.py` (`main`'s per-doc `except SystemExit` only)
+Symptom: after a page save, only the documents earlier in alphabetical order get synced; the worker
+      prints `plan_fit failed: KeyError('imageinfo')` (a bad commons `ref`) or a 429/urllib error, and
+      the remaining docs of that wake are simply never built - they stay not-current until the next
+      save. As of 2026-10-11, 76 of the checkout's 116 platefit docs are in that not-current state
+      (nearly all commons-sourced, only one with its big jpg cached).
+Why: `main` catches `SystemExit` per doc (site not built, bad pairs, task-303 provenance refusal all
+      stop only that doc) but any other exception (FileNotFoundError on a missing book scan,
+      `KeyError` from an API answer without `imageinfo`, a timeout) escapes `main` into the worker's
+      catch-all, which logs it and waits for the NEXT wake - the rest of this wake is lost. A test or
+      run that wakes the worker against a tree with a bad doc must expect a partial sweep; making the
+      sweep per-doc-proof is not task 303's job.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
