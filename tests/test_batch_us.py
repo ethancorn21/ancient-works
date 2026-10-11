@@ -16,16 +16,19 @@ of the gate's thresholds. After the runs the 20 pre-batch hand-fit documents and
 hand-fit site files are byte-identical (tests/golden/hand_fit_docs.sha256): the batch added
 files, it rewrote none.
 
-The sample (region US): serpent-mound-q968802 (16 candidates today, one of them its pre-batch
-hand-fit document - the 15 others get 202's 5-point proposals, the gate's documented "true
-case"), cahokia-q333661 (the model finds two features on three pictures and nothing on a
-fourth: a review item), mound-bottom-q14710093 (its only candidate IS its hand-fit document:
-nothing written), and the first US site, sorted, with no candidate at all today
-(aberdeen-mound-q4666953: the "no picture found" item). The stub-gate cases use the first
-US site with two or more candidates, no pre-fit and no existing item
-(today angel-mounds-q4530064). The pinned plan ids are the test's fixed inputs: if plans.json
-gains rows for these sites the loop still ends every candidate with a doc or an item, and a
-future 203a session extends the lists for an intended change.
+The sample (region US): serpent-mound-q968802 (16 candidates today, 8 of them already
+documented after the batch's working run - the remaining 8 get 202's 5-point proposals, the
+gate's documented "true case"), cahokia-q333661 (the model finds two features on three
+pictures and nothing on a fourth: a review item; a fifth candidate became an automatic doc
+in the batch's run, so it is a pre-doc to this test), mound-bottom-q14710093 (its only
+candidate IS its hand-fit document: nothing written), and the first US site, sorted, with
+no candidate at all today (aberdeen-mound-q4666953: the "no picture found" item). The
+stub-gate cases use the first US site, sorted, with two or more candidates and no pre-fit
+(today angel-mounds-q4530064: the batch's run gave every US site with a candidate an item,
+so the old "no existing item" precondition is void - the reject case deletes the site's
+item in the temp tree before seeding its own). The pinned plan ids are the test's fixed
+inputs: if plans.json gains rows for these sites the loop still ends every candidate with a
+doc or an item, and a future 203a session extends the lists for an intended change.
 """
 import hashlib
 import json
@@ -163,17 +166,20 @@ def _pre(root, sid):
     return [p for p, _ in batch_us.pre_docs(root, sid)]
 
 
-def _item(root, sid):
-    """The parsed review item for a site in this tree, or None."""
+def _item_files(root, sid):
+    """The paths of the review item files for a site in this tree (any name, keyed by the
+    site field; one per site is 201's invariant)."""
     d = Path(root) / "data" / "review"
     if not d.is_dir():
-        return None
-    for p in sorted(d.iterdir()):
-        if p.suffix == ".json":
-            item = json.loads(p.read_text())
-            if item.get("site") == sid:
-                return item
-    return None
+        return []
+    return [p for p in sorted(d.iterdir())
+            if p.suffix == ".json" and json.loads(p.read_text()).get("site") == sid]
+
+
+def _item(root, sid):
+    """The parsed review item for a site in this tree, or None."""
+    fs = _item_files(root, sid)
+    return json.loads(fs[0].read_text()) if fs else None
 
 
 def _corner_pairs(site, row):
@@ -216,12 +222,13 @@ def _sample():
 
 
 def _stub_site(tree):
-    """The first US site with two or more candidates, no pre-fit and no existing item."""
+    """The first US site with two or more candidates and no pre-fit (today angel-mounds:
+    alligator, alphabetically first, is pre-fitted by the batch's automatic doc)."""
     for sid in batch_us.us_sites(ROOT):
         nonpre = [r["id"] for r in batch_us.candidates(sid, _rows()) if r["id"] not in _pre(tree, sid)]
-        if len(nonpre) >= 2 and not batch_us.is_pre_fit(tree, sid) and _item(tree, sid) is None:
+        if len(nonpre) >= 2 and not batch_us.is_pre_fit(tree, sid):
             return sid
-    pytest.fail("no US site with two or more candidates, no pre-fit and no existing item")
+    pytest.fail("no US site with two or more candidates and no pre-fit")
 
 
 def _expected(pairs):
@@ -431,10 +438,17 @@ def test_sample_run_real_gate(tree):
         assert rec["pre_fit"] == pre_fit_before[sid]
         if item:
             it = _item(tree, sid)
-            want = [r["id"] for r in cands if r["id"] in item]
-            assert [c["plan"] for c in it["candidates"]] == want
+            reproposed = {r["id"] for r in cands if r["id"] not in pre}
+            # set equality: the upsert keeps the existing candidates' order and appends the
+            # new ones (201's writer business, pinned by test_review)
+            assert {c["plan"] for c in it["candidates"]} == {r["id"] for r in cands if r["id"] in item}
             for c in it["candidates"]:
-                _check_entry(sid, rows[c["plan"]], c, (answers.get(sid) or {}).get(c["plan"]))
+                if c["plan"] in reproposed:
+                    _check_entry(sid, rows[c["plan"]], c, (answers.get(sid) or {}).get(c["plan"]))
+                else:
+                    # a candidate this run did not propose: it survived from the pre-existing
+                    # item, carrying that run's entry, which this test's answers do not know
+                    assert c["plan"] in {e["plan"] for e in (pre_items[sid] or {}).get("candidates", [])}
             assert it.get("resolved") == (pre_items[sid] or {}).get("resolved")
         for plan in rec["auto"]:
             _check_doc(tree, sid, rows[plan])
@@ -446,7 +460,9 @@ def test_sample_run_real_gate(tree):
         a, b, _, _ = plan_fit.similarity(answers[SERPENT][plan]["pairs"])
         verdict, _ = fit_gate.gate(answers[SERPENT][plan]["pairs"], (a, b))
         assert verdict == fit_gate.ACCEPT, "a 202 proposal must pass the frozen gate: %s" % plan
-    assert set(rec["auto"]) >= set(SERPENT_ANSWER_PLANS)
+    # minus the plans that already have a document (skipped, never re-fit): the per-plan
+    # gate loop above stays a property of the frozen gate, this line is the run's outcome
+    assert set(rec["auto"]) >= set(SERPENT_ANSWER_PLANS) - set(pre_docs_before[SERPENT])
     assert rec["item"] == bool(nonpre - set(SERPENT_ANSWER_PLANS))
 
     # cahokia: the short and missing answers become one item; its lead names the file
@@ -456,7 +472,13 @@ def test_sample_run_real_gate(tree):
     first = next(r["id"] for r in batch_us.candidates(CAHOKIA, _rows()) if r["id"] not in pre_docs_before[CAHOKIA])
     assert (Path(tree) / "data" / "review" / ("%s.%s.json" % (CAHOKIA, first))).is_file()
     it = _item(tree, CAHOKIA)
-    assert {c["plan"] for c in it["candidates"]} == set(CAHOKIA_TWO_PAIR) | set(CAHOKIA_NO_ANSWER)
+    # upsert semantics: the pre-existing candidates stay, the non-pre candidates re-proposed
+    # this run merge in. n0200_1 became a pre-doc in the batch's working run, so it no
+    # longer lands in the item; c_aff1b (the hand fit) is a pre-doc too and was never one.
+    cands = batch_us.candidates(CAHOKIA, _rows())
+    nonpre_c = {r["id"] for r in cands if r["id"] not in pre_docs_before[CAHOKIA]}
+    pre_plans_c = {c["plan"] for c in (pre_items[CAHOKIA] or {}).get("candidates", [])}
+    assert {c["plan"] for c in it["candidates"]} == (pre_plans_c - nonpre_c) | nonpre_c
 
     # mound-bottom: its only candidate is its hand-fit document - nothing written, no item
     rec = records[MOUNDBOTTOM]
@@ -480,14 +502,19 @@ def test_sample_run_real_gate(tree):
 
 def test_stub_gate_always_accept(tree, monkeypatch):
     """The document writer, pinned independently of the gate's thresholds: every candidate of
-    a two-candidate site whose model answers have four or more pairs becomes an automatic doc
-    carrying the stub's score, and no item is written."""
+    the stub site whose model answers have four or more pairs becomes an automatic doc carrying
+    the stub's score; the run writes no entries, so an existing item stays byte-identical
+    (and one is not created when absent)."""
     sid = _stub_site(tree)
     site = _sites(tree)[sid]
     rows = _rows_by_id()
     nonpre = [r for r in batch_us.candidates(sid, _rows()) if r["id"] not in _pre(tree, sid)]
     assert len(nonpre) >= 2
     answers = {r["id"]: {"pairs": _corner_pairs(site, r)} for r in nonpre if r.get("size")}
+    # the batch's run may have left this site an item: the all-accepted run writes no
+    # entries, so the upsert is never called and the item's bytes do not move
+    f = _item_files(tree, sid)
+    item_before = f[0].read_bytes() if f else None
     monkeypatch.setattr(batch_us, "gate_placement",
                         lambda pairs, transform=None: (True, STUB_ACCEPT_SCORE, None))
     rec = batch_us.run_sites(tree, [sid], batch_us.recorded_model({sid: answers}))[sid]
@@ -495,7 +522,11 @@ def test_stub_gate_always_accept(tree, monkeypatch):
     assert not rec["item"] and not rec["no_picture"]
     for plan, a in answers.items():
         _check_doc_stub(tree, sid, rows[plan], a, STUB_ACCEPT_SCORE)
-    assert _item(tree, sid) is None
+    f = _item_files(tree, sid)
+    if item_before is None:
+        assert not f
+    else:
+        assert len(f) == 1 and f[0].read_bytes() == item_before
 
 
 def test_stub_gate_always_reject(tree, monkeypatch):
@@ -507,6 +538,13 @@ def test_stub_gate_always_reject(tree, monkeypatch):
     seed = {"site": sid, "candidates": [],
             "no_picture_found": {"searched": "seed", "at": "2026-01-01T00:00:00+00:00"},
             "resolved": resolved}
+    # the batch's run left this site an item: delete it in the temp tree first, so the
+    # seeded one is the only one upsert's _find_item can reach (otherwise its sort order
+    # finds the batch's <sid>.<lead>.json before the seeded <sid>.json and the seed's
+    # resolved/lead assertions break). The files are hard-linked: unlinking the temp path
+    # leaves the checkout's originals intact.
+    for p in _item_files(tree, sid):
+        p.unlink()
     (Path(tree) / "data" / "review" / (sid + ".json")).write_text(json.dumps(seed, indent=1))
     site = _sites(tree)[sid]
     rows = _rows_by_id()
@@ -536,8 +574,11 @@ def test_stub_gate_always_reject(tree, monkeypatch):
 
 def test_batch_adds_files_rewrites_none(tree):
     """Box 4: after the run the 20 hand-fit documents and the 19 hand-fit site files are
-    byte-identical to the golden hashes; no pre-existing file under data/ or web/ changed
-    bytes; every new file is an automatic document or a sample-site review item."""
+    byte-identical to the golden hashes; every pre-existing file under data/ or web/ stays
+    byte-identical except the sample sites' own review items - the upsert's live-merge
+    contract re-saves an item it touches (a re-upserted no-picture record carries a fresh
+    timestamp), so those must keep their site, resolved and every candidate plan instead;
+    every new file is an automatic document or a sample-site review item."""
     golden = _golden()
     assert {rel: _sha(os.path.join(tree, rel)) for rel in golden} == golden  # the copy is pre-batch
 
@@ -551,14 +592,31 @@ def test_batch_adds_files_rewrites_none(tree):
         return out
 
     before = all_files()
+    sample = set(_sample())
+    # the sample sites' own item files: the only pre-existing files the run may re-save
+    review_before = {}
+    for rel in before:
+        if rel.startswith("data/review/") and rel.endswith(".json"):
+            it = json.loads((Path(tree) / rel).read_text())
+            if it.get("site") in sample:
+                review_before[rel] = {"site": it["site"],
+                                      "resolved": it.get("resolved"),
+                                      "plans": {c["plan"] for c in it.get("candidates", [])}}
     batch_us.run_sites(tree, _sample(), _recorded_model())
     after = all_files()
 
-    for rel, h in before.items():  # the batch rewrites nothing
-        assert after.get(rel) == h, "the batch rewrote %s" % rel
+    for rel, h in before.items():
+        if rel in review_before:  # the upsert may re-save the sample's own items
+            it = json.loads((Path(tree) / rel).read_text())
+            assert it.get("site") == review_before[rel]["site"], rel
+            assert it.get("resolved") == review_before[rel]["resolved"], \
+                "the upsert must never clear or change resolved: %s" % rel
+            assert review_before[rel]["plans"] <= {c["plan"] for c in it.get("candidates", [])}, \
+                "a candidate plan was dropped: %s" % rel
+        else:  # the batch rewrites nothing else
+            assert after.get(rel) == h, "the batch rewrote %s" % rel
     for rel, h in golden.items():  # the hand fits: byte-identical to the golden
         assert after.get(rel) == h, "a hand-fit file changed: %s" % rel
-    sample = set(_sample())
     for rel, _h in after.items():
         if rel in before:
             continue
