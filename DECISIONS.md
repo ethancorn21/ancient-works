@@ -175,3 +175,25 @@ is the only box left and it is unmeetable as written under the registered no-re-
 the task stays open, parked on the human's answer to `## Proposed changes` (recommendation:
 accept the gate as measured and re-word box 2 to the recorded contract; the review queue and
 the 18/20 human sample are the backstops).
+
+### 2026-10-10 001 DECISION: build complete, parked twice without a reply - filed the blocking ask_human (recommend: accept the gate as measured, re-word box 2) and set Status: blocked
+First session with nothing left to build: iterations 7-8 finished the build (one-shot run,
+section-9 record, tests + golden) and parked on the human's call, and iterations.jsonl shows no
+reply since (asks_filed 0, human_messages 0 for iters 4-8) while the task keeps being re-hand.
+This session: (1) verified the post-merge state - .venv/bin/python -m pytest -q, 10 passed in
+6.5 s; the project-wide driver note about a failed .venv build is NOT this checkout
+(requirements.txt here fully pinned + hashed, local .venv works, no .agent/reports/ here;
+main's unpinned file is task 800). (2) Filled PLAN.md's Deviations-from-GOAL.md, still
+"(empty)" although box 2's number has settled: the point (task 001 box 2, the owner's number
+per the task's own notes), what GOAL point 3 says (gate validated on held-out fits; 18/20 of a
+20-sample of auto-accepted fits), what the project does (1-in-8 on the registered one-shot, all
+15% scale; 0/24 for move/rotate/cross-site), the evidence (gate.md section 7 structural limit
+at n=3-6, section 9 record, dev corroboration 2/12, review queue + 18/20 sample as the
+production checks). Added PLAN.md to the task's Touches. (3) Filed the blocking ask_human with
+the two options from `## Proposed changes` and recommendation (a) - filed as request 001
+(.agent/asks/001.md). (4) Status: open -> blocked
+so the driver waits on the open request instead of re-handing a complete task. No code, docs or
+tests changed. Next session (when the human or the loop's 120-minute answer on the
+recommendation arrives): (a) -> re-word box 2 to the registered contract, tick it, Status:
+done; (b) -> box 2 stays unticked, file task 801 (next free 8xx) for a tighter rule on fresh
+documents; otherwise follow the ruling literally.

@@ -173,4 +173,22 @@ because they share the `data/books/` directory, not because one needs the other'
 
 ## Deviations from GOAL.md
 
-(empty — filled with the evidence when a number settles elsewhere)
+- **Task 001 box 2 - wrong fits the gate accepts: the owner's "at most 1 in 20" vs the measured
+  1 in 8.** GOAL point 3 says: auto-acceptance goes through a gate validated on the held-out hand
+  fits, and the human checks a random 20-fit sample of auto-accepted fits, at least 18 of them
+  right. The project does: the registered gate (docs/gate.md section 2, one-shot measured in
+  section 9) accepts 4 of 32 deliberate wrong placements - all 15% scale errors (1 in 8, not 1 in
+  20) - and rejects every moved, rotated and cross-site placement (0 of 24). A 15% scale residual
+  pattern is structurally indistinguishable from a true sloppy fit's own scatter at n = 3-6
+  anchors (gate.md section 7; the 12 dev documents show the same 2 of 12), so no re-tuned
+  threshold on the spent held-out set can remove the misses without also refusing true fits (the
+  registration, section 6, forbids that re-tuning). Evidence the human would not notice the
+  difference in production: the model fits by matching features, so a pure 15% scale error is the
+  rarest miss class, and the 1-in-8 rate is the worst case of the recipe applied to every
+  held-out document, not the model's output distribution; and the checks GOAL point 1 and 3 build
+  into the design (everything the gate refuses goes to the review queue; the 20-fit human sample
+  must be 18/20 right) are exactly the checks that would catch a production wrong-fit rate at
+  that level. Awaiting the owner's ruling (task 001 `## Proposed changes` and the iteration-9
+  blocking ask): if (a) is accepted, box 2 re-words to the registered contract ("at most 1 in 20,
+  or the measured numbers are recorded in docs/gate.md section 9 and the review queue absorbs the
+  difference") and the task is done.
