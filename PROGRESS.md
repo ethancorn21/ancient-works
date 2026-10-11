@@ -7,7 +7,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4i (iteration 44). Status: BLOCKED - the escalation the 4h hand-over set has
 - `tasks/203-batch-fit.md` (split)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/802-gate-holdout-auto-docs.md` (in-progress) - hand-over: **2026-10-11, iteration 46 (agent c): implementation unchanged and verified; the task now parks on
 
 ## Next open tasks
 - `tasks/215-books-llm-ports.md`
@@ -18,75 +17,124 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 802 DECISION: implemented - partition() derives its name list over the NON-automatic documents only; docs/gate.md left untouched; both boxes verified, Status: done
+### 2026-10-11 203a DECISION: session 4g - done claim rejected on the 4 cross-task failures; unblocked the self-created dependency inversion by re-filing 802/803 state-agnostic (Depends on: 001/201) and adding them to 203a's Depends on
+The driver rejected the 4f done claim (reopened the task; suite run twice): 4 failed /
+34 passed - EXACTLY the 4 cross-task failures 4e/4f predicted and recorded (test_gate
+partition precondition 20 vs 36; the three test_review pre-batch population pins). 4g
+verified the state first: golden 39/39 byte-identical; my 5/5 test_batch_us green; 36
+docs = 16 auto (all carrying "auto": true) + 20 non-auto (the golden hand fits).
+ROOT CAUSE (each confirmed by reading the code, not guessed):
+- 802's failure: tools/gate_heldout.py partition() fails loudly when the doc count is
+  not 20. Deriving the name list over NON-auto documents reduces to the IDENTICAL 20
+  names pre- and post-batch (no hand-fit doc ever gains "auto"), so the partition and
+  the golden tables reproduce byte for byte in both states.
+- 803's failures: hardcoded pre-batch population pins (2 open of 2; [alligator,
+  bibracte]; Review (2)/rvn 2/stats line). Deriving them from the repo items through
+  201's own export derivation reduces to exactly those pinned values pre-batch and
+  holds post-batch (88 open of 89; alligator derived-resolved via its c_618a auto doc).
+- test_save's KeyError 'map_box' is a TEST artifact, not a data defect: the page's
+  rvResolveRow (web/review.js) resolves the candidate's row from web/data/plans.json by
+  (plan, site) FIRST; stored entry fields are only a fallback for rows absent from the
+  build, and a missing map_box is tolerated (openPlan falls back to the full frame).
+  The batch's upsert (201's documented "same-plan entry replaces in place") wrote
+  203a-shaped entries that lack the denormalized row fields, but the page never needs
+  them when the row is present (n0214_2 is in plans.json). NO repair of my 88 item
+  files, no fit/review.py change, and no field-shape change in my write_item are
+  needed: 803's fix is to build the save document from the ROW (all of map_box/size/
+  ia/file/label/book/cite are plans.json columns).
+CHOICE: 4f had filed 802/803 with "Depends on: 203a", while 203a's claim can only pass
+once those tests are green - a pure inversion (203a waits on them, they wait on 203a).
+Since both fixes are state-agnostic (above), 4g re-filed them (they are my own filings,
+unassigned, on this branch; their paths were added to 203a's Touches line first, per
+the team-mode rule): "Depends on: 001" and "Depends on: 201" (both done), each spec now
+carrying the two-state reduction as the explicit correctness bar (pre-batch must
+reproduce the pinned values byte/word for word; post-batch must hold). An implementer
+on any main-based branch - with or without 203a's data - lands green, and either merge
+order keeps main green: 802/803 first (pre-batch state on main), then 203a merges and
+the derived tests keep passing on the post-batch population. 203a's Depends on: now
+lists 802, 803 so the driver holds my claim until both are in main. Per the team rule
+I committed and stopped; the driver hands me other work and brings 203a back once
+802/803 merge. No ask_human: this is a dependency-order fix inside my own filings, not
+a blocker needing a human decision.
 
-CONTEXT: task 802 handed to agent c at iteration 45 (203a was blocked on it; after ask_human 002
-      the human's answer let the queue move and I drew 802). The 4g state-agnostic re-baseline
-      (Depends on: 001) is exactly what I implemented.
-WHAT: `tools/gate_heldout.py partition()`: name list = the sorted NON-automatic document names,
-      `if not json.load(open(p)).get("auto")` - the same criterion as `fit/batch_us.py
-      write_golden`; a doc without the field is a hand fit. The 20-doc precondition, the
-      seed-20260108 derivation, the REGISTERED tables, `check_registered` and the five section-4
-      recipes are all untouched. Docstrings (module header, REGISTERED comment block,
-      partition) now say the name list is the non-automatic one. `tests/test_gate.py`: only the
-      offline note in the docstring changed ("the 20 documents in data/db/platefits/" ->
-      "data/db/platefits/"); no test logic or assertion touched. docs/gate.md and
-      tests/golden/gate_heldout.txt are untouched (not in the diff).
-WHY THE DOC STAYED: the task's Notes offered an optional section-1 clarification sentence. I chose
-      not to add one: section 1 is the frozen pre-registration ("not to be changed") and never
-      promised to count every .json in the directory; section 3's "the 20 hand-fit documents in
-      data/db/platefits/" stays literally true (there are still 20; the 16 auto are a different
-      kind of document). The clarification now lives in the tool's docstrings. If the driver or
-      the human disagrees, adding one sentence to section 1 is the follow-up - recorded here so
-      the decision is not re-litigated.
-EVIDENCE (this checkout: 36 docs = 20 hand + 16 auto from 203a): non-auto names == REGISTERED
-      held+dev exactly (verified before and after the edit); the section-6 command runs to
-      completion for both held and dev; the combined stdout is byte-identical to
-      tests/golden/gate_heldout.txt (40 + 60 lines); `pytest -q tests/test_gate.py` -> 2 passed;
-      full suite 3 failed / 35 passed - all 3 in tests/test_review.py (803's territory; it was
-      4 failed / 34 passed before this task, so the 802 failure is gone and nothing else moved).
-      The recorded tables came out unchanged with no golden or section-9 regeneration, so there
-      is no finding to report (box 2's escape hatch did not fire).
-STATE-AGNOSTIC: on a plain main-based checkout (20 docs, none carrying the field) `doc.get("auto")`
-      is falsy for every doc, so the name list equals the old all-files list exactly and the tool
-      behaves identically to pre-802 (it just reads the 20 small JSONs to check the flag). One
-      commit passes in both states, as the re-baselined spec required.
+### 2026-10-11 203a DECISION: session 4h - dependency hold confirmed: 802/803 still open and unassigned, not in main; state unchanged since 4g (suite red on exactly the 4, golden 39/39); both tasks' state-agnostic invariants re-verified on the live data; hold and stop per the team rule
 
-### 2026-10-11 802 DRIVER: done claim rejected, task reopened
-- Test suite failed twice when the driver ran `.venv/bin/python -m pytest -q`:
-    tests/test_review.py::test_export_cli
-    tests/test_review.py::test_page_shows_the_review_list
-    tests/test_review.py::test_save_resolves_the_item
-    FAILED tests/test_review.py::test_export_cli - AssertionError: review: 88 ope...
-    FAILED tests/test_review.py::test_page_shows_the_review_list - AssertionError...
-    FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
-    3 failed, 35 passed in 38.62s
-    (full test output: .agent/reports/last-test-output.txt)
+CHOICE: the driver handed 203a again in iteration 43. The 4g NEXT SESSION
+procedure assumed 802/803 had merged into main; that has not happened - main
+is at bb3140f, a full ancestor of my branch (no driver sync commit since
+iteration 40's 02b09b9), and both task files are still `Status: open` and
+unassigned. Per the team-mode rule I did not implement them: their Touches
+files (tools/gate_heldout.py, tests/test_gate.py, tests/test_review.py) are
+not on my Touches line, the rule says do not build stand-ins, and their
+numbers are already on my Depends on: (added in 4g). So the step was to
+re-verify the held state and stop. Nothing in my files changed or needed
+fixing this session (no edits at all).
+STATE RE-VERIFIED (all unchanged since 4g):
+- Full suite `.venv/bin/python -m pytest -q`: 4 failed / 34 passed = exactly
+  802's test_recorded_measurement_reproduces_and_agrees and 803's
+  test_export_cli ("88 open of 89") / test_page_shows_the_review_list /
+  test_save_resolves_the_item (KeyError 'map_box'). My 5/5
+  tests/test_batch_us.py pass (full suite, and re-run in isolation: 5 passed
+  in 5 s).
+- Golden: sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK (20 docs
+  + 19 site.json byte-identical).
+- 802's state-agnostic invariant holds on the LIVE data: data/db/platefits/
+  holds 36 docs = 16 carrying "auto": true + 20 without, and the 20 non-auto
+  file names are SET-EQUAL to the golden's 20 hand-fit names (checked by set
+  equality, not count) - so a partition() derived over the non-auto names
+  reproduces the registered 20-name partition byte for byte in this
+  post-batch state; automatic docs only ever add names, so it also holds on
+  a plain main-based pre-batch checkout.
+- 803's derivation premise holds on the LIVE data: data/review/ holds 89
+  items, every one with raw resolved=null; alligator's item carries
+  candidate c_618a6be74dfaff32 and its auto doc exists in
+  data/db/platefits/ -> 201's export derives that item resolved, giving
+  88 open - exactly 803's spec (pre-batch it reduces to 2 open of 2).
+FLAG FOR THE DRIVER (not yet an escalation): PROGRESS.md's "Next open tasks"
+lists 215/216/217, not 802/803. Benign reading: the queue is numerical and
+802/803 follow 215-217 (800/801 were also 8xx filings and got handed out and
+done, so the queue does take 8xx). Policy for the next session: if 802/803
+are still unassigned (and the suite still red on the same 4) after 215-217
+have been handed out, ask_human - recommendation: hand 802 and 803 to idle
+agents, or let this task's holder implement them, since I wrote both specs
+and just re-verified both invariants above (one session of work each).
 
-### 2026-10-11 802 DECISION: iteration 46 - done claim rejected on the suite being red (803's tests); implementation untouched, task parked on Depends on: 001, 803
-
-CONTEXT: iteration 45 verified both boxes and filed the done claim; the driver's re-verification
-      ran `.venv/bin/python -m pytest -q` twice and it was red both times: 3 failed / 35 passed,
-      all in tests/test_review.py (test_export_cli, test_page_shows_the_review_list,
-      test_save_resolves_the_item), and it reopened the task (commit 98b6ef5). This is not a bug
-      in this task's code: the same 3 fail without af830fb (pre-802 suite: 4 failed / 34 passed,
-      the 4th being 802's own test_gate failure, fixed).
-WHAT: no code change this iteration. Re-ran the full suite in the current checkout: identical
-      3 failed / 35 passed, tests/test_gate.py green (2 of the 35); `git log` confirms nothing
-      after af830fb touched tools/gate_heldout.py or tests/test_gate.py; confirmed 803 is open
-      with `Depends on: 201` (201 done) and `Touches: tests/test_review.py` - exactly the failing
-      population, unassigned (the human's queue; 203a's ask_human 002 already flagged the
-      802/803 pair). Added 803 to my `Depends on:` line (now `001, 803`) and parked the task per
-      the team-mode rule; the driver gives me other work and brings 802 back when 803 is merged.
-WHY NOT ELSE: tests/test_review.py is not on my Touches line and is 803's to change; adding it to
-      my own line to fix it here would collide with 803's parallel work and re-litigate its
-      scope. The written rule ("no test failing that was not already failing before") does
-      describe my situation, but the driver's implemented re-check treats any red suite as a
-      failed claim, so waiting for 803's merge is the only clean path - arguing it or patching
-      803's file would not stand a re-check either.
-RE-VERIFY ON RETURN: when 802 comes back (803 merged into main), run the full suite; expect 0
-      failed; re-file the done claim. If my two files are red, check `git log` on them since
-      af830fb first.
+### 2026-10-11 203a DECISION: session 4i - third consecutive hand with the same 4 red; escalation fired per the 4h policy: ask_human filed (recommendation: I implement 802/803) and Status set to blocked
+CHOICE: the driver handed 203a in iteration 44. The held state was re-verified a third
+time and is byte-for-byte unchanged since 4h: main still bb3140f (full ancestor of my
+branch; no 802/803 in it); both task files still `Status: open` and unassigned;
+215/216/217 still "next open" ahead of them; suite 4 failed / 34 passed = exactly the
+802/803 cross-task failures (test_gate partition precondition 20 vs 36 docs; the three
+test_review pre-batch pins: export "88 open of 89" vs actual, page list, save
+KeyError 'map_box'); golden 39/39; my 5/5 test_batch_us green; 36 docs = 16 auto + 20
+non-auto (non-auto names set-equal to the golden 20); 89 review items all raw
+resolved=null (the directory's 90th entry is README.md, not an item); alligator's item
+carries candidate c_618a6be74dfaff32 whose auto doc exists (803's derived 88 open).
+WHY ESCALATE NOW: the 802/803 blocker has had three failed attempts at resolution -
+(1) 4e filed the two tasks with "Depends on: 203a", a pure inversion (they waited on
+the task that waits on them); (2) 4g re-filed them assignable ("Depends on: 001"/"201",
+both done) - no assignment after a full round; (3) 4h waited one more iteration -
+still unassigned, and the driver handed me 203a again with the identical 4 red. That
+is the stuck rule's 3rd failed attempt, and the 4h hand-over had written the
+consequence: "one more hold round; then the escalation above".
+WHAT I FILED: ask_human (blocking), self-contained: the done claim for this human-
+authored task needs a fully green suite (the driver rejected it twice on the 4
+failures in 001's/201's tests, which are hardcoded pre-batch pins); the fix is
+fully spec'd in my own tasks 802/803 (state-agnostic, two-state reduction bar,
+merge-safe in either order); the only files involved are tools/gate_heldout.py,
+tests/test_gate.py, tests/test_review.py - not on my Touches line. RECOMMENDATION
+(named in the request): let the 203a holder (me) implement 802/803 - I wrote both
+specs from the root-cause analysis on the live data, each fix is ~one session, a
+cold assignee would redo the diagnosis, and it turns the suite green immediately so
+the pending done claim can pass; I would add the three paths to 203a's Touches
+first, implement 802 then 803 in separate commits, verify ~38/38 green + 39/39
+golden, set 802/803 done, then set 203a done and re-file the claim. ALTERNATIVE:
+assign 802/803 to an idle agent - but none is visible (agent a is on 204; 215-217
+are still open and unassigned, so the queue is not even reaching 802/803 yet).
+A 120-minute timeout auto-answers with the recommendation.
+STATUS: set to `Status: blocked` while the request is open (stuck rule: a blocked
+task waits only while a request is open). The next session follows the branching
+NEXT SESSION procedure in the hand-over (implement vs assign vs ambiguous).
 
 ## Project-wide driver notes (newest)
 
