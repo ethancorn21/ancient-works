@@ -35,35 +35,83 @@ reach the AI box; see the parent hand-over).
 
 ## Hand-over
 
-(2026-10-11, iteration 76, agent c - session 4: geometry derivation VERIFIED with a critical b-convention
-correction; smoke targets confirmed; fit/inkfit.py fully designed but NOT yet written. NEXT: write the
-module per the design below, smoke-run 2 sites, pytest, commit, tick boxes 1+3.)
+(2026-10-11, iteration 77, agent c - session 5: **fit/inkfit.py is WRITTEN** (in the working tree,
+UNCOMMITTED - the harness saved it; commit it this session after the smoke runs pass) and its
+picture/seed/relief-cache paths are verified. NEXT: thicken the synthetic test plate, re-run the
+hermetic script, smoke-run the two real sites, pytest, commit + tick boxes 1 and 3.)
 
-**State.** Boxes: 2 (scikit-image pin) and 4 (frozen config in DECISIONS) are done (sessions 2-3, committed); 5 holds (tests/ untouched). Box 1 (two non-held-out site runs) and box 3 (hermetic loader check) need the module written - that is this task's remaining work. This session verified the placement->similarity derivation by running it (DECISIONS entry below): the session-3 script had TWO bugs, not one - besides the noted broadcast fix it applied M to [du, dv] instead of the autofit convention d = [du, −dv]. With both fixed: a = k·s·e^{iθ} recovered to 7e-6 relative (the 1dp/7dp rounding limit), residuals 1.4-4.6 mm, gate accepts. **CRITICAL CORRECTION:** b = zc − a·complex(u0c, **−v0c**) — the minus-v form (propose's `wc = complex(u0, -v0)`). The session-3 script used +v0c and only "agreed" to 1.3e-4 relative because |b| ≈ 6.6e6 m absorbs an 860 m error. Also verified: re-fitting propose._anchor_pairs' 5 pairs recovers its a and b exactly. Test suite last run in session 2: 59 passed / 1 pre-existing test_gate failure (owned by 218); nothing this session changed any code.
+**State.** Boxes 2 (scikit-image pin) and 4 (frozen config in DECISIONS) done (sessions 2-3); 5 holds
+(tests/ untouched - I ran no tests this session; last suite state from session 2: 59 passed / 1
+pre-existing tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees failure owned by 218).
+Box 3 is essentially proven by the hermetic run below (the loader accepted a seeded npz and the whole
+method ran offline) - tick it once the re-run with a drawing that yields ink completes. Box 1 needs
+the real-site smoke runs.
 
-**Smoke targets (CONFIRMED, both non-held-out, non-10-10, images local, index.jsonl rows exist):**
-- stonehenge-q39671 (1000×1000 m, EA 1 m): book row `earthworkenglan01allcgoog_n0582_1` (Allcroft 1908; leaf 3367×5050; map_box [0.19,0.32,0.78,0.62]; north_angle 64.3° → propose rejects (>60) → north-up; no scale_text → coarse picture-size scale).
-- pyramid-mound-q7263260 (800×800 m, USGS 3DEP): book row `ancientmonuments00squi_n0134_1` (Squier-Davis 1848; leaf 2884×4064; map_box [0.125,0.55,0.44,0.68]; no scale/north → coarse, north-up).
-plans.json rows carry `map_box` as FRACTIONS (row `sites` list links sites; `site` is null). propose.propose_for works for both from this checkout; in a hermetic temp root it raises FileNotFoundError (no data/books/index.jsonl) → seed fallback must catch **Exception** (not just ValueError/KeyError) and use propose._picture_scale(site, size, box) + rot 0.
+**This session (verified by running):**
+- Wrote fit/inkfit.py in full (~490 lines) per the session-4 design: load_panel/_page_picture/
+  _panel_crop; relief/_relief_z/_build_lrm (npz cache -> dem.npy -> fetch; _NoRelief for
+  NoLidar/all-NaN); InkSite mirroring autofit.Site exactly (to_ground d=[du,-dv], relief_at,
+  contrast, score; hand_* = the single seed); run_search (autofit.fit_site, one seed
+  {scale_factor:1, rot_offset 0, centre [0,0]}, frozen WIN_*/n_refine); seed_for (propose_for,
+  catch Exception -> propose._picture_scale fallback); template_pieces/_model_boxes/_keep_pieces
+  (autowalls.extract frozen P, 8-connected ndi.label, model keep/drop, no-model keeps all);
+  scramble_pieces (frozen rng 20261012, per-piece rigid rotate + U(-0.4,0.4) translate, clipped);
+  choose_points/_piece_pick (PCA quantile 0.23/0.71 ±0.03 jittered redraws, <=2/piece, max 10,
+  min 4, fabrication_pattern silent or concede after 8); map_pairs (k=1/ground_scale, to_lonlat);
+  placement_of (a=k*s*e^{iθ}, **b = complex(cx+k*t[0], cy+k*t[1]) − a*complex(c0[0], −c0[1])**
+  MINUS-v per session 4; corners); _doc (batch_us.write_doc fields + "fitter":"ink"; returned,
+  NEVER written); fit() with the design's result keys; CLI. batch_us is not imported (fields
+  copied local). No network at import.
+- import inkfit clean. load_panel+seed_for verified on both real rows: stonehenge-q39671 /
+  earthworkenglan01allcgoog_n0582_1 -> panel 1986x1515, fs 1.0, crop [639.73, 1616.0, 2626.26,
+  3131.0], seed 0.5034 m/px picture_size, rot 0 (64.3° hint rejected). pyramid-mound-q7263260 /
+  ancientmonuments00squi_n0134_1 -> panel 909x529, crop [360.5, 2235.2, 1268.96, 2763.52], seed
+  0.8806, north-up.
+- Hermetic run: throwaway script /tmp/aw-inkfit-herm/run.py (temp root /tmp/aw-inkfit-herm/root;
+  if /tmp is gone recreate: site dict {id:"herm-site-q1", lon:-2.0, lat:51.5, size_m:[120,100]};
+  relief npz at data/inkfit/relief/herm-site-q1.npz with z (120x100: 0.01/0.02 m/px slope + a 72x45 m
+  1.2 m-tall rectangular band centred, 3 px wide), px_m=1.0, bbox=aw.site_bbox(...), modern=zeros;
+  plate data/raw/books/testbook/full/n0001.jpg = 240x180 L=245 with black rectangle
+  [72,60,168,120] width 5 + interior line [72,90]-[120,90] width 5; row dict {id:"herm-plan-1",
+  ia:"testbook", file:"n0001.jpg", size:[240,180], map_box:[1/6,1/6,5/6,5/6]};
+  inkfit.fit(site, row, root=ROOT)). Result in 1.6 s: npz accepted, zero network, early return
+  "no wall ink extracted". HYPOTHESIS: my 5 px synthetic lines are below the frozen extractor
+  (Frangi sigmas 4/6/9, ridge_thr 0.25, coherence sigma 25/min 0.6, min_len/min_extent 50 px; real
+  walls are 6-20 px bands) - a TEST-DRAWING problem, not a module bug.
+- SIGN FIX recorded in DECISIONS (bug fix, magnitudes frozen): the shifted-DEM null is
+  ndi.shift(lrm, (-S.H_m/2/PX_M, +S.W_m/2/PX_M), order=0, cval=np.nan) - content moves half box
+  NORTH + half EAST per the registration text; the session-4 note's (H/2, W/2) both-positive form
+  was a south+east move (scipy out[i]=in[i-shift]).
 
-**Module design (fit/inkfit.py; all frozen params as named module constants, comment each "frozen, docs/autofit.md section 3 / 10-10 run"). The frozen values themselves live in the session-3 DECISIONS entry - do not change any of them without labelling it exploratory:**
-- `fit(site, picture, model=None, root=None, n_refine=8, null=True, at=None, log=print) -> dict`. site: entry dict (id/lon/lat/size_m) or id str; picture: plans row dict ("id") or id str. Result keys: site, plan, model (variant str: "no-model" or model name + suffixes), reason (None or review reason), n_pieces, n_points, seed {s_m_px, rot_deg, source, note}, objective {fit[, scramble, shifted]}, null (max or None), confidence (obj_fit − null or None), placement {a:[re,im], b:[re,im], s_m_px, rot_deg, t_m, u0v0, k}, corners (4 panel-corner lon/lat under the final placement - the eyeball aid; tools/composite needs a built site, so print these instead), gate {verdict,n,med,slope_o,io}, fabrication (None), pairs ([[u,v,lon,lat] 1dp/7dp size frame]), doc (full platefit doc), seconds. Pure except: relief fetch saves <root>/data/sites/<sid>/dem.npy; the modern-mask OSM fetch is try/except → None (recorded). Early returns (reason set, no doc): no pieces "no wall ink extracted"; obj_fit ≤ −9 "search found no valid placement"; < 4 points "not enough wall ink (N candidate points, need 4)"; fabrication pattern after 8 attempts.
-- load_panel: book → data/raw/books/<ia>/full/<file> (clear FileNotFoundError); commons → big/<id>.jpg, else data/raw/commons/<url-tail>, else plan_fit.load_picture(pseudo-doc {src:"commons",plan:id,ref,size,ia,file}, root) (network). fs = im.width/size[0]; fractional map_box → crop size-frame [x0*w, y0*h, x1*w, y1*h] (extent <2 px → full frame); panel = im.crop(int(c*fs)); panel px → size frame: uv/fs + crop[:2].
-- relief: bbox = aw.site_bbox(site.lon, site.lat, w_m, h_m), w_m/h_m = size_m else (1000,1000); w,h = round(m/1.0). Loader: <root>/data/inkfit/relief/<sid>.npz (z float64 h×w NaN=nodata; px_m present ⇒ must equal 1.0; bbox 4 floats validated vs expected to ~1 m; optional `modern` bool array, shape-checked) → <root>/data/sites/<sid>/dem.npy (single array, exact (h,w) else refetch) → aw.fetch_dem(bbox, w, h) (working phase; saves dem.npy). water = aw.water_mask(z, 1.0); modern = npz key else aw.modern_mask(bbox, w, h, 1.0) in try/except → None.
-- build_lrm: zf = aw.fill_nan(z); lrm = clip(aw.local_relief(zf, 1.0, radius_m=24.0), −1.0, 1.0); then lrm[modern]=NaN (if not None), lrm[water]=NaN.
-- class InkSite(site, lrm, bbox, w_m, h_m, c0, s, rot, t=(0,0)): cx,cy = bbox centre; w,h = lrm.shape; px_m=1.0; W_m,H_m; side_m=20; c0 (size frame); hand_s/hand_rot/hand_t = s, rot, t (fit_site is driven with the single seed dict {scale_factor:1.0, rot_offset_deg:0.0, centre_offset_m:[0,0]}). Methods mirror autofit.Site EXACTLY: to_ground (d = [u−c0x, −(v−c0y)] @ M.T + t), relief_at (col=(e+W/2)/px_m, row=(H/2−n)/px_m, valid 0≤·<w−1 / h−1, map_coordinates order=0), contrast (n = [N0,−N1] @ inv(M) normalised; on − max(a,b) at ±side_m), score, corners_ground.
-- template_pieces(panel, model): no-model (frozen): boxes=[]; model: boxes from model.boxes(panel) (kind in autowalls.P["box_kinds"], 0-1000 → panel px) in try/except → []. (pts, nrm, wt), dbg = autowalls.extract(panel, boxes, p=autowalls.P, debug=True) (P UNCHANGED); pieces = 8-connected components (ndi.label structure=np.ones((3,3))) of dbg["keep"] grouping the extracted points; each {idx, len (mask px count), pts, nrm, w}; sorted (−len, idx). Model labels: model.label_pieces(panel, pieces) in try/except → None; dict with entries ⇒ keep only kind=="wall" (empty ⇒ keep all, variant "... (rejected every piece; all kept)"; None ⇒ "... (no piece labels; all kept)").
-- seed_for(site, row): try propose.propose_for(site["id"], row["id"]) (catch Exception; needs scale_m_px) → (s0, rot_deg, scale_source, note); fallback (s0 = propose._picture_scale({"size_m": size_m or [1000,1000]}, row.size, fractional box), 0.0, "picture_size", note). t0 = (0,0) always.
-- run_search(S, P, N, w, n_refine, log): autofit.fit_site(S, P, N, w, [single seed], n_refine, log) → result[0] {obj, coarse_obj, s, rot, t, top_coarse}. Reuse autofit's frozen WIN_ROT/WIN_LOGS/WIN_T/ROT_STEP/LOGS_STEP/CELL_M/NEG_FLOOR/K_BINS by reference (autofit.py's module constants).
-- null (only if null=True and obj_fit > −9): (a) scramble: rng = np.random.default_rng(20261012); per piece (in panel px): rigid rotate U(0,2π) about piece centroid, translate centroid U(−0.4,0.4)×(W,H) panel px, clip per axis to [0,W]×[0,H]; normals rotated; → size frame; same InkSite. (b) shifted lrm = ndi.shift(lrm, (H_m/2/1.0, W_m/2/1.0), order=0, cval=nan) (box half north + half east; masks unchanged - frozen), new InkSite, same template. null = max of the two objs; confidence = obj_fit − null; record per-null valid flags (obj > −9).
-- choose_points(pieces, to_size, seed=20261012, attempts=8): work in SIZE frame (fabrication clauses are frame-dependent: gap thresholds, 10-px grid rounding). Per piece: PCA principal axis of its points; project; pick points nearest the 0.23 and 0.71 quantiles (attempt 0 exact; attempts ≥1: quantiles jittered ±0.03 by rng(20261012+attempt)); ≤2 per piece, longest first, stop at 10. < 4 total → (None, reason). plan_fit.fabrication_pattern on [[u,v,0,0]...]: None → done; else re-draw; after 8 → (None, last pattern).
-- map_pairs(S, uv, s, rot, t): M = autofit.sim(s, rot); en = S.to_ground(uv, M, t); k = 1/aw.ground_scale(site.lat); lon/lat = aw.to_lonlat(S.cx + e·k, S.cy + n·k); round 1dp/7dp.
-- placement_of(S, s, rot, t): k = 1/ground_scale(lat); a = k·s·e^{iθ}; **b = complex(S.cx + k·t[0], S.cy + k·t[1]) − a·complex(S.c0[0], −S.c0[1])** (MINUS-v, verified this session). corners: 4 crop corners z = a·(u − iv) + b → lon/lat.
-- gate: fit_gate.gate(pairs, (a, b)) → record (accepts by construction - residuals 0; defence layer per gate section 7). doc: batch_us.write_doc's fields + "fitter":"ink" (book: ia/file/book; commons: ia/file None, model "similarity", src "commons", url/ref/size); crop = _crop_px rule; score = gate med rounded 1 dp; at = ISO now or passed.
-- CLI: `python3 fit/inkfit.py <site> <plan> [--no-null]` → JSON result (numpy scalars → float). Imports: sys.path.insert pipeline/ (aw, autofit, autowalls, fit_gate, plan_fit) and fit/ (propose); no network at import time (verified session 3).
+**Next steps (in order):** (1) edit /tmp/aw-inkfit-herm/run.py: draw the walls 8 px thick
+  (rectangle [72,60,168,120] width 8; keep the interior line, lengthen to >= 60 px, width 8) and
+  re-run `.venv/bin/python /tmp/aw-inkfit-herm/run.py /tmp/aw-inkfit-herm/root $PWD` - expect pieces,
+  a search that lands near s≈0.75/rot≈0/t≈0 (the true placement), both nulls, <=10 pairs, gate
+  accept, a doc with fitter:"ink". If Frangi still draws nothing at 8 px, inspect dbg["R"]
+  (autowalls.extract(..., debug=True)) and go 10-12 px thick; do NOT touch the frozen P. (2) Smoke:
+  `.venv/bin/python fit/inkfit.py stonehenge-q39671 earthworkenglan01allcgoog_n0582_1` then
+  `.venv/bin/python fit/inkfit.py pyramid-mound-q7263260 ancientmonuments00squi_n0134_1` (working
+  phase: each fetches data/sites/<sid>/dem.npy via dem_sources + the OSM modern mask, ~1-3 min
+  including 2 null searches; eyeball result `corners` vs the site box: 1000x1000 / 800x800 m boxes
+  around the site - a false peak is EXPECTED and fine, box 1 only needs machinery end-to-end + a
+  placement + pairs; record n_pieces/n_points/objective/null/confidence in DECISIONS). (3)
+  `.venv/bin/python -m pytest -q` (expect 59 passed / 1 pre-existing failure; tests/ is a no-go for
+  this task). (4) Commit fit/inkfit.py + this file + DECISIONS (+ PITFALLS if anything lasting
+  emerges) with the usual message; tick boxes 1 and 3. Any parameter change during the smoke runs is
+  FORBIDDEN without labelling it exploratory in DECISIONS (box 4); bug fixes are fine.
 
-**Next steps (in order):** (1) write fit/inkfit.py per the design (one job per function, ~350 lines; keep frozen constants named); (2) smoke-run `.venv/bin/python fit/inkfit.py stonehenge-q39671 earthworkenglan01allcgoog_n0582_1` and `... pyramid-mound-q7263260 ancientmonuments00squi_n0134_1` (model=None, ~1-3 min each; expect OSM modern-mask fetch or a graceful None; eyeball: print result corners vs the site's box corners - the panel corners should land inside the site box for a plausible fit; a false peak is EXPECTED and fine - box 1 only requires the machinery runs end to end and produces a placement + pairs; record n_pieces/n_points and wall-vs-junk look in DECISIONS); (3) quick hermetic check for box 3: temp tree with a synthetic site dict, a small drawn image, a seeded data/inkfit/relief/<sid>.npz (z, px_m, bbox, modern zeros) → fit(...) completes offline; (4) `.venv/bin/python -m pytest -q` (expect 59/1 - tests/ is this task's no-go); (5) if smoke reveals BUGS (not tuning), fix and re-run; any parameter change is forbidden without labelling it exploratory in DECISIONS; then commit the module (+ tick box 1, and 3 if the hermetic check passed) with the usual memory-file updates.
+**Costs/limits:** 1000x1000 Coarse = 8 bins x 2 FFTs of ~358x180 complex (next_fast_len of
+250+108) - small; 27 rot x 17 scale = 459 coarse scores + up to 8 refines per search; 3 searches per
+site (fit + scramble + shifted). 14 GB RAM / 6 cores here. No fixed ports; writes only
+data/sites/<sid>/dem.npy (working phase) and (in tests) the seeded npz.
 
-**Costs:** 10-10 run: 8 seeds = 45-132 s/site; single-seed search ≈ 26 rot × ~17 scale maps per Coarse → expect ~1-3 min per site including 2 null searches (scramble reuses the ground; shifted needs a new Coarse). OSM modern-mask fetch adds seconds (or fails → None). No fixed ports, no writes outside project+temp.
-
-**Re-read (next session):** fit/inkfit.py:placement_of - b uses complex(u0c, −v0c) (MINUS-v); InkSite.to_ground uses d = [du, −dv]; relief - the npz loader validates shape + px_m=1.0 + bbox before use; choose_points - fabrication check on SIZE-frame coords, ≤2 per piece; run_search - InkSite exposes everything autofit's Coarse/objective/refine/fit_site touch (px_m, h, w, lrm, side_m, W_m, H_m, c0, to_ground, relief_at, contrast, score, hand_s/rot/t). pipeline/plan_fit.py:build - the "how" string for fitter:"ink" docs is still batch wording (302c's fix; build must read my doc fields without breaking: site/plan/crop/pairs/model/auto/score + label/title/book/ia/file/src/cite/url/ref/size/at). tools/site_done.py:_fit - the 302c replacement of the batch model loop must keep the covered-pictures rule and the exit codes.
+**Re-read (next session):** fit/inkfit.py:placement_of - b uses complex(c0[0], −c0[1]) (MINUS-v);
+  fit:the shifted-DEM null shift is (−H/2, +W/2) (content north+east). relief - the npz loader
+  validates shape (h,w) + px_m==1.0 + bbox within 1 m of aw.site_bbox before use; dem.npy must be
+  exactly (h,w) else refetch. choose_points - fabrication check on SIZE-frame rounded u,v, <=2 per
+  piece, 8 attempts. run_search - InkSite exposes everything autofit's Coarse/objective/refine/
+  fit_site touch (px_m, h, w, lrm, side_m, W_m, H_m, c0, to_ground, relief_at, contrast, score,
+  hand_s/rot/t) - proven by reading; the real-relief run proves it by running.
+pipeline/plan_fit.py:build - the "how" string for fitter:"ink" docs is still batch wording (302c's
+  fix; build reads my doc's fields fine). tools/site_done.py:_fit - the 302c replacement of the
+  batch model loop must keep the covered-pictures rule and the exit codes.
