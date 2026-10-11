@@ -539,6 +539,29 @@ row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the 
 allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
 
 
+<!-- task 213 -->
+# Task 213 artist-views
+
+## 2026-10-11 213 DECISION: staged rows use hand-recorded caption_coords evidence; record --live is the wrong route (traps confirmed live)
+`fit/evidence.py:source_tables()` only reads `pipeline/sources.py:SOURCES`, and fit/evidence.py is not in my
+Touches, so a `hand_tied` row for "fit/src_artists.py" would FAIL check. I hand-record the `caption_coords`
+field in caption_route's key order (rec/kind/checked/named_place/place_qid/place_label/place_lon/place_lat/
+site_lon/site_lat/dist_m). `record` skips rows that already carry rec==evidence/1, so 211's later record runs
+leave them alone. Prep OQ-1 (a byte-identical live record for Venice) is unachievable: `record --live` resolves
+the caption by NAME SEARCH, and --verify confirmed the first hit with P625 is the trap for BOTH sites: search
+"Imola" -> Q50195 itself, which carries the bad P625 (11.7147, 44.3531), 53 km NW -> conflict -> kind none;
+search "Venice" -> Q773853 (Venice, Los Angeles, -118.46, 33.99), 9891 km -> conflict -> kind none. The hand
+record stores the verified resolution instead (Imola: old-town centre as both site and place; Venice: its own
+P625, which is sane). Also verified live 2026-10-11: labels 'Imola'/'Venice' (enwiki sitelinks), P373
+'Imola'/'Venice' (so the row's `cat` field is the P373 category, though the file categories don't chain into
+it -> caption_coords), P131 = provinces (Imola: Q16139 Province of Bologna + Q18288145 Metropolitan City of
+Bologna - the prep misread Q16139 as Italy; Italy is Q38; Venice: four Venice-province variants Q6360367/
+Q3924689/Q16310/Q3678587) -> the extras `place` strings are composed by hand (region, country). File metadata
+confirmed: RCIN 912284 = 2000x1483, no DateTimeOriginal and no description, year 1502 from the title (year_of
+agrees with the table's date, so no date/date_commons override fires), public domain; Correr Venice =
+11800x5856, DateTimeOriginal "1500 ... /9", public domain. Both pass commons.keep().
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
