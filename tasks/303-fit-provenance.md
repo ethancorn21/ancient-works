@@ -25,9 +25,9 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
 
 ## Hand-over
 
-(iteration 96, agent a - steps 1-3 done; step 4 (tests) and step 5 (shotwick live run + site_flow.md) pending)
+(iteration 97, agent a - steps 1-4 done; step 5 (shotwick live run + site_flow.md) pending)
 
-**Done and committed on this branch (all verified, suite 64 passed / 1 skipped / 0 failed at loop end):**
+**Done and committed on this branch (all verified, suite 68 passed / 1 skipped / 0 failed at loop end):**
 - Migration (iter 93, 1f562ca): all 116 platefit docs carry `by` (21 hand = 20 golden + maiden-castle
   c20ff6b1; 95 agent incl. shotwick's 206 doc); `fit/batch_us.py` write_doc stamps `by: agent`
   (batch_eu shares it); golden re-keyed on `by == "hand"` (40 lines: 21 docs + 19 site.json, shotwick
@@ -45,58 +45,42 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
   both page save paths go through it); other collections byte-identical; module docstring records it.
 - Step 3 (iter 96, 77f0cc0 + 1cf8a24) `tools/site_done.py`: the line acts by who_placed, decided FIRST
   in `_sync_doc`: (1) who None (unmarked non-auto) -> REFUSED: no build, no delete, upsert a
-  `_provenance_entry` candidate (shape of _pattern_entry but why = plan_fit.NO_PROVENANCE verbatim - no
-  'line check:' framing, no gate-score sentence), own "refused" report bucket, NOT a sync failure
-  (exit 0); (2) who agent with by absent (unmarked auto) -> `_stamp_agent` writes by:agent into the doc
-  file first (batch_us._doc_path/_save_json, key appended last, indent=1 no trailing newline; own site
-  only; no print of its own); (3) who != hand -> fabrication check as before (pattern: upsert
+  `_provenance_entry` candidate (why = plan_fit.NO_PROVENANCE verbatim), own "refused" report bucket,
+  NOT a sync failure (exit 0); (2) who agent with by absent (unmarked auto) -> `_stamp_agent` writes
+  by:agent into the doc file first; (3) who != hand -> fabrication check as before (pattern: upsert
   _pattern_entry + unlink) then is_done/build (plan_fit.build's guard is the double protection);
-  (4) who hand -> straight to is_done/build, check skipped. Refusal precedes EVERYTHING (check and
-  build) - that is the adversarial guarantee (an unmarked PATTERN doc is refused, not sent).
+  (4) who hand -> straight to is_done/build, check skipped. Refusal precedes EVERYTHING.
+- Step 4 (iter 97, THIS session) `tests/test_fit_provenance.py` (4 tests, all hermetic, ephemeral
+  ports, system temp dir only): (a) repo store - every doc has by in {hand, agent} or at least the
+  batch's own auto mark (never unmarked non-auto; unmarked-auto tolerated: 203b may merge
+  pre-migration EU docs, the self-heal stamps them), hand set == the golden's 21 platefit entries,
+  `sha256sum -c tests/golden/hand_fit_docs.sha256` passes (the 20 golden + Maiden Castle byte-frozen);
+  (b) end-to-end refusal (copied Stonehenge tree + GUARD, no model - refusal precedes the build so no
+  download): seed = golden doc c_022604d2be0becdc with its auto mark stripped (its pairs ARE the 1D
+  ladder pattern, so the test proves refusal precedes the check); asserts exit 0, exact stdout
+  (13 lines incl. the refused line with NO_PROVENANCE verbatim and the 12 item-candidate lines with
+  the 201-contract resolved suffix), doc kept byte-identical (no stamp), no plan_* built, item at its
+  own path with resolved {doc, at} write-once, refused candidate == _provenance_entry rebuilt
+  in-process, item LEFT web/data/review.json's open list, one-site-only invariants, second run
+  byte-stable with identical lines (refusal idempotent); (c) in-process unmarked-auto = agent (no
+  network): the golden pattern doc sent+deleted with the check's reason; a non-pattern doc (coords
+  13.4/27.9/88.2/121.7 x 22.6/55.1/60.8/134.3 - all three clauses dodged, verified in the test) with
+  a current overlay -> "skipped" AND the file stamped by:agent (key last, indent=1, no trailing
+  newline), second pass no re-stamp; hand exemption: the SAME pattern doc with a current overlay,
+  by:hand -> "skipped" (a pattern doc skips only if the check did not fire - it polices the batch
+  model, never a human's drag), by:agent -> "sent" + deleted; (d) the real server (serve.py --port 0
+  against a temp tree with no pipeline/ - the fit worker dies on import, so no sweep, no network;
+  the file-set assertion proves it): PUT platefits without by -> by:hand key last; stale by:agent
+  overwritten in place (position kept); another collection's bytes raw.
 
-**Still to do, in this order:**
-4. `tests/test_fit_provenance.py` (hermetic; ephemeral ports only; writes only to the system temp dir).
-   The test_site_done.py shapes are the model (copy-one-tree + GUARD subprocess; in-process module
-   load for entry-shape checks). Cases:
-   a. repo invariant: every doc in data/db/platefits/ has by in {hand, agent}; an unmarked doc must
-      at least carry auto: true (accept unmarked-auto - agent c's 203b may merge pre-migration EU
-      docs; never unmarked non-auto); the hand set == the golden's 21 platefit entries;
-      `sha256sum -c tests/golden/hand_fit_docs.sha256` passes.
-   b. the line refuses an unmarked NON-auto doc end-to-end (copy-one-built-site tree, sockets dead via
-      the GUARD, no model - refusal precedes the build so no download): exit 0; doc still present and
-      byte-identical (no stamp); no plan_* overlay in the site dir; the site's review item gained the
-      candidate whose why is EXACTLY plan_fit.NO_PROVENANCE (rebuild it with the module's own
-      _provenance_entry, like test_site_done does for _pattern_entry); SECOND the 201-contract
-      outcome: export recorded resolved: {doc: <site>.<plan>, at: <doc's at>} into the item file
-      (write-once) and the item LEFT web/data/review.json's open list (the page never shows it -
-      PITFALLS entry); second run byte-stable, identical lines (refusal idempotent). Worked example:
-      the iter-96 DECISIONS entry (Stonehenge tree, seed = a golden doc with its auto mark stripped;
-      the item's lead candidate is a book row, so the item file keeps its name).
-   c. an unmarked AUTO doc is treated as agent - never hand, never refused: (i) seeding one of
-      tests/golden/stonehenge_linecheck_docs/ (auto:true, no by) sends it to the item and deletes it -
-      test_site_done_line already pins exactly this, a light re-assert suffices; (ii) network-free
-      proof of the rest: an unmarked-auto doc WITH a current overlay (fake site dir + depictions.json
-      entry fit:{at, doc} matching the doc's at and <site>.<plan>) -> "skipped" AND the file stamped
-      by:agent (key last, indent=1 bytes); second pass no re-stamp. Coords must dodge
-      fabrication_pattern: irregular one-decimal values, nothing within 0.5 px of a multiple of 10, no
-      3 sharing a coordinate, no near-arithmetic gaps (the iter-96 script used u 13.4/27.9/88.2/121.7,
-      v 22.6/55.1/60.8/134.3). The hand exemption, network-free: the SAME doc marked by:hand ->
-      "skipped" (a pattern doc with a current overlay returns "skipped" ONLY if the check did not
-      fire), while marked agent -> "sent" + deleted.
-   d. the page save writes hand: serve.py against a temp tree, --port 0, NO pipeline/ copied (worker
-      dies on import - no sweep, no network): PUT /api/db/platefits/<x> without by -> GET shows
-      by:hand (key last, indent=1, no trailing newline); a second PUT carrying a stale by ->
-      overwritten to hand in place; a PUT to another collection -> bytes raw.
-   Re-read after step 4: `_sync_doc` in tools/site_done.py - fresh-eyes confirm the refusal check
-   precedes the fabrication check and the build (a build attempt on an unmarked doc would raise
-   SystemExit from build() and report as FAILED, not refused - the report would lie).
-5. Live run (network OK on this machine): `.venv/bin/python tools/site_done.py shotwick-castle-q7502621`
-   in THIS checkout. Expected: who=agent (by: agent, no auto, no score) -> no stamp (by present);
-   fabrication_pattern None (iter-93 measurement: lattice u max/med 1.81, v 3.76; 1D none; grid-round
-   50% < 90%); src:commons -> load_picture downloads the big jpg once (paced); synced to the map with
-   the new "Fitted automatically on 4 matching points..." source line; web/data/sites.json drawings
-   0 -> 1 (in Touches - commit it). Record the outcome (map, with that reason and the nearest
-   margins) in docs/site_flow.md (acceptance box 2), tick the boxes, re-run the full suite.
+**Still to do (step 5):** the live run (network OK on this machine): `.venv/bin/python
+ tools/site_done.py shotwick-castle-q7502621` in THIS checkout. Expected: who=agent (by: agent, no
+ auto, no score) -> no stamp (by present); fabrication_pattern None (iter-93 measurement: lattice
+ u max/med 1.81, v 3.76; 1D none; grid-round 50% < 90%); src:commons -> load_picture downloads the
+ big jpg once (paced); synced to the map with the new "Fitted automatically on 4 matching points..."
+ source line; web/data/sites.json drawings 0 -> 1 (in Touches - commit it). Record the outcome
+ (map, with that reason and the nearest margins) in docs/site_flow.md (acceptance box 2), tick the
+ boxes, re-run the full suite.
 
 **Hazards:**
 - Never call plan_fit.main()/its CLI bare (no root guard) - it sweeps the real checkout and mutates
@@ -104,13 +88,18 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
 - The serve worker's after_write runs plan_fit.main() on the server's OWN tree after any platefits
   write: in a test tree without data/raw, not-current docs fail mid-sweep (one non-SystemExit aborts
   the rest of that wake; 76 of the 116 docs are not-current here). In tests assert only synchronous
-  request effects; if a full data/db is in the tree, expect a slow partial background sweep.
+  request effects; if a full data/db is in the tree, expect a slow partial background sweep. (The
+  303 test d's tree has no pipeline/ at all, so the worker dies on import - no sweep, no network.)
 - data/raw is a SHARED symlinked store (PITFALLS) - never compare per-site web/data/sites/* bytes
   from a live run against a fixed baseline; the temp-tree pattern (copy, not symlink) is safe.
 - Agent c (203b) may merge pre-migration EU docs (auto, no by) into main; the code self-heals them
   (stamp by:agent at the next sync) - test a must accept unmarked-auto. Do NOT hand-edit unmarked
   auto docs in the store. 207's Roman fits arrive via batch_us.write_doc (by:agent) or the page
   (by:hand) - no action needed; if c writes a doc file directly, the convention is by:agent.
+- The step-4 tests pin the repo's 21-hand set and the stonehenge 13-candidate item (lead = the book
+  row earthworkenglan01allcgoog_n0582_1, which is why the refusal's upsert keeps the item file's
+  name). If a human adds a hand fit or a batch changes that item, the tests fail by design -
+  extend them on purpose (the golden is re-keyed the way iter 93 did it).
 - Candidate follow-up (a human decision, not built by me): a REFUSED doc auto-resolves its review
   item per 201's derived-resolution contract (doc exists -> resolved -> the page hides the item), so
   a refused candidate is only findable in the item file, not the Review tab. 303 conforms (fit/review.py
