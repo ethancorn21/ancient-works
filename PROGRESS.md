@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 3 (2026-10-11): `tests/test_batch_us.py` is GREEN (5/5, 15.4 s) and committed; full suite
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 4a (2026-10-11, iteration 37). Two things happened:
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -12,11 +12,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: venv note resolved (driver note 2026-10-10)
-The driver's ".venv could not be built" note is stale: 800-requirements-pinned is done (requirements.txt
-fully pinned + hashed) and .venv builds; the suite runs green in .venv/bin/python (29 passed). Run batch
-work and tests in .venv.
 
 ### 2026-10-11 203a DECISION: tests/test_batch_us.py built - 2 of 5 pass, all three failures diagnosed (session 2)
 Wrote the hermetic test file (5 tests): real-gate sample run (serpent-mound's 15 pinned 202-proposal answers
@@ -54,6 +49,15 @@ tests/test_batch_us.py 5/5 (15.4 s); full suite 34/34 in .venv (53 s). Ticked bo
 already ticked). PITFALLS gains a `### fit/` subsection (the precedence family; pre_docs matching
 new auto docs). Next: the working phase (--working over all 90; llm_model on the fitkit sheet - the
 prompt has never seen the model, check the answer parsing on the first run), then boxes 3/4/5 and done.
+
+### 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns
+Lead note (iteration 37): the 48 GB VM filled twice; my test's per-test 549 MB tree copies (5 per run, retained by pytest) were the cause. FIXED in tests/test_batch_us.py only: the `tree` fixture now hard-links web/ + data/ (os.link; symlink fallback across devices; data/raw stays a symlink to the shared store /home/agent/projects/ancient-works/data/raw) and copies only files the batch rewrites in place (only candidate: docs/batch_us.md, which the test tree does not even contain - write_doc/upsert_item are atomic new-inode writers); added a tmp_path_retention_policy="failed" fixture. Result: 5 tests 15.4 s -> 4.9 s, runs add ~0 disk (3 consecutive runs, no growth; the old 2.7 G pytest-2 dir had already been cleaned externally), full suite 34/34 in .venv (44 s). Committed eea8852.
+
+Working-phase start (this session): AI-box tunnel is UP - qwen3.8-27b on 127.0.0.1:8080 AND :8081 (two vLLM instances), :8082 llama.cpp; harness env LLM_URL=http://127.0.0.1:8081. pipeline/llm.py reads $AW_LLM_URL (default 18080 = wrong here): run with AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions. PITFALL to file: llm.ask's default `url=URL` binds at def time - reassigning llm.URL after import does nothing (set the env var or pass url=). All 58 working candidates' images are already local (37 book pages + 21 commons thumbs; data/raw is a shared symlink, 1.9 G); all 18 candidate sites have relief.jpg (no aerial fetch needed). Workload: 18 sites, 58 new candidate rows (recompute: batch_us.candidates minus pre_docs, url rows -> data/raw/commons/<site>/<h16>.jpg, book rows -> data/raw/books/<ia>/full/<file>).
+
+PILOT (15 real Qwen calls, scripts /tmp/pilot_llm.py + /tmp/pilot_llm2.py, still on disk): parsing of the CURRENT production prompt WORKS (JSON, 4-element pairs, _ground_lonlat) but the model SYSTEMATICALLY FABRICATES regular patterns - poverty-point: the identity map (100,100)->(100,100)...; serpent n0636: the 4 corners mapped to the 4 corners; pyramid-mound: a 5-point diagonal ladder with v-coords OUTSIDE the labelled crop; tremper: 1:1 pixel lines (281 m off the seed placement). All internally perfect (gate med 0.0) and PASS the frozen gate - the docs/gate.md section-7 "consistent global error" limit as a systematic model failure: left as is, every auto doc would be garbage and the human's 18/20 check would fail. A/B with an improved prompt (both panels' metre coverage, labelled coordinate ranges, seed scale +-50%, anti-pattern + honesty clauses, require feature names + a stated scale): 4 of 5 answers then FAIL the gate (correctly routed to review items carrying the pairs as leads); tremper still returns 1:1 and still passes. Root cause seen in the sheet image itself: poverty-point's row has no map_box, so the sheet is a FULL TEXT PAGE (the mound figure is ~15% of it) gridded with PIL's tiny default bitmap font, further downscaled to 1600 px by llm._image_part - illegible to a 27 B model. 202's proposals are the map-panel corners + centre: map_box rows bracket the real figure, map_box-less rows bracket the whole page (anchor wrong by construction, coarse=True).
+
+... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
