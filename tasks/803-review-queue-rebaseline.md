@@ -1,5 +1,5 @@
 Status: open
-Depends on: 203a
+Depends on: 201
 Touches: tests/test_review.py
 
 # 803: review-queue tests: re-baseline to the post-batch item population
@@ -54,3 +54,20 @@ silent fix in fit/review.py.
 - The test's queue fixture already re-seeds the temp tree from the repo's items through
   the upsert API, so the post-batch population is what the fixture serves; only the
   assertions (and the save test's row selection) are out of date.
+- 2026-10-11 iteration 42 (agent c): `Depends on` changed 203a -> 201 (done), for the same
+  reason as 802's note: the original dependency created a loop (203a's done claim needs
+  this task merged first). The re-baseline must be STATE-AGNOSTIC: every derived
+  expectation (export stdout count, open list, page review count/stats/phrases, rvn,
+  save-flow stdout) is computed from the repo's data/review/ items through 201's own rules,
+  and on the PRE-batch population it must reduce EXACTLY to the values currently pinned
+  ("review: 2 open of 2 items", open list [alligator, bibracte], Review (2) / rvn == 2 /
+  "2 review items open", and test_save's deterministic pick landing on alligator's
+  n0214_2 - the only open site with a book row carrying map_box and size). It must also
+  hold post-batch (88 open of 89; alligator derived-resolved; the pick lands on the first
+  open site with such a row). Implement on the branch you are given (it may or may not
+  carry 203a's items) and make it pass in whichever state you find. The test_save
+  KeyError 'map_box' is a test artifact, not a data defect: web/review.js rvResolveRow
+  resolves the candidate's row from web/data/plans.json by (plan, site) first and only
+  falls back to stored entry fields (missing map_box tolerated; openPlan falls back to the
+  full frame) for rows absent from the build - so the test reads from the ROW, and no
+  repair of data/review/ or change to fit/review.py is needed for that failure.

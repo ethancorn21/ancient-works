@@ -253,3 +253,43 @@ feature-presence check).
     FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
     4 failed, 34 passed in 38.24s
     (full test output: .agent/reports/last-test-output.txt)
+
+## 2026-10-11 203a DECISION: session 4g - done claim rejected on the 4 cross-task failures; unblocked the self-created dependency inversion by re-filing 802/803 state-agnostic (Depends on: 001/201) and adding them to 203a's Depends on
+The driver rejected the 4f done claim (reopened the task; suite run twice): 4 failed /
+34 passed - EXACTLY the 4 cross-task failures 4e/4f predicted and recorded (test_gate
+partition precondition 20 vs 36; the three test_review pre-batch population pins). 4g
+verified the state first: golden 39/39 byte-identical; my 5/5 test_batch_us green; 36
+docs = 16 auto (all carrying "auto": true) + 20 non-auto (the golden hand fits).
+ROOT CAUSE (each confirmed by reading the code, not guessed):
+- 802's failure: tools/gate_heldout.py partition() fails loudly when the doc count is
+  not 20. Deriving the name list over NON-auto documents reduces to the IDENTICAL 20
+  names pre- and post-batch (no hand-fit doc ever gains "auto"), so the partition and
+  the golden tables reproduce byte for byte in both states.
+- 803's failures: hardcoded pre-batch population pins (2 open of 2; [alligator,
+  bibracte]; Review (2)/rvn 2/stats line). Deriving them from the repo items through
+  201's own export derivation reduces to exactly those pinned values pre-batch and
+  holds post-batch (88 open of 89; alligator derived-resolved via its c_618a auto doc).
+- test_save's KeyError 'map_box' is a TEST artifact, not a data defect: the page's
+  rvResolveRow (web/review.js) resolves the candidate's row from web/data/plans.json by
+  (plan, site) FIRST; stored entry fields are only a fallback for rows absent from the
+  build, and a missing map_box is tolerated (openPlan falls back to the full frame).
+  The batch's upsert (201's documented "same-plan entry replaces in place") wrote
+  203a-shaped entries that lack the denormalized row fields, but the page never needs
+  them when the row is present (n0214_2 is in plans.json). NO repair of my 88 item
+  files, no fit/review.py change, and no field-shape change in my write_item are
+  needed: 803's fix is to build the save document from the ROW (all of map_box/size/
+  ia/file/label/book/cite are plans.json columns).
+CHOICE: 4f had filed 802/803 with "Depends on: 203a", while 203a's claim can only pass
+once those tests are green - a pure inversion (203a waits on them, they wait on 203a).
+Since both fixes are state-agnostic (above), 4g re-filed them (they are my own filings,
+unassigned, on this branch; their paths were added to 203a's Touches line first, per
+the team-mode rule): "Depends on: 001" and "Depends on: 201" (both done), each spec now
+carrying the two-state reduction as the explicit correctness bar (pre-batch must
+reproduce the pinned values byte/word for word; post-batch must hold). An implementer
+on any main-based branch - with or without 203a's data - lands green, and either merge
+order keeps main green: 802/803 first (pre-batch state on main), then 203a merges and
+the derived tests keep passing on the post-batch population. 203a's Depends on: now
+lists 802, 803 so the driver holds my claim until both are in main. Per the team rule
+I committed and stopped; the driver hands me other work and brings 203a back once
+802/803 merge. No ask_human: this is a dependency-order fix inside my own filings, not
+a blocker needing a human decision.

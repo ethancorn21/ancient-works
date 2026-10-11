@@ -300,6 +300,25 @@ Why: a 27 B vision model that cannot confidently read a figure (e.g. a small fig
       boundaries) passes all of them - docs/gate.md section 7's human 18/20 sample is the
       backstop for that class.
 
+#### 201's upsert merges item candidates by whole-entry replacement per plan - a subset-shaped entry drops the denormalized row fields; the page's row lookup, not the entry, covers the save flow
+Where: `fit/review.py` (`upsert_item`), `fit/batch_us.py` (`write_item`), `data/review/*.json`,
+      `web/review.js` (`rvResolveRow`), `web/index.html` (`openPlan`), `tests/test_review.py`
+      (`test_save_resolves_the_item`)
+Symptom: after a consumer upserts a candidate whose entry lacks the page-save fields, code that
+      reads them from the ITEM ENTRY fails with KeyError: the 203a batch's entry shape (plan,
+      title, url, evidence, pairs, coarse, ground, scale_m_px, rot_deg, scale_source, note,
+      why, gate_score) replaced the 201-seed entry for alligator's n0214_2 (which also stored
+      map_box, size, ia, file, label, book, cite, view), and the test died with
+      `KeyError: 'map_box'`. The page itself never misbehaved.
+Why: `upsert_item`'s documented merge is "a same-plan entry replaces the existing one in
+      place" - fields absent from the incoming entry are simply gone. But the page does not
+      rely on the stored copies: `rvResolveRow` resolves the candidate's row from
+      web/data/plans.json by (plan, site) FIRST, and the stored-field fallback (missing
+      map_box tolerated, `openPlan` falls back to the full frame) exists only for rows absent
+      from the current build. Read those fields from the plans.json ROW (map_box, size, ia,
+      file, label, book, cite, view are all row columns) - never from an item's entry, which
+      any later upsert may have re-shaped.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
