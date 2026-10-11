@@ -39,17 +39,16 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 87 (2026-10-11, agent a) - TWENTIETH early bring-back; main UNMOVED since
-iter 75 (head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/114,
-the +3 over iter 86 = my iter-86 commit 49be73c + driver bookkeeping c5093e2, 7221539
-- zero tree change since iter 86's stop). FULL battery re-run this session INCLUDING
+**Iteration 88 (2026-10-11, agent a) - TWENTY-FIRST early bring-back; main UNMOVED since
+iter 75 (head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/117,
+the +3 over iter 87 = my iter-87 commit 4985cb0 + driver bookkeeping f6204c7, 9801cbd
+- zero tree change since iter 87's stop). FULL battery re-run this session INCLUDING
 --gate (accept, stats identical to the committed doc). All 206-owned work green and
-byte-identical to iters 66-86 (all 8 md5s stable). The 4 suite reds unchanged in cause
-(211 x3, 218 x1; store re-counted 116 docs / 94 auto / 22 non-auto, gate still
-"expected 20 ... found 22"). Deps 211+218 still open -> Status stays open.
-No code or data change this session (none available: the only remaining work is owned
-by 211/218; per the team rule no stand-ins). Re-run the same battery at the next
-bring-back; when 211+218 have merged, expect 0 reds and set done.**
+byte-identical to iters 66-87 (all 8 md5s stable). The 4 suite reds unchanged in cause
+(211 x3, 218 x1; gate still "expected 20 ... found 22"). Deps 211+218 still open ->
+Status stays open. No code or data change this session (none available: the only
+remaining work is owned by 211/218; per the team rule no stand-ins). Re-run the same
+battery at the next bring-back; when 211+218 have merged, expect 0 reds and set done.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
