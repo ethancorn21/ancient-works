@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 50 - **FR+LU re-verify DONE (clean) and lead doc updated; all committed**). The
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 51 - **FR/LU --files batch DONE + Beaumont SETTLED as Hainaut (Q95100) + Aire/Thérouanne
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -139,19 +139,42 @@ NEXT: the FR/LU --files batch (24 towns: the 22 FR to stage incl. Beaumont + Le 
 then record file=/date=/caption= picks, then the one long run (--chain per staged town, stage, --check,
 tests/test_src_van_deventer.py, --golden).
 
+### 2026-10-11 204 DECISION: FR/LU --files batch done (24 towns, clean) + Beaumont settled as Hainaut (Q95100, region flips to belgium) + Aire/Thérouanne double plate settled (Aire keeps the spread, Thérouanne stages its own 'Terwan' plan); TOWNS not yet edited
+The 24-town --files run finished in one go (transcript /tmp/vd_files_fr_iter50.txt, 217 lines, exit 0; ~3 min):
+the 1545 BNE atlas plate is in every one of the 22 FR town categories + Le Rœulx's (1816x2614 or wider, page
+date 1545, desc = the town name). Eye check (1280 px thumbs + full-size center/top/half crops, /tmp/vd_fr_thumbs/,
+fetch script /tmp/vd_fr_fetch.py using commons.info + aw.UA - note aw.UA is a DICT not a string, slicing it
+raises KeyError):
+- **Beaumont = Hainaut, QID Q95100, region flips france -> belgium.** Its 1545 plate (1816x2614) shows a
+  fortified town bisected by a river (the Sambre) with a bridge, the old town + a moated square chateau
+  (counts of Hainaut; the sheet's lower-left inset = the chateau, confirmed by the separate 1049x932
+  '...detail - City and Chateau de Beaumont.jpg') on the west bank and Charles V's new walled grid town on
+  the east bank. Beaumont (Nord) has neither river nor chateau - the drawing settles it, as the hand-over
+  predicted. Fact sheet already in the iter-49 transcripts (/tmp/vd_verify_fr_iter49.txt:32,
+  /tmp/vd_lu_iter49.txt:98): label 'Beaumont', P625 (4.2383115, 50.2355294), P373 'Beaumont (Hainaut)',
+  P131 'Arrondissement of Thuin', enwiki 'Beaumont, Belgium'. NEXT: record in TOWNS (entry moved to the
+  Belgium section), then `--verify Beaumont` as its own re-verification (expect the trap line: first
+  P625-search hit Q128282 Beaumont (Texas), ~7000 km).
+- **Aire/Thérouanne double plate:** the 3395x2614 spread's right page is the full Aire plan (label 'Aire.',
+  the Lys peninsula, compass, page 33); the left page holds two framed insets ('Terwan' = Thérouanne's
+  pentagon, plus a second small water-bound settlement). The sheet stages ONCE under Aire. Thérouanne gets
+  its own row: `File:Thérouanne - Deventer.jpg` (986x867, 1545) is a full standalone 'Terwan' plan - the only
+  Thérouanne plan on Commons, staged with the Ostend/Aardenburg size caveat. `Aire-sur-la-Lys - Plan de
+  Deventer.jpg` (992x800, QS 1550-1565) presumed a small reproduction - decide at recording.
+- **Still pending the eye check:** the Hesdin/Vieil-Hesdin double sheet (3408x2614; page-date note: Hesdin
+  plan 1554-1575, Vieil-Hesdin 'probablement 1545' - year_of returns 1545 = the min, box-6 safe) and its
+  757x857 Vieil-Hesdin twin; Luxembourg City's `Luxemburg 1550 65 v Deventer.jpg` (2261x1878, 1550, desc
+  'Lutzenburg' - the caption-route named place) vs its three non-Deventer files (Lutzenburg.jpg 2005 upload,
+  Sanderus 1581, Knödler detail); and the five (1)/(2) pairs (Arras/Douai/Lille/Saint-Omer/Valenciennes)
+  where (2) is the ~2-page wide spread and (1) the single page - the Mons (1)/(2) pattern says stage (2).
+  All thumbs/crops already in /tmp/vd_fr_thumbs/.
+- year_of verified on every candidate date string: all stage candidates land in 1545-1565; the drops
+  (Lutzenburg 2005, Sanderus 1581) are the non-Deventer prints, consistent.
+TOWNS/lead-doc untouched this session (66 towns, 32 stageable, staging files absent); the whole recording
+step is the next session's first work (hand-over has the per-town list).
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-### 2026-10-11 204 (agent a, iteration 51) - session ended at context limit; full detail in the task's ## Hand-over
-    FR/LU --files batch DONE (transcript /tmp/vd_files_fr_iter50.txt, exit 0): the 1545 BNE atlas plate is in all
-    22 FR town categories + Le Rœulx's. Eye check (images in /tmp/vd_fr_thumbs/): Beaumont SETTLED as Hainaut
-    (Q95100, region flips to belgium - the plate shows the Sambre bisecting the town + the counts' chateau;
-    the Nord town has neither); Aire/Thérouanne double plate settled (Aire stages the 3395x2614 spread,
-    Thérouanne stages its own 986x867 'Terwan' plan). STILL PENDING the eye check: the Hesdin/Vieil-Hesdin
-    double sheet + its 757x857 twin, Luxembourg City's 'Luxemburg 1550 65 v Deventer.jpg', the five (1)/(2)
-    pairs, one small Aire repro. TOWNS + lead doc NOT yet edited - next session records the picks (TOWNS
-    entries, `--verify Beaumont` re-check, lead doc), then the following session does --chain/stage/--check/
-    tests/--golden.
