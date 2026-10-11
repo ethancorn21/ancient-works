@@ -206,3 +206,13 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       gymnasium named after the map's owner. A first-resolved walk over such rows lands on that far item and
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
+#### Q50195 (Imola) carries a bad P625 (~53 km NW of the town), and a name search for "Venice" hits Venice, California, first
+Where: `fit/src_artists.py` (SITES, `verify_qids`, task 213); `fit/evidence.py` (`resolve_places`, `caption_route`)
+Symptom: a live evidence record for a title naming "Imola" resolves Q50195's P625 (11.7147, 44.3531), 53 km NW
+      of the town -> stored as a conflict, kind `none`; a search for "Venice" first returns Q773853 (Venice,
+      Los Angeles area, -118.46, 33.99), 9891 km -> also a conflict. `record --live` can never pass these rows.
+Why: the town's own item carries a wrong coordinate, and name search ranks the homonym above the city. 213
+      hand-records `caption_coords` with verified coordinates instead (Imola's old-town centre; Venice's P625
+      is sane, so its stored point is the item's own). Also: Q16139 is the Province of Bologna, NOT Italy (the
+      prep notes misread it; Italy is Q38) - P131 gives provinces, so the staged extras `place` strings are
+      composed by hand (region, country).
