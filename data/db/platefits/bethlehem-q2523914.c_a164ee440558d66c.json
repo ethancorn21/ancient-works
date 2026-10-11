@@ -1,0 +1,52 @@
+{
+ "site": "bethlehem-q2523914",
+ "plan": "c_a164ee440558d66c",
+ "crop": [
+  0,
+  0,
+  1280,
+  892
+ ],
+ "pairs": [
+  [
+   350.0,
+   450.0,
+   6.6097295,
+   53.3837777
+  ],
+  [
+   100.0,
+   300.0,
+   6.6037052,
+   53.3851251
+  ],
+  [
+   100.0,
+   700.0,
+   6.6037052,
+   53.3815318
+  ],
+  [
+   900.0,
+   200.0,
+   6.6157539,
+   53.3860234
+  ]
+ ],
+ "label": "c. 1748",
+ "title": "Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped)",
+ "cite": "by unknown cartographer; Public domain; https://commons.wikimedia.org/wiki/File:Plan_de_Maestricht_et_environs_1748,_detail_Severen_%26_Kanjel_(cropped).jpg",
+ "at": "2026-10-11T14:02:21.188952+00:00",
+ "auto": true,
+ "score": 39.3,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bethlehem-q2523914/a164ee440558d66c.jpg",
+ "ref": "File:Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped).jpg",
+ "size": [
+  1280,
+  892
+ ]
+}

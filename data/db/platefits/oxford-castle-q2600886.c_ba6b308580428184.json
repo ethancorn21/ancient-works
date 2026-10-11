@@ -1,0 +1,52 @@
+{
+ "site": "oxford-castle-q2600886",
+ "plan": "c_ba6b308580428184",
+ "crop": [
+  0,
+  0,
+  895,
+  781
+ ],
+ "pairs": [
+  [
+   300.0,
+   300.0,
+   -1.2639238,
+   51.7526938
+  ],
+  [
+   400.0,
+   400.0,
+   -1.2624727,
+   51.7517955
+  ],
+  [
+   500.0,
+   500.0,
+   -1.2610217,
+   51.7508972
+  ],
+  [
+   600.0,
+   600.0,
+   -1.2595706,
+   51.7499988
+  ]
+ ],
+ "label": "1897",
+ "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:207_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148583904).jpg",
+ "at": "2026-10-11T14:15:44.592489+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
+ "ref": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
+ "size": [
+  895,
+  781
+ ]
+}

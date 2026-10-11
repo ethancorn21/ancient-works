@@ -1,0 +1,52 @@
+{
+ "site": "lancaster-castle-q2969640",
+ "candidates": [
+  {
+   "plan": "c_0e337c3f11900baa",
+   "title": "Lancaster Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/lancaster-castle-q2969640/0e337c3f11900baa.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     100.0,
+     300.0,
+     -2.8102028,
+     54.0524904
+    ],
+    [
+     500.0,
+     300.0,
+     -2.8040822,
+     54.0524904
+    ],
+    [
+     500.0,
+     1000.0,
+     -2.8040822,
+     54.0488972
+    ],
+    [
+     100.0,
+     1000.0,
+     -2.8102028,
+     54.0488972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.4092,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 74.41923995844417 m > 45.0 m",
+   "gate_score": 74.4
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

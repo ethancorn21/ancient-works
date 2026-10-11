@@ -1,0 +1,62 @@
+{
+ "site": "totternhoe-castle-q7828481",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0440_1",
+   "title": "Tottemhoe, Beds",
+   "url": "books/earthworkenglan01allcgoog/n0440.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Totternhoe Castle",
+    "place": {
+     "uk_county": "bedfordshire"
+    },
+    "site": {
+     "id": "totternhoe-castle-q7828481",
+     "qid": "Q7828481",
+     "name": "Totternhoe Castle",
+     "lon": -0.577116,
+     "lat": 51.8885,
+     "admin": {
+      "parish": "Totternhoe",
+      "county": "Central Bedfordshire"
+     }
+    },
+    "score": 0.75,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -0.5814752,
+     51.8911904
+    ],
+    [
+     1500.0,
+     1500.0,
+     -0.5800197,
+     51.8902921
+    ],
+    [
+     2000.0,
+     2000.0,
+     -0.5785642,
+     51.8893938
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1006,
+   "rot_deg": 53.1,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: wall corner, wall corner, wall corner"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,47 @@
+{
+ "site": "richborough-roman-fort-q1309736",
+ "candidates": [
+  {
+   "plan": "c_1dcd5a7171573663",
+   "title": "Image taken from page 508 of 'Collections for an History of Sandwich in Kent. With notices of the other Cinque Ports and members, and of Richborough. (With plates.)' (11216293544)",
+   "url": "media/commons/richborough-roman-fort-q1309736/1dcd5a7171573663.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Rutupi\u00e6",
+    "file_cat": "Rutupi\u00e6",
+    "via": []
+   },
+   "pairs": [
+    [
+     20.0,
+     200.0,
+     1.3298523,
+     51.2939955
+    ],
+    [
+     800.0,
+     200.0,
+     1.3348803,
+     51.2939955
+    ],
+    [
+     20.0,
+     800.0,
+     1.3298523,
+     51.2904021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8786,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-west corner of the fort, North-east corner of the fort, South-west corner of the fort, South-east corner of the fort, Church footprint, River crossing / road junction; stated scale 1.170 disagrees with its own points (0.552 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

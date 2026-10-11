@@ -1,0 +1,56 @@
+{
+ "site": "old-sarum-q782719",
+ "candidates": [
+  {
+   "plan": "c_b2701b5231da42f2",
+   "title": "Plan of Old Sarum",
+   "url": "media/commons/old-sarum-q782719/b2701b5231da42f2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Old Sarum",
+    "file_cat": "Old Sarum in art",
+    "via": [
+     "Old Sarum"
+    ]
+   },
+   "pairs": [
+    [
+     390.0,
+     210.0,
+     -1.7982784,
+     51.0944963
+    ],
+    [
+     70.0,
+     180.0,
+     -1.8130107,
+     51.0949454
+    ],
+    [
+     180.0,
+     130.0,
+     -1.8061452,
+     51.0953048
+    ],
+    [
+     220.0,
+     200.0,
+     -1.80543,
+     51.094676
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 3.2,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 59.717511454442274 m > 45.0 m",
+   "gate_score": 59.7
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

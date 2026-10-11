@@ -1,0 +1,64 @@
+{
+ "site": "durocortorum-q4896307",
+ "plan": "c_a60f570e6ce08f39",
+ "crop": [
+  0,
+  0,
+  1280,
+  912
+ ],
+ "pairs": [
+  [
+   200.0,
+   200.0,
+   4.8346589,
+   49.267716
+  ],
+  [
+   400.0,
+   400.0,
+   4.8381003,
+   49.2654704
+  ],
+  [
+   600.0,
+   600.0,
+   4.8415416,
+   49.2632247
+  ],
+  [
+   100.0,
+   300.0,
+   4.8329383,
+   49.2665932
+  ],
+  [
+   700.0,
+   300.0,
+   4.8432623,
+   49.2665932
+  ],
+  [
+   300.0,
+   500.0,
+   4.8363796,
+   49.2643475
+  ]
+ ],
+ "label": "1894",
+ "title": "Plan monumental de Reims et ses caves de champagne 1894",
+ "cite": "by ROLLET, Henri; Licence Ouverte; https://commons.wikimedia.org/wiki/File:Plan_monumental_de_Reims_et_ses_caves_de_champagne_1894.jpg",
+ "at": "2026-10-11T14:08:58.160024+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/durocortorum-q4896307/a60f570e6ce08f39.jpg",
+ "ref": "File:Plan monumental de Reims et ses caves de champagne 1894.jpg",
+ "size": [
+  1280,
+  912
+ ]
+}

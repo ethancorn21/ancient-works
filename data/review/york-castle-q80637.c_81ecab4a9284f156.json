@@ -1,0 +1,247 @@
+{
+ "site": "york-castle-q80637",
+ "candidates": [
+  {
+   "plan": "c_81ecab4a9284f156",
+   "title": "Ground Plans for York Castle Buildings",
+   "url": "media/commons/york-castle-q80637/81ecab4a9284f156.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "York Castle",
+    "file_cat": "York Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -1.0838091,
+     53.9585234
+    ],
+    [
+     100.0,
+     200.0,
+     -1.0838091,
+     53.9531335
+    ],
+    [
+     600.0,
+     100.0,
+     -1.0799924,
+     53.9558285
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: River crossing (north), River crossing (south), Central mound (White Tower), South-western wall corner; stated scale 0.310 disagrees with its own points (0.743 m/px): not trusted"
+  },
+  {
+   "plan": "c_b3c056e395d2525d",
+   "title": "Plan-of-Castle-Creek-Broome-County-1855-Gifford-Wenig-g3803b-la000476-mod01",
+   "url": "media/commons/york-castle-q80637/b3c056e395d2525d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Castle Creek",
+     "place_qid": "Q49876306",
+     "place_label": "Castle Creek",
+     "place_lon": -109.44861111111,
+     "place_lat": 38.683888888889,
+     "site_lon": -1.08,
+     "site_lat": 53.955833
+    }
+   },
+   "pairs": [
+    [
+     780.0,
+     300.0,
+     -1.0784657,
+     53.9580742
+    ],
+    [
+     780.0,
+     800.0,
+     -1.0784657,
+     53.9531335
+    ],
+    [
+     450.0,
+     350.0,
+     -1.0807557,
+     53.9558285
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7005,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Castle Creek upper bend, Castle Creek lower bend, Baptist Church, Meth. Church, Baptist Parsonage, School House; stated scale 0.350 disagrees with its own points (0.757 m/px): not trusted"
+  },
+  {
+   "plan": "c_2f24e4f6aa92cb05",
+   "title": "Plan-of-Castle-Creek-Broome-County-1855-Gifford-Wenig-g3803b-la000476",
+   "url": "media/commons/york-castle-q80637/2f24e4f6aa92cb05.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Castle Creek",
+     "place_qid": "Q49876306",
+     "place_label": "Castle Creek",
+     "place_lon": -109.44861111111,
+     "place_lat": 38.683888888889,
+     "site_lon": -1.08,
+     "site_lat": 53.955833
+    }
+   },
+   "pairs": [
+    [
+     850.0,
+     250.0,
+     -1.0784657,
+     53.9580742
+    ],
+    [
+     850.0,
+     750.0,
+     -1.0784657,
+     53.9535827
+    ],
+    [
+     350.0,
+     350.0,
+     -1.0807557,
+     53.9553793
+    ],
+    [
+     450.0,
+     600.0,
+     -1.0799924,
+     53.954481
+    ],
+    [
+     850.0,
+     500.0,
+     -1.0784657,
+     53.9558285
+    ],
+    [
+     750.0,
+     400.0,
+     -1.079229,
+     53.9567268
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7005,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 86.2606727880873 m > 45.0 m",
+   "gate_score": 86.3
+  },
+  {
+   "plan": "c_be6959b4a59afb6f",
+   "title": "RidsdalePanorma",
+   "url": "media/commons/york-castle-q80637/be6959b4a59afb6f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "York Castle",
+    "file_cat": "York Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     300.0,
+     200.0,
+     -1.0799924,
+     53.9558285
+    ],
+    [
+     600.0,
+     200.0,
+     -1.0784657,
+     53.9549302
+    ],
+    [
+     200.0,
+     300.0,
+     -1.0815191,
+     53.9540318
+    ],
+    [
+     800.0,
+     300.0,
+     -1.076939,
+     53.9540318
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6667,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 48.684486977311565 m > 45.0 m",
+   "gate_score": 48.7
+  },
+  {
+   "plan": "c_c9a0d376a2f0777d",
+   "title": "York in the XVth century",
+   "url": "media/commons/york-castle-q80637/c9a0d376a2f0777d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "York Castle",
+    "file_cat": "York Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     300.0,
+     200.0,
+     -1.0830457,
+     53.9576251
+    ],
+    [
+     400.0,
+     300.0,
+     -1.0815191,
+     53.9567268
+    ],
+    [
+     500.0,
+     400.0,
+     -1.0799924,
+     53.9558285
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: River bend, River crossing, River bend, River crossing, River bend; stated scale 0.294 disagrees with its own points (1.000 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

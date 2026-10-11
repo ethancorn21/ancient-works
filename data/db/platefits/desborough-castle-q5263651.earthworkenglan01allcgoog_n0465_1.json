@@ -1,0 +1,69 @@
+{
+ "site": "desborough-castle-q5263651",
+ "plan": "earthworkenglan01allcgoog_n0465_1",
+ "crop": [
+  842,
+  1414,
+  2694,
+  3030
+ ],
+ "pairs": [
+  [
+   2200.0,
+   2000.0,
+   -0.7720038,
+   51.6323955
+  ],
+  [
+   2400.0,
+   2400.0,
+   -0.7691093,
+   51.6288021
+  ],
+  [
+   2000.0,
+   2600.0,
+   -0.7748983,
+   51.6270053
+  ],
+  [
+   1800.0,
+   2200.0,
+   -0.7777928,
+   51.6305988
+  ],
+  [
+   2400.0,
+   2200.0,
+   -0.7691093,
+   51.6305988
+  ],
+  [
+   1800.0,
+   2400.0,
+   -0.7777928,
+   51.6288021
+  ],
+  [
+   1600.0,
+   1800.0,
+   -0.7806873,
+   51.6341921
+  ],
+  [
+   1600.0,
+   2800.0,
+   -0.7806873,
+   51.6252084
+  ]
+ ],
+ "label": "Fig. 149",
+ "title": "Desborough Castle, High Wycombe, Bucks",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-11T14:07:42.576716+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0465.jpg",
+ "book": "Allcroft 1908"
+}

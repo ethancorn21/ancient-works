@@ -1,0 +1,45 @@
+{
+ "site": "carisbrooke-castle-q328595",
+ "candidates": [
+  {
+   "plan": "c_c280ff908ad8318d",
+   "title": "Carisbrooke Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/carisbrooke-castle-q328595/c280ff908ad8318d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     380.0,
+     220.0,
+     -1.3141665,
+     50.6876752
+    ],
+    [
+     380.0,
+     380.0,
+     -1.3141665,
+     50.6864175
+    ],
+    [
+     520.0,
+     380.0,
+     -1.3121814,
+     50.6864175
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.695,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of inner bailey, Southwest corner of inner bailey, Southeast corner of inner bailey, Northeast corner of inner bailey, Queen Elizabeth Gate, Woodhull Gate, Keep (Northwest corner), Tilt yard (East side); stated scale 0.415 disagrees with its own points (0.901 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,257 @@
+Status: done
+# 204: Van Deventer - the remaining town plans (c. 1550s)
+Depends on: 200
+Touches: fit/src_van_deventer.py, data/catalog/extras_van_deventer.jsonl, data/commons/files_van_deventer.jsonl, data/commons/classified_van_deventer.jsonl, docs/lead_van_deventer.md, tests/test_src_van_deventer.py
+
+## Goal
+GOAL.md point 4: Jacob van Deventer's town plans, drawn c. 1545-1565 for Charles V and Philip
+II. The Commons category "Maps by Jacob van Deventer" holds about 70 town categories; six are
+already hand-tied in pipeline/sources.py (including the hand-fitted Bergues), leaving ~64 towns
+not on the map yet. For each: verify the Wikidata item by hand (a name search alone gives the
+wrong place - the Barnard Castle trap), tie the picture with machine-checkable evidence (200),
+and stage the catalog entry and the picture rows in this task's own staging files. 211
+consolidates the staging into the canonical files and builds the sites.
+
+## Acceptance criteria
+- [x] Verified before use (docs/lead_van_deventer.md): the Commons category exists and its
+      town list is recorded; every staged picture is a Van Deventer plan (the drawing's date
+      c. 1545-1565 is recorded on the row - where Commons only has an upload date, the known
+      drawing date is used and noted); unusable files (photos, modern reprints, too small) are
+      listed with the reason, not staged.
+- [x] The hand-checked file -> QID table lives in fit/src_van_deventer.py (the sources.py
+      pattern): every QID verified against its label and coordinates, with the town-centre
+      lon/lat recorded on the row, not just the municipality point (Gouda misses by up to
+      800 m). Towns whose QID cannot be verified are listed in docs/lead_van_deventer.md with
+      the reason.
+- [x] Staged rows: extras_van_deventer.jsonl (one entry per new town: id, name, place,
+      lon/lat of the old town, region, kind "town", QID, wikipedia) and
+      files_van_deventer.jsonl (one row per staged picture, in the files.jsonl shape, with the
+      200 evidence field - P373 category / P180 / caption+coords - and a classified row "plan"
+      by hand). fit/evidence.py check passes offline on every staged row.
+- [x] No duplicate sites: a town whose QID is already in the catalog gets its picture row for
+      that existing site id, no new catalog entry.
+- [x] At least 50 of the ~64 towns are staged, or docs/lead_van_deventer.md accounts for each
+      missing one with a verified reason (a documented drop beats a guessed row).
+- [x] Test (no network): the staged files join (every file row names a staged or existing
+      site; every new catalog entry has at least one picture) and the evidence check passes;
+      a golden sample of rows.
+
+## Notes
+- The six already hand-tied towns are NOT re-staged here (their rows exist in the canonical
+  files via sources.py); this task is the remaining ~64.
+- If the work grows past a few sessions: split into subtasks 204a-... by country
+  (Netherlands / Belgium / France / Germany + other), ~16 towns each, same shape of boxes per
+  subtask (each with its own extras_/files_/classified_ staging files suffixed by the
+  subtask, e.g. files_van_deventer_a.jsonl, and its own docs/lead_van_deventer_a.md); record
+  the town list per subtask in this parent's hand-over. 211 consolidates whatever staging
+  files exist.
+
+## Hand-over
+(2026-10-11, iteration 56 - **ALL WORK DONE AND VERIFIED this session; the only remaining step is to re-verify
+offline and commit this file as done**.)
+
+**State (all on disk; commit 88cf39d + harness-saved uncommitted changes below):**
+- fit/src_van_deventer.py: CHAINS table FILLED with the 54 walked chains (every via[-1] == the town's p373,
+  eyeball-verified from transcript /tmp/vd_chains_iter55.txt, 54/56 held - the walk finished during this
+  session). Brussels and Valkenburg hit the 60-fetch cap -> caption route (their file titles name the town).
+  Luxembourg City HOLDS at 4 hops (Old maps of Luxembourg City -> Maps of Luxembourg City -> Geography of
+  Luxembourg City) -> its row is the category kind; the earlier "caption REQUIRED" note is superseded in
+  the module comment and the lead doc. `_site_row` now uses the shared `catalog.slug` rule (the sources.py
+  id rule, NFKD - on this machine compatibility decompositions are NOT applied, so Le Rœulx -> le-rulx;
+  PITFALLS filed; the first stage run's double-hyphen accent ids were deleted and re-staged). The `golden()`
+  operator-precedence bug (`for r in files and ...` -> UnboundLocalError) fixed via a picked_titles set.
+- Staged (this task's own files, recreated after the slug fix): data/catalog/extras_van_deventer.jsonl (56),
+  data/commons/files_van_deventer.jsonl (56 rows, the 200 evidence field: 54 category + 2 caption_coords),
+  data/commons/classified_van_deventer.jsonl (56 "plan" by hand). `--check`: 56/56 PASS offline, exit 0. Every
+  year_of in 1545-1565 (Hesdin row = 1545, the min of its page note). No staged QID collides with the
+  catalog (no duplicate sites); the six done towns absent.
+- tests/test_src_van_deventer.py: 4 tests (offline join+evidence check via check_staged(); table/staged-row
+  integrity incl. the 1545-1565 year window, no QID collision, done towns absent, 54/2 evidence split;
+  negative controls - a hand-typed chain with a wrong last hop and a ~52 km caption resolution, both FAIL -
+  via fit/evidence.py; golden sample pin) + tests/golden/src_van_deventer_sample.json (written by --golden).
+  no_network socket-blocking fixture throughout.
+- docs/lead_van_deventer.md: COMPLETE (BE disambiguated-P373 watch item settled, Luxembourg City -> category
+  route, Summary gains the chain/staging lines).
+- PITFALLS.md: 3 entries added this session (machine NFKD compatibility-decomposition gap; the generator
+  `for r in files and cond` precedence trap; append-only stage() idempotent only on (site, title)) -
+  UNCOMMITTED (harness-saved; the driver syncs it - do not lose them).
+
+**Tests when last run:** `.venv/bin/python -m pytest tests/ -q` -> **50 passed in 55.8 s** (full suite green,
+including the 4 new tests). `.venv/bin/python fit/src_van_deventer.py --check` -> 56/56 PASS, exit 0.
+
+**EXACT NEXT STEP (one small session, no network needed):**
+1. Quick offline re-verify: `.venv/bin/python fit/src_van_deventer.py --check` (expect 56/56 PASS, exit 0)
+   and `.venv/bin/python -m pytest tests/test_src_van_deventer.py -q` (expect 4 passed).
+2. `git add -A && git commit -m "204: done - all 56 towns staged, tested and golden-pinned"` (this file with
+   Status: done + all six boxes ticked is already in place; the harness-saved PITFALLS entries ride along).
+3. Nothing else remains on this task. For 211: the staging files consolidate into the canonical ones and
+   build the sites; the NEW region value "luxembourg" has no REGION_NAME display key yet (the display falls
+   back to the raw value - a REGION_NAME key is a small follow-on task if the human wants the clean display).
+
+**Box justifications (if the driver re-checks the done claim):** 1 - lead doc complete (category list,
+every staged file, every not-staged file with its reason, the 4 known-drawing-date swaps
+rotterdam/sluis/valkenburg/bruges documented); 2 - every QID verified (66 towns, none pending; Aarschot's
+drop is a DATE reason, documented, its QID was verified); 3 - 56/56 staged + offline evidence PASS;
+4 - no staged QID in the catalog (checked in test_table_and_staged_rows + check_staged's join); 5 - 56 of
+~64 staged, every missing one documented (Aarschot 1570 outside the window, 3 NL province-level drops,
+the 6 done towns not re-staged); 6 - the 4 tests + golden file, all green, no_network.
+
+### Also written to PROGRESS.md (moved here by the driver)
+
+# PROGRESS (generated by the driver before every session)
+
+Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
+task file (for a subtask, read its parent's too).
+
+## Tasks in flight
+- `tasks/203-batch-fit.md` (split)
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 50 - **FR+LU re-verify DONE (clean) and lead doc updated; all committed**). The
+- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+
+## Next open tasks
+- `tasks/215-books-llm-ports.md`
+- `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
+
+## Your task's journal
+
+Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
+
+### 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)
+`--files` for the 20 BE towns (transcript /tmp/vd_files_be_iter46.txt, 212 lines, exit 0) confirmed the
+prediction: the 1545 BNE atlas plates sit in the town categories for 16 of the 20 (Ghent as BN 1/BN 2,
+Mons as (1)/(2), Oudenaarde as Version Madrid); Bruges (7), Brussels (7), Mechelen (1) and Aarschot (2)
+are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs + full-size crops
+(/tmp/vd_be_thumbs/, re-download via commons.info + aw.UA; the `read` tool views images):
+- **Ghent BN 1** (4919x5046, 1545) = the labelled 'Gande' sheet (city between the two rivers) - STAGED.
+  **BN 2** (2834x3631, 1545) is a DIFFERENT sheet (a fortified town, no city label in the centre crop) -
+  not staged, noted. Also not staged: the 1559 Donato Buoni di Pellezuoli print (a later print by another
+  cartographer) and five small 2007-2012 scans/crops.
+- **Mons (2)** (4393x2614, 1545) = the wide two-page sheet labelled 'Mons en Henault' (Ocidente/Oriens/
+  Meridies/Septentrio) - STAGED. Mons (1) (1816x2614) is a portrait plate of the same fortified town -
+  not staged, noted.
+- **Brussels '(2) 01.png'** (8908x10941, circa 1555) = the KBR autograph cleanly cropped - STAGED.
+  '(2).png' (9216x12288) is the same sheet WITH a TIFFEN colour-calibration strip (the ugly duplicate);
+  '(2) 02' is the explicit detail; the three small Brussel 1550/1555/1560 scans (470-1233 px) and
+  Molenbeek.1550.jpg (378x565, Molenbeek + the west of the 2e enceinte - the work list's 'Brussel, 1550
+  (westelijk gedeelte)', partial) - all not staged.
+- **Bruges 'Map of Bruges by Jacob van Deventer.jpg'** (2770x4659) - the full plan; the sheet's OWN
+  caption block (bottom of the sheet, partially torn away) reads "Brugge (West Flan...) ... en omgeving
+  omstreeks den jare 1550. Plattegrond in kleuren. Originade Teckening van den be-Keizerlijken..." -
+  the drawing dates itself c. 1550 -> row date="circa 1550", the 2013-01-17 12:04:47 page value (an
+  upload timestamp) kept as date_commons by the stage() swap. The three category detail files carry QS
+  'circa 1558' for the same map - the sheet's own caption wins (recorded in the lead doc). Not staged:
+  five detail crops (846x522, 1180x668 x2, 573x564, 650x832) and 'Plan Brugge ... ca.1560.jpg' (1400x1867,
+  a published reproduction per C. Ruelen).
+- **Mechelen** (3558x3305, page date 1550) = the KBR autograph (desc: from the atlas KBR bought in 1866)
+  - STAGED; page date is the drawing date (work list 'Mechelen, 1550' agrees), no swap.
+- **Ostend** (872x1255, page 'circa 1562' QS) = the full BNE atlas plate (labeled 'Oostende', the town +
+  the harbour detail box) - STAGED despite the 872 px width: the only Ostend plan on Commons (the
+  Aardenburg precedent, caveat in the lead doc). No swap (1562 in window).
+- **Aarschot - DOCUMENTED DROP, no site, no picture:** both files ('Aarschot 1570.png', 5877x6291 - a
+  genuine autograph, town labelled 'Aersfot' on the Dijle, fortress on the north bank - and its
+  1278x1024 jpg copy) carry page date **1570**. Verified against the web: the nl.wikipedia article
+  'Jacob van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his
+  career ran to his death in 1575, the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
+  1570 is outside this task's c. 1545-1565 drawing window, and box 6's test checks the row date's
+  year_of in 1545-1565 - a 1570 row cannot be staged honestly. The documented drop (box 5) beats a
+  guessed date. (The same work list cross-confirms the other picks: Gent 1545, Doornik 1545, Den Haag
+  1558, Utrecht 1565-1570, Oudenaarde minuut 1563 / netkaart 1564.)
+- The 12 single-file towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Halle, Kortrijk, Lessines,
+  Leuze, Saint-Ghislain, Soignies, Tournai): the one 1545 BNE plate each - all staged, no swap. Leuze
+... (0.8 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)' DECISIONS.md`)
+
+### 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed
+The iteration-46 picks (the analysis above; /tmp/vd_files_be_iter46.txt still on disk, re-read to verify every
+exact title before recording) are now in TOWNS: file= on all 19 staged towns (15 of the 1545 BNE plates:
+Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent BN 1, Halle, Kortrijk, Lessines, Leuze, Mons (2),
+Saint-Ghislain, Soignies, Tournai, Oudenaarde Version Madrid; + Ostend BNE plate circa 1562 + KBR Brussels
+(2) 01 + KBR Mechelen + Bruges full plan), date="circa 1550" on Bruges (page 2013-01-17 12:04:47 is the
+upload timestamp; the sheet's own caption block dates it), caption="Leuze" on Leuze (its official label
+'Leuze-en-Hainaut' is not in the title/desc), note= on Aarschot (the 1570 documented drop). The Belgium
+section-header comment now records the iter-46 inventory + thumb eye check. Lead doc: the pending
+subsection is now '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, --files
+transcript /tmp/vd_files_be_iter46.txt)' with one bullet per town (staged file + size + date and every
+not-staged file with its specific reason; Aarschot the documented drop with the nl.wikipedia work-list
+cross-check), a new '### France, Luxembourg (pending)' (24 towns; the double plates as watch items), and
+the Summary updated (running total 32 of 59 staged: NL 13 + BE 19). PITFALLS filed: (1) wbsearchentities
+limit=5 misses well-known short names - Mons 11th in the en search, follow up at limit 20; (2) a Commons
+API call with no User-Agent gets HTTP 403 - commons.get sets aw.UA, a raw script must too. Verified after
+the edit: `--check` exit 0 (staging files still absent - stage runs after FR/LU), module parses clean
+(the PITFALLS comment-gluing rule observed: every entry's dict closed with `),` before its comments).
+NEXT: the FR batch (23 towns: --verify first - QIDs still empty in TOWNS; the BNE plates cover all 23 per
+the collections section; watch the Aire+Thérouanne and Hesdin+Vieil-Hesdin double plates - stage once under
+the true primary, note the second; Beaumont's region flips france->belgium if the Hainaut item wins) +
+Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
+build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
+--check, tests/test_src_van_deventer.py, --golden.
+
+### 2026-10-11 204 DECISION: FR+LU QID batch - 22 FR QIDs + Luxembourg City Q1842 verified and recorded in TOWNS (Le Rœulx moved to Belgium, Beaumont pending the atlas plate); TOWNS edit uncommitted, re-verify + lead doc next
+Discovered in one --verify run (/tmp/vd_verify_fr_iter49.txt, 24 towns, exit 0 - the FIRST attempt of the
+session failed locally with "unknown town 'Le'": shell quoting, the Le X names were unquoted; no API calls
+happened, the quoted re-run succeeded): all 23 FR fact sheets came back; the 22 non-Beaumont towns each have
+a clear first-hit item (label = the town, P625 at the town, P373 = the plain town category, enwiki present)
+- recorded in TOWNS with site point = P625 rounded (the BE convention; an old-town-centre offset is the watch
+item once the drawings are eye-checked) and place = the modern department (Nord / Pas-de-Calais; Douai's and
+Valenciennes' items also carry the historical P131 'County of Flanders' / 'County of Hainaut' - the c. 1550
+context, noted in comments, the row's place stays the department). Two surprises:
+- **Luxembourg City = Q1842, not the hand-over's Q1564** (Q1564 now holds 'Borgfelde', Hamburg - merged
+  away). Q1842: label 'Luxembourg', P625 (6.13, 49.611389), P373 'Luxembourg City', P131 'Canton of
+  Luxembourg', enwiki 'Luxembourg City'. The entry's search="Luxembourg (city)" returned EMPTY (the
+  parenthesized label search - a new instance of the prep's "qualified strings return EMPTY" quirk); the
+... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed' DECISIONS.md`)
+
+### 2026-10-11 204 DECISION: FR+LU re-verify clean (23 towns) + lead-doc FR/LU section written (23-row table, traps, Beaumont pending) + parentheses-search PITFALLS filed
+Session started from the driver-committed TOWNS edit (6b8f85a; parse-check passed: 66 towns, 32 stageable, as
+predicted). The planned re-verify run then went cleanly (23 towns = 21 FR with QIDs + Le Rœulx + Luxembourg
+City; Beaumont omitted - no QID; transcript /tmp/vd_verify_fr_recheck_iter49.txt, exit 0): **every label
+matches, every P373 'ok', every enwiki matches, and the first search hit with P625 is exactly the recorded QID
+for all 23** (no first-hit trap in the verified set); P625→site is 0.00-0.01 km everywhere except Le Rœulx
+0.91 km (the recorded item's P625 (4.1, 50.5) is rounded; the site point is the subdivision item Q21764574's
+precise P625 - expected, documented). Bergues (done FR) fetched in one extra call: Q244934 label 'Bergues',
+P625 2.434167, 50.968611 (→ site 0.00 km), P373 'Bergues', enwiki 'Bergues' - row added to the lead-doc
+table.
+
+Lead doc (docs/lead_van_deventer.md) updated per the hand-over: (a) Commons category counts moved with
+Le Rœulx (BE 22→23 categories, FR 24→23); (b) Belgium section: Le Rœulx table row + method sentence (found
+in the FR batch, moved from the prep's France list; 0.91 km explained), BE catalog count 20→21; (c) '##
+France, Luxembourg (pending)' replaced by '## QID verification - France, Luxembourg (checked 2026-10-11,
+iter 49; ...)': method (discovery /tmp/vd_verify_fr_iter49.txt + re-check transcripts), the three changes
+from the prep's list (Le Rœulx→Belgium; Luxembourg City = Q1842 not Q1564 - that id was merged away into
+'Borgfelde' Hamburg, and the 'Luxembourg (city)' search returned EMPTY, the parentheses quirk; Beaumont
+pending: only Q95100 Hainaut is plausible in the en top 20, the Nord town absent, the atlas plate settles
+it, region flips if Hainaut wins), the 23-row table (21 FR to stage + Luxembourg City + done Bergues) with
+the re-verify distances, and '### Name-search traps - France, Luxembourg' (Le Quesnoy: exact-label twin
+Q109413780 (Somme) - coordinates+enwiki decide; Lille: Belgian twin Q725235; Saint-Omer: Calvados Q844283 +
+Quebec Q3463075; Thérouanne: the river Q428296; Bapaume: the 1918 ship Q19543896 + Queensland Q48807630;
+Luxembourg's search chain Q32→Q1126→Q1842; Beaumont; plus the minor near-misses, notably the Cambrai
+near-duplicate Q84243457 at the same coordinates); (d) the per-town subsection retitled (QIDs verified,
+file= pending the --files run) keeping the double-plate watch items; (e) Summary: NL 13/16, BE 19/21
+(Le Rœulx file pending), FR 0/22 (Beaumont QID pending), LU 0/1 - running total 32 of 60 stageable
+categories, box 5 unchanged.
+
+PITFALLS filed (Wikimedia section): a wbsearchentities label search containing parentheses returns EMPTY
+('Luxembourg (city)' case) - search the unparenthesized label form and let the fact sheet disambiguate.
+
+Verified: --check exit 0 (staging files still absent - stage runs after the --files picks); module parses
+(66/32); this session changed no module code (the iter-49 TOWNS edit was already driver-committed).
+NEXT: the FR/LU --files batch (24 towns: the 22 FR to stage incl. Beaumont + Le Rœulx + Luxembourg City),
+then record file=/date=/caption= picks, then the one long run (--chain per staged town, stage, --check,
+tests/test_src_van_deventer.py, --golden).
+
+## Project-wide driver notes (newest)
+
+### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
+    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
+    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 204 (agent a, iteration 51) - session ended at context limit; full detail in the task's ## Hand-over
+    FR/LU --files batch DONE (transcript /tmp/vd_files_fr_iter50.txt, exit 0): the 1545 BNE atlas plate is in all
+    22 FR town categories + Le Rœulx's. Eye check (images in /tmp/vd_fr_thumbs/): Beaumont SETTLED as Hainaut
+    (Q95100, region flips to belgium - the plate shows the Sambre bisecting the town + the counts' chateau;
+    the Nord town has neither); Aire/Thérouanne double plate settled (Aire stages the 3395x2614 spread,
+    Thérouanne stages its own 986x867 'Terwan' plan). STILL PENDING the eye check: the Hesdin/Vieil-Hesdin
+    double sheet + its 757x857 twin, Luxembourg City's 'Luxemburg 1550 65 v Deventer.jpg', the five (1)/(2)
+    pairs, one small Aire repro. TOWNS + lead doc NOT yet edited - next session records the picks (TOWNS
+    entries, `--verify Beaumont` re-check, lead doc), then the following session does --chain/stage/--check/
+    tests/--golden.

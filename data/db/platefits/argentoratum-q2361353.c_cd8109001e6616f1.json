@@ -1,0 +1,76 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_cd8109001e6616f1",
+ "crop": [
+  0,
+  0,
+  1280,
+  960
+ ],
+ "pairs": [
+  [
+   200.0,
+   200.0,
+   7.7435382,
+   48.587636
+  ],
+  [
+   1000.0,
+   200.0,
+   7.7571174,
+   48.587636
+  ],
+  [
+   1000.0,
+   800.0,
+   7.7571174,
+   48.5808988
+  ],
+  [
+   200.0,
+   800.0,
+   7.7435382,
+   48.5808988
+  ],
+  [
+   600.0,
+   600.0,
+   7.7503278,
+   48.5831447
+  ],
+  [
+   400.0,
+   400.0,
+   7.746933,
+   48.5853904
+  ],
+  [
+   800.0,
+   400.0,
+   7.7537226,
+   48.5853904
+  ],
+  [
+   400.0,
+   800.0,
+   7.746933,
+   48.5808988
+  ]
+ ],
+ "label": "1852",
+ "title": "Strasbourg-Krutenau-Plan de 1852 (8)",
+ "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Strasbourg-Krutenau-Plan_de_1852_(8).jpg",
+ "at": "2026-10-11T14:00:38.057527+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/cd8109001e6616f1.jpg",
+ "ref": "File:Strasbourg-Krutenau-Plan de 1852 (8).jpg",
+ "size": [
+  1280,
+  960
+ ]
+}

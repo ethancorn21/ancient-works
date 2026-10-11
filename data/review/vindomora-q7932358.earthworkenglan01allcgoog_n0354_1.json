@@ -1,0 +1,45 @@
+{
+ "site": "vindomora-q7932358",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0354_1",
+   "title": "ARDOCH, PERTHSHIRE.",
+   "url": "books/earthworkenglan01allcgoog/n0354.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -1.8496945,
+     54.899785
+    ],
+    [
+     2500.0,
+     1000.0,
+     -1.8309499,
+     54.899785
+    ],
+    [
+     2500.0,
+     2500.0,
+     -1.8309499,
+     54.8890053
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1684,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 10 20 300 400 500 600 700 800 FEET'",
+   "why": "features: Northwest corner of the main fort, North-east corner of the main fort, South-east corner of the main fort, South-west corner of the main fort, North gate gap, East gate gap, South gate gap, West gate gap; stated scale 0.168 disagrees with its own points (0.800 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

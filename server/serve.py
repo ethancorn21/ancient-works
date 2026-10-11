@@ -273,10 +273,11 @@ def main():
         print(f"relief tiles off ({e.name or e} not importable); run with .venv/bin/python for the LiDAR relief layer",
               flush=True)
     srv = ThreadingHTTPServer((host, a.port), Handler)
-    print(f"Ancient Works on http://127.0.0.1:{a.port}/", flush=True)
+    # the bound address, not a.port: with --port 0 (tests) the operating system picks the real number
+    print(f"Ancient Works on http://{srv.server_address[0]}:{srv.server_address[1]}/", flush=True)
     if a.lan:
         ip = lan_address()
-        print(f"  home network: http://{ip}:{a.port}/  (allowed clients: {', '.join(nets[2:])})", flush=True)
+        print(f"  home network: http://{ip}:{srv.server_address[1]}/  (allowed clients: {', '.join(nets[2:])})", flush=True)
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

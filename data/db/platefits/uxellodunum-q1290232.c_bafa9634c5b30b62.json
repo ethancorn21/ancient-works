@@ -1,0 +1,76 @@
+{
+ "site": "uxellodunum-q1290232",
+ "plan": "c_bafa9634c5b30b62",
+ "crop": [
+  0,
+  0,
+  1280,
+  1830
+ ],
+ "pairs": [
+  [
+   100.0,
+   300.0,
+   1.6883432,
+   44.9562834
+  ],
+  [
+   200.0,
+   300.0,
+   1.6896125,
+   44.9553851
+  ],
+  [
+   300.0,
+   300.0,
+   1.6908818,
+   44.9544869
+  ],
+  [
+   400.0,
+   300.0,
+   1.6921511,
+   44.9535887
+  ],
+  [
+   500.0,
+   300.0,
+   1.6934204,
+   44.9526904
+  ],
+  [
+   600.0,
+   300.0,
+   1.6946897,
+   44.9517921
+  ],
+  [
+   700.0,
+   300.0,
+   1.695959,
+   44.9508938
+  ],
+  [
+   800.0,
+   300.0,
+   1.6972283,
+   44.9499955
+  ]
+ ],
+ "label": "18th century",
+ "title": "Plan et vue du Puy d'Issolu - btv1b85922144",
+ "cite": "Public domain; https://commons.wikimedia.org/wiki/File:Plan_et_vue_du_Puy_d%27Issolu_-_btv1b85922144.jpg",
+ "at": "2026-10-11T14:19:18.086290+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/uxellodunum-q1290232/bafa9634c5b30b62.jpg",
+ "ref": "File:Plan et vue du Puy d'Issolu - btv1b85922144.jpg",
+ "size": [
+  1280,
+  1830
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "site": "bethlehem-q2523914",
+ "plan": "c_67ed5d45466db19e",
+ "crop": [
+  0,
+  0,
+  1280,
+  1260
+ ],
+ "pairs": [
+  [
+   150.0,
+   200.0,
+   6.6029522,
+   53.3869216
+  ],
+  [
+   400.0,
+   150.0,
+   6.6067174,
+   53.3873707
+  ],
+  [
+   800.0,
+   300.0,
+   6.6127417,
+   53.3860234
+  ],
+  [
+   200.0,
+   800.0,
+   6.6037052,
+   53.3815318
+  ],
+  [
+   500.0,
+   800.0,
+   6.6082234,
+   53.3815318
+  ],
+  [
+   600.0,
+   500.0,
+   6.6097295,
+   53.3842268
+  ]
+ ],
+ "label": "1615",
+ "title": "Plan of the Basilica of the Nativity in Bethlehem - Sandys George - 1615",
+ "cite": "by George Sandys; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_the_Basilica_of_the_Nativity_in_Bethlehem_-_Sandys_George_-_1615.jpg",
+ "at": "2026-10-11T14:02:30.315187+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bethlehem-q2523914/67ed5d45466db19e.jpg",
+ "ref": "File:Plan of the Basilica of the Nativity in Bethlehem - Sandys George - 1615.jpg",
+ "size": [
+  1280,
+  1260
+ ]
+}

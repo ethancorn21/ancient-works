@@ -1,0 +1,390 @@
+{
+ "site": "pontefract-castle-q1949590",
+ "candidates": [
+  {
+   "plan": "c_ba5dfa2d2dbc645e",
+   "title": "22 of 'Supplement to the Sieges of Pontefract Castle, etc' (11186220555)",
+   "url": "media/commons/pontefract-castle-q1949590/ba5dfa2d2dbc645e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "Supplement to the Sieges of Pontefract Castle (1887)",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "pairs": [
+    [
+     1000.0,
+     200.0,
+     -1.300898,
+     53.6981904
+    ],
+    [
+     1000.0,
+     600.0,
+     -1.300898,
+     53.6945972
+    ],
+    [
+     200.0,
+     600.0,
+     -1.3084841,
+     53.6945972
+    ],
+    [
+     200.0,
+     200.0,
+     -1.3084841,
+     53.6981904
+    ],
+    [
+     600.0,
+     400.0,
+     -1.3054496,
+     53.6963938
+    ],
+    [
+     1200.0,
+     400.0,
+     -1.2993807,
+     53.6963938
+    ],
+    [
+     0.0,
+     400.0,
+     -1.3100013,
+     53.6963938
+    ],
+    [
+     600.0,
+     1000.0,
+     -1.3054496,
+     53.6928005
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5917,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 57.616645849714594 m > 45.0 m",
+   "gate_score": 57.6
+  },
+  {
+   "plan": "c_76bab4016b6599a2",
+   "title": "8 of 'Collections towards the History of Pontefract. (Edited by R. Holmes.)' (11151748296)",
+   "url": "media/commons/pontefract-castle-q1949590/76bab4016b6599a2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "Pontefract Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     500.0,
+     400.0,
+     -1.3054496,
+     53.6963938
+    ],
+    [
+     400.0,
+     800.0,
+     -1.3069669,
+     53.6945972
+    ],
+    [
+     800.0,
+     1000.0,
+     -1.3024152,
+     53.6928005
+    ],
+    [
+     200.0,
+     1000.0,
+     -1.3084841,
+     53.6936988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6042,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.15947556124739484 > 0.145",
+   "gate_score": 32.9
+  },
+  {
+   "plan": "c_8bf10bed29a07c53",
+   "title": "Pontefract Castle 1648",
+   "url": "media/commons/pontefract-castle-q1949590/8bf10bed29a07c53.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "Pontefract Castle in art",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "pairs": [
+    [
+     450.0,
+     100.0,
+     -1.3016566,
+     53.696843
+    ],
+    [
+     500.0,
+     200.0,
+     -1.300898,
+     53.6954955
+    ],
+    [
+     450.0,
+     300.0,
+     -1.3016566,
+     53.694148
+    ],
+    [
+     100.0,
+     300.0,
+     -1.3054496,
+     53.694148
+    ],
+    [
+     100.0,
+     100.0,
+     -1.3054496,
+     53.696843
+    ],
+    [
+     250.0,
+     200.0,
+     -1.3031738,
+     53.6954955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.3986,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 67.10533776277542 m > 45.0 m",
+   "gate_score": 67.1
+  },
+  {
+   "plan": "c_1e55f433c81a776b",
+   "title": "Reproductie van een plattegrond van Pontefract, RP-F-2001-7-1150-11",
+   "url": "media/commons/pontefract-castle-q1949590/1e55f433c81a776b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Pontefract",
+    "place_qid": "Q1009235",
+    "place_label": "Pontefract",
+    "place_lon": -1.312,
+    "place_lat": 53.691,
+    "site_lon": -1.30394,
+    "site_lat": 53.6955,
+    "dist_m": 729.4
+   },
+   "pairs": [
+    [
+     1050.0,
+     150.0,
+     -1.3001393,
+     53.6977412
+    ],
+    [
+     850.0,
+     450.0,
+     -1.3031738,
+     53.6950463
+    ],
+    [
+     1050.0,
+     750.0,
+     -1.3001393,
+     53.6923513
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-eastern wall corner, Central keep mound, South-eastern wall corner, South-western wall corner; stated scale 0.433 disagrees with its own points (1.000 m/px): not trusted"
+  },
+  {
+   "plan": "c_d8feeea17f3f5dc2",
+   "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14576238467)",
+   "url": "media/commons/pontefract-castle-q1949590/d8feeea17f3f5dc2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "Pontefract Castle in art",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "pairs": [
+    [
+     640.0,
+     100.0,
+     -1.3039324,
+     53.6981904
+    ],
+    [
+     100.0,
+     1000.0,
+     -1.3084841,
+     53.6954955
+    ],
+    [
+     640.0,
+     1900.0,
+     -1.3039324,
+     53.6928005
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.3676,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North curtain wall, West curtain wall, South curtain wall, East curtain wall, Northwest corner, Northeast corner, Southwest corner, Southeast corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_3ee1e830d537450c",
+   "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739759706)",
+   "url": "media/commons/pontefract-castle-q1949590/3ee1e830d537450c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "The history of the ancient borough of Pontefract",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "pairs": [
+    [
+     600.0,
+     250.0,
+     -1.3043117,
+     53.6952709
+    ],
+    [
+     850.0,
+     150.0,
+     -1.3016566,
+     53.696843
+    ],
+    [
+     850.0,
+     350.0,
+     -1.3016566,
+     53.6936988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Castle keep mound, North-east wall corner, South-east wall corner, South-west wall corner, North-west wall corner, River crossing west, River crossing east, Town centre junction; stated scale 0.342 disagrees with its own points (0.794 m/px): not trusted"
+  },
+  {
+   "plan": "c_a63b8d2d96eba256",
+   "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762784215)",
+   "url": "media/commons/pontefract-castle-q1949590/a63b8d2d96eba256.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "The history of the ancient borough of Pontefract",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "pairs": [
+    [
+     350.0,
+     150.0,
+     -1.3039324,
+     53.6972921
+    ],
+    [
+     550.0,
+     450.0,
+     -1.300898,
+     53.6954955
+    ],
+    [
+     350.0,
+     750.0,
+     -1.3039324,
+     53.6936988
+    ],
+    [
+     150.0,
+     450.0,
+     -1.3069669,
+     53.6954955
+    ],
+    [
+     450.0,
+     300.0,
+     -1.3024152,
+     53.6963938
+    ],
+    [
+     450.0,
+     600.0,
+     -1.3024152,
+     53.6945972
+    ],
+    [
+     250.0,
+     300.0,
+     -1.3054496,
+     53.6963938
+    ],
+    [
+     250.0,
+     600.0,
+     -1.3054496,
+     53.6945972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.18974358974398525 > 0.145",
+   "gate_score": 29.3
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

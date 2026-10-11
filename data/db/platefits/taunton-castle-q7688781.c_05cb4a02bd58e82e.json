@@ -1,0 +1,52 @@
+{
+ "site": "taunton-castle-q7688781",
+ "plan": "c_05cb4a02bd58e82e",
+ "crop": [
+  0,
+  0,
+  1280,
+  1461
+ ],
+ "pairs": [
+  [
+   800.0,
+   200.0,
+   -3.112365,
+   51.0170921
+  ],
+  [
+   800.0,
+   400.0,
+   -3.112365,
+   51.0161938
+  ],
+  [
+   800.0,
+   800.0,
+   -3.112365,
+   51.0143972
+  ],
+  [
+   400.0,
+   1000.0,
+   -3.1152208,
+   51.0134988
+  ]
+ ],
+ "label": "1897",
+ "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Taunton_Castle_(1897).jpg",
+ "at": "2026-10-11T14:18:15.525386+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
+ "ref": "File:Plan of Taunton Castle (1897).jpg",
+ "size": [
+  1280,
+  1461
+ ]
+}

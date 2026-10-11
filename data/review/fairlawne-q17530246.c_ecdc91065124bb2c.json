@@ -1,0 +1,64 @@
+{
+ "site": "fairlawne-q17530246",
+ "candidates": [
+  {
+   "plan": "c_ecdc91065124bb2c",
+   "title": "Fairlawne, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/fairlawne-q17530246/ecdc91065124bb2c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "pairs": [
+    [
+     350.0,
+     450.0,
+     0.2828005,
+     51.2572463
+    ],
+    [
+     550.0,
+     450.0,
+     0.2871067,
+     51.2572463
+    ],
+    [
+     450.0,
+     550.0,
+     0.2849536,
+     51.2558988
+    ],
+    [
+     200.0,
+     350.0,
+     0.2792119,
+     51.2585938
+    ],
+    [
+     700.0,
+     350.0,
+     0.2892599,
+     51.2585938
+    ],
+    [
+     450.0,
+     750.0,
+     0.2849536,
+     51.2523053
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "radial gradient: slope_o 0.1259742067480528 > 0.11 and io -29.30761001210828 < -10.0",
+   "gate_score": 28.3
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

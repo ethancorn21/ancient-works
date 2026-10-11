@@ -1,0 +1,153 @@
+{
+ "site": "cahokia-q333661",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0309_1",
+   "title": "Plan of Cahokia Mound",
+   "url": "books/ancientmonuments00squi/n0309.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Cahokia",
+    "place": {
+     "state": "illinois"
+    },
+    "site": {
+     "id": "cahokia-q333661",
+     "qid": "Q333661",
+     "name": "Cahokia",
+     "lon": -90.064444,
+     "lat": 38.653889,
+     "admin": {
+      "state": "Illinois"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     800.0,
+     1900.0,
+     -90.0715468,
+     38.6634834
+    ],
+    [
+     1000.0,
+     1900.0,
+     -90.065795,
+     38.6634834
+    ],
+    [
+     1000.0,
+     2200.0,
+     -90.065795,
+     38.6500086
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 3.5837,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Northwest corner of the main enclosure, North-central gate gap, South-central gate gap, Southwest corner of the main enclosure; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_1a7c2a11c3a0dd21",
+   "title": "Manuscript map of St. Clair and Madison counties, Illinois, with survey of the Cahokia mounds. - DPLA - 7ba7aeec37bb36736b769dc4456361a4",
+   "url": "media/commons/cahokia-q333661/1a7c2a11c3a0dd21.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Cahokia",
+    "place_qid": "Q333661",
+    "place_label": "Cahokia",
+    "place_lon": -90.064444444444,
+    "place_lat": 38.653888888889,
+    "site_lon": -90.064444,
+    "site_lat": 38.653889,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     -90.0715468,
+     38.6634834
+    ],
+    [
+     600.0,
+     400.0,
+     -90.065795,
+     38.6589921
+    ],
+    [
+     800.0,
+     600.0,
+     -90.0600432,
+     38.6545005
+    ],
+    [
+     1000.0,
+     800.0,
+     -90.0542913,
+     38.6500086
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.875,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 106.37228419985452 m > 45.0 m",
+   "gate_score": 106.4
+  },
+  {
+   "plan": "c_8c44bb427b76aa7a",
+   "title": "Cahokia. Arrowhead found on Monks Mound",
+   "url": "media/commons/cahokia-q333661/8c44bb427b76aa7a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Cahokia",
+    "file_cat": "Cahokia",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     0.0,
+     -90.0715468,
+     38.6679745
+    ],
+    [
+     300.0,
+     0.0,
+     -90.0600432,
+     38.6679745
+    ],
+    [
+     0.0,
+     700.0,
+     -90.0772986,
+     38.6500086
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 3.2787,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Top-left corner of the rampart, Top-right corner of the rampart, Bottom-left corner of the rampart, Bottom-right corner of the rampart, Left-side gate gap, Right-side gate gap, Bottom-center gate gap, Central mound tip; stated scale 1.639 disagrees with its own points (3.333 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

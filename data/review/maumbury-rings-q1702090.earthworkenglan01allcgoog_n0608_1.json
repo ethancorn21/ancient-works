@@ -1,0 +1,60 @@
+{
+ "site": "maumbury-rings-q1702090",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0608_1",
+   "title": "Maumbury Rings, Dorchester",
+   "url": "books/earthworkenglan01allcgoog/n0608.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Maumbury Rings",
+    "place": {},
+    "site": {
+     "id": "maumbury-rings-q1702090",
+     "qid": "Q1702090",
+     "name": "Maumbury Rings",
+     "lon": -2.44017,
+     "lat": 50.7081,
+     "admin": {
+      "parish": "Dorchester",
+      "county": "Dorset"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.25,
+    "why": []
+   },
+   "pairs": [
+    [
+     2400.0,
+     2200.0,
+     -2.4357373,
+     50.7079955
+    ],
+    [
+     2000.0,
+     2600.0,
+     -2.4414114,
+     50.7044021
+    ],
+    [
+     1600.0,
+     2200.0,
+     -2.4470855,
+     50.7079955
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0754,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 50 100 200 feet'",
+   "why": "features: East gate gap, South gate gap, West gate gap; stated scale 0.075 disagrees with its own points (1.000 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

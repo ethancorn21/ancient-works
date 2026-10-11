@@ -1,0 +1,64 @@
+{
+ "site": "portus-adurni-q762664",
+ "plan": "c_4912bb54aa79f3ea",
+ "crop": [
+  0,
+  0,
+  1280,
+  1292
+ ],
+ "pairs": [
+  [
+   100.0,
+   100.0,
+   -1.1249502,
+   50.8443833
+  ],
+  [
+   100.0,
+   1000.0,
+   -1.1249502,
+   50.8362988
+  ],
+  [
+   1000.0,
+   1000.0,
+   -1.1121479,
+   50.8362988
+  ],
+  [
+   800.0,
+   800.0,
+   -1.1149929,
+   50.8380955
+  ],
+  [
+   1000.0,
+   500.0,
+   -1.1121479,
+   50.8407904
+  ],
+  [
+   100.0,
+   500.0,
+   -1.1249502,
+   50.8407904
+  ]
+ ],
+ "label": "1836",
+ "title": "Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354",
+ "cite": "by Editor of the Penny cyclopaedia V6.; Public domain; https://commons.wikimedia.org/wiki/File:Burg_von_Portchester_(GB)_Plan_von_1836_aus_der_Penny_Cyclopaedia,_Seite_354.jpg",
+ "at": "2026-10-11T14:16:33.796230+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/portus-adurni-q762664/4912bb54aa79f3ea.jpg",
+ "ref": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
+ "size": [
+  1280,
+  1292
+ ]
+}

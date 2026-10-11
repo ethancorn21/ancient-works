@@ -1,0 +1,304 @@
+{
+ "site": "calleva-atrebatum-q1027253",
+ "candidates": [
+  {
+   "plan": "c_ec43c0f3d5eeba87",
+   "title": "Basilica 21",
+   "url": "media/commons/calleva-atrebatum-q1027253/ec43c0f3d5eeba87.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     50.0,
+     -1.088647,
+     51.3608886
+    ],
+    [
+     380.0,
+     50.0,
+     -1.0800157,
+     51.3608886
+    ],
+    [
+     380.0,
+     310.0,
+     -1.0800157,
+     51.3554988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 3.5011,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-west corner of the main enclosure, North-east corner of the main enclosure, South-east corner of the main enclosure, South-west corner of the main enclosure, Tip of the western semicircular bastion, Central square feature (mound/church) in the west, Gate gap on the western wall, north of the bastion, Gate gap on the western wall, south of the bastion; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_2eb74cf55bd1e5c8",
+   "title": "Basilica 7",
+   "url": "media/commons/calleva-atrebatum-q1027253/2eb74cf55bd1e5c8.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     -1.088647,
+     51.3608886
+    ],
+    [
+     976.0,
+     0.0,
+     -1.0771386,
+     51.3608886
+    ],
+    [
+     0.0,
+     414.0,
+     -1.088647,
+     51.3537021
+    ],
+    [
+     976.0,
+     414.0,
+     -1.0771386,
+     51.3537021
+    ],
+    [
+     488.0,
+     0.0,
+     -1.0828928,
+     51.3608886
+    ],
+    [
+     488.0,
+     414.0,
+     -1.0828928,
+     51.3537021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.6393,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 214.97735338172265 m > 45.0 m",
+   "gate_score": 215.0
+  },
+  {
+   "plan": "c_74058549df6595de",
+   "title": "Byzantine and Romanesque architecture (1913) (14802278273)",
+   "url": "media/commons/calleva-atrebatum-q1027253/74058549df6595de.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -1.0872084,
+     51.3599904
+    ],
+    [
+     800.0,
+     100.0,
+     -1.0785772,
+     51.3599904
+    ],
+    [
+     800.0,
+     600.0,
+     -1.0785772,
+     51.3546005
+    ],
+    [
+     100.0,
+     600.0,
+     -1.0872084,
+     51.3546005
+    ],
+    [
+     0.0,
+     300.0,
+     -1.0900855,
+     51.3572955
+    ],
+    [
+     800.0,
+     300.0,
+     -1.0785772,
+     51.3572955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 60.01951633668605 m > 45.0 m",
+   "gate_score": 60.0
+  },
+  {
+   "plan": "c_fb2aaab387acbc4b",
+   "title": "Calleva Atrebatum plan",
+   "url": "media/commons/calleva-atrebatum-q1027253/fb2aaab387acbc4b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     380.0,
+     100.0,
+     -1.0857699,
+     51.3608886
+    ],
+    [
+     100.0,
+     400.0,
+     -1.088647,
+     51.3572955
+    ],
+    [
+     380.0,
+     800.0,
+     -1.0857699,
+     51.3537021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.3605,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North Gate, West Gate, South Gate, East Gate, Amphitheatre, Forum; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_bc58acf7957933ba",
+   "title": "Map of the Roman Road, Silchester to Staines (Surrey Archaeological Collections)",
+   "url": "media/commons/calleva-atrebatum-q1027253/bc58acf7957933ba.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     320.0,
+     280.0,
+     -1.088647,
+     51.3608886
+    ],
+    [
+     800.0,
+     280.0,
+     -1.0771386,
+     51.3608886
+    ],
+    [
+     800.0,
+     600.0,
+     -1.0771386,
+     51.3537021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-west wall corner, North-east wall corner, South-east wall corner, South-west wall corner, West gate gap, East gate gap, North wall mid-point, South wall mid-point; stated scale 0.760 disagrees with its own points (1.886 m/px): not trusted"
+  },
+  {
+   "plan": "c_9582b1f0efe81156",
+   "title": "Plan of Silchester, line illustration Wellcome M0009554",
+   "url": "media/commons/calleva-atrebatum-q1027253/9582b1f0efe81156.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Calleva Atrebatum",
+    "file_cat": "Calleva Atrebatum",
+    "via": []
+   },
+   "pairs": [
+    [
+     400.0,
+     100.0,
+     -1.088647,
+     51.3608886
+    ],
+    [
+     100.0,
+     400.0,
+     -1.088647,
+     51.3572955
+    ],
+    [
+     400.0,
+     800.0,
+     -1.0828928,
+     51.3537021
+    ],
+    [
+     800.0,
+     400.0,
+     -1.0771386,
+     51.3572955
+    ],
+    [
+     1000.0,
+     300.0,
+     -1.0742615,
+     51.3590921
+    ],
+    [
+     400.0,
+     400.0,
+     -1.0828928,
+     51.3572955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 84.11232285503812 m > 45.0 m",
+   "gate_score": 84.1
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

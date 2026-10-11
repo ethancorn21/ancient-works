@@ -1,0 +1,52 @@
+{
+ "site": "barnwell-castle-q1188983",
+ "candidates": [
+  {
+   "plan": "c_61ae41ce152e5e5f",
+   "title": "Barnwell Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/barnwell-castle-q1188983/61ae41ce152e5e5f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     -0.4603609,
+     52.4576194
+    ],
+    [
+     800.0,
+     200.0,
+     -0.4559385,
+     52.4576194
+    ],
+    [
+     800.0,
+     800.0,
+     -0.4559385,
+     52.4531278
+    ],
+    [
+     100.0,
+     800.0,
+     -0.4603609,
+     52.4531278
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.708,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 92.19451373150312 m > 45.0 m",
+   "gate_score": 92.2
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

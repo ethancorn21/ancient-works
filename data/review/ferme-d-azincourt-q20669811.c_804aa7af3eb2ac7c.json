@@ -1,0 +1,87 @@
+{
+ "site": "ferme-d-azincourt-q20669811",
+ "candidates": [
+  {
+   "plan": "c_804aa7af3eb2ac7c",
+   "title": "Azincourt - cadastre de 1810",
+   "url": "media/commons/ferme-d-azincourt-q20669811/804aa7af3eb2ac7c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Ferme d'Azincourt",
+    "file_cat": "Ferme d'Azincourt",
+    "via": []
+   },
+   "pairs": [
+    [
+     450.0,
+     180.0,
+     3.2689233,
+     50.3192921
+    ],
+    [
+     500.0,
+     180.0,
+     3.2696268,
+     50.3192921
+    ],
+    [
+     500.0,
+     220.0,
+     3.2696268,
+     50.318843
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7246,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Main building corner, Main building corner, Main building corner, Main building corner, Road junction, Field boundary corner; stated scale 0.550 disagrees with its own points (1.171 m/px): not trusted"
+  },
+  {
+   "plan": "c_939d49b9a28b6f5a",
+   "title": "Azincourt - cadastre de 1810 d\u00e9tail",
+   "url": "media/commons/ferme-d-azincourt-q20669811/939d49b9a28b6f5a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Ferme d'Azincourt",
+    "file_cat": "Ferme d'Azincourt",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     3.2675165,
+     50.3201904
+    ],
+    [
+     300.0,
+     200.0,
+     3.2703302,
+     50.3192921
+    ],
+    [
+     100.0,
+     400.0,
+     3.2675165,
+     50.3174955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.978,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-western field corner, Central field boundary corner, South-western field corner, Eastern field boundary corner; stated scale 0.470 disagrees with its own points (1.000 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,120 @@
+{
+ "site": "alligator-effigy-mound-q4732645",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0214_2",
+   "title": "\"The Alligator,\" Licking county, Ohio",
+   "url": "books/ancientmonuments00squi/n0214.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     400.0,
+     600.0,
+     -82.5045467,
+     40.071276
+    ],
+    [
+     1000.0,
+     600.0,
+     -82.4975035,
+     40.071276
+    ],
+    [
+     400.0,
+     1400.0,
+     -82.5045467,
+     40.065886
+    ],
+    [
+     1000.0,
+     1400.0,
+     -82.4975035,
+     40.065886
+    ],
+    [
+     700.0,
+     1000.0,
+     -82.5010251,
+     40.068581
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7375,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "median residual 60.00119095519185 m > 45.0 m",
+   "gate_score": 60.0
+  },
+  {
+   "plan": "c_618a6be74dfaff32",
+   "title": "Historical Collections of Ohio- An Encyclopedia of the State; History Both General and Local, Geography with Descriptions of Its Counties, Cities and Villages, Its Agricultural, Manufacturing, Mining (14769926121)",
+   "url": "media/commons/alligator-effigy-mound-q4732645/618a6be74dfaff32.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Alligator Effigy Mound",
+    "file_cat": "Alligator Effigy Mound",
+    "via": []
+   },
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     -82.5080742,
+     40.0743332
+    ],
+    [
+     1280.0,
+     0.0,
+     -82.4939878,
+     40.0743332
+    ],
+    [
+     1280.0,
+     1045.0,
+     -82.4939878,
+     40.0655325
+    ],
+    [
+     0.0,
+     1045.0,
+     -82.5080742,
+     40.0655325
+    ],
+    [
+     640.0,
+     522.5,
+     -82.501031,
+     40.069933
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.9375,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "202-style coarse starting point, computed before 202 merged: the map panel's centre sits on the site centre, scale from the site box (picture_size), north-up; 4 panel corners + centre in the candidate's image frame. 202's propose_for replaces these pairs when it lands; the human drag is expected to do the rest.",
+   "ia": null,
+   "file": null,
+   "book": "Wikimedia Commons",
+   "label": "1891",
+   "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Historical_Collections_of_Ohio-_An_Encyclopedia_of_the_State;_History_Both_General_and_Local,_Geography_with_Descriptions_of_Its_Counties,_Cities_and_Villages,_Its_Agricultural,_Manufacturing,_Mining_(14769926121).jpg",
+   "map_box": null,
+   "view": false,
+   "size": [
+    1280,
+    1045
+   ]
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

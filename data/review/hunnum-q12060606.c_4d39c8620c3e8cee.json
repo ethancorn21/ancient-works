@@ -1,0 +1,47 @@
+{
+ "site": "hunnum-q12060606",
+ "candidates": [
+  {
+   "plan": "c_4d39c8620c3e8cee",
+   "title": "Planskizze Terme Halton Chesters (Onnum)",
+   "url": "media/commons/hunnum-q12060606/4d39c8620c3e8cee.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Onnum (Halton Chesters)",
+    "file_cat": "Onnum (Halton Chesters)",
+    "via": []
+   },
+   "pairs": [
+    [
+     150.0,
+     50.0,
+     -2.0091253,
+     55.0135886
+    ],
+    [
+     100.0,
+     150.0,
+     -2.0106918,
+     55.0117921
+    ],
+    [
+     150.0,
+     350.0,
+     -2.0075587,
+     55.0081988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.9963,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Yard top corner, Moist Hot Room tip, Bath room corner, Dressing room corner; stated scale 4.950 disagrees with its own points (2.067 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

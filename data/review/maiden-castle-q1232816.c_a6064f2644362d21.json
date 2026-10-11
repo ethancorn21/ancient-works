@@ -1,0 +1,66 @@
+{
+ "site": "maiden-castle-q1232816",
+ "candidates": [
+  {
+   "plan": "c_a6064f2644362d21",
+   "title": "13 of 'A Guide to Dorchester and its neighbourhood, etc' (11285552513)",
+   "url": "media/commons/maiden-castle-q1232816/a6064f2644362d21.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Maiden Castle, Dorset",
+    "file_cat": "Maiden Castle, Dorset",
+    "via": []
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     -2.4735382,
+     50.6981395
+    ],
+    [
+     350.0,
+     300.0,
+     -2.4657385,
+     50.6972412
+    ],
+    [
+     380.0,
+     800.0,
+     -2.4643204,
+     50.6945463
+    ],
+    [
+     300.0,
+     1300.0,
+     -2.4671566,
+     50.6923005
+    ],
+    [
+     150.0,
+     1300.0,
+     -2.4728292,
+     50.6923005
+    ],
+    [
+     100.0,
+     700.0,
+     -2.4742473,
+     50.6954447
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8719,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 213.71963026728366 m > 45.0 m",
+   "gate_score": 213.7
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

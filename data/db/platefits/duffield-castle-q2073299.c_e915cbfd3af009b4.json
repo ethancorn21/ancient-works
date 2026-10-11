@@ -1,0 +1,76 @@
+{
+ "site": "duffield-castle-q2073299",
+ "plan": "c_e915cbfd3af009b4",
+ "crop": [
+  0,
+  0,
+  902,
+  966
+ ],
+ "pairs": [
+  [
+   550.0,
+   450.0,
+   -1.4882005,
+   52.9926947
+  ],
+  [
+   250.0,
+   450.0,
+   -1.4956626,
+   52.9926947
+  ],
+  [
+   250.0,
+   750.0,
+   -1.4956626,
+   52.9882029
+  ],
+  [
+   550.0,
+   750.0,
+   -1.4882005,
+   52.9882029
+  ],
+  [
+   400.0,
+   600.0,
+   -1.4919315,
+   52.9904488
+  ],
+  [
+   600.0,
+   600.0,
+   -1.4859619,
+   52.9904488
+  ],
+  [
+   200.0,
+   600.0,
+   -1.4979012,
+   52.9904488
+  ],
+  [
+   400.0,
+   800.0,
+   -1.4919315,
+   52.9877537
+  ]
+ ],
+ "label": "1897",
+ "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+ "at": "2026-10-11T14:08:21.767845+00:00",
+ "auto": true,
+ "score": 19.6,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+ "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg",
+ "size": [
+  902,
+  966
+ ]
+}

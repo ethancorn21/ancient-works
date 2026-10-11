@@ -1,0 +1,52 @@
+{
+ "site": "de-thombe-q2359601",
+ "plan": "c_b438f78e39a1aaec",
+ "crop": [
+  0,
+  0,
+  960,
+  843
+ ],
+ "pairs": [
+  [
+   100.0,
+   100.0,
+   5.6726808,
+   50.8288604
+  ],
+  [
+   400.0,
+   400.0,
+   5.6769471,
+   50.8261655
+  ],
+  [
+   100.0,
+   700.0,
+   5.6726808,
+   50.8234705
+  ],
+  [
+   800.0,
+   400.0,
+   5.6826356,
+   50.8261655
+  ]
+ ],
+ "label": "1642",
+ "title": "Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632",
+ "cite": "by Matth\u00e4us Merian; Public domain; https://commons.wikimedia.org/wiki/File:Dankaerts-Historis-9350_-_Maastricht_map_-_detail_-_De_Tombe_%26_southern_pontoon_bridge_1632.tiff",
+ "at": "2026-10-11T14:07:37.339526+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/de-thombe-q2359601/b438f78e39a1aaec.jpg",
+ "ref": "File:Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632.tiff",
+ "size": [
+  960,
+  843
+ ]
+}

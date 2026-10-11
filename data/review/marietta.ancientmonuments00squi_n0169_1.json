@@ -1,0 +1,155 @@
+{
+ "site": "marietta",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0169_1",
+   "title": "Marietta works, Washington county, Ohio",
+   "url": "books/ancientmonuments00squi/n0169.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Marietta Earthworks",
+    "place": {
+     "county": "washington",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "marietta-earthworks-q6763227",
+     "qid": "Q6763227",
+     "name": "Marietta Earthworks",
+     "lon": -81.4519,
+     "lat": 39.42,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1500.0,
+     -81.4569827,
+     39.4193938
+    ],
+    [
+     2000.0,
+     1500.0,
+     -81.4453544,
+     39.4193938
+    ],
+    [
+     1200.0,
+     1200.0,
+     -81.454657,
+     39.4175972
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.6096,
+   "rot_deg": 0.0,
+   "scale_source": "ratio",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "why": "features: River bend west, River bend east, Fort wall NW corner, Fort wall SE corner, Field edge mid; only 40% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "b24849959_n0361_1",
+   "title": "\u201cTemple Mound\u201d at Marietta",
+   "url": "books/b24849959/n0361.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     800.0,
+     1600.0,
+     -81.4627968,
+     39.4238852
+    ],
+    [
+     1200.0,
+     1600.0,
+     -81.4511685,
+     39.4238852
+    ],
+    [
+     1600.0,
+     1600.0,
+     -81.4395403,
+     39.4238852
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.4619,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Northwest bastion tip, North gate gap, Northeast bastion tip, East gate gap, Southeast bastion tip, South gate gap, Southwest bastion tip, West gate gap; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0178_1",
+   "title": "Earthworks at Marietta.",
+   "url": "books/ArcheologicalAtlasOfOhio/n0178.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Marietta Earthworks",
+    "place": {
+     "county": "washington",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "marietta-earthworks-q6763227",
+     "qid": "Q6763227",
+     "name": "Marietta Earthworks",
+     "lon": -81.4519,
+     "lat": 39.42,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1350.0,
+     500.0,
+     -81.4569827,
+     39.4238852
+    ],
+    [
+     1400.0,
+     600.0,
+     -81.4558198,
+     39.4229869
+    ],
+    [
+     1500.0,
+     700.0,
+     -81.454657,
+     39.4220887
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 3.6512,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 500 1000 2000 SCALE FT.'",
+   "why": "features: Northwest bastion tip, Northwest wall corner, Central gate gap, Southwest bastion tip, Southwest wall corner, Southeast bastion tip, Southeast wall corner, River crossing; stated scale 3.650 disagrees with its own points (1.024 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,64 @@
+{
+ "site": "dudley-castle-q5311832",
+ "plan": "c_ee6af711aef1ea8a",
+ "crop": [
+  0,
+  0,
+  1215,
+  1643
+ ],
+ "pairs": [
+  [
+   550.0,
+   250.0,
+   -2.0799178,
+   52.5168412
+  ],
+  [
+   750.0,
+   350.0,
+   -2.0774084,
+   52.515943
+  ],
+  [
+   600.0,
+   600.0,
+   -2.0796226,
+   52.5141463
+  ],
+  [
+   800.0,
+   800.0,
+   -2.0774084,
+   52.5127988
+  ],
+  [
+   400.0,
+   800.0,
+   -2.0818368,
+   52.5127988
+  ],
+  [
+   300.0,
+   500.0,
+   -2.0825749,
+   52.5150447
+  ]
+ ],
+ "label": "1885",
+ "title": "25 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11175431553)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:25_of_%27An_Illustrated_Guide_to_Dudley_Castle_and_Priory,_with_a_short_general_history_from_the_earliest_period%27_(11175431553).jpg",
+ "at": "2026-10-11T14:07:59.255424+00:00",
+ "auto": true,
+ "score": 13.7,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/dudley-castle-q5311832/ee6af711aef1ea8a.jpg",
+ "ref": "File:25 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11175431553).jpg",
+ "size": [
+  1215,
+  1643
+ ]
+}

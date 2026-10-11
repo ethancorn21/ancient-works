@@ -1,0 +1,331 @@
+{
+ "site": "alauna-q4708853",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0438_1",
+   "title": "Defences of York, Roman, Norman, and Mediseval",
+   "url": "books/earthworkenglan01allcgoog/n0438.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     1500.0,
+     1500.0,
+     -3.4881514,
+     54.7205988
+    ],
+    [
+     1500.0,
+     2500.0,
+     -3.4881514,
+     54.7161068
+    ],
+    [
+     2000.0,
+     1500.0,
+     -3.4803743,
+     54.7205988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6693,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Cathedral footprint, Clifford's Tower, Monk Bar, Micklegate Bar, Medieval wall corner NW; only 40% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_bcdd5cbcef3ea452",
+   "title": "Alauna - th\u00e9\u00e2tre 1695",
+   "url": "media/commons/alauna-q4708853/bcdd5cbcef3ea452.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "named_place": "Alauna",
+     "place_qid": "Q4788225",
+     "place_label": "Ardoch Roman Fort",
+     "place_lon": -3.8749,
+     "place_lat": 56.2693,
+     "site_lon": -3.49127,
+     "site_lat": 54.7224
+    }
+   },
+   "pairs": [
+    [
+     600.0,
+     600.0,
+     -3.4912622,
+     54.7223955
+    ],
+    [
+     200.0,
+     400.0,
+     -3.4974839,
+     54.7241921
+    ],
+    [
+     1000.0,
+     400.0,
+     -3.4850405,
+     54.7241921
+    ],
+    [
+     200.0,
+     600.0,
+     -3.4974839,
+     54.7205988
+    ],
+    [
+     1000.0,
+     600.0,
+     -3.4850405,
+     54.7205988
+    ],
+    [
+     600.0,
+     200.0,
+     -3.4912622,
+     54.7259886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.3019,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 71.89155897765036 m > 45.0 m",
+   "gate_score": 71.9
+  },
+  {
+   "plan": "c_e7c09f2a1fc5360e",
+   "title": "Alauna - th\u00e9\u00e2tre Caylus",
+   "url": "media/commons/alauna-q4708853/e7c09f2a1fc5360e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "named_place": "Alauna",
+     "place_qid": "Q4788225",
+     "place_label": "Ardoch Roman Fort",
+     "place_lon": -3.8749,
+     "place_lat": 56.2693,
+     "site_lon": -3.49127,
+     "site_lat": 54.7224
+    }
+   },
+   "pairs": [
+    [
+     150.0,
+     550.0,
+     -3.4943731,
+     54.7223955
+    ],
+    [
+     550.0,
+     550.0,
+     -3.4850405,
+     54.7223955
+    ],
+    [
+     550.0,
+     950.0,
+     -3.4850405,
+     54.7188021
+    ],
+    [
+     150.0,
+     950.0,
+     -3.4943731,
+     54.7188021
+    ],
+    [
+     350.0,
+     750.0,
+     -3.4897068,
+     54.7205988
+    ],
+    [
+     350.0,
+     1050.0,
+     -3.4897068,
+     54.7179037
+    ],
+    [
+     50.0,
+     750.0,
+     -3.4974839,
+     54.7205988
+    ],
+    [
+     650.0,
+     750.0,
+     -3.4819297,
+     54.7205988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.4506,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 87.69706817395476 m > 45.0 m",
+   "gate_score": 87.7
+  },
+  {
+   "plan": "c_36ba572df9678a2a",
+   "title": "Britannia Romana- or the Roman antiquities of Britain- in three books Fleuron T114864-2",
+   "url": "media/commons/alauna-q4708853/36ba572df9678a2a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Britannia Romana",
+     "place_qid": "Q185103",
+     "place_label": "Roman Britain",
+     "place_lon": -0.57,
+     "place_lat": 52.22,
+     "site_lon": -3.49127,
+     "site_lat": 54.7224
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -3.5005947,
+     54.727785
+    ],
+    [
+     650.0,
+     100.0,
+     -3.4850405,
+     54.727785
+    ],
+    [
+     650.0,
+     700.0,
+     -3.4850405,
+     54.7188021
+    ],
+    [
+     100.0,
+     700.0,
+     -3.5005947,
+     54.7188021
+    ],
+    [
+     0.0,
+     400.0,
+     -3.5037056,
+     54.7232938
+    ],
+    [
+     700.0,
+     400.0,
+     -3.4819297,
+     54.7232938
+    ],
+    [
+     350.0,
+     750.0,
+     -3.4928176,
+     54.7170053
+    ],
+    [
+     300.0,
+     250.0,
+     -3.4943731,
+     54.7250904
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.0279,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 54.47152317376872 m > 45.0 m",
+   "gate_score": 54.5
+  },
+  {
+   "plan": "c_b592f83a932f851d",
+   "title": "The Archaeological journal (1844) (14586480537)",
+   "url": "media/commons/alauna-q4708853/b592f83a932f851d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "British",
+     "place_qid": "Q9309",
+     "place_label": "Welsh",
+     "place_lon": -3.8,
+     "place_lat": 52.1,
+     "site_lon": -3.49127,
+     "site_lat": 54.7224
+    }
+   },
+   "pairs": [
+    [
+     180.0,
+     220.0,
+     -3.4956174,
+     54.72527
+    ],
+    [
+     600.0,
+     180.0,
+     -3.4873737,
+     54.7261683
+    ],
+    [
+     820.0,
+     350.0,
+     -3.4827074,
+     54.7228447
+    ],
+    [
+     180.0,
+     580.0,
+     -3.4956174,
+     54.7192513
+    ],
+    [
+     600.0,
+     620.0,
+     -3.4873737,
+     54.7183529
+    ],
+    [
+     820.0,
+     580.0,
+     -3.4827074,
+     54.7192513
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 91.2913531398014 m > 45.0 m",
+   "gate_score": 91.3
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

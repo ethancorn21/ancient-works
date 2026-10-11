@@ -1,0 +1,126 @@
+{
+ "site": "angel-mounds-q4530064",
+ "candidates": [
+  {
+   "plan": "annualreportofbu1218901891smit_n0701_1",
+   "title": "Plat of the large mound, \"Angel \" group",
+   "url": "books/annualreportofbu1218901891smit/n0701.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Angel Mounds",
+    "place": {},
+    "site": {
+     "id": "angel-mounds-q4530064",
+     "qid": "Q4530064",
+     "name": "Angel Mounds",
+     "lon": -87.455458,
+     "lat": 37.941794,
+     "admin": {
+      "state": "Indiana"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     600.0,
+     1200.0,
+     -87.4588695,
+     37.9444844
+    ],
+    [
+     800.0,
+     1400.0,
+     -87.4520351,
+     37.9435861
+    ],
+    [
+     700.0,
+     1600.0,
+     -87.4554523,
+     37.9417895
+    ],
+    [
+     800.0,
+     1800.0,
+     -87.4520351,
+     37.9399929
+    ],
+    [
+     600.0,
+     2000.0,
+     -87.4588695,
+     37.9390945
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7553,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "median residual 200.0000123027712 m > 45.0 m",
+   "gate_score": 200.0
+  },
+  {
+   "plan": "annualreportofbu1218901891smit_n0702_1",
+   "title": "Plat of the \"Angel mounds,\" near Evansville, Indiana",
+   "url": "books/annualreportofbu1218901891smit/n0702.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Angel Mounds",
+    "place": {
+     "state": "indiana"
+    },
+    "site": {
+     "id": "angel-mounds-q4530064",
+     "qid": "Q4530064",
+     "name": "Angel Mounds",
+     "lon": -87.455458,
+     "lat": 37.941794,
+     "admin": {
+      "state": "Indiana"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     850.0,
+     1800.0,
+     -87.4560218,
+     37.9413403
+    ],
+    [
+     1050.0,
+     2200.0,
+     -87.4548828,
+     37.9399929
+    ],
+    [
+     1000.0,
+     1400.0,
+     -87.4571609,
+     37.943137
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2527,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Ft.'",
+   "why": "features: Mound A, Mound B, Mound C, Mound D, Mound E, Mound F; stated scale 0.250 disagrees with its own points (0.512 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

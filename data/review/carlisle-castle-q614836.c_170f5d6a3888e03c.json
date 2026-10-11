@@ -1,0 +1,64 @@
+{
+ "site": "carlisle-castle-q614836",
+ "candidates": [
+  {
+   "plan": "c_170f5d6a3888e03c",
+   "title": "Carlisle Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/carlisle-castle-q614836/170f5d6a3888e03c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     150.0,
+     350.0,
+     -2.9432244,
+     54.8980938
+    ],
+    [
+     150.0,
+     680.0,
+     -2.9432244,
+     54.895848
+    ],
+    [
+     380.0,
+     680.0,
+     -2.9393189,
+     54.895848
+    ],
+    [
+     280.0,
+     420.0,
+     -2.9408811,
+     54.8980938
+    ],
+    [
+     220.0,
+     680.0,
+     -2.9424433,
+     54.895848
+    ],
+    [
+     280.0,
+     550.0,
+     -2.9408811,
+     54.8967463
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5606,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.19494543339206877 > 0.145",
+   "gate_score": 27.2
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

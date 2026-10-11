@@ -1,0 +1,118 @@
+{
+ "classified": [
+  {
+   "by": "hand",
+   "p_birdseye": 1.0,
+   "p_photo": 0.0,
+   "p_plan": 0.0,
+   "site": "imola-q50195",
+   "title": "File:Leonardo da Vinci - RCIN 912284, A map of Imola 1502.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 1.0,
+   "p_photo": 0.0,
+   "p_plan": 0.0,
+   "site": "venice-q641",
+   "title": "File:(Venice) View of Venice by Jacopo de' Barbari - Museo Correr.jpg"
+  }
+ ],
+ "extras": [
+  {
+   "aerial_ok": true,
+   "id": "imola-q50195",
+   "kind": "town",
+   "lat": 44.3535,
+   "lon": 11.7112,
+   "name": "Imola",
+   "note": "no open LiDAR here: aerial-photograph ground (FITKIT_GROUND=aerial); the walled town's street grid, the Santerno crossing, the Rocca Sforzesca and church footprints carry the fit",
+   "place": "Emilia-Romagna, Italy",
+   "qid": "Q50195",
+   "region": "Italy",
+   "source": "fit/src_artists.py leonardo_imola",
+   "wikipedia": "https://en.wikipedia.org/wiki/Imola"
+  },
+  {
+   "aerial_ok": true,
+   "id": "venice-q641",
+   "kind": "town",
+   "lat": 45.439722,
+   "lon": 12.331944,
+   "name": "Venice",
+   "note": "the 1500 woodcut spans the whole lagoon city (~8 km) against the 2000 m town box: the fit is likely to end a review item (212), not a failure of this task",
+   "place": "Veneto, Italy",
+   "qid": "Q641",
+   "region": "Italy",
+   "source": "fit/src_artists.py barbari_venice",
+   "wikipedia": "https://en.wikipedia.org/wiki/Venice"
+  }
+ ],
+ "files": [
+  {
+   "artist": "Leonardo da Vinci",
+   "by": "fit/src_artists.py leonardo_imola",
+   "cat": "Imola",
+   "date": "",
+   "desc": "",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Imola",
+    "place_label": "Imola",
+    "place_lat": 44.3535,
+    "place_lon": 11.7112,
+    "place_qid": "Q50195",
+    "rec": "evidence/1",
+    "site_lat": 44.3535,
+    "site_lon": 11.7112
+   },
+   "h": 1483,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Imola, aerial plan by Leonardo da Vinci (1502)",
+   "page": "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_RCIN_912284,_A_map_of_Imola_1502.jpg",
+   "qid": "Q50195",
+   "site": "imola-q50195",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Leonardo_da_Vinci_-_RCIN_912284%2C_A_map_of_Imola_1502.jpg/1280px-Leonardo_da_Vinci_-_RCIN_912284%2C_A_map_of_Imola_1502.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Leonardo da Vinci - RCIN 912284, A map of Imola 1502.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Leonardo_da_Vinci_-_RCIN_912284%2C_A_map_of_Imola_1502.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2000,
+   "wd_plan": false,
+   "year": 1502
+  },
+  {
+   "artist": "Jacopo de' Barbari",
+   "by": "fit/src_artists.py barbari_venice",
+   "cat": "Venice",
+   "date": "1500 date QS:P571,+1500-00-00T00:00:00Z/9",
+   "desc": "",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Venice",
+    "place_label": "Venice",
+    "place_lat": 45.439722,
+    "place_lon": 12.331944,
+    "place_qid": "Q641",
+    "rec": "evidence/1",
+    "site_lat": 45.439722,
+    "site_lon": 12.331944
+   },
+   "h": 5856,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Venice, bird's-eye view by Jacopo de' Barbari (1500)",
+   "page": "https://commons.wikimedia.org/wiki/File:(Venice)_View_of_Venice_by_Jacopo_de%27_Barbari_-_Museo_Correr.jpg",
+   "qid": "Q641",
+   "site": "venice-q641",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/%28Venice%29_View_of_Venice_by_Jacopo_de%27_Barbari_-_Museo_Correr.jpg/1280px-%28Venice%29_View_of_Venice_by_Jacopo_de%27_Barbari_-_Museo_Correr.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:(Venice) View of Venice by Jacopo de' Barbari - Museo Correr.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/%28Venice%29_View_of_Venice_by_Jacopo_de%27_Barbari_-_Museo_Correr.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 11800,
+   "wd_plan": false,
+   "year": 1500
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+# team mode (agent-team): generated per checkout, or appended by every agent
+PROGRESS.md merge=ours
+CODEMAP.md merge=ours
+codemap/** merge=ours
+DECISIONS.md merge=union
+DECISIONS-archive.md merge=union
+PITFALLS.md merge=union

@@ -1,0 +1,58 @@
+{
+ "site": "barwick-in-elmet-castle-q4865964",
+ "plan": "c_81c1ff143a862ee7",
+ "crop": [
+  0,
+  0,
+  1280,
+  862
+ ],
+ "pairs": [
+  [
+   800.0,
+   100.0,
+   -1.392138,
+   53.8393587
+  ],
+  [
+   800.0,
+   400.0,
+   -1.392138,
+   53.8359904
+  ],
+  [
+   800.0,
+   700.0,
+   -1.392138,
+   53.8326218
+  ],
+  [
+   100.0,
+   700.0,
+   -1.4054573,
+   53.8326218
+  ],
+  [
+   1000.0,
+   300.0,
+   -1.3883324,
+   53.8371132
+  ]
+ ],
+ "label": "1750-1900",
+ "title": "Gott Collection at Hepworth Gallery (116)",
+ "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Gott_Collection_at_Hepworth_Gallery_(116).JPG",
+ "at": "2026-10-11T14:01:50.090213+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/barwick-in-elmet-castle-q4865964/81c1ff143a862ee7.jpg",
+ "ref": "File:Gott Collection at Hepworth Gallery (116).JPG",
+ "size": [
+  1280,
+  862
+ ]
+}
