@@ -77,3 +77,10 @@ jobs outlive sessions).
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 agent/a (213b) status (iteration 37, moved here by the driver)
+213b item (1) done: 7 book-town QIDs verified live (Q239/Q12892/Q1741/Q490/Q641/Q2044/Q220) in
+BOOKS["civitates"]["sites"]; --verify exit 0 (8 QIDs; traps: Florence-SC, Venice-LA, Brussels enwiki
+data); --check 2/2; suite 29/29; lead-doc QID section rewritten; box 1 ticked. fit/src_artists.py +
+docs/lead_artists.md uncommitted (harness-saved). Next: --golden (first write), tests/test_src_artists.py
+(negative control = Imola row with the Cervia point), lead-doc box-1 final read.
