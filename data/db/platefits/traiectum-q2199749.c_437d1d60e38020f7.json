@@ -1,0 +1,52 @@
+{
+ "site": "traiectum-q2199749",
+ "plan": "c_437d1d60e38020f7",
+ "crop": [
+  0,
+  0,
+  1280,
+  774
+ ],
+ "pairs": [
+  [
+   800.0,
+   300.0,
+   5.1245735,
+   52.0942806
+  ],
+  [
+   200.0,
+   200.0,
+   5.114339,
+   52.0960771
+  ],
+  [
+   1000.0,
+   500.0,
+   5.1274976,
+   52.0924841
+  ],
+  [
+   400.0,
+   400.0,
+   5.1172631,
+   52.0933824
+  ]
+ ],
+ "label": null,
+ "title": "Plan van de Bataille Laefelt - estampe - btv1b84091236",
+ "cite": "Public domain; https://commons.wikimedia.org/wiki/File:Plan_van_de_Bataille_Laefelt_-_estampe_-_btv1b84091236.jpg",
+ "at": "2026-10-11T14:18:44.181836+00:00",
+ "auto": true,
+ "score": 25.9,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/traiectum-q2199749/437d1d60e38020f7.jpg",
+ "ref": "File:Plan van de Bataille Laefelt - estampe - btv1b84091236.jpg",
+ "size": [
+  1280,
+  774
+ ]
+}

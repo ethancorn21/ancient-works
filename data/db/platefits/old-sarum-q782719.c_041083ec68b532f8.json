@@ -1,0 +1,64 @@
+{
+ "site": "old-sarum-q782719",
+ "plan": "c_041083ec68b532f8",
+ "crop": [
+  0,
+  0,
+  686,
+  892
+ ],
+ "pairs": [
+  [
+   300.0,
+   200.0,
+   -1.80543,
+   51.0955742
+  ],
+  [
+   450.0,
+   400.0,
+   -1.8018542,
+   51.0933285
+  ],
+  [
+   300.0,
+   600.0,
+   -1.80543,
+   51.0910827
+  ],
+  [
+   100.0,
+   400.0,
+   -1.8090058,
+   51.0933285
+  ],
+  [
+   200.0,
+   300.0,
+   -1.8068603,
+   51.0942268
+  ],
+  [
+   300.0,
+   400.0,
+   -1.80543,
+   51.0933285
+  ]
+ ],
+ "label": "1901",
+ "title": "Ancient Plan of Old Sarum",
+ "cite": "by P.H. Ditchfield; Public domain; https://commons.wikimedia.org/wiki/File:Ancient_Plan_of_Old_Sarum.png",
+ "at": "2026-10-11T14:15:28.880730+00:00",
+ "auto": true,
+ "score": 19.1,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
+ "ref": "File:Ancient Plan of Old Sarum.png",
+ "size": [
+  686,
+  892
+ ]
+}

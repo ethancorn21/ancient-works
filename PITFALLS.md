@@ -6,6 +6,8 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (10)
 - Libraries and frameworks (2): Python (3.12.3) 2
 - This codebase (29): Wikimedia APIs (Commons, Wikidata) 6, fit/ 5, pipeline/ 4, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
+- Libraries and frameworks (0)
+- This codebase (24): Wikimedia APIs (Commons, Wikidata) 3, fit/ 6, pipeline/ 3, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -150,12 +152,16 @@ Why: entries are written by `build_site.py` from partially filled catalog rows. 
 universal keys; select US sites with `region == "US"` (90 of 384) and treat all the rest (294, including
 the 6 without a region) as "non-US" so none is skipped by a batch or a test.
 
-#### `web/data/plans.json` rows may share an `id` when one picture depicts two sites
-Where: `web/data/plans.json`, `web/index.html` (`P.byId`), `tools/export_plans.py`
-Symptom: the fit tool opens the wrong plan row: the page's `P.byId` keeps only the last of the shared-`id` rows.
-The true key is `(id, sites[0])`. As of the plan two pairs share an id: "The new Larned History..."
-(avebury + stonehenge) and "File:Mayburgh-1769.png" (mayburgh-henge + king-arthur-s-round-table). Tests must
-assert `(id, sites[0])` uniqueness, not `id` uniqueness; the fit-tool keying fix is scoped into 201.
+#### `web/data/plans.json` rows may share an `id` - one row per depicted site, per-site url
+Where: `web/data/plans.json`, `web/index.html` (`P.byId`), `tools/export_plans.py`, test row lookups
+Symptom: code that resolves a plan by id through a dict gets the wrong site's row: two rows share
+the id (one per depicted site) and carry a DIFFERENT url/media path per site, so `rows_by_id[plan]`
+returns site A's row when the entry belongs to site B (hit by tests/test_batch_eu.py, which then
+asserted the stonehenge url against the avebury entry). The true key is `(id, sites[0])`; look up a
+row per site from the site's own candidate list. As of the plan two pairs share an id: "The new
+Larned History..." (avebury-q661855 + stonehenge-q39671) and "File:Mayburgh-1769.png"
+(mayburgh-henge + king-arthur-s-round-table). The page's `P.byId` keeps only the last of the shared-
+`id` rows; the fit-tool keying fix is scoped into 201.
 
 #### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
 Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
@@ -326,6 +332,23 @@ Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batc
       (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
       "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
 
+#### Recorded-answer batch tests must be state-aware: an earlier run's auto docs are pre-docs for the next run's recorded model
+Where: `tests/test_batch_eu.py` (`test_hand_fitted_sites_get_items_for_their_other_pictures`),
+      `fit/batch_us.py` (`run_sites`'s skip rule), `fit/batch_eu.py`
+Symptom: a test that pins an item's expected candidates against the full candidate list passes on
+      the pre-run tree and fails after the working run ("Extra items in the right set: c_..."): the
+      plans the run turned into automatic documents are skipped as pre-docs by the test's recorded
+      run (never re-fitted, no entry) and never appear in the item.
+Why: `run_sites` skips any candidate whose doc exists at call time (`have = pre_docs ∪ docs written
+      this run`), and the test's temp tree copy carries the previous run's documents. Expectations
+      computed from a static list of candidate ids go stale the moment any run adds a document -
+      this also hits 212's re-coverage run, which adds docs for grown sites.
+Do this instead: compute expectations from the live tree state at test time: fresh = candidates
+      minus `pre_docs` (re-read in the test, never a constant), expected item candidates = the live
+      item's candidates (a working run may have left one) ∪ fresh (exact equality), and assert the
+      post-run invariants (one file per site, named after candidates[0].plan; resolved unchanged).
+      The test then passes before and after every run.
+
 #### `data/db/platefits/` mixes hand fits and automatic ones (`"auto": true`) - code that counts the directory's files must filter `doc.get("auto")`
 Where: `tools/gate_heldout.py` (`partition`), `fit/batch_us.py` (`write_doc`, `write_golden`), `data/db/platefits/`
 Symptom: code that treats every `data/db/platefits/*.json` as a hand-fit reference breaks once a batch
@@ -384,6 +407,18 @@ Why: `upsert_item`'s documented merge is "a same-plan entry replaces the existin
       from the current build. Read those fields from the plans.json ROW (map_box, size, ia,
       file, label, book, cite, view are all row columns) - never from an item's entry, which
       any later upsert may have re-shaped.
+
+#### `batch_us.write_report(path=None)` silently falls back to `docs/batch_us.md` - a reuser must pin its own default before calling
+Where: `fit/batch_us.py` (`write_report`: `out = Path(root) / (path or "docs/batch_us.md")`),
+      `fit/batch_eu.py` (`write_report`, which pins `path or "docs/batch_eu.md"`)
+Symptom: a second batch passing `path=None` writes (and in a hard-linked test tree, overwrites
+      in place) the US batch's report file instead of its own - the content says "The batch, EU
+      (203b)" but the path says batch_us.md.
+Why: the writer's default path is the US report's name, and 203b's thin wrapper initially
+      forwarded `None` straight through (caught in the first dry run). Any module that reuses
+      `batch_us.write_report` for a different file must supply a non-None default itself. Also:
+      its `at` parameter is vestigial - the body never uses it, so the report's determinism does
+      not depend on it.
 
 ### pipeline/
 

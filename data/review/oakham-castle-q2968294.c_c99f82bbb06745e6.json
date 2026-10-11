@@ -1,0 +1,106 @@
+{
+ "site": "oakham-castle-q2968294",
+ "candidates": [
+  {
+   "plan": "c_c99f82bbb06745e6",
+   "title": "A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14583954347)",
+   "url": "media/commons/oakham-castle-q2968294/c99f82bbb06745e6.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Oakham Castle",
+    "file_cat": "Oakham Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     800.0,
+     400.0,
+     -0.7268606,
+     52.6705972
+    ],
+    [
+     300.0,
+     400.0,
+     -0.728342,
+     52.6705972
+    ],
+    [
+     800.0,
+     200.0,
+     -0.7268606,
+     52.6723938
+    ],
+    [
+     300.0,
+     200.0,
+     -0.728342,
+     52.6723938
+    ],
+    [
+     550.0,
+     500.0,
+     -0.7276013,
+     52.6696988
+    ],
+    [
+     550.0,
+     100.0,
+     -0.7276013,
+     52.6732921
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 84.43514034850584 m > 45.0 m",
+   "gate_score": 84.4
+  },
+  {
+   "plan": "c_d28e12456960aac0",
+   "title": "A new display of the beauties of England; - or A description of the most elegant or magnificent public edifices, royal palaces, noblemen's and gentlemen's seats, and other curiosities, natural or (14760980984)",
+   "url": "media/commons/oakham-castle-q2968294/d28e12456960aac0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Oakham Castle",
+    "file_cat": "Oakham Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     400.0,
+     400.0,
+     -0.7276013,
+     52.670148
+    ],
+    [
+     800.0,
+     200.0,
+     -0.7246384,
+     52.6719447
+    ],
+    [
+     800.0,
+     400.0,
+     -0.7246384,
+     52.6692497
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: Main gate gap, North-east wall corner, South-east wall corner, South-west wall corner, North-west wall corner, Main building footprint; stated scale 0.310 disagrees with its own points (0.732 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

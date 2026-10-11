@@ -1,0 +1,54 @@
+{
+ "site": "motte-montferland-q2845894",
+ "candidates": [
+  {
+   "plan": "c_ca75f754d3746c96",
+   "title": "Montferberg, NG-1985-7-2-21",
+   "url": "media/commons/motte-montferland-q2845894/ca75f754d3746c96.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Motte Montferland",
+    "file_cat": "Motte Montferland",
+    "via": []
+   },
+   "pairs": [
+    [
+     600.0,
+     400.0,
+     6.2416374,
+     51.8958095
+    ],
+    [
+     100.0,
+     500.0,
+     6.2379981,
+     51.8949112
+    ],
+    [
+     400.0,
+     800.0,
+     6.2394538,
+     51.8940128
+    ],
+    [
+     800.0,
+     500.0,
+     6.243821,
+     51.8949112
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "radial gradient: slope_o 0.24050274484544817 > 0.145",
+   "gate_score": 40.3
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,76 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_13994601c91902bc",
+ "crop": [
+  0,
+  0,
+  359,
+  500
+ ],
+ "pairs": [
+  [
+   100.0,
+   200.0,
+   7.7455751,
+   48.5862886
+  ],
+  [
+   200.0,
+   150.0,
+   7.7510068,
+   48.5871869
+  ],
+  [
+   300.0,
+   200.0,
+   7.7564385,
+   48.5862886
+  ],
+  [
+   350.0,
+   300.0,
+   7.7591543,
+   48.5826955
+  ],
+  [
+   300.0,
+   400.0,
+   7.7564385,
+   48.5791021
+  ],
+  [
+   200.0,
+   450.0,
+   7.7510068,
+   48.5782037
+  ],
+  [
+   100.0,
+   400.0,
+   7.7455751,
+   48.5791021
+  ],
+  [
+   50.0,
+   300.0,
+   7.7428593,
+   48.5826955
+  ]
+ ],
+ "label": "c. 1440",
+ "title": "ND Vignette des Comes Argentoratensis",
+ "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:ND_Vignette_des_Comes_Argentoratensis.png",
+ "at": "2026-10-11T14:00:58.691556+00:00",
+ "auto": true,
+ "score": 25.7,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/13994601c91902bc.jpg",
+ "ref": "File:ND Vignette des Comes Argentoratensis.png",
+ "size": [
+  359,
+  500
+ ]
+}

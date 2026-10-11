@@ -1,0 +1,96 @@
+{
+ "site": "mount-caburn-q12062109",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0556_1",
+   "title": "SITE OF WINDMILL, MOUNT CABURN.",
+   "url": "books/earthworkenglan01allcgoog/n0556.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Mount Caburn",
+    "place": {},
+    "site": {
+     "id": "mount-caburn-q12062109",
+     "qid": "Q12062109",
+     "name": "Mount Caburn",
+     "lon": 0.051,
+     "lat": 50.8618,
+     "admin": {
+      "parish": "Glynde",
+      "district": "Lewes",
+      "county": "East Sussex"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.67,
+    "why": []
+   },
+   "pairs": [],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0168,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 10 20 30 40 50 Feet'",
+   "why": "the model recorded no usable pairs"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0700_1",
+   "title": "Mount Caburn, Lewes",
+   "url": "books/earthworkenglan01allcgoog/n0700.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Mount Caburn",
+    "place": {},
+    "site": {
+     "id": "mount-caburn-q12062109",
+     "qid": "Q12062109",
+     "name": "Mount Caburn",
+     "lon": 0.051,
+     "lat": 50.8618,
+     "admin": {
+      "parish": "Glynde",
+      "district": "Lewes",
+      "county": "East Sussex"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.33,
+    "why": []
+   },
+   "pairs": [
+    [
+     2500.0,
+     1500.0,
+     0.0564999,
+     50.8654886
+    ],
+    [
+     2500.0,
+     2500.0,
+     0.0564999,
+     50.8618955
+    ],
+    [
+     2000.0,
+     3000.0,
+     0.0536535,
+     50.8583021
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0776,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 feet'",
+   "why": "features: Northeast rampart curve, East rampart curve, Southeast rampart curve, South rampart curve; stated scale 0.078 disagrees with its own points (0.471 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

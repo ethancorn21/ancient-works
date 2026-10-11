@@ -1,0 +1,64 @@
+{
+ "site": "caister-castle-q5017844",
+ "candidates": [
+  {
+   "plan": "c_f9332c59bb35b34b",
+   "title": "Caister Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/caister-castle-q5017844/f9332c59bb35b34b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     800.0,
+     150.0,
+     1.6996567,
+     52.6513938
+    ],
+    [
+     1150.0,
+     150.0,
+     1.7026181,
+     52.6504955
+    ],
+    [
+     550.0,
+     600.0,
+     1.6996567,
+     52.6495972
+    ],
+    [
+     1150.0,
+     600.0,
+     1.7026181,
+     52.6486988
+    ],
+    [
+     200.0,
+     950.0,
+     1.6966952,
+     52.6486988
+    ],
+    [
+     450.0,
+     950.0,
+     1.698176,
+     52.6482497
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.2028032990491786 > 0.145",
+   "gate_score": 37.1
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

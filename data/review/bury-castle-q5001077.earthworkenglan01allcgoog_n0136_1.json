@@ -1,0 +1,45 @@
+{
+ "site": "bury-castle-q5001077",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0136_1",
+   "title": "Bury Castle, Selworthy, Somerset",
+   "url": "books/earthworkenglan01allcgoog/n0136.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     1500.0,
+     1500.0,
+     -3.512446,
+     51.0303988
+    ],
+    [
+     2000.0,
+     2500.0,
+     -3.5053039,
+     51.0259069
+    ],
+    [
+     500.0,
+     2500.0,
+     -3.5195881,
+     51.0259069
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1509,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: North-eastern tip of the central mound, South-eastern corner of the earthwork, South-western corner of the earthwork; stated scale 0.151 disagrees with its own points (0.593 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

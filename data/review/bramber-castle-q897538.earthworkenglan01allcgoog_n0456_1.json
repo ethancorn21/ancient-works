@@ -1,0 +1,61 @@
+{
+ "site": "bramber-castle-q897538",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0456_1",
+   "title": "BRAMBER CASTLE",
+   "url": "books/earthworkenglan01allcgoog/n0456.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Bramber Castle",
+    "place": {},
+    "site": {
+     "id": "bramber-castle-q897538",
+     "qid": "Q897538",
+     "name": "Bramber Castle",
+     "lon": -0.316317,
+     "lat": 50.8838,
+     "admin": {
+      "parish": "Bramber",
+      "district": "Horsham",
+      "county": "West Sussex"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     2000.0,
+     1500.0,
+     -0.3163099,
+     50.8855921
+    ],
+    [
+     2500.0,
+     2500.0,
+     -0.3134621,
+     50.8828972
+    ],
+    [
+     1000.0,
+     3000.0,
+     -0.3191576,
+     50.8819988
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0876,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: North-eastern wall corner, South-eastern wall corner, South-western wall corner, North-western wall corner, Central mound tip, Eastern gate gap, Western gate gap, Southern field edge; stated scale 0.088 disagrees with its own points (0.237 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

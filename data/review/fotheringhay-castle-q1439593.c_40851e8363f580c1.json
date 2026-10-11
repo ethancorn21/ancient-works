@@ -1,0 +1,47 @@
+{
+ "site": "fotheringhay-castle-q1439593",
+ "candidates": [
+  {
+   "plan": "c_40851e8363f580c1",
+   "title": "379 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241129276)",
+   "url": "media/commons/fotheringhay-castle-q1439593/40851e8363f580c1.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Fotheringhay Castle",
+    "file_cat": "Fotheringhay Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     420.0,
+     280.0,
+     -0.4367461,
+     52.5248243
+    ],
+    [
+     600.0,
+     280.0,
+     -0.4352697,
+     52.5248243
+    ],
+    [
+     600.0,
+     380.0,
+     -0.4352697,
+     52.523926
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-west corner of the inner bailey, North-east corner of the inner bailey, South-east corner of the inner bailey, South-west corner of the inner bailey, North-west corner of the outer bailey, South-east corner of the outer bailey, Mill Brook crossing the outer moat, Road junction at the south-east of the castle; stated scale 0.315 disagrees with its own points (0.765 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

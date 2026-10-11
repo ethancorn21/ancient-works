@@ -1,0 +1,52 @@
+{
+ "site": "durocortorum-q4896307",
+ "plan": "c_08d995eb23a685c2",
+ "crop": [
+  0,
+  0,
+  250,
+  319
+ ],
+ "pairs": [
+  [
+   100.0,
+   100.0,
+   4.8381003,
+   49.2654704
+  ],
+  [
+   200.0,
+   150.0,
+   4.844983,
+   49.2632247
+  ],
+  [
+   100.0,
+   200.0,
+   4.8381003,
+   49.2609788
+  ],
+  [
+   200.0,
+   250.0,
+   4.844983,
+   49.2587329
+  ]
+ ],
+ "label": null,
+ "title": "Plan-Reims-Bas-Empire",
+ "cite": "by October Ends; CC BY-SA 3.0; https://commons.wikimedia.org/wiki/File:Plan-Reims-Bas-Empire.png",
+ "at": "2026-10-11T14:08:54.148753+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/durocortorum-q4896307/08d995eb23a685c2.jpg",
+ "ref": "File:Plan-Reims-Bas-Empire.png",
+ "size": [
+  250,
+  319
+ ]
+}

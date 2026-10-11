@@ -1,0 +1,64 @@
+{
+ "site": "damme-q323408",
+ "candidates": [
+  {
+   "plan": "c_61d3fef606fc3468",
+   "title": "Damme, town plan by Jacob van Deventer",
+   "url": "media/commons/damme-q323408/61d3fef606fc3468.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py deventer"
+   },
+   "pairs": [
+    [
+     350.0,
+     450.0,
+     3.2757663,
+     51.2536904
+    ],
+    [
+     750.0,
+     450.0,
+     3.2843776,
+     51.2536904
+    ],
+    [
+     750.0,
+     950.0,
+     3.2843776,
+     51.2483005
+    ],
+    [
+     350.0,
+     950.0,
+     3.2757663,
+     51.2483005
+    ],
+    [
+     550.0,
+     700.0,
+     3.280072,
+     51.2509955
+    ],
+    [
+     200.0,
+     700.0,
+     3.2714607,
+     51.2509955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.3193,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 55.988448050684205 m > 45.0 m",
+   "gate_score": 56.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

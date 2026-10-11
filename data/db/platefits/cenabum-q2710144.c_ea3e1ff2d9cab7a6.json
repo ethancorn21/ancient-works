@@ -1,0 +1,64 @@
+{
+ "site": "cenabum-q2710144",
+ "plan": "c_ea3e1ff2d9cab7a6",
+ "crop": [
+  0,
+  0,
+  1280,
+  1007
+ ],
+ "pairs": [
+  [
+   200.0,
+   500.0,
+   1.9016368,
+   47.9040675
+  ],
+  [
+   800.0,
+   500.0,
+   1.9116867,
+   47.9040675
+  ],
+  [
+   300.0,
+   450.0,
+   1.9033118,
+   47.9046335
+  ],
+  [
+   700.0,
+   450.0,
+   1.9100117,
+   47.9046335
+  ],
+  [
+   500.0,
+   200.0,
+   1.9066617,
+   47.907436
+  ],
+  [
+   500.0,
+   800.0,
+   1.9066617,
+   47.9006988
+  ]
+ ],
+ "label": "1833",
+ "title": "Plan de la ville et du si\u00e8ge d'Orl\u00e9ans en 1428",
+ "cite": "by Jean-Baptiste Prosper Jollois; CC0; https://commons.wikimedia.org/wiki/File:Plan_de_la_ville_et_du_si%C3%A8ge_d%27Orl%C3%A9ans_en_1428.jpg",
+ "at": "2026-10-11T14:06:34.387990+00:00",
+ "auto": true,
+ "score": 0.2,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cenabum-q2710144/ea3e1ff2d9cab7a6.jpg",
+ "ref": "File:Plan de la ville et du si\u00e8ge d'Orl\u00e9ans en 1428.jpg",
+ "size": [
+  1280,
+  1007
+ ]
+}

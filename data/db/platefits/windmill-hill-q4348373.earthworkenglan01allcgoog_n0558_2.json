@@ -1,0 +1,57 @@
+{
+ "site": "windmill-hill-q4348373",
+ "plan": "earthworkenglan01allcgoog_n0558_2",
+ "crop": [
+  1886,
+  1919,
+  2862,
+  2929
+ ],
+ "pairs": [
+  [
+   2000.0,
+   2000.0,
+   -1.8819766,
+   51.4451196
+  ],
+  [
+   2800.0,
+   2000.0,
+   -1.870447,
+   51.4451196
+  ],
+  [
+   2800.0,
+   2800.0,
+   -1.870447,
+   51.4379331
+  ],
+  [
+   2400.0,
+   2900.0,
+   -1.8762118,
+   51.4370347
+  ],
+  [
+   2000.0,
+   2800.0,
+   -1.8819766,
+   51.4379331
+  ],
+  [
+   1900.0,
+   2400.0,
+   -1.8834178,
+   51.4415265
+  ]
+ ],
+ "label": null,
+ "title": "WINDMILL SITES, LEWES DOWN",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-11T14:19:50.139790+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0558.jpg",
+ "book": "Allcroft 1908"
+}

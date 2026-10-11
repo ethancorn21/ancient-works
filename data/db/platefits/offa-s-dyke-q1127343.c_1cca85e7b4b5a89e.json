@@ -1,0 +1,52 @@
+{
+ "site": "offa-s-dyke-q1127343",
+ "plan": "c_1cca85e7b4b5a89e",
+ "crop": [
+  0,
+  0,
+  725,
+  773
+ ],
+ "pairs": [
+  [
+   150.0,
+   250.0,
+   -3.0489926,
+   52.3439955
+  ],
+  [
+   350.0,
+   350.0,
+   -3.0460518,
+   52.3421988
+  ],
+  [
+   450.0,
+   550.0,
+   -3.0431109,
+   52.3404021
+  ],
+  [
+   550.0,
+   650.0,
+   -3.0401701,
+   52.3386053
+  ]
+ ],
+ "label": "1902",
+ "title": "OS1902 Nantcribba 02",
+ "cite": "by Ordnance Survey 1:2500 Montgomeryshire Sheet xxx8; Public domain; https://commons.wikimedia.org/wiki/File:OS1902_Nantcribba_02.jpeg",
+ "at": "2026-10-11T14:15:21.239411+00:00",
+ "auto": true,
+ "score": 42.6,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/offa-s-dyke-q1127343/1cca85e7b4b5a89e.jpg",
+ "ref": "File:OS1902 Nantcribba 02.jpeg",
+ "size": [
+  725,
+  773
+ ]
+}

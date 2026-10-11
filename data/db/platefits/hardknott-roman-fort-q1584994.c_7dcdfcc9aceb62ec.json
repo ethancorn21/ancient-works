@@ -1,0 +1,76 @@
+{
+ "site": "hardknott-roman-fort-q1584994",
+ "plan": "c_7dcdfcc9aceb62ec",
+ "crop": [
+  0,
+  0,
+  698,
+  684
+ ],
+ "pairs": [
+  [
+   70.0,
+   70.0,
+   -3.2130394,
+   54.4090443
+  ],
+  [
+   350.0,
+   50.0,
+   -3.2031623,
+   54.4094485
+  ],
+  [
+   630.0,
+   70.0,
+   -3.193208,
+   54.4090443
+  ],
+  [
+   300.0,
+   300.0,
+   -3.2049062,
+   54.4043106
+  ],
+  [
+   70.0,
+   630.0,
+   -3.2130394,
+   54.397501
+  ],
+  [
+   350.0,
+   650.0,
+   -3.2031623,
+   54.3970967
+  ],
+  [
+   630.0,
+   630.0,
+   -3.193208,
+   54.397501
+  ],
+  [
+   50.0,
+   350.0,
+   -3.2137339,
+   54.4032955
+  ]
+ ],
+ "label": "1902",
+ "title": "Hardknott Roman Fort",
+ "cite": "by Social England, edited by H.D. Traill, D.C.L. and J. S. Mann, M.A. Cassell and Company, Limited, London, Paris, New York & Melbourne, 1902; Public domain; https://commons.wikimedia.org/wiki/File:Hardknott_Roman_Fort.png",
+ "at": "2026-10-11T14:10:59.542081+00:00",
+ "auto": true,
+ "score": 1.2,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+ "ref": "File:Hardknott Roman Fort.png",
+ "size": [
+  698,
+  684
+ ]
+}

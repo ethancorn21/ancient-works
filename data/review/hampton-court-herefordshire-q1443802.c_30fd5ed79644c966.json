@@ -1,0 +1,45 @@
+{
+ "site": "hampton-court-herefordshire-q1443802",
+ "candidates": [
+  {
+   "plan": "c_30fd5ed79644c966",
+   "title": "Hampton Court, Herefordshire, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/hampton-court-herefordshire-q1443802/30fd5ed79644c966.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     -2.7114557,
+     52.1730851
+    ],
+    [
+     600.0,
+     400.0,
+     -2.7041327,
+     52.1694921
+    ],
+    [
+     1000.0,
+     600.0,
+     -2.6982743,
+     52.1658988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: North-western river bend, Central parkland boundary, South-eastern field corner, South-western tree line; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

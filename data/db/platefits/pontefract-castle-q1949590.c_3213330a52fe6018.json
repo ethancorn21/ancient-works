@@ -1,0 +1,76 @@
+{
+ "site": "pontefract-castle-q1949590",
+ "plan": "c_3213330a52fe6018",
+ "crop": [
+  0,
+  0,
+  1248,
+  2178
+ ],
+ "pairs": [
+  [
+   624.0,
+   1089.0,
+   -1.3039324,
+   53.6954955
+  ],
+  [
+   870.0,
+   842.0,
+   -1.3016566,
+   53.696843
+  ],
+  [
+   870.0,
+   1337.0,
+   -1.3016566,
+   53.694148
+  ],
+  [
+   378.0,
+   1337.0,
+   -1.3062083,
+   53.694148
+  ],
+  [
+   378.0,
+   842.0,
+   -1.3062083,
+   53.696843
+  ],
+  [
+   920.0,
+   1089.0,
+   -1.300898,
+   53.6954955
+  ],
+  [
+   328.0,
+   1089.0,
+   -1.3069669,
+   53.6954955
+  ],
+  [
+   870.0,
+   1584.0,
+   -1.3016566,
+   53.6932497
+  ]
+ ],
+ "label": "1807",
+ "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739695456)",
+ "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_history_of_the_ancient_borough_of_Pontefract,_containing_an_interesting_account_of_its_castle,_and_the_three_different_sieges_it_sustained,_during_the_civil_war,_with_notes_and_pedigrees,_of_some_(14739695456).jpg",
+ "at": "2026-10-11T14:16:16.464468+00:00",
+ "auto": true,
+ "score": 9.5,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/pontefract-castle-q1949590/3213330a52fe6018.jpg",
+ "ref": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739695456).jpg",
+ "size": [
+  1248,
+  2178
+ ]
+}

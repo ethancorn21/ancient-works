@@ -1,0 +1,1991 @@
+{
+ "site": "argentoratum-q2361353",
+ "candidates": [
+  {
+   "plan": "c_6acfd94dec8c011b",
+   "title": "91 of 'Strassburg und seine Bauten. Herausgegeben vom Architekten- und Ingenieur-Verein f\u00fcr Elsass-Lothringen. Mit 655 Abbildungen in Text, etc' (11226830623)",
+   "url": "media/commons/argentoratum-q2361353/6acfd94dec8c011b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Argentoratum",
+    "file_cat": "Argentoratum",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     7.7455751,
+     48.5862886
+    ],
+    [
+     400.0,
+     200.0,
+     7.7510068,
+     48.5871869
+    ],
+    [
+     700.0,
+     200.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     800.0,
+     400.0,
+     7.7577964,
+     48.5826955
+    ],
+    [
+     700.0,
+     800.0,
+     7.7564385,
+     48.5791021
+    ],
+    [
+     400.0,
+     900.0,
+     7.7510068,
+     48.5782037
+    ],
+    [
+     100.0,
+     900.0,
+     7.7455751,
+     48.5791021
+    ],
+    [
+     50.0,
+     500.0,
+     7.7442172,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 47.79829802284307 m > 45.0 m",
+   "gate_score": 47.8
+  },
+  {
+   "plan": "c_95f394f9a72ecfc7",
+   "title": "Argentoratvm - cuius ob antiquitatem Ptolemeus, D HieronYmus, Orosius, Eutropius, Marcellinus, et alii memin\u00eare, Alsati Metropolis, apud prterfluentem Rhenum, alijs, Argentina, aut, si quis ex re, nomen commutare... - btv1b10223750k",
+   "url": "media/commons/argentoratum-q2361353/95f394f9a72ecfc7.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Argentoratum",
+    "file_cat": "Argentoratum",
+    "via": []
+   },
+   "pairs": [
+    [
+     250.0,
+     250.0,
+     7.7442172,
+     48.5862886
+    ],
+    [
+     850.0,
+     250.0,
+     7.7550805,
+     48.5862886
+    ],
+    [
+     850.0,
+     600.0,
+     7.7550805,
+     48.5808988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the rampart, North-east corner of the rampart, South-east corner of the rampart, South-west corner of the rampart, Central road junction, River crossing on the east side; stated scale 0.640 disagrees with its own points (1.443 m/px): not trusted"
+  },
+  {
+   "plan": "c_eef566eab864daa7",
+   "title": "Argentoratvm - cuius ob antiquitatem Ptolemeus, D Hieronymus, Orosius, Eutropius, Marcellinus, et alii memin\u00eare, Alsati Metropolis, apud praeterfluentem Rhenum, alijs, Argentina, aut, si quis ex re, nomen commutare... - btv1b10223748r",
+   "url": "media/commons/argentoratum-q2361353/eef566eab864daa7.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Argentoratum",
+    "file_cat": "Argentoratum",
+    "via": []
+   },
+   "pairs": [
+    [
+     150.0,
+     200.0,
+     7.7428593,
+     48.5862886
+    ],
+    [
+     600.0,
+     150.0,
+     7.7510068,
+     48.5880851
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7591543,
+     48.5862886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest wall corner, North wall midpoint, Northeast wall corner, East wall midpoint, Southeast wall corner, South wall midpoint, Southwest wall corner, West wall midpoint; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_63a22f27733fed8b",
+   "title": "Atlas g\u00e9n\u00e9ral de la France - Plan de Strasbourg - E. Cortambert",
+   "url": "media/commons/argentoratum-q2361353/63a22f27733fed8b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "France",
+     "place_qid": "Q142",
+     "place_label": "France",
+     "place_lon": 2,
+     "place_lat": 47,
+     "site_lon": 7.751,
+     "site_lat": 48.5827
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     7.7455751,
+     48.5862886
+    ],
+    [
+     800.0,
+     100.0,
+     7.7537226,
+     48.5880851
+    ],
+    [
+     1100.0,
+     400.0,
+     7.7591543,
+     48.5844921
+    ],
+    [
+     200.0,
+     700.0,
+     7.7455751,
+     48.5808988
+    ],
+    [
+     600.0,
+     800.0,
+     7.7510068,
+     48.5791021
+    ],
+    [
+     100.0,
+     500.0,
+     7.7428593,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 82.95963972183284 m > 45.0 m",
+   "gate_score": 83.0
+  },
+  {
+   "plan": "c_444f7aa250b420c4",
+   "title": "Plan Strasbourg 1720 (cropped)",
+   "url": "media/commons/argentoratum-q2361353/444f7aa250b420c4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     7.7425877,
+     48.5870971
+    ],
+    [
+     450.0,
+     150.0,
+     7.7477478,
+     48.5882198
+    ],
+    [
+     750.0,
+     250.0,
+     7.7527721,
+     48.5870971
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest bastion tip, North gate gap, Northeast bastion tip, East gate gap, Southeast bastion tip, Southwest bastion tip, West gate gap, Central church footprint; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_b8638cda17a283d0",
+   "title": "Plan Strasbourg 1911B",
+   "url": "media/commons/argentoratum-q2361353/b8638cda17a283d0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     7.7428593,
+     48.5862886
+    ],
+    [
+     450.0,
+     150.0,
+     7.7510068,
+     48.5880851
+    ],
+    [
+     750.0,
+     250.0,
+     7.7564385,
+     48.5862886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest bastion tip, North river crossing, Northeast bastion tip, East river crossing, Southeast bastion tip, South river crossing, Southwest bastion tip, West river crossing; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_5badc8c867ef5d98",
+   "title": "Plan Strasbourg projet Conrath 1880",
+   "url": "media/commons/argentoratum-q2361353/5badc8c867ef5d98.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     7.7442172,
+     48.5871869
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     1000.0,
+     700.0,
+     7.7564385,
+     48.5791021
+    ],
+    [
+     200.0,
+     700.0,
+     7.7455751,
+     48.5791021
+    ],
+    [
+     500.0,
+     400.0,
+     7.7510068,
+     48.5826955
+    ],
+    [
+     1200.0,
+     400.0,
+     7.7605122,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 122.70806091080337 m > 45.0 m",
+   "gate_score": 122.7
+  },
+  {
+   "plan": "c_191c6221a81caad0",
+   "title": "Plan de Strasbourg, r\u00e9duit - d'apr\u00e8s le plan g\u00e9n\u00e9ral de Villot... - btv1b8444967p",
+   "url": "media/commons/argentoratum-q2361353/191c6221a81caad0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     1000.0,
+     700.0,
+     7.7564385,
+     48.5808988
+    ],
+    [
+     150.0,
+     700.0,
+     7.746933,
+     48.5808988
+    ],
+    [
+     500.0,
+     400.0,
+     7.7510068,
+     48.5835938
+    ],
+    [
+     1100.0,
+     450.0,
+     7.7591543,
+     48.5835938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 54.8478413796028 m > 45.0 m",
+   "gate_score": 54.8
+  },
+  {
+   "plan": "c_79e67314b340ba5a",
+   "title": "Plan de Strasbourg 1720",
+   "url": "media/commons/argentoratum-q2361353/79e67314b340ba5a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     350.0,
+     7.7442172,
+     48.5862886
+    ],
+    [
+     600.0,
+     300.0,
+     7.7510068,
+     48.5871869
+    ],
+    [
+     1050.0,
+     350.0,
+     7.7577964,
+     48.5862886
+    ],
+    [
+     1150.0,
+     600.0,
+     7.7591543,
+     48.5826955
+    ],
+    [
+     1050.0,
+     850.0,
+     7.7577964,
+     48.5791021
+    ],
+    [
+     600.0,
+     900.0,
+     7.7510068,
+     48.5782037
+    ],
+    [
+     150.0,
+     850.0,
+     7.7442172,
+     48.5791021
+    ],
+    [
+     50.0,
+     600.0,
+     7.7428593,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 106.84418144943781 m > 45.0 m",
+   "gate_score": 106.8
+  },
+  {
+   "plan": "c_d7461dcfc6ac91a2",
+   "title": "Plan de Strasbourg 1740",
+   "url": "media/commons/argentoratum-q2361353/d7461dcfc6ac91a2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     320.0,
+     240.0,
+     7.7455751,
+     48.5871869
+    ],
+    [
+     640.0,
+     160.0,
+     7.7510068,
+     48.5880851
+    ],
+    [
+     960.0,
+     240.0,
+     7.7564385,
+     48.5871869
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest bastion tip, North wall midpoint, Northeast bastion tip, East wall midpoint, Southeast bastion tip, South wall midpoint, Southwest bastion tip, West wall midpoint; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_0b076552cd30b220",
+   "title": "Plan de Strasbourg 1750",
+   "url": "media/commons/argentoratum-q2361353/0b076552cd30b220.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     7.7428593,
+     48.5880851
+    ],
+    [
+     400.0,
+     150.0,
+     7.748291,
+     48.5880851
+    ],
+    [
+     700.0,
+     200.0,
+     7.7537226,
+     48.5880851
+    ],
+    [
+     800.0,
+     400.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     700.0,
+     600.0,
+     7.7537226,
+     48.5826955
+    ],
+    [
+     400.0,
+     700.0,
+     7.748291,
+     48.5808988
+    ],
+    [
+     100.0,
+     600.0,
+     7.7428593,
+     48.5826955
+    ],
+    [
+     50.0,
+     400.0,
+     7.7428593,
+     48.5862886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 51.94016729661547 m > 45.0 m",
+   "gate_score": 51.9
+  },
+  {
+   "plan": "c_8c6924455678b281",
+   "title": "Plan de la Digue de la Lobsteinwerth sur le Rhin \u00e0 la Robertsau, banlieue N.E. de Strasbourg - btv1b530998970 (1 of 2)",
+   "url": "media/commons/argentoratum-q2361353/8c6924455678b281.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Rhin",
+     "place_qid": "Q584",
+     "place_label": "Rhine",
+     "place_lon": 4.0930555555556,
+     "place_lat": 51.980833333333,
+     "site_lon": 7.751,
+     "site_lat": 48.5827
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     1000.0,
+     100.0,
+     7.7591543,
+     48.5862886
+    ],
+    [
+     1000.0,
+     300.0,
+     7.7591543,
+     48.5791021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the central island, North-eastern tip of the central island, South-eastern tip of the central island, South-western tip of the central island, Midpoint of the western river bank, Midpoint of the eastern river bank; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_52d95281943e5432",
+   "title": "Plan de la Digue de la Lobsteinwerth sur le Rhin \u00e0 la Robertsau, banlieue N.E. de Strasbourg - btv1b530998970 (2 of 2)",
+   "url": "media/commons/argentoratum-q2361353/52d95281943e5432.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Rhin",
+     "place_qid": "Q584",
+     "place_label": "Rhine",
+     "place_lon": 4.0930555555556,
+     "place_lat": 51.980833333333,
+     "site_lon": 7.751,
+     "site_lat": 48.5827
+    }
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     7.747612,
+     48.5858395
+    ],
+    [
+     850.0,
+     150.0,
+     7.7557595,
+     48.5858395
+    ],
+    [
+     850.0,
+     350.0,
+     7.7557595,
+     48.5795513
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the rampart, North-eastern bastion tip, South-eastern bastion tip, South-western bastion tip; stated scale 0.400 disagrees with its own points (1.057 m/px): not trusted"
+  },
+  {
+   "plan": "c_8bdbed9b69d51319",
+   "title": "Plan mur et tours Argentoratum",
+   "url": "media/commons/argentoratum-q2361353/8bdbed9b69d51319.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Argentoratum",
+    "file_cat": "Argentoratum",
+    "via": []
+   },
+   "pairs": [
+    [
+     100.0,
+     150.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     1100.0,
+     200.0,
+     7.7577964,
+     48.5853904
+    ],
+    [
+     1100.0,
+     800.0,
+     7.7577964,
+     48.5800005
+    ],
+    [
+     100.0,
+     800.0,
+     7.746933,
+     48.5800005
+    ],
+    [
+     600.0,
+     500.0,
+     7.7523647,
+     48.5831447
+    ],
+    [
+     200.0,
+     500.0,
+     7.7496489,
+     48.5835938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 65.76586535498794 m > 45.0 m",
+   "gate_score": 65.8
+  },
+  {
+   "plan": "c_e882645cc479c889",
+   "title": "Plan topographique de la Ville de Strasbourg divis\u00e9e en quatre Cantons",
+   "url": "media/commons/argentoratum-q2361353/e882645cc479c889.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Ville",
+     "place_qid": "Q1165252",
+     "place_label": "Ville",
+     "place_lon": 2.9397222222222,
+     "place_lat": 49.554166666667,
+     "site_lon": 7.751,
+     "site_lat": 48.5827
+    }
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     7.7448962,
+     48.5867378
+    ],
+    [
+     100.0,
+     350.0,
+     7.7435382,
+     48.5858395
+    ],
+    [
+     350.0,
+     250.0,
+     7.7489699,
+     48.5867378
+    ],
+    [
+     650.0,
+     300.0,
+     7.7544016,
+     48.5858395
+    ],
+    [
+     750.0,
+     450.0,
+     7.7557595,
+     48.584043
+    ],
+    [
+     650.0,
+     650.0,
+     7.7530437,
+     48.5804497
+    ],
+    [
+     400.0,
+     750.0,
+     7.7489699,
+     48.5795513
+    ],
+    [
+     150.0,
+     650.0,
+     7.7448962,
+     48.5804497
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 50.47782657623337 m > 45.0 m",
+   "gate_score": 50.5
+  },
+  {
+   "plan": "c_113b4b16e557ab9c",
+   "title": "Plattegrond van Straatsburg Straatsburg, een keizerlyke stad in Duitsland met een bisdom onder Mentz behoorende (titel op object) Les Principales Forteresses & Villes Fortes, d'Espagne, de France, d'Italie, de Savoi\u00eb, , RP-P-2015-62-29",
+   "url": "media/commons/argentoratum-q2361353/113b4b16e557ab9c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Straatsburg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     7.7455751,
+     48.5862886
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     1000.0,
+     600.0,
+     7.7564385,
+     48.5791021
+    ],
+    [
+     200.0,
+     600.0,
+     7.7455751,
+     48.5791021
+    ],
+    [
+     200.0,
+     400.0,
+     7.7455751,
+     48.5826955
+    ],
+    [
+     1000.0,
+     400.0,
+     7.7564385,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 180.70159694311133 m > 45.0 m",
+   "gate_score": 180.7
+  },
+  {
+   "plan": "c_5d3b3ffcb7fcb277",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (1)",
+   "url": "media/commons/argentoratum-q2361353/5d3b3ffcb7fcb277.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     7.7442172,
+     48.5871869
+    ],
+    [
+     1000.0,
+     150.0,
+     7.7564385,
+     48.5871869
+    ],
+    [
+     1000.0,
+     800.0,
+     7.7564385,
+     48.5791021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the fortification, North-east corner of the fortification, South-east corner of the fortification, South-west corner of the fortification, Central road junction, River crossing on the east side; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_407fb0f12ddb04b5",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (10)",
+   "url": "media/commons/argentoratum-q2361353/407fb0f12ddb04b5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     850.0,
+     150.0,
+     7.7550805,
+     48.5862886
+    ],
+    [
+     850.0,
+     650.0,
+     7.7550805,
+     48.5808988
+    ],
+    [
+     150.0,
+     650.0,
+     7.746933,
+     48.5808988
+    ],
+    [
+     150.0,
+     400.0,
+     7.746933,
+     48.5835938
+    ],
+    [
+     850.0,
+     400.0,
+     7.7550805,
+     48.5835938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 70.83957989656085 m > 45.0 m",
+   "gate_score": 70.8
+  },
+  {
+   "plan": "c_d541ee84864947c4",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (11)",
+   "url": "media/commons/argentoratum-q2361353/d541ee84864947c4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     7.747612,
+     48.5858395
+    ],
+    [
+     850.0,
+     250.0,
+     7.7557595,
+     48.5858395
+    ],
+    [
+     850.0,
+     750.0,
+     7.7557595,
+     48.5795513
+    ],
+    [
+     150.0,
+     750.0,
+     7.747612,
+     48.5795513
+    ],
+    [
+     150.0,
+     500.0,
+     7.747612,
+     48.5826955
+    ],
+    [
+     850.0,
+     500.0,
+     7.7557595,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 112.16466170640892 m > 45.0 m",
+   "gate_score": 112.2
+  },
+  {
+   "plan": "c_436bea5010beea89",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (12)",
+   "url": "media/commons/argentoratum-q2361353/436bea5010beea89.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     200.0,
+     100.0,
+     7.7537226,
+     48.5880851
+    ],
+    [
+     600.0,
+     400.0,
+     7.7564385,
+     48.5844921
+    ],
+    [
+     800.0,
+     800.0,
+     7.7591543,
+     48.5808988
+    ],
+    [
+     400.0,
+     1200.0,
+     7.7510068,
+     48.5773053
+    ],
+    [
+     1000.0,
+     1600.0,
+     7.7618701,
+     48.5755085
+    ],
+    [
+     200.0,
+     1800.0,
+     7.7455751,
+     48.5755085
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8333,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 133.36741253218025 m > 45.0 m",
+   "gate_score": 133.4
+  },
+  {
+   "plan": "c_b3533cd48dfc6452",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (13)",
+   "url": "media/commons/argentoratum-q2361353/b3533cd48dfc6452.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     7.7455751,
+     48.5862886
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7564385,
+     48.5862886
+    ],
+    [
+     1000.0,
+     1400.0,
+     7.7564385,
+     48.5791021
+    ],
+    [
+     200.0,
+     1400.0,
+     7.7455751,
+     48.5791021
+    ],
+    [
+     200.0,
+     800.0,
+     7.7455751,
+     48.5826955
+    ],
+    [
+     1000.0,
+     800.0,
+     7.7564385,
+     48.5826955
+    ],
+    [
+     600.0,
+     200.0,
+     7.7510068,
+     48.5862886
+    ],
+    [
+     600.0,
+     1400.0,
+     7.7510068,
+     48.5791021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8333,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 101.62387500004095 m > 45.0 m",
+   "gate_score": 101.6
+  },
+  {
+   "plan": "c_debcf19487a0052f",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (14)",
+   "url": "media/commons/argentoratum-q2361353/debcf19487a0052f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     180.0,
+     280.0,
+     7.7472046,
+     48.586109
+    ],
+    [
+     880.0,
+     280.0,
+     7.7561669,
+     48.586109
+    ],
+    [
+     880.0,
+     680.0,
+     7.7561669,
+     48.5801802
+    ],
+    [
+     180.0,
+     680.0,
+     7.7472046,
+     48.5801802
+    ],
+    [
+     520.0,
+     480.0,
+     7.7516857,
+     48.5831447
+    ],
+    [
+     1050.0,
+     480.0,
+     7.7598333,
+     48.5831447
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 120.63340255479015 m > 45.0 m",
+   "gate_score": 120.6
+  },
+  {
+   "plan": "c_87dc28a9645f0e59",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (15)",
+   "url": "media/commons/argentoratum-q2361353/87dc28a9645f0e59.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     7.7462541,
+     48.5858395
+    ],
+    [
+     850.0,
+     250.0,
+     7.7557595,
+     48.5858395
+    ],
+    [
+     850.0,
+     750.0,
+     7.7557595,
+     48.5795513
+    ],
+    [
+     150.0,
+     750.0,
+     7.7462541,
+     48.5795513
+    ],
+    [
+     500.0,
+     500.0,
+     7.7510068,
+     48.5826955
+    ],
+    [
+     1000.0,
+     500.0,
+     7.7577964,
+     48.5826955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 78.82421705865193 m > 45.0 m",
+   "gate_score": 78.8
+  },
+  {
+   "plan": "c_fc27fe4fc304b937",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (16)",
+   "url": "media/commons/argentoratum-q2361353/fc27fe4fc304b937.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     1000.0,
+     200.0,
+     7.7577964,
+     48.5862886
+    ],
+    [
+     1000.0,
+     800.0,
+     7.7577964,
+     48.5791021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the fortification, North-east corner of the fortification, South-east corner of the fortification, South-west corner of the fortification, Midpoint of the western wall, Midpoint of the eastern wall; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_a9159cd2f5dd8ccc",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (2)",
+   "url": "media/commons/argentoratum-q2361353/a9159cd2f5dd8ccc.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     200.0,
+     300.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     1000.0,
+     300.0,
+     7.7577964,
+     48.5862886
+    ],
+    [
+     1000.0,
+     700.0,
+     7.7577964,
+     48.5800005
+    ],
+    [
+     200.0,
+     700.0,
+     7.746933,
+     48.5800005
+    ],
+    [
+     100.0,
+     500.0,
+     7.7442172,
+     48.5835938
+    ],
+    [
+     1100.0,
+     500.0,
+     7.7605122,
+     48.5835938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 120.3312381746315 m > 45.0 m",
+   "gate_score": 120.3
+  },
+  {
+   "plan": "c_be3b4b680e2d2020",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (3)",
+   "url": "media/commons/argentoratum-q2361353/be3b4b680e2d2020.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     350.0,
+     7.747612,
+     48.5858395
+    ],
+    [
+     850.0,
+     300.0,
+     7.7557595,
+     48.5862886
+    ],
+    [
+     900.0,
+     650.0,
+     7.7557595,
+     48.5822463
+    ],
+    [
+     250.0,
+     700.0,
+     7.747612,
+     48.5804497
+    ],
+    [
+     100.0,
+     450.0,
+     7.7462541,
+     48.5831447
+    ],
+    [
+     1000.0,
+     450.0,
+     7.7584753,
+     48.5844921
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 85.02005502931169 m > 45.0 m",
+   "gate_score": 85.0
+  },
+  {
+   "plan": "c_5ec42621fe00719a",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (4)",
+   "url": "media/commons/argentoratum-q2361353/5ec42621fe00719a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     300.0,
+     7.747612,
+     48.5867378
+    ],
+    [
+     1050.0,
+     250.0,
+     7.7584753,
+     48.5867378
+    ],
+    [
+     1100.0,
+     600.0,
+     7.7591543,
+     48.5822463
+    ],
+    [
+     350.0,
+     750.0,
+     7.7516857,
+     48.5795513
+    ],
+    [
+     250.0,
+     500.0,
+     7.7489699,
+     48.5831447
+    ],
+    [
+     950.0,
+     450.0,
+     7.7571174,
+     48.5844921
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 96.4327860195603 m > 45.0 m",
+   "gate_score": 96.4
+  },
+  {
+   "plan": "c_1b30b0b4b2c002cc",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (5)",
+   "url": "media/commons/argentoratum-q2361353/1b30b0b4b2c002cc.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     800.0,
+     200.0,
+     7.7577964,
+     48.5862886
+    ],
+    [
+     800.0,
+     600.0,
+     7.7577964,
+     48.5808988
+    ],
+    [
+     100.0,
+     600.0,
+     7.746933,
+     48.5808988
+    ],
+    [
+     400.0,
+     400.0,
+     7.7523647,
+     48.5835938
+    ],
+    [
+     1000.0,
+     400.0,
+     7.7605122,
+     48.5835938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 64.70349877246582 m > 45.0 m",
+   "gate_score": 64.7
+  },
+  {
+   "plan": "c_0475b45eeeba0b5c",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (6)",
+   "url": "media/commons/argentoratum-q2361353/0475b45eeeba0b5c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     150.0,
+     350.0,
+     7.747612,
+     48.5867378
+    ],
+    [
+     850.0,
+     250.0,
+     7.7584753,
+     48.5867378
+    ],
+    [
+     1050.0,
+     550.0,
+     7.7591543,
+     48.5822463
+    ],
+    [
+     350.0,
+     650.0,
+     7.7489699,
+     48.5795513
+    ],
+    [
+     100.0,
+     550.0,
+     7.7448962,
+     48.5822463
+    ],
+    [
+     1150.0,
+     450.0,
+     7.7611912,
+     48.584043
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 116.13787392806435 m > 45.0 m",
+   "gate_score": 116.1
+  },
+  {
+   "plan": "c_d881f658da7e9c0c",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (7)",
+   "url": "media/commons/argentoratum-q2361353/d881f658da7e9c0c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     250.0,
+     350.0,
+     7.747612,
+     48.5858395
+    ],
+    [
+     950.0,
+     300.0,
+     7.7557595,
+     48.5858395
+    ],
+    [
+     1050.0,
+     650.0,
+     7.7571174,
+     48.5804497
+    ],
+    [
+     350.0,
+     750.0,
+     7.7489699,
+     48.5795513
+    ],
+    [
+     600.0,
+     320.0,
+     7.7516857,
+     48.5862886
+    ],
+    [
+     1000.0,
+     500.0,
+     7.7564385,
+     48.5831447
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 126.72861439343706 m > 45.0 m",
+   "gate_score": 126.7
+  },
+  {
+   "plan": "c_d480893e5a97fbba",
+   "title": "Strasbourg-Krutenau-Plan de 1852 (9)",
+   "url": "media/commons/argentoratum-q2361353/d480893e5a97fbba.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     180.0,
+     380.0,
+     7.7472046,
+     48.5843125
+    ],
+    [
+     820.0,
+     280.0,
+     7.7561669,
+     48.586109
+    ],
+    [
+     1080.0,
+     680.0,
+     7.7588827,
+     48.5801802
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Rampart NW corner, Rampart NE corner, Rampart SE corner, Rampart SW corner, Rampart mid-NW edge, Rampart mid-SE edge; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_4aa3aebf5215a446",
+   "title": "Strasbourg-Plan de la Halle aux Veaux-Place des Orphelins",
+   "url": "media/commons/argentoratum-q2361353/4aa3aebf5215a446.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     400.0,
+     7.7428593,
+     48.5862886
+    ],
+    [
+     1100.0,
+     400.0,
+     7.7591543,
+     48.5862886
+    ],
+    [
+     1100.0,
+     800.0,
+     7.7591543,
+     48.5791021
+    ],
+    [
+     100.0,
+     800.0,
+     7.7428593,
+     48.5791021
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 148.5562841181494 m > 45.0 m",
+   "gate_score": 148.6
+  },
+  {
+   "plan": "c_dbbdddc294b9eaa2",
+   "title": "Strasbourg-Plan de la maison d'arr\u00eat et de justice",
+   "url": "media/commons/argentoratum-q2361353/dbbdddc294b9eaa2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     400.0,
+     100.0,
+     7.7550805,
+     48.5862886
+    ],
+    [
+     400.0,
+     400.0,
+     7.7550805,
+     48.5800005
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the fortification, North-east corner of the fortification, South-east corner of the fortification, South-west corner of the fortification; stated scale 0.573 disagrees with its own points (2.167 m/px): not trusted"
+  },
+  {
+   "plan": "c_ec1930f8ba9bbabb",
+   "title": "Strasbourg plan 1870",
+   "url": "media/commons/argentoratum-q2361353/ec1930f8ba9bbabb.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Strasbourg",
+    "place_qid": "Q6602",
+    "place_label": "Strasbourg",
+    "place_lon": 7.7522222222222,
+    "place_lat": 48.573333333333,
+    "site_lon": 7.751,
+    "site_lat": 48.5827,
+    "dist_m": 1045.4
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     7.746933,
+     48.5862886
+    ],
+    [
+     200.0,
+     200.0,
+     7.748291,
+     48.5853904
+    ],
+    [
+     400.0,
+     150.0,
+     7.7510068,
+     48.5862886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest bastion tip, Northwest wall corner, North wall corner, Northeast wall corner, East wall corner, Southeast wall corner, South wall corner, Southwest wall corner; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,45 @@
+{
+ "site": "leeds-castle-q746876",
+ "candidates": [
+  {
+   "plan": "c_2e8896124401f956",
+   "title": "Leeds Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/leeds-castle-q746876/2e8896124401f956.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     820.0,
+     420.0,
+     0.6300072,
+     51.2488845
+    ],
+    [
+     1050.0,
+     300.0,
+     0.633595,
+     51.2506811
+    ],
+    [
+     350.0,
+     280.0,
+     0.6271369,
+     51.250232
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Maiden's Tower, Old Castle / Gloriette, North-west outer bailey corner, South-west outer bailey corner, South-east outer bailey corner, North-east outer bailey corner; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

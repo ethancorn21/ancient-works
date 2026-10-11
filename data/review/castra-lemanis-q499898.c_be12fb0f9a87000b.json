@@ -1,0 +1,78 @@
+{
+ "site": "castra-lemanis-q499898",
+ "candidates": [
+  {
+   "plan": "c_be12fb0f9a87000b",
+   "title": "Plan Portus Lemanis",
+   "url": "media/commons/castra-lemanis-q499898/be12fb0f9a87000b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Portus Lemanis",
+    "file_cat": "Portus Lemanis",
+    "via": []
+   },
+   "pairs": [
+    [
+     20.0,
+     200.0,
+     1.0126599,
+     51.0719886
+    ],
+    [
+     20.0,
+     400.0,
+     1.0126599,
+     51.0683955
+    ],
+    [
+     300.0,
+     400.0,
+     1.0240962,
+     51.0683955
+    ],
+    [
+     300.0,
+     200.0,
+     1.0240962,
+     51.0719886
+    ],
+    [
+     20.0,
+     300.0,
+     1.0126599,
+     51.0701921
+    ],
+    [
+     300.0,
+     300.0,
+     1.0240962,
+     51.0701921
+    ],
+    [
+     150.0,
+     400.0,
+     1.0183781,
+     51.0683955
+    ],
+    [
+     150.0,
+     200.0,
+     1.0183781,
+     51.0719886
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.6667,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 62.95886968200891 m > 45.0 m",
+   "gate_score": 63.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

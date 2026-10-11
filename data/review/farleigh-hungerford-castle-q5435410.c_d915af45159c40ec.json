@@ -1,0 +1,45 @@
+{
+ "site": "farleigh-hungerford-castle-q5435410",
+ "candidates": [
+  {
+   "plan": "c_d915af45159c40ec",
+   "title": "Farleigh Hungerford Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/farleigh-hungerford-castle-q5435410/d915af45159c40ec.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     110.0,
+     310.0,
+     -2.2900549,
+     51.3193718
+    ],
+    [
+     220.0,
+     310.0,
+     -2.2871803,
+     51.3193718
+    ],
+    [
+     110.0,
+     460.0,
+     -2.2900549,
+     51.3175752
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.442,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-west bastion, North-east bastion, South-west bastion, South-east bastion, West gate gap, East gate gap; stated scale 0.442 disagrees with its own points (1.395 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,52 @@
+{
+ "site": "pickering-castle-q7190805",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0325_1",
+   "title": "Cawthorn Camps, Pickering, Yorks",
+   "url": "books/earthworkenglan01allcgoog/n0325.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     2750.0,
+     1500.0,
+     -0.7713026,
+     54.2528904
+    ],
+    [
+     1000.0,
+     2000.0,
+     -0.780528,
+     54.2510938
+    ],
+    [
+     1000.0,
+     2500.0,
+     -0.780528,
+     54.2475005
+    ],
+    [
+     2000.0,
+     2500.0,
+     -0.7743778,
+     54.2475005
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2586,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "median residual 91.03557291917666 m > 45.0 m",
+   "gate_score": 91.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

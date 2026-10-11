@@ -1,0 +1,106 @@
+{
+ "site": "devil-s-dyke-q3307343",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0599_1",
+   "title": "CASTLE DYKE, AYSGARTH.",
+   "url": "books/earthworkenglan01allcgoog/n0599.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     1000.0,
+     1500.0,
+     0.2884465,
+     52.2752041
+    ],
+    [
+     2500.0,
+     1500.0,
+     0.3060622,
+     52.2752041
+    ],
+    [
+     2500.0,
+     3000.0,
+     0.3060622,
+     52.2644243
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0335,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 20 40 60 80 100 Feet'",
+   "why": "features: North-western rampart corner, North-eastern rampart corner, South-eastern rampart corner, South-western rampart corner, Central gap in the rampart, Internal field boundary; stated scale 0.034 disagrees with its own points (0.782 m/px): not trusted"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0686_1",
+   "title": "The Devil's Dyke Camp, near Brighton",
+   "url": "books/earthworkenglan01allcgoog/n0686.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Devil's Dyke",
+    "place": {},
+    "site": {
+     "id": "devil-s-dyke-q3307343",
+     "qid": "Q3307343",
+     "name": "Devil's Dyke",
+     "lon": 0.297247,
+     "lat": 52.269819,
+     "admin": {
+      "parish": "Stetchworth",
+      "district": "East Cambridgeshire",
+      "county": "Cambridgeshire"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.4,
+    "why": []
+   },
+   "pairs": [
+    [
+     100.0,
+     1000.0,
+     0.2884465,
+     52.2698145
+    ],
+    [
+     2500.0,
+     1500.0,
+     0.3001903,
+     52.2680178
+    ],
+    [
+     2500.0,
+     3000.0,
+     0.3001903,
+     52.2644243
+    ],
+    [
+     1000.0,
+     3500.0,
+     0.2913825,
+     52.2626274
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.3621,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 400 Yards'",
+   "why": "median residual 50.81639021199786 m > 45.0 m",
+   "gate_score": 50.8
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

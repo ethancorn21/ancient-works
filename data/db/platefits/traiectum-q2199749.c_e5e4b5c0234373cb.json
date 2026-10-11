@@ -1,0 +1,76 @@
+{
+ "site": "traiectum-q2199749",
+ "plan": "c_e5e4b5c0234373cb",
+ "crop": [
+  0,
+  0,
+  1280,
+  1103
+ ],
+ "pairs": [
+  [
+   600.0,
+   200.0,
+   5.1209183,
+   52.095628
+  ],
+  [
+   600.0,
+   400.0,
+   5.1209183,
+   52.0933824
+  ],
+  [
+   600.0,
+   600.0,
+   5.1209183,
+   52.0911367
+  ],
+  [
+   600.0,
+   800.0,
+   5.1209183,
+   52.0888908
+  ],
+  [
+   400.0,
+   400.0,
+   5.1172631,
+   52.0933824
+  ],
+  [
+   800.0,
+   400.0,
+   5.1245735,
+   52.0933824
+  ],
+  [
+   600.0,
+   100.0,
+   5.1209183,
+   52.0967507
+  ],
+  [
+   600.0,
+   900.0,
+   5.1209183,
+   52.0877679
+  ]
+ ],
+ "label": "1572",
+ "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Bouillonstraat",
+ "cite": "by Publisher: Georg Braun en Frans Hogenberg; Public domain; https://commons.wikimedia.org/wiki/File:Atlas_Beudeker-C9E10_039_011-TRAIECTUM_AD_MOSAM_-_Bouillonstraat.jpeg",
+ "at": "2026-10-11T14:18:27.583741+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/traiectum-q2199749/e5e4b5c0234373cb.jpg",
+ "ref": "File:Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Bouillonstraat.jpeg",
+ "size": [
+  1280,
+  1103
+ ]
+}

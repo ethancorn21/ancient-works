@@ -1,0 +1,47 @@
+{
+ "site": "galava-q3094516",
+ "candidates": [
+  {
+   "plan": "c_276ce7477f8eb67f",
+   "title": "Ambleside Roman Fort - Project Gutenberg eText 19115",
+   "url": "media/commons/galava-q3094516/276ce7477f8eb67f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Ambleside Roman Fort",
+    "file_cat": "Ambleside Roman Fort",
+    "via": []
+   },
+   "pairs": [
+    [
+     50.0,
+     100.0,
+     -2.9786105,
+     54.4292832
+    ],
+    [
+     450.0,
+     100.0,
+     -2.9678023,
+     54.4292832
+    ],
+    [
+     450.0,
+     600.0,
+     -2.9678023,
+     54.4211988
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.7778,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the rampart, North-east corner of the rampart, South-east corner of the rampart, South-west corner of the rampart, Central building complex (Roman villa); only 40% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

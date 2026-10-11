@@ -1,0 +1,322 @@
+{
+ "site": "traiectum-q2199749",
+ "candidates": [
+  {
+   "plan": "c_709d16595ae103fc",
+   "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Brusselsestraat",
+   "url": "media/commons/traiectum-q2199749/709d16595ae103fc.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     100.0,
+     500.0,
+     5.1117803,
+     52.0922595
+    ],
+    [
+     1100.0,
+     500.0,
+     5.1300562,
+     52.0922595
+    ],
+    [
+     600.0,
+     200.0,
+     5.1209183,
+     52.095628
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: River crossing west, River crossing east, Field edge north, Field edge south; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_2b84bc8a246adb8d",
+   "title": "Atlas Beudeker-C9E10 043 13X-TRAIECTUM ad Mosam Vulgo MAESTRICHT.",
+   "url": "media/commons/traiectum-q2199749/2b84bc8a246adb8d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     800.0,
+     200.0,
+     5.1245735,
+     52.095628
+    ],
+    [
+     800.0,
+     400.0,
+     5.1245735,
+     52.0933824
+    ],
+    [
+     800.0,
+     600.0,
+     5.1245735,
+     52.0911367
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: River bend top, River bend mid, River bend bottom, Bastion tip left, Bastion tip right, Gate gap top, Gate gap bottom, Field edge left; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_ffdb31f143a8bff8",
+   "title": "Traiectum ad Mosam, urbs et natura loci, munitionibusq., et populi frequentia, et edificijs... - btv1b53178839q (1 of 2)",
+   "url": "media/commons/traiectum-q2199749/ffdb31f143a8bff8.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     800.0,
+     400.0,
+     5.1245735,
+     52.0960771
+    ],
+    [
+     800.0,
+     600.0,
+     5.1245735,
+     52.0924841
+    ],
+    [
+     800.0,
+     800.0,
+     5.1245735,
+     52.0888908
+    ],
+    [
+     800.0,
+     980.0,
+     5.1245735,
+     52.0852973
+    ],
+    [
+     400.0,
+     600.0,
+     5.1187252,
+     52.0906875
+    ],
+    [
+     1200.0,
+     600.0,
+     5.1304217,
+     52.0906875
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 168.04478383011894 m > 45.0 m",
+   "gate_score": 168.0
+  },
+  {
+   "plan": "c_7bb91dad8f2e687e",
+   "title": "Traiectum ad Mosam (...) - btv1b53211537p (2 of 3) (Nieuwstad)",
+   "url": "media/commons/traiectum-q2199749/7bb91dad8f2e687e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.7429,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "the model recorded no usable pairs"
+  },
+  {
+   "plan": "c_643f9288ce4af733",
+   "title": "Traiectum ad Mosam (...) - btv1b53211537p (2a) (edited)",
+   "url": "media/commons/traiectum-q2199749/643f9288ce4af733.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     1000.0,
+     100.0,
+     5.1245735,
+     52.0969753
+    ],
+    [
+     800.0,
+     150.0,
+     5.1216493,
+     52.0942806
+    ],
+    [
+     600.0,
+     200.0,
+     5.1187252,
+     52.0906875
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: River bend top, River bend mid, River bend lower, River bend bottom; stated scale 0.625 disagrees with its own points (2.040 m/px): not trusted"
+  },
+  {
+   "plan": "c_06bf9b4c7a615a6b",
+   "title": "Traiectum ad Mosam (...) - btv1b53211537p (2b) (edited)",
+   "url": "media/commons/traiectum-q2199749/06bf9b4c7a615a6b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     1000.0,
+     100.0,
+     5.1245735,
+     52.0969753
+    ],
+    [
+     800.0,
+     150.0,
+     5.1216493,
+     52.0942806
+    ],
+    [
+     600.0,
+     200.0,
+     5.1187252,
+     52.0906875
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: River bend top, River bend mid, River bend lower, River bend bottom; stated scale 0.310 disagrees with its own points (2.040 m/px): not trusted"
+  },
+  {
+   "plan": "c_396e4e40903408d3",
+   "title": "Traiectum ad Mosam (...) - btv1b53211537p (2b) (edited & cropped)",
+   "url": "media/commons/traiectum-q2199749/396e4e40903408d3.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     1000.0,
+     200.0,
+     5.1274976,
+     52.0960771
+    ],
+    [
+     1050.0,
+     300.0,
+     5.1282286,
+     52.0942806
+    ],
+    [
+     1000.0,
+     400.0,
+     5.1274976,
+     52.0924841
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: River bend top, River bend mid, River bend lower, River bend bottom; stated scale 0.630 disagrees with its own points (1.918 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

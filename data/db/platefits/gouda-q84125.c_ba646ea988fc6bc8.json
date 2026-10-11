@@ -1,0 +1,76 @@
+{
+ "site": "gouda-q84125",
+ "plan": "c_ba646ea988fc6bc8",
+ "crop": [
+  0,
+  0,
+  1280,
+  1645
+ ],
+ "pairs": [
+  [
+   250.0,
+   450.0,
+   4.7002909,
+   52.0157377
+  ],
+  [
+   450.0,
+   350.0,
+   4.7039396,
+   52.016636
+  ],
+  [
+   650.0,
+   450.0,
+   4.7068586,
+   52.0157377
+  ],
+  [
+   750.0,
+   650.0,
+   4.7090478,
+   52.0139412
+  ],
+  [
+   650.0,
+   850.0,
+   4.7068586,
+   52.0116955
+  ],
+  [
+   250.0,
+   850.0,
+   4.7002909,
+   52.0116955
+  ],
+  [
+   150.0,
+   650.0,
+   4.6988314,
+   52.0139412
+  ],
+  [
+   450.0,
+   600.0,
+   4.7039396,
+   52.0143904
+  ]
+ ],
+ "label": "c. 1560",
+ "title": "Gouda, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_Gouda_by_Jacob_van_Deventer.jpg",
+ "at": "2026-10-11T14:10:42.444535+00:00",
+ "auto": true,
+ "score": 15.9,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/gouda-q84125/ba646ea988fc6bc8.jpg",
+ "ref": "File:Map of Gouda by Jacob van Deventer.jpg",
+ "size": [
+  1280,
+  1645
+ ]
+}

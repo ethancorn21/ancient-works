@@ -1,0 +1,52 @@
+{
+ "site": "bethlehem-q2523914",
+ "plan": "c_fc4566d6947287f4",
+ "crop": [
+  0,
+  0,
+  1280,
+  1290
+ ],
+ "pairs": [
+  [
+   200.0,
+   200.0,
+   6.6037052,
+   53.3869216
+  ],
+  [
+   600.0,
+   600.0,
+   6.6097295,
+   53.3833285
+  ],
+  [
+   200.0,
+   800.0,
+   6.6037052,
+   53.3815318
+  ],
+  [
+   1000.0,
+   600.0,
+   6.6157539,
+   53.3833285
+  ]
+ ],
+ "label": null,
+ "title": "Survey of Palestine, Bethlehem 05-beit-jala (FL10423299 2369494)",
+ "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_05-beit-jala_(FL10423299_2369494).jpg",
+ "at": "2026-10-11T14:02:53.054584+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bethlehem-q2523914/fc4566d6947287f4.jpg",
+ "ref": "File:Survey of Palestine, Bethlehem 05-beit-jala (FL10423299 2369494).jpg",
+ "size": [
+  1280,
+  1290
+ ]
+}

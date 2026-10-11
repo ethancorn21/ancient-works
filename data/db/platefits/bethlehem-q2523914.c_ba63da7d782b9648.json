@@ -1,0 +1,52 @@
+{
+ "site": "bethlehem-q2523914",
+ "plan": "c_ba63da7d782b9648",
+ "crop": [
+  0,
+  0,
+  1280,
+  1159
+ ],
+ "pairs": [
+  [
+   100.0,
+   100.0,
+   6.6021991,
+   53.3878198
+  ],
+  [
+   600.0,
+   500.0,
+   6.6097295,
+   53.3842268
+  ],
+  [
+   100.0,
+   1000.0,
+   6.6021991,
+   53.3797351
+  ],
+  [
+   1000.0,
+   1000.0,
+   6.6157539,
+   53.3797351
+  ]
+ ],
+ "label": null,
+ "title": "Survey of Palestine, Bethlehem 08 (FL10423304 2369494)",
+ "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_08_(FL10423304_2369494).jpg",
+ "at": "2026-10-11T14:03:00.127217+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bethlehem-q2523914/ba63da7d782b9648.jpg",
+ "ref": "File:Survey of Palestine, Bethlehem 08 (FL10423304 2369494).jpg",
+ "size": [
+  1280,
+  1159
+ ]
+}

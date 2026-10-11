@@ -1,0 +1,52 @@
+{
+ "site": "avaricum-q281826",
+ "plan": "c_d457524470ca0ab3",
+ "crop": [
+  0,
+  0,
+  1280,
+  1208
+ ],
+ "pairs": [
+  [
+   100.0,
+   200.0,
+   2.3874905,
+   47.08938
+  ],
+  [
+   350.0,
+   800.0,
+   2.3916198,
+   47.0826428
+  ],
+  [
+   450.0,
+   1000.0,
+   2.3932689,
+   47.0803969
+  ],
+  [
+   150.0,
+   1000.0,
+   2.3883217,
+   47.0803969
+  ]
+ ],
+ "label": "1898",
+ "title": "Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238)",
+ "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Caesar%27s_Gallic_war;_(Allen_and_Greenough%27s_ed.)_(1898)_(14594767238).jpg",
+ "at": "2026-10-11T14:01:02.399439+00:00",
+ "auto": true,
+ "score": 0.1,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/avaricum-q281826/d457524470ca0ab3.jpg",
+ "ref": "File:Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238).jpg",
+ "size": [
+  1280,
+  1208
+ ]
+}

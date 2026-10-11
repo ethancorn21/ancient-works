@@ -1,0 +1,47 @@
+{
+ "site": "chateau-du-kochersberg-q1012697",
+ "candidates": [
+  {
+   "plan": "c_21725fdc347026d3",
+   "title": "ChateauDuKochersberg",
+   "url": "media/commons/chateau-du-kochersberg-q1012697/21725fdc347026d3.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Ch\u00e2teau du Kochersberg",
+    "file_cat": "Ch\u00e2teau du Kochersberg",
+    "via": []
+   },
+   "pairs": [
+    [
+     800.0,
+     100.0,
+     7.5298958,
+     48.6657268
+    ],
+    [
+     1000.0,
+     200.0,
+     7.5326161,
+     48.6648285
+    ],
+    [
+     600.0,
+     200.0,
+     7.5271755,
+     48.6648285
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: church footprint, eastern wall corner, western wall corner, southern wall corner, northern wall corner, eastern gate gap, western gate gap, southern gate gap; stated scale 0.312 disagrees with its own points (1.057 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

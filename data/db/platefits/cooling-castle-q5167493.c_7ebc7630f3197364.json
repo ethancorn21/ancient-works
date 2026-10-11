@@ -1,0 +1,64 @@
+{
+ "site": "cooling-castle-q5167493",
+ "plan": "c_7ebc7630f3197364",
+ "crop": [
+  0,
+  0,
+  1000,
+  978
+ ],
+ "pairs": [
+  [
+   450.0,
+   150.0,
+   0.5221626,
+   51.4580107
+  ],
+  [
+   800.0,
+   250.0,
+   0.5261991,
+   51.4572921
+  ],
+  [
+   800.0,
+   600.0,
+   0.5261991,
+   51.4547769
+  ],
+  [
+   450.0,
+   650.0,
+   0.5221626,
+   51.4544175
+  ],
+  [
+   150.0,
+   300.0,
+   0.5187026,
+   51.4569328
+  ],
+  [
+   400.0,
+   450.0,
+   0.5215859,
+   51.4558548
+  ]
+ ],
+ "label": "1897",
+ "title": "Cooling Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:42_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147323666).jpg",
+ "at": "2026-10-11T14:07:12.657583+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cooling-castle-q5167493/7ebc7630f3197364.jpg",
+ "ref": "File:42 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147323666).jpg",
+ "size": [
+  1000,
+  978
+ ]
+}
