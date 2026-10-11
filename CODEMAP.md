@@ -105,7 +105,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
 
 ## web/
-- `web/index.html` (1703 lines) - (no header comment - add one)
+- `web/index.html` (1706 lines) - (no header comment - add one)
 - `web/test.html` (11 lines) - (no header comment - add one)
 
 ## web/vendor/
