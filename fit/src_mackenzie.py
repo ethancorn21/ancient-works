@@ -242,13 +242,13 @@ def sheet():
     # the LiDAR relief when the national source answers (OQ-5): the earthwork is clearer in it than in the aerial
     try:
         import dem_sources
+        import numpy as np
         bbox = _bbox()
         src = dem_sources.source_for_bbox(bbox)
         if src is not None:
-            import numpy as np
             dem = aw.fetch_dem(bbox, 800, 800)
             nz = float(np.sum(~np.isnan(dem)))
-            print(f"  LiDAR {src['label']}: {nz:.0f}/640000 px with data", flush=True)
+            print(f"  LiDAR {src}: {nz:.0f}/640000 px with data", flush=True)
             if nz > 50e4:
                 from PIL import Image as I
                 img = ImageOps.autocontrast(I.fromarray(((dem - dem.min()) / (dem.max() - dem.min()) * 255).astype("uint8")
@@ -278,9 +278,8 @@ def zoom():
     open(p + ".part", "wb").write(body)
     os.replace(p + ".part", p)
     im = Image.open(p).convert("RGB")
-    (lon0, lat1), (lon1, lat0) = _corners()[0], _corners()[2]
-    X0, Y1 = aw.to_merc(lon0, lat1)
-    X1, Y0 = aw.to_merc(lon1, lat0)
+    X0, Y1 = cx - h, cy + h  # the crop's OWN west/north mercator corners (the 800 m box's would span 4x this)
+    X1, Y0 = cx + h, cy - h
 
     def lab(col, row):
         x = X0 + (col + 0.5) / im.width * (X1 - X0)
