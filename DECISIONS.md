@@ -120,3 +120,40 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+## 2026-10-12 302c DECISION: the confidence threshold is 0.15, set on the 302b held-out table (box 1) - the null margin only rations the pass rate; it is not an accuracy guarantee
+First session on 302c (iteration 84): investigation and design only, no code written (the context
+limit hit before the first edit). The value and the design, frozen for the next session:
+- Threshold CONF_THRESHOLD = 0.15 on the search-matched-null margin (confidence = objective_fit
+  - max(scramble, shifted) as fit/inkfit.py already computes). Rationale from the 302b table
+  (docs/site_flow.md "Measured one-shot"): sorted margins run -0.5150..+0.1871 and do NOT
+  separate good from bad fits (worst calleva +0.1070/2203.6 m sits above castle-rising +0.0806
+  and old-sarum-book +0.0693). A threshold > 0 passes 11 docs, > 0.05 passes 6, > 0.10 passes 2
+  (badbury AND the worst, calleva); only a threshold in (0.1070, 0.1871] passes exactly one
+  document - badbury, the best (264.5 m, 17% of the site's size). 0.15 is mid-interval: 0.043 of
+  room above calleva's rounded 0.1070 and 0.037 below badbury's 0.1871, robust to small DEM/OSM
+  drift between the held-out run and a re-run. A future change to the value is a method change:
+  it must be labelled and re-measured, never a silent fix.
+- Decision (applied in fit/inkfit.py, additive): confident iff the fit produced reportable pairs
+  AND the frozen gate accepted them (verdict == fit_gate.ACCEPT) AND fabrication_pattern is
+  silent AND the null ran AND margin >= 0.15. Everything else is unsure with a
+  human-readable reason (the existing no-fit reasons are already human-readable; new: a gate
+  refusal names the median residual; a below-threshold margin names the margin, the fit and
+  null objectives and which null won - per the 302a hand-over note). Confident -> automatic
+  platefit document (auto: true, fitter: "ink", the gate's score); unsure -> the site's review
+  item with the reason and the best starting pairs, never to the map.
+- New result fields are "confident" (bool) and "unsure_reason" (str|None). The "reason" field
+  keeps its exact meaning (None on the success path): inkfit_heldout.measure() stores r["reason"]
+  into the frozen one-shot checkpoint (data/inkfit/heldout/results.json), so routing the margin
+  message through "reason" would corrupt the checkpoint if measure were ever re-run. "confident"/
+  "unsure_reason" are new keys measure() does not store, so the checkpoint and the verbatim table
+  stay untouched (verify: `fit/inkfit_heldout.py table` byte-identical to the committed section).
+- Task file: Touches extended to docs/site_flow.md (the decision paragraph goes next to the
+table), data/inkfit/ (the committed test-site relief npz seeds under data/inkfit/relief/, the
+committed real-plate copies under data/inkfit/plates/) and tests/test_site_done.py (the
+no-model CLI message of site_done changes wording, and that test asserts the line verbatim).
+Next session: implement box 1 exactly as the hand-over spells it (the decide() contract, the
+site_flow.md paragraph text, the verification list incl. applying decide() to the 21 checkpoint
+entries -> exactly badbury confident), then box 2 (site_done wiring), 3 (plan_fit.build how
+string) and 4 (tests/test_inkfit.py + the committed seeds; badbury = confident e2e, calleva =
+unsure e2e).
