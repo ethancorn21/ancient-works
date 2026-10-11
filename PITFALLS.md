@@ -28,6 +28,14 @@ The read, edit and bash tools, the driver, the loop and its checks.
 
 Installed software and versions, paths, ports, network, what is blocked.
 
+#### The driver's .venv build needs a fully pinned and hashed requirements.txt
+Where: `requirements.in`, `requirements.txt`, the driver's venv build (`pip install --require-hashes`)
+Symptom: `ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not: ...`
+Fix: add the package to `requirements.in`, regenerate `requirements.txt` with `pip-compile --generate-hashes`
+from a throwaway venv outside the project (pip-tools itself goes there, e.g. `/tmp/aw-pto`), commit both.
+PyPI is reachable from this machine and cp312 wheels for the current requirements install fine (2026-10-10:
+the built `.venv` ran the 8-test suite).
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -36,3 +44,27 @@ One `### <library>` subsection per library or tool, with its version.
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
 a trap in one part often shows up in another.
+
+#### `web/data/sites.json`: the only universal keys are id/name/lon/lat/corners/size_m/drawings
+Where: `web/data/sites.json`, `tests/test_serve.py`, the batch tasks (203a/203b)
+Symptom: a test or tool that requires `place`, `kind`, `qid` or `region` fails for some sites: of the 384,
+6 have no `region`, 48 no `qid`, 33 no `wiki`.
+Why: entries are written by `build_site.py` from partially filled catalog rows. Assert only the seven
+universal keys; select US sites with `region == "US"` (90 of 384) and treat all the rest (294, including
+the 6 without a region) as "non-US" so none is skipped by a batch or a test.
+
+#### `web/data/plans.json` rows may share an `id` when one picture depicts two sites
+Where: `web/data/plans.json`, `web/index.html` (`P.byId`), `tools/export_plans.py`
+Symptom: the fit tool opens the wrong plan row: the page's `P.byId` keeps only the last of the shared-`id` rows.
+The true key is `(id, sites[0])`. As of the plan two pairs share an id: "The new Larned History..."
+(avebury + stonehenge) and "File:Mayburgh-1769.png" (mayburgh-henge + king-arthur-s-round-table). Tests must
+assert `(id, sites[0])` uniqueness, not `id` uniqueness; the fit-tool keying fix is scoped into 201.
+
+#### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
+Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
+Symptom: (a safety fact, not an error) a GET-only test server never rebuilds site overlays; a
+PUT/DELETE to `/api/db/platefits/*` wakes a worker thread that runs `plan_fit.main()` (it syncs all fits)
+and the page polls `depictions.json` for the result.
+Why: `after_write()` wakes the worker only for the `platefits` collection (its comment records that a
+subprocess launched from the server silently died). GET-only tests are therefore safe and offline; a test
+that PUTs a platefit should poll the site's `depictions.json`, not run `plan_fit` itself.

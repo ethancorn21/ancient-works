@@ -70,10 +70,10 @@ Module map (one module per task, so agents never collide):
 | `fit/evidence.py` | 200 | record + offline-check the place-tie evidence of every picture row |
 | `fit/review.py` | 201 | the review queue: item format, page section (`web/review.js`), resolution |
 | `fit/propose.py` | 202 | proposed point pairs per (site, picture): a seed a human finishes in a minute |
-| `fit/batch_us.py` / `fit/batch_eu.py` | 203a / 203b | the whole loop over the built sites (US / rest of world) |
-| `fit/src_van_deventer.py`, `fit/src_kip.py`, `fit/src_mackenzie.py`, `fit/src_roman.py`, `fit/src_limes.py`, `fit/src_wiltshire.py`, `fit/src_numancia.py` | 204-210 | the seven growth leads: find, verify age + free access, tie, stage rows |
-| `fit/merge.py` | 211 | consolidate per-source rows into the canonical files; build the new sites; refresh the page data |
-| `fit/cover.py` | 212 | targeted picture search for the still-uncovered sites; final sync and report |
+| `fit/batch_us.py` / `fit/batch_eu.py` | 203a / 203b | the whole loop over the built sites (US / rest of world); each writes its report (`docs/batch_us.md` / `docs/batch_eu.md`); the parent 203, on return, checks the original site set is fully covered |
+| `fit/src_van_deventer.py`, `fit/src_kip.py`, `fit/src_mackenzie.py`, `fit/src_roman.py`, `fit/src_limes.py`, `fit/src_wiltshire.py`, `fit/src_numancia.py` | 204-210 | the seven growth leads: find, verify age + free access, tie, stage rows in its own staging files and its own `docs/lead_<name>.md` (book leads write per-book artifacts only) |
+| `fit/merge.py` | 211 | consolidate per-source rows into the canonical files; rebuild the book index (the shared one, once); build the new sites; refresh the page data; consolidate the lead statuses into `docs/sources.md` |
+| `fit/cover.py` | 212 | targeted picture search for the still-uncovered sites; the only page-facing sync; the final report (`docs/batch.md`) and the current 20-sample |
 
 ## Tech choices (and why)
 
@@ -149,13 +149,15 @@ Module map (one module per task, so agents never collide):
 
 | wave | tasks | why they can run together |
 |---|---|---|
-| 1 | **001** (gate), **200** (evidence), **201** (review queue), **202** (proposals) | 001 writes `pipeline/`/`tools/`/`docs/gate.md`; the other three write `fit/`, `web/review.js` (+ one line in `index.html`) and their own test files — no file is shared. (001 declares `tests/` as a directory; every task's tests are separate `test_*.py` files, `conftest.py` is owned by 000.) |
-| 2 | **203a** (batch: US built sites), **204-210** (the seven source leads) | 203a writes `fit/batch_us.py`, US platefits docs, US review items; each source writes only its own `fit/src_*.py` + its own `extras_*/files_*/classified_*` staging files. |
-| 3 | **203b** (batch: rest of world), **211** (merge & build) | 203b writes `fit/batch_eu.py`, EU docs/items; 211 writes `fit/merge.py`, the canonical data files, `web/data/sites.json` + `plans.json`. |
-| 4 | **212** (final cover, sync & report) | everything it needs is done; it alone runs the page-facing sync, so it owns `web/data/review.json`, the `drawings` updates and `docs/batch.md`. |
+| 1 | **001** (gate), **200** (evidence), **201** (review queue), **202** (proposals) | 001 writes `pipeline/`/`tools/`/`docs/gate.md`; the other three write `fit/`, `web/review.js` (+ one script tag in `index.html`) and their own test files - no file is shared. (001 declares `tests/` as a directory; every task's tests are separate `test_*.py` files, `conftest.py` is owned by 000 - the driver's replay keeps the directory apart where it must.) |
+| 2 | **203a** (batch: US built sites), **204** (Van Deventer), **205** (Kip), **206** (Mackenzie p.212), **207** (Roman books), **210** (Numancia) | 203a writes `fit/batch_us.py`, US docs/items, the hand-fit golden hashes; each source writes only its own module + its own staging files + its own `docs/lead_<name>.md`. 207 is the only book-machinery user of this wave. 206 depends on 001 (its identification must pass the gate). |
+| 3 | **203b** (batch: rest of world), **208** (German Limes), **209** (Wiltshire) | 203b writes `fit/batch_eu.py`, non-US docs/items; 208 and 209 write only their own staging/modules. 209 is the only book-machinery user left: 207 and 209 share the `data/books/` directory (in practice only per-book files, named by the book's ia id), so they never run together; 208 uses the book machinery at all only if the Limes reports turn out to be IA books - then it declares the exact per-book paths in its own `Touches` line first. |
+| 4 | **203** (the parent, on return), **211** (merge & build) | the parent's remaining work is one test file (the coverage check over the original site set); 211 alone writes the canonical data files, the rebuilt shared book index (`index.jsonl`, `validation.json`), `web/data/sites.json` + `plans.json` and `docs/sources.md`. |
+| 5 | **212** (final cover, sync & report) | the last task: everything it needs is done; it alone runs the page-facing sync (per-site depictions, the `drawings` counts, `web/data/review.json`) and owns `docs/batch.md`. |
 
-Most waves have two or more tasks (4 / 8 / 2 / 1). A task with unmet `Depends on:` simply waits; the driver
-hands each agent whatever else is open.
+Most waves have two or more tasks (4 / 6 / 3 / 2 / 1). A task with unmet `Depends on:` simply waits; the
+driver hands each agent whatever else is open. The book leads (207/209) are in separate waves only
+because they share the `data/books/` directory, not because one needs the other's output.
 
 ## Test policy
 

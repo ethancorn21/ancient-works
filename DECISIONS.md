@@ -50,3 +50,41 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     000's test_data.py asserts (id, site) uniqueness, not id uniqueness. Also noted: web/data/sites.json
     entries only universally have id/name/lon/lat/corners/size_m/drawings — place/kind/qid are absent on some
     sites, so tests must not require them.
+
+## 2026-10-10 000 DECISION: final wave layout is 4/6/3/2/1; the book-machinery leads are in separate waves
+    The earlier entries put all seven source leads in wave 2 and 211 in wave 3; that no longer holds. The
+    book-machinery leads 207 (Roman) and 209 (Wiltshire) both write into the data/books/ directory (in
+    practice only per-book files: lists/<book>.json, triage/<ia>.* - verified that
+    books_lists.cmd_index regenerates the whole index.jsonl from those per-book artifacts), so they cannot
+    run in the same wave, and 211 (which depends on every source, including 209) moves to wave 4 behind
+    both. Final layout: wave 1 = 001/200/201/202; wave 2 = 203a + 204/205/206/207/210; wave 3 = 203b +
+    208/209; wave 4 = 203 parent (returned; writes only its own test file) + 211 (the sole writer of the
+    canonical files and the shared book index); wave 5 = 212 (final sync, the last task). 208 joins wave 3
+    and declares exact per-book paths in its Touches line only if the Limes source turns out to be an IA
+    book; the two book leads never write the shared index.jsonl / validation.json (211 rebuilds both).
+
+## 2026-10-10 000 DECISION: batch reports are per-subtask (docs/batch_us.md, docs/batch_eu.md); 212 writes the final docs/batch.md
+    Keeps 203a/203b/211/212 file-disjoint across waves. Each subtask records its own counts and its own
+    seeded sample of automatically accepted fits; the final report and the human's 20-sample (for the
+    18/20 check) are written only by 212, fixed and reproducible from the recorded seed.
+
+## 2026-10-10 000 DECISION: the 203 parent returns with one job (coverage check on the original site set); the full GOAL-point-1 assertion is 212's
+    The parent returns after 203a+203b (wave 4, alongside 211) but before 212 (wave 5) covers the new
+    sites that 211 built. A whole-set assertion at the parent's return would be flaky: the new sites
+    have neither a fit nor a review item until 212's cover pass. So the parent only runs
+    tests/test_batch.py over the pre-growth site set; 212 asserts "every built site has a fit or an open
+    review item" over the final set (GOAL.md point 1, in full).
+
+## 2026-10-10 000 DECISION: 206 (Mackenzie p.212) depends on 001
+    The identification of the uncaptioned five-towered castle must be proven by a fit that passes the
+    numerical gate (GOAL.md point 2: acceptance is by numbers, never a model's opinion), not by shape or
+    county context alone. 001 is wave 1, so this does not change the wave layout.
+
+## 2026-10-10 000 OBSERVATION: sites.json and book-index facts behind the wave layout
+    sites.json: 384 sites, 378 carry a region field (90 "US" -> 203a; the other 294, including the 6 with
+    no region, -> 203b). The books indexed in data/books/index.jsonl are exactly 8 (squier_davis_1848,
+    lapham_1855, thomas_1894, fowke_1902, squier_1851, whittlesey_1850, allcroft_1908, mills_1914); none
+    of the growth-lead books (Roy, Horsley, Maclauchlan, Hoare, Stukeley, Petrie, Mackenzie, Kip) is
+    indexed and none has a data/raw/books directory, so every book lead fetches in its working phase.
+    pipeline/sources.py already hand-ties 29 Mackenzie plates, 6 Van Deventer towns (including the
+    hand-fitted Bergues) and 6 Kip views; those are not re-staged by 204-206.
