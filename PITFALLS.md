@@ -238,3 +238,29 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       gymnasium named after the map's owner. A first-resolved walk over such rows lands on that far item and
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
+
+### fit/
+
+#### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
+Where: `fit/batch_us.py` (`write_report`, path building), `tests/test_batch_us.py`
+      (`_check_doc`, `_check_doc_stub`)
+Symptom: `Path(root) / "a" / "%s.json" % (x, y)` raises `TypeError: unsupported operand type(s)
+      for %: 'PosixPath' and 'tuple'` - the expression parses as `(Path(root) / "a" / "%s.json") %
+      (x, y)`. Likewise `"a" or "b" / "c"` parses as `"a" or ("b" / "c")` (one silent wrong-value
+      hit and one crash in the batch work).
+Why: in Python's precedence table `* / // %` form one level, `+ -` the next, then comparisons,
+      then `not` / `and` / `or`. So a `%` formatting applied to a path string is swallowed into the
+      `/` chain before it, and a `/` into an `or`. Always parenthesize a format string inside a
+      chain: `Path(root) / ("a%s.json" % (x, y))`; never mix `/` with `or` unparenthesized.
+
+#### `batch_us.pre_docs` matches any existing `<site>.*.json` document - including automatic docs the current run just wrote
+Where: `fit/batch_us.py` (`pre_docs`, `run_sites`), `tests/test_batch_us.py`
+Symptom: code that computes a site's "pre-batch" state AFTER `run_sites` treats every candidate as
+      already pre-fit: for serpent-mound the expected set comes out empty and an assertion compares
+      15 new automatic documents against `set()` - which looks like a gate-verdict mismatch, but
+      the gate (pipeline/fit_gate.py) is a pure function of (pairs, transform) plus frozen module
+      constants, so two identical calls cannot disagree.
+Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batch writes its
+      automatic documents into that same directory during the run. Snapshot the pre-run state
+      (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
+      "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)

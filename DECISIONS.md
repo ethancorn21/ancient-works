@@ -70,3 +70,20 @@ the identical computation ACCEPTs (med 0.001-0.022) in a standalone probe - susp
 the shared pytest process (earlier test modules import fit_gate/plan_fit/aw/propose); next step is to run
 that test alone in a fresh process and instrument _expected vs gate_placement, or drop the pre-run
 expectation in favour of asserting on the written artifacts (which _check_doc / _check_entry already do).
+
+## 2026-10-11 203a DECISION: session 3 - all 5 tests green; failure 3 was a post-run pre_docs snapshot, not state pollution
+Fixed the remaining session-2 failures in tests/test_batch_us.py only (fit/batch_us.py untouched):
+(1) parenthesized the format strings in `_check_doc` and `_check_doc_stub` (`/` and `%` are the same
+precedence, left-associative - now a PITFALLS entry); (2) `_table` uses the report's exact section
+header; (3) the "state pollution" diagnosis was wrong. fit_gate.gate is a pure function of
+(pairs, transform) plus frozen module constants (read pipeline/fit_gate.py: no mutable state, no
+monkeypatched globals in play), and within the same test the batch's own in-process gate calls had
+already ACCEPTed all 15 serpent proposals - two identical calls cannot disagree. The real bug:
+batch_us.pre_docs matches ANY existing <site>.*.json in data/db/platefits - including the automatic
+documents the run itself just wrote - so the test's post-run "pre" snapshot made every candidate
+look pre-fit, the expected set came out empty, and `set(rec["auto"]) == auto` failed as {15} != set().
+Fix: snapshot pre_docs/is_pre_fit BEFORE run_sites (pre_docs_before / pre_fit_before). Result:
+tests/test_batch_us.py 5/5 (15.4 s); full suite 34/34 in .venv (53 s). Ticked boxes 2 and 6 (1 was
+already ticked). PITFALLS gains a `### fit/` subsection (the precedence family; pre_docs matching
+new auto docs). Next: the working phase (--working over all 90; llm_model on the fitkit sheet - the
+prompt has never seen the model, check the answer parsing on the first run), then boxes 3/4/5 and done.

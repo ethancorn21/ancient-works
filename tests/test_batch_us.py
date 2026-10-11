@@ -245,7 +245,8 @@ def _check_doc(tree, sid, row):
     """An automatic document: the page's existing platefit format plus the auto mark and the
     gate's score, which must equal the gate's own measurement of the document's recorded
     anchors (recomputed here, independently of the batch's call)."""
-    doc = json.loads((Path(tree) / "data" / "db" / "platefits" / "%s.%s.json" % (sid, row["id"])).read_text())
+    # (/ and % are same-precedence, left-associative: the format must be parenthesized)
+    doc = json.loads((Path(tree) / "data" / "db" / "platefits" / ("%s.%s.json" % (sid, row["id"]))).read_text())
     assert doc["site"] == sid and doc["plan"] == row["id"]
     assert doc["auto"] is True
     assert isinstance(doc["score"], float) and doc["score"] >= 0
@@ -310,7 +311,8 @@ def _check_entry(sid, row, entry, answer):
 def _check_doc_stub(tree, sid, row, answer, score):
     """_check_doc without the gate re-computation: the stub's score is not a gate measurement
     (that is the point - the writer is pinned independently of the gate's thresholds)."""
-    doc = json.loads((Path(tree) / "data" / "db" / "platefits" / "%s.%s.json" % (sid, row["id"])).read_text())
+    # (/ and % are same-precedence, left-associative: the format must be parenthesized)
+    doc = json.loads((Path(tree) / "data" / "db" / "platefits" / ("%s.%s.json" % (sid, row["id"]))).read_text())
     assert doc["site"] == sid and doc["plan"] == row["id"] and doc["auto"] is True
     assert doc["score"] == score
     _check_pairs(doc["pairs"], row)
@@ -364,13 +366,18 @@ def test_sample_run_real_gate(tree):
     sample = _sample()
     rows = _rows_by_id()
     answers = _answers()
+    # Snapshot the pre-batch state BEFORE the run: pre_docs matches any existing <site>.*.json file,
+    # including the automatic documents this very run writes, so a post-run snapshot would swallow
+    # the batch's own output (a pre-fit site and its new docs both read as "pre").
+    pre_docs_before = {sid: _pre(tree, sid) for sid in sample}
+    pre_fit_before = {sid: batch_us.is_pre_fit(tree, sid) for sid in sample}
     pre_items = {sid: _item(tree, sid) for sid in sample}
     records = batch_us.run_sites(tree, sample, batch_us.recorded_model(answers))
     assert sorted(records) == sorted(sample)
 
     for sid in sample:
         rec = records[sid]
-        pre = _pre(tree, sid)
+        pre = pre_docs_before[sid]
         cands = batch_us.candidates(sid, _rows())
         assert set(rec["detail"]) == {r["id"] for r in cands}
         # every non-pre candidate: a doc or an item entry - GOAL point 1, per site
@@ -379,8 +386,11 @@ def test_sample_run_real_gate(tree):
         auto = {p for p, k in expected.items() if k == "auto"}
         item = {p for p, k in expected.items() if k == "item"}
         assert set(rec["auto"]) == auto
-        assert rec["item"] == bool(item)
-        assert rec["pre_fit"] == batch_us.is_pre_fit(tree, sid)
+        # a candidate-less site without a pre-fit ends with its no-picture item (no candidate entries
+        # to predict it from); every other site gets an item exactly when a candidate needs one
+        want_item = bool(item) if cands else not rec["pre_fit"]
+        assert rec["item"] == want_item
+        assert rec["pre_fit"] == pre_fit_before[sid]
         if item:
             it = _item(tree, sid)
             want = [r["id"] for r in cands if r["id"] in item]
@@ -393,7 +403,7 @@ def test_sample_run_real_gate(tree):
 
     # serpent-mound: 202's 5-point proposals pass the frozen gate (the documented true case)
     rec = records[SERPENT]
-    nonpre = {r["id"] for r in batch_us.candidates(SERPENT, _rows())} - set(_pre(tree, SERPENT))
+    nonpre = {r["id"] for r in batch_us.candidates(SERPENT, _rows())} - set(pre_docs_before[SERPENT])
     for plan in SERPENT_ANSWER_PLANS:
         a, b, _, _ = plan_fit.similarity(answers[SERPENT][plan]["pairs"])
         verdict, _ = fit_gate.gate(answers[SERPENT][plan]["pairs"], (a, b))
@@ -405,7 +415,7 @@ def test_sample_run_real_gate(tree):
     rec = records[CAHOKIA]
     assert rec["auto"] == []
     assert rec["item"]
-    first = next(r["id"] for r in batch_us.candidates(CAHOKIA, _rows()) if r["id"] not in _pre(tree, CAHOKIA))
+    first = next(r["id"] for r in batch_us.candidates(CAHOKIA, _rows()) if r["id"] not in pre_docs_before[CAHOKIA])
     assert (Path(tree) / "data" / "review" / ("%s.%s.json" % (CAHOKIA, first))).is_file()
     it = _item(tree, CAHOKIA)
     assert {c["plan"] for c in it["candidates"]} == set(CAHOKIA_TWO_PAIR) | set(CAHOKIA_NO_ANSWER)
@@ -545,7 +555,7 @@ def test_report_reproducible_from_seed(tree, tmp_path):
         assert "- %s: %d" % (k, len(counts[k])) in text
     n_auto = sum(len(r["auto"]) for r in records.values())
     assert n_auto >= 1, "the pinned serpent-mound proposals must pass the real gate"
-    header = "## Sample of automatically accepted fits"
+    header = "## Sample of automatically accepted fits (for the human's 18/20 check)"  # the report's exact section header
     docs = _table(text, header)
     assert len(docs) == min(20, n_auto)
     auto_set = {"%s.%s" % (r["site"], p) for r in records.values() for p in r["auto"]}
