@@ -16,7 +16,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+- 2026-10-10 (agent c, iter 14): 801 - census of the 280 plain-none rows complete and design decided (new kinds part_mention / sheet_mention in fit/evidence.py, record --redo-none). No code written and no tests run this session (last known suite state: green per the iter-13 driver run). Next session: measure Q113551546 P625 + prototype the title extractor live, then implement.
 
 ## Project-wide driver notes (newest)
 

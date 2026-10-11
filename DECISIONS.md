@@ -198,3 +198,26 @@ tests changed. Next session (when the human or the loop's 120-minute answer on t
 recommendation arrives): (a) -> re-word box 2 to the registered contract, tick it, Status:
 done; (b) -> box 2 stays unticked, file task 801 (next free 8xx) for a tighter rule on fresh
 documents; otherwise follow the ruling literally.
+
+## 2026-10-10 801 DECISION: census done, two new evidence kinds designed (part_mention, sheet_mention) - implement next session
+Iter 14 (agent c). Read fit/evidence.py, books_match.py, the evidence test + golden, the commons
+harvest. Then reviewed all 280 plain-none rows individually (filter: kind none without conflict in
+data/commons/files.jsonl; dump kept in the task hand-over). They fall into: ~85-90 rows that
+genuinely name the site (39 Strasbourg maps on argentoratum - the site's coords ARE Strasbourg but
+catalog aliases are Roman-only; 40 "Clifford's Tower" photos on york-castle - Clifford's Tower is a
+catalog has_part; 4 Reims maps on durocortorum; 5 Orléans maps on cenabum; Weesp/Arnhem/Beauvais/
+Cranbourne/Darlington/Monmouth/St. Louis/Manchester/Nijmegen/Birmingham/Barkhale singles), ~50 junk
+rows whose captions DO name a place but far away (13 New-Orleans on cenabum, 12 Palestine surveys on
+the NETHERLANDS bethlehem-q2523914, Maastricht on traiectum/bethlehem, Bristol on 4 sites, Venice on
+gondole, Chirk on offa's-dyke at ~57 km...) which box 2 wants recorded as conflicts, and ~180 book-
+scan/seed-catalogue/painting rows naming nothing (stay none - correct).
+Design (full detail in the task hand-over): kinds part_mention (caption names a catalog has_part,
+part item's P625 within 50 km) and sheet_mention (proper-noun phrase from title+desc resolves via
+the existing one-search-per-name + batched-claims prefetch to within 50 km); both store the
+caption_coords shape so check re-verifies offline; record gains --redo-none to re-run only stored
+none rows through the live route; STOP-word + case-boundary title tokenizer (handles
+"Maastricht1749LarcherDAubencourt2"); per-site verdicts (the same "Peutinger Casaromago" file
+passes on castrum-levefanum ~Beauvais but stays conflict-none on fletio ~440 km away).
+Open risk to measure FIRST next session: whether Clifford's Tower's item Q113551546 carries P625 -
+if not, the 40 photos cannot pass (fail-closed) and the pass set is ~45 of ~85, still a bare
+majority; do not loosen the guard to compensate without logging it.
