@@ -1,7 +1,7 @@
 Status: open
 # 801: Evidence coverage for the 280 no-tie picture rows (OS-sheet maps and book scans)
 Depends on: 200
-Touches: fit/evidence.py
+Touches: fit/evidence.py data/commons/files.jsonl tests/test_evidence_801.py tests/golden/evidence_801_check.txt
 
 ## Goal
 Task 200 (done) records machine-checkable ties on every picture row; 280 of the 1381 commons rows
@@ -42,11 +42,96 @@ mechanics).
 
 ## Hand-over
 
-**Where I am (iteration 17, agent c).** Extractor v3 FINAL (offline, verified over all 354 none rows) +
-verdict-logic design settled (fixes the iter-16 contradiction) + one census correction (castrum-levefanum
-is the Dutch site, not Beauvais). No repo changes this session (all work in /tmp; repo byte-identical to
-iter-16's commit e6ebbaa; tests not re-run because nothing in the repo changed - last full run was 12/12
-green in the 800 verification). NEXT = the live resolution run, then the fit/evidence.py implementation.
+**Where I am (iteration 20, agent a; took over from agent c).** fit/evidence.py implementation is COMPLETE
+and committed: (a) commit 5f04b9c - `site_point(site, claims)` extracted from caption_route (refactor-first,
+zero behavior change, proven: 12/12 tests + real check byte-identical); (b) commit 0134ba4 - the feature:
+the v3 sheet-candidate extractor ported VERBATIM into fit/evidence.py (`sheet_candidates`, `part_hits`,
+`TOKEN`/`STOP`/`REAL_WORD` - the STOP list now lives in the repo, agent c's lost DECISIONS entry no longer
+needed), `part_route` + `sheet_route` (kinds `part_mention`/`sheet_mention`, walk: FIRST resolving candidate
+decides; far resolution stored as a `conflict` with a new `route` key, `check_none` prints the route, defaulting
+to "caption" so the 74 stored conflicts print exactly as before), `check_part`/`check_sheet`, and
+`--redo-none` (live-only: re-evaluates exactly the rows whose stored kind is "none"; plain `record` stdout
+unchanged: "evidence recorded: N hand-tied, N book, N live"). Verified this session: 12/12 tests green; real
+`check` exit 0, output BYTE-IDENTICAL to pre-change baseline (/tmp/check_baseline.txt); PORT FIDELITY PROVEN:
+my extractor == agent c's /tmp/sheet_proto2.py over all 354 none rows (0 mismatches, 1483 unique candidates,
+byte-equal to /tmp/sheet_proto2_dump.txt in file order - /tmp prototypes still in this VM); wiring proven
+offline with synthetic ctx (7 checks: sheet pass, walk-trap "New York" far decides before glued "York" near,
+part pass with Clifford's Tower, caption route still first, plain none, part far -> conflict, and check
+round-trip incl. a stored >50 km trap FAILing). NOTHING else is committed or changed in the repo right now.
+
+**KEY DESIGN FINDING (supersedes agent c's claim):** "candidates are norm-substrings by construction" is FALSE
+- 392 of the 1483 candidates fail `norm(cand) in norm(title+desc)` (e.g. "Robert Dennis" from "Robert N.
+Dennis" - a 1-letter non-kept token stays in norm(hay); "York Castle" from "New York. Castle Garden"). So
+`check_sheet` RE-RUNS the extractor (stored named_place must be in `sheet_candidates(title, desc)`); the
+distance re-check (recompute from stored coords, within 1000 m, <= 50 km) is shared. `check_part` uses the
+norm-substring (safe: a part name is the catalog's own string, norm applied symmetrically to both sides) plus
+`part_qid` must still be in the catalog site's has_part. Both new check functions verified.
+
+**EXACT NEXT STEPS (in order):**
+1. Start the live run IN THE BACKGROUND (it is the ~30 min long pole; nohup survives session ends):
+   `cd /home/agent/projects/ancient-works.a && nohup .venv/bin/python fit/evidence.py record --live --redo-none > /tmp/redo_none_run.log 2>&1 &`
+   It writes data/commons/files.jsonl in 25-row chunks; expect final line "evidence recorded: 0 hand-tied,
+   0 book, 354 live"; ~1484 searches at PACE_S=1.0 + batched claims (one search per unique name, one batched
+   claims fetch per 50 - the batched shape is preserved). If it dies mid-way (network), just re-run the same
+   command: rows that flipped to a non-none kind are skipped, remaining none rows re-evaluate (the ~25 min
+   search cost repeats for their candidates - the only price of an interruption).
+2. WHILE IT RUNS: (a) add to this task's `Touches:` line: `data/commons/files.jsonl tests/test_evidence_801.py
+   tests/golden/evidence_801_check.txt` (team rule: paths must be listed before they are touched); (b) write
+   tests/test_evidence_801.py + the golden - design already settled: 7 synthetic commons rows in a tmp file
+   against a tmp 2-site catalog (`test-castle` qid Q1 with has_part [{Q2, "Test Tower"}], `bare-castle` Q3),
+   run the CLI `check --files F --books <absent> --catalog C`, stdout vs golden, exit 1: rows = (1) part PASS
+   (title "A view of Test Castle and its Test Tower", coords 1.0001/51.0 vs site 1/51, dist computed with
+   evidence.hav_m in the test setup only); (2) part FAIL (part_qid Q9 not in has_part); (3) sheet PASS (title
+   "File:Testville Testham 1840, sheet by the survey", named "Testville" - the SINGLE after the pair misses);
+   (4) sheet FAIL (title without Testville: "File:Nowhere Somewhere 1840, sheet by the survey" - candidate not
+   derivable); (5) none + sheet conflict far (2.0,55.0 vs 2.0,52.0 -> "conflict: sheet ... N km"); (6) none +
+   part conflict far (1.0,54.5 vs 1.0,51.0); (7) part FAIL trap (coords 1.0,55.0 -> "part is N km from the
+   site (the trap), not a tie"). Summary line: "evidence: 7 rows, 2 pass, 3 fail, 2 no-tie". Generate the
+   golden from one real CLI run of the fixture (deterministic: no dates printed). No network, no ports, tmp
+   paths only.
+3. WHEN THE RUN FINISHES (poll the log): review `git diff data/commons/files.jsonl` - ONLY the 354 none rows
+   may change (evidence field only; set_field keeps every other byte). Check the WATCH items: (a) "Bethleem"
+   first search hit (PASS if it resolves to the Dutch bethlehem-q2523914, CONFLICT if to the Holy Land);
+   (b) "Coria" first hit (Spain? Mexico? Corbridge?); (c) any NEW name-sharing pass beyond the accepted class
+   (Clifford's Tower on york-castle) - log each in DECISIONS before keeping it. The 74 stored conflicts must
+   keep re-verifying (same or improved verdict). Then: `.venv/bin/python fit/evidence.py check` must exit 0
+   (expect ~1162 pass + the new part/sheet passes, 0 fail, and fewer no-tie than 1109); `.venv/bin/python -m
+   pytest -q` must be 13/13 (12 old + the new one) and tests/golden/evidence_check.txt (the 15-row sample
+   contains NONE of the 354) must stay byte-identical (it will - my check output is unchanged); commit the
+   data + test together.
+4. Add the two PITFALLS entries agent c left pending: "Latin Peutinger names (Casaromago, Sammarobriva) have
+   no Wikidata items; 'Peutinger' resolves to Q2081791 Ellwangen gymnasium 475-500 km from the Dutch Limes
+   sites" (Wikimedia-APIs subsection) and "catalog castrum-levefanum-q1309559 is the DUTCH Limes fort
+   (5.35E 51.96N), not Beauvais (1.99E 49.42N) - don't assume geography from the name" (This codebase).
+   Also file a pitfall if the live run confirms anything unexpected about search first-hits.
+5. Tick the acceptance boxes per the measured outcome (see below) and update this hand-over.
+
+**LIVE-RUN EXPECTATIONS (carried from agent c's iter-17 hand-over; distances vs stored site coords):**
+part PASS: the 40 Clifford's Tower rows on york-castle (part Q113551546, ~6 m). sheet PASS (~60-65): Stra-
+bourg 36-39 (argentoratum, "Strasbourg"/old "Strabourg"), Reims 4-5 (durocortorum, incl. "Val Mont"), Orleans
+1-5 (cenabum: NFKD "d'Orleans" ~0.4 km), St Louis 1 (cahokia via merged "St Louis"), Barkhale 1, Weesp 1
+(fletio 25 km), Arnhem 1 (duno 5.5 km), Cranbourne 1 (badbury-rings 21 km), Darlington 1 (barnard-castle
+33 km), Monmouth 2 (blestium 25 km), Birmingham 1 (dudley-castle 13 km), York 1 (york-castle 1914 tin - the
+accepted name-sharing class). CONFLICT: New-Orleans-on-cenabum (~13), bethlehem-q2523914 rows (~30: Bethlehem
+Holy Land Q5776 4700 km - ALREADY stored in the old conflicts; Maastricht ~290 km - the site sits at 6.61E
+53.38N, NOT near Maastricht; Palestine/Jerusalem/Prospect House), Bristol (4 sites), Venice/Gondole (7),
+Chirk (2, 57 km), Coria rows (5: person name "Lorenzo Coria" -> "Coria" decides), Castle Garden (4: "New
+York" decides), Morse-atlas cahokia row ("New Haven"), Britannia-on-alauna row ("Britain"). plain none:
+remaining book-scan/painting rows (incl. the 6 BHL garden manuals + 2 all-caps Bethlehem-basilica titles:
+known limitation, all-caps is dropped as acronym - do NOT loosen without per-row re-review). Box 1 needs a
+MAJORITY of the ~85-90 genuinely-naming rows to pass (40 part + ~60-65 sheet ~ 100-105 vs ~85-90 - measure
+the actuals and log the exact count in DECISIONS; if below majority, log the shortfall before relaxing
+anything). Box 3: row count stays 2271 (files 1381-titled + book rows), every non-evidence byte preserved.
+
+**Gotchas (carried forward):** run everything through .venv/bin/python; tests: no network, no fixed ports,
+no writes outside project+temp (the live run is a MANUAL step, not a test - allowed, and it must not run
+concurrently with anything that assumes files.jsonl is static); never rebase/merge/stash/switch branches
+(driver handles); don't touch agent c's 201 files (fit/review.py web/review.js web/index.html data/review
+web/data/review.json tests/test_review.py); the 801 task file was filed by agent c - its goal/boxes are
+human-owned, I may only write this hand-over and the Touches/Depends lines; the iter-14 census in
+DECISIONS-archive.md (search "801") is the per-site reference, corrected by the castrum-levefanum note
+above; the STOP list is now the source of truth in fit/evidence.py (any future change to it needs a fresh
+dump-vs-real review like the 1483-count check).
 
 **Prototype (recreate if /tmp wiped):** /tmp/sheet_proto2.py = v3 (final rules); /tmp/sheet_proto2_out_v3.txt
 = its frequency list; /tmp/sheet_proto2_dump.txt = per-row candidates for all 354 none rows (94 KB);
