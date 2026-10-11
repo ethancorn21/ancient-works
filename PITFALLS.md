@@ -147,3 +147,29 @@ Why: the margin is a property of the whole candidate pool, not of one pair. To p
 behavior-neutral, do a one-off before/after run and byte-compare (`matches.jsonl` hash + printed summary),
 as 200 did. The evidence check deliberately stores the runner-up margin and does not re-run the matcher
 over the catalog.
+
+### Wikimedia APIs (Commons, Wikidata)
+
+#### A Commons file page's structured data is a local MediaInfo item (M<page id>), not a global Wikidata item
+Where: `fit/evidence.py` (`fetch_page_ids`, `fetch_file_entities`); the Commons API `w/api.php`; any future
+      per-file metadata fetching (task 801, and the batch tasks that harvest file pages)
+Symptom: searching a file page's HTML for its Wikidata item id (`ItemPage/(Q\d+)`, `"wikibaseItem"`,
+      `"globalItem"`) finds nothing (or finds unrelated items: Q13414952 is MD5 - it appears as a P459
+      qualifier on the file's content-hash statement; Q19652 is "public domain" - the P6216 license). The
+      page's `mw.config` carries `"wbEntityId":"M<page id>"` instead.
+Why: files uploaded without a global Wikidata item get a *local* Wikibase entity on Commons (the
+      wbmi/"MediaInfo" integration), and its statements are what the file page's "Structured data" tab
+      shows. The local wiki's `wbgetentities` answers `ids=M<page id>` directly (the `site` parameter is
+      rejected with a warning but not needed; the entity comes back under `"statements"`, not the WD
+      service's `"claims"`), and a page that does have a global item answers with `{"missing":"true",
+      "normalized":{"item":"Q…"}}` - chase that Q id through the Wikidata service for the real claims.
+      Batch 50 ids per call, pace with `commons.get` (1 s).
+
+#### P6216 is the license property, never a depicts claim - do not group it with P180
+Where: `fit/evidence.py` (`fetch_file_entities`, `check_depicts`); any regex or dict over wbmi/Wikidata
+      statements that treats property lists loosely
+Symptom: a statement matcher over the file item that accepts "P180|P6216" as depictions reports
+      "public domain" (Q19652) or other license items as depicted entities - a false depiction tie.
+Why: MediaInfo items always carry a P6216 (license) statement, so any P180|P6216 alternation is
+      guaranteed to pick up licenses. Only P180 (depicts) is a depiction; the site-side depiction
+      evidence is P3311 (plan) / P18 (image) on the site's item.

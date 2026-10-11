@@ -248,3 +248,43 @@ planned to tick box 1 after the offline record; a fresh read of the acceptance w
 Box 3 is verified in the sample (the Hampton Court trap row is NONE-with-conflict, never a pass; no-tie rows
 are printed) and gets its real-data confirmation with the live record (no row with a stored conflict may ever
 carry a passing field).
+
+## 2026-10-10 200 DECISION: the P180 live route was broken (HTML scraping); replaced with a batched API route (local M<pageid> items, normalized-global chase), P6216 excluded
+Where: fit/evidence.py (fetch_page_ids, fetch_file_entities, live_evidence, record_live; fetch_file_item and the UA constant deleted), the depicts bullet of the module docstring, check_depicts
+Probing before the first live run (per the iteration-12 plan) showed the old fetch_file_item was wrong in
+two ways: (1) the item-QID patterns (ItemPage/(Q\d+), "wikibaseItem", "globalItem") match nothing, because
+old file pages carry only a LOCAL MediaInfo entity - the page's mw.config has "wbEntityId":"M<page id>"
+(M37646731 for the probe file) and the embedded JSON is that local entity's statements; (2) the P180|P6216
+regex matched P6216 *license* statements (Q19652 "public domain") and reported them as depicts values, and
+the only Q ids in the page at all were Q13414952 (MD5 - a P459 qualifier on the file's hash statement) and
+the license. So the route would have mis-recorded licenses as depictions and never found a real file item.
+Fix, verified with live probes: fetch_page_ids (action=query prop=info, 50/batch) gives the page id;
+fetch_file_entities then calls the Commons API wbgetentities with ids=M<pid> (the "site" parameter is
+rejected by the API but unnecessary; the local wiki returns the entity under "statements", not "claims")
+in batches of 50, and for pages whose local entity normalizes to a global item ({"normalized":{"item":"Q…"}}
++ missing) it chases that Q id through the Wikidata service. Only P180 is read as a depiction; P6216 was
+also removed from check_depicts (it is a license, never a depicts). The recorded "file_qid" is the item id
+actually used (M for local, Q for global). The probe files had no P180 at all, which foreshadowed the
+corpus-wide result (next entry).
+
+## 2026-10-10 200 DECISION: record --live batched + chunked; full run recorded all 1338 rows in one session - boxes 1 and 3 verified, task done
+Where: fit/evidence.py (record, record_live, live_evidence, resolve_places), data/commons/files.jsonl, tasks/200-evidence.md, tasks/801-evidence-no-tie-coverage.md
+Chose batched prefetch + chunked flush over the old per-row fetching: the old record_live_row did
+categories/claims/entities/HTML per row (1338 x 4+ requests, hours, and an all-or-nothing rewrite at the
+end). Now record_live prefetches once for all pending rows (file categories 50/batch, site claims 50/batch
+for 164 unique qids, page ids 50/batch, file entities 50/batch, place searches per unique name with one
+batched claims fetch, subcats lazily per site category and cached across rows) and computes each row's
+evidence offline from that context (live_evidence - no network in the row loop), flushing files.jsonl in
+chunks of 25 so an interrupted run keeps progress (a rerun skips rows on rec == "evidence/1"). The full run
+took well under an hour, hit no 429s (commons.get's Retry-After backoff stood by unused), and finished:
+825 category, 164 caption_coords, 38 hand_tied (earlier), 354 none (74 with stored conflicts, 280 plain
+no-tie). Result: every one of the 1381 titled commons rows + all 890 book rows carries evidence with
+specifics and a checked date (box 1); check exits 0 (1162 pass / 0 fail / 1109 no-tie) with the 74
+conflict rows stored none-with-conflict, never pass (box 3, real-data confirmation; the sample golden
+pins the same behaviour). 1343 lines of files.jsonl changed vs HEAD, every one byte-preserving with
+evidence the only and last key added; 147 lines untouched; books file byte-identical; 12/12 tests.
+Measured corpus fact: the depicts kind has 0 hits - no site item lists any of these files in P3311/P18
+(those files are in the category too and take the category kind first) and no file item depicts the
+site's item; the route stays implemented and is pinned by the sample golden (a PASS and a FAIL P180
+row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the acceptance wording
+allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).

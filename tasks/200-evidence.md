@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 200: Evidence — every picture tied to its place, machine-checkable
 Depends on: none
 Touches: fit/evidence.py, data/commons/files.jsonl, data/commons/classified.jsonl, data/books/index.jsonl, pipeline/books_match.py, tests/test_evidence.py, tests/evidence_sample/, tests/golden/evidence_check.txt
@@ -11,13 +11,13 @@ the Rijksmuseum's "Gezicht op Hampton Court" is Hampton Court in Herefordshire (
 the palace; a name search alone gives the town for Barnard Castle and the village for Richard's Castle.
 
 ## Acceptance criteria
-- [ ] `fit/evidence.py` records, in the `"evidence"` field of each picture row (data/commons/files.jsonl and
+- [x] `fit/evidence.py` records, in the `"evidence"` field of each picture row (data/commons/files.jsonl and
       the book index rows in data/books/index.jsonl that reach the plan list), which kind of tie holds —
       category (P373) / depicts (P180) / caption+coords / hand-tied QID — plus the specifics that proved it
       (the category page, the property value, the place named, the distance to the site) and a checked date.
 - [x] `evidence.py check` re-verifies every row offline from the stored fields only and lists failures; it
       runs clean on the committed rows.
-- [ ] It fails closed: a row whose caption names a place that resolves to a different location (the Hampton
+- [x] It fails closed: a row whose caption names a place that resolves to a different location (the Hampton
       Court trap) does not get a passing field; a row with no tie at all is reported, not silently kept.
 - [x] Test (no network): a fixed in-repo sample of rows with known-good and known-bad ties; golden output of
       the check over that sample.
@@ -31,62 +31,46 @@ the palace; a name search alone gives the town for Barnard Castle and the villag
 
 ## Hand-over
 
-**Where I am (2026-10-10, iteration 12).** Offline record done and committed; check is clean; boxes 2 and 4
-are ticked. Box 1 and box 3 remain: they need `record --live` for the 1343 commons rows that still have no
-evidence field. Committed this session: `06847a2` (evidence recorded on the 38 hand-tied + 890 book rows;
-1452/1490 files.jsonl lines byte-identical, every changed line parses with "evidence" last, verified by script),
-`187fd66` (books_match refactor: extracted `row_inputs`, `score_candidate`, `site_toks`, `name_lookup_keys` -
-behavior-neutral, `matches.jsonl` hash 30f099b1… + stdout summary byte-identical before/after, file left
-untouched in the tree), `5f5a707` (set_field fix + check rewrite + record test).
+**Status: DONE (2026-10-10, iteration 13).** All four acceptance boxes ticked; `Status: done`.
 
-Two real bugs were found and fixed this session (details in DECISIONS, both have PITFALLS entries -
-PITFALLS edits are UNCOMMITTED, the harness saved them):
-1. `set_field` dropped the line terminator -> `record` would have glued jsonl rows into one line on its first
-   real run. Caught before damage. Now: terminator preserved; guarded by
-   `tests/test_evidence.py::test_record_appends_evidence_without_touching_existing_bytes` (record CLI on a tmp
-   fixture: line count/terminators, untouched rows byte-identical, recorded rows keep every original byte as a
-   prefix, evidence is the only and last new key). Re-running `record` is idempotent (0 recorded: rows skip on
-   rec == "evidence/1").
-2. `check_book_caption` re-stated the matcher's rules more strictly than the matcher itself (full-name
-   substring test vs the matcher's distinctive-token / exact-phrase ties; place recompute without the
-   BOOK_SCOPE default state) -> 52 of 135 legitimate book matches FAILed. Now it calls the matcher's own
-   extracted functions and requires the one-pair evaluation to reproduce the stored record (place dict
-equality, score round(…,2) equality, empty why, thresholds, HAND). Only the runner-up margin stays stored
-   (catalog is not monotone; a full re-run would fail on data growth).
+**State of the data.** Every picture row carries an `"evidence"` field (rec `evidence/1`, kind, specifics, a
+`checked` date): commons 1381/1381 (825 category, 164 caption_coords, 38 hand_tied, 354 none - 74 of those are
+stored conflicts, the rest genuinely have no place named in the caption); books 890/890 (135 caption_coords +
+none-with-reason, from the earlier session). `fit/evidence.py check` on the real files: exit 0, 2271 rows,
+1162 pass / 0 fail / 1109 no-tie (the NONE lines are printed, e.g. `conflict: caption 'Bethlehem' resolves to
+Q5776, 2396 km from the site`). `check` makes no network calls. Tests: 12/12, incl. the sample golden (unchanged
+this session) and the record byte-preservation test.
 
-**Test state at last run:** `.venv/bin/python -m pytest tests/ -q` = 12/12 PASS (11 old + the new record test).
-`fit/evidence.py check` on the real files: exit 0, `evidence: 2271 rows, 173 pass, 0 fail, 2098 no-tie` (173 =
-38 hand_tied + 135 book caption_coords; 2098 = 755 book none + 1343 commons "no evidence recorded"). The
-sample golden (`tests/golden/evidence_check.txt`) is unchanged and passes - the sample verdicts are identical
-under the new check.
+**What this session did (commits below).** (1) The P180 live route was broken and was replaced: the old code
+scraped the file page's HTML for a global item QID (never present - old files have only a *local* MediaInfo
+entity, `wbEntityId: M<page id>`) and its P180|P6216 regex attributed P6216 *license* values (Q19652 "public
+domain") as depictions (PITFALLS entries). New: `fetch_page_ids` (query prop=info, 50/batch) +
+`fetch_file_entities` (Commons `wbgetentities ids=M<pid> props=statements`, 50/batch; chases a page's normalized
+global item via the WD service; P180 only). `check_depicts` now accepts P180 (file item, Q or M) and P3311/P18
+(site item); P6216 is out. (2) `record --live` is now batched (categories/claims/page-ids/entities 50/call,
+place resolutions batched claims fetch, subcats cached per site category) with a chunked flush every 25 rows so
+an interrupted run keeps progress; the full 1338-row run finished in one session with no 429s, and rerunning is
+idempotent (rows skip on rec == "evidence/1").
 
-**Current hypothesis:** the remaining 1343 commons rows will record fine through the category / site-claim /
-caption routes; the only unverified live route is `fetch_file_item` (P180 from the file page). If it cannot
-find the item QID, those rows simply fall through to caption/none - the design is fail-closed, so the risk is
-coverage, not correctness.
+**Verified before the done claim.** 1490 lines in files.jsonl (unchanged count); 1343 lines changed vs HEAD, each
+keeps its HEAD version byte-for-byte with `"evidence"` the only and last key added, all terminators intact;
+147 lines (38 already recorded + 109 sentinels) untouched; books index.jsonl byte-identical to HEAD; every
+evidence dict has rec + checked; every conflict row is kind=none (asserted).
 
-**Exact next steps (this is the last session needed, ~1):**
-1. FIRST probe `fetch_file_item` (unverified, see 5f5a707-era note): the wbmi JSON with P180/P6216 statements
-   is present in a Commons file page's HTML, but no item-QID pattern (`ItemPage/(Q\d+)`, `"wikibaseItem"`,
-   `"globalItem"`) matched yet. Do 1-2 requests only (shared IP with other agents' checkouts; bursts 429 -
-   commons.get is paced at 1 s/request). If the item id truly is not in the HTML, drop the P180 route from
-   `record_live_row` (rows fall through to caption/none) and note it in DECISIONS.
-2. `.venv/bin/python fit/evidence.py record --live` (resumable - rerun after interruptions; it skips the 1381
-   rows already recorded). Expect 30-60 min: per row ~ categories (50/batch) + site claims (50/batch) +
-   subcats (per site cat, cached across rows) + 1 HTML GET + place resolutions (wbsearchentities + P625).
-   Verify after: line count unchanged, every line parses, all 1381 titled rows now carry evidence (box 1).
-3. `fit/evidence.py check` on the real files must exit 0. Any FAIL is now a real finding (stored fields don't
-   support the tie) - inspect it against the stored evidence before deciding; never loosen check to get clean
-   (AGENTS.md stuck rule). Box 3 confirmation on real data: the Hampton Court trap row (Kip plate -195, if
-   present) and any other caption-conflict rows must be NONE-with-conflict, never PASS; no-tie rows are
-   printed (the fail-closed case is already pinned by the sample golden).
-4. `.venv/bin/python -m pytest tests/ -q` must stay 12/12 (test_data joins the same jsonl files - a changed row
-   shape would surface there).
-5. Tick box 1 (every picture row has evidence with the specifics + checked date) and box 3, set
-   `Status: done`, commit. Commit the uncommitted PITFALLS.md additions in that final commit.
+**Facts worth knowing if this is ever reopened.**
+- The `depicts` kind has **0 hits in this corpus** - that is a measured fact, not a pipeline bug: no site item
+  lists any of these files in P3311/P18 (files that do are in the category too and take the category kind first),
+  and none of the files' items depicts the site's item. The route stays implemented and is pinned by the sample
+  golden (one PASS, one FAIL P180 row).
+- The 280 no-tie rows without a conflict (most are OS-sheet maps whose captions name the sheet town, not the
+  site) are the coverage gap the acceptance wording allows ("reported, not silently kept"). A follow-up for
+  improving their coverage (token-level name matching, a sheet-index route) is **tasks/801** (Depends on: 200,
+  Touches: fit/evidence.py).
+- The live run is resumable: rerun `fit/evidence.py record --live`; it skips recorded rows. Batch prefetch means
+  a partial run's later chunks re-fetch only the unrecorded tail's facts.
 
-**Notes:** the driver's "`.venv could not be built`" note describes MAIN (tasks/800, another agent's task -
-do not touch requirements.* from here); this branch's requirements.txt is pinned+hashed and .venv works
-(12/12 ran in it). Task 001 stays blocked on the human's box-2 ruling - not mine to touch. The matcher's full
-output is non-monotone in catalog growth: never add a persistent golden over `matches.jsonl` (tasks 204-211
-grow the inputs); use one-off before/after byte comparisons for matcher refactors (PITFALLS entry).
+**Re-read** (only if this task reopens): `fit/evidence.py:fetch_file_entities` - the `statements` vs `claims`
+key difference between the local wiki and the WD service, and the `normalized.item` chase.
+
+Commits: this session's work on top of `73508fe` (driver) - see `git log -- tasks/200-evidence.md`.
+

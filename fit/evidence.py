@@ -6,8 +6,10 @@ appended "evidence" field naming which kind of tie holds and the specifics that 
   hand_tied        the file -> site QID was checked by hand in a table in the repo (pipeline/sources.py; later fit/src_*.py)
   category         the file is a member of the site's P373 Commons category, or of a recorded subcategory of it
                    (specifics: the category page, the file's category, the subcategory chain)
-  depicts          structured data: the file's own Wikidata item depicts the site's item (P180), or the site's item
-                   lists the file as its plan (P3311) or image (P18) (specifics: the property, the value, the item)
+  depicts          structured data: the file's own item depicts the site's item (P180) - the file's item is the
+                   global Wikidata item (a Q id) or the local MediaInfo item (an M id, stored in "file_qid") - or the
+                   site's item lists the file as its plan (P3311) or image (P18) (specifics: the property, the value,
+                   the item)
   caption_coords   the title or caption names the place and that place resolves to coordinates within 50 km of the
                    site (specifics: the place named, its resolved item/coordinates, the distance to the site)
   none             no tie holds: the row is reported by check, never silently kept
@@ -36,12 +38,8 @@ commons rows - categories, site claims, file items, place resolutions.
 import json
 import math
 import os
-import re
 import sys
 import time
-import urllib.error
-import urllib.parse
-import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
@@ -54,7 +52,6 @@ CATALOG_EXTRAS = os.path.join(ROOT, "data", "catalog", "extras.jsonl")
 REC = "evidence/1"
 DIST_TOL_M = 50e3  # "the coordinates agree": the same place or near it, never another county
 R = 6371008.8  # earth mean radius, as pipeline/finder_common.py hav_m
-UA = {"User-Agent": "ancient-works/0.2 (personal research)"}
 
 
 def hav_m(lon1, lat1, lon2, lat2):
@@ -158,7 +155,7 @@ def check_category(row, ev):
 
 def check_depicts(row, ev):
     prop, val = ev.get("property"), ev.get("value")
-    if prop in ("P180", "P6216"):  # the file's own item says it depicts the site's item
+    if prop == "P180":  # the file's own item (Q or local M) says it depicts the site's item
         if not ev.get("file_qid"):
             return False, "no file item recorded"
         if val != row.get("qid"):
@@ -322,7 +319,7 @@ def record_book_row(row, idx, by_name, cats):
 def record(files, books, live=False, only=None):
     """Append the "evidence" field to every picture row lacking it (resumable). Prints the counts."""
     n_hand = n_book = n_live = 0
-    chg = {}
+    chg, pend = {}, []
     for i, l in enumerate(open(files, encoding="utf-8"), 1):
         if not l.strip():
             continue
@@ -332,16 +329,17 @@ def record(files, books, live=False, only=None):
         if r.get("evidence", {}).get("rec") == REC:
             continue
         ev = record_commons_row(r)
-        if ev is None and not live:
-            continue
         if ev is None:
-            ev = record_live_row(r)
-            n_live += 1
+            if not live:
+                continue
+            pend.append((i, l, r))
         else:
             n_hand += 1
-        chg[i] = set_field(l, "evidence", ev)
+            chg[i] = set_field(l, "evidence", ev)
     if chg:
         rewrite(files, chg)
+    if pend:
+        n_live = record_live(pend, files)
     if books and os.path.exists(books):
         sites, idx, by_name = books_match.load_catalog()
         cats = catalog_map()
@@ -405,38 +403,70 @@ def fetch_subcats(cats):
     return out
 
 
-def fetch_file_item(title):
-    """The file's MediaInfo item (qid, depicted qids) from its Commons page; {} when the page has none."""
-    u = "https://commons.wikimedia.org/wiki/" + urllib.parse.quote(title)
-    time.sleep(1.0)
-    try:
-        req = urllib.request.Request(u, headers=UA)
-        html = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
-    except (urllib.error.HTTPError, OSError) as e:
-        print(f"   item fetch failed {title[:60]}: {e!r}", flush=True)
-        return {}
-    out = {"qid": None, "p180": []}
-    for pat in (r'ItemPage/(Q\d+)', r'"wikibaseItem"\s*:\s*"(Q\d+)"', r'"globalItem"\s*:\s*"(Q\d+)"'):
-        m = re.search(pat, html)
-        if m:
-            out["qid"] = m.group(1)
-            break
-    for m in re.finditer(r'"(P180|P6216)","hash":"[0-9a-f]+","datavalue":\{"value":\{"entity-type":"item",'
-                         r'"numeric-id":\d+,"id":"(Q\d+)"', html):
-        out["p180"].append(m.group(2))
+def fetch_page_ids(titles):
+    """{file title: page id} in batches of 50: a file page's local MediaInfo item is M<page id>."""
+    out = {}
+    for i in range(0, len(titles), 50):
+        d = commons.get(commons.CM, {"action": "query", "titles": "|".join(titles[i:i + 50]), "prop": "info"})
+        for p in d.get("query", {}).get("pages", {}).values():
+            out[p["title"]] = p.get("pageid")
+        print(f"   page ids {i + 50}/{len(titles)}", flush=True)
+    return out
+
+
+def fetch_file_entities(page_ids):
+    """{file title: {"item": id, "p180": [depicted Q ids]}}: the P180 values of the file's MediaInfo item - the
+    local M<page id> item, or the global item it normalizes to - batched 50/call; no entry when the page has
+    neither (the row then falls through to the caption route)."""
+    out, global_of = {}, {}
+    ids = [f"M{pid}" for pid in page_ids.values() if pid]
+    by_mid = {f"M{pid}": (t, pid) for t, pid in page_ids.items() if pid}
+    for i in range(0, len(ids), 50):
+        d = commons.get(commons.CM, {"action": "wbgetentities", "ids": "|".join(ids[i:i + 50]), "props": "statements"})
+        for mid, e in d.get("entities", {}).items():
+            if not by_mid.get(mid):
+                continue
+            t, pid = by_mid[mid]
+            g = e.get("normalized", {}).get("item")
+            if g:  # the page has a global Wikidata item instead of a local one
+                global_of[g] = t
+                continue
+            st = e.get("statements", e.get("claims", {}))  # the local wiki returns "statements"
+            out[t] = {"item": f"M{pid}",
+                      "p180": [x["mainsnak"]["datavalue"]["value"]["id"] for x in st.get("P180", [])
+                               if x.get("mainsnak", {}).get("snaktype") == "value"
+                               and x["mainsnak"].get("datavalue", {}).get("value", {}).get("entity-type") == "item"]}
+        print(f"   file entities {i + 50}/{len(ids)}", flush=True)
+    gs = sorted(global_of)
+    for i in range(0, len(gs), 50):
+        d = commons.get(commons.WD, {"action": "wbgetentities", "ids": "|".join(gs[i:i + 50]), "props": "claims"})
+        for g, e in d.get("entities", {}).items():
+            if g in global_of:
+                out[global_of[g]] = {"item": g,
+                                     "p180": [x["mainsnak"]["datavalue"]["value"]["id"]
+                                              for x in e.get("claims", {}).get("P180", [])
+                                              if x.get("mainsnak", {}).get("snaktype") == "value"
+                                              and x["mainsnak"].get("datavalue", {}).get("value", {}).get("entity-type") == "item"]}
+        print(f"   global file items {i + 50}/{len(gs)}", flush=True)
     return out
 
 
 def resolve_places(names):
-    """{name: (qid, label, lon, lat)}: the first Wikidata search hit with coordinates."""
-    out = {}
+    """{name: (qid, label, lon, lat)}: the first Wikidata search hit with coordinates (a search per name, then one
+    batched claims fetch for all the candidates)."""
+    cands = {}
     for nm in sorted(set(names)):
         d = commons.get(commons.WD, {"action": "wbsearchentities", "search": nm, "language": "en", "limit": "5"})
         ids = [e["id"] for e in d.get("search", [])]
-        if not ids:
-            continue
-        ents = commons.get(commons.WD, {"action": "wbgetentities", "ids": "|".join(ids),
-                                        "props": "claims|labels", "languages": "en"})["entities"]
+        if ids:
+            cands[nm] = ids
+    ents, all_ids = {}, sorted({q for ids in cands.values() for q in ids})
+    for i in range(0, len(all_ids), 50):
+        ents.update(commons.get(commons.WD, {"action": "wbgetentities", "ids": "|".join(all_ids[i:i + 50]),
+                                             "props": "claims|labels", "languages": "en"}).get("entities", {}))
+    print(f"   places: {len(cands)} searched, {len(all_ids)} candidates", flush=True)
+    out = {}
+    for nm, ids in cands.items():
         for q in ids:
             e = ents.get(q, {})
             p625 = [x["mainsnak"]["datavalue"]["value"] for x in e.get("claims", {}).get("P625", [])
@@ -458,38 +488,39 @@ def named_places_in(row, site):
     return out
 
 
-def record_live_row(row):
-    """Compute the evidence for one commons row from live facts, fetched here and stored in the row."""
-    cats = catalog_map()
-    site = cats.get(row.get("site")) or {}
-    claims = fetch_site_claims([row["qid"]]) if row.get("qid") else {}
-    c = claims.get(row.get("qid"), {})
-    fcats = fetch_file_cats([row["title"]]).get(row["title"], [])
-    if c.get("cat"):
-        if c["cat"] in fcats:
-            return {"rec": REC, "kind": "category", "checked": now(), "site_cat": c["cat"],
-                    "file_cat": c["cat"], "via": []}
-        subs = fetch_subcats([c["cat"]]).get(c["cat"], set())
+def live_evidence(row, ctx):
+    """The evidence for one commons row, computed offline from the live facts prefetched into ctx
+    (categories, site claims, the file's own item, resolved places) - no network here."""
+    site = ctx["cats"].get(row.get("site")) or {}
+    claims = ctx["claims"].get(row.get("qid"), {})
+    fcats = ctx["file_cats"].get(row["title"], [])
+    if claims.get("cat"):
+        if claims["cat"] in fcats:
+            return {"rec": REC, "kind": "category", "checked": now(), "site_cat": claims["cat"],
+                    "file_cat": claims["cat"], "via": []}
+        subs = ctx["subcats"].get(claims["cat"])
+        if subs is None:
+            subs = ctx["subcats"][claims["cat"]] = fetch_subcats([claims["cat"]]).get(claims["cat"], set())
         for fc in fcats:
             if fc in subs:
-                return {"rec": REC, "kind": "category", "checked": now(), "site_cat": c["cat"],
-                        "file_cat": fc, "via": [c["cat"]]}
-    if row["title"] in c.get("p3311", []):
+                return {"rec": REC, "kind": "category", "checked": now(), "site_cat": claims["cat"],
+                        "file_cat": fc, "via": [claims["cat"]]}
+    if row["title"] in claims.get("p3311", []):
         return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P3311",
                 "value": row["title"], "site_qid": row["qid"]}
-    if row["title"] in c.get("p18", []):
+    if row["title"] in claims.get("p18", []):
         return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P18",
                 "value": row["title"], "site_qid": row["qid"]}
-    fi = fetch_file_item(row["title"])
-    if row.get("qid") in fi.get("p180", []):
+    fe = ctx["file_entities"].get(row["title"])
+    if fe and row.get("qid") in fe["p180"]:
         return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P180",
-                "file_qid": fi.get("qid"), "value": row["qid"]}
+                "file_qid": fe["item"], "value": row["qid"]}
     slon, slat = site.get("lon"), site.get("lat")
     if slon is None:
-        slon, slat = c.get("p625", (None, None))
+        slon, slat = claims.get("p625", (None, None))
     nameds = named_places_in(row, site)
     if slon is not None:
-        res = resolve_places(nameds)
+        res = ctx["places"]
         best, conflicts = None, []
         for nm in nameds:
             r = res.get(nm)
@@ -512,6 +543,31 @@ def record_live_row(row):
                                  "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
     return {"rec": REC, "kind": "none", "checked": now(),
             "reason": "no tie: not in the site's category, no item claim, no place named in the caption"}
+
+
+def record_live(pend, files):
+    """Fetch the live facts for every pending row (batched, paced) and record each one's evidence, flushing the
+    file in chunks of 25 so an interrupted run keeps its progress (a rerun skips the recorded rows)."""
+    titles = [r["title"] for _, _, r in pend]
+    cats = catalog_map()
+    ctx = {"cats": cats,
+           "file_cats": fetch_file_cats(titles),
+           "claims": fetch_site_claims(sorted({r["qid"] for _, _, r in pend if r.get("qid")})),
+           "subcats": {}}
+    ctx["file_entities"] = fetch_file_entities(fetch_page_ids(titles))
+    ctx["places"] = resolve_places(set(nm for _, _, r in pend
+                                       for nm in named_places_in(r, cats.get(r.get("site")) or {})))
+    chg, done = {}, 0
+    for i, l, r in pend:
+        chg[i] = set_field(l, "evidence", live_evidence(r, ctx))
+        done += 1
+        if done % 25 == 0:
+            rewrite(files, chg)
+            chg = {}
+            print(f"   recorded {done}/{len(pend)}", flush=True)
+    if chg:
+        rewrite(files, chg)
+    return done
 
 
 if __name__ == "__main__":
