@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/205-kip.md` (open) - hand-over: From 205 (2026-10-12, iteration 53): INVENTORY committed - the 132-row verdict table is in `fit/src_kip.py` and live drift-checking is active.
+- `tasks/205-kip.md` (open) - hand-over: From 205 (2026-10-13, iteration 54): docs/lead_kip.md §1+§3 committed (category map + the 132-row verdict table) and tests/test_src_kip.py pins the 
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -16,15 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 205 DECISION: live inventory fetched (132 files); the 4 ambiguous large files identified by looking at the images
-- `fit/src_kip.py` created (module skeleton + `list_files()`); live run under `.venv/bin/python` took 10 s, no 429, 132 distinct files across the 6 lead categories (prep's census confirmed). `INVENTORY` still empty - to be filled next session from the re-run dump.
-- FAILED then fixed: `commons.members(cat, "subcat")` returns "Category:"-prefixed titles; my first `list_files()` run died on the drift assert comparing prefixed to bare names. Subcats are stripped with `split(":",1)[1]`; file members already carry "File:" and must not be stripped. (File a PITFALLS entry - could not edit PITFALLS.md under the context limit.)
-- VISUAL VERIFICATION (downloaded the Commons originals and looked at them; the MET API and AIC API were unreachable from this VM - TLS refused even when TCP connected):
-  - MET DP105010 (3979 px, 1708) is NOT a frontispiece (the prep's assumption): it is the Hampton Court PALACE (Thames) viewplate of the French 1708 edition, photographed as a book spread with a visible gutter -> documented drop (duplicate impression of the AIC file; gutter unfit for a ground fit).
-  - AIC "Jan kip per david mortier, hampton court" (2560 px, photo 2016) is a clean single-plate impression of the same royal-palace view -> STAGE candidate for a new site (the palace and its parterres survive). The Hampton Court trap does not apply here: the caption names the royal palace itself.
-  - Gott prints resolved (prep R2): (112a)+(113a-115) = Temple Newsam (full plate + 3 detail crops), (80a)+(81-85) = Swillington (full plate + 5 detail crops), (31)+(32)+(33) = Sedbergh School plans (drop - not a country house). Full plates are clean and fit-sized; the detail crops are documented drops of the same picture.
-- Open questions for next session: does any of Hampton Court Palace / Temple Newsam / Swillington already exist in the catalog (last session's broad grep flooded with castle rows and proved nothing); is Swillington Hall demolished (review-queue if nothing fixed survives); is Beaufort House (Chelsea) demolished (review-queue per prep R3).
 
 ### 2026-10-12 205 DECISION: inventory verdicts decided (132 files); INVENTORY block generated, splice left to next session
 - Live re-run: `--list --out /tmp/kip_inventory.jsonl` under `.venv/bin/python`: 10 s, no 429, 132 distinct files (same census as 2026-10-10/11).
@@ -57,6 +48,20 @@ R = [
 - Verified: live re-run passes the drift assert against the committed 132-row table (titles AND sizes) - two successful runs today (~10 s each). Full `pytest -q`: 46 pass.
 - Size distribution (for the lead doc): 92 of 132 >= 1000 px; 40 < 1000 = 36 "too small" + 4 others (the 982 px Fair Lawn crop, one foreign map, one church, one photo); largest too-small 822 px - no 900-1000 gap, the threshold needs no exception list.
 - NEXT: write docs/lead_kip.md sections 1 (category map, counts, 1000 px threshold, size distribution) and 3 (the 132-row verdict table, generated from the module's INVENTORY + a fresh --list dump for date/desc). Sections 2 (verified QID table) and 4 (half-or-more: 12 of 22) wait for the SITES verification. The generator in the previous entry is now stale (splice done; only re-usable on live drift, and it needs this docstring patch + new verdict rules for new files).
+
+### 2026-10-13 205 DECISION: docs/lead_kip.md §1+§3 committed (category map + 132-row verdict table); tests/test_src_kip.py pins the doc to the INVENTORY
+- Live run #4 (`.venv/bin/python fit/src_kip.py --list --out /tmp/kip_list_54.jsonl`): 132 files, 10 s, no 429 - census stable through 2026-10-10..13; the drift assert passes against the committed INVENTORY (titles and sizes).
+- Out-of-scope sibling categories re-verified LIVE today (prep had checked 2026-10-10): `Category:Jan Kip` = 5 files (all Anefo/Elsevier photos of the 108-year-old "Opa Kip" / the 1953 flood), `Category:History of Kent` = 29 files (all non-Kip: 1829 Virtue's engraving, 1832 map, 1855 newspaper, 1799 Hasted fragment, 1646-49 Cantium armorial, 1667 Rijks text leaf, photos, WW2, postcards, book scans) - same as prep; both recorded in the lead doc §1 with today's re-check date.
+- `docs/lead_kip.md` written (generated by a throwaway /tmp script from the module's INVENTORY + the dump; the script is not in the repo - tests/test_src_kip.py is what keeps the doc honest):
+  - §1: category map (root 65 + subcats Britannia Illustrata 26, Rijks 24, Glocestershire 5, The history of nature 6, Wilderness 19 = 132 distinct; 13 cross-listed files: 6 root+Wilderness, 5 BI+Wilderness, AIC Hampton Court root+BI, Siston root+Glocestershire - NOTE prep's "only 1 file in root+subcat" was wrong, it is 8; fit-sized per category 51/4/24/1/6/12, 92 distinct); the 1000 px threshold (92/40 split, largest too-small 822, smallest staged 1375, the 900-1000 band holds only 3 files, none of them too-small); the siblings; the six hand-tied with their QIDs (kept out of the staging by the have-set check).
+  - §3: verdict definitions, tally (staged 12 · hand-tied 6 · review-queue 4 · duplicate impression 11 · not a house 18 · church 7 · foreign 19 · city prospect 11 · photo 8 · too small 36 = 132), the 132-row table (file, W×H, date from the dump's DateTimeOriginal, verdict, reason), and a caption block for the 22 relevant views (the Rijks `desc` carries the plate's `Titel(s):` line = the caption evidence; the Yale files have NO description - the named place is in the title; the AIC photo's desc is just "European prints in the Art Institute of Chicago").
+  - §2 (verified QID table) and §4 (half-or-more) are pending placeholders with the expected content for the next sessions.
+  - Date-column gotcha recorded in §3: a few files' DateTimeOriginal is not the plate's date (AIC 2016 photo date, Hampton Court Key 2009 scan date, Colombo publication sentence, Brympton/Wanstead upload dates).
+- `tests/test_src_kip.py` (new, 3 hermetic tests, socket-blocking fixture as in test_src_artists.py): (1) inventory thresholds and the §3 tally; (2) the six hand-tied == sources.SOURCES["kip"]["rows"] == the six canonical files.jsonl rows (`by: "pipeline/sources.py kip"`, evidence kind hand_tied) and none of them in the staging files (asserted once the files exist); (3) the lead-doc mirror: §3's 132 rows row-for-row (size/verdict/reason; date column deliberately unpinned - dump-derived) + §1's headline numbers. Full `pytest -q`: 49 pass.
+- FAILED (twice) in the new test: (a) the `|---|...|` separator line does not start with "| " so a skip-by-index of header+separator kept 131 rows; (b) the 4-var unpack of a 5-cell row silently mapped date->verdict. Fixed: parse cells with strip, skip header/separator by NAME, unpack 5 cells. Lesson: markdown-table parsers in tests must not assume which pipe-delimited lines look like data rows.
+- INCIDENT: an inline python script that rewrites tasks/205-kip.md truncated it to empty (open(path,"w") ran before a TypeError in the writelines argument); recovered from git HEAD and re-applied the hand-over. PITFALLS filed (write the full content into a variable first; write only as the final step).
+- PITFALLS: two entries (DateTimeOriginal semantics in the Wikimedia section; the VM clock lagging the journal dates - date new work by the journal's sequence).
+... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 205 DECISION: docs/lead_kip.md §1+§3 committed (category map + 132-row verdict table); tests/test_src_kip.py pins the doc to the INVENTORY' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
