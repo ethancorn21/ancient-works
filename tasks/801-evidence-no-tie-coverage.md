@@ -42,176 +42,80 @@ mechanics).
 
 ## Hand-over
 
-**Where I am (iteration 20, agent a; took over from agent c).** fit/evidence.py implementation is COMPLETE
-and committed: (a) commit 5f04b9c - `site_point(site, claims)` extracted from caption_route (refactor-first,
-zero behavior change, proven: 12/12 tests + real check byte-identical); (b) commit 0134ba4 - the feature:
-the v3 sheet-candidate extractor ported VERBATIM into fit/evidence.py (`sheet_candidates`, `part_hits`,
-`TOKEN`/`STOP`/`REAL_WORD` - the STOP list now lives in the repo, agent c's lost DECISIONS entry no longer
-needed), `part_route` + `sheet_route` (kinds `part_mention`/`sheet_mention`, walk: FIRST resolving candidate
-decides; far resolution stored as a `conflict` with a new `route` key, `check_none` prints the route, defaulting
-to "caption" so the 74 stored conflicts print exactly as before), `check_part`/`check_sheet`, and
-`--redo-none` (live-only: re-evaluates exactly the rows whose stored kind is "none"; plain `record` stdout
-unchanged: "evidence recorded: N hand-tied, N book, N live"). Verified this session: 12/12 tests green; real
-`check` exit 0, output BYTE-IDENTICAL to pre-change baseline (/tmp/check_baseline.txt); PORT FIDELITY PROVEN:
-my extractor == agent c's /tmp/sheet_proto2.py over all 354 none rows (0 mismatches, 1483 unique candidates,
-byte-equal to /tmp/sheet_proto2_dump.txt in file order - /tmp prototypes still in this VM); wiring proven
-offline with synthetic ctx (7 checks: sheet pass, walk-trap "New York" far decides before glued "York" near,
-part pass with Clifford's Tower, caption route still first, plain none, part far -> conflict, and check
-round-trip incl. a stored >50 km trap FAILing). NOTHING else is committed or changed in the repo right now.
-
-**KEY DESIGN FINDING (supersedes agent c's claim):** "candidates are norm-substrings by construction" is FALSE
-- 392 of the 1483 candidates fail `norm(cand) in norm(title+desc)` (e.g. "Robert Dennis" from "Robert N.
-Dennis" - a 1-letter non-kept token stays in norm(hay); "York Castle" from "New York. Castle Garden"). So
-`check_sheet` RE-RUNS the extractor (stored named_place must be in `sheet_candidates(title, desc)`); the
-distance re-check (recompute from stored coords, within 1000 m, <= 50 km) is shared. `check_part` uses the
-norm-substring (safe: a part name is the catalog's own string, norm applied symmetrically to both sides) plus
-`part_qid` must still be in the catalog site's has_part. Both new check functions verified.
+**Where I am (iteration 21, agent a).** The live run is RUNNING in the background: `nohup .venv/bin/python
+fit/evidence.py record --live --redo-none > /tmp/redo_none_run.log 2>&1 &` (started this session, PID
+1032856; at session end still in the prefetch phase - log tail "file entities 400/352" is a cosmetic
+overshoot print; next stages: part coordinates, then ~1484 paced name searches, ~25 min). It writes
+data/commons/files.jsonl only AFTER the prefetch, in 25-row chunks, so the working tree was
+data-clean at session end and the next driver merge will not race it. Before starting I verified all
+1381 titled rows carry rec "evidence/1" -> --redo-none re-evaluates exactly the 354 none rows (74 with
+stored conflicts). Committed this session: tests/test_evidence_801.py + tests/golden/evidence_801_check.txt
+(7 tmp-dir rows through the real CLI `check --files F --books <absent> --catalog C`: part PASS/FAIL/FAIL-trap,
+sheet PASS/FAIL, none+sheet-conflict, none+part-conflict; exit 1; golden from one real run: "evidence: 7
+rows, 2 pass, 3 fail, 2 no-tie"). 13/13 tests pass; the 15-row sample golden (tests/golden/evidence_check.txt)
+stayed byte-identical (it contains none of the 354). The two PITFALLS entries iter 17 left PENDING were
+already committed (feddcf0, iter 18) - verified, no action.
 
 **EXACT NEXT STEPS (in order):**
-1. Start the live run IN THE BACKGROUND (it is the ~30 min long pole; nohup survives session ends):
-   `cd /home/agent/projects/ancient-works.a && nohup .venv/bin/python fit/evidence.py record --live --redo-none > /tmp/redo_none_run.log 2>&1 &`
-   It writes data/commons/files.jsonl in 25-row chunks; expect final line "evidence recorded: 0 hand-tied,
-   0 book, 354 live"; ~1484 searches at PACE_S=1.0 + batched claims (one search per unique name, one batched
-   claims fetch per 50 - the batched shape is preserved). If it dies mid-way (network), just re-run the same
-   command: rows that flipped to a non-none kind are skipped, remaining none rows re-evaluate (the ~25 min
-   search cost repeats for their candidates - the only price of an interruption).
-2. WHILE IT RUNS: (a) add to this task's `Touches:` line: `data/commons/files.jsonl tests/test_evidence_801.py
-   tests/golden/evidence_801_check.txt` (team rule: paths must be listed before they are touched); (b) write
-   tests/test_evidence_801.py + the golden - design already settled: 7 synthetic commons rows in a tmp file
-   against a tmp 2-site catalog (`test-castle` qid Q1 with has_part [{Q2, "Test Tower"}], `bare-castle` Q3),
-   run the CLI `check --files F --books <absent> --catalog C`, stdout vs golden, exit 1: rows = (1) part PASS
-   (title "A view of Test Castle and its Test Tower", coords 1.0001/51.0 vs site 1/51, dist computed with
-   evidence.hav_m in the test setup only); (2) part FAIL (part_qid Q9 not in has_part); (3) sheet PASS (title
-   "File:Testville Testham 1840, sheet by the survey", named "Testville" - the SINGLE after the pair misses);
-   (4) sheet FAIL (title without Testville: "File:Nowhere Somewhere 1840, sheet by the survey" - candidate not
-   derivable); (5) none + sheet conflict far (2.0,55.0 vs 2.0,52.0 -> "conflict: sheet ... N km"); (6) none +
-   part conflict far (1.0,54.5 vs 1.0,51.0); (7) part FAIL trap (coords 1.0,55.0 -> "part is N km from the
-   site (the trap), not a tie"). Summary line: "evidence: 7 rows, 2 pass, 3 fail, 2 no-tie". Generate the
-   golden from one real CLI run of the fixture (deterministic: no dates printed). No network, no ports, tmp
-   paths only.
-3. WHEN THE RUN FINISHES (poll the log): review `git diff data/commons/files.jsonl` - ONLY the 354 none rows
-   may change (evidence field only; set_field keeps every other byte). Check the WATCH items: (a) "Bethleem"
-   first search hit (PASS if it resolves to the Dutch bethlehem-q2523914, CONFLICT if to the Holy Land);
-   (b) "Coria" first hit (Spain? Mexico? Corbridge?); (c) any NEW name-sharing pass beyond the accepted class
-   (Clifford's Tower on york-castle) - log each in DECISIONS before keeping it. The 74 stored conflicts must
-   keep re-verifying (same or improved verdict). Then: `.venv/bin/python fit/evidence.py check` must exit 0
-   (expect ~1162 pass + the new part/sheet passes, 0 fail, and fewer no-tie than 1109); `.venv/bin/python -m
-   pytest -q` must be 13/13 (12 old + the new one) and tests/golden/evidence_check.txt (the 15-row sample
-   contains NONE of the 354) must stay byte-identical (it will - my check output is unchanged); commit the
-   data + test together.
-4. Add the two PITFALLS entries agent c left pending: "Latin Peutinger names (Casaromago, Sammarobriva) have
-   no Wikidata items; 'Peutinger' resolves to Q2081791 Ellwangen gymnasium 475-500 km from the Dutch Limes
-   sites" (Wikimedia-APIs subsection) and "catalog castrum-levefanum-q1309559 is the DUTCH Limes fort
-   (5.35E 51.96N), not Beauvais (1.99E 49.42N) - don't assume geography from the name" (This codebase).
-   Also file a pitfall if the live run confirms anything unexpected about search first-hits.
-5. Tick the acceptance boxes per the measured outcome (see below) and update this hand-over.
+1. Poll the run: `tail -20 /tmp/redo_none_run.log; ps aux | grep "record --live" | grep -v grep`. Expected
+   final line: "evidence recorded: 0 hand-tied, 0 book, 354 live". If the process is dead: read the log
+   tail for the cause; a network death mid-way is resumable - re-run the same command (flipped rows are
+   skipped, remaining none rows re-evaluate; the ~25 min search cost repeats for their candidates). If it
+   is still running at session end, note that here and stop - do not touch files.jsonl meanwhile.
+2. Audit `git diff data/commons/files.jsonl`: ONLY the 354 none rows may have changed, and only their
+   "evidence" field (set_field preserves every other byte and the line terminator). WATCH: (a) "Bethleem"
+   first search hit (PASS if the Dutch bethlehem-q2523914, CONFLICT if the Holy Land); (b) "Coria" first
+   hit (Spain? Mexico? Corbridge?); (c) any NEW name-sharing pass beyond the accepted class (Clifford's
+   Tower on york-castle) - log each in DECISIONS before keeping it. The 74 stored conflicts must keep
+   re-verifying (same or improved verdict).
+3. `.venv/bin/python fit/evidence.py check` -> exit 0, 0 FAIL, no-tie < 1109; `.venv/bin/python -m pytest
+   -q` -> 13/13; tests/golden/evidence_check.txt byte-identical.
+4. Commit data/commons/files.jsonl (explicit path, not -A, if the run wrote during another session) with
+   the box ticks. Box 1: majority of the ~85-90 genuinely-naming rows pass - expect 40 part + ~60-65 sheet
+   ~ 100-105; log the exact count in DECISIONS; if below majority, log the shortfall before relaxing
+   anything. Box 2: every >50 km resolution is none+conflict, check exit 0, old golden unchanged. Box 3:
+   row count preserved (1381 titled), every non-evidence byte preserved, suite green (now 13 tests).
+5. Rewrite this hand-over; keep the gotchas.
 
-**LIVE-RUN EXPECTATIONS (carried from agent c's iter-17 hand-over; distances vs stored site coords):**
-part PASS: the 40 Clifford's Tower rows on york-castle (part Q113551546, ~6 m). sheet PASS (~60-65): Stra-
-bourg 36-39 (argentoratum, "Strasbourg"/old "Strabourg"), Reims 4-5 (durocortorum, incl. "Val Mont"), Orleans
-1-5 (cenabum: NFKD "d'Orleans" ~0.4 km), St Louis 1 (cahokia via merged "St Louis"), Barkhale 1, Weesp 1
-(fletio 25 km), Arnhem 1 (duno 5.5 km), Cranbourne 1 (badbury-rings 21 km), Darlington 1 (barnard-castle
-33 km), Monmouth 2 (blestium 25 km), Birmingham 1 (dudley-castle 13 km), York 1 (york-castle 1914 tin - the
-accepted name-sharing class). CONFLICT: New-Orleans-on-cenabum (~13), bethlehem-q2523914 rows (~30: Bethlehem
-Holy Land Q5776 4700 km - ALREADY stored in the old conflicts; Maastricht ~290 km - the site sits at 6.61E
-53.38N, NOT near Maastricht; Palestine/Jerusalem/Prospect House), Bristol (4 sites), Venice/Gondole (7),
-Chirk (2, 57 km), Coria rows (5: person name "Lorenzo Coria" -> "Coria" decides), Castle Garden (4: "New
-York" decides), Morse-atlas cahokia row ("New Haven"), Britannia-on-alauna row ("Britain"). plain none:
-remaining book-scan/painting rows (incl. the 6 BHL garden manuals + 2 all-caps Bethlehem-basilica titles:
-known limitation, all-caps is dropped as acronym - do NOT loosen without per-row re-review). Box 1 needs a
-MAJORITY of the ~85-90 genuinely-naming rows to pass (40 part + ~60-65 sheet ~ 100-105 vs ~85-90 - measure
-the actuals and log the exact count in DECISIONS; if below majority, log the shortfall before relaxing
-anything). Box 3: row count stays 2271 (files 1381-titled + book rows), every non-evidence byte preserved.
+**Verdict logic (final; unchanged since iter 17/20):** routes cascade; the first route to return pass or
+conflict decides the row: (1) caption - unchanged (site names printed -> best <=50 km pass / nearest-far
+conflict / none; keeps the 74 stored conflicts re-verifying); (2) part - a site has_part name printed
+(norm substring) -> its P625 (the site's own point when the part has none) -> nearest <=50 km PASS
+part_mention / nearest far CONFLICT / none; (3) sheet - WALK the ordered candidates (per run: pairs, then
+3-word phrases, then singles; title before desc; <=12, deduped); the FIRST candidate that resolves decides
+(<=50 km PASS sheet_mention, >50 km CONFLICT, store that resolution). "Nearest <=50 km wins" is
+data-verified WRONG: "York" (inside "New York") would pass the 4 NYC Castle Garden rows, "Orleans" (inside
+"New Orleans") the 13 New-Orleans rows, glued "York Castle" the same 4. Both new kinds store the
+caption_coords shape (named_place, place_qid, place_label, place_lon/lat, site_lon/lat, dist_m); check_part
+additionally re-verifies part_qid in the catalog site's has_part at check time; check_sheet RE-RUNS the
+extractor (a glued candidate like "York Castle" is not a norm-substring); check_none prints the conflict
+with its `route` (defaulting to "caption" so the 74 old conflicts print exactly as before).
 
-**Gotchas (carried forward):** run everything through .venv/bin/python; tests: no network, no fixed ports,
-no writes outside project+temp (the live run is a MANUAL step, not a test - allowed, and it must not run
-concurrently with anything that assumes files.jsonl is static); never rebase/merge/stash/switch branches
-(driver handles); don't touch agent c's 201 files (fit/review.py web/review.js web/index.html data/review
-web/data/review.json tests/test_review.py); the 801 task file was filed by agent c - its goal/boxes are
-human-owned, I may only write this hand-over and the Touches/Depends lines; the iter-14 census in
-DECISIONS-archive.md (search "801") is the per-site reference, corrected by the castrum-levefanum note
-above; the STOP list is now the source of truth in fit/evidence.py (any future change to it needs a fresh
-dump-vs-real review like the 1483-count check).
+**Live-run expectations (distances vs stored site coords, from iter 17/18):** part PASS: the 40 Clifford's
+Tower rows on york-castle (Q113551546, ~6 m). sheet PASS (~60-65): Strasbourg 36-39 (argentoratum, incl.
+old "Strabourg"), Reims 4-5 (durocortorum), Orleans 1-5 (cenabum, "d'Orleans"), St Louis 1 (cahokia, via
+merged "St Louis"), Barkhale 1, Weesp 1 (fletio 25 km), Arnhem 1 (duno 5.5 km), Cranbourne 1 (badbury-rings
+21 km), Darlington 1 (barnard-castle 33 km), Monmouth 2 (blestium 25 km), Birmingham 1 (dudley-castle 13
+km), York 1 (york-castle 1914 tin - accepted name-sharing class). CONFLICT: New-Orleans-on-cenabum (~13),
+the bethlehem-q2523914 rows naming Bethlehem/Palestine/Jerusalem/Maastricht/Prospect House (~30; the site
+is stored at 6.61E 53.38N - NOT near Maastricht), Bristol (4 sites), Venice/Gondole (7), Chirk (2, 57 km),
+Coria rows (5, "Coria" decides), Castle Garden (4, "New York" decides), Morse-atlas cahokia ("New Haven"),
+Britannia-on-alauna ("Britain"). plain none: the remaining book-scan/painting rows (incl. the 6 BHL garden
+manuals + 2 all-caps Bethlehem-basilica titles: all-caps is dropped as an acronym - KNOWN limitation, do
+NOT loosen without a per-row re-review).
 
-**Prototype (recreate if /tmp wiped):** /tmp/sheet_proto2.py = v3 (final rules); /tmp/sheet_proto2_out_v3.txt
-= its frequency list; /tmp/sheet_proto2_dump.txt = per-row candidates for all 354 none rows (94 KB);
-/tmp/sheet_proto2_v2.py + /tmp/sheet_proto2_out_v2.txt = iter-16 version (kept to diff). v3 deltas vs v2:
-(1) digits never kept (t[0].isalpha()) and a digit between two kept words BREAKS a run (kills NYPL
-barcodes "11707950 000", year-range pairs "1806 1820", hex-fragment glue); (2) the St-merge marker now
-accepts mixed-case "St" too (v2 matched only "ST" - "St. Louis" was silently LOST; the cahokia row needs
-it) and merges only when no comma / len>=3 lowercase word / digit sits between "St" and the next kept
-word; (3) STOP extended: iter-16's pending words (prepositions the/van/les/des/and/for/with/from/bij/met/
-naar/per + harmless 2-letters; ordnance quartier house design pattern textile numerisation onderdeel
-english roman) PLUS words mined from the v2 dump (full list in DECISIONS 2026-10-11 801). Measured: 1483
-unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows with >=1 sheet candidate, EXACTLY
-40 part hits (all Clifford's Tower, unchanged). The 8 rows now with zero candidates are legit: 6 BHL
-garden-manual book scans (name nothing) + 2 all-caps titles ("PLAN BASILIQUE DE BETHLÉHEM",
-"PLAN SOUTERRAINS DE LA BASILIQUE") - all-caps is dropped as acronym, so they stay none; KNOWN
-LIMITATION, do not loosen the acronym rule without a per-row re-review. Tail = person names (Seyboth,
-Dennis, Robert, Adam, Mignon...) - expected, harmless (no P625; one search each; ~25-35 min one-off at
-1 req/s). STOP only cuts cost - the distance guard is the mechanism.
-
-**Verdict logic (FINAL - supersedes iter-16's "nearest <=50 km wins" wording; iter-16 finding #4 only
-makes sense with a walk):** routes cascade; the first route to return pass or conflict decides the row:
-(1) caption - UNCHANGED (site names printed -> best<=50km pass / nearest-far conflict / none; keeps the
-74 stored conflicts re-verifying); (2) part - a site has_part name printed (norm substring) -> its P625
-(site's own coords when the part has none) -> nearest <=50 km PASS kind part_mention / nearest far
-CONFLICT / none; (3) sheet - WALK the ordered candidates (per run: 2-word pairs, then 3-word phrases,
-then singles; title before desc; <=12, deduped); the FIRST candidate that resolves decides: <=50 km
-PASS kind sheet_mention, >50 km CONFLICT (store that resolution). Why not "any-nearest<=50km wins"
-(data-verified false passes the walk prevents): "York" (a word inside "New York") resolves ~2 km from
-york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside "New Orleans") resolves
-onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued from "New York. Castle
-Garden") resolves to the site itself and would pass those same rows - the walk stops at the first
-resolution ("New York" / "New Orleans" / "Peutinger"), all far -> conflict. Both new kinds store the
-caption_coords shape (named_place, place_qid, place_label, place_lon/lat, site_lon/lat, dist_m);
-check_part additionally re-verifies part_qid in the catalog site's has_part at check time; check_sheet
-re-verifies the norm-substring of named_place in title+desc (candidates are norm-substrings by
-construction and check() normalizes both sides).
-
-**Live-run expectations (distances measured this session vs stored site coords):**
-- part PASS: 40 Clifford's Tower rows on york-castle (Q113551546, 6 m).
-- sheet PASS (~60-65): Strasbourg 36-39 (argentoratum; "Strasbourg"/"Strabourg" old spelling), Reims 4-5
-  (durocortorum; incl. "Val Mont"), Orleans 1-5 (cenabum: "d'Orleans" NFKD -> 0.4 km), St Louis 1
-  (cahokia, via the merged "St Louis"), Barkhale 1, Weesp 1 (fletio, 25 km), Arnhem 1 (duno, 5.5 km),
-  Cranbourne 1 (badbury-rings, 21 km), Darlington 1 (barnard-castle, 33 km), Monmouth 2 (blestium, 25 km),
-  Birmingham 1 (dudley-castle, 13 km), York 1 (york-castle 1914 tin - the accepted name-sharing class).
-- CONFLICT: New-Orleans-on-cenabum (~13), the bethlehem-q2523914 rows naming Bethlehem/Palestine/
-  Jerusalem/Maastricht/Prospect House (~30; "Bethlehem" -> Q5776 Holy Land 4700 km is ALREADY stored in
-  the existing conflicts, no new search needed; Maastricht is ~290 km from the site's stored point -
-  bethlehem-q2523914 sits at 6.61E 53.38N, NOT near Maastricht), Bristol (4 sites), Venice/Gondole (7),
-  Chirk (2, 57 km), Coria rows (5; person name "Lorenzo Coria" -> "Coria" decides), Castle Garden (4;
-  "New York" decides), Morse-atlas cahokia row ("New Haven"), Britannia-on-alauna row ("Britain").
-- plain none: the remaining book-scan/painting rows where nothing resolves.
-- WATCH for the live run: (a) "Bethleem" search first hit (File:BethleemPlan.png - a plan of the site's
-  own basilica; PASSES if it resolves to the Dutch site, conflicts if to the Holy Land); (b) "Coria"
-  first hit (Spain? Mexico? Corbridge?); (c) any NEW name-sharing pass beyond the accepted class - log
-  each before keeping it. If passes land below a majority of the ~85-90 genuinely-naming rows, log the
-  shortfall in DECISIONS before relaxing anything.
-
-**Exact next step (iter 18):** (1) LIVE prototype (manual, paced via commons.get, ~25-35 min one-off):
-resolve the 1483 uniques exactly like resolve_places (one wbsearchentities per unique name, then ONE
-batched wbgetentities claims 50/batch), apply the walk per row, dump to /tmp/sheet_verdicts.txt; compare
-with the expectations above - especially the WATCH items. (2) IMPLEMENT in fit/evidence.py (Touches):
-refactor-first commit - extract live_evidence's caption block into _caption_route, zero behavior change,
-tests green; then part/sheet routes + kinds part_mention/sheet_mention + check_part/check_sheet + docstring
-kind list + `--redo-none` (live-only; plain `record` stdout must stay exactly "evidence recorded: N
-hand-tied, N book, N live"). (3) Run `record --live --redo-none` on the real files (diff: ONLY the 354
-none rows' evidence field changes; a stored conflict is rewritten only when the walk still yields a
-conflict, else per the verdict) then `check` (exit 0, 1490 rows, zero FAIL) then
-.venv/bin/python -m pytest -q (12/12). The golden sample (tests/evidence_sample/*, 15 rows:
-old-sarum/hampton-court/caister fixtures + book fixtures) contains NONE of the 354 none rows, so it must
-stay byte-identical - verify, do not regenerate. (4) Add the two pending PITFALLS entries (context
-limit cut them last session): "Latin Peutinger names (Casaromago, Sammarobriva) have no Wikidata items;
-'Peutinger' resolves to Q2081791 Ellwangen gymnasium 475-500 km from the Dutch Limes sites" under the
-Wikimedia-APIs subsection, and "catalog castrum-levefanum-q1309559 is the DUTCH Limes fort (5.35E 51.96N),
-not Beauvais (1.99E 49.42N) - don't assume geography from the name" under This codebase.
-
-**Gotchas (unchanged + new):** run everything through .venv/bin/python (books_match imports PIL); do NOT
-touch requirements.* (agent a's task 800); tests: no network, no fixed ports, no writes outside project
-+ /tmp; never rebase/merge/stash (driver handles branches); set_field preserves line bytes; the 74
-existing conflict rows must keep re-verifying after the run; desc truncation is at a WORD boundary at 600
-(a cut-off word like "Bethl" becomes a phantom candidate); NFKD-normalize BEFORE tokenizing (v1's
-"Orléans" disaster); keep the batched prefetch shape (one search per unique name + one batched claims);
-the iter-14 census in DECISIONS (2026-10-10 801) is still the best per-site reference, with this
-hand-over's corrections (castrum-levefanum Dutch; bethlehem far-from-Maastricht).
+**Gotchas:** run everything through .venv/bin/python; tests: no network, no fixed ports, no writes outside
+project + /tmp (the live run is a MANUAL step, not a test - the pytest suite is safe to run concurrently:
+its record test reads rows the run never touches, and rewrite() is atomic via os.replace); never
+rebase/merge/stash/switch branches (the driver handles them); do not touch agent c's 201 files
+(fit/review.py web/review.js web/index.html data/review web/data/review.json tests/test_review.py); this
+task file is agent c's - I may write only this hand-over and the Touches/Depends lines (Touches already
+lists all four paths: fit/evidence.py data/commons/files.jsonl tests/test_evidence_801.py
+tests/golden/evidence_801_check.txt); the STOP list is the source of truth in fit/evidence.py (any change
+to it needs a fresh dump-vs-real review like the 1483-count check); NFKD-normalize BEFORE tokenizing; the
+desc truncation is at a word boundary at 600; keep the batched prefetch shape (one search per unique name +
+one batched claims fetch per 50); the iter-14 census in DECISIONS-archive.md (search "801") is the per-site
+reference, corrected by the castrum-levefanum-is-Dutch entry in PITFALLS.md; the sheet extractor now lives
+in the repo (fit/evidence.py sheet_candidates, ported verbatim) - the /tmp/sheet_proto2* files are
+diff-history only; the "400/352" log line is a cosmetic overshoot in the batch print (i+50 past the end),
+not an error.

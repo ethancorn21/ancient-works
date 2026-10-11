@@ -275,3 +275,26 @@ fresh documents - was not chosen; if it is ever wanted it must be a fresh top-le
 re-derived on fresh hand-fit documents with a fresh seed, adding only a NEW numbered section
 (>= 10) to docs/gate.md. Post-merge test run: 12 passed, 8.9 s (iteration 9: 10; the two extra
 tests come from other tasks' work merged into main).
+
+## 2026-10-11 801 DECISION: live run `record --live --redo-none` started in the background; part/sheet check test + golden committed (13/13) while it runs
+Iter 21 (agent a). Followed the iter-20 plan in the same session: verified all 1381 titled rows
+carry rec "evidence/1" (so --redo-none re-evaluates exactly the 354 none rows, incl. the 74 stored
+conflicts), then started `nohup .venv/bin/python fit/evidence.py record --live --redo-none >
+/tmp/redo_none_run.log 2>&1 &` (PID 1032856; at session end it was still in the prefetch phase -
+log tail "file entities 400/352", a cosmetic overshoot print; next: part coords, then ~1484 paced
+name searches, ~25 min). It writes data/commons/files.jsonl only after the prefetch, in 25-row
+chunks; the tree was data-clean at session end. In the same session, committed the settled test:
+tests/test_evidence_801.py (7 rows in a tmp dir against a tmp 2-site catalog - test-castle Q1 with
+has_part [Q2 "Test Tower"], bare-castle Q3; CLI `check --files F --books <absent> --catalog C`,
+exit 1, stdout vs golden) + tests/golden/evidence_801_check.txt generated from one real CLI run of
+the fixture (deterministic: no dates printed). Rows: part PASS (7 m), part FAIL (part_qid Q9 no
+longer in has_part), sheet PASS (single "Testville" after the pair "Testville Testham" that
+resolves nothing - proves the walk's ordering survives check-time re-derivation), sheet FAIL
+(stored candidate "Testville" not derivable from "File:Nowhere Somewhere 1840..."), none + sheet
+conflict (334 km), none + part conflict (389 km), part FAIL trap (a documented part 445 km from
+the site is not a tie). Summary line "evidence: 7 rows, 2 pass, 3 fail, 2 no-tie". 13/13 tests
+pass (9.97 s; 12 old + this one; the 15-row sample golden tests/golden/evidence_check.txt stayed
+byte-identical - it contains none of the 354). The two PITFALLS entries the iter-17 entry left
+PENDING were in fact committed already (feddcf0, iter 18) - verified present in PITFALLS.md,
+nothing to add. Next session: poll the log, audit the files.jsonl diff, then check + pytest +
+data commit (details in the task hand-over).
