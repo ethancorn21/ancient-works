@@ -12,7 +12,7 @@ Architecture rules:
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
 ## fit/
-- `fit/evidence.py` (528 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L58-61, now L64-65, load_jsonl L68-69, set_field L72-76, rewrite L79-87, catalog_map L90-101, source_tables L104-109, check_commons L114-126, check_hand_tied L129-136, check_category L139-152, ... (+16 more).
+- `fit/evidence.py` (531 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L58-61, now L64-65, load_jsonl L68-69, set_field L72-76, rewrite L79-87, catalog_map L90-101, source_tables L104-109, check_commons L114-126, check_hand_tied L129-136, check_category L139-152, ... (+16 more).
 
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
@@ -90,6 +90,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
+- `tests/test_evidence.py` (23 lines) - The evidence check (task 200, GOAL.md point 4): a fixed in-repo sample of picture rows with known-good and known-bad ties; the check re-verifies every row offline from stored fi... Exports: test_check_over_sample_matches_golden.
 - `tests/test_gate.py` (107 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4). Exports: test_recorded_measurement_reproduces_and_agrees, test_fit_gate_constants_are_the_frozen_section2_rule.
 - `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
