@@ -220,3 +220,66 @@ elsewhere is untouched, and the pilot writes nothing):
 PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitude fix (a
 complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
 exact command and the box checks).
+
+## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803
+CHOICE: ran the full working phase as the 4d hand-over prescribed, backgrounded
+(AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working;
+~6 min, log /tmp/batch_us_4e.log): 62 candidate pictures across 19 US sites (4d's note said
+58/18 - stale; plans.json is byte-identical to origin/main, 1166 rows, and 35 book + 23 commons
+rows = 62 (site,row) pairs, matching the prep notes) went through sheet -> model -> similarity ->
+gate. The model is deterministic at temperature 0: the 5-pick pilot's answers recurred in the
+full run (pyramid n0134_1 -> AUTO 24.0 m, unchanged; tremper, poverty-point, serpent n0636_1,
+cahokia c_8c44bb427b76aa7a all routed to items by the same checks as 4d).
+OUTCOME (docs/batch_us.md): 90 sites, 0 error bucket: 9 automatic fit, 8 review item, 2 already
+hand-fitted (aztalan, mound-bottom), 71 no picture found; 88 item files written (89 with the
+pre-batch bibracte); 16 new auto docs (20 -> 36 in data/db/platefits/): serpent-mound 7, alligator
+c_618a6be74dfaff32, cahokia n0200_1 (33.9), etowah n0386_1 (0.0), fort-ancient n0264_1 (0.0),
+hodgen-s n0092_1 (0.0) + n0353_1 (17.3), mound-cemetery n0563_1 (0.0), mount-horeb c_d1dff (0.0),
+pyramid n0134_1 (24.0). Report: seed 20261010, sample = all 16 auto docs (fewer than 20, so all),
+page URL each, gate med per doc - ready for the human's 18/20 check. BOXES: 3 (all 90 covered,
+error bucket empty), 4 (sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK: 20 docs + 19
+site.json byte-identical; the batch only added), 5 (the report) all verified and ticked this
+session.
+NOTES OF RECORD: (1) alligator-effigy-mound's 201 seed item was MERGED by the upsert (its
+candidates: the model's rejected n0214_2 answer + the seed's c_618a, which became the site's auto
+doc; evidence field and resolved=null preserved; 201's export will derive it resolved from the
+doc) - its hash is deliberately not in the golden. (2) the frozen GATE itself (no counterweight)
+caught alligator n0214_2's even-spaced grid answer: median residual 60 m > 45 m. (3) several auto
+docs have gate med 0.0 (exact-similarity anchors, N-4 residual freedom at small N) - expected
+under 001's frozen design where the batch passes the transform solved from its own pairs; the
+radial-gradient clause and the human 18/20 sample own that class, not a threshold change.
+THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 34/34):
+- 4 in MY file tests/test_batch_us.py (all from the tests' pre-batch assumptions, designed in the
+  4e hand-over section with exact fixes): test_sample_run_real_gate (SERPENT
+  rec["auto"]=8 < the 15 pinned plans now 7 of which are pre-docs -> assert >= ANSWER_PLANS -
+  pre_docs_before; CAHOKIA item set now excludes pre-doc n0200_1 -> upsert-semantics expectation
+  (pre_plans - nonpre) | nonpre; item-candidate order relaxed to set equality, _check_entry only
+  for re-proposed candidates), test_stub_gate_always_accept and _reject (the _stub_site
+  "no existing item" precondition is void post-batch -> select ">=2 candidates, no pre-fit";
+  accept: assert the pre-existing item is byte-unchanged; reject: delete the site's existing
+  item file in the temp tree before seeding, else _find_item's sort order finds the batch's item
+  first), test_batch_adds_files_rewrites_none (the sample's zero-candidate site's no-picture item
+  is legitimately re-upserted by 201's live-merge contract - new "at" timestamp; allow a hash
+  change only for the sample sites' own item files, asserting same site / resolved unchanged / no
+  candidate plan dropped; every other file stays byte-identical - that is box 4). None of these
+  weakens a box: box 4's real invariant (the golden 20 docs + 19 site.json byte-identical, no
+  platefit doc ever rewritten) is asserted exactly as before.
+- 1 in 001's file tests/test_gate.py (task DONE): test_recorded_measurement_reproduces_and_agrees
+  - tools/gate_heldout.py aborts "expected 20 hand-fit documents in data/db/platefits/, found 36;
+  the registered partition is void" - it must ignore auto docs (the write_golden convention: auto
+  docs are never part of the golden reference set). Team-mode: not my file -> created task 802
+  (Depends on: 203a; Touches tools/gate_heldout.py, tests/test_gate.py) - the next session files
+  it if this one ended first.
+- 3 in 201's file tests/test_review.py (task DONE): test_export_cli (pre-batch 2-item population
+  vs now 89 items / 88 open - alligator derived resolved), test_page_shows_the_review_list (same
+  population change), test_save_resolves_the_item (KeyError 'map_box' - the test's plan selection
+  now lands on a row without map_box). Team-mode: not my file -> task 803 (Depends on: 203a;
+  Touches tests/test_review.py): re-baseline expected values from the repo state via 201's own
+  upsert/export rules; no fit/review.py change unless a failure proves the writer wrong.
+KNOWN LOOP, flagged for the driver: 802/803 depend on 203a's merge, but my done claim's
+green-suite re-check cannot be fully green until 802/803 merge. Recommendation on record: accept
+the done claim with those 4 failures owned by 802/803 (they are the only deltas from my run's
+required output; no test was loosed or deleted), or reject with that note and let the next agent
+handle it per the rejection. NEXT (session 4f, its own): implement the 4 test fixes, verify 5/5
++ exactly 4 cross-task failures, create 802/803, set Status: done, commit the run artifacts +
+changes with the hand-over's message.
