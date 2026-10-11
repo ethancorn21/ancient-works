@@ -6,11 +6,12 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
+- `tasks/213b-qids-tests.md` (open) - hand-over: **Iteration 37 (2026-10-11): 213b item (1) DONE - the seven book-town QIDs are verified live and in the
 
 ## Next open tasks
-- `tasks/213b-qids-tests.md`
 - `tasks/215-books-llm-ports.md`
 - `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
@@ -72,15 +73,26 @@ control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1,
 211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
 jobs outlive sessions).
 
+### 2026-10-11 213b DECISION: the seven Liber secundus towns verified live (Q239 Brussels, Q12892 Antwerp, Q1741 Vienna, Q490 Milan, Q641 Venice, Q2044 Florence, Q220 Rome) and put in BOOKS["civitates"]["sites"]; verify_qids extended to SITES + book towns; lead-doc QID section rewritten - box 1
+Paced Wikidata discovery + the five-fact verification (label, every P625, P373, P131, enwiki, first
+name-search hit with coordinates) found the seven QIDs above; memory-guessed ids were wrong (Q374 is
+"vodka", not Rome - Q220 is; Vienna is Q1741, not Q2140), so search + verification is the only route.
+Every P625 sits within 0.27 km of its table point (book-town table point = the P625 itself; the book's
+views centre on the walled old towns, within a few km - recorded per town). Traps recorded in the lead
+doc: Florence search (first hit with P625 = Q597842 Florence, South Carolina, 7538 km), Venice search
+(Q773853 Los Angeles, 9891 km), and a Wikidata/enwiki DATA trap for Brussels: the enwiki "Brussels"
+article belongs to the region Q240 while the city is Q239 ("City of Brussels", P373
+"Brussels (municipality)") - Q240's P625 is only 85 m from Q239's, so only the P373/enwiki check
+separates them. verify_qids() now covers SITES + the book towns (8 unique QIDs, P131 fetch chunked at
+50); --verify ran clean twice (exit 0, no flags); --check still 2/2 PASS exit 0; suite 29 passed.
+Box 1 of 213b ticked (table + lead-doc records). Prep §1 assumptions re-checked on the 801-merged
+evidence.py: check(files, books, catalog=) offline, check_caption (L190-207) fails on ±1 km dist_m
+reproduction OR >50 km distance - so the next step's Cervia negative control (44.245/12.367, ~53.5 km)
+fails on both clauses. Unexplained transient: one throwaway-script label batch came back empty after
+... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-11 213 DECISION: list structure decided - one entry per figure leaf keyed on leaf n, title = the plate's own inscription or the section's title leaf, kind o/s/u with kind_by hand|A' DECISIONS.md`)
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-### 2026-10-11 agent/a (213b) status (iteration 37, moved here by the driver)
-213b item (1) done: 7 book-town QIDs verified live (Q239/Q12892/Q1741/Q490/Q641/Q2044/Q220) in
-BOOKS["civitates"]["sites"]; --verify exit 0 (8 QIDs; traps: Florence-SC, Venice-LA, Brussels enwiki
-data); --check 2/2; suite 29/29; lead-doc QID section rewritten; box 1 ticked. fit/src_artists.py +
-docs/lead_artists.md uncommitted (harness-saved). Next: --golden (first write), tests/test_src_artists.py
-(negative control = Imola row with the Cervia point), lead-doc box-1 final read.
