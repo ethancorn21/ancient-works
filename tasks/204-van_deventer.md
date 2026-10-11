@@ -47,55 +47,91 @@ consolidates the staging into the canonical files and builds the sites.
   files exist.
 
 ## Hand-over
-(2026-10-11, iteration 50 - **FR+LU re-verify DONE (clean) and lead doc updated; all committed**). The
-iter-49 TOWNS edit arrived already driver-committed (6b8f85a); parse-check passed (66 towns, 32 stageable).
-The 23-town re-verify run was clean: every label matches, every P373 ok, every enwiki matches, first hit
-with P625 = the recorded QID for all 23, P625→site 0.00-0.01 km everywhere except Le Rœulx 0.91 km (rounded
-item-P625 offset, explained in the doc). Bergues (done) re-confirmed (Q244934, P625 2.434167, 50.968611 →
-site 0.00 km, P373 'Bergues', enwiki 'Bergues'). Lead doc now has: Commons counts BE 23 / FR 23 (Le Rœulx
-moved), the Belgium section with Le Rœulx's row, and the full '## QID verification - France, Luxembourg'
-section (method, the 3 prep-list changes incl. Luxembourg City = Q1842 not Q1564 and Beaumont pending, the
-23-row table, the name-search traps). PITFALLS: the parentheses-search quirk filed. Tests green (38 passed).
+(2026-10-11, iteration 51 - **FR/LU --files batch DONE + Beaumont SETTLED as Hainaut (Q95100) + Aire/Thérouanne
+double plate settled; TOWNS/lead-doc NOT yet edited**). Nothing is committed from this session: the --files
+transcript and the eye-check images are in /tmp (still on disk).
 
-**State of the table (verify any doubt with `python3 -c "import sys; sys.path.insert(0,'fit'); import
-src_van_deventer as m; print(len(m.TOWNS), len(m.stageable()))"` - expect 66, 32):**
-- TOWNS: NL 19 (13 staged + 3 drops + 3 done), BE 23 (20 staged incl. Le Rœulx's entry + Aarschot drop +
-  2 done), FR 23 (21 verified QIDs + Beaumont pending + Bergues done), LU 1 (Q1842 verified).
-  `stageable()` = 32 (NL 13 + BE 19). FR/LU + Le Rœulx have no file= yet, so stage still runs only after
-  the --files picks.
-- Staging files (extras_/files_/classified_van_deventer.jsonl) hold only the 32 NL+BE rows; FR/LU/Le Rœulx
-  rows come after the --files batch. No staging file has been created for Beaumont.
-- Beaumont: TOWNS keeps region="france" + note= pending. The --files run (desc/eye check of its 1545 BNE
-  atlas plate) settles Hainaut (Q95100, on the Sambre at the French border) vs Nord (inland near Seclin);
-  if Hainaut wins, region flips to belgium and QID=Q95100 (then re-verify it once, as its own fact sheet).
-- Box 5 math: 32 of 60 stageable categories staged (32 of 59 town plans). >= 50 still needs >= 18 more
-  stages (or documented drops for each gap) - the FR/LU file batch decides it.
+**The --files batch (transcript /tmp/vd_files_fr_iter50.txt, 217 lines, exit 0; 24 towns + 4 collections):**
+- The 1545 BNE atlas plate sits in every one of the 22 FR town categories + Le Rœulx's (all 1816x2614 or
+  wider, page date 1545, desc = the town name) - the expected picks, confirmed.
+- **Beaumont SETTLED = Hainaut (Q95100), region flips france -> belgium.** The 1545 plate
+  (`File:Beaumont - Deventer.jpg`, 1816x2614, desc 'Beaumont') eye-checked: a fortified town BISECTED by a
+  river (the Sambre) with a bridge, the old town + a moated square castle (the counts of Hainaut's chateau;
+  the sheet's lower-left inset box = that chateau) on the west bank, Charles V's new walled grid town on the
+  east bank. Beaumont (Nord) has no river and no chateau - Hainaut wins on the drawing. Fact sheet (iter-49
+  transcripts, line refs /tmp/vd_verify_fr_iter49.txt:32 and /tmp/vd_lu_iter49.txt:98): label 'Beaumont',
+  P625 (4.2383115, 50.2355294), P373 'Beaumont (Hainaut)', P131 'Arrondissement of Thuin', enwiki
+  'Beaumont, Belgium'. The four old crops /tmp/vd_fr_thumbs/beaumont*.jpg (pre-session, 08:51-08:54) + this
+  session's Beaumont_-_Deventer_{thumb,top,center}.jpg are the evidence; the previous session's
+  beaumont_label_river.jpg shows the river crossing the town centre + bridge. A 1049x932 detail file
+  ('...detail - City and Chateau de Beaumont.jpg', 1545) confirms the chateau; not staged (detail crop).
+- **Aire/Thérouanne double plate SETTLED.** `Aire-sur-la-Lys - Deventer.jpg` (3395x2614, 1545, desc
+  'Aire-sur-la-Lys & Thérouanne') = two-page spread: RIGHT page = the full Aire plan (label 'Aire.', town on
+  its Lys peninsula, compass points, page no. 33); LEFT page = two framed insets: 'Terwan' (the Thérouanne
+  pentagon) top-left and a second small water-bound settlement bottom-left (identity not needed for staging).
+  So: stage the sheet ONCE under **Aire** (file_cat = Aire's town category; the file is in both town cats, the
+  BNE cat too). **Thérouanne gets its own row**: `File:Thérouanne - Deventer.jpg` (986x867, 1545) is a full
+  standalone 'Terwan' plan (pentagon, compass, bridge) - the only Thérouanne plan on Commons -> stage with the
+  Ostend/Aardenburg size caveat. `File:Aire-sur-la-Lys - Plan de Deventer.jpg` (992x800, QS 1550-1565, desc
+  'Plan dit de Deventer de la ville d'Aire...') - thumb not yet viewed; presumed small reproduction, not
+  staged (decide when recording).
+- **Hesdin/Vieil-Hesdin double plate NOT yet decided** (eye check of the crops pending): `Hesdin -
+  Deventer.jpg` (3408x2614, desc 'Hesdin & Vieil-Hesdin'; page date a French note: Hesdin plan 1554-1575,
+  Vieil-Hesdin 'probablement 1545') - view /tmp/vd_fr_thumbs/Hesdin_-_Deventer_{thumb,left,right,center,top}.
+  `Vieil-Hesdin - Deventer.jpg` (757x857, 1545) - view its thumb; if a full plan -> own row (size caveat).
+  year_of of the double sheet = 1545 (min of the years in the note - checked) so the row passes the box-6
+  window; the note stays as the row date with a lead-doc explanation.
+- **Luxembourg City NOT yet decided**: candidate `File:Luxemburg 1550 65 v Deventer.jpg` (2261x1878, 1550,
+  desc 'Lutzenburg') - view thumb/center/top to confirm it is Deventer's drawing (a coloured plan) and not a
+  later print; 'Lutzenburg' names the town (caption route works if the chain walk fails). NOT Deventer ->
+  documented drops: `Lutzenburg.jpg` (1600x1200, page 2005 upload, desc 'published first 1609'),
+  `Lutzenburg 1581 Sanderus.jpg` (1909x1599, 1581), `Couvent Knödler 1550.jpg` (644x468, detail of the
+  franciscan convent).
+- **The five (1)/(2) pairs** (Arras 3184, Douai 3665, Lille 3614, Saint-Omer 3449, Valenciennes 4156 wide =
+  ~2 x the 1816 page): hypothesis (2) = the full two-page spread (stage), (1) = one page, partial (not
+  staged) - the Mons (1)/(2) precedent. Thumbs for all 10 downloaded; confirm the pattern by viewing at least
+  one pair's (1)+ (2) center crops (the others by thumb). The two SVG twins per town (Béthune, Le Quesnoy,
+  Aire, Lille) are vector redraws (mime svg) - not staged.
+- **year_of checked on every candidate date string**: all stage candidates land in 1545-1565 (Hesdin sheet
+  1545; 'Aire Plan de Deventer' 1550; the 1545 pages 1545; Luxemburg 1550 1550); Lutzenburg 2005, Sanderus
+  1581 - the non-Deventer drops, consistent.
 
-**EXACT NEXT STEP (one session, one long run):**
-1. The FR/LU --files batch (same shape as the BE iter-46 run):
-   `.venv/bin/python fit/src_van_deventer.py --files "Aire-sur-la-Lys" "Arras" "Avesnes-sur-Helpe" "Bapaume"
-   "Bavay" "Beaumont" "Bouchain" "Béthune" "Cambrai" "Condé-sur-l'Escaut" "Douai" "Gravelines" "Hesdin"
-   "Landrecies" "Le Cateau-Cambrésis" "Le Quesnoy" "Le Rœulx" "Lille" "Maubeuge" "Saint-Omer" "Thérouanne"
-   "Valenciennes" "Vieil-Hesdin" "Luxembourg City" > /tmp/vd_files_fr_iter50.txt`
-   (24 towns: the 22 FR to stage incl. Beaumont + Le Rœulx + Luxembourg City; expect the 1545 BNE atlas
-   plates as the picks, per the collection section; all names quoted - the Le X unquote trap).
-2. Eye-check the ambiguous candidates (1200 px thumbs + full-size crops via commons.info + aw.UA, then the
-   `read` tool views images): the double plates `Aire-sur-la-Lys - Deventer.jpg` (3395x2614, "Aire-sur-la-Lys
-   & Thérouanne") and `Hesdin - Deventer.jpg` (3408x2614, "Hesdin & Vieil-Hesdin") - pick the true primary
-   (stage ONCE; the second gets its own row only if a full plan of its own exists); Beaumont's plate decides
-   Hainaut vs Nord; Luxembourg City (KBR / National Library scan expected; the Landrecies atlas subcat's 5
-   KBR details, 1091-1805 px, are the fallback if its town-category file is weak).
-3. Record the picks in TOWNS (file=/date=/caption= + note= per town; the c. 1545-1565 window gates the date,
-   the Aarschot 1570 precedent), update the lead doc's per-town FR/LU bullets, then the ONE long run:
-   --chain per newly staged town, `stage` (NOT --dry), `--check`, then write tests/test_src_van_deventer.py
-   (pattern: tests/test_src_artists.py - the socket-blocking no_network fixture, check_staged(), subprocess
-   `fit/evidence.py check --files ... --books <absent path>`, golden sample, negative control; the box-6
-   date rule: year_of of every staged row's date in 1545-1565), `--golden`, full pytest.
+**State of the table (TOWNS unchanged this session: 66 towns, 32 stageable = NL 13 + BE 19; staging files
+absent on disk; check with `python3 -c "import sys; sys.path.insert(0,'fit'); import src_van_deventer as m;
+print(len(m.TOWNS), len(m.stageable()))"`).** After the recording step below: 66 towns, ~55-56 stageable
+(NL 13 + BE 20 + FR 21-22 + LU 0-1 + Le Rœulx), i.e. >= 50 for box 5 even before staging; Beaumont moves to
+the Belgium section of the table (its entry keeps its FR-batch position? NO - move the dict entry to the
+Belgium section and fix both section header comments: BE 23->24 cats (22 to stage + 2 done), FR 23->22 (21
++ 1 done)).
 
-**Pitfalls (all in PITFALLS.md):** (1) the trailing-comment-in-unbalanced-braces rule for EVERY TOWNS edit;
-(2) wbsearchentities limit=5 misses well-known short names - follow up at limit 20/50; (3) raw Wikimedia
-API calls need the aw.UA User-Agent or they 403; (4) a wbsearchentities label search containing parentheses
-returns EMPTY (this session's filing - the 'Luxembourg (city)' case). Team mode: agent c on 203b
+**EXACT NEXT STEP (one session; no long API run needed except one --verify):**
+1. Finish the eye check from /tmp/vd_fr_thumbs/ (images above: Hesdin set, Vieil-Hesdin, Luxemburg 1550,
+   one (1)/(2) pair's center crops + the 9 remaining pair thumbs, Aire 'Plan de Deventer').
+2. TOWNS edits (one edit per town; the trailing-comment-in-unbalanced-braces rule!): file= (+ date=/caption=/
+   note= where needed) on the 21 remaining FR towns + Le Rœulx + Luxembourg City; Beaumont: full record
+   (region="belgium", qid="Q95100", label="Beaumont", lon/lat 4.2383/50.2355, p625 (4.2383115, 50.2355294),
+   place="Arrondissement of Thuin", wikipedia="https://en.wikipedia.org/wiki/Beaumont,_Belgium",
+   p373="Beaumont (Hainaut)", file=, note= the Hainaut settlement) + move the entry to the Belgium section;
+   update the BE/FR section header comments (counts + this session's transcript).
+3. `.venv/bin/python fit/src_van_deventer.py --verify Beaumont` (the re-verification as its own fact sheet;
+   expect the TRAP line: first search hit with P625 = Q128282 Beaumont (Texas) ~7000 km away - that is the
+   documented trap, the recorded label/P373/enwiki confirm Q95100).
+4. Lead doc: per-town FR/LU section (replace the 'pending' stub; one bullet per town incl. every not-staged
+   file with its reason), the collection section's double-plate lines updated with the eye-check result,
+   the QID table gains a Beaumont row and loses none (it is already listed as pending - move it into the BE
+   table with region note), the two country lists at the top (FR 23->22, BE 23->24), the Summary running
+   total. Then commit TOWNS + lead doc + this hand-over.
+5. NEXT session: --chain per newly staged town (24 towns, one long run), `stage` (NOT --dry), `--check`,
+   write tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socket-blocking no_network
+   fixture, check_staged(), subprocess `fit/evidence.py check --files ... --books <absent path>`, golden
+   sample, negative control; box-6: year_of of every staged row in 1545-1565), `--golden`, full pytest.
+
+**Pitfalls hit/confirmed this session:** (0) `pipeline/aw.py`'s UA is a DICT ({'User-Agent': ...}), not a
+string - passing it to urllib's Request(headers=) works; slicing it (UA[:60]) raises KeyError - file in
+PITFALLS if not already; (1) trailing-comment-in-unbalanced-braces rule for every TOWNS edit; (2)
+wbsearchentities limit=5 misses well-known short names; (3) raw Wikimedia API calls need aw.UA or 403;
+(4) label searches with parentheses return EMPTY. The /tmp/vd_fr_fetch.py script (fetch thumbs + crops) is
+reusable: /tmp/vd_fr_fetch.py with the FILES list edited. Team mode: agent c on 203b
 (fit/batch_eu.py, data/db/platefits, data/review, docs/batch_eu.md, tests/test_batch_eu.py) - untouched.
 My Touches: fit/src_van_deventer.py, the 3 staging jsonl (created by stage), docs/lead_van_deventer.md,
 tests/test_src_van_deventer.py, tests/golden/src_van_deventer_sample.json, plus this task file.

@@ -144,3 +144,14 @@ tests/test_src_van_deventer.py, --golden).
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 204 (agent a, iteration 51) - session ended at context limit; full detail in the task's ## Hand-over
+    FR/LU --files batch DONE (transcript /tmp/vd_files_fr_iter50.txt, exit 0): the 1545 BNE atlas plate is in all
+    22 FR town categories + Le Rœulx's. Eye check (images in /tmp/vd_fr_thumbs/): Beaumont SETTLED as Hainaut
+    (Q95100, region flips to belgium - the plate shows the Sambre bisecting the town + the counts' chateau;
+    the Nord town has neither); Aire/Thérouanne double plate settled (Aire stages the 3395x2614 spread,
+    Thérouanne stages its own 986x867 'Terwan' plan). STILL PENDING the eye check: the Hesdin/Vieil-Hesdin
+    double sheet + its 757x857 twin, Luxembourg City's 'Luxemburg 1550 65 v Deventer.jpg', the five (1)/(2)
+    pairs, one small Aire repro. TOWNS + lead doc NOT yet edited - next session records the picks (TOWNS
+    entries, `--verify Beaumont` re-check, lead doc), then the following session does --chain/stage/--check/
+    tests/--golden.
