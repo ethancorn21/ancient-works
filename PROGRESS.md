@@ -16,55 +16,6 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 213 DECISION: module shape - SITES table + per-source row tuples, stdlib-only at the top
-fit/src_artists.py: SITES{qid: site facts (id/name/lon/lat/place/region/kind/wikipedia/cat/p625/note)};
-SOURCES{name: rows + display label + p-field} for the two image-level sources (row tuple (title, qid, label,
-opts) - a variant of sources.py: the region lives on the site, since all its rows share it); BOOKS{civitates,
-merian} with the IA identifiers (per-book flow is session 4; the books.py:BOOKS entry is a shared-module
-change -> file a task, never write it). Top-level imports are stdlib only (json/os/sys/time); commons/evidence
-are imported lazily inside functions because commons->aw needs numpy (absent from the system python3) - live
-commands run under .venv/bin/python. CLI: --verify (live QID re-check, prints the search traps next to the
-table values for the lead doc), [--dry] (stage), --check (offline join + evidence.check over the staged rows;
-books arg = a never-existing path), --golden (normalized staged rows -> tests/golden/src_artists_sample.json,
-checked/date_commons zeroed). check_staged() join: file rows may name staged OR existing sites (box-3 rule:
-existing QID -> picture row on the existing site id, no new catalog entry); staged ids/QIDs must not pre-exist;
-classified rows 1:1 with file rows.
-
-### 2026-10-11 213 DECISION: the prep's Imola "centre 44.245 N, 12.367 E / bad P625 53 km NW" was wrong - that point is Cervia; P625 is the correct city point
-The prep notes placed Imola's old town at 44.245 N, 12.367 E and, seeing Q50195's P625 (44.353, 11.715) far
-from it, called the P625 "bad, ~53 km NW of the town". Verified live (2026-10-11): the prep point is CERVIA
-on the Ravenna coast (~50 km SE of Imola); the real city is at 44.353 N, 11.715 E, where THREE independent
-sources agree: the enwiki infobox (44°21'11"N 11°42'53"E), Wikidata P625, and the OSM town node (with the F1
-circuit beside it and the Santerno - "Fiume Santerno" at 44.3606/11.7104 - running through the urban area).
-So the "53 km trap" was the distance between two wrong values. Consequences: (a) the site point is the
-walled town's centre, 11.7112/44.3535 (Piazza del Duomo, OSM) - the centre of the sheet's circular view, not
-the modern city point; (b) the prep's "Savena crossing" was a second error - the drawing's river is the
-Santerno, which Leonardo labels "Sant'Arno" (mirror script, read off the sheet); the view is south-up per
-the literature; (c) the evidence story changes: for Imola the live record route resolves the RIGHT QID (the
-hand record still stands to pin the walled centre, deterministic and offline); the name-search trap that is
-REAL and documented is Venice (first hit with P625 = Q773853 Venice, California, 9891 km). Side note: OSM's
-comune boundary for Imola is mis-drawn (Nominatim displays the urban area as "Imola, Nuovo Circondario
-Imolese", and the admin relation's centre sits 8 km north of the city) - a reason never to geocode Imola
-from OSM/Nominatim. The PITFALLS entry "Q50195 (Imola) carries a bad P625..." must be corrected accordingly
-(pending in the next session; I cannot edit PITFALLS from the context-limit hand-over step).
-
-### 2026-10-11 213 DECISION: Imola triage (one paced commons.info run) + staged both image-level sites; --check 2/2 PASS
-Triage of the Imola candidates (all Public domain, all pass commons.keep()): "File:Leonardo da vinci, Town
-plan of Imola.jpg" (1030x774, circa 1502) verified by eye to be ANOTHER SCAN OF THE SAME RCIN 912284 SHEET
-(same view, walls, river, margin legend/notes) -> dropped as a duplicate picture; "File:...RCIN 912686, Recto
-Sketches of the street plan of Imola.jpg" (1517x2000 portrait, undated) = a different work (measured survey
-sketches with block grids and fortress details) -> dropped; "File:Imola 1705.jpg" (942x710, 1705, Antonio
-Ferri) = a flat plan by another hand from another century -> dropped (not one of the task's four GOAL
-sources). The GAp Imola scan stays a commons.NO "google" drop. Staging (`.venv/bin/python fit/src_artists.py`)
-wrote extras_artists.jsonl (imola-q50195, venice-q641; region "Italy" - transient "US" display until 214
-merges), files_artists.jsonl (2 rows with hand-recorded caption_coords evidence; Imola date ""/year 1502 -
-the file page has no DateTimeOriginal, the noted box-1 case; Venice date 1500) and classified_artists.jsonl
-(2 rows, p_birdseye 1.0, by hand). `--check` then passed: 2/2 caption_coords, no join problems, exit 0
-(offline). Boxes 2 and 3 ticked (the hand-checked table + existing-QID rule were done in session 1 and are
-unchanged in shape). Remaining: box 5 (Civitates/Merian book work or documented status), box 6
-(tests/test_src_artists.py + golden), box 1 (lead doc final), box 4 (count check, last). docs/lead_artists.md
-is written for Imola + Venice (uncommitted, harness-saved).
-
 ### 2026-10-11 213 DECISION: books step (box 5) - civitates worked in per-book files; views can't pass the machinery's plan-only index; shared-module gaps filed as 215/216/217
 civitatesorbiste00brau identified as **Liber secundus (1575)**, 292 leaves (from its imperial-privilege OCR
 page: "PRIVILEGIUM CAESAREAE MAJESTATIS ... Hogenberg ... vanden Noeurt ... Bruin ... Ciuitates Orbis
