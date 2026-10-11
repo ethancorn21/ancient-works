@@ -1,7 +1,7 @@
 Status: open
 # 213: Artists' views - Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian
 Depends on: 200
-Touches: fit/src_artists.py, data/catalog/extras_artists.jsonl, data/commons/files_artists.jsonl, data/commons/classified_artists.jsonl, docs/lead_artists.md, tests/test_src_artists.py
+Touches: fit/src_artists.py, data/catalog/extras_artists.jsonl, data/commons/files_artists.jsonl, data/commons/classified_artists.jsonl, data/books/triage/civitatesorbiste00brau.A.jsonl, data/books/triage/civitatesorbiste00brau.F.jsonl, data/books/lists/civitatesorbiste00brau.json, data/books/lists/civitatesorbiste00brau.map.json, docs/lead_artists.md, tests/test_src_artists.py, tests/golden/src_artists_sample.json
 
 ## Goal
 The new lead of GOAL.md point 5 (the 2026-10-10 change; the owner, of Leonardo's 1502

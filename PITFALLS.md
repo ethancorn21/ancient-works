@@ -206,13 +206,27 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       gymnasium named after the map's owner. A first-resolved walk over such rows lands on that far item and
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
-#### Q50195 (Imola) carries a bad P625 (~53 km NW of the town), and a name search for "Venice" hits Venice, California, first
-Where: `fit/src_artists.py` (SITES, `verify_qids`, task 213); `fit/evidence.py` (`resolve_places`, `caption_route`)
-Symptom: a live evidence record for a title naming "Imola" resolves Q50195's P625 (11.7147, 44.3531), 53 km NW
-      of the town -> stored as a conflict, kind `none`; a search for "Venice" first returns Q773853 (Venice,
-      Los Angeles area, -118.46, 33.99), 9891 km -> also a conflict. `record --live` can never pass these rows.
-Why: the town's own item carries a wrong coordinate, and name search ranks the homonym above the city. 213
-      hand-records `caption_coords` with verified coordinates instead (Imola's old-town centre; Venice's P625
-      is sane, so its stored point is the item's own). Also: Q16139 is the Province of Bologna, NOT Italy (the
-      prep notes misread it; Italy is Q38) - P131 gives provinces, so the staged extras `place` strings are
-      composed by hand (region, country).
+#### Q50195 (Imola) P625 is the correct city point - the prep's "old-town centre" was Cervia; never geocode Imola from OSM/Nominatim; "Venice" search hits Venice, California, first
+Where: `fit/src_artists.py` (SITES, `verify_qids`, task 213); `fit/evidence.py` (`resolve_places`, `caption_route`); OSM/Nominatim geocoding of Imola
+Symptom: a prep-era "old-town centre" (44.245 N, 12.367 E) was called Imola's, and Q50195's P625 (44.3531,
+      11.7147) was called "bad, ~53 km NW of the town" - in fact the prep point is CERVIA on the Ravenna coast
+      (~50 km SE of Imola) and the P625 is the correct city point (the enwiki infobox 44 deg 21' 11" N 11 deg
+      42' 53" E agrees with it to 0.3 km, and the OSM town node with the F1 circuit beside it sits there too).
+      OSM/Nominatim geocoding of "Imola" is a second trap: the comune boundary is mis-drawn (Nominatim shows the
+      urban area as "Imola, Nuovo Circondario Imolese"; the boundary's centroid sits ~8 km north of the city).
+      Separately, a name search for "Venice" first returns Q773853 (Venice, Los Angeles area, -118.46, 33.99),
+      9891 km -> a live `record` stores that as a conflict (kind `none`) for rows captioning Venice.
+Why: for Imola the live record route resolves the RIGHT QID, but the site point is the sheet's own centre -
+      the walled old town (Piazza del Duomo 11.7112, 44.3535, OSM), where the view is centred - not the modern
+      city point; 213 hand-records `caption_coords` with that point as both site and place (the offline check
+      passes). For Venice the stored point is the item's own P625 (sane). Also: Q16139 is the Province of
+      Bologna, NOT Italy (the prep notes misread it; Italy is Q38) - P131 gives provinces, so the staged extras
+      `place` strings are composed by hand (region, country).
+
+#### Nominatim's viewbox is left,top,right,bottom = min_lon,MAX_lat,max_lon,min_lat
+Where: Nominatim (nominatim.openstreetmap.org) `viewbox` parameter; any OSM-geocoding helper that wants to bias results to a region
+Symptom: passing the bounding box as (lon1, lat1, lon2, lat2) makes Nominatim re-rank results toward the centre
+      of a mis-specified box, so the intended region's results get buried (a 213 search for the right place came
+      back ordered toward the wrong corner).
+Why: the documented format is "viewbox=min_lon,max_lat,max_lon,min_lat" (left,top,right,bottom). Build it as
+      f"{min_lon},{max_lat},{max_lon},{min_lat}". (Burned a 213 session on this, 2026-10-11.)
