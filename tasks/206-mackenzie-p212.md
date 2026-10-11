@@ -39,21 +39,23 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 70 (2026-10-11, agent a) - re-verified the full state (the driver brought 206 back early, 211+218
-still open): all 206-owned artifacts green and md5-identical to iters 66-69; all 5 suite reds re-diagnosed
-THIS session - causes unchanged, all dependency-owned (211 x3, 218 x1, 300/301 x1). The blocking deps are
-already on the `Depends on:` line, so nothing to add and no stand-ins (team rule). Status stays open.**
+**Iteration 71 (2026-10-11, agent a) - re-verified the full state (the driver brought 206 back early, 211+218
+STILL open): main has not moved since iter 70 (`git log agent/a..main` empty, head f5ea863), all 206-owned
+artifacts md5-identical to iters 66-70, --check/--gate/4-tests green with byte-identical stats, full suite
+59/5 with the same dependency-owned reds (211 x3, 218 x1, 300/301 x1). Deps already on the `Depends on:`
+line, so nothing to add and no stand-ins (team rule). Status stays open.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
 - `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
   residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.75 s, socket-boom fixture, no network).
-- All 7 committed artifacts md5-identical to iter 66/67/68/69: src_mackenzie 77a47def, files_mackenzie
-  f637c4be, classified_mackenzie 2ed56b79, shotwick platefit doc 9a1924cf, lead_mackenzie 5d7b7ab6,
-  test_src_mackenzie ddb146a2, golden f0936d9a (full sums in this and prior DECISIONS entries).
-- Full suite: 59 passed, 5 failed (74 s) - the same set as iters 68/69, each red's live cause re-confirmed
+- `tests/test_src_mackenzie.py`: 4/4 green (1.63 s, socket-boom fixture, no network).
+- All 7 committed artifacts md5-identical to iters 66/67/68/69/70: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
+  files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
+  shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
+  test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
+- Full suite: 59 passed, 5 failed (75 s) - the same set as iters 68/69/70, each red's live cause re-confirmed
   this session (failure text below; none touches a 206 file):
   1. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218): `gate_heldout held failed: expected
      20 hand-fit documents in data/db/platefits/, found 21; the registered partition is void,
@@ -66,15 +68,18 @@ STATE at stop (all re-run this session, offline):
   4. `test_batch_eu::test_union_full_coverage_live` (211): same missing doc.
   5. `test_site_done::test_site_done_line` (300's file, in 301's Touches): still the depictions.json byte
      compare at index 35 (b'p' != b'm', plan vs map). Its compare target `web/data/sites/stonehenge-q39671/
-     depictions.json` (a SYMLINK into the shared main-branch store - PITFALLS "This machine and its
-     environment") STILL carries the pre-sync state: mtime 2026-10-11 14:48:36 (unchanged since the
+     depictions.json` (reached THROUGH the per-site directory symlink into the shared main-branch store -
+     the directory is the symlink; the file itself is a regular file there - PITFALLS "This machine and
+     its environment") STILL carries the pre-sync state: mtime 2026-10-11 14:48:36 (unchanged since the
      iter-67 observation), 2 entries, first kind "map". Agent c is still mid-301 (the prompt lists 301 in
      c's work). It settles when 301 lands; NOT 206's to fix; do not "fix" it.
-- Deps status at stop: `tasks/211-merge-build.md` = open, `tasks/218-gate-holdout-new-hand-docs.md` = open.
-  Both are already on the `Depends on:` line (001, 200, 211, 218) -> nothing to add; per the team rule no
-  stand-ins were built; the driver gives this agent other work and brings 206 back once both merge.
+- Deps status at stop: `tasks/211-merge-build.md` = open (it Depends on 207, which is still split/in flight
+  via 207a/207b/207c - agent c is on 207b now), `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on
+  001 only; waiting for an agent to pick it up). Both are already on the `Depends on:` line (001, 200, 211,
+  218) -> nothing to add; per the team rule no stand-ins were built; the driver gives this agent other
+  work and brings 206 back once both merge.
 - Main-branch check: `git log agent/a..main` empty at session start (main head f5ea863, a lead web-only
-  commit); nothing merged since iter 69 touched 206's files.
+  commit, unchanged since iter 70); nothing merged since iter 70 touched 206's files.
 - Nothing in this task's files changed this session (verification only); working tree clean apart from
   this memory update.
 
