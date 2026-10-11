@@ -5,6 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/213-artist-views.md` (open) - hand-over: **Step 1 done (iteration 23, 2026-10-11): module + verified table + live checks.** `fit/src_artists.py` exists
 
 ## Next open tasks
 - `tasks/201-review.md`
@@ -14,7 +15,35 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 213 DECISION: new-site region is "Italy" (display case); filed task 214 for REGION_NAME
+REGION_NAME (build_catalog.py) has no "italy" key. `place_of` uses `.get(x, x)` (the display-case "Italy"
+dedupes cleanly in the place string; lowercase "italy" would print lowercase), but `make_site` uses
+`REGION_NAME.get(...) or "US"` - until the key exists, the built sites display as "US" on the page. Task 214
+filed (one module: pipeline/build_catalog.py + new tests/test_region.py; Depends on: none, so it can run in
+parallel with the rest of 213).
+
+### 2026-10-11 213 DECISION: the "Google Art Project" scans are documented drops, not staged
+commons.NO's regex contains "google" (a harvest heuristic against map-screenshot junk), so both GAp scans fail
+commons.keep() - and even if staged they would be dead rows: 211's merge feeds commons.rows(), which re-judges
+every row with keep() and would drop them from the plan list. Instead I stage the surviving scans (RCIN 912284
+for Imola; the 11800x5856 Museo Correr scan for Venice). Also to be documented as drops in the lead doc: the
+NGA "block" files (detail crops of Barbari's woodcut, not separate pictures), File:...RCIN 912686 (a different
+work: recto sketches), File:Imola 1705.jpg (a 1705 view, not Leonardo), and File:Leonardo da vinci, Town plan
+of Imola.jpg (triage pending session 2 - possibly a third scan of the same sheet).
+
+### 2026-10-11 213 DECISION: module shape - SITES table + per-source row tuples, stdlib-only at the top
+fit/src_artists.py: SITES{qid: site facts (id/name/lon/lat/place/region/kind/wikipedia/cat/p625/note)};
+SOURCES{name: rows + display label + p-field} for the two image-level sources (row tuple (title, qid, label,
+opts) - a variant of sources.py: the region lives on the site, since all its rows share it); BOOKS{civitates,
+merian} with the IA identifiers (per-book flow is session 4; the books.py:BOOKS entry is a shared-module
+change -> file a task, never write it). Top-level imports are stdlib only (json/os/sys/time); commons/evidence
+are imported lazily inside functions because commons->aw needs numpy (absent from the system python3) - live
+commands run under .venv/bin/python. CLI: --verify (live QID re-check, prints the search traps next to the
+table values for the lead doc), [--dry] (stage), --check (offline join + evidence.check over the staged rows;
+books arg = a never-existing path), --golden (normalized staged rows -> tests/golden/src_artists_sample.json,
+checked/date_commons zeroed). check_staged() join: file rows may name staged OR existing sites (box-3 rule:
+existing QID -> picture row on the existing site id, no new catalog entry); staged ids/QIDs must not pre-exist;
+classified rows 1:1 with file rows.
 
 ## Project-wide driver notes (newest)
 
