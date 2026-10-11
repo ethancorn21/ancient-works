@@ -56,59 +56,25 @@ and its streets carry the fit.
   the feature pairs the sheet shows on both sides, not walls in relief.
 
 ## Hand-over
-**Iteration 26 (2026-10-11): books step resumed and pushed far; lead doc books section rewritten; tasks 215-217 filed. Commit this state (the triage files keep growing from the background run - commit them when stable).**
+**Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are uncommitted on disk, no errors in either file). List transcription started: 16 leaves visually read (findings below) - no list file written yet. Context limit hit mid-image-reading.**
 
-**What this session did:** (a) established that iteration 25's orphaned triage process had appended the last
-2 pages of A after the driver's snapshot (A = append-only, re-runnable - no repair needed); (b) identified
-civitatesorbiste00brau = **Civitates Orbis Terrarum, Liber secundus (1575)**, 292 leaves (imperial-privilege
-page in its OCR names Hogenberg/vanden Noeurt/Braun + "Secundus"); (c) found **books.py's LLM_URLS
-(18080/18081) are stale on this machine** - no listener; the llmtunnel ssh service (user llmtunn, up since
-Oct 6) serves the Qwen replicas on **127.0.0.1:8080/8081/8082** (all /v1/models -> 200). Every book task's
-triage B/F is blocked by this; (d) launched the triage in the BACKGROUND (see below) and, while it ran,
-filed **tasks 215** (books.py ports), **216** (BOOKS entries for the 6 view books, Depends 213+215),
-**217** (books_lists lists + view-as-drawing index, Depends 216) and **rewrote the lead-doc books section**
-(6-item table, Liber secundus description, the views-cannot-index gap, status: worked in per-book files).
+**The background run:** /tmp/civitates_triage.py finished: DONE printed; A = 292 unique rows (no gaps, no errors, no dupes), F = 118 rows (0 error rows; 239 figure readings: 222 view / 11 plan / 6 other). No re-run needed. Files: data/books/triage/civitatesorbiste00brau.{A,F}.jsonl.
 
-**THE BACKGROUND RUN (do not kill without reason):** `/tmp/civitates_triage.py` (pid 1657419 at hand-over),
-log `/tmp/civitates_triage.log`, writes `data/books/triage/civitatesorbiste00brau.A.jsonl` (finishing pages
-211-291; 262/292 done, 0 errors so far) then `.F.jsonl` on every figure_site_plan+other_illustration page.
-It patches `books.LLM_URLS` to 8080-8082 in-process and injects `BOOKS["civitates"] = dict(ia=
-"civitatesorbiste00brau", region="Italy", year=1575)` - NO shared file is modified. archive.org IIIF is
-slow (timeouts + retries are normal; a page that exhausts retries gets an error row and a re-run picks it
-up). **Re-run if dead/incomplete:** `nohup .venv/bin/python /tmp/civitates_triage.py >> /tmp/civitates_triage.log 2>&1 &` (idempotent). Wait for it to print DONE (or finish) before committing the A/F files.
+**What I read (triage images are LOCAL: data/raw/books/civitatesorbiste00brau/triage/nNNNN.jpg = leaf n+1; re-reading is cheap - the harness drops old images from context, so re-read any leaf you need):**
+- **n58 = bird's-eye PLAN of Paris** (poem cartouche, Cum Privilegio) -> kind s. **n85, n90, n98, n109 = bird's-eye PLANS** (Flemish/German: n85 arms + 46-item Dutch street legend; n90 two arms; n98 = the famous Antwerp plan, cartouche "...nobile in Brabantia oppidum...", n109 = Amsterdam plan, saltire arms, "DEN AEM STEL", 32-item legend; note n109's plate PRECEDES its title leaf n110 AMSTELEDAVM, and n225 Messina view precedes title n226 - sections interleave both ways). **n237/238 = the two Jerusalem PLANS** (old: numbered walls/Temple/Tower of David/36-item legend + top text block; new: "Nova urbis Hierosolymitanae descriptio", Declaratio A-Z, Cum Privilegio vignette) -> kind s.
+- **n157/158 are NOT maps**: sheets of small town VIEWS of the 13 Swiss cantons (n157: Schwyz, Underwalden, Tugium, Zug, Bern, Fryburg, Solothurn; n158: Glaris, Basel, Lucern, Uri, Schaffhausen, Appenzell + one cut off; titles "DECEM ET TRIA LOCA CON[...]/FEDERATORVM HELVETIAE") -> kind o. (The iteration-26 hand-over called these maps - corrected.)
+- **n202 = the famous oblique BIRD'S-EYE VIEW of Venice** (153-item Italian legend) -> kind o. **n194 = two Vienna views** (top: S. Steffans labelled + imperial double-headed eagle; bottom: cartouche "prima & regia... ad Danubium") -> o. **n214 = Ancona view** (star fort, 35-item legend), **n217 = Naples view 1** (cartouche "Hæc est nobilis & floris illa NEAPOLIS...Parthenope", 52 items), **n218 = Naples view 2** (104 items), **n225 = Messina view** (106 items; title leaf n226) -> all o.
+- **n52 = double title page** (CIVITAS BVRGENSIS + S. SEBASTIANI OPP., printed page 6 at bottom); **n54 = the two matching views** (Burgos, inscription read by A = "bVRGOS celebris et antiqua Hispaniae civitas, quae Auca, Brautum, Masburgi, Li conitiurgis, nomina habet"; San Sebastián "SANCT. SEBASTIANVM vulgo Donostien..."). **n53 = two more plates** (a view with a 46-item Dutch legend + a sea view with a gallows galleon) - probably the 2nd/3rd Barcelona plates (section: n49 BARCELONA title, n50 "Cum Pristelio"): CONFIRM by reading n50/n51. **n187/n199 = the faded BLANK VERSO of the fold-outs** (plates are n186 Augsburg, n198 Milan; "RFPCB" library stamp) - they are figure leaves but carry no picture; record them honestly in the list (kind u, title = verso of the fold-out).
 
-**Facts for the list transcription (next main step):** the book has **no printed town list** - transcribe
-from the plate inscriptions (A/F captions = the model's reading; verify the ambiguous ones visually - maps
-like FEDERATORVM HELVETIAE, arms pages like "Armes de ceste Ville de Milan", fold-outs n187/n199, the
-Jerusalem PLAN n237/238 = the only kind-"s" entry). `page_numbers.json` (cached in data/raw) is SPARSE:
-printed numbers only at leaves 193-196 (1-4) and 280-284 (I-V) - so list entries key on the LEAF (n),
-`page` mostly null. Write `data/books/lists/civitatesorbiste00brau.json` = {"plates": null, "figures":
-[{"fig": i, "title": <inscription as printed>, "page": null-or-printed, "kind": "o" (view), kind "s" for
-the Jerusalem plan, "u" if unsure, "kind_by": "hand"}]} and `.map.json` = `[]` (honest under the current
-machinery: list_pages maps only kind s/u). **Then fix the lead-doc sentence that says the list "is
-hand-transcribed"** - make it true or soften it to the state you reach. Then a few hand-verified towns
-(paced Wikidata QIDs: Rome/Vienna/Florence/Milan/Brussels/Antwerp candidates) recorded in
-fit/src_artists.py:BOOKS and the lead doc. Box 5 end-state = per-book files + documented status (rows come
-via 211/217, not staged by 213 - the lead doc says so).
+**Structure rule found:** each city section = a TITLE LEAF (big Latin title + history text; A reads it) + 1-3 PLATE leaves (views/plans; A caption = the plate's own inscription, legend or poem, often empty). A plate's city = its section (nearest title leaf, either side). The book has NO printed town list, so `figures` entries key on leaf n, `page` = printed number ONLY for leaves 193-196 (1-4) and 280-284 (I-V) (data/raw/books/civitatesorbiste00brau/civitatesorbiste00brau_page_numbers.json; all other leaves null).
 
-**Still to do (order):** (1) above; (2) `.venv/bin/python fit/src_artists.py --golden` -> commits
-tests/golden/src_artists_sample.json (path already in Touches; never hand-edited); (3) write
-tests/test_src_artists.py per prep §4 (join; table completeness; offline evidence check exit 0 with the
-NEGATIVE CONTROL: Imola row with the Cervia point 44.245/12.367 must be FAIL; golden compare; socket-
-blocking fixture; .venv); (4) tick boxes 1, 5, 6, then box 4 LAST; (5) note in 211's Hand-over that the
-*_artists* staging files + the civitates per-book files must be merged (R6); (6) add the PITFALLS entries:
-LLM ports 8080-8082 vs books.py 18080/18081 (215's box 3 expects it - do it once, here or in 215, not both),
-+ long data jobs outlive the session and the driver's snapshot commit catches the file mid-growth (check
-mtime/stability before committing a growing file).
+**Pitfalls learned (write to PITFALLS.md):** (1) the hOCR page index for civitatesorbiste00brau is MISALIGNED with the jp2 leaf sequence (drift 0-2 leaves; e.g. hOCR leaf 85 = the Brussels title text that A reads on leaf 87) - `books_ia.page_texts()`/ocr_captions are UNRELIABLE for this book; the image-based A rows are the ground truth (217 must not use page_texts for civitates). (2) Stage F under-detects plans in this book (its prompt is earthwork-biased: only 11/121 flagged plan while I visually confirmed n58/n85/n90/n98/n109/n237/n238 are plans) - 217's view-as-drawing index should not trust F's "plan" label here.
 
-**State of the boxes:** 2, 3 ticked (unchanged). Box 5 ~80% (triage A nearly done, F running, lead doc
-done, list pending). Boxes 1, 4, 6 open. `--check` last passed (2/2) in iteration 24; staging files are
-append-only and untouched since - re-run `--check` before claiming.
+**Still to do (order):** (1) COMMIT the A/F triage files (+ any lead-doc state). (2) Finish the visual set: n209 (Rome), n205/n206 (Florence), n198 (Milan fold-out: view or plan?), n197 (Armes de Milan - arms page, excluded from drawings), n86/n97/n193 (Brussels/Antwerp/Vienna title leaves), n186 (Augsburg fold-out), n50/n51 (confirm n53 = Barcelona). (3) Write data/books/lists/civitatesorbiste00brau.json: {"plates": null, "figures": [{"fig": <leaf n 0-based>, "title": <inscription as printed, or city name from the section title leaf when the plate has none>, "page": null-or-printed, "kind": "o"|"s"|"u", "kind_by": "hand" for leaves I read / "A" for the rest (documented in the lead doc)}]} - every one of the 121 figure leaves gets an entry; + .map.json = [] (list_pages maps only kind s/u and has no page numbers for these leaves). (4) Fix the lead-doc books section: list written per this scheme; FEDERATORVM = views not maps; n187/n199 = fold-out versos; the hOCR/F pitfalls; the verified-towns QIDs (next). (5) Hand-verified towns (7): Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp - paced Wikidata (label/P625/P373; search-trap check like Venice-CA) -> record in fit/src_artists.py:BOOKS["civitates"]["sites"] + lead doc. (6) `.venv/bin/python fit/src_artists.py --check` (last passed 2/2 iteration 24; staging files untouched since) + `--golden` -> tests/golden/src_artists_sample.json (never hand-edited). (7) Write tests/test_src_artists.py per prep §4 (join; table completeness; offline evidence check exit 0 + NEGATIVE CONTROL: Imola row with the Cervia point 44.245/12.367 must FAIL; golden compare; socket-blocking fixture; run under .venv). (8) Tick boxes 1, 5, 6, then box 4 LAST. (9) Note in 211's Hand-over: *_artists* staging files + the civitates per-book files (triage A/F + lists) must be merged (R6). (10) PITFALLS entries: LLM ports 8080-8082 vs books.py 18080/18081 (do once, here or in 215), the hOCR misalignment, the F under-detection, long data jobs outlive sessions (check file stability before committing).
 
-**Invariants (unchanged):** staged files append-only + idempotent; never touch fit/evidence.py,
-pipeline/books.py, pipeline/books_lists.py, data/books/index.jsonl, validation.json (215/216/217 own the
-shared modules); GAp scans never staged; box 4 last; golden only via `--golden`; the LLM service on
-8080-8082 is shared by all agents' book work - pace yourself, don't add workers beyond run_stage's default.
+**State of the boxes:** 2, 3 ticked. Box 5 in progress (triage done & ready to commit; list transcription half-read; lead doc has iteration-26 books section that must be updated per (4) above). Boxes 1, 4, 6 open.
+
+**Invariants (unchanged):** staged files append-only + idempotent; never touch fit/evidence.py, pipeline/books.py, pipeline/books_lists.py, data/books/index.jsonl, validation.json (215/216/217 own the shared modules); GAp scans never staged; box 4 last; golden only via `--golden`; the LLM service on 8080-8082 is shared (the run is done now - no more load from this task).
 
 ### Also written to PROGRESS.md (moved here by the driver)
 

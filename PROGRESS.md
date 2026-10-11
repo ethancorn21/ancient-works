@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/213-artist-views.md` (open) - hand-over: **Iteration 26 (2026-10-11): books step resumed and pushed far; lead doc books section rewritten; tasks 215-217 filed. Commit this state (the triage f
+- `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): civitates triage COMPLETE (A 292/292 + F 118/118, zero errors) and committed; 16 figure leaves visually read (7 plans incl. both Jerusalem plans; FEDERATORVM = views not maps; n187/n199 = fold-out versos); list structure decided, list file NOT yet written. Next: finish ~10 image reads, write lists/civitatesorbiste00brau.json + .map.json, 7 verified-town QIDs, --golden, test, boxes 1/5/6 then 4. PITFALLS owed: hOCR misalignment, F plan under-detection, LLM ports 8080-8082.** (iteration 26: books step resumed, lead-doc books section rewritten, tasks 215-217 filed)
 
 ## Next open tasks
 - `tasks/202-propose.md`
