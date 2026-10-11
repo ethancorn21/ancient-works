@@ -158,3 +158,41 @@ A 120-minute timeout auto-answers with the recommendation.
 STATUS: set to `Status: blocked` while the request is open (stuck rule: a blocked
 task waits only while a request is open). The next session follows the branching
 NEXT SESSION procedure in the hand-over (implement vs assign vs ambiguous).
+
+## 2026-10-11 203a DECISION: session 4j - the 002 answer's whole sequence (802, 803, re-file) is spent: both 8xx are done and merged into main; re-verified the post-merge state and filed 203a's done claim (Status: done)
+
+The human answered ask 002 (2026-10-11 07:30, lead claude): "approved, your
+recommendation. You get 802 as a job now, then 803, then 203a again to re-file
+the done claim. Add only the files those two tasks name to their own Touches
+lines." My reading (it governs the sequence): I implement 802 and 803 as their
+own jobs, each keeping its own Touches line - the 4i plan to add the three
+source paths to 203a's Touches line was superseded by that wording (the 47
+session followed the human's and added nothing to 203a's line).
+By iteration 48 the sequence was already spent before this session: 47
+implemented 803 on top of 802 (802 done since af830fb), verified both states
+(38/38 post-batch; 7/7 for test_review + test_gate pre-batch in a temp tree
+with 203a's data diff inverted), filed both done claims, and hit the context
+limit with tests/test_review.py uncommitted. The driver committed it (be70182,
+that file only: 163+/55-), accepted both claims, and merged agent/c into main
+(main's top is now be70182; my branch = main + driver housekeeping; the 8xx
+decisions were archived by the driver). Both task files read Status: done with
+every box ticked.
+Re-verification this session (fresh eyes, before filing 203a's claim):
+- `.venv/bin/python -m pytest -q`: 38 passed / 0 failed (43 s) - 802's
+  test_recorded_measurement_reproduces_and_agrees and 803's three derived review
+  tests all green, so the cross-task reds that sank the 4f/4g claims are gone.
+- sha256sum -c tests/golden/hand_fit_docs.sha256: 39/39 (20 docs + 19 site.json
+  byte-identical; the batch added files, rewrote none - box 4).
+- Live populations: 36 docs = 16 auto (all carry a numeric score) + 20 non-auto
+  whose names set-equal the golden's 20 (802's invariant); 89 review items, 88
+  derived open through 201's export rule (803's premise). The deferred PITFALLS
+  polish from 47 (slim upsert entries vs the page's row lookup) already exists in
+  PITFALLS.md under fit/ - no edit needed.
+- docs/batch_us.md unchanged since the working run: 9 auto / 8 item / 2
+  hand-fitted / 71 no-picture = 90; seed 20261010; sample = all 16 auto fits
+  with page URLs (16 < 20, the conditional bar met by listing all).
+No file of 203a changed since 4e/4f verified all six boxes; this session edited
+only the task file's status + hand-over and this journal entry.
+ACTION: set Status: done and file the claim (the driver re-checks boxes + full
+suite on my branch; the suite is green). Hand-over rewritten to the final state
+(it still said BLOCKED from 4i).
