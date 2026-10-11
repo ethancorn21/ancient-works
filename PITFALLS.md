@@ -253,6 +253,17 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
 
+#### `commons.members()` returns namespaced titles; subcats need `split(":",1)[1]`, file members must NOT be stripped
+Where: `pipeline/commons.py:members`, `fit/src_kip.py:list_files`; any code comparing live category members against
+      stored names
+Symptom: comparing live subcategory members against bare names ("Britannia Illustrata") fails every comparison -
+      the API returns `"Category:Britannia Illustrata"` for subcats but `"File:..."` for files; a drift assert
+      comparing the two kinds of titles dies on the first category.
+Why: the Commons API `members` call returns the page titles exactly as stored: subcategory pages carry the
+      `Category:` prefix, file pages the `File:` prefix. Strip the prefix only for subcats (`split(":",1)[1]`);
+      file titles keep `File:` everywhere downstream (inventory keys, staging rows, the `evidence` field) -
+      stripping there would desynchronize them from `sources.py` and the canonical rows.
+
 ### fit/
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
