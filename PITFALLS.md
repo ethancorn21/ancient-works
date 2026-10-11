@@ -316,6 +316,22 @@ Why: `check_category` only asserts row.cat == site_cat, via[-1] == cat, file_cat
       with via[-1] == the site's exact P373 string and the file's category absent from it; a failed walk is
       the caption route or a documented drop, never a guessed chain.
 
+### pipeline/commons.py
+
+#### keep() must be judged AFTER the date/date_commons swap - a post-1925 reproduction of a pre-1925 drawing is dropped otherwise
+Where: `pipeline/commons.py` (`keep`, `year_of`, `MAX_YEAR`); `pipeline/sources.py` (`run` - the correct
+      order: swap, then gate); `fit/src_van_deventer.py` (`stage` - had the wrong order, fixed 2026-10-11)
+Symptom: a staging run raises on a reproduction: "commons.keep() would drop 'File:Plattegrond van J. van
+      Deventer, reproductie uit album ... - Sluis - 20201361 - RCE.jpg': fix the table or record the drop" -
+      although the byte-same Zwolle done row sits in the canonical files.jsonl (date "circa 1560",
+      date_commons "1980")
+Why: keep() judges via year_of(title, m), which reads m["date"] (the page/scan date) first. A scan whose page
+      date is post-1925 but whose subject is a pre-1925 drawing must be passed the known drawing date FIRST
+      (date=want, date_commons=the page value) - sources.py's run() swaps and only then calls keep(), so the
+      drawing's year (1560) is what gets judged, not the scan's (1980 > 1925). The done Zwolle row (a 1980 RCE
+      album reproduction of a c. 1560 drawing) is the template; any staging module that gates before swapping
+      silently drops exactly those reproductions.
+
 ### pipeline/books.py, pipeline/books_ia.py (the book machinery)
 
 #### civitatesorbiste00brau's hOCR page index is misaligned with the jp2 leaf sequence - page_texts is unreliable for this book
