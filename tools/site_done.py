@@ -9,22 +9,28 @@ uses only code that already exists:
            a platefit document NOR a review-item entry yet. Covered pictures are never re-fitted:
            the batch's item upsert replaces a candidate's entry whole, so a blind re-run would swap
            the rich entries (gate scores, pairs, the why) for "no model answer" stubs.
-  2. sync  pipeline/plan_fit.py build for every one of the site's fit documents (the overlay on the
-           map); a document whose overlay is already current is left as is. Except the documents the
-           line's fabrication check refuses first: the batch model's documented fabrication class
-           (internally perfect regular patterns on the fit sheet's grid, plan_fit.fabrication_pattern)
-           passes the gate by construction, because the gate scores the fit against the same points
-           the model invented (docs/gate.md section 7). A pattern document is never built: it is
-           recorded in the site's review item with the reason and its fit document is deleted, so no
-           future run rebuilds the pattern and a later batch run re-fits the picture (the human's
-           drag on the item is the last word).
+  2. sync  build the map overlay for every one of the site's fit documents (pipeline/plan_fit.py
+           build), handling each by who placed it (plan_fit.who_placed). A hand fit is built with no
+           check - the fabrication check polices the batch model, never a human's drag. An agent
+           document - marked by: agent, or carrying the batch's own auto mark (unmarked ones get
+           the mark stamped back into the file first) - goes through the line's fabrication check
+           first: the batch model's documented fabrication class (internally perfect regular
+           patterns on the fit sheet's grid, plan_fit.fabrication_pattern) passes the gate by
+           construction, because the gate scores the fit against the same points the model invented
+           (docs/gate.md section 7). A pattern document is never built: it is recorded in the site's
+           review item with the reason and its fit document is deleted, so no future run rebuilds
+           the pattern and a later batch run re-fits the picture (the human's drag on the item is
+           the last word). A document with no trustworthy mark at all (no by, no auto) is refused:
+           neither built nor deleted - its candidate goes to the review item with the reason
+           (plan_fit.NO_PROVENANCE), and the human places or marks it.
   3. entry pipeline/build_site.py set_drawings: the site's drawing count in web/data/sites.json
            (the page colours its square by it).
   4. review fit/review.py export (scoped to this site: it publishes web/data/review.json over the
            whole queue but records resolution only into this site's item file).
 
 Prints what it did per picture: synced to the map, sent to the review queue (with the why, including
-the line check's reason for a fabricated pattern), or skipped with the reason. --root redirects the DATA paths (the test runs it on a copy of one
+the line check's reason for a fabricated pattern), refused (no trustworthy provenance), or skipped
+with the reason. --root redirects the DATA paths (the test runs it on a copy of one
 site's files; the code stays this checkout's). Exit codes: 2 = the site is not built,
 1 = a document failed to sync, 0 = done.
 """
@@ -124,18 +130,64 @@ def _pattern_entry(doc, pattern, root):
     return entry
 
 
+def _provenance_entry(doc, root):
+    """The review-item candidate for a document the line refuses: it carries no trustworthy
+    'by' and not the batch's own auto mark, so the line cannot tell a hand fit from an agent
+    one and does not build it. The document is kept (unlike a pattern document): a good hand
+    fit that lost its mark can be placed or marked from the item (the human's drag is the last
+    word). The reason is plan_fit.NO_PROVENANCE verbatim - no 'line check:' framing, no
+    gate-score sentence."""
+    plan = doc["plan"]
+    entry = {
+        "plan": plan,
+        "title": doc.get("title") or plan,
+        "url": doc.get("url") or ("books/%s/%s" % (doc["ia"], doc["file"]) if doc.get("ia") else None),
+        "pairs": doc.get("pairs") or [],
+        "why": plan_fit.NO_PROVENANCE,
+    }
+    ev = review.candidate_evidence(plan, str(root))
+    if ev is not None:
+        entry["evidence"] = ev
+    if doc.get("score") is not None:
+        entry["gate_score"] = doc["score"]
+    return entry
+
+
+def _stamp_agent(root, sid, plan, doc):
+    """Stamp by: agent into the document's file: an unmarked auto doc carries the batch's own
+    mark, so it is a trustworthy agent doc - the store's self-heal (plan_fit.main's sweep does
+    the same). Own site only (a one-site run touches no other file); the key lands last, in
+    the store's own indent=1 / no-trailing-newline shape."""
+    doc["by"] = "agent"
+    batch_us._save_json(batch_us._doc_path(root, sid, plan), doc)
+
+
 def _sync_doc(root, sid, plan, doc):
-    """The one document's sync, in the line's order: the fabrication check first (a pattern is
-    sent to the site's review item and its fit document deleted, never built), then the build
-    (skipped when the overlay is already current). Prints its own line. -> (action, detail):
-    "sent" (the pattern reason), "skipped", "synced", or "failed" (the SystemExit message)."""
+    """The one document's sync, decided by who placed it (plan_fit.who_placed): a hand fit is
+    built with no fabrication check; an agent document (marked, or the batch's own auto mark -
+    unmarked ones stamped by: agent into the file first) goes through the fabrication check (a
+    pattern is sent to the site's review item and deleted, never built) then the build (skipped
+    when the overlay is already current); anything else (unmarked, no auto mark) is refused:
+    no build, no delete, its candidate goes to the review item with plan_fit.NO_PROVENANCE.
+    Prints its own line. -> (action, detail): "refused" (the reason), "sent" (the pattern
+    reason), "skipped", "synced", or "failed" (the SystemExit message)."""
     title = doc.get("title") or plan
-    pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
-    if pattern:
-        review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
-        batch_us._doc_path(str(root), sid, plan).unlink()
-        print(f"sync {title}: sent to the review queue (line check: {pattern})")
-        return "sent", pattern
+    who = plan_fit.who_placed(doc)
+    if who is None:
+        # an unmarked non-auto doc: the line does not guess what it is (it may be a good hand fit
+        # that lost its mark) - refuse: no build, no delete; the item is the record
+        review.upsert_item(str(root), sid, [_provenance_entry(doc, root)])
+        print(f"sync {title}: refused ({plan_fit.NO_PROVENANCE})")
+        return "refused", plan_fit.NO_PROVENANCE
+    if who == "agent" and doc.get("by") not in ("hand", "agent"):
+        _stamp_agent(root, sid, plan, doc)
+    if who != "hand":
+        pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
+        if pattern:
+            review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
+            batch_us._doc_path(str(root), sid, plan).unlink()
+            print(f"sync {title}: sent to the review queue (line check: {pattern})")
+            return "sent", pattern
     if plan_fit.is_done(doc, f"{sid}.{plan}", root):
         print(f"sync {title}: skipped: overlay already current (at {doc.get('at')})")
         return "skipped", None
@@ -155,19 +207,24 @@ def _sync(root, sid, docs):
     before any download). A pattern document is sent to the site's review item and its fit
     document deleted: the item is the record the human works from, and deleting the document
     keeps no overlay (plan_fit.prune drops what was already built) and makes a later batch run
-    re-fit the picture instead of rebuilding the pattern. Returns (failed, sent); sent maps
-    plan -> the pattern reason."""
+    re-fit the picture instead of rebuilding the pattern. Returns (failed, sent, refused): sent
+    maps plan -> the pattern reason, refused maps plan -> the reason (plan_fit.NO_PROVENANCE);
+    a refused document stays in the store (no build, no delete) for the human to place or mark.
+    """
     failed = 0
     sent = {}
+    refused = {}
     for plan, doc in sorted(docs.items()):
         action, detail = _sync_doc(root, sid, plan, doc)
         if action == "failed":
             failed += 1
         elif action == "sent":
             sent[plan] = detail
+        elif action == "refused":
+            refused[plan] = detail
     if sent:
         plan_fit.prune(root, sid)  # drop the overlays the deleted pattern documents left behind
-    return failed, sent
+    return failed, sent, refused
 
 
 def _entry(root, sid, before):
@@ -191,7 +248,7 @@ def _review(root, sid, item_path, item, resolved):
           f"page now has {n_open} open of {n_total} items")
 
 
-def _summary(root, sid, docs, item, item_cands, resolved, sent):
+def _summary(root, sid, docs, item, item_cands, resolved, sent, refused):
     """One line per candidate picture of the site: where it ended up."""
     rows = batch_us.candidates(sid, batch_us._plans_rows(str(root)))
     if not rows and item is None:
@@ -199,7 +256,9 @@ def _summary(root, sid, docs, item, item_cands, resolved, sent):
         return
     for row in sorted(rows, key=lambda r: r["id"]):
         pid, title = row["id"], row.get("title") or row.get("label") or pid
-        if pid in sent:
+        if pid in refused:
+            print(f"  {title} ({pid}): refused ({refused[pid]})")
+        elif pid in sent:
             doc = docs.get(pid) or {}
             sc = f", gate {doc.get('score')} m" if doc.get("score") is not None else ""
             print(f"  {title} ({pid}): sent to the review queue (line check: {sent[pid]}{sc})")
@@ -244,7 +303,7 @@ def main(argv=None):
     docs, item_path, item, item_cands = _fit(a.root, a.site, model)
     before = next(s.get("drawings") for s in _sites_list(
         json.loads((Path(a.root) / "web" / "data" / "sites.json").read_text())) if s["id"] == a.site)
-    failed, sent = _sync(a.root, a.site, docs)
+    failed, sent, refused = _sync(a.root, a.site, docs)
     _entry(a.root, a.site, before)
     # the sync may have added candidates to the item (a pattern document): re-read it, so the
     # published count, the derived resolution and the per-picture report all see the new entries
@@ -252,7 +311,7 @@ def main(argv=None):
     item_cands = {c.get("plan"): c for c in (item.get("candidates") or [])} if item else {}
     resolved = review.resolved_doc(item, str(a.root)) if item else None
     _review(a.root, a.site, item_path, item, resolved)
-    _summary(a.root, a.site, docs, item, item_cands, resolved, sent)
+    _summary(a.root, a.site, docs, item, item_cands, resolved, sent, refused)
     if failed:
         print(f"done with {failed} document(s) that failed to sync")
         return 1
