@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** Spike 7 (pure geometry, dev-only) is DONE and the gate conjunction is FROZEN (numbers below;
+- `tasks/001-fit-gate.md` (open) - hand-over: **Where I am.** `docs/gate.md` (pre-registration) is WRITTEN, VERIFIED and COMMITTED in this session — this
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -15,15 +15,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-10 001 DECISION: pair-consistency residuals alone cannot be the gate - dev true fits are sloppy
-Solved-transform per-pair residuals on the 12 DEV fits (held-out untouched): medians 3.7-53.1 m, maxes
-4.6-86.7 m (old-sarum c_8192: 53.1/86.7; hembury 40.3/53.3; little-solsbury 46.8/65.0; bergues 29.9/51.7;
-castle-rising 12.0/19.0; mayburgh/mound-bottom/serpent-mound/whitley tight, < 11 m). A 60 m move (60 m per
-point) and cross-site (km-scale) are caught by any threshold above the dev max, but 10 deg / x1.15 add only
-~0.1745 r / 0.15 r per point (~9/15 m on a 100 m-radius site) - inside the dev true-fit spread. So residuals
-are the 60 m / cross-site layer of the conjunction; rotation/scale need the image conjunct (spike 6 dir_frac
-is the candidate, run in progress).
 
 ### 2026-10-10 001 DECISION: all six image-structure metrics fail (spikes 1-6) - the gate pivots to pure geometry
 Spike 4 (blurred plate-ink vs blurred map-ink Pearson): castle-rising true +0.386 < null_max +0.424; bergues true
@@ -65,6 +56,29 @@ passes by pure geometry - documented limit, backstopped by GOAL's 18/20 human sa
 (pre-registration: 20260108 partition, the rule, the four recipes, reproduce command) BEFORE any held-out look,
 then pipeline/fit_gate.py, tools/gate_heldout.py (one-shot run -> table in gate.md), tests/test_gate.py (offline
 golden re-run, no ports, project+tmp writes only).
+
+### 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run
+Wrote docs/gate.md (pre-registration; sections 2-8 fixed, section 9 placeholder) and committed it as the
+registered version. Contents: the frozen rule verbatim (reject if n<3 or sum rho_i^2 < 1 m^2 [degenerate] or
+med > 45 m or slope_o > 0.145 or (slope_o > 0.11 and io < -10 m); stats: r_i = |T(w_i) - k z_i| ground m,
+T = k(a w + b) canonical Web-Mercator similarity when no placement given, C = centroid of placement anchors,
+rho_i = |T(w_i) - C|, med, slope_o through-origin, io inner-minus-outer by rho with middle anchor dropped for
+odd n); the held-out selection rule (sort the 20 doc names in data/db/platefits/, try seeds 20260101,
+20260102, ...; first seed whose default_rng(s).choice(20, 8, replace=False) is disjoint from the 4 design fits
+= 20260108 -> the 8 held-out docs listed); the four deterministic wrong-fit recipes (moved 60/2^(1/2)(1+i) NE,
+rot10 and scale15 about C, xsite = re-centre onto the next held-out site's box centre, box = mean of
+sites.json "corners" Mercator x k, held-out site ids sorted + cyclic); pass criteria (32 wrong rows: at most
+1 accepted = 1-in-20; 8 true rows: at least 4; on miss, no re-tuning on held-out, numbers recorded and review
+queue backstops); reproduce command (.venv/bin/python tools/gate_heldout.py) and the test plan (re-run the
+conjunction on dev + held-out, golden compare, pin the code's constants to the doc). Verification this
+session (filenames only, held-out contents still untouched): the seed rule reproduces the hand-over's 8
+held-out names exactly, the dev list is exactly the complement (12), the xsite site cycle is the sorted held-out
+site ids, and the degenerate threshold is orders of magnitude below real inputs (dev n = 3-6, max rho
+86.6-530.5 m -> min sum rho^2 ~ 7.5k m^2 vs the 1 m^2 guard). The dev calibration numbers quoted in section 5
+are the spike-7 record (this entry's predecessor). The one-shot run is now authorized (gate.md committed);
+it happens next session, before fit_gate.py exists the table comes from the tool that implements exactly
+section 2. If the run shows more than 1-in-20 wrong acceptance, per the registered rule the thresholds are NOT
+re-tuned on the held-out set.
 
 ## Project-wide driver notes (newest)
 
