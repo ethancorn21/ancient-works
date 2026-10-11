@@ -73,7 +73,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `pipeline/new_site.py` (71 lines) - Create data/sites/<id>/site.json + plate_scan.jpg from a traced spec. Exports: to_lines, main.
 - `pipeline/nls.py` (244 lines) - National Library of Scotland map tiles for a site: Roy's Military Survey and the Ordnance Survey 1st editions of Britain and Ireland, mosaicked onto the site box. Exports: set_names L63-85, world_px L88-92, tile_range L95-97, tile L100-124, has_tile L127-131, mosaic L134-148, merge_counties L151-166, covers L169-170, build L173-244.
 - `pipeline/peek.py` (13 lines) - Quick look: relief image for lon lat width_m height_m [px_m] -> out.png
-- `pipeline/plan_fit.py` (362 lines) - Hand-fitted plans from the old books -> overlays on a site (kind "plan" in its depictions.json). Exports: similarity L75-85, homography L88-111, fabrication_pattern L127-181, load_picture L184-203, warp_view L206-234, is_done L237-245, build L248-319, prune L322-340, main L343-362.
+- `pipeline/plan_fit.py` (363 lines) - Hand-fitted plans from the old books -> overlays on a site (kind "plan" in its depictions.json). Exports: similarity L75-85, homography L88-111, fabrication_pattern L127-181, load_picture L184-203, warp_view L206-234, is_done L237-245, build L248-319, prune L322-341, main L344-363.
 - `pipeline/preview.py` (83 lines) - Wide LiDAR relief previews with a labelled metre grid, for finding an earthwork whose coordinates are only roughly known. Exports: dem, preview, main.
 - `pipeline/remote_zip.py` (108 lines) - Read members of a large remote .zip (Zenodo serves byte ranges) without downloading the whole archive. Exports: HttpFile, open_zip, get.
 - `pipeline/s3.py` (101 lines) - Public S3 buckets over plain HTTPS: list, size, whole-object download. Exports: host, url, ls, size, get.
@@ -118,7 +118,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/gate_heldout.py` (157 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L72-87, check_registered L90-97, load_sites L100-101, box_centre_ground L104-109, placements L112-135, main L138-157.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
-- `tools/site_done.py` (198 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L160-198.
+- `tools/site_done.py` (253 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L211-253.
 
 ## web/
 - `web/index.html` (1707 lines) - (no header comment - add one)
