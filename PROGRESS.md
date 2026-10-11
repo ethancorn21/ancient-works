@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 74, agent c - session 2: scikit-image pinned, venv rebuilt, suite proven green modulo one pre-existing failure. NEXT: write fit
+- `tasks/302a-inkfit-method.md` (open) - hand-over: (2026-10-11, iteration 75, agent c - session 3: investigation + FROZEN CONFIG recorded in DECISIONS. No code written yet. NEXT: verify the geometry sc
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 
 ## Next open tasks
@@ -90,6 +90,18 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     data/inkfit/relief/<site>.npz (accept; file built in 302c) -> data/sites/<id>/dem.npy -> dem_sources
     fetch (working phase only). Smoke-run on 1-2 NON-held-out sites only; every parameter frozen before
     302b's registration commit, with this config recorded here first (acceptance box 4).
+
+### 2026-10-11 302a DECISION: frozen configuration of fit/inkfit.py (recorded BEFORE the first fit run; 10-10 pre-registration discipline - bug fixes allowed later, any parameter change must be labelled exploratory and reported separately)
+Session 3: investigation only (all modules the method imports were read in full; llm.py confirmed to have no import-time network; skimage 0.26.0 import-verified in .venv). The method's parameters are frozen here, on a priori ground (reused from the documented 10-10 run), before any site is fitted; the smoke run (next session) happens AFTER this entry. No parameter below may be chosen or changed using any of the 19 held-out sites.
+- Extractor: pipeline/autowalls.py P unchanged (docs/autofit.md section 3): sigmas (4,6,9), ridge_thr 0.25, gamma 0.013, coh_sigma 25.0, coh_min 0.6, min_len 50, min_extent 50, normal_sigma 4.0, step 2, margin 20 px. Applied to the picture's panel crop (map_box, or full frame) in the picture's own pixel frame; points later rescaled to the doc's size frame by im.width/size[0].
+- No-model fallback rule: NO blanking boxes (the 10-10 auto_noqwen behaviour; the 50-px length filter already drops most lettering) and KEEP ALL surviving pieces. A model (duck-typed: .boxes(im) -> 0-1000-normalised non-map boxes, .label_pieces(im, pieces) -> per-piece kind) may blank non-map boxes and keep only wall-labelled pieces; an absent/unusable answer falls back to the no-model rule and is labelled as such in the result.
+- Seed: fit/propose.propose_for (scale bar > ratio at recorded ppi > picture-size; north arrow unless |deg|>60 or unrecorded -> north-up; centre = site centre, i.e. t0 = (0,0) in relief-box-centre metres). Fallback when propose raises (no scale at all): max(size_m)/max(panel px extent), north-up, site centre.
+- Search window (reused unchanged from pipeline/autofit.py's frozen 10-10 constants): rotation +-25 deg, scale x0.74..x1.36, centre +-200 m; coarse FFT on an absolute grid ROT_STEP 2 deg, LOGS_STEP 0.04, K_BINS 8 direction bins, CELL_M 4.0 m, NEG_FLOOR -0.2 m; refine = pattern search (0.02/1 deg/4 m -> 0.01/0.5/2 -> 0.005/0.25/1), n_refine 8 candidates, single seed via fit_site with the seed dict at scale_factor 1 / offset 0.
+- Objective (selection): mean over template points of max(contrast, -0.2 m); contrast = fit_plate's ridge contrast (relief on the line minus the HIGHER of the two sides side_m away); LRM = aw.local_relief(radius_m 24), clipped +-1.0 m, modern_mask and water_mask set to NaN (fit_plate's defaults; the per-site hand knobs in data/sites/<id>/site.json are hand-fit artefacts and are NEVER read by the method); >= 50% of points on valid relief else score -9.
+- Relief: box = aw.site_bbox(site.lon, site.lat, site.size_m or 1000x1000 m), px_m = 1.0 (all held-out and smoke sites have 1 m-class sources, verified in session 1); loader order data/inkfit/relief/<site>.npz (z, px_m, bbox; shape-checked against the expected w x h) -> data/sites/<site>/dem.npy -> aw.fetch_dem (working phase only).
+- Null (search-matched, docs/autofit.md finding 2): null = max of the SAME search (identical seed/window/grid/n_refine) over (a) the scrambled template - each piece rigidly rotated U(0,2pi) and translated by U(-0.4,0.4) of the panel extent, clamped inside, all from np.random.default_rng(20261012) - reusing the same Coarse (unchanged ground); and (b) the DEM shifted by half the box north and half east (ndi.shift order=0, cval=NaN; new Coarse). Fewer than 100 valid draws in a null search is recorded (newark's 10-10 problem); a -9 objective counts low.
+- Confidence: obj_fit - null (both on the floored-mean objective, metres). The sync-vs-review threshold is NOT set here: box 3 authorises setting it on 302b's held-out table (302c applies it).
+... (1.2 KB more: `grep -n -A 200 -F '## 2026-10-11 302a DECISION: frozen configuration of fit/inkfit.py (recorded BEFORE the first fit run; 10-10 pre-registration discipline - bug fixes allowed later, any parameter change must be labelled exploratory and reported separately)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
