@@ -12,7 +12,7 @@ Architecture rules:
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
 ## fit/
-- `fit/evidence.py` (588 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L57-60, now L63-64, load_jsonl L67-68, set_field L71-77, rewrite L80-88, catalog_map L91-102, source_tables L105-110, check_commons L115-127, check_hand_tied L130-137, check_category L140-153, ... (+18 more).
+- `fit/evidence.py` (850 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L67-70, now L73-74, load_jsonl L77-78, set_field L81-87, rewrite L90-98, catalog_map L101-112, source_tables L115-120, check_commons L125-142, check_hand_tied L145-152, check_category L155-168, ... (+26 more).
 - `fit/review.py` (237 lines) - Review queue: items the human finishes by dragging (task 201). Exports: item_path L48-51, upsert_item L72-110, candidate_evidence L117-145, resolved_doc L148-164, export L179-220, main L223-237.
 
 ## pipeline/
@@ -92,6 +92,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
 - `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
+- `tests/test_evidence_801.py` (86 lines) - The part and sheet evidence routes (task 801), end to end through the real CLI. Exports: fixture, test_part_and_sheet_routes_match_golden.
 - `tests/test_gate.py` (107 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4). Exports: test_recorded_measurement_reproduces_and_agrees, test_fit_gate_constants_are_the_frozen_section2_rule.
 - `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
