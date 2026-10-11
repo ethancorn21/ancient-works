@@ -6,7 +6,6 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
-- `tasks/213b-qids-tests.md` (open) - hand-over: **Iteration 37 (2026-10-11): 213b item (1) DONE - the seven book-town QIDs are verified live and in the
 
 ## Next open tasks
 - `tasks/215-books-llm-ports.md`
