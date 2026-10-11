@@ -4,16 +4,39 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/000-plan.md` (open) - hand-over: Iter 1 (2026-10-10). What exists now (committed or saved by harness, NOT yet in git):
 
 ## Next open tasks
-- `tasks/000-plan.md`
 - `tasks/001-fit-gate.md`
+- `tasks/200-evidence.md`
+- `tasks/201-review.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-10 000 DECISION: parallel source tasks write per-source staging files, consolidated once by task 211
+    The seven growth leads (204-210) all run in one wave; if each wrote the shared data/catalog/extras.jsonl,
+    data/commons/files.jsonl, classified.jsonl, web/data/plans.json and web/data/sites.json they would collide
+    (the driver replays the schedule when shared files make tasks wait). Each source task therefore writes only
+    its own extras_<src>.jsonl / files_<src>.jsonl / classified_<src>.jsonl plus its fit/src_<src>.py module;
+    211 (wave 3) consolidates into the canonical files GOAL.md names, then runs build_catalog.py and
+    tools/export_plans.py once. Same reason the batch (203a/b) writes only platefits docs + review items and
+    212 alone runs the page-facing plan_fit sync (depictions + drawings counts in sites.json + the review list).
+
+### 2026-10-10 000 DECISION: the batch is 203 (parent, split) with subtasks 203a (US) / 203b (rest of world)
+    One batch over 384 sites is too big for one task and a single batch module would block wave 3 (211) behind
+    it; splitting by region keeps 203b and 211 in the same wave (disjoint files). The parent's boxes are covered
+    jointly by the two subtasks; the parent returns when both are done.
+
+### 2026-10-10 000 OBSERVATION: plans.json rows may share an id; the page's P.byId collides on them
+    Two rows each: one Commons picture depicting two sites ("The new Larned History..." for avebury +
+    stonehenge; "File:Mayburgh-1769.png" for mayburgh-henge + king-arthur-s-round-table). Not a data error —
+    the true key is (id, sites[0]). The page keeps only the last row in P.byId, so clicking one of the two list
+    entries can open the wrong site's row. Fix scoped into 201 (fit tool keys by (id, site)); the test in
+    000's test_data.py asserts (id, site) uniqueness, not id uniqueness. Also noted: web/data/sites.json
+    entries only universally have id/name/lon/lat/corners/size_m/drawings — place/kind/qid are absent on some
+    sites, so tests must not require them.
 
 ## Project-wide driver notes (newest)
 
