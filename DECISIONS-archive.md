@@ -919,6 +919,17 @@ fit/batch_us.py (loop + gate adapter + writers + report + CLI); smoke-verified i
 proposed pairs pass the gate (med 0.0, the documented "true case"), could-not-fit and no-picture items in
 201's shape, hand-fit-only site untouched, report deterministic, full suite 29 green.
 
+## 2026-10-11 203a DECISION: the 001 gate is a pure-statistics one-shot - R1 resolved, adapter is thin
+The prep notes (R1) inferred an ink/DEM conjunct gate; the MERGED 001 is different: fit_gate.gate(pairs,
+transform=None) -> (verdict, stats {n, med, slope_o, io}) - numpy only, no images, no network
+(docs/gate.md s.2). So the batch needs no fail-closed gate inputs, no DEM, no old-map ink. The adapter
+fit/batch_us.py gate_placement solves plan_fit.similarity from the model's pairs, scores the claimed
+placement against the recorded anchors, and records the gate's median residual (m) as the doc's score.
+Caveat (by design, docs/gate.md s.7): when the placement is the least-squares fit of the same pairs the
+gate sees ~0 residuals ("true case"); it rejects degenerate/nan anchor sets (n<3, no radial spread) and a
+claimed placement inconsistent with its anchors. The real check on the auto fits is the human's 18/20
+sample - the report lists every auto doc's median for that.
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
