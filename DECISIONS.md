@@ -78,3 +78,26 @@ passes by pure geometry - documented limit, backstopped by GOAL's 18/20 human sa
 (pre-registration: 20260108 partition, the rule, the four recipes, reproduce command) BEFORE any held-out look,
 then pipeline/fit_gate.py, tools/gate_heldout.py (one-shot run -> table in gate.md), tests/test_gate.py (offline
 golden re-run, no ports, project+tmp writes only).
+
+## 2026-10-10 001 DECISION: docs/gate.md pre-registered and committed BEFORE the one-shot held-out run
+Wrote docs/gate.md (pre-registration; sections 2-8 fixed, section 9 placeholder) and committed it as the
+registered version. Contents: the frozen rule verbatim (reject if n<3 or sum rho_i^2 < 1 m^2 [degenerate] or
+med > 45 m or slope_o > 0.145 or (slope_o > 0.11 and io < -10 m); stats: r_i = |T(w_i) - k z_i| ground m,
+T = k(a w + b) canonical Web-Mercator similarity when no placement given, C = centroid of placement anchors,
+rho_i = |T(w_i) - C|, med, slope_o through-origin, io inner-minus-outer by rho with middle anchor dropped for
+odd n); the held-out selection rule (sort the 20 doc names in data/db/platefits/, try seeds 20260101,
+20260102, ...; first seed whose default_rng(s).choice(20, 8, replace=False) is disjoint from the 4 design fits
+= 20260108 -> the 8 held-out docs listed); the four deterministic wrong-fit recipes (moved 60/2^(1/2)(1+i) NE,
+rot10 and scale15 about C, xsite = re-centre onto the next held-out site's box centre, box = mean of
+sites.json "corners" Mercator x k, held-out site ids sorted + cyclic); pass criteria (32 wrong rows: at most
+1 accepted = 1-in-20; 8 true rows: at least 4; on miss, no re-tuning on held-out, numbers recorded and review
+queue backstops); reproduce command (.venv/bin/python tools/gate_heldout.py) and the test plan (re-run the
+conjunction on dev + held-out, golden compare, pin the code's constants to the doc). Verification this
+session (filenames only, held-out contents still untouched): the seed rule reproduces the hand-over's 8
+held-out names exactly, the dev list is exactly the complement (12), the xsite site cycle is the sorted held-out
+site ids, and the degenerate threshold is orders of magnitude below real inputs (dev n = 3-6, max rho
+86.6-530.5 m -> min sum rho^2 ~ 7.5k m^2 vs the 1 m^2 guard). The dev calibration numbers quoted in section 5
+are the spike-7 record (this entry's predecessor). The one-shot run is now authorized (gate.md committed);
+it happens next session, before fit_gate.py exists the table comes from the tool that implements exactly
+section 2. If the run shows more than 1-in-20 wrong acceptance, per the registered rule the thresholds are NOT
+re-tuned on the held-out set.
