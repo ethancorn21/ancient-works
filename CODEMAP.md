@@ -87,6 +87,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
+- `tests/test_gate.py` (107 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4). Exports: test_recorded_measurement_reproduces_and_agrees, test_fit_gate_constants_are_the_frozen_section2_rule.
 - `tests/test_serve.py` (81 lines) - The page as the user sees it: it loads, and what it shows agrees with the fit documents on disk. Exports: test_page_loads, test_sites_data, test_hand_fits_are_the_reference, test_platefits_docs_match_sites, test_document_store_roundtrip.
 
 ## tools/
