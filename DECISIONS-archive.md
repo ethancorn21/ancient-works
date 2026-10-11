@@ -118,3 +118,13 @@ to the task's Touches line first.
 2 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (2 entries, older ones; the task is still open)
+
+## 2026-10-10 001 DECISION: held-out set moves to seed 20260108 - seeds 20260101-0107 all overlap the design set
+The hand-over planned `default_rng(20260101).choice` over "21 sorted docs" but there are 20 docs (hand-over
+miscounted: 19 sites, old-sarum has 2). Seeds 20260101-20260107 all place at least one of the four design fits
+(bergues, castle-rising, maiden-castle, serpent-mound - the ones spikes 1-6 inspected) in the held-out set.
+Procedure now fixed and to be recorded in docs/gate.md: try seeds 20260101, 20260102, ... in ascending order;
+the first seed whose rng.choice(20, 8, replace=False) over the sorted doc names is disjoint from the design set
+wins. That is 20260108: held-out = arbor-low, avebury, aztalan, badbury, cadbury, cahokia, camp-d-attila,
+old-sarum (earthworkenglan01allcgoog_n0142_1); dev = the other 12 (includes all 4 design fits). Held-out is
+not looked at until the one-shot run after docs/gate.md is committed.
