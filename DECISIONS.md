@@ -72,3 +72,20 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+## 2026-10-11 303 DECISION: the provenance migration lands as data first - every existing doc stamped "by", golden re-keyed on by:hand
+Stamped all 116 existing platefit docs (the 21 hand fits = the 20 of the pre-migration golden +
+maiden-castle-q1232816.c_c20ff6b1f16d173d get "hand"; the 94 auto + shotwick's 206 agent doc get
+"agent"), before any code starts trusting the field - a migration ahead of the code keeps every
+parallel checkout consistent (the field is inert until the code reads it). fit/batch_us.py now
+stamps "by": "agent" in write_doc (batch_eu imports this writer, so both batches are covered) and
+write_golden keys the golden on by == "hand" instead of not-auto: the golden is the hand fits, and
+shotwick (an agent fit) drops out of it - regenerating with the old criterion would have pinned an
+agent doc as a hand fit. Regenerated golden = 40 lines (21 docs + 19 site.json), sha256sum -c OK.
+The "auto" field is untouched everywhere, so gate_heldout's 20-name derivation and the 802/218
+preconditions are unaffected. One side effect needed re-baselining: tests/golden/
+src_mackenzie_sample.json pins the shotwick doc byte-for-byte (206's golden) - regenerated with
+the module's own --golden flag, the mechanism its docstring names for exactly an intended change
+(206 is done; added the file to this task's Touches). The batch tests never regenerate or
+re-compare the golden set (they only require the golden files to stay byte-identical around a
+batch run), so no 203a/203b test edit was needed.

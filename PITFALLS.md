@@ -523,7 +523,12 @@ Why: the batch writes its accepted fits into that same directory (`write_doc`), 
       only ever ADD names - a hand-fit doc never gains the field - so any derivation over the
       non-auto name list is state-agnostic: identical before and after a batch, and a hand-fit doc
       that did gain the field drops the count below 20 and fails loudly (correct: the reference
-      was changed).
+      was changed). UPDATE (303, 2026-10-11): every doc also carries a `"by"` field ("hand" = the
+      page's save, the owner; "agent" = anything a script or session wrote; the batch writes `auto`
+      and `by: agent` together, fit/batch_us.py write_doc). `gate_heldout` still keys on `auto`
+      (303 must not touch that frozen derivation); `write_golden` now keys the golden on
+      `by == "hand"` instead of not-auto - identical set today, but it excludes an unmarked or
+      agent doc (shotwick) that the old criterion would have pinned as a hand fit.
 
 #### The one-shot gate registration is frozen at the 20 NAMED hand-fit docs, not "whatever is in the directory" - post-218 partition() derives over exactly those names and excludes all post-registration docs; a registered name that stops being non-automatic genuinely voids the registration (before 218 merged, a 21st hand doc instead tripped the "expected 20" precondition)
 Where: `tools/gate_heldout.py` (`partition`, `REGISTERED`), `data/db/platefits/`, `tests/test_gate.py`, docs/gate.md sections 1 and 3

@@ -6,7 +6,9 @@ goes  fitkit sheet (the picture's crop next to the site's ground, both gridded) 
 model (>= 4 matched-feature point pairs; 202's proposal is its starting point) ->
 `pipeline.plan_fit.similarity` -> the fit gate (`pipeline.fit_gate`, the frozen rule of
 docs/gate.md section 2). An accepted fit becomes a NEW automatic platefit document in
-data/db/platefits/ (the page's existing format plus `"auto": true` and the gate's score); a
+data/db/platefits/ (the page's existing format plus `"auto": true`, the gate's score, and the
+provenance mark `"by": "agent"` - task 303: every fit says who placed it; the page's own saves
+write `"by": "hand"`); a
 gate refusal or a picture the model could not fit becomes a review item in data/review/
 (fit/review.py's upsert, 201's format, carrying the model's pairs); a site with no candidate at all
 gets an item marked "no picture found". The 20 pre-batch hand-fit documents and the 19 hand-fit
@@ -198,6 +200,7 @@ def write_doc(root, site_id, row, pairs, score, at=None):
         "at": at or _now(),
         "auto": True,
         "score": score,
+        "by": "agent",
     }
     if row.get("ia"):
         doc.update({"ia": row["ia"], "file": row["file"], "book": row.get("book")})
@@ -425,9 +428,10 @@ def write_report(root, records, title="The batch, US (203a)", path=None, at=None
 
 
 def write_golden(root):
-    """Regenerate tests/golden/hand_fit_docs.sha256 (box 1): every NON-automatic platefit doc (the
-    hand fits: automatic documents are the batch's own output and never part of the golden state)
-    plus the 19 hand-fit sites' data/sites/<id>/site.json files, as sha256sum -c lines."""
+    """Regenerate tests/golden/hand_fit_docs.sha256 (box 1): every platefit doc the owner placed
+    by hand (`"by": "hand"`, 303) - automatic documents are the batch's own output and never part
+    of the golden state; an unmarked doc (auto or not) is not a hand fit either - plus the 19
+    hand-fit sites' data/sites/<id>/site.json files, as sha256sum -c lines."""
     paths = []
     d = Path(root) / "data" / "db" / "platefits"
     if d.is_dir():
@@ -435,7 +439,7 @@ def write_golden(root):
             if p.suffix != ".json":
                 continue
             doc = json.loads(p.read_text())
-            if doc.get("auto"):
+            if doc.get("by") != "hand":
                 continue
             paths.append(str(p.relative_to(root)))
     for line in (Path(root) / "tests" / "golden" / "hand_fit_sites.txt").read_text().splitlines():
