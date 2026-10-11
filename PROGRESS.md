@@ -17,44 +17,6 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 204 DECISION: FR+LU re-verify clean (23 towns) + lead-doc FR/LU section written (23-row table, traps, Beaumont pending) + parentheses-search PITFALLS filed
-Session started from the driver-committed TOWNS edit (6b8f85a; parse-check passed: 66 towns, 32 stageable, as
-predicted). The planned re-verify run then went cleanly (23 towns = 21 FR with QIDs + Le Rœulx + Luxembourg
-City; Beaumont omitted - no QID; transcript /tmp/vd_verify_fr_recheck_iter49.txt, exit 0): **every label
-matches, every P373 'ok', every enwiki matches, and the first search hit with P625 is exactly the recorded QID
-for all 23** (no first-hit trap in the verified set); P625→site is 0.00-0.01 km everywhere except Le Rœulx
-0.91 km (the recorded item's P625 (4.1, 50.5) is rounded; the site point is the subdivision item Q21764574's
-precise P625 - expected, documented). Bergues (done FR) fetched in one extra call: Q244934 label 'Bergues',
-P625 2.434167, 50.968611 (→ site 0.00 km), P373 'Bergues', enwiki 'Bergues' - row added to the lead-doc
-table.
-
-Lead doc (docs/lead_van_deventer.md) updated per the hand-over: (a) Commons category counts moved with
-Le Rœulx (BE 22→23 categories, FR 24→23); (b) Belgium section: Le Rœulx table row + method sentence (found
-in the FR batch, moved from the prep's France list; 0.91 km explained), BE catalog count 20→21; (c) '##
-France, Luxembourg (pending)' replaced by '## QID verification - France, Luxembourg (checked 2026-10-11,
-iter 49; ...)': method (discovery /tmp/vd_verify_fr_iter49.txt + re-check transcripts), the three changes
-from the prep's list (Le Rœulx→Belgium; Luxembourg City = Q1842 not Q1564 - that id was merged away into
-'Borgfelde' Hamburg, and the 'Luxembourg (city)' search returned EMPTY, the parentheses quirk; Beaumont
-pending: only Q95100 Hainaut is plausible in the en top 20, the Nord town absent, the atlas plate settles
-it, region flips if Hainaut wins), the 23-row table (21 FR to stage + Luxembourg City + done Bergues) with
-the re-verify distances, and '### Name-search traps - France, Luxembourg' (Le Quesnoy: exact-label twin
-Q109413780 (Somme) - coordinates+enwiki decide; Lille: Belgian twin Q725235; Saint-Omer: Calvados Q844283 +
-Quebec Q3463075; Thérouanne: the river Q428296; Bapaume: the 1918 ship Q19543896 + Queensland Q48807630;
-Luxembourg's search chain Q32→Q1126→Q1842; Beaumont; plus the minor near-misses, notably the Cambrai
-near-duplicate Q84243457 at the same coordinates); (d) the per-town subsection retitled (QIDs verified,
-file= pending the --files run) keeping the double-plate watch items; (e) Summary: NL 13/16, BE 19/21
-(Le Rœulx file pending), FR 0/22 (Beaumont QID pending), LU 0/1 - running total 32 of 60 stageable
-categories, box 5 unchanged.
-
-PITFALLS filed (Wikimedia section): a wbsearchentities label search containing parentheses returns EMPTY
-('Luxembourg (city)' case) - search the unparenthesized label form and let the fact sheet disambiguate.
-
-Verified: --check exit 0 (staging files still absent - stage runs after the --files picks); module parses
-(66/32); this session changed no module code (the iter-49 TOWNS edit was already driver-committed).
-NEXT: the FR/LU --files batch (24 towns: the 22 FR to stage incl. Beaumont + Le Rœulx + Luxembourg City),
-then record file=/date=/caption= picks, then the one long run (--chain per staged town, stage, --check,
-tests/test_src_van_deventer.py, --golden).
-
 ### 2026-10-11 204 DECISION: FR/LU --files batch done (24 towns, clean) + Beaumont settled as Hainaut (Q95100, region flips to belgium) + Aire/Thérouanne double plate settled (Aire keeps the spread, Thérouanne stages its own 'Terwan' plan); TOWNS not yet edited
 The 24-town --files run finished in one go (transcript /tmp/vd_files_fr_iter50.txt, 217 lines, exit 0; ~3 min):
 the 1545 BNE atlas plate is in every one of the 22 FR town categories + Le Rœulx's (1816x2614 or wider, page
@@ -132,6 +94,39 @@ row), tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socke
 fixture, check_staged(), subprocess `fit/evidence.py check --files <staged> --books <absent path>`, golden
 sample, negative control; box 6: year_of of every staged row in 1545-1565), `--golden`
 (tests/golden/src_van_deventer_sample.json), full pytest.
+
+### 2026-10-11 204 DECISION: cat_chain fixed for the current MediaWiki (prop=categories, fail-loud on warnings) + 60-fetch cap + CHAINS table - 56 walks launched
+The first `--chain` probe of the long run (Ghent / Brussels / Luxembourg City) exposed a broken walker: `cat_chain`
+fetched a category's parents with `action=query&prop=categoryinfo&cicategories=1&ciclimit=500`, but the current
+MediaWiki API does not recognize those parameters (response carries `warnings.main.*: "Unrecognized parameters:
+cicategories, ciclimit."` - and `commons.get` returns the body without surfacing the warning). So every walk saw
+ZERO parents and silently "failed" in ~1 s per town (even Ghent, which the 2026-10-10 prep measured as holding at
+4 hops). Two fixes in fit/src_van_deventer.py (my own file):
+- **`prop=categories` + `cllimit=500`** for a category page's CONTAINING categories (verified live: Ghent's van
+  Deventer category returns '16th-century maps of Ghent' + 'Maps by Jacob van Deventer'), plus a fail-loud guard:
+  any response with `error` or `warnings` -> SystemExit. The silent zero-parents degradation is exactly the case
+  prep R7 warned about ("the walk is the verification" - a walk that fetches nothing verifies nothing).
+- **`CHAIN_FETCH_CAP = 60` per walk + per-level progress lines** (the transcript gets `level k: queue N, next M,
+  fetches F` per town). Measured chains are 3-5 hops and a few dozen fetches (Ghent holds at 38), but the BFS
+  expands ALL parents, so a disambiguated p373 the map tree does not hold within 6 hops explodes the frontier
+  (Brussels (municipality): 730 s and the full 6-level frontier pre-fix, still no hit - genuinely absent, the map
+  tree uses the plain 'Brussels' name). The cap bounds that town to ~a minute and sends it to the caption route.
+  Refinement found by the probe: when the target was added to the visited set by a REAL fetch before the cap
+  stopped the pop loop, the `via[target]` path is fully walked (every edge was returned by an API response), so
+  it is returned when it is within the depth cap - that is how Luxembourg City's 4-hop chain is recovered from a
+  capped walk. The final message now distinguishes "sits N hops out, beyond the depth cap" / "capped at 60
+  fetches" / "no chain within 6 hops".
+- **The recording home moved from an inline TOWNS "chain" key to a module-level `CHAINS` table** (the stub comment
+  after TOWNS that existed for exactly this) plus a `chain_of(town)` helper used by `evidence_for` and `stage`.
+  Rationale: the read tool has not been byte-faithful on this .py file (PITFALLS) and 56 multi-line dict edits
+  would be fragile; one mechanical table is reviewable. TOWNS header comment, the cat_chain docstring and the
+  stub comment all document the new home; an inline "chain" is still honoured (chain_of checks it first).
+Probe results (post-fix, capped): Ghent HOLDS 4 hops via 'Historical images of Ghent' (a different middle than the
+prep's 'Maps of Ghent' - both real, this is the actually-walked one); Luxembourg City HOLDS 4 hops via
+'Geography of Luxembourg City'; Brussels CAPPED -> caption route (file title names the town). The full 56-town
+walk runs in the background (transcript /tmp/vd_chains_iter55.txt, PID file /tmp/vd_chains_iter55.pid); the CHAINS
+table gets filled from the transcript's `record:` lines next session after an eyeball pass of every path against
+its P373.
 
 ## Project-wide driver notes (newest)
 
