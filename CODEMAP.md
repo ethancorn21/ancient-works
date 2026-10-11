@@ -13,6 +13,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## fit/
 - `fit/evidence.py` (588 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L57-60, now L63-64, load_jsonl L67-68, set_field L71-77, rewrite L80-88, catalog_map L91-102, source_tables L105-110, check_commons L115-127, check_hand_tied L130-137, check_category L140-153, ... (+18 more).
+- `fit/review.py` (237 lines) - Review queue: items the human finishes by dragging (task 201). Exports: item_path L48-51, upsert_item L72-110, candidate_evidence L117-145, resolved_doc L148-164, export L179-220, main L223-237.
 
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
