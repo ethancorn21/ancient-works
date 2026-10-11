@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 000: Plan the project from GOAL.md
 Depends on: none
 Touches: PLAN.md, CODEMAP.md, tasks/, requirements.in, requirements.txt, tests/, server/serve.py, PITFALLS.md, DECISIONS.md
@@ -7,13 +7,13 @@ Touches: PLAN.md, CODEMAP.md, tasks/, requirements.in, requirements.txt, tests/,
 GOAL.md says, in the human's own words, what this project should be. Turn it into a plan and a task queue that the following sessions build from, one task at a time. You own the plan: choose the approach and the tech, and split the work the way you think best. GOAL.md is the human's: never edit it. Its numbers are the human's intuition, not measured requirements (AGENTS.md, Tasks).
 
 ## Acceptance criteria
-- [ ] PLAN.md describes what will be built, the architecture (the main parts and how they fit together), the tech choices with the reason for each, the assumptions you made where GOAL.md is silent, and what is out of scope
-- [ ] PLAN.md maps every point of GOAL.md to the task number(s) that deliver it, and has a `## Deviations from GOAL.md` section (empty until the evidence settles a number elsewhere or a request decides otherwise)
-- [ ] Task files tasks/001-<name>.md onward exist in build order, each with a Goal and testable Acceptance criteria and small enough for a few sessions; the first ones produce something that runs
-- [ ] The project's test command works (`npm test` when there is a package.json, otherwise `python3 -m pytest -q`), even if there are only a few tests so far
-- [ ] Every task file besides 000 and 999 has a `Depends on:` line (the numbers of the tasks that must be finished first, or `none`) and a `Touches:` line (the files and directories the task will create or change)
-- [ ] The work is split into modules that two agents can build at the same time: tasks that could run at once touch different files, and PLAN.md shows the order as waves (all tasks of a wave can run at once, and most waves have two or more tasks)
-- [ ] Tests never bind a fixed network port (use port 0) or write outside the project and the system temp dir: two checkouts of this project run their tests at the same time
+- [x] PLAN.md describes what will be built, the architecture (the main parts and how they fit together), the tech choices with the reason for each, the assumptions you made where GOAL.md is silent, and what is out of scope
+- [x] PLAN.md maps every point of GOAL.md to the task number(s) that deliver it, and has a `## Deviations from GOAL.md` section (empty until the evidence settles a number elsewhere or a request decides otherwise)
+- [x] Task files tasks/001-<name>.md onward exist in build order, each with a Goal and testable Acceptance criteria and small enough for a few sessions; the first ones produce something that runs
+- [x] The project's test command works (`npm test` when there is a package.json, otherwise `python3 -m pytest -q`), even if there are only a few tests so far
+- [x] Every task file besides 000 and 999 has a `Depends on:` line (the numbers of the tasks that must be finished first, or `none`) and a `Touches:` line (the files and directories the task will create or change)
+- [x] The work is split into modules that two agents can build at the same time: tasks that could run at once touch different files, and PLAN.md shows the order as waves (all tasks of a wave can run at once, and most waves have two or more tasks)
+- [x] Tests never bind a fixed network port (use port 0) or write outside the project and the system temp dir: two checkouts of this project run their tests at the same time
 
 ## Notes
 - Task file format: tasks/README.md. Every task file starts with the line `Status: open`.
@@ -104,77 +104,25 @@ The human changed GOAL.md. Update PLAN.md and the task queue to match: add tasks
 
 ## Hand-over
 
-Iter 12 (2026-10-10). Driver reopened 000 for two GOAL.md changes (21:11: new point 2 — the local
-model does the fitting itself; 22:58: artists' aerial/bird's-eye views count as drawings, new lead;
-owner's copy also colours >=150-year survey-sheet-only sites — explicitly not a goal change).
-This session did the planning update; it was cut near the end. **Remaining work is small (steps 1-6
-below), then set Status: done.**
+Done (iteration 13, 2026-10-10). The plan update for the two GOAL.md changes is complete and 000 is
+closed:
+- PLAN.md: the six-point GOAL->task map (point 2 = the model's fitting loop: 202 starting point,
+  203a/203b sheet->model->solver->gate, 201 overflow queue, 001 the gate; point 5 = the eight leads
+  incl. 213), waves 4/7/3/2/1, the tech choice "The model fits, the gate decides" (injectable model
+  step; no test calls the model server), assumption 9 + the out-of-scope bullet for the owner's-copy
+  survey-sheet colouring, Deviations = the 001 box-2 ruling only.
+- Tasks 001, 200-213, 800, 801 all exist with Depends on: and Touches: (grep -L verified empty).
+  212's three rewordings landed (loop = fitkit sheet -> model fit -> fit -> gate; the 18/20 check is
+  GOAL.md point 3); 213 (artists' views) created - Imola is the anchor: new site, no open LiDAR,
+  FITKIT_GROUND=aerial (verified at tools/fitkit.py:38), its streets carry the fit; the conditional
+  IA-book machinery follows the 208 pattern (declare per-book paths in Touches before writing).
+  CODEMAP's Architecture rules block written (five standing rules; they had been claimed in the
+  iteration-2 hand-over but never written).
+- Test command verified in this checkout: .venv (pinned requirements.txt, commit 676a0d4) runs the
+  suite green, 12 passed. The driver's ".venv could not be built" note is about main, which still
+  carries the unpinned file (e2d4060, verified with git show); open 800 (agent c) lands the pinned
+  file on main. This session left requirements.in/requirements.txt untouched (800's files).
 
-Done in this session (on disk; the task-file edits below ride in this commit, PLAN.md's edits are
-uncommitted — the harness saves them):
-- PLAN.md: current state (eight leads + the GOAL-change note), architecture diagram (fitkit sheet ->
-  model -> solver -> gate; queue = overflow, not a plan for every site), module map (202 = starting
-  point; 203a/203b = the model's fitting loop; `fit/src_artists.py` added), new tech choice "The model
-  fits, the gate decides" (pipeline/llm.py at $AW_LLM_URL; the model step is an injectable function so
-  tests stay hermetic), assumption 3 reworded, NEW assumption 9 (owner's-copy survey colouring is out
-  of scope), out-of-scope bullet, six-point GOAL->task map, waves 4/7/3/2/1 (213 in wave 2), test
-  policy (no test calls the model server).
-- Tasks: 202 (goal: starting point, never a fit), 201 (queue = overflow per point 2), 203 (parent goal
-  + loop note), 203a (model loop: fitkit sheet -> >=4 matched-feature pairs -> solver -> gate;
-  injectable model step; test = no model-server call), 203b (goal wording).
-- Verified facts: no package.json (test command `python3 -m pytest -q`); .venv exists here and has the
-  deps (system python3 does NOT); fitkit has `sheet`/`zoom`/`save`/`check`/`lonlat`; pipeline/llm.py
-  has `ask`/`ask_json` (URL = $AW_LLM_URL, default 127.0.0.1:18080); 001 is blocked awaiting the
-  owner's box-2 ruling (1 in 8 vs 1 in 20) — the batch stays behind it, which is why it could be edited
-  pre-run.
-
-Next steps (in order):
-1. `tasks/212-cover-final.md`: my 3 edits were rejected atomically (whitespace mismatch — the file
-   wraps lines differently than head showed). Redo after checking exact text with `sed -n '25,35p'
-   tasks/212-cover-final.md | cat -A` and `sed -n '55,70p' ... | cat -A`: (a) goal line "a found picture
-   becomes a candidate through the normal loop (propose ->\n      fit -> gate)" -> "(fitkit sheet ->\n
-   model fit -> fit -> gate)"; (b) box 1 "the site goes through the normal loop (propose -> fit ->
-   gate)" -> "(fitkit sheet -> model fit -> fit -> gate)"; (c) Notes "the human's 18/20 check
-   (GOAL.md point 2)" -> "(GOAL.md point 3)".
-2. CREATE `tasks/213-artist-views.md` (lowest free number in 200-499; 200-212 taken, 800/801 outside
-   the band). Format like tasks/204-van-deventer.md. `Status: open` / `# 213: Artists' views -
-   Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian` / `Depends on: 200` / `Touches:
-   fit/src_artists.py, data/catalog/extras_artists.jsonl, data/commons/files_artists.jsonl,
-   data/commons/classified_artists.jsonl, docs/lead_artists.md, tests/test_src_artists.py`. Goal:
-   GOAL point 5's new lead (owner, of Leonardo's 1502 Imola plan: "should 100% be on our map"): verify
-   each source exists + age + free machine-readable access (views of the structure are exempt from the
-   150-year rule), tie with 200's evidence, stage in this task's own files; 211 consolidates + builds,
-   212's cover pass runs the model's fitting loop. Imola is the anchor: NEW site, no open LiDAR here ->
-   aerial-photograph site, its streets carry the fit (FITKIT_GROUND=aerial, fixed landmarks). Boxes:
-   per-source verification in docs/lead_artists.md (documented drop beats a guessed row); Imola staged
-   as a new site (extras row: id/name/place/lon-lat/region/kind/QID/wikipedia; files row with 200
-   evidence + classified row; row notes no LiDAR/aerial ground); hand-checked file->QID table in
-   fit/src_artists.py (sources.py pattern; Barnard Castle trap; existing-catalog QID -> picture row for
-   the existing site, no new entry); at least Imola + one further source staged; IF Civitates/Merian
-   turn out to be IA books, declare the exact per-book data/books/ paths in this task's Touches first
-   (the 208 pattern); hermetic test (staged files join + evidence check + golden sample). Notes:
-   Leonardo (Royal Collection) and Barbari are image-level like leads 204-206; split into 213a-... by
-   source if it grows past a few sessions.
-3. `CODEMAP.md` top: replace "- (none yet: add the rules every change must respect, e.g. ..." under
-   "Architecture rules:" with the standing rules (my iter-2 hand-over claimed they were here; they
-   were never written): (1) the 25 hand fits (pre-batch data/db/platefits/ docs, data/sites/*/site.json
-   plates) and the private Finder/Amazon data are never changed or deleted by new code or tests; (2)
-   new fitting code lives in fit/ (one module per task) and imports pipeline/ (aw.py, plan_fit.py,
-   llm.py, books.py) read-only; (3) per-source staging only — canonical files (data/catalog/extras
-   .jsonl, data/commons/files.jsonl + classified.jsonl, data/books/index.jsonl + validation.json,
-   web/data/sites.json, web/data/plans.json) written only by 211 (merge) and 212 (cover/sync); (4) the
-   fitting loop treats the model as a lead, not a fact: fitkit sheet, >= 4 matched-feature pairs, gate
-   (001) score required before anything reaches data/db/platefits/; the model step is injectable so
-   tests never call the model server (no network, port 0, temp tree); (5) web/index.html takes exactly
-   one change for the whole build (201's script tag); the review section lives in web/review.js.
-4. DONE - the DECISIONS.md entry `## 2026-10-10 000 DECISION: plan re-checked for the two GOAL changes
-   ...` is appended (committed with this hand-over). Steps 5-6 remain:
-5. Check every task file (001, 200-213, 800, 801) has `Depends on:` and `Touches:` lines:
-   `grep -L "Depends on:" tasks/*.md; grep -L "Touches:" tasks/*.md` (expect no output).
-6. Verify the test command: `.venv/bin/python -m pytest -q` in the checkout (expect the suite green —
-   last known: 8 passed at iter 2 close; nothing here touches code). Then tick all seven acceptance
-   boxes of 000 (they are all met by the state above) and set the first line to `Status: done`.
-
-If the driver sends this back again: same procedure — diff GOAL.md against PLAN.md's task map, edit
-only planner-created task files (never 001), new leads take the lowest free 200-499 number with
-Depends on + Touches, re-check the boxes, re-set Status.
+If the driver reopens 000 for another GOAL.md change: diff GOAL.md against PLAN.md's task map, edit
+only planner-created task files (never 001), new leads take the lowest free 200-499 number (214
+next) with Depends on + Touches, re-check the seven boxes, re-set Status.

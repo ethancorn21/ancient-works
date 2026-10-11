@@ -24,6 +24,15 @@ that is no longer true (git keeps the history).
 
 The read, edit and bash tools, the driver, the loop and its checks.
 
+#### The edit tool needs the exact hard-wrapped text of ~79-column files
+Where: the edit tool on tasks/*.md, PLAN.md (any markdown that is hard-wrapped at ~79 characters)
+Symptom: an edit call is rejected (oldText "not found") although the text looks identical when read -
+the file hard-wraps prose, so one sentence spans several physical lines, and a rendered or `head`
+view shows different breaks than the file actually holds (the task-000 edits to 212 were rejected
+this way at iteration 12; landed at iteration 13).
+Why/fix: capture the exact bytes first: `sed -n 'A,Bp' <file> | cat -A`, and copy the physical lines
+verbatim (wrap points and indentation included) into oldText.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
