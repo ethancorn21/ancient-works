@@ -307,6 +307,47 @@ SITES = {
 }
 
 
+# The twelve staged views (INVENTORY verdict "staged"), one row per picture (never per book: the two St
+# James's plates are two pictures). (file title, site id, named_place, want): named_place is what the
+# caption prints (a norm-substring of the title+desc; stage() re-checks it live before any row is written,
+# and fit/evidence.py's check re-verifies it offline from the stored fields); want is the known plate date
+# (the Yale records, the Britannia Illustrata publication, the Atkyns edition - docs/lead_kip.md §2/§3),
+# applied when the Commons date is missing or wrong: the AIC impression records a 2016 photo date, the Gott
+# Collection one Kip's life dates (1680-1722, boilerplate), and the three B1977 Yale files have none. Rows
+# whose dump date is already the plate's date (want == the dump year) keep the raw value, date_commons
+# appears only when the override changes it (the src_artists idiom).
+STAGED = [
+    ("File:Landgoed Badminton, RP-P-1949-371.jpg", "badminton-house-q2628510", "Badminton", "1709"),
+    ("File:Gott Collection at Hepworth Gallery (112a).JPG", "temple-newsam-q2748017", "Temple Newsam",
+     "between 1707 and 1709"),
+    ("File:Hutton Hall Kip.jpg", "hutton-hall-q5951100", "Hutton Hall", "1709"),
+    ("File:Gezicht op Stanway, RP-P-1949-369.jpg", "stanway-house-q7600303", "Stanway", "1709"),
+    ("File:Gezicht op Stoke Bishop, RP-P-1949-367.jpg", "stoke-house", "Stoke Bishop", "1709"),
+    ("File:Jan Kip - A Prospect of the House at Windsor, Belonging to his Grace Charles Beauclerck - B2017.35.1"
+     " - Yale Center for British Art.jpg", "burford-house-windsor", "Windsor", "1707"),
+    ("File:Jan Kip - St James^s House, Le Palais Royal de St James - B2017.35.3 - Yale Center for British Art.jpg",
+     "st-james-palace-q272162", "St James", "1707"),
+    ("File:Jan Kip - The Palace and Park of St James's - B1977.14.18146 - Yale Center for British Art.jpg",
+     "st-james-palace-q272162", "St James", "1707"),
+    ("File:Jan Kip - Lambeth, His Grace the Lord Archbishop of Canterbury Palace - B1977.14.17372"
+     " - Yale Center for British Art.jpg", "lambeth-palace-q1130266", "Lambeth", "1711-12"),
+    ("File:Jan Kip - Somerset House - B1977.14.18272 - Yale Center for British Art.jpg",
+     "somerset-house-q1344889", "Somerset House", "1707"),
+    ("File:Jan kip per david mortier, hampton court (da leonard mortier), dalla britannia illustrata, 1707.jpg",
+     "hampton-court-palace-q205666", "Hampton Court", "1707"),
+    ("File:Kingsweston Kip.jpg", "kings-weston-house", "Kingsweston", "1710"),
+]
+
+# The three files the golden sample pins (one per evidence flavour: a QID row, a qid=None row, the row whose
+# caption is carried by the description rather than the title). golden() regenerates the sample from them.
+GOLDEN_TITLES = [
+    "File:Landgoed Badminton, RP-P-1949-371.jpg",
+    "File:Jan Kip - A Prospect of the House at Windsor, Belonging to his Grace Charles Beauclerck - B2017.35.1"
+    " - Yale Center for British Art.jpg",
+    "File:Gott Collection at Hepworth Gallery (112a).JPG",
+]
+
+
 def now():
     return time.strftime("%Y-%m-%d")
 
@@ -443,8 +484,190 @@ def verify_sites():
     return 0
 
 
+def evidence_for(named, s):
+    """The hand-recorded caption_coords tie for a staged view (fit/evidence.py's check_caption re-verifies it
+    offline from the stored fields alone): named_place is what the caption prints (stage() proved it a
+    norm-substring of the live title+desc before the row was written), and the stored place coordinates are
+    the site's own verified landmark - dist_m 0.0, never a name-search resolution (record --live would take
+    the first search hit, which is the trap for several of the twelve: Hutton Hall -> Q5951058, 116 km, and
+    the famous namesakes). place_label is the site's own verified name (the caption's words, disambiguated);
+    the QID is the verified item, None for the three houses with no item."""
+    return {"rec": "evidence/1", "kind": "caption_coords", "checked": now(),
+            "named_place": named, "place_qid": s["qid"], "place_label": s["name"],
+            "place_lon": s["lon"], "place_lat": s["lat"],
+            "site_lon": s["lon"], "site_lat": s["lat"], "dist_m": 0.0}
+
+
+def _site_row(sid, s):
+    return {"id": sid, "qid": s["qid"], "name": s["name"], "lon": s["lon"], "lat": s["lat"],
+            "region": s["region"], "kind": s["kind"], "aerial_ok": True, "source": "fit/src_kip.py",
+            "place": s["place"], "wikipedia": s["wikipedia"], "note": s["note"]}
+
+
+def _append(path, rows):
+    if not rows:
+        return
+    with open(path, "a", encoding="utf-8") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+
+
+def stage(dry=False):
+    """Stage the STAGED table into this task's own files (append-only, idempotent on (site, title)). Drift
+    fails loud: a staged title missing from INVENTORY or whose live size moved off it (a renamed or replaced
+    file), a title Commons no longer holds, a title commons.keep() would drop after the known plate date is
+    applied, a (site, title) already in the canonical files.jsonl (the six hand-tied views - never re-staged;
+    a QID the catalog since grew keeps its picture on the existing site instead), or a named place the live
+    caption no longer prints (the tie would be dead)."""
+    c = _commons()
+    import books_match
+    known = known_sites()
+    inv = {r[0]: r for r in INVENTORY}
+    have = {(r.get("site"), r.get("title")) for r in _load(FILES_KIP) + _load(CLASSIFIED_KIP)}
+    canonical = {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
+    staged_ids = {s["id"] for s in _load(EXTRAS_KIP)}
+    meta = c.info([t for t, *_ in STAGED])
+    new_sites, new_files, new_cls, to_build = [], [], [], []
+    for title, sid, named, want in STAGED:
+        s = SITES.get(sid)
+        if s is None:
+            raise SystemExit(f"STAGED {title!r}: site {sid!r} not in the SITES table")
+        r = inv.get(title)
+        if r is None:
+            raise SystemExit(f"STAGED {title!r}: not in INVENTORY")
+        m = meta.get(title) or {}
+        if not m.get("url"):
+            raise SystemExit(f"not on Commons (title changed?): {title}")
+        if (m.get("w"), m.get("h")) != (r[1], r[2]) or max(r[1], r[2]) < MIN_EDGE:
+            raise SystemExit(f"size drift for {title}: live {(m.get('w'), m.get('h'))} vs INVENTORY {(r[1], r[2])}")
+        if books_match.norm(named) not in books_match.norm(title + " " + (m.get("desc") or "")):
+            raise SystemExit(f"the live caption no longer names {named!r} for {title}: the tie is dead")
+        if s["qid"] and s["qid"] in known:  # the catalog grew: the picture stays on the existing site, no new row
+            sid = known[s["qid"]]
+        if (sid, title) in canonical:
+            raise SystemExit(f"{title!r} is already in the canonical files.jsonl (site {sid!r}): the six "
+                             f"hand-tied views are never re-staged (their evidence kind stays hand_tied)")
+        if (sid, title) in have:
+            continue
+        m2 = dict(m)
+        if want and c.year_of(title, m2) != c.year_of(title, {"date": want}):
+            m2 = dict(m2, date=want, date_commons=m.get("date"))  # a scan whose page lost the plate's date
+        if not c.keep(title, m2):
+            raise SystemExit(f"commons.keep() would drop {title!r}: fix the table or record the drop in "
+                             f"docs/lead_kip.md")
+        if not (s["qid"] and s["qid"] in known) and sid not in staged_ids:
+            new_sites.append(_site_row(sid, s))
+            staged_ids.add(sid)
+            to_build.append(sid)
+        f = {"site": sid, "qid": s["qid"], "title": title, "year": c.year_of(title, m2), "wd_plan": False,
+             # cat stays null, as on the six hand-tied rows: cat is only read by the category evidence route,
+             # which the caption_coords rows never use
+             "cat": None, "name": f"{s['name']}, bird's-eye view engraved by Johannes Kip",
+             "by": "fit/src_kip.py", **m2}
+        f["evidence"] = evidence_for(named, s)
+        new_files.append(f)
+        new_cls.append({"site": sid, "title": title, "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0,
+                        "by": "hand"})
+    print(f"staged: {len(new_sites)} new sites, {len(new_files)} new pictures" + (" (dry run)" if dry else ""))
+    for s in new_sites:
+        print("   ", s["id"], s["lon"], s["lat"], s.get("place"))
+    for f in new_files:
+        print("   ", f["site"], "|", f["title"], "|", f["date"], "|", f"year {f['year']}",
+              ("| date_commons " + f["date_commons"]) if "date_commons" in f else "")
+    if to_build:
+        print("build (211):", ",".join(to_build))
+    if dry:
+        return
+    _append(EXTRAS_KIP, new_sites)
+    _append(FILES_KIP, new_files)
+    _append(CLASSIFIED_KIP, new_cls)
+
+
+def check_staged():
+    """Offline (no network): join the staged files (every file row names a staged or existing site; no staged
+    id or QID pre-exists; every staged site has a picture; (site, title) unique; none of the six hand-tied
+    titles re-staged; no title clash with the canonical files.jsonl; classified rows 1:1) and run
+    fit/evidence.py's check over every staged row. Returns the exit code (0 iff no problem and no FAIL)."""
+    import evidence
+    files = _load(FILES_KIP)
+    sites = _load(EXTRAS_KIP)
+    cls = _load(CLASSIFIED_KIP)
+    known = known_sites()
+    problems = []
+    staged_ids = {s["id"] for s in sites}
+    if staged_ids & set(known.values()):
+        problems.append(f"staged site ids collide with existing sites: {sorted(staged_ids & set(known.values()))}")
+    for s in sites:
+        if s.get("qid") in known:
+            problems.append(f"staged site {s['id']} re-uses existing QID {s['qid']} ({known[s['qid']]})")
+    pics = {s["id"]: 0 for s in sites}
+    valid = set(pics) | set(known.values())  # a file row may also name an existing site (no new catalog entry)
+    seen, canonical = set(), {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
+    kip_six = {r["title"] for r in _load(FILES_CANONICAL) if r.get("by") == "pipeline/sources.py kip"}
+    for r in files:
+        sid = r.get("site")
+        if sid not in valid:
+            problems.append(f"file row names a site that is neither staged nor existing: {sid!r} ({r.get('title')!r})")
+            continue
+        if sid in pics:
+            pics[sid] += 1
+        k = (sid, r.get("title"))
+        if k in seen:
+            problems.append(f"duplicate staged row {k}")
+        if k in canonical:
+            problems.append(f"staged title already in the canonical files.jsonl: {k}")
+        if r.get("title") in kip_six:
+            problems.append(f"staged row re-stages a hand-tied view (evidence kind must stay hand_tied): "
+                            f"{r.get('title')!r}")
+        seen.add(k)
+    for sid in pics:
+        if not pics[sid]:
+            problems.append(f"staged site {sid} has no staged picture")
+    if {(r.get("site"), r.get("title")) for r in cls} != seen:
+        problems.append("the classified rows are not 1:1 with the staged file rows")
+    for p in problems:
+        print("join:", p)
+    code, text = evidence.check(FILES_KIP, NO_BOOKS, catalog=EXTRAS_KIP)
+    print(text)
+    return 1 if problems else code
+
+
+def _norm(rows):
+    """The rows for the golden file: keys are sorted by the dump, "checked" and "date_commons" normalized
+    (they vary with the staging date)."""
+    out = []
+    for r in rows:
+        r = dict(r)
+        if isinstance(r.get("date_commons"), str):
+            r["date_commons"] = "0000-00-00"
+        ev = r.get("evidence")
+        if isinstance(ev, dict) and ev.get("checked"):
+            r["evidence"] = dict(ev, checked="0000-00-00")
+        out.append(r)
+    return out
+
+
+def golden(path=None):
+    """Write tests/golden/src_kip_sample.json: the three GOLDEN_TITLES file rows with their extras and
+    classified rows, normalized (one per evidence flavour: a QID row, a qid=None row, the
+    desc-carries-the-caption row). Regenerate only for an intended change."""
+    p = path or os.path.join(ROOT, "tests", "golden", "src_kip_sample.json")
+    files = [r for r in _load(FILES_KIP) if r.get("title") in GOLDEN_TITLES]
+    sids = {r["site"] for r in files}
+    keyed = {(r["site"], r["title"]) for r in files}
+    sites = [s for s in _load(EXTRAS_KIP) if s["id"] in sids]
+    cls = [r for r in _load(CLASSIFIED_KIP) if (r.get("site"), r.get("title")) in keyed]
+    out = {"extras": _norm(sites), "files": _norm(files), "classified": _norm(cls)}
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1, sort_keys=True)
+        f.write("\n")
+    print("wrote", p)
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
+    if a and a[0] not in ("--list", "--verify", "--dry", "--check", "--golden"):
+        raise SystemExit(__doc__.strip().split("usage:")[1].strip())
     if a and a[0] == "--list":
         out = a[a.index("--out") + 1] if "--out" in a else None
         if out:
@@ -456,5 +679,9 @@ if __name__ == "__main__":
             list_files()
     elif a and a[0] == "--verify":
         raise SystemExit(verify_sites())
+    elif a and a[0] == "--check":
+        raise SystemExit(check_staged())
+    elif a and a[0] == "--golden":
+        golden()
     else:
-        raise SystemExit(__doc__.strip().split("usage:")[1].strip())
+        stage(a and a[0] == "--dry")
