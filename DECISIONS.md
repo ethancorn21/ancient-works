@@ -19,11 +19,13 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 27 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+30 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (6 entries, older ones; the task is still open)
 - 200 evidence (7 entries)
 - 800 requirements-pinned (1 entry)
+- 801 evidence-no-tie-coverage (3 entries, older ones; the task is still open)
 
 <!-- archive-index:end -->
 
@@ -208,3 +210,68 @@ Measured: 392 of the 1483 sheet candidates fail `norm(candidate) in norm(title+d
 
 ## 2026-10-11 801 DECISION: an edit dropped the `def check_none(ev):` line (NameError at check runtime) - caught by the real-file check run before committing, restored in the same session
 When inserting check_part/check_sheet after check_caption, the edit's oldText ended at `def check_none(ev):` but the newText did not repeat it, leaving check_none's body as orphaned dead code under check_sheet and a NameError in check_commons. Symptom: `fit/evidence.py check` dies with `NameError: name 'check_none' is not defined`. Lesson: when a block insertion lands between two functions, the trailing `def` line of the NEXT function belongs in the newText.
+## 2026-10-11 801 DECISION: extractor v3 final (digits out, "St" merge fixed, STOP extended to 1483 uniques) - live run is the next step
+Iter 17 (agent c). Applied the two pending iter-16 fixes to /tmp/sheet_proto2.py (now v3) and re-ran offline
+over all 354 none rows (no network, no repo change). (1) Digits never kept (t[0].isalpha()) and a digit
+between two kept words now breaks a run - kills the NYPL barcodes ("11707950 000", "000 019"), year-range
+pairs ("1806 1820") and hex-fragment glue. (2) The St-merge marker only matched all-caps "ST" in v2, but
+the tokenizer yields mixed-case "St" from "St." - the "St. Louis" candidate (cahokia) was silently LOST;
+fixed to accept both, merging only when no comma/len>=3-lowercase/digit sits between "St" and the next
+kept word. (3) STOP extended with the iter-16 pending words (preposition block the/van/les/des/and/for/
+with/from/bij/met/naar/per + harmless 2-letter ones; ordnance quartier house design pattern textile
+numerisation onderdeel english roman) plus words mined from the v2 dump (bewerkt nativite nativity
+gemeentelijke deze rotterdamblindstempel reisalbum georeferencer dessins digue digues amenagement dyffryn
+jazz built ancient archaeological biodiversity center home nursing prospect fleuron bowes click landscape
+appearing text everything figures franse internet archive before history - full list in the task file's
+v3 description). Measured: 1483 unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows
+with >=1 sheet candidate, EXACTLY 40 part hits (unchanged). Eyeballed the top ~130 of the frequency list:
+remainder is genuine place names (real passes), person names (expected, no P625, one search each) and junk
+now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowes MUSEUM paintings; Bowes
+is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
+Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
+name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
+
+## 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
+Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
+singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
+ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
+FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
+skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
+York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
+"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
+from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
+caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
+sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
+without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
+6.61E 53.38N is NOT near Maastricht).
+
+## 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
+Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
+castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
+Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
+Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
+and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
+(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
+walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
+castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
+holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
+~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
+from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
+Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
+edited; add them next session.)
+
+## 2026-10-11 001 DECISION: owner ruled (a) - accept the gate as measured; box 2 re-worded to the registered contract; task done
+Request 001 (.agent/asks/001.md) answered 2026-10-11: "Use your recommendation" = option (a).
+Applied this session: box 2 of tasks/001-fit-gate.md re-worded from "at most 1 in 20" to the
+registered contract ("at most 1 in 20, or the measured numbers are recorded in docs/gate.md
+section 9 and the review queue absorbs the difference") and ticked; all four boxes now
+ticked; Status: done; the `## Proposed changes` section marked resolved; PLAN.md Deviations
+bullet updated to the applied ruling. No code, docs/gate.md or tests changed - the re-worded
+box references the existing frozen section 9 record (measured: 4 of 32 wrong placements
+accepted, all 15% scale; 7 of 8 held-out hand fits accepted - the one refusal, cadbury-castle,
+is a genuinely radial fit that goes to the review queue per GOAL point 1; 0 of 24
+moved/rotated/cross-site placements accepted). No task 801 filed: (b) - a tighter rule on
+fresh documents - was not chosen; if it is ever wanted it must be a fresh top-level task
+re-derived on fresh hand-fit documents with a fresh seed, adding only a NEW numbered section
+(>= 10) to docs/gate.md. Post-merge test run: 12 passed, 8.9 s (iteration 9: 10; the two extra
+tests come from other tasks' work merged into main).

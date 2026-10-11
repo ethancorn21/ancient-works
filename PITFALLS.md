@@ -5,7 +5,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Agent tools and harness (1)
 - This machine and its environment (2)
 - Libraries and frameworks (0)
-- This codebase (11): Wikimedia APIs (Commons, Wikidata) 2
+- This codebase (13): Wikimedia APIs (Commons, Wikidata) 3
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -161,6 +161,16 @@ behavior-neutral, do a one-off before/after run and byte-compare (`matches.jsonl
 as 200 did. The evidence check deliberately stores the runner-up margin and does not re-run the matcher
 over the catalog.
 
+#### The catalog castrum-levefanum-q1309559 is the DUTCH Limes fort (5.35E 51.96N), not Beauvais (1.99E 49.42N)
+Where: `data/catalog/sites.jsonl` (castrum-levefanum-q1309559); every distance computation or site identification
+      that could fall back to a name-based guess
+Symptom: assuming the site sits at Le Fanu/Beauvais (France) puts a sheet 314-368 km off; the stored point is
+      the Dutch Lower Germanic Limes identification (region netherlands, part_of Q1265889).
+Why: the name does not carry the geography - the catalog records the Dutch identification of the Roman
+      Levefanum/Casaromago printed on the Peutinger map. Use the catalog's stored lon/lat, never a guess from
+      the name (found task 801, iteration 17: the "Peutinger Casaromago" rows were expected to pass on a
+      Beauvais-distance, but the site is 314-368 km from Beauvais).
+
 ### Wikimedia APIs (Commons, Wikidata)
 
 #### A Commons file page's structured data is a local MediaInfo item (M<page id>), not a global Wikidata item
@@ -186,3 +196,13 @@ Symptom: a statement matcher over the file item that accepts "P180|P6216" as dep
 Why: MediaInfo items always carry a P6216 (license) statement, so any P180|P6216 alternation is
       guaranteed to pick up licenses. Only P180 (depicts) is a depiction; the site-side depiction
       evidence is P3311 (plan) / P18 (image) on the site's item.
+
+#### The Latin Peutinger names (Casaromago, Sammarobriva) have no Wikidata item; "Peutinger" resolves to a German gymnasium
+Where: `fit/evidence.py` (`resolve_places`, the sheet candidate walk, task 801); the Wikidata `wbsearchentities`
+Symptom: a search for "Casaromago" or "Sammarobriva" (the Roman names printed on the Dutch Limes sheets) returns
+      [] - no place resolution; a search for "Peutinger" returns Q2081791 (Peutinger-Gymnasium Ellwangen,
+      10.13E 48.97N) as its first hit, 475-500 km from both Dutch Limes sites.
+Why: the Peutinger map's Latin place names were never itemized, and the one surviving "Peutinger" item is the
+      gymnasium named after the map's owner. A first-resolved walk over such rows lands on that far item and
+      records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
+      ever gets an item, the walk picks it up automatically.

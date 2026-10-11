@@ -225,7 +225,7 @@ because they share the `data/books/` directory, not because one needs the other'
   held-out document, not the model's output distribution; and the checks GOAL point 1 and 3 build
   into the design (everything the gate refuses goes to the review queue; the 20-fit human sample
   must be 18/20 right) are exactly the checks that would catch a production wrong-fit rate at
-  that level. Awaiting the owner's ruling (task 001 `## Proposed changes` and the iteration-9
-  blocking ask): if (a) is accepted, box 2 re-words to the registered contract ("at most 1 in 20,
-  or the measured numbers are recorded in docs/gate.md section 9 and the review queue absorbs the
-  difference") and the task is done.
+  that level. Ruling applied (owner, 2026-10-11, .agent/asks/001.md): (a) - accept the gate as
+  measured; box 2 re-worded to the registered contract ("at most 1 in 20, or the measured
+  numbers are recorded in docs/gate.md section 9 and the review queue absorbs the difference")
+  and the task is done.
