@@ -52,3 +52,25 @@ Copy choices (measured this session via books_ia): Horsley -> `britanniaromanao0
 - Attempt 2: ten guessed identifier patterns (militaryantiquit00roy, ...u, ...0, ...w, ...goog, ...0000roy, ...0000royw, militaryantiquities00{,00}roy{,w}, militaryantiquiti00roy, militaryantiquit01roy) -> all return `{}`
 - Attempt 3: the NLS complete facsimile (maps.nls.uk/roy/antiquities/, "174 pages, 51 map plates") via web_fetch and curl with three browser UAs, HTML and guessed image paths alike -> HTTP 405 AWS-WAF "Human Verification" captcha challenge on every path; the NLS open S3 tile bucket (mapseries-tilesets) lists fine but holds no antiquities set (roy/ = 1747-55 military survey only, already used by pipeline/nls.py as background maps)
 Needed: a human with a real browser to download the NLS facsimile and place it in data/raw/books/roy1793/ (or a decision to drop Roy). Filed ask_human (request 003, open, human_only); 207c set to blocked. 207a/207b proceed independently: the subtasks run in sequence, so the shared staging files (files_roman.jsonl etc.) carry per-book tagged rows without conflict; each subtask's module, triage/lists artifacts and tests are disjoint.
+
+## 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
+Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
+Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
+review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
+but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
+pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
+So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
+site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
+not root-aware: plan_fit and build_site derive every path from their own file location, and
+review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
+one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
+files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
+through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
+write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
+Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
+(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
+hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
+(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
+backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
+hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
+real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
