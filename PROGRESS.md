@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 45 - BE QID batch verified + recorded in TOWNS + lead-doc BE sections written; the
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 46 - BE `--files` inventory DONE and every BE pick decided + eye-verified;
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -16,45 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 204 DECISION: town_files() extended to the 4 collections + town subcats at depth 1; the NL file inventory is done - 13 of 16 NL picks recorded in TOWNS, 3 documented drops
-Two module changes (uncommitted in the tree, harness-saved; the lead doc still needs them). (1) town_files()
-now inventories the 4 COLLECTIONS after the towns (same line format; a collection file that also sits in an
-inventoried town cat gets the [also in: ...] tag - the R5 cross reference) and each town cat's own
-subcategories at depth 1 (tagged [sub: ...]). The depth-1 walk was justified by a live probe: the BNE atlas
-category holds only 1 root file (Deventer-Dionantum.jpg, 6144x6144, 1550-1565) + 1 subcat, and that subcat
-(Map of Landrecies ... (Atlas des villes des Pays-Bas : ...), 5 KBR detail scans) ALSO hangs under the plain
-Landrecies town cat - the atlas keeps its per-place plates inside the towns' categories, so a flat town-cat
-inventory would have missed them. (2) The 13 staged NL TOWNS rows now carry file= (and date= where the page
-date is not the drawing's: Rotterdam "circa 1560" - the page date is an upload timestamp and the desc dates
-the drawing 1558-1563; Sluis and Valkenburg "circa 1545-1565" - 1980 RCE album reproductions are the only
-full-plan candidates, the Zwolle done-row precedent, date_commons keeps 1980); the 3 drops carry note=
-(Groningen (province): province map, its files are Friesland-gewestkaart crops; Leeuwarden: only file is a
-1975 redrawn model, 593x636; Middelburg: only file is a 1942 RCE detail crop of the stadhuis). Picks:
-Aardenburg Aardenburg 1560.jpg (500x500 - staged against the <~1000px heuristic: the ONLY Aardenburg plan on
-Commons, a full plan, caveat noted); Alkmaar Kaart van Alkmaar en Oudorp ... 01.jpg (5019x4971, 1550-1570);
-Amsterdam Kaart van Amsterdam c1550 (City Map) ... (4283x5229, 1550-1570); Enkhuizen ... Enkhuizen
-1558-1560.jpg (full, not the detail); Goes 1572 Bijkrt ... (the only Goes row in the c. 1545-1565 window;
-the netkaart is dated 1572/1575 - a later revision, and also in the BNE cat); Groningen ... volledig.jpg
-(6568x5088, 1563-1567); Haarlem ... KNA006000046.JPG (2359x2272, 1565, the municipal collection scan; the two
-identical 3306x8152 no-desc uploads are duplicates of a tall sheet - not staged); Reimerswaal 1560 Minuut ...
-(3501x2541, 1560 original); Rotterdam Map of Rotterdam around 1560s ... (2953x2033); Sluis 20201361 - RCE
-(2900x2137); The Hague 1558, Den Haag. ... (4413x4705, 1558; the same file is the autograph in the NA cat);
-Utrecht Utrecht.jpg (2164x2155, 1565-1570); Valkenburg 20237999 - RCE (2878x2102). R5 found: the Sluis cat
-holds 227 Damme.jpg (Damme's netkaart, 1545, also in the BNE cat) - a Damme plan misfiled in the Sluis cat;
-Damme is a done town (canonical row uses its own file) -> note only, never stage. Collections: BNE 61 = the
-1545-dated "Planos de ciudades de los Países Bajos" Part II/III plates covering the FR/BE towns (plus double
-plates Aire-sur-la-Lys+Thérouanne and Hesdin+Vieil-Hesdin - one file, two towns, for the FR batch; and
-Amsterdam/Alkmaar/Goes/Reimerswaal files that are the SAME files as the town cats); NA 2 = The Hague autograph
-+ Schoonhoven/Nieuwpoort (out of scope); RCE 69 = the Zeist album reproductions (supplied the Sluis/Valkenburg
-staged rows; Middelburg detail-only); the atlas's Deventer-Dionantum and the Landrecies KBR details are for the
-FR batch. fit/evidence.py (801 merged) re-read: check_caption is OFFLINE-from-stored-fields only (no live
-re-resolution: named substring of title+desc, stored place/site distance reproduces dist_m within 1000 m,
-<= 50 km), so evidence_for's stored-verified-point rows pass for every pick (each names the town in title or
-desc); 801 added part_mention/sheet_mention kinds - my rows use only category/caption_coords. --list passed
-again (70 = 66 + 4, fourth re-run of 2026-10-11). NEXT (hand-over has the detail): sanity stage --dry +
---check + pytest (last ran 33/33), commit module + lead doc (category-section live-run count, Per-town NL
-... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: town_files() extended to the 4 collections + town subcats at depth 1; the NL file inventory is done - 13 of 16 NL picks recorded in TOWNS, 3 documented drops' DECISIONS.md`)
 
 ### 2026-10-11 204 DECISION: stage() order fixed - the date/date_commons swap runs BEFORE commons.keep() (the sources.py pattern); sanity runs green; lead doc's NL and collection sections written
 The hand-over's step 1 predicted `stage --dry` would print "staged: 13 new sites, 13 new pictures" - it instead
@@ -108,6 +69,50 @@ tasks/204-van_deventer.md (underscore - the name the driver reads; the 0-byte du
 merged and deleted; the first line was the driver's read-error). Still to file (context limit): the
 PITFALLS entry on the wbsearchentities limit-5 truncation (Wikimedia section) - the next session files it
 with its first commit.
+
+### 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)
+`--files` for the 20 BE towns (transcript /tmp/vd_files_be_iter46.txt, 212 lines, exit 0) confirmed the
+prediction: the 1545 BNE atlas plates sit in the town categories for 16 of the 20 (Ghent as BN 1/BN 2,
+Mons as (1)/(2), Oudenaarde as Version Madrid); Bruges (7), Brussels (7), Mechelen (1) and Aarschot (2)
+are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs + full-size crops
+(/tmp/vd_be_thumbs/, re-download via commons.info + aw.UA; the `read` tool views images):
+- **Ghent BN 1** (4919x5046, 1545) = the labelled 'Gande' sheet (city between the two rivers) - STAGED.
+  **BN 2** (2834x3631, 1545) is a DIFFERENT sheet (a fortified town, no city label in the centre crop) -
+  not staged, noted. Also not staged: the 1559 Donato Buoni di Pellezuoli print (a later print by another
+  cartographer) and five small 2007-2012 scans/crops.
+- **Mons (2)** (4393x2614, 1545) = the wide two-page sheet labelled 'Mons en Henault' (Ocidente/Oriens/
+  Meridies/Septentrio) - STAGED. Mons (1) (1816x2614) is a portrait plate of the same fortified town -
+  not staged, noted.
+- **Brussels '(2) 01.png'** (8908x10941, circa 1555) = the KBR autograph cleanly cropped - STAGED.
+  '(2).png' (9216x12288) is the same sheet WITH a TIFFEN colour-calibration strip (the ugly duplicate);
+  '(2) 02' is the explicit detail; the three small Brussel 1550/1555/1560 scans (470-1233 px) and
+  Molenbeek.1550.jpg (378x565, Molenbeek + the west of the 2e enceinte - the work list's 'Brussel, 1550
+  (westelijk gedeelte)', partial) - all not staged.
+- **Bruges 'Map of Bruges by Jacob van Deventer.jpg'** (2770x4659) - the full plan; the sheet's OWN
+  caption block (bottom of the sheet, partially torn away) reads "Brugge (West Flan...) ... en omgeving
+  omstreeks den jare 1550. Plattegrond in kleuren. Originade Teckening van den be-Keizerlijken..." -
+  the drawing dates itself c. 1550 -> row date="circa 1550", the 2013-01-17 12:04:47 page value (an
+  upload timestamp) kept as date_commons by the stage() swap. The three category detail files carry QS
+  'circa 1558' for the same map - the sheet's own caption wins (recorded in the lead doc). Not staged:
+  five detail crops (846x522, 1180x668 x2, 573x564, 650x832) and 'Plan Brugge ... ca.1560.jpg' (1400x1867,
+  a published reproduction per C. Ruelen).
+- **Mechelen** (3558x3305, page date 1550) = the KBR autograph (desc: from the atlas KBR bought in 1866)
+  - STAGED; page date is the drawing date (work list 'Mechelen, 1550' agrees), no swap.
+- **Ostend** (872x1255, page 'circa 1562' QS) = the full BNE atlas plate (labeled 'Oostende', the town +
+  the harbour detail box) - STAGED despite the 872 px width: the only Ostend plan on Commons (the
+  Aardenburg precedent, caveat in the lead doc). No swap (1562 in window).
+- **Aarschot - DOCUMENTED DROP, no site, no picture:** both files ('Aarschot 1570.png', 5877x6291 - a
+  genuine autograph, town labelled 'Aersfot' on the Dijle, fortress on the north bank - and its
+  1278x1024 jpg copy) carry page date **1570**. Verified against the web: the nl.wikipedia article
+  'Jacob van Deventer (cartograaf)' lists 'Aarschot, 1570' in its work list (the Philip II period; his
+  career ran to his death in 1575, the Rutte & Vannieuwenhuyze Stedenatlas covers 1545-1575 overall).
+  1570 is outside this task's c. 1545-1565 drawing window, and box 6's test checks the row date's
+  year_of in 1545-1565 - a 1570 row cannot be staged honestly. The documented drop (box 5) beats a
+  guessed date. (The same work list cross-confirms the other picks: Gent 1545, Doornik 1545, Den Haag
+  1558, Utrecht 1565-1570, Oudenaarde minuut 1563 / netkaart 1564.)
+- The 12 single-file towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Halle, Kortrijk, Lessines,
+  Leuze, Saint-Ghislain, Soignies, Tournai): the one 1545 BNE plate each - all staged, no swap. Leuze
+... (0.8 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
