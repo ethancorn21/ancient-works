@@ -130,12 +130,16 @@ Why: entries are written by `build_site.py` from partially filled catalog rows. 
 universal keys; select US sites with `region == "US"` (90 of 384) and treat all the rest (294, including
 the 6 without a region) as "non-US" so none is skipped by a batch or a test.
 
-#### `web/data/plans.json` rows may share an `id` when one picture depicts two sites
-Where: `web/data/plans.json`, `web/index.html` (`P.byId`), `tools/export_plans.py`
-Symptom: the fit tool opens the wrong plan row: the page's `P.byId` keeps only the last of the shared-`id` rows.
-The true key is `(id, sites[0])`. As of the plan two pairs share an id: "The new Larned History..."
-(avebury + stonehenge) and "File:Mayburgh-1769.png" (mayburgh-henge + king-arthur-s-round-table). Tests must
-assert `(id, sites[0])` uniqueness, not `id` uniqueness; the fit-tool keying fix is scoped into 201.
+#### `web/data/plans.json` rows may share an `id` - one row per depicted site, per-site url
+Where: `web/data/plans.json`, `web/index.html` (`P.byId`), `tools/export_plans.py`, test row lookups
+Symptom: code that resolves a plan by id through a dict gets the wrong site's row: two rows share
+the id (one per depicted site) and carry a DIFFERENT url/media path per site, so `rows_by_id[plan]`
+returns site A's row when the entry belongs to site B (hit by tests/test_batch_eu.py, which then
+asserted the stonehenge url against the avebury entry). The true key is `(id, sites[0])`; look up a
+row per site from the site's own candidate list. As of the plan two pairs share an id: "The new
+Larned History..." (avebury-q661855 + stonehenge-q39671) and "File:Mayburgh-1769.png"
+(mayburgh-henge + king-arthur-s-round-table). The page's `P.byId` keeps only the last of the shared-
+`id` rows; the fit-tool keying fix is scoped into 201.
 
 #### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
 Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
