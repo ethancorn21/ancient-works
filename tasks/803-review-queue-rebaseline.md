@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 201
 Touches: tests/test_review.py
 
@@ -34,17 +34,17 @@ this task's DECISIONS entry before changing anything - that is an 803 finding, n
 silent fix in fit/review.py.
 
 ## Acceptance criteria
-- [ ] tests/test_review.py is green: the expected export stdout, the open-item list, the
+- [x] tests/test_review.py is green: the expected export stdout, the open-item list, the
       page's review count/stats and the resolve-on-save flow are derived from data/review/
       through 201's own rules (upsert merge, export derivation of `resolved` from
       data/db/platefits/ documents) instead of hardcoded pre-batch numbers - so a future
       batch (203b) adding items does not break them again
-- [ ] `test_save_resolves_the_item` picks its site and plan deterministically from a row
+- [x] `test_save_resolves_the_item` picks its site and plan deterministically from a row
       that still carries the fields the page's save needs (a book row with `map_box` and
       `size` in web/data/plans.json, whose site's item is still open after the export
       derivation) instead of from the item entry's stored fields; the PUT-resolves-item
       flow it checks is the same as before
-- [ ] no behavior change in fit/review.py, the page or the data files: the only files this
+- [x] no behavior change in fit/review.py, the page or the data files: the only files this
       task writes are its own test and (if the wording drifts) this task file; any needed
       writer change is recorded in a DECISIONS entry with evidence first
 
@@ -71,3 +71,17 @@ silent fix in fit/review.py.
   falls back to stored entry fields (missing map_box tolerated; openPlan falls back to the
   full frame) for rows absent from the build - so the test reads from the ROW, and no
   repair of data/review/ or change to fit/review.py is needed for that failure.
+
+## Hand-over
+
+**2026-10-11, iteration 47 (agent c, who holds 203a - the human approved this via ask 002): done.**
+
+- Implemented per the iteration-42 spec: all expectations derived, never pinned (details in the
+  802 task file's hand-over and the DECISIONS entry of the same date).
+- Verified BOTH states: post-batch (the 203a-carrying branch) full suite 38/38 green; pre-batch
+  (main's data reconstructed in a temp tree with 203a's data diff inverted) 7/7 green for
+  test_review.py + test_gate.py. The pick reduces to (alligator, n0214_2) pre-batch and is
+  (fort-ancient-q5470727, ancientmonuments00squi_n0076_1) post-batch.
+- The test file change was still UNCOMMITTED in the working tree when the session hit its context
+  limit (the harness saved it). Next agent: commit it (see the 802 hand-over for the exact step),
+  re-run the suite, and if the driver rejects the done claim read its note in this file / DECISIONS.md.

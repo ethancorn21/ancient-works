@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 Depends on: 001, 803
 Touches: tools/gate_heldout.py, tests/test_gate.py
 
@@ -66,27 +66,62 @@ is therefore still meaningful - it just must be derived over the non-automatic s
 
 ## Hand-over
 
-**2026-10-11, iteration 46 (agent c): implementation unchanged and verified; the task now parks on
-803 (its tests are the only red in the suite) and the driver brings it back when 803 merges.**
+**2026-10-11, iteration 47 (agent c): 803 is IMPLEMENTED and verified in BOTH states; the full suite is green;
+both done claims (802, 803) are filed. The code (tests/test_review.py) is UNCOMMITTED in the working tree -
+the harness saved it; commit it FIRST in the next session, then re-verify, then re-file if the driver
+reopened anything.**
 
-- State: `Depends on:` is now `001, 803` (was `001`); status stays in-progress with both boxes
-  ticked. The driver's rejection of the iteration-45 done claim was purely the suite being red,
-  not anything in this task's two files. No code changed this iteration; the implementation is
-  commit af830fb and `git log` shows nothing later touching tools/gate_heldout.py or
-  tests/test_gate.py.
-- Verified this iteration in the current checkout: full suite `.venv/bin/python -m pytest -q` =
-  3 failed / 35 passed; the 3 failures are exactly 803's population
-  (test_export_cli, test_page_shows_the_review_list, test_save_resolves_the_item) and they
-  pre-date 802 (pre-802 suite: 4 failed / 34 passed; the 4th was 802's own test_gate failure,
-  fixed). tests/test_gate.py is green inside the 35.
-- Why park, not patch: tests/test_review.py is 803's file (not on my Touches line) and 803 is
-  the task that re-baselines those pins to the 89-item post-batch population (803: open,
-  `Depends on: 201` - done, `Touches: tests/test_review.py`, unassigned). Patching it here
-  would collide with 803's branch and re-litigate its scope; the driver hands it out and merges
-  it, and the human has already been told about the 802/803 pair (203a's ask_human 002).
-- Next session (when the driver brings 802 back after 803 merged into main): run
-  `.venv/bin/python -m pytest -q` in the current checkout; expect 0 failed, then re-file the
-  done claim (Status: done). If my two files' tests are red instead, something on main since
-  af830fb touched tools/gate_heldout.py / tests/test_gate.py / the data they read - check
-  `git log` on those paths and re-derive: the name list must still be the sorted NON-automatic
-  documents (20 of them) and the golden must still reproduce byte for byte.
+What happened this session (the human answered ask 002: "approved, your recommendation. You get 802 as a
+job now, then 803, then 203a again to re-file the done claim. Add only the files those two tasks name to
+their own Touches lines." - so agent c implements 803 from this branch; each task keeps its own Touches line):
+
+- **803 done (task file set done, boxes ticked).** tests/test_review.py re-baselined per the 42-note spec:
+  - `test_export_cli`: expected stdout "N open of M items", the open list and every per-item field
+    (name from sites.json/id-fallback, lead = first candidate's plan, candidates and no_picture verbatim)
+    derived through `review.resolved_doc` + the export's documented stable name-sort - new helpers
+    `_open_items(tree)` / `_site_names(root)` in the test file. A `n_total >= 1` guard kills vacuous passes.
+  - `test_page_shows_the_review_list`: tab label `Review (N)` (or bare `Review` at N=0), the stats clause
+    `\u00a0\u00b7 N review item(s) open` (absent at N=0, "nothing left to review" instead), rvn == N, and the
+    list phrases derived from the first open item (name, head, first candidate title, or the no-picture
+    searched text) plus the first open item that HAS candidates - the 404/boot/no-error checks are unchanged.
+  - `test_save_resolves_the_item`: the doc is now built from the plans.json ROW exactly as the page's
+    saveFit does (row's ia/file/label/book/cite, crop = map_box x size, src 'book', url/ref from the row;
+    pairs from the item's candidate entry = the human's proposed pairs). The pick is deterministic: first
+    plans.json row (file order) with ia+map_box+size whose site has an OPEN item carrying that candidate.
+    Post-batch pick: (fort-ancient-q5470727, ancientmonuments00squi_n0076_1). Pre-batch it reduces to
+    (alligator, n0214_2) - the old pin. Post-save: open list minus the picked site, first remainder
+    verbatim, the item file's `resolved == {doc, at}` (file found via `review.item_path`), stored-doc
+    round-trip. The 4s worker poll and the snapshot (no other tree change) are unchanged.
+  - ALLIGATOR/BIBRACTE/LEAD constants deleted; nothing else in the file changed (probes, keying test,
+    index-footprint test, fixtures).
+- **Verified both states (the state-agnostic bar):** post-batch (this checkout, 89 items): full suite
+  `.venv/bin/python -m pytest -q` = **38 passed, 0 failed** (42.9s; headless tests ran, Chrome present).
+  Pre-batch: built /tmp/prebatch-803 = this checkout with the 203a data diff INVERTED (103 A files under
+  data/ removed; the one M - alligator's item - restored from main), ran `tests/test_review.py` +
+  `tests/test_gate.py` there with the project's .venv: **7 passed** (31s). The temp tree was deleted
+  afterwards. 802's own two-state claim is re-proven by that run (test_gate green pre-batch).
+- **802 set done again** (its earlier claim was rejected only on the suite being red; it is green now).
+  Implementation unchanged since af830fb (nothing touched tools/gate_heldout.py or tests/test_gate.py
+  this session; `git log` on both paths since af830fb was empty when I checked).
+- **203a NOT touched** (still in-progress on my branch, per the human's sequence its re-file comes after
+  802/803 are merged; its six boxes are all ticked and its own tests are in the green 38).
+
+Next session (should be agent c again, on 802 or 203a):
+1. `git status` / `git diff --stat` in the checkout: expect tests/test_review.py modified (uncommitted -
+   the harness saved it) plus the already-committed task-file changes. Verify the diff touches ONLY
+   tests/test_review.py among code files (803 box 3). If the working tree is clean, something committed
+   it already - check `git log` first.
+2. `git add tests/test_review.py && git commit -m "803: re-baseline the review-queue tests to derived
+   expectations - ..."` (see the DECISIONS entry for the wording I drafted there).
+3. Re-run `.venv/bin/python -m pytest -q`; expect 38/38. If the driver rejected either done claim,
+   its reasons are in the 802/803 task files' Notes / DECISIONS.md - fix and re-file.
+4. If I was given 203a instead: re-file 203a's done claim (suite green, six boxes ticked, 39/39 golden
+   per its last hand-over) and rewrite its stale BLOCKED hand-over (it is resumed; ask 002 was answered
+   in my favor).
+5. Optional polish (low priority, only if the above is done): a PITFALLS entry under This codebase / fit/:
+   "batch upserts replace a review item's rich candidate entries (201's map_box/ia/file/label/book/cite)
+   in place with the batch's slim shape (plan/title/url/evidence/pairs/why/gate_score, no map_box) -
+   the page's web/review.js rvResolveRow therefore falls back to the web/data/plans.json row for those
+   fields; tests must read the row, not the entry. Where: data/review/*, fit/review.py upsert_item,
+   web/review.js rvResolveRow. Symptom: KeyError 'map_box' in a test building a save doc from an
+   item entry."
