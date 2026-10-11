@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/201-review.md` (open) - hand-over: Iteration 22 (2026-10-11). Steps 1 (environment), 2 (fit/review.py + seeds + first export, commit ad8dbc1)
+- `tasks/201-review.md` (open) - hand-over: Iteration 23 (2026-10-11). Steps 1-4 are DONE (step 2: commit ad8dbc1; step 3: 0b65deb; step 4: the commit after this edit). State:
 - `tasks/203-batch-fit.md` (split)
 
 ## Next open tasks
@@ -13,26 +13,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 201 DECISION: prep-notes assumption audit against main @ 03b8c06 - five corrections, rest holds
-Wrong/stale in tasks/prep/201.md (checked against main, which gained the 001 merge since the prep was written):
-(1) 001 is DONE, not blocked - the human's ruling (a) accepted the measured gate (commit 88300a0); 201's scope
-is unchanged (zero code dependency on the gate; box 3 "a human save is trusted as-is"), and 203a's dependency on
-001 is now satisfied. (2) web/data/sites.json is a `{"sites": [...]}` wrapper (boot: `S.sites = data.sites`),
-not a bare list. (3) data/raw on this VM is NOT empty dirs (1.4G books, 439M commons, 1.5M aerial) - conftest
-still excludes it from the test tree, so the 404-in-tests behaviour the prep relied on is unchanged. (4)
-data/commons/files.jsonl now has 1490 rows, 1381 with evidence; the 109 null-title rows are exactly the
-no-evidence rows (801's targets) - the "evidence only when present" pass-through still holds, and
-candidate_evidence must return None for a missing row or field. (5) web/index.html is 1703 lines (prep said
-1704) - every line-cited claim I re-read is otherwise accurate. Everything else verified true: 1166 plans rows
-with exactly the two duplicate-id pairs (c_ffb3daac218b481f avebury/stonehenge, c_984782b9e35e8ded
-mayburgh/king-arthur) and (id, sites[0]) composite keys unique across all rows (rows with empty sites key on id
-alone, no collision); 17 lidar-false sites == 17 without relief.jpg; bibracte-q650053 (lidar false) has zero
-plans candidates; alligator-effigy-mound-q4732645 (lidar true, relief.jpg present) has exactly the two seed
-candidates (book ancientmonuments00squi_n0214_2, evidence category; commons c_618a6be74dfaff32, evidence
-present); the 202 contract (tasks/prep/202.md: propose_for -> {pairs, coarse, ground, scale_m_px, rot_deg,
-scale_source, note}, stdlib-only) and 203a/203b's expectation of fit/review.py's upsert/export are unchanged.
-Test baseline on this branch: 12 passed in 9.4s (.venv/bin/python -m pytest -q).
 
 ### 2026-10-11 201 DECISION: prep step 2 shipped (commit ad8dbc1) - fit/review.py API + README contract + 2 seed items + first export; merge keeps candidate order (lead stable), no_picture lifecycle settled, aw.py NOT stdlib-only on this branch
 
@@ -99,6 +79,43 @@ Verification before committing (no test file yet - step 5 writes the committed c
    bug the box describes. No [pageerror]; only the two expected 404s (data/scans.json, amazon areas).
    The committed test (step 5, case 4) will assert the same through the temp-tree served fixture, per the
    hand-over's data-level fallback if headless degrades there.
+
+### 2026-10-11 201 DECISION: prep step 4 shipped - web/review.js (the page's Review section) + the one script tag in index.html; headless-verified tab/list/opener/pre-placement/save-resolves end to end; two prep claims corrected
+
+web/review.js wraps the big inline script's globals (renderList, setTabHome, openPlan, saveFit,
+loadDeps) - no other change to index.html (the script tag is its only review footprint). Verified
+headless this iteration against a scratch tree (Chrome 155 via tools/shot.mjs, port 0):
+(1) the Review tab renders "Review (2)" with aria-pressed, the list shows the alligator item (2
+candidates, book lead first) and bibracte (no-picture chip + searched + plan-search button);
+(2) opening the alligator item: select forces imagery, setGround restores relief (fitkit), the book
+picture loads 2876x4068, crop from map_box, all 5 seed pairs pre-placed with markers numbered 1..5,
+fit computes mpx 0.7374 (seed's 0.7375) with resids < 0.03 m, Save enabled; (3) the no-picture item
+opens the plan search on the aerial photograph (lidar false); (4) a REAL save through the page:
+PUT 200, the worker (pipeline/ + .venv python in the scratch tree) ran plan_fit (resids ~0), the
+overlay depiction appeared in ~14 s, the red-square map source was added, RV.seen recorded
+{doc, at}, the item left the list (badge "Review (1)"), the home stats line's drawing count went
+25->26 with the appended "· N review items open" clause. No pageerror in any run; 404s only the
+expected ones.
+
+Bugs found and fixed while verifying (both in rvPatchStats, the stats-line patch): after creating
+the #rvcount button I set .textContent on the stale null reference instead of the new element
+("Cannot set properties of null") - fix creates then assigns; that fix then hit "Assignment to
+constant variable" (b was const) - let. node --check catches neither (runtime-only), which is why
+the headless probe is the check for this file.
+
+Corrections to the prep's code-fact list (keep for 203a/212 readers): (a) line 531
+`S.tab = lsGet('aw.tab', 'sites')` - S.tab IS read from localStorage at boot (the prep said it
+wasn't); review.js therefore keeps the Review tab session-only by never writing 'review' to
+'aw.tab' (its setTabHome wrapper omits the lsSet), so a reload lands on the site list as intended.
+(b) data/raw in this repo is a SYMLINK to /home/agent/projects/ancient-works/data/raw (1.4G there) -
+`du` on the link shows 0, which iteration 22's audit misread as "empty dirs" being the whole story.
+tests/conftest.py still EXCLUDES it by path, so the pytest temp tree genuinely has no raw and
+book/media images 404 there (the pre-placement skip path); a /tmp scratch copy follows the link,
+which is why this step's happy-path probe could serve real pictures. (c) `loadDeps` dedupe is
+load-bearing in the opener: select() chains loadDeps().then(renderSite) and in the fast
+select->startFit->openPlan chain that async re-render would otherwise clobber the fit sheet;
+rvStartFitAt awaits the (shared-flight) loadDeps between setGround and startFit - microtask order
+on the same promise guarantees select's .then runs first. Do not reorder.
 
 ## Project-wide driver notes (newest)
 
