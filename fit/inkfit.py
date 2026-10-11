@@ -390,7 +390,8 @@ def template_pieces(panel, model):
             pieces.append(dict(idx=int(idx), length=int(length[idx - 1]),
                                pts=pts[m], nrm=nrm[m], w=w[m]))
     pieces.sort(key=lambda p: (-p["length"], p["idx"]))
-    return _keep_pieces(model, panel, pieces, notes), _variant(model), notes
+    kept, label = _keep_pieces(model, panel, pieces, notes)
+    return kept, _variant(model) + label, notes
 
 
 def _rot2(th):
@@ -642,7 +643,14 @@ def main(argv=None):
     a = ap.parse_args(argv)
     se = propose._site(a.site)
     row = propose._plans_row(a.plan, a.site)
-    r = fit(se, row, model=None, null=not a.no_null)
+    # the fetch and the search print progress to sys.stdout (e.g. aw's overpass retries);
+    # during the work it goes to stderr so the JSON result on stdout stays parseable
+    old = sys.stdout
+    sys.stdout = sys.stderr
+    try:
+        r = fit(se, row, model=None, null=not a.no_null)
+    finally:
+        sys.stdout = old
     print(json.dumps(r, indent=1))
     return 0
 

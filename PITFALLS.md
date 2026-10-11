@@ -693,3 +693,11 @@ Why: both prompts are biased toward earthwork survey plans, not engraved bird's-
 Where: task 207c; IA advancedsearch (exact title, creator, full-text phrases, 1790-1800 year range, ten guessed identifier patterns); the only related IA item macdonald-1917-roy (a 1917 dissertation about Roy)
 Symptom: no IA copy of the book under any searched title/creator/phrase; ten guessed identifiers (militaryantiquit00roy*) all return {}.
 Why: the 1793 Society of Antiquaries folio (174 text pages + 51 map plates) was never scanned by a library that uploads to IA. The complete online facsimile is NLS (maps.nls.uk/roy/antiquities/), which is WAF-blocked from this VM. A human-provided copy in data/raw/books/roy1793/ is the only route (207c blocked on it, open ask_human).
+
+### pipeline/autowalls.py (the frozen ink extractor)
+
+#### Frangi ghost-echoes a ring around razor-sharp synthetic drawings - soften test ink to scan-like edges
+Where: `pipeline/autowalls.py` `extract` with its frozen P (sigmas (4,6,9), ridge_thr 0.25, gamma 0.013, coh_sigma 25, min_len/min_extent 50, margin 20); any synthetic-plate test fixture (302c's committed test site, future plate tests)
+Symptom: a crisp 0/1 PIL-drawn test plate yields extra skeleton pieces ~5-8 px OUTSIDE the drawn walls (a ghost ring hugging the drawing, even inside the zeroed 20 px margin) in addition to the true centre lines; and an 8 px-wide isolated line blurred to scan-likeness falls below the ridge threshold while the same line at 12 px survives.
+Why: gamma 0.013 (the Frangi structuredness scale) is the median default calibrated on real 19th-c. scans, whose edges run a few px of transition and whose paper has texture. A perfect step has a Hessian spectrum that multi-sigma product does not expect: it rings a secondary response a few px outside the step, and softening a thin band drops its response under 0.25. JPEG vs lossless is irrelevant - the ghost is in the drawing, not the codec.
+What to do: fixtures should look like scans: 8-12 px wall bands (real plate walls are 6-20 px), gaussian_filter ~2.5 px, a little paper noise (±2/255, fixed rng seed). Verified 2026-10-11 (302a): 8 px rectangle + 12 px interior line, blur 2.5, noise ±2, seed 7 -> exactly the three true centre lines, no ghosts, fully deterministic.
