@@ -56,73 +56,69 @@ the world) reuses this module's loop.
   model says is a lead to check, not a fact — the gate is the check).
 
 ## Hand-over
-Session 4c (2026-10-11, iteration 38). Step done: the A/B pilot of the 4b `llm_model` on the 5
-4a-fabrication candidates (tunnel re-verified UP: qwen3.8-27b on 127.0.0.1:8080 AND :8081; run with
-AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions). Result: 3 of 5 route to items exactly as
-designed (poverty-point: honest 0-pair answer; serpent n0636_1: diagonal ladder dropped to 1 pair
-by the range validate; cahokia: corner answer, stated 1.639 vs implied 3.333 -> cross-check trimmed
-to 3). TWO auto-passed and were eyeballed (overlay: model points red, seed-mapped same features
-green; throwaway scripts /tmp/pilot_llm.py, /tmp/eyecheck.py, /tmp/quant.py, /tmp/calibrate{,2,3}.py
-still on disk; sheets /tmp/fit_*.jpg, overlays /tmp/eye_*.jpg; raw answers /tmp/llm_raw_4c.txt):
-- pyramid-mound n0134_1 (stated 0.57 vs seed 0.8806, gate med 24 m): model+seed points coincide
-  (24-320 m, inside the 460 m box span) ON the visible C-embankment and square-mound pit -> a REAL
-  fit; the auto doc is right.
-- tremper c_75950f29c23bf033 (stated 1.3245 = the seed scale ECHOED verbatim, gate med 0.6 m): model
-  and seed points 120 m apart (inside that seed's 500 m no-map_box uncertainty - seed agreement alone
-  cannot discriminate) and BOTH on featureless ground; the site's real ring is unused; 2 of the 4
-  points on the modern highway -> a docs/gate.md section-7 consistent global error (correct scale,
-  wrong translation) that the gate, the range validate and the scale cross-check all miss. The
-current code would write a garbage auto doc, so the full run needs one more batch-side
-counterweight before it runs.
-DECIDED (calibrated on all 20 hand fits + the 2 model answers, /tmp/calibrate3.py margin grid,
-local std R=12 px box vs same-image fixed-seed null): a FEATURE-PRESENCE check in the llm_model
-closure (routing-only; the gate stays frozen): count model points whose local std of the site's own
-ground image (fitkit.ground, grayscale, 1 m/px) at a 24 m box is >= the median of a 400-point
-null (seed 20261011, distinct from the report SEED 20261010); the answer passes only if >= half
-the points are above. Numbers: tremper 1/4 above -> reject (0.27-0.65x on every variant tried);
-pyramid 3/4 -> pass (1.00-1.57x); hand fits over-refuse only serpent 0/3, mayburgh 1/3,
-little-solsbury 2/5 - genuinely faint features, a deliberate strict-gate cost (the pairs still ride
-to the item as leads). The edge-distance variant was tested and dropped: it passes all hand fits
-but lets tremper through (its highway points are near edges). KNOWN residual (document in the
-docstring): a fabrication anchored on strong ground texture (road network, field boundaries) passes
-this check AND the scale check; docs/gate.md section 7's human 18/20 sample remains the backstop.
-The check only ever routes to review - it never loosens the gate.
-BUG FOUND (fix pending): the 4b scale cross-check does `implied = abs(float(a)) * k` but `a` from
-plan_fit.similarity is COMPLEX (pipeline/plan_fit.py L35-45); float(a) drops the imaginary part, so
-for a ROTATED fit implied = |s*cos(theta)| (60 deg -> 50% low) and can misfire "not trusted" on a
-true answer. Fix: `implied = abs(a) * k`. fit/batch_us.py is UNMODIFIED this session (everything
-above is /tmp throwaway; no checkout file touched, no tests run; last state: tests/test_batch_us.py
-5/5, full suite 34/34, after 4b's commit bff2b3e).
-NEXT (session 4d), in order, all in fit/batch_us.py (the task's only code file):
-1. Fix the scale cross-check to `implied = abs(a) * k` (keep the NaN guard as is).
-2. Add `_feature_present(site, pts_ll, gpath)` after `_parse_answer`: grayscale array of the ground
-   image (PIL convert("L") /255); R=12 box std per point (px clamped to [R, W-R-1], inverse of
-   _ground_lonlat through site corners + aw.to_merc); null = 400 boxes at np default_rng(20261011);
-   med = null median -> return (frac >= 0.5, frac); ANY read failure -> (True, None) (no evidence
-   never blocks a fit; the gate and the human are still downstream).
-3. In the `llm_model` closure, after the scale cross-check, when len(pairs) >= 4: ok, frac =
-   _feature_present(site, [(p[2], p[3]) for p in pairs], fitkit.ground(site["id"])); if not ok:
-   append note "only %d%% of the recorded points sit on more textured ground than a typical region
-   of this site: the features are not visible where claimed - not trusted" and trim pairs, feats
-   to 3 (run_sites' <4 branch routes it to the item, like the scale branch).
-4. Docstrings: module (third batch-side counterweight + the road-texture residual, section-7
-   backstop) and llm_model (4c finding: correct-scale wrong-translation fabrications caught here;
-   faint-feature over-refusal is deliberate). Keep the header comment one sentence (CODEMAP).
-5. Re-run /tmp/pilot_llm.py: expect tremper -> could-not-fit item with the new note, pyramid still
-   AUTO, the other three unchanged.
-6. .venv/bin/python -m pytest -q (expect 5/5 + 34/34; tests bypass llm_model by design).
-THEN (session 4e, its own): full run `AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions
-.venv/bin/python fit/batch_us.py --working` (58 candidates, 10-40 min, long timeout; re-verify the
-tunnel first; all 58 images local, all 18 sites have relief.jpg, sheets in /tmp) -> verify
-`sha256sum -c tests/golden/hand_fit_docs.sha256` (39 OK -> box 4) and the report's error bucket
-empty with counts summing to 90 (box 3) -> tick boxes 3/4/5 -> commit docs + items +
-docs/batch_us.md (the alligator-effigy item is MERGED by the upsert; its file is NOT in the
-golden). EXPECT a LOW auto-doc rate (box 3 is fit OR ready item; the human's drag is the authority,
-the report's 18/20 sample the backstop). Do NOT weaken the gate or the tests to raise the auto
-rate. For 203b (later): import run_sites/write_report; site list = region != "US" plus the 6
-region-less sites (keep the site.json["plate"]["fit"] branch of is_pre_fit, R9); report
-docs/batch_eu.md; shared SEED 20261010; the feature-presence check is US-relief-oriented (aerial
-photos are textured everywhere, so it degrades to a no-op there - acceptable, note it for 203b).
-
+Session 4d (2026-10-11, iteration 39). Step done: the two pending 4c code items are in fit/batch_us.py
+(the task's only code file; the rest of the checkout is untouched):
+1. SCALE CROSS-CHECK BUG FIX: `implied = abs(a) * k` (was `abs(float(a)) * k`): `a` from
+   plan_fit.similarity is COMPLEX (scale + rotation); float() drops the imaginary part, so for a
+   rotated fit implied = |s*cos(theta)|*k. Measured on a real hand fit (mound-bottom) rotated 60
+   deg: old 0.5243 vs true 1.0597 m/px - a 2.02x ratio that would misfire "not trusted" on a TRUE
+   answer; the fix gives exactly 1.000. NaN guard unchanged.
+2. FEATURE-PRESENCE CHECK `_feature_present(site, pts_ll, gpath)` (the 4c decision, now code;
+   after _parse_answer): grayscale of the site's own ground image (PIL "L"/255); each answer
+   ground point scored by the std of a 24 m box (R=12 px at 1 m/px; centre clamped to
+   [R, W-R-1]; inverse of _ground_lonlat through site corners + aw.to_merc); null = 400 boxes at
+   np.random.default_rng(20261011) (distinct from the report SEED 20261010); pass iff >= half the
+   points score >= the null median; ANY read failure -> (True, None) (no evidence never blocks a
+   fit). Wired into the llm_model closure after the scale cross-check, when len(pairs) >= 4: on
+   failure the note "only %d%% of the recorded points sit on more textured ground than a typical
+   region of this site: the features are not visible where claimed - not trusted" is appended and
+   pairs trimmed to 3 (the <4 branch routes the picture to the review item). Module + llm_model
+   docstrings document the check, its deliberate faint-feature over-refusal, and the known
+   residual (a fabrication anchored on strong texture - road network, field boundaries - passes
+   it and the scale check; docs/gate.md section 7's human 18/20 sample remains the backstop).
+Verified (offline): _feature_present reproduces 4c's calibration on the recorded 4c points -
+tremper 1/4 -> (False, 0.25); pyramid 3/4 -> (True, 0.75); hand-fit over-refusals serpent 0/3,
+mayburgh 1/3, little-solsbury 2/5 (deliberate strict-gate cost; the pairs still ride to the item).
+tests/test_batch_us.py 5/5 (recorded answers bypass llm_model by design) and the full suite 34/34
+in .venv.
+Pilot re-run (tunnel re-verified UP on 8080/8081; /tmp/pilot_llm.py; raw answers now
+/tmp/llm_raw_4c.txt - this run overwrote 4c's; the answers were IDENTICAL to 4c, the model is
+deterministic at this temperature):
+- tremper c_75950f29c23bf033 -> could-not-fit ITEM carrying the new note (25% of points) - the
+  FIFTH fabrication class (correct scale, wrong translation, points on structureless ground) is
+  now handled.
+- pyramid-mound n0134_1 -> AUTO DOC (gate med 24 m; the real fit, unchanged).
+- poverty-point -> honest 0 pairs -> item; serpent n0636_1 -> range-validate drops the diagonal
+  ladder to 1 pair -> item; cahokia -> scale cross-check (stated 1.639 vs implied 3.333) trims to
+  3 -> item. Exactly the expected routing, no regression.
 State of this checkout: boxes 1, 2, 6 ticked; 3, 4, 5 pending the working run. data/db/platefits/
-still exactly the 20 pre-batch docs; data/review/ has the alligator + bibracte items.
+still exactly the 20 pre-batch docs (tests/golden/hand_fit_docs.sha256 intact); data/review/ has
+the alligator-effigy + bibracte items; docs/batch_us.md does not exist yet. data/raw is a symlink
+to the shared store /home/agent/projects/ancient-works/data/raw: all 58 candidate images are
+already local (37 book pages under books/<ia>/full/, 21 commons thumbs under commons/<site>/), and
+all 18 candidate sites have web/data/sites/<id>/relief.jpg, so fitkit.ground returns the relief
+and the full run needs no fetches at all - its only network is the LLM tunnel. fitkit sheets go
+to $FITKIT_OUT (default /tmp): outside the checkout, safe for the parallel team checkouts.
+NEXT (session 4e, its own), the full run:
+1. Re-verify the tunnel (127.0.0.1:8080 and :8081 both vLLM qwen3.8-27b; the harness env has
+   LLM_URL=http://127.0.0.1:8081).
+2. Run: `AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python
+   fit/batch_us.py --working` (18 sites, 58 candidates, ~10-40 min - use a long bash timeout,
+   say 3600 s; it prints the per-site counts and writes docs/batch_us.md itself).
+3. Verify: `sha256sum -c tests/golden/hand_fit_docs.sha256` -> all 39 lines OK (20 docs + 19
+   site.json) -> tick box 4; the report's error bucket empty and the four counts sum to 90 ->
+   tick box 3.
+4. Read docs/batch_us.md (counts, seed 20261010, the 20-or-fewer sample with page URLs) -> tick
+   box 5.
+5. Commit: `git add -A && git commit -m "203a: the full US batch run - <a> automatic / <b> review
+   items / <c> already hand-fitted / <d> no picture found; all 90 US sites covered"`.
+   The alligator-effigy item file is MERGED by the upsert (201's one-item-per-site rule) and its
+   hash is deliberately NOT in the golden - do not regenerate the golden to make a failure pass.
+EXPECT A LOW AUTO-DOC RATE (box 3 is fit OR ready item; the human's drag and the report's 18/20
+sample are the authority and the backstop). Do NOT loosen the gate or the counterweights to
+raise the auto rate. For 203b (later; imports run_sites/write_report, does not rewrite them):
+site list = region != "US" plus the 6 region-less sites (they must not be skipped); keep the
+site.json["plate"]["fit"] branch of is_pre_fit (R9); report docs/batch_eu.md; shared SEED
+20261010; note for 203b: the feature-presence check is US-relief-oriented - aerial photos are
+textured everywhere, so it degrades to a no-op there (acceptable: the gate and the human sample
+remain).

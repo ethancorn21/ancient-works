@@ -306,3 +306,42 @@ requirements.txt is the known project-wide failure - unpinned hashes, driver not
 existing .venv lacks pyshp but no test path imports it, so the suite is green as-is; fixing the
 pinned build is not in 213a's Touches). Choice: set Status: done - the driver's re-check should
 find all boxes ticked and the suite green.
+
+## 2026-10-11 203a DECISION: session 4d - the two pending fit/batch_us.py fixes from 4c are in: the scale cross-check uses the complex magnitude, and the feature-presence check lands; the 5-pick pilot now routes all four fabrication classes to items and pyramid (the one real fit) stays auto
+4c's two pending items, implemented in fit/batch_us.py (the task's only code file; the checkout
+elsewhere is untouched, and the pilot writes nothing):
+1. BUG FIX: the scale cross-check was `implied = abs(float(a)) * k` but `a` from
+   plan_fit.similarity is complex (scale + rotation). numpy's float() discards the imaginary part
+   (ComplexWarning), so for a rotated fit implied = |s*cos(theta)|*k - measured on a real hand
+   fit (mound-bottom) rotated 60 deg: old 0.5243 vs true 1.0597 m/px, a 2.02x ratio that would
+   misfire "not trusted" on a TRUE answer. Now `implied = abs(a) * k` (the magnitude IS the
+   scale): the same rotated fit gives exactly ratio 1.000, no misfire. The NaN guard is unchanged.
+2. FEATURE-PRESENCE CHECK (the 4c decision, now code): new `_feature_present(site, pts_ll,
+   gpath)` after _parse_answer. Grayscale array of the site's own ground image (PIL "L" /255);
+   each answer ground point scored by the std of a 24 m box (R=12 px at 1 m/px, centre clamped
+   to [R, W-R-1], the inverse of _ground_lonlat through the site corners); null = 400 boxes at
+   np.random.default_rng(20261011) (distinct from the report SEED 20261010); pass iff >= half
+   the points score >= the null median; ANY read failure -> (True, None) (no evidence never
+   blocks; the gate and the human sample are downstream). Wired into the llm_model closure after
+   the scale cross-check, only when len(pairs) >= 4; failure appends the note "only %d%% of the
+   recorded points sit on more textured ground than a typical region of this site: the features
+   are not visible where claimed - not trusted" and trims to 3 pairs (the <4 branch routes the
+   picture to the review item). Module + llm_model docstrings document the check, its deliberate
+   faint-feature over-refusal, and the known residual (fabrications anchored on strong texture
+   - roads, field boundaries - pass it; docs/gate.md section 7's human 18/20 sample is the
+   backstop).
+3. VERIFIED (offline): _feature_present reproduces the 4c calibration on the recorded 4c points:
+   tremper 1/4 -> (False, 0.25), pyramid 3/4 -> (True, 0.75); hand-fit over-refusals serpent 0/3,
+   mayburgh 1/3, little-solsbury 2/5 (all genuinely faint - deliberate). Recorded-answer tests
+   bypass llm_model by design, so the suite is unaffected: tests/test_batch_us.py 5/5 (5.0 s),
+   full suite 34/34 in .venv (42 s).
+4. PILOT RE-RUN (tunnel re-verified UP on 8080/8081; /tmp/pilot_llm.py, raw answers now
+   /tmp/llm_raw_4c.txt - the 2nd run overwrote the 1st; the answers were identical to 4c, the
+   model is deterministic at this temperature): tremper -> could-not-fit item carrying the new
+   note (25% of points on textured ground) - the fifth class is now handled; pyramid -> AUTO
+   DOC (gate med 24 m, the real fit, unchanged); poverty-point -> 0 pairs -> item; serpent
+   n0636_1 -> range-validate drops the ladder to 1 pair -> item; cahokia -> scale cross-check
+   (1.639 vs 3.333) trims to 3 -> item. Exactly the expected routing, no regressions.
+PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitude fix (a
+complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
+exact command and the box checks).

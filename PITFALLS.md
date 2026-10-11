@@ -265,8 +265,8 @@ Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batc
       (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
       "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
 
-#### This Qwen fabricates regular patterns that pass a consistency-only gate; the batch's prompt/parse is the counterweight
-Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`), the local qwen3.8-27b via
+#### This Qwen fabricates correspondences that pass a consistency-only gate; the batch's prompt/parse/scale/texture checks are the counterweight
+Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`, `_feature_present`), the local qwen3.8-27b via
       `pipeline/llm.py`, docs/gate.md section 7
 Symptom: asked to match features between two gridded panels, the model answers with internally
       perfect but false correspondences (identity (100,100)->(100,100)..., the four corners to the
@@ -280,8 +280,15 @@ Why: a 27 B vision model that cannot confidently read a figure (e.g. a small fig
       coordinate ranges + metre coverage, a +/-50% seed-scale window, anti-pattern clauses (no
       grid-line intersections / even spacing / >=3 collinear; never pad a list) and asking for
       named features plus a stated scale; parsing drops pairs outside the labelled ranges; a
-      stated scale that disagrees >=2x with the scale of the model's own points trims the answer
-      to 3 pairs (a review item, never an automatic document).
+      stated scale that disagrees >=2x with the MAGNITUDE of the model's own points' similarity
+      trims the answer to 3 pairs (a review item, never an automatic document); and a
+      feature-presence check (`_feature_present`) trims an answer whose ground points mostly sit
+      on less textured ground than the median of a 400-point null of the site's own image. The
+      last one is needed for a fifth class the other checks all pass (4c pilot, tremper): a
+      correct-scale, wrong-translation answer whose points sit on structureless ground. The
+      checks only ever route to review; a fabrication anchored on strong texture (roads, field
+      boundaries) passes all of them - docs/gate.md section 7's human 18/20 sample is the
+      backstop for that class.
 
 ### pipeline/
 

@@ -19,7 +19,12 @@ to `run_sites`), so no test touches the model server (GOAL: what the model says 
 check, not a fact - the gate is the check, and the gate cannot see a consistent global error,
 docs/gate.md section 7; the sheet, prompt and parse in `llm_model` are built with that in mind:
 they ask the model to name its features and state the scale, and they route out-of-range or
-self-contradictory answers to review instead of to an automatic document).
+self-contradictory answers to review instead of to an automatic document; a third counterweight
+is the feature-presence check of `_feature_present`: the answer's ground points must sit on at
+least half as textured ground as a typical region of the site's own image, or the answer is
+trimmed to a review item. The check only routes to review - it never loosens the gate. It does
+not see a fabrication anchored on strong ground texture (a road network, field boundaries);
+docs/gate.md section 7's human 18/20 sample remains the backstop for that class).
 
 This batch writes ONLY the document files and the review items, directly (aw's atomic JSON
 convention). It never PUTs to the server: a PUT would wake the page-facing sync (overlays,
@@ -584,18 +589,69 @@ def _parse_answer(ans, box, gsz, site):
     return pairs, feats
 
 
+def _feature_present(site, pts_ll, gpath):
+    """The third batch-side counterweight (routing only; the gate stays frozen): a
+    feature-presence check on the site's own ground image. The 4c pilot found the fabrication
+    the other two checks all pass - a correct-scale, wrong-translation answer whose points sit
+    on structureless ground (docs/gate.md section 7): no consistency check can see it, but the
+    ground image can. Each of the answer's ground points (`pts_ll`, lon/lat) is scored by the
+    std of a 24 m box (R=12 px at the 1 m/px ground image) centred on it, and the answer
+    passes only if at least half its points score at or above the median of a 400-point null
+    sampled from the same image (fixed seed 20261011, distinct from the report's SEED 20261010).
+    Calibrated on all 20 hand fits + the pilot answers: it over-refuses only genuinely faint
+    features (serpent 0/3, mayburgh 1/3, little-solsbury 2/5) - a deliberate strict-gate cost,
+    since the pairs still ride to the review item as a lead. A fabrication anchored on strong
+    texture (roads, field boundaries) passes this check; section 7's human sample is the
+    backstop for that class. -> (ok, frac); any read failure -> (True, None): no evidence never
+    blocks a fit - the gate and the human are still downstream."""
+    R = 12  # a 24 m box at the 1 m/px ground image
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
+        import aw
+        import numpy as np
+        from PIL import Image
+        a = np.asarray(Image.open(gpath).convert("L"), dtype=np.float64) / 255.0
+        H, W = a.shape
+        (lon0, lat1), (lon1, _), (_, lat0) = site["corners"][0], site["corners"][1], site["corners"][2]
+        x0, y1 = aw.to_merc(lon0, lat1)
+        x1, y0 = aw.to_merc(lon1, lat0)
+        def boxstd(cx, cy):
+            cx = min(max(cx, R), W - R - 1)
+            cy = min(max(cy, R), H - R - 1)
+            b = a[max(0, cy - R):cy + R + 1, max(0, cx - R):cx + R + 1]
+            return float(b.std())
+        rng = np.random.default_rng(20261011)  # the null's seed: distinct from the report's SEED
+        null = np.array([boxstd(int(rng.integers(0, W)), int(rng.integers(0, H)))
+                         for _ in range(400)])
+        med = float(np.median(null))
+        ps = []
+        for (lon, lat) in pts_ll:  # the inverse of _ground_lonlat through the site corners
+            x, y = aw.to_merc(lon, lat)
+            ps.append(boxstd(int((x - x0) / (x1 - x0) * W), int((y1 - y) / (y1 - y0) * H)))
+        if not ps:
+            return True, None
+        frac = float(sum(1 for s in ps if s >= med) / len(ps))
+        return frac >= 0.5, frac
+    except Exception:
+        return True, None  # no evidence never blocks a fit
+
+
 def llm_model(root):
     """The working-phase model: each candidate's fit sheet (its crop next to the site's ground,
     both gridded bold, _sheet) to the local vision model (pipeline/llm.py). The model reads
     the grid labels, names the features it matched, states the panel's scale, and records the
-    pairs in the row's size frame. The pilot showed this model fabricates internally perfect
-    regular patterns (identity maps, corner-to-corner, diagonal ladders) that a
+    pairs in the row's size frame. The pilots (4a, 4c) showed this model fabricates internally
+    perfect regular patterns (identity maps, corner-to-corner, diagonal ladders) and, worst of
+    all, a correct-scale wrong-translation answer on structureless ground that a
     consistency-only gate accepts, docs/gate.md section 7 - so the answer is checked before
-    the gate is ever asked: out-of-range points are dropped (_parse_answer), and a stated
-    scale that disagrees by 2x or more with the scale of the model's own points trims the
-    answer to 3 pairs, which routes the picture to the review item instead of an automatic
-    document. Requires the picture locally (fetched earlier in the working phase) and the
-    AI-box tunnel; a missing picture or a failed call is reported in the item, never raised."""
+    the gate is ever asked: out-of-range points are dropped (_parse_answer); a stated scale
+    that disagrees by 2x or more with the magnitude of its own points' similarity (the scale
+    cross-check), and an answer whose ground points mostly sit on less textured ground than a
+    typical region of the site (_feature_present), each trim it to 3 pairs, which routes the
+    picture to the review item instead of an automatic document (over-refusing genuinely faint
+    features is the deliberate cost of a strict gate: the pairs still ride to the item as a
+    lead). Requires the picture locally (fetched earlier in the working phase) and the AI-box
+    tunnel; a missing picture or a failed call is reported in the item, never raised."""
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
     import fitkit
@@ -627,11 +683,20 @@ def llm_model(root):
         if (len(pairs) >= 3 and isinstance(stated, (int, float))
                 and not isinstance(stated, bool) and stated > 0):
             a, _, _, k = plan_fit.similarity(pairs[:min(8, len(pairs))])
-            implied = abs(float(a)) * k
+            implied = abs(a) * k  # a is complex (scale + rotation): its magnitude is the scale
             if implied == implied and implied > 0 and max(implied / stated, stated / implied) > 2.0:
                 note = ((note + "; ") if note else "") + (
                     "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted"
                     % (stated, implied))
+                pairs, feats = pairs[:3], feats[:3]  # <4: run_sites routes it to the item
+        if len(pairs) >= 4:
+            ok, frac = _feature_present(site, [(p[2], p[3]) for p in pairs],
+                                        fitkit.ground(site["id"]))
+            if not ok:
+                note = ((note + "; ") if note else "") + (
+                    "only %d%% of the recorded points sit on more textured ground than a typical "
+                    "region of this site: the features are not visible where claimed - not trusted"
+                    % round(frac * 100))
                 pairs, feats = pairs[:3], feats[:3]  # <4: run_sites routes it to the item
         return {"pairs": pairs, "note": note}
 
