@@ -39,17 +39,15 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 76 (2026-10-11, agent a) - NINTH early bring-back; main UNMOVED since iter 75
-(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/81, the +3 over
-iter 75 being driver bookkeeping on my branch only). All 206-owned work re-verified green and
-byte-identical to iters 66-75; the 4 suite reds unchanged in cause (211 x3, 218 x1; the gate
-one still "found 22"). Deps 211+218 still open -> Status stays open. CORRECTION: hand-overs
-66-75 wrongly said `data/catalog/extras_mackenzie.jsonl` was "intentionally absent" - it
-EXISTS (tracked since the driver commit ab899eb after iter 65, one row, aerial_ok), is
-required by `check()`, and is documented in docs/lead_mackenzie.md L195-196; the corrected
-artifact list below carries it with its md5. Re-run the same battery at the next bring-back;
-when 211+218 have merged, expect 0 reds (or reds no longer touching this task's files) and
-set done.**
+**Iteration 77 (2026-10-11, agent a) - TENTH early bring-back; main UNMOVED since iter 75
+(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/84, all +84
+commits driver bookkeeping on my branch - zero tree change since iter 76's stop). All
+206-owned work re-verified green and byte-identical to iters 66-76 (all 8 md5s stable);
+the 4 suite reds unchanged in cause (211 x3, 218 x1; gate still "found 22": 94 auto +
+22 non-auto in the shared store). Deps 211+218 still open -> Status stays open. No code
+or data change this session (none available: the only remaining work is owned by 211/218).
+Re-run the same battery at the next bring-back; when 211+218 have merged, expect 0 reds
+(or reds no longer touching this task's files) and set done.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
@@ -57,19 +55,20 @@ STATE at stop (all re-run this session, offline):
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
   residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
 - `tests/test_src_mackenzie.py`: 4/4 green (1.55 s, socket-boom fixture, no network).
-- All 8 committed artifacts byte-identical to iters 66-75: src_mackenzie 77a47defd606a8599e3af9e28b74894f,
+- All 8 committed artifacts byte-identical to iters 66-76 (re-checked this session): src_mackenzie 77a47defd606a8599e3af9e28b74894f,
   files_mackenzie f637c4bebbd98ebb059652936e06646d, classified_mackenzie 2ed56b79bbd356aced13230978e8536f,
   extras_mackenzie a7060e1292d2607c657a43200dd20b94 (new in this list - see the correction),
   shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2, lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4,
   test_src_mackenzie ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 60 passed, 4 failed (63.22 s) - the same 4 as iters 74-75, causes re-verified live:
+- Full suite: 60 passed, 4 failed (62.38 s) - the same 4 as iters 74-76, causes re-verified live:
   1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
      `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
   2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not skipped;
      the live EU list matches docs/batch_eu.md "Sites run").
   3. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218's):
      `gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 22` - 20 registered
-     hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc. 218's box 4
+     hand-fits + my shotwick doc + the human's maiden-castle-c_c20ff6b1f16d173d doc (store re-counted
+     this session: 116 docs, 94 with auto:true, 22 without). 218's box 4
      re-registration must absorb BOTH new docs; 218 still open, Depends on 001 only, waiting
      for an agent.
   4. `test_serve::test_platefits_docs_match_sites` (211's): `assert 'shotwick-castle-q7502621' in
