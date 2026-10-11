@@ -34,6 +34,7 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+import catalog  # noqa: E402  stdlib-only; the site-id slug rule lives in one place (catalog.slug, the sources.py rule)
 
 EXTRAS = os.path.join(ROOT, "data", "catalog", "extras_van_deventer.jsonl")
 FILES = os.path.join(ROOT, "data", "commons", "files_van_deventer.jsonl")
@@ -495,8 +496,10 @@ TOWNS = {
     # not in the built catalog. file= (iter 52): the 2261x1878 hand-coloured drawing on laid paper (page date
     # 1550 = the drawing's, desc 'Lutzenburg'): the label 'Lutzenburg' + a blank shield, the Dutch compass
     # Noorde/West/Oost/Zuydt, the Alzette with the Bock rock and the old castle, the new bastioned fort to the
-    # west. caption="Lutzenburg" is REQUIRED: the label 'Luxembourg' is not in the title/desc (the file prints
-    # the historical spelling) - without it the caption check fails. Not staged: 'Lutzenburg.jpg' (1600x1200,
+    # west. The chain walk (iter 55) HOLDS (CHAINS: Old maps of Luxembourg City -> Maps of Luxembourg City ->
+    # Geography of Luxembourg City), so the row is the category kind; caption="Lutzenburg" stays as the
+    # fallback only (the label 'Luxembourg' is not in the title/desc - the file prints the historical
+    # spelling, without it the caption check would fail). Not staged: 'Lutzenburg.jpg' (1600x1200,
     # uploaded 2005, desc 'published first 1609'), 'Lutzenburg 1581 Sanderus.jpg' (1909x1599, the 1581 Sanderus
     # print) and 'Couvent Knödler 1550.jpg' (644x468, a detail crop)
 }
@@ -508,6 +511,60 @@ TOWNS = {
 # never type or edit one by hand. A town absent from this table failed its walk (depth cap 6 or the fetch
 # cap) and rides the caption route; the per-town reasons are in docs/lead_van_deventer.md.
 CHAINS = {
+    "Aardenburg": ["Old maps of Aardenburg", "Maps of Aardenburg", "Aardenburg"],
+    "Alkmaar": ["Old maps of Alkmaar", "History of Alkmaar", "Alkmaar"],
+    "Amsterdam": ["16th-century maps of Amsterdam", "Old maps of Amsterdam", "History of Amsterdam", "Amsterdam"],
+    "Enkhuizen": ["Old maps of Enkhuizen", "Maps of Enkhuizen", "Geography of Enkhuizen", "Enkhuizen"],
+    "Goes": ["Old maps of Goes", "History of Goes", "Goes"],
+    "Groningen": ["Old maps of Groningen (city)", "History of Groningen (city)", "Groningen (city)"],
+    "Haarlem": ["Old maps of Haarlem", "History of Haarlem", "Haarlem"],
+    "Reimerswaal": ["Old maps of Reimerswaal", "History of Reimerswaal", "Reimerswaal"],
+    "Rotterdam": ["16th-century maps of Rotterdam", "Old maps of Rotterdam", "History of Rotterdam", "Rotterdam"],
+    "Sluis": ["Old maps of Sluis", "History of Sluis", "Sluis"],
+    "The Hague": ["Old maps of The Hague", "History of The Hague", "The Hague"],
+    "Utrecht": ["Old maps of Utrecht (city)", "History of Utrecht (city)", "Utrecht (city)"],
+    "Ath": ["Maps of Ath city walls", "City walls of Ath", "Ath"],
+    "Braine-le-Comte": ["Old maps of Braine-le-Comte", "Maps of Braine-le-Comte", "Braine-le-Comte"],
+    "Bruges": ["16th-century maps of Bruges", "Old maps of Bruges", "History of Bruges", "Bruges"],
+    "Chimay": ["Old maps of Chimay", "History of Chimay", "Chimay"],
+    "Chi\u00e8vres": ["Old maps of Chièvres", "Maps of Chièvres", "Chièvres"],
+    "Enghien": ["Old maps of Enghien", "Maps of Enghien", "Enghien"],
+    "Ghent": ["16th-century maps of Ghent", "Old maps of Ghent", "Historical images of Ghent", "Ghent"],
+    "Halle": ["Old maps of Halle", "Maps of Halle (Belgium)", "Halle (Belgium)"],
+    "Kortrijk": ["Maps of Kortrijk city walls", "City walls of Kortrijk", "Kortrijk"],
+    "Lessines": ["Old maps of Lessines", "Maps of Lessines", "Lessines"],
+    "Le R\u0153ulx": ["Old maps of Le Rœulx", "Maps of Le Rœulx", "Le Roeulx"],
+    "Leuze": ["Old maps of Leuze", "Maps of Leuze-en-Hainaut", "Geography of Leuze-en-Hainaut", "Leuze-en-Hainaut"],
+    "Mechelen": ["Old maps of Mechelen", "History of Mechelen", "Mechelen"],
+    "Mons": ["Maps of Mons city walls (Hainaut)", "City walls of Mons (Hainaut)", "Mons (Hainaut)"],
+    "Ostend": ["Old maps of Ostend", "Maps of Ostend", "Ostend"],
+    "Saint-Ghislain": ["Old maps of Saint-Ghislain", "Maps of Saint-Ghislain", "Saint-Ghislain"],
+    "Soignies": ["Old maps of Soignies", "Maps of Soignies", "Geography of Soignies", "Soignies"],
+    "Tournai": ["Old maps of Tournai", "History of Tournai", "Tournai"],
+    "Beaumont": ["Old maps of Beaumont (Hainaut)", "Maps of Beaumont (Hainaut)", "Beaumont (Hainaut)"],
+    "Oudenaarde": ["Old maps of Oudenaarde", "Maps of Oudenaarde", "Oudenaarde"],
+    "Aire-sur-la-Lys": ["Old maps of Aire-sur-la-Lys", "Aire-sur-la-Lys"],
+    "Arras": ["Old maps of Arras", "Maps of Arras", "Arras"],
+    "Avesnes-sur-Helpe": ["Maps of Avesnes-sur-Helpe city walls", "City walls of Avesnes-sur-Helpe", "Avesnes-sur-Helpe"],
+    "Bapaume": ["Maps of Bapaume city walls", "City walls of Bapaume", "Bapaume"],
+    "Bavay": ["Old maps of Bavay", "History of Bavay", "Bavay"],
+    "Bouchain": ["Old maps of Bouchain", "Bouchain"],
+    "B\u00e9thune": ["Old maps of Béthune", "Maps of Béthune", "Béthune"],
+    "Cambrai": ["Maps of Cambrai city walls (general)", "Maps of Cambrai city walls", "City walls of Cambrai", "Cambrai"],
+    "Cond\u00e9-sur-l'Escaut": ["Old maps of Condé-sur-l'Escaut", "Maps of Condé-sur-l'Escaut", "Condé-sur-l'Escaut"],
+    "Douai": ["Maps of Douai city walls", "City walls of Douai", "Douai"],
+    "Gravelines": ["Maps of Gravelines city wall", "City walls of Gravelines", "Gravelines"],
+    "Hesdin": ["Old maps of Hesdin", "History of Hesdin", "Hesdin"],
+    "Landrecies": ["Old maps of Landrecies", "Landrecies"],
+    "Le Cateau-Cambr\u00e9sis": ["Maps of Le Cateau-Cambrésis city wals", "City walls of Le Cateau-Cambrésis", "Le Cateau-Cambrésis"],
+    "Le Quesnoy": ["Old maps of Le Quesnoy", "Le Quesnoy"],
+    "Lille": ["Old maps of Lille", "History of Lille", "Lille"],
+    "Maubeuge": ["Maps of Maubeuge city walls", "City walls of Maubeuge", "Maubeuge"],
+    "Saint-Omer": ["Old maps of Saint-Omer", "Maps of Saint-Omer", "Saint-Omer"],
+    "Th\u00e9rouanne": ["Old maps of Thérouanne", "Maps of Thérouanne", "Thérouanne"],
+    "Valenciennes": ["Maps of Valenciennes city walls", "City walls of Valenciennes", "Valenciennes"],
+    "Vieil-Hesdin": ["City walls of Vieil-Hesdin", "Vieil-Hesdin"],
+    "Luxembourg City": ["Old maps of Luxembourg City", "Maps of Luxembourg City", "Geography of Luxembourg City", "Luxembourg City"],
 }
 
 
@@ -771,7 +828,7 @@ def cat_chain(town):
 # ---------------------------------------------------------------- staging (this task's own files only)
 
 def _site_row(town, t):
-    sid = re.sub(r"[^a-z0-9]+", "-", town.lower()).strip("-") + "-" + t["qid"].lower()
+    sid = catalog.slug(town) + "-" + t["qid"].lower()  # the sources.py id rule: NFKD drops the accents (Chievres, Le Roeulx)
     row = {"id": sid, "qid": t["qid"], "name": town, "lon": t["lon"], "lat": t["lat"],
            "region": t["region"], "kind": "town", "aerial_ok": True, "source": "fit/src_van_deventer.py"}
     if t.get("place"):

@@ -123,7 +123,10 @@ every P625 sits within 0.01 km of the recorded site point** (the site point is t
 check found no offset from the old-town centre, unlike the NL Gouda 800 m case). The enwiki column is the
 staged `wikipedia` field. Four items carry a disambiguated P373 ('Brussels (municipality)', 'Halle
 (Belgium)', 'Mons (Hainaut)', 'Leuze-en-Hainaut') - the category route's target is that exact string, so the
-chain walk must reach it (the --chain step of each of these four towns is the watch item). Saint-Ghislain's
+chain walk must reach it. The iter-55 walk (transcript /tmp/vd_chains_iter55.txt) settled the watch item:
+Halle, Mons and Leuze all hold their chain to the disambiguated P373; Brussels' walk hit the 60-fetch cap
+(the map tree uses the plain 'Brussels' name, not the disambiguated one) and rides the caption route.
+Saint-Ghislain's
 item (Q668950) has no en label on Wikidata (the re-check prints an empty label, not a mismatch: the search
 API's label and the enwiki article 'Saint-Ghislain' both confirm it). Le Rœulx (Q668861) was discovered in the
 FR batch (iter 49) and moved here from the prep's France list: its verified item sits in Hainaut, Belgium
@@ -502,8 +505,10 @@ eye-checked from 1280 px thumbs + full-size crops (/tmp/vd_fr_thumbs/) before be
 - **Luxembourg City** - staged `Luxemburg 1550 65 v Deventer.jpg` (2261x1878, page date 1550 = the drawing's,
   desc 'Lutzenburg'): the hand-coloured drawing on laid paper (label 'Lutzenburg' + a blank shield, the
   Dutch compass Noorde/West/Oost/Zuydt, the Alzette with the Bock rock and the old castle, the new bastioned
-  fort to the west). The caption route is REQUIRED: the label 'Luxembourg' is not in the title or the desc
-  (the file prints the historical spelling), so the row carries `caption="Lutzenburg"`. Not staged:
+  fort to the west). Its chain walk HOLDS at 4 hops (Old maps of Luxembourg City -> Maps of Luxembourg City
+  -> Geography of Luxembourg City -> P373 'Luxembourg City'), so the row takes the category route; the
+  label 'Luxembourg' is not in the title or the desc (the file prints the historical spelling), so
+  `caption="Lutzenburg"` stays in the table as the fallback only. Not staged:
   `Lutzenburg.jpg` (1600x1200, uploaded 2005, desc 'published first 1609') - not the drawing; `Lutzenburg
   1581 Sanderus.jpg` (1909x1599, the 1581 Sanderus print) and `Couvent Knödler 1550.jpg` (644x468, a detail
   crop). The row's region is a NEW lowercase value `luxembourg`: `build_catalog`'s REGION_NAME has no key
@@ -555,3 +560,7 @@ Luxembourg: 1 of 1 staged. So 56 of the 60 stageable town categories are staged 
 NL 13 + BE 21 + FR 21 + LU 1) - box 5 met: >= 50 staged, and every non-staged town is accounted for in the
 sections above (a documented drop beats a guessed row). Box 2: every QID is verified (Beaumont settled by
 its atlas plate as the Hainaut city - none pending; every name-search trap is named in the sections above).
+Chains (iter 55, the 56-town walk): 54 of 56 hold the P373 category chain (recorded in the module's CHAINS
+table, every path's last hop is the town's recorded p373); Brussels and Valkenburg hit the 60-fetch cap and
+ride the caption route (their file titles name the town). Staging ran iter 56: 56 sites + 56 pictures +
+56 classified rows, `--check` 56/56 PASS (every year_of in the 1545-1565 window).
