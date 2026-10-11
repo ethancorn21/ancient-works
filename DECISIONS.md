@@ -250,3 +250,19 @@ holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 cen
 from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
 Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
 edited; add them next session.)
+
+## 2026-10-11 001 DECISION: owner ruled (a) - accept the gate as measured; box 2 re-worded to the registered contract; task done
+Request 001 (.agent/asks/001.md) answered 2026-10-11: "Use your recommendation" = option (a).
+Applied this session: box 2 of tasks/001-fit-gate.md re-worded from "at most 1 in 20" to the
+registered contract ("at most 1 in 20, or the measured numbers are recorded in docs/gate.md
+section 9 and the review queue absorbs the difference") and ticked; all four boxes now
+ticked; Status: done; the `## Proposed changes` section marked resolved; PLAN.md Deviations
+bullet updated to the applied ruling. No code, docs/gate.md or tests changed - the re-worded
+box references the existing frozen section 9 record (measured: 4 of 32 wrong placements
+accepted, all 15% scale; 7 of 8 held-out hand fits accepted - the one refusal, cadbury-castle,
+is a genuinely radial fit that goes to the review queue per GOAL point 1; 0 of 24
+moved/rotated/cross-site placements accepted). No task 801 filed: (b) - a tighter rule on
+fresh documents - was not chosen; if it is ever wanted it must be a fresh top-level task
+re-derived on fresh hand-fit documents with a fresh seed, adding only a NEW numbered section
+(>= 10) to docs/gate.md. Post-merge test run: 12 passed, 8.9 s (iteration 9: 10; the two extra
+tests come from other tasks' work merged into main).
