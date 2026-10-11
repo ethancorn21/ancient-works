@@ -519,6 +519,19 @@ Why: the batch writes its accepted fits into that same directory (`write_doc`), 
       that did gain the field drops the count below 20 and fails loudly (correct: the reference
       was changed).
 
+#### The one-shot gate registration is frozen at exactly 20 named hand-fit docs - a 21st hand doc (a post-registration hand fit) trips gate_heldout's "expected 20" precondition; the fix is owned by task 218, don't work around it
+Where: `tools/gate_heldout.py` (`partition`, `REGISTERED`), `data/db/platefits/`, `tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees`, docs/gate.md sections 1 and 3
+Symptom: "gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found 21; the
+      registered partition is void, see docs/gate.md section 1" - appears on the full suite once a
+      hand-fit doc added after the registration (206's shotwick-castle-q7502621; then 207a/b/c's
+      Roman hand fits) lands in the directory
+Why: 802 excluded the auto docs from the count, but the precondition `len(names) != 20` still
+      counts every hand doc: the registration names the 20, it does not say "whatever is in the
+      directory". When you hit this (a branch carrying a post-registration hand doc), the failing
+      test is owned by 218 - do not rename or delete the hand doc, do not touch the REGISTERED
+      list, tests/golden/gate_heldout.txt or docs/gate.md, and do not loosen the test; add 218 to
+      your own `Depends on:` and wait for it to merge (the driver resyncs the branch).
+
 #### This Qwen fabricates correspondences that pass a consistency-only gate; the batch's prompt/parse/scale/texture checks are the counterweight
 Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`, `_feature_present`), the local qwen3.8-27b via
       `pipeline/llm.py`, docs/gate.md section 7
