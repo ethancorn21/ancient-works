@@ -226,10 +226,13 @@ SITES = {
         place="North Yorkshire", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Temple_Newsam",
         note="Britannia Illustrata plate 42, 1707-09 ('the Seat of the Rt. Hon. ble Arthur Lord Ingram Viscount "
-             "Irwin'); the house survives (National Trust). The Commons description is Hepworth boilerplate with "
-             "no place name and the file's MediaInfo item carries no P180 from this VM (checked 2026-10-13, also "
-             "on a file with a rich item), so the staged row's desc is enriched with the plate's own printed title "
-             "(verified against the British Museum M,21.42 and five other sources); the point is the house's P625"),
+             "Irwin'); the house survives (National Trust). The Commons description is the Hepworth boilerplate "
+             "followed by the plate's own title ('Showing Temple Newsam. The engraving is entitled: ...') - the "
+             "566 px 'Temple Newsam Kip.jpg' impression has an empty desc, this 3576 px file does not - and it "
+             "agrees with the title verified from the British Museum M,21.42 and five other sources in all "
+             "identifying particulars (checked 2026-10-13). The file's MediaInfo item carries no P180 from this "
+             "VM (checked 2026-10-13, also on a file with a rich item), so the staged row ties by caption (the "
+             "stored desc names the house); the point is the house's P625"),
     "hutton-hall-q5951100": dict(qid="Q5951100", name="Hutton Hall", lon=-2.839, lat=54.714,
         place="Cumbria", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Hutton_in_the_Forest",
@@ -256,10 +259,13 @@ SITES = {
     "somerset-house-q1344889": dict(qid="Q1344889", name="Somerset House", lon=-0.117778, lat=51.511111,
         place="City of Westminster", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Somerset_House",
-        note="1711-31 plate (Yale B1977.14.18272); the QID is the 1964 LSE rebuilding on the 1711-31 original's "
-             "site (part of the original Strand-side complex survives); Q110073896 is the item for the KIP "
-             "ENGRAVING (not usable) and Q17542634 is a different Somerset House (Whitehaven) - the name-search "
-             "trap check shows what the live caption route would resolve; the point is the site's P625"),
+        note="1707 Britannia Illustrata plate (Yale B1977.14.18272; the Yale record's '1711-31' is the plate's "
+             "later state - BM bmimages 00067960001 'Britannia Illustrata, print, London. 1707, this state later' "
+             "and DCMS GAC 659 'published 1707' are the two independent sources); the QID is the 1964 LSE "
+             "rebuilding on the original's site (part of the original Strand-side complex survives); Q110073896 "
+             "is the item for the KIP ENGRAVING (not usable) and Q17542634 is a different Somerset House "
+             "(Whitehaven) - the name-search trap check shows what the live caption route would resolve; the "
+             "point is the site's P625"),
     "hampton-court-palace-q205666": dict(qid="Q205666", name="Hampton Court Palace", lon=-0.337499, lat=51.4034,
         place="Kingston upon Thames", region="england", kind="garden",
         wikipedia="https://en.wikipedia.org/wiki/Hampton_Court_Palace",
