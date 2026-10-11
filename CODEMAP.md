@@ -121,7 +121,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/site_done.py` (253 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L211-253.
 
 ## web/
-- `web/index.html` (1707 lines) - (no header comment - add one)
+- `web/index.html` (1709 lines) - (no header comment - add one)
 - `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
