@@ -1017,11 +1017,12 @@ def golden(path=None):
     picks = []
     for kind in ("category", "caption_coords"):
         picks += [t for t in TOWNS if (row_of.get(t) or {}).get("evidence", {}).get("kind") == kind][:2]
+    picked_titles = {TOWNS[t]["file"] for t in picks}
     out = {"count": {"extras": len(sites), "files": len(files), "classified": len(cls)},
-           "extras": _norm([s for s in sites if any(s["id"] == r.get("site") for r in files
-                                                   and r.get("title") in (TOWNS.get(t, {}).get("file") for t in picks))]),
-           "files": _norm([r for r in files if any(r.get("title") == TOWNS[t].get("file") for t in picks)]),
-           "classified": _norm([c for c in cls if any(c.get("title") == TOWNS[t].get("file") for t in picks)])}
+           "extras": _norm([s for s in sites if any(r.get("site") == s["id"] and r.get("title") in picked_titles
+                                                   for r in files)]),
+           "files": _norm([r for r in files if r.get("title") in picked_titles]),
+           "classified": _norm([c for c in cls if c.get("title") in picked_titles])}
     with open(p, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1, sort_keys=True)
         f.write("\n")

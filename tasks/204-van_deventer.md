@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 204: Van Deventer - the remaining town plans (c. 1550s)
 Depends on: 200
 Touches: fit/src_van_deventer.py, data/catalog/extras_van_deventer.jsonl, data/commons/files_van_deventer.jsonl, data/commons/classified_van_deventer.jsonl, docs/lead_van_deventer.md, tests/test_src_van_deventer.py
@@ -13,26 +13,26 @@ and stage the catalog entry and the picture rows in this task's own staging file
 consolidates the staging into the canonical files and builds the sites.
 
 ## Acceptance criteria
-- [ ] Verified before use (docs/lead_van_deventer.md): the Commons category exists and its
+- [x] Verified before use (docs/lead_van_deventer.md): the Commons category exists and its
       town list is recorded; every staged picture is a Van Deventer plan (the drawing's date
       c. 1545-1565 is recorded on the row - where Commons only has an upload date, the known
       drawing date is used and noted); unusable files (photos, modern reprints, too small) are
       listed with the reason, not staged.
-- [ ] The hand-checked file -> QID table lives in fit/src_van_deventer.py (the sources.py
+- [x] The hand-checked file -> QID table lives in fit/src_van_deventer.py (the sources.py
       pattern): every QID verified against its label and coordinates, with the town-centre
       lon/lat recorded on the row, not just the municipality point (Gouda misses by up to
       800 m). Towns whose QID cannot be verified are listed in docs/lead_van_deventer.md with
       the reason.
-- [ ] Staged rows: extras_van_deventer.jsonl (one entry per new town: id, name, place,
+- [x] Staged rows: extras_van_deventer.jsonl (one entry per new town: id, name, place,
       lon/lat of the old town, region, kind "town", QID, wikipedia) and
       files_van_deventer.jsonl (one row per staged picture, in the files.jsonl shape, with the
       200 evidence field - P373 category / P180 / caption+coords - and a classified row "plan"
       by hand). fit/evidence.py check passes offline on every staged row.
-- [ ] No duplicate sites: a town whose QID is already in the catalog gets its picture row for
+- [x] No duplicate sites: a town whose QID is already in the catalog gets its picture row for
       that existing site id, no new catalog entry.
-- [ ] At least 50 of the ~64 towns are staged, or docs/lead_van_deventer.md accounts for each
+- [x] At least 50 of the ~64 towns are staged, or docs/lead_van_deventer.md accounts for each
       missing one with a verified reason (a documented drop beats a guessed row).
-- [ ] Test (no network): the staged files join (every file row names a staged or existing
+- [x] Test (no network): the staged files join (every file row names a staged or existing
       site; every new catalog entry has at least one picture) and the evidence check passes;
       a golden sample of rows.
 
@@ -47,69 +47,54 @@ consolidates the staging into the canonical files and builds the sites.
   files exist.
 
 ## Hand-over
-(2026-10-11, iteration 54 - **LEAD DOC FR/LU side WRITTEN (on disk, UNCOMMITTED at the context limit - the
-harness saves it; verify + commit first thing next session); TOWNS recording complete (51962c2); next
-session = the one long run: --chain / stage / --check / tests / --golden**.)
+(2026-10-11, iteration 56 - **ALL WORK DONE AND VERIFIED this session; the only remaining step is to re-verify
+offline and commit this file as done**.)
 
-**State:**
-- fit/src_van_deventer.py: TOWNS = 66 towns, 56 stageable (NL 13 + BE 21 + FR 21 + LU 1) -> box 5 MET; box 2
-  MET (every QID verified, Beaumont settled as Q95100 Hainaut, none pending). NO entry has a "chain" key yet
-  (all 56 walks pending). No date= anywhere in the FR/LU batch (page dates 1545/1550 are the drawing's);
-  caption= only on Luxembourg City ("Lutzenburg").
-- docs/lead_van_deventer.md: COMPLETE (this session finished the FR/LU side): country lists (BE 24, FR 22),
-  the three QID sections (tables + traps; Beaumont settled everywhere), per-town sections (NL 16 / BE 24 /
-  FR 22 / LU 1) each with the staged file + size + date and every not-staged file with its reason, the
-  collection section (BNE/NA/RCE/Atlas), Summary (56 of 60 staged; boxes 5 and 2 met).
-- The 3 staging jsonl NOT yet created (stage runs next session); tests/test_src_van_deventer.py and
-  tests/golden/src_van_deventer_sample.json not yet written.
+**State (all on disk; commit 88cf39d + harness-saved uncommitted changes below):**
+- fit/src_van_deventer.py: CHAINS table FILLED with the 54 walked chains (every via[-1] == the town's p373,
+  eyeball-verified from transcript /tmp/vd_chains_iter55.txt, 54/56 held - the walk finished during this
+  session). Brussels and Valkenburg hit the 60-fetch cap -> caption route (their file titles name the town).
+  Luxembourg City HOLDS at 4 hops (Old maps of Luxembourg City -> Maps of Luxembourg City -> Geography of
+  Luxembourg City) -> its row is the category kind; the earlier "caption REQUIRED" note is superseded in
+  the module comment and the lead doc. `_site_row` now uses the shared `catalog.slug` rule (the sources.py
+  id rule, NFKD - on this machine compatibility decompositions are NOT applied, so Le Rœulx -> le-rulx;
+  PITFALLS filed; the first stage run's double-hyphen accent ids were deleted and re-staged). The `golden()`
+  operator-precedence bug (`for r in files and ...` -> UnboundLocalError) fixed via a picked_titles set.
+- Staged (this task's own files, recreated after the slug fix): data/catalog/extras_van_deventer.jsonl (56),
+  data/commons/files_van_deventer.jsonl (56 rows, the 200 evidence field: 54 category + 2 caption_coords),
+  data/commons/classified_van_deventer.jsonl (56 "plan" by hand). `--check`: 56/56 PASS offline, exit 0. Every
+  year_of in 1545-1565 (Hesdin row = 1545, the min of its page note). No staged QID collides with the
+  catalog (no duplicate sites); the six done towns absent.
+- tests/test_src_van_deventer.py: 4 tests (offline join+evidence check via check_staged(); table/staged-row
+  integrity incl. the 1545-1565 year window, no QID collision, done towns absent, 54/2 evidence split;
+  negative controls - a hand-typed chain with a wrong last hop and a ~52 km caption resolution, both FAIL -
+  via fit/evidence.py; golden sample pin) + tests/golden/src_van_deventer_sample.json (written by --golden).
+  no_network socket-blocking fixture throughout.
+- docs/lead_van_deventer.md: COMPLETE (BE disambiguated-P373 watch item settled, Luxembourg City -> category
+  route, Summary gains the chain/staging lines).
+- PITFALLS.md: 3 entries added this session (machine NFKD compatibility-decomposition gap; the generator
+  `for r in files and cond` precedence trap; append-only stage() idempotent only on (site, title)) -
+  UNCOMMITTED (harness-saved; the driver syncs it - do not lose them).
 
-**This session (54):** finished docs/lead_van_deventer.md (7 edit blocks, every oldText sed/grep-extracted -
-the read tool is not byte-faithful for fit/src_van_deventer.py, PITFALLS; all 7 applied first try). (a) FR/LU
-QID section: Beaumont bullet -> settled (Q95100, region flip, re-verify transcript
-/tmp/vd_verify_beaumont_iter53.txt, the Q128282 Texas trap 8035 km); 'None of the QIDs verified here' gains
-Beaumont; the 23-row note points to the BE table; FR-traps Beaumont bullet -> settled. (b) the pending stub
--> '### France (22 categories: 21 staged, 1 done; ...)' (one bullet per town in doc order: staged file +
-size + date, every not-staged file with its reason - from the TOWNS comments, cross-checked against
-/tmp/vd_files_fr_iter50.txt) + '### Luxembourg (1 category: 1 staged; ...)' (caption route REQUIRED; the 3
-drops; region 'luxembourg' a NEW value, REGION_NAME display fallback). (c) BNE bullet: all 22 FR towns
-(Mons is BE) + 18 of the 22 BE towns (+ Le Rœulx + Beaumont), double-plate lines settled (Aire keeps the
-spread, Thérouanne its 'Terwan' row; Hesdin keeps the double sheet, Vieil-Hesdin its scan; year_of takes
-the min, 1545). (d) Summary: 56 of 60 staged, boxes 5 + 2 met. PITFALLS filed: (0) the read tool
-(non-byte-faithful for that .py file) and (1) aw.UA is a DICT (extended the 403 entry). DECISIONS.md entry
-appended. Verified: module parse (66, 56); `.venv/bin/python fit/src_van_deventer.py --check` exit 0 (staging
-files absent - stage runs later); no 'pending' left in the doc except the summary's 'none pending'.
-DECISIONS.md entry appended this session; the lead doc + PITFALLS changes were still UNCOMMITTED when the
-context limit hit (the harness saves the working tree - see next step 0).
+**Tests when last run:** `.venv/bin/python -m pytest tests/ -q` -> **50 passed in 55.8 s** (full suite green,
+including the 4 new tests). `.venv/bin/python fit/src_van_deventer.py --check` -> 56/56 PASS, exit 0.
 
-**EXACT NEXT STEP (one long session, all under .venv; network = live Wikimedia walks only):**
-0. Verify the harness-saved uncommitted edits are on disk (docs/lead_van_deventer.md FR/LU side + the 2
-   PITFALLS entries) and commit them: `git add docs/lead_van_deventer.md PITFALLS.md && git commit -m
-   "204: lead doc FR/LU side complete - per-town picks + Luxembourg caption route; read-tool/aw.UA
-   pitfalls filed"` (if the harness already committed them, skip).
-1. `--chain` per staged town (all 56 - none has a "chain" yet; the walk IS the verification - PITFALLS:
-   check_category only re-verifies the chain's SHAPE; watch items: the four BE towns with disambiguated
-   P373 - Brussels (municipality), Halle (Belgium), Mons (Hainaut), Leuze-en-Hainaut - and the 21 FR towns
-   whose P373 is the plain town name, the BNE atlas parent chain must reach it). Record each walked chain in
-   the TOWNS entry as "chain"; a failed walk -> the caption route (Luxembourg City already caption) or a
-   documented drop.
-2. `stage` (NOT --dry): writes data/catalog/extras_van_deventer.jsonl (56 entries: id, name, place,
-   lon/lat, region, kind "town", QID, wikipedia), data/commons/files_van_deventer.jsonl (56 rows with the
-   200 evidence fields) and data/commons/classified_van_deventer.jsonl (56 "plan" rows). Expect 56/56; the
-   six done towns must be absent.
-3. `--check`: the evidence check passes offline on every staged row.
-4. Write tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socket-blocking no_network
-   fixture; join checks: every file row names a staged or existing site + every new catalog entry has >= 1
-   picture; subprocess `fit/evidence.py check --files <staged> --books <absent path>`; golden sample vs
-   tests/golden/src_van_deventer_sample.json; a negative control; box 6: year_of of every staged row in
-   1545-1565 - the Hesdin note row yields 1545 = the min).
-5. `--golden` writes tests/golden/src_van_deventer_sample.json; then the full pytest run.
-6. Tick the acceptance boxes that now pass (1-6) and set Status: done if all six are ticked (the staging
-   files are THIS task's own; 211 consolidates them later).
+**EXACT NEXT STEP (one small session, no network needed):**
+1. Quick offline re-verify: `.venv/bin/python fit/src_van_deventer.py --check` (expect 56/56 PASS, exit 0)
+   and `.venv/bin/python -m pytest tests/test_src_van_deventer.py -q` (expect 4 passed).
+2. `git add -A && git commit -m "204: done - all 56 towns staged, tested and golden-pinned"` (this file with
+   Status: done + all six boxes ticked is already in place; the harness-saved PITFALLS entries ride along).
+3. Nothing else remains on this task. For 211: the staging files consolidate into the canonical ones and
+   build the sites; the NEW region value "luxembourg" has no REGION_NAME display key yet (the display falls
+   back to the raw value - a REGION_NAME key is a small follow-on task if the human wants the clean display).
 
-**Team mode:** agent c on 203b (fit/batch_eu.py, data/db/platefits, data/review, docs/batch_eu.md,
-tests/test_batch_eu.py) + 205 (fit/src_kip.py + its data/docs/tests) - untouched by me. My Touches:
-fit/src_van_deventer.py, the 3 staging jsonl (created by `stage`), docs/lead_van_deventer.md,
-tests/test_src_van_deventer.py, tests/golden/src_van_deventer_sample.json, plus this task file.
+**Box justifications (if the driver re-checks the done claim):** 1 - lead doc complete (category list,
+every staged file, every not-staged file with its reason, the 4 known-drawing-date swaps
+rotterdam/sluis/valkenburg/bruges documented); 2 - every QID verified (66 towns, none pending; Aarschot's
+drop is a DATE reason, documented, its QID was verified); 3 - 56/56 staged + offline evidence PASS;
+4 - no staged QID in the catalog (checked in test_table_and_staged_rows + check_staged's join); 5 - 56 of
+~64 staged, every missing one documented (Aarschot 1570 outside the window, 3 NL province-level drops,
+the 6 done towns not re-staged); 6 - the 4 tests + golden file, all green, no_network.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 

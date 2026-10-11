@@ -112,6 +112,19 @@ Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/bo
 Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
 Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
 
+#### NFKD on this machine does NOT apply Unicode compatibility (F-type) decompositions
+Where: `unicodedata.normalize("NFKD", ...)` anywhere on this machine - `pipeline/catalog.py`'s `slug()`,
+      `pipeline/books_match.py`'s `norm()`, and hence every site id built from a town name (`fit/
+      src_van_deventer.py`'s `_site_row`)
+Symptom: the compatibility chars U+0153 œ, U+0152 Œ, U+00E6 æ, U+00C6 Æ, U+00DF ß survive NFKD and are then
+      dropped by `.encode("ascii", "ignore")` - "Le Rœulx" slugs to "le-rulx" (not "le-roeulx"), so the
+      staged site id is `le-rulx-q668861`.
+Why: CPython 3.12.3 here (Unicode 15.0.0) applies only canonical (D-type) decompositions: é/è/à decompose,
+      œ/æ/ß do not (verified against explicit code points). The behaviour is consistent across the whole
+      pipeline on this machine, so ids built from `catalog.slug` are internally consistent - do not
+      "fix" one name with a per-name override: that would break the one-place rule for the slug rule and
+      desync from every other slugification of the same name.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -135,6 +148,16 @@ Symptom: expecting {town: [candidates]} and getting {qid: label}; the next unpac
       values to unpack"
 Why: update() treats an iterable of 2-element sequences as (key, value) pairs. To collect values per key,
       accumulate explicitly: `d.setdefault(key, []).append(item)` - never `d.update(pairs)` for that shape.
+
+#### In a generator expression `for r in files and cond` binds the `and` to the ITERABLE
+Where: `fit/src_van_deventer.py`'s `golden()` (crashed at `--golden`, fixed iter 56); any
+      `any(... for x in LIST and x.attr in SET)` pattern
+Symptom: `UnboundLocalError: cannot access local variable 'r' where it is not associated with a value` -
+      the expression parses as `for r in (files and r.get("title") in ...)`, so the iterable itself
+      references `r` before the loop binds it.
+Why: in a generator expression the text after the first `for <name> in <expr>` is the FILTER test; the
+      iterable `<expr>` must not reference the loop variable. Write the conjunction inside the body:
+      `any(r.get("site") == s["id"] and r.get("title") in picked for r in files)`.
 
 ## This codebase
 
@@ -245,6 +268,17 @@ Why: the name does not carry the geography - the catalog records the Dutch ident
       Levefanum/Casaromago printed on the Peutinger map. Use the catalog's stored lon/lat, never a guess from
       the name (found task 801, iteration 17: the "Peutinger Casaromago" rows were expected to pass on a
       Beauvais-distance, but the site is 314-368 km from Beauvais).
+
+#### stage() staging files are append-only and idempotent on (site, title) - a changed id rule leaves the old rows behind
+Where: `stage()` in `fit/src_van_deventer.py` / `fit/src_artists.py` (the per-source staging
+      `extras_*.jsonl` / `files_*.jsonl` / `classified_*.jsonl`)
+Symptom: after a re-stage where the site-id rule changed (e.g. an inline slug replaced by `catalog.slug`,
+      "chi-vres" -> "chievres"), the files hold a row per town under the OLD id plus a second row with the
+      same title under the NEW id - the (old_sid, title) pair is already in `have`, so the old row is never
+      rewritten or dropped.
+Why: stage() appends, and idempotency is per (site, title) pair; a changed id is a new pair. The staging
+      files are the task's own and are consolidated by 211 later, so when the id key changes before 211
+      runs: delete the three staging files and re-run `stage` (the files then hold one id generation only).
 
 ### Wikimedia APIs (Commons, Wikidata)
 
