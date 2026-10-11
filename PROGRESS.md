@@ -13,15 +13,6 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 203a DECISION: golden pinned first, then the loop module (prep session 1)
-Committed tests/golden/hand_fit_docs.sha256 (box 1) BEFORE writing any batch doc: 39 sha256sum -c lines
-(20 pre-batch data/db/platefits docs + the 19 data/sites/<id>/site.json from hand_fit_sites.txt); verified
-with sha256sum -c. `fit/batch_us.py --golden` regenerates it, excluding docs carrying "auto": true, so a
-partially-run batch can be pinned back to the hand-fit state without hand-editing. Then built
-fit/batch_us.py (loop + gate adapter + writers + report + CLI); smoke-verified in a temp tree: 202's
-proposed pairs pass the gate (med 0.0, the documented "true case"), could-not-fit and no-picture items in
-201's shape, hand-fit-only site untouched, report deterministic, full suite 29 green.
-
 ### 2026-10-11 203a DECISION: the 001 gate is a pure-statistics one-shot - R1 resolved, adapter is thin
 The prep notes (R1) inferred an ink/DEM conjunct gate; the MERGED 001 is different: fit_gate.gate(pairs,
 transform=None) -> (verdict, stats {n, med, slope_o, io}) - numpy only, no images, no network
