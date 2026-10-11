@@ -1,5 +1,5 @@
 {
- "at": "2026-10-11T18:21:49.684697+00:00",
+ "at": "2026-10-11T19:52:39.848982+00:00",
  "items": [
   {
    "site": "aalsum-q3902030",
@@ -14597,6 +14597,390 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "c_022604d2be0becdc",
+     "title": "47 of 'Stonehenge- plans, descriptions and theories' (11135894643)",
+     "url": "media/commons/stonehenge-q39671/022604d2be0becdc.jpg",
+     "pairs": [
+      [
+       640.0,
+       800.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       640.0,
+       400.0,
+       -1.8261038,
+       51.1815794
+      ],
+      [
+       640.0,
+       1200.0,
+       -1.8261038,
+       51.1761895
+      ],
+      [
+       200.0,
+       800.0,
+       -1.8318357,
+       51.1788845
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 23.2
+    },
+    {
+     "plan": "c_098c4cb138676939",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 143.\u2014Ground-plan of Stonehenge as it probably was. (Stevens.)",
+     "url": "media/commons/stonehenge-q39671/098c4cb138676939.jpg",
+     "pairs": [
+      [
+       640.0,
+       648.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       640.0,
+       200.0,
+       -1.8261038,
+       51.1820285
+      ],
+      [
+       640.0,
+       1100.0,
+       -1.8261038,
+       51.1757403
+      ],
+      [
+       200.0,
+       648.0,
+       -1.8311192,
+       51.1788845
+      ],
+      [
+       1080.0,
+       648.0,
+       -1.8210884,
+       51.1788845
+      ],
+      [
+       400.0,
+       400.0,
+       -1.8289698,
+       51.1806811
+      ],
+      [
+       880.0,
+       400.0,
+       -1.8232379,
+       51.1806811
+      ],
+      [
+       400.0,
+       900.0,
+       -1.8289698,
+       51.1770878
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 10 distinct values on a 10-px grid); the gate's 7.4 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 7.4
+    },
+    {
+     "plan": "c_20f9f11153a0b7f0",
+     "title": "Knight-Stonehenge-Restored-plan-q85-1165x1066",
+     "url": "media/commons/stonehenge-q39671/20f9f11153a0b7f0.jpg",
+     "pairs": [
+      [
+       580.0,
+       380.0,
+       -1.8262471,
+       51.1789743
+      ],
+      [
+       580.0,
+       380.0,
+       -1.8262471,
+       51.1789743
+      ],
+      [
+       850.0,
+       200.0,
+       -1.8225214,
+       51.1815794
+      ],
+      [
+       850.0,
+       800.0,
+       -1.8225214,
+       51.1761895
+      ],
+      [
+       300.0,
+       800.0,
+       -1.8304027,
+       51.1761895
+      ],
+      [
+       300.0,
+       200.0,
+       -1.8304027,
+       51.1815794
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 44.1 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 44.1
+    },
+    {
+     "plan": "c_6933e3a931a0240a",
+     "title": "Rude Stone Monuments 0128",
+     "url": "media/commons/stonehenge-q39671/6933e3a931a0240a.jpg",
+     "pairs": [
+      [
+       550.0,
+       650.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       650.0,
+       600.0,
+       -1.8246709,
+       51.1784353
+      ],
+      [
+       400.0,
+       400.0,
+       -1.8282533,
+       51.180232
+      ],
+      [
+       850.0,
+       800.0,
+       -1.8218049,
+       51.1766387
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.8 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 26.8
+    },
+    {
+     "plan": "c_83b4d6df7a6d2383",
+     "title": "Plattegrond van de Stonehenge, RP-P-2018-849",
+     "url": "media/commons/stonehenge-q39671/83b4d6df7a6d2383.jpg",
+     "pairs": [
+      [
+       640.0,
+       150.0,
+       -1.8268203,
+       51.180232
+      ],
+      [
+       850.0,
+       400.0,
+       -1.8239544,
+       51.1784353
+      ],
+      [
+       640.0,
+       650.0,
+       -1.8268203,
+       51.1766387
+      ],
+      [
+       430.0,
+       400.0,
+       -1.8296863,
+       51.1784353
+      ],
+      [
+       640.0,
+       250.0,
+       -1.8268203,
+       51.1793337
+      ],
+      [
+       750.0,
+       400.0,
+       -1.8253874,
+       51.1784353
+      ],
+      [
+       640.0,
+       550.0,
+       -1.8268203,
+       51.177537
+      ],
+      [
+       530.0,
+       400.0,
+       -1.8282533,
+       51.1784353
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 16.7 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 16.7
+    },
+    {
+     "plan": "c_897a5c1632e2fdd6",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.\u2014Ground-plan of Stonehenge as it is. (Stevens.)",
+     "url": "media/commons/stonehenge-q39671/897a5c1632e2fdd6.jpg",
+     "pairs": [
+      [
+       150.0,
+       250.0,
+       -1.8311192,
+       51.1820285
+      ],
+      [
+       850.0,
+       250.0,
+       -1.8210884,
+       51.1820285
+      ],
+      [
+       850.0,
+       850.0,
+       -1.8210884,
+       51.1757403
+      ],
+      [
+       150.0,
+       850.0,
+       -1.8311192,
+       51.1757403
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 38.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111111111111,
+      "place_lat": 51.17888888888889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "gate_score": 38.0
+    },
+    {
+     "plan": "c_f8386b6404e4ee63",
+     "title": "29 of '(Our own country. Descriptive, historical, pictorial.)' (11298369994)",
+     "url": "media/commons/stonehenge-q39671/f8386b6404e4ee63.jpg",
+     "pairs": [
+      [
+       500.0,
+       500.0,
+       -1.8261038,
+       51.1788845
+      ],
+      [
+       300.0,
+       700.0,
+       -1.8289698,
+       51.1770878
+      ],
+      [
+       700.0,
+       300.0,
+       -1.8232379,
+       51.1806811
+      ],
+      [
+       800.0,
+       600.0,
+       -1.8218049,
+       51.1779862
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Our",
+       "place_qid": "Q650039",
+       "place_label": "Our",
+       "place_lon": 5.6505555555556,
+       "place_lat": 47.130555555556,
+       "site_lon": -1.826111,
+       "site_lat": 51.178889
+      }
+     },
+     "gate_score": 0.0
     }
    ],
    "no_picture_found": null

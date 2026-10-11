@@ -319,11 +319,12 @@ def build(doc, root=None):
     build_site.set_drawings(sid, r)  # the page's flagship marker follows the count of fitted drawings
 
 
-def prune(root=None):
-    """Drop plan overlays whose fit was deleted."""
+def prune(root=None, site=None):
+    """Drop plan overlays whose fit was deleted (this site only when `site` is given - the one-site
+    line must not write another site's files; the CLI keeps the global sweep)."""
     r = _root(root)
     have = {os.path.basename(p)[:-5] for p in glob.glob(os.path.join(r, "data", "db", "platefits", "*.json"))}
-    for dep_path in glob.glob(os.path.join(r, "web", "data", "sites", "*", "depictions.json")):
+    for dep_path in glob.glob(os.path.join(r, "web", "data", "sites", site or "*", "depictions.json")):
         deps = json.load(open(dep_path))
         keep = [d for d in deps["depictions"] if d.get("kind") not in ("plan", "view") or (d.get("fit") or {}).get("doc") in have]
         if len(keep) != len(deps["depictions"]):
