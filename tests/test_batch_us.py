@@ -1,10 +1,12 @@
 """The batch, US (task 203a, GOAL points 1-2): fit/batch_us.py, hermetic.
 
 The fitting loop (candidates -> model -> similarity -> gate -> automatic platefit document /
-review item) is run on a fixed sample of US sites against a throwaway copy of the tree (web/ +
-data/ minus data/raw/, like conftest's served - but no server: the batch is a file-based loop
-that never PUTs, so there is no port at all; the page's view of the results is 212's one pass,
-not this test's). No network, no model server: the recorded model's answers are fixed inputs -
+review item) is run on a fixed sample of US sites against a throwaway tree (web/ + data/, linked
+not copied - the tree is ~0.5 GB of mostly-read-only data and the 48 GB disk fills, so the tree
+hard-links every file and copies only the one the batch rewrites in place; data/raw stays a
+symlink to the shared image store it already points at - but no server: the batch is a file-
+based loop that never PUTs, so there is no port at all; the page's view of the results is
+212's one pass, not this test's). No network, no model server: the recorded model's answers are fixed inputs -
 202's deterministic proposals (fit/propose.py) for the pinned serpent-mound pictures, a
 two-feature answer and a no-answer picture for the pinned cahokia ones - and a socket-blocking
 fixture fails loudly on any connection attempt. The real gate (001, docs/gate.md section 2)
@@ -81,17 +83,53 @@ def no_network(monkeypatch):
     monkeypatch.setattr(socket, "create_connection", dead)
 
 
+def _link_tree(src, dst):
+    """The throwaway tree: every file hard-linked (zero disk use on this machine), a real copy
+    only for the files the batch rewrites in place, symlinked subdirectories (data/raw -> the
+    shared image store) re-linked as symlinks and never followed. Writes to the batch's own
+    outputs are all atomic new inodes (os.replace), so they never touch the linked originals."""
+    for dirpath, dirnames, filenames in os.walk(src):
+        rel = os.path.relpath(dirpath, src)
+        d = dst if rel == "." else os.path.join(dst, rel)
+        os.makedirs(d, exist_ok=True)
+        for name in dirnames:
+            s = os.path.join(dirpath, name)
+            if os.path.islink(s):  # data/raw: a symlink to the shared store, not a directory
+                os.symlink(os.readlink(s), os.path.join(d, name))
+        for name in filenames:
+            s, t = os.path.join(dirpath, name), os.path.join(d, name)
+            if os.path.islink(s):
+                os.symlink(os.readlink(s), t)
+            elif os.path.relpath(s, src) in _WRITE_IN_PLACE:
+                shutil.copy2(s, t)
+            else:
+                try:
+                    os.link(s, t)
+                except OSError:  # different filesystem: a read-only symlink keeps it cheap
+                    os.symlink(s, t)
+
+
+# The files the batch rewrites in place (write_report's Path.write_text truncates its target):
+# they must be real copies or the in-place write would land in this checkout. Every other write
+# (write_doc, upsert_item) creates a new inode and never touches a hard-linked original.
+_WRITE_IN_PLACE = {"docs/batch_us.md"}
+
+
 @pytest.fixture()
 def tree(tmp_path):
-    """A throwaway copy of the product tree (web/ + data/ minus data/raw/); the batch writes here only."""
+    """A throwaway view of the product tree (web/ + data/), hard-linked; the batch writes here only."""
     t = tmp_path / "aw203a"
     t.mkdir()
-    shutil.copytree(os.path.join(ROOT, "web"), str(t / "web"))
-
-    def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == os.path.join(ROOT, "data", "raw")]
-    shutil.copytree(os.path.join(ROOT, "data"), str(t / "data"), ignore=ignore)
+    _link_tree(os.path.join(ROOT, "web"), str(t / "web"))
+    _link_tree(os.path.join(ROOT, "data"), str(t / "data"))
     return str(t)
+
+
+@pytest.fixture()
+def tmp_path_retention_policy():
+    """Keep only failed runs' temp trees: the trees are hard-linked (near-zero disk) and the
+    driver's 48 GB box has filled twice on retained copies."""
+    return "failed"
 
 
 # ---------------------------------------------------------------- helpers
