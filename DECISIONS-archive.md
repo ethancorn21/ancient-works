@@ -927,6 +927,13 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
     inventory, then the BE batch (incl. recording Ghent Q1296 and settling Beaumont's BE-vs-FR region - the
     TOWNS 'france' guess for Beaumont flips if the verified item is Hainaut).
 
+## 2026-10-11 204 DECISION: region values lowercase in the staged catalog rows (deventer-lead convention)
+    The six done deventer rows use lowercase netherlands/belgium/france and build_catalog.place_of/make_site
+    look REGION_NAME up by str(region).lower(), so lowercase is the convention this lead continues (213's
+    display-case "Italy" was the exception made while waiting for 214). Luxembourg City is the one new value
+    "luxembourg": REGION_NAME has no key for it, so the site display falls back to the raw lowercase string
+    (works; noted in the lead doc; a REGION_NAME key would be a small follow-on task, not mine).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
