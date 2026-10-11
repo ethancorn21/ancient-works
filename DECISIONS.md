@@ -297,3 +297,41 @@ Measured corpus fact: the depicts kind has 0 hits - no site item lists any of th
 site's item; the route stays implemented and is pinned by the sample golden (a PASS and a FAIL P180
 row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the acceptance wording
 allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
+
+## 2026-10-10 000 DECISION: plan re-checked for the two GOAL changes - the batch becomes the model's fitting loop, 213 added for artists' views
+The driver reopened 000 for two GOAL.md changes: 21:11 (new point 2 - the local model does the fitting
+itself: fitkit sheet, grid labels, >= 4 matched-feature pairs, scale/north/centre-only pairs are a
+starting point not a fit, every model fit goes to the gate, the review queue is overflow not a plan
+for every site) and 22:58 (artists' aerial and bird's-eye views count as drawings; new growth lead:
+Leonardo's Imola 1502, Barbari's Venice 1500, Braun & Hogenberg, Merian; the owner's copy also colours
+>=150-year survey-sheet-only sites - GOAL says that does not change this goal).
+
+Changes (all planner-owned files; every edited batch/queue task was still Status: open and blocked
+behind 001, so editing them pre-run is safe):
+- 203a/203b (+ parent 203): the loop is now per candidate picture fitkit sheet -> the local vision model
+  (pipeline/llm.py, $AW_LLM_URL) reads the grid labels and records >= 4 matched-feature pairs (202's
+  seed as the starting point) -> plan_fit solver -> gate; accepted = automatic platefit doc, refused or
+  could-not-fit (< 4 pairs) = review item with the model's pairs, no candidate = "no picture found"
+  item. The model step is an injectable function so tests supply a fixed recorded answer and never
+  touch the model server (GOAL: the model's word is a lead, the gate is the check).
+- 202: re-aimed from "a seed a human finishes" to "the starting point the model's fit pass begins
+  from"; it is explicitly never a fit on its own.
+- 201: the queue is now explicitly overflow (gate refusals, could-not-fit, no-picture sites), not a
+  plan for every site; point 1 (fit or item per site) still holds, and the item still carries pairs
+  (the model's where it made any) so the human's drag stays under a minute.
+- 212: its cover-pass loop reference and the GOAL point number in its 20-sample note updated (three
+  small edits; the session was cut before they landed - see the 000 hand-over for the exact blocks).
+- New tasks/213-artist-views.md: lowest free 200-499 number; Depends on: 200; own module/staging/docs/
+  test files; wave 2; conditional book machinery (Civitates/Merian as IA books) follows the 208
+  pattern of declaring exact per-book paths in its own Touches first. Imola is the anchor: a new site,
+  no open LiDAR here, aerial-photograph ground, streets carry the fit.
+- PLAN.md: current state (eight leads + GOAL-change note), architecture diagram, module map, new tech
+  choice "The model fits, the gate decides", assumption 3 reworded, new assumption 9 (owner's-copy
+  survey-sheet colouring is out of scope), out-of-scope bullet, the six-point GOAL->task map, waves
+  4/7/3/2/1, test-policy bullet (no test calls the model server).
+
+No new deviation was added: both GOAL changes add requirements and contradict nothing. The only
+standing deviation stays 001's box 2 (measured 1 in 8 vs the 1 in 20 written; all misses 15% scale
+errors, structurally indistinguishable at n = 3-6) - pending the owner's ruling, 001 blocked.
+Session cut at the context limit with 212's three edits, the 213 file, the CODEMAP-top standing rules
+and this re-verification still to do; the 000 hand-over lists each exactly.

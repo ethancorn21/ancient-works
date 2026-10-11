@@ -167,10 +167,8 @@ Next steps (in order):
    (001) score required before anything reaches data/db/platefits/; the model step is injectable so
    tests never call the model server (no network, port 0, temp tree); (5) web/index.html takes exactly
    one change for the whole build (201's script tag); the review section lives in web/review.js.
-4. Append the DECISIONS.md entry (header `## 2026-10-10 000 DECISION: plan re-checked for the two GOAL
-   changes - batch becomes the model's fitting loop, 213 added`): summarize the plan/queue changes
-   above; note all edited tasks were still open (blocked behind 001) so editing them pre-run is safe;
-   no new deviation (the only deviation stays 001's box-2, pending the owner's ruling; 001 blocked).
+4. DONE - the DECISIONS.md entry `## 2026-10-10 000 DECISION: plan re-checked for the two GOAL changes
+   ...` is appended (committed with this hand-over). Steps 5-6 remain:
 5. Check every task file (001, 200-213, 800, 801) has `Depends on:` and `Touches:` lines:
    `grep -L "Depends on:" tasks/*.md; grep -L "Touches:" tasks/*.md` (expect no output).
 6. Verify the test command: `.venv/bin/python -m pytest -q` in the checkout (expect the suite green —
