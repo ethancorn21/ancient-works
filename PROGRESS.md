@@ -7,6 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4i (iteration 44). Status: BLOCKED - the escalation the 4h hand-over set has
 - `tasks/203-batch-fit.md` (split)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/802-gate-holdout-auto-docs.md` (in-progress) - hand-over: **2026-10-11, iteration 45 (agent c): DONE - implemented and verified; nothing left for the driver
 
 ## Next open tasks
 - `tasks/215-books-llm-ports.md`
@@ -17,7 +18,50 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 802 DECISION: implemented - partition() derives its name list over the NON-automatic documents only; docs/gate.md left untouched; both boxes verified, Status: done
+
+CONTEXT: task 802 handed to agent c at iteration 45 (203a was blocked on it; after ask_human 002
+      the human's answer let the queue move and I drew 802). The 4g state-agnostic re-baseline
+      (Depends on: 001) is exactly what I implemented.
+WHAT: `tools/gate_heldout.py partition()`: name list = the sorted NON-automatic document names,
+      `if not json.load(open(p)).get("auto")` - the same criterion as `fit/batch_us.py
+      write_golden`; a doc without the field is a hand fit. The 20-doc precondition, the
+      seed-20260108 derivation, the REGISTERED tables, `check_registered` and the five section-4
+      recipes are all untouched. Docstrings (module header, REGISTERED comment block,
+      partition) now say the name list is the non-automatic one. `tests/test_gate.py`: only the
+      offline note in the docstring changed ("the 20 documents in data/db/platefits/" ->
+      "data/db/platefits/"); no test logic or assertion touched. docs/gate.md and
+      tests/golden/gate_heldout.txt are untouched (not in the diff).
+WHY THE DOC STAYED: the task's Notes offered an optional section-1 clarification sentence. I chose
+      not to add one: section 1 is the frozen pre-registration ("not to be changed") and never
+      promised to count every .json in the directory; section 3's "the 20 hand-fit documents in
+      data/db/platefits/" stays literally true (there are still 20; the 16 auto are a different
+      kind of document). The clarification now lives in the tool's docstrings. If the driver or
+      the human disagrees, adding one sentence to section 1 is the follow-up - recorded here so
+      the decision is not re-litigated.
+EVIDENCE (this checkout: 36 docs = 20 hand + 16 auto from 203a): non-auto names == REGISTERED
+      held+dev exactly (verified before and after the edit); the section-6 command runs to
+      completion for both held and dev; the combined stdout is byte-identical to
+      tests/golden/gate_heldout.txt (40 + 60 lines); `pytest -q tests/test_gate.py` -> 2 passed;
+      full suite 3 failed / 35 passed - all 3 in tests/test_review.py (803's territory; it was
+      4 failed / 34 passed before this task, so the 802 failure is gone and nothing else moved).
+      The recorded tables came out unchanged with no golden or section-9 regeneration, so there
+      is no finding to report (box 2's escape hatch did not fire).
+STATE-AGNOSTIC: on a plain main-based checkout (20 docs, none carrying the field) `doc.get("auto")`
+      is falsy for every doc, so the name list equals the old all-files list exactly and the tool
+      behaves identically to pre-802 (it just reads the 20 small JSONs to check the flag). One
+      commit passes in both states, as the re-baselined spec required.
+
+### 2026-10-11 802 DRIVER: done claim rejected, task reopened
+- Test suite failed twice when the driver ran `.venv/bin/python -m pytest -q`:
+    tests/test_review.py::test_export_cli
+    tests/test_review.py::test_page_shows_the_review_list
+    tests/test_review.py::test_save_resolves_the_item
+    FAILED tests/test_review.py::test_export_cli - AssertionError: review: 88 ope...
+    FAILED tests/test_review.py::test_page_shows_the_review_list - AssertionError...
+    FAILED tests/test_review.py::test_save_resolves_the_item - KeyError: 'map_box'
+    3 failed, 35 passed in 38.62s
+    (full test output: .agent/reports/last-test-output.txt)
 
 ## Project-wide driver notes (newest)
 
