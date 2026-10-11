@@ -42,124 +42,96 @@ mechanics).
 
 ## Hand-over
 
-**Where I am (iteration 14, agent c).** No code written yet - this session was the census + design
-step. I read fit/evidence.py end to end, books_match.py, the test + golden, the harvest in
-pipeline/commons.py, and reviewed all 280 plain-none rows individually (dump at /tmp/no_tie_rows.txt,
-generated from data/commons/files.jsonl; regenerate with the same filter if lost).
+**Where I am (iteration 15, agent c).** Measurement step done (no code yet). RESOLVED the iter-14 open
+risk in the good direction: Clifford's Tower Q113551546 HAS P625 (-1.0800092, 53.9558873) = 6 m from
+york-castle's stored point (Curtain Wall Q17530656 = 149 m). Exactly 40 of the 354 stored-none rows name
+a has_part of their own site - all "Clifford's Tower Survey" titles on york-castle - so part_mention adds
+40 passes; the remaining ~45 genuinely-naming rows must pass via sheet_mention. Expected total passes
+~85 of the ~85-90 genuinely-naming rows -> box 1 is reachable without loosening any guard.
 
-**Census of the 280 plain-none rows (per site):**
-- york-castle 40: "Clifford's Tower Survey (...)" photos, desc "...on site at Clifford's Tower...";
-  Clifford's Tower is a has_part of the site (Q113551546).
-- argentoratum 39: old maps of Strasbourg (titles "1831. Strasbourg...", "Strasbourg-Krutenau-Plan de
-  1852 (N)", "Plan de Strasbourg...", "Plattegrond van Straatsburg..."). Site coords (7.751, 48.5827)
-  ARE Strasbourg; catalog aliases are Roman names only, so the full-name caption route never fires.
-- durocortorum 4 (Reims/Rheims maps; site coords = Reims) + 1 junk; cenabum 5 (Orléans maps; site coords
-  = Orléans) + 13 New-Orleans junk rows (DPA photo, "Prospect EveryOne - NoLA", Gunn diaries, Spanish
-  planos) - the NoLA rows resolve ~8000 km away -> should become CONFLICT none.
-- bethlehem 32: catalog site is a NETHERLANDS Bethlehem (Q2523914, 6.61, 53.38 - NOT the Holy Land). The
-  12 "Survey of Palestine" sheets, the Maastricht detail maps, the Mount Airy/Germantown (Philadelphia)
-  rows and the "Bethléem basilique" plan are all mis-harvests (Commons search on "Bethlehem"); all
-  resolve far -> conflict none. (Note: row "BethleemPlan.png" desc names "Bethléem" = Q16489, far.)
-- Small genuine ties (1-2 rows each): fletio/Weesp (~19 km), duno/Arnhem (~9 km),
-  castrum-levefanum/"Peutinger Casaromago" desc "centered on Casaromago (beauvais)" (Beauvais ~ the site;
-  the SAME file sits on fletio too -> ~440 km -> must stay none there: per-site verdicts),
-  badbury-rings/"Ordnance Survey Drawings - Cranbourne, Hampshire (OSD 65)" (~15 km),
-  barnard-castle/"Ordnance Survey One-inich Sheet 14 Darlington" (~29 km) and "Alnmouth Tithe Map" (~98 km ->
-  conflict), barkhale/"Barkhale camp plan and excavations" (title names the site itself, shortened),
-  blestium/"Monmouth Castle - architectural details" (~23 km), cahokia/"Leffingwell's map of the city of
-  St. Louis... Sugar Loaf Mound" (~12 km), mamucium/"Beyer... Gorton Foundry... Manchester" (~0.8 km),
-  noviomagus/"Glass pisspot... found in Nijmegen" (~1.7 km), dudley/"Plan of Birmingham by Thomas Hanson"
-  (~13 km; also Bristol/Stoke Gifford/Newport Pagnell junk -> far), fotheringhay/Peterborough (~62 km ->
-  conflict), stonehenge/Bristol rows (far), glevum/Bristol (far), norwich/Bristol (far),
-  dunster/Boughton House (~310 km far), crayke/"...Cathedral Church of St. Peter, York" (~69 km far),
-  offa-s-dyke 3x/"Chirk Castle, NT, Chirk, Clywd, Wales" (Chirk ~57 km from the site's point - the site
-  stores the Dyke's southern end; expect conflict-none, do not special-case), gondole/Venice rows (far).
-- The rest (~180): Internet-Archive book scans (desc = book metadata), seed catalogues (arbeia 28),
-  Bowes-Museum paintings (barnard ~34), Naturalis specimens, newspaper/diary clippings - they name NO
-  place near the site; they stay plain none (that is correct, fail-closed).
+**Measured part census (343 unique part qids; 2 full batch runs + 5 spot checks, all agree):**
+332 have P625; 311 within 50 km of their own site; 19 far (stay fail-closed if a caption names them; no
+linear-site special-casing): 14 on lower-german-limes (Fossa Corbulonis 148, Forum Hadriani 151, Matilo
+143, Praetorium Agrippinae 150, Laurium 118, Traiectum 103, Fectio 99, Castra Herculis 53, Temple of Elst
+50.5, Castra Novaesium 56, Reckenberg 58, Durnomagus 69, Castra Divitia 89, Q1430260 92, Rigomagus 132 km
+from the stored end), hopewell-ceremonial-earthworks x3 (89-158 km), poundbury-hill 168. Parts WITHOUT
+P625 (11): Q110065002 (stonehenge), Q131296685 + Q131379956 (avebury), Q137911205/219/222 (windmill-hill),
+Q131300617 (two-bowl), Q1165437 (vix), Q135830814 (causse), Q81103 + Q1416685 (fort-totten). Design: a
+part without P625 uses the SITE's own coords (catalog has_part = spatially inside the site => 0 km);
+no current none-row names such a part, so it is a safety net only.
 
-**So: ~85-90 rows genuinely name the site (site's modern city, a has_part, or a shortened site name);
-planned passes ~80 of them if resolutions come back as expected - a majority, box 1. Another ~50 junk
-rows should gain a stored CONFLICT (box 2's explicit ask).**
+**Run-1 anomaly (not a pitfall, unreproduced):** first batch run counted 13 parts w/o P625; every later
+run gives 11 and 0 ids dropped from the batch response. The new part prefetch re-fetches ids missing
+from a batch response (one-line insurance; the batched shape stays).
 
-**Design decided (implement in fit/evidence.py next session, keep it one module - Touches stays):**
-1. Two new kinds, same storage shape as caption_coords (`named_place, place_qid, place_label,
-   place_lon, place_lat, site_lon, site_lat, dist_m`; part adds `part_qid`):
-   - `part_mention`: caption names a has_part of the site (norm substring, like named_places_in); the
-     part's item (has_part qid from the catalog) has P625 within 50 km. CHECK: **does Q113551546
-     (Clifford's Tower) actually carry P625?** If not, those 40 rows fail-closed stay none - measure
-     first, then decide (do not invent a looser substitute without logging it).
-   - `sheet_mention`: a proper-noun place phrase from the caption resolves (search + batched claims) to
-     within 50 km of the site coords (catalog lon/lat, else item P625, else skip).
-2. Candidate extraction (deterministic, title + first ~600 chars of desc): split on non-letters AND on
-   case/digit boundaries ("Maastricht1749LarcherDAubencourt2" -> Maastricht/Larcher/Aubencourt,
-   "BethleemPlan" -> Bethleem/Plan); keep capitalized words len>=3; drop all-caps words (acronyms:
-   HMS, BHL, KB, PPN, DPLA, NARA, IA, NT, OSD, RMNH, WAPAMA, WILLIAM...); drop a STOP word-list of
-   non-place capitalized words (The, A, An, In, Of, De, Van, La, Le, Plan, Plans, Atlas, Survey,
-   Ordnance, Drawings, Sheet, One-inich, Published, Map, Carte, Plattegrond, Reproductie, Gezicht?,
-   Identificatie, Titel, Objecttype, Objectnummer, Vervaardiging, Vervaardiger, Sujet, Echelle,
-   Couverture, Langue, Editeur, Appartient...). Leading word kept only if the 2nd word is also a kept
-   capitalized word ("Maastricht1749..." keeps, "The history..." drops). Merge runs into phrases of
-   <=3 words; per row keep <=12 candidates in order of appearance. Global unique set -> ONE
-   wbsearchentities per name + ONE batched claims fetch (resolve_places shape, reuse it) + one batched
-   claims fetch for all has_part qids.
-3. Verdict per row (live_evidence, after the existing category/depicts/caption routes): nearest
-   <=50 km resolution wins -> part_mention or sheet_mention; else nearest far resolution ->
-   kind "none" with the conflict stored (existing mechanics); else plain none (reason updated to say
-   the sheet/part routes were tried).
-4. record CLI: add `--redo-none` (with --live): rows whose stored kind == "none" re-run the full live
-   route; all other recorded rows untouched (byte preservation holds - set_field is the existing
-   mechanism). Plain `record` (no --live) output stays EXACTLY "evidence recorded: ..." - the record
-   test asserts it.
-5. check(): add both kinds to the whitelist; checkers mirror check_caption (caption still names the
-   place: norm substring; stored distance reproduces within 1000 m; <=50 km). Update the module
-docstring kind list and header comment (CODEMAP regenerates from it).
-6. Golden (tests/golden/evidence_check.txt): the sample files contain no new kinds -> check output over
-   the sample stays byte-identical; do NOT regenerate. Row count stays 1490.
+**Census of the 280 plain-none rows (kept from iter 14; dump regenerable from data/commons/files.jsonl
+with kind==none and no conflict):**
+- york-castle 40 "Clifford's Tower Survey" -> part_mention PASS (measured 6 m).
+- argentoratum 39 Strasbourg maps (site coords ARE Strasbourg; catalog aliases are Roman-only) ->
+  sheet_mention PASS if "Strasbourg"/"Straatsburg" resolves nearby.
+- durocortorum 4 (Reims/Rheims maps) + 1 junk; cenabum 5 (Orleans maps) + 13 New-Orleans JUNK (~8000 km
+  -> CONFLICT none); bethlehem 32 all JUNK on the NETHERLANDS Bethlehem Q2523914 (12 Palestine surveys,
+  Maastricht maps, Mount Airy/Germantown, "BethleemPlan" names Bethleem Q16489 - all far -> CONFLICT).
+- Small genuine (1-2 rows): fletio/Weesp ~19, duno/Arnhem ~9, castrum-levefanum/"Peutinger Casaromago"
+  desc names Beauvais (same file on fletio ~440 km -> must stay none THERE: per-site verdicts),
+  badbury-rings/Cranbourne ~15, barnard-castle/Darlington ~29 + "Alnmouth Tithe Map" ~98 (CONFLICT),
+  barkhale/"Barkhale camp plan" (title names the site itself, shortened), blestium/Monmouth ~23,
+  cahokia/"...city of St. Louis... Sugar Loaf" ~12, mamucium/Manchester ~0.8, noviomagus/Nijmegen ~1.7,
+  dudley/Birmingham ~13 (also Bristol/Newport Pagnell junk -> far), fotheringhay/Peterborough ~62
+  (CONFLICT), offa-s-dyke 3x/Chirk ~57 from the stored end (CONFLICT, no special-casing), gondole/Venice
+  far, dunster/Boughton ~310, crayke/York ~69, stonehenge+glevum+norwich/Bristol far.
+- The rest (~180): IA book scans, seed catalogues (arbeia 28), Bowes-Museum paintings (barnard ~34),
+  Naturalis specimens, newspaper/diary clippings - name NO place near the site; stay plain none (correct).
 
-**Exact next step:** with `.venv/bin/python` (system python3 lacks PIL; books_match imports books which
-imports PIL - run everything through .venv/bin/python): (1) fetch claims for Q113551546 + the
-part-qids of all catalog sites (one batched wbgetentities) and confirm which have P625 near their
-site; (2) prototype the extraction above over the 354 none rows, print the unique candidate count and
-the per-row expected verdicts, run the live resolution (commons.get paces at 1 req/s, 429-safe; a few
-hundred candidates = a few minutes), and compare with the census above; (3) implement in
-fit/evidence.py (refactor live_evidence into small helpers first if it grows >50 lines), run
-`record --live --redo-none` on the real files, then `check` (must exit 0, no FAIL, row count 1490,
-only the 354 rows' evidence field changed - diff before/after), then the 12/12 suite (.venv/bin/python
--m pytest -q); (4) if the pass count lands below a majority of the ~85-90 genuinely-naming rows, log
-why in DECISIONS.md before relaxing anything.
+**Design (final, implement in fit/evidence.py - Touches stays one module):**
+1. New kinds `part_mention` and `sheet_mention`, stored with the caption_coords shape ({named_place,
+   place_qid, place_label, place_lon, place_lat, site_lon, site_lat, dist_m}; part_mention adds
+   part_qid). check(): add both to the whitelist; check_part/check_sheet mirror check_caption (caption
+   still names the phrase, norm substring of title+desc; distance reproduces within 1000 m; <=50 km)
+   plus: check_part verifies part_qid is in the catalog site's has_part qids (re-derived from the
+   catalog file at check time).
+2. Candidate extraction (deterministic, title + first ~600 chars of desc): split on non-letters AND
+   case/digit boundaries ("Maastricht1749LarcherDAubencourt2" -> Maastricht/Larcher/Aubencourt); keep
+   capitalized words len>=3; drop all-caps (acronyms: HMS, BHL, KB, PPN, DPLA, NARA, IA, NT, OSD, RMNH,
+   WAPAMA, WILLIAM...); drop the STOP list of non-place capitalized words (The A An In Of De Van La Le
+   Plan Plans Atlas Survey Ordnance Drawings Sheet One-inich Published Map Carte Plattegrond
+   Reproductie Identificatie Titel Objecttype Objectnummer Vervaardiging Vervaardiger Sujet Echelle
+   Couverture Langue Editeur Appartient...); keep a leading word only if the 2nd is also a kept word;
+   merge runs into phrases of <=3 words; <=12 candidates per row in order of appearance.
+3. Prefetch (one shape, batched, paced): ctx["part_coords"] = {qid: (label, lon, lat|None)} for the part
+   qids of the sites appearing in the pending rows (one batched wbgetentities, re-fetch dropped ids);
+   ctx["places"] = resolve_places(named-site-names UNION sheet candidates) - one search per unique
+   name, one batched claims fetch (the existing function, unchanged shape).
+4. live_evidence (refactor FIRST, per the 50-line rule): extract the caption-route block into
+   _caption_route(row, slon, slat, res); add _part_route (caption names a has_part of the site by norm
+   substring; coords = part P625, else the site's own) and _sheet_route (a sheet candidate resolves
+   <=50 km); route order: category -> depicts -> caption -> part -> sheet -> none. A far resolution
+   (any route) stores kind none WITH the conflict (existing mechanics); only write a conflict when the
+   resolution is still >50 km (check FAILs a stored conflict that no longer conflicts). Plain none's
+   reason lists the routes tried.
+5. record: add `--redo-none` (only with --live): rows with stored kind == "none" re-run the full live
+   route; all other recorded rows untouched (set_field keeps bytes). Plain `record` (no --live) must
+   print EXACTLY "evidence recorded: N hand-tied, N book, N live" - test_record asserts the exact string
+   and runs without --live. --redo-none output may differ (manual run).
+6. check(): add the two kinds to the whitelist + checkers; update the module docstring's kind list and
+   the header comment (CODEMAP regenerates from it). Golden (tests/golden/evidence_check.txt): the
+   sample rows carry no new kind -> check output over the sample stays byte-identical; do NOT
+   regenerate; row count stays 1490.
 
-**Gotchas:** do not `pip install --break-system-packages`; tests must not touch the network (record
---live is a manual pipeline run, not a test); other agents' branches run tests concurrently - no
-fixed ports, no writes outside the project/temp dir; never rebase/merge (driver handles branches);
-the 74 existing conflict rows must keep re-verifying (their stored conflicts still conflict - check
-re-derives distance; a stored conflict that no longer conflicts is FAIL, so re-recording must only
-write a conflict when the resolution is still >50 km).
+**Exact next step:** (1) offline prototype of the candidate extractor over the 354 none rows (no
+network): print unique candidate count + the per-row candidates, eyeball 20 rows against the census;
+(2) run the live resolution (commons.get at 1 req/s; a few hundred unique names = a few minutes - let
+it run, dump the per-row verdicts to /tmp/sheet_verdicts.txt) and compare with the census; (3) implement
+in fit/evidence.py (refactor-first commit, then the routes, then --redo-none); (4) run
+`record --live --redo-none` on the real files (diff before/after: ONLY the 354 none rows' evidence
+field may change), then `check` (must exit 0, 1490 rows, no FAIL; the 74 existing conflicts re-verify),
+then the 12/12 suite via .venv/bin/python -m pytest -q; (5) if passes land below a majority of the
+~85-90 genuinely-naming rows, log why in DECISIONS before relaxing anything.
 
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
-- `tasks/203-batch-fit.md` (split)
-
-## Next open tasks
-- `tasks/201-review.md`
-- `tasks/202-propose.md`
-- `tasks/800-requirements-pinned.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-- 2026-10-10 (agent c, iter 14): 801 - census of the 280 plain-none rows complete and design decided (new kinds part_mention / sheet_mention in fit/evidence.py, record --redo-none). No code written and no tests run this session (last known suite state: green per the iter-13 driver run). Next session: measure Q113551546 P625 + prototype the title extractor live, then implement.
-
-## Project-wide driver notes (newest)
-
-### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
-    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
-    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+**Gotchas:** .venv works (PIL importable) - run everything through .venv/bin/python; the driver's
+requirements.txt note is agent a's task 800 - do NOT touch requirements.* (not in my Touches). Tests
+never touch the network (record --live is a manual pipeline run); no fixed ports, no writes outside
+the project/temp dir (other agents' branches test concurrently); never rebase/merge (driver handles
+branches); the 74 existing conflict rows must keep re-verifying - re-recording must only store a
+conflict when the resolution is still >50 km; set_field preserves the line terminator; the record test
+asserts the exact plain-record stdout string.
