@@ -264,3 +264,35 @@ Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batc
       automatic documents into that same directory during the run. Snapshot the pre-run state
       (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
       "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
+
+#### This Qwen fabricates regular patterns that pass a consistency-only gate; the batch's prompt/parse is the counterweight
+Where: `fit/batch_us.py` (`llm_model`, `_model_prompt`, `_parse_answer`), the local qwen3.8-27b via
+      `pipeline/llm.py`, docs/gate.md section 7
+Symptom: asked to match features between two gridded panels, the model answers with internally
+      perfect but false correspondences (identity (100,100)->(100,100)..., the four corners to the
+      four corners, a 5-point diagonal ladder, a 1:1 pixel line ~281 m off the 202 seed): gate med
+      ~0.0 m, and the frozen gate ACCEPTS them - docs/gate.md section 7: a consistency check cannot
+      see a consistent global error. Unopposed, every automatic batch document would be garbage and
+      the human's 18/20 report-sample check would fail.
+Why: a 27 B vision model that cannot confidently read a figure (e.g. a small figure on a dense
+      text page) invents a regular grid-like correspondence instead of reporting few pairs. The
+      gate is frozen, so the counterweight is batch-side: a prompt giving both panels' labelled
+      coordinate ranges + metre coverage, a +/-50% seed-scale window, anti-pattern clauses (no
+      grid-line intersections / even spacing / >=3 collinear; never pad a list) and asking for
+      named features plus a stated scale; parsing drops pairs outside the labelled ranges; a
+      stated scale that disagrees >=2x with the scale of the model's own points trims the answer
+      to 3 pairs (a review item, never an automatic document).
+
+### pipeline/
+
+#### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
+Where: `pipeline/llm.py` (`URL = os.environ.get("AW_LLM_URL", "http://127.0.0.1:18080/...")` read
+      once at module level; `ask(prompt, images=(), ..., url=URL)`) and any caller that imports it
+      (`fit/batch_us.py`'s `llm_model`)
+Symptom: after `import llm; llm.URL = "http://127.0.0.1:8081/..."` the requests still go to the
+      module default (18080 on this machine, where nothing listens; the AI-box tunnel serves
+      8080/8081 vLLM and 8082 llama.cpp) - a confusing connection error instead of a visible
+      wrong-URL error.
+Why: default arguments capture the value at function-definition time, not the module attribute at
+      call time. Set `AW_LLM_URL` in the environment BEFORE the import (read once, at module level)
+or pass `url=` explicitly to `ask`/`ask_json`.

@@ -13,11 +13,13 @@ gets an item marked "no picture found". The 20 pre-batch hand-fit documents and 
 site.json files are never touched (pinned by tests/golden/hand_fit_docs.sha256), and a candidate
 that already has a document is skipped.
 
-The model step is injectable: the working phase calls the local model on the fitkit sheet
+The model step is injectable: the working phase calls the local model on a fitkit-style sheet
 (`--working`), tests and dry runs supply a fixed recorded answer (`--model-json`, or a callable
 to `run_sites`), so no test touches the model server (GOAL: what the model says is a lead to
 check, not a fact - the gate is the check, and the gate cannot see a consistent global error,
-docs/gate.md section 7).
+docs/gate.md section 7; the sheet, prompt and parse in `llm_model` are built with that in mind:
+they ask the model to name its features and state the scale, and they route out-of-range or
+self-contradictory answers to review instead of to an automatic document).
 
 This batch writes ONLY the document files and the review items, directly (aw's atomic JSON
 convention). It never PUTs to the server: a PUT would wake the page-facing sync (overlays,
@@ -443,63 +445,197 @@ def write_golden(root):
     return str(out)
 
 
+def _font():
+    """Grid-label font: a real 22 px typeface. fitkit's own grid uses PIL's default bitmap
+    font, which is illegible to a 27 B vision model once the sheet is downscaled for the API
+    call (pilot 2026-10-11: the model then fabricated internally perfect patterns that
+    passed the gate, docs/gate.md section 7)."""
+    from PIL import ImageFont
+    try:
+        return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
+    except OSError:
+        return ImageFont.load_default()
+
+
+def _step(scale):
+    """Grid line step in source px: the first of 100/200/500/1000 that lands at least 90 sheet
+    px apart, so a 900 px panel carries at most ~10 lines its labels do not crowd."""
+    for s in (100, 200, 500, 1000):
+        if s * scale >= 90:
+            return s
+    return 1000
+
+
+def _grid(im, x0, y0, scale, step, color, font):
+    """fitkit's grid, with the label at BOTH ends of every line: the model reads a coordinate
+    off whichever end is closer to its feature, and two ends cross-check each other."""
+    from PIL import ImageDraw
+    d = ImageDraw.Draw(im)
+    W, H = im.size
+    def wh(s):
+        b = d.textbbox((0, 0), s, font=font)
+        return b[2] - b[0], b[3] - b[1]
+    v = (x0 // step + 1) * step
+    while (v - x0) * scale < W:
+        x = (v - x0) * scale
+        d.line([(x, 0), (x, H)], fill=color, width=1)
+        d.text((x + 2, 2), str(v), fill=color, font=font)
+        _, th = wh(str(v))
+        d.text((x + 2, H - th - 2), str(v), fill=color, font=font)
+        v += step
+    v = (y0 // step + 1) * step
+    while (v - y0) * scale < H:
+        y = (v - y0) * scale
+        d.line([(0, y), (W, y)], fill=color, width=1)
+        d.text((2, y + 2), str(v), fill=color, font=font)
+        tw, _ = wh(str(v))
+        d.text((W - tw - 2, y + 2), str(v), fill=color, font=font)
+        v += step
+    return im
+
+
+def _sheet(site, row, box):
+    """The fit sheet for the model: the picture's crop and the site's ground as two 900 px
+    panels (fitkit's sources: the plan image, the relief or the aerial), each gridded in bold
+    with its own labels at both ends of every line. Saves fitkit.OUT/fit_<site>_<plan>.jpg
+    (the same name fitkit.sheet uses) -> (path, ground_size, ground_m), ground_m being the
+    ground box's Mercator x-span in metres, what the right panel's labels cover."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
+    import fitkit
+    import aw
+    from PIL import Image
+    x0, y0, x1, y1 = box
+    c = fitkit.plan_image(row).crop(box)
+    sc = 900.0 / max(c.size)
+    c = c.resize((round(c.width * sc), round(c.height * sc)), Image.LANCZOS)
+    _grid(c, x0, y0, sc, _step(sc), (0, 0, 200), _font())
+    gpath = fitkit.ground(site["id"])
+    gsz = Image.open(gpath).size
+    g = fitkit.ground_view(site["id"], Image.open(gpath))
+    rs = 900.0 / max(g.size)
+    g = g.resize((round(g.width * rs), round(g.height * rs)), Image.LANCZOS)
+    _grid(g, 0, 0, rs, _step(rs), (200, 0, 0), _font())
+    S = Image.new("RGB", (c.width + g.width + 10, max(c.height, g.height)), "white")
+    S.paste(c, (0, 0))
+    S.paste(g, (c.width + 10, 0))
+    path = os.path.join(fitkit.OUT, "fit_%s_%s.jpg" % (site["id"], row["id"]))
+    S.save(path, quality=85)
+    (lon0, lat1), (lon1, _), (_, lat0) = site["corners"][0], site["corners"][1], site["corners"][2]
+    xm0, _ = aw.to_merc(lon0, lat1)
+    xm1, _ = aw.to_merc(lon1, lat0)
+    return path, gsz, (xm1 - xm0)
+
+
+def _model_prompt(site, row, box, gsz, gbox, kind, proposal):
+    """The prompt that keeps the model honest: the labelled coordinate ranges of both panels
+    (the parser enforces them), their metre coverage, the 202 seed's scale window, and the
+    anti-fabrication clauses (no grid intersections / even spacing / collinear points; never
+    pad a short list). The answer names each matched feature and states the panel's scale, so
+    both can be checked against its own pairs."""
+    x0, y0, x1, y1 = box
+    w, h = x1 - x0, y1 - y0
+    gw, gh = gsz
+    p = proposal or {}
+    scale = p.get("scale_m_px")
+    cover = (" covering about %d x %d metres" % (round(w * scale), round(h * scale))
+             if isinstance(scale, (int, float)) and not isinstance(scale, bool) and scale > 0
+             else "")
+    hint = ("The proposed starting placement maps the panel onto the site at scale %s m/px and "
+            "rotation %s deg (coarse=%s); a true match should be within about 50%% of that scale. "
+            % (scale, p.get("rot_deg"), p.get("coarse")) if scale is not None else "")
+    return (
+        "Left panel: a crop of an old map/plan of %s. Its grid labels run %d-%d across and %d-%d down "
+        "(a %dx%d px crop%s). Right panel: the ground there today (%s); its grid labels run 0-%d across "
+        "and 0-%d down (covering about %d x %d metres). %s"
+        "Match 4 to 8 features that are the SAME real feature on both sides: wall or rampart corners, "
+        "gate gaps, bastion or mound tips, road junctions, church footprints, river crossings, field edges. "
+        "Every coordinate must lie inside its panel's labelled range above. Do NOT pick grid-line "
+        "intersections, evenly spaced points or points along a straight line: real features have "
+        "irregular spacing, so the gaps between your pairs must vary, and at least three of your points "
+        "must not lie on one straight line. If you cannot confidently identify 4 real matched features, "
+        "answer with only the pairs you truly see (even 0 or 1) - never pad a list with guessed or "
+        "evenly spaced points. "
+        "Answer with JSON only: {\"scale_m_px\": <your estimate of the left panel's metres per pixel>, "
+        "\"features\": [\"one short name per pair, in order\"], "
+        "\"pairs\": [[u_plan, v_plan, u_ground, v_ground], ...]}"
+        % (site.get("name") or site["id"], x0, x1, y0, y1, w, h, cover, kind,
+           gw, gh, round(gbox), round(gbox), hint))
+
+
+def _parse_answer(ans, box, gsz, site):
+    """The model's answer -> (pairs, feature names). Pairs whose plan point leaves the crop's
+    labelled range or whose ground point leaves the ground image are dropped: the grid labels
+    are the contract, and a coordinate outside them was guessed, not read."""
+    x0, y0, x1, y1 = box
+    gw, gh = gsz
+    names = (ans or {}).get("features") or []
+    pairs, feats = [], []
+    for i, p in enumerate((ans or {}).get("pairs") or []):
+        try:
+            u, v, ug, vg = float(p[0]), float(p[1]), float(p[2]), float(p[3])
+        except (TypeError, ValueError, IndexError):
+            continue
+        if not (x0 <= u <= x1 and y0 <= v <= y1 and 0 <= ug <= gw and 0 <= vg <= gh):
+            continue
+        lon, lat = _ground_lonlat(site, ug, vg, gsz)
+        pairs.append([u, v, lon, lat])
+        feats.append(str(names[i]) if i < len(names) and names[i] is not None else "")
+    return pairs, feats
+
+
 def llm_model(root):
-    """The working-phase model: the fitkit sheet of each candidate (its crop next to the site's
-    ground, both gridded) to the local vision model (pipeline/llm.py), which reads the grid
-    labels and records >= 4 matched features as pairs in the row's size frame. Requires the
-    picture locally (fetched earlier in the working phase) and the AI-box tunnel; a missing
-    picture or a failed call is reported in the item, never raised."""
+    """The working-phase model: each candidate's fit sheet (its crop next to the site's ground,
+    both gridded bold, _sheet) to the local vision model (pipeline/llm.py). The model reads
+    the grid labels, names the features it matched, states the panel's scale, and records the
+    pairs in the row's size frame. The pilot showed this model fabricates internally perfect
+    regular patterns (identity maps, corner-to-corner, diagonal ladders) that a
+    consistency-only gate accepts, docs/gate.md section 7 - so the answer is checked before
+    the gate is ever asked: out-of-range points are dropped (_parse_answer), and a stated
+    scale that disagrees by 2x or more with the scale of the model's own points trims the
+    answer to 3 pairs, which routes the picture to the review item instead of an automatic
+    document. Requires the picture locally (fetched earlier in the working phase) and the
+    AI-box tunnel; a missing picture or a failed call is reported in the item, never raised."""
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
     import fitkit
     import llm
+    import plan_fit
 
     def model(site, row, proposal):
         if not row.get("size"):
             return {"note": "no image size recorded"}
+        box = _crop_px(row)
         try:
-            im = fitkit.plan_image(row)
+            sheet, gsz, gbox = _sheet(site, row, box)
+            kind = ("LiDAR relief shading" if fitkit.ground(site["id"]).endswith("relief.jpg")
+                    else "aerial photograph")
         except Exception as e:
             return {"note": "picture not available for the sheet: %s" % e}
-        from PIL import Image
-        box = _crop_px(row)
-        fitkit.sheet(site["id"], row["id"], box)
-        g = fitkit.ground(site["id"])
-        kind = "LiDAR relief shading" if g.endswith("relief.jpg") else "aerial photograph"
-        gsz = Image.open(g).size
-        hint = ""
-        if proposal:
-            hint = ("The proposed starting placement maps the panel onto the site centre at scale "
-                    "%s m/px and rotation %s deg (coarse=%s)." % (
-                        proposal.get("scale_m_px"), proposal.get("rot_deg"), proposal.get("coarse")))
-        prompt = (
-            "Left panel: a crop of an old map/plan of %s. Right panel: the ground there today (%s). "
-            "Both panels are gridded; the grid labels are pixel coordinates in that panel's own image. "
-            "Match at least 4 (up to 8) features that are the SAME feature on both sides: wall or rampart "
-            "corners, gate gaps, bastion or mound tips, road junctions, church footprints, river crossings, "
-            "field edges. Read each coordinate off the grid labels of its own panel. %s "
-            "Answer with JSON only: {\"pairs\": [[u_plan, v_plan, u_ground, v_ground], ...]}"
-            % (site.get("name") or site["id"], kind, hint))
         try:
-            ans = llm.ask_json(prompt, images=[os.path.join(fitkit.OUT,
-                                                           "fit_%s_%s.jpg" % (site["id"], row["id"]))])
+            ans = llm.ask_json(_model_prompt(site, row, box, gsz, gbox, kind, proposal),
+                               images=[sheet])
         except Exception as e:
             return {"note": "model call failed: %s" % e}
         if isinstance(ans, dict) and ans.get("_unparsed"):
             return {"note": "model answer not parseable: %s" % str(ans["_unparsed"])[:120]}
-        pairs = []
-        for p in (ans or {}).get("pairs") or []:
-            try:
-                u, v, ug, vg = float(p[0]), float(p[1]), float(p[2]), float(p[3])
-            except (TypeError, ValueError, IndexError):
-                continue
-            lon, lat = _ground_lonlat(site, ug, vg, gsz)
-            pairs.append([u, v, lon, lat])
+        pairs, feats = _parse_answer(ans, box, gsz, site)
         if not pairs:
             return {"note": "the model recorded no usable pairs"}
-        return {"pairs": pairs}
+        note = ("features: " + ", ".join(f for f in feats if f)) if any(feats) else None
+        stated = ans.get("scale_m_px") if isinstance(ans, dict) else None
+        if (len(pairs) >= 3 and isinstance(stated, (int, float))
+                and not isinstance(stated, bool) and stated > 0):
+            a, _, _, k = plan_fit.similarity(pairs[:min(8, len(pairs))])
+            implied = abs(float(a)) * k
+            if implied == implied and implied > 0 and max(implied / stated, stated / implied) > 2.0:
+                note = ((note + "; ") if note else "") + (
+                    "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted"
+                    % (stated, implied))
+                pairs, feats = pairs[:3], feats[:3]  # <4: run_sites routes it to the item
+        return {"pairs": pairs, "note": note}
 
-    return model  # noqa: fitkit.OUT (the sheet's directory) is read where it was set
+    return model
 
 
 def _ground_lonlat(site, col, row, size):
