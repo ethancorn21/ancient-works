@@ -39,15 +39,17 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 78 (2026-10-11, agent a) - ELEVENTH early bring-back; main UNMOVED since iter 75
-(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/87, the +3 over
-iter 77 are driver bookkeeping on my branch only: 5ad5e72, 96bc102, b3e0458 - zero tree change
-since iter 77's stop). All 206-owned work re-verified green and byte-identical to iters 66-77
-(all 8 md5s stable); the 4 suite reds unchanged in cause (211 x3, 218 x1; gate still "found
-22", store re-counted 116 docs / 94 auto / 22 non-auto). Deps 211+218 still open -> Status
-stays open. No code or data change this session (none available: the only remaining work is
-owned by 211/218). Re-run the same battery at the next bring-back; when 211+218 have merged,
-expect 0 reds (or reds no longer touching this task's files) and set done.**
+**Iteration 79 (2026-10-11, agent a) - TWELFTH early bring-back; main UNMOVED since iter 75
+(head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/90, the +3 over
+iter 78 are driver bookkeeping on my branch only: 7fdf72f (my iter-78 commit), 8b6af58,
+125de14 - zero tree change since iter 78's stop). All 206-owned work re-verified green and
+byte-identical to iters 66-78 (all 8 md5s stable); full battery re-run this session including
+`--gate` (iter 78 had skipped it on md5 grounds): accept, stats identical to the committed
+doc. The 4 suite reds unchanged in cause (211 x3, 218 x1; gate still "found 22", store
+re-counted 116 docs / 94 auto / 22 non-auto). Deps 211+218 still open -> Status stays open.
+No code or data change this session (none available: the only remaining work is owned by
+211/218). Re-run the same battery at the next bring-back; when 211+218 have merged, expect
+0 reds (or reds no longer touching this task's files) and set done.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
