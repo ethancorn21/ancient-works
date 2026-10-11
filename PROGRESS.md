@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van-deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 41 - module bug-fixed, NL table RE-VERIFIED clean; next: the lead doc.)
+- `tasks/204-van-deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 42 - lead doc written: category census + NL QID section + NL traps; next: close the
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -67,6 +67,19 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
     site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
     Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).
+
+### 2026-10-11 204 DECISION: wrote docs/lead_van_deventer.md (category census + NL QID section + NL traps); fixed two stale TOWNS count comments
+The lead doc now holds the verified material (the pending sections stay marked pending): (1) the category
+section - name/URL, 70 = 66 town + 4 collections, the --list assertion, all 66 town categories listed by
+country with the 6 done marked (NL 19 / BE 22 / FR 24 / LU 1), the 4 collection names incl. the BNE atlas;
+(2) the NL QID table - 16 rows (QID/label/P625/site-point/P625->site distance/enwiki; distances taken from the
+iter-41 transcript /tmp/vd_verify_iter41.txt, all <= 0.74 km, labels/P373 clean, the 3 done NL re-confirmed);
+(3) the three NL name-search traps with measured distances: Sluis first hits Q2065987 (9.0 km SW, P373
+'Sluis (city)', no enwiki) vs recorded Q10080; Reimerswaal first hits the municipality Q10078 (9.1 km, shares
+the P373 with the city so P373 cannot separate them) vs recorded city Q2590944; Valkenburg first hits the
+modern Q9771 (0.14 km, same spot) vs recorded old town Q100076 (no enwiki -> no wikipedia field). Pending
+sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep - record with the BE batch;
+... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: re-verification of the recorded QID table is clean (22 towns) - 3 name-search traps documented, 4 module bugs fixed' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
