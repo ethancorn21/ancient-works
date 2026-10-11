@@ -547,36 +547,45 @@ def test_sample_run_real_gate(tree):
 
 
 def test_hand_fitted_sites_get_items_for_their_other_pictures(tree):
-    """The already-hand-fitted EU sites: a candidate whose doc exists is skipped (never
-    re-fit, the golden doc stays), the other candidates with short answers become
-    could-not-fit item entries in one item per site; no new doc for a short answer."""
+    """The already-hand-fitted EU sites: a candidate whose doc exists (a golden hand fit, or
+    an automatic doc a working run left behind) is skipped - never re-fit; the fresh
+    candidates' short answers become could-not-fit entries in the site's one item (merged
+    into the item a working run may have left, never replaced as a whole); no new doc for a
+    short answer. The expectations are state-aware: the same test runs before and after the
+    working phase (a working run turns some fresh candidates into pre-docs)."""
     sample = [AVEBURY, OLDSARUM]
     answers = _short_answers()
     before = {sid: set(_pre(tree, sid)) for sid in sample}
+    live = {sid: _item(tree, sid) for sid in sample}
     golden = _golden()
     golden_before = {rel: _sha(os.path.join(tree, rel)) for rel in golden}
     records = batch_us.run_sites(tree, sample, batch_us.recorded_model(answers))
     for sid in sample:
         rec = records[sid]
-        cands = {r["id"] for r in batch_us.candidates(sid, _rows())}
-        pinned = [p for p in (AVEBURY_SHORT if sid == AVEBURY else OLDSARUM_SHORT) if p in cands]
+        cands = [r["id"] for r in batch_us.candidates(sid, _rows())]
+        fresh = [p for p in cands if p not in before[sid]]
+        short = AVEBURY_SHORT if sid == AVEBURY else OLDSARUM_SHORT
+        pinned = [p for p in short if p in set(fresh)]
         assert rec["pre_fit"] and not rec["auto"] and not rec["no_picture"]
-        for plan in before[sid] & cands:  # a pre-existing doc's row: skipped, never re-fit
+        for plan in before[sid] & set(cands):  # a pre-existing doc's row: skipped, never re-fit
             assert rec["detail"][plan]["outcome"] == "skip"
-        assert rec["item"] == bool(pinned)  # a short answer never becomes a doc
-        if not pinned:
+        assert rec["item"] == bool(fresh)  # one entry per fresh candidate
+        if not fresh:
             continue
         it = _item(tree, sid)
         assert it is not None and it["site"] == sid
-        assert it.get("resolved") is None and it["no_picture_found"] is None
-        lead = next(r["id"] for r in batch_us.candidates(sid, _rows())
-                    if r["id"] not in before[sid])  # first fresh candidate in file order
-        assert (Path(tree) / "data" / "review" / ("%s.%s.json" % (sid, lead))).is_file()
-        assert {c["plan"] for c in it["candidates"]} >= set(pinned)
+        assert len(_item_files(tree, sid)) == 1  # merged, never a second item file
+        assert it["resolved"] == (live[sid] or {}).get("resolved")  # write-once; not set here
+        assert it["no_picture_found"] is None
+        # the merged candidate set: the working run's entries survive, the fresh ones are added
+        expected = ({c["plan"] for c in live[sid]["candidates"]} if live[sid] else set()) | set(fresh)
+        assert {c["plan"] for c in it["candidates"]} == expected
+        assert (Path(tree) / "data" / "review" /
+                ("%s.%s.json" % (sid, it["candidates"][0]["plan"]))).is_file()  # the lead
         for c in it["candidates"]:
             if c["plan"] in pinned:
                 _check_entry(sid, _row_for(sid, c["plan"]), c, answers[sid][c["plan"]])
-        for plan in pinned:  # a short answer writes an item entry, never a doc
+        for plan in fresh:  # a short answer writes an item entry, never a doc
             assert not (Path(tree) / "data" / "db" / "platefits" / ("%s.%s.json" % (sid, plan))).exists()
     # the hand-fit docs (and the site.json files) of these sites stay byte-identical
     for rel, h in golden_before.items():

@@ -1,0 +1,52 @@
+{
+ "site": "okehampton-castle-q1419982",
+ "plan": "c_0edd7f87db67ff20",
+ "crop": [
+  0,
+  0,
+  618,
+  674
+ ],
+ "pairs": [
+  [
+   420.0,
+   100.0,
+   -4.0068737,
+   50.7331107
+  ],
+  [
+   250.0,
+   300.0,
+   -4.0097121,
+   50.7309548
+  ],
+  [
+   150.0,
+   500.0,
+   -4.0114152,
+   50.7287988
+  ],
+  [
+   350.0,
+   400.0,
+   -4.0080091,
+   50.7298769
+  ]
+ ],
+ "label": "1915",
+ "title": "Plan of Okehampton Castle",
+ "cite": "by Underlying map, Edward H. Young (died 1932); additional detail and work by hchc2009; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_Okehampton_Castle.png",
+ "at": "2026-10-11T14:15:24.725634+00:00",
+ "auto": true,
+ "score": 1.0,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/okehampton-castle-q1419982/0edd7f87db67ff20.jpg",
+ "ref": "File:Plan of Okehampton Castle.png",
+ "size": [
+  618,
+  674
+ ]
+}

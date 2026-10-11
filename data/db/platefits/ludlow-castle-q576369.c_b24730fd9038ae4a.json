@@ -1,0 +1,64 @@
+{
+ "site": "ludlow-castle-q576369",
+ "plan": "c_b24730fd9038ae4a",
+ "crop": [
+  0,
+  0,
+  1280,
+  1565
+ ],
+ "pairs": [
+  [
+   100.0,
+   300.0,
+   -2.7244738,
+   52.3680938
+  ],
+  [
+   800.0,
+   300.0,
+   -2.7200602,
+   52.3680938
+  ],
+  [
+   800.0,
+   1200.0,
+   -2.7200602,
+   52.3653988
+  ],
+  [
+   100.0,
+   1200.0,
+   -2.7244738,
+   52.3653988
+  ],
+  [
+   100.0,
+   700.0,
+   -2.7244738,
+   52.3667463
+  ],
+  [
+   800.0,
+   700.0,
+   -2.7200602,
+   52.3667463
+  ]
+ ],
+ "label": "1897",
+ "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+ "at": "2026-10-11T14:11:35.983042+00:00",
+ "auto": true,
+ "score": 22.4,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+ "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
+ "size": [
+  1280,
+  1565
+ ]
+}

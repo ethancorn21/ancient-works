@@ -1,0 +1,52 @@
+{
+ "site": "durocortorum-q4896307",
+ "plan": "c_369f6580712b35a7",
+ "crop": [
+  0,
+  0,
+  1035,
+  1098
+ ],
+ "pairs": [
+  [
+   150.0,
+   250.0,
+   4.8346589,
+   49.2668178
+  ],
+  [
+   750.0,
+   250.0,
+   4.8463595,
+   49.2668178
+  ],
+  [
+   750.0,
+   850.0,
+   4.8463595,
+   49.2587329
+  ],
+  [
+   150.0,
+   850.0,
+   4.8346589,
+   49.2587329
+  ]
+ ],
+ "label": "1862",
+ "title": "MoSa\u00efque rue Jacquart 41825",
+ "cite": "by Charles Loriquet. Versement et modifications \u02d0 G.Garitan; Public domain; https://commons.wikimedia.org/wiki/File:MoSa%C3%AFque_rue_Jacquart_41825.jpg",
+ "at": "2026-10-11T14:09:06.916077+00:00",
+ "auto": true,
+ "score": 17.7,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/durocortorum-q4896307/369f6580712b35a7.jpg",
+ "ref": "File:MoSa\u00efque rue Jacquart 41825.jpg",
+ "size": [
+  1035,
+  1098
+ ]
+}

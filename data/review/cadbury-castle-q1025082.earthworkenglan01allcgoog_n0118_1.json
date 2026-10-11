@@ -1,0 +1,101 @@
+{
+ "site": "cadbury-castle-q1025082",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0118_1",
+   "title": "South Cadbury Camp, Sutton Montis, Somerset",
+   "url": "books/earthworkenglan01allcgoog/n0118.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Cadbury Castle",
+    "place": {
+     "uk_county": "somerset"
+    },
+    "site": {
+     "id": "cadbury-castle-q1025082",
+     "qid": "Q1025082",
+     "name": "Cadbury Castle",
+     "lon": -2.531667,
+     "lat": 51.024167,
+     "admin": {
+      "parish": "South Cadbury and Sutton Montis",
+      "county": "Somerset",
+      "district": "South Somerset"
+     }
+    },
+    "score": 1.25,
+    "runner_up": 0.58,
+    "why": []
+   },
+   "pairs": [
+    [
+     500.0,
+     1500.0,
+     -2.5402289,
+     51.0295521
+    ],
+    [
+     1000.0,
+     1500.0,
+     -2.5345162,
+     51.0295521
+    ],
+    [
+     1500.0,
+     1500.0,
+     -2.5288035,
+     51.0295521
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2263,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: Northwest rampart corner, North rampart tip, Northeast rampart corner, East rampart tip, Southeast rampart corner, South rampart tip, Southwest rampart corner, West rampart tip; stated scale 0.226 disagrees with its own points (0.708 m/px): not trusted"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0134_1",
+   "title": "Cadbury Castle, Tiverton",
+   "url": "books/earthworkenglan01allcgoog/n0134.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     2100.0,
+     2200.0,
+     -2.5259471,
+     51.0241625
+    ],
+    [
+     1800.0,
+     3000.0,
+     -2.5288035,
+     51.0205691
+    ],
+    [
+     1000.0,
+     3000.0,
+     -2.5373726,
+     51.0205691
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.097,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: Eastern rampart mid-section, South-eastern rampart corner, South-western rampart corner, Western rampart mid-section; stated scale 0.097 disagrees with its own points (0.670 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

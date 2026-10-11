@@ -1,0 +1,83 @@
+{
+ "site": "windmill-hill-q4348373",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0557_1",
+   "title": "SITE OF WINDMILL, FIRLE HILL.",
+   "url": "books/earthworkenglan01allcgoog/n0557.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     1000.0,
+     2000.0,
+     -1.8790942,
+     51.4433231
+    ],
+    [
+     2000.0,
+     2000.0,
+     -1.8733294,
+     51.4433231
+    ],
+    [
+     2000.0,
+     3000.0,
+     -1.8733294,
+     51.4397298
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0178,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 10 20 30 40 50 Feet'",
+   "why": "features: Northwest corner of the central square enclosure, North-east corner of the central square enclosure, South-east corner of the central square enclosure, South-west corner of the central square enclosure, Tip of the large eastern mound; stated scale 0.018 disagrees with its own points (0.400 m/px): not trusted"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0558_1",
+   "title": "WINDMILL SITES, LEWES DOWN",
+   "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     800.0,
+     1800.0,
+     -1.8790942,
+     51.4433231
+    ],
+    [
+     1000.0,
+     2400.0,
+     -1.8762118,
+     51.4415265
+    ],
+    [
+     800.0,
+     2800.0,
+     -1.8790942,
+     51.4397298
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0168,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 10 20 30 40 50 Feet'",
+   "why": "features: Upper-left mound tip, Central mound tip, Lower-left mound tip, Lower-right mound tip; stated scale 0.017 disagrees with its own points (0.498 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

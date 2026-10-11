@@ -1,0 +1,336 @@
+{
+ "site": "avebury-q661855",
+ "candidates": [
+  {
+   "plan": "c_47849e3c40949668",
+   "title": "Rude Stone Monuments 0107b",
+   "url": "media/commons/avebury-q661855/47849e3c40949668.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Avebury",
+    "place_qid": "Q1234698",
+    "place_label": "Avebury",
+    "place_lon": -1.853889,
+    "place_lat": 51.428333,
+    "site_lon": -1.854167,
+    "site_lat": 51.428611,
+    "dist_m": 36.4
+   },
+   "pairs": [
+    [
+     600.0,
+     100.0,
+     -1.8548802,
+     51.4304031
+    ],
+    [
+     800.0,
+     300.0,
+     -1.8512782,
+     51.4290557
+    ],
+    [
+     700.0,
+     450.0,
+     -1.8534394,
+     51.427259
+    ],
+    [
+     400.0,
+     450.0,
+     -1.856321,
+     51.4277082
+    ],
+    [
+     200.0,
+     300.0,
+     -1.8570414,
+     51.4295048
+    ],
+    [
+     400.0,
+     150.0,
+     -1.856321,
+     51.429954
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 62.49536705475171 m > 45.0 m",
+   "gate_score": 62.5
+  },
+  {
+   "plan": "c_ffb3daac218b481f",
+   "title": "The new Larned History for ready reference, reading and research; the actual words of the world's best historians biographers and specialists; a complete system of history for all uses, extending to (14597089967)",
+   "url": "media/commons/avebury-q661855/ffb3daac218b481f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Larned",
+     "place_qid": "Q2404770",
+     "place_label": "Larned",
+     "place_lon": -99.1017,
+     "place_lat": 38.1822,
+     "site_lon": -1.854167,
+     "site_lat": 51.428611
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     -1.8570414,
+     51.4304031
+    ],
+    [
+     1000.0,
+     200.0,
+     -1.8512782,
+     51.4304031
+    ],
+    [
+     1000.0,
+     600.0,
+     -1.8512782,
+     51.4268098
+    ],
+    [
+     100.0,
+     600.0,
+     -1.8570414,
+     51.4268098
+    ],
+    [
+     500.0,
+     600.0,
+     -1.8541598,
+     51.4268098
+    ],
+    [
+     1000.0,
+     400.0,
+     -1.8512782,
+     51.4286065
+    ],
+    [
+     100.0,
+     400.0,
+     -1.8570414,
+     51.4286065
+    ],
+    [
+     500.0,
+     200.0,
+     -1.8541598,
+     51.4304031
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 97.1238444503887 m > 45.0 m",
+   "gate_score": 97.1
+  },
+  {
+   "plan": "c_603d643cf5f87268",
+   "title": "Ancient temple at Avebury Wiltshire",
+   "url": "media/commons/avebury-q661855/603d643cf5f87268.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Avebury Stone Circles",
+    "file_cat": "Illustrations of Avebury Stone Circles",
+    "via": [
+     "Avebury Stone Circles"
+    ]
+   },
+   "pairs": [
+    [
+     300.0,
+     150.0,
+     -1.8512782,
+     51.429954
+    ],
+    [
+     300.0,
+     200.0,
+     -1.8512782,
+     51.427259
+    ],
+    [
+     100.0,
+     200.0,
+     -1.8570414,
+     51.427259
+    ],
+    [
+     100.0,
+     150.0,
+     -1.8570414,
+     51.429954
+    ],
+    [
+     200.0,
+     175.0,
+     -1.8541598,
+     51.4286065
+    ],
+    [
+     350.0,
+     175.0,
+     -1.8498374,
+     51.4286065
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.5,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 96.69680741539818 m > 45.0 m",
+   "gate_score": 96.7
+  },
+  {
+   "plan": "c_1d28be9f93f5dbf3",
+   "title": "Rude Stone Monuments 0088",
+   "url": "media/commons/avebury-q661855/1d28be9f93f5dbf3.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Avebury Stone Circles",
+    "file_cat": "Avebury Stone Circles",
+    "via": []
+   },
+   "pairs": [
+    [
+     1050.0,
+     280.0,
+     -1.8512782,
+     51.429954
+    ],
+    [
+     1050.0,
+     420.0,
+     -1.8512782,
+     51.427259
+    ],
+    [
+     250.0,
+     420.0,
+     -1.8570414,
+     51.427259
+    ],
+    [
+     250.0,
+     280.0,
+     -1.8570414,
+     51.429954
+    ],
+    [
+     650.0,
+     350.0,
+     -1.8541598,
+     51.4286065
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 113.2785148976543 m > 45.0 m",
+   "gate_score": 113.3
+  },
+  {
+   "plan": "c_cb1aed83effb7c44",
+   "title": "The graphic and historical illustrator; an original miscellany of literary, antiquarian, and topographical information, embellished with one hundred and fifty woodcuts (1834) (14595744528)",
+   "url": "media/commons/avebury-q661855/cb1aed83effb7c44.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Avebury Stone Circles",
+    "file_cat": "Illustrations of Avebury Stone Circles",
+    "via": [
+     "Avebury Stone Circles"
+    ]
+   },
+   "pairs": [
+    [
+     100.0,
+     250.0,
+     -1.856321,
+     51.429954
+    ],
+    [
+     150.0,
+     300.0,
+     -1.8570414,
+     51.4295048
+    ],
+    [
+     400.0,
+     200.0,
+     -1.8548802,
+     51.4304031
+    ],
+    [
+     700.0,
+     250.0,
+     -1.852719,
+     51.429954
+    ],
+    [
+     800.0,
+     350.0,
+     -1.8519986,
+     51.4290557
+    ],
+    [
+     700.0,
+     450.0,
+     -1.852719,
+     51.4277082
+    ],
+    [
+     400.0,
+     500.0,
+     -1.8548802,
+     51.427259
+    ],
+    [
+     150.0,
+     450.0,
+     -1.8570414,
+     51.4277082
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 74.37289396798306 m > 45.0 m",
+   "gate_score": 74.4
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,76 @@
+{
+ "site": "durocortorum-q4896307",
+ "plan": "c_262c52de83d336bf",
+ "crop": [
+  0,
+  0,
+  1218,
+  483
+ ],
+ "pairs": [
+  [
+   100.0,
+   100.0,
+   4.8325941,
+   49.2690633
+  ],
+  [
+   1100.0,
+   100.0,
+   4.8518656,
+   49.2690633
+  ],
+  [
+   1100.0,
+   400.0,
+   4.8518656,
+   49.2654704
+  ],
+  [
+   100.0,
+   400.0,
+   4.8325941,
+   49.2654704
+  ],
+  [
+   600.0,
+   250.0,
+   4.8422299,
+   49.2672669
+  ],
+  [
+   50.0,
+   250.0,
+   4.8319059,
+   49.2672669
+  ],
+  [
+   1150.0,
+   250.0,
+   4.8525539,
+   49.2672669
+  ],
+  [
+   600.0,
+   50.0,
+   4.8422299,
+   49.2695124
+  ]
+ ],
+ "label": "1862",
+ "title": "MoSa\u00efque archev\u00each\u00e9 41825",
+ "cite": "by G.Garitan; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:MoSa%C3%AFque_archev%C3%AAch%C3%A9_41825.jpg",
+ "at": "2026-10-11T14:09:03.092480+00:00",
+ "auto": true,
+ "score": 10.4,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/durocortorum-q4896307/262c52de83d336bf.jpg",
+ "ref": "File:MoSa\u00efque archev\u00each\u00e9 41825.jpg",
+ "size": [
+  1218,
+  483
+ ]
+}

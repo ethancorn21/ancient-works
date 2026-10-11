@@ -1,0 +1,76 @@
+{
+ "site": "sedgwick-castle-q17645407",
+ "candidates": [
+  {
+   "plan": "c_4698419a99147c83",
+   "title": "Sedgwick Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/sedgwick-castle-q17645407/4698419a99147c83.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     450.0,
+     200.0,
+     -0.3187189,
+     51.0311938
+    ],
+    [
+     650.0,
+     400.0,
+     -0.3172905,
+     51.0302955
+    ],
+    [
+     450.0,
+     600.0,
+     -0.3187189,
+     51.0293972
+    ],
+    [
+     250.0,
+     400.0,
+     -0.3201472,
+     51.0302955
+    ],
+    [
+     450.0,
+     100.0,
+     -0.3187189,
+     51.0320921
+    ],
+    [
+     750.0,
+     400.0,
+     -0.3165763,
+     51.0302955
+    ],
+    [
+     450.0,
+     700.0,
+     -0.3187189,
+     51.0284988
+    ],
+    [
+     150.0,
+     400.0,
+     -0.3208614,
+     51.0302955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8686,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.1352785145879468 > 0.11 and io -13.461539769314186 < -10.0",
+   "gate_score": 14.4
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

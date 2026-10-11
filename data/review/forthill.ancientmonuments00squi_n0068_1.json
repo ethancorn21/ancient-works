@@ -1,0 +1,234 @@
+{
+ "site": "forthill",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0068_1",
+   "title": "\"Fort Hill,\" Highland county, Ohio",
+   "url": "books/ancientmonuments00squi/n0068.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Hill State Memorial",
+    "place": {
+     "county": "highland",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-hill-state-memorial-q16210178",
+     "qid": "Q16210178",
+     "name": "Fort Hill State Memorial",
+     "lon": -83.4063,
+     "lat": 39.1131,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1500.0,
+     1000.0,
+     -83.4038942,
+     39.1154955
+    ],
+    [
+     2000.0,
+     2000.0,
+     -83.3981052,
+     39.1110038
+    ],
+    [
+     1500.0,
+     3000.0,
+     -83.4038942,
+     39.1065118
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1829,
+   "rot_deg": -15.1,
+   "scale_source": "ratio",
+   "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "why": "features: North Gate, East Rampart Corner, South-East Rampart Corner, South Gate, West Rampart Corner, North-West Rampart Corner; stated scale 0.183 disagrees with its own points (0.759 m/px): not trusted"
+  },
+  {
+   "plan": "b24849959_n0269_1",
+   "title": "Fort Hill, Highland county",
+   "url": "books/b24849959/n0269.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Hill State Memorial",
+    "place": {
+     "county": "highland",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-hill-state-memorial-q16210178",
+     "qid": "Q16210178",
+     "name": "Fort Hill State Memorial",
+     "lon": -83.4063,
+     "lat": 39.1131,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1500.0,
+     500.0,
+     -83.4038942,
+     39.1226817
+    ],
+    [
+     2000.0,
+     1500.0,
+     -83.3946317,
+     39.1154955
+    ],
+    [
+     1500.0,
+     3000.0,
+     -83.4038942,
+     39.1083086
+    ],
+    [
+     500.0,
+     1500.0,
+     -83.4131567,
+     39.1154955
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6135,
+   "rot_deg": -16.5,
+   "scale_source": "picture_size",
+   "note": "scale text 'SCALE 500 FEET' is a bar span but no scale-bar box is recorded",
+   "why": "median residual 204.69847700912402 m > 45.0 m",
+   "gate_score": 204.7
+  },
+  {
+   "plan": "b24849959_n0270_1",
+   "title": "Map of the vicinity of Fort Hill",
+   "url": "books/b24849959/n0270.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Hill State Memorial",
+    "place": {
+     "county": "highland",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-hill-state-memorial-q16210178",
+     "qid": "Q16210178",
+     "name": "Fort Hill State Memorial",
+     "lon": -83.4063,
+     "lat": 39.1131,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0.25,
+    "why": []
+   },
+   "pairs": [
+    [
+     1450.0,
+     1050.0,
+     -83.4033153,
+     39.1150463
+    ],
+    [
+     1050.0,
+     2050.0,
+     -83.4033153,
+     39.1105546
+    ],
+    [
+     1550.0,
+     2050.0,
+     -83.3975263,
+     39.1105546
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.8671,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded",
+   "why": "features: Fort Hill mound, Brushcreek crossing, Mayville Road junction, County Line crossing; only 0% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0080_1",
+   "title": "FORT HILL",
+   "url": "books/ArcheologicalAtlasOfOhio/n0080.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Fort Hill State Memorial",
+    "place": {
+     "county": "highland",
+     "state": "ohio"
+    },
+    "site": {
+     "id": "fort-hill-state-memorial-q16210178",
+     "qid": "Q16210178",
+     "name": "Fort Hill State Memorial",
+     "lon": -83.4063,
+     "lat": 39.1131,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1250.0,
+     550.0,
+     -83.4038942,
+     39.1154955
+    ],
+    [
+     1250.0,
+     1150.0,
+     -83.4038942,
+     39.1083086
+    ],
+    [
+     1550.0,
+     900.0,
+     -83.399263,
+     39.1119022
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 1.0631,
+   "rot_deg": -16.7,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: 'SCALE 500 FEET'",
+   "why": "features: Northwest corner of the main earthwork, Southwest corner of the main earthwork, South-eastern tip of the central mound, Eastern gate gap in the rampart; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

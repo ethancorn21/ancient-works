@@ -1,0 +1,320 @@
+{
+ "site": "stonehenge-q39671",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0582_1",
+   "title": "EARTHWORKS OF STONEHENGE.",
+   "url": "books/earthworkenglan01allcgoog/n0582.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     800.0,
+     1800.0,
+     -1.8318357,
+     51.1824776
+    ],
+    [
+     1800.0,
+     1800.0,
+     -1.820372,
+     51.1824776
+    ],
+    [
+     800.0,
+     3000.0,
+     -1.8318357,
+     51.1752911
+    ],
+    [
+     1800.0,
+     3000.0,
+     -1.820372,
+     51.1752911
+    ],
+    [
+     1300.0,
+     2400.0,
+     -1.8261038,
+     51.1788845
+    ],
+    [
+     2000.0,
+     2400.0,
+     -1.8232379,
+     51.1788845
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5034,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "no scale text recorded; north hint 64.3 deg rejected (|deg| > 60): plate left north-up",
+   "why": "median residual 78.86602117632967 m > 45.0 m",
+   "gate_score": 78.9
+  },
+  {
+   "plan": "c_9d3c66e9ed1a5215",
+   "title": "0001-Ground-plan-of-Stonehenge-q75-1139x1590",
+   "url": "media/commons/stonehenge-q39671/9d3c66e9ed1a5215.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Stonehenge",
+    "place_qid": "Q39671",
+    "place_label": "Stonehenge",
+    "place_lon": -1.826111111111111,
+    "place_lat": 51.17888888888889,
+    "site_lon": -1.826111,
+    "site_lat": 51.178889,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     570.0,
+     570.0,
+     -1.8263904,
+     51.1788845
+    ],
+    [
+     880.0,
+     570.0,
+     -1.8210884,
+     51.1781659
+    ],
+    [
+     100.0,
+     570.0,
+     -1.8311192,
+     51.1781659
+    ],
+    [
+     570.0,
+     1000.0,
+     -1.8261038,
+     51.1757403
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6289,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 55.809185214279694 m > 45.0 m",
+   "gate_score": 55.8
+  },
+  {
+   "plan": "c_97c1bf9ac3714bbe",
+   "title": "31 of '(Our own country. Descriptive, historical, pictorial.)' (11182140263)",
+   "url": "media/commons/stonehenge-q39671/97c1bf9ac3714bbe.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Our",
+     "place_qid": "Q650039",
+     "place_label": "Our",
+     "place_lon": 5.6505555555556,
+     "place_lat": 47.130555555556,
+     "site_lon": -1.826111,
+     "site_lat": 51.178889
+    }
+   },
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     -1.8282533,
+     51.180232
+    ],
+    [
+     450.0,
+     150.0,
+     -1.8239544,
+     51.180232
+    ],
+    [
+     450.0,
+     450.0,
+     -1.8239544,
+     51.177537
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Outer Circle NW, Outer Circle NE, Outer Circle SE, Outer Circle SW, Inner Circle N, Inner Circle E, Inner Circle S, Inner Circle W; stated scale 0.438 disagrees with its own points (1.000 m/px): not trusted"
+  },
+  {
+   "plan": "c_2559c7f8dbce0244",
+   "title": "49 of 'Stonehenge- plans, descriptions and theories' (11133409654)",
+   "url": "media/commons/stonehenge-q39671/2559c7f8dbce0244.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Stonehenge",
+    "place_qid": "Q39671",
+    "place_label": "Stonehenge",
+    "place_lon": -1.826111111111111,
+    "place_lat": 51.17888888888889,
+    "site_lon": -1.826111,
+    "site_lat": 51.178889,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     550.0,
+     350.0,
+     -1.8268203,
+     51.1788845
+    ],
+    [
+     150.0,
+     150.0,
+     -1.8311192,
+     51.1811302
+    ],
+    [
+     150.0,
+     550.0,
+     -1.8311192,
+     51.1770878
+    ],
+    [
+     800.0,
+     200.0,
+     -1.8232379,
+     51.1806811
+    ],
+    [
+     300.0,
+     400.0,
+     -1.8289698,
+     51.1779862
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 51.15417837032749 m > 45.0 m",
+   "gate_score": 51.2
+  },
+  {
+   "plan": "c_98b1e7a4534b54b5",
+   "title": "View of Stonehenge and ground plans by Wood, Jones, Smith, and Stukeley - DPLA - a7987bd31e89b5a0e984cf2c7c04bd80",
+   "url": "media/commons/stonehenge-q39671/98b1e7a4534b54b5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Stonehenge",
+    "place_qid": "Q39671",
+    "place_label": "Stonehenge",
+    "place_lon": -1.826111111111111,
+    "place_lat": 51.17888888888889,
+    "site_lon": -1.826111,
+    "site_lat": 51.178889,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     0.0,
+     0.0,
+     -1.8332687,
+     51.1833759
+    ],
+    [
+     1280.0,
+     0.0,
+     -1.818939,
+     51.1833759
+    ],
+    [
+     0.0,
+     916.0,
+     -1.8332687,
+     51.1743927
+    ],
+    [
+     1280.0,
+     916.0,
+     -1.818939,
+     51.1743927
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 115.62944931232883 m > 45.0 m",
+   "gate_score": 115.6
+  },
+  {
+   "plan": "c_ffb3daac218b481f",
+   "title": "The new Larned History for ready reference, reading and research; the actual words of the world's best historians biographers and specialists; a complete system of history for all uses, extending to (14597089967)",
+   "url": "media/commons/stonehenge-q39671/ffb3daac218b481f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Larned",
+     "place_qid": "Q2404770",
+     "place_label": "Larned",
+     "place_lon": -99.1017,
+     "place_lat": 38.1822,
+     "site_lon": -1.854167,
+     "site_lat": 51.428611
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -1.8318357,
+     51.1824776
+    ],
+    [
+     1100.0,
+     100.0,
+     -1.820372,
+     51.1824776
+    ],
+    [
+     1100.0,
+     800.0,
+     -1.820372,
+     51.1752911
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

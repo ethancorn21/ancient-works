@@ -1,0 +1,64 @@
+{
+ "site": "traiectum-q2199749",
+ "plan": "c_6713f5e6c6b11f1f",
+ "crop": [
+  0,
+  0,
+  1280,
+  1223
+ ],
+ "pairs": [
+  [
+   150.0,
+   150.0,
+   5.1126868,
+   52.0961938
+  ],
+  [
+   640.0,
+   100.0,
+   5.1216493,
+   52.0967507
+  ],
+  [
+   640.0,
+   600.0,
+   5.1216493,
+   52.0911367
+  ],
+  [
+   150.0,
+   1050.0,
+   5.1126868,
+   52.0860879
+  ],
+  [
+   640.0,
+   1100.0,
+   5.1216493,
+   52.0855219
+  ],
+  [
+   1100.0,
+   1050.0,
+   5.1300562,
+   52.0860879
+  ]
+ ],
+ "label": "17th century",
+ "title": "Traiectum ad Mosam. Maestricht - btv1b532115367 (1 of 2)",
+ "cite": "Public domain; https://commons.wikimedia.org/wiki/File:Traiectum_ad_Mosam._Maestricht_-_btv1b532115367_(1_of_2).jpg",
+ "at": "2026-10-11T14:18:57.195092+00:00",
+ "auto": true,
+ "score": 0.3,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/traiectum-q2199749/6713f5e6c6b11f1f.jpg",
+ "ref": "File:Traiectum ad Mosam. Maestricht - btv1b532115367 (1 of 2).jpg",
+ "size": [
+  1280,
+  1223
+ ]
+}

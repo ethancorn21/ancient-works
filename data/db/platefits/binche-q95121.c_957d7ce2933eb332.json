@@ -1,0 +1,64 @@
+{
+ "site": "binche-q95121",
+ "plan": "c_957d7ce2933eb332",
+ "crop": [
+  0,
+  0,
+  1280,
+  957
+ ],
+ "pairs": [
+  [
+   400.0,
+   200.0,
+   4.1599211,
+   50.4164755
+  ],
+  [
+   800.0,
+   200.0,
+   4.168731,
+   50.4164755
+  ],
+  [
+   800.0,
+   400.0,
+   4.168731,
+   50.4136641
+  ],
+  [
+   400.0,
+   600.0,
+   4.1599211,
+   50.4108614
+  ],
+  [
+   1200.0,
+   600.0,
+   4.177541,
+   50.4108614
+  ],
+  [
+   800.0,
+   800.0,
+   4.168731,
+   50.4080497
+  ]
+ ],
+ "label": "1545",
+ "title": "Binche, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Binche_-_Deventer.jpg",
+ "at": "2026-10-11T14:04:15.927742+00:00",
+ "auto": true,
+ "score": 0.2,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/binche-q95121/957d7ce2933eb332.jpg",
+ "ref": "File:Binche - Deventer.jpg",
+ "size": [
+  1280,
+  957
+ ]
+}

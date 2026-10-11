@@ -1,0 +1,76 @@
+{
+ "site": "traiectum-q2199749",
+ "plan": "c_a65b37aa773876a5",
+ "crop": [
+  0,
+  0,
+  1280,
+  1228
+ ],
+ "pairs": [
+  [
+   150.0,
+   150.0,
+   5.1126868,
+   52.0961938
+  ],
+  [
+   1100.0,
+   150.0,
+   5.1300562,
+   52.0961938
+  ],
+  [
+   1100.0,
+   1100.0,
+   5.1300562,
+   52.0855219
+  ],
+  [
+   150.0,
+   1100.0,
+   5.1126868,
+   52.0855219
+  ],
+  [
+   600.0,
+   600.0,
+   5.1209183,
+   52.0911367
+  ],
+  [
+   900.0,
+   600.0,
+   5.126401,
+   52.0911367
+  ],
+  [
+   300.0,
+   600.0,
+   5.1154355,
+   52.0911367
+  ],
+  [
+   600.0,
+   900.0,
+   5.1209183,
+   52.0877679
+  ]
+ ],
+ "label": "1749",
+ "title": "Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur)",
+ "cite": "by Jean-Baptiste Larcher d'Aubencourt (1716\u20131796); Public domain; https://commons.wikimedia.org/wiki/File:Maastricht1749LarcherDAubencourt2_(detail_Vrijthof_%26_1e_stadsmuur).jpg",
+ "at": "2026-10-11T14:18:40.474028+00:00",
+ "auto": true,
+ "score": 0.2,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/traiectum-q2199749/a65b37aa773876a5.jpg",
+ "ref": "File:Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur).jpg",
+ "size": [
+  1280,
+  1228
+ ]
+}

@@ -1,0 +1,248 @@
+{
+ "site": "dunster-castle-q2969173",
+ "candidates": [
+  {
+   "plan": "c_a882198e3d1045e5",
+   "title": "124 of 'Dunster and its Lords, 1066-1881 ... With a descriptive sketch of Dunster Castle, by G. T. Clark ... and a chapter on the siege and surrender of Dunster Castle, by E. Green' (11155865215)",
+   "url": "media/commons/dunster-castle-q2969173/a882198e3d1045e5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Dunster Castle",
+    "place_qid": "Q2969173",
+    "place_label": "Dunster Castle",
+    "place_lon": -3.44427,
+    "place_lat": 51.1814,
+    "site_lon": -3.44427,
+    "site_lat": 51.1814,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     320.0,
+     280.0,
+     -3.4454093,
+     51.1821142
+    ],
+    [
+     780.0,
+     280.0,
+     -3.4431164,
+     51.1821142
+    ],
+    [
+     780.0,
+     1520.0,
+     -3.4431164,
+     51.1803175
+    ],
+    [
+     320.0,
+     1520.0,
+     -3.4454093,
+     51.1803175
+    ],
+    [
+     280.0,
+     800.0,
+     -3.4459825,
+     51.1812158
+    ],
+    [
+     820.0,
+     800.0,
+     -3.4425432,
+     51.1812158
+    ],
+    [
+     550.0,
+     1560.0,
+     -3.4442628,
+     51.1799582
+    ],
+    [
+     550.0,
+     240.0,
+     -3.4442628,
+     51.1824735
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.4018,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "radial gradient: slope_o 0.27557998813490064 > 0.145",
+   "gate_score": 42.9
+  },
+  {
+   "plan": "c_7a3a5f2dd48f4954",
+   "title": "A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14790306253)",
+   "url": "media/commons/dunster-castle-q2969173/7a3a5f2dd48f4954.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Dunster Castle",
+    "file_cat": "Dunster Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     580.0,
+     380.0,
+     -3.4448361,
+     51.1812158
+    ],
+    [
+     780.0,
+     300.0,
+     -3.4431164,
+     51.1821142
+    ],
+    [
+     780.0,
+     480.0,
+     -3.4431164,
+     51.1803175
+    ],
+    [
+     380.0,
+     480.0,
+     -3.4465557,
+     51.1803175
+    ],
+    [
+     380.0,
+     300.0,
+     -3.4465557,
+     51.1821142
+    ],
+    [
+     580.0,
+     280.0,
+     -3.4448361,
+     51.1822938
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "radial gradient: slope_o 0.28570677994711585 > 0.145",
+   "gate_score": 37.2
+  },
+  {
+   "plan": "c_3be7a14bdd34914a",
+   "title": "Dunster Castle 1733",
+   "url": "media/commons/dunster-castle-q2969173/3be7a14bdd34914a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Dunster Castle",
+    "file_cat": "Dunster Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     400.0,
+     150.0,
+     -3.4449794,
+     51.1818447
+    ],
+    [
+     200.0,
+     200.0,
+     -3.4471289,
+     51.182743
+    ],
+    [
+     600.0,
+     250.0,
+     -3.4428298,
+     51.1809463
+    ],
+    [
+     100.0,
+     300.0,
+     -3.4478455,
+     51.1813955
+    ],
+    [
+     700.0,
+     200.0,
+     -3.4413967,
+     51.1822938
+    ],
+    [
+     300.0,
+     350.0,
+     -3.4456959,
+     51.1804972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "median residual 54.5118636790674 m > 45.0 m",
+   "gate_score": 54.5
+  },
+  {
+   "plan": "c_dc404c1e7ed48532",
+   "title": "The Archaeological journal (1844) (14778370684)",
+   "url": "media/commons/dunster-castle-q2969173/dc404c1e7ed48532.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "British",
+     "place_qid": "Q9309",
+     "place_label": "Welsh",
+     "place_lon": -3.8,
+     "place_lat": 52.1,
+     "site_lon": -3.44427,
+     "site_lat": 51.1814
+    }
+   },
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -3.4478455,
+     51.1836412
+    ],
+    [
+     450.0,
+     100.0,
+     -3.4435463,
+     51.1836412
+    ],
+    [
+     100.0,
+     450.0,
+     -3.4478455,
+     51.1809463
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.3937,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: Northwest corner of the main house, North-east corner of the main house, South-west corner of the main house, South-east corner of the main house, Tip of the round mound (mote), West edge of the moat, East edge of the moat, North-west corner of the outer earthwork; stated scale 0.394 disagrees with its own points (0.858 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

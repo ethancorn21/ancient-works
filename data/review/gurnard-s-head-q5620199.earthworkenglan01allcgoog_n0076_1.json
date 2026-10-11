@@ -1,0 +1,26 @@
+{
+ "site": "gurnard-s-head-q5620199",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0076_1",
+   "title": "Camp at Eamsheugh, St. Abb's Head {afUr Dr. Chridi;ton)",
+   "url": "books/earthworkenglan01allcgoog/n0076.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: only a place word matches"
+   },
+   "pairs": [],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1219,
+   "rot_deg": 0.0,
+   "scale_source": "ratio",
+   "note": "scale from the printed ratio at 600 ppi (the scale-bar box holds the ratio text, not ticks)",
+   "why": "the model recorded no usable pairs"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

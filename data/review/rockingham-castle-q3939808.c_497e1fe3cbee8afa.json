@@ -1,0 +1,64 @@
+{
+ "site": "rockingham-castle-q3939808",
+ "candidates": [
+  {
+   "plan": "c_497e1fe3cbee8afa",
+   "title": "Rockingham Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/rockingham-castle-q3939808/497e1fe3cbee8afa.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     640.0,
+     100.0,
+     -0.7239926,
+     52.5155904
+    ],
+    [
+     1000.0,
+     400.0,
+     -0.7195644,
+     52.5128955
+    ],
+    [
+     640.0,
+     600.0,
+     -0.7239926,
+     52.5102005
+    ],
+    [
+     200.0,
+     400.0,
+     -0.7284209,
+     52.5128955
+    ],
+    [
+     800.0,
+     600.0,
+     -0.7225165,
+     52.5102005
+    ],
+    [
+     200.0,
+     500.0,
+     -0.7284209,
+     52.5119972
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 76.23952546547335 m > 45.0 m",
+   "gate_score": 76.2
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

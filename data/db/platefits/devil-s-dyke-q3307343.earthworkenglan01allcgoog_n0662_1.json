@@ -1,0 +1,45 @@
+{
+ "site": "devil-s-dyke-q3307343",
+ "plan": "earthworkenglan01allcgoog_n0662_1",
+ "crop": [
+  673,
+  758,
+  2862,
+  3535
+ ],
+ "pairs": [
+  [
+   1000.0,
+   1500.0,
+   0.2913825,
+   52.2716111
+  ],
+  [
+   2000.0,
+   1500.0,
+   0.3001903,
+   52.2716111
+  ],
+  [
+   2000.0,
+   2500.0,
+   0.3001903,
+   52.2662211
+  ],
+  [
+   1000.0,
+   2500.0,
+   0.2913825,
+   52.2662211
+  ]
+ ],
+ "label": null,
+ "title": "SWEALD",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-11T14:07:50.776515+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0662.jpg",
+ "book": "Allcroft 1908"
+}

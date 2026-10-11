@@ -1,0 +1,100 @@
+{
+ "site": "richard-s-castle-q17650937",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0453_1",
+   "title": "Richard's Castle, Herefordshire",
+   "url": "books/earthworkenglan01allcgoog/n0453.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "caption_coords",
+    "named_place": "Richard's Castle",
+    "place": {
+     "uk_county": "herefordshire"
+    },
+    "site": {
+     "id": "richard-s-castle-q17650937",
+     "qid": "Q17650937",
+     "name": "Richard's Castle",
+     "lon": -2.75751,
+     "lat": 52.3281,
+     "admin": {
+      "parish": "Richards Castle",
+      "county": "Herefordshire"
+     }
+    },
+    "score": 1.25,
+    "runner_up": 0,
+    "why": []
+   },
+   "pairs": [
+    [
+     1000.0,
+     1500.0,
+     -2.7619124,
+     52.3307904
+    ],
+    [
+     1500.0,
+     1500.0,
+     -2.7589726,
+     52.3307904
+    ],
+    [
+     1500.0,
+     2000.0,
+     -2.7589726,
+     52.3289938
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0503,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 feet'",
+   "why": "features: Northwest wall corner, North wall gap, Central mound tip, Southwest wall corner, Southeast wall corner, East wall gap; stated scale 0.050 disagrees with its own points (0.400 m/px): not trusted"
+  },
+  {
+   "plan": "c_96fa64eb44358b11",
+   "title": "Richard's Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/richard-s-castle-q17650937/96fa64eb44358b11.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     750.0,
+     150.0,
+     -2.7552978,
+     52.3303412
+    ],
+    [
+     900.0,
+     450.0,
+     -2.7530929,
+     52.3276463
+    ],
+    [
+     750.0,
+     850.0,
+     -2.7552978,
+     52.3249513
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.6314,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: North-eastern ditch corner, Eastern ditch gap, South-eastern ditch corner, South-western ditch corner, North-western ditch corner, Central mound; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

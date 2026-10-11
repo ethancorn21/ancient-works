@@ -1,0 +1,33 @@
+{
+ "site": "hembury-q3784763",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0439_1",
+   "title": "Hembury Castle, Buckfastleigh, Devon",
+   "url": "books/earthworkenglan01allcgoog/n0439.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     1700.0,
+     1700.0,
+     -3.2528502,
+     50.8151613
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.1429,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: Bottom-right rampart corner"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

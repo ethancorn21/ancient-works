@@ -1,0 +1,45 @@
+{
+ "site": "scotney-castle-q17530343",
+ "candidates": [
+  {
+   "plan": "c_9619bbc14863429f",
+   "title": "Scotney Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/scotney-castle-q17530343/9619bbc14863429f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     410.0,
+     180.0,
+     0.4150298,
+     51.0925735
+    ],
+    [
+     390.0,
+     380.0,
+     0.4146007,
+     51.0907769
+    ],
+    [
+     390.0,
+     300.0,
+     0.4146007,
+     51.0916752
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "features: River crossing / bridge, Old entrance gap, South-east wall corner, South-west wall corner, North-west wall corner, Mote tip; stated scale 0.363 disagrees with its own points (1.039 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

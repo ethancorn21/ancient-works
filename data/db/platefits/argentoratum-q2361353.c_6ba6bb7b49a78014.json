@@ -1,0 +1,76 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_6ba6bb7b49a78014",
+ "crop": [
+  0,
+  0,
+  1280,
+  773
+ ],
+ "pairs": [
+  [
+   380.0,
+   220.0,
+   7.7466614,
+   48.5864683
+  ],
+  [
+   480.0,
+   280.0,
+   7.7480194,
+   48.58557
+  ],
+  [
+   600.0,
+   400.0,
+   7.7496489,
+   48.5844921
+  ],
+  [
+   480.0,
+   520.0,
+   7.7480194,
+   48.5834142
+  ],
+  [
+   580.0,
+   480.0,
+   7.7493773,
+   48.5837735
+  ],
+  [
+   720.0,
+   520.0,
+   7.7512784,
+   48.5834142
+  ],
+  [
+   620.0,
+   480.0,
+   7.7499205,
+   48.5837735
+  ],
+  [
+   720.0,
+   220.0,
+   7.7512784,
+   48.5864683
+  ]
+ ],
+ "label": "1755",
+ "title": "3e Plan du front de fortification construit \u00e0 l'Ecole militaire etablie pour l'Artillerie \u00e0 Strabourg et des attaques de ce front projett\u00e9es pour l'instruction de cette \u00e9cole pendant la campagne 1755 - btv1b55001392s (1 of 2)",
+ "cite": "Public domain; https://commons.wikimedia.org/wiki/File:3e_Plan_du_front_de_fortification_construit_%C3%A0_l%27Ecole_militaire_etablie_pour_l%27Artillerie_%C3%A0_Strabourg_et_des_attaques_de_ce_front_projett%C3%A9es_pour_l%27instruction_de_cette_%C3%A9cole_pendant_la_campagne_1755_-_btv1b55001392s_(1_of_2).jpg",
+ "at": "2026-10-11T13:57:59.379559+00:00",
+ "auto": true,
+ "score": 8.7,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/6ba6bb7b49a78014.jpg",
+ "ref": "File:3e Plan du front de fortification construit \u00e0 l'Ecole militaire etablie pour l'Artillerie \u00e0 Strabourg et des attaques de ce front projett\u00e9es pour l'instruction de cette \u00e9cole pendant la campagne 1755 - btv1b55001392s (1 of 2).jpg",
+ "size": [
+  1280,
+  773
+ ]
+}

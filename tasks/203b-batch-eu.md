@@ -1,4 +1,4 @@
-Status: open
+Status: done
 # 203b: The batch, rest of world - every non-US built site
 Depends on: 203a
 Touches: fit/batch_eu.py, data/db/platefits/, data/review/, docs/batch_eu.md, tests/test_batch_eu.py
@@ -11,16 +11,16 @@ writes only the non-US documents and items. 203a's US output is already merged i
 the task starts.
 
 ## Acceptance criteria
-- [ ] fit/batch_eu.py imports the loop from fit/batch_us.py and runs it over every non-US built
+- [x] fit/batch_eu.py imports the loop from fit/batch_us.py and runs it over every non-US built
       site; every such site ends with at least one automatic platefit document (score
       recorded) or an open review item - or an existing hand fit.
-- [ ] The union of the two batch outputs covers every built site exactly once: a check against
+- [x] The union of the two batch outputs covers every built site exactly once: a check against
       sites.json over the documents and items both tasks wrote - no site in both, none missing
       (the 6 region-less sites must appear in the EU list, not be dropped).
-- [ ] docs/batch_eu.md in the same format as docs/batch_us.md: counts (automatic fit / review
+- [x] docs/batch_eu.md in the same format as docs/batch_us.md: counts (automatic fit / review
       item / already hand-fitted / no picture found), the recorded seed, and the seeded sample
       of automatically accepted fits (20 where there are at least 20, a page URL each).
-- [ ] After the run the hand-fit documents are still byte-identical to
+- [x] After the run the hand-fit documents are still byte-identical to
       tests/golden/hand_fit_docs.sha256; the test (no network, port 0) runs the loop on a
       fixed sample of non-US sites with in-repo ground and asserts the invariants.
 
@@ -32,144 +32,54 @@ the task starts.
   combined 20-sample for the human's 18/20 check from the whole set.
 
 ## Hand-over
-Session 2 (2026-10-11, iteration 49). State: tests/test_batch_eu.py WRITTEN and GREEN;
-the working run (session 3) is the next step. Nothing of this session is committed yet:
-the harness saves tests/test_batch_eu.py (new) and the PITFALLS.md edit; session 1's
-fit/batch_eu.py is committed (2fd1138).
 
-Test suite as last run: `.venv/bin/python -m pytest -q` = 45 passed, 1 skipped
-(47 s). The 1 skip is test_union_full_coverage_live, correctly skip-gated
-docs/batch_eu.md does not exist yet). All 8 new tests of tests/test_batch_eu.py
-pass. The other 38 pre-existing tests are unchanged and green.
+Session 3 (2026-10-11, iteration 50) - WORKING RUN DONE; task COMPLETE (all 4 boxes ticked,
+Status: done, done claim filed). This is the final state; nothing is pending. If this task is
+ever reopened (e.g. a 212-era re-coverage run changes the tree), re-verify the checks below.
 
-What session 2 did:
-- Wrote tests/test_batch_eu.py (8 tests, self-contained helpers - deliberately NOT
-  importing test_batch_us's; the two files change for different reasons; see the
-  DECISIONS entry). Design: sample = the 6 region-less sites (newark 21 candidates,
-  forthill 4, marietta 4, fudge/highbank/hopeton 0 + old-style fit) + bibracte-q650053
-  (no-picture re-upsert of its 201-era item) + avebury-q661855 / old-sarum-q782719
-  (pre-docs skipped, fresh commons rows get short 2-pair answers -> could-not-fit
-  item entries). Tests: sample run under the real gate (29 auto docs expected, 0
-  items from the region-less three, no items for the three no-candidate hand-fitted,
-  bibracte re-stamped with the batch's searched wording); hand-fit skip +
-  could-not-fit; stub accept/reject gates on a COMPUTED EU site (today
-  alauna-q4708853) monkeypatching batch_us.gate_placement; golden invariance (39
-  golden + the 6 old-style site.json pre/post, only new files = auto docs / sample
-  items); report (byte-identical twice, shared SEED 20261010, the EXACT seeded sample
-  list re-computed, page URL per doc, union section == union_section(union_check(tree))
-  appended at the end, default path pinned to docs/batch_eu.md, never batch_us.md);
-  union check (weaker form in the temp tree); full live union test (skip-gated).
-- CORRECTION to session 1's DECISIONS note "Avebury's duplicate-id Larned row no
-  longer exists (one c_ffb3daac218b481f row now)": WRONG. Two rows still share that
-  id - one per site (avebury-q661855 and stonehenge-q39671) with DIFFERENT per-site
-  urls; c_984782b9e35e8ded does the same (mayburgh-henge + king-arthur-s-round-table).
-  The first test run tripped on it (a stonehenge url asserted against the avebury
-  entry). Fix: per-site row lookup _row_for(sid, plan) from the site's own candidates
-  (never a global id dict). PITFALLS.md's plans.json entry was updated accordingly
-  (that edit is uncommitted - the harness saves it).
+Final state (all committed in this task's commit):
+- docs/batch_eu.md: "Sites run: 294". Counts: 54 automatic fit, 47 review item, 18 already
+  hand-fitted, 175 no picture found, 0 error; 252 review items written. Seed: 20261010
+  (shared with 203a). Sample: the seeded 20 of the 94 EU auto docs (reproducible from the
+  seed over the EU doc set), a page URL each.
+- data/db/platefits/: 130 docs = 36 pre-batch (20 golden hand fits + 16 US auto from 203a)
+  + 94 new EU auto docs (auto: true, gate score recorded).
+- data/review/: 341 files = 340 items (252 EU + 88 US) + README.md. Every EU item is open
+  (resolved null). The 175 no-picture EU items (no_picture_found set) are 212's
+  search-harder list; bibracte's 201-era item was re-upserted with the batch's searched
+  wording.
+- Union section (in the report): 384 built sites, 384 covered, 0 missing, 0 in both, 0
+  orphan docs, 0 orphan items, no bad doc names; the 6 region-less sites in the EU list.
+- Golden intact: sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 both BEFORE and
+  AFTER the run; the 6 old-style site.json (newark/forthill/marietta/fudge/highbank/
+  hopeton) byte-identical (pre/post hashes were /tmp/oldstyle6.sha256).
+- Suite: 46 passed, 0 skipped (test_union_full_coverage_live un-skipped and passed: the
+  report's "Sites run: 294" equals the live EU partition size).
 
-NEXT STEP (session 3, the working phase): `.venv/bin/python fit/batch_eu.py --working`
-over all 294 (AI-box tunnel needed as in 203a's run; network only for fetching book
-page images, commons pictures and Esri aerials for the ~17 lidar:false EU sites -
-they land in the gitignored cache, never in git). Before the run: capture sha256 of
-the 6 old-style site.json (data/sites/{newark,forthill,marietta,fudge,highbank,hopeton}/
-site.json) and sha256sum -c tests/golden/hand_fit_docs.sha256 (must be 39/39 before).
-Afterwards: sha256sum -c the golden again (39/39), hash-compare the 6 old-style
-site.json, read docs/batch_eu.md (union section should read 384 built sites, 0 in
-both, and - since 203a's US output is already in this branch - 0 missing if the EU
-run covered everything; pre-EU state was 112 covered / 272 missing / 0 anomalies),
-commit docs + items + report, run the full suite (test_union_full_coverage_live
-should now UN-skip and pass), tick the four boxes in order (loop runs / union /
-report / golden+test), file the done claim.
+Session 3 did: (1) pre-checks - AI-box tunnel up (qwen3.8-27b on 127.0.0.1:8080/8081 vLLM,
+8082 llama.cpp), golden 39/39, the 6 old-style hashes captured, all 306 fresh-candidate
+images already local in the shared data/raw store; (2) the run: AW_LLM_URL=
+http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_eu.py --working under
+nohup (~30 min, 306 model calls, log /tmp/batch_eu_50.log; the only network was 17 Esri
+aerial fetches for the lidar:false sites into the gitignored shared data/raw/aerial cache);
+(3) the one code change of the session: tests/test_batch_eu.py's
+test_hand_fitted_sites_get_items_for_their_other_pictures went STATE-AWARE (the run made 2
+of old-sarum's 3 pinned short-answer plans into auto docs, so the recorded run now skips
+them as pre-docs - pinned = short-list ∩ fresh, expected item = live ∪ fresh, lead = the
+post-run invariant; see the DECISIONS entry and the new PITFALLS entry on state-dependent
+recorded-answer tests); (4) verification and the single commit (docs + items + report +
+test fix), all 4 boxes ticked.
 
-For 212 (write into its hand-over when done): shared SEED 20261010; the EU sample in
-docs/batch_eu.md is reproducible from it and disjoint from the US list (212 picks the
-final combined 20 from the union with its own seed); the no-picture item list (175
-sites incl. bibracte's 201-era item) is its search-harder list; 212 must re-export
-web/data/review.json (the batch never writes it).
-
-Re-read: tests/test_batch_eu.py:test_union_full_coverage_live - the skip-gate
-condition (the report's "Sites run" must equal the live EU partition size, 294 today)
-and the full assertion (0 missing / 0 in both / 0 orphans / no bad doc names) - after
-the working run it must un-skip and pass; fit/batch_eu.py:write_report - the default
-path pin and the union section appended after batch_us.write_report.
-
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/203-batch-fit.md` (split)
-- `tasks/203b-batch-eu.md` (open) - hand-over: Session 1 (2026-10-11, iteration 49). State: fit/batch_eu.py built, verified, committed.
-- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-
-## Next open tasks
-- `tasks/215-books-llm-ports.md`
-- `tasks/216-view-books-entries.md`
-- `tasks/217-view-books-lists.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203b DECISION: import the 203a loop verbatim and use its shared SEED 20261010 (prep note's separate SEED_EU dropped)
-fit/batch_eu.py (session 1, built and verified) imports run_sites/llm_model/recorded_model/
-write_report from fit/batch_us.py and owns only eu_sites (region != "US": 294 of 384, incl. the 6
-region-less - verified), the report's union section, and the CLI. The prep note (written before
-203a was built) proposed its own SEED_EU so 212's combined sample would be unambiguous; 203a's
-final hand-over (the newer, authoritative word from the loop's owner) says "shared SEED
-20261010", and write_report/_sample take no seed parameter - the module constant is the only
-one. The two reports' samples draw from disjoint doc sets (US docs vs EU docs), so one seed
-reproduces both unambiguously; 212 later draws the combined 20-sample from the union with its
-own seed. No loop change requested from 203a: its seams matched the prep contract, except
-run_sites' signature is (root, site_ids, model) not (root, site_ids, working, gate) - the gate is
-always the real frozen one (injectable in tests by monkeypatching batch_us.gate_placement, the
-pattern 203a's own test uses).
-
-### 2026-10-11 203b DECISION: hand-fitted sites with zero candidates get NO no-picture item - the EU run writes 175, not 178, no-picture items
-Verified on the merged loop: run_sites writes a no-picture item only when `not cands and not
-rec["pre_fit"]`, and is_pre_fit counts the old-style data/sites/<id>/site.json plate fit (kept by
-design, 203a's R9). Of the 178 candidate-less EU sites, fudge/highbank/hopeton carry old-style
-fits, so they end in the "already hand-fitted" bucket with no item (box 1's "or an existing hand
-fit" covers them; prep note section 1's "those three become no-picture-found items" is void
-against the merged loop - changing the guard would be a 203a loop edit and is not needed).
-bibracte (France, zero candidates, an existing 201-era no-picture item) has its item re-upserted
-with the batch's searched wording. So the full EU run is expected to: write 175 no-picture items
-(174 new files + bibracte's re-save), classify 175 as "no picture found", and the remaining 119
-candidate sites split between automatic fit / review item / already hand-fitted per the LLM's
-answers. Dry run of the 6 region-less sample with 202's recorded proposals: all 29 candidates
-(newark 21, forthill 4, marietta 4) PASS the real gate (median <= 0.14 m) - the documented
-"true case" holds for EU ground too, so the test's expected outcome is 29 new auto docs, 0 items,
-3 sites hand-fitted. Avebury's prep-note duplicate-id Larned row no longer exists (one
-c_ffb3daac218b481f row now); avebury has 6 candidates (1 pre-doc), old-sarum 5 (2 pre-docs).
-
-### 2026-10-11 203b DECISION: report union section computed over the tree state AFTER the run; the full 384-coverage assertion is state-gated in the test
-batch_eu.write_report appends union_section(union_check(root)) after batch_us.write_report wrote
-the base report, so the section reflects the tree as it stands after run_sites. In the hermetic
-test the temp tree only runs the sample, so that section lists the (expected) missing EU sites -
-deterministic, and the test asserts the weaker form there (partitions disjoint + union = all
-sites of the tree, the 6 region-less in the EU list, sample sites covered, the EU run wrote no
-file naming a US site). The full assertion (0 missing, 0 in both, 0 orphans over the live
-checkout) is skip-gated until the working run's report shows "Sites run: 294" - state-agnostic by
-design, like 803's re-baseline: it never pins the live population to 384, because 211's merge
-will grow sites.json and 212 re-covers the growth (the parent's tests/test_batch.py owns the
-frozen original set). The union check keys items by the item's site FIELD (the file name's lead
-plan moves under upsert) and docs by the site field with a name-prefix consistency check.
-
-## Project-wide driver notes (newest)
-
-### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
-    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
-    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
-
-### 2026-10-11 agent/c (203b) hand-over note
-    Session 2 of 203b done mid-iteration 49: tests/test_batch_eu.py written (8 tests)
-    and the full suite is green (45 passed, 1 skipped - the skip-gated live union
-    test). tests/test_batch_eu.py and a PITFALLS.md edit (plans.json duplicate plan
-    ids, per-site rows) are in the working tree, uncommitted (harness saves them);
-    the hand-over is committed. Next session: the --working run over all 294 EU sites
-    (AI-box tunnel), then golden checks, commit, tick boxes, done claim. Details in
-    tasks/203b-batch-eu.md ## Hand-over.
+For 212 (combined sample / re-coverage / review.json re-export):
+- The US sample (16 docs, docs/batch_us.md) and the EU sample (20 of 94, docs/batch_eu.md)
+  are each reproducible from the shared SEED 20261010 over their disjoint doc sets.
+- The final combined 20-sample for the human's 18/20 check: 110 auto docs total (16 US +
+  94 EU); 212 picks from that union with its own seed and writes docs/batch.md.
+- 212's re-coverage run over grown sites must re-export web/data/review.json (the batch
+  never writes it; 201's export owns it) and re-run 001's held-out check if it touches the
+  non-automatic reference (802's partition filters auto docs - it is state-agnostic).
+- The 203b tests are state-aware: a 212 re-coverage run that adds docs/items will NOT break
+  test_hand_fitted_sites_get_items_for_their_other_pictures (fresh is computed from the
+  live tree); the live union test's skip gate is dynamic (report's "Sites run" vs the live
+  EU partition size), so it stays correct when 211/212 grow sites.json - a re-run of the
+  EU batch that changes "Sites run" re-gates it correctly.

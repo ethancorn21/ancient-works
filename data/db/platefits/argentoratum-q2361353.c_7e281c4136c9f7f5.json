@@ -1,0 +1,76 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_7e281c4136c9f7f5",
+ "crop": [
+  0,
+  0,
+  1280,
+  668
+ ],
+ "pairs": [
+  [
+   380.0,
+   180.0,
+   7.7480194,
+   48.5873665
+  ],
+  [
+   480.0,
+   220.0,
+   7.7496489,
+   48.5870072
+  ],
+  [
+   680.0,
+   180.0,
+   7.7523647,
+   48.5873665
+  ],
+  [
+   880.0,
+   220.0,
+   7.7550805,
+   48.5870072
+  ],
+  [
+   980.0,
+   420.0,
+   7.7561669,
+   48.5852107
+  ],
+  [
+   880.0,
+   580.0,
+   7.7537226,
+   48.5834142
+  ],
+  [
+   680.0,
+   620.0,
+   7.7510068,
+   48.5828752
+  ],
+  [
+   480.0,
+   580.0,
+   7.748291,
+   48.5834142
+  ]
+ ],
+ "label": "1701-1714",
+ "title": "Plattegrond van Straatsburg, ca. 1701-1713, RP-P-OB-83.037-29",
+ "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Plattegrond_van_Straatsburg,_ca._1701-1713,_RP-P-OB-83.037-29.jpg",
+ "at": "2026-10-11T13:59:23.800162+00:00",
+ "auto": true,
+ "score": 40.1,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/7e281c4136c9f7f5.jpg",
+ "ref": "File:Plattegrond van Straatsburg, ca. 1701-1713, RP-P-OB-83.037-29.jpg",
+ "size": [
+  1280,
+  668
+ ]
+}

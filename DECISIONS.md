@@ -90,3 +90,47 @@ itself is correct (candidates(sid) yields each site's own row; docs are named pe
 (site, plan) so nothing collides) - only id-keyed lookups are wrong. Fix in the test:
 _row_for(sid, plan) from the site's own candidate list; PITFALLS.md's plans.json
 entry rewritten to the per-site-row shape (uncommitted, harness saves it).
+
+## 2026-10-11 203b DECISION: session 3 - the working run over all 294 EU sites: 54 automatic fit (94 new docs) / 47 review item / 18 already hand-fitted / 175 no picture found, 0 errors; union 384 covered / 0 missing / 0 in both, no anomalies; golden 39/39 before and after, 6 old-style site.json byte-identical; all 4 boxes ticked, task done
+
+CHOICE: ran the working phase exactly as the session-2 hand-over prescribed, nohup in the
+background (AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python
+fit/batch_eu.py --working; log /tmp/batch_eu_50.log; ~30 min for 306 model calls, qwen3.8-27b
+vLLM - the tunnel re-verified up on 8080/8081/8082 before starting). Pre-run checks: golden
+39/39, the 6 old-style site.json hashes captured (/tmp/oldstyle6.sha256), all 306
+fresh-candidate images already local in the shared data/raw store (0 to fetch - the books and
+commons harvests had landed them), the union check at the expected pre-EU state (112 covered /
+272 missing / 0 anomalies). The only network the run needed was 17 Esri aerial fetches (the
+lidar:false EU sites) into the gitignored shared data/raw/aerial cache.
+
+OUTCOME (docs/batch_eu.md): 294 sites, 0 errors: 54 automatic fit, 47 review item, 18 already
+hand-fitted, 175 no picture found; 252 review items written (251 new files + bibracte's 201-era
+item re-upserted with the batch's searched wording) - exactly as the session-1 prediction
+(175 = 178 candidate-less minus fudge/highbank/hopeton's old-style fits). 94 new auto docs
+(36 -> 130 in data/db/platefits/; auto: true + the gate's score recorded; the frozen gate
+accepted ~31% of the 306 model answers, a healthier rate than 203a's US run, no changes to the
+gate anywhere). Post-run verification: golden 39/39, the 6 old-style site.json byte-identical,
+the report's union section 384 covered / 0 missing / 0 in both / 0 orphan docs / 0 orphan
+items / no bad doc names (the 6 region-less in the EU list), all 252 EU items open (resolved
+null). The full suite is 46 passed / 0 skipped: the skip-gated test_union_full_coverage_live
+un-skipped (the report's "Sites run: 294" equals the live EU partition) and passed. Committed
+docs + items + report + the test fix in one commit; all 4 boxes ticked; done claim filed.
+
+## 2026-10-11 203b DECISION: the hand-fitted-sites test went state-aware after the run made two of its pinned plans into pre-docs
+
+The one test that failed after the working run:
+test_hand_fitted_sites_get_items_for_their_other_pictures. Session 2 wrote its expectations
+for the PRE-run tree: old-sarum's pinned set was its 3 fresh commons rows, but the run made
+2 of them (c_041083ec68b532f8, c_ff62c9585a92b375) automatic docs, so the test's recorded run
+skips them as pre-docs (never re-fitted, no entry) and the item gained no entry for them
+("Extra items in the right set"). Avebury was unaffected (its 5 fresh rows all stayed item
+entries, replaced in place). Fix, in my own test file only (no loop change - the skip rule is
+203a's correct behaviour): pinned = short-list ∩ fresh (fresh = candidates minus pre_docs,
+re-read from the tree at test time); the expected item candidate set = the live item's
+candidates (a working run may have left one) ∪ fresh (exact equality, not a superset); the
+lead assertion now checks the post-run invariant (exactly one file, named after
+candidates[0].plan) instead of "first fresh candidate in file order"; resolved is compared
+against the live item's (write-once, never set by the batch). The form is correct before AND
+after any run, and under plans.json growth or 212's re-coverage run (the live item's entries
+merge in, the fresh ones append). PITFALLS entry filed (recorded-answer batch tests are
+state-dependent on the tree).

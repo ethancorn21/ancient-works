@@ -279,6 +279,23 @@ Why: `pre_docs` scans data/db/platefits/ as it stands at call time, and the batc
       (`pre_docs`, `is_pre_fit`) BEFORE calling `run_sites`; compare the post-run directory only for
       "what is new". (Session-3 misdiagnosis: it first read as cross-test state pollution.)
 
+#### Recorded-answer batch tests must be state-aware: an earlier run's auto docs are pre-docs for the next run's recorded model
+Where: `tests/test_batch_eu.py` (`test_hand_fitted_sites_get_items_for_their_other_pictures`),
+      `fit/batch_us.py` (`run_sites`'s skip rule), `fit/batch_eu.py`
+Symptom: a test that pins an item's expected candidates against the full candidate list passes on
+      the pre-run tree and fails after the working run ("Extra items in the right set: c_..."): the
+      plans the run turned into automatic documents are skipped as pre-docs by the test's recorded
+      run (never re-fitted, no entry) and never appear in the item.
+Why: `run_sites` skips any candidate whose doc exists at call time (`have = pre_docs ∪ docs written
+      this run`), and the test's temp tree copy carries the previous run's documents. Expectations
+      computed from a static list of candidate ids go stale the moment any run adds a document -
+      this also hits 212's re-coverage run, which adds docs for grown sites.
+Do this instead: compute expectations from the live tree state at test time: fresh = candidates
+      minus `pre_docs` (re-read in the test, never a constant), expected item candidates = the live
+      item's candidates (a working run may have left one) ∪ fresh (exact equality), and assert the
+      post-run invariants (one file per site, named after candidates[0].plan; resolved unchanged).
+      The test then passes before and after every run.
+
 #### `data/db/platefits/` mixes hand fits and automatic ones (`"auto": true`) - code that counts the directory's files must filter `doc.get("auto")`
 Where: `tools/gate_heldout.py` (`partition`), `fit/batch_us.py` (`write_doc`, `write_golden`), `data/db/platefits/`
 Symptom: code that treats every `data/db/platefits/*.json` as a hand-fit reference breaks once a batch

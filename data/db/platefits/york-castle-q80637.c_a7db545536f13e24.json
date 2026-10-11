@@ -1,0 +1,52 @@
+{
+ "site": "york-castle-q80637",
+ "plan": "c_a7db545536f13e24",
+ "crop": [
+  0,
+  0,
+  1025,
+  1257
+ ],
+ "pairs": [
+  [
+   350.0,
+   400.0,
+   -1.079229,
+   53.9553793
+  ],
+  [
+   400.0,
+   500.0,
+   -1.0784657,
+   53.9549302
+  ],
+  [
+   200.0,
+   600.0,
+   -1.0815191,
+   53.9540318
+  ],
+  [
+   500.0,
+   300.0,
+   -1.076939,
+   53.9567268
+  ]
+ ],
+ "label": "1855",
+ "title": "Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476 mod 01",
+ "cite": "by Gifford, Franklin.; Wenig, E.; Smith, Robert Pearsall, 1827-1898; A.O. Gallup & Co.; and User:DutchTreat; Public domain; https://commons.wikimedia.org/wiki/File:Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476_mod_01.jpg",
+ "at": "2026-10-11T14:20:05.768764+00:00",
+ "auto": true,
+ "score": 13.6,
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/york-castle-q80637/a7db545536f13e24.jpg",
+ "ref": "File:Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476 mod 01.jpg",
+ "size": [
+  1025,
+  1257
+ ]
+}

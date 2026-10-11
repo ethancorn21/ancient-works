@@ -1,0 +1,45 @@
+{
+ "site": "marietta",
+ "plan": "b24849959_n0195_1",
+ "crop": [
+  209,
+  408,
+  2235,
+  3178
+ ],
+ "pairs": [
+  [
+   500.0,
+   500.0,
+   -81.4627968,
+   39.4238852
+  ],
+  [
+   1000.0,
+   1000.0,
+   -81.4569827,
+   39.4193938
+  ],
+  [
+   500.0,
+   2000.0,
+   -81.4627968,
+   39.4104102
+  ],
+  [
+   1500.0,
+   2000.0,
+   -81.4511685,
+   39.4104102
+  ]
+ ],
+ "label": "Fig. 15",
+ "title": "The Marietta works",
+ "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+ "at": "2026-10-11T14:11:53.788120+00:00",
+ "auto": true,
+ "score": 0.0,
+ "ia": "b24849959",
+ "file": "n0195.jpg",
+ "book": "Fowke 1902"
+}

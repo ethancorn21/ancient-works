@@ -1,0 +1,104 @@
+{
+ "site": "clun-castle-q5136615",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0575_1",
+   "title": "EARTHWORKS",
+   "url": "books/earthworkenglan01allcgoog/n0575.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "pairs": [
+    [
+     850.0,
+     1950.0,
+     -3.0382417,
+     52.4247904
+    ],
+    [
+     1200.0,
+     1950.0,
+     -3.0352957,
+     52.4247904
+    ],
+    [
+     1550.0,
+     1950.0,
+     -3.0323496,
+     52.4247904
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.0194,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 20 40 60 feet'",
+   "why": "features: Northwest corner, North wall gap, Northeast corner, East wall gap, Southeast corner, South wall gap, Southwest corner, West wall gap; stated scale 0.019 disagrees with its own points (0.571 m/px): not trusted"
+  },
+  {
+   "plan": "c_a93d26aaec6ac8ec",
+   "title": "162 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242297404)",
+   "url": "media/commons/clun-castle-q5136615/a93d26aaec6ac8ec.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Clun Castle",
+    "file_cat": "Clun Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     250.0,
+     150.0,
+     -3.0382417,
+     52.4247904
+    ],
+    [
+     450.0,
+     400.0,
+     -3.0338226,
+     52.4220955
+    ],
+    [
+     550.0,
+     400.0,
+     -3.0323496,
+     52.4220955
+    ],
+    [
+     800.0,
+     400.0,
+     -3.0294035,
+     52.4220955
+    ],
+    [
+     200.0,
+     800.0,
+     -3.0382417,
+     52.4194005
+    ],
+    [
+     700.0,
+     800.0,
+     -3.0308766,
+     52.4194005
+    ]
+   ],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.5735,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "median residual 50.46765878024841 m > 45.0 m",
+   "gate_score": 50.5
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

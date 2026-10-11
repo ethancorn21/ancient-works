@@ -1,0 +1,45 @@
+{
+ "site": "cawthorne-camp-q5055239",
+ "candidates": [
+  {
+   "plan": "earthworkenglan01allcgoog_n0325_1",
+   "title": "Cawthorn Camps, Pickering, Yorks",
+   "url": "books/earthworkenglan01allcgoog/n0325.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-10",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     2700.0,
+     1500.0,
+     -0.7844461,
+     54.3087323
+    ],
+    [
+     2000.0,
+     1500.0,
+     -0.799841,
+     54.3087323
+    ],
+    [
+     2000.0,
+     2500.0,
+     -0.799841,
+     54.2997497
+    ]
+   ],
+   "coarse": false,
+   "ground": "relief",
+   "scale_m_px": 0.2586,
+   "rot_deg": 0.0,
+   "scale_source": "bar",
+   "note": "scale from the scale bar: '0 100 200 300 Feet'",
+   "why": "features: North-eastern corner of enclosure 3, North-western corner of enclosure 3, South-western corner of enclosure 3, South-eastern corner of enclosure 3, North-eastern corner of enclosure 1, South-eastern corner of enclosure 1; stated scale 0.259 disagrees with its own points (0.790 m/px): not trusted"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
