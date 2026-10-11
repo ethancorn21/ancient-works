@@ -5,11 +5,10 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 88 (2026-10-11, agent a) - TWENTY-FIRST early bring-back; main UNMOVED since
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/302a-inkfit-method.md` (in-progress) - hand-over: (2026-10-11, iteration 78, agent c - session 7: **Status: done.** This session changed no code:
+- `tasks/302a-inkfit-method.md` (in-progress) - hand-over: (2026-10-12, iteration 79, agent c - session 8: **Status: code complete, done-claim pending 211.**
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 
 ## Next open tasks
@@ -59,13 +58,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
     junction/feature points, never a fixed stride on a straight run.
 
-### 2026-10-11 302a DECISION: session 6 - the method verified end to end (hermetic + 2 real sites); two bug fixes; boxes 1 and 3 ticked
-Session 6 (after the driver committed the session-5 working tree as a1291a6): thinned-thickened the synthetic plate, found and fixed two real bugs, completed the hermetic run, and smoke-ran both real sites in the working phase. All parameters still exactly the frozen registration; both fixes below are bug fixes, not tuning.
-- BUG FIX (module): template_pieces returned `_keep_pieces(...)` as its first element, but that function returns a (list, label) TUPLE - so fit() received pieces = (list_of_dicts, "") and the iteration blew up with "list indices must be integers or slices, not str" the moment a non-empty piece list was produced. It was masked in session 5 because every run so far had early-returned at "no wall ink extracted" (empty list = falsy). Fixed by unpacking inside template_pieces (kept, label = _keep_pieces(...); return kept, _variant(model) + label, notes).
-- BUG FIX (CLI hygiene): the CLI printed the search progress and aw's fetch chatter (overpass retries) to stdout, corrupting the JSON result file. main() now redirects sys.stdout to sys.stderr around the fit() call (print() resolves sys.stdout dynamically, so this catches aw.py's own prints too) and emits only the JSON document on stdout. No changes outside fit/inkfit.py.
-- Hermetic run (the /tmp/aw-inkfit-herm/root fixture, recreated this session): the 8 px sharp drawing was NOT the fix - a razor-sharp 0/1 step makes the frozen Frangi (gamma 0.013, calibrated on soft real-scan edges) ghost-echo a ring ~5-8 px OUTSIDE the drawn walls (even inside the zeroed margin), and a blurred 8 px line falls under the ridge threshold. The scan-realistic fixture (8 px rectangle + 12 px interior line, gaussian_filter 2.5 px, +-2/255 paper noise, rng seed 7; 12 px is inside the real 6-20 px wall band) gives exactly the 3 true centre lines, no ghosts. fit() then ran fully offline in 8.1 s: 3 pieces / 81 template points, seed 0.75 (the hermetic picture-size fallback - propose_for has no catalog in the temp root, as designed), search landed on the TRUE placement (s 0.7408, rot -0.5 deg, t [-17, 0] vs true 0.75/0/0), both nulls valid, gate accept (n 6, 4 mm), fabrication silent, doc returned with fitter:"ink" and batch_us's field shape. CONFIDENCE WAS NEGATIVE (-0.025): fit 0.7152 vs scramble 0.7404; the shifted-DEM null was -9 (invalid: shifting the 120x100 m box half its size leaves a 60x40 m valid region smaller than the 120x90 m template - recorded by design, shifted_valid:false). Two toy-geometry lessons for 302c's committed test site: (a) make the site box much larger than the earthwork (a 1000 m-class box with a ~100 m earthwork) so the half-box shift keeps >= 50% of the template valid; (b) a template of one or two long straight pieces keeps scramble signal (a long straight wall re-aligned to any one ridge side still scores) - a fixture with several pieces of different lengths/angles makes the null discriminating. The method ANSWERED "not confident" on the toy site - that is the decision layer working, not a failure.
-... (2.9 KB more: `grep -n -A 200 -F '## 2026-10-11 302a DECISION: session 6 - the method verified end to end (hermetic + 2 real sites); two bug fixes; boxes 1 and 3 ticked' DECISIONS.md`)
-
 ### 2026-10-11 302a DECISION: marked done (session 7) - session 6's uncommitted fixes had already been committed by the driver (f7dbba6); all five boxes re-verified from HEAD; suite has no new failures vs the loop-start baseline
 Where: tasks/302a-inkfit-method.md (Status done, satisfied `Depends on: 301` removed, hand-over rewritten to the done snapshot); no code or data change
 Step: the hand-over had said "COMMIT THEM next session", but the tree was already clean - the driver had committed session 6's uncommitted work (f7dbba6: fit/inkfit.py +12/-2 with the two bug fixes, PITFALLS.md +8 with the Frangi-ghost entry), and both survived the subsequent PITFALLS sync (cfc85d5) and the main merge (6571004). So this session made no code or data changes; it verified the done state from HEAD and closed the task:
@@ -76,16 +68,14 @@ Step: the hand-over had said "COMMIT THEM next session", but the tree was alread
 Nothing was tuned in any session of this task; the frozen registration (session-2/3 entries) stands untouched.
 
 ### 2026-10-11 302a DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 302a DECISION: session 8 - rejected done-claim diagnosed: the 3 reds are the shared store's shotwick orphan (206's doc, site unbuilt), fixable only by 211's merge build - added Depends on: 211, no code change
+Where: tasks/302a-inkfit-method.md (Depends on: 211 added between title and Touches; Status stays in-progress - code complete, done-claim pending; hand-over rewritten), PITFALLS.md (new entry under This machine and its environment: the driver's done-claim baseline is its own newest loop-start note); no code or data change
+Step: the driver reopened the task after rejecting session 7's done claim (95e3c79), naming test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_serve::test_platefits_docs_match_sites as "failing ... not ... before this task." Session 7 had compared the suite against the wrong driver note (the older 4-red loop-start 3c8af47, which listed the three); the driver's baseline is its own NEWEST loop-start run (the "1 test: test_gate" note, 1 failed / 59 passed, top of PROGRESS.md's newest-notes list), where the three orphans passed. That run must have used a tree predating the shared store's current state (shotwick doc absent from data/db/platefits; only the lead's 21st maiden-castle hand doc breaking the gate's 20-doc count) - no live checkout can produce that combination (this checkout: 3 reds; agent a's: 4 reds per its iter-89 entry). Corrected the session-7 record: "per 218's own session entry they were failing before any 302 work" was the wrong lens for a done-claim; the driver's baseline is what counts, and against it the three are new.
+Root cause, verified live this session: full suite 62 passed / 3 failed (64.3 s) - all three on shared-store state: 206's committed doc data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json points at a site absent from web/data/sites.json -> orphan_docs in batch_eu.union_check (both test_batch_eu reds) + test_serve's d["site"] in {site ids}. None touches a 302a file: the only 302a-owned change since session 7's commit is f7dbba6 (session 6's two bug fixes, verified by session 7); fit/inkfit.py imports cleanly, scikit-image==0.26.0 pin intact (requirements.in:15, requirements.txt:555), no frozen parameter moved in any session.
+Ownership: 211. 206's archived entries state "(1)-(3) fixed by 211 building shotwick -> 211 added to my Depends on"; web/data/sites.json has a single writer (211's goal: "Nothing else in the project writes these files") and 211's box 3 "Every new site is built" covers shotwick - its row is staged in all three *_mackenzie jsonl files (grep-verified this session). Building it myself would break the one-writer rule and collide with agent a's in-flight 206, so per the team rule (no stand-ins): added `Depends on: 211` (211 itself waits on 206/207/208/209/210, so the line transitively covers 206); Status stays in-progress. Chain to green: 206 (deps 001/200/218 all done now - 218 is 1dcbc06 on main) -> 207a/b, 207c (human-blocked), 208, 209, 210 -> 211 merges -> driver syncs -> orphans gone in every checkout -> suite green (the 218 red is already fixed in this branch by 1dcbc06, so expect 0 failures). Next session after the 211 merge: re-run the suite, re-verify the five boxes from HEAD, remove the satisfied dependency, re-claim done.
 
 ## Project-wide driver notes (newest)
-
-### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
-    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
-    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
     tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
@@ -105,3 +95,8 @@ Nothing was tuned in any session of this task; the frozen registration (session-
     FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
     4 failed, 60 passed in 64.37s (0:01:04)
     (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_serve.py::test_platefits_docs_match_sites
