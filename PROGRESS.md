@@ -5,6 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 57 (2026-10-11, agent a) - module built, live verify done; the fit session is next.**
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -16,7 +17,27 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 206 DECISION: evidence kind for the p.212 row is "category", and an extras row IS staged (R3 resolved)
+    Two prep assumptions settled against the merged code: (1) OQ-1 - fit/evidence.py `check(files, books,
+    catalog)` takes file paths (CLI --files/--books/--catalog), so the 206 test runs the real check over the
+    staging file, no re-implementation; the row's own evidence field is kind "category" (the file's Commons
+    category == Q7502621's P373 "Shotwick Castle", both verified live 2026-10-11), so row.cat must be
+    "Shotwick Castle" (the 29 hand-tied rows are cat null + kind hand_tied: different tie, different field).
+    (2) R3/OQ-2 - build_catalog.main() has NO picture-based selection over the 12,603-row sites.jsonl (it
+    builds whatever --ids/region/top/min-p picks; both files read into one row list), and 211's box 3 builds
+    the extras-derived new sites, so the prep's "no new extras row needed" is superseded: stage an extras row
+    {id shotwick-castle-q7502621, qid Q7502621, aerial_ok: true, source: fit/src_mackenzie.py} exactly as the
+    task Notes prescribe for an unbuilt castle; build_catalog reads the catalog row first (CAT before EXTRAS)
+    and its `sid in built` skip makes the duplicate harmless; 211 logs the duplicate.
+
+### 2026-10-11 206 DECISION: the p.212 plate is Volume 2, not bracketed by Oxford p.207 as the task framing said
+    The live file description (verified 2026-10-11) says "Volume : 02, Page : 212" for p.212 while the p.207
+    Oxford row says "Volume : 01": the two IA volumes paginate separately, so a file number is a leaf number
+    WITHIN its volume. The task's "p.207 Oxford / p.231 Lancaster bracket it" is only half true: p.212 and
+    p.231 are both V2, 19 leaves apart, and the plate sits in V2's Cheshire section (the V2 chapter text and
+    index name Shotwick: "Shotwick, ii. 180"). The lead doc must record the true layout (OQ-3: the actual
+    county headings in the V2 OCR, from archive.org castlesofengland02mack hocr) - it still constrains the
+    plate, just not the way the task file phrases it.
 
 ## Project-wide driver notes (newest)
 
