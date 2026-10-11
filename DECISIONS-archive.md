@@ -907,6 +907,27 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
   rule); 4 = byte-exact golden + the three sanity tests (Option B reading).
 
 
+<!-- task 204 -->
+# Task 204 van-deventer
+
+## 2026-10-11 204 DECISION: built fit/src_van_deventer.py in full (module-first) and verified the NL batch of QIDs
+    Chose module-first (skeleton with all functions + the 66-town table, then per-country QID batches) over
+    running the whole live inventory in one session: the session budget cannot hold ~300 paced API calls, and
+    the module is the vehicle for every later step (verify/files/chain/stage/check). The 70-subcategory list
+    (prep's 2026-10-10 constant) re-verified live today. The 16 NL towns hand-verified (search candidates
+    checked against label + P625 + P373 + enwiki; every city item's P373 is its own town category): Aardenburg
+    Q955, Alkmaar Q972, Amsterdam Q727, Enkhuizen Q9918, Goes Q81220, Groningen Q749, Groningen (province)
+    Q752 (drop: province map, not a town), Haarlem Q9920, Leeuwarden Q25390, Middelburg Q52101, Reimerswaal
+    Q2590944 (city, not the municipality Q10078 - they share P373 'Reimerswaal'), Rotterdam Q34370, Sluis
+    Q10080 (NL city, not Q2289934 Sluis-in-Mol), The Hague Q36600, Utrecht Q803, Valkenburg Q100076 (the old
+    town item, P373 'Valkenburg, Limburg'; Q9771 is the modern town; no enwiki on Q100076 -> no wikipedia
+    field, sources.py's own rule). Site points: old-town centres hand-recorded in TOWNS (lon/lat), the
+    p625 municipality point recorded beside each; per-town distances go to the lead doc (computed, not
+    eyeballed). Next: re-verify the recorded table, lead doc (category + NL sections), the --files NL
+    inventory, then the BE batch (incl. recording Ghent Q1296 and settling Beaumont's BE-vs-FR region - the
+    TOWNS 'france' guess for Beaumont flips if the verified item is Hainaut).
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
