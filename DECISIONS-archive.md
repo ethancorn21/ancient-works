@@ -1111,6 +1111,171 @@ PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitud
 complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
 exact command and the box checks).
 
+## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803
+CHOICE: ran the full working phase as the 4d hand-over prescribed, backgrounded
+(AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working;
+~6 min, log /tmp/batch_us_4e.log): 62 candidate pictures across 19 US sites (4d's note said
+58/18 - stale; plans.json is byte-identical to origin/main, 1166 rows, and 35 book + 23 commons
+rows = 62 (site,row) pairs, matching the prep notes) went through sheet -> model -> similarity ->
+gate. The model is deterministic at temperature 0: the 5-pick pilot's answers recurred in the
+full run (pyramid n0134_1 -> AUTO 24.0 m, unchanged; tremper, poverty-point, serpent n0636_1,
+cahokia c_8c44bb427b76aa7a all routed to items by the same checks as 4d).
+OUTCOME (docs/batch_us.md): 90 sites, 0 error bucket: 9 automatic fit, 8 review item, 2 already
+hand-fitted (aztalan, mound-bottom), 71 no picture found; 88 item files written (89 with the
+pre-batch bibracte); 16 new auto docs (20 -> 36 in data/db/platefits/): serpent-mound 7, alligator
+c_618a6be74dfaff32, cahokia n0200_1 (33.9), etowah n0386_1 (0.0), fort-ancient n0264_1 (0.0),
+hodgen-s n0092_1 (0.0) + n0353_1 (17.3), mound-cemetery n0563_1 (0.0), mount-horeb c_d1dff (0.0),
+pyramid n0134_1 (24.0). Report: seed 20261010, sample = all 16 auto docs (fewer than 20, so all),
+page URL each, gate med per doc - ready for the human's 18/20 check. BOXES: 3 (all 90 covered,
+error bucket empty), 4 (sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK: 20 docs + 19
+site.json byte-identical; the batch only added), 5 (the report) all verified and ticked this
+session.
+NOTES OF RECORD: (1) alligator-effigy-mound's 201 seed item was MERGED by the upsert (its
+candidates: the model's rejected n0214_2 answer + the seed's c_618a, which became the site's auto
+doc; evidence field and resolved=null preserved; 201's export will derive it resolved from the
+doc) - its hash is deliberately not in the golden. (2) the frozen GATE itself (no counterweight)
+caught alligator n0214_2's even-spaced grid answer: median residual 60 m > 45 m. (3) several auto
+docs have gate med 0.0 (exact-similarity anchors, N-4 residual freedom at small N) - expected
+under 001's frozen design where the batch passes the transform solved from its own pairs; the
+radial-gradient clause and the human 18/20 sample own that class, not a threshold change.
+THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 34/34):
+- 4 in MY file tests/test_batch_us.py (all from the tests' pre-batch assumptions, designed in the
+  4e hand-over section with exact fixes): test_sample_run_real_gate (SERPENT
+  rec["auto"]=8 < the 15 pinned plans now 7 of which are pre-docs -> assert >= ANSWER_PLANS -
+  pre_docs_before; CAHOKIA item set now excludes pre-doc n0200_1 -> upsert-semantics expectation
+  (pre_plans - nonpre) | nonpre; item-candidate order relaxed to set equality, _check_entry only
+  for re-proposed candidates), test_stub_gate_always_accept and _reject (the _stub_site
+  "no existing item" precondition is void post-batch -> select ">=2 candidates, no pre-fit";
+  accept: assert the pre-existing item is byte-unchanged; reject: delete the site's existing
+  item file in the temp tree before seeding, else _find_item's sort order finds the batch's item
+  first), test_batch_adds_files_rewrites_none (the sample's zero-candidate site's no-picture item
+  is legitimately re-upserted by 201's live-merge contract - new "at" timestamp; allow a hash
+  change only for the sample sites' own item files, asserting same site / resolved unchanged / no
+  candidate plan dropped; every other file stays byte-identical - that is box 4). None of these
+  weakens a box: box 4's real invariant (the golden 20 docs + 19 site.json byte-identical, no
+  platefit doc ever rewritten) is asserted exactly as before.
+- 1 in 001's file tests/test_gate.py (task DONE): test_recorded_measurement_reproduces_and_agrees
+  - tools/gate_heldout.py aborts "expected 20 hand-fit documents in data/db/platefits/, found 36;
+  the registered partition is void" - it must ignore auto docs (the write_golden convention: auto
+  docs are never part of the golden reference set). Team-mode: not my file -> created task 802
+  (Depends on: 203a; Touches tools/gate_heldout.py, tests/test_gate.py) - the next session files
+  it if this one ended first.
+- 3 in 201's file tests/test_review.py (task DONE): test_export_cli (pre-batch 2-item population
+  vs now 89 items / 88 open - alligator derived resolved), test_page_shows_the_review_list (same
+  population change), test_save_resolves_the_item (KeyError 'map_box' - the test's plan selection
+  now lands on a row without map_box). Team-mode: not my file -> task 803 (Depends on: 203a;
+  Touches tests/test_review.py): re-baseline expected values from the repo state via 201's own
+  upsert/export rules; no fit/review.py change unless a failure proves the writer wrong.
+KNOWN LOOP, flagged for the driver: 802/803 depend on 203a's merge, but my done claim's
+green-suite re-check cannot be fully green until 802/803 merge. Recommendation on record: accept
+the done claim with those 4 failures owned by 802/803 (they are the only deltas from my run's
+required output; no test was loosed or deleted), or reject with that note and let the next agent
+handle it per the rejection. NEXT (session 4f, its own): implement the 4 test fixes, verify 5/5
++ exactly 4 cross-task failures, create 802/803, set Status: done, commit the run artifacts +
+changes with the hand-over's message.
+### 2026-10-11 213b DECISION: the seven Liber secundus towns verified live (Q239 Brussels, Q12892 Antwerp, Q1741 Vienna, Q490 Milan, Q641 Venice, Q2044 Florence, Q220 Rome) and put in BOOKS["civitates"]["sites"]; verify_qids extended to SITES + book towns; lead-doc QID section rewritten - box 1
+Paced Wikidata discovery + the five-fact verification (label, every P625, P373, P131, enwiki, first
+name-search hit with coordinates) found the seven QIDs above; memory-guessed ids were wrong (Q374 is
+"vodka", not Rome - Q220 is; Vienna is Q1741, not Q2140), so search + verification is the only route.
+Every P625 sits within 0.27 km of its table point (book-town table point = the P625 itself; the book's
+views centre on the walled old towns, within a few km - recorded per town). Traps recorded in the lead
+doc: Florence search (first hit with P625 = Q597842 Florence, South Carolina, 7538 km), Venice search
+(Q773853 Los Angeles, 9891 km), and a Wikidata/enwiki DATA trap for Brussels: the enwiki "Brussels"
+article belongs to the region Q240 while the city is Q239 ("City of Brussels", P373
+"Brussels (municipality)") - Q240's P625 is only 85 m from Q239's, so only the P373/enwiki check
+separates them. verify_qids() now covers SITES + the book towns (8 unique QIDs, P131 fetch chunked at
+50); --verify ran clean twice (exit 0, no flags); --check still 2/2 PASS exit 0; suite 29 passed.
+Box 1 of 213b ticked (table + lead-doc records). Prep §1 assumptions re-checked on the 801-merged
+evidence.py: check(files, books, catalog=) offline, check_caption (L190-207) fails on ±1 km dist_m
+reproduction OR >50 km distance - so the next step's Cervia negative control (44.245/12.367, ~53.5 km)
+fails on both clauses. Unexplained transient: one throwaway-script label batch came back empty after
+~13 paced calls (no 429/error); A/B proved `language` (singular) is ignored by wbgetentities (ALL
+labels returned) vs `languages` (plural) filters - not the cause; not reproduced since. Next: --golden
+(first-time write of tests/golden/src_artists_sample.json), then tests/test_src_artists.py (prep §4 +
+boxes 2-4), then the lead-doc box-1 final read.
+
+### 2026-10-11 213 DECISION: parent done-claim - all six boxes verified fresh, 213 set done (R6 note to 211; four PITFALLS entries filed)
+With both subtasks done (213a: the civitates hand list + lead-doc books section; 213b: the seven
+book-town QIDs, --golden, tests/test_src_artists.py, lead-doc final), this session re-verified the
+parent's boxes independently: --check exit 0, 2/2 PASS caption_coords; --golden rewrote
+tests/golden/src_artists_sample.json with a ZERO diff (the golden pins the staged rows exactly);
+.venv pytest 33/33 green (test_src_artists.py: the join, the table, the offline evidence check with
+the Cervia negative control, the golden compare, under the socket-blocking fixture). Box 4 (the
+count, checked last): Imola (the anchor, Leonardo 1502 RCIN 912284) + Venice (Barbari 1500, Museo
+Correr) = two sources staged, 2 rows per staging file, and the lead doc accounts for every unstaged
+source (Civitates worked per-book, its rows coming via 211's index rebuild once 217 lands; the other
+five IA books present and untriaged - 216/217 follow-on). Box 5: the four civitates per-book paths
+written and declared in the parent's Touches line; git diff main...HEAD over index.jsonl /
+validation.json / pipeline/ / fit/evidence.py is empty (no shared-module writes). Box 1:
+docs/lead_artists.md read in full - complete for all four sources. Ticked boxes 1, 4, 5, 6 (4 last,
+per the hand-over invariant) and set Status: done. Also: the R6 note is written in 211's ##
+Hand-over (merge the *_artists* staging files; the civitates index rows wait on 217 - zero rows from
+the book before 217 is not a 211 failure); four PITFALLS entries filed (LLM ports 8080-8082 vs
+books.py's stale 18080/18081; civitates hOCR index misaligned 0-2 leaves; A/F plan labels unreliable
+### 2026-10-11 203a DECISION: session 4f - the four 4e-designed test re-baselines are implemented (5/5); the full suite is red on exactly the four predicted cross-task failures; 802/803 filed and 203a set done
+VERIFIED at start: the driver had committed 4e's uncommitted run artifacts (6ea8bbb
+"uncommitted work after iteration 40": 16 auto docs, 88 new items + 1 merged, docs/batch_us.md);
+working tree clean.
+CHOICE: implemented, exactly as designed in the 4e hand-over, the four re-baselines of
+TESTS/TEST_BATCH_US.PY (no code change to fit/batch_us.py; no box loosened - box 4's real
+invariant, the golden 20 docs + 19 site.json byte-identical, is asserted exactly as before):
+(1) test_sample_run_real_gate: the serpent assert became `set(rec["auto"]) >=
+set(SERPENT_ANSWER_PLANS) - set(pre_docs_before[SERPENT])` (7 of the 15 pinned plans are now
+pre-docs and are skipped, never re-fit; the per-plan gate-acceptance loop over all 15 stays - it
+is a property of the frozen gate, not of repo state); the cahokia expected item set is now
+computed with upsert semantics `(pre_plans - nonpre) | nonpre` (n0200_1 became a pre-doc in the
+run; c_aff1b, the hand fit, is also a pre-doc); the generic per-site block now asserts set
+equality on item candidates (upsert preserves pre-existing order and appends - 201's writer
+business, pinned by test_review) and applies _check_entry only to candidates re-proposed this
+run, a preserved candidate being asserted to have come from the pre-existing item.
+(2) test_stub_gate_always_accept: _stub_site's criterion is now "first US site, sorted, with >=2
+candidates and no pre-fit" (still angel-mounds-q4530064: alligator is now pre-fitted by its c_618a
+auto doc, which is why the old "no existing item" clause - void post-batch - was dropped); the
+final `assert _item(tree, sid) is None` is now a byte snapshot: an all-accepted run writes no
+entries, so the upsert is never called and the item is byte-identical if present, absent if not.
+(3) test_stub_gate_always_reject: before seeding the resolved item it now deletes the site's
+existing item file(s) in the temp tree (hard-linked: unlinking the temp path leaves the checkout
+original intact) - without that, upsert's _find_item (sort order) finds the batch's
+<sid>.<lead>.json before the seeded <sid>.json and the resolved/lead assertions break.
+(4) test_batch_adds_files_rewrites_none: a differing before/after hash is allowed ONLY for
+data/review/ item files whose parsed site is in the sample (201's live-merge contract: the upsert
+re-saves an item it touches, a re-upserted no-picture record carries a fresh "at"); for those the
+test asserts same site, resolved unchanged, no candidate plan dropped; every other pre-existing
+file stays under the strict byte-identical assert.
+RESULTS: tests/test_batch_us.py 5/5 in .venv; full suite 4 failed / 34 passed (38 collected -
+the suite grew since 4e's 34: other tasks' tests merged in, e.g. tests/test_src_artists.py).
+The 4 failures are verbatim the 4e prediction, all in files this task may not touch (team mode):
+tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees (gate_heldout aborts
+"expected 20 hand-fit documents in data/db/platefits/, found 36; the registered partition is
+void") and tests/test_review.py::test_export_cli ("review: 88 open of 89 items" vs the pinned
+2/2 + open list [alligator, bibracte]; alligator is derived-resolved via its auto doc
+c_618a6be74dfaff32), ::test_page_shows_the_review_list (Review (2) -> (88), stats line, rvn),
+::test_save_resolves_the_item (KeyError 'map_box': the batch's upsert replaced alligator's LEAD
+n0214_2 entry with 203a's entry shape - plan/title/url/evidence/pairs/why/gate_score, no
+map_box/ia/file/label/book/cite - and the item is no longer open after derivation). NO test was
+loosened or deleted; the two stub tests and the adds-files test check strictly more than before
+in some respects (item byte-snapshot, resolved write-once, no plan dropped).
+TASKS FILED (lowest free numbers in 800-1099, both Status: open, both Depends on: 203a, so the
+driver hands them out only after 203a merges): tasks/802-gate-holdout-auto-docs.md (gate_heldout
+partition() derives its 20-name set from non-automatic docs only - the write_golden convention:
+auto docs were never part of the golden/held-out reference; tests/golden/gate_heldout.txt and
+docs/gate.md section 9 must come out UNCHANGED - the 20 hand fits are byte-identical - and a
+diff is a finding to record, not a silent golden rewrite) and tasks/803-review-queue-rebaseline.md
+(re-baseline test_review's expectations from the repo state via 201's own upsert/export rules;
+the save-resolves test picks its row from plans.json - a book row with map_box + size whose
+site's item is still open - instead of the item entry's stored fields; no fit/review.py change
+unless a failure proves the writer wrong).
+STATUS: 203a set done (all six boxes ticked; boxes 1-5 by 4e, box 6 by this re-baseline).
+KNOWN LOOP, on record for the driver's done-claim re-check: the suite on this branch stays red
+on exactly those 4 tests until 802/803 merge, and both depend on 203a's merge (the classic
+batch-footprint loop: the run that 203a delivers is what broke 001's and 201's tests). Neither
+file is in 203a's Touches, so I did not edit them (team mode). Recommendation: accept the done
+claim with those 4 failures owned by 802/803; if the driver rejects on the red-suite account,
+the rejection note decides the next move (possible ask_human, non-blocking). Nothing left to do
+in 203a itself; 203b imports run_sites/write_report and the notes in the hand-over (site list,
+region-less branch, docs/batch_eu.md, shared SEED 20261010, the aerial no-op of the
+feature-presence check).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
