@@ -561,6 +561,22 @@ confirmed: RCIN 912284 = 2000x1483, no DateTimeOriginal and no description, year
 agrees with the table's date, so no date/date_commons override fires), public domain; Correr Venice =
 11800x5856, DateTimeOriginal "1500 ... /9", public domain. Both pass commons.keep().
 
+## 2026-10-11 213 DECISION: new-site region is "Italy" (display case); filed task 214 for REGION_NAME
+REGION_NAME (build_catalog.py) has no "italy" key. `place_of` uses `.get(x, x)` (the display-case "Italy"
+dedupes cleanly in the place string; lowercase "italy" would print lowercase), but `make_site` uses
+`REGION_NAME.get(...) or "US"` - until the key exists, the built sites display as "US" on the page. Task 214
+filed (one module: pipeline/build_catalog.py + new tests/test_region.py; Depends on: none, so it can run in
+parallel with the rest of 213).
+
+## 2026-10-11 213 DECISION: the "Google Art Project" scans are documented drops, not staged
+commons.NO's regex contains "google" (a harvest heuristic against map-screenshot junk), so both GAp scans fail
+commons.keep() - and even if staged they would be dead rows: 211's merge feeds commons.rows(), which re-judges
+every row with keep() and would drop them from the plan list. Instead I stage the surviving scans (RCIN 912284
+for Imola; the 11800x5856 Museo Correr scan for Venice). Also to be documented as drops in the lead doc: the
+NGA "block" files (detail crops of Barbari's woodcut, not separate pictures), File:...RCIN 912686 (a different
+work: recto sketches), File:Imola 1705.jpg (a 1705 view, not Leonardo), and File:Leonardo da vinci, Town plan
+of Imola.jpg (triage pending session 2 - possibly a third scan of the same sheet).
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
