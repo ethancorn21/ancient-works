@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 59 (2026-10-11, agent a) - measurement session. BIG FIX: my iter-58 PAGE coordinates are VOID (I misread a shrunken 2x sheet: the drawing 
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 60 (2026-10-11, agent a) - fit session, interrupted at context limit. KEY REVISION: iter-59's GROUND anchor "A = bright building cluster (
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
