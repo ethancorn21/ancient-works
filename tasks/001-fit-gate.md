@@ -24,90 +24,70 @@ queue (GOAL.md point 1), so a strict gate is fine; a gate that accepts wrong fit
 - `docs/autofit.md` section 4, finding 2: random placements are not a fair null; a searched fit beats them easily.
 - The numbers here are the owner's intuition; settle a different number only with evidence of what he would notice.
 
-## Hand-over (iteration 1, agent c)
+## Hand-over (iteration 3, agent c)
 
-**Where I am.** Recon done (no code in the repo yet; everything below is findings + a half-built experiment).
-Next step is the next session: run spike 4, settle the gate's metric conjunction, then write `docs/gate.md`
-(pre-registered) and commit it BEFORE any held-out run.
+**Where I am.** All six image-structure metric experiments (spikes 1-6) FAILED to separate the four wrong-fit
+types on dense old maps (numbers in DECISIONS.md). The gate is now pivoted to PURE GEOMETRY on the pair set:
+magnitude of the solved-transform residuals (catches 60 m move + cross-site) plus a residual-vs-radius pattern
+(should catch 10 deg / 15% scale). No code in the repo yet; all evidence is in /tmp + this file.
+`docs/gate.md` is NOT written yet and must be committed BEFORE any held-out number is looked at.
 
-**The 21 hand fits** (all `model=similarity`; serpent-mound lacks `model`/`src` keys -> default similarity; whitley
-lacks `src`): arbor-low, avebury, aztalan, badbury, bergues, berkhamsted, cadbury, cahokia, calleva, camp-d-attila,
-castle-rising, hembury, little-solsbury, maiden-castle, mayburgh, mound-bottom, old-sarum x2, serpent-mound,
-whitley. 20 sites, 21 docs. All have `web/data/sites/<site>/relief.jpg` (all LiDAR ground; none aerial-only here).
-All 21 have old-map ink webps in the site dir: England `six-inch-1st_ink` (+`os1inch_ink`), US
-`topo_1888/1891/1915/1930_62500_ink`, France/Belgium `cassini_ink` + `etatmajor_ink`. Ink webp = RGBA,
-`alpha>8` = ink; built over the site box by `pipeline/nls.py` / `pipeline/topo.py` (webp px covers the box
-corners exactly).
+**The 20 hand-fit docs** (`data/db/platefits/*.json`, read-only): 19 sites, old-sarum has 2. (The old hand-over
+said 21 - miscount.) n_pairs is 3-6 (aztalan/mayburgh/serpent-mound have 3).
 
-**Fit representation.** `data/db/platefits/<site>.<plan>.json`: `{site, plan, ia, file, crop[x0,y0,x1,y1] page px,
-pairs [[u,v,lon,lat]], ...}`. `plan_fit.similarity` solves complex least squares `z = a*(u - 1j*v) + b` in Web
-Mercator metres (a = scale*e^{i*rot}); a proposed placement = (site, plate crop, transform). Gate input = that
-triple; the page's fit tool saves pairs, the search saves a transform.
+**Held-out selection (FIXED, to be written into gate.md).** Design set = the 4 docs inspected while developing
+metrics: bergues.c_4bbca705be732b1c, castle-rising.c_70f937b71ae63d6a, maiden-castle.earthworkenglan01allcgoog_n0124_1,
+serpent-mound.ancientmonuments00squi_n0210_1. Rule: try seeds 20260101, 20260102, ... ascending; first seed whose
+`np.random.default_rng(seed).choice(20, 8, replace=False)` over the sorted doc names is disjoint from the design
+set wins. Seeds ...0101-...0107 all overlap; **20260108 wins**:
+- held-out (8, DO NOT INSPECT until after gate.md is committed): arbor-low (earthworkenglan01allcgoog_n0597_1),
+  avebury (n0581_1), aztalan (antiquitiesofwis00saph_n0182_1), badbury (n0132_1), cadbury (c_1fab2a0abe5b99d7),
+  cahokia (c_aff1b996dce7fe3a), camp-d-attila (c_6a912845c1e1aa28), old-sarum (earthworkenglan01allcgoog_n0142_1)
+- dev (12, threshold tuning allowed): the other 12 (includes all 4 design docs + old-sarum c_8192abb966d030a3)
 
-**Environment (verified this session):** `.venv` created in the checkout (gitignored) with numpy scipy pillow
-tifffile pyproj rasterio requests **scikit-image** (autowalls needs skimage; it is NOT in requirements.txt -> if
-the gate keeps using `autowalls.extract`, add it to requirements.txt AND add `requirements.txt` to this task's
-`Touches:` first). DEM fetch works here: England=EA, France=IGN, US=3DEP (spikes cache /tmp/dem_<site>.npy;
-`*.npy` is gitignored so committed gate input caches must be `.npz`). `web/data/sites/*` and `data/raw/` exist on
-this VM but are gitignored (raw scans/aerials are NOT here; the built webps are). The full-size plate image is
-unavailable -> use the built `plan_<pid>.webp` (the crop, rescaled by f=min(1, 2400/max(crop))); webp px -> page
-px: `u = x0 + x/f`.
+**Dev pair-residual probe (done this session, all 12 dev docs, held-out untouched).** Solved
+`plan_fit.similarity` transform, per-pair residual in Web-Mercator metres: median 3.7-53.1, max 4.6-86.7
+(old-sarum c_8192: 53.1/86.7; hembury 40.3/53.3; little-solsbury 46.8/65.0; bergues 29.9/51.7; castle-rising
+12.0/19.0; mayburgh 3.8/4.6; mound-bottom 3.7/6.5; serpent-mound 6.8/8.1; whitley 8.8/10.6; calleva 27.0/37.1;
+berkhamsted 28.1/35.3; maiden-castle 26.6/43.0). So: 60 m move => median EXACTLY 60 (all points equal) =>
+separable from dev max 53.1 by a threshold ~57; cross-site => km-scale, trivially separable. But 10 deg /
+x1.15 add only 0.1745 r / 0.15 r per point (9-15 m on a 100 m-radius site) - INSIDE the dev true-fit spread,
+so magnitude alone cannot kill them. That is what spike 7 measures.
 
-**Key math (verified):** site web entry has `size_m` (not width_m); `corners[0]`=NW, `corners[2]`=SE; Mercator row
-0 = north: `row = (Y_NW - y)/(Y_NW - Y_SE)*H`. Plate normal (nx,ny) (x right, y down) -> ground normal
-`(c*nx + sn*ny, sn*nx - c*ny)` (matches `fit_plate.py`; sign irrelevant, we take max of both sides).
+**Spike results (scripts + outputs in /tmp: spike_gate.py, spike_gate2-6.py, spike4/5/6_out.txt).**
+- S1 DEM ridge contrast, S2 DEM wall-template contrast (bergues true = worst, -0.205), S3 ink proximity
+  (saturated at 1.0 on dense maps): all FAIL (details in DECISIONS.md + archive).
+- S4 corr of blurred plate ink vs blurred map ink over overlap, vs a 81-cell search-matched null: null >= true
+  at every site; cross-site searches +0.653 / +0.972. FAIL.
+- S5 wall points within 10 m of map strokes (density-filtered skeleton, runs >= 30 px): no separation (castle
+  true 0.718 vs moved 0.720 / x0.85 0.841). FAIL.
+- S6 = S5 + wall-normal parallel to stroke across-direction (|cos| >= 0.7, 15 m window): castle true 0.420 vs
+  x0.85 0.450; bergues true 0.056 (23% of wall pts in-box); maiden-castle true 0.259 vs x0.85 0.331;
+  serpent-mound true 0.252 vs x1.15 0.338; cross castle-on-bergues 0.457. corr_ws n/a everywhere. FAIL.
+  (Cross searches took 617 s / 289 s - keep any future search coarse; per-site sections are fast, 4-31 s.)
 
-**Spike results (the evidence so far):**
-- Spike 1, ALL ink pixels, 4-neighbour contrast, LRM r24 clip 1: castle-rising true -0.653 = WORST (wrong
-  -0.13..-0.30, searched mirrored null -0.07). **Fail** - ink is mostly text/sections; median is noise.
-- Spike 2, `autowalls.extract` wall template + stroke-normal contrast (fit_plate's metric, min 30 in-box points;
-  null = mirrored template (u->2*mean-u) searched on a coarse grid ±25°/×0.74-1.36/±200 m @50 m): castle-rising
-  true **+0.000** > wrong (-0.19..-0.32) but null also +0.000 (margin 0, fragile); bergues true **-0.205 = worst**
-  (wrong -0.05..-0.10, null +0.002) **FAIL** (flat town, ploughed walls); cross-site best: bergues template on
-  castle-rising ground **+0.528** - the one-sided ridge metric lets ANY template score high on hilly ground.
-  **Conclusion: DEM score alone cannot be the gate's acceptance evidence; at best one conjunct, and only where
-  relief is strong.**
-- Spike 3, plate-ink proximity to old-map ink (fraction within 30 m): saturated at 1.000 on every dense map
-  (etatmajor 48.6% ink; six-inch 20.7%), maiden-castle true 0.312 / wrong 0.25-0.37 / null 0.865. **Fail** -
-  proximity measures map density, not correspondence.
-- Spike 4 (WRITTEN, NOT RUN - context limit): correlation metrics. `corr_ink` = Pearson corr of the full plate ink
-  (resampled through the perturbed transform onto the map grid, blurred 20 m at plate resolution) vs the old-map
-  ink blurred 30 m, over the overlapping footprint; `wall_on_mapstroke` = median over the extracted wall points of
-  the map's stroke-blur (map strokes = `autowalls.extract` on the map's ink, min_len/min_extent 80). Script at
-  `/tmp/spike_gate4.py`. Its transform perturb: `a' = e^{i*drot}*scale*a`, `b' = c' + a'*(u0 - i*v0) - a*(u0 - i*v0)`
-  with c' = the (perturbed) placement centre, (u0,v0) = ink centroid. Cases: castle-rising (six-inch), bergues
-  (etatmajor AND cassini), maiden-castle (six-inch), serpent-mound (topo_1915_48000); plus cross-site: castle-rising
-  plate searched on bergues etatmajor, bergues plate on castle-rising six-inch, at ±25°/×0.74-1.36/±400 m @100 m,
-  best corr. **If /tmp/spike_gate4.py is gone, rewrite it from this description** (it imports aw + autowalls the
-  same way as the pipeline scripts; `map_coordinates` resamples the blurred plate ink through the transform onto
-  the map grid).
+**Exact next step (one session).** Spike 7 (`/tmp/spike_gate7.py`, seconds per doc, no images): for each of the
+12 DEV docs solve the similarity transform, then score the 4 wrong types made from it - (i) moved 60 m NE
+(du=dv=42.4 m), (ii) turned 10 deg about the ink centroid, (iii) scaled x1.15, (iv) cross-site = the true
+transform re-centred on the NEXT dev site's box centre (km-scale) - with statistics: median_r, max_r,
+slope of linear fit residual~radius-from-centre, and (inner-half mean - outer-half mean). Read which statistic
+separates all four from all 12 dev true fits; that fixes the conjunction and its thresholds (dev-only).
+Then: 1) write + commit `docs/gate.md` (pre-registration: selection rule + seed 20260108 + the 8 names, the
+rule/thresholds, wrong-fit recipes, reproduce command) BEFORE any held-out look; 2) implement
+`pipeline/fit_gate.py` (pure geometry: reads `data/db/platefits/*.json` + `web/data/sites.json`; gate input =
+(site, plate, pairs or transform); no skimage/images -> no requirements.txt change); 3) `tools/gate_heldout.py`
+one-shot held-out run -> results table appended to `docs/gate.md`; 4) `tests/test_gate.py` re-runs the gate
+offline (no ports, no writes outside project/tmp, golden-compare the table).
 
-**Current hypothesis.** Gate rule = conjunction of numeric checks, thresholds chosen on the 13 NON-held-out dev
-fits only: (1) pair-consistency residuals (from the solved transform; catches sloppy pair sets); (2) old-map
-correlation vs a search-matched null (the main discriminator for 60 m / 10° / 15% / cross-site - old maps have
-dense linear structure the plate must match); (3) DEM ridge score vs search-matched null as a bonus conjunct
-where relief is strong (helps the 15% case on relief-rich sites). Cross-site wrong fits must fail on (2) (no
-matching structure) - this is the open risk spike 4 checks: a town plan (bergues) may still correlate with another
-town's map (dense grids). If correlation alone cannot kill cross-site, add: placement centroid vs the site's
-catalog position, and plate-content-extent vs site-box size (a 3.3 km town plate centred on an 800 m castle box
-overflows it). The gate may accept only some held-out fits (≥ half is the bar; the rest go to the review queue -
-designed behaviour, GOAL.md point 1).
-
-**Exact next step.** 1) Run `/tmp/spike_gate4.py` (or rewrite it) and read the corr numbers per site. 2) Pick the
-conjunction + thresholds from dev fits (start: corr_ink ≥ null_corr + margin AND wall_on_mapstroke ≥ threshold;
-tune on the 13 dev fits, never the held-out 8). 3) Write + commit `docs/gate.md` (pre-registration): held-out
-selection = `numpy.random.default_rng(20260101).choice` over the 21 sorted docs, 8 indices, listed by name in the
-doc; the rule + thresholds; wrong-fit recipes (60 m = NE 42.4/42.4 m; 10°; ×1.15; cross-site = next held-out
-site's ground, search window ±25°/×0.74-1.36/±200 m, template = autowalls extract of the plate webp). 4) Implement
-`pipeline/fit_gate.py` (gate + wrong-fit maker, reads the committed input cache) + `data/gate/*.npz` caches (DEM
-grid, map ink, plate ink, template, pairs - committed; `.npz` outside `data/autofit/` is NOT gitignored) so the
-test is offline. 5) One-shot held-out run -> results table into docs/gate.md + `tests/test_gate.py` (re-runs the
-gate from cache, golden-compares the table; no ports, writes only to project/tmp). If the 8 held-out yields <50%
-acceptance, the doc says so with the numbers and the project sends every fit to review (acceptable per the
-criteria - document it, don't chase it).
-
-**Warnings.** (a) `docs/gate.md` must be committed BEFORE the first held-out run - the pre-registration is the whole
-point (docs/autofit.md is the model). (b) Never tune on held-out data; leakage = invalid result. (c) Agent a
-(task 000) may create `tests/` infra - my test is one file `tests/test_gate.py`, no conftest (deps via sys.path
-insert like the pipeline scripts). (d) `data/db/platefits/` is human-owned: read-only. (e) The spike scripts live
-in /tmp; the final implementations go in `pipeline/fit_gate.py` + `tools/` per the Touches line.
+**Warnings.**
+(a) The 8 held-out docs listed above stay untouched until after `docs/gate.md` is committed; the one-shot run
+is the ONLY allowed look. (b) If held-out acceptance < 50%, the criteria allow documenting it (with numbers)
+and sending every fit to review - do not chase it by re-tuning on held-out. (c) GOAL.md was renumbered by the
+human: point 2 is now "the local model does the fitting itself" (>= 4 point pairs on matching features, fitkit
+sheets) and point 3 = the gate with a 20-sample human check (18/20 right). The gate stays numbers-only, input
+is (site, plate, pairs-or-transform); n_pairs as low as 3 exists in real docs, so threshold statistics must
+work at n=3-4 (correlations are noisy that small - prefer slope/inner-outer-difference over Pearson r).
+(d) Per TEAM MODE: my files are pipeline/fit_gate.py, tools/gate_heldout.py, docs/gate.md, tests/test_gate.py
+only (all inside the task's `Touches:`); `tests/conftest.py` is 000's. (e) The driver rebuilds `.venv` from the
+pinned `requirements.txt` before test runs - it is now valid (000 fixed it); keep the test importable with
+numpy/scipy/PIL only. (f) `data/db/platefits/` and `web/data/sites.json` are read-only human/build artifacts.
