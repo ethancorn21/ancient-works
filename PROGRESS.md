@@ -8,7 +8,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/300-site-stonehenge.md` (in-progress) - hand-over: (iteration 65, agent c - the line is BUILT and RAN on the real tree; the browser check passed; ONLY box 4 remains: tests/test_site_done.py, then the t
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,52 +18,15 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 300 DECISION: the one-site line (tools/site_done.py) reuses batch_us.run_sites only for UNCOVERED candidates, and needs three root-aware refactors (plan_fit, build_site, scoped review.export)
-Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py
-Rationale: measured state - Stonehenge's 13 plans.json rows all have a verdict (7 auto docs, 6 in its
-review item, sets disjoint), so running run_sites blindly (even model=None) would not fit anything new
-but its write_item upsert would REPLACE the 6 rich batch-written candidate entries (gate scores, model
-pairs, why) with "no model answer" stubs (upsert merges by whole-entry replacement, PITFALLS fit/).
-So site_done's fit step runs run_sites only when a candidate has neither doc nor item entry (or the
-site has no candidates at all, no pre-fit and no item - the no-picture case). The existing steps were
-not root-aware: plan_fit and build_site derive every path from their own file location, and
-review.export records the write-once resolved field into EVERY derivably-resolved item (today exactly
-one other site: alligator-effigy-mound-q4732645) - a one-site command must not touch other sites'
-files, hence export(root, site_id=None) (scoped record, same page file) and _root(root=None) threading
-through plan_fit (build/main/prune/load_picture + new is_done) and build_site (drawings/set_drawings/
-write_entry). serve.py calls plan_fit.main([]) - default args must stay behaviour-identical.
-Also fixed in plan_fit while in there: the `how` string claims "Placed by hand" for automatic fits
-(wrong on the public page; auto docs get "Fitted automatically by the batch ... (gate score X m)",
-hand-fit strings unchanged), and load_picture's bare urllib has no Wikimedia pacing/Retry-After
-(7 back-to-back downloads 429, PITFALLS ~L602) - new _fetch helper paces ~1 rps, honours Retry-After,
-backoffs on 5xx. Baseline before all changes: 59 passed / 0 failed (59.76 s). Not yet implemented at
-hand-over: the design is fully specced in the task's Hand-over; next session writes the code, then the
-real run (7 Commons downloads expected), then a re-run for idempotency, then tests/browser/docs.
+### 2026-10-11 207 DECISION: split into 207a (Horsley), 207b (Maclauchlan), 207c (Roy); reordered so the unblocked books go first
+Chose per-book subtasks over one task: the three-book pipeline (fetch + triage A/F/C/B + list mapping + recall + staging + tests + lead doc) is far beyond a few sessions, and the task's own Notes anticipate the split. Reordered from the Notes' (Roy, Horsley, Maclauchlan) to (Horsley, Maclauchlan, Roy): the driver hands out subtasks in a/b/c order, and Roy (207c) is blocked waiting on a human-provided copy (BLOCKER below), so putting it last keeps the pipeline moving.
+Copy choices (measured this session via books_ia): Horsley -> `britanniaromanao00hors` (Google Books, 936 leaves, median 2237x3861 px, hOCR + djvu.txt; alternates the bim British Museum copies, 831/827 leaves, ~14000 px images - only if the Google pages are unreadable). Maclauchlan -> `memoirwrittendu00maclgoog` (the 1858 original, 171 leaves, 3290x5182 px, djvu.txt only, no hOCR; the 1971 reprint `memoirwrittendur0000henr`, 292 leaves 1625x2697, has hOCR and is the OCR source for the book's list; stage images only from the 1858 original). Mechanics: each subtask's module registers its book in `books.BOOKS` and patches `books.LLM_URLS` in-process to the live replicas (127.0.0.1:8080-8082, model qwen3.8-27b, verified up this session) - no edits to pipeline/ (215 re-points books.py properly); per-book artifacts only (triage/<ia>.*, lists/<ia>.json/.map.json via `books_lists.cmd_ocrmap` after in-process `books_lists.PLATES[ia]` injection); recall recorded per book in docs/lead_roman.md via `books_lists.validate_book` (the shared validation.json/index.jsonl stay untouched until 211); staging appends to the parent's shared files (files_roman.jsonl etc.) with rows tagged per book, the 204/205 append-only idempotent pattern.
 
-### 2026-10-11 300 DECISION: the one-site line is implemented and has taken Stonehenge to the map; one session remains (tests/test_site_done.py)
-Where: tools/site_done.py (new), pipeline/plan_fit.py, pipeline/build_site.py, fit/review.py, docs/site_flow.md, docs/site_flow/stonehenge.png, web/data/{sites.json,review.json,sites/stonehenge-q39671/}, data/raw/commons/big/
-Rationale: iteration 65 implemented exactly the previous session's design and ran the line on the real
-`tree with no model flag. Results, all verified on disk: (1) fit - "13 candidate picture(s): 7 fitted (doc),
-6 in the review item -> no batch run needed" (the covered/uncovered distinction worked: run_sites was never
-called, so no item entry was clobbered); (2) sync - 7 documents synced, each big picture downloaded from
-Commons through the new paced _fetch (14 requests, no 429, ~35 s); (3) entry - drawings 0 -> 7; (4) review -
-the item published (339 open of 340 - the batch's population, unchanged), no `resolved` recorded anywhere
-(stonehenge's 6 candidates have no resolving doc; the scoped export also left alligator's derived-resolved
-item untouched - all 340 item files byte-identical, all 130 platefits docs byte-identical, only the stonehenge
-entry in sites.json changed, hand-fit golden green, suite 59 green both before and after). Re-run of the
-command: every doc "skipped: overlay already current", sites.json and platefits byte-identical - idempotent.
-Browser check (box 3): serve.py --port 0 + shot.mjs with `select('stonehenge-q39671')` - probe reports
-drawings 7, marker class without `plain` (the square is coloured), the 1800 Rijksmuseum plan auto-selected
-and rendered in red ink exactly on the real sarsen circles over the aerial photograph; screenshot committed
-as docs/site_flow/stonehenge.png with its one-line description in docs/site_flow.md.
-What broke this session (all fixed, all documented in docs/site_flow.md for the next site): the entry line
-first printed "drawings 7 -> 7" because plan_fit.build calls set_drawings after every fit, so a "before" read
-taken AFTER the sync sees the final value - the before is now captured before the sync. (The 429 risk did
-not materialise: the paced _fetch absorbed a 14-request burst cleanly.)
-Remaining: ONLY box 4 - tests/test_site_done.py (hermetic: tmp tree with the site stripped to pre-sync +
-synthetic big pictures sized like each doc's `size` so fs=1; run the COPIED tools/site_done.py; assert
-exit 0, the per-picture lines, depictions.json byte-equal to the real repo's, entry 0 -> 7, and every other
-file in the tree byte-identical). Design is in the task's Hand-over. Then Status: done.
+### 2026-10-11 207 BLOCKER: Roy 1793 "Military Antiquities of the Romans in North Britain" is not on the Internet Archive
+- Attempt 1: IA advancedsearch by exact title, "romans in north britain", "antiquities of the romans in north britain", creator "Roy, William" (fuzzy: unrelated hits), title:"military antiquities" (20 hits: Grose et al., never Roy), a 1790-1800 year-range text query -> the only related item is a 1917 dissertation ABOUT Roy (macdonald-1917-roy, ~76 journal leaves, no facsimile, no plate list) - not the book
+- Attempt 2: ten guessed identifier patterns (militaryantiquit00roy, ...u, ...0, ...w, ...goog, ...0000roy, ...0000royw, militaryantiquities00{,00}roy{,w}, militaryantiquiti00roy, militaryantiquit01roy) -> all return `{}`
+- Attempt 3: the NLS complete facsimile (maps.nls.uk/roy/antiquities/, "174 pages, 51 map plates") via web_fetch and curl with three browser UAs, HTML and guessed image paths alike -> HTTP 405 AWS-WAF "Human Verification" captcha challenge on every path; the NLS open S3 tile bucket (mapseries-tilesets) lists fine but holds no antiquities set (roy/ = 1747-55 military survey only, already used by pipeline/nls.py as background maps)
+Needed: a human with a real browser to download the NLS facsimile and place it in data/raw/books/roy1793/ (or a decision to drop Roy). Filed ask_human (request 003, open, human_only); 207c set to blocked. 207a/207b proceed independently: the subtasks run in sequence, so the shared staging files (files_roman.jsonl etc.) carry per-book tagged rows without conflict; each subtask's module, triage/lists artifacts and tests are disjoint.
 
 ## Project-wide driver notes (newest)
 
