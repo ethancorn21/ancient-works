@@ -488,15 +488,21 @@ def named_places_in(row, site):
     return out
 
 
+def site_point(site, claims):
+    """The site's own coordinates: the catalog's lon/lat, falling back to the site item's P625 claim."""
+    lon, lat = site.get("lon"), site.get("lat")
+    if lon is None:
+        lon, lat = claims.get("p625", (None, None))
+    return lon, lat
+
+
 def caption_route(row, site, claims, places):
     """The caption route: the site's own names printed by the title/desc, resolved to coordinates - the
     nearest resolution within 50 km proves the caption_coords tie; when every resolution is farther, the
     nearest one is recorded as the conflict (the Hampton-Court trap, never a pass). Returns None when the
     caption does not decide the row (no coordinates, no place named, or no place resolved), so the caller
     can try further routes."""
-    slon, slat = site.get("lon"), site.get("lat")
-    if slon is None:
-        slon, slat = claims.get("p625", (None, None))
+    slon, slat = site_point(site, claims)
     if slon is None:
         return None
     best, conflicts = None, []
