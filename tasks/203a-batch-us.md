@@ -56,53 +56,46 @@ the world) reuses this module's loop.
   model says is a lead to check, not a fact — the gate is the check).
 
 ## Hand-over
-Session 4g (iteration 42). Status: in-progress. The driver REJECTED the 4f done claim
-(reopened the task) because the suite failed on exactly the 4 cross-task failures 4f had
-predicted and recorded: tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-and tests/test_review.py::test_export_cli / test_page_shows_the_review_list /
-test_save_resolves_the_item. All 6 boxes of THIS task remain verified: 4g re-ran the full
-suite (4 failed / 34 passed - the 4 exactly as listed, my 5/5 test_batch_us green) and the
-golden (sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39). The data from the 4e run
-(16 auto docs, 89 item files, docs/batch_us.md) is committed and untouched.
+Session 4h (iteration 43). Status: in-progress, HELD on the dependency: tasks 802 and 803
+are still `Status: open`, unassigned, and NOT in main (main is at bb3140f, a full ancestor
+of my branch; no driver sync since iteration 40's 02b09b9). The 4g hand-over expected the
+driver to bring this task back only after 802/803 merged; the driver handed it back before
+that, so this session re-verified the held state (no edits; all values below unchanged
+since 4g):
+- Full suite: 4 failed / 34 passed = exactly 802's test_recorded_measurement_reproduces_
+  agrees and 803's three review tests (export_cli "88 open of 89"; page list; save
+  KeyError 'map_box'). My 5/5 tests/test_batch_us.py green (full suite and in isolation).
+- Golden: sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK.
+- 802's invariant holds live: 36 platefit docs = 16 "auto": true + 20 without, and the 20
+  non-auto names are set-equal to the golden's 20 hand-fit names -> a partition() derived
+  over non-auto names reproduces the registered 20-name table byte for byte here, and
+  automatic docs only add names, so also on a pre-batch checkout.
+- 803's premise holds live: 89 review items, all raw resolved=null; alligator's item
+  carries candidate c_618a6be74dfaff32 whose auto doc exists -> 201's export derives it
+  resolved -> 88 open, as 803's spec says (pre-batch it reduces to 2 open of 2).
+Why the suite is red at all: the 4 failures are hardcoded pre-batch population pins in
+tests owned by 001/201 (full root-cause evidence in the 4g DECISIONS entry; 802/803 specs
+carry the fix, both re-filed in 4g with `Depends on: 001`/`201` = done, so both are
+assignable now). Queue note: PROGRESS.md's "Next open tasks" lists 215/216/217 ahead of
+802/803 - benign if the queue is numerical (800/801 were also 8xx and got handed out);
+if 802/803 stay unassigned after 215-217 are out, or the driver keeps handing me this
+task with the same 4 red, ask_human (recommendation: hand 802/803 to idle agents, or let
+this task's holder implement them - I wrote both specs; each is one session's work).
 
-The block is a DEPENDENCY INVERSION that 4f itself created, and 4g resolved it:
-
-- Root cause of each of the 4 (evidence in the 4g DECISIONS entry): all four are
-  hardcoded PRE-batch population pins in tests owned by 001/201. 802's: gate_heldout
-  partition() expects exactly 20 docs, finds 36. 803's: pinned "2 open of 2" stdout, the
-  [alligator, bibracte] open list, the Review (2)/rvn==2 page pins, and test_save reading
-  map_box/size/ia/file/label/book/cite from the ITEM ENTRY. The last is a TEST artifact,
-  not a data defect: web/review.js rvResolveRow resolves the candidate's row from
-  web/data/plans.json by (plan, site) FIRST and only falls back to stored entry fields
-  (missing map_box tolerated: openPlan falls back to the full frame) for rows absent from
-  the build. My upserted 203a-shape entries are product-fine; NO repair of my item files
-  and NO fit/review.py change is needed for it.
-- The fix is state-agnostic in both filings: 802 derives its name list over NON-auto
-  documents - identical to the original 20 names before and after any batch (no hand-fit
-  doc ever gains "auto"); 803 derives every expectation from the repo's data/review/ items
-  through 201's own rules and must reduce EXACTLY to the currently pinned values on the
-  pre-batch population (2 open of 2; save pick lands on alligator n0214_2 - the only open
-  site with a book row carrying map_box+size). Both were therefore re-filed with
-  `Depends on: 001` / `Depends on: 201` (both done) instead of 203a, so an implementer on
-  ANY main-based branch (with or without 203a's data) lands green, and their merge keeps
-  main green in both orders. 4g also added both to THIS task's `Depends on:` line (001,
-  200, 201, 202, 802, 803) so the driver holds 203a until both are merged, and added their
-  paths to my `Touches:` (I authored those filings in 4f and maintain them until they are
-  handed out - recorded in DECISIONS).
-
-NEXT SESSION on this task (the driver should bring it back after 802 and 803 have merged
-into main and main has been merged into my branch):
-1. `.venv/bin/python -m pytest -q`: expect GREEN (38+ tests). If still red: if a failure
-   is in a file of MY Touches (fit/batch_us.py, tests/test_batch_us.py, data/db/platefits/,
-   data/review/, docs/batch_us.md, tests/golden/hand_fit_docs.sha256) fix it; if it is in
-   someone else's file, record it in DECISIONS and leave it - do not edit other tasks'
-   files.
-2. Re-confirm `sha256sum -c tests/golden/hand_fit_docs.sha256` = 39/39 (my data files have
-   not moved since the run; they must not).
-3. Set `Status: done` (all 6 boxes are already ticked and verified in 4e/4f) and re-file
-   the claim; note the outcome in this section. Do NOT re-run the batch, touch the 20
-   hand-fit documents, or edit tests/test_gate.py or tests/test_review.py (802/803 own
-   those).
+NEXT SESSION:
+1. First check `head -2 tasks/802-*.md tasks/803-*.md` and whether main advanced past
+   bb3140f into my branch.
+2. If both are merged into main (or otherwise in my branch): run `.venv/bin/python -m
+   pytest -q` (expect GREEN, 38+) and `sha256sum -c tests/golden/hand_fit_docs.sha256`
+   (= 39/39). Then set `Status: done` and re-file the claim - all 6 boxes were ticked
+   and verified in 4e/4f. If a failure is in a file of MY Touches (fit/batch_us.py,
+   tests/test_batch_us.py, data/db/platefits/, data/review/, docs/batch_us.md, the
+   golden) fix it; if it is in someone else's file, record it in DECISIONS and leave it.
+3. If 802/803 are still open: re-run the two checks above (they must still be exactly
+   4/34 and 39/39), record in DECISIONS, keep this hand-over, commit, stop - do NOT
+   implement their specs (their files are not on my Touches) and do NOT ask_human yet
+   (one more hold round; then the escalation above). Never re-run the batch, never
+   touch the 20 hand-fit documents, never edit tests/test_gate.py or tests/test_review.py.
 
 For 203b (imports run_sites/write_report from fit/batch_us.py): site list = region != "US"
 plus the 6 region-less sites; keep is_pre_fit's site.json["plate"]["fit"] branch (the

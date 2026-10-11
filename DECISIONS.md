@@ -254,3 +254,45 @@ lists 802, 803 so the driver holds my claim until both are in main. Per the team
 I committed and stopped; the driver hands me other work and brings 203a back once
 802/803 merge. No ask_human: this is a dependency-order fix inside my own filings, not
 a blocker needing a human decision.
+
+## 2026-10-11 203a DECISION: session 4h - dependency hold confirmed: 802/803 still open and unassigned, not in main; state unchanged since 4g (suite red on exactly the 4, golden 39/39); both tasks' state-agnostic invariants re-verified on the live data; hold and stop per the team rule
+
+CHOICE: the driver handed 203a again in iteration 43. The 4g NEXT SESSION
+procedure assumed 802/803 had merged into main; that has not happened - main
+is at bb3140f, a full ancestor of my branch (no driver sync commit since
+iteration 40's 02b09b9), and both task files are still `Status: open` and
+unassigned. Per the team-mode rule I did not implement them: their Touches
+files (tools/gate_heldout.py, tests/test_gate.py, tests/test_review.py) are
+not on my Touches line, the rule says do not build stand-ins, and their
+numbers are already on my Depends on: (added in 4g). So the step was to
+re-verify the held state and stop. Nothing in my files changed or needed
+fixing this session (no edits at all).
+STATE RE-VERIFIED (all unchanged since 4g):
+- Full suite `.venv/bin/python -m pytest -q`: 4 failed / 34 passed = exactly
+  802's test_recorded_measurement_reproduces_and_agrees and 803's
+  test_export_cli ("88 open of 89") / test_page_shows_the_review_list /
+  test_save_resolves_the_item (KeyError 'map_box'). My 5/5
+  tests/test_batch_us.py pass (full suite, and re-run in isolation: 5 passed
+  in 5 s).
+- Golden: sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK (20 docs
+  + 19 site.json byte-identical).
+- 802's state-agnostic invariant holds on the LIVE data: data/db/platefits/
+  holds 36 docs = 16 carrying "auto": true + 20 without, and the 20 non-auto
+  file names are SET-EQUAL to the golden's 20 hand-fit names (checked by set
+  equality, not count) - so a partition() derived over the non-auto names
+  reproduces the registered 20-name partition byte for byte in this
+  post-batch state; automatic docs only ever add names, so it also holds on
+  a plain main-based pre-batch checkout.
+- 803's derivation premise holds on the LIVE data: data/review/ holds 89
+  items, every one with raw resolved=null; alligator's item carries
+  candidate c_618a6be74dfaff32 and its auto doc exists in
+  data/db/platefits/ -> 201's export derives that item resolved, giving
+  88 open - exactly 803's spec (pre-batch it reduces to 2 open of 2).
+FLAG FOR THE DRIVER (not yet an escalation): PROGRESS.md's "Next open tasks"
+lists 215/216/217, not 802/803. Benign reading: the queue is numerical and
+802/803 follow 215-217 (800/801 were also 8xx filings and got handed out and
+done, so the queue does take 8xx). Policy for the next session: if 802/803
+are still unassigned (and the suite still red on the same 4) after 215-217
+have been handed out, ask_human - recommendation: hand 802 and 803 to idle
+agents, or let this task's holder implement them, since I wrote both specs
+and just re-verified both invariants above (one session of work each).
