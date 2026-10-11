@@ -6,7 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
-- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 16, agent c).** Offline prototype of the sheet-candidate extractor DONE and
+- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 17, agent c).** Extractor v3 FINAL (offline, verified over all 354 none rows) +
 
 ## Next open tasks
 - `tasks/201-review.md`
@@ -16,89 +16,55 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-10 801 DECISION: census done, two new evidence kinds designed (part_mention, sheet_mention) - implement next session
-Iter 14 (agent c). Read fit/evidence.py, books_match.py, the evidence test + golden, the commons
-harvest. Then reviewed all 280 plain-none rows individually (filter: kind none without conflict in
-data/commons/files.jsonl; dump kept in the task hand-over). They fall into: ~85-90 rows that
-genuinely name the site (39 Strasbourg maps on argentoratum - the site's coords ARE Strasbourg but
-catalog aliases are Roman-only; 40 "Clifford's Tower" photos on york-castle - Clifford's Tower is a
-catalog has_part; 4 Reims maps on durocortorum; 5 Orléans maps on cenabum; Weesp/Arnhem/Beauvais/
-Cranbourne/Darlington/Monmouth/St. Louis/Manchester/Nijmegen/Birmingham/Barkhale singles), ~50 junk
-rows whose captions DO name a place but far away (13 New-Orleans on cenabum, 12 Palestine surveys on
-the NETHERLANDS bethlehem-q2523914, Maastricht on traiectum/bethlehem, Bristol on 4 sites, Venice on
-gondole, Chirk on offa's-dyke at ~57 km...) which box 2 wants recorded as conflicts, and ~180 book-
-scan/seed-catalogue/painting rows naming nothing (stay none - correct).
-Design (full detail in the task hand-over): kinds part_mention (caption names a catalog has_part,
-part item's P625 within 50 km) and sheet_mention (proper-noun phrase from title+desc resolves via
-the existing one-search-per-name + batched-claims prefetch to within 50 km); both store the
-caption_coords shape so check re-verifies offline; record gains --redo-none to re-run only stored
-none rows through the live route; STOP-word + case-boundary title tokenizer (handles
-"Maastricht1749LarcherDAubencourt2"); per-site verdicts (the same "Peutinger Casaromago" file
-passes on castrum-levefanum ~Beauvais but stays conflict-none on fletio ~440 km away).
-Open risk to measure FIRST next session: whether Clifford's Tower's item Q113551546 carries P625 -
-if not, the 40 photos cannot pass (fail-closed) and the pass set is ~45 of ~85, still a bare
-majority; do not loosen the guard to compensate without logging it.
+### 2026-10-11 801 DECISION: extractor v3 final (digits out, "St" merge fixed, STOP extended to 1483 uniques) - live run is the next step
+Iter 17 (agent c). Applied the two pending iter-16 fixes to /tmp/sheet_proto2.py (now v3) and re-ran offline
+over all 354 none rows (no network, no repo change). (1) Digits never kept (t[0].isalpha()) and a digit
+between two kept words now breaks a run - kills the NYPL barcodes ("11707950 000", "000 019"), year-range
+pairs ("1806 1820") and hex-fragment glue. (2) The St-merge marker only matched all-caps "ST" in v2, but
+the tokenizer yields mixed-case "St" from "St." - the "St. Louis" candidate (cahokia) was silently LOST;
+fixed to accept both, merging only when no comma/len>=3-lowercase/digit sits between "St" and the next
+kept word. (3) STOP extended with the iter-16 pending words (preposition block the/van/les/des/and/for/
+with/from/bij/met/naar/per + harmless 2-letter ones; ordnance quartier house design pattern textile
+numerisation onderdeel english roman) plus words mined from the v2 dump (bewerkt nativite nativity
+gemeentelijke deze rotterdamblindstempel reisalbum georeferencer dessins digue digues amenagement dyffryn
+jazz built ancient archaeological biodiversity center home nursing prospect fleuron bowes click landscape
+appearing text everything figures franse internet archive before history - full list in the task file's
+v3 description). Measured: 1483 unique candidates (was 2078; iter-16 expected ~1400-1600), 346/354 rows
+with >=1 sheet candidate, EXACTLY 40 part hits (unchanged). Eyeballed the top ~130 of the frequency list:
+remainder is genuine place names (real passes), person names (expected, no P625, one search each) and junk
+now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowes MUSEUM paintings; Bowes
+is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
+Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
+name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
 
-### 2026-10-11 801 DECISION: Clifford's Tower has P625 (6 m) - the part route adds 40 passes; part-without-P625 falls back to the site's own coords (logged, not a loosening)
-Iter 15 (agent c). Measured P625 of all 343 unique catalog has_part qids (2 full batched runs + 5 spot
-checks, all agree): 332 have P625; 311 are within 50 km of their own site point; 19 are far (14 on the
-LINEAR site lower-german-limes, 50-152 km from its stored end, hopewell-ceremonial-earthworks x3 at
-89-158, poundbury-hill x1 at 168) - those stay fail-closed (conflict-none) if a caption names them; no
-special-casing of linear sites. 11 parts have no P625 (list in the hand-over). Clifford's Tower
-Q113551546 HAS P625 (-1.0800092, 53.9558873) = 6 m from york-castle-q80637's stored point (the iter-14
-open risk resolved in the good direction - the 50 km guard is kept as is); its sibling part Curtain Wall
-Q17530656 is 149 m. Offline pre-census: exactly 40 of the 354 stored-none rows name a has_part of their
-own site (all "Clifford's Tower Survey" titles on york-castle) -> part_mention contributes exactly 40
-passes; the remaining ~45 genuinely-naming rows (Strasbourg/Reims/Orleans/Weesp/Arnhem/Beauvais/
-Cranbourne/Darlington/Monmouth/St Louis/Manchester/Nijmegen/Birmingham/Barkhale) must pass via
-sheet_mention.
-Design decision (logged per the iter-14 rule "do not invent a looser substitute without logging it"):
-for a part WITHOUT P625, part_mention uses the site's own coordinates - the catalog's has_part means the
-part is spatially inside the site, i.e. at the site's point (0 km). No currently-none row names such a
-part, so this is a safety net, not a coverage driver; the 50 km check still applies wherever the part
-carries real P625.
-Unreproduced one-off: my first batch run counted 13 parts without P625; every later run gives 11 and 0
-ids dropped from the batch response (the run-1 count was probably a transient server quirk, not
-reproducible). Not filed as a pitfall (unproven); the new part prefetch re-fetches ids missing from a
-batch response as one-line insurance, keeping the batched shape.
+### 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
+Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
+singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
+ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
+FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
+skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
+York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
+"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
+from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
+caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
+sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
+without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
+6.61E 53.38N is NOT near Maastricht).
 
-### 2026-10-11 801 DECISION: offline candidate prototype done - extractor rules finalized (NFKD mandatory; pairs-before-singles order; title-only-pass rejected)
-Iter 16 (agent c). Built /tmp/sheet_proto.py (v1) and /tmp/sheet_proto2.py (v2, throwaway, no repo
-changes) and eyeballed ALL 354 stored-none rows per site against the iter-14 census. Findings that
-changed the iter-15 design:
-1. NFKD-normalize BEFORE tokenizing - mandatory. v1 tokenized raw text: "Orléans" -> "O"+"rl"+"ans"
-   (zero candidates), which would have cost the 4 cenabum pass rows; "Bethléem"/"Maastricht" variants
-   likewise. Candidates are stored in the normalized form (the check's norm-substring test stays
-   valid because check() normalizes both sides).
-2. Strip the "File:" prefix and truncate desc at a word boundary at 600 chars (a cut word like
-   "Bethl" becomes a phantom candidate otherwise). Digits are never kept tokens (v1 bug: "000",
-   "1870" leaked and formed junk pairs).
-3. Run splitting: a comma OR a real lowercase word (len>=3) between two kept words breaks the run.
-   Keeps "New Orleans" / "Cranbourne Hampshire" / "Monmouth Castle" as phrases while breaking OS
-   place lists (v1's greedy 3-merge turned them into unresolvable garbage and lost the singles).
-4. Candidate order per run: 2-word pairs, then 3-word phrases, then singles. Decisive: the lone
-   "Orleans" resolves to Orléans (the cenabum site itself); trying it before "New Orleans" would
-   FALSE-PASS the New-Orleans junk rows. Pairs-first prevents that.
-5. Verdict = the existing caption-route best/conflict logic over the candidate set (nearest <=50 km
-   -> sheet_mention pass; nearest far -> none+conflict; else plain none). Title-preference for
-   PASSES was tested and rejected: the cenabum New-Orleans junk names the place only in the DESC and
-   box 2 demands the conflict there.
-6. STOP list mined from the 354 rows' capitalized-word frequency table (EN metadata labels + NL/FR
-   field words + adjectives English/Roman/...); NEVER stop place-name components (New, Great, Old,
-   North/South, City, Church, Tower, River, Park, Garden). v2's list accidentally DROPPED the
-   preposition block (The/Of/De/Van/La/Le...) and "ordnance/quartier/house/design/pattern/textile/
-   numerisation/onderdeel" - those additions + the digit exclusion are still PENDING (my edit call
-   failed atomically); they are listed in the task hand-over.
-Expected after the fixes: ~1400-1600 unique candidates (v2 measured 2078); the tail is person names
-(authors/artists/publishers of the ~180 book-scan rows) - harmless (no P625, the distance guard is
-the mechanism), just one-off search cost (~25-35 min at 1 req/s).
-Accepted consequence (logged per the iter-14 rule): a city name shared with a person/family name
-("York" on the 1914 Christmas tin on york-castle, "Dudley" on a genealogy book) will pass when the
-site sits in that city - keyword+50km cannot distinguish a depiction from a name mention; the
-never-pass-far guarantee holds and box 1 only needs the majority of the genuinely-naming rows (the
-40 Clifford rows pass via the part route, which runs before sheet).
-Part-route check: EXACTLY 40 of the 354 none rows name a has_part of their own site (all
-Clifford's Tower) - matches the iter-15 census.
+### 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
+Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
+castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
+Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
+Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
+and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
+(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
+walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
+castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
+holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
+~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
+from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
+Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
+edited; add them next session.)
 
 ## Project-wide driver notes (newest)
 
