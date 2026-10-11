@@ -808,6 +808,22 @@ re-exports at project end). Task 201 is done.
     panel-centre distance <= max(3x maxresid, 100m, 1.0x panel diagonal)); (c) never source the proposal's
     scale from the site.json fits (circular: the proposal must work for sites with no fit yet).
 
+## 2026-10-11 202 DECISION: old-style six sanity check = Option B (metric-space envelopes), no cross-scan bridge
+Attempt 3 of the R4 bridge (logged above in the BLOCKER entry) is the last one: the two scans of a plate
+differ by smooth, non-projective paper distortion; a global similarity fails, a 4-point homography is
+unphysical (implied scale 1.51 vs true ~1.06, 5th point off 116 px), the plate_scan crop has no ruled
+frame corners to calibrate against, and eyeballed full-page picks are +/-20-30 px - too coarse to
+condition any 8-parameter solve on a 1500 px span. Option A' (auto-extracted wall centerline
+registration) would be new non-trivial code for a check the box does not require. Decision: B.
+The box's "re-fit from the proposals lands within the hand fit's own residual range" is implemented as
+three metric-space sub-checks (next session's test), all with envelopes recorded in the golden file:
+(a) scale: proposed panel physical size (m) vs hand-fit earthwork bbox (m, from site.json plate.walls x
+fit) per side within 0.2-3x (QID same-frame nine: proposed m/px vs doc m/px within 50%, minus calleva,
+R2); (b) rotation: |delta| <= 15 deg or 70-110 deg for trusted-hint rows, <= 35 deg or 70-110 deg for
+rejected-hint rows (hopeton delta 33.7 is the measured driver of the 35 band); (c) centre: site centre
+vs hand-fit placement of the panel centre (QID same frame) or of the earthwork centre (old-style six,
+the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
