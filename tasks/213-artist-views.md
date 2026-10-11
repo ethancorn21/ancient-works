@@ -56,61 +56,56 @@ and its streets carry the fit.
   the feature pairs the sheet shows on both sides, not walls in relief.
 
 ## Hand-over
-**Step 2 done (iteration 24, 2026-10-11): Imola pinned, triaged, staged; Venice staged; boxes 2 + 3 ticked.**
-UNCOMMITTED (harness-saved, next agent commits with the rest): `fit/src_artists.py` (SITES[Q50195] centre now
-the walled town 11.7112/44.3535; docstring + drop comments corrected), the three staging files (2 sites /
-2 pictures / 2 classified rows), `docs/lead_artists.md` (full Imola + Venice sections, the 2026-10-11
-`--verify` block verbatim, book stub, offline-check output).
+**Iteration 26 (2026-10-11): books step resumed and pushed far; lead doc books section rewritten; tasks 215-217 filed. Commit this state (the triage files keep growing from the background run - commit them when stable).**
 
-**MAJOR CORRECTION (the prep was wrong):** the prep's "Imola old-town centre ~ 44.245 N, 12.367 E" was
-CERVIA on the Ravenna coast (~50 km SE of Imola); the prep then mislabelled Q50195's P625 as "bad, 53 km NW
-of the town". The truth (verified live this session): real Imola = 44.353 N, 11.715 E (NE of Bologna, on the
-Santerno); enwiki infobox 44°21'11"N 11°42'53"E == Q50195 P625 == OSM town node (with the F1 circuit beside
-it); P625 was never bad. OSM's comune boundary is mis-drawn (Nominatim shows the urban area as "Imola,
-Nuovo Circondario Imolese") - never geocode Imola from OSM/Nominatim, use enwiki/P625. The river in the
-drawing is the **Santerno** (Leonardo labels it "Sant'Arno", mirror script - read off the sheet; the prep's
-"Savena crossing" was a second error). The sheet: south-up (per the literature), walled town at the centre
-of the circular view, Rocca Sforzesca at its edge = the identifying feature. **The PITFALLS entry at line
-~209 ("Q50195 (Imola) carries a bad P625 (~53 km NW)...") is now WRONG in its Imola half - fix it in your
-first session** (keep the Venice half: search "Venice" hits Q773853 LA 9891 km first; that trap is real and
-is why the hand record stands). New pitfall worth an entry: Nominatim `viewbox` is left,top,right,bottom =
-min_lon,MAX_lat,max_lon,min_lat (I burned a session passing lon,lat,lon,lat).
+**What this session did:** (a) established that iteration 25's orphaned triage process had appended the last
+2 pages of A after the driver's snapshot (A = append-only, re-runnable - no repair needed); (b) identified
+civitatesorbiste00brau = **Civitates Orbis Terrarum, Liber secundus (1575)**, 292 leaves (imperial-privilege
+page in its OCR names Hogenberg/vanden Noeurt/Braun + "Secundus"); (c) found **books.py's LLM_URLS
+(18080/18081) are stale on this machine** - no listener; the llmtunnel ssh service (user llmtunn, up since
+Oct 6) serves the Qwen replicas on **127.0.0.1:8080/8081/8082** (all /v1/models -> 200). Every book task's
+triage B/F is blocked by this; (d) launched the triage in the BACKGROUND (see below) and, while it ran,
+filed **tasks 215** (books.py ports), **216** (BOOKS entries for the 6 view books, Depends 213+215),
+**217** (books_lists lists + view-as-drawing index, Depends 216) and **rewrote the lead-doc books section**
+(6-item table, Liber secundus description, the views-cannot-index gap, status: worked in per-book files).
 
-**Triage verdicts (one paced commons.info run, 2026-10-11, all PD, all pass keep()):** "File:Leonardo da
-vinci, Town plan of Imola.jpg" (1030x774, circa 1502) = ANOTHER SCAN OF THE SAME RCIN 912284 SHEET (verified
-visually) -> drop, one row per picture; "File:...RCIN 912686, Recto Sketches..." (1517x2000 portrait,
-undated) = different work (the measured survey sketches) -> drop; "File:Imola 1705.jpg" (942x710, 1705,
-Antonio Ferri) = flat plan, other hand, other century -> drop. GAp Imola scan (6164x4545) stays a
-commons.NO "google" drop. All five verdicts are in docs/lead_artists.md.
+**THE BACKGROUND RUN (do not kill without reason):** `/tmp/civitates_triage.py` (pid 1657419 at hand-over),
+log `/tmp/civitates_triage.log`, writes `data/books/triage/civitatesorbiste00brau.A.jsonl` (finishing pages
+211-291; 262/292 done, 0 errors so far) then `.F.jsonl` on every figure_site_plan+other_illustration page.
+It patches `books.LLM_URLS` to 8080-8082 in-process and injects `BOOKS["civitates"] = dict(ia=
+"civitatesorbiste00brau", region="Italy", year=1575)` - NO shared file is modified. archive.org IIIF is
+slow (timeouts + retries are normal; a page that exhausts retries gets an error row and a re-run picks it
+up). **Re-run if dead/incomplete:** `nohup .venv/bin/python /tmp/civitates_triage.py >> /tmp/civitates_triage.log 2>&1 &` (idempotent). Wait for it to print DONE (or finish) before committing the A/F files.
 
-**State:** `--check` PASSES (2/2 caption_coords, no join problems, exit 0) - last test run. Boxes 2, 3
-TICKED. Boxes 1, 4, 5, 6 open. Imola row: date "" year 1502 (file page has no DateTimeOriginal - the noted
-box-1 case, documented in the lead doc); Venice row: date 1500. Staged region "Italy" (built sites show
-"US" until 214 merges - transient, DECISIONS 2026-10-11).
+**Facts for the list transcription (next main step):** the book has **no printed town list** - transcribe
+from the plate inscriptions (A/F captions = the model's reading; verify the ambiguous ones visually - maps
+like FEDERATORVM HELVETIAE, arms pages like "Armes de ceste Ville de Milan", fold-outs n187/n199, the
+Jerusalem PLAN n237/238 = the only kind-"s" entry). `page_numbers.json` (cached in data/raw) is SPARSE:
+printed numbers only at leaves 193-196 (1-4) and 280-284 (I-V) - so list entries key on the LEAF (n),
+`page` mostly null. Write `data/books/lists/civitatesorbiste00brau.json` = {"plates": null, "figures":
+[{"fig": i, "title": <inscription as printed>, "page": null-or-printed, "kind": "o" (view), kind "s" for
+the Jerusalem plan, "u" if unsure, "kind_by": "hand"}]} and `.map.json` = `[]` (honest under the current
+machinery: list_pages maps only kind s/u). **Then fix the lead-doc sentence that says the list "is
+hand-transcribed"** - make it true or soften it to the state you reach. Then a few hand-verified towns
+(paced Wikidata QIDs: Rome/Vienna/Florence/Milan/Brussels/Antwerp candidates) recorded in
+fit/src_artists.py:BOOKS and the lead doc. Box 5 end-state = per-book files + documented status (rows come
+via 211/217, not staged by 213 - the lead doc says so).
 
-**Next step - session 3:** (0) Add `tests/golden/src_artists_sample.json` to this task's `Touches:` line (a new
-artifact of this task, not yet listed) and commit, before any golden write. (1) Fix the PITFALLS line-209 entry as above (+ optional Nominatim-viewbox entry).
-(2) Books (box 5, stretch): check IA metadata for the BOOKS-table ids (208's OQ-2 recipe in tasks/prep/208.md
-for BookReader vs .pdf); if indexable: add `data/books/triage/<ia>.*` + `data/books/lists/<ia>.json` (the
-exact ia ids you write) to THIS task's Touches line FIRST, then work one book, a few hand-verified towns, or
-document a drop; the books.py:BOOKS entry is a shared-module change -> file a new task (lowest free 2xx,
-Depends on: none, Touches: pipeline/books.py etc.), never write it. (3) `--golden` (writes
-tests/golden/src_artists_sample.json from the staged rows - path in Touches after step (0)). (4) Session 4: tests/test_src_artists.py per prep plan section 4 - the join; table completeness (rows' qid
-== the module table; dates 1502/1500; extras rows complete incl. region "Italy", kind "town"); offline
-evidence check (check(FILES_ARTISTS, NO_BOOKS, catalog=EXTRAS_ARTISTS) exit 0, zero FAIL) with a NEGATIVE
-CONTROL built in-test: the Imola row with the WRONG centre 44.245/12.367 (Cervia - the prep's error, now
-~53 km from the site point) must be reported FAIL, not kept; golden compare. Socket-blocking fixture; run
-under .venv/bin/python. (5) Tick the rest: box 1 (when the book section is final), box 5, box 6, box 4 LAST
-(the count check). (6) At the done-claim: record in 211's Hand-over that the *_artists* staging files (+ any
-per-book files) exist and must be merged (prep R6). 801 is DONE (its evidence.py is on main - part/sheet
-kinds exist; my rows are unaffected).
+**Still to do (order):** (1) above; (2) `.venv/bin/python fit/src_artists.py --golden` -> commits
+tests/golden/src_artists_sample.json (path already in Touches; never hand-edited); (3) write
+tests/test_src_artists.py per prep §4 (join; table completeness; offline evidence check exit 0 with the
+NEGATIVE CONTROL: Imola row with the Cervia point 44.245/12.367 must be FAIL; golden compare; socket-
+blocking fixture; .venv); (4) tick boxes 1, 5, 6, then box 4 LAST; (5) note in 211's Hand-over that the
+*_artists* staging files + the civitates per-book files must be merged (R6); (6) add the PITFALLS entries:
+LLM ports 8080-8082 vs books.py 18080/18081 (215's box 3 expects it - do it once, here or in 215, not both),
++ long data jobs outlive the session and the driver's snapshot commit catches the file mid-growth (check
+mtime/stability before committing a growing file).
 
-**Re-read on return:** fit/src_artists.py:stage (idempotent on (site,title) - re-running is a no-op now the
-files exist; `--dry` shows "staged: 0"); fit/evidence.py:check_caption (caption_coords: named in
-norm(title+desc), stored dist reproduces dist_m ±1 km, ≤50 km - my rows store dist 0.0, place = site point);
-fit/evidence.py:record (skips rec==evidence/1 - 211's record runs leave my rows alone); fit/evidence.py:
-source_tables (hand_tied registry = pipeline/sources.py only - I use caption_coords, not hand_tied).
+**State of the boxes:** 2, 3 ticked (unchanged). Box 5 ~80% (triage A nearly done, F running, lead doc
+done, list pending). Boxes 1, 4, 6 open. `--check` last passed (2/2) in iteration 24; staging files are
+append-only and untouched since - re-run `--check` before claiming.
 
-**Invariants:** staged files append-only + idempotent - never rewrite an existing line; do not touch
-fit/evidence.py (not in my Touches); GAp scans never staged; per-book paths into the Touches line BEFORE
-writing; box 4 last; the golden file regenerates only via `--golden` for an intended change.
+**Invariants (unchanged):** staged files append-only + idempotent; never touch fit/evidence.py,
+pipeline/books.py, pipeline/books_lists.py, data/books/index.jsonl, validation.json (215/216/217 own the
+shared modules); GAp scans never staged; box 4 last; golden only via `--golden`; the LLM service on
+8080-8082 is shared by all agents' book work - pace yourself, don't add workers beyond run_stage's default.

@@ -68,3 +68,11 @@ is written for Imola + Venice (uncommitted, harness-saved).
 ### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
     ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
     Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+
+### 2026-10-11 agent/a (213) hand-over status
+    Books step pushed: civitatesorbiste00brau = Liber secundus (1575); stage-A triage running in background
+    (pid 1657419, /tmp/civitates_triage.py, LLM ports 8080-8082 patched in-process - books.py's 18080/18081
+    are stale, filed as task 215; A was 262/292 at hand-over, F pending). Tasks 215/216/217 filed (shared
+    book-machinery gaps). Lead-doc books section rewritten (UNCOMMITTED: docs/lead_artists.md, task files).
+    data/books/triage/civitatesorbiste00brau.A.jsonl is still growing from the background run - wait for
+    DONE in /tmp/civitates_triage.log before committing it. Next: hand list transcription, --golden, test.
