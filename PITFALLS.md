@@ -117,3 +117,33 @@ the frozen constants change) and do not add a scale-specific clause trained on t
 Accept the 1-in-8 scale-error acceptance, backstopped by the review queue (GOAL 1) and the
 human's 18/20 sample of auto-accepted fits (GOAL 3); a tighter rule may only be derived on
 fresh documents with a fresh seed.
+
+#### In-place re-dump of a jsonl line must carry the line terminator or rows glue together
+Where: `fit/evidence.py` (`set_field`, `rewrite`, `record`); the test that guards it: `tests/test_evidence.py` (`test_record_appends_evidence_without_touching_existing_bytes`)
+Symptom: after a `record`-style rewrite, one line of a jsonl file contains two JSON objects (this line
+plus the next), the line count looks normal, and parsing the line as one object fails.
+Why: `json.dumps` never emits a trailing newline, and a writer that replaces whole lines (readlines +
+writelines) glues the next row onto the re-dumped one. `set_field` now appends `"\n"` iff the input line
+had one. Any new in-place re-dump of a line-oriented file must do the same; verify with a per-line
+parse + line-count + terminator check after the write.
+
+#### The book matcher injects the book's default state and ties rows by token / exact-phrase lookup, never by full-name substring
+Where: `pipeline/books_match.py` (`BOOK_SCOPE`, `row_inputs`, `score_candidate`, `match_row`), `fit/evidence.py` (`check_book_caption`)
+Symptom: a re-verification of the matcher's own stored decisions FAILs matched rows with "stored place
+state='ohio' recomputes to None" or "the row does not name 'Small multivallate hillfort on Pulpit Hill'"
+(52 of the 135 matched book rows, found when 200 ran check on the real index).
+Why: `match_row`'s place includes the BOOK_SCOPE default state (lapham_1855 wisconsin; fowke_1902 /
+whittlesey_1850 / mills_1914 ohio; squier_1851 new york) when the printed text names none, and it ties a
+row to a site by distinctive-token sharing or an exact phrase/alias lookup - the site's full name is
+rarely printed (a title printing "Pulpit Hill" ties the site whose name is "Small multivallate hillfort on
+Pulpit Hill"). Any consumer that re-verifies matcher decisions must call the matcher's own extracted
+rules (`row_inputs` + `score_candidate`), never a stricter restatement of them.
+
+#### The matcher's full output is non-monotone in catalog growth - never golden-pin it against the growing files
+Where: `pipeline/books_match.py` (`main`, `match_row`), `data/books/matches.jsonl` (tracked), tasks 204-211 (they grow `data/books/index.jsonl` and the catalog)
+Symptom: a persistent golden over `matches.jsonl` or the per-book status counts breaks when another task
+merges new catalog sites or book rows (a new site can take the runner-up margin and flip matched -> ambiguous).
+Why: the margin is a property of the whole candidate pool, not of one pair. To prove a matcher refactor
+behavior-neutral, do a one-off before/after run and byte-compare (`matches.jsonl` hash + printed summary),
+as 200 did. The evidence check deliberately stores the runner-up margin and does not re-run the matcher
+over the catalog.
