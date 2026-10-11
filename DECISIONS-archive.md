@@ -352,3 +352,14 @@ Measured corpus fact: the depicts kind has 0 hits - no site item lists any of th
 site's item; the route stays implemented and is pinned by the sample golden (a PASS and a FAIL P180
 row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the acceptance wording
 allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
+
+
+<!-- task 800 -->
+# Task 800 requirements-pinned
+
+## 2026-10-11 800 DECISION: no regeneration - the already-pinned requirements.txt (fda2210) is the merge payload that fixes main; verified, done
+- Verified agent/a's copy (unchanged since 676a0d4, iteration 1): 23 packages, every one `==`-pinned with sha256 hashes, zero unpinned lines; the `via -r requirements.in` set (numpy, scipy, pillow, tifffile, pyproj, rasterio, laspy[lazrs], requests, pyshp, pytest) equals `requirements.in`'s set exactly.
+- Merge-mechanics finding (why main was broken and why the 800 merge fixes it): `origin/main:requirements.txt` (blob 93511f2, from e2d4060) is byte-identical to the agent/a/main merge base 52dd748, while HEAD's is fda2210. Only my side changed since the fork and the file is in 800's Touches, so the driver's merge of this task into main resolves the file to the pinned version with no conflict. Earlier agent/a->main merges never carried it (the change is older than this task's ownership; 000's Touches did not include it).
+- Fresh-venv proof of the driver's exact command: `python3 -m venv /tmp/aw-800-venv; /tmp/aw-800-venv/bin/pip install --require-hashes -r requirements.txt` -> all 23 packages installed, `pip check` clean; `pytest` in that venv -> 12 passed in 8.8 s. The driver's `.venv` run is green too (12 passed, 8.7 s).
+- Chose not to regenerate (the task offered that as the alternative): regenerating today could move versions off the set already proven on this machine (numpy 2.5.4, scipy 1.18.1, ...); the committed file is already the `pip-compile --generate-hashes` output for the current `requirements.in` (generator header present).
+- Effect: the driver's 2026-10-10 "venv could not be built" failure clears once 800 merges into main; agent/c's branch carries the same blob fda2210, so the main-into-c sync for this file is a no-op.
