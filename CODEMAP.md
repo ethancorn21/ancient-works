@@ -121,7 +121,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/gate_heldout.py` (174 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L78-104, check_registered L107-114, load_sites L117-118, box_centre_ground L121-126, placements L129-152, main L155-174.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
-- `tools/site_done.py` (253 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L211-253.
+- `tools/site_done.py` (323 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L281-323.
 
 ## web/
 - `web/index.html` (1709 lines) - (no header comment - add one)
