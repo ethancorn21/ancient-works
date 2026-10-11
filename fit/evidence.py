@@ -20,10 +20,12 @@ re-verifies every row from stored fields only - no network - and lists one line 
   PASS   a recorded tie that re-verifies
   FAIL   a recorded tie the stored fields do not support (a pass the data no longer backs)
   NONE   no tie (reported, not a failure)
-`check` exits 1 iff any row FAILs; NONE rows do not fail it. Book rows: the place named is the catalog site the
-name+place matcher (pipeline/books_match.py) tied the row to; check re-verifies the stored match record against
-the row's printed text, the current catalog row and the hand-rejection table - it does not re-run the matcher
-over the (growing) catalog, which is not monotone.
+`check` exits 1 iff any row FAILs; NONE rows do not fail it. Book rows: the tie is the catalog site the
+name+place matcher (pipeline/books_match.py) tied the row to; check re-derives the matcher's own one-pair rule
+from the row's printed text and the current catalog row (its tokens, place words incl. the book's default
+state, the exact-name and token tie, the score and the "why" clauses) and requires it to reproduce the stored
+record at the stored score. Only the runner-up margin stays stored: the catalog is not monotone - a new site
+can take the margin - and a full re-run would fail on data growth.
 
 usage: fit/evidence.py check  [--files P] [--books P] [--catalog P]
        fit/evidence.py record [--live] [--only SITE ...]
@@ -70,10 +72,12 @@ def load_jsonl(path):
 
 
 def set_field(line, field, value):
-    """Append a field to a stored JSONL row without moving or re-encoding any existing field."""
+    """Append a field to a stored JSONL row without moving or re-encoding any existing field.
+    The line terminator is preserved: rewrite() replaces whole lines, a dropped newline glues two
+    rows into one unparseable line."""
     r = json.loads(line)
     r[field] = value
-    return json.dumps(r, ensure_ascii=False)
+    return json.dumps(r, ensure_ascii=False) + ("\n" if line.endswith("\n") else "")
 
 
 def rewrite(path, changes):
@@ -220,46 +224,43 @@ def check_book(row, cats):
     return "FAIL", kind or "?", "unknown kind"
 
 
+def _site_lookup_keys(site):
+    """The matcher's by_name lookup keys of the site's current name and aliases (the exact-lookup side of the tie)."""
+    keys = set()
+    for j, nm in enumerate([site.get("name", "")] + list(site.get("aliases") or [])):
+        keys |= books_match.name_lookup_keys(nm, skip_generic=j > 0)
+    return keys
+
+
 def check_book_caption(row, ev, cats):
-    named = ev.get("named_place")
-    if not named:
-        return "FAIL", "caption_coords", "no place named"
-    hay = books_match.norm(" ".join([row.get("title") or "", " ".join(row.get("site_names") or []),
-                                     row.get("place") or "", " ".join(row.get("captions_ocr") or [])]))
-    # name_keys strips descriptors only from a normalized name (its SUFFIX regex is lowercase), as all of
-    # books_match's own call sites do - so normalize first, the way the matcher looks names up
-    keys = books_match.name_keys(re.sub(r"\s+", " ", books_match.norm(named)).strip())
-    if not any(k in hay for k in keys):
-        return "FAIL", "caption_coords", f"the row does not name {named!r}"
-    # the place words recompute from the printed text, exactly as the matcher unions them
-    rec = {}
-    for t in [row.get("title") or "", row.get("place") or ""] + list(row.get("site_names") or []):
-        for k, v in books_match.place_of(t).items():
-            rec.setdefault(k, v)
-    for k, v in (ev.get("place") or {}).items():
-        if rec.get(k) != v:
-            return "FAIL", "caption_coords", f"stored place {k}={v!r} recomputes to {rec.get(k)!r}"
+    """Re-verify a stored book match from stored fields only, with the matcher's own rules: the row's printed
+    text must still yield the record's place words (incl. the book's default state), and the matcher's one-pair
+    rule must still tie that printed text to the current catalog row at the stored score."""
+    toks, name_toks, place, phr, regions = books_match.row_inputs(row)
+    if place != (ev.get("place") or {}):
+        return "FAIL", "caption_coords", f"stored place {ev.get('place')} recomputes to {place}"
     s = cats.get((ev.get("site") or {}).get("id"))
     if s is None:
         return "FAIL", "caption_coords", f"site {ev.get('site', {}).get('id')!r} no longer in the catalog"
     for f in ("qid", "name", "lon", "lat"):
         if (ev.get("site") or {}).get(f) != s.get(f):
             return "FAIL", "caption_coords", f"site {f} changed since the check"
-    admin = s.get("admin") or {}
-    place = ev.get("place") or {}
-    if place.get("state") and admin.get("state") and place["state"] not in books_match.norm(admin["state"]):
-        return "FAIL", "caption_coords", f"state {place['state']!r} contradicts the site's {admin['state']!r}"
-    if place.get("county") and admin.get("county") and place["county"] not in books_match.norm(admin["county"]):
-        return "FAIL", "caption_coords", f"county {place['county']!r} contradicts the site's {admin['county']!r}"
-    if (ev.get("score") or 0) < 0.75:
-        return "FAIL", "caption_coords", f"score {ev.get('score')} below 0.75"
-    if (ev.get("score") or 0) - (ev.get("runner_up") or 0) < 0.15:
-        return "FAIL", "caption_coords", "runner-up within 0.15"
-    if ev.get("why"):
-        return "FAIL", "caption_coords", f"matched with reasons {ev['why']}"
     key = books_match._key(row.get("book"), row.get("title"))
     if key in books_match.HAND:
         return "FAIL", "caption_coords", f"hand-rejected: {books_match.HAND[key][1]}"
+    is_exact = any(kk in _site_lookup_keys(s) for ph in phr for kk in books_match.name_keys(ph))
+    r = books_match.score_candidate(s, toks, name_toks, place, regions, is_exact)
+    if r is None:
+        return "FAIL", "caption_coords", f"site {s.get('name')!r} contradicts the row's region or place"
+    score, why = r
+    if why:
+        return "FAIL", "caption_coords", f"matched with reasons {why}"
+    if round(score, 2) != (ev.get("score") or 0):
+        return "FAIL", "caption_coords", f"stored score {ev.get('score')} recomputes to {round(score, 2)}"
+    if score < 0.75:
+        return "FAIL", "caption_coords", f"score {round(score, 2)} below 0.75"
+    if score - (ev.get("runner_up") or 0) < 0.15:
+        return "FAIL", "caption_coords", f"runner-up {ev.get('runner_up')} within 0.15 of the score"
     return "PASS", "caption_coords", ""
 
 
