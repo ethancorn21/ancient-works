@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/303-fit-provenance.md` (in-progress) - hand-over: (iteration 95, agent a - migration + steps 1-2 done; steps 3-5 pending)
+- `tasks/303-fit-provenance.md` (in-progress) - hand-over: (iteration 96, agent a - steps 1-3 done; step 4 (tests) and step 5 (shotwick live run + site_flow.md) pending)
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,23 +19,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 303 DECISION: the provenance migration lands as data first - every existing doc stamped "by", golden re-keyed on by:hand
-Stamped all 116 existing platefit docs (the 21 hand fits = the 20 of the pre-migration golden +
-maiden-castle-q1232816.c_c20ff6b1f16d173d get "hand"; the 94 auto + shotwick's 206 agent doc get
-"agent"), before any code starts trusting the field - a migration ahead of the code keeps every
-parallel checkout consistent (the field is inert until the code reads it). fit/batch_us.py now
-stamps "by": "agent" in write_doc (batch_eu imports this writer, so both batches are covered) and
-write_golden keys the golden on by == "hand" instead of not-auto: the golden is the hand fits, and
-shotwick (an agent fit) drops out of it - regenerating with the old criterion would have pinned an
-agent doc as a hand fit. Regenerated golden = 40 lines (21 docs + 19 site.json), sha256sum -c OK.
-The "auto" field is untouched everywhere, so gate_heldout's 20-name derivation and the 802/218
-preconditions are unaffected. One side effect needed re-baselining: tests/golden/
-src_mackenzie_sample.json pins the shotwick doc byte-for-byte (206's golden) - regenerated with
-the module's own --golden flag, the mechanism its docstring names for exactly an intended change
-(206 is done; added the file to this task's Touches). The batch tests never regenerate or
-re-compare the golden set (they only require the golden files to stay byte-identical around a
-batch run), so no 203a/203b test edit was needed.
 
 ### 2026-10-11 303 DECISION: iteration 94 - step 1 of the code plan: plan_fit.py gains who_placed; build() refuses an unplaced doc, main() refuses it (no build, no delete) and self-heals unmarked auto docs by stamping by:agent
 Where: pipeline/plan_fit.py (who_placed + NO_PROVENANCE, build()'s first check and its source-line block, main()'s loop); web/data/sites.json (9 stale drawing counts refreshed 0->1, separate commit 2f863ba); PITFALLS.md (2 entries under ### pipeline/); tasks/303-fit-provenance.md (hand-over)
@@ -49,6 +32,13 @@ Where: server/serve.py (api()'s PUT branch + the module docstring's store contra
 Step: the PUT /api/db/<coll>/<doc> handler stamps data["by"]="hand" when parts[2]=="platefits", right after the dict check and before the existing json.dump(indent=1) write. Rationale: both page save paths (web/index.html's saveFit and web/review.js's saveFit) PUT platefits/<doc> through this one endpoint, and the save is the owner's act on EVERY pair in the doc - so a doc saved from the page is a hand fit even if a batch or a session wrote it first (those stamp by:agent in the file themselves, fit/batch_us.py, unchanged). A new key is appended last (the store writer's shape, exactly the migration's); a stale or other by is replaced in place. The module docstring now records the contract.
 Verified (temp tree, serve.py --port 0, no pipeline/ copied so the fit worker dies on import like test_review's queue tree - no sweep, no network): no-by PUT -> GET shows by:hand and the file bytes are exactly json.dumps(indent=1) with the key last and no trailing newline; re-PUT carrying by:agent mid-doc -> overwritten to hand in place (position kept); PUT to a scratch collection -> file byte-identical to the request body, no stamp; the wake still fires and the server stays up. Full suite after: 64 passed, 1 skipped (same as the iter-94 end).
 Next: step 3 - tools/site_done.py _sync who-handling: who == "hand" -> build, NO fabrication check; who == "agent" (incl. unmarked auto) -> existing flow, stamping by:agent into the file first when it lacks a trustworthy by (own site only); who is None (unmarked non-auto, the shotwick class) -> REFUSED: no build, no delete, review.upsert_item a candidate with why: plan_fit.NO_PROVENANCE verbatim, reported like a send. The refusal check must precede any plan_fit.build call (build() raises the provenance SystemExit, which would count as a sync FAILURE, not a refusal).
+
+### 2026-10-11 303 DECISION: step 3 - the one-site line acts by who_placed: hand builds (no fabrication check), agent (incl. unmarked auto, stamped by:agent into the file first) goes check->build, unmarked non-auto is refused (kept, review candidate with NO_PROVENANCE verbatim)
+Where: tools/site_done.py (_sync_doc, _provenance_entry, _stamp_agent, _sync, _summary, main, module docstring); two commits: 77f0cc0 (refactor _sync -> _sync_doc, output byte-identical, suite 64/0) then 1cf8a24 (the who handling)
+Step: per-doc order in _sync_doc, decided by plan_fit.who_placed BEFORE anything else. (1) who is None (unmarked, no auto mark) -> REFUSED: no build, no delete; review.upsert_item a candidate shaped like _pattern_entry but why = plan_fit.NO_PROVENANCE verbatim (no 'line check:' framing, no gate-score sentence); the doc is kept (a good hand fit that lost its mark is not destroyed); reported in its own "refused" bucket (sync line + per-picture summary say refused with the reason); NOT a sync failure (exit 0). (2) who == "agent" with no by (unmarked auto) -> _stamp_agent writes by:agent into the doc file first (batch_us._doc_path/_save_json: key appended last, indent=1, no trailing newline; own site only) - the plan_fit.main sweep's self-heal, no print of its own. (3) who != "hand" -> the fabrication check as before (pattern: _pattern_entry upsert + unlink), then is_done/build; plan_fit.build's own provenance guard remains as double protection. (4) who == "hand" -> straight to is_done/build, the check skipped (it polices the batch model, never a human's drag).
+Verified hermetically (temp tree in the test_site_done shape, sockets dead): an UNMARKED PATTERN doc is refused, not sent (refusal precedes the check - the adversarial case); an unmarked auto doc with a current overlay is stamped (bytes: key last, indent=1) then "skipped", second pass no re-stamp; a HAND-marked pattern doc reaches the build (dead-socket AssertionError inside _fetch after ~18s of retry sleeps - the check provably skipped); CLI end-to-end on the copied tree under the socket guard: exit 0, refusal line per doc and per picture, own-site-only invariant (every other store file byte-identical), second run byte-stable with identical lines. Full suite 64/0; test_site_done_line needed NO edit (its 7 golden docs are unmarked auto: stamped in memory then deleted by the pattern path, the item stays byte-identical because _pattern_entry never reads by).
+Finding, owned up (candidate follow-up task, NOT fixed here): 201's derived resolution - a candidate with an existing doc resolves its item; export records resolved write-once and publishes only open items. A refused doc is KEPT, so the next export records resolved: {doc, at} and the item LEAVES web/data/review.json's open list: the refusal record stays in the item file (data/review/<site>.<lead>.json, candidate why = NO_PROVENANCE) but the page's Review tab never shows it. fit/review.py is not in 303's Touches and the contract is 201's settled behaviour (relied on by 212/serve), so 303 conforms; the real 303 case (shotwick, by: agent after the migration) takes the agent path to the map, not refusal, so no live doc is affected today. If the human wants refused candidates visible on the page, that changes 201's derived-resolution contract (a doc with a trustworthy by still resolves; an unmarked one would not) - a product decision for a new top-level task (human reviews top-level tasks), not a patch to review.py in passing. PITFALLS now records the interaction.
+Next: step 4 - tests/test_fit_provenance.py (the hand-over's four cases; 4b must assert the 201-contract outcome: resolved recorded, item out of the published queue; the hand-exemption case is best proven network-free via a hand-marked pattern doc WITH a current overlay -> "skipped" vs the same doc marked agent -> "sent"+deleted). Then step 5 - the shotwick live run + docs/site_flow.md box 2.
 
 ## Project-wide driver notes (newest)
 
