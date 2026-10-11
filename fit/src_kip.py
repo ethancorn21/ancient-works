@@ -19,7 +19,11 @@ usage: src_kip.py --list [--out FILE]   live (paced): list every file of the lea
                                         its metadata; assert the live set and sizes against
                                         INVENTORY (the committed 132-row table; a renamed,
                                         re-filed or replaced file fails loud); JSON lines to FILE (stdout if omitted)
-       src_kip.py --verify               live: re-verify every SITES QID against Wikidata
+       src_kip.py --verify               live: re-verify every SITES entry (the 8 QID-bearing: Wikidata label,
+                                        every P625 value vs the landmark point, P373, P131, enwiki, the first
+                                        name-search hit with coordinates - what record --live would resolve; the 3
+                                        without a QID: the stored source note) plus the known_sites() collision
+                                        check; exits 1 on a collision, a >50 km P625 flag or a missing item
        src_kip.py [--dry]                stage the table rows into the staging files
        src_kip.py --check                offline (no network): join the staged files, run
                                         fit/evidence.py's check over every staged row
@@ -202,11 +206,110 @@ INVENTORY = [
 ]
 
 
-SITES = {}  # qid -> the verified site facts (id, name, landmark lon/lat, place, wikipedia, note); sessions 2-3
+# Hand-verified site facts (verified 2026-10-13, --verify re-checks; docs/lead_kip.md §2 records the checked date
+# and the per-site notes). Keyed by site id, since 3 of the 11 have no Wikidata item at all (qid None; the model
+# handles it - 42 of the 78 extras.jsonl rows carry no qid). id = name slug for those three, name slug + "-" +
+# qid-lower for the rest (the pipeline/sources.py rule, as in the six hand-tied: chevening-q1070927). kind
+# "garden" builds with the 1600 m box (build_catalog.BOX), aerial_ok from the aerial without LiDAR. The lon/lat
+# is the fixed landmark that carries the fit (the house, the palace, the park) - never the QID's municipality
+# point (the Gouda 800 m lesson). The view's age (c. 1696-1725) is recorded per row by stage(); views are exempt
+# from the 150-year survey rule, recorded anyway. The six hand-tied sites (pipeline/sources.py KIP) are NOT here:
+# their rows are never re-staged (their evidence kind stays hand_tied).
+SITES = {
+    "badminton-house-q2628510": dict(qid="Q2628510", name="Badminton House", lon=-2.28045, lat=51.5455,
+        place="Wiltshire", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Badminton_House",
+        note="1709 Britannia Illustrata plate ('one of the Seats of the Most Noble & Potent Prince Henry Duke of "
+             "Beaufort'); the house and its formal park survive (National Trust); the second impression "
+             "(RP-P-1949-370) is the documented duplicate drop; the point is the house's P625"),
+    "temple-newsam-q2748017": dict(qid="Q2748017", name="Temple Newsam", lon=-1.4595, lat=53.7842,
+        place="North Yorkshire", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Temple_Newsam",
+        note="Britannia Illustrata plate 42, 1707-09 ('the Seat of the Rt. Hon. ble Arthur Lord Ingram Viscount "
+             "Irwin'); the house survives (National Trust). The Commons description is Hepworth boilerplate with "
+             "no place name and the file's MediaInfo item carries no P180 from this VM (checked 2026-10-13, also "
+             "on a file with a rich item), so the staged row's desc is enriched with the plate's own printed title "
+             "(verified against the British Museum M,21.42 and five other sources); the point is the house's P625"),
+    "hutton-hall-q5951100": dict(qid="Q5951100", name="Hutton Hall", lon=-2.839, lat=54.714,
+        place="Cumbria", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Hutton_in_the_Forest",
+        note="1709 Britannia Illustrata plate ('Hutton-in-the-Forest Hall, seat of Sir George Fletcher'); the "
+             "Cumbrian Fletcher-Vane seat (pele tower, 1680 hall, 1730s walled garden, all Grade I) - NOT the "
+             "Derbyshire parish of the same name; the point is the house's P625"),
+    "stanway-house-q7600303": dict(qid="Q7600303", name="Stanway House", lon=-1.9122, lat=51.9899,
+        place="Gloucestershire", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Stanway_House",
+        note="1709 Britannia Illustrata plate ('the seat of John Tracey Esq'); the Jacobean manor and its baroque "
+             "water gardens survive ('Charteris' in the Rijksmuseum note is the Wemyss surname of the present "
+             "owners, the TRACYS of Stanway); the point is the house's P625"),
+    "st-james-palace-q272162": dict(qid="Q272162", name="St James's Palace", lon=-0.137778, lat=51.504722,
+        place="City of Westminster", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/St_James%27s_Palace",
+        note="two 1707 plates (Yale B2017.35.3 'Le Palais Royal de St James' and B1977.14.18146 'The Palace and "
+             "Park of St James's') - one site, one row per plate; the palace and its park stand; the point is the "
+             "palace's P625"),
+    "lambeth-palace-q1130266": dict(qid="Q1130266", name="Lambeth Palace", lon=-0.11972, lat=51.49556,
+        place="City of London", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Lambeth_Palace",
+        note="1711-12 plate (Yale B1977.14.17372, 'His Grace the Lord Archbishop of Canterbury Palace'); the "
+             "palace stands (the archbishop of Canterbury's London residence); the point is the palace's P625"),
+    "somerset-house-q1344889": dict(qid="Q1344889", name="Somerset House", lon=-0.117778, lat=51.511111,
+        place="City of Westminster", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Somerset_House",
+        note="1711-31 plate (Yale B1977.14.18272); the QID is the 1964 LSE rebuilding on the 1711-31 original's "
+             "site (part of the original Strand-side complex survives); Q110073896 is the item for the KIP "
+             "ENGRAVING (not usable) and Q17542634 is a different Somerset House (Whitehaven) - the name-search "
+             "trap check shows what the live caption route would resolve; the point is the site's P625"),
+    "hampton-court-palace-q205666": dict(qid="Q205666", name="Hampton Court Palace", lon=-0.337499, lat=51.4034,
+        place="Kingston upon Thames", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Hampton_Court_Palace",
+        note="1707 plate (the AIC's clean single-plate impression); the palace and its parterres stand. The "
+             "Hampton Court trap in reverse: THIS is the palace on the Thames - a new site, distinct from the "
+             "hand-tied Q1443802 'Hampton Court' in Herefordshire; the point is the palace's P625"),
+    # The three without a QID: no Wikidata item exists for the house (checked 2026-10-13). The point is the
+    # surviving landmark, cross-checked 2026-10-13 (Nominatim for the first two; WGS-84 EXIF geograph photos for
+    # the last; docs/lead_kip.md §2 records the details).
+    "kings-weston-house": dict(qid=None, name="Kings Weston House", lon=-2.661541, lat=51.494382,
+        place="Bristol", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Kings_Weston_House",
+        note="1710 plate ('Birds-eye view of the Kingsweston estate', Atkyns' Glocestershire); the house Kip drew "
+             "(Elizabethan, on the site of the Vanbrugh house rebuilt 1712-19) still stands. No Wikidata item for "
+             "the house (not the Bristol suburb Q6413746, not the hill Q6413747); the point is the enwiki infobox "
+             "WGS84 51.494382, -2.661541: Nominatim 'Kings Weston House, Bristol' resolves 4 m from it, and the "
+             "article's grid ref ST529771 = 352900, 177100 (the ST 100 km square's origin is 300000, 100000) agrees "
+             "with it within the WGS84/OSGB36 datum offset"),
+    "stoke-house": dict(qid=None, name="Stoke House", lon=-2.6294812, lat=51.4767404,
+        place="Bristol", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Stoke_Bishop",
+        note="1709 Britannia Illustrata plate ('the seat of Sr. Thomas Cann' - son of Sir Robert Cann, Bristol MP "
+             "and Mayor, who built the manor 1669); the house (Grade II*) still stands, now Trinity Theological "
+             "College, Bristol. No Wikidata item for the house (the suburb is Q7618438; the enwiki article is "
+             "'Stoke Bishop'); the point is the Nominatim/OSM amenity point 51.4767404, -2.6294812 (checked "
+             "2026-10-13, 0 m)"),
+    "burford-house-windsor": dict(qid=None, name="Burford House", lon=-0.6056, lat=51.4810,
+        place="Windsor and Maidenhead", region="england", kind="garden",
+        wikipedia="https://en.wikipedia.org/wiki/Nell_Gwyn",
+        note="1707 plate (Yale B2017.35.1, 'the House at Windsor, Belonging to his Grace Charles Beauclerck' - the "
+             "duke of St Albans' house, Nell Gwyn's former house on the edge of Home Park); the house is GONE "
+             "(sold to George III 1779, absorbed into the Royal Mews) but the view is locked to the standing "
+             "Windsor Castle (Q42646) in the same view. No enwiki article ('Burford House' is a 4-way disambiguation "
+             "with a red Windsor link; the house is described in the 'Nell Gwyn' article, which this row's "
+             "wikipedia carries). The point is the Mews/Saint Alban's Street site from two geograph photos' WGS-84 "
+             "EXIF (51.481051,-0.605551 / 51.480870,-0.605556; Nominatim 'Royal Mews, Windsor' 72 m from it, same "
+             "street), ~325 m SOUTH of the castle's P625, checked 2026-10-13"),
+}
 
 
 def now():
     return time.strftime("%Y-%m-%d")
+
+
+def _datavalues(claims):
+    return [x["mainsnak"]["datavalue"]["value"] for x in claims if "datavalue" in x.get("mainsnak", {})]
+
+
+def _ids(claims):
+    return [v.get("id") for v in _datavalues(claims) if isinstance(v, dict) and v.get("id")]
 
 
 def _commons():
@@ -262,6 +365,77 @@ def known_sites():
     return out
 
 
+def verify_sites():
+    """Live (paced): re-verify every SITES entry and print the facts for the lead doc's §2. The QID-bearing
+    entries: the Wikidata label, every P625 value (flagged when >50 km from the landmark point - that is a wrong
+    item, not a different point of the same house), P373, P131 (with labels), the enwiki title, and the first
+    name-search hit with coordinates (what record --live would resolve for the caption route). The three without
+    a QID: the stored source note (there is nothing on Wikidata to check). Plus the known_sites() collision
+    check: a QID already in the catalog means the picture stages under the existing site id, not a new one.
+    Exits 1 on a collision, a >50 km P625 flag or a missing item."""
+    import evidence  # hav_m (the fit/ sibling; needs numpy, run under .venv)
+    c = _commons()
+    qids = sorted({s["qid"] for s in SITES.values() if s["qid"]})
+    known = known_sites()
+    problems = []
+    for q in qids:
+        if q in known:
+            problems.append(f"QID {q} already in the catalog ({known[q]}): the view must stage under the "
+                            f"existing site, not a new one")
+    print(f"checked {now()} - {len(SITES)} sites ({len(qids)} with a QID, {len(SITES) - len(qids)} without)")
+    print(f"known_sites() collision over the {len(qids)} QIDs: " + ("; ".join(problems) if problems else "none"))
+    ents = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(qids),
+                        "props": "claims|sitelinks|labels", "languages": "en"}).get("entities", {})
+    p131s = sorted({i for q in qids for i in _ids(ents.get(q, {}).get("claims", {}).get("P131", []))})
+    labels = {}
+    for i in range(0, len(p131s), 50):  # wbgetentities takes at most 50 ids per call
+        d2 = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(p131s[i:i + 50]), "props": "labels", "languages": "en"})
+        labels.update({k: v.get("labels", {}).get("en", {}).get("value") for k, v in d2.get("entities", {}).items()})
+    for sid in sorted(SITES):
+        s = SITES[sid]
+        if not s["qid"]:
+            print(f"  {sid}: no QID (no Wikidata item for the house) - {s['note']}")
+            continue
+        e = ents.get(s["qid"])
+        if not e:
+            problems.append(f"{s['qid']} ({sid}) not found on Wikidata")
+            print(f"  {s['qid']}  MISSING on Wikidata  [{sid}]")
+            continue
+        cl = e.get("claims", {})
+        print(f"  {s['qid']}  {e.get('labels', {}).get('en', {}).get('value')!r}  [{sid}]")
+        p625 = [(v["longitude"], v["latitude"]) for v in _datavalues(cl.get("P625", [])) if v]
+        print(f"      landmark: {s['lon']}, {s['lat']}   P625: {p625}")
+        for lon, lat in p625:
+            dist = evidence.hav_m(lon, lat, s["lon"], s["lat"])
+            if dist > 50e3:
+                problems.append(f"{s['qid']}: a P625 is {dist / 1000:.0f} km from the landmark point (wrong item?)")
+                print(f"      FLAG: a P625 is {dist / 1000:.0f} km from the landmark point (wrong item?)")
+            else:
+                print(f"      P625 distance to landmark: {dist / 1000:.2f} km")
+        print(f"      P373: {_datavalues(cl.get('P373', []))}")
+        print(f"      P131: {[(labels.get(i), i) for i in _ids(cl.get('P131', []))]}  (table place: {s.get('place')!r})")
+        print(f"      enwiki: {e.get('sitelinks', {}).get('enwiki', {}).get('title')!r}  (table wikipedia: {s.get('wikipedia')!r})")
+        sr = c.get(c.WD, {"action": "wbsearchentities", "search": s["name"], "language": "en", "limit": "5"})
+        ids = [x["id"] for x in sr.get("search", [])]
+        if ids:
+            d3 = c.get(c.WD, {"action": "wbgetentities", "ids": "|".join(ids), "props": "claims|labels", "languages": "en"})
+            for q in ids:
+                hits = [(v["longitude"], v["latitude"]) for v in _datavalues(
+                    d3.get("entities", {}).get(q, {}).get("claims", {}).get("P625", [])) if v]
+                if hits:
+                    lon, lat = hits[0]
+                    dist = evidence.hav_m(lon, lat, s["lon"], s["lat"])
+                    flag = "" if dist <= 50e3 else f"   <- TRAP: {dist / 1000:.0f} km, the live caption route would store a conflict (kind none)"
+                    lab = d3["entities"][q].get("labels", {}).get("en", {}).get("value", "")
+                    print(f"      search {s['name']!r}: first hit with P625 is {q} {lab!r} ({lon}, {lat}){flag}")
+                    break
+    if problems:
+        for p in problems:
+            print("PROBLEM:", p)
+        return 1
+    return 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if a and a[0] == "--list":
@@ -273,5 +447,7 @@ if __name__ == "__main__":
                 list_files()
         else:
             list_files()
+    elif a and a[0] == "--verify":
+        raise SystemExit(verify_sites())
     else:
         raise SystemExit(__doc__.strip().split("usage:")[1].strip())
