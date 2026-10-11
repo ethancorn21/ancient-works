@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 65 (2026-10-11, agent a) - staging done and all evidence mined; the lead doc and the test are the remaining step.**
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 66 (2026-10-11, agent a) - lead doc written and committed; the test is the only remaining step.**
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
