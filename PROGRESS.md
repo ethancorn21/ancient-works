@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/000-plan.md` (in-progress) - hand-over: Iter 12 (2026-10-10). Driver reopened 000 for two GOAL.md changes (21:11: new point 2 — the local
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
 
@@ -17,59 +16,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-10 000 DECISION: the 203 parent returns with one job (coverage check on the original site set); the full GOAL-point-1 assertion is 212's
-    The parent returns after 203a+203b (wave 4, alongside 211) but before 212 (wave 5) covers the new
-    sites that 211 built. A whole-set assertion at the parent's return would be flaky: the new sites
-    have neither a fit nor a review item until 212's cover pass. So the parent only runs
-    tests/test_batch.py over the pre-growth site set; 212 asserts "every built site has a fit or an open
-    review item" over the final set (GOAL.md point 1, in full).
-
-### 2026-10-10 000 DECISION: plan re-checked for the two GOAL changes - the batch becomes the model's fitting loop, 213 added for artists' views
-The driver reopened 000 for two GOAL.md changes: 21:11 (new point 2 - the local model does the fitting
-itself: fitkit sheet, grid labels, >= 4 matched-feature pairs, scale/north/centre-only pairs are a
-starting point not a fit, every model fit goes to the gate, the review queue is overflow not a plan
-for every site) and 22:58 (artists' aerial and bird's-eye views count as drawings; new growth lead:
-Leonardo's Imola 1502, Barbari's Venice 1500, Braun & Hogenberg, Merian; the owner's copy also colours
->=150-year survey-sheet-only sites - GOAL says that does not change this goal).
-
-Changes (all planner-owned files; every edited batch/queue task was still Status: open and blocked
-behind 001, so editing them pre-run is safe):
-- 203a/203b (+ parent 203): the loop is now per candidate picture fitkit sheet -> the local vision model
-  (pipeline/llm.py, $AW_LLM_URL) reads the grid labels and records >= 4 matched-feature pairs (202's
-  seed as the starting point) -> plan_fit solver -> gate; accepted = automatic platefit doc, refused or
-  could-not-fit (< 4 pairs) = review item with the model's pairs, no candidate = "no picture found"
-  item. The model step is an injectable function so tests supply a fixed recorded answer and never
-  touch the model server (GOAL: the model's word is a lead, the gate is the check).
-- 202: re-aimed from "a seed a human finishes" to "the starting point the model's fit pass begins
-  from"; it is explicitly never a fit on its own.
-- 201: the queue is now explicitly overflow (gate refusals, could-not-fit, no-picture sites), not a
-  plan for every site; point 1 (fit or item per site) still holds, and the item still carries pairs
-  (the model's where it made any) so the human's drag stays under a minute.
-- 212: its cover-pass loop reference and the GOAL point number in its 20-sample note updated (three
-  small edits; the session was cut before they landed - see the 000 hand-over for the exact blocks).
-- New tasks/213-artist-views.md: lowest free 200-499 number; Depends on: 200; own module/staging/docs/
-  test files; wave 2; conditional book machinery (Civitates/Merian as IA books) follows the 208
-  pattern of declaring exact per-book paths in its own Touches first. Imola is the anchor: a new site,
-  no open LiDAR here, aerial-photograph ground, streets carry the fit.
-- PLAN.md: current state (eight leads + GOAL-change note), architecture diagram, module map, new tech
-  choice "The model fits, the gate decides", assumption 3 reworded, new assumption 9 (owner's-copy
-  survey-sheet colouring is out of scope), out-of-scope bullet, the six-point GOAL->task map, waves
-  4/7/3/2/1, test-policy bullet (no test calls the model server).
-
-No new deviation was added: both GOAL changes add requirements and contradict nothing. The only
-standing deviation stays 001's box 2 (measured 1 in 8 vs the 1 in 20 written; all misses 15% scale
-errors, structurally indistinguishable at n = 3-6) - pending the owner's ruling, 001 blocked.
-Session cut at the context limit with 212's three edits, the 213 file, the CODEMAP-top standing rules
-and this re-verification still to do; the 000 hand-over lists each exactly.
-
-### 2026-10-10 000 OBSERVATION: sites.json and book-index facts behind the wave layout
-    sites.json: 384 sites, 378 carry a region field (90 "US" -> 203a; the other 294, including the 6 with
-    no region, -> 203b). The books indexed in data/books/index.jsonl are exactly 8 (squier_davis_1848,
-    lapham_1855, thomas_1894, fowke_1902, squier_1851, whittlesey_1850, allcroft_1908, mills_1914); none
-    of the growth-lead books (Roy, Horsley, Maclauchlan, Hoare, Stukeley, Petrie, Mackenzie, Kip) is
-    indexed and none has a data/raw/books directory, so every book lead fetches in its working phase.
-    pipeline/sources.py already hand-ties 29 Mackenzie plates, 6 Van Deventer towns (including the
-    hand-fitted Bergues) and 6 Kip views; those are not re-staged by 204-206.
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
