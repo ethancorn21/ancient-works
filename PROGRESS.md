@@ -5,7 +5,6 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 54 - **LEAD DOC FR/LU side WRITTEN (on disk, UNCOMMITTED at the context limit - the
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -17,116 +16,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 204 DECISION: FR/LU --files batch done (24 towns, clean) + Beaumont settled as Hainaut (Q95100, region flips to belgium) + Aire/Thérouanne double plate settled (Aire keeps the spread, Thérouanne stages its own 'Terwan' plan); TOWNS not yet edited
-The 24-town --files run finished in one go (transcript /tmp/vd_files_fr_iter50.txt, 217 lines, exit 0; ~3 min):
-the 1545 BNE atlas plate is in every one of the 22 FR town categories + Le Rœulx's (1816x2614 or wider, page
-date 1545, desc = the town name). Eye check (1280 px thumbs + full-size center/top/half crops, /tmp/vd_fr_thumbs/,
-fetch script /tmp/vd_fr_fetch.py using commons.info + aw.UA - note aw.UA is a DICT not a string, slicing it
-raises KeyError):
-- **Beaumont = Hainaut, QID Q95100, region flips france -> belgium.** Its 1545 plate (1816x2614) shows a
-  fortified town bisected by a river (the Sambre) with a bridge, the old town + a moated square chateau
-  (counts of Hainaut; the sheet's lower-left inset = the chateau, confirmed by the separate 1049x932
-  '...detail - City and Chateau de Beaumont.jpg') on the west bank and Charles V's new walled grid town on
-  the east bank. Beaumont (Nord) has neither river nor chateau - the drawing settles it, as the hand-over
-  predicted. Fact sheet already in the iter-49 transcripts (/tmp/vd_verify_fr_iter49.txt:32,
-  /tmp/vd_lu_iter49.txt:98): label 'Beaumont', P625 (4.2383115, 50.2355294), P373 'Beaumont (Hainaut)',
-  P131 'Arrondissement of Thuin', enwiki 'Beaumont, Belgium'. NEXT: record in TOWNS (entry moved to the
-  Belgium section), then `--verify Beaumont` as its own re-verification (expect the trap line: first
-  P625-search hit Q128282 Beaumont (Texas), ~7000 km).
-- **Aire/Thérouanne double plate:** the 3395x2614 spread's right page is the full Aire plan (label 'Aire.',
-  the Lys peninsula, compass, page 33); the left page holds two framed insets ('Terwan' = Thérouanne's
-  pentagon, plus a second small water-bound settlement). The sheet stages ONCE under Aire. Thérouanne gets
-  its own row: `File:Thérouanne - Deventer.jpg` (986x867, 1545) is a full standalone 'Terwan' plan - the only
-  Thérouanne plan on Commons, staged with the Ostend/Aardenburg size caveat. `Aire-sur-la-Lys - Plan de
-  Deventer.jpg` (992x800, QS 1550-1565) presumed a small reproduction - decide at recording.
-- **Still pending the eye check:** the Hesdin/Vieil-Hesdin double sheet (3408x2614; page-date note: Hesdin
-  plan 1554-1575, Vieil-Hesdin 'probablement 1545' - year_of returns 1545 = the min, box-6 safe) and its
-  757x857 Vieil-Hesdin twin; Luxembourg City's `Luxemburg 1550 65 v Deventer.jpg` (2261x1878, 1550, desc
-  'Lutzenburg' - the caption-route named place) vs its three non-Deventer files (Lutzenburg.jpg 2005 upload,
-  Sanderus 1581, Knödler detail); and the five (1)/(2) pairs (Arras/Douai/Lille/Saint-Omer/Valenciennes)
-  where (2) is the ~2-page wide spread and (1) the single page - the Mons (1)/(2) pattern says stage (2).
-  All thumbs/crops already in /tmp/vd_fr_thumbs/.
-- year_of verified on every candidate date string: all stage candidates land in 1545-1565; the drops
-  (Lutzenburg 2005, Sanderus 1581) are the non-Deventer prints, consistent.
-TOWNS/lead-doc untouched this session (66 towns, 32 stageable, staging files absent); the whole recording
-step is the next session's first work (hand-over has the per-town list).
-
-### 2026-10-11 204 DECISION: FR/LU picks RECORDED in TOWNS (24 file= incl. Beaumont moved to Belgium + LU caption) - lead doc BE side done, FR/LU side next; --verify Beaumont clean (the Q128282 Texas trap, transcript /tmp/vd_verify_beaumont_iter53.txt); (66, 56) -> box 5 met
-
-Iteration 53 recorded the iter-52 eye-check decisions in fit/src_van_deventer.py's TOWNS table (and the lead
-doc's BE side); this session (54) finished the lead doc's FR/LU side. The recording:
-- **Beaumont's full entry moved to the BELGIUM section**: region="belgium" (flipped from france), qid="Q95100",
-  label "Beaumont", site point 4.2383/50.2355 (P625 4.2383115, 50.2355294 rounded), place "Arrondissement of
-  Thuin", enwiki, p373 "Beaumont (Hainaut)", file="File:Beaumont - Deventer.jpg" + the not-staged detail-crop
-  reason.
-- **file= on all 21 FR towns** (every one the 1545 BNE atlas plate, or its (2) wide-sheet twin: Arras 3184,
-  Douai 3665, Lille 3614, Saint-Omer 3449, Valenciennes 4156; the 3395x2614 Aire spread staged once under
-  Aire; the Hesdin double sheet staged once; Thérouanne 986x867 + Vieil-Hesdin 757x857 standalone plans with
-  the size caveat) + Le Rœulx (1545 plate, desc 'Le Rœulx') + Luxembourg City
-  (file="File:Luxemburg 1550 65 v Deventer.jpg" + caption="Lutzenburg" - REQUIRED: the label 'Luxembourg' is
-  not in the title/desc). **No date= anywhere in the batch**: every page date is 1545/1550 = the drawing's
-  (the Hesdin French page note yields year_of 1545 = the min, in-window).
-- **Verified:** `--verify Beaumont` exit 0 (transcript /tmp/vd_verify_beaumont_iter53.txt: label 'Beaumont',
-  P373 'Beaumont (Hainaut)', enwiki 'Beaumont, Belgium' all match; the predicted TRAP line: first P625 hit
-  Q128282 'Beaumont' (Texas) 8035 km). `--check` exit 0 (staging files absent - `stage` runs later). Module
-  parse (66, 56) = 66 towns, 56 stageable (NL 13 + BE 21 + FR 21 + LU 1) -> box 5 met; box 2 met (every QID
-  verified, none pending).
-- **Lead doc finished this session** (docs/lead_van_deventer.md, 7 edit blocks, all applied first try from
-  sed-extracted oldText): (a) FR/LU QID section - Beaumont bullet -> settled (Q95100, region flip, the
-  re-verify transcript, the Q128282 trap), the 'None of the QIDs verified here' list gains Beaumont, the
-  23-row note points to the BE table, the FR-traps Beaumont bullet -> settled; (b) the '### France,
-  Luxembourg (pending)' stub -> '### France (22 categories: 21 staged, 1 done; ...)' with one bullet per town
-  (staged file + size + date, every not-staged file with its reason - from the TOWNS comments, cross-checked
-  against /tmp/vd_files_fr_iter50.txt) + '### Luxembourg (1 category: 1 staged; ...)' (caption route, the
-  three drops, the NEW region value luxembourg with the REGION_NAME display fallback); (c) BNE bullet -> all
-  22 FR towns (Mons is BE) + 18 of the 22 BE towns (+ Le Rœulx, Beaumont), double-plate lines settled; (d)
-  Summary -> 56 of 60 staged, box 5 met, box 2 met, done towns no longer mentioned.
-
-PITFALLS filed (the two still unfiled from iter 51/52): (0) Agent tools and harness - the read tool's output
-of fit/src_van_deventer.py was not byte-faithful once (iter 52: '21 to stage + 2 done' where the file has
-'+ the 2 done'); sed -n/grep is the source for edit oldText of that file (iter 53's 28 blocks and this
-session's 7 applied clean). (1) the aw.UA entry extended: aw.UA is a DICT, not a string (slicing it raises
-KeyError).
-
-NEXT (one long session, all under .venv): `--chain` per staged town with no chain yet (record the walked
-chains in TOWNS as "chain"), `stage` (NOT --dry; writes the 3 staging jsonl), `--check` (evidence on every
-row), tests/test_src_van_deventer.py (pattern: tests/test_src_artists.py - socket-blocking no_network
-fixture, check_staged(), subprocess `fit/evidence.py check --files <staged> --books <absent path>`, golden
-sample, negative control; box 6: year_of of every staged row in 1545-1565), `--golden`
-(tests/golden/src_van_deventer_sample.json), full pytest.
-
-### 2026-10-11 204 DECISION: cat_chain fixed for the current MediaWiki (prop=categories, fail-loud on warnings) + 60-fetch cap + CHAINS table - 56 walks launched
-The first `--chain` probe of the long run (Ghent / Brussels / Luxembourg City) exposed a broken walker: `cat_chain`
-fetched a category's parents with `action=query&prop=categoryinfo&cicategories=1&ciclimit=500`, but the current
-MediaWiki API does not recognize those parameters (response carries `warnings.main.*: "Unrecognized parameters:
-cicategories, ciclimit."` - and `commons.get` returns the body without surfacing the warning). So every walk saw
-ZERO parents and silently "failed" in ~1 s per town (even Ghent, which the 2026-10-10 prep measured as holding at
-4 hops). Two fixes in fit/src_van_deventer.py (my own file):
-- **`prop=categories` + `cllimit=500`** for a category page's CONTAINING categories (verified live: Ghent's van
-  Deventer category returns '16th-century maps of Ghent' + 'Maps by Jacob van Deventer'), plus a fail-loud guard:
-  any response with `error` or `warnings` -> SystemExit. The silent zero-parents degradation is exactly the case
-  prep R7 warned about ("the walk is the verification" - a walk that fetches nothing verifies nothing).
-- **`CHAIN_FETCH_CAP = 60` per walk + per-level progress lines** (the transcript gets `level k: queue N, next M,
-  fetches F` per town). Measured chains are 3-5 hops and a few dozen fetches (Ghent holds at 38), but the BFS
-  expands ALL parents, so a disambiguated p373 the map tree does not hold within 6 hops explodes the frontier
-  (Brussels (municipality): 730 s and the full 6-level frontier pre-fix, still no hit - genuinely absent, the map
-  tree uses the plain 'Brussels' name). The cap bounds that town to ~a minute and sends it to the caption route.
-  Refinement found by the probe: when the target was added to the visited set by a REAL fetch before the cap
-  stopped the pop loop, the `via[target]` path is fully walked (every edge was returned by an API response), so
-  it is returned when it is within the depth cap - that is how Luxembourg City's 4-hop chain is recovered from a
-  capped walk. The final message now distinguishes "sits N hops out, beyond the depth cap" / "capped at 60
-  fetches" / "no chain within 6 hops".
-- **The recording home moved from an inline TOWNS "chain" key to a module-level `CHAINS` table** (the stub comment
-  after TOWNS that existed for exactly this) plus a `chain_of(town)` helper used by `evidence_for` and `stage`.
-  Rationale: the read tool has not been byte-faithful on this .py file (PITFALLS) and 56 multi-line dict edits
-  would be fragile; one mechanical table is reviewable. TOWNS header comment, the cat_chain docstring and the
-  stub comment all document the new home; an inline "chain" is still honoured (chain_of checks it first).
-Probe results (post-fix, capped): Ghent HOLDS 4 hops via 'Historical images of Ghent' (a different middle than the
-prep's 'Maps of Ghent' - both real, this is the actually-walked one); Luxembourg City HOLDS 4 hops via
-'Geography of Luxembourg City'; Brussels CAPPED -> caption route (file title names the town). The full 56-town
-walk runs in the background (transcript /tmp/vd_chains_iter55.txt, PID file /tmp/vd_chains_iter55.pid); the CHAINS
-table gets filled from the transcript's `record:` lines next session after an eyeball pass of every path against
-its P373.
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
