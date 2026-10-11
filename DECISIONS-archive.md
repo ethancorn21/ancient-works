@@ -539,6 +539,23 @@ row). The 280 plain no-tie rows (mostly OS-sheet maps) are the coverage gap the 
 allows; follow-up filed as tasks/801 (Depends on: 200, Touches: fit/evidence.py).
 
 
+<!-- task 201 -->
+# Task 201 review
+
+## 2026-10-11 201 DECISION: settle the environment before any code - Chrome 155 installed, headless page boot verified (prep R1/R2 closed)
+The prep's step 1. `npx -y playwright@1.63.0 install chrome` fails on this VM (its script wants a TTY sudo;
+here only `sudo -n apt-get` is passwordless - sudoers.d/agent-apt), so I ran its steps directly:
+`curl -L -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo -n apt-get install -y
+./google-chrome-stable_current_amd64.deb` -> Google Chrome 155.0.8059.39 at /opt/google/chrome/chrome (PITFALLS
+entries record the rebuild recipe). Headless probe (temp-tree `serve.py --port 0` +
+`NODE_PATH=/home/agent/tools/shot/node_modules node tools/shot.mjs <served>/ /tmp/... 10000 1200 800 "<eval>"`):
+the page BOOTS headless - eval reports ready:true, 384 sites, 1166 plans, tab 'sites', stats line present, no
+[pageerror]; only the two expected 404s (data/scans.json, data/amazon/areas.json) and harmless WebGL warnings.
+R1 is resolved: test case 2 (headless load showing the review list) can be built exactly as worded; the R2
+fallbacks (a different launcher / proposed changes to shot.mjs) are no longer needed. Shot.mjs's Mac-path
+createRequire resolves fine via NODE_PATH.
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
