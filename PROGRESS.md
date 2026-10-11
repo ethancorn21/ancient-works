@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4g (iteration 42). Status: in-progress. The driver REJECTED the 4f done claim
+- `tasks/203a-batch-us.md` (in-progress) - hand-over: Session 4h (iteration 43). Status: in-progress, HELD on the dependency: tasks 802 and 803
 - `tasks/203-batch-fit.md` (split)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
@@ -16,50 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803
-CHOICE: ran the full working phase as the 4d hand-over prescribed, backgrounded
-(AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions .venv/bin/python fit/batch_us.py --working;
-~6 min, log /tmp/batch_us_4e.log): 62 candidate pictures across 19 US sites (4d's note said
-58/18 - stale; plans.json is byte-identical to origin/main, 1166 rows, and 35 book + 23 commons
-rows = 62 (site,row) pairs, matching the prep notes) went through sheet -> model -> similarity ->
-gate. The model is deterministic at temperature 0: the 5-pick pilot's answers recurred in the
-full run (pyramid n0134_1 -> AUTO 24.0 m, unchanged; tremper, poverty-point, serpent n0636_1,
-cahokia c_8c44bb427b76aa7a all routed to items by the same checks as 4d).
-OUTCOME (docs/batch_us.md): 90 sites, 0 error bucket: 9 automatic fit, 8 review item, 2 already
-hand-fitted (aztalan, mound-bottom), 71 no picture found; 88 item files written (89 with the
-pre-batch bibracte); 16 new auto docs (20 -> 36 in data/db/platefits/): serpent-mound 7, alligator
-c_618a6be74dfaff32, cahokia n0200_1 (33.9), etowah n0386_1 (0.0), fort-ancient n0264_1 (0.0),
-hodgen-s n0092_1 (0.0) + n0353_1 (17.3), mound-cemetery n0563_1 (0.0), mount-horeb c_d1dff (0.0),
-pyramid n0134_1 (24.0). Report: seed 20261010, sample = all 16 auto docs (fewer than 20, so all),
-page URL each, gate med per doc - ready for the human's 18/20 check. BOXES: 3 (all 90 covered,
-error bucket empty), 4 (sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK: 20 docs + 19
-site.json byte-identical; the batch only added), 5 (the report) all verified and ticked this
-session.
-NOTES OF RECORD: (1) alligator-effigy-mound's 201 seed item was MERGED by the upsert (its
-candidates: the model's rejected n0214_2 answer + the seed's c_618a, which became the site's auto
-doc; evidence field and resolved=null preserved; 201's export will derive it resolved from the
-doc) - its hash is deliberately not in the golden. (2) the frozen GATE itself (no counterweight)
-caught alligator n0214_2's even-spaced grid answer: median residual 60 m > 45 m. (3) several auto
-docs have gate med 0.0 (exact-similarity anchors, N-4 residual freedom at small N) - expected
-under 001's frozen design where the batch passes the transform solved from its own pairs; the
-radial-gradient clause and the human 18/20 sample own that class, not a threshold change.
-THE 8 TEST FAILURES (full suite after the run: 8 failed, 26 passed; pre-run was 34/34):
-- 4 in MY file tests/test_batch_us.py (all from the tests' pre-batch assumptions, designed in the
-  4e hand-over section with exact fixes): test_sample_run_real_gate (SERPENT
-  rec["auto"]=8 < the 15 pinned plans now 7 of which are pre-docs -> assert >= ANSWER_PLANS -
-  pre_docs_before; CAHOKIA item set now excludes pre-doc n0200_1 -> upsert-semantics expectation
-  (pre_plans - nonpre) | nonpre; item-candidate order relaxed to set equality, _check_entry only
-  for re-proposed candidates), test_stub_gate_always_accept and _reject (the _stub_site
-  "no existing item" precondition is void post-batch -> select ">=2 candidates, no pre-fit";
-  accept: assert the pre-existing item is byte-unchanged; reject: delete the site's existing
-  item file in the temp tree before seeding, else _find_item's sort order finds the batch's item
-  first), test_batch_adds_files_rewrites_none (the sample's zero-candidate site's no-picture item
-  is legitimately re-upserted by 201's live-merge contract - new "at" timestamp; allow a hash
-  change only for the sample sites' own item files, asserting same site / resolved unchanged / no
-  candidate plan dropped; every other file stays byte-identical - that is box 4). None of these
-  weakens a box: box 4's real invariant (the golden 20 docs + 19 site.json byte-identical, no
-... (11.1 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4e - the full working run: 90 US sites covered (9 automatic / 8 review items / 2 already hand-fitted / 71 no picture found, 0 errors); 16 auto docs + 88 new items, golden 39/39; the run's footprint broke 8 tests of 3 tasks - my 4 are re-based in this task, 001's and 201's go to new tasks 802/803' DECISIONS.md`)
 
 ### 2026-10-11 203a DRIVER: done claim rejected, task reopened
 - Test suite failed twice when the driver ran `.venv/bin/python -m pytest -q`:
@@ -112,6 +68,48 @@ lists 802, 803 so the driver holds my claim until both are in main. Per the team
 I committed and stopped; the driver hands me other work and brings 203a back once
 802/803 merge. No ask_human: this is a dependency-order fix inside my own filings, not
 a blocker needing a human decision.
+
+### 2026-10-11 203a DECISION: session 4h - dependency hold confirmed: 802/803 still open and unassigned, not in main; state unchanged since 4g (suite red on exactly the 4, golden 39/39); both tasks' state-agnostic invariants re-verified on the live data; hold and stop per the team rule
+
+CHOICE: the driver handed 203a again in iteration 43. The 4g NEXT SESSION
+procedure assumed 802/803 had merged into main; that has not happened - main
+is at bb3140f, a full ancestor of my branch (no driver sync commit since
+iteration 40's 02b09b9), and both task files are still `Status: open` and
+unassigned. Per the team-mode rule I did not implement them: their Touches
+files (tools/gate_heldout.py, tests/test_gate.py, tests/test_review.py) are
+not on my Touches line, the rule says do not build stand-ins, and their
+numbers are already on my Depends on: (added in 4g). So the step was to
+re-verify the held state and stop. Nothing in my files changed or needed
+fixing this session (no edits at all).
+STATE RE-VERIFIED (all unchanged since 4g):
+- Full suite `.venv/bin/python -m pytest -q`: 4 failed / 34 passed = exactly
+  802's test_recorded_measurement_reproduces_and_agrees and 803's
+  test_export_cli ("88 open of 89") / test_page_shows_the_review_list /
+  test_save_resolves_the_item (KeyError 'map_box'). My 5/5
+  tests/test_batch_us.py pass (full suite, and re-run in isolation: 5 passed
+  in 5 s).
+- Golden: sha256sum -c tests/golden/hand_fit_docs.sha256 = 39/39 OK (20 docs
+  + 19 site.json byte-identical).
+- 802's state-agnostic invariant holds on the LIVE data: data/db/platefits/
+  holds 36 docs = 16 carrying "auto": true + 20 without, and the 20 non-auto
+  file names are SET-EQUAL to the golden's 20 hand-fit names (checked by set
+  equality, not count) - so a partition() derived over the non-auto names
+  reproduces the registered 20-name partition byte for byte in this
+  post-batch state; automatic docs only ever add names, so it also holds on
+  a plain main-based pre-batch checkout.
+- 803's derivation premise holds on the LIVE data: data/review/ holds 89
+  items, every one with raw resolved=null; alligator's item carries
+  candidate c_618a6be74dfaff32 and its auto doc exists in
+  data/db/platefits/ -> 201's export derives that item resolved, giving
+  88 open - exactly 803's spec (pre-batch it reduces to 2 open of 2).
+FLAG FOR THE DRIVER (not yet an escalation): PROGRESS.md's "Next open tasks"
+lists 215/216/217, not 802/803. Benign reading: the queue is numerical and
+802/803 follow 215-217 (800/801 were also 8xx filings and got handed out and
+done, so the queue does take 8xx). Policy for the next session: if 802/803
+are still unassigned (and the suite still red on the same 4) after 215-217
+have been handed out, ask_human - recommendation: hand 802 and 803 to idle
+agents, or let this task's holder implement them, since I wrote both specs
+and just re-verified both invariants above (one session of work each).
 
 ## Project-wide driver notes (newest)
 
