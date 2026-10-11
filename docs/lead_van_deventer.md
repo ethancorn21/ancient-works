@@ -108,16 +108,71 @@ these are the cases where a first-search hit is the WRONG item:
   the old town, the same spot). The recorded Q100076 is the old town (P373 'Valkenburg, Limburg'); it has no
   enwiki link, so its staged row carries no wikipedia field.
 
-## Belgium, France, Luxembourg (pending)
+## QID verification - Belgium (checked 2026-10-11; re-run with `.venv/bin/python fit/src_van_deventer.py --verify`)
 
-44 towns left to verify with the same method (BE 20 + FR 23 + LU 1), in three batches; this section grows per
-batch, and every unverifiable QID lands here with its reason (box 2).
+Method: the same as the NL batch - discovery for the 19 towns without a recorded QID (the search candidates
+with their label, every P625, P373, P131 and enwiki; transcript /tmp/vd_verify_be_iter45.txt) plus Ghent Q1296,
+already hand-verified in the prep (2026-10-11 01:32), recorded as is and re-confirmed by the same run. Mons was
+the one town the module's 5-candidate search missed: the label search 'Mons' ranks the planetary nomenclature
+term and ten French communes above the Belgian city (11th in the en results, 4th in the fr), so a follow-up
+search at limit 20 found Q83407, whose facts (label 'Mons', P625 at the town, P373 'Mons (Hainaut)', enwiki
+'Mons, Belgium') confirm it. All 20 were then re-verified in one batch (transcript
+/tmp/vd_verify_be_recheck_iter45.txt): **every label matches, every P373 equals the recorded category string,
+every P625 sits within 0.01 km of the recorded site point** (the site point is the P625 rounded - the hand
+check found no offset from the old-town centre, unlike the NL Gouda 800 m case). The enwiki column is the
+staged `wikipedia` field. Four items carry a disambiguated P373 ('Brussels (municipality)', 'Halle
+(Belgium)', 'Mons (Hainaut)', 'Leuze-en-Hainaut') - the category route's target is that exact string, so the
+chain walk must reach it (the --chain step of each of these four towns is the watch item). Saint-Ghislain's
+item (Q668950) has no en label on Wikidata (the re-check prints an empty label, not a mismatch: the search
+API's label and the enwiki article 'Saint-Ghislain' both confirm it). No BE QID is in the built catalog
+(checked against the 12575-site catalog on 2026-10-11): all 20 get new catalog entries.
 
-- **Ghent Q1296 is already verified** (prep, 2026-10-11: label 'Ghent', P373 'Ghent' the plain town category,
-  P625 3.7253, 51.0536 at the city centre, enwiki 'Ghent') and will be recorded in the TOWNS table with the BE
-  batch. The prep's other "from general knowledge" candidates (Brussels, Lille, and an older The-Hague/Groningen
-  guess) are discarded as candidates - each is fetched and checked like the rest (The Hague Q36600 and
-  Groningen Q749 are the verified NL rows above, and neither is the prep's guess).
+| Town | QID | Label | P625 (lon, lat) | Site point (lon, lat) | P625 → site | enwiki |
+|---|---|---|---|---|---|---|
+| Ath | Q95096 | Ath | 3.776941, 50.631139 | 3.7769, 50.6311 | 0.01 km | Ath |
+| Braine-le-Comte | Q95129 | Braine-le-Comte | 4.136111, 50.609722 | 4.1361, 50.6097 | 0.00 km | Braine-le-Comte |
+| Bruges | Q12994 | Bruges | 3.224167, 51.208889 | 3.2242, 51.2089 | 0.00 km | Bruges |
+| Brussels | Q239 | Brussels | 4.351667, 50.846667 | 4.3517, 50.8467 | 0.00 km | City of Brussels |
+| Chimay | Q95380 | Chimay | 4.317334, 50.047927 | 4.3173, 50.0479 | 0.00 km | Chimay |
+| Chièvres | Q95318 | Chièvres | 3.8, 50.583333 | 3.8, 50.5833 | 0.00 km | Chièvres |
+| Enghien | Q666238 | Enghien | 4.041111, 50.695556 | 4.0411, 50.6956 | 0.01 km | Enghien |
+| Ghent | Q1296 | Ghent | 3.725278, 51.053611 | 3.7253, 51.0536 | 0.00 km | Ghent |
+| Halle | Q210003 | Halle | 4.237222, 50.736111 | 4.2372, 50.7361 | 0.00 km | Halle, Belgium |
+| Kortrijk | Q12995 | Kortrijk | 3.265833, 50.8275 | 3.2658, 50.8275 | 0.00 km | Kortrijk |
+| Lessines | Q667790 | Lessines | 3.83, 50.7117 | 3.83, 50.7117 | 0.00 km | Lessines |
+| Leuze | Q667862 | Leuze-en-Hainaut | 3.616667, 50.6 | 3.6167, 50.6 | 0.00 km | Leuze-en-Hainaut |
+| Mechelen | Q162022 | Mechelen | 4.480278, 51.028056 | 4.4803, 51.0281 | 0.01 km | Mechelen |
+| Mons | Q83407 | Mons | 3.9525, 50.454722 | 3.9525, 50.4547 | 0.00 km | Mons, Belgium |
+| Ostend | Q12996 | Ostend | 2.919444, 51.225833 | 2.9194, 51.2258 | 0.00 km | Ostend |
+| Saint-Ghislain | Q668950 | Saint-Ghislain (no en label on Wikidata) | 3.816667, 50.45 | 3.8167, 50.45 | 0.00 km | Saint-Ghislain |
+| Soignies | Q462985 | Soignies | 4.066667, 50.566667 | 4.0667, 50.5667 | 0.00 km | Soignies |
+| Tournai | Q173219 | Tournai | 3.388056, 50.605556 | 3.3881, 50.6056 | 0.01 km | Tournai |
+| Aarschot | Q273442 | Aarschot | 4.8333, 50.9842 | 4.8333, 50.9842 | 0.00 km | Aarschot |
+| Oudenaarde | Q12992 | Oudenaarde | 3.6, 50.85 | 3.6, 50.85 | 0.00 km | Oudenaarde |
+
+The 2 done BE towns (Damme Q323408, Binche Q95121) stay in `pipeline/sources.py`; no BE QID collides with the
+catalog, so no BE town stages under an existing site id.
+
+### Name-search traps - Belgium
+
+- **Mons** - the batch's biggest trap, and the one the module's search could not see: 'Mons' (limit 5, en)
+  returns the planetary nomenclature term 'mons' and the French communes (Var, Hérault, Charente, Gard) - the
+  Belgian city is 11th. A follow-up search at limit 20 (the fr search ranks it 4th) found Q83407; its P373
+  'Mons (Hainaut)' and enwiki 'Mons, Belgium' confirm it. The re-check shows what a bare resolution would do:
+  first hit Q1108786 (Mons, Var) 780 km away.
+- **Leuze** - the first search hit with coordinates is the French Leuze (Aisne) Q326134, 92 km away (the
+  >50 km guard would have flagged it; the label check would too - the true item's label is the official
+  disambiguated 'Leuze-en-Hainaut', not the bare 'Leuze').
+- **Bruges** - the first search hit with coordinates is the French Bruges (Gironde) Q327025, 759 km away
+  (P373 'Bruges (Gironde)' separates it from the verified Q12994, P373 'Bruges').
+- **Mechelen** - no trap on the first hit, but the third candidate is the Dutch Mechelen (Gulpen-Wittem,
+  Q100020) - the label + P373 checks ('Mechelen' vs 'Mechelen (Netherlands)') separate them.
+
+## France, Luxembourg (pending)
+
+24 towns left to verify with the same method (FR 23 + LU 1); this section grows per batch, and every
+unverifiable QID lands here with its reason (box 2).
+
 - **Beaumont's country settles at verification**: the candidate list holds a Hainaut (Belgium) town and
   northern-France towns - the Barnard-Castle-style trap. The TOWNS region value is the `france` guess; it
   flips to `belgium` if the verified item is the Hainaut one.
@@ -125,6 +180,9 @@ batch, and every unverifiable QID lands here with its reason (box 2).
   NEW lowercase value `luxembourg`. `build_catalog`'s REGION_NAME has keys for belgium/netherlands/france but
   no luxembourg, so the site display falls back to the raw value (its line-91 default) - acceptable, but a
   REGION_NAME key is a small follow-on task.
+- The prep's "from general knowledge" candidates are all discarded: Brussels Q239 is now the verified BE row
+  above (its P373 is 'Brussels (municipality)', not 'Brussels'); Lille (the prep's Q1793) waits for the FR
+  batch; The Hague Q36600 and Groningen Q749 are the verified NL rows (neither is the prep's guess).
 
 ## Per town: staged picture or documented drop
 
