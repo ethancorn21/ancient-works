@@ -39,28 +39,33 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 68 (2026-10-11, agent a) - re-verified the full state after the driver's main sync: everything
-this task owns is green and byte-identical to iter 67; the suite still fails only on the 5 dependency-owned
-reds; 211 and 218 are both still `open`, so the done-claim stays held (no stand-ins, per the rule).**
+**Iteration 69 (2026-10-11, agent a) - re-verified the full state (the driver brought 206 back early, 211+218
+still open): all 206-owned artifacts green and md5-identical to iter 68; every one of the 5 suite reds was
+re-diagnosed THIS session - causes unchanged, all dependency-owned (211 x3, 218 x1, 300/301 x1). The blocking
+deps are already on the `Depends on:` line, so nothing to add and no stand-ins (team rule). Status stays open.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`.
 - `fit/src_mackenzie.py --gate`: exit 0, `gate: accept {'n': 4, 'med': 15.810503946029705,
   'slope_o': 0.13850057306409141, 'io': -7.041363723612259}`, similarity |a| 0.38243 m/px-merc, rot -0.20 deg,
-  residuals [14.2, 2.0, 17.5, 19.4] - identical to the committed doc and the golden.
-- `tests/test_src_mackenzie.py`: 4/4 green (1.63 s, socket-boom fixture, no network).
-- Full suite: 59 passed, 5 failed - EXACTLY the iter-67 set, none owned by 206:
-  1. `test_batch_eu::test_union_check` + `test_union_full_coverage_live` - owned by 211.
-  2. `test_serve::test_platefits_docs_match_sites` - owned by 211.
-  3. `test_gate::test_recorded_measurement_reproduces_and_agrees` - owned by 218.
-  4. `test_site_done::test_site_done_line` - 300's hermetic test; its compare target
-     `web/data/sites/stonehenge-q39671/depictions.json` (a SYMLINK into the shared main-branch store in
-     every checkout - see the PITFALLS entry "This machine and its environment") was still in the
-     pre-sync state this session (mtime 2026-10-11 14:48, first entry kind "map" not "plan" - same as the
-     reset observed in iter 67 while agent c was mid-301; agent c is on 301 still). 301's Touches include
-     that dir and docs/site_flow; it settles when 301 lands. NOT 206's to fix; do not "fix" it.
+  residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc and the golden.
+- `tests/test_src_mackenzie.py`: 4/4 green (1.56 s, socket-boom fixture, no network).
+- All 7 committed artifacts md5-identical to iter 66/67/68 (sums in the DECISIONS entry).
+- Full suite: 59 passed, 5 failed - the same set as iter 68, each red re-diagnosed this session (causes unchanged):
+  1. `test_gate::test_recorded_measurement_reproduces_and_agrees` (218): `gate_heldout held failed: expected 20
+     hand-fit documents in data/db/platefits/, found 21; the registered partition is void`. The 21st doc is
+     206's shotwick doc; 218's box 4 names exactly this red. Not a 206 fix.
+  2. `test_serve::test_platefits_docs_match_sites` (211): the shotwick doc's site `shotwick-castle-q7502621`
+     is not in `web/data/sites.json` ids - the site is unbuilt (the catalog row exists by QID); 211 builds it.
+  3. `test_batch_eu::test_union_check` + `test_union_full_coverage_live` (211): unchanged since iter 68.
+  4. `test_site_done::test_site_done_line` (300's file, in 301's Touches): still the depictions.json byte
+     compare (index 35 b'p' != b'm', plan vs map). Its compare target `web/data/sites/stonehenge-q39671/
+     depictions.json` (a SYMLINK into the shared main-branch store - PITFALLS "This machine and its
+     environment") still carries the pre-sync state (mtime 2026-10-11 14:48, first entry "map" not "plan");
+     agent c is on 301 still. It settles when 301 lands; NOT 206's to fix; do not "fix" it.
 - Deps status at stop: `tasks/211-merge-build.md` = open, `tasks/218-gate-holdout-new-hand-docs.md` = open.
-  Both in the Depends on line, so no action: the done-claim waits; no stand-ins built (per the rule).
+  Both are already on the `Depends on:` line (001, 200, 211, 218) -> nothing to add; per the team rule no
+  stand-ins were built; the driver gives this agent other work and brings 206 back once both merge.
 - Nothing in this task's files changed this session (verification only); working tree clean apart from
   this memory update.
 
