@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 206: Mackenzie - the five-towered castle on page 212
 Depends on: 001, 200, 218
 Touches: fit/src_mackenzie.py, data/catalog/extras_mackenzie.jsonl, data/commons/files_mackenzie.jsonl, data/commons/classified_mackenzie.jsonl, data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json, docs/lead_mackenzie.md, tests/test_src_mackenzie.py, tests/golden/src_mackenzie_sample.json
