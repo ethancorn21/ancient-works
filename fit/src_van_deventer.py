@@ -130,8 +130,9 @@ TOWNS = {
                       qid="Q34370", label="Rotterdam", lon=4.4745, lat=51.9155, p625=(4.48, 51.92),
                       place="South Holland", wikipedia="https://en.wikipedia.org/wiki/Rotterdam", p373="Rotterdam",
                       file="File:Map of Rotterdam around 1560s by Jacob van Deventer.jpg",
-                      date="circa 1560"),  # the page's date is an upload timestamp; its description dates the
-                      # drawing 1558-1563 (the 1563 city fire) - the known date goes on the row, lead doc
+                      date="circa 1560"),  # the page's year-only date is 1563 (one year of the drawing's 1558-1563
+                      # window); the row carries the known "circa 1560" (the title's own "around 1560s"), keeping
+                      # 1563 as date_commons - the Gouda/Zwolle precedent, lead doc
     "Sluis": dict(region="netherlands", cat="Map of Sluis by Jacob van Deventer",  # the name search "Sluis"
                   # resolves FIRST to Q2065987 (no enwiki, P625 8 km SW, P373 'Sluis (city)') - the trap, lead doc
                   qid="Q10080", label="Sluis", lon=3.493, lat=51.347, p625=(3.5, 51.35),
@@ -510,15 +511,19 @@ def stage(dry=False):
         m = meta.get(t["file"]) or {}
         if not m.get("url"):
             raise SystemExit(f"not on Commons (title changed?): {t['file']}")
+        want = t.get("date")
+        if want and c.year_of(t["file"], m) != c.year_of(t["file"], {"date": want}):
+            # the known drawing date on the row, the page value kept as date_commons (the Gouda/Zwolle precedent:
+            # Zwolle's 1980 RCE-album reproduction row reads date "circa 1560", date_commons 1980). keep() must
+            # see this m: it judges the DRAWING's year, so a post-1925 reproduction of a c. 1550 drawing passes
+            # exactly as the done Zwolle row did (sources.py swaps before its keep() gate).
+            m = dict(m, date=want, date_commons=m.get("date"))
         if not c.keep(t["file"], m):
             raise SystemExit(f"commons.keep() would drop {t['file']!r}: fix the table or record the drop "
                              f"in docs/lead_van_deventer.md")
         if not evidence_for(town, m):
             raise SystemExit(f"{town}: no evidence route (chain missing and the file does not name the town) - "
                              f"pick a file that does, or record the drop in docs/lead_van_deventer.md")
-        want = t.get("date")
-        if want and c.year_of(t["file"], m) != c.year_of(t["file"], {"date": want}):
-            m = dict(m, date=want, date_commons=m.get("date"))  # a scan whose page lost the drawing's date
         f = {"site": sid, "qid": t["qid"], "title": t["file"], "year": c.year_of(t["file"], m),
              "wd_plan": False, "cat": t["p373"] if t.get("chain") else None,
              "name": f"{t.get('label') or town}, town plan by Jacob van Deventer",
