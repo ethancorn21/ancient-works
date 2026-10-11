@@ -5,7 +5,6 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 21, agent a).** The live run is RUNNING in the background: `nohup .venv/bin/python
 
 ## Next open tasks
 - `tasks/201-review.md`
@@ -15,57 +14,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
-Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
-singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
-ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
-FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
-skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
-York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
-"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
-from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
-caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
-sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
-without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
-6.61E 53.38N is NOT near Maastricht).
-
-### 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
-Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
-castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
-Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
-Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
-and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
-(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
-walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
-castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
-holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
-~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
-from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
-Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
-edited; add them next session.)
-
-### 2026-10-11 801 DECISION: live run `record --live --redo-none` started in the background; part/sheet check test + golden committed (13/13) while it runs
-Iter 21 (agent a). Followed the iter-20 plan in the same session: verified all 1381 titled rows
-carry rec "evidence/1" (so --redo-none re-evaluates exactly the 354 none rows, incl. the 74 stored
-conflicts), then started `nohup .venv/bin/python fit/evidence.py record --live --redo-none >
-/tmp/redo_none_run.log 2>&1 &` (PID 1032856; at session end it was still in the prefetch phase -
-log tail "file entities 400/352", a cosmetic overshoot print; next: part coords, then ~1484 paced
-name searches, ~25 min). It writes data/commons/files.jsonl only after the prefetch, in 25-row
-chunks; the tree was data-clean at session end. In the same session, committed the settled test:
-tests/test_evidence_801.py (7 rows in a tmp dir against a tmp 2-site catalog - test-castle Q1 with
-has_part [Q2 "Test Tower"], bare-castle Q3; CLI `check --files F --books <absent> --catalog C`,
-exit 1, stdout vs golden) + tests/golden/evidence_801_check.txt generated from one real CLI run of
-the fixture (deterministic: no dates printed). Rows: part PASS (7 m), part FAIL (part_qid Q9 no
-longer in has_part), sheet PASS (single "Testville" after the pair "Testville Testham" that
-resolves nothing - proves the walk's ordering survives check-time re-derivation), sheet FAIL
-(stored candidate "Testville" not derivable from "File:Nowhere Somewhere 1840..."), none + sheet
-conflict (334 km), none + part conflict (389 km), part FAIL trap (a documented part 445 km from
-the site is not a tie). Summary line "evidence: 7 rows, 2 pass, 3 fail, 2 no-tie". 13/13 tests
-pass (9.97 s; 12 old + this one; the 15-row sample golden tests/golden/evidence_check.txt stayed
-byte-identical - it contains none of the 354). The two PITFALLS entries the iter-17 entry left
-PENDING were in fact committed already (feddcf0, iter 18) - verified present in PITFALLS.md,
-nothing to add. Next session: poll the log, audit the files.jsonl diff, then check + pytest +
-data commit (details in the task hand-over).
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
