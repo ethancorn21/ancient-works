@@ -113,6 +113,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/test_site_done.py` (260 lines) - The one-site line (task 300): tools/site_done.py, end to end, hermetic. Exports: test_site_done_line L172-260.
 - `tests/test_src_artists.py` (113 lines) - The artists' views staging (task 213/213b, GOAL.md point 5): Leonardo's 1502 aerial plan of Imola (a new site, aerial-photograph ground - no open LiDAR here) and Jacopo de' Barb... Exports: no_network, test_check_staged_files_join_and_pass, test_qid_table_and_staged_rows, test_evidence_offline_and_negative_control, test_golden_sample_matches_staged_rows.
 - `tests/test_src_kip.py` (286 lines) - The Kip bird's-eye-view inventory (task 205, GOAL.md point 4): fit/src_kip.py holds the 132-file verdict table for the lead Commons categories (Johannes Kip root + its 5 subcate... Exports: no_network L41-47, test_inventory_thresholds_and_tally L55-77, test_hand_tied_is_the_sources_kip_table_and_never_re_staged L80-95, test_sites_table_and_staged_site_rows L98-120, test_lead_doc_section2_mirrors_sites L123-152, test_check_staged_offline L155-169, test_staged_rows_record_the_plate_dates L172-211, test_evidence_negative_control L214-230, test_golden_sample_matches_staged_rows L233-247, test_lead_doc_mirrors_the_inventory L250-286.
+- `tests/test_src_mackenzie.py` (161 lines) - Task 206 (GOAL.md point 4): the one captionless plan in Mackenzie, The Castles of England (1897) - page 212, the gap named in the MACKENZIE comment of pipeline/sources.py - is i... Exports: no_network L42-48, test_staged_row_and_join L51-107, test_evidence_offline_and_negative_control L110-130, test_gate_accepts_the_committed_doc L133-149, test_golden_sample_matches_staged L152-161.
 - `tests/test_src_van_deventer.py` (179 lines) - The Van Deventer staging (task 204, GOAL.md point 4): the 56 town plans of c. Exports: no_network L31-37, test_check_staged_files_join_and_pass L40-56, test_table_and_staged_rows L59-109, test_evidence_offline_and_negative_control L112-148, test_golden_sample_matches_staged_rows L151-179.
 
 ## tools/
@@ -126,7 +127,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/site_done.py` (198 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L160-198.
 
 ## web/
-- `web/index.html` (1707 lines) - (no header comment - add one)
+- `web/index.html` (1709 lines) - (no header comment - add one)
 - `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
