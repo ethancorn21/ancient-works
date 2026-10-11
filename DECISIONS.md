@@ -131,3 +131,40 @@ are still unassigned (and the suite still red on the same 4) after 215-217
 have been handed out, ask_human - recommendation: hand 802 and 803 to idle
 agents, or let this task's holder implement them, since I wrote both specs
 and just re-verified both invariants above (one session of work each).
+
+## 2026-10-11 203a DECISION: session 4i - third consecutive hand with the same 4 red; escalation fired per the 4h policy: ask_human filed (recommendation: I implement 802/803) and Status set to blocked
+CHOICE: the driver handed 203a in iteration 44. The held state was re-verified a third
+time and is byte-for-byte unchanged since 4h: main still bb3140f (full ancestor of my
+branch; no 802/803 in it); both task files still `Status: open` and unassigned;
+215/216/217 still "next open" ahead of them; suite 4 failed / 34 passed = exactly the
+802/803 cross-task failures (test_gate partition precondition 20 vs 36 docs; the three
+test_review pre-batch pins: export "88 open of 89" vs actual, page list, save
+KeyError 'map_box'); golden 39/39; my 5/5 test_batch_us green; 36 docs = 16 auto + 20
+non-auto (non-auto names set-equal to the golden 20); 89 review items all raw
+resolved=null (the directory's 90th entry is README.md, not an item); alligator's item
+carries candidate c_618a6be74dfaff32 whose auto doc exists (803's derived 88 open).
+WHY ESCALATE NOW: the 802/803 blocker has had three failed attempts at resolution -
+(1) 4e filed the two tasks with "Depends on: 203a", a pure inversion (they waited on
+the task that waits on them); (2) 4g re-filed them assignable ("Depends on: 001"/"201",
+both done) - no assignment after a full round; (3) 4h waited one more iteration -
+still unassigned, and the driver handed me 203a again with the identical 4 red. That
+is the stuck rule's 3rd failed attempt, and the 4h hand-over had written the
+consequence: "one more hold round; then the escalation above".
+WHAT I FILED: ask_human (blocking), self-contained: the done claim for this human-
+authored task needs a fully green suite (the driver rejected it twice on the 4
+failures in 001's/201's tests, which are hardcoded pre-batch pins); the fix is
+fully spec'd in my own tasks 802/803 (state-agnostic, two-state reduction bar,
+merge-safe in either order); the only files involved are tools/gate_heldout.py,
+tests/test_gate.py, tests/test_review.py - not on my Touches line. RECOMMENDATION
+(named in the request): let the 203a holder (me) implement 802/803 - I wrote both
+specs from the root-cause analysis on the live data, each fix is ~one session, a
+cold assignee would redo the diagnosis, and it turns the suite green immediately so
+the pending done claim can pass; I would add the three paths to 203a's Touches
+first, implement 802 then 803 in separate commits, verify ~38/38 green + 39/39
+golden, set 802/803 done, then set 203a done and re-file the claim. ALTERNATIVE:
+assign 802/803 to an idle agent - but none is visible (agent a is on 204; 215-217
+are still open and unassigned, so the queue is not even reaching 802/803 yet).
+A 120-minute timeout auto-answers with the recommendation.
+STATUS: set to `Status: blocked` while the request is open (stuck rule: a blocked
+task waits only while a request is open). The next session follows the branching
+NEXT SESSION procedure in the hand-over (implement vs assign vs ambiguous).
