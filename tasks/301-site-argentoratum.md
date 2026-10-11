@@ -24,8 +24,9 @@ the result the way a visitor does before calling it done.
 - Do not start 207 or any other task: the lead gives the next site when this one is done.
 
 ## Hand-over
-(iteration 67, agent c - investigation done; nothing implemented yet. Order: the line's fix -> run it
-on Stonehenge -> Argentoratum.)
+(iteration 67, agent c - investigation done, NO code changed this session; tests last run at
+iteration 66: 60 passed, suite not re-run here because only markdown changed. Order: the line's fix
+-> run it on Stonehenge -> Argentoratum.)
 
 **The lead's redirect (2026-10-11, mid-session):** before Argentoratum, Stonehenge is not done:
 (1) check each of its 7 synced drawings the way a visitor does; anything visibly off goes to the review
@@ -44,13 +45,13 @@ docs/site_flow.md; (4) then Argentoratum.
   evidence, exactly the gate's registered blind spot, gate.md s.7).
 - Visually confirmed (composites over relief.jpg; the real sarsens are the small ring at the centre):
   NONE of the 7 sits on the sarsens. c_83b4 is 2-3x too big AND ~70 m off-centre (the lead's exact
-description); the rest are likewise off in scale and/or position. All 7 go to the review queue; the
-site ends with 0 drawings (lead-accepted: the human's drag is the last word). The 6 already in the item
-stay (their why's are fine); the item grows to 13 candidates.
+  description); the rest are likewise off in scale and/or position. All 7 go to the review queue; the
+  site ends with 0 drawings (lead-accepted: the human's drag is the last word). The 6 already in the
+  item stay (their why's are fine); the item grows to 13 candidates.
 - Why the gate passed: run_sites SOLVES the similarity from the model's own pairs and the gate scores
-that least-squares fit against the same points (docs/gate.md s.2 "true case") - residuals are only the
-ladder's anisotropy/jitter -> med 0-44 m < 45, slope_o 0.02-0.12 < 0.145 -> ACCEPT. The batch's 3
-pre-gate counterchecks pass BY CONSTRUCTION on this class (stated scale == the ladder's own implied
+  that least-squares fit against the same points (docs/gate.md s.2 "true case") - residuals are only
+  the ladder's anisotropy/jitter -> med 0-44 m < 45, slope_o 0.02-0.12 < 0.145 -> ACCEPT. The batch's
+  3 pre-gate counterchecks pass BY CONSTRUCTION on this class (stated scale == the ladder's own
 scale; texture passes: ladder points over structureless plain sit at/above the 400-point null median).
 The gate did its registered job; the gate stays frozen (test_gate pins it); the fix belongs in the line.
 
