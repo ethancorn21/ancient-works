@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 46 - BE `--files` inventory DONE and every BE pick decided + eye-verified;
+- `tasks/204-van_deventer.md` (in-progress) - hand-over: (2026-10-11, iteration 47 - **BE file picks RECORDED and everything about BE is done**: 19 `file=` entries
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
@@ -16,35 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 204 DECISION: stage() order fixed - the date/date_commons swap runs BEFORE commons.keep() (the sources.py pattern); sanity runs green; lead doc's NL and collection sections written
-The hand-over's step 1 predicted `stage --dry` would print "staged: 13 new sites, 13 new pictures" - it instead
-raised on the Sluis 1980 RCE-album reproduction: stage() evaluated commons.keep() on the RAW page metadata
-before the known-drawing-date swap, and keep() judges via year_of() from m["date"] (1980 > MAX_YEAR 1925 ->
-drop). The pattern it was copied from (sources.py run()) swaps first and gates second: the done Zwolle row is
-the proof (date "circa 1560", date_commons "1980", the same album family) - a post-1925 reproduction of a
-c. 1550 drawing must pass, judged on the drawing's year. My ordering was a deviation, now fixed (swap moved
-before keep(), with the comment); the Rotterdam TOWNS comment was corrected too (the page's date is the
-year-1563 field, one year of the drawing's 1558-1563 window - not an upload timestamp). stage --dry now
-green: "staged: 13 new sites, 13 new pictures" (the 13 slugs + the build list; transcript
-/tmp/vd_stage_dry_iter44.txt); --check exit 0 (staging files still absent: joins empty, 0 evidence rows);
-suite 33/33; --list passed again (fifth live run of 2026-10-11, after the town_files extension). Lead doc:
-(a) category section records the re-runs; (b) the Per-town section now holds the 16 NL towns - 13 staged with
-file/size/row-date and the not-staged candidates named briefly each, 3 documented drops (Groningen province =
-province map; Leeuwarden = 1975 redrawn model; Middelburg = stadhuis detail crop only), the R5 Damme
-misfiled-in-Sluis note; (c) The collection categories section written: BNE 61 (the "Planos de ciudades"
-atlas plates - all 23 FR towns + 16 of the 20 BE towns + the done Binche/Venlo; the Aire+Thérouanne and
-Hesdin+Vieil-Hesdin double plates; [also-in] duplicates; the out-of-scope places named), NA 2 (The Hague
-autograph = the staged file; the Schoonhoven+Nieuwpoort sheet out of scope), RCE 69 (supplied the Sluis and
-Valkenburg staged rows + the done Zwolle/Venlo rows; the rest non-60 NL towns or duplicates - full town list
-in the doc), Atlas 6 (Deventer-Dionantum root out of scope; the one Landrecies subcat with its 5 KBR detail
-scans, double-parented under the plain town cat - why the depth-1 inventory exists); counts verified
-programmatically against the iter-43 transcript (61/2/69/6); (d) Summary carries the NL subtotal (13 of 16
-staged, 3 drops) and stays (pending) until all 60 are in. The keep()/swap-order fact is filed in
-PITFALLS.md (new pipeline/commons.py section). NEXT: the BE QID batch (--verify the 20 BE towns, Ghent
-Q1296 already verified in prep, Beaumont's region flips to belgium if the Hainaut item wins), then --files BE,
-lead-doc BE sections, commit; then FR (watch the double plates), then LU; then the one long --chain run +
-stage + test + golden.
 
 ### 2026-10-11 204 DECISION: BE QID batch - all 20 verified and recorded (19 from one discovery run, Mons via a limit-20 follow-up); four disambiguated P373s; none in the catalog
 One discovery run (/tmp/vd_verify_be_iter45.txt) resolved 19 of the 20; **Mons was not in its 5-candidate
@@ -113,6 +84,31 @@ are not in BNE. All 9 ambiguous candidates were eye-verified from 1200 px thumbs
 - The 12 single-file towns (Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Halle, Kortrijk, Lessines,
   Leuze, Saint-Ghislain, Soignies, Tournai): the one 1545 BNE plate each - all staged, no swap. Leuze
 ... (0.8 KB more: `grep -n -A 200 -F '## 2026-10-11 204 DECISION: BE file batch done - 19/20 picks decided + eye-verified; Aarschot a documented drop (both files dated 1570, outside the c. 1545-1565 window)' DECISIONS.md`)
+
+### 2026-10-11 204 DECISION: BE file picks RECORDED in TOWNS (19 file= + Bruges date + Leuze caption + Aarschot note); lead-doc Belgium section written; Mons/403 pitfalls filed
+The iteration-46 picks (the analysis above; /tmp/vd_files_be_iter46.txt still on disk, re-read to verify every
+exact title before recording) are now in TOWNS: file= on all 19 staged towns (15 of the 1545 BNE plates:
+Ath, Braine-le-Comte, Chimay, Chièvres, Enghien, Ghent BN 1, Halle, Kortrijk, Lessines, Leuze, Mons (2),
+Saint-Ghislain, Soignies, Tournai, Oudenaarde Version Madrid; + Ostend BNE plate circa 1562 + KBR Brussels
+(2) 01 + KBR Mechelen + Bruges full plan), date="circa 1550" on Bruges (page 2013-01-17 12:04:47 is the
+upload timestamp; the sheet's own caption block dates it), caption="Leuze" on Leuze (its official label
+'Leuze-en-Hainaut' is not in the title/desc), note= on Aarschot (the 1570 documented drop). The Belgium
+section-header comment now records the iter-46 inventory + thumb eye check. Lead doc: the pending
+subsection is now '### Belgium (20 categories: 19 staged, 1 documented drop; checked 2026-10-11, --files
+transcript /tmp/vd_files_be_iter46.txt)' with one bullet per town (staged file + size + date and every
+not-staged file with its specific reason; Aarschot the documented drop with the nl.wikipedia work-list
+cross-check), a new '### France, Luxembourg (pending)' (24 towns; the double plates as watch items), and
+the Summary updated (running total 32 of 59 staged: NL 13 + BE 19). PITFALLS filed: (1) wbsearchentities
+limit=5 misses well-known short names - Mons 11th in the en search, follow up at limit 20; (2) a Commons
+API call with no User-Agent gets HTTP 403 - commons.get sets aw.UA, a raw script must too. Verified after
+the edit: `--check` exit 0 (staging files still absent - stage runs after FR/LU), module parses clean
+(the PITFALLS comment-gluing rule observed: every entry's dict closed with `),` before its comments).
+NEXT: the FR batch (23 towns: --verify first - QIDs still empty in TOWNS; the BNE plates cover all 23 per
+the collections section; watch the Aire+Thérouanne and Hesdin+Vieil-Hesdin double plates - stage once under
+the true primary, note the second; Beaumont's region flips france->belgium if the Hainaut item wins) +
+Luxembourg City (search 'Luxembourg (city)', Q1564 expected, region 'luxembourg' - a NEW region value
+build_catalog does not have a display key for yet), then the one long run: --chain per staged town, stage,
+--check, tests/test_src_van_deventer.py, --golden.
 
 ## Project-wide driver notes (newest)
 
