@@ -102,3 +102,16 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - Next (next session): full suite `.venv/bin/python -m pytest -q` (expect 29: 18 baseline + 11 new),
   tick the four boxes, Status: done, commit (the two new files are uncommitted - the harness holds
   them).
+
+## 2026-10-11 202 DECISION: task closed done - full suite 29 passed, four boxes ticked
+- The driver had committed iter-28's uncommitted work (11dc892) and rebuilt the venv, so this session
+  only needed verification + closure: `.venv/bin/python -m pytest -q` -> 29 passed in 37 s (18 baseline
+  + 11 new), matching the hand-over expectation exactly; no skips, no fails.
+- Fresh-eyes check of the two Re-read items before ticking: tests/test_propose.py:build_sanity_qid still
+  carries the doc-frame premise assert `doc.get("size") in (None, frame)`; the marietta exclusion assert
+  (`min(ratios) < 0.2`, in build_sanity_old_style) and the calleva one (`abs(dev) > 50`, QID) both still
+  hold - the exclusions stay honest.
+- Box evidence recorded inline in the acceptance boxes of tasks/202-propose.md (box <- test name), per the
+  hand-over mapping: 1 = sample format + no-snap + self-consistency + golden (12 non-coarse book rows);
+  2 = golden coarse rows + test_ground_rule_aerial; 3 = no-snap + ground assertions (18 relief + aerial
+  rule); 4 = byte-exact golden + the three sanity tests (Option B reading).
