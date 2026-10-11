@@ -16,7 +16,7 @@ Architecture rules:
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
 ## fit/
-- `fit/evidence.py` (599 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L57-60, now L63-64, load_jsonl L67-68, set_field L71-77, rewrite L80-88, catalog_map L91-102, source_tables L105-110, check_commons L115-127, check_hand_tied L130-137, check_category L140-153, ... (+19 more).
+- `fit/evidence.py` (850 lines) - Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline re-verification of those ties (task 200, GOAL.md point 4). Exports: hav_m L67-70, now L73-74, load_jsonl L77-78, set_field L81-87, rewrite L90-98, catalog_map L101-112, source_tables L115-120, check_commons L125-142, check_hand_tied L145-152, check_category L155-168, ... (+26 more).
 
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
