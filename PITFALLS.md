@@ -6,6 +6,9 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (11)
 - Libraries and frameworks (3): Python (3.12.3) 3
 - This codebase (32): Wikimedia APIs (Commons, Wikidata) 6, fit/ 7, pipeline/ 4, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
+- This machine and its environment (14)
+- Libraries and frameworks (5): pyproj (3.8, project .venv) 2, Python (3.12.3) 3
+- This codebase (36): Wikimedia APIs (Commons, Wikidata) 10, fit/ 7, pipeline/ 4, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -112,6 +115,31 @@ Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/bo
 Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
 Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
 
+#### The VM clock lags the project's journal dates - date new work by the journal's sequence, not `date`
+Where: date stamps in `DECISIONS.md`, `docs/*.md` ("checked ..." lines), the task hand-overs
+Symptom: on 2026-10-11 (machine time, Sun Oct 11 CDT) the newest DECISIONS entry was already dated 2026-10-12 -
+      stamping today's work with the machine date writes a date OLDER than the previous entry, and the journal
+      (PROGRESS, DECISIONS, lead docs) then disagrees with itself.
+Why: the narrative project date (the driver's iteration sequence) runs ahead of the VM clock. Date a new
+      entry the day after your task's newest existing entry; do not run `date` to find out what day it is.
+
+#### `open(path, "w")` truncates the file BEFORE the argument expression is evaluated - a failing arg can destroy it
+Where: any inline `python3 - <<EOF` (or one-liner) that writes a file, e.g. rewriting a section of a markdown/text file
+Symptom: `open(path, "w").writelines(lines[:n] + open(other))` - the target is truncated to EMPTY the instant
+      `open(path, "w")` is evaluated, and if the argument expression then raises (here: `list + file` is a TypeError),
+      the file is left empty; the session's only working copy of it is gone (only git has the committed version).
+Why: Python evaluates the receiver expression (`open(path,"w")` - whose side effect is the truncation) before the
+      argument expression, so a TypeError raised while building the argument has already emptied the file. Compute the
+      whole new content into a variable FIRST (and `assert`/validate it), and only call the write as the final step.
+      When a file is precious and uncommitted, keep a backup copy or stage to a temp path and `mv` it in.
+
+#### Nominatim and the en.wikipedia API are reachable through `commons.get` (the project UA); Nominatim at 1 request/second
+Where: `https://nominatim.openstreetmap.org/search` and `https://en.wikipedia.org/w/api.php` via
+      `pipeline/commons.py:get`; task 205's SITES cross-checks
+Symptom: none - it works, in contrast to the MET/AIC APIs which are TLS-refused from this VM.
+Why: the egress allowlist covers both hosts and `commons.get` sets the UA Nominatim's policy requires; pace
+      Nominatim at 1 request/second. Verified live 2026-10-13 (task 205): "Kings Weston House, Bristol" 4 m from
+      the enwiki infobox point, "Trinity Theological College, Bristol" 0 m, "Royal Mews, Windsor" 72 m.
 #### NFKD on this machine does NOT apply Unicode compatibility (F-type) decompositions
 Where: `unicodedata.normalize("NFKD", ...)` anywhere on this machine - `pipeline/catalog.py`'s `slug()`,
       `pipeline/books_match.py`'s `norm()`, and hence every site id built from a town name (`fit/
@@ -129,6 +157,31 @@ Why: CPython 3.12.3 here (Unicode 15.0.0) applies only canonical (D-type) decomp
 
 One `### <library>` subsection per library or tool, with its version.
 
+### pyproj (3.8, project .venv)
+
+#### `pyproj.CRS("OSGB36")` is NOT the British National Grid, and EPSG:4326's authority axis order is (lat, lon)
+Where: any OSGB36/BNG to WGS84 conversion (task 205's Kings Weston grid-ref check); `pyproj.Transformer.from_crs`
+Symptom: `Transformer.from_crs("OSGB36", "WGS84").transform(352900, 177100)` returns (51.490873, -2.679790) with
+      the two VALUES SWAPPED in meaning (x=lat, y=lon) - and with a plain geographic name like "OSGB36" the
+      transform degrades toward a pass-through (the first attempt returned the inputs essentially unchanged). A
+      default Transformer TO EPSG:4326 emits (lat, lon), because 4326's authority axis order is lat, lon.
+Why: the projected British National Grid is EPSG:27700; "OSGB36" is the datum's geographic system. Use
+      `pyproj.Transformer.from_crs('EPSG:27700', 'EPSG:4326', always_xy=True)` and read the result as
+      (lon, lat). Verified 2026-10-13, both directions: BNG (352900, 177100) -> (lon -2.679790, lat 51.490873)
+      near SW Bristol; Bristol centre (51.4545, -2.5879) -> (359247, 173000) = ST5927, the well-known centre of
+      Bristol.
+
+#### A 6-figure OS grid ref's digits are relative to its 100 km square's origin - the ST square is (300000, 100000), not (400000, 700000)
+Where: any decoding of a UK 6-figure grid ref before a pyproj conversion (e.g. the enwiki
+      `{{gbmapping|ST529771}}` on the Kings Weston House page; task 205)
+Symptom: decoding the digits as (400000 + 52900, 700000 + 77100) and converting to WGS84 lands near (-1.13,
+      56.88) - the Scottish border, ~600 km from Bristol.
+Why: the three digit-pairs are 100 m offsets from the 100 km square's OWN origin; each square has a different
+      origin (TQ = 400000/100000 - that is why Greenwich is TQ3280; S is one easting square west of T, so
+      ST = 300000/100000). Verified 2026-10-13 by the round-trip: ST529771 = (352900, 177100) -> (51.490873,
+      -2.679790), SW Bristol, which converts back to exactly (352900, 177100). Note this also means a grid ref in
+      an enwiki article can disagree with the article's infobox coordinates (Kings Weston House: 1.3 km) -
+      cross-check both against Nominatim/OSM before quoting either.
 ### Python (3.12.3)
 
 #### A trailing comment after a complete expression inside an unbalanced-bracket display does not end the logical line
@@ -316,6 +369,50 @@ Why: the Peutinger map's Latin place names were never itemized, and the one surv
       records a conflict (the rows stay `none` with the conflict stored) - never a false pass; if a Latin name
       ever gets an item, the walk picks it up automatically.
 
+#### `commons.members()` returns namespaced titles; subcats need `split(":",1)[1]`, file members must NOT be stripped
+Where: `pipeline/commons.py:members`, `fit/src_kip.py:list_files`; any code comparing live category members against
+      stored names
+Symptom: comparing live subcategory members against bare names ("Britannia Illustrata") fails every comparison -
+      the API returns `"Category:Britannia Illustrata"` for subcats but `"File:..."` for files; a drift assert
+      comparing the two kinds of titles dies on the first category.
+Why: the Commons API `members` call returns the page titles exactly as stored: subcategory pages carry the
+      `Category:` prefix, file pages the `File:` prefix. Strip the prefix only for subcats (`split(":",1)[1]`);
+      file titles keep `File:` everywhere downstream (inventory keys, staging rows, the `evidence` field) -
+      stripping there would desynchronize them from `sources.py` and the canonical rows.
+
+#### The Commons `DateTimeOriginal` (`date` in `commons.info()`) is not always the original's date
+Where: `pipeline/commons.py:info()` (the `date` key = extmetadata `DateTimeOriginal`); every consumer that
+      records a drawing's age from it (staged file rows, the date column of `docs/lead_kip.md` §3)
+Symptom: a scanned print's "date" comes back as a publication sentence ("Published in Reistogt naar en door
+      Oostindien, Amsterdam, c. 1775"), an upload date ("5 December 2005 (original upload date)"), or the date
+      of a PHOTO of the print (2016-10-26 for a 2016 scan of a 1707 plate) - not the plate's own date.
+Why: curators fill DateTimeOriginal inconsistently: for photos it is the shooting date, for book scans often
+      the publication's date, sometimes free text. Before using the field to record a plate's age, check what
+      the file is (plate scan / photo / book page): the plate's date usually sits in the TITLE or in the
+      Rijks-style `Titel(s):` line of the description (the `desc` field), and `stage()` should take it from
+      there.
+
+#### From this VM, `iiprop=wbentity` returns nothing for ANY file - the depicts/M-item route is unusable
+Where: the Commons API `iiprop=wbentity` (a file -> its MediaInfo item); the planned P180 (depicts) evidence
+      route for staged file rows (task 205)
+Symptom: the response has no `item` for every file tried: the Gott 112a Temple Newsam scan, the Rijksmuseum
+      "Gezicht op Stanway" file, and even "File:Mona Lisa, by Leonardo da Vinci.jpg" (which certainly has a
+      rich M-item) - checked 2026-10-13, task 205.
+Why: the mechanism yields nothing from this VM (server-side gating, or the parameter is not served here); it
+      was tested on a file guaranteed to have an item, so it is not a per-file data gap. Do not retry per file:
+      staged rows use `caption_coords` (the plate's caption + the verified site point) or the hand-tied QID, and
+      the lead doc records that the depicts route was unavailable.
+
+#### The en.wikipedia API: `action=query` and `action=parse` own disjoint property sets; a missing page is `missing:""` in query, `missingtitle` in parse
+Where: `https://en.wikipedia.org/w/api.php` (via `commons.get`, which sets the UA); task 205's infobox checks
+      (Kings Weston House, pageid 10102492)
+Symptom: `action=parse&prop=coordinates` errors (coordinates is a query prop); `action=query&prop=wikitext`
+      errors (wikitext is a parse prop); an absent page under `action=query&titles=` comes back as a page object
+      with `"missing":""` - an EMPTY STRING, falsy, so `if page.get("missing")` reads as "present". Under
+      `action=parse` the same page gives `"missingtitle":"true"`.
+Why: two actions, disjoint prop namespaces; the query missing-marker is the empty string. Test for
+      `"missing" in page`. Get the infobox coordinates from `action=query&prop=coordinates` and the article body
+      from `action=parse&prop=wikitext` - two calls, never one.
 #### wbsearchentities with limit=5 misses well-known short names - Mons (Belgium) ranks 11th in the en search
 Where: `fit/src_van_deventer.py` (`_search_candidates`, the default limit 5) and any script calling the
       Wikidata wbsearchentities API for a short, common town name

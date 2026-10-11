@@ -2015,6 +2015,244 @@ table gets filled from the transcript's `record:` lines next session after an ey
 its P373.
 
 
+<!-- task 205 -->
+# Task 205 kip
+
+## 2026-10-12 205 DECISION: live inventory fetched (132 files); the 4 ambiguous large files identified by looking at the images
+- `fit/src_kip.py` created (module skeleton + `list_files()`); live run under `.venv/bin/python` took 10 s, no 429, 132 distinct files across the 6 lead categories (prep's census confirmed). `INVENTORY` still empty - to be filled next session from the re-run dump.
+- FAILED then fixed: `commons.members(cat, "subcat")` returns "Category:"-prefixed titles; my first `list_files()` run died on the drift assert comparing prefixed to bare names. Subcats are stripped with `split(":",1)[1]`; file members already carry "File:" and must not be stripped. (File a PITFALLS entry - could not edit PITFALLS.md under the context limit.)
+- VISUAL VERIFICATION (downloaded the Commons originals and looked at them; the MET API and AIC API were unreachable from this VM - TLS refused even when TCP connected):
+  - MET DP105010 (3979 px, 1708) is NOT a frontispiece (the prep's assumption): it is the Hampton Court PALACE (Thames) viewplate of the French 1708 edition, photographed as a book spread with a visible gutter -> documented drop (duplicate impression of the AIC file; gutter unfit for a ground fit).
+  - AIC "Jan kip per david mortier, hampton court" (2560 px, photo 2016) is a clean single-plate impression of the same royal-palace view -> STAGE candidate for a new site (the palace and its parterres survive). The Hampton Court trap does not apply here: the caption names the royal palace itself.
+  - Gott prints resolved (prep R2): (112a)+(113a-115) = Temple Newsam (full plate + 3 detail crops), (80a)+(81-85) = Swillington (full plate + 5 detail crops), (31)+(32)+(33) = Sedbergh School plans (drop - not a country house). Full plates are clean and fit-sized; the detail crops are documented drops of the same picture.
+- Open questions for next session: does any of Hampton Court Palace / Temple Newsam / Swillington already exist in the catalog (last session's broad grep flooded with castle rows and proved nothing); is Swillington Hall demolished (review-queue if nothing fixed survives); is Beaufort House (Chelsea) demolished (review-queue per prep R3).
+
+## 2026-10-12 205 DECISION: inventory verdicts decided (132 files); INVENTORY block generated, splice left to next session
+- Live re-run: `--list --out /tmp/kip_inventory.jsonl` under `.venv/bin/python`: 10 s, no 429, 132 distinct files (same census as 2026-10-10/11).
+- **Catalog dup check (precise):** none of the stage-candidate places exists in the catalog yet (checked: badminton, temple newsam, swillington, hutton, stoke bishop/gifford, stanway, kingsweston, windsor, st james, lambeth, somerset, beaufort, hampton court, chevening, cassiobury, chiswick, fair lawn, burlington in sites.jsonl/extras.jsonl/web sites.json). Only the six hand-tied exist (extras 73-78 + built). Near-misses, NOT dups: Kingsweston Hill (Q6413747, a hill), "Hailes Castle, Stanway" (a motte, not the Tracey seat), Beaufort-Blavincourt (France), Kleinkastell Scheveningseweg (NL).
+- **Prep's "1667 text page" and "Cantium armorial plate" drops are NOT in the live set** (searched the dump) - do not invent them in the lead doc.
+- **Survival checks (web, 2026-10-12):** Swillington Hall (Lowthers, Yorks) demolished 1952, mineworkings subsidence -> review-queue. Beaufort House, Chelsea demolished 1739/40 (Wikipedia/London Museum/London Remembers agree) -> review-queue (both plates). Hutton Hall plate = the CUMBRIAN Fletcher seat (Hutton-in-the-Forest near Skelton, Grade I, NHLE 1210817: pele tower + 1680 hall + 1730s walled garden all stand) - NOT the Derbyshire parish of the same name. Kingsweston: present house built 1720 on the estate (Kip's 1710 view of the earlier house); estate gardens/trees survive -> staged. Stanway House (Jacobean, Charteris family, baroque water gardens) stands -> staged. Stoke Bishop: the Cann seat still stands (rebuilt c.1765-73; porch photographed, Tibblestone) -> staged. Stoke Gifford: seat rebuilt 1750 (Thomas Wright) and LOST, estate built over (1980s expansion) -> review-queue (survival unverified; fails closed). House at Windsor = duke of St Albans' (Charles Beauclerk) house: read the plate itself (downloaded image; cartouche "Beauclerck Duke of St Albans, Earle of Burford...") - locked to standing Windsor Castle in the same view -> staged with that caveat. Badminton and Temple Newsam houses stand (National Trust).
+- **Verdicts: 132 = 6 hand-tied + 12 staged + 4 review-queue + 11 dup-impression + 18 not-a-house + 7 church + 19 foreign + 11 city-prospect + 8 photo + 36 too-small.** The INVENTORY block (all 132 tuples, generated from that day's dump, coverage asserted) is NOT yet in the module - `fit/src_kip.py` still has `INVENTORY = []`. **NEXT (session N+1):** `.venv/bin/python fit/src_kip.py --list --out /tmp/kip_inventory.jsonl` then run the generator below (save it as /tmp/gen_kip.py first; it regenerates the identical block and splices it into the module + fixes the stale docstring line). /tmp is ephemeral across sessions - the generator, not the block, is the source of truth.
+- Egress note: `commons.get()` JSON-decodes its response - it cannot fetch binary images (UnicodeDecodeError on JPEG magic bytes). To download a Commons image: get the `imageinfo` `thumburl` via `commons.get` (API works), then plain `urllib.request` with a browser-like UA (`Special:FilePath` gave 403 with a bare UA). MET/AIC APIs still TLS-refused from this VM.
+- PITFALLS: filed the `commons.members()` namespaced-titles entry (Wikimedia APIs section) - this session, uncommitted.
+- Generator script (verbatim as run 2026-10-12; asserts every title matches exactly one rule, staged >= 1000, too-small < 1000; splices the block over the `INVENTORY = []` line and the docstring parenthetical):
+```python
+# /tmp/gen_kip.py  (run: python3 /tmp/gen_kip.py from the project root)
+import json
+
+rows = {}
+for l in open("/tmp/kip_inventory.jsonl"):
+    r = json.loads(l)
+    rows[r["title"]] = r
+assert len(rows) == 132, len(rows)
+
+R = [
+ # hand-tied (pipeline/sources.py KIP table - never re-staged)
+ ("Gezicht op Hampton Court, RP-P-1905-194", "hand-tied", "sources.py KIP: Hampton Court, Herefordshire (Q1443802)"),
+ ("An engraving of Chevening by Johannes Kip", "hand-tied", "sources.py KIP: Chevening (Q1070927)"),
+ ("Cassiobury Park by Kip and Knyff", "hand-tied", "sources.py KIP: Cassiobury House (Q5049456)"),
+ ("B1977.14.18672", "hand-tied", "sources.py KIP: Chiswick House (Q1074877)"),
+ ("B2017.35.2 - Yale Center for British Art.jpg", "hand-tied", "sources.py KIP: Fairlawne (Q17530246)"),
+ ("B1977.14.17783", "hand-tied", "sources.py KIP: Burlington House (Q225471)"),
+ # staged - the view's fixed landmark survives (house / garden / park)
+ ("Landgoed Badminton, RP-P-1949-371", "staged", "BI 9/61 1709; the house and its formal park survive (National Trust)"),
+ ("Gezicht op Stoke Bishop, RP-P-1949-367", "staged", "BI 52/61 1709; the Cann seat at Stoke Bishop still stands (rebuilt c.1765-73)"),
+ ("Gezicht op Stanway, RP-P-1949-369", "staged", "BI 49/61 1709; the Jacobean manor (Charteris) and its baroque water gardens survive"),
+ ("Hutton Hall Kip", "staged", "BI 1709; the Cumbrian Fletcher seat still stands (Grade I: pele tower, 1680 hall, walled garden)"),
+ ("A Prospect of the House at Windsor, Belonging", "staged", "1707; the duke of St Albans' house - the view is locked to standing Windsor Castle"),
+ ("St James^s House, Le Palais Royal de St James - B2017.35.3", "staged", "1707; St James's Palace stands"),
+ ("The Palace and Park of St James's - B1977.14.18146", "staged", "St James's Palace and its park stand"),
+ ("Lambeth, His Grace the Lord Archbishop", "staged", "Lambeth Palace stands"),
+ ("Jan Kip - Somerset House - B1977.14.18272", "staged", "part of the old Somerset House complex survives (LSE)"),
+ ("Kingsweston Kip", "staged", "Atkyns 1710; the house (rebuilt 1720) and the estate's gardens and trees survive"),
+ ("Gott Collection at Hepworth Gallery (112a)", "staged", "the full Temple Newsam plate; the house still stands (National Trust)"),
+ ("Jan kip per david mortier, hampton court", "staged", "clean single-plate impression of the royal Hampton Court palace; palace and parterres stand"),
+ # review-queue: house gone and nothing fixed left on the ground - the human decides (201 owns the queue)
+ ("Beaufort House, Chelsea from the series Britannia Illustrata 2020.163", "drop: review-queue", "Beaufort House (Chelsea) demolished 1739-40; nothing fixed remains on the ground"),
+ ("View of Beaufort House and Chelsea 1699 - B1977.14.15680", "drop: review-queue", "the same demolished Chelsea seat (1699 impression)"),
+ ("Gott Collection at Hepworth Gallery (80a)", "drop: review-queue", "Swillington Hall (Lowther) demolished 1952 (mineworkings); no fixed landmark remains"),
+ ("Gezicht op Stoke Gifford, RP-P-1949-368", "drop: review-queue", "the seat was rebuilt 1750 (Wright) and is lost; the estate built over; house survival unverified"),
+ # drop: duplicate impression - one row per picture, the staged file is the larger/cleaner impression
+ ("Gezicht op het landgoed Badminton, RP-P-1949-370", "drop: duplicate impression", "same plate as Landgoed Badminton RP-P-1949-371 (the staged impression)"),
+ ("DP105010", "drop: duplicate impression", "the Hampton Court palace view photographed as a two-page book spread with gutter; duplicate of the AIC impression"),
+ ("Gott Collection at Hepworth Gallery (113a)", "drop: duplicate impression", "detail crop of the Temple Newsam plate (112a is the staged impression)"),
+ ("Gott Collection at Hepworth Gallery (114)", "drop: duplicate impression", "detail crop of the Temple Newsam plate (112a is the staged impression)"),
+ ("Gott Collection at Hepworth Gallery (115)", "drop: duplicate impression", "detail crop of the Temple Newsam plate (112a is the staged impression)"),
+ ("Gott Collection at Hepworth Gallery (81)", "drop: duplicate impression", "detail crop of the Swillington plate (80a is the review-queue impression)"),
+ ("Gott Collection at Hepworth Gallery (82a)", "drop: duplicate impression", "detail crop of the Swillington plate (80a is the review-queue impression)"),
+ ("Gott Collection at Hepworth Gallery (83a)", "drop: duplicate impression", "detail crop of the Swillington plate (80a is the review-queue impression)"),
+ ("Gott Collection at Hepworth Gallery (84)", "drop: duplicate impression", "detail crop of the Swillington plate (80a is the review-queue impression)"),
+ ("Gott Collection at Hepworth Gallery (85)", "drop: duplicate impression", "detail crop of the Swillington plate (80a is the review-queue impression)"),
+ ("(cropped).jpg", "drop: duplicate impression", "982 px crop of the hand-tied Fairlawne original (B2017.35.2)"),
+ # drop: not a house/garden view
+ ("Gott Collection at Hepworth Gallery (31)", "drop: not a house", "Sedbergh School master's-house plans - a school, not a country house"),
+ ("Gott Collection at Hepworth Gallery (32)", "drop: not a house", "Sedbergh School plans - a school, not a country house"),
+ ("Gott Collection at Hepworth Gallery (33)", "drop: not a house", "Sedbergh School engraving (authorship detail) - a school, not a country house"),
+ ("Fleuron T202131-7", "drop: not a house", "decorative title cartouche (fleuron) of the Nouveau Theatre plate, no view"),
+ ("RP-P-2018-832", "drop: church", "King's College Chapel, Cambridge (the two-part plate)"),
+ ("RP-P-2018-833", "drop: church", "King's College Chapel, Cambridge (left half)"),
+ ("RP-P-2018-834", "drop: church", "King's College Chapel, Cambridge (right half)"),
+ ("Interieur van de Deense Kerk", "drop: church", "interior of the Danish Church, London (demolished 1870)"),
+ ("The Danish Church in London - 1696", "drop: church", "the Danish Church, Wellclose Square (demolished 1870)"),
+ ("Queen's Chapel Jan Kip 1688", "drop: church", "interior of the Queen's Chapel, St James's Palace"),
+ ("St Clement's Danes", "drop: church", "south prospect of St Clement's Danes, London"),
+ ("The Tower of London, Commanded", "drop: not a house", "the Tower of London is a fortress, not a house or garden"),
+ ("The Prospect of Bridewell", "drop: not a house", "Bridewell (the old London hospital), not a house or garden"),
+ ("after Leendert Knijff", "drop: not a house", "Oxford NGA print: a cathedral or college quadrangle, not a house"),
+ ("Portret van Marcello Malpighi", "drop: not a house", "a portrait (Malpighi, Bologna)"),
+ ("Landschap met fazanten", "drop: not a house", "a pheasant landscape, no house or garden"),
+ ("The history of nature, in two parts", "drop: not a house", "emblem plate from The History of Nature (1720), no house or garden"),
+ # drop: foreign (outside the UK)
+ ("Dam in Amsterdam, RP-P-OB-47.598", "drop: foreign", "Amsterdam (the Dam), 1685"),
+ ("Gezicht op Amsterdam vanaf het IJ", "drop: foreign", "Amsterdam from the IJ (one of a six-plate panorama)"),
+ ("Map of Amsterdam with the New Plantage", "drop: foreign", "a plan of Amsterdam, 1686-88"),
+ ("Stadsarchief Amsterdam, Afb ANWG00357000001", "drop: foreign", "a c.1930 reproduction of Kip's Amsterdam profile, not a Kip impression"),
+ ("Ternate", "drop: foreign", "Ternate (Moluccas), 1682"),
+ ("Cranganoor", "drop: foreign", "Cranganore (Malabar coast), 1676"),
+ ("Musschat", "drop: foreign", "Muscot (Arabia), 1682"),
+ ("Tenos", "drop: foreign", "Tennore island and castle (Malabar), 1682"),
+ ("Tegepatnam", "drop: foreign", "Tegnapatnam (Kormandel coast), 1676"),
+ ("Wandelrit van prins Willem III", "drop: foreign", "the 1686 Den Haag carriage-ride panorama (six plates)"),
+ ("Coast of Sierra Leone and Liberia", "drop: foreign", "a 1732 chart of the Sierra Leone coast (from Kip's Guinea book)"),
+ ("west coast of Africa", "drop: foreign", "a 1732 map of the west coast of Africa (Sierra Leone inset)"),
+ ("Sierra Leone Johannes 1732", "drop: foreign", "the Bay of Sierra Liona, 1732"),
+ ("Colombo, after Kip", "drop: foreign", "Colombo (Ceylon), after a c.1680 Kip engraving"),
+ # drop: city prospect (the view is a town, not a house estate)
+ ("A Prospect of the City of London", "drop: city prospect", "one of the MET's ten impressions of the 1710 London city prospect"),
+ ("West prospect of Gloucester", "drop: city prospect", "a c.1725 prospect of Gloucester, a city view"),
+ # drop: photo (not a Kip/Knyff print)
+ ("geograph.org.uk - 2042063", "drop: photo", "a 2010 geograph photo of the Ham House garden"),
+ ("Ham House 05", "drop: photo", "a 2011 photo of Ham House"),
+ ("Ham House London 04", "drop: photo", "a 2011 photo of Ham House"),
+ ("The South Front Of Ham House", "drop: photo", "a 2014 Flickr photo of Ham House (based on a 1675-79 painting)"),
+ ("The Statue Of Mercury", "drop: photo", "a 2014 Flickr photo of a Ham House garden statue"),
+ ("Wilderness Garden, Witley Court", "drop: photo", "a 2011 photo of the Witley Court wilderness garden"),
+ ("geograph.org.uk - 1746869", "drop: photo", "a 2010 geograph photo of the Shibden Park cascade"),
+ ("Ogrod2", "drop: photo", "a 2006 photo of the Branicki Palace parterre (Bialystok, Poland) - not Kip, not UK"),
+ # drop: too small (long edge < 1000 px, cannot be laid over the ground)
+ ("+++Toddington", "drop: too small", "638 px detail of the Toddington plate"),
+ ("Beaufort House Kip 1708", "drop: too small", "700 px impression of the Chelsea seat plate"),
+ ("Cassiobury-1707", "drop: too small", "582 px impression from the French edition (Les delices)"),
+ ("Coley Park, 1700-1709", "drop: too small", "682 px impression of the Coley Park plate"),
+ ("Combe Abbey Brit Ill", "drop: too small", "502 px impression of the Combe Abbey plate"),
+ ("Didmarton, by Kip", "drop: too small", "610 px impression of the Didmarton plate"),
+ ("Dumbleton, by Kip", "drop: too small", "458 px impression of the Dumbleton plate"),
+ ("Eaton Hall by Kip 1708 edited", "drop: too small", "595 px impression of the Eaton Hall plate"),
+ ("Hampton Court Key", "drop: too small", "781 px plan (key) of Hampton Court Palace"),
+ ("HamptonCourtKipKnyff1708", "drop: too small", "643 px impression of the Herefordshire Hampton Court plate"),
+ ("Henbury, by Kip", "drop: too small", "595 px impression of the Henbury plate"),
+ ("Kensington.Palace.by.Kip.1724", "drop: too small", "600 px impression of the Kensington Palace plate"),
+ ("Ki BrymptonInSomersetShire", "drop: too small", "450 px impression of the Brympton plate"),
+ ("Kip and Knyff Windsor", "drop: too small", "810 px impression of the Windsor plate"),
+ ("Knole - Britannia Illustrata 1709", "drop: too small", "655 px impression of the Knole plate"),
+ ("Londesborough", "drop: too small", "321 px impression of the Londesborough plate"),
+ ("Longleat by Knyff edited", "drop: too small", "361 px impression of the Longleat plate"),
+ ("Nibley House, by Kip", "drop: too small", "595 px impression of the Nibley plate"),
+ ("Shipton Moyne, by Kip", "drop: too small", "487 px impression of the Shipton Moyne plate"),
+ ("Temple Newsam Kip", "drop: too small", "566 px impression of the Temple Newsam plate (the Gott 112a impression is the staged one)"),
+ ("Uppark Kip", "drop: too small", "563 px impression of the Uppark plate"),
+ ("WansteadPre1715", "drop: too small", "492 px detail of the Wanstead plate"),
+ ("AlvestonCourtKipCol2", "drop: too small", "401 px impression of the Alveston Court plate"),
+ ("ClearwellByKip", "drop: too small", "452 px impression of the Clearwell plate"),
+ ("Flaxley Abbey Kip", "drop: too small", "540 px impression of the Flaxley Abbey plate"),
+ ("Sistoncourtkip", "drop: too small", "822 px impression of the Siston Court plate"),
+ ("StokeGiffordParkByKip", "drop: too small", "482 px impression (1724 edition) of the Stoke Gifford plate"),
+ ("Berkley Castle by Jan Kip 1712", "drop: too small", "452 px impression of the Berkeley Castle plate"),
+ ("Somerset House by Kip 1722", "drop: too small", "400 px impression of the Somerset House plate"),
+ ("Wimpole Kip and Knyff edited", "drop: too small", "389 px impression of the Wimpole plate"),
+ ("Windsor Kip and Knyff trimmed", "drop: too small", "757 px trimmed impression of the Windsor plate"),
+ ("Ragleyhall by Kip edited", "drop: too small", "791 px impression of the Ragley Hall plate"),
+ ("PowisHousebyKip", "drop: too small", "510 px impression of the Powis House plate"),
+ ("Birdseye view of Chatsworth in 1699", "drop: too small", "800 px impression of the Chatsworth plate"),
+ ("Kip St James's Palace and Park", "drop: too small", "614 px impression of the St James's plate"),
+ ("St James's Palace and The Mall Kip 1715", "drop: too small", "600 px impression of the St James's plate"),
+]
+
+inv = []
+used = set()
+problems = []
+for k, v, rs in R:
+    hits = [t for t in rows if k in t and t not in used]
+    if not hits:
+        problems.append(f"rule matches nothing: {k}")
+    for t in hits:
+        if t in used:
+            problems.append(f"double-assigned: {t!r} by rule {k!r}")
+        used.add(t)
+        inv.append((t, rows[t]["w"], rows[t]["h"], v, rs))
+for t in rows:
+    if t not in used:
+        problems.append(f"UNMATCHED: {t}")
+from collections import Counter
+vc = Counter(x[3] for x in inv)
+print("verdict counts:", dict(vc), "total:", len(inv))
+for p in problems:
+    print("PROBLEM:", p)
+for t, w, h, v, rs in inv:
+    if v == "staged" and max(w, h) < 1000: problems.append(f"staged but small: {t}")
+    if v == "drop: too small" and max(w, h) >= 1000: problems.append(f"too-small but big: {t}")
+if problems:
+    raise SystemExit(1)
+
+def q(s):
+    return repr(s)
+lines = [f"    ({q(t)}, {w}, {h}, {q(v)}, {q(rs)})," for t, w, h, v, rs in sorted(inv)]
+block = "INVENTORY = [\n" + "\n".join(lines) + "\n]\n"
+path = "fit/src_kip.py"
+src = open(path).read()
+old = 'INVENTORY = []  # filled by the first live run (session 1); every title of the lead categories, once'
+assert src.count(old) == 1
+src = src.replace(old, block)
+old_doc = "(an empty INVENTORY only lists - the first run builds it)"
+assert src.count(old_doc) == 1
+src = src.replace(old_doc, "(the committed 132-row table; a renamed, re-filed or replaced file fails loud)")
+open(path, "w").write(src)
+print("spliced into", path)
+```
+
+## 2026-10-12 205 DECISION: INVENTORY committed (132 rows) - live drift-check active; the splice needed a docstring-wrap patch and exposed a latent unpack bug
+- Live re-run (`.venv/bin/python fit/src_kip.py --list --out /tmp/kip_inventory.jsonl`): 132 files, 10 s, no 429 - census unchanged from 2026-10-10/11.
+- Ran the generator extracted from the previous entry. **FAILED first:** the generator's `old_doc` for the usage docstring is a single line, but the module wraps that phrase across two 40-space-indented lines ("...the first run" / "builds it); JSON lines..."), so `src.count(old_doc) == 1` was 0. No harm: the INVENTORY replace happened in memory before the failing assert and the file is only written at the end, so the module on disk was untouched. **Fix:** patch the generator to match the two-line wrap and rewrite it as "INVENTORY (the committed 132-row table; a renamed, re-filed or replaced file fails loud)"; re-ran - spliced cleanly.
+- **Latent bug fixed in `fit/src_kip.py:list_files()`:** the size-drift check unpacked an inventory row as `_, w, h` (a 3-tuple) but INVENTORY rows are 5-tuples (title, w, h, verdict, reason) - ValueError "too many values to unpack" on the first run with a non-empty table. Branch never executed before because INVENTORY was empty. Now index access `r[1], r[2]` (condition + error message).
+- Verified: live re-run passes the drift assert against the committed 132-row table (titles AND sizes) - two successful runs today (~10 s each). Full `pytest -q`: 46 pass.
+- Size distribution (for the lead doc): 92 of 132 >= 1000 px; 40 < 1000 = 36 "too small" + 4 others (the 982 px Fair Lawn crop, one foreign map, one church, one photo); largest too-small 822 px - no 900-1000 gap, the threshold needs no exception list.
+- NEXT: write docs/lead_kip.md sections 1 (category map, counts, 1000 px threshold, size distribution) and 3 (the 132-row verdict table, generated from the module's INVENTORY + a fresh --list dump for date/desc). Sections 2 (verified QID table) and 4 (half-or-more: 12 of 22) wait for the SITES verification. The generator in the previous entry is now stale (splice done; only re-usable on live drift, and it needs this docstring patch + new verdict rules for new files).
+
+## 2026-10-13 205 DECISION: docs/lead_kip.md §1+§3 committed (category map + 132-row verdict table); tests/test_src_kip.py pins the doc to the INVENTORY
+- Live run #4 (`.venv/bin/python fit/src_kip.py --list --out /tmp/kip_list_54.jsonl`): 132 files, 10 s, no 429 - census stable through 2026-10-10..13; the drift assert passes against the committed INVENTORY (titles and sizes).
+- Out-of-scope sibling categories re-verified LIVE today (prep had checked 2026-10-10): `Category:Jan Kip` = 5 files (all Anefo/Elsevier photos of the 108-year-old "Opa Kip" / the 1953 flood), `Category:History of Kent` = 29 files (all non-Kip: 1829 Virtue's engraving, 1832 map, 1855 newspaper, 1799 Hasted fragment, 1646-49 Cantium armorial, 1667 Rijks text leaf, photos, WW2, postcards, book scans) - same as prep; both recorded in the lead doc §1 with today's re-check date.
+- `docs/lead_kip.md` written (generated by a throwaway /tmp script from the module's INVENTORY + the dump; the script is not in the repo - tests/test_src_kip.py is what keeps the doc honest):
+  - §1: category map (root 65 + subcats Britannia Illustrata 26, Rijks 24, Glocestershire 5, The history of nature 6, Wilderness 19 = 132 distinct; 13 cross-listed files: 6 root+Wilderness, 5 BI+Wilderness, AIC Hampton Court root+BI, Siston root+Glocestershire - NOTE prep's "only 1 file in root+subcat" was wrong, it is 8; fit-sized per category 51/4/24/1/6/12, 92 distinct); the 1000 px threshold (92/40 split, largest too-small 822, smallest staged 1375, the 900-1000 band holds only 3 files, none of them too-small); the siblings; the six hand-tied with their QIDs (kept out of the staging by the have-set check).
+  - §3: verdict definitions, tally (staged 12 · hand-tied 6 · review-queue 4 · duplicate impression 11 · not a house 18 · church 7 · foreign 19 · city prospect 11 · photo 8 · too small 36 = 132), the 132-row table (file, W×H, date from the dump's DateTimeOriginal, verdict, reason), and a caption block for the 22 relevant views (the Rijks `desc` carries the plate's `Titel(s):` line = the caption evidence; the Yale files have NO description - the named place is in the title; the AIC photo's desc is just "European prints in the Art Institute of Chicago").
+  - §2 (verified QID table) and §4 (half-or-more) are pending placeholders with the expected content for the next sessions.
+  - Date-column gotcha recorded in §3: a few files' DateTimeOriginal is not the plate's date (AIC 2016 photo date, Hampton Court Key 2009 scan date, Colombo publication sentence, Brympton/Wanstead upload dates).
+- `tests/test_src_kip.py` (new, 3 hermetic tests, socket-blocking fixture as in test_src_artists.py): (1) inventory thresholds and the §3 tally; (2) the six hand-tied == sources.SOURCES["kip"]["rows"] == the six canonical files.jsonl rows (`by: "pipeline/sources.py kip"`, evidence kind hand_tied) and none of them in the staging files (asserted once the files exist); (3) the lead-doc mirror: §3's 132 rows row-for-row (size/verdict/reason; date column deliberately unpinned - dump-derived) + §1's headline numbers. Full `pytest -q`: 49 pass.
+- FAILED (twice) in the new test: (a) the `|---|...|` separator line does not start with "| " so a skip-by-index of header+separator kept 131 rows; (b) the 4-var unpack of a 5-cell row silently mapped date->verdict. Fixed: parse cells with strip, skip header/separator by NAME, unpack 5 cells. Lesson: markdown-table parsers in tests must not assume which pipe-delimited lines look like data rows.
+- INCIDENT: an inline python script that rewrites tasks/205-kip.md truncated it to empty (open(path,"w") ran before a TypeError in the writelines argument); recovered from git HEAD and re-applied the hand-over. PITFALLS filed (write the full content into a variable first; write only as the final step).
+- PITFALLS: two entries (DateTimeOriginal semantics in the Wikimedia section; the VM clock lagging the journal dates - date new work by the journal's sequence).
+- NEXT (sessions 2-3): SITES + `verify_sites()` for the 11 sites (Badminton, Temple Newsam, Hutton Hall Cumbria, Stoke Bishop, Stanway, Kingsweston, the House at Windsor, St James's, Lambeth, Somerset House, Hampton Court Palace on the Thames - new site, find its QID); fill lead doc §2 from the `--verify` output and §4 (12 of 22). Then session 4: stage() the 3 staging files + --check/--golden + the rest of the test file.
+
+## 2026-10-13 205 DECISION: all 11 SITES researched - 8 have Wikidata QIDs, 3 do not (site rows will carry qid=None); the Temple Newsam caption route needs the plate's own title
+- Live Wikidata research (commons.get, paced, ~20 calls, no 429s) + web. QIDs: Badminton House Q2628510 (-2.28045, 51.5455); Temple Newsam Q2748017 (-1.4595, 53.7842) [NOT the wards Q55466781/Q56666360, the parish Q130614425, the preceptory Q7698622, the park Q87472685]; Hutton Hall Cumbria Q5951100 "Hutton in the Forest" (-2.839, 54.714) [the Fletcher-Vane house, enwiki article is the house itself; NOT Q17543857 Penrith, Q5951058 Guisborough]; Stanway Q7600303 (-1.9122, 51.9899) [Gloucestershire/Tewkesbury: the TRACY seat of the 1709 plate ("the seat of John Tracey Esq"), now owned by James Charteris, 13th Earl of Wemyss - "Charteris" is the Wemyss surname; the INVENTORY's "Charteris" note and the plate caption both refer to this one house; the water gardens stand]; St James's Palace Q272162 (-0.137778, 51.504722); Lambeth Palace Q1130266 (-0.11972, 51.49556); Somerset House Q1344889 (-0.117778, 51.511111) [the 1964 rebuild on the 1711-31 original's Strand site; Q110073896 is an item for the KIP ENGRAVING, do not use; Q17542634 is a different Somerset House (Whitehaven)]; Hampton Court Palace (Thames) Q205666 (-0.337499, 51.4034) [the NEW site, distinct from hand-tied Q1443802 the Herefordshire seat].
+- NO Wikidata item (and no house QID) for the other three: **Kings Weston House** (Southwell seat; enwiki article exists, grid ref ST529771 → OSGB36 452900, 777100, square ST origin (400000, 700000); the 1710 plate shows the earlier Elizabethan house on the same site, rebuilt 1714-25 by Vanbrugh, still stands; estate largely in Henbury parish; NOT the Bristol suburb Q6413746); **Stoke Bishop House** (the Cann seat, Stoke Hill, Bristol, rebuilt c.1765-73 for Robert Cann, still stands; suburb Q7618438 is the suburb, not the house); **Burford House, Windsor** (the duke of St Albans' house: given 1681 for Nell Gwyn + Charles Beauclerk, the plate's "his Grace Charles Beauclerck... Earle of Burford"; just outside the Lower Ward of Windsor Castle; sold to George III in the 1770s → "Garden House"; incorporated into the Royal Mews under the Prince Regent - GONE; the standing Windsor Castle Q42646 (-0.604444, 51.483889) is the fixed landmark the view locks to; the site point ≈ the Mews/Saint Albans Street side, a few hundred m NE of Q42646's point - to be estimated and noted).
+- Design decision: those three get site rows with **qid = None** - supported by the model (42 of 78 extras.jsonl rows have no qid; build_catalog.make_site drops the field; wiki_summary uses the row's wikipedia URL). The 8 QID-bearing sites keep their house QID; `known_sites()` is re-run in `--verify`.
+- **Temple Newsam (Gott 112a) evidence problem:** the Commons title+desc are Hepworth boilerplate with no place name, so check_caption's norm(named)⊂norm(title+desc) would FAIL for "Temple Newsam". Candidate routes: (a) the file's MediaInfo item P180 (depicts) - my check script FAILED with AttributeError: I used `commons.CW`; the constant is **`commons.CM`** (pipeline/commons.py L37-38); re-run with CM + iiprop=wbentity. (b) If no P180: carry the plate's own printed title in the staged row's `desc` (precedent: the Chevening hand-tied row's desc carries "Print entitled: Chevening, the Seat of..."); the offline check re-verifies the stored string, the lead doc records that this caption came from the plate, not the metadata.
+- Named places for the 12 staged titles all pass books_match.norm (lowercase, NFKD, removes 's): Stanway, Stoke Bishop, Hutton Hall, Windsor, Lambeth (NOT "Lambeth Palace"), Somerset House, St James's (→"st james", substring of both St James's titles), Hampton Court (lowercase in the AIC title), Kingsweston, Badminton, plus Temple Newsam via (a)/(b).
+- Next: finish 3 coordinate lookups (Gott P180 with CM; enwiki "Burford House, Windsor" coords via prop=extracts|coordinates; the Cann house NHLE grid ref), then fill SITES + verify_sites() + --verify CLI, run it live, fill lead doc §2; stage() + §4 + the test staging half in the session after.
+
+## 2026-10-13 205 DECISION: iteration 56 - all 11 site coordinates resolved live; the Temple Newsam P180 route is dead and the plate's title is the Ingram one; no code written yet (session cut by context limit)
+- **(a) P180/depicts route: FAILED (attempt 2, dead end).** `iiprop=wbentity` (the correct constant `commons.CM`) returns null/absent for the Gott 112a file, the Rijks Stanway file AND "File:Mona Lisa, by Leonardo da Vinci.jpg" (which certainly has a rich MediaInfo item) - the mechanism yields nothing from this VM/API, so no depicts route for any Kip file. "File:Temple Newsam Kip.jpg" (566 px) also has an empty desc. → the Temple Newsam staged row uses **caption_coords with desc enriched by the plate's own printed title** (route (b); the Chevening hand-tied row's "Print entitled: ..." is the precedent).
+- **Temple Newsam plate title VERIFIED from 6 independent sources** (British Museum M,21.42 "Temple Newsame the Seat of the Rt Honble Arthur Lord Ingram" Britannia Illustrata plate 42; DCMS artcollection object 465; philaprintshop; antiquemapsandprints p-8-003973; the-saleroom ×2; EBTH 3061003): "Temple Newsam the Seat of the Rt. Hon. ble Arthur Lord Ingram Viscount Irwin in the West Ryding of the County of Yorke, Governor of Scarborough & Lord L.nt of the North Rideing of YorkShire". **The prev hand-over's "Worsleys/Earl of Worsley" guess was wrong** (the Ingram family held Temple Newsam from 1699; the Worsley-Ingram name came later).
+- **The 3 qid=None site coordinates (all live today):**
+  - **Kings Weston House**: enwiki article (pageid 10102492) infobox `{{coord|51.494382|-2.661541}}` (WGS84; the API's coordinates field confirms; grid ref ST529771 in the intro). **Left to re-check in 2 min:** Nominatim "Kings Weston House, Bristol" vs the infobox point (expect <100 m; Nominatim worked for the other two). The grid ref should NOT be re-derived by hand: 6-figure OS grid ref digits are 100 m units RELATIVE TO THE 100 km SQUARE ORIGIN (ST origin ≠ (400000,700000) - the prev hand-over's arithmetic was wrong: pyproj tmerc inverse of (452900,777100) gave (-1.13, 56.88), the Scottish border). The infobox WGS84 point is the value SITES needs.
+  - **Stoke House (the Cann seat)**: officially **"Stoke House"** (enwiki "Stoke Bishop" article: manor house built 1669 for Sir Robert Cann, Bristol MP/Mayor; Grade II*; Commons photo desc: "Currently Trinity Theological College, Bristol"); the 1709 plate's "Sr. Thomas Cann" is his son (the prev hand-over's "rebuilt c.1765-73" = a later re-build, landedfamilies blog). **Landmark point: Nominatim amenity "Trinity Theological College" = 51.4767404, -2.6294812** (OSM, WGS84). Suburb Q7618438 (51.4804, -2.6299) is the suburb, not the house.
+  - **Burford House, Windsor**: NO enwiki article ("Burford House" is a 4-way disambiguation, pageid 20853605, whose Windsor entry is a red link; the house is described in the "Nell Gwyn" article: "a house, which was renamed Burford House, on the edge of Home Park in Windsor"; sold to George III 1779, became part of the Royal Mews). **Landmark point from two geograph photos in Commons category "Burford House, Windsor" (4707840/4711707), WGS-84 EXIF GPS 51.481051,-0.605551 / 51.480870,-0.605556 → site point ≈ 51.4810, -0.6056** = the Mews/Saint Albans Street site. **Corrections to the prev hand-over:** that's ~325 m SOUTH of Windsor Castle Q42646 (P625 -0.604444, 51.483889), not NE (the Mews are south of the castle; the photos confirm). The view stays locked to the standing castle (it is in the same view).
+- **QID collisions:** re-checked the 8 QIDs against the CURRENT catalog (sites.jsonl + extras.jsonl + web/data/sites.json = 12575 known QIDs, post 213/204 merges): **no collisions**. --verify must re-run this every time the catalog grows.
+- **New egress facts:** (1) Nominatim (nominatim.openstreetmap.org/search) works via `commons.get` with the project UA; (2) en.wikipedia.org API: `action=query` and `action=parse` have DISJOINT prop sets ("coordinates|extracts" is query-only, "wikitext" parse-only - mixing errors); `query&titles=` on an absent page returns `missing:""` (empty string, truthy in the API sense) while `parse&page=` says missingtitle; (3) the aibox LLM ports 18080/18081 are CLOSED in this VM (no SSH tunnel) but the harness's $LLM_URL=http://127.0.0.1:8081 is set and reachable (pipeline/llm.py reads AW_LLM_URL, not LLM_URL - not wired); (4) the repo's uk_os_OSTN15_NTv2_OSGBtoETRS.tif + pyproj 3.8 hgridshift gives a ~5° latitude offset (Bristol→56.49) - do NOT trust pyproj OSGB36→WGS84 with that grid; use enwiki/Nominatim WGS84 points.
+- **PITFALLS to file next session** (Wikimedia section): iiprop=wbentity null for every file from this VM (tested incl. Mona Lisa); the enwiki query-vs-parse prop split; the OS grid ref relative-to-square-origin rule; the OSTN15 grid/pyproj breakage.
+- **State:** NO code changes this session (fit/src_kip.py still `SITES = {}`; lead §2/§4 still placeholders; 49 tests green since iter 54). NEXT: (1) the 2 quick cross-checks above; (2) write SITES (11 entries keyed by site id; the 8 QIDs + P625 points from the 2026-10-13 entry above, the 3 points from this entry; ids follow the six hand-tied's slug rule, plain slug for the qid=None three) + verify_sites() + --verify (copy fit/src_artists.py:verify_qids, add the known_sites() collision check, print the no-QID source notes); (3) run --verify live, fill lead §2; (4) next session: stage() the 3 staging files + --check/--golden + the staging tests + lead §4 (Temple Newsam's desc enriched per above; row dates from the plates, never the photo date).
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
