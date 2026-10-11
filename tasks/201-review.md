@@ -42,62 +42,59 @@ are left.
   platefit doc); read the grid labels on a fitkit sheet, never its own pixels.
 
 ## Hand-over
-Iteration 20 (2026-10-11). Step 1 (prep step 1, the environment) is DONE and committed: Google Chrome
-155.0.8059.39 installed on this VM (PITFALLS has the rebuild recipe; `npx playwright install chrome`
-fails here - only `sudo -n apt-get` is passwordless), and the full page boots headless (shot.mjs probe:
-ready:true, 384 sites, 1166 plans, no pageerror; only the expected scans.json/amazon 404s) -> test case 2
-can be built exactly as worded. Prep assumption audit: see the DECISIONS entry of today (wrong: 001 now
-done; sites.json is a {"sites":[...]} wrapper; data/raw has real content on this VM; commons now 1490 rows
-with 109 no-evidence null-title rows = 801's targets; index.html 1703 lines). Everything else in the prep
-holds (verified: duplicate ids, composite-key uniqueness, 17 no-lidar sites == no relief.jpg, bibracte
-candidate-less, alligator's two candidates + their evidence, 202's dict contract, 203a/203b's upsert/export
-expectation). Suite baseline: 12 passed in 9.4s.
-
-Next step (prep step 2): `fit/review.py` per prep section 3.1, stdlib-only, importable by 203a/203b/212:
-- `item_path(root, site_id, lead=None)` -> `data/review/<site>.<lead>.json` or `<site>.json`.
-- `upsert_item(root, site_id, entries, no_picture=None)`: merge candidates by `plan` (replace same-plan
-  entry, keep others, new plans appended); `resolved` is write-once (never cleared, never overwritten);
-  never writes web/data/review.json; the lead in the file name follows candidates[0].plan.
-- `candidate_evidence(plan_id)`: book rows -> `data/books/index.jsonl` by `id`; commons rows ->
-  `data/commons/files.jsonl` by `c_+sha1(title)[:16]` (full-file scan; None when the row or its `evidence`
-  field is missing - 109 commons rows have no evidence, 801's targets).
-- `resolved_doc(item, root)`: item["resolved"]["doc"] else any existing `data/db/platefits/<site>.<plan>.json`
-  for one of the item's candidate plans (resolution is DERIVED from the doc, never a second store).
-- `export(root)` -> (n_open, n_total): writes `web/data/review.json` = `{"at": iso, "items": [{site, name,
-  lead, candidates (verbatim, incl. producer extras), no_picture_found}]}` - OPEN items only (resolved null
-  and no doc), sorted by site name (name from web/data/sites.json's list; missing site -> raw id, logged);
-  when it finds a resolving doc it writes `resolved: {doc, at: <doc's at>}` back into the item file.
-- CLI: `python3 fit/review.py export [--root DIR]`.
-Then the seeds (data/review/README.md states this exact contract for 203a/203b/212):
-1. `data/review/alligator-effigy-mound-q4732645.ancientmonuments00squi_n0214_2.json`: candidates = [book row
-   (lead: url "books/ancientmonuments00squi/n0214.jpg", map_box [0.03,0.09,0.45,0.49], size [2876,4068]),
-   commons row (url "media/commons/alligator-effigy-mound-q4732645/618a6be74dfaff32.jpg", map_box null,
-   size [1280,1045])], each with its evidence verbatim; `pairs` per candidate = 202's dict is NOT merged yet,
-   so use the deterministic anchor from prep section 1-202: site centre + the row's map_box corners in the
-   row's size frame (book: 3-5 pairs, e.g. 3 map_box corners + centre; commons map_box null: the full-frame
-   corners + centre); set `coarse: true` and a `note` saying the pairs are the 202-style starting point.
-2. `data/review/bibracte-q650053.json`: `candidates: []`, `no_picture_found: {"searched": <what a targeted
-   search covers, mirror 212's wording>, "at": <iso>}` (it is one of the 17 no-lidar sites -> aerial ground).
-Run the export once; commit `web/data/review.json` (2 open items) with the items.
-
-After that, one commit each: (3) index.html box-5 keying fix alone - in loadPlans build
-`P.byId[planKey(r)]` and the fit-list `data-plan` attribute with the same `planKey(r)`
-(`r.sites.length ? r.id + '.' + r.sites[0] : r.id`; ids contain no dots; (id, sites[0]) proven unique,
-test_data asserts it) so the binding `openPlan(P.byId[b.dataset.plan])` needs no change; (4) `web/review.js`
-+ the one script tag (prep section 3.2: state RV {items, seen-from-localStorage}; wrap renderList/setTabHome
-at load, idempotent, tolerate pre-boot; Review tab session-only (no hash route - index.html frozen); opener
-order select -> setGround(site.lidar===false?'imagery':'relief', site) -> startFit -> openPlan with
-RV.pending pairs pushed-then-addPairMarker inside the openPlan wrapper, refit() when P.img loads (skip
-silently on 404 - the test tree has no data/raw); saveFit wrapper: after the original returns, check
-S.db.doc('platefits/'+P.site.id+'.'+P.plan.id).get() is 200 -> record RV.seen[site] in localStorage, drop
-from RV.items, refresh count/badge; the stats line `#body .fit` gains a computed open count from the served
-review.json (fetch in review.js; keep the existing sentence byte-for-byte, R8)); (5) tests/test_review.py
-per prep section 4 (case 2 now viable; worker churn: PUT a book-src doc only, assert server still answers,
-20 hand-fit docs untouched - note tests/golden pins them by sha256 per 203a's prep; keep the whole suite
-stdlib-runnable and port-0-only).
-
-Re-read: web/index.html `select(id)` - it returns EARLY when `P.active` (`if (!s || P.active) return;`):
-the review opener must `endFit()` first if a fit is active, otherwise select() silently does nothing.
-Also `startFit` renders the fit pane's `#body` (the plan list) - after `openPlan` the pane shows the fit
-sheet, so no extra rendering is needed for pre-placement; and `endFit(keepSite=true)` re-renders the site
-panel, which the saveFit wrapper must not fight with (it only updates RV + count + the home stats line).
+Iteration 21 (2026-10-11). Steps 1 (environment) and 2 (fit/review.py + seeds + first export) are DONE and
+committed (ad8dbc1). The review-queue contract now exists in the repo:
+- `fit/review.py` (stdlib-only, importable under system python3): `item_path`, `upsert_item` (merge by plan,
+  in-place replace, append new; lead = candidates[0].plan stable; `resolved` write-once; `no_picture`:
+  dict=set, None+entries=clear, None+none=keep), `candidate_evidence` (books by id; commons by
+  c_+sha1(title)[:16] full scan; None when missing), `resolved_doc` (derived from platefits docs),
+  `export(root)` -> (n_open, n_total) writing web/data/review.json + recording `resolved`, CLI `export [--root]`.
+- `data/review/README.md` is the one-page contract 203a/203b/212 read before they write items.
+- Seeds: `alligator-effigy-mound-q4732645.ancientmonuments00squi_n0214_2.json` (2 candidates, book lead, each
+  with verbatim evidence + 5 pairs = 202-style coarse anchor, coarse:true, note) and `bibracte-q650053.json`
+  (no picture found, searched mirrors 212's wording; one of the 17 no-lidar sites -> aerial ground later).
+- `web/data/review.json` committed: 2 open items. Re-running the export is idempotent modulo `at`.
+Remaining steps, in order, one commit each (prep §6):
+3. **Box-5 keying fix, web/index.html alone** (commit it alone): in `loadPlans` at line 819 build
+   `P.byId` keyed by a tiny `planKey(r)` = `r.sites.length ? r.id + '.' + r.sites[0] : r.id`, and write the
+   SAME `planKey(r)` into the fit-list markup at line 853 (`data-plan="${esc(planKey(r))}"`). The binding at
+   858 (`openPlan(P.byId[b.dataset.plan])`) then needs no change - the button carries the full composite key.
+   Nothing else in index.html. Re-read lines 815-860 first (file is 1703 lines on this branch; the two
+   duplicate ids and (id, sites[0]) uniqueness were verified in iteration 20).
+4. **web/review.js + the one script tag** (one commit): `<script src="review.js"></script>` between 1701
+   (`</script>`) and 1702 (`</body>`). Per prep §3.2: state RV {items, seen-from-localStorage}; wrap
+   renderList/setTabHome at load (idempotent, tolerate pre-boot, kick the review.json fetch when S.sites
+   first non-empty); Review tab session-only (no hash route - index.html frozen); list = open items minus
+   RV.seen; opener order endFit-if-active -> select(site) -> setGround(site.lidar === false ? 'imagery'
+   : 'relief', site) -> startFit -> openPlan (row resolved by r.id === plan && r.sites.includes(siteId),
+   else synthesized from the candidate's stored fields, prep R6); RV.pending pairs push-then-addPairMarker
+   inside an openPlan wrapper, refit() when P.img loads, skip silently on 404 (the test tree has no
+   data/raw); saveFit wrapper: after the original returns, `S.db.doc('platefits/'+P.site.id+'.'+
+   P.plan.id).get()` 200 -> RV.seen in localStorage, drop from RV.items, refresh count/badge (no second
+   PUT, no data/review write from the page - the durable record is the doc + the item's resolved, caught up
+   by the next export); the home stats line `<p class="fit">` at 573 gains a computed open count from the
+   served review.json fetch, existing sentence byte-for-byte (R8).
+5. **tests/test_review.py per prep §4** (keep it stdlib-runnable, port-0 only): case 1 export->served data
+   (subprocess CLI with --root tree; idempotent re-run); case 2 headless page load via tools/shot.mjs (Chrome
+   155 verified booting in iteration 20: `NODE_PATH=/home/agent/tools/shot/node_modules node tools/shot.mjs
+   <served>/ /tmp/... . 8000 1200 800 "<js>"`, js forces S.tab='review'; assert tab count + item row + the
+   stats-line number; no pageerror, 404s only the expected data/raw ones); case 3 save->resolve (PUT a BOOK-
+   SRC doc in the exact saveFit shape to api/db/platefits/alligator...ancientmonuments00squi_n0214_2; worker
+   fails on the missing raw scan and is swallowed - assert the server still answers and the 20 hand-fit docs
+   are byte-unchanged (tests/golden pins them); re-run export -> alligator item gone + resolved recorded, the
+   other item still open); case 4 (id,site) keying through the headless page (the Larned/mayburgh duplicate
+   ids resolve to the right per-site rows) - with a data-level fallback if headless degrades; case 5 cheap
+   guards (index.html carries exactly one src="review.js" and no hardcoded review count).
+   The test seeds its own queue in the temp tree (module fixture: clear tree/data/review, write one item) -
+   it never relies on the repo's two seeds being copied. Module-fixture seeding via fit/review.py's
+   upsert_item (import, not subprocess - it's a test setup; the CLI is tested in case 1).
+Then tick the six boxes in order and note in the hand-over what 203a imports (upsert_item + the README).
+Env notes: suite runs with .venv/bin/python (12 passed at this commit); system python3 fails 4 tests
+(test_gate, test_evidence CLI - no PIL/numpy there) PRE-EXISTING, do not chase; the page boots headless
+(ready:true, 384 sites, 1166 plans, no pageerror; only the expected scans.json/amazon 404s).
+Re-read: web/index.html `select(id)` (783) returns EARLY when a fit is active (`if (!s || P.active) return;`):
+the review opener must `endFit()` first, otherwise select() silently does nothing. `startFit` (822) renders
+the fit pane's #body (the plan list) - after openPlan (897) the pane shows the fit sheet, so no extra
+rendering is needed for pre-placement. `endFit(keepSite=true)` (827) re-renders the site panel: the saveFit
+wrapper must not fight it (it only updates RV + the count + the home stats line). Also `addPairMarker` (1059)
+numbers the marker with P.pairs.length AT CALL TIME - like the map-click path, push first, then call.

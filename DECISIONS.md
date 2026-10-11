@@ -114,3 +114,43 @@ candidates (book ancientmonuments00squi_n0214_2, evidence category; commons c_61
 present); the 202 contract (tasks/prep/202.md: propose_for -> {pairs, coarse, ground, scale_m_px, rot_deg,
 scale_source, note}, stdlib-only) and 203a/203b's expectation of fit/review.py's upsert/export are unchanged.
 Test baseline on this branch: 12 passed in 9.4s (.venv/bin/python -m pytest -q).
+
+## 2026-10-11 201 DECISION: prep step 2 shipped (commit ad8dbc1) - fit/review.py API + README contract + 2 seed items + first export; merge keeps candidate order (lead stable), no_picture lifecycle settled, aw.py NOT stdlib-only on this branch
+
+Prep step 2 done. fit/review.py is stdlib-only (imports under system python3, no numpy/PIL) and offers the
+documented API: item_path, upsert_item, candidate_evidence (books by id; commons by c_+sha1(title)[:16]
+full-file scan; None when the row or its evidence field is missing), resolved_doc, export(root) ->
+(n_open, n_total), CLI `export [--root DIR]` (the --root flag is what test case 1 needs for the temp tree).
+data/review/ holds the README (the contract 203a/203b/212 read) and the two seed items; web/data/review.json
+is committed (2 open). Decisions taken while building it:
+1. **upsert merge semantics:** a same-plan entry replaces its twin IN PLACE, new plans append, existing
+candidates keep their position - so the lead (candidates[0].plan) is stable once set; the file move (the
+file name's lead follows candidates[0].plan) fires only on drift (a hand-written item, a producer that wrote
+a different first candidate). My first scratch check expected the lead to REORDER after a merge - that was
+my test's error, not the code's; the documented rule ("the file name's lead follows candidates[0].plan") is
+unchanged and the move branch is exercised by the drift case.
+2. **no_picture lifecycle:** dict -> set the record; None + entries -> null (candidates exist again, the note
+is stale); None + no entries -> keep the existing record (a re-run of "still no picture"). Producers pass
+None to mean "don't invent one".
+3. **pipeline/aw.py is NOT stdlib-only on this branch** (numpy/PIL/scipy at its top) - the 202 prep's claim
+"import pipeline.aw read-only (pure stdlib; verified no third-party at its top)" is STALE: the 202 agent
+will hit the same wall; the fix there is to inline the three one-line Mercator/ground-scale helpers (as
+201's seed script does: R=6378137, to_merc/to_lonlat/ground_scale copied verbatim from aw.py). fit/review.py
+inlines its own atomic save_json (indent=1, os.replace - the repo's convention from aw.save_json) for the same
+reason; it never imports pipeline.
+4. **Seed pairs** (202 not merged yet, per the hand-over's instruction): the 202-style COARSE anchor exactly
+as 202's prep §3.1 defines it - map-panel centre -> site centre, scale = max(size_m)/max(panel extent px),
+rotation 0; 4 panel corners + centre; 1dp px / 7dp lon-lat. Book scale 0.7375 m/px, commons 0.9375 (whole-
+frame panel). The centre pair maps exactly onto the site centre (checked). The book row's evidence is kind
+"none" ("ambiguous: score below 0.75") - stored verbatim and displayed honestly (the Hampton-Court trap made
+visible). The note field in both candidates says 202's propose_for replaces these when it lands.
+5. **Bibracte no_picture_found.searched** mirrors the 212 goal's wording: "Q650053 Commons categories, P180
+depictions, and a title search (the Commons files and the book rows of web/data/plans.json)".
+6. **Seed generation** is a one-off /tmp/seed_review.py (not in the repo; the data files are the committed
+output; the algorithm is recorded here and in the candidates' note fields). Deterministic apart from the two
+ISO `at` timestamps. Re-running it is idempotent (upsert replaces by plan).
+Scratch-tree verification (all passed): merge/replace/append, lead-drift file move, resolved write-once,
+no_picture lifecycle, resolved_doc via a real doc / via the recorded field, export open-only + name-sorted +
+missing-site fallback (stderr warning, id as name), idempotent re-export (identical body modulo at), --root.
+Suite: 12 passed under .venv/bin/python (the driver's run). System python3 fails 4 (test_gate, test_evidence
+CLI) - pre-existing PIL/numpy absence, not this step.
