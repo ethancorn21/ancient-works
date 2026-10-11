@@ -5,7 +5,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Agent tools and harness (2)
 - This machine and its environment (17)
 - Libraries and frameworks (6): pyproj (3.8, project .venv) 2, Python (3.12.3) 4
-- This codebase (42): Wikimedia APIs (Commons, Wikidata) 10, fit/ 9, pipeline/ 5, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 1
+- This codebase (44): Wikimedia APIs (Commons, Wikidata) 10, fit/ 9, pipeline/ 7, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 1
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
