@@ -128,3 +128,17 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
 - Pairs: 4 panel corners + panel centre (page centre if no map_box), in the row's size frame (book
   rows: plans size == full_size; serpent's index size null falls back to full_size), u/v 1dp,
   lon/lat 7dp - the platefit-doc convention; deterministic, no timestamps.
+
+## 2026-10-11 202 DECISION: test-design corrections found while building (the prep's two details that do not hold)
+1. The prep's "re-fit of the emitted pairs reproduces scale_m_px/rot_deg within 1e-6" CANNOT hold: the
+   emitted pairs round lon/lat to 7 dp (~0.11 m), so re-fitting the ROUNDED pairs deviates from the
+   anchor by at most ~1e-4 m/px absolute (measured, forthill; relative ~6e-4) and <0.05 deg rotation.
+   The test uses: scale 1e-3 m/px absolute (or 2% relative), rotation 0.1 deg; the byte-exact golden
+   test is the primary determinism check.
+2. parse_scale corpus details (measured over all 508 scale_text values: 488 parse - 222 ratio,
+   266 span - 20 None; known-bad all None): the equals-form ("scale 1 in = 240 feet") exists in the
+   real corpus as "Scale: 1 in. = 100 feet" (colon after "scale", dotted "in.") and as the compound
+   mills statement "1 in. = 100 ft. 1/2 in. = 50 ft. 1/4 in. = 25 ft." (first statement wins) - the
+   regex was fixed for all three. "N unit to the inch" rows with a parenthetical ("2 Ch. (352 Ft.)",
+   "12 Rods 200 feet") take the FIRST quantity. Optional polish left: reorder inch alternations to
+   (?:inches|inch|in) in the two regexes (no current corpus value needs it).
