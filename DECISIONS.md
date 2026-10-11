@@ -87,3 +87,26 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     cataloged, the existing site id) over fully recorded towns only; (d) golden()'s pick loop indexed a
     site-id-keyed dict with town names (never matched) - now a town -> staged-row map. Suite 33/33 green.
     Transcript: /tmp/vd_verify_iter41.txt (re-run: .venv/bin/python fit/src_van_deventer.py --verify, ~30 s).
+
+### 2026-10-11 204 DECISION: wrote docs/lead_van_deventer.md (category census + NL QID section + NL traps); fixed two stale TOWNS count comments
+The lead doc now holds the verified material (the pending sections stay marked pending): (1) the category
+section - name/URL, 70 = 66 town + 4 collections, the --list assertion, all 66 town categories listed by
+country with the 6 done marked (NL 19 / BE 22 / FR 24 / LU 1), the 4 collection names incl. the BNE atlas;
+(2) the NL QID table - 16 rows (QID/label/P625/site-point/P625->site distance/enwiki; distances taken from the
+iter-41 transcript /tmp/vd_verify_iter41.txt, all <= 0.74 km, labels/P373 clean, the 3 done NL re-confirmed);
+(3) the three NL name-search traps with measured distances: Sluis first hits Q2065987 (9.0 km SW, P373
+'Sluis (city)', no enwiki) vs recorded Q10080; Reimerswaal first hits the municipality Q10078 (9.1 km, shares
+the P373 with the city so P373 cannot separate them) vs recorded city Q2590944; Valkenburg first hits the
+modern Q9771 (0.14 km, same spot) vs recorded old town Q100076 (no enwiki -> no wikipedia field). Pending
+sections carry: the BE/FR/LU QID batches (Ghent Q1296 already verified in prep - record with the BE batch;
+Beaumont's region flips to belgium if the verified item is the Hainaut one; Luxembourg City Q1564 expected -
+verified in this session that build_catalog.REGION_NAME (line 74) has belgium but no luxembourg and the
+line-91 lookup falls back to the raw value), per-town file picks/drops, the collection categories, the
+summary (box 5: >= 50 of 60 staged or each missing one accounted). Also fixed two stale TOWNS section-header
+counts in fit/src_van_deventer.py: BE is 22 categories (20 to stage + 2 done), FR 24 (23 + 1) - the comments
+said 21/19 and 25/24 (miscounted from the prep's list); the live --list (70 = 66 + 4) passes against the
+real table. GAP found while writing: town_files() lists only the towns' own categories - the 4 collection
+categories are not covered (the prep §2.1 spec had them), so the collections section and the R5
+misfiled-file mapping (a file in a collection cat belonging to a town) need a small town_files extension
+(c.members per collection cat; the BNE atlas at depth 1) - next session's first act. Suite 33/33 green
+(comment-only module change).

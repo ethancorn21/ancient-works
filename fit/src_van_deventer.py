@@ -124,7 +124,7 @@ TOWNS = {
     "Gouda": dict(region="netherlands", cat="Map of Gouda by Jacob van Deventer", qid="Q84125", done=True),
     "Zwolle": dict(region="netherlands", cat="Map of Zwolle by Jacob van Deventer", qid="Q793", done=True),
     "Venlo": dict(region="netherlands", cat="Map of Venlo by Jacob van Deventer", qid="Q9777", done=True),
-    # -- Belgium (21 categories: 19 to stage + the 2 done) --
+    # -- Belgium (22 categories: 20 to stage + the 2 done) --
     "Ath": dict(region="belgium", cat="Map of Ath by Jacob van Deventer"),
     "Braine-le-Comte": dict(region="belgium", cat="Map of Braine-le-Comte by Jacob van Deventer"),
     "Bruges": dict(region="belgium", cat="Maps of Bruges by Jacob van Deventer"),
@@ -147,7 +147,7 @@ TOWNS = {
     "Oudenaarde": dict(region="belgium", cat="Maps of Oudenaarde by Jacob van Deventer"),
     "Damme": dict(region="belgium", cat="Map of Damme by Jacob van Deventer", qid="Q323408", done=True),
     "Binche": dict(region="belgium", cat="Map of Binche by Jacob van Deventer", qid="Q95121", done=True),
-    # -- France (25 categories: 24 to stage + the 1 done; Beaumont's country settles at verification: the
+    # -- France (24 categories: 23 to stage + the 1 done; Beaumont's country settles at verification: the
     # Hainaut candidate (Belgium) vs the northern-France candidates decide it, the Barnard-Castle-style trap) --
     "Aire-sur-la-Lys": dict(region="france", cat="Map of Aire-sur-la-Lys by Jacob van Deventer"),
     "Arras": dict(region="france", cat="Map of Arras by Jacob van Deventer"),
