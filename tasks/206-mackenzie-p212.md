@@ -39,17 +39,17 @@ search and drop the lead: a wrong castle on the map is worse than none.
 
 ## Hand-over
 
-**Iteration 83 (2026-10-11, agent a) - SIXTEENTH early bring-back; main UNMOVED since
-iter 75 (head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/102,
-the +3 over iter 82 are driver bookkeeping on my branch only: fbbca16 (my iter-82 commit),
-8efdfdf, 4690259 - zero tree change since iter 82's stop). FULL battery re-run this session
-INCLUDING --gate (accept, stats identical to the committed doc). All 206-owned work green
-and byte-identical to iters 66-82 (all 8 md5s stable). The 4 suite reds unchanged in cause
-(211 x3, 218 x1; store re-counted 116 docs / 94 auto / 22 non-auto, gate still "found
-22"). Deps 211+218 still open -> Status stays open. No code or data change this session
-(none available: the only remaining work is owned by 211/218). Re-run the same battery at
-the next bring-back; when 211+218 have merged, expect 0 reds (or reds no longer touching
-this task's files) and set done.**
+**Iteration 84 (2026-10-11, agent a) - SEVENTEENTH early bring-back; main UNMOVED since
+iter 75 (head still cd104ca; `git rev-list --left-right --count main...agent/a` = 0/105,
+the +3 over iter 83 are driver bookkeeping on my branch only: 5e43493, 9e5760e,
+a87cbb6 (my iter-83 commit) - zero tree change since iter 83's stop). FULL battery re-run
+this session INCLUDING --gate (accept, stats identical to the committed doc). All 206-owned
+work green and byte-identical to iters 66-83 (all 8 md5s stable). The 4 suite reds
+unchanged in cause (211 x3, 218 x1; store re-counted 116 docs / 94 auto / 22 non-auto,
+gate still "expected 20 ... found 22"). Deps 211+218 still open -> Status stays open.
+No code or data change this session (none available: the only remaining work is owned
+by 211/218; per the team rule no stand-ins). Re-run the same battery at the next
+bring-back; when 211+218 have merged, expect 0 reds and set done.**
 
 STATE at stop (all re-run this session, offline):
 - `fit/src_mackenzie.py --check`: exit 0, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`
@@ -60,13 +60,13 @@ STATE at stop (all re-run this session, offline):
   rot -0.20 deg, residuals [14.2, 2.0, 17.5, 19.4] max 19.4 - identical to the committed doc
   and the golden (also iters 78-82).
 - `tests/test_src_mackenzie.py`: 4/4 green (1.65 s, socket-boom fixture, no network).
-- All 8 committed artifacts byte-identical to iters 66-82 (re-checked this session):
+- All 8 committed artifacts byte-identical to iters 66-83 (re-checked this session):
   src_mackenzie 77a47defd606a8599e3af9e28b74894f, files_mackenzie f637c4bebbd98ebb059652936e06646d,
   classified_mackenzie 2ed56b79bbd356aced13230978e8536f, extras_mackenzie
   a7060e1292d2607c657a43200dd20b94, shotwick platefit doc 9a1924cf84414e26cf84b292718ce3b2,
   lead_mackenzie 5d7b7ab69371074b201d89b6b2bda0d4, test_src_mackenzie
   ddb146a2f8cb47e9b2f33ef2b0e5cbfe, golden f0936d9a0b4bf00e60ca1f3afc625d95.
-- Full suite: 60 passed, 4 failed (60.09 s) - the same 4 as iters 74-82, causes re-verified live:
+- Full suite: 60 passed, 4 failed (59.67 s) - the same 4 as iters 74-83, causes re-verified live:
   1. `test_batch_eu::test_union_check` (211's): `assert not check["orphan_docs"]` fails with
      `['shotwick-castle-q7502621.c_e6e5490609414bb9.json']` (tests/test_batch_eu.py:811).
   2. `test_batch_eu::test_union_full_coverage_live` (211's): same orphan_docs failure (not
@@ -114,7 +114,9 @@ from iter 76):
 DEPS at stop (all already on my `Depends on:` line 001, 200, 211, 218 - nothing to add, no
 stand-ins per the team rule; re-checked this session, both still `open`):
 - `tasks/211-merge-build.md` = open (Depends on 200, 204, 205, 206, 207, 208, 209, 210; agent c
-  on 203b/207/302a, 207c blocked on the human's Roy 1793 copy) - owns 3 of the 4 reds
+  on 203b/207/302a, 207c blocked on the human's Roy 1793 copy - re-checked this session; its
+  hand-over (from 213's done-claim) lists the staging files to merge: extras/files/classified
+  *_artists.jsonl (2 new town sites + 2 picture rows) and the civitates books files) - owns 3 of the 4 reds
   (batch_eu x2 + serve): its merge build adds the shotwick doc to the batch union and builds
   the site.
 - `tasks/218-gate-holdout-new-hand-docs.md` = open (Depends on 001) - owns the 4th:
