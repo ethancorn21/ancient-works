@@ -120,14 +120,48 @@ taken from a name search.
 
 ## Civitates Orbis Terrarum (1572-1617) and Merian's Topographia (1640s-1680s)
 
-Book-scale sources (hundreds of views each). Status: **pending** - worked through per-book files only
-(`data/books/triage/<ia>.*`, `data/books/lists/<ia>.json`) after those exact paths are added to this
-task's Touches line; the `books.py:BOOKS` entry is a shared-module change and is filed as its own task.
-Internet Archive identifiers are recorded in `fit/src_artists.py:BOOKS` (Civitates: `civitatesorbiste00brau`,
-`ARes73114`, `ARes73115`, `17095748888888bsb-00105587`; Merian: `topographiahelve00zeil`,
-`rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915`). Caveat already known: the book
-machinery's triage is plan-centric, while these books are mostly bird's-eye views - so at most a few
-hand-verified towns per book, or a documented drop (box 4 is already met by Imola + Venice).
+Book-scale sources (hundreds of bird's-eye town views each). Both **exist and are freely
+machine-readable** - all six Internet Archive copies are BookReader streams (jp2 + PDF + hocr OCR,
+not restricted; metadata cached 2026-10-11 in `data/raw/books/<ia>/`):
+
+| IA id | book | drawing date |
+|---|---|---|
+| `civitatesorbiste00brau` | Civitates Orbis Terrarum, **Liber secundus** (292 leaves) | 1575 (the volume) |
+| `ARes73114` | Civitates Orbis Terrarum, Tomus quartus | 1586 |
+| `ARes73115` | Civitates Orbis Terrarum, Liber quintus | 1597 |
+| `17095748888888bsb-00105587` | Civitates Orbis Terrarum, Liber primus (BSB scan) | 1600 |
+| `topographiahelve00zeil` | Merian, Topographia Helvetiae | 1654 |
+| `rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915` | Topographia Helvetiae (PAN Poland) | 1642 |
+
+**What `civitatesorbiste00brau` is** (verified from the item's own OCR, 2026-10-11): Braun & Hogenberg's
+*Civitates Orbis Terrarum*, **Liber secundus (1575)** - the volume opens with the Imperial Privilege
+(`PRIVILEGIUM CAESAREAE MAJESTATIS`) granted to Hogenberg, vanden Noeurt and Braun, then town after town:
+a large engraved **bird's-eye view** (the town named in a Latin inscription over/under the plate: VIENNA,
+MEDIOLANVM, VENETIA, FLORENTIA, ROMA, ISTANBOLIS, ...) plus the town's history text. Liber secundus covers
+the towns of western Europe and the Mediterranean: Lisbon, Seville, London, Toledo, Granada, Malaga,
+Barcelona, Paris, Aachen, Antwerp, Bruges, Ghent, Amsterdam, Hamburg, Nuremberg, Strasbourg, Ratisbon,
+Vienna, Milan, Venice, Innsbruck, Florence, Rome, Parma, Messina, Malta, Constantinople, Jerusalem
+(the last also as a plan, "Nova urbis Hierosolymitanae descriptio") and East-African ports. Every view
+is old enough (a view of the structure, exempt from the 150-year rule) and freely machine-readable
+(public-domain scans, BookReader images).
+
+**Status: worked in per-book files, not staged as rows.** The book machinery's triage ran over the whole
+volume (stage A: every page typed - the view plates come back `other_illustration`, the few plan views
+`plate_site_plan`; stage F: per-figure pass over the illustration pages). The town list is hand-
+transcribed into `data/books/lists/civitatesorbiste00brau.json` (+ `.map.json`) from the plate
+inscriptions - the book has no printed list of its own. **No picture rows are staged by this task**
+(there are no per-file Commons rows to stage; the book flow goes through 211's index rebuild). Why the
+rows cannot come out of the machinery yet: its list taxonomy classifies views as kind "o" ("other: views,
+sections alone, ...") and `books_lists.cmd_index` emits an index row only for kind "s" (site plan) - so a
+book of views triages cleanly but indexes to nothing. Extending the machinery (BOOKS entries, the view
+lists, the view-as-drawing index, plus the stale LLM tunnel ports that currently block every book task's
+triage stages) is shared-module work, filed as tasks **215** (books.py ports), **216** (books.py BOOKS
+entries for the six items above) and **217** (books_lists.py lists + taxonomy), in the order 215 -> 216
+-> 217 with 216 depending on this task's verified facts.
+
+**The other five items**: metadata verified (table above) but not triaged - the bar for this task is one
+book (box 4 is met by Imola + Venice; the per-book files for Liber secundus are written). The other
+tomes and the Merian volumes are the follow-on scope of 216/217, not of 213.
 
 ## Offline check
 
