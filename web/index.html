@@ -619,7 +619,7 @@ function bindEntries() {
   $('#body').querySelectorAll('.entry[data-scan]').forEach(b => b.addEventListener('click', () => selectScan(b.dataset.scan)));
   $('#body').querySelectorAll('.entry[data-area]').forEach(b => b.addEventListener('click', () => selectArea(b.dataset.area)));
 }
-function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname); } catch {} }
+function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname + location.search); } catch {} }
 function renderList() {
   const n = S.sites.length, nc = C.rows.filter(r => !S.byId[r.id]).length;
   $('#body').innerHTML = `
