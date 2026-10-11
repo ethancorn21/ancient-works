@@ -15,7 +15,9 @@ Document store (replaces the claude.ai artifact database the page used before):
   PUT    /api/db/<collection>/<doc>    -> replace the document (JSON object body)
   DELETE /api/db/<collection>/<doc>
 Documents live in data/db/<collection>/<doc>.json. Writes to "platefits" (the plate-fitting tool) start
-pipeline/plan_fit.py in the background, which turns each fit into an overlay on its site.
+pipeline/plan_fit.py in the background, which turns each fit into an overlay on its site. A save through
+the page is the owner's act, so PUTs to platefits are stamped "by": "hand" (task 303 provenance): the
+batches and scripts stamp "by": "agent" in the file themselves, and a document without a mark is agent.
 
 Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv python):
   GET    /tiles/relief/<z>/<x>/<y>.webp -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
@@ -202,6 +204,12 @@ class Handler(SimpleHTTPRequestHandler):
             return self.reply(400, {"error": "body is not JSON"})
         if not isinstance(data, dict):
             return self.reply(400, {"error": "a document is a JSON object"})
+        if parts[2] == "platefits":
+            # The page's save is the owner's word on every pair in the document (task 303): it is a hand
+            # fit even if a batch or a session wrote the document first (their scripts stamp by: agent in
+            # the file themselves). A new key lands last (the store writer's shape); a stale or other by
+            # is replaced in place.
+            data["by"] = "hand"
         os.makedirs(coll, exist_ok=True)
         fd, tmp = tempfile.mkstemp(dir=coll, suffix=".tmp")
         with os.fdopen(fd, "w") as f:

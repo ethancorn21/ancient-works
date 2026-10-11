@@ -25,7 +25,7 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
 
 ## Hand-over
 
-(iteration 94, agent a - migration + step 1 done; steps 2-5 pending)
+(iteration 95, agent a - migration + steps 1-2 done; steps 3-5 pending)
 
 **Done so far (all committed on this branch):**
 - Migration (iter 93, 1f562ca): all 116 existing platefit docs carry `by` (21 hand = 20 golden +
@@ -49,18 +49,21 @@ tests/golden/hand_fit_docs.sha256 (20), plus Maiden Castle's DPLA plan placed on
   shotwick's). Produced by the line's own `set_drawings` during a verification sweep I ran
   bare by accident (no root arg - plan_fit has no root guard; PITFALLS entry added). The rebuilt
   webps/depictions were byte-identical to HEAD, so this file is the only real diff.
+- Step 2 (iter 95) `server/serve.py`: the PUT /api/db/<coll>/<doc> handler stamps `data["by"] =
+  "hand"` when `parts[2] == "platefits"` (the page's save is the owner's word on EVERY pair in
+  the doc, so a page save is a hand fit even over a doc a batch/session wrote first - those
+  stamp by:agent in the file themselves; the module docstring now records the contract). A new
+  key lands last (migration's shape); a stale by is replaced in place. Other collections pass
+  through byte-identical (test_document_store_roundtrip's scratch collection stays raw - suite
+  green). Verified hermetically (temp tree, port 0, NO pipeline/ copied so the fit worker dies
+  on import like test_review's queue tree - no sweep, no network): all four checks pass
+  (no-by PUT -> by:hand last, exact indent=1 bytes; stale-by PUT -> in-place overwrite; other
+  collection raw; server stays up through the dead wake).
 
 **Suite at loop end: 64 passed, 1 skipped, 0 failed** (the driver's loop-start test_gate red does
 not reproduce here - 1dcbc06/218 fixed it on main, synced in 923f786).
 
 **Still to do, in this order:**
-2. `server/serve.py` (in Touches): the PUT /api/db/platefits/<doc> handler (the `api()` PUT/DELETE
-   branch, ~line 196) stamps `data["by"] = "hand"` (OVERWRITE: the page's save is the owner's word
-   on every pair in the doc) when `parts[2] == "platefits"`, before the existing
-   `json.dump(data, f, indent=1)` write - the write already preserves key order, so a doc without
-   by gets it last (the migration's shape); a doc with a stale/other by gets it replaced in place.
-   Other collections keep the raw bytes (test_document_store_roundtrip uses a scratch collection
-   and must stay green). No GET change needed (it returns the file's JSON as-is).
 3. `tools/site_done.py` `_sync`: who = plan_fit.who_placed(doc) BEFORE anything else per doc:
    - who == "hand": build, NO fabrication check (the owner's fit - the check exists to police the
      batch model, never a human's drag).
@@ -73,9 +76,9 @@ not reproduce here - 1dcbc06/218 fixed it on main, synced in 923f786).
      reported like a send (a `sent`-style dict or its own bucket; the per-picture summary must say
      refused with that reason). Reuse _pattern_entry's shape; its why-prefix "line check: " is
      fabrication-specific - use NO_PROVENANCE verbatim for this one.
-   Re-read after step 3 (from iter 93): _sync - confirm the refusal check precedes any
-   plan_fit.build call (a build attempt on an unmarked doc would raise SystemExit from build()
-   and count as a sync FAILURE, not a refusal - the report would lie).
+   Re-read after step 3: _sync - confirm the refusal check precedes any plan_fit.build call (a
+   build attempt on an unmarked doc would raise SystemExit from build() and count as a sync
+   FAILURE, not a refusal - the report would lie).
 4. `tests/test_fit_provenance.py` (hermetic, ephemeral port only, no fixed ports, writes only to
    the system temp dir):
    a. repo invariant: every doc in data/db/platefits/ has a trustworthy provenance - by in
@@ -92,7 +95,10 @@ not reproduce here - 1dcbc06/218 fixed it on main, synced in 923f786).
       built and the file stamped by:agent.
    d. the page save writes hand: serve.py against a temp tree, port 0 (conftest `served` fixture or
       its own server - see hazard below): PUT /api/db/platefits/<x> without by -> GET shows
-      by: hand, and a second PUT that carries a stale by is overwritten to hand.
+      by: hand, and a second PUT that carries a stale by is overwritten to hand. NOTE: the
+      step-2 verification (no pipeline/ in the tree -> worker dies on import) is the cleanest
+      shape for this test; the conftest `served` tree has a full data/db, so the wake sweep runs
+      there - assert only synchronous PUT/GET effects, no waits on the sweep.
 5. Live run (network OK here): `.venv/bin/python tools/site_done.py shotwick-castle-q7502621` in
    THIS checkout. Expected: who=agent; fabrication_pattern None (iter-93 measurement: lattice
    u-gaps max/med 1.81, v-gaps 3.76, 1D none, grid-round 50% < 90%); doc is src:commons so
