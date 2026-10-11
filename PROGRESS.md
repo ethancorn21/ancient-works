@@ -6,11 +6,11 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/001-fit-gate.md` (blocked) - hand-over: **Where I am.** The build is complete and verified; the task is now formally waiting on the
 - `tasks/203-batch-fit.md` (split)
+- `tasks/801-evidence-no-tie-coverage.md` (open) - hand-over: **Where I am (iteration 17, agent c).** Extractor v3 FINAL (offline, verified over all 354 none rows) +
 
 ## Next open tasks
 - `tasks/201-review.md`
 - `tasks/202-propose.md`
-- `tasks/800-requirements-pinned.md`
 
 ## Your task's journal
 
