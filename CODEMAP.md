@@ -93,7 +93,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
-- `tests/test_batch_us.py` (617 lines) - The batch, US (task 203a, GOAL points 1-2): fit/batch_us.py, hermetic. Exports: no_network L78-83, tree L119-128, tmp_path_retention_policy L129-132, test_sample_run_real_gate L400-478, test_stub_gate_always_accept L481-498, test_stub_gate_always_reject L501-534, test_batch_adds_files_rewrites_none L537-571, test_report_reproducible_from_seed L578-617.
+- `tests/test_batch_us.py` (675 lines) - The batch, US (task 203a, GOAL points 1-2): fit/batch_us.py, hermetic. Exports: no_network L81-86, tree L122-131, tmp_path_retention_policy L132-135, test_sample_run_real_gate L407-500, test_stub_gate_always_accept L503-529, test_stub_gate_always_reject L532-572, test_batch_adds_files_rewrites_none L575-629, test_report_reproducible_from_seed L636-675.
 - `tests/test_data.py` (59 lines) - The data the page's plate-fitting tool works from: web/data/plans.json agrees with the sources that produced it (the book index and the Commons harvest). Exports: test_book_plans_join_books_index, test_commons_plans_join_files, test_catalog_data.
 - `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
 - `tests/test_evidence_801.py` (86 lines) - The part and sheet evidence routes (task 801), end to end through the real CLI. Exports: fixture, test_part_and_sheet_routes_match_golden.
