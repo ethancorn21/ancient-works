@@ -12,7 +12,8 @@ and its machine-checkable evidence (task 200): the P373 category chain where the
 else a documented drop in docs/lead_van_deventer.md.
 
 usage: src_van_deventer.py --list              live: assert the 70 subcategories against the TOWNS table
-       src_van_deventer.py --files [towns...]  live: the file inventory of the towns' categories (lead doc)
+       src_van_deventer.py --files [towns...]  live: the file inventory of the towns' categories (own files +
+                                             subcategories at depth 1) and of the 4 collection categories (lead doc)
        src_van_deventer.py --verify [towns...] live: per town the QID fact sheet (discovery when the town has
                                              no QID yet, re-verification when it does; no args = the table)
        src_van_deventer.py --chain <town>      live: walk the town file category's parent chain up to the
@@ -64,63 +65,100 @@ TOWNS = {
     # documented drop: it is not a town plan). QIDs hand-verified 2026-10-11 (--verify: label, P625, P373, enwiki;
     # the P373 of every city item is its own town category - the category route's target). lon/lat is the
     # old-town centre the plan is centred on; p625 records the municipality point (the Gouda 800 m case); the
-    # per-town distances are in docs/lead_van_deventer.md. --
+    # per-town distances are in docs/lead_van_deventer.md. file/date recorded 2026-10-11 from the live --files
+    # inventory (the 16 NL towns + the 4 collection categories): 13 of the 16 carry their one staged picture;
+    # the other 3 (Groningen (province), Leeuwarden, Middelburg) are documented drops, the reason in `note` and
+    # in docs/lead_van_deventer.md (Per town). date = the known drawing date used when the file page carries
+    # only its own (upload/scan) date: the row then keeps the page value as date_commons. --
     "Aardenburg": dict(region="netherlands", cat="Map of Aardenburg by Jacob van Deventer",
                        qid="Q955", label="Aardenburg", lon=3.4453, lat=51.2744, p625=(3.445278, 51.274444),
-                       place="Sluis", wikipedia="https://en.wikipedia.org/wiki/Aardenburg", p373="Aardenburg"),
+                       place="Sluis", wikipedia="https://en.wikipedia.org/wiki/Aardenburg", p373="Aardenburg",
+                       file="File:Aardenburg 1560.jpg"),
     "Alkmaar": dict(region="netherlands", cat="Maps of Alkmaar by Jacob van Deventer",
                     qid="Q972", label="Alkmaar", lon=4.7427, lat=52.6285, p625=(4.744, 52.6289),
-                    place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Alkmaar", p373="Alkmaar"),
+                    place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Alkmaar", p373="Alkmaar",
+                    file="File:Kaart van Alkmaar en Oudorp door Jacob van Deventer 01.jpg"),
     "Amsterdam": dict(region="netherlands", cat="Maps of Amsterdam by Jacob van Deventer",
                       qid="Q727", label="Amsterdam", lon=4.8865, lat=52.3725, p625=(4.883333, 52.366667),
-                      place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Amsterdam", p373="Amsterdam"),
+                      place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Amsterdam", p373="Amsterdam",
+                      file="File:Kaart van Amsterdam c1550 (City Map) Jacob van Deventer.jpg"),
     "Enkhuizen": dict(region="netherlands", cat="Map of Enkhuizen by Jacob van Deventer",
                       qid="Q9918", label="Enkhuizen", lon=5.286, lat=52.7025, p625=(5.283333, 52.7),
-                      place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Enkhuizen", p373="Enkhuizen"),
+                      place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Enkhuizen", p373="Enkhuizen",
+                      file="File:Jacob van Deventer Enkhuizen 1558-1560.jpg"),
     "Goes": dict(region="netherlands", cat="Map of Goes by Jacob van Deventer",
                  qid="Q81220", label="Goes", lon=3.885, lat=51.5043, p625=(3.883333, 51.5),
-                 place="Goes", wikipedia="https://en.wikipedia.org/wiki/Goes", p373="Goes"),
+                 place="Goes", wikipedia="https://en.wikipedia.org/wiki/Goes", p373="Goes",
+                 file="File:Goes 1572 Bijkrt v Deventer.jpg"),  # the only Goes row in the c. 1545-1565 window
+                 # (page date 1560); the netkaart (1572/1575) is a later revision - lead doc
     "Groningen": dict(region="netherlands", cat="Map of Groningen (city) by Jacob van Deventer",
                       qid="Q749", label="Groningen", lon=6.571, lat=53.2197, p625=(6.5675, 53.218889),
                       place="Groningen (province)", wikipedia="https://en.wikipedia.org/wiki/Groningen",
-                      p373="Groningen (city)"),
+                      p373="Groningen (city)", file="File:Jacob van Deventer - Groningen volledig.jpg"),
     "Groningen (province)": dict(region="netherlands", cat="Map of Groningen (province) by Jacob van Deventer",
                                  search="Groningen province",
                                  qid="Q752", label="Groningen", lon=6.7378, lat=53.2581, p625=(6.737778, 53.258056),
                                  place="Netherlands", wikipedia="https://en.wikipedia.org/wiki/Groningen_(province)",
                                  p373="Groningen (province)",
-                                 note="a province map, not a town plan: a documented drop (no site, no picture)"),
+                                 note="a province map, not a town plan: a documented drop (no site, no picture); "
+                                      "its two files are crops of the Friesland gewestkaart (the province of Groningen "
+                                      "visible on it, and the Maria-ten-Hoorn abbey detail)"),
     "Haarlem": dict(region="netherlands", cat="Maps of Haarlem by Jacob van Deventer",
                     qid="Q9920", label="Haarlem", lon=4.634, lat=52.388, p625=(4.635556, 52.381389),
-                    place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Haarlem", p373="Haarlem"),
+                    place="North Holland", wikipedia="https://en.wikipedia.org/wiki/Haarlem", p373="Haarlem",
+                    file="File:Kaart van de stad Haarlem, waarop de kerken, kloosters, stadspoorten en "
+                         "invalswegen staan aangegeven kartografisch document door Jacobus van Deventer vervaardigd "
+                         "voor Filips II, Inventarisnummer NL-HlmNHA 1100 KNA006000046.JPG"),  # 1565, the Haarlem
+                    # municipal collection's scan of the drawing (lead doc)
     "Leeuwarden": dict(region="netherlands", cat="Map of Leeuwarden by Jacob van Deventer",
                        qid="Q25390", label="Leeuwarden", lon=5.793, lat=53.2007, p625=(5.783333, 53.2),
-                       place="Friesland", wikipedia="https://en.wikipedia.org/wiki/Leeuwarden", p373="Leeuwarden"),
+                       place="Friesland", wikipedia="https://en.wikipedia.org/wiki/Leeuwarden", p373="Leeuwarden",
+                       note="drop: its only file (Ontstaan leeuwardendelen.jpg, 593x636) is a 1975 redrawn model "
+                            "(J.R.G. Schuur) after Deventer's drawing, not the plan itself - lead doc"),
     "Middelburg": dict(region="netherlands", cat="Map of Middelburg by Jacob van Deventer",
                        qid="Q52101", label="Middelburg", lon=3.614, lat=51.5006, p625=(3.613611, 51.499722),
-                       place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Middelburg,_Zeeland", p373="Middelburg"),
+                       place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Middelburg,_Zeeland", p373="Middelburg",
+                       note="drop: its only file (20154723 - RCE, 1942) is a detail crop of the stadhuis from the "
+                            "RCE album; no full Middelburg plan on Commons - lead doc"),
     "Reimerswaal": dict(region="netherlands", cat="Map of Reimerswaal by Jacob van Deventer",
                         qid="Q2590944", label="Reimerswaal", lon=4.172486, lat=51.507539,
                         p625=(4.172486, 51.507539),
                         place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Reimerswaal_(city)",
-                        p373="Reimerswaal"),
+                        p373="Reimerswaal", file="File:Reimerswaal 1560 Minuut v Deventer.jpg"),  # the original
+                        # minuutkaart (3501x2541, 1560); the bijkaart/netkaart/1545-BNE copies not staged
     "Rotterdam": dict(region="netherlands", cat="Maps of Rotterdam by Jacob van Deventer",
                       qid="Q34370", label="Rotterdam", lon=4.4745, lat=51.9155, p625=(4.48, 51.92),
-                      place="South Holland", wikipedia="https://en.wikipedia.org/wiki/Rotterdam", p373="Rotterdam"),
+                      place="South Holland", wikipedia="https://en.wikipedia.org/wiki/Rotterdam", p373="Rotterdam",
+                      file="File:Map of Rotterdam around 1560s by Jacob van Deventer.jpg",
+                      date="circa 1560"),  # the page's date is an upload timestamp; its description dates the
+                      # drawing 1558-1563 (the 1563 city fire) - the known date goes on the row, lead doc
     "Sluis": dict(region="netherlands", cat="Map of Sluis by Jacob van Deventer",  # the name search "Sluis"
                   # resolves FIRST to Q2065987 (no enwiki, P625 8 km SW, P373 'Sluis (city)') - the trap, lead doc
                   qid="Q10080", label="Sluis", lon=3.493, lat=51.347, p625=(3.5, 51.35),
-                  place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Sluis", p373="Sluis"),
+                  place="Zeeland", wikipedia="https://en.wikipedia.org/wiki/Sluis", p373="Sluis",
+                  file="File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten "
+                       "Zorg te Zeist en Sint Anna ter Muiden - Sluis - 20201361 - RCE.jpg",
+                  date="circa 1545-1565"),  # the 1980 RCE album reproduction (the only full-plan candidate; the
+                  # Zwolle done-row precedent) - the known drawing window goes on the row, date_commons keeps 1980;
+                  # its category also holds 227 Damme.jpg (Damme's netkaart, misfiled here - lead doc)
     "The Hague": dict(region="netherlands", cat="Map of The Hague by Jacob van Deventer",
                       qid="Q36600", label="The Hague", lon=4.305, lat=52.079, p625=(4.31, 52.08),
-                      place="South Holland", wikipedia="https://en.wikipedia.org/wiki/The_Hague", p373="The Hague"),
+                      place="South Holland", wikipedia="https://en.wikipedia.org/wiki/The_Hague", p373="The Hague",
+                      file="File:1558, Den Haag. Jacob van Deventer.jpg"),  # the same file (the autograph) is in
+                      # the Nationaal Archief collection category
     "Utrecht": dict(region="netherlands", cat="Maps of Utrecht (city) by Jacob van Deventer", search="Utrecht",
                     qid="Q803", label="Utrecht", lon=5.1185, lat=52.091, p625=(5.121667, 52.090833),
                     place="Utrecht (province)", wikipedia="https://en.wikipedia.org/wiki/Utrecht",
-                    p373="Utrecht (city)"),
+                    p373="Utrecht (city)", file="File:Utrecht.jpg"),  # 1565-1570, the full plan; the three RCE
+                    # album reproductions (1955/1982) and the Buiten-Wittevrouwen suburb map are not staged
     "Valkenburg": dict(region="netherlands", cat="Map of Valkenburg, Limburg by Jacob van Deventer",
                        qid="Q100076", label="Valkenburg", lon=5.83205, lat=50.86523, p625=(5.83205, 50.86523),
-                       place="Limburg", p373="Valkenburg, Limburg"),  # no enwiki link on the old-town item,
+                       place="Limburg", p373="Valkenburg, Limburg",
+                       file="File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de "
+                            "Monumenten Zorg te Zeist - Valkenburg - 20237999 - RCE.jpg",
+                       date="circa 1545-1565"),  # the 1980 RCE album reproduction (the only full-plan candidate;
+    # the same file is in the RCE category) - the known drawing window goes on the row, date_commons keeps 1980;
+    # the other nine files (detail crops, 346-944 px) are not staged (lead doc)
     "Gouda": dict(region="netherlands", cat="Map of Gouda by Jacob van Deventer", qid="Q84125", done=True),
     "Zwolle": dict(region="netherlands", cat="Map of Zwolle by Jacob van Deventer", qid="Q793", done=True),
     "Venlo": dict(region="netherlands", cat="Map of Venlo by Jacob van Deventer", qid="Q9777", done=True),
@@ -327,27 +365,52 @@ def verify_qids(only=None):
 
 
 def town_files(only=None):
-    """Live: the file inventory of the towns' own categories (the lead-doc material and the source of the one
-    staged picture per town): each file with its size, mime, date and description, plus which other town
-    categories also hold it (misfiled files: a file in two town categories maps to its true town by its own
-    title/desc, the R5 cases)."""
+    """Live: the file inventory of the towns' categories (the lead-doc material and the source of the one staged
+    picture per town): each file with its size, mime, date and description, plus which other town categories
+    also hold it (misfiled files: a file in two town categories maps to its true town by its own title/desc,
+    the R5 cases). A town category's own subcategories are inventoried at depth 1 and tagged [sub: ...] -
+    the BNE atlas keeps its per-place plate subcategories inside the towns' categories (verified 2026-10-11:
+    Landrecies's 5 plates, the only one so far). After the towns: the 4 collection categories, the same line
+    format (the BNE autographs, the NA and the RCE scans flat; the BNE atlas at depth 1); a collection file
+    that also sits in an inventoried town category gets the [also in: ...] tag - the R5 cross reference (a
+    copy of, or a better scan of, the town's own plan)."""
     c = _commons()
     towns = list(only) if only else list(TOWNS)
     per, seen = {}, {}
     for town in towns:
         cat = TOWNS[town]["cat"]
-        files = [f for f in c.members(cat, "file")]
+        files = [(None, f) for f in c.members(cat, "file")]
+        for sub in c.members(cat, "subcat"):
+            name = sub.split(":", 1)[1]
+            files += [(name[len(cat):].strip() or name, f) for f in c.members(name, "file")]
         per[town] = files
-        for f in files:
+        for _, f in files:
             seen.setdefault(f, set()).add(town)
-    titles = sorted(seen)
+    cols = {}
+    for col in COLLECTIONS:
+        files = [(None, f) for f in c.members(col, "file")]
+        for sub in c.members(col, "subcat"):
+            name = sub.split(":", 1)[1]
+            files += [(name, f) for f in c.members(name, "file")]
+        cols[col] = files
+    titles = sorted({f for fl in per.values() for _, f in fl} | {f for fl in cols.values() for _, f in fl})
     meta = c.info(titles) if titles else {}
     for town in towns:
         print(f"  {town}:")
-        for f in per[town]:
+        for sub, f in per[town]:
             m = meta.get(f) or {}
+            tag = f"  [sub: {sub}]" if sub else ""
             extra = f"  [also in: {', '.join(sorted(seen[f] - {town}))}]" if len(seen[f]) > 1 else ""
-            print(f"    {f}  {m.get('w')}x{m.get('h')} {m.get('mime')}  date {m.get('date')!r}"
+            print(f"    {f}{tag}  {m.get('w')}x{m.get('h')} {m.get('mime')}  date {m.get('date')!r}"
+                  f"  {m.get('desc', '')[:120]!r}{extra}")
+    print(f"collections (checked {now()}):")
+    for col in COLLECTIONS:
+        print(f"  {col}:")
+        for sub, f in cols[col]:
+            m = meta.get(f) or {}
+            tag = f"  [sub: {sub}]" if sub else ""
+            extra = f"  [also in: {', '.join(sorted(seen.get(f, ())))}]" if f in seen else ""
+            print(f"    {f}{tag}  {m.get('w')}x{m.get('h')} {m.get('mime')}  date {m.get('date')!r}"
                   f"  {m.get('desc', '')[:120]!r}{extra}")
 
 
