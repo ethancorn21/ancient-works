@@ -1,0 +1,528 @@
+"""Evidence: which machine-checkable tie holds every picture row to the site it depicts, and an offline
+re-verification of those ties (task 200, GOAL.md point 4).
+
+A picture row (a titled row of data/commons/files.jsonl, a book-index row of data/books/index.jsonl) gets an
+appended "evidence" field naming which kind of tie holds and the specifics that proved it:
+  hand_tied        the file -> site QID was checked by hand in a table in the repo (pipeline/sources.py; later fit/src_*.py)
+  category         the file is a member of the site's P373 Commons category, or of a recorded subcategory of it
+                   (specifics: the category page, the file's category, the subcategory chain)
+  depicts          structured data: the file's own Wikidata item depicts the site's item (P180), or the site's item
+                   lists the file as its plan (P3311) or image (P18) (specifics: the property, the value, the item)
+  caption_coords   the title or caption names the place and that place resolves to coordinates within 50 km of the
+                   site (specifics: the place named, its resolved item/coordinates, the distance to the site)
+  none             no tie holds: the row is reported by check, never silently kept
+
+Fail-closed: a caption that names a place resolving to a different location (the Hampton Court trap: the
+Herefordshire seat, not the palace) does not get a passing field; it is stored as kind "none" with the conflict
+recorded. A row with no tie at all is a "none", which check prints. The recorded live facts (a category
+membership, a subcategory hop, an item claim, a place resolution) were fetched once by `record`; `check`
+re-verifies every row from stored fields only - no network - and lists one line per row:
+  PASS   a recorded tie that re-verifies
+  FAIL   a recorded tie the stored fields do not support (a pass the data no longer backs)
+  NONE   no tie (reported, not a failure)
+`check` exits 1 iff any row FAILs; NONE rows do not fail it. Book rows: the place named is the catalog site the
+name+place matcher (pipeline/books_match.py) tied the row to; check re-verifies the stored match record against
+the row's printed text, the current catalog row and the hand-rejection table - it does not re-run the matcher
+over the (growing) catalog, which is not monotone.
+
+usage: fit/evidence.py check  [--files P] [--books P] [--catalog P]
+       fit/evidence.py record [--live] [--only SITE ...]
+`record` appends the "evidence" field (existing fields keep their order and bytes): the hand-tied sources rows
+and the book rows are recorded offline; with --live it also fetches Commons/Wikidata (paced) for the remaining
+commons rows - categories, site claims, file items, place resolutions.
+"""
+import json
+import math
+import os
+import re
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+import books_match  # noqa: E402  (norm, place_of, HAND - the check must use the matcher's own rules)
+import commons  # noqa: E402  (paced API get, 429 handling)
+import sources  # noqa: E402  (the hand-checked file -> QID tables)
+
+CATALOG_SITES = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
+CATALOG_EXTRAS = os.path.join(ROOT, "data", "catalog", "extras.jsonl")
+REC = "evidence/1"
+DIST_TOL_M = 50e3  # "the coordinates agree": the same place or near it, never another county
+R = 6371008.8  # earth mean radius, as pipeline/finder_common.py hav_m
+UA = {"User-Agent": "ancient-works/0.2 (personal research)"}
+
+
+def hav_m(lon1, lat1, lon2, lat2):
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    a = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(math.radians(lon2 - lon1) / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
+
+
+def now():
+    return time.strftime("%Y-%m-%d")
+
+
+def load_jsonl(path):
+    return [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+
+
+def set_field(line, field, value):
+    """Append a field to a stored JSONL row without moving or re-encoding any existing field."""
+    r = json.loads(line)
+    r[field] = value
+    return json.dumps(r, ensure_ascii=False)
+
+
+def rewrite(path, changes):
+    """Write the file back, replacing the lines in changes (1-based) and keeping every other byte."""
+    lines = open(path, encoding="utf-8").readlines()
+    for n, line in changes.items():
+        lines[n - 1] = line
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.writelines(lines)
+    os.replace(tmp, path)
+
+
+def catalog_map(catalog=CATALOG_SITES):
+    """{id: site, qid: site} over the catalog and the extras (the extras are the source sites)."""
+    out = {}
+    for p in (catalog, CATALOG_EXTRAS):
+        if not os.path.exists(p):
+            continue
+        for s in load_jsonl(p):
+            if s["id"] not in out:
+                out[s["id"]] = s
+            if s.get("qid") and s["qid"] not in out:
+                out[s["qid"]] = s
+    return out
+
+
+def source_tables():
+    """{source name: {(qid, title)}} from the hand-checked tables in the repo - never re-fetched."""
+    out = {}
+    for name, src in sources.SOURCES.items():
+        out["pipeline/sources.py " + name] = {(r[1], r[0]) for r in src["rows"]}
+    return out
+
+
+# ---------------------------------------------------------------- the check
+
+def check_commons(row):
+    """Verdict for one commons row, from stored fields only. Returns (verdict, kind, reason)."""
+    ev = row.get("evidence")
+    if ev is None:
+        return "NONE", "-", "no evidence recorded"
+    kind = ev.get("kind")
+    if kind not in ("hand_tied", "category", "depicts", "caption_coords", "none"):
+        return "FAIL", kind or "?", "unknown kind"
+    if kind == "none":
+        return check_none(ev)
+    ok, reason = {"hand_tied": check_hand_tied, "category": check_category,
+                  "depicts": check_depicts, "caption_coords": check_caption}[kind](row, ev)
+    return ("PASS" if ok else "FAIL"), kind, reason
+
+
+def check_hand_tied(row, ev):
+    tables = source_tables()
+    src = ev.get("source")
+    if src not in tables:
+        return False, f"no source table {src!r} in the repo"
+    if (row.get("qid"), row.get("title")) not in tables[src]:
+        return False, f"({row.get('qid')}, {row.get('title')!r}) not in the {src} table"
+    return True, ""
+
+
+def check_category(row, ev):
+    cat = row.get("cat")
+    if not cat:
+        return False, "the row has no P373 category recorded"
+    if ev.get("site_cat") != cat:
+        return False, f"site category {ev.get('site_cat')!r} differs from the row's {cat!r}"
+    fc, via = ev.get("file_cat"), ev.get("via") or []
+    if not fc:
+        return False, "no file category recorded"
+    if not via and fc != cat:
+        return False, f"file category {fc!r} differs from the site's with no recorded chain"
+    if via and (via[-1] != cat or fc in via):
+        return False, "the subcategory chain does not run from the file's category to the site's"
+    return True, ""
+
+
+def check_depicts(row, ev):
+    prop, val = ev.get("property"), ev.get("value")
+    if prop in ("P180", "P6216"):  # the file's own item says it depicts the site's item
+        if not ev.get("file_qid"):
+            return False, "no file item recorded"
+        if val != row.get("qid"):
+            return False, f"depicts {val}, not the site's {row.get('qid')}"
+        return True, ""
+    if prop in ("P3311", "P18"):  # the site's item lists this file as its plan / image
+        if val != row.get("title"):
+            return False, "the site's claim does not name this file"
+        if ev.get("site_qid") != row.get("qid"):
+            return False, f"site item {ev.get('site_qid')} differs from the row's {row.get('qid')}"
+        if prop == "P3311" and not row.get("wd_plan"):
+            return False, "the row is not flagged wd_plan"
+        return True, ""
+    return False, f"unknown depicts property {prop!r}"
+
+
+def check_caption(row, ev):
+    named = ev.get("named_place")
+    if not named:
+        return False, "no place named"
+    hay = books_match.norm((row.get("title") or "") + " " + (row.get("desc") or ""))
+    if books_match.norm(named) not in hay:
+        return False, f"the caption does not name {named!r}"
+    try:
+        d = hav_m(ev["site_lon"], ev["site_lat"], ev["place_lon"], ev["place_lat"])
+    except (KeyError, TypeError):
+        return False, "no stored coordinates"
+    if abs(d - (ev.get("dist_m") or 0)) > 1000:
+        return False, f"stored distance {ev.get('dist_m')} m does not reproduce ({d:.0f} m)"
+    if d > DIST_TOL_M:
+        return False, f"named place is {d / 1000:.0f} km from the site (the trap), not a tie"
+    return True, ""
+
+
+def check_none(ev):
+    c = ev.get("conflict")
+    if c:
+        try:
+            d = hav_m(c["site_lon"], c["site_lat"], c["place_lon"], c["place_lat"])
+        except (KeyError, TypeError):
+            return "FAIL", "none", "recorded conflict without coordinates"
+        if d <= DIST_TOL_M:
+            return "FAIL", "none", f"recorded conflict no longer conflicts ({d / 1000:.0f} km)"
+        return "NONE", "none", (f"conflict: caption {c.get('named_place')!r} resolves to {c.get('place_qid')}, "
+                                f"{d / 1000:.0f} km from the site")
+    return "NONE", "none", ev.get("reason") or "no tie"
+
+
+def check_book(row, cats):
+    ev = row.get("evidence")
+    if ev is None:
+        return "NONE", "-", "no evidence recorded"
+    kind = ev.get("kind")
+    if kind == "caption_coords":
+        return check_book_caption(row, ev, cats)
+    if kind == "none":
+        key = books_match._key(row.get("book"), row.get("title"))
+        if key in books_match.HAND:
+            return "NONE", "none", f"hand-rejected: {books_match.HAND[key][1]}"
+        return "NONE", "none", ev.get("reason") or "no tie"
+    if kind == "hand_tied":
+        return "FAIL", kind, "no hand-checked table for book rows yet (fit/src_*.py)"
+    return "FAIL", kind or "?", "unknown kind"
+
+
+def check_book_caption(row, ev, cats):
+    named = ev.get("named_place")
+    if not named:
+        return "FAIL", "caption_coords", "no place named"
+    hay = books_match.norm(" ".join([row.get("title") or "", " ".join(row.get("site_names") or []),
+                                     row.get("place") or "", " ".join(row.get("captions_ocr") or [])]))
+    if not any(books_match.norm(k) in hay for k in books_match.name_keys(named)):
+        return "FAIL", "caption_coords", f"the row does not name {named!r}"
+    # the place words recompute from the printed text, exactly as the matcher unions them
+    rec = {}
+    for t in [row.get("title") or "", row.get("place") or ""] + list(row.get("site_names") or []):
+        for k, v in books_match.place_of(t).items():
+            rec.setdefault(k, v)
+    for k, v in (ev.get("place") or {}).items():
+        if rec.get(k) != v:
+            return "FAIL", "caption_coords", f"stored place {k}={v!r} recomputes to {rec.get(k)!r}"
+    s = cats.get((ev.get("site") or {}).get("id"))
+    if s is None:
+        return "FAIL", "caption_coords", f"site {ev.get('site', {}).get('id')!r} no longer in the catalog"
+    for f in ("qid", "name", "lon", "lat"):
+        if (ev.get("site") or {}).get(f) != s.get(f):
+            return "FAIL", "caption_coords", f"site {f} changed since the check"
+    admin = s.get("admin") or {}
+    place = ev.get("place") or {}
+    if place.get("state") and admin.get("state") and place["state"] not in books_match.norm(admin["state"]):
+        return "FAIL", "caption_coords", f"state {place['state']!r} contradicts the site's {admin['state']!r}"
+    if place.get("county") and admin.get("county") and place["county"] not in books_match.norm(admin["county"]):
+        return "FAIL", "caption_coords", f"county {place['county']!r} contradicts the site's {admin['county']!r}"
+    if (ev.get("score") or 0) < 0.75:
+        return "FAIL", "caption_coords", f"score {ev.get('score')} below 0.75"
+    if (ev.get("score") or 0) - (ev.get("runner_up") or 0) < 0.15:
+        return "FAIL", "caption_coords", "runner-up within 0.15"
+    if ev.get("why"):
+        return "FAIL", "caption_coords", f"matched with reasons {ev['why']}"
+    key = books_match._key(row.get("book"), row.get("title"))
+    if key in books_match.HAND:
+        return "FAIL", "caption_coords", f"hand-rejected: {books_match.HAND[key][1]}"
+    return "PASS", "caption_coords", ""
+
+
+def check(files, books, catalog=CATALOG_SITES):
+    """One line per picture row; returns (exit code, printed text)."""
+    cats = catalog_map(catalog)
+    out, n, cnt = [], 0, {"PASS": 0, "FAIL": 0, "NONE": 0}
+    for r in (load_jsonl(files) if os.path.exists(files) else []):
+        if not r.get("title"):
+            continue  # a sentinel row records a site with no old files, not a picture
+        n += 1
+        v, kind, reason = check_commons(r)
+        cnt[v] += 1
+        out.append(_line(v, kind, f'{r["site"]}|{r["title"]}', reason))
+    if os.path.exists(books):
+        for r in load_jsonl(books):
+            n += 1
+            v, kind, reason = check_book(r, cats)
+            cnt[v] += 1
+            out.append(_line(v, kind, r["id"], reason))
+    summary = f"evidence: {n} rows, {cnt['PASS']} pass, {cnt['FAIL']} fail, {cnt['NONE']} no-tie"
+    return (1 if cnt["FAIL"] else 0, "\n".join(out + [summary]))
+
+
+def _line(v, kind, key, reason):
+    return f"{v:4s} {kind:15s} {key}" + (f"  {reason}" if reason else "")
+
+
+# ---------------------------------------------------------------- the record
+
+def record_commons_row(row):
+    """Offline evidence for a commons row: the hand-tied sources rows; None otherwise (needs --live)."""
+    by = row.get("by") or ""
+    if by in source_tables():
+        return {"rec": REC, "kind": "hand_tied", "checked": now(), "source": by}
+    return None
+
+
+def record_book_row(row, idx, by_name, cats):
+    m = books_match.match_row(row, idx, by_name)
+    h = books_match.HAND.get(books_match._key(row.get("book"), row.get("title")))
+    if h and m["status"] in ("matched", "ambiguous"):
+        m["status"], m["note"] = h
+    base = {"rec": REC, "checked": now()}
+    if m["status"] == "matched" and not m.get("why") and m.get("site_id") in cats:
+        s = cats[m["site_id"]]
+        return {**base, "kind": "caption_coords", "named_place": m["name"], "place": m["place"],
+                "site": {"id": s["id"], "qid": s.get("qid"), "name": s["name"], "lon": s.get("lon"),
+                         "lat": s.get("lat"), "admin": s.get("admin") or {}},
+                "score": m["score"], "runner_up": m["runner_up"], "why": []}
+    reason = m["status"]
+    if m.get("why"):
+        reason += ": " + "; ".join(m["why"])
+    if m.get("note"):
+        reason += " - " + m["note"]
+    return {**base, "kind": "none", "reason": reason}
+
+
+def record(files, books, live=False, only=None):
+    """Append the "evidence" field to every picture row lacking it (resumable). Prints the counts."""
+    n_hand = n_book = n_live = 0
+    chg = {}
+    for i, l in enumerate(open(files, encoding="utf-8"), 1):
+        if not l.strip():
+            continue
+        r = json.loads(l)
+        if not r.get("title") or (only and r["site"] not in only):
+            continue
+        if r.get("evidence", {}).get("rec") == REC:
+            continue
+        ev = record_commons_row(r)
+        if ev is None and not live:
+            continue
+        if ev is None:
+            ev = record_live_row(r)
+            n_live += 1
+        else:
+            n_hand += 1
+        chg[i] = set_field(l, "evidence", ev)
+    if chg:
+        rewrite(files, chg)
+    if books and os.path.exists(books):
+        sites, idx, by_name = books_match.load_catalog()
+        cats = catalog_map()
+        chg = {}
+        for i, l in enumerate(open(books, encoding="utf-8"), 1):
+            if not l.strip():
+                continue
+            r = json.loads(l)
+            if r.get("evidence", {}).get("rec") == REC:
+                continue
+            ev = record_book_row(r, idx, by_name, cats)
+            n_book += 1
+            chg[i] = set_field(l, "evidence", ev)
+        if chg:
+            rewrite(books, chg)
+    print(f"evidence recorded: {n_hand} hand-tied, {n_book} book, {n_live} live")
+    return n_hand + n_book + n_live
+
+
+# live fetching for the remaining commons rows (paced via commons.get; run with `record --live`)
+
+def fetch_file_cats(titles):
+    """{file title: [category names]} in batches of 50."""
+    out = {}
+    for i in range(0, len(titles), 50):
+        d = commons.get(commons.CM, {"action": "query", "titles": "|".join(titles[i:i + 50]),
+                                     "prop": "categories", "cllimit": "max"})
+        for p in d.get("query", {}).get("pages", {}).values():
+            out[p["title"]] = [c["title"].split(":", 1)[1] for c in p.get("categories", [])]
+        print(f"   categories {i + 50}/{len(titles)}", flush=True)
+    return out
+
+
+def fetch_site_claims(qids):
+    """{qid: {cat, p3311, p18, p625}} for the site items."""
+    out = {}
+    for i in range(0, len(qids), 50):
+        d = commons.get(commons.WD, {"action": "wbgetentities", "ids": "|".join(qids[i:i + 50]), "props": "claims"})
+        for q, e in d.get("entities", {}).items():
+            c = e.get("claims", {})
+            val = lambda p: [x["mainsnak"]["datavalue"]["value"] for x in c.get(p, []) if "datavalue" in x["mainsnak"]]
+            p373, p625 = val("P373"), val("P625")
+            out[q] = {"cat": (p373 or [None])[0], "p3311": val("P3311"), "p18": val("P18"),
+                      "p625": (p625[0]["longitude"], p625[0]["latitude"]) if p625 else (None, None)}
+    return out
+
+
+def fetch_subcats(cats):
+    """{category: set of subcategory names}."""
+    out = {}
+    for c in sorted(set(cats)):
+        members, cont = [], {}
+        while True:
+            d = commons.get(commons.CM, {"action": "query", "list": "categorymembers", "cmtitle": "Category:" + c,
+                                         "cmtype": "subcat", "cmlimit": "500", **cont})
+            members += [m["title"].split(":", 1)[1] for m in d.get("query", {}).get("categorymembers", [])]
+            if "continue" not in d:
+                break
+            cont = d["continue"]
+        out[c] = set(members)
+    return out
+
+
+def fetch_file_item(title):
+    """The file's MediaInfo item (qid, depicted qids) from its Commons page; {} when the page has none."""
+    u = "https://commons.wikimedia.org/wiki/" + urllib.parse.quote(title)
+    time.sleep(1.0)
+    try:
+        req = urllib.request.Request(u, headers=UA)
+        html = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    except (urllib.error.HTTPError, OSError) as e:
+        print(f"   item fetch failed {title[:60]}: {e!r}", flush=True)
+        return {}
+    out = {"qid": None, "p180": []}
+    for pat in (r'ItemPage/(Q\d+)', r'"wikibaseItem"\s*:\s*"(Q\d+)"', r'"globalItem"\s*:\s*"(Q\d+)"'):
+        m = re.search(pat, html)
+        if m:
+            out["qid"] = m.group(1)
+            break
+    for m in re.finditer(r'"(P180|P6216)","hash":"[0-9a-f]+","datavalue":\{"value":\{"entity-type":"item",'
+                         r'"numeric-id":\d+,"id":"(Q\d+)"', html):
+        out["p180"].append(m.group(2))
+    return out
+
+
+def resolve_places(names):
+    """{name: (qid, label, lon, lat)}: the first Wikidata search hit with coordinates."""
+    out = {}
+    for nm in sorted(set(names)):
+        d = commons.get(commons.WD, {"action": "wbsearchentities", "search": nm, "language": "en", "limit": "5"})
+        ids = [e["id"] for e in d.get("search", [])]
+        if not ids:
+            continue
+        ents = commons.get(commons.WD, {"action": "wbgetentities", "ids": "|".join(ids),
+                                        "props": "claims|labels", "languages": "en"})["entities"]
+        for q in ids:
+            e = ents.get(q, {})
+            p625 = [x["mainsnak"]["datavalue"]["value"] for x in e.get("claims", {}).get("P625", [])
+                    if "datavalue" in x["mainsnak"]]
+            if p625:
+                out[nm] = (q, e.get("labels", {}).get("en", {}).get("value"),
+                           p625[0]["longitude"], p625[0]["latitude"])
+                break
+    return out
+
+
+def named_places_in(row, site):
+    """The site's own names (name, aliases, place) that the row's title/desc actually prints."""
+    hay = books_match.norm((row.get("title") or "") + " " + (row.get("desc") or ""))
+    out = []
+    for nm in [site.get("name")] + list(site.get("aliases") or []) + [site.get("place") or ""]:
+        if nm and books_match.norm(nm) in hay:
+            out.append(nm)
+    return out
+
+
+def record_live_row(row):
+    """Compute the evidence for one commons row from live facts, fetched here and stored in the row."""
+    cats = catalog_map()
+    site = cats.get(row.get("site")) or {}
+    claims = fetch_site_claims([row["qid"]]) if row.get("qid") else {}
+    c = claims.get(row.get("qid"), {})
+    fcats = fetch_file_cats([row["title"]]).get(row["title"], [])
+    if c.get("cat"):
+        if c["cat"] in fcats:
+            return {"rec": REC, "kind": "category", "checked": now(), "site_cat": c["cat"],
+                    "file_cat": c["cat"], "via": []}
+        subs = fetch_subcats([c["cat"]]).get(c["cat"], set())
+        for fc in fcats:
+            if fc in subs:
+                return {"rec": REC, "kind": "category", "checked": now(), "site_cat": c["cat"],
+                        "file_cat": fc, "via": [c["cat"]]}
+    if row["title"] in c.get("p3311", []):
+        return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P3311",
+                "value": row["title"], "site_qid": row["qid"]}
+    if row["title"] in c.get("p18", []):
+        return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P18",
+                "value": row["title"], "site_qid": row["qid"]}
+    fi = fetch_file_item(row["title"])
+    if row.get("qid") in fi.get("p180", []):
+        return {"rec": REC, "kind": "depicts", "checked": now(), "property": "P180",
+                "file_qid": fi.get("qid"), "value": row["qid"]}
+    slon, slat = site.get("lon"), site.get("lat")
+    if slon is None:
+        slon, slat = c.get("p625", (None, None))
+    nameds = named_places_in(row, site)
+    if slon is not None:
+        res = resolve_places(nameds)
+        best, conflicts = None, []
+        for nm in nameds:
+            r = res.get(nm)
+            if not r:
+                continue
+            d = hav_m(slon, slat, r[2], r[3])
+            if d <= DIST_TOL_M and (best is None or d < best[0]):
+                best = (d, nm, r)
+            else:
+                conflicts.append((d, nm, r))
+        if best:
+            d, nm, (pqid, plab, plon, plat) = best
+            return {"rec": REC, "kind": "caption_coords", "checked": now(), "named_place": nm,
+                    "place_qid": pqid, "place_label": plab, "place_lon": plon, "place_lat": plat,
+                    "site_lon": slon, "site_lat": slat, "dist_m": round(d, 1)}
+        if conflicts:
+            d, nm, (pqid, plab, plon, plat) = min(conflicts, key=lambda x: x[0])
+            return {"rec": REC, "kind": "none", "checked": now(),
+                    "conflict": {"named_place": nm, "place_qid": pqid, "place_label": plab,
+                                 "place_lon": plon, "place_lat": plat, "site_lon": slon, "site_lat": slat}}
+    return {"rec": REC, "kind": "none", "checked": now(),
+            "reason": "no tie: not in the site's category, no item claim, no place named in the caption"}
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if not args or args[0] not in ("check", "record"):
+        raise SystemExit(__doc__.strip().splitlines()[-1])
+    def opt(flag, default):
+        return args[args.index(flag) + 1] if flag in args else default
+    if args[0] == "check":
+        files = opt("--files", os.path.join(ROOT, "data", "commons", "files.jsonl"))
+        books = opt("--books", os.path.join(ROOT, "data", "books", "index.jsonl"))
+        code, text = check(files, books, opt("--catalog", CATALOG_SITES))
+        print(text)
+        raise SystemExit(code)
+    only = set(args[args.index("--only") + 1:]) if "--only" in args else None
+    record(opt("--files", os.path.join(ROOT, "data", "commons", "files.jsonl")),
+           opt("--books", os.path.join(ROOT, "data", "books", "index.jsonl")),
+           live="--live" in args, only=only)
