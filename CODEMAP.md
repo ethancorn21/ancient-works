@@ -18,7 +18,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `fit/propose.py` (422 lines) - Propose a starting placement for a (site, picture) pair, for the model's fitting pass (task 202, GOAL.md point 2). Exports: to_merc L88-89, to_lonlat L92-93, ground_scale L96-98, parse_scale L197-216, propose_for L379-407, main L410-422.
 - `fit/review.py` (237 lines) - Review queue: items the human finishes by dragging (task 201). Exports: item_path L48-51, upsert_item L72-110, candidate_evidence L117-145, resolved_doc L148-164, export L179-220, main L223-237.
 - `fit/src_artists.py` (419 lines) - Artists' aerial and bird's-eye views as sources of old pictures (task 213, GOAL.md point 5: artists' views count as drawings as much as surveys - of Leonardo's 1502 aerial plan... Exports: now L158-159, known_sites L179-189, table_sites L192-199, verify_qids L202-249, evidence_for L252-259, stage L282-331, check_staged L334-376, golden L394-419.
-- `fit/src_kip.py` (277 lines) - Johannes Kip's (and Kip & Knyff's) bird's-eye views of UK country houses and their formal gardens (task 205, GOAL.md point 4): the large scans in the Commons categories "Johanne... Exports: now L208-209, list_files L221-249, known_sites L252-277.
+- `fit/src_kip.py` (453 lines) - Johannes Kip's (and Kip & Knyff's) bird's-eye views of UK country houses and their formal gardens (task 205, GOAL.md point 4): the large scans in the Commons categories "Johanne... Exports: now L303-304, list_files L324-352, known_sites L355-365, verify_sites L368-453.
 
 ## pipeline/
 - `pipeline/amazon_dtm.py` (110 lines) - Bare-earth model of one EBA LiDAR strip (Brazilian Amazon), in the strip's own frame. Exports: ground_cells, build, load, to_frame, to_xy.
