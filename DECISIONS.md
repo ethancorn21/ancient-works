@@ -86,3 +86,45 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
     asserts the prep's envelope form instead (scale within 50% of truth, rotation in the per-hint bands,
     panel-centre distance <= max(3x maxresid, 100m, 1.0x panel diagonal)); (c) never source the proposal's
     scale from the site.json fits (circular: the proposal must work for sites with no fit yet).
+
+## 2026-10-11 202 DECISION: old-style six sanity check = Option B (metric-space envelopes), no cross-scan bridge
+Attempt 3 of the R4 bridge (logged above in the BLOCKER entry) is the last one: the two scans of a plate
+differ by smooth, non-projective paper distortion; a global similarity fails, a 4-point homography is
+unphysical (implied scale 1.51 vs true ~1.06, 5th point off 116 px), the plate_scan crop has no ruled
+frame corners to calibrate against, and eyeballed full-page picks are +/-20-30 px - too coarse to
+condition any 8-parameter solve on a 1500 px span. Option A' (auto-extracted wall centerline
+registration) would be new non-trivial code for a check the box does not require. Decision: B.
+The box's "re-fit from the proposals lands within the hand fit's own residual range" is implemented as
+three metric-space sub-checks (next session's test), all with envelopes recorded in the golden file:
+(a) scale: proposed panel physical size (m) vs hand-fit earthwork bbox (m, from site.json plate.walls x
+fit) per side within 0.2-3x (QID same-frame nine: proposed m/px vs doc m/px within 50%, minus calleva,
+R2); (b) rotation: |delta| <= 15 deg or 70-110 deg for trusted-hint rows, <= 35 deg or 70-110 deg for
+rejected-hint rows (hopeton delta 33.7 is the measured driver of the 35 band); (c) centre: site centre
+vs hand-fit placement of the panel centre (QID same frame) or of the earthwork centre (old-style six,
+the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
+
+## 2026-10-11 202 DECISION: fit/propose.py built (this session) - stdlib-only, contract dict, parse_scale over the measured corpus
+- fit/review.py is merged (201 done): propose_for(site_id, plan_id) returns the exact 7-key dict its
+  seed items already carry (pairs 1dp/7dp, coarse, ground, scale_m_px 4dp, rot_deg 2dp, scale_source,
+  note); 203a/203b feed pairs to plan_fit.similarity verbatim. 202 writes nothing (no data/review/,
+  no web/data/review.json - outside Touches).
+- fit/propose.py is stdlib-only: pipeline/aw.py is NOT stdlib (numpy/PIL/scipy at its top - the prep's
+  "pure stdlib" assumption is wrong for the current aw.py), so the three Mercator one-liners
+  (R=6378137.0) are mirrored inline with a pointer comment; the anchor is built as the exact form
+  similarity() inverts, z = a*(w-w0)+z0, a = (m_per_px/ground_scale(lat0))*e^(i theta), v down.
+- Scale: bar box in blank_boxes (box presence beats the boolean) + tick-list text -> span/bar_len_px
+  (bar_len = max(box w,h) in the size frame: maiden/old-sarum bars are vertical); ratio text
+  ("N unit to the inch" incl. fractions/word numbers/parentheticals, "1 in = N unit", "1:NNNm",
+  "1/N of nature") at BOOK_PPI -> m/px; a bar box holding ratio text (all six S&D rows) takes the
+  ratio value (source "ratio"); unparseable -> never a guess -> coarse. Coarse scale =
+  max(size_m)/max(panel px) (verified: aztalan +32%, serpent ~3x, arbor-low ~10x vs hand fits).
+- BOOK_PPI: the five recorded ppis from data/books/summary.md; lapham_1855/squier_1851/whittlesey_1850
+  stay None (web lookup this session found no published ppi for those scans) -> their ratio-only rows
+  (incl. aztalan "Scale 20 ft. to an inch.") take the coarse path, the prep-sanctioned fallback.
+- Rotation: north_angle_deg iff north_arrow true and |deg| <= 60, else 0 north-up with the rejected
+  hint kept in note (hopeton 131.1 rejected; newark 0.0 is the missing-wrong-hint class, not rejected).
+- ground: site lidar false -> "aerial", else "relief" (all 384 sites have size_m; all 276 commons rows
+  have size and no map_box; all 890 book plan ids are in the index - verified this session).
+- Pairs: 4 panel corners + panel centre (page centre if no map_box), in the row's size frame (book
+  rows: plans size == full_size; serpent's index size null falls back to full_size), u/v 1dp,
+  lon/lat 7dp - the platefit-doc convention; deterministic, no timestamps.

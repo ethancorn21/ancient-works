@@ -1,7 +1,7 @@
 Status: open
 # 202: Proposed point pairs — a placement a person finishes in a minute
 Depends on: none
-Touches: fit/propose.py, tests/test_propose.py
+Touches: fit/propose.py, tests/test_propose.py, tests/golden/propose_202.json
 
 ## Goal
 Given a site and an old picture, produce the STARTING POINT for the fit: the anchor (scale bar and
@@ -40,99 +40,85 @@ fitting bet (docs/autofit.md, 0/5) is not re-run.
 
 ## Hand-over
 
-Iteration 26 (agent c). Step done: prep §6.1 verification — re-measured the §2 table against current main
-(all confirmed), fixed one wrong assumption (fudge row, below), and probed the cross-scan bridge (R4).
-Nothing committed to fit/ or tests/ yet; no test written yet. Baseline suite state: not run this session
-(prep says 12 passed; .venv exists and imports numpy/PIL fine).
+Iteration 27 (agent c). Step done: **decided Option B** (metric-space sanity checks, no cross-scan
+bridge; DECISIONS entry below the iter-26 BLOCKER) and **built fit/propose.py in full** (UNCOMMITTED -
+the harness saved it; it is on disk). No test file yet. Suite when last run: **18 passed** (baseline
+moved from 12 - merged work of other tasks added tests; no failures).
 
-### Prep assumptions checked against main (2026-10-11, iter 26)
-- **WRONG: fudge's row.** The fudge site (data/sites/fudge/site.json; plate_scan = crop of Plate XXXIII
-  No. 2, "ANCIENT WORK, NEAR WINCHESTER, INDIANA") corresponds to the stage-B row **n0203_2**
-  (map_box [0.075,0.49,0.62,0.895], scale_text "SCALE 500 ft to the Inch.", blank_boxes []), NOT n0203_1
-  as prep said. n0203_1 is panel No. 1 (Brush Creek, KENTUCKY — a different place entirely). Leaf n0203
-  has three rows (_1/_2/_3). The other five sample pairs stand: (forthill,n0068_1), (highbank,n0126_1),
-  (hopeton,n0129_1 — the main plan; n0129_2 is the inset, not it), (newark,n0161_1), (marietta,n0169_1).
-  Note n0203_1 also has TWO scale_bar boxes (prep said one); irrelevant once fudge uses _2.
-- **Small deltas (data moved since prep, not contract-relevant):** scale_bar None 15→26, map_box None
-  29→40, scale_text None 371→382 (of 890). Everything else in §2 re-verified exactly: the 20 docs (9 book
-  + 11 commons) and their recomputed m/px/rot/maxres (hembury 0.2354/0.6/33.7 … arbor-low 0.0363/−3.4/5.1;
-  serpent doc has size:null AND src:null — src:null still takes the book branch in plan_fit.load_picture),
-  the six old-style sites (all have tracked relief.jpg + data/sites/<id>/site.json + plate_scan.jpg),
-  sites.json (384 sites, 17 lidar:false, 90 US, the six region-less), plans.json (1166 rows, same cols),
-  summary.md ppi (squier_davis_1848 500, thomas_1894 360, fowke_1902 500, allcroft_1908 600, mills_1914 150;
-  lapham_1855/squier_1851/whittlesey_1850 unrecorded → 8 books total in index.jsonl).
-- **201 is MERGED now** (prep assumed open): fit/review.py is on main. Its seed items
-  (data/review/alligator-effigy-mound-q4732645.ancientmonuments00squi_n0214_2.json + bibracte-q650053.json)
-  already use the EXACT dict contract 202 must emit: {pairs [[u,v,lon,lat] 3-5, 1dp/7dp], coarse, ground,
-  scale_m_px, rot_deg, scale_source, note}, and their notes say "202's propose_for replaces these pairs when
-  it lands" (the replacement happens when 203a upserts — 202 itself must NOT write data/review/ or
-  web/data/review.json: outside my Touches). fit/review.py never imports propose; R5 (contract drift) is
-  resolved: keep propose_for(site_id, plan_id) -> dict with exactly those 7 keys.
-- **data/raw/ is gitignored** (but present on this machine): full-page scans are NOT in-repo. The test
-  therefore must NOT read data/raw at run time: hardcode calibrated coordinates into the test file with
-  "calibrated <date>" comments (tracked files only: index.jsonl, plans.json, sites.json, site.json,
-  plate_scan.jpg, platefits docs, golden).
+### fit/propose.py - what is on disk (stdlib-only; deterministic; CLI `python3 fit/propose.py <site> <plan id>...`)
+- `propose_for(site_id, plan_id) -> {pairs, coarse, ground, scale_m_px, rot_deg, scale_source, note}`
+  = exactly the 201 seed-item contract (pairs [[u,v,lon,lat]] 3-5, u/v 1dp, lon/lat 7dp; scale 4dp;
+  rot 2dp). 201 is merged; fit/review.py never imports propose (R5 closed). 202 writes nothing
+  (data/review/, web/data/review.json are outside Touches; 203a's upsert does the replacement).
+- Scale: bar box in blank_boxes (box presence beats the boolean) + tick-list text -> span/bar_len_px
+  (bar_len = max(box w,h) in the row's size frame - maiden/old-sarum bars are VERTICAL); ratio text at
+  BOOK_PPI -> m/px; a bar box holding RATIO text (all six S&D rows: "SCALE N ft. to the Inch.") takes
+  the ratio value, source "ratio" (note says the box holds the ratio text, not ticks); unparseable ->
+  never a guess -> coarse: picture_size = max(size_m)/max(panel px). BOOK_PPI: 5 recorded from
+  data/books/summary.md (squier_davis_1848 500, thomas_1894 360, fowke_1902 500, allcroft_1908 600,
+  mills_1914 150); lapham_1855/squier_1851/whittlesey_1850 = None (no published ppi - web lookup
+  2026-10-11 found nothing) -> their ratio rows (incl. aztalan "Scale 20 ft. to an inch.") coarse.
+- Rotation: north_angle_deg iff north_arrow true and |deg|<=60, else 0 north-up with the rejected hint
+  kept in note (hopeton 131.1 is the only rejected one in the sample). ground: site lidar false ->
+  "aerial" else "relief". Pairs: 4 panel corners + panel centre (page centre if no map_box), in the
+  row's size frame (book rows: plans size == full_size; serpent's index size null falls back to
+  full_size). Anchor = the exact form plan_fit.similarity inverts: z = a*(w-w0)+z0, w = u - i v (v
+  down), a = (m_per_px/ground_scale(lat0))*e^(i theta); Mercator one-liners inlined (R=6378137.0)
+  because **pipeline/aw.py is NOT stdlib** (numpy/PIL/scipy at its top - the prep's "pure stdlib"
+  assumption is wrong for current aw.py; task Notes say "import read-only" - the formulas are mirrored,
+  aw.py untouched).
+- `parse_scale(text) -> ("span", metres, unit) | ("ratio", metres_per_inch, None) | None`. Handles the
+  measured 508-value corpus: tick lists ("0 100 200 300 Feet", fractions "0 1/2 1 mile", unit anywhere
+  "0 100 feet 200 300", "... Scale of Feet"), single "N <unit>" = whole bar ("SCALE 500 FEET"),
+  "N <unit> to a/the/an inch" (incl. "2 Ch. (352 Ft.)", "12 Rods 200 feet" -> FIRST quantity, "Forty",
+  "1/2 Miles", "1000 ft. to Inch."), "Scale[:.] 1 in[.] = N <unit>" (incl. compound mills "1 in. =
+  100 ft. 1/2 in. = 50 ft. 1/4 in. = 25 ft." -> first statement), "one inch equals three miles",
+  "1/32m" (32 m/inch), "1/20 OF NATURE" (0.508 m/inch). Sweep result: 488/508 parsed (222 ratio,
+  266 span), 20 -> None; known-bad ("0 1/4 1/2", "no. 10 to one inch", "scale miles", "Scale") all ->
+  None. Fixed in-session: the equals-form regex had to accept "in" (not just "inch"), an optional colon
+  after "scale", a dotted "in.", and compound statements. Optional polish only if a test needs it:
+  reorder inch alternations to (?:inches|inch|in) in the equals + "to" regexes.
 
-### Cross-scan bridge (R4) — measured, forthill in depth
-- The two forthill scans (LoC full page n0068.jpg 2844×4064; plate_scan.jpg 2570×3320) are the SAME ink
-  (same labels/etching) but DIFFERENT physical copies: a 4-point procrustes fit on my eyeballed earthwork
-  vertices (s=1.05, θ=0.7°) then a local NCC search (scale ±4%, rot ±1.5°, translation ±16) on the
-  650×900 earthwork patch found NO match (NCC −0.02; best anywhere 0.19 on a 360×360 S-V-bend patch at
-  scale 1.0). Side-by-side crops prove real local geometric difference: the S V-bend is longer/flatter in
-  the full scan, steeper/shorter in plate_scan. A 4-point HOMOGRAPHY through the same eyeballed points is
-  unphysical (implied scale 1.51 vs true ~1.06, 5th point off 116 px) and its wall overlay bulges off the
-  drawn wall along the long sides: the distortion is not projective either. Whole-plate FFT NCC sweeps
-  (scale 0.85–1.2) peaked at 0.24–0.37 (highbank best) — diluted, no clean win; fudge 0.036 (its
-  plate_scan is a third-source crop, as prep said).
-- **Conclusion:** the two copies differ by smooth-but-non-projective paper distortion. A global similarity
-  or projective bridge is NOT clean (prep's Option A, as specified, fails). Eyeballed point picks from
-  1.6–2× zoomed crops are only ±20–30 px and too coarse to condition a homography on a 1500-px span.
-  The plate_scan crop also does NOT contain the plate's ruled frame (corner crops checked: blank; only a
-  cut line at the bottom edge) — only the full-page side has frame corners (n0068 inner frame ≈
-  (197,348)/(2640,3663)), so frame-pair calibration is impossible.
-- **Next session DECISION (prep's A/B, now informed):** Option A as specified is out. Two viable shapes:
-  (i) **A′ per-site calibrated similarity** fit by least squares over MANY correspondence pairs where the
-  plate_scan side is exact (wall polyline points from site.json, ~35-155 pts) and the full-page side is
-  auto-extracted (the wall is a white gap between two hatched lines: threshold the full-page earthwork
-  region, extract the gap centerline, and match it to the wall polyline by a coarse-to-fine NCC
-  registration that returns (s,θ,t) — no eyeballing; validate by the wall's overall length/aspect in both
-  frames). Feasible but non-trivial code; do it in scratch first, commit only if it lands a consistent
-  (s,θ,t) with small residuals for all six.
-  (ii) **B metric-space checks** (prep's fallback, no bridge): scale ratio proposed-vs-hand within 50%
-  (mind the frame: proposed m/px is full-page px, hand m/px is plate_scan px — compare via the cross-scan
-  scale factor ≈1.06 eyeballed, or compare the proposed PANEL size in m vs the hand-fit earthwork bbox in
-  m within 0.2–3×), rotation in the per-hint bands (prep §3.2: trusted hint ±15° or 70–110°; rejected hint
-  ±35° or 70–110°), and panel-centre distance (site centre vs hand-fit placement of the map_box centre) ≤
-  max(3×hand maxresid, 100 m, 1.0×hand panel diagonal — prep's borderline fix). For the centre term without
-  a bridge use the hand fit's earthwork-centre as the panel-centre proxy (record the assumption).
-  Leaning (ii) unless (i) proves cheap: the box only asks that the re-fit "lands within the hand fit's own
-  residual range", and (ii) says that in metric space with honest envelopes. Decide, record in DECISIONS,
-  then build.
+### Verified this session (scratch, .venv/bin/python)
+- 19 sample proposals (six S&D rows, nine QID book rows, castle-rising + mayburgh + old-sarum-commons,
+  bibracte): re-fit via plan_fit.similarity recovers scale/rot for ALL 19; scales match the prep
+  exactly (hembury 0.1579 -33%, avebury 0.1886 -14%, badbury 0.1902 -20%, calleva 0.2469 -73%, maiden
+  0.2263 -19%, old-sarum 0.1646 -23%, S&D ratios 0.1829/0.3048/0.3048/0.7925/0.6096/0.3048, aztalan
+  0.2225 +32%, serpent 0.4921 ~3x, arbor-low 0.3883 ~10x); rot deltas all in the 70-110 or +/-15 bands
+  (aztalan -75, maiden/old-sarum +90.6); bibracte -> aerial; two CLI runs byte-identical.
+- **TEST-TOLERANCE CORRECTION (the prep's "within 1e-6" re-fit check CANNOT hold):** the emitted pairs
+  round lon/lat to 7dp = ~0.11 m, so a re-fit of the EMITTED (rounded) pairs deviates from the anchor
+  by ~1e-4 m/px absolute at most (measured, forthill; relative ~6e-4) and <0.05 deg rotation. Test
+  tolerances: scale 1e-3 m/px absolute (or 2% relative), rotation 0.1 deg; the byte-exact golden test
+  is the primary determinism check.
 
-### Scale reality (drives the design; measured this session)
-- Printed scale ≠ true scale for the six: ratio-text@500ppi vs hand-fit truth gives truth/printed =
-  forthill 2.26×, highbank 1.46×, hopeton 1.29×, newark 1.31×, marietta 1.20×, fudge 1.52× (implied ppi
-  222–417, not constant → variable plate reduction; prep's "2–17×" was aztalan's 8–14× + a typo). So box 1's
-  "recorded scale" anchor is 16–56% small vs truth, and box 4's literal reading (proposal lands within the
-  hand fit's 2–20 m residual) CANNOT hold for a recorded-scale proposal (earthwork-position error = scale
-  error × distance ≈ 100s of m). The sane reading (prep §3.2 envelopes) is what the test asserts. Do NOT
-  "fix" the scale by peeking at site.json fits (circular: the proposal must be usable for sites with no fit).
+### Exact next step (ONE step: tests + golden, then tick the four boxes)
+1. tests/golden/propose_202.json: the 19 proposals above (json.dumps indent=1 sort_keys=True per pair,
+   keys sorted), plus a small per-site "sanity" section recording the measured hand-fit numbers
+   (m/px, rot, maxresid) so the file is self-explaining. Regenerate only for an intended change.
+2. tests/test_propose.py (no network, no server, no data/raw reads; .venv/bin/python): (a) golden
+   byte-compare; (b) coarse/ground (commons/serpent/arbor-low/aztalan coarse:true, 3-5 pairs;
+   bibracte aerial; six + QID relief); (c) self-consistency (pairs inside size frame, 1dp/7dp,
+   re-fit within the corrected tolerances above); (d) parse_scale table (pin the corpus forms incl.
+   known-bad -> None and the equals/compound forms); (e) all 20 platefit docs byte-identical
+   before/after; (f) SANITY per DECISIONS Option B: same-frame QID nine - scale within 50% (minus
+   calleva, logged R2), rot bands (trusted +/-15 or 70-110; rejected +/-35 or 70-110), centre distance
+   site vs hand-fit map_box-centre <= max(3x maxresid, 100 m, 1.0x panel diagonal); OLD-STYLE SIX (no
+   cross-scan bridge): (i) proposed panel physical size (m, from the proposal's own anchor) vs
+   hand-fit earthwork bbox (m) per side within 0.2-3x, (ii) same rot bands, (iii) distance site
+   centre vs hand-fit earthwork centre (the recorded proxy) <= same envelope. Hand fit from
+   data/sites/<sid>/site.json plate.fit: affine M=[m00,m01;m10,m11], t, u0v0 with ground_metres(E,N) =
+   M @ [u-u0, -(v-v0)] + t relative to the relief-image centre (= site centre) -> a_h = m00 + 1j*m10,
+   b_h = t + M@[u0, -v0] as complex E + iN, true metres about site centre (proposal side: Mercator ->
+   true metres via ground_scale). Earthwork centre/bbox from plate.walls polylines (plate-scan px)
+   x fit m_per_px. maxresid: read site.json's fit fields (control_resid_m list or null_p99_m etc.)
+   for each of the six and record which field you used. whitley-castle stays OUT of the rotation
+   sample (118.8 deg hand fit).
+3. Run `.venv/bin/python -m pytest tests/test_propose.py -q`, then the full suite (baseline 18
+   passed; no fixed ports, no writes outside project+temp). Tick the four boxes in order; hand-over;
+   commit per step.
 
-### Exact next steps
-1. Re-read this hand-over + prep/202.md §3-4. Decide A′ vs B (lean B) → DECISIONS entry.
-2. Write fit/propose.py per prep §3.1 (stdlib-only; propose_for(site_id, plan_id) -> dict with the 7 keys;
-   scale priority bar-box+text > ratio+BOOK_PPI (5 known books; the 3 unknown → coarse) > picture_size;
-   rotation: north hint iff north_arrow and |θ|≤60 else 0, rejected hint kept in note; centre = map_box
-   centre (page centre if none) → site lon/lat; pairs = 4 panel corners + panel centre, u/v 1dp, lon/lat
-   7dp, in the row's size frame; ground = relief unless site lidar:false → aerial; deterministic; CLI
-   python3 fit/propose.py <site> <plan id>... ). Add tests/golden/propose_202.json to the task's Touches line.
-3. tests/test_propose.py + golden per prep §4 (sample: the six pairs as corrected above + the nine QID book
-   docs + castle-rising c_70f937b71ae63d6a + mayburgh c_984782b9e35e8ded + bibracte aerial rule; exclusions:
-   calleva scale (box over-covers, −73% measured) and whitley-castle rotation (118.8° hand fit); parse_scale
-   table incl. the known-bad → None → coarse cases). Run .venv/bin/python -m pytest tests/test_propose.py -q
-   then the full suite (baseline 12 passed).
-4. Tick boxes in order; hand-over; commit per step.
-
-Re-read: pipeline/plan_fit.py:similarity - the solver's convention (merc = a*(u - i v) + b; v down; k =
-aw.ground_scale); fit/review.py:candidate_evidence - how source rows are looked up (book by id, commons by
-c_+sha1(title)[:16] over the FULL title with File: prefix).
+Re-read: fit/propose.py:parse_scale + _ratio_m_per_inch (the equals-form fix: colon, dotted in.,
+compound statements); fit/propose.py:propose_for (book vs commons branches); pipeline/plan_fit.py:
+similarity (merc = a*(u - i v) + b; v down; k = aw.ground_scale); data/sites/fudge/site.json - the
+plate.fit field shapes for the Option B checks.
