@@ -666,3 +666,109 @@ now stopped. One deliberate stop: "bowes" - the 30+ barnard-castle rows are Bowe
 is a real village ~10 km away, so "Bowes" would false-pass them all (keyword+50km trap, GOAL's
 Hampton-Court class). The 8 rows now with zero candidates are legit (6 BHL garden-manual book scans that
 name nothing; 2 all-caps titles dropped by the acronym rule - known limitation, they stay none).
+
+## 2026-10-11 801 DECISION: sheet verdict is a FIRST-RESOLVED WALK, not "nearest <=50 km wins" (iter-16's two statements were contradictory)
+Iter 17 (agent c). Iter-16 said both "nearest <=50 km -> pass; nearest far -> conflict" and "pairs-before-
+singles prevents the New-Orleans false pass". Both true only if the walk is order-dependent: iterate the
+ordered candidates (per run: pairs, then 3-word phrases, then singles; title before desc) and let the
+FIRST candidate that resolves decide the row (<=50 km pass / >50 km conflict); unresolved candidates are
+skipped. Verified the "nearest wins" variant is WRONG on three real rows: "York" (a word inside "New
+York") resolves ~2 km from york-castle and would pass the 4 NYC "Castle Garden" rows; "Orleans" (inside
+"New Orleans") resolves onto cenabum itself and would pass the 13 New-Orleans rows; "York Castle" (glued
+from "New York. Castle Garden") resolves to the site itself and would pass the same 4 rows. Routes cascade
+caption -> part -> sheet; the first route returning pass or conflict decides (a caption conflict preempts
+sheet, e.g. the 2 "detail Limmel" rows whose caption names "Bethlehem" -> Q5776 ~4700 km; a 3rd Limmel row
+without that word still conflicts, because Maastricht is ~290 km from bethlehem-q2523914's stored point -
+6.61E 53.38N is NOT near Maastricht).
+
+## 2026-10-11 801 DECISION: castrum-levefanum is the DUTCH Limes fort, not Beauvais - the "Peutinger Casaromago" rows conflict on BOTH limes sites (census correction)
+Iter 17 (agent c). The iter-14 census expected the "Peutinger Casaromago.jpg" row to PASS on
+castrum-levefanum "~Beauvais". Wrong: the catalog site (Q1309559) is stored at (5.353E, 51.963N) - the
+Dutch Lower German Limes identification (region netherlands, part_of Q1265889), 314-368 km from
+Beauvais/Amiens. Live-checked this session (3 small wbsearchentities/wbgetentities queries): "Casaromago"
+and "Sammarobriva" have NO Wikidata items (search returns []), and "Peutinger" first-P625 is Q2081791
+(Peutinger-Gymnasium Ellwangen, 10.13E 48.97N) = 475-500 km from both Dutch sites. So the first-resolved
+walk lands on "Peutinger" (far) -> the row records kind none WITH a conflict on BOTH fletio and
+castrum-levefanum (iter-14's "passes on castrum-levefanum ~Beauvais" is void; fletio's "conflict-none"
+holding). Net effect: ~1-2 fewer genuinely-naming rows pass than the iter-14 census said (~83-88 of
+~85-90 instead of the full set) - the box-1 majority still holds. Lesson: never assume a site's geography
+from its name; the catalog stores the Dutch identification. (PITFALLS entries for this fact and the
+Latin-name/no-item fact are PENDING - the context limit cut the session before PITFALLS.md could be
+edited; add them next session.)
+
+## 2026-10-11 801 DECISION: live run `record --live --redo-none` started in the background; part/sheet check test + golden committed (13/13) while it runs
+Iter 21 (agent a). Followed the iter-20 plan in the same session: verified all 1381 titled rows
+carry rec "evidence/1" (so --redo-none re-evaluates exactly the 354 none rows, incl. the 74 stored
+conflicts), then started `nohup .venv/bin/python fit/evidence.py record --live --redo-none >
+/tmp/redo_none_run.log 2>&1 &` (PID 1032856; at session end it was still in the prefetch phase -
+log tail "file entities 400/352", a cosmetic overshoot print; next: part coords, then ~1484 paced
+name searches, ~25 min). It writes data/commons/files.jsonl only after the prefetch, in 25-row
+chunks; the tree was data-clean at session end. In the same session, committed the settled test:
+tests/test_evidence_801.py (7 rows in a tmp dir against a tmp 2-site catalog - test-castle Q1 with
+has_part [Q2 "Test Tower"], bare-castle Q3; CLI `check --files F --books <absent> --catalog C`,
+exit 1, stdout vs golden) + tests/golden/evidence_801_check.txt generated from one real CLI run of
+the fixture (deterministic: no dates printed). Rows: part PASS (7 m), part FAIL (part_qid Q9 no
+longer in has_part), sheet PASS (single "Testville" after the pair "Testville Testham" that
+resolves nothing - proves the walk's ordering survives check-time re-derivation), sheet FAIL
+(stored candidate "Testville" not derivable from "File:Nowhere Somewhere 1840..."), none + sheet
+conflict (334 km), none + part conflict (389 km), part FAIL trap (a documented part 445 km from
+the site is not a tie). Summary line "evidence: 7 rows, 2 pass, 3 fail, 2 no-tie". 13/13 tests
+pass (9.97 s; 12 old + this one; the 15-row sample golden tests/golden/evidence_check.txt stayed
+byte-identical - it contains none of the 354). The two PITFALLS entries the iter-17 entry left
+PENDING were in fact committed already (feddcf0, iter 18) - verified present in PITFALLS.md,
+nothing to add. Next session: poll the log, audit the files.jsonl diff, then check + pytest +
+data commit (details in the task hand-over).
+
+### 2026-10-11 801 DECISION: live redo of the 354 no-tie rows done - 90 new ties (40 part + 50 sheet), fail-closed verified, task complete
+Iter 22 (agent a). The background run (started iter 21, PID 1032856) finished 02:23 with
+"evidence recorded: 0 hand-tied, 0 book, 354 live" (1047 unique names searched, 4679
+candidates, 24 min of paced searches). Audit against git HEAD (by line index, not title -
+the file has 1490 rows but only 1357 unique titles): exactly the 354 none rows changed,
+only their evidence field (every other byte and the 1490-row count preserved), and every
+one of the 74 stored caption conflicts re-verified as a conflict (none promoted, none
+downgraded). New passes: part_mention 40 (Clifford's Tower, 6.1 m, all york-castle, as
+expected) and sheet_mention 50: argentoratum 33 (Strasbourg 30, Straatsburg 2 - the Dutch
+alias resolved to Q6602 - Neudorf 1), cenabum 2 (Orleans 0.4 km), blestium 2 (Monmouth
+Castle, Monmouthshire), dudley-castle 2 (Dudley, Birmingham), plus Darlington (barnard,
+23.9 km), Barkhale, Pontefract, Nijmegen (a find "found in Nijmegen", 1.1 km), Gorton
+(Manchester district, 5.2 km), Musis Sacrum (Arnhem concert hall, 7 km), Somerset
+(Moll's Somerset Shire map), Alfred Jewel (Q762738, the jewel found at Athelney; 49.25
+km - the closest pass to the 50 km guard, 0.75 km margin), Peterborough Cathedral
+(14.3 km, x2 on fotheringhay), Braunstone Hall (2.6 km, leicester-castle). check: exit
+0, 0 FAIL, no-tie 1109 -> 1019. 13/13 tests; the 15-row sample golden
+tests/golden/evidence_check.txt byte-identical (it contains none of the 354). Whole-file
+fail-closed re-verified: 254 passes, 0 resolving >50 km; 247 conflicts (173 sheet +
+74 caption), 0 resolving <=50 km.
+
+Shortfall vs the iter-17/18 expectation (~10-15 genuinely-naming rows that stayed
+none), all fail-closed, in three classes: (1) FIRST-HIT DISAMBIGUATION FAILURES in the
+walk - "Cranbourne" -> Q3309297 (Victoria, AUSTRALIA) on the Hampshire OSD sheet (the
+UK village has no item; the search's first hit with P625 is abroad), "City" -> Q90
+(Paris!) on the York 1914 tin (its true "York" 19 km away was never reached; the walk
+stops at the first resolution), "Wit" -> Isle of Wight on the Atlas-de-Wit Weesp plate
+(the atlas maker's surname precedes Weesp in the title), "Leffingwell" (the map's
+engraver, from the title) on the Leffingwell St. Louis map, plus Morse/Peutinger as
+documented; (2) a CATALOG COORDINATE QUIRK, not a route bug: Durocortorum's stored point
+(4.8422E) sits 59 km EAST of Reims city centre (Q41876 at 4.0286E), so the 2
+Reims-titled map rows plus 3 junk-first rows conflict at >50 km from the same city's
+centre - the guard did exactly what it is for; fixing the site point is a catalog task,
+not this one's files; (3) junk candidates in book scans resolving first (France, Rhin,
+Ecole, Ville, Vandernoot on 6 argentoratum rows; artist names like Thomas/Claude/Rosa on
+most of the 32 barnard-castle rows). A disambiguation upgrade (multi-hit resolution or
+region-biased searching) is the natural follow-up to recover these; not done here - the
+50 km guard is this task's mechanism and it held.
+
+New name-sharing classes accepted (logged per the hand-over's step 2c): (a) a
+town/county/district containing the site named (Somerset, Monmouthshire, Dudley,
+Birmingham, Pontefract, Darlington, Gorton, Nijmegen, Straatsburg, Neudorf) - the file
+genuinely depicts that place and the site is inside it; (b) a landmark found at or in
+the site's town (Alfred Jewel found at Athelney, Musis Sacrum in Arnhem, Peterborough
+Cathedral 14.3 km from Fotheringhay, Braunstone Hall 2.6 km from Leicester Castle). The
+last two are the weakest in (b) (photos of a different building that the 50 km guard
+cannot tell apart from a sheet covering the site); recommend the driver/human route
+those 3 rows (2 fotheringhay, 1 leicester) into the 201 review queue for a human eye -
+filed no new task to avoid colliding with agent c's 201.
+
+Audit gotcha (this session): the first snapshot script keyed rows by row.get("file") -
+there is no such field, the key is "title" - producing an all-None snapshot; the audit
+was redone against git show HEAD: and by line position.
