@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203a-batch-us.md` (open) - hand-over: Session 4c (2026-10-11, iteration 38). Step done: the A/B pilot of the 4b `llm_model` on the 5
+- `tasks/203a-batch-us.md` (open) - hand-over: Session 4d (2026-10-11, iteration 39). Step done: the two pending 4c code items are in fit/batch_us.py
 - `tasks/203-batch-fit.md` (split)
 - `tasks/213-artist-views.md` (open) - hand-over: **Iteration 27 (2026-10-11): triage run FINISHED (A 292/292 + F 118/118, both complete & stable, process exited - COMMIT THEM FIRST THING: they are un
 
@@ -16,15 +16,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns
-Lead note (iteration 37): the 48 GB VM filled twice; my test's per-test 549 MB tree copies (5 per run, retained by pytest) were the cause. FIXED in tests/test_batch_us.py only: the `tree` fixture now hard-links web/ + data/ (os.link; symlink fallback across devices; data/raw stays a symlink to the shared store /home/agent/projects/ancient-works/data/raw) and copies only files the batch rewrites in place (only candidate: docs/batch_us.md, which the test tree does not even contain - write_doc/upsert_item are atomic new-inode writers); added a tmp_path_retention_policy="failed" fixture. Result: 5 tests 15.4 s -> 4.9 s, runs add ~0 disk (3 consecutive runs, no growth; the old 2.7 G pytest-2 dir had already been cleaned externally), full suite 34/34 in .venv (44 s). Committed eea8852.
-
-Working-phase start (this session): AI-box tunnel is UP - qwen3.8-27b on 127.0.0.1:8080 AND :8081 (two vLLM instances), :8082 llama.cpp; harness env LLM_URL=http://127.0.0.1:8081. pipeline/llm.py reads $AW_LLM_URL (default 18080 = wrong here): run with AW_LLM_URL=http://127.0.0.1:8081/v1/chat/completions. PITFALL to file: llm.ask's default `url=URL` binds at def time - reassigning llm.URL after import does nothing (set the env var or pass url=). All 58 working candidates' images are already local (37 book pages + 21 commons thumbs; data/raw is a shared symlink, 1.9 G); all 18 candidate sites have relief.jpg (no aerial fetch needed). Workload: 18 sites, 58 new candidate rows (recompute: batch_us.candidates minus pre_docs, url rows -> data/raw/commons/<site>/<h16>.jpg, book rows -> data/raw/books/<ia>/full/<file>).
-
-PILOT (15 real Qwen calls, scripts /tmp/pilot_llm.py + /tmp/pilot_llm2.py, still on disk): parsing of the CURRENT production prompt WORKS (JSON, 4-element pairs, _ground_lonlat) but the model SYSTEMATICALLY FABRICATES regular patterns - poverty-point: the identity map (100,100)->(100,100)...; serpent n0636: the 4 corners mapped to the 4 corners; pyramid-mound: a 5-point diagonal ladder with v-coords OUTSIDE the labelled crop; tremper: 1:1 pixel lines (281 m off the seed placement). All internally perfect (gate med 0.0) and PASS the frozen gate - the docs/gate.md section-7 "consistent global error" limit as a systematic model failure: left as is, every auto doc would be garbage and the human's 18/20 check would fail. A/B with an improved prompt (both panels' metre coverage, labelled coordinate ranges, seed scale +-50%, anti-pattern + honesty clauses, require feature names + a stated scale): 4 of 5 answers then FAIL the gate (correctly routed to review items carrying the pairs as leads); tremper still returns 1:1 and still passes. Root cause seen in the sheet image itself: poverty-point's row has no map_box, so the sheet is a FULL TEXT PAGE (the mound figure is ~15% of it) gridded with PIL's tiny default bitmap font, further downscaled to 1600 px by llm._image_part - illegible to a 27 B model. 202's proposals are the map-panel corners + centre: map_box rows bracket the real figure, map_box-less rows bracket the whole page (anchor wrong by construction, coarse=True).
-
-... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-11 203a DECISION: session 4a - lead's disk fix (done, committed eea8852) + working-phase pilot: the model fabricates gate-passing patterns' DECISIONS.md`)
 
 ### 2026-10-11 203a DECISION: session 4b - the llm_model rewrite (sheet/prompt/parse/scale cross-check) is re-implemented in fit/batch_us.py; tests still green
 Session 4a's composed rewrite text was lost (its edit call failed on exact-match; only the spec
@@ -113,6 +104,45 @@ L35-45); float(a) drops the imaginary part, so for a rotated fit implied = |s*co
 (60 deg -> 50% low) and can misfire "not trusted" on a true answer. Fix: `implied = abs(a) * k`
 (abs of a complex is the magnitude). Not applied yet - fit/batch_us.py is unmodified this
 session (all analysis was /tmp throwaway; no tests run, last state 5/5 + 34/34 after 4b).
+
+### 2026-10-11 203a DECISION: session 4d - the two pending fit/batch_us.py fixes from 4c are in: the scale cross-check uses the complex magnitude, and the feature-presence check lands; the 5-pick pilot now routes all four fabrication classes to items and pyramid (the one real fit) stays auto
+4c's two pending items, implemented in fit/batch_us.py (the task's only code file; the checkout
+elsewhere is untouched, and the pilot writes nothing):
+1. BUG FIX: the scale cross-check was `implied = abs(float(a)) * k` but `a` from
+   plan_fit.similarity is complex (scale + rotation). numpy's float() discards the imaginary part
+   (ComplexWarning), so for a rotated fit implied = |s*cos(theta)|*k - measured on a real hand
+   fit (mound-bottom) rotated 60 deg: old 0.5243 vs true 1.0597 m/px, a 2.02x ratio that would
+   misfire "not trusted" on a TRUE answer. Now `implied = abs(a) * k` (the magnitude IS the
+   scale): the same rotated fit gives exactly ratio 1.000, no misfire. The NaN guard is unchanged.
+2. FEATURE-PRESENCE CHECK (the 4c decision, now code): new `_feature_present(site, pts_ll,
+   gpath)` after _parse_answer. Grayscale array of the site's own ground image (PIL "L" /255);
+   each answer ground point scored by the std of a 24 m box (R=12 px at 1 m/px, centre clamped
+   to [R, W-R-1], the inverse of _ground_lonlat through the site corners); null = 400 boxes at
+   np.random.default_rng(20261011) (distinct from the report SEED 20261010); pass iff >= half
+   the points score >= the null median; ANY read failure -> (True, None) (no evidence never
+   blocks; the gate and the human sample are downstream). Wired into the llm_model closure after
+   the scale cross-check, only when len(pairs) >= 4; failure appends the note "only %d%% of the
+   recorded points sit on more textured ground than a typical region of this site: the features
+   are not visible where claimed - not trusted" and trims to 3 pairs (the <4 branch routes the
+   picture to the review item). Module + llm_model docstrings document the check, its deliberate
+   faint-feature over-refusal, and the known residual (fabrications anchored on strong texture
+   - roads, field boundaries - pass it; docs/gate.md section 7's human 18/20 sample is the
+   backstop).
+3. VERIFIED (offline): _feature_present reproduces the 4c calibration on the recorded 4c points:
+   tremper 1/4 -> (False, 0.25), pyramid 3/4 -> (True, 0.75); hand-fit over-refusals serpent 0/3,
+   mayburgh 1/3, little-solsbury 2/5 (all genuinely faint - deliberate). Recorded-answer tests
+   bypass llm_model by design, so the suite is unaffected: tests/test_batch_us.py 5/5 (5.0 s),
+   full suite 34/34 in .venv (42 s).
+4. PILOT RE-RUN (tunnel re-verified UP on 8080/8081; /tmp/pilot_llm.py, raw answers now
+   /tmp/llm_raw_4c.txt - the 2nd run overwrote the 1st; the answers were identical to 4c, the
+   model is deterministic at this temperature): tremper -> could-not-fit item carrying the new
+   note (25% of points on textured ground) - the fifth class is now handled; pyramid -> AUTO
+   DOC (gate med 24 m, the real fit, unchanged); poverty-point -> 0 pairs -> item; serpent
+   n0636_1 -> range-validate drops the ladder to 1 pair -> item; cahokia -> scale cross-check
+   (1.639 vs 3.333) trims to 3 -> item. Exactly the expected routing, no regressions.
+PITFALLS: the Qwen-fabrication entry extended with the fifth class, the magnitude fix (a
+complex a), and the texture check. NEXT (session 4e): the full working run (hand-over for the
+exact command and the box checks).
 
 ## Project-wide driver notes (newest)
 
