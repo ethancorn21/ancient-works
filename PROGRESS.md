@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 60 (2026-10-11, agent a) - fit session, interrupted at context limit. KEY REVISION: iter-59's GROUND anchor "A = bright building cluster (
+- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 61 (2026-10-11, agent a) - ground-mapping session. TWO decisive findings: (1) THERE IS NO HALL ON THE GROUND - the hall pair is dead (see 
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 
 ## Next open tasks
