@@ -14,10 +14,12 @@ usage: src_artists.py --verify     re-verify every table QID against Wikidata (l
 Staging writes only this task's files (append-only, idempotent on (site, title)); 211 consolidates them into the
 canonical ones and builds the sites, 212 runs the model's fitting loop over them. Both image-level sites are
 aerial-photograph ground (no open LiDAR here: FITKIT_GROUND=aerial, tools/fitkit.py) and their streets carry the
-fit. The evidence field is hand-recorded: `record --live` resolves the caption's place by name search, and the
-first search hit is the trap (Imola's Q50195 carries a bad P625 ~53 km NW of the town; "Venice" hits the Los
-Angeles neighborhood first) - the hand record stores the verified resolution instead, and check passes offline
-from the stored fields (docs/lead_artists.md). The book-scale sources are worked through per-book files
+fit. The evidence field is hand-recorded: `record --live` resolves the caption's place by name search, and for
+Venice the first search hit with coordinates is the Los Angeles neighborhood (Q773853, ~9900 km away) - the
+hand record stores the verified resolution instead, and check passes offline from the stored fields. For Imola
+the live route resolves the right QID (Q50195's P625 is the correct city point), but the hand record pins the
+sheet's own centre - the walled old town - rather than the modern city point (docs/lead_artists.md). The
+book-scale sources are worked through per-book files
 (pipeline/books.py pattern), not staged here. The system python3 has no numpy (commons -> aw), so the live
 commands run under .venv/bin/python; the module top stays stdlib-only.
 """
@@ -45,12 +47,16 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # gives the province: Imola's Bologna, Venice's Venice-province variants). A picture of a site whose QID is
 # already in the catalog gets a picture row for that existing site id (known_sites()), never a new catalog entry.
 SITES = {
-    "Q50195": dict(id="imola-q50195", name="Imola", lon=12.367, lat=44.245,
+    # The site point is the walled old town's centre (Piazza del Duomo, OSM 44.3535 N 11.7112 E) - where the
+    # sheet's view is centred (the walled town with the Rocca Sforzesca at its edge, the Santerno beyond).
+    # Q50195's P625 is the correct modern city point (enwiki 44\u00b021'11"N 11\u00b042'53"E agree), 0.27 km east;
+    # the prep's earlier "44.245 N 12.367 E centre / bad P625 53 km NW" reading was wrong (that point is Cervia).
+    "Q50195": dict(id="imola-q50195", name="Imola", lon=11.7112, lat=44.3535,
                    place="Emilia-Romagna, Italy", region="Italy", kind="town",
                    wikipedia="https://en.wikipedia.org/wiki/Imola", cat="Imola",
-                   p625=(11.714722, 44.353056),  # Q50195's stored P625: ~53 km NW of the town (the recorded trap)
-                   note="no open LiDAR here: aerial-photograph ground (FITKIT_GROUND=aerial); roads, the river "
-                        "crossing and church footprints carry the fit"),
+                   p625=(11.714722, 44.353056),
+                   note="no open LiDAR here: aerial-photograph ground (FITKIT_GROUND=aerial); the walled town's "
+                        "street grid, the Santerno crossing, the Rocca Sforzesca and church footprints carry the fit"),
     "Q641": dict(id="venice-q641", name="Venice", lon=12.331944, lat=45.439722,
                  place="Veneto, Italy", region="Italy", kind="town",
                  wikipedia="https://en.wikipedia.org/wiki/Venice", cat="Venice",
@@ -65,6 +71,12 @@ SITES = {
 # harvest heuristic against map screenshots - and commons.rows() would re-drop them after 211's merge anyway);
 # the NGA "block" files are detail crops of Barbari's woodcut, not separate pictures; RCIN 912686 (recto
 # sketches) and "Imola 1705.jpg" are different works.
+# Documented drops (verified live 2026-10-11, one paced commons.info run; full verdicts in docs/lead_artists.md):
+# "File:Leonardo da vinci, Town plan of Imola.jpg" (1030x774, PD, circa 1502) is ANOTHER SCAN OF THE SAME RCIN
+# 912284 sheet (same view, walls, river, margin notes) - a second row for the same picture adds nothing;
+# "File:...RCIN 912686, Recto Sketches..." (1517x2000 portrait, PD, undated) is a different work (the measured
+# survey sketches the sheet was made from); "File:Imola 1705.jpg" (942x710, PD, 1705, Antonio Ferri) is a flat
+# plan by another hand from another century - not one of this task's four GOAL sources.
 LEONARDO_IMOLA = [
     ("File:Leonardo da Vinci - RCIN 912284, A map of Imola 1502.jpg", "Q50195", "Imola",
      dict(date="1502")),  # the file page has no DateTimeOriginal (upload 2020): the known drawing date, noted
