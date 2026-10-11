@@ -166,3 +166,9 @@ Step: the hand-over had said "COMMIT THEM next session", but the tree was alread
 - `.venv/bin/python -m pytest -q`: 62 passed / 3 failed (64.7 s) vs 4 failed / 60 passed at loop start (driver note, 3c8af47): the 218 gate red is resolved by merged 1dcbc06; the 3 remaining reds (test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_serve::test_platefits_docs_match_sites) are all 211-owned (the shotwick site is unbuilt in this checkout's web/data/sites.json) - per 218's own session entry they were failing before any 302 work. No new failures, and this task adds no tests/ tests (box 5: the e2e test lands in 302c), so nothing here can regress.
 - Dependency 301 is done (tasks/301-site-argentoratum.md, Status: done) - removed the satisfied `Depends on: 301` line and set Status: done.
 Nothing was tuned in any session of this task; the frozen registration (session-2/3 entries) stands untouched.
+
+## 2026-10-11 302a DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_serve.py::test_platefits_docs_match_sites
