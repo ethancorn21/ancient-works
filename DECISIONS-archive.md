@@ -971,6 +971,118 @@ tests/test_batch_us.py 5/5 (15.4 s); full suite 34/34 in .venv (53 s). Ticked bo
 already ticked). PITFALLS gains a `### fit/` subsection (the precedence family; pre_docs matching
 new auto docs). Next: the working phase (--working over all 90; llm_model on the fitkit sheet - the
 prompt has never seen the model, check the answer parsing on the first run), then boxes 3/4/5 and done.
+<!-- task 213 -->
+# Task 213 artist-views
+
+## 2026-10-11 213 DECISION: staged rows use hand-recorded caption_coords evidence; record --live is the wrong route (traps confirmed live)
+`fit/evidence.py:source_tables()` only reads `pipeline/sources.py:SOURCES`, and fit/evidence.py is not in my
+Touches, so a `hand_tied` row for "fit/src_artists.py" would FAIL check. I hand-record the `caption_coords`
+field in caption_route's key order (rec/kind/checked/named_place/place_qid/place_label/place_lon/place_lat/
+site_lon/site_lat/dist_m). `record` skips rows that already carry rec==evidence/1, so 211's later record runs
+leave them alone. Prep OQ-1 (a byte-identical live record for Venice) is unachievable: `record --live` resolves
+the caption by NAME SEARCH, and --verify confirmed the first hit with P625 is the trap for BOTH sites: search
+"Imola" -> Q50195 itself, which carries the bad P625 (11.7147, 44.3531), 53 km NW -> conflict -> kind none;
+search "Venice" -> Q773853 (Venice, Los Angeles, -118.46, 33.99), 9891 km -> conflict -> kind none. The hand
+record stores the verified resolution instead (Imola: old-town centre as both site and place; Venice: its own
+P625, which is sane). Also verified live 2026-10-11: labels 'Imola'/'Venice' (enwiki sitelinks), P373
+'Imola'/'Venice' (so the row's `cat` field is the P373 category, though the file categories don't chain into
+it -> caption_coords), P131 = provinces (Imola: Q16139 Province of Bologna + Q18288145 Metropolitan City of
+Bologna - the prep misread Q16139 as Italy; Italy is Q38; Venice: four Venice-province variants Q6360367/
+Q3924689/Q16310/Q3678587) -> the extras `place` strings are composed by hand (region, country). File metadata
+confirmed: RCIN 912284 = 2000x1483, no DateTimeOriginal and no description, year 1502 from the title (year_of
+agrees with the table's date, so no date/date_commons override fires), public domain; Correr Venice =
+11800x5856, DateTimeOriginal "1500 ... /9", public domain. Both pass commons.keep().
+
+## 2026-10-11 213 DECISION: new-site region is "Italy" (display case); filed task 214 for REGION_NAME
+REGION_NAME (build_catalog.py) has no "italy" key. `place_of` uses `.get(x, x)` (the display-case "Italy"
+dedupes cleanly in the place string; lowercase "italy" would print lowercase), but `make_site` uses
+`REGION_NAME.get(...) or "US"` - until the key exists, the built sites display as "US" on the page. Task 214
+filed (one module: pipeline/build_catalog.py + new tests/test_region.py; Depends on: none, so it can run in
+parallel with the rest of 213).
+
+## 2026-10-11 213 DECISION: the "Google Art Project" scans are documented drops, not staged
+commons.NO's regex contains "google" (a harvest heuristic against map-screenshot junk), so both GAp scans fail
+commons.keep() - and even if staged they would be dead rows: 211's merge feeds commons.rows(), which re-judges
+every row with keep() and would drop them from the plan list. Instead I stage the surviving scans (RCIN 912284
+for Imola; the 11800x5856 Museo Correr scan for Venice). Also to be documented as drops in the lead doc: the
+NGA "block" files (detail crops of Barbari's woodcut, not separate pictures), File:...RCIN 912686 (a different
+work: recto sketches), File:Imola 1705.jpg (a 1705 view, not Leonardo), and File:Leonardo da vinci, Town plan
+of Imola.jpg (triage pending session 2 - possibly a third scan of the same sheet).
+
+## 2026-10-11 213 DECISION: module shape - SITES table + per-source row tuples, stdlib-only at the top
+fit/src_artists.py: SITES{qid: site facts (id/name/lon/lat/place/region/kind/wikipedia/cat/p625/note)};
+SOURCES{name: rows + display label + p-field} for the two image-level sources (row tuple (title, qid, label,
+opts) - a variant of sources.py: the region lives on the site, since all its rows share it); BOOKS{civitates,
+merian} with the IA identifiers (per-book flow is session 4; the books.py:BOOKS entry is a shared-module
+change -> file a task, never write it). Top-level imports are stdlib only (json/os/sys/time); commons/evidence
+are imported lazily inside functions because commons->aw needs numpy (absent from the system python3) - live
+commands run under .venv/bin/python. CLI: --verify (live QID re-check, prints the search traps next to the
+table values for the lead doc), [--dry] (stage), --check (offline join + evidence.check over the staged rows;
+books arg = a never-existing path), --golden (normalized staged rows -> tests/golden/src_artists_sample.json,
+checked/date_commons zeroed). check_staged() join: file rows may name staged OR existing sites (box-3 rule:
+existing QID -> picture row on the existing site id, no new catalog entry); staged ids/QIDs must not pre-exist;
+classified rows 1:1 with file rows.
+
+## 2026-10-11 213 DECISION: the prep's Imola "centre 44.245 N, 12.367 E / bad P625 53 km NW" was wrong - that point is Cervia; P625 is the correct city point
+The prep notes placed Imola's old town at 44.245 N, 12.367 E and, seeing Q50195's P625 (44.353, 11.715) far
+from it, called the P625 "bad, ~53 km NW of the town". Verified live (2026-10-11): the prep point is CERVIA
+on the Ravenna coast (~50 km SE of Imola); the real city is at 44.353 N, 11.715 E, where THREE independent
+sources agree: the enwiki infobox (44°21'11"N 11°42'53"E), Wikidata P625, and the OSM town node (with the F1
+circuit beside it and the Santerno - "Fiume Santerno" at 44.3606/11.7104 - running through the urban area).
+So the "53 km trap" was the distance between two wrong values. Consequences: (a) the site point is the
+walled town's centre, 11.7112/44.3535 (Piazza del Duomo, OSM) - the centre of the sheet's circular view, not
+the modern city point; (b) the prep's "Savena crossing" was a second error - the drawing's river is the
+Santerno, which Leonardo labels "Sant'Arno" (mirror script, read off the sheet); the view is south-up per
+the literature; (c) the evidence story changes: for Imola the live record route resolves the RIGHT QID (the
+hand record still stands to pin the walled centre, deterministic and offline); the name-search trap that is
+REAL and documented is Venice (first hit with P625 = Q773853 Venice, California, 9891 km). Side note: OSM's
+comune boundary for Imola is mis-drawn (Nominatim displays the urban area as "Imola, Nuovo Circondario
+Imolese", and the admin relation's centre sits 8 km north of the city) - a reason never to geocode Imola
+from OSM/Nominatim. The PITFALLS entry "Q50195 (Imola) carries a bad P625..." must be corrected accordingly
+(pending in the next session; I cannot edit PITFALLS from the context-limit hand-over step).
+
+## 2026-10-11 213 DECISION: Imola triage (one paced commons.info run) + staged both image-level sites; --check 2/2 PASS
+Triage of the Imola candidates (all Public domain, all pass commons.keep()): "File:Leonardo da vinci, Town
+plan of Imola.jpg" (1030x774, circa 1502) verified by eye to be ANOTHER SCAN OF THE SAME RCIN 912284 SHEET
+(same view, walls, river, margin legend/notes) -> dropped as a duplicate picture; "File:...RCIN 912686, Recto
+Sketches of the street plan of Imola.jpg" (1517x2000 portrait, undated) = a different work (measured survey
+sketches with block grids and fortress details) -> dropped; "File:Imola 1705.jpg" (942x710, 1705, Antonio
+Ferri) = a flat plan by another hand from another century -> dropped (not one of the task's four GOAL
+sources). The GAp Imola scan stays a commons.NO "google" drop. Staging (`.venv/bin/python fit/src_artists.py`)
+wrote extras_artists.jsonl (imola-q50195, venice-q641; region "Italy" - transient "US" display until 214
+merges), files_artists.jsonl (2 rows with hand-recorded caption_coords evidence; Imola date ""/year 1502 -
+the file page has no DateTimeOriginal, the noted box-1 case; Venice date 1500) and classified_artists.jsonl
+(2 rows, p_birdseye 1.0, by hand). `--check` then passed: 2/2 caption_coords, no join problems, exit 0
+(offline). Boxes 2 and 3 ticked (the hand-checked table + existing-QID rule were done in session 1 and are
+unchanged in shape). Remaining: box 5 (Civitates/Merian book work or documented status), box 6
+(tests/test_src_artists.py + golden), box 1 (lead doc final), box 4 (count check, last). docs/lead_artists.md
+is written for Imola + Venice (uncommitted, harness-saved).
+
+## 2026-10-11 213 DECISION: books step (box 5) - civitates worked in per-book files; views can't pass the machinery's plan-only index; shared-module gaps filed as 215/216/217
+civitatesorbiste00brau identified as **Liber secundus (1575)**, 292 leaves (from its imperial-privilege OCR
+page: "PRIVILEGIUM CAESAREAE MAJESTATIS ... Hogenberg ... vanden Noeurt ... Bruin ... Ciuitates Orbis
+Terrarum"). All six IA items in the BOOKS table are BookReader streams (jp2 + PDF + hocr OCR, unrestricted)
+- the OQ-2 style question is settled: every one is indexable by fetch/triageA. Stage A triaged the volume
+(background run this session; 262/292 at hand-over, 0 errors so far) - view plates come back
+other_illustration, the Jerusalem plan (n237/238) plate_site_plan. The DECISIVE fact: books_lists's
+taxonomy is kind s = plan view, kind o = "views, sections alone, ..." and cmd_index emits rows only for
+kind s - so a book of town views triages cleanly but indexes to nothing; the views cannot reach the map
+through the machinery as it stands. GOAL point 5 (2026-10-10) says views count as drawings, so the gap is
+real, not a 213 problem to fix inside its Touches. Decision: 213 owns the per-book files only (triage
+A/F, the hand list, the lead-doc status); the machinery extension is filed as three one-module tasks -
+215 (books.py LLM ports; no deps), 216 (books.py BOOKS entries for the six items; Depends 213+215), 217
+(books_lists lists + view-as-drawing index; Depends 216). No picture rows are staged by 213 for the books
+(there is no per-file Commons row to stage; the rows come via 211's rebuild once 217 lands).
+
+## 2026-10-11 213 DECISION: books.py LLM_URLS (18080/18081) are stale - the replicas serve on 8080-8082; 213 works around in-process
+books.py run_stage() exits "LLM tunnels 127.0.0.1:18080/18081 are down" on this machine: ss -ltnp shows no
+listener on 18080/18081, while the llmtunnel ssh forwarders (user llmtunn, running since Oct 6: -L
+127.0.0.1:8080/8081/8082 -> 10.0.10.75) answer /v1/models 200 on all three ports. 213 cannot edit
+pipeline/books.py (not in its Touches), so the throwaway driver /tmp/civitates_triage.py patches
+books.LLM_URLS in-process to the three live ports and injects BOOKS["civitates"] = dict(ia=
+"civitatesorbiste00brau", region="Italy", year=1575); the run is idempotent (latest row per n; error rows
+excluded from done). Filed as task 215 (port fix + a PITFALLS entry). The same trap will hit 207/208/209
+when they reach their triage B/F stages - 215 is their unblock.
 
 
 <!-- task 800 -->

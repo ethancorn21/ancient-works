@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 60 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+63 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -26,6 +27,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 201 review (5 entries)
 - 202 propose (8 entries)
 - 203a batch-us (5 entries, older ones; the task is still open)
+- 213 artist-views (8 entries, older ones; the task is still open)
 - 800 requirements-pinned (1 entry)
 - 801 evidence-no-tie-coverage (11 entries)
 
@@ -134,3 +136,173 @@ L35-45); float(a) drops the imaginary part, so for a rotated fit implied = |s*co
 (60 deg -> 50% low) and can misfire "not trusted" on a true answer. Fix: `implied = abs(a) * k`
 (abs of a complex is the magnitude). Not applied yet - fit/batch_us.py is unmodified this
 session (all analysis was /tmp throwaway; no tests run, last state 5/5 + 34/34 after 4b).
+## 2026-10-11 213 DECISION: iteration 25's orphaned triage process kept appending after the driver's snapshot commit
+The driver's "uncommitted work after iteration 25" commit captured civitatesorbiste00brau.A.jsonl at 191
+lines; the orphaned run kept appending until 04:03 (211 pages, n 0-210 complete, no error rows) and exited.
+Nothing was corrupt: the file is append-only and run_stage/latest() is re-runnable (done = rows without
+error). Lesson: before committing (or trusting) a data file a background job may still be writing, check
+its mtime against now and whether a writer process is alive; otherwise the driver's snapshot commits
+mid-growth states. (Recorded here because the context-limit step allowed only DECISIONS/tasks edits; the
+next agent files the PITFALLS entry.)
+
+## 2026-10-11 213 DECISION: civitates triage COMPLETE (A 292/292 + F 118/118, zero error rows) - committed; list transcription is image-based, hOCR abandoned for this book
+The iteration-26 background run (/tmp/civitates_triage.py, LLM ports 8080-8082 patched in-process) printed
+DONE and exited: data/books/triage/civitatesorbiste00brau.A.jsonl = 292 unique rows (complete, no errors,
+no duplicates) and .F.jsonl = 118 rows (0 error rows; 239 figure readings: 222 view / 11 plan / 6 other).
+Both committed with this entry - the append-only files are final, no re-run needed. While it ran I read the
+cached triage images (LOCAL: data/raw/books/civitatesorbiste00brau/triage/nNNNN.jpg = leaf n+1) for 16
+figure leaves. Findings: n58 = bird's-eye PLAN of Paris (poem cartouche); n85/n90/n98/n109 = bird's-eye
+PLANS (Flemish/German; n98 = the famous Antwerp plan, n109 = Amsterdam, whose plate PRECEDES its title
+leaf n110); n237/238 = the two Jerusalem PLANS (old city numbered walls/Temple/Tower of David + new city
+Declaratio A-Z). Corrected the iteration-26 hand-over: n157/n158 ("DECEM ET TRIA LOCA" / "FEDERATORVM
+HELVETIAE") are NOT maps - sheets of small town VIEWS of the 13 Swiss cantons (kind o). Views confirmed:
+n194 (two Vienna views, S. Steffans labelled), n202 (the famous oblique bird's-eye VIEW of Venice,
+153-item Italian legend), n214 (Ancona), n217/n218 (two Naples views), n225 (Messina view; title leaf
+n226 follows it - sections interleave both ways). n52 = double title page (Burgos + S. Sebastian), n54 =
+their two views; n53 = two more plates (46-item Dutch legend view + sea view) - likely the 2nd/3rd
+Barcelona plates, confirm with n50/n51. n187/n199 = faded blank VERSO of the fold-outs (plates n186
+Augsburg, n198 Milan; "RFPCB" stamp). TWO PITFALLS (next agent files them in PITFALLS.md): (1) the hOCR
+page index for this book is MISALIGNED with the jp2 leaf sequence by a drifting 0-2 leaves (hOCR leaf 85
+holds the Brussels title text that A reads on leaf 87; leaf 53 matches; leaf 109 off by 2) -
+books_ia.page_texts()/ocr_captions are UNRELIABLE here; the image-based A rows are the ground truth and
+217 must not use page_texts for civitates. (2) Stage F under-detects plans: its earthwork-biased prompt
+flagged only 11/121 figure pages as containing a "plan" while 7+ are visually confirmed plans - 217 must
+not trust F's "plan" label for kind calls on this book.
+
+## 2026-10-11 213 DECISION: list structure decided - one entry per figure leaf keyed on leaf n, title = the plate's own inscription or the section's title leaf, kind o/s/u with kind_by hand|A
+The book has no printed town list (confirmed: no list leaf in the A data). Each city section = a TITLE
+LEAF (big Latin title + history text; A reads it) + 1-3 PLATE leaves (views/plans; A caption = the
+plate's own inscription, often a legend or poem, often empty), interleaved both ways, so a plate's city =
+its section (nearest title leaf either side). Printed page numbers exist ONLY on leaves 193-196 (1-4)
+and 280-284 (I-V) (data/raw/books/civitatesorbiste00brau/civitatesorbiste00brau_page_numbers.json) - all
+other `page` values null. Plan for data/books/lists/civitatesorbiste00brau.json: {"plates": null,
+"figures": [{"fig": <0-based leaf n>, "title": <inscription as printed, or the city name from the section
+title leaf when the plate has none>, "page": null-or-printed, "kind": "o"|"s"|"u",
+"kind_by": "hand" (I read the image) or "A" (derived from stage A, unverified)}]} covering all 121 figure
+leaves; .map.json = [] (list_pages maps only kind s/u and has no printed page numbers for these leaves,
+so it is honestly empty - 217 extends the machinery, not 213). Visually confirmed so far: plans
+n58/85/90/98/109/237/238 (s); views n194/202/214/217/218/225/157/158 (o). Remaining reads (cheap - the
+images are local): n209 Rome, n205/n206 Florence, n198 Milan fold-out (view or plan?), n197 Milan arms
+(excluded from drawings), n86/n97/n193 title leaves, n186 Augsburg fold-out, n50/n51. Then: 7
+verified-town QIDs (Rome, Vienna, Florence, Milan, Venice, Brussels, Antwerp; paced Wikidata incl.
+search-trap check) into fit/src_artists.py:BOOKS["civitates"]["sites"] + lead doc; update the lead-doc
+books section (FEDERATORVM = views, fold-out versos, the two pitfalls); --check (last passed 2/2 in
+iteration 24, staging files untouched since); --golden; tests/test_src_artists.py per prep §4 (negative
+control: Imola row with the Cervia point 44.245/12.367 must FAIL); tick boxes 1, 5, 6 then box 4 LAST;
+211's hand-over note (R6); PITFALLS entries (LLM ports, hOCR misalignment, F under-detection, background
+jobs outlive sessions).
+
+## 2026-10-11 213a DECISION: mapping RESOLVED - triage file nNNNN.jpg = A-row NNNN = 1-based leaf NNNN+1; iteration-29's 10 reads were each off by one leaf (the parent's 19 stand)
+The CRITICAL blocker of the iteration-29 hand-over is settled, four independent lines of evidence:
+(1) CODE: books.py:119 triage_path(ia_id, n) = triage/n{n:04d}.jpg with the same 0-based BookReader
+index n that stage A stores in the row ("n": n, books.py:284). (2) ASPECT RATIOS: all 292 triage jpgs
+match the CURRENT bookreader.json page index n at <=1% (292/292; the shifted hypothesis only 290/292,
+and file n0000 - which cannot exist under the shifted reading - matches page 0's aspect 0.6117).
+(3) leafNum IDENTITY: leafNum(i) = i+1 for all 292 in BOTH the committed A file and the current
+bookreader.json; leafNum is the stable jp2 file number, so a leaf-order shift between the triage run
+and now is impossible (a shift would change the count or break the 1..292 sequence). (4) DIRECT
+RE-READS of seven contested images: n0198 = the CRISP Milan fold-out (MEDIOLANVM cartouche = A198's
+garbled "METOLACOL"; Visconti serpent; CVM PRIVILEGIO), n0199 = the faded BLANK VERSO (A199, no
+caption, typed plate_site_plan - the ghost image is what made A type it), n0197 = the Armes-de-Milan
+page (A197 "Armes de ceste Ville de Milan"), n0186 = the CRISP Augsburg fold-out (banner = A186
+"HABET DELINE"), n0187 = faded verso (A187), n0206 = CRISP Genoa+Florence double plate (corner text
+"VA." + "FLORENTIA" = A206 "VA. FLORENTIA"), n0205 = Genoa-harbour+Florence double plate (legend =
+A205 "FLORENTIA urbs est suffragio..."). The iteration-29 10/10 "off-by-one content matches" were an
+artifact: it matched image CONTENT to the A-row caption that fit and thereby attributed every leaf's
+caption to the neighbouring row. Corrections recorded: A205/A206 are BOTH crisp (parent had "n206
+faded"); A50 is crisp (29 had "faded"); n0051/n0207/n0111 are blank/faded VERSOS (text_only rows -
+versos type as text_only or plate_site_plan in A, inconsistently); A53/A54 belong to the
+Burgos/Sebastian section (the double-title leaf is A52), NOT Barcelona (Barcelona = A49/A50 only);
+Amsterdam = A108 title -> A109 plan -> A110 plate (the parent's "plate precedes title leaf n110" was
+the faded A111 verso misread); Messina = A224 title -> A225 plate -> A226 history continuation
+("MESSANÆ urbs est...") - the parent's "sections interleave both ways" claim is a misread, sections
+are strictly title-then-plates. Also verified: F rows' field is "shows" (not "show"): 239 figure
+readings (222 view / 11 plan / 6 other) over 118 rows; F's "plan" leaves = A30/62/65/66/90/93/105/186/229(x2)/237
+- of these only A90 (Ghent) and A237 (Jerusalem old) are true plans, F MISSES the five famous plans
+(A58/85/98/109/238) and flags A186 (a view) - F's plan label is unreliable in BOTH directions for
+this book (lead-doc pitfall; 217 must use hand kind s only).
+
+### 2026-10-11 213a DECISION: list files written + validated (boxes 1-4) - 121 entries, s7/u3/o111, hand 30 / A 91; pages only on fig 193/194; .map.json = []
+Built data/books/lists/civitatesorbiste00brau.json ("{"plates": null, "figures": [121]}", sorted
+by fig, indent=0 like the 12 sibling dumps) from the committed A file + the recorded hand reads:
+kind s (hand) = 58/85/90/98/109/237/238; kind u (hand) = 187/197/199; the other 111 = o (hand 20:
+50/53/54/86/97/157/158/186/193/194/198/201/202/205/206/209/214/217/218/225; A 91). Titles: A caption
+as-is except two corrections where I verified the true printed inscription on the leaf image -
+fig 50 "Cum Pristelio" -> "Cum Privilegio" (banner), fig 198 "METOLACOL" -> "MEDIOLANVM"
+(cartouche) - and the 14 empty-caption leaves take the section's city name (53 Burgos + S.
+Sebastian, 58 LVTETIA PARISIORVM, 85 BRVXELLA, 90 GANDANVM, 98 ANVERPIA, 109 AMSTELEDAVM, 187
+AVGVSTA verso, 194 VIENNA AVSTRIAE, 199 MEDIOLANVM verso, 202 VENETIA verso, 214 ANCONA, 217/218
+NEAPOLIS, 225 MESSANA); the five double-plate leaves (50/54/193/205/206) carry the second half's
+printed inscription in "[other plate: ...]" brackets (A54's bottom inscription read in full this
+session: "SANCT. SEBASTIANVM vulgo Donostien ad mare Oceanum insigne regni Guipuzcoa oppidum").
+page = "2"/"3" on fig 193/194 only (the only figure leaves within leaves 193-196 with printed
+numbers; 280-284/I-V are all text leaves). .map.json = [] (list_pages maps kind s/u by printed
+page number; none exists for these leaves). Validation: 121 entries, fig set == the 121 figure
+A-rows, kinds/kind_by sets as above, all five fields present, .map.json == [] - passed.
+
+### 2026-10-11 213a DECISION: the Venice plate is a two-sided fold-out - A201 (recto) and A202 (verso) are BOTH real views; the iteration-33 "A201 = title leaf" assumption is corrected
+Re-reading file n0201 (A201, A: other_illustration, caption "VENETIA") shows the famous bird's-eye
+view of Venice - printed title "VENETIA" top right, legend items 1-~52, Cum Privilegio cartouche -
+and file n0202 (A202, A: other_illustration, empty caption) shows the VERSO of the same fold-out:
+a second full view of Venice (legend items 53-153, ALTRI CHIESE, DELLE COSE PIÙ NOTABILI). So:
+(1) the iteration-33 plan's "A202 = VENETIA (A201)" was right on the city but wrong on the role -
+A201 is the recto plate, not the section's title leaf (that is A200, A caption empty); (2) the
+parent's iteration-27 read "n202 = the famous oblique bird's-eye view of Venice (153-item Italian
+legend)" was correct about the file - it is the verso half, not a misread; (3) unlike the blank
+fold-out versos A187/A199 (kind u), A202 carries a real picture -> kind o, kind_by hand (parent)
+for A202 and hand (this session) for A201. The hand set grew 29 -> 30 on this; the section order
+stays strictly title -> plates (no interleaving - the Venice case is a fold-out, not an interleave).
+
+## 2026-10-11 213a DECISION: lead-doc books section rewritten (box 5) + box 6 verified - 213a finished
+The only change this session: the books section of docs/lead_artists.md (replaces the iteration-26
+text). All content verified against the committed files first (list json tallies, A/F jsonl typing,
+page_numbers file, cached IA metadata for all six items, books.py BOOKS cite convention,
+books_ia.page_texts source). What the section now carries (the goal's (a)-(f)): (a) identity + the
+six-item table gained a **cite-string column for 216** - verbatim BOOKS values backed by the cached
+metadata (Liber secundus: "Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber
+secundus, Antwerp 1575 (Aegidius Rade)"; topographiahelve00zeil: Merian + Zeiller, Frankfurt 1654,
+Merianischen Erben; PAN item: Merian, 1642) - plus the note that the book-level `region` is 216's
+call (the town's region comes from the row; pick the dominant one, say so in the cite string).
+(b) Section structure: strictly title leaf -> 1-3 plate leaves -> more history (the
+"interleave both ways" note dropped as a faded-verso misread); the six blank versos type
+inconsistently (A51/111/207/227 text_only vs A187/199 plate_site_plan); the three fold-outs incl.
+Venice = views on both sides (recto A201 = the famous view, verso A202 = second view, legend from
+item 53). (c) Two pitfalls for 216/217: hOCR page index misaligned 0-2 leaves (books_ia.
+page_texts()/djvu_txt() unreliable for this book - the image-based A rows are ground truth; 217
+must not use page_texts for civitates); machines under-detect plans in BOTH directions (A typed
+only 3/121 as plate_site_plan - A187/199 blank versos + A238 Jerusalem-new; F's 10 distinct plan
+leaves hold only 2 true plans A90/A237; F misses A58/85/98/109/238, flags A186 a view) - the hand
+list's kind s (7 verified) is the only plan source. (d) Corrections: FEDERATORVM sheets = views of
+the 13 Swiss cantons (o), not maps; the 7 true plans incl. both Jerusalems; A187/199 blank versos
+(u, no picture), A197 Milan arms (u); the two garble corrections (fig 50 Cum Privilegio, fig 198
+MEDIOLANVM). (e) The transcription scheme + tally: one entry per 121 figure leaf, title = printed
+inscription or section city name (14 leaves listed), double-plate brackets on 50/54/193/205/206,
+page only fig 193/194 (leaves 280-284 carry I-V but no figure leaf falls there), kinds s7/u3/o111,
+kind_by hand 30/A 91, .map.json = [] honestly empty (list_pages maps by printed page number).
+(f) Per-book status of all six: liber2 = fully worked (triage + list + map); the other five =
+metadata verified, untriaged = 216/217 follow-on scope. Box 6 verified: git status shows only
+docs/lead_artists.md; scoped diff of books.py/books_lists.py/index.jsonl/validation.json/triage/fit
+= 0 lines. The parent 213 keeps its own lead-doc duties (QID table, --check/--golden, test,
+PITFALLS entries) - untouched this session; parent's box 5 stays unticked (213b's work not in).
+
+## 2026-10-11 213a DECISION: iteration-36 re-verification of all six boxes from scratch; set Status: done (iteration 35 left it "open")
+Every box re-checked against the committed files, not the notes: (1) the list file parses to
+{"plates": null, "figures": [121]} sorted by unique fig; the fig set equals EXACTLY the A file's
+118 other_illustration + 3 plate_site_plan (A187/199/238) rows; kinds s7/u3/o111, kind_by hand
+30/A 91; every kind_by "A" title equals the A caption (0 mismatches outside the two recorded
+corrections fig 50 "Cum Privilegio" / fig 198 "MEDIOLANVM"); the 14 empty-caption leaves all carry
+the section city name; non-null pages are only fig 193 "2" / fig 194 "3" - correct against the
+source civitatesorbiste00brau_page_numbers.json, whose leafNum is 1-BASED (leafNum 193-196 = "1"-"4",
+280-284 = "I"-"V"), so fig (0-based) 193 = leaf 194 = printed "2", fig 194 = leaf 195 = "3"; no
+figure leaf falls in leaves 279-283. (2) The 11 box-2 leaves are all kind_by hand in the list
+(n51 is the one exception by design: a blank/faded verso, not a figure leaf - no entry needed,
+read recorded in iteration-30's entry). (3) s-hand = 58/85/90/98/109/237/238, u-hand = 187/197/199,
+FEDERATORVM 157/158 = o. (4) .map.json = []. (5) Read the lead-doc books section in full - it
+carries the goal's (a)-(f) incl. the 216 cite-string column. (6) git log of the four 213a commits
+touches only the three Touches files plus the task file and DECISIONS.md (memory files); books.py,
+books_lists.py, index.jsonl, validation.json, the triage A/F files, fit/, PITFALLS.md untouched.
+Ran the full test suite in the existing .venv: 29/29 pass in 36 s (the driver's .venv REBUILD from
+requirements.txt is the known project-wide failure - unpinned hashes, driver note 2026-10-10; the
+existing .venv lacks pyshp but no test path imports it, so the suite is green as-is; fixing the
+pinned build is not in 213a's Touches). Choice: set Status: done - the driver's re-check should
+find all boxes ticked and the suite green.
