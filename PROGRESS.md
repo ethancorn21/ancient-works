@@ -9,7 +9,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/302b-heldout-table.md` (in-progress) - hand-over: (2026-10-11, iteration 81, agent c - session 1. Box 1 DONE: the pre-registration is committed; nothing else touched.)
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -57,9 +56,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
     stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
     junction/feature points, never a fixed stride on a straight run.
-
-### 2026-10-11 302b DECISION: pre-registered the one-shot held-out protocol in docs/site_flow.md before running anything (box 1) - the run is now locked to the method as of f7dbba6
-Chose a separate pre-registration commit (9e078c8) before writing or running the evaluator, because box 1 makes the run conditional on the protocol being committed and the parent task requires the numbers to be reported verbatim, good or bad. The section registers: the 21 sorted no-auto doc ids (the 20 golden + the lead's 21st, all verified auto=None in this checkout after the driver's main sync), the frozen config of fit/inkfit.py @ f7dbba6 (extractor per docs/autofit.md section 3, no-model variant - the AI box is not reachable from this VM, relief 1 m/px with 24 m LRM clipped to +/-1 m, propose anchor seed, window +-25 deg / x0.74..x1.36 / +-200 m, 2 deg / 0.04-log / 4 m coarse grid with 8-candidate refine, mean(max(contrast,-0.2)) objective with -9.0 floor, the search-matched null = max of the scrambled-template (seed 20261012) and DEM half-box-shifted searches, the 0.23/0.71-quantile point recipe with 8 fabrication-pattern redraws, the frozen gate, one-shot checkpointing into data/inkfit/heldout/results.json), the corner-error metric (both similarities in the doc's size-frame Mercator convention, RMS over the 4 full-image corners in ground metres via aw.ground_scale(lat0)), rotation error and scale ratio, and the statement that the method never reads the hand pairs (the evaluator fit/inkfit_heldout.py is the only reader). Caught before committing: my first draft converted Mercator->ground with 1/aw.ground_scale(lat0); verified numerically that aw.ground_scale(lat) IS "ground metres per Mercator metre" (= cos lat, 0.6335 at 50.69 deg), so the protocol correctly uses aw.ground_scale(lat0) directly (inkfit.map_pairs divides because it goes ground->Mercator the other way). Verified by script: all 21 docs resolve to a plans.json row via doc.split(".",1) and all 19 sites have size_m. Next step: write the runner per the hand-over design and start the one-shot run; the only permitted re-run is an entry that stored an exception (never a completed measurement), disclosed in a table footnote.
 
 ## Project-wide driver notes (newest)
 
