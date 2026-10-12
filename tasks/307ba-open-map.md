@@ -63,73 +63,91 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 111, agent a - the DATA side is done: boxes 1-3 ticked, ALL committed
-in cbb36c8 (fit/propose.py, tools/fit_queue.py, web/data/fit_queue.json,
-tests/test_fit_queue.py, plus DECISIONS/PITFALLS/task files). No page code written yet.
-NEXT = box 4 (the page: web/fitkit.js), then box 5 (docs/site_flow.md).)
+(2026-10-12, iteration 114, agent a - box 4 WRITTEN, not yet verified: web/fitkit.js is a
+NEW file (uncommitted - the context limit stopped the session; the harness saved it) and
+web/index.html gained its one script tag. The re-emit math is numerically verified. Next:
+run the /tmp smoke probe, then the full suite, then box 5 docs.)
 
-**Tests when last run:** full `.venv/bin/python -m pytest -q` green AFTER the final code
-change (the loader-defaults fix): 73 passed, 1 skipped = the iteration-110 baseline
-(identical counts); tests/test_fit_queue.py alone: 5 passed in 51.6 s (part 1 both tests
-in ~1 s; part 2 the one-site line; part 3 both headless card tests on Chrome). The
-2-arg behaviour of propose_for was verified byte-identical against the git-HEAD module
-(9 sample pairs across all three scale sources, identical JSON).
+**State of the branch.** Boxes 1-3 committed (cbb36c8). Uncommitted this session:
+- web/fitkit.js (new, ~120 lines): wraps openPlan LAST in the chain (page->review->
+  fitkit) and endFit (the page original - review/fitqueue don't wrap it); `_fk`-prefixed
+  names only. Activation (openPlan wrapper, after the inner chain returns): P.active &&
+  P.site && P.plan && P.img (the GATE: no picture -> ordinary flow, byte-identical) AND
+  an FQ entry with site === P.site.id && best.plan === P.plan.id && propose. On
+  activate: (1) map.fitBounds to the site's corners FIRST (padding left 390 /
+  narrow bottom-sheet, duration 900, essential); (2) hide `dep-<site.id>` (visibility
+  'none' if present); (3) P.placed=true, P.anchor={u0,v0,lon,lat,mpx,rot} from the LAST
+  propose pair (the centre) scaled by _fkFrameScale() (natural/recorded size; 1 for all
+  117 current entries; 0 on a >2% non-uniform resample -> fall back), P.anchorStack=[];
+  (4) re-emit 5 pairs (4 panel corners from map_box*recordedSize*scale + centre; the
+  exact port of propose.py's _anchor_pairs: merc=a*(w-w0)+z0, a=(mpx/cos(lat))*e^{i*rot},
+  u/v 1dp, lon/lat 7dp) into P.pairs with the page's own numbered draggable markers;
+  refit(). endFit wrapper: after the inner endFit, if wasPlaced: applyDep(site) (the
+  exact restore: S.depSel/depMode/depOpacity/ground never touched) and clear
+  placed/anchor/anchorStack. No <style> block on purpose (box 4 adds zero visible UI -
+  the page's own copy already works; 307bb adds the block if its gestures need one -
+  recorded in DECISIONS). No fetches (the card test allows no reqfail outside /tiles/).
+- web/index.html: exactly one line added - `<script src="fitkit.js"></script>` after
+  fitqueue.js (~line 1708). web/fitqueue.js untouched.
 
-**State.** fit/propose.py is root-aware (loaders take `root=ROOT`, `_CACHE` keyed
-`(str(root), kind)`, `propose_for(site, plan, root=ROOT)`); tools/fit_queue.py carries
-the propose (one localized `_entry_propose` helper + one key per entry after "candidates"
-+ docstrings - kept trivial for the 309 merge); web/data/fit_queue.json regenerated on
-THIS branch (117/117 entries carry propose: 20 bar, 4 ratio, 93 picture_size; Devil's
-Dyke 0.3621/rot 0, note names the bar '0 100 200 300 400 Yards'); part-1 tests pin every
-propose path (synthetic: bar+arrow 0.1306/rot 20 hand-pinned, ratio-fallback 0.2, the
-no-propose trio no-size_m/no-size/no-index-row; real: per-entry derived with an
-anchored>=1 floor). PITFALLS: the private propose loaders are a de facto external API
-(inkfit, inkfit_heldout, test_propose call them) - keep their defaults.
+**Verified numerically this session (/tmp/fkverify.js, throwaway):** _fkReemit against
+the queue file's real propose output: the centre pair re-emits IDENTICALLY (it is the
+anchor origin); corner pairs drift <=0.12 m = exactly the 4-dp scale rounding in the
+queue file applied over ~3000 px (expected; sub-decimeter is the seed's design
+precision). Corner frame math hand-checked (Forthill 170.64->170.6 etc.). Cross-checks:
+all 117 queue entries have plans.size == index.full_size AND plans.map_box ==
+index.map_box (tools/export_plans.py:78 copies both from the index row) and the served
+image's natural size == recorded size -> the propose frame IS the page frame (s=1).
+test_review.py checked: its probes never call openPlan (the save test is an HTTP PUT;
+PROBE_KEYING's endFit hits the wrapper with placed=false, a no-op) -> fitkit cannot
+fire there.
 
-**Watch first:** has agent c's 309 (the place check) merged into main by now? It also
-rewrites tools/fit_queue.py's build(), web/data/fit_queue.json and tests/test_fit_queue.py.
-If yes: run `python3 tools/fit_queue.py` once on the merged branch (the queue file is a
-joint artifact - regenerate on top of whatever the branch shows) and re-run
-tests/test_fit_queue.py; the propose wiring is isolated in `_entry_propose`, so any
-build() merge conflict left for me is small. If not merged, proceed as is.
+**NEXT (exact):**
+1. Smoke probe (throwaway, NOT a committed test - the committed headless test is
+   307bb's part 4). Scratch tree /tmp/fkscratch exists (web/server/data minus raw +
+   Devil's Dyke's book page earthworkenglan01allcgoog/full/n0686.jpg). Start
+   `cd /tmp/fkscratch && python3 server/serve.py --port 0 &` (read the port from the
+   "Ancient Works on ..." line), take the map depiction's `file` from
+   web/data/sites/devil-s-dyke-q3307343/depictions.json (a 'map' entry - a fresh
+   browser auto-selects nothing there: maps are not in DRAWING and the site has
+   LiDAR), then `NODE_PATH=/home/agent/tools/shot/node_modules node /tmp/fkprobe.mjs
+   <base> /tmp/fkout <depFile>`. The probe seeds aw.depSel for Devil's Dyke, clicks
+   #fqplace, waits P.placed&&P.img, then asserts: anchor.mpx===propose.scale_m_px,
+   anchor.centre===propose's last pair, maxPairDriftM small, map.project(site centre)
+   ~ the padded-viewport centre ((390+width-20)/2, height/2), getBounds() contains the
+   site corners, the dep layer HIDDEN while placed, fsave enabled; then clicks #fcancel
+   and asserts placed=false, anchor=null, dep layer VISIBLE again, depSel/ground
+   unchanged. If the depLayerState() helper returns null, simplify it: the evaluate
+   callback may reference `map` directly (a page global lexical binding). Look at the
+   screenshots in /tmp/fkout to see the drawing sit ON the site's box. Kill the server
+   after.
+2. Full suite `.venv/bin/python -m pytest -q` (baseline 73 passed + 1 skipped). The 305
+   part-3 card tests pin byte-identity: their served tree 404s the scan so P.img stays
+   null and fitkit never activates; test_review must stay green. Confirm
+   `git diff web/fitqueue.js` empty and `git diff web/index.html` = the one tag.
+3. Box 5 (docs): docs/site_flow.md's "Ready to fit" section - add what the entry's new
+   `propose` field is (the starting placement: the panel-centre anchor at the recorded
+   scale/rotation - the ladder bar > ratio-at-ppi > site-size, the north arrow where
+   trustworthy - re-emitted as 3-5 page-px->lon/lat pairs), where it comes from
+   (data/books/index.jsonl stage-B fields via fit/propose.propose_for), and the
+   fail-open (a row that cannot anchor gets no key; the page does the ordinary
+   three-point flow). Do NOT write the full place-mode section (gestures/save/
+   screenshots) - that is 307bb/307c's. Agent c's 309 also edits docs/site_flow.md
+   (its own section) - keep my addition local to the "Ready to fit" section.
+4. Commit: one commit for fitkit.js + index.html once verified ("307ba: box 4 - place
+   mode opens on the works ..."), box 5 docs with it or separately, then tick boxes
+   4-5 and set the task done when the suite is green.
 
-**Box 4 (the page, next step).** web/fitkit.js is a new extension in the fitqueue/review
-pattern (see the parent 307b hand-over's "Page-side design sketch" - it is precise: wrap
-openPlan LAST in the chain and endFit; `_fk`-prefixed names - one global lexical scope per
-page, do not redeclare review.js's `_renderList`/`_openPlan`; reach P/map/S/select by name;
-inject its own `<style>`). web/index.html gains exactly one script tag, after fitqueue.js
-(the tags are at index.html:1707-1708). Activation: the opened row is the site's queue
-entry's best plan AND the entry carries a propose. On open: map.fitBounds to the site's
-corners FIRST (fly to the site's box before the ink appears; padding left ~390 when
-!narrow()), hide the `dep-<site.id>` layer (visibility 'none' if present), seed
-`P.anchor = {u0, v0, lon, lat, mpx, rot}` from the propose (pair[4] is the panel centre;
-u0/v0 derived exactly as propose._anchor_pairs does: the index row's map_box* size or
-the page frame) and `P.pairs = re-emit(anchor)` (port `_anchor_pairs`'s math:
-`merc = a*(w-w0)+z0`, `a = (m_per_px/ground_scale(lat))*e^{i*rot}`, u/v 1 dp, lon/lat
-7 dp) so the existing refit()/simFit() preview shows the drawing ON the site. On close
-(back/Cancel/save): restore the dep layer exactly (S.depSel/ground/etc are never
- touched), clear P.placed/anchor/pins. GATE: only activate when P.img has loaded - the
-305 part-3 card test's served tree 404s the page scan, and that test (which opens the
-FIRST entry, which now HAS a propose) must stay byte-identical green; without the image
-there is no ink to place, so not activating is the right behaviour, not a shortcut.
+**Watch first:** agent c's 309 (still unmerged at iteration 114; main tip cf29be2) -
+it rewrites tools/fit_queue.py build(), web/data/fit_queue.json and
+tests/test_fit_queue.py. If it merges before my commit, the propose wiring is isolated
+in _entry_propose so any conflict is small; I do NOT need to re-run the generator
+(boxes 4-5 don't touch the generator output) unless the merge changes entry shapes.
+No git merge/rebase/reset unless the prompt asks.
 
-**Box 4 verification (no new headless test yet - that is 307bb's box 5).** Check:
-`git diff web/fitqueue.js` empty; `git diff web/index.html` = one script tag line; full
-suite green (305 part-3 card tests pin the no-propose byte-identity; the with-propose
-browser behaviour is proven by 307bb's headless part 4 - do not add a headless test here).
-
-**Box 5 (docs, after box 4).** docs/site_flow.md's "Ready to fit" section: the entry's new
-propose field (what it is: the starting placement, anchor at the panel centre, the scale
-ladder bar/ratio-at-ppi/site-size, the north arrow where trustworthy; where it comes
-from: data/books/index.jsonl stage-B fields; the fail-open: a row that cannot anchor gets
-no key and the page does the ordinary three-point flow). Do NOT write the full place-mode
-section (gestures, save, screenshots) - that is 307bb/307c's.
-
-**Re-read** (for the box-4 session): web/index.html ~340-420 (the deps model: applyDep
-manages one `dep-<site.id>` layer; select() sets ground), ~832 endFit, ~902 openPlan,
-~1000-1150 (startFit, makeInk, simFit, refit, saveFit, the map-click pin flow) and
-1707-1708 (the fitqueue/review script tags); web/fitqueue.js in full (fqLoad/fqPatch/
-fqPlace, the renderList/saveFit wrap pattern to imitate); web/review.js (the earlier
-extension: how it wraps openPlan before fitkit's); the parent 307b hand-over's page-side
-design sketch (the authoritative source); tests/test_fit_queue.py part 3 (what stays
-byte-identical).
+**Re-read:** web/fitkit.js (mine, uncommitted - its header comment is the design doc);
+web/index.html ~832 endFit, ~902 openPlan, ~1000-1150 (startFit/makeInk/simFit/refit/
+saveFit/pin flow), 1706-1710 (the three script tags); web/review.js's wrapper block
+(bottom) and web/fitqueue.js (the pattern it imitates); tests/test_fit_queue.py part 3
+(~716-967, the byte-identity pin); the parent 307b hand-over's page-side design sketch
+(authoritative); docs/site_flow.md "Ready to fit" section (box 5).
