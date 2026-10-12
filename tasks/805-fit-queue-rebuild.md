@@ -2,7 +2,7 @@ Status: open
 # 805: rebuild the queue with the right-place check, report the namesake list, guard the verbatim core
 Depends on: 804
 Carved from: 309 (box 1, the rebuild half; box 2)
-Touches: web/data/fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_place_drift.py
+Touches: web/data/fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_place_drift.py, fit/review.py, fit/batch_eu.py, fit/catalog.py, tests/test_site_done.py, tests/test_fit_provenance.py, tests/test_review.py
 
 ## Goal
 804 wires the right-place check into tools/fit_queue.py build(); this task runs that build on the
