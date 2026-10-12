@@ -48,3 +48,5 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 HANDOVER (iteration 92, agent c, task 309): investigation complete, NO code written. The right-place check design (stdlib tools/right_place.py; the book's list-of-figures section county as the Brighton signal; plausibility filter on noisy recorded conflicts; 50km tied-away guard; test impact on test_fit_queue_real/synthetic) is in tasks/309-queue-right-place.md ## Hand-over, facts in DECISIONS.md (309 entry). Next session: re-verify the section walk (sussex for figs 216-223), then implement. NOTE: uncommitted data/surveyfit/heldout/* changes in this checkout belong to task 304 (one-shot run state), intentionally left for the next 304 session.
