@@ -2872,6 +2872,43 @@ Boxes 2-3 ticked, Status: done.
   recipe); the imagecodecs entry stands (the AHN rebuilds today relied on the ad-hoc
   .venv install; the pin is still outstanding, agent c owns requirements.in/.txt).
 
+## 2026-10-12 211 DECISION: box 3 verified and ticked (the tests were written in the unlogged session and pass 9/9 this session); merged main per the lead's mid-session instruction (7e61147 skips the 1.6 GB .npy/.npz grids in full-tree test copies - the 48G disk was at 1 GB)
+- Session 185. Box 3's tests already existed in the worktree at session start (committed by the
+  driver from the unlogged sessions): data/merge/sites_premerge_baseline.jsonl (the 385 entries
+  served at commit 406562b) plus the three tests in tests/test_merge.py -
+  test_served_sites_grew_purely (frozen baseline: nothing removed, no entry rewritten outside the
+  four marker fields 212 owns), test_new_sites_are_complete (per new site: web/data/sites/<id>/,
+  id/name/lon/lat/corners/size_m/drawings, relief.jpg iff lidar_credit, coverable old-map layer
+  (depict.covers + MIN_AGE) implies depictions.json), test_new_site_golden_samples (the-hague
+  0.91/1850/1/tmk1850, ostend aerial-only no depictions, cambrai 1.01/1780/2). Ran them: all pass
+  (test_merge.py 9/9, 19 s). Ticked box 3. The box's "old 384" stays recorded as the human's
+  estimate; the measured pre-build count is 385 (deviation noted here and in the ticked box's
+  text; per the Notes the tests assert the data-level invariants on the measured values).
+- Re-read resolved clean: data/merge/run_build.py run()/main() - --force is forwarded to
+  build_catalog only (the sole effect there is the `sid in built and not a.force` skip guard, so a
+  half-built site in sites.json can be rebuilt in place); the --marks-only path is untouched by
+  force; the module docstring states exactly this. No change needed.
+- Mid-session lead message: the VM disk was at 1 GB because each full suite run copied the
+  gitignored data/sites/*/dem.npy grids (~1.6 GB) four or more times; main now carries 7e61147
+  (tests/conftest.py + tests/test_fit_queue.py: full-tree copies skip .npy/.npz). The lead asked
+  to sync main before the next suite run. My branch had diverged (driver snapshot commits on
+  agent/a; 7e61147 on main over 23ed8b0) with ZERO file overlap (my diff since the merge base
+  23ed8b0 does not touch conftest.py or test_fit_queue.py), so `git merge main` was clean
+  (a1d224c, no conflicts, no rebase). Suite runs are light again; a "No space left" failure from
+  now on is not the .npy copy (it would be something else - disk still 98% used at merge time).
+- Suite run this session (before the sync; the sync touches only conftest/test_fit_queue, both of
+  which were green in the run): 10 failed / 130 passed / 1 skipped in 247 s. The 10 failures are
+  exactly the source-guard set of the still-OPEN 222-228 (test_src_artists/kip/limes/mackenzie/
+  numancia/van_deventer x2/wiltshire_stukeley x3) - staged rows now joining the canonical files
+  is by design of the live merge (iter 174). test_gate and test_serve are green (10-11's driver
+  notes about them are stale). 130 > 124 passed vs iter 183: main absorbed other tasks' tests in
+  the meantime; nothing new is red.
+- 222-228 re-checked this session: all seven still Status: open (no fix commits on main) -> the
+  done-claim stays gated on them (Depends on: already lists them). Box 5 (docs/sources.md) and
+  box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
+  the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
+  claim.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
