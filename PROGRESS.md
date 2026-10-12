@@ -125,3 +125,12 @@ samples). Findings, each verified:
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 HAND-OVER NOTE (agent c, 217, iteration 116): session cut at context limit.
+    217 status: Merian plate-list transcription FINAL (full table in tasks/217-view-books-lists.md
+    hand-over); the 10 foldout leaves exist in the IA item as JPGs (foldout 86 = Burgdorff plate);
+    51 wide-leaf images fetched to /tmp/merian/chk/; identified so far: n42=Forsteck, n76=Oron.
+    NEXT: finish leaf identification (batch 2, image set in hand-over), write
+    HAND_FIGS['topographiahelve00zeil'] + parse_hand_figures fig=''->None, ocrmap/validate/commit,
+    then triage, then box 2. No code written this session; tree clean; last suite run 100 passed /
+    1 skipped (session 2, still valid). Details: DECISIONS.md (session-4 entry) + task hand-over.

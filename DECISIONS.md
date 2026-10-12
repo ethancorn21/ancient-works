@@ -680,3 +680,44 @@ samples). Findings, each verified:
    validate counts them as nopage and list_pages skips n=None - already safe in both, verify no other
    path dereferences f["fig"]. The .json dump keeps the contract ("plates": null, "figures": [...],
    indent=0, ensure_ascii=False, key order fig,title,page,kind,kind_by).
+
+### 2026-10-12 217 DECISION: Merian helvete (session 4) - plate-list transcription finalized from the 2x crops of n394 (75 lines / 81 plates, full names+pages in the task hand-over); the 10 'missing' foldout leaves EXIST in the IA item as full-res JPGs (session 3's 'not in this item' was wrong - BookReader hides them only); leaf identification is a per-leaf image job
+Session 4 on 217: transcription + investigation only, no code (tree clean; all artifacts under /tmp/merian/).
+Findings:
+1. **Foldout leaves are in the item.** `https://archive.org/download/topographiahelve00zeil/page/nNNNN.jpg`
+   works for all 10 foldout leaves (44, 86, 116, 168, 230, 238, 254, 346, 360, 412); ia.get returned real
+   JPEGs (saved /tmp/merian/foldout_NNNN.jpg). Session 3 concluded 'not in this item' from BookReader's
+   omission - wrong. Consequences: (a) their TITLES are readable and pin which list entries they hold
+   (foldout 86 = the Burgdorff view, confirmed by image); (b) they are still absent from ia.pages(), so
+   they have no n, no triage image, no index row - plates living ONLY on a foldout leaf are transcribed
+   with fig='' and the index simply never sees them (no leaf to point at; no fabricating a row on a
+   neighboring leaf). Foldout 44 turned out to be a duplicate TEXT page (p19, 'Beschreibung der
+   Endgnoschafft'), not a plate; several portrait-sized foldouts (168, 230, 238, 346, 360) may be text
+   duplicates too; 412 is 3744x5616 (possibly a double-page spread). Check each image before use.
+2. **Plate-list transcription is final** (3 columns of n394 read at 2x; crops in /tmp/merian incl. my extra
+   list_c12-14/c32/c33/list_lower). 75 lines / 81 plates; names + printed page numbers as in the task
+   hand-over. Corrections vs session 3's draft: 'Genff' is GENEVA (not Griffensee) with its own im
+   Grund/im Prospect pair; 'Neuenburg' carries a handwritten '2 Ansichten' (2 plates); 'Pfeffers' and
+   'Basel im Prospect' are each '2 Kupffer' (2 plates each); there are TWO Thun entries (p26 and p31);
+   'Beven' p31 is a real entry (near Yverdon); 'Romamostier' = Romainmôtier; 'Lowerk'/'Wellenk'/'Leugg'/
+   'Brieg'/'Mauwister'/'Etiszweyl' are unreadable place names (kept as printed). Footer: handwritten
+   '3 Karten un. 102 Ansichten' vs my count 81 - the gap is plates hidden inside merged list lines; not
+   an acceptance criterion (index rows off leaves, not off the footer count).
+3. **Leaf identification needs images, not hOCR.** hOCR titles are usable for ~40 of the 67 wide leaves,
+   but the Bern section's order is scrambled vs the list (Lausanne p79 sits inside the Bern section; Oron
+   appears with no list entry at all) and several leaves OCR to nothing (97, 105, 129, 225, 243, 337,
+   375). So all 51 non-obvious wide leaves were fetched at scale 3 to /tmp/merian/chk/n%04d_s3.jpg this
+   session (re-fetch: ia.page_image_url(p, scale=3); books_ia.get returns BYTES). Identified this session:
+   n42 = Forsteck (hill-castle view; hOCR 'Kazann' was garbage) and n76 = Oron (view; 'ORON.' title with
+   hunting scene - NOT in the printed list, an extra view like civitates's unlisted leaves). The full
+   not-yet-identified set, with hOCR hints and list-entry candidates, is in the task hand-over.
+4. **Kind policy for this book (to apply, record per decision):** o = perspective town/canton view (the
+   drawings GOAL point 5 asks for); s = bird's-eye 'im Grund' town plan (213's precedent for town plans);
+   u = excluded from the drawings: regional maps (Teutschlands, Endgnoschaffte, 4-Waldstätter-See and its
+   twins, the Lugano-ish sheet, the coins sheet). Open call: the GLETSCHER panorama (n104) - not a town
+   view; I lean o ('a view, a drawing in its own right' per the module's kind docstring) - decide with
+   evidence when the image is reviewed. Oron (unlisted view) gets kind o / kind_by hand and rows via
+   stage-A flags once triaged (civitates precedent for unlisted leaves).
+5. Wide-leaf count corrected: 67 (session 3 said 65). ia.pages has 400 leaves; the 67 (n, leafNum) pairs
+   are in the hand-over. hOCR index i == 1-based leafNum (aligned, unlike civitates); all 67 hOCR dumps in
+   /tmp/merian/wide_hocr.txt.
