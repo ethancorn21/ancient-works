@@ -17,7 +17,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
