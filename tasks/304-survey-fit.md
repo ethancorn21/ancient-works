@@ -1,4 +1,4 @@
-Status: in-progress
+Status: dropped
 # 304: Fit a drawing against the old survey map, not the ground - the third try at an automatic fit
 Depends on: 302b
 Touches: fit/surveyfit.py, fit/surveyfit_heldout.py, data/surveyfit/, tests/test_surveyfit.py, docs/site_flow.md, requirements.in, requirements.txt
@@ -106,3 +106,6 @@ pair) and that the entry stores objective/null/margin/confidence exactly as tabl
 verdict need them; run() - confirm the all_done check counts all 22 pair keys (it iterates
 pairs() keys, not just the 21 docs); pairs() - the aerial pair sits right after the
 AERIAL_DOC sheet row.
+
+## Lead note (2026-10-12)
+Dropped: superseded by the matcher fit (fit/matchfit.py matches every plan against the site survey sheets as grounds, as well as relief and aerial). Nothing left to wire.
