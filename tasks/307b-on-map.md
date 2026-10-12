@@ -78,19 +78,22 @@ top as a refinement: new points refine the anchor and re-draw it. Parent 307 box
 
 ## Hand-over
 
-(2026-10-12, iteration 115, agent a - 307ba is DONE (all its boxes): the queue file carries
-the propose (307b's box 1), propose.py is root-aware, part-1 tests pin every path, the page
-(307b's box 2): web/fitkit.js opens place mode ON the works (fly to the site's box, hide the
-site's earlier overlay, seed the anchor as the 5 pairs, restore exactly on close), and
-docs/site_flow.md's "Ready to fit" documents the propose key. Box 2 verified in a real
-headless Chrome (probe: anchor == the propose's centre pair, re-emission drift 0.117 m, the
-sheet hidden/restored, fsave enabled, no pageerror - DECISIONS). Remaining = 307bb ONLY:
-307b's boxes 3-5 (the gestures on the placement, saving from it, the headless part-4 test)
-plus the full place-mode docs section (307b's box 6, with 307c's screenshots when they
-land). The page-side design sketch below stands as written for 307bb; the corrections on
-the record: propose's private loaders take root=ROOT defaults (the PITFALLS entry), and
-fitkit deliberately has NO <style> block yet (box 2 adds no visible UI - 307bb adds one if
-its gestures need it; DECISIONS 2026-10-12 307ba).)
+(2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+its done claim was rejected on a SUITE check, not a box: the committed review page went
+stale after the lead's b22a2d2/cf29be2 (rule change + 5 matcher docs, no re-export) and 3
+count-deriving tests fail on every branch containing cf29be2 (DECISIONS 2026-10-12 307ba
+iteration-116). Fix filed as task 220 (a full fit/review.py export; Depends on: 309 -
+agent c owns data/review + web/data/review.json). 307ba now Depends on 220 and re-claims
+once it lands. Remaining work = 307bb ONLY: 307b's boxes 3-6 (the gestures on the
+placement, saving from it, the headless part-4 test, the full place-mode docs section with
+307c's screenshots when they land). 307bb should start once 220 (and ideally 309) is in
+main: its suite baseline is then 73 passed + 1 skipped with no known failures, and its
+headless part-4 save flow (which runs the one-site line and re-publishes the review page
+in its temp tree) sees a consistent page. The page-side design sketch below stands as
+written for 307bb; the corrections on the record: propose's private loaders take
+root=ROOT defaults (the PITFALLS entry), and fitkit deliberately has NO <style> block yet
+(box 2 adds no visible UI - 307bb adds one if its gestures need it; DECISIONS 2026-10-12
+307ba).)
 
 **State.** All of 307ba is committed on this branch: cbb36c8 (the data side: the queue file,
 propose.py root-aware, part-1 tests), 732fe57 (box 2: web/fitkit.js + the one script tag in
@@ -102,11 +105,14 @@ The queue file (117/117 propose) is a JOINT artifact with agent c's 309 (still i
 iteration 115; main tip cf29be2): when 309 merges into main, re-run `python3
 tools/fit_queue.py` on the merged branch before further work here - fitkit reads the entry's
 propose by name, so no page-code change is expected, but the part-4 test reads the
-regenerated file. Suite baseline for 307bb: 70 passed + 1 skipped, with 3 failures that
-pre-exist on main (the lead's 309 matcher wiring: test_fit_provenance::
-test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line,
-test_site_done::test_site_done_line - agent c's iteration-95 note; they share the review-
-queue open-item count signature).
+regenerated file. Suite baseline for 307bb as of iteration 115: 70 passed + 1 skipped with the 3 failures
+above - iteration 116 pinned their real cause: NOT the matcher wiring per se, but the
+committed web/data/review.json being stale relative to the post-b22a2d2 resolution rules
+(340 open of 341 on the page vs 335 what the current code computes; the lead never
+re-exported after the rule change). Owned by task 220 (full export; Depends on: 309): once
+220 is in main the baseline is 73 passed + 1 skipped, no known failures. (The
+"agent c's iteration-95 note" citation in the iteration-115 text could not be located in
+DECISIONS/DECISIONS-archive and is withdrawn; the iteration-116 307ba entry is the record.)
 
 **Measured facts (iteration 110, all by running code):**
 - All 117 current queue entries DO anchor: propose_for succeeds for every one (20 bar,

@@ -1,6 +1,6 @@
 Status: in-progress
 # 307ba: Open the map - the queue carries the proposal, and place mode opens ON the works
-Depends on: 307a
+Depends on: 307a, 220
 Touches: fit/propose.py, tools/fit_queue.py, web/fitkit.js, web/index.html, web/data/fit_queue.json, tests/test_fit_queue.py, docs/site_flow.md
 
 ## Goal
@@ -65,30 +65,49 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 115, agent a - TASK DONE: all five boxes ticked. Box 4 verified in a
-real headless Chrome (the /tmp/fkprobe.mjs smoke probe: the card's Place opens place mode ON
-the works - map on the site's box, the 1842 map sheet hidden, the 1908 plan sitting on the
-real dyke, anchor == the propose's centre pair, re-emission drift 0.117 m, fsave enabled;
-cancel restores the sheet exactly, depSel/ground untouched); box 5 wrote docs/site_flow.md's
-"Ready to fit" section (the propose key: what, ladder, source, fail-open, fitkit's open;
-the tool's fifth input). Suite 70+1 with the 3 failures that pre-exist on main (the lead's
-309 matcher wiring - agent c's iteration-95 note; evidence in DECISIONS). Nothing left.)
+(2026-10-12, iteration 116, agent a - the done claim (9efb944) was REJECTED by the driver
+for 3 suite failures that are NOT this task's work; the root cause is pinned and the fix
+filed as task 220 (Depends on: 309 - agent c's module). 220 is on this task's Depends on
+line now. All five boxes remain ticked and everything remains committed; when main carries
+220 into this branch, re-verify the suite and re-claim done. Nothing else to build.)
 
-**State of the branch (all committed).** cbb36c8 (boxes 1-3: the queue file carries the
-propose, fit/propose.py root-aware, part-1 tests pin every path); 732fe57 (box 4:
-web/fitkit.js + the one script tag in web/index.html - the driver preserved iteration 114's
-uncommitted work); this session's commits (box 5: docs/site_flow.md; memory). Against main
-(cf29be2): web/fitqueue.js byte-identical, web/index.html exactly one added line, the rest of
-the footprint is the committed queue file / propose / tests.
+**The rejection and its mechanism (all verified by running, DECISIONS 2026-10-12 307ba
+iteration-116 entry).** The driver (be251b8) lists: test_fit_provenance::
+test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line,
+test_site_done::test_site_done_line. Cause: the committed web/data/review.json (340 open of
+341, published Oct 11 18:48) is STALE relative to the committed code. The lead's b22a2d2
+(22:27) + cf29be2 (22:35, the main tip) changed fit/review.py::resolved_doc (a recorded
+resolution counts only while its document exists) and placed 5 matcher fit documents into
+data/db/platefits, but neither commit re-exported the page (no web/data/review.json in
+either diff). The current export would print 335 open of 341 (the 5 resolved items hidden)
+and record write-once `resolved` into 6 item files (those 5 + alligator n0214_2). The 3
+tests all derive the expected count from the LIVE page (340) while running the CURRENT
+code in a temp tree: test_site_done's line prints 335 (expected 340); test_fit_provenance's
+seeded refusal doc resolves one more item -> 334 (expected 339 = 340-1); test_fit_queue's
+page save resolves one more -> 334 (expected 339). Verified the fix in a scratch copy of
+the store: `fit/review.py export --root <scratch>` -> 335 open of 341, the 6 records
+exactly as above, second export a no-op. With that page the 3 tests' expectations agree by
+construction. None of this task's files (fitkit/propose/fit_queue/tests part 1) is on any
+of the 3 tests' path - the failing asserts are pure page-count arithmetic in the
+one-site line's review export.
 
-**Nothing remains in 307ba.** The parent 307b's next subtask is 307bb (the gestures,
-saving from the placement, the headless part-4 test, the full place-mode docs section);
-its design sketch and Re-read list are in the parent's hand-over below. If the driver
-rejects the done claim, the reasoning is in DECISIONS (2026-10-12 307ba entries: iteration
-111 for boxes 1-3, this one for box 4/5 verification and the pre-existing failures).
+**State of the branch (all committed, unchanged by this session).** cbb36c8 (boxes 1-3);
+732fe57 (box 4: web/fitkit.js + the one script tag); 7f7e7c0 (box 5: docs/site_flow.md);
+9efb944 (the rejected done claim). Against main (cf29be2): web/fitqueue.js
+byte-identical, web/index.html exactly one added line.
+
+**Next session (after 220 has merged into main and the driver synced this branch):**
+re-run `.venv/bin/python -m pytest -q` (expect 73 passed + 1 skipped, no known failures)
+and re-claim done. If the driver brings this task back BEFORE 220 merged: there is nothing
+to do but wait - do NOT touch data/review or web/data/review.json (309/220's files), do
+not re-baseline any test (that would paper over a genuinely stale page: the owner's
+Review tab is currently advertising 5 items whose fits are already on the map), and do not
+re-claim done (it fails the same way).
 
 **Re-read (only if reopened):** web/fitkit.js (its header comment is the design doc);
 web/index.html ~832 endFit, ~902 openPlan, 1706-1710 (the script tags);
-tests/test_fit_queue.py part 3 (~716+, the byte-identity pin);
+tests/test_fit_queue.py part 3 (~716+, the byte-identity pin) and ~700-712 (the part-2
+save test whose open_after delta trips on the stale page - expect it green after 220);
 /tmp/fkprobe.mjs (the throwaway probe - the template 307bb's committed part-4 test adapts;
-its playwright require path and the direct `map` reference are this-VM fixes).
+its playwright require path and the direct `map` reference are this-VM fixes). The data
+side needs no re-read: it is as committed.
