@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 185, agent a - BOX 3 TICKED (tests written in the unlogged session, verified 9/9 this session). Merged main per the lead's mid-
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 186, agent a - BOXES 5 AND 6 DONE. Box 5: docs/sources.md section 9 (per-lead staged/dropped consolidated from the docs/lead_*.
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,38 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 4 verified and ticked - the plan-list refresh had already been done by the unlogged sessions (driver snapshot 27a6053); re-running export_plans.py is byte-identical; the re-read resolved as the stable pre-merge matches.jsonl join
-- Session 182. The build run is ALIVE (pid 4098676): cambrai-q181285 finished 21:45Z,
-  conde-sur-l-escaut-q494533 in flight, 11 ids in the queue after it - monitored only,
-  never a duplicate (two writers would race on web/data/sites.json).
-- Discovered box 4 had already been executed in the unlogged sessions 176-179: the
-  driver snapshot 27a6053 contains plans.json refreshed after box 2 (1168 rows = 890
-  book + 278 commons; the 2 new commons rows are shotwick-castle-q7502621 and numancia
-  - the only 2 of the 133 merged picture rows with local copies in data/raw/commons;
-  the 167 newly indexed book rows have no local full pages and are correctly absent)
-  plus the frozen pre-merge key list data/merge/plans_premerge_keys.jsonl (1166 keys,
-  from the pre-merge plans.json at 0fecaeb). Session 180's memory reconstruction missed
-  all of it; this session resolved the re-read and verified the result.
-- Re-read resolved by reading tools/export_plans.py:main: the "sites" column is
-  matches.get(row_id) over the EXISTING data/books/matches.jsonl (890 rows, last
-  written by 813bf9a, pre-merge) - the stable pre-merge join the box demands; the
-  data/catalog/sites.jsonl map (id + qid) is used only to resolve ambiguous-candidate
-  names to ids; commons rows filter through a (site,title)->classified dict and the
-  merged classified rows were checked for shadowing: 0 (site,title) collisions between
-  the 797 pre-merge and the 133 new rows, so dict-later-wins cannot flip a pre-merge
-  row. No `pipeline/books.py match` was run or is needed - re-matching against the
-  grown extras could re-point pre-merge keys, which the box forbids.
-- Verification: `.venv/bin/python tools/export_plans.py` on the current tree produced
-  BYTE-IDENTICAL output (sha256 852089e00006efb30d7d96e68f157fd714e4db778c11a3fe83f12b526aab4add)
-  - the committed file is the tool's stable output on current data, not a stale one.
-  Frozen 1166 keys all present in the current 1168; (id, sites[0]) unique;
-  tests/test_merge.py 6/6 including test_plan_list_refresh_is_pure_growth (written in
-  the unlogged session; asserts the frozen keys survive, uniqueness, the 2 new picture
-  rows, and the 200 evidence join on every picture row). Box 4 ticked.
-- 222-228 re-checked: still OPEN -> the done-claim stays gated on them; the branch's
-  red set is unchanged by this session (no code or data file changed - only the task
-  file, this entry, and the live build's append-only log/snapshot).
 
 ### 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)
 - Session 183. Run 3 (23 ids) finished 23/23 by ~22:05Z but the runner DIED at
@@ -140,6 +108,52 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
   the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
   claim.
+
+### 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them
+- Session 186. All six acceptance boxes are now ticked; Status stays `open` (not done)
+  because 222-228 (the seven source-guard fix tasks, all still `Status: open`) are in
+  Depends on: and their 10 check_staged/join failures are the branch's entire red set.
+  Next session: if 222-228 have landed on main, re-run the suite (expect green; the merge
+  is idempotent - do not re-run fit/merge.py), set Status: done, claim.
+- Box 5: docs/sources.md section 9, "The drawing leads (GOAL point 5): what was staged
+  and what was dropped, per lead". One table row per GOAL.md lead, each sourced from its
+  docs/lead_*.md status section plus the merge log: 204 Van Deventer (56 of 60 stageable
+  town categories staged - 13/16 NL, 21/22 BE, 21/21 FR, 1/1 LU; 4 documented drops:
+  Groningen-province a province map, Leeuwarden a 1975 redrawn model, Middelburg a 1942
+  detail crop, Aarschot dated 1570 outside the c. 1545-1565 window); 205 Kip (12 of the
+  22 verified large-scan views staged - 11 new garden sites + 2 St James's plates; 4
+  review-queue views with their reasons; the 6 hand-tied views never re-staged); 206
+  Mackenzie (the p.212 captionless plan identified as Shotwick Castle, 1 row; its fit doc
+  the first post-gate-registration hand fit); 207 Roman (NONE in this merge - stopped by
+  the owner before staging anything; a later merge re-run picks up the staging when it
+  lands on main; the lead doc noted that 207 has since resumed as 207a/207b/207c); 208
+  Limes (56 named plans from 43 ORL fort numbers, 45 staging items -> 45 new fort sites,
+  from 3 free collections spanning 9 ORL volumes; the per-number drop list); 209 Wiltshire
+  (209a Hoare DROPPED - not on IA, HathiTrust 403s, Google 429s, human refused the download
+  (ask_human 001), dormant fetch leg left in place; 209b Stukeley 5 rows; 209c Petrie's book
+  leg refused (ask_human 002) but its fallback held - the two canonical Pl. I/II rows ARE
+  the Petrie plates, verified not re-staged); 210 Numancia (1 row on the existing site);
+  213 artists (2 new aerial sites - Imola, Venice - plus the triaged Civitates/Merian books
+  whose index rows the box-2 rebuild carries: civitates 11 -> 118, merian 0 -> 60).
+  A "merge itself" paragraph records the measured growth: 381 staging rows (115 site /
+  133 picture / 133 classified), extras.jsonl 78 -> 193, files.jsonl 1490 -> 1623,
+  classified.jsonl 797 -> 930, 0 refused / 0 conflicts, 114 NEW sites (shotwick's row
+  created no site - it was the 385th pre-merge entry), sites.json 385 -> 499,
+  plans.json 1166 -> 1168, books index 901 -> 1068.
+- Box 5 gotchas (cost edits, not sessions): (a) web/data/sites.json is a JSON OBJECT
+  ({"sites": [...]}), not JSONL - json.loads per line fails; (b) the limes lead's exact
+  wording is "56 named plans from 43 ORL fort numbers (45 staging items)" - the 45 is
+  staging items (= the 45 extras rows / 45 sites), the 43 is distinct fort numbers;
+  (c) the Mackenzie schematics (Framlingham/Carisbrooke/Cooling) are pre-merge CANONICAL
+  rows (fitted by hand), not drops - the first draft of the section called them drops and
+  was corrected against the 406562b files.jsonl.
+- Box 6: re-read tests/test_serve.py::test_hand_fits_are_the_reference and conftest fresh.
+  The golden file (tests/golden/hand_fit_sites.txt) lists 19 sites; its header says "20
+  documents" (000's reference count). The store today holds 123 docs (26 book-leaf +
+  97 Commons) - the batch tasks' agent fits joined per GOAL's "fits in data/db/platefits/";
+  the golden file is unchanged. All 19 golden sites have web/data/sites/<sid>/depictions.json
+  in this checkout, so the test's per-site depictions assertion (a plan/view depiction
+... (0.9 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
