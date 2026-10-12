@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 86, agent c - session 2. fit/surveyfit.py v0 BUILT on disk (UNCOMMITTED,
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 87, agent c - session 3. Re-read verification of fit/surveyfit.py
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -106,6 +106,56 @@ Verified at session end: 127.0.0.1:8091 does not answer yet (curl /health: conne
 refused) - the owner's tunnel command is still pending. Next: build the client + RANSAC
 against the API contract with a stub server (hermetic), re-check /health each session,
 reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
+
+### 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's
+
+Session 3. The file was already committed by the driver (3b4c2b2 "[driver] uncommitted
+work after iteration 86"); the import check passed clean (no breakage to fix). The
+three Re-read items were re-verified with fresh eyes against the source:
+
+1. **Sign convention (CRITICAL item) - passes, no flip.**
+   `propose._anchor_pairs` is `z = (m_per_px/k) * e^{i theta} * (w - wc) + zc` with
+   `w = u - i v` (page coords, v down) and `z` Mercator (imag = north). A visual
+   (on-screen) counterclockwise rotation by phi multiplies the `w = x - i y` frame by
+   **+e^{i phi}** (verified: at 90 deg the up vector (0,-1) goes to left (-1,0), which is
+   CCW on screen and +i in the w frame). A drawn plan whose north arrow is theta deg
+   CLOCKWISE of page-up has the 302b anchor factor e^{i theta}; rotating the panel image
+   by **+theta** (PIL `rotate(+deg)` is counterclockwise on screen) brings it north-up.
+   So `_match_theta`'s `rotate_image(panel, +theta)` and `rotated_panel_map`'s
+   `R = [[c, s], [-s, c]]` (the visual-CCW matrix in x-right/y-down) are both correct,
+   and the composition `a_s * a_r * e^{i theta} * fs` is exactly the anchor form
+   `(m/k) e^{i theta}`. The synthetic test must still lock this (see hand-over).
+2. **Frame separation in `composite_placement` - passes.** The similarity (a, b) is fit
+   on the four FULL-FRAME (doc size frame) corners; the reported panel corners are the
+   CROP-box corners (size units, `_panel_crop`: map_box fractions * size, or (0,0,w,h)
+   full frame) pushed through that same similarity. The composition of the three
+   stage maps is an exact similarity in the w frame, so the full-frame fit is valid at
+   the crop corners. `fit()`'s `size = row.size or [panel.width, panel.height]` matches
+   `inkfit._size_frame`.
+3. **Null phase - passes.** Both null `_match_theta` calls pass the UNROTATED panel
+   (real or scrambled) plus the chosen theta; the rotation is applied inside, exactly
+   as in the fit phase. Scramble recipe checked against 302b: same seed (20261012 =
+   `inkfit.NULL_SEED`), same per-piece draw order (th, dx, dy), same R (`_rot2` form),
+   clip, white background; the sheet shift matches 302b's DEM null
+   (`ndi.shift(..., (-h/2, +w/2), order=0)`, cval 255 instead of NaN for an image).
+
+**One real bug found and fixed (committed):** `panel_pieces` kept every autowalls keep
+label, but the 302b reference `inkfit.template_pieces` drops labels that have zero of
+`extract`'s 1-in-step sampled points (deterministic seed-0 subsample, step=2). A label
+that 302b drops would still consume (th, dx, dy) draws from the single seeded RNG,
+shifting every later piece's transform in the scrambled null image. Fix: select labels
+through the sampled points, exactly as `template_pieces` does (`comp = lab[pts...]`;
+a piece exists iff a sampled point hits its label). Verified on a synthetic panel:
+identical (idx, length) piece lists, identical first scramble draw, valid scrambled
+image; `ransac` recovers an exact planted similarity to 1e-14; `sheet_similarity`
+returns |a| = 10, rot 0 deg for a known 10-merc-m/px sheet. Suite green: 68 passed,
+1 skipped (the earlier known reds from other tasks are resolved on main; nothing mine
+touches them). Matcher still live: /health -> zju-community/matchanything_eloftr on the
+RTX 5060 Ti.
+
+Next (session 4): write tests/test_surveyfit.py - the hermetic stub-server suite
+(details in the task hand-over), then the real-service smoke, freeze, held-out
+evaluator, one run.
 
 ## Project-wide driver notes (newest)
 
