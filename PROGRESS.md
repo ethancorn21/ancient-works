@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 101, agent a - steps 2+3 of the plan done: the page card. test_serve.py was
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 102, agent a - step 4 of the plan: the serve.py worker + part 2 test WRITTEN, NOT YET RUN; context limit hit after the code was
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
