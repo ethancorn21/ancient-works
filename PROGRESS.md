@@ -8,9 +8,10 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/220-review-page-reexport.md` (open) - hand-over: (none yet - the task is fresh)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 115, agent a - TASK DONE: all five boxes ticked. Box 4 verified in a
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 115, agent a - 307ba is DONE (all its boxes): the queue file carries
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 116, agent a - the done claim (9efb944) was REJECTED by the driver
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
@@ -72,59 +73,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-### 2026-10-12 307ba DECISION: box 1 (the queue carries the propose) + box 2 (root-aware propose) implemented exactly as designed; boxes 1-3 ticked; the page half (box 4) and the docs (box 5) remain
-One step this session: the data side of 307b's box 1, implemented per the iteration-110
-design. Nothing failed except one signature trap (below).
-
-- **fit/propose.py root-aware (307ba box 2)**: the four loaders take `root=ROOT`, the
-  cache is keyed `(str(root), kind)` via a new `_cache_key`, `propose_for(site_id,
-  plan_id, root=ROOT)`, contract docstring updated. Verified byte-identical behaviour:
-  the git-HEAD module and the new one produce identical JSON for 9 sample (site, plan)
-  pairs spanning all three scale sources; the full suite is green (73 passed, 1
-  skipped - the iteration-110 baseline).
-- **tools/fit_queue.py (box 1)**: module-level `sys.path.insert(0, str(ROOT / "fit"))`
-  + `import propose as _propose` (the site_done.py:43 convention); a new
-  `_entry_propose(root, site_id, plan)` helper (try/except -> None: fail open; re-orders
-  the six keys and drops "ground"); build() appends `entry["propose"]` after
-  "candidates" when present. The docstring names the fifth input
-  (data/books/index.jsonl, the stage-B fields) and keeps the stdlib-only claim
-  (propose.py is stdlib too).
-- **Regenerated web/data/fit_queue.json in the checkout**: 117/117 entries carry a
-  propose (20 bar, 4 ratio, 93 picture_size; 93 coarse) - exactly the iteration-110
-  measurement (Devil's Dyke 0.3621 m/px, rot 0, the note names the bar '0 100 200 300
-  400 Yards'). The file is a joint artifact with agent c's 309 (its place check also
-  rewrites entries): when 309 lands in main, the next session re-runs the generator on
-  top of the merged branch before touching anything else.
-- **tests/test_fit_queue.py part 1 (box 3)**: the synthetic tree gained lon/lat/size_m
-  on all sites (s-gamma deliberately without size_m; s-eta [200,150] pinned for the
-  fallback; new site s-nope WITH size_m), a sizeless row-n1, and a
-  data/books/index.jsonl with four stage-B rows (row-a1 bar span + trustworthy arrow,
-  row-e1 ratio without a ppi, row-g1 no scale text, row-n1 bare). The synthetic test
-  pins: 7 entries with s-nope sorting before the all-view site; s-alpha's propose
-  (0.1306 = 91.44 m / 700 px, rot 20.0, bar, coarse False, the 5 pairs' u/v hand-pinned
-  and their lon/lat from the same propose_for run); s-eta's (0.2, picture_size, coarse
-  True, the "ppi not recorded" note); and NO propose on the five no-anchor entries. The
-  real test now copies index.jsonl into the temp tree (fifth input; included in the
-  before/after byte-identity check) and derives per-entry admissibility by calling
-  propose_for on that tree: propose present iff it anchors, equal, six keys in order,
-  five 4-tuples, non-null scale_m_px - plus a floor that at least one entry anchors
-  (guards a silently broken propose that would fail identically in both processes).
-  Parts 2-3 untouched and green.
-
-Remaining (next session, box 4): web/fitkit.js in the fitqueue/review pattern - place
-mode opens on the works (fly to the site's corners, hide the dep layer, seed
-P.pairs/P.anchor from the entry's propose, restore exactly on close), the one script
-tag in index.html, fitqueue.js byte-identical - then box 5 (docs/site_flow.md's
-"Ready to fit" gains the propose field; the full place-mode section stays with
-307bb/307c). The page-side design sketch is in the parent 307b's hand-over.
-
-**One correction to the iteration-110 design (the first trap found)**: the private
-propose loaders are a de facto external API - fit/inkfit.py, fit/inkfit_heldout.py and
-tests/test_propose.py call `_site`/`_plans_row`/`_index_row` directly. Making `root` a
-required argument broke test_propose (6 TypeErrors) on the first full-suite run; the
-fix is `root=ROOT` defaults on all four loaders, which keeps every external caller
-byte-identical. Logged as a PITFALLS entry.
-
 ### 2026-10-12 307ba DECISION: boxes 4-5 done, task complete - box 4 verified in a real browser (place mode opens ON the works, the overlay hides and restores exactly, the anchor is the propose's centre pair); the 3 remaining suite failures are the lead's 309 matcher wiring on main, not mine
 One step: verified box 4 (web/fitkit.js + the one index.html script tag, preserved by the driver as
 732fe57 after the iteration-114 context-limit cut) with the /tmp/fkprobe.mjs smoke probe in a real
@@ -175,6 +123,59 @@ moved since cf29be2 (309 still in flight), so no regeneration was needed this se
     tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc
     tests/test_fit_queue.py::test_save_runs_the_one_site_line
     tests/test_site_done.py::test_site_done_line
+
+### 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands
+One step (diagnosis + task filing, no code change): the done claim (9efb944, all five boxes
+ticked) was rejected for exactly the three tests the iteration-115 note had already named.
+Iteration 116 pins the mechanism and the ownership; all facts below were checked by
+running code, not by reading.
+
+**Mechanism.** web/data/review.json is a DERIVED page written only by fit/review.py::
+export. The committed page (main cf29be2) was published 2026-10-11 18:48 - 340 open of
+341, with alligator-effigy-mound n0214_2 the only item off it. Two lead commits landed on
+main that night without re-exporting: b22a2d2 (22:27, "review resolution needs its
+document") changed resolved_doc so a recorded `resolved` counts only while its document
+file exists, and placed 4 matcher fit documents (argentoratum c_e882645cc479c889 at
+22:09, forthill b24849959_n0269_1 at 22:05, ferme-d-azincourt c_804aa7af3eb2ac7c at
+22:13, castra-lemanis c_be12fb0f9a87000b at 22:14); cf29be2 (22:35) added Castle Neroche's
+(its own n0110_1 doc at 22:31, updated c_44529cdbe2d10a9c). Net: 5 items still LISTED on
+the page now have resolving docs, so the current export hides them, and 6 items (those 5
++ alligator) lack the write-once `resolved` record that only a FULL export (site_id=None)
+writes - one-site exports record only their own site. The three failing tests all derive
+the expected count from the LIVE page (340) while running the CURRENT code in a copied
+tree: test_site_done_line's line prints "335 open of 341" (expected 340); test_fit_
+provenance seeds one more resolving doc (the refused one) -> "334" (expected 339 =
+340-1); test_fit_queue's part-2 page save resolves one more -> open_after 334 (expected
+339). Reproduced all three verbatim (asserts at tests/test_site_done.py:288, tests/test_
+fit_provenance.py:317, tests/test_fit_queue.py:712).
+
+**Fix verified in a scratch copy of the store** (/tmp/rv220: data/review + data/db/
+platefits + web/data/{sites,review}.json): `fit/review.py export --root <scratch>` ->
+"review: 335 open of 341 items"; exactly 6 item files changed, each gaining only
+`resolved: {doc, at}` (alligator n0214_2 -> c_618a6be74dfaff32, the 203a batch doc; the
+other five -> their matcher docs); a second export is a no-op (same 335, files
+byte-identical). With that page, all three tests' expectations agree by construction
+(they derive from the page plus their run's own delta).
+
+**Why it is a new task and not my fix.** The fix rewrites data/review (6 item files) and
+web/data/review.json - agent c's 309 module (active, own branch: 309's Touches include
+both paths). Team rules: do not edit another task's files, and do not build stand-ins -
+so tasks/220-review-page-reexport.md was filed (Status: open, Depends on: 309 so the
+export runs on top of 309's final store state, Touches: data/review, web/data/review.
+json) and 220 was added to this task's Depends on line. I will re-claim done once the
+driver merges main (carrying 220) into this branch and the suite re-verifies (expect 73
+passed + 1 skipped, no known failures).
+
+**Deliberately NOT done.** Re-baselining the three tests: two of the files (test_fit_
+provenance.py = 303, test_site_done.py = 300/301) are not mine to edit, and re-baselining
+would paper over a real store invariant - the owner's Review tab currently advertises 5
+items whose fits are already on the map. 803's re-baseline precedent applies to tests
+that PIN a population; these three derive, so a consistent store is the only right fix.
+
+**Correction to the iteration-115 note.** I cited "agent c recorded exactly these three as
+pre-existing on main at iteration 95 (its 309 branch notes)" - no such entry exists in
+DECISIONS.md or DECISIONS-archive.md (agent c's branch notes are not in my checkout's
+... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
