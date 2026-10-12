@@ -154,21 +154,70 @@ P625 differ by ≈ 26 m); no new site rows (extras file stays absent/empty — t
 about Numancia; Lámina IV's other figures ride on the same row's desc, and no other
 catalog site is involved).
 
-## 7. Staging recipe (for the code session)
+## 7. The staged row (staged 2026-10-12 by fit/src_numancia.py)
 
-- Row (files_numancia.jsonl, `by: "fit/src_numancia.py"`): site `numancia`, qid
-  `Q623407`, title = the plate caption with the site name ("Plano de las excavaciones
-  hechas en el sitio de Numancia (Lám. IV, fig. 5, Saavedra 1879; excavations of
-  1853/1855)"), url = the IA item page, date 1879 (publication) with the excavation year
-  in desc, name = the plan-list label, **image rendered locally** from leaf 507 of the
-  IA PDF into `data/raw/commons/numancia/<sha1(title)[:16]>.jpg` (no per-leaf URL exists
-  — §1), w/h from the render, license = "public domain (1879; no license field on the
-  IA item)" per §1.
-- Evidence: `caption_coords` — named_place "Numancia", place_qid Q623407,
-  place_label "Numantia, ancient city and archaeological site", place_lon/lat = P625
-  (41.809392, -2.444447), site_lon/lat from the catalog row, dist_m computed by
-  `fit/evidence.py hav_m` (≈ 26; must reproduce within 1000 m and ≤ 50 km at check).
-- Classified row: {site numancia, same title, p_plan 1.0, p_birdseye 0.0, p_photo 0.0,
-  by "hand"}.
-- Re-verification: `fit/src_numancia.py --sweep` re-checks the IA item live (item up,
-  766 leaves, PDF downloadable, the plate leaf renders), per the van Deventer pattern.
+**The file row** (data/commons/files_numancia.jsonl, the one line):
+
+```json
+{"site": "numancia", "qid": "Q623407", "title": "Plano de las excavaciones hechas en el sitio de Numancia (Lám. IV, fig. 5, Saavedra 1879; excavations of 1853/1855)", "year": 1879, "wd_plan": false, "cat": null, "name": "Numancia, excavation plan, Saavedra 1879 (excavations of 1853/1855)", "by": "fit/src_numancia.py", "url": "https://archive.org/details/memoriasdelareal009real", "w": 6713, "h": 2709, "mime": "image/jpeg", "date": "1879", "desc": "Lám. IV (leaf 507) of Eduardo Saavedra, 'Descripción de la vía romana de Úxama á Augustóbriga', RAH Memorias de la Real Academia de la Historia tomo IX, printed 1879, Madrid; rendered locally from the Internet Archive volume scan (item memoriasdelareal009real, 300 ppi) - the item has no per-leaf image. Numancia (Numantia), the Roman city at the Cerro de la Muela near Soria, Spain. Fig. 5 (scale 1/1000): the excavation plan of Numancia from Saavedra's 1853/1855 campaign: the hatched dig area on the hill slope, the excavated room-structure with its rubble field, the dashed survey grid, section A-B ('Corte por A B'), 'Monumento hallado'. The same plate carries figs 1-2 (the Calatañazor rock tombs, the ermita of the Mártires de Garray, 1/300), fig 3 (the 'Muro de Numancia', alzado 5 / corte 4, 1/300) and figs 7-8 (the Augustóbriga walls and a wall-section, 1/300 and 1/1000). Lith. J. Domm. Madrid. Public domain: printed 1879, author d. c. 1902; the IA item carries no license field.", "artist": "Eduardo Saavedra (lith. J. Domm., Madrid)", "license": "public domain (1879, author d. c. 1902; the IA item carries no license field)", "page": "https://archive.org/details/memoriasdelareal009real", "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": "2026-10-12", "named_place": "Numancia", "place_qid": "Q623407", "place_label": "Numantia", "place_lon": -2.444447, "place_lat": 41.809392, "site_lon": -2.4443, "site_lat": 41.8096, "dist_m": 26.1}}
+```
+
+**The classified row** (data/commons/classified_numancia.jsonl, the one line):
+
+```json
+{"site": "numancia", "title": "Plano de las excavaciones hechas en el sitio de Numancia (Lám. IV, fig. 5, Saavedra 1879; excavations of 1853/1855)", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+```
+
+- **The site**: `numancia` - the EXISTING catalog site (data/catalog/extras.jsonl; its
+  row's point -2.4443/41.8096 is the evidence's site point). No new site is created -
+  the lead is about Numancia and no other catalog site is involved - so
+  extras_numancia.jsonl stays ABSENT. The row's title/desc carry both name forms
+  ("Numancia" in the title, "Numantia" in the desc) so the caption check finds the
+  named place; "printed 1879" (not "Published 1879") keeps the year on the date field
+  under commons.year_of.
+- **Evidence** (200, the caption route, fail-closed): kind `caption_coords` - the
+  caption names Numancia; place = Q623407's P625 (41.809392, -2.444447); place_label
+  "Numantia" (Q623407's label: en "Numantia" / es "Numancia"); dist_m = 26.1 (computed
+  with fit/evidence.py hav_m from the catalog point; the check requires it to reproduce
+  within 1000 m and be <= 50 km). The plate is the specific check that the picture
+  depicts Numancia: fig. 5's caption, the "Muro de Numancia" figure on the same leaf,
+  and the work's own text identifying Numancia with the cerro de Garray (the site
+  Saavedra fixed in 1853) - section 3.
+- **No `thumb` field (decision)**: data/raw/ is gitignored, so the rendered image is
+  per-worktree and never travels; and the IA item has no fetchable per-leaf image
+  (no .jpg/.jp2/BookReader/composite - section 1), so nothing fetchable could
+  repopulate the file (a thumb pointing at the 37 MB PDF would store the PDF as .jpg -
+  a broken image). Consequences, by design: commons.thumbs() skips the row,
+  tools/export_plans.py omits the row from plans.json in worktrees without the image
+  (no crash), tools/fitkit.py plan_image raises only if that row is opened in an
+  image-less worktree.
+- **Re-deriving the image**: `fit/src_numancia.py --render` (working phase: network)
+  downloads the IA PDF (UA header, 3 retries - /download/ is flaky per file, section 1)
+  and renders leaf 507 at 300 ppi,
+  `pdftoppm -jpeg -r 300 -jpegopt quality=85 -f 507 -l 507 -singlefile` (/usr/bin/pdftoppm,
+  poppler-utils), into data/raw/commons/numancia/0fa271e2444f7bfc.jpg - the
+  sha1(title)[:16] slot of pipeline/commons.py local(). The output is byte-reproducible:
+  sha256 c8415ffb94c6bfa50aea92335efef9e0babab8be615f7a44df2b55bfc9931415
+  (6713x2709, 1157133 bytes, non-blank - grayscale std 23.2 vs 0.0 for blank stand-ins).
+  Run it in every worktree that needs the picture (task 211's operator, before the page
+  or the fit tool opens the row); until then the row is simply absent from plans.json
+  there, by design.
+- **`--sweep` (live re-verification of the source, one pass, exit 1 on any failure)**:
+  (a) /metadata/ - page_numbers.pages is a list of 766 (1:1 with the PDF pages), the
+  pdf and the _djvu.txt present at their recorded sizes (37664978 / 1979917 bytes), no
+  license field, not borrow-only; (b) the whitespace-collapsed djvu text carries the
+  printed index line "Plano de las excavaciones hechas en el sitio de Numancia en 1853"
+  (the OCR mangles the plate numbering, so no plate number is asserted); (c) a Range
+  GET of the PDF returns the %PDF magic; (d) the local render, when present, is a
+  non-blank 6713x2709 JPEG (its absence reminds to run --render, it is not a failure).
+- **Tests** (tests/test_src_numancia.py - offline: sockets blocked, no fixed ports,
+  writes only to the project and the temp dir): the join + --check (one row, PASS,
+  26.1 m); the CLI `fit/evidence.py check --files data/commons/files_numancia.jsonl
+  --books <absent> --catalog data/catalog/extras.jsonl` whose stdout is byte-for-byte
+  tests/golden/src_numancia_evidence.txt (the caption route never consults the catalog,
+  so the verdict is stable after 211's consolidation); the negative control (the named
+  place resolving to the far site Mons, ~1079 km, with the stored distance still
+  reproducing) is reported FAIL, never kept, and leaves the staged row untouched; the
+  golden sample tests/golden/src_numancia_sample.json pins the staged rows (checked
+  date normalized). The tests never require the gitignored image to exist: they check
+  the sha1 path convention and validate the file only when present.

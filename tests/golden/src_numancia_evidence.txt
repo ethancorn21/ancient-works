@@ -1,0 +1,2 @@
+PASS caption_coords  numancia|Plano de las excavaciones hechas en el sitio de Numancia (Lám. IV, fig. 5, Saavedra 1879; excavations of 1853/1855)
+evidence: 1 rows, 1 pass, 0 fail, 0 no-tie
