@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 217: Book machinery - town-view lists and the view-as-drawing index for Civitates/Merian
 Depends on: 216
 Touches: pipeline/books_lists.py, pipeline/books.py, data/books/lists/
@@ -21,14 +21,14 @@ cached in `data/raw/books/<ia>/`) once the civitates path works.
 - [x] `books_lists` carries the civitates_liber2 town list; `books.py ocrmap civitates_liber2`
       regenerates `data/books/lists/civitatesorbiste00brau.json`[`.map.json`] from it (the file content
       stays 213's; the module mirrors it - one place for the knowledge, the file is the dump).
-- [ ] The index emits one row per indexed town-view plate for the view books, and the row records that
+- [x] The index emits one row per indexed town-view plate for the view books, and the row records that
       it is a VIEW (not a plan) - a field 211's merge and the page can branch on (the plan books' rows
       are unaffected in shape).
 - [x] `books.py validate` over the existing plan books gives the same results as before the change
       (their metrics must not drift - a view plate is not a site plan for their recall/precision).
 
 ## Hand-over
-**2026-10-12, iteration 124 (agent c) - session 9: STEP B COMPLETE IN CODE; only bookkeeping + final commit left.**
+**2026-10-12, iteration 124 (agent c) - session 9: STEP B COMPLETE IN CODE; box 2 ticked, Status: done. Only PITFALLS entries + final commit left.**
 
 STATE (working tree, uncommitted - the harness keeps these; do not re-run anything):
 - pipeline/books.py: BLANK_INK_BOOKS = {"topographiahelve00zeil": 0.01} + site_pages_model uses it (per-book
@@ -43,8 +43,8 @@ STATE (working tree, uncommitted - the harness keeps these; do not re-run anythi
   207/216/211 precedent; `git checkout 6fff103 --` was used because HEAD=354b38c no longer is the baseline).
 - data/books/triage/topographiahelve00zeil.A.jsonl (400/400) + .F.jsonl (108): committed by the driver in 354b38c;
   clean, don't touch.
-- Task file: Touches gained pipeline/books.py. Status still in-progress, box 2 still unticked - tick it and set
-  Status: done (everything below was verified this session; no re-run needed).
+- Task file: Touches gained pipeline/books.py. Box 2 ticked and Status: done in this session (everything
+  below was verified this session; no re-run needed).
 
 VERIFIED THIS SESSION (suite 101 passed / 1 skipped after all changes; 184 s):
 - Iter 123 (cut off) had run fetch+triageA+triageF+no-args index/validate; the driver committed the dirty tree as
@@ -74,18 +74,18 @@ WHY THE TWO FIXES (evidence for the DECISIONS entry):
   gt_site_pages 10 not 11 (n55 leafless), stage-A-only actually [121,153,205,231,350,384] not the speculative
   {76,176,264,320,342} (those extras are typed other_illustration, F says no plan -> no rows, as designed).
 
-NEXT (next agent, small): 1) append the s9 DECISIONS.md entry (header `## 2026-10-12 217 DECISION:` - content:
-iter-123 discovery, byte-verification, s8 prediction corrections, the two table corrections + evidence, the ink
-floor, final numbers above). 2) Two PITFALLS entries: under "This codebase / pipeline/books.py, pipeline/books_ia.py
-(the book machinery)" - a book's fold-out show-through can be darker than global BLANK_INK (0.005, tuned on
-Thomas <=0.004); Qwen types such pages plate_site_plan and invents cross-book titles; per-book floor
-BLANK_INK_BOOKS (books.py); check the ink gap before trusting faint pages. Under "Agent tools and harness" - the
-driver's "[driver] uncommitted work after iteration N" safety-net commit commits an interrupted session's dirty
-SHARED files; the next session must re-derive the planned state and restore from the correct baseline commit
-(`git checkout <baseline> -- <file>`; plain `git checkout --` restores the driver's commit, not the baseline).
-3) Tick box 2, set Status: done. 4) `git add -A && git commit -m "217: step B done - triage verified, table
-corrections n350/n384, per-book ink floor 0.01, 60 hand-list view rows, shared files restored to 6fff103 for 211"`.
-No code changes beyond what is in the tree; no re-runs needed; then stop.
+NEXT (next agent, small): 1) Two PITFALLS entries (session 9 was at the context limit and could not edit
+PITFALLS.md): under "This codebase / pipeline/books.py, pipeline/books_ia.py (the book machinery)" - a book's
+fold-out show-through can be darker than global BLANK_INK (0.005, tuned on Thomas <=0.004); Qwen types such
+pages plate_site_plan and invents cross-book titles; the per-book floor is BLANK_INK_BOOKS (books.py); check
+the ink gap before trusting faint pages. Under "Agent tools and harness" - the driver's "[driver] uncommitted
+work after iteration N" safety-net commit commits an interrupted session's dirty SHARED files; the next session
+must re-derive the planned state and restore from the correct baseline commit (`git checkout <baseline> --
+<file>`; plain `git checkout --` restores the driver's commit, not the baseline). 2) Final commit of the
+uncommitted code: `git add -A && git commit -m "217: step B done - merian triage verified (rebuild
+byte-identical), table corrections n350/n384 (s7's leafless call wrong, hOCR+stage-A prove the plates exist),
+per-book ink floor 0.01 drops 4 Qwen-misread show-throughs, 60 hand-list view rows on 57 leaves, shared files
+restored to 6fff103 for 211"`. 3) Stop. No code changes beyond what is in the tree; no re-runs needed.
 
 STATE OF THE WORK (all committed; the module is the one source of knowledge):
 - pipeline/books_lists.py: the second HAND_FIGS key. 80 rows in list order col1->col2->col3; a double-page (or
