@@ -926,6 +926,18 @@ Symptom: an entry like `civitates_liber2` has region "Europe" although the volum
 
 ### pipeline/autowalls.py (the frozen ink extractor)
 
+#### Rebuilding index.jsonl (books.py index) drops the post-hoc `evidence` field from the book rows, and saved /tmp baseline copies of rebuilt shared files go stale across code changes
+Where: `pipeline/books_lists.py:cmd_index`, `fit/evidence.py:record` (`--books data/books/index.jsonl`), `data/books/index.jsonl`; tasks 200, 211, 217
+Symptom: rows freshly written by `books.py index` have no "evidence" key while a previously committed file (200 onward) has one on every row - so a diff between the two shows every row "changed"; and session 1's saved copy /tmp/idx_committed (890 rows, all carrying "evidence", built under an older BOOKS row order and row shape) diffs red against the current code's output for reasons unrelated to any in-flight change.
+Why: 200 recorded `evidence` onto the STORED file with fit/evidence.py record (an appended last key); it was never part of cmd_index's row shape, and cmd_index rewrites the file from scratch. /tmp copies are snapshots of some past code version and go stale whenever the row shape moves (200 added the key, 216/217 will change civitates rows, 211 rebuilds for the merge).
+What to do: byte-diff rebuilds against the current `git show HEAD:data/books/index.jsonl` (or a fresh baseline run of the UNMODIFIED code in your own tree), never against a /tmp copy from a previous iteration. 211's merge/rebuild stage must re-attach or re-record the evidence after any rebuild - the new rows come out without it; the recorded facts survive in the committed file until then.
+
+#### The civitates validation numbers are FINAL: recall_pages 0.429, precision 0.273 (leaf 238 counts in both the hand plan set and the flagged set); session 1's predicted 0.286/0.18 were an arithmetic error
+Where: `pipeline/books_lists.py:validate_book` (the "figures" section for civitates_liber2), `data/books/validation.json`; task 217
+Symptom: an agent reading the older hand-over/decision (session 1 predicted recall_pages 0.286 = 2/7, precision_strict 0.18 = 2/11) sees the actual output (0.429 = 3/7, 0.273 = 3/11) and "fixes" the code toward the stale prediction - breaking the byte-identical plan-book invariants in the process.
+Why: leaf 238 (Jerusalem, the NEW city) is kind s in the hand list (so in gt_site) AND stage A's plate_site_plan (so in the 11 flagged pages); session 1's arithmetic counted it once. flagged = F's ten + A's 238; hit = {90, 237, 238}.
+What to do: the verified ground truth (2026-10-12, iteration 114) is: recall_pages 0.429, recall_pages_pm1 0.429, precision_strict 0.273, precision_lenient 0.273, flagged_on_other_only_pages [30,62,65,66,93,105,186,229], flagged_not_in_list [], missed_pages [58,85,98,109], stage_A_only {recall 0.143, precision_strict 0.333, precision_lenient 1.0, flagged 3}. Do not touch.
+
 #### Frangi ghost-echoes a ring around razor-sharp synthetic drawings - soften test ink to scan-like edges
 Where: `pipeline/autowalls.py` `extract` with its frozen P (sigmas (4,6,9), ridge_thr 0.25, gamma 0.013, coh_sigma 25, min_len/min_extent 50, margin 20); any synthetic-plate test fixture (302c's committed test site, future plate tests)
 Symptom: a crisp 0/1 PIL-drawn test plate yields extra skeleton pieces ~5-8 px OUTSIDE the drawn walls (a ghost ring hugging the drawing, even inside the zeroed 20 px margin) in addition to the true centre lines; and an 8 px-wide isolated line blurred to scan-likeness falls below the ridge threshold while the same line at 12 px survives.

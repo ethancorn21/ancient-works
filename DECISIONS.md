@@ -596,3 +596,31 @@ its evidence:
 6. **No BOOK_SCOPE entry for civitates_liber2:** the volume includes American towns (fig 261 MEXICO, 262
    CUSCO), so any region filter would be wrong; a missing scope means "no filter" (.get default) - recorded so
    the next agent does not "fix" it.
+
+## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list
+Session 2 (iteration 114) implemented session 1's design as written and verified all of it (the task's hand-over
+has the full numbers):
+- ocrmap civitates_liber2: the .json comes out md5-identical to 213's committed file (0881ec0c...); .map.json
+  [] -> 118 leaves (7 site_plan) - committed (data/books/lists/ is in Touches). No-args ocrmap: the other 17
+  list files byte-identical (md5-checked against session 1's baseline).
+- index no-args: 1008 rows. The 890 plan-book rows byte-identical IN ORDER to the HEAD baseline (session 1's
+  unmodified-code run, committed by the driver). 118 civitates rows: view true 111 / false 7; found_by
+  list_view 103 / list_view+qwen 8 / list 4 (n58,85,98,109) / list+qwen 3 (n90,237,238); page_type
+  other_illustration 117 / plate_site_plan 1 (n238); title_source "book's figure list, hand-transcribed" on all;
+  fig == leaf_n; captions_ocr empty (T={} bypasses the misaligned hOCR). The `view` key is absent from every
+  plan-book row - the row-shape contract for 211 and the page.
+- validate no-args: the 8 plan-book entries byte-identical to HEAD (box 3); the civitates entry gains the
+  "figures" section (listed 121; site 7 / unsure 3 / other 111; gt_site_pages 7; flagged 11).
+- Full suite 100 passed / 1 skipped.
+CORRECTION to session 1's predicted numbers: recall_pages is 3/7 = 0.429 (not 0.286) and precision_strict is
+3/11 = 0.273 (not 0.18) - leaf 238 (Jerusalem, kind s in the hand list) is ALSO stage A's plate_site_plan, so
+it is in both gt_site and flagged; session 1's arithmetic counted it once. The actuals are self-consistent and
+verified; recorded in PITFALLS so nobody "fixes" the code toward the stale prediction.
+Boxes: 1 and 3 ticked (verified). Box 2 ("for the view books", plural) stays open: the machinery is proven on
+civitates, but the goal's Merian helvete list is not transcribed yet - that is the remaining step (fetch/cache
+the hOCR, find the contents pages, transcribe into HAND_FIGS, triage the volume, then its rows appear and the
+box ticks). The other four view books stay out of scope.
+Note for future baseline work: /tmp/idx_committed (session 1's copy) is STALE - it predates 216's BOOKS order
+and the current row shape (it even carries the `evidence` key the current cmd_index does not emit, a 200-era
+post-hoc field). Diff rebuilds against `git show HEAD:<file>` or a fresh unmodified-code run, never a saved
+/tmp copy (PITFALLS).
