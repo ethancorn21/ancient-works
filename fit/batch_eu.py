@@ -29,6 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import batch_us  # noqa: E402  (203a's loop; imported, not copied)
+import site_catalog  # noqa: E402  (the catalog's site lookup; fit/ has no __init__.py; the name avoids pipeline/catalog.py)
 
 
 def eu_sites(root):
@@ -62,10 +63,15 @@ def union_check(root):
     exactly one region, so the two partition lists are disjoint) and at the file level by
     the orphans and bad-name checks below: a file that named a site outside sites.json, or
     a document whose name did not carry its own site, would be the only way a batch's
-    output could speak for a site of the other partition.
+    output could speak for a site of the other partition. The item side of the orphan
+    check is catalog-aware: 309's right-place check upserts items for the catalog's
+    right sites, which are unbuilt by definition (the batch cannot cover them), so an
+    item naming a catalog site is legitimate, not an orphan - it is counted in
+    ``unbuilt_items`` and reported as such, not as an anomaly.
 
     -> {"us", "eu", "regionless", "covered" {site: {"region", "docs", "items", "hand_fit",
-    "covered"}}, "missing", "in_both", "orphan_docs", "orphan_items", "bad_doc_names"}
+    "covered"}}, "missing", "in_both", "orphan_docs", "orphan_items",
+    "unbuilt_items" {site: [item file names]}, "bad_doc_names"}
     """
     sites = batch_us._sites(root)
     us = sorted(sid for sid, s in sites.items() if s.get("region") == "US")
@@ -88,7 +94,8 @@ def union_check(root):
                 continue
             docs.setdefault(sid, []).append(p.name)
 
-    items, orphan_items = {}, []
+    items, orphan_items, unbuilt_items = {}, [], {}
+    cat = site_catalog.load(root)
     r = Path(root) / "data" / "review"
     if r.is_dir():
         for p in sorted(r.iterdir()):
@@ -97,7 +104,12 @@ def union_check(root):
             it = json.loads(p.read_text())
             sid = it.get("site")
             if sid not in sites:
-                orphan_items.append(p.name)
+                # a catalog site: 309's check upserted it (it is unbuilt, so the batch
+                # cannot cover it) - legitimate, never batch output, never an orphan
+                if site_catalog.lookup(cat, sid) is not None:
+                    unbuilt_items.setdefault(sid, []).append(p.name)
+                else:
+                    orphan_items.append(p.name)
                 continue
             items.setdefault(sid, []).append(p.name)
 
@@ -121,7 +133,7 @@ def union_check(root):
     return {"us": us, "eu": eu, "regionless": regionless, "covered": covered,
             "missing": missing, "in_both": sorted(set(us) & set(eu)),
             "orphan_docs": orphan_docs, "orphan_items": orphan_items,
-            "bad_doc_names": bad_doc_names}
+            "unbuilt_items": unbuilt_items, "bad_doc_names": bad_doc_names}
 
 
 def union_section(check):
@@ -154,6 +166,15 @@ def union_section(check):
         anomalies.append("documents whose name does not carry their own site: %s" % ", ".join(check["bad_doc_names"]))
     lines.append("")
     lines.append("Anomalies: %s" % ("none" if not anomalies else "; ".join(anomalies)))
+    if check.get("unbuilt_items"):
+        n_unbuilt = sum(len(files) for files in check["unbuilt_items"].values())
+        lines.append("")
+        lines.append("Not anomalies: %d review item(s) name unbuilt catalog sites - 309's "
+                     "right-place check moves a picture to its real place, which the batch "
+                     "cannot cover: %s."
+                     % (n_unbuilt,
+                        ", ".join("%s (%d)" % (sid, len(files))
+                                  for sid, files in sorted(check["unbuilt_items"].items()))))
     return "\n".join(lines) + "\n"
 
 

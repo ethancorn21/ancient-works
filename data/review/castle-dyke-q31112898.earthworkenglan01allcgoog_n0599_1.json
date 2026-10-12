@@ -1,0 +1,30 @@
+{
+ "site": "castle-dyke-q31112898",
+ "candidates": [
+  {
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0599.jpg",
+   "title": "CASTLE DYKE, AYSGARTH.",
+   "label": "Fig. 195",
+   "size": [
+    3367,
+    5050
+   ],
+   "map_box": [
+    0.175,
+    0.268,
+    0.875,
+    0.715
+   ],
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "url": "books/earthworkenglan01allcgoog/n0599.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "earthworkenglan01allcgoog_n0599_1",
+   "place_reason": "same name, other place: Aysgai-th, Yorks, Aysgarth vs Dorset, England"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

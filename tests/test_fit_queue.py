@@ -2,11 +2,11 @@
 
 The queue is the built sites with a candidate picture and no hand fit yet, one entry per site,
 best candidate first, ordered so the site most worth seeing comes first. The generator reads
-five inputs (web/data/sites.json, the web/data/sites/<id>/ dirs, web/data/plans.json, the
-data/review/ item files plus the data/db/platefits/ documents, and data/books/index.jsonl for
-the starting placement) and never opens an image, so both tests run it as a subprocess with
-every socket dead and no Finder/Amazon data anywhere near: the five-input contract is checked
-by construction. Each entry whose best row admits a starting placement carries the propose key
+web/data/sites.json, the web/data/sites/<id>/ dirs, web/data/plans.json, the data/review/ item
+files plus the data/db/platefits/ documents, data/books/index.jsonl for the starting placement,
+and the data/catalog/ and data/books/ stores for 309's right-place check (both optional) and
+never opens an image, so both tests run it as a subprocess with every socket dead and no
+Finder/Amazon data anywhere near: the input contract is checked by construction. Each entry whose best row admits a starting placement carries the propose key
 (fit/propose.propose_for: the anchor scale and rotation re-emitted as 3-5 page-px -> lon/lat
 pairs), present exactly when the proposal anchors and never otherwise - the page (307b) opens
 the map on it.
@@ -23,9 +23,24 @@ the map on it.
                              cases: no size_m, no size, an item candidate with no index row),
                              the site order, and the store's file format (indent=1, no trailing
                              newline, the 13 named row fields in column order).
-  test_fit_queue_real        the real checkout's four inputs copied to a temp tree (the site
-                             dirs stand in as empty: the rule is existence). The entry set is
-                             derived independently from the same four inputs, never pinned to a
+  test_fit_queue_namesake    309's right-place check (804) on a small hand-built tree (a tiny
+                             catalog plus book index/list, the Brighton-vs-Cambridgeshire
+                             shape): a caption that places the picture elsewhere flags the pair
+                             - the candidate leaves the source site's queue and lands in the
+                             right site's entry (built), in the right site's review item
+                             (unbuilt) or in the source site's own item (no right site in the
+                             catalog, and the site with no candidate left leaves the queue);
+                             a site whose county is unknown is never flagged (fail open); a
+                             second run over the same tree is byte-identical (zero churn).
+  test_fit_queue_real        the real checkout's inputs copied to a temp tree (the 305 ones plus
+                             data/books/index.jsonl for the propose, and data/catalog/ and
+                             data/books/ so the right-place check runs for real; the site dirs
+                             stand in as empty: the rule is existence). The queue is derived
+                             independently from the same inputs with the check's own functions
+                             (tools/right_place) - including every entry's propose key, against
+                             the same propose_for run - and the review-item upserts are
+                             re-applied to a second pristine copy through the product's writer
+                             and byte-compared against the generator's; none of it pinned to a
                              count (the population moves under the batch tasks, 803 precedent),
                              and every entry's invariants are re-checked. The checkout itself
                              comes out byte-identical.
@@ -339,13 +354,93 @@ def _h(p):
     return Path(p).read_bytes()
 
 
+def _derive_with_check(root):
+    """309's right-place check re-derived independently from the checkout's own inputs:
+    the same candidate maps the build gathers, the same flags over the PRE-MUTATION maps,
+    then the same disposition (drop, move into the built right site, upsert into the
+    right site's item or the source site's own item) - tools/right_place's committed API
+    for the check itself, the 804 wiring's orchestration restated here. -> (the expected
+    queue entries in the build's own order, {site: [item entries in processing order]})
+    or (None, {}) for the no-op degrade (no stores: the build is exactly 305's)."""
+    sys.path.insert(0, str(Path(root) / "tools"))
+    sys.path.insert(0, str(Path(root) / "fit"))
+    import fit_queue
+    import right_place
+
+    rows = fit_queue._plans_rows(root)
+    item_cands = fit_queue._item_candidates(root)
+    hand = fit_queue._hand_sites(root)
+    built = fit_queue._built_sites(root)
+    records = {}
+    d = json.loads((Path(root) / "web" / "data" / "sites.json").read_text())
+    for s in (d.get("sites") if isinstance(d, dict) else d) or []:
+        if s.get("id"):
+            records[s["id"]] = s
+    cands = {}
+    for sid, name in built:
+        if sid not in hand:
+            c = fit_queue._candidates(sid, rows, item_cands.get(sid) or [])
+            if c:
+                cands[sid] = c
+    store = right_place.load(str(root))
+    if not store["catalog"] and not store["index"] and not store["lists"]:
+        return None, {}
+    flags = {}
+    for sid, cm in cands.items():
+        sf = right_place.site_facts(store, records.get(sid) or {"id": sid})
+        for plan, row in cm.items():
+            f = right_place.picture_facts(store, plan, row)
+            flagged, reason = right_place.check_pairing(sf, f)
+            if flagged:
+                flags[(sid, plan)] = (f, reason)
+    names = {sid: name for sid, name in built}
+    after = {sid: dict(cm) for sid, cm in cands.items()}
+    eligible = {sid for sid, _ in built if sid not in hand}
+    upserts = {}
+    moved = set()
+    for (sid, plan) in sorted(flags):
+        f, reason = flags[(sid, plan)]
+        row = after[sid].pop(plan)
+        if not after[sid]:
+            after.pop(sid)
+        item_cand = None if any(row is r for r in rows) else fit_queue._item_candidate(item_cands, sid, plan)
+        right = right_place.find_right_site(store, f, exclude=sid)
+        tid = right[0][1].get("id") if right else None
+        if tid is not None and tid in eligible:
+            after.setdefault(tid, {})[plan] = {**row, "sites": [tid]}
+            continue
+        target = tid or sid
+        if (target, plan) in moved:
+            continue
+        moved.add((target, plan))
+        if any(c.get("plan") == plan for c in item_cands.get(target) or []):
+            continue
+        upserts.setdefault(target, []).append(fit_queue._place_entry(plan, row, item_cand, reason))
+    entries = []
+    for sid in after:
+        e = fit_queue._entry(sid, names[sid], after[sid])
+        p = fit_queue._entry_propose(root, sid, e["best"]["plan"])  # the 307b key: same run, same inputs
+        if p is not None:
+            e["propose"] = p
+        entries.append(e)
+    entries.sort(key=lambda e: fit_queue._best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))
+    return entries, upserts
+
+
 def test_fit_queue_real(tmp_path):
-    """The generator on a copy of the real checkout's five inputs (the population is derived,
-    never pinned: it moves under the batch tasks)."""
+    """The generator on a copy of the real checkout's inputs (the population is derived,
+    never pinned: it moves under the batch tasks). data/books/index.jsonl is copied too,
+    so the propose can anchor, and data/catalog/ and data/books/ too, so 309's
+    right-place check runs for real: the queue is compared against an independent
+    re-derivation through the check's own functions (tools/right_place) and each entry's
+    propose key against the same propose_for run; the review-item upserts are re-applied
+    to a second pristine copy through the product's writer and byte-compared against the
+    generator's. The checkout itself comes out byte-identical."""
     raw_in = [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "plans.json",
-              ROOT / "data" / "books" / "index.jsonl"]
+              ROOT / "data" / "catalog" / "sites.jsonl", ROOT / "data" / "books" / "index.jsonl"]
     before = {_h(p) for p in raw_in} | {_h(p) for p in (ROOT / "data" / "review").iterdir() if p.is_file()} \
-             | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()}
+             | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()} \
+             | {_h(p) for p in (ROOT / "data" / "books" / "lists").iterdir() if p.is_file()}
 
     tree = tmp_path / "tree"
     wd = tree / "web" / "data"
@@ -357,7 +452,10 @@ def test_fit_queue_real(tmp_path):
         if d.is_dir():
             (wd / "sites" / d.name).mkdir(parents=True)
     (tree / "data" / "books").mkdir(parents=True)
-    shutil.copy2(raw_in[2], tree / "data" / "books" / "index.jsonl")
+    shutil.copy2(raw_in[3], tree / "data" / "books" / "index.jsonl")  # the stage-B fields the propose reads
+    # the right-place check's stores (without them the build degrades to 305's no-op)
+    shutil.copytree(ROOT / "data" / "catalog", tree / "data" / "catalog")
+    shutil.copytree(ROOT / "data" / "books" / "lists", tree / "data" / "books" / "lists")
     shutil.copytree(ROOT / "data" / "review", tree / "data" / "review")
     shutil.copytree(ROOT / "data" / "db" / "platefits", tree / "data" / "db" / "platefits")
 
@@ -371,25 +469,47 @@ def test_fit_queue_real(tmp_path):
     entries = q["entries"]
     assert entries, "the queue must not be empty: the owner has sites to fit"
 
-    # the entry set, derived independently from the same four inputs
-    sids = {s["id"] for s in json.loads(raw_in[0].read_text())["sites"]}
-    built = {sid for sid in sids if (ROOT / "web" / "data" / "sites" / sid).is_dir()}
-    cols = {c: i for i, c in enumerate(json.loads(raw_in[1].read_text())["cols"])}
-    rows = [{k: r[i] for k, i in cols.items()} for r in json.loads(raw_in[1].read_text())["rows"]]
-    row_sites = {sid for r in rows for sid in (r.get("sites") or []) if sid}
-    item_sites = set()
-    for p in sorted((ROOT / "data" / "review").glob("*.json")):
-        it = json.loads(p.read_text())
-        if it.get("site") and any(c.get("plan") for c in (it.get("candidates") or [])):
-            item_sites.add(it["site"])
-    hand = set()
-    for p in (ROOT / "data" / "db" / "platefits").glob("*.json"):
-        d = json.loads(p.read_text())
-        if d.get("by") == "hand":
-            hand.add(d.get("site") or p.name[:-5].split(".", 1)[0])
-    expected = (built & (row_sites | item_sites)) - hand
-    assert {e["site"] for e in entries} == expected
-    assert len(entries) == len(expected)
+    # the queue, derived independently with the check (or 305's entry set, when the
+    # stores are absent and the check is the no-op degrade)
+    expected, upserts = _derive_with_check(ROOT)
+    if expected is not None:
+        assert entries == expected, "the queue differs from the check's own derivation"
+        # the review-item upserts: re-apply the derived entries to a second pristine
+        # copy through the product's writer, then byte-compare every item file
+        sys.path.insert(0, str(ROOT / "fit"))
+        import review
+        derive = tmp_path / "derive"
+        shutil.copytree(ROOT / "data" / "review", derive / "data" / "review")
+        for site, es in upserts.items():
+            for e in es:
+                review.upsert_item(derive, site, [e])
+        gen_items = {p.name: p.read_bytes() for p in (tree / "data" / "review").glob("*.json")}
+        drv_items = {p.name: p.read_bytes() for p in (derive / "data" / "review").glob("*.json")}
+        assert set(gen_items) == set(drv_items), \
+            "item files: %r vs %r" % (sorted(set(gen_items) - set(drv_items)),
+                                     sorted(set(drv_items) - set(gen_items)))
+        for name in gen_items:
+            assert gen_items[name] == drv_items[name], name
+    else:
+        # no stores: the entry set, derived from the four 305 inputs
+        sids = {s["id"] for s in json.loads(raw_in[0].read_text())["sites"]}
+        built = {sid for sid in sids if (ROOT / "web" / "data" / "sites" / sid).is_dir()}
+        cols = {c: i for i, c in enumerate(json.loads(raw_in[1].read_text())["cols"])}
+        rows = [{k: r[i] for k, i in cols.items()} for r in json.loads(raw_in[1].read_text())["rows"]]
+        row_sites = {sid for r in rows for sid in (r.get("sites") or []) if sid}
+        item_sites = set()
+        for p in sorted((ROOT / "data" / "review").glob("*.json")):
+            it = json.loads(p.read_text())
+            if it.get("site") and any(c.get("plan") for c in (it.get("candidates") or [])):
+                item_sites.add(it["site"])
+        hand = set()
+        for p in (ROOT / "data" / "db" / "platefits").glob("*.json"):
+            d = json.loads(p.read_text())
+            if d.get("by") == "hand":
+                hand.add(d.get("site") or p.name[:-5].split(".", 1)[0])
+        expected_set = (built & (row_sites | item_sites)) - hand
+        assert {e["site"] for e in entries} == expected_set
+        assert len(entries) == len(expected_set)
 
     # every entry's invariants
     for e in entries:
@@ -430,8 +550,158 @@ def test_fit_queue_real(tmp_path):
 
     # the checkout itself is untouched
     after = {_h(p) for p in raw_in} | {_h(p) for p in (ROOT / "data" / "review").iterdir() if p.is_file()} \
-            | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()}
+            | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()} \
+            | {_h(p) for p in (ROOT / "data" / "books" / "lists").iterdir() if p.is_file()}
     assert after == before
+
+
+# ---------------------------------------------------------------------------
+# Part 1b: 309's right-place check (task 804): the queue build never pairs a
+# picture with a namesake site. A small hand-built tree with a tiny catalog and
+# book stores pins every disposition exactly, and a second run over the same
+# tree must be byte-identical (the steady state: the same flags, the upserts
+# skipped, zero churn).
+
+NAMESAKE_IA = "allcroft1908book"  # the book index/lists key; the book is in right_place.BOOK_SCOPE
+
+
+def _namesake_row(id_, file_, title, label, sites):
+    return [id_, "allcroft_1908", NAMESAKE_IA, file_, title, label,
+            [1000, 1000], None, sites, "cite", None, False, None]
+
+
+def _namesake_item(site, plan, file_, label, title, reason):
+    """The review item the check's upsert writes for a moved plans-origin candidate:
+    the row's stored fields, the url's books/<ia>/<file> fallback, and the reason."""
+    return {"site": site, "candidates": [
+        {"book": "allcroft_1908", "ia": NAMESAKE_IA, "file": file_, "title": title,
+         "label": label, "size": [1000, 1000], "map_box": None, "cite": "cite",
+         "url": "books/%s/%s" % (NAMESAKE_IA, file_), "view": False, "ref": None,
+         "plan": plan, "place_reason": reason}],
+        "no_picture_found": None, "resolved": None}
+
+
+def _build_namesake_tree(tmp_path):
+    """Five built sites, four book rows, six catalog records - one namesake case per
+    rule (the Brighton-vs-Cambridgeshire shape, scaled down): (a) a caption that
+    places the picture in another county flags the pair, and with the right site
+    built the candidate moves into its entry; (b) with the right site unbuilt its
+    review item gains the candidate with the reason; (c)/(e) with no right site in
+    the catalog the source site's own item gains it and the site (its only
+    candidate flagged) leaves the queue; (d) a site whose county is in neither
+    CLASSIC_UNITS nor IDENTITY is never flagged (fail open)."""
+    tree = tmp_path / "namesake"
+    wd = tree / "web" / "data"
+    wd.mkdir(parents=True)
+    sites = [
+        {"id": s, "name": n, "region": "England"}
+        for s, n in [("dyke-cambs-q1", "Devil's Dyke"),
+                     ("dyke-sussex-q2", "Devil's Dyke Camp"),
+                     ("dyke2-cambs-q10", "Bokerley Dyke"),
+                     ("dyke3-cambs-q20", "Wickham Camp"),
+                     ("dyke4-unknown-q30", "Wickham Camp")]
+    ]
+    _save_json(wd / "sites.json", {"sites": sites})
+    for s in sites:
+        (wd / "sites" / s["id"]).mkdir(parents=True)
+    _save_json(wd / "plans.json", {"cols": ROW_FIELDS, "rows": [
+        _namesake_row("p1", "p217.jpg", "devils dyke camp", "Fig 217", ["dyke-cambs-q1"]),
+        _namesake_row("p2", "p218.jpg", "bokerley dyke", "Fig 218", ["dyke2-cambs-q10"]),
+        _namesake_row("p3", "p219.jpg", "wickham camp", "Fig 219", ["dyke3-cambs-q20"]),
+        _namesake_row("p4", "p220.jpg", "wickham camp in kent", "Fig 220", ["dyke4-unknown-q30"]),
+    ]})
+    cat = tree / "data" / "catalog"
+    cat.mkdir(parents=True)
+    with open(cat / "sites.jsonl", "w") as f:
+        for r in [
+            {"id": "dyke-cambs-q1", "qid": "Q1", "name": "Devil's Dyke", "region": "england",
+             "admin": {"county": "Cambridgeshire"}},
+            # the built right site of (a): Brighton resolves to sussex, West Sussex is sussex
+            {"id": "dyke-sussex-q2", "qid": "Q2", "name": "Devil's Dyke Camp", "region": "england",
+             "admin": {"parish": "Brighton", "county": "West Sussex"}},
+            {"id": "dyke2-cambs-q10", "qid": "Q10", "name": "Bokerley Dyke", "region": "england",
+             "admin": {"county": "Cambridgeshire"}},
+            # the right site of (b): in the catalog, not in sites.json (unbuilt)
+            {"id": "dyke2-sussex-q11", "qid": "Q11", "name": "Bokerley Dyke", "region": "england",
+             "admin": {"parish": "Hove", "county": "West Sussex"}},
+            {"id": "dyke3-cambs-q20", "qid": "Q20", "name": "Wickham Camp", "region": "england",
+             "admin": {"county": "Cambridgeshire"}},
+            # (d): the county is in neither CLASSIC_UNITS nor IDENTITY - the site is unknown
+            {"id": "dyke4-unknown-q30", "qid": "Q30", "name": "Wickham Camp", "region": "england",
+             "admin": {"county": "Xshire"}},
+        ]:
+            f.write(json.dumps(r) + "\n")
+    books = tree / "data" / "books"
+    (books / "lists").mkdir(parents=True)
+    with open(books / "index.jsonl", "w") as f:
+        for id_, fig, title in [("p1", "217", "DEVILS DYKE"), ("p2", "218", "BOKERLEY"),
+                                ("p3", "219", "WICKHAM"), ("p4", "220", "WICKHAM")]:
+            f.write(json.dumps({"id": id_, "book": "allcroft_1908", "ia_id": NAMESAKE_IA,
+                                "fig": fig, "title": title, "place": None,
+                                "site_names": []}) + "\n")
+    _save_json(books / "lists" / (NAMESAKE_IA + ".json"),
+               {"figures": [
+                   {"fig": "217", "title": "The Devil's Dyke Camp, near Brighton"},
+                   {"fig": "218", "title": "Bokerley Dyke, near Hove"},
+                   {"fig": "219", "title": "Wickham Camp, near Hove"},
+                   {"fig": "220", "title": "Wickham Camp, in Kent"},
+               ]})
+    return tree
+
+
+def test_fit_queue_namesake(tmp_path):
+    """Every disposition of 309's right-place check, pinned on a small tree (the
+    Brighton-vs-Cambridgeshire shape): (a) the flagged candidate leaves its source
+    site's queue and lands in the built right site's entry with sites narrowed to it;
+    (b) with the right site unbuilt its review item gains the candidate with the
+    reason; (c)/(e) with no passing right site the source site's own item gains it
+    and the site leaves the queue (its only candidate flagged); (d) an unknown-county
+    site is never flagged (fail open). The item files are byte-pinned (the move of
+    (a) wrote nothing for its source); a second run over the same tree is
+    byte-identical (zero churn). No network: the guard kills every socket."""
+    tree = _build_namesake_tree(tmp_path)
+    proc = _run_generator(tree)
+    out = proc.stdout.decode("utf-8")
+    err = proc.stderr.decode("utf-8")
+    assert proc.returncode == 0, out + err
+    assert err == ""
+    assert out.splitlines()[0] == \
+        f"ready-to-fit queue: 2 site(s) -> {tree / 'web' / 'data' / 'fit_queue.json'}"
+
+    q = json.loads((tree / "web" / "data" / "fit_queue.json").read_text())
+    entries = q["entries"]
+    # (a) + (d): the moved candidate lands in the built right site's entry (its
+    # source emptied and gone); the unknown-county site keeps its contradictory candidate
+    assert [e["site"] for e in entries] == ["dyke-sussex-q2", "dyke4-unknown-q30"]
+    e2, e30 = entries
+    assert [c["plan"] for c in e2["candidates"]] == ["p1"]
+    assert e2["best"]["plan"] == "p1" and e2["best"]["reason"] == "the only candidate"
+    assert e2["best"]["row"]["sites"] == ["dyke-sussex-q2"]
+    assert e30["best"]["plan"] == "p4" and e30["best"]["reason"] == "the only candidate"
+    for gone in ("dyke-cambs-q1", "dyke2-cambs-q10", "dyke3-cambs-q20"):
+        assert gone not in {e["site"] for e in entries}
+
+    # (b) + (c)/(e): exactly two item files; the unbuilt right site's item and the
+    # source site's own item, each byte-pinned with the check's reason string
+    raws = {p.name: p.read_bytes() for p in sorted((tree / "data" / "review").glob("*.json"))}
+    assert list(raws) == ["dyke2-sussex-q11.p2.json", "dyke3-cambs-q20.p3.json"]
+    for name, plan, file_, label, title in [
+            ("dyke2-sussex-q11.p2.json", "p2", "p218.jpg", "Fig 218", "bokerley dyke"),
+            ("dyke3-cambs-q20.p3.json", "p3", "p219.jpg", "Fig 219", "wickham camp")]:
+        site = name.rsplit(".", 2)[0]
+        expected = _namesake_item(site, plan, file_, label, title,
+                                  "same name, other place: near Hove vs Cambridgeshire")
+        assert raws[name] == json.dumps(expected, indent=1).encode("utf-8"), name
+
+    # (f) a second run over the same tree: identical queue (apart from `at`) and
+    # byte-identical item files - the upserts are skipped, zero churn
+    queue1 = (tree / "web" / "data" / "fit_queue.json").read_bytes()
+    proc = _run_generator(tree)
+    assert proc.returncode == 0 and proc.stderr == b""
+    queue2 = (tree / "web" / "data" / "fit_queue.json").read_bytes()
+    assert json.loads(queue2)["entries"] == json.loads(queue1)["entries"]
+    raws2 = {p.name: p.read_bytes() for p in sorted((tree / "data" / "review").glob("*.json"))}
+    assert raws2 == raws
 
 
 # ---------------------------------------------------------------------------
@@ -872,10 +1142,12 @@ def test_card_in_the_browser(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshot"), "none")
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
-    # (a page-caused reqfail, expected); no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
-        p.stdout[-2000:]
+    # MapLibre aborts tile fetches that leave the map's view during the card's flyTo (a
+    # page-caused reqfail, expected): the local relief tiles (/tiles/) and the remote imagery
+    # tiles of the global satellite base (the lead's 2026-10-12 map rework, MapServer/tile/);
+    # no other request may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "MapServer/tile/" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["entries"] == len(entries)  # the file's queue is what the page loaded
 
     # card 1: the next queued site, its best candidate, the reason, the count
@@ -937,10 +1209,12 @@ def test_card_done_mark_moves_on(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshotdone"), e1["site"])
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
-    # (a page-caused reqfail, expected); no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
-        p.stdout[-2000:]
+    # MapLibre aborts tile fetches that leave the map's view during the card's flyTo (a
+    # page-caused reqfail, expected): the local relief tiles (/tiles/) and the remote imagery
+    # tiles of the global satellite base (the lead's 2026-10-12 map rework, MapServer/tile/);
+    # no other request may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "MapServer/tile/" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["done"] == {e1["site"]: "2026-10-12T00:00:00.000Z"}, data["boot"]["done"]
 
     # the card starts at entry 2: the done site is skipped at load, one fewer to go

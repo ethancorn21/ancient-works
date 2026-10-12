@@ -266,6 +266,11 @@ def _build_tree_b(tmp_path, seed):
         shutil.copy2(ROOT / "web" / "data" / name, wd / name)
     shutil.copytree(ROOT / "web" / "data" / "sites" / SID, wd / "sites" / SID)
     shutil.copytree(ROOT / "data" / "review", tree / "data" / "review")
+    # 309's right-place check names its unbuilt right sites from the catalog: the line's
+    # export reads it (an absent store would warn on those items, and this test asserts no warnings)
+    cd = tree / "data" / "catalog"
+    cd.mkdir()
+    shutil.copy2(ROOT / "data" / "catalog" / "sites.jsonl", cd / "sites.jsonl")
     pf = tree / "data" / "db" / "platefits"
     pf.mkdir(parents=True)
     for f in sorted((ROOT / "data" / "db" / "platefits").iterdir()):
@@ -291,6 +296,7 @@ def test_line_refuses_unmarked_non_auto_doc(tmp_path):
                 ROOT / "web" / "data" / "plans.json",
                 ROOT / "web" / "data" / "sites" / SID,
                 ROOT / "data" / "review",
+                ROOT / "data" / "catalog",
                 ROOT / "data" / "db" / "platefits",
                 ROOT / "data" / "commons" / "files.jsonl",
                 LINECHECK_DOCS]

@@ -1,6 +1,60 @@
 {
- "at": "2026-10-12T07:14:26.067458+00:00",
+ "at": "2026-10-12T08:04:38.060712+00:00",
  "items": [
+  {
+   "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
+   "name": "A saucer barrow and a bowl barrow 600m north west of Lewes Prison: the southerly pair of a group of three round barrows",
+   "lead": "earthworkenglan01allcgoog_n0558_1",
+   "candidates": [
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0558.jpg",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.14,
+      0.35,
+      0.53,
+      0.64
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0558_1",
+     "place_reason": "same name, other place: LEWES DOWN vs St Neots, Cambridgeshire, England"
+    },
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0558.jpg",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.56,
+      0.38,
+      0.85,
+      0.58
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0558_2",
+     "place_reason": "same name, other place: LEWES DOWN vs St Neots, Cambridgeshire, England"
+    }
+   ],
+   "no_picture_found": null
+  },
   {
    "site": "aalsum-q3902030",
    "name": "Aalsum",
@@ -3711,6 +3765,37 @@
    }
   },
   {
+   "site": "castle-dyke-q31112898",
+   "name": "Castle Dyke",
+   "lead": "earthworkenglan01allcgoog_n0599_1",
+   "candidates": [
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0599.jpg",
+     "title": "CASTLE DYKE, AYSGARTH.",
+     "label": "Fig. 195",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.175,
+      0.268,
+      0.875,
+      0.715
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0599.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0599_1",
+     "place_reason": "same name, other place: Aysgai-th, Yorks, Aysgarth vs Dorset, England"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "castra-argentovaria-q2654537",
    "name": "Castra Argentovaria",
    "lead": null,
@@ -4468,6 +4553,32 @@
    "no_picture_found": null
   },
   {
+   "site": "devil-s-dyke-hillfort-q17674160",
+   "name": "Devil's Dyke hillfort",
+   "lead": "earthworkenglan01allcgoog_n0686_1",
+   "candidates": [
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0686.jpg",
+     "title": "The Devil's Dyke Camp, near Brighton",
+     "label": "Fig. 217",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": null,
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0686.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0686_1",
+     "place_reason": "same name, other place: near Brighton vs Stetchworth, Cambridgeshire, England"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "dolforwyn-castle-q1235495",
    "name": "Dolforwyn Castle",
    "lead": null,
@@ -4486,6 +4597,37 @@
     "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
     "at": "2026-10-11T14:07:54.994973+00:00"
    }
+  },
+  {
+   "site": "down-end-castle-q5302812",
+   "name": "Down End Castle",
+   "lead": "earthworkenglan01allcgoog_n0285_1",
+   "candidates": [
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0285.jpg",
+     "title": "British Village on Hampton Down, Bath",
+     "label": "Fig. 89",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.17,
+      0.23,
+      0.9,
+      0.69
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0285.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0285_1",
+     "place_reason": "same name, other place: Bath vs St Neots, Cambridgeshire, England"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "dunadd",
@@ -8340,6 +8482,37 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 100 200 300 Feet'",
      "why": "features: North-eastern rampart corner, Eastern gate gap, South-eastern rampart corner, South-western rampart corner, North-western rampart corner, Central mound tip; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "oval-barrow-and-adjacent-bowl-barrow-220-q17672356",
+   "name": "Oval barrow and adjacent bowl barrow, 220m west of Firle Beacon",
+   "lead": "earthworkenglan01allcgoog_n0557_1",
+   "candidates": [
+    {
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0557.jpg",
+     "title": "SITE OF WINDMILL, FIRLE HILL.",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.175,
+      0.33,
+      0.885,
+      0.665
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": "books/earthworkenglan01allcgoog/n0557.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "earthworkenglan01allcgoog_n0557_1",
+     "place_reason": "same name, other place: FIRLE HILL vs St Neots, Cambridgeshire, England"
     }
    ],
    "no_picture_found": null
