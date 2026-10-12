@@ -120,9 +120,9 @@ Where: `data/raw` (-> /home/agent/projects/ancient-works/data/raw), `tests/conft
 Symptom: `du -sh data/raw` reports 0, and `ls data/raw` looks nearly empty at the link level, so a scratch tree built by `cp -r data /tmp/...` appears raw-less - until the server happily serves 1.4G of real book scans and Commons images through the link.
 Why: `du`/`cp` without following links treat it as an empty directory; the target holds the real raw data (books ~1.4G, commons ~439M, aerial ~1.5M). Consequence: a /tmp scratch tree DOES serve pictures (use that to test happy paths headless), while the pytest temp tree - conftest.py excludes `data/raw` by path when copying - genuinely has none, so book/media images 404 there (the fit tool's "Could not load the page scan." path).
 
-#### The LLM replicas serve on 127.0.0.1:8080-8082; pipeline/books.py's LLM_URLS (18080/18081) are stale
+#### The LLM replicas serve on 127.0.0.1:8080-8082; pipeline/books.py probes them (fixed by 215)
 Where: the llmtunnel ssh forwarder (user llmtunn, `-L 127.0.0.1:8080/8081/8082 -> 10.0.10.75`, running since 2026-10-06), `pipeline/books.py` (`LLM_URLS`, `run_stage`), task 215
-Symptom: every book triage stage exits "LLM tunnels 127.0.0.1:18080/18081 are down" (207, 208, 209 and 213 all hit it); `ss -ltnp` shows no listener on 18080/18081, while `curl` on 127.0.0.1:8080-8082/v1/models returns 200 on all three ports; all three serve model qwen3.8-27b (verified 2026-10-11).
+Symptom: every book triage stage exits "LLM tunnels 127.0.0.1:18080/18081 are down" (207, 208, 209 and 213 all hit it); `ss -ltnp` shows no listener on 18080/18081, while `curl` on 127.0.0.1:8080-8082/v1/models returns 200 on all three ports; all three serve model qwen3.8-27b (verified 2026-10-11). Fixed 2026-10-12 (215): books.py probes 8080,8081,8082,18080,18081 and uses whichever answer (LLM_PORTS overrides); 8082 is down while the image matchers hold the 5060 Ti.
 Why: the forwarder serves the replicas on 8080-8082; books.py was written for an earlier 18080/18081 layout. Until 215 re-points `LLM_URLS`, a throwaway driver must patch `books.LLM_URLS` in-process to the three live ports before calling `run_stage` (213's /tmp/civitates_triage.py pattern).
 
 #### Long background data jobs outlive sessions - check the writer before committing or trusting its file

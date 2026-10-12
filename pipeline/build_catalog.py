@@ -73,7 +73,8 @@ def wiki_summary(entry):
 
 REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France",
                "scotland": "Scotland", "ireland": "Ireland", "denmark": "Denmark", "spain": "Spain", "switzerland": "Switzerland",
-               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia", "belgium": "Belgium"}
+               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia", "belgium": "Belgium",
+               "italy": "Italy", "luxembourg": "Luxembourg"}
 
 
 def place_of(entry):
