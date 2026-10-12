@@ -23,18 +23,26 @@ near: the four-input contract is checked by construction.
                              and every entry's invariants are re-checked. The checkout itself
                              comes out byte-identical.
 
-The page card and the save -> line step (the rest of the acceptance boxes) land with the
-serve.py worker: tests/test_fit_queue.py grows a part 2 then.
+The page card (box 2) is web/fitqueue.js, checked headless in part 2. Part 2 also covers the
+save -> line step (box 3) through the real server with every socket in the server process dead:
+a PUT to platefits runs tools/site_done.py for that site in the server's own process (the drawing
+lands on the map, the site's square is recoloured, its review item is resolved), no network.
 """
 import json
 import os
+import re
+import select
 import shutil
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
 import pytest
+from PIL import Image
+
+from conftest import get, get_json, put_json
 
 ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -326,3 +334,266 @@ def test_fit_queue_real(tmp_path):
     after = {_h(p) for p in raw_in} | {_h(p) for p in (ROOT / "data" / "review").iterdir() if p.is_file()} \
             | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()}
     assert after == before
+
+
+# ---------------------------------------------------------------------------
+# Part 2: the save -> one-site line (task 305, box 3): a PUT to platefits runs
+# tools/site_done.py for that site in the server's own process. No network: every
+# socket in the server process is dead (the guard names the call that tried), the
+# line's model is None, and the picture is read from the tree's own data/raw copy.
+
+AT = "2026-10-12T00:00:00.000Z"  # the owner's save timestamp; the line records it verbatim
+
+
+def _item_of(root, site):
+    """The site's review item in a tree, keyed by its `site` field (data/review/README.md).
+    -> (path, item) or (None, None)."""
+    d = Path(root) / "data" / "review"
+    if not d.is_dir():
+        return None, None
+    for p in sorted(d.glob("*.json")):
+        item = json.loads(p.read_text())
+        if item.get("site") == site:
+            return p, item
+    return None, None
+
+
+def _rows_naming(root, site):
+    """The plans.json rows that name the site (the line's candidate rows)."""
+    d = json.loads((Path(root) / "web" / "data" / "plans.json").read_text())
+    cols = {c: i for i, c in enumerate(d["cols"])}
+    return [{k: r[i] for k, i in cols.items()} for r in d["rows"] if site in (r[cols["sites"]] or [])]
+
+
+def _pick_site():
+    """The first queue entry the line test can use: a book row whose page is in this checkout's
+    data/raw (the line reads it locally), whose site's review item carries that row as a candidate
+    (so the line's export resolves the item), with a candidate's proposed pairs to save, and at
+    least one candidate left for the line to send to the item as "no model answer". Derived, never
+    pinned (803: the population moves under the batch tasks). -> (entry, item) or None."""
+    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+    items = {}
+    for p in (ROOT / "data" / "review").glob("*.json"):
+        it = json.loads(p.read_text())
+        if it.get("site"):
+            items[it["site"]] = it
+    for e in q["entries"]:
+        row = e["best"]["row"]
+        ia, file_ = row.get("ia"), row.get("file")
+        if not (ia and file_):
+            continue  # a book row: the page's save needs ia/file, and the line reads the page locally
+        if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
+            continue  # no local page: the line would need the network
+        it = items.get(e["site"])
+        if not it or not any(c.get("plan") == row["id"] for c in it.get("candidates") or []):
+            continue  # no item candidate for the export to resolve
+        cand = [c for c in it["candidates"] if c["plan"] == row["id"]][0]
+        if len(cand.get("pairs") or []) < 3:
+            continue  # the page's save floor for a similarity fit
+        docs = {json.loads(p.read_text()).get("plan")
+                for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
+                if p.name.startswith(e["site"] + ".")}
+        item_plans = {c.get("plan") for c in it["candidates"]}
+        uncovered = [r["id"] for r in _rows_naming(ROOT, e["site"])
+                     if r["id"] not in docs and r["id"] not in item_plans]
+        if not uncovered:
+            continue  # the line's no-model path (the item upsert) would never run
+        return e, it
+    return None
+
+
+@pytest.fixture(scope="module")
+def line_served(tmp_path_factory):
+    """The real server on an ephemeral port over a FULL copy of this checkout: conftest's served
+    tree strips tools/, fit/ and pipeline/ (the worker dies on the import there, which
+    test_review pins); this copy keeps them, so a platefits PUT really runs the one-site line
+    in-process. Every socket in the server process is dead (the guard's AssertionError names the
+    call): the line is network-free by contract. The picked site's web/data/sites dir is
+    materialized instead of kept a symlink - in the checkout the per-site dirs point into the
+    shared store, and this test must write only into its own temp tree.
+    -> {"base", "tree", "proc", "entry", "item", "size"}"""
+    pick = _pick_site()
+    assert pick, ("no queue entry with a local book page, an item candidate to resolve and an "
+                  "uncovered row - the save -> line test is vacuous")
+    entry, item = pick
+    row = entry["best"]["row"]
+    tree = tmp_path_factory.mktemp("awline")
+    for d in ("web", "server", "tools", "fit", "pipeline"):
+        shutil.copytree(str(ROOT / d), str(tree / d))
+
+    def ignore(d, names):
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+
+    shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
+    # the picked site's dir: a real copy (in the checkout it is a symlink into the shared store)
+    sd = tree / "web" / "data" / "sites" / entry["site"]
+    target = sd.resolve()
+    sd.unlink()
+    shutil.copytree(str(target), str(sd))
+    # the one page the line needs: a real file under the tree's own data/raw (the checkout's data/raw
+    # is a symlink into the shared store, and the test must not write through it)
+    img = ROOT / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]
+    dst = tree / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(str(img), dst)
+    proc = subprocess.Popen([sys.executable, "-c", GUARD, "server/serve.py", "--port", "0"],
+                            cwd=str(tree), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    url = None
+    deadline = time.time() + 90
+    while time.time() < deadline and proc.poll() is None:
+        line = proc.stdout.readline()
+        m = re.match(r"Ancient Works on (\S+)", line) if line else None
+        if m:
+            url = m.group(1)
+            break
+    if not url:
+        proc.kill()
+        raise AssertionError("server did not report its address (startup: %r)" % proc.stdout.read()[-2000:])
+    deadline = time.time() + 30
+    while time.time() < deadline:
+        try:
+            if get(url + "/")[0] == 200:
+                break
+        except OSError:
+            time.sleep(0.2)
+    else:
+        proc.kill()
+        raise AssertionError("server is not answering at " + url)
+    yield {"base": url.rstrip("/"), "tree": Path(tree), "proc": proc,
+           "entry": entry, "item": item, "size": Image.open(dst).size}
+    proc.terminate()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+
+def test_save_runs_the_one_site_line(line_served):
+    """Box 3: when the owner saves a fit, the server runs the one-site line (tools/site_done.py)
+    for that site in its own process: the drawing is on the map (depictions.json and the webps),
+    the site's square is recoloured (sites.json's drawings) and the site's review item is resolved
+    (write-once {doc, at}) - without any other step. The document is built exactly as the page's
+    saveFit builds it (the row's fields, the crop from the row's map_box and size or the whole
+    page, the candidate's proposed pairs as the human's drag) and is stamped by: hand by the store
+    (303). The line's model is None and every socket in the server process is dead, so the run is
+    network-free: the unfitted candidate lands in the item as "no model answer", and the page is
+    read from the tree's own data/raw copy. The site is derived from the real queue (never pinned,
+    803): the current pick is Devil's Dyke, head of the queue. Writes land in the temp tree, never
+    in the shared store behind the checkout's symlinks (realpath check)."""
+    base, tree, proc = line_served["base"], line_served["tree"], line_served["proc"]
+    entry, item_before = line_served["entry"], line_served["item"]
+    site, row, plan = entry["site"], entry["best"]["row"], entry["best"]["plan"]
+    doc_id = site + "." + plan
+
+    # ---- the document, exactly as the page's saveFit builds it ----
+    cand = [c for c in item_before["candidates"] if c["plan"] == plan][0]
+    pairs = [list(p) for p in cand.get("pairs") or []]
+    assert len(pairs) >= 3  # the page's save floor for a similarity fit
+    W, H = line_served["size"]
+    mb, size = row.get("map_box"), row.get("size") or [W, H]
+    crop = ([round(mb[0] * size[0]), round(mb[1] * size[1]),
+             round(mb[2] * size[0]), round(mb[3] * size[1])] if mb else [0, 0, W, H])
+    doc = {"site": site, "plan": plan, "ia": row["ia"], "file": row["file"], "crop": crop,
+           "model": "similarity", "src": "book", "url": row.get("url"), "ref": row.get("ref"),
+           "size": [W, H], "pairs": pairs, "label": row.get("label"), "title": row.get("title"),
+           "book": row.get("book"), "cite": row.get("cite"), "at": AT}
+
+    # ---- before: what the line must change ----
+    sd = tree / "web" / "data" / "sites" / site
+    assert not sd.is_symlink()  # the fixture materialized it: writes must not reach the shared store
+    dep_path = sd / "depictions.json"
+    deps_before = json.loads(dep_path.read_text()) if dep_path.exists() else {"depictions": []}
+    assert not any((d.get("fit") or {}).get("doc") == doc_id for d in deps_before["depictions"])
+    drawings_before = next(s["drawings"] for s in
+                           json.loads((tree / "web" / "data" / "sites.json").read_text())["sites"]
+                           if s["id"] == site)
+    item_path, item_now = _item_of(tree, site)
+    assert item_now is not None and not (item_now.get("resolved") or {}).get("doc")
+    status, rv_before = get_json(base + "/data/review.json")
+    assert status == 200
+    open_before = [it["site"] for it in rv_before["items"]]
+
+    # ---- the owner's save, through the real store ----
+    status, body = put_json(base + "/api/db/platefits/" + doc_id, doc)
+    assert status == 200 and json.loads(body) == {"ok": True}
+
+    # ---- poll: the line puts the drawing on the map (the server stays up while it runs) ----
+    t0 = time.time()
+    fit_entry = None
+    while time.time() - t0 < 120:
+        assert get(base + "/")[0] == 200
+        if dep_path.exists():
+            for d in json.loads(dep_path.read_text())["depictions"]:
+                if (d.get("fit") or {}).get("doc") == doc_id and (d.get("fit") or {}).get("at") == AT:
+                    fit_entry = d
+                    break
+        if fit_entry:
+            break
+        time.sleep(1)
+    assert fit_entry, "the one-site line never put the drawing on the map within 120 s"
+
+    # ---- the line's own words: it ran, it finished (exit 0), it never touched the network ----
+    lines, t0 = [], time.time()
+    want = "one-site line for %s: finished (exit 0)" % site
+    while time.time() - t0 < 30:
+        if any(want in ln for ln in lines):
+            break
+        r, _, _ = select.select([proc.stdout.fileno()], [], [], 0.2)
+        if r:
+            ln = proc.stdout.readline()
+            if not ln:
+                break
+            lines.append(ln.rstrip("\n"))
+    assert any(want in ln for ln in lines), lines
+    assert not any("attempted a network connection" in ln for ln in lines), lines
+    assert not any("one-site line" in ln and "failed" in ln for ln in lines), lines
+
+    # ---- the stored document: the owner's pairs and timestamp, stamped by: hand ----
+    status, stored = get_json(base + "/api/db/platefits/" + doc_id)
+    assert status == 200
+    assert stored["by"] == "hand"
+    assert stored["at"] == AT and stored["pairs"] == pairs
+
+    # ---- the drawing on the map: the overlay and its ink exist in the tree, the fit is recorded
+    # (a hand fit is built with no check, and the source line says so) ----
+    assert fit_entry["kind"] == "plan"
+    assert fit_entry["file"] == "plan_" + plan + ".webp"
+    assert fit_entry.get("ink") == "plan_" + plan + "_ink.webp"
+    for f in (fit_entry["file"], fit_entry["ink"]):
+        p = sd / f
+        assert p.exists(), f
+        assert os.path.realpath(str(p)).startswith(str(tree)), "a test fit must not land in the shared store"
+    fit = fit_entry["fit"]
+    assert fit["pairs"] == len(pairs) and fit["model"] == "similarity"
+    assert fit["at"] == AT and fit["doc"] == doc_id
+    assert isinstance(fit["m_per_px"], float) and fit["m_per_px"] > 0
+    assert isinstance(fit["rot_deg"], (int, float))
+    assert len(fit["resid_m"]) == len(pairs) and all(r >= 0 for r in fit["resid_m"])
+    assert "Placed by hand" in fit_entry["source"]
+
+    # ---- the site's square: the drawing count follows the overlay ----
+    drawings_after = next(s["drawings"] for s in
+                          json.loads((tree / "web" / "data" / "sites.json").read_text())["sites"]
+                          if s["id"] == site)
+    assert drawings_after == drawings_before + 1
+
+    # ---- the review item: resolved write-once by the saved document; every other uncovered
+    # candidate went to the item as "no model answer" (the line has no model); the file did not move
+    # (its lead candidate is unchanged) ----
+    item_path2, item_after = _item_of(tree, site)
+    assert item_path2 == item_path
+    assert item_after["resolved"] == {"doc": doc_id, "at": AT}
+    uncovered = [r["id"] for r in _rows_naming(tree, site)
+                 if r["id"] != plan and r["id"] not in {c.get("plan") for c in item_before["candidates"]}]
+    assert uncovered  # the pick guarantees at least one
+    after_cands = {c["plan"]: c for c in item_after["candidates"]}
+    for u in uncovered:
+        assert after_cands.get(u, {}).get("why") == "no model answer", u
+
+    # ---- the page's review file: republished, and the saved site's item left the open list ----
+    status, rv_after = get_json(base + "/data/review.json")
+    assert status == 200
+    assert rv_after["at"] != rv_before["at"]  # the export re-ran
+    open_after = [it["site"] for it in rv_after["items"]]
+    assert site not in open_after, "the saved site's resolved item must leave the open list"
+    assert len(open_after) == len(open_before) - (1 if site in open_before else 0)
