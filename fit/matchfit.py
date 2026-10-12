@@ -23,6 +23,9 @@ ground whose position is known:
             rotation within MAX_ROT_DEG of north-up (old plans are drawn north-up or by their arrow;
             a large rotation was always a wrong match). Anything else is left for the owner's
             Ready-to-fit queue.
+  RoMa      a picture ELoFTR is not sure of goes to MatchAnything-RoMa (port 8092), judged by the fraction
+            of its matches that agree (>= 0.3) instead of a count; sideways plans (rotation near a multiple
+            of 90 deg) count for both (judge; docs/matchfit.md section 7).
 
 A written fit is an ordinary platefit document (fit/batch_us.write_doc: by "agent", auto true) with
 "fitter": "matcher" and its inlier count; its pairs are up to 8 of the real matched points, spread
@@ -49,9 +52,13 @@ import batch_us  # noqa: E402
 
 Image.MAX_IMAGE_PIXELS = None
 MATCHER_URL = os.environ.get("MATCHER_URL", "http://127.0.0.1:8091")
+ROMA_URL = os.environ.get("ROMA_URL", "http://127.0.0.1:8092")
 WINDOWS = (1.0, 0.7, 0.5, 0.35, 0.25)
 MIN_INLIERS = 10
 MAX_ROT_DEG = 30.0
+ROT90_TOL_DEG = 10.0
+ROMA_MIN_FRAC = 0.3
+MODELS = {"eloftr": "zju-community/matchanything_eloftr", "roma": "zju-community/matchanything_roma"}
 N_PAIRS = 8
 SPREAD_MIN_RATIO = 0.1
 SPREAD_MIN_SD_PX = 20.0
@@ -69,6 +76,31 @@ def spread(pts):
     c = p - p.mean(0)
     ev = np.clip(np.linalg.eigvalsh(c.T @ c / len(p)), 0, None)
     return (float(np.sqrt(ev[0] / ev[1])) if ev[1] > 0 else 0.0), float(np.sqrt(ev[0]))
+
+
+def near90(rot, tol=ROT90_TOL_DEG):
+    """Within tol of a multiple of 90 deg: plans printed sideways on the page (maiden n0124, old-sarum n0142 at
+    90.5 deg on the owner's hand fits, docs/matchfit.md section 7)."""
+    return abs(((rot + 45) % 90) - 45) <= tol
+
+
+def judge(best, kind="eloftr"):
+    """Why the best candidate is not to be trusted, or None. ELoFTR (sparse, ~100s of matches): the inlier count.
+    RoMa (dense, ~5000 matches per call, so a count means nothing): the inlier FRACTION >= 0.3, 11 of the 21 hand
+    fits at 0 wrong (projects-00, docs/matchfit.md section 7; read off that table, so a ceiling). Both: north-up
+    or sideways, and the spread guard."""
+    if kind == "roma":
+        frac = best["inliers"] / max(best["matches"], 1)
+        if frac < ROMA_MIN_FRAC:
+            return f"not sure: {frac:.2f} of the matches agree (need {ROMA_MIN_FRAC})"
+    elif best["inliers"] < MIN_INLIERS:
+        return f"not sure: {best['inliers']} consistent points (need {MIN_INLIERS})"
+    if not (abs(best["rot"]) <= MAX_ROT_DEG and kind == "eloftr") and not near90(best["rot"]):
+        return f"not sure: rotated {best['rot']:.0f} deg from north"
+    if best["spread"][0] < SPREAD_MIN_RATIO or best["spread"][1] < SPREAD_MIN_SD_PX:
+        return (f"not sure: the consistent points lie nearly on a line (spread {best['spread'][0]:.2f}, "
+                f"{best['spread'][1]:.0f} px across): the scale is not pinned")
+    return None
 
 
 def reachable(url=None):
@@ -179,9 +211,9 @@ def grounds(root, site):
     return out
 
 
-def fit_row(root, site, row, url=None):
+def fit_row(root, site, row, url=None, kind="eloftr"):
     """Best matcher fit of one plan row on one site: a dict (inliers, rot, ground, window, pairs_ll,
-    resid_m) or a dict with 'why' when there is nothing to trust."""
+    resid_m) or a dict with 'why' when there is nothing to trust. kind picks the accept rule (judge)."""
     pic = plan_image(root, row)
     if pic is None:
         return {"why": "picture not on this machine"}
@@ -226,13 +258,9 @@ def fit_row(root, site, row, url=None):
                     "window": f, "pairs": pairs, "resid_m": float(np.median(resid)), "m_per_px": mpp, "spread": sp}
     if best is None:
         return {"why": "the matcher found nothing consistent"}
-    if best["inliers"] < MIN_INLIERS:
-        best["why"] = f"not sure: {best['inliers']} consistent points (need {MIN_INLIERS})"
-    elif abs(best["rot"]) > MAX_ROT_DEG:
-        best["why"] = f"not sure: rotated {best['rot']:.0f} deg from north"
-    elif best["spread"][0] < SPREAD_MIN_RATIO or best["spread"][1] < SPREAD_MIN_SD_PX:
-        best["why"] = (f"not sure: the consistent points lie nearly on a line (spread {best['spread'][0]:.2f}, "
-                       f"{best['spread'][1]:.0f} px across): the scale is not pinned")
+    why = judge(best, kind)
+    if why:
+        best["why"] = why
     return best
 
 
@@ -241,7 +269,11 @@ def _sites(root):
     return {s["id"]: s for s in (d["sites"] if isinstance(d, dict) else d)}
 
 
-def run(root, site_ids, dry=False, url=None):
+def run(root, site_ids, dry=False, url=None, roma_url=None):
+    """ELoFTR first (fast, ~1 s a window pair); a picture it is not sure of goes to RoMa (~4 s a pair, placed
+    11 of the 21 hand fits against ELoFTR's 7) when that answers."""
+    roma = roma_url or ROMA_URL
+    use_roma = reachable(roma)
     sites = _sites(root)
     rows = batch_us._plans_rows(str(root))
     written = []
@@ -254,13 +286,19 @@ def run(root, site_ids, dry=False, url=None):
         for row in batch_us.candidates(sid, rows):
             if row["id"] in docs:
                 continue
-            r = fit_row(root, site, row, url)
+            r, kind = fit_row(root, site, row, url), "eloftr"
             title = (row.get("title") or row["id"])[:70]
+            if "why" in r and use_roma and r["why"] != "picture not on this machine":
+                rr = fit_row(root, site, row, roma, "roma")
+                if "why" not in rr:
+                    r, kind = rr, "roma"
+                else:
+                    r = dict(rr, why=f"{r['why']}; RoMa {rr['why']}")
             if "why" in r:
                 extra = f" [{r['ground']} x{r['window']}, rot {r['rot']:.0f}]" if "ground" in r else ""
                 print(f"{sid}  {title}: {r['why']}{extra}")
                 continue
-            print(f"{sid}  {title}: FIT {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
+            print(f"{sid}  {title}: FIT ({kind}) {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
                   f"rot {r['rot']:.1f} deg, {r['m_per_px']:.2f} m/px, residual {r['resid_m']:.0f} m")
             if dry:
                 continue
@@ -268,7 +306,7 @@ def run(root, site_ids, dry=False, url=None):
             if path:
                 doc = json.loads(Path(path).read_text())
                 doc.update({"fitter": "matcher", "matcher": {
-                    "model": "zju-community/matchanything_eloftr", "inliers": r["inliers"], "matches": r["matches"],
+                    "model": MODELS[kind], "inliers": r["inliers"], "matches": r["matches"],
                     "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
                     "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
                 batch_us._save_json(path, doc)
@@ -282,7 +320,8 @@ def main(argv=None):
     ap.add_argument("--all-queue", action="store_true", help="every site in web/data/fit_queue.json")
     ap.add_argument("--dry", action="store_true", help="report only, write no documents")
     ap.add_argument("--root", default=str(ROOT))
-    ap.add_argument("--matcher", default=None)
+    ap.add_argument("--matcher", default=None, help="ELoFTR server (default MATCHER_URL, :8091)")
+    ap.add_argument("--roma", default=None, help="RoMa server for the second pass (default ROMA_URL, :8092)")
     a = ap.parse_args(argv)
     ids = list(a.sites)
     if a.all_queue:
@@ -290,7 +329,7 @@ def main(argv=None):
         ids += [e["site"] for e in q.get("entries", []) if e.get("site") not in ids]
     if not ids:
         ap.error("name sites, or --all-queue")
-    w = run(a.root, ids, a.dry, a.matcher)
+    w = run(a.root, ids, a.dry, a.matcher, a.roma)
     print(f"{len(w)} fit document(s) written")
 
 
