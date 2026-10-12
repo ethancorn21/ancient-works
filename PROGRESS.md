@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 88, agent c - session 4. Wrote tests/test_surveyfit.py (complete,
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 89, agent c - session 5. Redesigned the synthetic world, added the
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -163,7 +163,7 @@ Session 4. Wrote the complete tests/test_surveyfit.py (7 tests, uncommitted on d
 harness hand-over). Design decisions, recorded for the next agent:
 
 1. **Sign convention verified by code (closes the session-3 "must still lock" item).**
-... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's' DECISIONS.md`)
+... (8.8 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
