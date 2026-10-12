@@ -12,7 +12,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/309-queue-right-place.md` (open) - hand-over: SUPERSEDED BY THE ITERATION-93 NOTE BELOW (keep the old session-1 note only as background if still readable).
+- `tasks/309-queue-right-place.md` (open) - hand-over: (2026-10-12, iteration 94, agent c - session 3. Step this session: `tools/right_place.py` added to the Touches line (done, committed with this note); 
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
