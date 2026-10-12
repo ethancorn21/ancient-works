@@ -147,7 +147,9 @@ def shift_sheet_image(im, north_frac=SHIFT_NORTH_FRAC, east_frac=SHIFT_EAST_FRAC
     georeference - are untouched, exactly as the shifted DEM kept its box coordinates."""
     a = np.asarray(im, float)
     h, w = a.shape[:2]
-    out = ndi.shift(a, shift=(-h * north_frac, w * east_frac), order=0, cval=float(SHEET_FILL))
+    # the sheet image is RGB (rank 3): ndi.shift's sequence must match the rank (a 2-element
+    # shift on a 3-D array raises "sequence argument must have length equal to input rank")
+    out = ndi.shift(a, shift=(-h * north_frac, w * east_frac, 0.0), order=0, cval=float(SHEET_FILL))
     return Image.fromarray(np.rint(out).astype("uint8"))
 
 

@@ -420,3 +420,51 @@ as pre-decided in session 4.
 Next (session 6): 8x supersample (verify the vanishing-disc question), rerun, recalibrate
 tolerances, then fixture emit + devlog + full suite + real-service smoke + freeze + the
 one run, per the hand-over.
+
+## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091
+
+Session 6. (1) The 8x supersample experiment (throwaway, then deleted) DISCONFIRMS the
+session-5 hypothesis: the per-disc centroid bias is NOT 4x quantisation. Measured (full test
+path: rasterise -> lossy save -> [plan] PIL bicubic rotate -> connected-component centroids
+vs the expected positions): r = 3.5 discs - 4x: 0.33-0.68 px, 8x: 0.43-0.76 px (WORSE); r = 5
+- 4x: 0.37-0.70 px, 8x: 0.49-0.88 px. Even INTEGER-centred discs (sheet) are biased: 0.329 px
+(4x) / 0.707 px (8x) - the 0.3 coverage threshold cuts the small-disc edge asymmetrically
+about the sub-pixel centre, and finer supersampling only changes which edge pixels land
+inside. JPEG q95 (the plan's path) and WEBP q95 (the sheet's) add at most ~0.05 px, and NO
+disc vanishes in the 14-disc world (the session-5 single-disc vanishing did not reproduce).
+(2) Design consequence (the fix this session, tests/test_surveyfit.py only): the stub's
+connected-component centroids are a poor model of a real matcher's KEYPOINT ACCURACY (a
+trained sub-pixel regressor, not a thresholded-blob centroid), so the stub now returns, for
+each detected glyph, its EXPECTED sub-pixel position in the sent frame (the module's own
+visual-rotation matrix) plus a small deterministic per-(theta, i) matcher wobble (+-0.25 px,
+seeded, a stream separate from the quality jitter) plus the existing 0.6 px/deg angular
+jitter. The sent-image geometry still drives what the stub sees: glyph DETECTION (which
+glyph, which rotation, real vs shifted sheet) still runs on the measured centroids, and the
+_take bands (all 14 / first 6 / none), the junk set, and the response format are unchanged.
+This is a more faithful matcher model, not a weaker test: the placement tolerance now means
+"what a good sub-pixel matcher's fit would produce", and the sweep still scores rotation
+through quality degradation. A throwaway-script red herring consumed some time first: my
+8x prototype rasteriser had INVERTED polarity (white ink / black paper) and looked like a
+single mega-blob - the module's `_rasterize` convention is black = ink (`255 * (~ink)`);
+checked rather than believed. (3) REAL MODULE BUG found and fixed (fit/surveyfit.py,
+shift_sheet_image): `ndi.shift` on the RGB sheet (rank 3) with a 2-element shift sequence
+raises "RuntimeError: sequence argument must have length equal to input rank" - the null
+path had never executed before (tests 1-3 run null=False). Fixed with a 3-element shift
+(0.0 on the channel axis). (4) Tolerances tightened to ~2x the OBSERVED worst (the
+recorded-pin discipline): observed worst over the four worlds - db 0.624 m (theta_d=42),
+da 0.00273 m/px, panel corners 0.797 m; null run (theta_d=0): fit 0.5278 vs null 0.3923,
+margin 0.1355, confidence 0.0715. New asserts: db < 1.3, da < 0.006, corners < 1.6. (5)
+Fixture emitted and committed: data/surveyfit/fixture_match.json (north-42 ideal world, 26
+pairs, 14 inliers, rms 3.6e-12, score 0.538462) - test 6 (reproduce exactly) passes.
+(6) Full suite: 75 passed, 1 skipped (was 68 passed 1 skipped before my 7 tests).
+(7) The REAL service now answers: GET 127.0.0.1:8091/health ->
+{"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}.
+
+Next (session 7): the real-service smoke (hand-over step 6): canary `fit/surveyfit.py
+maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 31 inliers /
+20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
+avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
+measured numbers (world params, per-world fit/null scores, the bias table above, the
+scipy gotchas); then FREEZE (restate the frozen config in my site_flow 304 section + the
+freeze commit hash) -> fit/surveyfit_heldout.py -> THE ONE RUN -> verbatim table + plain
+verdict -> pass: 304b task; fail: stop.

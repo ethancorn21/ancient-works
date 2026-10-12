@@ -10,12 +10,17 @@ plan's north theta_d degrees clockwise of page-up: a_true = (M_PX/k0)*e^{i*theta
 anchor form) plus 4 junk glyphs with no sheet counterpart. The stub decodes the two sent
 images, works out which world it is looking at (sheet real vs the 302b half-box shift; plan
 unrotated vs rotated, via connected-component centroids), and answers with the corresponding
-point pairs (true pairs in the ORIGINAL pixel frames, the way the service does, plus a fixed
-junk set) - returning the full set only when the sent panel's rotation is the drawing's own,
-the first six one fine step away, nothing beyond (a rotation-sensitive matcher), with the
-returned plan-side points wobbling by up to 0.6 px per degree of error (match quality, not
-just count, degrades). That makes the frozen rotation sweep meaningful: the true rotation is
-the only (or best) orientation with full match quality.
+point pairs (the detected true pairs in the ORIGINAL pixel frames, the way the service does,
+plus a fixed junk set) - returning the full set only when the sent panel's rotation is the
+drawing's own, the first six one fine step away, nothing beyond (a rotation-sensitive matcher).
+Each returned plan-side point sits at the expected sub-pixel position of the detected glyph - a
+good matcher's keypoint regression, not the centroid of a thresholded ink blob (whose
+digital-edge bias is 0.3-0.7 px on 7-12 px discs at any supersample; the measured centroids
+stay the stub's glyph DETECTION, so the sent-image geometry still drives what the stub sees)
+- plus a small deterministic matcher wobble (+-0.25 px) and a degradation of up to 0.6 px per
+degree of angular error (match quality, not just count, degrades). That makes the frozen
+rotation sweep meaningful: the true rotation is the only (or best) orientation with full match
+quality.
 
 The tests:
 1. fixed rotation (the plan drawn north-42, fit with rot=42): the reported placement and panel
@@ -75,6 +80,7 @@ ROW = {"id": PLAN_ID, "size": [PLAN, PLAN]}
 JUNK_SEED = 304777              # the stub's junk match pairs (one fixed seeded set)
 JITTER_SEED = 304778            # the stub's per-glyph quality wobble (a separate fixed set)
 JITTER_PX_PER_DEG = 0.6         # the stub's match-quality degradation, px per degree of error
+WOBBLE_PX = 0.25                # the stub's intrinsic matcher noise, px (sub-pixel keypoint precision)
 CENTER = np.array([0.5 * PLAN, 0.5 * PLAN])     # the panel centre (the sweep rotates about it)
 CANDIDATE_THETAS = [2.0 * i for i in range(180)]  # the stub's rotation-resolution candidates
 HIT_PX = 2.0                    # a glyph counts as "seen" within this many px of its expected spot
@@ -300,10 +306,10 @@ def _take(world, sheet_state, theta):
 
 
 def _jitter(theta, i, delta):
-    """A returned plan-side point's wobble: up to JITTER_PX_PER_DEG px per degree of angular
-    error, deterministic per (theta, i) - a repeated call at the same theta returns the same
-    points, and match quality (not just match count) degrades away from the true rotation.
-    -> (dx, dy) in plan px."""
+    """A returned plan-side point's angular-quality wobble: up to JITTER_PX_PER_DEG px per degree
+    of angular error, deterministic per (theta, i) - a repeated call at the same theta returns
+    the same points, and match quality (not just match count) degrades away from the true
+    rotation. -> (dx, dy) in plan px."""
     amp = JITTER_PX_PER_DEG * delta
     if amp <= 0:
         return 0.0, 0.0
@@ -311,15 +317,27 @@ def _jitter(theta, i, delta):
     return float(rng.uniform(-amp, amp)), float(rng.uniform(-amp, amp))
 
 
+def _wobble(theta, i):
+    """The stub's intrinsic matcher noise on a returned keypoint: a deterministic sub-pixel
+    wobble up to WOBBLE_PX, seeded per (theta, i) (a stream separate from _jitter's). ->
+    (dx, dy) in px."""
+    rng = np.random.default_rng(
+        (JITTER_SEED * 1000003 + int(round(theta * 10.0)) * 100000 + i) % 2 ** 32)
+    return float(rng.uniform(-WOBBLE_PX, WOBBLE_PX)), float(rng.uniform(-WOBBLE_PX, WOBBLE_PX))
+
+
 def match_response(world, im0, im1):
-    """The stub's /match answer: true pairs (plan-side measured centroids in the SENT frame
-    plus the quality wobble, sheet-side world positions) + the fixed junk set, as the service
-    returns them (the original pixel frames)."""
+    """The stub's /match answer: the detected true pairs - plan-side: the expected sub-pixel
+    positions of the glyphs in the SENT frame (a good matcher's keypoint, not a thresholded-blob
+    centroid) plus the matcher wobble and the angular-quality jitter; sheet-side: the exact
+    world positions - and the fixed junk set, as the service returns them (the original pixel
+    frames)."""
     sheet_state = _sheet_state(world, _ink(im1))
     theta, matched = _resolve_theta(world, _centroids(_ink(im0)))
     p0, p1 = [], []
     if theta is not None and sheet_state != "unknown":
         delta = abs((theta - world["theta_d"] + 180.0) % 360.0 - 180.0)
+        e = _expected(theta, world["plan_centers"])
         for i in _take(world, sheet_state, theta):
             if i not in matched:
                 continue
@@ -327,8 +345,9 @@ def match_response(world, im0, im1):
             if sheet_state == "shifted":
                 sx, sy = sx + 200, sy - 200
             dx, dy = _jitter(theta, i, delta)
-            px, py = matched[i]
-            p0.append([px + dx, py + dy])
+            wx, wy = _wobble(theta, i)
+            px, py = e[i]
+            p0.append([px + dx + wx, py + dy + wy])
             p1.append([sx, sy])
     for a, b in zip(world["junk_p0"], world["junk_p1"]):
         p0.append(list(a))
@@ -433,11 +452,11 @@ def test_fixed_rotation_recovers_known_placement(tmp_path):
     assert r["reason"] is None, r
     assert r["theta"] == 42.0
     da, db = _placement_error_m(r, 42.0)
-    assert db < 2.0, "placement centre %g m from the true one" % db
-    assert da < 0.1, "placement scale off by %g m/px" % da
+    assert db < 1.3, "placement centre %g m from the true one" % db
+    assert da < 0.006, "placement scale off by %g m/px" % da
     assert abs(r["placement"]["rot_deg"] - 42.0) < 1.0, r["placement"]
     errs = _corner_error_m(r["corners"], 42.0)
-    assert all(e < 2.0 for e in errs), "panel corners %g m off" % max(errs)
+    assert all(e < 1.6 for e in errs), "panel corners %g m off" % max(errs)
 
 
 def test_sweep_recovers_north_up_plan(tmp_path):
@@ -450,8 +469,8 @@ def test_sweep_recovers_north_up_plan(tmp_path):
     assert r["reason"] is None, r
     assert r["theta"] == 0.0
     da, db = _placement_error_m(r, 0.0)
-    assert db < 2.0 and da < 0.1
-    assert all(e < 2.0 for e in _corner_error_m(r["corners"], 0.0))
+    assert db < 1.3 and da < 0.006
+    assert all(e < 1.6 for e in _corner_error_m(r["corners"], 0.0))
     n = len(state["calls"])
     assert 30 <= n <= 43, "the sweep made %d match calls" % n
     dupes = [p for p, c in Counter(state["calls"]).items() if c >= 2]
@@ -467,8 +486,8 @@ def test_sweep_refines_between_coarse_values(tmp_path):
     assert r["theta"] in (4.0, 6.0, 8.0), "sweep ended at theta=%s" % r["theta"]
     assert r["theta"] % 12.0 != 0.0, "the true rotation is not a coarse value"
     da, db = _placement_error_m(r, 6.0)
-    assert db < 2.0 and da < 0.1
-    assert all(e < 2.0 for e in _corner_error_m(r["corners"], 6.0))
+    assert db < 1.3 and da < 0.006
+    assert all(e < 1.6 for e in _corner_error_m(r["corners"], 6.0))
 
 
 def test_scramble_null_scores_below_fit(tmp_path):
@@ -482,8 +501,8 @@ def test_scramble_null_scores_below_fit(tmp_path):
     assert r["null"] is not None and 0.0 <= r["null"] < fit
     assert r["margin"] > 0.0 and r["confidence"] > 0.0
     da, db = _placement_error_m(r, 0.0)
-    assert db < 2.0 and da < 0.1
-    assert all(e < 2.0 for e in _corner_error_m(r["corners"], 0.0))
+    assert db < 1.3 and da < 0.006
+    assert all(e < 1.6 for e in _corner_error_m(r["corners"], 0.0))
 
 
 def test_shifted_sheet_null_scores_below_fit(tmp_path):

@@ -242,6 +242,18 @@ Why: patches are per-process. Run the child as `[sys.executable, "-c", GUARD, sc
       pass `PYTHONIOENCODING=utf-8` in the child's env so non-ASCII output (em-dashes in Commons titles)
       cannot crash it or the decoding under a non-UTF-8 locale.
 
+### scipy (1.18.1, project .venv)
+
+#### scipy 1.18's ndi.center_of_mass with a label-index array returns one (cy, cx) tuple per label, not (cy_arr, cx_arr)
+Where: `tests/test_surveyfit.py` (`_centroids`), `fit/surveyfit.py` (`panel_pieces` - it uses the single-mask form there)
+Symptom: `cy, cx = ndi.center_of_mass(ink, lab, np.arange(1, n + 1))` raises "ValueError: too many values to unpack (expected 2)" whenever n != 2
+Why: the labelled form returns a list of (cy, cx) tuples, one per label. The single-mask form `ndi.center_of_mass(m)` still returns one (cy, cx) tuple. Unpack with `[(c[1], c[0]) for c in com]`. The version is pinned in requirements.txt - do not write defensive code for other scipy versions.
+
+#### ndi.shift's shift sequence must match the array's rank - an RGB image (h, w, 3) needs a 3-element shift
+Where: `fit/surveyfit.py` (`shift_sheet_image` - the 302b sheet-shift null applied to the loaded sheet image, which is always RGB)
+Symptom: "RuntimeError: sequence argument must have length equal to input rank" when shifting with `shift=(-h*f, w*f)`
+Why: ndi.shift checks len(shift) == input.ndim; a 2-element shift only fits 2-D arrays. The null path had never been executed (the early stub tests use null=False), so the crash surfaced at the first null run. Fix: `shift=(-h*f, w*f, 0.0)`.
+
 ## This codebase
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
@@ -635,6 +647,11 @@ Why: each doc runs three searches (fit + the two nulls) over a 27 x 17-18 coarse
       re-measures only entries carrying an "error" key - never a completed measurement.
       Hermetic tests (302c) use the committed data/inkfit/relief/<site>.npz cache instead of
       a DEM fetch.
+
+#### A binary rasterisation of a small disc (7-12 px) carries a 0.3-0.8 px systematic centroid bias that no supersample fixes
+Where: `tests/test_surveyfit.py` (`_rasterize`, `_centroids`, `match_response`); applies to any synthetic ink world
+Symptom: the connected-component centroid of a disc drawn at a known (sub-)pixel centre sits 0.3-0.8 px from the true centre; 8x supersampling is WORSE than 4x (0.33 -> 0.71 px for r = 3.5), doubling the radius barely helps (0.48-0.88 px); a JPEG q95 roundtrip and a 42 deg PIL bicubic rotation add at most ~0.05 px on top
+Why: thresholding per-pixel coverage at 0.3 cuts the disc edge asymmetrically about the sub-pixel centre; for a small blob the edge-pixel ring dominates the centroid, and finer supersampling only changes which edge pixels land inside, not the asymmetry. Consequence: in the stub matcher the ink centroids are good for glyph DETECTION only (within 2 px of the expected spot); a returned keypoint is modelled as a sub-pixel regression (the expected rotated position + a deterministic +-0.25 px wobble + the 0.6 px/deg quality jitter). Never expect a blob centroid to be sub-pixel ground truth in a synthetic world.
 
 ### pipeline/
 

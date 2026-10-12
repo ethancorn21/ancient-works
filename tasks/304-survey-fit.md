@@ -30,82 +30,91 @@ survey sheet, then carry the sheet's georeference over.
 
 ## Hand-over
 
-(2026-10-12, iteration 89, agent c - session 5. Redesigned the synthetic world, added the
-match-quality jitter, fixed two first-run crashes; the suite now runs end to end. UNCOMMITTED
-on disk: tests/test_surveyfit.py only - fit/surveyfit.py unchanged this session.)
+(2026-10-12, iteration 90, agent c - session 6. Killed the centroid-bias problem at its root:
+8x supersampling DISPROVEN (the bias is a threshold-edge effect; 8x is worse), the stub now
+models a good sub-pixel matcher (keypoints at expected positions + +-0.25 px wobble + 0.6 px/deg
+jitter; centroids kept for detection only), fixed a real ndi.shift rank bug in the null path,
+tightened tolerances to ~2x observed, fixture committed. Suite 7/7, full suite 75 passed 1
+skipped. The REAL ELoFTR service now answers at 127.0.0.1:8091.)
 
-**State.** Status: in-progress. Last run: `.venv/bin/pytest tests/test_surveyfit.py -x -q`
--> test 1 (fixed rotation theta_d=42) fails `db < 2.0` with 2.958 m (= 0.74 plan-px); tests
-2-7 not reached. Everything before that in the run path now works (stub, world, sweep).
+**State.** Status: in-progress. All 7 stub tests green:
+`.venv/bin/pytest tests/test_surveyfit.py -q` -> 7 passed; full suite 75 passed, 1 skipped.
+Observed placement errors (all far inside the new asserts db<1.3 / da<0.006 / corners<1.6):
+theta_d=42 rot=42: db 0.624 m, da 0.00273, corners 0.797; theta_d=0 sweep: 0.461 / 0.00137 /
+0.460; theta_d=6 sweep: theta recovered exactly 6.0, 0.466 / 0.00230 / 0.597; null run:
+fit 0.5278 vs null 0.3923 (margin 0.1355, confidence 0.0715). Fixture
+data/surveyfit/fixture_match.json committed (north-42 ideal world: 26 pairs, 14 inliers,
+rms 3.6e-12, score 0.538462).
 
-**Changes this session (all in tests/test_surveyfit.py):**
-1. Zero-centroid guard in `_resolve_theta` (`cents.shape[0] == 0 -> (None, {})`) +
-   `__import__("io")` -> top-level `import io` (the session-4 known bug: DONE).
-2. NEW CRASH FIXED: scipy 1.18.1 `ndi.center_of_mass(ink, lab, np.arange(1,n+1))` returns a
-   LIST OF (cy, cx) TUPLES, not (cy_arr, cx_arr) - `cy, cx = ...` raises "too many values to
-   unpack" for n != 2. `_centroids` rewritten: `[(c[1], c[0]) for c in com]`. NOTE: the
-   single-mask form `ndi.center_of_mass(m)` (fit/surveyfit.py:344 panel_pieces) still returns
-   a (cy, cx) tuple - no change needed there. PITFALLS candidate (scipy 1.18.1).
-3. WORLD REDESIGNED (old grid 30+50i x {250,310} was 375 plan-px wide in the 320 frame and
-   off-centre: a junk corner sat 9-21 px from true glyphs at theta_d=0/6). New grid: 7 cols
-   `120+25*i` x rows {220,250} (25/30 px pitch, centred (195,235)). Verified numerically:
-   8 half-box-shift survivors (4 cols <=198 x 2 rows >=202); all 14 glyphs in-frame at
-   theta_d in {0,6,42}; min junk gap 35-93 px; sweep deterministic: at sent=theta_d the stub
-   resolves the true theta uniquely (14 hits; adjacent 2-deg candidates get only 4); at
-   sent=theta_d+/-2 it resolves the SENT value (14 hits), delta 2. Score landscape (JITTER
-   _PX_PER_DEG=0.6, per-glyph wobble seeded per (theta,i), JITTER_SEED=304778): delta0 ~0.52
-   (14 pairs, amp 0) > delta2 ~0.48 (14 pairs, amp 1.2) >> delta4-15 ~0.15-0.19 (6 pairs) ~
-   junk-only ~0.15. So theta_d=0 sweep -> unique max at 0 (358/2 lose to the jitter; fine-0
-   duplicate ties and keeps the coarse first); theta_d=6 -> unique max at fine 6.
-4. match_response now adds `_jitter(theta, i, delta)` to the plan-side true-pair points.
+**Changes this session:**
+1. tests/test_surveyfit.py: NEW `_wobble(theta, i)` (deterministic +-WOBBLE_PX=0.25 px per
+   (theta, i), seed stream separate from `_jitter`); `match_response` now returns plan-side
+   keypoints at `_expected(theta, plan_centers)[i]` (the module's own visual-rotation matrix)
+   + wobble + angular jitter instead of the measured blob centroid - `matched` still gates
+   WHICH glyphs are detected (the sent-image geometry still drives detection, the _take bands,
+   the junk set and the response format are all unchanged). Module docstring updated to say
+   so. Tolerances tightened to ~2x the observed worst (db 1.3, da 0.006, corners 1.6).
+2. fit/surveyfit.py: REAL BUG FIXED - `shift_sheet_image`'s `ndi.shift` got a 2-element shift
+   for the RGB (rank-3) sheet image -> "RuntimeError: sequence argument must have length
+equal to input rank" on the FIRST null run ever (tests 1-3 use null=False, so it had never
+   executed). Now a 3-element shift (0.0 on the channel axis).
+3. PITFALLS.md: new `### scipy (1.18.1)` subsection (center_of_mass label-index form returns a
+   list of (cy, cx) tuples - the session-5 candidate; ndi.shift shift-sequence rank match) and
+   a fit/ entry on the digital-disc centroid bias (0.3-0.8 px, no supersample fixes it, 8x is
+   worse; blob centroids = detection only, never sub-pixel truth).
+4. The 8x supersample plan (session-5 next step 1-2) is ABANDONED on the evidence in
+   DECISIONS.md; `_rasterize` stays at ss=4.
 
-**Current hypothesis (why db = 2.96 m at theta_d=42):** my 4x-supersample rasterizer biases
-EACH disc's measured centroid 0.3-0.7 px (coverage quantisation: 16 ss-cells, threshold 0.3
-makes the effective ink boundary asymmetric w.r.t. the sub-pixel centre). Measured per disc
-(no JPEG, raw): base 0.44-0.66 px; after 42 deg PIL bicubic: 0.34-0.77 px. The 14 biases
-share a common component -> b_r off ~0.7 plan-px -> 2.9 m. An 8x supersample should cut this
-to ~0.1 px.
+**Acceptance boxes:** still none ticked. Box 1 (method: matching points from the images,
+similarity through the georeference, confidence) is tick-able once the NEXT step (the
+real-service smoke) proves the pipeline on a real site; the stub suite already proves it
+against the API contract. Boxes 2-3 need the one run.
 
-**Next step (session 6):**
-(1) Rerun the 8x-supersample experiment (throwaway script; last run crashed at
-`cents(imj)[0]` IndexError size 0 - one single-disc case came back with ZERO components
-after the JPEG q95 roundtrip: print per point and guard empties before concluding; if a real
-7-px disc genuinely vanishes under JPEG q95, enlarge the glyph radii instead - SHEET_R 3.5
--> 5 and let the plan radius derive, keep the pitch).
-(2) Bump `_rasterize` from ss=4 to ss=8 (sheet and plan), rerun the suite.
-(3) Recalibrate the test tolerances (db<2m, da<0.1 m/px, corners<2m) to ~2x the OBSERVED
-worst values and LOG the measured numbers (devlog below).
-(4) When green: `.venv/bin/python tests/test_surveyfit.py --emit-fixture` writes
-data/surveyfit/fixture_match.json (theta_d=42 ideal world + junk; re-running ransac must
-equal it exactly); then write data/surveyfit/devlog.md (world params incl. the new grid,
-JUNK_SEED/JITTER_SEED, measured fit/scramble/shifted scores + inlier counts per world,
-corner/placement errors, panel_pieces piece count on the synthetic panel, the scipy 1.18
-center_of_mass gotcha, raster jitter numbers).
-(5) Full suite `.venv/bin/pytest -q` (was 68 passed 1 skipped; mine adds 7).
-(6) Real-service smoke (if `curl -sm 5 http://127.0.0.1:8091/health` answers): canary
-`fit/surveyfit.py maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (lead's 633/31/
-20-35-53m = confirmation ONLY, never tune) + barnard-castle-q4185811 / avaricum-q281826;
-eyeball corners; log in devlog.
-(7) FREEZE (restate frozen config in MY site_flow 304 section + freeze commit hash) ->
-fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py: 21 docs, both similarities in the
-doc's size frame, four full-image corners, k0 = aw.ground_scale(lat0), aerial column
-camp-d-attila only, checkpoint + pid lock, selfcheck 0.0m/0.0deg/1.0 before the run) ->
-THE ONE RUN -> verbatim table + plain verdict (PASS iff a confidence threshold exists:
-every accepted within 60m AND >=5 of 21; the threshold = the single authorised post-run
-choice) -> pass: task 304b (lowest free number in 800-1099, Depends on: 304, one-module
-Touches: wire tools/site_done.py fit step: confident->map, unsure->review with reason);
-fail: say so, stop.
+**Next step (session 7):**
+(1) REAL-SERVICE SMOKE (the service is UP now: /health -> zju-community/matchanything_eloftr
+    on the RTX 5060 Ti): canary `.venv/bin/python fit/surveyfit.py maiden-castle-q1232816
+    c_c20ff6b1f16d173d --no-null` (expect a match; the lead's 633 matches / 31 inliers /
+    20-35-53 m at the 3 hand points are confirmation ONLY - NEVER tune from them), then
+    barnard-castle-q4185811 and avaricum-q281826 (same, --no-null first). Eyeball the reported
+    panel corners vs the sheet (they should land on the plan's own ground features). Watch for:
+    first real-sheet load (load_sheet), scale-prior band from the catalog (maiden has a scale
+    bar? if a band is active it constrains |a| - the note lines say), rotation (prior or
+    sweep), runtime (~1 s per match call warm).
+(2) Write data/surveyfit/devlog.md (hand-over step 4): the world (400 px sheet, 2 km box at
+    (2,50), 7x2 grid pitch 25/30 centred (195,235), SHEET_R 3.5, M_PX 4, JUNK_SEED 304777,
+    JITTER_SEED 304778, JITTER 0.6 px/deg, WOBBLE 0.25, HIT_PX 2, ORIENTED_MIN 8), the measured
+    fit/null scores + inlier counts per world (numbers above), the per-disc bias table
+    (0.33-0.88 px, ss4 vs ss8 vs radius, JPEG/rotation contribution ~0.05 px), corner/placement
+    errors, the two scipy 1.18 gotchas, the fixture pin. (It is referenced by the test header,
+    docs/site_flow.md:304 and the devlog line the freeze section will cite.)
+(3) FREEZE: restate the frozen config in MY section of docs/site_flow.md ("The one-shot
+    held-out measurement..." - match params threshold 0.2 / max_side 832, RANSAC 400 iters /
+    8 px / min 3 inliers / s_band 1.5, sweep 12 deg coarse + 2 deg fine +-1 coarse step, nulls
+    = 302b scramble (SEED 20261012) + half-box sheet shift, score = inlier fraction / (1 +
+    rms/8), confidence = score * margin) + the FREEZE COMMIT HASH; commit; the config is
+    FROZEN from that commit.
+(4) fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py: the 21 docs from the 302b list,
+    both similarities in the doc's size frame, four full-image corners, k0 = aw.ground_scale,
+    aerial column camp-d-attila only, per-doc checkpoint to data/surveyfit/heldout/results.json
+    + pid lock, selfcheck 0.0 m / 0.0 deg / 1.0 on the synthetic tree before the real run).
+(5) THE ONE RUN, then the verbatim table (corner error m, rotation, scale, confidence per
+    doc; "no sheet" rows for sheetless hand fits) + plain verdict: PASS iff a confidence
+    threshold exists under which every accepted fit is within 60 m and >= 5 of 21 accepted
+    (the threshold = the single authorised post-run choice) -> pass: write 304b (wire into
+    tools/site_done.py's fit step: confident -> map, unsure -> review with the reason); fail:
+    say so and stop - no wiring, no fourth method.
 
-**Acceptance boxes:** none ticked yet. Box 1 (method: matching points from images, similarity
-through the georeference, confidence) becomes tick-able once tests 1-7 are green + fixture
-committed. Boxes 2-3 need the real one run.
+**Never:** read the 21's stored hand pairs during development (the evaluator is the only
+reader); tune any parameter from the lead's smoke numbers or from the held-out run; edit
+docs/site_flow.md outside my 304 section (agent a owns 305's parts); change the 302b
+golden/hand docs; bind fixed network ports in tests (the stub uses port 0; the smoke runs
+against 8091 from a script, not a test); write outside the project + the temp dir; `git
+merge/rebase/reset/stash` outside a merge request.
 
-**Never:** read the 21's stored hand pairs during development (evaluator only); tune any
-parameter from the lead's smoke numbers or the held-out run; edit docs/site_flow.md outside
-my 304 section (agent a owns 305's parts); change the 302b golden/hand docs; bind fixed
-network ports in tests (the stub uses port 0); write outside the project + temp dir.
-
-**Re-read:** tests/test_surveyfit.py:match_response + _jitter - confirm the jitter is seeded
-per (theta, i) only (a repeated call at the same theta must return IDENTICAL points - the
-sweep's first-max tie-break and the duplicate-payload test depend on it); and _take's bands
-(<=3 all / <=15 first 6 / else none) still match the docstring after the grid change.
+**Re-read:** tests/test_surveyfit.py:match_response + _wobble + _jitter - confirm (a) both
+wobble streams are seeded per (theta, i) only (a repeated call at the same theta must return
+IDENTICAL points - the sweep's first-max tie-break and the duplicate-payload test depend on
+it), and (b) the `matched` gate still excludes undetected glyphs from the returned pairs
+(detected-but-not-in-_take must never be returned); fit/surveyfit.py:shift_sheet_image -
+confirm the shift direction is still half-box NORTH (negative row shift) and half-box EAST
+(positive column shift) in image coordinates.
