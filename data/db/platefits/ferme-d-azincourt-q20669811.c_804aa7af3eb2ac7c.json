@@ -1,0 +1,86 @@
+{
+ "site": "ferme-d-azincourt-q20669811",
+ "plan": "c_804aa7af3eb2ac7c",
+ "crop": [
+  0,
+  0,
+  1104,
+  618
+ ],
+ "pairs": [
+  [
+   483.0,
+   204.8,
+   3.2709527,
+   50.3167536
+  ],
+  [
+   664.1,
+   389.2,
+   3.2740092,
+   50.3146567
+  ],
+  [
+   313.7,
+   335.3,
+   3.2679546,
+   50.3153587
+  ],
+  [
+   673.8,
+   198.4,
+   3.2742669,
+   50.3167682
+  ],
+  [
+   568.2,
+   133.7,
+   3.2724639,
+   50.3175165
+  ],
+  [
+   377.3,
+   282.5,
+   3.269083,
+   50.3159251
+  ],
+  [
+   631.8,
+   329.9,
+   3.2734758,
+   50.3153234
+  ],
+  [
+   472.2,
+   162.8,
+   3.2707853,
+   50.3172227
+  ]
+ ],
+ "label": "1810",
+ "title": "Azincourt - cadastre de 1810",
+ "cite": "by inconnu \u00e9poque XIX \u00e9me; Public domain; https://commons.wikimedia.org/wiki/File:Azincourt_-_cadastre_de_1810.JPG",
+ "at": "2026-10-12T03:13:47.752814+00:00",
+ "auto": true,
+ "score": 4.7,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/ferme-d-azincourt-q20669811/804aa7af3eb2ac7c.jpg",
+ "ref": "File:Azincourt - cadastre de 1810.JPG",
+ "size": [
+  1104,
+  618
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 11,
+  "matches": 203,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 1.54
+ }
+}

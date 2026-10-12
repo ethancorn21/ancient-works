@@ -80,8 +80,52 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: North-western field corner, Central field boundary corner, South-western field corner, Eastern field boundary corner; stated scale 0.470 disagrees with its own points (1.000 m/px): not trusted"
+  },
+  {
+   "plan": "c_38e0686a18c76bad",
+   "title": "Azincourt - Cadastre de 1851",
+   "url": "media/commons/ferme-d-azincourt-q20669811/38e0686a18c76bad.jpg",
+   "pairs": [
+    [
+     110.0,
+     100.0,
+     3.268642,
+     50.3194718
+    ],
+    [
+     110.0,
+     140.0,
+     3.268642,
+     50.3185735
+    ],
+    [
+     160.0,
+     140.0,
+     3.2700488,
+     50.3185735
+    ],
+    [
+     140.0,
+     180.0,
+     3.2693454,
+     50.3176752
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 7.7 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Ferme d'Azincourt",
+    "file_cat": "Ferme d'Azincourt",
+    "via": []
+   },
+   "gate_score": 7.7
   }
  ],
  "no_picture_found": null,
- "resolved": null
+ "resolved": {
+  "doc": "ferme-d-azincourt-q20669811.c_804aa7af3eb2ac7c",
+  "at": "2026-10-12T03:13:47.752814+00:00"
+ }
 }
