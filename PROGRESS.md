@@ -117,3 +117,6 @@ Executed the iter-128 plan steps 1-4.
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 AGENT A (307bb, iteration 132): where I stand
+Merge of main into agent/a is DONE and committed (c8e6cab) - the one flagged conflict (tests/test_fit_queue.py card-test reqfail filters) resolved as the union of both sides' Esri exclusions (/tiles/ + arcgisonline + MapServer/tile/); suite 100 passed / 1 skipped / 0 failed. The part-4 pick was RE-DERIVED on the merged tree: it is now entries[3] oswestry-castle-q20713795 (devil-s-dyke left the queue with 309's right-place check), so the card's done-seed is the three earlier entries (fort-ancient, marietta, forthill). The part-4 section of tests/test_fit_queue.py is still unwritten: next session transcribes /tmp/fkverify/probe.mjs (run-2 done-csv seed correction + card1/cardOffersPick + the iter-131 run-2 tag fix + union reqfail filter), appends the section at the file's end, runs the file, commits, ticks boxes 1-3, then box 4 (docs). Full design in the task's hand-over.
