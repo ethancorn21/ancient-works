@@ -12,8 +12,8 @@ task file (for a subtask, read its parent's too).
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/309-queue-right-place.md` (split) - hand-over: (2026-10-12, iteration 99, agent c - session 8. The driver handed me 309 (the split parent)
-- `tasks/804-fit-queue-wire.md` (in-progress) - hand-over: (2026-10-12, iteration 99, agent c - session 8 on 309's lane; first session of 804. The driver
+- `tasks/309-queue-right-place.md` (split) - hand-over: (2026-10-12, iteration 100, agent c - session 9 on the 309 lane. The driver handed me 309
+- `tasks/804-fit-queue-wire.md` (in-progress) - hand-over: (2026-10-12, iteration 100, agent c - session 9 on 309's lane. Step done: 804 boxes 1+2 -
 - `tasks/805-fit-queue-rebuild.md` (open) - hand-over: (2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
 
 ## Next open tasks
