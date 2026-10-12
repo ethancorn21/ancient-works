@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 127, agent a - probe re-run session. **33 probe checks GREEN** (all seed, drag, wheel, shift+wheel, pin, undo checks pass in pi
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 128, agent a - **PROBE FULLY GREEN: RESULT PASS, 41/41 checks** (run128c.log). All three iter-127 residual failures fixed, all 
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -133,6 +133,19 @@ Verification-only session (the gesture code was written in iteration 124 and dri
 
 ### 2026-10-12 307bb DECISION: iteration 127 - the probe re-run: all 33 gesture/pin/undo/save-doc checks GREEN; the save mystery solved (the GUARD's dead pipe, not the page) and three probe bugs fixed; remaining: run the server under the venv python (site_done needs numpy), fix the depSel seed shape, allow Esri in the reqfail filter
 ... (5.3 KB more: `grep -n -A 200 -F '## 2026-10-12 307bb DECISION: iteration 124's committed gestures verified in a throwaway headless probe - all placement state green, the DRAG gesture is broken (LngLat object into the array-destructuring merc -> NaN); next session fixes the drag and re-runs' DECISIONS.md`)
+
+### 2026-10-12 307bb DECISION: iteration 128 - the throwaway probe is FULLY GREEN (41/41, run128c): all placement behaviour hermetically verified; the three iter-127 residuals fixed (venv server, the addInitScript arg bug behind the depSel seed, the Esri reqfail filter); repo unchanged - next: file task 221 + fix the card tests' filter, then part 4
+**The three iter-127 residual failures, resolved (all in /tmp/fkverify/):**
+
+1. **One-site line:** build_tree.py now Pops the server with the checkout's VENV python (`/home/agent/projects/ancient-works.a/.venv/bin/python` - our checkout has a .venv now; numpy/scipy/PIL verified). The line runs (~23 s), the overlay lands, the page's 90 s poll sees it, endFit closes the pane.
+2. **The depSel seed - the real cause was MY PROBE, two bugs (found with a minimal diag, diag7.mjs):** (a) the addInitScript closure referenced Node-scope `site` - in the page context that is a ReferenceError swallowed by the try/catch (the committed part-3 pattern passes the site as an ARGUMENT and works - test_card_done_mark_moves_on proves addInitScript seeding works in this environment); (b) my fix then passed the object arg `{site, depFile}` but destructured `({sid, f})` - a KEY MISMATCH: the page-side object has keys site/depFile, the destructure wants sid/f -> both undefined -> the seed silently wrote `'{}'` to aw.depSel (the diag printed `OBJECT-ARG-undefined/undefined`). Fixed: pass `{sid: site, f: depFile}`. This playwright-core takes AT MOST ONE argument to addInitScript (same as evaluate): two args throws "Too many arguments"; and the object's keys must match the destructured names exactly or it fails silently inside the try/catch.
+3. **reqfail filter:** added the 'arcgisonline' exclusion (Esri's URLs are .../MapServer/tile/... SINGULAR - the '/tiles/' exclusion misses them; in a no-internet headless run the doomed Esri fetches end as ERR_ABORTED, page-caused and expected - the same class the tests' own comments allow).
+
+**The dep file to seed is six-inch-1st.webp, not os1inch.webp:** os1inch is kind 'map' year 1900 and loadDeps' surveyOldEnough (<= 2026-150) filters it out - the only depiction the page can show for this site is six-inch-1st (1842). (Run 2's "sel = the new plan overlay" was explained: after run 1's save the overlay is kind 'plan' in DRAWING and becomes the default pick; with the fixed seed six-inch-1st is restored exactly on Cancel, incl. the _ink URL, which the check now computes the way applyDep does - `src.endsWith(file)` is false for the ink variant.)
+
+**The overlay m_per_px check was wrong units:** pipeline/plan_fit.py's fit.m_per_px is in WEBP-px units (pairs scaled by fs = image/doc.size, solved, divided by the downscale f = min(1, MAX_PX / max crop px), MAX_PX = 2400 at plan_fit.py:44) - measured 0.8849 vs the anchor's 0.4205 (ratio ~2.1 = the downscale 2400/5050). Replaced with two checks: (a) DOC level - in-page simFit over doc.pairs (4-tuples converted to {u,v,lon,lat} objects - simFit reads pair objects; raw arrays give all-nulls) must reproduce the anchor within the doc's rounding (mpx 1e-3 abs, rot 0.01 deg, maxResid < 2) - this is the box's "scale and rotation agreeing with the anchor within rounding"; (b) the overlay's m_per_px agrees with anchor.mpx * fs / f within 1e-3 rel (proves the overlay is the same similarity).
+
+... (3.4 KB more: `grep -n -A 200 -F '## 2026-10-12 307bb DECISION: iteration 128 - the throwaway probe is FULLY GREEN (41/41, run128c): all placement behaviour hermetically verified; the three iter-127 residuals fixed (venv server, the addInitScript arg bug behind the depSel seed, the Esri reqfail filter); repo unchanged - next: file task 221 + fix the card tests' filter, then part 4' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
