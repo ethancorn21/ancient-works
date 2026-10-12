@@ -174,6 +174,8 @@ Symptom: a byte-compare test against a per-site file fails with content your che
 Why: each agent checkout symlinks its gitignored data into the main checkout's copy - the machine's one image/scan store (data/raw's GB of book scans and the rebuilt per-site directories). Any agent's (or the lead/driver's) run rewrites those shared files in place, and concurrent checkouts see each other's churn: 301 (agent c) was mid-flight re-running Stonehenge through the new site line, resetting the shared depictions.json to the pre-sync state, which voided test_site_done's byte compare transiently.
 What to do: diagnose with `readlink web/data/sites/<site>` (target = the main checkout), `stat -c %y` on the target (who wrote it when), and `git status`/`git branch` in the other checkout (who was mid-work). If the failing file is outside your Touches, record it as transient shared-store churn (DECISIONS + hand-over) and re-check when the other task lands - never "fix" the other task's test or the shared store from your task.
 
+- **The Qwen replicas on this machine are on 127.0.0.1:8080-8082** (the llmtunnel forwarder, user llmtunn); 18080/18081 are the Mac tunnel and are dead here. pipeline/books.py probes 8080,8081,8082,18080,18081 and uses whichever answer /v1/models (LLM_PORTS overrides). 8082 (5060 Ti) is down while the image matchers hold that card. Check: for p in 8080 8081 8082; do curl -s -o /dev/null -w "%{http_code} " 127.0.0.1:$p/v1/models; done (task 215).
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.

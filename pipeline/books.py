@@ -220,7 +220,11 @@ def repair_json(text):
         return None
 
 
-LLM_URLS = ["http://127.0.0.1:18080/v1/chat/completions", "http://127.0.0.1:18081/v1/chat/completions"]
+# every port a Qwen replica has been served on: the harness VM's llmtunnel forwarder serves 8080-8082, the Mac's
+# old tunnel 18080/18081 (task 215: the list named only the latter and every book stage exited "tunnels down" on
+# the VM). run_stage uses whichever answer; LLM_PORTS="8080,8081" overrides.
+LLM_PORTS = os.environ.get("LLM_PORTS", "8080,8081,8082,18080,18081")
+LLM_URLS = [f"http://127.0.0.1:{p.strip()}/v1/chat/completions" for p in LLM_PORTS.split(",") if p.strip()]
 _tl = threading.local()
 
 
@@ -255,10 +259,10 @@ def _jsonl(path):
 
 
 def run_stage(key, stage, ns=None, workers=4):
-    """workers = concurrent requests per live server (18080 and 18081)."""
+    """workers = concurrent requests per live server (every LLM_URLS entry that answers /v1/models)."""
     urls = [u for u in LLM_URLS if llm_up(u)]
     if not urls:
-        sys.exit("LLM tunnels 127.0.0.1:18080/18081 are down; not starting. (Needs the SSH tunnel; not fixed from here.)")
+        sys.exit(f"no LLM answers on 127.0.0.1 ports {LLM_PORTS}; not starting. (Needs a Qwen replica or tunnel.)")
     slots = [u for u in urls for _ in range(workers)]
     slot_lock = threading.Lock()
     ia_id = book(key)["ia"]
