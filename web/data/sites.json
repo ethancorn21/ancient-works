@@ -1245,6 +1245,94 @@
    "overlays": 0
   },
   {
+   "id": "arzbach-q1735331",
+   "name": "Arzbach",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.74565,
+   "lat": 50.3753,
+   "summary": "Das Kastell Arzbach war ein r\u00f6misches Kastell des Obergermanischen Limes, der im Jahre 2005 den Status des UNESCO-Weltkulturerbes erlangte. Das heute nicht mehr sichtbare Bodendenkmal liegt am s\u00fcdlichen Rande der Ortsgemeinde Arzbach, die zum rheinland-pf\u00e4lzischen Rhein-Lahn-Kreis geh\u00f6rt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735331",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Arzbach",
+   "corners": [
+    [
+     7.734381550637054,
+     50.38248597796016
+    ],
+    [
+     7.756918449362947,
+     50.38248597796016
+    ],
+    [
+     7.756918449362947,
+     50.368112933396965
+    ],
+    [
+     7.734381550637054,
+     50.368112933396965
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "ath-q95096",
+   "name": "Ath",
+   "place": "Arrondissement of Ath, Belgium",
+   "lon": 3.7769,
+   "lat": 50.6311,
+   "summary": "Ath is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95096",
+   "wiki": "https://en.wikipedia.org/wiki/Ath",
+   "lidar_credit": "Service public de Wallonie, 2022 (11.51 points/m2)",
+   "corners": [
+    [
+     3.7627379358124213,
+     50.640082294584936
+    ],
+    [
+     3.7910620641875785,
+     50.640082294584936
+    ],
+    [
+     3.7910620641875785,
+     50.62211598886682
+    ],
+    [
+     3.7627379358124213,
+     50.62211598886682
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 28.75,
+    "zmax": 54.52,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "athelney-q3496233",
    "name": "Athelney",
    "aka": "Athelney, Somerset, Isle of Athelney",
@@ -2337,6 +2425,45 @@
    "overlays": 1
   },
   {
+   "id": "benningen-q1735337",
+   "name": "Benningen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.24931,
+   "lat": 48.9439,
+   "summary": "Das Kastell Benningen war ein r\u00f6misches Milit\u00e4rlager an der Neckarlinie des Neckar-Odenwald-Limes. Es liegt als Bodendenkmal in einem weitgehend nicht \u00fcberbauten Bereich am \u00f6stlichen Rande der heutigen Ortschaft Benningen am Neckar, einer Gemeinde des Landkreises Ludwigsburg in Baden-W\u00fcrttemberg. Es war Bestandteil und Zentrum einer gr\u00f6\u00dferen, milit\u00e4risch-zivilen Siedlungsagglomeration im M\u00fcndungsgebiet der Murr in den Neckar.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735337",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Benningen",
+   "corners": [
+    [
+     9.238368240355031,
+     48.95108600483518
+    ],
+    [
+     9.260251759644966,
+     48.95108600483518
+    ],
+    [
+     9.260251759644966,
+     48.936712960277305
+    ],
+    [
+     9.238368240355031,
+     48.936712960277305
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "bergues-q244934",
    "name": "Bergues",
    "place": "canton of Bergues, France",
@@ -3114,6 +3241,55 @@
    "overlays": 0
   },
   {
+   "id": "braine-le-comte-q95129",
+   "name": "Braine-le-Comte",
+   "place": "Arrondissement of Soignies, Belgium",
+   "lon": 4.1361,
+   "lat": 50.6097,
+   "summary": "Braine-le-Comte is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95129",
+   "wiki": "https://en.wikipedia.org/wiki/Braine-le-Comte",
+   "lidar_credit": "Service public de Wallonie, 2022 (10.19 points/m2)",
+   "corners": [
+    [
+     4.121944378611618,
+     50.61868229523826
+    ],
+    [
+     4.150255621388381,
+     50.61868229523826
+    ],
+    [
+     4.150255621388381,
+     50.60071598952032
+    ],
+    [
+     4.121944378611618,
+     50.60071598952032
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 70.81,
+    "zmax": 104.96,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "bramber-castle-q897538",
    "name": "Bramber Castle",
    "aka": "Bramber Castle Ruins",
@@ -3312,6 +3488,104 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "bruges-q12994",
+   "name": "Bruges",
+   "place": "Arrondissement of Bruges, Belgium",
+   "lon": 3.2242,
+   "lat": 51.2089,
+   "summary": "Bruges is the capital and largest city of the province of West Flanders, in the Flemish Region of Belgium. It is located in the northwest of the country, and is the sixth most populous city in Belgium. The predominant language is Dutch.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q12994",
+   "wiki": "https://en.wikipedia.org/wiki/Bruges",
+   "lidar_credit": "Wallonia (EODaS), 2015 (33.45 points/m2)",
+   "corners": [
+    [
+     3.209860973266712,
+     51.217882276716544
+    ],
+    [
+     3.2385390267332883,
+     51.217882276716544
+    ],
+    [
+     3.2385390267332883,
+     51.19991597099382
+    ],
+    [
+     3.209860973266712,
+     51.19991597099382
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 2.82,
+    "zmax": 14.89,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "brussels-q239",
+   "name": "Brussels",
+   "place": "Arrondissement of Brussels-Capital, Belgium",
+   "lon": 4.3517,
+   "lat": 50.8467,
+   "summary": "The City of Brussels is the largest municipality and historical centre of the Brussels-Capital Region, as well as the capital of Belgium. It is additionally the capital of the French Community of Belgium, the Flemish Community, and the Flemish Region. The City of Brussels is also the administrative centre of the European Union, as it hosts a number of principal EU institutions in its European Quarter.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q239",
+   "wiki": "https://en.wikipedia.org/wiki/City_of_Brussels",
+   "lidar_credit": "Wallonia (EODaS), 2015 (23.4 points/m2)",
+   "corners": [
+    [
+     4.337472586344036,
+     50.85568228796932
+    ],
+    [
+     4.365927413655963,
+     50.85568228796932
+    ],
+    [
+     4.365927413655963,
+     50.8377159822495
+    ],
+    [
+     4.337472586344036,
+     50.8377159822495
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 13.78,
+    "zmax": 78.77,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "bryn-amlwg-castle-q4980826",
@@ -3750,6 +4024,84 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "bockingen-q1735374",
+   "name": "B\u00f6ckingen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.188611,
+   "lat": 49.133888,
+   "summary": "Das Kastell Heilbronn-B\u00f6ckingen, auch unter dem Namen Kastell B\u00f6ckingen bekannt, war ein r\u00f6misches Milit\u00e4rlager, dessen Besatzung f\u00fcr Sicherungs- und \u00dcberwachungsaufgaben an der Neckarlinie des Neckar-Odenwald-Limes zust\u00e4ndig war. Die von etwa 85/90 n.\u00a0Chr. bis zur Mitte des 2.\u00a0Jahrhunderts belegte Garnison befindet sich heute im n\u00f6rdlichen Teil des baden-w\u00fcrttembergischen Heilbronner Stadtteils B\u00f6ckingen im Randbereich eines Industriegebietes, unmittelbar an der Stra\u00dfe nach Neckargartach.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735374",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_B\u00f6ckingen",
+   "corners": [
+    [
+     9.177627365456141,
+     49.141074001357886
+    ],
+    [
+     9.199594634543859,
+     49.141074001357886
+    ],
+    [
+     9.199594634543859,
+     49.12670095679932
+    ],
+    [
+     9.177627365456141,
+     49.12670095679932
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "burgkastell-ohringen-q86069877",
+   "name": "B\u00fcrgkastell \u00d6hringen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.497397222222222,
+   "lat": 49.205444444444446,
+   "summary": "Das Kastell \u00d6hringen-West, das auch unter den Namen Westkastell \u00d6hringen und B\u00fcrgkastell \u00d6hringen bekannt ist, war ein r\u00f6misches Milit\u00e4rlager des Prinzipats, dessen Besatzung, eine Kohorte, Sicherungs- und \u00dcberwachungsaufgaben am Vorderen Limes, einem Abschnitt des UNESCO-Weltkulturerbes \u201eObergermanisch-Raetischer Limes\u201c \u00fcbernahm. Das heute weitgehend zerst\u00f6rte Bodendenkmal befindet sich im baden-w\u00fcrttembergischen Hohenlohekreis auf dem Gebiet der Gro\u00dfen Kreisstadt \u00d6hringen und wird gr\u00f6\u00dftenteils vom Hohenloher Krankenhaus \u00fcberdeckt. Aufgrund des schlechten Erhaltungszustandes wurde das Kastell \u00d6hringen-West selbst nicht in das Welterbe aufgenommen.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q86069877",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_\u00d6hringen-West",
+   "corners": [
+    [
+     9.486397701419836,
+     49.21263044448573
+    ],
+    [
+     9.508396743024608,
+     49.21263044448573
+    ],
+    [
+     9.508396743024608,
+     49.19825739992691
+    ],
+    [
+     9.486397701419836,
+     49.19825739992691
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "cadbury-castle-q1025082",
@@ -4423,6 +4775,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "cannstatt-q1735423",
+   "name": "Cannstatt",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.21083,
+   "lat": 48.8133,
+   "summary": "Das Kastell Stuttgart-Bad Cannstatt, in der Literatur h\u00e4ufig als Kastell Cannstatt, seltener als Kastell Bad Cannstatt genannt, war ein r\u00f6misches Milit\u00e4rlager an der Neckarlinie des Neckar-Odenwald-Limes. Es liegt als Bodendenkmal in einem heute weitgehend \u00fcberbauten Bereich von Bad Cannstatt, einem Stadtbezirk der baden-w\u00fcrttembergischen Landeshauptstadt Stuttgart.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735423",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Stuttgart-Bad_Cannstatt",
+   "corners": [
+    [
+     9.199916771573923,
+     48.82048600721017
+    ],
+    [
+     9.221743228426073,
+     48.82048600721017
+    ],
+    [
+     9.221743228426073,
+     48.80611296265272
+    ],
+    [
+     9.199916771573923,
+     48.80611296265272
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "carisbrooke-castle-q328595",
@@ -5656,6 +6047,55 @@
    "overlays": 1
   },
   {
+   "id": "chimay-q95380",
+   "name": "Chimay",
+   "place": "Arrondissement of Thuin, Belgium",
+   "lon": 4.3173,
+   "lat": 50.0479,
+   "summary": "Chimay is a city and municipality of Wallonia located in the province of Hainaut, Belgium. In 2006, Chimay had a population of 9,774. The area is 197.10\u00a0km2 which gives a population density of 50 inhabitants per km2. It is the source of the Oise River.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95380",
+   "wiki": "https://en.wikipedia.org/wiki/Chimay",
+   "lidar_credit": "Service public de Wallonie, 2022 (12.12 points/m2)",
+   "corners": [
+    [
+     4.303310752414306,
+     50.0568823121804
+    ],
+    [
+     4.331289247585695,
+     50.0568823121804
+    ],
+    [
+     4.331289247585695,
+     50.03891600646671
+    ],
+    [
+     4.303310752414306,
+     50.03891600646671
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 207.25,
+    "zmax": 272.22,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "chiswick-house-q1074877",
    "name": "Chiswick House",
    "place": "Chiswick, England",
@@ -5703,6 +6143,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "chievres-q95318",
+   "name": "Chi\u00e8vres",
+   "place": "Arrondissement of Ath, Belgium",
+   "lon": 3.8,
+   "lat": 50.5833,
+   "summary": "Chi\u00e8vres is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95318",
+   "wiki": "https://en.wikipedia.org/wiki/Chi\u00e8vres",
+   "lidar_credit": "Service public de Wallonie, 2022 (9.6 points/m2)",
+   "corners": [
+    [
+     3.7858523159479147,
+     50.592282296043436
+    ],
+    [
+     3.814147684052084,
+     50.592282296043436
+    ],
+    [
+     3.814147684052084,
+     50.574315990325694
+    ],
+    [
+     3.7858523159479147,
+     50.574315990325694
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.98,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 39.01,
+    "zmax": 66.17,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "chateau-d-olivet-q2968304",
@@ -7264,6 +7753,45 @@
    "overlays": 1
   },
   {
+   "id": "echzell-q1657587",
+   "name": "Echzell",
+   "place": "Hesse, Germany",
+   "lon": 8.88322,
+   "lat": 50.393,
+   "summary": "Als Kastell Echzell wird ein r\u00f6misches Milit\u00e4rlager am nordwestlichen Rand des Dorfes Echzell im Wetteraukreis in Hessen bezeichnet. Es wurde um 90\u00a0n.\u00a0Chr. erbaut und diente bis 260 r\u00f6mischen Auxiliartruppen als Milit\u00e4rst\u00fctzpunkt zum Schutz des Obergermanischen Limes in der Wetterau. Nur im 3.\u00a0Jahrhundert ist als Einheit die Ala I Indiana Gallorum bekannt. Die Gr\u00f6\u00dfe des Lagers macht es aber wahrscheinlich, dass hier eine Kohorte zusammen mit einer 500 Mann starken Reitereinheit (Ala quingenaria) stationiert war. Das Kastell geh\u00f6rte damit neben dem Kastell Friedberg und den zeitlich vorausgehenden Lagern von Nida-Heddernheim zu den bedeutendsten Truppenstandorten am Wetterau-Limes.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1657587",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Echzell",
+   "corners": [
+    [
+     8.871947344310882,
+     50.400185977617745
+    ],
+    [
+     8.894492655689115,
+     50.400185977617745
+    ],
+    [
+     8.894492655689115,
+     50.38581293305447
+    ],
+    [
+     8.871947344310882,
+     50.38581293305447
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "eddisbury-hill-fort-q5336613",
    "name": "Eddisbury hill fort",
    "aka": "Castle Ditch, Eddisbury, Eddisbury Hillfort",
@@ -7706,6 +8234,55 @@
    "overlays": 1
   },
   {
+   "id": "enghien-q666238",
+   "name": "Enghien",
+   "place": "Arrondissement of Soignies, Belgium",
+   "lon": 4.0411,
+   "lat": 50.6956,
+   "summary": "Enghien is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q666238",
+   "wiki": "https://en.wikipedia.org/wiki/Enghien",
+   "lidar_credit": "Wallonia (EODaS), 2015 (29.18 points/m2)",
+   "corners": [
+    [
+     4.026918469589387,
+     50.70458229261215
+    ],
+    [
+     4.055281530410612,
+     50.70458229261215
+    ],
+    [
+     4.055281530410612,
+     50.68661598689353
+    ],
+    [
+     4.026918469589387,
+     50.68661598689353
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 43.48,
+    "zmax": 78.62,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "ensemble-castral-de-vesvre-q3054866",
    "name": "Ensemble castral de Vesvre",
    "aka": "ensemble castral de V\u00e8vre, Vesvre",
@@ -7850,6 +8427,45 @@
     1500,
     1500
    ],
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "eulbach-q1735359",
+   "name": "Eulbach",
+   "place": "Hesse, Germany",
+   "lon": 9.07791667,
+   "lat": 49.68,
+   "summary": "Das Kastell Eulbach war ein r\u00f6misches Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Das heutige Bodendenkmal liegt auf der Flur des Weilers Eulbach im Osten des Stadtgebietes von Michelstadt im Odenwaldkreis in Hessen.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735359",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Eulbach",
+   "corners": [
+    [
+     9.06681017736291,
+     49.68718599121223
+    ],
+    [
+     9.089023162637092,
+     49.68718599121223
+    ],
+    [
+     9.089023162637092,
+     49.67281294665168
+    ],
+    [
+     9.06681017736291,
+     49.67281294665168
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -9040,6 +9656,55 @@
    "overlays": 0
   },
   {
+   "id": "ghent-q1296",
+   "name": "Ghent",
+   "place": "East Flanders, Belgium",
+   "lon": 3.7253,
+   "lat": 51.0536,
+   "summary": "Ghent is a city and a municipality in the East Flanders province of the Flemish Region of Belgium. It is the capital and largest city of the province and the third largest in the country, after Brussels and Antwerp. It is a port and university city.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q1296",
+   "wiki": "https://en.wikipedia.org/wiki/Ghent",
+   "lidar_credit": "Wallonia (EODaS), 2015 (23.61 points/m2)",
+   "corners": [
+    [
+     3.7110091131559164,
+     51.06258228156294
+    ],
+    [
+     3.739590886844083,
+     51.06258228156294
+    ],
+    [
+     3.739590886844083,
+     51.04461597584149
+    ],
+    [
+     3.7110091131559164,
+     51.04461597584149
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.02,
+    "zmax": 28.37,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "glannoventa-q16839208",
    "name": "Glannoventa",
    "aka": "Glannibanta, Clanoventa",
@@ -9537,6 +10202,94 @@
    "overlays": 1
   },
   {
+   "id": "hainhaus-q1735367",
+   "name": "Hainhaus",
+   "place": "Hesse, Germany",
+   "lon": 9.08319,
+   "lat": 49.7328,
+   "summary": "Das r\u00f6mische Kastell Hainhaus, in der Literatur auch als Kastell Vielbrunn beschrieben, war ein Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Das heutige Bodendenkmal befindet sich in einem Waldst\u00fcck rund zweieinhalb Kilometer nordnord\u00f6stlich vom Zentrum Vielbrunns, eines Stadtteils von Michelstadt in S\u00fcdhessen.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735367",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Hainhaus",
+   "corners": [
+    [
+     9.072071429356944,
+     49.73998599021922
+    ],
+    [
+     9.094308570643058,
+     49.73998599021922
+    ],
+    [
+     9.094308570643058,
+     49.72561294565846
+    ],
+    [
+     9.072071429356944,
+     49.72561294565846
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "halle-q210003",
+   "name": "Halle",
+   "place": "Arrondissement of Halle-Vilvoorde, Belgium",
+   "lon": 4.2372,
+   "lat": 50.7361,
+   "summary": "Halle is a Belgian city and municipality in the Halle-Vilvoorde district (arrondissement) of the province of Flemish Brabant. It is located on the Brussels\u2013Charleroi Canal and on the Flemish side of the language border that separates Flanders and Wallonia. Halle lies on the border between the Flemish plains to the North and the undulating Brabant lands to the South. The city also borders on the Pajottenland to the west. It is about 22\u00a0km (14\u00a0mi) southwest of Brussels. The official language of Halle is Dutch, as in the rest of Flanders.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q210003",
+   "wiki": "https://en.wikipedia.org/wiki/Halle,_Belgium",
+   "lidar_credit": "Wallonia (EODaS), 2015 (19.93 points/m2)",
+   "corners": [
+    [
+     4.223006210035505,
+     50.74508229137063
+    ],
+    [
+     4.251393789964493,
+     50.74508229137063
+    ],
+    [
+     4.251393789964493,
+     50.7271159856517
+    ],
+    [
+     4.223006210035505,
+     50.7271159856517
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 26.41,
+    "zmax": 67.61,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "halvorson-mound-group-q117715230",
    "name": "Halvorson Mound Group",
    "lon": -89.391944,
@@ -9782,6 +10535,84 @@
    "overlays": 1
   },
   {
+   "id": "heddesdorf-q1735373",
+   "name": "Heddesdorf",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.46931,
+   "lat": 50.4365,
+   "summary": "Das Kastell Heddesdorf war ein r\u00f6misches Grenzkastell des Obergermanischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Das fr\u00fchere Kohortenkastell liegt heute als Bodendenkmal in einem fast vollst\u00e4ndig \u00fcberbauten Bereich von Heddesdorf, einem Stadtteil von Neuwied im gleichnamigen Landkreis Neuwied in Rheinland-Pfalz.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735373",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Heddesdorf",
+   "corners": [
+    [
+     7.4580269887965445,
+     50.44368597677512
+    ],
+    [
+     7.480593011203456,
+     50.44368597677512
+    ],
+    [
+     7.480593011203456,
+     50.429312932211694
+    ],
+    [
+     7.4580269887965445,
+     50.429312932211694
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "heidenheim-q128401126",
+   "name": "Heidenheim",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 10.153666666666666,
+   "lat": 48.67908333333333,
+   "summary": "Das Kastell Heidenheim, in der Antike Aquileia genannt, war ein r\u00f6misches Milit\u00e4rlager des Alblimes. Es hatte eine strategische Schl\u00fcsselposition inne, als zwischen 80 und 100 n.\u00a0Chr. die Nordgrenze der R\u00f6mischen Provinz Raetia auf die Schw\u00e4bische Alb vorgeschoben wurde. Es sperrte das Brenztal und damit die direkteste nat\u00fcrliche Albpassage. Bis zum Bau des Obergermanisch-Raetischen Limes um 160 n.\u00a0Chr. war hier mit der Ala II Flavia pia fidelis milliaria, einem Reiterregiment von 1000 Mann, die st\u00e4rkste und rangh\u00f6chste Einheit Raetiens stationiert.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q128401126",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Heidenheim",
+   "corners": [
+    [
+     10.14278254618432,
+     48.68626934297146
+    ],
+    [
+     10.164550787149015,
+     48.68626934297146
+    ],
+    [
+     10.164550787149015,
+     48.67189629841449
+    ],
+    [
+     10.14278254618432,
+     48.67189629841449
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "hembury-q3784763",
    "name": "Hembury",
    "aka": "Hembury, Payhembury, Hembury Fort",
@@ -9919,6 +10750,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "hesselbach-q1411006",
+   "name": "Hesselbach",
+   "place": "Hesse, Germany",
+   "lon": 9.09055556,
+   "lat": 49.57625,
+   "summary": "Das Kastell Hesselbach war ein r\u00f6misches Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Das heutige Bodendenkmal befindet sich auf dem Gebiet von Hesselbach, einem Ortsteil der Stadt Oberzent im Odenwaldkreis. Die einstige Fortifikation ist das am besten erforschte Milit\u00e4rlager des Odenwaldlimes und das s\u00fcdlichste Limeskastell Hessens. Das Kastell Hesselbach dient als \u201eReferenz-Kastell\u201c f\u00fcr nahezu alle anderen Milit\u00e4rlager des Odenwaldlimes, die hier gewonnenen Erkenntnisse werden in der Provinzialr\u00f6mischen Arch\u00e4ologie zur Interpretation des gesamten Limesabschnitts zwischen Main und Neckar herangezogen.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1411006",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Hesselbach",
+   "corners": [
+    [
+     9.079472696542949,
+     49.583435993157146
+    ],
+    [
+     9.101638423457052,
+     49.583435993157146
+    ],
+    [
+     9.101638423457052,
+     49.56906294859695
+    ],
+    [
+     9.079472696542949,
+     49.56906294859695
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "heveskesklooster-q3276052",
@@ -10481,6 +11351,45 @@
    "overlays": 1
   },
   {
+   "id": "hunzel-q1240802",
+   "name": "Hunzel",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.82785,
+   "lat": 50.2467,
+   "summary": "Das Kastell Hunzel ist ein ehemaliger r\u00f6mischer Garnisonsort am Obergermanischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Das f\u00fcr einen Numerus ausgelegte Lager befindet sich heute als Bodendenkmal au\u00dferhalb des Siedlungsgebietes von Hunzel, einer Ortsgemeinde im rheinland-pf\u00e4lzischen Rhein-Lahn-Kreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1240802",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Hunzel",
+   "corners": [
+    [
+     7.816611985709934,
+     50.25388598044027
+    ],
+    [
+     7.839088014290068,
+     50.25388598044027
+    ],
+    [
+     7.839088014290068,
+     50.239512935877585
+    ],
+    [
+     7.816611985709934,
+     50.239512935877585
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "ilkley-roman-fort-q7086777",
    "name": "Ilkley Roman Fort",
    "aka": "Site of Roman Fort, Ilkley., Verbeia Roman Fort",
@@ -10529,6 +11438,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "imola-q50195",
+   "name": "Imola",
+   "place": "Emilia-Romagna, Italy, Italy",
+   "lon": 11.7112,
+   "lat": 44.3535,
+   "summary": "Imola is a city and comune in the Metropolitan City of Bologna, located on the river Santerno, in the Emilia-Romagna region of northern Italy. The city is traditionally considered the western entrance to the historical region Romagna.",
+   "region": "Italy",
+   "kind": "town",
+   "qid": "Q50195",
+   "wiki": "https://en.wikipedia.org/wiki/Imola",
+   "corners": [
+    [
+     11.69863685755022,
+     44.36248246434051
+    ],
+    [
+     11.72376314244978,
+     44.36248246434051
+    ],
+    [
+     11.72376314244978,
+     44.34451615866137
+    ],
+    [
+     11.69863685755022,
+     44.34451615866137
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "inchtuthil",
@@ -10769,6 +11717,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "jagsthausen-q1735380",
+   "name": "Jagsthausen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.46917,
+   "lat": 49.3109,
+   "summary": "Das Kastell Jagsthausen war ein r\u00f6misches Milit\u00e4rlager, das nahe am Obergermanischen Limes, einem UNESCO-Weltkulturerbe, errichtet wurde und heute \u00fcberbaut auf dem Gebiet des Ortes Jagsthausen im Landkreis Heilbronn in Baden-W\u00fcrttemberg liegt. Einige Jagsthausener Funde, insbesondere die zahlreichen Steindenkm\u00e4ler, sind f\u00fcr die Datierung der gesamte Limesgeschichte bedeutend.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735380",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Jagsthausen",
+   "corners": [
+    [
+     9.458146951646151,
+     49.318085998094006
+    ],
+    [
+     9.480193048353849,
+     49.318085998094006
+    ],
+    [
+     9.480193048353849,
+     49.303712953534806
+    ],
+    [
+     9.458146951646151,
+     49.303712953534806
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "jaketown-site-q6125125",
@@ -11018,6 +12005,83 @@
    "overlays": 0
   },
   {
+   "id": "kapersburg-q1735382",
+   "name": "Kapersburg",
+   "place": "Hesse, Germany",
+   "lon": 8.636502423992,
+   "lat": 50.31270674931,
+   "summary": "Das ehemalige r\u00f6mische Limes-Kastell Kapersburg im Taunus geh\u00f6rt zu den am besten erhaltenen r\u00f6mischen Milit\u00e4ranlagen des Obergermanisch-R\u00e4tischen Limes. Es beherbergte einen Numerus, als dessen Name infolge einer Vermutung von Louis Jacobi und anderen lange angenommen worden war, dass er Numerus Nidensium laute und dass dessen Soldaten aus den Bewohnern des nahe gelegenen Vicus Nida rekrutiert worden seien. Marcus Reuter wies jedoch darauf hin, dass die Namen von Numeri \u00fcblicherweise vom Stationierungs-, nicht Rekrutierungsort abgeleitet wurden. Die Baugeschichte des Kastells weist seit dem Ende des 1. Jahrhunderts mehrere Bau- und Umbauphasen sowie Spuren eines Kastellvicus auf. Das Kastell wurde vermutlich kurz nach der Mitte des 3.\u00a0Jahrhunderts im Rahmen des Limesfalls kampflos ger\u00e4umt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735382",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Kapersburg",
+   "corners": [
+    [
+     8.625248815884703,
+     50.319892728478955
+    ],
+    [
+     8.6477560320993,
+     50.319892728478955
+    ],
+    [
+     8.6477560320993,
+     50.30551968391601
+    ],
+    [
+     8.625248815884703,
+     50.30551968391601
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "kastell-buch",
+   "name": "Kastell Buch",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 10.136429,
+   "lat": 48.909531,
+   "summary": "Das Kastell Buch, auch Kastell Rainau-Buch genannt, ist ein ehemaliger r\u00f6mischer Garnisonsort, der nahe am R\u00e4tischen Limes, einem UNESCO-Weltkulturerbe, zur Grenzsicherung errichtet wurde. Die Reste der Fortifikation liegen auf der Gemarkung des zur Gemeinde Rainau geh\u00f6renden Dorfes Buch im Ostalbkreis im \u00f6stlichen Baden-W\u00fcrttemberg. Das Kastell bildet seit 1972 zusammen mit seiner antiken Zivilsiedlung (Vicus), dem dort entlangf\u00fchrenden Abschnitt des Limes sowie dem Limestor Dalkingen den Limes-Park Rainau. Bekannt wurde Buch au\u00dfer durch das Limestor besonders durch seine kostbaren Funde.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Buch",
+   "corners": [
+    [
+     10.125494768661168,
+     48.9167170054614
+    ],
+    [
+     10.14736323133883,
+     48.9167170054614
+    ],
+    [
+     10.14736323133883,
+     48.90234396090362
+    ],
+    [
+     10.125494768661168,
+     48.90234396090362
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "kastell-lostmarc-h-q22925755",
    "name": "Kastell Lostmarc'h",
    "place": "Finist\u00e8re, France",
@@ -11063,6 +12127,83 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "kastell-schirenhof",
+   "name": "Kastell Schirenhof",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 10.03,
+   "lat": 48.73,
+   "summary": "Das Kastell Schirenhof, auch als Etzelsburg bekannt, ist ein ehemaliges r\u00f6misches Kohortenkastell, das heute im Stadtgebiet von Schw\u00e4bisch Gm\u00fcnd, auf den Fluren des Schirenhof im Ostalbkreis, Baden-W\u00fcrttemberg, liegt. Es wurde in der Zeit um 150\u00a0n.\u00a0Chr. an einer Bergzunge mit Blick \u00fcber die Rems zum dahinterliegenden R\u00e4tischen Limes errichtet, der 2005 zum UNESCO-Weltkulturerbe erhoben worden ist.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Schirenhof",
+   "corners": [
+    [
+     10.019104862412423,
+     48.737186008718574
+    ],
+    [
+     10.040895137587576,
+     48.737186008718574
+    ],
+    [
+     10.040895137587576,
+     48.722812964161406
+    ],
+    [
+     10.019104862412423,
+     48.722812964161406
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "kemel-q1725806",
+   "name": "Kemel",
+   "place": "Hesse, Germany",
+   "lon": 8.01606,
+   "lat": 50.1655,
+   "summary": "Das Kastell Kemel ist ein ehemaliger r\u00f6mischer Garnisonsort am Obergermanischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Das f\u00fcr einen Numerus ausgelegte Lager befindet sich heute als weitgehend \u00fcberbautes Bodendenkmal im Siedlungskern von Kemel, einem Ortsteil der Gemeinde Heidenrod im hessischen Rheingau-Taunus-Kreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1725806",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Kemel",
+   "corners": [
+    [
+     8.004841089295793,
+     50.17268598199938
+    ],
+    [
+     8.027278910704206,
+     50.17268598199938
+    ],
+    [
+     8.027278910704206,
+     50.158312937436996
+    ],
+    [
+     8.004841089295793,
+     50.158312937436996
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "kilmartin-temple-wood",
@@ -11214,6 +12355,45 @@
    "overlays": 1
   },
   {
+   "id": "kleinkastell-anhausen-q1746855",
+   "name": "Kleinkastell Anhausen",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.53841,
+   "lat": 50.4813,
+   "summary": "Das Kleinkastell Anhausen war ein r\u00f6misches Kastell des Obergermanischen Limes, der im Jahre 2005 den Status des UNESCO-Weltkulturerbes erlangte. Das jetzige Bodendenkmal befindet sich in den W\u00e4ldern s\u00fcdwestlich der heutigen Ortsgemeinde Anhausen, die zur Verbandsgemeinde Rengsdorf-Waldbreitbach im rheinland-pf\u00e4lzischen Landkreis Neuwied geh\u00f6rt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1746855",
+   "wiki": "https://de.wikipedia.org/wiki/Kleinkastell_Anhausen",
+   "corners": [
+    [
+     7.5271162970899255,
+     50.488485975905725
+    ],
+    [
+     7.549703702910073,
+     50.488485975905725
+    ],
+    [
+     7.549703702910073,
+     50.4741129313421
+    ],
+    [
+     7.5271162970899255,
+     50.4741129313421
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "kolomoki-mounds-state-park-q4228402",
    "name": "Kolomoki Mounds State Park",
    "aka": "Kolomoki Mounds",
@@ -11362,6 +12542,94 @@
    "score": 0.91,
    "oldest": 1850,
    "overlays": 1
+  },
+  {
+   "id": "kortrijk-q12995",
+   "name": "Kortrijk",
+   "place": "Arrondissement of Kortrijk, Belgium",
+   "lon": 3.2658,
+   "lat": 50.8275,
+   "summary": "Kortrijk, sometimes known in English as Courtrai or Courtray, is a Belgian city and municipality in the Flemish province of West Flanders.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q12995",
+   "wiki": "https://en.wikipedia.org/wiki/Kortrijk",
+   "lidar_credit": "Wallonia (EODaS), 2015 (37.77 points/m2)",
+   "corners": [
+    [
+     3.251578438593616,
+     50.83648228856094
+    ],
+    [
+     3.2800215614063846,
+     50.83648228856094
+    ],
+    [
+     3.2800215614063846,
+     50.81851598284129
+    ],
+    [
+     3.251578438593616,
+     50.81851598284129
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 9.8,
+    "zmax": 27.31,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "kongen-q1735387",
+   "name": "K\u00f6ngen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.36007,
+   "lat": 48.6773,
+   "summary": "Das Kastell K\u00f6ngen war ein r\u00f6misches Milit\u00e4rlager an der Neckarlinie des Neckar-Odenwald-Limes. Das jetzige Bodendenkmal mit dem zugeh\u00f6rigen, in antiker Zeit Grinario genannten Vicus befindet sich auf dem Gebiet der heutigen Ortschaft K\u00f6ngen, einer Gemeinde des Landkreises Esslingen in Baden-W\u00fcrttemberg.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735387",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_K\u00f6ngen",
+   "corners": [
+    [
+     9.349186264827228,
+     48.684486009670316
+    ],
+    [
+     9.370953735172773,
+     48.684486009670316
+    ],
+    [
+     9.370953735172773,
+     48.670112965113326
+    ],
+    [
+     9.349186264827228,
+     48.670112965113326
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "lsu-campus-mounds-q6460005",
@@ -11710,6 +12978,55 @@
    "overlays": 1
   },
   {
+   "id": "le-rulx-q668861",
+   "name": "Le R\u0153ulx",
+   "place": "Arrondissement of Soignies, Belgium",
+   "lon": 4.1116,
+   "lat": 50.5036,
+   "summary": "Le R\u0153ulx is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q668861",
+   "wiki": "https://en.wikipedia.org/wiki/Le_R%C5%93ulx",
+   "lidar_credit": "Service public de Wallonie, 2022 (10.65 points/m2)",
+   "corners": [
+    [
+     4.09747620621048,
+     50.512582298468715
+    ],
+    [
+     4.125723793789518,
+     50.512582298468715
+    ],
+    [
+     4.125723793789518,
+     50.49461599275159
+    ],
+    [
+     4.09747620621048,
+     50.49461599275159
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 107.17,
+    "zmax": 157.91,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "leeds-castle-q746876",
    "name": "Leeds Castle",
    "place": "Leeds, England",
@@ -11808,6 +13125,55 @@
    "overlays": 1
   },
   {
+   "id": "lessines-q667790",
+   "name": "Lessines",
+   "place": "Arrondissement of Soignies, Belgium",
+   "lon": 3.83,
+   "lat": 50.7117,
+   "summary": "Lessines is a city and municipality of Wallonia located in the province of Hainaut, Belgium. As of the 2014 census, The municipality's total population was 18,637. The total area is 72.29\u00a0km2 (27.91\u00a0sq\u00a0mi) which gives a population density of 247 inhabitants per km2.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q667790",
+   "wiki": "https://en.wikipedia.org/wiki/Lessines",
+   "lidar_credit": "Wallonia (EODaS), 2015 (33.08 points/m2)",
+   "corners": [
+    [
+     3.815813599424017,
+     50.72068229211886
+    ],
+    [
+     3.844186400575984,
+     50.72068229211886
+    ],
+    [
+     3.844186400575984,
+     50.70271598640013
+    ],
+    [
+     3.815813599424017,
+     50.70271598640013
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -8.25,
+    "zmax": 54.84,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "letchworth-love-mounds-archaeological-st-q6533192",
    "name": "Letchworth-Love Mounds Archaeological State Park",
    "aka": "Letchworth, Letchworth Mounds",
@@ -11852,6 +13218,55 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "leuze-q667862",
+   "name": "Leuze",
+   "place": "Arrondissement of Tournai, Belgium",
+   "lon": 3.6167,
+   "lat": 50.6,
+   "summary": "Leuze-en-Hainaut is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q667862",
+   "wiki": "https://en.wikipedia.org/wiki/Leuze-en-Hainaut",
+   "lidar_credit": "Service public de Wallonie, 2022 (9.27 points/m2)",
+   "corners": [
+    [
+     3.60254729636539,
+     50.60898229553422
+    ],
+    [
+     3.6308527036346088,
+     50.60898229553422
+    ],
+    [
+     3.6308527036346088,
+     50.591015989816356
+    ],
+    [
+     3.60254729636539,
+     50.591015989816356
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.18,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 42.03,
+    "zmax": 75.54,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -12056,6 +13471,45 @@
    "overlays": 1
   },
   {
+   "id": "lorch-q1433981",
+   "name": "Lorch",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.68855,
+   "lat": 48.7981,
+   "summary": "Das Kastell Lorch war ein r\u00f6misches Grenzkastell nahe am R\u00e4tischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Die vermutlich um 150/160\u00a0n.\u00a0Chr. errichtete Garnison liegt heute mitten in Lorch, einer Stadt im Ostalbkreis, Baden-W\u00fcrttemberg, und ist fast vollst\u00e4ndig \u00fcberbaut.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1433981",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Lorch",
+   "corners": [
+    [
+     9.677640078863691,
+     48.80528600748578
+    ],
+    [
+     9.699459921136306,
+     48.80528600748578
+    ],
+    [
+     9.699459921136306,
+     48.79091296292839
+    ],
+    [
+     9.677640078863691,
+     48.79091296292839
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "los-millares",
    "name": "Los Millares",
    "place": "Almeria (Santa Fe de Mond\u00fajar), Spain, Spain",
@@ -12153,6 +13607,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "lutzelbach-q1735392",
+   "name": "L\u00fctzelbach",
+   "place": "Hesse, Germany",
+   "lon": 9.08861111,
+   "lat": 49.77944444,
+   "summary": "Das r\u00f6mische Kastell L\u00fctzelbach, auch \u201eL\u00fctzelbacher Schl\u00f6sschen\u201c genannt, war ein Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735392",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_L\u00fctzelbach",
+   "corners": [
+    [
+     9.077481839690657,
+     49.786630429340214
+    ],
+    [
+     9.099740380309344,
+     49.786630429340214
+    ],
+    [
+     9.099740380309344,
+     49.77225738477928
+    ],
+    [
+     9.077481839690657,
+     49.77225738477928
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "madira-bickel-mound-state-archeological-q6727810",
@@ -12408,6 +13901,45 @@
    "overlays": 1
   },
   {
+   "id": "marienfels-q1359182",
+   "name": "Marienfels",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.81076,
+   "lat": 50.2403,
+   "summary": "Das Kastell Marienfels war ein r\u00f6misches Grenzkastell des Obergermanischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Das fr\u00fchere Numeruskastell liegt heute als weitgehend \u00fcberbautes Bodendenkmal innerhalb des Siedlungsgebietes von Marienfels, einer Gemeinde im rheinland-pf\u00e4lzischen Rhein-Lahn-Kreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1359182",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Marienfels",
+   "corners": [
+    [
+     7.799523494592477,
+     50.24748598056334
+    ],
+    [
+     7.821996505407523,
+     50.24748598056334
+    ],
+    [
+     7.821996505407523,
+     50.23311293600067
+    ],
+    [
+     7.799523494592477,
+     50.23311293600067
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "marietta",
    "name": "Marietta Works",
    "aka": "Marietta Earthworks",
@@ -12658,6 +14190,55 @@
    "score": 2.84,
    "oldest": 1769,
    "overlays": 2
+  },
+  {
+   "id": "mechelen-q162022",
+   "name": "Mechelen",
+   "place": "Arrondissement of Mechelen, Belgium",
+   "lon": 4.4803,
+   "lat": 51.0281,
+   "summary": "Mechelen is a city and municipality in the province of Antwerp in the Flemish Region of Belgium. The municipality comprises the city of Mechelen proper, some quarters at its outskirts, the hamlets of Nekkerspoel (adjacent) and Battel, as well as the villages of Walem, Heffen, Leest, Hombeek, and Muizen. The city is often referred to as the Dijlestad as the river Dyle (Dijle) flows through it.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q162022",
+   "wiki": "https://en.wikipedia.org/wiki/Mechelen",
+   "lidar_credit": "Wallonia (EODaS), 2015 (34.36 points/m2)",
+   "corners": [
+    [
+     4.466016976752592,
+     51.03708228235559
+    ],
+    [
+     4.494583023247406,
+     51.03708228235559
+    ],
+    [
+     4.494583023247406,
+     51.019115976634346
+    ],
+    [
+     4.466016976752592,
+     51.019115976634346
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.62,
+    "zmax": 21.28,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "miamisburg-mound-q34827561",
@@ -13627,6 +15208,45 @@
    "overlays": 1
   },
   {
+   "id": "murrhardt-q1735397",
+   "name": "Murrhardt",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.5823,
+   "lat": 48.97696,
+   "summary": "Das Kastell Murrhardt war ein r\u00f6misches Kohortenkastell des Prinzipats am \u201eVorderen Limes\u201c, einem Abschnitt des im Jahre 2005 zum UNESCO-Weltkulturerbe erhobenen \u201eObergermanisch-Raetischen Limes\u201c. Die auf dem Gebiet der heutigen Stadt Murrhardt im Rems-Murr-Kreis, Baden-W\u00fcrttemberg.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735397",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Murrhardt",
+   "corners": [
+    [
+     9.571350985268502,
+     48.98414600423198
+    ],
+    [
+     9.593249014731498,
+     48.98414600423198
+    ],
+    [
+     9.593249014731498,
+     48.969772959673975
+    ],
+    [
+     9.571350985268502,
+     48.969772959673975
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "nacoochee-mound-q4312576",
    "name": "Nacoochee Mound",
    "place": "Georgia",
@@ -13779,6 +15399,45 @@
    "overlays": 1
   },
   {
+   "id": "neckarburken-west-q1343017",
+   "name": "Neckarburken-West",
+   "place": "Hesse, Germany",
+   "lon": 9.170278,
+   "lat": 49.376667,
+   "summary": "Die r\u00f6mischen Kastelle von Neckarburken befinden sich auf dem Gebiet der gleichnamigen Ortschaft Neckarburken, einem Ortsteil der Gemeinde Elztal im Neckar-Odenwald-Kreis. Auch wenn in der Literatur und auf diversen Webseiten des \u00d6fteren von dem (einen) Kastell Neckarburken die Rede ist, handelt es sich gleichwohl um zwei verschiedene und r\u00e4umlich getrennte Kastelle derselben Zeitstellung, das Westkastell und das Ostkastell. Beide geh\u00f6ren zur \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes und waren von etwa dem Jahr 100 unserer Zeitrechnung bis sp\u00e4testens 159 belegt, das Ostkastell m\u00f6glicherweise etwas l\u00e4nger.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1343017",
+   "wiki": "https://de.wikipedia.org/wiki/Kastelle_von_Neckarburken",
+   "corners": [
+    [
+     9.159240208781142,
+     49.383852996875376
+    ],
+    [
+     9.181315791218857,
+     49.383852996875376
+    ],
+    [
+     9.181315791218857,
+     49.36947995231594
+    ],
+    [
+     9.159240208781142,
+     49.36947995231594
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "newark",
    "name": "Newark Works",
    "aka": "Newark Earthworks",
@@ -13896,6 +15555,84 @@
    "score": 2.04,
    "oldest": 1848,
    "overlays": 2
+  },
+  {
+   "id": "niederberg-q1670400",
+   "name": "Niederberg",
+   "place": "Rhineland-Palatinate, Germany",
+   "lon": 7.62734,
+   "lat": 50.3689,
+   "summary": "Das Kastell Niederberg war ein r\u00f6misches Auxiliarkastell des Obergermanischen Limes, der seit 2005 den Status eines UNESCO-Weltkulturerbes besitzt. Das fr\u00fchere Kohortenkastell liegt heute als Bodendenkmal in einem Wohngebiet von Niederberg, einem rechtsrheinischen Stadtteil von Koblenz in Rheinland-Pfalz.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1670400",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Niederberg",
+   "corners": [
+    [
+     7.616073070531292,
+     50.37608597808388
+    ],
+    [
+     7.638606929468706,
+     50.37608597808388
+    ],
+    [
+     7.638606929468706,
+     50.36171293352071
+    ],
+    [
+     7.616073070531292,
+     50.36171293352071
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "niedernberg-q1735399",
+   "name": "Niedernberg",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.14105,
+   "lat": 49.9141,
+   "summary": "Das Kastell Niedernberg war ein r\u00f6misches Kastell in Niedernberg im Landkreis Miltenberg in Unterfranken. Wie fast alle Kastelle am Main, dem sogenannten \u201eNassen Limes\u201c, ist das Kastell Niedernberg heute vollst\u00e4ndig \u00fcberbaut. Es liegt unter dem heutigen Ortskern von Niedernberg. Die Anlage z\u00e4hlt damit zu den am wenigsten arch\u00e4ologisch erforschten Kastellen am Obergermanisch-R\u00e4tischen Limes.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735399",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Niedernberg",
+   "corners": [
+    [
+     9.129889683900682,
+     49.92128598679311
+    ],
+    [
+     9.15221031609932,
+     49.92128598679311
+    ],
+    [
+     9.15221031609932,
+     49.90691294223167
+    ],
+    [
+     9.129889683900682,
+     49.90691294223167
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "norham-castle-q388705",
@@ -14144,6 +15881,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "oberscheidental-q1735404",
+   "name": "Oberscheidental",
+   "place": "Hesse, Germany",
+   "lon": 9.15278,
+   "lat": 49.5064,
+   "summary": "Das Kastell Oberscheidental war ein r\u00f6misches Kohortenkastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Das heutige Bodendenkmal befindet sich am s\u00fcd\u00f6stlichen Rand des Ortszentrums von Scheidental, einem Ortsteil der baden-w\u00fcrttembergischen Gemeinde Mudau im Odenwald.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735404",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Oberscheidental",
+   "corners": [
+    [
+     9.141712968003176,
+     49.51358599446187
+    ],
+    [
+     9.163847031996825,
+     49.51358599446187
+    ],
+    [
+     9.163847031996825,
+     49.49921294990195
+    ],
+    [
+     9.141712968003176,
+     49.49921294990195
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "ocmulgee-mounds-national-historical-park-q1517500",
@@ -14638,6 +16414,45 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "osterburken-q1243550",
+   "name": "Osterburken",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.42364,
+   "lat": 49.42753,
+   "summary": "Das Kastell Osterburken war ein r\u00f6misches Milit\u00e4rlager, dessen Besatzung f\u00fcr Sicherungs- und \u00dcberwachungsaufgaben am sogenannten \u201eVorderen Limes\u201c des Obergermanisch-R\u00e4tischen Limes zust\u00e4ndig war. Die zum UNESCO-Welterbe geh\u00f6rende Anlage liegt rund 455 Meter westlich der Limesstra\u00dfe am S\u00fcdhang des Kirnautales in der Hager Flur. Die teilweise noch sichtbaren und konservierten Baureste befinden sich in der zum Neckar-Odenwald-Kreis geh\u00f6renden baden-w\u00fcrttembergischen Stadt Osterburken in der Bundesrepublik Deutschland. Neben dem Kastell, das durch einen nachtr\u00e4glichen Anbau zum Doppelkastell wurde, sind insbesondere die teilweise gut datierbaren Bauten und wertvollen Funde aus dem Bereich des ausgedehnten r\u00f6mischen Lagerdorfes (Vicus) \u00fcberregional bekannt geworden. Osterburken geh\u00f6rt damit zu den wichtigsten arch\u00e4ologischen Referenzpunkten an diesem Limesabschnitt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1243550",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Osterburken",
+   "corners": [
+    [
+     9.412590769852113,
+     49.434715995930645
+    ],
+    [
+     9.434689230147889,
+     49.434715995930645
+    ],
+    [
+     9.434689230147889,
+     49.42034295137103
+    ],
+    [
+     9.412590769852113,
+     49.42034295137103
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "oswestry-castle-q20713795",
@@ -15707,6 +17522,45 @@
    "overlays": 2
   },
   {
+   "id": "rendelkastell-ohringen-q91949042",
+   "name": "Rendelkastell \u00d6hringen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.51336944444444,
+   "lat": 49.1995138888889,
+   "summary": "Das Kastell \u00d6hringen-Ost, das auch unter den Namen Ostkastell und Rendelkastell bekannt ist, war ein r\u00f6misches Milit\u00e4rlager des Prinzipats, dessen Besatzung, eine Kohorte, Sicherungs- und \u00dcberwachungsaufgaben am Vorderen Limes, einem Abschnitt des UNESCO-Weltkulturerbes \u201eObergermanisch-Raetischer Limes\u201c \u00fcbernahm. Das seit dem 18.\u00a0Jahrhundert bekannt gewordene Bodendenkmal befand sich im baden-w\u00fcrttembergischen Hohenlohekreis auf dem Gebiet der Gro\u00dfen Kreisstadt \u00d6hringen und wurde von der Stadt nach 1945 f\u00fcr den Bau einer Eigenheimsiedlung aufgegeben und dabei vollst\u00e4ndig zerst\u00f6rt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q91949042",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_\u00d6hringen-Ost",
+   "corners": [
+    [
+     9.502371242684227,
+     49.20669988903945
+    ],
+    [
+     9.524367646204654,
+     49.20669988903945
+    ],
+    [
+     9.524367646204654,
+     49.192326844480654
+    ],
+    [
+     9.502371242684227,
+     49.192326844480654
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "richard-s-castle-q17650937",
    "name": "Richard's Castle",
    "aka": "Richard's Castle: a motte and bailey with an enclosed settlement.",
@@ -16202,6 +18056,45 @@
    "overlays": 0
   },
   {
+   "id": "schlossau-q1735418",
+   "name": "Schlossau",
+   "place": "Hesse, Germany",
+   "lon": 9.14944,
+   "lat": 49.5406,
+   "summary": "Das Kastell Schlo\u00dfau war ein r\u00f6misches Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Es befindet sich am n\u00f6rdlichen Rande des Ortszentrums von Schlo\u00dfau, einem Ortsteil der Gemeinde Mudau im Neckar-Odenwald-Kreis in Baden-W\u00fcrttemberg. Durch die im ersten Jahrzehnt des 21. Jahrhunderts durchgef\u00fchrten arch\u00e4ologischen Ausgrabungen ist der Vicus von Schlo\u00dfau die derzeit besterforschte Zivilsiedlung eines r\u00f6mischen Kastells am Odenwaldlimes.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735418",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Schlossau",
+   "corners": [
+    [
+     9.138365224305616,
+     49.54778599382351
+    ],
+    [
+     9.160514775694388,
+     49.54778599382351
+    ],
+    [
+     9.160514775694388,
+     49.53341294926347
+    ],
+    [
+     9.138365224305616,
+     49.53341294926347
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "scotney-castle-q17530343",
    "name": "Scotney Castle",
    "place": "Lamberhurst, England",
@@ -16247,6 +18140,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "seckmauern-q1735419",
+   "name": "Seckmauern",
+   "place": "Hesse, Germany",
+   "lon": 9.11736111,
+   "lat": 49.79902778,
+   "summary": "Das Kastell Seckmauern war ein r\u00f6misches Numeruskastell, das zu der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes geh\u00f6rte.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735419",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Seckmauern",
+   "corners": [
+    [
+     9.10622733917002,
+     49.806213768970665
+    ],
+    [
+     9.128494880829976,
+     49.806213768970665
+    ],
+    [
+     9.128494880829976,
+     49.79184072440968
+    ],
+    [
+     9.10622733917002,
+     49.79184072440968
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "sedgwick-castle-q17645407",
@@ -16989,6 +18921,45 @@
    "overlays": 1
   },
   {
+   "id": "stockstadt-q1735421",
+   "name": "Stockstadt",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.06737,
+   "lat": 49.9774,
+   "summary": "Das Kastell Stockstadt ist ein ehemaliges r\u00f6misches Kastell in Stockstadt am Main im Landkreis Aschaffenburg in Unterfranken. Mehrj\u00e4hrige Grabungen, haupts\u00e4chlich im fr\u00fchen 20.\u00a0Jahrhundert, erbrachten den Nachweis einer Kastellanlage mit zwei kurzzeitig belegten Vorg\u00e4ngerbauten, sowie eine Abfolge verschiedener dort stationierter Truppen. Stockstadt war damit von der fr\u00fchen Zeit des Obergermanisch-Raetischen Limes bis zum Limesfall ein bedeutendes Standlager an der Mainlinie, dem sogenannten Nassen Limes. F\u00fcr die arch\u00e4ologische Forschung ist der Fundort wegen einer gro\u00dfen Zahl von Steindenkm\u00e4lern bedeutend, die vor allem im Vicus im Bereich zweier Mithr\u00e4en, eines Iupiter-Dolichenus-Heiligtums und einer Benefiziarier-Station gefunden wurden.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735421",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Stockstadt",
+   "corners": [
+    [
+     9.05619500834438,
+     49.984585985590805
+    ],
+    [
+     9.07854499165562,
+     49.984585985590805
+    ],
+    [
+     9.07854499165562,
+     49.97021294102913
+    ],
+    [
+     9.05619500834438,
+     49.97021294102913
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "stokesay-castle-q7618555",
    "name": "Stokesay Castle",
    "place": "Craven Arms, England",
@@ -17238,6 +19209,45 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "sulz-q1735424",
+   "name": "Sulz",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 8.63667,
+   "lat": 48.3597,
+   "summary": "Das Kastell Sulz war ein r\u00f6misches Grenzkastell an der Neckarlinie des Neckar-Odenwald-Limes. Es liegt mit dem zugeh\u00f6rigen Vicus als Bodendenkmal auf dem Gebiet von Sulz am Neckar, einer Stadt des Landkreises Rottweil in Baden-W\u00fcrttemberg.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735424",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Sulz",
+   "corners": [
+    [
+     8.625854287204618,
+     48.36688601536401
+    ],
+    [
+     8.647485712795385,
+     48.36688601536401
+    ],
+    [
+     8.647485712795385,
+     48.352512970808114
+    ],
+    [
+     8.625854287204618,
+     48.352512970808114
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "sutton-hoo-q503256",
@@ -17535,6 +19545,45 @@
    "score": 0.91,
    "oldest": 1850,
    "overlays": 1
+  },
+  {
+   "id": "theilenhofen-q1214616",
+   "name": "Theilenhofen",
+   "place": "Bavaria, Germany",
+   "lon": 10.84716,
+   "lat": 49.08952,
+   "summary": "Das Kastell Theilenhofen, in der Antike Iciniacum genannt, ist ein r\u00f6misches Milit\u00e4rlager nahe am Obergermanisch-Raetischen Limes (ORL), einem UNESCO-Weltkulturerbe, und nordwestlich des Dorfes Theilenhofen im Landkreis Wei\u00dfenburg-Gunzenhausen in Bayern. Die wahrscheinlich f\u00fcr rund 480 Infanteristen und 128 Reiter zur Grenzsicherung errichtete Befestigung ging mit dem Limesfall um die Mitte der 250er Jahre n.\u00a0Chr., unter.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1214616",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Theilenhofen",
+   "corners": [
+    [
+     10.836186183989584,
+     49.09670600217232
+    ],
+    [
+     10.858133816010415,
+     49.09670600217232
+    ],
+    [
+     10.858133816010415,
+     49.08233295761391
+    ],
+    [
+     10.836186183989584,
+     49.08233295761391
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "thurnham-castle-q7799359",
@@ -18159,6 +20208,84 @@
    "overlays": 1
   },
   {
+   "id": "unterbobingen-q1424499",
+   "name": "Unterb\u00f6bingen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.9228301,
+   "lat": 48.8181017,
+   "summary": "Das Kastell Unterb\u00f6bingen ist ein ehemaliger r\u00f6mischer Garnisonsort, dessen Reste heute im Osten des Gemeindegebiets von B\u00f6bingen an der Rems im Ostalbkreis in Baden-W\u00fcrttemberg liegen. Das f\u00fcr eine Kohorte bemessene Lager wurde nahe dem S\u00fcdufer der Rems zur Sicherung des nicht weit entfernten R\u00e4tischen Limes errichtet, der 2005 zum UNESCO-Weltkulturerbe erhobenen worden ist.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1424499",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Unterb\u00f6bingen",
+   "corners": [
+    [
+     9.911915826220245,
+     48.82528770712309
+    ],
+    [
+     9.933744373779755,
+     48.82528770712309
+    ],
+    [
+     9.933744373779755,
+     48.81091466256564
+    ],
+    [
+     9.911915826220245,
+     48.81091466256564
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "urspring-q1735430",
+   "name": "Urspring",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.90069,
+   "lat": 48.55,
+   "summary": "Das Kastell Urspring, in der Antike Ad Lunam genannt, war ein r\u00f6misches Milit\u00e4rlager des Alblimes. Es liegt mit dem zugeh\u00f6rigen Kastellvicus als Bodendenkmal unter den \u00c4ckern \u00f6stlich von Urspring, einem Ortsteil der Gemeinde Lonsee im baden-w\u00fcrttembergischen Alb-Donau-Kreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735430",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Urspring",
+   "corners": [
+    [
+     9.88983367202265,
+     48.557186011961
+    ],
+    [
+     9.91154632797735,
+     48.557186011961
+    ],
+    [
+     9.91154632797735,
+     48.542812967404465
+    ],
+    [
+     9.88983367202265,
+     48.542812967404465
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "uxellodunum-q1290232",
    "name": "Uxellodunum",
    "place": "France",
@@ -18304,6 +20431,45 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "venice-q641",
+   "name": "Venice",
+   "place": "Veneto, Italy, Italy",
+   "lon": 12.331944,
+   "lat": 45.439722,
+   "summary": "Venice is a coastal city in northeastern Italy and the capital of the region of Veneto, as well as the Metropolitan City of Venice. It is built on a group of 126 islands that are separated by expanses of open water and by canals; portions of the city are linked by 472 bridges.",
+   "region": "Italy",
+   "kind": "town",
+   "qid": "Q641",
+   "wiki": "https://en.wikipedia.org/wiki/Venice",
+   "corners": [
+    [
+     12.319141271571496,
+     45.44870443773492
+    ],
+    [
+     12.344746728428504,
+     45.44870443773492
+    ],
+    [
+     12.344746728428504,
+     45.43073813205024
+    ],
+    [
+     12.319141271571496,
+     45.43073813205024
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "venlo-q9777",
@@ -18554,6 +20720,123 @@
    "overlays": 1
   },
   {
+   "id": "waldmossingen-q1735435",
+   "name": "Waldm\u00f6ssingen",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 8.49333,
+   "lat": 48.2739,
+   "summary": "Das Kastell Waldm\u00f6ssingen war ein r\u00f6misches Grenzkastell an der Neckarlinie des Neckar-Odenwald-Limes. Es liegt mit dem zugeh\u00f6rigen Vicus als Bodendenkmal unter den \u00c4ckern am nord\u00f6stlichen Rande der heutigen Ortschaft Waldm\u00f6ssingen, einem H\u00f6henstadtteil der zum Landkreis Rottweil geh\u00f6renden Stadt Schramberg in Baden-W\u00fcrttemberg.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735435",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Waldm\u00f6ssingen",
+   "corners": [
+    [
+     8.482532461156746,
+     48.28108601688999
+    ],
+    [
+     8.504127538843255,
+     48.28108601688999
+    ],
+    [
+     8.504127538843255,
+     48.26671297233437
+    ],
+    [
+     8.482532461156746,
+     48.26671297233437
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "walheim-q1669086",
+   "name": "Walheim",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.15444,
+   "lat": 49.0107,
+   "summary": "Die Kastelle von Walheim waren zwei r\u00f6mische Milit\u00e4rlager, deren Besatzungen f\u00fcr Sicherungs- und \u00dcberwachungsaufgaben an der Neckarlinie des Neckar-Odenwald-Limes zust\u00e4ndig waren. Die baulichen \u00dcberreste der beiden Garnisonen wurden auf dem Gebiet der heutigen Ortschaft Walheim, einer Gemeinde des Landkreises Ludwigsburg in Baden-W\u00fcrttemberg entdeckt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1669086",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Walheim",
+   "corners": [
+    [
+     9.143483567264136,
+     49.01788600361557
+    ],
+    [
+     9.165396432735863,
+     49.01788600361557
+    ],
+    [
+     9.165396432735863,
+     49.00351295905744
+    ],
+    [
+     9.143483567264136,
+     49.00351295905744
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "walldurn-alteburg-q1735436",
+   "name": "Walld\u00fcrn (Alteburg)",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.38674,
+   "lat": 49.5785,
+   "summary": "Das Kastell Walld\u00fcrn war ein r\u00f6misches Milit\u00e4rlager am sogenannten \u201eVorderen Limes\u201c des Obergermanisch-R\u00e4tischen Limes und z\u00e4hlt zum UNESCO-Welterbe. Seine \u00dcberreste gelten au\u00dferdem als arch\u00e4ologisches Denkmal und befinden sich heute unter einer als Wiese genutzten Fl\u00e4che s\u00fcd\u00f6stlich der baden-w\u00fcrttembergischen Stadt Walld\u00fcrn im Neckar-Odenwald-Kreis. Insbesondere die Studien zu einem mit modernen Methoden ergrabenen Abschnitt des kastelleigenen Lagerdorfes (Vicus), aber auch die Grabungen am Milit\u00e4rbad brachten der Limesforschung wichtige Erkenntnisse. Speziell die aus dem Kastellbad stammende Bauinschrift und die sich aus ihr ergebenen Fragestellungen besch\u00e4ftigen seit Generationen die internationale Wissenschaft.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735436",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Walld\u00fcrn",
+   "corners": [
+    [
+     9.375656625554786,
+     49.58568599311503
+    ],
+    [
+     9.397823374445215,
+     49.58568599311503
+    ],
+    [
+     9.397823374445215,
+     49.571312948554855
+    ],
+    [
+     9.375656625554786,
+     49.571312948554855
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "warffum-q1942428",
    "name": "Warffum",
    "place": "Het Hogeland, Groningen, Netherlands",
@@ -18801,6 +21084,123 @@
    "overlays": 0
   },
   {
+   "id": "weienburg-q638525",
+   "name": "Wei\u00dfenburg",
+   "place": "Bavaria, Germany",
+   "lon": 10.9625,
+   "lat": 49.0308,
+   "summary": "Das Kastell Wei\u00dfenburg, in der Antike Biriciana genannt, war ein r\u00f6misches Alen-Kastell, das nahe am Obergermanisch-R\u00e4tischen Limes, einem UNESCO-Weltkulturerbe, errichtet wurde und im Stadtgebiet von Wei\u00dfenburg im mittelfr\u00e4nkischen Landkreis Wei\u00dfenburg-Gunzenhausen liegt. Heute z\u00e4hlt das Kastell mit seinen teilweise unterirdisch konservierten Bauresten, dem rekonstruierten Nordtor, den gro\u00dfen Thermen sowie dem R\u00f6mermuseum mit integriertem Limes-Informationszentrum zu den wichtigsten Adressen der Limesforschung in Deutschland.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q638525",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Wei\u00dfenburg",
+   "corners": [
+    [
+     10.95153914153399,
+     49.03798600324799
+    ],
+    [
+     10.973460858466012,
+     49.03798600324799
+    ],
+    [
+     10.973460858466012,
+     49.023612958689775
+    ],
+    [
+     10.95153914153399,
+     49.023612958689775
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "welzheim-ost-q1735441",
+   "name": "Welzheim-Ost",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.64224,
+   "lat": 48.87122,
+   "summary": "Die Kastelle von Welzheim waren zwei r\u00f6mische Milit\u00e4rlager am Vorderen Limes, einem Teilabschnitt des UNESCO-Weltkulturerbes \u201eObergermanisch-R\u00e4tischer Limes\u201c auf dem Gebiet der heutigen Stadt Welzheim im Rems-Murr-Kreis in Baden-W\u00fcrttemberg. Zu den bedeutendsten Erkenntnissen, die an dieser Grabungsst\u00e4tte gewonnen wurden, trugen die Brunnenfunde aus dem Ostkastell bei. Sie gaben einen umfassenden Einblick in die Vegetation und in die Lebensbedingungen der Bewohner im 2.\u00a0und 3.\u00a0Jahrhundert.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1735441",
+   "wiki": "https://de.wikipedia.org/wiki/Kastelle_von_Welzheim",
+   "corners": [
+    [
+     9.631314143606081,
+     48.878406006158414
+    ],
+    [
+     9.653165856393915,
+     48.878406006158414
+    ],
+    [
+     9.653165856393915,
+     48.86403296160079
+    ],
+    [
+     9.631314143606081,
+     48.86403296160079
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "welzheim-west-q32064057",
+   "name": "Welzheim-West",
+   "place": "Baden-W\u00fcrttemberg, Germany",
+   "lon": 9.63234,
+   "lat": 48.87218,
+   "summary": "Die Kastelle von Welzheim waren zwei r\u00f6mische Milit\u00e4rlager am Vorderen Limes, einem Teilabschnitt des UNESCO-Weltkulturerbes \u201eObergermanisch-R\u00e4tischer Limes\u201c auf dem Gebiet der heutigen Stadt Welzheim im Rems-Murr-Kreis in Baden-W\u00fcrttemberg. Zu den bedeutendsten Erkenntnissen, die an dieser Grabungsst\u00e4tte gewonnen wurden, trugen die Brunnenfunde aus dem Ostkastell bei. Sie gaben einen umfassenden Einblick in die Vegetation und in die Lebensbedingungen der Bewohner im 2.\u00a0und 3.\u00a0Jahrhundert.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q32064057",
+   "wiki": "https://de.wikipedia.org/wiki/Kastelle_von_Welzheim",
+   "corners": [
+    [
+     9.621413933962437,
+     48.87936600614099
+    ],
+    [
+     9.64326606603756,
+     48.87936600614099
+    ],
+    [
+     9.64326606603756,
+     48.86499296158334
+    ],
+    [
+     9.621413933962437,
+     48.86499296158334
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "west-kennet-long-barrow-q541312",
    "name": "West Kennet Long Barrow",
    "aka": "West Kennet Long Barrow, 800m south-east of Silbury Hill, West Kennet long barrow",
@@ -18953,6 +21353,45 @@
    "overlays": 0
   },
   {
+   "id": "wiesbaden-q622981",
+   "name": "Wiesbaden",
+   "place": "Hesse, Germany",
+   "lon": 8.241862,
+   "lat": 50.086375,
+   "summary": "Aquae Mattiacorum ist der Name der antiken r\u00f6mischen Siedlung auf dem Stadtgebiet von Wiesbaden. Seit der fr\u00fchen r\u00f6mischen Kaiserzeit ist in Wiesbaden von einer milit\u00e4rischen Pr\u00e4senz gegen\u00fcber dem Legionslager Mogontiacum (Mainz) auszugehen. Im Hinterland des Limes konnte sich im 2. Jahrhundert eine bedeutende Zivilsiedlung entwickeln, die zum Hauptort der Civitas Mattiacorum erhoben wurde. Zivilisten und Soldaten sch\u00e4tzten die warmen Wiesbadener Heilquellen, weshalb der Ort den Namenszusatz Aquae trug. Nach dem R\u00fcckzug der R\u00f6mer \u00fcber den Rhein im 3. Jahrhundert ist in Wiesbaden weiterhin eine milit\u00e4rische Pr\u00e4senz greifbar, zu deren bedeutendsten \u00dcberresten die sogenannte Heidenmauer z\u00e4hlt.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q622981",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Wiesbaden",
+   "corners": [
+    [
+     8.230661620723412,
+     50.09356098351358
+    ],
+    [
+     8.253062379276583,
+     50.09356098351358
+    ],
+    [
+     8.253062379276583,
+     50.0791879389515
+    ],
+    [
+     8.230661620723412,
+     50.0791879389515
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "windmill-hill-q4348373",
    "name": "Windmill Hill",
    "place": "Avebury, Wiltshire, England",
@@ -19046,6 +21485,45 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "wurzberg-q1445553",
+   "name": "W\u00fcrzberg",
+   "place": "Hesse, Germany",
+   "lon": 9.07527778,
+   "lat": 49.63416667,
+   "summary": "Das Kastell W\u00fcrzberg war ein r\u00f6misches Numeruskastell der \u00e4lteren Odenwaldlinie des Neckar-Odenwald-Limes. Das heutige Bodendenkmal liegt s\u00fcdlich von W\u00fcrzberg, einem etwas abgelegenen Ortsteil von Michelstadt im hessischen Odenwaldkreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1445553",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_W\u00fcrzberg",
+   "corners": [
+    [
+     9.064181742854405,
+     49.64135266207245
+    ],
+    [
+     9.0863738171456,
+     49.64135266207245
+    ],
+    [
+     9.0863738171456,
+     49.62697961751205
+    ],
+    [
+     9.064181742854405,
+     49.62697961751205
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -19192,6 +21670,45 @@
     1600
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "zugmantel-q1727277",
+   "name": "Zugmantel",
+   "place": "Hesse, Germany",
+   "lon": 8.20364,
+   "lat": 50.18977,
+   "summary": "Das Kastell Zugmantel ist ein ehemaliger r\u00f6mischer Garnisonsort, der f\u00fcr eine Besatzung in der Gr\u00f6\u00dfe einer Kohorte ausgelegt war. Die Anlage liegt an der westlichen Taunusstrecke des Obergermanischen Limes, der seit 2005 den Status des UNESCO-Weltkulturerbes besitzt. Das obert\u00e4gig im Gel\u00e4nde noch sehr gut wahrnehmbare Bodendenkmal befindet sich in einem Waldrandgebiet von Taunusstein-Orlen im hessischen Rheingau-Taunus-Kreis.",
+   "region": "Germany",
+   "kind": "roman fort",
+   "qid": "Q1727277",
+   "wiki": "https://de.wikipedia.org/wiki/Kastell_Zugmantel",
+   "corners": [
+    [
+     8.192415388564202,
+     50.19695598153391
+    ],
+    [
+     8.214864611435798,
+     50.19695598153391
+    ],
+    [
+     8.214864611435798,
+     50.18258293697145
+    ],
+    [
+     8.192415388564202,
+     50.18258293697145
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "lidar": false,
    "drawings": 0,
    "score": 0,
    "oldest": null,

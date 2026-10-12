@@ -1,0 +1,15 @@
+{
+ "id": "brussels-q239",
+ "name": "Brussels",
+ "place": "Arrondissement of Brussels-Capital, Belgium",
+ "lon": 4.3517,
+ "lat": 50.8467,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q239",
+ "summary": "The City of Brussels is the largest municipality and historical centre of the Brussels-Capital Region, as well as the capital of Belgium. It is additionally the capital of the French Community of Belgium, the Flemish Community, and the Flemish Region. The City of Brussels is also the administrative centre of the European Union, as it hosts a number of principal EU institutions in its European Quarter.",
+ "wiki": "https://en.wikipedia.org/wiki/City_of_Brussels"
+}

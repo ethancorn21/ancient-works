@@ -1,0 +1,15 @@
+{
+ "id": "imola-q50195",
+ "name": "Imola",
+ "place": "Emilia-Romagna, Italy, Italy",
+ "lon": 11.7112,
+ "lat": 44.3535,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Italy",
+ "kind": "town",
+ "qid": "Q50195",
+ "summary": "Imola is a city and comune in the Metropolitan City of Bologna, located on the river Santerno, in the Emilia-Romagna region of northern Italy. The city is traditionally considered the western entrance to the historical region Romagna.",
+ "wiki": "https://en.wikipedia.org/wiki/Imola"
+}

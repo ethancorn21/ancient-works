@@ -1,7 +1,7 @@
 Status: open
 # 211: Consolidate - the new sites and pictures into the page's data
 Depends on: 200, 204, 205, 206, 208, 209, 210, 222, 223, 224, 225, 226, 227, 228
-Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, docs/sources.md, web/data/sites.json, web/data/plans.json, tests/test_merge.py
+Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py
 
 ## Goal
 The single point where the per-source staging becomes the canonical data GOAL.md names.
