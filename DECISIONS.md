@@ -654,3 +654,9 @@ docs edit.
 - Acceptance criteria not ticked (verify each one, then tick it):
     - [ ] `REGION_NAME` maps "italy" to "Italy" (add other region keys the data audit below finds missing)
     - [ ] Test (no network; socket-blocking fixture): `make_site` on a synthetic entry with region "Italy" yields
+
+## 2026-10-12 215 DRIVER: done claim rejected, task reopened
+- Acceptance criteria not ticked (verify each one, then tick it):
+    - [ ] `books.py`'s URL list names the ports that are live on this machine (all three replicas, not just
+    - [ ] A smoke run: one page through `run_stage` for any book with triage images cached succeeds
+    - [ ] A `PITFALLS.md` entry records the machine's LLM ports (llmtunnel user, 8080-8082) so the next
