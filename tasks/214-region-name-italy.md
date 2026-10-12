@@ -12,8 +12,8 @@ sites. Add the missing mapping and pin it with a test that also guards against s
 region the data actually uses.
 
 ## Acceptance criteria
-- [ ] `REGION_NAME` maps "italy" to "Italy" (add other region keys the data audit below finds missing)
-- [ ] Test (no network; socket-blocking fixture): `make_site` on a synthetic entry with region "Italy" yields
+- [x] `REGION_NAME` maps "italy" to "Italy" (add other region keys the data audit below finds missing)
+- [x] Test (no network; socket-blocking fixture): `make_site` on a synthetic entry with region "Italy" yields
       site region "Italy", not "US"; and every distinct region string across data/catalog/*.jsonl and
       web/data/sites.json resolves to itself or a known name (no silent "US" fallback for a non-US site)
 
