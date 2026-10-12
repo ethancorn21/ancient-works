@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 141, agent c - third session. Audit run in flight; judging-prep sheet
+- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 142, agent c - fourth session. All 42 shots done and clean; argentoratum (10/10 docs) judged; 11 docs left to judge, then lines
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -113,6 +113,31 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   c_be12fb 15/25, ferme c_804aa7 11/203) - judge the image, not the stats; two candidates with
   200-evidence CONFLICTS (c_e882645: "Ville" Q1165252 ~350 km west near Paris; cenabum c_e73dc8:
 ... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)' DECISIONS.md`)
+
+### 2026-10-12 306b DECISION: audit complete (42 shots); found + neutralised a 307 fit-queue trap that contaminated 9 shots (re-shot clean); argentoratum judged 10/10 STAYS; 11 docs left
+- Fourth session. The 42-shot run finished (zero failures). NEW DISCOVERY: nine of my 21 docs
+  (c_436bea, c_c280ff, n0110_1, c_be12fb, n0325, c_e66ec, c_804aa7, c_b52dd, c_f9cdda) match a
+  web/data/fit_queue.json entry proposing the same site's plan; 307's web/fitkit.js _fkActivate
+  then seeds 5 anchor pairs that blend with my 8 doc pairs into a 13-point least squares, so the
+  preview ink + fithint showed the blend, not the document. Fix in MY driver tools/audit_306b.mjs
+  (web/*.js stays agent a's): the IIFE waits for FQ.loaded, empties FQ.entries before openPlan
+  (fitkit falls open), and reports fqEntries/placed/anchor in [eval]. All 18 reshoots verified
+  clean (placed:false, n:8, resid ~0); the [eval] numbers in /tmp/audit_306b_reshoot.log are the
+  docs' own transforms. If another task ever drives openPlan headlessly with its own pairs, it
+  hits this too: check P.placed / pair count in the shot log.
+- Judging: argentoratum 10/10 STAYS (all ten sit on the real old town / fort ring / Roman castrum /
+  Krutenau district; details in the task hand-over, with per-doc mpx/rot and the item candidate's
+  rejection). c_e8826 - the item's recorded resolver - verified right, so the item stays resolved
+  by a fit that is actually good; its "Ville" Q1165252 evidence conflict is a sheet-level red
+  herring. NEXT (in order): judge the remaining 11 docs (hand-over has per-doc numbers; earthwork
+  sites - neroche, lemanis, cawthorne, watson-brake x2 - judge the RELIEF image first), append all
+  21 lines to the END of docs/site_flow.md (section "## The agent fits, looked at (task 306)"
+  starts line 702; last existing line = bethlehem fc4566d6947287f4 at line 800), 303-way removals
+  of any misses (upsert_item full doc + why, delete doc, site-scoped review export; NEVER
+  tools/site_done.py on these 10 sites), then tick boxes and run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed /
+  1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
+  surviving one - never loosen).
 
 ## Project-wide driver notes (newest)
 
