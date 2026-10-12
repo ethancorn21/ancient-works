@@ -23,7 +23,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+2026-10-12 208 (iteration 158, session 1): sweep done on the IA side — anchor ORL 1895 vol (Osterburken) verified free+machine-readable with 2 stageable drawings; no other ORL on IA; Limesblatt text-only. Second source found: de.wiki/Commons ORL plate set (874 files, 167 Grundrisse, 45 forts, sampled licenses free). Decision "proceed" leans yes, commits after the paced Commons leg verifies >=10 fit-sized named plans from >=2 volumes. docs/lead_limes.md NOT yet written (context limit) — session 2 writes it first, from the task's Hand-over. DNB/uni-hd sources blocked (recorded in the decisions entry).
 
 ## Project-wide driver notes (newest)
 
