@@ -1,0 +1,161 @@
+{
+ "classified": [
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "heddesdorf-q1735373",
+   "title": "File:ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "heddesdorf-q1735373",
+   "title": "File:ORL 01 tab 01 pic 01 Lageplan.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "osterburken-q1243550",
+   "title": "Das Kastell Osterburken, Tafel III - Situationskarte (1895)"
+  }
+ ],
+ "extras": [
+  {
+   "aerial_ok": true,
+   "id": "heddesdorf-q1735373",
+   "kind": "roman fort",
+   "lat": 50.4365,
+   "lon": 7.46931,
+   "name": "Heddesdorf",
+   "note": "ORL 01 (Abt B, Band 1), monograph 1903; point = the item's P625",
+   "place": "Rhineland-Palatinate",
+   "qid": "Q1735373",
+   "region": "germany",
+   "source": "fit/src_limes.py",
+   "wikipedia": "https://de.wikipedia.org/wiki/Kastell_Heddesdorf"
+  },
+  {
+   "aerial_ok": true,
+   "id": "osterburken-q1243550",
+   "kind": "roman fort",
+   "lat": 49.42753,
+   "lon": 9.42364,
+   "name": "Osterburken",
+   "note": "ORL 40 (Abt B, Band 4), monograph 1895; point = the item's P625",
+   "place": "Baden-Württemberg",
+   "qid": "Q1243550",
+   "region": "germany",
+   "source": "fit/src_limes.py",
+   "wikipedia": "https://de.wikipedia.org/wiki/Kastell_Osterburken"
+  }
+ ],
+ "files": [
+  {
+   "artist": null,
+   "by": "fit/src_limes.py dewiki-orl",
+   "cat": null,
+   "date": "1903",
+   "date_commons": "0000-00-00",
+   "desc": "Grundriss des Kastellbades von Heddesdorf, ORL 1 ORL Abt B, Band 1, monograph 1903 (Reichs-Limes-Kommission); de.wikipedia file page.",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Heddesdorf",
+    "place_label": "Heddesdorf",
+    "place_lat": 50.4365,
+    "place_lon": 7.46931,
+    "place_qid": "Q1735373",
+    "rec": "evidence/1",
+    "site_lat": 50.4365,
+    "site_lon": 7.46931
+   },
+   "h": 2867,
+   "license": "Bild-PD-alt",
+   "mime": "image/jpeg",
+   "name": "Heddesdorf, Grundriss des Kastellbades, ORL 01, 1903 (de.wikipedia)",
+   "page": "https://de.wikipedia.org/wiki/File:ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg",
+   "qid": "Q1735373",
+   "site": "heddesdorf-q1735373",
+   "thumb": null,
+   "title": "File:ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/de/c/c6/ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg?utm_source=de.wikipedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 4472,
+   "wd_plan": false,
+   "year": 1903
+  },
+  {
+   "artist": null,
+   "by": "fit/src_limes.py commons-orl",
+   "cat": null,
+   "date": "1903",
+   "date_commons": "0000-00-00",
+   "desc": "Lageplan des Kastells Heddesdorf, ORL 1 ORL Abt B, Band 1 plate, monograph 1903 (Reichs-Limes-Kommission); Commons file page.",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Heddesdorf",
+    "place_label": "Heddesdorf",
+    "place_lat": 50.4365,
+    "place_lon": 7.46931,
+    "place_qid": "Q1735373",
+    "rec": "evidence/1",
+    "site_lat": 50.4365,
+    "site_lon": 7.46931
+   },
+   "h": 4223,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Heddesdorf, Lageplan, ORL 01, 1903 (Commons)",
+   "page": "https://commons.wikimedia.org/wiki/File:ORL_01_tab_01_pic_01_Lageplan.jpg",
+   "qid": "Q1735373",
+   "site": "heddesdorf-q1735373",
+   "thumb": null,
+   "title": "File:ORL 01 tab 01 pic 01 Lageplan.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/ORL_01_tab_01_pic_01_Lageplan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2961,
+   "wd_plan": false,
+   "year": 1903
+  },
+  {
+   "artist": null,
+   "by": "fit/src_limes.py ia-1895",
+   "cat": null,
+   "date": "1895",
+   "desc": "Tafel III 'Nr 40. KASTELL OSTERBURKEN': Situationskarte with the fort, its Limes road, the railway, the town and field boundaries, MAASSTAB 1:5000. ORL Lieferung II, Band IV Abt B Nr. 40 (O. Petters, Heidelberg, 1895); Internet Archive scan derobergermanis00fabrgoog, leaf 55.",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Osterburken",
+    "place_label": "Osterburken",
+    "place_lat": 49.42753,
+    "place_lon": 9.42364,
+    "place_qid": "Q1243550",
+    "rec": "evidence/1",
+    "site_lat": 49.42753,
+    "site_lon": 9.42364
+   },
+   "h": 7526,
+   "license": "public domain (1895 scan; PD notice on the item's first leaves)",
+   "mime": "image/jpeg",
+   "name": "Osterburken, Situationskarte, Tafel III (1:5000), ORL 40, 1895 (Internet Archive)",
+   "page": "https://archive.org/details/derobergermanis00fabrgoog",
+   "qid": "Q1243550",
+   "site": "osterburken-q1243550",
+   "thumb": "https://archive.org/download/derobergermanis00fabrgoog/page/n54.jpg",
+   "title": "Das Kastell Osterburken, Tafel III - Situationskarte (1895)",
+   "url": "https://archive.org/download/derobergermanis00fabrgoog/page/n54.jpg",
+   "w": 5398,
+   "wd_plan": false,
+   "year": 1895
+  }
+ ]
+}

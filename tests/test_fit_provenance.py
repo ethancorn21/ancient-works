@@ -39,6 +39,13 @@ needed, ephemeral ports):
      tree with no pipeline/ - the fit worker dies on import, so no sweep and no network)
      stamps by: hand on every PUT to platefits (a stale by is overwritten in place, a new by
      lands last) and leaves every other collection's bytes raw.
+  e. the source line states the book's year once (task 219): plan_fit.build pinned end to
+     end on real store documents - a commons title that already carries a 4-digit year drops
+     its label's parenthesis (303's live shotwick run read "...(1897) (1897), ..."), a
+     yearless title keeps the label (or reads "undated"), and the book branch stays
+     byte-identical. Hermetic: each picture is a flat stand-in at the doc's own frame size
+     (fs = 1, so the least-squares fit math is exactly the doc's - no download) and the
+     test process's sockets are dead.
 """
 import contextlib
 import hashlib
@@ -48,6 +55,7 @@ import json
 import os
 import re
 import shutil
+import socket
 import subprocess
 import sys
 import time
@@ -551,3 +559,104 @@ def test_page_save_stamps_hand(tmp_path):
             proc.wait(timeout=10)
         except subprocess.TimeoutExpired:
             proc.kill()
+
+
+# ---------------------------------------------------------------------------
+# e. the source line states the book's year once (task 219)
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def no_net(monkeypatch):
+    """Every socket in this test process dies loudly. plan_fit.build runs in-process here,
+    so unlike the subprocess guard above this one really reaches it: with the picture
+    seeded in the tree's cache, nothing may attempt a network connection."""
+    def _dead(*args, **kwargs):
+        raise AssertionError("the hermetic build attempted a network connection: %r" % (args,))
+    monkeypatch.setattr(socket.socket, "connect", _dead)
+    monkeypatch.setattr(socket, "create_connection", _dead)
+    return _dead
+
+
+def _standin(doc):
+    """A flat JPEG at the doc's own frame size. load_picture then reports fs = 1, and the fit
+    is pure least squares over the point pairs (the pixels never enter it), so the entry's
+    corners, residuals and source line come out exactly as for the real picture."""
+    from PIL import Image
+    buf = io.BytesIO()
+    Image.new("RGB", tuple(doc.get("size") or (64, 48)), (200, 200, 200)).save(buf, "JPEG")
+    return buf.getvalue()
+
+
+def _source_tree(tmp, doc):
+    """The smallest tree plan_fit.build needs: the doc's site dir (bare - the overlay is the
+    build's own output), the picture as a stand-in at the cache path build reads (commons:
+    data/raw/commons/big/<plan>.jpg; book: data/raw/books/<ia>/full/<file>), and a copy of
+    the real sites.json (the build's final build_site.set_drawings reads it; overlays and
+    drawings tolerate a bare site dir)."""
+    t = Path(tmp) / f"src-{doc['site']}.{doc['plan']}"  # one tree per doc: a test may build two
+    (t / "web" / "data" / "sites" / doc["site"]).mkdir(parents=True)
+    if doc.get("src") == "commons":
+        (t / "data" / "raw" / "commons" / "big").mkdir(parents=True)
+        (t / "data" / "raw" / "commons" / "big" / (doc["plan"] + ".jpg")).write_bytes(_standin(doc))
+    else:
+        d = t / "data" / "raw" / "books" / doc["ia"] / "full"
+        d.mkdir(parents=True)
+        (d / doc["file"]).write_bytes(_standin(doc))
+    shutil.copy2(ROOT / "web" / "data" / "sites.json", t / "web" / "data" / "sites.json")
+    return t
+
+
+def _build_source(tmp, doc_id):
+    """The real store doc built against the stand-in tree -> the entry's source line."""
+    doc = json.loads((ROOT / "data" / "db" / "platefits" / (doc_id + ".json")).read_text())
+    tree = _source_tree(tmp, doc)
+    plan_fit.build(doc, root=str(tree))
+    deps = json.loads((tree / "web" / "data" / "sites" / doc["site"] / "depictions.json").read_text())
+    entry = next(d for d in deps["depictions"] if d["file"] == f"plan_{doc['plan']}.webp")
+    return entry["source"]
+
+
+def test_book_source_line_stays_byte_identical(tmp_path, no_net):
+    """The year-once rule only rewrites the commons branch: a book doc's source line comes
+    out of build exactly as before (303's and the earlier tasks' pinned strings stay put)."""
+    src = _build_source(tmp_path, "arbor-low-q630312.earthworkenglan01allcgoog_n0597_1")
+    assert src == ("A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, "
+                   "Norman and Mediaeval, London 1908. Fig. 194. Scan: Internet Archive "
+                   "earthworkenglan01allcgoog leaf 597. Placed by hand on 4 matching points; "
+                   "one rotation and scale fits them within 6 m.")
+
+
+def test_commons_yearless_title_keeps_the_label(tmp_path, no_net):
+    """A commons title without a 4-digit year keeps the label parenthesis exactly as before: a titled
+    label (bergues) and a batch doc with no label at all (durocortorum, which reads 'undated') both
+    come out byte-identical to the pre-fix line. The original undated pin (bethlehem) was audited out
+    by 306a (maps of Judaea fitted onto the Dutch polder, 2000 km away), so the case is pinned on a
+    surviving batch doc."""
+    src = _build_source(tmp_path, "bergues-q244934.c_4bbca705be732b1c")
+    assert src == ("Bergues, town plan by Jacob van Deventer (1545), Wikimedia Commons: by "
+                   "Jacob van Deventer; Public domain; "
+                   "https://commons.wikimedia.org/wiki/File:Bergues_-_Deventer.jpg. "
+                   "Placed by hand on 4 matching points; one rotation and scale fits them within 33 m.")
+    src = _build_source(tmp_path, "durocortorum-q4896307.c_08d995eb23a685c2")
+    assert src == ("Plan-Reims-Bas-Empire (undated), Wikimedia Commons: by October Ends; CC BY-SA 3.0; "
+                   "https://commons.wikimedia.org/wiki/File:Plan-Reims-Bas-Empire.png. "
+                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
+                   "fits them within 1 m (gate score 0.0 m)")
+
+
+def test_commons_yeared_title_drops_the_repeated_year(tmp_path, no_net):
+    """The fix, pinned on a surviving year-titled doc: 303's live shotwick run (the title already
+    states the year, 1897, and the built entry read '...The Castles of England (1897) (1897), ...')
+    was audited off the map by 306a (~2x too big), so the rule is pinned on the surviving batch doc
+    whose title states the year (the 1748 plan detail): the label's parenthesis is not repeated
+    after a title that already states the year, and the how-clause is the batch's (gate score).
+    Note the year occurs twice in the line (title and file URL) - what the rule drops is the
+    label's parenthesis, never the title's or the URL's year."""
+    src = _build_source(tmp_path, "bethlehem-q2523914.c_a164ee440558d66c")
+    assert src == ("Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped), "
+                   "Wikimedia Commons: by unknown cartographer; Public domain; "
+                   "https://commons.wikimedia.org/wiki/File:Plan_de_Maestricht_et_environs_1748,"
+                   "_detail_Severen_%26_Kanjel_(cropped).jpg. "
+                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
+                   "fits them within 113 m (gate score 39.3 m)")
+    assert " (c. 1748)" not in src  # the label's parenthesis must not follow a title that states the year

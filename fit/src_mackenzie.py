@@ -18,18 +18,21 @@ usage: src_mackenzie.py --fetch     working phase (network): the 839x840 BL Flic
        src_mackenzie.py --zoom      working phase (network): a 200 m ground crop at 0.25 m/px, gridded
        src_mackenzie.py --write-doc x0,y0,x1,y1 u,v=lon,lat ...   write data/db/platefits/<site>.<plan>.json
                                     (the hand-fit shape of the other 25; pairs in page px of the 839x840 frame)
-       src_mackenzie.py --gate      offline: fit_gate.gate over the committed doc's pairs (transform=None - the
-                                    hand fit's own residual is the claim, docs/gate.md section 4) + the
-                                    plan_fit.similarity residuals; fails loud (exit 1) on a REJECT
+       src_mackenzie.py --gate      offline: fit_gate.gate over the doc's pairs (the store file, or the
+                                    review item's candidate record after the 306a audit removed the store
+                                    file; transform=None - the recorded fit's own residual is the claim,
+                                    docs/gate.md section 4) + the plan_fit.similarity residuals; fails
+                                    loud (exit 1) on a REJECT
        src_mackenzie.py [--dry]     stage the row into this task's staging files (dry: print, write nothing):
                                     the file row (the 29 plates' exact shape + the 200 evidence field), the
                                     classified row and the extras row (aerial_ok: the picture is the reason to
                                     build the unbuilt site, so 211 builds it with the plan already tied)
        src_mackenzie.py --check     offline (no network): the join (site in the catalog by QID, rows 1:1, no
-                                    clash with the canonical files or the 29 hand-tied plates) + fit/evidence.py
-                                    check over the staged row
-       src_mackenzie.py --golden    write tests/golden/src_mackenzie_sample.json (staged rows + the doc,
-                                    normalized; regenerate only for an intended change)
+                                    clash with the canonical files or the 29 hand-tied plates) + the doc record
+                                    (store file or review-item candidate) matching the staged row (site/plan/
+                                    size, >= 4 pairs) + fit/evidence.py check over the staged row
+       src_mackenzie.py --golden    write tests/golden/src_mackenzie_sample.json (staged rows + the doc
+                                    record, normalized; regenerate only for an intended change)
 
 Staging writes only this task's files (append-only, idempotent on (site, title)); 211 consolidates them into
 the canonical ones and builds the site. The system python3 has no numpy (commons -> aw), so every command
@@ -318,12 +321,36 @@ def write_doc(crop, pairs):
     print("wrote", DB_DOC)
 
 
+def doc_record():
+    """The doc's record: the store file (data/db/platefits) when it exists, else the review item's
+    candidate record for (SITE, PLAN) - the 306a audit (2026-10-12) removed the store file (the fit is
+    ~2x too big, NHLE 1016616) and kept the full record - every doc field plus the audit reason in
+    'why' - in the item. Stdlib-only on purpose: the module top never imports fit/ or pipeline/."""
+    if os.path.exists(DB_DOC):
+        return json.load(open(DB_DOC))
+    rev = os.path.join(ROOT, "data", "review")
+    if not os.path.isdir(rev):
+        return None
+    for name in sorted(os.listdir(rev)):
+        if not name.endswith(".json"):
+            continue
+        item = json.load(open(os.path.join(rev, name)))
+        if item.get("site") != SITE:
+            continue
+        for c in item.get("candidates") or []:
+            if c.get("plan") == PLAN:
+                return c
+    return None
+
+
 def gate():
-    """The gate on the committed doc's own anchors (docs/gate.md section 4: the hand fit's residual is the
+    """The gate on the doc's own anchors (docs/gate.md section 4: the recorded fit's residual is the
     claim; transform=None solves the similarity from the pairs, exactly plan_fit.similarity)."""
     import fit_gate
     import plan_fit
-    doc = json.load(open(DB_DOC))
+    doc = doc_record()
+    if doc is None:
+        raise SystemExit("the platefit doc is not written yet (the fit session writes it)")
     pairs = doc["pairs"]
     verdict, stats = fit_gate.gate(pairs)
     a, b, resid, k = plan_fit.similarity(pairs)
@@ -432,14 +459,14 @@ def check():
         problems.append("the extras row is missing, wrong or not aerial_ok (211 would not build the site)")
     if SITE in extras_canonical:
         problems.append(f"{SITE} is already in the canonical extras.jsonl - the merge would double it")
-    if os.path.exists(DB_DOC):
-        d = json.load(open(DB_DOC))
+    d = doc_record()
+    if d is None:
+        problems.append("the platefit doc is not written yet (the fit session writes it)")
+    else:
         if d.get("site") != SITE or d.get("plan") != PLAN or d.get("size") != [PAGE_W, PAGE_H]:
             problems.append("the platefit doc does not match the staged row (site/plan/size)")
         if len(d.get("pairs", [])) < 4:
             problems.append(f"the doc has {len(d.get('pairs', []))} pairs (the gate needs >= 4)")
-    else:
-        problems.append("the platefit doc is not written yet (the fit session writes it)")
     for p in problems:
         print("join:", p)
     code, text = evidence.check(FILES, os.path.join(ROOT, "data", "books", ".no-books"))
@@ -463,9 +490,11 @@ def _norm(rows):
 
 
 def golden(path=None):
-    """Write tests/golden/src_mackenzie_sample.json: the staged rows and the doc, normalized."""
+    """Write tests/golden/src_mackenzie_sample.json: the staged rows and the doc record (doc_record:
+    the store file, or the review item's candidate after the 306a audit removed the store file),
+    normalized."""
     p = path or os.path.join(ROOT, "tests", "golden", "src_mackenzie_sample.json")
-    doc = json.load(open(DB_DOC)) if os.path.exists(DB_DOC) else None
+    doc = doc_record()
     if doc is not None:
         doc = dict(doc, at="0000-00-00T00:00:00+00:00")
     out = {"extras": _norm(_load(EXTRAS)), "files": _norm(_load(FILES)),

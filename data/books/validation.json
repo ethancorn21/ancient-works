@@ -1089,5 +1089,14 @@
   "flagged_site_pages_stageA": 23,
   "stageF_pages": 13,
   "flagged_site_pages": 26
+ },
+ {
+  "book": "civitates_liber2",
+  "ia": "civitatesorbiste00brau",
+  "pages": 292,
+  "triaged_A": 292,
+  "flagged_site_pages_stageA": 3,
+  "stageF_pages": 118,
+  "flagged_site_pages": 11
  }
 ]

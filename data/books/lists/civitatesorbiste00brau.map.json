@@ -1,1 +1,1654 @@
-[]
+[
+{
+"n": 4,
+"site_plan": false,
+"entries": [
+{
+"fig": 4,
+"title": "CIVITATIS ORBIS TERRARVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 29,
+"site_plan": false,
+"entries": [
+{
+"fig": 29,
+"title": "LONDINVM FELICIAE REGN",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 30,
+"site_plan": false,
+"entries": [
+{
+"fig": 30,
+"title": "SSIMI AN TROPOLIS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 33,
+"site_plan": false,
+"entries": [
+{
+"fig": 33,
+"title": "LISBOO CASCALE Lusitaniae opp.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 34,
+"site_plan": false,
+"entries": [
+{
+"fig": 34,
+"title": "OLISIPO, SIVE VT PERVE TVSTA LAPIDVM INSCRIPTIO NES HABENT, VLYSIPPO, VVLGO LISBONA FLORENTIS SIMVM PORTVGALLIAE EMPORIVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 37,
+"site_plan": false,
+"entries": [
+{
+"fig": 37,
+"title": "MALAGA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 38,
+"site_plan": false,
+"entries": [
+{
+"fig": 38,
+"title": "SEVILLA CADIZ MACE",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 41,
+"site_plan": false,
+"entries": [
+{
+"fig": 41,
+"title": "TOLETVM VALLISOLETVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 42,
+"site_plan": false,
+"entries": [
+{
+"fig": 42,
+"title": "ALLISOLETVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 45,
+"site_plan": false,
+"entries": [
+{
+"fig": 45,
+"title": "Ormus.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 46,
+"site_plan": false,
+"entries": [
+{
+"fig": 46,
+"title": "Granada",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 49,
+"site_plan": false,
+"entries": [
+{
+"fig": 49,
+"title": "BARCELONA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 50,
+"site_plan": false,
+"entries": [
+{
+"fig": 50,
+"title": "Cum Privilegio [other plate: inland view; 'Depingit G. Gorizius 1587']",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 53,
+"site_plan": false,
+"entries": [
+{
+"fig": 53,
+"title": "Burgos + S. Sebastian",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 54,
+"site_plan": false,
+"entries": [
+{
+"fig": 54,
+"title": "BVRGOS celebris et antiqua Hispaniae civitas, quae Auca, Brautum, Masburgi, Li conitiurgis, nomina habet [other plate: SANCT. SEBASTIANVM vulgo Donostien ad mare Oceanum insigne regni Guipuzcoa oppidum]",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 57,
+"site_plan": false,
+"entries": [
+{
+"fig": 57,
+"title": "VTELLA, vulgari nomine Paris, urbs",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 58,
+"site_plan": true,
+"entries": [
+{
+"fig": 58,
+"title": "LVTETIA PARISIORVM",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 61,
+"site_plan": false,
+"entries": [
+{
+"fig": 61,
+"title": "MONS PESSULVVS. MONTPELLIER",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 62,
+"site_plan": false,
+"entries": [
+{
+"fig": 62,
+"title": "TVRO. TOVRS.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 65,
+"site_plan": false,
+"entries": [
+{
+"fig": 65,
+"title": "ROTOMAGVS. VVIGO. KORN. NOR. MAGNÆ METROPOLIS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 66,
+"site_plan": false,
+"entries": [
+{
+"fig": 66,
+"title": "ROAN",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 69,
+"site_plan": false,
+"entries": [
+{
+"fig": 69,
+"title": "LE ROSNE",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 70,
+"site_plan": false,
+"entries": [
+{
+"fig": 70,
+"title": "Lyon Qui de la France",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 73,
+"site_plan": false,
+"entries": [
+{
+"fig": 73,
+"title": "LEO",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 74,
+"site_plan": false,
+"entries": [
+{
+"fig": 74,
+"title": "DIV M. LIEGE",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 77,
+"site_plan": false,
+"entries": [
+{
+"fig": 77,
+"title": "MAGDEBURG",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 78,
+"site_plan": false,
+"entries": [
+{
+"fig": 78,
+"title": "AQVISGRA NVM, VRBS PRÆ CLARISSIMA. PRIMVM, INTER QVATVOR IMPE RII CIVITATES, LOCVM OBTINET.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 81,
+"site_plan": false,
+"entries": [
+{
+"fig": 81,
+"title": "MONTES, HANNO NIAE METROPOLIS.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 82,
+"site_plan": false,
+"entries": [
+{
+"fig": 82,
+"title": "ATREBATVM, EPISCO PALIS ET METROPOLITI CA ARTESIA CIVITAS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 85,
+"site_plan": true,
+"entries": [
+{
+"fig": 85,
+"title": "BRVXELLA",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 86,
+"site_plan": false,
+"entries": [
+{
+"fig": 86,
+"title": "BRVXELLA, vrbs aulico rum frequentia, fontium copia, magnificentia principalis aulæ, Castræ domus, ac plurium aliarum splendore, nobilissima.",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 89,
+"site_plan": false,
+"entries": [
+{
+"fig": 89,
+"title": "GANDANVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 90,
+"site_plan": true,
+"entries": [
+{
+"fig": 90,
+"title": "GANDANVM",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 93,
+"site_plan": false,
+"entries": [
+{
+"fig": 93,
+"title": "BRVGA, vulgo Brügge-Teuto: niae Flandriae urbs omnium pulcherrima",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 94,
+"site_plan": false,
+"entries": [
+{
+"fig": 94,
+"title": "ORICARVM AMENTA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 97,
+"site_plan": false,
+"entries": [
+{
+"fig": 97,
+"title": "ANVERP. PARS FLANDRIAE",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 98,
+"site_plan": true,
+"entries": [
+{
+"fig": 98,
+"title": "ANVERPIA",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 101,
+"site_plan": false,
+"entries": [
+{
+"fig": 101,
+"title": "TSHERTO LOE MAC",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 102,
+"site_plan": false,
+"entries": [
+{
+"fig": 102,
+"title": "GENBOSCH EN. ELEN.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 105,
+"site_plan": false,
+"entries": [
+{
+"fig": 105,
+"title": "TRAIECTVM CLARA ET VETVS EST EPISCOPALIS CIVITAS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 106,
+"site_plan": false,
+"entries": [
+{
+"fig": 106,
+"title": "RAETVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 109,
+"site_plan": true,
+"entries": [
+{
+"fig": 109,
+"title": "AMSTELEDAVM",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 110,
+"site_plan": false,
+"entries": [
+{
+"fig": 110,
+"title": "AMSTELEDAVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 113,
+"site_plan": false,
+"entries": [
+{
+"fig": 113,
+"title": "GROENINGA. BROVERSAVIA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 114,
+"site_plan": false,
+"entries": [
+{
+"fig": 114,
+"title": "INGA. GORICVM, NO BILE HOLLANDI Æ. OPPIDVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 117,
+"site_plan": false,
+"entries": [
+{
+"fig": 117,
+"title": "MONASTERIVM, Wesalia Inferior.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 118,
+"site_plan": false,
+"entries": [
+{
+"fig": 118,
+"title": "OSNABRUGVM E L. GANS SAXONIAE OPP.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 121,
+"site_plan": false,
+"entries": [
+{
+"fig": 121,
+"title": "LUNEBVRGVM, NOBILIS SAXONIAE VRBS, SALINIS CELEBERRIMA. BREMA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 122,
+"site_plan": false,
+"entries": [
+{
+"fig": 122,
+"title": "BRVNOPOLIS VVLGO BRVNSVICVM, BRAVNSCHWICH. VR.BS MAXIMA, V NIVERSA. Saxonis Metropolis. ALDENBVREGVM HOLSATIA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 125,
+"site_plan": false,
+"entries": [
+{
+"fig": 125,
+"title": "LVBECA VRBIS IMPERIALIS DALICARVM, ET INCLYTÆ",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 126,
+"site_plan": false,
+"entries": [
+{
+"fig": 126,
+"title": "HAMBURGA, CIVITATVM WANSEATICA SOCIETATIS CAPVT",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 129,
+"site_plan": false,
+"entries": [
+{
+"fig": 129,
+"title": "WEIMAR IENA GOTHA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 130,
+"site_plan": false,
+"entries": [
+{
+"fig": 130,
+"title": "WEIMARIA NOBILE THV RINGIAE OPP. ILLVST. SAX ONIA. DVCVM SAED. E.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 133,
+"site_plan": false,
+"entries": [
+{
+"fig": 133,
+"title": "M A R C A S S",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 134,
+"site_plan": false,
+"entries": [
+{
+"fig": 134,
+"title": "MARTPVRGVM VRBS HASSIAE METROPOLIS, VNIVERSITATE CLARA. CASSVLA, communiter Castel, florentissimum langerae Hassiae oppidum",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 137,
+"site_plan": false,
+"entries": [
+{
+"fig": 137,
+"title": "WITTENBURGA, WISMARIA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 138,
+"site_plan": false,
+"entries": [
+{
+"fig": 138,
+"title": "CIVITAS FRANCFORDIENSIS ROSTOCHIVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 141,
+"site_plan": false,
+"entries": [
+{
+"fig": 141,
+"title": "DRES LEI",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 142,
+"site_plan": false,
+"entries": [
+{
+"fig": 142,
+"title": "Alte Drefzden. BZIGK",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 145,
+"site_plan": false,
+"entries": [
+{
+"fig": 145,
+"title": "PRA GA E G",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 146,
+"site_plan": false,
+"entries": [
+{
+"fig": 146,
+"title": "G A. R A.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 149,
+"site_plan": false,
+"entries": [
+{
+"fig": 149,
+"title": "MAGDEBURGVM",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 150,
+"site_plan": false,
+"entries": [
+{
+"fig": 150,
+"title": "ARGVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 153,
+"site_plan": false,
+"entries": [
+{
+"fig": 153,
+"title": "VRBIS SALISBV RG GEN. SIS GENVINA DE. SCRIPTIO",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 154,
+"site_plan": false,
+"entries": [
+{
+"fig": 154,
+"title": "LINDOLIA, oppidum superij insulare, undique aqua acromi lacis circumfusum",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 157,
+"site_plan": false,
+"entries": [
+{
+"fig": 157,
+"title": "DECEM ET TRIA LOCA CON",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 158,
+"site_plan": false,
+"entries": [
+{
+"fig": 158,
+"title": "FEDERATORVM HELVETIAE",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 161,
+"site_plan": false,
+"entries": [
+{
+"fig": 161,
+"title": "ARGENTORATVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 162,
+"site_plan": false,
+"entries": [
+{
+"fig": 162,
+"title": "Strasburg",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 165,
+"site_plan": false,
+"entries": [
+{
+"fig": 165,
+"title": "WORMATIA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 166,
+"site_plan": false,
+"entries": [
+{
+"fig": 166,
+"title": "IDELBERGA. PIRA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 169,
+"site_plan": false,
+"entries": [
+{
+"fig": 169,
+"title": "CIVITAS FRANCO",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 170,
+"site_plan": false,
+"entries": [
+{
+"fig": 170,
+"title": "TRANCORDELLE",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 173,
+"site_plan": false,
+"entries": [
+{
+"fig": 173,
+"title": "TREVERIS COBOL ROTEN",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 174,
+"site_plan": false,
+"entries": [
+{
+"fig": 174,
+"title": "TYPVS AC SITVS ANTIQVISSIMÆ ET PRÆCIPVÆ MEDIOMATRI CVM CIVITATIS TREVIRENSIS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 177,
+"site_plan": false,
+"entries": [
+{
+"fig": 177,
+"title": "MOGVN TIA, Germaniæ Metropolis, ad Rheni ripas Vrbis cele",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 178,
+"site_plan": false,
+"entries": [
+{
+"fig": 178,
+"title": "SITTEN",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 181,
+"site_plan": false,
+"entries": [
+{
+"fig": 181,
+"title": "De Ponte et insula",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 182,
+"site_plan": false,
+"entries": [
+{
+"fig": 182,
+"title": "COLONIA AGRIPPEA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 185,
+"site_plan": false,
+"entries": [
+{
+"fig": 185,
+"title": "AVGVSTVS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 186,
+"site_plan": false,
+"entries": [
+{
+"fig": 186,
+"title": "HABET DELINE",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 189,
+"site_plan": false,
+"entries": [
+{
+"fig": 189,
+"title": "MONACVM, NOMINATIS SIMA BAVARIAE CIVITAS. FRISINGENSIS Episcopalis civitatis icon. RATISPONA antiquissima Bavaria urbs, Danubij ripis adiacens.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 190,
+"site_plan": false,
+"entries": [
+{
+"fig": 190,
+"title": "OENIPONS. NOR.DLINGA. STRAVBINGA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 193,
+"site_plan": false,
+"entries": [
+{
+"fig": 193,
+"title": "VIENNA AVSTRIAE [other plate: 'Danubius flu.' panorama; 'BVDA, vulgo...' cartouche]",
+"page": "2",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 194,
+"site_plan": false,
+"entries": [
+{
+"fig": 194,
+"title": "VIENNA AVSTRIAE",
+"page": "3",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 198,
+"site_plan": false,
+"entries": [
+{
+"fig": 198,
+"title": "MEDIOLANVM",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 201,
+"site_plan": false,
+"entries": [
+{
+"fig": 201,
+"title": "VENETIA",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 202,
+"site_plan": false,
+"entries": [
+{
+"fig": 202,
+"title": "VENETIA, verso of the fold-out",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 205,
+"site_plan": false,
+"entries": [
+{
+"fig": 205,
+"title": "FLORENTIA urbs est suffragio Heracius, alias Flacurios dicta, quod sita sit ad fluvium Arno fluminis [other plate: Genoa harbour; 'La sfortina']",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 206,
+"site_plan": false,
+"entries": [
+{
+"fig": 206,
+"title": "VA. FLORENTIA [other plate: 'GENVEA Ligurum...'; Cum Privilegio]",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 209,
+"site_plan": false,
+"entries": [
+{
+"fig": 209,
+"title": "ROMA",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 210,
+"site_plan": false,
+"entries": [
+{
+"fig": 210,
+"title": "CVM PRIVILEGIO",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 213,
+"site_plan": false,
+"entries": [
+{
+"fig": 213,
+"title": "ANCONA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 214,
+"site_plan": false,
+"entries": [
+{
+"fig": 214,
+"title": "ANCONA",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 217,
+"site_plan": false,
+"entries": [
+{
+"fig": 217,
+"title": "NEAPOLIS",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 218,
+"site_plan": false,
+"entries": [
+{
+"fig": 218,
+"title": "NEAPOLIS",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 221,
+"site_plan": false,
+"entries": [
+{
+"fig": 221,
+"title": "PARMA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 222,
+"site_plan": false,
+"entries": [
+{
+"fig": 222,
+"title": "SENA. ERM. ANVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 225,
+"site_plan": false,
+"entries": [
+{
+"fig": 225,
+"title": "MESSANA",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 226,
+"site_plan": false,
+"entries": [
+{
+"fig": 226,
+"title": "MESSANÆ urbs est Siciliæ maxima, firu, opulentia, & tu...",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 229,
+"site_plan": false,
+"entries": [
+{
+"fig": 229,
+"title": "CALARIS RHODVS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 230,
+"site_plan": false,
+"entries": [
+{
+"fig": 230,
+"title": "MALTA. FAMAVGVSTA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 233,
+"site_plan": false,
+"entries": [
+{
+"fig": 233,
+"title": "BYZANTIUM Nunc Constantinopolis",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 234,
+"site_plan": false,
+"entries": [
+{
+"fig": 234,
+"title": "ISTANBOLIS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 237,
+"site_plan": true,
+"entries": [
+{
+"fig": 237,
+"title": "Descriptio antiquae urbis Hierosolymorum, qua amplitudine et splendore tempore Christi Salvatoris nosteri",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 238,
+"site_plan": true,
+"entries": [
+{
+"fig": 238,
+"title": "Nova urbis Hierosolymitanae descriptio, quia forma. Q. sita naturo fecile se conficiendam praestat.",
+"page": null,
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 241,
+"site_plan": false,
+"entries": [
+{
+"fig": 241,
+"title": "MOMBAZA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 242,
+"site_plan": false,
+"entries": [
+{
+"fig": 242,
+"title": "Cum Privilegio",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 245,
+"site_plan": false,
+"entries": [
+{
+"fig": 245,
+"title": "CALECHV MVM INDI ORMVVS.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 246,
+"site_plan": false,
+"entries": [
+{
+"fig": 246,
+"title": "EBERRI PORIVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 249,
+"site_plan": false,
+"entries": [
+{
+"fig": 249,
+"title": "ARUS, QVÆ OLIM BABYLON",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 250,
+"site_plan": false,
+"entries": [
+{
+"fig": 250,
+"title": "CIVITAS MAXIMA VRBS",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 253,
+"site_plan": false,
+"entries": [
+{
+"fig": 253,
+"title": "TINGIS, LVSTITANIS, TANGIARA. SEPTA. ARZILLA",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 254,
+"site_plan": false,
+"entries": [
+{
+"fig": 254,
+"title": "TZAFFIN. SALA.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 257,
+"site_plan": false,
+"entries": [
+{
+"fig": 257,
+"title": "GOA fortissima Indiae urbs in Christo fiantorum",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 258,
+"site_plan": false,
+"entries": [
+{
+"fig": 258,
+"title": "AZAAMVRVM.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 261,
+"site_plan": false,
+"entries": [
+{
+"fig": 261,
+"title": "MEXICO.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+},
+{
+"n": 262,
+"site_plan": false,
+"entries": [
+{
+"fig": 262,
+"title": "CUSCO, REGNI PERU IN NOVO ORBE CAPVT.",
+"page": null,
+"kind": "o",
+"kind_by": "A",
+"type": "figure"
+}
+]
+}
+]

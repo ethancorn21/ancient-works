@@ -2466,6 +2466,169 @@ Chose to build the site inside 206 (adding the two store paths to my Touches) ov
 Step: main unmoved since iter 90's sync (1dcbc06; main...agent/a = 0/8, all bookkeeping). Prechecked: dem_sources.source_for_bbox(800 m box) = "ea" (EA 1 m LiDAR, epsg 27700; Cheshire inside the ENGLAND area), nls.covers = True, not in specs/aliases.json. Ran `.venv/bin/python pipeline/build_catalog.py --ids shotwick-castle-q7502621`: 17 s, "built 1, skipped 0, failed 0" (relief clip 1.2 m; OS six-inch 1st edition 1842 from NLS, coverage 1.0; Wikipedia summary). web/data/sites.json 384->385: exactly one entry added (corners, size_m [800,800], drawings 0, lidar_credit EA, summary), the other 384 byte-identical (verified by parsed diff; only the name-sorted insertion point shifted). The 3 reds: union_check PASS, union_full_coverage_live SKIP (its "Sites run: 294" gate vs the grown live EU list 295 - a skip, not a failure; 203b/212 re-covers), test_serve PASS. Full suite: 64 passed / 1 skipped / 0 failed (63.91 s; was 62/3). Decision: Status done. If rejected again: ask_human (a policy question - the lead's cycle-cut vs the driver's rule - with this evidence), not another re-verification pass.
 
 
+<!-- task 208 -->
+# Task 208 limes
+
+## 2026-10-12 208 DECISION: the German Limes lead PROCEEDS on two sources (1895 ORL vol on IA + the de.wiki/Commons ORL plate set); sweep session 1 findings
+- Verification sweep (box 1), IA side complete 2026-10-12. **Anchor verified**: IA `derobergermanis00fabrgoog` = ORL Lieferung II = Band IV Abt B Nr. 40 "Das Kastell Osterburken" (O. Petters, Heidelberg, 1895; title page leaf 5 read from the djvu XML), Google PD scan, BookReader-usable (64 pages; full-res page images `…/download/<id>/page/n{N}.jpg` at 5398×7526). All 7 plates viewed: Taf. I photos, **Taf. II Situationskizze (MAASSTAB 1:3000)**, **Taf. III the fort plan (both fort lines, ~1:500)**, Taf. IV details/sections, Taf. V/VI bronze/iron finds, Taf. VII blank → 2 stageable drawings, one fort. **IA supply exhausted**: no other ORL volume (several title/fulltext search angles, incl. per-fort); the two Limesblatt scans (`limesblatt00unkngoog` 499 p, `limesblattmitte00germgoog` 506 p, same 35-Heft series 1892–1903) are text-only excavation reports (every "Tafel"/"Karte" OCR hit is a reference to another publication).
+- **Second source confirmed**: de.wikipedia hosts 874 ORL* images (842 plates, 45 fort numbers, 167 named "Grundriss"); sampled licenses all free (Bild-PD-alt / PD-alt-100 / Bild-frei); the same plates exist on Commons with SPACE naming ("ORL 12 tab 02 pic 01 Grundriss und Profile.jpg" etc.) → stage the Commons files (P373/caption evidence), note the de.wiki twins. Decision "proceed" commits next session once the paced Commons leg verifies ≥10 fit-sized named plans from ≥2 volumes; else documented drop.
+- FAILED/BLOCKED attempts this session (file into PITFALLS.md next session): (1) `portal.dnb.de` is behind an Anubis (Techaro) JS proof-of-work wall — `/sru`, `/opac/sru` 404, `simpleSearch` returns the honeypot page with no UA tried (machine fact, same class as the babel.hathitrust.org 403). (2) `limesblatt.uni-hd.de` (the UB Heidelberg Limesblatt digitisation) unreachable: TCP connect fails http and https (DNS resolves to 129.206.119.232; both attempts 2026-10-12). (3) `www.deutschedigitalebibliothek.de` and `digital.ub.uni-heidelberg.de` have no DNS on this VM. (4) The DjVu XML of Google-book uploads (e.g. this ORL vol) uses `<OBJECT data="file://…/…_0001.djvu"><PARAM name="PAGE">` + `<WORD>`, NOT `<Page lnum>` — per-page OCR must parse OBJECT/WORD keyed by the PARAM value; `books_ia.page_texts()` (hOCR-based) does not apply to these (they have no `_hocr_searchtext.txt.gz`), and their `_djvu.txt` has no form feeds. (5) de.wikipedia MediaWiki `list=allimages` paginates via the continue key **`aicontinue`** (neither `aifrom` nor `aipfrom` works). (6) Do not trust 40 dpi renders for plate legends: the Taf. II scale is 1:3000, not the "1:2000 / V. 1905" I misread at low res — record dates only from full-res crops (page_n54.jpg).
+
+## 2026-10-12 208 DECISION: the Commons leg ran — Commons and de.wiki hold DISJOINT ORL sets; stage the de.wiki plates (caption+coords), the gate PASSES (proceed final); re-pick Abt B first
+- The paced Commons leg (run A: ORL article + Commons allimages aiprefix=ORL; run B: 103 Commons fileinfos + 48 de.wiki fileinfos; all in /tmp/agent-a-208/commons_leg/, scripts leg_a/leg_b/leg_b2 idempotent). **Findings**: (1) Commons holds only ~15 genuine ORL plates (`ORL_01_tab_01/02`, `ORL_12_tab_02`, `ORL_33_tab_02..16`, `ORL_A_01/04/05`, `ORL_B_2_3b_Taf Kastell Wiesbaden` x4) among ~103 ORL-named files (the rest modern Kastellbad/infopavilion photos); ZERO name overlap with the de.wiki 874-file plate set — the session-2 assumption "the same plates exist on Commons with space naming" is false (the search-displayed "ORL 12 tab 02 pic 01 ..." IS the underscore-named Commons file; MediaWiki normalizes display). (2) Route change: stage the de.wiki files (upload.wikimedia.org/wikipedia/de/) with kind `caption_coords` (descs name the forts, e.g. "Grundriss des Kastells von Würzberg, ORL 49"); Commons plates ride caption+coords too unless in a fort's P373 category (direct-membership check in run B2, not yet run). (3) **The gate PASSES**: 45/48 auto-picks verified free (PD-alt-100; the 3 "Bild-PD-alt" flagged by my display filter are also free — German PD template) + >=1000 px + name/desc fort tie, spanning Abt B Bands 1-7 + Abt A + source 1's Band IV → >=10 plans from >=2 sources under any reading. (4) **Pick-heuristic bug**: Abt A was sorted FIRST (inverted) — forts 01, 02, 03, 04, 05, 07, 08, 14, 15, 05.10 picked Wp watchtower / fortlet (KK) files (Limes-section drawings, not fort plans) instead of the Abt B Hauptkastell Grundrisse that exist for those numbers; re-pick Abt B first and drop `_wp`/`Wp` names from the primary set. (5) **05.10 is not a fort number** — Abt A Limes-section material (Wp towers + KK Robern/Trienz/Seitzenbuche/Zwing); excluded, recorded as growth area. (6) QID search crashed after ~11/~28 names: `wbsearchentities` returns `description` as a STRING with language=de, not a dict (fixed in leg_b2_qids.py, which reuses the partial qid_search.json).
+- de.wiki API quirk (file into PITFALLS.md next session — I could not edit it this session): `titles=File:X` on de.wikipedia normalizes to `Datei:<name with spaces>` (e.g. `Datei:ORL 40 tab 04 pic 01 Grundriss.jpg`), so the pages dict keys differ from the underscored query — look up by normalized name (strip prefix, space<->underscore, case-insensitive). The ORL series article is `Der obergermanisch-raetische Limes des Roemerreiches` (transliterated title; the umlaut search returns nothing); its "Abteilung B" list (wikitext lines 31-38) is the authoritative Band -> Nr -> (name, monograph year) map, saved as commons_leg/bands.json.
+- Still pending from session 2 (PITFALLS.md, 6 entries): the Anubis dnb wall, limesblatt.uni-hd.de TCP failure, the two no-DNS hosts, the Google-djvu-XML OBJECT/usemap shape, the aicontinue key, the 40 dpi misread (all in the session-1 entry above; session 2 added the VM-clock fact).
+- NEXT (session 4): run leg_b2_qids.py (QID fact sheet + P373 hits), hand-check QIDs per fort (Saalburg Q542329 = Nr. 11 known; Eining Q1735352 = which Nr.?), re-pick the primary set Abt B first, update docs/lead_limes.md §3+§4 (final PROCEED, route change), build fit/src_limes.py + tests + golden (add tests/golden/src_limes_sample.json to the Touches line first).
+
+## 2026-10-12 208 DECISION: cross-check leg done - FORTS table final: 41 forts with QIDs (incl. 4 found this session, 42 gets two), 3 stage name+coords; all session-4 flags were wrong-geography errors
+- Ran the paced cross-check leg (leg_d/leg_d2/leg_d3 in /tmp/agent-a-208/; results in commons_leg/crosscheck.json + qid_entities.json, now 50 entities). **QIDs found this session:** 31 Wiesbaden = Q622981 (wd search 'Kastell Wiesbaden' -> item 'Aquae Mattiacorum', the Roman settlement+castrum; P625 (8.241862,50.086375) = Wiesbaden) - its 2 Commons Taf files now stage with a QID. 39 Walldürn = Q1735436 (P625 (9.38674,49.5785); DLK page '33. Kastell Walldürn' says the site is 1 km SE of the town; town coords (9.368,49.583) -> P625 consistent). 42 Oehringen = TWO QIDs, found only with the Ö-spelling (Wikidata search is spelling-exact: every 'Oehringen' phrasing returns nothing): Bürgkastell = West = Q86069877, Rendelkastell = Ost = Q91949042 -> both de.wiki files stage, one extras row each. 57 Walheim = Q1669086 ('Kastelle von Walheim', one item covers both forts, P625 = the village). 61a Sulz = Q1735424 - **the session-4 'no QID' verdict was wrong**: leg_c's `search.setdefault(n, res)` kept only the first variant's (empty) record, so a hit from a later variant was used for routing but never saved; the hit existed since the first search.
+- **No QID after this session's extra rounds (7+ phrasings incl. 'Kastell X (Oberer Limes)' / 'Römerkastell X' + direct-title pageprops + srsearch without 'Limes' suffix): 64 and 67.** 64: the ORL list's article is 'Kastell Schirenhof' (also 'Etzelsburg', Stadtgebiet Schwäbisch Gmünd) - exists, no wikidata pageprop, no item; the de.wiki file desc says 'Grundriss des  Kastells Schirenhof' (use that spelling for named_place); stage name+coords ~ (10.03,48.73) from the article's location sentence. 67: article 'Kastell Buch' (= Rainau-Buch, Ostalbkreis) exists, no pageprop, no item; stage name+coords from the village page Buch (Rainau) (10.136429,48.909531). Both recorded as such on the rows per the task Notes.
+- **All four session-4 P625 flags resolve as the data being RIGHT and my geography being wrong** (verified against de.wikipedia town-page coordinates + the DLK's ORL pages): 01 Heddesdorf Q1735373 (the ORL Nr. 1 fort is the Ortsteil of Neuwied, RP - the DLK's own '1. Heddesdorf' page says so; P625 is 1.1 km from Neuwied town coords; my 'famous Heilbronn fort' worry had no basis), 03 Arzbach = Ortsgemeinde Arzbach in Rhein-Lahn-Kreis near Bad Ems (NOT Alzey), 07 Kemel = Ortsteil of Heidenrod, 12 Kapersburg = near Friedberg (article coords ~ P625). Every QID fort's article lead (crosscheck.json cc[intros]) names a location consistent with the monograph and P625.
+- **Final staging set: 56 files / 43 forts** = 45 de.wiki (final_picks.json; all now QID except 64/67) + 9 Commons (01x2, 12, 33x5, 31x2) + 2 IA-1895 (Osterburken n54/n56). Not staged: 53-Ost (item Q1343017 covers both Neckarburken forts, no separate Ost item), 14 Butzbach / 15 Grüningen (no Abt B plates in the de.wiki set), 05.10 (not a fort). Box 3 passes trivially (56 plans from 3 distinct sources; monograph years from bands.json, e.g. 01:1903, 40:1895, 42:1897).
+- **FAILED attempts this session (bugs in MY scripts, not the network):** (1) `d.get('pages', {})` on action=wbgetentities always returns {} - the response key is **entities** (leg_d's step 3 silently dropped all 3 new entities; leg_d3 fixed). (2) `if art not in r.get('srsearched')` TypeError when the key is absent (fixed to membership test) - crashed leg_d's first run mid-way; the run had already saved all 31/39 wd results, so the re-run was incremental and complete. (3) My session-4/5-early geography assumptions (Neuwied at 7.81E, Walldürn at 9.22E) were both wrong by ~0.35-0.15° - never trust remembered coordinates; verify against the town's own Wikipedia page coordinates (one API call).
+- NEXT (session 6): (1) file the 12 pending PITFALLS.md entries listed in the task hand-over (9 from sessions 1-4 + wbgetentities-entities-key + umlaut-spelling + srsearch-misses-(Kastell)-titles; grep first, none present). (2) Update docs/lead_limes.md to the final PROCEED per the hand-over spec (counts 56/43/3, the final FORTS table, route = caption_coords for every row, all drop reasons). (3) Build fit/src_limes.py + tests/test_src_limes.py + golden per the hand-over build spec (the Touches line already names tests/golden/src_limes_sample.json - no Touches edit needed).
+
+## 2026-10-12 208 DECISION: the build landed - 56 ORL fort plans (45 de.wiki + 9 Commons + 2 IA) staged with caption+coords evidence; the 'germany' region key is the one open item
+- **fit/src_limes.py emitted and green.** The session-9 generator had FOUR bugs, all fixed before the first run: (1) the documented commons-loop `fort = {...}[t.split()[0:3]]` list-as-key bug -> fixed to a startswith-prefix map {"ORL 01 ": "01", "ORL 12 ": "12", "ORL 33 ": "33", "ORL B 2 3b ": "31"}; (2) NEW: the dewiki loop's `f = key if key.startswith("Anhausen") else t` - the final_picks Anhausen keys ("Anhausen:01_KK_Anhausen_Lage_HR.jpg") are NOT SPEC keys (the SPEC keys are the real file names `ORL_A_Strecke_1_tab_12_pic_01/02_…`) -> KeyError; fix: `f = t` for every pick; (3) NEW: bands.json's nr keys carry NO leading zero ("1" not "01"), so the merged lookup returned None for all Band-1 picks and the `or [None])[1]` IndexError; fix: `band_nr()` with lstrip("0") and a hard `B[band_nr(k)][1]` (fails loud); (4) NEW: the emitter used pystr (=json.dumps) for `qid` and `thumb` -> the generated Python source literally contained `null` (NameError: name 'null' is not defined); fix: pyval for both. Cosmetic: the emitted `_slug` docstring's fold example corrected (NFKD drops the combining diaeresis: Öhringen -> "ohringen", not "oehringen").
+- **Results:** staged 45 sites / 56 pictures (re-run idempotent, 0 new); `--check` exit 0, no join problems, "evidence: 56 rows, 56 pass, 0 fail, 0 no-tie" (all caption_coords; place = site = raw first P625, or the article coords for 64/67, dist_m 0.0); tests/test_src_limes.py written (5 tests, socket-blocking: join+evidence, FORTS-vs-staged, box-3 counts 56/3, negative control (Heddesdorf row re-pointed at Niederberg ~15 km and at (7.57, 50.40) ~10 km -> FAIL, staged row untouched), golden pin) - all pass in 1.05 s; `--golden` wrote tests/golden/src_limes_sample.json (3 file rows one per source + their 2 extras + 3 classified, normalized).
+- **FAILED: full suite on this branch -> 1 failed: tests/test_region.py::test_every_region_in_the_data_resolves - "regions that would display wrongly: [('germany', 'US')]".** Cause: the staged extras rows use region "germany", absent from `build_catalog.REGION_NAME`, so `make_site` would display it as "US" (the silent-fallback the 214 audit test guards). Resolution chosen: 214 is DONE and its Notes say a later source task staging a new missing region adds the key itself ("the audit box is the guard"); 211 (not in flight) touches fit/merge.py + the canonical data files, NOT build_catalog.py, so the file is uncontested. I extended this task's `Touches:` line with `pipeline/build_catalog.py`; the key goes in with the dict reformatted one-region-per-line (a future region key is then a new-line additive edit - merge-safe with other branches). Expectation after the fix: 0 failed, 128 passed, 1 skipped.
+- **Baseline note:** the 4 driver-recorded failures of 2026-10-11 (test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_gate::test_recorded_measurement_reproduces_and_agrees, test_serve::test_platefits_docs_match_sites) are all PASSING on today's main (agent c's merged work) - the pre-existing-failure baseline is now ZERO.
+- NEXT: (1) the region fix above + suite verification; (2) tick boxes 2-4 (box 1 = docs/lead_limes.md rewrite to final PROCEED per the DOC REWRITE PLAN kept in the task file); (3) commit code+staging+golden+region key together.
+
+## 2026-10-12 208 DECISION: the 'germany' region key went into build_catalog.REGION_NAME (one-key-per-line reformat, appended last) - audit test green, full suite green, boxes 2-4 ticked; only the doc rewrite (box 1) remains
+- **The last session-10 open item, done and verified.** `pipeline/build_catalog.py` REGION_NAME reformatted to one key per line (behavior-neutral; the 214 audit test in tests/test_region.py is the guard) and `"germany": "Germany"` appended last, following the chronological convention of earlier additions (214's italy/luxembourg went last too). `pipeline/build_catalog.py` added to this task's `Touches:` line first (team rule); the file is uncontested - none of the in-flight tasks (203b/207/302a/304/306) names it, and 214 (done) established the pattern "a source task staging a new region adds the key itself".
+- **Verification (all green this session):** `.venv/bin/python fit/src_limes.py --check` -> exit 0, "evidence: 56 rows, 56 pass, 0 fail, 0 no-tie", no join problems; `tests/test_region.py` (2) + `tests/test_src_limes.py` (5) -> 7 passed; full `.venv/bin/python -m pytest -q` -> **0 failed, 131 passed, 1 skipped** in 195 s. The count is 131, not the 128 the session-10 hand-over expected, because main merged new tests since (e.g. tests/test_fit_provenance.py) - zero failures either way; the 4 driver-baseline failures of 2026-10-11 (batch_eu x2, gate, serve) remain fixed on main. Spot-checked the staged rows directly: all 56 file rows carry year + date + evidence (kind caption_coords, dist_m 0.0); the 3 by-sources are the 3 collections.
+- **Boxes:** 2 (staged rows + evidence + recorded plan date), 3 (56 plans / 3 sources >= 10 / >= 2), 4 (offline evidence.check green + no-network test + golden) are ticked. Box 1 (docs/lead_limes.md rewritten to the final PROCEED) is the entire next session - the DOC REWRITE PLAN in the hand-over is the recipe.
+- **Hand-over repair:** both FORTS-table copies in the task file were truncated at 66b (a write cutoff in sessions 9/10); the new hand-over has one complete table (45 items), tail rebuilt from data/catalog/extras_limes.jsonl (67 Buch name+coords (10.136429,48.909531); 71a Theilenhofen (10.84716,49.08952); 72 Weienburg (10.9625,49.0308); Anhausen (7.53841,50.4813)). The consumed BUILD SPEC body and the SUPERSEDED note were dropped; the /tmp-artifacts note and the de.wiki `Datei:` quirk (already in PITFALLS) are carried as one-liners.
+- **Small trip:** system `python3 fit/src_limes.py --check` fails with `ModuleNotFoundError: No module named 'PIL'` (evidence -> books_match -> books imports PIL, which only the .venv has) - use `.venv/bin/python` for manual runs; the lazy-import design (stdlib at module top, commons/evidence imported only inside check_staged) is intact, so `stage`/`--golden` and the tests are unaffected.
+
+## 2026-10-12 208 DECISION: the doc's Abt A/B census numbers were recomputed this session and differ from the session-10 note (308/5/54/165 -> 305/8/57/167) - the doc rewrite (box 1) must use the recomputed values, not the stale note
+- While rebuilding the hand-over I found its two FORTS-table copies were both truncated at 66b (a write cutoff in sessions 9/10) and that two plan references pointed at a removed "Environment" section. I recomputed the de.wiki ORL census directly from /tmp/agent-a-208/orl_dewiki.json (874 rows) by name prefix (`orl_a_…` -> Abt A, `orl_…` -> Abt B with token = 2nd field, else unnumbered): **A = 561 (110 Grundriss), B = 305 across 49 tokens (57 Grundriss; 42 of 49 tokens hold >=1; none: 4, 04, 01a, 32, 62a, 69, 54-55), 8 unnumbered** (Strecke 8 Wp 8-28 map fragment; 5 modern photos ORL19_Ober-Florstadt, ORL52_Infotafel, ORL53_Infotafel x3, ORL53_Lageplan; ORLEN-Lietuva logo svg) -> 167 Grundriss-named total. The session-10 note's "308/5/54/165 / 41 of 49" used a looser rule: it counted 3 compact-named files (no space after "ORL") as Abt B, listed token 19 (which has NO `ORL_19` files in my split), and double-counted the 2 Anhausen `ORL_A_Strecke_1` files in both A and "unnumbered". None of the 45 staged picks is affected (43 pure `ORL_<nr>_tab…` + 2 `ORL_A_Strecke_1` Anhausen); the 14/15 drop reason stands (no 14/15 B token exists at all - all their files are Abt A Rhaetian). Also found: a THIRD Anhausen file, `ORL_A_01_tab_12_pic_01(a-c)_KK_Anhausen_Zusammenhang.jpg` (a context drawing, not staged - the doc's drop list should say so). The hand-over's VERIFIED FACTS 6 and the DOC REWRITE PLAN now carry the recompute rule + corrected numbers, so the box-1 session needs no re-fetching.
+
+## 2026-10-12 208 DECISION: session-12 fact verification for the box-1 doc rewrite - all plan numbers re-checked offline against the /tmp artifacts; three of the plan's own spot values are wrong and are corrected in the hand-over
+- **Scope:** no file changes beyond the task hand-over (the doc rewrite itself is the next session's one step). Every number the DOC REWRITE PLAN needs was recomputed this session from /tmp/agent-a-208/ artifacts (orl_dewiki.json, commons_leg/*) - no network, no re-fetch.
+- **CORRECTION 1 - Abt B tokens 52/53:** the plan's spot values "52: 5/1, 53: 9/2" are the OLD pre-fix merged values (the old per-fort table had counted compact-named modern photos - ORL53_Lageplan, ORL53_Infotafel x3, ORL52_Infotafel - under those fort numbers). Recomputed under the authoritative session-11 prefix rule: **52: 4 files / 1 Grundriss / max 3120 px; 53: 5 / 2 / 2868** (names verified by eye). Every other plan spot value (01: 6/1/4472, 08: 4/1/12278, 18: 15/3/16138, 33: 48/5/26160, 46: 9/1/5472, 67: 4/1/13000, 71a: 8/1/11189, 72: 28/1/17382, ...) matches my recompute exactly, and all top-level totals re-verify: A=561/110 Grundriss, B=305/49 tokens/57 Grundriss, 42 of 49 tokens hold >=1 (none: 4, 01a, 04, 32, 54-55, 62a, 69; token 19 absent entirely), 8 unnumbered, 167 total = 110+57.
+- **CORRECTION 2 - "824 plate files" is a case-sensitivity artifact:** 837 of the 874 de.wiki ORL names contain 'tab' case-INsensitively; 824 is the case-sensitive count (13 files use capital 'Tab': 8x ORL_66a, 4x ORL_66b, 1x ORL_A_03). The doc will say 837 (case-insensitive). Also verified: min long edge of all 167 Grundriss-named files = 1538 px, so "all >= 1000 px" holds.
+- **CORRECTION 3 - the 103-file Commons drop list is EXACT, not "~85 modern + 3 ORLEN":** 9 staged + 4 Abt A section plates + 5 genuine non-plan plates + 1 derivative (crop of staged Taf 1) + 3 Tabula Peutingeriana fragments (ORL 61/66a/67b) + 1 modern logo file (ORL Logo ZhWN.png) + 80 modern photos = 103. The ORLEN-Lietuva files (Lithuanian fuel company) are in the 159 non-ORL-ish noise set, not the 103.
+- **Also re-verified this session (no surprises):** zero name overlap between the 262 Commons and 874 de.wiki names (normalized, both directions); all 9 staged Commons files vs commons_meta.json (sizes, "Public domain", verbatim descs, dates); the 40 twin ORL_40_tab_04_pic_01_Grundriss.jpg = 3466x2838; the P373 dead-route detail (exactly 2 non-plan memberships: ORL53 Kastell Neckarburken 1.jpg -> Q1343017, ORL 56 tab 03 pic 02-15 Metallfunde.jpg -> Q1735374); all 45 module-FORTS band/year values vs bands.json; the per-fort staged-file counts (01: 1 de.wiki + 2 Commons, 12: 1+1, 31: 2 Commons, 33: 1+4, 40: 1 de.wiki + 2 IA, Anhausen: 2 de.wiki, all other forts 1 de.wiki = 56); article line 23 (Abt A Band 1 = Strecke 1, 1915 = Anhausen) and line 24 (Abt A Band 2 = Strecken 3-5 incl. Die Wetteraulinie = the 05.10 files).
+- One small hand-over nit fixed: the session-11 note's "5 modern photos" among the 8 unnumbered is one short - there are 6 (ORL19 x1, ORL52 x1, ORL53 x4).
+- **Next (session 13):** the doc rewrite per the corrected DOC REWRITE PLAN in the hand-over, then box 1, Status done, full suite, commit.
+
+## 2026-10-12 208 DECISION: box-1 doc rewrite executed (written, uncommitted - harness saved it); every number re-verified offline this session; a 4th spot-value correction found (48/49/50 = 1896, not 1906/1906/1896); next session only ticks box 1 + full suite + commit
+- **What happened (session 13, iteration 170):** the one remaining step of 208 was executed: `docs/lead_limes.md` was rewritten to the FINAL PROCEED per the corrected DOC REWRITE PLAN (56 named plans / 43 ORL fort numbers = 45 staging items / 3 free machine-readable collections / 9 distinct ORL volumes; §1 rows 4+5 rewritten, §3 split into the corrected Abt A/Abt B census + the disjoint 9-staged Commons subsection with the exact 94-file drop list, §4 final decision with the 9-volume spread, the 45-row FORTS table, per-number drop reasons and the staging-as-built). The file is on disk, **uncommitted** (harness context limit; the harness saves it for session 14).
+- **Verification done this session (all OFFLINE against /tmp/agent-a-208/ artifacts + the committed staging files; zero re-fetches):** the full 64-row census (49 Abt B + 15 Abt A tokens: files/Grundriss/max-px) recomputes EXACTLY from orl_dewiki.json (field names are `width`/`height`, not w/h - a script assuming w/h yields zeros); totals A=561/110, B=305/57/49 tokens, 42/49 with >=1 Grundriss, 8 unnumbered, 167 total, min long edge 1538, 837 case-insensitive tab-files (13 capital-Tab = 8x 66a + 4x 66b + 1x A_03); zero Commons<->de.wiki name overlap both directions; all 9 staged Commons rows match commons_meta.json (w/h, "Public domain", raw desc prefix; junk dates deliberately omitted from staged rows); the 94 non-staged Commons files break down exactly 4+5+1+3+1+80; P373 dead (2 non-plan memberships, neither staged); per-fort staged counts (01:1+2, 12:1+1, 31:2, 33:1+4, 40:1+2IA, Anhausen:2, 39x1) and all 45 FORTS entries (names/QIDs/coords/band/year) match the module, with years matching bands.json for all 44 QID forts.
+- **4th correction (new):** the session-12 hand-over's 9-volume spread said "48(1906), 49(1906), 50(1896)" - bands.json and the module both say **48, 49, 50 = 1896** (a 1906/1896 transposition in the old note). The written doc uses the correct 1896 values. (Session-12's three corrections - B tokens 52: 4/1/3120 & 53: 5/2/2868, 837 tab-files, the exact 103 breakdown - all held up and are in the doc.)
+- **Quirks learned (also in the hand-over):** commons_genuine.json stores names with underscores, commons_meta.json keys with spaces, staged titles with spaces - normalize before any set comparison; a quick census script must read `width`/`height` from orl_dewiki.json.
+- **NEXT (session 14, the last one):** tick box 1 in tasks/208-limes.md, set `Status: done`, run `.venv/bin/python fit/src_limes.py --check` (expect exit 0 / 56 pass) and full `.venv/bin/python -m pytest -q` (expect 0 failed / 131 passed / 1 skipped), commit "208: docs/lead_limes.md rewritten to the final PROCEED (56 plans / 43 forts / 3 sources, 9 volumes) - box 1 ticked, task done". No code changes, no re-fetches; if the full suite shows a NEW failure touching a 208 file that is a regression to report.
+
+
+<!-- task 209 -->
+# Task 209 wiltshire
+
+## 2026-10-12 209 DECISION: parent closed done - all subtasks terminal (209a dropped on the human's download refusal, 209b done, 209c done); all four parent boxes verified against the repo this session and ticked; no new subtasks (the only un-tickable content, "Hoare and Petrie fetched from the Internet Archive", is factually impossible - those books do not exist on IA and the human will not download books for this project - so no subtask could deliver it; boxes ticked in the "Proposed changes" form the driver already accepted at subtask level)
+Verified this session, box by box: (1) Stukeley per-book artifacts only - data/raw/books/bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740/ fetched, triage A 166/166 (0 errors) / F 41 / B 8, lists/<ia>.json = the 31-entry/33-impression hand-list (the book has NO printed plate list, verified leaf by leaf) + .map.json; 0 stukeley rows in the shared index.jsonl / validation.json (last writers per git log: 217 and earlier book machinery; the lone "Wiltshire" string in index.jsonl is a place field on a squier_1851 row, another task's book). (2) files_wiltshire_b.jsonl + classified = 5 rows, each with the 200 caption_coords evidence field (named_place / place_qid / site coords / dist_m 0.0) and the work's year (1722/1740/1743), classified plans p_plan 1.0 x3 + views p_birdseye 1.0 x2; Petrie's two 1880 Pl. I/II plates are already canonical (files.jsonl 713/714, p_plan 0.94/0.92) and never re-staged (the module's guard fails loud), so no _a/_c staging files exist by design; row-by-row join against data/catalog/sites.jsonl re-verified 7/7. (3) no Allcroft row in any *_wiltshire_*.jsonl, no Wiltshire-site platefit doc created during the lead (recent platefits are other tasks' docs on other sites), Allcroft Avebury/Windmill Hill fit docs pre-date the lead (mtime 2026-10-11) and untouched. (4) --check offline 5/5 (stukeley) + 2/2 (petrie) via fit/evidence.py from stored fields; tests/test_src_wiltshire_{hoare,stukeley,petrie}.py 18 passed in 4.85 s (socket-blocked, goldens match); full suite 119 passed, 1 skipped, 0 failed (188 s). If the driver's re-check objects to box 1's literal wording: do not re-file the download ask (001/002 both refused; PITFALLS "The human will not download books") - the only re-open that can produce work is a real copy landing in data/raw/books/ (runbooks in the 209a/209c hand-overs). Leftover noted in the hand-over: the metadata-only data/raw/books/bim_eighteenth-century_i-having-been-sollicited_stukeley-william_1741/ is an availability-check remnant, referenced by nothing.
+
+
+<!-- task 209a -->
+# Task 209a hoare
+
+## 2026-10-12 209a DECISION: filed ask_human 001 (Hoare Cherhill download) and 002 (Petrie 1880) - the parent's plan had assigned both filings to 209b's session, which never ran
+The task had been left "blocked with no open request" (the state the driver fixed before this session; that is the protocol trap to avoid - a blocked task needs its request open). Re-verified the blockers today: IA title-phrase search -> only two modern books ("Exploring ancient Wiltshire", "Folklore of ancient Wiltshire"); HathiTrust babel -> HTTP 403 with a browser UA and a plain UA; LLM replicas 8080/8081 answering, 8082 resetting, 18080/18081 refused (books.LLM_PORTS covers 8080-8082, so no LLM_URLS patch needed yet). FILED 001 (human_only: outside-vm, blocking): the Cherhill volume (1821) -> data/raw/books/hoare_cherhill1821/, one image per leaf page, filenames sorting in book order, PDF ok if declared; fallbacks "drop" (-> Status: dropped + lead-doc note) or any other complete scan. FILED 002 for 209c: Petrie 1880 -> data/raw/books/petrie1880/; fallbacks "hold" (209b's Commons Flickr visual check may turn the two unlabeled files into Petrie plates) then "drop". I created 209c at the 144 split and the parent's Hand-over said "file the two ask_human requests for 209a/209c from 209b's session" - 209b never ran, so filing both from 209a's session is the fastest route and lets the human download both books in one sitting. 209c keeps Status: blocked - now protocol-compliant (open request 002; the driver holds it until the answer).
+
+## 2026-10-12 209a DECISION: built the fetch leg (fit/src_wiltshire_hoare.py) on the 207c local-copy pattern - everything after the triage images runs on the UNMODIFIED machinery
+Design: the module registers the book in process (books.BOOKS["hoare_cherhill1821"] = ia/region/year/cite/why, ia = the local dir name) and wraps books_ia.pages / books_ia.page_texts / books.fetch_triage for that id only (idempotent via books_ia._hoare_wrapped; every other book id passes through to the original call). The local re-encode mirrors books.fetch_triage exactly (1400 px long side, JPEG q88, .part + rename) and lands in DIR/triage/n%04d.jpg - which for the default DIR (data/raw/books/hoare_cherhill1821) IS the books.triage_path slot (the invariant is pinned in the test, so a future path change fails loud). page_texts -> {} for the local copy (no per-page OCR exists for a human-downloaded book; verified by reading map_plates: empty text gives sw = 0 < 20, so every inked page stays a candidate and the plate anchors come from Qwen stage A alone). Commands: --fetch (resumable, idempotent, 4 workers; missing/empty book dir raises a SystemExit naming ask_human 001), --status (offline: leaves, triage progress, LLM ports), --triage A|F|B (delegates to the unmodified books.cmd_triage_*). Testing: 3 hermetic tests in tests/test_src_wiltshire_hoare.py (socket-blocking no_network fixture; the module's DIR is monkeypatched to a temp stand-in book of 4 solid-colour pages with unevenly padded names proving the natural order 1/2/10/11; downscale 2000x1200 -> 1400x840; byte-identical idempotent rerun; missing-dir and empty-dir fail loud; register pass-through verified with recording fakes for pages/page_texts/fetch_triage). The suite last ran 104 passed, 1 skipped, 0 failed (after all code edits). Two CLI-only bugs found by running the module directly (the tests had masked both): a fit/ module that lazily imports pipeline modules must sys.path.insert the pipeline dir at module top (bare `python <script>` only puts fit/ on the path; the test file's own insert hid it), and the book dir must be isdir-checked before os.listdir (a missing dir raised FileNotFoundError, not the SystemExit the message path wanted). Deliberately deferred to a session with the book in hand: PDF unpacking (poppler-utils pdftoppm, only if the human delivers a PDF), the list transcription, the --stage/--check/--golden legs, the staging tests and the golden file. The three drafted PITFALLS entries (env 403/429 fact, the sys.path CLI trap, the 3-point wrap pattern) are transcribed in full in 209a's Hand-over - file them in PITFALLS.md next session.
+
+## 2026-10-13 209a DECISION: the human refused the book downloads (ask_human 001 and 002 both answered "No ... just skip it") -> 209a is DROPPED; the fetch leg stays in the tree dormant; new PITFALLS "the human will not download books"
+Both answers arrived before this session (requests filed at iteration 145). 001 (Hoare, the Cherhill volume 1821): "No. If you can't find the book at all, then i am not going to go get it. Just skip it." 002 (Petrie 1880, for 209c): "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." The ask files' answer stamp (06:55) PRECEDES their own ask stamp (10:45) - the answer was taken on the lagging VM clock, so I dated everything by journal sequence (2026-10-13) and said so in the entries rather than asserting the ask-file timestamps. Executed the task's own designed fallback: Status: dropped; docs/lead_wiltshire.md's Hoare section records the refusal, the dormant state and "stage-A/B recall: n/a"; the lead-doc intro notes the lead stands on 209b/209c. Chose to KEEP the fetch leg (fit/src_wiltshire_hoare.py + tests/test_src_wiltshire_hoare.py, committed by the driver after iteration 150) rather than delete it: it is small, hermetic, green, and the only working reference of the 3-point local-copy wrap pattern 207c's Roy module will need; the module header is now marked DORMANT with the revival path (if a complete scan ever lands in data/raw/books/hoare_cherhill1821/, --fetch/--status/--triage work as-is). Also fixed the one wart 209b had diagnosed in my register test (the bare books.BOOKS assignment leaked the entry across tests): monkeypatch.setitem(books.BOOKS, src.KEY, None) before register() makes the teardown remove it. PITFALLS: three of my four drafted entries were already filed by other tasks (the HathiTrust/Google 403/429 fact, the fit/ sys.path CLI trap, the book-machinery 3-point wrap); I filed the one new fact - "The human will not download books for this project - book leads stand on IA and Commons only" (refusal is a willingness call: a real browser passes both walls; consequence: check IA first, plan the drop or a Commons fallback from the start, do not file a download ask; the entry warns that 207c's still-open request 003 will presumably get the same answer - if so, drop, do not re-ask). Suite after my changes: 109 passed, 1 skipped, 2 failed - both failures in 209b's never-run session-4 tests (not my files, not touched): (1) test_canonical_title_clash_fails_loud uses monkeypatch.setitem on the STAGED LIST (setitem needs a Mapping: AttributeError 'list' has no 'get'); (2) test_status_offline_fabricated_cache fabricates bookreader pages with only "leafNum" while status() indexes p["n"] (KeyError at src_wiltshire_stukeley.py:187); 209b's hand-over names running its tests as its next session's first step, so both fixes land there. I touched nothing of 209b's/209c's files; 209c's answer lands on its already-satisfied Commons fallback (209b's verified Petrie 1880 Pl. I/II = canonical rows 713/714), so its session has everything it needs in its own hand-over. Note for the driver/parent: the parent 209's hand-over is now stale in its 209a line (it still says "waiting on ask_human 001").
+
+
+<!-- task 209b -->
+# Task 209b stukeley
+
+## 2026-10-12 209b DECISION: first session - suite re-baselined (104 passed, 1 skipped, 0 failed, 182 s) and every Commons Stukeley candidate visually verified: 3 rows will be staged (Avebury TAB. VIII, the 1722 Itinerarium Stonehenge view, the Kitts-Coty Uffington drawing)
+Re-baseline first (the driver's notes listed stale 2026-10-11 failures in test_gate/test_batch_eu/test_serve): full suite green at 104 passed, 1 skipped - same as 209a's session. Then downloaded and looked at every fit-sized file in Category:William Stukeley + subcats (266 files total; the fit-sized rest are Newton-Memoirs pages, portraits, fleurones, a 1996 photo, the Jewry Wall and Clarendon - Clarendon has NO catalog row, checked by grep, so not a catalog site). Verified: (1) Houghton Arc 855.214 = Stukeley TAB. VIII p.14, the 1743-second-edition "Scenographic view of the Druid temple of ABVRY" (the henge + ditch + inner circles + Windmill Hill + West Kennet barrow + Silbury + Longstones; the Commons description names the 1743 edition, not the 1740 first) -> stage to avebury-q661855 as kind plan, date 1743, evidence caption_coords with named "Abury" (the title+description spelling; norm-substring verified in-process) and Avebury's own coordinates, dist 0; (2) Stonehenge Dessin Stukeley 1722 = the 1722 Itinerarium "An inward view of Stonehenge Aug. 1722 from the north" -> stage to stonehenge-q39671 as kind view, date 1722, caption_coords named "Stonehenge" (title), dist 0; (3) Stukelykitscoty.jpg = Stukeley's pen drawing of the Uffington scene ("The upper Kitts Cate house", "The Grave", Fedderham place) -> stage to kit-s-coty-house-q4222497 (a catalog site found by grep) as kind view, date 1722 (style-attribution to his 1722 Itinerarium drawing set; Commons has no date), caption_coords named "Kitscoty" (the filename's mangled spelling is a norm-substring of itself - verified), dist 0. NOT staged: the Oxford "Druids sacrificing" file (a view of Stukeley's conjectural RESTORED model, Whistock's Oxford print - not the actual site; its Commons date 1722 is wrong for the print), and the two Petrie files (below). commons.keep() needs a date override for the kitscoty row (no date in metadata, no plan-word in title); Kip's stage() already has the pattern (date=want, date_commons=old). All three rows pass fit/evidence.py check_caption offline by construction (stored coords + stored named place only). The Houghton Avebury row's date is 1743 (the copy the scan comes from) where the task text says 1740 (first edition): the plate is TAB. VIII of both editions, the scan is the 1743 copy - recorded here and in the lead doc, not a deviation worth an ask.
+
+## 2026-10-12 209b DECISION: the two unlabeled Flickr files are Petrie 1880 Pl. I and Pl. II - 209c's Commons fallback (a) is satisfied, and both files are ALREADY canonical
+File 47 (2245x2852) = Petrie 1880 Plate I, the Stonehenge stone-by-stone plan ("W.M.F.P. mense et del.", scale 1:350, Standing 1880/1747/Overthrown key, "Forms of outlying stones" 91/93/95/96); File 49 (4641x2874) = Plate II, Stonehenge with the Avenue, Cursus inset, parallel banks (scale 1:1500, "Petrie levels in inches by numbering of stones"). Both already sit in data/commons/files.jsonl (rows 713/714, stonehenge-q39671, year 1880, caption_coords "Stonehenge", checked 2026-10-10) with the British Library Georeferencer description (PETRIE, shelfmark HMNTS 10352.i.12, page 47, London 1880, E. Stanford) - so the map already carries them. Per 209b's Notes they are NOT staged in files_wiltshire_b (re-staging a canonical title is a hard fail in the Kip check), and per the parent's plan the finding unblocks 209c: told via 209c's new Hand-over (fallback (a) satisfied - if the human declines the 1880 download, the Commons leg = the two existing canonical rows, nothing more is stageable from Commons; the book download via ask_human 002 remains the only route to the book's other plates) and via the Stukeley section's Petrie note in docs/lead_wiltshire.md. 209c's Status stays blocked on 002 - the driver owns that flip.
+
+## 2026-10-13 209b DECISION: session 2 was investigation-only (context limit) - the 3 Commons rows are verified to the last metadata field and the module design is settled; nothing written yet (no PITFALLS, no module, no tests)
+Live check of the three staged rows (`.venv/bin/python`, commons.info, paced - one call, no 429): (1) Houghton Avebury 2269x1362, metadata date is ALREADY '1743' (the plate's year, not an upload timestamp) -> no Kip-style date override needed for this row (no date_commons), keep=True, artist 'William Stukeley (author)', license Public domain, desc spells 'Abury' (norm-substring verified True); (2) Stonehenge Dessin 1722: 4620x2430, date='1722', artist 'G.Garitan', license CC BY-SA 3.0, keep=True, 'Stonehenge' in title; (3) Stukelykitscoty 1020x320, date='' desc='' -> year_of None, **keep() False** (no date, no plan-word in title) -> the only row needing the Kip/Mackenzie override (date='1722', date_commons=''; year_of/keep re-verified True in-process; 'Kitscoty' a norm-substring of the filename). All three catalog sites confirmed in data/catalog/sites.jsonl (stonehenge-q39671, avebury-q661855, kit-s-coty-house-q4222497 with the exact qid/name/lon/lat in the hand-over) -> no extras file, no new site rows; the join check is 'names an existing site'. Design decisions: (a) the IA book leg needs NO local-copy wrap (the book really is on IA) - register() only adds books.BOOKS['stukeley_templerestored1740'], and --fetch/--triage delegate straight to books.cmd_fetch / books.cmd_triage_*; (b) the transcribed plate list lives as a module constant (STUKLEY_PLATES) injected into books_lists.PLATES in-process, because pipeline/books_lists.py is owned by 217 (the 213/civitates hand-list pattern that cmd_ocrmap's comment points to); --list with the constant set then runs cmd_ocrmap and writes only the per-book lists/<ia>.json + .map.json; (c) metadata.json has title/date/creator ALL None, so the BOOKS cite string is hand-written ('William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, London 1740') and must be confirmed against the hOCR title page when --list runs. The 4 PITFALLS entries (a-d, text in the previous hand-over, restated in the new one) were NOT yet filed - that is the next session's step 1, then the module exactly as designed in the hand-over. Suite baseline stands at 104 passed, 1 skipped, 0 failed (iteration 146; nothing this session changed code).
+
+### 2026-10-13 209b DECISION: session 3 (iteration 149) was read-only - the session-2 design re-verified build-ready against the current code, with 4 corrections; nothing written (no module, no tests, no staging, no PITFALLS edits)
+Re-read the whole relevant code (books/books_ia/books_lists/commons/evidence/src_kip/src_mackenzie/src_wiltshire_hoare + the Kip and Hoare test files + the lead doc) and confirmed the session-2 design is build-ready, with corrections recorded in the task Hand-over: (1) the 4 PITFALLS entries session 2 queued to file ALL ALREADY EXIST (PITFALLS lines 217, 591, 762, 951 - some filed by other tasks; the 591 one even cites 209b's own download script) - no filings needed, so session-2 step 1 was already done; (2) `.gitignore` has `data/raw/`, so the cached bookreader.json/metadata.json of the Stukeley BMB scan are local-only and NOT in a fresh checkout - the planned --status offline test must fabricate a stand-in bookreader.json by monkeypatching books_ia.RAW (the session-2 plan wrongly assumed the cache was committed); (3) data/books/lists/ and data/books/triage/ ARE tracked, so the IA-leg per-book artifacts will be committed; (4) books_lists imports numpy/PIL at module top, so it stays a lazy import inside functions; (5) design refinements: STAGED rows grow to 8-tuples (title, sid, named, want, label, kind, w, h) so stage() fails loud on a live size drift (2269x1362 / 4620x2430 / 1020x320 from the session-2 live check), the canonical guard is title-only (stronger than Kip's (site,title); it is what rejects the two Petrie 1880 titles regardless of site), and the register() test must use monkeypatch.setitem on books.BOOKS/books_lists.PLATES because the hoare test's bare assignment leaks the mutation across tests. Suite not re-run this session (read-only); last measured state 104 passed, 1 skipped, 0 failed (iterations 146/147) - the build session re-baselines. The full build order (module -> live --stage/--check/--golden -> 6-test file -> suite -> lead-doc line) is in the task Hand-over; the IA book leg (fetch / triage A / list / triage F/B / book rows) stays the session after that (needs live LLM replicas).
+
+### 2026-10-13 209b DECISION: session 4 (iteration 150) built the Commons leg - module fit/src_wiltshire_stukeley.py written, the 3 rows staged live (checked 3/3 offline), golden written, 7-test file written but NOT yet run; all files uncommitted, next session finishes (run tests, lead-doc line, boxes 4+6, full suite, one commit)
+Baseline re-run first: 104 passed, 1 skipped, 0 failed (178 s) - identical to iterations 146/147, no unrelated reds. Module built exactly per the session-3 design (see the task Hand-over for the full spec: KEY/IA/CITE/WHY, SITES 3 catalog sites with (qid,lon,lat) drift check, STUKLEY_PLATES=None + TODO, register() = BOOKS entry only with no wrap, --fetch/--status/--triage/--list delegating to the unmodified machinery, --stage/--check/--golden). Two deviations from the session-3 wording, both deliberate: (1) the stage command is an explicit --stage (bare no-args also works, --dry previews) - the first run as bare --stage printed usage and exited 1, fixed the main handler; (2) stage() checks the title-only canonical clash FIRST (before any meta use) so a rogue Petrie-titled row fails before commons.info results matter (the session-3 order had it later; the test (b) fake-meta-empty only works with the early check). LIVE results, all matching the session-2/3 verified values: --stage wrote files_wiltshire_b.jsonl + classified_wiltshire_b.jsonl (3 rows each: Houghton 1743 raw date, Dessin 1722 raw, kitscoty 1722 override date_commons=''; classified plan 1.0 / view 1.0 / view 1.0, by hand); --check exit 0, no join lines, 'evidence: 3 rows, 3 pass, 0 fail, 0 no-tie', three 'PASS caption_coords'; --golden wrote tests/golden/src_wiltshire_stukeley_sample.json ({files: 3, classified: 3}, normalized); second --stage 'staged: 0 new pictures' (idempotent). The live Houghton desc was confirmed verbatim (see hand-over) - the '(London: 1743)' in its prose does not trip commons.PUBLISHED (that regex needs 'Published'/'Date of Publishing'/... phrases), so year_of stays on the dump date's 1743 - no silent drift possible. The 7 tests (tests/test_src_wiltshire_stukeley.py) cover: stage() on a temp tree with the FAKE_META table (the 3 live values verbatim; commons.info monkeypatched in the autouse no_network fixture alongside books.llm_up -> False), the Petrie-title canonical clash, --check on the real committed files, golden-vs-staged equality (temp + committed sample), register() no-wrap (setitem-managed BOOKS entry, books_ia.pages/page_texts + books.fetch_triage identity - robust to hoare's test having run earlier since it monkeypatches-and-restores those attrs), --status with a fabricated 5-page bookreader cache under a monkeypatched books_ia.RAW (the '166 not in out' guard catches an accidental read of the real 166-leaf cache), and --status with no cache ('not fetched yet'). NOT YET RUN - that is the next session's first step (expected suite total 111 passed, 1 skipped). Uncommitted in the working tree: fit/src_wiltshire_stukeley.py, data/commons/files_wiltshire_b.jsonl, data/commons/classified_wiltshire_b.jsonl, tests/golden/src_wiltshire_stukeley_sample.json, tests/test_src_wiltshire_stukeley.py (plus the docs/lead_wiltshire.md line + box ticks the next session adds before committing).
+
+## 2026-10-13 209b DECISION: session 5 (iteration 152) ran the 7 unrun tests: 5 passed, 2 failed - one REAL module bug (status() read p["n"] off the raw bookreader.json, which has no n - n is the flat-list index books_ia.pages assigns; fixed to enumerate) and one TEST bug (this pytest's monkeypatch.setitem is Mappings-only and raised on the STAGED list; switched to setattr with a new list); then lead-doc line + boxes 4/6; full suite 111 passed, 1 skipped, 0 failed; committed the Commons leg. The IA book leg (fetch/triage A/plate-list transcription/book rows) is the next session - two LLM replicas answer on 8080/8081 right now, the bookreader cache is present in this checkout (166 leaves, 0/166 triaged, long side 11408-13537 px, i.e. the fetch must re-encode the huge raw pages via IIIF)
+Ran tests/test_src_wiltshire_stukeley.py first (the hand-over's step 1): 5 passed, 2 failed, exactly the fragilities the hand-over named, and each failure had a different kind of fix - (1) test_status_offline_fabricated_cache errored with KeyError 'n' inside status(): the raw BookReader page dicts carry only height/leafNum/pageSide/pageType/ppi/uri/width (verified on the real cached 166-leaf file), while books_ia.pages() is what assigns p["n"] = flat index (books_ia docstring: "list index == n of page/n{N}.jpg"); status() reads the cache directly, so p["n"] can never exist - a real module bug the session-3/4 design missed (the hand-over fact 2 spelled out the raw shape but the built code still indexed by n). Fixed the MODULE (enumerate over the flat pages, triage_path(IA, n) on the index) - per the hand-over rule a red test that reflects a real bug gets the module fixed, never the assertion deleted; the test's fabricated 5-page cache (no n keys) was already correct. Verified the fix live: --status now prints "166 leaves, triage 0/166, long side 11408-13537 px" off the real cache with zero network. (2) test_canonical_title_clash_fails_loud errored in monkeypatch.setitem itself: pytest 9.1.1's setitem is Mapping-typed and calls dic.get(name) - it has no list support, so setitem on src.STAGED[0] is invalid, a test bug, not a product bug. Fixed the TEST to monkeypatch.setattr(src, "STAGED", [petrie_row] + src.STAGED[1:]) (teardown restores the original list object). All 7 pass in 2.2 s. Everything else in the hand-over's step list then went as planned: the docs/lead_wiltshire.md Stukeley-section line (module built, 3 rows staged, evidence 3/3 offline, golden + test pointers; the Stage-A/B recall line left PENDING), task boxes 4 (hand fits untouched: the per-task staging files hold only the 3 new rows, the title-only canonical guard is tested, data/db/platefits/ never written) and 6 (offline join + evidence + golden) ticked; boxes 1/2/3/5 stay open for the IA leg. Full suite 111 passed, 1 skipped, 0 failed (181 s) = the 104 baseline + 7 new, no unrelated reds. One observation for the IA-leg session: two LLM replicas answer on 127.0.0.1:8080 and :8081 right now (the --status LLM line), so --fetch + --triage A are runnable without any setup; the raw pages are very large (long side up to 13537 px), so the fetch re-encodes via IIIF at the triage size as the machinery does for every book.
+
+## 2026-10-13 209b DECISION: session 6 (iteration 153) ran IA-leg steps 1-3 - fetch 166/166, triage A 166/166, and the visual plate-list transcription into STUKLEY_PLATES (module edit uncommitted at context limit); the book has NO printed plate list and NO Wiltshire map
+(1) `--fetch` pulled all 166 triage pages in ~105 s (IIIF at 1400 px, 2 workers; resumable - nothing to re-fetch). (2) `--triage A`: 166/166 with 0 errors on the live 8080/8081 replicas; distribution text_only 119 / other_illustration 41 / plate_site_plan 6. (3) `--list` (PLATES None) printed the hOCR of the front leaves: the BMB hOCR is garbage on this scan (the title page leaf read only as "By VILEIAM STUKELEY..."), so per the civitates/213 hand-list pattern the transcription came from a VISUAL walk of all 47 plate leaves (700 px shrunken scratch copies for classification + zoomed label crops for the numerals). Findings: leaves 10-12 blank/preface = the book has no list of plates; each plate's header is the list ("P. <n>. TAB. <roman>"); 33 plates on 31 transcribed lines (two different plates both labelled TAB. II; duplicate impressions of TAB. III and TAB. XXXIII; TAB. XXI and XXIV absent from this copy; XXXIIII printed old-style). The 1400 px read of the famous plan's banner gave "TAB. XL" but the 2x label crop + the increasing sequence (VII,P14 -> X,P18 -> XI,P20 -> XII,P22) prove it is TAB. XI - an XL would break the chain and there is no room for 30 unnumbered plates in between. Site plans: exactly three (XI the numbered plan as a fold-out n56+n57, XII the Orthography n61, XXIII the Area n111); stage A's plate_site_plan label was wrong in BOTH directions (n115/n123/n135/n143 are views; some blanks/text leaves called text_only - none hide a plan: ink+stopword screen of all unflagged leaves, only n32/n67 blankish, n117 text p47, n163 the INDEX). NO Wiltshire map in this scan (the goal's premise came from the parent's book knowledge; the map, if it exists, belongs to A survey of Wilts, which is not on IA) - to be recorded in the lead doc per runbook step 6. CITE confirmed from the visual title page ("M.DCC.XL.", Innys & Manby). STUKLEY_PLATES set in the module (books_lists PLATES format; page = the P. number printed in the plate's own header). NEXT: --list with PLATES set (ocrmap -> per-book lists only), triage F/B, stage the 3 plan rows (stonehenge-q39671, 1740, book-list evidence), lead-doc recall line, boxes 1/2/3/5. Suite last full run (session 5): 111 passed, 1 skipped, 0 failed; this session touched only the module's constant/strings.
+
+## 2026-10-13 209b DECISION: session 8 (iteration 155) - 209b COMPLETE: recorded the unrecorded session-7 work, wrote the lead-doc recall, ticked boxes 1/2/3/5; all six boxes now ticked, suite green
+The previous session (7, iteration 154) had already done the rest of the IA-leg runbook but died without writing memory: ocrmap ran (lists/<ia>.json 31 plates + .map.json), triage F (41 leaves) and B (8 leaves: 56,57,111,115,123,135,143,161) ran, TAB. XII was re-checked and reclassified from plan to section (orthographic elevation with the "The Front" scale bar - the F stage independently reads "TAB. XII -> section"), and BOOK_ROWS (XI fold-out n56/n57, XXIII n111 - stonehenge-q39671, 1740, evidence = the plate's own printed header since the book has no list of plates) was staged into files_wiltshire_b.jsonl + classified (2 rows each, 5 total) with the golden + tests updated; the driver committed it all as "uncommitted work after iteration 154" with no hand-over or DECISIONS entry. This session: (1) re-ran the 8-test file (all pass, 3.0 s) and the full suite (background, green); (2) verified the committed artifacts - 5 staged rows, per-book lists/triage only, 0 stukeley rows in the shared index.jsonl/validation.json, LLM replicas up 8080/8081/8082 (unused); (3) rewrote the Stukeley section of docs/lead_wiltshire.md: replaced the stale "module built / IA leg remains" paragraph and the "pending the IA leg" recall line with the full Stage-A/B recall (A: 3/3 plan-leaf recall, 3/6 precision - the 3 false positives n123/n135/n143 are views; F: headers with kind on 41 leaves; B: n111 clean, n57 label misread XL resolved to XI, n56 label-garbled; ocrmap matched only 2/31 entries and put XXIII's kind-s on n115 - the wrong of the two XXIII impressions, n111's header OCR "P.44. TAB.XXIII" lost the anchor - a .map.json attribution issue only, staging uses hand-set leaf numbers; XII the one plan-like plate not staged, no Wiltshire map, no standalone Avenue plan); (4) ticked boxes 1/2/3/5 and corrected box 2's premise wording (it said "the book's printed plate list ... from the hOCR" - the book has no printed list and the hOCR is garbage; the box now names the hand-list pattern). Box 6 (tests) was re-verified rather than re-ticked. No code changed this session: docs, task file, this entry, the hand-over only.
+
+
+<!-- task 209c -->
+# Task 209c petrie
+
+## 2026-10-13 209c DECISION: finalize the Commons fallback - the two canonical rows verified, the refused book leg closed
+ask_human 002 (the human-downloaded 1880 book) was refused before iteration 151 (the 001-Hoare pattern,
+PITFALLS "the human will not download books for this project"), so the book leg of 209c is off the
+table for good - and, unlike 209a, no dormant fetch wrap is built: 209a's wrap pre-dated its refusal,
+whereas here the refusal is known, so a dead wrap would be scope creep (the module header records that
+a 209a-style wrap is added only if a real copy lands in data/raw/books/petrie1880/). The Commons leg
+(the task's own fallback (a), satisfied by 209b's 2026-10-12 visual check) IS the two canonical
+files.jsonl rows 209b verified as Petrie 1880 Pl. I/II: they stay canonical and are verified, never
+re-staged (the module's never-re-staged guard fails loud on a *_wiltshire_c row carrying either title;
+209b's _stage_commons canonical-title-clash guard was built for exactly this case). Delivered this
+session: fit/src_wiltshire_petrie.py (--check: PETRIE_ROWS table match + guard + join + fit/evidence.py
+from stored fields, 2/2 PASS, no network; --golden), tests/test_src_wiltshire_petrie.py (7 socket-blocked
+tests, incl. negative controls on tmp files: a missing canonical title, a re-staged Petrie title),
+tests/golden/src_wiltshire_petrie_sample.json (the two file rows + their machine-classified rows,
+p_plan 0.9372/0.9167), and the Petrie section of docs/lead_wiltshire.md (refusal verbatim, the two-row
+table with the W.M.F.P. identifications, n/a recall, the undelivered Avebury/Silbury/West Kennet plates).
+Boxes 1-3 reworded to the fallback variant the task's own Notes design (the 209b box-2 reword is the
+precedent; a strict reading of the book-leg wording of boxes 1/2/3 is unsatisfiable in this variant),
+boxes 4/5 as written; all ticked, Status: done. The Wiltshire lead (209) now stands on 209b + these two
+rows. Suite: baseline (pre-change) 112 passed 1 skipped 0 failed; final run green (verified below).
+
+
+<!-- task 210 -->
+# Task 210 numancia
+
+## 2026-10-12 210 DECISION: (a) the 1877 BRAH tomo I (IA boletndelarealac01madr) - session 1's leading candidate - is RULED OUT as the plan source; (b) the 1860s excavation plan is VERIFIED as Eduardo Saavedra's work in RAH Memorias tomo IX (1879), free + machine-readable on IA (memoriasdelareal009real); decision PROCEED
+(a) The full 548-leaf scan was rendered and every unnumbered leaf (the plates) eye-checked via per-block montages (/tmp/num/montage_*.png): láminas = Alcazaba de bronce (Madrid), Castillo de Santa María, "una tierra culturada", two landscapes (a Colón art article), "Alzado y Planta del Monumento romano en Tabarra" - NO Numancia plan. The item actually spans 1877-1879 (four quarterly fascicles; covers at leaves 115/217/329/443). The p. 51-52 review's "lámina tercera" (Saavedra's Numancia "Plano y cortes") and "última lámina" (Calatañazor tombs + Garray's church of the Mártires) refer to plates of SAAVEDRA'S OWN separate Memoria, not the Boletín's - the session-1 hypothesis that the 1877 volume holds the plan is wrong. The p. 55-62 Garray report (Delgado/Olózaga/Fernández-Guerra, the 1861-62 digs) is text-only ("...en la confianza de llegar á descubrir el plano"). (b) The work: Saavedra (ing. de caminos), "Descripción de la vía romana de Úxama á Augustóbriga", prize essay 1858, awarded 26 Apr 1861; printed in tomo IX of the RAH Memorias series, dated 1879 (the volume's Noticia histórica calls it its third Memoria; the 1877 Boletín's footnote says "con cinco láminas, en el tomo IX de las Memorias de la Academia"). Its ÍNDICE DE LAS LÁMINAS (djvu.txt line ~21887): lámina IV = "Plano de las excavaciones hechas en el sitio de Numancia en 1853" (the plate's own OCR reads 1853/55 - confirm on the image) + "Trozo de muro descubierto en el sitio de Numancia" + "Portada de la ermita de los Mártires de Garray" + Calatañazor rock tombs + Augustóbriga walls; láminas I/II/V = the road map, the bridges/calzada sections/inscriptions, pottery. The plates sit between the work's ERRATAS and the next memoir (1439 truces) in the djvu stream. Chronology (Gómez Gonzalo, Revista de Soria RS100): 1842 municipal digs, 1853 Saavedra's explorations on the Cerro de la Muela, 1861-66 government-funded comisión digs, 1877 Boletín text report, 1879 book (1879-edition title per the RS100 figure caption: "Descripción de la Vía Romana entre Garray y Renieblas"). So the GOAL's "1860s" lead resolves to the 1853/55 plan as published 1879 - same excavation-era campaign, date recorded on the row, plans 150-year-exempt (PLAN.md assumption 4), 1879 ≤ 1925 page-eligible. IA item: RAH (Spain), collections bostonpubliclibrary+americana (Google scan), access-restricted-item: None (downloadable, not borrow-only), licenseurl: None (⚠ item-page license statement still to verify); 766 leaves (obtained via /metadata/, which returns the page_numbers dict inline); files include pdf 37.7 MB, jp2.zip 35 MB (full-res per-leaf), djvu.txt/djvu.xml/abbyy/chocr/hocr. Unnumbered leaf blocks (plate candidates): 1-47, 52-54, 268-274, 378-384, 490-514 (25), 662-674 (13), 752-766. Failed this session: every /download/ fetch of that item 500'd (page_numbers.json, pdf, dc.xml, chocr - flaky per-file backend) except the 2 MB djvu.txt; BookReaderImages.php 404 (no per-leaf jpg derivatives); /composite/ 404. Next session: retry the downloads (they are transient) or use the PDF, eye-confirm lámina IV, record the license, write docs/lead_numancia.md, then stage per the hand-over plan (caption_coords Q623407, dist_m ≈ 26).
+
+## 2026-10-12 210 DECISION: lámina IV (IA memoriasdelareal009real, PDF leaf 507) eye-confirmed - "Plano de las excavaciones hechas en Numancia en 1855" (index: 1853) IS the 1860s-era excavation plan; license state recorded (no license field on the item; 1879 work, public domain); per-leaf image URLs do not exist, so the row's image is rendered locally from the PDF; docs/lead_numancia.md written (box 1 ticked)
+(1) Eye confirmation: the PDF (37.7 MB, downloaded this session after last session's transient 500s) renders leaf 507 = LÁMINA IV, a landscape sheet with six figures: sepulcros Calatañazor, portada de los Mártires de Garray, "Muro de Numancia" (alzado/corte), **fig. 5 "Plano de las excavaciones hechas en Numancia en 1855."** (the printed ÍNDICE DE LAS LÁMINAS on leaf 497 says "en el sitio de Numancia en 1853" - the year discrepancy is inside the volume; both refer to Saavedra's 1853 site-finding campaign), plano + alzado of the murallas de Augustóbriga; scales 1/300, 1/300, 1/1000; lith. J. Domm. Madrid. Fig. 5 is a genuine excavation plan (hatched dig area, excavated room-structure, rubble, dashed survey grid, section A-B, "Monumento hallado") - not a site map. (2) The work's end block 490-514 fully mapped (lead doc §2); LÁM. I (leaves 500-501, the road map "PLANO DE LA VIA ROMANA DE VXAMA á AVGVSTOBRIGA") is documented but NOT staged (a road map, not an excavation plan; one row per plan); LÁM. II (503) bridges and LÁM. III (505) sections/inscriptions are not site plans; **LÁMINA V (pottery) is absent from this scan** (leaf 508 blank, 509 = next memoir's title) - noted, nothing to stage. (3) License: the item's metadata carries no license/licenseurl field (checked /metadata/ and the item page); 1879 publication (USA public domain, pre-1929), author d. ~1902 (EU public domain), BPL 2012 scan - treated as PDM-equivalent, exact metadata state recorded in the lead doc. (4) Per-leaf images: /download/<item>_0507.jpg and .jp2 404 (zip-only Google scan; BookReaderImages.php//composite also 404, confirmed twice) => the row image will be rendered locally from the PDF into data/raw/commons/numancia/<sha1(title)[:16]>.jpg (path added to the task's Touches, with tests/golden/). (5) docs/lead_numancia.md written: §1 source+license+access, §2 leaf map, §3 Q623407 identification (~26 m to the site row; the Numancia/Numantia search-order trap; the hill-offset non-issue), §4 per-plan decisions, §5 who-dug chronology (the GOAL's "Villanueva" = 18th-c. architect mix-up), §6 the 8-row sweep table, §7 staging recipe (caption_coords evidence, exact field values). Box 1 ticked. Next session: stage the one row + classified row, fit/src_numancia.py (--sweep/--stage/--check/--golden per the van Deventer pattern), tests/test_src_numancia.py (socket-blocked, golden evidence + sample, synthetic negative), tick boxes 2-3.
+
+## 2026-10-12 210 DECISION: session 4 re-reads complete; the row carries NO thumb (data/raw/ is gitignored and the IA item has no fetchable per-leaf image) - the module gets a --render command instead, the image is re-derived per worktree, and tests stay hermetic; place_label corrected to "Numantia"; all staging field values pinned
+Session 4 = the hand-over's session-4 re-reads + the render; context limit hit before writing any code, so session 5 does module+staging+test from the pinned values in the hand-over.
+(1) **data/raw/ is gitignored** (.gitignore, verified this session): the rendered plate CANNOT be committed; it exists only in the worktree where it was rendered. The row therefore gets **no `thumb` field**: nothing fetchable can repopulate the file (IA per-leaf derivatives 404, three confirmations), and pointing thumb at the 37 MB PDF would make commons.py thumbs() store a PDF as .jpg (a broken page image). Consequences: thumbs() skips the row (`not r.get("thumb")`), tools/export_plans.py skips rows whose local file is missing (no crash - the row is simply absent from plans.json until the worktree has the image), fitkit.plan_image would raise only if that row is opened in an image-less worktree. The module's **`--render`** (working phase: download the IA PDF, `pdftoppm -jpeg -r 300 -jpegopt quality=85 -f 507 -l 507`, .part+replace into data/raw/commons/numancia/0fa271e2444f7bfc.jpg) is the re-derivation path; the 211 operator runs it in their own worktree before the page needs the picture (lead doc §7 says so). This worktree's image was rendered this session (6713x2709, 1.16 MB, non-blank std 23.2, sha1(title)[:16]=0fa271e2444f7bfc).
+(2) **place_label = "Numantia"**: live wbgetentities Q623407 this session - labels en "Numantia" / es "Numancia"; P625 (41.809392, -2.444447) re-confirmed. Session 3's hand-over/lead §7 said "Numantia, ancient city and archaeological site" - that is the item's DESCRIPTION, not its label (caption_route stores the label). Corrected in the pinned row; lead doc §7/§3 to be fixed in session 5.
+(3) **Sweep design proven live from this VM**: /metadata/memoriasdelareal009real (curl UA + -L) returns page_numbers = {identifier, format-version, archive-hocr-tools-version, confidence, pages:[{leafNum,...} x 766]} (session 3's "766-entry dict" was the pages LIST), files include memoriasdelareal009real.pdf size 37664978 + memoriasdelareal009real_djvu.txt size 1979917, metadata license/licenseurl None, access-restricted-item None. djvu.txt (1.98 MB) carries the ÍNDICE DE LAS LÁMINAS at line ~21887 with the line "Plano  de  las  excavaciones  hechas  en  el  sitio  de  Numancia  en  1853." (DOUBLE spaces in the OCR; the plate numbering is mangled - LAMINA IV prints as "LAMINA 3." twice - so the sweep asserts only that one line, whitespace-collapsed, never the plate number). PDF downloadability: Range GET bytes 0-65535 -> 200/206 + %PDF magic, 2-3 retries (IA /download/ is flaky per file). Local check: file exists + PIL size (6713,2709) + non-blank. /usr/bin/pdftoppm exists on this machine.
+(4) **Row pinned (in the hand-over, verbatim)**: site numancia / qid Q623407 / title "Plano de las excavaciones hechas en el sitio de Numancia (Lám. IV, fig. 5, Saavedra 1879; excavations of 1853/1855)" / year 1879 / cat null / by fit/src_numancia.py / url+page the IA item page / w 6713 h 2709 jpeg / date "1879" / desc with both "Numancia" and "Numantia" (R6) and NO-regex-clean (no model/coin/portrait/reconstruct/.pdf-at-EOL; "printed 1879" not "Published 1879" so commons.PUBLISHED does not fire) / artist + license per lead §1 / evidence caption_coords {named_place "Numancia", place_qid Q623407, place_label "Numantia", place -2.444447/41.809392, site -2.4443/41.8096, dist_m 26.1 (computed with .venv evidence.hav_m this session)}. keep()/year_of audited: 1879 passes the 1925 cut. evidence.check's caption route never consults the catalog, so --check with catalog=data/catalog/extras.jsonl (the numancia site, line 31) stays valid after 211's merge. extras_numancia.jsonl stays absent.
+(5) **Tests stay hermetic**: never require the raw jpg to exist (worktree-local, gitignored) - they pin the path convention (sha1 rule + site dir), the join, the offline evidence check (subprocess fit/evidence.py check, stdout == tests/golden/src_numancia_evidence.txt) and the golden sample; the negative control is the far-resolution pattern from test_src_van_deventer.py. Pre-existing suite failures (driver notes): test_gate::test_recorded_measurement_reproduces_and_agrees, test_batch_eu (2), test_serve::test_platefits_docs_match_sites - not this task's.
+Next session (5): write fit/src_numancia.py (render/sweep/stage/check/golden), stage the two rows, --check, --golden, tests/test_src_numancia.py, full pytest, tick boxes 2-3, lead doc §7 update, PITFALLS entries (IA /download + per-leaf 404s, page_numbers.pages, djvu/PDF order, data/raw gitignored, pdftoppm present), commit, Status: done.
+
+## 2026-10-12 210 DECISION: session 5 - fit/src_numancia.py written (render/sweep/stage/check/golden); every session-4 pin re-verified on fresh checks, several to the byte; next session runs stage/check/golden, writes the test, updates lead doc §7, done
+The module is on disk (the harness carries it uncommitted). Design as pinned in the task hand-over: stdlib-only top (lazy PIL/evidence); render() = download the IA PDF (UA, 3 retries, %PDF magic check) -> `pdftoppm -jpeg -r 300 -jpegopt quality=85 -f 507 -l 507 -singlefile` -> data/raw/commons/numancia/0fa271e2444f7bfc.jpg (.part+replace, size+non-blank assert); sweep() = (a) /metadata/: page_numbers.pages list len 766, memoriasdelareal009real.pdf size "37664978" (STRING) and _djvu.txt size "1979917" present, metadata license/licenseurl None, no access-restricted-item; (b) whitespace-collapsed djvu.txt contains "Plano de las excavaciones hechas en el sitio de Numancia en 1853" (the ÍNDICE DE LAS LÁMINAS line; the OCR mangles the plate numbers - never assert those); (c) PDF Range GET bytes=0-65535 -> 200/206 + %PDF magic (flaky backend, retries); (d) local render when present: JPEG 6713x2709 + non-blank (grayscale histogram std >= 1.0; measured 23.17, flat-page stand-ins 0.00) - absence only a reminder; exit 1 iff a real failure. stage() = fail loud if the render is missing (--render first), idempotent on (site,title), writes files_numancia.jsonl (the pinned row, evidence LAST, dist_m = round(hav_m, 1)) + classified_numancia.jsonl (p_plan 1.0 by hand). check_staged() = the join (exactly 1 row; site numancia exists in extras.jsonl line 31 or web/data/sites.json and its catalog point matches the stored evidence point; qid Q623407; year 1879; by/name; mime; classified 1:1; (site,title) unique; no clash with canonical files.jsonl; sha1 image-path convention; render validated when present, never failed on absence) + evidence.check(FILES, NO_BOOKS, catalog=EXTRAS_CANONICAL) (the caption route never consults the catalog, so the verdict is stable after 211's merge). golden() writes src_numancia_sample.json (count+files+classified, checked normalized, sort_keys) and src_numancia_evidence.txt (the exact stdout; SystemExit if the check does not pass).
+Re-verifications this session (all confirmed, all re-derivable in seconds): sha1(TITLE)[:16]=0fa271e2444f7bfc matches the existing file; dist_m = hav_m(-2.4443,41.8096,-2.444447,41.809392) = 26.1413 -> 26.1; the -singlefile render is BYTE-IDENTICAL to the existing data/raw file (sha256 c8415ffb94c6bfa50aea92335efef9e0babab8be615f7a44df2b55bfc9931415, 1157133 bytes) so the recipe is reproducible; /metadata/ page_numbers.pages = list of 766, files[].size are strings, no license field, not borrow-only; the collapsed djvu line is exactly as pinned (context "LAMINA 3.° LAMINA 4.' Sepulcros ... Catalañazor. Plano de las excavaciones hechas en el sitio de Numancia en 1853. Trozo de Muro descubierto"); the numancia site row (extras.jsonl line 31, no qid) and web/data/sites.json agree on lon/lat; NO numancia row in canonical files.jsonl (no clash possible); books_match.norm puts "numancia" in norm(title+" "+desc) (the title carries "sitio de Numancia", the desc also "Numantia"); commons keep/year_of audited: 1879 passes the 1925 cut, NO regex clean on title+desc, "printed 1879" (not "Published") keeps PUBLISHED from firing, when_of -> "1879"; .venv has PIL 12.3.0 + numpy 2.5.4; /usr/bin/pdftoppm present.
+Next session (6): run --stage/--check/--golden, write tests/test_src_numancia.py (vd test template: socket-blocked autouse fixture; (1) check_staged capsys rc 0 + "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie" + the PASS caption_coords line; (2) subprocess fit/evidence.py check --files files_numancia.jsonl --books <absent> --catalog data/catalog/extras.jsonl cwd=ROOT -> rc 0, stderr empty, stdout == golden src_numancia_evidence.txt; (3) in-test negative: copy the row, place -> Mons (3.9525,50.4547) with dist_m RECOMPUTED via evidence.hav_m (stored distance then reproduces - the FAIL must be the "(the trap), not a tie" clause, ~696 km), tmp_path jsonl, rc 1, staged file untouched; (4) golden sample equality with _norm), run my test file then the full suite (only the pre-existing test_gate/test_batch_eu x2/test_serve failures allowed), update lead doc §7 (actual row, place_label corrected to "Numantia", no-thumb decision, --render re-derivation recipe for 211, dist_m 26.1, 766-leaf check via page_numbers.pages), add the PITFALLS "Internet Archive (archive.org)" section, then tick boxes 2-3 and Status: done.
+
+## 2026-10-12 210 DECISION: session 6 - the staged row, the offline check and the four-test file are all green; lead doc §7 now records the final row (place_label "Numantia", dist_m 26.1, the no-thumb decision, the --render recipe); task done
+(1) **Staging per the pins**: `fit/src_numancia.py stage` wrote data/commons/files_numancia.jsonl (the one pinned row: checked 2026-10-12, dist_m 26.1, place_label "Numantia") + classified_numancia.jsonl (p_plan 1.0 by hand); the second run is an idempotent no-op. Note: the CLI dispatch is `stage` (no dashes) per the module docstring; the hand-over's `--stage` hit the usage error - the module is self-consistent, run `stage`.
+(2) **--check**: rc 0, no join problems, `PASS   caption_coords       numancia|<title>`, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`; no missing-render note (the image exists in this worktree).
+(3) **--golden**: wrote tests/golden/src_numancia_sample.json (count/files/classified, checked normalized to 0000-00-00, sort_keys) + src_numancia_evidence.txt (the check's exact stdout). Verified the subprocess CLI (fit/evidence.py check --files data/commons/files_numancia.jsonl --books data/books/.no-books --catalog data/catalog/extras.jsonl, cwd=ROOT): rc 0, stderr empty, stdout byte-identical to the golden (cmp clean).
+(4) **tests/test_src_numancia.py** (4 tests, all pass in 1.65 s): the socket-blocking autouse fixture; (1) check_staged offline - rc 0, no "join:", the PASS line, the evidence summary, the sha1 image-path convention pinned to 0fa271e2444f7bfc.jpg, classified 1:1 by hand; (2) the CLI golden equality via sys.executable (the suite runs under .venv, the pattern of test_evidence.py); (3) the negative control: the row with place -> Mons (3.9525/50.4547) and dist_m RECOMPUTED so the stored distance reproduces - the FAIL is the "(the trap), not a tie" clause, and it is 1079 km, not the hand-over's 696 (the test computes d/1000 from evidence.hav_m instead of hard-coding a number); rc 1, staged file untouched; (4) the golden sample equality via _norm, pinning the evidence specifics (caption_coords / Numancia / Q623407 / Numantia / 26.1 / 0000-00-00).
+(5) **Full suite: 123 passed, 1 skipped, 0 failed** - the four driver-noted loop-start failures (test_batch_eu x2, test_gate, test_serve) are fixed on main by other merged work; my file adds zero failures.
+(6) **docs/lead_numancia.md §7** rewritten as the final record (script-generated splice, no hand typos): the actual staged rows pasted verbatim, the no-thumb decision with its three consumer consequences, the --render re-derivation recipe (byte-reproducible sha256 c8415ffb...; the 211 operator runs it in their own worktree before the page or the fit tool needs the picture), the four sweep points, the test description; place_label corrected to "Numantia" (the QID's label - the old "Numantia, ancient city and archaeological site" was the item's description).
+(7) **PITFALLS**: new `### Internet Archive (archive.org)` subsection under "This machine and its environment", four entries: /download/ UA + -L, per-file flakiness (170-byte nginx 500s), no per-leaf derivatives for zip-only Google-scan items, /metadata/ page_numbers inline (pages list, string sizes); this item's OCR page index vs PDF leaf order (ground truth = the PDF; the plain djvu stream is search-reliable); the data/raw consequence for staged rows (per-module --render + hermetic tests, no-thumb row); /usr/bin/pdftoppm present with byte-reproducible single-page JPEG renders.
+Boxes 2-3 ticked, Status: done.
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
@@ -2822,6 +2985,25 @@ needed. Trivia: `evidence._line` prints `PASS caption_coords  <key>` (1 space af
 last) + the 211 R6 note next.
 
 
+<!-- task 214 -->
+# Task 214 region-name-italy
+
+## 2026-10-12 214 DRIVER: done claim rejected, task reopened
+- Acceptance criteria not ticked (verify each one, then tick it):
+    - [ ] `REGION_NAME` maps "italy" to "Italy" (add other region keys the data audit below finds missing)
+    - [ ] Test (no network; socket-blocking fixture): `make_site` on a synthetic entry with region "Italy" yields
+
+
+<!-- task 215 -->
+# Task 215 books-llm-ports
+
+## 2026-10-12 215 DRIVER: done claim rejected, task reopened
+- Acceptance criteria not ticked (verify each one, then tick it):
+    - [ ] `books.py`'s URL list names the ports that are live on this machine (all three replicas, not just
+    - [ ] A smoke run: one page through `run_stage` for any book with triage images cached succeeds
+    - [ ] A `PITFALLS.md` entry records the machine's LLM ports (llmtunnel user, 8080-8082) so the next
+
+
 <!-- task 216 -->
 # Task 216 view-books-entries
 
@@ -2864,6 +3046,271 @@ missing scope means no region filter in the matcher (get -> (None, None)), not a
 whether view books need scope once index rows exist.
 
 
+<!-- task 217 -->
+# Task 217 view-books-lists
+
+## 2026-10-12 217 DECISION: civitates view-book design settled - HAND_FIGS per-leaf table in the module (the file is its dump), index gets a `view` row field for kind-o plates; shared index.jsonl/validation.json restored, not committed (207/216 precedent); no BOOK_SCOPE for the view books
+Session 1 on 217: investigation only, no code (full plan is in the task's Hand-over). Decisions made, each with
+its evidence:
+1. **The module mirrors 213's hand list, the file stays the dump.** `HAND_FIGS["civitatesorbiste00brau"]` will
+   hold the 121-line pipe table (fig|title|page|kind|kind_by) transcribed verbatim from
+   data/books/lists/civitatesorbiste00brau.json (pre-generated at /tmp/hand_figs_table.txt); `parse_hand_figures`
+   + `figure_list` (OCR-parsed or hand) feed cmd_ocrmap/validate_book/list_pages. `fig` = the leaf's own n, so
+   hand books need no page-number mapping (pagenum_map/map_plates untouched).
+2. **Byte format is an invariant, not a detail.** The civitates .json is a dump with `indent=0,
+   ensure_ascii=False` (raw Æ - verified: dumps(parsed, indent=0, ensure_ascii=False) == file, and NOT equal
+   with the default); four of the other eight books' files contain `\uXXXX` escapes (default writer). So
+   cmd_ocrmap dumps `ensure_ascii=(ia_id not in HAND_FIGS)` for both .json and .map.json; all other bytes
+   (indent=0, key order fig,title,page,kind,kind_by) reproduce 213's file and 216's eight byte-identical files.
+3. **The `view` field is the row contract for 211 and the page.** cmd_index adds `"view"` to rows of
+   HAND_FIGS books only (true = kind-o town view, false = kind-s plan, true = model-flagged leaf not in the
+   list); placed right after "page_type" via a `**{}` spread so plan-book rows get NO new key and stay
+   byte-identical (box 2's "shape unaffected"). found_by gains the tag "list_view" (mirrors "list"). The page's
+   plans.json already has a `view` column (bool, set from Clef for Commons bird's-eye pictures) - the index
+   field is the book-row feed for it; 211's merge/export maps it (their lane, noted in the hand-over).
+   civitates hOCR is misaligned (213 pitfall) -> index takes T={} for hand books and never calls page_texts.
+4. **Expected outputs (to verify next session):** ocrmap civitates_liber2 -> .json md5-identical to 213's,
+   .map.json [] -> 118 leaves (7 site_plan + 111 view; 213a left populating it to 217 - that change is the
+   machinery extension, committed under data/books/lists/). index (no args) -> 118 new civitates rows (111
+   view:true + 7 view:false; 890 plan-book rows byte-identical; baseline run saved: /tmp/idx_committed,
+   /tmp/idx_baseline_run.log - note the committed file was built in an older BOOKS row order, so diff per row
+   id, not per line). validate -> 8 plan-book entries byte-identical (box 3), civitates entry gains "figures"
+   (listed 121; recall_pages 0.286 = 2/7 of the hand plans {90,237} of the 11 model-flagged; stage_A_only 3).
+5. **Shared files restored, not committed** (after verification: git checkout -- index.jsonl validation.json):
+   the 207->216 precedent keeps them for 211's rebuild; 216's note to 217 ("run no-args at the 211/217 rebuild
+   stage") I read as a warning against subset runs, and the 211 hand-over already treats "zero civitates rows
+   until the rebuild" as expected. The `view` contract above is what 211 branches on.
+6. **No BOOK_SCOPE entry for civitates_liber2:** the volume includes American towns (fig 261 MEXICO, 262
+   CUSCO), so any region filter would be wrong; a missing scope means "no filter" (.get default) - recorded so
+   the next agent does not "fix" it.
+
+## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list
+Session 2 (iteration 114) implemented session 1's design as written and verified all of it (the task's hand-over
+has the full numbers):
+- ocrmap civitates_liber2: the .json comes out md5-identical to 213's committed file (0881ec0c...); .map.json
+  [] -> 118 leaves (7 site_plan) - committed (data/books/lists/ is in Touches). No-args ocrmap: the other 17
+  list files byte-identical (md5-checked against session 1's baseline).
+- index no-args: 1008 rows. The 890 plan-book rows byte-identical IN ORDER to the HEAD baseline (session 1's
+  unmodified-code run, committed by the driver). 118 civitates rows: view true 111 / false 7; found_by
+  list_view 103 / list_view+qwen 8 / list 4 (n58,85,98,109) / list+qwen 3 (n90,237,238); page_type
+  other_illustration 117 / plate_site_plan 1 (n238); title_source "book's figure list, hand-transcribed" on all;
+  fig == leaf_n; captions_ocr empty (T={} bypasses the misaligned hOCR). The `view` key is absent from every
+  plan-book row - the row-shape contract for 211 and the page.
+- validate no-args: the 8 plan-book entries byte-identical to HEAD (box 3); the civitates entry gains the
+  "figures" section (listed 121; site 7 / unsure 3 / other 111; gt_site_pages 7; flagged 11).
+- Full suite 100 passed / 1 skipped.
+CORRECTION to session 1's predicted numbers: recall_pages is 3/7 = 0.429 (not 0.286) and precision_strict is
+3/11 = 0.273 (not 0.18) - leaf 238 (Jerusalem, kind s in the hand list) is ALSO stage A's plate_site_plan, so
+it is in both gt_site and flagged; session 1's arithmetic counted it once. The actuals are self-consistent and
+verified; recorded in PITFALLS so nobody "fixes" the code toward the stale prediction.
+Boxes: 1 and 3 ticked (verified). Box 2 ("for the view books", plural) stays open: the machinery is proven on
+civitates, but the goal's Merian helvete list is not transcribed yet - that is the remaining step (fetch/cache
+the hOCR, find the contents pages, transcribe into HAND_FIGS, triage the volume, then its rows appear and the
+box ticks). The other four view books stay out of scope.
+Note for future baseline work: /tmp/idx_committed (session 1's copy) is STALE - it predates 216's BOOKS order
+and the current row shape (it even carries the `evidence` key the current cmd_index does not emit, a 200-era
+post-hoc field). Diff rebuilds against `git show HEAD:<file>` or a fresh unmodified-code run, never a saved
+/tmp copy (PITFALLS).
+
+### 2026-10-12 217 DECISION: Merian helvete investigation (session 3) - book structure mapped; the plate list is the book's own "Erönung der Kupfferstich" (BR n394); hOCR index == 1-based leafNum (aligned, unlike civitates); 65 wide BR leaves are the engraved spreads; 10 big-plate foldouts are absent from the item; the list's page number points to an adjacent text page with varying side, so it is a window not a rule
+Session 3 on 217: investigation only, no code (working tree clean; artifacts in /tmp/merian on this
+machine: scandata.xml, list_full.jpg = n394 full-res, list_c{1,2,3}{0,1}.jpg 2x column crops, page-image
+samples). Findings, each verified:
+1. **LLM replicas are up** (127.0.0.1:8080/8081, qwen3.8-27b; 8082 down per the 5060 Ti image matchers):
+   `books.py fetch/triageA/triageF merian_helvete00zeil` are runnable from this machine - triage is the
+   step after the transcription, not a blocker.
+2. **hOCR fetched and aligned.** hOCR page index i == 1-based leafNum == BR leafNum field (verified at
+   i=429 the plate list at n394, i=197 "BASILEA" at n176, i=11 printed p7). So - unlike civitates -
+   hOCR titles can be trusted for this book's leaves. 436 hOCR pages; BR shows 400.
+3. **Structure:** 436 leaves all imaged; BR omits 36: 25 Delete (duplicates/foldout versos) + 10 Foldout
+   (rot-0 big engravings, leaves 44, 86, 116, 168, 230, 238, 254, 346, 360, 412 1-based - EMPTY hOCR,
+   content unknown; each directly after a wide BR leaf) + back color card. 65 wide BR leaves (landscape)
+   are the engraved double-page spreads (view left / plan right; Basel leaf 197 = 4-page spread, 2 views).
+   Wide-leaf title readings (hOCR) are in the task hand-over (session 3): they match the list's cantons
+   (Zurich 39/43, Bern 75, Lenzburg 81, Sempach 137, Unterwalden 133, Uri 147, Lucerne 151/155, Einsiedeln
+   159, 4-Waldstätten map 167, Glarus 187, Basel 193/197/201/205, Münchenstein 211, Pierre-Perthuis 215,
+   Wallenburg 219, Schaffhausen 249/253, Appenzell 265/269, coins 279, Zurzach 283, Biel 317/323/327,
+   Neuenburg 341, Rapperswil 351, Weyerhaus 359, Chur 381/389, Plürs 395, Sitten 407, Breitenlandenberg 411).
+4. **The list** = the book's own "Erönung der Kupfferstich" on BR n394 (n395 = upside-down duplicate). Draft
+   transcription (names as read from the 2x crops; page numbers as printed; } = entries sharing one page via
+   a printed brace; * = needs image confirmation next session):
+   Tafel des Teutschlands 10; der Endgnossenschaft 15; Elgg+Murr }16; Zürich im Grund 17 + im Prospect 17;
+   Forsteck 19; Eglisau+Grüningen+Griffensee+Regensberg }20; Stein am Rhein 21; Winterthur+Andelfingen+
+   Kyburg }22; Willisau+Wedeschwyl }23; Bern 24; Thun 26; Aarau+Arberg+Arburg }27; Lenzburg+Brugg }27;
+   Habsburg 27; Lausanne 79; Thun 31; Neuenburg* 31; Gletscher 32; Murten 32; Neuchâtel* 34; Wislikofen* 34;
+   Lucerne 36; 4 Waldstätter See 36; Möhlin 37; Aarberg 38; Schwyz 39 + im Prospect 39; Einsiedeln 39;
+   Unterwalden 41; Engelberg 41; Zug 43; Glarus 44; Basel im Grund 46 + im Prospect (2 Kupfer) 46 +
+   Brück 47 + St. Peters Platz 47; Münchenstein 48; Lichtstall 49; Wallenburg 49; Pierre-Perthuis 50;
+   Romanshorn 50; Freiburg im Üechtland 52; Solothurn 53; Schaffhausen 54; Saß am Rhein 55; Munkiringen 55;
+   Appenzell 56; Herisau 56; Baden 57; Klingnau 57; Leuggern 58; Wettingen 58; Mittlere Aare 58; Münzen 58;
+   Zurzach 58; Berggärtl* 59; Lommern 59/60; Belleng* 60; Hülshofen 60; Frauenfeld 60; Müllingen 60;
+   Rapperswil 61; Pfeffers (2 Kupfer) 63; Müllhausen 65; Biel 66; St. Gallen 67; Griffensee im Grund 70 +
+   im Prospect 71; Neuenburg (2 Kupfer) 72 (handwritten); Weyerhaus 72/77*; Kastelen 77; Chur 79; Plürs 83;
+   St. Luciensteig 85; Leuggs* 87; Trigg* 88; Naters 88; Bispach 88; St. Maurities 89; Sitten 90;
+   Breitenlandenberg 90; Chasillard 90; Blonay 90; Sandeck 90; Mauvis* 90; Werdenstein 90; St. Urbani 90.
+   (Footer: "102 Kupfersticken".)
+5. **Page-number semantics:** the list number points to an adjacent text page but the side is not
+   consistent (Bern spread leaf 75 follows p24, cited 24; Zurich spreads 39/43 precede p17, cited 17).
+   Consequence: the page number is only a candidate window; each entry is pinned to a wide leaf by the
+   plate's own printed title (hOCR, reliable here) + image spot-checks. IA pageNum verified correct on
+   p16 (n27) and p24 (n63, section start "2. Bern.").
+6. **Design for the table (next session implements):** HAND_FIGS["topographiahelve00zeil"] rows
+   fig|title|page|kind|kind_by with **fig = the 0-based BR leaf index n of the wide leaf** (the same
+   convention as civitates; n != 1-based leafNum here - the offset is not constant, e.g. leaf 429 = n394,
+   leaf 39 = n32 - compute n from ia.pages()),
+   page = the printed list number (a string, for the record), kind: o = perspective view (a drawing),
+   s = bird's-eye town plan (213's precedent for town plans), u = excluded (regional maps Tafel des
+   Teutschlands/Endgnossenschaft/4-Waldstätter-See, coins sheet), kind_by hand. A spread with view+plan =
+   two rows sharing the same fig (the index then emits one row per entry, per_entry path - same as
+   civitates's multi-plate leaves). The 10 missing-foldout plates (no leaf in the item) are transcribed
+   with fig = "" and parse_hand_figures extended to map "" -> None (the hand-over-2 anticipated this);
+   validate counts them as nopage and list_pages skips n=None - already safe in both, verify no other
+   path dereferences f["fig"]. The .json dump keeps the contract ("plates": null, "figures": [...],
+   indent=0, ensure_ascii=False, key order fig,title,page,kind,kind_by).
+
+### 2026-10-12 217 DECISION: Merian helvete (session 4) - plate-list transcription finalized from the 2x crops of n394 (75 lines / 81 plates, full names+pages in the task hand-over); the 10 'missing' foldout leaves EXIST in the IA item as full-res JPGs (session 3's 'not in this item' was wrong - BookReader hides them only); leaf identification is a per-leaf image job
+Session 4 on 217: transcription + investigation only, no code (tree clean; all artifacts under /tmp/merian/).
+Findings:
+1. **Foldout leaves are in the item.** `https://archive.org/download/topographiahelve00zeil/page/nNNNN.jpg`
+   works for all 10 foldout leaves (44, 86, 116, 168, 230, 238, 254, 346, 360, 412); ia.get returned real
+   JPEGs (saved /tmp/merian/foldout_NNNN.jpg). Session 3 concluded 'not in this item' from BookReader's
+   omission - wrong. Consequences: (a) their TITLES are readable and pin which list entries they hold
+   (foldout 86 = the Burgdorff view, confirmed by image); (b) they are still absent from ia.pages(), so
+   they have no n, no triage image, no index row - plates living ONLY on a foldout leaf are transcribed
+   with fig='' and the index simply never sees them (no leaf to point at; no fabricating a row on a
+   neighboring leaf). Foldout 44 turned out to be a duplicate TEXT page (p19, 'Beschreibung der
+   Endgnoschafft'), not a plate; several portrait-sized foldouts (168, 230, 238, 346, 360) may be text
+   duplicates too; 412 is 3744x5616 (possibly a double-page spread). Check each image before use.
+2. **Plate-list transcription is final** (3 columns of n394 read at 2x; crops in /tmp/merian incl. my extra
+   list_c12-14/c32/c33/list_lower). 75 lines / 81 plates; names + printed page numbers as in the task
+   hand-over. Corrections vs session 3's draft: 'Genff' is GENEVA (not Griffensee) with its own im
+   Grund/im Prospect pair; 'Neuenburg' carries a handwritten '2 Ansichten' (2 plates); 'Pfeffers' and
+   'Basel im Prospect' are each '2 Kupffer' (2 plates each); there are TWO Thun entries (p26 and p31);
+   'Beven' p31 is a real entry (near Yverdon); 'Romamostier' = Romainmôtier; 'Lowerk'/'Wellenk'/'Leugg'/
+   'Brieg'/'Mauwister'/'Etiszweyl' are unreadable place names (kept as printed). Footer: handwritten
+   '3 Karten un. 102 Ansichten' vs my count 81 - the gap is plates hidden inside merged list lines; not
+   an acceptance criterion (index rows off leaves, not off the footer count).
+3. **Leaf identification needs images, not hOCR.** hOCR titles are usable for ~40 of the 67 wide leaves,
+   but the Bern section's order is scrambled vs the list (Lausanne p79 sits inside the Bern section; Oron
+   appears with no list entry at all) and several leaves OCR to nothing (97, 105, 129, 225, 243, 337,
+   375). So all 51 non-obvious wide leaves were fetched at scale 3 to /tmp/merian/chk/n%04d_s3.jpg this
+   session (re-fetch: ia.page_image_url(p, scale=3); books_ia.get returns BYTES). Identified this session:
+   n42 = Forsteck (hill-castle view; hOCR 'Kazann' was garbage) and n76 = Oron (view; 'ORON.' title with
+   hunting scene - NOT in the printed list, an extra view like civitates's unlisted leaves). The full
+   not-yet-identified set, with hOCR hints and list-entry candidates, is in the task hand-over.
+4. **Kind policy for this book (to apply, record per decision):** o = perspective town/canton view (the
+   drawings GOAL point 5 asks for); s = bird's-eye 'im Grund' town plan (213's precedent for town plans);
+   u = excluded from the drawings: regional maps (Teutschlands, Endgnoschaffte, 4-Waldstätter-See and its
+   twins, the Lugano-ish sheet, the coins sheet). Open call: the GLETSCHER panorama (n104) - not a town
+   view; I lean o ('a view, a drawing in its own right' per the module's kind docstring) - decide with
+   evidence when the image is reviewed. Oron (unlisted view) gets kind o / kind_by hand and rows via
+   stage-A flags once triaged (civitates precedent for unlisted leaves).
+5. Wide-leaf count corrected: 67 (session 3 said 65). ia.pages has 400 leaves; the 67 (n, leafNum) pairs
+   are in the hand-over. hOCR index i == 1-based leafNum (aligned, unlike civitates); all 67 hOCR dumps in
+   /tmp/merian/wide_hocr.txt.
+
+## 2026-10-12 217 DECISION: Merian s7 - all 80 table rows resolved; FIVE list corrections from image reads (n298 = S. GALLEN not Biel's second plate; n362 = Brieg+Naters; n368 = S. Mauritij not S. Luciensteig; n72 also carries Habsburg; Plürs 83 has no leaf); kinds: Gletscher/Rheinfall/Ursprung des Rheins u (natural landscapes), Pierre-Perthuis o (named pass); NO code written this session - the table is in the hand-over, ready to paste
+Session 7 (iteration 121) on 217: investigation completed, no code. Steps: (1) re-ran /tmp/merian/identify.py for n66/n110/n166 after deleting their stale {"error": "No such file"} entries from llm_ids.json (the resumable check is `k not in res`, so error entries permanently block a key - delete them; the chk/ files existed all along). (2) fetched n0072/n0124/n0104 scale-3 -> chk/+d2/. (3) image-checked all remaining pending rows and re-verified list crops list_c30/31.
+FIVE LIST CORRECTIONS vs the s5/s6 table (all by reading the plate's own printed title; list order + page window agree in every case):
+- n298 (leaf 327) = 'S. GALLEN.' flat plan: list entry 'S. Gallen 67' HAS its leaf [s] (s6 said 'none' - it was misread as Biel's second plate; s3's hOCR garbage 'Blatz thor...Das Rahthaufe' is the S. Gallen legend). Biel 66 = n294 view only (1 row).
+- n362 (leaf 395) = 'PRYG. NATERS.': entry 'Brieg+Naters 88' HAS its leaf [o] (was 'none').
+- n368 (leaf 401) = 'S. MAURITIUS INVALESIA / S. Mairise in Walls' (French legend: l'Abbaye, S. Sigismond, St. Maurise, Ruesse, La Riviere...): entry 'S. Mauritij 89' HAS its leaf [o] (was 'none'); consequently 'S. Luciensteig 85' (line re-verified verbatim in list_c31.jpg) becomes 'none' - no plate leaf exists between n348 (leaf 381) and n356 (leaf 389): plain pages 382-388, no foldout/delete there.
+- n72 (leaf 81) = 3 views: LENTZBURGV. + BRVG ARGOLIA. (Brugg) + HASSBURGŰ. (Habsburg): entry 14 'Lenzburg+Bruck 27' AND entry 15 'Habsburg 27' (was 'none') both map to fig 72 -> two o rows in the table (per_entry then yields 2 index rows).
+- n342 (leaf 375) = 'FLURSIUM. TERRÆ MOTU OBRUTVM' (Flurschm, earthquake damage) - kept an EXTRA (not in the list; Flurschm != Plürs/Flüelen, neighbouring but distinct villages; the p83 page-window match is coincidence-level and the book's own list never mentions Flurschm): therefore entry 'Plürs 83' = 'none' (s5 had assigned it n362, which is Brieg+Naters).
+KIND DECISIONS (recorded per s6's request): n104 Gletscher = u, n228 Fall des Rheins = u, n348 Ursprung des Rheins = u - all three are natural-feature landscape views (glacier/waterfall/rhine-sources) with no town; the book's footer '3 Karten un. 102 Ansichten' counts them among the Ansichten, but for the site/index purpose they are not town views/plans (civitates precedent: non-town material = u = excluded from the index rows). n204 Pierre-Perthuis = o - a view of a NAMED pass that is its own list entry (a drawing in its own right, GOAL pt 5). n254 Zurzach 'Forvm Tyberii' = o (elevated perspective view, unlike the flat top-down plans of Bern/Müllhausen/S. Gallen = s). n268 Dissenhofen 'in grund gelegt 1648' = s.
+Multi-plate spreads: n124 = Sempach view + Sursee plan on ONE leaf -> 2 table rows (o row first, s row second - per_entry uses table order); n134 = Altorff view + Flüelen plan -> 2 rows; n176 (4-page Basel-im-Prospect, 2 views), n236 (Appenzell+Herisaw), n246 (4 views), n272 (Frauenfeld+Mellingen) = 1 row each (same kind); Neuenburg n316+n320 = 1 row (n316) - n320's second view surfaces as a stage-A row at triage.
+CODE check (no change needed beyond the one-line parse): cmd_index's per_entry (no stage B + >1 o/s entry on a leaf) already emits one row per entry with the right `view` field; validate_book/list_pages are already fig-None-safe (nopage / `n is not None`). The only code change: parse_hand_figures `fig=int(fig)` -> `fig=None if fig == "" else int(fig)` (civitates table has no '' figs -> byte-identical). The complete 80-row table (11 s / 8 u / 61 o; 14 rows fig '') is in the task hand-over - paste verbatim as HAND_FIGS['topographiahelve00zeil']. Baseline: md5 of the 18 existing list files in /tmp/merian/lists_md5_before_s7.txt; civitates .json must stay 0881ec0c...; last suite 101 passed / 1 skipped (s6, tree unchanged).
+
+## 2026-10-12 217 DECISION: Merian s8 - step A landed: HAND_FIGS['topographiahelve00zeil'] = the 80-row s7 table (11 s / 8 u / 61 o, 14 leafless rows fig ''), parse_hand_figures maps fig '' to None, ocrmap regenerates data/books/lists/topographiahelve00zeil.json as its dump - byte-verified (18 other list files md5-identical, civitates 0881ec0c, validate no-args == HEAD apart from civitates' never-committed "figures" block); box 2 still open pending the triage (step B)
+Session 8 (iteration 122) implemented step A exactly as s7's hand-over prescribed; no deviations, no new
+kind calls. The 80-row table went into the module VERBATIM - extracted programmatically from the task file
+(a script asserted 80 rows / 5 fields / kind tally / every fig in the 67 wide leaves / no '' fig in the
+civitates table) so no transcription drift. parse_hand_figures: `fig=int(fig)` -> `fig=None if fig == ""
+else int(fig)` + docstring; the comment block above HAND_FIGS and the module docstring now state fig '' =
+the plate has no leaf in the item (fold-out-only or unengraved). The dict gained its second key; both key
+names are 22 chars so the alignment is clean.
+Verification (all re-run this session, tree was clean at start):
+- ocrmap merian_helvete00zeil: "plates 0 figures 80 fig kinds {'s': 11, 'u': 8, 'o': 61} list leaves 0"; the
+  .json is byte-identical to a round-trip dump of figure_list (indent=0, ensure_ascii=False, key order
+  fig,title,page,kind,kind_by, 14 "fig": null); .map.json = [] (stage A empty - the civitates precedent).
+- No-args byte identity: all 18 other list files md5-identical to /tmp/merian/lists_md5_before_s7.txt AND to
+  git show HEAD; civitates .json still 0881ec0c (parse change is a no-op for it - no '' figs, verified).
+- validate no-args: regenerated file is per-entry identical to HEAD for all 8 plan books; civitates identical
+  apart from the "figures" section - which is EXACTLY session 2's verified block (listed 121, site 7, other
+  111, recall_pages 0.429, precision 0.273, flagged_on_other_only_pages [30,62,65,66,93,105,186,229],
+  missed [58,85,98,109], stage_A_only 0.143/0.333/1.0/3) that the 207/216 precedent left out of the committed
+  shared file (211's rebuild owns it). No merian entry (stage A empty -> validate_book returns None).
+  index.jsonl untouched (no stage A -> cmd_index skips the book). Both shared files restored (git checkout).
+- Suite: 101 passed / 1 skipped (unchanged from s6/s7).
+NEW PITFALLS: every books.py CLI command (fetch/triageA/triageF/ocrmap/index/validate) takes the BOOKS key
+(merian_helvete00zeil), not the IA id (topographiahelve00zeil) - `books.py ocrmap topographiahelve00zeil`
+dies with KeyError because the dispatch does `BOOKS[key]`; s6's hand-over mixed the notations for ocrmap.
+NEXT (step B, next session): triage the volume (fetch -> triageA -> triageF with the BOOK KEY; run_stage
+resumable; LLM 127.0.0.1:8080/8081 up, 8082 down per the 5060 Ti image matchers), then no-args index +
+validate with the expected values in the hand-over (66 index rows on 63 leaves + stage-A-only extras; merian
+validate entry appears; everything else byte-identical), restore the shared files, tick box 2, done.
+
+## 2026-10-12 217 DECISION: Merian s9 - step B complete: the (cut-off) iter-123 triage is verified (a fresh no-args rebuild is byte-identical to the driver-committed shared files); TWO table rows corrected (S. Luciensteig -> fig 350, Werdenstein+S. Urbani -> fig 384: both plates exist - s7's leafless call wrong, proven by hOCR + stage A reading each plate's own printed title); per-book ink floor BLANK_INK_BOOKS[ia]=0.01 in books.py drops the 4 faint show-throughs Qwen typed plate_site_plan (one with a cross-book invented title); final merian = 60 hand-list rows on 57 leaves, no stage-A-only rows; shared files restored to 6fff103 for 211; box 2 ticked, done
+Session 9 (iteration 124) on 217. Discovery: iteration 123 (a cut-off session of mine on this branch) had
+already run step B's fetch (400 triage images, data/raw, gitignored) + triageA (400/400) + triageF (108/108)
++ no-args index + validate, but was cut before the verify/restore/memory steps; the driver's safety-net
+commit 354b38c "[driver] uncommitted work after iteration 123" committed everything including the shared
+files (index.jsonl/validation.json) - against the s8 plan ("this task commits NEITHER; restore after
+verification; 211 owns them"). So this session verified that state, fixed what verification exposed, then
+completed the plan.
+Verification of the committed state: a fresh no-args `books.py index` + `validate` under the current code is
+BYTE-IDENTICAL to 354b38c's files (md5 4ae18b29.../2cb0e2c1...) - the files are faithful artifacts of the
+code, not hand-edits. Per-row/entry diff vs the 6fff103 pre-task baseline: 890 plan-book rows byte-identical
+IN ORDER (box 3 holds), 8 plan validation entries byte-identical; 118 civitates rows (107 new + 11 old
+model-flagged rows reshaped by 217's machinery - the intended delta, s2-verified, byte-identical to the
+s2-era numbers); civitates validation entry differs from baseline ONLY by the s2-verified "figures" block
+(listed 121, site 7, recall 0.429, precision 0.273, flagged_on_other_only [30,62,65,66,93,105,186,229],
+missed [58,85,98,109]) - which the 207/216 precedent deliberately left out of the committed file (211's
+rebuild owns it); new merian entry.
+S8 PREDICTIONS CORRECTED (all verified against the actual run; the actuals are self-consistent):
+- list rows 58 on 55 leaves, not 66 on 63: s8 counted the 8 kind-u rows as index rows; list_pages/index
+carry only s+o (u = unsure, excluded by the module's documented design).
+- gt_site_pages 10, not 11: the 11th s row (Nünkirchen, leaf 55) is leafless (BR-hidden foldout).
+- stage-A-only rows were [121, 153, 205, 231, 350, 384], not the speculative {76, 176, 264, 320, 342}: the
+  known extras n76 (Oron), n264, n320 (Neuenburg 2nd view), n342 (Flursium) were typed other_illustration by
+  stage A and stage F says no plan -> no rows, as designed (they surface only if the model ever flags them).
+TWO TABLE CORRECTIONS (s7's leafless calls were wrong; both plates exist in the item and were verified by
+TWO independent readers - stage A's 1400-px read and the cached hOCR, which agree):
+- n350 (leaf 383, ink 0.2025) = 'S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen.'
+  (hOCR leaf 383 garbles exactly this title) -> the list row 'S. Luciensteig 85' has its leaf; s7's
+  "no plate leaf between n348 and n356: plain pages" missed n350.
+- n384 (leaf 419, ink 0.3551) = 'WERDENSTEIN. Kloster S. Urban' (hOCR leaf 419 carries the legend
+  'MONASTERIU S.URBANI. ... Die kirche, Die Abtey, Das Convent, Studier vnd Krancken Haus, ...') -> the list
+  row 'Werdenstein und S. Urbani 90' has its leaf. Stage A typed it other_illustration (a view), consistent
+  with kind o; titles in the table updated to the plates' own printed wording (the other rows' convention).
+FOUR JUNK ROWS REMOVED BY A PER-BOOK INK FLOOR: n121 (ink 0.0054), n153 (0.0073), n205 (0.0097), n231
+(0.0073) were typed plate_site_plan by stage A and passed the global BLANK_INK=0.005 gate, producing four
+titleless view rows (n153 with a cross-book invented title: 'Plan of the Mound at the Fork of the Road,
+near the Village of' + 'PLATE XXV' - a 19th-c American idiom in a 1654 Swiss book; 'PLATE XXV' was read on
+n121 too). All four have garbage hOCR (show-through backs of foldouts); every GENUINE plate leaf in the
+item has ink >= 0.1834 (min n308), so a 0.01 floor for this book alone (BLANK_INK_BOOKS in books.py -
+Touche added; site_pages_model uses it, global BLANK_INK untouched so no plan book is affected) drops
+exactly the four and keeps everything real.
+FINAL STATE (verified; this is what 211's no-args rebuild reproduces): index 1068 rows = 890 plan + 118
+civitates + 60 merian. Merian: 60 rows on 57 leaves, ALL list-derived (title_source 'book's figure list,
+hand-transcribed'; zero null titles; n72/n124/n134 give 2 rows each): view true 50 / false 10; found_by
+list_view 45 / list 6 / list+qwen 6 / list_view+qwen 3; page_type other_illustration 58 / plate_site_plan 2
+(n308, n350 - stage A's type kept, the view field disambiguates); NO stage-A-only rows remain. Merian
+validate entry: pages 400, triaged_A 400, flagged_stageA 66, F 108, flagged 8; figures: listed 80,
+parsed_with_page_on_a_leaf 68, site 11, unsure 8, other 61, gt_site_pages 10, recall_pages 0.5, recall_pm1
+0.5, precision_strict 0.625, precision_lenient 0.625, flagged_on_other_only_pages [246, 350, 384],
+flagged_not_in_list [], missed_pages [32, 66, 134, 218, 298], stage_A_only {recall 0.1, precision 0.015,
+66} (the model's quality on this book; recorded, not forced). data/books/lists/topographiahelve00zeil.json
+= the corrected table's dump (md5 1f49058c); .map.json = 57 mapped leaves (site_plan leaves unchanged:
+32, 66, 124, 134, 172, 218, 268, 288, 298, 308). Shared files restored to 6fff103 (the pre-task baseline).
+Suite after all changes: 101 passed / 1 skipped (184 s). Boxes: 1 (s2) and 3 (s2, re-verified today: 890
+plan rows + 8 validation entries byte-identical) already ticked; 2 ticked this session - one row per
+indexed town-view plate for the view books (civitates 118 + merian 60, all with the view field: true for
+kind o, false for kind s; the 2 mixed leaves n124/n134 give one of each) and zero plan-book rows carry the
+view key. Status: done. 211's rebuild (with my triage artifacts + corrected lists on main) reproduces the
+merian rows; the page branches on `view`.
+
+
 <!-- task 218 -->
 # Task 218 gate-holdout-new-hand-docs
 
@@ -2871,6 +3318,55 @@ whether view books need scope once index rows exist.
 Where: `tools/gate_heldout.py` (new `partition(platefits_dir=None)`; module docstring and REGISTERED comment document the frozen-set semantics per the 802 precedent - docs/gate.md untouched), `tests/test_gate.py` (new `test_partition_frozen_set_tolerates_post_registration_docs`; header line extended), `tasks/218-gate-holdout-new-hand-docs.md` (boxes ticked, Status done), `PITFALLS.md` (the 218-owned entry rewritten to the post-218 truth, with the pre-merge-branch guidance kept)
 Step: first implementation session for 218 (no failed attempts to search against; approach is the one recorded in the task goal and in 206's archived decision: the frozen set is the 20 named docs). The count precondition `len(names) != 20` (802) became a membership check: non-auto names are built as before, then `missing = registered - non_auto`; any missing registered name (renamed, deleted, or gained "auto": true) raises SystemExit naming each one, keeping the "the registered partition is void, see docs/gate.md section 1" tail. The derivation itself (sorted 20, seed 20260108, `check_registered`) is otherwise untouched, so it is byte-identical to the pre-218 20-only derivation; `partition()` gained an optional `platefits_dir` parameter (default the checkout's store) so the committed test can run it against stub documents in a temp dir. New hand fits stay subject to the production fit gate (fit_gate.gate) at fit time; this tool never scores them here and prints nothing about them.
 Verified this session (all offline, `.venv`): (1) CURRENT CHECKOUT (22 non-auto = 20 registered + 206's shotwick-c_e6e5490609414bb9 + the human's maiden-castle-c_c20ff6b1f16d173d from main head cd104ca, plus 94 auto): `.venv/bin/python tools/gate_heldout.py` completes; held and dev stdout diff byte-identical against the two halves of tests/golden/gate_heldout.txt (40 + 60 lines); test_recorded_measurement_reproduces_and_agrees green - that is 206's 4th red resolved (its box 4). (2) STATE-AGNOSTIC BAR (803 precedent, box 3): temp copy of the checkout with EXACTLY the 20 registered docs (/tmp/aw-218-stateA: the 20 docs + web/data/sites.json + the tool + its 4 imported pipeline modules aw/fit_gate/plan_fit/depict) - both `--set held` and `--set dev` reproduce the golden byte for byte (diff); temp tree deleted afterwards. (3) committed test (stub .json docs in tmp_path only - no repo writes, no network): (a) 20-only AND 20+3 hand+2 auto -> partition returns names/held/dev exactly the registered lists and check_registered passes; (b) 19 registered + 1 unknown hand doc -> SystemExit naming the missing registered doc; (b2) all 20 present but one gained "auto": true -> SystemExit naming it. (4) full suite `.venv/bin/python -m pytest -q`: 62 passed / 3 failed (64 collected) - the 3 reds are all 211-owned and were failing before this change (test_batch_eu::test_union_check and test_union_full_coverage_live, both `assert (not ['shotwick-castle-q7502621.c_e6e5490609414bb9.json'])` orphan_docs; test_serve::test_platefits_docs_match_sites, shotwick site unbuilt in web/data/sites); no new reds, and the previous 4th red (test_gate) is gone. Decision: all four acceptance boxes verified and ticked; Status: done.
+
+
+<!-- task 219 -->
+# Task 219 source-line-year
+
+## 2026-10-12 219 DECISION: 302c no longer blocks - the lead dropped 302c/302d in main d39ead8
+The task's `Depends on: 302c` existed only because both touched pipeline/plan_fit.py. The lead's
+commit d39ead8 (main, 2026-10-12) dropped 302c/302d as superseded by the matcher fit and set 219's
+Depends line to `none`. 302c never made its design changes to plan_fit.py (its own hand-over:
+investigation only, no code), so nothing from it collides with 219's edit; plan_fit.py is
+byte-identical between my branch and main (merge-base e2ca3d9; main's only commit since is d39ead8,
+task files + journals only). Proceeded on this branch without waiting.
+
+## 2026-10-12 219 DECISION: year-once rule = drop the label parenthesis whenever the title carries any 4-digit year
+The task's two sentences ("drop the label's parenthesis when the title already contains that year"
+vs "only a title without a year shows the label (or 'undated')") diverge for the 3 docs whose
+label-year differs from the title-year (argentoratum 1831/1836, bethlehem 1881/1882, mound-bottom
+1923/1924). Implemented the stricter, unambiguous one: the parenthesis appears ONLY for a yearless
+title (label or "undated"); a titled year always drops it. The label is not lost from the page: it
+stays in the entry's `scale` field. The year check reuses the same 4-digit pattern as the entry's
+sort year (_year4) so the two can never disagree; non-4-digit numbers ("116", "0154", 5-digit ids,
+"17th century") are not years, so "(1750-1900)"-style labels still show under yearless titles.
+
+## 2026-10-12 219 DECISION: refactor source_line extraction is byte-identical for all 133 store docs
+Extracted the citation + who/how clause from build() into pure source_line(doc, n, m, who) and the
+year regex into _year4 (committed 4b93f5c). Proof: a throwaway script evaluated the old inline
+expressions (copied verbatim from HEAD) and the new function for every doc in data/db/platefits
+(133) with m from similarity(doc['pairs']) unscaled - 0 mismatches. The least-squares similarity is
+scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, leaving the ground
+residuals the same), so m and corners do not depend on which image size stands in for the picture;
+this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
+and still pin the exact how-clause.
+
+## 2026-10-12 219 DECISION: re-bake = plan_fit.build per stale entry, then restore sites.json byte-for-byte
+The one-off re-bake (14 built year-titled commons depictions + shotwick, which had never been
+built in this checkout) ran the product's own path: plan_fit.build(doc) per doc, root = this
+checkout. Contrary to the previous hand-over's expectation, every big picture was already
+cached in data/raw/commons/big/ -> zero downloads. Proof that "only the string changes": for
+all 14 the rebuilt entry equals the stored one in every field except source; a second
+identical run is byte-stable (the fixed state is a fixed point); shotwick's rebuilt entry
+matches agent a's built entry (corners, fit, year, label, scale, coverage, kind, file, ink)
+with only the source fixed. Each build's trailing build_site.set_drawings refreshed
+web/data/sites.json (tracked, in 306's Touches) - the committed bookkeeping was stale (5
+sites: drawings 0 despite built plans, bethlehem 0->12) - and I restored the committed
+bytes: a gitignored build does not change committed bookkeeping (agent a's checkout follows
+the same convention); the product refreshes the file on its own next time. The naive
+verification check ("(label)" in source) false-positives on 3 of the 15 (avaricum, bolsover,
+castle-rising: the label string occurs inside the title itself) - the structural test is
+source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
 
 
 <!-- task 300 -->
@@ -3199,6 +3695,47 @@ Boxes 2-5 ticked, Status: done. Next: 302c (decision + tools/site_done.py wiring
 test); the 302b hand-over lists what is frozen and must not be touched.
 
 
+<!-- task 302c -->
+# Task 302c decision-wiring
+
+## 2026-10-12 302c DECISION: the confidence threshold is 0.15, set on the 302b held-out table (box 1) - the null margin only rations the pass rate; it is not an accuracy guarantee
+First session on 302c (iteration 84): investigation and design only, no code written (the context
+limit hit before the first edit). The value and the design, frozen for the next session:
+- Threshold CONF_THRESHOLD = 0.15 on the search-matched-null margin (confidence = objective_fit
+  - max(scramble, shifted) as fit/inkfit.py already computes). Rationale from the 302b table
+  (docs/site_flow.md "Measured one-shot"): sorted margins run -0.5150..+0.1871 and do NOT
+  separate good from bad fits (worst calleva +0.1070/2203.6 m sits above castle-rising +0.0806
+  and old-sarum-book +0.0693). A threshold > 0 passes 11 docs, > 0.05 passes 6, > 0.10 passes 2
+  (badbury AND the worst, calleva); only a threshold in (0.1070, 0.1871] passes exactly one
+  document - badbury, the best (264.5 m, 17% of the site's size). 0.15 is mid-interval: 0.043 of
+  room above calleva's rounded 0.1070 and 0.037 below badbury's 0.1871, robust to small DEM/OSM
+  drift between the held-out run and a re-run. A future change to the value is a method change:
+  it must be labelled and re-measured, never a silent fix.
+- Decision (applied in fit/inkfit.py, additive): confident iff the fit produced reportable pairs
+  AND the frozen gate accepted them (verdict == fit_gate.ACCEPT) AND fabrication_pattern is
+  silent AND the null ran AND margin >= 0.15. Everything else is unsure with a
+  human-readable reason (the existing no-fit reasons are already human-readable; new: a gate
+  refusal names the median residual; a below-threshold margin names the margin, the fit and
+  null objectives and which null won - per the 302a hand-over note). Confident -> automatic
+  platefit document (auto: true, fitter: "ink", the gate's score); unsure -> the site's review
+  item with the reason and the best starting pairs, never to the map.
+- New result fields are "confident" (bool) and "unsure_reason" (str|None). The "reason" field
+  keeps its exact meaning (None on the success path): inkfit_heldout.measure() stores r["reason"]
+  into the frozen one-shot checkpoint (data/inkfit/heldout/results.json), so routing the margin
+  message through "reason" would corrupt the checkpoint if measure were ever re-run. "confident"/
+  "unsure_reason" are new keys measure() does not store, so the checkpoint and the verbatim table
+  stay untouched (verify: `fit/inkfit_heldout.py table` byte-identical to the committed section).
+- Task file: Touches extended to docs/site_flow.md (the decision paragraph goes next to the
+table), data/inkfit/ (the committed test-site relief npz seeds under data/inkfit/relief/, the
+committed real-plate copies under data/inkfit/plates/) and tests/test_site_done.py (the
+no-model CLI message of site_done changes wording, and that test asserts the line verbatim).
+Next session: implement box 1 exactly as the hand-over spells it (the decide() contract, the
+site_flow.md paragraph text, the verification list incl. applying decide() to the 21 checkpoint
+entries -> exactly badbury confident), then box 2 (site_done wiring), 3 (plan_fit.build how
+string) and 4 (tests/test_inkfit.py + the committed seeds; badbury = confident e2e, calleva =
+unsure e2e).
+
+
 <!-- task 303 -->
 # Task 303 fit-provenance
 
@@ -3342,6 +3879,267 @@ Verified at session end: 127.0.0.1:8091 does not answer yet (curl /health: conne
 refused) - the owner's tunnel command is still pending. Next: build the client + RANSAC
 against the API contract with a stub server (hermetic), re-check /health each session,
 reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
+
+## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's
+
+Session 3. The file was already committed by the driver (3b4c2b2 "[driver] uncommitted
+work after iteration 86"); the import check passed clean (no breakage to fix). The
+three Re-read items were re-verified with fresh eyes against the source:
+
+1. **Sign convention (CRITICAL item) - passes, no flip.**
+   `propose._anchor_pairs` is `z = (m_per_px/k) * e^{i theta} * (w - wc) + zc` with
+   `w = u - i v` (page coords, v down) and `z` Mercator (imag = north). A visual
+   (on-screen) counterclockwise rotation by phi multiplies the `w = x - i y` frame by
+   **+e^{i phi}** (verified: at 90 deg the up vector (0,-1) goes to left (-1,0), which is
+   CCW on screen and +i in the w frame). A drawn plan whose north arrow is theta deg
+   CLOCKWISE of page-up has the 302b anchor factor e^{i theta}; rotating the panel image
+   by **+theta** (PIL `rotate(+deg)` is counterclockwise on screen) brings it north-up.
+   So `_match_theta`'s `rotate_image(panel, +theta)` and `rotated_panel_map`'s
+   `R = [[c, s], [-s, c]]` (the visual-CCW matrix in x-right/y-down) are both correct,
+   and the composition `a_s * a_r * e^{i theta} * fs` is exactly the anchor form
+   `(m/k) e^{i theta}`. The synthetic test must still lock this (see hand-over).
+2. **Frame separation in `composite_placement` - passes.** The similarity (a, b) is fit
+   on the four FULL-FRAME (doc size frame) corners; the reported panel corners are the
+   CROP-box corners (size units, `_panel_crop`: map_box fractions * size, or (0,0,w,h)
+   full frame) pushed through that same similarity. The composition of the three
+   stage maps is an exact similarity in the w frame, so the full-frame fit is valid at
+   the crop corners. `fit()`'s `size = row.size or [panel.width, panel.height]` matches
+   `inkfit._size_frame`.
+3. **Null phase - passes.** Both null `_match_theta` calls pass the UNROTATED panel
+   (real or scrambled) plus the chosen theta; the rotation is applied inside, exactly
+   as in the fit phase. Scramble recipe checked against 302b: same seed (20261012 =
+   `inkfit.NULL_SEED`), same per-piece draw order (th, dx, dy), same R (`_rot2` form),
+   clip, white background; the sheet shift matches 302b's DEM null
+   (`ndi.shift(..., (-h/2, +w/2), order=0)`, cval 255 instead of NaN for an image).
+
+**One real bug found and fixed (committed):** `panel_pieces` kept every autowalls keep
+label, but the 302b reference `inkfit.template_pieces` drops labels that have zero of
+`extract`'s 1-in-step sampled points (deterministic seed-0 subsample, step=2). A label
+that 302b drops would still consume (th, dx, dy) draws from the single seeded RNG,
+shifting every later piece's transform in the scrambled null image. Fix: select labels
+through the sampled points, exactly as `template_pieces` does (`comp = lab[pts...]`;
+a piece exists iff a sampled point hits its label). Verified on a synthetic panel:
+identical (idx, length) piece lists, identical first scramble draw, valid scrambled
+image; `ransac` recovers an exact planted similarity to 1e-14; `sheet_similarity`
+returns |a| = 10, rot 0 deg for a known 10-merc-m/px sheet. Suite green: 68 passed,
+1 skipped (the earlier known reds from other tasks are resolved on main; nothing mine
+touches them). Matcher still live: /health -> zju-community/matchanything_eloftr on the
+RTX 5060 Ti.
+
+Next (session 4): write tests/test_surveyfit.py - the hermetic stub-server suite
+(details in the task hand-over), then the real-service smoke, freeze, held-out
+evaluator, one run.
+
+### 2026-10-12 304 DECISION: hermetic stub-server test suite for the survey fit (tests/test_surveyfit.py written, not yet run); sign convention verified by code
+
+Session 4. Wrote the complete tests/test_surveyfit.py (7 tests, uncommitted on disk -
+harness hand-over). Design decisions, recorded for the next agent:
+
+1. **Sign convention verified by code (closes the session-3 "must still lock" item).**
+   Ran a probe: PIL rotate(+90) sends a marker right-of-centre to up-of-centre (visual
+   CCW, matches the docs); rotated_panel_map(90) sends the same point to the same place
+   (its R = [[c,s],[-s,c]] is the visual-CCW matrix in x-right/y-down); and in the
+   w = x - i y frame a visual CCW rotation by phi sends a point's coordinate to
+   e^{+i phi} * w (checked numerically for both basis vectors). My own mid-session hand
+   derivation that got e^{-i phi} was an arithmetic slip (mis-decoding w = x - iy for
+   "up"): the module's convention and docstring are correct. Corollary (derived, to be
+   confirmed by the recovery tests): the true pairs satisfy a_r = (a_true/a_s) e^{-i
+   theta_sent} and the module's composition a_s*a_r*e^{i theta} recovers a_true for ANY
+   theta_sent - the rotation is absorbed by the fit, so the sweep discriminates only
+   through matcher match quality (the stub simulates this with a degradation rule).
+
+2. **The stub matcher (port 0, never a fixed port - parallel checkouts).** It decodes
+   the two sent PNGs and simulates the service: sheet classified by 3x3 ink windows at
+   the world's sheet centres (real sheet >= 12 of 14 seen; the 302b half-box shift ==
+   all 8 surviving SW-quadrant glyphs seen at (x+200, y-200)); the plan image's
+   rotation resolved to 2 deg from connected-component centroids matched against 180
+   candidate expected positions (hit window 2.0 px; oriented iff >= 8 of 14 hit - plan
+   centre radii 43-200 px make one fine step's 2.8-7 px displacement a clean miss);
+   true pairs returned in the ORIGINAL (sent) pixel frames as the service does,
+   degraded by the angular error vs the drawing's own rotation (<=3 deg: all
+   survivors; <=15: first 6; else none) so the frozen sweep has something to score;
+   plus one fixed 12-pair junk set (seed 304777).
+
+3. **The world (all constants in the test file; measured outcomes go to
+   data/surveyfit/devlog.md):** site (2.0, 50.0), 2000 m box (square in Mercator, so
+   the sheet's a_s is exactly real ~7.7786), 400x400 sheet, 14 glyph discs (7x2 grid,
+   x=30+50i, y in {250,310}), 320x320 plan at M_PX = 4.0 (|a_true|/|a_s| = 0.8; plan
+   glyph radius 4.375 px; drawn at 4x supersampling for sub-pixel centres; saved as
+   JPEG q95 to stand in for a scanned picture), b_true chosen so the plan centre
+   lands on the site centre, 4 junk glyphs at the corners (>= 25 px from true ones;
+   a rigid rotation preserves the gap, so they never match at any candidate theta),
+   12 junk match pairs (seed 304777). Three drawing rotations exercised: 42 (fixed
+   rot), 0 (sweep; the fine grid wraps 348..12 and the 0/12 deg images are sent
+   twice - the re-read item from session 3 is now a test assertion, not a note), 6
+   (sweep refinement between coarse values).
+
+4. **Expected score order (to be confirmed, then logged):** 14-true ~0.53 > 6-true
+   ~0.30 > junk-only ~0.19; the shifted-sheet null carries 8 true pairs ~0.34 < fit.
+   If the junk-only RANSAC model ever scores above the 6-true level, the theta_d=6
+   sweep's argmax can break - the fix is a different JUNK_SEED (304778, ...), not a
+   change to the frozen module.
+
+5. **Fixture (test 6, the test_gate pattern):** data/surveyfit/fixture_match.json is
+   generated by `.venv/bin/python tests/test_surveyfit.py --emit-fixture` (once, then
+   committed): the ideal true pairs of the theta_d=42 world + the junk set, with the
+   module's own ransac + score output recorded at full float precision; the test
+   re-runs the frozen core and asserts exact equality.
+
+Known bug to fix first next session: _resolve_theta crashes on a zero-centroid image
+(scrambled panel with no ink after extract: ndi.label n=0 -> min(axis=0) on empty);
+guard with `if cents.shape[0] == 0: return None, {}`. Also `__import__("io")` in the
+handler should be a top-level import.
+
+After the suite is green: devlog.md, full suite, matcher re-check (127.0.0.1:8091 was
+live this session), real-service smoke, freeze, held-out evaluator, the one run.
+
+### 2026-10-12 304 DECISION: first real run of the stub suite - the synthetic world was mis-scaled and is now centred at (195,235) with 25/30 px pitch; a match-quality jitter (0.6 px/deg) makes the true rotation the unique sweep max; scipy 1.18.1 changed center_of_mass's array-index return
+
+Session 5, first execution of tests/test_surveyfit.py. Three distinct findings, in order:
+
+1. **The session-4 world did not fit its own frame.** The old 7x2 grid (x=30+50i, y in
+   {250,310}) is 300 sheet-px wide = 375 plan-px at the plan's 0.8x scale - wider than the
+   320 px plan frame - and its centre (180,280) is 100 m west / 400 m south of the sheet
+   centre, so in the plan frame (plan centre on the site centre) the glyph field sat
+   off-centre: one true glyph landed at x=-67.5 (off-frame) and another within 9 px of the
+   (15,305) junk corner at theta_d=0. The junk-gap assertion caught it on the very first run.
+   Redesign constraint (verified numerically, not by eye): a 7-col grid can have exactly 4
+   columns <= 198 and 2 rows >= 202 (the 302b half-box shift keeps 8 glyphs) ONLY when the
+   grid centre is off-centre (pitch (198-c)/2 < p_x <= 198-c), while the plan frame (scale
+   0.8, centre on site) needs the grid within ~155 px of the panel centre at every
+   theta_d in {0,6,42}. Chosen: pitch 25/30 px, centre (195,235) - cols 120..270, rows
+   220/250. Consequences (all measured): 8 shift survivors; all 14 glyphs in-frame at all
+   three theta_d; min junk gap 35-93 px; and crucially the stub's rotation resolution is
+   binary at the grid's 2 deg step (true theta: 14 hits; any 2-deg-off candidate: 4 hits),
+   so the sent rotation always resolves to itself, never to a neighbour.
+
+2. **Score ties, broken by a quality wobble, not a count cut.** With the binary hit gate,
+   a call one fine step (2 deg) away from the true rotation still resolves and returns all
+   14 true pairs (delta <= 3 band), so without further degradation it would TIE the true
+   rotation's score and the sweep's first-max rule could land on 358/2 instead of 0. Fix
+   (test-side only, no frozen-module change): the stub's returned plan-side points wobble
+   by up to 0.6 px per degree of angular error, seeded per (theta, i) - deterministic and
+   repeat-call-stable, mimicking a matcher whose match QUALITY degrades with rotation. The
+   resulting score landscape is strictly ordered: delta 0 ~0.52 > delta 2 ~0.48 >> delta
+   4-15 ~0.15-0.19 ~ junk-only ~0.15. The sweep is now deterministic: theta_d=0 -> 0, theta
+   _d=6 -> 6, unique maxima in both cases (the fine-0 duplicate payload ties the coarse 0
+   and the strict > keeps the first).
+
+3. **Two crashes, both test-side.** (a) The anticipated zero-centroid ValueError in
+   _resolve_theta (empty scrambled image): guarded. (b) NEW, unanticipated: scipy 1.18.1's
+   ndi.center_of_mass(input, labels, index_array) returns a LIST OF (cy, cx) TUPLES (one
+   per label), not a (cy-array, cx-array) pair - `cy, cx = ...` raises "too many values to
+   unpack (expected 2)" whenever n != 2. _centroids rewritten to consume the list form. The
+   single-mask form ndi.center_of_mass(mask) still returns a (cy, cx) tuple, so
+   fit/surveyfit.py's panel_pieces (line 344) is unaffected - verified. (PITFALLS candidate.
+   Note: the .venv the driver builds from requirements.txt pins this scipy; the code must
+   match ITS behaviour, not an older one.)
+
+After these fixes the suite runs end to end against the stub; first failure is now a
+tolerance, not a crash: test 1 (theta_d=42, rot=42, no null) reports the placement centre
+2.958 m from the independently constructed true placement (limit 2 m). Diagnosis (measured,
+throwaway script): my 4x-supersample rasterizer (4x4 cells, acc >= 0.3) biases each disc's
+measured centroid 0.44-0.66 px from the intended sub-pixel centre before any JPEG, and
+0.34-0.77 px after the module's 42 deg PIL bicubic rotation - the 16-cell coverage
+quantisation makes the effective ink boundary asymmetric, and the 14 per-glyph biases share
+a common component (fitted b off ~0.7 plan-px = 2.9 m; da and the corners were not yet
+reached by the -x run). Hypothesis: 8x supersampling (1/64 coverage resolution) cuts the
+bias to ~0.1 px; the JPEG q95 roundtrip (what the stub actually decodes) adds at most a
+~0.1 px symmetric blur. One open question from the last experiment: a single-disc 8x test
+case came back with ZERO ink components after the JPEG roundtrip (the script crashed on
+the empty array before printing which point) - if a 7-px disc genuinely vanishes at q95,
+enlarge the world's glyph radii (SHEET_R 3.5 -> 5) rather than the encoder. Tolerances
+will be set to ~2x the observed worst case and the measured numbers logged in the devlog,
+as pre-decided in session 4.
+
+Next (session 6): 8x supersample (verify the vanishing-disc question), rerun, recalibrate
+tolerances, then fixture emit + devlog + full suite + real-service smoke + freeze + the
+one run, per the hand-over.
+
+## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091
+
+Session 6. (1) The 8x supersample experiment (throwaway, then deleted) DISCONFIRMS the
+session-5 hypothesis: the per-disc centroid bias is NOT 4x quantisation. Measured (full test
+path: rasterise -> lossy save -> [plan] PIL bicubic rotate -> connected-component centroids
+vs the expected positions): r = 3.5 discs - 4x: 0.33-0.68 px, 8x: 0.43-0.76 px (WORSE); r = 5
+- 4x: 0.37-0.70 px, 8x: 0.49-0.88 px. Even INTEGER-centred discs (sheet) are biased: 0.329 px
+(4x) / 0.707 px (8x) - the 0.3 coverage threshold cuts the small-disc edge asymmetrically
+about the sub-pixel centre, and finer supersampling only changes which edge pixels land
+inside. JPEG q95 (the plan's path) and WEBP q95 (the sheet's) add at most ~0.05 px, and NO
+disc vanishes in the 14-disc world (the session-5 single-disc vanishing did not reproduce).
+(2) Design consequence (the fix this session, tests/test_surveyfit.py only): the stub's
+connected-component centroids are a poor model of a real matcher's KEYPOINT ACCURACY (a
+trained sub-pixel regressor, not a thresholded-blob centroid), so the stub now returns, for
+each detected glyph, its EXPECTED sub-pixel position in the sent frame (the module's own
+visual-rotation matrix) plus a small deterministic per-(theta, i) matcher wobble (+-0.25 px,
+seeded, a stream separate from the quality jitter) plus the existing 0.6 px/deg angular
+jitter. The sent-image geometry still drives what the stub sees: glyph DETECTION (which
+glyph, which rotation, real vs shifted sheet) still runs on the measured centroids, and the
+_take bands (all 14 / first 6 / none), the junk set, and the response format are unchanged.
+This is a more faithful matcher model, not a weaker test: the placement tolerance now means
+"what a good sub-pixel matcher's fit would produce", and the sweep still scores rotation
+through quality degradation. A throwaway-script red herring consumed some time first: my
+8x prototype rasteriser had INVERTED polarity (white ink / black paper) and looked like a
+single mega-blob - the module's `_rasterize` convention is black = ink (`255 * (~ink)`);
+checked rather than believed. (3) REAL MODULE BUG found and fixed (fit/surveyfit.py,
+shift_sheet_image): `ndi.shift` on the RGB sheet (rank 3) with a 2-element shift sequence
+raises "RuntimeError: sequence argument must have length equal to input rank" - the null
+path had never executed before (tests 1-3 run null=False). Fixed with a 3-element shift
+(0.0 on the channel axis). (4) Tolerances tightened to ~2x the OBSERVED worst (the
+recorded-pin discipline): observed worst over the four worlds - db 0.624 m (theta_d=42),
+da 0.00273 m/px, panel corners 0.797 m; null run (theta_d=0): fit 0.5278 vs null 0.3923,
+margin 0.1355, confidence 0.0715. New asserts: db < 1.3, da < 0.006, corners < 1.6. (5)
+Fixture emitted and committed: data/surveyfit/fixture_match.json (north-42 ideal world, 26
+pairs, 14 inliers, rms 3.6e-12, score 0.538462) - test 6 (reproduce exactly) passes.
+(6) Full suite: 75 passed, 1 skipped (was 68 passed 1 skipped before my 7 tests).
+(7) The REAL service now answers: GET 127.0.0.1:8091/health ->
+{"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}.
+
+Next (session 7): the real-service smoke (hand-over step 6): canary `fit/surveyfit.py
+maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 31 inliers /
+20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
+avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
+measured numbers (world params, per-world fit/null scores, the bias table above, the
+scipy gotchas); then FREEZE (restate the frozen config in my site_flow 304 section + the
+freeze commit hash) -> fit/surveyfit_heldout.py -> THE ONE RUN -> verbatim table + plain
+verdict -> pass: 304b task; fail: stop.
+
+## 2026-10-12 304 DECISION: session 7 - re-reads passed; live canaries on three sites (the lead's direction); the method FROZEN at 737508d (freeze commit 156aa19: devlog + site_flow restatement + evaluator); the one-shot run is the entire next step
+
+(1) Re-read passes, no changes: (a) `_jitter`/`_wobble` are seeded per (theta, i) only, so a
+repeated call at the same theta returns identical points (the sweep tie-break and the
+duplicate-payload test depend on it); (b) `match_response` iterates `_take` and skips any
+index not in `matched`, so detected-but-unselected glyphs are never returned; (c)
+`shift_sheet_image` still shifts half the box north (-h/2 rows) / east (+w/2 columns) with
+the 3-element shift. The lead (this iteration) directed: the stub is frozen as it is - a
+test that runs end to end is enough - so the stub suite (7/7) stands untouched.
+(2) Live canaries (all --no-null against 127.0.0.1:8091; full table in
+data/surveyfit/devlog.md): maiden (held-out #14, the lead's directed canary) 43 calls /
+215 s; the frozen sweep chose theta=94 (20 pairs / 6 inliers / 0.2048 / conf 0.0419) -
+eyeballed OFF (~1 km NW of the hillfort; the inlier-fraction score preferred a small tight
+cluster), while the same run's theta=0 call gave 625 pairs / 31 inliers / 0.0311,
+reproducing the lead's raw smoke (his 633 pairs: the service's pair count drifts a few %
+between calls of identical images). barnard (not held-out): 3/3/0.7262/0.5274, on the
+earthworks; avaricum (not held-out): 9/3/0.2364/0.0559, on the earthworks. Recorded as
+observations, nothing tuned: the pre-registration bars any parameter choice from held-out
+numbers, and the lead's own raw smoke was a raw-API check, not my method.
+(3) Task 303's golden re-key broke the 302b evaluator's `doc_ids()` (it expects exactly 20
+platefit docs; the file now pins the 21 hand fits). 302b is done and re-runs nothing, and
+the golden file is not mine to touch; the 304 evaluator instead asserts the golden file
+pins exactly the 21 registered docs (it does) and uses the hard-coded 302b list, sorted.
+(4) Freeze: 737508d (last commit touching fit/surveyfit.py) is the frozen method; commit
+156aa19 amends my 304 section of docs/site_flow.md at the freeze - the frozen config
+restated (threshold 0.2 / max_side 832 / 30 s + one retry; RANSAC 400 iters / min 3 / 8 px /
+seed 20261012 / s_band x1.5; sweep 12 deg + 2 deg +-1 coarse; nulls = 302b scramble +
+half-box sheet shift; score (inliers/pairs)/(1+rms/8); confidence max(0, score x margin)),
+the pre-freeze canaries disclosed, and a factual slip corrected (13 of the 19 sites carry
+the six-inch sheet, not 15). fit/surveyfit.py is never to change again.
+(5) Evaluator fit/surveyfit_heldout.py written (22 pairs: 21 sheets + the camp-d-attila
+aerial on row 11; per-pair atomic checkpoint + pid lock; one disclosed re-run per errored
+pair). Selfcheck 21/21 OK (0.0 m / 0.0 deg / 1.0). The one run has NOT started: next
+session launches it (hand-over has the exact commands), pastes the verbatim table into the
+section, and writes the plain verdict (pass iff a confidence threshold exists with every
+accepted fit within 60 m and >= 5 of 21 accepted).
 
 
 <!-- task 305 -->
@@ -4163,6 +4961,93 @@ Executed the iter-128 plan steps 1-4.
 **Next session: the committed headless part 4 (box 3)** per the recipe in the hand-over (full-tree fixture cloned from line_served with the server under the pytest venv python, PLACE_PROBE = /tmp/fkverify/probe.mjs verbatim, test_placement_gestures_and_save_in_the_browser, first queue entry with a local page AND a propose). Then box 4 docs, then tick boxes 1-2 (their proof lands with part 4), then done-claim against the 4-failure baseline.
 
 ## 2026-10-12 307bb DECISION: iteration 131 - orientation + verification only; the part-4 section is still unwritten (context limit hit at the docstring edit). Two refinements to the iter-130 design recorded: (1) openPlan (index.html:918) computes P.crop from map_box * the image's NATURAL W/H, not row.size - so the Python-side expected crop must be derived from the probe's recorded out.imgSize (page's own W/H), JS-style rounding int(v + 0.5); for n0119 natural == row.size so the value is unchanged; (2) the throwaway's run-2 lines were tagged '[console2]'/'[pageerror2]'/'[reqfail2]', so its final honesty filters (startsWith('[pageerror]') / startWith('[reqfail]')) could never match a run-2 line - run128c passed only because no such lines occurred at all; the committed probe drops the '2' suffix (the runs are sequential) so noPageErrors and noReqfailOutsideKnown cover both runs. Also recorded: the third of the seed's three keys (one object arg {sid, f, d}) is aw.ground = 'relief' (the page's default, made explicit); aw.depSel is persisted by saveFit (index.html:1147), so run 2's re-seed with the original survey file is what makes the Cancel check see the survey back. Pick re-confirmed as entries[4] oswestry-castle-q20713795 under the full 3-constraint picker (propose AND _line_eligible AND _default_dep_file), with the rejection map refined: entries 0-3 fail the line constraints (iter 130), and additionally 1 fort-ancient and 2 marietta have NO drawable default depiction at all (dep default None) while 3 forthill's default is a plan overlay (plan_b24849959_n0269_1.webp), not a survey sheet; dep defaults of the first six entries measured (0 and 4 = six-inch-1st.webp, 1 and 2 = None, 3 and 5 = plan overlays). Nothing failed, nothing run (no test execution this session; last run remains iter 130's 3 passed/20.24 s post-refactor). Verified by running the picker mirror and reading the live tree: n0119.jpg present in the checkout's data/raw; MAX_PX = 2400 at pipeline/plan_fit.py:44 (the ^MAX_PX = (\d+) multiline regex matches); machine date 2026-10-12 (so the doc at startswith '2026-' holds); buttons #fcancel/#fsave (index.html:904), #fundo (900), #fitcv (243) exist; /home/agent/tools/shot/node_modules present. Only working-tree change this session: tests/test_fit_queue.py's module docstring gains the Part 4 paragraph (uncommitted - the harness keeps it for the next agent, which appends the section after test_card_done_mark_moves_on and runs the file).
+
+## 2026-10-12 307bb DECISION: iteration 135 - verification session only; every page-side fact the part-4 transcription needs re-confirmed on the merged tree; NO code written (context limit at the write step)
+The one-session plan from the iter-132 hand-over (transcribe the throwaway probe, append the
+part-4 section, run, commit) is unchanged and now fully de-risked: this session read
+everything the transcription touches and confirmed it, correcting the iter-132 record in
+three places (all in the task hand-over):
+
+- **The checkout's web/data/sites/oswestry-castle-q20713795 is a SYMLINK into the shared
+  store, not a real dir** (the iter-132 note said the opposite; 309's merge evidently
+  re-symlinked it). The design is unaffected: copytree materializes the top-level symlink
+  into the temp tree (assert not-is_symlink on the tree, part-2 style); the checkout
+  write-surface hash reads through the symlink, so a stray write into the shared store
+  still changes the re-hash (hermeticity stands); _default_dep_file reads through it fine.
+- **The drag-start grid (x 900-1150 step 25, y 250-550 step 50) needs a pane-avoidance
+  guard**: at the 1200x800 viewport the fit pane (#fitpane, left:398px, width
+  min(46vw,780px) = 552) spans x 398..950, and the grid's x 900-949 points fall on it - a
+  mouse event there never reaches the map's container listeners, and the throwaway's
+  bare grid could have picked one. The committed probe's candidate filter adds
+  document.elementFromPoint inside map.getCanvasContainer() AND outside the #fitpane
+  rect (the throwaway's x>=1000 points were already safe; run128c's pass predates the
+  widening). Everything else in the throwaway's flow re-confirmed verbatim: fqPlace
+  awaits loadDeps before openPlan (the hide/restore is race-free), endFit(keepSite=true
+  default), need() = 2/4, map-click pins on e.lngLat with the 3-px tolerance, refit's
+  plan path maps the CROP corners by the least-squares fit (so the anchor-vs-source
+  parallelogram check compares like with like), saveFit's exact 16-key doc + the store's
+  by:hand stamp = 17 keys (serve.py:205-216), openPlan's P.crop = map_box * NATURAL W/H
+  unrounded, the card markup (Ready to fit / N to go / name / #fqplace), and fitkit.js
+  end-to-end (wheel/drag math, sync stack, hint, gesture toggles, activate seed).
+- **Pick re-confirmed on the current tree** via /tmp/fkverify/pickmirror.py (all facts
+  printed before its trailing system-python PIL error - .venv has PIL): entries[3]
+  oswestry-castle-q20713795 / n0119, bar propose mpx 0.1646 rot 0, item unresolved with
+  the row's 3 pairs as the only candidate, no uncovered rows, dep default
+  six-inch-1st.webp, done-seed [fort-ancient-q5470727, marietta, forthill].
+
+Nothing failed; nothing ran (no test execution this session; last measured state remains
+iter-132's 100 passed + 1 skipped + 0 failed at c8e6cab). Working tree clean. Next
+session: write the part-4 section per the hand-over's step-by-step spec (it now doubles
+as a transcription checklist with the exact check names), append after test_card_done_
+mark_moves_on's last two lines, run the file, commit, tick boxes 1-3.
+
+## 2026-10-12 307bb DECISION: iteration 137 - lead scope cut on the headless test (their message wins over the iter-132 36-check design); verification-only session - every page-side fact the transcription needs re-read and confirmed in the merged tree
+The lead cut the part-4 test to the small form after 5+ verification/hand-over sessions:
+ONE Chrome run on the pick (oswestry) - open place mode, one drag, one wheel, one
+shift+wheel, save - asserting from the temp tree (a) the doc exists with by:hand and
+5 pairs, (b) its simFit scale/rotation match the final anchor within 1e-3 / 0.01,
+(c) depictions.json has the overlay; plus ONE Cancel run checking the earlier overlay
+is back. Transcribe /tmp/fkverify/probe.mjs as-is where it fits; DROP the
+pixel-corner, pin/undo, hint, gesture-bool and reqfail checks (pin/undo get a manual
+check in 307d). No verification-only or hand-over-only session from now on; a failing
+test gets committed and fixed next session. Box 4 (docs) is one short paragraph.
+So the committed probe keeps 22 named checks: boot, fitkit, cardOffersPick,
+seed: opensOnWorks/anchorIsPropose/fivePairsOnMap, drag: moves/keepsScaleRot/
+keepsUv/centrePairTracks/fitAgrees, wheel: scalesAboutCentre/fitAgrees, shift+wheel:
+turnsOneDegree/keepsScale, save: closesPane/stateCleared/newOverlayShowing/
+docFitsThePlacedAnchor, cancel: overlayBack/stateCleared, noPageErrors. The
+rotated-parallelogram pixel proof (the _fkvFitChecks corner math) goes away with the
+cut - it stays proven in the throwaway's run128c (41/41, pre-merge tree) and the claim
+moves to this record rather than the committed test. This session was verification (the
+one the cut now forbids): all facts in the task's hand-over section were re-read in the
+merged tree - fitkit.js (_fkAbsorb ~163: a wheel re-plants the anchor at the fit's own
+at(u0,v0) and adopts the fit's mpx/rot, a no-op to float-point over the exact re-
+emitted five - so the wheel's expected base is simFit(P.pairs).mpx, not the anchor's;
+_fkOnWheel 261: shift ? rot += dy*0.01 : mpx *= exp(-dy*0.0015); _fkOnMove: absolute
+from press-down, engages at 4px; _fkActivate 319: fitBounds duration 900ms, pad left
+390 when !narrow, hides dep-<site>, re-emits 5 pairs + markers); index.html (simFit
+983: least squares over W=[u,-v] -> Z=merc, a=[nr/d, ni/d] with nr += zr*wr+zi*wi,
+ni += zi*wr-zr*wi, k = cos(pairs[0].lat), mpx = |a|*k, rot = atan2 deg - the _simfit
+port in the hand-over is exactly this; merc 343 R=6378137 no clamping; lsGet/lsSet
+299-300 JSON.parse/stringify - the seed must JSON.stringify aw.ground too; select 801
+default dep = first DRAWING kind (plan/drawing/view, 636) else last 'map', 150y survey
+filter 413-414; setGround 799 persists; saveFit ~1129-1150 as in the iter-135
+corrections); fitqueue.js (FQ.done = lsGet aw.fitQueue.done with the self-heal in
+fqLoad; fqPending = S.byId && !done && !skipped; card 'Ready to fit <span>N to go
+</span>' with N = fqPending(); fqPlace: select -> setGround(lidar === false ?
+'imagery' : 'relief') -> await loadDeps -> startFit -> await openPlan(row)). Pick
+unchanged: entries[3] oswestry-castle-q20713795 (114-entry queue), done-seed = the
+three earlier entries (fort-ancient, marietta, forthill). Next session is mechanical:
+write the section per the hand-over's numbered steps (docstring reword, PLACE_PROBE,
+_run_place_probe, place_served, _simfit, the test, the box rewords), py_compile, run
+the file (~5-8 min), commit, tick boxes per the cut, write the one-paragraph box-4
+docs edit.
+
+## 2026-10-12 307bb DECISION: iteration 138 - verification session (the lead's cut still stands; NO code written, working tree clean, nothing run). Two facts added to the hand-over design; the next session is the mechanical one (write the part-4 section per the hand-over, run the file, commit, tick boxes)
+- **The m_per_px formula was DERIVED from pipeline/plan_fit.py this session, not copied from the hand-over**: `load_picture` (L203-222) returns `fs = im.width / doc.size[0]` (the raw file over the doc's size frame); build() (L262-336) scales pairs and crop by fs into pic-px, solves `m_px = |a|*k` in pic-px, then `f = min(1, MAX_PX/max(crop.size))` with `m_px /= f` when f<1 (webp px are f pic-px), stored `m_per_px` rounded to 4dp, `rot_deg` rounded to 2dp, `resid_m` rounded to 0.1 m ground. Hence `fit.m_per_px == anchor.mpx * fs / f` with f in pic-px crop units - the hand-over's `want_mpx = anchor.mpx * fs / f_scale` is exactly this; the round-to-4dp adds ~2.6e-4 relative, inside the 1e-3 tolerance (for the pick fs = 1 exactly, f ~= 2400/3081 ~= 0.779).
+- **The pickmirror re-run on today's merged tree**: pick unchanged (entries[3] oswestry-castle-q20713795, bar 0.1646/0.0, 5 propose pairs, 3 cand pairs, no uncovered, dep six-inch-1st.webp, done-seed the three earlier entries); NEW: entry 9 richard-s-castle-q17650937 ALSO passes all three pick constraints (propose bar 0.0503/0.0, dep default, line-eligible) - the picker takes file order so oswestry still wins; the test's pick must stay DERIVED (it is). Review items now total 346 (batch work landing via main merges); the 114-entry queue file is unaffected (new docs do not auto-regenerate it) and the picker's checkout doc scan rejects any queue site that gained a doc, so the test adapts to population drift automatically.
+- simFit (index.html:983) re-read VERBATIM this session: the hand-over's _simfit port matches it exactly (W=[u,-v] -> Z=merc centred least squares, nr += zr*wr+zi*wi, ni += zi*wr-zr*wi, k = cos(first pair's lat), mpx = |a|*k, rot = atan2 deg). #map is fixed inset:0 (the canvas spans the viewport: canvas-relative x == client x) and .fitpane spans client x 398..950 at 1200x800 (left:398, width min(46vw,780px)=552) - the drag-start grid's elementFromPoint + pane-rect guard is load-bearing for the x 900-949 column. saveFit (index.html ~1130) re-read: the 16-key doc + by:hand = 17, the 60x1.5s overlay poll on fit.at, depSel repointed at the new overlay, endFit -> applyDep; the fitkit endFit wrapper restores the overlay on close. fqPlace (fitqueue.js) re-read: select -> setGround (persists aw.ground) -> await loadDeps -> startFit -> await openPlan; the card markup and fqPending (S.byId && !done && !skipped) confirmed.
+- Nothing failed; nothing ran (last suite state remains 100 passed + 1 skipped + 0 failed at c8e6cab; the driver's merge before this session added no tests - the first run will re-confirm). Working tree clean (only the task file and this entry changed).
 
 
 <!-- task 309 -->

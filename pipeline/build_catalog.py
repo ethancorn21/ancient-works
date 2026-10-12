@@ -71,10 +71,26 @@ def wiki_summary(entry):
     return None, None
 
 
-REGION_NAME = {"us": None, "england": "England", "wales": "Wales", "netherlands": "Netherlands", "france": "France",
-               "scotland": "Scotland", "ireland": "Ireland", "denmark": "Denmark", "spain": "Spain", "switzerland": "Switzerland",
-               "poland": "Poland", "lithuania": "Lithuania", "latvia": "Latvia", "belgium": "Belgium",
-               "italy": "Italy", "luxembourg": "Luxembourg"}
+# one key per line: a new region from a later source task is an additive one-line edit (merge-safe);
+# 214's audit test (tests/test_region.py) fails on a staged region missing here (it would silently display as "US")
+REGION_NAME = {
+    "us": None,
+    "england": "England",
+    "wales": "Wales",
+    "netherlands": "Netherlands",
+    "france": "France",
+    "scotland": "Scotland",
+    "ireland": "Ireland",
+    "denmark": "Denmark",
+    "spain": "Spain",
+    "switzerland": "Switzerland",
+    "poland": "Poland",
+    "lithuania": "Lithuania",
+    "latvia": "Latvia",
+    "belgium": "Belgium",
+    "italy": "Italy",
+    "luxembourg": "Luxembourg",
+    "germany": "Germany"}
 
 
 def place_of(entry):
