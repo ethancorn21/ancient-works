@@ -1,7 +1,7 @@
 Status: in-progress
 # 217: Book machinery - town-view lists and the view-as-drawing index for Civitates/Merian
 Depends on: 216
-Touches: pipeline/books_lists.py, data/books/lists/
+Touches: pipeline/books_lists.py, pipeline/books.py, data/books/lists/
 
 ## Goal
 GOAL.md point 5 (2026-10-10): artists' aerial and bird's-eye views count as drawings as much as
@@ -28,15 +28,64 @@ cached in `data/raw/books/<ia>/`) once the civitates path works.
       (their metrics must not drift - a view plate is not a site plan for their recall/precision).
 
 ## Hand-over
-**2026-10-12, iteration 122 (agent c) - session 8: STEP A LANDED, committed (3ab444f).**
-HAND_FIGS['topographiahelve00zeil'] = the session-7-verified 80-row table (11 s / 8 u / 61 o; 14 leafless rows
-fig '' = plate has no leaf in the item); parse_hand_figures maps fig '' -> None; `books.py ocrmap
-merian_helvete00zeil` regenerates data/books/lists/topographiahelve00zeil.json as the table's dump (raw UTF-8,
-key order fig,title,page,kind,kind_by) + .map.json = [] (stage A empty). Byte-verified: the 18 other list files
-md5-identical (s7 baseline /tmp/merian/lists_md5_before_s7.txt AND git HEAD), civitates .json still 0881ec0c,
-validate no-args per-entry == HEAD (only delta = civitates' "figures" block, the session-2 numbers the 207/216
-precedent deliberately left uncommitted), shared files restored, suite 101 passed / 1 skipped.
-BOX 2 STAYS OPEN: merian's index rows only exist once the volume is triaged (step B below). NEXT: step B.
+**2026-10-12, iteration 124 (agent c) - session 9: STEP B COMPLETE IN CODE; only bookkeeping + final commit left.**
+
+STATE (working tree, uncommitted - the harness keeps these; do not re-run anything):
+- pipeline/books.py: BLANK_INK_BOOKS = {"topographiahelve00zeil": 0.01} + site_pages_model uses it (per-book
+  ink floor; global BLANK_INK 0.005 untouched - plan books unaffected).
+- pipeline/books_lists.py: 2 table rows corrected (s7's leafless call was wrong for both):
+  `|S. Luciensteig|85|o` -> `350|S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen|85|o`,
+  `|Werdenstein und S. Urbani|90|o` -> `384|WERDENSTEIN. Kloster S. Urban|90|o` (titles = the plates' own printed
+  titles, read by stage A and corroborated by the cached hOCR; both kind o).
+- data/books/lists/topographiahelve00zeil.json (new md5 1f49058c) + .map.json (57 mapped leaves; site_plan leaves
+  still [32,66,124,134,172,218,268,288,298,308]).
+- data/books/index.jsonl + data/books/validation.json: RESTORED to 6fff103 (the pre-task baseline; 211 owns them -
+  207/216/211 precedent; `git checkout 6fff103 --` was used because HEAD=354b38c no longer is the baseline).
+- data/books/triage/topographiahelve00zeil.A.jsonl (400/400) + .F.jsonl (108): committed by the driver in 354b38c;
+  clean, don't touch.
+- Task file: Touches gained pipeline/books.py. Status still in-progress, box 2 still unticked - tick it and set
+  Status: done (everything below was verified this session; no re-run needed).
+
+VERIFIED THIS SESSION (suite 101 passed / 1 skipped after all changes; 184 s):
+- Iter 123 (cut off) had run fetch+triageA+triageF+no-args index/validate; the driver committed the dirty tree as
+  354b38c (shared files included - against s8's restore plan; no memory written). A fresh no-args rebuild of that
+  state is BYTE-IDENTICAL to 354b38c's files => faithful artifacts, not tampering.
+- Diff vs 6fff103 baseline: 890 plan-book rows byte-identical IN ORDER; 118 civitates rows (107 new + 11
+  model-flagged rows reshaped by 217's machinery - the intended delta, s2-verified); 8 plan validation entries
+  byte-identical; civitates entry + only the s2-verified "figures" block (listed 121, site 7, recall 0.429,
+  precision 0.273 - matches s2); new merian entry.
+- AFTER the fix (the state 211's rebuild will reproduce): index 1068 = 890 + 118 + 60. Merian = 60 rows on 57
+  leaves, ALL list-derived (title_source "book's figure list, hand-transcribed", zero null titles): view true 50 /
+  false 10; found_by list_view 45 / list 6 / list+qwen 6 / list_view+qwen 3; page_type other_illustration 58 /
+  plate_site_plan 2 (n308, n350 - stage A's type kept, the view field disambiguates). NO stage-A-only rows.
+- Merian validate entry: pages 400, triaged_A 400, flagged_stageA 66, F 108, flagged 8; figures: listed 80,
+  parsed_with_page_on_a_leaf 68, site 11, unsure 8, other 61, gt_site_pages 10, recall_pages 0.5, recall_pm1 0.5,
+  precision_strict 0.625, precision_lenient 0.625, flagged_on_other_only_pages [246,350,384],
+  flagged_not_in_list [], missed_pages [32,66,134,218,298], stage_A_only {recall 0.1, precision 0.015, 66}.
+
+WHY THE TWO FIXES (evidence for the DECISIONS entry):
+- n350/n384 are REAL plates (ink 0.2025/0.3551; genuine plate leaves in this book all >= 0.1834): hOCR leaf 383
+  garbles exactly stage A's read of the S. Luzissteig title; hOCR leaf 419 carries the "MONASTERIU S.URBANI" legend.
+  s7's "no plate leaf between n348 and n356" missed n350; Werdenstein's window check likewise missed n384.
+- The 4 dropped junk rows (n121 0.0054, n153 0.0073, n205 0.0097, n231 0.0073) are faint show-throughs: hOCR is
+  garbage on all four; n153 carried a cross-book invented title ("Plan of the Mound at the Fork of the Road, near
+  the Village of" + "PLATE XXV" - a 19th-c American idiom in a 1654 Swiss book; "PLATE XXV" read on n121 too).
+- s8's predictions corrected: list rows 58/55 not 66/63 (the 8 u rows are excluded from index rows by design),
+  gt_site_pages 10 not 11 (n55 leafless), stage-A-only actually [121,153,205,231,350,384] not the speculative
+  {76,176,264,320,342} (those extras are typed other_illustration, F says no plan -> no rows, as designed).
+
+NEXT (next agent, small): 1) append the s9 DECISIONS.md entry (header `## 2026-10-12 217 DECISION:` - content:
+iter-123 discovery, byte-verification, s8 prediction corrections, the two table corrections + evidence, the ink
+floor, final numbers above). 2) Two PITFALLS entries: under "This codebase / pipeline/books.py, pipeline/books_ia.py
+(the book machinery)" - a book's fold-out show-through can be darker than global BLANK_INK (0.005, tuned on
+Thomas <=0.004); Qwen types such pages plate_site_plan and invents cross-book titles; per-book floor
+BLANK_INK_BOOKS (books.py); check the ink gap before trusting faint pages. Under "Agent tools and harness" - the
+driver's "[driver] uncommitted work after iteration N" safety-net commit commits an interrupted session's dirty
+SHARED files; the next session must re-derive the planned state and restore from the correct baseline commit
+(`git checkout <baseline> -- <file>`; plain `git checkout --` restores the driver's commit, not the baseline).
+3) Tick box 2, set Status: done. 4) `git add -A && git commit -m "217: step B done - triage verified, table
+corrections n350/n384, per-book ink floor 0.01, 60 hand-list view rows, shared files restored to 6fff103 for 211"`.
+No code changes beyond what is in the tree; no re-runs needed; then stop.
 
 STATE OF THE WORK (all committed; the module is the one source of knowledge):
 - pipeline/books_lists.py: the second HAND_FIGS key. 80 rows in list order col1->col2->col3; a double-page (or
