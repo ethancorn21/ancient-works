@@ -295,10 +295,9 @@ automatic fits have failed: the vision model invents its points (301) and ink ag
 relief lands 231-2204 m off on this same set (the 302b table above). This third try matches
 the plan against the site's old survey sheet — both are ink drawings of the same banks and
 ditches, often of the same decades — and carries the sheet's georeference over. The method
-is `fit/surveyfit.py` as of the freeze commit: the exact API parameters, thresholds and
-grids are restated in this section at that commit, which must precede the run; this
-section is amended at the freeze commit and at the run (the measured table), never
-otherwise.
+is `fit/surveyfit.py` as of the freeze commit **737508d** (frozen 2026-10-12; the exact API
+parameters, thresholds and grids are restated in **The frozen configuration** below). This
+section is amended at the freeze commit and at the run (the measured table), never otherwise.
 **No parameter of the method is chosen or adjusted against the 21 held-out documents,
 before or after the run.** Development and smoke tests use only non-held-out pictures of
 sheet-carrying sites, recorded in `data/surveyfit/devlog.md`.
@@ -308,9 +307,10 @@ doc's `crop` box in the page picture (book scans: `data/raw/books/<ia>/full/<fil
 resampled to the doc's `size` frame; Commons: the big picture `data/raw/commons/big/
 <id>.jpg`); the **sheet** — the site's finest-scale `kind "map"` / `"topo"` depiction from
 `web/data/sites/<site>/` (the `.webp` mosaic and its `corners`, which georeference it;
-15 of the 19 sites carry the OS six-inch 1st edition and the 1-inch map, bergues and
-camp-d-attila the Cassini and Etat-major, aztalan / cahokia / mound-bottom /
-serpent-mound USGS historical topo 1:62,500 or 1:48,000); and **priors** — the plan's
+13 of the 19 sites carry the OS six-inch 1st edition (several also the 1-inch map, excluded
+by scale), bergues and camp-d-attila the Cassini (no scale string on either depiction; it
+wins over the 1840 Etat-major on the frozen file-order tie), aztalan / cahokia /
+mound-bottom / serpent-mound USGS historical topo 1:62,500 or 1:48,000); and **priors** — the plan's
 recorded scale bar (8 of the 21 docs; the plan's m/px from the 302b seed records) and its
 recorded north arrow where trustworthy. It never opens a platefit document: the comparison
 with the hand fits happens only in the evaluator `fit/surveyfit_heldout.py`, which reads
@@ -327,7 +327,42 @@ the scale is constrained to (plan m/px)/(sheet m/px, from the corners) within a 
 tolerance band, otherwise the matcher's scale; where the arrow is trustworthy the
 rotation is fixed, otherwise a frozen coarse-to-fine rotation sweep (the panel image
 rotated before each match call) scored by inlier count; translation is then solved from
-the matches and refined. This targets what the 302b table shows: scale ratios 0.24-13.2x
+the matches and refined.
+
+**The frozen configuration (all in `fit/surveyfit.py` as of commit 737508d; unchanged since):**
+- Matcher: `POST http://127.0.0.1:8091/match` `{image0, image1 (base64 PNG), threshold 0.2,
+  max_side 832}` (30 s timeout, one retry); each fit is gated by `GET /health`. The plan panel
+  is image0, the sheet image1.
+- RANSAC similarity: 2-pair exact samples, 400 iterations, one seeded RNG (seed 20261012),
+  minimum 3 inliers, 8 px reprojection threshold (sheet px), least-squares refinement on the
+  inliers; candidate scales outside (plan m/px)/(sheet m/px from the corners) x (1/1.5, 1.5)
+  are rejected, only where a scale prior exists.
+- Priors: a scale prior only from a recorded scale bar or a printed ratio at the recorded ppi
+  (8 of the 21 docs; picture-size anchors are not priors); a fixed rotation only when the
+  north arrow is recorded and |deg| <= 60 (propose._rotation's rule), otherwise the sweep.
+- Sweep: coarse 0..360 by 12 deg (30 match calls), then +- one coarse step by 2 deg (13 calls,
+  deduped only within itself, so a fine theta equal to a coarse one is sent twice); the best
+  by score wins.
+- Nulls (search-matched, at the chosen theta): (a) the 302b scramble of the panel (each piece
+  rigidly rotated U(0, 2 pi) about its centroid, centroid translated U(-0.4, 0.4) of the panel
+  extent, nearest integer, clipped, white background; one seeded RNG seed 20261012, pieces in
+  (-length, idx) order, piece selection identical to 302b's) against the real sheet; (b) the
+  real panel against the sheet image shifted half the box north and half east (order 0, white
+  fill; the corners - the georeference - untouched). null = the higher of the two null scores;
+  margin = score(fit) - null.
+- Score: (inliers / pairs) / (1 + rms/8); 0.0 when there is no model or no pairs.
+- Confidence: max(0, score x margin).
+
+**Canaries (pre-freeze, recorded in `data/surveyfit/devlog.md`).** Before the freeze the
+method ran against the live service on three sheet-carrying sites, all --no-null: the lead's
+held-out doc (the Maiden Castle DPLA plan) - the lead's explicit direction as a pipeline check,
+its numbers confirmation only (his raw smoke: 633 matches, 31 inliers, rotation 0.0 deg,
+20-35-53 m at the three hand points) - and two non-held-out docs (barnard-castle, avaricum).
+No parameter was chosen or adjusted from any of these numbers, before or after the freeze.
+The stub suite (`tests/test_surveyfit.py`, 7 tests) proves the plumbing end to end and is
+frozen as it stands.
+
+This targets what the 302b table shows: scale ratios 0.24-13.2x
 and rotations to 126 deg are what the relief search had to (and did) guess wrong.
 
 **Carrying the georeference over.** Plan page-px -> (the similarity) -> sheet px -> (the
@@ -342,8 +377,9 @@ real sheet; (b) the real panel against the sheet shifted half the box north and 
 scores; margin = score(fit) - null.
 
 **Score and confidence.** Score = the RANSAC inlier fraction, reweighted by the inliers'
-reprojection RMS; confidence is a monotone function of score and margin (the exact formula
-fixed at the freeze commit).
+reprojection RMS: score = (inliers / pairs) / (1 + rms/8); confidence = max(0, score x
+(score - null)), null = the higher of the two null scores - as restated in **The frozen
+configuration** above.
 
 **Aerial column.** The only held-out site with a `kind "aerial"` depiction is camp-d-attila
 (`fr_ortho1950.webp`); where the matcher also works on the plan against that aerial, both
