@@ -393,3 +393,71 @@ they need 805's/220's in-sync export in this branch), touching any of 804/805's 
 (agent c's), re-baselining the 3 tests (iteration-116 rule stands: they derive, the store
 is what must be fixed), and re-running the suite (branch unchanged since the iteration-116
 run; the review-page md5 check is the cheap substitute).
+
+### 2026-10-12 307ba DECISION: the wait still holds (main cf29be2, review-page md5 b6506007 unchanged); reading 804's ACTUAL state on agent/c (refactor d413d0e in, wiring not written) corrects the merge recipe in three places; the synthetic tree's safety against the wired build verified by RUNNING (14 pairs, 0 flags, no exceptions) - no pre-emptive test edit
+
+One step (read + verify, no code change): the task still waits on agent c. Verified by git,
+not assumed: main tip is still cf29be2 (`agent/a..main` empty - no re-sync pending), main's
+web/data/review.json md5 b6506007 == this branch's copy, so the 3 stale-page failures are
+unchanged and a re-claim now would fail the same way. The local agent/c snapshot (tip
+c24c135, work tip d413d0e, ~iteration 100) was re-read end-to-end (804 + 805 task files,
+their hand-overs, tools/right_place.py, the build() refactor diff):
+
+**804's actual state.** d413d0e is the AGENTS.md refactor-first step ONLY: build() gathers
+the per-site candidate map first and derives each entry through a new `_entry(sid, name,
+cands)` helper (behavior-neutral: old and new builds produce identical 116-entry output;
+test_fit_queue_synthetic/real pass unmodified). The two-phase wiring
+(_place_store/_place_flags/_apply_flags) is NOT written yet; 804's hand-over carries the
+exact implementation plan. So the merge target = that refactor + the wiring, on top of
+main's file - which does NOT contain my 307ba commits (agent/c last synced main at cf29be2,
+before my work merged).
+
+**Merge-recipe corrections (three places; the hand-over is rewritten):**
+1. **The propose call's home.** My iteration-117 recipe said "end of the per-site loop,
+   after the final best selection, before entries.append" - that loop no longer exists in
+   804's shape. The correct home is a POST-PASS over the final entries list inside build()
+   (after the entries comprehension, before the final sort): `_entry_propose(root,
+   e["site"], e["best"]["plan"])` per entry, key added when not None. NOT inside `_entry`
+   (its signature has no root). This keeps the invariant that matters: the propose is
+   computed from the entry's FINAL best (a move/drop recomputes it) and the key lands after
+   "candidates" (dict insertion order, my part-1 key-order pin). The helper, the import
+   lines and the docstring paragraph all survive as-is; the docstring's input list grows
+   (my fifth input + 804's catalog/lists).
+2. **test_fit_queue_real is a union, not a choice.** Merged function = 804's copies (catalog
+   + index + lists) + 804's CHECK-AWARE entry-set/candidate/review-upsert derivation (my
+   naive `expected = (built & (row_sites | item_sites)) - hand` cannot stay: the 15 flagged
+   dispositions can take a site's last candidate and drop the site from the queue) + my
+   per-entry propose block (it derives against the entry's actual best, so it is move-proof)
+   + my sort-key check + my checkout byte-identity check. 804's new namesake test (box 4.1)
+   is a separate function with its own tree - it stays as-is; my 7-site synthetic version of
+   test_fit_queue_synthetic stays unmodified (see below).
+3. **Entry counts.** Current data builds 116 queue entries, not the stale committed 117
+   (shotwick-castle-q7502621 no longer built; agent c's 804 hand-over fact). The post-merge
+   regeneration = 116 minus the 15-flagged dispositions, with propose on every anchoring
+   entry. My real test derives (never pins a count) so it is count-proof either way.
+
+**Synthetic tree vs the wired build - verified by running, not assumed.** Ran 804's planned
+_place_flags logic (agent/c's committed tools/right_place.py from a read-only /tmp/rp copy +
+my branch's fit_queue helpers) over my part-1 synthetic tree: the check DOES run there (my
+tree has data/books/index.jsonl, so it does NOT take the no-op-degrade path - the degrade
+needs catalog, index AND lists all empty), but all 7 sites lack region/place/admin ->
+region_bucket "other", county/state None -> fail-open, and no caption carries a
+county/state/town word: 14 (site, candidate) pairs checked, 0 flags, no exceptions
+(module field access is .get-based; nothing raises on missing fields). My pinned synthetic
+assertions (7 entries, the propose values, `err == ""`, the stdout line) survive the merge
+unmodified; no pre-emptive test edit is needed. One merge-time watch-item remains: 804's
+wiring must print nothing to stdout/stderr (my `err == ""` pin and the exact stdout line);
+its box 4.3 ("test_fit_queue_synthetic passes unmodified") is the same contract, so the
+risk is small.
+
+**Re-verified on this branch:** part-1 tests 2 passed in 0.85 s (test_fit_queue_synthetic +
+test_fit_queue_real); the 3 known stale-page failures stand (cause and fix unchanged since
+iteration 116: the 805/220 in-run full export). PITFALLS gained a tools/right_place.py
+section (two entries: the disjunctive check gate; the fail-open for placeless site records)
+- read via `git show agent/c:tools/right_place.py` until 804 lands it on main.
+
+**Re-claim chain (unchanged):** 804 merges -> 805 merges (its in-run full review export
+subsumes 220) -> 309 closes (bookkeeping only; the module file lands then) -> 220 runs as a
+no-op verify -> driver syncs main -> the 3 failures go green -> re-claim done. 805's own
+note anticipates my 307 landing after its rebuild: "only the queue file's contents change
+(not its shape); expect the driver to reconcile."
