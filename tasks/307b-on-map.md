@@ -78,22 +78,35 @@ top as a refinement: new points refine the anchor and re-draw it. Parent 307 box
 
 ## Hand-over
 
-(2026-10-12, iteration 111, agent a - 307ba did the DATA side of box 1 (its boxes 1-3: the
-queue file carries the propose, propose.py is root-aware, part-1 tests pin it; full suite
-green 73+1). Remaining: 307ba does 307b's box 2 (the page: fly-to/hide/restore, fitkit.js)
-plus the propose-field part of box 6's docs; 307bb does boxes 3-5 plus the full place-mode
-docs section. The page-side design sketch below stands as written for the next 307ba
-session; the one correction is the PITFALLS entry: propose's private loaders are a de
-facto external API (inkfit, inkfit_heldout, test_propose) - they take root=ROOT defaults,
-not required args.)
+(2026-10-12, iteration 115, agent a - 307ba is DONE (all its boxes): the queue file carries
+the propose (307b's box 1), propose.py is root-aware, part-1 tests pin every path, the page
+(307b's box 2): web/fitkit.js opens place mode ON the works (fly to the site's box, hide the
+site's earlier overlay, seed the anchor as the 5 pairs, restore exactly on close), and
+docs/site_flow.md's "Ready to fit" documents the propose key. Box 2 verified in a real
+headless Chrome (probe: anchor == the propose's centre pair, re-emission drift 0.117 m, the
+sheet hidden/restored, fsave enabled, no pageerror - DECISIONS). Remaining = 307bb ONLY:
+307b's boxes 3-5 (the gestures on the placement, saving from it, the headless part-4 test)
+plus the full place-mode docs section (307b's box 6, with 307c's screenshots when they
+land). The page-side design sketch below stands as written for 307bb; the corrections on
+the record: propose's private loaders take root=ROOT defaults (the PITFALLS entry), and
+fitkit deliberately has NO <style> block yet (box 2 adds no visible UI - 307bb adds one if
+its gestures need it; DECISIONS 2026-10-12 307ba).)
 
-**State.** Data side done and committed (307ba, iteration 111): web/data/fit_queue.json on
-this branch carries a propose on all 117 entries (20 bar, 4 ratio, 93 picture_size);
-fit/propose.py root-aware; part-1 tests pin every propose path. Suite green (73 passed,
-1 skipped = baseline). The queue file is a JOINT artifact with agent c's 309 (the place
-check): when 309 merges into main, re-run `python3 tools/fit_queue.py` on the merged
-branch before further work here. The page side (fitkit.js) is untouched - web/fitqueue.js,
-web/index.html and the page's fit code are all still as 305 left them.
+**State.** All of 307ba is committed on this branch: cbb36c8 (the data side: the queue file,
+propose.py root-aware, part-1 tests), 732fe57 (box 2: web/fitkit.js + the one script tag in
+web/index.html - the driver preserved iteration 114's uncommitted work), and 307ba's done
+commit (docs/site_flow.md). web/fitqueue.js is byte-identical to cf29be2 and web/index.html's
+diff against main is exactly the one tag; the page's own fit code (openPlan/startFit/refit/
+saveFit/endFit, index.html ~832-1150) is still 305's, extended only by fitkit's two wrappers.
+The queue file (117/117 propose) is a JOINT artifact with agent c's 309 (still in flight at
+iteration 115; main tip cf29be2): when 309 merges into main, re-run `python3
+tools/fit_queue.py` on the merged branch before further work here - fitkit reads the entry's
+propose by name, so no page-code change is expected, but the part-4 test reads the
+regenerated file. Suite baseline for 307bb: 70 passed + 1 skipped, with 3 failures that
+pre-exist on main (the lead's 309 matcher wiring: test_fit_provenance::
+test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line,
+test_site_done::test_site_done_line - agent c's iteration-95 note; they share the review-
+queue open-item count signature).
 
 **Measured facts (iteration 110, all by running code):**
 - All 117 current queue entries DO anchor: propose_for succeeds for every one (20 bar,
@@ -148,10 +161,9 @@ iteration 111) = box 1 data side (its boxes 1-3); 307ba session 2 = box 2 page s
 box 4: fitkit.js open/hide/restore) + its box 5 docs; 307bb = boxes 3-6 (gestures, save,
 headless part 4, docs place-mode section). If 307bb itself exceeds 3 sessions, split its
 headless test from its gestures (note it here when you do).
-If 307bb itself exceeds 3 sessions, split its headless test from its gestures (note it
-here when you do).
 
-**Page-side design sketch (for 307ba/307bb - my iteration-110 design, not yet coded):**
+**Page-side design sketch (for 307bb - my iteration-110 design; the Open half is coded as
+written in web/fitkit.js, the gestures are not yet coded):**
 - fitkit.js loads after fitqueue.js (the page loads review.js then fitqueue.js at
   index.html:1707-1708; add `<script src="fitkit.js"></script>` after them). Wrap
   openPlan LAST in the chain (fitkit.openPlan wraps fitqueue->review->page; note fitqueue
@@ -176,7 +188,8 @@ here when you do).
   close re-enable all. Views (P.model==='view'): gestures edit the same similarity anchor;
   refit's homFit/warpView preview keeps working (the similarity is a subspace of the
   homography) - verify in the headless test, don't assume.
-- Open (307ba): wrap openPlan - after the inner chain returns, if P.plan && FQ has an
+- Open (307ba, done - web/fitkit.js as designed): wrap openPlan - after the inner chain
+  returns, if P.plan && FQ has an
   entry for P.site whose best.plan === P.plan.id and entry.propose: seed anchor/pairs from
   entry.propose (needs P.img loaded: the pairs use the row's size frame - openPlan sets
   P.crop from r.map_box*r.size; derive u0/v0 the same way _anchor_pairs does: the
@@ -206,13 +219,18 @@ here when you do).
   external Esri fetches are the only live ones - same as part 3, which asserts no reqfail
   outside /tiles/). Realpage screenshots for the docs land in 307c.
 
-**Re-read** (for the next agent = 307ba's box 4, the page): web/index.html ~340-420
+**Re-read** (for the next agent = 307bb, the gestures/save/headless part): web/fitkit.js
+(the current shape - its header comment is the design doc; P.anchor/P.placed/P.anchorStack
+are the state its gestures edit); web/index.html ~340-420
 (deps/applyDep: the one `dep-<site.id>` layer, select()/setGround), ~832 endFit and ~902
 openPlan (the two functions fitkit wraps) and ~1000-1150 (startFit, makeInk, simFit,
-refit, saveFit, the map-click pin flow), 1707-1708 (the fitqueue/review script tags);
-web/fitqueue.js (the wrap pattern to imitate; it must stay byte-identical) and
-web/review.js (how an earlier extension wraps openPlan); the page-side design sketch
-above (the authoritative source); tests/test_fit_queue.py part 3 (the byte-identity pin
-the served-tree card test provides: the picture 404s there, so place mode must not
-activate without P.img). The data side needs no re-read: fit/propose.py and
-tools/fit_queue.py are as committed (their docstrings say what changed).
+refit, saveFit, the map-click pin flow), 1706-1710 (the script tags);
+web/fitqueue.js (the wrap pattern; must stay byte-identical) and web/review.js (how an
+earlier extension wraps openPlan); the page-side design sketch above (the authoritative
+source for the gestures: null-P.pending-on-move, the 3-px click tolerance, the wheel/
+shift+wheel math); tests/test_fit_queue.py part 3 (~716+, the card test whose
+line_served fixture is the template for part 4's FULL tree) and /tmp/fkprobe.mjs
+(the throwaway probe - part 4's committed headless test is its hardened version; note its
+this-VM fixes: the playwright require path, the direct `map` reference in the evaluate
+callbacks). The data side and the propose docs need no re-read: they are as committed
+(their docstrings and the "Ready to fit" section say what changed).

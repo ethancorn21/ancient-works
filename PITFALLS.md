@@ -51,6 +51,15 @@ Why/fix: a number is only free inside your own checkout; a concurrent lead/agent
 
 Installed software and versions, paths, ports, network, what is blocked.
 
+#### On this VM the LiDAR relief tiles are off for good: server/relief_tiles.py imports the Mac-only `aw` module
+Where: `server/relief_tiles.py`, `server/serve.py` (`--port 0` runs, headless page loads)
+Symptom: `relief tiles off (aw not importable); run with .venv/bin/python for the LiDAR relief layer` once in
+serve.py's stdout; the page's `/tiles/relief/*` requests 404 in every headless run on this machine
+`aw` (the owner's private relief renderer, `aw.render_relief`) exists only on the owner's Mac. serve.py prints the
+line once and serves without the route; the page tolerates it (the aerial imagery still loads) and the headless
+tests treat `/tiles/` reqfails as the only allowed failures. Don't try to "fix" it: relief tile generation is
+impossible here, only the owner's machine renders relief.
+
 #### The driver's .venv build needs a fully pinned and hashed requirements.txt
 Where: `requirements.in`, `requirements.txt`, the driver's venv build (`pip install --require-hashes`)
 Symptom: `ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not: ...`
