@@ -276,15 +276,22 @@ def source_line(doc, n, m, who):
     well it fits. Pure over the doc's fields - no picture, no network - so the line of a built overlay
     can be re-baked without re-downloading anything.
       book doc:    "{cite or book}. {label}. Scan: Internet Archive {ia} leaf {N}."
-      commons doc: "{title} ({label or 'undated'}), Wikimedia Commons: {cite}."
+      commons doc: "{title}[(label or 'undated')], Wikimedia Commons: {cite}." A source line states each
+                   fact once (task 219): the parenthesis appears only when the title carries no year of
+                   its own, so a title that already states the book's year is not followed by the same
+                   year again (303's live shotwick line read "...(1897) (1897), ..."); the label or
+                   'undated' goes in the parenthesis only for a yearless title.
     The who clause follows who_placed: hand fits were placed by hand; everything else was fitted
     automatically (the batch's documents add their gate score; an agent session's do not have one).
     """
     if doc.get("src") != "commons":
         src = (f"{doc.get('cite') or doc.get('book')}. {doc.get('label') or ''}. Scan: Internet Archive {doc['ia']} leaf "
                f"{doc['file'][1:-4].lstrip('0') or '0'}.")
-    else:
+    elif _year4(doc.get("title") or "") is None:
         src = f"{doc.get('title')} ({doc.get('label') or 'undated'}), Wikimedia Commons: {doc.get('cite')}."
+    else:
+        # the title already states the year: no repeated parenthesis (the label remains in the entry's scale field)
+        src = f"{doc.get('title')}, Wikimedia Commons: {doc.get('cite')}."
     view = doc.get("model") == "homography"
     if who == "hand":
         how = (f"Placed by hand on {n} matching points with a perspective fit; all within {m} m."

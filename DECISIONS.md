@@ -570,3 +570,31 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   594); fit/ has no __init__.py. A full-suite baseline run was kicked off to
   /tmp/baseline_suite.log this session and NOT verified (context limit) - check it first
   thing; last known green was the 307a closure (iteration 109).
+
+## 2026-10-12 219 DECISION: 302c no longer blocks - the lead dropped 302c/302d in main d39ead8
+The task's `Depends on: 302c` existed only because both touched pipeline/plan_fit.py. The lead's
+commit d39ead8 (main, 2026-10-12) dropped 302c/302d as superseded by the matcher fit and set 219's
+Depends line to `none`. 302c never made its design changes to plan_fit.py (its own hand-over:
+investigation only, no code), so nothing from it collides with 219's edit; plan_fit.py is
+byte-identical between my branch and main (merge-base e2ca3d9; main's only commit since is d39ead8,
+task files + journals only). Proceeded on this branch without waiting.
+
+## 2026-10-12 219 DECISION: year-once rule = drop the label parenthesis whenever the title carries any 4-digit year
+The task's two sentences ("drop the label's parenthesis when the title already contains that year"
+vs "only a title without a year shows the label (or 'undated')") diverge for the 3 docs whose
+label-year differs from the title-year (argentoratum 1831/1836, bethlehem 1881/1882, mound-bottom
+1923/1924). Implemented the stricter, unambiguous one: the parenthesis appears ONLY for a yearless
+title (label or "undated"); a titled year always drops it. The label is not lost from the page: it
+stays in the entry's `scale` field. The year check reuses the same 4-digit pattern as the entry's
+sort year (_year4) so the two can never disagree; non-4-digit numbers ("116", "0154", 5-digit ids,
+"17th century") are not years, so "(1750-1900)"-style labels still show under yearless titles.
+
+## 2026-10-12 219 DECISION: refactor source_line extraction is byte-identical for all 133 store docs
+Extracted the citation + who/how clause from build() into pure source_line(doc, n, m, who) and the
+year regex into _year4 (committed 4b93f5c). Proof: a throwaway script evaluated the old inline
+expressions (copied verbatim from HEAD) and the new function for every doc in data/db/platefits
+(133) with m from similarity(doc['pairs']) unscaled - 0 mismatches. The least-squares similarity is
+scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, leaving the ground
+residuals the same), so m and corners do not depend on which image size stands in for the picture;
+this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
+and still pin the exact how-clause.
