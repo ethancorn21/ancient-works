@@ -132,8 +132,8 @@ size, the roman numerals resolved on 2x label crops. The book's own pagination i
   elevation with the "The Front" scale bar), so its kind was set to o and it is the one
   plan-like plate deliberately left out (the only one not staged, accounted for here).
 - **No Wiltshire map in this scan** (every leaf checked; the map, if it exists at all, belongs
-to *A survey of Wilts*, which is not on IA) and **no standalone Avenue plan** - the Avenue shows
-in the XXIII area plan and in the perspective views only.
+  to *A survey of Wilts*, which is not on IA) and **no standalone Avenue plan** - the Avenue
+  shows in the XXIII area plan and in the perspective views only.
 
 **Petrie note (209c):** the two unlabeled Flickr files are Petrie 1880 plates (Pl. I and Pl. II,
 visually confirmed above) AND are already in the canonical files.jsonl with caption_coords
