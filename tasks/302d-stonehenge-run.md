@@ -1,4 +1,4 @@
-Status: open
+Status: dropped
 Depends on: 302c
 # 302d: Stonehenge through the line - what the ink fit actually places on the stones
 Touches: docs/site_flow.md, docs/site_flow/, data/review/, data/db/platefits/, web/data/sites.json, web/data/review.json, web/data/sites/stonehenge/
@@ -20,3 +20,6 @@ review queue with its reason. Then check what the page shows, in a browser, agai
       and an explicit sentence if the method placed nothing.
 - [ ] No hand-fit document and no file of another site changed by this run (the line's scoping rules
       held; the 20+1 hand fits and their golden hashes untouched).
+
+## Lead note (2026-10-12)
+Dropped: superseded by the matcher fit (fit/matchfit.py, MatchAnything ELoFTR + RoMa), which site_done already calls first on every undocumented picture. The ink fit landed 231-2204 m off on the hand fits (302b); there is nothing left to wire.
