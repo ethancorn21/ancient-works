@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 183, agent a - BOX 3 BUILD PHASE COMPLETE and verified: all 114 new sites built to completion against the 385-entry pre-build b
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 185, agent a - BOX 3 TICKED (tests written in the unlogged session, verified 9/9 this session). Merged main per the lead's mid-
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,45 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 3 - sessions 176-179's build runs (unlogged; reconstructed from data/merge/build_sites.log) and session 180 confirmed the detached run is alive; memory rebuilt
-- Sessions 176-179 did no DECISIONS/hand-over updates (the task file's hand-over stayed at 175; the driver
-  committed their raw work as "uncommitted work after iteration 176/177/178"). Reconstructed from
-  data/merge/build_sites.log (append-only, committed): 176 wrote data/merge/run_build.py (box-3 runner:
-  one build_catalog.py --ids <sid> subprocess per site, then build_site.set_drawings(sid) to refresh the
-  site's markers, all logged); ran it nohup'd.
-- Run 1 (19:55Z, 22 ids: 10 English country houses from the artists wave + 12 NL towns): 15 built ok
-  (EA 1m LiDAR + OS six-inch 1st ed; reimerswaal/sluis/valkenburg via the point-cloud fallback, aerial-only
-  with tmk1850). 7 AHN-sourced NL towns FAILED: load_dem -> `ValueError: <PREDICTOR.FLOATINGPOINT: 3>
-  requires the 'imagecodecs' package` (AHN DEMs are Float32 rasters). Fix: installed imagecodecs 2026.10.10
-  into the project .venv ad hoc (NOT pinned in requirements.in/.txt - those files belong to agent c's
-  in-flight 302a/304; the pin is still outstanding, PITFALLS filed).
-- Run 2 (20:19Z, 26 ids: the 7 AHN retries + 19 FR/LU towns + lille): all 7 AHN built ok on retry (relief
-  clips 0.63-1.2 m, tmk1850 old maps). The French towns built at 2-5 min each (IGN-era national LiDAR,
-  Cassini/état-major old maps). Run 2's last id was a typo, `vieille-hesdin-q1022768` (the extras row's id
-  is `vieil-hesdin-q1022768`): --ids matches row ids exactly, so the typo matched nothing and built
-  nothing; verified no misnamed site was created (no vieille-hesdin in sites.json or data/sites/).
-- Run 3 (21:18Z, 23 ids: beaumont oudenaarde soignies luxembourg-city + the 18 remaining FR/LU towns):
-  beaumont/oudenaarde/soignies built ok (Wallonia 2021-22 LiDAR 10-37 pts/m2, Cassini 1780 maps),
-  luxembourg-city killed mid-build at the session's end (only site.json written).
-- Session 180 (this one): the run-3 process SURVIVED the teardown (ps: run_build.py + its build_catalog
-  child; it resumed on its own - luxembourg-city completed: Luxembourg government 2019 DEM 28.7 pts/m2,
-  Cassini 1780, oldest=1780; aire-sur-la-lys was next). So: 5 of the 20 unbuilt extras sids are built
-  (beaumont-q95100, oudenaarde-q12992, soignies-q462985, luxembourg-city-q1842,
-  aire-sur-la-lys-q259903); 18 remain, all in the live run's queue (avesnes-sur-helpe-q217178
-  bapaume-q317235 bavay-q477176 bethune-q207145 bouchain-q632348 cambrai-q181285
-  conde-sur-l-escaut-q494533 douai-q193826 gravelines-q323399 hesdin-q467366 landrecies-q632808
-  le-cateau-cambresis-q329103 le-quesnoy-q180067 maubeuge-q138648 saint-omer-q208793
-  therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768) at 2-5 min each.
-- Invariants verified on the worktree mid-run: web/data/sites.json = 481 entries = HEAD 478 + {soignies,
-  luxembourg-city, aire-sur-la-lys} (beaumont/oudenaarde were already in HEAD); 0 removed, 0 changed
-  shared entries (object-equality diff) - pure growth, as the box requires. Every new entry carries
-  id/name/lon/lat/corners(4)/size_m/drawings plus the LiDAR credit.
-- This session made no new builds (the live process owns them; a second instance would race it on
-  sites.json): memory rebuild only - 2 PITFALLS entries (imagecodecs/AHN; run_build protocol), this
-  entry, hand-over rewritten with the exact resume/verify plan.
-- 222-228 checked this session: still open (task files Status: open, no fix commits on main) -> the
-  done-claim stays gated on them; boxes 4-6 are unaffected.
 
 ### 2026-10-12 211 DECISION: box 4 verified and ticked - the plan-list refresh had already been done by the unlogged sessions (driver snapshot 27a6053); re-running export_plans.py is byte-identical; the re-read resolved as the stable pre-merge matches.jsonl join
 - Session 182. The build run is ALIVE (pid 4098676): cambrai-q181285 finished 21:45Z,
@@ -142,6 +103,43 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   terminal log lines in the test.
 - 222-228 re-checked: still OPEN, no fix commits on main (branch in sync with main tip
 ... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)' DECISIONS.md`)
+
+### 2026-10-12 211 DECISION: box 3 verified and ticked (the tests were written in the unlogged session and pass 9/9 this session); merged main per the lead's mid-session instruction (7e61147 skips the 1.6 GB .npy/.npz grids in full-tree test copies - the 48G disk was at 1 GB)
+- Session 185. Box 3's tests already existed in the worktree at session start (committed by the
+  driver from the unlogged sessions): data/merge/sites_premerge_baseline.jsonl (the 385 entries
+  served at commit 406562b) plus the three tests in tests/test_merge.py -
+  test_served_sites_grew_purely (frozen baseline: nothing removed, no entry rewritten outside the
+  four marker fields 212 owns), test_new_sites_are_complete (per new site: web/data/sites/<id>/,
+  id/name/lon/lat/corners/size_m/drawings, relief.jpg iff lidar_credit, coverable old-map layer
+  (depict.covers + MIN_AGE) implies depictions.json), test_new_site_golden_samples (the-hague
+  0.91/1850/1/tmk1850, ostend aerial-only no depictions, cambrai 1.01/1780/2). Ran them: all pass
+  (test_merge.py 9/9, 19 s). Ticked box 3. The box's "old 384" stays recorded as the human's
+  estimate; the measured pre-build count is 385 (deviation noted here and in the ticked box's
+  text; per the Notes the tests assert the data-level invariants on the measured values).
+- Re-read resolved clean: data/merge/run_build.py run()/main() - --force is forwarded to
+  build_catalog only (the sole effect there is the `sid in built and not a.force` skip guard, so a
+  half-built site in sites.json can be rebuilt in place); the --marks-only path is untouched by
+  force; the module docstring states exactly this. No change needed.
+- Mid-session lead message: the VM disk was at 1 GB because each full suite run copied the
+  gitignored data/sites/*/dem.npy grids (~1.6 GB) four or more times; main now carries 7e61147
+  (tests/conftest.py + tests/test_fit_queue.py: full-tree copies skip .npy/.npz). The lead asked
+  to sync main before the next suite run. My branch had diverged (driver snapshot commits on
+  agent/a; 7e61147 on main over 23ed8b0) with ZERO file overlap (my diff since the merge base
+  23ed8b0 does not touch conftest.py or test_fit_queue.py), so `git merge main` was clean
+  (a1d224c, no conflicts, no rebase). Suite runs are light again; a "No space left" failure from
+  now on is not the .npy copy (it would be something else - disk still 98% used at merge time).
+- Suite run this session (before the sync; the sync touches only conftest/test_fit_queue, both of
+  which were green in the run): 10 failed / 130 passed / 1 skipped in 247 s. The 10 failures are
+  exactly the source-guard set of the still-OPEN 222-228 (test_src_artists/kip/limes/mackenzie/
+  numancia/van_deventer x2/wiltshire_stukeley x3) - staged rows now joining the canonical files
+  is by design of the live merge (iter 174). test_gate and test_serve are green (10-11's driver
+  notes about them are stale). 130 > 124 passed vs iter 183: main absorbed other tasks' tests in
+  the meantime; nothing new is red.
+- 222-228 re-checked this session: all seven still Status: open (no fix commits on main) -> the
+  done-claim stays gated on them (Depends on: already lists them). Box 5 (docs/sources.md) and
+  box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
+  the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
+  claim.
 
 ## Project-wide driver notes (newest)
 
