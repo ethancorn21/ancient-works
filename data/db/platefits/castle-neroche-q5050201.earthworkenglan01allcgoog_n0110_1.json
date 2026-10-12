@@ -1,0 +1,83 @@
+{
+ "site": "castle-neroche-q5050201",
+ "plan": "earthworkenglan01allcgoog_n0110_1",
+ "crop": [
+  471,
+  909,
+  2761,
+  3636
+ ],
+ "pairs": [
+  [
+   790.6,
+   2573.4,
+   -3.0397794,
+   50.9368971
+  ],
+  [
+   878.5,
+   1500.2,
+   -3.0389773,
+   50.9405914
+  ],
+  [
+   878.5,
+   2706.6,
+   -3.0393369,
+   50.9364202
+  ],
+  [
+   745.3,
+   2706.6,
+   -3.0400675,
+   50.9364452
+  ],
+  [
+   811.9,
+   2680.0,
+   -3.0396942,
+   50.9365248
+  ],
+  [
+   769.3,
+   2626.7,
+   -3.0399122,
+   50.936717
+  ],
+  [
+   745.3,
+   2600.1,
+   -3.0400357,
+   50.9368136
+  ],
+  [
+   745.3,
+   2653.3,
+   -3.0400516,
+   50.9366294
+  ]
+ ],
+ "label": "Fig. 13",
+ "title": "Castle Neroche, Somerset",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-12T03:31:41.901554+00:00",
+ "auto": true,
+ "score": 6.5,
+ "by": "agent",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0110.jpg",
+ "book": "Allcroft 1908",
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 15,
+  "matches": 26,
+  "ground": "six-inch-1st.webp",
+  "window": 0.7,
+  "rot_deg": 3.11,
+  "spread": [
+   0.143,
+   41.9
+  ]
+ }
+}

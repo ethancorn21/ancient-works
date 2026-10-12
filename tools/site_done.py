@@ -78,7 +78,8 @@ def _fit(root, sid, model):
     # the pretrained matcher first (fit/matchfit.py): a fit it is sure of becomes a document here; the rest go on
     # as before (the lead 2026-10-11: two model-free/vision-model fits failed, the matcher placed the hand-fit
     # plans it was sure of within 26-76 m)
-    if uncovered and matchfit.reachable():
+    # every picture without a document, review-item ones too: a confident matcher fit resolves the item
+    if any(r["id"] not in docs for r in rows) and matchfit.reachable():
         for path in matchfit.run(str(root), [sid]):
             print(f"fit  matcher: fit written ({Path(path).name})")
         docs = dict(batch_us.pre_docs(str(root), sid))
@@ -191,7 +192,15 @@ def _sync_doc(root, sid, plan, doc):
     if who == "agent" and doc.get("by") not in ("hand", "agent"):
         _stamp_agent(root, sid, plan, doc)
     if who != "hand":
-        pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
+        if doc.get("fitter") == "matcher":
+            # matcher points sit on the matcher's coarse grid and trip the batch-model ladder clause (Castle Neroche
+            # 2026-10-11); the failure that matters for them is a near-line of points that leaves the scale free
+            # (Aesica), so they get the spread check instead (fit/matchfit.spread)
+            ratio, sd = matchfit.spread(doc.get("pairs") or [])
+            pattern = None if ratio >= matchfit.SPREAD_MIN_RATIO and sd >= matchfit.SPREAD_MIN_SD_PX else (
+                f"matcher points nearly on a line (spread {ratio:.2f}, {sd:.0f} px): the scale is not pinned")
+        else:
+            pattern = plan_fit.fabrication_pattern(doc.get("pairs") or [])
         if pattern:
             review.upsert_item(str(root), sid, [_pattern_entry(doc, pattern, root)])
             batch_us._doc_path(str(root), sid, plan).unlink()

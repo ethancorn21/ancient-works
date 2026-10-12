@@ -53,6 +53,22 @@ WINDOWS = (1.0, 0.7, 0.5, 0.35, 0.25)
 MIN_INLIERS = 10
 MAX_ROT_DEG = 30.0
 N_PAIRS = 8
+SPREAD_MIN_RATIO = 0.1
+SPREAD_MIN_SD_PX = 20.0
+
+
+def spread(pts):
+    """How two-dimensional the consistent points are on the plan: (ratio, minor sd in px). ratio =
+    sqrt(minor/major eigenvalue) of their covariance (1 = round cloud, 0 = a line). Why (2026-10-11):
+    Aesica's bath-house plan had 13 consistent points all along one column (0.054, 15.6 px); a near-line
+    leaves the similarity's scale free, and it was placed 8x too big. Every right fit on the owner's hand
+    fits had >= 0.138 and >= 30 px (projects-00's measurement, docs/matchfit.md section 6)."""
+    p = np.array([q[:2] for q in pts], float)
+    if len(p) < 3:
+        return 0.0, 0.0
+    c = p - p.mean(0)
+    ev = np.clip(np.linalg.eigvalsh(c.T @ c / len(p)), 0, None)
+    return (float(np.sqrt(ev[0] / ev[1])) if ev[1] > 0 else 0.0), float(np.sqrt(ev[0]))
 
 
 def reachable(url=None):
@@ -204,15 +220,19 @@ def fit_row(root, site, row, url=None):
             mpp = abs(s) * abs(X1 - X0) / W * math.cos(math.radians((la0 + la1) / 2))
             resid = np.abs(Bm - (b[m][:, 0] + 1j * b[m][:, 1])) * abs(X1 - X0) / W * math.cos(math.radians(la0))
             sel = _spread(A, N_PAIRS)
+            sp = spread([[x0 + u / fx, y0 + v / fy] for u, v in A])   # in the pairs' frame, all inliers
             pairs = [[x0 + A[i, 0] / fx, y0 + A[i, 1] / fy, ll[i][0], ll[i][1]] for i in sel]
             best = {"inliers": n, "matches": len(a), "rot": math.degrees(np.angle(s)), "ground": name,
-                    "window": f, "pairs": pairs, "resid_m": float(np.median(resid)), "m_per_px": mpp}
+                    "window": f, "pairs": pairs, "resid_m": float(np.median(resid)), "m_per_px": mpp, "spread": sp}
     if best is None:
         return {"why": "the matcher found nothing consistent"}
-    ok = best["inliers"] >= MIN_INLIERS and abs(best["rot"]) <= MAX_ROT_DEG
-    if not ok:
-        best["why"] = (f"not sure: {best['inliers']} consistent points (need {MIN_INLIERS})"
-                       if best["inliers"] < MIN_INLIERS else f"not sure: rotated {best['rot']:.0f} deg from north")
+    if best["inliers"] < MIN_INLIERS:
+        best["why"] = f"not sure: {best['inliers']} consistent points (need {MIN_INLIERS})"
+    elif abs(best["rot"]) > MAX_ROT_DEG:
+        best["why"] = f"not sure: rotated {best['rot']:.0f} deg from north"
+    elif best["spread"][0] < SPREAD_MIN_RATIO or best["spread"][1] < SPREAD_MIN_SD_PX:
+        best["why"] = (f"not sure: the consistent points lie nearly on a line (spread {best['spread'][0]:.2f}, "
+                       f"{best['spread'][1]:.0f} px across): the scale is not pinned")
     return best
 
 
@@ -249,7 +269,8 @@ def run(root, site_ids, dry=False, url=None):
                 doc = json.loads(Path(path).read_text())
                 doc.update({"fitter": "matcher", "matcher": {
                     "model": "zju-community/matchanything_eloftr", "inliers": r["inliers"], "matches": r["matches"],
-                    "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2)}})
+                    "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
+                    "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
                 batch_us._save_json(path, doc)
                 written.append(path)
     return written
