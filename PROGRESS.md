@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 182, agent a - BOX 4 verified and ticked this session (the refresh had already happened in the unlogged sessions; re-running th
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 183, agent a - BOX 3 BUILD PHASE COMPLETE and verified: all 114 new sites built to completion against the 385-entry pre-build b
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,46 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 2 - rebuilt the book index + validation.json with the machinery (the 216/217 view books land), re-recorded the 200 evidence on all 1068 rows, the offline check passes - box 2 ticked
-- Proceeded with box 2 before 222-228 land (the previous hand-over said to wait): the book-index work is
-  independent of those tasks (they touch fit/src_*.py + their tests; I touch data/books/index.jsonl,
-  data/books/validation.json, the evidence fields and tests/test_merge.py), and it does not change my branch's
-  red set either way - the suite is 10 failed / 124 passed / 1 skipped before and after, the same 10
-  source-guard reds (baseline diff: identical failure list). 222-228 still gate the CLAIM (Depends on), not
-  the remaining boxes.
-- `pipeline/books.py index` over all 14 BOOKS entries (the 5 untriaged view books contribute 0 rows - do not
-  invent them) -> 1068 rows vs HEAD's 901: 167 added (civitates_liber2 11->118: 217's hand-list views; merian_
-  helvete00zeil 0->60: the 216/217 book), 0 removed, 11 changed (all the old qwen-only civitates rows gain the
-  hand list: fig numbers, view flags, hand-transcribed title_source, found_by union) - exactly what the
-  machinery's hand-list path is for. The 8 original books' counts are unchanged (145/115/197/88/55/18/235/37).
-  Byte-diffed against `git show HEAD:data/books/index.jsonl` (the pitfall's rule), never a working-tree snapshot.
-- `pipeline/books.py validate` -> validation.json: the 9 pre-existing entries unchanged except civitates_
-  liber2 (the figures stats filled from the hand list: 121 listed, 7 site, 111 views, recall 0.429, 4 missed
-  pages); merian_helvete00zeil's entry added. Nothing removed.
-- `fit/evidence.py record` (offline, no --live): 1068 book rows got the evidence field appended (0 hand-tied
-  files rows missing - all 1514 titled files rows already carry it; the 109 no-evidence files rows are
-  title-less sentinels that never reach the plan list). files.jsonl untouched (record rewrites only changed
-  lines; none changed).
-- `fit/evidence.py check` offline on the merged set: rc 0 - 2582 rows, 1385 pass, 0 fail, 1197 no-tie. Of the
-  264 files NONE rows, 0 reach plans.json (every plan-list files row has a real tie). The 933 book NONE rows
-  are mostly US-mound/Swiss-town plates with no catalog site: the expected 200 fail-closed end state (NONE
-  rows are reported, not failed; 200 itself closed with 354 none). Improving tie coverage is 801's job, not
-  211's. All 890 book rows that reach plans.json (full_local exists) carry the field (135 caption_coords,
-  755 none).
-- tests/test_merge.py extended with the box-2 data-level invariants (per the Notes: the test asserts the data
-  result, never a rebuild): (1) every index row and every titled files row carries rec evidence/1, every index
-  row joins to its ia's stage-A triage, ids follow <ia>_nNNNN_k, and `fit/evidence.py check` exits 0 with
-  "0 fail"; (2) a small synthetic sample: record appends the field to an unrecorded row (stored fields keep
-  their values), leaves a recorded row and a title-less sentinel byte-identical, and a second run is a
-  complete no-op. 5/5 pass.
-- Box 2's book set resolves as: the 8 originals + the 2 triaged artist-view books (213/216/217's). 207 is
-  stopped (no books, per the lead note) and 209's Stukeley book has triage+list files but is not a BOOKS entry
-  (209b stages files rows directly), so neither adds index rows. When 207a/207b land, a later re-run of this
-  step picks them up.
-- Re-read item resolved: fit/merge.py:run_target's evidence gate applies to files.jsonl titled rows only
-  (classified rows are not gated; book-index rows are never merge-gated - their evidence comes from record).
-  The reading was confirmed by re-reading the whole module; no change made.
 
 ### 2026-10-12 211 DECISION: box 3 - sessions 176-179's build runs (unlogged; reconstructed from data/merge/build_sites.log) and session 180 confirmed the detached run is alive; memory rebuilt
 - Sessions 176-179 did no DECISIONS/hand-over updates (the task file's hand-over stayed at 175; the driver
@@ -132,6 +92,56 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - 222-228 re-checked: still OPEN -> the done-claim stays gated on them; the branch's
   red set is unchanged by this session (no code or data file changed - only the task
   file, this entry, and the live build's append-only log/snapshot).
+
+### 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)
+- Session 183. Run 3 (23 ids) finished 23/23 by ~22:05Z but the runner DIED at
+  therouanne: its build hit `OSError: [Errno 28] No space left on device` in
+  depict.py's layer save (the shared 48G disk filled - agent c's /tmp/loop-ancient-
+  works.c had grown to 3.5G that evening) and run_build's own log() then raised on
+  write, killing the process mid-line (truncated `=== therouanne-q261399 FAILED ==`;
+  valenciennes/vieil-hesdin never started). build_catalog itself survives per-site
+  exceptions (prints "built 0, skipped 0, failed 1", exits 0) - the death is the
+  runner's log write, and log() has no error handling.
+- Fix (my own file, in Touches): data/merge/run_build.py now accepts --force, forwarded
+  to build_catalog (its ONLY effect is the `sid in built and not a.force` skip guard;
+  a no-op for ids not in sites.json). Critical: without --force a site that is in
+  sites.json but only half-built (entry written by the killed build, maps missing) is
+  skipped FOREVER by every later run. Resumed `nohup .venv/bin/python data/merge/
+  run_build.py --force therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 &`
+  - all ok by 22:16Z (therouanne rebuilt in place: score 1.01, overlays 2, oldest
+  1780). Disk recovered to 2.6-6G during the run.
+- Then found the SECOND orphan: the-hague-q36600 sat half-built (relief+block but no
+  maps/depictions.json, entry score 0/overlays 0) since RUN 2's kill at 20:27Z (unlogged
+  sessions): its build_catalog child was killed mid LiDAR-load, the completion lines
+  were lost, and the later third invocation (20:40Z: utrecht + ostend/mons/saint-
+  ghislain/tournai) never included it; sessions 178-182's monitoring missed it (the
+  entry looks plausible: it has lidar_credit and relief.jpg). Forensic tell: the orphan
+  `marks refreshed: lille-q648` log line is a later session that built lille directly
+  (output never logged) and refreshed its marks via `run_build.py --marks-only`. The
+  previous hand-over's run inventory had missed that third invocation entirely; the
+  true new-site set is the 114 below, not the "20 target sids".
+- Audit (the machinery's own logic, over all 114 new sids): a site is complete iff
+  (a) relief.jpg ⇔ lidar_credit, and (b) a coverable old-map layer (depict.LAYERS:
+  covers(L, lon, lat) and L["year"] <= tm_year - MIN_AGE_YEARS) ⇒ depictions.json
+  exists. Exactly one violator: the-hague (tmk1850 covers it). Rebuilt with --force:
+  ok 22:22Z (score 0.91, overlays 1, oldest 1850, tmk1850 100% coverage). A broad
+  "overlays field vs depictions count" audit is a dead end (340/499 entries differ -
+  pre-existing; the field is not maintained that way); the covers⇒depictions rule is
+  the sound one.
+- FINAL BUILD STATE verified against the true pre-build baseline, commit 406562b
+  ("uncommitted work after iteration 137" - the last commit before 211's first build at
+  19:55Z): 385 entries then, 499 now = 385 + 114 added, 0 removed, 0 changed (all 385
+  object-identical). The 114 = UK houses (11), NL (12), BE (~12), ~38 German Limes
+  forts, FR/LU towns (~40), IT (imola, venice). NOTE: the box's "old 384" is the
+  human's estimate; the measured pre-build count is 385 - the tests are set to the
+  measured value (permitted deviation, listed here; the human's 384 stood for
+  "the pre-merge served set", which is 385).
+- LOG CAVEAT for the next session's test design: build_sites.log (890 lines) has LOST
+  per-site lines for ~65 of the 114 (killed runs; both the old runner format without
+  `ok` lines and lost lines). The data is the source of truth; do not assert per-sid
+  terminal log lines in the test.
+- 222-228 re-checked: still OPEN, no fix commits on main (branch in sync with main tip
+... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
