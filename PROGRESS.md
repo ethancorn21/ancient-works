@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 146, agent c - FIRST session on 306c. Driver built and 32-shot run launched; 1 of 16 judged (marietta: DELETE case). Session di
+- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 147, agent c - second session. 32-shot run CONFIRMED complete; all 7 serpent-mound docs judged (ALL DELETE); 9/16 judged in tot
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -74,6 +74,22 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - The 2 fit-queue-contaminated docs (hodgen-s-cemetery-mound b24849959_n0353_1, pyramid-mound
   ancientmonuments00squi_n0134_1) need a placed:false check in /tmp/audit_306c.log; note the [eval] field
   fqEntries is the TOTAL queue entry count (114), not a match count - 306b's log misled on that too.
+
+### 2026-10-12 306c DECISION: 32-shot run finished; all 7 serpent-mound agent docs judged DELETED (none matches the hand fit)
+- The iteration-146 background run completed on its own: /tmp/audit_306c.log ends with "[audit 306c] all shots written to
+  docs/site_flow/agent_fits"; all 16 docs x (aerial, relief) are in docs/site_flow/agent_fits/. Every [eval] line reports
+  placed:false (the two FQ-contaminated docs, hodgen-s b24849959_n0353_1 and pyramid-mound ancientmonuments00squi_n0134_1,
+  verified uncontaminated; fqEntries=114 is the total queue count, not a match).
+- Established the site's ground truth from the prebuilt LiDAR relief (relief.jpg maps to site.corners, image px -> lon/lat
+  linear): the real effigy's head coil (-83.4288, 39.0254), tail coil (-83.4314, 39.0258), centre ~(-83.4301, 39.0256) -
+  exactly the owner's hand fit n0210_1 (S&D 1848 Plate XXXV) plate-quad centre, so the hand fit is the reference placement
+  and it sits on the real works.
+- Judged all 7 serpent agent docs against that reference (14 shots): the three "A School History" p26 copies place their
+  serpent ~230-265 m NORTH of the effigy; Holmes/Fowke Fig. 81 is stretched to ~800 m and runs N-S vs the real E-W
+  effigy (66 m mid-residual = the stretch); the Baer 1889 engraving (view row) lands ~180 m NW; the Commons copy of
+  S&D Plate XXXV (the very plate the owner hand-placed) sits ~150-190 m SE of the hand fit AND at ~4x the true scale
+  (the Commons file is the plate alone: 1280 px = 1.28 km at the fitted 1 m/px vs the real ~320 m figure) - so it is NOT
+... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-12 306c DECISION: first session - audit driver built and running; marietta judged as the task's first DELETED case' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
