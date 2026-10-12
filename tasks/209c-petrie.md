@@ -1,4 +1,4 @@
-Status: blocked
+Status: in-progress
 # 209c: Petrie, Stonehenge/Avebury (1880)
 Depends on: 200
 Touches: fit/src_wiltshire_petrie.py, data/books/triage/, data/books/lists/, data/commons/files_wiltshire_c.jsonl, data/commons/classified_wiltshire_c.jsonl, docs/lead_wiltshire.md, tests/test_src_wiltshire_petrie.py, tests/golden/src_wiltshire_petrie_sample.json
