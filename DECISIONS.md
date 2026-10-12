@@ -357,3 +357,66 @@ handler should be a top-level import.
 
 After the suite is green: devlog.md, full suite, matcher re-check (127.0.0.1:8091 was
 live this session), real-service smoke, freeze, held-out evaluator, the one run.
+
+### 2026-10-12 304 DECISION: first real run of the stub suite - the synthetic world was mis-scaled and is now centred at (195,235) with 25/30 px pitch; a match-quality jitter (0.6 px/deg) makes the true rotation the unique sweep max; scipy 1.18.1 changed center_of_mass's array-index return
+
+Session 5, first execution of tests/test_surveyfit.py. Three distinct findings, in order:
+
+1. **The session-4 world did not fit its own frame.** The old 7x2 grid (x=30+50i, y in
+   {250,310}) is 300 sheet-px wide = 375 plan-px at the plan's 0.8x scale - wider than the
+   320 px plan frame - and its centre (180,280) is 100 m west / 400 m south of the sheet
+   centre, so in the plan frame (plan centre on the site centre) the glyph field sat
+   off-centre: one true glyph landed at x=-67.5 (off-frame) and another within 9 px of the
+   (15,305) junk corner at theta_d=0. The junk-gap assertion caught it on the very first run.
+   Redesign constraint (verified numerically, not by eye): a 7-col grid can have exactly 4
+   columns <= 198 and 2 rows >= 202 (the 302b half-box shift keeps 8 glyphs) ONLY when the
+   grid centre is off-centre (pitch (198-c)/2 < p_x <= 198-c), while the plan frame (scale
+   0.8, centre on site) needs the grid within ~155 px of the panel centre at every
+   theta_d in {0,6,42}. Chosen: pitch 25/30 px, centre (195,235) - cols 120..270, rows
+   220/250. Consequences (all measured): 8 shift survivors; all 14 glyphs in-frame at all
+   three theta_d; min junk gap 35-93 px; and crucially the stub's rotation resolution is
+   binary at the grid's 2 deg step (true theta: 14 hits; any 2-deg-off candidate: 4 hits),
+   so the sent rotation always resolves to itself, never to a neighbour.
+
+2. **Score ties, broken by a quality wobble, not a count cut.** With the binary hit gate,
+   a call one fine step (2 deg) away from the true rotation still resolves and returns all
+   14 true pairs (delta <= 3 band), so without further degradation it would TIE the true
+   rotation's score and the sweep's first-max rule could land on 358/2 instead of 0. Fix
+   (test-side only, no frozen-module change): the stub's returned plan-side points wobble
+   by up to 0.6 px per degree of angular error, seeded per (theta, i) - deterministic and
+   repeat-call-stable, mimicking a matcher whose match QUALITY degrades with rotation. The
+   resulting score landscape is strictly ordered: delta 0 ~0.52 > delta 2 ~0.48 >> delta
+   4-15 ~0.15-0.19 ~ junk-only ~0.15. The sweep is now deterministic: theta_d=0 -> 0, theta
+   _d=6 -> 6, unique maxima in both cases (the fine-0 duplicate payload ties the coarse 0
+   and the strict > keeps the first).
+
+3. **Two crashes, both test-side.** (a) The anticipated zero-centroid ValueError in
+   _resolve_theta (empty scrambled image): guarded. (b) NEW, unanticipated: scipy 1.18.1's
+   ndi.center_of_mass(input, labels, index_array) returns a LIST OF (cy, cx) TUPLES (one
+   per label), not a (cy-array, cx-array) pair - `cy, cx = ...` raises "too many values to
+   unpack (expected 2)" whenever n != 2. _centroids rewritten to consume the list form. The
+   single-mask form ndi.center_of_mass(mask) still returns a (cy, cx) tuple, so
+   fit/surveyfit.py's panel_pieces (line 344) is unaffected - verified. (PITFALLS candidate.
+   Note: the .venv the driver builds from requirements.txt pins this scipy; the code must
+   match ITS behaviour, not an older one.)
+
+After these fixes the suite runs end to end against the stub; first failure is now a
+tolerance, not a crash: test 1 (theta_d=42, rot=42, no null) reports the placement centre
+2.958 m from the independently constructed true placement (limit 2 m). Diagnosis (measured,
+throwaway script): my 4x-supersample rasterizer (4x4 cells, acc >= 0.3) biases each disc's
+measured centroid 0.44-0.66 px from the intended sub-pixel centre before any JPEG, and
+0.34-0.77 px after the module's 42 deg PIL bicubic rotation - the 16-cell coverage
+quantisation makes the effective ink boundary asymmetric, and the 14 per-glyph biases share
+a common component (fitted b off ~0.7 plan-px = 2.9 m; da and the corners were not yet
+reached by the -x run). Hypothesis: 8x supersampling (1/64 coverage resolution) cuts the
+bias to ~0.1 px; the JPEG q95 roundtrip (what the stub actually decodes) adds at most a
+~0.1 px symmetric blur. One open question from the last experiment: a single-disc 8x test
+case came back with ZERO ink components after the JPEG roundtrip (the script crashed on
+the empty array before printing which point) - if a 7-px disc genuinely vanishes at q95,
+enlarge the world's glyph radii (SHEET_R 3.5 -> 5) rather than the encoder. Tolerances
+will be set to ~2x the observed worst case and the measured numbers logged in the devlog,
+as pre-decided in session 4.
+
+Next (session 6): 8x supersample (verify the vanishing-disc question), rerun, recalibrate
+tolerances, then fixture emit + devlog + full suite + real-service smoke + freeze + the
+one run, per the hand-over.

@@ -30,87 +30,82 @@ survey sheet, then carry the sheet's georeference over.
 
 ## Hand-over
 
-(2026-10-12, iteration 88, agent c - session 4. Wrote tests/test_surveyfit.py (complete,
-7 tests + fixture emitter) - NOT YET RUN. Matcher was live at session start. The file is
-uncommitted on disk (harness kept it); commit it with the first green state.)
+(2026-10-12, iteration 89, agent c - session 5. Redesigned the synthetic world, added the
+match-quality jitter, fixed two first-run crashes; the suite now runs end to end. UNCOMMITTED
+on disk: tests/test_surveyfit.py only - fit/surveyfit.py unchanged this session.)
 
-**State.** Status: in-progress. fit/surveyfit.py v0 committed (ee36213 + driver 3b4c2b2).
-NEW this session: tests/test_surveyfit.py - hermetic stub-server suite (port 0, OS-
-assigned), 7 tests: (1) fixed-rotation recovery θ_d=42 (sign-convention lock), (2) sweep
-θ_d=0 (wrap: best coarse 0 -> fine 348..12; asserts 30<=calls<=43 and >=2 duplicate
-payloads), (3) sweep refinement θ_d=6 (final theta in {4,6,8}, not a multiple of 12),
-(4) scramble null < fit, (5) shifted-sheet null < fit, (6) fixture pin
-(data/surveyfit/fixture_match.json - NOT YET GENERATED), (7) /health 500 ->
-"matcher unavailable". Suite has NEVER been run: expect first-run friction (below).
+**State.** Status: in-progress. Last run: `.venv/bin/pytest tests/test_surveyfit.py -x -q`
+-> test 1 (fixed rotation theta_d=42) fails `db < 2.0` with 2.958 m (= 0.74 plan-px); tests
+2-7 not reached. Everything before that in the run path now works (stub, world, sweep).
 
-**Sign convention - VERIFIED BY CODE this session (closes the session-3 re-read item's
-last "must still lock"):** PIL rotate(+90) sends marker (90,50) -> (50,10) (right->up =
-visual CCW); rotated_panel_map(90) agrees (matrix R=[[c,s],[-s,c]] IS visual CCW in
-x-right/y-down); a visual CCW rotation by φ sends a point's w = x - i y coordinate to
-e^{+iφ}·w (checked numerically for both basis vectors - my earlier hand derivation of
-e^{-iφ} was an arithmetic slip, the module is right). COROLLARY (derived, untested in
-code): the true pairs must satisfy a_r = (a_true/a_s)·e^{-iθ_sent} and the module's
-composition a_s·a_r·e^{iθ} then gives a_total = a_true for ANY θ_sent - rotation is
-absorbed by the fit, so the sweep discriminates only through the matcher's match
-quality (which the stub simulates via its degradation rule).
+**Changes this session (all in tests/test_surveyfit.py):**
+1. Zero-centroid guard in `_resolve_theta` (`cents.shape[0] == 0 -> (None, {})`) +
+   `__import__("io")` -> top-level `import io` (the session-4 known bug: DONE).
+2. NEW CRASH FIXED: scipy 1.18.1 `ndi.center_of_mass(ink, lab, np.arange(1,n+1))` returns a
+   LIST OF (cy, cx) TUPLES, not (cy_arr, cx_arr) - `cy, cx = ...` raises "too many values to
+   unpack" for n != 2. `_centroids` rewritten: `[(c[1], c[0]) for c in com]`. NOTE: the
+   single-mask form `ndi.center_of_mass(m)` (fit/surveyfit.py:344 panel_pieces) still returns
+   a (cy, cx) tuple - no change needed there. PITFALLS candidate (scipy 1.18.1).
+3. WORLD REDESIGNED (old grid 30+50i x {250,310} was 375 plan-px wide in the 320 frame and
+   off-centre: a junk corner sat 9-21 px from true glyphs at theta_d=0/6). New grid: 7 cols
+   `120+25*i` x rows {220,250} (25/30 px pitch, centred (195,235)). Verified numerically:
+   8 half-box-shift survivors (4 cols <=198 x 2 rows >=202); all 14 glyphs in-frame at
+   theta_d in {0,6,42}; min junk gap 35-93 px; sweep deterministic: at sent=theta_d the stub
+   resolves the true theta uniquely (14 hits; adjacent 2-deg candidates get only 4); at
+   sent=theta_d+/-2 it resolves the SENT value (14 hits), delta 2. Score landscape (JITTER
+   _PX_PER_DEG=0.6, per-glyph wobble seeded per (theta,i), JITTER_SEED=304778): delta0 ~0.52
+   (14 pairs, amp 0) > delta2 ~0.48 (14 pairs, amp 1.2) >> delta4-15 ~0.15-0.19 (6 pairs) ~
+   junk-only ~0.15. So theta_d=0 sweep -> unique max at 0 (358/2 lose to the jitter; fine-0
+   duplicate ties and keeps the coarse first); theta_d=6 -> unique max at fine 6.
+4. match_response now adds `_jitter(theta, i, delta)` to the plan-side true-pair points.
 
-**Stub design (in the test file):** world = 400x400 sheet (corners = real aw.corners of
-a 2000m box at (2.0,50.0); a_s exactly real ~7.7786) with 14 glyph discs (7x2 grid
-x=30+50i, y in {250,310}; the 8 with x<=199 survive the half-box shift to (x+200,
-y-200)) + 320x320 plan = the same glyphs under z = a_true·w + b_true (a_true =
-(M_PX/k0)e^{iθ_d}, M_PX=4.0, b_true centres the plan on the site) + 4 junk glyphs at
-the corners (>=25px from true ones; rigid rotation keeps them unmatchable) + 12 junk
-pairs seed 304777. Handler: sheet classified by 3x3 ink windows at original/shifted
-centres (real >=12 orig; shifted == all 8 survivors); plan rotation resolved from
-connected-component centroids vs 180 candidates (multiples of 2deg), hit window 2.0px,
-oriented iff >=8 of 14 hit (blob radii 4.375px; plan-centre radii 43-200px make 2deg
-discrimination binary); degradation by |wrap180(θ_sent-θ_d)|: <=3 all survivors,
-<=15 first 6, else none. Expected score order: 14-true ~0.53 > 6-true ~0.30 > junk-
-only ~0.19; shifted null ~0.34 < fit. Tolerances as written: corners <2m, |db| <2m,
-|da| <0.1 m/px - recalibrate to observed values (est. jitter 0.2-0.5px from JPEG q95 +
-bicubic + 4x supersample) and log the measured numbers.
+**Current hypothesis (why db = 2.96 m at theta_d=42):** my 4x-supersample rasterizer biases
+EACH disc's measured centroid 0.3-0.7 px (coverage quantisation: 16 ss-cells, threshold 0.3
+makes the effective ink boundary asymmetric w.r.t. the sub-pixel centre). Measured per disc
+(no JPEG, raw): base 0.44-0.66 px; after 42 deg PIL bicubic: 0.34-0.77 px. The 14 biases
+share a common component -> b_r off ~0.7 plan-px -> 2.9 m. An 8x supersample should cut this
+to ~0.1 px.
 
-**Next step (session 5):** (1) KNOWN BUG TO FIX FIRST: _resolve_theta crashes on a
-zero-centroid image (ndi.label n=0 -> cents shape (0,2) -> d.min(axis=0) ValueError):
-guard `if cents.shape[0] == 0: return None, {}` - reachable if the scrambled panel has
-no ink after autowalls.extract. Also tidy `__import__("io").BytesIO` in the handler to
-a top-level `import io`. (2) `.venv/bin/pytest tests/test_surveyfit.py -x -q`. Likely
-friction, in order of probability: junk-only RANSAC model scoring above the 6-true
-level (~0.30) - change JUNK_SEED (304778, 304779...) until junk-only < 6-true <
-14-true; tolerance recalibration (tighten if observed corner errors << 2m); scramble
-image coincidentally oriented (deterministic - see it in the logs, adjust world
-layout). (3) When green: `.venv/bin/python tests/test_surveyfit.py --emit-fixture`
-writes data/surveyfit/fixture_match.json (ideal true pairs of the θ_d=42 world + junk;
-full-precision floats; re-running ransac must equal it exactly). (4) Write
-data/surveyfit/devlog.md: world params, JUNK_SEED, measured fit/scramble/shifted
-scores + inlier counts per world, corner errors, panel_pieces piece count on the
-synthetic panel, breakage hit. (5) Full suite `.venv/bin/pytest -q` (was 68 passed, 1
-skipped; mine adds 7). (6) Re-check `curl -sm 5 http://127.0.0.1:8091/health` for the
-real-service smoke (next session): canary `fit/surveyfit.py maiden-castle-q1232816
-c_c20ff6b1f16d173d --no-null` (lead's numbers 633/31/20-35-53m = confirmation ONLY,
-never tune) + barnard-castle-q4185811 / avaricum-q281826 non-held-out; eyeball corners
-on site; log in devlog. (7) Then FREEZE (restate frozen config in MY site_flow 304
-section + freeze commit hash) -> fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py:
-21 docs, both similarities in the doc's size frame, four full-image corners, k0 =
-aw.ground_scale(lat0), aerial column camp-d-attila only, checkpoint + pid lock,
-selfcheck 0.0m/0.0deg/1.0 before the run) -> THE ONE RUN -> verbatim table + plain
-verdict (PASS iff a confidence threshold exists: every accepted within 60m AND >=5 of
-21; threshold = the single authorised post-run choice) -> pass: task 304b (lowest free
-number in 800-1099, Depends on: 304, one-module Touches: wire tools/site_done.py fit
-step: confident->map, unsure->review with reason); fail: say so, stop.
+**Next step (session 6):**
+(1) Rerun the 8x-supersample experiment (throwaway script; last run crashed at
+`cents(imj)[0]` IndexError size 0 - one single-disc case came back with ZERO components
+after the JPEG q95 roundtrip: print per point and guard empties before concluding; if a real
+7-px disc genuinely vanishes under JPEG q95, enlarge the glyph radii instead - SHEET_R 3.5
+-> 5 and let the plan radius derive, keep the pitch).
+(2) Bump `_rasterize` from ss=4 to ss=8 (sheet and plan), rerun the suite.
+(3) Recalibrate the test tolerances (db<2m, da<0.1 m/px, corners<2m) to ~2x the OBSERVED
+worst values and LOG the measured numbers (devlog below).
+(4) When green: `.venv/bin/python tests/test_surveyfit.py --emit-fixture` writes
+data/surveyfit/fixture_match.json (theta_d=42 ideal world + junk; re-running ransac must
+equal it exactly); then write data/surveyfit/devlog.md (world params incl. the new grid,
+JUNK_SEED/JITTER_SEED, measured fit/scramble/shifted scores + inlier counts per world,
+corner/placement errors, panel_pieces piece count on the synthetic panel, the scipy 1.18
+center_of_mass gotcha, raster jitter numbers).
+(5) Full suite `.venv/bin/pytest -q` (was 68 passed 1 skipped; mine adds 7).
+(6) Real-service smoke (if `curl -sm 5 http://127.0.0.1:8091/health` answers): canary
+`fit/surveyfit.py maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (lead's 633/31/
+20-35-53m = confirmation ONLY, never tune) + barnard-castle-q4185811 / avaricum-q281826;
+eyeball corners; log in devlog.
+(7) FREEZE (restate frozen config in MY site_flow 304 section + freeze commit hash) ->
+fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py: 21 docs, both similarities in the
+doc's size frame, four full-image corners, k0 = aw.ground_scale(lat0), aerial column
+camp-d-attila only, checkpoint + pid lock, selfcheck 0.0m/0.0deg/1.0 before the run) ->
+THE ONE RUN -> verbatim table + plain verdict (PASS iff a confidence threshold exists:
+every accepted within 60m AND >=5 of 21; the threshold = the single authorised post-run
+choice) -> pass: task 304b (lowest free number in 800-1099, Depends on: 304, one-module
+Touches: wire tools/site_done.py fit step: confident->map, unsure->review with reason);
+fail: say so, stop.
 
-**Acceptance boxes:** none ticked yet. Box 1 (method: matching points from images,
-similarity through the georeference, confidence) becomes tick-able once tests 1-5 are
-green. Boxes 2-3 need the real run.
+**Acceptance boxes:** none ticked yet. Box 1 (method: matching points from images, similarity
+through the georeference, confidence) becomes tick-able once tests 1-7 are green + fixture
+committed. Boxes 2-3 need the real one run.
 
-**Never:** read the 21's stored hand pairs during development (evaluator only); tune
-any parameter from the lead's smoke numbers or the held-out run; edit docs/site_flow.md
-outside my 304 section (agent a owns 305's parts); change the 302b golden/hand docs;
-bind fixed network ports in tests; write outside the project + temp dir.
+**Never:** read the 21's stored hand pairs during development (evaluator only); tune any
+parameter from the lead's smoke numbers or the held-out run; edit docs/site_flow.md outside
+my 304 section (agent a owns 305's parts); change the 302b golden/hand docs; bind fixed
+network ports in tests (the stub uses port 0); write outside the project + temp dir.
 
-**Re-read (new):** tests/test_surveyfit.py:match_response + _resolve_theta - confirm
-the sheet-state thresholds (real >=12 of 14, shifted == all 8) are right for the
-webp-decoded sheet (lossy edges: a 7px disc through 3x3 window); and test 3's final
-theta assumption (argmax keeps the FIRST max: coarse 0, then first fine 0.54-level is
-4) - if observed theta differs, check the degradation band edges (<=3 / <=15) and the
-junk-only score, not the assertion.
+**Re-read:** tests/test_surveyfit.py:match_response + _jitter - confirm the jitter is seeded
+per (theta, i) only (a repeated call at the same theta must return IDENTICAL points - the
+sweep's first-max tie-break and the duplicate-payload test depend on it); and _take's bands
+(<=3 all / <=15 first 6 / else none) still match the docstring after the grid change.
