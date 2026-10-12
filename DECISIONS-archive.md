@@ -4635,6 +4635,61 @@ logged in PITFALLS and above).
   the bar) is documented there.
 
 
+<!-- task 306c -->
+# Task 306c orphan-fits-us
+
+## 2026-10-12 306c DECISION: first session - audit driver built and running; marietta judged as the task's first DELETED case
+- The 16 US orphan docs are all confirmed orphans in this checkout (no overlay, not referenced by any of the 346
+  review items; the only overlays on the 9 sites are cahokia's non-ours c_aff1b996dce7fe3a and serpent-mound's
+  HAND fit n0210_1, untouched). tools/audit_306c.mjs = a clone of 306b's driver (16-doc list, log tag
+  [audit 306c]); verified on the post-307 page: the unwrapped refit() (P.placed false after the IIFE empties
+  FQ.entries) still runs simFit on the doc's pairs and draws fit-prev, so 306b's judging recipe carries over.
+  Full 32-shot run launched in the background (nohup, /tmp/audit_306c.log); at the context limit 2 of the last
+  3 shots were still pending - the driver skips existing files, so a plain re-run finishes it.
+- marietta.b24849959_n0195_1 (Fowke 1902 Fig. 15) judged DELETED: the fit (1.000 m/px, 0 deg, resid 0) agrees
+  with the plate's own scale bar (measured: 500 ft = 142 page px -> 1.073 m/px, ticks at x 1375/1516/1659/1946,
+  bar y~455 of the 2456x4075 full page), but the drawn Conus mound (page px ~1888,1800) lands at
+  (-81.4467, 39.4122) while the real Conus - the ringed disc of Mound Cemetery, LiDAR block_top.jpg px
+  (1163,704) on block [-81.4686167..-81.4383833] x [39.4283808..39.4086178] - is at (-81.4514, 39.4204):
+  ~1.3 km S-E of it, on farm; the drawn complex is not the real complex (the site's own hand-placed S&D plate
+  anchors on the real Conus). Scale right, placement not: the 303 way - upsert the candidate (with the doc's
+  4 pairs and a place_reason) into data/review/ via fit/review.py upsert_item, delete the doc, scoped
+  export('.', 'marietta') so the item stays open (union coverage). NOT yet executed - next session, after
+  reading test_batch_eu/test_serve to confirm the coverage semantics.
+- Pitfalls found (to file): web/data/sites/<site>/depictions.json is a DICT {'depictions': [...]} (a quick
+  scanner crashed on a float); some data/review/*.json lines parse to non-dict JSON (bare float) - scanners
+  must isinstance-check; PIL 12.3.0 is in the project .venv (system python3 has none) for scale-bar measurement.
+- The 2 fit-queue-contaminated docs (hodgen-s-cemetery-mound b24849959_n0353_1, pyramid-mound
+  ancientmonuments00squi_n0134_1) need a placed:false check in /tmp/audit_306c.log; note the [eval] field
+  fqEntries is the TOTAL queue entry count (114), not a match count - 306b's log misled on that too.
+
+### 2026-10-12 306c DECISION: 32-shot run finished; all 7 serpent-mound agent docs judged DELETED (none matches the hand fit)
+- The iteration-146 background run completed on its own: /tmp/audit_306c.log ends with "[audit 306c] all shots written to
+  docs/site_flow/agent_fits"; all 16 docs x (aerial, relief) are in docs/site_flow/agent_fits/. Every [eval] line reports
+  placed:false (the two FQ-contaminated docs, hodgen-s b24849959_n0353_1 and pyramid-mound ancientmonuments00squi_n0134_1,
+  verified uncontaminated; fqEntries=114 is the total queue count, not a match).
+- Established the site's ground truth from the prebuilt LiDAR relief (relief.jpg maps to site.corners, image px -> lon/lat
+  linear): the real effigy's head coil (-83.4288, 39.0254), tail coil (-83.4314, 39.0258), centre ~(-83.4301, 39.0256) -
+  exactly the owner's hand fit n0210_1 (S&D 1848 Plate XXXV) plate-quad centre, so the hand fit is the reference placement
+  and it sits on the real works.
+- Judged all 7 serpent agent docs against that reference (14 shots): the three "A School History" p26 copies place their
+  serpent ~230-265 m NORTH of the effigy; Holmes/Fowke Fig. 81 is stretched to ~800 m and runs N-S vs the real E-W
+  effigy (66 m mid-residual = the stretch); the Baer 1889 engraving (view row) lands ~180 m NW; the Commons copy of
+  S&D Plate XXXV (the very plate the owner hand-placed) sits ~150-190 m SE of the hand fit AND at ~4x the true scale
+  (the Commons file is the plate alone: 1280 px = 1.28 km at the fitted 1 m/px vs the real ~320 m figure) - so it is NOT
+  a duplicate candidate worth keeping; the Harper's 1902 engraving (view row, 8 near-collinear anchors) is an
+  under-constrained homography whose serpent lands ~200 m NE. Verdict: all seven DELETED (the 303 way, to be executed
+  next session).
+- Learned: plans.json rows with view:true make refit() use the 8-param homFit, whose result has no mpx/rot (hence
+  mpx:null in [eval] for the two view docs - not an error); homFit through 4 points (or 8 near-collinear) is exact by
+  construction, so 0.0 resid proves nothing about placement. The relief.jpg -> site.corners mapping is a reliable
+  way to read the real works' position off the LiDAR (new pitfall filed in the hand-over).
+- Next session: execute the 8 removals (7 serpent + the marietta judged in iteration 146) the 303 way after reading
+  fit/review.py (item_path L56, upsert_item L80, resolved_doc L156, export L189) and the two constraining tests
+  (test_batch_eu union check, test_serve docs-match-sites), write the 306c block into docs/site_flow.md (after the
+  306b zwolle line; file is 939 lines), run the suite (baseline 128 passed / 1 skipped, --ignore=tests/test_gate.py).
+
+
 <!-- task 307a -->
 # Task 307a place-check
 
