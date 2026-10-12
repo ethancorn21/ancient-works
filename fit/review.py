@@ -157,7 +157,9 @@ def resolved_doc(item, root):
     authority of its own.
     """
     rec = item.get("resolved") or {}
-    if rec.get("doc"):
+    # a recorded resolution counts only while its document exists: a fit taken off the map (the line's fabrication
+    # check, or a matcher fit rejected on sight - Aesica 2026-10-11) must bring the item back to the queue
+    if rec.get("doc") and (Path(root) / "data" / "db" / "platefits" / (rec["doc"] + ".json")).is_file():
         return rec["doc"]
     site = item.get("site")
     for c in item.get("candidates") or []:

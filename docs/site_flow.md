@@ -388,3 +388,27 @@ map.
 - `docs/site_flow/fit_queue_done.png` — with Devil's Dyke marked done in this browser's
   localStorage (the exact mark the card's saveFit wrapper writes when a save lands): the
   card starts at Fort Ancient — the mark self-heals against the file, and the card moves on.
+
+## The matcher fit (the lead, 2026-10-11)
+
+`fit/matchfit.py` is the first automatic fit that lands right. It sends the plan and an image of the ground whose
+position is known (the site's LiDAR relief, its aerial photograph, its survey sheets) to a pretrained matcher,
+MatchAnything-ELoFTR (Hugging Face `zju-community/matchanything_eloftr`, Apache-2.0) on the AI box's 5060 Ti
+(port 8091; Local-AI-Lab `server/matcher`). Each ground is matched whole and as centred windows of 0.7-0.25 of
+its size (the matcher fails past a 2-3x scale gap), the best RANSAC similarity is kept, and a fit is written only
+with at least 10 consistent points and a rotation within 30 degrees of north. `tools/site_done.py` runs it first
+in its fit step whenever the matcher answers.
+
+A look at the owner's hand fits (not a held-out test: the windows and the thresholds came from it): every result
+with 10 or more consistent points landed 26-76 m from the hand fit; results with 2-7 points were 100-2000 m off.
+
+First run over the Ready-to-fit queue (116 sites, 240 candidate pictures): 6 confident fits. Looked at on the page:
+Fort Hill (Fowke 1902, on top of the hand-fitted Squier & Davis plate), Strasbourg 1819 (streets and the river bend),
+Azincourt cadastre 1810 (the castle mark on the LiDAR motte, the Douai road) and Portus Lemanis (on the slope above the
+canal) stay. Aesica's bath-house plan (one building, scale in feet) was matched at the wrong scale over ~250 m of
+fields: rejected, back in the review queue with the reason. Castle Neroche's matcher points were stopped by the line's
+fabrication check (the matcher's coarse grid looks like a ladder). The other 234 had 3-8 consistent points: mostly
+side views, town panoramas and faint scans that do not match the ground. They stay in the owner's queue.
+
+Fixed on the way: a review item's recorded resolution counted even after its document was deleted, so a fit taken
+off the map left its picture out of the queue (`fit/review.resolved_doc`).

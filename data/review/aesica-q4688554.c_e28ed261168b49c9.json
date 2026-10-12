@@ -5,43 +5,62 @@
    "plan": "c_e28ed261168b49c9",
    "title": "Befundplan Therme Great-Chesters",
    "url": "media/commons/aesica-q4688554/e28ed261168b49c9.jpg",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "category",
-    "checked": "2026-10-10",
-    "site_cat": "Aesica (Great Chesters)",
-    "file_cat": "Aesica (Great Chesters)",
-    "via": []
-   },
    "pairs": [
     [
-     1150.0,
-     150.0,
-     -2.4556173,
-     54.9990018
+     1003.8,
+     132.5,
+     -2.470472,
+     54.9952059
     ],
     [
-     1150.0,
-     850.0,
-     -2.4556173,
-     54.9911419
+     1003.8,
+     787.5,
+     -2.4712749,
+     54.990816
     ],
     [
-     350.0,
-     850.0,
-     -2.4712764,
-     54.9911419
+     1040.0,
+     105.0,
+     -2.4700148,
+     54.9953648
+    ],
+    [
+     991.2,
+     105.0,
+     -2.4705844,
+     54.995399
+    ],
+    [
+     1015.0,
+     113.8,
+     -2.4703176,
+     54.9953237
+    ],
+    [
+     1003.8,
+     770.0,
+     -2.4712534,
+     54.9909333
+    ],
+    [
+     991.2,
+     122.5,
+     -2.4706058,
+     54.9952817
+    ],
+    [
+     1027.5,
+     113.8,
+     -2.4701716,
+     54.9953149
     ]
    ],
-   "coarse": true,
-   "ground": "relief",
-   "scale_m_px": 1.25,
-   "rot_deg": 0.0,
-   "scale_source": "picture_size",
-   "note": "commons row: no stage-B fields: coarse anchor",
-   "why": "features: North-east corner of the main enclosure, South-east corner of the main enclosure, South-west corner of the main enclosure, North-west corner of the main enclosure, Central gate gap on the west wall, Central gate gap on the east wall, North gate gap on the north wall, South gate gap on the south wall; only 38% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+   "why": "matcher fit rejected by the lead's look (2026-10-11): a single bath-house plan (scale in feet, ~30 m) stretched over ~250 m of fields west of the fort; matched at the wrong scale"
   }
  ],
  "no_picture_found": null,
- "resolved": null
+ "resolved": {
+  "doc": "aesica-q4688554.c_e28ed261168b49c9",
+  "at": "2026-10-12T03:13:35.590448+00:00"
+ }
 }
