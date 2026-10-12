@@ -1,4 +1,4 @@
-Status: open
+Status: done
 # 208: The German Limes - fort plans from the old reports
 Depends on: 200
 Touches: fit/src_limes.py, data/catalog/extras_limes.jsonl, data/commons/files_limes.jsonl, data/commons/classified_limes.jsonl, docs/lead_limes.md, tests/test_src_limes.py, tests/golden/src_limes_sample.json, pipeline/build_catalog.py
@@ -13,7 +13,7 @@ yes: stage the plans tied to their forts. If no: document exactly what was searc
 drop the lead - the other six leads stand on their own (PLAN.md assumption 7).
 
 ## Acceptance criteria
-- [ ] docs/lead_limes.md records the verification either way: what sources were checked
+- [x] docs/lead_limes.md records the verification either way: what sources were checked
       (names, URLs, dates), what is free and machine-readable, and the decision (proceed /
       drop). A dropped lead ends this task with `Status: dropped`, the documentation
       committed, and no staging files.
