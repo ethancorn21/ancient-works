@@ -17,6 +17,15 @@ A site is in the queue exactly when all three hold:
   no hand fit  none of the site's data/db/platefits/ documents carries by: "hand" (agent documents do
                not disqualify: the owner is still free to place a better one).
 
+And one rule more (309): the queue never pairs a picture with a namesake site. When the
+catalog and book stores are present (data/catalog/, data/books/ - both optional), every
+candidate is checked by tools/right_place: the picture's caption place words and county
+against the site's county/state (an unknown place never flags). A flagged candidate
+leaves its site's queue - into the right site's entry or review item when the catalog
+names one, else into the source site's own review item - carrying the reason "same name,
+other place: <caption place> vs <site place>" (a review-candidate extra, data/review/
+README.md). A tree without those stores builds exactly as before.
+
 The best candidate: a true plan over a bird's-eye view, then the larger drawing area (a book row: its
 map_box fraction of the page size in px; a row with no box, or a commons row: the whole page/image; an
 item candidate with no size stored: 0), then the plan id (stable). The one-word reason says why it won:
@@ -25,7 +34,8 @@ several plans), "the clearest view" (the views win). Sites are ordered by the sa
 site's best candidate, then by the site's name - the cleanest, most ink to click on comes first.
 
 Stdlib only: it reads exactly those four inputs and never opens an image (the sizes come from the json
-files), so the owner's Mac can run it with any python. Finder/Amazon data never enters the queue.
+files), and its only imports are tools/right_place.py and fit/review.py - both stdlib-only, no
+pipeline/. The owner's Mac can run it with any python. Finder/Amazon data never enters the queue.
 """
 import argparse
 import json
@@ -35,6 +45,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# Self-inserted on purpose: runpy.run_path (the test's guard) does not put this script's
+# directory on sys.path, so the imports below would fail without the inserts.
+sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "fit"))
+
+import right_place  # noqa: E402
+import review  # noqa: E402
 
 # The row's named fields, in web/data/plans.json column order (the page's openPlan reads them).
 ROW_FIELDS = ("id", "book", "ia", "file", "title", "label", "size", "map_box",
@@ -168,6 +185,107 @@ def _reason(cands):
     return "the clearest view"
 
 
+def _site_records(root):
+    """The web/data/sites.json records keyed by id: right_place.site_facts reads the
+    site's region and place (a site without a record falls back to its id alone - an
+    unknown place, which never flags)."""
+    d = _load_json(Path(root) / "web" / "data" / "sites.json")
+    ss = d.get("sites") if isinstance(d, dict) else d
+    return {s["id"]: s for s in (ss or []) if s.get("id")}
+
+
+def _place_store(root):
+    """The right-place check's stores (tools/right_place.load: the catalog, the book
+    index, the book lists - each optional), or None when there is nothing to check
+    against: the no-op degrade that keeps a catalog-less tree building exactly as
+    before (305's synthetic test)."""
+    store = right_place.load(root)
+    if not store["catalog"] and not store["index"] and not store["lists"]:
+        return None
+    return store
+
+
+def _place_flags(root, store, cands):
+    """The right-place check (309) over every candidate the build would emit, computed
+    over the pre-mutation maps (a move into a site never feeds that site's own flag
+    decision in this build) -> {(site, plan): (facts, reason)}: the namesake
+    mismatches only - a picture with an unknown place never flags (the check's
+    fail-open rule, tools/right_place.py's docstring)."""
+    records = _site_records(root)
+    flags = {}
+    for sid, cm in cands.items():
+        sf = right_place.site_facts(store, records.get(sid) or {"id": sid})
+        for plan, row in cm.items():
+            facts = right_place.picture_facts(store, plan, row)
+            flagged, reason = right_place.check_pairing(sf, facts)
+            if flagged:
+                flags[(sid, plan)] = (facts, reason)
+    return flags
+
+
+def _item_candidate(item_cands, sid, plan):
+    """The item candidate a queue candidate came from (None when it came from
+    plans.json): the stored fields are what a move writes into the target's item."""
+    return next((c for c in item_cands.get(sid) or [] if c.get("plan") == plan), None)
+
+
+def _place_entry(plan, row, item_cand, reason):
+    """The review-item candidate the check writes for a moved picture (data/review/
+    README.md's pass-through extra, the 203a gate_score/why pattern): the candidate's
+    stored fields - the item's own entry when it came from one (its pairs and evidence
+    travel with it), the row's fields when it came from plans.json - plus the reason.
+    Deterministic from the stored fields: a re-run over unchanged inputs writes the
+    same bytes."""
+    if item_cand is not None:
+        e = dict(item_cand)
+    else:
+        e = {
+            "book": row.get("book"), "ia": row.get("ia"), "file": row.get("file"),
+            "title": row.get("title") or row.get("label") or plan,
+            "label": row.get("label"), "size": row.get("size"), "map_box": row.get("map_box"),
+            "cite": row.get("cite"),
+            "url": row.get("url") if row.get("url") else
+                  ("books/%s/%s" % (row["ia"], row["file"]) if row.get("ia") else None),
+            "view": bool(row.get("view")), "ref": row.get("ref"),
+        }
+    e["plan"] = plan
+    e["place_reason"] = reason
+    return e
+
+
+def _apply_flags(root, store, cands, rows, item_cands, hand, built, flags):
+    """The disposition of every flag (804), applied to the candidate maps: the candidate
+    leaves its source site's queue (a site with no candidate left leaves the queue
+    entirely); where the check finds the right site in the catalog (top of
+    find_right_site, min_score 0.5) the candidate is moved there - into that site's
+    entry when the site is built and in the queue (the row's sites narrowed to it),
+    into its review item when it is not - and with no passing site it is upserted
+    into the source site's own review item. The target item is never written when it
+    already holds the plan: a batch's own entry keeps its pairs and evidence, and a
+    flagged candidate the source item already carries is re-flagged and dropped every
+    build - the intended steady state, zero churn."""
+    eligible = {sid for sid, _n in built if sid not in hand}
+    moved = set()
+    for (sid, plan) in sorted(flags):
+        facts, reason = flags[(sid, plan)]
+        row = cands[sid].pop(plan)
+        if not cands[sid]:
+            del cands[sid]
+        item_cand = None if any(row is r for r in rows) else _item_candidate(item_cands, sid, plan)
+        right = right_place.find_right_site(store, facts, exclude=sid)
+        tid = right[0][1].get("id") if right else None
+        if tid is not None and tid in eligible:
+            cands.setdefault(tid, {})[plan] = {**row, "sites": [tid]}
+            continue
+        target = tid or sid
+        if (target, plan) in moved:
+            continue
+        moved.add((target, plan))
+        if any(c.get("plan") == plan for c in item_cands.get(target) or []):
+            continue
+        review.upsert_item(root, target, [_place_entry(plan, row, item_cand, reason)])
+
+
 def _entry(sid, name, cands):
     """The site's queue entry: its best candidate (plan over view, then drawing area, then
     plan id), the one-word reason, and the whole candidate list in the same order."""
@@ -186,10 +304,14 @@ def _entry(sid, name, cands):
 
 
 def build(root):
-    """The queue, ready to serialize: one entry per built site with a candidate and no hand fit,
-    ordered by each site's best candidate (plan over view, then drawing area, then name).
-    The sites' candidate maps are gathered first and the entries derived from that map, so
-    the maps stay available for decisions that must see every site's set at once."""
+    """The queue, ready to serialize: one entry per built site with a candidate and no
+    hand fit, ordered by each site's best candidate (plan over view, then drawing area,
+    then name). Two-phase (309): the sites' candidate maps are gathered first; the
+    right-place check decides every flag over those pre-mutation maps (a move into a
+    site can never feed that site's own decision in this build); only then are the
+    drops, moves and review upserts applied, and the entries derived from the result.
+    Without the catalog and book stores the check is a no-op and the build is exactly
+    305's."""
     rows = _plans_rows(root)
     item_cands = _item_candidates(root)
     hand = _hand_sites(root)
@@ -201,6 +323,10 @@ def build(root):
         c = _candidates(sid, rows, item_cands.get(sid) or [])
         if c:
             cands[sid] = c
+    store = _place_store(root)
+    if store is not None:
+        flags = _place_flags(root, store, cands)
+        _apply_flags(root, store, cands, rows, item_cands, hand, built, flags)
     entries = [_entry(sid, name, cands[sid]) for sid, name in built if sid in cands]
     entries.sort(key=lambda e: _best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))
     return {"at": datetime.now(timezone.utc).isoformat(), "entries": entries}
