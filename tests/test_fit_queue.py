@@ -23,10 +23,20 @@ near: the four-input contract is checked by construction.
                              and every entry's invariants are re-checked. The checkout itself
                              comes out byte-identical.
 
-The page card (box 2) is web/fitqueue.js, checked headless in part 2. Part 2 also covers the
-save -> line step (box 3) through the real server with every socket in the server process dead:
-a PUT to platefits runs tools/site_done.py for that site in the server's own process (the drawing
-lands on the map, the site's square is recoloured, its review item is resolved), no network.
+Part 2 covers the save -> line step (box 3) through the real server with every socket in the
+server process dead: a PUT to platefits runs tools/site_done.py for that site in the server's
+own process (the drawing lands on the map, the site's square is recoloured, its review item is
+resolved), no network.
+
+Part 3 checks the page card (boxes 2 and 4) in a real headless browser, against the served tree,
+driven with real clicks the way the owner does: the card on the home view (the next queued
+site, its best candidate and the one-word reason, the count), Place (the existing fit tool opens
+on that site and that row, its own clicking untouched), back out through the page's own buttons
+(the card is unchanged), Skip (the card moves on, Undo skips appears) and Undo. A second run
+loads the page with the browser's done map pre-seeded with the first queued site - the exact
+key and value the card's own saveFit wrapper writes when a save lands - and shows the card
+starting at entry 2. Runs only where Chrome is installed (the recipe is in PITFALLS); the
+committed screenshots of the real checkout (book pages loading) live in docs/site_flow/.
 """
 import json
 import os
@@ -612,3 +622,258 @@ def test_save_runs_the_one_site_line(line_served):
     open_after = [it["site"] for it in rv_after["items"]]
     assert site not in open_after, "the saved site's resolved item must leave the open list"
     assert len(open_after) == len(open_before) - (1 if site in open_before else 0)
+
+
+# ---------------------------------------------------------------------------
+# Part 3: the page card (task 305, boxes 2 and 4), checked in a real headless
+# browser: web/fitqueue.js on the served temp tree, driven with real clicks the
+# way the owner does. The committed screenshots in docs/site_flow/ come from
+# the same script (PROBE_SCRIPT) run against the real checkout, where the book
+# pages load.
+
+CHROME = "/opt/google/chrome/chrome"
+NODE_MODULES = "/home/agent/tools/shot/node_modules"
+
+PROBE_SCRIPT = r"""
+// node fitqueue_probe.mjs <base_url> <out_dir> <done_site | none>
+// The 'Ready to fit' card (web/fitqueue.js) as the owner drives it, in headless Chrome:
+// boot on the home view -> read the card -> real click 'Place the drawing' (the fit tool
+// opens on the queue's site and row) -> the fit view's back button -> the site view's
+// 'All sites' back -> read the card again -> Skip -> read -> Undo skips -> read.
+// done_site (anything but 'none') pre-seeds the browser's localStorage aw.fitQueue.done
+// with {done_site: <timestamp>} before any page script runs - the exact key and value the
+// card's saveFit wrapper writes when a save lands - so the load starts at the next entry.
+// Prints one [eval] line with the stage states, then every console/pageerror/reqfail line;
+// screenshots land in <out_dir>/ as 1-card.png, 2-place.png, 2b-backout.png, 3-skip.png.
+import { createRequire } from 'module';
+const require = createRequire('/Users/ethan/code/projects/interpreter/package.json');
+const { chromium } = require('playwright-core');
+const [url, outdir, doneSite] = process.argv.slice(2);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const browser = await chromium.launch({ channel: 'chrome', headless: true,
+  args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
+const page = await browser.newPage({ viewport: { width: 1200, height: 800 }, colorScheme: 'light' });
+const lines = [];
+page.on('console', m => lines.push('[console] ' + m.type() + ' ' + m.text()));
+page.on('pageerror', e => lines.push('[pageerror] ' + e.message));
+page.on('requestfailed', r => lines.push('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
+if (doneSite !== 'none')
+  await page.addInitScript(s => {
+    try { localStorage.setItem('aw.fitQueue.done', JSON.stringify({ [s]: '2026-10-12T00:00:00.000Z' })); } catch {}
+  }, doneSite);
+await page.goto(url);
+const boot = await page.evaluate(async () => {
+  if (typeof FQ === 'undefined') return { ok: false, why: 'fitqueue.js did not define FQ' };
+  let ok = false;
+  try {
+    const t0 = Date.now();
+    while (Date.now() - t0 < 60000) {
+      if (S.ready && S.sites.length && FQ.loaded && FQ.entries.length) { ok = true; break; }
+      await new Promise(r => setTimeout(r, 250));
+    }
+  } catch {}
+  let extra = {};
+  try { extra = { ready: !!S.ready, sites: S.sites.length, plans: P.rows.length,
+                 entries: FQ.entries.length, done: FQ.done, tab: S.tab }; } catch {}
+  return Object.assign({ ok }, extra);
+});
+const out = { boot };
+const card = () => page.evaluate(() => {
+  const c = document.getElementById('fqcard');
+  return c ? { text: c.textContent, reset: !!document.getElementById('fqreset') } : null;
+});
+out.card1 = await card();
+await page.screenshot({ path: outdir + '/1-card.png' });
+// the owner clicks 'Place the drawing': the existing fit tool opens on the queue's site and row
+await page.click('#fqplace', { timeout: 20000 });
+// openPlan's picture either loads or the page's own hint says it could not: wait for either
+await page.evaluate(async () => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < 60000) {
+    try {
+      if (P.plan && (P.img !== null ||
+          (document.getElementById('fithint') || {}).textContent === 'Could not load the page scan.'))
+        return;
+    } catch {}
+    await new Promise(r => setTimeout(r, 250));
+  }
+});
+await sleep(500);
+out.place = await page.evaluate(() => ({
+  imgLoaded: P.img !== null, active: P.active, site: P.site && P.site.id,
+  plan: P.plan && P.plan.id, model: P.model, ground: S.ground, pending: P.pending,
+  pane: !document.getElementById('fitpane').hidden,
+  fitname: (document.getElementById('fitname') || {}).textContent || null,
+  hint: (document.getElementById('fithint') || {}).textContent || null,
+  h2: (document.querySelector('#body h2.site-title') || {}).textContent || null,
+  saveDisabled: document.getElementById('fsave') ? document.getElementById('fsave').disabled : null,
+  back: (document.getElementById('fitback') || {}).textContent || null,
+  done: FQ.done, skipped: FQ.skipped
+}));
+await page.screenshot({ path: outdir + '/2-place.png' });
+// back out through the page's own buttons: the fit view's back, then the site view's
+await page.click('#fitback', { timeout: 20000 });
+await sleep(800);
+out.back1 = await page.evaluate(() => ({
+  active: P.active, pane: !document.getElementById('fitpane').hidden,
+  h2: (document.querySelector('#body h2.site-title') || {}).textContent || null,
+  back: (document.getElementById('back') || {}).textContent || null
+}));
+await page.click('#back', { timeout: 20000 });
+await sleep(800);
+out.card2 = await card();
+await page.screenshot({ path: outdir + '/2b-backout.png' });
+// Skip moves the card on (Undo skips appears); Undo restores it
+await page.click('#fqskip', { timeout: 20000 });
+await sleep(400);
+out.card3 = await card();
+await page.screenshot({ path: outdir + '/3-skip.png' });
+await page.click('#fqreset', { timeout: 20000 });
+await sleep(400);
+out.card4 = await card();
+console.log('[eval] ' + JSON.stringify(out));
+for (const ln of lines) console.log(ln);
+await browser.close();
+"""
+
+
+def _headless_or_skip():
+    if not (os.path.exists(CHROME) and os.path.isdir(NODE_MODULES)):
+        pytest.skip("headless Chrome is not installed on this machine (the recipe is in PITFALLS.md)")
+
+
+def _run_probe(base, outdir, done_site):
+    """Run the card probe against a served tree. done_site (anything but 'none') pre-seeds
+    the browser's aw.fitQueue.done with that one site - the exact key the card's saveFit
+    wrapper writes when a save lands. -> (the stage states the probe printed, the process)."""
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    (outdir / "fitqueue_probe.mjs").write_text(PROBE_SCRIPT, encoding="utf-8")
+    p = subprocess.run(["node", str(outdir / "fitqueue_probe.mjs"), base, str(outdir), done_site],
+                       cwd=str(ROOT), env=dict(os.environ, NODE_PATH=NODE_MODULES),
+                       capture_output=True, encoding="utf-8", errors="replace", timeout=240)
+    data = None
+    for ln in (p.stdout or "").splitlines():
+        if ln.startswith("[eval]"):
+            data = json.loads(ln[len("[eval]"):])
+    assert p.returncode == 0, (p.returncode, p.stdout[-2000:], p.stderr[-2000:])
+    assert data is not None, p.stdout[-2000:]
+    return data, p
+
+
+def test_card_in_the_browser(served, tmp_path_factory):
+    """Box 2 + 4 (the page half, checked in a real browser): a headless load of the page on
+    the served temp tree shows the 'Ready to fit' card on the home view - the next queued
+    site, its best candidate and the one-word reason, 'N to go' - and the probe drives it
+    the way the owner does, with real clicks: 'Place the drawing' opens the EXISTING fit
+    tool on that site and that row (the card never changes the tool's own clicking: the
+    fit view renders, the picture is the row's, the page's Save is at its save-floor),
+    back out through the page's own buttons and the card is unchanged, 'Skip' moves it on
+    ('Undo skips' appears) and undo restores it. The temp tree has no data/raw, so the
+    candidate's picture 404s and the fit tool keeps the row with its own hint: the
+    assertions are on the page's state, not on pixels. The full click-through (the
+    owner's own points on the plate, the save, the drawing on the map) is the owner's Mac
+    - this tree has no page to click - and the save -> line half of box 3 is
+    test_save_runs_the_one_site_line. No network, ephemeral port."""
+    _headless_or_skip()
+    base, tree = served
+    entries = json.loads((tree / "web" / "data" / "fit_queue.json").read_text())["entries"]
+    assert len(entries) >= 3, "the card test needs at least three queue entries"
+    e1, e2 = entries[0], entries[1]
+    sites = {s["id"]: s for s in json.loads((tree / "web" / "data" / "sites.json").read_text())["sites"]}
+    data, p = _run_probe(base, tmp_path_factory.mktemp("fqshot"), "none")
+    assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
+    assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
+    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
+    # (a page-caused reqfail, expected); no other request may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
+        p.stdout[-2000:]
+    assert data["boot"]["entries"] == len(entries)  # the file's queue is what the page loaded
+
+    # card 1: the next queued site, its best candidate, the reason, the count
+    c1 = data["card1"]
+    assert c1, "no card on the home view: %r" % data["boot"]
+    row = e1["best"]["row"]
+    assert "Ready to fit" in c1["text"] and "%d to go" % len(entries) in c1["text"]
+    assert e1["name"] in c1["text"]
+    assert (row["title"] or row["id"]) in c1["text"]
+    assert e1["best"]["reason"] in c1["text"]
+    assert c1["reset"] is False  # nothing skipped yet
+
+    # place: the existing fit tool opens on this site and this row, its own state intact
+    pl = data["place"]
+    assert pl["site"] == e1["site"] and pl["plan"] == e1["best"]["plan"]
+    assert pl["active"] is True and pl["pane"] is True and pl["pending"] is None
+    s1 = sites[e1["site"]]
+    assert pl["ground"] == ("imagery" if s1.get("lidar") is False else "relief")
+    assert pl["model"] == ("view" if row["view"] else "plan")
+    assert pl["h2"] == (row["title"] or "Old plan")
+    assert pl["fitname"] == " \u00b7 ".join(x for x in (row["book"], row["label"], row["title"]) if x)
+    assert pl["back"] == "\u2190 " + (e1["name"] or e1["site"])
+    assert pl["saveDisabled"] is True  # no points yet: the page's save floor is untouched
+    assert pl["done"] == {} and pl["skipped"] == []  # placing does not mark anything
+    # this tree has no data/raw: the candidate's picture (a book page or a commons file)
+    # 404s, and the fit tool keeps the row with its own hint
+    assert pl["imgLoaded"] is False
+    assert pl["hint"] == "Could not load the page scan."
+
+    # back out through the page's own buttons: the fit view's back, then the site view's;
+    # the fit pane closes again and the card is unchanged
+    assert data["back1"]["active"] is False and data["back1"]["pane"] is False
+    assert data["back1"]["h2"] == (e1["name"] or e1["site"])
+    assert data["back1"]["back"] == "\u2190 All sites"
+    assert data["card2"]["text"] == c1["text"]
+
+    # skip: the card moves on and offers an undo; undo restores it
+    c3 = data["card3"]
+    assert c3 and e2["name"] in c3["text"] and e1["name"] not in c3["text"]
+    assert "%d to go" % (len(entries) - 1) in c3["text"]
+    assert c3["reset"] is True and "Undo 1 skip" in c3["text"]
+    assert data["card4"]["text"] == c1["text"]
+
+
+def test_card_done_mark_moves_on(served, tmp_path_factory):
+    """Box 4 (the queue moves on after a save, checked in a real browser): a fresh page
+    load with the browser's aw.fitQueue.done pre-seeded with the FIRST queued site - the
+    exact key and value the card's own saveFit wrapper writes when a save lands
+    (web/fitqueue.js) - starts at entry 2: the done site stays marked (the self-heal
+    against the file keeps it: it is still in the file) and the card shows the next site
+    with one fewer to go. The card then behaves like any other: Place opens entry 2's
+    row, Skip moves on to entry 3, and the done site never comes back in this session
+    (undo restores entry 2). No network, ephemeral port."""
+    _headless_or_skip()
+    base, tree = served
+    entries = json.loads((tree / "web" / "data" / "fit_queue.json").read_text())["entries"]
+    assert len(entries) >= 3, "the card test needs at least three queue entries"
+    e1, e2, e3 = entries[0], entries[1], entries[2]
+    data, p = _run_probe(base, tmp_path_factory.mktemp("fqshotdone"), e1["site"])
+    assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
+    assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
+    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
+    # (a page-caused reqfail, expected); no other request may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
+        p.stdout[-2000:]
+    assert data["boot"]["done"] == {e1["site"]: "2026-10-12T00:00:00.000Z"}, data["boot"]["done"]
+
+    # the card starts at entry 2: the done site is skipped at load, one fewer to go
+    c1 = data["card1"]
+    assert c1, "no card on the home view: %r" % data["boot"]
+    row2 = e2["best"]["row"]
+    assert e2["name"] in c1["text"] and e1["name"] not in c1["text"]
+    assert (row2["title"] or row2["id"]) in c1["text"]
+    assert e2["best"]["reason"] in c1["text"]
+    assert "%d to go" % (len(entries) - 1) in c1["text"]
+
+    # place from the advanced card opens entry 2's site and row
+    pl = data["place"]
+    assert pl["site"] == e2["site"] and pl["plan"] == e2["best"]["plan"]
+    assert pl["active"] is True and pl["pending"] is None
+    assert pl["done"] == {e1["site"]: "2026-10-12T00:00:00.000Z"}  # placing changes nothing
+
+    # skip from entry 2 goes to entry 3; the done site never comes back this session;
+    # undo restores entry 2 (not the done entry 1)
+    c3 = data["card3"]
+    assert c3 and e3["name"] in c3["text"] and e1["name"] not in c3["text"]
+    assert e2["name"] not in c3["text"]
+    assert data["card4"]["text"] == c1["text"]
+    assert e1["name"] not in data["card4"]["text"]

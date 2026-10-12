@@ -833,6 +833,11 @@ Why: 201's contract derives resolution from doc existence alone (a human save is
 
 ### web/ (the page and its extension scripts)
 
+#### `const x = {}; x = {...}` throws "Assignment to constant variable" at runtime, and a swallowing try/catch turns the crash into silently missing data
+Where: page scripts and the headless probe scripts (tests/test_fit_queue.py's PROBE_SCRIPT; fitqueue.js's fqPatch once hit it as `old -> card`)
+Symptom: inside a try/catch, no `[pageerror]` at all and the data just loses fields (the card probe's boot came back as `{"ok":true}` with none of its state fields, for 30+ minutes of misdiagnosis); uncaught, Chrome console `[pageerror] Assignment to constant variable.`
+Why: reassigning a const is a runtime error, not a parse error - `node --check` and the browser both accept the source; only the assignment itself throws, and a try/catch that exists to tolerate missing page state swallows it without a trace. Use `let` for anything assigned twice, and in a probe, capture `e.message` into the returned object instead of a bare `catch {}`, so a JS bug looks like a JS bug.
+
 #### Two classic <script>s on one page share one global lexical scope: a top-level const/let name may be declared only once across ALL of them
 Where: `web/index.html`, `web/review.js`, `web/fitqueue.js` (the extension scripts that save and reassign the page's globals)
 Symptom: Chrome console `[pageerror] Identifier '_renderList' has already been declared` (hit by fitqueue.js re-declaring the wrapper-saved names review.js already declared at top level); the second script is rejected WHOLE, so none of what it defines (e.g. the `FQ` queue state, the wrapped `renderList`) exists, and a page probe then fails with `ReferenceError: FQ is not defined` - even though `node --check` on the file passes.
