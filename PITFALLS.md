@@ -67,6 +67,11 @@ Symptom: the "current" suite report lists failures that no longer exist (2026-10
 Why: the driver writes these files when it runs the suite at a loop start, but that run is not every iteration; a file can be a day old while the tree behind it merges on and moves (a day of merges here rebuilt sites.json and the review data).
 What to do: `stat -c '%n %y' .agent/reports/*.txt` and cross-check the dates of the driver notes in PROGRESS; then run the suite yourself (`.venv/bin/python -m pytest tests/`) before believing or fixing anything the report says.
 
+#### A /tmp asset derived from a per-site file must be suffixed with the doc's plan id - two docs of one site share a site-prefixed name
+Where: audit-script judging crops (tools/audit_306c.mjs's helpers, e.g. /tmp/crop_<site>_{a,r}.png); any throwaway script deriving /tmp assets from per-site files when a site carries several docs
+Symptom: judging the 2nd doc of a site silently reads the 1st doc's crop - 306c misattributed the 8-marker hodgen-s-cemetery-mound crop to n0092 when it was n0353's; the near-identical anchors survived a visual check
+Why: the site is the natural naming key, but a site has multiple docs (hodgen-s-cemetery-mound has 2 in 306c); the second write overwrites the first. Key /tmp assets by the full doc id (site + plan) and regenerate on demand from the committed docs/site_flow/agent_fits/ shots - the map pane is a crop (1040, 0, w, 880) of the 1440x900 shot at 2.6x LANCZOS, so the repo shots are always the re-derivable source of truth.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
@@ -400,6 +405,13 @@ Why: a readline() on a TextIOWrapper pulls a big raw chunk (up to 16 KB) from th
 What to do: drain coprocess output in a dedicated thread that does plain blocking reads (`for line in
       proc.stdout:` or `os.read` in a loop) into a list the test polls; never combine select() with a
       buffered reader on the same fd.
+
+### PIL (12.3.0, project .venv)
+
+#### PIL is in the project .venv only (pinned in requirements as `pillow`), never in system python3
+Where: plate-image measurement (scale bars, figure crops) in audit work; `.venv`
+Symptom: `python3 -c "import PIL"` -> ModuleNotFoundError: No module named 'PIL' while `.venv/bin/python -c "import PIL"` works (12.3.0)
+Why: PIL came in via requirements.in (`pillow`, pinned `pillow==12.3.0` in requirements.txt) for the 306 audit's scale-bar measurements. Run any image measurement with `.venv/bin/python`; the driver's venv rebuild already carries it.
 
 ## This codebase
 
@@ -866,6 +878,16 @@ Where: fit/src_wiltshire_hoare.py (status()/register() import books lazily; src_
 Symptom: `python fit/src_wiltshire_hoare.py --status` -> ModuleNotFoundError: No module named 'books' while the pytest suite passes
 Why: the test file inserts pipeline/ (and fit/) into sys.path before importing the module, but bare `python <script>` puts only the script's own directory on the path. Do `sys.path.insert(0, <root>/pipeline)` at module top (the src_mackenzie.py idiom) so the CLI and the tests share one import path.
 
+#### A `view: true` plans row fits with the 8-parameter homFit, whose result has NO mpx/rot keys - and a 0.0 residual on 4 (or near-collinear) points proves nothing about placement
+Where: fit/fitkit (refit/simFit/homFit), web/review.js (openPlan on a view row), audit [eval] lines (tools/audit_306b.mjs / audit_306c.mjs)
+Symptom: `[eval]` reports `mpx:null, rot:null` for a view-row fit (not an error); 306c's two view docs (the Baer 1889 serpent: resid 22/61/27/0; the Harper's 1902 serpent: resid 0.0) both sit 180-200 m off the real effigy despite the small residuals
+Why: refit() takes the 8-parameter homFit path for `view: true` rows (no scale/rotation constraint), so the result carries no mpx/rot; a homography through 4 points is exact BY CONSTRUCTION, and 8 near-collinear points are under-constrained perpendicular to the anchor line (there the normal-equations solve reports a non-zero resid that measures conditioning, not placement). Judge placement of a view row from the rendered shot against the ground, never from the residual.
+
+#### data/review/*.json items are single indent=1 JSON objects, not JSONL - a line-by-line scanner drowns in fragments
+Where: `data/review/*.json` (fit/review.py writes them with `json.dump(..., indent=1)`), any scanner over the review store
+Symptom: reading a file line by line and `json.loads`-ing each line yields bare floats / brackets / strings, and a `.get` over a float crashes (hit by the 306c inventory scanner); the line "[950.0" does not even parse
+Why: one item per FILE, one JSON document per file; only the whole-file `json.loads` returns the item dict. If you need per-line scanning (the JSONL stores: data/books/index.jsonl, data/commons/files.jsonl), that is where line-JSON applies - not to data/review/.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
@@ -1168,6 +1190,16 @@ Why/fix: after `startFit` and before `openPlan`, wait for `FQ.loaded` and empty 
       (fitkit falls open), and verify from the shot log that the fit ran on your own pairs (306b's driver reports
       `placed:false`, `n:8` in `[eval]`).
 
+#### web/data/sites/<site>/depictions.json is a DICT {"depictions": [...]}, not a bare list
+Where: `web/data/sites/<id>/depictions.json` (the page's depiction list); overlay-membership scanners (the 306a/b/c audits)
+Symptom: iterating the loaded file yields the string keys, so `d.get("fit")` crashes with AttributeError on a str - the 306c inventory scanner's first crash
+Why: the file's top level is `{"depictions": [...]}` (web/review.js reads `...["depictions"]`). Index `json.load(...) ["depictions"]` before iterating.
+
+#### The page's LiDAR is the per-site prebuilt relief.jpg, mapped LINEARLY onto the site corners (image px -> lon/lat) - the reliable way to read a real work's position without the live tile service
+Where: `web/index.html` (`ensureSite` L367-368), `web/data/sites/<id>/relief.jpg`, `web/data/sites.json` (`corners`)
+Symptom/need: `/tiles/relief/*` is off on this VM (aw is Mac-only), so the only LiDAR the page - and any audit of it - sees is the per-site relief.jpg raster stretched over the site corners rect; to judge a fit you need the real work's coordinates off that raster
+Why: the mapping is linear (image px -> corners interpolation, no projection), so it inverts exactly: site point -> image px, or a feature's image px -> site point. That is how 306c pinned the serpent effigy (head (-83.4288, 39.0254), tail (-83.4314, 39.0258)) and the pyramid-mound's ~100 m dark-ringed mound at ~(-87.5056, 38.6705) - one from the committed audit shots' map panes, the other straight off the committed 800x800 relief.jpg (1 px = 1.00 m for that site). No network, no live tiles.
+
 ### tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`)
 
 #### The check runs when ANY of catalog / book index / book lists is present - a tree with only data/books/index.jsonl is NOT the no-op degrade
@@ -1201,3 +1233,10 @@ Symptom: assuming Orléans sits at ~2.09°E and calling a fit of Jollois 1833's 
 Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and a site's point is exactly what the
       fit must land on. Before judging placement, re-derive the point's meaning: Nominatim `/reverse` (reachable
       from this VM, see the machine section) and the site's own georeferenced survey ink.
+
+### tests/test_fit_queue.py
+
+#### test_placement_gestures_and_save_in_the_browser (307bb, agent a) is red on the merged tree as of 2026-10-12 - the gesture SEED step fails, and it is 307's in-flight state, not a local change
+Where: `tests/test_fit_queue.py` (307bb box 3), `web/fitqueue.js` / `web/review.js` / `web/fitkit*.js` (agent a's 307 rework, in flight); 306c hit it 2026-10-12 (iteration 150)
+Symptom: `RESULT FAIL: seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden` - the probe's pre-gesture setup assertion, before any scripted drag; it fails DETERMINISTICALLY on a clean pre-change HEAD (verified by A/B worktree at iteration 150), so it is not caused by the local task's store changes (306c's doc deletion / review upsert / scoped export)
+Why: 307 (the fit-tool rework) is being built by agent a in a parallel checkout and lands on main in pieces; its newest in-flight commit left this test red for every checkout that merges main. Parallel audit tasks (306c/d/e/f) that run the whole suite will see it: do not chase it, do not re-baseline it, do not "fix" web/fitqueue.js (not your Touches) - A/B against HEAD, cite the driver's newest loop-start note as the baseline (the done-claim rule is "no test failing that was not already failing before"), and let 307's owner make it green.

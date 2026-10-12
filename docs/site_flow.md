@@ -944,13 +944,12 @@ the way the page would if it ever showed it (the fit tool over the aerial, and o
 relief, with the doc's stored pairs placed and refitted; shots in docs/site_flow/agent_fits/).
 The eight serpent-mound docs were judged against the site's hand fit (n0210_1, S&D 1848 Plate
 XXXV), which traces the real effigy on the LiDAR (head (-83.4288, 39.0254), tail
-(-83.4314, 39.0258)) and is the reference placement. All nine judged in this pass
-(2026-10-12) sit wrong and were deleted the 303 way: the picture and the doc's own points went
-into the site's review item with the reason, the document was deleted, the site's page file
+(-83.4314, 39.0258)) and is the reference placement. All sixteen were judged (2026-10-12):
+nine sit wrong and were deleted the 303 way - the picture and the doc's own points went into
+the site's review item with the reason, the document was deleted, the site's page file
 re-exported scoped - and the site stays covered for the union check (an open item counts;
-serpent-mound also keeps its hand overlay). The remaining 8 docs (cahokia, etowah,
-fort-ancient, the 2 hodgen-s-cemetery-mound, mound-cemetery, mount-horeb, pyramid-mound)
-are pending judgment; one line each appends here.
+serpent-mound also keeps its hand overlay). The other 7 sit right and keep their document:
+the drawn works land on the real ones, and each line below says which.
 
 - marietta.b24849959_n0195_1 - Fowke 1902 Fig. 15 "The Marietta works", similarity (4 points,
   resid 0, 1.0 m/px, 0 deg): the scale agrees with the plate's own bar (1.073 m/px measured),
@@ -991,3 +990,57 @@ are pending judgment; one line each appends here.
   1.0 m/px, 0 deg): the serpent lands ~265 m north of the real effigy, on the hatched hill in
   the farmland/NE hills (the twin of the cropped copy above). DELETED - an orphan today (the 303
   way, 2026-10-12).
+- cahokia-q333661.annualreportofbu1218901891smit_n0200_1 - Thomas 1894 Plate VI "Map of the
+  Cahokia group, Madison county, Illinois" (8 points, 1.3 m/px, -3 deg, resid 9.5-174.7 m): the
+  plate's dense mound-group cluster (its subject) sits on the real Cahokia mound complex on the
+  LiDAR (the bright mound cluster in the dark floodplain depression); the dashed "St. Louis and
+  Collinsville Road" line follows the real road, the Mississippi hatch sits on the real river
+  (dark band at the right edge) and the Horse-Shoe slough is at the NE end. The residuals are
+  frame-level (the 1894 survey grid's page skew, -3 deg), not subject misplacement. STAYS.
+- etowah-indian-mounds-q4533107.annualreportofbu1218901891smit_n0386_1 - Thomas 1894 Fig. 182
+  "Plat of the Etowah group (original)" (8 points, 1.0 m/px, 0 deg, resid 0): a georeferenced
+  plate - the drawn great ditch traces the real ditch band in the aerial, the hatched platform
+  mound "a" sits on the real grassy mound, mounds b/c on the real mounds, and the Etowah River
+  line follows the real channel. STAYS.
+- fort-ancient-q5470727.b24849959_n0264_1 - Fowke 1902 Fig. 59 "Fort Ancient, Warren county"
+  (from Squier & Davis; 8 points, 1.0 m/px, 0 deg, resid 0): the drawn walled loops (north and
+  south forts) trace the real ditch/bank bands (the light lines in the aerial), the creek line
+  follows the real meander at the SE, and the park is centred. STAYS.
+- hodgen-s-cemetery-mound-q5876069.b24849959_n0353_1 - Fowke 1902 Fig. 96 "Plan of mound at Mt.
+  Vernon" (8 points, 0.78 m/px, -0.1 deg, resid 8-33 m): the drawn hatched mound ring is
+  concentric on the real cemetery mound - the distinct round LiDAR bump (bright centre, dark
+  ring) in the residential block by the Big Sandy; the drawn ring is ~2x the real diameter but
+  centred on it. STAYS.
+- hodgen-s-cemetery-mound-q5876069.ArcheologicalAtlasOfOhio_n0092_1 - Mills 1914 "Plan of
+  Cemetery Mound, Mt. Vernon." (4 points, 1.0 m/px, 0 deg, resid 0): the 100x100 m anchor
+  square (and the drawn mound it encloses) sits ~110 m S-E of the real mound's LiDAR bump, on
+  flat residential ground - the real mound lies just outside the drawn extent at its NW. Same
+  mound as n0353 above, which sits right. DELETED - an orphan today (the 303 way: the picture
+  and its 4 points went to the site's review item - merged into the item that already held the
+  Thomas n0563 candidate, which stays open - with this reason; the document was deleted
+  2026-10-12).
+- mound-cemetery-q6919104.annualreportofbu1218901891smit_n0563_1 - Thomas 1894 Fig. 306 "Plan of
+  Cemetery mouud, Mt. Vernon. Knox county, Ohio" (8 points, 1.0 m/px, 0 deg, resid 0): the
+  drawn big concentric "Cemetery Mound" circle sits on the real conical mound (the ringed disc
+  of Mound Cemetery, Marietta - the bright LiDAR bump with the dark ring), the drawn fence
+  circle spans the real cemetery parcel, and the drawn streets (Market/High/North St) follow the
+  real street grid; the page's "MARIETTA WORKS" label is centred in the drawing. (The caption's
+  "Mt. Vernon, Knox county" is the source's own labelling; the plan matches the Marietta
+  cemetery.) STAYS.
+- mount-horeb-earthworks-complex-q6921321.c_d1dff07f0da57b0e - S&D 1848 Plate XIV Fig. 3 "Peter
+  Village enclosure" (drawn by C. Rafinesque; 5 points, 1.0 m/px, 0 deg, resid 0): the drawn
+  bank/ditch arc (hatched double line) lies on the real bright bank band + dark ditch line of
+  the earthwork in the LiDAR, following the real ditch's S-bend near anchor 3; the plate's own
+  "500 ft to the inch" is consistent with the fitted 1.0 m/px. STAYS.
+- pyramid-mound-q7263260.ancientmonuments00squi_n0134_1 - S&D 1848 n0134 (the plate is FIG. 9:
+  a big double-ring circular earthwork with an entrance gap at the SW + a small square
+  enclosure at the left; 4 points, 0.54 m/px, -5.5 deg, resid 17.7-33.9 m): the drawn
+  double-ring circle (~230 m outer diameter) encloses the real dark-ringed ~100 m mound at
+  ~(-87.5056, 38.6705): the drawn centre works out at ~(-87.5065, 38.6706), ~80 m west of the
+  mound's centre, so the real mound sits in the eastern part of the drawn ring, its rim just
+  touching the drawn outer ring - concentric-ish (the same class as the Fowke Mt. Vernon ring
+  above: larger than the real works but centred on them), not the serpent-mound class of miss
+  (145-265 m off, on foreign ground). The drawn square enclosure (anchor 4's feature) lands
+  ~340 m west over residential ground with no visible earthwork - a secondary plate feature
+  that does not change the call; the 18-34 m residuals reflect anchor quality, not the
+  subject's placement. STAYS.

@@ -1,5 +1,5 @@
 {
- "at": "2026-10-12T21:12:09.024675+00:00",
+ "at": "2026-10-12T21:45:44.274068+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -6959,6 +6959,44 @@
      "scale_source": "picture_size",
      "note": "no scale text recorded",
      "why": "features: Northwest corner of the mound, North-east corner of the mound, South-east corner of the mound, South-west corner of the mound; stated scale 0.400 disagrees with its own points (1.000 m/px): not trusted"
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0092_1",
+     "title": "Plan of Cemetery Mound, Mt. Vernon.",
+     "url": "books/ArcheologicalAtlasOfOhio/n0092.jpg",
+     "pairs": [
+      [
+       1380.0,
+       580.0,
+       -80.694459,
+       40.1736769
+      ],
+      [
+       1480.0,
+       580.0,
+       -80.6932833,
+       40.1736769
+      ],
+      [
+       1380.0,
+       680.0,
+       -80.694459,
+       40.1727785
+      ],
+      [
+       1480.0,
+       680.0,
+       -80.6932833,
+       40.1727785
+      ]
+     ],
+     "coarse": false,
+     "book": "Mills 1914",
+     "ia": "ArcheologicalAtlasOfOhio",
+     "file": "n0092.jpg",
+     "label": null,
+     "cite": "William C. Mills, Archeological Atlas of Ohio, Columbus: Ohio State Archaeological and Historical Society 1914",
+     "place_reason": "306c audit 2026-10-12: the 100x100 m anchor square with the hatched mound it encloses sits ~110 m S-E of the real mound's LiDAR bump, on flat residential ground - the real mound lies just outside the drawn extent at its NW (the same mound the Fowke Fig. 96 doc n0353 fits concentrically, and which keeps its document). Document deleted."
     }
    ],
    "no_picture_found": null
