@@ -3264,6 +3264,55 @@ Step: first implementation session for 218 (no failed attempts to search against
 Verified this session (all offline, `.venv`): (1) CURRENT CHECKOUT (22 non-auto = 20 registered + 206's shotwick-c_e6e5490609414bb9 + the human's maiden-castle-c_c20ff6b1f16d173d from main head cd104ca, plus 94 auto): `.venv/bin/python tools/gate_heldout.py` completes; held and dev stdout diff byte-identical against the two halves of tests/golden/gate_heldout.txt (40 + 60 lines); test_recorded_measurement_reproduces_and_agrees green - that is 206's 4th red resolved (its box 4). (2) STATE-AGNOSTIC BAR (803 precedent, box 3): temp copy of the checkout with EXACTLY the 20 registered docs (/tmp/aw-218-stateA: the 20 docs + web/data/sites.json + the tool + its 4 imported pipeline modules aw/fit_gate/plan_fit/depict) - both `--set held` and `--set dev` reproduce the golden byte for byte (diff); temp tree deleted afterwards. (3) committed test (stub .json docs in tmp_path only - no repo writes, no network): (a) 20-only AND 20+3 hand+2 auto -> partition returns names/held/dev exactly the registered lists and check_registered passes; (b) 19 registered + 1 unknown hand doc -> SystemExit naming the missing registered doc; (b2) all 20 present but one gained "auto": true -> SystemExit naming it. (4) full suite `.venv/bin/python -m pytest -q`: 62 passed / 3 failed (64 collected) - the 3 reds are all 211-owned and were failing before this change (test_batch_eu::test_union_check and test_union_full_coverage_live, both `assert (not ['shotwick-castle-q7502621.c_e6e5490609414bb9.json'])` orphan_docs; test_serve::test_platefits_docs_match_sites, shotwick site unbuilt in web/data/sites); no new reds, and the previous 4th red (test_gate) is gone. Decision: all four acceptance boxes verified and ticked; Status: done.
 
 
+<!-- task 219 -->
+# Task 219 source-line-year
+
+## 2026-10-12 219 DECISION: 302c no longer blocks - the lead dropped 302c/302d in main d39ead8
+The task's `Depends on: 302c` existed only because both touched pipeline/plan_fit.py. The lead's
+commit d39ead8 (main, 2026-10-12) dropped 302c/302d as superseded by the matcher fit and set 219's
+Depends line to `none`. 302c never made its design changes to plan_fit.py (its own hand-over:
+investigation only, no code), so nothing from it collides with 219's edit; plan_fit.py is
+byte-identical between my branch and main (merge-base e2ca3d9; main's only commit since is d39ead8,
+task files + journals only). Proceeded on this branch without waiting.
+
+## 2026-10-12 219 DECISION: year-once rule = drop the label parenthesis whenever the title carries any 4-digit year
+The task's two sentences ("drop the label's parenthesis when the title already contains that year"
+vs "only a title without a year shows the label (or 'undated')") diverge for the 3 docs whose
+label-year differs from the title-year (argentoratum 1831/1836, bethlehem 1881/1882, mound-bottom
+1923/1924). Implemented the stricter, unambiguous one: the parenthesis appears ONLY for a yearless
+title (label or "undated"); a titled year always drops it. The label is not lost from the page: it
+stays in the entry's `scale` field. The year check reuses the same 4-digit pattern as the entry's
+sort year (_year4) so the two can never disagree; non-4-digit numbers ("116", "0154", 5-digit ids,
+"17th century") are not years, so "(1750-1900)"-style labels still show under yearless titles.
+
+## 2026-10-12 219 DECISION: refactor source_line extraction is byte-identical for all 133 store docs
+Extracted the citation + who/how clause from build() into pure source_line(doc, n, m, who) and the
+year regex into _year4 (committed 4b93f5c). Proof: a throwaway script evaluated the old inline
+expressions (copied verbatim from HEAD) and the new function for every doc in data/db/platefits
+(133) with m from similarity(doc['pairs']) unscaled - 0 mismatches. The least-squares similarity is
+scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, leaving the ground
+residuals the same), so m and corners do not depend on which image size stands in for the picture;
+this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
+and still pin the exact how-clause.
+
+## 2026-10-12 219 DECISION: re-bake = plan_fit.build per stale entry, then restore sites.json byte-for-byte
+The one-off re-bake (14 built year-titled commons depictions + shotwick, which had never been
+built in this checkout) ran the product's own path: plan_fit.build(doc) per doc, root = this
+checkout. Contrary to the previous hand-over's expectation, every big picture was already
+cached in data/raw/commons/big/ -> zero downloads. Proof that "only the string changes": for
+all 14 the rebuilt entry equals the stored one in every field except source; a second
+identical run is byte-stable (the fixed state is a fixed point); shotwick's rebuilt entry
+matches agent a's built entry (corners, fit, year, label, scale, coverage, kind, file, ink)
+with only the source fixed. Each build's trailing build_site.set_drawings refreshed
+web/data/sites.json (tracked, in 306's Touches) - the committed bookkeeping was stale (5
+sites: drawings 0 despite built plans, bethlehem 0->12) - and I restored the committed
+bytes: a gitignored build does not change committed bookkeeping (agent a's checkout follows
+the same convention); the product refreshes the file on its own next time. The naive
+verification check ("(label)" in source) false-positives on 3 of the 15 (avaricum, bolsover,
+castle-rising: the label string occurs inside the title itself) - the structural test is
+source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
@@ -3588,6 +3637,47 @@ f7dbba6):
 
 Boxes 2-5 ticked, Status: done. Next: 302c (decision + tools/site_done.py wiring + e2e
 test); the 302b hand-over lists what is frozen and must not be touched.
+
+
+<!-- task 302c -->
+# Task 302c decision-wiring
+
+## 2026-10-12 302c DECISION: the confidence threshold is 0.15, set on the 302b held-out table (box 1) - the null margin only rations the pass rate; it is not an accuracy guarantee
+First session on 302c (iteration 84): investigation and design only, no code written (the context
+limit hit before the first edit). The value and the design, frozen for the next session:
+- Threshold CONF_THRESHOLD = 0.15 on the search-matched-null margin (confidence = objective_fit
+  - max(scramble, shifted) as fit/inkfit.py already computes). Rationale from the 302b table
+  (docs/site_flow.md "Measured one-shot"): sorted margins run -0.5150..+0.1871 and do NOT
+  separate good from bad fits (worst calleva +0.1070/2203.6 m sits above castle-rising +0.0806
+  and old-sarum-book +0.0693). A threshold > 0 passes 11 docs, > 0.05 passes 6, > 0.10 passes 2
+  (badbury AND the worst, calleva); only a threshold in (0.1070, 0.1871] passes exactly one
+  document - badbury, the best (264.5 m, 17% of the site's size). 0.15 is mid-interval: 0.043 of
+  room above calleva's rounded 0.1070 and 0.037 below badbury's 0.1871, robust to small DEM/OSM
+  drift between the held-out run and a re-run. A future change to the value is a method change:
+  it must be labelled and re-measured, never a silent fix.
+- Decision (applied in fit/inkfit.py, additive): confident iff the fit produced reportable pairs
+  AND the frozen gate accepted them (verdict == fit_gate.ACCEPT) AND fabrication_pattern is
+  silent AND the null ran AND margin >= 0.15. Everything else is unsure with a
+  human-readable reason (the existing no-fit reasons are already human-readable; new: a gate
+  refusal names the median residual; a below-threshold margin names the margin, the fit and
+  null objectives and which null won - per the 302a hand-over note). Confident -> automatic
+  platefit document (auto: true, fitter: "ink", the gate's score); unsure -> the site's review
+  item with the reason and the best starting pairs, never to the map.
+- New result fields are "confident" (bool) and "unsure_reason" (str|None). The "reason" field
+  keeps its exact meaning (None on the success path): inkfit_heldout.measure() stores r["reason"]
+  into the frozen one-shot checkpoint (data/inkfit/heldout/results.json), so routing the margin
+  message through "reason" would corrupt the checkpoint if measure were ever re-run. "confident"/
+  "unsure_reason" are new keys measure() does not store, so the checkpoint and the verbatim table
+  stay untouched (verify: `fit/inkfit_heldout.py table` byte-identical to the committed section).
+- Task file: Touches extended to docs/site_flow.md (the decision paragraph goes next to the
+table), data/inkfit/ (the committed test-site relief npz seeds under data/inkfit/relief/, the
+committed real-plate copies under data/inkfit/plates/) and tests/test_site_done.py (the
+no-model CLI message of site_done changes wording, and that test asserts the line verbatim).
+Next session: implement box 1 exactly as the hand-over spells it (the decide() contract, the
+site_flow.md paragraph text, the verification list incl. applying decide() to the 21 checkpoint
+entries -> exactly badbury confident), then box 2 (site_done wiring), 3 (plan_fit.build how
+string) and 4 (tests/test_inkfit.py + the committed seeds; badbury = confident e2e, calleva =
+unsure e2e).
 
 
 <!-- task 303 -->
