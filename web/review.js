@@ -94,7 +94,7 @@ function rvItemHtml(it) {
   <p class="group-title"><button class="rv-site" data-item="${esc(it.site)}">${esc(it.name || it.site)}</button><span>${esc(head)}</span></p>
   ${cands.length ? `
   <ul class="plans">${cands.map(c => `
-    <li><button data-item="${esc(it.site)}" data-cand="${esc(c.plan)}">${esc(c.title || c.plan)}<small>${esc([c.book, c.label].filter(Boolean).join(' \u00B7 '))}</small></button></li>`).join('')}
+    <li><button data-item="${esc(it.site)}" data-cand="${esc(c.plan)}">${esc(c.title || c.plan)}<small>${esc([c.book, c.label].filter(Boolean).join(' \u00B7 '))}</small>${c.place_reason ? `<small>${esc(c.place_reason)}</small>` : ''}</button></li>`).join('')}
   </ul>` : `
   <p class="fit"><span class="chip missed">No picture found</span>&nbsp; ${esc(nppf ? nppf.searched : 'nothing has been searched yet')}</p>
   <button class="back rv-open" data-item="${esc(it.site)}">Open this site's plan search</button>`}`;

@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 307bb: Move the drawing - the three gestures, the save, the headless proof, the docs
 Depends on: 307ba
 Touches: web/fitkit.js, web/index.html, tests/test_fit_queue.py, docs/site_flow.md
@@ -14,7 +14,7 @@ overlay appearing. Proved hermetically in a headless part 4 of tests/test_fit_qu
 written up in docs/site_flow.md.
 
 ## Acceptance criteria
-- [ ] The drawing is on the map from the first frame and is the thing being manipulated:
+- [x] The drawing is on the map from the first frame and is the thing being manipulated:
       drag moves it, a handle / modifier+drag / the wheel scales it, a handle / shift+wheel
       (or the equivalent gesture) rotates it, all at the opacity slider's value; the page's
       panel shows the live scale (m per page pixel) and the rotation. The three-point
@@ -23,13 +23,13 @@ written up in docs/site_flow.md.
       placed, the map's pan/zoom are disabled (the gestures own the mouse) and re-enabled on
       close; a sub-threshold click pins, a drag moves (MapLibre's 3-px click tolerance
       keeps them disjoint).
-- [ ] Saving from direct placement alone writes the platefit doc in the existing shape
+- [x] Saving from direct placement alone writes the platefit doc in the existing shape
       (the placement re-emitted as 3-5 page-px -> lon/lat pairs, plus the existing
       crop/size/model/cite fields, "by": "hand" via the 305 save path, the one-site line
       running) and the overlay appears on the map; a fit saved this way passes the checks a
       three-point fit passes (test_fit_provenance and the golden hand-fit set stay green;
       no document in the shared store is ever written by a test).
-- [ ] tests/test_fit_queue.py gains a headless part (the 305 part-3 pattern: Chrome via the
+- [x] tests/test_fit_queue.py gains a headless part (the 305 part-3 pattern: Chrome via the
       part-2 line_served-style full tree - tools/fit/pipeline + the picked entry's book page
       materialised into the tree's own data/raw, ephemeral port, sockets dead in the server):
       on a real queue site with a proposal, the page opens place mode with the map at the
@@ -38,7 +38,7 @@ written up in docs/site_flow.md.
       (the doc is read back from the temp store: by:hand, the final re-emitted set, scale
       and rotation agreeing with the anchor within rounding); after close (back / Cancel),
       the site's earlier overlay is back, same file, same ground. Hermetic.
-- [ ] docs/site_flow.md: what place mode is now (the anchor and where it comes from, the
+- [x] docs/site_flow.md: what place mode is now (the anchor and where it comes from, the
       three gestures, the refinement, and what the saved doc contains), citing 307c's
       screenshots when they land (before/after at 1440x900 in docs/site_flow/).
 
