@@ -2488,6 +2488,24 @@ Re-baseline first (the driver's notes listed stale 2026-10-11 failures in test_g
 ## 2026-10-12 209b DECISION: the two unlabeled Flickr files are Petrie 1880 Pl. I and Pl. II - 209c's Commons fallback (a) is satisfied, and both files are ALREADY canonical
 File 47 (2245x2852) = Petrie 1880 Plate I, the Stonehenge stone-by-stone plan ("W.M.F.P. mense et del.", scale 1:350, Standing 1880/1747/Overthrown key, "Forms of outlying stones" 91/93/95/96); File 49 (4641x2874) = Plate II, Stonehenge with the Avenue, Cursus inset, parallel banks (scale 1:1500, "Petrie levels in inches by numbering of stones"). Both already sit in data/commons/files.jsonl (rows 713/714, stonehenge-q39671, year 1880, caption_coords "Stonehenge", checked 2026-10-10) with the British Library Georeferencer description (PETRIE, shelfmark HMNTS 10352.i.12, page 47, London 1880, E. Stanford) - so the map already carries them. Per 209b's Notes they are NOT staged in files_wiltshire_b (re-staging a canonical title is a hard fail in the Kip check), and per the parent's plan the finding unblocks 209c: told via 209c's new Hand-over (fallback (a) satisfied - if the human declines the 1880 download, the Commons leg = the two existing canonical rows, nothing more is stageable from Commons; the book download via ask_human 002 remains the only route to the book's other plates) and via the Stukeley section's Petrie note in docs/lead_wiltshire.md. 209c's Status stays blocked on 002 - the driver owns that flip.
 
+## 2026-10-13 209b DECISION: session 2 was investigation-only (context limit) - the 3 Commons rows are verified to the last metadata field and the module design is settled; nothing written yet (no PITFALLS, no module, no tests)
+Live check of the three staged rows (`.venv/bin/python`, commons.info, paced - one call, no 429): (1) Houghton Avebury 2269x1362, metadata date is ALREADY '1743' (the plate's year, not an upload timestamp) -> no Kip-style date override needed for this row (no date_commons), keep=True, artist 'William Stukeley (author)', license Public domain, desc spells 'Abury' (norm-substring verified True); (2) Stonehenge Dessin 1722: 4620x2430, date='1722', artist 'G.Garitan', license CC BY-SA 3.0, keep=True, 'Stonehenge' in title; (3) Stukelykitscoty 1020x320, date='' desc='' -> year_of None, **keep() False** (no date, no plan-word in title) -> the only row needing the Kip/Mackenzie override (date='1722', date_commons=''; year_of/keep re-verified True in-process; 'Kitscoty' a norm-substring of the filename). All three catalog sites confirmed in data/catalog/sites.jsonl (stonehenge-q39671, avebury-q661855, kit-s-coty-house-q4222497 with the exact qid/name/lon/lat in the hand-over) -> no extras file, no new site rows; the join check is 'names an existing site'. Design decisions: (a) the IA book leg needs NO local-copy wrap (the book really is on IA) - register() only adds books.BOOKS['stukeley_templerestored1740'], and --fetch/--triage delegate straight to books.cmd_fetch / books.cmd_triage_*; (b) the transcribed plate list lives as a module constant (STUKLEY_PLATES) injected into books_lists.PLATES in-process, because pipeline/books_lists.py is owned by 217 (the 213/civitates hand-list pattern that cmd_ocrmap's comment points to); --list with the constant set then runs cmd_ocrmap and writes only the per-book lists/<ia>.json + .map.json; (c) metadata.json has title/date/creator ALL None, so the BOOKS cite string is hand-written ('William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, London 1740') and must be confirmed against the hOCR title page when --list runs. The 4 PITFALLS entries (a-d, text in the previous hand-over, restated in the new one) were NOT yet filed - that is the next session's step 1, then the module exactly as designed in the hand-over. Suite baseline stands at 104 passed, 1 skipped, 0 failed (iteration 146; nothing this session changed code).
+
+### 2026-10-13 209b DECISION: session 3 (iteration 149) was read-only - the session-2 design re-verified build-ready against the current code, with 4 corrections; nothing written (no module, no tests, no staging, no PITFALLS edits)
+Re-read the whole relevant code (books/books_ia/books_lists/commons/evidence/src_kip/src_mackenzie/src_wiltshire_hoare + the Kip and Hoare test files + the lead doc) and confirmed the session-2 design is build-ready, with corrections recorded in the task Hand-over: (1) the 4 PITFALLS entries session 2 queued to file ALL ALREADY EXIST (PITFALLS lines 217, 591, 762, 951 - some filed by other tasks; the 591 one even cites 209b's own download script) - no filings needed, so session-2 step 1 was already done; (2) `.gitignore` has `data/raw/`, so the cached bookreader.json/metadata.json of the Stukeley BMB scan are local-only and NOT in a fresh checkout - the planned --status offline test must fabricate a stand-in bookreader.json by monkeypatching books_ia.RAW (the session-2 plan wrongly assumed the cache was committed); (3) data/books/lists/ and data/books/triage/ ARE tracked, so the IA-leg per-book artifacts will be committed; (4) books_lists imports numpy/PIL at module top, so it stays a lazy import inside functions; (5) design refinements: STAGED rows grow to 8-tuples (title, sid, named, want, label, kind, w, h) so stage() fails loud on a live size drift (2269x1362 / 4620x2430 / 1020x320 from the session-2 live check), the canonical guard is title-only (stronger than Kip's (site,title); it is what rejects the two Petrie 1880 titles regardless of site), and the register() test must use monkeypatch.setitem on books.BOOKS/books_lists.PLATES because the hoare test's bare assignment leaks the mutation across tests. Suite not re-run this session (read-only); last measured state 104 passed, 1 skipped, 0 failed (iterations 146/147) - the build session re-baselines. The full build order (module -> live --stage/--check/--golden -> 6-test file -> suite -> lead-doc line) is in the task Hand-over; the IA book leg (fetch / triage A / list / triage F/B / book rows) stays the session after that (needs live LLM replicas).
+
+### 2026-10-13 209b DECISION: session 4 (iteration 150) built the Commons leg - module fit/src_wiltshire_stukeley.py written, the 3 rows staged live (checked 3/3 offline), golden written, 7-test file written but NOT yet run; all files uncommitted, next session finishes (run tests, lead-doc line, boxes 4+6, full suite, one commit)
+Baseline re-run first: 104 passed, 1 skipped, 0 failed (178 s) - identical to iterations 146/147, no unrelated reds. Module built exactly per the session-3 design (see the task Hand-over for the full spec: KEY/IA/CITE/WHY, SITES 3 catalog sites with (qid,lon,lat) drift check, STUKLEY_PLATES=None + TODO, register() = BOOKS entry only with no wrap, --fetch/--status/--triage/--list delegating to the unmodified machinery, --stage/--check/--golden). Two deviations from the session-3 wording, both deliberate: (1) the stage command is an explicit --stage (bare no-args also works, --dry previews) - the first run as bare --stage printed usage and exited 1, fixed the main handler; (2) stage() checks the title-only canonical clash FIRST (before any meta use) so a rogue Petrie-titled row fails before commons.info results matter (the session-3 order had it later; the test (b) fake-meta-empty only works with the early check). LIVE results, all matching the session-2/3 verified values: --stage wrote files_wiltshire_b.jsonl + classified_wiltshire_b.jsonl (3 rows each: Houghton 1743 raw date, Dessin 1722 raw, kitscoty 1722 override date_commons=''; classified plan 1.0 / view 1.0 / view 1.0, by hand); --check exit 0, no join lines, 'evidence: 3 rows, 3 pass, 0 fail, 0 no-tie', three 'PASS caption_coords'; --golden wrote tests/golden/src_wiltshire_stukeley_sample.json ({files: 3, classified: 3}, normalized); second --stage 'staged: 0 new pictures' (idempotent). The live Houghton desc was confirmed verbatim (see hand-over) - the '(London: 1743)' in its prose does not trip commons.PUBLISHED (that regex needs 'Published'/'Date of Publishing'/... phrases), so year_of stays on the dump date's 1743 - no silent drift possible. The 7 tests (tests/test_src_wiltshire_stukeley.py) cover: stage() on a temp tree with the FAKE_META table (the 3 live values verbatim; commons.info monkeypatched in the autouse no_network fixture alongside books.llm_up -> False), the Petrie-title canonical clash, --check on the real committed files, golden-vs-staged equality (temp + committed sample), register() no-wrap (setitem-managed BOOKS entry, books_ia.pages/page_texts + books.fetch_triage identity - robust to hoare's test having run earlier since it monkeypatches-and-restores those attrs), --status with a fabricated 5-page bookreader cache under a monkeypatched books_ia.RAW (the '166 not in out' guard catches an accidental read of the real 166-leaf cache), and --status with no cache ('not fetched yet'). NOT YET RUN - that is the next session's first step (expected suite total 111 passed, 1 skipped). Uncommitted in the working tree: fit/src_wiltshire_stukeley.py, data/commons/files_wiltshire_b.jsonl, data/commons/classified_wiltshire_b.jsonl, tests/golden/src_wiltshire_stukeley_sample.json, tests/test_src_wiltshire_stukeley.py (plus the docs/lead_wiltshire.md line + box ticks the next session adds before committing).
+
+## 2026-10-13 209b DECISION: session 5 (iteration 152) ran the 7 unrun tests: 5 passed, 2 failed - one REAL module bug (status() read p["n"] off the raw bookreader.json, which has no n - n is the flat-list index books_ia.pages assigns; fixed to enumerate) and one TEST bug (this pytest's monkeypatch.setitem is Mappings-only and raised on the STAGED list; switched to setattr with a new list); then lead-doc line + boxes 4/6; full suite 111 passed, 1 skipped, 0 failed; committed the Commons leg. The IA book leg (fetch/triage A/plate-list transcription/book rows) is the next session - two LLM replicas answer on 8080/8081 right now, the bookreader cache is present in this checkout (166 leaves, 0/166 triaged, long side 11408-13537 px, i.e. the fetch must re-encode the huge raw pages via IIIF)
+Ran tests/test_src_wiltshire_stukeley.py first (the hand-over's step 1): 5 passed, 2 failed, exactly the fragilities the hand-over named, and each failure had a different kind of fix - (1) test_status_offline_fabricated_cache errored with KeyError 'n' inside status(): the raw BookReader page dicts carry only height/leafNum/pageSide/pageType/ppi/uri/width (verified on the real cached 166-leaf file), while books_ia.pages() is what assigns p["n"] = flat index (books_ia docstring: "list index == n of page/n{N}.jpg"); status() reads the cache directly, so p["n"] can never exist - a real module bug the session-3/4 design missed (the hand-over fact 2 spelled out the raw shape but the built code still indexed by n). Fixed the MODULE (enumerate over the flat pages, triage_path(IA, n) on the index) - per the hand-over rule a red test that reflects a real bug gets the module fixed, never the assertion deleted; the test's fabricated 5-page cache (no n keys) was already correct. Verified the fix live: --status now prints "166 leaves, triage 0/166, long side 11408-13537 px" off the real cache with zero network. (2) test_canonical_title_clash_fails_loud errored in monkeypatch.setitem itself: pytest 9.1.1's setitem is Mapping-typed and calls dic.get(name) - it has no list support, so setitem on src.STAGED[0] is invalid, a test bug, not a product bug. Fixed the TEST to monkeypatch.setattr(src, "STAGED", [petrie_row] + src.STAGED[1:]) (teardown restores the original list object). All 7 pass in 2.2 s. Everything else in the hand-over's step list then went as planned: the docs/lead_wiltshire.md Stukeley-section line (module built, 3 rows staged, evidence 3/3 offline, golden + test pointers; the Stage-A/B recall line left PENDING), task boxes 4 (hand fits untouched: the per-task staging files hold only the 3 new rows, the title-only canonical guard is tested, data/db/platefits/ never written) and 6 (offline join + evidence + golden) ticked; boxes 1/2/3/5 stay open for the IA leg. Full suite 111 passed, 1 skipped, 0 failed (181 s) = the 104 baseline + 7 new, no unrelated reds. One observation for the IA-leg session: two LLM replicas answer on 127.0.0.1:8080 and :8081 right now (the --status LLM line), so --fetch + --triage A are runnable without any setup; the raw pages are very large (long side up to 13537 px), so the fetch re-encodes via IIIF at the triage size as the machinery does for every book.
+
+## 2026-10-13 209b DECISION: session 6 (iteration 153) ran IA-leg steps 1-3 - fetch 166/166, triage A 166/166, and the visual plate-list transcription into STUKLEY_PLATES (module edit uncommitted at context limit); the book has NO printed plate list and NO Wiltshire map
+(1) `--fetch` pulled all 166 triage pages in ~105 s (IIIF at 1400 px, 2 workers; resumable - nothing to re-fetch). (2) `--triage A`: 166/166 with 0 errors on the live 8080/8081 replicas; distribution text_only 119 / other_illustration 41 / plate_site_plan 6. (3) `--list` (PLATES None) printed the hOCR of the front leaves: the BMB hOCR is garbage on this scan (the title page leaf read only as "By VILEIAM STUKELEY..."), so per the civitates/213 hand-list pattern the transcription came from a VISUAL walk of all 47 plate leaves (700 px shrunken scratch copies for classification + zoomed label crops for the numerals). Findings: leaves 10-12 blank/preface = the book has no list of plates; each plate's header is the list ("P. <n>. TAB. <roman>"); 33 plates on 31 transcribed lines (two different plates both labelled TAB. II; duplicate impressions of TAB. III and TAB. XXXIII; TAB. XXI and XXIV absent from this copy; XXXIIII printed old-style). The 1400 px read of the famous plan's banner gave "TAB. XL" but the 2x label crop + the increasing sequence (VII,P14 -> X,P18 -> XI,P20 -> XII,P22) prove it is TAB. XI - an XL would break the chain and there is no room for 30 unnumbered plates in between. Site plans: exactly three (XI the numbered plan as a fold-out n56+n57, XII the Orthography n61, XXIII the Area n111); stage A's plate_site_plan label was wrong in BOTH directions (n115/n123/n135/n143 are views; some blanks/text leaves called text_only - none hide a plan: ink+stopword screen of all unflagged leaves, only n32/n67 blankish, n117 text p47, n163 the INDEX). NO Wiltshire map in this scan (the goal's premise came from the parent's book knowledge; the map, if it exists, belongs to A survey of Wilts, which is not on IA) - to be recorded in the lead doc per runbook step 6. CITE confirmed from the visual title page ("M.DCC.XL.", Innys & Manby). STUKLEY_PLATES set in the module (books_lists PLATES format; page = the P. number printed in the plate's own header). NEXT: --list with PLATES set (ocrmap -> per-book lists only), triage F/B, stage the 3 plan rows (stonehenge-q39671, 1740, book-list evidence), lead-doc recall line, boxes 1/2/3/5. Suite last full run (session 5): 111 passed, 1 skipped, 0 failed; this session touched only the module's constant/strings.
+
+## 2026-10-13 209b DECISION: session 8 (iteration 155) - 209b COMPLETE: recorded the unrecorded session-7 work, wrote the lead-doc recall, ticked boxes 1/2/3/5; all six boxes now ticked, suite green
+The previous session (7, iteration 154) had already done the rest of the IA-leg runbook but died without writing memory: ocrmap ran (lists/<ia>.json 31 plates + .map.json), triage F (41 leaves) and B (8 leaves: 56,57,111,115,123,135,143,161) ran, TAB. XII was re-checked and reclassified from plan to section (orthographic elevation with the "The Front" scale bar - the F stage independently reads "TAB. XII -> section"), and BOOK_ROWS (XI fold-out n56/n57, XXIII n111 - stonehenge-q39671, 1740, evidence = the plate's own printed header since the book has no list of plates) was staged into files_wiltshire_b.jsonl + classified (2 rows each, 5 total) with the golden + tests updated; the driver committed it all as "uncommitted work after iteration 154" with no hand-over or DECISIONS entry. This session: (1) re-ran the 8-test file (all pass, 3.0 s) and the full suite (background, green); (2) verified the committed artifacts - 5 staged rows, per-book lists/triage only, 0 stukeley rows in the shared index.jsonl/validation.json, LLM replicas up 8080/8081/8082 (unused); (3) rewrote the Stukeley section of docs/lead_wiltshire.md: replaced the stale "module built / IA leg remains" paragraph and the "pending the IA leg" recall line with the full Stage-A/B recall (A: 3/3 plan-leaf recall, 3/6 precision - the 3 false positives n123/n135/n143 are views; F: headers with kind on 41 leaves; B: n111 clean, n57 label misread XL resolved to XI, n56 label-garbled; ocrmap matched only 2/31 entries and put XXIII's kind-s on n115 - the wrong of the two XXIII impressions, n111's header OCR "P.44. TAB.XXIII" lost the anchor - a .map.json attribution issue only, staging uses hand-set leaf numbers; XII the one plan-like plate not staged, no Wiltshire map, no standalone Avenue plan); (4) ticked boxes 1/2/3/5 and corrected box 2's premise wording (it said "the book's printed plate list ... from the hOCR" - the book has no printed list and the hOCR is garbage; the box now names the hand-list pattern). Box 6 (tests) was re-verified rather than re-ticked. No code changed this session: docs, task file, this entry, the hand-over only.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
@@ -2943,6 +2961,232 @@ its evidence:
 6. **No BOOK_SCOPE entry for civitates_liber2:** the volume includes American towns (fig 261 MEXICO, 262
    CUSCO), so any region filter would be wrong; a missing scope means "no filter" (.get default) - recorded so
    the next agent does not "fix" it.
+
+## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list
+Session 2 (iteration 114) implemented session 1's design as written and verified all of it (the task's hand-over
+has the full numbers):
+- ocrmap civitates_liber2: the .json comes out md5-identical to 213's committed file (0881ec0c...); .map.json
+  [] -> 118 leaves (7 site_plan) - committed (data/books/lists/ is in Touches). No-args ocrmap: the other 17
+  list files byte-identical (md5-checked against session 1's baseline).
+- index no-args: 1008 rows. The 890 plan-book rows byte-identical IN ORDER to the HEAD baseline (session 1's
+  unmodified-code run, committed by the driver). 118 civitates rows: view true 111 / false 7; found_by
+  list_view 103 / list_view+qwen 8 / list 4 (n58,85,98,109) / list+qwen 3 (n90,237,238); page_type
+  other_illustration 117 / plate_site_plan 1 (n238); title_source "book's figure list, hand-transcribed" on all;
+  fig == leaf_n; captions_ocr empty (T={} bypasses the misaligned hOCR). The `view` key is absent from every
+  plan-book row - the row-shape contract for 211 and the page.
+- validate no-args: the 8 plan-book entries byte-identical to HEAD (box 3); the civitates entry gains the
+  "figures" section (listed 121; site 7 / unsure 3 / other 111; gt_site_pages 7; flagged 11).
+- Full suite 100 passed / 1 skipped.
+CORRECTION to session 1's predicted numbers: recall_pages is 3/7 = 0.429 (not 0.286) and precision_strict is
+3/11 = 0.273 (not 0.18) - leaf 238 (Jerusalem, kind s in the hand list) is ALSO stage A's plate_site_plan, so
+it is in both gt_site and flagged; session 1's arithmetic counted it once. The actuals are self-consistent and
+verified; recorded in PITFALLS so nobody "fixes" the code toward the stale prediction.
+Boxes: 1 and 3 ticked (verified). Box 2 ("for the view books", plural) stays open: the machinery is proven on
+civitates, but the goal's Merian helvete list is not transcribed yet - that is the remaining step (fetch/cache
+the hOCR, find the contents pages, transcribe into HAND_FIGS, triage the volume, then its rows appear and the
+box ticks). The other four view books stay out of scope.
+Note for future baseline work: /tmp/idx_committed (session 1's copy) is STALE - it predates 216's BOOKS order
+and the current row shape (it even carries the `evidence` key the current cmd_index does not emit, a 200-era
+post-hoc field). Diff rebuilds against `git show HEAD:<file>` or a fresh unmodified-code run, never a saved
+/tmp copy (PITFALLS).
+
+### 2026-10-12 217 DECISION: Merian helvete investigation (session 3) - book structure mapped; the plate list is the book's own "Erönung der Kupfferstich" (BR n394); hOCR index == 1-based leafNum (aligned, unlike civitates); 65 wide BR leaves are the engraved spreads; 10 big-plate foldouts are absent from the item; the list's page number points to an adjacent text page with varying side, so it is a window not a rule
+Session 3 on 217: investigation only, no code (working tree clean; artifacts in /tmp/merian on this
+machine: scandata.xml, list_full.jpg = n394 full-res, list_c{1,2,3}{0,1}.jpg 2x column crops, page-image
+samples). Findings, each verified:
+1. **LLM replicas are up** (127.0.0.1:8080/8081, qwen3.8-27b; 8082 down per the 5060 Ti image matchers):
+   `books.py fetch/triageA/triageF merian_helvete00zeil` are runnable from this machine - triage is the
+   step after the transcription, not a blocker.
+2. **hOCR fetched and aligned.** hOCR page index i == 1-based leafNum == BR leafNum field (verified at
+   i=429 the plate list at n394, i=197 "BASILEA" at n176, i=11 printed p7). So - unlike civitates -
+   hOCR titles can be trusted for this book's leaves. 436 hOCR pages; BR shows 400.
+3. **Structure:** 436 leaves all imaged; BR omits 36: 25 Delete (duplicates/foldout versos) + 10 Foldout
+   (rot-0 big engravings, leaves 44, 86, 116, 168, 230, 238, 254, 346, 360, 412 1-based - EMPTY hOCR,
+   content unknown; each directly after a wide BR leaf) + back color card. 65 wide BR leaves (landscape)
+   are the engraved double-page spreads (view left / plan right; Basel leaf 197 = 4-page spread, 2 views).
+   Wide-leaf title readings (hOCR) are in the task hand-over (session 3): they match the list's cantons
+   (Zurich 39/43, Bern 75, Lenzburg 81, Sempach 137, Unterwalden 133, Uri 147, Lucerne 151/155, Einsiedeln
+   159, 4-Waldstätten map 167, Glarus 187, Basel 193/197/201/205, Münchenstein 211, Pierre-Perthuis 215,
+   Wallenburg 219, Schaffhausen 249/253, Appenzell 265/269, coins 279, Zurzach 283, Biel 317/323/327,
+   Neuenburg 341, Rapperswil 351, Weyerhaus 359, Chur 381/389, Plürs 395, Sitten 407, Breitenlandenberg 411).
+4. **The list** = the book's own "Erönung der Kupfferstich" on BR n394 (n395 = upside-down duplicate). Draft
+   transcription (names as read from the 2x crops; page numbers as printed; } = entries sharing one page via
+   a printed brace; * = needs image confirmation next session):
+   Tafel des Teutschlands 10; der Endgnossenschaft 15; Elgg+Murr }16; Zürich im Grund 17 + im Prospect 17;
+   Forsteck 19; Eglisau+Grüningen+Griffensee+Regensberg }20; Stein am Rhein 21; Winterthur+Andelfingen+
+   Kyburg }22; Willisau+Wedeschwyl }23; Bern 24; Thun 26; Aarau+Arberg+Arburg }27; Lenzburg+Brugg }27;
+   Habsburg 27; Lausanne 79; Thun 31; Neuenburg* 31; Gletscher 32; Murten 32; Neuchâtel* 34; Wislikofen* 34;
+   Lucerne 36; 4 Waldstätter See 36; Möhlin 37; Aarberg 38; Schwyz 39 + im Prospect 39; Einsiedeln 39;
+   Unterwalden 41; Engelberg 41; Zug 43; Glarus 44; Basel im Grund 46 + im Prospect (2 Kupfer) 46 +
+   Brück 47 + St. Peters Platz 47; Münchenstein 48; Lichtstall 49; Wallenburg 49; Pierre-Perthuis 50;
+   Romanshorn 50; Freiburg im Üechtland 52; Solothurn 53; Schaffhausen 54; Saß am Rhein 55; Munkiringen 55;
+   Appenzell 56; Herisau 56; Baden 57; Klingnau 57; Leuggern 58; Wettingen 58; Mittlere Aare 58; Münzen 58;
+   Zurzach 58; Berggärtl* 59; Lommern 59/60; Belleng* 60; Hülshofen 60; Frauenfeld 60; Müllingen 60;
+   Rapperswil 61; Pfeffers (2 Kupfer) 63; Müllhausen 65; Biel 66; St. Gallen 67; Griffensee im Grund 70 +
+   im Prospect 71; Neuenburg (2 Kupfer) 72 (handwritten); Weyerhaus 72/77*; Kastelen 77; Chur 79; Plürs 83;
+   St. Luciensteig 85; Leuggs* 87; Trigg* 88; Naters 88; Bispach 88; St. Maurities 89; Sitten 90;
+   Breitenlandenberg 90; Chasillard 90; Blonay 90; Sandeck 90; Mauvis* 90; Werdenstein 90; St. Urbani 90.
+   (Footer: "102 Kupfersticken".)
+5. **Page-number semantics:** the list number points to an adjacent text page but the side is not
+   consistent (Bern spread leaf 75 follows p24, cited 24; Zurich spreads 39/43 precede p17, cited 17).
+   Consequence: the page number is only a candidate window; each entry is pinned to a wide leaf by the
+   plate's own printed title (hOCR, reliable here) + image spot-checks. IA pageNum verified correct on
+   p16 (n27) and p24 (n63, section start "2. Bern.").
+6. **Design for the table (next session implements):** HAND_FIGS["topographiahelve00zeil"] rows
+   fig|title|page|kind|kind_by with **fig = the 0-based BR leaf index n of the wide leaf** (the same
+   convention as civitates; n != 1-based leafNum here - the offset is not constant, e.g. leaf 429 = n394,
+   leaf 39 = n32 - compute n from ia.pages()),
+   page = the printed list number (a string, for the record), kind: o = perspective view (a drawing),
+   s = bird's-eye town plan (213's precedent for town plans), u = excluded (regional maps Tafel des
+   Teutschlands/Endgnossenschaft/4-Waldstätter-See, coins sheet), kind_by hand. A spread with view+plan =
+   two rows sharing the same fig (the index then emits one row per entry, per_entry path - same as
+   civitates's multi-plate leaves). The 10 missing-foldout plates (no leaf in the item) are transcribed
+   with fig = "" and parse_hand_figures extended to map "" -> None (the hand-over-2 anticipated this);
+   validate counts them as nopage and list_pages skips n=None - already safe in both, verify no other
+   path dereferences f["fig"]. The .json dump keeps the contract ("plates": null, "figures": [...],
+   indent=0, ensure_ascii=False, key order fig,title,page,kind,kind_by).
+
+### 2026-10-12 217 DECISION: Merian helvete (session 4) - plate-list transcription finalized from the 2x crops of n394 (75 lines / 81 plates, full names+pages in the task hand-over); the 10 'missing' foldout leaves EXIST in the IA item as full-res JPGs (session 3's 'not in this item' was wrong - BookReader hides them only); leaf identification is a per-leaf image job
+Session 4 on 217: transcription + investigation only, no code (tree clean; all artifacts under /tmp/merian/).
+Findings:
+1. **Foldout leaves are in the item.** `https://archive.org/download/topographiahelve00zeil/page/nNNNN.jpg`
+   works for all 10 foldout leaves (44, 86, 116, 168, 230, 238, 254, 346, 360, 412); ia.get returned real
+   JPEGs (saved /tmp/merian/foldout_NNNN.jpg). Session 3 concluded 'not in this item' from BookReader's
+   omission - wrong. Consequences: (a) their TITLES are readable and pin which list entries they hold
+   (foldout 86 = the Burgdorff view, confirmed by image); (b) they are still absent from ia.pages(), so
+   they have no n, no triage image, no index row - plates living ONLY on a foldout leaf are transcribed
+   with fig='' and the index simply never sees them (no leaf to point at; no fabricating a row on a
+   neighboring leaf). Foldout 44 turned out to be a duplicate TEXT page (p19, 'Beschreibung der
+   Endgnoschafft'), not a plate; several portrait-sized foldouts (168, 230, 238, 346, 360) may be text
+   duplicates too; 412 is 3744x5616 (possibly a double-page spread). Check each image before use.
+2. **Plate-list transcription is final** (3 columns of n394 read at 2x; crops in /tmp/merian incl. my extra
+   list_c12-14/c32/c33/list_lower). 75 lines / 81 plates; names + printed page numbers as in the task
+   hand-over. Corrections vs session 3's draft: 'Genff' is GENEVA (not Griffensee) with its own im
+   Grund/im Prospect pair; 'Neuenburg' carries a handwritten '2 Ansichten' (2 plates); 'Pfeffers' and
+   'Basel im Prospect' are each '2 Kupffer' (2 plates each); there are TWO Thun entries (p26 and p31);
+   'Beven' p31 is a real entry (near Yverdon); 'Romamostier' = Romainmôtier; 'Lowerk'/'Wellenk'/'Leugg'/
+   'Brieg'/'Mauwister'/'Etiszweyl' are unreadable place names (kept as printed). Footer: handwritten
+   '3 Karten un. 102 Ansichten' vs my count 81 - the gap is plates hidden inside merged list lines; not
+   an acceptance criterion (index rows off leaves, not off the footer count).
+3. **Leaf identification needs images, not hOCR.** hOCR titles are usable for ~40 of the 67 wide leaves,
+   but the Bern section's order is scrambled vs the list (Lausanne p79 sits inside the Bern section; Oron
+   appears with no list entry at all) and several leaves OCR to nothing (97, 105, 129, 225, 243, 337,
+   375). So all 51 non-obvious wide leaves were fetched at scale 3 to /tmp/merian/chk/n%04d_s3.jpg this
+   session (re-fetch: ia.page_image_url(p, scale=3); books_ia.get returns BYTES). Identified this session:
+   n42 = Forsteck (hill-castle view; hOCR 'Kazann' was garbage) and n76 = Oron (view; 'ORON.' title with
+   hunting scene - NOT in the printed list, an extra view like civitates's unlisted leaves). The full
+   not-yet-identified set, with hOCR hints and list-entry candidates, is in the task hand-over.
+4. **Kind policy for this book (to apply, record per decision):** o = perspective town/canton view (the
+   drawings GOAL point 5 asks for); s = bird's-eye 'im Grund' town plan (213's precedent for town plans);
+   u = excluded from the drawings: regional maps (Teutschlands, Endgnoschaffte, 4-Waldstätter-See and its
+   twins, the Lugano-ish sheet, the coins sheet). Open call: the GLETSCHER panorama (n104) - not a town
+   view; I lean o ('a view, a drawing in its own right' per the module's kind docstring) - decide with
+   evidence when the image is reviewed. Oron (unlisted view) gets kind o / kind_by hand and rows via
+   stage-A flags once triaged (civitates precedent for unlisted leaves).
+5. Wide-leaf count corrected: 67 (session 3 said 65). ia.pages has 400 leaves; the 67 (n, leafNum) pairs
+   are in the hand-over. hOCR index i == 1-based leafNum (aligned, unlike civitates); all 67 hOCR dumps in
+   /tmp/merian/wide_hocr.txt.
+
+## 2026-10-12 217 DECISION: Merian s7 - all 80 table rows resolved; FIVE list corrections from image reads (n298 = S. GALLEN not Biel's second plate; n362 = Brieg+Naters; n368 = S. Mauritij not S. Luciensteig; n72 also carries Habsburg; Plürs 83 has no leaf); kinds: Gletscher/Rheinfall/Ursprung des Rheins u (natural landscapes), Pierre-Perthuis o (named pass); NO code written this session - the table is in the hand-over, ready to paste
+Session 7 (iteration 121) on 217: investigation completed, no code. Steps: (1) re-ran /tmp/merian/identify.py for n66/n110/n166 after deleting their stale {"error": "No such file"} entries from llm_ids.json (the resumable check is `k not in res`, so error entries permanently block a key - delete them; the chk/ files existed all along). (2) fetched n0072/n0124/n0104 scale-3 -> chk/+d2/. (3) image-checked all remaining pending rows and re-verified list crops list_c30/31.
+FIVE LIST CORRECTIONS vs the s5/s6 table (all by reading the plate's own printed title; list order + page window agree in every case):
+- n298 (leaf 327) = 'S. GALLEN.' flat plan: list entry 'S. Gallen 67' HAS its leaf [s] (s6 said 'none' - it was misread as Biel's second plate; s3's hOCR garbage 'Blatz thor...Das Rahthaufe' is the S. Gallen legend). Biel 66 = n294 view only (1 row).
+- n362 (leaf 395) = 'PRYG. NATERS.': entry 'Brieg+Naters 88' HAS its leaf [o] (was 'none').
+- n368 (leaf 401) = 'S. MAURITIUS INVALESIA / S. Mairise in Walls' (French legend: l'Abbaye, S. Sigismond, St. Maurise, Ruesse, La Riviere...): entry 'S. Mauritij 89' HAS its leaf [o] (was 'none'); consequently 'S. Luciensteig 85' (line re-verified verbatim in list_c31.jpg) becomes 'none' - no plate leaf exists between n348 (leaf 381) and n356 (leaf 389): plain pages 382-388, no foldout/delete there.
+- n72 (leaf 81) = 3 views: LENTZBURGV. + BRVG ARGOLIA. (Brugg) + HASSBURGŰ. (Habsburg): entry 14 'Lenzburg+Bruck 27' AND entry 15 'Habsburg 27' (was 'none') both map to fig 72 -> two o rows in the table (per_entry then yields 2 index rows).
+- n342 (leaf 375) = 'FLURSIUM. TERRÆ MOTU OBRUTVM' (Flurschm, earthquake damage) - kept an EXTRA (not in the list; Flurschm != Plürs/Flüelen, neighbouring but distinct villages; the p83 page-window match is coincidence-level and the book's own list never mentions Flurschm): therefore entry 'Plürs 83' = 'none' (s5 had assigned it n362, which is Brieg+Naters).
+KIND DECISIONS (recorded per s6's request): n104 Gletscher = u, n228 Fall des Rheins = u, n348 Ursprung des Rheins = u - all three are natural-feature landscape views (glacier/waterfall/rhine-sources) with no town; the book's footer '3 Karten un. 102 Ansichten' counts them among the Ansichten, but for the site/index purpose they are not town views/plans (civitates precedent: non-town material = u = excluded from the index rows). n204 Pierre-Perthuis = o - a view of a NAMED pass that is its own list entry (a drawing in its own right, GOAL pt 5). n254 Zurzach 'Forvm Tyberii' = o (elevated perspective view, unlike the flat top-down plans of Bern/Müllhausen/S. Gallen = s). n268 Dissenhofen 'in grund gelegt 1648' = s.
+Multi-plate spreads: n124 = Sempach view + Sursee plan on ONE leaf -> 2 table rows (o row first, s row second - per_entry uses table order); n134 = Altorff view + Flüelen plan -> 2 rows; n176 (4-page Basel-im-Prospect, 2 views), n236 (Appenzell+Herisaw), n246 (4 views), n272 (Frauenfeld+Mellingen) = 1 row each (same kind); Neuenburg n316+n320 = 1 row (n316) - n320's second view surfaces as a stage-A row at triage.
+CODE check (no change needed beyond the one-line parse): cmd_index's per_entry (no stage B + >1 o/s entry on a leaf) already emits one row per entry with the right `view` field; validate_book/list_pages are already fig-None-safe (nopage / `n is not None`). The only code change: parse_hand_figures `fig=int(fig)` -> `fig=None if fig == "" else int(fig)` (civitates table has no '' figs -> byte-identical). The complete 80-row table (11 s / 8 u / 61 o; 14 rows fig '') is in the task hand-over - paste verbatim as HAND_FIGS['topographiahelve00zeil']. Baseline: md5 of the 18 existing list files in /tmp/merian/lists_md5_before_s7.txt; civitates .json must stay 0881ec0c...; last suite 101 passed / 1 skipped (s6, tree unchanged).
+
+## 2026-10-12 217 DECISION: Merian s8 - step A landed: HAND_FIGS['topographiahelve00zeil'] = the 80-row s7 table (11 s / 8 u / 61 o, 14 leafless rows fig ''), parse_hand_figures maps fig '' to None, ocrmap regenerates data/books/lists/topographiahelve00zeil.json as its dump - byte-verified (18 other list files md5-identical, civitates 0881ec0c, validate no-args == HEAD apart from civitates' never-committed "figures" block); box 2 still open pending the triage (step B)
+Session 8 (iteration 122) implemented step A exactly as s7's hand-over prescribed; no deviations, no new
+kind calls. The 80-row table went into the module VERBATIM - extracted programmatically from the task file
+(a script asserted 80 rows / 5 fields / kind tally / every fig in the 67 wide leaves / no '' fig in the
+civitates table) so no transcription drift. parse_hand_figures: `fig=int(fig)` -> `fig=None if fig == ""
+else int(fig)` + docstring; the comment block above HAND_FIGS and the module docstring now state fig '' =
+the plate has no leaf in the item (fold-out-only or unengraved). The dict gained its second key; both key
+names are 22 chars so the alignment is clean.
+Verification (all re-run this session, tree was clean at start):
+- ocrmap merian_helvete00zeil: "plates 0 figures 80 fig kinds {'s': 11, 'u': 8, 'o': 61} list leaves 0"; the
+  .json is byte-identical to a round-trip dump of figure_list (indent=0, ensure_ascii=False, key order
+  fig,title,page,kind,kind_by, 14 "fig": null); .map.json = [] (stage A empty - the civitates precedent).
+- No-args byte identity: all 18 other list files md5-identical to /tmp/merian/lists_md5_before_s7.txt AND to
+  git show HEAD; civitates .json still 0881ec0c (parse change is a no-op for it - no '' figs, verified).
+- validate no-args: regenerated file is per-entry identical to HEAD for all 8 plan books; civitates identical
+  apart from the "figures" section - which is EXACTLY session 2's verified block (listed 121, site 7, other
+  111, recall_pages 0.429, precision 0.273, flagged_on_other_only_pages [30,62,65,66,93,105,186,229],
+  missed [58,85,98,109], stage_A_only 0.143/0.333/1.0/3) that the 207/216 precedent left out of the committed
+  shared file (211's rebuild owns it). No merian entry (stage A empty -> validate_book returns None).
+  index.jsonl untouched (no stage A -> cmd_index skips the book). Both shared files restored (git checkout).
+- Suite: 101 passed / 1 skipped (unchanged from s6/s7).
+NEW PITFALLS: every books.py CLI command (fetch/triageA/triageF/ocrmap/index/validate) takes the BOOKS key
+(merian_helvete00zeil), not the IA id (topographiahelve00zeil) - `books.py ocrmap topographiahelve00zeil`
+dies with KeyError because the dispatch does `BOOKS[key]`; s6's hand-over mixed the notations for ocrmap.
+NEXT (step B, next session): triage the volume (fetch -> triageA -> triageF with the BOOK KEY; run_stage
+resumable; LLM 127.0.0.1:8080/8081 up, 8082 down per the 5060 Ti image matchers), then no-args index +
+validate with the expected values in the hand-over (66 index rows on 63 leaves + stage-A-only extras; merian
+validate entry appears; everything else byte-identical), restore the shared files, tick box 2, done.
+
+## 2026-10-12 217 DECISION: Merian s9 - step B complete: the (cut-off) iter-123 triage is verified (a fresh no-args rebuild is byte-identical to the driver-committed shared files); TWO table rows corrected (S. Luciensteig -> fig 350, Werdenstein+S. Urbani -> fig 384: both plates exist - s7's leafless call wrong, proven by hOCR + stage A reading each plate's own printed title); per-book ink floor BLANK_INK_BOOKS[ia]=0.01 in books.py drops the 4 faint show-throughs Qwen typed plate_site_plan (one with a cross-book invented title); final merian = 60 hand-list rows on 57 leaves, no stage-A-only rows; shared files restored to 6fff103 for 211; box 2 ticked, done
+Session 9 (iteration 124) on 217. Discovery: iteration 123 (a cut-off session of mine on this branch) had
+already run step B's fetch (400 triage images, data/raw, gitignored) + triageA (400/400) + triageF (108/108)
++ no-args index + validate, but was cut before the verify/restore/memory steps; the driver's safety-net
+commit 354b38c "[driver] uncommitted work after iteration 123" committed everything including the shared
+files (index.jsonl/validation.json) - against the s8 plan ("this task commits NEITHER; restore after
+verification; 211 owns them"). So this session verified that state, fixed what verification exposed, then
+completed the plan.
+Verification of the committed state: a fresh no-args `books.py index` + `validate` under the current code is
+BYTE-IDENTICAL to 354b38c's files (md5 4ae18b29.../2cb0e2c1...) - the files are faithful artifacts of the
+code, not hand-edits. Per-row/entry diff vs the 6fff103 pre-task baseline: 890 plan-book rows byte-identical
+IN ORDER (box 3 holds), 8 plan validation entries byte-identical; 118 civitates rows (107 new + 11 old
+model-flagged rows reshaped by 217's machinery - the intended delta, s2-verified, byte-identical to the
+s2-era numbers); civitates validation entry differs from baseline ONLY by the s2-verified "figures" block
+(listed 121, site 7, recall 0.429, precision 0.273, flagged_on_other_only [30,62,65,66,93,105,186,229],
+missed [58,85,98,109]) - which the 207/216 precedent deliberately left out of the committed file (211's
+rebuild owns it); new merian entry.
+S8 PREDICTIONS CORRECTED (all verified against the actual run; the actuals are self-consistent):
+- list rows 58 on 55 leaves, not 66 on 63: s8 counted the 8 kind-u rows as index rows; list_pages/index
+carry only s+o (u = unsure, excluded by the module's documented design).
+- gt_site_pages 10, not 11: the 11th s row (Nünkirchen, leaf 55) is leafless (BR-hidden foldout).
+- stage-A-only rows were [121, 153, 205, 231, 350, 384], not the speculative {76, 176, 264, 320, 342}: the
+  known extras n76 (Oron), n264, n320 (Neuenburg 2nd view), n342 (Flursium) were typed other_illustration by
+  stage A and stage F says no plan -> no rows, as designed (they surface only if the model ever flags them).
+TWO TABLE CORRECTIONS (s7's leafless calls were wrong; both plates exist in the item and were verified by
+TWO independent readers - stage A's 1400-px read and the cached hOCR, which agree):
+- n350 (leaf 383, ink 0.2025) = 'S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen.'
+  (hOCR leaf 383 garbles exactly this title) -> the list row 'S. Luciensteig 85' has its leaf; s7's
+  "no plate leaf between n348 and n356: plain pages" missed n350.
+- n384 (leaf 419, ink 0.3551) = 'WERDENSTEIN. Kloster S. Urban' (hOCR leaf 419 carries the legend
+  'MONASTERIU S.URBANI. ... Die kirche, Die Abtey, Das Convent, Studier vnd Krancken Haus, ...') -> the list
+  row 'Werdenstein und S. Urbani 90' has its leaf. Stage A typed it other_illustration (a view), consistent
+  with kind o; titles in the table updated to the plates' own printed wording (the other rows' convention).
+FOUR JUNK ROWS REMOVED BY A PER-BOOK INK FLOOR: n121 (ink 0.0054), n153 (0.0073), n205 (0.0097), n231
+(0.0073) were typed plate_site_plan by stage A and passed the global BLANK_INK=0.005 gate, producing four
+titleless view rows (n153 with a cross-book invented title: 'Plan of the Mound at the Fork of the Road,
+near the Village of' + 'PLATE XXV' - a 19th-c American idiom in a 1654 Swiss book; 'PLATE XXV' was read on
+n121 too). All four have garbage hOCR (show-through backs of foldouts); every GENUINE plate leaf in the
+item has ink >= 0.1834 (min n308), so a 0.01 floor for this book alone (BLANK_INK_BOOKS in books.py -
+Touche added; site_pages_model uses it, global BLANK_INK untouched so no plan book is affected) drops
+exactly the four and keeps everything real.
+FINAL STATE (verified; this is what 211's no-args rebuild reproduces): index 1068 rows = 890 plan + 118
+civitates + 60 merian. Merian: 60 rows on 57 leaves, ALL list-derived (title_source 'book's figure list,
+hand-transcribed'; zero null titles; n72/n124/n134 give 2 rows each): view true 50 / false 10; found_by
+list_view 45 / list 6 / list+qwen 6 / list_view+qwen 3; page_type other_illustration 58 / plate_site_plan 2
+(n308, n350 - stage A's type kept, the view field disambiguates); NO stage-A-only rows remain. Merian
+validate entry: pages 400, triaged_A 400, flagged_stageA 66, F 108, flagged 8; figures: listed 80,
+parsed_with_page_on_a_leaf 68, site 11, unsure 8, other 61, gt_site_pages 10, recall_pages 0.5, recall_pm1
+0.5, precision_strict 0.625, precision_lenient 0.625, flagged_on_other_only_pages [246, 350, 384],
+flagged_not_in_list [], missed_pages [32, 66, 134, 218, 298], stage_A_only {recall 0.1, precision 0.015,
+66} (the model's quality on this book; recorded, not forced). data/books/lists/topographiahelve00zeil.json
+= the corrected table's dump (md5 1f49058c); .map.json = 57 mapped leaves (site_plan leaves unchanged:
+32, 66, 124, 134, 172, 218, 268, 288, 298, 308). Shared files restored to 6fff103 (the pre-task baseline).
+Suite after all changes: 101 passed / 1 skipped (184 s). Boxes: 1 (s2) and 3 (s2, re-verified today: 890
+plan rows + 8 validation entries byte-identical) already ticked; 2 ticked this session - one row per
+indexed town-view plate for the view books (civitates 118 + merian 60, all with the view field: true for
+kind o, false for kind s; the 2 mixed leaves n124/n134 give one of each) and zero plan-book rows carry the
+view key. Status: done. 211's rebuild (with my triage artifacts + corrected lists on main) reproduces the
+merian rows; the page branches on `view`.
 
 
 <!-- task 218 -->
