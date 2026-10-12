@@ -1190,10 +1190,10 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
-   "drawings": 2,
-   "score": 2.73,
-   "oldest": 1780,
-   "overlays": 4
+   "drawings": 10,
+   "score": 6.67,
+   "oldest": 1775,
+   "overlays": 12
   },
   {
    "id": "arledge-mounds-i-and-ii-q4792111",
@@ -4468,10 +4468,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "carlisle-castle-q614836",
@@ -6959,10 +6959,10 @@
     800
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.68,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "duffield-castle-q2073299",
@@ -13892,10 +13892,10 @@
     "label": "Plate XXV"
    },
    "lidar_credit": "USGS 3DEP",
-   "drawings": 1,
-   "score": 1.76,
+   "drawings": 2,
+   "score": 2.04,
    "oldest": 1848,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "norham-castle-q388705",

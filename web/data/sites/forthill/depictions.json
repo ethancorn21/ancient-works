@@ -1,6 +1,52 @@
 {
  "depictions": [
   {
+   "kind": "plan",
+   "file": "plan_b24849959_n0269_1.webp",
+   "ink": "plan_b24849959_n0269_1_ink.webp",
+   "year": 1902,
+   "label": "Fowke 1902: Fort Hill, Highland county",
+   "scale": "Fig. 61",
+   "corners": [
+    [
+     -83.4092307,
+     39.1229334
+    ],
+    [
+     -83.397481,
+     39.1223815
+    ],
+    [
+     -83.3984401,
+     39.1100908
+    ],
+    [
+     -83.4101898,
+     39.1106428
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902. Fig. 61. Scan: Internet Archive b24849959 leaf 269. Fitted automatically by the batch on 8 matching points; one rotation and scale fits them within 1 m (gate score 5.7 m)",
+   "fit": {
+    "pairs": 8,
+    "model": "similarity",
+    "resid_m": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "m_per_px": 0.5711,
+    "rot_deg": -3.46,
+    "at": "2026-10-12T03:05:18.953607+00:00",
+    "doc": "forthill.b24849959_n0269_1"
+   }
+  },
+  {
    "kind": "topo",
    "file": "topo_1915_48000.webp",
    "year": 1915,

@@ -1,0 +1,90 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_ec1930f8ba9bbabb",
+ "crop": [
+  0,
+  0,
+  1280,
+  881
+ ],
+ "pairs": [
+  [
+   603.3,
+   417.6,
+   7.7499212,
+   48.5813037
+  ],
+  [
+   111.8,
+   228.9,
+   7.740413,
+   48.5897422
+  ],
+  [
+   1045.4,
+   383.8,
+   7.7617619,
+   48.5771539
+  ],
+  [
+   445.0,
+   754.7,
+   7.7404347,
+   48.5772991
+  ],
+  [
+   544.0,
+   122.8,
+   7.7531676,
+   48.5869197
+  ],
+  [
+   841.1,
+   169.0,
+   7.7600102,
+   48.5829668
+  ],
+  [
+   299.1,
+   508.3,
+   7.7406852,
+   48.583021
+  ],
+  [
+   710.9,
+   672.1,
+   7.7485606,
+   48.5758544
+  ]
+ ],
+ "label": "1870",
+ "title": "Strasbourg plan 1870",
+ "cite": "by J. N. Villot; Public domain; https://commons.wikimedia.org/wiki/File:Strasbourg_plan_1870.jpg",
+ "at": "2026-10-12T06:44:15.322973+00:00",
+ "auto": true,
+ "score": 8.7,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/ec1930f8ba9bbabb.jpg",
+ "ref": "File:Strasbourg plan 1870.jpg",
+ "size": [
+  1280,
+  881
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2849,
+  "matches": 4999,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 32.29,
+  "spread": [
+   0.577,
+   140.0
+  ]
+ }
+}

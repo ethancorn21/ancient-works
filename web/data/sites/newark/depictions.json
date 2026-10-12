@@ -27,6 +27,52 @@
    "coverage": 1.0,
    "source": "U.S. Geological Survey Historical Topographic Map Collection: USGS 1:62500-scale Quadrangle for Newark, OH 1909",
    "ink": "topo_1909_62500_ink.webp"
+  },
+  {
+   "kind": "plan",
+   "file": "plan_ArcheologicalAtlasOfOhio_n0098_1.webp",
+   "ink": "plan_ArcheologicalAtlasOfOhio_n0098_1_ink.webp",
+   "year": 1914,
+   "label": "Mills 1914: Earthworks at Newark.",
+   "scale": null,
+   "corners": [
+    [
+     -82.4535811,
+     40.0592956
+    ],
+    [
+     -82.4104765,
+     40.0600034
+    ],
+    [
+     -82.4098675,
+     40.0382758
+    ],
+    [
+     -82.4529721,
+     40.0375678
+    ]
+   ],
+   "coverage": 1.0,
+   "source": "William C. Mills, Archeological Atlas of Ohio, Columbus: Ohio State Archaeological and Historical Society 1914. . Scan: Internet Archive ArcheologicalAtlasOfOhio leaf 98. Fitted automatically by the batch on 8 matching points; one rotation and scale fits them within 1 m (gate score 15.8 m)",
+   "fit": {
+    "pairs": 8,
+    "model": "similarity",
+    "resid_m": [
+     0.0,
+     0.1,
+     0.1,
+     0.1,
+     0.0,
+     0.1,
+     0.1,
+     0.1
+    ],
+    "m_per_px": 3.9208,
+    "rot_deg": 1.23,
+    "at": "2026-10-12T06:23:25.379248+00:00",
+    "doc": "newark.ArcheologicalAtlasOfOhio_n0098_1"
+   }
   }
  ]
 }
