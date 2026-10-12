@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 102, agent a - step 4 of the plan: the serve.py worker + part 2 test WRITTEN, NOT YET RUN; context limit hit after the code was
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 103, agent a - step 4 DONE: the serve.py worker + part 2 test are run and GREEN; suite 71 passed / 1 skipped. Next: headless ca
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,25 +19,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-11 305 DECISION: first session - investigation only, full design settled in the task hand-over
-No code written this iteration. Read the whole line and page surface (serve.py after_write/worker, tools/
-site_done.py, fit/review.py, fit/batch_us.py run_sites, pipeline/plan_fit.py who_placed/build/main, the page's
-fit tool + review.js wrappers, conftest/served, the 303 and 201 test files) and settled the design per
-acceptance box in tasks/305-ready-to-fit.md (## Hand-over). Key calls: (1) queue = built + >=1 candidate
-(plans.json rows naming the site UNION data/review/ item candidates, deduped by plan) + no `by: hand` doc;
-candidate clarity = drawing area in page px (map_box x size, or full page/image), plan over view, one-word
-reasons ("the only candidate" / "a true plan" / "the clearest scan" / "the clearest view"); sites ordered by
-their best candidate's (is-plan, draw area, name). (2) New file web/fitqueue.js (added to Touches) chains
-review.js's wrapper style; home card as next sibling of the "built in all" stats line; done persisted in
-localStorage (self-healed against the file), skipped session-only. (3) serve.py: PUT platefits -> worker runs
-tools/site_done.py main([site]) in-process for that site (model=None fit step is network-free, proven by 303's
-dead-socket GUARD); DELETE keeps the old plan_fit.main([]) sweep + global prune. 303's test d (exact file-set
-assertion on a tree without tools/) stays green because the import failure is swallowed by the existing
-except-BaseException. (4) The one open item for the next agent: READ tests/test_serve.py before editing
-serve.py (never read this session), and settle the big-picture copy strategy for the save->line test
-(data/raw is stripped by conftest; plan_fit.build downloads the picture - copy the ONE file the chosen doc
-needs into the temp tree; check load_picture's exact path for commons vs book docs first).
 
 ### 2026-10-12 305 DECISION: queue generator built (tools/fit_queue.py) + committed fit_queue.json + generator tests
 Step 1 of the 8-step plan from iteration 99. Wrote tools/fit_queue.py (stdlib-only: reads exactly
@@ -108,6 +89,38 @@ fails -> swallowed by the existing except-BaseException-and-print -> no new file
 for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
 ([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
 list drained per wake) is unchanged and still valid.
+
+### 2026-10-12 305 DECISION: part 2 (save -> one-site line) verified green - the pick rule generalized (population moved) and the drain was the bug, not the worker
+Ran the iteration-102-written part 2. Two failures, both fixed: (1) `_pick_site()` returned None -
+the population moved under the batch tasks since iteration 102: Devil's Dyke's last uncovered row
+(n0662_1) now has an agent doc, so EVERY queue site with a book page + item candidate is fully
+covered (batch items hold every non-auto row). Generalized: hard conditions = book row with a local
+page + unresolved item carrying it with >=3 pairs + NO platefits docs for the site (the line then
+builds exactly one overlay: drawings +1 and the open count drop by exactly one); "uncovered rows"
+became a soft preference (pick first, assertion block conditional). Current pick: forthill
+(ancientmonuments00squi_n0068_1, 0 uncovered, 3 pairs). (2) The fixture's `sd.unlink()` crashed on
+a real per-site dir (forthill) - copytree already materializes the checkout's per-site symlinks into
+the tree, so the unlink/re-copy was unnecessary and wrong; deleted it (real dirs are already
+private; the test's symlink + realpath asserts still guard). Then the first full run: PUT ok, the
+drawing landed on the map (depictions poll passed) but the 30 s drain for "finished (exit 0)" timed
+out with only the PUT log line visible. Investigation (throwaway /tmp/diag305*.py, raw os.read
+reader + watchdog dumps): NO hang - the whole one-site line finishes in 23 s (PUT at +1 s, first
+worker print and "finished (exit 0)" at +23 s; the ~22 s is the heavy first import of the
+numpy/scipy/PIL chain). The drain pattern was the bug: select() on the fd of a buffered reader
+(proc.stdout, text mode) is not a wait for lines - the first readline() pre-fetched the OS pipe
+into Python's buffer and select never fired again; a second run also showed a whole-process stall
+of minutes (its watchdog time.sleep(60) never woke - an OS-level thing under parallel-agent load,
+not a Python deadlock: the identical run completes in 23 s elsewhere). Fix in tests/test_fit_queue.py:
+the server's stdout is pulled by a dedicated reader thread (blocking reads, no select at all), the
+fit-entry poll and the "finished" wait merged into one 180 s loop (8x the measured 23 s; the server-
+stays-up assert runs every tick), and the network-freedom / no-failure asserts scan the collected
+lines. Part 1 (synthetic + real population) unchanged and green. Full suite after: 71 passed,
+1 skipped (baseline 70+1; the +1 is part 2). web/data/fit_queue.json re-generated: content identical
+(117 entries, same order - the batch docs are agent docs, which do not move a site out of the queue),
+only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + buffered reader on a
+coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
+real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
+section (box 1's "say how" + the card/save->line semantics).
 
 ## Project-wide driver notes (newest)
 
