@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/217-view-books-lists.md` (in-progress) - hand-over: **2026-10-12, iteration 115 (agent c) - session 3: Merian INVESTIGATION done (structure + mapping + list read);
+- `tasks/217-view-books-lists.md` (in-progress) - hand-over: **2026-10-12, iteration 116 (agent c) - session 4: Merian plate-list TRANSCRIPTION finalized from the 2x crops
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
@@ -98,7 +98,7 @@ samples). Findings, each verified:
    i=429 the plate list at n394, i=197 "BASILEA" at n176, i=11 printed p7). So - unlike civitates -
    hOCR titles can be trusted for this book's leaves. 436 hOCR pages; BR shows 400.
 3. **Structure:** 436 leaves all imaged; BR omits 36: 25 Delete (duplicates/foldout versos) + 10 Foldout
-... (4.2 KB more: `grep -n -A 200 -F '## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list' DECISIONS.md`)
+... (8.3 KB more: `grep -n -A 200 -F '## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
@@ -125,12 +125,3 @@ samples). Findings, each verified:
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12 HAND-OVER NOTE (agent c, 217, iteration 116): session cut at context limit.
-    217 status: Merian plate-list transcription FINAL (full table in tasks/217-view-books-lists.md
-    hand-over); the 10 foldout leaves exist in the IA item as JPGs (foldout 86 = Burgdorff plate);
-    51 wide-leaf images fetched to /tmp/merian/chk/; identified so far: n42=Forsteck, n76=Oron.
-    NEXT: finish leaf identification (batch 2, image set in hand-over), write
-    HAND_FIGS['topographiahelve00zeil'] + parse_hand_figures fig=''->None, ocrmap/validate/commit,
-    then triage, then box 2. No code written this session; tree clean; last suite run 100 passed /
-    1 skipped (session 2, still valid). Details: DECISIONS.md (session-4 entry) + task hand-over.
