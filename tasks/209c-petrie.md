@@ -55,3 +55,35 @@ just those files instead.
 - The existing hand fits (Allcroft Avebury, Allcroft Windmill Hill - see 209b's Notes) are
   never re-staged or re-fitted: new rows only.
 - LLM triage ports and background-job rules: see the parent's mechanics.
+
+## Hand-over
+
+(2026-10-12, iteration 146, agent a - from 209b's Commons check; written by 209b, not this
+task's own session.)
+
+**The Commons Flickr check (209b's job) is done, and it unblocks your fallback.** Both
+unlabeled fit-sized files are Petrie 1880 plates, visually verified (W.M.F.P. signature,
+plate numbers, scales):
+- `File:47 of 'Stonehenge- plans, descriptions and theories' (11135894643).jpg` (2245x2852)
+  = **Pl. I** - the Stonehenge stone-by-stone plan, scale 1:350, the sarsen/bluestone key
+  (Standing 1880 / Standing 1747 / Overthrown) and the outlying-stones forms 91/93/95/96.
+- `File:49 of 'Stonehenge- plans, descriptions and theories' (11133409654).jpg` (4641x2874)
+  = **Pl. II** - Stonehenge with the Avenue, the Cursus inset, the parallel banks,
+  scale 1:1500, "Petrie levels in inches by numbering of stones".
+
+**They are ALSO already in the canonical data/commons/files.jsonl** (rows 713/714,
+stonehenge-q39671, year 1880, caption_coords evidence checked 2026-10-10, the British
+Library Georeferencer description naming PETRIE / shelfmark HMNTS 10352.i.12 / page 47 /
+E. Stanford 1880; machine-classified p_plan 0.94/0.92). So:
+- If the human answers ask_human 002 with the downloaded 1880 book -> run the normal
+  local-copy leg (data/raw/books/petrie1880/, the 207c/209a pattern).
+- If the human declines ("use the Commons files") -> the Commons leg IS those two canonical
+  rows already on the map: do NOT re-stage them into files_wiltshire_c (the Kip-pattern
+  check fails loud on a title already canonical). Your boxes then read: verify the two
+  canonical rows (evidence check offline), record that in the Petrie section of
+docs/lead_wiltshire.md (stage-A/B recall: n/a - no book), and close what the Commons leg
+covers. The book's other plates (Avebury, Silbury, West Kennet) are NOT in Commons and stay
+undelivered unless the human downloads the book.
+- The full findings and the Petrie note are in the Stukeley section of docs/lead_wiltshire.md
+  and in 209b's DECISIONS entries (2026-10-12). Your Status stays blocked on 002 until the
+  driver flips it.
