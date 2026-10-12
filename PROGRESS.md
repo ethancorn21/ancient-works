@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/220-review-page-reexport.md` (open) - hand-over: (2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 118, agent a - still WAITING, now verified exact.) main is still
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 119, agent a - still WAITING; re-verified, no code change.) main is
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -72,12 +72,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
-
-### 2026-10-11 307ba DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc
-    tests/test_fit_queue.py::test_save_runs_the_one_site_line
-    tests/test_site_done.py::test_site_done_line
 
 ### 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands
 One step (diagnosis + task filing, no code change): the done claim (9efb944, all five boxes
@@ -181,6 +175,39 @@ best selection, before entries.append - so a move that changes a site's best can
 recomputes that entry's propose (my committed wiring already sits there, so a two-phase
 restructure keeps it correct without moving it); keep the helper, the `import propose`
 ... (6.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits' DECISIONS.md`)
+
+### 2026-10-12 307ba DECISION: wait re-verified (iteration 119) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty), agent/c snapshot unchanged (804's two-phase wiring still unwritten), fresh FULL suite = exactly the 3 known stale-page failures (3 failed, 70 passed, 1 skipped, 107.4 s) - re-claim stays parked on 220; recorded the post-export item-drift watch (203b writes data/review item files after the page's snapshot) in 220's runner note, the 307ba hand-over and the review-page PITFALLS entry; no code change
+
+One step (wait bookkeeping, no code change): the driver returned 307ba with 220 still
+open. Verified by running, not assuming: `git log main --oneline -20` (tip still cf29be2,
+no 804/805/309 commits), `git show main:web/data/review.json | md5sum` (b6506007 - the
+stale 340-open-of-341 page, unchanged since iteration 118), `git log agent/a..main`
+(empty: nothing to sync), and the local agent/c branch still at its iteration-100 snapshot
+(tip c24c135, work tip d413d0e = 804's build() refactor only, two-phase wiring unwritten).
+So nothing new to merge or verify against. I then re-ran the FULL suite on this branch:
+3 failed, 70 passed, 1 skipped, 107.4 s - the identical three stale-page failures the
+driver's rejection run saw (same asserts, same 335/334/334-vs-340 arithmetic), zero new
+failures. My committed state (cbb36c8 boxes 1-3, 732fe57 box 4, 7f7e7c0 box 5, 9efb944 the
+rejected done claim) contributes nothing to the block; the re-claim stays parked on 220
+(no re-claim this session - it would fail exactly as before; the driver counts the 3 as
+new-to-task because b22a2d2/cf29be2 landed after 307ba started - iteration-116 entry
+stands).
+
+**New watch item for the re-claim** (learned from this iteration's driver prompt, which
+lists agent c's in-flight tasks as 203b, 207, 302a, 304, 309 - still the PARENT, so the
+split has not closed): 203b (the EU batch) writes new REVIEW ITEMS into data/review for
+its unplaceable sites. The committed page is a SNAPSHOT of the item population at the last
+full export, so a 203b merge landing AFTER 805/220's export re-stales the page against
+the three derived-count tests - with DIFFERENT numbers than 335/334, so it would read as
+new failures on my re-claim and could get rejected again for a store reason I did not
+cause. Recorded in three places: 220's runner hand-over (a no-op export + still-red tests
+= item-population drift; re-run the export - no item files change, only the page rewrites;
+that is 220's box 1, not a re-baseline), the 307ba hand-over's wait condition (diagnose
+with a scratch `fit/review.py export --root <copy>` before blaming code), and the
+review-page PITFALLS entry (third trigger: new item files; heading extended for grep).
+If a future re-claim hits exactly this, the move is to file/propose a fresh re-export
+task, never to touch the three tests. No ask_human: this is a plain dependency wait on
+220, which the driver handles by bringing 307ba back once 309's chain lands.
 
 ## Project-wide driver notes (newest)
 
