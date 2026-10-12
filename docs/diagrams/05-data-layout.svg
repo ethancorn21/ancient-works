@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="770" viewBox="0 0 1100 770" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>Where things live on disk</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="770" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="753" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="745" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">Where things live on disk</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">repo ~/code/projects/ancient-works   (solid = committed; dashed = gitignored or untracked; pink = private, LAN only, never published)</text>
+<rect x="28" y="80" width="150" height="40" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="95" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">ancient-works/</text>
+<text x="36" y="108" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">(repo root)</text>
+<line x1="103" y1="120" x2="103" y2="700" stroke="#2B2724" stroke-width="1"/>
+<line x1="103" y1="154.0" x2="128" y2="154.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="136" width="548" height="36" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="151" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/</text>
+<text x="136" y="164" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">index.html, review.js, fitqueue.js, test.html, vendor/ (maplibre 5.6, three r128, fonts)</text>
+<line x1="103" y1="194.0" x2="128" y2="194.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="176" width="548" height="36" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/data/</text>
+<text x="136" y="204" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sites.json, plans.json, catalog.json, review.json, fit_queue.json, world.jpg (unused)</text>
+<line x1="103" y1="240.0" x2="128" y2="240.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="216" width="548" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="136" y="231" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/data/sites/&lt;id&gt;/</text>
+<text x="136" y="244" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">relief.jpg, block_*.{png,jpg}, imagery.jpg, &lt;layer&gt;.webp, plan_*.webp, depictions.json</text>
+<text x="136" y="256" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">gitignored except fudge, hopeton, newark, marietta, forthill, highbank (the six plate sites)</text>
+<line x1="103" y1="286.0" x2="128" y2="286.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="268" width="548" height="36" fill="#F2B5C4" stroke="#2B2724" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="136" y="283" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/data/scan/, scans.json, web/data/amazon/</text>
+<text x="136" y="296" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Finder candidates and the Amazon SFB relief tiles + areas.json: looting / burial sensitivity</text>
+<line x1="103" y1="332.0" x2="128" y2="332.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="308" width="548" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/catalog/</text>
+<text x="136" y="336" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sites.jsonl (12,603 Wikidata rows), extras.jsonl + extras_&lt;source&gt;.jsonl, location_checks,</text>
+<text x="136" y="348" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">triage_*.json, us_coverage.jsonl, batch1.txt, batch2_castles.txt, summary.md</text>
+<line x1="103" y1="384.0" x2="128" y2="384.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="360" width="548" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="375" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/books/, data/commons/</text>
+<text x="136" y="388" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">books: index.jsonl, matches.jsonl, validation.json, lists/, triage/; commons: files.jsonl,</text>
+<text x="136" y="400" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">classified.jsonl (+ _&lt;source&gt; staging). data/commons/sheets/ is gitignored</text>
+<line x1="103" y1="436.0" x2="128" y2="436.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="412" width="548" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="427" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/sites/&lt;id&gt;/</text>
+<text x="136" y="440" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site.json (committed; the plate sites carry walls, fit, warp) | dem.npy, dem_box.json,</text>
+<text x="136" y="452" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">dem_credit.json, modern_mask.npy (gitignored caches; the VM copy has none)</text>
+<line x1="103" y1="488.0" x2="128" y2="488.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="464" width="548" height="48" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="479" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/db/&lt;collection&gt;/&lt;doc&gt;.json</text>
+<text x="136" y="492" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">platefits/ (118 docs: 21 by hand, 97 by agent, 4 of those by the matcher); depalign/ untracked;</text>
+<text x="136" y="504" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plates/ read by the page but absent; marks/, surveyseen/, verdicts/ private, gitignored</text>
+<line x1="103" y1="534.0" x2="128" y2="534.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="516" width="548" height="36" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="136" y="531" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/review/&lt;site&gt;.&lt;plan&gt;.json</text>
+<text x="136" y="544" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">342 item files + README.md (the contract): candidates, proposed pairs, no_picture_found, resolved</text>
+<line x1="103" y1="580.0" x2="128" y2="580.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="556" width="548" height="48" fill="#CFC6E0" stroke="#2B2724" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="136" y="571" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/raw/   (1.9 GB, gitignored)</text>
+<text x="136" y="584" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">books/&lt;ia&gt;/full/n&lt;N&gt;.jpg, commons/&lt;site&gt;/&lt;hash&gt;.jpg + big/, aerial/ (Esri exports, never</text>
+<text x="136" y="596" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">published), tiles/, usgs/, nls/, lidar_pc/, lidar_scot/, topo/, world/, clef_smoke/</text>
+<line x1="103" y1="626.0" x2="128" y2="626.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="608" width="548" height="36" fill="#CFC6E0" stroke="#2B2724" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="136" y="623" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/tilecache/, data/finder/, data/scan/, data/demtest/</text>
+<text x="136" y="636" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">relief-tile DEM chunks + proj grids (OSTN15); Finder working data (private); scan tiles</text>
+<line x1="103" y1="666.0" x2="128" y2="666.0" stroke="#2B2724" stroke-width="1"/>
+<rect x="128" y="648" width="548" height="36" fill="#CFC6E0" stroke="#2B2724" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="136" y="663" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/autofit/, data/inkfit/, data/matchfit/, data/plates/</text>
+<text x="136" y="676" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">experiments: autofit *.npz ignored; inkfit/heldout and matchfit/heldout* results.json committed</text>
+<rect x="694" y="80" width="378" height="150" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="702" y="95" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Code (committed)</text>
+<text x="702" y="108.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">pipeline/  catalog, build_catalog, build_site, depict, nls, aw,</text>
+<text x="702" y="121.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  dem_sources, usgs, ept, lidar_*, books*, commons, sources,</text>
+<text x="702" y="133.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  plan_fit, fit_gate, fit_plate, autofit*, finder_*, amazon_*,</text>
+<text x="702" y="146.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  llm, clef, topo, world_plate, preview, viz</text>
+<text x="702" y="158.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit/  batch_us, batch_eu, propose, review, evidence, inkfit*,</text>
+<text x="702" y="171.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  src_* (leads), matchfit, matchfit2, matchfit_heldout (22:03-22:27)</text>
+<text x="702" y="183.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tools/  site_done, fit_queue, fitkit, export_plans, export_</text>
+<text x="702" y="196.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  catalog, gate_heldout, shot.mjs;  server/ serve.py, relief_tiles</text>
+<text x="702" y="208.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tests/  pytest end to end through serve.py --port 0; golden/</text>
+<rect x="694" y="242" width="378" height="150" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="702" y="257" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Harness memory (committed; agents read it first)</text>
+<text x="702" y="270.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">AGENTS.md  rules of the agent loop (a fresh agent each session)</text>
+<text x="702" y="283.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">GOAL.md  the owner's description;  PLAN.md  the agents' plan</text>
+<text x="702" y="295.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tasks/NNN-name.md  Status / Depends on / Touches / boxes</text>
+<text x="702" y="308.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">DECISIONS.md  journal (newest);  DECISIONS-archive.md  finished</text>
+<text x="702" y="320.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">PITFALLS.md  lasting facts;  PROGRESS.md, CODEMAP.md  generated</text>
+<text x="702" y="333.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">docs/  gate.md, autofit.md, site_flow.md, matchfit.md, sources.md,</text>
+<text x="702" y="345.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  batch_*.md, lead_*.md, finder*.md, PLAN.md (the 10-10 site plan)</text>
+<text x="702" y="358.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">specs/  site_boxes.json, aliases.json, the six plate specs</text>
+<text x="702" y="370.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">requirements.in / requirements.txt (hashed) -&gt; .venv/ (ignored)</text>
+<rect x="694" y="404" width="378" height="124" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="702" y="419" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Rules that follow from the layout</text>
+<text x="702" y="432.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand fits (platefits by: hand, the six site.json plates) are the</text>
+<text x="702" y="445.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  owner's: no script changes or deletes them</text>
+<text x="702" y="457.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">new results go in tracked files: platefits, extras.jsonl,</text>
+<text x="702" y="470.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  commons files / classified, data/review</text>
+<text x="702" y="482.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Finder / Amazon / marks / verdicts: never read by agents, never</text>
+<text x="702" y="495.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  pushed (also .git/info/exclude on the VM)</text>
+<text x="702" y="507.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">per-site images are rebuilt by build_catalog.py, so only the six</text>
+<text x="702" y="520.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  hand-fitted sites' folders are tracked</text>
+<rect x="694" y="540" width="378" height="70" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="702" y="555" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Sizes today (2026-10-11)</text>
+<text x="702" y="568.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sites.json 385 entries (17 aerial-only, 29 with drawings &gt;= 1,</text>
+<text x="702" y="581.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">277 scored); web/data/sites 388 dirs; data/sites 390; plans.json</text>
+<text x="702" y="593.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">1166 rows; review 336 open items; fit queue 116 sites (as of 22:27)</text>
+<rect x="694" y="624" width="378" height="120" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="883.0" y="639" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="704.0" y="650" width="22" height="12" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.9"/>
+<text x="734.0" y="660" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">committed</text>
+<rect x="704.0" y="668" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="734.0" y="678" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">committed documents written by the page / agents</text>
+<rect x="704.0" y="686" width="22" height="12" fill="#CFC6E0" stroke="#2B2724" stroke-width="0.9" stroke-dasharray="4 2"/>
+<text x="734.0" y="696" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">gitignored caches and experiments</text>
+<rect x="704.0" y="704" width="22" height="12" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.9" stroke-dasharray="4 2"/>
+<text x="734.0" y="714" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">private, LAN only, never published</text>
+<rect x="704.0" y="722" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="734.0" y="732" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">code and memory files</text>
+<text x="28" y="732" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">.gitattributes: PROGRESS.md and CODEMAP.md merge=ours; DECISIONS*.md and PITFALLS.md merge=union (team mode: every agent appends).</text>
+<text x="28" y="748" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">The VM clone symlinks data/raw and ignores web/data/sites/&lt;id&gt;; the Mac is the only machine with every file.</text>
+</svg>

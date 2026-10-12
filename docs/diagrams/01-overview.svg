@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>System overview</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="790" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="773" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="765" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">System overview</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">sources on the internet -&gt; pipeline on the Mac -&gt; files on disk -&gt; serve.py on the LAN -&gt; the browser page</text>
+<text x="139.0" y="84" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Sources</text>
+<line x1="28" y1="90" x2="250" y2="90" stroke="#2B2724" stroke-width="0.8"/>
+<text x="413.0" y="84" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Pipeline (Mac, .venv python)</text>
+<line x1="278" y1="90" x2="548" y2="90" stroke="#2B2724" stroke-width="0.8"/>
+<text x="692.0" y="84" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Data on disk</text>
+<line x1="576" y1="90" x2="808" y2="90" stroke="#2B2724" stroke-width="0.8"/>
+<text x="954.0" y="84" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Serve and browse</text>
+<line x1="836" y1="90" x2="1072" y2="90" stroke="#2B2724" stroke-width="0.8"/>
+<rect x="28" y="100" width="222" height="50" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="115" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Wikidata (CC0)</text>
+<text x="36" y="129" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">earthworks with coordinates</text>
+<text x="36" y="142" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">12,603 catalog entries</text>
+<rect x="28" y="158" width="222" height="50" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="173" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Wikimedia Commons</text>
+<text x="36" y="187" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">old plans, views, engravings</text>
+<text x="36" y="200" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">pre-1926; P373 / P180 ties</text>
+<rect x="28" y="216" width="222" height="50" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="231" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Internet Archive</text>
+<text x="36" y="245" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">8 old books: Squier &amp; Davis 1848,</text>
+<text x="36" y="258" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Lapham, Thomas, Fowke, Allcroft...</text>
+<rect x="28" y="274" width="222" height="50" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="289" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">NLS / IGN / Kadaster tiles</text>
+<text x="36" y="303" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">OS six-inch 1st ed., Roy 1747,</text>
+<text x="36" y="316" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Cassini, Etat-major, TMK 1850</text>
+<rect x="28" y="332" width="222" height="50" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="347" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">LiDAR bare-earth DEMs</text>
+<text x="36" y="361" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">USGS 3DEP (1 m), EA, AHN, IGN;</text>
+<text x="36" y="374" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">S3: Scotland, open-lidar-data</text>
+<rect x="28" y="390" width="222" height="50" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="405" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Esri World Imagery</text>
+<text x="36" y="419" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">aerial photograph tiles (drawn</text>
+<text x="36" y="432" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">by the browser; fitkit ground)</text>
+<rect x="278" y="100" width="270" height="54" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="286" y="115" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">1. Catalog</text>
+<text x="286" y="129" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">pipeline/catalog.py, sources.py</text>
+<text x="286" y="142" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; data/catalog/sites.jsonl + extras.jsonl</text>
+<rect x="278" y="158" width="270" height="67" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="286" y="173" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">2. Build a site</text>
+<text x="286" y="187" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">build_catalog.py -&gt; build_site.py:</text>
+<text x="286" y="200" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">DEM -&gt; relief, block; depict.py + nls.py</text>
+<text x="286" y="213" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; old sheets on the site box</text>
+<rect x="278" y="230" width="270" height="67" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="286" y="245" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">3. Pictures (depictions)</text>
+<text x="286" y="259" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">books.py (IA pages, Qwen triage),</text>
+<text x="286" y="272" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">commons.py harvest, tools/export_plans.py</text>
+<text x="286" y="285" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; web/data/plans.json (1166 rows)</text>
+<rect x="278" y="302" width="270" height="67" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="286" y="317" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">4. Fits</text>
+<text x="286" y="331" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand: the page's fit tool (trusted)</text>
+<text x="286" y="344" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">auto: fit/batch_*.py, inkfit, matchfit</text>
+<text x="286" y="357" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; data/db/platefits -&gt; plan_fit.py</text>
+<rect x="278" y="374" width="270" height="54" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="286" y="389" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">5. One-site line</text>
+<text x="286" y="403" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tools/site_done.py: fit -&gt; sync -&gt;</text>
+<text x="286" y="416" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">entry -&gt; review; fit_queue.py, review.py</text>
+<line x1="250" y1="125" x2="278" y2="118" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M250,183 Q266,200 278,250" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M250,241 Q266,250 278,262" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M250,299 Q266,300 278,200" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M250,357 Q266,350 278,185" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M250,415 Q266,400 278,330" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="413" y1="154" x2="413" y2="158" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="413" y1="225" x2="413" y2="230" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="413" y1="297" x2="413" y2="302" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="413" y1="369" x2="413" y2="374" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="576" y="100" width="232" height="54" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="115" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/catalog, books, commons</text>
+<text x="584" y="129" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">jsonl rows: sites, pictures,</text>
+<text x="584" y="142" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">evidence (committed)</text>
+<rect x="576" y="160" width="232" height="54" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="175" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/sites/&lt;id&gt;/</text>
+<text x="584" y="189" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site.json (committed)</text>
+<text x="584" y="202" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">dem.npy cache (gitignored)</text>
+<rect x="576" y="220" width="232" height="67" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="235" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/data/sites/&lt;id&gt;/</text>
+<text x="584" y="249" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">relief.jpg, block_h.png, block_top.jpg</text>
+<text x="584" y="262" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">&lt;layer&gt;.webp + _ink.webp, plan_*.webp</text>
+<text x="584" y="275" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">depictions.json (gitignored, 6 tracked)</text>
+<rect x="576" y="292" width="232" height="54" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="307" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">web/data/*.json</text>
+<text x="584" y="321" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sites.json (entries, score, drawings)</text>
+<text x="584" y="334" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plans.json, review.json, fit_queue.json</text>
+<rect x="576" y="352" width="232" height="54" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="367" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/db/&lt;collection&gt;/&lt;doc&gt;.json</text>
+<text x="584" y="381" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">platefits (by: hand | agent), depalign;</text>
+<text x="584" y="394" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">marks, surveyseen, verdicts (private)</text>
+<rect x="576" y="412" width="232" height="54" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="584" y="427" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">data/review/&lt;site&gt;.&lt;plan&gt;.json</text>
+<text x="584" y="441" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">review items: candidates, pairs,</text>
+<text x="584" y="454" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">resolved</text>
+<line x1="548" y1="125" x2="576" y2="125" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="548" y1="200" x2="576" y2="190" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M548,260 Q562,280 576,300" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M548,330 Q562,350 576,380" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M548,400 Q562,420 576,440" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="836" y="100" width="236" height="150" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="844" y="115" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">server/serve.py  (port 8642)</text>
+<text x="844" y="129" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">stdlib http server; --lan binds 0.0.0.0</text>
+<text x="844" y="142" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">clients: 127/8 + 10.0.0.0/16 only</text>
+<text x="844" y="155" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">serves web/ as static files</text>
+<text x="844" y="168" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">GET/PUT/DELETE /api/db/&lt;coll&gt;/&lt;doc&gt;</text>
+<text x="844" y="181" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">/tiles/relief/{z}/{x}/{y}.webp z12-17</text>
+<text x="844" y="194" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  (needs the venv: numpy, scipy, PIL)</text>
+<text x="844" y="207" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">/books/&lt;ia&gt;/n&lt;N&gt;.jpg, /media/commons/</text>
+<text x="844" y="220" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">PUT platefits -&gt; worker thread runs</text>
+<text x="844" y="233" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  tools/site_done.py for that site</text>
+<rect x="836" y="280" width="236" height="150" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="844" y="295" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Browser: web/index.html</text>
+<text x="844" y="309" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">MapLibre globe, Esri imagery base</text>
+<text x="844" y="322" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">live relief tiles when ground = relief</text>
+<text x="844" y="335" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">per-site image layers: relief.jpg,</text>
+<text x="844" y="348" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  plate ink/paper, &lt;layer&gt;.webp</text>
+<text x="844" y="361" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site panel = plate EXPLANATION column</text>
+<text x="844" y="374" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit tool (click pairs), review.js,</text>
+<text x="844" y="387" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  fitqueue.js, Finder tab, block view</text>
+<text x="844" y="400" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">phone on the home Wi-Fi: same page</text>
+<line x1="808" y1="140" x2="836" y2="140" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="804.0" y="125.0" width="36.0" height="14" fill="#f3ecd9"/>
+<text x="822.0" y="135.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">reads</text>
+<path d="M836,300 Q822,330 808,340" fill="none" stroke="#6B625A" stroke-width="1.1" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+<rect x="798.4" y="305.0" width="47.2" height="14" fill="#f3ecd9"/>
+<text x="822.0" y="315.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">PUT fit</text>
+<line x1="954" y1="250" x2="954" y2="280" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="908.0" y="250.0" width="92.00000000000001" height="14" fill="#f3ecd9"/>
+<text x="954.0" y="260.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">HTTP on the LAN</text>
+<text x="28" y="480" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" style="text-transform:uppercase" letter-spacing="2">Where it runs</text>
+<line x1="28" y1="486" x2="1072" y2="486" stroke="#2B2724" stroke-width="0.8"/>
+<rect x="28" y="496" width="330" height="190" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="511" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">The Mac (owner)</text>
+<text x="36" y="525" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">runs every pipeline command and serve.py --lan</text>
+<text x="36" y="538" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand fits in the page (the only trusted fits)</text>
+<text x="36" y="551" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">git: pulls `vm/main`, reviews, merges, runs</text>
+<text x="36" y="564" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  plan_fit / build_site --marks, pushes GitHub</text>
+<text x="36" y="577" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">holds the private Finder/Amazon data and all</text>
+<text x="36" y="590" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  caches (data/raw 1.9 GB, dem.npy, tilecache)</text>
+<text x="36" y="603" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">reaches the AI box through ssh tunnels:</text>
+<text x="36" y="616" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  18080 -&gt; 8080, 18082 -&gt; 8082, 18083 -&gt; 8083</text>
+<rect x="386" y="496" width="330" height="190" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<text x="394" y="511" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">AI box (GPUs: 3090 Ti, 5060 Ti)</text>
+<text x="394" y="525" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Qwen3.8-27B vision model: vLLM :8080 (3090 Ti),</text>
+<text x="394" y="538" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  llama.cpp :8082 (5060 Ti); pipeline/llm.py:</text>
+<text x="394" y="551" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  books triage, relief-crop triage, batch fits</text>
+<text x="394" y="564" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  ("never for facts": a lead to check)</text>
+<text x="394" y="577" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Clef-flash :8083 (5060 Ti): Finder re-ranker,</text>
+<text x="394" y="590" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  bake-off failed 2026-10-10, server stopped</text>
+<text x="394" y="603" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">MatchAnything-ELoFTR matcher :8091 (5060 Ti):</text>
+<text x="394" y="616" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  fit/matchfit.py, the newest auto-fit lead</text>
+<text x="394" y="629" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the 8080/8081/8082 cards belong to the</text>
+<text x="394" y="642" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  frontpage agents a/c/b unless paused</text>
+<rect x="744" y="496" width="328" height="190" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="752" y="511" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Harness VM (agents a and c)</text>
+<text x="752" y="525" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">clone of main at /home/agent/projects/ancient-works</text>
+<text x="752" y="538" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fresh agent per session; memory = AGENTS.md,</text>
+<text x="752" y="551" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  tasks/*.md, PROGRESS, DECISIONS, PITFALLS, CODEMAP</text>
+<text x="752" y="564" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">one task each (fit/, tools/, web/review.js, ...),</text>
+<text x="752" y="577" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tests through the served page, no unit tests</text>
+<text x="752" y="590" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">has web/data/sites images, not dem.npy</text>
+<text x="752" y="603" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">model at $AW_LLM_URL (not the Mac tunnels)</text>
+<text x="752" y="616" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">never pushes to GitHub: the Mac fetches `vm</text>
+<text x="752" y="629" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  and merges (`git fetch vm`, review, merge)</text>
+<path d="M551,496 Q551,450 470,440" fill="none" stroke="#6B625A" stroke-width="1.1" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+<rect x="367.7" y="464.0" width="125.60000000000001" height="14" fill="#f3ecd9"/>
+<text x="430.5" y="474.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">model / matcher calls</text>
+<path d="M900,496 Q900,455 760,460" fill="none" stroke="#6B625A" stroke-width="1.1" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+<rect x="774.0" y="474.0" width="232.00000000000003" height="14" fill="#f3ecd9"/>
+<text x="890.0" y="484.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">agent commits (fits, review items, code)</text>
+<rect x="28" y="700" width="1044" height="66" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="550.0" y="715" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="38.0" y="726" width="22" height="12" fill="#CFC6E0" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="736" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">source / model</text>
+<rect x="38.0" y="744" width="22" height="12" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="754" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">code that runs on the Mac or VM</text>
+<rect x="386.0" y="726" width="22" height="12" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="736" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">experimental or agent work</text>
+<rect x="386.0" y="744" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="754" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">files on disk</text>
+<rect x="734.0" y="726" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="764.0" y="736" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">server / map tiles</text>
+<rect x="734.0" y="744" width="22" height="12" fill="#9ED8D8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="764.0" y="754" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">ground: LiDAR, imagery, the page</text>
+</svg>
