@@ -47,19 +47,45 @@ the result with no page change (GOAL.md point 5).
   task only reads them and writes the two shared files (index.jsonl, validation.json).
 
 ## Hand-over
-**From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-must be merged into the canonical files by fit/merge.py: data/catalog/extras_artists.jsonl (two NEW
-sites: imola-q50195, venice-q641 - both kind "town", aerial-photograph ground, region "Italy"),
-data/commons/files_artists.jsonl and data/commons/classified_artists.jsonl (2 rows each; every row
-already carries the 200 evidence field - hand-recorded caption_coords, verified by
-.venv/bin/python fit/src_artists.py --check, 2/2 PASS). Per-book civitates files also exist and feed
-the index.jsonl rebuild: data/books/triage/civitatesorbiste00brau.{A,F}.jsonl (A 292/292, F 118/118,
-zero errors), data/books/lists/civitatesorbiste00brau.json (121 figure entries, 7 hand-verified plans)
-and .map.json ([]). NOTE: the current books_lists machinery emits an index row only for kind "s";
-Liber secundus's bird's-eye VIEWS reach the plan list only after 217 lands its view-as-drawing index
-(order 215 -> 216 -> 217). Until then, zero index rows from this book is 217's pending gap, NOT a
-211 merge failure - do not invent rows to compensate. 211's Depends omits 213 by design (wave order
-2 -> 4 covers it; the merge is idempotent over whatever staging files exist).
+(2026-10-12, iteration 173, agent a - merged main; the 211 pair now works; all six boxes still unticked)
+
+State:
+- fit/merge.py verified correct: append-only growth (old bytes byte-identical, written through a
+  temp file), key = id (catalog) / (site, title) (commons), first row wins, conflicts and
+  missing/kind-none evidence rows are refused and logged in data/merge/log.jsonl (no timestamps;
+  a no-op rerun rewrites it byte-identical). rc 0 = no refusals, rc 1 = any refusal.
+- tests/test_merge.py: 3/3 pass hermetic (temp tree via --root, sockets blocked). Full suite:
+  134 passed, 1 skipped. The LIVE canonical files are NOT yet merged - data/merge/ does not exist
+  in the repo (tests never write there).
+- Real staging inventory: extras = artists(2), kip, limes, mackenzie, van_deventer; files and
+  classified additionally have numancia, wiltshire_b; NO roman staging (207 stopped by the owner -
+  see Lead note; the merge is idempotent, a later rerun picks it up). Checked: 0 staging rows
+  fail the evidence gate, 0 cross-source/canonical conflicts.
+
+Remaining work = the six acceptance boxes, in this order:
+1. Live run: `.venv/bin/python fit/merge.py merge` in this repo. Creates data/merge/log.jsonl and
+   appends staging rows into data/catalog/extras.jsonl, data/commons/files.jsonl, classified.jsonl.
+   Verify: git diff shows only growth; second run produces zero further diff.
+2. Rebuild data/books/index.jsonl + validation.json with the existing books machinery (8 original
+   books; 213's civitates per-book files feed it). Every row reaching the plan list carries the 200
+   evidence field; fit/evidence.py check passes offline on the merged set. NOTE: Liber secundus'
+   bird's-eye VIEWS land only after 217 (order 215 -> 216 -> 217) - zero index rows from that book
+   is 217's gap, NOT a 211 failure; do not invent rows.
+3. Build the new sites (build_catalog.py / build_site.py - the slow working-phase part: DEM fetch +
+   images) -> web/data/sites/<id>/ for each new site id; web/data/sites.json grows by exactly the
+   new sites, old 384 entries unchanged (except fields 212 later owns).
+4. Refresh web/data/plans.json (tools/export_plans.py): new picture rows present, every pre-merge
+   (id, sites[0]) key still present, (id, sites[0]) stays unique.
+5. docs/sources.md: per-lead status consolidated from docs/lead_*.md (staged vs dropped and why).
+6. Human's reference untouched: tests/test_serve.py golden (25 hand fits / 19 sites) still green
+   after the merge (it is in the suite; re-verify at claim time).
+
+Next step (new session): box 1 - run the live merge, verify the git-diff is pure growth + idempotent
+rerun, commit.
+
+Re-read: fit/merge.py:run_target - the evidence gate applies to files.jsonl rows with a title ONLY;
+classified rows are not gated (the plan-list gate is on the files rows) - check that reading before
+changing the gate.
 
 ## Lead note (2026-10-12)
 207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step.

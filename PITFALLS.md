@@ -859,6 +859,11 @@ Where: fit/src_wiltshire_hoare.py (status()/register() import books lazily; src_
 Symptom: `python fit/src_wiltshire_hoare.py --status` -> ModuleNotFoundError: No module named 'books' while the pytest suite passes
 Why: the test file inserts pipeline/ (and fit/) into sys.path before importing the module, but bare `python <script>` puts only the script's own directory on the path. Do `sys.path.insert(0, <root>/pipeline)` at module top (the src_mackenzie.py idiom) so the CLI and the tests share one import path.
 
+#### Staging -> canonical path mapping must be a stem map, never string surgery: source names contain underscores
+Where: staging naming `data/{catalog,commons}/<stem>_<source>.jsonl`; `tests/test_merge.py` (`_canon_of`), `fit/merge.py` (`source_of`)
+Symptom: `p.replace("extras_", "extras.")` on `extras_artists.jsonl` yields `extras.artists.jsonl` (FileNotFoundError the moment you open it); `p.rsplit("_", 1)[0]` mangles underscored sources: `files_wiltshire_b.jsonl` -> `files_wiltshire.jsonl`, `classified_van_deventer.jsonl` -> `classified_van.jsonl`
+Why: a staging filename is `<stem>_<source>.jsonl` and the source name itself may carry underscores (wiltshire_b, van_deventer). Derive the canonical path from a fixed stem map (`data/catalog/extras_` -> `data/catalog/extras.jsonl`, `data/commons/files_` -> `data/commons/files.jsonl`, `data/commons/classified_` -> `data/commons/classified.jsonl`) - or from the glob prefix the reader already used - and never slice on `_` inside a name.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing

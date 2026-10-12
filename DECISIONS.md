@@ -275,3 +275,33 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   594); fit/ has no __init__.py. A full-suite baseline run was kicked off to
   /tmp/baseline_suite.log this session and NOT verified (context limit) - check it first
   thing; last known green was the 307a closure (iteration 109).
+
+## 2026-10-12 211 DECISION: merged main (header-line conflict) and fixed the 3 test_merge bugs iteration 172 left behind
+- Merge main into agent/a (b9f1abd). Only conflict: tasks/211-merge-build.md header. Main (the
+  lead) dropped 207 from Depends (207 stopped by the owner; the lead note is kept below the
+  hand-over) and my iteration 172 had added `data/merge/` to Touches. Resolution keeps BOTH
+  intents: `Depends on: 200, 204, 205, 206, 208, 209, 210` (no 207) + `data/merge/` kept in
+  Touches (merge.py writes data/merge/log.jsonl when run live; tests run with --root in a
+  temp tree and never create it in the repo).
+- Bug 1 (the real one): fit/merge.py::grow() wrote str lines into a `open(..., "wb")` file ->
+  `TypeError: a bytes-like object is required, not 'str'`. The run died with rc 1 AFTER
+  zero appends, so test 3 saw x2 missing and the canonical files unchanged. Fix:
+  `f.write("".join(new_lines).encode("utf-8"))` (the lines came from utf-8 text reads, so the
+  re-encoding is byte-identical).
+- Bug 2: tests/test_merge.py::_tree() copied fit/merge.py into the temp tree without creating
+  the `fit/` directory -> FileNotFoundError (tests 1-2). Added the mkdir.
+- Bug 3 (four sub-bugs in the test's path/line handling): (a) `_canon_of` now maps by stem
+  (`data/catalog/extras_` -> `data/catalog/extras.jsonl` ...); the old
+  `p.replace("extras_", "extras.")` produced `extras.artists.jsonl`, and rsplit on `_` would
+  mangle wiltshire_b/van_deventer (PITFALLS entry filed); (b) `hashes()` hashed paths relative
+  to pytest's CWD (repo root) instead of the tree - data/merge/log.jsonl does not exist at the
+  repo root, so every call raised; (c) the pre-merge membership test compared `\n`-terminated
+  lines against `splitlines()` (no `\n`) so canon_before was ALWAYS empty (and startswith on
+  an empty prefix passed trivially) - fixed with rstrip("\n"); (d) growth-count comprehension
+  lacked the exists() guard for the absent roman staging. Also deleted dead code left in the
+  growth block (unused keys/expected/st_rows).
+- Verified on the real staging data: 0 rows fail the 200 evidence gate, 0 cross-source or
+  canonical conflicts (so the distinct-row growth count is exact for this data).
+- Result: full suite 134 passed, 1 skipped (perf). The live canonical files are still
+  unmerged; the next step is the live merge run + the five remaining acceptance boxes
+  (books index, site builds, plans.json, sources.md, human-reference golden).

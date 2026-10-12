@@ -119,7 +119,7 @@ def grow(tpath, new_lines):
     tmp = tpath + ".tmp"
     with open(tmp, "wb") as f:
         f.write(data)
-        f.writelines(new_lines)
+        f.write("".join(new_lines).encode("utf-8"))  # old bytes raw, new lines re-encoded: identical bytes
     os.replace(tmp, tpath)
 
 

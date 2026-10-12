@@ -55,8 +55,18 @@ def _tree(tmp_path):
         dst = tmp_path / p
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dst)
+    (tmp_path / "fit").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(os.path.join(ROOT, "fit", "merge.py"), tmp_path / "fit" / "merge.py")
     return tmp_path
+
+
+def _canon_of(staging_path):
+    """data/catalog/extras_kip.jsonl -> data/catalog/extras.jsonl (staging name = canonical stem + _<source>).
+    Mapped by stem, not by string surgery: source names may contain underscores (wiltshire_b, van_deventer)."""
+    for stem in ("data/catalog/extras", "data/commons/files", "data/commons/classified"):
+        if staging_path.startswith(stem + "_"):
+            return stem + ".jsonl"
+    raise ValueError(staging_path)
 
 
 def run_merge(tree):
@@ -65,8 +75,7 @@ def run_merge(tree):
 
 
 def hashes(paths):
-    return {p: hashlib.sha256(open(os.path.join(*p.split("/")), "rb").read()).hexdigest()
-            for p in paths}
+    return {p: hashlib.sha256(open(p, "rb").read()).hexdigest() for p in paths}
 
 
 def test_all_staging_merged_and_prefix_preserved(tmp_path):
@@ -82,24 +91,15 @@ def test_all_staging_merged_and_prefix_preserved(tmp_path):
     for p in STAGING:
         if not (tree / p).exists():
             continue
-        canon_p = p.split("_")[0] + ".jsonl"  # extras_kip -> extras (prefix data/catalog|data/commons)
-        canon_p = p.replace("extras_", "extras.").replace("files_", "files.").replace("classified_", "classified.")
+        canon_p = _canon_of(p)
         have = {_norm(l) for l in _lines(tree / canon_p)}
         for l in _lines(tree / p):
             assert _norm(l) in have, f"{p}: row not in {canon_p}: {l[:120]}"
     # the growth is exactly the staging that was not there yet (no duplicate appends)
     for p in CANON:
         st = [q for q in STAGING if q.startswith(p.rsplit(".", 1)[0])]
-        st_rows = [_norm(l) for q in st if (tree / q).exists() for l in _lines(tree / q)]
-        canon_before = {_norm(l) for l in _lines(tree / p) if l in before[p].decode("utf-8").splitlines()}
-        # count distinct staging keys (first source wins on a cross-source duplicate)
-        keys, expected = set(), 0
-        for n in dict.fromkeys(st):
-            for l in _lines(tree / n):
-                k = _norm(l)
-                kkey = tuple(json.loads(l).get(x) for x in ("id",) if k.startswith(("extra",)))
-                pass
-        assert len(_lines(tree / p)) == len(canon_before) + len({k for n in st for k in map(_norm, _lines(tree / n))} - canon_before)
+        canon_before = {_norm(l) for l in _lines(tree / p) if l.rstrip("\n") in before[p].decode("utf-8").splitlines()}
+        assert len(_lines(tree / p)) == len(canon_before) + len({k for n in st if (tree / n).exists() for k in map(_norm, _lines(tree / n))} - canon_before)
     log = json.loads("".join(_lines(tree / "data/merge/log.jsonl")) and "[" + ",".join(_lines(tree / "data/merge/log.jsonl")) + "]")
     assert log, "the merge log is empty although staging was merged"
     assert all(e["action"] == "merged" for e in log), [e for e in log if e["action"] != "merged"][:5]
@@ -108,10 +108,11 @@ def test_all_staging_merged_and_prefix_preserved(tmp_path):
 def test_second_run_changes_nothing(tmp_path):
     tree = _tree(tmp_path)
     assert run_merge(tree).returncode == 0
-    after1 = hashes(CANON + ["data/merge/log.jsonl"])
+    watched = [str(tree / p) for p in CANON + ["data/merge/log.jsonl"]]
+    after1 = hashes(watched)
     proc = run_merge(tree)
     assert proc.returncode == 0, proc.stderr + proc.stdout
-    after2 = hashes(CANON + ["data/merge/log.jsonl"])
+    after2 = hashes(watched)
     assert after1 == after2, {k: (after1[k], after2[k]) for k in after1 if after1[k] != after2[k]}
 
 
@@ -159,12 +160,12 @@ def test_conflict_and_rejection_are_fail_closed(tmp_path):
     assert all(e["action"] in ("merged", "conflict", "rejected") for e in log)
 
     # the refusal is stable: the rerun changes nothing and fails the same way
-    before = hashes([str(p.relative_to(tree)) for p in (tree / "data/catalog/extras.jsonl", tree / "data/commons/files.jsonl",
-                                                        tree / "data/commons/classified.jsonl", tree / "data/merge/log.jsonl")])
+    watched = [str(p) for p in (tree / "data/catalog/extras.jsonl", tree / "data/commons/files.jsonl",
+                                tree / "data/commons/classified.jsonl", tree / "data/merge/log.jsonl")]
+    before = hashes(watched)
     proc2 = run_merge(tree)
     assert proc2.returncode == 1
-    after = hashes([str(p.relative_to(tree)) for p in (tree / "data/catalog/extras.jsonl", tree / "data/commons/files.jsonl",
-                                                       tree / "data/commons/classified.jsonl", tree / "data/merge/log.jsonl")])
+    after = hashes(watched)
     assert before == after, "the second run must change nothing, refusal included"
 
 
