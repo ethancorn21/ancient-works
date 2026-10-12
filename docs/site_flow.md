@@ -889,3 +889,51 @@ item reopens. All fifteen judged so far stay.
   scale 0.790 m/px disagrees with the plate's scale bar (0.259) - gate-rejected, and it sits
   644 m north of this placement, off the 1848 camps; that is what the tab would pre-place.
   STAYS.
+- cenabum-q2710144.c_e73dc8c09b2fea43 - Jollois 1833 'Plan général de la ville et des
+  environs d'Orléans en 1828' (score 9.3; 5.41 m/px, +1.1°, 8 anchors, resid 0.1-0.3):
+  the drawn 1828 city of Orléans - the radial old town, the fortified quays with the
+  Portefeu de Todelaie/Du Coq river gates, the bridges, Faubourg St-Vincent, St-Jean-le-Blanc,
+  Marceau - sits on the real city of Orléans, which is where this site's own point (the
+  Wikidata 'Cenabum') lies: the radial centre and St-Vincent line up with the georeferenced
+  1850s état-major survey within ~100-200 m, and the fitted 5.41 m/px is the plate's own
+  ~1:20000 printed scale (2537/5000 matcher inliers against that survey). Item cand: the
+  'Epinal' (Q173695, ~350 km NE) 200-sheet hit is a sheet-level red herring, and the coarse
+  1.25 m/px candidate (median 161.9 m > 45, rejected) is what the tab would pre-place.
+  STAYS.
+- dudley-castle-q5311832.c_e66ec095ee45aed0 - 1885 'Plan of Dudley Castle Grounds' (score
+  2.5; 0.69 m/px, +24.9°, 8 anchors exact): the hachured castle hill with its 26-36 contours,
+  the Priory Ruins, St. Edmund's Church and the railway station on the Bingham Road sit on
+  the real Castle Rock - summit anchor on the real summit (aerial + relief), drawn contours
+  following the real cone; 2639/4998 inliers against the 1842 OS 6-inch first edition. Item
+  cand: coarse 0.4379 m/px with 33% textured features (gate-rejected), centre 268 m off -
+  the tab would pre-place that version. STAYS.
+- ferme-d-azincourt-q20669811.c_804aa7af3eb2ac7c - 'Azincourt - cadastre de 1810' (score 4.7;
+  1.23 m/px, -1.5°, 8 anchors, resid 0-0.1): the sheet is the 1810 cadastre of the Ferme
+  d'Azincourt hamlet ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site
+  itself, not the Agincourt village of the Somme: the red farm cluster sits on the real
+  hamlet, the drawn 'Chemin d'Émerchicourt', 'Chemin de Boursolain' and 'Bonnay' roads on
+  the real roads, the drawn river on the real Scarpe near Aniche; fitted 1.23 m/px agrees
+  with the item's own points (1.171), its stated 0.55 does not; the weak matcher (11/203)
+  reflects the parcel style. Item cand: coarse 0.7246 m/px, 50x50 m rectangle, centre 363 m
+  off - the tab would pre-place that. STAYS.
+- watson-brake-q2552689.c_5e7bb19c79b509ed - 'Watson Brake - Map' (score 4.4; 1.28 m/px,
+  -0.9°, 8 anchors, resid 0-0.1): the drawn round Gentry Mound, the S-shaped ring of North
+  and South Mounds, the Watson Bayou meanders and the Watson School road sit on the real
+  earthworks - over the LiDAR relief the ink traces the real ring and bayou, over the aerial
+  the drawn ring aligns with the real ringed hill; 2399/5000 inliers against the relief; the
+  fitted 1.28 agrees with the item's own points (1.448), its stated 0.625 does not. Item
+  cand: coarse 0.625 m/px, 200x199 m rectangle (vs 635x743 here), centre 146 m off - the tab
+  would pre-place that. STAYS.
+- watson-brake-q2552689.c_b52ddcad2ee295c4 - 'Watson Brake Mounds - Map' (score 2.2; 0.52
+  m/px, -1.6°, 8 anchors exact): the closer version of the same plate - the central Gentry
+  Mound, the North and South Mounds bands and the bayou sit on the real earthworks (over the
+  relief the ink traces the real ring; over the aerial the drawn central mound is on the real
+  one, the bayou on the real meanders); 2926/4999 inliers against the relief. Item cand:
+  coarse 0.625 m/px with 0% textured features (the strongest rejection of this batch), 94x248
+  m rectangle, centre 187 m off - the tab would pre-place that. STAYS.
+- zwolle-q793.c_f9cddae6b944a648 - van Deventer 1563 Zwolle town plan (score 10.2; 2.53
+  m/px, -6.2°, 8 anchors, resid 0-0.1): the drawn walled medieval town (dense block grid,
+  wall ring) and the meandering Swol river sit on the real Zwolle core and the real river
+  meanders (aerial + relief); 1981/4998 inliers against the 1850 TMK. Item cand: coarse
+  1.5625 m/px from hand-tied bastion/gate points, 38% textured (gate-rejected), a thin
+  800x99 m rectangle, centre 455 m off - the tab would pre-place that. STAYS.
