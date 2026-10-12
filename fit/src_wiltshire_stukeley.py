@@ -183,8 +183,9 @@ def status():
     else:
         d = json.load(open(path))
         pages = [p for spread in d["data"]["brOptions"]["data"] for p in spread]
+        # the raw page dicts carry no "n" - n is the flat-list index (books_ia.pages assigns it)
         long = [max(p["width"], p["height"]) for p in pages]
-        done = sum(1 for p in pages if os.path.exists(books.triage_path(IA, p["n"])))
+        done = sum(1 for n in range(len(pages)) if os.path.exists(books.triage_path(IA, n)))
         print(f"{KEY} {IA}: {len(pages)} leaves, triage {done}/{len(pages)}, "
               f"long side {min(long)}-{max(long)} px")
     up = [u for u in books.LLM_URLS if books.llm_up(u)]

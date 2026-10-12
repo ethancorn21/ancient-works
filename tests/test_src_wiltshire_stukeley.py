@@ -111,8 +111,8 @@ def test_canonical_title_clash_fails_loud(tmp_path, monkeypatch):
     monkeypatch.setattr(src, "FILES_B", str(tmp_path / "files_b.jsonl"))
     monkeypatch.setattr(src, "CLASSIFIED_B", str(tmp_path / "classified_b.jsonl"))
     monkeypatch.setattr(commons, "info", lambda titles: {})  # the clash fires before any meta use
-    monkeypatch.setitem(src.STAGED, 0, (PETRIE_TITLE, "avebury-q661855", "Abury", "1743",
-                                        "rogue", "view", 2245, 2852))
+    monkeypatch.setattr(src, "STAGED", [(PETRIE_TITLE, "avebury-q661855", "Abury", "1743",
+                                         "rogue", "view", 2245, 2852)] + src.STAGED[1:])  # setitem is dicts only
     with pytest.raises(SystemExit, match="canonical files.jsonl"):
         src.stage()
     assert not os.path.exists(src.FILES_B) and not os.path.exists(src.CLASSIFIED_B)

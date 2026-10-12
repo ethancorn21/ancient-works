@@ -87,6 +87,13 @@ ruled out by the live metadata):
 | `File:Stonehenge Stukley Oxford 03543.jpg` | 3606x2976 | Identified: "DRUIDS SACRIFICING TO THE SUN IN THEIR TEMPLE CALLED STONEHENGE - The Building taken from the Model according to Dr Stukeley's Plan of Stonehenge restored in the Ashmolean Mus. Oxford; Designed, Engraved & Published by W. Whistock, High Street, Oxford". A romantic view of Stukeley's **conjectural restored temple** with a crowd of druids - not a drawing of the actual monument. The Commons date 1722 is wrong for this print (it post-dates the Ashmolean model). | **Not staged** (a model, not the site); identification recorded here. |
 | everything else in the category (266 files) | | portraits/engravings (the Kneller portrait CIPB0894, Herman Moll, Wellcome engravings), the *Memoirs of Sir Isaac Newton* (1752) page scans and fleurones, the Jewry Wall (Leicester) elevations (Roman/medieval, not a catalog site), the Clarendon palace ruins (1723 - Roman/medieval; **no clarendon row in data/catalog/sites.jsonl**, checked 2026-10-12 -> not a catalog site), the Lincoln shrine, the Sumatra earthquake letter, and the fit-sized-but-<1000 px Stonehenge/cursus drawings (Stonehenge Stukeley.jpg 773x404, Stonehenge-cursus-stukeley.jpg 638x377). The Stonehenge-Mod KSA.jpg (2002x1498) is a 1996 PHOTOGRAPH of the Salisbury Museum restoration model. `ThesanctuaryWilliamStukeley.jpg`, `Stukeley fire at Avebury.JPG`, `Cadbury Castle Stukeley.jpg` and the DPLA Wood/Jones/Smith/Stukeley view are already tied in the canonical files.jsonl. | not site drawings of catalog works, or already canonical - nothing else to stage. |
 
+The module is built (iteration 150, checked 2026-10-13): `fit/src_wiltshire_stukeley.py` stages the
+3 rows into `data/commons/files_wiltshire_b.jsonl` (each with the 200 caption_coords evidence, the
+row's date 1743/1722 - kitscoty date-overridden since the Commons record has none) + classified rows
+(the Avebury plan p_plan 1.0, the two views p_birdseye 1.0); they pass `fit/evidence.py` 3/3 offline
+(golden: `tests/golden/src_wiltshire_stukeley_sample.json`, `tests/test_src_wiltshire_stukeley.py`).
+The IA book leg (fetch / triage A / the plate-list transcription / the book's own rows) remains.
+
 **Petrie note (209c):** the two unlabeled Flickr files are Petrie 1880 plates (Pl. I and Pl. II,
 visually confirmed above) AND are already in the canonical files.jsonl with caption_coords
 evidence (checked 2026-10-10, the BL Georeferencer description names Petrie/1880). 209c's
