@@ -29,6 +29,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# Self-inserted on purpose: runpy.run_path (the site_done test's guard) does not put
+# this script's directory on sys.path, so the sibling import below would fail without it.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import catalog  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention)
 
 
 def _now():
@@ -189,11 +194,15 @@ def export(root, site_id=None):
     file (write-once) - only into that item file when ``site_id`` is given (a one-site
     run touches no other site's files); the page file is always computed over the whole
     queue. Output entries: {site, name, lead, candidates (verbatim, producer extras
-    included), no_picture_found}, open items only, sorted by site name (name from
-    web/data/sites.json; a missing site falls back to the raw id). Returns (n_open, n_total).
+    included), no_picture_found}, open items only, sorted by site name. The name comes
+    from web/data/sites.json, then the catalog: 309's right-place check upserts items
+    for the catalog's right sites, which are unbuilt (no sites.json entry yet) and show
+    under their catalog name, not a warning. A site in neither store falls back to the
+    raw id, with a warning. Returns (n_open, n_total).
     """
     root = Path(root)
     names = _site_names(root)
+    cat = catalog.load(root)
     entries, n_total = [], 0
     for p in _iter_item_files(root):
         item = json.loads(p.read_text())
@@ -210,9 +219,14 @@ def export(root, site_id=None):
             continue
         name = names.get(item["site"])
         if name is None:
+            rec = catalog.lookup(cat, item["site"])
+            if rec is not None:
+                name = rec.get("name")
+            else:
+                print("review: site %r not in web/data/sites.json or the catalog; "
+                      "using the id as name" % item["site"], file=sys.stderr)
+        if name is None:
             name = item["site"]
-            print("review: site %r not in web/data/sites.json; using the id as name"
-                  % item["site"], file=sys.stderr)
         entries.append({
             "site": item["site"],
             "name": name,

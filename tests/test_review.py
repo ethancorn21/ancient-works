@@ -113,20 +113,33 @@ def run_export(tree):
 
 
 def _site_names(root):
-    """Site id -> display name from web/data/sites.json (the export's name source)."""
+    """Site id -> display name: web/data/sites.json, then the catalog (data/catalog/
+    sites.jsonl) - the export's name source (309's right-place check names its unbuilt
+    right sites from the catalog)."""
+    names = {}
     path = os.path.join(root, "web", "data", "sites.json")
-    if not os.path.exists(path):
-        return {}
-    d = json.load(open(path))
-    sites = d.get("sites") if isinstance(d, dict) else d
-    return {s["id"]: s.get("name") for s in sites or []}
+    if os.path.exists(path):
+        d = json.load(open(path))
+        sites = d.get("sites") if isinstance(d, dict) else d
+        for s in sites or []:
+            names[s["id"]] = s.get("name")
+    cat = os.path.join(root, "data", "catalog", "sites.jsonl")
+    if os.path.exists(cat):
+        for line in open(cat):
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if r.get("id") and not names.get(r["id"]):
+                names[r["id"]] = r.get("name")
+    return names
 
 
 def _open_items(tree):
     """The queue's open items through 201's own rules: review.resolved_doc decides which item has
     a resolving platefit doc (the recorded field wins, otherwise any candidate's doc), and the
-    export's documented order (sorted by site name, sites.json name or the id, stable) decides the
-    list. -> (open sites in that order, total item count, names)"""
+    export's documented order (sorted by site name - the export's name source: sites.json,
+    then the catalog, then the id - stable) decides the list. -> (open sites in that order,
+    total item count, names)"""
     items = {}
     d = os.path.join(tree, "data", "review")
     for name in sorted(os.listdir(d)):
