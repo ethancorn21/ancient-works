@@ -1,7 +1,7 @@
 Status: open
 # 208: The German Limes - fort plans from the old reports
 Depends on: 200
-Touches: fit/src_limes.py, data/catalog/extras_limes.jsonl, data/commons/files_limes.jsonl, data/commons/classified_limes.jsonl, docs/lead_limes.md, tests/test_src_limes.py
+Touches: fit/src_limes.py, data/catalog/extras_limes.jsonl, data/commons/files_limes.jsonl, data/commons/classified_limes.jsonl, docs/lead_limes.md, tests/test_src_limes.py, tests/golden/src_limes_sample.json
 
 ## Goal
 GOAL.md point 4, the least certain of the seven leads: fort plans from the German Limes
@@ -40,7 +40,7 @@ drop the lead - the other six leads stand on their own (PLAN.md assumption 7).
 
 ## Hand-over
 
-(2026-10-12, iteration 159, agent a — session 2 of 208. **docs/lead_limes.md is WRITTEN (box 1 done, provisional PROCEED decision)** — it was uncommitted at the context cut; the harness saved it, so the next session: `git status` first, keep it, and commit it with the next step. No tests run this session (doc-only step); last suite state = the driver's 2026-10-11 loop-start notes (all failures in OTHER tasks' tests: test_gate, test_batch_eu, test_serve — not mine). Session 3 = the paced Commons leg, then the build.)
+(2026-10-12, iteration 161, agent a — session 4 of 208. **The QID phase is DONE and the staging set is DECIDED: 56 files** (45 de.wiki + 9 Commons + 2 IA-1895) across ~46 sites. All session-4 data is on disk in /tmp/agent-a-208/commons_leg/ (final_picks.json, qid_search.json, qid_entities.json, qid_routes.json, commons_p373_hits.json, dewiki_meta.json + dewiki_meta2.json, bands.json). No repo files changed this session; docs/lead_limes.md is committed as of a85e414 (session 3). No tests run (data-gathering step); last suite state = the driver's 2026-10-11 loop-start notes (failures all in OTHER tasks' tests). NEXT = session 5: the cross-check leg, then the lead doc, then build fit/src_limes.py + test.)
 
 ### What session 2 established (all 2026-10-12, from the cached files + the local PDF)
 
@@ -52,7 +52,7 @@ drop the lead - the other six leads stand on their own (PLAN.md assumption 7).
 
 **4. Pitfalls still to file** (session 1's 6 + session 2's 1; grep PITFALLS.md first — none of them is there yet): (1) portal.dnb.de = Anubis/Techaro JS proof-of-work wall (SRU 404, simpleSearch returns the honeypot, any UA); (2) limesblatt.uni-hd.de unreachable (TCP connect fails http+https; DNS 129.206.119.232); (3) www.deutschedigitalebibliothek.de and digital.ub.uni-heidelberg.de have no DNS on this VM; (4) Google-book djvu XML: each page is `<OBJECT ... usemap="<id>_NNNN.djvu">` — the page number lives in the **usemap** attribute, NOT the data attr (data holds the bare djvu name; a regex on `data="..._NNNN.djvu"` matches nothing); per-leaf OCR = the WORDs inside that OBJECT; (5) de.wikipedia `list=allimages` paginates via the continue key **aicontinue** (aifrom/aipfrom do not advance); (6) never read plate legends/scales off 40 dpi renders (session 1 misread both Tafel scales exactly that way); (7) this VM's clock printed 2026-10-12, consistent with the journal dates.
 
-### Session 3 (2026-10-12, iteration 160) — the Commons leg, FINDINGS + remaining steps
+### Session 3 (2026-10-12, iteration 160) — the Commons leg, FINDINGS (session 4 corrects items 2 and 4 where noted)
 
 **The Commons leg ran; it changed the plan.** The lead doc's assumption ("the same plates exist on
 Commons with space naming") is FALSE for the plate set. Findings (all verified live, 2026-10-12):
@@ -71,10 +71,11 @@ Commons with space naming") is FALSE for the plate set. Findings (all verified l
 2. **Revised staging route:** stage the DE.WIKI files (free: all verified PD-alt-100 / Bild-PD-alt;
    machine-readable at upload.wikimedia.org/wikipedia/de/; names + descriptions carry the fort tie)
    with **kind `caption_coords`**; the few Commons plates ride `caption_coords` too UNLESS one sits
-   in its fort's P373 category (then `category` — the direct-membership check ran in run B2;
-   subcat chains can be walked later). The lead doc §4 must be updated to this reality (the gate
-   itself is UNCHANGED and PASSES: 45/48 picks verified free+>=1000px+named, across Abt B Bands
-   1-7 + Abt A + source 1's Band 4 → >= 10 plans from >= 2 sources under any reading).
+   in its fort's P373 category (RESOLVED session 4: no plate is in a fort's P373 category — the
+   direct-membership hits were a modern photo and a Metallfunde find, neither stageable; so ALL
+   staged rows use caption_coords). The lead doc §4 must be updated to this reality (the gate
+   itself is UNCHANGED and PASSES). Session 4 re-ran the pick with Abt B first and found the 14/15
+   "Abt B Grundrisse" claim was WRONG.
 3. **de.wiki API quirk:** `titles=File:X` normalizes to `Datei:ORL 40 tab 04 pic 01 Grundriss.jpg`
    (German ns prefix + SPACES) — the returned pages dict is keyed by that, so look up by
    normalized name (strip prefix, space<->underscore, lower), not "File:"+underscore name.
@@ -99,34 +100,23 @@ Commons with space naming") is FALSE for the plate set. Findings (all verified l
    wbgetentities (P625/P373/P131/labels/dewiki) and the Commons-P373-direct-membership check,
    printing the fact sheet for the hand check.
 
-**Exact next steps (session 4):**
-1. If /tmp survived: `.venv/bin/python /tmp/agent-a-208/leg_b2_qids.py` (paced, idempotent, ~2 min).
-   If /tmp was wiped: re-run in order leg_a_list.py, leg_b_meta.py, leg_b2_qids.py (all idempotent;
-   leg_a re-fetches article + Commons list, leg_b re-fetches the 103+48 fileinfos).
-2. Read the printed QID fact sheet; record the chosen QID per fort (or "no QID, name+coords") in
-   THIS hand-over — it becomes the FORTS table of fit/src_limes.py. Cross-check P625 against the
-   fort's location (>50 km = the R6 trap); note which forts have NO QID. P373 values go to the
-   `category`-evidence decision for the ~15 Commons plates (commons_p373_hits.json).
-3. Re-pick the primary set (Abt B first, no Wp names) → ~25-35 final staging files; confirm each
-   pick's desc names its fort (the printed de.wiki desc already does, verified in dewiki_meta.json).
-4. Update docs/lead_limes.md: §3 add the Commons-leg result (disjoint sets, the ~15 Commons plates
-   listed, the route change to de.wiki caption+coords), §4 flip the decision to **PROCEED (final)**
-   with the counts; commit.
-5. **Build** `fit/src_limes.py` mirroring `fit/src_artists.py`: SOURCES (source 1 = IA 1895 volume
-   Band IV; source 2 = de.wiki ORL set; source 3 = Commons ORL set), FORTS table (nr, band, name,
-   year, qid-or-None, lon/lat, files), `stage()` (3 staging files, idempotent on (site,title),
-   by="fit/src_limes.py", row date = monograph year from the Band table), `check_staged()` =
-   offline join + `evidence.check(FILES_LIMES, NO_BOOKS, catalog=EXTRAS_LIMES)`, `golden()`.
-   Evidence: `caption_coords` for everything (named_place = the fort name as printed — the de.wiki
-   desc text carries it; place = the fort, coords from P625/report; the 1895 rows: url
-   `https://archive.org/download/derobergermanis00fabrgoog/page/n{54,56}.jpg`, n56 = CW-rotated
-   landscape plate, title/desc MUST contain "Osterburken"); `category` only for a Commons plate in
-   its fort's P373 category (site_cat=file_cat or a recorded via chain). **Before writing the golden
-   file, add `tests/golden/src_limes_sample.json` to this task's Touches line.**
-6. `tests/test_src_limes.py` = the src_artists pattern: no_network socket-blocking fixture, join of
-   the 3 staging files, `check_staged()`, built-in negative control (caption names the wrong fort /
-   coords 10 km off — reported, never written), golden sample; assert box 3 from the staged rows
-   (>= 10 plans, >= 2 distinct volumes/bands, every row's date recorded). Then tick the boxes.
+### Session 4 (2026-10-12, iteration 161) — QID phase done; staging set fixed at 56 files
+
+**What ran:** `/tmp/agent-a-208/leg_c_qids.py` (fixed leg_b2: zero-padded band-key matching "01"↔"1"/"05a"↔"5a" — B2 had searched "Kastell 01 Limes" and found nothing for ten forts; query variants `X (Limes)`/`X Kastell`/`X (Kastell)`; de.wikipedia pageprops fallback for empties; P131 NameError fixed; Commons-P373 hits; the re-pick; de.wiki fileinfo for the new picks). bands.json VERIFIED against the ORL article's Abteilung B list (names/years correct).
+
+**THE FINAL STAGING SET (decided this session):**
+- **de.wiki, 45 files** (final_picks.json): one whole-fort Abt B plan per fort (no ORL_A_/Wp/KK names, no "Vers" dup scans), except 45 Welzheim (both West+Ost) and 42 Oehringen (both sub-forts — stage ONLY if a QID appears in session 5, else drop both). Forts whose only plates are building details keep the best one: 01 Heddesdorf (Kastellbad), 12 Kapersburg (Therme), 33 Stockstadt (PPD). 14/15 (Butzbach/Grüningen) have NO Abt B plates in the de.wiki set (raw 874 list checked) → skipped, doc. 05.10 not a fort (growth area). All 45 verified: free (PD-alt-100/Bild-PD-alt), long edge >= 1538 px, desc names the fort (e.g. "Grundriss des Kastells von Osterburken, ORL 40") — the caption+coords contract is met by the desc alone. Desc quirks: 61a says "Lageplan" (the file is a Grundriss), 64 "Schirenhof" (sic), 42 says "Öhringen" (use that spelling for named_place).
+- **Commons, 9 files** (caption+coords; P373 route dead per commons_p373_hits.json): `ORL 01 tab 01 pic 01 Lageplan.jpg` (4223px), `ORL 01 tab 02 pic 01 Grundriss.jpg` (4435px, the Heddesdorf FORT plan the de.wiki set lacks!), `ORL 12 tab 02 pic 01 Grundriss und Profile.jpg` (2824px), `ORL 33 tab 02 pic 01 Grundriss.jpg` (11328px, the whole Stockstadt plan), `ORL 33 tab 03 pic 05 Porta Praetoria Grundriss.jpg` (6816px), `ORL 33 tab 04 pic 01-09 Thermen.jpg` (12600px), `ORL 33 tab 05 pic 01 Mithraeum und Dolichenum Lage.jpg` (15023px), `ORL B 2 3b Taf 1 Kastell Wiesbaden.jpg` (3288px), `ORL B 2 3b Taf 2 Kastell Wiesbaden.jpg` (3276px). All "Public domain", descs name the fort (English or German). Dropped: the Taf-1 crop (derivative), Steindenkmäler, Grabenprofile, Anlegestelle (photo), Metallfunde, 3 Tabula Peutingeriana fragments (992-1235px), ORL A section files, ORL22 Rückingen (CC-BY-SA photo). Commons names use SPACES; de.wiki use underscores — disjoint sets.
+- **IA 1895 volume, 2 files** (Osterburken): n54 (Situationskarte 1:5000) + n56 (fort plan 1:1000; landscape plate ROTATED 90° in the leaf — rotate CW to upright; record on the row). Titles/desc must contain "Osterburken". The de.wiki twin ORL_40_tab_04_pic_01_Grundriss.jpg stays (same plate, different host — note in doc, not a double count).
+
+**QID decisions (qid_search/qid_entities/qid_routes; verified label + dewiki article + P625 on the limes route):** CONFIRMED: 01 Heddesdorf Q1735373 [P625 (7.4693,50.4365) — FLAG, see below], 02a Niederberg Q1670400, 03 Arzbach Q1735331 [flag], 05 Hunzel Q1240802, 05a Marienfels Q1359182, 07 Kemel Q1725806 [flag], 08 Zugmantel Q1727277, 12 Kapersburg Q1735382 [flag], 18 Echzell Q1657587, 33 Stockstadt Q1735421, 34 Niedernberg Q1735399, 40 Osterburken Q1243550, 41 Jagsthausen Q1735380, 44 Murrhardt Q1735397, 45 West Q32064057 / 45a Ost Q1735441 (P625 adjacent: (9.6323,48.8722)/(9.6422,48.8712) — the split is right), 46 Lützelbach Q1735392, 46b Seckmauern Q1735419, 47 Hainhaus Q1735367, 48 Eulbach Q1735359, 49 Würzberg Q1445553, 50 Hesselbach Q1411006, 51 Schlossau Q1735418, 52 Oberscheidental Q1735404, 53 West Q1343017 (Ost has NO QID → Ost file NOT staged), 56 Böckingen Q1735374, 58 Benningen Q1735337, 59 Cannstatt Q1735423, 60 Köngen Q1735387, 61b Waldmössingen Q1735435, 63 Lorch Q1433981, 65 Unterböbingen Q1424499, 66a Urspring Q1735430, 66b Heidenheim Q128401126 (en label "Castra Aquileia" is correct), 71a Theilenhofen Q1214616, 72 Weißenburg Q638525, Anhausen Q1746855. **NO QID FOUND** (search + 3 variants + pageprops, all in qid_routes.json): 39 Walldürn, 42 Oehringen, 57 Walheim, 61a Sulz, 64 Schierenhof, 67 Buch → NOT staged, documented as growth area (box 3 still passes comfortably). **31 Wiesbaden was never searched** (its plates are Commons-only) — search "Kastell Wiesbaden"/"Kastell Matho" in session 5; if none, drop the 2 Taf files (still passing).
+**FLAGS for the session-5 article cross-check** (the de.wiki article's lead paragraph must name the right modern municipality; P625 alone is untrusted): (a) **01 Heddesdorf Q1735373** — P625 (7.4693,50.4365) + P131=Rhineland-Palatinate, but ORL Nr. 1 "Das Kastell Heddesdorf" (Bodewig 1903) is the famous Heilbronn fort (BW, ~9.20E/49.16N) — the QID may be a different or wrong item; the article lead decides; (b) 04 Ems Q1690694 (en "Castra of Bad Ems", P625 (7.713,50.3359) matches neither Alzey-Ems nor Bad Ems — table-only, not staged); (c) 03 Arzbach (7.7457,50.3753); (d) 07 Kemel (8.0161,50.1655); (e) 12 Kapersburg (8.6365,50.3127).
+
+### Session 5+ exact steps
+1. **Cross-check leg** (one paced script, ~2 min; /tmp has everything): (a) search "Kastell Wiesbaden"/"Kastell Matho" for 31; (b) for every QID to be staged, batch `de.wikipedia action=query&prop=extracts&exintro` on the article (the QID's dewiki title) and record each lead's location sentence — settles the flags above; (c) one more retry round for the 6 no-QID forts using only variants NOT already in qid_routes.json (e.g. "Kastell Buch (Oberer Limes)" forms). Save crosscheck.json; then finalize the FORTS table (any QID whose article contradicts the monograph → drop that fort's files or re-point to the article's own wikidata id if the search missed it).
+2. **File the 9 PITFALLS entries** never written (sessions 1-4): portal.dnb.de Anubis/Techaro JS wall; limesblatt.uni-hd.de TCP connect fails (http+https); www.deutschedigitalebibliothek.de + digital.ub.uni-heidelberg.de have no DNS on this VM (these three → "This machine and its environment"); Google-book djvu XML page number lives in the OBJECT **usemap** attribute, not data (per-leaf OCR = the WORDs inside that OBJECT) → "pipeline/books.py, pipeline/books_ia.py"; de.wiki `list=allimages` paginates via **aicontinue** (aifrom/aipfrom don't advance) → "Wikimedia APIs"; never read plate legends/scales off 40 dpi renders → "Wikimedia APIs"; de.wiki `titles=File:X` normalizes to `Datei:<space name>` (pages dict keyed by that) → "Wikimedia APIs"; `wbsearchentities` returns `description` as a STRING with language=de, not a dict (crashed B1's qid phase) → "Wikimedia APIs"; zero-padded fort-number searches ("Kastell 01 Limes") return nothing — search the label, not the number+"Limes" → "Wikimedia APIs".
+3. **Update docs/lead_limes.md** → final PROCEED: counts (56 files / ~46 sites / Bands 1,2a,2b,3,4,5,6,7 + A1 + source 1's Band 4), route (de.wiki + Commons caption+coords; IA 1895; no category evidence), the no-QID skips, the 42/53-Ost conditional drops, the 14/15 correction, the flags' resolutions; commit.
+4. **Build fit/src_limes.py + tests/test_src_limes.py + golden** per the prep §2/§3 shapes (session-4 section above has the full spec: SOURCES ia-1895/dewiki-orl/commons-orl; FORTS table from the QID decisions, P625 = site lon/lat, kind "roman fort", region germany, id = slug-qid lower; stage() idempotent on (site,title), by="fit/src_limes.py <source>", row date = monograph year from bands.json; evidence kind caption_coords for EVERY row: named_place = fort name as printed in the desc, site/place = same P625, dist_m 0.0; 1895 rows url https://archive.org/download/derobergermanis00fabrgoog/page/n{54,56}.jpg); check_staged() = join + evidence.check(FILES_LIMES, NO_BOOKS, catalog=EXTRAS_LIMES); golden. **Add `tests/golden/src_limes_sample.json` to the Touches line before writing it.** Test = src_artists pattern: socket-blocking fixture, join, check_staged, negative control (wrong fort / 10 km off — reported, never written), golden compare, box-3 machine-check (>= 10 plans from >= 2 distinct Band volumes — trivially true now; every row's date recorded). Run `.venv/bin/python -m pytest -q`; tick the boxes.
 
 ### Environment (unchanged from before, still true 2026-10-12)
 
