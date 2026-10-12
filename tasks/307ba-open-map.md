@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 307ba: Open the map - the queue carries the proposal, and place mode opens ON the works
 Depends on: 307a
 Touches: fit/propose.py, tools/fit_queue.py, web/fitkit.js, web/index.html, web/data/fit_queue.json, tests/test_fit_queue.py, docs/site_flow.md
