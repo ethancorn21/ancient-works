@@ -4709,6 +4709,15 @@ logged in PITFALLS and above).
 - Cleaned the run's 3.5G /tmp/loop-ancient-works.c/pytest-of-agent leftover afterwards (ps-verified no live process; my session's TMPDIR is that loop dir, so my runs use it) -> disk 2.5G -> 6.0G free (95% -> 87%), so the driver's verification run (which writes ~3.5G of its own) has headroom. Status set to done again to re-file the claim; all four boxes stay ticked, work unchanged since 0b83599.
 - If the re-verification rejects on 307bb as a "new failure": that is a driver-baseline-semantics issue, not a 306c regression - the test was an ERROR (not a FAILED) in the driver's own 17:06 run, and new-failures-306c.txt flagged only the roundtrip test. A/B evidence is in the iteration 150 entry here and in PITFALLS (tests/test_fit_queue.py); the fix belongs to 307 (web/fitqueue.js is outside 306c's Touches) - do not fix it in 306c; ask_human with that evidence if the driver holds on it.
 
+## 2026-10-12 306c DRIVER: done claim rejected, task reopened
+- Test suite failed twice, and no failing test could be named (crash?):
+    
+        config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+      File "/home/agent/projects/ancient-works.c/.venv/lib/python3.12/site-packages/_pytest/cacheprovider.py", line 235, in set
+        f.write(data)
+    OSError: [Errno 28] No space left on device
+    (full test output: .agent/reports/last-test-output.txt)
+
 
 <!-- task 307a -->
 # Task 307a place-check
