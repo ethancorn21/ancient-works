@@ -264,7 +264,10 @@ def test_page_shows_the_review_list(queue, tmp_path_factory):
     tabs = {t.split("=", 1)[0]: t.split("=", 1)[1] for t in data["tabs"]}
     assert tabs["h-review"] == (("Review (%d):true" % n) if n else "Review:true"), tabs
     lst = data["list"].lower()
-    stats = [f for f in data["fits"] if "built in all" in f]
+    # the home stats line, by either wording: the lead's 939382a re-worded "built in all"
+    # to "laid on today's ground"; the page's own matcher accepts both
+    # (web/review.js: /built in all|laid on today/)
+    stats = [f for f in data["fits"] if "built in all" in f or "laid on today" in f]
     assert stats, "the home stats line must be present"
     if n:
         seeds = repo_items()
@@ -403,7 +406,13 @@ def test_plan_lookup_is_keyed_by_id_and_site(queue, tmp_path_factory):
     data, p = _probe(base, tmp_path_factory.mktemp("rvshot") / "keying.png", PROBE_KEYING)
     assert data.get("boot") is True, (data, p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    assert "[reqfail]" not in p.stdout, p.stdout[-2000:]
+    # Page-caused reqfails, expected: opening a site lists its aerial open, so the page's
+    # base imagery is the live Esri feed (server.arcgisonline.com/.../MapServer/tile/... -
+    # note the SINGULAR 'tile/', which a '/tiles/' exclusion alone misses); the probe's
+    # start/end fit cycle aborts those in-flight fetches (ERR_ABORTED). No other request
+    # may fail at the network level.
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     expect = {
         "c_ffb3daac218b481f.avebury-q661855": "media/commons/avebury-q661855/ffb3daac218b481f.jpg",
         "c_ffb3daac218b481f.stonehenge-q39671": "media/commons/stonehenge-q39671/ffb3daac218b481f.jpg",

@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 309: The queue pairs a drawing with the right place, not a namesake
 Carved from: 307 (box 1)
 Touches: tools/fit_queue.py, tools/right_place.py, web/data/fit_queue.json, data/review/, web/data/review.json, tests/test_fit_queue.py, docs/site_flow.md, fit/review.py, fit/batch_eu.py, fit/site_catalog.py, tests/test_site_done.py, tests/test_fit_provenance.py, tests/test_review.py, PITFALLS.md
@@ -27,16 +27,23 @@ Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the 
 
 ## Hand-over
 
-(2026-10-12, iteration 110, agent c - session 19. PARENT 309 DONE. Both subtasks
-closed: 804 (done, session 11) and 805 (done, this session - its box 3 delivered
-tests/test_right_place_drift.py, 17/17 pass first run, containment-based per the
-new PITFALLS entry; box 4 re-verified: queue key set identical on main and
-agent/c, the three named tests pass 3/3). All three carved boxes ticked: the
-wiring (804), the rebuild + docs section (805, queue 114/309, 15 flagged pairs
-over 9 sites reported in docs/site_flow.md, Devil's Dyke Camp/Brighton on the
-Sussex hillfort, not the Cambridgeshire dyke), and the namesake test (804).
-Lane state at close: 804/805 land on main with this lane's acceptance -
-tools/right_place.py and the rebuilt queue/review data are on agent/c only
-until then. Final suite: 98 passed / 1 skipped / 2 failed - both not-mine
-(the lead's page-rework stat line, agent a's 307 files; ArcGIS ERR_ABORTED
-flake 5/5). No open work remains in this lane.)
+(2026-10-12, iteration 111, agent c - session 20. RE-CLAIMED DONE after the driver's
+rejection. The two cited test_review failures were page-side drift, not lane changes:
+(a) the keying test's strict [reqfail] assertion trips on the live Esri World_Imagery
+tiles (SINGULAR /tile/ path) that the lead's f5ea863 rework now loads the moment a
+site is opened - the probe's start/end fit cycle aborts them (ERR_ABORTED); the host
+itself is reachable (curl 200), so the old "ArcGIS flake" note was a misdiagnosis
+(deterministic, on every branch, proven on pristine main by 221's scratch run);
+(b) the list test's stats filter pinned the pre-939382a "built in all" wording that
+the lead re-worded to "laid on today's ground" (the page's own matcher,
+web/review.js:74, accepts both). Fix = agent a's task 221's exact spec, made in MY
+file (tests/test_review.py is on 309's Touches; 221's Notes anticipated the overlap:
+"the fix lands on top of whatever 309 leaves in the file"): the keying reqfail
+filter now excludes page-caused '/tiles'/arcgisonline aborts (mirroring 307bb's
+f23ad75 filter in test_fit_queue.py) and the stats filter accepts both wordings;
+no other assertion touched. Suite green: 100 passed / 1 skipped / 0 failed.
+221 (agent a's, open, Depends on: 309) has its boxes 1+2 (and 3, suite green)
+satisfied by this commit - when the driver hands it out after this lane lands on
+main, the next agent verifies the file against 221's acceptance and closes it; do
+not re-edit the file beyond that. No open work remains in this lane: branch = main
+89043b7 + 804/805 + this test fix. Re-read: none.)
