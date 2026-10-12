@@ -67,22 +67,20 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 118, agent a - still WAITING, now verified exact.) main is still
-cf29be2 (`agent/a..main` empty; main's web/data/review.json md5 b6506007 == this branch's):
-no 804/805/309 commits, the 3 stale-page failures stand, a re-claim now would fail the same
-way (do not re-claim). Read agent/c as of the local snapshot (tip c24c135, work tip d413d0e,
-~iteration 100): 804 is in-progress with ONLY the build() refactor in (new `_entry` helper,
-per-site candidate maps gathered first - behavior-neutral); the two-phase wiring
-(_place_store/_place_flags/_apply_flags) is not written yet (804's hand-over carries the
-exact plan). THIS SESSION verified BY RUNNING that 804's planned _place_flags (their
-committed tools/right_place.py, read-only /tmp copy + my branch's fit_queue helpers) over my
-part-1 synthetic tree: the check runs there (index.jsonl present -> not the no-op-degrade
-path; the degrade needs catalog, index AND lists all empty), 14 (site, candidate) pairs
-checked, 0 flags, no exceptions (all 7 sites lack region/place -> bucket "other" -> fail
-open; no caption carries a county/state/town word) - my pinned synthetic assertions survive
-the merge unmodified, no test edit needed. Part-1 tests re-run green on this branch
-(2 passed, 0.85 s). No code change this session; my state = cbb36c8 (boxes 1-3), 732fe57
-(box 4), 7f7e7c0 (box 5).
+(2026-10-12, iteration 119, agent a - still WAITING; re-verified, no code change.) main is
+still cf29be2 (`agent/a..main` empty: the driver synced nothing new) and main's
+web/data/review.json is still the stale b6506007 (340-open-of-341) page, so the 3
+stale-page failures stand and a re-claim now would fail the same way (do not re-claim).
+My local agent/c snapshot is byte-unchanged since iteration 118 (tip c24c135, work tip
+d413d0e = 804's build() refactor only, the two-phase wiring unwritten), so there is
+nothing new to merge or verify against. The driver now names agent c's in-flight tasks
+203b, 207, 302a, 304 and 309 - still the PARENT (the 804/805 files exist only on
+agent/c), so 309's closure, hence my 220, is still ahead. THIS SESSION re-ran the FULL
+suite on this branch: 3 failed, 70 passed, 1 skipped, 107.4 s - the identical three
+stale-page failures the driver's rejection run saw (335/334/334 printed vs the page's
+340/339 expectations), zero new failures: my committed state (cbb36c8 boxes 1-3, 732fe57
+box 4, 7f7e7c0 box 5, 9efb944 the rejected done claim) contributes nothing to the block.
+No code change this session.
 
 **Wait condition (check in this order):**
 1. `git log main --oneline -20`: still cf29be2 (no 804/805/309 commits)? Nothing to build -
@@ -94,7 +92,13 @@ the merge unmodified, no test edit needed. Part-1 tests re-run green on this bra
    fit_queue.json (both sides rewrote them). Resolve with the recipe below and run `.venv/
    bin/python -m pytest -q`. Once 805's (or 220's) full export is in the synced tree:
    expect 73 passed + 1 skipped, no known failures -> re-claim done. If only 804 is in
-   (805/220 not yet): the 3 review-page failures remain - wait, do not re-claim.
+   (805/220 not yet): the 3 review-page failures remain - wait, do not re-claim. A failure
+   with DIFFERENT numbers than 335/334 (the page population changed) means a merge AFTER
+   the export wrote new data/review item files (agent c's 203b EU batch writes them for
+   unplaceable sites) - the page snapshot is stale again: diagnose with a scratch full
+   export (`fit/review.py export --root <copy of the store>`) and, if that is the cause,
+   the fix is another full export (220's runner note covers it) - never re-baseline the
+   three tests.
 
 **Merge recipe (the next session that sees 804/805 on main executes it):**
 - tools/fit_queue.py: take 804's FINAL build shape - `cands_by_site -> _place_flags ->

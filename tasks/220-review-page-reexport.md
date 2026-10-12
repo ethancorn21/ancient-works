@@ -75,4 +75,13 @@ re-claim waits on this task, so by then it is). If the export DOES change item f
 resolving doc landed after 805's run), that is the real fix: commit the changed store paths
 and re-run the suite. Re-read fit/review.py::export (line 184) for the site_id=None
 full-export semantics; derive the expected counts, never pin them (the Goal's "340 -> 335"
-arithmetic was true at cf29be2 and moves with the store).)
+arithmetic was true at cf29be2 and moves with the store).
+
+(2026-10-12, iteration 119, the filer again.) If the export is a no-op and the three tests
+STILL fail, the drift is in the item population, not the resolutions: a batch run writing
+new data/review item files after the page's snapshot (agent c's 203b EU batch does exactly
+this for its unplaceable sites) changes the open/total the current code computes, while the
+committed page keeps the old population. Re-run the export - item files then byte-identical,
+only the page rewrites to the new population - and re-run the suite; that is this task's
+box 1, not a test re-baseline. Symptom to recognise: the three fail with numbers DIFFERENT
+from 335/334 (the 2026-10-11 rule-change signature).)

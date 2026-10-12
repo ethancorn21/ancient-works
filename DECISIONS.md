@@ -461,3 +461,36 @@ subsumes 220) -> 309 closes (bookkeeping only; the module file lands then) -> 22
 no-op verify -> driver syncs main -> the 3 failures go green -> re-claim done. 805's own
 note anticipates my 307 landing after its rebuild: "only the queue file's contents change
 (not its shape); expect the driver to reconcile."
+
+## 2026-10-12 307ba DECISION: wait re-verified (iteration 119) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty), agent/c snapshot unchanged (804's two-phase wiring still unwritten), fresh FULL suite = exactly the 3 known stale-page failures (3 failed, 70 passed, 1 skipped, 107.4 s) - re-claim stays parked on 220; recorded the post-export item-drift watch (203b writes data/review item files after the page's snapshot) in 220's runner note, the 307ba hand-over and the review-page PITFALLS entry; no code change
+
+One step (wait bookkeeping, no code change): the driver returned 307ba with 220 still
+open. Verified by running, not assuming: `git log main --oneline -20` (tip still cf29be2,
+no 804/805/309 commits), `git show main:web/data/review.json | md5sum` (b6506007 - the
+stale 340-open-of-341 page, unchanged since iteration 118), `git log agent/a..main`
+(empty: nothing to sync), and the local agent/c branch still at its iteration-100 snapshot
+(tip c24c135, work tip d413d0e = 804's build() refactor only, two-phase wiring unwritten).
+So nothing new to merge or verify against. I then re-ran the FULL suite on this branch:
+3 failed, 70 passed, 1 skipped, 107.4 s - the identical three stale-page failures the
+driver's rejection run saw (same asserts, same 335/334/334-vs-340 arithmetic), zero new
+failures. My committed state (cbb36c8 boxes 1-3, 732fe57 box 4, 7f7e7c0 box 5, 9efb944 the
+rejected done claim) contributes nothing to the block; the re-claim stays parked on 220
+(no re-claim this session - it would fail exactly as before; the driver counts the 3 as
+new-to-task because b22a2d2/cf29be2 landed after 307ba started - iteration-116 entry
+stands).
+
+**New watch item for the re-claim** (learned from this iteration's driver prompt, which
+lists agent c's in-flight tasks as 203b, 207, 302a, 304, 309 - still the PARENT, so the
+split has not closed): 203b (the EU batch) writes new REVIEW ITEMS into data/review for
+its unplaceable sites. The committed page is a SNAPSHOT of the item population at the last
+full export, so a 203b merge landing AFTER 805/220's export re-stales the page against
+the three derived-count tests - with DIFFERENT numbers than 335/334, so it would read as
+new failures on my re-claim and could get rejected again for a store reason I did not
+cause. Recorded in three places: 220's runner hand-over (a no-op export + still-red tests
+= item-population drift; re-run the export - no item files change, only the page rewrites;
+that is 220's box 1, not a re-baseline), the 307ba hand-over's wait condition (diagnose
+with a scratch `fit/review.py export --root <copy>` before blaming code), and the
+review-page PITFALLS entry (third trigger: new item files; heading extended for grep).
+If a future re-claim hits exactly this, the move is to file/propose a fresh re-export
+task, never to touch the three tests. No ask_human: this is a plain dependency wait on
+220, which the driver handles by bringing 307ba back once 309's chain lands.
