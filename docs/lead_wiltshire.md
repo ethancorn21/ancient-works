@@ -3,7 +3,8 @@
 GOAL point 4: the old drawings of the two most famous sites on the map. This lead stages the
 site-plan plates of three works - Hoare's *Ancient Wiltshire* (1812-21), Stukeley's Wiltshire work
 (1740s) and Petrie's *Stonehenge, Avebury, and other Stone Age monuments of the British Isles*
-(1880) - one book per subtask (209a/b/c), each into its own per-suffix staging files
+(1880) - one book per subtask (209a/b/c; 209a/Hoare is dropped - its section below), each into
+its own per-suffix staging files
 (`data/commons/files_wiltshire_{a,b,c}.jsonl` + `classified_wiltshire_{a,b,c}.jsonl`, rows tagged
 with the book; a `*_wiltshire_{a,b,c}` extras file only if a plate shows a Wiltshire earthwork not in
 the catalog yet). Per-book book artifacts only (`data/books/triage/<id>.*.jsonl`,
@@ -14,7 +15,7 @@ files once. The existing hand fits (Allcroft Avebury fig. 187, Allcroft Windmill
 each book's own printed list of plates is recorded in that book's section below, in place of the
 shared validation.json.
 
-## Hoare, Ancient Wiltshire (1812-21) - 209a
+## Hoare, Ancient Wiltshire (1812-21) - 209a (dropped)
 
 **Source (verified 2026-10-13, re-verified 2026-10-12):** NOT on the Internet Archive - exhaustive
 advancedsearch (the title phrase returns only two modern books; the hundred names Pewmarsh/Pewsey/
@@ -43,17 +44,24 @@ OCR exists for a local copy (`page_texts -> {}`): the plate anchors come from Qw
 books_lists PLATES pattern from the copy's own list pages), staging (`--stage`, 200 evidence field:
 list entry names the place, caption / coordinates distance recorded on the row; the 1821 date on
 every row), `--check` (offline join + fit/evidence.py) and `--golden`
-(`tests/golden/src_wiltshire_hoare_sample.json`) - are added to the module when the copy arrives.
+(`tests/golden/src_wiltshire_hoare_sample.json`) - were never built (the copy never arrived): the
+module is DORMANT, and they would be added if it is ever revived with a real scan.
 
-**State (2026-10-12):** waiting on ask_human 001. LLM replicas 8080/8081 were up this session
-(8082 resetting, 18080/18081 down - the built-in `LLM_PORTS` covers all, run_stage uses whichever
-answer). On arrival: verify the leaf count and the list page, `--fetch`, `--triage A` (resumable
-background job, nohup), transcribe the printed list of plates into
-`data/books/lists/hoare_cherhill1821.json`, `--triage F`/`B` as the list and stage A suggest, then
-stage / check / golden and record the stage-A/B recall below.
+**Outcome (ask_human 001 refused, iteration 151, journal date 2026-10-13):** the request (filed 2026-10-12 from
+209a's session: the human downloads the Cherhill volume in a real browser from HathiTrust - public
+domain, full view - or Google Books, places one image per leaf page in
+`data/raw/books/hoare_cherhill1821/`, vols. 1-2 a bonus; fallbacks "drop" or any other complete
+scan) was refused: "No. If you can't find the book at all, then i am not going to go get it. Just
+skip it." **Task 209a is DROPPED** (its own designed fallback): no Hoare rows exist in any staging
+file, and none will be staged unless a complete scan of the volume appears in the repo later (the
+dormant fetch leg above works as-is for that: `--fetch`, then `--triage A` as a resumable
+background job, the remaining legs added then). The Wiltshire lead stands on 209b (Stukeley: the
+IA book leg + the Commons leg) and 209c (Petrie: its own download ask 002 was refused the same
+way, but 209b's Commons check had already satisfied its fallback - the two canonical
+`files.jsonl` rows are Petrie 1880 Pl. I/II, see the Petrie note in the Stukeley section).
 
-**Stage-A/B recall against the printed list of plates:** pending the copy (the Cherhill volume's
-own list names the plates; the numbers go here once triage A/B has run).
+**Stage-A/B recall against the printed list of plates:** n/a - the copy was never obtained; 209a
+was dropped before any triage stage ran.
 
 ## Stukeley, 1740s - 209b
 

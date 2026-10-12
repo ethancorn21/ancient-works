@@ -6,7 +6,8 @@ ordering), and a socket-blocking fixture makes any network attempt fail loud - s
 prove the fetch leg is network-free. The invariant that lets the UNMODIFIED machinery run on the local
 copy (the re-encodes land exactly where books.triage_path reads, and the register() wrap passes every
 other book id through to the original calls) is pinned in test_register_swaps_in_local_copy_only.
-The staging / check / golden tests land with the book itself (see the task's Hand-over).
+The staging / check / golden tests were never built (209a dropped at iteration 151 - the human declined
+the book download); these three fetch-leg tests are all the module has.
 """
 import json
 import os
@@ -102,6 +103,7 @@ def test_register_swaps_in_local_copy_only(tmp_path, monkeypatch):
     monkeypatch.setattr(src, "DIR", str(tmp_path))
 
     calls = []
+    monkeypatch.setitem(books.BOOKS, src.KEY, None)  # register() writes this entry bare; setitem makes the teardown restore (remove) it
     monkeypatch.delattr(books_ia, "_hoare_wrapped", raising=False)
     monkeypatch.setattr(books_ia, "pages", lambda ia_id: calls.append(ia_id) or ["SENTINEL"])
     monkeypatch.setattr(books_ia, "page_texts", lambda ia_id: {"sentinel": 1})

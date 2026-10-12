@@ -218,10 +218,29 @@ What to do: always `.venv/bin/python -m pytest ...`. The driver rebuilds `.venv`
 Where: any fetch from babel.hathitrust.org / the Google Books API (207c Roy 1793, 209a Hoare Cherhill 1821, 209c Petrie 1880)
 Symptom: HTTP 403 from babel.hathitrust.org with every UA (including a full browser UA) and HTTP 429 from the
       Google Books API with our and a browser UA; IA advancedsearch empty for these titles.
-Why: bot walls that a real browser passes and this VM cannot. Consequence: the copy arrives human-downloaded
+Why: bot walls that a real browser passes and this VM cannot. The planned route was a human-downloaded copy
       (ask_human, human_only: outside-vm) into data/raw/books/<id>/, one image per leaf page, filenames sorting
-      in book order, and the consuming module adapts the fetch locally (fit/src_wiltshire_hoare.py does; 207c's
-      Roy module will). Verified 2026-10-11 (Roy) and 2026-10-12 (Hoare).
+      in book order, with the consuming module adapting the fetch locally (fit/src_wiltshire_hoare.py; 207c's
+      Roy module will) - but the human declined to download books for this project (next entry), so a book that
+      is not on IA is effectively unreachable here. Verified 2026-10-11 (Roy) and 2026-10-12 (Hoare); the refusal
+      came in between iterations 145 and 151 (journal date 2026-10-13; the ask file's own 06:55 answer stamp is VM
+      clock, which lags the journal dates).
+
+#### The human will not download books for this project - book leads stand on IA and Commons only
+Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821) and 002 (Petrie,
+      Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151; any
+      future ask_human that asks the human to fetch a book copy
+Symptom: "No. If you can't find the book at all, then i am not going to go get it. Just skip it." (001);
+      "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." (002) -
+      even though a real browser on the human's machine passes both bot walls (the refusal is a willingness
+      call, not a feasibility one).
+Why: the human reads a human-download request as work they must do, and declines it; they will not browse
+      HathiTrust/Google Books for the project. Consequence: for any book lead, IA is the only source this loop
+      can rely on (the only one this VM can reach, and the human will not cover the gap); if the book is not on
+      IA, plan the drop or a Commons fallback from the start and do not file a download ask (209a dropped;
+      209c stands on 209b's verified Commons rows - the two canonical Petrie 1880 Pl. I/II rows). 207c's Roy
+      1793 request 003 was filed before this refusal and is still open: if it gets the same answer, drop 207c
+      rather than re-asking.
 
 ## Libraries and frameworks
 

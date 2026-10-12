@@ -1,9 +1,11 @@
 """Hoare, Ancient Wiltshire, the Hundred of Cherhill (1821): the volume carrying the old plans of
 Stonehenge, Avebury, Silbury Hill and the West Kennet long barrow (task 209a, GOAL.md point 4).
 The book is not on IA (searched 2026-10-12/13) and its two remaining sources refuse this VM
-(HathiTrust HTTP 403, Google Books 429), so the copy arrives human-downloaded in
-data/raw/books/hoare_cherhill1821/ (ask_human 001: one image per leaf page, filenames sorting in
-book order). This module adapts the fetch to those local files - the 207c pattern - and
+(HathiTrust HTTP 403, Google Books 429), and the human declined to download it (ask_human 001,
+refused between iterations 145 and 151: "just skip it"): task 209a is DROPPED and this module is DORMANT - it stays in
+the tree so that, if a complete scan of the volume ever lands in data/raw/books/hoare_cherhill1821/
+(one image per leaf page, filenames sorting in book order - a library digitisation, an IA
+acquisition), this module adapts the fetch to those local files - the 207c pattern - and
 everything after the triage images runs on the unmodified book machinery (books.run_stage,
 books_lists, fit/evidence.py).
 
@@ -16,14 +18,15 @@ usage: src_wiltshire_hoare.py --fetch        local (no network): re-encode the h
                                              through books.run_stage unmodified (register() swaps in
                                              the local page list and local fetch for this book id only)
 
-Later legs (added when the copy arrives; see the task's Hand-over): --list (transcribe the printed
-list of plates, books_lists PLATES pattern, into data/books/lists/hoare_cherhill1821.json + .map.json
-via books_lists.cmd_ocrmap), --stage (rows into data/commons/files_wiltshire_a.jsonl +
-classified_wiltshire_a.jsonl, plus extras_wiltshire_a.jsonl when a plate shows a Wiltshire earthwork
-not in the catalog; the 200 evidence field and the 1821 date on every row), --check (offline join +
-fit/evidence.py), --golden (tests/golden/src_wiltshire_hoare_sample.json). The lead record:
-docs/lead_wiltshire.md. The system python3 has no numpy/PIL, so every command runs under
-.venv/bin/python; the module top stays stdlib-only (books, books_ia and PIL import lazily).
+Later legs (never built - the copy never arrived; add them if the module is ever revived with a
+scan): --list (transcribe the printed list of plates, books_lists PLATES pattern, into
+data/books/lists/hoare_cherhill1821.json + .map.json via books_lists.cmd_ocrmap), --stage (rows
+into data/commons/files_wiltshire_a.jsonl + classified_wiltshire_a.jsonl, plus
+extras_wiltshire_a.jsonl when a plate shows a Wiltshire earthwork not in the catalog; the 200
+evidence field and the 1821 date on every row), --check (offline join + fit/evidence.py),
+--golden (tests/golden/src_wiltshire_hoare_sample.json). The lead record: docs/lead_wiltshire.md
+(the Hoare section records the drop). The system python3 has no numpy/PIL, so every command runs
+under .venv/bin/python; the module top stays stdlib-only (books, books_ia and PIL import lazily).
 """
 import concurrent.futures as cf
 import os
@@ -43,9 +46,11 @@ YEAR = "1821"
 CITE = ("R. C. Hoare, Ancient Wiltshire: the Hundred of Cherhill (vol. 3), London 1821 "
         "(title wording to be finalized from the copy's title page)")
 WHY = ("The volume that carries the Stonehenge/Avebury/Silbury/West Kennet plans. Not on IA "
-       "(2026-10-12/13 searches, docs/lead_wiltshire.md); the copy is human-downloaded (ask_human 001) "
-       "because HathiTrust 403s and Google Books 429s this VM. Fetch is local-files only; the rest of "
-       "the machinery runs unmodified (the 207c pattern).")
+       "(2026-10-12/13 searches, docs/lead_wiltshire.md); HathiTrust 403s and Google Books 429s "
+       "this VM and the human declined to download it (ask_human 001, refused before iteration "
+       "151, task 209a dropped) - the module stays dormant for a copy that never arrived. If a complete "
+       "scan ever lands in data/raw/books/hoare_cherhill1821/, the local fetch leg below feeds the "
+       "unmodified machinery (the 207c pattern).")
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".webp", ".bmp"}
 
