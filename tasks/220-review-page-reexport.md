@@ -44,11 +44,35 @@ pin a population - these derive).
   c_be12fb0f9a87000b, ferme-d-azincourt -> c_804aa7af3eb2ac7c, forthill ->
   b24849959_n0269_1; the second export is a no-op. As of cf29be2 the page goes 340 -> 335
   open of 341.
-- Depends on 309 because 309 (agent c, active) is the task that touches data/review and
-  web/data/review.json: run the export on top of 309's final store state, never in
-  parallel with it. If 309's merge already leaves the page in sync, box 1 is nearly a
-  no-op (only `at` refreshes) and the task closes as verified.
+- Depends on 309 (agent c, active) - run the export on top of 309's final store state,
+  never in parallel with it. As of iteration 117, 309 is SPLIT (on agent/c): 804 wires the
+  right-place check into tools/fit_queue.py; 805 (depends on 804) rebuilds the committed
+  data - and 805's rebuild re-exports web/data/review.json in-process via fit/review.py
+  export, necessarily a FULL export (the namesake upserts span sites, and the page file is
+  always computed over the whole queue). A full export is this task's box 1: it records the
+  write-once `resolved` records (the 307ba iteration-116 scratch run verified the
+  site_id=None semantics and the no-op second run). So when this task runs, both boxes are
+  likely a no-op verification (page in sync, item files byte-identical, suite green) - run
+  the export anyway, prove it, close as verified. A dep on a split parent parks until full
+  closure (agent c's 2026-10-12 309 DECISION entry documents it); 309's closure after 805
+  is bookkeeping-only (no store change), so the wait costs one agent-c session, not a store
+  dependency. The dep stays on 309 (not re-pointed at 805): 309 is the driver-visible task
+  (the prompt names it), and 804/805 had not reached this checkout's tasks/ when this note
+  was written - a dep on a task file that no checkout shares risks parking forever.
 
 ## Hand-over
 
-(none yet - the task is fresh)
+(2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
+driver hands this out, main carries 804 + 805 merged (and 309's closure bookkeeping); 805's
+run already re-exported web/data/review.json in-process. Expected run: 1) `.venv/bin/python
+fit/review.py export` in the checkout - if 805 already did it, expect a no-op (only the
+page's `at` moves; item files byte-identical: the six write-once `resolved` records the
+iteration-116 307ba scratch run proved are already there); 2) confirm box 2 (a second run
+changes nothing); 3) run the three tests named in the Goal (test_fit_provenance::
+test_line_refuses_unmarked_non_auto_doc, test_site_done::test_site_done_line, test_fit_
+queue::test_save_runs_the_one_site_line) - expect green once 307ba is also merged (307ba's
+re-claim waits on this task, so by then it is). If the export DOES change item files (a
+resolving doc landed after 805's run), that is the real fix: commit the changed store paths
+and re-run the suite. Re-read fit/review.py::export (line 184) for the site_id=None
+full-export semantics; derive the expected counts, never pin them (the Goal's "340 -> 335"
+arithmetic was true at cf29be2 and moves with the store).)

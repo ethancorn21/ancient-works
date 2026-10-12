@@ -1,7 +1,7 @@
 Status: in-progress
 # 307ba: Open the map - the queue carries the proposal, and place mode opens ON the works
 Depends on: 307a, 220
-Touches: fit/propose.py, tools/fit_queue.py, web/fitkit.js, web/index.html, web/data/fit_queue.json, tests/test_fit_queue.py, docs/site_flow.md
+Touches: fit/propose.py, tools/fit_queue.py, web/fitkit.js, web/index.html, web/data/fit_queue.json, tests/test_fit_queue.py, docs/site_flow.md, tasks/220-review-page-reexport.md (my own filing - kept in sync with the 309 split)
 
 ## Goal
 Parent 307 (and 307b) boxes 1-2, as renumbered there. The "Ready to fit" queue file carries a
@@ -55,9 +55,11 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 - The full box-1 design and the page-side design sketch (anchor model, wrap points, hide/
   restore, the no-propose byte-identity rule) are in the parent 307b's ## Hand-over and the
   2026-10-12 307b DECISIONS entry (iteration 110) - implement from there, they are precise.
-- Agent c's 309 works on tools/fit_queue.py / web/data/fit_queue.json / tests/test_fit_queue.py
-  in its own branch (the place check): expect a merge of its build() change; keep the propose
-  wiring localized (one helper, one key per entry, docstrings) so the merge stays trivial.
+- Agent c's 309 is SPLIT (on agent/c; main still shows it open) into 804 (the right-place
+  wiring in tools/fit_queue.py) and 805 (the rebuild of the committed queue/review data;
+  depends on 804): expect their merge of build() and the queue file; keep the propose wiring
+  localized (one helper, one key per entry, docstrings) so the merge stays trivial - the
+  full recipe is in the hand-over. 805's in-run full review export subsumes my 220 filing.
 - The stage-B row shape: data/books/index.jsonl (scale_text, blank_boxes[{kind:"scale_bar",
   box}], north_angle_deg, north_arrow, map_box, full_size). fit/ has no __init__.py; import
   via sys.path.insert(0, str(ROOT / "fit")) like tools/site_done.py:43.
@@ -65,49 +67,77 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 116, agent a - the done claim (9efb944) was REJECTED by the driver
-for 3 suite failures that are NOT this task's work; the root cause is pinned and the fix
-filed as task 220 (Depends on: 309 - agent c's module). 220 is on this task's Depends on
-line now. All five boxes remain ticked and everything remains committed; when main carries
-220 into this branch, re-verify the suite and re-claim done. Nothing else to build.)
+(2026-10-12, iteration 117, agent a - WAIT, now exact. main is still cf29be2: no 309/804/805
+commits, web/data/review.json byte-identical to main's stale copy (md5 b6506007, 340 open of
+341) - so the 3 re-claim-blocking failures are unchanged and a re-claim now would fail the
+same way (do not re-claim). Since iteration 116: agent c SPLIT 309 into 804 + 805 (on
+agent/c; main's 309 file still says open). I read both specs on agent/c and mapped the merge
+surface against this branch (recipe below); I refreshed my own filing 220 (its stale dep
+note now describes the split; it keeps Depends on: 309 - the driver-visible gate - and gets
+a runner's hand-over). The re-claim chain: 804 merges -> 805 merges (its in-run FULL review
+export - fit/review.py export(root, site_id=None), necessarily full because the namesake
+upserts span sites - records the same 6 write-once resolutions 220 targets; the iteration-
+116 scratch verified the semantics and the no-op second run) -> 309 closes (bookkeeping
+only: checks its three carved boxes; the tools/right_place.py module file lands then, inert
+to the 3 tests' data) -> 220 runs as a no-op verify -> the driver syncs main into this
+branch -> the 3 failures go green -> re-claim done.)
 
-**The rejection and its mechanism (all verified by running, DECISIONS 2026-10-12 307ba
-iteration-116 entry).** The driver (be251b8) lists: test_fit_provenance::
+**Wait condition for a future session (check in this order):**
+1. `git log main --oneline -20`: still cf29be2 (no 804/805/309 commits)? Nothing to build -
+   this task waits on agent c. Do NOT touch data/review, web/data/review.json or re-
+   baseline any test (the stale page is a real store invariant; iteration-116 DECISIONS
+   entry). Cheap unchanged-check: `git show main:web/data/review.json | md5sum` ==
+   b6506007.
+2. main carries 804 and/or 805 (or 309 closed)? The driver has synced it into this branch:
+   expect text conflicts in tools/fit_queue.py, tests/test_fit_queue.py, web/data/
+   fit_queue.json (both sides rewrote them). Resolve with the recipe below and run `.venv/
+   bin/python -m pytest -q`. Once 805's (or 220's) export is in the synced tree: expect 73
+   passed + 1 skipped, no known failures -> re-claim done. If only 804 is in (805/220 not
+   yet): the 3 review-page failures remain - wait, do not re-claim.
+
+**Merge recipe (the next session that sees 804/805 on main executes it):**
+- tools/fit_queue.py build(): take 804's two-phase structure (ALL flag decisions computed
+  over the pre-mutation candidate sets, then drops/moves/upserts, then entries recomputed).
+  Keep MY wiring at its current position: the `_entry_propose(root, sid, plan)` call at the
+  END of the per-site loop - after the final best selection, before entries.append - so a
+  move that changes a site's best candidate recomputes that entry's propose; keep the
+  `_entry_propose` helper, the `import propose` line, the docstring's fifth-input paragraph,
+  and the propose key order {pairs, scale_m_px, rot_deg, scale_source, coarse, note} after
+  "candidates".
+- tests/test_fit_queue.py: keep BOTH sides - my part 1 (synthetic stage-B tree, 7 entries,
+  the propose pinned against propose_for called in-test) and 804's namesake test plus its
+  re-derived test_fit_queue_real (copies data/catalog + data/books into the temp tree).
+  804's synthetic-tree additions must not flag my fictional sites (no county words ->
+  right_place fails open, the module's documented rule) - verify by RUNNING the merged
+  file, not by assume; if a synthetic site gets flagged, make its place neutral, never
+  loosen the propose assertions. Parts 2-3 stay as written; the part-2 open_after delta
+  goes green once the synced tree has the in-sync page.
+- web/data/fit_queue.json (both sides regenerated -> conflict): regenerate with the merged
+  build `python3 tools/fit_queue.py --root .` and commit the joint file (805's right-place
+  drops/moves + my propose on the surviving entries; if 805 ran before my branch merged,
+  its committed version lacks propose - the regeneration adds it back on top of the wired
+  build).
+- web/data/review.json + data/review/: 805's/220's - take THEIRS (my branch's copies are
+  main's stale ones); never edit them from this task.
+- docs/site_flow.md: keep both sections (my "Ready to fit" propose paragraph, 805's
+  namesake-report section) - disjoint regions, clean merge expected; flag any overlap in
+  DECISIONS.
+- fit/propose.py, web/fitkit.js, web/index.html: only mine - keep mine (804's spec forbids
+  touching agent a's web files; web/index.html stays exactly one line over main and
+  web/fitqueue.js byte-identical - the part-3 pin).
+
+**State (all committed, unchanged this session):** cbb36c8 (boxes 1-3, the data side),
+732fe57 (box 4: web/fitkit.js + the one script tag), 7f7e7c0 (box 5: docs), 9efb944 (the
+rejected done claim), cc6e9ed (the iteration-116 diagnosis). Suite on this branch: 70
+passed + 1 skipped + the 3 stale-page failures (test_fit_provenance::
 test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line,
-test_site_done::test_site_done_line. Cause: the committed web/data/review.json (340 open of
-341, published Oct 11 18:48) is STALE relative to the committed code. The lead's b22a2d2
-(22:27) + cf29be2 (22:35, the main tip) changed fit/review.py::resolved_doc (a recorded
-resolution counts only while its document exists) and placed 5 matcher fit documents into
-data/db/platefits, but neither commit re-exported the page (no web/data/review.json in
-either diff). The current export would print 335 open of 341 (the 5 resolved items hidden)
-and record write-once `resolved` into 6 item files (those 5 + alligator n0214_2). The 3
-tests all derive the expected count from the LIVE page (340) while running the CURRENT
-code in a temp tree: test_site_done's line prints 335 (expected 340); test_fit_provenance's
-seeded refusal doc resolves one more item -> 334 (expected 339 = 340-1); test_fit_queue's
-page save resolves one more -> 334 (expected 339). Verified the fix in a scratch copy of
-the store: `fit/review.py export --root <scratch>` -> 335 open of 341, the 6 records
-exactly as above, second export a no-op. With that page the 3 tests' expectations agree by
-construction. None of this task's files (fitkit/propose/fit_queue/tests part 1) is on any
-of the 3 tests' path - the failing asserts are pure page-count arithmetic in the
-one-site line's review export.
+test_site_done::test_site_done_line) - all three wait on 805's/220's in-sync export, as
+analysed in the iteration-116 DECISIONS entry (page 340 open of 341 vs the current code's
+335; the full export records the 6 write-once resolutions and makes all three pass by
+construction).
 
-**State of the branch (all committed, unchanged by this session).** cbb36c8 (boxes 1-3);
-732fe57 (box 4: web/fitkit.js + the one script tag); 7f7e7c0 (box 5: docs/site_flow.md);
-9efb944 (the rejected done claim). Against main (cf29be2): web/fitqueue.js
-byte-identical, web/index.html exactly one added line.
-
-**Next session (after 220 has merged into main and the driver synced this branch):**
-re-run `.venv/bin/python -m pytest -q` (expect 73 passed + 1 skipped, no known failures)
-and re-claim done. If the driver brings this task back BEFORE 220 merged: there is nothing
-to do but wait - do NOT touch data/review or web/data/review.json (309/220's files), do
-not re-baseline any test (that would paper over a genuinely stale page: the owner's
-Review tab is currently advertising 5 items whose fits are already on the map), and do not
-re-claim done (it fails the same way).
-
-**Re-read (only if reopened):** web/fitkit.js (its header comment is the design doc);
-web/index.html ~832 endFit, ~902 openPlan, 1706-1710 (the script tags);
-tests/test_fit_queue.py part 3 (~716+, the byte-identity pin) and ~700-712 (the part-2
-save test whose open_after delta trips on the stale page - expect it green after 220);
-/tmp/fkprobe.mjs (the throwaway probe - the template 307bb's committed part-4 test adapts;
-its playwright require path and the direct `map` reference are this-VM fixes). The data
-side needs no re-read: it is as committed.
+**Re-read (only when the 804/805 merge lands):** tools/fit_queue.py (where my _entry_propose
+sits in build()); tests/test_fit_queue.py parts 1-2 (the synthetic tree 804 extends; the
+save test whose open_after delta trips on the stale page). The iteration-116 Re-read list
+(fitkit, index.html ~832/902/1706, part 3, /tmp/fkprobe.mjs) belongs to 307bb, not this
+task.

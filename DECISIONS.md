@@ -369,3 +369,72 @@ of all three tests' paths: the failures are pure page-count arithmetic in review
 and fitkit/propose/fit_queue appear nowhere in the three tests' code (the part-2 test in
 MY file fails at line 712, 40 lines after the part-2 save flow's PUT - far from the part-1
 propose code I added).
+
+## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits
+
+One step (investigation + bookkeeping on my own task files, no code change): the driver
+returned 307ba while 220 is still open. I verified the dependency state and learned the 309
+split; all facts below were checked by running git, not assumed.
+
+**State.** main is still cf29be2 (`agent/a..main` empty - no re-sync needed, nothing new);
+web/data/review.json on main is byte-identical to my branch's copy (md5 b6506007, the stale
+340-open-of-341 page), so the 3 re-claim-blocking failures are unchanged and a re-claim now
+would fail the same way. 309's task file on main still says `Status: open` - the split is
+not on main yet. On agent/c (read via `git show`, not merged): 309 is `Status: split` with
+two subtask files: 804-fit-queue-wire.md (`Depends on: none`; Touches: tools/fit_queue.py,
+data/review/README.md, tests/test_fit_queue.py; the two-phase build wiring the right-place
+check into build(); explicitly must not touch agent a's web files or write the real
+checkout's data files) and 805-fit-queue-rebuild.md (`Depends on: 804`; Touches: web/data/
+fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_
+place_drift.py; runs the wired build on the real checkout - 15 flagged namesake pairings
+over 9 sites dropped/moved - and re-exports web/data/review.json in-process "by
+fit/review.py export from the same run").
+
+**805 subsumes 220.** fit/review.py::export(root, site_id=None) (line 184) writes the
+write-once `resolved` record into every item file whose resolving doc exists, and the page
+file is always computed over the whole queue; 805's in-run export must be a full export
+(site_id=None) because the namesake upserts span sites and the page must reflect all of
+them. A full export is exactly 220's box 1: it records the same 6 resolutions the
+iteration-116 scratch run verified (335 open of 341; second run a no-op). So when 220 runs
+(after 309's closure, which comes after 804+805), both its boxes are a no-op verification.
+I refreshed 220's now-stale "Depends on 309 because ..." note to describe the split and
+wrote 220 a runner's hand-over (run the export, expect no-op, verify the 3 tests, close as
+verified). I KEPT 220's `Depends on: 309` rather than re-pointing it at 805: 309 is the
+driver-visible task (the loop prompt names agent c's work as 309 with the parent's Touches),
+while 804/805 exist only on agent/c's branch and in no checkout's shared tasks/ yet - a
+dep naming a task file no checkout shares risks parking forever. 309's closure after 805
+adds no store change (the tools/right_place.py module file lands then; inert to the 3
+tests' data), so the extra wait costs one agent-c session, not a store dependency. (Agent
+c's own 2026-10-12 309 DECISION entry, iteration 98, documents the convention I am
+navigating: a split parent becomes done only after its subtasks, so a dep on a split parent
+parks until full closure, and a subtask dep on its own parent is a circular deadlock. 220
+is not a subtask of 309, so its dep is a long wait, not a deadlock.) A PITFALLS entry under
+Agent-tools records the convention and this exception.
+
+**Merge recipe written into 307ba's hand-over (the next session that sees 804/805 on main
+executes it).** tools/fit_queue.py: take 804's two-phase build (all flag decisions over the
+pre-mutation candidate sets, then drops/moves/upserts, then entries recomputed); keep my
+`_entry_propose(root, sid, plan)` call at the END of the per-site loop - after the final
+best selection, before entries.append - so a move that changes a site's best candidate
+recomputes that entry's propose (my committed wiring already sits there, so a two-phase
+restructure keeps it correct without moving it); keep the helper, the `import propose`
+line, the docstring's fifth-input paragraph, and the key order {pairs, scale_m_px,
+rot_deg, scale_source, coarse, note} after "candidates". tests/test_fit_queue.py: keep my
+part 1 (synthetic stage-B tree, 7 entries, propose pinned against propose_for in-test) and
+804's namesake test + re-derived test_fit_queue_real; run the merged file to confirm my
+fictional synthetic sites fail open under right_place (no county words -> never flagged -
+the module's documented rule); if one gets flagged, neutralise the place, never loosen the
+propose assertions; parts 2-3 as written (part-2's open_after delta greens once the synced
+tree has the in-sync page). web/data/fit_queue.json (both sides regenerate -> conflict):
+regenerate with the merged build `python3 tools/fit_queue.py --root .` and commit the
+joint file (right-place drops + my propose on the survivors). web/data/review.json +
+data/review/: take 805's/220's, never mine. docs/site_flow.md: keep both sections (mine:
+the "Ready to fit" propose paragraph; 805's: the namesake-report section). fit/propose.py,
+web/fitkit.js, web/index.html: only mine (804's spec forbids touching agent a's web files;
+index.html stays one line over main, fitqueue.js byte-identical - the part-3 pin).
+
+**Deliberately NOT done:** re-claiming (the suite still shows the 3 stale-page failures -
+they need 805's/220's in-sync export in this branch), touching any of 804/805's files
+(agent c's), re-baselining the 3 tests (iteration-116 rule stands: they derive, the store
+is what must be fixed), and re-running the suite (branch unchanged since the iteration-116
+run; the review-page md5 check is the cheap substitute).

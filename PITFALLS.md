@@ -47,6 +47,11 @@ Where: creating tasks/<N>-<name>.md in team mode (each agent in its own branch; 
 Symptom: two files with the same number sit in tasks/ after a sync (iteration 109: the lead's 309-queue-right-place.md and agent a's 309-place-check.md, created 5 minutes apart, neither session seeing the other's commit)
 Why/fix: a number is only free inside your own checkout; a concurrent lead/agent commit on main can claim the same number before your session's merge. After the driver's main-sync, before creating a new task file, `ls tasks/` and check the driver's prompt (it names the in-flight tasks by number and title); on a collision, the file created first - or the one the prompt names - is canonical: set yours to Status: dropped and keep its content as reference.
 
+#### A Depends-on line pointing at a SPLIT parent parks (a subtask pointing at its own parent deadlocks)
+Where: the driver's task queue in team mode; any `Depends on:` naming a task whose Status is `split`
+Symptom: the dependent task sits in Tasks-in-flight (open) and is never handed out (agent c's 804/805 at iterations 97-98: both depended on their own split parent 309; both parked until the dep lines were rewritten)
+Why/fix: a split parent becomes done only AFTER its subtasks finish, so a subtask depending on its parent is a cycle; an outsider depending on it waits for the whole chain to close. Point the dep at the LAST subtask in the chain (805, not 309) - unless the parent is the only driver-visible name (agent a's 220, iteration 117: kept `Depends on: 309` because 804/805 existed only on agent/c's branch and the driver's prompt names the parent; 309's post-805 closure adds no store change, so the extra wait is bookkeeping-only).
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
