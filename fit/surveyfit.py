@@ -322,18 +322,23 @@ def rotated_panel_map(theta_deg, fs, off, w, h):
 
 def panel_pieces(im):
     """The panel's ink as 8-connected pieces: the frozen autowalls extractor's keep mask, labelled
-    exactly as inkfit.template_pieces (3x3 connectivity, (-length, idx) order) - but as pixel
-    masks, since the null template is an image, not centre lines.
+    and piece-selected exactly as inkfit.template_pieces (3x3 connectivity, the labels touched by
+    extract's 1-in-step sampled points, (-length, idx) order) - but as pixel masks, since the null
+    template is an image, not centre lines. The piece list must equal template_pieces' (same
+    labels, same order) so the 302b scramble draws (scramble_draws, same rng stream and seed) land
+    the way 302b's scramble does.
     -> [(mask (h, w) bool, centroid (x, y), length, idx), ...]."""
-    (_, _, _), dbg = autowalls.extract(im, (), p=autowalls.P, debug=True)
+    (pts, _nrm, _w), dbg = autowalls.extract(im, (), p=autowalls.P, debug=True)
     keep = dbg["keep"]
     lab, n = ndi.label(keep, structure=np.ones((3, 3)))
     if not n:
         return []
+    comp = lab[np.asarray(pts[:, 1]).astype(int), np.asarray(pts[:, 0]).astype(int)]
+    have = set(comp.tolist()) if len(comp) else set()
     length = ndi.sum(keep, lab, np.arange(1, n + 1))
     out = []
     for idx in range(1, n + 1):
-        if length[idx - 1] < 1:
+        if idx not in have:
             continue
         m = lab == idx
         cy, cx = ndi.center_of_mass(m)

@@ -30,110 +30,118 @@ survey sheet, then carry the sheet's georeference over.
 
 ## Hand-over
 
-(2026-10-12, iteration 86, agent c - session 2. fit/surveyfit.py v0 BUILT on disk (UNCOMMITTED,
-harness-saved); matcher went LIVE mid-session (lead message); no tests written yet, nothing run.)
+(2026-10-12, iteration 87, agent c - session 3. Re-read verification of fit/surveyfit.py
+v0 + one fidelity fix, committed. No tests yet.)
 
-**State.** Status: in-progress. Pre-registration stands (docs/site_flow.md end section, mine -
-agent a also edits that file: only ever touch my 304 section). THE MATCHER IS NOW LIVE:
-`curl -sm 5 http://127.0.0.1:8091/health` -> {"model": "zju-community/matchanything_eloftr",
-"device": "NVIDIA GeForce RTX 5060 Ti"} (lead confirmed 2026-10-12, mid-session 86).
+**State.** Status: in-progress. fit/surveyfit.py v0 is COMMITTED (driver commit 3b4c2b2
+after session 2; my session-3 fix is this session's commit). The import check was clean.
+The MATCHER IS LIVE and re-confirmed this session: `curl -sm 5
+http://127.0.0.1:8091/health` -> {"model": "zju-community/matchanything_eloftr",
+"device": "NVIDIA GeForce RTX 5060 Ti"}. Pre-registration stands (docs/site_flow.md, my
+304 section - agent a also edits that file: only ever touch my 304 section). Suite green
+this session: 68 passed, 1 skipped.
 
-**On disk now (UNCOMMITTED - read before changing):** fit/surveyfit.py v0, complete but
-UNTESTED: MatchClient (POST /match base64 PNG, 30 s timeout + one retry, /health gate;
-SurveyFitError = method-level reason), ransac (seeded 2-pair samples, LS refinement, s_band
-scale-prior rejection), score = inlier_frac/(1+rms/INLIER_PX), confidence = score*margin floored
-0 (PROVISIONAL - restated at the freeze commit), priors() (302b anchor via propose.propose_for:
-bar/ratio scale prior only; trustworthy arrow = north_angle_deg a number + north_arrow True +
-|deg|<=60, same rule as propose._rotation), 302b nulls (scramble_image = pixel-exact 302b piece
-transform over autowalls keep-mask pieces, one rng, seed 20261012, (-length,idx) order;
-shift_sheet_image = ndi.shift(-h/2 rows, +w/2 cols) cval 255), sheet_similarity (corners
-TL TR BR BL vs pixel-grid corners, rectilinear, Web Mercator) + sheet_m_px,
-composite_placement (size frame -> rotated panel px -> sheet px -> merc; 4-point LS, no hand
-algebra; full-frame corners for (a,b), crop corners for the reported panel corners), fit()
-(panel via inkfit.load_panel - the 302b rule: row map_box or full image; thetas = [rot_fixed]
-or [rot] or _sweep 30+13 calls; SurveyFitError caught in the match and null phases -> reason),
-CLI (site plan --root --matcher --no-null). Provisional frozen constants at top: MATCHER_URL
-127.0.0.1:8091, timeout 30, MATCH_THRESHOLD 0.2, MAX_SIDE 832, SEED 20261012, RANSAC_ITERS 400,
-INLIER_PX 8, SCALE_TOL 1.5, SWEEP 12 deg coarse / 2 deg fine, SHIFTS 0.5/0.5, SHEET_FILL 255.
+**Re-read verification (session 3, all three items - now CLOSED):**
+1. Sign convention passes, NO flip: propose._anchor_pairs is z = (m/k)·e^{iθ}·(w−wc)+zc,
+   θ = north_angle_deg (positive = arrow deg CLOCKWISE of page-up). A visual (on-screen
+   CCW) rotation by φ multiplies the w = x−i y frame by +e^{iφ} (up (0,−1) → left (−1,0)
+   at 90°); PIL rotate(+deg) is visual CCW. So rotate_image(panel, +θ) north-up's a plan
+   whose arrow is θ, and the composition a_s·a_r·e^{iθ}·fs equals the anchor form.
+   rotated_panel_map's R = [[c, s], [−s, c]] is the correct visual-CCW matrix (x right,
+   y down). THE SYNTHETIC TEST MUST STILL LOCK THIS (fit(rot=+θ) on a plan drawn with its
+   north θ deg CW of page-up must recover the true placement).
+2. composite_placement frame separation passes: (a, b) fit on the four FULL-FRAME
+   (size-frame) corners; reported corners = the CROP box (size units; _panel_crop:
+   map_box fractions × size, or (0,0,w,h) for full-frame docs) through that same
+   similarity; the 3-stage composition is an exact similarity so the fit is valid at the
+   crop corners. fit()'s size = row.size or [panel.width, panel.height] matches
+   inkfit._size_frame.
+3. Null phase passes: both null _match_theta calls pass the UNROTATED panel (real or
+   scrambled) + the chosen theta; rotation applied inside, same as the fit phase.
 
-**CRITICAL sign convention (verified against propose._anchor_pairs; do NOT flip):** a visual
-(on-screen CCW) rotation by phi of an image multiplies its w = x - i y frame by **+e^{i phi}**.
-A drawn plan whose north offset is theta (302b convention: the anchor similarity factor is
-e^{i theta}; a north arrow theta deg CLOCKWISE of page-up has theta = +theta) is brought back
-north-up by rotating the image by **+theta** (PIL rotate(+theta) = CCW on screen). So
-_match_theta does rotate_image(panel, +theta) and rotated_panel_map uses R = [[c, s], [-s, c]].
-THE SYNTHETIC TEST MUST LOCK THIS (a rotated synthetic plan recovers the identity placement
-when fit(rot=+theta)).
+**Bug found + fixed (this session's commit):** panel_pieces kept every autowalls keep
+label, but the 302b reference inkfit.template_pieces drops labels with zero of
+extract's 1-in-step sampled points (deterministic seed-0 subsample, step=2); a kept-but-
+unsampled label would consume (th, dx, dy) draws from the single seeded RNG and shift
+every later piece's transform in the scrambled null. Fixed: select labels through the
+sampled points, exactly as template_pieces does. Verified: identical (idx, length)
+piece lists and first scramble draw on a synthetic panel; scramble_image valid (white
+bg, ink present); ransac recovers a planted exact similarity (|Δa| ~1e-16);
+sheet_similarity gives |a| = 10 / 0 deg for a known 10-merc-m/px sheet.
 
-**Doc 21 panel - deviation from the session-1 note (recorded in DECISIONS):** the method does
-NOT use the hand doc's crop [165,256,895,663] (that was the lead's smoke-test crop): the
-protocol says the method never opens a platefit document, and the 302b-consistent uniform rule
-is inkfit.load_panel (row map_box or full image). Doc 21 (DPLA 1280x889) therefore uses the
-FULL image as panel. The lead's smoke (633 matches / 31 inliers / 20-35-53 m at the 3 hand
-points, held-out doc 21 itself) is feasibility evidence ONLY - no parameter tuned from it.
+**Data availability (session 2, unchanged):** all 22 page images on disk; all 19
+held-out sites have their sheets (depictions.json + webp). Panel rule: book docs with a
+map_box -> crop; 12 commons docs (incl. doc 21, DPLA 1280x889) -> full image (the
+doc-21-full-image deviation, recorded in the pre-registration).
 
-**Data availability (verified this session - the one run is possible locally once frozen):**
-all 22 page images on disk (21 docs' book full/ pages + commons big/ jpgs incl. doc 21's);
-ALL 19 held-out sites have their sheets on disk (depictions.json + webp, none missing, no
-site without a sheet). Panel rule per doc: 9 book docs have a map_box (panel = recorded crop);
-12 commons docs (incl. doc 21) use the full image.
+**Next step (session 4) - write tests/test_surveyfit.py (hermetic), in this order:**
+1. Stub HTTP server on 127.0.0.1, **port 0** (the OS picks a free port; NEVER a fixed
+   port - other agents' checkouts run tests at the same time). Endpoints: /health (200
+   with a JSON body, or 500 for test (e)); /match (POST, JSON body: image0/image1 base64
+   PNG, threshold, max_side). The handler decodes both PNGs and builds the response:
+   the SYNTHETIC WORLD is a 400x400 sheet with ~14 feature glyphs (circles/arcs/lines
+   drawn at known sheet-px positions) and a 320x320 plan = the same glyphs under a known
+   transform T (scale, rotation, translation; plus a few junk glyphs in the plan that
+   have no sheet counterpart, for outlier rejection). The handler finds which glyphs
+   appear in both sent images (by pixel proximity of glyph centres after undoing the
+   panel's rotation) and returns their keypoints (in the ORIGINAL pixel frames) +
+   scores + junk pairs; to simulate the matcher's orientation sensitivity for the sweep
+   test, degrade the returned pairs when the sent panel is visibly rotated (e.g. a
+   few junk pairs instead of the true ones).
+2. Synthetic ground truth: a site (lon, lat) with its sheet corners from
+   aw.site_bbox/aw.corners at a known size_m; the sheet's a_s, b_s come from
+   surveyfit.sheet_similarity itself; the plan's true placement = a known similarity
+   z = a_true·w + b_true expressed via a True (a, b) built independently of the module
+   (e.g. a_true = (plan_m_px/k0)·e^{iθ_true} with k0 = aw.ground_scale(lat)).
+3. The five tests: (a) recovery of the known transform through the reported corners
+   (corner error vs the independently composed (a, b) < ~1 m; the ROTATED variant -
+   plan drawn with north θ deg CW, fit(rot=+θ) - must recover the SAME true placement:
+   this locks the sign convention); (b) scramble null score < fit score; (c)
+   shifted-sheet null score < fit score; (d) recorded-run reproducibility: generate
+   data/surveyfit/fixture_match.json ONCE (commit it) from the module's own ransac +
+   score output on a fixed synthetic /match response, and assert exact reproduction
+   (the test_gate pattern); (e) /health 500 -> result["reason"] starts with
+   "matcher unavailable", no exception.
+4. Run `.venv/bin/pytest tests/test_surveyfit.py -x -q` until green; create
+   data/surveyfit/devlog.md and log the dev facts (world params, glyph count, junk
+   count, any breakage hit).
 
-**Next step (session 3) - in order:**
-1. Import/syntax-check the uncommitted file: `.venv/bin/python -c "import sys; sys.path
-   .insert(0,'fit'); import surveyfit"` (expect small breakages; fix), then COMMIT it:
-   "304: fit/surveyfit.py v0 - ELoFTR client + RANSAC similarity + 302b nulls".
-2. tests/test_surveyfit.py (hermetic: stub HTTP server on 127.0.0.1 PORT 0 - never a fixed
-   port; recorded responses; synthetic world: 400x400 sheet with ~14 feature glyphs, corners
-   from aw.site_bbox/aw.corners at a synthetic (lon,lat,size_m) site, 320x320 plan = sheet
-   features under a known transform, plus junk pairs for outlier rejection; the stub callback
-   decodes the sent images and builds responses - for the sweep, degrade pairs at wrong theta
-   to simulate the matcher's orientation sensitivity). Tests: (a) recovery of the known
-   transform through the corners (corner error vs an independently composed (a,b) < ~1 m;
-   rotated variant locks the sign convention); (b) scramble null < fit score; (c)
-   shifted-sheet null < fit score; (d) recorded-run reproducibility against a committed
-   fixture (generate data/surveyfit/fixture_match.json once from the module's own ransac +
-   score output; test asserts exact reproduction - the test_gate pattern); (e) /health 500 ->
-   reason "matcher unavailable", no crash.
-3. Run `.venv/bin/pytest tests/test_surveyfit.py -x -q` until green (the suite's pre-existing
-   reds are NOT mine: test_batch_eu union, test_gate recorded-measurement, test_serve
-   platefits_docs_match_sites). Create data/surveyfit/devlog.md; log dev facts.
-4. REAL-SERVICE smoke (matcher is LIVE): `.venv/bin/python fit/surveyfit.py
-   maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's canary doc; reproducing
-   633/31/20-53 m is allowed ONLY as a canary, never as tuning) AND non-held-out
-   barnard-castle-q4185811 / avaricum-q281826; eyeball the placement's panel corners against
-   the site lon/lat (they should sit on the site). Log in devlog.md.
-5. FREEZE: restate in MY site_flow 304 section the exact frozen config as of the code + the
-   freeze commit hash (the constants list, score formula, confidence formula, sweep grid,
-   panel rule, doc-21-full-image deviation, SEED). Commit = THE FREEZE COMMIT. No parameter
-   change after this without amending that same section (the pre-registration allows amending
-   at the freeze and at the run only).
-6. fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py: the 21 doc ids from
-   tests/golden/hand_fit_docs.sha256 + MAIDEN; precheck (golden sha256, no auto flag, site +
-   row resolve); per-doc measure = surveyfit.fit + hand_similarity (the ONLY reader of the
-   stored pairs) + corner_metrics (both similarities in the doc's size frame, four
-   full-image corners, k0 = aw.ground_scale(lat0)); rows: corner error m, drot deg, scale
-   ratio, objective {fit,scramble,shifted}, null, margin, confidence, sheet used, aerial
-   column for camp-d-attila only (kinds=("aerial",)); "no sheet" rows if any (none expected);
-   checkpoint data/surveyfit/heldout/results.json per doc, pid lock, one re-run only on an
-   exception; `table` and `selfcheck` subcommands - selfcheck must give 0.0 m / 0.0 deg /
-   1.0 for all 21 BEFORE the run (it reads hand fits: allowed for the evaluator, never the
-   method). Run selfcheck now that data are in place.
-7. THE ONE RUN: re-check /health; `.venv/bin/python fit/surveyfit_heldout.py run`. Paste the
-   table verbatim into my site_flow section + the verdict plainly: PASS iff a confidence
-   threshold exists with every accepted fit within 60 m AND >=5 of 21 accepted (the threshold
-   is the pass criterion itself, as in 302b - scan thresholds, report which docs pass at
-   each). Pass -> create task 304b (next free number in 800-1099, Depends on: 304, Touches:
-   one module: wire into tools/site_done.py's fit step: confident -> map, unsure -> review
-   with the reason). Fail -> say so in the section, stop: no wiring, no fourth method.
+**After the tests (sessions 5+), in order:** real-service smoke (matcher is LIVE):
+`.venv/bin/python fit/surveyfit.py maiden-castle-q1232816 c_c20ff6b1f16d173d
+--no-null` (the lead's canary doc: 633 matches / 31 inliers / 20-35-53 m at the 3 hand
+points; reproducing it is canary confirmation ONLY - never tune from it) AND
+non-held-out barnard-castle-q4185811 / avaricum-q281826; eyeball the placement's panel
+corners against the site lon/lat (they should sit on the site); log in devlog.md.
+Then FREEZE (restate in MY site_flow 304 section the exact frozen config as of the
+code + the freeze commit hash: constants, score formula, confidence formula, sweep
+grid, panel rule, doc-21-full-image deviation, SEED; commit = THE FREEZE COMMIT; no
+parameter change after without amending that section). Then fit/surveyfit_heldout.py
+(mirror fit/inkfit_heldout.py: 21 doc ids from tests/golden/hand_fit_docs.sha256 +
+MAIDEN; precheck golden sha256/no-auto/site+row-resolve; per-doc measure =
+surveyfit.fit + hand_similarity (the ONLY reader of the stored pairs) +
+corner_metrics, both similarities in the doc's size frame, four full-image corners,
+k0 = aw.ground_scale(lat0); rows: corner error m, drot deg, scale ratio, objective
+{fit, scramble, shifted}, null, margin, confidence, sheet used, aerial column for
+camp-d-attila only (kinds=("aerial",)); "no sheet" rows if any (none expected);
+checkpoint data/surveyfit/heldout/results.json per doc; pid lock; one re-run only on an
+exception; run/table/selfcheck subcommands; selfcheck must give 0.0 m / 0.0 deg / 1.0
+for all 21 BEFORE the run - it reads hand fits: allowed for the evaluator, never the
+method). Then THE ONE RUN: re-check /health; `.venv/bin/python
+fit/surveyfit_heldout.py run`; paste the table verbatim into my site_flow section +
+the verdict plainly (PASS iff a confidence threshold exists under which every
+accepted fit is within 60 m AND >=5 of 21 accepted; the threshold choice is the single
+authorised post-run choice, as in 302b). Pass -> create task 304b (next free number in
+800-1099, with `Depends on: 304` and a one-module `Touches:` line: wire into
+tools/site_done.py's fit step: confident -> map, unsure -> review with the reason).
+Fail -> say so in the section, stop: no wiring, no fourth method.
 
-**Never:** read the 21's stored hand pairs during development (evaluator only); tune any
-parameter from the lead's held-out smoke numbers or from the run (the threshold choice is the
-single authorised choice, made after the run on the measured table); edit docs/site_flow.md
-outside my 304 section; change the 302b golden file or the hand docs.
+**Never:** read the 21's stored hand pairs during development (evaluator only); tune
+any parameter from the lead's held-out smoke numbers or from the run (after the run
+the ONLY authorised choice is the confidence threshold); edit docs/site_flow.md
+outside my 304 section; change the 302b golden file or the hand docs; bind fixed
+network ports in tests.
 
-**Re-read:** fit/surveyfit.py:rotated_panel_map + _match_theta - re-verify the +theta sign
-against propose._anchor_pairs before trusting any rotated-panel result; fit/surveyfit.py:
-composite_placement - confirm the size-frame vs crop-frame separation; the null phase of
-fit() (both _match_theta calls pass the UNROTATED panel + the chosen theta).
-
-
+**Re-read (new):** fit/surveyfit.py:_sweep - before the stub test, note the fine grid
+wraps (best=0 -> fine values 348..12 via `round(th % 360, 1)`); a fine theta can equal
+a coarse theta (0), so the stub may see the same image sent twice - assert at most
+30 + 13 calls, never exactly 43; and check the dedup is within the fine list only.
