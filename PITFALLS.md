@@ -4,6 +4,7 @@
 Contents, with the number of entries. Search for a file, function, library or error text: `grep -n -i "<key>" PITFALLS.md`; every entry's one-line fact: `grep -n "^#### " PITFALLS.md`.
 - Agent tools and harness (7)
 - This machine and its environment (29): Internet Archive (archive.org) 4
+- This machine and its environment (26): Internet Archive (archive.org) 4
 - Libraries and frameworks (11): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
 - This codebase (78): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 12, pipeline/ 9, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 4, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
 <!-- contents:end -->
@@ -982,6 +983,18 @@ Symptom: `TypeError: _index_row() missing 1 required positional argument: 'root'
 Why: only `propose_for` has a documented contract; the "private" names are imported across modules.
       Any new loader parameter needs a default (`root=ROOT`) so the direct callers keep today's
       behaviour; grep for `propose\._` in fit/ and tests/ before touching a loader signature.
+
+#### Verifying a year-once source line by substring: the label string can occur inside the title itself
+Where: `pipeline/plan_fit.py` (`source_line`'s commons branch); any verification of built
+      depictions (docs whose title carries the label: avaricum's "(1898) (14594767238)",
+      bolsover/castle-rising/shotwick's "The Castles of England (1897)")
+Symptom: a check like `"(label)" in source` flags CORRECT fixed lines, because the label string
+      (e.g. "1897") occurs inside the title's own parenthesis, not as an appended one
+Why: source_line appends the label parenthesis after the title, but the title itself may contain
+      the same string (Mackenzie plate titles end in the book's year; avaricum's raw file name
+      ends in a 10-digit id). The structural test that matches the rule exactly is
+      `source.split(", Wikimedia Commons:")[0] == title` (nothing appended after the title for a
+      yeared title), which the 219 re-bake verification uses.
 
 ### fit/evidence.py (the evidence contract)
 

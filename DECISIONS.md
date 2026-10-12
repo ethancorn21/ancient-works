@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 254 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+252 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -556,3 +557,47 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - **FAILED: full suite on this branch -> 1 failed: tests/test_region.py::test_every_region_in_the_data_resolves - "regions that would display wrongly: [('germany', 'US')]".** Cause: the staged extras rows use region "germany", absent from `build_catalog.REGION_NAME`, so `make_site` would display it as "US" (the silent-fallback the 214 audit test guards). Resolution chosen: 214 is DONE and its Notes say a later source task staging a new missing region adds the key itself ("the audit box is the guard"); 211 (not in flight) touches fit/merge.py + the canonical data files, NOT build_catalog.py, so the file is uncontested. I extended this task's `Touches:` line with `pipeline/build_catalog.py`; the key goes in with the dict reformatted one-region-per-line (a future region key is then a new-line additive edit - merge-safe with other branches). Expectation after the fix: 0 failed, 128 passed, 1 skipped.
 - **Baseline note:** the 4 driver-recorded failures of 2026-10-11 (test_batch_eu::test_union_check, test_batch_eu::test_union_full_coverage_live, test_gate::test_recorded_measurement_reproduces_and_agrees, test_serve::test_platefits_docs_match_sites) are all PASSING on today's main (agent c's merged work) - the pre-existing-failure baseline is now ZERO.
 - NEXT: (1) the region fix above + suite verification; (2) tick boxes 2-4 (box 1 = docs/lead_limes.md rewrite to final PROCEED per the DOC REWRITE PLAN kept in the task file); (3) commit code+staging+golden+region key together.
+## 2026-10-12 219 DECISION: 302c no longer blocks - the lead dropped 302c/302d in main d39ead8
+The task's `Depends on: 302c` existed only because both touched pipeline/plan_fit.py. The lead's
+commit d39ead8 (main, 2026-10-12) dropped 302c/302d as superseded by the matcher fit and set 219's
+Depends line to `none`. 302c never made its design changes to plan_fit.py (its own hand-over:
+investigation only, no code), so nothing from it collides with 219's edit; plan_fit.py is
+byte-identical between my branch and main (merge-base e2ca3d9; main's only commit since is d39ead8,
+task files + journals only). Proceeded on this branch without waiting.
+
+## 2026-10-12 219 DECISION: year-once rule = drop the label parenthesis whenever the title carries any 4-digit year
+The task's two sentences ("drop the label's parenthesis when the title already contains that year"
+vs "only a title without a year shows the label (or 'undated')") diverge for the 3 docs whose
+label-year differs from the title-year (argentoratum 1831/1836, bethlehem 1881/1882, mound-bottom
+1923/1924). Implemented the stricter, unambiguous one: the parenthesis appears ONLY for a yearless
+title (label or "undated"); a titled year always drops it. The label is not lost from the page: it
+stays in the entry's `scale` field. The year check reuses the same 4-digit pattern as the entry's
+sort year (_year4) so the two can never disagree; non-4-digit numbers ("116", "0154", 5-digit ids,
+"17th century") are not years, so "(1750-1900)"-style labels still show under yearless titles.
+
+## 2026-10-12 219 DECISION: refactor source_line extraction is byte-identical for all 133 store docs
+Extracted the citation + who/how clause from build() into pure source_line(doc, n, m, who) and the
+year regex into _year4 (committed 4b93f5c). Proof: a throwaway script evaluated the old inline
+expressions (copied verbatim from HEAD) and the new function for every doc in data/db/platefits
+(133) with m from similarity(doc['pairs']) unscaled - 0 mismatches. The least-squares similarity is
+scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, leaving the ground
+residuals the same), so m and corners do not depend on which image size stands in for the picture;
+this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
+and still pin the exact how-clause.
+
+## 2026-10-12 219 DECISION: re-bake = plan_fit.build per stale entry, then restore sites.json byte-for-byte
+The one-off re-bake (14 built year-titled commons depictions + shotwick, which had never been
+built in this checkout) ran the product's own path: plan_fit.build(doc) per doc, root = this
+checkout. Contrary to the previous hand-over's expectation, every big picture was already
+cached in data/raw/commons/big/ -> zero downloads. Proof that "only the string changes": for
+all 14 the rebuilt entry equals the stored one in every field except source; a second
+identical run is byte-stable (the fixed state is a fixed point); shotwick's rebuilt entry
+matches agent a's built entry (corners, fit, year, label, scale, coverage, kind, file, ink)
+with only the source fixed. Each build's trailing build_site.set_drawings refreshed
+web/data/sites.json (tracked, in 306's Touches) - the committed bookkeeping was stale (5
+sites: drawings 0 despite built plans, bethlehem 0->12) - and I restored the committed
+bytes: a gitignored build does not change committed bookkeeping (agent a's checkout follows
+the same convention); the product refreshes the file on its own next time. The naive
+verification check ("(label)" in source) false-positives on 3 of the 15 (avaricum, bolsover,
+castle-rising: the label string occurs inside the title itself) - the structural test is
+source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
