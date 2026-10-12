@@ -9,6 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,7 +20,43 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
+
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
 
 ## Project-wide driver notes (newest)
 
