@@ -88,3 +88,20 @@ Accept-rule sweep (`rules`), best-by-inliers candidate over any ground:
 3. Bake-off against `zju-community/matchanything_roma` (the denser, slower sibling) on the same 21 docs and
    the same rule; the 5060 Ti is free for it.
 4. The 12 rejected documents here are the test set for 2 and 3; the 7 accepted are not to be re-tuned on.
+
+## 5. Located windows (fit/matchfit2.py, run 2026-10-11 ~22:20 CDT, results data/matchfit/heldout_located/)
+
+Stage 1 matches the whole ground and its centred half; stage 2 re-matches windows of 1.3x / 1.8x / 2.5x the
+plan's coarse footprint, centred on the coarse hit. Same 21 documents, same rule (>= 10 inliers):
+
+| variant | accepted | wrong | worst centre m | worst corner m |
+|---|---|---|---|---|
+| centred windows (section 2) | 7 | 0 | 55 | 139 |
+| located windows | 8 | 0 | 54 | 139 |
+
+Gains little-solsbury (9 -> 10 inliers), raises hembury 45 -> 62 and badbury's centre error to 2 m; loses
+castle-rising (its only hit was the centred 0.25 window, which this variant does not try). Net +1. The 12
+failures are unchanged: too few raw matches on the 1850s US plates against relief and on the town/castle
+sketches. Windowing is not the lever for those; the matcher's own recall on that material is. Union of both
+window sets is the cheap step (9 of 21 on this table); a different matcher (ROMA; needs the
+image-matching-models package, not transformers) is the next real test.
