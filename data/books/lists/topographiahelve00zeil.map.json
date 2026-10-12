@@ -1,1 +1,824 @@
-[]
+[
+{
+"n": 32,
+"site_plan": true,
+"entries": [
+{
+"fig": 32,
+"title": "Zurich im Grund",
+"page": "17",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 36,
+"site_plan": false,
+"entries": [
+{
+"fig": 36,
+"title": "Tigurvm (Zurich im Prospect)",
+"page": "17",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 42,
+"site_plan": false,
+"entries": [
+{
+"fig": 42,
+"title": "Forsteck. FORSTECK.",
+"page": "19",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 52,
+"site_plan": false,
+"entries": [
+{
+"fig": 52,
+"title": "Stein am Rhein",
+"page": "21",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 58,
+"site_plan": false,
+"entries": [
+{
+"fig": 58,
+"title": "Winterhur, Undelfingen und Kyburg",
+"page": "22",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 66,
+"site_plan": true,
+"entries": [
+{
+"fig": 66,
+"title": "Bern die HauptStatt in Nüchternland",
+"page": "24",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 72,
+"site_plan": false,
+"entries": [
+{
+"fig": 72,
+"title": "Lentzburg. LENTZBURGV. + Brugg im Argaw. BRVG ARGOLIA.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+},
+{
+"fig": 72,
+"title": "Habsburg. HASSBURGŰ.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 80,
+"site_plan": false,
+"entries": [
+{
+"fig": 80,
+"title": "Araw. Arberg. Arburg.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 86,
+"site_plan": false,
+"entries": [
+{
+"fig": 86,
+"title": "Burgdorff. BURGDORF.",
+"page": "28",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 90,
+"site_plan": false,
+"entries": [
+{
+"fig": 90,
+"title": "Lausanne",
+"page": "79",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 94,
+"site_plan": false,
+"entries": [
+{
+"fig": 94,
+"title": "THUNA. Thun.",
+"page": "31",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 98,
+"site_plan": false,
+"entries": [
+{
+"fig": 98,
+"title": "S. Peter. Bibiscum. [Beven]",
+"page": "31",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 110,
+"site_plan": false,
+"entries": [
+{
+"fig": 110,
+"title": "Mürten. Neus. Nion. Aventicum. Vifffisburg.",
+"page": "34",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 116,
+"site_plan": false,
+"entries": [
+{
+"fig": 116,
+"title": "LVCERN.",
+"page": "36",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 124,
+"site_plan": true,
+"entries": [
+{
+"fig": 124,
+"title": "SEMPACH. SEMPACHIUM.",
+"page": "37",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+},
+{
+"fig": 124,
+"title": "SURSEE.",
+"page": "37",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 128,
+"site_plan": false,
+"entries": [
+{
+"fig": 128,
+"title": "Ragus et Ecclesia Collegiata MUNSTER in Argovia (Der Flecken und Stift Münster im Argaw)",
+"page": "37",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 134,
+"site_plan": true,
+"entries": [
+{
+"fig": 134,
+"title": "Altorff Haupt flecken des Lands URY",
+"page": "38",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+},
+{
+"fig": 134,
+"title": "Flüelen",
+"page": "38",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 138,
+"site_plan": false,
+"entries": [
+{
+"fig": 138,
+"title": "SVITIA. Schwytz",
+"page": "39",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 142,
+"site_plan": false,
+"entries": [
+{
+"fig": 142,
+"title": "Prospect des Haubt Closters Schwytz",
+"page": "39",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 146,
+"site_plan": false,
+"entries": [
+{
+"fig": 146,
+"title": "Einsiedelen. INSVLA EREMI",
+"page": "39",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 160,
+"site_plan": false,
+"entries": [
+{
+"fig": 160,
+"title": "TVGIVM. Zug.",
+"page": "43",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 166,
+"site_plan": false,
+"entries": [
+{
+"fig": 166,
+"title": "GLARONA. Glaris.",
+"page": "44",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 172,
+"site_plan": true,
+"entries": [
+{
+"fig": 172,
+"title": "Basel im Grund",
+"page": "46",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 176,
+"site_plan": false,
+"entries": [
+{
+"fig": 176,
+"title": "BASILEA im Prospect (2. Kupffer)",
+"page": "46",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 180,
+"site_plan": false,
+"entries": [
+{
+"fig": 180,
+"title": "Die Brück (Prospectvs Cathedrals, Pontis Rheni)",
+"page": "47",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 184,
+"site_plan": false,
+"entries": [
+{
+"fig": 184,
+"title": "CAMPVS DIVI PETRI (S. Peters Platz daselbst)",
+"page": "47",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 190,
+"site_plan": false,
+"entries": [
+{
+"fig": 190,
+"title": "Münchenstein",
+"page": "48",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 194,
+"site_plan": false,
+"entries": [
+{
+"fig": 194,
+"title": "Viechtstall [Lichtstall]",
+"page": "49",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 198,
+"site_plan": false,
+"entries": [
+{
+"fig": 198,
+"title": "WALLENBURG",
+"page": "49",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 204,
+"site_plan": false,
+"entries": [
+{
+"fig": 204,
+"title": "PIERRE PERTUISE",
+"page": "50",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 208,
+"site_plan": false,
+"entries": [
+{
+"fig": 208,
+"title": "Romamostier.",
+"page": "50",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 214,
+"site_plan": false,
+"entries": [
+{
+"fig": 214,
+"title": "Freÿburg in Üechtlandt. FRYBURGUM NUITONIA.",
+"page": "52",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 218,
+"site_plan": true,
+"entries": [
+{
+"fig": 218,
+"title": "SOLOTURVM",
+"page": "53",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 224,
+"site_plan": false,
+"entries": [
+{
+"fig": 224,
+"title": "Schaffhausen",
+"page": "54",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 236,
+"site_plan": false,
+"entries": [
+{
+"fig": 236,
+"title": "APPENZELL. + HERISSAW.",
+"page": "56",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 240,
+"site_plan": false,
+"entries": [
+{
+"fig": 240,
+"title": "Baden im Argov",
+"page": "57",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 246,
+"site_plan": false,
+"entries": [
+{
+"fig": 246,
+"title": "Klingnaw, Leuggern, Der mittlere Lauffen oder Fall des Rheins, Monast. Wettingen",
+"page": "58",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 254,
+"site_plan": false,
+"entries": [
+{
+"fig": 254,
+"title": "Forvm Tyberii. Zurzach.",
+"page": "58",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 258,
+"site_plan": false,
+"entries": [
+{
+"fig": 258,
+"title": "BRENGGARTEN.",
+"page": "59",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 268,
+"site_plan": true,
+"entries": [
+{
+"fig": 268,
+"title": "Die Statt Dissenhofen... in grund gelegt im Jahr 1648",
+"page": "60",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 272,
+"site_plan": false,
+"entries": [
+{
+"fig": 272,
+"title": "FRAWENFELD. + MELLINGEN.",
+"page": "60",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 276,
+"site_plan": false,
+"entries": [
+{
+"fig": 276,
+"title": "RAP PERSWYL. Rapperswyl.",
+"page": "61",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 288,
+"site_plan": true,
+"entries": [
+{
+"fig": 288,
+"title": "MULHUSIA ALSATIAE. Müllhausen.",
+"page": "65",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 294,
+"site_plan": false,
+"entries": [
+{
+"fig": 294,
+"title": "BIENNA. Biel.",
+"page": "66",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 298,
+"site_plan": true,
+"entries": [
+{
+"fig": 298,
+"title": "S. GALLEN.",
+"page": "67",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 308,
+"site_plan": true,
+"entries": [
+{
+"fig": 308,
+"title": "GENEVE. GENEVA. im Grund",
+"page": "70",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 312,
+"site_plan": false,
+"entries": [
+{
+"fig": 312,
+"title": "GENEUE. Genff im Prospect",
+"page": "71",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 316,
+"site_plan": false,
+"entries": [
+{
+"fig": 316,
+"title": "NEOCOMVM. Steinenburg am See. (2. Ansichten, 2 Kupffer)",
+"page": "72",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 328,
+"site_plan": false,
+"entries": [
+{
+"fig": 328,
+"title": "Weyerhauß. WEYERHAUS. (Castelen, Etiszwenyl)",
+"page": "77",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 334,
+"site_plan": false,
+"entries": [
+{
+"fig": 334,
+"title": "Chur. CURIA RHETIA.",
+"page": "79",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 350,
+"site_plan": false,
+"entries": [
+{
+"fig": 350,
+"title": "S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen",
+"page": "85",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 356,
+"site_plan": false,
+"entries": [
+{
+"fig": 356,
+"title": "Leugg",
+"page": "87",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 362,
+"site_plan": false,
+"entries": [
+{
+"fig": 362,
+"title": "PRYG. NATERS.",
+"page": "88",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 368,
+"site_plan": false,
+"entries": [
+{
+"fig": 368,
+"title": "S. Mauritus in Valessia. S. Mairise in Walls",
+"page": "89",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 374,
+"site_plan": false,
+"entries": [
+{
+"fig": 374,
+"title": "SEDUNVM. Sitten",
+"page": "90",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 378,
+"site_plan": false,
+"entries": [
+{
+"fig": 378,
+"title": "Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino",
+"page": "90",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 384,
+"site_plan": false,
+"entries": [
+{
+"fig": 384,
+"title": "WERDENSTEIN. Kloster S. Urban",
+"page": "90",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+}
+]

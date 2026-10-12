@@ -712,7 +712,7 @@ HAND_FIGS = {"civitatesorbiste00brau": """
 334|Chur. CURIA RHETIA.|79|o|hand
 |Plürs|83|o|hand
 348|Fontes Rheni anterioris et Posterioris (Ursprung des hinteren und Vorderen Rheins)|84|u|hand
-|S. Luciensteig|85|o|hand
+350|S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen|85|o|hand
 356|Leugg|87|o|hand
 362|PRYG. NATERS.|88|o|hand
 |Bisp/ oder Bispach|88|o|hand
@@ -721,7 +721,7 @@ HAND_FIGS = {"civitatesorbiste00brau": """
 378|Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino|90|o|hand
 |Chastillard und Blonay|90|o|hand
 |Sandeck und Mauwister|90|o|hand
-|Werdenstein und S. Urbani|90|o|hand
+384|WERDENSTEIN. Kloster S. Urban|90|o|hand
 """}
 
 
