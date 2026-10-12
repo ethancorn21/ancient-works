@@ -66,4 +66,12 @@ top as a refinement: new points refine the anchor and re-draw it. Parent 307 box
 - The maplibre image source maps its texture with an affine built from three corners: the
   rotated-rectangle quad of a similarity is a parallelogram, so the rotated picture lands
   exactly - verify in the headless test (pixels), don't assume.
+- Entry points (from the iteration-108 307a investigation, preserved on the record's
+  closure): web/index.html (~1710 lines) - refit() (maps P.inkUrl onto the 'fit-prev'
+  image source from the least-squares similarity of P.pairs), warpView() (proves the
+  image-source quad mechanism), makeInk (survey-red on transparent), openPlan (the fit
+  pane/points model); the place-mode flow fitqueue.js drives: endFit -> select(site) ->
+  setGround -> loadDeps -> startFit(site) -> openPlan(row). Boxes 2-3 (fly-to on open,
+  hide/restore overlays) live in the page's site-view and map-source code; keep the
+  extension small and let the page own the map state.
 - The parent's note stands: do not touch fit/surveyfit.py or task 304 (agent c).

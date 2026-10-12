@@ -1,7 +1,21 @@
-Status: open
+Status: dropped
 # 309: The queue's namesake check - a queue candidate must show the site's place, not just its name (carved from 307 box 1, 2026-10-12, for agent c)
 Depends on: 305
 Touches: tools/fit_queue.py, web/data/fit_queue.json, data/fit_place.json, data/review/, data/review/README.md, web/data/review.json, tests/test_fit_place.py, docs/site_flow.md
+
+Dropped at iteration 109 (agent a): the number 309 was claimed twice. The lead created
+tasks/309-queue-right-place.md first (commits 82e37e1 / 720539f at 21:34, before this
+file's commit 0d9d5d8 at 21:39; the d651c10 merge brought the lead's file in beside it),
+and the driver's queue names the lead's file as 309 (agent c works from it; c's touches
+match it exactly). The lead's file's acceptance boxes define done. This file is kept, not
+deleted, as reference for the 309 implementer: the iteration-108 research and
+implementation notes the lead's shorter spec leaves open - the fail-open rule (an unknown
+place never mismatches: 52 queue candidates carry noisy recorded conflicts that are mostly
+title words), the committed re-verified verdict record (data/fit_place.json; a stale
+record is flagged, not kept), the --live human path, the measured cases (n0686 -> the
+Poynings hillfort exists in the catalog -> move there; n0354 Ardoch -> no catalog site ->
+review with the reason), the 117-entry queue count, and the note that 305's queue shape
+and tests must survive. The 307a record and the 307a DECISIONS entries say the same.
 
 ## Goal
 The queue's first entry pairs Allcroft 1908 Fig. 217 "The Devil's Dyke Camp, near Brighton"

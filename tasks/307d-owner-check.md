@@ -8,7 +8,7 @@ The last box of 307: "Saving still writes 'by': 'hand' and runs the one-site lin
 and the existing hand fits load and save unchanged. Checked in a real browser on two queue
 sites the way the owner uses it (place, move, scale, save, see it on the map), then the
 test fits reverted. Tests cover the queue place-check and the save path." The place-check
-tests are 307a's; this task proves the save path end to end in a real browser on two queue
+tests are 309's; this task proves the save path end to end in a real browser on two queue
 sites and proves the shared store comes back byte-identical.
 
 ## Acceptance criteria

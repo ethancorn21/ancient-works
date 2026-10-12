@@ -82,3 +82,10 @@ in order. Box map: 1 -> 307a; 2-4 -> 307b; 5 -> 307c; 6 -> 307d (the place-check
 **Re-read:** none yet; each subtask writes its own. If 307b turns out bigger than its
 3-session budget, split its fly-to/hide-restore from its gestures - but do not reorder
 the letters without a note here.
+
+309 note (iteration 109, agent a): the number 309 was briefly claimed twice (my
+tasks/309-place-check.md vs the lead's tasks/309-queue-right-place.md - see the 307a
+record). Mine is dropped and kept as reference; the lead's file is canonical and agent
+c works from it. The reference file carries the implementation notes the lead's shorter
+spec leaves to the implementer: the fail-open rule, the re-verified verdict record,
+the measured n0686/n0354 cases, the 117-entry count, the 305-shape survival.

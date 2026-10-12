@@ -27,7 +27,7 @@ docs/site_flow/.
       fly-to padding adapt to the layout (no dead zones where a drag does nothing, the
       site's box still fills the visible map on open, narrow/mobile widths degrade
       sensibly).
-- [ ] If the review list needs to show 307a's reason ("same name, other place: ..."), the
+- [ ] If the review list needs to show 309's reason ("same name, other place: ..."), the
       minimal change to web/review.js lands here (it is the only remaining file of the
       parent's Touches that still needs work).
 - [ ] Before/and-after screenshots at 1440x900 in docs/site_flow/ (the old three-point
