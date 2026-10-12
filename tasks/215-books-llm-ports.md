@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 215: Book machinery - the LLM tunnels moved (18080/18081 dead, the replicas serve on 8080-8082)
 Depends on: none
 Touches: pipeline/books.py

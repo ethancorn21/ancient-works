@@ -11,19 +11,155 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 139, agent a - **the section below this one (the iter-138, iter-135 blocks and the embedded PROGRESS snapshot) is SUPERSEDED HI
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/216-view-books-entries.md`
+- `tasks/217-view-books-lists.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
+
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
+
+### 2026-10-12 307bb DECISION: iteration 135 - verification session only; every page-side fact the part-4 transcription needs re-confirmed on the merged tree; NO code written (context limit at the write step)
+The one-session plan from the iter-132 hand-over (transcribe the throwaway probe, append the
+part-4 section, run, commit) is unchanged and now fully de-risked: this session read
+everything the transcription touches and confirmed it, correcting the iter-132 record in
+three places (all in the task hand-over):
+
+- **The checkout's web/data/sites/oswestry-castle-q20713795 is a SYMLINK into the shared
+  store, not a real dir** (the iter-132 note said the opposite; 309's merge evidently
+  re-symlinked it). The design is unaffected: copytree materializes the top-level symlink
+  into the temp tree (assert not-is_symlink on the tree, part-2 style); the checkout
+  write-surface hash reads through the symlink, so a stray write into the shared store
+  still changes the re-hash (hermeticity stands); _default_dep_file reads through it fine.
+- **The drag-start grid (x 900-1150 step 25, y 250-550 step 50) needs a pane-avoidance
+  guard**: at the 1200x800 viewport the fit pane (#fitpane, left:398px, width
+  min(46vw,780px) = 552) spans x 398..950, and the grid's x 900-949 points fall on it - a
+  mouse event there never reaches the map's container listeners, and the throwaway's
+  bare grid could have picked one. The committed probe's candidate filter adds
+  document.elementFromPoint inside map.getCanvasContainer() AND outside the #fitpane
+  rect (the throwaway's x>=1000 points were already safe; run128c's pass predates the
+  widening). Everything else in the throwaway's flow re-confirmed verbatim: fqPlace
+  awaits loadDeps before openPlan (the hide/restore is race-free), endFit(keepSite=true
+  default), need() = 2/4, map-click pins on e.lngLat with the 3-px tolerance, refit's
+  plan path maps the CROP corners by the least-squares fit (so the anchor-vs-source
+  parallelogram check compares like with like), saveFit's exact 16-key doc + the store's
+  by:hand stamp = 17 keys (serve.py:205-216), openPlan's P.crop = map_box * NATURAL W/H
+  unrounded, the card markup (Ready to fit / N to go / name / #fqplace), and fitkit.js
+  end-to-end (wheel/drag math, sync stack, hint, gesture toggles, activate seed).
+- **Pick re-confirmed on the current tree** via /tmp/fkverify/pickmirror.py (all facts
+  printed before its trailing system-python PIL error - .venv has PIL): entries[3]
+  oswestry-castle-q20713795 / n0119, bar propose mpx 0.1646 rot 0, item unresolved with
+  the row's 3 pairs as the only candidate, no uncovered rows, dep default
+  six-inch-1st.webp, done-seed [fort-ancient-q5470727, marietta, forthill].
+
+Nothing failed; nothing ran (no test execution this session; last measured state remains
+iter-132's 100 passed + 1 skipped + 0 failed at c8e6cab). Working tree clean. Next
+session: write the part-4 section per the hand-over's step-by-step spec (it now doubles
+as a transcription checklist with the exact check names), append after test_card_done_
+mark_moves_on's last two lines, run the file, commit, tick boxes 1-3.
+
+### 2026-10-12 307bb DECISION: iteration 137 - lead scope cut on the headless test (their message wins over the iter-132 36-check design); verification-only session - every page-side fact the transcription needs re-read and confirmed in the merged tree
+The lead cut the part-4 test to the small form after 5+ verification/hand-over sessions:
+ONE Chrome run on the pick (oswestry) - open place mode, one drag, one wheel, one
+shift+wheel, save - asserting from the temp tree (a) the doc exists with by:hand and
+5 pairs, (b) its simFit scale/rotation match the final anchor within 1e-3 / 0.01,
+(c) depictions.json has the overlay; plus ONE Cancel run checking the earlier overlay
+is back. Transcribe /tmp/fkverify/probe.mjs as-is where it fits; DROP the
+pixel-corner, pin/undo, hint, gesture-bool and reqfail checks (pin/undo get a manual
+check in 307d). No verification-only or hand-over-only session from now on; a failing
+test gets committed and fixed next session. Box 4 (docs) is one short paragraph.
+So the committed probe keeps 22 named checks: boot, fitkit, cardOffersPick,
+seed: opensOnWorks/anchorIsPropose/fivePairsOnMap, drag: moves/keepsScaleRot/
+keepsUv/centrePairTracks/fitAgrees, wheel: scalesAboutCentre/fitAgrees, shift+wheel:
+turnsOneDegree/keepsScale, save: closesPane/stateCleared/newOverlayShowing/
+docFitsThePlacedAnchor, cancel: overlayBack/stateCleared, noPageErrors. The
+rotated-parallelogram pixel proof (the _fkvFitChecks corner math) goes away with the
+cut - it stays proven in the throwaway's run128c (41/41, pre-merge tree) and the claim
+moves to this record rather than the committed test. This session was verification (the
+one the cut now forbids): all facts in the task's hand-over section were re-read in the
+merged tree - fitkit.js (_fkAbsorb ~163: a wheel re-plants the anchor at the fit's own
+at(u0,v0) and adopts the fit's mpx/rot, a no-op to float-point over the exact re-
+emitted five - so the wheel's expected base is simFit(P.pairs).mpx, not the anchor's;
+_fkOnWheel 261: shift ? rot += dy*0.01 : mpx *= exp(-dy*0.0015); _fkOnMove: absolute
+from press-down, engages at 4px; _fkActivate 319: fitBounds duration 900ms, pad left
+390 when !narrow, hides dep-<site>, re-emits 5 pairs + markers); index.html (simFit
+983: least squares over W=[u,-v] -> Z=merc, a=[nr/d, ni/d] with nr += zr*wr+zi*wi,
+ni += zi*wr-zr*wi, k = cos(pairs[0].lat), mpx = |a|*k, rot = atan2 deg - the _simfit
+port in the hand-over is exactly this; merc 343 R=6378137 no clamping; lsGet/lsSet
+299-300 JSON.parse/stringify - the seed must JSON.stringify aw.ground too; select 801
+default dep = first DRAWING kind (plan/drawing/view, 636) else last 'map', 150y survey
+filter 413-414; setGround 799 persists; saveFit ~1129-1150 as in the iter-135
+corrections); fitqueue.js (FQ.done = lsGet aw.fitQueue.done with the self-heal in
+fqLoad; fqPending = S.byId && !done && !skipped; card 'Ready to fit <span>N to go
+</span>' with N = fqPending(); fqPlace: select -> setGround(lidar === false ?
+'imagery' : 'relief') -> await loadDeps -> startFit -> await openPlan(row)). Pick
+unchanged: entries[3] oswestry-castle-q20713795 (114-entry queue), done-seed = the
+three earlier entries (fort-ancient, marietta, forthill). Next session is mechanical:
+write the section per the hand-over's numbered steps (docstring reword, PLACE_PROBE,
+_run_place_probe, place_served, _simfit, the test, the box rewords), py_compile, run
+the file (~5-8 min), commit, tick boxes per the cut, write the one-paragraph box-4
+docs edit.
+
+### 2026-10-12 307bb DECISION: iteration 138 - verification session (the lead's cut still stands; NO code written, working tree clean, nothing run). Two facts added to the hand-over design; the next session is the mechanical one (write the part-4 section per the hand-over, run the file, commit, tick boxes)
+- **The m_per_px formula was DERIVED from pipeline/plan_fit.py this session, not copied from the hand-over**: `load_picture` (L203-222) returns `fs = im.width / doc.size[0]` (the raw file over the doc's size frame); build() (L262-336) scales pairs and crop by fs into pic-px, solves `m_px = |a|*k` in pic-px, then `f = min(1, MAX_PX/max(crop.size))` with `m_px /= f` when f<1 (webp px are f pic-px), stored `m_per_px` rounded to 4dp, `rot_deg` rounded to 2dp, `resid_m` rounded to 0.1 m ground. Hence `fit.m_per_px == anchor.mpx * fs / f` with f in pic-px crop units - the hand-over's `want_mpx = anchor.mpx * fs / f_scale` is exactly this; the round-to-4dp adds ~2.6e-4 relative, inside the 1e-3 tolerance (for the pick fs = 1 exactly, f ~= 2400/3081 ~= 0.779).
+- **The pickmirror re-run on today's merged tree**: pick unchanged (entries[3] oswestry-castle-q20713795, bar 0.1646/0.0, 5 propose pairs, 3 cand pairs, no uncovered, dep six-inch-1st.webp, done-seed the three earlier entries); NEW: entry 9 richard-s-castle-q17650937 ALSO passes all three pick constraints (propose bar 0.0503/0.0, dep default, line-eligible) - the picker takes file order so oswestry still wins; the test's pick must stay DERIVED (it is). Review items now total 346 (batch work landing via main merges); the 114-entry queue file is unaffected (new docs do not auto-regenerate it) and the picker's checkout doc scan rejects any queue site that gained a doc, so the test adapts to population drift automatically.
+- simFit (index.html:983) re-read VERBATIM this session: the hand-over's _simfit port matches it exactly (W=[u,-v] -> Z=merc centred least squares, nr += zr*wr+zi*wi, ni += zi*wr-zr*wi, k = cos(first pair's lat), mpx = |a|*k, rot = atan2 deg). #map is fixed inset:0 (the canvas spans the viewport: canvas-relative x == client x) and .fitpane spans client x 398..950 at 1200x800 (left:398, width min(46vw,780px)=552) - the drag-start grid's elementFromPoint + pane-rect guard is load-bearing for the x 900-949 column. saveFit (index.html ~1130) re-read: the 16-key doc + by:hand = 17, the 60x1.5s overlay poll on fit.at, depSel repointed at the new overlay, endFit -> applyDep; the fitkit endFit wrapper restores the overlay on close. fqPlace (fitqueue.js) re-read: select -> setGround (persists aw.ground) -> await loadDeps -> startFit -> await openPlan; the card markup and fqPending (S.byId && !done && !skipped) confirmed.
+- Nothing failed; nothing ran (last suite state remains 100 passed + 1 skipped + 0 failed at c8e6cab; the driver's merge before this session added no tests - the first run will re-confirm). Working tree clean (only the task file and this entry changed).
 
 ## Project-wide driver notes (newest)
 

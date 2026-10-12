@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 214: Add Italy to build_catalog's REGION_NAME (and audit the regions the data uses)
 Depends on: none
 Touches: pipeline/build_catalog.py, tests/test_region.py
