@@ -3203,6 +3203,144 @@ home stats line containing "built in all" (the card's anchor), L1707 the last sc
 both PUT and DELETE - the next step is reading tests/test_serve.py, then the page card
 (web/fitqueue.js, added to Touches this session).
 
+## 2026-10-12 305 DECISION: page card built (web/fitqueue.js + the index.html script tag); test_serve.py read whole - the hand-over's "test d" does not exist
+Steps 2+3 of the plan. web/fitqueue.js (loaded after review.js, index.html L1708) chains the wrappers
+review.js installed: renderList -> a "Ready to fit (N to go)" card as the next sibling of the home
+stats line (the "built in all" p; the tabs row and that line's text stay byte for byte), naming the
+next site (first queue entry not done in this browser and not skipped this session, and still a built
+site in this build), its best candidate's row (title, book, label, the one-word reason) and buttons
+Place the drawing / Skip / Undo skips. Place runs the existing fit tool in the fitkit convention
+(endFit-if-active -> select -> setGround(lidar?relief:imagery) -> loadDeps -> startFit ->
+openPlan(entry.best.row)); RV.pending is deliberately never set (the queue's row is the owner's clean
+slate). saveFit wrapper (after review.js's): a landed doc for a queued site marks it done in
+localStorage aw.fitQueue.done (self-healed against the file on load) and the card moves on. Skips are
+session-only with a reset in the card. The card never breaks a page load: missing/404/stale file =
+no card.
+
+Two pitfalls hit and fixed, both in the browser only (node --check passes): (1) review.js's
+wrapper-saved names (_renderList, _saveFit, ...) are top-level consts in the page's global lexical
+scope - fitqueue.js re-declaring them made Chrome reject the whole script ("Identifier '_renderList'
+has already been declared"; FQ then undefined). Renamed to _fqRenderList/_fqSaveFit; PITFALLS.md has
+the rule. (2) fqPatch re-assigned a const (old -> card).
+
+Verified headless against a conftest-style temp tree (shot.mjs, chrome, real click-through of the
+DOM buttons): card renders ("Ready to fit 117 to go" / Devil's Dyke / Allcroft's row / "the clearest
+scan"); Place opens the fit tool with P.site=devil-s-dyke-q3307343, P.plan=earthworkenglan01allcgoog_n0686_1,
+S.ground=relief, pane open, correct header; back out -> card still on the same site; Skip -> Fort
+Ancient (116, reset link appears); Undo -> back. No [pageerror], no [reqfail]; only the expected 200s
+and 404s (scans/amazon/book image). Full suite after: 70 passed, 1 skipped - unchanged from loop
+start, including test_review's headless n404==2 (the committed fit_queue.json answers 200) and
+index.html footprint tests (the tag is a distinct src string).
+
+tests/test_serve.py read WHOLE this session (81 lines, 5 tests): test_page_loads (body contains
+"Ancient Works" + "maplibre"), test_sites_data (>=384 sites, sum drawings >=25, per-site C fields),
+test_hand_fits_are_the_reference (golden), test_platefits_docs_match_sites (every doc's site built,
+plan+pairs present), test_document_store_roundtrip (PUT/GET/DELETE on the SCRATCH collection
+"awtest" - never platefits, so no worker involvement). The earlier hand-over's "test d" (a tree
+without tools/ asserting an exact file set after PUTs) does NOT exist in this file - stale
+description, now corrected. The exact file-set assertion that DOES exist is test_review.py::
+test_save_resolves_the_item (platefits docs + per-site depictions: after the PUT, exactly one new
+doc and nothing else; in that tree the worker dies on the pipeline/ import - the server stays up).
+So the serve.py worker change (next step) must keep: no tools/ in the tree -> the site_done import
+fails -> swallowed by the existing except-BaseException-and-print -> no new files; and no new files
+for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
+([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
+list drained per wake) is unchanged and still valid.
+
+## 2026-10-12 305 DECISION: part 2 (save -> one-site line) verified green - the pick rule generalized (population moved) and the drain was the bug, not the worker
+Ran the iteration-102-written part 2. Two failures, both fixed: (1) `_pick_site()` returned None -
+the population moved under the batch tasks since iteration 102: Devil's Dyke's last uncovered row
+(n0662_1) now has an agent doc, so EVERY queue site with a book page + item candidate is fully
+covered (batch items hold every non-auto row). Generalized: hard conditions = book row with a local
+page + unresolved item carrying it with >=3 pairs + NO platefits docs for the site (the line then
+builds exactly one overlay: drawings +1 and the open count drop by exactly one); "uncovered rows"
+became a soft preference (pick first, assertion block conditional). Current pick: forthill
+(ancientmonuments00squi_n0068_1, 0 uncovered, 3 pairs). (2) The fixture's `sd.unlink()` crashed on
+a real per-site dir (forthill) - copytree already materializes the checkout's per-site symlinks into
+the tree, so the unlink/re-copy was unnecessary and wrong; deleted it (real dirs are already
+private; the test's symlink + realpath asserts still guard). Then the first full run: PUT ok, the
+drawing landed on the map (depictions poll passed) but the 30 s drain for "finished (exit 0)" timed
+out with only the PUT log line visible. Investigation (throwaway /tmp/diag305*.py, raw os.read
+reader + watchdog dumps): NO hang - the whole one-site line finishes in 23 s (PUT at +1 s, first
+worker print and "finished (exit 0)" at +23 s; the ~22 s is the heavy first import of the
+numpy/scipy/PIL chain). The drain pattern was the bug: select() on the fd of a buffered reader
+(proc.stdout, text mode) is not a wait for lines - the first readline() pre-fetched the OS pipe
+into Python's buffer and select never fired again; a second run also showed a whole-process stall
+of minutes (its watchdog time.sleep(60) never woke - an OS-level thing under parallel-agent load,
+not a Python deadlock: the identical run completes in 23 s elsewhere). Fix in tests/test_fit_queue.py:
+the server's stdout is pulled by a dedicated reader thread (blocking reads, no select at all), the
+fit-entry poll and the "finished" wait merged into one 180 s loop (8x the measured 23 s; the server-
+stays-up assert runs every tick), and the network-freedom / no-failure asserts scan the collected
+lines. Part 1 (synthetic + real population) unchanged and green. Full suite after: 71 passed,
+1 skipped (baseline 70+1; the +1 is part 2). web/data/fit_queue.json re-generated: content identical
+(117 entries, same order - the batch docs are agent docs, which do not move a site out of the queue),
+only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + buffered reader on a
+coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
+real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
+section (box 1's "say how" + the card/save->line semantics).
+
+## 2026-10-12 305 DECISION: part 3 (headless card probe, boxes 2+4 page half) written and green; screenshots verified
+Added Part 3 to tests/test_fit_queue.py: PROBE_SCRIPT (a standalone playwright probe the test writes to a
+tmp dir and runs with node + NODE_PATH=/home/agent/tools/shot/node_modules; the createRequire trick from
+shot.mjs) plus test_card_in_the_browser and test_card_done_mark_moves_on. The probe boots the served
+temp tree, reads the card, then real-clicks #fqplace -> the fit view's back -> the site view's back ->
+#fqskip -> #fqreset, reading the card and the fit tool's page state (P.site/P.plan/P.model/S.ground/
+#fitname/#fithint/save-disabled) at each stage. The done-mark test pre-seeds localStorage
+aw.fitQueue.done = {first entry site: <iso ts>} via addInitScript - the EXACT key/value the card's own
+saveFit wrapper writes when a save lands - and checks the load starts at entry 2 (self-heal keeps the
+mark: the site is still in the file), skip then goes to entry 3, undo restores entry 2. Both tests pass
+(2 passed in 26.7 s with -k card); full suite still to run (expect 73 passed / 1 skipped).
+
+Four bugs hit while building the probe, all fixed: (1) conftest's `served` fixture yields a TUPLE
+(base_url, tree), not the dict test_review's own `queue` fixture wraps it into; (2) probe stages that
+read page globals must be `await page.evaluate(() => ({...}))` - bare node-context references to P/S/FQ
+throw (and they are lexical: globalThis.S is undefined while bare S works); (3) `const extra = {}`
+reassigned later -> "Assignment to constant variable" is a RUNTIME error, and the boot block's
+swallowing try/catch turned it into silently missing fields ({ok:true} with no state) - the misleading
+failure mode cost ~30 min; now `let extra` and PITFALLS has the entry; (4) MapLibre aborts in-flight
+/tiles/relief fetches during the card's flyTo (net::ERR_ABORTED -> [reqfail]), so the tests assert no
+reqfail except /tiles/ lines (test_review never navigates, hence its stricter assert). Also: after
+#fitback the fit pane is HIDDEN again (endFit), so back1.pane is False.
+
+Screenshots for docs/site_flow/ were generated against the REAL checkout (server --port 0 on this
+checkout; the probe never saves, so no shared-store writes) and visually verified: 1-card.png shows
+"READY TO FIT 117 TO GO / Devil's Dyke / The Devil's Dyke Camp, near Brighton Allcroft 1908 - Fig. 217
+- the clearest scan" with PLACE THE DRAWING / SKIP under the stats line; 2-place.png shows the fit view
+(title, Plan/View seg, step hint, save floor "at least 3 points", citation) AND the Allcroft plate
+image fully rendered in the sheet pane (book pages load in the real tree; in the conftest temp tree
+they 404 and the tool keeps the row with "Could not load the page scan." - asserted in the test);
+3-skip.png shows Fort Ancient 116 to go + "Undo 1 skip"; a second run with the done mark pre-seeded
+starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
+/tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
+in the hand-over).
+
+## 2026-10-12 305 DECISION: done - screenshots committed, full suite green (73 passed / 1 skipped), docs/site_flow.md section written, all boxes ticked, Status: done
+Final step of the hand-over plan from iterations 100-104. (1) Copied the four iteration-104
+screenshots from /tmp into docs/site_flow/ as fit_queue_card.png / fit_queue_place.png /
+fit_queue_skip.png / fit_queue_done.png (the done-mark variant's 1-card.png) and re-verified
+each visually before committing: card "READY TO FIT - 117 TO GO" Devil's Dyke "the clearest
+scan"; place = the fit tool open with the sheet header "ALLCROFT 1908 . FIG. 217 . THE
+DEVIL'S DYKE CAMP, NEAR BRIGHTON" and the plate scan rendered, save floor "at least 3 points";
+skip = Fort Ancient 116 to go + "Undo 1 skip"; done = the pre-seeded mark moves the card to
+Fort Ancient (no Undo button yet). (2) Full suite: **73 passed, 1 skipped in 117 s** - exactly
+the expected count (71 baseline + the 2 card tests); nothing failed and nothing loosened,
+including the hand-fit golden hash check (no test fit was ever written to the shared store, so
+there is nothing to revert) and test_review's headless n404==2. (3) New docs/site_flow.md
+section "Ready to fit: the owner clicks the points, the line does everything else (task 305,
+2026-10-12)", completing box 1's say-how: the queue rule (the three conditions, dedupe by
+plan, best candidate = plan over view then drawing area in page px then plan id, the
+one-word reasons, the order), the card's semantics (the fitkit chain, RV.pending never set,
+the done mark in localStorage aw.fitQueue.done self-healed against the file, skips
+session-only), the save -> line wiring (a PUT to platefits stamps by:hand - 303 - and a
+worker thread in the server runs tools/site_done.py main([site]) IN-PROCESS with no model,
+the 2026-10-10 subprocess lesson; a DELETE keeps the old all-fits sweep; the page polls
+depictions.json; a tree without tools/ writes no files), and what the three parts of
+tests/test_fit_queue.py prove versus the one step only the owner can do on his Mac (real
+points, save, on the map), citing the four screenshots. (4) Ticked all four boxes, Status:
+done. Also killed the stray read-only server (pid 1189532) left on 127.0.0.1:40035 by
+iteration 104. No new failures, no new pitfalls (iteration 104's four probe bugs are already
+logged in PITFALLS and above).
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
