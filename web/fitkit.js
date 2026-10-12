@@ -18,8 +18,12 @@
    - the three gestures, while placed (the gestures own the mouse; the map's own pan
      and zoom come off and come back on close):
        * a drag moves the whole drawing - the anchor's centre by the pointer's ground
-         delta (Mercator metres at both pointer positions: exact at any zoom, and still
-         right while a fly-to re-zooms under the drag);
+         delta (each pointer point is unprojected and converted to a [lon, lat] array
+         first - the page's merc destructures arrays, not unproject's {lng, lat} object
+         - then taken in Mercator metres at both positions: exact at any zoom, and
+         still right while a fly-to re-zooms under the drag; each move event recomputes
+         the anchor from the PRESS-DOWN pointer and anchor - absolute, not
+         incremental - so the many move events of one drag cannot accumulate);
        * the wheel scales it about the centre: mpx *= exp(-deltaY * 0.0015) - the page
          canvas's own wheel factor, so wheel-up grows;
        * shift+wheel turns it: 1 degree per 100-unit notch.
@@ -76,7 +80,7 @@ const _fkOpenPlan = openPlan;
 const _fkEndFit = endFit;
 const _fkRefit = refit;
 let _fkLastN = 0;   // the pair count the refit wrapper last saw: the sync's floor
-let _fkDrag = null; // the live anchor drag: { x, y, ll, moved } (start pointer + ground point)
+let _fkDrag = null; // the live anchor drag: { x, y, ll, lon, lat, moved } (start pointer, its ground point, the anchor's position at press-down)
 let _fkRaf = 0;     // the coalesced apply: at most one refit per frame
 
 /* The loaded image's scale relative to the row's recorded page frame (the plans row's
@@ -269,8 +273,9 @@ function _fkOnDown(e) {
   if (e.button !== 0 || !P.placed || !P.active || !P.plan || !P.img || !P.anchor) return;
   if (e.target.closest('.maplibregl-marker')) return;  // a marker press is the page's own drag flow
   const r = map.getCanvas().getBoundingClientRect();
+  const u = map.unproject([e.clientX - r.left, e.clientY - r.top]);  // {lng, lat} object -> the [lon, lat] array the page's merc destructures
   _fkDrag = { x: e.clientX - r.left, y: e.clientY - r.top,
-              ll: map.unproject([e.clientX - r.left, e.clientY - r.top]), moved: false };
+              ll: [u.lng, u.lat], lon: P.anchor.lon, lat: P.anchor.lat, moved: false };
   addEventListener('mousemove', _fkOnMove);
   addEventListener('mouseup', _fkOnUp);
   map.getCanvas().style.cursor = 'grabbing';
@@ -284,10 +289,15 @@ function _fkOnMove(e) {
     _fkDrag.moved = true;
     if (P.pending) P.pending = null;  // a drag is not a pin
   }
-  // the pointer's ground delta in Mercator metres at both positions: exact at any
-  // zoom, and still right while a fly-to re-zooms the map under the drag
-  const a = merc(_fkDrag.ll), b = merc(map.unproject([x, y]));
-  const h = merc([P.anchor.lon, P.anchor.lat]);
+  // the anchor absolute to the press-down: anchor = anchor-at-down + (pointer now -
+  // pointer at down), in Mercator metres. NOT an increment on the current anchor - a
+  // drag fires many move events and an increment would apply the whole (now - down)
+  // delta at each of them, accelerating the drawing away (the 1.5x drag bug, caught
+  // in the throwaway probe: 2 move events of 30px moved the anchor by 1.5x the 30px
+  // delta). Exact at any zoom, and still right while a fly-to re-zooms the map
+  // under the drag.
+  const u = map.unproject([x, y]);  // {lng, lat} object -> the [lon, lat] array the page's merc destructures
+  const a = merc(_fkDrag.ll), b = merc([u.lng, u.lat]), h = merc([_fkDrag.lon, _fkDrag.lat]);
   [P.anchor.lon, P.anchor.lat] = unmerc([h[0] + b[0] - a[0], h[1] + b[1] - a[1]]);
   _fkReemitLive();
   _fkScheduleApply();
