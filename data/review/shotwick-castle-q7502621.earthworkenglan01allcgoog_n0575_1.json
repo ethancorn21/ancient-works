@@ -19,6 +19,38 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 20 40 60 feet'",
    "why": "no model answer"
+  },
+  {
+   "plan": "c_e6e5490609414bb9",
+   "title": "Shotwick Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/shotwick-castle-q7502621/e6e5490609414bb9.jpg",
+   "pairs": [
+    [
+     405.0,
+     25.0,
+     -2.9756073,
+     53.2282398
+    ],
+    [
+     827.0,
+     570.0,
+     -2.974283,
+     53.2272404
+    ],
+    [
+     620.0,
+     835.0,
+     -2.9747557,
+     53.2267733
+    ],
+    [
+     30.0,
+     690.0,
+     -2.977288,
+     53.2270046
+    ]
+   ],
+   "why": "306a audit 2026-10-12: the drawn moated ring spans ~188 m (the whole plate at the fitted 0.2289 m/px), but the scheduled earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch, 38 m bailey - NHLE 1016616): the fit is ~2x too big. The 4 turret anchors carry 2-19 m residuals: that is the scale mismatch, not placement error."
   }
  ],
  "no_picture_found": null,
