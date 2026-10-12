@@ -9,6 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 123, agent a - FIRST session on 307bb; investigation + design only, NO code written. web/fitkit.js is untouched (md5 2857c9b17f
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -70,6 +71,56 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
+
+### 2026-10-12 307bb DECISION: the placement gestures live in fitkit.js by reassigning refit (no index.html footprint, no new map listeners) - designed in full, not yet coded
+Investigation-only session: 307ba is done (suite 75+1, re-claimed at c5250a4 sync), so
+307bb's start condition is met. No code written; the full implementation design (function
+by function) is in 307bb's hand-over. Key decisions, all verified against the sources:
+
+- **MapLibre 5.6.0 binds ALL gesture listeners on the canvas container, not the canvas**
+  (web/vendor/maplibre-gl-5.6.0.js, readable UMD: mousedown/mousemove/mouseup/dblclick/
+  click/wheel{passive:false} on getCanvasContainer(), mousemove{capture}/mouseup on
+  document). Consequence: fitkit's gesture listeners go on the container; with
+  dragPan/scrollZoom/touchZoomRotate/doubleClickZoom/boxZoom disabled while placed, the
+  dispatcher (`if(!c.isEnabled())continue;`) skips them and none preventDefaults (the
+  scrollZoom handler returns before its e.preventDefault() when disabled) - a
+  later-registered container listener receives the events, so wheel/drag can own the mouse
+  without fighting the map.
+- **The 3px/4px disjointness is real, not assumed:** the always-enabled user-event handler
+  records _mousedownPos on every mousedown and fires the map 'click' only when the
+  mousedown->click distance is < clickTolerance (3 px, the page's default). Our move
+  engages at >4 px, so a pinning click and a moving drag cannot both fire; we null
+  P.pending the moment a move engages (a drag is not a pin).
+- **Anchor refinement hooks through a wrapped refit, not a map listener:** the page's own
+  map-click (pin), undo, clear and marker-dragend handlers all call the bare refit() - the
+  global - so `refit = wrapper` sees every pair-count change: n grew -> push the pre-pin
+  anchor(s) on P.anchorStack, refine the anchor by simFit over all pairs (view mode too:
+  the anchor stays a similarity; verified algebraically simFit's a,b equal the re-emitted
+  similarity's a,z0, so over the exact five it recovers the anchor to fp rounding),
+  re-emit the five in place (mutate lon/lat, keep the objects - the marker dragend
+  closures hold them), rebuild markers via the page's addPairMarker (push one at a time
+  for 1..n labels); n shrank -> pop the stack (clear -> the anchor before the first pin;
+  undo below the five-re-emit floor with an empty stack leaves the anchor untouched: the
+  placement is inviolable). A drag gesture does NOT absorb the fit first (a move must not
+  change mpx/rot); wheel/rotate do (so a previously dragged corner is absorbed into the
+  anchor before the transform).
+- **Gestures transform the anchor:** drag = centre += ground delta (unproject at both
+  pointer points, exact at any zoom, fly-to-tolerant); wheel = mpx *= exp(-deltaY*0.0015)
+  (the page canvas's own factor: wheel-up grows); shift+wheel = rot += deltaY*0.01 (1 deg
+  per 100-unit notch). Applied rAF-coalesced (headless rAF works on this VM - the 307ba
+  probe's fly-to animations ran). The page's fit pane already shows the fit's mpx/rot;
+  fitkit additionally overwrites #fithint after each refit with the live anchor readout +
+  gesture legend (box 1's "live scale and rotation in the panel").
+- **Save needs no new code:** with P.pairs = re-emitted five (+ pins), the page's saveFit
+  already writes exactly the doc the box asks for (same page-px frame: 307ba verified
+  every current queue entry's served image IS its recorded size, so the row-size frame is
+  the image frame). The fitqueue wrapper marks the site done; the one-site line runs as in
+  part 2. The headless proof (box 3) pins all of it in pixels.
+- **Deactivate placement at the TOP of the openPlan wrapper** (before the inner chain):
+  review.js's wrapper pushes RV.pending pairs inside the chain and "Another plan" is
+  endFit(false)->startFit->openPlan - a post-chain clear would let either inherit the
+  previous placement; the 404-page path (part 3's served tree) still returns at the first
+  P.img guard, byte-identical (keep that guard first).
 
 ## Project-wide driver notes (newest)
 
