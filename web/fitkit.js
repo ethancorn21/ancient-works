@@ -153,6 +153,7 @@ function _fkDeactivate() {
   _fkLastN = P.pairs.length;
   _fkDragStop();
   _fkSetGestures(true);
+  _fkSpace(false);
 }
 
 /* Where the anchor stands, from the pairs the eye sees: the least-squares fit of
@@ -228,6 +229,9 @@ function _fkHint() {
   $('#fithint').textContent =
     `${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°` +
     ' · drag to move · wheel to scale · shift+wheel to turn';
+  const st = document.querySelector('#body .step');
+  if (st) st.textContent = 'Drag the drawing on the map to move it; the wheel scales it, shift+wheel turns it. ' +
+    'To pin an exact spot, click it on the page, then on the map.';
 }
 
 /* One refit per frame at most: a wheel or a drag fires many events per frame, and
@@ -333,8 +337,12 @@ function _fkActivate() {
   // the site's own box (its four corners), centred beside the fit pane - before the ink appears
   const cs = site.corners && site.corners.length ? site.corners : [[site.lon, site.lat]];
   const ws = cs.map(c => c[0]), ns = cs.map(c => c[1]);
-  const pad = narrow() ? { top: 20, right: 20, bottom: innerHeight * 0.5, left: 20 }
-                       : { left: 390, top: 20, right: 20, bottom: 20 };
+  _fkSpace(true);
+  const pad = narrow() ? { top: innerHeight * 0.26 + 16, right: 20, bottom: innerHeight * 0.5, left: 20 }
+                       : { left: 390, top: 20, right: 330, bottom: 20 };
+  // MapLibre keeps the padding of the last camera move (select's fly-to left 390) and adds this
+  // one's on top - the box came out a third of the free map; start the fit from none
+  map.setPadding({ top: 0, right: 0, bottom: 0, left: 0 });
   map.fitBounds([[Math.min(...ws), Math.min(...ns)], [Math.max(...ws), Math.max(...ns)]],
                 { padding: pad, duration: 900, essential: true });
   // the earlier overlay goes while place mode is open; the endFit wrapper brings it back
@@ -387,3 +395,38 @@ refit = function () {
 const _fkContainer = map.getCanvasContainer();
 _fkContainer.addEventListener('wheel', _fkOnWheel, { passive: false });
 _fkContainer.addEventListener('mousedown', _fkOnDown);
+
+/* The working space (task 307c): "it's super cluttered ... there's like no working space".
+   While placing, the map is the surface: the page picture shrinks to a small reference card
+   in the map's bottom-right corner (its zoom/crop tools hidden; "Bigger" brings back the old
+   pane, for pinning a spot on the page) and the side panel drops what placing does not use
+   (the plan/view switch, the per-point list, "Another plan"). The rules live under
+   body.placing, set only here, so every other layout of the page is untouched. */
+const _fkStyle = document.createElement('style');
+_fkStyle.textContent = `
+  #fitbig { display: none; }
+  body.placing #fitbig { display: inline-block; }
+  body.placing .fitpane:not(.big) { top: auto; left: auto; right: 12px; bottom: 36px; width: 300px; height: 240px; }
+  body.placing .fitpane.min:not(.big) { height: auto; }
+  body.placing .fitpane:not(.big) .fit-tools { display: none; }
+  body.placing #body .seg, body.placing #body ol.pairs, body.placing #fother { display: none; }
+  @media (max-width: 760px) {
+    body.placing .fitpane:not(.big) { top: 8px; left: 8px; right: auto; bottom: auto; width: 46vw; height: 26vh; }
+  }`;
+document.head.appendChild(_fkStyle);
+const _fkBig = document.createElement('button');
+_fkBig.id = 'fitbig';
+_fkBig.textContent = 'Bigger';
+$('#fitmin').before(_fkBig);
+_fkBig.onclick = () => {
+  const big = $('#fitpane').classList.toggle('big');
+  _fkBig.textContent = big ? 'Smaller' : 'Bigger';
+  if (P.img) { cvSize(); fitView(); drawPlan(); }
+};
+
+function _fkSpace(on) {
+  document.body.classList.toggle('placing', on);
+  $('#fitpane').classList.remove('big');
+  _fkBig.textContent = 'Bigger';
+  if (P.img && !$('#fitpane').hidden) { cvSize(); fitView(); drawPlan(); }
+}

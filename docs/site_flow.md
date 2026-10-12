@@ -534,6 +534,23 @@ placement alone (the doc read back from the tree, its fit equal to the placed an
 overlay the same similarity); and a second page's Cancel. Pinning on top is the owner's
 check (307d).
 
+**The working space (task 307c).** While placing, the map is the surface. The page picture
+shrinks to a small reference card in the map's bottom-right corner (top-left on a phone, so
+the sheet below keeps Save in reach); **Bigger** brings the old full pane back for pinning a
+spot on the page, **Smaller** tucks it away again, and **Hide plan** still folds it to its
+title bar. The side panel keeps only what placing uses - the plan's title and book, what to
+do, the live scale and rotation, the opacity slider, Undo/Clear for pins, Save and Cancel -
+and drops the plan/view switch, the per-point list and "Another plan". The fly-to fills the
+free map with the site's box (it starts from no padding: MapLibre had been adding the
+previous camera move's 390 px to this one's, which left the box a third of the free map).
+All of it hangs off `body.placing` in `web/fitkit.js`, so every other layout of the page is
+unchanged.
+
+- `docs/site_flow/place_before.png` - place mode before 307c (Fort Ancient, 1440x900): the
+  page picture in the big middle pane, a strip of map on the right.
+- `docs/site_flow/place_after.png` - the same placement after 307c: the site's box fills the
+  map, the plate is the corner card, the panel says how to move, scale and turn it.
+
 - `docs/site_flow/fit_queue_card.png` — the card in the home view: "READY TO FIT — 117 TO
   GO", Devil's Dyke, "The Devil's Dyke Camp, near Brighton · Allcroft 1908 · Fig. 217 — the
   clearest scan", with **Place the drawing** and **Skip**.
