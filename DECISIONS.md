@@ -161,3 +161,100 @@ Ground truth measured while planning (all verified by running code, iteration 10
   then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
   plan_fit.py/gate/one-site line are untouched.
 - Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
+
+## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
+
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+  this pins the plumbing) PLUS the hand constants above; non-anchoring entries have no
+  "propose" key; key order checked. test_fit_queue_real: per entry, admissibility derived
+  by try/except propose_for(root=tree) - propose present iff admissible, equal, 5 pairs,
+  non-null scale_m_px (population-derived, never a pinned count: 803 precedent).
+
+Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short version):
+- fitkit.js is a NEW file (307b's Touches already names it): loads after fitqueue.js
+  (index.html:1707-1708 gains one script tag - the only index.html change; goal is the
+  tag only). Wraps openPlan LAST in the chain and endFit (neither review.js nor
+  fitqueue.js wraps endFit; fitqueue wraps renderList + saveFit, review wraps openPlan).
+  _fk-prefixed saved names (the web/ PITFALL: one global lexical scope per page - a
+  second script may not redeclare review.js's _renderList/_openPlan/...).
+- Place mode activates iff the opened row is the queue entry's best plan for the site AND
+  the entry carries a propose (box 1's "the site's queued plan is the one picked");
+  otherwise byte-identical to today (305 part 3 pins the no-propose path green).
+- Anchor = {u0, v0, lon, lat, mpx, rot}: the centre of the panel (pair[4] of the
+  proposal is the centre) at its scale/rotation; P.pairs = 5 re-emitted (the _anchor_pairs
+  math ported: merc = a*(w-w0)+z0, a = mpx/ground_scale(lat)*e^{i*rot}, u/v 1 dp,
+  lon/lat 7 dp) + pinned pairs. Gestures: drag on the map canvas moves (dragPan/
+  scrollZoom disabled while placed; P.pending nulled once moved > ~4 px - MapLibre's own
+  3-px click tolerance keeps click=pin and drag=move disjoint); wheel scales about the
+  centre, shift+wheel rotates about the centre. Pinning refines: anchor <- least squares
+  over all pairs (the page's simFit), re-emit; undo/clear restore from an anchor stack
+  (push before each pin; clear -> the anchor before the first pin). Save is UNCHANGED
+  (saveFit writes P.pairs; 5 pre-placed pairs clear the 3-point floor; by:hand stamped by
+  the store; the line runs) - so box 4's "same checks a three-point fit passes" is
+  structural: the doc is pairs-shaped, test_fit_provenance and the golden set are
+  untouched, and the headless test never writes the shared store (temp tree + its store
+  only). Open hides the single dep-<site> layer; close (back/Cancel/save) calls applyDep
+  (S.depSel/ground never touched -> restored exactly); open flies map.fitBounds to
+  site.corners before the ink appears.
+- Headless proof (box 5, part 4): fixture like part 2's line_served (FULL tree with
+  tools/fit/pipeline + the picked entry's book page materialised into the tree's own
+  data/raw; --port 0; sockets dead in the server; the pick: first queue entry with a LOCAL
+  book page AND a propose, derived never pinned) because the page must load the scan (the
+  bare served tree 404s it - part 3's card test lives with that) and saveFit waits up to
+  90 s for the one-site line's overlay (line measures ~23 s here, part 2's 180 s budget
+  applies). Probe: card -> Place -> assert map at the site box + fit-prev visible + seeded
+  dep layer hidden + anchor.mpx === propose.scale_m_px; scripted drag/wheel/shift+wheel;
+  save -> doc read back from the temp store (by:hand, pairs == final re-emitted set,
+  scale/rotation agree with the anchor within rounding); second run: back/Cancel -> the
+  seeded dep overlay visible again, same file, same ground.
+- Environment facts measured: all 117 queue entries anchor today; propose callers are all
+  2-positional (an optional root=ROOT is back-compatible); the stage-B row shape is in
+  data/books/index.jsonl (890 rows; scale_text 508 set, scale_bar boxes 276, north arrows
+  594); fit/ has no __init__.py. A full-suite baseline run was kicked off to
+  /tmp/baseline_suite.log this session and NOT verified (context limit) - check it first
+  thing; last known green was the 307a closure (iteration 109).

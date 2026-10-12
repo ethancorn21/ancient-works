@@ -48,8 +48,10 @@ The owner opened the Ready-to-fit queue (2026-10-11) and could not fit its first
 
 (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 no code written. This is the plan for the remaining work; the driver hands out the subtasks
-in order. Box map: 1 -> 307a; 2-4 -> 307b; 5 -> 307c; 6 -> 307d (the place-check tests are
-307a's; 307d proves the save path and the revert).
+in order. Box map: 1 -> 307a (itself re-split: the live work is the lead's 309, agent c);
+2-4 -> 307b (SPLIT 2026-10-12 iteration 110 into 307ba = 307b's boxes 1-2, 307bb = 307b's
+boxes 3-6 - see the note at the end of this hand-over); 5 -> 307c; 6 -> 307d (the
+place-check tests are 309's; 307d proves the save path and the revert).
 
 **Key ground truth (measured this session; the DECISIONS entry has the evidence):**
 - The wrong pair in the owner's words: the queue's #1 is earthworkenglan01allcgoog_n0686_1
@@ -89,3 +91,11 @@ record). Mine is dropped and kept as reference; the lead's file is canonical and
 c works from it. The reference file carries the implementation notes the lead's shorter
 spec leaves to the implementer: the fail-open rule, the re-verified verdict record,
 the measured n0686/n0354 cases, the 117-entry count, the 305-shape survival.
+
+307b split note (iteration 110, agent a): 307b is SPLIT into 307ba (its boxes 1-2: the
+queue carries the proposal, fit/propose.py root-aware, place mode opens on the works) and
+307bb (its boxes 3-6: the gestures, the save, the headless part 4, the docs). No letter
+reorder - the driver hands out 307ba then 307bb in order, then 307c, then 307d. The full
+design (box 1 implementation plan, the anchor/gesture/wrap sketch, the headless-test
+fixture plan) is in 307b's own ## Hand-over and the 2026-10-12 307b DECISIONS entry.
+If 307bb itself exceeds its budget, its headless test splits off (307bb's notes say so).
