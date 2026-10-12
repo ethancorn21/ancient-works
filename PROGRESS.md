@@ -164,3 +164,13 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 306b (agent c, iteration 143) session status
+    15/21 docs judged (ALL STAYS, no removals yet); all 15 lines + 306b preamble written to
+    docs/site_flow.md (UNCOMMITTED - the harness keeps that edit for the next agent to commit
+    together with the remaining work); box 1 ticked. NEXT: judge the remaining 6 (cenabum
+    c_e73dc8 - check real Tours vs the Epinal red herring; dudley c_e66ec; azincourt c_804aa7;
+    watson-brake x2 - RELIEF decides; zwolle c_f9cdda), append their 6 lines at the end of the
+    306b block, 303-way any miss (upsert_item + rm doc + site-scoped export, never
+    tools/site_done.py on the 10 sites), tick boxes 2-4, run the suite. Full state in
+    tasks/306b-agent-fits-in-review.md Hand-over.

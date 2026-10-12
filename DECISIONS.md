@@ -397,3 +397,34 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed /
   1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
   surviving one - never loosen).
+
+## 2026-10-12 306b DECISION: judged the next 5 (carisbrooke, neroche x2, lemanis, cawthorne) - ALL STAYS; wrote all 15 lines to docs/site_flow.md
+- Fifth session. Box 1 ticked (42 pngs present + clean). The 306b block (preamble + 15 lines) was
+  appended to docs/site_flow.md after the last 306a line (bethlehem fc4566d6947287f4; file now
+  891 lines) and is UNCOMMITTED - the harness keeps it for the next agent to commit.
+- Verdicts, all STAYS (details in the written lines): carisbrooke c_c280ff (keep/gates/prison/
+  tilt yard on the 1842 OS 6-inch first-edition's same-named features, 3783/5000 inliers against
+  that surveyed map; fitted 0.50 within 20% of the plate's stated 0.415; item cand 0.695 coarse /
+  0.901 hand-tied, gate-rejected). Neroche c_44529 (hachured hillfort on the real hill, aerial +
+  relief; item fabricated grid-round 8/8). Neroche n0110_1 (summit/ditches/Castle Farm on the real
+  ones; 0.39 matches the plate's 300-ft scale bar 0.397; item pairs == doc pairs, offset 0 m, but
+  flagged 1D-ladder - placement verified on the image). Lemanis c_be12fb (port quadrangle on the
+  real headland slope; NE corner on the 1848 red-ink 'STVTFAE CASTLE / Roman port' label, SW on
+  'PORTVS LEMANIS (Site of)'; 0.76 vs its 500-ft scale bar 0.726; item coarse 2.667 = ~3.5x too
+  big, median 63>45). Cawthorne n0325 (three camps on the 1848 Squire & Davis red-ink triple-camp
+  complex, 'C A M P S' on anchor 6; 4625/4997 = 93% inliers against the LiDAR relief - strongest of
+  the batch; 0.30 = the plate's 300-ft scale bar; item 0.790 vs scale bar 0.259 gate-rejected,
+  644 m north off the camps).
+- Technique that settled the scale questions (the Stonehenge trap: 0-residual anchors do NOT prove
+  scale): measure the plate's OWN scale bar (PIL: crop the plate's lower region 3x and read it -
+  worked for lemanis/n0110_1/cawthorne); a doc whose fitted mpx matches its scale bar/stated scale
+  within ~20% is trustworthy, and a gate rejection of "stated X disagrees with its own points (Y)"
+  means the doc's near-stated fit is the one to believe. Also: red-ink 6-inch/1-inch/1848 maps are
+  georeferenced ground truth - anchors on same-named red-ink labels = placement verified. Coarse
+  item candidates store only 3-6 rectangle points (feature names live in `why`), so compare
+  centers/scales, not feature positions.
+- NEXT (hand-over has the ordered steps): judge the remaining 6 (cenabum c_e73dc8 - check it lands
+  on real Tours not the Epinal red herring; dudley c_e66ec; azincourt c_804aa7; watson x2 - RELIEF
+  decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
+  (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
+  sites), tick boxes 2-4, run the suite, done.
