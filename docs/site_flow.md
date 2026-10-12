@@ -937,3 +937,57 @@ item reopens. All twenty-one stay (2026-10-12: judged from the 42 shots, none re
   meanders (aerial + relief); 1981/4998 inliers against the 1850 TMK. Item cand: coarse
   1.5625 m/px from hand-tied bastion/gate points, 38% textured (gate-rejected), a thin
   800x99 m rectangle, centre 455 m off - the tab would pre-place that. STAYS.
+
+306c - the 16 US orphan documents: in the store, but no overlay built on the site and no
+review item referencing them, so the page shows them to a visitor not at all; each was rendered
+the way the page would if it ever showed it (the fit tool over the aerial, and over the LiDAR
+relief, with the doc's stored pairs placed and refitted; shots in docs/site_flow/agent_fits/).
+The eight serpent-mound docs were judged against the site's hand fit (n0210_1, S&D 1848 Plate
+XXXV), which traces the real effigy on the LiDAR (head (-83.4288, 39.0254), tail
+(-83.4314, 39.0258)) and is the reference placement. All nine judged in this pass
+(2026-10-12) sit wrong and were deleted the 303 way: the picture and the doc's own points went
+into the site's review item with the reason, the document was deleted, the site's page file
+re-exported scoped - and the site stays covered for the union check (an open item counts;
+serpent-mound also keeps its hand overlay). The remaining 8 docs (cahokia, etowah,
+fort-ancient, the 2 hodgen-s-cemetery-mound, mound-cemetery, mount-horeb, pyramid-mound)
+are pending judgment; one line each appends here.
+
+- marietta.b24849959_n0195_1 - Fowke 1902 Fig. 15 "The Marietta works", similarity (4 points,
+  resid 0, 1.0 m/px, 0 deg): the scale agrees with the plate's own bar (1.073 m/px measured),
+  but the placement is wrong - the drawn fort (50 Acres, 27 Acres, the old stockade) and the
+  60-ft Conus mound profile at the page's foot land ~1.3 km S-E of the real Marietta earthworks
+  (the ringed disc of Mound Cemetery on the LiDAR); farm ground with a parcel grid lies beneath
+  the placement. DELETED - an orphan today, invisible on the page (the 303 way: the picture and
+  its 4 points went to the site's review item with this reason; the document was deleted 2026-10-12).
+- serpent-mound-q968802.b24849959_n0313_1 - Fowke 1902 Fig. 81 (the Holmes serpent; 5 points,
+  resid 9-66 m, 0.41 m/px, +2 deg): the Holmes serpent runs N-S down the page and the fit
+  stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual
+  is that stretch); head/tail coils and hatched hills sit NW/SE of the real ones, which the hand
+  fit traces on the LiDAR. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_15ff865e5f3d8ddb - Baer 1889 engraving (a view row; 4 points,
+  homography, resid 22/61/27/0 m): the 4 near-collinear pairs make the fit exact by construction,
+  so the resid proves nothing; the engraved serpent lands ~180 m NW of the real effigy (whose
+  hand fit traces it on the LiDAR). DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_2c260a03d1f8df1c - S&D Plate XXXV via Commons (a second copy of the
+  very plate the owner hand-placed; 4 points, resid 0, 1.0 m/px, 0 deg): it sits ~145-190 m SE of
+  the hand fit and at ~4x the true scale (the Commons file is the plate alone: 1280 px = 1.28 km
+  at the fitted 1 m/px, the real figure ~320 m) - the drawn S is bigger than and offset from the
+  real effigy; not a duplicate of the hand fit. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_52dfe1fc979edf2c - Harper's New Monthly Magazine 1902 engraving (a view
+  row; 8 near-collinear points, homography, resid 0 m): the 8 points sit along the north ridge
+  line, so the fit is exact by construction and under-constrained perpendicular to it; the
+  engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to
+  (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). DELETED - an orphan today (the 303
+  way, 2026-10-12).
+- serpent-mound-q968802.c_7b01a4bb50d68b56 - "A School History of the United States" p. 26,
+  full-page copy (4 points, resid 1-6 m, 0.94 m/px, +0.3 deg): the page-26 serpent lands ~230 m
+  north of the real effigy, over the hatched hill in the farmland; the real effigy carries the
+  hand fit only. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_8ebd42607fbb96d8 - the same figure, cropped copy (8 points, resid 0,
+  1.0 m/px, 0 deg): the serpent and its "Mound 10 ft. high" spiral land ~255 m north of the real
+  effigy, on the hatched hill in the farmland/NE hills; the real effigy carries the hand fit only.
+  DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_dd2c553d611e610b - the same figure, "no cap" copy (8 points, resid 0,
+  1.0 m/px, 0 deg): the serpent lands ~265 m north of the real effigy, on the hatched hill in
+  the farmland/NE hills (the twin of the cropped copy above). DELETED - an orphan today (the 303
+  way, 2026-10-12).

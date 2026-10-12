@@ -1,5 +1,5 @@
 {
- "at": "2026-10-12T18:01:52.916280+00:00",
+ "at": "2026-10-12T21:12:09.024675+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -7830,6 +7830,44 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 500 1000 2000 SCALE FT.'",
      "why": "features: Northwest bastion tip, Northwest wall corner, Central gate gap, Southwest bastion tip, Southwest wall corner, Southeast bastion tip, Southeast wall corner, River crossing; stated scale 3.650 disagrees with its own points (1.024 m/px): not trusted"
+    },
+    {
+     "plan": "b24849959_n0195_1",
+     "title": "The Marietta works",
+     "url": "books/b24849959/n0195.jpg",
+     "pairs": [
+      [
+       500.0,
+       500.0,
+       -81.4627968,
+       39.4238852
+      ],
+      [
+       1000.0,
+       1000.0,
+       -81.4569827,
+       39.4193938
+      ],
+      [
+       500.0,
+       2000.0,
+       -81.4627968,
+       39.4104102
+      ],
+      [
+       1500.0,
+       2000.0,
+       -81.4511685,
+       39.4104102
+      ]
+     ],
+     "coarse": false,
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0195.jpg",
+     "label": "Fig. 15",
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "place_reason": "306c audit 2026-10-12: scale right (1.0 m/px, the plate's own bar) but the placement is wrong - the drawn fort (50 Acres, 27 Acres, old stockade) and the 60-ft Conus mound profile at the page's foot land ~1.3 km S-E of the real Marietta earthworks (the ringed disc of Mound Cemetery on the LiDAR); farm ground beneath the placement. Document deleted."
     }
    ],
    "no_picture_found": null
@@ -10717,6 +10755,410 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "features: Serpent head, Serpent body curve 1, Serpent body curve 2, Serpent tail tip; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "b24849959_n0313_1",
+     "title": "Serpent Mound; from Holmes",
+     "url": "books/b24849959/n0313.jpg",
+     "pairs": [
+      [
+       1000.0,
+       1000.0,
+       -83.4327509,
+       39.0276501
+      ],
+      [
+       1200.0,
+       1500.0,
+       -83.4315946,
+       39.0258535
+      ],
+      [
+       1500.0,
+       2000.0,
+       -83.4304382,
+       39.0240569
+      ],
+      [
+       1500.0,
+       2500.0,
+       -83.4292819,
+       39.0222602
+      ],
+      [
+       1000.0,
+       3000.0,
+       -83.4327509,
+       39.0204634
+      ]
+     ],
+     "coarse": false,
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0313.jpg",
+     "label": "Fig. 81",
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "place_reason": "306c audit 2026-10-12: the Holmes serpent runs N-S down the page and the fit stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual is the stretch); head/tail coils sit NW/SE of the real ones, which carry the hand fit n0210_1. Document deleted."
+    },
+    {
+     "plan": "c_15ff865e5f3d8ddb",
+     "title": "Serpent Mound by William Jacob Baer",
+     "url": "media/commons/serpent-mound-q968802/15ff865e5f3d8ddb.jpg",
+     "pairs": [
+      [
+       400.0,
+       200.0,
+       -83.43304,
+       39.0295635
+      ],
+      [
+       500.0,
+       250.0,
+       -83.4319646,
+       39.0291413
+      ],
+      [
+       600.0,
+       300.0,
+       -83.4308776,
+       39.0287191
+      ],
+      [
+       300.0,
+       400.0,
+       -83.4341269,
+       39.0278747
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1889",
+     "cite": "by Engraver: R. C. Collins, after William Jacob Baer; Public domain; https://commons.wikimedia.org/wiki/File:Serpent_Mound_by_William_Jacob_Baer.jpg",
+     "ref": "File:Serpent Mound by William Jacob Baer.jpg",
+     "size": [
+      1280,
+      904
+     ],
+     "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~180 m NW of the real effigy (the hand fit n0210_1 traces it on the LiDAR). View row: the 4 near-collinear pairs make the homography exact by construction, so the 0 resid proves nothing about placement. Document deleted."
+    },
+    {
+     "plan": "c_2c260a03d1f8df1c",
+     "title": "SD35 Serpent Mound Squier and Davis Plate XXXV",
+     "url": "media/commons/serpent-mound-q968802/2c260a03d1f8df1c.jpg",
+     "pairs": [
+      [
+       350.0,
+       250.0,
+       -83.4333291,
+       39.0289975
+      ],
+      [
+       450.0,
+       550.0,
+       -83.4321727,
+       39.0263027
+      ],
+      [
+       350.0,
+       850.0,
+       -83.4333291,
+       39.0236077
+      ],
+      [
+       550.0,
+       400.0,
+       -83.4310164,
+       39.0276501
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1848",
+     "cite": "by Ephraim George Squier and Edwin Hamilton Davis; Public domain; https://commons.wikimedia.org/wiki/File:SD35_Serpent_Mound_Squier_and_Davis_Plate_XXXV.png",
+     "ref": "File:SD35 Serpent Mound Squier and Davis Plate XXXV.png",
+     "size": [
+      1280,
+      1883
+     ],
+     "place_reason": "306c audit 2026-10-12: a second copy of S&D Plate XXXV - the very plate the owner hand-placed: it sits ~145-190 m SE of the hand fit AND at ~4x the true scale (the plate-alone file is 1280 px = 1.28 km at the fitted 1 m/px vs the ~320 m figure). Not a duplicate of the hand fit. Document deleted."
+    },
+    {
+     "plan": "c_52dfe1fc979edf2c",
+     "title": "Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263)",
+     "url": "media/commons/serpent-mound-q968802/52dfe1fc979edf2c.jpg",
+     "pairs": [
+      [
+       150.0,
+       550.0,
+       -83.4362199,
+       39.0267518
+      ],
+      [
+       400.0,
+       350.0,
+       -83.4333291,
+       39.0285484
+      ],
+      [
+       250.0,
+       450.0,
+       -83.4350636,
+       39.0276501
+      ],
+      [
+       300.0,
+       400.0,
+       -83.4344854,
+       39.0280993
+      ],
+      [
+       350.0,
+       380.0,
+       -83.4339072,
+       39.0282789
+      ],
+      [
+       380.0,
+       360.0,
+       -83.4335603,
+       39.0284586
+      ],
+      [
+       420.0,
+       340.0,
+       -83.4330978,
+       39.0286382
+      ],
+      [
+       450.0,
+       330.0,
+       -83.4327509,
+       39.0287281
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1902",
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Harper%27s_New_Monthly_Magazine_Volume_104_December_1901_to_May_1902_(1902)_(14803170263).jpg",
+     "ref": "File:Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263).jpg",
+     "size": [
+      1280,
+      1086
+     ],
+     "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). View row: the 8 near-collinear pairs make the homography exact by construction. Document deleted."
+    },
+    {
+     "plan": "c_7b01a4bb50d68b56",
+     "title": "26 of 'A School History of the United States ... Being a revision and rewriting of Swinton's \"Condensed School History of the United States.\"' (11303842305)",
+     "url": "media/commons/serpent-mound-q968802/7b01a4bb50d68b56.jpg",
+     "pairs": [
+      [
+       150.0,
+       550.0,
+       -83.4357574,
+       39.0265722
+      ],
+      [
+       1050.0,
+       450.0,
+       -83.4259285,
+       39.0274705
+      ],
+      [
+       500.0,
+       350.0,
+       -83.4319415,
+       39.0282789
+      ],
+      [
+       750.0,
+       400.0,
+       -83.4292819,
+       39.0278298
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_..._Being_a_revision_and_rewriting_of_Swinton%27s_%22Condensed_School_History_of_the_United_States.%22%27_(11303842305).jpg",
+     "ref": "File:26 of 'A School History of the United States ... Being a revision and rewriting of Swinton's \"Condensed School History of the United States.\"' (11303842305).jpg",
+     "size": [
+      1280,
+      942
+     ],
+     "place_reason": "306c audit 2026-10-12: the page-26 serpent (full-page copy) lands ~230 m north of the real effigy, over the hatched hill in farmland; the real effigy carries the hand fit only. Document deleted."
+    },
+    {
+     "plan": "c_8ebd42607fbb96d8",
+     "title": "26 of 'A School History of the United States ...Serpent Mound in Ohio\"' (11303842305) (cropped)",
+     "url": "media/commons/serpent-mound-q968802/8ebd42607fbb96d8.jpg",
+     "pairs": [
+      [
+       100.0,
+       400.0,
+       -83.4362199,
+       39.0276501
+      ],
+      [
+       1000.0,
+       400.0,
+       -83.4258129,
+       39.0276501
+      ],
+      [
+       200.0,
+       300.0,
+       -83.4350636,
+       39.0285484
+      ],
+      [
+       300.0,
+       300.0,
+       -83.4339072,
+       39.0285484
+      ],
+      [
+       400.0,
+       300.0,
+       -83.4327509,
+       39.0285484
+      ],
+      [
+       500.0,
+       300.0,
+       -83.4315946,
+       39.0285484
+      ],
+      [
+       600.0,
+       300.0,
+       -83.4304382,
+       39.0285484
+      ],
+      [
+       700.0,
+       300.0,
+       -83.4292819,
+       39.0285484
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_(11303842305)_(cropped).jpg",
+     "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' (11303842305) (cropped).jpg",
+     "size": [
+      1117,
+      836
+     ],
+     "place_reason": "306c audit 2026-10-12: the serpent and its 'Mound 10 ft. high' spiral (cropped copy) land ~255 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted."
+    },
+    {
+     "plan": "c_dd2c553d611e610b",
+     "title": "26 of 'A School History of the United States ...Serpent Mound in Ohio\"' no cap (11303842305) (cropped)",
+     "url": "media/commons/serpent-mound-q968802/dd2c553d611e610b.jpg",
+     "pairs": [
+      [
+       100.0,
+       400.0,
+       -83.4362199,
+       39.0276501
+      ],
+      [
+       600.0,
+       400.0,
+       -83.4304382,
+       39.0276501
+      ],
+      [
+       200.0,
+       300.0,
+       -83.4350636,
+       39.0285484
+      ],
+      [
+       300.0,
+       300.0,
+       -83.4339072,
+       39.0285484
+      ],
+      [
+       400.0,
+       300.0,
+       -83.4327509,
+       39.0285484
+      ],
+      [
+       500.0,
+       300.0,
+       -83.4315946,
+       39.0285484
+      ],
+      [
+       600.0,
+       300.0,
+       -83.4304382,
+       39.0285484
+      ],
+      [
+       700.0,
+       300.0,
+       -83.4292819,
+       39.0285484
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Serpent Mound",
+      "file_cat": "Serpent Mound",
+      "via": []
+     },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_no_cap_(11303842305)_(cropped).jpg",
+     "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' no cap (11303842305) (cropped).jpg",
+     "size": [
+      1112,
+      791
+     ],
+     "place_reason": "306c audit 2026-10-12: the serpent ('no cap' copy) lands ~265 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted."
     }
    ],
    "no_picture_found": null
