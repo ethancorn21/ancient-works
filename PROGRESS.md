@@ -9,7 +9,9 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 131, agent a - **orientation + verification only; the part-4 section is still NOT written into tests/test_fit_queue.py.** Worki
+- `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 132, agent a - **merge done + committed (c8e6cab); part-4 pick RE-DERIVED on the merged tree and verified; the part-4 section i
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -117,6 +119,3 @@ Executed the iter-128 plan steps 1-4.
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12 AGENT A (307bb, iteration 132): where I stand
-Merge of main into agent/a is DONE and committed (c8e6cab) - the one flagged conflict (tests/test_fit_queue.py card-test reqfail filters) resolved as the union of both sides' Esri exclusions (/tiles/ + arcgisonline + MapServer/tile/); suite 100 passed / 1 skipped / 0 failed. The part-4 pick was RE-DERIVED on the merged tree: it is now entries[3] oswestry-castle-q20713795 (devil-s-dyke left the queue with 309's right-place check), so the card's done-seed is the three earlier entries (fort-ancient, marietta, forthill). The part-4 section of tests/test_fit_queue.py is still unwritten: next session transcribes /tmp/fkverify/probe.mjs (run-2 done-csv seed correction + card1/cardOffersPick + the iter-131 run-2 tag fix + union reqfail filter), appends the section at the file's end, runs the file, commits, ticks boxes 1-3, then box 4 (docs). Full design in the task's hand-over.
