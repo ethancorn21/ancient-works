@@ -920,6 +920,11 @@ Where: `pipeline/books_lists.py:cmd_ocrmap` (the guard), `data/books/lists/<ia>.
 Symptom: before 216, running `books.py ocrmap <key>` for a book whose ia is in neither PLATES nor FIG_LISTS silently rewrote its list file as `{"plates": null, "figures": []}` (and .map.json as `[]`) - which would have destroyed 213's 121-entry hand list `data/books/lists/civitatesorbiste00brau.json`.
 Why: the command re-derived lists from OCR sources only, and wrote whatever it derived (nothing) over any existing file. The 216 guard makes it print "no list yet (no OCR list source)" ("; keeping the existing <path>" when the file exists) and write nothing. When 217 lifts a hand list into the module, the guard stops firing for that book and the same command regenerates the file (the module is the knowledge, the file the dump). Note mills_1914 (no list source) also hits the guard - its committed file is exactly the empty dump, so behavior there is data-identical.
 
+#### books.py CLI commands take the BOOKS key, not the IA id - an ia id dies with KeyError
+Where: `pipeline/books.py` (`__main__` dispatch, `keys`, `book`, `cmd_fetch`, `cmd_triage_a`, `cmd_triage_f`) and `pipeline/books_lists.py` (`cmd_ocrmap`, `cmd_index`, `cmd_validate`); task 217
+Symptom: `.venv/bin/python pipeline/books.py ocrmap topographiahelve00zeil` (or fetch/triageA/triageF with an ia id) dies with `KeyError: 'topographiahelve00zeil'`.
+Why: every book command iterates `args or list(BOOKS)` and looks up `BOOKS[key]` - the short name (merian_helvete00zeil, civitates_liber2, squier_davis_1848); the ia id is only a field inside each entry. 217's s6 hand-over mixed the notations (wrote the ia id for ocrmap) - use the book key in every command.
+
 #### books.py index <subset> truncates the shared index.jsonl - run it with no args only
 Where: `pipeline/books_lists.py:cmd_index` (opens `data/books/index.jsonl` with "w" and writes only the rows of the keys in its args), tasks 211, 217
 Symptom: `books.py index civitates_liber2` (or any single key) replaces the whole shared index with just that book's rows - for an untriaged book (no stage A) that is an EMPTY file: every other book's index rows gone.

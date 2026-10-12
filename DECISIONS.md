@@ -736,3 +736,32 @@ FIVE LIST CORRECTIONS vs the s5/s6 table (all by reading the plate's own printed
 KIND DECISIONS (recorded per s6's request): n104 Gletscher = u, n228 Fall des Rheins = u, n348 Ursprung des Rheins = u - all three are natural-feature landscape views (glacier/waterfall/rhine-sources) with no town; the book's footer '3 Karten un. 102 Ansichten' counts them among the Ansichten, but for the site/index purpose they are not town views/plans (civitates precedent: non-town material = u = excluded from the index rows). n204 Pierre-Perthuis = o - a view of a NAMED pass that is its own list entry (a drawing in its own right, GOAL pt 5). n254 Zurzach 'Forvm Tyberii' = o (elevated perspective view, unlike the flat top-down plans of Bern/Müllhausen/S. Gallen = s). n268 Dissenhofen 'in grund gelegt 1648' = s.
 Multi-plate spreads: n124 = Sempach view + Sursee plan on ONE leaf -> 2 table rows (o row first, s row second - per_entry uses table order); n134 = Altorff view + Flüelen plan -> 2 rows; n176 (4-page Basel-im-Prospect, 2 views), n236 (Appenzell+Herisaw), n246 (4 views), n272 (Frauenfeld+Mellingen) = 1 row each (same kind); Neuenburg n316+n320 = 1 row (n316) - n320's second view surfaces as a stage-A row at triage.
 CODE check (no change needed beyond the one-line parse): cmd_index's per_entry (no stage B + >1 o/s entry on a leaf) already emits one row per entry with the right `view` field; validate_book/list_pages are already fig-None-safe (nopage / `n is not None`). The only code change: parse_hand_figures `fig=int(fig)` -> `fig=None if fig == "" else int(fig)` (civitates table has no '' figs -> byte-identical). The complete 80-row table (11 s / 8 u / 61 o; 14 rows fig '') is in the task hand-over - paste verbatim as HAND_FIGS['topographiahelve00zeil']. Baseline: md5 of the 18 existing list files in /tmp/merian/lists_md5_before_s7.txt; civitates .json must stay 0881ec0c...; last suite 101 passed / 1 skipped (s6, tree unchanged).
+
+## 2026-10-12 217 DECISION: Merian s8 - step A landed: HAND_FIGS['topographiahelve00zeil'] = the 80-row s7 table (11 s / 8 u / 61 o, 14 leafless rows fig ''), parse_hand_figures maps fig '' to None, ocrmap regenerates data/books/lists/topographiahelve00zeil.json as its dump - byte-verified (18 other list files md5-identical, civitates 0881ec0c, validate no-args == HEAD apart from civitates' never-committed "figures" block); box 2 still open pending the triage (step B)
+Session 8 (iteration 122) implemented step A exactly as s7's hand-over prescribed; no deviations, no new
+kind calls. The 80-row table went into the module VERBATIM - extracted programmatically from the task file
+(a script asserted 80 rows / 5 fields / kind tally / every fig in the 67 wide leaves / no '' fig in the
+civitates table) so no transcription drift. parse_hand_figures: `fig=int(fig)` -> `fig=None if fig == ""
+else int(fig)` + docstring; the comment block above HAND_FIGS and the module docstring now state fig '' =
+the plate has no leaf in the item (fold-out-only or unengraved). The dict gained its second key; both key
+names are 22 chars so the alignment is clean.
+Verification (all re-run this session, tree was clean at start):
+- ocrmap merian_helvete00zeil: "plates 0 figures 80 fig kinds {'s': 11, 'u': 8, 'o': 61} list leaves 0"; the
+  .json is byte-identical to a round-trip dump of figure_list (indent=0, ensure_ascii=False, key order
+  fig,title,page,kind,kind_by, 14 "fig": null); .map.json = [] (stage A empty - the civitates precedent).
+- No-args byte identity: all 18 other list files md5-identical to /tmp/merian/lists_md5_before_s7.txt AND to
+  git show HEAD; civitates .json still 0881ec0c (parse change is a no-op for it - no '' figs, verified).
+- validate no-args: regenerated file is per-entry identical to HEAD for all 8 plan books; civitates identical
+  apart from the "figures" section - which is EXACTLY session 2's verified block (listed 121, site 7, other
+  111, recall_pages 0.429, precision 0.273, flagged_on_other_only_pages [30,62,65,66,93,105,186,229],
+  missed [58,85,98,109], stage_A_only 0.143/0.333/1.0/3) that the 207/216 precedent left out of the committed
+  shared file (211's rebuild owns it). No merian entry (stage A empty -> validate_book returns None).
+  index.jsonl untouched (no stage A -> cmd_index skips the book). Both shared files restored (git checkout).
+- Suite: 101 passed / 1 skipped (unchanged from s6/s7).
+NEW PITFALLS: every books.py CLI command (fetch/triageA/triageF/ocrmap/index/validate) takes the BOOKS key
+(merian_helvete00zeil), not the IA id (topographiahelve00zeil) - `books.py ocrmap topographiahelve00zeil`
+dies with KeyError because the dispatch does `BOOKS[key]`; s6's hand-over mixed the notations for ocrmap.
+NEXT (step B, next session): triage the volume (fetch -> triageA -> triageF with the BOOK KEY; run_stage
+resumable; LLM 127.0.0.1:8080/8081 up, 8082 down per the 5060 Ti image matchers), then no-args index +
+validate with the expected values in the hand-over (66 index rows on 63 leaves + stage-A-only extras; merian
+validate entry appears; everything else byte-identical), restore the shared files, tick box 2, done.
