@@ -3269,6 +3269,38 @@ real tunnel to 8091 was down at session end - "waiting on the owner, one command
 hermetic tests; once /health answers, reproduce the lead's smoke numbers as a canary, then
 freeze the config and run the one-shot.
 
+## 2026-10-12 304 DECISION: matcher = the lead's MatchAnything-ELoFTR service at 127.0.0.1:8091 (no local GPU, no new packages, no ask_human)
+
+The lead's second message (iteration 85, same day): "a pretrained cross-modal matcher is
+up for 304: MatchAnything-ELoFTR (zju-community/matchanything_eloftr, Apache-2.0) on the
+5060 Ti. API: POST http://127.0.0.1:8091/match JSON {image0: base64 png/jpg, image1:
+base64, threshold: 0.2, max_side: 832} -> {keypoints0, keypoints1 (original pixel frames),
+scores, size0, size1}; GET /health. The VM tunnel to 8091 is waiting on the owner (one
+command); until /health answers, build against the API. Use it as your matcher; same
+pre-registered held-out protocol."
+
+Consequences: (1) the local LightGlue+SuperPoint plan is superseded - no torch, no
+lightglue, no superpoint in requirements (the client needs only requests + numpy, both
+already pinned; no requirements change this session); (2) the drafted GPU ask_human was
+never sent (the 5060 Ti runs the matcher, so vLLM/clef are not touched by me); (3) the
+site_flow pre-registration's "The match" paragraph now names the service and its API
+(threshold 0.2, max_side 832; the inlier threshold and rotation-sweep grid are frozen at
+the freeze commit - the lead's smoke test used an 8-px RANSAC threshold); (4) everything
+else in the pre-registration is unchanged: priors (scale bar / north arrow / matcher
+scale), the corners carry-over, the 302b scramble + half-box-shift nulls, the 21 docs,
+the one-shot rule, the verdict.
+
+The lead's own smoke test (Maiden Castle DPLA plan vs six-inch-1st.webp - held-out doc
+14): 633 matches in 0.9 s, RANSAC similarity (8 px) 31 inliers, rotation 0.0 deg, errors
+at the 3 hand points 20/35/53 m - all inside the 60 m pass line. Recorded as evidence of
+feasibility only: it is a held-out document, so no parameter of mine may be chosen from
+it, before or after the run.
+
+Verified at session end: 127.0.0.1:8091 does not answer yet (curl /health: connection
+refused) - the owner's tunnel command is still pending. Next: build the client + RANSAC
+against the API contract with a stub server (hermetic), re-check /health each session,
+reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
