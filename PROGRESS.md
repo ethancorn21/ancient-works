@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/217-view-books-lists.md` (in-progress) - hand-over: **2026-10-12, iteration 114 (agent c) - session 2: the civitates machinery is implemented and verified (boxes 1
+- `tasks/217-view-books-lists.md` (in-progress) - hand-over: **2026-10-12, iteration 115 (agent c) - session 3: Merian INVESTIGATION done (structure + mapping + list read);
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
@@ -86,6 +86,19 @@ Note for future baseline work: /tmp/idx_committed (session 1's copy) is STALE - 
 and the current row shape (it even carries the `evidence` key the current cmd_index does not emit, a 200-era
 post-hoc field). Diff rebuilds against `git show HEAD:<file>` or a fresh unmodified-code run, never a saved
 /tmp copy (PITFALLS).
+
+### 2026-10-12 217 DECISION: Merian helvete investigation (session 3) - book structure mapped; the plate list is the book's own "Erönung der Kupfferstich" (BR n394); hOCR index == 1-based leafNum (aligned, unlike civitates); 65 wide BR leaves are the engraved spreads; 10 big-plate foldouts are absent from the item; the list's page number points to an adjacent text page with varying side, so it is a window not a rule
+Session 3 on 217: investigation only, no code (working tree clean; artifacts in /tmp/merian on this
+machine: scandata.xml, list_full.jpg = n394 full-res, list_c{1,2,3}{0,1}.jpg 2x column crops, page-image
+samples). Findings, each verified:
+1. **LLM replicas are up** (127.0.0.1:8080/8081, qwen3.8-27b; 8082 down per the 5060 Ti image matchers):
+   `books.py fetch/triageA/triageF merian_helvete00zeil` are runnable from this machine - triage is the
+   step after the transcription, not a blocker.
+2. **hOCR fetched and aligned.** hOCR page index i == 1-based leafNum == BR leafNum field (verified at
+   i=429 the plate list at n394, i=197 "BASILEA" at n176, i=11 printed p7). So - unlike civitates -
+   hOCR titles can be trusted for this book's leaves. 436 hOCR pages; BR shows 400.
+3. **Structure:** 436 leaves all imaged; BR omits 36: 25 Delete (duplicates/foldout versos) + 10 Foldout
+... (4.2 KB more: `grep -n -A 200 -F '## 2026-10-12 217 DECISION: civitates machinery landed - HAND_FIGS mirrors 213's per-leaf list (the file is its dump; ensure_ascii=False for hand books only), list_pages/validate/index branch on HAND_FIGS, index rows gain a `view` field on hand-book rows only; boxes 1 and 3 ticked, box 2 waits on the Merian list' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
