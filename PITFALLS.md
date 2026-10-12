@@ -214,6 +214,15 @@ Symptom: `Interrupted: 12 errors during collection` - `ImportError while importi
 Why: numpy/scipy/pyproj and the like live in the project venv, not in the system python3; the driver's own runs use the venv, so its reports are unaffected - the trap only bites when an agent runs the suite (or a subset) directly.
 What to do: always `.venv/bin/python -m pytest ...`. The driver rebuilds `.venv` from `requirements.txt` before every run; on 2026-10-12 it was complete as-is (`pip install --require-hashes -r requirements.txt`: all satisfied).
 
+#### HathiTrust and Google Books refuse this VM - books not on IA need a human download (the 207c pattern)
+Where: any fetch from babel.hathitrust.org / the Google Books API (207c Roy 1793, 209a Hoare Cherhill 1821, 209c Petrie 1880)
+Symptom: HTTP 403 from babel.hathitrust.org with every UA (including a full browser UA) and HTTP 429 from the
+      Google Books API with our and a browser UA; IA advancedsearch empty for these titles.
+Why: bot walls that a real browser passes and this VM cannot. Consequence: the copy arrives human-downloaded
+      (ask_human, human_only: outside-vm) into data/raw/books/<id>/, one image per leaf page, filenames sorting
+      in book order, and the consuming module adapts the fetch locally (fit/src_wiltshire_hoare.py does; 207c's
+      Roy module will). Verified 2026-10-11 (Roy) and 2026-10-12 (Hoare).
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
@@ -579,6 +588,11 @@ Why: Wikimedia's robot policy rejects requests without a descriptive User-Agent.
       as-is, but slicing it like a string (UA[:60]) raises KeyError. A raw urllib script must set it (or go
       through `commons.get`, which paces and retries too).
 
+#### upload.wikimedia.org rate-limits raw FILE downloads separately from the API: 3 back-to-back full-file fetches 429'd on the 4th
+Where: any bulk download of Commons file bytes (209b's category-scan visual check, /tmp/agent-a-209b/dl2.py; any fit/src_*.py that fetches originals)
+Symptom: urllib HTTPError 429 "Too many requests (f061ab2)" on the 4th consecutive full-file download from upload.wikimedia.org, while the w/api.php metadata calls (paced via commons.get) never 429'd at all
+Why: the CDN that serves the file bytes owns a separate, stricter limit than the API endpoints - pacing the API does not pace the downloads. Space file downloads ~30+ s apart with backoff on a 429 (retry after 60 s); the metadata API is the cheap path, the file bytes the expensive one.
+
 ### fit/
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
@@ -744,6 +758,11 @@ Why: each doc runs three searches (fit + the two nulls) over a 27 x 17-18 coarse
 Where: `tests/test_surveyfit.py` (`_rasterize`, `_centroids`, `match_response`); applies to any synthetic ink world
 Symptom: the connected-component centroid of a disc drawn at a known (sub-)pixel centre sits 0.3-0.8 px from the true centre; 8x supersampling is WORSE than 4x (0.33 -> 0.71 px for r = 3.5), doubling the radius barely helps (0.48-0.88 px); a JPEG q95 roundtrip and a 42 deg PIL bicubic rotation add at most ~0.05 px on top
 Why: thresholding per-pixel coverage at 0.3 cuts the disc edge asymmetrically about the sub-pixel centre; for a small blob the edge-pixel ring dominates the centroid, and finer supersampling only changes which edge pixels land inside, not the asymmetry. Consequence: in the stub matcher the ink centroids are good for glyph DETECTION only (within 2 px of the expected spot); a returned keypoint is modelled as a sub-pixel regression (the expected rotated position + a deterministic +-0.25 px wobble + the 0.6 px/deg quality jitter). Never expect a blob centroid to be sub-pixel ground truth in a synthetic world.
+
+#### A fit/src_*.py CLI that lazily imports pipeline modules needs its own sys.path insert at module top - tests hide it
+Where: fit/src_wiltshire_hoare.py (status()/register() import books lazily; src_mackenzie.py does the insert at top); every new fit/src_*.py CLI
+Symptom: `python fit/src_wiltshire_hoare.py --status` -> ModuleNotFoundError: No module named 'books' while the pytest suite passes
+Why: the test file inserts pipeline/ (and fit/) into sys.path before importing the module, but bare `python <script>` puts only the script's own directory on the path. Do `sys.path.insert(0, <root>/pipeline)` at module top (the src_mackenzie.py idiom) so the CLI and the tests share one import path.
 
 ### pipeline/
 
@@ -928,6 +947,11 @@ Why: cmd_index rebuilds the file from scratch over `args or BOOKS`. Running it o
 #### The book-level `region` in BOOKS is coarse (US/Europe) and is not what books_match uses
 Where: `pipeline/books.py:BOOKS` (`region`), `pipeline/books_match.py:BOOK_SCOPE` (a separate book -> (regions, default_state) table)
 Symptom: an entry like `civitates_liber2` has region "Europe" although the volume contains Italian towns - looks like a bug to "fix" to a country name. Do not: the book field is informational (the town's region comes from its catalog row); books_match never reads it - it keys BOOK_SCOPE on the book key, and a book missing from BOOK_SCOPE just gets no region/state filter (`.get(key, (None, None))`), not an error.
+
+#### A human-downloaded book (not on IA) runs the UNMODIFIED machinery through a 3-point in-process wrap
+Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module does the same)
+Symptom: cmd_fetch/ia.pages/ia.page_texts hit the network for an ia id that is really a local directory name
+Why: the machinery is IA-only in exactly three places - the page list (ia.pages), the per-page OCR (ia.page_texts), the page-image fetch (books.fetch_triage) - and wrapping those for one id plus a BOOKS entry whose ia field is the local dir name (so books.triage_path lands at data/raw/books/<id>/triage/) is all that triage A/F/B, map_plates and staging need: page_texts -> {} (Qwen anchors only; empty text keeps inked pages as map_plates candidates), fetch re-encodes the local files into the triage slot (1400 px long side, q88). A test monkeypatches the module's book DIR (the triage tree follows it) + the socket-blocking fixture -> hermetic. A book that IS on IA (209b's Stukeley) needs no wrap at all: register() only adds the BOOKS entry.
 
 ### pipeline/autowalls.py (the frozen ink extractor)
 
