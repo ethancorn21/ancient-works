@@ -257,6 +257,16 @@ Where: tools/fit_queue.py (the 804 wiring imports tools/right_place.py and fit/r
 Symptom: `ModuleNotFoundError: No module named 'right_place'` when the tool runs under the test's runpy guard, although the same script works as `python3 tools/fit_queue.py` on the Mac
 Why: a plain `python3 <script>` sets sys.path[0] to the script's directory; `runpy.run_path` (the guard's runner) does not. The guard process starts from the checkout root, so neither the tools/ nor the fit/ directory is importable. Insert the needed directories into sys.path inside the script before the import (tools/right_place.py's main() already does this for fit_queue - the wiring does the same for right_place and fit/review).
 
+#### Path.glob yields files in filesystem order, not sorted order
+Where: any test that asserts on the sequence of a `glob`/`iterdir` result (hit in tests/test_fit_queue.py's
+      namesake test: two item files compared against a hand-written sorted list)
+Symptom: an order-sensitive assertion (`list(...) == ["a.json", "b.json"]`) passes on one machine and fails on
+      another with the names swapped - `Path.glob` iterates `os.scandir` in directory order, which is
+      unspecified and filesystem-dependent
+Why: never rely on glob order: sort the results (`for p in sorted(dir.glob("*.json"))`) before any
+      order-sensitive comparison; a dict built from an unsorted glob carries that order into `list(dict)`,
+      so sort at the glob, not at the assert.
+
 ### scipy (1.18.1, project .venv)
 
 #### scipy 1.18's ndi.center_of_mass with a label-index array returns one (cy, cx) tuple per label, not (cy_arr, cx_arr)
@@ -405,6 +415,22 @@ Symptom: after a re-stage where the site-id rule changed (e.g. an inline slug re
 Why: stage() appends, and idempotency is per (site, title) pair; a changed id is a new pair. The staging
       files are the task's own and are consolidated by 211 later, so when the id key changes before 211
       runs: delete the three staging files and re-run `stage` (the files then hold one id generation only).
+
+### tools/right_place.py
+
+#### A site is bucketed by web/data/sites.json's "region" - a record without it (or a synthetic tree's) is never flagged, silently
+Where: tools/right_place.py (`site_facts`'s `_region_bucket`); any synthetic tree that exercises the
+      right-place check (tests/test_fit_queue.py's namesake tree); web/data/sites.json (real records carry
+      "England"/"Wales"/"US"/... capitalized)
+Symptom: a pairing that is obviously a namesake mismatch (the picture's county word contradicts the site's
+      county) is NOT flagged - no error, no warning, the check just finds nothing; it looks like "the check
+      is broken" when in fact H1/H2 never fired at all
+Why: `site_facts` lowercases the record's `region` and buckets it: england/wales/scotland -> "uk",
+      us/usa -> "us", everything else (including missing) -> "other"; H1 only compares across sides of the
+      Atlantic, H2 is UK-sites-only, and an "other" bucket matches neither. A sites.json record without
+      "region" (or any region string outside the bucketed set) is silently uncheckable. When building a
+      synthetic tree for the check, give every record a bucketed region ("England" in the real file's
+      capitalization works - the bucket lowercases).
 
 ### Wikimedia APIs (Commons, Wikidata)
 

@@ -78,3 +78,14 @@ carries the verified 15-flag list, the 117-entry baseline and the worktree warni
 deadlock - see 309's iteration-98 DECISIONS entry); `Depends on: 804` is the real ordering
 need and stays (the rebuild runs after the wiring merges, and the chain carries the module).
 The module is on agent/c, the owner lane, until 309 closes out.)
+
+(2026-10-12, iteration 102, agent c: 804 is now done in the lane (all five boxes; tests
+green). Before the rebuild, re-read PARENT 309's hand-over: the driver merge 9be7094
+brought in the lead's matcher-fit work and c5250a4's full review export (six data/review/
+items + web/data/review.json touched, write-once resolved records) - the iteration-100
+"5 item files / 6 upserts" note predates that export, so re-derive the expected rebuild
+from THIS run's flags. Flag baseline re-verified this session: 324 checked / 15 flagged,
+identical to iterations 100/101. Suite baseline moved: fully green (83 passed / 1
+skipped / 0 failed) - the three old main-side failures are fixed main-side, so the
+criteria's "three pre-existing failures stay as they are" means: do not edit their
+assertions; if a merge moves them again, re-baseline rather than chase.)

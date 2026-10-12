@@ -381,6 +381,7 @@ def test_fit_queue_real(tmp_path):
     shutil.copytree(ROOT / "data" / "db" / "platefits", tree / "data" / "db" / "platefits")
     # the right-place check's stores (without them the build degrades to 305's no-op)
     shutil.copytree(ROOT / "data" / "catalog", tree / "data" / "catalog")
+    (tree / "data" / "books").mkdir(parents=True)
     shutil.copy2(raw_in[3], tree / "data" / "books" / "index.jsonl")
     shutil.copytree(ROOT / "data" / "books" / "lists", tree / "data" / "books" / "lists")
 
@@ -506,8 +507,8 @@ def _build_namesake_tree(tmp_path):
                      ("dyke4-unknown-q30", "Wickham Camp")]
     ]
     _save_json(wd / "sites.json", {"sites": sites})
-    for s, _ in sites:
-        (wd / "sites" / s).mkdir(parents=True)
+    for s in sites:
+        (wd / "sites" / s["id"]).mkdir(parents=True)
     _save_json(wd / "plans.json", {"cols": ROW_FIELDS, "rows": [
         _namesake_row("p1", "p217.jpg", "devils dyke camp", "Fig 217", ["dyke-cambs-q1"]),
         _namesake_row("p2", "p218.jpg", "bokerley dyke", "Fig 218", ["dyke2-cambs-q10"]),
@@ -536,7 +537,7 @@ def _build_namesake_tree(tmp_path):
         ]:
             f.write(json.dumps(r) + "\n")
     books = tree / "data" / "books"
-    books.mkdir(parents=True)
+    (books / "lists").mkdir(parents=True)
     with open(books / "index.jsonl", "w") as f:
         for id_, fig, title in [("p1", "217", "DEVILS DYKE"), ("p2", "218", "BOKERLEY"),
                                 ("p3", "219", "WICKHAM"), ("p4", "220", "WICKHAM")]:
@@ -587,7 +588,7 @@ def test_fit_queue_namesake(tmp_path):
 
     # (b) + (c)/(e): exactly two item files; the unbuilt right site's item and the
     # source site's own item, each byte-pinned with the check's reason string
-    raws = {p.name: p.read_bytes() for p in (tree / "data" / "review").glob("*.json")}
+    raws = {p.name: p.read_bytes() for p in sorted((tree / "data" / "review").glob("*.json"))}
     assert list(raws) == ["dyke2-sussex-q11.p2.json", "dyke3-cambs-q20.p3.json"]
     for name, plan, file_, label, title in [
             ("dyke2-sussex-q11.p2.json", "p2", "p218.jpg", "Fig 218", "bokerley dyke"),
@@ -604,7 +605,7 @@ def test_fit_queue_namesake(tmp_path):
     assert proc.returncode == 0 and proc.stderr == b""
     queue2 = (tree / "web" / "data" / "fit_queue.json").read_bytes()
     assert json.loads(queue2)["entries"] == json.loads(queue1)["entries"]
-    raws2 = {p.name: p.read_bytes() for p in (tree / "data" / "review").glob("*.json")}
+    raws2 = {p.name: p.read_bytes() for p in sorted((tree / "data" / "review").glob("*.json"))}
     assert raws2 == raws
 
 
