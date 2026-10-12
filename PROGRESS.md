@@ -8,6 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/217-view-books-lists.md` (open) - hand-over: **2026-10-12, iteration 113 (agent c) - session 1: investigation complete, NO code written yet. All design
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
@@ -17,13 +18,46 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/217-view-books-lists.md`
+- `tasks/219-source-line-year.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 217 DECISION: civitates view-book design settled - HAND_FIGS per-leaf table in the module (the file is its dump), index gets a `view` row field for kind-o plates; shared index.jsonl/validation.json restored, not committed (207/216 precedent); no BOOK_SCOPE for the view books
+Session 1 on 217: investigation only, no code (full plan is in the task's Hand-over). Decisions made, each with
+its evidence:
+1. **The module mirrors 213's hand list, the file stays the dump.** `HAND_FIGS["civitatesorbiste00brau"]` will
+   hold the 121-line pipe table (fig|title|page|kind|kind_by) transcribed verbatim from
+   data/books/lists/civitatesorbiste00brau.json (pre-generated at /tmp/hand_figs_table.txt); `parse_hand_figures`
+   + `figure_list` (OCR-parsed or hand) feed cmd_ocrmap/validate_book/list_pages. `fig` = the leaf's own n, so
+   hand books need no page-number mapping (pagenum_map/map_plates untouched).
+2. **Byte format is an invariant, not a detail.** The civitates .json is a dump with `indent=0,
+   ensure_ascii=False` (raw Æ - verified: dumps(parsed, indent=0, ensure_ascii=False) == file, and NOT equal
+   with the default); four of the other eight books' files contain `\uXXXX` escapes (default writer). So
+   cmd_ocrmap dumps `ensure_ascii=(ia_id not in HAND_FIGS)` for both .json and .map.json; all other bytes
+   (indent=0, key order fig,title,page,kind,kind_by) reproduce 213's file and 216's eight byte-identical files.
+3. **The `view` field is the row contract for 211 and the page.** cmd_index adds `"view"` to rows of
+   HAND_FIGS books only (true = kind-o town view, false = kind-s plan, true = model-flagged leaf not in the
+   list); placed right after "page_type" via a `**{}` spread so plan-book rows get NO new key and stay
+   byte-identical (box 2's "shape unaffected"). found_by gains the tag "list_view" (mirrors "list"). The page's
+   plans.json already has a `view` column (bool, set from Clef for Commons bird's-eye pictures) - the index
+   field is the book-row feed for it; 211's merge/export maps it (their lane, noted in the hand-over).
+   civitates hOCR is misaligned (213 pitfall) -> index takes T={} for hand books and never calls page_texts.
+4. **Expected outputs (to verify next session):** ocrmap civitates_liber2 -> .json md5-identical to 213's,
+   .map.json [] -> 118 leaves (7 site_plan + 111 view; 213a left populating it to 217 - that change is the
+   machinery extension, committed under data/books/lists/). index (no args) -> 118 new civitates rows (111
+   view:true + 7 view:false; 890 plan-book rows byte-identical; baseline run saved: /tmp/idx_committed,
+   /tmp/idx_baseline_run.log - note the committed file was built in an older BOOKS row order, so diff per row
+   id, not per line). validate -> 8 plan-book entries byte-identical (box 3), civitates entry gains "figures"
+   (listed 121; recall_pages 0.286 = 2/7 of the hand plans {90,237} of the 11 model-flagged; stage_A_only 3).
+5. **Shared files restored, not committed** (after verification: git checkout -- index.jsonl validation.json):
+   the 207->216 precedent keeps them for 211's rebuild; 216's note to 217 ("run no-args at the 211/217 rebuild
+   stage") I read as a warning against subset runs, and the 211 hand-over already treats "zero civitates rows
+   until the rebuild" as expected. The `view` contract above is what 211 branches on.
+6. **No BOOK_SCOPE entry for civitates_liber2:** the volume includes American towns (fig 261 MEXICO, 262
+   CUSCO), so any region filter would be wrong; a missing scope means "no filter" (.get default) - recorded so
+   the next agent does not "fix" it.
 
 ## Project-wide driver notes (newest)
 
