@@ -140,6 +140,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## tools/
 - `tools/audit_306a.mjs` (130 lines) - Task 306a - headless visual audit of the 23 agent fits that are ON the map.
+- `tools/audit_306b.mjs` (191 lines) - Task 306b - headless visual audit of the 21 agent fits whose plan is a candidate of the site's review item: the doc is in the store but the site's overlay is not built, so the f...
 - `tools/composite.py` (16 lines) - Preview: site relief with the exported plate ink on top.
 - `tools/export_catalog.py` (52 lines) - Compact catalog for the page: web/data/catalog.json (every catalog entry as a pin; built sites are the full pages). Exports: dist_m, main.
 - `tools/export_plans.py` (88 lines) - Site plans from the old books (data/books/index.jsonl) as a compact list for the page's plate-fitting tool. Exports: commons_rows, main.
