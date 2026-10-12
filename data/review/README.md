@@ -26,7 +26,7 @@ changes.
    "evidence": "<the 200 evidence field of the source row, verbatim, only when the row has one>",
    "pairs": [[u, v, lon, lat], "... 0-5, page px of the candidate's image frame -> lon/lat, 1dp/7dp, platefit format"],
    "coarse": true,
-   "...producer extras, pass-through (202's ground/scale_m_px/rot_deg/scale_source/note, 203a's gate_score/why, the row's ia/file/book/label/cite/map_box/view/size when known); the page and export ignore unknown keys"
+   "...producer extras, pass-through (202's ground/scale_m_px/rot_deg/scale_source/note, 203a's gate_score/why, 309's place_reason, the row's ia/file/book/label/cite/map_box/view/size when known); the page and export ignore unknown keys"
   }
  ],
  "no_picture_found": null | {"searched": "<exactly what was searched>", "at": "<iso>"},
@@ -43,6 +43,10 @@ Rules:
   (`pairs` is optional); `coarse`/`note` say what the human can expect.
 - `no_picture_found` is set (a dict) only when the item has no candidates and
   says exactly what was searched; once candidates exist it is null.
+- `place_reason` is the 309 right-place check's reason string ("same name, other
+  place: <caption place> vs <site place>"): tools/fit_queue.py's build writes it
+  when the check moves a candidate into an item; neither the page nor a human
+  save writes it (the page's Review list shows it in 307c).
 - `resolved` is write-once: no upsert ever clears or overwrites it.
 - Resolution is derived, never a second store: an item is resolved when a
   `data/db/platefits/<site>.<plan>.json` doc exists for any of its candidates.

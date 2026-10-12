@@ -113,20 +113,33 @@ def run_export(tree):
 
 
 def _site_names(root):
-    """Site id -> display name from web/data/sites.json (the export's name source)."""
+    """Site id -> display name: web/data/sites.json, then the catalog (data/catalog/
+    sites.jsonl) - the export's name source (309's right-place check names its unbuilt
+    right sites from the catalog)."""
+    names = {}
     path = os.path.join(root, "web", "data", "sites.json")
-    if not os.path.exists(path):
-        return {}
-    d = json.load(open(path))
-    sites = d.get("sites") if isinstance(d, dict) else d
-    return {s["id"]: s.get("name") for s in sites or []}
+    if os.path.exists(path):
+        d = json.load(open(path))
+        sites = d.get("sites") if isinstance(d, dict) else d
+        for s in sites or []:
+            names[s["id"]] = s.get("name")
+    cat = os.path.join(root, "data", "catalog", "sites.jsonl")
+    if os.path.exists(cat):
+        for line in open(cat):
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if r.get("id") and not names.get(r["id"]):
+                names[r["id"]] = r.get("name")
+    return names
 
 
 def _open_items(tree):
     """The queue's open items through 201's own rules: review.resolved_doc decides which item has
     a resolving platefit doc (the recorded field wins, otherwise any candidate's doc), and the
-    export's documented order (sorted by site name, sites.json name or the id, stable) decides the
-    list. -> (open sites in that order, total item count, names)"""
+    export's documented order (sorted by site name - the export's name source: sites.json,
+    then the catalog, then the id - stable) decides the list. -> (open sites in that order,
+    total item count, names)"""
     items = {}
     d = os.path.join(tree, "data", "review")
     for name in sorted(os.listdir(d)):
@@ -251,7 +264,10 @@ def test_page_shows_the_review_list(queue, tmp_path_factory):
     tabs = {t.split("=", 1)[0]: t.split("=", 1)[1] for t in data["tabs"]}
     assert tabs["h-review"] == (("Review (%d):true" % n) if n else "Review:true"), tabs
     lst = data["list"].lower()
-    stats = [f for f in data["fits"] if "built in all" in f]
+    # the home stats line, by either wording: the lead's 939382a re-worded "built in all"
+    # to "laid on today's ground"; the page's own matcher accepts both
+    # (web/review.js: /built in all|laid on today/)
+    stats = [f for f in data["fits"] if "built in all" in f or "laid on today" in f]
     assert stats, "the home stats line must be present"
     if n:
         seeds = repo_items()
@@ -390,7 +406,13 @@ def test_plan_lookup_is_keyed_by_id_and_site(queue, tmp_path_factory):
     data, p = _probe(base, tmp_path_factory.mktemp("rvshot") / "keying.png", PROBE_KEYING)
     assert data.get("boot") is True, (data, p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    assert "[reqfail]" not in p.stdout, p.stdout[-2000:]
+    # Page-caused reqfails, expected: opening a site lists its aerial open, so the page's
+    # base imagery is the live Esri feed (server.arcgisonline.com/.../MapServer/tile/... -
+    # note the SINGULAR 'tile/', which a '/tiles/' exclusion alone misses); the probe's
+    # start/end fit cycle aborts those in-flight fetches (ERR_ABORTED). No other request
+    # may fail at the network level.
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     expect = {
         "c_ffb3daac218b481f.avebury-q661855": "media/commons/avebury-q661855/ffb3daac218b481f.jpg",
         "c_ffb3daac218b481f.stonehenge-q39671": "media/commons/stonehenge-q39671/ffb3daac218b481f.jpg",

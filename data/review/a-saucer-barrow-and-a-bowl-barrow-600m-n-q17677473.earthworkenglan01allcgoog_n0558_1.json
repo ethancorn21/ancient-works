@@ -1,0 +1,53 @@
+{
+ "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
+ "candidates": [
+  {
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0558.jpg",
+   "title": "WINDMILL SITES, LEWES DOWN",
+   "label": "",
+   "size": [
+    3367,
+    5050
+   ],
+   "map_box": [
+    0.14,
+    0.35,
+    0.53,
+    0.64
+   ],
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "earthworkenglan01allcgoog_n0558_1",
+   "place_reason": "same name, other place: LEWES DOWN vs St Neots, Cambridgeshire, England"
+  },
+  {
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0558.jpg",
+   "title": "WINDMILL SITES, LEWES DOWN",
+   "label": "",
+   "size": [
+    3367,
+    5050
+   ],
+   "map_box": [
+    0.56,
+    0.38,
+    0.85,
+    0.58
+   ],
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "earthworkenglan01allcgoog_n0558_2",
+   "place_reason": "same name, other place: LEWES DOWN vs St Neots, Cambridgeshire, England"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

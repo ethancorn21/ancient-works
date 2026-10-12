@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 200 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+215 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -37,16 +38,19 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 300 site-stonehenge (3 entries)
 - 301 site-argentoratum (6 entries)
 - 302a inkfit-method (9 entries)
-- 302b heldout-table (2 entries)
+- 302b heldout-table (4 entries)
 - 303 fit-provenance (6 entries)
+- 304 survey-fit (2 entries, older ones; the task is still open)
 - 305 ready-to-fit (6 entries)
 - 307a place-check (2 entries)
 - 307ba open-map (9 entries)
 - 307bb move-it (3 entries, older ones; the task is still open)
+- 309 queue-right-place (13 entries, older ones; the task is still open)
 - 800 requirements-pinned (1 entry)
 - 801 evidence-no-tie-coverage (11 entries)
 - 802 gate-holdout-auto-docs (4 entries)
 - 803 review-queue-rebaseline (1 entry)
+- 804 fit-queue-wire (1 entry)
 
 <!-- archive-index:end -->
 
@@ -125,6 +129,304 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+## 2026-10-12 302c DECISION: the confidence threshold is 0.15, set on the 302b held-out table (box 1) - the null margin only rations the pass rate; it is not an accuracy guarantee
+First session on 302c (iteration 84): investigation and design only, no code written (the context
+limit hit before the first edit). The value and the design, frozen for the next session:
+- Threshold CONF_THRESHOLD = 0.15 on the search-matched-null margin (confidence = objective_fit
+  - max(scramble, shifted) as fit/inkfit.py already computes). Rationale from the 302b table
+  (docs/site_flow.md "Measured one-shot"): sorted margins run -0.5150..+0.1871 and do NOT
+  separate good from bad fits (worst calleva +0.1070/2203.6 m sits above castle-rising +0.0806
+  and old-sarum-book +0.0693). A threshold > 0 passes 11 docs, > 0.05 passes 6, > 0.10 passes 2
+  (badbury AND the worst, calleva); only a threshold in (0.1070, 0.1871] passes exactly one
+  document - badbury, the best (264.5 m, 17% of the site's size). 0.15 is mid-interval: 0.043 of
+  room above calleva's rounded 0.1070 and 0.037 below badbury's 0.1871, robust to small DEM/OSM
+  drift between the held-out run and a re-run. A future change to the value is a method change:
+  it must be labelled and re-measured, never a silent fix.
+- Decision (applied in fit/inkfit.py, additive): confident iff the fit produced reportable pairs
+  AND the frozen gate accepted them (verdict == fit_gate.ACCEPT) AND fabrication_pattern is
+  silent AND the null ran AND margin >= 0.15. Everything else is unsure with a
+  human-readable reason (the existing no-fit reasons are already human-readable; new: a gate
+  refusal names the median residual; a below-threshold margin names the margin, the fit and
+  null objectives and which null won - per the 302a hand-over note). Confident -> automatic
+  platefit document (auto: true, fitter: "ink", the gate's score); unsure -> the site's review
+  item with the reason and the best starting pairs, never to the map.
+- New result fields are "confident" (bool) and "unsure_reason" (str|None). The "reason" field
+  keeps its exact meaning (None on the success path): inkfit_heldout.measure() stores r["reason"]
+  into the frozen one-shot checkpoint (data/inkfit/heldout/results.json), so routing the margin
+  message through "reason" would corrupt the checkpoint if measure were ever re-run. "confident"/
+  "unsure_reason" are new keys measure() does not store, so the checkpoint and the verbatim table
+  stay untouched (verify: `fit/inkfit_heldout.py table` byte-identical to the committed section).
+- Task file: Touches extended to docs/site_flow.md (the decision paragraph goes next to the
+table), data/inkfit/ (the committed test-site relief npz seeds under data/inkfit/relief/, the
+committed real-plate copies under data/inkfit/plates/) and tests/test_site_done.py (the
+no-model CLI message of site_done changes wording, and that test asserts the line verbatim).
+Next session: implement box 1 exactly as the hand-over spells it (the decide() contract, the
+site_flow.md paragraph text, the verification list incl. applying decide() to the 21 checkpoint
+entries -> exactly badbury confident), then box 2 (site_done wiring), 3 (plan_fit.build how
+string) and 4 (tests/test_inkfit.py + the committed seeds; badbury = confident e2e, calleva =
+unsure e2e).
+
+## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's
+
+Session 3. The file was already committed by the driver (3b4c2b2 "[driver] uncommitted
+work after iteration 86"); the import check passed clean (no breakage to fix). The
+three Re-read items were re-verified with fresh eyes against the source:
+
+1. **Sign convention (CRITICAL item) - passes, no flip.**
+   `propose._anchor_pairs` is `z = (m_per_px/k) * e^{i theta} * (w - wc) + zc` with
+   `w = u - i v` (page coords, v down) and `z` Mercator (imag = north). A visual
+   (on-screen) counterclockwise rotation by phi multiplies the `w = x - i y` frame by
+   **+e^{i phi}** (verified: at 90 deg the up vector (0,-1) goes to left (-1,0), which is
+   CCW on screen and +i in the w frame). A drawn plan whose north arrow is theta deg
+   CLOCKWISE of page-up has the 302b anchor factor e^{i theta}; rotating the panel image
+   by **+theta** (PIL `rotate(+deg)` is counterclockwise on screen) brings it north-up.
+   So `_match_theta`'s `rotate_image(panel, +theta)` and `rotated_panel_map`'s
+   `R = [[c, s], [-s, c]]` (the visual-CCW matrix in x-right/y-down) are both correct,
+   and the composition `a_s * a_r * e^{i theta} * fs` is exactly the anchor form
+   `(m/k) e^{i theta}`. The synthetic test must still lock this (see hand-over).
+2. **Frame separation in `composite_placement` - passes.** The similarity (a, b) is fit
+   on the four FULL-FRAME (doc size frame) corners; the reported panel corners are the
+   CROP-box corners (size units, `_panel_crop`: map_box fractions * size, or (0,0,w,h)
+   full frame) pushed through that same similarity. The composition of the three
+   stage maps is an exact similarity in the w frame, so the full-frame fit is valid at
+   the crop corners. `fit()`'s `size = row.size or [panel.width, panel.height]` matches
+   `inkfit._size_frame`.
+3. **Null phase - passes.** Both null `_match_theta` calls pass the UNROTATED panel
+   (real or scrambled) plus the chosen theta; the rotation is applied inside, exactly
+   as in the fit phase. Scramble recipe checked against 302b: same seed (20261012 =
+   `inkfit.NULL_SEED`), same per-piece draw order (th, dx, dy), same R (`_rot2` form),
+   clip, white background; the sheet shift matches 302b's DEM null
+   (`ndi.shift(..., (-h/2, +w/2), order=0)`, cval 255 instead of NaN for an image).
+
+**One real bug found and fixed (committed):** `panel_pieces` kept every autowalls keep
+label, but the 302b reference `inkfit.template_pieces` drops labels that have zero of
+`extract`'s 1-in-step sampled points (deterministic seed-0 subsample, step=2). A label
+that 302b drops would still consume (th, dx, dy) draws from the single seeded RNG,
+shifting every later piece's transform in the scrambled null image. Fix: select labels
+through the sampled points, exactly as `template_pieces` does (`comp = lab[pts...]`;
+a piece exists iff a sampled point hits its label). Verified on a synthetic panel:
+identical (idx, length) piece lists, identical first scramble draw, valid scrambled
+image; `ransac` recovers an exact planted similarity to 1e-14; `sheet_similarity`
+returns |a| = 10, rot 0 deg for a known 10-merc-m/px sheet. Suite green: 68 passed,
+1 skipped (the earlier known reds from other tasks are resolved on main; nothing mine
+touches them). Matcher still live: /health -> zju-community/matchanything_eloftr on the
+RTX 5060 Ti.
+
+Next (session 4): write tests/test_surveyfit.py - the hermetic stub-server suite
+(details in the task hand-over), then the real-service smoke, freeze, held-out
+evaluator, one run.
+
+### 2026-10-12 304 DECISION: hermetic stub-server test suite for the survey fit (tests/test_surveyfit.py written, not yet run); sign convention verified by code
+
+Session 4. Wrote the complete tests/test_surveyfit.py (7 tests, uncommitted on disk -
+harness hand-over). Design decisions, recorded for the next agent:
+
+1. **Sign convention verified by code (closes the session-3 "must still lock" item).**
+   Ran a probe: PIL rotate(+90) sends a marker right-of-centre to up-of-centre (visual
+   CCW, matches the docs); rotated_panel_map(90) sends the same point to the same place
+   (its R = [[c,s],[-s,c]] is the visual-CCW matrix in x-right/y-down); and in the
+   w = x - i y frame a visual CCW rotation by phi sends a point's coordinate to
+   e^{+i phi} * w (checked numerically for both basis vectors). My own mid-session hand
+   derivation that got e^{-i phi} was an arithmetic slip (mis-decoding w = x - iy for
+   "up"): the module's convention and docstring are correct. Corollary (derived, to be
+   confirmed by the recovery tests): the true pairs satisfy a_r = (a_true/a_s) e^{-i
+   theta_sent} and the module's composition a_s*a_r*e^{i theta} recovers a_true for ANY
+   theta_sent - the rotation is absorbed by the fit, so the sweep discriminates only
+   through matcher match quality (the stub simulates this with a degradation rule).
+
+2. **The stub matcher (port 0, never a fixed port - parallel checkouts).** It decodes
+   the two sent PNGs and simulates the service: sheet classified by 3x3 ink windows at
+   the world's sheet centres (real sheet >= 12 of 14 seen; the 302b half-box shift ==
+   all 8 surviving SW-quadrant glyphs seen at (x+200, y-200)); the plan image's
+   rotation resolved to 2 deg from connected-component centroids matched against 180
+   candidate expected positions (hit window 2.0 px; oriented iff >= 8 of 14 hit - plan
+   centre radii 43-200 px make one fine step's 2.8-7 px displacement a clean miss);
+   true pairs returned in the ORIGINAL (sent) pixel frames as the service does,
+   degraded by the angular error vs the drawing's own rotation (<=3 deg: all
+   survivors; <=15: first 6; else none) so the frozen sweep has something to score;
+   plus one fixed 12-pair junk set (seed 304777).
+
+3. **The world (all constants in the test file; measured outcomes go to
+   data/surveyfit/devlog.md):** site (2.0, 50.0), 2000 m box (square in Mercator, so
+   the sheet's a_s is exactly real ~7.7786), 400x400 sheet, 14 glyph discs (7x2 grid,
+   x=30+50i, y in {250,310}), 320x320 plan at M_PX = 4.0 (|a_true|/|a_s| = 0.8; plan
+   glyph radius 4.375 px; drawn at 4x supersampling for sub-pixel centres; saved as
+   JPEG q95 to stand in for a scanned picture), b_true chosen so the plan centre
+   lands on the site centre, 4 junk glyphs at the corners (>= 25 px from true ones;
+   a rigid rotation preserves the gap, so they never match at any candidate theta),
+   12 junk match pairs (seed 304777). Three drawing rotations exercised: 42 (fixed
+   rot), 0 (sweep; the fine grid wraps 348..12 and the 0/12 deg images are sent
+   twice - the re-read item from session 3 is now a test assertion, not a note), 6
+   (sweep refinement between coarse values).
+
+4. **Expected score order (to be confirmed, then logged):** 14-true ~0.53 > 6-true
+   ~0.30 > junk-only ~0.19; the shifted-sheet null carries 8 true pairs ~0.34 < fit.
+   If the junk-only RANSAC model ever scores above the 6-true level, the theta_d=6
+   sweep's argmax can break - the fix is a different JUNK_SEED (304778, ...), not a
+   change to the frozen module.
+
+5. **Fixture (test 6, the test_gate pattern):** data/surveyfit/fixture_match.json is
+   generated by `.venv/bin/python tests/test_surveyfit.py --emit-fixture` (once, then
+   committed): the ideal true pairs of the theta_d=42 world + the junk set, with the
+   module's own ransac + score output recorded at full float precision; the test
+   re-runs the frozen core and asserts exact equality.
+
+Known bug to fix first next session: _resolve_theta crashes on a zero-centroid image
+(scrambled panel with no ink after extract: ndi.label n=0 -> min(axis=0) on empty);
+guard with `if cents.shape[0] == 0: return None, {}`. Also `__import__("io")` in the
+handler should be a top-level import.
+
+After the suite is green: devlog.md, full suite, matcher re-check (127.0.0.1:8091 was
+live this session), real-service smoke, freeze, held-out evaluator, the one run.
+
+### 2026-10-12 304 DECISION: first real run of the stub suite - the synthetic world was mis-scaled and is now centred at (195,235) with 25/30 px pitch; a match-quality jitter (0.6 px/deg) makes the true rotation the unique sweep max; scipy 1.18.1 changed center_of_mass's array-index return
+
+Session 5, first execution of tests/test_surveyfit.py. Three distinct findings, in order:
+
+1. **The session-4 world did not fit its own frame.** The old 7x2 grid (x=30+50i, y in
+   {250,310}) is 300 sheet-px wide = 375 plan-px at the plan's 0.8x scale - wider than the
+   320 px plan frame - and its centre (180,280) is 100 m west / 400 m south of the sheet
+   centre, so in the plan frame (plan centre on the site centre) the glyph field sat
+   off-centre: one true glyph landed at x=-67.5 (off-frame) and another within 9 px of the
+   (15,305) junk corner at theta_d=0. The junk-gap assertion caught it on the very first run.
+   Redesign constraint (verified numerically, not by eye): a 7-col grid can have exactly 4
+   columns <= 198 and 2 rows >= 202 (the 302b half-box shift keeps 8 glyphs) ONLY when the
+   grid centre is off-centre (pitch (198-c)/2 < p_x <= 198-c), while the plan frame (scale
+   0.8, centre on site) needs the grid within ~155 px of the panel centre at every
+   theta_d in {0,6,42}. Chosen: pitch 25/30 px, centre (195,235) - cols 120..270, rows
+   220/250. Consequences (all measured): 8 shift survivors; all 14 glyphs in-frame at all
+   three theta_d; min junk gap 35-93 px; and crucially the stub's rotation resolution is
+   binary at the grid's 2 deg step (true theta: 14 hits; any 2-deg-off candidate: 4 hits),
+   so the sent rotation always resolves to itself, never to a neighbour.
+
+2. **Score ties, broken by a quality wobble, not a count cut.** With the binary hit gate,
+   a call one fine step (2 deg) away from the true rotation still resolves and returns all
+   14 true pairs (delta <= 3 band), so without further degradation it would TIE the true
+   rotation's score and the sweep's first-max rule could land on 358/2 instead of 0. Fix
+   (test-side only, no frozen-module change): the stub's returned plan-side points wobble
+   by up to 0.6 px per degree of angular error, seeded per (theta, i) - deterministic and
+   repeat-call-stable, mimicking a matcher whose match QUALITY degrades with rotation. The
+   resulting score landscape is strictly ordered: delta 0 ~0.52 > delta 2 ~0.48 >> delta
+   4-15 ~0.15-0.19 ~ junk-only ~0.15. The sweep is now deterministic: theta_d=0 -> 0, theta
+   _d=6 -> 6, unique maxima in both cases (the fine-0 duplicate payload ties the coarse 0
+   and the strict > keeps the first).
+
+3. **Two crashes, both test-side.** (a) The anticipated zero-centroid ValueError in
+   _resolve_theta (empty scrambled image): guarded. (b) NEW, unanticipated: scipy 1.18.1's
+   ndi.center_of_mass(input, labels, index_array) returns a LIST OF (cy, cx) TUPLES (one
+   per label), not a (cy-array, cx-array) pair - `cy, cx = ...` raises "too many values to
+   unpack (expected 2)" whenever n != 2. _centroids rewritten to consume the list form. The
+   single-mask form ndi.center_of_mass(mask) still returns a (cy, cx) tuple, so
+   fit/surveyfit.py's panel_pieces (line 344) is unaffected - verified. (PITFALLS candidate.
+   Note: the .venv the driver builds from requirements.txt pins this scipy; the code must
+   match ITS behaviour, not an older one.)
+
+After these fixes the suite runs end to end against the stub; first failure is now a
+tolerance, not a crash: test 1 (theta_d=42, rot=42, no null) reports the placement centre
+2.958 m from the independently constructed true placement (limit 2 m). Diagnosis (measured,
+throwaway script): my 4x-supersample rasterizer (4x4 cells, acc >= 0.3) biases each disc's
+measured centroid 0.44-0.66 px from the intended sub-pixel centre before any JPEG, and
+0.34-0.77 px after the module's 42 deg PIL bicubic rotation - the 16-cell coverage
+quantisation makes the effective ink boundary asymmetric, and the 14 per-glyph biases share
+a common component (fitted b off ~0.7 plan-px = 2.9 m; da and the corners were not yet
+reached by the -x run). Hypothesis: 8x supersampling (1/64 coverage resolution) cuts the
+bias to ~0.1 px; the JPEG q95 roundtrip (what the stub actually decodes) adds at most a
+~0.1 px symmetric blur. One open question from the last experiment: a single-disc 8x test
+case came back with ZERO ink components after the JPEG roundtrip (the script crashed on
+the empty array before printing which point) - if a 7-px disc genuinely vanishes at q95,
+enlarge the world's glyph radii (SHEET_R 3.5 -> 5) rather than the encoder. Tolerances
+will be set to ~2x the observed worst case and the measured numbers logged in the devlog,
+as pre-decided in session 4.
+
+Next (session 6): 8x supersample (verify the vanishing-disc question), rerun, recalibrate
+tolerances, then fixture emit + devlog + full suite + real-service smoke + freeze + the
+one run, per the hand-over.
+
+## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091
+
+Session 6. (1) The 8x supersample experiment (throwaway, then deleted) DISCONFIRMS the
+session-5 hypothesis: the per-disc centroid bias is NOT 4x quantisation. Measured (full test
+path: rasterise -> lossy save -> [plan] PIL bicubic rotate -> connected-component centroids
+vs the expected positions): r = 3.5 discs - 4x: 0.33-0.68 px, 8x: 0.43-0.76 px (WORSE); r = 5
+- 4x: 0.37-0.70 px, 8x: 0.49-0.88 px. Even INTEGER-centred discs (sheet) are biased: 0.329 px
+(4x) / 0.707 px (8x) - the 0.3 coverage threshold cuts the small-disc edge asymmetrically
+about the sub-pixel centre, and finer supersampling only changes which edge pixels land
+inside. JPEG q95 (the plan's path) and WEBP q95 (the sheet's) add at most ~0.05 px, and NO
+disc vanishes in the 14-disc world (the session-5 single-disc vanishing did not reproduce).
+(2) Design consequence (the fix this session, tests/test_surveyfit.py only): the stub's
+connected-component centroids are a poor model of a real matcher's KEYPOINT ACCURACY (a
+trained sub-pixel regressor, not a thresholded-blob centroid), so the stub now returns, for
+each detected glyph, its EXPECTED sub-pixel position in the sent frame (the module's own
+visual-rotation matrix) plus a small deterministic per-(theta, i) matcher wobble (+-0.25 px,
+seeded, a stream separate from the quality jitter) plus the existing 0.6 px/deg angular
+jitter. The sent-image geometry still drives what the stub sees: glyph DETECTION (which
+glyph, which rotation, real vs shifted sheet) still runs on the measured centroids, and the
+_take bands (all 14 / first 6 / none), the junk set, and the response format are unchanged.
+This is a more faithful matcher model, not a weaker test: the placement tolerance now means
+"what a good sub-pixel matcher's fit would produce", and the sweep still scores rotation
+through quality degradation. A throwaway-script red herring consumed some time first: my
+8x prototype rasteriser had INVERTED polarity (white ink / black paper) and looked like a
+single mega-blob - the module's `_rasterize` convention is black = ink (`255 * (~ink)`);
+checked rather than believed. (3) REAL MODULE BUG found and fixed (fit/surveyfit.py,
+shift_sheet_image): `ndi.shift` on the RGB sheet (rank 3) with a 2-element shift sequence
+raises "RuntimeError: sequence argument must have length equal to input rank" - the null
+path had never executed before (tests 1-3 run null=False). Fixed with a 3-element shift
+(0.0 on the channel axis). (4) Tolerances tightened to ~2x the OBSERVED worst (the
+recorded-pin discipline): observed worst over the four worlds - db 0.624 m (theta_d=42),
+da 0.00273 m/px, panel corners 0.797 m; null run (theta_d=0): fit 0.5278 vs null 0.3923,
+margin 0.1355, confidence 0.0715. New asserts: db < 1.3, da < 0.006, corners < 1.6. (5)
+Fixture emitted and committed: data/surveyfit/fixture_match.json (north-42 ideal world, 26
+pairs, 14 inliers, rms 3.6e-12, score 0.538462) - test 6 (reproduce exactly) passes.
+(6) Full suite: 75 passed, 1 skipped (was 68 passed 1 skipped before my 7 tests).
+(7) The REAL service now answers: GET 127.0.0.1:8091/health ->
+{"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}.
+
+Next (session 7): the real-service smoke (hand-over step 6): canary `fit/surveyfit.py
+maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 31 inliers /
+20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
+avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
+measured numbers (world params, per-world fit/null scores, the bias table above, the
+scipy gotchas); then FREEZE (restate the frozen config in my site_flow 304 section + the
+freeze commit hash) -> fit/surveyfit_heldout.py -> THE ONE RUN -> verbatim table + plain
+verdict -> pass: 304b task; fail: stop.
+
+## 2026-10-12 304 DECISION: session 7 - re-reads passed; live canaries on three sites (the lead's direction); the method FROZEN at 737508d (freeze commit 156aa19: devlog + site_flow restatement + evaluator); the one-shot run is the entire next step
+
+(1) Re-read passes, no changes: (a) `_jitter`/`_wobble` are seeded per (theta, i) only, so a
+repeated call at the same theta returns identical points (the sweep tie-break and the
+duplicate-payload test depend on it); (b) `match_response` iterates `_take` and skips any
+index not in `matched`, so detected-but-unselected glyphs are never returned; (c)
+`shift_sheet_image` still shifts half the box north (-h/2 rows) / east (+w/2 columns) with
+the 3-element shift. The lead (this iteration) directed: the stub is frozen as it is - a
+test that runs end to end is enough - so the stub suite (7/7) stands untouched.
+(2) Live canaries (all --no-null against 127.0.0.1:8091; full table in
+data/surveyfit/devlog.md): maiden (held-out #14, the lead's directed canary) 43 calls /
+215 s; the frozen sweep chose theta=94 (20 pairs / 6 inliers / 0.2048 / conf 0.0419) -
+eyeballed OFF (~1 km NW of the hillfort; the inlier-fraction score preferred a small tight
+cluster), while the same run's theta=0 call gave 625 pairs / 31 inliers / 0.0311,
+reproducing the lead's raw smoke (his 633 pairs: the service's pair count drifts a few %
+between calls of identical images). barnard (not held-out): 3/3/0.7262/0.5274, on the
+earthworks; avaricum (not held-out): 9/3/0.2364/0.0559, on the earthworks. Recorded as
+observations, nothing tuned: the pre-registration bars any parameter choice from held-out
+numbers, and the lead's own raw smoke was a raw-API check, not my method.
+(3) Task 303's golden re-key broke the 302b evaluator's `doc_ids()` (it expects exactly 20
+platefit docs; the file now pins the 21 hand fits). 302b is done and re-runs nothing, and
+the golden file is not mine to touch; the 304 evaluator instead asserts the golden file
+pins exactly the 21 registered docs (it does) and uses the hard-coded 302b list, sorted.
+(4) Freeze: 737508d (last commit touching fit/surveyfit.py) is the frozen method; commit
+156aa19 amends my 304 section of docs/site_flow.md at the freeze - the frozen config
+restated (threshold 0.2 / max_side 832 / 30 s + one retry; RANSAC 400 iters / min 3 / 8 px /
+seed 20261012 / s_band x1.5; sweep 12 deg + 2 deg +-1 coarse; nulls = 302b scramble +
+half-box sheet shift; score (inliers/pairs)/(1+rms/8); confidence max(0, score x margin)),
+the pre-freeze canaries disclosed, and a factual slip corrected (13 of the 19 sites carry
+the six-inch sheet, not 15). fit/surveyfit.py is never to change again.
+(5) Evaluator fit/surveyfit_heldout.py written (22 pairs: 21 sheets + the camp-d-attila
+aerial on row 11; per-pair atomic checkpoint + pid lock; one disclosed re-run per errored
+pair). Selfcheck 21/21 OK (0.0 m / 0.0 deg / 1.0). The one run has NOT started: next
+session launches it (hand-over has the exact commands), pastes the verbatim table into the
+section, and writes the plain verdict (pass iff a confidence threshold exists with every
+accepted fit within 60 m and >= 5 of 21 accepted).
 
 ## 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
 The owner's 307 rework has six acceptance boxes across two independent planes: the data side
@@ -282,3 +584,34 @@ Executed the iter-128 plan steps 1-4.
 **Next session: the committed headless part 4 (box 3)** per the recipe in the hand-over (full-tree fixture cloned from line_served with the server under the pytest venv python, PLACE_PROBE = /tmp/fkverify/probe.mjs verbatim, test_placement_gestures_and_save_in_the_browser, first queue entry with a local page AND a propose). Then box 4 docs, then tick boxes 1-2 (their proof lands with part 4), then done-claim against the 4-failure baseline.
 
 ## 2026-10-12 307bb DECISION: iteration 131 - orientation + verification only; the part-4 section is still unwritten (context limit hit at the docstring edit). Two refinements to the iter-130 design recorded: (1) openPlan (index.html:918) computes P.crop from map_box * the image's NATURAL W/H, not row.size - so the Python-side expected crop must be derived from the probe's recorded out.imgSize (page's own W/H), JS-style rounding int(v + 0.5); for n0119 natural == row.size so the value is unchanged; (2) the throwaway's run-2 lines were tagged '[console2]'/'[pageerror2]'/'[reqfail2]', so its final honesty filters (startsWith('[pageerror]') / startWith('[reqfail]')) could never match a run-2 line - run128c passed only because no such lines occurred at all; the committed probe drops the '2' suffix (the runs are sequential) so noPageErrors and noReqfailOutsideKnown cover both runs. Also recorded: the third of the seed's three keys (one object arg {sid, f, d}) is aw.ground = 'relief' (the page's default, made explicit); aw.depSel is persisted by saveFit (index.html:1147), so run 2's re-seed with the original survey file is what makes the Cancel check see the survey back. Pick re-confirmed as entries[4] oswestry-castle-q20713795 under the full 3-constraint picker (propose AND _line_eligible AND _default_dep_file), with the rejection map refined: entries 0-3 fail the line constraints (iter 130), and additionally 1 fort-ancient and 2 marietta have NO drawable default depiction at all (dep default None) while 3 forthill's default is a plan overlay (plan_b24849959_n0269_1.webp), not a survey sheet; dep defaults of the first six entries measured (0 and 4 = six-inch-1st.webp, 1 and 2 = None, 3 and 5 = plan overlays). Nothing failed, nothing run (no test execution this session; last run remains iter 130's 3 passed/20.24 s post-refactor). Verified by running the picker mirror and reading the live tree: n0119.jpg present in the checkout's data/raw; MAX_PX = 2400 at pipeline/plan_fit.py:44 (the ^MAX_PX = (\d+) multiline regex matches); machine date 2026-10-12 (so the doc at startswith '2026-' holds); buttons #fcancel/#fsave (index.html:904), #fundo (900), #fitcv (243) exist; /home/agent/tools/shot/node_modules present. Only working-tree change this session: tests/test_fit_queue.py's module docstring gains the Part 4 paragraph (uncommitted - the harness keeps it for the next agent, which appends the section after test_card_done_mark_moves_on and runs the file).
+## 2026-10-12 309 DECISION: iteration 109 (session 18) - 805 box 2 ticked: the right-place section verified against the post-merge tree (15 flags / 9 sites re-run, queue 114/309, shotwick still listed, 17/17 verbatim names in sync); the review.json merge conflict resolved by RE-RUNNING the export, never hand-merging the JSON (333 open of 346 = main's 328 + my 5; the lead's 3 RoMa resolutions drop out); suite at the not-mine baseline (80/1/2 + 1 teardown flake)
+Session 18 on the 309 lane. Merged main into agent/c first (driver instruction; the only conflict was web/data/review.json), then closed out 805 box 2 (the section itself was written in session 17).
+1. The merge conflict, root-caused before touching it: review.json is generated by `fit/review.py export`, which contains ONLY open items (open = no recorded `resolved` AND no platefits doc for any candidate; sorted by site name; a fresh "at" each run). My 06:33 export (336 open of 346) vs the lead's 07:14 full export (328 open of 341 - their tree lacked my 5 new items) differ by exactly: (a) 3 items the lead RESOLVED in 89043b7 (carisbrooke-castle, dudley-castle, newark - RoMa fits eye-checked; their item files carry the write-once `resolved` record, so the lead's export excludes them); (b) my 5 new items (a-saucer-barrow, castle-dyke, devil-s-dyke-hillfort, down-end-castle, oval-barrow - absent from main's tree entirely). Resolution: re-ran `fit/review.py export --root .` on the merged tree -> 333 open of 346, the union of both sides' intents; the export changed no item file (all resolutions already recorded on the main side). The generated file is regenerated, never hand-merged - hand-joining two exports would either drop the lead's resolutions or re-open them. docs/site_flow.md auto-merged cleanly (my "right-place check" section + the lead's matcher-fit RoMa-0.4 edit both kept). Committed as the merge (0fe0254).
+2. Box 2 verified against the POST-MERGE tree (the merge did not touch its inputs: no queue file, no data/catalog, no data/books, no pipeline/books_match.py): `tools/right_place.py --root .` -> "checked 324 queue pairing(s): 15 flagged", the same 9 sites as the section's table; queue file still 114/309; shotwick's item still in the review list (333 open); the 17 verbatim-core names (US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm, name_keys, tokens, place_of, site_place, site_toks, name_lookup_keys, row_inputs, score_candidate, BOOK_SCOPE, PLACE_WORDS, phrases) still byte-identical to pipeline/books_match.py (throwaway extract of the region between the two "# =====" VERBATIM marker lines: 17/17, zero drift) - so box 3's test must pass on first run. One accuracy fix to the section (its own file, appended only): the "336 open of 346" sentence gained a parenthetical (the live count moves as items get resolved - the lead's same-day RoMa export resolved three more: Carisbrooke, Dudley, Newark). Box 2 ticked.
+3. Suite after the merge: 80 passed / 1 skipped / 2 failed / 1 error (133 s). The 2 failures = the standing not-mine pair: (a) test_review::test_page_shows_the_review_list - the lead's page rework removed the "built in all" home-stats line (web/index.html + tests/ are agent a's 307 - do not chase); (b) test_review::test_plan_lookup_is_keyed_by_id_and_site - ArcGIS World_Imagery ERR_ABORTED flake (now 4/4: 2/2 session 15, 1/1 session 16, 1/1 this run). The 1 error = teardown flake in test_fit_queue::test_save_runs_the_one_site_line (shutil.Error in the temp-tree cleanup; the test BODY passed, and the file passes 6/6 on re-run) - it is why the pass count reads 80 instead of session 16's 81. The 1 skip = test_batch_eu::test_union_full_coverage_live (skip-gate as before).
+4. Lane state check: 804 (done in this lane) is still NOT on main - tools/right_place.py is absent from main (its acceptance merge lands with this lane); the PITFALLS section header "(lands on main with 804 ...)" is stale in that sense but left as written (it names the correct branch ref, `git show agent/c:tools/right_place.py`, which still works for other lanes).
+NEXT (one session each): (1) 805 box 3 - write tests/test_right_place_drift.py: for each of the 17 top-level names in the region between tools/right_place.py's two "# =====" VERBATIM marker lines (extraction: a top-level `NAME =` / `def NAME(` line, captured until the next top-level line), assert the exact block text occurs in pipeline/books_match.py; hermetic, stdlib, no network, no ports, no writes; verified 17/17 today so first run must pass - if it fails, the drift is in pipeline/books_match.py (the source of truth, the lead's/agent a's file) and that is what gets logged, not edited. Then run the suite, tick 805 boxes 2+3, re-verify box 4 (the 305 queue-shape contract) and tick it, close 805, and the driver returns parent 309: tick its three carved boxes, set done.
+
+## 2026-10-12 309 DECISION: iteration 110 (session 19) - 805 closed (box 3: tests/test_right_place_drift.py, 17/17 pass first run, containment not block-equality; box 4: queue key set identical on main and agent/c, three named tests pass 3/3) and parent 309 closed (all three carved boxes ticked via 804/805); final suite 98/1/2, both failures the standing not-mine pair
+Session 19 on the 309 lane: the lane's last step. Wrote tests/test_right_place_drift.py (805 box 3) and closed both 805 and the parent 309.
+1. The test, as the hand-over specified: for each of the 17 top-level names in tools/right_place.py's region between the two "# =====" VERBATIM marker lines, extract the block (def/assignment line until the next top-level line; SUFFIX, an 18th block, skipped by design) and assert the exact block text occurs in pipeline/books_match.py. Parametrized 17 tests, hermetic (two file reads, stdlib), no network/ports/writes. First run: 17/17 pass, as predicted from the session-17/18 throwaway verification.
+2. Why containment and not block equality (the new PITFALLS entry under the right_place section): a throwaway showed that extracting the same name from BOTH files and comparing for equality fails on almost every block - the only difference is trailing blank lines (books_match keeps PEP8's two blank lines between top-level definitions, the right_place copy one; the content lines are byte-identical, and in four blocks right_place's block even ends where books_match has no blank line at all). The VERBATIM promise covers block text, not surrounding whitespace. Mutation check (throwaway, no file edits): a changed line in the right_place copy and a deleted line in books_match's place_of both break containment, so drift in either direction is caught; a whitespace-only change passes, which is the intended tolerance. Do not "upgrade" the test to full block equality - it would red on the untouched, in-sync tree.
+3. Box 4 re-verified (tick at close): the queue file's key set is IDENTICAL on main (116 entries) and agent/c (114) - {site, name, best{plan,reason,row}, candidates, propose}. The `propose` key in every entry is agent a's 307ba (cbb36c8, on main since the cef2402 merge) - an extension of the 305 contract by the page owner, present on both sides, not introduced by my rebuild; the box's literal {site,name,best,candidates} wording predates 307ba. The three named pre-existing failures (test_fit_provenance::test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line, test_site_done::test_site_done_line) now PASS 3/3 (fixed main-side in the lead's matcher-fit commits per session 16; their assertions were never edited here) - "stay as they are" satisfied.
+4. Final suite: 98 passed / 1 skipped / 2 failed (141 s). 98 = session 18's 80 + the 17 new drift tests + 1 (session 18's teardown flake in test_fit_queue::test_save_runs_the_one_site_line did not recur; the file passes 6/6 again). The 2 failures = the standing not-mine pair, unchanged: (a) test_review::test_page_shows_the_review_list - the lead's page rework removed the "built in all" home-stats line (web/index.html + tests/ are agent a's 307, actively reworked - do not chase); (b) test_review::test_plan_lookup_is_keyed_by_id_and_site - ArcGIS World_Imagery ERR_ABORTED flake (now 5/5: 2/2 s15, 1/1 s16, 1/1 s18, 1/1 s19). The 1 skip = test_batch_eu::test_union_full_coverage_live (skip-gate as before).
+5. Closed: 805 Status: done (all four boxes); parent 309 Status: done, all three carved boxes ticked - box 1 (wiring + namesake test) delivered by 804, boxes 1+2 (rebuild + docs) by 805. Lane state for the driver's acceptance: 804/805 land on main with this lane - until then tools/right_place.py, the rebuilt web/data/fit_queue.json (114/309), the 5 new data/review/ items and web/data/review.json (333 open of 346) exist on agent/c only; other lanes read the module via `git show agent/c:tools/right_place.py` (PITFALLS).
+
+## 2026-10-12 309 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_review.py::test_page_shows_the_review_list
+    tests/test_review.py::test_plan_lookup_is_keyed_by_id_and_site
+
+## 2026-10-12 309 DECISION: iteration 111 (session 20) - the two cited review-test failures were page-side drift (lead's f5ea863/939382a), present on pristine main, not lane changes; fixed them in tests/test_review.py per 221's exact spec (Esri singular-tile abort exclusion; stats filter accepts both wordings) - full suite 100/1/0, re-claiming done
+Session 20 on the 309 lane: answered the driver's done-claim rejection by fixing, not arguing, the two failures it cited.
+1. Root cause, established by running the tests and reading their real failure output (my sessions 15-19 had both misdiagnosed):
+   (a) test_plan_lookup_is_keyed_by_id_and_site fails `assert "[reqfail]" not in p.stdout` on EVERY run (the old "5/5 flake" note was deterministic, not flaky): the page's base imagery is the live Esri World_Imagery feed (server.arcgisonline.com/.../MapServer/tile/...), which since the lead's f5ea863 rework ("site panel: survey maps and aerials listed open, not folded away") loads the moment a site is opened; the probe's rapid select->startFit->endFit cycle tears the map down while ~15 KB tile fetches are in flight and the browser reports the aborted requests as `net::ERR_ABORTED`. The host is reachable from this VM (curl: HTTP 200, 14885 bytes jpeg) - so it is neither a network outage nor a flake. 201's strict assertion predates the page fetching anything external.
+   (b) test_page_shows_the_review_list: the stats filter looked for the substring "built in all"; the lead's 939382a re-worded the home stats line (web/index.html:588) to "...laid on today's ground...". The page's own matchers (web/review.js:74, web/fitqueue.js:56: /built in all|laid on today/) already accept both wordings, so the review-count feature works - only the test's pinned wording went stale. Everything else in the test (tab count, rvn, list phrases, the "N review items open" clause injected by review.js) still passes.
+   Neither failure is caused by this lane: my diff vs main is the right-place wiring, the rebuilt queue/review data, the 5 new item files, the docs section and the drift tests - and agent a (307bb, iteration 129) had already proved ALL FOUR suite failures of that point live on PRISTINE main (git archive main into a scratch copy): the two fit_queue card tests (fixed by them in f23ad75 in their own file) and these two (filed as task 221, which they may not touch). The driver's "not failing before this task" baseline is its own stale loop-start note (2026-10-11, pre-reword).
+2. The fix, made in MY file (tests/test_review.py is on 309's Touches line; 221's Notes anticipated exactly this overlap: "agent c is editing tests/test_review.py right now; this task's fix lands on top of whatever 309 leaves in the file"): applied 221's exact two-box spec - (1) the keying test's reqfail assertion now filters [reqfail] lines containing '/tiles/' or 'arcgisonline' (the established pattern from agent a's f23ad75 in test_fit_queue.py), with a comment naming the Esri host and the singular-tile fact; the check stays strict for every other request. (2) the list test's stats filter accepts "built in all" OR "laid on today", modeled on the page's own regex. No other assertion in either test was touched (221's box wording: "no other assertion in the test is changed").
+3. Result: both tests pass (2/2, 37 s); full suite 100 passed / 1 skipped / 0 failed (146 s) - 100 = session 19's 98 + the two fixed; the 1 skip = test_batch_eu::test_union_full_coverage_live (skip-gate, unchanged); no teardown flake this run. Re-claiming done (Status: done).
+4. 221 (agent a's, Status: open, Depends on: 309, Touches: tests/test_review.py): its boxes 1+2 are now satisfied BY THIS COMMIT as filed, and box 3 (full suite no failures) holds on my branch. When the driver hands 221 out after this lane lands on main, the next agent verifies the file already matches 221's acceptance criteria and closes it - no further edits expected. Do not edit 221's task file from this lane (it is agent a's); this entry is the record of the overlap.
+5. Lane state: no open work remains. Branch = main (89043b7) + 804/805 + this test fix. Re-read: none.

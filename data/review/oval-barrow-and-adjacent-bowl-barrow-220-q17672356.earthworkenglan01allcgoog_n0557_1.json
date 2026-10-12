@@ -1,0 +1,30 @@
+{
+ "site": "oval-barrow-and-adjacent-bowl-barrow-220-q17672356",
+ "candidates": [
+  {
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0557.jpg",
+   "title": "SITE OF WINDMILL, FIRLE HILL.",
+   "label": "",
+   "size": [
+    3367,
+    5050
+   ],
+   "map_box": [
+    0.175,
+    0.33,
+    0.885,
+    0.665
+   ],
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "url": "books/earthworkenglan01allcgoog/n0557.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "earthworkenglan01allcgoog_n0557_1",
+   "place_reason": "same name, other place: FIRLE HILL vs St Neots, Cambridgeshire, England"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
