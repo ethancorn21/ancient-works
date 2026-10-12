@@ -9,6 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-11, iteration 99, agent a - FIRST session on 305; investigation only, NO code written yet. 303, my
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,7 +20,24 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 305 DECISION: first session - investigation only, full design settled in the task hand-over
+No code written this iteration. Read the whole line and page surface (serve.py after_write/worker, tools/
+site_done.py, fit/review.py, fit/batch_us.py run_sites, pipeline/plan_fit.py who_placed/build/main, the page's
+fit tool + review.js wrappers, conftest/served, the 303 and 201 test files) and settled the design per
+acceptance box in tasks/305-ready-to-fit.md (## Hand-over). Key calls: (1) queue = built + >=1 candidate
+(plans.json rows naming the site UNION data/review/ item candidates, deduped by plan) + no `by: hand` doc;
+candidate clarity = drawing area in page px (map_box x size, or full page/image), plan over view, one-word
+reasons ("the only candidate" / "a true plan" / "the clearest scan" / "the clearest view"); sites ordered by
+their best candidate's (is-plan, draw area, name). (2) New file web/fitqueue.js (added to Touches) chains
+review.js's wrapper style; home card as next sibling of the "built in all" stats line; done persisted in
+localStorage (self-healed against the file), skipped session-only. (3) serve.py: PUT platefits -> worker runs
+tools/site_done.py main([site]) in-process for that site (model=None fit step is network-free, proven by 303's
+dead-socket GUARD); DELETE keeps the old plan_fit.main([]) sweep + global prune. 303's test d (exact file-set
+assertion on a tree without tools/) stays green because the import failure is swallowed by the existing
+except-BaseException. (4) The one open item for the next agent: READ tests/test_serve.py before editing
+serve.py (never read this session), and settle the big-picture copy strategy for the save->line test
+(data/raw is stripped by conftest; plan_fit.build downloads the picture - copy the ONE file the chosen doc
+needs into the temp tree; check load_picture's exact path for commons vs book docs first).
 
 ## Project-wide driver notes (newest)
 
