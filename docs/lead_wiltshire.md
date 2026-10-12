@@ -87,12 +87,53 @@ ruled out by the live metadata):
 | `File:Stonehenge Stukley Oxford 03543.jpg` | 3606x2976 | Identified: "DRUIDS SACRIFICING TO THE SUN IN THEIR TEMPLE CALLED STONEHENGE - The Building taken from the Model according to Dr Stukeley's Plan of Stonehenge restored in the Ashmolean Mus. Oxford; Designed, Engraved & Published by W. Whistock, High Street, Oxford". A romantic view of Stukeley's **conjectural restored temple** with a crowd of druids - not a drawing of the actual monument. The Commons date 1722 is wrong for this print (it post-dates the Ashmolean model). | **Not staged** (a model, not the site); identification recorded here. |
 | everything else in the category (266 files) | | portraits/engravings (the Kneller portrait CIPB0894, Herman Moll, Wellcome engravings), the *Memoirs of Sir Isaac Newton* (1752) page scans and fleurones, the Jewry Wall (Leicester) elevations (Roman/medieval, not a catalog site), the Clarendon palace ruins (1723 - Roman/medieval; **no clarendon row in data/catalog/sites.jsonl**, checked 2026-10-12 -> not a catalog site), the Lincoln shrine, the Sumatra earthquake letter, and the fit-sized-but-<1000 px Stonehenge/cursus drawings (Stonehenge Stukeley.jpg 773x404, Stonehenge-cursus-stukeley.jpg 638x377). The Stonehenge-Mod KSA.jpg (2002x1498) is a 1996 PHOTOGRAPH of the Salisbury Museum restoration model. `ThesanctuaryWilliamStukeley.jpg`, `Stukeley fire at Avebury.JPG`, `Cadbury Castle Stukeley.jpg` and the DPLA Wood/Jones/Smith/Stukeley view are already tied in the canonical files.jsonl. | not site drawings of catalog works, or already canonical - nothing else to stage. |
 
-The module is built (iteration 150, checked 2026-10-13): `fit/src_wiltshire_stukeley.py` stages the
-3 rows into `data/commons/files_wiltshire_b.jsonl` (each with the 200 caption_coords evidence, the
-row's date 1743/1722 - kitscoty date-overridden since the Commons record has none) + classified rows
-(the Avebury plan p_plan 1.0, the two views p_birdseye 1.0); they pass `fit/evidence.py` 3/3 offline
-(golden: `tests/golden/src_wiltshire_stukeley_sample.json`, `tests/test_src_wiltshire_stukeley.py`).
-The IA book leg (fetch / triage A / the plate-list transcription / the book's own rows) remains.
+Both legs are done (209b, committed): `fit/src_wiltshire_stukeley.py` stages **5 rows** into
+`data/commons/files_wiltshire_b.jsonl` - the 3 Commons rows above plus the IA book's two verified
+site-plan plates (below) - with classified rows (the Avebury plan p_plan 1.0, the two views
+p_birdseye 1.0, the two book plans p_plan 1.0). All 5 pass `fit/evidence.py` offline from stored
+fields alone (`--check`: 5 rows, 5 pass, 0 fail, 0 no-tie; golden:
+tests/golden/src_wiltshire_stukeley_sample.json; tests/test_src_wiltshire_stukeley.py, 8 tests).
+Per-book artifacts only: triage/<ia>.*.jsonl (A/F/B), lists/<ia>.json + .map.json - the shared
+index.jsonl and validation.json were never written (211 rebuilds them).
+
+**IA book leg, *Stonehenge, a Temple Restor'd* (BMB scan, 166 leaves, fetched 2026-10-13):**
+fetched all triage pages (IIIF 1400 px); stage A 166/166, 0 errors; stage F on the 41
+other_illustration leaves; stage B on the 6 stage-A plan leaves + 2; `--list` (books_lists
+cmd_ocrmap over the transcribed list) wrote only the per-book lists files.
+
+**The plate list:** the book has **no printed list of plates** (leaves 10-12 are blank/preface;
+all 166 leaves walked visually) - the plates' own engraved headers ("P. <n>. TAB. <roman>") are
+the only list, and the BMB hOCR of the engraved plates is garbage (the title page reads only
+"By VILEIAM STUKELEY..."). So the transcription is the 213/civitates **hand-list** pattern:
+31 entries (33 plate impressions - TAB. II and III each twice, XXI/XXIV absent from this copy,
+XXXIIII old-style; STUKLEY_PLATES in the module), read by eye from each plate leaf at triage
+size, the roman numerals resolved on 2x label crops. The book's own pagination is the plates'
+"P. <n>" headers only (no page numbers in the text leaves' running heads matched them).
+
+**Stage-A/B recall against that list** (in place of the shared validation.json):
+- **Stage A** flagged exactly 6 leaves as plate_site_plan: **all 3 leaves of the two plan-view
+  plates** (TAB. XI the numbered plan as a fold-out, n56+n57; TAB. XXIII the Area plan, n111)
+  plus 3 false positives on perspective views (n123 XXVI, n135 XXIX, n143 XXXI) - recall on plan
+  leaves 3/3, precision 3/6; no other plate leaf was flagged.
+- **Stage F** (41 leaves) read the plate headers with their kind, incl. n61 "TAB. XII ->
+  section" - an independent confirmation of the XII reclassification below.
+- **Stage B** (8 leaves) read both plan leaves as plans: n111 cleanly ("The Area of STONEHENGE",
+  scale "50 100 150 Cubits / 50 100 150 300 Feet", map box); n57's banner title correct but its
+  label numeral misread "TAB. XL" (resolved by the zoomed crop + the plate sequence VII..XII: it
+  is XI); n56 (the XI fold-out's left half) is label-garbled ("the Cuts") but shows the 0-100 feet
+  scale and the north arrow.
+- **ocrmap** (list -> leaves) matched 2 of the 31 entries: XI -> n57 (title) and XXIII -> n115
+  (qwen+title) - the latter is the **wrong of the two XXIII impressions** (n115 is the Avenue
+  track *view*, kind o; the real Area-plan leaf n111's header OCR "P.44. TAB.XXIII" lost the
+  anchor). Staging never consults the map (leaf numbers are hand-set), so this affects only the
+  .map.json attribution, not the staged rows.
+- **TAB. XII (The Orthography of Stonehenge) is NOT staged:** first read as a plan at triage
+  size, re-checked against the leaf image 2026-10-14 - it is an orthographic *section* (the
+  elevation with the "The Front" scale bar), so its kind was set to o and it is the one
+  plan-like plate deliberately left out (the only one not staged, accounted for here).
+- **No Wiltshire map in this scan** (every leaf checked; the map, if it exists at all, belongs
+to *A survey of Wilts*, which is not on IA) and **no standalone Avenue plan** - the Avenue shows
+in the XXIII area plan and in the perspective views only.
 
 **Petrie note (209c):** the two unlabeled Flickr files are Petrie 1880 plates (Pl. I and Pl. II,
 visually confirmed above) AND are already in the canonical files.jsonl with caption_coords
@@ -105,6 +146,6 @@ copy.
 **The existing hand fits** (Allcroft Avebury fig. 187, Allcroft Windmill Hill fig. 186 in
 data/db/platefits/) are untouched: new rows only.
 
-**Stage-A/B recall against the printed list of plates:** pending the IA leg (triage A/B on the
-166-leaf BMB scan; the book's own list of plates is transcribed from the hOCR and the recall
-against it goes here).
+**Stage-A/B recall against the plate list:** see the Stage-A/B recall record above (the book has no
+printed list of plates - the transcribed headers ARE the list; the transcription and the recall
+live in this section, in place of the shared validation.json).
