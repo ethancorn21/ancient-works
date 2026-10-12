@@ -872,10 +872,13 @@ def test_card_in_the_browser(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshot"), "none")
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
-    # (a page-caused reqfail, expected); no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
-        p.stdout[-2000:]
+    # Page-caused reqfails, expected: MapLibre aborts relief-tile fetches that leave the
+    # map's view during the card's flyTo, and the page's base imagery is the live Esri
+    # feed (server.arcgisonline.com/.../MapServer/tile/... - note the SINGULAR 'tile/',
+    # which a '/tiles/' exclusion alone misses); no other request may fail at the
+    # network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["entries"] == len(entries)  # the file's queue is what the page loaded
 
     # card 1: the next queued site, its best candidate, the reason, the count
@@ -937,10 +940,13 @@ def test_card_done_mark_moves_on(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshotdone"), e1["site"])
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts relief-tile fetches that leave the map's view during the card's flyTo
-    # (a page-caused reqfail, expected); no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln for ln in p.stdout.splitlines()), \
-        p.stdout[-2000:]
+    # Page-caused reqfails, expected: MapLibre aborts relief-tile fetches that leave the
+    # map's view during the card's flyTo, and the page's base imagery is the live Esri
+    # feed (server.arcgisonline.com/.../MapServer/tile/... - note the SINGULAR 'tile/',
+    # which a '/tiles/' exclusion alone misses); no other request may fail at the
+    # network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln
+                   for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["done"] == {e1["site"]: "2026-10-12T00:00:00.000Z"}, data["boot"]["done"]
 
     # the card starts at entry 2: the done site is skipped at load, one fewer to go

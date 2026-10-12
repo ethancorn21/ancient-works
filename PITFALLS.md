@@ -70,6 +70,11 @@ line once and serves without the route; the page tolerates it (the aerial imager
 tests treat `/tiles/` reqfails as the only allowed failures. Don't try to "fix" it: relief tile generation is
 impossible here, only the owner's machine renders relief.
 
+#### The page's base imagery is a live Esri feed: no-internet headless runs always get ERR_ABORTED on it, and its URL segment is the SINGULAR 'tile/'
+Where: `web/index.html` (base imagery source ~line 314: `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}`), every headless page test that asserts on reqfail lines (tests/test_fit_queue.py card tests, tests/test_review.py, 307bb's part 4)
+Symptom: `[reqfail] https://server.arcgisonline.com/.../MapServer/tile/... net::ERR_ABORTED` lines in a no-internet headless run (flaky: an abort only lands while a fetch is in flight at a map-view change or teardown, so an unexcluded test fails on some runs and not others)
+The machine has no internet and the page requests this live feed, so these fetches die in every headless run - a page-caused abort, the same allowed class as the relief-tile aborts above, to be excluded in reqfail assertions. Excluding by path alone is NOT enough: the Esri path segment is the singular 'tile/' (`MapServer/tile/`), which the common `'/tiles/' not in url` filter misses - exclude by host instead: `'/tiles/' not in ln and 'arcgisonline' not in ln`.
+
 #### The driver's .venv build needs a fully pinned and hashed requirements.txt
 Where: `requirements.in`, `requirements.txt`, the driver's venv build (`pip install --require-hashes`)
 Symptom: `ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not: ...`
