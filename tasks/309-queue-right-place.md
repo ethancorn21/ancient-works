@@ -27,9 +27,146 @@ Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the 
 
 ## Hand-over
 
-(2026-10-12, iteration 102, agent c - session 11 on the 309 lane. 804 is DONE this
-session: the two written-but-unrun tests ran green (after three small tree-building
-fixes), the README note landed, all five boxes ticked. Next in the lane: 805.)
+(2026-10-12, iteration 103, agent c - session 12 on the 309 lane. FIRST session of
+805. The committed rebuild (805 box 1's data writes) is DONE in the worktree but
+UNCOMMITTED: the full suite shows 3 failures, all caused by the rebuild, all sharing
+one root cause (new item kind: review items for unbuilt CATALOG sites). The fix is
+designed below; it edits fit/review.py + fit/batch_eu.py, NOT the failing tests.)
+
+CARVE STATE: 309 box 1 wiring = 804 DONE; box 3 (namesake tests) = 804 box 4 DONE;
+box 2 (site_flow report + rebuild) = 805: box 1's data writes DONE (uncommitted),
+box 1's stability verified, 3 suite failures to fix, box 2 (docs/site_flow.md
+section) NOT STARTED, box 3 (tests/test_right_place_drift.py) NOT STARTED.
+
+WHAT THE REBUILD DID (verified in scratch /tmp/scratch805 AND on the checkout;
+second run byte-stable - zero churn; the /tmp trees still exist if you need them;
+/tmp/baseline805 = the pre-rebuild state of the checkout, for A/B runs - it has no
+.venv, use /home/agent/projects/ancient-works.c/.venv/bin/python):
+- web/data/fit_queue.json: 117 -> 114 entries (107 entries byte-identical, 7 narrowed,
+  3 left). Left: vindomora-q7932358 (only cand n0354_1), windmill-hill-q4348373
+  (n0557_1/n0558_1/n0558_2), shotwick-castle-q7502621 (n0575_1). Narrowed: alauna,
+  bokerley-dyke (n0599_1 gone), castle-neroche, clun-castle, coria, devil-s-dyke
+  (n0686_1+n0599_1 gone; best is now n0662_1 "the only candidate"), eaton-socon
+  (n0285_1/n0557_1/n0558_1/n0558_2 gone). ZERO candidates moved into a built site
+  (no flagged row's top right site is built - re-derived, the iteration-102 guess
+  that the hillfort was built was wrong).
+- 15 flags: 10 upserted into 5 NEW item files for unbuilt catalog right sites; 5
+  skipped (target item already holds the plan - the intended steady state, zero
+  writes: alauna/castle-neroche <- n0438_1 into their own items; clun-castle <-
+  n0575_1; coria/vindomora <- n0354_1 - all "self, item holds"). The moved-set
+  dedup means windmill-hill's three flags write nothing (same (target, plan) pairs
+  as eaton-socon's, which sort first). New files in data/review/:
+  a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473.earthworkenglan01allcgoog_n0558_1.json
+  (cands n0558_1+n0558_2, both reason "LEWES DOWN vs St Neots, Cambridgeshire, England"),
+  castle-dyke-q31112898.earthworkenglan01allcgoog_n0599_1.json ("Aysgai-th, Yorks,
+  Aysgarth vs Dorset, England" - reason's vs-side is the SOURCE site bokerley-dyke's
+  sites.json place; see data quirk below),
+  devil-s-dyke-hillfort-q17674160.earthworkenglan01allcgoog_n0686_1.json ("near
+  Brighton vs Stetchworth, Cambridgeshire, England" - THE owner's case),
+  down-end-castle-q5302812.earthworkenglan01allcgoog_n0285_1.json ("Bath vs St Neots
+  ..."), oval-barrow-and-adjacent-bowl-barrow-220-q17672356.earthworkenglan01allcgoog_n0557_1.json
+  ("FIRLE HILL vs St Neots ..."). All resolved: None, no_picture: None.
+- web/data/review.json: 335 -> 340 open of 346 total (the 5 new items open; none left
+  open; NO write-once resolved records touched - the six c5250a4 files untouched).
+- Export prints 5 stderr warnings (one per new item): "review: site '<id>' not in
+  web/data/sites.json; using the id as name" - these 5 sites are in the CATALOG
+  (data/catalog/sites.jsonl) but not in web/data/sites.json (unbuilt).
+
+TEST STATE (full suite, .venv, 123.7 s): 80 passed / 1 skipped / 3 FAILED - the 3
+failures are ALL caused by the rebuild (verified: all 3 PASS on /tmp/baseline805,
+the checkout minus my 8 changed files, 7.45 s):
+- tests/test_site_done.py::test_site_done_line and tests/test_fit_provenance.py::
+  test_line_refuses_unmarked_non_auto_doc: both assert err == "" on the one-site
+  line (tools/site_done.py -> review.export), and the export's 5 warnings break it.
+- tests/test_batch_eu.py::test_union_check: union_check (fit/batch_eu.py:91-102) flags
+  every item whose site field is not in sites.json as orphan_items -> my 5 items.
+
+ROOT CAUSE + THE FIX (designed, NOT yet implemented - this is the exact next step):
+The 309 chain made "a review item for an unbuilt catalog site" a LEGITIMATE new
+item kind (804's rule, pinned by test_fit_queue_namesake). Two data-integrity
+contracts still assume every item site is in sites.json: (a) fit/review.py export's
+warning + id-as-name, (b) fit/batch_eu.py union_check's orphan_items. The fix makes
+both catalog-aware WITHOUT editing any test file: fit/review.py: export reads
+data/catalog/sites.jsonl (stdlib json; absent file = degrade to today's behavior -
+synthetic temp trees have no catalog, so test_review's pinned cases keep passing -
+CHECK test_review.py L191 test_export_cli and L228 first) and, for an item site not
+in sites.json: in the catalog -> use the catalog record's NAME as the page name and
+no warning (also a page improvement: review.json currently shows the truncated id
+for these 5); in neither -> keep the warning. fit/batch_eu.py: union_check treats an
+item as an orphan only when its site is in NEITHER sites.json nor the catalog; an
+catalog item is skipped from the coverage counts exactly as before (no behavior
+change for sites that are in sites.json). No catalog in the tree -> old behavior
+byte-identical. Then: extend 805's Touches line with fit/review.py and
+fit/batch_eu.py (AGENTS.md: add a path first if your task really needs it - it does;
+note: the 309 Notes' "do not touch fit/" was about the lead's in-flight matcher fit
+= fit/matchfit.py; review.py and batch_eu.py are separate files - flag this in
+DECISIONS). Re-run the full suite (expect the 3 to pass, 83+ passed / 1 skipped /
+0 failed), re-verify the rebuild's stability once more, then commit the data files
++ the two fit/ edits as 805 box 1.
+
+NEXT STEPS (in order):
+1. Fix fit/review.py export (catalog-aware name + warning) and fit/batch_eu.py
+   union_check (catalog-aware orphan), per the design above. Read test_review.py
+   and tests/test_batch_eu.py's temp-tree builder FIRST to confirm the no-catalog
+   degrade keeps every pinned case (the batch temp tree: check whether it copies
+   data/catalog/ - if it does, a deliberately-created orphan in that test would be
+   a site in NEITHER file - re-read how the test builds its tree before editing).
+2. Add fit/review.py, fit/batch_eu.py to 805's Touches; run the full suite;
+   re-run build+export stability; commit "805: rebuild ..." (data files + the two
+   fit/ fixes together - the data is meaningless without the contract fix).
+3. Box 2: docs/site_flow.md namesake section - report the ACTUAL numbers: 15 pairs
+   over 9 sites wrong (list: site, caption, reason as in the items above); 10 went
+   to review items on 5 unbuilt right sites (named), 5 were already parked in the
+   source item (no write); queue 117 -> 114; how the check decides (stored fields
+   only: explicit county/state word, towns resolved to classic counties through the
+   catalog, fail open; --live is a human re-run, never in the build). Read
+   docs/site_flow.md's structure first (agent a's 306 also touches it - append a
+   clearly separate section, do not reflow theirs).
+4. Box 3: tests/test_right_place_drift.py (hermetic, stdlib, no network): for each
+   of the 17 top-level names between tools/right_place.py's VERBATIM markers
+   (US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm, name_keys, tokens,
+   place_of, site_place, site_toks, name_lookup_keys, row_inputs, score_candidate,
+   BOOK_SCOPE, PLACE_WORDS, phrases) extract the block from both that file and
+   pipeline/books_match.py, assert byte-identical. Extraction rule that works (both
+   files checked this session): a block = from the name's start line ("^NAME = " for
+   assignments, "^def NAME(" for functions) to the end of its logical statement -
+   assignments: consecutive non-blank lines; functions: up to the first
+   non-blank line at column 0. Verify norm/name_keys/... all match (they do today -
+   187fd66's refactor kept them in sync; the test must PASS before any future
+   drift). Note SUFFIX sits inside right_place's verbatim region but is NOT in the
+   17-name list - the box's list governs. Do NOT edit pipeline/books_match.py (the
+   source of truth; a real drift is fixed there - it is not agent a's/lead's in
+   flight as of this session, but re-check git log -- pipeline/books_match.py
+   first).
+5. Full suite green; tick 805's boxes; 805's hand-over; then the driver returns 309
+   for its three carved-box ticks (box 2's "Devil's Dyke not paired" is proven by
+   the rebuilt queue file: n0686_1 is on the hillfort's review item, off the dyke's
+   entry).
+
+DATA QUALITY NOTES (for DECISIONS / the lead, NOT mine to fix - web/data/sites.json
+is agent a's 306 lane): bokerley-dyke-q891218's sites.json place is "Dorset,
+England" though the catalog says Cambridgeshire (Bokerley Dyke IS in
+Cambridgeshire) - the check (catalog) flagged correctly, only the reason string's
+vs-side shows the bad sites.json place; vindomora-q7932358's place "County Durham,
+England" (Vindomora is Northumberland). The review page shows the 5 new items by
+their truncated id (export's fallback) until box 1's catalog-name fix lands.
+
+WORKTREE (still true): commit only in /home/agent/projects/ancient-works.c
+(branch agent/c); data/raw is a symlink into the shared store (the rebuild never
+opens images). My branch has NOT received main's latest (agent a's 307ba done-claim
+8a8b6f6 and after are on main, not here - the driver synced 9be7094 before
+iteration 102 but not before this session): if the next session's merge brings
+conflicts on web/data/fit_queue.json or web/data/review.json, reconcile by
+re-running the build (it is deterministic and stable) rather than hand-merging.
+
+Re-read (when touching the wiring again):
+- tools/fit_queue.py: _apply_flags <-> tests/test_fit_queue.py: _derive_with_check
+  must stay in lockstep (same two-phase, sorted flag order, `moved` set,
+  pristine-item skip, eligible = built minus hand). A change to one needs the other.
+- fit/review.py: upsert_item (write-once resolved; merges by plan; the file name's
+  lead follows candidates[0].plan) and export (never called by the build).
+- The six baked-in right_place spec deviations (DECISIONS, iteration 95) are pinned
+  by the namesake test's outcomes - changing any rule changes the pinned bytes.
 
 Carve state: 309 box 1 (wiring) = 804 DONE; 309 box 3 (namesake tests) = 804 box 4 DONE;
 309 box 2 (site_flow report + rebuild) = 805 NOT STARTED. When 805 is done the driver

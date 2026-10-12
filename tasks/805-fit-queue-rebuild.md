@@ -89,3 +89,17 @@ identical to iterations 100/101. Suite baseline moved: fully green (83 passed / 
 skipped / 0 failed) - the three old main-side failures are fixed main-side, so the
 criteria's "three pre-existing failures stay as they are" means: do not edit their
 assertions; if a merge moves them again, re-baseline rather than chase.)
+
+(2026-10-12, iteration 103, agent c: FIRST session of 805. Box 1's data writes are DONE
+in the worktree but UNCOMMITTED (rebuilt web/data/fit_queue.json 117->114, rebuilt
+web/data/review.json 335->340, 5 new data/review/ items for unbuilt catalog right sites;
+second run verified byte-stable). The full suite then showed 3 failures, ALL caused by
+the rebuild (all 3 pass on the pre-rebuild baseline /tmp/baseline805): the one-site
+line tests (test_site_done_line, test_line_refuses_unmarked_non_auto_doc) assert err ==
+"" and the export now prints 5 "site not in sites.json" warnings; test_union_check's
+union_check flags the 5 new items as orphans. Fix designed in PARENT 309's hand-over
+(make fit/review.py export and fit/batch_eu.py union_check catalog-aware - the new item
+kind is legitimate by 804's rule; no test file gets edited): read test_review.py and
+the batch temp-tree builder first, add fit/review.py + fit/batch_eu.py to this task's
+Touches, then commit data + fixes together. Boxes 2 (site_flow section) and 3
+(test_right_place_drift.py) not started - full step list in the parent's hand-over.)
