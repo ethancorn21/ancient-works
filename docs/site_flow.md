@@ -746,3 +746,55 @@ their review-queue and orphan fits below this list.
   lawn in the park's north with no works of that size beneath it. REMOVED from the map (2026-10-12):
   the picture went to the site's review item with this reason, the document was deleted, the
   overlay pruned, the count re-exported.
+- bethlehem-q2523914.c_075db5049e2fb635 - Survey of Palestine, Bethlehem 01-beit-jala (British
+  military survey, 1940s: a sheet of the Bethlehem/Beit Jala area of Judaea), near-identity (4 pts,
+  resid 13-23 m, rot 0.6 deg): WRONG PLACE - toponymic collision: this site is the Dutch hamlet
+  Bethlehem (Het Hogeland, Groningen; Wikidata Q2523914), not the Judean town. The sheet frame
+  spans the whole 1.2 km polder and the Beit Jala hamlet and field hatching land on the polder's
+  parcel grid by local pattern coincidence - the small residuals measure that match, not the
+  truth. REMOVED from the map (2026-10-12); the doc record is in the site's review item with this
+  reason.
+- bethlehem-q2523914.c_1c20017970e54a01 - Survey of Palestine, Bethlehem 06, identity fit (4 pts,
+  resid 0 m): the same collision as sheet 01 - anchors sit where the Judean sheet grid coincides
+  with the polder parcel grid 2000 km away; the sheet's hatched fields and contours cover the
+  whole site. REMOVED (wrong place).
+- bethlehem-q2523914.c_5ce1836b12e8e294 - Survey of Palestine, Bethlehem 03, similarity (4 pts,
+  resid 6-26 m, rot 4.7 deg): same collision; the hatched Beit Jala contour field lands on the
+  polder, densest over the village centre and the light field at upper right. REMOVED (wrong
+  place).
+- bethlehem-q2523914.c_67ed5d45466db19e - Plan of the Basilica of the Nativity, Sandys 1615,
+  identity (6 pts, resid 0 m): WRONG KIND - an interior plan of the basilica building (the nave,
+  chapels, the grotto square, the caption legend), not a ground map, fitted as if it were ground
+  over the Dutch polder. REMOVED (wrong kind); the doc record is in the review item.
+- bethlehem-q2523914.c_7ee79582ebdab559 - (1881) PLAN SOUTERRAINS DE LA BASILIQUE, identity rotated
+  -18.4 deg (4 pts, resid 0 m): WRONG KIND - the grotto's subterranean plan (concentric rings and
+  the title band) drawn diagonally across the polder as if it were a ground map. REMOVED (wrong
+  kind); the doc record is in the review item.
+- bethlehem-q2523914.c_993872ffecfce2cf - Survey of Palestine, Bethlehem 11, near-identity (6 pts,
+  resid 14-41 m): same collision; the sheet's hatched hamlet and field area lands on the polder's
+  upper-right parcels. REMOVED (wrong place).
+- bethlehem-q2523914.c_a164ee440558d66c - Plan de Maestricht et environs 1748, detail Severen &
+  Kanjel (a local map of the polder itself), similarity (4 pts, rot 0.6 deg, resid 34-112 m):
+  the drawn Severen and Cantel hamlets sit on the real hamlets (the church and houses match), the
+  village centre on the village centre, and the hatched field-boundary network follows the real
+  polder parcels, the watercourse by Severen on the real one. The 34-112 m residuals are the 1748
+  map's own hand-drawn inaccuracy (one rotation + scale cannot correct sheet-level distortion),
+  not a placement error. STAYS.
+- bethlehem-q2523914.c_a42a93d9589acd4d - same 1748 parent map, detail "Limmel" (the ink shows the
+  local Bethlehem/Jerusalem/Leumel area of the polder), similarity (6 pts, rot 3.2 deg, resid
+  6-28 m): the drawn houses line up on the real village centre, the watercourse on the real
+  watercourse, the field parcels on the real parcels; the Bethlehem, Jerusalem and Leumel labels
+  sit on the real places. STAYS.
+- bethlehem-q2523914.c_a8499553451a203c - Survey of Palestine, Bethlehem 09, identity fit (6 pts,
+  resid 0 m): same collision as sheet 01; the hatched field area lands on the polder's upper-left
+  parcels. REMOVED (wrong place).
+- bethlehem-q2523914.c_ba63da7d782b9648 - Survey of Palestine, Bethlehem 08, identity fit (4 pts,
+  resid 0 m): same collision; the hatched hamlet/field hatching lands on the polder parcels,
+  densest lower left. REMOVED (wrong place).
+- bethlehem-q2523914.c_d624c308cd860a1e - same 1748 parent map, detail Limmel, Jerusalem &
+  Bethlehem, similarity (6 pts, rot -4.1 deg, resid 3-18 m): the village centre and house symbols
+  on the real hamlet, the watercourse on the real watercourse, the drawn farm complex on the
+  light field at upper right. STAYS.
+- bethlehem-q2523914.c_fc4566d6947287f4 - Survey of Palestine, Bethlehem 05-beit-jala, identity
+  fit (4 pts, resid 0 m): same collision as sheet 01; the dense hatched Judean contour field lands
+  on the polder's upper parcels. REMOVED (wrong place).

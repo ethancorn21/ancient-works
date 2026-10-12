@@ -588,10 +588,10 @@
     1200
    ],
    "lidar_credit": "USGS 3DEP",
-   "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "drawings": 1,
+   "score": 1.35,
+   "oldest": 1891,
+   "overlays": 1
   },
   {
    "id": "ambrussum-q1458146",
@@ -1338,10 +1338,10 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
-   "drawings": 0,
-   "score": 1.01,
+   "drawings": 1,
+   "score": 1.57,
    "oldest": 1780,
-   "overlays": 2
+   "overlays": 3
   },
   {
    "id": "avebury-q661855",
@@ -1887,10 +1887,10 @@
     800
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 2.1,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "barnstaple-castle-q808516",
@@ -2035,10 +2035,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
-   "oldest": 1842,
-   "overlays": 1
+   "drawings": 1,
+   "score": 3.03,
+   "oldest": 1750,
+   "overlays": 2
   },
   {
    "id": "batesville-mounds-q68034246",
@@ -2479,10 +2479,10 @@
     1200
    ],
    "lidar_credit": "AHN (Rijkswaterstaat)",
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 3,
+   "score": 4.13,
+   "oldest": 1748,
+   "overlays": 4
   },
   {
    "id": "bibracte-q650053",
@@ -2618,10 +2618,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "drawings": 1,
+   "score": 4.81,
+   "oldest": 1545,
+   "overlays": 1
   },
   {
    "id": "binchester-roman-fort-q4913955",
@@ -3011,10 +3011,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "borgring",
@@ -3507,10 +3507,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
-   "oldest": 1842,
-   "overlays": 1
+   "drawings": 1,
+   "score": 3.46,
+   "oldest": 1707,
+   "overlays": 2
   },
   {
    "id": "burnswark-hill",

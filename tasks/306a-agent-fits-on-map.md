@@ -1,7 +1,7 @@
 Status: open
 # 306a: Look at the agent fits that are ON the map - the 23 built overlays
 Depends on: none
-Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/sites.json, web/data/review.json, web/data/sites/, tools/audit_306a.mjs
+Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/sites.json, web/data/review.json, web/data/sites/, tools/audit_306a.mjs, fit/src_mackenzie.py, tests/test_src_mackenzie.py, tests/test_fit_provenance.py, tests/golden/src_mackenzie_sample.json
 
 ## Goal
 Subtask of 306 (the parent's Hand-over holds the audit recipe and the full inventory): the 23
@@ -61,9 +61,99 @@ at).
 
 
 ## Hand-over
-(2026-10-12, iteration 136, agent c - session 2 of 306a. Audit run FINISHED, shotwick REMOVED, 11/23
-lines written; cut at the context limit with a MAJOR finding on the bethlehem site that must be
-settled before the bethlehem lines are written.)
+(2026-10-12, iteration 137, agent c - session 3 of 306a. BETHLEHEM AUDIT FINISHED AND REMOVED (9 of 12
+docs); all 23 lines now in site_flow.md. The session cut at the context limit right after, with 5 test
+fixes designed but NOT yet written - see "Exact next step".)
+
+**State.**
+- All 45 screenshots verified (sessions 1-2). `docs/site_flow.md` section "## The agent fits, looked at
+  (task 306)" now has ALL 23 of 306a's lines (10 STAY + shotwick REMOVED + 12 bethlehem: 3 STAY + 9
+  REMOVED) - box 1 is done (23 lines + 45 shots).
+- **bethlehem verdicts (all 12 judged this session, screenshots read; the 9 removals at 720x450
+  downscales for context, the 3 stays at full 1440x900):** the site is the Dutch hamlet (Wikidata
+  Q2523914 = "hamlet in Het Hogeland, Netherlands", enwiki "Bethlehem, Groningen"; site.json place/
+  coords/wiki confirm). ALL 12 docs' pairs cluster at 53.38N/6.61E = placed on the Dutch ground; the
+  collision is in the docs' provenance. (a) 7 SoP ground sheets (c_075db=01, c_1c200=06, c_5ce18=03,
+  c_99387=11, c_a8499=09, c_ba63d=08, c_fc456=05) = maps of the Judean Bethlehem/Beit Jala area fitted
+  onto the polder: the sheet frame spans the whole 1.2 km site, the Beit Jala hamlet/field hatching
+  lands on the polder's parcel grid by local pattern coincidence (several are identity fits, 0.0 m
+  residuals - the anchors were picked exactly where the far sheet grid coincides with the polder grid;
+  that is the 2000 km trap, and why 306 exists). (b) 2 basilica plans (c_67ed Sandys 1615; c_7ee7 1881
+  souterrains, rotated -18.4 deg) = building INTERIOR plans fitted as ground maps (wrong kind). (c) 3
+  local 1748 details (c_a164 Severen & Kanjel; c_a42a titled "Limmel" but the ink shows the local
+  Bethlehem/Jerusalem/Leumel area; c_d624 Limmel/Jerusalem/Bethlehem) = TRUE local maps of this polder:
+  drawn Severen/Cantel hamlets on the real hamlets (church+houses match), village centre on the village,
+  houses on the real village centre, watercourse on the watercourse, field parcels on the parcels; the
+  residuals (3-112 m) are the 1748 map's own hand-drawn inaccuracy, not placement. So: 9 REMOVED
+  (7+2), 3 STAY.
+- **Removal executed (UNCOMMITTED in the working tree - the harness saves it; commit it first next
+  session).** Ran /tmp/remove_beth_306a.py (the script may be gone from /tmp; the logic is below). For
+  each of the 9 docs: (1) the review item `data/review/bethlehem-q2523914.c_b31c3de3630246bc.json`
+  upserted with the FULL doc record (every store field: site/plan/crop/pairs/label/title/cite/at/auto/
+  score/ia/file/model/src/url/ref/size/by) + `why` = the 306a audit reason (wrong place / wrong kind
+  text is in the item file and in the site_flow.md lines); item now has 19 candidates, lead unchanged
+  (c_b31c3de3630246bc - the file never moved). (2) doc file deleted from data/db/platefits/. After all
+  9: `plan_fit.prune('.', 'bethlehem-q2523914')` (depictions.json now = the 3 1748 plan deps + the
+  tmk1850 map view; the 18 removed webps deleted; prune itself called set_drawings so bethlehem
+drawings=3) and ONE full `review.export('.')` -> 333 open of 346 (unchanged from session 2: the item
+  was already open and stays open - open = no doc for any candidate). Design note: audit-removal item
+  entries are FULL doc records, not the slim 300/303 shape, on purpose (see DECISIONS) - the 206
+  mackenzie tests need the full doc, and a reviewer of a 2x fit needs the anchors/size. The shotwick
+  item entry was ENRICHED the same way this session: full doc record restored from git (`git show
+  6841f07^:data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json` - the file was deleted in
+  6841f07; /tmp/shotwick_doc.json may be gone, re-run the git show), upserted in place with session 2's
+  `why` kept verbatim, re-exported (333/346). Doc facts: by:agent, no auto/score (agent fit, the
+  provenance no-batch-mark case), at 2026-10-11T19:04:44Z, 4 pairs.
+- **Drawings counts refreshed** (build_site.set_drawings per site; all verified in web/data/sites.json
+  now): alligator/avaricum/barnard/barwick/binche/bolsover/burlington 0->1; bethlehem 0->3 (via prune);
+  aldenhaag=1, forthill=2 (site id is just 'forthill'), newark=2 ('newark') already correct; shotwick=0.
+- **Tests (last full run this session, BEFORE the removals): 4 failed, 124 passed, 1 skipped in 193 s**
+  - ALL 4 failures are caused by MY session-2 shotwick deletion: tests/test_fit_provenance.py::
+  test_commons_yeared_title_drops_the_repeated_year + tests/test_src_mackenzie.py::
+  {test_staged_row_and_join, test_gate_accepts_the_committed_doc, test_golden_sample_matches_staged}
+  (all read data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json). test_gate.py is safe
+  (it only uses the shotwick name as a tmp-tree stub, never reads the store). NEW breakage this session
+  (will appear on the next run): test_fit_provenance.py::test_commons_yearless_title_keeps_the_label
+  reads bethlehem c_075db (deleted today). The other failures seen in old driver notes (test_batch_eu,
+  test_serve::test_platefits_docs_match_sites) now PASS in this checkout; test_gate stays the pre-existing
+  red (excluded). NOTHING ELSE in the suite reads the 12 bethlehem or shotwick docs (grep'd).
+
+**Exact next step (session 4).** (1) Commit the working tree (the bethlehem audit): `git add -A && git
+commit -m "306a: bethlehem audit - 9 wrong docs removed (7 SoP of Judaea + 2 basilica interiors), 3 local
+1748 stay; 12 lines in site_flow.md; counts refreshed"` (the tree contains the 9 doc deletions, 2 review
+item files, sites.json, review.json, the bethlehem site dir, site_flow.md, this task file). (2) Fix the 5
+broken tests (design settled this session; all three mackenzie + both provenance tests are on the task's
+Touches line already): (a) test_fit_provenance::test_commons_yeared_title_drops_the_repeated_year - re-point
+from shotwick to `bethlehem-q2523914.c_a164ee440558d66c` (year in title, batch-marked, STAYS on the map):
+pin the built source line (verify by running the test's _build_source; the stored line is in depictions.json:
+"...Fitted automatically by the batch on 4 matching points; one rotation and scale fits them within 113 m
+(gate score 39.3 m)") and assert the year appears exactly once (`src.count("1748") == 1`) instead of the
+"(1897) (1897)" check; docstring: the 303 live shotwick case is audited out, the rule stays pinned on the
+surviving year-titled doc. (b) test_commons_yearless_title_keeps_the_label - keep the bergues half; re-point
+the "(undated)" half (was bethlehem c_075db) to a surviving batch-marked, yearless-title, labelless doc:
+candidates found (auto+score, label=None, no 4-digit year in title): durocortorum-q4896307.c_08d995eb23a685c2
+(score 0.0), traiectum-q2199749.c_437d1d60e38020f7 (25.9), watson-brake-q2552689.c_5e7bb19c79b509ed (4.4),
+watson-brake c_b52ddcad2ee295c4 (2.2) - pick one, verify the rebuilt line against its stored depiction line.
+(c) fit/src_mackenzie.py - add `doc_record()`: the doc's dict from the store file if it exists, else from the
+review item (scan data/review/*.json for item["site"]==SITE and the candidate with plan==PLAN; keep the module
+top stdlib-only - no fit/review import). Re-point: gate() reads doc_record()["pairs"]; check() treats an
+item-resident record as the doc (drop the "not written yet" problem in that state; keep the size/pairs
+checks); golden() writes doc_record() with at normalized. Update the module docstring's --gate/--check/
+--golden lines. (d) tests/test_src_mackenzie.py - all three: `d = mack.doc_record()` instead of
+`json.load(open(mack.DB_DOC))`; existing assertions unchanged (the item entry carries every doc field);
+add in test_staged_row_and_join: when the store file is absent, assert `d["why"]` non-empty and mentions
+the audit; update docstrings (the committed doc was removed by the 306a audit as ~2x too big; its record is
+the review item's candidate; the gate ACCEPTING its pairs is exactly the gate's blind spot - 4 corners of a
+2x ring pass with 2-19 m residuals). (e) Regenerate the golden: `.venv/bin/python fit/src_mackenzie.py
+--golden` (the module's own intended-change mechanism; 303's commit 1f562ca last re-baselined it the same
+way) and commit tests/golden/src_mackenzie_sample.json (golden["doc"] is now the full item entry with at
+normalized). (3) Full suite `.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py` - target:
+124+ passed, 0 failed, 1 skipped. (4) Tick boxes 1+2 (the removals are done: shotwick + the 9 bethlehem docs,
+all with the item record + prune + export, counts refreshed; box 2's site_done text was replaced by the 4
+calls for the documented matcher reason - see session 2's DECISIONS), set Status: done, and note in the
+hand-over that 306b-f can append below the section. Section order now: aldenhaag, alligator, avaricum,
+barnard, barwick, binche, bolsover, burlington, forthill, newark, shotwick, then the 12 bethlehem lines -
+all 23 contiguous at the top; later subtasks append below the bethlehem lines.
 
 **State.**
 - All 45 screenshots are done and verified: the session-1 background run survived and completed
