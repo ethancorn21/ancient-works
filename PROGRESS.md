@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 100, agent a - step 1 of the 8-step plan done: the queue generator.)
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 101, agent a - steps 2+3 of the plan done: the page card. test_serve.py was
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -64,6 +64,50 @@ home stats line containing "built in all" (the card's anchor), L1707 the last sc
 (review.js); serve.py's worker (after_write/_fit_wake, ~L229-252) still runs plan_fit.main([]) for
 both PUT and DELETE - the next step is reading tests/test_serve.py, then the page card
 (web/fitqueue.js, added to Touches this session).
+
+### 2026-10-12 305 DECISION: page card built (web/fitqueue.js + the index.html script tag); test_serve.py read whole - the hand-over's "test d" does not exist
+Steps 2+3 of the plan. web/fitqueue.js (loaded after review.js, index.html L1708) chains the wrappers
+review.js installed: renderList -> a "Ready to fit (N to go)" card as the next sibling of the home
+stats line (the "built in all" p; the tabs row and that line's text stay byte for byte), naming the
+next site (first queue entry not done in this browser and not skipped this session, and still a built
+site in this build), its best candidate's row (title, book, label, the one-word reason) and buttons
+Place the drawing / Skip / Undo skips. Place runs the existing fit tool in the fitkit convention
+(endFit-if-active -> select -> setGround(lidar?relief:imagery) -> loadDeps -> startFit ->
+openPlan(entry.best.row)); RV.pending is deliberately never set (the queue's row is the owner's clean
+slate). saveFit wrapper (after review.js's): a landed doc for a queued site marks it done in
+localStorage aw.fitQueue.done (self-healed against the file on load) and the card moves on. Skips are
+session-only with a reset in the card. The card never breaks a page load: missing/404/stale file =
+no card.
+
+Two pitfalls hit and fixed, both in the browser only (node --check passes): (1) review.js's
+wrapper-saved names (_renderList, _saveFit, ...) are top-level consts in the page's global lexical
+scope - fitqueue.js re-declaring them made Chrome reject the whole script ("Identifier '_renderList'
+has already been declared"; FQ then undefined). Renamed to _fqRenderList/_fqSaveFit; PITFALLS.md has
+the rule. (2) fqPatch re-assigned a const (old -> card).
+
+Verified headless against a conftest-style temp tree (shot.mjs, chrome, real click-through of the
+DOM buttons): card renders ("Ready to fit 117 to go" / Devil's Dyke / Allcroft's row / "the clearest
+scan"); Place opens the fit tool with P.site=devil-s-dyke-q3307343, P.plan=earthworkenglan01allcgoog_n0686_1,
+S.ground=relief, pane open, correct header; back out -> card still on the same site; Skip -> Fort
+Ancient (116, reset link appears); Undo -> back. No [pageerror], no [reqfail]; only the expected 200s
+and 404s (scans/amazon/book image). Full suite after: 70 passed, 1 skipped - unchanged from loop
+start, including test_review's headless n404==2 (the committed fit_queue.json answers 200) and
+index.html footprint tests (the tag is a distinct src string).
+
+tests/test_serve.py read WHOLE this session (81 lines, 5 tests): test_page_loads (body contains
+"Ancient Works" + "maplibre"), test_sites_data (>=384 sites, sum drawings >=25, per-site C fields),
+test_hand_fits_are_the_reference (golden), test_platefits_docs_match_sites (every doc's site built,
+plan+pairs present), test_document_store_roundtrip (PUT/GET/DELETE on the SCRATCH collection
+"awtest" - never platefits, so no worker involvement). The earlier hand-over's "test d" (a tree
+without tools/ asserting an exact file set after PUTs) does NOT exist in this file - stale
+description, now corrected. The exact file-set assertion that DOES exist is test_review.py::
+test_save_resolves_the_item (platefits docs + per-site depictions: after the PUT, exactly one new
+doc and nothing else; in that tree the worker dies on the pipeline/ import - the server stays up).
+So the serve.py worker change (next step) must keep: no tools/ in the tree -> the site_done import
+fails -> swallowed by the existing except-BaseException-and-print -> no new files; and no new files
+for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
+([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
+list drained per wake) is unchanged and still valid.
 
 ## Project-wide driver notes (newest)
 
