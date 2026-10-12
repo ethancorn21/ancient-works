@@ -417,3 +417,42 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   line only - state bullets and next-steps unchanged, still accurate),
   DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
   (nothing new learned).
+
+## 2026-10-12 222 DECISION: merged-state check fix - a staged row already in the canonical file with identical content passes (211's merge is a no-op); same key, different row, and same-site-only id/QID semantics keep the pre-merge protection - done in one session, pattern set for 223-228
+- Session 192. Human lead: "222-228 are yours, in order, on your branch (the merge lives
+  there); each is the same small fix; reuse the pattern of the first fix; keep each to
+  one or two sessions." This session = 222 (van deventer), complete.
+- The fix (fit/src_van_deventer.py, two commits):
+  - refactor: known_sites() reads module-level constants EXTRAS_CANONICAL / SITES_CATALOG /
+    SITES_WEB (new) alongside the existing FILES_CANONICAL - so a test can point the
+    canonical files at temp copies. Proved behavior-neutral: same red set (2 failed /
+    2 passed, 113 join problems) before and after.
+  - check_staged(): (1) id collision only when the staged id is in
+    known.values() - staged_ids (the merge's own rows map back to the same ids);
+    (2) QID reuse only when known[qid] != staged id; (3) canonical (site, title) clash only
+    when the staged row differs from the canonical row under _canon_norm =
+    json.dumps(row, sort_keys=True, ensure_ascii=False) (the same norm fit/merge.py uses on
+    the line; canonical map built first-row-wins like the merge). Failure message text kept
+    verbatim. The six done towns' TOWNS-table check untouched.
+  - test: test_table_and_staged_rows' disjointness assertion became the same-site-only loop
+    (if qid in known: known[qid] == staged id). New test_check_staged_three_states,
+    hermetic: monkeypatched canonical paths to temp copies built from the live files minus
+    this module's staged rows (works pre- or post-merge on any checkout); state (a) absent
+    -> rc 0 / no join / evidence 56 pass; (b) staged rows appended verbatim + web sites.json
+    {id,qid} entries -> rc 0 (the 113 self-triggers gone); (c) one row's year altered in the
+    temp canonical -> rc 1, join lines exactly the one clash naming that key.
+- Verification: live `fit/src_van_deventer.py --check` on this merged branch: rc 0, 0 join,
+  evidence 56/56 (previously rc 1, 113 join). Live negative control (temp canonical with
+  Aardenburg's row altered): rc 1, exactly that clash. vd test file 5/5 green. Full suite:
+  8 failed / 133 passed / 1 skipped vs loop start 10 failed / 130 passed / 1 skipped - the
+  8 remaining are exactly the 223-228 sibling guard tests (artists 1, kip 1, limes 1,
+  mackenzie 1, numancia 1, stukeley 3 incl. a stage()-leg SystemExit - inspect 227's stage
+  before copying the pattern). Zero new reds.
+- Minor failure (not a blocker): two successive edit-tool writes mangled the bracket count of
+  the new assert's f-string (SyntaxError each time); fixed line-by-line with a python
+  rewrite and verified with ast.parse. When editing these guard blocks, parse-check after
+  each edit.
+- Next: 223 kip (tasks/223-kip-merged-check.md), same pattern (its known_sites/check_staged
+  shape may differ - read the module first; kip's check is called check_staged per its test).
+  Note mackenzie's guard is named `check` (not check_staged) and stukeley's failure set
+  includes its stage leg.

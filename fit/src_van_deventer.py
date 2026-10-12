@@ -929,11 +929,20 @@ def stage(dry=False):
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
 def check_staged():
-    """Offline (no network): join the staged files (every file row names a staged or existing site, no staged
-    id/QID pre-exists, the six done towns are not re-staged, every staged site has a picture, (site, title)
-    unique, no clash with the canonical files.jsonl, the file rows agree with the TOWNS table, classified rows
-    1:1) and run fit/evidence.py's check over the staged rows. Returns the exit code (0 iff no problem, no FAIL)."""
+    """Offline (no network): join the staged files (every file row names a staged or existing site, a staged
+    id/QID is a problem only when a DIFFERENT site holds it (the module's own rows already merged by 211 are
+    a no-op, not a collision), the six done towns are not re-staged, every staged site has a picture,
+    (site, title) unique, a staged row whose key is in the canonical files.jsonl must be identical to the
+    canonical row (211's first-row-wins merge) - a same-key different row still fails loud, the file rows
+    agree with the TOWNS table, classified rows 1:1) and run fit/evidence.py's check over the staged rows.
+    Returns the exit code (0 iff no problem, no FAIL)."""
     import evidence
     files = _load(FILES)
     sites = _load(EXTRAS)
@@ -941,10 +950,12 @@ def check_staged():
     known = known_sites()
     problems = []
     staged_ids = {s["id"] for s in sites}
-    if staged_ids & set(known.values()):
-        problems.append(f"staged site ids collide with existing sites: {sorted(staged_ids & set(known.values()))}")
+    # after 211's merge the module's own staged sites sit in the canonical extras/sites (known): a staged
+    # id/QID is a problem only when it resolves to a DIFFERENT site (the pre-merge clash protection)
+    if staged_ids & (set(known.values()) - staged_ids):
+        problems.append(f"staged site ids collide with existing sites: {sorted(staged_ids & (set(known.values()) - staged_ids))}")
     for s in sites:
-        if s.get("qid") in known:
+        if s.get("qid") in known and known[s["qid"]] != s["id"]:
             problems.append(f"staged site {s['id']} re-uses existing QID {s['qid']} ({known[s['qid']]})")
     done = {TOWNS[t]["qid"] for t in TOWNS if TOWNS[t].get("done")}
     if done & {s.get("qid") for s in sites}:
@@ -958,7 +969,11 @@ def check_staged():
             town_of[_site_row(tn, td)["id"]] = tn
             if known.get(td["qid"]):
                 town_of[known[td["qid"]]] = tn
-    seen, canonical = set(), {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
+    seen, canonical = set(), {}
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
     for r in files:
         sid = r.get("site")
         if sid not in valid:
@@ -969,7 +984,7 @@ def check_staged():
         k = (sid, r.get("title"))
         if k in seen:
             problems.append(f"duplicate staged row {k}")
-        if k in canonical:
+        if k in canonical and canonical[k] != _canon_norm(r):
             problems.append(f"staged title already in the canonical files.jsonl: {k}")
         seen.add(k)
         town = town_of.get(sid)
