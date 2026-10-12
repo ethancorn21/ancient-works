@@ -771,6 +771,17 @@ Why: the line is scoped to one site by design (docs/site_flow.md, "Files the lin
       web/data/review.json and data/review/) before the run, and record the outcome in the task's
       docs as its acceptance asks.
 
+#### fit/propose.py's private loaders are a de facto external API - keep their default arguments
+Where: `fit/propose.py` (`_site`, `_plans_row`, `_index_row`, `_plans_rows`), called directly from
+      `fit/inkfit.py` (its `site()`/`row()` helpers and the CLI), `fit/inkfit_heldout.py`
+      (three call sites) and `tests/test_propose.py` (a dozen call sites, e.g. its row/site helpers)
+Symptom: `TypeError: _index_row() missing 1 required positional argument: 'root'` across
+      tests/test_propose.py, while every two-arg `propose_for` caller stays green (the trap 307ba
+      hit when it made `root` required)
+Why: only `propose_for` has a documented contract; the "private" names are imported across modules.
+      Any new loader parameter needs a default (`root=ROOT`) so the direct callers keep today's
+      behaviour; grep for `propose\._` in fit/ and tests/ before touching a loader signature.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification

@@ -2,10 +2,14 @@
 
 The queue is the built sites with a candidate picture and no hand fit yet, one entry per site,
 best candidate first, ordered so the site most worth seeing comes first. The generator reads
-exactly four inputs (web/data/sites.json, the web/data/sites/<id>/ dirs, web/data/plans.json,
-the data/review/ item files plus the data/db/platefits/ documents) and never opens an image, so
-both tests run it as a subprocess with every socket dead and no Finder/Amazon data anywhere
-near: the four-input contract is checked by construction.
+five inputs (web/data/sites.json, the web/data/sites/<id>/ dirs, web/data/plans.json, the
+data/review/ item files plus the data/db/platefits/ documents, and data/books/index.jsonl for
+the starting placement) and never opens an image, so both tests run it as a subprocess with
+every socket dead and no Finder/Amazon data anywhere near: the five-input contract is checked
+by construction. Each entry whose best row admits a starting placement carries the propose key
+(fit/propose.propose_for: the anchor scale and rotation re-emitted as 3-5 page-px -> lon/lat
+pairs), present exactly when the proposal anchors and never otherwise - the page (307b) opens
+the map on it.
 
   test_fit_queue_synthetic   a small hand-built tree where every rule is pinned exactly: the
                              entry set (built + candidate + no hand fit, with the agent-doc,
@@ -14,7 +18,10 @@ near: the four-input contract is checked by construction.
                              the plans row), the best-candidate rule (plan over view, then
                              drawing area, then plan id) and its one-word reason, the synthesized
                              row for a candidate whose only plans row names another site, the
-                             site order, and the store's file format (indent=1, no trailing
+                             propose key (bar scale + trustworthy north arrow hand-pinned; ratio
+                             without a recorded ppi on the site-size fallback; and the no-propose
+                             cases: no size_m, no size, an item candidate with no index row),
+                             the site order, and the store's file format (indent=1, no trailing
                              newline, the 13 named row fields in column order).
   test_fit_queue_real        the real checkout's four inputs copied to a temp tree (the site
                              dirs stand in as empty: the rule is existence). The entry set is
@@ -55,6 +62,8 @@ from PIL import Image
 from conftest import get, get_json, put_json
 
 ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(ROOT / "fit"))
+import propose  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention)
 
 # The page's row fields, in web/data/plans.json column order: what openPlan reads.
 ROW_FIELDS = ["id", "book", "ia", "file", "title", "label", "size", "map_box",
@@ -95,21 +104,29 @@ def _row(id_, book, ia, file_, title, label, size, map_box, sites, cite, url, vi
 
 
 def _build_synthetic_tree(tmp_path):
-    """The hand-built tree: 12 sites in sites.json, 9 built (dirs), 11 plans rows, 5 review
-    items, 3 fit documents - every queue rule covered by exactly one case."""
+    """The hand-built tree: 13 sites in sites.json, 10 built (dirs), 12 plans rows, 5 review
+    items, 3 fit documents, 4 stage-B index rows - every queue rule and every propose path
+    covered by exactly one case."""
     tree = tmp_path / "tree"
     wd = tree / "web" / "data"
     wd.mkdir(parents=True)
-    sites = [
-        {"id": s, "name": n, "drawings": 0}
-        for s, n in [("s-alpha", "Alpha"), ("s-beta", "Beta"), ("s-gamma", "Gamma"),
-                     ("s-eta", "Eta"), ("s-kappa", "Kappa"), ("s-view", "View"),
-                     ("s-zeta", "Zeta"), ("s-delta", "Delta"), ("s-epsilon", "Epsilon"),
-                     ("s-theta", "Theta"), ("s-iota", "Iota"), ("s-else", "Else")]
-    ]
+    sites = []
+    for i, (s, n) in enumerate([("s-alpha", "Alpha"), ("s-beta", "Beta"), ("s-gamma", "Gamma"),
+                                ("s-eta", "Eta"), ("s-kappa", "Kappa"), ("s-view", "View"),
+                                ("s-zeta", "Zeta"), ("s-delta", "Delta"), ("s-epsilon", "Epsilon"),
+                                ("s-theta", "Theta"), ("s-iota", "Iota"), ("s-else", "Else"),
+                                ("s-nope", "Nope")]):
+        site = {"id": s, "name": n, "lon": -1.0 - 0.01 * i, "lat": 51.5 + 0.01 * i, "drawings": 0}
+        # s-gamma deliberately has no size_m (its no-propose case); s-nope has one (for it the
+        # missing piece is the row's size); s-eta's is pinned for the site-size fallback scale
+        if s == "s-eta":
+            site["size_m"] = [200, 150]
+        elif s != "s-gamma":
+            site["size_m"] = [100 + 10 * i, 80 + 10 * i]
+        sites.append(site)
     _save_json(wd / "sites.json", {"sites": sites})
     for sid in ["s-alpha", "s-beta", "s-gamma", "s-eta", "s-kappa", "s-view",
-                "s-zeta", "s-delta", "s-epsilon"]:
+                "s-zeta", "s-delta", "s-epsilon", "s-nope"]:
         (wd / "sites" / sid).mkdir(parents=True)
     _save_json(wd / "plans.json", {"cols": ROW_FIELDS, "rows": [
         # s-alpha: two plans + one view -> the bigger plan, "a true plan"
@@ -141,6 +158,9 @@ def _build_synthetic_tree(tmp_path):
         # id item-k1 names s-else only: s-kappa's item candidate must synthesize its own row
         _row("item-k1", "Book K", "ia-k", "pk.jpg", "Else plan", "Plate K",
              [3000, 2000], [0.5, 0.5, 1.0, 1.0], ["s-else"], "cite-k", None, False),
+        # s-nope: no size (and no full_size in its index row) -> no propose
+        _row("row-n1", "Book N", "ia-n", "pn.jpg", "Nope plan", "Plate N",
+             None, None, ["s-nope"], "cite-n", None, False),
     ]})
     review = tree / "data" / "review"
     review.mkdir(parents=True)
@@ -169,6 +189,23 @@ def _build_synthetic_tree(tmp_path):
                                        "candidates": [{"plan": "item-i1", "title": "Iota candidate",
                                                        "url": "media/commons/s-iota/e.jpg"}],
                                        "resolved": None})
+    # stage-B index rows (data/books/index.jsonl): the propose's inputs for the book rows
+    books = tree / "data" / "books"
+    books.mkdir(parents=True)
+    (books / "index.jsonl").write_text("".join(json.dumps(r) + "\n" for r in [
+        # s-alpha: bar span + trustworthy north arrow -> the bar scale over the bar's width
+        {"id": "row-a1", "book": "Book A", "scale_text": "0 100 200 300 Feet",
+         "blank_boxes": [{"kind": "scale_bar", "box": [0.15, 0.6, 0.85, 0.62]}],
+         "north_angle_deg": 20, "north_arrow": True,
+         "map_box": [0.1, 0.1, 0.9, 0.9], "full_size": [1000, 1000]},
+        # s-eta: ratio, but Book E's ppi is not recorded -> the site-size fallback
+        {"id": "row-e1", "book": "Book E", "scale_text": "500 Feet to the Inch.",
+         "map_box": [0, 0, 1, 1], "full_size": [1000, 1000]},
+        # s-gamma: no scale text (and the site has no size_m) -> no propose
+        {"id": "row-g1", "book": "Book G", "map_box": [0, 0, 0.5, 0.5], "full_size": [400, 300]},
+        # s-nope: no scale text and no full_size (the plans row's size is null too) -> no propose
+        {"id": "row-n1", "book": "Book N"},
+    ]), encoding="utf-8")
     pf = tree / "data" / "db" / "platefits"
     pf.mkdir(parents=True)
     _save_json(pf / "s-eta.row-e1.json", {"site": "s-eta", "plan": "row-e1", "by": "agent"})
@@ -205,7 +242,7 @@ def test_fit_queue_synthetic(tmp_path):
     err = proc.stderr.decode("utf-8")
     assert proc.returncode == 0, out + err
     assert err == ""
-    assert out.splitlines()[0] == f"ready-to-fit queue: 6 site(s) -> {tree / 'web' / 'data' / 'fit_queue.json'}"
+    assert out.splitlines()[0] == f"ready-to-fit queue: 7 site(s) -> {tree / 'web' / 'data' / 'fit_queue.json'}"
 
     raw = (tree / "web" / "data" / "fit_queue.json").read_bytes()
     q = json.loads(raw)
@@ -216,7 +253,8 @@ def test_fit_queue_synthetic(tmp_path):
 
     entries = q["entries"]
     # built + candidate + no hand fit, in the contract's order
-    assert [e["site"] for e in entries] == ["s-beta", "s-kappa", "s-eta", "s-alpha", "s-gamma", "s-view"]
+    assert [e["site"] for e in entries] == ["s-beta", "s-kappa", "s-eta", "s-alpha", "s-gamma",
+                                            "s-nope", "s-view"]
     by = {e["site"]: e for e in entries}
 
     # s-beta: the item's plan (no plans row for it) beats the plans row's view; the row is
@@ -266,6 +304,32 @@ def test_fit_queue_synthetic(tmp_path):
     assert [c["draw_px"] for c in e["candidates"]] == [10000, 0]
     assert e["best"]["plan"] == "item-v2" and e["best"]["reason"] == "the clearest view"
 
+    # the starting placement (the propose key): the bar scale over the bar's width, at the
+    # trustworthy arrow's rotation (hand-pinned: 300 ft = 91.44 m over 700 px)
+    e = by["s-alpha"]
+    p = e["propose"]
+    assert list(p.keys()) == ["pairs", "scale_m_px", "rot_deg", "scale_source", "coarse", "note"]
+    assert p["scale_m_px"] == 0.1306
+    assert p["rot_deg"] == 20.0 and p["scale_source"] == "bar" and p["coarse"] is False
+    assert "scale from the scale bar" in p["note"]
+    assert p["pairs"] == propose.propose_for("s-alpha", "row-a1", root=tree)["pairs"]
+    # the panel geometry: the 4 corners plus the centre, in the row's size frame
+    assert [(q[0], q[1]) for q in p["pairs"]] == [(100.0, 100.0), (900.0, 100.0),
+                                                  (900.0, 900.0), (100.0, 900.0),
+                                                  (500.0, 500.0)]
+
+    # the ratio without a recorded ppi takes the site-size fallback: 200 m over the whole page
+    e = by["s-eta"]
+    p = e["propose"]
+    assert p["scale_m_px"] == 0.2 and p["rot_deg"] == 0.0
+    assert p["scale_source"] == "picture_size" and p["coarse"] is True
+    assert "ppi not recorded" in p["note"]
+    assert p["pairs"] == propose.propose_for("s-eta", "row-e1", root=tree)["pairs"]
+
+    # the no-propose cases: no size_m, no size, and an item candidate with no index row
+    for sid in ["s-gamma", "s-nope", "s-beta", "s-kappa", "s-view"]:
+        assert "propose" not in by[sid], sid
+
     # the exclusions: hand documents (both field shapes), no candidate, not built
     for sid in ["s-zeta", "s-delta", "s-epsilon", "s-theta", "s-iota", "s-else"]:
         assert sid not in by
@@ -276,9 +340,10 @@ def _h(p):
 
 
 def test_fit_queue_real(tmp_path):
-    """The generator on a copy of the real checkout's four inputs (the population is derived,
+    """The generator on a copy of the real checkout's five inputs (the population is derived,
     never pinned: it moves under the batch tasks)."""
-    raw_in = [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "plans.json"]
+    raw_in = [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "plans.json",
+              ROOT / "data" / "books" / "index.jsonl"]
     before = {_h(p) for p in raw_in} | {_h(p) for p in (ROOT / "data" / "review").iterdir() if p.is_file()} \
              | {_h(p) for p in (ROOT / "data" / "db" / "platefits").iterdir() if p.is_file()}
 
@@ -291,6 +356,8 @@ def test_fit_queue_real(tmp_path):
     for d in (ROOT / "web" / "data" / "sites").iterdir():
         if d.is_dir():
             (wd / "sites" / d.name).mkdir(parents=True)
+    (tree / "data" / "books").mkdir(parents=True)
+    shutil.copy2(raw_in[2], tree / "data" / "books" / "index.jsonl")
     shutil.copytree(ROOT / "data" / "review", tree / "data" / "review")
     shutil.copytree(ROOT / "data" / "db" / "platefits", tree / "data" / "db" / "platefits")
 
@@ -335,6 +402,27 @@ def test_fit_queue_real(tmp_path):
             assert e["site"] in e["best"]["row"]["sites"]
         areas = [c["draw_px"] for c in cands]
         assert all(a >= 0 for a in areas)
+
+    # the starting placement: present exactly when the same propose_for run on the same tree
+    # anchors (derived per entry, never a pinned count), equal to it, six keys in order.
+    # The floor guards against a silently broken propose (it would fail identically in both
+    # processes); every current entry anchors.
+    anchored = 0
+    for e in entries:
+        try:
+            expect = propose.propose_for(e["site"], e["best"]["plan"], root=tree)
+        except Exception:
+            assert "propose" not in e, e["site"]
+            continue
+        anchored += 1
+        p = e["propose"]
+        assert list(p.keys()) == ["pairs", "scale_m_px", "rot_deg", "scale_source",
+                                  "coarse", "note"]
+        assert p == {k: expect[k] for k in ("pairs", "scale_m_px", "rot_deg",
+                                            "scale_source", "coarse", "note")}
+        assert len(p["pairs"]) == 5 and all(len(q) == 4 for q in p["pairs"])
+        assert p["scale_m_px"] is not None
+    assert anchored, "no entry anchored: propose is broken the same way in both processes"
     keys = [(bool(e["best"]["row"]["view"]),
              -next(c["draw_px"] for c in e["candidates"] if c["plan"] == e["best"]["plan"]),
              e["name"]) for e in entries]
