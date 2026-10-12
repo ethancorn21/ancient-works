@@ -10,6 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 85, agent c - FIRST session on 304. Investigation + pre-registration; no code yet.)
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -20,7 +21,91 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 304 DECISION: pre-register the survey-sheet fit before any measurement; learned matcher (SuperPoint+LightGlue, pinned) with scale/rotation priors, translation from the matches
+
+Human direction (2026-10-12, iteration 85): (1) dense learned matchers are allowed and
+encouraged (RoMa, LoFTR, LightGlue+SuperPoint/DISK, pinned); ask for a GPU via a request if
+the 3090 is busy with the model server. (2) Priors that shrink the search: 302b's scale
+ratios ran 0.24-13x and rotations to 126 deg; read the plan's north arrow and scale bar
+where present, and the site's known size, to fix rotation and scale, leaving mostly
+translation. (3) Plan against the survey sheet first; if the matcher also works plan
+against aerial, report both columns; same pre-registered held-out protocol; no tuning on
+the 21 after the run.
+
+Investigation (all verified on this machine): every one of the 19 held-out sites carries a
+georeferenced sheet with coverage=1.0, corners and an _ink.webp - 15 OS six-inch 1st
+edition + 1-inch (six-inch = 1:10,560 is the finest), bergues and camp-d-attila Cassini +
+Etat-major, aztalan/cahokia/mound-bottom/serpent-mound USGS topo (1:62,500 x3, 1:48,000);
+camp-d-attila also has the aerial fr_ortho1950.webp (the aerial column). Plan panels are
+on disk (plan_<id>.webp + _ink) for 20 of 21 docs; doc 21 (the DPLA Maiden Castle plan)
+has no plan webp - its panel must be cropped from data/raw/commons/big/<id>.jpg (1280x889)
+with the doc's crop [165,256,895,663]. Book docs: page at data/raw/books/<ia>/full/<file>
+in the doc's size frame + crop (avebury: 3367x5050, crop [700,1000,3150,3700]). 302b seed
+records: 8/21 have a scale bar, 12/21 are commons coarse anchors with no scale, 1 has
+scale text with unrecorded scan ppi - so the matcher must supply scale for ~13 docs, which
+is exactly the learned matcher's job. The catalog's size_m/diameter_m are None for these
+sites, so "known size" is available only where a bar or ratio text is recorded.
+
+Machine facts: this VM has no GPU (no /dev/nvidia*, virtual VGA only), 6 cores, 15 GB RAM,
+a torch-free .venv; the AI box (10.0.10.75: 3090 Ti = vLLM Qwen model server, 5060 Ti =
+clef re-ranker) is not shell-reachable from here (only forced-command keys: doorbell,
+labdash-feed, lab-archive; hostname "aibox" does not resolve). A GPU ask_human was drafted
+but never sent, because the lead's second message (same iteration) superseded it: a
+pre-trained cross-modal matcher, MatchAnything-ELoFTR, is served on the 5060 Ti behind a
+VM tunnel at 127.0.0.1:8091 (see the follow-up entry below). .venv is rebuilt from the
+hashed requirements.txt before every test run; the matcher runs remotely, so the client
+needs only requests + numpy (already in requirements.in) - no requirements change was
+made this session.
+
+Action taken: pre-registered in docs/site_flow.md (new section "The one-shot held-out
+measurement of the survey-sheet fit (task 304, pre-registered before the run)"): the method
+never opens a platefit document (the evaluator fit/surveyfit_heldout.py alone compares
+against the hand fits); null recipe = 302b scramble of the panel + 302b half-box shift of
+the sheet; score = RANSAC inlier fraction reweighted by reprojection RMS, confidence from
+score and margin; the 21 docs = the 302b list unchanged; verdict per the task (a
+confidence threshold exists under which every accepted fit is within 60 m and >=5 of 21
+are accepted; pass -> 304b wiring, fail -> stop, no fourth method). The section's frozen
+config (versions, thresholds, sweep grid, confidence formula) is restated at the freeze
+commit, which must precede the run.
+
+Next step (session 2): fit/surveyfit.py v0 against the ELoFTR API (client POST /match with
+the plan panel as image0 and the sheet as image1; RANSAC similarity through the matched
+pairs; the two nulls; a JSON fit record per call), developed against a stub server (the
+real tunnel to 8091 was down at session end - "waiting on the owner, one command") with
+hermetic tests; once /health answers, reproduce the lead's smoke numbers as a canary, then
+... (0.0 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: pre-register the survey-sheet fit before any measurement; learned matcher (SuperPoint+LightGlue, pinned) with scale/rotation priors, translation from the matches' DECISIONS.md`)
+
+### 2026-10-12 304 DECISION: matcher = the lead's MatchAnything-ELoFTR service at 127.0.0.1:8091 (no local GPU, no new packages, no ask_human)
+
+The lead's second message (iteration 85, same day): "a pretrained cross-modal matcher is
+up for 304: MatchAnything-ELoFTR (zju-community/matchanything_eloftr, Apache-2.0) on the
+5060 Ti. API: POST http://127.0.0.1:8091/match JSON {image0: base64 png/jpg, image1:
+base64, threshold: 0.2, max_side: 832} -> {keypoints0, keypoints1 (original pixel frames),
+scores, size0, size1}; GET /health. The VM tunnel to 8091 is waiting on the owner (one
+command); until /health answers, build against the API. Use it as your matcher; same
+pre-registered held-out protocol."
+
+Consequences: (1) the local LightGlue+SuperPoint plan is superseded - no torch, no
+lightglue, no superpoint in requirements (the client needs only requests + numpy, both
+already pinned; no requirements change this session); (2) the drafted GPU ask_human was
+never sent (the 5060 Ti runs the matcher, so vLLM/clef are not touched by me); (3) the
+site_flow pre-registration's "The match" paragraph now names the service and its API
+(threshold 0.2, max_side 832; the inlier threshold and rotation-sweep grid are frozen at
+the freeze commit - the lead's smoke test used an 8-px RANSAC threshold); (4) everything
+else in the pre-registration is unchanged: priors (scale bar / north arrow / matcher
+scale), the corners carry-over, the 302b scramble + half-box-shift nulls, the 21 docs,
+the one-shot rule, the verdict.
+
+The lead's own smoke test (Maiden Castle DPLA plan vs six-inch-1st.webp - held-out doc
+14): 633 matches in 0.9 s, RANSAC similarity (8 px) 31 inliers, rotation 0.0 deg, errors
+at the 3 hand points 20/35/53 m - all inside the 60 m pass line. Recorded as evidence of
+feasibility only: it is a held-out document, so no parameter of mine may be chosen from
+it, before or after the run.
+
+Verified at session end: 127.0.0.1:8091 does not answer yet (curl /health: connection
+refused) - the owner's tunnel command is still pending. Next: build the client + RANSAC
+against the API contract with a stub server (hermetic), re-check /health each session,
+reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
 
 ## Project-wide driver notes (newest)
 
