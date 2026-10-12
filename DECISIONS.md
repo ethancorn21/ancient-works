@@ -409,3 +409,44 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
   (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
   sites), tick boxes 2-4, run the suite, done.
+
+## 2026-10-12 306b DECISION: judged the final 6 - ALL STAYS (21/21, zero removals); 6 lines appended to docs/site_flow.md (uncommitted, harness keeps it); boxes + suite + PITFALLS entries left to the next session
+- Sixth session. Judged the last 6 docs from their clean shots (relief first for watson x2). ALL
+  STAYS, so the whole 21-doc batch is 21/21 STAYS with no 303-way removals, no data/review/
+  platefits changes. Appended their 6 lines to the END of the 306b block of docs/site_flow.md
+  (same format as the committed 15; the append is UNCOMMITTED - the harness keeps it).
+- cenabum c_e73dc8: the plate is Jollois 1833 'Plan général de la ville et des environs
+  d'Orléans en 1828'. Discovery: the site's canonical point (1.909, 47.9025, Wikidata Q2710144
+  'Cenabum') IS the city of Orléans (1.9°E, 47.9°N) - I had mis-remembered Orléans at 2.09°E and
+  nearly called it a 12 km miss. Verification: the 1850s IGN état-major (GEOF, layer etatmajor)
+  tiles show 'ORLÉANS' printed at that point (radial old town, fortified quays, bridges; the
+  (2.09, 47.90) area is open Mardre/Donnery country with no town). The drawn 1828 city aligns
+  with that georeferenced survey within 100-200 m (radial centre, Faubourg St-Vincent, river,
+  bridges), and the fitted 5.41 m/px equals the plate's ~1:20000 printed scale at scan dpi (the
+  scan has no scale bar; least-squares transform from the 8 anchors reproduces the stored fit:
+  5.389 m/px, +1.06°). The item's 'Epinal' Q173695 (~350 km NE) 200-sheet evidence = sheet-level
+  red herring (same pattern as argentoratum c_e882645's 'Ville' hit).
+- ferme-d-azincourt c_804aa7: the plate is the 1810 cadastre of the Ferme d'Azincourt hamlet
+  ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site itself, not the Agincourt
+  village of the Somme. The plate's own road labels ('Chemin d'Émerchicourt', 'Chemin de
+  Boursolain', 'Bonnay') proved it; Nominatim reverse-geocode of anchor 1 = 'Rue d'Azincourt,
+  Émerchicourt'; the drawn river = the real Scarpe near Aniche. Red farm cluster on the real
+  hamlet, roads on roads (aerial + relief). Fitted 1.23 m/px agrees with the item's own points
+  (1.171), its stated 0.55 does not. Lesson: when a plate's title names a famous place, check
+  the plate's OWN toponyms before trusting the title (names are recycled - farms/streets are
+  named after famous battles).
+- dudley c_e66ec: 1885 'Plan of Dudley Castle Grounds' on the real conical Castle Rock (summit
+  anchor on the real summit, aerial + relief; 2639/4998 inliers vs the 1842 OS 6-inch first
+  edition; +24.9° is the plate's own north-arrow rotation). watson-brake c_5e7bb + c_b52dd: the
+  mounds maps trace the real Gentry Mound / S-ring / Watson Bayou on the LiDAR relief (the
+  deciding evidence) and aerial; 1.28 m/px agrees with item points 1.448, the cands' stated
+  0.625 does not. zwolle c_f9cdda: van Deventer 1563 walled town on the real Zwolle core, drawn
+  Swol river on the real meanders (aerial + relief; 1981/4998 vs tmk1850).
+- NEXT (next session, in order): tick boxes 2-4 in the task file, run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed/1
+  skipped, test_gate pre-existing red), file the PITFALLS entries (Orléans at 1.9°E;
+  etatmajor.webp = 1 px = 1 m block centred on the site point, pipeline/depict.py;
+  Nominatim/Wikidata reachable from this VM, /search 400s without a query), set Status: done,
+  commit (task file + DECISIONS.md + the 6-line docs/site_flow.md append). No deletions => no
+  test re-pointing needed; the only test touching site_flow is test_fit_queue.py (queue docs,
+  not these lines).
