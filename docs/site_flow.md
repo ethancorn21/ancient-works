@@ -417,7 +417,8 @@ to the map. When he saves, that site is finished.
 
 **The queue file.** `tools/fit_queue.py [--root DIR]` writes `web/data/fit_queue.json`
 (`{"at", "entries": [...]}`), one entry per site: `{site, name, best: {plan, reason, row},
-candidates: [{plan, title, book, view, draw_px}]}`. A site is in the queue exactly when all
+candidates: [{plan, title, book, view, draw_px}]}` — and, when the best row admits a
+starting placement, the entry's `propose` key (below). A site is in the queue exactly when all
 three hold:
 
 - **built** — it has an entry in `web/data/sites.json` AND a `web/data/sites/<id>/` directory
@@ -439,9 +440,30 @@ plan chosen while a view exists); "the clearest scan" (the best of several plans
 clearest view" (the views win). **The order** applies that same key to each site's best
 candidate, then by the site's name: the cleanest, most ink to click on comes first (as of
 2026-10-12: 117 entries, starting with Devil's Dyke, Fort Ancient, Marietta — all clearest
-scans). The tool is stdlib only and reads exactly those four inputs, never an image, so the
-owner's Mac can run it with any python; the private Finder/Amazon collections (PLAN.md) never
-enter it. The page tolerates the file missing, stale or 404: no card, no error.
+scans). The tool is stdlib only and reads five inputs (the four above plus
+data/books/index.jsonl, for the stage-B fields behind the `propose` key — fit/propose.py,
+which computes it, is stdlib-only too), never an image, so the owner's Mac can run it with
+any python; the private Finder/Amazon collections (PLAN.md) never enter it. The page
+tolerates the file missing, stale or 404: no card, no error.
+
+**The starting placement (the propose, 307ba).** An entry whose best row admits a starting
+placement carries it as its `propose` key: the anchor mapping the picture's panel centre
+onto the site's point at the recorded scale and rotation, re-emitted as the 3-5 page-px ->
+lon/lat pairs the fit tool's preview and save use (`{pairs, scale_m_px, rot_deg,
+scale_source, coarse, note}` — the four panel corners plus the centre). The scale climbs a
+ladder: the book's printed scale bar where one is recorded, else the printed ratio at the
+book's scan ppi, else the site's known size (the last two flagged `coarse`); the rotation
+is the north arrow where it is trustworthy, else north-up. It is fit/propose.py's
+`propose_for` over the row's stage-B fields (scale_text, blank_boxes, north_angle_deg,
+north_arrow, map_box, full_size): a starting point, never a fit — the pairs are never
+snapped or gate-checked. A row the proposal cannot anchor (no size, no site size_m, no
+stage-B row) gets no `propose` key, and the page falls back to the ordinary three-point
+flow for it, byte-identically. On the page, web/fitkit.js (loaded after fitqueue.js) reads
+the key: opening the queued site's plan flies the map to the site's own box, hides the
+site's earlier overlay, and seeds the anchor as the five draggable pairs — the drawing is
+on the map before any clicking — and closing (back, Cancel, or the save) restores the
+overlay exactly as it was. The gestures that move, scale and turn the placement, saving
+from it, and the updated screenshots are 307bb/307c's.
 
 **The card.** `web/fitqueue.js` loads after `web/review.js` and extends the page the same
 way review does: a "Ready to fit (N to go)" card drawn into `#body` as the next sibling of
@@ -450,12 +472,13 @@ It names the next site — the first queue entry not done in this browser, not s
 session, and still a built site in this build — with its best candidate's row and the
 one-word reason, and its buttons:
 
-- **Place the drawing** — drives the existing fit tool in the fitkit convention: `endFit`
+- **Place the drawing** — drives the existing fit tool in the fitqueue convention: `endFit`
   if a fit is active → `select(site)` → `setGround("relief", or "imagery" where the site has
   no LiDAR)` → `loadDeps` → `startFit(site)` → `openPlan(entry.best.row)`. `RV.pending` is
 deliberately never set: the queue's row is the owner's clean slate (pre-placed machine
   pairs are the review flow's contract, not this one's). The tool's own clicking is
-  unchanged.
+  unchanged — except that when the entry carries a `propose`, fitkit hooks into the chain at
+  `openPlan` and opens place mode on the works (above).
 - **Skip** — moves the card to the next site for this session only (an **Undo skips**
   button comes back with it and resets it in the card).
 - **done** — when the owner's save lands, the card marks the site done in this browser

@@ -14,7 +14,7 @@ starting point to a human when the model cannot fit.
 Contract (201 stores this dict verbatim in review items; keep the signature and keys stable -
 this docstring is the single statement of it):
 
-    propose_for(site_id, plan_id) -> {
+    propose_for(site_id, plan_id, root=ROOT) -> {
         "pairs": [[u, v, lon, lat], ... 3-5 of them; page px in the row's ``size`` frame,
             u/v rounded to 1 dp, lon/lat to 7 dp - the platefit-doc convention],
         "coarse": bool,               # True when the scale is not the recorded bar or ratio
@@ -25,6 +25,11 @@ this docstring is the single statement of it):
         "scale_source": "bar" | "ratio" | "picture_size" | None,
         "note": str or None,          # coarse reasons / rejected north hint / pace assumption
     }
+
+    ``root`` is the data tree the loaders read: ``web/data`` and ``data/books`` under it
+    (default: this checkout, today's behaviour for every existing two-arg caller). The
+    cache is keyed by root, so a generator or test run against a temp tree never collides
+    with this checkout's data.
 
 Deterministic (no timestamps); stdlib only, importable by 203a/203b in any environment.
 
@@ -219,35 +224,43 @@ def parse_scale(text):
 _CACHE = {}
 
 
-def _index_row(plan_id):
+def _cache_key(root, kind):
+    """The cache key: root and file kind, so several trees in one process (this checkout
+    and a --root temp tree) never read each other's data."""
+    return (str(root), kind)
+
+
+def _index_row(plan_id, root=ROOT):
     """The book index row by id (the stage-B fields: scale_text, blank_boxes, north_*, map_box)."""
-    if "index" not in _CACHE:
+    key = _cache_key(root, "index")
+    if key not in _CACHE:
         idx = {}
-        p = ROOT / "data" / "books" / "index.jsonl"
+        p = Path(root) / "data" / "books" / "index.jsonl"
         for line in p.read_text().splitlines():
             if line.strip():
                 r = json.loads(line)
                 if r.get("id"):
                     idx[r["id"]] = r
-        _CACHE["index"] = idx
-    r = _CACHE["index"].get(plan_id)
+        _CACHE[key] = idx
+    r = _CACHE[key].get(plan_id)
     if r is None:
         raise ValueError("no book index row for plan %r" % plan_id)
     return r
 
 
-def _plans_rows():
-    if "plans" not in _CACHE:
-        d = json.loads((ROOT / "web" / "data" / "plans.json").read_text())
+def _plans_rows(root=ROOT):
+    key = _cache_key(root, "plans")
+    if key not in _CACHE:
+        d = json.loads((Path(root) / "web" / "data" / "plans.json").read_text())
         cols = {c: i for i, c in enumerate(d["cols"])}
-        _CACHE["plans"] = [{k: r[i] for k, i in cols.items()} for r in d["rows"]]
-    return _CACHE["plans"]
+        _CACHE[key] = [{k: r[i] for k, i in cols.items()} for r in d["rows"]]
+    return _CACHE[key]
 
 
-def _plans_row(plan_id, site_id=None):
+def _plans_row(plan_id, site_id=None, root=ROOT):
     """The plans.json row by id; duplicate ids (a picture offered to several sites) pick
     the row whose sites list contains site_id, else the first."""
-    rows = [r for r in _plans_rows() if r["id"] == plan_id]
+    rows = [r for r in _plans_rows(root) if r["id"] == plan_id]
     if not rows:
         raise ValueError("no plans row for %r" % plan_id)
     if len(rows) > 1 and site_id:
@@ -257,12 +270,13 @@ def _plans_row(plan_id, site_id=None):
     return rows[0]
 
 
-def _site(site_id):
-    if "sites" not in _CACHE:
-        d = json.loads((ROOT / "web" / "data" / "sites.json").read_text())
+def _site(site_id, root=ROOT):
+    key = _cache_key(root, "sites")
+    if key not in _CACHE:
+        d = json.loads((Path(root) / "web" / "data" / "sites.json").read_text())
         ss = d.get("sites") if isinstance(d, dict) else d
-        _CACHE["sites"] = {s["id"]: s for s in ss if s.get("id")}
-    s = _CACHE["sites"].get(site_id)
+        _CACHE[key] = {s["id"]: s for s in ss if s.get("id")}
+    s = _CACHE[key].get(site_id)
     if s is None:
         raise ValueError("no site %r in web/data/sites.json" % site_id)
     return s
@@ -376,11 +390,12 @@ def _proposal(site, pairs, coarse, scale, source, rot, notes):
     }
 
 
-def propose_for(site_id, plan_id):
-    """The proposed starting placement of plan_id's picture for site_id (contract above)."""
-    site = _site(site_id)
+def propose_for(site_id, plan_id, root=ROOT):
+    """The proposed starting placement of plan_id's picture for site_id (contract above).
+    ``root`` is the data tree the loaders read (default: this checkout)."""
+    site = _site(site_id, root)
     if plan_id.startswith("c_"):
-        row = _plans_row(plan_id, site_id)
+        row = _plans_row(plan_id, site_id, root)
         size = row.get("size")
         if not size:
             raise ValueError("commons row %r has no size" % plan_id)
@@ -392,8 +407,8 @@ def propose_for(site_id, plan_id):
             notes.append("perspective picture: the similarity anchor is a seed only")
         pairs = _anchor_pairs(site, size, row.get("map_box"), scale, 0.0)
         return _proposal(site, pairs, True, scale, "picture_size", 0.0, notes)
-    row = _index_row(plan_id)
-    size = _plans_row(plan_id, site_id).get("size") or row.get("full_size")
+    row = _index_row(plan_id, root)
+    size = _plans_row(plan_id, site_id, root).get("size") or row.get("full_size")
     if not size:
         raise ValueError("row %r has no size frame (size/full_size both null)" % plan_id)
     box = row.get("map_box")

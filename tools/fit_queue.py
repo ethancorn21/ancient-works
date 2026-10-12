@@ -24,7 +24,7 @@ against the site's county/state (an unknown place never flags). A flagged candid
 leaves its site's queue - into the right site's entry or review item when the catalog
 names one, else into the source site's own review item - carrying the reason "same name,
 other place: <caption place> vs <site place>" (a review-candidate extra, data/review/
-README.md). A tree without those stores builds exactly as before.
+README.md). A tree without those stores builds exactly 305's queue.
 
 The best candidate: a true plan over a bird's-eye view, then the larger drawing area (a book row: its
 map_box fraction of the page size in px; a row with no box, or a commons row: the whole page/image; an
@@ -33,9 +33,19 @@ item candidate with no size stored: 0), then the plan id (stable). The one-word 
 several plans), "the clearest view" (the views win). Sites are ordered by the same rule applied to each
 site's best candidate, then by the site's name - the cleanest, most ink to click on comes first.
 
-Stdlib only: it reads exactly those four inputs and never opens an image (the sizes come from the json
-files), and its only imports are tools/right_place.py and fit/review.py - both stdlib-only, no
-pipeline/. The owner's Mac can run it with any python. Finder/Amazon data never enters the queue.
+Each entry whose best row admits a starting placement carries it as the propose key - the anchor
+mapping the picture's panel centre onto the site at the recorded scale and rotation (fit/propose.py
+propose_for: bar scale, printed ratio at the book's ppi, the site-size fallback, the north arrow where
+trustworthy) re-emitted as 3-5 page-px -> lon/lat pairs - so the page (307b) opens the map on the works
+before any clicking. A row the proposal cannot anchor (no size, no size_m, no stage-B index row, no
+index file) gets no propose key: the page falls back to the three-point flow for it.
+
+Stdlib only: it reads the four inputs above plus data/books/index.jsonl (the stage-B fields
+scale_text, blank_boxes, north_angle_deg, north_arrow, map_box, full_size - fit/propose.py, which
+computes the propose, is stdlib-only too) and data/catalog/ with data/books/ for the right-place check
+(both optional) and never opens an image (the sizes come from the json files), so the owner's Mac can
+run it with any python. Its only imports are tools/right_place.py, fit/review.py and fit/propose.py -
+all stdlib-only, no pipeline/. Finder/Amazon data never enters the queue.
 """
 import argparse
 import json
@@ -52,6 +62,7 @@ sys.path.insert(0, str(ROOT / "fit"))
 
 import right_place  # noqa: E402
 import review  # noqa: E402
+import propose as _propose  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention)
 
 # The row's named fields, in web/data/plans.json column order (the page's openPlan reads them).
 ROW_FIELDS = ("id", "book", "ia", "file", "title", "label", "size", "map_box",
@@ -303,6 +314,19 @@ def _entry(sid, name, cands):
     }
 
 
+def _entry_propose(root, site_id, plan):
+    """The entry's starting placement for the page (307b): fit/propose.propose_for's keys in the
+    entry's order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}, "ground" dropped (the
+    page derives it from site.lidar, as it already does in fqPlace). None when the proposal cannot
+    anchor (no size, no size_m, no stage-B row, no index file) - fail open: the page falls back
+    to the three-point flow for that row."""
+    try:
+        p = _propose.propose_for(site_id, plan, root=root)
+    except Exception:
+        return None
+    return {k: p[k] for k in ("pairs", "scale_m_px", "rot_deg", "scale_source", "coarse", "note")}
+
+
 def build(root):
     """The queue, ready to serialize: one entry per built site with a candidate and no
     hand fit, ordered by each site's best candidate (plan over view, then drawing area,
@@ -310,8 +334,10 @@ def build(root):
     right-place check decides every flag over those pre-mutation maps (a move into a
     site can never feed that site's own decision in this build); only then are the
     drops, moves and review upserts applied, and the entries derived from the result.
-    Without the catalog and book stores the check is a no-op and the build is exactly
-    305's."""
+    Each entry whose best row admits a starting placement then carries the propose key
+    (307b: fit/propose.py, fail open - no key when the proposal cannot anchor). Without
+    the catalog and book stores the check is a no-op and the build is exactly 305's
+    plus the propose key."""
     rows = _plans_rows(root)
     item_cands = _item_candidates(root)
     hand = _hand_sites(root)
@@ -327,7 +353,15 @@ def build(root):
     if store is not None:
         flags = _place_flags(root, store, cands)
         _apply_flags(root, store, cands, rows, item_cands, hand, built, flags)
-    entries = [_entry(sid, name, cands[sid]) for sid, name in built if sid in cands]
+    entries = []
+    for sid, name in built:
+        if sid not in cands:
+            continue
+        e = _entry(sid, name, cands[sid])
+        p = _entry_propose(root, sid, e["best"]["plan"])  # the key lands after "candidates" (the page's order)
+        if p is not None:
+            e["propose"] = p
+        entries.append(e)
     entries.sort(key=lambda e: _best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))
     return {"at": datetime.now(timezone.utc).isoformat(), "entries": entries}
 
