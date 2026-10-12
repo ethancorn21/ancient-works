@@ -4,16 +4,18 @@ the MatchAnything-ELoFTR service - no GPU, no network, no fixed port (the stub l
 
 The synthetic world (all constants below, the measured outcomes in data/surveyfit/devlog.md):
 a 400x400 "sheet" whose corners georeference a 2 km box at (2.0, 50.0) (the real aw.corners
-geometry), 14 feature glyphs at fixed positions; and a 320x320 "plan" carrying the same glyphs
-under a known similarity z = a_true*w + b_true (the plan's north theta_d degrees clockwise of
-page-up: a_true = (M_PX/k0)*e^{i*theta_d}, the 302b anchor form) plus 4 junk glyphs with no
-sheet counterpart. The stub decodes the two sent images, works out which world it is looking at
-(sheet real vs the 302b half-box shift; plan unrotated vs rotated, via connected-component
-centroids), and answers with the corresponding point pairs (true pairs in the ORIGINAL pixel
-frames, the way the service does, plus a fixed junk set) - degrading the number of true pairs
-when the sent panel's rotation is far from the drawing's own, the way a rotation-sensitive
-matcher degrades. That makes the frozen rotation sweep meaningful: the true rotation is the
-only (or best) orientation with full match quality.
+geometry), 14 feature glyphs on a 7x2 grid (25/30 px pitch, centred at (195, 235)); and a
+320x320 "plan" carrying the same glyphs under a known similarity z = a_true*w + b_true (the
+plan's north theta_d degrees clockwise of page-up: a_true = (M_PX/k0)*e^{i*theta_d}, the 302b
+anchor form) plus 4 junk glyphs with no sheet counterpart. The stub decodes the two sent
+images, works out which world it is looking at (sheet real vs the 302b half-box shift; plan
+unrotated vs rotated, via connected-component centroids), and answers with the corresponding
+point pairs (true pairs in the ORIGINAL pixel frames, the way the service does, plus a fixed
+junk set) - returning the full set only when the sent panel's rotation is the drawing's own,
+the first six one fine step away, nothing beyond (a rotation-sensitive matcher), with the
+returned plan-side points wobbling by up to 0.6 px per degree of error (match quality, not
+just count, degrades). That makes the frozen rotation sweep meaningful: the true rotation is
+the only (or best) orientation with full match quality.
 
 The tests:
 1. fixed rotation (the plan drawn north-42, fit with rot=42): the reported placement and panel
@@ -34,6 +36,7 @@ The method under test is fit/surveyfit.py as committed; the test never reads a h
 document and never opens a platefit doc.
 """
 import base64
+import io
 import json
 import math
 import os
@@ -70,6 +73,8 @@ PLAN_ID = "c_synthfit304"
 SITE = {"id": SITE_ID, "lon": LON0, "lat": LAT0, "size_m": [SIZE_M, SIZE_M]}
 ROW = {"id": PLAN_ID, "size": [PLAN, PLAN]}
 JUNK_SEED = 304777              # the stub's junk match pairs (one fixed seeded set)
+JITTER_SEED = 304778            # the stub's per-glyph quality wobble (a separate fixed set)
+JITTER_PX_PER_DEG = 0.6         # the stub's match-quality degradation, px per degree of error
 CENTER = np.array([0.5 * PLAN, 0.5 * PLAN])     # the panel centre (the sweep rotates about it)
 CANDIDATE_THETAS = [2.0 * i for i in range(180)]  # the stub's rotation-resolution candidates
 HIT_PX = 2.0                    # a glyph counts as "seen" within this many px of its expected spot
@@ -90,13 +95,15 @@ def _sheet_similarity():
 
 @lru_cache(maxsize=1)
 def sheet_centers():
-    """The 14 sheet glyph centres, px: a 7x2 grid (7 cols at 50 px pitch from x=30; two rows at
-    y=250, 310). Exactly the 4 columns with x <= 199 (8 glyphs) survive the 302b half-box
-    sheet shift ((x, y) -> (x + 200, y - 200)); the other 6 leave the frame."""
+    """The 14 sheet glyph centres, px: a 7x2 grid at 25/30 px pitch centred at (195, 235) -
+    close enough to the sheet centre that the plan frame (the plan's scale 0.8 x the sheet's,
+    the plan centre on the site centre) holds the whole grid in-frame at every theta_d the
+    tests use, far enough off it that the 302b half-box shift ((x, y) -> (x + 200, y - 200))
+    keeps exactly 8 glyphs (the 4 columns at x <= 198 and the 2 rows at y >= 202) and loses 6."""
     out = []
-    for y in (250, 310):
+    for y in (220, 250):
         for i in range(7):
-            out.append((30 + 50 * i, y))
+            out.append((120 + 25 * i, y))
     assert len(out) == 14
     return out
 
@@ -114,9 +121,10 @@ def true_placement(theta_d):
 
 def plan_centers(theta_d):
     """The plan glyph centres (size frame, sub-pixel): where the sheet glyphs sit under the
-    true placement. Their radii from the plan centre range ~43-200 px, so a rotation in error
-    by one fine step (2 deg) moves every glyph by > HIT_PX px - the stub's rotation resolution
-    is binary at the grid's own step."""
+    true placement. Their radii from the panel centre range ~40-120 px, so a rotation in error
+    by one fine step (2 deg) moves them by 1.4-4.2 px: most stay out of the 2 px hit window,
+    the stub's rotation resolution is binary at the grid's own step, and the match-quality
+    wobble below makes the true step the unique best in the sweep."""
     a_s, b_s = _sheet_similarity()
     a, b = true_placement(theta_d)
     out = []
@@ -213,8 +221,9 @@ def _centroids(ink):
     lab, n = ndi.label(ink, structure=np.ones((3, 3)))
     if not n:
         return np.zeros((0, 2))
-    cy, cx = ndi.center_of_mass(ink, lab, np.arange(1, n + 1))
-    return np.stack([cx, cy], 1)
+    # scipy 1.18: with an index array, one (cy, cx) tuple per label, not per axis
+    com = ndi.center_of_mass(ink, lab, np.arange(1, n + 1))
+    return np.array([(c[1], c[0]) for c in com], float)
 
 
 def _expected(theta, centers):
@@ -231,6 +240,8 @@ def _resolve_theta(world, cents):
     expected glyph positions best match the measured component centroids.
     -> (theta or None when the image is not a recognisable rotated plan, the per-glyph
     measured centroids for the resolved theta)."""
+    if cents.shape[0] == 0:      # a panel with no ink: nothing to resolve
+        return None, {}
     best = None
     for th in CANDIDATE_THETAS:
         e = _expected(th, world["plan_centers"])
@@ -273,9 +284,10 @@ def _sheet_state(world, ink1):
 
 def _take(world, sheet_state, theta):
     """Which true pairs this (plan orientation, sheet state) call returns: the survivors (all
-    14 on the real sheet, the in-frame quadrant on the shifted one) degraded by the angular
+    14 on the real sheet, the in-frame subset on the shifted one) degraded by the angular
     error of the sent panel vs the drawing's own rotation - the matcher's rotation
-    sensitivity, what the frozen sweep scores."""
+    sensitivity, what the frozen sweep scores: the full set at the true rotation, the first six
+    one fine step away, none beyond."""
     surv = list(range(14)) if sheet_state == "real" else [
         i for i, (x, y) in enumerate(world["sheet_centers"])
         if x + 200 <= SHEET - 2 and y - 200 >= 2]
@@ -287,22 +299,36 @@ def _take(world, sheet_state, theta):
     return []
 
 
+def _jitter(theta, i, delta):
+    """A returned plan-side point's wobble: up to JITTER_PX_PER_DEG px per degree of angular
+    error, deterministic per (theta, i) - a repeated call at the same theta returns the same
+    points, and match quality (not just match count) degrades away from the true rotation.
+    -> (dx, dy) in plan px."""
+    amp = JITTER_PX_PER_DEG * delta
+    if amp <= 0:
+        return 0.0, 0.0
+    rng = np.random.default_rng((int(round(theta * 10.0)) * 100000 + i + JITTER_SEED) % 2 ** 32)
+    return float(rng.uniform(-amp, amp)), float(rng.uniform(-amp, amp))
+
+
 def match_response(world, im0, im1):
-    """The stub's /match answer: true pairs (plan-side measured centroids in the SENT frame,
-    sheet-side world positions) + the fixed junk set, as the service returns them (the
-    original pixel frames)."""
+    """The stub's /match answer: true pairs (plan-side measured centroids in the SENT frame
+    plus the quality wobble, sheet-side world positions) + the fixed junk set, as the service
+    returns them (the original pixel frames)."""
     sheet_state = _sheet_state(world, _ink(im1))
     theta, matched = _resolve_theta(world, _centroids(_ink(im0)))
     p0, p1 = [], []
     if theta is not None and sheet_state != "unknown":
-        a_s, b_s = world["a_s"], world["b_s"]
+        delta = abs((theta - world["theta_d"] + 180.0) % 360.0 - 180.0)
         for i in _take(world, sheet_state, theta):
             if i not in matched:
                 continue
             sx, sy = world["sheet_centers"][i]
             if sheet_state == "shifted":
                 sx, sy = sx + 200, sy - 200
-            p0.append(list(matched[i]))
+            dx, dy = _jitter(theta, i, delta)
+            px, py = matched[i]
+            p0.append([px + dx, py + dy])
             p1.append([sx, sy])
     for a, b in zip(world["junk_p0"], world["junk_p1"]):
         p0.append(list(a))
@@ -337,8 +363,8 @@ def _handler(world, healthy, state):
                 return
             n = int(self.headers.get("Content-Length", 0))
             d = json.loads(self.rfile.read(n))
-            im0 = Image.open(__import__("io").BytesIO(base64.b64decode(d["image0"]))).convert("RGB")
-            im1 = Image.open(__import__("io").BytesIO(base64.b64decode(d["image1"]))).convert("RGB")
+            im0 = Image.open(io.BytesIO(base64.b64decode(d["image0"]))).convert("RGB")
+            im1 = Image.open(io.BytesIO(base64.b64decode(d["image1"]))).convert("RGB")
             state["calls"].append((d["image0"], d["image1"]))
             body = json.dumps(match_response(world, im0, im1)).encode()
             self.send_response(200)
