@@ -433,3 +433,40 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
   unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
   facts).
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
+- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
+  all still `Status: open` (they remain `Depends on: none`; the driver's
+  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
+  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
+  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
+  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (the red set is still
+  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
+  re-checks the suite at claim time anyway).
+- Cheap freshness checks (both green, both exactly as the hand-over
+  predicted):
+  1. `git fetch origin` (read-only ref update; team rules forbid me from
+     merging) moved nothing: origin/main is still c063314 and
+     `git log c063314..origin/main` is empty, so the 188 union audit (origin
+     holds none of my 211 outputs; only sites.json differs on both sides,
+     disjoint: my 114 entries vs the human's marker-field updates;
+     platefits/goldens byte-identical) is still current - nothing to
+     re-audit.
+  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
+     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
+     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
+     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
+     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
+     invariants hold in the live files (dict-shape gotcha per PITFALLS:
+     these files are dicts, `len(json.load(...))` is not the entry count).
+- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
+  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
+  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
+  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
+  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
+  branch only - verified absent on main in 189). Neither is a 211 blocker.
+- Files written this session: tasks/211-merge-build.md (Hand-over header
+  line only - state bullets and next-steps unchanged, still accurate),
+  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
+  (nothing new learned).

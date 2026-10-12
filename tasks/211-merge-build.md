@@ -58,19 +58,19 @@ the result with no page change (GOAL.md point 5).
 207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step. (NOTE 2026-10-12 iter 186: 207 has since resumed as 207a/207b/207c - agent c is working it; 207c is blocked; its staging is on agent c's branch, not main yet.) (NOTE 2026-10-12 iter 189: the "later re-run" is now filed as tasks/230-roman-merge-rerun.md - Depends on: 211, 207a, 207b, 207c; it re-runs this consolidation over the canonical files once the Roman staging lands.)
 
 ## Hand-over
-(2026-10-12, iteration 190, agent a - GATE STILL OPEN: all seven of 222-228
+(2026-10-12, iteration 191, agent a - GATE STILL OPEN: all seven of 222-228
 `Status: open` (each `Depends on: none` - NOT circularly gated on 211, just
 un-dispatched: the driver's "Next open tasks" lists 207a/207b/221 and
 222-228 queue behind them; each touches only its own fit/src_*.py + tests,
 no overlap with my Touches, so nothing I can do unblocks them). Local main
 still 7e61147; `git fetch origin` found ZERO new commits (origin/main still
 c063314, so the 188 union audit stands). Fresh state sanity this session:
-all of 211's outputs intact and consistent (counts below). No re-run (merge
-idempotent; red set unchanged; the driver re-checks the suite at claim time).
-Nothing else remains on 211 while the gate is open.)
+all of 211's outputs intact and exactly as expected (counts below). No
+re-run (merge idempotent; red set unchanged; the driver re-checks the suite
+at claim time). Nothing else remains on 211 while the gate is open.)
 
-State (unchanged since 186; 187/188/189/190 were filing/audit/sanity
-sessions; full details in the 183-190 DECISIONS entries):
+State (unchanged since 186; 187-191 were filing/audit/sanity sessions; full
+details in the 183-191 DECISIONS entries):
 - BOXES 1-6 ALL TICKED: box 1 the live merge (09a9472; 381 staging rows ->
   the 3 canonical files, pure growth, idempotent, 0 refused, log in
   data/merge/log.jsonl); box 2 data/books/index.jsonl 1068 rows +
