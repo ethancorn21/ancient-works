@@ -3395,6 +3395,63 @@ number is only free inside one checkout). Suite at closure: 73 passed, 1 skipped
 (green; the d651c10 merge added task files only, no code).
 
 
+<!-- task 307ba -->
+# Task 307ba open-map
+
+## 2026-10-12 307ba DECISION: box 1 (the queue carries the propose) + box 2 (root-aware propose) implemented exactly as designed; boxes 1-3 ticked; the page half (box 4) and the docs (box 5) remain
+One step this session: the data side of 307b's box 1, implemented per the iteration-110
+design. Nothing failed except one signature trap (below).
+
+- **fit/propose.py root-aware (307ba box 2)**: the four loaders take `root=ROOT`, the
+  cache is keyed `(str(root), kind)` via a new `_cache_key`, `propose_for(site_id,
+  plan_id, root=ROOT)`, contract docstring updated. Verified byte-identical behaviour:
+  the git-HEAD module and the new one produce identical JSON for 9 sample (site, plan)
+  pairs spanning all three scale sources; the full suite is green (73 passed, 1
+  skipped - the iteration-110 baseline).
+- **tools/fit_queue.py (box 1)**: module-level `sys.path.insert(0, str(ROOT / "fit"))`
+  + `import propose as _propose` (the site_done.py:43 convention); a new
+  `_entry_propose(root, site_id, plan)` helper (try/except -> None: fail open; re-orders
+  the six keys and drops "ground"); build() appends `entry["propose"]` after
+  "candidates" when present. The docstring names the fifth input
+  (data/books/index.jsonl, the stage-B fields) and keeps the stdlib-only claim
+  (propose.py is stdlib too).
+- **Regenerated web/data/fit_queue.json in the checkout**: 117/117 entries carry a
+  propose (20 bar, 4 ratio, 93 picture_size; 93 coarse) - exactly the iteration-110
+  measurement (Devil's Dyke 0.3621 m/px, rot 0, the note names the bar '0 100 200 300
+  400 Yards'). The file is a joint artifact with agent c's 309 (its place check also
+  rewrites entries): when 309 lands in main, the next session re-runs the generator on
+  top of the merged branch before touching anything else.
+- **tests/test_fit_queue.py part 1 (box 3)**: the synthetic tree gained lon/lat/size_m
+  on all sites (s-gamma deliberately without size_m; s-eta [200,150] pinned for the
+  fallback; new site s-nope WITH size_m), a sizeless row-n1, and a
+  data/books/index.jsonl with four stage-B rows (row-a1 bar span + trustworthy arrow,
+  row-e1 ratio without a ppi, row-g1 no scale text, row-n1 bare). The synthetic test
+  pins: 7 entries with s-nope sorting before the all-view site; s-alpha's propose
+  (0.1306 = 91.44 m / 700 px, rot 20.0, bar, coarse False, the 5 pairs' u/v hand-pinned
+  and their lon/lat from the same propose_for run); s-eta's (0.2, picture_size, coarse
+  True, the "ppi not recorded" note); and NO propose on the five no-anchor entries. The
+  real test now copies index.jsonl into the temp tree (fifth input; included in the
+  before/after byte-identity check) and derives per-entry admissibility by calling
+  propose_for on that tree: propose present iff it anchors, equal, six keys in order,
+  five 4-tuples, non-null scale_m_px - plus a floor that at least one entry anchors
+  (guards a silently broken propose that would fail identically in both processes).
+  Parts 2-3 untouched and green.
+
+Remaining (next session, box 4): web/fitkit.js in the fitqueue/review pattern - place
+mode opens on the works (fly to the site's corners, hide the dep layer, seed
+P.pairs/P.anchor from the entry's propose, restore exactly on close), the one script
+tag in index.html, fitqueue.js byte-identical - then box 5 (docs/site_flow.md's
+"Ready to fit" gains the propose field; the full place-mode section stays with
+307bb/307c). The page-side design sketch is in the parent 307b's hand-over.
+
+**One correction to the iteration-110 design (the first trap found)**: the private
+propose loaders are a de facto external API - fit/inkfit.py, fit/inkfit_heldout.py and
+tests/test_propose.py call `_site`/`_plans_row`/`_index_row` directly. Making `root` a
+required argument broke test_propose (6 TypeErrors) on the first full-suite run; the
+fix is `root=ROOT` defaults on all four loaders, which keeps every external caller
+byte-identical. Logged as a PITFALLS entry.
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
