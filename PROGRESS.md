@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
-- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 132, agent a - **merge done + committed (c8e6cab); part-4 pick RE-DERIVED on the merged tree and verified; the part-4 section i
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 135, agent a - **verification session: every page-side fact the transcription needs was re-read and confirmed in the merged tre
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -74,15 +74,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-### 2026-10-12 307bb DECISION: iteration 129 - filed task 221 for the two review-test failures (test-side drift on pristine main: the Esri feed's singular 'tile/' URLs and the re-worded home stats line); fixed my two card tests' reqfail filters (added the arcgisonline exclusion); suite now 73 passed + 1 skipped + 2 failed (exactly the 221 pair)
-Executed the iter-128 plan steps 1-4.
-
-- **tasks/221-review-stats-test.md created** (Status: open, `Depends on: 309`, `Touches: tests/test_review.py`, 221 = lowest free number in 200-499): the two review tests fail on PRISTINE main (proved iter 128 via the /tmp/maincheck scratch of 89043b7), so they are test-side drift, not regressions: (a) test_plan_lookup_is_keyed_by_id_and_site's strict `"[reqfail]" not in p.stdout` chokes on the page's live Esri base-imagery fetches (server.arcgisonline.com/.../MapServer/tile/... - the SINGULAR 'tile/' segment defeats the '/tiles/' path exclusion the other tests use); (b) test_page_shows_the_review_list filters the home stats line by "built in all" while the lead's 939382a re-worded it (web/index.html:588) to "laid on today's ground" and web/review.js:74 already accepts both wordings. `Depends on: 309` is a same-file race gate (agent c edits tests/test_review.py now). The boxes say: fix, don't delete/loosen.
-- **tests/test_fit_queue.py (MY file): both card-test reqfail predicates now exclude `arcgisonline` in addition to `/tiles/`** (lines 874-881, 941-948), each with a comment naming the host and the singular-tile fact. Verified not a weakening: the tests' own comments already declare the relief-tile aborts "page-caused, expected"; the Esri World_Imagery feed (web/index.html:314) is the page's base imagery and this machine has no internet, so those fetches die by design - the filter was simply missing that URL class. Ran both card tests after the change: **2 passed** (31.6 s).
-- **PITFALLS.md**: new entry "the page's base imagery is a live Esri feed ... SINGULAR 'tile/'" under This machine and its environment (the relief-tile sibling's missing twin).
-- **Suite: 73 passed + 1 skipped + 2 failed** (115.9 s). The 2 failures are exactly the 221 pair (both in tests/test_review.py, the Esri reqfail and the stats wording) - they were failing before my change (part of the 4-failure main state), so my delta took the suite from 4 failed to 2. No test that was green before is red now.
-- Driver sync deb2730 merged main into my branch this session, so the lead's 89043b7 (docs/site_flow.md 9 lines, fit/matchfit*, the review export shrink) is now in my tree - box 4 will build on the lead's docs version.
-
 ### 2026-10-12 307bb DECISION: iteration 130 - committed the _pick_site refactor (0177e3a, proven 3 passed/20s); derived the part-4 pick (entries[4] oswestry-castle: entries 0-3 fail the line's own constraints, so the committed pick is NOT entries[0] and the card needs a MULTI-site done seed - the one new mechanism vs the throwaway); part-4 section fully designed (hand-over) but not yet written
 - **Refactor (committed 0177e3a):** the one-site line's per-entry constraints left _pick_site's loop and became `_line_eligible(e, it)` -> uncovered or None (same checks, same order, same comments), plus `_review_items()` for the items dict the old loop built inline. `_pick_site` is unchanged in behaviour: picks sorted uncovered-first, returns (entry, item, uncovered). Proven: test_fit_queue_synthetic + test_fit_queue_real + test_save_runs_the_one_site_line = 3 passed in 20.24 s. Needed because the part-4 pick requires the SAME line constraints plus two extras (a propose, a drawable earlier overlay) - AGENTS.md: extract, don't copy.
 - **The part-4 pick is entries[4], not entries[0] (the throwaway's Devil's Dyke):** verified by running a mirror of the final picker over the live queue: [0] devil-s-dyke-q3307343 REJECTED (an agent doc exists: devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0662_1.json, by:agent - the "no existing doc" constraint), [1] fort-ancient-q5470727 (doc b24849959_n0264_1), [2] marietta (doc b24849959_n0195_1), [3] forthill (item resolved b24849959_n0269_1 + doc) -> [4] oswestry-castle-q20713795 passes all (plan earthworkenglan01allcgoog_n0119_1 / page n0119.jpg local; item unresolved with the row as candidate, 4 pairs; no docs; dep default six-inch-1st.webp (1842 <= 1876, os1inch 1900 filtered); propose mpx 0.1646 rot 0). Consequence the throwaway never faced: the card shows entries[0] on a fresh browser, so the probe must seed aw.fitQueue.done with the 4 EARLIER entry sites in BOTH runs (the page's own done-map; part 3 proved single-site seeding - multi-site is the one new mechanism, Object.fromEntries of a comma list). Done-seed sites = devil-s-dyke-q3307343, fort-ancient-q5470727, marietta, forthill (derived in the fixture by file order, never pinned).
@@ -93,6 +84,45 @@ Executed the iter-128 plan steps 1-4.
 ... (1.4 KB more: `grep -n -A 200 -F '## 2026-10-12 307bb DECISION: iteration 130 - committed the _pick_site refactor (0177e3a, proven 3 passed/20s); derived the part-4 pick (entries[4] oswestry-castle: entries 0-3 fail the line's own constraints, so the committed pick is NOT entries[0] and the card needs a MULTI-site done seed - the one new mechanism vs the throwaway); part-4 section fully designed (hand-over) but not yet written' DECISIONS.md`)
 
 ### 2026-10-12 307bb DECISION: iteration 131 - orientation + verification only; the part-4 section is still unwritten (context limit hit at the docstring edit). Two refinements to the iter-130 design recorded: (1) openPlan (index.html:918) computes P.crop from map_box * the image's NATURAL W/H, not row.size - so the Python-side expected crop must be derived from the probe's recorded out.imgSize (page's own W/H), JS-style rounding int(v + 0.5); for n0119 natural == row.size so the value is unchanged; (2) the throwaway's run-2 lines were tagged '[console2]'/'[pageerror2]'/'[reqfail2]', so its final honesty filters (startsWith('[pageerror]') / startWith('[reqfail]')) could never match a run-2 line - run128c passed only because no such lines occurred at all; the committed probe drops the '2' suffix (the runs are sequential) so noPageErrors and noReqfailOutsideKnown cover both runs. Also recorded: the third of the seed's three keys (one object arg {sid, f, d}) is aw.ground = 'relief' (the page's default, made explicit); aw.depSel is persisted by saveFit (index.html:1147), so run 2's re-seed with the original survey file is what makes the Cancel check see the survey back. Pick re-confirmed as entries[4] oswestry-castle-q20713795 under the full 3-constraint picker (propose AND _line_eligible AND _default_dep_file), with the rejection map refined: entries 0-3 fail the line constraints (iter 130), and additionally 1 fort-ancient and 2 marietta have NO drawable default depiction at all (dep default None) while 3 forthill's default is a plan overlay (plan_b24849959_n0269_1.webp), not a survey sheet; dep defaults of the first six entries measured (0 and 4 = six-inch-1st.webp, 1 and 2 = None, 3 and 5 = plan overlays). Nothing failed, nothing run (no test execution this session; last run remains iter 130's 3 passed/20.24 s post-refactor). Verified by running the picker mirror and reading the live tree: n0119.jpg present in the checkout's data/raw; MAX_PX = 2400 at pipeline/plan_fit.py:44 (the ^MAX_PX = (\d+) multiline regex matches); machine date 2026-10-12 (so the doc at startswith '2026-' holds); buttons #fcancel/#fsave (index.html:904), #fundo (900), #fitcv (243) exist; /home/agent/tools/shot/node_modules present. Only working-tree change this session: tests/test_fit_queue.py's module docstring gains the Part 4 paragraph (uncommitted - the harness keeps it for the next agent, which appends the section after test_card_done_mark_moves_on and runs the file).
+
+### 2026-10-12 307bb DECISION: iteration 135 - verification session only; every page-side fact the part-4 transcription needs re-confirmed on the merged tree; NO code written (context limit at the write step)
+The one-session plan from the iter-132 hand-over (transcribe the throwaway probe, append the
+part-4 section, run, commit) is unchanged and now fully de-risked: this session read
+everything the transcription touches and confirmed it, correcting the iter-132 record in
+three places (all in the task hand-over):
+
+- **The checkout's web/data/sites/oswestry-castle-q20713795 is a SYMLINK into the shared
+  store, not a real dir** (the iter-132 note said the opposite; 309's merge evidently
+  re-symlinked it). The design is unaffected: copytree materializes the top-level symlink
+  into the temp tree (assert not-is_symlink on the tree, part-2 style); the checkout
+  write-surface hash reads through the symlink, so a stray write into the shared store
+  still changes the re-hash (hermeticity stands); _default_dep_file reads through it fine.
+- **The drag-start grid (x 900-1150 step 25, y 250-550 step 50) needs a pane-avoidance
+  guard**: at the 1200x800 viewport the fit pane (#fitpane, left:398px, width
+  min(46vw,780px) = 552) spans x 398..950, and the grid's x 900-949 points fall on it - a
+  mouse event there never reaches the map's container listeners, and the throwaway's
+  bare grid could have picked one. The committed probe's candidate filter adds
+  document.elementFromPoint inside map.getCanvasContainer() AND outside the #fitpane
+  rect (the throwaway's x>=1000 points were already safe; run128c's pass predates the
+  widening). Everything else in the throwaway's flow re-confirmed verbatim: fqPlace
+  awaits loadDeps before openPlan (the hide/restore is race-free), endFit(keepSite=true
+  default), need() = 2/4, map-click pins on e.lngLat with the 3-px tolerance, refit's
+  plan path maps the CROP corners by the least-squares fit (so the anchor-vs-source
+  parallelogram check compares like with like), saveFit's exact 16-key doc + the store's
+  by:hand stamp = 17 keys (serve.py:205-216), openPlan's P.crop = map_box * NATURAL W/H
+  unrounded, the card markup (Ready to fit / N to go / name / #fqplace), and fitkit.js
+  end-to-end (wheel/drag math, sync stack, hint, gesture toggles, activate seed).
+- **Pick re-confirmed on the current tree** via /tmp/fkverify/pickmirror.py (all facts
+  printed before its trailing system-python PIL error - .venv has PIL): entries[3]
+  oswestry-castle-q20713795 / n0119, bar propose mpx 0.1646 rot 0, item unresolved with
+  the row's 3 pairs as the only candidate, no uncovered rows, dep default
+  six-inch-1st.webp, done-seed [fort-ancient-q5470727, marietta, forthill].
+
+Nothing failed; nothing ran (no test execution this session; last measured state remains
+iter-132's 100 passed + 1 skipped + 0 failed at c8e6cab). Working tree clean. Next
+session: write the part-4 section per the hand-over's step-by-step spec (it now doubles
+as a transcription checklist with the exact check names), append after test_card_done_
+mark_moves_on's last two lines, run the file, commit, tick boxes 1-3.
 
 ## Project-wide driver notes (newest)
 
