@@ -559,3 +559,104 @@ side views, town panoramas and faint scans that do not match the ground. They st
 
 Fixed on the way: a review item's recorded resolution counted even after its document was deleted, so a fit taken
 off the map left its picture out of the queue (`fit/review.resolved_doc`).
+
+## The right-place check: the queue pairs a drawing with the right place, not a namesake (task 309, 2026-10-12)
+
+The queue's first entry paired Allcroft 1908 Fig. 217, "The Devil's Dyke Camp, near Brighton" (a Sussex hillfort),
+with the Devil's Dyke in Cambridgeshire (devil-s-dyke-q3307343) - same name, 150 km apart; the owner could not find
+it on the map. So every pairing in the queue must now show the same *place* as its site, not just the same name,
+before it reaches the page. `tools/right_place.py` is that check, and the `tools/fit_queue.py` build runs it as a
+second phase: every flag decision is computed over the pre-mutation candidate sets (a move into a site can never
+feed that site's own decision in the same build), then the drops, moves and review upserts are applied, and only
+then are the entries derived.
+
+**What it reads.** Stored files only, stdlib, no network: the catalog (`data/catalog/sites.jsonl`: the site's
+classic county/state, plus a town-word -> classic-county index built from the catalog's admin values), the book
+index (`data/books/index.jsonl`: the row's title, place, and the names read off the page) and the book lists
+(`data/books/lists/*.json`: the printed list title, which beats the machine-read one). With none of those stores
+present the check is a no-op and the build is exactly 305's.
+
+**How it decides.** Two rules, both fail-open - a picture or site with an unknown place is never flagged:
+
+- **H1, the explicit word.** The caption prints a county word (the matcher's UK county list, plus the extended
+  Scottish and -shire spellings and the county abbreviations the books use) or a US state word. When the site's
+  classic county (UK) or state (US) - read from its catalog record - is a different word, or the word belongs to
+  the other side of the Atlantic, the pairing is flagged.
+- **H2, the towns' county** - UK sites only, book rows only, and only when H1 has no word. The caption's town
+  words (the parts after the name, minus county words and the matcher's generic words) resolve to classic
+  counties through the catalog (a word pointing at more than four distinct counties is too broad to be a town
+  and drops). When every resolved county is other than the site's, the pairing is flagged. H2 does not apply to
+  Commons rows: their file titles are descriptions, not the book's "Name, Place" lists - the first full run got
+  nine false positives from that (dunster, oakham, pontefract, stonehenge).
+
+The flag's reason is `same name, other place: <caption place> vs <site place>`.
+
+**Where a flagged picture goes.** The check runs the matcher's own rule against the catalog - the core of
+`tools/right_place.py` is a verbatim copy of `pipeline/books_match.py`'s norm/tokens/place_of/score_candidate core
+(marked VERBATIM; the drift test `tests/test_right_place_drift.py` pins it) - the exact-name and shared-token
+channels scored the way the matcher scores them, the picture's implied county as the place gate, and a top
+candidate of at least 0.5 (the matcher itself accepts at 0.75) counts as the "right site". Then: the right site
+is built and in the queue -> the candidate moves into its entry (the row's sites narrowed to it); unbuilt -> it
+is upserted into that site's review item with the reason; no catalog site passes 0.5 -> it is upserted into the
+source site's own item. A target item that already holds the plan is not written (the batch's own entry keeps its
+pairs and evidence) - a re-run over unchanged inputs is stable, zero churn.
+
+**What it found in the committed queue.** The rebuild (`python3 tools/fit_queue.py --root .` plus the in-process
+`fit/review.py export`) checked the 324 pairings of the then-116-entry queue - the 305 baseline was 117 entries /
+325 candidates, and Shotwick Castle had already left on main when the lead's Oct 12 review export rebuilt the
+site's state (the site is no longer "built": no `web/data/sites/` directory; the queue holds built sites only; its
+review item stays in the review list) - and flagged 15 pairings over 9 sites, all true namesakes (verified one by
+one). The caption is what the check read (the book's list title where the figure/plate key resolved, else the
+machine-read index title - n0599_1 is the latter; the batch's item records the printed "CASTLE DYKE, AYSGARTH."):
+
+| site | candidate | caption | reason (all `same name, other place: ...`) |
+|---|---|---|---|
+| Alauna | n0438_1 | Defences of York, Roman, Norman, and Mediseval | Roman, Norman, and Mediseval, York vs Maryport, Cumbria, England |
+| Bokerley Dyke | n0599_1 | Castle Dyke, Aysgai-th, Yorks | Aysgai-th, Yorks, Aysgarth vs Dorset, England |
+| Castle Neroche | n0438_1 | Defences of York, Roman, Norman, and Mediseval | Roman, Norman, and Mediseval, York vs Curland, Somerset, England |
+| Clun Castle | n0575_1 | EARTHWORKS | EARTHWORKS, Devonshire vs Clun, Shropshire, England |
+| Coria | n0354_1 | ARDOCH, PERTHSHIRE. | PERTHSHIRE vs Corbridge, Northumberland, England |
+| Devil's Dyke | n0599_1 | Castle Dyke, Aysgai-th, Yorks | Aysgai-th, Yorks, Aysgarth vs Stetchworth, Cambridgeshire, England |
+| Devil's Dyke | n0686_1 | The Devil's Dyke Camp, near Brighton | near Brighton vs Stetchworth, Cambridgeshire, England |
+| Eaton Socon Castle | n0285_1 | British Village on Hampton Down, Bath | Bath vs St Neots, Cambridgeshire, England |
+| Eaton Socon Castle | n0557_1 | SITE OF WINDMILL, FIRLE HILL. | FIRLE HILL vs St Neots, Cambridgeshire, England |
+| Eaton Socon Castle | n0558_1 | WINDMILL SITES, LEWES DOWN | LEWES DOWN vs St Neots, Cambridgeshire, England |
+| Eaton Socon Castle | n0558_2 | WINDMILL SITES, LEWES DOWN | LEWES DOWN vs St Neots, Cambridgeshire, England |
+| Vindomora | n0354_1 | ARDOCH, PERTHSHIRE. | PERTHSHIRE vs County Durham, England |
+| Windmill Hill | n0557_1 | SITE OF WINDMILL, FIRLE HILL. | FIRLE HILL vs Avebury, Wiltshire, England |
+| Windmill Hill | n0558_1 | WINDMILL SITES, LEWES DOWN | LEWES DOWN vs Avebury, Wiltshire, England |
+| Windmill Hill | n0558_2 | WINDMILL SITES, LEWES DOWN | LEWES DOWN vs Avebury, Wiltshire, England |
+
+**The disposition.** Ten of the flags found a right site in the catalog - all unbuilt, so no candidate moved into
+a queue entry: the candidates left the queue and were upserted, with the reason, into the right site's review
+item. Six candidate writes landed in five new items: n0686_1 (the Brighton camp) -> devil-s-dyke-hillfort-q17674160
+(Devil's Dyke hillfort, Sussex - the owner's case, score 0.65); n0599_1 (Aysgarth) -> castle-dyke-q31112898
+(Castle Dyke, Yorkshire, 1.25); n0285_1 (Bath) -> down-end-castle-q5302812 (Down End Castle, Somerset, 0.50);
+n0557_1 (Firle Hill) -> oval-barrow-and-adjacent-bowl-barrow-220-q17672356 (Oval barrow 220 m west of Firle
+Beacon, Sussex, 0.75); n0558_1 + n0558_2 (Lewes Down) -> a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473 (a
+saucer barrow and a bowl barrow 600 m north west of Lewes Prison, Sussex, 0.58). The other four flags were the
+same (target, plan) pairs re-flagged from a second source site (the row's sites list carried the picture under
+both) and were written once. Five flags found no catalog site passing 0.5: n0354_1 (Ardoch - the catalog has no
+Ardoch) on Coria and Vindomora, n0438_1 (Defences of York) on Alauna and Castle Neroche, n0575_1 (Devonshire) on
+Clun Castle. Those candidates left the queue and stayed in their source site's review item, where the batch had
+already parked them (the upsert is skipped: the item holds the plan, and the batch's record stays as written).
+
+**The queue's size: 117 -> 114.** 117 entries / 325 candidates (305 baseline) -> 116 / 324 (Oct 12, the lead's
+re-export drops Shotwick) -> **114 / 309** after the rebuild. Two sites left entirely - Vindomora (its one
+candidate was flagged) and Windmill Hill (all three were flagged) - and seven narrowed to their remainders -
+Alauna, Bokerley Dyke, Castle Neroche, Clun Castle, Coria, Devil's Dyke, Eaton Socon Castle. Devil's Dyke's entry
+is now its only remaining candidate (n0662_1 "SWEALD"), and n0686_1, the Brighton hillfort camp, sits in the
+Sussex hillfort's review item, not in the queue. The five new items appear in the review list
+(`web/data/review.json` was re-exported in the same run: 336 open of 346). A re-run of the check over the rebuilt
+tree re-flags the same 15; a re-run of the build writes no new bytes.
+
+Two things to read in the reasons above: Bokerley Dyke's `sites.json` place is "Dorset, England" though the
+catalog has it in Cambridgeshire (Dorchester, Cambs) - the flag decision used the catalog, but the human-readable
+side of the reason quotes the `sites.json` string. And n0599_1's caption is the machine-read index title ("Castle
+Dyke, Aysgai-th, Yorks"), not the printed "CASTLE DYKE, AYSGARTH." the batch's item records.
+
+**Running it by hand.** `tools/right_place.py --root . [FILTER]` prints every flag with its signal (the explicit
+word, or the towns and where they resolve), the stored reason, and the right-site candidates it would move to;
+`--all` lists the pairs it passes as well. It reads only stored files. The original spec's `--live` path -
+re-resolving caption place words through the cached Wikidata (`pipeline/catalog_wd.py`) - was for a human re-run
+only and never part of the build; the check that ships is the stored-fields one above.
