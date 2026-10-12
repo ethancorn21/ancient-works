@@ -47,6 +47,11 @@ Where: creating tasks/<N>-<name>.md in team mode (each agent in its own branch; 
 Symptom: two files with the same number sit in tasks/ after a sync (iteration 109: the lead's 309-queue-right-place.md and agent a's 309-place-check.md, created 5 minutes apart, neither session seeing the other's commit)
 Why/fix: a number is only free inside your own checkout; a concurrent lead/agent commit on main can claim the same number before your session's merge. After the driver's main-sync, before creating a new task file, `ls tasks/` and check the driver's prompt (it names the in-flight tasks by number and title); on a collision, the file created first - or the one the prompt names - is canonical: set yours to Status: dropped and keep its content as reference.
 
+#### A session can start in the main worktree; the agent's own checkout is a sibling worktree
+Where: the team-mode checkouts /home/agent/projects/ancient-works (main), ancient-works.a (agent/a), ancient-works.c (agent/c) - linked worktrees of ONE repo (git-common-dir = ancient-works/.git)
+Symptom: `git status` in the cwd says "On branch main" although the prompt says you are agent c, and files you committed on your branch (e.g. tools/right_place.py) are absent from the cwd's working tree
+Why/fix: the worktrees share refs but have different checkouts; an agent's branch commits are checked out only in that agent's worktree. At session start run `git branch` and `git worktree list` in the cwd; if the cwd is the main worktree (or another agent's), do all work in and commit in your own worktree directory (agent c: /home/agent/projects/ancient-works.c). Never commit work in the main worktree.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
