@@ -13,6 +13,16 @@ task file (for a subtask, read its parent's too).
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
+### 2026-10-12 306c driver-note: session at context limit (iteration 146)
+- 306c first session: tools/audit_306c.mjs built (clone of 306b's; works on the post-307 page), full 32-shot
+  audit run launched in background (log /tmp/audit_306c.log; resumable - skips existing shots), ~30 shots
+  written to docs/site_flow/agent_fits/. 1/16 judged: marietta = DELETED case (fit 1 m/px/0 deg matches the
+  plate's scale bar, but the drawn Conus mound sits ~1.3 km S-E of the real one in Mound Cemetery) - the
+  303-way removal (upsert candidate w/ place_reason -> delete doc -> scoped export) is NOT yet executed.
+  Next session: finish the run (re-run driver), judge the other 15 in batches, execute marietta's removal
+  (after reading test_batch_eu/test_serve), write the 306c block in docs/site_flow.md, run the suite
+  (baseline 128 passed / 1 skipped, --ignore=tests/test_gate.py). Full state in the task's Hand-over.
+
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`

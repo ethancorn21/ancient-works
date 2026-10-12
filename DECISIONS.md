@@ -304,3 +304,28 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
+
+## 2026-10-12 306c DECISION: first session - audit driver built and running; marietta judged as the task's first DELETED case
+- The 16 US orphan docs are all confirmed orphans in this checkout (no overlay, not referenced by any of the 346
+  review items; the only overlays on the 9 sites are cahokia's non-ours c_aff1b996dce7fe3a and serpent-mound's
+  HAND fit n0210_1, untouched). tools/audit_306c.mjs = a clone of 306b's driver (16-doc list, log tag
+  [audit 306c]); verified on the post-307 page: the unwrapped refit() (P.placed false after the IIFE empties
+  FQ.entries) still runs simFit on the doc's pairs and draws fit-prev, so 306b's judging recipe carries over.
+  Full 32-shot run launched in the background (nohup, /tmp/audit_306c.log); at the context limit 2 of the last
+  3 shots were still pending - the driver skips existing files, so a plain re-run finishes it.
+- marietta.b24849959_n0195_1 (Fowke 1902 Fig. 15) judged DELETED: the fit (1.000 m/px, 0 deg, resid 0) agrees
+  with the plate's own scale bar (measured: 500 ft = 142 page px -> 1.073 m/px, ticks at x 1375/1516/1659/1946,
+  bar y~455 of the 2456x4075 full page), but the drawn Conus mound (page px ~1888,1800) lands at
+  (-81.4467, 39.4122) while the real Conus - the ringed disc of Mound Cemetery, LiDAR block_top.jpg px
+  (1163,704) on block [-81.4686167..-81.4383833] x [39.4283808..39.4086178] - is at (-81.4514, 39.4204):
+  ~1.3 km S-E of it, on farm; the drawn complex is not the real complex (the site's own hand-placed S&D plate
+  anchors on the real Conus). Scale right, placement not: the 303 way - upsert the candidate (with the doc's
+  4 pairs and a place_reason) into data/review/ via fit/review.py upsert_item, delete the doc, scoped
+  export('.', 'marietta') so the item stays open (union coverage). NOT yet executed - next session, after
+  reading test_batch_eu/test_serve to confirm the coverage semantics.
+- Pitfalls found (to file): web/data/sites/<site>/depictions.json is a DICT {'depictions': [...]} (a quick
+  scanner crashed on a float); some data/review/*.json lines parse to non-dict JSON (bare float) - scanners
+  must isinstance-check; PIL 12.3.0 is in the project .venv (system python3 has none) for scale-bar measurement.
+- The 2 fit-queue-contaminated docs (hodgen-s-cemetery-mound b24849959_n0353_1, pyramid-mound
+  ancientmonuments00squi_n0134_1) need a placed:false check in /tmp/audit_306c.log; note the [eval] field
+  fqEntries is the TOTAL queue entry count (114), not a match count - 306b's log misled on that too.
