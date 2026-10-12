@@ -13,7 +13,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/309-queue-right-place.md` (split) - hand-over: (2026-10-12, iteration 104, agent c - session 13 on the 309 lane. The merge of main
+- `tasks/309-queue-right-place.md` (split) - hand-over: (2026-10-12, iteration 105, agent c - session 14 on the 309 lane. MERGE of main
 - `tasks/805-fit-queue-rebuild.md` (open) - hand-over: (2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
 
 ## Next open tasks
