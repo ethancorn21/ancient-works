@@ -2507,6 +2507,31 @@ Ran tests/test_src_wiltshire_stukeley.py first (the hand-over's step 1): 5 passe
 The previous session (7, iteration 154) had already done the rest of the IA-leg runbook but died without writing memory: ocrmap ran (lists/<ia>.json 31 plates + .map.json), triage F (41 leaves) and B (8 leaves: 56,57,111,115,123,135,143,161) ran, TAB. XII was re-checked and reclassified from plan to section (orthographic elevation with the "The Front" scale bar - the F stage independently reads "TAB. XII -> section"), and BOOK_ROWS (XI fold-out n56/n57, XXIII n111 - stonehenge-q39671, 1740, evidence = the plate's own printed header since the book has no list of plates) was staged into files_wiltshire_b.jsonl + classified (2 rows each, 5 total) with the golden + tests updated; the driver committed it all as "uncommitted work after iteration 154" with no hand-over or DECISIONS entry. This session: (1) re-ran the 8-test file (all pass, 3.0 s) and the full suite (background, green); (2) verified the committed artifacts - 5 staged rows, per-book lists/triage only, 0 stukeley rows in the shared index.jsonl/validation.json, LLM replicas up 8080/8081/8082 (unused); (3) rewrote the Stukeley section of docs/lead_wiltshire.md: replaced the stale "module built / IA leg remains" paragraph and the "pending the IA leg" recall line with the full Stage-A/B recall (A: 3/3 plan-leaf recall, 3/6 precision - the 3 false positives n123/n135/n143 are views; F: headers with kind on 41 leaves; B: n111 clean, n57 label misread XL resolved to XI, n56 label-garbled; ocrmap matched only 2/31 entries and put XXIII's kind-s on n115 - the wrong of the two XXIII impressions, n111's header OCR "P.44. TAB.XXIII" lost the anchor - a .map.json attribution issue only, staging uses hand-set leaf numbers; XII the one plan-like plate not staged, no Wiltshire map, no standalone Avenue plan); (4) ticked boxes 1/2/3/5 and corrected box 2's premise wording (it said "the book's printed plate list ... from the hOCR" - the book has no printed list and the hOCR is garbage; the box now names the hand-list pattern). Box 6 (tests) was re-verified rather than re-ticked. No code changed this session: docs, task file, this entry, the hand-over only.
 
 
+<!-- task 209c -->
+# Task 209c petrie
+
+## 2026-10-13 209c DECISION: finalize the Commons fallback - the two canonical rows verified, the refused book leg closed
+ask_human 002 (the human-downloaded 1880 book) was refused before iteration 151 (the 001-Hoare pattern,
+PITFALLS "the human will not download books for this project"), so the book leg of 209c is off the
+table for good - and, unlike 209a, no dormant fetch wrap is built: 209a's wrap pre-dated its refusal,
+whereas here the refusal is known, so a dead wrap would be scope creep (the module header records that
+a 209a-style wrap is added only if a real copy lands in data/raw/books/petrie1880/). The Commons leg
+(the task's own fallback (a), satisfied by 209b's 2026-10-12 visual check) IS the two canonical
+files.jsonl rows 209b verified as Petrie 1880 Pl. I/II: they stay canonical and are verified, never
+re-staged (the module's never-re-staged guard fails loud on a *_wiltshire_c row carrying either title;
+209b's _stage_commons canonical-title-clash guard was built for exactly this case). Delivered this
+session: fit/src_wiltshire_petrie.py (--check: PETRIE_ROWS table match + guard + join + fit/evidence.py
+from stored fields, 2/2 PASS, no network; --golden), tests/test_src_wiltshire_petrie.py (7 socket-blocked
+tests, incl. negative controls on tmp files: a missing canonical title, a re-staged Petrie title),
+tests/golden/src_wiltshire_petrie_sample.json (the two file rows + their machine-classified rows,
+p_plan 0.9372/0.9167), and the Petrie section of docs/lead_wiltshire.md (refusal verbatim, the two-row
+table with the W.M.F.P. identifications, n/a recall, the undelivered Avebury/Silbury/West Kennet plates).
+Boxes 1-3 reworded to the fallback variant the task's own Notes design (the 209b box-2 reword is the
+precedent; a strict reading of the book-leg wording of boxes 1/2/3 is unsatisfiable in this variant),
+boxes 4/5 as written; all ticked, Status: done. The Wiltshire lead (209) now stands on 209b + these two
+rows. Suite: baseline (pre-change) 112 passed 1 skipped 0 failed; final run green (verified below).
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
