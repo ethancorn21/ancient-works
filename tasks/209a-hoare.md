@@ -1,4 +1,4 @@
-Status: blocked
+Status: in-progress
 # 209a: Hoare, Ancient Wiltshire (1812-21)
 Depends on: 200
 Touches: fit/src_wiltshire_hoare.py, data/books/triage/, data/books/lists/, data/commons/files_wiltshire_a.jsonl, data/commons/classified_wiltshire_a.jsonl, docs/lead_wiltshire.md, tests/test_src_wiltshire_hoare.py, tests/golden/src_wiltshire_hoare_sample.json
