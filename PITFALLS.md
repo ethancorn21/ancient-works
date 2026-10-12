@@ -6,6 +6,8 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (17)
 - Libraries and frameworks (8): pyproj (3.8, project .venv) 2, Python (3.12.3) 4, scipy (1.18.1, project .venv) 2
 - This codebase (48): Wikimedia APIs (Commons, Wikidata) 10, fit/ 11, pipeline/ 8, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 2
+- Libraries and frameworks (7): pyproj (3.8, project .venv) 2, Python (3.12.3) 5
+- This codebase (49): Wikimedia APIs (Commons, Wikidata) 10, fit/ 10, pipeline/ 8, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 2, web/ (the page and its extension scripts) 2
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -164,7 +166,7 @@ Symptom: web_fetch and curl (three browser UAs tried) get HTTP 405 with a "Human
 Why: NLS fronts maps.nls.uk with an AWS WAF bot challenge that only a real browser passes; this VM cannot. Consequence: the NLS-hosted Roy 1793 book (the only complete online facsimile of it) needs a human download (207c). pipeline/nls.py is unaffected: it fetches only from the open S3 bucket.
 
 #### The gitignored data (data/raw and the per-site web/data/sites dirs) is a SHARED store: every checkout symlinks it into the main checkout, so parallel agents rewrite each other's files
-Where: `data/raw` (one symlink to /home/agent/projects/ancient-works/data/raw), `web/data/sites/<site>/` (388 per-site symlinks there; only the first six hand-fitted site dirs are tracked, the rest gitignored), tests/test_site_done.py, /home/agent/projects/ancient-works (the main-branch checkout)
+Where: `data/raw` (one symlink to /home/agent/projects/ancient-works/data/raw), `web/data/sites/<site>/` (382 per-site symlinks there, the 6 tracked hand-fitted site dirs, plus the untracked real dir shotwick-castle-q7502621 - built in a checkout that has no shared-store copy of it, so it never got a symlink), tests/test_site_done.py, /home/agent/projects/ancient-works (the main-branch checkout)
 Symptom: a byte-compare test against a per-site file fails with content your checkout never wrote (2026-10-11, test_site_done: `At index 35 diff: b'p' != b'm'` - the rebuilt depictions.json has the 7 plan entries, the comparison target only the 2 maps), while `git status` is clean; `git check-ignore` answers "pathspec ... is beyond a symbolic link"; the target file's mtime (stat -c %y) points at a moment inside another agent's session, not yours.
 Why: each agent checkout symlinks its gitignored data into the main checkout's copy - the machine's one image/scan store (data/raw's GB of book scans and the rebuilt per-site directories). Any agent's (or the lead/driver's) run rewrites those shared files in place, and concurrent checkouts see each other's churn: 301 (agent c) was mid-flight re-running Stonehenge through the new site line, resetting the shared depictions.json to the pre-sync state, which voided test_site_done's byte compare transiently.
 What to do: diagnose with `readlink web/data/sites/<site>` (target = the main checkout), `stat -c %y` on the target (who wrote it when), and `git status`/`git branch` in the other checkout (who was mid-work). If the failing file is outside your Touches, record it as transient shared-store churn (DECISIONS + hand-over) and re-check when the other task lands - never "fix" the other task's test or the shared store from your task.
@@ -253,6 +255,22 @@ Why: the labelled form returns a list of (cy, cx) tuples, one per label. The sin
 Where: `fit/surveyfit.py` (`shift_sheet_image` - the 302b sheet-shift null applied to the loaded sheet image, which is always RGB)
 Symptom: "RuntimeError: sequence argument must have length equal to input rank" when shifting with `shift=(-h*f, w*f)`
 Why: ndi.shift checks len(shift) == input.ndim; a 2-element shift only fits 2-D arrays. The null path had never been executed (the early stub tests use null=False), so the crash surfaced at the first null run. Fix: `shift=(-h*f, w*f, 0.0)`.
+#### select() on a coprocess pipe's fd is not a wait for more LINES when you read through Python's buffered reader
+Where: tests that pump a server's stdout (tests/test_fit_queue.py part 2 - the drain loop timed out for a
+      line that was already delivered; the coprocess was read as `subprocess.Popen(..., text=True)` and
+      consumed with `select.select([proc.stdout.fileno()], ...)` + `proc.stdout.readline()`)
+Symptom: the drain loop sees only the first few lines (whatever the first readline() pre-fetched), then
+      `select` never reports the fd ready again - even though the coprocess prints more lines seconds later
+      and the "missing" burst appears only after EOF (killing the process made the whole tail arrive at once).
+Why: a readline() on a TextIOWrapper pulls a big raw chunk (up to 16 KB) from the OS pipe into its internal
+      buffer; the fd then reads as empty, so select() no longer reflects data that still waits in the Python
+      buffer, and data landing in the pipe in the meantime can go unreported between select() calls. There
+      was no hang in the coprocess at all (a raw `os.read` reader thread showed the whole run finishing in
+      23 s; one run additionally showed a whole-process stall of minutes under parallel-agent load - its
+      watchdog `time.sleep(60)` never woke - so keep the test's deadline well beyond the measured runtime).
+What to do: drain coprocess output in a dedicated thread that does plain blocking reads (`for line in
+      proc.stdout:` or `os.read` in a loop) into a list the test polls; never combine select() with a
+      buffered reader on the same fd.
 
 ## This codebase
 
@@ -830,3 +848,15 @@ Why: the store's invariant is "every fit doc names a built site" (built = an ent
 Where: `fit/review.py` (`resolved_doc`, `export`), `data/review/README.md` ("Resolution is derived, never a second store"), `tools/site_done.py` (`_sync_doc`'s refusal path), `web/review.js`
 Symptom: after a 303 refusal (an unmarked non-auto doc stays in `data/db/platefits/`), the next `review.export` records `resolved: {"doc": ..., "at": ...}` into the item file (write-once) and the item drops out of `web/data/review.json`'s items - the Review tab (open items only) never lists it again, even though the human is supposed to act on the recorded refusal.
 Why: 201's contract derives resolution from doc existence alone (a human save is the record; only export writes the `resolved` field), while 303's refusal keeps the doc (no build, no delete). The refusal record survives in the item file (`data/review/<site>.<lead>.json`, candidate `why` = `plan_fit.NO_PROVENANCE`), and once a human places the pairs from the page the PUT stamps `by:hand` and the doc resolves the item for good - the loop closes, the page just doesn't advertise the open middle. 303 conforms to the contract (fit/review.py is not in its Touches; 212/serve rely on it). A fix (e.g. only a doc with a trustworthy `by` resolves) is a 201 contract change: product decision, new task, not a drive-by patch. Verified 2026-10-11 (303 step 3, hermetic: refusal + export recorded resolved and the item left the published queue, second run byte-stable).
+
+### web/ (the page and its extension scripts)
+
+#### `const x = {}; x = {...}` throws "Assignment to constant variable" at runtime, and a swallowing try/catch turns the crash into silently missing data
+Where: page scripts and the headless probe scripts (tests/test_fit_queue.py's PROBE_SCRIPT; fitqueue.js's fqPatch once hit it as `old -> card`)
+Symptom: inside a try/catch, no `[pageerror]` at all and the data just loses fields (the card probe's boot came back as `{"ok":true}` with none of its state fields, for 30+ minutes of misdiagnosis); uncaught, Chrome console `[pageerror] Assignment to constant variable.`
+Why: reassigning a const is a runtime error, not a parse error - `node --check` and the browser both accept the source; only the assignment itself throws, and a try/catch that exists to tolerate missing page state swallows it without a trace. Use `let` for anything assigned twice, and in a probe, capture `e.message` into the returned object instead of a bare `catch {}`, so a JS bug looks like a JS bug.
+
+#### Two classic <script>s on one page share one global lexical scope: a top-level const/let name may be declared only once across ALL of them
+Where: `web/index.html`, `web/review.js`, `web/fitqueue.js` (the extension scripts that save and reassign the page's globals)
+Symptom: Chrome console `[pageerror] Identifier '_renderList' has already been declared` (hit by fitqueue.js re-declaring the wrapper-saved names review.js already declared at top level); the second script is rejected WHOLE, so none of what it defines (e.g. the `FQ` queue state, the wrapped `renderList`) exists, and a page probe then fails with `ReferenceError: FQ is not defined` - even though `node --check` on the file passes.
+Why: top-level lexical declarations (let/const/class) in a classic script live in the page-wide lexical environment, not a per-script one; only global functions and vars may be re-assigned across scripts. The extension pattern (save the original as `_name`, reassign the global) must therefore pick saved-original names unique per file: review.js took `_renderList`, `_setTabHome`, `_openPlan`, `_saveFit`, `_loadDeps`, and fitqueue.js uses `_fqRenderList` / `_fqSaveFit`. Such a parse error is invisible to `node --check`; only a real browser (the shot.mjs `[pageerror]` line) shows it - smoke every new extension script headless against a served copy before committing.
