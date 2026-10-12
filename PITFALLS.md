@@ -164,7 +164,7 @@ Symptom: web_fetch and curl (three browser UAs tried) get HTTP 405 with a "Human
 Why: NLS fronts maps.nls.uk with an AWS WAF bot challenge that only a real browser passes; this VM cannot. Consequence: the NLS-hosted Roy 1793 book (the only complete online facsimile of it) needs a human download (207c). pipeline/nls.py is unaffected: it fetches only from the open S3 bucket.
 
 #### The gitignored data (data/raw and the per-site web/data/sites dirs) is a SHARED store: every checkout symlinks it into the main checkout, so parallel agents rewrite each other's files
-Where: `data/raw` (one symlink to /home/agent/projects/ancient-works/data/raw), `web/data/sites/<site>/` (388 per-site symlinks there; only the first six hand-fitted site dirs are tracked, the rest gitignored), tests/test_site_done.py, /home/agent/projects/ancient-works (the main-branch checkout)
+Where: `data/raw` (one symlink to /home/agent/projects/ancient-works/data/raw), `web/data/sites/<site>/` (382 per-site symlinks there, the 6 tracked hand-fitted site dirs, plus the untracked real dir shotwick-castle-q7502621 - built in a checkout that has no shared-store copy of it, so it never got a symlink), tests/test_site_done.py, /home/agent/projects/ancient-works (the main-branch checkout)
 Symptom: a byte-compare test against a per-site file fails with content your checkout never wrote (2026-10-11, test_site_done: `At index 35 diff: b'p' != b'm'` - the rebuilt depictions.json has the 7 plan entries, the comparison target only the 2 maps), while `git status` is clean; `git check-ignore` answers "pathspec ... is beyond a symbolic link"; the target file's mtime (stat -c %y) points at a moment inside another agent's session, not yours.
 Why: each agent checkout symlinks its gitignored data into the main checkout's copy - the machine's one image/scan store (data/raw's GB of book scans and the rebuilt per-site directories). Any agent's (or the lead/driver's) run rewrites those shared files in place, and concurrent checkouts see each other's churn: 301 (agent c) was mid-flight re-running Stonehenge through the new site line, resetting the shared depictions.json to the pre-sync state, which voided test_site_done's byte compare transiently.
 What to do: diagnose with `readlink web/data/sites/<site>` (target = the main checkout), `stat -c %y` on the target (who wrote it when), and `git status`/`git branch` in the other checkout (who was mid-work). If the failing file is outside your Touches, record it as transient shared-store churn (DECISIONS + hand-over) and re-check when the other task lands - never "fix" the other task's test or the shared store from your task.
@@ -241,6 +241,23 @@ Why: patches are per-process. Run the child as `[sys.executable, "-c", GUARD, sc
       in a `-c` process `sys.argv[0]` is the literal string "-c" (the real arguments start at argv[1]); and
       pass `PYTHONIOENCODING=utf-8` in the child's env so non-ASCII output (em-dashes in Commons titles)
       cannot crash it or the decoding under a non-UTF-8 locale.
+
+#### select() on a coprocess pipe's fd is not a wait for more LINES when you read through Python's buffered reader
+Where: tests that pump a server's stdout (tests/test_fit_queue.py part 2 - the drain loop timed out for a
+      line that was already delivered; the coprocess was read as `subprocess.Popen(..., text=True)` and
+      consumed with `select.select([proc.stdout.fileno()], ...)` + `proc.stdout.readline()`)
+Symptom: the drain loop sees only the first few lines (whatever the first readline() pre-fetched), then
+      `select` never reports the fd ready again - even though the coprocess prints more lines seconds later
+      and the "missing" burst appears only after EOF (killing the process made the whole tail arrive at once).
+Why: a readline() on a TextIOWrapper pulls a big raw chunk (up to 16 KB) from the OS pipe into its internal
+      buffer; the fd then reads as empty, so select() no longer reflects data that still waits in the Python
+      buffer, and data landing in the pipe in the meantime can go unreported between select() calls. There
+      was no hang in the coprocess at all (a raw `os.read` reader thread showed the whole run finishing in
+      23 s; one run additionally showed a whole-process stall of minutes under parallel-agent load - its
+      watchdog `time.sleep(60)` never woke - so keep the test's deadline well beyond the measured runtime).
+What to do: drain coprocess output in a dedicated thread that does plain blocking reads (`for line in
+      proc.stdout:` or `os.read` in a loop) into a list the test polls; never combine select() with a
+      buffered reader on the same fd.
 
 ## This codebase
 

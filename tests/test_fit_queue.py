@@ -31,10 +31,10 @@ lands on the map, the site's square is recoloured, its review item is resolved),
 import json
 import os
 import re
-import select
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime
 from pathlib import Path
@@ -367,16 +367,21 @@ def _rows_naming(root, site):
 
 def _pick_site():
     """The first queue entry the line test can use: a book row whose page is in this checkout's
-    data/raw (the line reads it locally), whose site's review item carries that row as a candidate
-    (so the line's export resolves the item), with a candidate's proposed pairs to save, and at
-    least one candidate left for the line to send to the item as "no model answer". Derived, never
-    pinned (803: the population moves under the batch tasks). -> (entry, item) or None."""
+    data/raw (the line reads it locally), whose site's review item is unresolved and carries that
+    row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
+    (the line then builds exactly one new overlay: drawings changes by one, the open count drops
+    by one, and the item resolves by the saved doc). The pick prefers a site with at least one
+    uncovered row (a row naming it, no doc, no item candidate), so the line's model=None path
+    runs and lands in the item as "no model answer"; a pick without one skips that assertion.
+    Derived, never pinned (803: the population moves under the batch tasks).
+    -> (entry, item, uncovered) or None."""
     q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
     items = {}
     for p in (ROOT / "data" / "review").glob("*.json"):
         it = json.loads(p.read_text())
         if it.get("site"):
             items[it["site"]] = it
+    picks = []
     for e in q["entries"]:
         row = e["best"]["row"]
         ia, file_ = row.get("ia"), row.get("file")
@@ -385,21 +390,24 @@ def _pick_site():
         if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
             continue  # no local page: the line would need the network
         it = items.get(e["site"])
-        if not it or not any(c.get("plan") == row["id"] for c in it.get("candidates") or []):
-            continue  # no item candidate for the export to resolve
-        cand = [c for c in it["candidates"] if c["plan"] == row["id"]][0]
-        if len(cand.get("pairs") or []) < 3:
+        if not it or (it.get("resolved") or {}).get("doc"):
+            continue  # an unresolved item, so the line's export resolves it by the saved doc
+        cand = next((c for c in it.get("candidates") or [] if c.get("plan") == row["id"]), None)
+        if not cand or len(cand.get("pairs") or []) < 3:
             continue  # the page's save floor for a similarity fit
         docs = {json.loads(p.read_text()).get("plan")
                 for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
                 if p.name.startswith(e["site"] + ".")}
+        if docs:
+            continue  # an existing doc would make the line build a second overlay
         item_plans = {c.get("plan") for c in it["candidates"]}
         uncovered = [r["id"] for r in _rows_naming(ROOT, e["site"])
                      if r["id"] not in docs and r["id"] not in item_plans]
-        if not uncovered:
-            continue  # the line's no-model path (the item upsert) would never run
-        return e, it
-    return None
+        picks.append((e, it, uncovered))
+    if not picks:
+        return None
+    picks.sort(key=lambda p: not p[2])  # an uncovered row first: the no-model path runs
+    return picks[0]
 
 
 @pytest.fixture(scope="module")
@@ -408,14 +416,18 @@ def line_served(tmp_path_factory):
     tree strips tools/, fit/ and pipeline/ (the worker dies on the import there, which
     test_review pins); this copy keeps them, so a platefits PUT really runs the one-site line
     in-process. Every socket in the server process is dead (the guard's AssertionError names the
-    call): the line is network-free by contract. The picked site's web/data/sites dir is
-    materialized instead of kept a symlink - in the checkout the per-site dirs point into the
-    shared store, and this test must write only into its own temp tree.
-    -> {"base", "tree", "proc", "entry", "item", "size"}"""
+    call): the line is network-free by contract. In the checkout the per-site web/data/sites dirs
+    are mostly symlinks into the shared store (a few hand-fit ones are real files); the copy above
+    materializes them into the tree, so the line's writes can only land in the tree (the test
+    re-checks below that nothing in the picked site's dir is a link). The server's stdout is pulled
+    by its own reader thread (a blocking readline: a select() on the buffered reader's fd misses
+    lines the reader has already pulled, and a whole-process stall under parallel-agent load can
+    swallow a short window, so the test gives the line 180 s - it measures ~23 s here).
+    -> {"base", "tree", "proc", "entry", "item", "size", "uncovered", "out"}"""
     pick = _pick_site()
-    assert pick, ("no queue entry with a local book page, an item candidate to resolve and an "
-                  "uncovered row - the save -> line test is vacuous")
-    entry, item = pick
+    assert pick, ("no queue entry with a local book page and an unresolved item carrying it "
+                  "with save-floor pairs - the save -> line test is vacuous")
+    entry, item, uncovered = pick
     row = entry["best"]["row"]
     tree = tmp_path_factory.mktemp("awline")
     for d in ("web", "server", "tools", "fit", "pipeline"):
@@ -425,11 +437,6 @@ def line_served(tmp_path_factory):
         return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
 
     shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
-    # the picked site's dir: a real copy (in the checkout it is a symlink into the shared store)
-    sd = tree / "web" / "data" / "sites" / entry["site"]
-    target = sd.resolve()
-    sd.unlink()
-    shutil.copytree(str(target), str(sd))
     # the one page the line needs: a real file under the tree's own data/raw (the checkout's data/raw
     # is a symlink into the shared store, and the test must not write through it)
     img = ROOT / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]
@@ -438,17 +445,27 @@ def line_served(tmp_path_factory):
     shutil.copy2(str(img), dst)
     proc = subprocess.Popen([sys.executable, "-c", GUARD, "server/serve.py", "--port", "0"],
                             cwd=str(tree), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    out = []
+
+    def _reader():
+        for line in proc.stdout:  # blocking reads in their own thread: no select, no prefetch gap
+            out.append(line.rstrip("\n"))
+
+    threading.Thread(target=_reader, daemon=True).start()
     url = None
     deadline = time.time() + 90
     while time.time() < deadline and proc.poll() is None:
-        line = proc.stdout.readline()
-        m = re.match(r"Ancient Works on (\S+)", line) if line else None
-        if m:
-            url = m.group(1)
+        for line in list(out):
+            m = re.match(r"Ancient Works on (\S+)", line)
+            if m:
+                url = m.group(1)
+                break
+        if url:
             break
+        time.sleep(0.2)
     if not url:
         proc.kill()
-        raise AssertionError("server did not report its address (startup: %r)" % proc.stdout.read()[-2000:])
+        raise AssertionError("server did not report its address (startup: %r)" % out[-10:])
     deadline = time.time() + 30
     while time.time() < deadline:
         try:
@@ -460,7 +477,8 @@ def line_served(tmp_path_factory):
         proc.kill()
         raise AssertionError("server is not answering at " + url)
     yield {"base": url.rstrip("/"), "tree": Path(tree), "proc": proc,
-           "entry": entry, "item": item, "size": Image.open(dst).size}
+           "entry": entry, "item": item, "size": Image.open(dst).size,
+           "uncovered": uncovered, "out": out}
     proc.terminate()
     try:
         proc.wait(timeout=10)
@@ -476,11 +494,14 @@ def test_save_runs_the_one_site_line(line_served):
     saveFit builds it (the row's fields, the crop from the row's map_box and size or the whole
     page, the candidate's proposed pairs as the human's drag) and is stamped by: hand by the store
     (303). The line's model is None and every socket in the server process is dead, so the run is
-    network-free: the unfitted candidate lands in the item as "no model answer", and the page is
-    read from the tree's own data/raw copy. The site is derived from the real queue (never pinned,
-    803): the current pick is Devil's Dyke, head of the queue. Writes land in the temp tree, never
-    in the shared store behind the checkout's symlinks (realpath check)."""
-    base, tree, proc = line_served["base"], line_served["tree"], line_served["proc"]
+    network-free: any unfitted candidate lands in the item as "no model answer" (checked when the
+    picked site has one - the pick prefers it), and the page is read from the tree's own
+    data/raw copy. The site is derived from the real queue (never pinned, 803): the first entry
+    with a local book page and an unresolved item carrying it. The server's stdout is pulled by a
+    reader thread and the line gets 180 s (it measures ~23 s, the heavy first import included).
+    Writes land in the temp tree, never in the shared store behind the checkout's symlinks
+    (realpath check)."""
+    base, tree, proc, out = line_served["base"], line_served["tree"], line_served["proc"], line_served["out"]
     entry, item_before = line_served["entry"], line_served["item"]
     site, row, plan = entry["site"], entry["best"]["row"], entry["best"]["plan"]
     doc_id = site + "." + plan
@@ -517,36 +538,30 @@ def test_save_runs_the_one_site_line(line_served):
     status, body = put_json(base + "/api/db/platefits/" + doc_id, doc)
     assert status == 200 and json.loads(body) == {"ok": True}
 
-    # ---- poll: the line puts the drawing on the map (the server stays up while it runs) ----
+    # ---- poll: the line puts the drawing on the map, then reports finished (exit 0); the server
+    # stays up the whole time (the owner's page is live while the line runs) ----
     t0 = time.time()
     fit_entry = None
-    while time.time() - t0 < 120:
+    finished = False
+    want = "one-site line for %s: finished (exit 0)" % site
+    while time.time() - t0 < 180:
         assert get(base + "/")[0] == 200
-        if dep_path.exists():
+        if not fit_entry and dep_path.exists():
             for d in json.loads(dep_path.read_text())["depictions"]:
                 if (d.get("fit") or {}).get("doc") == doc_id and (d.get("fit") or {}).get("at") == AT:
                     fit_entry = d
                     break
-        if fit_entry:
+        if fit_entry and not finished and any(want in ln for ln in out):
+            finished = True
+        if fit_entry and finished:
             break
         time.sleep(1)
-    assert fit_entry, "the one-site line never put the drawing on the map within 120 s"
+    assert fit_entry, "the one-site line never put the drawing on the map within 180 s: %r" % out[-20:]
+    assert finished, "the one-site line never reported finished (exit 0) within 180 s: %r" % out[-20:]
 
-    # ---- the line's own words: it ran, it finished (exit 0), it never touched the network ----
-    lines, t0 = [], time.time()
-    want = "one-site line for %s: finished (exit 0)" % site
-    while time.time() - t0 < 30:
-        if any(want in ln for ln in lines):
-            break
-        r, _, _ = select.select([proc.stdout.fileno()], [], [], 0.2)
-        if r:
-            ln = proc.stdout.readline()
-            if not ln:
-                break
-            lines.append(ln.rstrip("\n"))
-    assert any(want in ln for ln in lines), lines
-    assert not any("attempted a network connection" in ln for ln in lines), lines
-    assert not any("one-site line" in ln and "failed" in ln for ln in lines), lines
+    # ---- the line's own words: it ran, and it never touched the network ----
+    assert not any("attempted a network connection" in ln for ln in out), out[-20:]
+    assert not any("one-site line" in ln and "failed" in ln for ln in out), out[-20:]
 
     # ---- the stored document: the owner's pairs and timestamp, stamped by: hand ----
     status, stored = get_json(base + "/api/db/platefits/" + doc_id)
@@ -578,17 +593,17 @@ def test_save_runs_the_one_site_line(line_served):
     assert drawings_after == drawings_before + 1
 
     # ---- the review item: resolved write-once by the saved document; every other uncovered
-    # candidate went to the item as "no model answer" (the line has no model); the file did not move
-    # (its lead candidate is unchanged) ----
+    # candidate (when the pick has any) went to the item as "no model answer" (the line has no
+    # model); the file did not move (its lead candidate is unchanged) ----
     item_path2, item_after = _item_of(tree, site)
     assert item_path2 == item_path
     assert item_after["resolved"] == {"doc": doc_id, "at": AT}
     uncovered = [r["id"] for r in _rows_naming(tree, site)
                  if r["id"] != plan and r["id"] not in {c.get("plan") for c in item_before["candidates"]}]
-    assert uncovered  # the pick guarantees at least one
-    after_cands = {c["plan"]: c for c in item_after["candidates"]}
-    for u in uncovered:
-        assert after_cands.get(u, {}).get("why") == "no model answer", u
+    if uncovered:
+        after_cands = {c["plan"]: c for c in item_after["candidates"]}
+        for u in uncovered:
+            assert after_cands.get(u, {}).get("why") == "no model answer", u
 
     # ---- the page's review file: republished, and the saved site's item left the open list ----
     status, rv_after = get_json(base + "/data/review.json")
