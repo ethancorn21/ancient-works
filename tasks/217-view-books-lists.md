@@ -28,7 +28,106 @@ cached in `data/raw/books/<ia>/`) once the civitates path works.
       (their metrics must not drift - a view plate is not a site plan for their recall/precision).
 
 ## Hand-over
-**2026-10-12, iteration 120 (agent c) - session 6: STEP 1 DONE - all 436 per-page texts extracted and all 57 in-BR foldout partners classified: NO independent plates in BR (55 blank versos, 1 Unterwalden text page n143, 1 faint-ghost blank n167) - so all 15 'none' list entries stay fig ''. NEXT: (2) re-run /tmp/merian/identify.py (3 pending: n66, n110, n166; chk/ files exist; LLM 8080/8081 verified up this session), (3) image-check the 19 'pending' rows from /tmp/merian/d2/, (4) write HAND_FIGS['topographiahelve00zeil'] + parse ''->None, (5) ocrmap + byte-verify + commit, (6) triage + index + validate + tick box 2.**
+**2026-10-12, iteration 121 (agent c) - session 7: ALL 80 table rows resolved (LLM re-run + 20 image reads + list crops re-verified); the final table is BELOW, ready to paste. NO code written yet. NEXT: (1) write HAND_FIGS['topographiahelve00zeil'] = the table below into pipeline/books_lists.py (replacing the old s6 table content is NOT needed - the old hand-over table below the marker is superseded by THIS table), (2) parse_hand_figures one-line change fig '' -> None, (3) ocrmap topographiahelve00zeil + byte-verify, (4) validate no-args, commit.**
+
+SESSION 7 FINDINGS (all verified by image; the s6 table below the marker is CORRECTED here):
+- LLM re-run (identify.py, after deleting 3 stale error entries from /tmp/merian/llm_ids.json - the resumable logic skips keys present even when they hold {"error"}; the chk/ files existed): n66 Bern 'Bern die HauptStatt in Nüchternland' = PLAN (s); n110 'Mürten. Neus. Nion. Aventicum. Vifffisburg.' = 4 VIEWS (o); n166 'GLARONA. Glaris.' = view (o).
+- Fetched scale-3 -> chk/ + d2/: n0072, n0124, n0104 (ia.page_image_url(p, scale=3) + books_ia.get; PIL thumbnail 1200).
+- FIVE LIST CORRECTIONS (s5/s6 table -> truth): (a) n298 = 'S. GALLEN.' plan -> entry 61 'S. Gallen 67' HAS a leaf [s] (was 'none'); Biel 66 = n294 view ONLY (1 row). (b) n362 = 'PRYG. NATERS.' -> entry 71 'Brieg+Naters 88' HAS a leaf [o] (was 'none'). (c) n368 = 'S. MAURITIUS INVALESIA / S. Mairise in Walls' (French legend) -> entry 73 'S. Mauritij 89' HAS a leaf [o] (was 'none'); so entry 69 'S. Luciensteig 85' (re-verified verbatim in list_c31 crop) becomes 'none' (no plate leaf anywhere; leaves 382-388 are plain pages, no foldout/delete there). (d) n72 = 3 views: 'LENTZBURGV.' + 'Brugg Im Argaw. BRVG ARGOLIA.' + 'Habsburg. HASSBURGŰ.' -> entries 14 (Lenzburg+Bruck 27) AND 15 (Habsburg 27, was 'none') both -> fig 72 (two o rows). (e) n342 = 'FLURSIUM. TERRÆ MOTU OBRUTVM' stays an EXTRA (Flurschm != Plürs/Flüelen; page-window coincidence only) -> entry 67 'Plürs 83' is 'none'.
+- Kinds settled: n124 = 2 rows (SEMPACH. SEMPACHIUM. o + SURSEE. s on ONE leaf); n134 = 2 rows (Altorff o + Flüelen plan s); n254 Zurzach 'Forvm Tyberii' = ELEVATED VIEW (o, not flat plan); n268 Dissenhofen 'in grund gelegt 1648' = s; n288 Müllhausen = s; n294 Biel = o; n146 Einsiedelen o; n98 'S. Peter. Bibiscum.' o (= Beven 31); n214 Freiburg o; n236 Appenzell+Herisaw = 1 row o (2 views, same kind); n272 Frauenfeld+Mellingen = 1 row o; n328 Weyerhaus o; n356 'Leugg' o (= Leug 87); n374 Sitten o; n378 Breiten Landenberg o. KIND DECISIONS: n104 Gletscher u, n228 Rheinfall u, n348 Ursprung des Rheins u (natural-feature landscapes, not towns - excluded), n204 Pierre-Perthuis o (view of a named pass in the list; record in DECISIONS). All other s5-LLM kinds confirmed (n16/n24/n120/n152 u, n218/n308 s, rest o; n250 coins u).
+- CODE (read this session, no change needed beyond the one-line parse): cmd_index's per_entry logic (no stage B + >1 o/s entry on a leaf) ALREADY emits one row per entry with the right view field (n72 -> 2 rows o,o; n124 -> row o + row s; n134 -> o+s); single-entry leaves take the hand entry (title, view = kind=='o'). validate_book (nopage for fig None; set-based gt_site/gt_other handle multi-row leaves) and list_pages (n is not None) are already None-safe. ONLY change: parse_hand_figures fig=int(fig) -> fig=None if fig=="" else int(fig) + docstring. The 3 multi-entry leaves' rows: per_entry uses site_es order = TABLE order, so put the o row BEFORE the s row for n124/n134.
+- 12 'none' entries (fig ''): Elgaw+Murrz 16, Eglisaw-group 20, Willisaw+Wedeschwyl 23, Thron 26, Engelberg 41, Nünkirchen 55 (s - the fo230 plan leaf is not in BR), Lowerk+Wellenk 60, Pfeffers 63 (2 Kupfer), Plürs 83, S. Luciensteig 85, Bisp/ oder Bispach 88, Chastillard+Blonay 90, Sandeck+Mauwister 90, Werdenstein+S. Urbani 90 (14 total counting Nünkirchen; s6's 15 minus Habsburg/S. Gallen/Brig/S. Mauritij, plus S. Luciensteig and Plürs). Extras NOT in the table (stage-A rows at triage): n76 Oron, n264 LVGANO+BELLINZONA, n342 FLURSIUM. n143 = text page, not a figure.
+- Baseline: md5 of the 18 existing data/books/lists/*.json saved to /tmp/merian/lists_md5_before_s7.txt (after commit, also diff vs `git show HEAD`). civitates .json md5 = 0881ec0c... (must stay). Last suite: 101 passed / 1 skipped (s6; no code changed since).
+- ARTIFACTS /tmp/merian/: all d2/ + chk/ images current this session (d2 now 52 files); llm_ids.json complete 40/40; list_c{1,2,3}{0,1}.jpg (list crops - col3 lower = list_c31.jpg); wide_hocr.txt; partners.txt; stats in p57/. Re-fetch per the re-fetch notes below the marker if /tmp wiped.
+
+THE TABLE (80 rows, list order col1->col2->col3; paste verbatim as the triple-quoted value of HAND_FIGS["topographiahelve00zeil"] - no pipes in titles; kind_by hand everywhere):
+16|Tafel des Teutschlands|10|u|hand
+24|der Endgnoschaffte|15|u|hand
+|Elgaw und Murrz|16|o|hand
+32|Zurich im Grund|17|s|hand
+36|Tigurvm (Zurich im Prospect)|17|o|hand
+42|Forsteck. FORSTECK.|19|o|hand
+|Eglisaw, Grüningen, Griffensee und Regensperg|20|o|hand
+52|Stein am Rhein|21|o|hand
+58|Winterhur, Undelfingen und Kyburg|22|o|hand
+|Willisaw und Wedeschwyl|23|o|hand
+66|Bern die HauptStatt in Nüchternland|24|s|hand
+|Thron|26|o|hand
+80|Araw. Arberg. Arburg.|27|o|hand
+72|Lentzburg. LENTZBURGV. + Brugg im Argaw. BRVG ARGOLIA.|27|o|hand
+72|Habsburg. HASSBURGŰ.|27|o|hand
+86|Burgdorff. BURGDORF.|28|o|hand
+90|Lausanne|79|o|hand
+94|THUNA. Thun.|31|o|hand
+98|S. Peter. Bibiscum. [Beven]|31|o|hand
+104|Abbildung des Gletschers im Grindelwalde in der Herrschafft Bern (GLATSCHER)|32|u|hand
+110|Mürten. Neus. Nion. Aventicum. Vifffisburg.|34|o|hand
+116|LVCERN.|36|o|hand
+120|Abbildung der 4. Waldstätten See.|36|u|hand
+124|SEMPACH. SEMPACHIUM.|37|o|hand
+124|SURSEE.|37|s|hand
+128|Ragus et Ecclesia Collegiata MUNSTER in Argovia (Der Flecken und Stift Münster im Argaw)|37|o|hand
+134|Altorff Haupt flecken des Lands URY|38|o|hand
+134|Flüelen|38|s|hand
+138|SVITIA. Schwytz|39|o|hand
+142|Prospect des Haubt Closters Schwytz|39|o|hand
+146|Einsiedelen. INSVLA EREMI|39|o|hand
+152|Das Landt Unterwalden|41|u|hand
+|Engelberg|41|o|hand
+160|TVGIVM. Zug.|43|o|hand
+166|GLARONA. Glaris.|44|o|hand
+172|Basel im Grund|46|s|hand
+176|BASILEA im Prospect (2. Kupffer)|46|o|hand
+180|Die Brück (Prospectvs Cathedrals, Pontis Rheni)|47|o|hand
+184|CAMPVS DIVI PETRI (S. Peters Platz daselbst)|47|o|hand
+190|Münchenstein|48|o|hand
+194|Viechtstall [Lichtstall]|49|o|hand
+198|WALLENBURG|49|o|hand
+204|PIERRE PERTUISE|50|o|hand
+208|Romamostier.|50|o|hand
+214|Freÿburg in Üechtlandt. FRYBURGUM NUITONIA.|52|o|hand
+218|SOLOTURVM|53|s|hand
+224|Schaffhausen|54|o|hand
+228|Eigentliche Bildnüß des Großen Wasserbruchs oder Falls des Rheins im Lauffen|55|u|hand
+|Nünkirchen|55|s|hand
+236|APPENZELL. + HERISSAW.|56|o|hand
+240|Baden im Argov|57|o|hand
+246|Klingnaw, Leuggern, Der mittlere Lauffen oder Fall des Rheins, Monast. Wettingen|58|o|hand
+250|Heidnische Münzen vnd Silbergeschirr (Monetarum)|58|u|hand
+254|Forvm Tyberii. Zurzach.|58|o|hand
+258|BRENGGARTEN.|59|o|hand
+|Lowerk und Wellenk|60|o|hand
+268|Die Statt Dissenhofen... in grund gelegt im Jahr 1648|60|s|hand
+272|FRAWENFELD. + MELLINGEN.|60|o|hand
+276|RAP PERSWYL. Rapperswyl.|61|o|hand
+|Pfeffers (2. Kupffer, 2 Ansichten)|63|o|hand
+288|MULHUSIA ALSATIAE. Müllhausen.|65|s|hand
+294|BIENNA. Biel.|66|o|hand
+298|S. GALLEN.|67|s|hand
+308|GENEVE. GENEVA. im Grund|70|s|hand
+312|GENEUE. Genff im Prospect|71|o|hand
+316|NEOCOMVM. Steinenburg am See. (2. Ansichten, 2 Kupffer)|72|o|hand
+328|Weyerhauß. WEYERHAUS. (Castelen, Etiszwenyl)|77|o|hand
+334|Chur. CURIA RHETIA.|79|o|hand
+|Plürs|83|o|hand
+348|Fontes Rheni anterioris et Posterioris (Ursprung des hinteren und Vorderen Rheins)|84|u|hand
+|S. Luciensteig|85|o|hand
+356|Leugg|87|o|hand
+362|PRYG. NATERS.|88|o|hand
+|Bisp/ oder Bispach|88|o|hand
+368|S. Mauritus in Valessia. S. Mairise in Walls|89|o|hand
+374|SEDUNVM. Sitten|90|o|hand
+378|Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino|90|o|hand
+|Chastillard und Blonay|90|o|hand
+|Sandeck und Mauwister|90|o|hand
+|Werdenstein und S. Urbani|90|o|hand
+(Table tally: 80 rows = 11 s, 8 u, 61 o; 14 rows with fig ''; Neuenburg 2nd view n320 and Basel-Prospect 2nd view deliberately have NO table row - they surface as stage-A rows at triage; n176 = one 4-page spread = 1 row.)
+
+REMAINING STEPS:
+A. This table + parse_hand_figures fig '' -> None (docstring: fig '' = no leaf in the item, e.g. fold-out only or unengraved; counts as nopage in validate). Keep the civitates table byte-identical (no '' figs there). Commit pipeline/books_lists.py + data/books/lists/topographiahelve00zeil.json[.map.json] (map = [] until triaged; commit it like civitates' precedent). Verify: 18 other list files md5-identical vs /tmp/merian/lists_md5_before_s7.txt AND vs git show HEAD; civitates .json still 0881ec0c...; validate no-args: merian entry None (stage A empty), 8 plan books + civitates entries byte-identical; RESTORE index.jsonl/validation.json if touched (git checkout) - this task commits neither (207/216/211 precedent). Run the suite (.venv/bin/python -m pytest) - expect 101/1.
+B. Triage (next session): books.py fetch topographiahelve00zeil, triageA, triageF (LLM 127.0.0.1:8080/8081 up; run_stage resumable - let it run across sessions). Then books.py index + validate no-args: expect one row per o/s table row ON A LEAF (76 rows: 80 - 4 'none'... note 14 'none' rows, so 66 leaf rows + stage-A-only rows for the 3 extras if flagged; per_entry gives n72/n124/n134 multiple rows), all other books byte-identical, restore shared files, tick box 2, Status: done. Re-read: pipeline/books_lists.py:parse_hand_figures (the fig '' -> None change must keep civitates parsing byte-identical).
+
+--- SUPERSEDED (s6/s5/s4 material; kept: the s4 plate-list transcription (live source of exact printed list names), the leaf-structure/foldout/re-fetch notes, and the s5/s6 identification table for reference - its per-row assignments are OVERRIDDEN by the findings above where they differ; the old NEXT STEPS are void) --- - all 436 per-page texts extracted and all 57 in-BR foldout partners classified: NO independent plates in BR (55 blank versos, 1 Unterwalden text page n143, 1 faint-ghost blank n167) - so all 15 'none' list entries stay fig ''. NEXT: (2) re-run /tmp/merian/identify.py (3 pending: n66, n110, n166; chk/ files exist; LLM 8080/8081 verified up this session), (3) image-check the 19 'pending' rows from /tmp/merian/d2/, (4) write HAND_FIGS['topographiahelve00zeil'] + parse ''->None, (5) ocrmap + byte-verify + commit, (6) triage + index + validate + tick box 2.**
 
 Step-1 findings (this session; suite 101 passed / 1 skipped - log /tmp/merian/suite_s6.log; no repo files changed, all work in /tmp/merian):
 - hocr_pageindex.json.gz entries [a,b,c,d]: a,b = byte offsets into hocr_searchtext.txt.gz (367KB stream); c,d = offsets into a DIFFERENT larger stream (~10.9MB) that page_texts() ignores (it slices txt[a:b]). Keying for this book: 0-based enumerate index == 1-based leafNum - validated 67/67 wide leaves against /tmp/merian/wide_hocr.txt (0 mismatches) + anchors (plate list at 429, BASILEA at 197, printed p7 at 11).
