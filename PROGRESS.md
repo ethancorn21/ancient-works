@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 89, agent c - session 5. Redesigned the synthetic world, added the
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 90, agent c - session 6. Killed the centroid-bias problem at its root:
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -20,60 +20,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 304 DECISION: pre-register the survey-sheet fit before any measurement; learned matcher (SuperPoint+LightGlue, pinned) with scale/rotation priors, translation from the matches
-
-Human direction (2026-10-12, iteration 85): (1) dense learned matchers are allowed and
-encouraged (RoMa, LoFTR, LightGlue+SuperPoint/DISK, pinned); ask for a GPU via a request if
-the 3090 is busy with the model server. (2) Priors that shrink the search: 302b's scale
-ratios ran 0.24-13x and rotations to 126 deg; read the plan's north arrow and scale bar
-where present, and the site's known size, to fix rotation and scale, leaving mostly
-translation. (3) Plan against the survey sheet first; if the matcher also works plan
-against aerial, report both columns; same pre-registered held-out protocol; no tuning on
-the 21 after the run.
-
-Investigation (all verified on this machine): every one of the 19 held-out sites carries a
-georeferenced sheet with coverage=1.0, corners and an _ink.webp - 15 OS six-inch 1st
-edition + 1-inch (six-inch = 1:10,560 is the finest), bergues and camp-d-attila Cassini +
-Etat-major, aztalan/cahokia/mound-bottom/serpent-mound USGS topo (1:62,500 x3, 1:48,000);
-camp-d-attila also has the aerial fr_ortho1950.webp (the aerial column). Plan panels are
-on disk (plan_<id>.webp + _ink) for 20 of 21 docs; doc 21 (the DPLA Maiden Castle plan)
-has no plan webp - its panel must be cropped from data/raw/commons/big/<id>.jpg (1280x889)
-with the doc's crop [165,256,895,663]. Book docs: page at data/raw/books/<ia>/full/<file>
-in the doc's size frame + crop (avebury: 3367x5050, crop [700,1000,3150,3700]). 302b seed
-records: 8/21 have a scale bar, 12/21 are commons coarse anchors with no scale, 1 has
-scale text with unrecorded scan ppi - so the matcher must supply scale for ~13 docs, which
-is exactly the learned matcher's job. The catalog's size_m/diameter_m are None for these
-sites, so "known size" is available only where a bar or ratio text is recorded.
-
-Machine facts: this VM has no GPU (no /dev/nvidia*, virtual VGA only), 6 cores, 15 GB RAM,
-a torch-free .venv; the AI box (10.0.10.75: 3090 Ti = vLLM Qwen model server, 5060 Ti =
-clef re-ranker) is not shell-reachable from here (only forced-command keys: doorbell,
-labdash-feed, lab-archive; hostname "aibox" does not resolve). A GPU ask_human was drafted
-but never sent, because the lead's second message (same iteration) superseded it: a
-pre-trained cross-modal matcher, MatchAnything-ELoFTR, is served on the 5060 Ti behind a
-VM tunnel at 127.0.0.1:8091 (see the follow-up entry below). .venv is rebuilt from the
-hashed requirements.txt before every test run; the matcher runs remotely, so the client
-needs only requests + numpy (already in requirements.in) - no requirements change was
-made this session.
-
-Action taken: pre-registered in docs/site_flow.md (new section "The one-shot held-out
-measurement of the survey-sheet fit (task 304, pre-registered before the run)"): the method
-never opens a platefit document (the evaluator fit/surveyfit_heldout.py alone compares
-against the hand fits); null recipe = 302b scramble of the panel + 302b half-box shift of
-the sheet; score = RANSAC inlier fraction reweighted by reprojection RMS, confidence from
-score and margin; the 21 docs = the 302b list unchanged; verdict per the task (a
-confidence threshold exists under which every accepted fit is within 60 m and >=5 of 21
-are accepted; pass -> 304b wiring, fail -> stop, no fourth method). The section's frozen
-config (versions, thresholds, sweep grid, confidence formula) is restated at the freeze
-commit, which must precede the run.
-
-Next step (session 2): fit/surveyfit.py v0 against the ELoFTR API (client POST /match with
-the plan panel as image0 and the sheet as image1; RANSAC similarity through the matched
-pairs; the two nulls; a JSON fit record per call), developed against a stub server (the
-real tunnel to 8091 was down at session end - "waiting on the owner, one command") with
-hermetic tests; once /health answers, reproduce the lead's smoke numbers as a canary, then
-... (0.0 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: pre-register the survey-sheet fit before any measurement; learned matcher (SuperPoint+LightGlue, pinned) with scale/rotation priors, translation from the matches' DECISIONS.md`)
 
 ### 2026-10-12 304 DECISION: matcher = the lead's MatchAnything-ELoFTR service at 127.0.0.1:8091 (no local GPU, no new packages, no ask_human)
 
@@ -164,6 +110,51 @@ harness hand-over). Design decisions, recorded for the next agent:
 
 1. **Sign convention verified by code (closes the session-3 "must still lock" item).**
 ... (8.8 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's' DECISIONS.md`)
+
+### 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091
+
+Session 6. (1) The 8x supersample experiment (throwaway, then deleted) DISCONFIRMS the
+session-5 hypothesis: the per-disc centroid bias is NOT 4x quantisation. Measured (full test
+path: rasterise -> lossy save -> [plan] PIL bicubic rotate -> connected-component centroids
+vs the expected positions): r = 3.5 discs - 4x: 0.33-0.68 px, 8x: 0.43-0.76 px (WORSE); r = 5
+- 4x: 0.37-0.70 px, 8x: 0.49-0.88 px. Even INTEGER-centred discs (sheet) are biased: 0.329 px
+(4x) / 0.707 px (8x) - the 0.3 coverage threshold cuts the small-disc edge asymmetrically
+about the sub-pixel centre, and finer supersampling only changes which edge pixels land
+inside. JPEG q95 (the plan's path) and WEBP q95 (the sheet's) add at most ~0.05 px, and NO
+disc vanishes in the 14-disc world (the session-5 single-disc vanishing did not reproduce).
+(2) Design consequence (the fix this session, tests/test_surveyfit.py only): the stub's
+connected-component centroids are a poor model of a real matcher's KEYPOINT ACCURACY (a
+trained sub-pixel regressor, not a thresholded-blob centroid), so the stub now returns, for
+each detected glyph, its EXPECTED sub-pixel position in the sent frame (the module's own
+visual-rotation matrix) plus a small deterministic per-(theta, i) matcher wobble (+-0.25 px,
+seeded, a stream separate from the quality jitter) plus the existing 0.6 px/deg angular
+jitter. The sent-image geometry still drives what the stub sees: glyph DETECTION (which
+glyph, which rotation, real vs shifted sheet) still runs on the measured centroids, and the
+_take bands (all 14 / first 6 / none), the junk set, and the response format are unchanged.
+This is a more faithful matcher model, not a weaker test: the placement tolerance now means
+"what a good sub-pixel matcher's fit would produce", and the sweep still scores rotation
+through quality degradation. A throwaway-script red herring consumed some time first: my
+8x prototype rasteriser had INVERTED polarity (white ink / black paper) and looked like a
+single mega-blob - the module's `_rasterize` convention is black = ink (`255 * (~ink)`);
+checked rather than believed. (3) REAL MODULE BUG found and fixed (fit/surveyfit.py,
+shift_sheet_image): `ndi.shift` on the RGB sheet (rank 3) with a 2-element shift sequence
+raises "RuntimeError: sequence argument must have length equal to input rank" - the null
+path had never executed before (tests 1-3 run null=False). Fixed with a 3-element shift
+(0.0 on the channel axis). (4) Tolerances tightened to ~2x the OBSERVED worst (the
+recorded-pin discipline): observed worst over the four worlds - db 0.624 m (theta_d=42),
+da 0.00273 m/px, panel corners 0.797 m; null run (theta_d=0): fit 0.5278 vs null 0.3923,
+margin 0.1355, confidence 0.0715. New asserts: db < 1.3, da < 0.006, corners < 1.6. (5)
+Fixture emitted and committed: data/surveyfit/fixture_match.json (north-42 ideal world, 26
+pairs, 14 inliers, rms 3.6e-12, score 0.538462) - test 6 (reproduce exactly) passes.
+(6) Full suite: 75 passed, 1 skipped (was 68 passed 1 skipped before my 7 tests).
+(7) The REAL service now answers: GET 127.0.0.1:8091/health ->
+{"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}.
+
+Next (session 7): the real-service smoke (hand-over step 6): canary `fit/surveyfit.py
+maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 31 inliers /
+20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
+avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
+... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
