@@ -4,7 +4,7 @@
 Contents, with the number of entries. Search for a file, function, library or error text: `grep -n -i "<key>" PITFALLS.md`; every entry's one-line fact: `grep -n "^#### " PITFALLS.md`.
 - Agent tools and harness (4)
 - This machine and its environment (17)
-- Libraries and frameworks (9): pyproj (3.8, project .venv) 2, Python (3.12.3) 4, scipy (1.18.1, project .venv) 3
+- Libraries and frameworks (10): pyproj (3.8, project .venv) 2, Python (3.12.3) 5, scipy (1.18.1, project .venv) 3
 - This codebase (50): Wikimedia APIs (Commons, Wikidata) 10, fit/ 11, pipeline/ 8, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 3, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 2, web/ (the page and its extension scripts) 2
 <!-- contents:end -->
 
