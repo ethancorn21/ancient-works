@@ -7,7 +7,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/209c-petrie.md` (in-progress) - hand-over: (2026-10-12, iteration 146, agent a - from 209b's Commons check; written by 209b, not this
 - `tasks/209-wiltshire.md` (split) - hand-over: (2026-10-12, iteration 145, agent a - update on the 144 split; the per-book facts below stand.)
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
