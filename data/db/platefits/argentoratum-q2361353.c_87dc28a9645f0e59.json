@@ -1,0 +1,90 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_87dc28a9645f0e59",
+ "crop": [
+  0,
+  0,
+  1280,
+  960
+ ],
+ "pairs": [
+  [
+   181.8,
+   627.8,
+   7.7533881,
+   48.5810933
+  ],
+  [
+   100.1,
+   151.2,
+   7.756307,
+   48.5849463
+  ],
+  [
+   481.9,
+   657.1,
+   7.7564116,
+   48.5792985
+  ],
+  [
+   148.8,
+   920.3,
+   7.7506953,
+   48.5791675
+  ],
+  [
+   15.9,
+   418.1,
+   7.7532627,
+   48.5834753
+  ],
+  [
+   220.8,
+   373.6,
+   7.7558422,
+   48.5827127
+  ],
+  [
+   281.3,
+   786.7,
+   7.7532007,
+   48.5794268
+  ],
+  [
+   14.9,
+   711.5,
+   7.7509093,
+   48.5813738
+  ]
+ ],
+ "label": "1852",
+ "title": "Strasbourg-Krutenau-Plan de 1852 (15)",
+ "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Strasbourg-Krutenau-Plan_de_1852_(15).jpg",
+ "at": "2026-10-12T06:37:58.318512+00:00",
+ "auto": true,
+ "score": 4.6,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/87dc28a9645f0e59.jpg",
+ "ref": "File:Strasbourg-Krutenau-Plan de 1852 (15).jpg",
+ "size": [
+  1280,
+  960
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2380,
+  "matches": 4997,
+  "ground": "etatmajor.webp",
+  "window": 0.5,
+  "rot_deg": 36.34,
+  "spread": [
+   0.756,
+   125.1
+  ]
+ }
+}

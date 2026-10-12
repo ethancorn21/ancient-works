@@ -1,0 +1,90 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_6acfd94dec8c011b",
+ "crop": [
+  0,
+  0,
+  1280,
+  1200
+ ],
+ "pairs": [
+  [
+   481.4,
+   560.1,
+   7.751091,
+   48.5827987
+  ],
+  [
+   1014.7,
+   398.1,
+   7.7541865,
+   48.5851612
+  ],
+  [
+   28.9,
+   811.8,
+   7.7489797,
+   48.5802516
+  ],
+  [
+   705.9,
+   1010.4,
+   7.754736,
+   48.5813315
+  ],
+  [
+   248.5,
+   119.5,
+   7.7474295,
+   48.5841948
+  ],
+  [
+   663.0,
+   181.2,
+   7.7506827,
+   48.5851399
+  ],
+  [
+   46.7,
+   439.6,
+   7.7474262,
+   48.5820721
+  ],
+  [
+   337.0,
+   1016.0,
+   7.7521135,
+   48.5802029
+  ]
+ ],
+ "label": "1894",
+ "title": "91 of 'Strassburg und seine Bauten. Herausgegeben vom Architekten- und Ingenieur-Verein f\u00fcr Elsass-Lothringen. Mit 655 Abbildungen in Text, etc' (11226830623)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:91_of_%27Strassburg_und_seine_Bauten._Herausgegeben_vom_Architekten-_und_Ingenieur-Verein_f%C3%BCr_Elsass-Lothringen._Mit_655_Abbildungen_in_Text,_etc%27_(11226830623).jpg",
+ "at": "2026-10-12T06:25:21.841735+00:00",
+ "auto": true,
+ "score": 1.8,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/6acfd94dec8c011b.jpg",
+ "ref": "File:91 of 'Strassburg und seine Bauten. Herausgegeben vom Architekten- und Ingenieur-Verein f\u00fcr Elsass-Lothringen. Mit 655 Abbildungen in Text, etc' (11226830623).jpg",
+ "size": [
+  1280,
+  1200
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3655,
+  "matches": 4998,
+  "ground": "relief.jpg",
+  "window": 0.35,
+  "rot_deg": -32.18,
+  "spread": [
+   0.834,
+   211.8
+  ]
+ }
+}

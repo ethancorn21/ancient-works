@@ -1,0 +1,90 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_191c6221a81caad0",
+ "crop": [
+  0,
+  0,
+  1280,
+  894
+ ],
+ "pairs": [
+  [
+   657.6,
+   405.1,
+   7.7510782,
+   48.5814216
+  ],
+  [
+   1114.8,
+   457.9,
+   7.7616491,
+   48.5757887
+  ],
+  [
+   206.5,
+   378.3,
+   7.7402537,
+   48.5865641
+  ],
+  [
+   406.7,
+   664.8,
+   7.7407334,
+   48.579752
+  ],
+  [
+   896.2,
+   162.5,
+   7.7608485,
+   48.5829388
+  ],
+  [
+   732.5,
+   703.2,
+   7.7482542,
+   48.5757241
+  ],
+  [
+   563.3,
+   113.5,
+   7.7533202,
+   48.5872139
+  ],
+  [
+   882.0,
+   517.0,
+   7.7549132,
+   48.5772391
+  ]
+ ],
+ "label": "1833",
+ "title": "Plan de Strasbourg, r\u00e9duit - d'apr\u00e8s le plan g\u00e9n\u00e9ral de Villot... - btv1b8444967p",
+ "cite": "Public domain; https://commons.wikimedia.org/wiki/File:Plan_de_Strasbourg,_r%C3%A9duit_-_d%27apr%C3%A8s_le_plan_g%C3%A9n%C3%A9ral_de_Villot..._-_btv1b8444967p.jpg",
+ "at": "2026-10-12T06:29:33.377570+00:00",
+ "auto": true,
+ "score": 7.8,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/191c6221a81caad0.jpg",
+ "ref": "File:Plan de Strasbourg, r\u00e9duit - d'apr\u00e8s le plan g\u00e9n\u00e9ral de Villot... - btv1b8444967p.jpg",
+ "size": [
+  1280,
+  894
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3730,
+  "matches": 5000,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 32.27,
+  "spread": [
+   0.749,
+   140.8
+  ]
+ }
+}
