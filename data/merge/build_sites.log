@@ -305,3 +305,167 @@ built 1, skipped 0, failed 0
 marks refreshed: rotterdam-q34370 depictions: 1
 === the-hague-q36600 start 2026-10-12T20:27:25Z ===
 [1/1] the-hague-q36600 (ahn, 2000 m)
+marks refreshed: lille-q648 depictions: 2
+=== utrecht-q803 start 2026-10-12T20:40:13Z ===
+[1/1] utrecht-q803 (ahn, 2000 m)
+utrecht-q803 relief clip 1.2 m; {'block_h.png': 217, 'block_top.jpg': 926, 'relief.jpg': 466} KB
+utrecht-q803 tmk1850 zoom 11 coverage 88% 205 KB
+utrecht-q803 tmk1850_ink.webp 849 KB
+   ok 99s
+built 1, skipped 0, failed 0
+=== utrecht-q803 build rc=0 2026-10-12T20:41:54Z ===
+marks refreshed: utrecht-q803 depictions: 1
+=== utrecht-q803 ok ===
+=== ostend-q12996 start 2026-10-12T20:41:55Z ===
+[1/1] ostend-q12996 (ahn, 2000 m)
+  dem retry 1 HTTPError HTTP Error 400: Bad Request
+  dem retry 2 HTTPError HTTP Error 400: Bad Request
+  ahn has no data here; reading pc
+  LiDAR survey BE/LiDAR_DHMV_II-2013-2015 (2015), 25 tiles, 35.06 pts/m2, 100% of the box
+    LiDAR_DHMV_2_P1_ATL12112_ES_47500_212500.copc.laz: 327600 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_47500_213000.copc.laz: 1097673 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_47500_213500.copc.laz: 1892685 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_47500_214000.copc.laz: 3841491 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_47500_214500.copc.laz: 4451665 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48000_212500.copc.laz: 5043109 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48000_213000.copc.laz: 6755465 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48000_213500.copc.laz: 7970822 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48000_214000.copc.laz: 9889726 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48000_214500.copc.laz: 12258774 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48500_212500.copc.laz: 12975129 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48500_213000.copc.laz: 14997495 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48500_213500.copc.laz: 16737388 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48500_214000.copc.laz: 17986867 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_48500_214500.copc.laz: 19208942 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49000_212500.copc.laz: 19909521 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49000_213000.copc.laz: 21807720 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49000_213500.copc.laz: 23539023 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49000_214000.copc.laz: 25188758 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49000_214500.copc.laz: 25747076 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49500_212500.copc.laz: 26210297 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49500_213000.copc.laz: 27812791 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49500_213500.copc.laz: 29055602 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49500_214000.copc.laz: 30445533 ground points so far
+    LiDAR_DHMV_2_P1_ATL12112_ES_49500_214500.copc.laz: 30816237 ground points so far
+ostend-q12996 relief clip 1.2 m; {'block_h.png': 216, 'block_top.jpg': 966, 'relief.jpg': 515} KB
+   ok 133s
+built 1, skipped 0, failed 0
+=== ostend-q12996 build rc=0 2026-10-12T20:44:08Z ===
+marks refreshed: ostend-q12996 depictions: 0
+=== ostend-q12996 ok ===
+=== mons-q83407 start 2026-10-12T20:44:08Z ===
+[1/1] mons-q83407 (ign, 2000 m)
+  ign has no data here; reading pc
+  LiDAR survey BE/HAINAUT_2021-2022 (2022), 25 tiles, 12.47 pts/m2, 100% of the box
+    LIDAR_2021_2022_500mN6260E6190.copc.laz: 154230 ground points so far
+    LIDAR_2021_2022_500mN6260E6195.copc.laz: 910503 ground points so far
+    LIDAR_2021_2022_500mN6260E6200.copc.laz: 1653974 ground points so far
+    LIDAR_2021_2022_500mN6260E6205.copc.laz: 2347575 ground points so far
+    LIDAR_2021_2022_500mN6260E6210.copc.laz: 3075683 ground points so far
+    LIDAR_2021_2022_500mN6265E6190.copc.laz: 3298278 ground points so far
+    LIDAR_2021_2022_500mN6265E6195.copc.laz: 4372794 ground points so far
+    LIDAR_2021_2022_500mN6265E6200.copc.laz: 5040112 ground points so far
+    LIDAR_2021_2022_500mN6265E6205.copc.laz: 5878895 ground points so far
+    LIDAR_2021_2022_500mN6265E6210.copc.laz: 6887261 ground points so far
+    LIDAR_2021_2022_500mN6270E6190.copc.laz: 7117994 ground points so far
+    LIDAR_2021_2022_500mN6270E6195.copc.laz: 8486471 ground points so far
+    LIDAR_2021_2022_500mN6270E6200.copc.laz: 9224681 ground points so far
+    LIDAR_2021_2022_500mN6270E6205.copc.laz: 9840993 ground points so far
+    LIDAR_2021_2022_500mN6270E6210.copc.laz: 10704674 ground points so far
+    LIDAR_2021_2022_500mN6275E6190.copc.laz: 10941594 ground points so far
+    LIDAR_2021_2022_500mN6275E6195.copc.laz: 12331693 ground points so far
+    LIDAR_2021_2022_500mN6275E6200.copc.laz: 13593003 ground points so far
+    LIDAR_2021_2022_500mN6275E6205.copc.laz: 14624162 ground points so far
+    LIDAR_2021_2022_500mN6275E6210.copc.laz: 15841379 ground points so far
+    LIDAR_2021_2022_500mN6280E6190.copc.laz: 15944442 ground points so far
+    LIDAR_2021_2022_500mN6280E6195.copc.laz: 16428973 ground points so far
+    LIDAR_2021_2022_500mN6280E6200.copc.laz: 16890100 ground points so far
+    LIDAR_2021_2022_500mN6280E6205.copc.laz: 17300495 ground points so far
+    LIDAR_2021_2022_500mN6280E6210.copc.laz: 17713233 ground points so far
+mons-q83407 relief clip 1.2 m; {'block_h.png': 256, 'block_top.jpg': 802, 'relief.jpg': 626} KB
+mons-q83407 cassini blank paper here
+mons-q83407 etatmajor zoom 15 coverage 45% 8 KB
+mons-q83407 etatmajor_ink.webp 9 KB
+   ok 167s
+built 1, skipped 0, failed 0
+=== mons-q83407 build rc=0 2026-10-12T20:46:57Z ===
+marks refreshed: mons-q83407 depictions: 1
+=== mons-q83407 ok ===
+=== saint-ghislain-q668950 start 2026-10-12T20:46:57Z ===
+=== saint-ghislain-q668950 start 2026-10-12T21:05:53Z ===
+[1/1] saint-ghislain-q668950 (ign, 2000 m)
+  ign has no data here; reading pc
+  LiDAR survey BE/HAINAUT_2021-2022 (2022), 25 tiles, 10.38 pts/m2, 100% of the box
+    LIDAR_2021_2022_500mN6255E6095.copc.laz: 420362 ground points so far
+    LIDAR_2021_2022_500mN6255E6100.copc.laz: 1200158 ground points so far
+    LIDAR_2021_2022_500mN6255E6105.copc.laz: 2074870 ground points so far
+    LIDAR_2021_2022_500mN6255E6110.copc.laz: 3002342 ground points so far
+    LIDAR_2021_2022_500mN6255E6115.copc.laz: 3535807 ground points so far
+    LIDAR_2021_2022_500mN6260E6095.copc.laz: 4221540 ground points so far
+    LIDAR_2021_2022_500mN6260E6100.copc.laz: 5505451 ground points so far
+    LIDAR_2021_2022_500mN6260E6105.copc.laz: 6583853 ground points so far
+    LIDAR_2021_2022_500mN6260E6110.copc.laz: 7671579 ground points so far
+    LIDAR_2021_2022_500mN6260E6115.copc.laz: 8530512 ground points so far
+    LIDAR_2021_2022_500mN6265E6095.copc.laz: 9162349 ground points so far
+    LIDAR_2021_2022_500mN6265E6100.copc.laz: 10513710 ground points so far
+    LIDAR_2021_2022_500mN6265E6105.copc.laz: 11530287 ground points so far
+    LIDAR_2021_2022_500mN6265E6110.copc.laz: 12719573 ground points so far
+    LIDAR_2021_2022_500mN6265E6115.copc.laz: 13642061 ground points so far
+    LIDAR_2021_2022_500mN6270E6095.copc.laz: 14420547 ground points so far
+    LIDAR_2021_2022_500mN6270E6100.copc.laz: 15837345 ground points so far
+    LIDAR_2021_2022_500mN6270E6105.copc.laz: 16910459 ground points so far
+    LIDAR_2021_2022_500mN6270E6110.copc.laz: 18124669 ground points so far
+    LIDAR_2021_2022_500mN6270E6115.copc.laz: 19015127 ground points so far
+    LIDAR_2021_2022_500mN6275E6095.copc.laz: 19426104 ground points so far
+    LIDAR_2021_2022_500mN6275E6100.copc.laz: 20241214 ground points so far
+    LIDAR_2021_2022_500mN6275E6105.copc.laz: 21057485 ground points so far
+    LIDAR_2021_2022_500mN6275E6110.copc.laz: 21834361 ground points so far
+    LIDAR_2021_2022_500mN6275E6115.copc.laz: 22293620 ground points so far
+saint-ghislain-q668950 relief clip 1.2 m; {'block_h.png': 226, 'block_top.jpg': 1045, 'relief.jpg': 538} KB
+saint-ghislain-q668950 cassini zoom 14 coverage 100% 88 KB
+saint-ghislain-q668950 etatmajor blank paper here
+saint-ghislain-q668950 cassini_ink.webp 86 KB
+   ok 153s
+built 1, skipped 0, failed 0
+=== saint-ghislain-q668950 build rc=0 2026-10-12T21:08:28Z ===
+marks refreshed: saint-ghislain-q668950 depictions: 1
+=== saint-ghislain-q668950 ok ===
+=== tournai-q173219 start 2026-10-12T21:08:28Z ===
+[1/1] tournai-q173219 (ign, 2000 m)
+  ign has no data here; reading pc
+  LiDAR survey BE/HAINAUT_2021-2022 (2022), 25 tiles, 9.99 pts/m2, 100% of the box
+    LIDAR_2021_2022_500mN6430E5795.copc.laz: 450818 ground points so far
+    LIDAR_2021_2022_500mN6430E5800.copc.laz: 816021 ground points so far
+    LIDAR_2021_2022_500mN6430E5805.copc.laz: 1180238 ground points so far
+    LIDAR_2021_2022_500mN6430E5810.copc.laz: 1706925 ground points so far
+    LIDAR_2021_2022_500mN6430E5815.copc.laz: 1813238 ground points so far
+    LIDAR_2021_2022_500mN6435E5795.copc.laz: 2675343 ground points so far
+    LIDAR_2021_2022_500mN6435E5800.copc.laz: 3604522 ground points so far
+    LIDAR_2021_2022_500mN6435E5805.copc.laz: 4518246 ground points so far
+    LIDAR_2021_2022_500mN6435E5810.copc.laz: 5412876 ground points so far
+    LIDAR_2021_2022_500mN6435E5815.copc.laz: 5670325 ground points so far
+    LIDAR_2021_2022_500mN6440E5795.copc.laz: 6693369 ground points so far
+    LIDAR_2021_2022_500mN6440E5800.copc.laz: 7546101 ground points so far
+    LIDAR_2021_2022_500mN6440E5805.copc.laz: 8228408 ground points so far
+    LIDAR_2021_2022_500mN6440E5810.copc.laz: 8905906 ground points so far
+    LIDAR_2021_2022_500mN6440E5815.copc.laz: 9037350 ground points so far
+    LIDAR_2021_2022_500mN6445E5795.copc.laz: 9992371 ground points so far
+    LIDAR_2021_2022_500mN6445E5800.copc.laz: 10645487 ground points so far
+    LIDAR_2021_2022_500mN6445E5805.copc.laz: 11268717 ground points so far
+    LIDAR_2021_2022_500mN6445E5810.copc.laz: 12112037 ground points so far
+    LIDAR_2021_2022_500mN6445E5815.copc.laz: 12356170 ground points so far
+    LIDAR_2021_2022_500mN6450E5795.copc.laz: 12872283 ground points so far
+    LIDAR_2021_2022_500mN6450E5800.copc.laz: 13459325 ground points so far
+    LIDAR_2021_2022_500mN6450E5805.copc.laz: 14166231 ground points so far
+    LIDAR_2021_2022_500mN6450E5810.copc.laz: 15000407 ground points so far
+    LIDAR_2021_2022_500mN6450E5815.copc.laz: 15176440 ground points so far
+tournai-q173219 relief clip 1.2 m; {'block_h.png': 263, 'block_top.jpg': 809, 'relief.jpg': 634} KB
+tournai-q173219 cassini zoom 14 coverage 100% 199 KB
+tournai-q173219 etatmajor blank paper here
+tournai-q173219 cassini_ink.webp 723 KB
+   ok 207s
+built 1, skipped 0, failed 0
+=== tournai-q173219 build rc=0 2026-10-12T21:11:57Z ===
+marks refreshed: tournai-q173219 depictions: 1
+=== tournai-q173219 ok ===
+=== beaumont-q95100 start 2026-10-12T21:11:57Z ===

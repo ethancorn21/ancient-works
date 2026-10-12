@@ -13957,6 +13957,45 @@
    "overlays": 0
   },
   {
+   "id": "lille-q648",
+   "name": "Lille",
+   "place": "Nord, France",
+   "lon": 3.0575,
+   "lat": 50.6319,
+   "summary": "Lille is a city in the northern part of France, within French Flanders. Positioned along the De\u00fble river, near France's border with Belgium, it is the capital of the Hauts-de-France region, the prefecture of the Nord department, and the main city of the European Metropolis of Lille. It is also the seat of the European Union Customs Authority.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q648",
+   "wiki": "https://en.wikipedia.org/wiki/Lille",
+   "corners": [
+    [
+     3.0433376948080784,
+     50.64088229456046
+    ],
+    [
+     3.071662305191922,
+     50.64088229456046
+    ],
+    [
+     3.071662305191922,
+     50.622915988842344
+    ],
+    [
+     3.0433376948080784,
+     50.622915988842344
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "lincoln-castle-q727760",
    "name": "Lincoln Castle",
    "place": "Lincolnshire, England",
@@ -15061,6 +15100,55 @@
    "drawings": 0,
    "score": 1.1,
    "oldest": 1842,
+   "overlays": 1
+  },
+  {
+   "id": "mons-q83407",
+   "name": "Mons",
+   "place": "County of Hainaut, Belgium",
+   "lon": 3.9525,
+   "lat": 50.4547,
+   "summary": "Mons is a city and municipality of Wallonia, and the capital of the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q83407",
+   "wiki": "https://en.wikipedia.org/wiki/Mons,_Belgium",
+   "lidar_credit": "Service public de Wallonie, 2022 (12.47 points/m2)",
+   "corners": [
+    [
+     3.938390810706738,
+     50.46368229995274
+    ],
+    [
+     3.966609189293262,
+     50.46368229995274
+    ],
+    [
+     3.966609189293262,
+     50.44571599423597
+    ],
+    [
+     3.938390810706738,
+     50.44571599423597
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 27.46,
+    "zmax": 79.01,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.96,
+   "oldest": 1840,
    "overlays": 1
   },
   {
@@ -17100,6 +17188,55 @@
    "overlays": 2
   },
   {
+   "id": "ostend-q12996",
+   "name": "Ostend",
+   "place": "Arrondissement of Ostend, Belgium",
+   "lon": 2.9194,
+   "lat": 51.2258,
+   "summary": "Ostend is a coastal city and municipality in the province of West Flanders in the Flemish Region of Belgium. It comprises the boroughs of Mariakerke, Raversijde, Stene and Zandvoorde, and the city of Ostend proper \u2013 the largest on the Belgian coast.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q12996",
+   "wiki": "https://en.wikipedia.org/wiki/Ostend",
+   "lidar_credit": "Wallonia (EODaS), 2015 (35.06 points/m2)",
+   "corners": [
+    [
+     2.9050557086641455,
+     51.234782276187175
+    ],
+    [
+     2.9337442913358536,
+     51.234782276187175
+    ],
+    [
+     2.9337442913358536,
+     51.216815970464324
+    ],
+    [
+     2.9050557086641455,
+     51.216815970464324
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.22,
+    "zmax": 16.17,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "osterburken-q1243550",
    "name": "Osterburken",
    "place": "Baden-W\u00fcrttemberg, Germany",
@@ -18677,6 +18814,55 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "saint-ghislain-q668950",
+   "name": "Saint-Ghislain",
+   "place": "Arrondissement of Mons, Belgium",
+   "lon": 3.8167,
+   "lat": 50.45,
+   "summary": "Saint-Ghislain is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q668950",
+   "wiki": "https://en.wikipedia.org/wiki/Saint-Ghislain",
+   "lidar_credit": "Service public de Wallonie, 2022 (10.38 points/m2)",
+   "corners": [
+    [
+     3.8025922122789595,
+     50.458982300095215
+    ],
+    [
+     3.83080778772104,
+     50.458982300095215
+    ],
+    [
+     3.83080778772104,
+     50.441015994378496
+    ],
+    [
+     3.8025922122789595,
+     50.441015994378496
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 21.12,
+    "zmax": 36.66,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
   },
   {
    "id": "sandal-castle-q1760652",
@@ -20889,6 +21075,55 @@
    "overlays": 1
   },
   {
+   "id": "tournai-q173219",
+   "name": "Tournai",
+   "place": "Arrondissement of Tournai, Belgium",
+   "lon": 3.3881,
+   "lat": 50.6056,
+   "summary": "Tournai is a city and municipality of Wallonia located in the Province of Hainaut, Belgium. It lies 89\u00a0km (55\u00a0mi) by road southwest of the centre of Brussels on the river Scheldt, and is part of Eurometropolis Lille\u2013Kortrijk\u2013Tournai. In 2022, the municipality of Tournai had an estimated population of 68,518 people.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q173219",
+   "wiki": "https://en.wikipedia.org/wiki/Tournai",
+   "lidar_credit": "Service public de Wallonie, 2022 (9.99 points/m2)",
+   "corners": [
+    [
+     3.3739456120852584,
+     50.61458229536339
+    ],
+    [
+     3.402254387914742,
+     50.61458229536339
+    ],
+    [
+     3.402254387914742,
+     50.59661598964547
+    ],
+    [
+     3.3739456120852584,
+     50.59661598964547
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 15.2,
+    "zmax": 58.8,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
+  },
+  {
    "id": "traiectum-q2199749",
    "name": "Traiectum",
    "aka": "Ultraiectum, Traiectum ad Rhenum",
@@ -21398,6 +21633,55 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "utrecht-q803",
+   "name": "Utrecht",
+   "place": "Utrecht (province), Netherlands",
+   "lon": 5.1185,
+   "lat": 52.091,
+   "summary": "Utrecht is the fourth-largest city of the Netherlands, as well as the capital and the most populous city of the province of Utrecht. The municipality of Utrecht is located in the eastern part of the Randstad conurbation, in the very centre of mainland Netherlands, and includes Haarzuilens, Vleuten and De Meern. It has a population of 378,140 as of January\u00a02026.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q803",
+   "wiki": "https://en.wikipedia.org/wiki/Utrecht",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     5.103879200546378,
+     52.099982248554845
+    ],
+    [
+     5.133120799453624,
+     52.099982248554845
+    ],
+    [
+     5.133120799453624,
+     52.0820159428247
+    ],
+    [
+     5.103879200546378,
+     52.0820159428247
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -1.39,
+    "zmax": 10.32,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "uxellodunum-q1290232",
