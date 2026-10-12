@@ -20,7 +20,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/217-view-books-lists.md`
+- `tasks/219-source-line-year.md`
 
 ## Your task's journal
 
