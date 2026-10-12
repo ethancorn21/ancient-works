@@ -5199,9 +5199,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "camp-celtique-de-la-bure-q2935231",
@@ -7290,6 +7290,45 @@
    "overlays": 1
   },
   {
+   "id": "conde-sur-l-escaut-q494533",
+   "name": "Cond\u00e9-sur-l'Escaut",
+   "place": "Nord, France",
+   "lon": 3.5906,
+   "lat": 50.4492,
+   "summary": "Cond\u00e9-sur-l'Escaut is a commune of the Nord department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q494533",
+   "wiki": "https://en.wikipedia.org/wiki/Cond%C3%A9-sur-l%27Escaut",
+   "corners": [
+    [
+     3.576492450807258,
+     50.45818230011946
+    ],
+    [
+     3.604707549192741,
+     50.45818230011946
+    ],
+    [
+     3.604707549192741,
+     50.44021599440274
+    ],
+    [
+     3.576492450807258,
+     50.44021599440274
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "cooling-castle-q5167493",
    "name": "Cooling Castle",
    "place": "Cooling, England",
@@ -8068,6 +8107,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "douai-q193826",
+   "name": "Douai",
+   "place": "Nord, France",
+   "lon": 3.0792,
+   "lat": 50.3708,
+   "summary": "Douai is a city in the Nord d\u00e9partement in northern France. It is a sub-prefecture of the department. Located on the river Scarpe some 40 kilometres from Lille and 25\u00a0km (16\u00a0mi) from Arras, Douai is home to one of the region's most impressive belfries.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q193826",
+   "wiki": "https://en.wikipedia.org/wiki/Douai",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     3.065115774212697,
+     50.37978230249174
+    ],
+    [
+     3.0932842257873037,
+     50.37978230249174
+    ],
+    [
+     3.0932842257873037,
+     50.36181599677563
+    ],
+    [
+     3.065115774212697,
+     50.36181599677563
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 19.95,
+    "zmax": 41.53,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "dudley-castle-q5311832",

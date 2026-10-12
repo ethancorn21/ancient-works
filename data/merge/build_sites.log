@@ -696,3 +696,29 @@ built 1, skipped 0, failed 0
 marks refreshed: bouchain-q632348 depictions: 2
 === bouchain-q632348 ok ===
 === cambrai-q181285 start 2026-10-12T21:41:51Z ===
+[1/1] cambrai-q181285 (ign, 2000 m)
+cambrai-q181285 relief clip 1.2 m; {'block_h.png': 255, 'block_top.jpg': 794, 'relief.jpg': 603} KB
+cambrai-q181285 cassini zoom 14 coverage 100% 212 KB
+cambrai-q181285 etatmajor zoom 15 coverage 100% 279 KB
+cambrai-q181285 cassini_ink.webp 792 KB
+cambrai-q181285 etatmajor_ink.webp 1041 KB
+   ok 207s
+built 1, skipped 0, failed 0
+=== cambrai-q181285 build rc=0 2026-10-12T21:45:19Z ===
+marks refreshed: cambrai-q181285 depictions: 2
+=== cambrai-q181285 ok ===
+=== conde-sur-l-escaut-q494533 start 2026-10-12T21:45:19Z ===
+[1/1] conde-sur-l-escaut-q494533 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+conde-sur-l-escaut-q494533 aerial only (no LiDAR here)
+conde-sur-l-escaut-q494533 cassini zoom 14 coverage 100% 186 KB
+conde-sur-l-escaut-q494533 etatmajor zoom 15 coverage 100% 199 KB
+conde-sur-l-escaut-q494533 cassini_ink.webp 764 KB
+conde-sur-l-escaut-q494533 etatmajor_ink.webp 769 KB
+   ok 128s
+built 1, skipped 0, failed 0
+=== conde-sur-l-escaut-q494533 build rc=0 2026-10-12T21:47:28Z ===
+marks refreshed: conde-sur-l-escaut-q494533 depictions: 2
+=== conde-sur-l-escaut-q494533 ok ===
+=== douai-q193826 start 2026-10-12T21:47:28Z ===

@@ -426,3 +426,35 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   entry, hand-over rewritten with the exact resume/verify plan.
 - 222-228 checked this session: still open (task files Status: open, no fix commits on main) -> the
   done-claim stays gated on them; boxes 4-6 are unaffected.
+
+## 2026-10-12 211 DECISION: box 4 verified and ticked - the plan-list refresh had already been done by the unlogged sessions (driver snapshot 27a6053); re-running export_plans.py is byte-identical; the re-read resolved as the stable pre-merge matches.jsonl join
+- Session 182. The build run is ALIVE (pid 4098676): cambrai-q181285 finished 21:45Z,
+  conde-sur-l-escaut-q494533 in flight, 11 ids in the queue after it - monitored only,
+  never a duplicate (two writers would race on web/data/sites.json).
+- Discovered box 4 had already been executed in the unlogged sessions 176-179: the
+  driver snapshot 27a6053 contains plans.json refreshed after box 2 (1168 rows = 890
+  book + 278 commons; the 2 new commons rows are shotwick-castle-q7502621 and numancia
+  - the only 2 of the 133 merged picture rows with local copies in data/raw/commons;
+  the 167 newly indexed book rows have no local full pages and are correctly absent)
+  plus the frozen pre-merge key list data/merge/plans_premerge_keys.jsonl (1166 keys,
+  from the pre-merge plans.json at 0fecaeb). Session 180's memory reconstruction missed
+  all of it; this session resolved the re-read and verified the result.
+- Re-read resolved by reading tools/export_plans.py:main: the "sites" column is
+  matches.get(row_id) over the EXISTING data/books/matches.jsonl (890 rows, last
+  written by 813bf9a, pre-merge) - the stable pre-merge join the box demands; the
+  data/catalog/sites.jsonl map (id + qid) is used only to resolve ambiguous-candidate
+  names to ids; commons rows filter through a (site,title)->classified dict and the
+  merged classified rows were checked for shadowing: 0 (site,title) collisions between
+  the 797 pre-merge and the 133 new rows, so dict-later-wins cannot flip a pre-merge
+  row. No `pipeline/books.py match` was run or is needed - re-matching against the
+  grown extras could re-point pre-merge keys, which the box forbids.
+- Verification: `.venv/bin/python tools/export_plans.py` on the current tree produced
+  BYTE-IDENTICAL output (sha256 852089e00006efb30d7d96e68f157fd714e4db778c11a3fe83f12b526aab4add)
+  - the committed file is the tool's stable output on current data, not a stale one.
+  Frozen 1166 keys all present in the current 1168; (id, sites[0]) unique;
+  tests/test_merge.py 6/6 including test_plan_list_refresh_is_pure_growth (written in
+  the unlogged session; asserts the frozen keys survive, uniqueness, the 2 new picture
+  rows, and the 200 evidence join on every picture row). Box 4 ticked.
+- 222-228 re-checked: still OPEN -> the done-claim stays gated on them; the branch's
+  red set is unchanged by this session (no code or data file changed - only the task
+  file, this entry, and the live build's append-only log/snapshot).
