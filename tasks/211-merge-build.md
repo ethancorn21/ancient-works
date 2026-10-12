@@ -47,63 +47,26 @@ the result with no page change (GOAL.md point 5).
   task only reads them and writes the two shared files (index.jsonl, validation.json).
 
 ## Hand-over
-(2026-10-12, iteration 175, agent a - boxes 1+2 DONE and COMMITTED as 214c642; boxes 3-6 remain and are independent of 222-228; next session starts at box 3)
+(2026-10-12, iteration 180, agent a - boxes 1+2 done (committed 214c642); BOX 3 IN PROGRESS: a detached build run is alive and working through the last 18 of the 20 new sites - the next session MONITORS that run (never starts a duplicate), finishes box 3's verification + test when the run ends, then boxes 4-6)
 
 State:
-- BOX 1 DONE (iteration 174): live merge - 381 staging rows into the three canonical files, pure growth
-  (byte-identical prefix), idempotent, 0 refused, data/merge/log.jsonl written.
-- BOX 2 DONE (iteration 175, committed in 214c642): rebuilt data/books/index.jsonl + data/books/
-  validation.json with the machinery (`pipeline/books.py index` / `validate`), re-recorded the 200
-  evidence on all 1068 book rows (`fit/evidence.py record`, offline), `fit/evidence.py check` passes
-  offline (2582 rows: 1385 pass, 0 fail, 1197 no-tie). Tests extended in tests/test_merge.py (5/5 pass).
-  Full details in the DECISIONS entry. Numbers: index = 8 originals (counts unchanged
-  145/115/197/88/55/18/235/37) + civitates_liber2 118 (217's hand-list views: 107 added, 11 old qwen rows
-  updated with the hand list) + merian_helvete00zeil 60 (the 216/217 book); the 5 untriaged view books
-  contribute 0 rows (217's follow-on scope - never invent). validation.json: civitates figures stats
-  filled, merian entry added. The 890 book rows that reach plans.json all carry the field (135
-  caption_coords / 755 none - the none is 200's fail-closed end state; tie-coverage improvement is 801's
-  job). The 264 files NONE rows: 0 reach plans.json.
-- 222-228 are still OPEN on main as of this session (checked: no such commits; the modules here still
-  carry the old "staged title already in canonical" guards). They stay in my Depends on and gate the
-  CLAIM (the driver re-checks the suite when I set done; my branch must be green then). They do NOT gate
-  boxes 3-6: those touch only files mine (web/data/*, docs/sources.md) and my branch's red set is exactly
-  the 10 source-guard reds before and after any of them.
-- Suite on this branch: 10 failed / 124 passed / 1 skipped, identical to the pre-work baseline (verified
-  by diffing the FAILED lists; the 10 = the 222-228 set). tests/test_serve.py (the human's golden: 25
-  hand fits / 19 sites) passes in that run.
+- BOX 1 DONE (iter 174): live merge - 381 staging rows into the three canonical files, pure growth (byte-identical prefix), idempotent, 0 refused, data/merge/log.jsonl.
+- BOX 2 DONE (iter 175, committed 214c642): data/books/index.jsonl (1068 rows: 8 originals + civitates_liber2 118 + merian_helvete00zeil 60) + validation.json rebuilt with the machinery; 200 evidence re-recorded on all book rows; `fit/evidence.py check` passes offline (0 fail); tests/test_merge.py extended (5/5).
+- BOX 3 IN PROGRESS (iters 176-180): 20 of the merged extras.jsonl's sids were unbuilt (173 of its 193 were already built by earlier waves). data/merge/run_build.py (committed 176) was nohup'd by session 179 and IS STILL ALIVE (checked with ps in 180): one `build_catalog.py --ids <sid>` subprocess per site, then `build_site.set_drawings(sid)`; append-only log = data/merge/build_sites.log. A killed session leaves a clean boundary at the last finished site; build_catalog skips already-built sites, so resuming with the remaining ids is always safe.
+  - Built so far (5/20): beaumont-q95100, oudenaarde-q12992, soignies-q462985, luxembourg-city-q1842, aire-sur-la-lys-q259903. All carry LiDAR relief + block + an old map; every new sites.json entry has id/name/lon/lat/4 corners/size_m/drawings + the LiDAR credit (luxembourg oldest=1780 from Cassini).
+  - Remaining (18, run order): avesnes-sur-helpe-q217178 bapaume-q317235 bavay-q477176 bethune-q207145 bouchain-q632348 cambrai-q181285 conde-sur-l-escaut-q494533 douai-q193826 gravelines-q323399 hesdin-q467366 landrecies-q632808 le-cateau-cambresis-q329103 le-quesnoy-q180067 maubeuge-q138648 saint-omer-q208793 therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 (each 2-5 min: national LiDAR fetch + Cassini/etat-major maps).
+  - Mid-run invariant verified in 180: web/data/sites.json = 481 entries = HEAD 478 + {soignies, luxembourg-city, aire-sur-la-lys} (beaumont/oudenaarde were already in the HEAD snapshot); 0 removed, 0 changed shared entries (object-equality diff) - pure growth, exactly what the box demands. Re-check this at each session end.
 
-Remaining boxes, in order (all independent of 222-228; claim after they land):
-3. Build the new sites - the slow working-phase part. `pipeline/build_catalog.py` (NOT fit/: the task
-   file's names are pipeline/build_catalog.py + pipeline/build_site.py) turns extras.jsonl sites into
-   data/sites/<id>/ (LiDAR relief + block via build_site.py, old maps, summary) and build_site.py writes
-   web/data/sites/<id>/ + the sites.json entry. Scope: the 115 new site ids from the merged extras.jsonl
-   (extras has 193 rows total; 12,603 Wikidata sites in sites.jsonl are already handled by earlier
-   waves). web/data/sites.json must grow by exactly the new sites: the current HEAD set is 385 entries
-   (the task text's "old 384" predates 301/Maiden Castle landing) - diff against `git show HEAD:web/data/
-   sites.json`, never a /tmp snapshot. DEM fetch = live national services (network, archive.org-grade
-   allowed); budget a session or two. Sites without LiDAR coverage are skipped and listed (build_catalog
-   does that itself) - do not force them.
-4. Refresh web/data/plans.json with tools/export_plans.py: new picture rows present (the 167 new index
-   rows with a local full image + any new commons rows), every pre-merge (id, sites[0]) key still present,
-   (id, sites[0]) stays unique. DO NOT re-run `pipeline/books.py match` for this: export_plans joins the
-   existing data/books/matches.jsonl, and re-matching against the grown extras catalog could re-point
-   pre-merge (id, sites[0]) keys, which the box forbids. (Re-read item below.)
-5. docs/sources.md: per-lead status consolidated from docs/lead_*.md (what was staged, what was dropped
-   and why, per GOAL.md lead). Include: 207 stopped by the owner (no roman staging, no books - a later
-   re-run of the merge picks it up if it resumes); 213's view books now indexed (118 + 60 rows).
-6. Human's reference: tests/test_serve.py golden (25 hand fits / 19 sites) - re-verify at claim time
-   (green in this session's run; the test is hermetic: port 0, temp tree, no network).
+Next session, in order:
+1. `ps aux | grep -v grep | grep run_build` + tail data/merge/build_sites.log.
+   - Run ALIVE: monitor (the log tail advances 2-5 min/site). Never start a duplicate - two writers race on web/data/sites.json. If the session is ending mid-run: record the last "=== <sid> ok" line in this hand-over, commit, stop; the run survives (it has now survived two session ends) and the driver snapshots its progress.
+   - Run DEAD: read the log tail; resume the still-unbuilt of the 18 with `nohup .venv/bin/python data/merge/run_build.py <those ids...> &` (same log; done sites are skipped by build_catalog itself). "NOT BUILT: <sid>" = the machinery skipped it (no LiDAR and no old map, or the id matched no row); "FAILED" = non-zero exit, traceback in the log.
+2. When all 20 sids have a terminal line in the log: verify the final invariants against `git show HEAD:web/data/sites.json` (never a working-tree snapshot): added set = exactly the built new sids; nothing removed; every HEAD entry unchanged (object equality); each built id has web/data/sites/<id>/{relief.jpg,block_*,depictions.json} and data/sites/<id>/site.json. Skips (if any) stay listed in the log - that is the box's "skipped and listed" end state. Then extend tests/test_merge.py with box 3's data-level tests (Notes: small fixed sample + full served-data invariants; hermetic - read-only assertions on the data, no rebuild, no network, no fixed ports) and tick box 3.
+3. BOX 4: refresh web/data/plans.json with tools/export_plans.py (new picture rows present; every pre-merge (id, sites[0]) key still present; (id, sites[0]) stays unique). Do NOT re-run `pipeline/books.py match` (export_plans joins the existing matches.jsonl; re-matching against the grown extras could re-point pre-merge keys, which the box forbids). First resolve the re-read: tools/export_plans.py:main - confirm with the web/ consumers (grep for plans.json there) whether the "sites" column tracks the grown catalog or stays the stable pre-merge join (the box wording points to stable).
+4. BOX 5: docs/sources.md - per-lead status consolidated from docs/lead_*.md (what was staged, what was dropped and why, per GOAL.md lead). Include: 207 stopped by the owner (no roman staging - a later merge re-run picks it up if it resumes); 213's view books now indexed (118 + 60 rows).
+5. BOX 6: the human's reference - re-verify tests/test_serve.py's golden (25 hand fits / 19 sites; hermetic: port 0, temp tree, no network) at claim time.
+6. CLAIM: 222-228 (the 7 source-guard fixes) were still OPEN when checked in 180 and gate the done-claim (the driver re-checks the suite; my branch's red set is exactly those 10 source-guard failures). When they land on main and the driver's sync brings them in, re-run the suite (expect fully green; the merge is idempotent, no re-run of it), finish any remaining boxes, tick, set Status: done.
 
-Claim order: when 222-228 are on main and the driver's main-sync merges them in (my branch goes fully
-  green - the merge is idempotent, no re-run needed), finish boxes 3-6, tick, and set Status: done.
-
-Re-read: tools/export_plans.py:main - before running box 4, confirm with the consuming page code whether
- the plans.json "sites" column is expected to track the grown catalog or to stay the stable pre-merge join
- (the box wording "every pre-merge (id, sites[0]) key is still present" points to stable; the page's
- consumers are web/ - grep for plans.json there).
-(The earlier re-read on fit/merge.py:run_target's evidence gate was resolved in iteration 175: the gate
-applies to files.jsonl titled rows only, classified rows are not gated, book-index rows are never merge-
-gated - confirmed by re-reading the module; no change made. See the DECISIONS entry.)
-
+Open thread: imagecodecs 2026.10.10 is installed in the .venv but NOT pinned in requirements.in/.txt (agent c's in-flight 302a/304 own those files) - a from-scratch venv rebuild would lose it and the AHN site builds would fail again (PITFALLS entry filed). File the pin task once c's requirements work has landed (or fold the check into the claim session).
 ## Lead note (2026-10-12)
 207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step.

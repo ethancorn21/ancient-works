@@ -345,6 +345,55 @@
    "overlays": 0
   },
   {
+   "id": "aire-sur-la-lys-q259903",
+   "name": "Aire-sur-la-Lys",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.3967,
+   "lat": 50.6386,
+   "summary": "Aire-sur-la-Lys is a commune in the Pas-de-Calais department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q259903",
+   "wiki": "https://en.wikipedia.org/wiki/Aire-sur-la-Lys",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.382535675966222,
+     50.64758229435579
+    ],
+    [
+     2.410864324033779,
+     50.64758229435579
+    ],
+    [
+     2.410864324033779,
+     50.629615988637624
+    ],
+    [
+     2.382535675966222,
+     50.629615988637624
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.99,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 18.29,
+    "zmax": 32.21,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "alauna-q4708853",
    "name": "Alauna",
    "aka": "Alione, Alauna Fort",
@@ -1725,6 +1774,45 @@
     3000,
     3000
    ],
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "avesnes-sur-helpe-q217178",
+   "name": "Avesnes-sur-Helpe",
+   "place": "Nord, France",
+   "lon": 3.9327,
+   "lat": 50.1224,
+   "summary": "Avesnes-sur-Helpe is a commune in the Nord department in northern France. It is a sub-prefecture of the Nord department. It is situated 14\u00a0km from the Belgian border, and 18\u00a0km south of Maubeuge, the nearest larger town. The river Helpe Majeure, a tributary of the Sambre, flows through the town. Upstream of Avesnes on the river there is the Lac du Val-Joly, an artificial lake.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q217178",
+   "wiki": "https://en.wikipedia.org/wiki/Avesnes-sur-Helpe",
+   "corners": [
+    [
+     3.9186889921944545,
+     50.131382309956635
+    ],
+    [
+     3.946711007805545,
+     50.131382309956635
+    ],
+    [
+     3.946711007805545,
+     50.11341600424241
+    ],
+    [
+     3.9186889921944545,
+     50.11341600424241
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -14381,6 +14469,55 @@
    "overlays": 1
   },
   {
+   "id": "luxembourg-city-q1842",
+   "name": "Luxembourg City",
+   "place": "Canton of Luxembourg, Luxembourg",
+   "lon": 6.13,
+   "lat": 49.6114,
+   "summary": "Luxembourg, also known as Luxembourg City, is the capital city of the Grand Duchy of Luxembourg and the country's most populous commune. Standing at the confluence of the Alzette and P\u00e9trusse rivers in southern Luxembourg, the city lies in the centre of Western Europe, situated 213\u00a0km (132\u00a0mi) by road from Brussels and 209\u00a0km (130\u00a0mi) from Cologne.",
+   "region": "Luxembourg",
+   "kind": "town",
+   "qid": "Q1842",
+   "wiki": "https://en.wikipedia.org/wiki/Luxembourg_City",
+   "lidar_credit": "Luxembourg government, 2019 (28.7 points/m2)",
+   "corners": [
+    [
+     6.116136433040604,
+     49.62038232507241
+    ],
+    [
+     6.143863566959396,
+     49.62038232507241
+    ],
+    [
+     6.143863566959396,
+     49.6024160193619
+    ],
+    [
+     6.116136433040604,
+     49.6024160193619
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 235.57,
+    "zmax": 330.14,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
+  },
+  {
    "id": "lutzelbach-q1735392",
    "name": "L\u00fctzelbach",
    "place": "Hesse, Germany",
@@ -19875,6 +20012,55 @@
    "score": 0.91,
    "oldest": 1850,
    "overlays": 1
+  },
+  {
+   "id": "soignies-q462985",
+   "name": "Soignies",
+   "place": "Arrondissement of Soignies, Belgium",
+   "lon": 4.0667,
+   "lat": 50.5667,
+   "summary": "Soignies is a municipality of Wallonia located in the province of Hainaut, Belgium.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q462985",
+   "wiki": "https://en.wikipedia.org/wiki/Soignies",
+   "lidar_credit": "Service public de Wallonie, 2022 (10.48 points/m2)",
+   "corners": [
+    [
+     4.052557300755302,
+     50.57568229654925
+    ],
+    [
+     4.080842699244698,
+     50.57568229654925
+    ],
+    [
+     4.080842699244698,
+     50.55771599083162
+    ],
+    [
+     4.052557300755302,
+     50.55771599083162
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 40.97,
+    "zmax": 136.64,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "somerset-house-q1344889",

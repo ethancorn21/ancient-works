@@ -289,6 +289,14 @@ Why: pinning the render recipe keeps the per-worktree re-derivation identical, s
 
 One `### <library>` subsection per library or tool, with its version.
 
+### pillow (12.3.0, project .venv)
+
+#### A Float32 DEM (the Dutch AHN) needs the unpinned `imagecodecs` package - without it every AHN-sourced site fails to build
+Where: pipeline/build_site.py:load_dem (Image.open on the AHN DEM tiles), the `.venv` build from requirements.txt
+Symptom: `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package` at build time; the AHN-sourced sites (amsterdam-q727, alkmaar-q972, enkhuizen-q9918, haarlem-q9920, rotterdam-q34370, the-hague-q36600, utrecht-q803) all fail, while the point-cloud fallback saves only the boxes pc covers (reimerswaal, sluis, valkenburg)
+Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs. imagecodecs 2026.10.10 was installed ad hoc into the project .venv (2026-10-12, 211's box-3 run) and is NOT in requirements.in/requirements.txt (agent c's 302a/304 own those files; the pin is still outstanding). The driver's in-place .venv rebuild keeps extra packages, so it survives today, but a from-scratch venv would lose it and the AHN builds would fail again.
+What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build; when agent c's in-flight requirements work has landed, add `imagecodecs` to requirements.in and regenerate requirements.txt (pip-compile --generate-hashes, the usual pattern).
+
 ### pyproj (3.8, project .venv)
 
 #### `pyproj.CRS("OSGB36")` is NOT the British National Grid, and EPSG:4326's authority axis order is (lat, lon)
@@ -1212,3 +1220,11 @@ Symptom: assuming Orléans sits at ~2.09°E and calling a fit of Jollois 1833's 
 Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and a site's point is exactly what the
       fit must land on. Before judging placement, re-derive the point's meaning: Nominatim `/reverse` (reachable
       from this VM, see the machine section) and the site's own georeferenced survey ink.
+
+### data/merge/ (211's consolidation runners)
+
+#### run_build.py is nohup'd, survives session teardown, and is one site per child - never start a second one for overlapping ids
+Where: data/merge/run_build.py (the box-3 site runner), data/merge/build_sites.log (append-only run log)
+Symptom: a previous session's `nohup .venv/bin/python data/merge/run_build.py <ids> &` is still running (`ps aux | grep run_build`); the log's last `=== <sid> start` has no `build rc=` tail yet; a second instance for the same ids would race it on web/data/sites.json
+Why: ending a session does not kill the detached process; each site is one `pipeline/build_catalog.py --ids <sid>` subprocess, so a kill leaves a clean boundary at the last finished site, and build_catalog skips already-built sites, so resuming with the remaining ids is always safe.
+What to do: before launching anything, check `ps`. Log semantics: `NOT BUILT: <sid>` = the machinery skipped it (no LiDAR and no old map, or the id matched no catalog row - sids include the Q-id, so a typo'd id like `vieille-hesdin` silently builds nothing); `=== <sid> FAILED ===` = the subprocess exited non-zero (traceback logged above it). The per-site `marks refreshed` line is build_site.set_drawings on that one site only.

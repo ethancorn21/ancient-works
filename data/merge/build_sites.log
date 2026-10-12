@@ -546,3 +546,89 @@ built 1, skipped 0, failed 0
 marks refreshed: oudenaarde-q12992 depictions: 0
 === oudenaarde-q12992 ok ===
 === soignies-q462985 start 2026-10-12T21:23:44Z ===
+[1/1] soignies-q462985 (pc, 2000 m)
+  LiDAR survey BE/HAINAUT_2021-2022 (2022), 25 tiles, 10.48 pts/m2, 100% of the box
+    LIDAR_2021_2022_500mN6385E6275.copc.laz: 947829 ground points so far
+    LIDAR_2021_2022_500mN6385E6280.copc.laz: 2028696 ground points so far
+    LIDAR_2021_2022_500mN6385E6285.copc.laz: 3115476 ground points so far
+    LIDAR_2021_2022_500mN6385E6290.copc.laz: 4200943 ground points so far
+    LIDAR_2021_2022_500mN6385E6295.copc.laz: 4426795 ground points so far
+    LIDAR_2021_2022_500mN6390E6275.copc.laz: 5473163 ground points so far
+    LIDAR_2021_2022_500mN6390E6280.copc.laz: 6599188 ground points so far
+    LIDAR_2021_2022_500mN6390E6285.copc.laz: 7752746 ground points so far
+    LIDAR_2021_2022_500mN6390E6290.copc.laz: 8809871 ground points so far
+    LIDAR_2021_2022_500mN6390E6295.copc.laz: 9111018 ground points so far
+    LIDAR_2021_2022_500mN6395E6275.copc.laz: 10054458 ground points so far
+    LIDAR_2021_2022_500mN6395E6280.copc.laz: 11130787 ground points so far
+    LIDAR_2021_2022_500mN6395E6285.copc.laz: 12142862 ground points so far
+    LIDAR_2021_2022_500mN6395E6290.copc.laz: 12949891 ground points so far
+    LIDAR_2021_2022_500mN6395E6295.copc.laz: 13199408 ground points so far
+    LIDAR_2021_2022_500mN6400E6275.copc.laz: 14235672 ground points so far
+    LIDAR_2021_2022_500mN6400E6280.copc.laz: 15179782 ground points so far
+    LIDAR_2021_2022_500mN6400E6285.copc.laz: 16142144 ground points so far
+    LIDAR_2021_2022_500mN6400E6290.copc.laz: 17046738 ground points so far
+    LIDAR_2021_2022_500mN6400E6295.copc.laz: 17338641 ground points so far
+    LIDAR_2021_2022_500mN6405E6275.copc.laz: 17598304 ground points so far
+    LIDAR_2021_2022_500mN6405E6280.copc.laz: 17831245 ground points so far
+    LIDAR_2021_2022_500mN6405E6285.copc.laz: 18023415 ground points so far
+    LIDAR_2021_2022_500mN6405E6290.copc.laz: 18236812 ground points so far
+    LIDAR_2021_2022_500mN6405E6295.copc.laz: 18321972 ground points so far
+soignies-q462985 relief clip 1.2 m; {'block_h.png': 228, 'block_top.jpg': 547, 'relief.jpg': 496} KB
+soignies-q462985 cassini blank paper here
+soignies-q462985 etatmajor no data here
+   ok 106s
+built 1, skipped 0, failed 0
+=== soignies-q462985 build rc=0 2026-10-12T21:25:31Z ===
+marks refreshed: soignies-q462985 depictions: 0
+=== soignies-q462985 ok ===
+=== luxembourg-city-q1842 start 2026-10-12T21:25:31Z ===
+[1/1] luxembourg-city-q1842 (ign, 2000 m)
+  ign has no data here; reading pc
+  LiDAR survey LU/Lidar_2019 (2019), 25 tiles, 28.7 pts/m2, 100% of the box
+    LIDAR2019_NdP_76000_74500_EPSG2169.copc.laz: 447058 ground points so far
+    LIDAR2019_NdP_76000_75000_EPSG2169.copc.laz: 1018373 ground points so far
+    LIDAR2019_NdP_76000_75500_EPSG2169.copc.laz: 2038167 ground points so far
+    LIDAR2019_NdP_76000_76000_EPSG2169.copc.laz: 2702367 ground points so far
+    LIDAR2019_NdP_76000_76500_EPSG2169.copc.laz: 3091119 ground points so far
+    LIDAR2019_NdP_76500_74500_EPSG2169.copc.laz: 4156061 ground points so far
+    LIDAR2019_NdP_76500_75000_EPSG2169.copc.laz: 5555506 ground points so far
+    LIDAR2019_NdP_76500_75500_EPSG2169.copc.laz: 6745134 ground points so far
+    LIDAR2019_NdP_76500_76000_EPSG2169.copc.laz: 8929736 ground points so far
+    LIDAR2019_NdP_76500_76500_EPSG2169.copc.laz: 9403711 ground points so far
+    LIDAR2019_NdP_77000_74500_EPSG2169.copc.laz: 9961636 ground points so far
+    LIDAR2019_NdP_77000_75000_EPSG2169.copc.laz: 11241772 ground points so far
+    LIDAR2019_NdP_77000_75500_EPSG2169.copc.laz: 12506111 ground points so far
+    LIDAR2019_NdP_77000_76000_EPSG2169.copc.laz: 13799217 ground points so far
+    LIDAR2019_NdP_77000_76500_EPSG2169.copc.laz: 14448982 ground points so far
+    LIDAR2019_NdP_77500_74500_EPSG2169.copc.laz: 15579686 ground points so far
+    LIDAR2019_NdP_77500_75000_EPSG2169.copc.laz: 17040680 ground points so far
+    LIDAR2019_NdP_77500_75500_EPSG2169.copc.laz: 19059625 ground points so far
+    LIDAR2019_NdP_77500_76000_EPSG2169.copc.laz: 21199092 ground points so far
+    LIDAR2019_NdP_77500_76500_EPSG2169.copc.laz: 21943853 ground points so far
+    LIDAR2019_NdP_78000_74500_EPSG2169.copc.laz: 22501187 ground points so far
+    LIDAR2019_NdP_78000_75000_EPSG2169.copc.laz: 23394041 ground points so far
+    LIDAR2019_NdP_78000_75500_EPSG2169.copc.laz: 24169935 ground points so far
+    LIDAR2019_NdP_78000_76000_EPSG2169.copc.laz: 24976885 ground points so far
+    LIDAR2019_NdP_78000_76500_EPSG2169.copc.laz: 25348284 ground points so far
+luxembourg-city-q1842 relief clip 1.2 m; {'block_h.png': 318, 'block_top.jpg': 884, 'relief.jpg': 738} KB
+luxembourg-city-q1842 cassini zoom 14 coverage 100% 153 KB
+luxembourg-city-q1842 etatmajor blank paper here
+luxembourg-city-q1842 cassini_ink.webp 549 KB
+   ok 211s
+built 1, skipped 0, failed 0
+=== luxembourg-city-q1842 build rc=0 2026-10-12T21:29:04Z ===
+marks refreshed: luxembourg-city-q1842 depictions: 1
+=== luxembourg-city-q1842 ok ===
+=== aire-sur-la-lys-q259903 start 2026-10-12T21:29:04Z ===
+[1/1] aire-sur-la-lys-q259903 (ign, 2000 m)
+aire-sur-la-lys-q259903 relief clip 0.99 m; {'block_h.png': 216, 'block_top.jpg': 974, 'relief.jpg': 502} KB
+aire-sur-la-lys-q259903 cassini zoom 14 coverage 100% 193 KB
+aire-sur-la-lys-q259903 etatmajor zoom 15 coverage 100% 243 KB
+aire-sur-la-lys-q259903 cassini_ink.webp 696 KB
+aire-sur-la-lys-q259903 etatmajor_ink.webp 882 KB
+   ok 126s
+built 1, skipped 0, failed 0
+=== aire-sur-la-lys-q259903 build rc=0 2026-10-12T21:31:11Z ===
+marks refreshed: aire-sur-la-lys-q259903 depictions: 2
+=== aire-sur-la-lys-q259903 ok ===
+=== avesnes-sur-helpe-q217178 start 2026-10-12T21:31:11Z ===
