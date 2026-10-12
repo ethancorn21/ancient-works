@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 103, agent a - step 4 DONE: the serve.py worker + part 2 test are run and GREEN; suite 71 passed / 1 skipped. Next: headless ca
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 104, agent a - part 3 (headless card probe, boxes 2+4 page half) is WRITTEN and GREEN; both card tests pass. Next: copy the ver
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -19,32 +19,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 305 DECISION: queue generator built (tools/fit_queue.py) + committed fit_queue.json + generator tests
-Step 1 of the 8-step plan from iteration 99. Wrote tools/fit_queue.py (stdlib-only: reads exactly
-web/data/sites.json + the web/data/sites/<id>/ dirs, web/data/plans.json, the data/review/ item files
-(keyed by the item's `site` field, open and resolved alike) and the data/db/platefits/ docs; never
-opens an image) and ran it: web/data/fit_queue.json committed, 117 entries, first =
-devil-s-dyke-q3307343 "The Devil's Dyke Camp, near Brighton" (the clearest scan, Allcroft 1908).
-Reason mix on the real population: 72 the only candidate / 37 the clearest scan / 7 a true plan /
-1 the clearest view. Added tests/test_fit_queue.py part 1: a synthetic 12-site tree pinning every
-rule exactly (entry set; agent-doc inclusion; hand-doc exclusion via both the `site` field and the
-file-name prefix fallback; a no-picture item creating no candidate; unbuilt sites out; dedupe of a
-plan in both sources resolving to the plans row; synth row for a plan whose only row names another
-site, sites narrowed; plan-over-view then area then plan id; the four one-word reasons; site order;
-indent=1 no-trailing-newline bytes; the 13 named row fields in column order) and a real-population
-test (entry set derived independently, never pinned - 803 precedent; per-entry invariants; checkout
-byte-identical; dead-socket guard). Both green; full suite under .venv/bin/python: 70 passed,
-1 skipped - the 3 failures at loop start (test_gate, test_batch_eu x2) and
-test_serve::test_platefits_docs_match_sites all pass now (agent c's merges fixed them).
-Facts settled for the remaining steps: plans.json is {cols, rows} (rows are lists;
-batch_us._plans_rows converts to named dicts); sites.json is {"sites": [...]} (385 entries, all
-with a web/data/sites/<id>/ dir in this checkout); every real platefits doc carries a `site` field
-(the filename fallback never fires in practice but is in the contract); web/index.html L573 is the
-home stats line containing "built in all" (the card's anchor), L1707 the last script tag
-(review.js); serve.py's worker (after_write/_fit_wake, ~L229-252) still runs plan_fit.main([]) for
-both PUT and DELETE - the next step is reading tests/test_serve.py, then the page card
-(web/fitqueue.js, added to Touches this session).
 
 ### 2026-10-12 305 DECISION: page card built (web/fitqueue.js + the index.html script tag); test_serve.py read whole - the hand-over's "test d" does not exist
 Steps 2+3 of the plan. web/fitqueue.js (loaded after review.js, index.html L1708) chains the wrappers
@@ -121,6 +95,41 @@ only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + bu
 coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
 real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
 section (box 1's "say how" + the card/save->line semantics).
+
+### 2026-10-12 305 DECISION: part 3 (headless card probe, boxes 2+4 page half) written and green; screenshots verified
+Added Part 3 to tests/test_fit_queue.py: PROBE_SCRIPT (a standalone playwright probe the test writes to a
+tmp dir and runs with node + NODE_PATH=/home/agent/tools/shot/node_modules; the createRequire trick from
+shot.mjs) plus test_card_in_the_browser and test_card_done_mark_moves_on. The probe boots the served
+temp tree, reads the card, then real-clicks #fqplace -> the fit view's back -> the site view's back ->
+#fqskip -> #fqreset, reading the card and the fit tool's page state (P.site/P.plan/P.model/S.ground/
+#fitname/#fithint/save-disabled) at each stage. The done-mark test pre-seeds localStorage
+aw.fitQueue.done = {first entry site: <iso ts>} via addInitScript - the EXACT key/value the card's own
+saveFit wrapper writes when a save lands - and checks the load starts at entry 2 (self-heal keeps the
+mark: the site is still in the file), skip then goes to entry 3, undo restores entry 2. Both tests pass
+(2 passed in 26.7 s with -k card); full suite still to run (expect 73 passed / 1 skipped).
+
+Four bugs hit while building the probe, all fixed: (1) conftest's `served` fixture yields a TUPLE
+(base_url, tree), not the dict test_review's own `queue` fixture wraps it into; (2) probe stages that
+read page globals must be `await page.evaluate(() => ({...}))` - bare node-context references to P/S/FQ
+throw (and they are lexical: globalThis.S is undefined while bare S works); (3) `const extra = {}`
+reassigned later -> "Assignment to constant variable" is a RUNTIME error, and the boot block's
+swallowing try/catch turned it into silently missing fields ({ok:true} with no state) - the misleading
+failure mode cost ~30 min; now `let extra` and PITFALLS has the entry; (4) MapLibre aborts in-flight
+/tiles/relief fetches during the card's flyTo (net::ERR_ABORTED -> [reqfail]), so the tests assert no
+reqfail except /tiles/ lines (test_review never navigates, hence its stricter assert). Also: after
+#fitback the fit pane is HIDDEN again (endFit), so back1.pane is False.
+
+Screenshots for docs/site_flow/ were generated against the REAL checkout (server --port 0 on this
+checkout; the probe never saves, so no shared-store writes) and visually verified: 1-card.png shows
+"READY TO FIT 117 TO GO / Devil's Dyke / The Devil's Dyke Camp, near Brighton Allcroft 1908 - Fig. 217
+- the clearest scan" with PLACE THE DRAWING / SKIP under the stats line; 2-place.png shows the fit view
+(title, Plan/View seg, step hint, save floor "at least 3 points", citation) AND the Allcroft plate
+image fully rendered in the sheet pane (book pages load in the real tree; in the conftest temp tree
+they 404 and the tool keeps the row with "Could not load the page scan." - asserted in the test);
+3-skip.png shows Fort Ancient 116 to go + "Undo 1 skip"; a second run with the done mark pre-seeded
+starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
+/tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
+in the hand-over).
 
 ## Project-wide driver notes (newest)
 
