@@ -1,5 +1,5 @@
 {
- "at": "2026-10-12T01:19:28.922234+00:00",
+ "at": "2026-10-12T01:58:39.972812+00:00",
  "entries": [
   {
    "site": "devil-s-dyke-q3307343",
@@ -4414,51 +4414,6 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1224960
-    }
-   ]
-  },
-  {
-   "site": "shotwick-castle-q7502621",
-   "name": "Shotwick Castle",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0575_1",
-    "reason": "the only candidate",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0575_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0575.jpg",
-     "title": "EARTHWORKS",
-     "label": "",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.18,
-      0.35,
-      0.52,
-      0.56
-     ],
-     "sites": [
-      "clun-castle-q5136615",
-      "shotwick-castle-q7502621",
-      "holdgate-castle-q5879676",
-      "wandlebury-hill-fort-q7967271"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0575_1",
-     "title": "EARTHWORKS",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 1214039
     }
    ]
   },
