@@ -2,10 +2,13 @@
 
 Deterministic, offline, numpy only - no network, no ports, no writes. For each document of a set
 (default held; `--set dev` for the 12 documents the thresholds were chosen on) it re-derives the
-registered partition (sorted NON-automatic document names - a document's `"auto": true` marks the
-batch's own output, never part of the reference - seed 20260108; it fails loudly if the derivation
-no longer reproduces the names section 3 registered, because then the registration is void), builds
-the five placements of section 4 - true; moved 60 m NE; turned 10 deg; scaled 15% (each about the
+registered partition (the 20 document names section 3 registered - the frozen set is those names,
+not whatever is in the directory - sorted, seed 20260108; every document added after the
+registration is excluded from the one-shot proof, the automatic ones (`"auto": true`, the batch's
+own output) and new hand fits (which stay subject to the production fit gate, fit_gate.gate, at
+fit time and are never scored here); it fails loudly if a registered name is not among the
+NON-automatic documents - renamed, deleted, or gained `"auto": true` - because then the
+registration is void), builds the five placements of section 4 - true; moved 60 m NE; turned 10 deg; scaled 15% (each about the
 placement's centroid); cross-site, re-centred onto the next site's box centre, cycling - and
 scores each with fit_gate.gate, printing one machine-stable line per (doc, case):
 
@@ -35,10 +38,13 @@ import plan_fit  # noqa: E402
 
 SEED = 20260108  # the registered winning seed (docs/gate.md section 3)
 
-# The sets registered in docs/gate.md section 3 (names only). If the derivation below stops
-# reproducing them - a hand-fit document added, renamed or deleted - the registered partition is
-# void: fail loudly instead of scoring a silently different set. (Automatic documents, the batch's
-# own output, are excluded from the name list by partition(); they only ever ADD names.)
+# The sets registered in docs/gate.md section 3 (names only). They are the frozen set: the
+# one-shot proof is about exactly these 20 names, not whatever is in data/db/platefits/.
+# Documents added after the registration are excluded from the proof - the batch's automatic
+# output ("auto": true) and any new hand fit, which stays subject to the production fit gate
+# (fit_gate.gate) at fit time; both only ever ADD names. If a registered name stops being a
+# non-automatic document (renamed, deleted, or gained "auto": true) the registered partition is
+# void: fail loudly instead of scoring a silently different set.
 REGISTERED = {
     "held": [
         "arbor-low-q630312.earthworkenglan01allcgoog_n0597_1",
@@ -69,19 +75,30 @@ REGISTERED = {
 CASES = ("true", "moved", "rot10", "scale15", "xsite")
 
 
-def partition():
-    """(names, held, dev): the registered partition re-derived over the NON-automatic documents -
-    a document's "auto": true is the batch's own output (fit/batch_us.py), never part of the
-    golden/held-out reference; automatic documents only ADD names (no hand-fit document ever gains
-    the field), so the name list is the same before and after any batch. Sort the 20 names, seed
-    20260108 picks 8 positions (docs/gate.md section 3), dev is the rest."""
-    names = [os.path.basename(p)[:-5]
-             for p in sorted(glob.glob(os.path.join(ROOT, "data", "db", "platefits", "*.json")))
-             if not json.load(open(p)).get("auto")]  # a doc without the field is a hand fit
-    if len(names) != 20:
+def partition(platefits_dir=None):
+    """(names, held, dev): the registered partition re-derived over the 20 document names
+    docs/gate.md section 3 registered - the frozen set is those names, not whatever is in the
+    directory. Post-registration documents are excluded from the one-shot proof: a doc's
+    "auto": true is the batch's own output (fit/batch_us.py), and any later hand fit stays
+    subject to the production fit gate (fit_gate.gate) at fit time, which this tool never
+    re-scores here. Both only ever ADD names, so the derivation is the same before and after
+    any batch or new hand fit. A registered name missing from the non-automatic documents
+    (renamed, deleted, or gained "auto": true) voids the registration: fail loudly instead of
+    scoring a silently different set. Sort the 20 names, seed 20260108 picks 8 positions
+    (docs/gate.md section 3), dev is the rest."""
+    if platefits_dir is None:
+        platefits_dir = os.path.join(ROOT, "data", "db", "platefits")
+    non_auto = [os.path.basename(p)[:-5]
+                for p in sorted(glob.glob(os.path.join(platefits_dir, "*.json")))
+                if not json.load(open(p)).get("auto")]  # a doc without the field is a hand fit
+    registered = set(REGISTERED["held"]) | set(REGISTERED["dev"])
+    missing = sorted(registered - set(non_auto))
+    if missing:
         raise SystemExit(
-            f"gate_heldout: expected 20 hand-fit documents in data/db/platefits/, found {len(names)}; "
+            f"gate_heldout: registered documents missing from the non-automatic documents in "
+            f"data/db/platefits/ (renamed, deleted, or gained \"auto\": true): {missing}; "
             "the registered partition is void, see docs/gate.md section 1")
+    names = sorted(registered)
     held = sorted(names[int(i)] for i in np.random.default_rng(SEED).choice(20, 8, replace=False))
     dev = [n for n in names if n not in set(held)]
     return names, held, dev

@@ -1,5 +1,5 @@
 {
- "at": "2026-10-11T20:27:33.402416+00:00",
+ "at": "2026-10-11T23:48:05.009025+00:00",
  "items": [
   {
    "site": "aalsum-q3902030",
@@ -14672,6 +14672,33 @@
     "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
     "at": "2026-10-11T11:36:28.250498+00:00"
    }
+  },
+  {
+   "site": "shotwick-castle-q7502621",
+   "name": "Shotwick Castle",
+   "lead": "earthworkenglan01allcgoog_n0575_1",
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0575_1",
+     "title": "EARTHWORKS",
+     "url": "books/earthworkenglan01allcgoog/n0575.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-10",
+      "kind": "none",
+      "reason": "ambiguous: score below 0.75"
+     },
+     "pairs": [],
+     "coarse": false,
+     "ground": "relief",
+     "scale_m_px": 0.0194,
+     "rot_deg": 0.0,
+     "scale_source": "bar",
+     "note": "scale from the scale bar: '0 20 40 60 feet'",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "shrum-mound-q28403189",

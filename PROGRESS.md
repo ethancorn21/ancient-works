@@ -5,11 +5,11 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
-- `tasks/206-mackenzie-p212.md` (open) - hand-over: **Iteration 64 (2026-10-11, agent a) - the missing part is filed: tasks/218-gate-holdout-new-hand-docs.md is in the queue (Status: open, Depends on: 0
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/301-site-argentoratum.md` (in-progress) - hand-over: (iteration 72, agent c - tests/test_site_done.py rewritten golden-seeded and passing: the test recovers
+- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 104, agent a - part 3 (headless card probe, boxes 2+4 page half) is WRITTEN and GREEN; both card tests pass. Next: copy the ver
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -20,19 +20,139 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 301 DECISION: the fabrication check is wired into the line (tools/site_done.py:_sync, run BEFORE any build/download); the line took Stonehenge to the map as 0 drawings / 13 review candidates; two line defects found and fixed in the line (scoped prune, stale item re-read)
-Where: tools/site_done.py, pipeline/plan_fit.py (prune), data/db/platefits/stonehenge-q39671.* (7 deleted), data/review/stonehenge-*, web/data/{sites.json,review.json}
-Rationale: _sync runs plan_fit.fabrication_pattern(doc pairs) on every doc before the is_done/build branch; on a hit it (1) upserts the candidate into the site's item via a new _pattern_entry (plan/title/url/pairs/evidence/gate_score, why = "line check: <reason>; the gate's X m measures internal consistency of the anchors, not their truth"), (2) deletes the doc file (a later batch run re-fits the picture; plan_fit.prune keeps no overlay of it), (3) prints "sent to the review queue (line check: ...)" and never counts it synced; after the loop the line calls plan_fit.prune(root, sid). _sync now returns (failed, sent), and main re-reads the item AFTER the sync (the upsert is invisible to _fit's snapshot) so _review/_summary/resolved all see the new candidates. The real run (no model, no network): 13 rows all covered -> no batch run; all 7 stonehenge docs hit the check; the 7 already-built plan webps + dep entries pruned; drawings 7 -> 0; item 6 -> 13 (the 6 originals byte-identical, order kept, lead unchanged); review.json republished (339 open of 340); second run idempotent (only review.json's "at" changes). Two defects the run exposed, both fixed in the line per the task's "fix in the line" box: (1) prune was a GLOBAL sweep and dropped a stale orphan dep entry of alligator-effigy-mound (a plan overlay referencing a doc that no longer exists in the store - pre-existing since before this task; the dep dir is gitignored/local, the images pipeline-rebuild, and the module's own next global prune would have dropped it anyway) - so plan_fit.prune gained a `site` parameter (site=None keeps the CLI's global sweep) and the line prunes only its own site; (2) _review printed the stale pre-sync item (6 candidates instead of 13) because it used _fit's snapshot - main re-reads after the sync. Suite 60 passed after all of it (hand-fit golden green). test_site_done.py now runs VACUOUSLY against the new repo state (0 docs) - the golden-seeded rewrite that makes it re-verify the check is the next step, after the docs step. The 7 deleted docs live on in git history (this commit's parent): git show <parent>:data/db/platefits/stonehenge-q39671.<plan>.json.
+### 2026-10-12 305 DECISION: page card built (web/fitqueue.js + the index.html script tag); test_serve.py read whole - the hand-over's "test d" does not exist
+Steps 2+3 of the plan. web/fitqueue.js (loaded after review.js, index.html L1708) chains the wrappers
+review.js installed: renderList -> a "Ready to fit (N to go)" card as the next sibling of the home
+stats line (the "built in all" p; the tabs row and that line's text stay byte for byte), naming the
+next site (first queue entry not done in this browser and not skipped this session, and still a built
+site in this build), its best candidate's row (title, book, label, the one-word reason) and buttons
+Place the drawing / Skip / Undo skips. Place runs the existing fit tool in the fitkit convention
+(endFit-if-active -> select -> setGround(lidar?relief:imagery) -> loadDeps -> startFit ->
+openPlan(entry.best.row)); RV.pending is deliberately never set (the queue's row is the owner's clean
+slate). saveFit wrapper (after review.js's): a landed doc for a queued site marks it done in
+localStorage aw.fitQueue.done (self-healed against the file on load) and the card moves on. Skips are
+session-only with a reset in the card. The card never breaks a page load: missing/404/stale file =
+no card.
 
-### 2026-10-11 301 DECISION: Stonehenge's record corrected - docs/site_flow.md no longer claims the 7 fabricated fits were synced, and docs/site_flow/stonehenge.png is the CURRENT visitor state (0 drawings, uncoloured marker, 13 candidates in the review item)
-Where: docs/site_flow.md, docs/site_flow/stonehenge.png
-Rationale: the old paragraph said the line "synced the 7 documents, took the entry from 0 to 7 drawings" and the old png's caption claimed the 1800 Rijksmuseum plan "sits on the real sarsens" - both false since the iteration-70 line run (all 7 were the model's fabricated pattern class; the site is 0 drawings with 13 open candidates). New png: the LIVE checkout served with server/serve.py --port 0 (ephemeral port), shot with tools/shot.mjs (NODE_PATH=/home/agent/tools/shot/node_modules; probe polls S.ready && S.sites.length, select('stonehenge-q39671'), awaits loadDeps; POSTWAIT=8000 so the 4.5 s flyTo settles). Its [eval] confirmed drawings: 0, depFiles: ["map:six-inch-1st.webp"] (the 1900 one-inch map is hidden by the 150-year rule), RV loaded with 339 open items; the frame shows the aerial ground, the panel's "Old maps and aerials" group, no drawings, uncoloured markers. Doc edits: the Stonehenge paragraph rewritten (no batch run needed, all 7 hit the pre-sync check, all sent to the item with the reason and deleted, 0 drawings, item 6 -> 13, 339 open of 340, a human's saved fit puts the first drawing on); the png caption true; a new "What broke" entry recording that the gate passed the class by construction (gate.md s.7; residuals 0-44 m; one fit 2-3x too large and ~70 m off-centre) and that the line's fabrication_pattern (grid roundness + 2D lattice + 1D ladder on stored page-px pairs) now catches it before sync (fires on all 110 batch docs at calibration, none of the 20 hand docs); "Files the line touches" no longer claims data/db/platefits is byte-identical (the line deletes pattern docs after upserting the candidate); step 2 (sync) now describes the pre-sync check. ArcGIS World_Imagery ERR_ABORTED lines during the flyTo are normal in-flight aborts - the photograph still renders. Suite: 60 passed, unchanged.
+Two pitfalls hit and fixed, both in the browser only (node --check passes): (1) review.js's
+wrapper-saved names (_renderList, _saveFit, ...) are top-level consts in the page's global lexical
+scope - fitqueue.js re-declaring them made Chrome reject the whole script ("Identifier '_renderList'
+has already been declared"; FQ then undefined). Renamed to _fqRenderList/_fqSaveFit; PITFALLS.md has
+the rule. (2) fqPatch re-assigned a const (old -> card).
 
-### 2026-10-11 301 DECISION: test_site_done.py re-seeds the Stonehenge fabrication incident from the recovered goldens - the line's pre-sync check is re-verified on every run
-Chosen of the options the hand-over left (golden-seeded rewrite vs extending to a new site vs lighter assertions): golden-seeded rewrite with the STRONGEST pin available - the upserted item must be BYTE-IDENTICAL to the repo's current 13-candidate item, which forces the check function, the 200-evidence row lookup, the upsert's ordering/serialization, and the golden docs all to reproduce the live run exactly. Shape: (1) the 7 deleted docs recovered verbatim from git (b84d147^) into tests/golden/stonehenge_linecheck_docs/ under their original names (Touches already listed tests/golden/); (2) loud preconditions before seeding - the repo holds no stonehenge docs, the item is exactly 7 "line check:" + 6 batch candidates, fabrication_pattern still fires on each golden doc AND the recorded entry equals SITE_DONE._pattern_entry(doc, pattern, repo) (drift in the check, a golden doc, or a files.jsonl evidence row fails before anything is seeded), plans.json's 13 rows == 7+6, the published page matches the item; (3) the tree copies code + full queue + whole doc store + data/commons/files.jsonl, seeds the 7 docs, and rewinds the item to its 6 batch candidates (the upsert only appended, so removal restores the batch's file); the run asserts the ENTIRE output line by line, byte-identity of item/depictions/sites.json (0 drawings), the 7 docs deleted, every other site's files untouched, and second-run idempotency (only review.json's "at"). Two design findings: the old tree omitted data/commons/files.jsonl, which _pattern_entry reads for the evidence field - without the copy the upserted item cannot be byte-identical; and no flat-colour big-image seeding is needed at all, because a pattern doc never reaches load_picture (if the check ever stops firing, the run tries to download and dies on the socket guard). The test loads tools/site_done.py via importlib under the unique name "site_done_under_test" (its own sys.path inserts resolve batch_us/build_site/plan_fit/review; fit/ and pipeline/ have no module-name collisions, so the later test_src_* files in the same pytest process are unaffected). Suite: 60 passed, count unchanged. Next step: Argentoratum through the line (all 8 of its auto docs fire the check; item 34 -> 42, drawings stay 0).
+Verified headless against a conftest-style temp tree (shot.mjs, chrome, real click-through of the
+DOM buttons): card renders ("Ready to fit 117 to go" / Devil's Dyke / Allcroft's row / "the clearest
+scan"); Place opens the fit tool with P.site=devil-s-dyke-q3307343, P.plan=earthworkenglan01allcgoog_n0686_1,
+S.ground=relief, pane open, correct header; back out -> card still on the same site; Skip -> Fort
+Ancient (116, reset link appears); Undo -> back. No [pageerror], no [reqfail]; only the expected 200s
+and 404s (scans/amazon/book image). Full suite after: 70 passed, 1 skipped - unchanged from loop
+start, including test_review's headless n404==2 (the committed fit_queue.json answers 200) and
+index.html footprint tests (the tag is a distinct src string).
+
+tests/test_serve.py read WHOLE this session (81 lines, 5 tests): test_page_loads (body contains
+"Ancient Works" + "maplibre"), test_sites_data (>=384 sites, sum drawings >=25, per-site C fields),
+test_hand_fits_are_the_reference (golden), test_platefits_docs_match_sites (every doc's site built,
+plan+pairs present), test_document_store_roundtrip (PUT/GET/DELETE on the SCRATCH collection
+"awtest" - never platefits, so no worker involvement). The earlier hand-over's "test d" (a tree
+without tools/ asserting an exact file set after PUTs) does NOT exist in this file - stale
+description, now corrected. The exact file-set assertion that DOES exist is test_review.py::
+test_save_resolves_the_item (platefits docs + per-site depictions: after the PUT, exactly one new
+doc and nothing else; in that tree the worker dies on the pipeline/ import - the server stays up).
+So the serve.py worker change (next step) must keep: no tools/ in the tree -> the site_done import
+fails -> swallowed by the existing except-BaseException-and-print -> no new files; and no new files
+for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
+([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
+list drained per wake) is unchanged and still valid.
+
+### 2026-10-12 305 DECISION: part 2 (save -> one-site line) verified green - the pick rule generalized (population moved) and the drain was the bug, not the worker
+Ran the iteration-102-written part 2. Two failures, both fixed: (1) `_pick_site()` returned None -
+the population moved under the batch tasks since iteration 102: Devil's Dyke's last uncovered row
+(n0662_1) now has an agent doc, so EVERY queue site with a book page + item candidate is fully
+covered (batch items hold every non-auto row). Generalized: hard conditions = book row with a local
+page + unresolved item carrying it with >=3 pairs + NO platefits docs for the site (the line then
+builds exactly one overlay: drawings +1 and the open count drop by exactly one); "uncovered rows"
+became a soft preference (pick first, assertion block conditional). Current pick: forthill
+(ancientmonuments00squi_n0068_1, 0 uncovered, 3 pairs). (2) The fixture's `sd.unlink()` crashed on
+a real per-site dir (forthill) - copytree already materializes the checkout's per-site symlinks into
+the tree, so the unlink/re-copy was unnecessary and wrong; deleted it (real dirs are already
+private; the test's symlink + realpath asserts still guard). Then the first full run: PUT ok, the
+drawing landed on the map (depictions poll passed) but the 30 s drain for "finished (exit 0)" timed
+out with only the PUT log line visible. Investigation (throwaway /tmp/diag305*.py, raw os.read
+reader + watchdog dumps): NO hang - the whole one-site line finishes in 23 s (PUT at +1 s, first
+worker print and "finished (exit 0)" at +23 s; the ~22 s is the heavy first import of the
+numpy/scipy/PIL chain). The drain pattern was the bug: select() on the fd of a buffered reader
+(proc.stdout, text mode) is not a wait for lines - the first readline() pre-fetched the OS pipe
+into Python's buffer and select never fired again; a second run also showed a whole-process stall
+of minutes (its watchdog time.sleep(60) never woke - an OS-level thing under parallel-agent load,
+not a Python deadlock: the identical run completes in 23 s elsewhere). Fix in tests/test_fit_queue.py:
+the server's stdout is pulled by a dedicated reader thread (blocking reads, no select at all), the
+fit-entry poll and the "finished" wait merged into one 180 s loop (8x the measured 23 s; the server-
+stays-up assert runs every tick), and the network-freedom / no-failure asserts scan the collected
+lines. Part 1 (synthetic + real population) unchanged and green. Full suite after: 71 passed,
+1 skipped (baseline 70+1; the +1 is part 2). web/data/fit_queue.json re-generated: content identical
+(117 entries, same order - the batch docs are agent docs, which do not move a site out of the queue),
+only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + buffered reader on a
+coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
+real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
+section (box 1's "say how" + the card/save->line semantics).
+
+### 2026-10-12 305 DECISION: part 3 (headless card probe, boxes 2+4 page half) written and green; screenshots verified
+Added Part 3 to tests/test_fit_queue.py: PROBE_SCRIPT (a standalone playwright probe the test writes to a
+tmp dir and runs with node + NODE_PATH=/home/agent/tools/shot/node_modules; the createRequire trick from
+shot.mjs) plus test_card_in_the_browser and test_card_done_mark_moves_on. The probe boots the served
+temp tree, reads the card, then real-clicks #fqplace -> the fit view's back -> the site view's back ->
+#fqskip -> #fqreset, reading the card and the fit tool's page state (P.site/P.plan/P.model/S.ground/
+#fitname/#fithint/save-disabled) at each stage. The done-mark test pre-seeds localStorage
+aw.fitQueue.done = {first entry site: <iso ts>} via addInitScript - the EXACT key/value the card's own
+saveFit wrapper writes when a save lands - and checks the load starts at entry 2 (self-heal keeps the
+mark: the site is still in the file), skip then goes to entry 3, undo restores entry 2. Both tests pass
+(2 passed in 26.7 s with -k card); full suite still to run (expect 73 passed / 1 skipped).
+
+Four bugs hit while building the probe, all fixed: (1) conftest's `served` fixture yields a TUPLE
+(base_url, tree), not the dict test_review's own `queue` fixture wraps it into; (2) probe stages that
+read page globals must be `await page.evaluate(() => ({...}))` - bare node-context references to P/S/FQ
+throw (and they are lexical: globalThis.S is undefined while bare S works); (3) `const extra = {}`
+reassigned later -> "Assignment to constant variable" is a RUNTIME error, and the boot block's
+swallowing try/catch turned it into silently missing fields ({ok:true} with no state) - the misleading
+failure mode cost ~30 min; now `let extra` and PITFALLS has the entry; (4) MapLibre aborts in-flight
+/tiles/relief fetches during the card's flyTo (net::ERR_ABORTED -> [reqfail]), so the tests assert no
+reqfail except /tiles/ lines (test_review never navigates, hence its stricter assert). Also: after
+#fitback the fit pane is HIDDEN again (endFit), so back1.pane is False.
+
+Screenshots for docs/site_flow/ were generated against the REAL checkout (server --port 0 on this
+checkout; the probe never saves, so no shared-store writes) and visually verified: 1-card.png shows
+"READY TO FIT 117 TO GO / Devil's Dyke / The Devil's Dyke Camp, near Brighton Allcroft 1908 - Fig. 217
+- the clearest scan" with PLACE THE DRAWING / SKIP under the stats line; 2-place.png shows the fit view
+(title, Plan/View seg, step hint, save floor "at least 3 points", citation) AND the Allcroft plate
+image fully rendered in the sheet pane (book pages load in the real tree; in the conftest temp tree
+they 404 and the tool keeps the row with "Could not load the page scan." - asserted in the test);
+3-skip.png shows Fort Ancient 116 to go + "Undo 1 skip"; a second run with the done mark pre-seeded
+starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
+/tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
+in the hand-over).
 
 ## Project-wide driver notes (newest)
 
-### 2026-10-10 DRIVER: .venv could not be built from requirements.txt
-    ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==. These do not:
-    Every package needs a pinned version and hash (AGENTS.md, Research and packages); full pip output: .agent/reports/venv.txt
+### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_gate.py:36: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    1 failed, 59 passed in 63.50s (0:01:03)
+    (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_serve.py::test_platefits_docs_match_sites
+    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
+    4 failed, 60 passed in 64.37s (0:01:04)
+    (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_serve.py::test_platefits_docs_match_sites

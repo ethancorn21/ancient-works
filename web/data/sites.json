@@ -16543,6 +16543,56 @@
    "overlays": 0
   },
   {
+   "id": "shotwick-castle-q7502621",
+   "name": "Shotwick Castle",
+   "aka": "Shotwick Castle motte and bailey and late medieval garden remains",
+   "place": "Shotwick Park, Cheshire West and Chester, England",
+   "lon": -2.97608,
+   "lat": 53.2272,
+   "summary": "Shotwick Castle is a Norman medieval fortification near the village of Saughall, Cheshire, England. Construction began in the late 11th century. Its purpose was to control a crossing point on the River Dee between England and Wales. The site is a scheduled monument. No masonry features remain above ground except for earthworks.",
+   "region": "England",
+   "kind": "motte",
+   "qid": "Q7502621",
+   "wiki": "https://en.wikipedia.org/wiki/Shotwick_Castle",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.982082339849388,
+     53.230793110374336
+    ],
+    [
+     -2.970077660150613,
+     53.230793110374336
+    ],
+    [
+     -2.970077660150613,
+     53.223606588097645
+    ],
+    [
+     -2.982082339849388,
+     53.223606588097645
+    ]
+   ],
+   "size_m": [
+    800,
+    800
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 3.97,
+    "zmax": 25.25,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "shrum-mound-q28403189",
    "name": "Shrum Mound",
    "place": "Ohio",

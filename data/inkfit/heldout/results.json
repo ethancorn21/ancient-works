@@ -1,0 +1,818 @@
+{
+ "at": "2026-10-11T22:47:37.081160+00:00",
+ "docs": {
+  "arbor-low-q630312.earthworkenglan01allcgoog_n0597_1": {
+   "doc": "arbor-low-q630312.earthworkenglan01allcgoog_n0597_1",
+   "site": "arbor-low-q630312",
+   "plan": "earthworkenglan01allcgoog_n0597_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 170,
+   "n_points": 7017,
+   "seed": {
+    "s_m_px": 0.3883,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "no scale text recorded"
+   },
+   "objective": {
+    "fit": -0.0144,
+    "scramble": 0.0076,
+    "shifted": -0.038,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.0076,
+   "confidence": -0.0219,
+   "placed": true,
+   "corner_error_m": 1399.1,
+   "drot_deg": 27.63,
+   "scale_ratio": 13.214,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.015,
+    "slope_o": 0.0,
+    "io": 0.001
+   },
+   "fabrication": null,
+   "seconds": 67.3
+  },
+  "avebury-q661855.earthworkenglan01allcgoog_n0581_1": {
+   "doc": "avebury-q661855.earthworkenglan01allcgoog_n0581_1",
+   "site": "avebury-q661855",
+   "plan": "earthworkenglan01allcgoog_n0581_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 15,
+   "n_points": 4956,
+   "seed": {
+    "s_m_px": 0.1886,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 500 feet'"
+   },
+   "objective": {
+    "fit": 0.546,
+    "scramble": 0.5178,
+    "shifted": 0.0244,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.5178,
+   "confidence": 0.0281,
+   "placed": true,
+   "corner_error_m": 376.1,
+   "drot_deg": -13.41,
+   "scale_ratio": 0.5925,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.01,
+    "slope_o": 0.0001,
+    "io": -0.001
+   },
+   "fabrication": null,
+   "seconds": 79.5
+  },
+  "aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1": {
+   "doc": "aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1",
+   "site": "aztalan-state-park-q4832928",
+   "plan": "antiquitiesofwis00saph_n0182_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 89,
+   "n_points": 10849,
+   "seed": {
+    "s_m_px": 0.2225,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "ratio 'Scale 20 ft. to an inch.' unusable: lapham_1855 scan ppi not recorded"
+   },
+   "objective": {
+    "fit": 0.0147,
+    "scramble": 0.0359,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.0359,
+   "confidence": -0.0212,
+   "placed": true,
+   "corner_error_m": 544.1,
+   "drot_deg": -50.71,
+   "scale_ratio": 0.988,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.008,
+    "slope_o": 0.0,
+    "io": -0.001
+   },
+   "fabrication": null,
+   "seconds": 156.2
+  },
+  "badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1": {
+   "doc": "badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1",
+   "site": "badbury-rings-q798831",
+   "plan": "earthworkenglan01allcgoog_n0132_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 33,
+   "n_points": 1729,
+   "seed": {
+    "s_m_px": 0.1902,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 100 200 300 400 500 Scale of Feet'"
+   },
+   "objective": {
+    "fit": 0.5913,
+    "scramble": 0.4042,
+    "shifted": 0.0277,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.4042,
+   "confidence": 0.1871,
+   "placed": true,
+   "corner_error_m": 264.5,
+   "drot_deg": -1.16,
+   "scale_ratio": 0.7048,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.007,
+    "slope_o": 0.0001,
+    "io": 0.001
+   },
+   "fabrication": null,
+   "seconds": 88.0
+  },
+  "bergues-q244934.c_4bbca705be732b1c": {
+   "doc": "bergues-q244934.c_4bbca705be732b1c",
+   "site": "bergues-q244934",
+   "plan": "c_4bbca705be732b1c",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 54,
+   "n_points": 7866,
+   "seed": {
+    "s_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.0826,
+    "scramble": 0.0633,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.0633,
+   "confidence": 0.0192,
+   "placed": true,
+   "corner_error_m": 1283.0,
+   "drot_deg": 20.97,
+   "scale_ratio": 0.4624,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.035,
+    "slope_o": 0.0,
+    "io": -0.0
+   },
+   "fabrication": null,
+   "seconds": 129.7
+  },
+  "berkhamsted-castle-q4892150.c_1699141d593ead5a": {
+   "doc": "berkhamsted-castle-q4892150.c_1699141d593ead5a",
+   "site": "berkhamsted-castle-q4892150",
+   "plan": "c_1699141d593ead5a",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 20,
+   "n_points": 1576,
+   "seed": {
+    "s_m_px": 0.7456,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.1666,
+    "scramble": 0.1431,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.1431,
+   "confidence": 0.0235,
+   "placed": true,
+   "corner_error_m": 231.2,
+   "drot_deg": 1.4,
+   "scale_ratio": 1.4181,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.004,
+    "slope_o": 0.0,
+    "io": -0.002
+   },
+   "fabrication": null,
+   "seconds": 52.5
+  },
+  "cadbury-castle-q1025082.c_1fab2a0abe5b99d7": {
+   "doc": "cadbury-castle-q1025082.c_1fab2a0abe5b99d7",
+   "site": "cadbury-castle-q1025082",
+   "plan": "c_1fab2a0abe5b99d7",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 16,
+   "n_points": 924,
+   "seed": {
+    "s_m_px": 1.9394,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.2117,
+    "scramble": 0.2303,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.2303,
+   "confidence": -0.0186,
+   "placed": true,
+   "corner_error_m": 377.4,
+   "drot_deg": 30.14,
+   "scale_ratio": 1.0667,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.004,
+    "slope_o": 0.0,
+    "io": 0.0
+   },
+   "fabrication": null,
+   "seconds": 84.1
+  },
+  "cahokia-q333661.c_aff1b996dce7fe3a": {
+   "doc": "cahokia-q333661.c_aff1b996dce7fe3a",
+   "site": "cahokia-q333661",
+   "plan": "c_aff1b996dce7fe3a",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 127,
+   "n_points": 5446,
+   "seed": {
+    "s_m_px": 1.2966,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.021,
+    "scramble": 0.0728,
+    "shifted": -0.0129,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.0728,
+   "confidence": -0.0518,
+   "placed": true,
+   "corner_error_m": 831.1,
+   "drot_deg": 1.86,
+   "scale_ratio": 3.0468,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.04,
+    "slope_o": 0.0001,
+    "io": -0.005
+   },
+   "fabrication": null,
+   "seconds": 219.2
+  },
+  "calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1": {
+   "doc": "calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1",
+   "site": "calleva-atrebatum-q1027253",
+   "plan": "earthworkenglan01allcgoog_n0360_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 19,
+   "n_points": 1555,
+   "seed": {
+    "s_m_px": 0.2469,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 100 200 300 feet'"
+   },
+   "objective": {
+    "fit": 0.3386,
+    "scramble": 0.2316,
+    "shifted": 0.1347,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.2316,
+   "confidence": 0.107,
+   "placed": true,
+   "corner_error_m": 2203.6,
+   "drot_deg": -17.79,
+   "scale_ratio": 0.2378,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.009,
+    "slope_o": 0.0001,
+    "io": 0.003
+   },
+   "fabrication": null,
+   "seconds": 176.9
+  },
+  "camp-d-attila-q18749222.c_6a912845c1e1aa28": {
+   "doc": "camp-d-attila-q18749222.c_6a912845c1e1aa28",
+   "site": "camp-d-attila-q18749222",
+   "plan": "c_6a912845c1e1aa28",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": "not enough wall ink (2 candidate points, need 4)",
+   "n_pieces": 1,
+   "n_points": 171,
+   "seed": {
+    "s_m_px": 1.9254,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.454,
+    "scramble": 0.969,
+    "shifted": 0.5141,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.969,
+   "confidence": -0.515,
+   "placed": true,
+   "corner_error_m": 634.3,
+   "drot_deg": -19.95,
+   "scale_ratio": 0.9269,
+   "gate": null,
+   "fabrication": "not enough wall ink (2 candidate points, need 4)",
+   "seconds": 99.6
+  },
+  "castle-rising-castle-q1049485.c_70f937b71ae63d6a": {
+   "doc": "castle-rising-castle-q1049485.c_70f937b71ae63d6a",
+   "site": "castle-rising-castle-q1049485",
+   "plan": "c_70f937b71ae63d6a",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 26,
+   "n_points": 1456,
+   "seed": {
+    "s_m_px": 0.7339,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.3466,
+    "scramble": 0.266,
+    "shifted": 0.0144,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.266,
+   "confidence": 0.0806,
+   "placed": true,
+   "corner_error_m": 313.2,
+   "drot_deg": 19.85,
+   "scale_ratio": 1.92,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.003,
+    "slope_o": 0.0,
+    "io": -0.001
+   },
+   "fabrication": null,
+   "seconds": 35.6
+  },
+  "hembury-q3784763.earthworkenglan01allcgoog_n0108_1": {
+   "doc": "hembury-q3784763.earthworkenglan01allcgoog_n0108_1",
+   "site": "hembury-q3784763",
+   "plan": "earthworkenglan01allcgoog_n0108_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 193,
+   "n_points": 10741,
+   "seed": {
+    "s_m_px": 0.1579,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 100 200 300 Feet'"
+   },
+   "objective": {
+    "fit": 0.1271,
+    "scramble": 0.1355,
+    "shifted": 0.0004,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.1355,
+   "confidence": -0.0083,
+   "placed": true,
+   "corner_error_m": 424.0,
+   "drot_deg": 23.15,
+   "scale_ratio": 0.5388,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.006,
+    "slope_o": 0.0,
+    "io": -0.0
+   },
+   "fabrication": null,
+   "seconds": 136.0
+  },
+  "little-solsbury-hill-q548780.c_7ff7261c6b3574b6": {
+   "doc": "little-solsbury-hill-q548780.c_7ff7261c6b3574b6",
+   "site": "little-solsbury-hill-q548780",
+   "plan": "c_7ff7261c6b3574b6",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 13,
+   "n_points": 875,
+   "seed": {
+    "s_m_px": 1.8713,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.1059,
+    "scramble": 0.2998,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.2998,
+   "confidence": -0.194,
+   "placed": true,
+   "corner_error_m": 784.6,
+   "drot_deg": -6.45,
+   "scale_ratio": 3.12,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.003,
+    "slope_o": 0.0,
+    "io": 0.001
+   },
+   "fabrication": null,
+   "seconds": 80.8
+  },
+  "maiden-castle-q1232816.c_c20ff6b1f16d173d": {
+   "doc": "maiden-castle-q1232816.c_c20ff6b1f16d173d",
+   "site": "maiden-castle-q1232816",
+   "plan": "c_c20ff6b1f16d173d",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 17,
+   "n_points": 5977,
+   "seed": {
+    "s_m_px": 1.25,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.2608,
+    "scramble": 0.2462,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.2462,
+   "confidence": 0.0146,
+   "placed": true,
+   "corner_error_m": 536.0,
+   "drot_deg": -1.52,
+   "scale_ratio": 0.6134,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.034,
+    "slope_o": 0.0001,
+    "io": -0.008
+   },
+   "fabrication": null,
+   "seconds": 130.0
+  },
+  "maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1": {
+   "doc": "maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1",
+   "site": "maiden-castle-q1232816",
+   "plan": "earthworkenglan01allcgoog_n0124_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 296,
+   "n_points": 9708,
+   "seed": {
+    "s_m_px": 0.2263,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 100 200 300 Feet'"
+   },
+   "objective": {
+    "fit": 0.2193,
+    "scramble": 0.1345,
+    "shifted": -0.0216,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.1345,
+   "confidence": 0.0848,
+   "placed": true,
+   "corner_error_m": 1160.5,
+   "drot_deg": 97.86,
+   "scale_ratio": 0.7809,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.012,
+    "slope_o": 0.0,
+    "io": 0.0
+   },
+   "fabrication": null,
+   "seconds": 131.9
+  },
+  "mayburgh-henge-q1469390.c_984782b9e35e8ded": {
+   "doc": "mayburgh-henge-q1469390.c_984782b9e35e8ded",
+   "site": "mayburgh-henge-q1469390",
+   "plan": "c_984782b9e35e8ded",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 36,
+   "n_points": 2545,
+   "seed": {
+    "s_m_px": 0.7812,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.1155,
+    "scramble": 0.1579,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.1579,
+   "confidence": -0.0424,
+   "placed": true,
+   "corner_error_m": 469.2,
+   "drot_deg": -27.28,
+   "scale_ratio": 0.9611,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.021,
+    "slope_o": 0.0001,
+    "io": -0.004
+   },
+   "fabrication": null,
+   "seconds": 88.0
+  },
+  "mound-bottom-q14710093.c_0b98157d7af17d6e": {
+   "doc": "mound-bottom-q14710093.c_0b98157d7af17d6e",
+   "site": "mound-bottom-q14710093",
+   "plan": "c_0b98157d7af17d6e",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 21,
+   "n_points": 1992,
+   "seed": {
+    "s_m_px": 0.6757,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.1536,
+    "scramble": 0.0784,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.0784,
+   "confidence": 0.0752,
+   "placed": true,
+   "corner_error_m": 488.8,
+   "drot_deg": 23.65,
+   "scale_ratio": 0.4663,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.004,
+    "slope_o": 0.0,
+    "io": -0.0
+   },
+   "fabrication": null,
+   "seconds": 32.3
+  },
+  "old-sarum-q782719.c_8192abb966d030a3": {
+   "doc": "old-sarum-q782719.c_8192abb966d030a3",
+   "site": "old-sarum-q782719",
+   "plan": "c_8192abb966d030a3",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 61,
+   "n_points": 4515,
+   "seed": {
+    "s_m_px": 1.25,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.1207,
+    "scramble": 0.1093,
+    "shifted": -9.0,
+    "scramble_valid": true,
+    "shifted_valid": false
+   },
+   "null": 0.1093,
+   "confidence": 0.0114,
+   "placed": true,
+   "corner_error_m": 1138.6,
+   "drot_deg": -90.85,
+   "scale_ratio": 0.9969,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.042,
+    "slope_o": 0.0001,
+    "io": -0.01
+   },
+   "fabrication": null,
+   "seconds": 99.5
+  },
+  "old-sarum-q782719.earthworkenglan01allcgoog_n0142_1": {
+   "doc": "old-sarum-q782719.earthworkenglan01allcgoog_n0142_1",
+   "site": "old-sarum-q782719",
+   "plan": "earthworkenglan01allcgoog_n0142_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 303,
+   "n_points": 11190,
+   "seed": {
+    "s_m_px": 0.1646,
+    "rot_deg": 0.0,
+    "source": "bar",
+    "note": "scale from the scale bar: '0 100 200 300 feet'"
+   },
+   "objective": {
+    "fit": 0.1988,
+    "scramble": 0.1295,
+    "shifted": -0.0191,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.1295,
+   "confidence": 0.0693,
+   "placed": true,
+   "corner_error_m": 717.3,
+   "drot_deg": 76.39,
+   "scale_ratio": 0.6658,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.004,
+    "slope_o": 0.0,
+    "io": 0.0
+   },
+   "fabrication": null,
+   "seconds": 118.5
+  },
+  "serpent-mound-q968802.ancientmonuments00squi_n0210_1": {
+   "doc": "serpent-mound-q968802.ancientmonuments00squi_n0210_1",
+   "site": "serpent-mound-q968802",
+   "plan": "ancientmonuments00squi_n0210_1",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 15,
+   "n_points": 2199,
+   "seed": {
+    "s_m_px": 0.4921,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "no scale text recorded"
+   },
+   "objective": {
+    "fit": 0.2007,
+    "scramble": 0.2332,
+    "shifted": 0.0865,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.2332,
+   "confidence": -0.0325,
+   "placed": true,
+   "corner_error_m": 478.8,
+   "drot_deg": -12.62,
+   "scale_ratio": 2.0411,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.01,
+    "slope_o": 0.0,
+    "io": 0.0
+   },
+   "fabrication": null,
+   "seconds": 65.3
+  },
+  "whitley-castle-q7996561.c_802bb5ba395d4d29": {
+   "doc": "whitley-castle-q7996561.c_802bb5ba395d4d29",
+   "site": "whitley-castle-q7996561",
+   "plan": "c_802bb5ba395d4d29",
+   "at": "2026-10-11T22:47:37.081160+00:00",
+   "reruns": 0,
+   "model": "no-model",
+   "reason": null,
+   "n_pieces": 81,
+   "n_points": 7004,
+   "seed": {
+    "s_m_px": 1.0069,
+    "rot_deg": 0.0,
+    "source": "picture_size",
+    "note": "commons row: no stage-B fields: coarse anchor"
+   },
+   "objective": {
+    "fit": 0.0173,
+    "scramble": 0.0274,
+    "shifted": -0.0403,
+    "scramble_valid": true,
+    "shifted_valid": true
+   },
+   "null": 0.0274,
+   "confidence": -0.0101,
+   "placed": true,
+   "corner_error_m": 1078.7,
+   "drot_deg": -126.09,
+   "scale_ratio": 2.0789,
+   "gate": {
+    "verdict": "accept",
+    "n": 10,
+    "med": 0.032,
+    "slope_o": 0.0001,
+    "io": -0.006
+   },
+   "fabrication": null,
+   "seconds": 90.2
+  }
+ }
+}

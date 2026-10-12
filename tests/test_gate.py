@@ -1,4 +1,5 @@
-"""The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4).
+"""The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4), and
+the frozen-set partition semantics (task 218).
 
 The gate was measured once on the held-out hand fits before it was trusted; the measurement is
 the frozen record in docs/gate.md section 9. This test re-runs the registered section-6 command
@@ -19,6 +20,7 @@ Offline: the tool reads only data/db/platefits/ and web/data/sites.json, writes 
 network and no ports (it runs as a subprocess, so even a stray write lands in the checkout the
 tool itself is in, and it has none).
 """
+import json
 import os
 import re
 import subprocess
@@ -105,3 +107,75 @@ def test_fit_gate_constants_are_the_frozen_section2_rule():
     assert fit_gate.SLOPE_PATTERN == 0.11
     assert fit_gate.IO_MIN == -10.0
     assert (fit_gate.ACCEPT, fit_gate.REJECT) == ("accept", "reject")
+
+
+def _stub(directory, doc, auto=None):
+    """One stub platefit document: partition() reads only the name and the "auto" flag."""
+    body = "{}" if auto is None else json.dumps({"auto": auto})
+    (directory / (doc + ".json")).write_text(body + "\n")
+
+
+def _expect_void(module, tree, missing_name):
+    """partition() must fail loudly and name the registered document that stopped being non-auto."""
+    try:
+        module.partition(str(tree))
+    except SystemExit as e:
+        assert "the registered partition is void" in str(e), str(e)
+        assert missing_name in str(e), str(e)
+    else:
+        raise AssertionError("partition() accepted a tree in which registered doc %s is not a "
+                             "non-automatic document" % missing_name)
+
+
+def test_partition_frozen_set_tolerates_post_registration_docs(tmp_path):
+    """(task 218) The frozen set is the 20 names docs/gate.md section 3 registered, not whatever
+    is in data/db/platefits/: post-registration documents (the batch's automatic output and new
+    hand fits, which stay subject to the production fit gate at fit time) are excluded from the
+    one-shot proof, so the derived held/dev equal the registered lists in every state; a
+    registered name missing from the non-automatic documents (renamed, deleted, or gained
+    "auto": true) voids the registration and fails loudly. Stub documents in a temp directory
+    stand for the real ones (partition reads only names and the auto flag); nothing is written
+    to the repo tree."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import gate_heldout
+    sys.path.remove(os.path.join(ROOT, "tools"))  # keep the path clean for later test files
+    registered = sorted(gate_heldout.REGISTERED["held"] + gate_heldout.REGISTERED["dev"])
+    assert len(registered) == 20, "section 3 registered exactly 20 documents"
+
+    # (a) exactly the registered 20 (plus any number of post-registration documents - new hand
+    # fits and batch auto output): the partition is derived over the registered 20 alone, so
+    # held/dev come out the registered lists in every state and check_registered passes
+    extras = ((),
+              ("shotwick-castle-q7502621.c_e6e5490609414bb9",
+               "maiden-castle-q1232816.c_c20ff6b1f16d173d",
+               "some-roman-site-q1234.c_deadbeefdeadbeef"))
+    for i, extra in enumerate(extras):
+        tree = tmp_path / ("registered-only" if not extra else "with-post-registration-%d" % i)
+        tree.mkdir()
+        for doc in registered:
+            _stub(tree, doc)
+        for doc in extra:
+            _stub(tree, doc)
+        for doc in ("batch-auto-q1.c_abcd1234abcd1234", "batch-auto-q1.c_9876543298765432"):
+            _stub(tree, doc, auto=True)
+        names, held, dev = gate_heldout.partition(str(tree))
+        assert names == registered, "the derivation is over the 20 registered names in every state"
+        assert held == gate_heldout.REGISTERED["held"], "held equals the registered held-out set"
+        assert dev == gate_heldout.REGISTERED["dev"], "dev equals the registered dev set"
+        gate_heldout.check_registered(held, dev)
+
+    # (b) a registered name missing from the non-automatic documents: fail loudly, naming it.
+    # b1: renamed or deleted (19 registered + 1 unknown hand doc); b2: all 20 present, but one
+    # gained "auto": true and so dropped out of the non-automatic set.
+    broken = tmp_path / "renamed-or-deleted"
+    broken.mkdir()
+    for doc in registered[:-1]:
+        _stub(broken, doc)
+    _stub(broken, "shotwick-castle-q7502621.c_e6e5490609414bb9")
+    _expect_void(gate_heldout, broken, registered[-1])
+
+    autoflagged = tmp_path / "autoflagged"
+    autoflagged.mkdir()
+    for doc in registered:
+        _stub(autoflagged, doc, auto=(doc == registered[-1]))
+    _expect_void(gate_heldout, autoflagged, registered[-1])

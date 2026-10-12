@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 001
 Touches: tools/gate_heldout.py, tests/test_gate.py
 
@@ -26,11 +26,11 @@ untouched (section 1's "not to be changed" stands; per the 802 precedent, any cl
 lives in the tool's docstrings).
 
 ## Acceptance criteria
-- [ ] `partition()` fails loudly, as today, when any of the 20 names registered in docs/gate.md
+- [x] `partition()` fails loudly, as today, when any of the 20 names registered in docs/gate.md
       section 3 (the `REGISTERED` held+dev lists) is missing from, or renamed among, the
       non-automatic documents in `data/db/platefits/` (including a registered document that
       gained `"auto": true`).
-- [ ] When all 20 registered names are present, additional non-automatic (hand) documents are
+- [x] When all 20 registered names are present, additional non-automatic (hand) documents are
       tolerated: excluded from the held/dev derivation, so the seed-20260108 partition,
       `check_registered`, and the section-6 command's stdout (tests/golden/gate_heldout.txt,
       40 held + 60 dev lines) are byte-identical whether the directory holds exactly the
@@ -38,7 +38,7 @@ lives in the tool's docstrings).
       additional documents are not scored here: they stay subject to the production fit gate
       (fit_gate.gate) at fit time as usual, and nothing is printed about them (the golden is
       compared byte for byte in the tests).
-- [ ] tests/test_gate.py is green and pins the new behaviour with no network and no writes to
+- [x] tests/test_gate.py is green and pins the new behaviour with no network and no writes to
       the repo tree: a committed test covers (a) an extra hand document present (stub documents
       in a temp dir, or a temp copy of the checkout) -> partition() returns held/dev equal to
       the registered lists, and (b) a registered name missing -> it fails loudly. The
@@ -46,7 +46,7 @@ lives in the tool's docstrings).
       task's DECISIONS entry): on a temp copy of the checkout with exactly the registered 20,
       and on a copy with the 20 plus the additions, `.venv/bin/python tools/gate_heldout.py`
       reproduces the golden byte for byte in both states.
-- [ ] On the current checkout (21 non-auto documents: the 20 + shotwick), `.venv/bin/python
+- [x] On the current checkout (21 non-auto documents: the 20 + shotwick), `.venv/bin/python
       tools/gate_heldout.py` completes and prints the registered tables, and
       tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees passes (the 4th of
       206's four red tests). tests/golden/gate_heldout.txt and docs/gate.md are not regenerated
@@ -78,3 +78,31 @@ lives in the tool's docstrings).
   technique); PITFALLS.md "data/db/platefits/ mixes hand fits and automatic ones" and the
   gate entries under fit/; tools/gate_heldout.py's module docstring (it already documents the
   non-auto filter and the void-registration failure).
+
+## Hand-over
+
+**2026-10-11, iteration 90 (agent a): done** (all four boxes ticked and verified; the 21 in box 4
+was 22 by session time - the human's maiden-castle-c_c20ff6b1f16d173d hand fit landed on main at
+cd104ca - and both additions are absorbed, so the box's intent - the command completes, prints the
+registered tables, the test passes, and nothing is regenerated - holds).
+
+- What landed (the only files changed, per the Touches line): `tools/gate_heldout.py` -
+  `partition(platefits_dir=None)` builds the non-auto name list as before (802's filter), then
+  checks the 20 registered names against it: any missing one (renamed, deleted, or gained
+  `"auto": true`) raises `SystemExit` naming each, with the old "the registered partition is
+  void, see docs/gate.md section 1" tail; otherwise it derives the seed-20260108 partition over
+  exactly the 20 registered names (the frozen set), so held/dev and the section-6 stdout are
+  byte-identical in every state. `tests/test_gate.py` - new
+  `test_partition_frozen_set_tolerates_post_registration_docs` pins (a) 20-only and 20+extras
+  (hand and auto stubs in tmp_path) -> exactly the registered lists, and (b) a missing registered
+  name (renamed/deleted, and the gained-"auto": true case) -> loud failure naming it.
+  `docs/gate.md`, `tests/golden/gate_heldout.txt` and every data file are untouched (the 802
+  precedent: the frozen set is the named 20, the clarification lives in the tool's docstrings).
+- Verified: golden byte-identical in both states (state A = a temp copy of the checkout with
+  exactly the 20 registered docs; state B = this checkout, 20 + 2 hand + 94 auto); suite
+  62 passed / 3 failed, the 3 reds all 211-owned and pre-existing (shotwick site unbuilt).
+- If the driver rejects the done claim, or this task comes back after a main merge: re-run
+  `.venv/bin/python tools/gate_heldout.py` (and `--set dev`) and diff against the two halves of
+  `tests/golden/gate_heldout.txt`, then `.venv/bin/python -m pytest -q`. Expected reds after 211
+  merges: none; before: only 211's three (test_batch_eu union x2, test_serve platefits-match). Any
+  new red touching tools/gate_heldout.py or tests/test_gate.py is a regression in this task.

@@ -1,0 +1,147 @@
+precheck: 21 held-out documents verified (20 golden bytes + the lead's 21st, no auto flags)
+one-shot run: 21/21 measured already, run at 2026-10-11T22:47:37.081160+00:00
+[1/21] arbor-low-q630312.earthworkenglan01allcgoog_n0597_1: fitting...
+      coarse: 27 rotations x 18 scales, 8s
+      coarse: 27 rotations x 18 scales, 8s
+      coarse: 27 rotations x 18 scales, 9s
+[1/21] arbor-low-q630312.earthworkenglan01allcgoog_n0597_1: 67s  placed=True  corner=1399.1 m  drot=27.63  scale=13.214  null=0.0076  margin=-0.0219  gate=accept  fab=None
+[2/21] avebury-q661855.earthworkenglan01allcgoog_n0581_1: fitting...
+      coarse: 27 rotations x 17 scales, 8s
+      coarse: 27 rotations x 17 scales, 8s
+      coarse: 27 rotations x 17 scales, 7s
+[2/21] avebury-q661855.earthworkenglan01allcgoog_n0581_1: 80s  placed=True  corner=376.1 m  drot=-13.41  scale=0.5925  null=0.5178  margin=0.0281  gate=accept  fab=None
+[3/21] aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 18 scales, 12s
+      coarse: 27 rotations x 18 scales, 12s
+      coarse: 27 rotations x 18 scales, 12s
+[3/21] aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1: 156s  placed=True  corner=544.1 m  drot=-50.71  scale=0.988  null=0.0359  margin=-0.0212  gate=accept  fab=None
+[4/21] badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1: fitting...
+      coarse: 27 rotations x 18 scales, 16s
+      coarse: 27 rotations x 18 scales, 18s
+      coarse: 27 rotations x 18 scales, 18s
+[4/21] badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1: 88s  placed=True  corner=264.5 m  drot=-1.16  scale=0.7048  null=0.4042  margin=0.1871  gate=accept  fab=None
+[5/21] bergues-q244934.c_4bbca705be732b1c: fitting...
+      coarse: 27 rotations x 17 scales, 21s
+      coarse: 27 rotations x 17 scales, 21s
+      coarse: 27 rotations x 17 scales, 21s
+[5/21] bergues-q244934.c_4bbca705be732b1c: 130s  placed=True  corner=1283.0 m  drot=20.97  scale=0.4624  null=0.0633  margin=0.0192  gate=accept  fab=None
+[6/21] berkhamsted-castle-q4892150.c_1699141d593ead5a: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 6s
+      coarse: 27 rotations x 17 scales, 5s
+      coarse: 27 rotations x 17 scales, 6s
+[6/21] berkhamsted-castle-q4892150.c_1699141d593ead5a: 52s  placed=True  corner=231.2 m  drot=1.4  scale=1.4181  null=0.1431  margin=0.0235  gate=accept  fab=None
+[7/21] cadbury-castle-q1025082.c_1fab2a0abe5b99d7: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 16s
+      coarse: 27 rotations x 17 scales, 17s
+      coarse: 27 rotations x 17 scales, 15s
+[7/21] cadbury-castle-q1025082.c_1fab2a0abe5b99d7: 84s  placed=True  corner=377.4 m  drot=30.14  scale=1.0667  null=0.2303  margin=-0.0186  gate=accept  fab=None
+[8/21] cahokia-q333661.c_aff1b996dce7fe3a: fitting...
+      coarse: 27 rotations x 18 scales, 34s
+      coarse: 27 rotations x 18 scales, 32s
+      coarse: 27 rotations x 18 scales, 30s
+[8/21] cahokia-q333661.c_aff1b996dce7fe3a: 219s  placed=True  corner=831.1 m  drot=1.86  scale=3.0468  null=0.0728  margin=-0.0518  gate=accept  fab=None
+[9/21] calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+  overpass retry HTTP Error 504: Gateway Timeout
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 16s
+      coarse: 27 rotations x 17 scales, 15s
+[9/21] calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1: 177s  placed=True  corner=2203.6 m  drot=-17.79  scale=0.2378  null=0.2316  margin=0.107  gate=accept  fab=None
+[10/21] camp-d-attila-q18749222.c_6a912845c1e1aa28: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 18 scales, 18s
+      coarse: 27 rotations x 18 scales, 17s
+      coarse: 27 rotations x 18 scales, 17s
+[10/21] camp-d-attila-q18749222.c_6a912845c1e1aa28: 100s  placed=True  corner=634.3 m  drot=-19.95  scale=0.9269  null=0.969  margin=-0.515  gate=None  fab=not enough wall ink (2 candidate points, need 4)
+[11/21] castle-rising-castle-q1049485.c_70f937b71ae63d6a: fitting...
+      coarse: 27 rotations x 17 scales, 6s
+      coarse: 27 rotations x 17 scales, 5s
+      coarse: 27 rotations x 17 scales, 5s
+[11/21] castle-rising-castle-q1049485.c_70f937b71ae63d6a: 36s  placed=True  corner=313.2 m  drot=19.85  scale=1.92  null=0.266  margin=0.0806  gate=accept  fab=None
+[12/21] hembury-q3784763.earthworkenglan01allcgoog_n0108_1: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+[12/21] hembury-q3784763.earthworkenglan01allcgoog_n0108_1: 136s  placed=True  corner=424.0 m  drot=23.15  scale=0.5388  null=0.1355  margin=-0.0083  gate=accept  fab=None
+[13/21] little-solsbury-hill-q548780.c_7ff7261c6b3574b6: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 14s
+[13/21] little-solsbury-hill-q548780.c_7ff7261c6b3574b6: 81s  placed=True  corner=784.6 m  drot=-6.45  scale=3.12  null=0.2998  margin=-0.194  gate=accept  fab=None
+[14/21] maiden-castle-q1232816.c_c20ff6b1f16d173d: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 17s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 14s
+[14/21] maiden-castle-q1232816.c_c20ff6b1f16d173d: 130s  placed=True  corner=536.0 m  drot=-1.52  scale=0.6134  null=0.2462  margin=0.0146  gate=accept  fab=None
+[15/21] maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+[15/21] maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1: 132s  placed=True  corner=1160.5 m  drot=97.86  scale=0.7809  null=0.1345  margin=0.0848  gate=accept  fab=None
+[16/21] mayburgh-henge-q1469390.c_984782b9e35e8ded: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 7s
+      coarse: 27 rotations x 17 scales, 7s
+      coarse: 27 rotations x 17 scales, 7s
+[16/21] mayburgh-henge-q1469390.c_984782b9e35e8ded: 88s  placed=True  corner=469.2 m  drot=-27.28  scale=0.9611  null=0.1579  margin=-0.0424  gate=accept  fab=None
+[17/21] mound-bottom-q14710093.c_0b98157d7af17d6e: fitting...
+      coarse: 27 rotations x 17 scales, 6s
+      coarse: 27 rotations x 17 scales, 6s
+      coarse: 27 rotations x 17 scales, 6s
+[17/21] mound-bottom-q14710093.c_0b98157d7af17d6e: 32s  placed=True  corner=488.8 m  drot=23.65  scale=0.4663  null=0.0784  margin=0.0752  gate=accept  fab=None
+[18/21] old-sarum-q782719.c_8192abb966d030a3: fitting...
+  overpass retry HTTP Error 504: Gateway Timeout
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 14s
+      coarse: 27 rotations x 17 scales, 15s
+[18/21] old-sarum-q782719.c_8192abb966d030a3: 100s  placed=True  corner=1138.6 m  drot=-90.85  scale=0.9969  null=0.1093  margin=0.0114  gate=accept  fab=None
+[19/21] old-sarum-q782719.earthworkenglan01allcgoog_n0142_1: fitting...
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 18s
+[19/21] old-sarum-q782719.earthworkenglan01allcgoog_n0142_1: 119s  placed=True  corner=717.3 m  drot=76.39  scale=0.6658  null=0.1295  margin=0.0693  gate=accept  fab=None
+[20/21] serpent-mound-q968802.ancientmonuments00squi_n0210_1: fitting...
+      coarse: 27 rotations x 17 scales, 12s
+      coarse: 27 rotations x 17 scales, 10s
+      coarse: 27 rotations x 17 scales, 10s
+[20/21] serpent-mound-q968802.ancientmonuments00squi_n0210_1: 65s  placed=True  corner=478.8 m  drot=-12.62  scale=2.0411  null=0.2332  margin=-0.0325  gate=accept  fab=None
+[21/21] whitley-castle-q7996561.c_802bb5ba395d4d29: fitting...
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+      coarse: 27 rotations x 17 scales, 15s
+[21/21] whitley-castle-q7996561.c_802bb5ba395d4d29: 90s  placed=True  corner=1078.7 m  drot=-126.09  scale=2.0789  null=0.0274  margin=-0.0101  gate=accept  fab=None
+
+**Measured one-shot, run at 2026-10-11T22:47:37.081160+00:00.** Method: `fit/inkfit.py` as of commit f7dbba6, the frozen no-model variant (the protocol above). Each document measured once; a document the method could not place carries the method's reason in the corner-error cell. Rounding: corner error 0.1 m, rotation 0.01 deg, scale 0.0001, objectives 0.0001.
+
+| # | document | corner error (m) | rotation error (deg) | scale ratio | objective | null | null margin | gate | fabrication |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | arbor-low-q630312.earthworkenglan01allcgoog_n0597_1 | 1399.1 | 27.63 | 13.2140 | -0.0144 | 0.0076 | -0.0219 | accept | silent |
+| 2 | avebury-q661855.earthworkenglan01allcgoog_n0581_1 | 376.1 | -13.41 | 0.5925 | 0.5460 | 0.5178 | 0.0281 | accept | silent |
+| 3 | aztalan-state-park-q4832928.antiquitiesofwis00saph_n0182_1 | 544.1 | -50.71 | 0.9880 | 0.0147 | 0.0359 | -0.0212 | accept | silent |
+| 4 | badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1 | 264.5 | -1.16 | 0.7048 | 0.5913 | 0.4042 | 0.1871 | accept | silent |
+| 5 | bergues-q244934.c_4bbca705be732b1c | 1283.0 | 20.97 | 0.4624 | 0.0826 | 0.0633 | 0.0192 | accept | silent |
+| 6 | berkhamsted-castle-q4892150.c_1699141d593ead5a | 231.2 | 1.40 | 1.4181 | 0.1666 | 0.1431 | 0.0235 | accept | silent |
+| 7 | cadbury-castle-q1025082.c_1fab2a0abe5b99d7 | 377.4 | 30.14 | 1.0667 | 0.2117 | 0.2303 | -0.0186 | accept | silent |
+| 8 | cahokia-q333661.c_aff1b996dce7fe3a | 831.1 | 1.86 | 3.0468 | 0.0210 | 0.0728 | -0.0518 | accept | silent |
+| 9 | calleva-atrebatum-q1027253.earthworkenglan01allcgoog_n0360_1 | 2203.6 | -17.79 | 0.2378 | 0.3386 | 0.2316 | 0.1070 | accept | silent |
+| 10 | camp-d-attila-q18749222.c_6a912845c1e1aa28 | 634.3 | -19.95 | 0.9269 | 0.4540 | 0.9690 | -0.5150 | — | not enough wall ink (2 candidate points, need 4) |
+| 11 | castle-rising-castle-q1049485.c_70f937b71ae63d6a | 313.2 | 19.85 | 1.9200 | 0.3466 | 0.2660 | 0.0806 | accept | silent |
+| 12 | hembury-q3784763.earthworkenglan01allcgoog_n0108_1 | 424.0 | 23.15 | 0.5388 | 0.1271 | 0.1355 | -0.0083 | accept | silent |
+| 13 | little-solsbury-hill-q548780.c_7ff7261c6b3574b6 | 784.6 | -6.45 | 3.1200 | 0.1059 | 0.2998 | -0.1940 | accept | silent |
+| 14 | maiden-castle-q1232816.c_c20ff6b1f16d173d | 536.0 | -1.52 | 0.6134 | 0.2608 | 0.2462 | 0.0146 | accept | silent |
+| 15 | maiden-castle-q1232816.earthworkenglan01allcgoog_n0124_1 | 1160.5 | 97.86 | 0.7809 | 0.2193 | 0.1345 | 0.0848 | accept | silent |
+| 16 | mayburgh-henge-q1469390.c_984782b9e35e8ded | 469.2 | -27.28 | 0.9611 | 0.1155 | 0.1579 | -0.0424 | accept | silent |
+| 17 | mound-bottom-q14710093.c_0b98157d7af17d6e | 488.8 | 23.65 | 0.4663 | 0.1536 | 0.0784 | 0.0752 | accept | silent |
+| 18 | old-sarum-q782719.c_8192abb966d030a3 | 1138.6 | -90.85 | 0.9969 | 0.1207 | 0.1093 | 0.0114 | accept | silent |
+| 19 | old-sarum-q782719.earthworkenglan01allcgoog_n0142_1 | 717.3 | 76.39 | 0.6658 | 0.1988 | 0.1295 | 0.0693 | accept | silent |
+| 20 | serpent-mound-q968802.ancientmonuments00squi_n0210_1 | 478.8 | -12.62 | 2.0411 | 0.2007 | 0.2332 | -0.0325 | accept | silent |
+| 21 | whitley-castle-q7996561.c_802bb5ba395d4d29 | 1078.7 | -126.09 | 2.0789 | 0.0173 | 0.0274 | -0.0101 | accept | silent |

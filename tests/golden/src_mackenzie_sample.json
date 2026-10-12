@@ -1,0 +1,109 @@
+{
+ "classified": [
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "shotwick-castle-q7502621",
+   "title": "File:212 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11296081346).jpg"
+  }
+ ],
+ "doc": {
+  "at": "0000-00-00T00:00:00+00:00",
+  "book": "Wikimedia Commons",
+  "by": "agent",
+  "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:212_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11296081346).jpg",
+  "crop": [
+   0,
+   0,
+   839,
+   840
+  ],
+  "file": null,
+  "ia": null,
+  "label": "1897",
+  "model": "similarity",
+  "pairs": [
+   [
+    405.0,
+    25.0,
+    -2.9756073,
+    53.2282398
+   ],
+   [
+    827.0,
+    570.0,
+    -2.974283,
+    53.2272404
+   ],
+   [
+    620.0,
+    835.0,
+    -2.9747557,
+    53.2267733
+   ],
+   [
+    30.0,
+    690.0,
+    -2.977288,
+    53.2270046
+   ]
+  ],
+  "plan": "c_e6e5490609414bb9",
+  "ref": "File:212 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11296081346).jpg",
+  "site": "shotwick-castle-q7502621",
+  "size": [
+   839,
+   840
+  ],
+  "src": "commons",
+  "title": "Shotwick Castle, plan from Mackenzie, The Castles of England (1897)",
+  "url": "media/commons/shotwick-castle-q7502621/e6e5490609414bb9.jpg"
+ },
+ "extras": [
+  {
+   "aerial_ok": true,
+   "id": "shotwick-castle-q7502621",
+   "kind": "motte",
+   "lat": 53.2272,
+   "lon": -2.97608,
+   "name": "Shotwick Castle",
+   "note": "built for the 1897 plan (task 206): the picture is the reason; the catalog row (sites.jsonl) carries the same id and the full record (admin, heritage, designation)",
+   "qid": "Q7502621",
+   "region": "england",
+   "source": "fit/src_mackenzie.py",
+   "wikipedia": "https://en.wikipedia.org/wiki/Shotwick_Castle"
+  }
+ ],
+ "files": [
+  {
+   "artist": "The British Library",
+   "by": "fit/src_mackenzie.py",
+   "cat": "Shotwick Castle",
+   "date": "2013-12-09 20:43",
+   "desc": "View this map on the BL Georeferencer service.  \n  Image taken from:\n   Title : \"The Castles of England: their story and structure ... With ... illustrations and ... plans\"\n Author : MACKENZIE, James Dixon - Sir, Bart\n Contributor : MACNAIRN, J.\n Shelfmark : \"British Library HMNTS 10369.v.7.\"\n Volume : 02\n Page : 212\n Place of Publishing : London\n Date of Publishing : 1897\n Publisher : W. Heinemann\n Issuance : monographic\n Identifier : 002322661\n   Explore: \n \n  Find  this item in the British Library catalogue, 'Explore'. \n Open the page in the  British Library's itemViewer (page image 212) \n ",
+   "evidence": {
+    "checked": "0000-00-00",
+    "file_cat": "Shotwick Castle",
+    "kind": "category",
+    "rec": "evidence/1",
+    "site_cat": "Shotwick Castle",
+    "via": []
+   },
+   "h": 840,
+   "license": "No restrictions",
+   "mime": "image/jpeg",
+   "name": "Shotwick Castle, plan from Mackenzie, The Castles of England (1897)",
+   "page": "https://commons.wikimedia.org/wiki/File:212_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11296081346).jpg",
+   "qid": "Q7502621",
+   "site": "shotwick-castle-q7502621",
+   "thumb": "https://upload.wikimedia.org/wikipedia/commons/3/37/212_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_%2811296081346%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "title": "File:212 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11296081346).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/212_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_%2811296081346%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 839,
+   "wd_plan": false,
+   "year": 1897
+  }
+ ]
+}

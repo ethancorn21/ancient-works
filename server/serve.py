@@ -14,8 +14,13 @@ Document store (replaces the claude.ai artifact database the page used before):
   GET    /api/db/<collection>/<doc>    -> the document, or 404
   PUT    /api/db/<collection>/<doc>    -> replace the document (JSON object body)
   DELETE /api/db/<collection>/<doc>
-Documents live in data/db/<collection>/<doc>.json. Writes to "platefits" (the plate-fitting tool) start
-pipeline/plan_fit.py in the background, which turns each fit into an overlay on its site.
+Documents live in data/db/<collection>/<doc>.json. A save to "platefits" (the plate-fitting tool) runs
+the one-site line (tools/site_done.py) for that site in a background thread: the drawing lands as an
+overlay on the map, the site's square is recoloured and its review item is resolved - without any other
+step (task 305). A delete runs the old all-fits sweep (pipeline/plan_fit.py), so a deleted overlay leaves
+the map. A save through the page is the owner's act, so PUTs to platefits are stamped "by": "hand"
+(task 303 provenance): the batches and scripts stamp "by": "agent" in the file themselves, and a document
+without a mark is agent.
 
 Relief tiles (server/relief_tiles.py; needs numpy/scipy/PIL, i.e. the venv python):
   GET    /tiles/relief/<z>/<x>/<y>.webp -> z 12-17; transparent outside LiDAR coverage; 503 while a DEM
@@ -34,6 +39,7 @@ import select
 import socket
 import sys
 import tempfile
+import threading
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
@@ -202,12 +208,24 @@ class Handler(SimpleHTTPRequestHandler):
             return self.reply(400, {"error": "body is not JSON"})
         if not isinstance(data, dict):
             return self.reply(400, {"error": "a document is a JSON object"})
+        if parts[2] == "platefits":
+            # The page's save is the owner's word on every pair in the document (task 303): it is a hand
+            # fit even if a batch or a session wrote the document first (their scripts stamp by: agent in
+            # the file themselves). A new key lands last (the store writer's shape); a stale or other by
+            # is replaced in place.
+            data["by"] = "hand"
         os.makedirs(coll, exist_ok=True)
         fd, tmp = tempfile.mkstemp(dir=coll, suffix=".tmp")
         with os.fdopen(fd, "w") as f:
             json.dump(data, f, indent=1)
         os.replace(tmp, path)
-        after_write(parts[2])
+        if parts[2] == "platefits":
+            # the one-site line for the site the document claims (the store's <site>.<plan> id is the
+            # fallback for a document that never said where it belongs)
+            site = data.get("site") if isinstance(data.get("site"), str) and data.get("site") else parts[3].split(".")[0]
+            after_write(parts[2], "line", site)
+        else:
+            after_write(parts[2])
         return self.reply(200, {"ok": True})
 
     def log_message(self, fmt, *args):
@@ -216,31 +234,83 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 _fit_wake = None
+_fit_jobs = []
+_fit_lock = threading.Lock()
 
 
-def after_write(coll):
-    """A saved or deleted plan fit is turned into map overlays by pipeline/plan_fit.py (which syncs all fits) on one
-    worker thread in this process. The page polls depictions.json for the result.
-    Why in-process: a subprocess launched from here sometimes started and silently did nothing (2026-10-10, twice,
-    each time after the server had run a while); running it by hand always worked."""
+def _fit_line(site):
+    """The one-site line for a saved fit (tools/site_done.py, run in this process with no model):
+    the site's fits sync to the map, its drawing count refreshes, its review item resolves. The saved
+    document is by: hand (the store stamped it on the PUT), so its overlay is built with no check;
+    an unfitted candidate only lands in the item as "no model answer" - no model, no network. A tree
+    without tools/ (a stripped test tree) writes no files at all."""
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import site_done
+    except BaseException as e:
+        print(f"  one-site line for {site}: unavailable in this tree ({e!r}); no files written", flush=True)
+        return
+    try:
+        rc = site_done.main([site])
+        print(f"  one-site line for {site}: finished (exit {rc})", flush=True)
+    except BaseException as e:  # SystemExit too: never let one bad site stop the worker
+        print(f"  one-site line for {site} failed: {e!r}", flush=True)
+
+
+def _fit_sweep():
+    """The all-fits sweep a delete still needs (pipeline/plan_fit.py main: it syncs every document and
+    prunes the overlays a deleted document left behind). A tree without pipeline/ (a stripped test
+    tree) writes no files at all."""
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+        import plan_fit
+    except BaseException as e:
+        print(f"  plan_fit sweep: unavailable in this tree ({e!r}); no files written", flush=True)
+        return
+    try:
+        plan_fit.main([])
+    except BaseException as e:  # SystemExit too: never let one bad fit stop the worker
+        print(f"  plan_fit failed: {e!r}", flush=True)
+
+
+def _fit_worker():
+    """One worker thread in this process drains a small job list on every wake: every PUT to platefits
+    enqueues ("line", site) and every DELETE ("sweep"), so two saves while a line is busy both run.
+    Why in-process: a subprocess launched from here sometimes started and silently did nothing
+    (2026-10-10, twice, each time after the server had run a while); running it by hand always worked.
+    The page polls depictions.json for the result."""
+    while True:
+        _fit_wake.wait()
+        with _fit_lock:
+            # a writer that lands while we are draining re-sets the event and is picked up next wake
+            _fit_wake.clear()
+            todo = list(_fit_jobs)
+            _fit_jobs.clear()
+        for kind, site in todo:
+            if kind == "line":
+                _fit_line(site)
+            else:
+                _fit_sweep()
+
+
+def after_write(coll, kind="sweep", site=None):
+    """A write to the platefits store wakes the fit worker. A saved fit (PUT) runs the one-site line
+    for that site (tools/site_done.py): the drawing lands on the map, the site's square is recoloured
+    and its review item is resolved, without any other step. A delete keeps the old all-fits sweep
+    (pipeline/plan_fit.py), so a deleted overlay leaves the map. The worker is created on the first
+    platefits write; an identical pending job is coalesced (the file on disk is the state the run
+    reads). The page is never blocked: this only enqueues and wakes."""
     global _fit_wake
     if coll != "platefits":
         return
-    import threading
     if _fit_wake is None:
-        _fit_wake = threading.Event()
-
-        def worker():
-            sys.path.insert(0, os.path.join(ROOT, "pipeline"))
-            import plan_fit
-            while True:
-                _fit_wake.wait()
-                _fit_wake.clear()
-                try:
-                    plan_fit.main([])
-                except BaseException as e:  # SystemExit too: never let one bad fit stop the worker
-                    print(f"  plan_fit failed: {e!r}", flush=True)
-        threading.Thread(target=worker, daemon=True, name="plan_fit").start()
+        with _fit_lock:
+            if _fit_wake is None:
+                _fit_wake = threading.Event()
+                threading.Thread(target=_fit_worker, daemon=True, name="plan_fit").start()
+    with _fit_lock:
+        if (kind, site) not in _fit_jobs:
+            _fit_jobs.append((kind, site))
     _fit_wake.set()
 
 
