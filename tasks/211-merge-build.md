@@ -1,6 +1,6 @@
 Status: open
 # 211: Consolidate - the new sites and pictures into the page's data
-Depends on: 200, 204, 205, 206, 207, 208, 209, 210
+Depends on: 200, 204, 205, 206, 208, 209, 210
 Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, docs/sources.md, web/data/sites.json, web/data/plans.json, tests/test_merge.py
 
 ## Goal
@@ -60,3 +60,6 @@ Liber secundus's bird's-eye VIEWS reach the plan list only after 217 lands its v
 (order 215 -> 216 -> 217). Until then, zero index rows from this book is 217's pending gap, NOT a
 211 merge failure - do not invent rows to compensate. 211's Depends omits 213 by design (wave order
 2 -> 4 covers it; the merge is idempotent over whatever staging files exist).
+
+## Lead note (2026-10-12)
+207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step.
