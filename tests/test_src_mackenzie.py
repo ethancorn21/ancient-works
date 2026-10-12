@@ -4,13 +4,16 @@ Shotwick Castle (Q7502621, Cheshire): the book's county context (the plate sits 
 section, nineteen leaves before the Lancaster plate), the book's own index and chapter text (the
 1600 Randle Holme drawing: a pentagon strengthened by six towers, one drawn as five) and the surviving
 ground (the C11 motte ring) all match - docs/lead_mackenzie.md carries the chain. The one staged row and
-the hand platefit doc (data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json, 4 anchors)
-prove the identification by numbers. The tests are offline: a socket-blocking fixture makes any network
-attempt fail loud, so the evidence check runs from stored fields only (200's fail-closed box) and the
-gate re-run is docs/gate.md section 4's true case (the committed doc's own recorded pairs, the
-placement solved from them). The negative control (a file category that is not the site's P373, no
+the platefit doc's record (4 anchors - originally the store file
+data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json, now the review item's candidate after
+the 306a audit removed the store file: the fit is ~2x too big) prove the identification by numbers. The
+tests are offline: a socket-blocking fixture makes any network attempt fail loud, so the evidence check
+runs from stored fields only (200's fail-closed box) and the gate re-run is docs/gate.md section 4's true
+case (the doc's own recorded pairs, the placement solved from them). The gate's ACCEPTING those pairs is
+the documented n=3-6 blind spot (4 corners of a 2x ring pass with 2-19 m residuals) - the audit's size
+proof is not the gate's. The negative control (a file category that is not the site's P373, no
 chain recorded) is reported FAIL, never kept. The golden file (tests/golden/src_mackenzie_sample.json)
-pins the staged rows and the doc; it is regenerated only via the module's --golden flag for an
+pins the staged rows and the doc record; it is regenerated only via the module's --golden flag for an
 intended change.
 """
 import cmath
@@ -52,8 +55,9 @@ def test_staged_row_and_join():
     """The staging files hold exactly the one row each (file/classified/extras), the row is the book's
     own plate shape (the sources.py mackenzie template plus the 200 evidence field), the site is an
     existing catalog site by QID (never re-staged in extras.jsonl), nothing clashes with the canonical
-    files or the hand-tied mackenzie table, and the committed platefit doc matches the row (plan id,
-    full-page crop, four anchors inside the frame and on the site's own ground)."""
+    files or the hand-tied mackenzie table, and the platefit doc's record (the store file, or the review
+    item's candidate after the 306a audit removed it) matches the row (plan id, full-page crop, four
+    anchors inside the frame and on the site's own ground)."""
     files = mack._load(mack.FILES)
     cls = mack._load(mack.CLASSIFIED)
     extras = mack._load(mack.EXTRAS)
@@ -94,13 +98,16 @@ def test_staged_row_and_join():
     assert (c["site"], c["title"]) == (mack.SITE, mack.TITLE)
     assert (c["p_plan"], c["p_birdseye"], c["p_photo"], c["by"]) == (1.0, 0.0, 0.0, "hand")
 
-    d = json.load(open(mack.DB_DOC))
+    d = mack.doc_record()
     plan = "c_" + hashlib.sha1(mack.TITLE.encode()).hexdigest()[:16]  # the export_plans rule
     assert d["site"] == mack.SITE and d["plan"] == plan
     assert d["size"] == [839, 840]
     assert d["crop"] == [0, 0, 839, 840]  # the ink spans the whole page: full-frame crop
     assert d["src"] == "commons" and d["model"] == "similarity" and d["label"] == "1897"
     assert len(d["pairs"]) == 4  # >= 4 anchors: with exactly 3 any similar triangle fits to ~0 residual
+    if not os.path.exists(mack.DB_DOC):  # the 306a audit removed the store file: the item's record carries it
+        assert d.get("why"), "the audit's reason must ride with the item's record"
+        assert d["why"].startswith("306a audit"), d["why"]
     s = sites[mack.SITE]
     for u, v, lon, lat in d["pairs"]:
         assert 0 <= u < 839 and 0 <= v < 840
@@ -131,10 +138,12 @@ def test_evidence_offline_and_negative_control(tmp_path):
 
 
 def test_gate_accepts_the_committed_doc():
-    """docs/gate.md section 4, the true case: the committed doc's own recorded pairs checked against the
-    placement solved from them (transform=None, exactly plan_fit.similarity) - the hand fit's own
-    residual is the claim. The frozen gate (section 2) must accept, and the numbers stay pinned."""
-    doc = json.load(open(mack.DB_DOC))
+    """docs/gate.md section 4, the true case: the doc's own recorded pairs (the review item's candidate
+    after the 306a audit removed the store file) checked against the placement solved from them
+    (transform=None, exactly plan_fit.similarity) - the recorded fit's own residual is the claim.
+    The frozen gate (section 2) still accepts these pairs - that acceptance is exactly the documented
+    n=3-6 blind spot that let the ~2x fit onto the map - and the numbers stay pinned."""
+    doc = mack.doc_record()
     verdict, stats = fit_gate.gate(doc["pairs"])
     assert verdict == fit_gate.ACCEPT
     assert stats["n"] == 4
@@ -151,11 +160,11 @@ def test_gate_accepts_the_committed_doc():
 
 def test_golden_sample_matches_staged():
     """tests/golden/src_mackenzie_sample.json (written by the module's --golden: the staged rows and the
-    committed doc, checked/date_commons normalized) is the staged files exactly - the pin the staging
-    is final against; regenerate only for an intended change."""
+    doc record, checked/date_commons/at normalized) is the staged files and record exactly - the pin the
+    staging is final against; regenerate only for an intended change."""
     golden = json.load(open(os.path.join(ROOT, "tests", "golden", "src_mackenzie_sample.json"),
                             encoding="utf-8"))
     assert golden["files"] == mack._norm(mack._load(mack.FILES))
     assert golden["classified"] == mack._norm(mack._load(mack.CLASSIFIED))
     assert golden["extras"] == mack._norm(mack._load(mack.EXTRAS))
-    assert golden["doc"] == dict(json.load(open(mack.DB_DOC)), at="0000-00-00T00:00:00+00:00")
+    assert golden["doc"] == dict(mack.doc_record(), at="0000-00-00T00:00:00+00:00")

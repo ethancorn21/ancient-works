@@ -371,3 +371,38 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
   Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
   line is written in site_flow.md until this is settled; no bethlehem doc touched.
+
+## 2026-10-12 306a DECISION: session 4 - TASK DONE: 5 audit-broken tests re-pointed, golden re-baselined, suite green 128/1/0; all four boxes ticked, Status: done
+- The session-3 bethlehem audit (9 removals, 3 stays, 12 lines, count refreshes, review.json
+  re-export) was already committed by the driver as 406562b; the working tree was clean at loop
+  start, so this session was exactly the session-3 hand-over's planned step (2): the 5 tests
+  broken by the removals (3 mackenzie readers of the deleted shotwick store doc + 2 provenance-e
+  source-line cases on deleted docs).
+- Deviations from the hand-over's design, both verified by running code: (1) the yeared-title
+  re-point to bethlehem c_a164ee440558d66c cannot assert src.count("1748") == 1 - the file URL
+  (Plan_de_Maestricht_et_environs_1748,...) contains the year too; the guard is
+  `" (c. 1748)" not in src` (same shape as the original `"(1897) (1897)" not in src`: the rule
+  drops the label's parenthesis, never the title's or URL's year). (2) the undated re-point went
+  to durocortorum c_08d995eb23a685c2 (first of the hand-over's 4 candidates; 4 pairs, score 0.0),
+  not a watson-brake doc: the watson-brake pair is 306b's review-group set (parent inventory B),
+  so an orphan is the more stable pin. Both pinned strings were obtained by running the test's
+  own _build_source before writing the assertions.
+- src_mackenzie.doc_record() (store file, else the review item's candidate record; stdlib-only)
+  now backs --gate/--check/--golden and the three test readers; the item record carries every
+  doc field plus why = the audit reason. Golden re-baselined via the module's own --golden:
+  golden["doc"] = the item record (diff: +why only; at normalizes to the same 0000-00-00 as the
+  store doc's did). Lost pin, noted in the task hand-over: shotwick's doc was the only by:agent
+  non-auto doc in the store, i.e. the only pin of source_line's plain-agent how-clause
+  ("Fitted automatically on N matching points", no gate score); none survives, and re-pinning it
+  would need a synthetic doc (a unit test, against the project's rules) - left to a future agent
+  fit landing in the store.
+- web/data/fit_queue.json still lists the removed bethlehem SoP docs among the bethlehem
+  entry's candidates: verified that is CORRECT, not dangling - the queue is derived
+  (tools/fit_queue.py: plans.json rows + review-item candidates), and the items now hold those
+  candidates with their audit why. Not touched (not on my Touches line; agent a's 307 owns the
+  fit tool/queue rework).
+- Full suite after the fixes: 128 passed, 1 skipped, 0 failed (.venv, --ignore=tests/test_gate.py;
+  test_gate stays the pre-existing driver-baseline red). 306a done: 13 of 23 docs stay (10
+  non-bethlehem + the 3 local 1748 plans), 10 removed (shotwick + 9 bethlehem: 7 SoP of Judaea +
+  2 basilica interiors). 306b-f append their lines below the bethlehem block in the site_flow.md
+  section.
