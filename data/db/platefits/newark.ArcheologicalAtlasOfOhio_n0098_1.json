@@ -1,0 +1,83 @@
+{
+ "site": "newark",
+ "plan": "ArcheologicalAtlasOfOhio_n0098_1",
+ "crop": [
+  1006,
+  897,
+  1943,
+  1514
+ ],
+ "pairs": [
+  [
+   1186.7,
+   1044.3,
+   -82.4451232,
+   40.0542453
+  ],
+  [
+   1414.0,
+   1004.1,
+   -82.4347056,
+   40.0558328
+  ],
+  [
+   1304.4,
+   1204.1,
+   -82.4395523,
+   40.0487075
+  ],
+  [
+   1019.6,
+   1133.0,
+   -82.4527238,
+   40.0509956
+  ],
+  [
+   1264.8,
+   922.6,
+   -82.4416503,
+   40.0585893
+  ],
+  [
+   1059.7,
+   990.9,
+   -82.4510181,
+   40.0560294
+  ],
+  [
+   1141.0,
+   1172.3,
+   -82.4470976,
+   40.0497044
+  ],
+  [
+   1309.4,
+   1068.7,
+   -82.4394534,
+   40.0534795
+  ]
+ ],
+ "label": null,
+ "title": "Earthworks at Newark.",
+ "cite": "William C. Mills, Archeological Atlas of Ohio, Columbus: Ohio State Archaeological and Historical Society 1914",
+ "at": "2026-10-12T06:23:25.379248+00:00",
+ "auto": true,
+ "score": 15.8,
+ "by": "agent",
+ "ia": "ArcheologicalAtlasOfOhio",
+ "file": "n0098.jpg",
+ "book": "Mills 1914",
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2159,
+  "matches": 4994,
+  "ground": "relief.jpg",
+  "window": 0.7,
+  "rot_deg": -1.23,
+  "spread": [
+   0.447,
+   41.2
+  ]
+ }
+}

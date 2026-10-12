@@ -1,0 +1,90 @@
+{
+ "site": "dudley-castle-q5311832",
+ "plan": "c_e66ec095ee45aed0",
+ "crop": [
+  0,
+  0,
+  1280,
+  1827
+ ],
+ "pairs": [
+  [
+   461.3,
+   1577.1,
+   -2.0792374,
+   52.5129316
+  ],
+  [
+   597.5,
+   1010.5,
+   -2.0804142,
+   52.5164966
+  ],
+  [
+   184.6,
+   1159.6,
+   -2.0836116,
+   52.5145693
+  ],
+  [
+   851.7,
+   1360.0,
+   -2.0765417,
+   52.5151849
+  ],
+  [
+   781.3,
+   1683.2,
+   -2.075804,
+   52.5131709
+  ],
+  [
+   277.8,
+   1400.6,
+   -2.0817058,
+   52.5134494
+  ],
+  [
+   657.0,
+   1489.7,
+   -2.0777937,
+   52.5139399
+  ],
+  [
+   278.4,
+   1610.8,
+   -2.080794,
+   52.5122611
+  ]
+ ],
+ "label": "1885",
+ "title": "45 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11176108623)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:45_of_%27An_Illustrated_Guide_to_Dudley_Castle_and_Priory,_with_a_short_general_history_from_the_earliest_period%27_(11176108623).jpg",
+ "at": "2026-10-12T06:12:52.927548+00:00",
+ "auto": true,
+ "score": 2.5,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/dudley-castle-q5311832/e66ec095ee45aed0.jpg",
+ "ref": "File:45 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11176108623).jpg",
+ "size": [
+  1280,
+  1827
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2639,
+  "matches": 4998,
+  "ground": "six-inch-1st.webp",
+  "window": 0.7,
+  "rot_deg": -24.87,
+  "spread": [
+   0.448,
+   66.8
+  ]
+ }
+}
