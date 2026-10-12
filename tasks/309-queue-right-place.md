@@ -1,4 +1,4 @@
-Status: open
+Status: split
 # 309: The queue pairs a drawing with the right place, not a namesake
 Depends on: 305
 Carved from: 307 (box 1)
@@ -10,95 +10,92 @@ Allcroft 1908 Fig. 217, "The Devil's Dyke Camp, near Brighton" (a Sussex hillfor
 Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the map.
 
 ## Acceptance criteria
-- [ ] Every queue entry's candidate is checked to show the same place as its site, not just the same name: the
-      caption/place words, county and region in the picture's metadata against the site's place, region and
-      coordinates (Wikidata where it helps). A mismatch leaves the queue and goes to the review queue with the reason
-      "same name, other place: <caption place> vs <site place>"; where the right site exists in the catalog, the
-      candidate is moved to it instead.
-- [ ] docs/site_flow.md: how many of the queue's entries were wrong, and the list. Devil's Dyke Camp near Brighton is
-      not paired with the Cambridgeshire dyke.
-- [ ] tests/test_fit_queue.py covers a namesake mismatch (no network).
+- [ ] (carved to 804 - the wiring in tools/fit_queue.py build(); 805 - the rebuild of the committed
+      queue/review data) Every queue entry's candidate is checked to show the same place as its site, not just
+      the same name: the caption/place words, county and region in the picture's metadata against the site's
+      place, region and coordinates (Wikidata where it helps). A mismatch leaves the queue and goes to the review
+      queue with the reason "same name, other place: <caption place> vs <site place>"; where the right site
+      exists in the catalog, the candidate is moved to it instead.
+- [ ] (carved to 805) docs/site_flow.md: how many of the queue's entries were wrong, and the list. Devil's Dyke
+      Camp near Brighton is not paired with the Cambridgeshire dyke.
+- [ ] (carved to 804) tests/test_fit_queue.py covers a namesake mismatch (no network).
 
 ## Notes
-- Do not touch web/index.html, web/fitqueue.js (agent a, 307) or fit/ (the lead is building the matcher fit there).
+- Do not touch web/index.html, web/fitqueue.js (agent a, 307) or fit/ (the lead is building the matcher fit
+  there). The subtasks' own Touches lines are authoritative for their files; 804 also carries
+  data/review/README.md (the reason extra in the pass-through list) and 805 carries
+  tests/test_right_place_drift.py.
 
 ## Hand-over
 
-(2026-10-12, iteration 109, agent c - session 5. Re-baseline session: verified the committed module against the
-current data and re-established the suite baseline. NO code changes this session. All work belongs in my
-worktree /home/agent/projects/ancient-works.c (branch agent/c) - this session's harness start was in the
-MAIN worktree (/home/agent/projects/ancient-works), which does NOT contain my branch's files; the three
-worktrees (.a = agent a the lead, .c = me, plus main) share one repo (git-common-dir ancient-works/.git).
-Never commit in the main worktree; a PITFALLS entry covers the mixup.)
+(2026-10-12, iteration 97, agent c - session 6. SPLIT this task: the parent's deliverable (the module
+below) is done and committed; the remaining boxes are carried by 804 (wiring + tests) and 805
+(rebuild + report + drift test), each with its own Touches and Depends lines. Box map: box 1 -> 804
+(the build wiring) + 805 (the committed rebuild); box 2 -> 805; box 3 -> 804. One deliberate deviation
+from the session-5 plan: 805 depends on 309 AND 804 (a rebuild with the wired build cannot run before
+804 merges; session 5 had both on `Depends on: 309` only, which would let the driver hand 805 out
+early). What each subtask must do is in its own file; this hand-over is the shared ground truth both
+read.)
 
-**State now:**
-- The module tools/right_place.py is COMMITTED on agent/c (driver commit fc67bb9 after iteration 95; main
-  does not have it yet). It is the complete offline right-place check: H1 explicit county/state words,
-  H2 town words (book rows only), find_right_site (min_score 0.5), fail-open on unknown site county.
-  `python3 tools/right_place.py [--all] [filter]` (stdlib only; system python3 runs it - no PIL needed).
-- My data area is UNCHANGED since iteration 95 (git diff fc67bb9..HEAD empty for every file I touch):
-  117 queue entries, 324 (site, candidate) pairings, entry 1 = devil-s-dyke-q3307343 with the Brighton row
-  n0686_1. The lead's 14 iterations (306/307/308 + the matcher fit) never touched my files.
-- CLI re-run on current data: IDENTICAL 15 flags as iteration 95 - all verified true, zero false positives:
-  devil-s-dyke <- n0686_1 (BRIGHTON - THE case; right site: the Sussex hillfort devil-s-dyke-hillfort-
-  q17674160, unique pass at 0.65) and <- n0599_1 (Aysgarth, H1 'Yorks'); bokerley-dyke <- n0599_1 (same
-  row); coria + vindomora <- n0354_1 (ARDOCH, PERTHSHIRE; no catalog Ardoch, so no right site - review);
-  eaton-socon <- n0285_1 (Bath) + n0557_1 (FIRLE HILL) + n0558_1/2 (LEWES DOWN); windmill-hill <- n0557_1 +
-  n0558_1/2 (same three rows, second built site); alauna + castle-neroche <- n0438_1 (Defences of YORK);
-  clun-castle <- n0575_1 (Devonshire place field). 15 pairs over 9 sites. The must-not-flag set (Maumbury,
-  leeds-castle, fairlawne, chevening, chiswick-house, the 3 Ohio tied-away sites, n0662_1) verified absent.
-- Full suite on agent/c: 3 failed / 77 passed / 1 skipped. The 3 failures are the SAME 3 as iteration 95,
-  all pre-existing on main (the lead's matcher-fit fallout): test_fit_provenance::test_line_refuses_
-  unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line, test_site_done::test_site_done_
-  line. The only main commit since iteration 95 is cf29be2 (matchfit spread guard, site_done, two
-  castle-neroche review items) - it touches none of those test files, and my sole non-task commit adds a
-  module nothing imports yet, so the failures cannot be mine. NOT mine to fix (the lead's 307 work may
-  land the fix on merge).
-- The 309 double-claim is closed: the driver's queue names tasks/309-queue-right-place.md (the lead's
-  short spec) as MY task - this file is the one I maintain (the main-side copy has no Hand-over section
-  and no tools/right_place.py in Touches; my copy keeps both - that difference is mine to keep, not a
-  conflict to resolve). tasks/309-place-check.md (the lead's DETAILED spec, dropped by agent a at
-  iteration 109, kept as reference) holds: the fail-open rule (an unknown place never mismatches; a place
-  that contains the site does not), the committed-verdict design data/fit_place.json (re-verify on every
-  build; a stale record is flagged, not kept), the --live Wikidata human path (pipeline/catalog_wd.py;
-  tests never call it), the measured cases, and "the 305 queue shape and tests must survive". My module
-  satisfies the short spec's three boxes without fit_place.json; the verdict-record design is an optional
-  extension (would need data/fit_place.json + tests/test_fit_place.py added to Touches first).
-- 800-803 are all Status: done -> the next free 800-range numbers for my split are 804 and 805 (re-check
-  `ls tasks/` at split time; the team rule takes the two lowest free).
-
-**NEXT SESSION (one step) - SPLIT this task** (team mode: new top-level tasks in 800-1099, one module per
-task, each with `Depends on: 309` and its own `Touches:` line):
-- 804 (wire + tests): apply the per-build check in tools/fit_queue.py build() over every (site, candidate)
-  of _candidates(): a flagged candidate is dropped from that site's queue (best recomputed over the rest;
-  a site with no candidates left leaves the queue entirely); it is recorded in the site's review item via
-  fit/review.py upsert (stdlib) with why="same name, other place: <caption place> vs <site place>"; when
-  find_right_site passes a BUILT site (score >= 0.5) the candidate is moved there instead (its queue entry
-  as a _synth_row with sites=[target]; the target's review item when the target is unbuilt - n0686 moves to
-  devil-s-dyke-hillfort-q17674160's item). Loop avoidance: a candidate already in the site's own item stays
-  out of that site's queue (re-flagged every build - intended). The no-op degrade (catalog/books/index/
-  lists absent -> no flags) keeps test_fit_queue_synthetic green UNMODIFIED. test_fit_queue_real must
-  re-derive its expected entry set WITH the check. Re-check _pick_site after entry 1 (devil-s-dyke) loses
-  its Brighton row. Do NOT touch the lead's three failing assertions (main-side fallout).
-- 805 (rebuild + report + drift test): rebuild web/data/fit_queue.json with the wired build; re-export the
-  touched data/review/ items and web/data/review.json via fit/review.py export (in-process from the build;
-  never hand-edit the page file); write the docs/site_flow.md section (how many of the queue's 117 entries
-  were wrong: 15 pairs over 9 sites, with the list; which candidates moved and which went to review with
-  the reason; how the check decides - stored fields only, fail-open); add the venv-only drift test (the
-  verbatim matcher core in tools/right_place.py stays byte-identical to pipeline/books_match.py - extract
-  the shared blocks and compare; system python3 cannot run it, .venv can).
-- Then: set this task's Status to split, move its three unticked boxes into the subtasks (box 1 split
-  between 804/805, box 2 to 805, box 3 to 804), and leave a short parent hand-over pointing at them.
+**Shared ground truth (verified this session against the current tree; the DECISIONS entry has the
+evidence):**
+- Worktree warning (STILL APPLIES): all work belongs in /home/agent/projects/ancient-works.c (branch
+  agent/c). The harness once started me in the MAIN worktree (/home/agent/projects/ancient-works),
+  which does not contain my branch's files; the three worktrees (.a, .c, main) share one repo
+  (git-common-dir ancient-works/.git). Never commit in the main worktree (a PITFALLS entry covers
+  the mixup).
+- The module tools/right_place.py (696 lines, stdlib only) is COMMITTED on agent/c (fc67bb9; not yet
+  on main - it lands when this task closes out as split, which is why 804 depends on 309). API:
+  load(root) (catalog/book index/lists all optional - none present = no-op degrade), picture_facts
+  (data, plan, row), site_facts(data, site), check_pairing(site, facts) -> (flagged, "same name,
+  other place: <caption place> vs <site place>"), find_right_site(data, facts, exclude, top=3,
+  min_score=0.5) -> [(score, catalog_rec, words)]; CLI `python3 tools/right_place.py [--all]
+  [filter]`. Re-read its docstring first; the six iteration-95 spec deviations (DECISIONS) are baked
+  in - do not "fix" them. The verbatim matcher core spans its lines 33-223 (top-level names
+  US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm, name_keys, tokens, place_of, site_place,
+  site_toks, name_lookup_keys, row_inputs, score_candidate, BOOK_SCOPE, PLACE_WORDS, phrases) - the
+  805 drift test compares those against pipeline/books_match.py; books_match's load_catalog /
+  match_row / _key / main are NOT copied (right_place has its own load()).
+- Verified on current data (re-ran this session: identical to iterations 95/109): 324 queue
+  pairings, 15 flagged over 9 sites, zero false positives - devil-s-dyke <- n0686_1 (BRIGHTON, the
+  case; right site devil-s-dyke-hillfort-q17674160, unique pass 0.65, unbuilt as of today) and
+  <- n0599_1 (Aysgarth, H1 'Yorks'); bokerley-dyke <- n0599_1; coria + vindomora <- n0354_1 (ARDOCH,
+  PERTHSHIRE; no catalog Ardoch -> review); eaton-socon <- n0285_1 (Bath) + n0557_1 (FIRLE HILL) +
+  n0558_1/2 (LEWES DOWN); windmill-hill <- the same three Sussex rows; alauna + castle-neroche <-
+  n0438_1 (Defences of YORK); clun-castle <- n0575_1 (Devonshire place field). Must-not-flag set
+  (Maumbury, leeds-castle, fairlawne, chevening, chiswick-house, the 3 Ohio tied-away sites,
+  n0662_1) verified absent. Queue file: {at, entries}, 117 entries, entry 1 = devil-s-dyke-q3307343
+  with n0686_1 best. My data area is unchanged since fc67bb9 (the only post-fc67bb9 delta is the
+  lead's cf29be2 in tools/site_done.py).
+- Suite baseline on agent/c: 3 failed / 77 passed / 1 skipped - the 3 failures pre-exist on main
+  (the lead's matcher-fit wiring: test_fit_provenance::test_line_refuses_unmarked_non_auto_doc,
+  test_fit_queue::test_save_runs_the_one_site_line, test_site_done::test_site_done_line). Neither
+  subtask may edit their assertions or "fix" them; both must leave the rest of the suite green.
+- data/review/devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0599_1.json already holds n0686_1 and
+  n0599_1 (both stay in review forever). n0686's 805 move targets the hillfort's OWN item (which may
+  not exist yet - the upsert creates it when the target is unbuilt); n0599_1 stays where it is.
+- The dropped reference spec tasks/309-place-check.md (agent a's, kept as reference) still holds the
+  background: the fail-open rule (an unknown place never mismatches; a place that contains the site
+  does not), the --live Wikidata human path (pipeline/catalog_wd.py; tests never call it), and "the
+  305 queue shape and tests must survive". Its data/fit_place.json committed-verdict design was
+  deliberately NOT adopted: the module re-checks from stored fields on every run, which makes a
+  separate verdict store unnecessary (DECISIONS iteration 95). If a future session revives that
+  design, data/fit_place.json + tests/test_fit_place.py must be added to the relevant task's
+  Touches first.
 
 **Re-read (still apply):**
-- tools/right_place.py: load / picture_facts / site_facts / check_pairing / find_right_site / main - the
-  six iteration-95 spec deviations (DECISIONS entry) are baked in; do not "fix" them back to the spec.
-- tools/fit_queue.py: build / _plans_rows / _item_candidates / _built_sites / _hand_sites / _candidates /
-  _synth_row - where the 804 wiring goes; stdlib-only contract (owner's Mac, no PIL).
-- fit/review.py: upsert_item (write-once resolved; the item file name follows candidates[0].plan - a moved
-  lead candidate can rename the item file, check for clashes) and export (rebuilds web/data/review.json).
-- data/review/devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0599_1.json - already holds n0686_1 and
-  n0599_1; after 804/805 it must still hold them (they stay in review, never re-enter the queue).
-- The lead's in-flight 307b/307c/307d (page work) reads the queue file tolerantly and must never write it;
-  if their merge lands after my 805, only the queue file's contents change (not its shape) - expect the
-  driver to reconcile, and flag any hit on this task's files.
+- tools/fit_queue.py: build / _plans_rows / _item_candidates / _built_sites / _hand_sites /
+  _candidates / _synth_row - where the 804 wiring goes; stdlib-only contract (owner's Mac, no PIL);
+  it imports fit/review the way tools/site_done.py does (sys.path insert of ROOT/fit, then
+  `import review`).
+- fit/review.py: upsert_item (write-once resolved; the item file name follows candidates[0].plan - a
+  moved candidate becoming the lead renames the file; new plans append, same-plan replaces in
+  place) and export (the only writer of web/data/review.json; open items only; a one-site run
+  records resolution into that item only).
+- tests/test_fit_queue.py part 1: the GUARD (dead-socket subprocess), test_fit_queue_synthetic (the
+  no-op degrade must keep it UNMODIFIED), test_fit_queue_real (today copies only the four 305
+  inputs - no catalog/books - so the check is a no-op in that tree; 804 extends the copy and the
+  derivation).
+- Agent a's in-flight 307b/307c/307d (page work) reads web/data/fit_queue.json tolerantly and must
+  never write it; if their merge lands after 805, only the queue file's contents change (not its
+  shape) - expect the driver to reconcile, flag any hit on this task's files in DECISIONS.
