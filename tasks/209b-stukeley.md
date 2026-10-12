@@ -65,13 +65,135 @@ local-copy book.
 
 ## Hand-over
 
-(2026-10-13, iteration 149, agent a - session 3. READ-ONLY: re-verified the whole
-settled design against the current code; nothing written, working tree clean, no test
-run this session (last measured suite state: 104 passed, 1 skipped, 0 failed,
-iterations 146/147 - re-baseline when you start). The session-2 hand-over carries the
-full verified row values and is preserved in git: `git show
-62a0ae6:tasks/209b-stukeley.md`. NEXT SESSION = THE BUILD of the Commons leg, per the
-order at the bottom of this section.)
+(2026-10-13, iteration 150, agent a - session 4: the Commons leg is BUILT and live-verified;
+all files WRITTEN BUT UNCOMMITTED in the working tree (the harness keeps them). NEXT STEP =
+run the new test file, then lead doc + boxes + full suite + commit, per the order below.)
+
+**What this session did (all in the working tree, uncommitted):**
+1. Re-baselined the suite FIRST (background): **104 passed, 1 skipped, 0 failed (178 s)** -
+   identical to the last measured state (iterations 146/147). Green baseline confirmed.
+2. Wrote **fit/src_wiltshire_stukeley.py** = the session-3 design, exactly: stdlib-only top
+   (ROOT + sys.path.insert(pipeline)); KEY="stukeley_templerestored1740", IA="bim_
+   eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740", REGION="Europe",
+   YEAR=1740, hand-written CITE/WHY; FILES_B/CLASSIFIED_B = data/commons/{files,
+   classified}_wiltshire_b.jsonl; FILES_CANONICAL; SITES (3 existing catalog sites,
+   cross-checked (qid,lon,lat) at stage, drift fails loud); STUKLEY_PLATES=None + TODO
+   comment (the IA-leg session fills it; register() then injects books_lists.PLATES[IA]
+   in-process); register() = BOOKS entry ONLY (no wrap - the book really is on IA);
+   --fetch/--triage A|F|B -> books.cmd_fetch / books.cmd_triage_* after register();
+   --status offline (reads the CACHED bookreader.json directly - never books_ia.pages,
+   which would fetch on a cache miss; prints 'N leaves, triage done/N, long side
+   min-max px' + the LLM ports); --list (STUKLEY_PLATES None -> books_ia.page_texts(IA)
+   prints the first 20 leaves' hOCR; set -> register() + books_lists.cmd_ocrmap([KEY]));
+   --stage [--dry] the 3 Commons rows (8-tuples with live w/h re-asserted); --check
+   offline; --golden. One main-handler deviation from Kip: the stage command is explicit
+   --stage (bare no-args also works; --dry previews) - the first run without that fix
+   printed usage and exited 1.
+   stage() guard ORDER: (1) title in canonical files.jsonl -> SystemExit (title-only,
+   the Petrie guard, before any meta use); (2) site in catalog + (qid,lon,lat) drift;
+   (3) not on Commons; (4) size drift; (5) named-place norm-substring; (6) (site,title)
+   already staged -> skip (idempotent); (7) Kip/Mackenzie date override then commons.keep
+   (fails loud). Row: {site, qid, title, year, wd_plan False, cat None, name label, by
+   'fit/src_wiltshire_stukeley.py', **meta, evidence caption_coords dist 0.0 on the
+   site's own verified point}. Classified: plan -> p_plan 1.0, view -> p_birdseye 1.0
+   (the lead_artists idiom for drawn views), p_photo 0.0, by 'hand'.
+3. LIVE --stage (one paced batched commons.info call, no 429) then --check, --golden,
+   then a second --stage: all exactly as the session-3 design predicted:
+   - staged 3 rows: Houghton date '1743' raw (NO date_commons - the dump date is already
+     the plate's), Dessin date '1722' raw, kitscoty date '1722' OVERRIDE with date_commons
+     '' (the only override); years [1743, 1722, 1722]; classified [p_plan 1.0, then two
+     p_birdseye 1.0].
+   - Live Houghton desc (now committed in the staged row, in the golden): 'Illustration
+     labeled "A Scenographic view of the Druid temple of Abury in north Wiltshire as in
+     its original". From  Abury, a temple of the British druids, and some others
+     described  (London: 1743), by William Stukeley (1687-1765).  Arc 855.214*,
+     Houghton Library , Harvard University' - matches the session-2 'starts with' note;
+     the '(London: 1743)' in the prose does NOT trip PUBLISHED (needs 'Published'/
+     'Date of Publishing'/...), so year stays the dump date's 1743. Verified live.
+   - --check: exit 0, no 'join:' lines, 'evidence: 3 rows, 3 pass, 0 fail, 0 no-tie',
+     all three 'PASS caption_coords'.
+   - --golden wrote tests/golden/src_wiltshire_stukeley_sample.json ({files: 3 rows,
+     classified: 3 rows}, sort_keys, indent 1, checked + date_commons normalized to
+     '0000-00-00').
+   - Second --stage: 'staged: 0 new pictures' (idempotent).
+4. Wrote **tests/test_src_wiltshire_stukeley.py** (7 tests; NOT YET RUN - that is the
+   next step): autouse no_network fixture (socket-blocking, as in test_src_kip.py) that
+   ALSO monkeypatches commons.info -> the FAKE_META table (the 3 live-verified rows
+   verbatim) and books.llm_up -> False; (a) stage() on a temp tree: 3+3 rows written,
+   date bookkeeping per row (kitscoty the only override), second run idempotent,
+   evidence.check 3/3 offline; (b) Petrie-title row monkeypatched into STAGED[0] raises
+   SystemExit matching 'canonical files.jsonl', nothing written; (c) --check against
+   the REAL committed staging files: 3 rows, exit 0, no join lines, 3 PASS lines;
+   (d) golden() to a temp path == _norm of the staged rows == the committed sample;
+   (e) register(): setitem-managed BOOKS entry (exact dict), books_ia.pages/page_texts
+   + books.fetch_triage byte-identical to before (the no-wrap assertion - robust to
+   hoare's test having run earlier, which monkeypatches-and-restores those attrs),
+   books_lists.PLATES gains no entry while STUKLEY_PLATES is None; (f) --status with a
+   FABRICATED bookreader cache (5 pages) + monkeypatched books_ia.RAW -> asserts the
+   printed leaf count and 'none up'; the guard '166 not in out' catches an accidental
+   read of the real 166-leaf cache; (g) --status with no cache at all prints 'not
+   fetched yet (no cached bookreader.json; --fetch first)' and never fetches.
+
+**Unchanged / untouched:** docs/lead_wiltshire.md (the one-line update is pending, step
+3 below); data/db/platefits/ (the two Allcroft hand fits - git status was clean for
+them); pipeline/ (nothing); the shared data/books/index.jsonl + validation.json (never
+written by this task - 211). data/raw/books/<IA>/{bookreader.json,metadata.json} are
+LOCAL-ONLY cache (data/raw gitignored), present in this checkout.
+
+**Next session (finish the Commons leg, then STOP - the IA leg needs live LLM replicas
+and is its own session):** run everything under .venv/bin/python:
+1. `.venv/bin/python -m pytest tests/test_src_wiltshire_stukeley.py -v` - the 7 tests
+   above were written but NOT yet run. If any is red: the most fragile asserts are the
+   exact stdout strings (status lines, 'staged: N new pictures') and the setitem
+   semantics in (e) - fix the TEST to match actual behavior unless the module is
+   genuinely wrong vs the session-3 design; a red test that reflects a real bug gets
+   the module fixed, never the assertion deleted.
+2. docs/lead_wiltshire.md, Stukeley section: after the 'Commons candidates, visually
+   verified 2026-10-12' table, add one line: 'The module is built (iteration 150):
+   fit/src_wiltshire_stukeley.py stages the 3 rows into data/commons/
+   files_wiltshire_b.jsonl (each with the 200 caption_coords evidence, the row's date
+   1743/1722 - kitscoty date-overridden since the Commons record has none) + classified
+   rows (the Avebury plan p_plan 1.0, the two views p_birdseye 1.0); they pass
+   fit/evidence.py 3/3 offline (golden: tests/golden/src_wiltshire_stukeley_sample.
+   json, tests/test_src_wiltshire_stukeley.py). The IA book leg (fetch / triage A / the
+   plate-list transcription / the book's own rows) remains.' Keep the existing
+   'Stage-A/B recall ... pending the IA leg' line.
+3. Task boxes: tick box 4 (hand fits not re-staged: the new per-task files hold only
+   the 3 new rows; the title-only canonical guard is tested; data/db/platefits
+   untouched) and box 6 (offline tests: join + evidence pass + golden sample, all
+   present and green). Boxes 1, 2, 3, 5 stay UNTICKED - they need the IA book leg
+   (fetch/triage A/plate-list recall/book rows). Do NOT set Status: done.
+4. Full suite: `.venv/bin/python -m pytest` - expect 111 passed, 1 skipped, 0 failed
+   (104 baseline + 7 new). Any other red: verify it fails without the uncommitted
+   changes too (git stash NOT allowed - check against the commit), record in
+   DECISIONS, leave it (the driver re-checks on merge).
+5. COMMIT (one commit is fine): `git add -A && git commit -m "209b: Commons leg built -
+   3 Stukeley rows staged (checked 3/3), golden + 7 offline tests"` (it picks up the
+   module, the 2 staging files, the golden, the test, the lead-doc line, DECISIONS,
+   this hand-over).
+
+**Then the IA book leg (next session after that, needs live LLM replicas -
+books.LLM_URLS ports 8080,8081,8082,18080,18081):** --fetch (166 triage pages,
+resumable - foreground with a generous timeout or nohup; fetch_triage is idempotent),
+--triage A, --list (read the front leaves' hOCR, transcribe the book's printed plate
+list into STUKLEY_PLATES in the module - format `plate|sub|title|page|kind` like
+books_lists PLATES; commit), re-run --list (writes ONLY per-book lists/<ia>.json +
+.map.json - cmd_ocrmap guards map [] until stage A exists), --triage F/B on the
+flagged pages, then stage the IA-book rows into the SAME files_wiltshire_b (evidence
+= the book's printed list entry naming the place; date 1740; sites: stonehenge-q39671
+for the Stonehenge plan + Avenue plan; the Wiltshire map - check what it shows: if it
+maps a whole region, record it in the lead doc instead of staging it), record the
+Stage-A/B recall in the lead doc (the box-2 line), extend --check/--golden/tests for
+the book rows, re-run the suite, tick boxes 1/2/3/5 as they land.
+
+**Do not:** write the shared data/books/index.jsonl / validation.json (211 rebuilds
+them); re-stage the two Petrie files (canonical, files.jsonl rows 713/714) or any
+hand fit (Allcroft Avebury fig. 187, Allcroft Windmill Hill fig. 186 in
+data/db/platefits/); edit pipeline/ or other tasks' files (books_lists.py is 217's -
+the in-process PLATES injection is the pattern cmd_ocrmap's comment points at); git
+merge/rebase/reset/stash/branch-switch; run tests with bare python3. If the human
+later delivers *A survey of Wilts* (1740), it is added to THIS task as a second
+local-copy book (the 209a wrap pattern - the module's WHY already says so).
 
 **What session 3 established (all read-only, all re-verified against current code):**
 1. The 4 "PITFALLS to file" from session 2 are ALL ALREADY IN PITFALLS.md - no filings
