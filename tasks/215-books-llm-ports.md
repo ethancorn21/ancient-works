@@ -13,9 +13,9 @@ throwaway in-process port patch). Point the machinery at the live ports and prov
 the model.
 
 ## Acceptance criteria
-- [ ] `books.py`'s URL list names the ports that are live on this machine (all three replicas, not just
+- [x] `books.py`'s URL list names the ports that are live on this machine (all three replicas, not just
       two - more parallelism), or discovers them; `run_stage` no longer exits on the tunnel check.
-- [ ] A smoke run: one page through `run_stage` for any book with triage images cached succeeds
+- [x] A smoke run: one page through `run_stage` for any book with triage images cached succeeds
       (a new `.F` or `.B` row appears) - run it on a page of a book already in BOOKS.
-- [ ] A `PITFALLS.md` entry records the machine's LLM ports (llmtunnel user, 8080-8082) so the next
+- [x] A `PITFALLS.md` entry records the machine's LLM ports (llmtunnel user, 8080-8082) so the next
       port move is found in seconds, not hours.
