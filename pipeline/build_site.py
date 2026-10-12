@@ -1,6 +1,7 @@
 """Export one site for the globe: relief + imagery images, plate ink/paper images, and its entry in sites.json.
 
 usage: build_site.py data/sites/<id>/site.json [--refresh-imagery] [--no-imagery] [--aerial-ok]
+       build_site.py --marks   (refresh every site's marker fields: drawings, score, oldest, overlays)
 Writes web/data/sites/<id>/{relief.jpg,imagery.jpg,plate_ink.png,plate_paper.jpg} and updates web/data/sites.json.
 A site with no "plate" gets relief, block-diagram assets and its index entry only. AW_DEM=s3 reads the DEM from S3 tiles.
 --aerial-ok: where no LiDAR has data, the site is still listed ("lidar": false), for old maps on the aerial photograph.
@@ -184,20 +185,81 @@ def drawings(sid, has_plate=False, root=None):
     return n + int(bool(has_plate))
 
 
-def set_drawings(sid, root=None):
-    """Refresh one site's count in sites.json (plan_fit.py calls this after a fit is saved or deleted)."""
+# How far a map series' lines sit from today's ground, in metres: an estimate per series, not measured per site.
+# Ethan 2026-10-10: "Cassini ... is so old that it's not even accurate at all ... versus the Etat-major map, that's
+# actually pretty accurate, it still lines up quite well". Fitted drawings use their own fit residuals instead.
+SERIES_ERR_M = {
+    "Ordnance Survey six-inch": 8,  # 1:10,560, surveyed by chain and theodolite
+    "Etat-major": 40,               # 1:40,000 field minutes
+    "Topographic and Military Map of the Netherlands": 40,  # TMK 1:50,000
+    "Cassini": 250,                 # 1:86,400, triangulated frame but the detail sketched in between
+    "Roy's Military Survey": 250,   # 1747-55 sketch survey, 1:36,000
+}
+PLATE_ERR_M = 10  # a Squier & Davis plate fitted to the LiDAR walls (control residuals where measured)
+
+
+def overlays(sid, plate=None, root=None):
+    """Every overlay the page shows for a site, as (year, error in metres, is a drawing of the structure itself).
+    Plain survey maps count only at 150 years or older (the page hides younger ones, depict.MIN_AGE_YEARS)."""
+    import time
+    import depict
+    newest = time.gmtime().tm_year - depict.MIN_AGE_YEARS
+    out = []
+    if plate:
+        res = (plate.get("fit") or {}).get("control_resid_m")
+        out.append((1848, float(np.sqrt(np.mean(np.square(res)))) if res else PLATE_ERR_M, True))
+    p = os.path.join(_root(root), "web", "data", "sites", sid, "depictions.json")
+    for d in json.load(open(p))["depictions"] if os.path.exists(p) else []:
+        year = d.get("year")
+        if not year:
+            continue
+        if d.get("kind") in DRAWING:
+            res = (d.get("fit") or {}).get("resid_m")
+            out.append((year, float(np.sqrt(np.mean(np.square(res)))) if res else 30, True))
+        elif year <= newest:
+            err = next((e for k, e in SERIES_ERR_M.items() if k in (d.get("label") or "")), 100)
+            out.append((year, err, False))
+    return out
+
+
+def score(ovs, year_now=None):
+    """How much a site is worth opening, from its overlays (the marker's size and colour on the page).
+    Ethan 2026-10-10: the oldest and the most overlays should stand out most, older is cooler, but a map so rough
+    it does not line up counts for little; one accurate 1200s survey beats five from the 1850s.
+    Each overlay: centuries old x accuracy (1 within a few tens of metres, 1/2 at 100 m, 1/7 at 250 m) x kind (a
+    drawing of the structure itself 1, a general survey sheet 0.6). The site: its best overlay plus a quarter of
+    the others, so more overlays help but never outweigh one old, true one."""
+    import time
+    year_now = year_now or time.gmtime().tm_year
+    vals = sorted(((year_now - y) / 100 / (1 + (e / 100) ** 2) * (1 if drawing else 0.6) for y, e, drawing in ovs),
+                  reverse=True)
+    return round(vals[0] + 0.25 * sum(vals[1:]), 2) if vals else 0
+
+
+def marks(entry, root=None):
+    """The fields the page's markers are drawn from (red squares, their size and colour, the list filters)."""
+    ovs = overlays(entry["id"], entry.get("plate"), root)
+    entry["drawings"] = drawings(entry["id"], entry.get("plate"), root)
+    entry["score"] = score(ovs)
+    entry["oldest"] = min((y for y, _, _ in ovs), default=None)
+    entry["overlays"] = len(ovs)
+
+
+def set_drawings(sid=None, root=None):
+    """Refresh one site's marker fields in sites.json (plan_fit.py calls this after a fit is saved or deleted);
+    every site's when sid is None (python pipeline/build_site.py --marks)."""
     index_path = os.path.join(_root(root), "web", "data", "sites.json")
     with open(index_path + ".lock", "w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         index = json.load(open(index_path))
         for s in index["sites"]:
-            if s["id"] == sid:
-                s["drawings"] = drawings(sid, s.get("plate"), root)
+            if sid is None or s["id"] == sid:
+                marks(s, root)
         aw.save_json(index_path, index)
 
 
 def write_entry(entry, root=None):
-    entry["drawings"] = drawings(entry["id"], entry.get("plate"), root)
+    marks(entry, root)
     index_path = os.path.join(_root(root), "web", "data", "sites.json")
     # several build_catalog workers run at once and the page reads this file live: lock, then replace atomically
     with open(index_path + ".lock", "w") as lock:
@@ -307,4 +369,6 @@ def main(path, refresh_imagery=False, no_imagery=False, aerial_ok=False):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], "--refresh-imagery" in sys.argv, "--no-imagery" in sys.argv, "--aerial-ok" in sys.argv)
+    if sys.argv[1:] == ["--marks"]:
+        sys.exit(set_drawings())
+    main(sys.argv[1],"--refresh-imagery" in sys.argv, "--no-imagery" in sys.argv, "--aerial-ok" in sys.argv)

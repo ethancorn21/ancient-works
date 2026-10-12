@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1000" viewBox="0 0 1100 1000" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>Project timeline, 2026-10-09 to 2026-10-11</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="1000" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="983" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="975" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">Project timeline, 2026-10-09 to 2026-10-11</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">dated from git history, DECISIONS, docs/PLAN.md and the task files; times are the Mac's clock (CDT)</text>
+<line x1="318" y1="80" x2="318" y2="930" stroke="#2B2724" stroke-width="1.6"/>
+<rect x="28" y="84" width="1044" height="22" fill="#2B2724"/>
+<text x="36" y="99" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#F8F4E8" font-weight="700" letter-spacing="1.5">2026-10-09</text>
+<text x="338" y="99" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8" font-style="italic">the idea</text>
+<circle cx="318" cy="95" r="5" fill="#CFC6E0" stroke="#F8F4E8" stroke-width="1"/>
+<text x="304" y="128" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">~23:45</text>
+<circle cx="318" cy="124" r="4" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="124" x2="334" y2="124" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="114" width="738" height="48" fill="#CFC6E0" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="129" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">The idea (owner's memory note, not in git)</text>
+<text x="342" y="142" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">from his phone: a globe of old forgotten structures seen in satellite images; a Squier &amp; Davis</text>
+<text x="342" y="154" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plate beside an Indiana LiDAR screenshot. Proof the same night: a 3DEP 1 m DEM, detrended, shows the Fudge Site walls.</text>
+<rect x="28" y="170" width="1044" height="22" fill="#2B2724"/>
+<text x="36" y="185" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#F8F4E8" font-weight="700" letter-spacing="1.5">2026-10-10</text>
+<text x="338" y="185" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8" font-style="italic">artifact -&gt; self-hosted site -&gt; catalog -&gt; fits -&gt; handoff</text>
+<circle cx="318" cy="181" r="5" fill="#C4D9A6" stroke="#F8F4E8" stroke-width="1"/>
+<text x="304" y="214" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">00:16-01:33</text>
+<circle cx="318" cy="210" r="4" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="210" x2="334" y2="210" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="200" width="738" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="215" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">First commits: the artifact globe</text>
+<text x="342" y="228" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">1848 plates over 3DEP relief: Fudge, Hopeton, Newark, Marietta, Fort Hill, High Bank (fit_plate.py,</text>
+<text x="342" y="240" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand-traced walls, thin-plate warp); USGS-plate page style; isometric block diagrams; a dormant ring Finder</text>
+<text x="304" y="270" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">09:43</text>
+<circle cx="318" cy="266" r="4" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="266" x2="334" y2="266" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="256" width="738" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="271" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Self-hosted site (docs/PLAN.md)</text>
+<text x="342" y="284" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">stdlib serve.py + JSON document store replace the claude.ai artifact; vendored MapLibre; private, home LAN,</text>
+<text x="342" y="296" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">US + Europe where open LiDAR exists, historical depictions only, USGS-plate look (not Espresso &amp; Foil)</text>
+<text x="304" y="326" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">10:36-11:34</text>
+<circle cx="318" cy="322" r="4" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="322" x2="334" y2="322" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="312" width="738" height="48" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="327" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Ground and catalog</text>
+<text x="342" y="340" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">European DEMs (EA, AHN, IGN) + live relief tiles; auto wall-template bet FAILS 0/5 (docs/autofit.md);</text>
+<text x="342" y="352" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site catalog from Wikidata: 12,603 earthworks; catalog site builder (relief, block, old sheets, Wikipedia lead)</text>
+<text x="304" y="382" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">12:00-14:45</text>
+<circle cx="318" cy="378" r="4" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="378" x2="334" y2="378" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="368" width="738" height="48" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="383" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Books, the fit tool, the first hand fits</text>
+<text x="342" y="396" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">813 plans indexed from eight books; plate-fitting tool (click pairs, PUT platefits, plan_fit.py); first hand fit</text>
+<text x="342" y="408" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Serpent Mound; Commons harvester; Finder bake-off fails (Clef re-ranker not adopted)</text>
+<text x="304" y="438" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">~17:00-19:58</text>
+<circle cx="318" cy="434" r="4" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="434" x2="334" y2="434" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="424" width="738" height="48" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="439" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">The owner's rules</text>
+<text x="342" y="452" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">survey sheets and aerials under 150 years are not shown; sites without LiDAR on the aerial photograph;</text>
+<text x="342" y="464" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Mackenzie 1897, Van Deventer 1550s, Kip 1707 sources; red square = a fitted old drawing (52dd748)</text>
+<text x="304" y="494" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">~20:07-23:04</text>
+<circle cx="318" cy="490" r="4" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="490" x2="334" y2="490" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="480" width="738" height="48" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="495" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Handoff to the harness VM</text>
+<text x="342" y="508" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">agents a and c take the fitting (GOAL.md 21:05: the local model fits itself; 22:47: artists' views count);</text>
+<text x="342" y="520" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">base map = the aerial photograph all the way out; markers scored into tiers t1-t4 (any overlay &gt;= 150 y)</text>
+<rect x="28" y="536" width="1044" height="22" fill="#2B2724"/>
+<text x="36" y="551" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#F8F4E8" font-weight="700" letter-spacing="1.5">2026-10-11</text>
+<text x="338" y="551" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8" font-style="italic">one site at a time -&gt; provenance -&gt; queues -&gt; fit tool rework</text>
+<circle cx="318" cy="547" r="5" fill="#F2B5C4" stroke="#F8F4E8" stroke-width="1"/>
+<text x="304" y="580" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">01:33</text>
+<circle cx="318" cy="576" r="4" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="576" x2="334" y2="576" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="566" width="738" height="36" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="581" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">001 gate done</text>
+<text x="342" y="594" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">owner's ruling (a): the registered gate is accepted as measured (1 in 8 scale-error misses, docs/gate.md s9)</text>
+<text x="304" y="624" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">12:50-13:56</text>
+<circle cx="318" cy="620" r="4" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="620" x2="334" y2="620" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="610" width="738" height="48" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="625" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">300 / 301: the one-site line</text>
+<text x="342" y="638" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Stonehenge then Argentoratum through tools/site_done.py: all 110 batch fits are the model's fabricated</text>
+<text x="342" y="650" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">grids, caught by plan_fit.fabrication_pattern before sync; both sites end with 0 drawings</text>
+<text x="304" y="680" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">14:58-15:28</text>
+<circle cx="318" cy="676" r="4" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="676" x2="334" y2="676" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="666" width="738" height="48" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="681" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Hand over machine</text>
+<text x="342" y="694" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">survey sheets listed open in the panel; the owner hand-fits Maiden Castle's DPLA plan on the Mac page;</text>
+<text x="342" y="706" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">302: the ink-vs-relief fit (302b held-out: 231-2204 m off on the 21 hand fits)</text>
+<text x="304" y="736" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">17:26-18:55</text>
+<circle cx="318" cy="732" r="4" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="732" x2="334" y2="732" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="722" width="738" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="737" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">303 provenance; 304, 305</text>
+<text x="342" y="750" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">every platefit document says by: hand | agent (the page's save stamps hand); 304 survey-sheet fit;</text>
+<text x="342" y="762" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">305 Ready to fit: the queue + card, a save runs the line (owner: hand fits are "certified cool")</text>
+<text x="304" y="792" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">20:58-21:34</text>
+<circle cx="318" cy="788" r="4" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="788" x2="334" y2="788" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="778" width="738" height="48" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="793" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">First real use of the queue</text>
+<text x="342" y="806" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">queue rebuilt on the Mac; 306 look at every agent fit; 307 fit tool rework (open on the works, drawing</text>
+<text x="342" y="818" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">already on the map); 308 arrowhead markers; 309 right place, not a namesake (Devil's Dyke)</text>
+<text x="304" y="848" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">22:03-22:27</text>
+<circle cx="318" cy="844" r="4" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="844" x2="334" y2="844" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="834" width="738" height="48" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="849" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">The matcher fit (fit/matchfit.py, docs/matchfit.md)</text>
+<text x="342" y="862" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">MatchAnything-ELoFTR on the AI box :8091; held-out on the 21 hand fits: 7 accepted, 0 wrong (located windows</text>
+<text x="342" y="874" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">8, 0 wrong); wired first into site_done.py; first queue run: Fort Hill, Strasbourg, Azincourt, Portus Lemanis stay</text>
+<text x="304" y="904" font-size="10" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724" text-anchor="end">state</text>
+<circle cx="318" cy="900" r="4" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<line x1="322" y1="900" x2="334" y2="900" stroke="#2B2724" stroke-width="0.9"/>
+<rect x="334" y="890" width="738" height="36" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="342" y="905" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">End of 2026-10-11 (commit d3b24b4)</text>
+<text x="342" y="918" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">385 sites, 29 with a drawing, 21 hand fits, 97 agent documents (4 by the matcher), 336 review items, 116 queued</text>
+<rect x="28" y="212" width="196" height="138" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="126.0" y="227" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="38.0" y="238" width="22" height="12" fill="#CFC6E0" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="248" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">before the repo</text>
+<rect x="38.0" y="256" width="22" height="12" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="266" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site, tooling, process</text>
+<rect x="38.0" y="274" width="22" height="12" fill="#9ED8D8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="284" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">ground, catalog, pictures</text>
+<rect x="38.0" y="292" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="302" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">owner's rules, handoff</text>
+<rect x="38.0" y="310" width="22" height="12" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="320" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fitting bets</text>
+<rect x="38.0" y="328" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="338" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">state</text>
+<text x="28" y="946" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">VM journal dates run in UTC: the DECISIONS.md entries for task 305 are dated 2026-10-12 (fit_queue.json 'at' 2026-10-12T01:58Z = 2026-10-11 20:58 CDT); the 205 entries say 2026-10-13.</text>
+<text x="28" y="962" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Turning points: on 10-10 the artifact became a site and six plate sites became a catalog; on 10-11 the model and ink fits failed, the work moved to queued hand fits, and the matcher passed its first test.</text>
+</svg>
