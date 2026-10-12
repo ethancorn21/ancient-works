@@ -71,7 +71,7 @@ function rvPatchTabs() {
 
 /* The existing stats line, byte for byte, with a computed clause appended at the end. */
 function rvPatchStats() {
-  const p = [...document.querySelectorAll('#body .fit')].find(el => el.textContent.includes('built in all'));
+  const p = [...document.querySelectorAll('#body .fit')].find(el => /built in all|laid on today/.test(el.textContent));
   if (!p || !RV.loaded) return;
   const n = rvOpen().length;
   let b = p.querySelector('#rvcount');
