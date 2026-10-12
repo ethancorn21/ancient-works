@@ -1,4 +1,4 @@
-Status: open
+Status: done
 # 805: rebuild the queue with the right-place check, report the namesake list, guard the verbatim core
 Depends on: 804
 Carved from: 309 (box 1, the rebuild half; box 2)
@@ -38,7 +38,7 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
       to classic counties through the catalog, the site's county/state from its catalog record;
       an unknown place never flags - fail open; the --live Wikidata path is for a human re-run,
       never in the build).
-- [ ] tests/test_right_place_drift.py (hermetic, stdlib, no network): for each of the top-level
+- [x] tests/test_right_place_drift.py (hermetic, stdlib, no network): for each of the top-level
       names between tools/right_place.py's two VERBATIM markers (US_STATES, ABBR, UK_ABBR,
       UK_COUNTIES, GENERIC, norm, name_keys, tokens, place_of, site_place, site_toks,
       name_lookup_keys, row_inputs, score_candidate, BOOK_SCOPE, PLACE_WORDS, phrases), extract
@@ -47,7 +47,7 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
       verbatim core (a real drift is fixed in pipeline/books_match.py, the source of truth -
       and if that file is agent a's or the lead's in flight, log it in DECISIONS.md rather than
       editing it).
-- [ ] The queue file's entry shape (the 305 contract: {site, name, best{plan,reason,row},
+- [x] The queue file's entry shape (the 305 contract: {site, name, best{plan,reason,row},
       candidates[...]} in {"at", "entries"} form) is unchanged: agent a's 307b/307c/307d page
       work reads the file tolerantly and must keep working; the three pre-existing main-side
       test failures (test_fit_provenance::test_line_refuses_unmarked_non_auto_doc,
@@ -71,31 +71,17 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
 
 ## Hand-over
 
-(2026-10-12, iteration 109, agent c - session 18. BOX 2 TICKED. Box 3 (tests/
-test_right_place_drift.py) is next; box 4 re-verified at close. History of boxes
-1-2 in DECISIONS.md (iterations 103/107/108) and the 309 parent's hand-over.)
-
-STATE: box 1 ticked (rebuild committed: queue 117/325 -> 114/309, 5 new review
-items for unbuilt right sites, review.json re-exported; contract fix =
-catalog-aware fit/review.py export + fit/batch_eu.py union_check +
-fit/site_catalog.py - the bare name fit/catalog.py shadowed
-pipeline/catalog.py, renamed in session 16). Box 2 ticked this session after
-verifying the docs/site_flow.md "right-place check" section against the
-POST-MERGE tree (the lead's 89043b7 merge): right_place check re-run -> 324
-checked / 15 flagged, same 9 sites as the table; queue still 114/309;
-shotwick's item still in the review list (now 333 open of 346 after the
-lead's 3 RoMa resolutions; the section's "336 open of 346" sentence gained a
-parenthetical saying the live count moves). Box 3: tests/
-test_right_place_drift.py NOT STARTED. Box 4 (the 305 queue-shape contract):
-already satisfied by the rebuild + 804's tests; re-verify (run the three
-named tests + confirm the queue file's shape) and tick when closing.
-
-NEXT (one session): write tests/test_right_place_drift.py per the box text
-(17 names; extract each top-level block between the two "# =====" VERBATIM
-marker lines in tools/right_place.py and assert it occurs byte-identical in
-pipeline/books_match.py; hermetic, stdlib, no network/ports/writes).
-Verified 17/17 in sync today (session-18 DECISIONS entry has the extraction
-rule) - must pass first run. If it fails, the drift is in
-pipeline/books_match.py (the lead's/agent a's file - log in DECISIONS.md,
-never edit it here). Then full suite, tick boxes 3+4, Status: done, and the
-driver returns parent 309 (tick its three carved boxes, done).
+(2026-10-12, iteration 110, agent c - session 19. 805 DONE: all four boxes ticked.
+Box 3 delivered: tests/test_right_place_drift.py (17 parametrized tests, all pass first
+run; drift proven to be caught in both directions by mutation; the test pins by
+CONTAINMENT, not block equality - see the new PITFALLS entry). Box 4 re-verified:
+queue file key set identical on main (116 entries) and agent/c (114) - site, name,
+best{plan,reason,row}, candidates + 307ba's propose (agent a's 307ba extended the
+305 contract, neither side changed it); the three named pre-existing tests now pass
+3/3 (they were fixed main-side in the lead's matcher-fit commits - their assertions
+were never edited here). Full suite: 98 passed / 1 skipped / 2 failed - the 2 are
+the standing not-mine pair (test_review::test_page_shows_the_review_list - the lead's
+page rework, agent a's 307 files; test_review::test_plan_lookup_is_keyed_by_id_and_
+site - ArcGIS World_Imagery ERR_ABORTED flake, now 5/5). Parent 309 closed in the
+same session: its three carved boxes ticked (each delivered by 804/805), Status
+done. No open work remains in the 309 lane.)
