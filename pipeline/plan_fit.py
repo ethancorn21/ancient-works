@@ -264,6 +264,42 @@ def is_done(doc, name, root=None):
                for d in json.load(open(dep))["depictions"])
 
 
+def _year4(text):
+    """The first 4-digit year (12xx-19xx) in a string, or None. One pattern for both the entry's sort
+    year and the source line, so the two can never disagree."""
+    m = re.search(r"(?<!\d)(1[2-9]\d\d)(?!\d)", text or "")
+    return int(m.group(1)) if m else None
+
+
+def source_line(doc, n, m, who):
+    """The public page's source line for one fitted doc: its citation, then who placed the fit and how
+    well it fits. Pure over the doc's fields - no picture, no network - so the line of a built overlay
+    can be re-baked without re-downloading anything.
+      book doc:    "{cite or book}. {label}. Scan: Internet Archive {ia} leaf {N}."
+      commons doc: "{title} ({label or 'undated'}), Wikimedia Commons: {cite}."
+    The who clause follows who_placed: hand fits were placed by hand; everything else was fitted
+    automatically (the batch's documents add their gate score; an agent session's do not have one).
+    """
+    if doc.get("src") != "commons":
+        src = (f"{doc.get('cite') or doc.get('book')}. {doc.get('label') or ''}. Scan: Internet Archive {doc['ia']} leaf "
+               f"{doc['file'][1:-4].lstrip('0') or '0'}.")
+    else:
+        src = f"{doc.get('title')} ({doc.get('label') or 'undated'}), Wikimedia Commons: {doc.get('cite')}."
+    view = doc.get("model") == "homography"
+    if who == "hand":
+        how = (f"Placed by hand on {n} matching points with a perspective fit; all within {m} m."
+               if view else f"Placed by hand on {n} matching points; one rotation and scale fits them within {m} m.")
+    elif doc.get("auto") and doc.get("score") is not None:
+        how = (f"Fitted automatically by the batch on {n} matching points with a perspective fit; all within "
+               f"{m} m (gate score {doc['score']} m)" if view else
+               f"Fitted automatically by the batch on {n} matching points; one rotation and scale fits "
+               f"them within {m} m (gate score {doc['score']} m)")
+    else:
+        how = (f"Fitted automatically on {n} matching points with a perspective fit; all within {m} m."
+               if view else f"Fitted automatically on {n} matching points; one rotation and scale fits them within {m} m.")
+    return f"{src} {how}"
+
+
 def build(doc, root=None):
     r = _root(root)
     sid, plan = doc["site"], doc["plan"]
@@ -304,30 +340,15 @@ def build(doc, root=None):
     ink.save(os.path.join(out_dir, ink_name), quality=85, method=6)
     # sort year: first 4-digit year in the book or label ("1575-1635" -> 1575); a century label sorts at its middle
     words = doc.get("book", "") + " " + str(doc.get("label") or "")
-    ym, cm = re.search(r"(?<!\d)(1[2-9]\d\d)(?!\d)", words), re.search(r"\b(1[2-9])(?:st|nd|rd|th) century", words)
-    year = int(ym.group(1)) if ym else (int(cm.group(1)) - 1) * 100 + 50 if cm else None
-    # what the public page's source line says: it follows who placed the fit (who_placed) - hand fits were
-    # placed by hand; everything else says it was fitted automatically (the batch's documents add their
-    # gate score; an agent session's do not have one)
+    year = _year4(words)
+    if year is None:
+        cm = re.search(r"\b(1[2-9])(?:st|nd|rd|th) century", words)
+        year = (int(cm.group(1)) - 1) * 100 + 50 if cm else None
     n, m = len(pairs), math.ceil(resid.max())
-    if who == "hand":
-        how = (f"Placed by hand on {n} matching points with a perspective fit; all within {m} m."
-               if view else f"Placed by hand on {n} matching points; one rotation and scale fits them within {m} m.")
-    elif doc.get("auto") and doc.get("score") is not None:
-        how = (f"Fitted automatically by the batch on {n} matching points with a perspective fit; all within "
-               f"{m} m (gate score {doc['score']} m)" if view else
-               f"Fitted automatically by the batch on {n} matching points; one rotation and scale fits "
-               f"them within {m} m (gate score {doc['score']} m)")
-    else:
-        how = (f"Fitted automatically on {n} matching points with a perspective fit; all within {m} m."
-               if view else f"Fitted automatically on {n} matching points; one rotation and scale fits them within {m} m.")
-    src = (f"{doc.get('cite') or doc.get('book')}. {doc.get('label') or ''}. Scan: Internet Archive {doc['ia']} leaf "
-           f"{doc['file'][1:-4].lstrip('0') or '0'}." if doc.get("src") != "commons" else
-           f"{doc.get('title')} ({doc.get('label') or 'undated'}), Wikimedia Commons: {doc.get('cite')}.")
     entry = {"kind": "view" if view else "plan", "file": name, "ink": ink_name, "year": year,
              "label": (doc.get("title") if doc.get("src") == "commons" else
                        f"{doc.get('book', '')}: {doc.get('title') or doc.get('label') or 'site plan'}"),
-             "scale": doc.get("label") or None, "corners": corners, "coverage": 1.0, "source": f"{src} {how}",
+             "scale": doc.get("label") or None, "corners": corners, "coverage": 1.0, "source": source_line(doc, n, m, who),
              "fit": {"pairs": len(pairs), "model": doc.get("model", "similarity"),
                      "resid_m": [round(float(r), 1) for r in resid],
                      "m_per_px": round(m_px, 4) if m_px else None, "rot_deg": rot,
