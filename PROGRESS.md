@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 188, agent a - GATE STILL OPEN: all seven of 222-228
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 189, agent a - GATE STILL OPEN: all seven of 222-228
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,52 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them
-- Session 186. All six acceptance boxes are now ticked; Status stays `open` (not done)
-  because 222-228 (the seven source-guard fix tasks, all still `Status: open`) are in
-  Depends on: and their 10 check_staged/join failures are the branch's entire red set.
-  Next session: if 222-228 have landed on main, re-run the suite (expect green; the merge
-  is idempotent - do not re-run fit/merge.py), set Status: done, claim.
-- Box 5: docs/sources.md section 9, "The drawing leads (GOAL point 5): what was staged
-  and what was dropped, per lead". One table row per GOAL.md lead, each sourced from its
-  docs/lead_*.md status section plus the merge log: 204 Van Deventer (56 of 60 stageable
-  town categories staged - 13/16 NL, 21/22 BE, 21/21 FR, 1/1 LU; 4 documented drops:
-  Groningen-province a province map, Leeuwarden a 1975 redrawn model, Middelburg a 1942
-  detail crop, Aarschot dated 1570 outside the c. 1545-1565 window); 205 Kip (12 of the
-  22 verified large-scan views staged - 11 new garden sites + 2 St James's plates; 4
-  review-queue views with their reasons; the 6 hand-tied views never re-staged); 206
-  Mackenzie (the p.212 captionless plan identified as Shotwick Castle, 1 row; its fit doc
-  the first post-gate-registration hand fit); 207 Roman (NONE in this merge - stopped by
-  the owner before staging anything; a later merge re-run picks up the staging when it
-  lands on main; the lead doc noted that 207 has since resumed as 207a/207b/207c); 208
-  Limes (56 named plans from 43 ORL fort numbers, 45 staging items -> 45 new fort sites,
-  from 3 free collections spanning 9 ORL volumes; the per-number drop list); 209 Wiltshire
-  (209a Hoare DROPPED - not on IA, HathiTrust 403s, Google 429s, human refused the download
-  (ask_human 001), dormant fetch leg left in place; 209b Stukeley 5 rows; 209c Petrie's book
-  leg refused (ask_human 002) but its fallback held - the two canonical Pl. I/II rows ARE
-  the Petrie plates, verified not re-staged); 210 Numancia (1 row on the existing site);
-  213 artists (2 new aerial sites - Imola, Venice - plus the triaged Civitates/Merian books
-  whose index rows the box-2 rebuild carries: civitates 11 -> 118, merian 0 -> 60).
-  A "merge itself" paragraph records the measured growth: 381 staging rows (115 site /
-  133 picture / 133 classified), extras.jsonl 78 -> 193, files.jsonl 1490 -> 1623,
-  classified.jsonl 797 -> 930, 0 refused / 0 conflicts, 114 NEW sites (shotwick's row
-  created no site - it was the 385th pre-merge entry), sites.json 385 -> 499,
-  plans.json 1166 -> 1168, books index 901 -> 1068.
-- Box 5 gotchas (cost edits, not sessions): (a) web/data/sites.json is a JSON OBJECT
-  ({"sites": [...]}), not JSONL - json.loads per line fails; (b) the limes lead's exact
-  wording is "56 named plans from 43 ORL fort numbers (45 staging items)" - the 45 is
-  staging items (= the 45 extras rows / 45 sites), the 43 is distinct fort numbers;
-  (c) the Mackenzie schematics (Framlingham/Carisbrooke/Cooling) are pre-merge CANONICAL
-  rows (fitted by hand), not drops - the first draft of the section called them drops and
-  was corrected against the 406562b files.jsonl.
-- Box 6: re-read tests/test_serve.py::test_hand_fits_are_the_reference and conftest fresh.
-  The golden file (tests/golden/hand_fit_sites.txt) lists 19 sites; its header says "20
-  documents" (000's reference count). The store today holds 123 docs (26 book-leaf +
-  97 Commons) - the batch tasks' agent fits joined per GOAL's "fits in data/db/platefits/";
-  the golden file is unchanged. All 19 golden sites have web/data/sites/<sid>/depictions.json
-  in this checkout, so the test's per-site depictions assertion (a plan/view depiction
-... (0.9 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them' DECISIONS.md`)
 
 ### 2026-10-12 211 DECISION: gate still open (222-228 all Status: open, main moved nothing since the 186 sync) - no re-run, no claim; the imagecodecs open thread becomes task 229 (Depends on: 302a, 304)
 - Session 187. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
@@ -147,6 +101,51 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   break any of my six boxes nor the driver's claim-time suite check.
 - No Touches-line change and no PITFALLS entry this session: the origin topology is a
 ... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)' DECISIONS.md`)
+
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
+- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
+  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
+  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
+  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
+  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
+  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
+  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
+  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
+  unmoved main; the driver re-checks the suite at claim time).
+- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
+  staging, if it ever resumes, goes through a later re-run of this step", but no task
+  existed for that re-run - after 211 claims done, nothing would trigger the Roman
+  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
+  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
+  post-merge canonical state and all of the parent 207's subtask staging; the file notes
+  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
+  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
+  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
+  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
+  one module, and it runs only after 211 is done, so no parallel conflict with any
+  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
+  merge re-run over the Roman staging - every staged row in the canonical files, pure
+  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
+  index + validation rebuilt from ALL per-book files including the three Roman books,
+  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
+  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
+  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
+  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
+  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
+  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
+  25/19 golden reference still passes. Notes: site building is a working-phase command
+  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
+  frozen 385-entry baseline shifts to the post-211 499.
+- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
+  iter-186 note already in it) - no other human section of my task file touched. Files
+  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
+  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
+- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
+  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
+  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
+  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
+  today.
 
 ## Project-wide driver notes (newest)
 
