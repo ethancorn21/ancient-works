@@ -1,0 +1,82 @@
+{
+ "classified": [
+  {
+   "p_birdseye": 0.0656,
+   "p_photo": 0.0069,
+   "p_plan": 0.9372,
+   "site": "stonehenge-q39671",
+   "title": "File:47 of 'Stonehenge- plans, descriptions and theories' (11135894643).jpg"
+  },
+  {
+   "p_birdseye": 0.0658,
+   "p_photo": 0.0068,
+   "p_plan": 0.9167,
+   "site": "stonehenge-q39671",
+   "title": "File:49 of 'Stonehenge- plans, descriptions and theories' (11133409654).jpg"
+  }
+ ],
+ "files": [
+  {
+   "artist": "The British Library",
+   "cat": "Stonehenge",
+   "date": "2013-11-30 17:09",
+   "desc": "View this map on the BL Georeferencer service.  \n  Image taken from:\n   Title : \"Stonehenge: plans, descriptions and theories\"\n Author : PETRIE, William Matthew Flinders - Sir\n Shelfmark : \"British Library HMNTS 10352.i.12.\"\n Page : 47\n Place of Publishing : London\n Date of Publishing : 1880\n Publisher : E. Stanford\n Issuance : monographic\n Identifier : 002889646\n   Explore: \n \n  Find  this item in the British Library catalogue, 'Explore'. \n Open the page in the  British Library's itemViewer (page image 47) \n  Download the PDF for this book  Image found on book scan 47 (NB not a pagenumber)Dow",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Stonehenge",
+    "place_label": "Stonehenge",
+    "place_lat": 51.17888888888889,
+    "place_lon": -1.826111111111111,
+    "place_qid": "Q39671",
+    "rec": "evidence/1",
+    "site_lat": 51.178889,
+    "site_lon": -1.826111
+   },
+   "h": 2852,
+   "license": "No restrictions",
+   "mime": "image/jpeg",
+   "page": "https://commons.wikimedia.org/wiki/File:47_of_%27Stonehenge-_plans,_descriptions_and_theories%27_(11135894643).jpg",
+   "qid": "Q39671",
+   "site": "stonehenge-q39671",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/47_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811135894643%29.jpg/1280px-47_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811135894643%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:47 of 'Stonehenge- plans, descriptions and theories' (11135894643).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/47_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811135894643%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2245,
+   "wd_plan": false,
+   "year": 1880
+  },
+  {
+   "artist": "The British Library",
+   "cat": "Stonehenge",
+   "date": "2013-11-30 14:34",
+   "desc": "View this map on the BL Georeferencer service.  \n  Image taken from:\n   Title : \"Stonehenge: plans, descriptions and theories\"\n Author : PETRIE, William Matthew Flinders - Sir\n Shelfmark : \"British Library HMNTS 10352.i.12.\"\n Page : 49\n Place of Publishing : London\n Date of Publishing : 1880\n Publisher : E. Stanford\n Issuance : monographic\n Identifier : 002889646\n   Explore: \n \n  Find  this item in the British Library catalogue, 'Explore'. \n Open the page in the  British Library's itemViewer (page image 49) \n  Download the PDF for this book  Image found on book scan 49 (NB not a pagenumber)Dow",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Stonehenge",
+    "place_label": "Stonehenge",
+    "place_lat": 51.17888888888889,
+    "place_lon": -1.826111111111111,
+    "place_qid": "Q39671",
+    "rec": "evidence/1",
+    "site_lat": 51.178889,
+    "site_lon": -1.826111
+   },
+   "h": 2874,
+   "license": "No restrictions",
+   "mime": "image/jpeg",
+   "page": "https://commons.wikimedia.org/wiki/File:49_of_%27Stonehenge-_plans,_descriptions_and_theories%27_(11133409654).jpg",
+   "qid": "Q39671",
+   "site": "stonehenge-q39671",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/49_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811133409654%29.jpg/1280px-49_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811133409654%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:49 of 'Stonehenge- plans, descriptions and theories' (11133409654).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/49_of_%27Stonehenge-_plans%2C_descriptions_and_theories%27_%2811133409654%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 4641,
+   "wd_plan": false,
+   "year": 1880
+  }
+ ]
+}

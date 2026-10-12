@@ -3,7 +3,8 @@
 GOAL point 4: the old drawings of the two most famous sites on the map. This lead stages the
 site-plan plates of three works - Hoare's *Ancient Wiltshire* (1812-21), Stukeley's Wiltshire work
 (1740s) and Petrie's *Stonehenge, Avebury, and other Stone Age monuments of the British Isles*
-(1880) - one book per subtask (209a/b/c; 209a/Hoare is dropped - its section below), each into
+(1880) - one book per subtask (209a/b/c; 209a/Hoare is dropped and 209c's book leg was refused -
+their sections below), each into
 its own per-suffix staging files
 (`data/commons/files_wiltshire_{a,b,c}.jsonl` + `classified_wiltshire_{a,b,c}.jsonl`, rows tagged
 with the book; a `*_wiltshire_{a,b,c}` extras file only if a plate shows a Wiltshire earthwork not in
@@ -149,3 +150,53 @@ data/db/platefits/) are untouched: new rows only.
 **Stage-A/B recall against the plate list:** see the Stage-A/B recall record above (the book has no
 printed list of plates - the transcribed headers ARE the list; the transcription and the recall
 live in this section, in place of the shared validation.json).
+
+## Petrie, *Stonehenge, Avebury, and other Stone Age monuments of the British Isles* (1880) - 209c
+
+**Sources (2026-10-13, re-verified 2026-10-12):** not on the Internet Archive (title/description/
+identifier searches return 0; the only 1880 'stonehenge' item is an Oxfordshire Rollright pamphlet),
+and not on Commons as a book (Category:Books by Flinders Petrie = 71 files, all his Egypt books).
+HathiTrust holds the work (US public domain, full view) and Google Books serves a PDF, but both
+refuse this VM (403/429 - the 209a finding). The copy could therefore only arrive human-downloaded
+(the 207c pattern): **ask_human 002 (filed 2026-10-12 from 209a's session)** asked for the 1880 book
+(E. Stanford for Macmillan; British Library shelfmark HMNTS 10352.i.12) in
+data/raw/books/petrie1880/, one image per leaf page, with the Commons fallback (a) and "drop".
+**It was refused (iteration 151, journal date 2026-10-13):** "No. If you can't find it on the
+internet i am not going to go get it. Just skip it and move on." The book leg is therefore off the
+table for good: no book artifacts exist (no triage/lists files, no data/raw/books/petrie1880/) and
+no dormant fetch wrap is built (209a's pre-dated its refusal; the human will not download books -
+PITFALLS).
+
+**The Commons leg (fallback (a), satisfied by 209b's visual check 2026-10-12):** both unlabeled
+fit-sized files of the Flickr set 'Stonehenge- plans, descriptions and theories' are Petrie 1880
+plates, and they are already in the canonical files.jsonl (checked 2026-10-10):
+
+| File | Size | What it is | Disposition |
+|---|---|---|---|
+| `File:47 of 'Stonehenge- plans, descriptions and theories' (11135894643).jpg` | 2245x2852 | **Pl. I** - the Stonehenge stone-by-stone plan, scale 1:350: "W.M.F.P. mense et del.", the sarsen/bluestone key (Standing 1880 / Standing 1747 / Overthrown), the outlying-stone forms 91/93/95/96. | **Already canonical** (stonehenge-q39671, year 1880) - **not re-staged**; verified below. |
+| `File:49 of 'Stonehenge- plans, descriptions and theories' (11133409654).jpg` | 4641x2874 | **Pl. II** - Stonehenge with the Avenue, the Cursus inset and the parallel banks, scale 1:1500; "Petrie levels in inches by numbering of stones"; W.M.F.P. | **Already canonical** (stonehenge-q39671, year 1880) - **not re-staged**; verified below. |
+
+Both rows carry the caption_coords tie (checked 2026-10-10): the BL Georeferencer description names
+PETRIE / shelfmark HMNTS 10352.i.12 / p. 47 (or 49) / E. Stanford 1880, and the named place
+"Stonehenge" resolves to the site's own point (dist_m 0.0); the machine call classifies them plans
+(p_plan 0.94 / 0.92 in the canonical classified file). `fit/src_wiltshire_petrie.py --check`
+(offline, no network) re-verifies both rows from stored fields via fit/evidence.py: 2/2 PASS
+(2026-10-13); the golden sample tests/golden/src_wiltshire_petrie_sample.json pins the rows, and
+tests/test_src_wiltshire_petrie.py pins the refusal, the table and the negative controls. Neither
+title is in any *_wiltshire_c staging file (the never-re-staged guard in the module fails loud),
+and no extras row is needed (both plates show Stonehenge, a catalog site).
+
+**The book leg (undelivered):** the rest of the book's plates - Avebury, Silbury Hill, the West
+Kennet long barrow and the other Wiltshire earthworks it shows - are not on Commons and are
+**undelivered**: the human declined to download the book, so this subtask stands on the two
+canonical rows only. If a complete copy ever lands in data/raw/books/petrie1880/ (a library
+digitisation), the 209a-style local-copy wrap (register + triage A/F/B + list transcription from
+the copy's own list pages + staging + the stage-A/B recall) is added to
+fit/src_wiltshire_petrie.py then.
+
+**Stage-A/B recall against the printed list of plates:** n/a - the book was never obtained (the
+refusal above); the Commons leg has no book machinery to recall against, and the shared
+validation.json was never written (211 rebuilds the shared index from the per-book files).
+
+**The existing hand fits** (Allcroft Avebury fig. 187, Allcroft Windmill Hill fig. 186, in
+data/db/platefits/) are untouched: new rows only.
