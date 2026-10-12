@@ -11,6 +11,9 @@ Architecture rules:
 
 Line ranges (L...) are as of the start of this session, for files of 150+ lines: read just that range (the read tool takes an offset and a limit); after edits they shift.
 
+## data/merge/
+- `data/merge/run_build.py` (76 lines) - Box-3 site runner (task 211): build a list of site ids through the project's own machinery (pipeline/build_catalog.py per site, then build_site.set_drawings so the site's entry... Exports: ts, log, marks_of, run, main.
+
 ## fit/
 - `fit/batch_eu.py` (224 lines) - The batch, EU (task 203b, GOAL.md points 1-2): every built site other than the US goes through the same fitting loop as 203a's US batch (candidates -> fitkit sheet -> local mode... Exports: eu_sites L35-38, run_eu L41-43, union_check L46-136, union_section L139-178, write_report L181-189, main L192-224.
 - `fit/batch_us.py` (766 lines) - The batch, US (task 203a, GOAL.md points 1-2): the 90 built US sites go through the fitting loop. Exports: us_sites L80-82, candidates L91-93, pre_docs L100-110, is_pre_fit L113-123, gate_placement L126-154, write_doc L185-212, write_item L246-250, run_sites L253-326, classify L329-350, write_report L366-427, ... (+4 more).
