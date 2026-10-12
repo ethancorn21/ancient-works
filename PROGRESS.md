@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-11, iteration 99, agent a - FIRST session on 305; investigation only, NO code written yet. 303, my
+- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 100, agent a - step 1 of the 8-step plan done: the queue generator.)
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -38,6 +38,32 @@ except-BaseException. (4) The one open item for the next agent: READ tests/test_
 serve.py (never read this session), and settle the big-picture copy strategy for the save->line test
 (data/raw is stripped by conftest; plan_fit.build downloads the picture - copy the ONE file the chosen doc
 needs into the temp tree; check load_picture's exact path for commons vs book docs first).
+
+### 2026-10-12 305 DECISION: queue generator built (tools/fit_queue.py) + committed fit_queue.json + generator tests
+Step 1 of the 8-step plan from iteration 99. Wrote tools/fit_queue.py (stdlib-only: reads exactly
+web/data/sites.json + the web/data/sites/<id>/ dirs, web/data/plans.json, the data/review/ item files
+(keyed by the item's `site` field, open and resolved alike) and the data/db/platefits/ docs; never
+opens an image) and ran it: web/data/fit_queue.json committed, 117 entries, first =
+devil-s-dyke-q3307343 "The Devil's Dyke Camp, near Brighton" (the clearest scan, Allcroft 1908).
+Reason mix on the real population: 72 the only candidate / 37 the clearest scan / 7 a true plan /
+1 the clearest view. Added tests/test_fit_queue.py part 1: a synthetic 12-site tree pinning every
+rule exactly (entry set; agent-doc inclusion; hand-doc exclusion via both the `site` field and the
+file-name prefix fallback; a no-picture item creating no candidate; unbuilt sites out; dedupe of a
+plan in both sources resolving to the plans row; synth row for a plan whose only row names another
+site, sites narrowed; plan-over-view then area then plan id; the four one-word reasons; site order;
+indent=1 no-trailing-newline bytes; the 13 named row fields in column order) and a real-population
+test (entry set derived independently, never pinned - 803 precedent; per-entry invariants; checkout
+byte-identical; dead-socket guard). Both green; full suite under .venv/bin/python: 70 passed,
+1 skipped - the 3 failures at loop start (test_gate, test_batch_eu x2) and
+test_serve::test_platefits_docs_match_sites all pass now (agent c's merges fixed them).
+Facts settled for the remaining steps: plans.json is {cols, rows} (rows are lists;
+batch_us._plans_rows converts to named dicts); sites.json is {"sites": [...]} (385 entries, all
+with a web/data/sites/<id>/ dir in this checkout); every real platefits doc carries a `site` field
+(the filename fallback never fires in practice but is in the contract); web/index.html L573 is the
+home stats line containing "built in all" (the card's anchor), L1707 the last script tag
+(review.js); serve.py's worker (after_write/_fit_wake, ~L229-252) still runs plan_fit.main([]) for
+both PUT and DELETE - the next step is reading tests/test_serve.py, then the page card
+(web/fitqueue.js, added to Touches this session).
 
 ## Project-wide driver notes (newest)
 
