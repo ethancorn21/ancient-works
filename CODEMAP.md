@@ -97,7 +97,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## server/
 - `server/relief_tiles.py` (256 lines) - Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17. Exports: Unavailable L43-44, Cancelled L47-48, covered L224-226, tile L229-256.
-- `server/serve.py` (296 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L53-223, after_write L229-252, lan_address L255-264, main L267-296.
+- `server/serve.py` (358 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L57-233, after_write L296-314, lan_address L317-326, main L329-358.
 
 ## tests/
 - `tests/conftest.py` (92 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, served, golden_sites.
@@ -107,6 +107,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/test_evidence.py` (67 lines) - The evidence check and record (task 200, GOAL.md point 4). Exports: test_check_over_sample_matches_golden, test_record_appends_evidence_without_touching_existing_bytes.
 - `tests/test_evidence_801.py` (86 lines) - The part and sheet evidence routes (task 801), end to end through the real CLI. Exports: fixture, test_part_and_sheet_routes_match_golden.
 - `tests/test_fit_provenance.py` (547 lines) - Fit provenance (task 303): every platefit document says who placed it, and the line never passes an agent fit as a hand fit. Exports: put_json L171-175, get_json L178-180, test_every_doc_carries_provenance L187-220, test_line_refuses_unmarked_non_auto_doc L282-391, test_unmarked_auto_doc_is_an_agent L421-478, test_page_save_stamps_hand L505-547.
+- `tests/test_fit_queue.py` (879 lines) - The 'Ready to fit' queue (task 305), part 1: tools/fit_queue.py on a temp tree, no network. Exports: test_fit_queue_synthetic L201-271, test_fit_queue_real L278-346, line_served L424-496, test_save_runs_the_one_site_line L499-624, test_card_in_the_browser L764-832, test_card_done_mark_moves_on L835-879.
 - `tests/test_gate.py` (181 lines) - The fit gate's one-shot measurement, re-run (docs/gate.md, sections 8-9; task 001, box 4), and the frozen-set partition semantics (task 218). Exports: test_recorded_measurement_reproduces_and_agrees L62-95, test_fit_gate_constants_are_the_frozen_section2_rule L98-109, test_partition_frozen_set_tolerates_post_registration_docs L130-181.
 - `tests/test_propose.py` (472 lines) - Task 202: the proposed starting placement for a (site, picture) pair - fit/propose.py, end to end. Exports: build_sample L142-143, build_sanity_qid L159-196, build_sanity_old_style L199-240, build_sanity_commons L243-255, build_golden_text L258-271, test_parse_scale_table L276-301, test_sample_format L304-330, test_no_snapping L333-345, test_ground_rule_aerial L348-359, test_self_consistency L360-372, ... (+6 more).
 - `tests/test_review.py` (424 lines) - The review queue (task 201, GOAL points 1-2): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word. Exports: repo_items L98-105, run_export L108-112, seed_queue L144-161, queue L162-165, test_export_cli L191-225, test_page_shows_the_review_list L228-288, test_save_resolves_the_item L291-381, test_plan_lookup_is_keyed_by_id_and_site L384-412, test_index_html_review_footprint L415-424.
@@ -122,6 +123,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/composite.py` (16 lines) - Preview: site relief with the exported plate ink on top.
 - `tools/export_catalog.py` (52 lines) - Compact catalog for the page: web/data/catalog.json (every catalog entry as a pin; built sites are the full pages). Exports: dist_m, main.
 - `tools/export_plans.py` (88 lines) - Site plans from the old books (data/books/index.jsonl) as a compact list for the page's plate-fitting tool. Exports: commons_rows, main.
+- `tools/fit_queue.py` (218 lines) - The "Ready to fit" queue (task 305): the built sites with candidate pictures but no hand fit yet, one per entry, ordered so the site most worth seeing comes first. Exports: build L171-197, main L200-218.
 - `tools/fitkit.py` (223 lines) - Hand-fitting helper for Claude (the page's plate-fitting tool does the same for people). Exports: ground L35-52, ground_view L55-59, site L62-63, plan L66-74, plan_image L77-80, grid L83-99, sheet L102-123, zoom L126-135, lonlat L138-143, save L146-167, ... (+2 more).
 - `tools/gate_heldout.py` (174 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L78-104, check_registered L107-114, load_sites L117-118, box_centre_ground L121-126, placements L129-152, main L155-174.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
@@ -129,7 +131,8 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/site_done.py` (323 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L281-323.
 
 ## web/
-- `web/index.html` (1709 lines) - (no header comment - add one)
+- `web/fitqueue.js` (147 lines) - Ready to fit (task 305): the owner's hand fits are the ones that land right, so the line queues them - the built sites that still have a candidate picture and no hand fit yet, o...
+- `web/index.html` (1710 lines) - (no header comment - add one)
 - `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
