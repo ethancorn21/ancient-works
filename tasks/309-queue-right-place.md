@@ -27,81 +27,71 @@ Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the 
 
 ## Hand-over
 
-(2026-10-12, iteration 98, agent c - session 7. No code changes. The split's dependency graph was
-deadlocking the driver queue: 804 had `Depends on: 309` and 805 `Depends on: 309, 804`, but a split
-parent only becomes done AFTER its subtasks finish, so a dependency on it can never be satisfied.
-Symptom: both sat in Tasks-in-flight (open) while the other split's dep-free subtasks 207a/207b sat
-in Next-open-tasks. Fixed by rewriting my own subtasks' lines to the project convention (203a/b,
-207a-c, 213a/b, 302a-d, 307a-d: subtasks never depend on the split parent): 804 is now `Depends on:
-none`; 805 is `Depends on: 804` (its real ordering need: the rebuild runs after the wiring merges -
-the 309 edge was redundant with the chain). Also removed the now-satisfied `Depends on: 305` from
-this file (305 is done; the 302a precedent). The driver should now hand 804 out in the next
-rotation (owner lane agent c, whose branch has the module). NEXT STEP when that happens: run 804
-per its spec (full acceptance boxes in its file), then 805; when both are done the driver returns
-309 and I tick its three carved boxes and set it done.)
+(2026-10-12, iteration 99, agent c - session 8. The driver handed me 309 (the split parent)
+again; 804 (Depends on: none) still was not in Next-open-tasks, so I started 804 in the owner
+lane myself (it is my subtask; the module is on my branch) and set it in-progress. Done this
+session: 804's refactor-first commit (build() gathers the per-site candidate map; the new
+_entry() builds the entry; behavior-neutral - old vs new build on one tree identical, 116
+entries; part-1 tests pass unmodified). NEXT STEP (next session, same lane): 804 boxes 1+2 -
+the two-phase wiring (the full sketch is in 804's hand-over), then 804 box 4 (tests) and box 3
+(README note); then 805 (the rebuild - it also fixes the stale committed queue, below); when
+804+805 are done the driver returns 309 and I tick the three carved boxes and set it done.
 
-**Shared ground truth (re-verified this session; the DECISIONS entry has the evidence):**
-- Worktree warning (STILL APPLIES): all work belongs in /home/agent/projects/ancient-works.c (branch
-  agent/c). The harness once started me in the MAIN worktree (/home/agent/projects/ancient-works),
-  which does not contain my branch's files; the three worktrees (.a, .c, main) share one repo
-  (git-common-dir ancient-works/.git). Never commit in the main worktree (a PITFALLS entry covers
-  the mixup).
-- The module tools/right_place.py (696 lines, stdlib only) is COMMITTED on agent/c (fc67bb9; NOT on
-  main - verified this session: main head cf29be2, `git cat-file -e main:tools/right_place.py`
-  absent; it lands on main when 309 closes out as split). API: load(root) (catalog/book index/lists
-  all optional - none present = no-op degrade), picture_facts(data, plan, row), site_facts(data,
-  site), check_pairing(site, facts) -> (flagged, "same name, other place: <caption place> vs <site
-  place>"), find_right_site(data, facts, exclude, top=3, min_score=0.5) -> [(score, catalog_rec,
-  words)]; CLI `python3 tools/right_place.py [--all] [filter]`. Re-read its docstring first; the six
-  iteration-95 spec deviations (DECISIONS) are baked in - do not "fix" them. The verbatim matcher
-  core spans its lines 33-223 (top-level names US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm,
-  name_keys, tokens, place_of, site_place, site_toks, name_lookup_keys, row_inputs, score_candidate,
-  BOOK_SCOPE, PLACE_WORDS, phrases - 17) and 805's drift test compares those against
-  pipeline/books_match.py; books_match's load_catalog / match_row / _key / main are NOT copied
-  (right_place has its own load()).
-- Baseline re-run this session (`python3 tools/right_place.py --all` on current data): 324 queue
-  pairings, 15 flagged over 9 sites, zero false positives - IDENTICAL to iterations 95/109/97:
-  devil-s-dyke <- n0686_1 (BRIGHTON, the case; right site devil-s-dyke-hillfort-q17674160, unique
-  pass 0.65, unbuilt as of today) and <- n0599_1 (Aysgarth, H1 'Yorks'); bokerley-dyke <- n0599_1;
-  coria + vindomora <- n0354_1 (ARDOCH, PERTHSHIRE; no catalog Ardoch -> review); eaton-socon <-
-  n0285_1 (Bath) + n0557_1 (FIRLE HILL) + n0558_1/2 (LEWES DOWN); windmill-hill <- the same three
-  Sussex rows; alauna + castle-neroche <- n0438_1 (Defences of YORK); clun-castle <- n0575_1
-  (Devonshire place field). Must-not-flag set (Maumbury, leeds-castle, fairlawne, chevening,
-  chiswick-house, the 3 Ohio tied-away sites, n0662_1) verified absent in the same run. Queue file:
-  {at, entries}, 117 entries, entry 1 = devil-s-dyke-q3307343 with n0686_1 best. My data area is
-  unchanged since fc67bb9 (git diff fc67bb9..HEAD over web/data/fit_queue.json, data/review/,
-  web/data/review.json, tools/fit_queue.py, tests/, docs/site_flow.md, data/catalog/, data/books/ =
-  empty this session).
-- Suite baseline on agent/c: 3 failed / 77 passed / 1 skipped - the 3 failures pre-exist on main
-  (the lead's matcher-fit wiring b22a2d2/9324f8b): test_fit_provenance::
+Carve state: box 1 (the wiring) = 804, in-progress, ~1/5 (refactor in, wiring pending);
+box 2 (the site_flow report) = 805, not started; box 3 (the namesake tests) = 804, not
+started.
+
+**Shared ground truth (re-verify at session start; the DECISIONS entries have the evidence):**
+- Worktree warning (STILL APPLIES): all work belongs in /home/agent/projects/ancient-works.c
+  (branch agent/c); the three worktrees (.a, .c, main) share one repo; never commit in the
+  main worktree (a PITFALLS entry covers the mixup).
+- The module tools/right_place.py (696 lines, stdlib, fc67bb9; on agent/c only - it lands on
+  main when 309 closes out): load/picture_facts/site_facts/check_pairing/find_right_site.
+  Its verbatim matcher core spans lines 33-223 (17 top-level names) and 805's drift test
+  compares those against pipeline/books_match.py; the six iteration-95 spec deviations are
+  baked in - do not "fix" them.
+- Module baseline: 324 queue pairings, 15 flags over 9 sites, zero false positives - identical
+  at iterations 95/97/98/99. The 15 (site <- candidate(s), signal): devil-s-dyke-q3307343 <-
+  n0686_1 (BRIGHTON, the case; right site devil-s-dyke-hillfort-q17674160, unique pass 0.65,
+  unbuilt) and n0599_1 (Aysgarth, H1 'Yorks'); bokerley-dyke <- n0599_1; coria + vindomora <-
+  n0354_1 (ARDOCH, PERTHSHIRE; no catalog Ardoch -> review); eaton-socon <- n0285_1 (Bath) +
+  n0557_1 (FIRLE HILL) + n0558_1/2 (LEWES DOWN); windmill-hill <- the same three Sussex rows
+  n0557_1/n0558_1/n0558_2; alauna + castle-neroche <- n0438_1 (Defences of YORK); clun-castle
+  <- n0575_1 (Devonshire place field). The must-not-flag set (Maumbury, leeds-castle,
+  fairlawne, chevening, chiswick-house, the 3 Ohio tied-away sites, n0662_1) is verified
+  absent in the same run.
+- Suite baseline on agent/c: 3 failed / 77 passed / 1 skipped - the 3 pre-exist on main (the
+  lead's matcher-fit wiring b22a2d2/9324f8b): test_fit_provenance::
   test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_line,
-  test_site_done::test_site_done_line. Neither subtask may edit their assertions or "fix" them;
-  both must leave the rest of the suite green.
-- data/review/devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0599_1.json already holds n0686_1 and
-  n0599_1 (both stay in review forever). n0686's 805 move targets the hillfort's OWN item (which may
-  not exist yet - the upsert creates it when the target is unbuilt); n0599_1 stays where it is.
-- The dropped reference spec tasks/309-place-check.md (agent a's, kept as reference) still holds the
-  background: the fail-open rule (an unknown place never mismatches; a place that contains the site
-  does not), the --live Wikidata human path (pipeline/catalog_wd.py; tests never call it), and "the
-  305 queue shape and tests must survive". Its data/fit_place.json committed-verdict design was
-  deliberately NOT adopted: the module re-checks from stored fields on every run, which makes a
-  separate verdict store unnecessary (DECISIONS iteration 95). If a future session revives that
-  design, data/fit_place.json + tests/test_fit_place.py must be added to the relevant task's
-  Touches first.
+  test_site_done::test_site_done_line. Neither subtask edits their assertions; both leave the
+  rest green.
+- NEW this session: the committed web/data/fit_queue.json is STALE - 117 entries vs 116 that
+  the current data builds (old and new build code agree; the extra committed entry is
+  shotwick-castle-q7502621, no longer built from current data; the same site is the
+  orphan-platefit-doc in the main-side failures). 805's rebuild fixes it; 804 never writes
+  the file.
+- data/review/devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0599_1.json already holds
+  n0686_1 and n0599_1 (both stay in review forever). n0686's 805 move targets the hillfort's
+  OWN item (which may not exist yet - upsert_item creates it when the target is unbuilt).
+- Agent a (306/307) reads web/data/fit_queue.json tolerantly and must never write it; if
+  their merge lands while 805's rebuild is in flight, expect driver reconciliation - flag any
+  hit on this task's files in DECISIONS.
+- The dropped reference spec tasks/309-place-check.md (agent a's, kept as reference) still
+  holds the background: the fail-open rule (an unknown place never mismatches; a place that
+  contains the site does not), the --live Wikidata human path (pipeline/catalog_wd.py; tests
+  never call it), "the 305 queue shape and tests must survive". Its data/fit_place.json
+  committed-verdict design was deliberately NOT adopted (the module re-checks from stored
+  fields on every run) - if a future session revives it, data/fit_place.json +
+  tests/test_fit_place.py must be added to the relevant task's Touches first.
 
 **Re-read (still apply):**
-- tools/fit_queue.py: build / _plans_rows / _item_candidates / _built_sites / _hand_sites /
-  _candidates / _synth_row - where the 804 wiring goes; stdlib-only contract (owner's Mac, no PIL);
-  it imports fit/review the way tools/site_done.py does (sys.path insert of ROOT/fit, then
-  `import review`).
-- fit/review.py: upsert_item (write-once resolved; the item file name follows candidates[0].plan - a
-  moved candidate becoming the lead renames the file; new plans append, same-plan replaces in
-  place) and export (the only writer of web/data/review.json; open items only; a one-site run
-  records resolution into that item only).
-- tests/test_fit_queue.py part 1: the GUARD (dead-socket subprocess), test_fit_queue_synthetic (the
-  no-op degrade must keep it UNMODIFIED), test_fit_queue_real (today copies only the four 305
-  inputs - no catalog/books - so the check is a no-op in that tree; 804 extends the copy and the
-  derivation).
-- Agent a's in-flight 307b/307c/307d (page work) reads web/data/fit_queue.json tolerantly and must
-  never write it; if their merge lands after 805, only the queue file's contents change (not its
-  shape) - expect the driver to reconcile, flag any hit on this task's files in DECISIONS.
+- tools/fit_queue.py: build / _entry - the two-phase insertion point (sketch in 804's
+  hand-over); stdlib-only contract (owner's Mac, no PIL); the wiring imports right_place and
+  fit/review via sys.path inserts (PITFALLS: runpy/run_path does not put the script dir on
+  sys.path under the test GUARD).
+- fit/review.py: upsert_item (write-once resolved; the item file name follows
+  candidates[0].plan - a moved candidate becoming the lead renames the file; new plans
+  append, same-plan replaces in place) and export (the only writer of web/data/review.json).
+- tests/test_fit_queue.py: the GUARD (dead-socket runpy subprocess), test_fit_queue_synthetic
+  (the no-op-degrade tree must stay unmodified and catalog-less), test_fit_queue_real (the
+  804 box-4 extension point: copy data/catalog + data/books and re-derive WITH the check).

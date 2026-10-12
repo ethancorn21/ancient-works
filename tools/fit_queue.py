@@ -168,31 +168,40 @@ def _reason(cands):
     return "the clearest view"
 
 
+def _entry(sid, name, cands):
+    """The site's queue entry: its best candidate (plan over view, then drawing area, then
+    plan id), the one-word reason, and the whole candidate list in the same order."""
+    plan, row = min(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
+    return {
+        "site": sid,
+        "name": name,
+        "best": {"plan": plan, "reason": _reason(cands),
+                 "row": {k: row.get(k) for k in ROW_FIELDS}},
+        "candidates": [
+            {"plan": p, "title": r.get("title") or p, "book": r.get("book"),
+             "view": bool(r.get("view")), "draw_px": _draw_px(r)}
+            for p, r in sorted(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
+        ],
+    }
+
+
 def build(root):
     """The queue, ready to serialize: one entry per built site with a candidate and no hand fit,
-    ordered by each site's best candidate (plan over view, then drawing area, then name)."""
+    ordered by each site's best candidate (plan over view, then drawing area, then name).
+    The sites' candidate maps are gathered first and the entries derived from that map, so
+    the maps stay available for decisions that must see every site's set at once."""
     rows = _plans_rows(root)
     item_cands = _item_candidates(root)
     hand = _hand_sites(root)
-    entries = []
-    for sid, name in _built_sites(root):
+    built = _built_sites(root)
+    cands = {}
+    for sid, name in built:
         if sid in hand:
             continue
-        cands = _candidates(sid, rows, item_cands.get(sid) or [])
-        if not cands:
-            continue
-        plan, row = min(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
-        entries.append({
-            "site": sid,
-            "name": name,
-            "best": {"plan": plan, "reason": _reason(cands),
-                     "row": {k: row.get(k) for k in ROW_FIELDS}},
-            "candidates": [
-                {"plan": p, "title": r.get("title") or p, "book": r.get("book"),
-                 "view": bool(r.get("view")), "draw_px": _draw_px(r)}
-                for p, r in sorted(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
-            ],
-        })
+        c = _candidates(sid, rows, item_cands.get(sid) or [])
+        if c:
+            cands[sid] = c
+    entries = [_entry(sid, name, cands[sid]) for sid, name in built if sid in cands]
     entries.sort(key=lambda e: _best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))
     return {"at": datetime.now(timezone.utc).isoformat(), "entries": entries}
 

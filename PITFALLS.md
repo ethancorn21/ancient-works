@@ -252,6 +252,11 @@ Why: patches are per-process. Run the child as `[sys.executable, "-c", GUARD, sc
       pass `PYTHONIOENCODING=utf-8` in the child's env so non-ASCII output (em-dashes in Commons titles)
       cannot crash it or the decoding under a non-UTF-8 locale.
 
+#### runpy.run_path does not put the script's own directory on sys.path - a tool script importing a sibling must insert it itself
+Where: tools/fit_queue.py (the 804 wiring imports tools/right_place.py and fit/review.py); every test GUARD that runs a tools/*.py script via runpy (tests/test_fit_queue.py, test_site_done.py, test_fit_provenance.py)
+Symptom: `ModuleNotFoundError: No module named 'right_place'` when the tool runs under the test's runpy guard, although the same script works as `python3 tools/fit_queue.py` on the Mac
+Why: a plain `python3 <script>` sets sys.path[0] to the script's directory; `runpy.run_path` (the guard's runner) does not. The guard process starts from the checkout root, so neither the tools/ nor the fit/ directory is importable. Insert the needed directories into sys.path inside the script before the import (tools/right_place.py's main() already does this for fit_queue - the wiring does the same for right_place and fit/review).
+
 ### scipy (1.18.1, project .venv)
 
 #### scipy 1.18's ndi.center_of_mass with a label-index array returns one (cy, cx) tuple per label, not (cy_arr, cx_arr)

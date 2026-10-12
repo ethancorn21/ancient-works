@@ -1,4 +1,4 @@
-Status: open
+Status: in-progress
 # 804: the queue build applies the right-place check - wiring in tools/fit_queue.py, namesake tests
 Depends on: none
 Carved from: 309 (box 1, the wiring half; box 3)
@@ -84,11 +84,80 @@ passing unmodified. Rebuilding the committed data files is 805.
 
 ## Hand-over
 
-(2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
-carries the verified 15-flag list, the 117-entry baseline and the worktree warning.)
+(2026-10-12, iteration 99, agent c - session 8 on 309's lane; first session of 804. The driver
+handed me 309 (the split parent) again - 804 still was not in Next-open-tasks - so I started
+804 in the owner lane (it is my subtask; the module fc67bb9 is on my branch) and set it
+in-progress. Step done: the AGENTS.md refactor-first commit - build() now gathers the per-site
+candidate map first and derives each entry through the new _entry() helper; behavior-neutral,
+committed on its own (the old build, taken from git show HEAD:tools/fit_queue.py, and the new
+build run on the same temp tree produced identical 116-entry outputs; test_fit_queue_synthetic
+and test_fit_queue_real pass unmodified in 0.69 s).
 
-(2026-10-12, iteration 98, agent c: the `Depends on: 309` line was removed - it deadlocked the
-driver queue: a split parent becomes done only AFTER its subtasks finish, so a dependency on it
-can never be satisfied (the project convention in 203/207/213/302/307 is no parent dependency).
-The module is on agent/c, the owner lane, so no wait is expected. See 309's iteration-98
-DECISIONS entry.)
+Box state: 1 (the two-phase wiring) and 2 (the dispositions) - only their prerequisite (the
+refactor) is in; the wiring itself is NOT written. 3 (the README note), 4 (the tests),
+5 (no new failures) - not started.
+
+NEXT STEP (next session, this lane): write boxes 1+2 in tools/fit_queue.py:
+- imports: sys.path.insert(0, str(ROOT / "tools")) then import right_place; and
+  sys.path.insert(0, str(ROOT / "fit")) then import review (the site_done.py pattern). Needed
+  because the test GUARD runs the script via runpy.run_path, which does NOT put the script
+  dir on sys.path (new PITFALLS entry, verified this session: the sibling import fails with
+  ModuleNotFoundError under runpy, works under plain python3).
+- _place_store(root): right_place.load(root); return None when catalog, index AND lists are
+  all empty (the no-op degrade; keeps 305's synthetic tree - no catalog/books - byte-identical).
+- _place_flags(root, rp_data, cands_by_site): per site in the map: its record from sites.json
+  (build the by-id map here or pass it in), one right_place.site_facts, then per candidate
+  right_place.picture_facts + check_pairing; returns {(sid, plan): reason}. All decisions are
+  over the PRE-MUTATION maps (box 1's two-phase rule: a move into a site must never feed that
+  site's own flag decision in the same build).
+- _apply_flags(root, rp_data, cands_by_site, flags): for each (sid, plan, reason): drop the
+  plan from cands_by_site[sid]; right_place.find_right_site(rp_data, facts, exclude=sid):
+  top T built (web/data/sites/<T>/ exists) -> cands_by_site.setdefault(T, {})[plan] = the row
+  with sites narrowed to [T] (the plans row as-is; an item candidate synthesized via
+  _synth_row from the item's stored fields); T unbuilt -> review.upsert_item(root, T,
+  [entry]) where entry = the candidate's stored fields + the reason; no passing T ->
+  review.upsert_item into sid's own item (skip the upsert when that item already holds the
+  plan: the intended steady state - re-flagged every build, never churned). Build the upsert
+  entry deterministically from stored fields + the reason key so a same-value re-upsert is
+  byte-identical (upsert_item replaces a same-plan entry in place; resolved stays write-once;
+  the file-name lead follows candidates[0].plan - a moved candidate becoming lead renames the
+  item file; a no-picture item gaining a first candidate gains <site>.<plan>.json and its
+  no_picture record clears).
+- build(): cands_by_site (today's shape) -> _place_flags -> _apply_flags -> entries via
+  _entry. Keep the final sort and the {"at", "entries"} envelope untouched (the 305 contract;
+  the page reads the file tolerantly).
+Then: run the part-1 tests (they must pass as today - the synthetic tree has no catalog/books,
+so the check is a no-op there), and re-run `python3 tools/right_place.py --all`: it must still
+flag the same 15 pairings (the build's flags and the CLI's must agree on identical inputs).
+Session after that: box 4 (the new synthetic namesake test + the real-tree re-derivation with
+data/catalog and data/books copied in) and box 3 (the data/review/README.md pass-through note
+naming the reason extra, the 203a gate_score/why pattern).
+
+Facts this session:
+- runpy.run_path does not put the script dir on sys.path (new PITFALLS, Python section) - the
+  wiring's imports must insert tools/ and fit/ themselves; right_place's own main() already
+  does this for fit_queue.
+- The committed web/data/fit_queue.json is STALE: 117 entries, but the current data builds 116
+  (old and new code agree: 116) - the extra committed entry is shotwick-castle-q7502621, no
+  longer built from current data (the same site is the orphan-platefit-doc behind the
+  main-side failures test_serve::test_platefits_docs_match_sites / test_batch_eu). 805's
+  rebuild fixes the committed file; 804 never writes it.
+- The 15-flag module baseline (324 pairings) stands; the full list is in 309's hand-over.
+- fit/review.upsert_item(root, site_id, entries, no_picture=None): merges by plan (same-plan
+  replaces in place, new plans append); no_picture=None keeps an existing no-picture record, a
+  non-empty entries list clears it (README: once candidates exist it is null); resolved is
+  write-once; the lead (candidates[0].plan) drives the file name and renames on change.
+
+Re-read:
+- tools/fit_queue.py: build / _entry / _candidates / _synth_row - the wiring's insertion
+  points; the stdlib-only contract (owner's Mac, no PIL, no pipeline/ imports).
+- tools/right_place.py: load (all stores optional), site_facts (needs the full site record:
+  id/name/region/place), picture_facts, check_pairing, find_right_site (min_score 0.5); the
+  docstring states the fail-open rules and the six baked-in spec deviations - do not "fix"
+  them.
+- fit/review.py: upsert_item (as above); export is never called by the build (only the
+  one-site line publishes review.json).
+- tests/test_fit_queue.py: the GUARD (runpy + dead sockets), _build_synthetic_tree (the
+  no-op-degrade tree - must stay catalog-less), test_fit_queue_real (the box-4.2 extension:
+  copy data/catalog + data/books/index.jsonl + data/books/lists into the temp tree and
+  re-derive WITH the check).
