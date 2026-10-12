@@ -372,3 +372,28 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   holds zero depictions in each.
 - No file changes this session (only /tmp prep sheet and memory), so the suite stays due at the
   judging/removals session; baseline 128 passed, 1 skipped, test_gate pre-existing red.
+
+## 2026-10-12 306b DECISION: audit complete (42 shots); found + neutralised a 307 fit-queue trap that contaminated 9 shots (re-shot clean); argentoratum judged 10/10 STAYS; 11 docs left
+- Fourth session. The 42-shot run finished (zero failures). NEW DISCOVERY: nine of my 21 docs
+  (c_436bea, c_c280ff, n0110_1, c_be12fb, n0325, c_e66ec, c_804aa7, c_b52dd, c_f9cdda) match a
+  web/data/fit_queue.json entry proposing the same site's plan; 307's web/fitkit.js _fkActivate
+  then seeds 5 anchor pairs that blend with my 8 doc pairs into a 13-point least squares, so the
+  preview ink + fithint showed the blend, not the document. Fix in MY driver tools/audit_306b.mjs
+  (web/*.js stays agent a's): the IIFE waits for FQ.loaded, empties FQ.entries before openPlan
+  (fitkit falls open), and reports fqEntries/placed/anchor in [eval]. All 18 reshoots verified
+  clean (placed:false, n:8, resid ~0); the [eval] numbers in /tmp/audit_306b_reshoot.log are the
+  docs' own transforms. If another task ever drives openPlan headlessly with its own pairs, it
+  hits this too: check P.placed / pair count in the shot log.
+- Judging: argentoratum 10/10 STAYS (all ten sit on the real old town / fort ring / Roman castrum /
+  Krutenau district; details in the task hand-over, with per-doc mpx/rot and the item candidate's
+  rejection). c_e8826 - the item's recorded resolver - verified right, so the item stays resolved
+  by a fit that is actually good; its "Ville" Q1165252 evidence conflict is a sheet-level red
+  herring. NEXT (in order): judge the remaining 11 docs (hand-over has per-doc numbers; earthwork
+  sites - neroche, lemanis, cawthorne, watson-brake x2 - judge the RELIEF image first), append all
+  21 lines to the END of docs/site_flow.md (section "## The agent fits, looked at (task 306)"
+  starts line 702; last existing line = bethlehem fc4566d6947287f4 at line 800), 303-way removals
+  of any misses (upsert_item full doc + why, delete doc, site-scoped review export; NEVER
+  tools/site_done.py on these 10 sites), then tick boxes and run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed /
+  1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
+  surviving one - never loosen).
