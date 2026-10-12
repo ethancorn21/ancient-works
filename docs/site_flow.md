@@ -287,3 +287,104 @@ Outcome: **map** — Shotwick's agent fit passes the line's fabrication check an
 with the honest automatic source line (no gate score, because a session placed it). A
 second run of the line is a no-op: "skipped: overlay already current", "drawings 1 -> 1",
 the item file and `depictions.json` byte-identical.
+
+## Ready to fit: the owner clicks the points, the line does everything else (task 305, 2026-10-12)
+
+The owner's hand fits are the only fits that land right (the automatic ones are 301/302b),
+and he likes doing them, so the line now queues the hand fits: the built sites that still
+have a candidate picture and no hand fit yet, one site at a time, the most worth seeing
+first. The page shows him the next site with its best candidate already loaded in the
+existing "Place an old plan" tool; he places the points and saves; the line takes the site
+to the map. When he saves, that site is finished.
+
+**The queue file.** `tools/fit_queue.py [--root DIR]` writes `web/data/fit_queue.json`
+(`{"at", "entries": [...]}`), one entry per site: `{site, name, best: {plan, reason, row},
+candidates: [{plan, title, book, view, draw_px}]}`. A site is in the queue exactly when all
+three hold:
+
+- **built** — it has an entry in `web/data/sites.json` AND a `web/data/sites/<id>/` directory
+  (the same rule as `tools/site_done.py`);
+- **a candidate** — `web/data/plans.json` names it in a row's `sites` field, or one of its
+  `data/review/` item files holds it a candidate (open and resolved items alike: the item's
+  `site` field is the key, never the file name). The two sources are deduped by plan: a plan
+  in both resolves to the plans.json row (the richer one; an item candidate without a plans
+  row becomes the documented synthesis the page would build anyway);
+- **no hand fit** — none of the site's `data/db/platefits/` documents carries
+  `"by": "hand"` (agent documents do not disqualify: the owner is still free to place a
+  better one).
+
+The **best candidate** is the true plan over a bird's-eye view, then the larger drawing (a
+book row: its map_box as a fraction of the page size in px; a row with no box, or a Commons
+row: the whole page/image; an item candidate with no size stored: 0), then the plan id
+(stable). The **one-word reason** says why it won: "the only candidate"; "a true plan" (a
+plan chosen while a view exists); "the clearest scan" (the best of several plans); "the
+clearest view" (the views win). **The order** applies that same key to each site's best
+candidate, then by the site's name: the cleanest, most ink to click on comes first (as of
+2026-10-12: 117 entries, starting with Devil's Dyke, Fort Ancient, Marietta — all clearest
+scans). The tool is stdlib only and reads exactly those four inputs, never an image, so the
+owner's Mac can run it with any python; the private Finder/Amazon collections (PLAN.md) never
+enter it. The page tolerates the file missing, stale or 404: no card, no error.
+
+**The card.** `web/fitqueue.js` loads after `web/review.js` and extends the page the same
+way review does: a "Ready to fit (N to go)" card drawn into `#body` as the next sibling of
+the home stats line (the tabs row and that line's text stay byte for byte — 201 pins them).
+It names the next site — the first queue entry not done in this browser, not skipped this
+session, and still a built site in this build — with its best candidate's row and the
+one-word reason, and its buttons:
+
+- **Place the drawing** — drives the existing fit tool in the fitkit convention: `endFit`
+  if a fit is active → `select(site)` → `setGround("relief", or "imagery" where the site has
+  no LiDAR)` → `loadDeps` → `startFit(site)` → `openPlan(entry.best.row)`. `RV.pending` is
+deliberately never set: the queue's row is the owner's clean slate (pre-placed machine
+  pairs are the review flow's contract, not this one's). The tool's own clicking is
+  unchanged.
+- **Skip** — moves the card to the next site for this session only (an **Undo skips**
+  button comes back with it and resets it in the card).
+- **done** — when the owner's save lands, the card marks the site done in this browser
+  (localStorage `aw.fitQueue.done` — the exact key/value its own saveFit wrapper writes)
+  and moves on. The mark is self-healed against the file on load: a site that left the file
+  (a hand fit saved from another window, or a regenerated queue) drops out, so the browser
+  never asks for a fit the queue no longer needs.
+
+A failed fetch of the queue file never breaks a page load.
+
+**Save → the one-site line.** A save through the page PUTs to the `platefits` collection,
+which `server/serve.py` stamps `"by": "hand"` (303: only the owner's fits are hand fits) and,
+on that write, enqueues a job for a worker thread in the server process that runs
+`tools/site_done.py`'s `main([site])` in-process with no model (the 2026-10-10 lesson:
+never a subprocess from here). The line does the rest alone: the drawing lands on the map,
+the site's `drawings` in `web/data/sites.json` refreshes and its square is recoloured, and
+its review item resolves — without any other step. The page polls `depictions.json` for the
+result; the server is never blocked (a write only enqueues and wakes, and two saves while a
+line is busy both run). A DELETE keeps the old all-fits sweep (`pipeline/plan_fit.py`), so a
+deleted overlay leaves the map. A tree without `tools/` writes no files at all (a stripped
+test tree).
+
+**What the check proves, and what only the owner can do.** `tests/test_fit_queue.py` covers
+the whole line without any network, in three parts: (1) the queue rule on a synthetic tree
+and on the real population (membership, the dedupe, the best-candidate rule, the one-word
+reasons, the order, no Finder/Amazon input); (2) the save → line step through the real
+server against a private copy of one site's files (PUT → the worker → the one-site line:
+the overlay lands in the copy, the drawing count and the review item move, no network, no
+other site's file touched); (3) the card in a real headless browser against the served tree
+— the card renders, Place opens the fit tool with the queue row already loaded and its
+plate image rendered, backing out keeps the same site, Skip moves on and Undo restores, and
+a pre-seeded done mark (the exact key/value the wrapper writes) moves the card to the next
+site on load. The step only the owner can do is the acceptance click-through on his own Mac
+(`server/serve.py --lan`, port 8642): real points on the plate, save, the drawing on the
+map.
+
+- `docs/site_flow/fit_queue_card.png` — the card in the home view: "READY TO FIT — 117 TO
+  GO", Devil's Dyke, "The Devil's Dyke Camp, near Brighton · Allcroft 1908 · Fig. 217 — the
+  clearest scan", with **Place the drawing** and **Skip**.
+- `docs/site_flow/fit_queue_place.png` — Place opens the existing fit tool with the queue
+  row already loaded: the sheet pane's header "ALLCROFT 1908 · FIG. 217 · THE DEVIL'S DYKE
+  CAMP, NEAR BRIGHTON", the plate's scan rendered, the "Plan, drawn from above" tab, and
+  "SAVE ON THE MAP" (disabled until at least three points are placed: "Saving needs at
+  least 3 points.")
+- `docs/site_flow/fit_queue_skip.png` — after a Skip: "116 TO GO", Fort Ancient ("'Fort
+  Ancient,' Warren county, Ohio Squier & Davis 1848 · Plate VII — the clearest scan"), with
+  **Undo 1 skip**.
+- `docs/site_flow/fit_queue_done.png` — with Devil's Dyke marked done in this browser's
+  localStorage (the exact mark the card's saveFit wrapper writes when a save lands): the
+  card starts at Fort Ancient — the mark self-heals against the file, and the card moves on.

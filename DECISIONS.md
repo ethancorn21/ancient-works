@@ -233,3 +233,30 @@ they 404 and the tool keeps the row with "Could not load the page scan." - asser
 starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
 /tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
 in the hand-over).
+
+## 2026-10-12 305 DECISION: done - screenshots committed, full suite green (73 passed / 1 skipped), docs/site_flow.md section written, all boxes ticked, Status: done
+Final step of the hand-over plan from iterations 100-104. (1) Copied the four iteration-104
+screenshots from /tmp into docs/site_flow/ as fit_queue_card.png / fit_queue_place.png /
+fit_queue_skip.png / fit_queue_done.png (the done-mark variant's 1-card.png) and re-verified
+each visually before committing: card "READY TO FIT - 117 TO GO" Devil's Dyke "the clearest
+scan"; place = the fit tool open with the sheet header "ALLCROFT 1908 . FIG. 217 . THE
+DEVIL'S DYKE CAMP, NEAR BRIGHTON" and the plate scan rendered, save floor "at least 3 points";
+skip = Fort Ancient 116 to go + "Undo 1 skip"; done = the pre-seeded mark moves the card to
+Fort Ancient (no Undo button yet). (2) Full suite: **73 passed, 1 skipped in 117 s** - exactly
+the expected count (71 baseline + the 2 card tests); nothing failed and nothing loosened,
+including the hand-fit golden hash check (no test fit was ever written to the shared store, so
+there is nothing to revert) and test_review's headless n404==2. (3) New docs/site_flow.md
+section "Ready to fit: the owner clicks the points, the line does everything else (task 305,
+2026-10-12)", completing box 1's say-how: the queue rule (the three conditions, dedupe by
+plan, best candidate = plan over view then drawing area in page px then plan id, the
+one-word reasons, the order), the card's semantics (the fitkit chain, RV.pending never set,
+the done mark in localStorage aw.fitQueue.done self-healed against the file, skips
+session-only), the save -> line wiring (a PUT to platefits stamps by:hand - 303 - and a
+worker thread in the server runs tools/site_done.py main([site]) IN-PROCESS with no model,
+the 2026-10-10 subprocess lesson; a DELETE keeps the old all-fits sweep; the page polls
+depictions.json; a tree without tools/ writes no files), and what the three parts of
+tests/test_fit_queue.py prove versus the one step only the owner can do on his Mac (real
+points, save, on the map), citing the four screenshots. (4) Ticked all four boxes, Status:
+done. Also killed the stray read-only server (pid 1189532) left on 127.0.0.1:40035 by
+iteration 104. No new failures, no new pitfalls (iteration 104's four probe bugs are already
+logged in PITFALLS and above).
