@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 143, agent c - fifth session. 15/21 judged - ALL STAYS - and 15 lines written
+- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 144, agent c - sixth session. ALL 21/21 DOCS JUDGED - ALL STAYS, NO
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -49,50 +49,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
-
-### 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)
-- Second session on 306b. Re-shot the argentoratum c_191c6221a81caad0 couple with the fixed driver and
-  verified both page-behavior fixes actually work: imagery shot `relLayer: none`, relief shot
-  `relLayer: visible`, zoom 14.97/14.99 (site-scale, not the pre-fix country zoom 6.38), `img: true`,
-  `layer: true`, `n: 8`, fithint normal, fit resid 0.0-0.1 m / mpx 2.17 / rot -32.3. Visual check of both
-  pngs: town at site scale with the 1833 Villot plate fitted, anchor dots 1-8 on the plate and on the map,
-  etatmajor red ink (85 %) above the aerial (imagery) and above grey hillshade + the Ill river (relief) -
-  the faithful visitor view. The earlier hand-over's zoom estimate (~13.8) was off; the driver's own
-  target formula gives ~14.97 for argentoratum's size_m and that is the correct site-scale view.
-- The full run is now in the background (nohup, one `server/serve.py --port 0`, server on 44225 at launch;
-  21 docs, 42 shots, 40 to write, skips the 2 existing pngs; est. 15-20 min at ~22 s/shot). Next session:
-  tail /tmp/audit_306b.log for FAILURES/MISSING (or just re-run the driver - it is idempotent), then judge
-  the 42 shots and append the 21 lines to the end of docs/site_flow.md's task-306 section (which is the
-  file's last section; 306a's last line is bethlehem fc4566d6947287f4).
-- No test-affecting change this session (two pngs re-shot in docs/site_flow/agent_fits/), so the suite was
-  not re-run; it stays due at the judging/removals session.
-
-### 2026-10-12 306b DECISION: judging-prep sheet built; discovered all 10 items are RESOLVED by my own 21 docs (no review-tab presence today); deletions are union-safe
-- Third session on 306b. Audit run (pid 3719656, log /tmp/audit_306b.log) healthy: 12/21 docs (24
-  pngs) done by 13:49 CDT, zero failures; ~45-50 s/doc in practice (22 s estimate was optimistic),
-  ~20 min left. Next session: confirm completion (re-run idempotently if dead), judge from
-  argentoratum.
-- The review-queue state differs from the task's wording in one way that must be reflected in the
-  verdict lines: ALL 10 item files carry a recorded `resolved`, and every resolver is one of my 21
-  docs (argentoratum: c_e882645cc479c889; the other 9 sites: their own doc). None of the 10 sites
-  is in web/data/review.json today (333 open items, file written 18:01 UTC) - the review tab shows
-  nothing for them. So "the review tab would pre-place the item's version" is a counterfactual:
-  each line notes the item's own coarse candidate for the same plan (6-anchor rectangle/center,
-  scale_m_px from picture size) and its rejection `why` as the version the owner WOULD see when/if
-  the item reopens. (fit/review.py: `resolved` is write-once; `resolved_doc` falls back to the
-  first candidate that has a store doc only after the recorded one is deleted.)
-- Coverage is safe under my deletions: union_check (fit/batch_eu.py) counts a site covered by ANY
-  doc OR ANY item file (open or resolved), and upsert_item never deletes an item file. The 10
-  item files always exist -> the 10 sites stay covered no matter what I delete. Deleting a site's
-  LAST remaining doc reopens its item (all store docs for these sites are my 21; no by:hand);
-  306a's bethlehem is the working precedent (item now open, in today's open list).
-- Built /tmp/306b_judge.md (persists in /tmp across iterations): per doc - the item candidate (why,
-  gate_score, evidence) vs the doc placement (center/extent in metres, matcher inliers/rot), plus
-  site context (name/region/size, web/data/site dir, relief flag). Noted in it: weak matcher
-  inliers on 5 docs (c_e882645 32/1822, castle-neroche c_44529 52/98, n0110_1 15/26, castra-lemanis
-  c_be12fb 15/25, ferme c_804aa7 11/203) - judge the image, not the stats; two candidates with
-  200-evidence CONFLICTS (c_e882645: "Ville" Q1165252 ~350 km west near Paris; cenabum c_e73dc8:
-... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)' DECISIONS.md`)
 
 ### 2026-10-12 306b DECISION: audit complete (42 shots); found + neutralised a 307 fit-queue trap that contaminated 9 shots (re-shot clean); argentoratum judged 10/10 STAYS; 11 docs left
 - Fourth session. The 42-shot run finished (zero failures). NEW DISCOVERY: nine of my 21 docs
@@ -149,6 +105,47 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
   (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
   sites), tick boxes 2-4, run the suite, done.
+
+### 2026-10-12 306b DECISION: judged the final 6 - ALL STAYS (21/21, zero removals); 6 lines appended to docs/site_flow.md (uncommitted, harness keeps it); boxes + suite + PITFALLS entries left to the next session
+- Sixth session. Judged the last 6 docs from their clean shots (relief first for watson x2). ALL
+  STAYS, so the whole 21-doc batch is 21/21 STAYS with no 303-way removals, no data/review/
+  platefits changes. Appended their 6 lines to the END of the 306b block of docs/site_flow.md
+  (same format as the committed 15; the append is UNCOMMITTED - the harness keeps it).
+- cenabum c_e73dc8: the plate is Jollois 1833 'Plan général de la ville et des environs
+  d'Orléans en 1828'. Discovery: the site's canonical point (1.909, 47.9025, Wikidata Q2710144
+  'Cenabum') IS the city of Orléans (1.9°E, 47.9°N) - I had mis-remembered Orléans at 2.09°E and
+  nearly called it a 12 km miss. Verification: the 1850s IGN état-major (GEOF, layer etatmajor)
+  tiles show 'ORLÉANS' printed at that point (radial old town, fortified quays, bridges; the
+  (2.09, 47.90) area is open Mardre/Donnery country with no town). The drawn 1828 city aligns
+  with that georeferenced survey within 100-200 m (radial centre, Faubourg St-Vincent, river,
+  bridges), and the fitted 5.41 m/px equals the plate's ~1:20000 printed scale at scan dpi (the
+  scan has no scale bar; least-squares transform from the 8 anchors reproduces the stored fit:
+  5.389 m/px, +1.06°). The item's 'Epinal' Q173695 (~350 km NE) 200-sheet evidence = sheet-level
+  red herring (same pattern as argentoratum c_e882645's 'Ville' hit).
+- ferme-d-azincourt c_804aa7: the plate is the 1810 cadastre of the Ferme d'Azincourt hamlet
+  ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site itself, not the Agincourt
+  village of the Somme. The plate's own road labels ('Chemin d'Émerchicourt', 'Chemin de
+  Boursolain', 'Bonnay') proved it; Nominatim reverse-geocode of anchor 1 = 'Rue d'Azincourt,
+  Émerchicourt'; the drawn river = the real Scarpe near Aniche. Red farm cluster on the real
+  hamlet, roads on roads (aerial + relief). Fitted 1.23 m/px agrees with the item's own points
+  (1.171), its stated 0.55 does not. Lesson: when a plate's title names a famous place, check
+  the plate's OWN toponyms before trusting the title (names are recycled - farms/streets are
+  named after famous battles).
+- dudley c_e66ec: 1885 'Plan of Dudley Castle Grounds' on the real conical Castle Rock (summit
+  anchor on the real summit, aerial + relief; 2639/4998 inliers vs the 1842 OS 6-inch first
+  edition; +24.9° is the plate's own north-arrow rotation). watson-brake c_5e7bb + c_b52dd: the
+  mounds maps trace the real Gentry Mound / S-ring / Watson Bayou on the LiDAR relief (the
+  deciding evidence) and aerial; 1.28 m/px agrees with item points 1.448, the cands' stated
+  0.625 does not. zwolle c_f9cdda: van Deventer 1563 walled town on the real Zwolle core, drawn
+  Swol river on the real meanders (aerial + relief; 1981/4998 vs tmk1850).
+- NEXT (next session, in order): tick boxes 2-4 in the task file, run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed/1
+  skipped, test_gate pre-existing red), file the PITFALLS entries (Orléans at 1.9°E;
+  etatmajor.webp = 1 px = 1 m block centred on the site point, pipeline/depict.py;
+  Nominatim/Wikidata reachable from this VM, /search 400s without a query), set Status: done,
+  commit (task file + DECISIONS.md + the 6-line docs/site_flow.md append). No deletions => no
+  test re-pointing needed; the only test touching site_flow is test_fit_queue.py (queue docs,
+  not these lines).
 
 ## Project-wide driver notes (newest)
 
