@@ -463,44 +463,63 @@ def _rows_naming(root, site):
     return [{k: r[i] for k, i in cols.items()} for r in d["rows"] if site in (r[cols["sites"]] or [])]
 
 
-def _pick_site():
-    """The first queue entry the line test can use: a book row whose page is in this checkout's
-    data/raw (the line reads it locally), whose site's review item is unresolved and carries that
-    row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
-    (the line then builds exactly one new overlay: drawings changes by one, the open count drops
-    by one, and the item resolves by the saved doc). The pick prefers a site with at least one
-    uncovered row (a row naming it, no doc, no item candidate), so the line's model=None path
-    runs and lands in the item as "no model answer"; a pick without one skips that assertion.
-    Derived, never pinned (803: the population moves under the batch tasks).
-    -> (entry, item, uncovered) or None."""
-    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+def _review_items():
+    """The checkout's review items keyed by their `site` field (data/review/README.md)."""
     items = {}
     for p in (ROOT / "data" / "review").glob("*.json"):
         it = json.loads(p.read_text())
         if it.get("site"):
             items[it["site"]] = it
+    return items
+
+
+def _line_eligible(e, it):
+    """The one-site line's constraints on a queue entry (the part 2 pick and the part 4
+    placement pick both require them): a book row whose page is in this checkout's data/raw
+    (the line reads it locally), an unresolved review item for the site carrying that row as
+    a candidate with the page's save-floor pairs (the line's export resolves it by the saved
+    doc), and no platefits documents for the site yet (the line then builds exactly one new
+    overlay). -> the site's uncovered rows (a row naming it, no doc, no item candidate),
+    or None when any constraint fails."""
+    row = e["best"]["row"]
+    ia, file_ = row.get("ia"), row.get("file")
+    if not (ia and file_):
+        return None  # a book row: the page's save needs ia/file, and the line reads the page locally
+    if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
+        return None  # no local page: the line would need the network
+    if not it or (it.get("resolved") or {}).get("doc"):
+        return None  # an unresolved item, so the line's export resolves it by the saved doc
+    cand = next((c for c in it.get("candidates") or [] if c.get("plan") == row["id"]), None)
+    if not cand or len(cand.get("pairs") or []) < 3:
+        return None  # the page's save floor for a similarity fit
+    docs = {json.loads(p.read_text()).get("plan")
+            for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
+            if p.name.startswith(e["site"] + ".")}
+    if docs:
+        return None  # an existing doc would make the line build a second overlay
+    item_plans = {c.get("plan") for c in it["candidates"]}
+    return [r["id"] for r in _rows_naming(ROOT, e["site"])
+            if r["id"] not in docs and r["id"] not in item_plans]
+
+
+def _pick_site():
+    """The first queue entry the line test can use: a book row whose page is in this checkout's
+    data/raw (the line reads it locally), whose site's review item is unresolved and carries that
+    row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
+    (the line then builds exactly one new overlay: drawings changes by one, the open count drops
+    by one, and the item resolves by the saved doc) - _line_eligible. The pick prefers a site
+    with at least one uncovered row (a row naming it, no doc, no item candidate), so the line's
+    model=None path runs and lands in the item as "no model answer"; a pick without one skips
+    that assertion. Derived, never pinned (803: the population moves under the batch tasks).
+    -> (entry, item, uncovered) or None."""
+    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+    items = _review_items()
     picks = []
     for e in q["entries"]:
-        row = e["best"]["row"]
-        ia, file_ = row.get("ia"), row.get("file")
-        if not (ia and file_):
-            continue  # a book row: the page's save needs ia/file, and the line reads the page locally
-        if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
-            continue  # no local page: the line would need the network
         it = items.get(e["site"])
-        if not it or (it.get("resolved") or {}).get("doc"):
-            continue  # an unresolved item, so the line's export resolves it by the saved doc
-        cand = next((c for c in it.get("candidates") or [] if c.get("plan") == row["id"]), None)
-        if not cand or len(cand.get("pairs") or []) < 3:
-            continue  # the page's save floor for a similarity fit
-        docs = {json.loads(p.read_text()).get("plan")
-                for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
-                if p.name.startswith(e["site"] + ".")}
-        if docs:
-            continue  # an existing doc would make the line build a second overlay
-        item_plans = {c.get("plan") for c in it["candidates"]}
-        uncovered = [r["id"] for r in _rows_naming(ROOT, e["site"])
-                     if r["id"] not in docs and r["id"] not in item_plans]
+        uncovered = _line_eligible(e, it)
+        if uncovered is None:
+            continue
         picks.append((e, it, uncovered))
     if not picks:
         return None
