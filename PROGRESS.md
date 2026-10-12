@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 90, agent c - session 6. Killed the centroid-bias problem at its root:
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -20,38 +20,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 304 DECISION: matcher = the lead's MatchAnything-ELoFTR service at 127.0.0.1:8091 (no local GPU, no new packages, no ask_human)
-
-The lead's second message (iteration 85, same day): "a pretrained cross-modal matcher is
-up for 304: MatchAnything-ELoFTR (zju-community/matchanything_eloftr, Apache-2.0) on the
-5060 Ti. API: POST http://127.0.0.1:8091/match JSON {image0: base64 png/jpg, image1:
-base64, threshold: 0.2, max_side: 832} -> {keypoints0, keypoints1 (original pixel frames),
-scores, size0, size1}; GET /health. The VM tunnel to 8091 is waiting on the owner (one
-command); until /health answers, build against the API. Use it as your matcher; same
-pre-registered held-out protocol."
-
-Consequences: (1) the local LightGlue+SuperPoint plan is superseded - no torch, no
-lightglue, no superpoint in requirements (the client needs only requests + numpy, both
-already pinned; no requirements change this session); (2) the drafted GPU ask_human was
-never sent (the 5060 Ti runs the matcher, so vLLM/clef are not touched by me); (3) the
-site_flow pre-registration's "The match" paragraph now names the service and its API
-(threshold 0.2, max_side 832; the inlier threshold and rotation-sweep grid are frozen at
-the freeze commit - the lead's smoke test used an 8-px RANSAC threshold); (4) everything
-else in the pre-registration is unchanged: priors (scale bar / north arrow / matcher
-scale), the corners carry-over, the 302b scramble + half-box-shift nulls, the 21 docs,
-the one-shot rule, the verdict.
-
-The lead's own smoke test (Maiden Castle DPLA plan vs six-inch-1st.webp - held-out doc
-14): 633 matches in 0.9 s, RANSAC similarity (8 px) 31 inliers, rotation 0.0 deg, errors
-at the 3 hand points 20/35/53 m - all inside the 60 m pass line. Recorded as evidence of
-feasibility only: it is a held-out document, so no parameter of mine may be chosen from
-it, before or after the run.
-
-Verified at session end: 127.0.0.1:8091 does not answer yet (curl /health: connection
-refused) - the owner's tunnel command is still pending. Next: build the client + RANSAC
-against the API contract with a stub server (hermetic), re-check /health each session,
-reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
 
 ### 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's
 
@@ -155,6 +123,43 @@ maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 3
 20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
 avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
 ... (0.3 KB more: `grep -n -A 200 -F '## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091' DECISIONS.md`)
+
+### 2026-10-12 304 DECISION: session 7 - re-reads passed; live canaries on three sites (the lead's direction); the method FROZEN at 737508d (freeze commit 156aa19: devlog + site_flow restatement + evaluator); the one-shot run is the entire next step
+
+(1) Re-read passes, no changes: (a) `_jitter`/`_wobble` are seeded per (theta, i) only, so a
+repeated call at the same theta returns identical points (the sweep tie-break and the
+duplicate-payload test depend on it); (b) `match_response` iterates `_take` and skips any
+index not in `matched`, so detected-but-unselected glyphs are never returned; (c)
+`shift_sheet_image` still shifts half the box north (-h/2 rows) / east (+w/2 columns) with
+the 3-element shift. The lead (this iteration) directed: the stub is frozen as it is - a
+test that runs end to end is enough - so the stub suite (7/7) stands untouched.
+(2) Live canaries (all --no-null against 127.0.0.1:8091; full table in
+data/surveyfit/devlog.md): maiden (held-out #14, the lead's directed canary) 43 calls /
+215 s; the frozen sweep chose theta=94 (20 pairs / 6 inliers / 0.2048 / conf 0.0419) -
+eyeballed OFF (~1 km NW of the hillfort; the inlier-fraction score preferred a small tight
+cluster), while the same run's theta=0 call gave 625 pairs / 31 inliers / 0.0311,
+reproducing the lead's raw smoke (his 633 pairs: the service's pair count drifts a few %
+between calls of identical images). barnard (not held-out): 3/3/0.7262/0.5274, on the
+earthworks; avaricum (not held-out): 9/3/0.2364/0.0559, on the earthworks. Recorded as
+observations, nothing tuned: the pre-registration bars any parameter choice from held-out
+numbers, and the lead's own raw smoke was a raw-API check, not my method.
+(3) Task 303's golden re-key broke the 302b evaluator's `doc_ids()` (it expects exactly 20
+platefit docs; the file now pins the 21 hand fits). 302b is done and re-runs nothing, and
+the golden file is not mine to touch; the 304 evaluator instead asserts the golden file
+pins exactly the 21 registered docs (it does) and uses the hard-coded 302b list, sorted.
+(4) Freeze: 737508d (last commit touching fit/surveyfit.py) is the frozen method; commit
+156aa19 amends my 304 section of docs/site_flow.md at the freeze - the frozen config
+restated (threshold 0.2 / max_side 832 / 30 s + one retry; RANSAC 400 iters / min 3 / 8 px /
+seed 20261012 / s_band x1.5; sweep 12 deg + 2 deg +-1 coarse; nulls = 302b scramble +
+half-box sheet shift; score (inliers/pairs)/(1+rms/8); confidence max(0, score x margin)),
+the pre-freeze canaries disclosed, and a factual slip corrected (13 of the 19 sites carry
+the six-inch sheet, not 15). fit/surveyfit.py is never to change again.
+(5) Evaluator fit/surveyfit_heldout.py written (22 pairs: 21 sheets + the camp-d-attila
+aerial on row 11; per-pair atomic checkpoint + pid lock; one disclosed re-run per errored
+pair). Selfcheck 21/21 OK (0.0 m / 0.0 deg / 1.0). The one run has NOT started: next
+session launches it (hand-over has the exact commands), pastes the verbatim table into the
+section, and writes the plain verdict (pass iff a confidence threshold exists with every
+accepted fit within 60 m and >= 5 of 21 accepted).
 
 ## Project-wide driver notes (newest)
 
