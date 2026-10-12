@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 180, agent a - boxes 1+2 done (committed 214c642); BOX 3 IN PROGRESS: a detached build run is alive and working through the las
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 182, agent a - BOX 4 verified and ticked this session (the refresh had already happened in the unlogged sessions; re-running th
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,48 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 1 (the live merge) done and committed; the merge's consequence turned 7 done-tasks' source checks red - filed 222-228 to fix them, 211 now depends on them
-- Ran `.venv/bin/python fit/merge.py merge` on the real repo (first live run; data/merge/ did
-  not exist). Result: +115 extras.jsonl, +133 files.jsonl, +133 classified.jsonl = 381 staging
-  rows (artists 2, kip, limes, mackenzie, van_deventer in extras; + numancia, wiltshire_b in
-  files/classified; no roman staging - 207 stopped by the owner), 0 refused, rc 0;
-  data/merge/log.jsonl = 381 "merged" entries, 0 conflicts.
-- Verified box 1's invariants on the real tree: all three canonical files are pure growth (the
-  HEAD bytes are a byte-identical prefix of the new files); every staging row present in its
-  canonical file; a second run is a complete no-op (0 added, all four files byte-identical,
-  log re-written byte-identical). The merge is committed on this branch; it is idempotent, so a
-  later main merge cannot re-do it.
-- The live merge turned 10 tests red in 7 source modules, all owned by DONE tasks (204/205/206/
-  208/210/209b/213): every module's check/stage guard asserts its staged rows are NOT in the
-  canonical files, and after the merge they ARE (identically - the merge's own success, per its
-  own contract that staging stays and the source's --check still reads it). Red: test_src_
-  artists::test_check_staged_files_join_and_pass; test_src_kip::test_check_staged_offline;
-  test_src_limes::test_check_staged_files_join_and_pass; test_src_mackenzie::test_staged_row_
-  and_join; test_src_numancia::test_check_staged_files_join_and_pass; test_src_van_deventer::
-  test_check_staged_files_join_and_pass + test_table_and_staged_rows; test_src_wiltshire_
-  stukeley::test_stage_offline (SystemExit) + test_check_staged_offline + test_book_rows_
-  staged_in_files_b (that one asserts the pre-merge invariant in the test itself). Diagnosed as
-  systemic, not a merge bug; confirmed these are the only new reds (full run minus 203b's own
-  file: 10 failed / 117 passed; the 8 deselected batch_eu reds are 203b's, pre-existing per the
-  driver's loop-start notes; test_gate green this time).
-- Did NOT edit the 7 modules in this session: they are other tasks' files (team-mode rule; the
-  module-ownership carve-out does not distinguish done from open tasks). Instead FILED seven new
-  tasks, one module + its test each, in lead order: 222 van_deventer (204), 223 kip (205), 224
-  mackenzie (206), 225 limes (208), 226 numancia (210), 227 stukeley (209b), 228 artists (213).
-  Each carries the full fix spec: a staged row identical to its canonical twin under the merge's
-  norm() (sort-keys JSON, ensure_ascii=False) is an already-merged no-op (check rc 0, stage a
-  no-op); a different row holding the same key still fails loud; known-site self-references
-  (artists, van_deventer - known_sites() reads the now-merged canonical extras, so the module's
-  own staged sites look "existing") are a problem only when the id/QID resolves to a DIFFERENT
-  site; tests must cover all three states hermetically (absent / identical-present /
-  different-present) without depending on the live merge having run. Main stays green while they
-  run (pre-merge state passes the new guards); 211 cannot be claimed until they are on main,
-  so they are in 211's Depends on and this session ends here (driver brings 211 back).
-- Next step (211, once 222-228 are on main): box 2 - rebuild data/books/index.jsonl +
-  validation.json with the books machinery and RE-RECORD the 200 evidence after the rebuild (the
-  book-machinery PITFALLS entry: books.py index drops the evidence field; byte-diff against
-  `git show HEAD:data/books/index.jsonl`, never a /tmp snapshot).
 
 ### 2026-10-12 211 DECISION: box 2 - rebuilt the book index + validation.json with the machinery (the 216/217 view books land), re-recorded the 200 evidence on all 1068 rows, the offline check passes - box 2 ticked
 - Proceeded with box 2 before 222-228 land (the previous hand-over said to wait): the book-index work is
@@ -142,6 +100,38 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   entry, hand-over rewritten with the exact resume/verify plan.
 - 222-228 checked this session: still open (task files Status: open, no fix commits on main) -> the
   done-claim stays gated on them; boxes 4-6 are unaffected.
+
+### 2026-10-12 211 DECISION: box 4 verified and ticked - the plan-list refresh had already been done by the unlogged sessions (driver snapshot 27a6053); re-running export_plans.py is byte-identical; the re-read resolved as the stable pre-merge matches.jsonl join
+- Session 182. The build run is ALIVE (pid 4098676): cambrai-q181285 finished 21:45Z,
+  conde-sur-l-escaut-q494533 in flight, 11 ids in the queue after it - monitored only,
+  never a duplicate (two writers would race on web/data/sites.json).
+- Discovered box 4 had already been executed in the unlogged sessions 176-179: the
+  driver snapshot 27a6053 contains plans.json refreshed after box 2 (1168 rows = 890
+  book + 278 commons; the 2 new commons rows are shotwick-castle-q7502621 and numancia
+  - the only 2 of the 133 merged picture rows with local copies in data/raw/commons;
+  the 167 newly indexed book rows have no local full pages and are correctly absent)
+  plus the frozen pre-merge key list data/merge/plans_premerge_keys.jsonl (1166 keys,
+  from the pre-merge plans.json at 0fecaeb). Session 180's memory reconstruction missed
+  all of it; this session resolved the re-read and verified the result.
+- Re-read resolved by reading tools/export_plans.py:main: the "sites" column is
+  matches.get(row_id) over the EXISTING data/books/matches.jsonl (890 rows, last
+  written by 813bf9a, pre-merge) - the stable pre-merge join the box demands; the
+  data/catalog/sites.jsonl map (id + qid) is used only to resolve ambiguous-candidate
+  names to ids; commons rows filter through a (site,title)->classified dict and the
+  merged classified rows were checked for shadowing: 0 (site,title) collisions between
+  the 797 pre-merge and the 133 new rows, so dict-later-wins cannot flip a pre-merge
+  row. No `pipeline/books.py match` was run or is needed - re-matching against the
+  grown extras could re-point pre-merge keys, which the box forbids.
+- Verification: `.venv/bin/python tools/export_plans.py` on the current tree produced
+  BYTE-IDENTICAL output (sha256 852089e00006efb30d7d96e68f157fd714e4db778c11a3fe83f12b526aab4add)
+  - the committed file is the tool's stable output on current data, not a stale one.
+  Frozen 1166 keys all present in the current 1168; (id, sites[0]) unique;
+  tests/test_merge.py 6/6 including test_plan_list_refresh_is_pure_growth (written in
+  the unlogged session; asserts the frozen keys survive, uniqueness, the 2 new picture
+  rows, and the 200 evidence join on every picture row). Box 4 ticked.
+- 222-228 re-checked: still OPEN -> the done-claim stays gated on them; the branch's
+  red set is unchanged by this session (no code or data file changed - only the task
+  file, this entry, and the live build's append-only log/snapshot).
 
 ## Project-wide driver notes (newest)
 
