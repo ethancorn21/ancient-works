@@ -53,7 +53,7 @@ function fqPending() {
 
 /* The card, in place: the next sibling of the home stats line, or gone when nothing is left. */
 function fqPatch() {
-  const p = [...document.querySelectorAll('#body .fit')].find(el => el.textContent.includes('built in all'));
+  const p = [...document.querySelectorAll('#body .fit')].find(el => /built in all|laid on today/.test(el.textContent));
   let card = document.getElementById('fqcard');
   const e = fqPending()[0];
   if (!p || !e || !(e.best && e.best.row)) { if (card) card.remove(); return; }
