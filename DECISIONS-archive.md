@@ -2966,6 +2966,38 @@ Boxes 2-3 ticked, Status: done.
   way to track the run: pkill -f patterns self-match the launching shell's command line
   and kill it).
 
+## 2026-10-12 211 DECISION: gate still open (222-228 all Status: open, main moved nothing since the 186 sync) - no re-run, no claim; the imagecodecs open thread becomes task 229 (Depends on: 302a, 304)
+- Session 187. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`, and my branch tip (6ad8570) already contains main's tip (7e61147; only
+  driver bookkeeping commits in between), so since the 186 suite run nothing on main
+  changed and the red set is still exactly the 10 222-228 source-guard failures. Per the
+  hand-over the done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (it would measure the same red set;
+  the driver re-checks the suite at claim time anyway).
+- The session's one step: the open thread (imagecodecs 2026.10.10 in the .venv but not in
+  requirements.in/.txt) is now a durable unit of work - filed tasks/229-imagecodecs-
+  pin.md (Status: open; lowest free number in 200-499; Depends on: 302a, 304 because
+  both own requirements.in/.txt in flight; Touches: requirements.in, requirements.txt,
+  PITFALLS.md). Facts re-verified this session before filing: the .venv has imagecodecs
+  2026.10.10 and NO numba/llvmlite (its only hard dep is the already-pinned numpy, so
+  the pin adds one package); it is absent from requirements.in and requirements.txt
+  (task 800 pinned the old set at iteration 14, before the package entered the story);
+  the usage is the AHN Float32 DEM decode (pipeline/build_site.py:load_dem ->
+  aw.fetch_dem -> dem_sources.fetch/_ahn_native; all seven AHN sites built with it, 0
+  failures); data/raw holds no AHN raw files (WCS responses are decoded in flight, only
+  dem.npy persists), so 229's acceptance proves the decode in a from-scratch venv with a
+  working-phase fetch through the project's own machinery, not a stored-file replay.
+- PITFALLS.md: the pillow/imagecodecs entry's "What to do" line now names task 229
+  instead of the vague "when agent c's in-flight requirements work has landed"; the
+  heading and the rest of the entry stay true until 229 lands.
+- 229 is deliberately NOT on 211's Depends-on list: it does not block the 211 claim
+  (the driver's in-place .venv rebuild keeps the ad-hoc package until 229 lands).
+- Hand-over rewritten: the open thread is closed (it is 229 now); the claim trigger is
+  unchanged - all of 222-228 no longer open -> suite run (expect green) -> Status: done
+  -> claim citing the six boxes, the 381-row merge (0 refused / 0 conflicts), the 114
+  new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
+  the red set of 10 was 222-228's, and the 229 pin.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
