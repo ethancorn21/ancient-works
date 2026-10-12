@@ -535,3 +535,30 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   594); fit/ has no __init__.py. A full-suite baseline run was kicked off to
   /tmp/baseline_suite.log this session and NOT verified (context limit) - check it first
   thing; last known green was the 307a closure (iteration 109).
+
+## 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
+- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
+  class is new to the project: in the store but neither built as an overlay nor referenced by any
+  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
+  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
+  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
+  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
+  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
+  subtasks - PITFALLS); the driver hands them out a-f.
+- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
+  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
+  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
+  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
+  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
+  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
+  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
+  verified this session): the "no-internet headless" pitfall applies only to the no-network test
+  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
+  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
+- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
+  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
+  and the verdict notes where the item's version differs.
+- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
+  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
+  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
+  sites it changes.
