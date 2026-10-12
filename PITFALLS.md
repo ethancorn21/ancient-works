@@ -291,6 +291,11 @@ Where: fit/src_numancia.py render(); the data/raw/commons/numancia/ plate
 Symptom: none (a capability): `pdftoppm -jpeg -r 300 -jpegopt quality=85 -f N -l N -singlefile in.pdf out.jpg` produces one <prefix>.jpg (no page-number suffix with -singlefile) and the output is byte-identical across runs (memoriasdelareal009real leaf 507 -> sha256 c8415ffb94c6bfa50aea92335efef9e0babab8be615f7a44df2b55bfc9931415, 6713x2709, 1157133 bytes).
 Why: pinning the render recipe keeps the per-worktree re-derivation identical, so the row's w/h and the sha1 file name stay stable across worktrees. Non-blank test: the grayscale histogram std (a real plate is tens; flat white/black JPEG q85 stand-ins 0.00; the module's threshold is 1.0).
 
+#### A full-suite run writes ~3.5G into /tmp/loop-<project>; a disk-full run dies with misleading failures (Errno 28 in many tests, RemoteDisconnected in test_serve)
+Where: the whole tests/ suite (tests/conftest.py's session-scoped fixtures - `served`, awline, `place_served` - each copy the tree into $TMPDIR, which on this machine is /tmp/loop-ancient-works.c); `df -h /`
+Symptom: `OSError: [Errno 28] No space left on device` across many tests of one run; `http.client.RemoteDisconnected: Remote end closed connection without response` in tests/test_serve.py::test_document_store_roundtrip (the session server process died mid-request); `could not create numbered dir ... after 10 tries`. Seen 2026-10-12: the 48G disk was 95% full, the driver's 306c verification run hit exactly this and the done-claim was rejected - although the test logic is sound (it passes on a run with headroom).
+Why: each session-fixture copy is ~1.2G (data/ 637M + web/ 524M + code) and a run makes three of them (aw0, awline0, awplace0) ≈ 3.5G; pytest keeps the last 3 numbered runs, so up to ~10G accumulates in /tmp/loop-<project>, and the other checkouts/projects on the same 48G disk add to it. Recipe: `df -h /` and `du -sh /tmp/loop-*` before and after a run; delete dead numbered dirs (≈3.5G each) when no pytest/chromium is running (`ps aux | grep -E "pytest|chrom"` - never touch another project's /tmp/loop-* dirs). A run that died on a full disk is environmental: clean and re-run before blaming the code.
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
