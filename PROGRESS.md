@@ -54,3 +54,5 @@ Session 2, investigation only (no code, no repo changes; scratch in /tmp: walk_c
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12 HANDOVER (iteration 95, agent c, task 309): tools/right_place.py WRITTEN (uncommitted in the working tree) and run: 324 pairings checked, 15 flagged, all verified true namesake-place errors (incl. THE case: Brighton dyke vs the Cambridgeshire dyke, right site = the Sussex hillfort at 0.65). Six spec deviations forced by running it are in the DECISIONS entry. Next session: commit the module, re-run the suite (expect the same 3 main-side failures: test_fit_provenance, test_fit_queue::test_save_runs_the_one_site_line, test_site_done), then split the rest into two new tasks in 800-1099 (team-mode numbering, NOT 310/311) with Depends on: 309. Full state in tasks/309-queue-right-place.md ## Hand-over.
