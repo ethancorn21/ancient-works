@@ -353,16 +353,20 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
   dropped.
 
-## 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - the 8 "Survey of Palestine" sheets fitted to it are a toponymic collision, pending confirmation
+## 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - its 7 SoP sheets are a toponymic collision and its 2 basilica plans are building interiors fitted as ground maps, pending confirmation
 - First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
   Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
   Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
-  hamlets. So the 3 Maestricht-1748 details look like LOCAL maps of the right place (c_a164 aligned
-  on the polder: Severen hamlet, village centre, field boundaries), while the 8 "Survey of
-  Palestine, Bethlehem 01-11" sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away.
-  Their near-zero residuals measure only the local pattern match (sheet grid vs polder grid), not
-  the truth - the same failure class as the shotwick size error, but wrong place instead of wrong
-  size. Session cut at the context limit before confirming Q2523914, the site.json place field, or
-  the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs Judea ~31.7N/35.2E settles which side of the
-  collision holds). The 1615 Sandys and 1881 souterrains plans (also in the 12) are unclassified
-  yet. No bethlehem line is written in site_flow.md until this is settled; no bethlehem doc touched.
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  hamlets. So the 3 Maestricht-1748 details (c_a164, c_a42a, c_d624) look like LOCAL maps of the
+  right place (c_a164 aligned on the polder: Severen hamlet, village centre, field boundaries),
+  while 9 of the 12 are not: the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground
+  sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away (near-zero residuals measure
+  only the local pattern match - sheet grid vs polder grid - the wrong-PLACE class of the shotwick
+  size error), and the 2 basilica plans (c_67ed Sandys 1615 "Plan of the Basilica of the Nativity",
+  c_7ee7 "(1881) PLAN SOUTERRAINS DE LA BASILIQUE") are BUILDING INTERIOR plans (one rotated
+  -18.4 deg) fitted as if they were ground maps - a third failure class (wrong KIND) that applies
+  regardless of which Bethlehem the site is. Session cut at the context limit before confirming
+  Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
+  Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
+  line is written in site_flow.md until this is settled; no bethlehem doc touched.

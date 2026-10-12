@@ -109,7 +109,8 @@ run finished clean; 11/23 lines written in docs/site_flow.md (10 STAY + shotwick
 2x-too-big fit, proven from the plate's measured extent and NHLE 1016616; removed via upsert_item +
 doc delete + plan_fit.prune + review.export, NOT site_done, because the reachable matcher would
 have placed a new unaudited fit). MAJOR OPEN FINDING: the bethlehem-q2523914 site is the DUTCH
-village (Het Hogeland, Groningen), so its 8 "Survey of Palestine" sheets look like a toponymic
-collision (maps of Judaea fitted ~2000 km away) while its 3 1748 map details look like true local
-maps; next session confirms Q2523914 + the docs' pairs' lon/lat cluster before any bethlehem doc is
+village (Het Hogeland, Groningen), so its 7 "Survey of Palestine" ground sheets look like a
+toponymic collision (maps of Judaea fitted ~2000 km away), its 2 basilica plans are building
+interiors fitted as ground maps (wrong kind), and its 3 1748 map details look like true local maps;
+next session confirms Q2523914 + the docs' pairs' lon/lat cluster before any bethlehem doc is
 judged or touched.

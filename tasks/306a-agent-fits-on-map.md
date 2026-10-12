@@ -100,10 +100,10 @@ Dutch polder aerial, and the active drawing's ink reads "Severen", "Cantel", "C.
 real Het Hogeland hamlets (Cantel is beside Bethlehem-Groningen). So: (a) the 1748 "Plan de
 Maestricht et environs" details (c_a164, c_a42a, c_d624) are LOCAL maps of the Dutch site and look
 like they sit on the right ground (c_a164: Severen hamlet, the village centre, field boundaries all
-aligned on the polder - judge properly next session); (b) the 8 "Survey of Palestine, Bethlehem
-01-11" sheets (c_075db, c_1c200, c_5ce18, c_99387, c_a8499, c_ba63d, c_fc456, and check c_7ee7/
-c_67ed - 1881 souterrains plan + Sandys 1615 basilica plan - which side they belong to is unknown
-yet) are maps of JUDAEAN Bethlehem fitted onto a site 2000 km away - a toponymic collision. Their
+aligned on the polder - judge properly next session); (b) the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground sheets are maps of JUDEAN
+Bethlehem fitted onto a site 2000 km away - a toponymic collision - and (c) the 2 basilica plans
+(c_67ed Sandys 1615, c_7ee7 1881 souterrains) are building-interior plans fitted as ground maps
+(wrong kind; the 1881 one is rotated -18.4 deg). Their
 residuals (0 m on most, up to 41 m) measure only the local pattern match (SoP sheet grid vs polder
 grid), not the truth. **Next session, FIRST:** confirm which place Q2523914 is (Wikidata; also read
 `data/sites/bethlehem-q2523914/site.json` place field and the 12 docs' pairs: if the pairs' lon/lat
@@ -140,11 +140,15 @@ logic) or plan_fit.prune (which already calls set_drawings).
   (the page caps at zoom 18 - jumpTo(18.3) clamps; also the depiction deselects to "None" after a
   manual jumpTo - it is view-scoped, so judge size from the stored fit stats + the listing,
   which is decisive here).
-- bethlehem x12: PENDING - see THE FINDING. c_a164 (1748 detail Severen & Kanjel) looked ALIGNED on
-  the Dutch polder (Severen/Cantel labels on the real hamlets, village centre on the village,
-  field boundaries tracking) - likely a true local fit; its 34-112 m residuals need explaining
-  (a 1748 map is not a survey: expect the residual to reflect the map's own inaccuracy, not a
-  placement error - check where the 4 anchors are).
+- bethlehem x12: PENDING - see THE FINDING. Split to verify: 7 SoP ground sheets (c_075db=01,
+  c_5ce18=03, c_fc456=05, c_1c200=06, c_ba63d=08, c_a8499=09, c_99387=11) = maps of Judaea (wrong
+  place if the site is Dutch); c_67ed (Sandys 1615) + c_7ee7 (1881 souterrains, rot -18.4 deg) =
+  basilica BUILDING INTERIOR plans fitted as ground maps (wrong kind); c_a164, c_a42a, c_d624
+  (1748 details) = local maps, c_a164 looked ALIGNED on the Dutch polder (Severen/Cantel labels on
+  the real hamlets, village centre on the village, field boundaries tracking) - likely a true local
+  fit; its 34-112 m residuals need explaining (a 1748 map is not a survey: the residual probably
+  reflects the map's own inaccuracy, not a placement error - check where its 4 anchors are).
+  Confirm Q2523914's place + each doc's pairs' lon/lat cluster BEFORE judging.
 
 **Tests.** Full suite NOT re-run since the shotwick removal (last full run: parent's baseline
 123 passed / 1 skipped / test_gate pre-existing red, 2026-10-12). The shotwick-touching test
