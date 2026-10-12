@@ -7,6 +7,9 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/209a-hoare.md` (in-progress)
+- `tasks/209c-petrie.md` (blocked)
+- `tasks/209-wiltshire.md` (split) - hand-over: (2026-10-13, iteration 144, agent a - FIRST session; investigation + split only, no code written; no tests run this session - last known suite state: 
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
@@ -17,7 +20,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/217-view-books-lists.md`
+- `tasks/209b-stukeley.md`
 
 ## Your task's journal
 
