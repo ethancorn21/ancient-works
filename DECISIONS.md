@@ -624,3 +624,59 @@ Note for future baseline work: /tmp/idx_committed (session 1's copy) is STALE - 
 and the current row shape (it even carries the `evidence` key the current cmd_index does not emit, a 200-era
 post-hoc field). Diff rebuilds against `git show HEAD:<file>` or a fresh unmodified-code run, never a saved
 /tmp copy (PITFALLS).
+
+### 2026-10-12 217 DECISION: Merian helvete investigation (session 3) - book structure mapped; the plate list is the book's own "Erönung der Kupfferstich" (BR n394); hOCR index == 1-based leafNum (aligned, unlike civitates); 65 wide BR leaves are the engraved spreads; 10 big-plate foldouts are absent from the item; the list's page number points to an adjacent text page with varying side, so it is a window not a rule
+Session 3 on 217: investigation only, no code (working tree clean; artifacts in /tmp/merian on this
+machine: scandata.xml, list_full.jpg = n394 full-res, list_c{1,2,3}{0,1}.jpg 2x column crops, page-image
+samples). Findings, each verified:
+1. **LLM replicas are up** (127.0.0.1:8080/8081, qwen3.8-27b; 8082 down per the 5060 Ti image matchers):
+   `books.py fetch/triageA/triageF merian_helvete00zeil` are runnable from this machine - triage is the
+   step after the transcription, not a blocker.
+2. **hOCR fetched and aligned.** hOCR page index i == 1-based leafNum == BR leafNum field (verified at
+   i=429 the plate list at n394, i=197 "BASILEA" at n176, i=11 printed p7). So - unlike civitates -
+   hOCR titles can be trusted for this book's leaves. 436 hOCR pages; BR shows 400.
+3. **Structure:** 436 leaves all imaged; BR omits 36: 25 Delete (duplicates/foldout versos) + 10 Foldout
+   (rot-0 big engravings, leaves 44, 86, 116, 168, 230, 238, 254, 346, 360, 412 1-based - EMPTY hOCR,
+   content unknown; each directly after a wide BR leaf) + back color card. 65 wide BR leaves (landscape)
+   are the engraved double-page spreads (view left / plan right; Basel leaf 197 = 4-page spread, 2 views).
+   Wide-leaf title readings (hOCR) are in the task hand-over (session 3): they match the list's cantons
+   (Zurich 39/43, Bern 75, Lenzburg 81, Sempach 137, Unterwalden 133, Uri 147, Lucerne 151/155, Einsiedeln
+   159, 4-Waldstätten map 167, Glarus 187, Basel 193/197/201/205, Münchenstein 211, Pierre-Perthuis 215,
+   Wallenburg 219, Schaffhausen 249/253, Appenzell 265/269, coins 279, Zurzach 283, Biel 317/323/327,
+   Neuenburg 341, Rapperswil 351, Weyerhaus 359, Chur 381/389, Plürs 395, Sitten 407, Breitenlandenberg 411).
+4. **The list** = the book's own "Erönung der Kupfferstich" on BR n394 (n395 = upside-down duplicate). Draft
+   transcription (names as read from the 2x crops; page numbers as printed; } = entries sharing one page via
+   a printed brace; * = needs image confirmation next session):
+   Tafel des Teutschlands 10; der Endgnossenschaft 15; Elgg+Murr }16; Zürich im Grund 17 + im Prospect 17;
+   Forsteck 19; Eglisau+Grüningen+Griffensee+Regensberg }20; Stein am Rhein 21; Winterthur+Andelfingen+
+   Kyburg }22; Willisau+Wedeschwyl }23; Bern 24; Thun 26; Aarau+Arberg+Arburg }27; Lenzburg+Brugg }27;
+   Habsburg 27; Lausanne 79; Thun 31; Neuenburg* 31; Gletscher 32; Murten 32; Neuchâtel* 34; Wislikofen* 34;
+   Lucerne 36; 4 Waldstätter See 36; Möhlin 37; Aarberg 38; Schwyz 39 + im Prospect 39; Einsiedeln 39;
+   Unterwalden 41; Engelberg 41; Zug 43; Glarus 44; Basel im Grund 46 + im Prospect (2 Kupfer) 46 +
+   Brück 47 + St. Peters Platz 47; Münchenstein 48; Lichtstall 49; Wallenburg 49; Pierre-Perthuis 50;
+   Romanshorn 50; Freiburg im Üechtland 52; Solothurn 53; Schaffhausen 54; Saß am Rhein 55; Munkiringen 55;
+   Appenzell 56; Herisau 56; Baden 57; Klingnau 57; Leuggern 58; Wettingen 58; Mittlere Aare 58; Münzen 58;
+   Zurzach 58; Berggärtl* 59; Lommern 59/60; Belleng* 60; Hülshofen 60; Frauenfeld 60; Müllingen 60;
+   Rapperswil 61; Pfeffers (2 Kupfer) 63; Müllhausen 65; Biel 66; St. Gallen 67; Griffensee im Grund 70 +
+   im Prospect 71; Neuenburg (2 Kupfer) 72 (handwritten); Weyerhaus 72/77*; Kastelen 77; Chur 79; Plürs 83;
+   St. Luciensteig 85; Leuggs* 87; Trigg* 88; Naters 88; Bispach 88; St. Maurities 89; Sitten 90;
+   Breitenlandenberg 90; Chasillard 90; Blonay 90; Sandeck 90; Mauvis* 90; Werdenstein 90; St. Urbani 90.
+   (Footer: "102 Kupfersticken".)
+5. **Page-number semantics:** the list number points to an adjacent text page but the side is not
+   consistent (Bern spread leaf 75 follows p24, cited 24; Zurich spreads 39/43 precede p17, cited 17).
+   Consequence: the page number is only a candidate window; each entry is pinned to a wide leaf by the
+   plate's own printed title (hOCR, reliable here) + image spot-checks. IA pageNum verified correct on
+   p16 (n27) and p24 (n63, section start "2. Bern.").
+6. **Design for the table (next session implements):** HAND_FIGS["topographiahelve00zeil"] rows
+   fig|title|page|kind|kind_by with **fig = the 0-based BR leaf index n of the wide leaf** (the same
+   convention as civitates; n != 1-based leafNum here - the offset is not constant, e.g. leaf 429 = n394,
+   leaf 39 = n32 - compute n from ia.pages()),
+   page = the printed list number (a string, for the record), kind: o = perspective view (a drawing),
+   s = bird's-eye town plan (213's precedent for town plans), u = excluded (regional maps Tafel des
+   Teutschlands/Endgnossenschaft/4-Waldstätter-See, coins sheet), kind_by hand. A spread with view+plan =
+   two rows sharing the same fig (the index then emits one row per entry, per_entry path - same as
+   civitates's multi-plate leaves). The 10 missing-foldout plates (no leaf in the item) are transcribed
+   with fig = "" and parse_hand_figures extended to map "" -> None (the hand-over-2 anticipated this);
+   validate counts them as nopage and list_pages skips n=None - already safe in both, verify no other
+   path dereferences f["fig"]. The .json dump keeps the contract ("plates": null, "figures": [...],
+   indent=0, ensure_ascii=False, key order fig,title,page,kind,kind_by).
