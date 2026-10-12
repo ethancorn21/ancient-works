@@ -1,5 +1,5 @@
 Status: open
-Depends on: 302c
+Depends on: none
 Touches: pipeline/plan_fit.py, tests/test_fit_provenance.py
 
 # 219: The page's source line states the book's year once (the commons case)

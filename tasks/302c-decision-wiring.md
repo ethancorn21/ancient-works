@@ -1,4 +1,4 @@
-Status: open
+Status: dropped
 Depends on: 302b
 # 302c: The decision and the wiring - the method decides, site_done's fit step calls it
 Touches: fit/inkfit.py, tools/site_done.py, pipeline/plan_fit.py, tests/test_inkfit.py, tests/test_site_done.py, docs/site_flow.md, data/inkfit/
@@ -204,3 +204,6 @@ I do NOT edit fit/batch_us.py (303's) or server/serve.py (303's). Re-read with f
 fit/inkfit.py:fit (the decide insertion points), tools/site_done.py:_fit + main (the message),
 plan_fit.build (the how branch), tests/test_site_done.py (line-0 + line-3 assertions),
 inkfit_heldout.measure (what it stores from r).
+
+## Lead note (2026-10-12)
+Dropped: superseded by the matcher fit (fit/matchfit.py, MatchAnything ELoFTR + RoMa), which site_done already calls first on every undocumented picture. The ink fit landed 231-2204 m off on the hand fits (302b); there is nothing left to wire.

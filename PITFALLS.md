@@ -256,6 +256,27 @@ Why: the university host is not reachable from this VM's network. The Limesblatt
 Where: those two hosts (Deutsche Digitale Bibliothek; the UB Heidelberg digital collections); task 208's ORL/RGK hunt
 Symptom: hostname resolution fails (getaddrinfo/urllib: no address for the host) - the lookup itself fails, it is not a connect block
 Why: this VM's DNS does not serve those hostnames. Do not retry; anything that exists only there is unusable from this VM (IA is the only book source this loop can rely on).
+### Internet Archive (archive.org)
+
+#### IA /download/ needs a User-Agent and -L, is flaky per file, and zip-only Google-scan items have NO per-leaf image derivatives
+Where: any fetch from archive.org (fit/src_numancia.py _ia_get/render, pipeline/books_ia.py); verified on item memoriasdelareal009real, 2026-10-12 (task 210)
+Symptom: a GET /download/<item>/<file> without a UA returns 0 bytes; a HEAD without -L shows the 302 CDN redirect (normal); some files serve a transient 170-byte nginx 500 HTML page that comes and go per file/day; on a zip-only Google-scan item, /download/<item>_NNN.jpg and .jp2, BookReaderImages.php and /composite/ all 404.
+Why: the CDN wants a UA and follows redirects, and the /download/ backend fails intermittently per file - retry with backoff (the module tries 3x). A zip-only Google-scan item has no per-leaf image derivatives AT ALL: per-leaf images exist only inside the jp2.zip / orig tar, so per-leaf images come from the PDF (pdftoppm) or the zip, never from a per-leaf URL. When /download/page_numbers.json 500s, /metadata/<item> returns the page_numbers dict inline (its "pages" list has one {leafNum, ...} entry per leaf; files[].size values are STRINGS, e.g. "37664978").
+
+#### In memoriasdelareal009real the OCR page index does not line up with the PDF leaf order - ground truth is the PDF
+Where: IA item memoriasdelareal009real (RAH Memorias tomo IX, 1879); fit/src_numancia.py (LEAF = 507), docs/lead_numancia.md §2 leaf map
+Symptom: the work that starts at PDF leaf 378 has its running heads at hOCR searchtext entries ~33-38; a leaf looked up through the OCR page index lands on the wrong leaf (same class as the civitatesorbiste00brau hOCR misalignment, different book).
+Why: this scan's OCR page index / searchtext sequence does not match the PDF leaf sequence 1:1. Eye-check a leaf (pdftoppm render) before trusting its number; the plain djvu text stream does read in document order, so a whitespace-collapsed search for a known line (the plate's ÍNDICE line) is reliable for identification - all the module's sweep uses it for.
+
+#### A staged row whose image has no fetchable URL needs a per-module re-render command, and its tests stay hermetic about the file
+Where: fit/src_numancia.py (--render), tests/test_src_numancia.py; data/raw is a gitignored shared store (see the two data/raw entries above)
+Symptom: the row's image exists only in the worktree where it was rendered; in every other checkout the local file is missing, so a test that asserts its existence fails there, and the page / export silently omits the row.
+Why: data/raw/ never travels in git. When the source has no fetchable per-leaf image (IA zip-only scan), the staging module ships a --render command (download + pdftoppm into the sha1(title)[:16] slot) as the per-worktree re-derivation, and the tests check the path convention and validate the file only when present. The row carries no `thumb` (a thumb pointing at the source PDF would store the PDF as .jpg): commons.thumbs() skips it, tools/export_plans.py omits it in image-less worktrees, tools/fitkit.py plan_image raises only if that row is opened there.
+
+#### This machine has /usr/bin/pdftoppm (poppler-utils), and its single-page JPEG render is byte-reproducible
+Where: fit/src_numancia.py render(); the data/raw/commons/numancia/ plate
+Symptom: none (a capability): `pdftoppm -jpeg -r 300 -jpegopt quality=85 -f N -l N -singlefile in.pdf out.jpg` produces one <prefix>.jpg (no page-number suffix with -singlefile) and the output is byte-identical across runs (memoriasdelareal009real leaf 507 -> sha256 c8415ffb94c6bfa50aea92335efef9e0babab8be615f7a44df2b55bfc9931415, 6713x2709, 1157133 bytes).
+Why: pinning the render recipe keeps the per-worktree re-derivation identical, so the row's w/h and the sha1 file name stay stable across worktrees. Non-blank test: the grayscale histogram std (a real plate is tens; flat white/black JPEG q85 stand-ins 0.00; the module's threshold is 1.0).
 
 ## Libraries and frameworks
 
