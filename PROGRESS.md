@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 189, agent a - GATE STILL OPEN: all seven of 222-228
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 190, agent a - GATE STILL OPEN: all seven of 222-228
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,38 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: gate still open (222-228 all Status: open, main moved nothing since the 186 sync) - no re-run, no claim; the imagecodecs open thread becomes task 229 (Depends on: 302a, 304)
-- Session 187. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
-  `Status: open`, and my branch tip (6ad8570) already contains main's tip (7e61147; only
-  driver bookkeeping commits in between), so since the 186 suite run nothing on main
-  changed and the red set is still exactly the 10 222-228 source-guard failures. Per the
-  hand-over the done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
-  rebuilds, no box changes, no new full-suite run (it would measure the same red set;
-  the driver re-checks the suite at claim time anyway).
-- The session's one step: the open thread (imagecodecs 2026.10.10 in the .venv but not in
-  requirements.in/.txt) is now a durable unit of work - filed tasks/229-imagecodecs-
-  pin.md (Status: open; lowest free number in 200-499; Depends on: 302a, 304 because
-  both own requirements.in/.txt in flight; Touches: requirements.in, requirements.txt,
-  PITFALLS.md). Facts re-verified this session before filing: the .venv has imagecodecs
-  2026.10.10 and NO numba/llvmlite (its only hard dep is the already-pinned numpy, so
-  the pin adds one package); it is absent from requirements.in and requirements.txt
-  (task 800 pinned the old set at iteration 14, before the package entered the story);
-  the usage is the AHN Float32 DEM decode (pipeline/build_site.py:load_dem ->
-  aw.fetch_dem -> dem_sources.fetch/_ahn_native; all seven AHN sites built with it, 0
-  failures); data/raw holds no AHN raw files (WCS responses are decoded in flight, only
-  dem.npy persists), so 229's acceptance proves the decode in a from-scratch venv with a
-  working-phase fetch through the project's own machinery, not a stored-file replay.
-- PITFALLS.md: the pillow/imagecodecs entry's "What to do" line now names task 229
-  instead of the vague "when agent c's in-flight requirements work has landed"; the
-  heading and the rest of the entry stay true until 229 lands.
-- 229 is deliberately NOT on 211's Depends-on list: it does not block the 211 claim
-  (the driver's in-place .venv rebuild keeps the ad-hoc package until 229 lands).
-- Hand-over rewritten: the open thread is closed (it is 229 now); the claim trigger is
-  unchanged - all of 222-228 no longer open -> suite run (expect green) -> Status: done
-  -> claim citing the six boxes, the 381-row merge (0 refused / 0 conflicts), the 114
-  new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
-  the red set of 10 was 222-228's, and the 229 pin.
 
 ### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)
 - Session 188. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
@@ -146,6 +114,36 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
   on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
   today.
+
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).
 
 ## Project-wide driver notes (newest)
 
