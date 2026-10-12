@@ -515,6 +515,25 @@ site on load. The step only the owner can do is the acceptance click-through on 
 (`server/serve.py --lan`, port 8642): real points on the plate, save, the drawing on the
 map.
 
+**Place mode (task 307bb).** When the queue entry carries a `propose`, Place opens with the
+drawing already on the map: the map flies to the site's box, the site's earlier overlay is
+hidden, and the drawing sits where the proposal puts it - its panel centre on the site, at
+the proposal's scale and rotation. That placement is the *anchor* (`web/fitkit.js`: the page
+point it pins, the ground point, metres per page pixel, rotation), shown as five numbered
+points (the panel's corners and centre). The owner moves the drawing itself: **drag** moves
+it, the **wheel** scales it about its centre, **shift+wheel** turns it a degree per notch;
+the map's own pan and zoom are off while placing and the panel reads the live scale and
+rotation. Clicking a spot on the plate and then on the map still pins a point on top, and
+each pin refines the anchor by least squares over all points (Undo and Clear step back
+through the anchors). **Save** writes the ordinary platefit doc - the five placed points as
+page-px to lon/lat pairs plus any pins, `"by": "hand"` - and the one-site line puts the
+overlay on the map; **Cancel** brings the earlier overlay back. Part 4 of
+`tests/test_fit_queue.py` drives exactly this in headless Chrome on a full temp tree: one
+drag, wheel and shift+wheel, each checked against the page's own fit; Save from the
+placement alone (the doc read back from the tree, its fit equal to the placed anchor, the
+overlay the same similarity); and a second page's Cancel. Pinning on top is the owner's
+check (307d).
+
 - `docs/site_flow/fit_queue_card.png` — the card in the home view: "READY TO FIT — 117 TO
   GO", Devil's Dyke, "The Devil's Dyke Camp, near Brighton · Allcroft 1908 · Fig. 217 — the
   clearest scan", with **Place the drawing** and **Skip**.

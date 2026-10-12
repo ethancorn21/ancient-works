@@ -59,8 +59,20 @@ loads the page with the browser's done map pre-seeded with the first queued site
 key and value the card's own saveFit wrapper writes when a save lands - and shows the card
 starting at entry 2. Runs only where Chrome is installed (the recipe is in PITFALLS); the
 committed screenshots of the real checkout (book pages loading) live in docs/site_flow/.
+
+Part 4 (task 307bb, the parent 307b's box 3) proves the placement in the same headless
+Chrome on a FULL temp tree (the one-site line's home: tools/fit/pipeline present, the
+picked entry's book page materialised locally): the card's own done map seeded past the
+earlier queue entries puts the card on the pick, 'Place the drawing' opens the placement
+on the works, one scripted drag, wheel and shift+wheel move, scale and turn the drawing,
+the page's save writes the platefit doc (by: hand, the five placed pairs) from the
+placement alone - read back from the temp tree, its own fit agrees with the placed anchor
+(1e-3 scale, 0.01 deg) - and the one-site line lands the overlay in the tree; a fresh
+run's Cancel brings the earlier overlay back exactly; the write surface is hashed around
+the run; pinning on top is checked by hand (307d).
 """
 import json
+import math
 import os
 import re
 import shutil
@@ -733,44 +745,63 @@ def _rows_naming(root, site):
     return [{k: r[i] for k, i in cols.items()} for r in d["rows"] if site in (r[cols["sites"]] or [])]
 
 
-def _pick_site():
-    """The first queue entry the line test can use: a book row whose page is in this checkout's
-    data/raw (the line reads it locally), whose site's review item is unresolved and carries that
-    row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
-    (the line then builds exactly one new overlay: drawings changes by one, the open count drops
-    by one, and the item resolves by the saved doc). The pick prefers a site with at least one
-    uncovered row (a row naming it, no doc, no item candidate), so the line's model=None path
-    runs and lands in the item as "no model answer"; a pick without one skips that assertion.
-    Derived, never pinned (803: the population moves under the batch tasks).
-    -> (entry, item, uncovered) or None."""
-    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+def _review_items():
+    """The checkout's review items keyed by their `site` field (data/review/README.md)."""
     items = {}
     for p in (ROOT / "data" / "review").glob("*.json"):
         it = json.loads(p.read_text())
         if it.get("site"):
             items[it["site"]] = it
+    return items
+
+
+def _line_eligible(e, it):
+    """The one-site line's constraints on a queue entry (the part 2 pick and the part 4
+    placement pick both require them): a book row whose page is in this checkout's data/raw
+    (the line reads it locally), an unresolved review item for the site carrying that row as
+    a candidate with the page's save-floor pairs (the line's export resolves it by the saved
+    doc), and no platefits documents for the site yet (the line then builds exactly one new
+    overlay). -> the site's uncovered rows (a row naming it, no doc, no item candidate),
+    or None when any constraint fails."""
+    row = e["best"]["row"]
+    ia, file_ = row.get("ia"), row.get("file")
+    if not (ia and file_):
+        return None  # a book row: the page's save needs ia/file, and the line reads the page locally
+    if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
+        return None  # no local page: the line would need the network
+    if not it or (it.get("resolved") or {}).get("doc"):
+        return None  # an unresolved item, so the line's export resolves it by the saved doc
+    cand = next((c for c in it.get("candidates") or [] if c.get("plan") == row["id"]), None)
+    if not cand or len(cand.get("pairs") or []) < 3:
+        return None  # the page's save floor for a similarity fit
+    docs = {json.loads(p.read_text()).get("plan")
+            for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
+            if p.name.startswith(e["site"] + ".")}
+    if docs:
+        return None  # an existing doc would make the line build a second overlay
+    item_plans = {c.get("plan") for c in it["candidates"]}
+    return [r["id"] for r in _rows_naming(ROOT, e["site"])
+            if r["id"] not in docs and r["id"] not in item_plans]
+
+
+def _pick_site():
+    """The first queue entry the line test can use: a book row whose page is in this checkout's
+    data/raw (the line reads it locally), whose site's review item is unresolved and carries that
+    row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
+    (the line then builds exactly one new overlay: drawings changes by one, the open count drops
+    by one, and the item resolves by the saved doc) - _line_eligible. The pick prefers a site
+    with at least one uncovered row (a row naming it, no doc, no item candidate), so the line's
+    model=None path runs and lands in the item as "no model answer"; a pick without one skips
+    that assertion. Derived, never pinned (803: the population moves under the batch tasks).
+    -> (entry, item, uncovered) or None."""
+    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+    items = _review_items()
     picks = []
     for e in q["entries"]:
-        row = e["best"]["row"]
-        ia, file_ = row.get("ia"), row.get("file")
-        if not (ia and file_):
-            continue  # a book row: the page's save needs ia/file, and the line reads the page locally
-        if not (ROOT / "data" / "raw" / "books" / ia / "full" / file_).is_file():
-            continue  # no local page: the line would need the network
         it = items.get(e["site"])
-        if not it or (it.get("resolved") or {}).get("doc"):
-            continue  # an unresolved item, so the line's export resolves it by the saved doc
-        cand = next((c for c in it.get("candidates") or [] if c.get("plan") == row["id"]), None)
-        if not cand or len(cand.get("pairs") or []) < 3:
-            continue  # the page's save floor for a similarity fit
-        docs = {json.loads(p.read_text()).get("plan")
-                for p in (ROOT / "data" / "db" / "platefits").glob("*.json")
-                if p.name.startswith(e["site"] + ".")}
-        if docs:
-            continue  # an existing doc would make the line build a second overlay
-        item_plans = {c.get("plan") for c in it["candidates"]}
-        uncovered = [r["id"] for r in _rows_naming(ROOT, e["site"])
-                     if r["id"] not in docs and r["id"] not in item_plans]
+        uncovered = _line_eligible(e, it)
+        if uncovered is None:
+            continue
         picks.append((e, it, uncovered))
     if not picks:
         return None
@@ -1142,11 +1173,12 @@ def test_card_in_the_browser(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshot"), "none")
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts tile fetches that leave the map's view during the card's flyTo (a
-    # page-caused reqfail, expected): the local relief tiles (/tiles/) and the remote imagery
-    # tiles of the global satellite base (the lead's 2026-10-12 map rework, MapServer/tile/);
-    # no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "MapServer/tile/" not in ln
+    # Page-caused reqfails, expected: MapLibre aborts tile fetches that leave the map's
+    # view during the card's flyTo - the local relief tiles (/tiles/) and the page's base
+    # imagery, the live Esri feed (server.arcgisonline.com/.../MapServer/tile/... - note
+    # the SINGULAR 'tile/', which a '/tiles/' exclusion alone misses); no other request
+    # may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln and "MapServer/tile/" not in ln
                    for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["entries"] == len(entries)  # the file's queue is what the page loaded
 
@@ -1209,11 +1241,12 @@ def test_card_done_mark_moves_on(served, tmp_path_factory):
     data, p = _run_probe(base, tmp_path_factory.mktemp("fqshotdone"), e1["site"])
     assert data["boot"]["ok"], (data["boot"], p.stdout[-2000:])
     assert "[pageerror]" not in p.stdout, p.stdout[-2000:]
-    # MapLibre aborts tile fetches that leave the map's view during the card's flyTo (a
-    # page-caused reqfail, expected): the local relief tiles (/tiles/) and the remote imagery
-    # tiles of the global satellite base (the lead's 2026-10-12 map rework, MapServer/tile/);
-    # no other request may fail at the network level
-    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "MapServer/tile/" not in ln
+    # Page-caused reqfails, expected: MapLibre aborts tile fetches that leave the map's
+    # view during the card's flyTo - the local relief tiles (/tiles/) and the page's base
+    # imagery, the live Esri feed (server.arcgisonline.com/.../MapServer/tile/... - note
+    # the SINGULAR 'tile/', which a '/tiles/' exclusion alone misses); no other request
+    # may fail at the network level
+    assert not any(ln.startswith("[reqfail]") and "/tiles/" not in ln and "arcgisonline" not in ln and "MapServer/tile/" not in ln
                    for ln in p.stdout.splitlines()), p.stdout[-2000:]
     assert data["boot"]["done"] == {e1["site"]: "2026-10-12T00:00:00.000Z"}, data["boot"]["done"]
 
@@ -1239,3 +1272,491 @@ def test_card_done_mark_moves_on(served, tmp_path_factory):
     assert e2["name"] not in c3["text"]
     assert data["card4"]["text"] == c1["text"]
     assert e1["name"] not in data["card4"]["text"]
+
+
+
+# ---------------------------------------------------------------------------
+# Part 4: place mode (task 307bb), checked in the same headless Chrome on a FULL
+# temp tree (part 2's recipe: tools/fit/pipeline present, the picked entry's book
+# page materialised locally, every socket in the server dead): the placement
+# opens on the works, one drag / wheel / shift+wheel moves, scales and turns the
+# drawing, Save writes the doc from the placement alone and the one-site line
+# lands the overlay; a second page's Cancel brings the earlier overlay back. The
+# probe does the page-side checks and prints RESULT PASS/FAIL; the test reads the
+# doc and the overlay back from the tree and hashes the checkout around the run.
+
+PLACE_PROBE = r"""// node place_probe.mjs <base_url> <site> <plan> <tree> <out_dir> <done_json>
+// Place mode as the owner drives it, in headless Chrome on a full served temp tree (task 307bb):
+// the card's own done map seeded past the earlier queue entries puts the card on the pick ->
+// 'Place the drawing' opens the placement on the works -> one drag, one wheel, one shift+wheel
+// move, scale and turn the drawing (each checked against the page's own fit, and the drawing's
+// four corners against the anchor's similarity) -> Save writes the doc from the placement alone
+// and the one-site line lands the overlay in the tree -> a second page's Cancel brings back the
+// overlay the page had selected. Prints one [ok]/[FAIL] line per check, then RESULT PASS/FAIL,
+// and exits 0/1. Transcribed from agent a's run-128c throwaway (41/41 there); pin and undo on
+// top of the placement are the owner's check (307d).
+import { createRequire } from 'module';
+import { readFileSync } from 'fs';
+const require = createRequire(process.env.NODE_PATH + '/');
+const { chromium } = require('playwright-core');
+const [url, site, plan, tree, outdir, doneJson] = process.argv.slice(2);
+const doneMap = JSON.parse(doneJson);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const failures = [];
+const check = (name, cond, info) => {
+  console.log((cond ? '[ok] ' : '[FAIL] ') + name + (cond ? '' : ' :: ' + JSON.stringify(info)));
+  if (!cond) failures.push(name);
+};
+
+// installed as page globals once: the anchor's own similarity (the exact _fkReemit math)
+// and the fit-vs-anchor checks the gestures must keep true at every step
+const HELPERS = `
+  window._fkvAnchorAt = (a, u, v) => {
+    const [zx0, zy0] = merc([a.lon, a.lat]);
+    const k = Math.cos(a.lat * Math.PI / 180);
+    const t = a.rot * Math.PI / 180;
+    const ar = a.mpx / k * Math.cos(t), ai = a.mpx / k * Math.sin(t);
+    const dr = u - a.u0, di = a.v0 - v;
+    return [zx0 + ar * dr - ai * di, zy0 + ai * dr + ar * di];
+  };
+  window._fkvFitChecks = () => {
+    const a = P.anchor, f = P.fit, k = Math.cos(a.lat * Math.PI / 180);
+    const maxResid = f ? Math.max(...f.resid) : -1;
+    const [x0, y0, x1, y1] = P.crop;
+    const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]];
+    const src = map.getStyle().sources['fit-prev'] ? map.getStyle().sources['fit-prev'].coordinates : null;
+    let maxC = -1, closure = -1;
+    if (f && src) {
+      const ms = src.map(c => merc(c));
+      const exps = corners.map(([u, v]) => _fkvAnchorAt(a, u, v));
+      maxC = Math.max(...exps.map((z, i) => Math.hypot(ms[i][0] - z[0], ms[i][1] - z[1]))) * k;
+      closure = Math.hypot((ms[2][0] - (ms[1][0] + ms[3][0] - ms[0][0])),
+                           (ms[2][1] - (ms[1][1] + ms[3][1] - ms[0][1]))) * k;
+    }
+    return { dmpx: a ? Math.abs(f.mpx - a.mpx) : -1, drot: a ? Math.abs(f.rot - a.rot) : -1,
+             maxResid, maxCorner: maxC, closure };
+  };
+`;
+
+const browser = await chromium.launch({ channel: 'chrome', headless: true,
+  args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
+const page = await browser.newPage({ viewport: { width: 1200, height: 800 }, colorScheme: 'light' });
+const lines = [];
+const log1 = t => lines.push(t);
+page.on('console', m => log1('[console] ' + m.type() + ' ' + m.text()));
+page.on('pageerror', e => log1('[pageerror] ' + e.message));
+page.on('requestfailed', r => log1('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
+// one object argument (this playwright-core takes at most one); its keys must match the
+// destructured names: the card's done map past the earlier queue entries puts the card on the pick
+await page.addInitScript(({ done }) => {
+  try { localStorage.setItem('aw.fitQueue.done', JSON.stringify(done)); } catch {}
+}, { done: doneMap });
+await page.goto(url);
+
+const boot = await page.evaluate(async () => {
+  let ok = false;
+  try {
+    const t0 = Date.now();
+    while (Date.now() - t0 < 60000) {
+      if (S.ready && S.sites.length && FQ.loaded && FQ.entries.length) { ok = true; break; }
+      await new Promise(r => setTimeout(r, 250));
+    }
+  } catch {}
+  return { ok, fitkit: typeof _fkReemit === 'function' && typeof _fkOnWheel === 'function' };
+});
+if (!boot.ok) { console.log('[FAIL] boot :: ' + JSON.stringify(boot)); process.exit(1); }
+check('fitkit loaded (gestures defined)', boot.fitkit);
+await page.evaluate(HELPERS);
+
+// ---- place: the card's own button ----
+await page.click('#fqplace', { timeout: 20000 });
+const placed = await page.evaluate(async () => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < 60000) {
+    try { if (P.placed === true && P.img) return true; } catch {}
+    await new Promise(r => setTimeout(r, 250));
+  }
+  return false;
+});
+await sleep(2500); // let the fly-to settle
+check('place mode opened on the works', placed);
+const seed = await page.evaluate(id => {
+  const e = FQ.entries.find(x => x.site === id && x.propose);
+  const a = P.anchor, c = e.propose.pairs[e.propose.pairs.length - 1];
+  return { mpx: [a.mpx, e.propose.scale_m_px], rot: [a.rot, e.propose.rot_deg],
+           centre: [a.lon, a.lat, c[2], c[3]], n: P.pairs.length, nMarks: P.marks.length,
+           gestures: [map.dragPan.isEnabled(), map.scrollZoom.isEnabled(), map.touchZoomRotate.isEnabled(),
+                      map.doubleClickZoom.isEnabled(), map.boxZoom.isEnabled()],
+           dep: map.getLayer('dep-' + id) ? map.getLayoutProperty('dep-' + id, 'visibility') : null,
+           fitPrev: !!map.getSource('fit-prev'),
+           hint: (document.getElementById('fithint') || {}).textContent };
+}, site);
+console.log('[seed] ' + JSON.stringify(seed));
+check('seed: anchor matches the propose (derived from the served queue file)',
+  Math.abs(seed.mpx[0] - seed.mpx[1]) < 1e-9 && Math.abs(seed.rot[0] - seed.rot[1]) < 1e-9 &&
+  Math.abs(seed.centre[0] - seed.centre[2]) < 1e-9 && Math.abs(seed.centre[1] - seed.centre[3]) < 1e-9, seed);
+check('seed: the five pairs and markers are on the map, the drawing preview is up',
+  seed.n === 5 && seed.nMarks === 5 && seed.fitPrev, seed);
+check('seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden',
+  seed.gestures.every(v => v === false) && seed.dep === 'none', seed);
+check('seed: the panel readout shows the live scale and rotation',
+  seed.hint.includes(seed.mpx[0].toFixed(2)) && seed.hint.includes('m per page pixel'), seed);
+
+// ---- (a) drag: the pointer's ground delta moves the anchor's centre ----
+const p0 = await page.evaluate(() => {
+  // a map-canvas point right of the fit pane, clear of the five markers
+  const r = map.getCanvas().getBoundingClientRect();
+  const cands = [1075, 1105, 1040, 1140, 1000].map(x => [x, 400]);
+  const proj = P.pairs.map(p => map.project([p.lon, p.lat]));
+  const hit = q => proj.some(m => Math.hypot(m.x - q[0], m.y - q[1]) < 30);
+  const q = cands.find(p => !hit(p)) || cands[0];
+  return { x: q[0] + r.left, y: q[1] + r.top, q, proj: proj.map(p => [p.x, p.y]) };
+});
+check('drag start point clear of markers',
+  Math.min(...p0.proj.map(m => Math.hypot(m[0] - p0.q[0], m[1] - p0.q[1]))) >= 30,
+  { q: p0.q, proj: p0.proj });
+const sx = p0.x + 30, sy = p0.y + 20;
+const dragStart = await page.evaluate(({ x0, y0, x1, y1 }) => {
+  // mirror the page's own drag math exactly: canvas-relative client point, unproject
+  // to a [lon, lat] array (unproject's {lng, lat} object does not pass to merc),
+  // anchor' = anchor + pointer delta in Mercator metres
+  const r = map.getCanvas().getBoundingClientRect();
+  const ll = (cx, cy) => { const u = map.unproject([cx - r.left, cy - r.top]); return [u.lng, u.lat]; };
+  const a0 = { ...P.anchor };
+  const a = merc(ll(x0, y0)), b = merc(ll(x1, y1)), h = merc([a0.lon, a0.lat]);
+  return { a0, expected: unmerc([h[0] + b[0] - a[0], h[1] + b[1] - a[1]]) };
+}, { x0: p0.x, y0: p0.y, x1: sx, y1: sy });
+await page.mouse.move(p0.x, p0.y);
+await page.mouse.down();
+await page.mouse.move(sx, sy, { steps: 2 });
+await page.mouse.up();
+await sleep(400); // rAF-coalesced refit
+const dragOut = await page.evaluate(() => ({
+  a: P.anchor, fit: _fkvFitChecks(),
+  pairs4: { u: P.pairs[4].u, v: P.pairs[4].v, lon: P.pairs[4].lon, lat: P.pairs[4].lat }
+}));
+check('drag: anchor moved by the pointer ground delta',
+  Math.abs(dragOut.a.lon - dragStart.expected[0]) < 1e-6 && Math.abs(dragOut.a.lat - dragStart.expected[1]) < 1e-6,
+  { got: [dragOut.a.lon, dragOut.a.lat], want: dragStart.expected });
+check('drag: mpx and rot untouched', dragOut.a.mpx === dragStart.a0.mpx && dragOut.a.rot === dragStart.a0.rot);
+check('drag: u/v invariant', dragOut.a.u0 === dragStart.a0.u0 && dragOut.a.v0 === dragStart.a0.v0);
+check('drag: pair 5 (the centre) tracks the anchor at the doc rounding',
+  dragOut.pairs4.lon === +dragOut.a.lon.toFixed(7) && dragOut.pairs4.lat === +dragOut.a.lat.toFixed(7) &&
+  dragOut.pairs4.u === +dragOut.a.u0.toFixed(1) && dragOut.pairs4.v === +dragOut.a.v0.toFixed(1));
+check('drag: fit agrees with the anchor (mpx 1e-3, rot 0.01 deg)',
+  dragOut.fit.dmpx < 1e-3 && dragOut.fit.drot < 0.01, dragOut.fit);
+check('drag: max residual < 2 m (the rounded five fit the similarity to rounding)',
+  dragOut.fit.maxResid >= 0 && dragOut.fit.maxResid < 2, dragOut.fit);
+check('drag: fit-prev source corners are the anchor similarity image (rotated rect lands exactly)',
+  dragOut.fit.maxCorner < 0.2 && dragOut.fit.closure < 0.2, dragOut.fit);
+
+// ---- (b) wheel: scale about the centre, the page canvas's own factor ----
+// _fkOnWheel absorbs the current fit into the anchor first (a corner dragged since the
+// last transform joins it), so the expected base is the FIT's mpx, not the anchor's
+const wheelBase = await page.evaluate(() => simFit(P.pairs).mpx);
+await page.mouse.move(p0.x, p0.y);
+await page.mouse.wheel(0, -100);
+await sleep(400);
+const wheelOut = await page.evaluate(() => ({
+  a: P.anchor, fit: _fkvFitChecks(), hint: document.getElementById('fithint').textContent
+}));
+check('wheel: mpx scaled by exp(0.15) about the absorbed fit, centre and rotation held',
+  Math.abs(wheelOut.a.mpx - wheelBase * Math.exp(0.15)) / wheelBase < 1e-3 && Math.abs(wheelOut.a.rot) < 0.01 &&
+  Math.abs(wheelOut.a.lon - dragOut.a.lon) < 1e-6 && Math.abs(wheelOut.a.lat - dragOut.a.lat) < 1e-6,
+  { got: wheelOut.a, want: wheelBase * Math.exp(0.15) });
+check('wheel: fit agrees with the anchor, the corners still land exactly',
+  wheelOut.fit.dmpx < 1e-3 && wheelOut.fit.drot < 0.01 && wheelOut.fit.maxCorner < 0.2 &&
+  wheelOut.fit.closure < 0.2 && wheelOut.fit.maxResid < 2, wheelOut.fit);
+check('wheel: the panel readout is live', wheelOut.hint.includes(wheelOut.a.mpx.toFixed(2)), wheelOut.hint);
+
+// ---- (c) shift+wheel: turn it, 1 degree per 100-unit notch ----
+await page.keyboard.down('Shift');
+await page.mouse.wheel(0, +100);
+await page.keyboard.up('Shift');
+await sleep(400);
+const turnOut = await page.evaluate(() => ({ a: P.anchor, fit: _fkvFitChecks() }));
+check('shift+wheel: rotation advanced 1 degree (1 per 100-unit notch)',
+  Math.abs(turnOut.a.rot - (wheelOut.a.rot + 1.0)) < 0.01, turnOut.a);
+check('shift+wheel: scale held (the pre-turn absorb re-fit only rounds it)',
+  Math.abs(turnOut.a.mpx - wheelOut.a.mpx) / wheelOut.a.mpx < 1e-3,
+  { before: wheelOut.a.mpx, after: turnOut.a.mpx });
+check('shift+wheel: the rotated fit-prev source still lands exactly (the parallelogram claim)',
+  turnOut.fit.maxCorner < 0.2 && turnOut.fit.closure < 0.2 && turnOut.fit.maxResid < 2 &&
+  turnOut.fit.dmpx < 1e-3 && turnOut.fit.drot < 0.01, turnOut.fit);
+
+// ---- (e) save from the placement alone: the doc, the overlay, the map ----
+const pairsBefore = await page.evaluate(() => P.pairs.map(p => [p.u, p.v, p.lon, p.lat]));
+const imgSize = await page.evaluate(() => [P.img.naturalWidth, P.img.naturalHeight]);
+await page.click('#fsave', { timeout: 10000 });
+await sleep(3000);
+const saveStatus = await page.evaluate(() => ({
+  st: (document.getElementById('fitst') || {}).textContent,
+  disabled: document.getElementById('fsave') ? document.getElementById('fsave').disabled : null,
+  db: !!S.db, active: P.active, placed: P.placed, n: P.pairs.length
+}));
+console.log('[save] after click: ' + JSON.stringify(saveStatus));
+const saveOut = await page.evaluate(async () => {
+  // the page's own poll: wait for the pane to close (the page endFit's when the overlay lands)
+  const t0 = Date.now();
+  while (Date.now() - t0 < 120000) {
+    try { if (!P.active) return true; } catch {}
+    await new Promise(r => setTimeout(r, 250));
+  }
+  return false;
+});
+check('save: the page closed the fit view (the overlay landed, the page endFit)', saveOut);
+const closed = await page.evaluate(() => ({
+  placed: P.placed, anchor: P.anchor, active: P.active,
+  pan: map.dragPan.isEnabled(), zoom: map.scrollZoom.isEnabled(),
+  cursor: map.getCanvas().style.cursor
+}));
+check('save: placement state cleared, gestures and map back on',
+  closed.placed === false && closed.anchor === null && closed.active === false &&
+  closed.pan === true && closed.zoom === true && closed.cursor === '', closed);
+
+const docId = site + '.' + plan;
+const docPath = tree + '/data/db/platefits/' + docId + '.json';
+let doc = null;
+try { doc = JSON.parse(readFileSync(docPath, 'utf8')); } catch {}
+check('save: the doc was written to the tree store (never the shared store)', !!doc, docPath);
+check('save: the doc is by: hand with the page fields',
+  !!doc && doc.by === 'hand' && doc.site === site && doc.plan === plan &&
+  doc.model === 'similarity' && Array.isArray(doc.pairs) &&
+  doc.size && doc.size.length === 2 && Array.isArray(doc.crop) && doc.at && /^2026-/.test(doc.at),
+  doc ? { by: doc.by, at: doc.at, n: doc.pairs.length, size: doc.size } : null);
+check('save: the doc size is the loaded image', !!doc && doc.size[0] === imgSize[0] && doc.size[1] === imgSize[1],
+  { doc: doc && doc.size, img: imgSize });
+check('save: the doc pairs are exactly the final re-emitted five (the page own rounding)',
+  !!doc && doc.pairs.length === 5 &&
+  doc.pairs.every((p, i) => p[0] === pairsBefore[i][0] && p[1] === pairsBefore[i][1] &&
+    p[2] === pairsBefore[i][2] && p[3] === pairsBefore[i][3]),
+  { doc: doc && doc.pairs, page: pairsBefore });
+
+// the overlay: the one-site line's depiction of the saved fit
+const depsPath = tree + '/web/data/sites/' + site + '/depictions.json';
+let overlay = null;
+for (let i = 0; i < 40 && !overlay; i++) {
+  try {
+    const deps = JSON.parse(readFileSync(depsPath, 'utf8')).depictions;
+    overlay = deps.find(d => (d.fit || {}).doc === docId) || null;
+  } catch {}
+  if (!overlay) await sleep(1500);
+}
+check('save: the overlay landed in the tree (the one-site line ran)', !!overlay, depsPath);
+const shown = await page.evaluate(id => {
+  const lid = 'dep-' + id;  // the source is named dep-<site> too (applyDep)
+  const d = (S.dep[id] || []).find(x => x.file === S.depSel[id]);
+  const want = d ? 'data/sites/' + id + '/' + (S.depMode === 'ink' && d.ink ? d.ink : d.file) : null;
+  return { vis: map.getLayer(lid) ? map.getLayoutProperty(lid, 'visibility') : null,
+           src: map.getSource(lid) ? map.getSource(lid).url : null,
+           sel: S.depSel[id], want };
+}, site);
+check('save: the new overlay is showing on the map',
+  !!overlay && shown.vis === 'visible' && shown.sel === overlay.file && !!shown.src && shown.src === shown.want,
+  { shown, overlayFile: overlay && overlay.file });
+if (doc) {
+  // the doc's pairs (page-px frame) are the placed anchor re-emitted: a fit over them must
+  // reproduce the anchor within the doc's own rounding (the box: "scale and rotation
+  // agreeing with the anchor within rounding")
+  const docFit = await page.evaluate(raw => {
+    const pairs = raw.map(p => ({ u: p[0], v: p[1], lon: p[2], lat: p[3] }));  // simFit reads pair objects
+    const f = simFit(pairs);
+    return { mpx: f.mpx, rot: f.rot, resid: f.resid };
+  }, doc.pairs);
+  check('save: the doc fits the placed anchor (scale and rotation within the doc rounding)',
+    Math.abs(docFit.mpx - turnOut.a.mpx) < 1e-3 && Math.abs(docFit.rot - turnOut.a.rot) < 0.01 &&
+    Math.max(...docFit.resid) < 2,
+    { docFit, anchor: turnOut.a });
+}
+if (overlay && doc) {
+  // overlay.fit.m_per_px is in WEBP-px units: pipeline/plan_fit.py scales the pairs by
+  // fs = image/doc.size, solves the same similarity, then divides by the downscale
+  // f = min(1, MAX_PX / max crop px) - check the relationship, not raw equality
+  const fs = imgSize[0] / doc.size[0];
+  const MAX_PX = +readFileSync(tree + '/pipeline/plan_fit.py', 'utf8').match(/^MAX_PX = (\d+)/m)[1];
+  const f = Math.min(1.0, MAX_PX / Math.max((doc.crop[2] - doc.crop[0]) * fs, (doc.crop[3] - doc.crop[1]) * fs));
+  const wantMpx = turnOut.a.mpx * fs / f;
+  check('save: the overlay is the same similarity (webp-px m_per_px, rot, at, doc, residuals ~0)',
+    overlay.fit.doc === docId && overlay.fit.at === doc.at && overlay.fit.pairs === 5 &&
+    overlay.kind === 'plan' && Math.max(...overlay.fit.resid_m) < 1 &&
+    Math.abs(overlay.fit.m_per_px - wantMpx) / wantMpx < 1e-3 &&
+    Math.abs(overlay.fit.rot_deg - turnOut.a.rot) < 0.01,
+    { fit: overlay.fit, wantMpx, anchor: turnOut.a });
+}
+
+// ---- (f) a fresh run: the earlier overlay is restored on Cancel ----
+const page2 = await browser.newPage({ viewport: { width: 1200, height: 800 }, colorScheme: 'light' });
+const lines2 = [];
+const log2 = t => lines2.push(t);
+page2.on('console', m => log2('[console2] ' + m.type() + ' ' + m.text()));
+page2.on('pageerror', e => log2('[pageerror2] ' + e.message));
+page2.on('requestfailed', r => log2('[reqfail2] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
+// a new page is a new browser context: run 1's storage does not carry over, so seed it again
+await page2.addInitScript(({ done }) => {
+  try { localStorage.setItem('aw.fitQueue.done', JSON.stringify(done)); } catch {}
+}, { done: doneMap });
+await page2.goto(url);
+await page2.evaluate(async () => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < 60000) {
+    if (S.ready && S.sites.length && FQ.loaded && FQ.entries.length) return;
+    await new Promise(r => setTimeout(r, 250));
+  }
+});
+await page2.click('#fqplace', { timeout: 20000 });
+await page2.evaluate(async () => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < 60000) {
+    try { if (P.placed === true && P.img) return; } catch {}
+    await new Promise(r => setTimeout(r, 250));
+  }
+});
+await sleep(2000);
+const before = await page2.evaluate(s => ({ sel: S.depSel[s], ground: S.ground,
+  vis: map.getLayer('dep-' + s) ? map.getLayoutProperty('dep-' + s, 'visibility') : null }), site);
+await page2.click('#fcancel', { timeout: 20000 });
+await sleep(1500);
+const cancelOut = await page2.evaluate(s => {
+  const d = (S.dep[s] || []).find(x => x.file === S.depSel[s]);
+  const want = d ? 'data/sites/' + s + '/' + (S.depMode === 'ink' && d.ink ? d.ink : d.file) : null;
+  return {
+    placed: P.placed, anchor: P.anchor, active: P.active,
+    vis: map.getLayer('dep-' + s) ? map.getLayoutProperty('dep-' + s, 'visibility') : null,
+    src: map.getSource('dep-' + s) ? map.getSource('dep-' + s).url : null,
+    sel: S.depSel[s], want,
+    ground: S.ground, lidar: (S.byId[s] || {}).lidar,
+    pan: map.dragPan.isEnabled(), zoom: map.scrollZoom.isEnabled(),
+    cursor: map.getCanvas().style.cursor
+  };
+}, site);
+check('cancel: the earlier overlay is back, same file, same ground',
+  !!before.sel && before.vis === 'none' && cancelOut.vis === 'visible' && cancelOut.sel === before.sel && !!cancelOut.src && cancelOut.src === cancelOut.want &&
+  cancelOut.ground === before.ground,
+  { before, cancelOut });
+check('cancel: placement cleared, gestures and map back on',
+  cancelOut.placed === false && cancelOut.anchor === null && cancelOut.active === false &&
+  cancelOut.pan === true && cancelOut.zoom === true && cancelOut.cursor === '', cancelOut);
+await page2.screenshot({ path: outdir + '/cancel.png' });
+
+const allLines = [...lines, ...lines2];
+for (const ln of allLines) if (!ln.startsWith('[console')) console.log(ln);
+check('no page errors in either run', !allLines.some(ln => ln.startsWith('[pageerror')));
+// Esri's own URLs are .../MapServer/tile/... (singular) - the '/tiles/' exclusion misses them
+check('no network-level request failures outside the map tiles',
+  !allLines.some(ln => ln.startsWith('[reqfail') && !ln.includes('/tiles/') && !ln.includes('arcgisonline') && !ln.includes('MapServer/tile/')));
+console.log(failures.length ? 'RESULT FAIL: ' + failures.join(' | ') : 'RESULT PASS');
+await browser.close();
+process.exit(failures.length ? 1 : 0);
+"""
+
+
+def _pick_place():
+    """The first queue entry (file order) that place mode can run end to end: a proposal (the
+    placement's anchor), the one-site line's constraints (_line_eligible: a local book page, an
+    unresolved item carrying the row, no docs yet) and an overlay the page selects for the site
+    (a non-empty depictions.json), so Cancel has something to bring back. Derived, never pinned.
+    -> (entry, done map seeding the card past every earlier entry) or None."""
+    q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
+    items = _review_items()
+    for i, e in enumerate(q["entries"]):
+        if not e.get("propose") or _line_eligible(e, items.get(e["site"])) is None:
+            continue
+        dep = ROOT / "web" / "data" / "sites" / e["site"] / "depictions.json"
+        if not (dep.is_file() and json.loads(dep.read_text()).get("depictions")):
+            continue
+        return e, {x["site"]: AT for x in q["entries"][:i]}
+    return None
+
+
+@pytest.fixture
+def place_served(tmp_path_factory):
+    """part 2's line_served recipe for the place pick: the real server on an ephemeral port over a
+    full copy of this checkout, the picked page in the tree's own data/raw, every socket dead.
+    -> {"base", "tree", "entry", "done", "out"}"""
+    _headless_or_skip()
+    pick = _pick_place()
+    assert pick, "no queue entry with a proposal, a local book page, an unresolved item and an overlay - vacuous"
+    entry, done = pick
+    row = entry["best"]["row"]
+    tree = tmp_path_factory.mktemp("awplace")
+    for d in ("web", "server", "tools", "fit", "pipeline"):
+        shutil.copytree(str(ROOT / d), str(tree / d))
+
+    def ignore(d, names):
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+
+    shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
+    dst = tree / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(str(ROOT / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]), dst)
+    proc = subprocess.Popen([sys.executable, "-c", GUARD, "server/serve.py", "--port", "0"],
+                            cwd=str(tree), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    out = []
+
+    def _reader():
+        for line in proc.stdout:
+            out.append(line.rstrip("\n"))
+
+    threading.Thread(target=_reader, daemon=True).start()
+    url = None
+    deadline = time.time() + 90
+    while time.time() < deadline and proc.poll() is None and not url:
+        for line in list(out):
+            m = re.match(r"Ancient Works on (\S+)", line)
+            if m:
+                url = m.group(1)
+                break
+        time.sleep(0.2)
+    if not url:
+        proc.kill()
+        raise AssertionError("server did not report its address (startup: %r)" % out[-10:])
+    yield {"base": url.rstrip("/"), "tree": Path(tree), "entry": entry, "done": done, "out": out}
+    proc.terminate()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+
+def _write_surface():
+    """Every file a save could touch in the checkout (the store, the review items, the page data),
+    hashed: the run must leave all of it untouched."""
+    paths = list((ROOT / "data" / "db" / "platefits").glob("*.json")) + list((ROOT / "data" / "review").glob("*.json"))
+    paths += [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "review.json"]
+    return {str(p): _h(p) for p in paths if p.is_file()}
+
+
+def test_placement_gestures_and_save_in_the_browser(place_served, tmp_path_factory):
+    """307bb box 3: on a real queue site with a proposal, place mode opens on the works with the
+    earlier overlay hidden; a scripted drag, wheel and shift+wheel move, scale and turn the drawing
+    (the probe checks each against the page's own fit); Save writes the platefit doc from the
+    placement alone - by: hand, the five placed pairs, its own fit agreeing with the placed anchor -
+    and the one-site line lands the overlay in the temp tree as the same similarity; a second page's
+    Cancel brings the earlier overlay back, same file, same ground. Hermetic: the checkout's write
+    surface hashes the same before and after, and the doc and overlay are read from the tree."""
+    base, tree, entry, out = place_served["base"], place_served["tree"], place_served["entry"], place_served["out"]
+    site, plan = entry["site"], entry["best"]["plan"]
+    doc_id = site + "." + plan
+    surface = _write_surface()
+    outdir = tmp_path_factory.mktemp("f4shot")
+    (outdir / "place_probe.mjs").write_text(PLACE_PROBE, encoding="utf-8")
+    p = subprocess.run(["node", str(outdir / "place_probe.mjs"), base, site, plan, str(tree), str(outdir),
+                        json.dumps(place_served["done"])],
+                       cwd=str(ROOT), env=dict(os.environ, NODE_PATH=NODE_MODULES),
+                       capture_output=True, encoding="utf-8", errors="replace", timeout=600)
+    assert p.returncode == 0 and "RESULT PASS" in p.stdout, (p.returncode, p.stdout[-4000:], p.stderr[-2000:], out[-20:])
+    assert "[ok] cancel: the earlier overlay is back, same file, same ground" in p.stdout
+
+    # the doc, read back from the tree's own store
+    doc = json.loads((tree / "data" / "db" / "platefits" / (doc_id + ".json")).read_text())
+    assert doc["by"] == "hand" and doc["site"] == site and doc["plan"] == plan
+    assert doc["model"] == "similarity" and len(doc["pairs"]) == 5
+    # the overlay, read back from the tree
+    sd = tree / "web" / "data" / "sites" / site
+    assert not sd.is_symlink()
+    fit_entry = next(d for d in json.loads((sd / "depictions.json").read_text())["depictions"]
+                     if (d.get("fit") or {}).get("doc") == doc_id)
+    assert fit_entry["kind"] == "plan" and fit_entry["fit"]["at"] == doc["at"] and fit_entry["fit"]["pairs"] == 5
+    assert max(fit_entry["fit"]["resid_m"]) < 1  # the five re-emitted pairs are one similarity
+    assert not any("attempted a network connection" in ln for ln in out), out[-20:]
+    assert _write_surface() == surface, "the run wrote into the checkout"
