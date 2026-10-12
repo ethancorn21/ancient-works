@@ -40,90 +40,26 @@ drop the lead - the other six leads stand on their own (PLAN.md assumption 7).
 
 ## Hand-over
 
-(2026-10-12, iteration 158, agent a — session 1 of 208: the verification sweep, IA side DONE, de.wiki/Commons side half done. No staging files written yet; the lead doc is NOT written yet — writing docs/lead_limes.md is the first job of the next session, from this hand-over and the cached files below.)
+(2026-10-12, iteration 159, agent a — session 2 of 208. **docs/lead_limes.md is WRITTEN (box 1 done, provisional PROCEED decision)** — it was uncommitted at the context cut; the harness saved it, so the next session: `git status` first, keep it, and commit it with the next step. No tests run this session (doc-only step); last suite state = the driver's 2026-10-11 loop-start notes (all failures in OTHER tasks' tests: test_gate, test_batch_eu, test_serve — not mine). Session 3 = the paced Commons leg, then the build.)
 
-### What session 1 established (all verified live 2026-10-12)
+### What session 2 established (all 2026-10-12, from the cached files + the local PDF)
 
-**Dependency 200 is merged** (fit/evidence.py in main, 850 lines; tests/test_evidence.py green per driver). OQ-1 RESOLVED: the src_* pattern (copy fit/src_artists.py, the cleanest) = module with a hand-verified SITES/FORTS table + SOURCES table, stage() writing THIS task's 3 staging files (append-only, idempotent on (site,title)), evidence field hand-recorded, check_staged() = offline join + `evidence.check(FILES_LIMES, NO_BOOKS, catalog=EXTRAS_LIMES)` (NO_BOOKS = data/books/.no-books, never exists → books skipped). Evidence kind for a report scan whose caption names the fort = `caption_coords`, fields (check_caption, fit/evidence.py L190): {"rec":"evidence/1","kind":"caption_coords","checked":date,"named_place":<fort name>,"place_qid","place_label","place_lon","place_lat","site_lon","site_lat","dist_m"} — check requires norm(named_place) ⊂ norm(title+" "+desc), dist_m reproduces within 1000 m, dist ≤ 50 km. Row date = the plan's date (150-year exempt, recorded anyway).
+**1. The lead doc (this session's step).** `docs/lead_limes.md`: §1 the 9-row verification-sweep table (source 1 = IA 1895 ORL vol = PROCEED; IA supply exhausted; Limesblatt text-only; de.wiki ORL set = source 2; Commons twins = the gated leg; 4 blocked/DNS-less hosts recorded); §2 the 1895 volume plate inventory, CORRECTED (see 2); §3 the de.wiki/Commons census (874 files; 824 "tab" plates; **165 "Grundriss"/"Grundrisse" named, every one with long edge >= 1000 px**; 55 fort tokens = 42 two-digit + 11 sub + 2 one-digit strays merged into 04/07; 46 forts with >= 1 Grundriss; 4 non-fort files incl. 2 stageable KK Anhausen plates 2819x2823 / 3111x3130 and one unrelated ORLEN-Lietuva logo); §4 decision = **PROCEED (provisional)** — final once the Commons leg verifies >= 10 stageable Commons twins from >= 2 ORL volumes, else documented drop — plus the full staging plan (row shapes, evidence kinds, check_staged, test, golden).
 
-**Source 1 — the anchor, VERIFIED (free + machine-readable):** IA `derobergermanis00fabrgoog` = **ORL Lieferung II = Band IV Abteilung B Nr. 40, "Das Kastell Osterburken" (mit sieben Tafeln), O. Petters, Heidelberg, 1895** (title page leaf 5, read from the djvu XML). Google scan, PD (Google notice leaf 1-2). BookReader works on it: 64 pages, per-page OCR parseable from the `_djvu.xml` (see pitfalls below), full-res page images at `https://archive.org/download/derobergermanis00fabrgoog/page/n{N}.jpg` (5398×7526; N = 0-based index of the BookReader flat list; n54 and n56 already cached in data/raw/books/derobergermanis00fabrgoog/). ALL 7 plates viewed (40 dpi renders in /tmp/agent-a-208/orl/p-*.jpg):
-- leaf 53 (n=52) Taf. I: 2 photos (Atrium-Fundament/Schwelle; Mithrasrelief) — not plans
-- leaf 55 (n=54) Taf. II: **Situationskizze, MAASSTAB 1:3000**, title "Nr 40 KASTELL O[sterburken]" — fort-area map → stageable as a plan-kind drawing (re-check at full res for a date mark; at 40 dpi I misread "V. 1905"/"1:2000" — do NOT record those)
-- leaf 57 (n=56) Taf. III: **the fort plan (Grundriss)** — both fort lines (upper + later Anbau, lower Anlage), gates lettered, scale bar, ~1:500 → THE anchor plan (the monograph text: drawn "im Wesentlichen nach dem Mannheimer Plan")
-- leaf 59 (n=58) Taf. IV: gate/wall details + "Profil des Lagers" (sections) — not a plan
-- leaf 61 (n=60) Taf. V: bronze finds; leaf 63 (n=62) Taf. VI: iron finds (spearheads, helmet); leaf 64 (n=63) Taf. VII: blank
-→ this volume alone = 1 certain plan + 1 situation map, ONE fort (Osterburken). Not enough by itself.
+**2. PLATE-ORDER CORRECTION (the session's main finding).** Session 1's leaf-to-Tafel mapping was off by one plate and both scales were misread at 40 dpi. True order (djvu 1-based = BookReader n + 1; plate leaves are the ODD djvu pages 51-63, versos blank): **Tafel I = p51/n50** (2 photos); **Tafel II = p53/n52** (excavation photo + "Fig. 2 Mithrasrelief" photo); **Tafel III = p55/n54 = the Situationskarte, MAASSTAB 1:5000** (NOT 1:3000); **Tafel IV = p57/n56 = THE fort plan (Grundriss), MAASSTAB 1:1000** (NOT ~1:500): both fort lines (main fort + smaller Anbau), lettered gates, excavated buildings 1-18, legend (Reichsgrabungen wall states), "Aufg. von Lehramtspraktikant H. Leutz und Prof. K. Schumacher, gez. von A. Ebertz, Trier", footer "OBERGERM. - RÄET. LIMES B.". **Tafel IV is a landscape plate rotated 90° in the scanned leaf (its top edge is the page's RIGHT edge; rotate the page image CLOCKWISE to get it upright) — the staging step must record this rotation.** Tafel V = p59/n58 bronze finds; VI = p61/n60 iron; VII = p63/n62 iron; p64 blank. So source 1 = 2 stageable drawings of ONE fort (Osterburken): page n54 (1:5000) + page n56 (1:1000). Title page (djvu p5, OCR): "LIEFERUNG II. ENTHALT: AUS BAND IV, ABTEILUNG B, Nr. 40 KASTELL OSTERBURKEN. HEIDELBERG VERLAG VON OTTO PETTERS 1895" (editors Sarwey + Hettner); the monograph (Petters) is built on the Mannheimer Plan (1867 Mannheimer-Verein excavation, original in Mannheim) + the Reichsgrabungen of 19 Aug 1892-1894.
 
-**IA supply exhausted:** no other ORL volume on IA (title:(obergermanisch OR obergermanisch-raetische) → only this + limes90deroberge00henr 2009 photo book; "Limes der Römer" 0; (Kastell) AND (Limes) 0). Limesblatt (Mitteilungen der Streckenkommissare, Trier 1892–1903, 35 Hefte) = 2 identical IA Google scans: `limesblatt00unkngoog` (499 p) + `limesblattmitte00germgoog` (506 p, Harvard/Pierce bequest); djvu texts mined: pure text excavation reports (all 13 "Tafel"/33 "Karte" hits are references to other publications; no map plates) → no stageable plans, documented as such.
+**3. The evidence contract, verified against fit/evidence.py this session:** `check_caption(row, ev)` (L190) needs ev: named_place (must be a norm-substring of title+" "+desc), place_qid/label/lon/lat, site_lon/lat, dist_m (reproduces hav_m(site, place) within 1000 m; distance <= DIST_TOL_M = 50 km, L70). Kind `category` (L155): the row carries `cat` (the P373 category name); ev needs site_cat == cat and file_cat, either equal or joined by a `via` chain whose last element is cat. `check(files, books, catalog)` (L322) silently skips nonexistent paths — the NO_BOOKS = data/books/.no-books trick (never created) skips the book leg, as src_artists.check_staged does. `catalog_map(catalog)` merges the given catalog file + data/catalog/extras.jsonl by id and qid. Row shapes confirmed (from files.jsonl L1479+, extras.jsonl L67+, classified.jsonl): file row = site, qid, title, year, wd_plan, cat, name, by, url, thumb, w, h, mime, date, desc, artist, license, page, date_commons, evidence; extras row = id, qid, name, lon, lat, region, kind, aerial_ok, source, place, wikipedia; classified = {site, title, p_plan, p_birdseye, p_photo, by:"hand"}.
 
-**Source 2 — de.wikipedia ORL plate set, CONFIRMED (the second source; decision leans PROCEED):** 874 files named ORL* (MediaWiki `list=allimages&aiprefix=ORL`; **continuation key is `aicontinue`, not aifrom/aipfrom**), 842 plate files ("tab"), **45 fort numbers**, **167 files with "Grundriss" in the name**. Naming: `ORL_<nr>_tab_<n>_pic_<m>_<content>.jpg` (Abt B), `ORL_A_<nr>_...` (Abt A), `ORL<NR>_<name>.jpg`. Samples: ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg, ORL_40_tab_04_pic_01_Grundriss.jpg, ORL_49_Würzberg_Therme_1800.jpg (1800!), ORL_62a_Horreum_Frick_1824.jpg (1824). Sample license check (de.wiki imageinfo extmetadata): Bild-PD-alt (Bodewig d.1923), PD-alt-100 (Conrady; Lehner; Dahm), Bild-frei (unbekannt) → free. **They also exist on Commons with SPACE naming**: Commons search "ORL Grundriss" → File:ORL 12 tab 02 pic 01 Grundriss und Profile.jpg, ORL 33 tab 02 pic 01 Grundriss.jpg, ORL 01 tab 02 pic 01 Grundriss.jpg, ORL 33 tab 03 pic 05 Porta Praetoria Grundriss.jpg; also "ORL B 2 3b Taf 1/2/9 Kastell Wiesbaden.jpg" (Abt B Band 2 = lower? no: B 2 = Band 2). Per R5: stage the COMMONS file (category/P373 or caption evidence) and note the de.wiki twin; check Commons categories of the forts (P373) in session 2. **Cached full de.wiki list: /tmp/agent-a-208/orl_dewiki.json** (874 entries with size/timestamp/url) — re-fetchable via the aicontinue query in 4 API calls.
+**4. Pitfalls still to file** (session 1's 6 + session 2's 1; grep PITFALLS.md first — none of them is there yet): (1) portal.dnb.de = Anubis/Techaro JS proof-of-work wall (SRU 404, simpleSearch returns the honeypot, any UA); (2) limesblatt.uni-hd.de unreachable (TCP connect fails http+https; DNS 129.206.119.232); (3) www.deutschedigitalebibliothek.de and digital.ub.uni-heidelberg.de have no DNS on this VM; (4) Google-book djvu XML: each page is `<OBJECT ... usemap="<id>_NNNN.djvu">` — the page number lives in the **usemap** attribute, NOT the data attr (data holds the bare djvu name; a regex on `data="..._NNNN.djvu"` matches nothing); per-leaf OCR = the WORDs inside that OBJECT; (5) de.wikipedia `list=allimages` paginates via the continue key **aicontinue** (aifrom/aipfrom do not advance); (6) never read plate legends/scales off 40 dpi renders (session 1 misread both Tafel scales exactly that way); (7) this VM's clock printed 2026-10-12, consistent with the journal dates.
 
-**Blocked sources (document in the lead doc, do not retry this session):** limesblatt.uni-hd.de (TCP connect fails both http/https; DNS 129.206.119.232); DNB portal (Anubis JS wall: /sru 404, simpleSearch → honeypot page); www.deutschedigitadebibliothek.de / digital.ub.uni-heidelberg.de (no DNS from this VM).
+### Exact next steps (session 3: the Commons leg, ONE paced run, then the build)
 
-**Decision:** the box-3 rule (≥ 10 verifiable named fort plans from ≥ 2 free machine-readable sources) is reachable on paper: source 1 (1895 ORL vol: 1–2 plans) + source 2 (de.wiki/Commons ORL set: 167 Grundriss files, 45 forts). Next session commits the decision after the Commons leg verifies ≥ 10 stageable Commons files (fit-sized, free, named) — otherwise document every missing one and drop per the rule.
+1. **Commons leg (R7 pacing via `commons.get`, ~2 s between calls, keep it to ONE run):** for the candidate Grundriss files (the per-fort list is in docs/lead_limes.md §3; start with 01, 03, 05/05.10, 08, 12, 14, 15, 33, 34, 39-42, 44-49, 50-53, 56-60, 63-65, 67, 72 + the two KK Anhausen files), find the SPACE-named Commons twin (`ORL <nr> tab <n> pic <m> <content>.jpg`) and take `commons.info()`: size (>= 1000 px long edge), license (must be free), date (the Commons DateTimeOriginal — pitfall: not always the original's date), categories, and whether the file sits in the fort's P373 category (or a recorded subcat chain). Write each result to a scratch file as you go (a 429 window must not lose work). **Gate:** >= 10 stageable files from >= 2 distinct ORL volumes (source 1 is Band IV Abt B; any other volume counts as the second) → PROCEED final; else documented drop (the doc's §1 already satisfies box 1 for a drop; set Status: dropped, test per the 209c pattern).
+2. **QIDs:** per chosen fort via de.wiki pageprops (paced) or Wikidata; Saalburg Q542329 and Eining Q1735352 are known to exist, all others verify per fort; no-QID forts stage on name + report coordinates, recorded as such.
+3. **Build:** `fit/src_limes.py` mirroring `fit/src_artists.py` (SOURCES + hand-checked FORTS tables; `stage()` writing the 3 staging files, append-only, idempotent on (site,title), by="fit/src_limes.py", row date = the plate/volume date; `check_staged()` = the offline join + `evidence.check(FILES_LIMES, NO_BOOKS, catalog=EXTRAS_LIMES)`; `golden()`). Evidence: a Commons twin inside the fort's P373 category → kind `category`; everything else (incl. the two IA 1895 rows, url = `https://archive.org/download/derobergermanis00fabrgoog/page/n{54,56}.jpg`, the n56 row's desc records the CW rotation) → kind `caption_coords`. The 1895 rows' title/desc MUST contain "Osterburken" (check_caption norm-substring); the place = the fort/town with its coordinates, dist_m to the site. `tests/test_src_limes.py` = the src_artists pattern (no_network socket-blocking fixture, join, check, built-in negative control, golden sample). **Before writing the golden file, add `tests/golden/src_limes_sample.json` to this task's Touches line** (the only path beyond the current six; the staging session may also need the per-fort scratch notes — keep them in data/raw or /tmp, never in git).
 
-### Exact next steps (session 2)
-1. **Write docs/lead_limes.md** from this hand-over (structure like docs/lead_kip.md): §1 verification-sweep table (rows: 1895 ORL vol / other IA ORL / Limesblatt IA+de.wiki / de.wiki ORL set / Commons P373 / limesblatt.uni-hd.de / DNB — name, URL, date, free?, machine-readable?, plans?, verdict); §2 the 1895 volume plate inventory (7 rows with leaf/n, kind, date, stageable?); §3 de.wiki/Commons ORL census (counts + Grundriss list); §4 decision. Check-date everything 2026-10-12.
-2. **Commons leg (paced, commons.get, R7):** for a candidate fort list (start with the forts whose de.wiki ORL files are named "Grundriss": 01, 02a, 03, 05, 05a, 06, 07, 08, 12, 18, 33, 34, 39, 40, 41, 42, 44, 45, 46, 46b, 47, 48, 49, 50, 51, 52, 54-55, 56, 57, 58, 59, 60, 61, 62a, 63, 64, 65, 66, 67, 69, 71, 72 — the ORL B fort numbers; the forts' modern names: e.g. 01 Kastellbad, 06 Holzhausen, 40 Osterburken, 49 Würzberg/Kastellbad-Würrstberg… resolve names via the de.wiki ORL article or the Limes article) find the Commons file (spaces) for each ORL_<nr>_tab_02/_04 Grundriss, get metadata via commons.info(), check P373 category membership, size ≥ 1000 px, date, license. Target: ≥ 10 stageable across ≥ 2 ORL volumes (they are different volumes: Band I Abt B etc. — the tab-plate numbering differs per volume).
-3. **QIDs for the chosen forts** via de.wiki pageprops or Wikidata (Saalburg Q542329, Eining Q1735352 known; per-fort verify, no-qid forts stage with name+coords per task Notes).
-4. Then stage() + evidence + tests + golden per the prep plan §2-3 (touches only the 6 files in the Touches line). If the Commons leg yields < 10 (or < 2 usable sources), write the drop doc (206/209c pattern: test asserts doc exists + staging files absent/empty) and set Status: dropped.
+### Environment
 
-### Environment notes for the next session
-- System python3 has no PIL/numpy; .venv has pillow (I used it for crops). pdftoppm/pdftotext installed. IA downloads + BookReader work fine from this VM (no throttle observed; books_ia.get has backoff).
-- data/raw/books/derobergermanis00fabrgoog/ (gitignored) holds: .pdf, _djvu.txt, _djvu.xml, bookreader.json, page_n54.jpg, page_n56.jpg (full-res plate pages). /tmp/agent-a-208/orl/ holds the 40 dpi renders (p-52..p-64) + legend crops — may be wiped between sessions; regenerate from the PDF (pdftoppm) if missing.
-- Wikimedia 429s after ~12-20 rapid calls (PITFALLS); commons.get paces + honors Retry-After. Keep the Commons leg to one paced run.
-
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/203-batch-fit.md` (split)
-- `tasks/207c-roy.md` (blocked)
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-
-## Next open tasks
-- `tasks/207a-horsley.md`
-- `tasks/207b-maclauchlan.md`
-- `tasks/219-source-line-year.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-2026-10-12 208 (iteration 158, session 1): sweep done on the IA side — anchor ORL 1895 vol (Osterburken) verified free+machine-readable with 2 stageable drawings; no other ORL on IA; Limesblatt text-only. Second source found: de.wiki/Commons ORL plate set (874 files, 167 Grundrisse, 45 forts, sampled licenses free). Decision "proceed" leans yes, commits after the paced Commons leg verifies >=10 fit-sized named plans from >=2 volumes. docs/lead_limes.md NOT yet written (context limit) — session 2 writes it first, from the task's Hand-over. DNB/uni-hd sources blocked (recorded in the decisions entry).
-
-## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_gate.py:36: AssertionError
-    =========================== short test summary info ============================
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    1 failed, 59 passed in 63.50s (0:01:03)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_serve.py::test_platefits_docs_match_sites
-    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
-    4 failed, 60 passed in 64.37s (0:01:04)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
+- /tmp/agent-a-208/: orl_dewiki.json (the cached 874-entry de.wiki list), orl_census.json (this session's per-fort census), recheck/ (70 dpi top/bottom bands of PDF pages 49-64 + p57 rotated CW/CCW), orl/ (session 1's 40 dpi renders — untrustworthy for legends), dnb_limesblatt.html. /tmp may be wiped between sessions; the de.wiki list refetches in 4 aicontinue calls, the book is in data/raw/books/derobergermanis00fabrgoog/ (PDF, _djvu.xml, _djvu.txt, page_n54.jpg, page_n56.jpg full-res).
+- .venv has pillow (crops/rotation); pdftoppm installed; Wikimedia 429s after ~12-20 rapid calls — pace via commons.get (Retry-After-aware), one run.
+- 200 is merged (fit/evidence.py in main, 850 lines); nothing else in flight is a dependency. 211 merges the staging files when this task is done.
