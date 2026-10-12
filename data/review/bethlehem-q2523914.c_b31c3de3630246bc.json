@@ -543,6 +543,528 @@
    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
    "why": "radial gradient: slope_o 0.3665765681752155 > 0.145",
    "gate_score": 39.8
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_075db5049e2fb635",
+   "crop": [
+    0,
+    0,
+    1280,
+    1357
+   ],
+   "pairs": [
+    [
+     300.0,
+     800.0,
+     6.6046842,
+     53.381981
+    ],
+    [
+     600.0,
+     1000.0,
+     6.6085247,
+     53.3805436
+    ],
+    [
+     100.0,
+     1200.0,
+     6.6020033,
+     53.3792859
+    ],
+    [
+     1000.0,
+     1200.0,
+     6.6137508,
+     53.3792859
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 01-beit-jala (FL10423295 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_01-beit-jala_(FL10423295_2369494).jpg",
+   "at": "2026-10-11T14:02:37.564151+00:00",
+   "auto": true,
+   "score": 17.2,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/075db5049e2fb635.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 01-beit-jala (FL10423295 2369494).jpg",
+   "size": [
+    1280,
+    1357
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 01 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_1c20017970e54a01",
+   "crop": [
+    0,
+    0,
+    1280,
+    1301
+   ],
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     6.6029522,
+     53.3873707
+    ],
+    [
+     600.0,
+     600.0,
+     6.6097295,
+     53.3833285
+    ],
+    [
+     150.0,
+     1100.0,
+     6.6029522,
+     53.3788367
+    ],
+    [
+     1100.0,
+     1100.0,
+     6.6172599,
+     53.3788367
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 06 (FL10423302 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_06_(FL10423302_2369494).jpg",
+   "at": "2026-10-11T14:02:56.622183+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/1c20017970e54a01.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 06 (FL10423302 2369494).jpg",
+   "size": [
+    1280,
+    1301
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 06 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_5ce1836b12e8e294",
+   "crop": [
+    0,
+    0,
+    1280,
+    1414
+   ],
+   "pairs": [
+    [
+     850.0,
+     1050.0,
+     6.6097295,
+     53.3837777
+    ],
+    [
+     900.0,
+     1150.0,
+     6.6112356,
+     53.3824302
+    ],
+    [
+     750.0,
+     1100.0,
+     6.6082234,
+     53.3828793
+    ],
+    [
+     950.0,
+     1000.0,
+     6.6119887,
+     53.3842268
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 03 (FL10423297 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_03_(FL10423297_2369494).jpg",
+   "at": "2026-10-11T14:02:44.779098+00:00",
+   "auto": true,
+   "score": 10.2,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/5ce1836b12e8e294.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 03 (FL10423297 2369494).jpg",
+   "size": [
+    1280,
+    1414
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 03 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_993872ffecfce2cf",
+   "crop": [
+    0,
+    0,
+    1280,
+    1363
+   ],
+   "pairs": [
+    [
+     780.0,
+     280.0,
+     6.6109344,
+     53.3853048
+    ],
+    [
+     880.0,
+     380.0,
+     6.6124405,
+     53.3844065
+    ],
+    [
+     820.0,
+     580.0,
+     6.6115368,
+     53.3835082
+    ],
+    [
+     780.0,
+     880.0,
+     6.6109344,
+     53.3808132
+    ],
+    [
+     980.0,
+     680.0,
+     6.6139466,
+     53.3826099
+    ],
+    [
+     880.0,
+     980.0,
+     6.6124405,
+     53.3799148
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 11 (FL10423309 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_11_(FL10423309_2369494).jpg",
+   "at": "2026-10-11T14:03:12.762645+00:00",
+   "auto": true,
+   "score": 24.7,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/993872ffecfce2cf.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 11 (FL10423309 2369494).jpg",
+   "size": [
+    1280,
+    1363
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 11 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_a8499553451a203c",
+   "crop": [
+    0,
+    0,
+    1280,
+    1303
+   ],
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     6.6029522,
+     53.3873707
+    ],
+    [
+     600.0,
+     100.0,
+     6.6097295,
+     53.3878198
+    ],
+    [
+     600.0,
+     600.0,
+     6.6097295,
+     53.3833285
+    ],
+    [
+     150.0,
+     1000.0,
+     6.6029522,
+     53.3797351
+    ],
+    [
+     1000.0,
+     800.0,
+     6.6157539,
+     53.3815318
+    ],
+    [
+     600.0,
+     1100.0,
+     6.6097295,
+     53.3788367
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 09 (FL10423305 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_09_(FL10423305_2369494).jpg",
+   "at": "2026-10-11T14:03:04.210817+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/a8499553451a203c.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 09 (FL10423305 2369494).jpg",
+   "size": [
+    1280,
+    1303
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 09 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_ba63da7d782b9648",
+   "crop": [
+    0,
+    0,
+    1280,
+    1159
+   ],
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     6.6021991,
+     53.3878198
+    ],
+    [
+     600.0,
+     500.0,
+     6.6097295,
+     53.3842268
+    ],
+    [
+     100.0,
+     1000.0,
+     6.6021991,
+     53.3797351
+    ],
+    [
+     1000.0,
+     1000.0,
+     6.6157539,
+     53.3797351
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 08 (FL10423304 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_08_(FL10423304_2369494).jpg",
+   "at": "2026-10-11T14:03:00.127217+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/ba63da7d782b9648.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 08 (FL10423304 2369494).jpg",
+   "size": [
+    1280,
+    1159
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 08 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_fc4566d6947287f4",
+   "crop": [
+    0,
+    0,
+    1280,
+    1290
+   ],
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     6.6037052,
+     53.3869216
+    ],
+    [
+     600.0,
+     600.0,
+     6.6097295,
+     53.3833285
+    ],
+    [
+     200.0,
+     800.0,
+     6.6037052,
+     53.3815318
+    ],
+    [
+     1000.0,
+     600.0,
+     6.6157539,
+     53.3833285
+    ]
+   ],
+   "label": null,
+   "title": "Survey of Palestine, Bethlehem 05-beit-jala (FL10423299 2369494)",
+   "cite": "by Survey of Palestine; Public domain; https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_05-beit-jala_(FL10423299_2369494).jpg",
+   "at": "2026-10-11T14:02:53.054584+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/fc4566d6947287f4.jpg",
+   "ref": "File:Survey of Palestine, Bethlehem 05-beit-jala (FL10423299 2369494).jpg",
+   "size": [
+    1280,
+    1290
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong place (toponymic collision) - this is a British Survey of Palestine ground sheet (sheet 05 of the Bethlehem/Beit Jala area of Judaea), but the site bethlehem-q2523914 is the Dutch hamlet Bethlehem in Het Hogeland, Groningen (Wikidata Q2523914). The sheet frame and its Beit Jala hamlet/field hatching land on the polder only by local parcel-grid coincidence (the small residuals measure that pattern match, not the truth). Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_67ed5d45466db19e",
+   "crop": [
+    0,
+    0,
+    1280,
+    1260
+   ],
+   "pairs": [
+    [
+     150.0,
+     200.0,
+     6.6029522,
+     53.3869216
+    ],
+    [
+     400.0,
+     150.0,
+     6.6067174,
+     53.3873707
+    ],
+    [
+     800.0,
+     300.0,
+     6.6127417,
+     53.3860234
+    ],
+    [
+     200.0,
+     800.0,
+     6.6037052,
+     53.3815318
+    ],
+    [
+     500.0,
+     800.0,
+     6.6082234,
+     53.3815318
+    ],
+    [
+     600.0,
+     500.0,
+     6.6097295,
+     53.3842268
+    ]
+   ],
+   "label": "1615",
+   "title": "Plan of the Basilica of the Nativity in Bethlehem - Sandys George - 1615",
+   "cite": "by George Sandys; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_the_Basilica_of_the_Nativity_in_Bethlehem_-_Sandys_George_-_1615.jpg",
+   "at": "2026-10-11T14:02:30.315187+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/67ed5d45466db19e.jpg",
+   "ref": "File:Plan of the Basilica of the Nativity in Bethlehem - Sandys George - 1615.jpg",
+   "size": [
+    1280,
+    1260
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong kind - this is an interior plan of the Basilica of the Nativity building (nave, chapels and grotto), not a ground map, fitted as if it were ground over the Dutch site. Removed from the map; the doc record is kept here."
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "plan": "c_7ee79582ebdab559",
+   "crop": [
+    0,
+    0,
+    1280,
+    678
+   ],
+   "pairs": [
+    [
+     320.0,
+     240.0,
+     6.6097295,
+     53.3833285
+    ],
+    [
+     480.0,
+     320.0,
+     6.6115368,
+     53.3822505
+    ],
+    [
+     640.0,
+     400.0,
+     6.6133441,
+     53.3811725
+    ],
+    [
+     800.0,
+     480.0,
+     6.6151514,
+     53.3800945
+    ]
+   ],
+   "label": "1882",
+   "title": "(1881) PLAN SOUTERRAINS DE LA BASILIQUE",
+   "cite": "Public domain; https://commons.wikimedia.org/wiki/File:(1881)_PLAN_SOUTERRAINS_DE_LA_BASILIQUE.jpg",
+   "at": "2026-10-11T14:01:57.408730+00:00",
+   "auto": true,
+   "score": 0.0,
+   "ia": null,
+   "file": null,
+   "model": "similarity",
+   "src": "commons",
+   "url": "media/commons/bethlehem-q2523914/7ee79582ebdab559.jpg",
+   "ref": "File:(1881) PLAN SOUTERRAINS DE LA BASILIQUE.jpg",
+   "size": [
+    1280,
+    678
+   ],
+   "by": "agent",
+   "why": "306a audit 2026-10-12: wrong kind - this is an interior plan of the Basilica of the Nativity building (nave, chapels and grotto), not a ground map, fitted as if it were ground over the Dutch site. The sheet is rotated -18.4 deg. Removed from the map; the doc record is kept here."
   }
  ],
  "no_picture_found": null,

@@ -698,3 +698,103 @@ word, or the towns and where they resolve), the stored reason, and the right-sit
 `--all` lists the pairs it passes as well. It reads only stored files. The original spec's `--live` path -
 re-resolving caption place words through the cached Wikidata (`pipeline/catalog_wd.py`) - was for a human re-run
 only and never part of the build; the check that ships is the stored-fields one above.
+
+## The agent fits, looked at (task 306)
+
+One line per agent-placed fit document, judged from the visitor's own view (the site opened, the
+depiction active, 1440x900: aerial photograph, plus the LiDAR relief where the site has one;
+screenshots in `docs/site_flow/agent_fits/`). 306a: the 23 documents on the map; 306b-f append
+their review-queue and orphan fits below this list.
+
+- aldenhaag-q23650779.c_71c4ef3170b44288 - 1832 kadasterkaart detail, identity fit (resid 0 m,
+  gate 0.0): the ink follows the real village, roads and terp ring exactly. STAYS.
+- alligator-effigy-mound-q4732645.c_618a6be74dfaff32 - 1891 Historical Collections of Ohio map,
+  identity fit (gate 0.0): georeferenced town sheet; the effigy-mound park (looped paths) is the
+  covered centre. STAYS.
+- avaricum-q281826.c_d457524470ca0ab3 - Caesar, Allen & Greenough 1898, near-identity (gate 0.1):
+  map of modern Cher with the Roman castra box drawn over the real town centre. STAYS.
+- barnard-castle-q4185811.c_eacf8c673afcd863 - Alnmouth Tithe Map 1843, identity fit (gate 0.0):
+  georeferenced; ink on the real streets and river, the "Barnard Castle" label over the real
+  castle position at the river bend. STAYS.
+- barwick-in-elmet-castle-q4865964.c_81c1ff143a862ee7 - Gott Collection at Hepworth Gallery (116),
+  identity fit (gate 0.0): hachured contours track the real hill - summit hachures on the real
+  summit, the rampart/ditch rings on the real earthworks above the village (confirmed on the
+  LiDAR relief). STAYS.
+- binche-q95121.c_957d7ce2933eb332 - town plan by Jacob van Deventer 1545, georeferenced (resid
+  <=0.3 m, 6 points, gate 0.2): the medieval town core and street network sit on the real urban
+  core; the sheet's frame extends over the surrounding farmland, as drawn. STAYS.
+- bolsover-castle-q2968590.c_5531262b52faaea8 - Mackenzie 1897, similarity (4 points, rot -1.8 deg,
+  gate 5.6 m): the drawn moat ring sits on the real moat around the castle park and the Great
+  House range is drawn on the park's east side where the real house stands (confirmed on the
+  LiDAR relief, where the drawn moat follows the real moat ring). STAYS.
+- burlington-house-q225471.c_17e8fb3cf9037e19 - bird's-eye view by Johannes Kip (c. 1707),
+  identity fit (8 points, gate 0.0 m): the Thames with its barges runs along the real river, the
+  plate's street grid (incl. the upper-right diagonal) is parallel to the modern streets, the
+  park at lower left. STAYS.
+- forthill.b24849959_n0269_1 - Fowke 1902 Fig. 61, similarity (8 points, resid 0, rot -3.5 deg):
+  the hachured oval, inner works and causeway sit on the real ridge and earthworks in the LiDAR
+  (the aerial is uniform forest; the relief is the deciding view). STAYS.
+- newark.ArcheologicalAtlasOfOhio_n0098_1 - Mills 1914, georeferenced (8 points, resid <=0.1 m,
+  rot 1.2 deg): the surveyed 1848 earthworks (great circles, Mound City, the octagon complex)
+  sit on the modern park grounds where the survivors stand, and the sheet's grid aligns with the
+  city's street grid. STAYS.
+- shotwick-castle-q7502621.c_e6e5490609414bb9 - Mackenzie 1897, similarity (4 points, resid
+  2-19 m): WRONG SIZE - the drawn moated ring spans ~188 m at the fitted 0.2289 m/px (the moat
+  fills the whole plate), but the real earthworks are at most ~90 m across (40 m x 20 m hexagonal
+  motte, 25 m-wide ditch, 38 m bailey - NHLE 1016616): the fit is ~2x too big, and the 2-19 m
+  anchor residuals are that scale mismatch, not placement error. The drawn ring sits on bare
+  lawn in the park's north with no works of that size beneath it. REMOVED from the map (2026-10-12):
+  the picture went to the site's review item with this reason, the document was deleted, the
+  overlay pruned, the count re-exported.
+- bethlehem-q2523914.c_075db5049e2fb635 - Survey of Palestine, Bethlehem 01-beit-jala (British
+  military survey, 1940s: a sheet of the Bethlehem/Beit Jala area of Judaea), near-identity (4 pts,
+  resid 13-23 m, rot 0.6 deg): WRONG PLACE - toponymic collision: this site is the Dutch hamlet
+  Bethlehem (Het Hogeland, Groningen; Wikidata Q2523914), not the Judean town. The sheet frame
+  spans the whole 1.2 km polder and the Beit Jala hamlet and field hatching land on the polder's
+  parcel grid by local pattern coincidence - the small residuals measure that match, not the
+  truth. REMOVED from the map (2026-10-12); the doc record is in the site's review item with this
+  reason.
+- bethlehem-q2523914.c_1c20017970e54a01 - Survey of Palestine, Bethlehem 06, identity fit (4 pts,
+  resid 0 m): the same collision as sheet 01 - anchors sit where the Judean sheet grid coincides
+  with the polder parcel grid 2000 km away; the sheet's hatched fields and contours cover the
+  whole site. REMOVED (wrong place).
+- bethlehem-q2523914.c_5ce1836b12e8e294 - Survey of Palestine, Bethlehem 03, similarity (4 pts,
+  resid 6-26 m, rot 4.7 deg): same collision; the hatched Beit Jala contour field lands on the
+  polder, densest over the village centre and the light field at upper right. REMOVED (wrong
+  place).
+- bethlehem-q2523914.c_67ed5d45466db19e - Plan of the Basilica of the Nativity, Sandys 1615,
+  identity (6 pts, resid 0 m): WRONG KIND - an interior plan of the basilica building (the nave,
+  chapels, the grotto square, the caption legend), not a ground map, fitted as if it were ground
+  over the Dutch polder. REMOVED (wrong kind); the doc record is in the review item.
+- bethlehem-q2523914.c_7ee79582ebdab559 - (1881) PLAN SOUTERRAINS DE LA BASILIQUE, identity rotated
+  -18.4 deg (4 pts, resid 0 m): WRONG KIND - the grotto's subterranean plan (concentric rings and
+  the title band) drawn diagonally across the polder as if it were a ground map. REMOVED (wrong
+  kind); the doc record is in the review item.
+- bethlehem-q2523914.c_993872ffecfce2cf - Survey of Palestine, Bethlehem 11, near-identity (6 pts,
+  resid 14-41 m): same collision; the sheet's hatched hamlet and field area lands on the polder's
+  upper-right parcels. REMOVED (wrong place).
+- bethlehem-q2523914.c_a164ee440558d66c - Plan de Maestricht et environs 1748, detail Severen &
+  Kanjel (a local map of the polder itself), similarity (4 pts, rot 0.6 deg, resid 34-112 m):
+  the drawn Severen and Cantel hamlets sit on the real hamlets (the church and houses match), the
+  village centre on the village centre, and the hatched field-boundary network follows the real
+  polder parcels, the watercourse by Severen on the real one. The 34-112 m residuals are the 1748
+  map's own hand-drawn inaccuracy (one rotation + scale cannot correct sheet-level distortion),
+  not a placement error. STAYS.
+- bethlehem-q2523914.c_a42a93d9589acd4d - same 1748 parent map, detail "Limmel" (the ink shows the
+  local Bethlehem/Jerusalem/Leumel area of the polder), similarity (6 pts, rot 3.2 deg, resid
+  6-28 m): the drawn houses line up on the real village centre, the watercourse on the real
+  watercourse, the field parcels on the real parcels; the Bethlehem, Jerusalem and Leumel labels
+  sit on the real places. STAYS.
+- bethlehem-q2523914.c_a8499553451a203c - Survey of Palestine, Bethlehem 09, identity fit (6 pts,
+  resid 0 m): same collision as sheet 01; the hatched field area lands on the polder's upper-left
+  parcels. REMOVED (wrong place).
+- bethlehem-q2523914.c_ba63da7d782b9648 - Survey of Palestine, Bethlehem 08, identity fit (4 pts,
+  resid 0 m): same collision; the hatched hamlet/field hatching lands on the polder parcels,
+  densest lower left. REMOVED (wrong place).
+- bethlehem-q2523914.c_d624c308cd860a1e - same 1748 parent map, detail Limmel, Jerusalem &
+  Bethlehem, similarity (6 pts, rot -4.1 deg, resid 3-18 m): the village centre and house symbols
+  on the real hamlet, the watercourse on the real watercourse, the drawn farm complex on the
+  light field at upper right. STAYS.
+- bethlehem-q2523914.c_fc4566d6947287f4 - Survey of Palestine, Bethlehem 05-beit-jala, identity
+  fit (4 pts, resid 0 m): same collision as sheet 01; the dense hatched Judean contour field lands
+  on the polder's upper parcels. REMOVED (wrong place).

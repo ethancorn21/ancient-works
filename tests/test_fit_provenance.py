@@ -627,31 +627,36 @@ def test_book_source_line_stays_byte_identical(tmp_path, no_net):
 
 
 def test_commons_yearless_title_keeps_the_label(tmp_path, no_net):
-    """A commons title without a 4-digit year keeps the label parenthesis exactly as before:
-    a titled label (bergues) and a batch doc with no label at all (bethlehem, which reads
-    'undated') both come out byte-identical to the pre-fix line."""
+    """A commons title without a 4-digit year keeps the label parenthesis exactly as before: a titled
+    label (bergues) and a batch doc with no label at all (durocortorum, which reads 'undated') both
+    come out byte-identical to the pre-fix line. The original undated pin (bethlehem) was audited out
+    by 306a (maps of Judaea fitted onto the Dutch polder, 2000 km away), so the case is pinned on a
+    surviving batch doc."""
     src = _build_source(tmp_path, "bergues-q244934.c_4bbca705be732b1c")
     assert src == ("Bergues, town plan by Jacob van Deventer (1545), Wikimedia Commons: by "
                    "Jacob van Deventer; Public domain; "
                    "https://commons.wikimedia.org/wiki/File:Bergues_-_Deventer.jpg. "
                    "Placed by hand on 4 matching points; one rotation and scale fits them within 33 m.")
-    src = _build_source(tmp_path, "bethlehem-q2523914.c_075db5049e2fb635")
-    assert src == ("Survey of Palestine, Bethlehem 01-beit-jala (FL10423295 2369494) (undated), "
-                   "Wikimedia Commons: by Survey of Palestine; Public domain; "
-                   "https://commons.wikimedia.org/wiki/File:Survey_of_Palestine,_Bethlehem_01-beit-jala_"
-                   "(FL10423295_2369494).jpg. Fitted automatically by the batch on 4 matching points; "
-                   "one rotation and scale fits them within 24 m (gate score 17.2 m)")
+    src = _build_source(tmp_path, "durocortorum-q4896307.c_08d995eb23a685c2")
+    assert src == ("Plan-Reims-Bas-Empire (undated), Wikimedia Commons: by October Ends; CC BY-SA 3.0; "
+                   "https://commons.wikimedia.org/wiki/File:Plan-Reims-Bas-Empire.png. "
+                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
+                   "fits them within 1 m (gate score 0.0 m)")
 
 
 def test_commons_yeared_title_drops_the_repeated_year(tmp_path, no_net):
-    """The fix, 303's live shotwick run end to end: the title already states the book's year
-    (1897), so the label's parenthesis is not repeated after it - 303's built entry read
-    '...The Castles of England (1897) (1897), Wikimedia Commons...' - and the how-clause is
-    the agent's own ('Fitted automatically', no gate score: the doc has no batch mark)."""
-    src = _build_source(tmp_path, "shotwick-castle-q7502621.c_e6e5490609414bb9")
-    assert src == ("Shotwick Castle, plan from Mackenzie, The Castles of England (1897), "
-                   "Wikimedia Commons: by The British Library; No restrictions; "
-                   "https://commons.wikimedia.org/wiki/File:212_of_%27The_Castles_of_England-_their_story_and_"
-                   "structure_..._With_..._illustrations_and_..._plans%27_(11296081346).jpg. "
-                   "Fitted automatically on 4 matching points; one rotation and scale fits them within 20 m.")
-    assert "(1897) (1897)" not in src
+    """The fix, pinned on a surviving year-titled doc: 303's live shotwick run (the title already
+    states the year, 1897, and the built entry read '...The Castles of England (1897) (1897), ...')
+    was audited off the map by 306a (~2x too big), so the rule is pinned on the surviving batch doc
+    whose title states the year (the 1748 plan detail): the label's parenthesis is not repeated
+    after a title that already states the year, and the how-clause is the batch's (gate score).
+    Note the year occurs twice in the line (title and file URL) - what the rule drops is the
+    label's parenthesis, never the title's or the URL's year."""
+    src = _build_source(tmp_path, "bethlehem-q2523914.c_a164ee440558d66c")
+    assert src == ("Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped), "
+                   "Wikimedia Commons: by unknown cartographer; Public domain; "
+                   "https://commons.wikimedia.org/wiki/File:Plan_de_Maestricht_et_environs_1748,"
+                   "_detail_Severen_%26_Kanjel_(cropped).jpg. "
+                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
+                   "fits them within 113 m (gate score 39.3 m)")
+    assert " (c. 1748)" not in src  # the label's parenthesis must not follow a title that states the year

@@ -347,3 +347,133 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   validation.json with the books machinery and RE-RECORD the 200 evidence after the rebuild (the
   book-machinery PITFALLS entry: books.py index drops the evidence field; byte-diff against
   `git show HEAD:data/books/index.jsonl`, never a /tmp snapshot).
+## 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
+- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
+  class is new to the project: in the store but neither built as an overlay nor referenced by any
+  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
+  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
+  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
+  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
+  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
+  subtasks - PITFALLS); the driver hands them out a-f.
+- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
+  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
+  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
+  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
+  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
+  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
+  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
+  verified this session): the "no-internet headless" pitfall applies only to the no-network test
+  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
+  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
+- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
+  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
+  and the verdict notes where the item's version differs.
+- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
+  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
+  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
+  sites it changes.
+
+## 2026-10-12 306a DECISION: audit driver built and the full 45-shot run launched in the background; four docs judged (all stays); parent split completed (306d/306e/306f created, 306c count fixed to 16)
+- tools/audit_306a.mjs: one `server/serve.py --port 0` for the whole run; per shot the page is driven
+  the visitor's way (select -> S.depSel = the doc's depiction file -> setGround -> applyDep) and shot.mjs
+  screenshots at 1440x900. The [eval] line confirms the active depiction; the [audit] line prints the
+  stored fit stats from depictions.json. Run: `node tools/audit_306a.mjs [site ...]` from the project
+  root; re-run is idempotent. Background run: `nohup node tools/audit_306a.mjs > /tmp/audit_306a.log
+  2>&1 &` (16/45 at context-limit, all written, no pageerrors).
+- FAILED (twice, same root causes, both fixed): (1) shot.mjs's `page.evaluate(js)` with `js =
+  'async () => {...}'` returned undefined - Playwright 1.63 treats the string as an expression and does
+  NOT auto-invoke a function string; fix: wrap as an IIFE `(async () => {...})()` (verified with a
+  throwaway probe page). (2) `window.S` is undefined in page context - S is a top-level const (page-wide
+  lexical environment, not globalThis); fix: bare `S` with a typeof guard. Both are now PITFALLS
+  candidates (filed in the 306a hand-over; the context-limit message barred editing PITFALLS.md).
+- Judged (aerials): aldenhaag 1832 kadaster detail, alligator-effigy-mound 1891 map, avaricum Caesar
+  (Allen & Greenough) map, barnard-castle 1843 tithe map - all four are georeferenced sheets
+  (identity or near-identity fits, gate <= 0.1 m) whose ink sits on the real ground (village/terp,
+  mound park, Cher town centre, Alnmouth streets+river). All STAY. The interesting cases are the rest
+  (true similarity fits): bethlehem x12 (up to 25.7 m resid, rot 4.7), shotwick (14-19 m), binche,
+  bolsover, burlington, forthill, newark.
+- The parent's split counts were off: UK part 2 (o-y) is 17 docs, not 15 (old-sarum/pontefract/
+  portus-adurni/york-castle carry two each), and the US orphan set is 16 (marietta.b24849959_n0195_1 -
+  a US site, already in 306c's list but not its 15 header). Created 306d (UK a-l, 18), 306e (UK o-y,
+  17), 306f (continental, 17); corrected 306c to 16. Total 23+21+16+18+17+17 = 112 = all non-hand docs.
+- False alarm I nearly logged: fort-ancient-q5470727 looked missing from web/data/sites.json, which
+  would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
+  without the qid). The test passes; all 133 store docs' sites are in sites.json.
+
+## 2026-10-12 306a DECISION: shotwick removed (2x too big, proven from the plate + NHLE listing); rebuild via upsert_item + doc delete + plan_fit.prune + review.export instead of tools/site_done.py because the matcher is reachable and its fit phase would place a NEW unaudited fit
+- Verdict: WRONG SIZE. The 1897 plate's moated ring fills the whole 839x840 plate (ink bbox 822 x 822
+  px measured with PIL) and the fitted 0.2289 m/px maps it to 188 m x 188 m on the ground; the real
+  earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch,
+  38 m bailey - the NHLE 1016616 listing description, read through web.archive.org because
+  historicengland and heritagegateway both 403 from this VM). The 4 turret anchors' 2-19 m residuals
+  are the ~2x scale mismatch the fit_gate cannot reject at n=3-6 (the documented blind spot). The
+  aerial (even zoomed to the page's cap of 18) shows only lawn where the ring sits: the earthworks
+  are buried, so the size proof is document + listing, not the picture.
+- Removal mechanics (all the product's own calls): review.upsert_item('.', sid, [entry]) with the
+  reason in `why` (entry: plan/title/url/pairs - same shape as site_done._pattern_entry; the item's
+  lead stayed earthworkenglan01allcgoog_n0575_1, so the file did not move), delete the doc,
+  plan_fit.prune('.', sid) (drops the overlay + webp, refreshes drawings via build_site.set_drawings),
+  review.export('.', site_id=sid) (page re-published, item open).
+- FAILED (a design trap, not an approach failure): running `tools/site_done.py
+  shotwick-castle-q7502621` as the task text suggested would have re-fired the FIT phase -
+  matchfit.reachable() is True (127.0.0.1 matcher health probe answers) and the earthwork row has
+  no doc, so the matcher would have placed a NEW agent fit on the map during an audit session -
+  exactly what 306 ("none reaches the map unseen") is there to prevent. site_done only prunes when
+  its own sync sends a pattern doc, so even the deletion would not have been covered by it. The
+  4-call sequence above produces the identical outcome (overlay gone, count refreshed, item
+  re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
+  dropped.
+
+## 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - its 7 SoP sheets are a toponymic collision and its 2 basilica plans are building interiors fitted as ground maps, pending confirmation
+- First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
+  Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  hamlets. So the 3 Maestricht-1748 details (c_a164, c_a42a, c_d624) look like LOCAL maps of the
+  right place (c_a164 aligned on the polder: Severen hamlet, village centre, field boundaries),
+  while 9 of the 12 are not: the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground
+  sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away (near-zero residuals measure
+  only the local pattern match - sheet grid vs polder grid - the wrong-PLACE class of the shotwick
+  size error), and the 2 basilica plans (c_67ed Sandys 1615 "Plan of the Basilica of the Nativity",
+  c_7ee7 "(1881) PLAN SOUTERRAINS DE LA BASILIQUE") are BUILDING INTERIOR plans (one rotated
+  -18.4 deg) fitted as if they were ground maps - a third failure class (wrong KIND) that applies
+  regardless of which Bethlehem the site is. Session cut at the context limit before confirming
+  Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
+  Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
+  line is written in site_flow.md until this is settled; no bethlehem doc touched.
+
+## 2026-10-12 306a DECISION: session 4 - TASK DONE: 5 audit-broken tests re-pointed, golden re-baselined, suite green 128/1/0; all four boxes ticked, Status: done
+- The session-3 bethlehem audit (9 removals, 3 stays, 12 lines, count refreshes, review.json
+  re-export) was already committed by the driver as 406562b; the working tree was clean at loop
+  start, so this session was exactly the session-3 hand-over's planned step (2): the 5 tests
+  broken by the removals (3 mackenzie readers of the deleted shotwick store doc + 2 provenance-e
+  source-line cases on deleted docs).
+- Deviations from the hand-over's design, both verified by running code: (1) the yeared-title
+  re-point to bethlehem c_a164ee440558d66c cannot assert src.count("1748") == 1 - the file URL
+  (Plan_de_Maestricht_et_environs_1748,...) contains the year too; the guard is
+  `" (c. 1748)" not in src` (same shape as the original `"(1897) (1897)" not in src`: the rule
+  drops the label's parenthesis, never the title's or URL's year). (2) the undated re-point went
+  to durocortorum c_08d995eb23a685c2 (first of the hand-over's 4 candidates; 4 pairs, score 0.0),
+  not a watson-brake doc: the watson-brake pair is 306b's review-group set (parent inventory B),
+  so an orphan is the more stable pin. Both pinned strings were obtained by running the test's
+  own _build_source before writing the assertions.
+- src_mackenzie.doc_record() (store file, else the review item's candidate record; stdlib-only)
+  now backs --gate/--check/--golden and the three test readers; the item record carries every
+  doc field plus why = the audit reason. Golden re-baselined via the module's own --golden:
+  golden["doc"] = the item record (diff: +why only; at normalizes to the same 0000-00-00 as the
+  store doc's did). Lost pin, noted in the task hand-over: shotwick's doc was the only by:agent
+  non-auto doc in the store, i.e. the only pin of source_line's plain-agent how-clause
+  ("Fitted automatically on N matching points", no gate score); none survives, and re-pinning it
+  would need a synthetic doc (a unit test, against the project's rules) - left to a future agent
+  fit landing in the store.
+- web/data/fit_queue.json still lists the removed bethlehem SoP docs among the bethlehem
+  entry's candidates: verified that is CORRECT, not dangling - the queue is derived
+  (tools/fit_queue.py: plans.json rows + review-item candidates), and the items now hold those
+  candidates with their audit why. Not touched (not on my Touches line; agent a's 307 owns the
+  fit tool/queue rework).
+- Full suite after the fixes: 128 passed, 1 skipped, 0 failed (.venv, --ignore=tests/test_gate.py;
+  test_gate stays the pre-existing driver-baseline red). 306a done: 13 of 23 docs stay (10
+  non-bethlehem + the 3 local 1748 plans), 10 removed (shotwick + 9 bethlehem: 7 SoP of Judaea +
+  2 basilica interiors). 306b-f append their lines below the bethlehem block in the site_flow.md
+  section.
