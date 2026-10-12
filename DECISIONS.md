@@ -584,3 +584,42 @@ Executed the iter-128 plan steps 1-4.
 **Next session: the committed headless part 4 (box 3)** per the recipe in the hand-over (full-tree fixture cloned from line_served with the server under the pytest venv python, PLACE_PROBE = /tmp/fkverify/probe.mjs verbatim, test_placement_gestures_and_save_in_the_browser, first queue entry with a local page AND a propose). Then box 4 docs, then tick boxes 1-2 (their proof lands with part 4), then done-claim against the 4-failure baseline.
 
 ## 2026-10-12 307bb DECISION: iteration 131 - orientation + verification only; the part-4 section is still unwritten (context limit hit at the docstring edit). Two refinements to the iter-130 design recorded: (1) openPlan (index.html:918) computes P.crop from map_box * the image's NATURAL W/H, not row.size - so the Python-side expected crop must be derived from the probe's recorded out.imgSize (page's own W/H), JS-style rounding int(v + 0.5); for n0119 natural == row.size so the value is unchanged; (2) the throwaway's run-2 lines were tagged '[console2]'/'[pageerror2]'/'[reqfail2]', so its final honesty filters (startsWith('[pageerror]') / startWith('[reqfail]')) could never match a run-2 line - run128c passed only because no such lines occurred at all; the committed probe drops the '2' suffix (the runs are sequential) so noPageErrors and noReqfailOutsideKnown cover both runs. Also recorded: the third of the seed's three keys (one object arg {sid, f, d}) is aw.ground = 'relief' (the page's default, made explicit); aw.depSel is persisted by saveFit (index.html:1147), so run 2's re-seed with the original survey file is what makes the Cancel check see the survey back. Pick re-confirmed as entries[4] oswestry-castle-q20713795 under the full 3-constraint picker (propose AND _line_eligible AND _default_dep_file), with the rejection map refined: entries 0-3 fail the line constraints (iter 130), and additionally 1 fort-ancient and 2 marietta have NO drawable default depiction at all (dep default None) while 3 forthill's default is a plan overlay (plan_b24849959_n0269_1.webp), not a survey sheet; dep defaults of the first six entries measured (0 and 4 = six-inch-1st.webp, 1 and 2 = None, 3 and 5 = plan overlays). Nothing failed, nothing run (no test execution this session; last run remains iter 130's 3 passed/20.24 s post-refactor). Verified by running the picker mirror and reading the live tree: n0119.jpg present in the checkout's data/raw; MAX_PX = 2400 at pipeline/plan_fit.py:44 (the ^MAX_PX = (\d+) multiline regex matches); machine date 2026-10-12 (so the doc at startswith '2026-' holds); buttons #fcancel/#fsave (index.html:904), #fundo (900), #fitcv (243) exist; /home/agent/tools/shot/node_modules present. Only working-tree change this session: tests/test_fit_queue.py's module docstring gains the Part 4 paragraph (uncommitted - the harness keeps it for the next agent, which appends the section after test_card_done_mark_moves_on and runs the file).
+
+## 2026-10-12 307bb DECISION: iteration 135 - verification session only; every page-side fact the part-4 transcription needs re-confirmed on the merged tree; NO code written (context limit at the write step)
+The one-session plan from the iter-132 hand-over (transcribe the throwaway probe, append the
+part-4 section, run, commit) is unchanged and now fully de-risked: this session read
+everything the transcription touches and confirmed it, correcting the iter-132 record in
+three places (all in the task hand-over):
+
+- **The checkout's web/data/sites/oswestry-castle-q20713795 is a SYMLINK into the shared
+  store, not a real dir** (the iter-132 note said the opposite; 309's merge evidently
+  re-symlinked it). The design is unaffected: copytree materializes the top-level symlink
+  into the temp tree (assert not-is_symlink on the tree, part-2 style); the checkout
+  write-surface hash reads through the symlink, so a stray write into the shared store
+  still changes the re-hash (hermeticity stands); _default_dep_file reads through it fine.
+- **The drag-start grid (x 900-1150 step 25, y 250-550 step 50) needs a pane-avoidance
+  guard**: at the 1200x800 viewport the fit pane (#fitpane, left:398px, width
+  min(46vw,780px) = 552) spans x 398..950, and the grid's x 900-949 points fall on it - a
+  mouse event there never reaches the map's container listeners, and the throwaway's
+  bare grid could have picked one. The committed probe's candidate filter adds
+  document.elementFromPoint inside map.getCanvasContainer() AND outside the #fitpane
+  rect (the throwaway's x>=1000 points were already safe; run128c's pass predates the
+  widening). Everything else in the throwaway's flow re-confirmed verbatim: fqPlace
+  awaits loadDeps before openPlan (the hide/restore is race-free), endFit(keepSite=true
+  default), need() = 2/4, map-click pins on e.lngLat with the 3-px tolerance, refit's
+  plan path maps the CROP corners by the least-squares fit (so the anchor-vs-source
+  parallelogram check compares like with like), saveFit's exact 16-key doc + the store's
+  by:hand stamp = 17 keys (serve.py:205-216), openPlan's P.crop = map_box * NATURAL W/H
+  unrounded, the card markup (Ready to fit / N to go / name / #fqplace), and fitkit.js
+  end-to-end (wheel/drag math, sync stack, hint, gesture toggles, activate seed).
+- **Pick re-confirmed on the current tree** via /tmp/fkverify/pickmirror.py (all facts
+  printed before its trailing system-python PIL error - .venv has PIL): entries[3]
+  oswestry-castle-q20713795 / n0119, bar propose mpx 0.1646 rot 0, item unresolved with
+  the row's 3 pairs as the only candidate, no uncovered rows, dep default
+  six-inch-1st.webp, done-seed [fort-ancient-q5470727, marietta, forthill].
+
+Nothing failed; nothing ran (no test execution this session; last measured state remains
+iter-132's 100 passed + 1 skipped + 0 failed at c8e6cab). Working tree clean. Next
+session: write the part-4 section per the hand-over's step-by-step spec (it now doubles
+as a transcription checklist with the exact check names), append after test_card_done_
+mark_moves_on's last two lines, run the file, commit, tick boxes 1-3.
