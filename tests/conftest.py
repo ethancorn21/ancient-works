@@ -52,8 +52,11 @@ def served(tmp_path_factory):
     shutil.copytree(os.path.join(ROOT, "server"), os.path.join(tree, "server"))
     # the whole data/ tree except data/raw/ (GB of book scans and downloads the tests never need):
     # data/db (document store), data/books, data/commons, data/catalog, data/review ...
+    # and the per-site elevation grids (data/sites/*/dem.npy, gitignored, ~1.6 GB once the sites are built):
+    # every full-tree copy carried them and the test runs filled the VM disk (2026-10-12)
     def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == os.path.join(ROOT, "data", "raw")]
+        return [n for n in names if os.path.join(d, n) == os.path.join(ROOT, "data", "raw")
+                or n.endswith((".npy", ".npz"))]
     shutil.copytree(os.path.join(ROOT, "data"), os.path.join(tree, "data"), ignore=ignore)
     proc = subprocess.Popen([sys.executable, "server/serve.py", "--port", "0"],
                             cwd=str(tree), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
