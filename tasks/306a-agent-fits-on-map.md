@@ -61,8 +61,113 @@ at).
 
 
 ## Hand-over
-(2026-10-12, iteration 135, agent c - session 1 of 306a; cut at the context limit during the visual
-judging, with the full audit run still going in the background.)
+(2026-10-12, iteration 136, agent c - session 2 of 306a. Audit run FINISHED, shotwick REMOVED, 11/23
+lines written; cut at the context limit with a MAJOR finding on the bethlehem site that must be
+settled before the bethlehem lines are written.)
+
+**State.**
+- All 45 screenshots are done and verified: the session-1 background run survived and completed
+  ("[audit] all shots written", 45 [audit] shot lines, 45 [eval] confirmations all present:true /
+  visible, zero pageerror/MISSING). `docs/site_flow/agent_fits/` has 45 PNGs (shotwick aerial-only;
+  the earlier log had 47 [audit]-prefixed lines = 45 shots + "server on" + "all shots written").
+- **shotwick is REMOVED from the map** (judged WRONG SIZE, evidence below). Done: (1) upserted an
+  entry into `data/review/shotwick-castle-q7502621.earthworkenglan01allcgoog_n0575_1.json` via
+  `review.upsert_item('.', sid, [entry])` - the entry keeps the existing lead (earthwork... is
+  candidates[0], my candidate c_e6e5490609414bb9 appended second) with plan/title/url/pairs and
+  `why` = the 306a audit reason (full text in the site_flow.md line and in the item file);
+  (2) deleted `data/db/platefits/shotwick-castle-q7502621.c_e6e5490609414bb9.json`;
+  (3) `plan_fit.prune('.', 'shotwick-castle-q7502621')` (depictions.json now `{"depictions": []}`,
+  both webp files deleted); (4) `review.export('.', site_id=sid)` (page re-published: 333 open of
+  346 items - the count moved from other agents' batch work, the 220/221 third-trigger pattern;
+  shotwick item is OPEN, resolved:None, both candidates). `tests/test_serve.py::test_platefits_docs_match_sites` passes after.
+  **Why NOT `tools/site_done.py` as the task text suggests:** its `_fit` phase calls `matchfit.run`
+  whenever the matcher is reachable (it IS: 127.0.0.1 /health true this session) and the site has a
+  row without a doc (the earthwork candidate) - that would place a NEW unaudited agent fit on the
+  map, the exact thing 306 exists to prevent. The 4 product calls above are the same calls site_done
+  itself makes (upsert_item / prune / export), minus the fit phase, and produce exactly the stated
+  outcome. Logged in DECISIONS.md.
+- `docs/site_flow.md` now ends with the new section **"## The agent fits, looked at (task 306)"**
+  holding the intro + 11 lines (aldenhaag, alligator, avaricum, barnard, barwick, binche, bolsover,
+  burlington, forthill, newark = all STAY; shotwick = REMOVED with the full reason). 12 bethlehem
+  lines NOT yet written (see finding below). Later subtasks append below the section.
+- PITFALLS.md: both session-1 entries filed (the [js]-as-expression IIFE trap, and S-not-on-window)
+  - uncommitted, in the working tree.
+
+**THE FINDING (verify before writing any bethlehem line): the site bethlehem-q2523914 is the DUTCH
+village, not the biblical one.** The c_a164 screenshot (read at the limit, first bethlehem aerial
+actually viewed) shows the page header "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
+Dutch polder aerial, and the active drawing's ink reads "Severen", "Cantel", "C. Harnesstg" - all
+real Het Hogeland hamlets (Cantel is beside Bethlehem-Groningen). So: (a) the 1748 "Plan de
+Maestricht et environs" details (c_a164, c_a42a, c_d624) are LOCAL maps of the Dutch site and look
+like they sit on the right ground (c_a164: Severen hamlet, the village centre, field boundaries all
+aligned on the polder - judge properly next session); (b) the 8 "Survey of Palestine, Bethlehem
+01-11" sheets (c_075db, c_1c200, c_5ce18, c_99387, c_a8499, c_ba63d, c_fc456, and check c_7ee7/
+c_67ed - 1881 souterrains plan + Sandys 1615 basilica plan - which side they belong to is unknown
+yet) are maps of JUDAEAN Bethlehem fitted onto a site 2000 km away - a toponymic collision. Their
+residuals (0 m on most, up to 41 m) measure only the local pattern match (SoP sheet grid vs polder
+grid), not the truth. **Next session, FIRST:** confirm which place Q2523914 is (Wikidata; also read
+`data/sites/bethlehem-q2523914/site.json` place field and the 12 docs' pairs: if the pairs' lon/lat
+cluster around 53.3N/6.3E (Groningen) the fits were placed on Dutch ground; if around 31.7N/35.2E
+the doc is geographically true and the SITE is the wrong half of the collision). Then decide per
+doc: a true-judaea doc on a dutch site = wrong site = leaves the map (same removal recipe as
+shotwick); a local-1748 doc = judge normally. The parent 306 hand-over's "bethlehem x12 (mix...)"
+assumption was based on the doc TITLES only - it was never checked against the site's place field.
+Note for the verdict lines: if some bethlehem docs are removed, the site stays built (it has other
+local content) - just prune per doc and refresh via build_site.set_drawings (site_done's _entry
+logic) or plan_fit.prune (which already calls set_drawings).
+
+**Judged so far (aerials read, all but shotwick STAY):**
+- aldenhaag 1832 kadaster detail, alligator-effigy-mound 1891 map, avaricum Caesar (Allen &
+  Greenough) map, barnard-castle 1843 tithe map - georeferenced sheets (session 1, all STAY).
+- barwick-in-elmet-castle (Gott Coll. 116): hachures track the real hill on aerial AND LiDAR
+  (summit on summit, rampart/ditch rings on the real earthworks). STAY.
+- binche (van Deventer 1545): medieval town core + streets on the real urban core, frame over
+  surrounding farmland (gate 0.2 m). STAY.
+- bolsover (Mackenzie 1897): drawn moat on the real moat ring (aerial + LiDAR), Great House range
+  on the park's east side. STAY.
+- burlington-house (Kip c.1707): Thames-with-barges on the real river, street grid parallel incl.
+  the upper-right diagonal (gate 0.0 m). STAY.
+- forthill (Fowke 1902): hachured oval/inner works/causeway exactly on the LiDAR ridge and
+  earthworks (aerial is uniform forest - the relief decides). STAY.
+- newark (Mills 1914): 1848-survey earthworks (circles, Mound City, octagon) on the modern park
+  grounds, sheet grid on the city grid (resid <=0.1 m). STAY.
+- shotwick (Mackenzie 1897): REMOVED - drawn moated ring 188 m x 188 m (measured: ink bbox 822 x
+  822 px of the 839x840 plate at the fitted 0.2289 m/px) vs real earthworks at most ~90 m (40x20 m
+  hexagonal motte + 25 m ditch + 38 m bailey per NHLE 1016616, confirmed via Wayback of the NHLE
+  listing description, which 403s direct; NHLE and heritagegateway both 403 from this VM, wayback
+  works). The 4 turret anchors' 2-19 m residuals are the ~2x scale mismatch (the fit_gate
+  n=3-6 blind spot, PITFALLS). Aerial-only site: earthworks invisible under lawn even at zoom 18
+  (the page caps at zoom 18 - jumpTo(18.3) clamps; also the depiction deselects to "None" after a
+  manual jumpTo - it is view-scoped, so judge size from the stored fit stats + the listing,
+  which is decisive here).
+- bethlehem x12: PENDING - see THE FINDING. c_a164 (1748 detail Severen & Kanjel) looked ALIGNED on
+  the Dutch polder (Severen/Cantel labels on the real hamlets, village centre on the village,
+  field boundaries tracking) - likely a true local fit; its 34-112 m residuals need explaining
+  (a 1748 map is not a survey: expect the residual to reflect the map's own inaccuracy, not a
+  placement error - check where the 4 anchors are).
+
+**Tests.** Full suite NOT re-run since the shotwick removal (last full run: parent's baseline
+123 passed / 1 skipped / test_gate pre-existing red, 2026-10-12). The shotwick-touching test
+(test_serve::test_platefits_docs_match_sites) passes standalone. Next session: run `.venv/bin/python
+-m pytest tests/ -q --ignore=tests/test_gate.py` before further removals (the review-page export
+could also touch tests/test_review.py, tests/test_fit_queue.py, tests/test_site_done.py - the
+PITFALLS "review.json is a derived page" entry names them; if they go red on the 333/346 count
+move it is the population-staleness pattern, not my edit).
+
+**Exact next step (session 3).** (1) Verify the bethlehem site identity: Wikidata Q2523914 +
+`data/sites/bethlehem-q2523914/site.json` place + each bethlehem doc's pairs (lon/lat cluster).
+(2) Judge c_a164 properly (anchors + the 1748 map's own scale bar if visible) and read the other
+11 bethlehem aerials in batches of 4-6 (relief where the aerial is inconclusive); write the 12
+bethlehem lines into the existing site_flow.md section, keeping 306a's lines grouped at the top
+(append after the newark/shotwick lines). Any WRONG doc: the shotwick removal recipe (upsert
+entry with the reason - for a wrong-site doc the reason is "drawn work is of <real place>, not
+this site; toponymic collision" - delete doc, plan_fit.prune('.' , site) per removal, then ONE
+final `review.export('.', site_id='bethlehem-q2523914')` at the end of the batch). (3) Stale
+drawings counts: sites in the A-group with overlays but drawings=0 (alligator, avaricum, barnard,
+barwick, bethlehem-if-stays, binche, bolsover, burlington) need a count refresh -
+`build_site.set_drawings(sid, '.')` per site (that is site_done's _entry logic; do NOT run
+site_done: matcher would fire - it is reachable). forthill=2 and newark=2 already correct. (4)
+Full suite, update this hand-over, commit.
 
 **State.**
 - `tools/audit_306a.mjs` is built (added to this task's `Touches:` line). One `server/serve.py --port 0`

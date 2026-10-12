@@ -328,3 +328,41 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - False alarm I nearly logged: fort-ancient-q5470727 looked missing from web/data/sites.json, which
   would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
   without the qid). The test passes; all 133 store docs' sites are in sites.json.
+
+## 2026-10-12 306a DECISION: shotwick removed (2x too big, proven from the plate + NHLE listing); rebuild via upsert_item + doc delete + plan_fit.prune + review.export instead of tools/site_done.py because the matcher is reachable and its fit phase would place a NEW unaudited fit
+- Verdict: WRONG SIZE. The 1897 plate's moated ring fills the whole 839x840 plate (ink bbox 822 x 822
+  px measured with PIL) and the fitted 0.2289 m/px maps it to 188 m x 188 m on the ground; the real
+  earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch,
+  38 m bailey - the NHLE 1016616 listing description, read through web.archive.org because
+  historicengland and heritagegateway both 403 from this VM). The 4 turret anchors' 2-19 m residuals
+  are the ~2x scale mismatch the fit_gate cannot reject at n=3-6 (the documented blind spot). The
+  aerial (even zoomed to the page's cap of 18) shows only lawn where the ring sits: the earthworks
+  are buried, so the size proof is document + listing, not the picture.
+- Removal mechanics (all the product's own calls): review.upsert_item('.', sid, [entry]) with the
+  reason in `why` (entry: plan/title/url/pairs - same shape as site_done._pattern_entry; the item's
+  lead stayed earthworkenglan01allcgoog_n0575_1, so the file did not move), delete the doc,
+  plan_fit.prune('.', sid) (drops the overlay + webp, refreshes drawings via build_site.set_drawings),
+  review.export('.', site_id=sid) (page re-published, item open).
+- FAILED (a design trap, not an approach failure): running `tools/site_done.py
+  shotwick-castle-q7502621` as the task text suggested would have re-fired the FIT phase -
+  matchfit.reachable() is True (127.0.0.1 matcher health probe answers) and the earthwork row has
+  no doc, so the matcher would have placed a NEW agent fit on the map during an audit session -
+  exactly what 306 ("none reaches the map unseen") is there to prevent. site_done only prunes when
+  its own sync sends a pattern doc, so even the deletion would not have been covered by it. The
+  4-call sequence above produces the identical outcome (overlay gone, count refreshed, item
+  re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
+  dropped.
+
+## 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - the 8 "Survey of Palestine" sheets fitted to it are a toponymic collision, pending confirmation
+- First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
+  Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  hamlets. So the 3 Maestricht-1748 details look like LOCAL maps of the right place (c_a164 aligned
+  on the polder: Severen hamlet, village centre, field boundaries), while the 8 "Survey of
+  Palestine, Bethlehem 01-11" sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away.
+  Their near-zero residuals measure only the local pattern match (sheet grid vs polder grid), not
+  the truth - the same failure class as the shotwick size error, but wrong place instead of wrong
+  size. Session cut at the context limit before confirming Q2523914, the site.json place field, or
+  the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs Judea ~31.7N/35.2E settles which side of the
+  collision holds). The 1615 Sandys and 1881 souterrains plans (also in the 12) are unclassified
+  yet. No bethlehem line is written in site_flow.md until this is settled; no bethlehem doc touched.

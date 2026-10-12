@@ -102,3 +102,14 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+## 306a session note (iteration 136, agent c) - where the work stands
+Session 2 of 306a (full detail in tasks/306a-agent-fits-on-map.md ## Hand-over): the 45-shot audit
+run finished clean; 11/23 lines written in docs/site_flow.md (10 STAY + shotwick REMOVED - the
+2x-too-big fit, proven from the plate's measured extent and NHLE 1016616; removed via upsert_item +
+doc delete + plan_fit.prune + review.export, NOT site_done, because the reachable matcher would
+have placed a new unaudited fit). MAJOR OPEN FINDING: the bethlehem-q2523914 site is the DUTCH
+village (Het Hogeland, Groningen), so its 8 "Survey of Palestine" sheets look like a toponymic
+collision (maps of Judaea fitted ~2000 km away) while its 3 1748 map details look like true local
+maps; next session confirms Q2523914 + the docs' pairs' lon/lat cluster before any bethlehem doc is
+judged or touched.
