@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 139, agent c - FIRST session on 306b. Built the headless audit driver and
+- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 140, agent c - second session. One-doc re-check PASSED with both fixes;
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -69,6 +69,23 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   1 skipped, test_gate pre-existing red. NEXT: one-doc re-check with the fixes, then the background full run,
   then judging (21 lines appended under the 306 section of docs/site_flow.md) and 303-way removals of any
   wrong fits (site-scoped `review.export('.', sid)`, never tools/site_done.py on a matcher-reachable site).
+
+### 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)
+- Second session on 306b. Re-shot the argentoratum c_191c6221a81caad0 couple with the fixed driver and
+  verified both page-behavior fixes actually work: imagery shot `relLayer: none`, relief shot
+  `relLayer: visible`, zoom 14.97/14.99 (site-scale, not the pre-fix country zoom 6.38), `img: true`,
+  `layer: true`, `n: 8`, fithint normal, fit resid 0.0-0.1 m / mpx 2.17 / rot -32.3. Visual check of both
+  pngs: town at site scale with the 1833 Villot plate fitted, anchor dots 1-8 on the plate and on the map,
+  etatmajor red ink (85 %) above the aerial (imagery) and above grey hillshade + the Ill river (relief) -
+  the faithful visitor view. The earlier hand-over's zoom estimate (~13.8) was off; the driver's own
+  target formula gives ~14.97 for argentoratum's size_m and that is the correct site-scale view.
+- The full run is now in the background (nohup, one `server/serve.py --port 0`, server on 44225 at launch;
+  21 docs, 42 shots, 40 to write, skips the 2 existing pngs; est. 15-20 min at ~22 s/shot). Next session:
+  tail /tmp/audit_306b.log for FAILURES/MISSING (or just re-run the driver - it is idempotent), then judge
+  the 42 shots and append the 21 lines to the end of docs/site_flow.md's task-306 section (which is the
+  file's last section; 306a's last line is bethlehem fc4566d6947287f4).
+- No test-affecting change this session (two pngs re-shot in docs/site_flow/agent_fits/), so the suite was
+  not re-run; it stays due at the judging/removals session.
 
 ## Project-wide driver notes (newest)
 
