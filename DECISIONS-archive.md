@@ -2815,6 +2815,63 @@ Boxes 2-3 ticked, Status: done.
   red set is unchanged by this session (no code or data file changed - only the task
   file, this entry, and the live build's append-only log/snapshot).
 
+## 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)
+- Session 183. Run 3 (23 ids) finished 23/23 by ~22:05Z but the runner DIED at
+  therouanne: its build hit `OSError: [Errno 28] No space left on device` in
+  depict.py's layer save (the shared 48G disk filled - agent c's /tmp/loop-ancient-
+  works.c had grown to 3.5G that evening) and run_build's own log() then raised on
+  write, killing the process mid-line (truncated `=== therouanne-q261399 FAILED ==`;
+  valenciennes/vieil-hesdin never started). build_catalog itself survives per-site
+  exceptions (prints "built 0, skipped 0, failed 1", exits 0) - the death is the
+  runner's log write, and log() has no error handling.
+- Fix (my own file, in Touches): data/merge/run_build.py now accepts --force, forwarded
+  to build_catalog (its ONLY effect is the `sid in built and not a.force` skip guard;
+  a no-op for ids not in sites.json). Critical: without --force a site that is in
+  sites.json but only half-built (entry written by the killed build, maps missing) is
+  skipped FOREVER by every later run. Resumed `nohup .venv/bin/python data/merge/
+  run_build.py --force therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 &`
+  - all ok by 22:16Z (therouanne rebuilt in place: score 1.01, overlays 2, oldest
+  1780). Disk recovered to 2.6-6G during the run.
+- Then found the SECOND orphan: the-hague-q36600 sat half-built (relief+block but no
+  maps/depictions.json, entry score 0/overlays 0) since RUN 2's kill at 20:27Z (unlogged
+  sessions): its build_catalog child was killed mid LiDAR-load, the completion lines
+  were lost, and the later third invocation (20:40Z: utrecht + ostend/mons/saint-
+  ghislain/tournai) never included it; sessions 178-182's monitoring missed it (the
+  entry looks plausible: it has lidar_credit and relief.jpg). Forensic tell: the orphan
+  `marks refreshed: lille-q648` log line is a later session that built lille directly
+  (output never logged) and refreshed its marks via `run_build.py --marks-only`. The
+  previous hand-over's run inventory had missed that third invocation entirely; the
+  true new-site set is the 114 below, not the "20 target sids".
+- Audit (the machinery's own logic, over all 114 new sids): a site is complete iff
+  (a) relief.jpg ⇔ lidar_credit, and (b) a coverable old-map layer (depict.LAYERS:
+  covers(L, lon, lat) and L["year"] <= tm_year - MIN_AGE_YEARS) ⇒ depictions.json
+  exists. Exactly one violator: the-hague (tmk1850 covers it). Rebuilt with --force:
+  ok 22:22Z (score 0.91, overlays 1, oldest 1850, tmk1850 100% coverage). A broad
+  "overlays field vs depictions count" audit is a dead end (340/499 entries differ -
+  pre-existing; the field is not maintained that way); the covers⇒depictions rule is
+  the sound one.
+- FINAL BUILD STATE verified against the true pre-build baseline, commit 406562b
+  ("uncommitted work after iteration 137" - the last commit before 211's first build at
+  19:55Z): 385 entries then, 499 now = 385 + 114 added, 0 removed, 0 changed (all 385
+  object-identical). The 114 = UK houses (11), NL (12), BE (~12), ~38 German Limes
+  forts, FR/LU towns (~40), IT (imola, venice). NOTE: the box's "old 384" is the
+  human's estimate; the measured pre-build count is 385 - the tests are set to the
+  measured value (permitted deviation, listed here; the human's 384 stood for
+  "the pre-merge served set", which is 385).
+- LOG CAVEAT for the next session's test design: build_sites.log (890 lines) has LOST
+  per-site lines for ~65 of the 114 (killed runs; both the old runner format without
+  `ok` lines and lost lines). The data is the source of truth; do not assert per-sid
+  terminal log lines in the test.
+- 222-228 re-checked: still OPEN, no fix commits on main (branch in sync with main tip
+  23ed8b0 / 306b done) -> the done-claim stays gated. Uncommitted at session end:
+  data/merge/run_build.py, data/merge/build_sites.log, web/data/sites.json, 10 new
+  data/sites/ dirs (the harness holds them); tests/test_merge.py and the suite are
+  untouched (last run per iter 182: 10 failed = the source-guard reds, 124 passed, 1
+  skipped).
+- PITFALLS: new entry in the data/merge/ section (ENOSPC kill + --force + audit
+  recipe); the imagecodecs entry stands (the AHN rebuilds today relied on the ad-hoc
+  .venv install; the pin is still outstanding, agent c owns requirements.in/.txt).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
