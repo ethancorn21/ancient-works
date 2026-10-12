@@ -63,58 +63,67 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 111, agent a - the DATA side is done: boxes 1-3 ticked. NEXT = box 4
-(the page: web/fitkit.js), then box 5 (docs/site_flow.md). No page code written yet.)
+(2026-10-12, iteration 111, agent a - the DATA side is done: boxes 1-3 ticked, ALL committed
+in cbb36c8 (fit/propose.py, tools/fit_queue.py, web/data/fit_queue.json,
+tests/test_fit_queue.py, plus DECISIONS/PITFALLS/task files). No page code written yet.
+NEXT = box 4 (the page: web/fitkit.js), then box 5 (docs/site_flow.md).)
 
-**State.** Committed: fit/propose.py is root-aware (loaders take `root=ROOT`, `_CACHE` keyed
-`(str(root), kind)`, `propose_for(site, plan, root=ROOT)` - byte-identical for every existing
-2-arg caller, verified against the git-HEAD module); tools/fit_queue.py carries the propose
-(one localized `_entry_propose` helper + one key per entry after "candidates" + docstrings -
-kept trivial for the 309 merge); web/data/fit_queue.json regenerated on THIS branch
-(117/117 entries carry propose: 20 bar, 4 ratio, 93 picture_size); tests/test_fit_queue.py
-part 1 pins all propose paths (synthetic: bar+arrow 0.1306/rot 20, ratio-fallback 0.2, and the
-no-propose trio; real: per-entry derived, floor on anchored). Full suite green: 73 passed,
-1 skipped (= the iteration-110 baseline). PITFALLS: the private propose loaders are a de
-facto external API (inkfit, inkfit_heldout, test_propose call them) - keep defaults.
+**Tests when last run:** full `.venv/bin/python -m pytest -q` green AFTER the final code
+change (the loader-defaults fix): 73 passed, 1 skipped = the iteration-110 baseline
+(identical counts); tests/test_fit_queue.py alone: 5 passed in 51.6 s (part 1 both tests
+in ~1 s; part 2 the one-site line; part 3 both headless card tests on Chrome). The
+2-arg behaviour of propose_for was verified byte-identical against the git-HEAD module
+(9 sample pairs across all three scale sources, identical JSON).
 
-**Watch first:** has agent c's 309 (the place check) merged into main by now? It also rewrites
-tools/fit_queue.py's build(), web/data/fit_queue.json and tests/test_fit_queue.py. If yes:
-run `python3 tools/fit_queue.py` once on the merged branch (the queue file is a joint
-artifact - regenerate on top of whatever the branch shows) and re-run
-`tests/test_fit_queue.py`; the propose wiring is isolated in `_entry_propose`, so a build()
-merge conflict (if the driver leaves one for me) is small. If not merged, proceed as is.
+**State.** fit/propose.py is root-aware (loaders take `root=ROOT`, `_CACHE` keyed
+`(str(root), kind)`, `propose_for(site, plan, root=ROOT)`); tools/fit_queue.py carries
+the propose (one localized `_entry_propose` helper + one key per entry after "candidates"
++ docstrings - kept trivial for the 309 merge); web/data/fit_queue.json regenerated on
+THIS branch (117/117 entries carry propose: 20 bar, 4 ratio, 93 picture_size; Devil's
+Dyke 0.3621/rot 0, note names the bar '0 100 200 300 400 Yards'); part-1 tests pin every
+propose path (synthetic: bar+arrow 0.1306/rot 20 hand-pinned, ratio-fallback 0.2, the
+no-propose trio no-size_m/no-size/no-index-row; real: per-entry derived with an
+anchored>=1 floor). PITFALLS: the private propose loaders are a de facto external API
+(inkfit, inkfit_heldout, test_propose call them) - keep their defaults.
+
+**Watch first:** has agent c's 309 (the place check) merged into main by now? It also
+rewrites tools/fit_queue.py's build(), web/data/fit_queue.json and tests/test_fit_queue.py.
+If yes: run `python3 tools/fit_queue.py` once on the merged branch (the queue file is a
+joint artifact - regenerate on top of whatever the branch shows) and re-run
+tests/test_fit_queue.py; the propose wiring is isolated in `_entry_propose`, so any
+build() merge conflict left for me is small. If not merged, proceed as is.
 
 **Box 4 (the page, next step).** web/fitkit.js is a new extension in the fitqueue/review
 pattern (see the parent 307b hand-over's "Page-side design sketch" - it is precise: wrap
 openPlan LAST in the chain and endFit; `_fk`-prefixed names - one global lexical scope per
 page, do not redeclare review.js's `_renderList`/`_openPlan`; reach P/map/S/select by name;
 inject its own `<style>`). web/index.html gains exactly one script tag, after fitqueue.js
-(the tag is at index.html:1707-1708). Activation: the opened row is the site's queue entry's
-best plan AND the entry carries a propose. On open: map.fitBounds to the site's corners
-(first - fly to the site's box before the ink appears, padding left ~390 when !narrow()),
-hide the `dep-<site.id>` layer (visibility 'none' if present), seed
+(the tags are at index.html:1707-1708). Activation: the opened row is the site's queue
+entry's best plan AND the entry carries a propose. On open: map.fitBounds to the site's
+corners FIRST (fly to the site's box before the ink appears; padding left ~390 when
+!narrow()), hide the `dep-<site.id>` layer (visibility 'none' if present), seed
 `P.anchor = {u0, v0, lon, lat, mpx, rot}` from the propose (pair[4] is the panel centre;
-u0/v0 derived exactly as propose._anchor_pairs does: the index row's map_box* size or the
-page frame) and `P.pairs = re-emit(anchor)` (port `_anchor_pairs`'s math:
+u0/v0 derived exactly as propose._anchor_pairs does: the index row's map_box* size or
+the page frame) and `P.pairs = re-emit(anchor)` (port `_anchor_pairs`'s math:
 `merc = a*(w-w0)+z0`, `a = (m_per_px/ground_scale(lat))*e^{i*rot}`, u/v 1 dp, lon/lat
 7 dp) so the existing refit()/simFit() preview shows the drawing ON the site. On close
-(back/Cancel/save): restore the dep layer exactly (S.depSel/ground/etc are never touched),
-clear P.placed/anchor/pins. GATE: only activate when P.img has loaded - the 305 part-3
-card test's served tree 404s the page scan, and that test (which opens the FIRST entry,
-which now HAS a propose) must stay byte-identical green; without the image there is no
-ink to place, so not activating is the right behaviour, not a shortcut.
+(back/Cancel/save): restore the dep layer exactly (S.depSel/ground/etc are never
+ touched), clear P.placed/anchor/pins. GATE: only activate when P.img has loaded - the
+305 part-3 card test's served tree 404s the page scan, and that test (which opens the
+FIRST entry, which now HAS a propose) must stay byte-identical green; without the image
+there is no ink to place, so not activating is the right behaviour, not a shortcut.
 
 **Box 4 verification (no new headless test yet - that is 307bb's box 5).** Check:
 `git diff web/fitqueue.js` empty; `git diff web/index.html` = one script tag line; full
 suite green (305 part-3 card tests pin the no-propose byte-identity; the with-propose
-browser behaviour is proven by 307bb's headless part 4 - don't add a headless test here).
+browser behaviour is proven by 307bb's headless part 4 - do not add a headless test here).
 
 **Box 5 (docs, after box 4).** docs/site_flow.md's "Ready to fit" section: the entry's new
 propose field (what it is: the starting placement, anchor at the panel centre, the scale
-ladder bar/ratio-at-ppi/site-size, the north arrow where trustworthy; where it comes from:
-data/books/index.jsonl stage-B fields; the fail-open: a row that cannot anchor gets no key
-and the page does the ordinary three-point flow). Do NOT write the full place-mode section
-(gestures, save, screenshots) - that is 307bb/307c's.
+ladder bar/ratio-at-ppi/site-size, the north arrow where trustworthy; where it comes
+from: data/books/index.jsonl stage-B fields; the fail-open: a row that cannot anchor gets
+no key and the page does the ordinary three-point flow). Do NOT write the full place-mode
+section (gestures, save, screenshots) - that is 307bb/307c's.
 
 **Re-read** (for the box-4 session): web/index.html ~340-420 (the deps model: applyDep
 manages one `dep-<site.id>` layer; select() sets ground), ~832 endFit, ~902 openPlan,
