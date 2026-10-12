@@ -13,8 +13,8 @@ task file (for a subtask, read its parent's too).
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/309-queue-right-place.md` (split) - hand-over: (2026-10-12, iteration 108, agent c - session 17. 805 BOX 2 DONE (UNCOMMITTED - the harness saved it):
-- `tasks/805-fit-queue-rebuild.md` (open) - hand-over: (2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
+- `tasks/309-queue-right-place.md` (in-progress) - hand-over: (2026-10-12, iteration 109, agent c - session 18. Merged main (the lead's 89043b7 RoMa work) into agent/c;
+- `tasks/805-fit-queue-rebuild.md` (open) - hand-over: (2026-10-12, iteration 109, agent c - session 18. BOX 2 TICKED. Box 3 (tests/
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -24,53 +24,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 309 DECISION: iteration 106 (session 15) - 805 box 1 part 2 (the contract fix) implemented uncommitted: catalog-aware fit/review.py export + fit/batch_eu.py union_check + new fit/catalog.py; the 3 data-failures are green; the 2 test_review failures are not ours (lead's page rework removed "built in all"; ArcGIS tile ERR_ABORTED flake)
-Session 15 on the 309 lane. The session-14 merge is safely committed: 1914931 is a proper
-2-parent merge commit (parents 9cd7dfe + lead's 939382a); no MERGE_HEAD remains. The suite
-was 78 passed / 1 skipped / 5 FAILED (the previous hand-over's 76/1/7 was stale).
-1. The 3 data-failures (all caused by 805's new item kind - review items for UNBUILT catalog
-sites, which 309's check upserts) were fixed as designed in iteration 103:
-   (a) NEW fit/catalog.py (stdlib only): load(root) reads data/catalog/sites.jsonl into
-   {catalog: {id: rec}, by_qid: {lower qid: rec}} (store optional -> empty); lookup(data,
-   site_id) resolves by id, then by the trailing -q<qid> (same two-step as
-   tools/right_place.py site_facts). It is the one place the fit/ consumers ask "is this
-   site id in the catalog, what is its name" (right_place's load() stays the heavier reader).
-   (b) fit/review.py export: name chain is now sites.json -> catalog name -> id; the stderr
-   warning fires only for a site in NEITHER store ("not in web/data/sites.json or the
-catalog"); self sys.path insert before `import catalog` (runpy guard convention);
-   docstring updated. (c) fit/batch_eu.py union_check: an item whose site is not in
-   sites.json but IS in the catalog goes to a NEW "unbuilt_items" {site: [files]} bucket,
-   not orphan_items (the batch cannot cover unbuilt sites; 309's check wrote the item)
-   - unknown site stays an orphan; return dict + docstring updated; union_section gains a
-   "Not anomalies:" info line. (d) The one-site-line temp-tree builders (test_site_done.py
-   _build_tree, test_fit_provenance.py _build_tree_b) copy data/catalog/sites.jsonl into
-   the tree and add data/catalog to their checkout-untouched hash lists: without it the
-   catalog-aware lookup degrades and the warning would fire (the trees are reduced copies;
-   the served-based trees already carry the whole data/). tests/test_review.py got ONLY a
-   helper update: _site_names now merges the catalog's names after sites.json, mirroring
-   the export's new name source exactly, so test_export_cli's UNCHANGED assertion
-   `it["name"] == (names.get(...) or id)` and the order assertion keep checking the same
-   contract. No assertion text edited in any test file. 805's + 309's Touches lines grew
-   accordingly (fit/review.py, fit/batch_eu.py, fit/catalog.py, the three test files).
-2. Re-ran the export on the checkout with the fixed code: 336 open of 346; EXACTLY the 5
-   unbuilt-site entries renamed to their catalog names ("A saucer barrow and a bowl barrow
-   600m north west of Lewes Prison: the southerly pair of a group of three round barrows",
-   "Castle Dyke", "Devil's Dyke hillfort", "Down End Castle", "Oval barrow and adjacent
-   bowl barrow, 220m west of Firle Beacon"), the other 331 entries byte-identical, only
-   "at" moved (06:01:51 -> 06:33:09). No warnings printed.
-3. Verified: pytest tests/test_site_done.py tests/test_fit_provenance.py
-tests/test_batch_eu.py -q = 12 passed / 1 skipped (the live union test is skip-gated on
-   docs/batch_eu.md staleness, as before) / 0 failed in 18.5s. test_review.py +
-   test_fit_queue.py and the full suite are the next session's first step (expect 80/1/2,
-   the 2 being the not-mine failures below); then commit box 1 complete in one commit.
-4. The 2 remaining failures are NOT ours (evidence recorded so the next agent does not
-   chase them):
-   (a) test_review::test_page_shows_the_review_list asserts the home stats line contains
-   "built in all". The lead's 939382a PAGE REWORK replaced that line (verified:
-   git show 939382a -- web/index.html shows "${S.sites.filter(x => x.drawings).length}
-   ...; ${n} built in all; ..." -> "${S.sites.filter(x => x.score > 0).length} sites with
-... (1.4 KB more: `grep -n -A 200 -F '## 2026-10-12 309 DECISION: iteration 106 (session 15) - 805 box 1 part 2 (the contract fix) implemented uncommitted: catalog-aware fit/review.py export + fit/batch_eu.py union_check + new fit/catalog.py; the 3 data-failures are green; the 2 test_review failures are not ours (lead's page rework removed "built in all"; ArcGIS tile ERR_ABORTED flake)' DECISIONS.md`)
 
 ### 2026-10-12 309 DECISION: iteration 107 (session 16) - 805 box 1 closed (ticked) after renaming fit/catalog.py to fit/site_catalog.py (the bare name shadowed pipeline/catalog.py in the shared-sys.path tests, breaking test_src_van_deventer); full suite at the not-mine baseline 81/1/2
 Session 16 on the 309 lane. 805 box 1 is complete and ticked; boxes 2 (docs/site_flow.md section) and 3 (tests/test_right_place_drift.py) remain.
@@ -88,6 +41,14 @@ Session 17 on the 309 lane. 805 box 2 (the docs section) is done, UNCOMMITTED (t
 3. The Shotwick question (why 117 -> 116 on the main side, which the section states): shotwick is no longer "built" - web/data/sites/shotwick-castle-q7502621/ is gone and sites.json says drawings: 0, after the lead's Oct 12 review export (939382a, sites.json 1925-line change) rebuilt site state; its fit doc (data/db/platefits/...c_e6e5490609414bb9.json) and its review item (data/review/...n0575_1.json, tracked since 303's 011e48b) remain. The queue holds built sites only, and the check iterates built sites, so (shotwick, n0575_1) is not among the 324 checked - it would be a 16th H1 flag (the caption's Devonshire word vs the site's Cheshire) but the build never sees it. n0575_1's index row has sites: None: it reached shotwick via its review item and clun-castle via the row's site list plus its item.
 4. The --live wording (805 box 2 spec and my own session-16 hand-over) refers to a DROPPED design: tasks/309-place-check.md (dropped at iteration 109, the 309 double-claim) specified --live (caption place words re-resolved through the cached Wikidata, pipeline/catalog_wd.py - a human-only path) and data/fit_place.json (a committed verdict record re-verified every build). The shipped module (single commit fc67bb9, never modified) has neither: no --live flag, no fit_place.json, no coordinates anywhere - it is catalog-driven, stdlib only. The section states this honestly: the --live path was for a human re-run only and never part of the build; the shipped check is the stored-fields one. The six session-3 deviations (iteration 95) stay baked in per the 805 Notes: the section reports the rules as the module runs them.
 ... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-12 309 DECISION: iteration 108 (session 17) - 805 box 2: the right-place section appended to docs/site_flow.md; every number re-verified by running the module; the --live / fit_place.json concepts belong to the DROPPED spec (never shipped)' DECISIONS.md`)
+
+### 2026-10-12 309 DECISION: iteration 109 (session 18) - 805 box 2 ticked: the right-place section verified against the post-merge tree (15 flags / 9 sites re-run, queue 114/309, shotwick still listed, 17/17 verbatim names in sync); the review.json merge conflict resolved by RE-RUNNING the export, never hand-merging the JSON (333 open of 346 = main's 328 + my 5; the lead's 3 RoMa resolutions drop out); suite at the not-mine baseline (80/1/2 + 1 teardown flake)
+Session 18 on the 309 lane. Merged main into agent/c first (driver instruction; the only conflict was web/data/review.json), then closed out 805 box 2 (the section itself was written in session 17).
+1. The merge conflict, root-caused before touching it: review.json is generated by `fit/review.py export`, which contains ONLY open items (open = no recorded `resolved` AND no platefits doc for any candidate; sorted by site name; a fresh "at" each run). My 06:33 export (336 open of 346) vs the lead's 07:14 full export (328 open of 341 - their tree lacked my 5 new items) differ by exactly: (a) 3 items the lead RESOLVED in 89043b7 (carisbrooke-castle, dudley-castle, newark - RoMa fits eye-checked; their item files carry the write-once `resolved` record, so the lead's export excludes them); (b) my 5 new items (a-saucer-barrow, castle-dyke, devil-s-dyke-hillfort, down-end-castle, oval-barrow - absent from main's tree entirely). Resolution: re-ran `fit/review.py export --root .` on the merged tree -> 333 open of 346, the union of both sides' intents; the export changed no item file (all resolutions already recorded on the main side). The generated file is regenerated, never hand-merged - hand-joining two exports would either drop the lead's resolutions or re-open them. docs/site_flow.md auto-merged cleanly (my "right-place check" section + the lead's matcher-fit RoMa-0.4 edit both kept). Committed as the merge (0fe0254).
+2. Box 2 verified against the POST-MERGE tree (the merge did not touch its inputs: no queue file, no data/catalog, no data/books, no pipeline/books_match.py): `tools/right_place.py --root .` -> "checked 324 queue pairing(s): 15 flagged", the same 9 sites as the section's table; queue file still 114/309; shotwick's item still in the review list (333 open); the 17 verbatim-core names (US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm, name_keys, tokens, place_of, site_place, site_toks, name_lookup_keys, row_inputs, score_candidate, BOOK_SCOPE, PLACE_WORDS, phrases) still byte-identical to pipeline/books_match.py (throwaway extract of the region between the two "# =====" VERBATIM marker lines: 17/17, zero drift) - so box 3's test must pass on first run. One accuracy fix to the section (its own file, appended only): the "336 open of 346" sentence gained a parenthetical (the live count moves as items get resolved - the lead's same-day RoMa export resolved three more: Carisbrooke, Dudley, Newark). Box 2 ticked.
+3. Suite after the merge: 80 passed / 1 skipped / 2 failed / 1 error (133 s). The 2 failures = the standing not-mine pair: (a) test_review::test_page_shows_the_review_list - the lead's page rework removed the "built in all" home-stats line (web/index.html + tests/ are agent a's 307 - do not chase); (b) test_review::test_plan_lookup_is_keyed_by_id_and_site - ArcGIS World_Imagery ERR_ABORTED flake (now 4/4: 2/2 session 15, 1/1 session 16, 1/1 this run). The 1 error = teardown flake in test_fit_queue::test_save_runs_the_one_site_line (shutil.Error in the temp-tree cleanup; the test BODY passed, and the file passes 6/6 on re-run) - it is why the pass count reads 80 instead of session 16's 81. The 1 skip = test_batch_eu::test_union_full_coverage_live (skip-gate as before).
+4. Lane state check: 804 (done in this lane) is still NOT on main - tools/right_place.py is absent from main (its acceptance merge lands with this lane); the PITFALLS section header "(lands on main with 804 ...)" is stale in that sense but left as written (it names the correct branch ref, `git show agent/c:tools/right_place.py`, which still works for other lanes).
+... (0.8 KB more: `grep -n -A 200 -F '## 2026-10-12 309 DECISION: iteration 109 (session 18) - 805 box 2 ticked: the right-place section verified against the post-merge tree (15 flags / 9 sites re-run, queue 114/309, shotwick still listed, 17/17 verbatim names in sync); the review.json merge conflict resolved by RE-RUNNING the export, never hand-merging the JSON (333 open of 346 = main's 328 + my 5; the lead's 3 RoMa resolutions drop out); suite at the not-mine baseline (80/1/2 + 1 teardown flake)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
