@@ -488,3 +488,53 @@ review-page PITFALLS entry (third trigger: new item files; heading extended for 
 If a future re-claim hits exactly this, the move is to file/propose a fresh re-export
 task, never to touch the three tests. No ask_human: this is a plain dependency wait on
 220, which the driver handles by bringing 307ba back once 309's chain lands.
+
+## 2026-10-12 307ba DECISION: wait re-verified (iteration 120) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty); agent/c advanced: 804's two-phase wiring is now WRITTEN and verified on real data (077ccb8: 15 flags, queue 116 -> 114, 5 item files / 6 upserts, zero churn, part 1 unmodified, its full suite at baseline) - merge recipe re-pinned to the actual code (post-pass between the entries comprehension and the sort; import dedupe; tools/right_place.py is a new file dep that lands only with the 309 chain); no code change
+
+One step (wait bookkeeping + reading agent/c's new state; no code change). Verified by
+running: `git log main --oneline -20` (tip still cf29be2 - no 804/805/309 commit on main),
+`git show main:web/data/review.json | md5sum` (b6506007 - the stale 340-open-of-341 page),
+`git log agent/a..main` (empty: nothing to sync), and `git diff --stat ffd88ab..HEAD`
+(only PROGRESS/DECISIONS/DECISIONS-archive - my code state is byte-identical to the one
+the full suite verified at iteration 119: 3 failed / 70 passed / 1 skipped, so no re-run
+this session, and no re-claim - it would fail the same way).
+
+**What is new on agent/c (since the iteration-119 snapshot; read via `git show agent/c`,
+never merged):** commits 7fd3ef5 (804/309 hand-over: "boxes 1+2 (the two-phase
+right-place wiring) in and verified on real data; code uncommitted (harness-saved); next:
+box 4 tests + box 3 README note, then 805"), f746c04 (804 DECISIONS) and 077ccb8 ([driver]
+uncommitted work: tools/fit_queue.py +131/-5 = the wiring itself). I read the resulting
+file and re-pinned the 307ba merge recipe to the actual code (the full re-pinned recipe
+is in the task hand-over): the final build() is `cands` map -> `_place_store` (None ->
+no-op) -> `_place_flags` (pre-mutation) -> `_apply_flags` -> `entries = [_entry(...)]` ->
+sort -> envelope, so my propose becomes a POST-PASS loop inserted between the entries
+comprehension and the sort (the exact snippet is in the hand-over); `_entry`'s signature
+has no root, so the post-pass stays outside it. Their import block already inserts
+ROOT/fit, so the merged file has ONE pair of path inserts (ROOT/tools + ROOT/fit) and
+three imports (right_place, review, my propose) - my separate fit-insert line is dropped
+as a duplicate.
+
+**804's measured effects (from its iteration-100 hand-over, taken on its word - I have not
+re-run its verification):** 15 flags == the right_place CLI's set exactly; queue 116 ->
+114 entries (vindomora and windmill-hill leave entirely); exactly 5 new review item files
+/ 6 upserts, each gaining place_reason; 341 existing item files unchanged; second build
+byte-identical (zero churn); part-1 tests pass unmodified in 0.68 s; 804's own full suite
+= 3 failed / 77 passed / 1 skipped (its baseline) - so parts 2-3, whose full-tree
+fixtures copy data/catalog and therefore run the live check, are empirically green with
+the wiring in.
+
+**New dependency fact (recorded for the merge session):** `tools/right_place.py` exists
+only on agent/c (checked: missing on main AND agent/a). The merged fit_queue.py imports
+it unconditionally, so the driver's sync of the 309 chain into my branch must bring the
+module file together with the rewired fit_queue.py - one atomic step; never cherry-pick
+the rewired fit_queue.py onto a branch without right_place.py. right_place.load degrades
+gracefully (catalog/index/lists each optional; missing -> empty -> no flags), which is
+why the no-catalog temp trees (my synthetic; my real test's copy list, which takes
+index.jsonl but not data/catalog) stay pure no-ops while the full-tree fixtures (parts
+2-3, 805's rebuild) run the live check.
+
+Queue-count expectation corrected in the hand-over: 114 (804's measured 116 -> 114 at its
+iteration-100 data state), not my earlier "~116"; it may shift again if 203b (EU batch)
+or 207 (Roman books) land on main before 805's rebuild (new index rows / review items) -
+regenerate, never pin. Still waiting: 804 boxes 3-4 + 805 -> 309's closure -> 220's export
+-> my re-claim. No code change, no ask_human (plain dependency wait).

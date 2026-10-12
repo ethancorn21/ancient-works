@@ -67,74 +67,103 @@ the map ... As soon as you go into that place mode the already placed overlay ne
 
 ## Hand-over
 
-(2026-10-12, iteration 119, agent a - still WAITING; re-verified, no code change.) main is
-still cf29be2 (`agent/a..main` empty: the driver synced nothing new) and main's
-web/data/review.json is still the stale b6506007 (340-open-of-341) page, so the 3
-stale-page failures stand and a re-claim now would fail the same way (do not re-claim).
-My local agent/c snapshot is byte-unchanged since iteration 118 (tip c24c135, work tip
-d413d0e = 804's build() refactor only, the two-phase wiring unwritten), so there is
-nothing new to merge or verify against. The driver now names agent c's in-flight tasks
-203b, 207, 302a, 304 and 309 - still the PARENT (the 804/805 files exist only on
-agent/c), so 309's closure, hence my 220, is still ahead. THIS SESSION re-ran the FULL
-suite on this branch: 3 failed, 70 passed, 1 skipped, 107.4 s - the identical three
-stale-page failures the driver's rejection run saw (335/334/334 printed vs the page's
-340/339 expectations), zero new failures: my committed state (cbb36c8 boxes 1-3, 732fe57
-box 4, 7f7e7c0 box 5, 9efb944 the rejected done claim) contributes nothing to the block.
-No code change this session.
+(2026-10-12, iteration 120, agent a - still WAITING; re-verified, no code change. New this
+iteration: agent/c's snapshot advanced - 804's two-phase wiring is WRITTEN and verified on
+real data, so the merge recipe below is re-pinned to that actual code.)
 
-**Wait condition (check in this order):**
-1. `git log main --oneline -20`: still cf29be2 (no 804/805/309 commits)? Nothing to build -
-   this task waits on agent c. Do NOT touch data/review, web/data/review.json or re-baseline
-   any test (the stale page is a real store invariant; iteration-116 DECISIONS entry).
-   Cheap unchanged-check: `git show main:web/data/review.json | md5sum` == b6506007.
-2. main carries 804 and/or 805 (or 309 closed)? The driver has synced it into this branch:
-   expect text conflicts in tools/fit_queue.py, tests/test_fit_queue.py, web/data/
-   fit_queue.json (both sides rewrote them). Resolve with the recipe below and run `.venv/
-   bin/python -m pytest -q`. Once 805's (or 220's) full export is in the synced tree:
-   expect 73 passed + 1 skipped, no known failures -> re-claim done. If only 804 is in
-   (805/220 not yet): the 3 review-page failures remain - wait, do not re-claim. A failure
-   with DIFFERENT numbers than 335/334 (the page population changed) means a merge AFTER
-   the export wrote new data/review item files (agent c's 203b EU batch writes them for
-   unplaceable sites) - the page snapshot is stale again: diagnose with a scratch full
-   export (`fit/review.py export --root <copy of the store>`) and, if that is the cause,
-   the fix is another full export (220's runner note covers it) - never re-baseline the
-   three tests.
+**Wait state (verified by running):** main still cf29be2 (no 804/805/309 commit on it),
+`git show main:web/data/review.json | md5sum` = b6506007 (the stale 340-open-of-341 page),
+`git log agent/a..main` empty (nothing to sync). My branch's code state is byte-identical
+to the one the full suite verified at iteration 119 (ffd88ab..HEAD touches only driver
+bookkeeping: PROGRESS/DECISIONS/DECISIONS-archive) -> the 3 stale-page failures stand
+unchanged; no suite re-run this session, no re-claim (it would fail the same way).
 
-**Merge recipe (the next session that sees 804/805 on main executes it):**
-- tools/fit_queue.py: take 804's FINAL build shape - `cands_by_site -> _place_flags ->
-  _apply_flags -> entries via _entry` (d413d0e's refactor + the wiring its hand-over
-  planned). Add MY propose as a POST-PASS over the final entries list inside build() (after
-  the entries comprehension, before the final sort): for each e, `_entry_propose(root,
-  e["site"], e["best"]["plan"])`; set `e["propose"]` when not None. NOT inside `_entry` (its
-  signature has no root) and NOT "before entries.append" (that per-site loop no longer
-  exists in their shape). The post-pass keeps the one invariant that matters: the propose is
-  computed from the entry's FINAL best, so a move/drop that changes the best recomputes it;
-  the key lands after "candidates" (dict insertion order - my part-1 key-order pin). Keep
-  as-is: the `_entry_propose` helper, my `sys.path.insert(0, str(ROOT / "fit"))` +
-  `import propose` lines (804 adds its own ROOT/tools + ROOT/fit inserts for
-  right_place/review - all three stay; the runpy PITFALL is why each module self-inserts),
-  the module docstring's propose paragraph (804's "candidate maps gathered first" docstring
-  sentence stays too; the input list grows from my five to seven with 804's catalog + lists
-  - reword to the merged truth).
-- tests/test_fit_queue.py: UNION, not a choice. test_fit_queue_synthetic: MY 7-site stage-B
-  version, unmodified (verified above: the wired build is a silent no-op on it - 0 flags; if
-  804's wiring printed anything my `err == ""` pin would trip - their box 4.3 promises that
-  test passes unmodified, so it is their contract too). Their new namesake test (box 4.1) is
-  a separate function with its own tree - keep it as-is. test_fit_queue_real: the merged
-  function = 804's copies (data/catalog + data/books/index.jsonl + lists/) + 804's
-  CHECK-AWARE entry-set/candidate/review-upsert derivation (my naive `expected = (built &
-  (row_sites | item_sites)) - hand` cannot survive: the 15 flagged dispositions can take a
-  site's last candidate and drop the site from the queue) + MY per-entry propose block (it
-  calls propose_for on the entry's ACTUAL best against the temp tree - move-proof; keep the
-  floor assert) + my sort-key check + my checkout byte-identity check. Parts 2-3: mine
-  unchanged; the part-2 open_after delta goes green with the in-sync page.
+**What changed on agent/c since iteration 119 (read via `git show agent/c`, NOT merged):**
+- New commits 7fd3ef5 ("804/309: hand-over - boxes 1+2 (the two-phase right-place wiring)
+  in and verified on real data; code uncommitted (harness-saved); next: box 4 tests + box 3
+  README note, then 805"), f746c04 (its DECISIONS entry) and 077ccb8 ([driver] uncommitted
+  work = the wiring: tools/fit_queue.py +131/-5). 804's remaining steps: commit the wiring,
+  box 4 (tests), box 3 (README note), then 805 (the rebuild). 309's closure - hence my 220
+  and my re-claim - is still ahead.
+- The FINAL build() shape (agent/c:tools/fit_queue.py): rows/item_cands/hand/built ->
+  `cands` map gathered over `built` -> `_place_store(root)` (right_place.load; every store
+  optional - a missing file stays empty and the check degrades to a no-op) ->
+  `_place_flags` (one site_facts per site, check_pairing per candidate, over PRE-MUTATION
+  maps) -> `_apply_flags` (sorted flag order: drop the plan; the top of find_right_site
+  (min_score 0.5) = T is QUEUE-ELIGIBLE (in sites.json + dir exists + no hand doc) -> a
+  copy of the row (sites narrowed to [T]) joins T's map; else upsert into T's (or the
+  source's) review item with place_reason; skipped when that item already holds the plan)
+  -> `entries = [_entry(sid, name, cands[sid]) for sid, name in built if sid in cands]`
+  -> `entries.sort(...)` -> the {at, entries} envelope. New helpers: _site_records,
+  _place_store, _place_flags, _item_candidate, _place_entry, _entry (the entry dict, no
+  propose key yet).
+- 804's measured real-data verification (temp tree, build in-process, run twice): flags ==
+  the CLI's set exactly (15; `python3 tools/right_place.py --all` still 324 checked /
+  15 flagged); queue 116 -> 114 entries (vindomora and windmill-hill leave entirely;
+  devil-s-dyke keeps only n0662_1 - the owner's Brighton case; bokerley-dyke keeps
+  n0174_1; the must-not-flag set untouched); EXACTLY 5 new review item files / 6 upserts,
+  each with place_reason (a-saucer-barrow-...-n0558_1 [carries n0558_1 AND n0558_2],
+  castle-dyke-...-n0599_1, devil-s-dyke-hillfort-...-n0686_1, down-end-castle-...-n0285_1,
+  oval-barrow-...-n0557_1); 341 existing item files unchanged; second build
+  byte-identical (zero churn). 804's own FULL suite run with the wiring in: 3 failed /
+  77 passed / 1 skipped = its baseline (the same 3 main-side stale-page failures) - i.e.
+  parts 2-3, whose full-tree fixtures DO copy data/catalog and therefore run the live
+  check, are empirically green with the wiring.
+- NEW DEPENDENCY FACT: `tools/right_place.py` exists ONLY on agent/c (checked: missing on
+  main AND agent/a). The merged tools/fit_queue.py imports it unconditionally, so the
+  driver's sync of the 309 chain into my branch must bring the module file together with
+  the rewired fit_queue.py - one atomic step; never cherry-pick one without the other.
+  right_place.load degrades gracefully (catalog/index/lists each optional; missing ->
+  empty -> no flags), which is why the no-catalog temp trees (my synthetic; my real test's
+  copy list, which takes index.jsonl but not data/catalog) stay pure no-ops, while the
+  full-tree fixtures (parts 2-3, 805's rebuild) run the live check.
+
+**Merge recipe (the next session that sees 804/805 on main executes it) - RE-PINNED to the
+actual code above:**
+- tools/fit_queue.py: take 804's file as the base. (a) Imports: keep THEIR block
+  (`sys.path.insert(0, str(ROOT / "tools"))` + `sys.path.insert(0, str(ROOT / "fit"))`,
+  then `import right_place` / `import review`, both noqa E402) and ADD my line
+  `import propose as _propose  # noqa: E402` after it; DROP my separate
+  `sys.path.insert(0, str(ROOT / "fit"))` (their block already inserts ROOT/fit - one
+  insert per dir, three imports; the runpy PITFALL is why they self-insert). (b) Keep MY
+  `_entry_propose(root, site_id, plan)` helper verbatim (my file line 182: propose_for in
+  try/except -> None fail-open, six keys in entry order, "ground" dropped). (c) build():
+  insert the POST-PASS between the two existing lines `entries = [_entry(sid, name,
+  cands[sid]) for sid, name in built if sid in cands]` and `entries.sort(key=lambda e:
+  _best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))`:
+
+      for e in entries:  # 307ba: the proposal on the entry's FINAL best (moves/drops recompute it)
+          p = _entry_propose(root, e["site"], e["best"]["plan"])
+          if p is not None:
+              e["propose"] = p
+
+  NOT inside `_entry` (its signature has no root). The post-pass keeps my one invariant:
+  the propose is computed from the entry's FINAL best, so a move/drop that changes the best
+  recomputes it; the key lands after "candidates" (dict insertion order - my part-1
+  key-order pin). (d) Docstrings: keep their build() two-phase docstring and namesake-rule
+  paragraph; keep my module-docstring propose paragraph; reword the stdlib-only line to
+  name all three imports (right_place, review, propose - all stdlib-only, no pipeline/).
+- tests/test_fit_queue.py: UNION, not a choice. test_fit_queue_synthetic: MY 7-site
+  stage-B version, unmodified (both sides verified: 804 ran it unmodified in 0.68 s -
+  pure no-op, its tree has index rows but no catalog/lists; if the wiring printed anything
+  my `err == ""` pin would trip). 804's box-4 new namesake test: a separate function with
+  its own tree (tiny data/catalog/sites.jsonl + data/books/index.jsonl +
+  data/books/lists/<ia>.json; the book must be in right_place.BOOK_SCOPE - its hand-over
+  picks "allcroft_1908"), cases a-f per its hand-over sketch - keep as-is when it lands.
+  test_fit_queue_real: the merged function = 804's copies (data/catalog +
+  data/books/index.jsonl + lists/) + 804's CHECK-AWARE entry-set/candidate/review-upsert
+  derivation (my naive `expected = (built & (row_sites | item_sites)) - hand` cannot
+  survive: the 15 flagged dispositions can take a site's last candidate and drop the site
+  from the queue) + MY per-entry propose block (it calls propose_for on the entry's
+  ACTUAL best against the temp tree - move-proof; keep the floor assert) + my sort-key
+  check + my checkout byte-identity check. Parts 2-3: mine unchanged (804's full-suite run
+  proves they stay green with the check live).
 - web/data/fit_queue.json (both sides regenerated -> conflict): regenerate with the merged
-  build `python3 tools/fit_queue.py --root .` and commit the joint file (805's right-place
-  dispositions + my propose on the surviving entries; if 805's committed version lacks
-  propose - its run predates my branch on main - the regeneration adds it back on top of the
-  wired build). Expect ~116 entries: current data builds 116, not the stale committed 117
-  (shotwick-castle-q7502621 is no longer built), minus the 15-flagged pairs'
-  drops/moves/upserts; propose on every entry that anchors.
+  build `python3 tools/fit_queue.py --root .` on the synced branch; commit the joint file
+  (805's right-place dispositions + my propose on the surviving entries). Expect 114
+  entries at agent/c's iteration-100 data state (its measured 116 -> 114); if 203b (EU
+  batch) or 207 (Roman books) land on main before 805's rebuild the population shifts
+  (new index rows / review items) - regenerate, never pin the count.
 - web/data/review.json + data/review/: 805's/220's - take THEIRS (my branch's copies are
   main's stale ones); never edit them from this task.
 - docs/site_flow.md: keep both sections (my "Ready to fit" propose paragraph, 805's
@@ -144,9 +173,29 @@ No code change this session.
   touching agent a's web files; web/index.html stays exactly one line over main and
   web/fitqueue.js byte-identical - the part-3 pin).
 
-**Re-read (only when the 804/805 merge lands):** tools/fit_queue.py (the final build()
-shape - find the post-pass insertion point); tests/test_fit_queue.py part 1 (where the
-union lands); agent/c's 804 hand-over (the _place_store/_place_flags/_apply_flags plan - if
-the merged file diverges from it, trust the file). The iteration-116 Re-read list
-(fitkit, index.html ~832/902/1706, part 3, /tmp/fkprobe.mjs) belongs to 307bb, not this
-task.
+**Wait condition (check in this order):**
+1. `git log main --oneline -20` still cf29be2 (no 804/805/309 commits)? Nothing to build -
+   this task waits on agent c. Do NOT touch data/review, web/data/review.json or
+   re-baseline any test (the stale page is a real store invariant; iteration-116
+   DECISIONS entry). Cheap unchanged-check: `git show main:web/data/review.json | md5sum`
+   == b6506007.
+2. main carries 804 and/or 805 (or 309 closed)? The driver has synced it into this branch
+   (right_place.py + the rewired fit_queue.py together - see NEW DEPENDENCY FACT): expect
+   text conflicts in tools/fit_queue.py, tests/test_fit_queue.py, web/data/fit_queue.json
+   (both sides rewrote them) - resolve with the recipe above and run `.venv/bin/python -m
+   pytest -q`. Once 805's (or 220's) full export is in the synced tree: expect 73 passed +
+   1 skipped, no known failures -> re-claim done. If only 804 is in (805/220 not yet): the
+   3 review-page failures remain - wait, do not re-claim. A failure with DIFFERENT numbers
+   than 335/334 (the page population changed) means a merge AFTER the export wrote new
+   data/review item files (agent c's 203b EU batch writes them for unplaceable sites) -
+   the page snapshot is stale again: diagnose with a scratch full export (`fit/review.py
+   export --root <copy of the store>`) and, if that is the cause, the fix is another full
+   export (220's runner note covers it) - never re-baseline the three tests.
+
+**Re-read (only when the 804/805 merge lands):** tools/fit_queue.py (confirm the actual
+build() matches the shape above - if it diverged, trust the file; the post-pass goes
+between the entries comprehension and the sort); agent/c's 804 hand-over (the box-4
+namesake test: its own tree needs catalog + index + lists, book in BOOK_SCOPE); tools/
+right_place.py (load's per-store optional degrade, check_pairing, find_right_site
+min_score 0.5). The iteration-116 Re-read list (fitkit, index.html ~832/902/1706, part 3,
+/tmp/fkprobe.mjs) belongs to 307bb, not this task.

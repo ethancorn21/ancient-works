@@ -33,6 +33,11 @@ this way at iteration 12; landed at iteration 13).
 Why/fix: capture the exact bytes first: `sed -n 'A,Bp' <file> | cat -A`, and copy the physical lines
 verbatim (wrap points and indentation included) into oldText.
 
+#### A task file's own section name appears mid-line in its Notes - naive str.index splits there and destroys the file
+Where: any python rewrite of a tasks/*.md `## Hand-over` tail section, when the file's Notes/Goal cites the section name mid-sentence (307ba's Notes: "...in the parent 307b's ## Hand-over and the 2026-10-12 307b DECISIONS entry...")
+Symptom: `t.index("## Hand-over")` hits the mid-line reference in Notes, so `t[:i] + new_section` splices the new hand-over into the middle of the Notes bullet: the rest of that sentence and every following Notes bullet are silently lost, and the new section ends up header-less (iteration 120, 307ba: three of four Notes bullets lost)
+Why/fix: split on the line-anchored marker instead: `re.search(r"^## Hand-over\n", t, re.M)` (or grep -n '^## Hand-over'). After replacing a file's tail section, verify with `git diff --stat` plus a read of the sections ABOVE the edit point (the Notes bullets, the acceptance boxes) to catch a mid-line splice.
+
 #### The read tool's output of fit/src_van_deventer.py is not byte-faithful - source edit oldText from sed/grep
 Where: the read tool on `fit/src_van_deventer.py` (and any edit call whose oldText came from its view)
 Symptom: an edit call is rejected (oldText "not found") although the read-tool view looks identical - the
