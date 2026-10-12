@@ -47,29 +47,30 @@ the result with no page change (GOAL.md point 5).
   task only reads them and writes the two shared files (index.jsonl, validation.json).
 
 ## Hand-over
-(2026-10-12, iteration 175, agent a - boxes 1+2 done and committed; boxes 3-6 remain and are independent of 222-228)
+(2026-10-12, iteration 175, agent a - boxes 1+2 DONE and COMMITTED as 214c642; boxes 3-6 remain and are independent of 222-228; next session starts at box 3)
 
 State:
 - BOX 1 DONE (iteration 174): live merge - 381 staging rows into the three canonical files, pure growth
   (byte-identical prefix), idempotent, 0 refused, data/merge/log.jsonl written.
-- BOX 2 DONE (this session, committed): rebuilt data/books/index.jsonl + data/books/validation.json with
-  the machinery (`pipeline/books.py index` / `validate`), re-recorded the 200 evidence on all 1068 book
-  rows (`fit/evidence.py record`, offline), `fit/evidence.py check` passes offline (2582 rows: 1385 pass,
-  0 fail, 1197 no-tie). Tests extended in tests/test_merge.py (5/5 pass). Full details in the DECISIONS
-  entry. Numbers: index = 8 originals (counts unchanged 145/115/197/88/55/18/235/37) + civitates_liber2
-  118 (217's hand-list views: 107 added, 11 old qwen rows updated with the hand list) + merian_helvete00zeil
-  60 (the 216/217 book); the 5 untriaged view books contribute 0 rows (217's follow-on scope - never
-  invent). validation.json: civitates figures stats filled, merian entry added. The 890 book rows that
-  reach plans.json all carry the field (135 caption_coords / 755 none - the none is 200's fail-closed end
-  state; tie-coverage improvement is 801's job). The 264 files NONE rows: 0 reach plans.json.
+- BOX 2 DONE (iteration 175, committed in 214c642): rebuilt data/books/index.jsonl + data/books/
+  validation.json with the machinery (`pipeline/books.py index` / `validate`), re-recorded the 200
+  evidence on all 1068 book rows (`fit/evidence.py record`, offline), `fit/evidence.py check` passes
+  offline (2582 rows: 1385 pass, 0 fail, 1197 no-tie). Tests extended in tests/test_merge.py (5/5 pass).
+  Full details in the DECISIONS entry. Numbers: index = 8 originals (counts unchanged
+  145/115/197/88/55/18/235/37) + civitates_liber2 118 (217's hand-list views: 107 added, 11 old qwen rows
+  updated with the hand list) + merian_helvete00zeil 60 (the 216/217 book); the 5 untriaged view books
+  contribute 0 rows (217's follow-on scope - never invent). validation.json: civitates figures stats
+  filled, merian entry added. The 890 book rows that reach plans.json all carry the field (135
+  caption_coords / 755 none - the none is 200's fail-closed end state; tie-coverage improvement is 801's
+  job). The 264 files NONE rows: 0 reach plans.json.
 - 222-228 are still OPEN on main as of this session (checked: no such commits; the modules here still
   carry the old "staged title already in canonical" guards). They stay in my Depends on and gate the
   CLAIM (the driver re-checks the suite when I set done; my branch must be green then). They do NOT gate
   boxes 3-6: those touch only files mine (web/data/*, docs/sources.md) and my branch's red set is exactly
   the 10 source-guard reds before and after any of them.
 - Suite on this branch: 10 failed / 124 passed / 1 skipped, identical to the pre-work baseline (verified
-  by diffing the FAILED lists; the 10 = the 222-228 set). tests/test_serve.py (the human's golden: 25 hand
-  fits / 19 sites) passes in that run.
+  by diffing the FAILED lists; the 10 = the 222-228 set). tests/test_serve.py (the human's golden: 25
+  hand fits / 19 sites) passes in that run.
 
 Remaining boxes, in order (all independent of 222-228; claim after they land):
 3. Build the new sites - the slow working-phase part. `pipeline/build_catalog.py` (NOT fit/: the task
@@ -100,10 +101,9 @@ Re-read: tools/export_plans.py:main - before running box 4, confirm with the con
  the plans.json "sites" column is expected to track the grown catalog or to stay the stable pre-merge join
  (the box wording "every pre-merge (id, sites[0]) key is still present" points to stable; the page's
  consumers are web/ - grep for plans.json there).
-
-Re-read: fit/merge.py:run_target - the evidence gate applies to files.jsonl rows with a title ONLY;
-classified rows are not gated (the plan-list gate is on the files rows) - check that reading before
-changing the gate.
+(The earlier re-read on fit/merge.py:run_target's evidence gate was resolved in iteration 175: the gate
+applies to files.jsonl titled rows only, classified rows are not gated, book-index rows are never merge-
+gated - confirmed by re-reading the module; no change made. See the DECISIONS entry.)
 
 ## Lead note (2026-10-12)
 207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step.
