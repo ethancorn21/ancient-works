@@ -1,10 +1,10 @@
 Status: open
-# 306c: Look at the orphan agent fits, US - 15 docs, 9 sites
+# 306c: Look at the orphan agent fits, US - 16 docs, 9 sites
 Depends on: none
 Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json
 
 ## Goal
-Subtask of 306 (the parent's Hand-over holds the audit recipe and the full inventory): the 15
+Subtask of 306 (the parent's Hand-over holds the audit recipe and the full inventory): the 16
 US platefit documents with `by: agent` that are ORPHANS - in the store, but with no overlay
 built on the site and not referenced by any review item, so a visitor sees them not at all.
 Render each the way the page would if it ever showed it: the fit tool over the aerial
@@ -30,7 +30,7 @@ the placement is good enough to keep.
       loop-start note (suite green in this checkout 2026-10-12: 123 passed, 1 skipped,
       test_gate pre-existing red).
 
-## Docs (15, 9 sites)
+## Docs (16, 9 sites)
 - cahokia-q333661.annualreportofbu1218901891smit_n0200_1 - Map of Cahokia group, Madison county, Illinois
 - etowah-indian-mounds-q4533107.annualreportofbu1218901891smit_n0386_1 - Plat of the Etowah group (original)
 - fort-ancient-q5470727.b24849959_n0264_1 - Fort Ancient, Warren county (Squier & Davis)

@@ -562,3 +562,30 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
+
+## 2026-10-12 306a DECISION: audit driver built and the full 45-shot run launched in the background; four docs judged (all stays); parent split completed (306d/306e/306f created, 306c count fixed to 16)
+- tools/audit_306a.mjs: one `server/serve.py --port 0` for the whole run; per shot the page is driven
+  the visitor's way (select -> S.depSel = the doc's depiction file -> setGround -> applyDep) and shot.mjs
+  screenshots at 1440x900. The [eval] line confirms the active depiction; the [audit] line prints the
+  stored fit stats from depictions.json. Run: `node tools/audit_306a.mjs [site ...]` from the project
+  root; re-run is idempotent. Background run: `nohup node tools/audit_306a.mjs > /tmp/audit_306a.log
+  2>&1 &` (16/45 at context-limit, all written, no pageerrors).
+- FAILED (twice, same root causes, both fixed): (1) shot.mjs's `page.evaluate(js)` with `js =
+  'async () => {...}'` returned undefined - Playwright 1.63 treats the string as an expression and does
+  NOT auto-invoke a function string; fix: wrap as an IIFE `(async () => {...})()` (verified with a
+  throwaway probe page). (2) `window.S` is undefined in page context - S is a top-level const (page-wide
+  lexical environment, not globalThis); fix: bare `S` with a typeof guard. Both are now PITFALLS
+  candidates (filed in the 306a hand-over; the context-limit message barred editing PITFALLS.md).
+- Judged (aerials): aldenhaag 1832 kadaster detail, alligator-effigy-mound 1891 map, avaricum Caesar
+  (Allen & Greenough) map, barnard-castle 1843 tithe map - all four are georeferenced sheets
+  (identity or near-identity fits, gate <= 0.1 m) whose ink sits on the real ground (village/terp,
+  mound park, Cher town centre, Alnmouth streets+river). All STAY. The interesting cases are the rest
+  (true similarity fits): bethlehem x12 (up to 25.7 m resid, rot 4.7), shotwick (14-19 m), binche,
+  bolsover, burlington, forthill, newark.
+- The parent's split counts were off: UK part 2 (o-y) is 17 docs, not 15 (old-sarum/pontefract/
+  portus-adurni/york-castle carry two each), and the US orphan set is 16 (marietta.b24849959_n0195_1 -
+  a US site, already in 306c's list but not its 15 header). Created 306d (UK a-l, 18), 306e (UK o-y,
+  17), 306f (continental, 17); corrected 306c to 16. Total 23+21+16+18+17+17 = 112 = all non-hand docs.
+- False alarm I nearly logged: fort-ancient-q5470727 looked missing from web/data/sites.json, which
+  would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
+  without the qid). The test passes; all 133 store docs' sites are in sites.json.

@@ -108,8 +108,8 @@ note the reports/ files under .agent/reports/ can be stale, I ran the suite myse
 
 **NEXT STEP (this session died at the context limit before writing the split):** create the six subtask files
 - 306a agent-fits-on-map (the 23 A docs; highest priority: they are ON the map), 306b agent-fits-in-review
-  (21 B docs), 306c orphan-fits-us (15), 306d orphan-fits-uk-1 (bury..ludlow, 18), 306e orphan-fits-uk-2
-  (offa..york, 15), 306f orphan-fits-continental (17) - each `Status: open`, NO `Depends on:` pointing at the
+  (21 B docs), 306c orphan-fits-us (16, incl. marietta), 306d orphan-fits-uk-1 (bury..ludlow, 18),
+  306e orphan-fits-uk-2 (offa..york, 17), 306f orphan-fits-continental (17) - each `Status: open`, NO `Depends on:` pointing at the
 parent (that deadlocks; the driver hands them out in a-f order), a `Touches:` line (docs/site_flow.md,
 docs/site_flow/ for all; 306a adds data/db/platefits/, data/review/, web/data/sites.json, web/data/review.json,
 web/data/sites/ because it may remove wrong fits; the others keep the doc set as-is, verdicts only), each
@@ -119,3 +119,16 @@ doc in docs/site_flow.md (a table under a new "## The agent fits, looked at (tas
 lines sit on, verdict stays/leaves + reason). 306a alone performs the removals (box 2). Set the parent to
 `Status: split` with this Hand-over as the plan, commit, done. Then 306a starts: build the shot.mjs IIFE driver,
 serve --port 0, audit the 23, act on the wrong ones.
+
+(2026-10-12, iteration 135, agent c - SPLIT COMPLETED; 306a audit run started.) The split is now complete:
+306a/306b/306c/306d/306e/306f all exist. Count corrections vs the plan above (re-derived from the live
+store, method in the inventory note): 306c US is 16 docs (the plan's 15 dropped marietta.b24849959_n0195_1,
+a US site - it is in 306c); 306e UK part 2 (o-y) is 17 docs, not 15 (old-sarum x2, pontefract x2,
+portus-adurni x2, york-castle x2). Total 23+21+16+18+17+17 = 112. This hand-over is the source of truth
+for the counts. 306a (me, iteration 135): the headless driver `tools/audit_306a.mjs` is built and running
+(one `server/serve.py --port 0` for the whole run; per shot it opens the site the visitor's way -
+select -> the doc's depiction selected -> setGround('imagery'|'relief') -> applyDep - and reports the
+stored fit stats from depictions.json; 44 shots: 23 aerial + 21 relief, shotwick aerial-only). Next session:
+check the full run finished, then judge in batches of ~8 docs (read the shots, decide, write the
+docs/site_flow.md section - header + lines - and tick box 1), then the removals of the wrong fits (box 3)
+and the count refreshes of the right ones (box 4).
