@@ -118,3 +118,33 @@ image-matching-models package, not transformers) is the next real test.
   ladder: ELoFTR keypoints sit on a coarse grid, so real inliers can be grid-regular. The spread guard above
   catches the degenerate (collinear) case for the right reason; grid-regular but two-dimensional pairs should pass.
   Proposal: for fitter "matcher" docs, replace the ladder clause by the spread guard (line lead's call).
+
+## 7. RoMa bake-off (MatchAnything-RoMa via vismatch, AI box 5060 Ti port 8092; run 2026-10-11 ~22:40 CDT, results data/matchfit/heldout_roma/)
+
+Same 21 documents, same centred windows, same evaluator. RoMa returns ~5000 dense matches per call, so the
+ELoFTR count rule means nothing here; the sweep is on inlier FRACTION (RANSAC inliers / matches), best
+candidate by fraction. RoMa samples its matches, so counts vary a few percent between calls (180-207 inliers
+on four repeats of one pair); this is one run.
+
+| rot rule | min fraction | accepted | centre <= 100 m | corner <= 100 m | worst centre m | worst corner m |
+|---|---|---|---|---|---|---|
+| abs(rot) <= 30 | 0.1 | 15 | 15 | 9 | 78 | 1003 |
+| abs(rot) <= 30 | 0.3 | 9 | 9 | 6 | 53 | 103 |
+| within 10 deg of k x 90 | 0.1 | 17 | 17 | 11 | 78 | 1003 |
+| **within 10 deg of k x 90** | **0.3** | **11** | **11** | **8** | **53** | **103** |
+
+Readings:
+- **Proposed RoMa rule: fraction >= 0.3 and rotation within 10 deg of a multiple of 90 deg: 11 of 21, 0 wrong**
+  (centre 7-53 m; corner 16-103 m; scale ratio vs hand 0.90-1.08). ELoFTR's best was 7 (8 located).
+- The 90-degree clause exists because three plans are printed sideways on the page (maiden n0124, old-sarum
+  n0142 at rot 90.5; whitley at -117 is a wrong-ish one and is still rejected). The clause was motivated by
+  this table, so it is a lead; it would also apply to ELoFTR's MAX_ROT_DEG.
+- Below 0.3 the centre stays right but the scale drifts: bergues 0.24 (corner 457 m, scale 1.14) and the
+  Old Sarum 1761 sketch 0.18 (corner 1003 m). "Within 100 m" at the centre is not enough for a sketch
+  stretched to the wrong size; the corner metric is the one to keep for the queue.
+- Still rejected, rightly: arbor-low (rot -33, 500 m), aztalan (0.07), cahokia (0.05), the Van Deventer town
+  at full scale. US 1850s plates vs relief: serpent-mound now 0.12 / 9 m centre / 78 m corner (a near miss);
+  mound-bottom 0.12 / 10 m / 171 m.
+- Both the fraction and the rotation rule were read off this table. Treat 11/21 as the ceiling to confirm on
+  the next hand-checked fits (the line lead's and the owner's eye checks on queue fits are that test set).
+- Cost: RoMa ~4 s per window pair on the 5060 Ti vs ~1 s for ELoFTR; 21 docs took ~14 min.

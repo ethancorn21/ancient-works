@@ -205,6 +205,32 @@ def table():
               f"| {b.get('centre_m')} | {b['drot_deg']} | {b['scale_ratio']} | {bc['ground']} x{bc['window']}, {bc['inliers']}, {bc['corner_m']} |")
 
 
+def rules_frac(good_m=100.0, metric="centre_m", max_rot=30.0):
+    """Accept-rule sweep on inlier FRACTION (inliers / matches) and a minimum count, for dense matchers
+    (RoMa returns ~5000 matches per call, so a count threshold set for ELoFTR means nothing)."""
+    res = load()
+    docs = [e for e in res["docs"].values() if "candidates" in e]
+    print(f"docs measured: {len(docs)}; good = {metric} <= {good_m:.0f} m; best candidate by inlier fraction; |rot| <= {max_rot}")
+    print("| min frac | min inliers | accepted | good | wrong | worst accepted m |")
+    print("|---|---|---|---|---|---|")
+    for fr in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+        for k in (10, 100, 500):
+            acc = good = 0
+            worst = 0.0
+            for e in docs:
+                cs = [c for c in e["candidates"] if "corner_m" in c and c.get("matches")]
+                if not cs:
+                    continue
+                b = max(cs, key=lambda c: c["inliers"] / c["matches"])
+                if b["inliers"] / b["matches"] >= fr and b["inliers"] >= k and abs(b["rot"]) <= max_rot:
+                    acc += 1
+                    if b[metric] <= good_m:
+                        good += 1
+                    worst = max(worst, b[metric])
+            if acc:
+                print(f"| {fr} | {k} | {acc} | {good} | {acc - good} | {worst:.0f} |")
+
+
 def rules(good_m=100.0, metric="corner_m"):
     """Sweep accept rules: pick the best-by-inliers candidate (optionally per ground family), accept if
     inliers >= k and |rot| <= r. Report accepted / within good_m / worst accepted error."""
@@ -238,4 +264,5 @@ if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "run"
     url = os.environ.get("MATCHER_URL")
     {"run": lambda: run(url), "table": table, "rescore": rescore,
+     "frac": lambda: rules_frac(metric=sys.argv[2] if len(sys.argv) > 2 else "centre_m"),
      "rules": lambda: rules(metric=sys.argv[2] if len(sys.argv) > 2 else "corner_m")}[cmd]()
