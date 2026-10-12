@@ -864,6 +864,12 @@ Where: staging naming `data/{catalog,commons}/<stem>_<source>.jsonl`; `tests/tes
 Symptom: `p.replace("extras_", "extras.")` on `extras_artists.jsonl` yields `extras.artists.jsonl` (FileNotFoundError the moment you open it); `p.rsplit("_", 1)[0]` mangles underscored sources: `files_wiltshire_b.jsonl` -> `files_wiltshire.jsonl`, `classified_van_deventer.jsonl` -> `classified_van.jsonl`
 Why: a staging filename is `<stem>_<source>.jsonl` and the source name itself may carry underscores (wiltshire_b, van_deventer). Derive the canonical path from a fixed stem map (`data/catalog/extras_` -> `data/catalog/extras.jsonl`, `data/commons/files_` -> `data/commons/files.jsonl`, `data/commons/classified_` -> `data/commons/classified.jsonl`) - or from the glob prefix the reader already used - and never slice on `_` inside a name.
 
+#### After 211's live merge, every source module's "no staged row in canonical" guard self-triggers - identical twins are the merged state, not a clash
+Where: every fit/src_<lead>.py guard that reads the canonical data/commons/files.jsonl or data/catalog/extras.jsonl (van_deventer, kip, mackenzie, limes, numancia, wiltshire_stukeley, artists - tasks 204/205/206/208/210/209b/213), and their test files
+Symptom: after running fit/merge.py merge on the real tree, the module's --check (or stage command) reds with "staged title already in the canonical files.jsonl: ..." / SystemExit, and the known-site checks ("staged site re-uses existing QID", "staged site ids collide") false-positive on the module's OWN merged sites
+Why: merge.py's contract is that the staging files stay in place and each source's --check still reads them, so "staged row present in the canonical file" is the NORMAL post-merge state, not a clash. A clash is only a DIFFERENT row holding the same key (or an id/QID held by a different site). known_sites() reads the canonical extras, which after the merge contain the source's own staged sites - that is a self-reference, not a duplicate.
+What to do: accept a row identical to its canonical twin under the merge's norm() (json.dumps sort_keys, ensure_ascii=False) as an already-merged no-op (check rc 0, stage a no-op); keep fail-loud for a different row with the same key; exclude self-references from known-site collisions. The guard extensions were filed as tasks 222-228 (one module each; 211 depends on them).
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing

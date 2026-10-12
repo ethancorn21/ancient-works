@@ -305,3 +305,45 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - Result: full suite 134 passed, 1 skipped (perf). The live canonical files are still
   unmerged; the next step is the live merge run + the five remaining acceptance boxes
   (books index, site builds, plans.json, sources.md, human-reference golden).
+
+## 2026-10-12 211 DECISION: box 1 (the live merge) done and committed; the merge's consequence turned 7 done-tasks' source checks red - filed 222-228 to fix them, 211 now depends on them
+- Ran `.venv/bin/python fit/merge.py merge` on the real repo (first live run; data/merge/ did
+  not exist). Result: +115 extras.jsonl, +133 files.jsonl, +133 classified.jsonl = 381 staging
+  rows (artists 2, kip, limes, mackenzie, van_deventer in extras; + numancia, wiltshire_b in
+  files/classified; no roman staging - 207 stopped by the owner), 0 refused, rc 0;
+  data/merge/log.jsonl = 381 "merged" entries, 0 conflicts.
+- Verified box 1's invariants on the real tree: all three canonical files are pure growth (the
+  HEAD bytes are a byte-identical prefix of the new files); every staging row present in its
+  canonical file; a second run is a complete no-op (0 added, all four files byte-identical,
+  log re-written byte-identical). The merge is committed on this branch; it is idempotent, so a
+  later main merge cannot re-do it.
+- The live merge turned 10 tests red in 7 source modules, all owned by DONE tasks (204/205/206/
+  208/210/209b/213): every module's check/stage guard asserts its staged rows are NOT in the
+  canonical files, and after the merge they ARE (identically - the merge's own success, per its
+  own contract that staging stays and the source's --check still reads it). Red: test_src_
+  artists::test_check_staged_files_join_and_pass; test_src_kip::test_check_staged_offline;
+  test_src_limes::test_check_staged_files_join_and_pass; test_src_mackenzie::test_staged_row_
+  and_join; test_src_numancia::test_check_staged_files_join_and_pass; test_src_van_deventer::
+  test_check_staged_files_join_and_pass + test_table_and_staged_rows; test_src_wiltshire_
+  stukeley::test_stage_offline (SystemExit) + test_check_staged_offline + test_book_rows_
+  staged_in_files_b (that one asserts the pre-merge invariant in the test itself). Diagnosed as
+  systemic, not a merge bug; confirmed these are the only new reds (full run minus 203b's own
+  file: 10 failed / 117 passed; the 8 deselected batch_eu reds are 203b's, pre-existing per the
+  driver's loop-start notes; test_gate green this time).
+- Did NOT edit the 7 modules in this session: they are other tasks' files (team-mode rule; the
+  module-ownership carve-out does not distinguish done from open tasks). Instead FILED seven new
+  tasks, one module + its test each, in lead order: 222 van_deventer (204), 223 kip (205), 224
+  mackenzie (206), 225 limes (208), 226 numancia (210), 227 stukeley (209b), 228 artists (213).
+  Each carries the full fix spec: a staged row identical to its canonical twin under the merge's
+  norm() (sort-keys JSON, ensure_ascii=False) is an already-merged no-op (check rc 0, stage a
+  no-op); a different row holding the same key still fails loud; known-site self-references
+  (artists, van_deventer - known_sites() reads the now-merged canonical extras, so the module's
+  own staged sites look "existing") are a problem only when the id/QID resolves to a DIFFERENT
+  site; tests must cover all three states hermetically (absent / identical-present /
+  different-present) without depending on the live merge having run. Main stays green while they
+  run (pre-merge state passes the new guards); 211 cannot be claimed until they are on main,
+  so they are in 211's Depends on and this session ends here (driver brings 211 back).
+- Next step (211, once 222-228 are on main): box 2 - rebuild data/books/index.jsonl +
+  validation.json with the books machinery and RE-RECORD the 200 evidence after the rebuild (the
+  book-machinery PITFALLS entry: books.py index drops the evidence field; byte-diff against
+  `git show HEAD:data/books/index.jsonl`, never a /tmp snapshot).
