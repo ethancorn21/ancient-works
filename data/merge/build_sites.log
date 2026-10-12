@@ -632,3 +632,67 @@ built 1, skipped 0, failed 0
 marks refreshed: aire-sur-la-lys-q259903 depictions: 2
 === aire-sur-la-lys-q259903 ok ===
 === avesnes-sur-helpe-q217178 start 2026-10-12T21:31:11Z ===
+[1/1] avesnes-sur-helpe-q217178 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+avesnes-sur-helpe-q217178 aerial only (no LiDAR here)
+avesnes-sur-helpe-q217178 cassini zoom 14 coverage 100% 185 KB
+avesnes-sur-helpe-q217178 etatmajor zoom 15 coverage 100% 241 KB
+avesnes-sur-helpe-q217178 cassini_ink.webp 650 KB
+avesnes-sur-helpe-q217178 etatmajor_ink.webp 1031 KB
+   ok 126s
+built 1, skipped 0, failed 0
+=== avesnes-sur-helpe-q217178 build rc=0 2026-10-12T21:33:18Z ===
+marks refreshed: avesnes-sur-helpe-q217178 depictions: 2
+=== avesnes-sur-helpe-q217178 ok ===
+=== bapaume-q317235 start 2026-10-12T21:33:18Z ===
+[1/1] bapaume-q317235 (ign, 2000 m)
+bapaume-q317235 relief clip 1.04 m; {'block_h.png': 214, 'block_top.jpg': 756, 'relief.jpg': 472} KB
+bapaume-q317235 cassini zoom 14 coverage 100% 193 KB
+bapaume-q317235 etatmajor zoom 15 coverage 100% 216 KB
+bapaume-q317235 cassini_ink.webp 605 KB
+bapaume-q317235 etatmajor_ink.webp 694 KB
+   ok 111s
+built 1, skipped 0, failed 0
+=== bapaume-q317235 build rc=0 2026-10-12T21:35:11Z ===
+marks refreshed: bapaume-q317235 depictions: 2
+=== bapaume-q317235 ok ===
+=== bavay-q477176 start 2026-10-12T21:35:11Z ===
+[1/1] bavay-q477176 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+bavay-q477176 aerial only (no LiDAR here)
+bavay-q477176 cassini zoom 14 coverage 100% 199 KB
+bavay-q477176 etatmajor zoom 15 coverage 100% 240 KB
+bavay-q477176 cassini_ink.webp 722 KB
+bavay-q477176 etatmajor_ink.webp 854 KB
+   ok 123s
+built 1, skipped 0, failed 0
+=== bavay-q477176 build rc=0 2026-10-12T21:37:15Z ===
+marks refreshed: bavay-q477176 depictions: 2
+=== bavay-q477176 ok ===
+=== bethune-q207145 start 2026-10-12T21:37:15Z ===
+[1/1] bethune-q207145 (ign, 2000 m)
+bethune-q207145 relief clip 1.05 m; {'block_h.png': 241, 'block_top.jpg': 1160, 'relief.jpg': 620} KB
+bethune-q207145 cassini zoom 14 coverage 100% 194 KB
+bethune-q207145 etatmajor zoom 15 coverage 100% 249 KB
+bethune-q207145 cassini_ink.webp 689 KB
+bethune-q207145 etatmajor_ink.webp 917 KB
+   ok 138s
+built 1, skipped 0, failed 0
+=== bethune-q207145 build rc=0 2026-10-12T21:39:34Z ===
+marks refreshed: bethune-q207145 depictions: 2
+=== bethune-q207145 ok ===
+=== bouchain-q632348 start 2026-10-12T21:39:34Z ===
+[1/1] bouchain-q632348 (ign, 2000 m)
+bouchain-q632348 relief clip 0.91 m; {'block_h.png': 224, 'block_top.jpg': 790, 'relief.jpg': 583} KB
+bouchain-q632348 cassini zoom 14 coverage 100% 184 KB
+bouchain-q632348 etatmajor zoom 15 coverage 100% 231 KB
+bouchain-q632348 cassini_ink.webp 705 KB
+bouchain-q632348 etatmajor_ink.webp 885 KB
+   ok 135s
+built 1, skipped 0, failed 0
+=== bouchain-q632348 build rc=0 2026-10-12T21:41:51Z ===
+marks refreshed: bouchain-q632348 depictions: 2
+=== bouchain-q632348 ok ===
+=== cambrai-q181285 start 2026-10-12T21:41:51Z ===

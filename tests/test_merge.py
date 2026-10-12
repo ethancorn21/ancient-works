@@ -13,6 +13,12 @@ Box 2 (the rebuilt book index): the test asserts the data-level result, never a 
 and every titled files row carries the 200 evidence field, the index rows join to their stage-A triage,
 `fit/evidence.py check` passes offline on the merged set, and `record` is a byte-identical no-op once every
 row is recorded.
+
+Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py
+refresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in
+data/merge/plans_premerge_keys.jsonl) is still present, (id, sites[0]) stays unique (the shared-id picture
+keeps one row per (picture, site)), the merged pictures that qualify as plans/bird's-eye views reach the
+list, and every picture row joins a files row carrying the 200 evidence field.
 """
 import hashlib
 import json
@@ -21,6 +27,8 @@ import shutil
 import socket
 import subprocess
 import sys
+
+from collections import Counter
 
 import pytest
 
@@ -223,6 +231,40 @@ def test_record_appends_evidence_and_rerun_is_a_noop(tmp_path):
     assert proc2.returncode == 0, proc2.stderr + proc2.stdout
     assert {p: hashlib.sha256(open(p, "rb").read()).hexdigest() for p in (str(books), str(files))} == h, \
         "the second record run must change nothing"
+
+
+def test_plan_list_refresh_is_pure_growth():
+    """Box 4, read-only on the served data: web/data/plans.json was refreshed with tools/export_plans.py
+    after the merge. Every pre-merge (id, sites[0]) key is still present (frozen list), (id, sites[0])
+    stays unique, the merged pictures that qualify as plans reach the list, and each picture row's files
+    row carries the 200 evidence field."""
+    pre = [json.loads(l) for l in _lines(os.path.join(ROOT, "data/merge/plans_premerge_keys.jsonl"))]
+    assert pre, "the frozen pre-merge key list is empty"
+    d = json.load(open(os.path.join(ROOT, "web", "data", "plans.json")))
+    assert d["cols"] == ["id", "book", "ia", "file", "title", "label", "size", "map_box", "sites",
+                         "cite", "url", "view", "ref"]
+    i_id = d["cols"].index("id"); i_book = d["cols"].index("book"); i_sites = d["cols"].index("sites"); i_ref = d["cols"].index("ref")
+    key = lambda r: (r[i_id], r[i_sites][0] if r[i_sites] else None)
+    # (id, sites[0]) unique - the shared-id picture stays one row per (picture, site)
+    for k, n in Counter(map(key, d["rows"])).items():
+        assert n == 1, f"plan key repeated {n} times: {k}"
+    keys = set(map(key, d["rows"]))
+    # the refresh only grew the list: every pre-merge key survived
+    for k in pre:
+        assert (k["id"], k["site"]) in keys, f"pre-merge plan key lost by the refresh: {k}"
+    # the merged pictures that qualify as plans/bird's-eye views reach the list (206's Mackenzie Shotwick, 210's Numancia)
+    for site, book in (("shotwick-castle-q7502621", "Wikimedia Commons"), ("numancia", "Wikimedia Commons")):
+        hit = [r for r in d["rows"] if r[i_sites] == [site] and r[i_book] == book]
+        assert hit, f"no {book} plan row for the merged picture of {site}"
+    # every picture row (ref = the files title) joins a files row carrying the 200 evidence field
+    files = {(r["site"], r["title"]): r.get("evidence")
+             for r in (json.loads(l) for l in _lines(os.path.join(ROOT, "data/commons/files.jsonl"))) if r.get("title")}
+    for r in d["rows"]:
+        if r[i_ref] is None:
+            continue  # a book row: its evidence is asserted on the index row by test_index_and_plan_list_rows_carry_evidence
+        ev = files.get((r[i_sites][0], r[i_ref]))
+        assert isinstance(ev, dict) and ev.get("rec") == "evidence/1", \
+            f"plan row {r[i_id]} joins a files row without the 200 evidence field"
 
 
 if __name__ == "__main__":

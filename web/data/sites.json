@@ -1814,9 +1814,9 @@
    ],
    "lidar": false,
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "aztalan-state-park-q4832928",
@@ -2113,6 +2113,55 @@
    "drawings": 0,
    "score": 1.15,
    "oldest": 1750,
+   "overlays": 2
+  },
+  {
+   "id": "bapaume-q317235",
+   "name": "Bapaume",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.8511,
+   "lat": 50.1036,
+   "summary": "Bapaume is a commune in the Pas-de-Calais department in the Hauts-de-France region of northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q317235",
+   "wiki": "https://en.wikipedia.org/wiki/Bapaume",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.837094491981913,
+     50.11258231051844
+    ],
+    [
+     2.8651055080180883,
+     50.11258231051844
+    ],
+    [
+     2.8651055080180883,
+     50.09461600480434
+    ],
+    [
+     2.837094491981913,
+     50.09461600480434
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.04,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 110.36,
+    "zmax": 139.54,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
    "overlays": 2
   },
   {
@@ -2558,6 +2607,45 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "bavay-q477176",
+   "name": "Bavay",
+   "place": "Nord, France",
+   "lon": 3.7981,
+   "lat": 50.2975,
+   "summary": "Bavay is a commune in the Nord department in the Hauts-de-France region of northern France. Currently a small town with about 3,200 inhabitants, it was an important Roman city, capital of the Nervii.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q477176",
+   "wiki": "https://en.wikipedia.org/wiki/Bavay",
+   "corners": [
+    [
+     3.784037486978302,
+     50.30648230470267
+    ],
+    [
+     3.812162513021698,
+     50.30648230470267
+    ],
+    [
+     3.812162513021698,
+     50.288515998987094
+    ],
+    [
+     3.784037486978302,
+     50.288515998987094
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "bayou-grande-cheniere-mounds-q4874725",
@@ -3623,6 +3711,55 @@
    "overlays": 0
   },
   {
+   "id": "bouchain-q632348",
+   "name": "Bouchain",
+   "place": "Nord, France",
+   "lon": 3.3169,
+   "lat": 50.2842,
+   "summary": "Bouchain is a commune in the Nord department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q632348",
+   "wiki": "https://en.wikipedia.org/wiki/Bouchain",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     3.3028414170370777,
+     50.293182305103066
+    ],
+    [
+     3.330958582962922,
+     50.293182305103066
+    ],
+    [
+     3.330958582962922,
+     50.27521599938762
+    ],
+    [
+     3.3028414170370777,
+     50.27521599938762
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.91,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 29.99,
+    "zmax": 53.58,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "braine-le-comte-q95129",
    "name": "Braine-le-Comte",
    "place": "Arrondissement of Soignies, Belgium",
@@ -4456,6 +4593,55 @@
    "overlays": 2
   },
   {
+   "id": "bethune-q207145",
+   "name": "B\u00e9thune",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.6393,
+   "lat": 50.531,
+   "summary": "B\u00e9thune is a town in northern France, sub-prefecture of the Pas-de-Calais department.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q207145",
+   "wiki": "https://en.wikipedia.org/wiki/B%C3%A9thune",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.6251680051862745,
+     50.539982297635866
+    ],
+    [
+     2.653431994813726,
+     50.539982297635866
+    ],
+    [
+     2.653431994813726,
+     50.52201599191851
+    ],
+    [
+     2.6251680051862745,
+     50.52201599191851
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.05,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 19.95,
+    "zmax": 39.46,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "bockingen-q1735374",
    "name": "B\u00f6ckingen",
    "place": "Baden-W\u00fcrttemberg, Germany",
@@ -4967,6 +5153,55 @@
    "score": 1.42,
    "oldest": 1842,
    "overlays": 2
+  },
+  {
+   "id": "cambrai-q181285",
+   "name": "Cambrai",
+   "place": "Nord, France",
+   "lon": 3.2347,
+   "lat": 50.1758,
+   "summary": "Cambrai, formerly Cambray and historically in English Camerick or Camericke, is a city in the Nord department and in the Hauts-de-France region of France on the Scheldt river, which is known locally as the Escaut river.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q181285",
+   "wiki": "https://en.wikipedia.org/wiki/Cambrai",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     3.220673338628505,
+     50.18478230835843
+    ],
+    [
+     3.2487266613714954,
+     50.18478230835843
+    ],
+    [
+     3.2487266613714954,
+     50.16681600264379
+    ],
+    [
+     3.220673338628505,
+     50.16681600264379
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 41.75,
+    "zmax": 87.56,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "camp-celtique-de-la-bure-q2935231",
