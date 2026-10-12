@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 175, agent a - boxes 1+2 DONE and COMMITTED as 214c642; boxes 3-6 remain and are independent of 222-228; next session starts at
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 180, agent a - boxes 1+2 done (committed 214c642); BOX 3 IN PROGRESS: a detached build run is alive and working through the las
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,36 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: merged main (header-line conflict) and fixed the 3 test_merge bugs iteration 172 left behind
-- Merge main into agent/a (b9f1abd). Only conflict: tasks/211-merge-build.md header. Main (the
-  lead) dropped 207 from Depends (207 stopped by the owner; the lead note is kept below the
-  hand-over) and my iteration 172 had added `data/merge/` to Touches. Resolution keeps BOTH
-  intents: `Depends on: 200, 204, 205, 206, 208, 209, 210` (no 207) + `data/merge/` kept in
-  Touches (merge.py writes data/merge/log.jsonl when run live; tests run with --root in a
-  temp tree and never create it in the repo).
-- Bug 1 (the real one): fit/merge.py::grow() wrote str lines into a `open(..., "wb")` file ->
-  `TypeError: a bytes-like object is required, not 'str'`. The run died with rc 1 AFTER
-  zero appends, so test 3 saw x2 missing and the canonical files unchanged. Fix:
-  `f.write("".join(new_lines).encode("utf-8"))` (the lines came from utf-8 text reads, so the
-  re-encoding is byte-identical).
-- Bug 2: tests/test_merge.py::_tree() copied fit/merge.py into the temp tree without creating
-  the `fit/` directory -> FileNotFoundError (tests 1-2). Added the mkdir.
-- Bug 3 (four sub-bugs in the test's path/line handling): (a) `_canon_of` now maps by stem
-  (`data/catalog/extras_` -> `data/catalog/extras.jsonl` ...); the old
-  `p.replace("extras_", "extras.")` produced `extras.artists.jsonl`, and rsplit on `_` would
-  mangle wiltshire_b/van_deventer (PITFALLS entry filed); (b) `hashes()` hashed paths relative
-  to pytest's CWD (repo root) instead of the tree - data/merge/log.jsonl does not exist at the
-  repo root, so every call raised; (c) the pre-merge membership test compared `\n`-terminated
-  lines against `splitlines()` (no `\n`) so canon_before was ALWAYS empty (and startswith on
-  an empty prefix passed trivially) - fixed with rstrip("\n"); (d) growth-count comprehension
-  lacked the exists() guard for the absent roman staging. Also deleted dead code left in the
-  growth block (unused keys/expected/st_rows).
-- Verified on the real staging data: 0 rows fail the 200 evidence gate, 0 cross-source or
-  canonical conflicts (so the distinct-row growth count is exact for this data).
-- Result: full suite 134 passed, 1 skipped (perf). The live canonical files are still
-  unmerged; the next step is the live merge run + the five remaining acceptance boxes
-  (books index, site builds, plans.json, sources.md, human-reference golden).
 
 ### 2026-10-12 211 DECISION: box 1 (the live merge) done and committed; the merge's consequence turned 7 done-tasks' source checks red - filed 222-228 to fix them, 211 now depends on them
 - Ran `.venv/bin/python fit/merge.py merge` on the real repo (first live run; data/merge/ did
@@ -133,6 +103,45 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - Re-read item resolved: fit/merge.py:run_target's evidence gate applies to files.jsonl titled rows only
   (classified rows are not gated; book-index rows are never merge-gated - their evidence comes from record).
   The reading was confirmed by re-reading the whole module; no change made.
+
+### 2026-10-12 211 DECISION: box 3 - sessions 176-179's build runs (unlogged; reconstructed from data/merge/build_sites.log) and session 180 confirmed the detached run is alive; memory rebuilt
+- Sessions 176-179 did no DECISIONS/hand-over updates (the task file's hand-over stayed at 175; the driver
+  committed their raw work as "uncommitted work after iteration 176/177/178"). Reconstructed from
+  data/merge/build_sites.log (append-only, committed): 176 wrote data/merge/run_build.py (box-3 runner:
+  one build_catalog.py --ids <sid> subprocess per site, then build_site.set_drawings(sid) to refresh the
+  site's markers, all logged); ran it nohup'd.
+- Run 1 (19:55Z, 22 ids: 10 English country houses from the artists wave + 12 NL towns): 15 built ok
+  (EA 1m LiDAR + OS six-inch 1st ed; reimerswaal/sluis/valkenburg via the point-cloud fallback, aerial-only
+  with tmk1850). 7 AHN-sourced NL towns FAILED: load_dem -> `ValueError: <PREDICTOR.FLOATINGPOINT: 3>
+  requires the 'imagecodecs' package` (AHN DEMs are Float32 rasters). Fix: installed imagecodecs 2026.10.10
+  into the project .venv ad hoc (NOT pinned in requirements.in/.txt - those files belong to agent c's
+  in-flight 302a/304; the pin is still outstanding, PITFALLS filed).
+- Run 2 (20:19Z, 26 ids: the 7 AHN retries + 19 FR/LU towns + lille): all 7 AHN built ok on retry (relief
+  clips 0.63-1.2 m, tmk1850 old maps). The French towns built at 2-5 min each (IGN-era national LiDAR,
+  Cassini/état-major old maps). Run 2's last id was a typo, `vieille-hesdin-q1022768` (the extras row's id
+  is `vieil-hesdin-q1022768`): --ids matches row ids exactly, so the typo matched nothing and built
+  nothing; verified no misnamed site was created (no vieille-hesdin in sites.json or data/sites/).
+- Run 3 (21:18Z, 23 ids: beaumont oudenaarde soignies luxembourg-city + the 18 remaining FR/LU towns):
+  beaumont/oudenaarde/soignies built ok (Wallonia 2021-22 LiDAR 10-37 pts/m2, Cassini 1780 maps),
+  luxembourg-city killed mid-build at the session's end (only site.json written).
+- Session 180 (this one): the run-3 process SURVIVED the teardown (ps: run_build.py + its build_catalog
+  child; it resumed on its own - luxembourg-city completed: Luxembourg government 2019 DEM 28.7 pts/m2,
+  Cassini 1780, oldest=1780; aire-sur-la-lys was next). So: 5 of the 20 unbuilt extras sids are built
+  (beaumont-q95100, oudenaarde-q12992, soignies-q462985, luxembourg-city-q1842,
+  aire-sur-la-lys-q259903); 18 remain, all in the live run's queue (avesnes-sur-helpe-q217178
+  bapaume-q317235 bavay-q477176 bethune-q207145 bouchain-q632348 cambrai-q181285
+  conde-sur-l-escaut-q494533 douai-q193826 gravelines-q323399 hesdin-q467366 landrecies-q632808
+  le-cateau-cambresis-q329103 le-quesnoy-q180067 maubeuge-q138648 saint-omer-q208793
+  therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768) at 2-5 min each.
+- Invariants verified on the worktree mid-run: web/data/sites.json = 481 entries = HEAD 478 + {soignies,
+  luxembourg-city, aire-sur-la-lys} (beaumont/oudenaarde were already in HEAD); 0 removed, 0 changed
+  shared entries (object-equality diff) - pure growth, as the box requires. Every new entry carries
+  id/name/lon/lat/corners(4)/size_m/drawings plus the LiDAR credit.
+- This session made no new builds (the live process owns them; a second instance would race it on
+  sites.json): memory rebuild only - 2 PITFALLS entries (imagecodecs/AHN; run_build protocol), this
+  entry, hand-over rewritten with the exact resume/verify plan.
+- 222-228 checked this session: still open (task files Status: open, no fix commits on main) -> the
+  done-claim stays gated on them; boxes 4-6 are unaffected.
 
 ## Project-wide driver notes (newest)
 
