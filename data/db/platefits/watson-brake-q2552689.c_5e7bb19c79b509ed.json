@@ -1,0 +1,90 @@
+{
+ "site": "watson-brake-q2552689",
+ "plan": "c_5e7bb19c79b509ed",
+ "crop": [
+  0,
+  0,
+  1280,
+  967
+ ],
+ "pairs": [
+  [
+   525.5,
+   274.7,
+   -92.1307714,
+   32.3691641
+  ],
+  [
+   478.4,
+   622.8,
+   -92.1314914,
+   32.3651615
+  ],
+  [
+   278.9,
+   122.8,
+   -92.1341024,
+   32.3709609
+  ],
+  [
+   774.1,
+   128.2,
+   -92.1273472,
+   32.3708068
+  ],
+  [
+   690.1,
+   423.9,
+   -92.128558,
+   32.3674143
+  ],
+  [
+   387.4,
+   440.4,
+   -92.1326916,
+   32.3672806
+  ],
+  [
+   437.4,
+   40.0,
+   -92.1319214,
+   32.3718855
+  ],
+  [
+   611.9,
+   137.4,
+   -92.1295619,
+   32.3707303
+  ]
+ ],
+ "label": null,
+ "title": "Watson Brake - Map",
+ "cite": "by Maximilian D\u00f6rrbecker ( Chumwa ); CC BY-SA 2.5; https://commons.wikimedia.org/wiki/File:Watson_Brake_-_Map.png",
+ "at": "2026-10-12T04:52:29.399809+00:00",
+ "auto": true,
+ "score": 4.4,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/watson-brake-q2552689/5e7bb19c79b509ed.jpg",
+ "ref": "File:Watson Brake - Map.png",
+ "size": [
+  1280,
+  967
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2399,
+  "matches": 5000,
+  "ground": "relief.jpg",
+  "window": 1.0,
+  "rot_deg": 0.93,
+  "spread": [
+   0.855,
+   99.8
+  ]
+ }
+}

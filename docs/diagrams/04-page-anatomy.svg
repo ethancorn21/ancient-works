@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="770" viewBox="0 0 1100 770" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>Browser page anatomy  (web/index.html + review.js + fitqueue.js)</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="770" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="753" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="745" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">Browser page anatomy  (web/index.html + review.js + fitqueue.js)</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">one paper theme: the globe full-bleed, the panel is the plate's EXPLANATION column, the block diagram opens as a plate sheet over the map</text>
+<rect x="28" y="74" width="760" height="470" fill="#10141C" stroke="#2B2724" stroke-width="1"/>
+<text x="586" y="92" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8" text-anchor="middle">#map: MapLibre globe; base = Esri World Imagery tiles, all the way out</text>
+<circle cx="690" cy="450" r="86" fill="#2f4a5c" stroke="#F8F4E8" stroke-width="0.8"/>
+<ellipse cx="690" cy="450" rx="86" ry="34" fill="none" stroke="#F8F4E8" stroke-width="0.4" stroke-dasharray="2 2"/>
+<ellipse cx="690" cy="450" rx="34" ry="86" fill="none" stroke="#F8F4E8" stroke-width="0.4" stroke-dasharray="2 2"/>
+<rect x="650" y="430" width="15" height="15" fill="#8A1230" stroke="#2B2724" stroke-width="1.5"/>
+<rect x="680" y="470" width="13" height="13" fill="#CE2E4E" stroke="#2B2724" stroke-width="1.5"/>
+<rect x="720" y="420" width="11" height="11" fill="#E2697F" stroke="#2B2724" stroke-width="1.5"/>
+<rect x="740" y="470" width="9" height="9" fill="#F4B4C0" stroke="#2B2724" stroke-width="1.5"/>
+<rect x="700" y="500" width="7" height="7" fill="#F8F4E8" stroke="#2B2724" stroke-width="1.5"/>
+<text x="392" y="268" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">Markers: squares sized and coloured by</text>
+<text x="392" y="281" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">tier (TIERS in the script, from score):</text>
+<text x="392" y="294" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#F8F4E8">t4 &gt;= 2.5  t3 &gt;= 1.6  t2 &gt;= 1.2  t1 &gt; 0</text>
+<text x="392" y="307" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">plain = score 0 (LiDAR or photo only),</text>
+<text x="392" y="320" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">shown only with "More sites" checked.</text>
+<text x="392" y="333" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">Red rule: any overlay &gt;= 150 years old</text>
+<text x="392" y="346" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">scores. Labels show from zoom 0/3/5/7/9</text>
+<text x="392" y="359" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">by tier; a label yields to squares of</text>
+<text x="392" y="372" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8">its own tier or higher.</text>
+<rect x="392" y="100" width="388" height="86" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="400" y="115" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Layer stack at a site (bottom to top)</text>
+<text x="400" y="128.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sat (Esri) -&gt; relief-us / ea / ahn / ign live tiles /tiles/relief (z12-17)</text>
+<text x="400" y="141.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; rel-&lt;id&gt; relief.jpg (image on site.corners) -&gt; dep-&lt;id&gt; the chosen</text>
+<text x="400" y="153.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">depiction (&lt;layer&gt;.webp or its _ink) -&gt; paper-&lt;id&gt; / ink-&lt;id&gt; 1848 plate</text>
+<text x="400" y="166.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">ground toggle S.ground: relief | imagery; a site opens on imagery + ink</text>
+<rect x="392" y="196" width="388" height="50" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="400" y="211" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Nudge any overlay (saved for everyone)</text>
+<text x="400" y="224.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">arrows fine 2 m / coarse 10 m, rotate, resize, drag on the map -&gt;</text>
+<text x="400" y="237.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">db plates/&lt;site&gt; (1848 plate) or depalign/&lt;site&gt;.&lt;file&gt; (any depiction)</text>
+<rect x="40" y="86" width="330" height="446" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<rect x="44" y="90" width="322" height="438" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="205" y="112" font-size="14" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" font-weight="700" letter-spacing="3">ANCIENT WORKS</text>
+<text x="205" y="126" font-size="9" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">#panel: the EXPLANATION column (370 px; bottom sheet on phones, #grab)</text>
+<line x1="52" y1="134" x2="358" y2="134" stroke="#2B2724" stroke-width="0.8"/>
+<text x="52" y="150" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" letter-spacing="1">HOME VIEW (#body)</text>
+<rect x="52" y="156" width="150" height="18" fill="#2B2724"/>
+<rect x="202" y="156" width="150" height="18" fill="#F8F4E8" stroke="#2B2724"/>
+<text x="127" y="169" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#F8F4E8" text-anchor="middle" font-weight="700">SITES (#h-sites)</text>
+<text x="277" y="169" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" text-anchor="middle" font-weight="700">FINDER (#h-finder)</text>
+<text x="52" y="190" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">+ Review (N) tab added by review.js; session-only (no hash)</text>
+<text x="52" y="205" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">stats line: "277 sites with an old drawing or map, at least</text>
+<text x="52" y="217" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">150 years old, laid on today's ground" + the tier key</text>
+<text x="52" y="232" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">kind chips (.kinds) filter squares and list; search #q;</text>
+<text x="52" y="244" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"More sites" #more: plain squares + catalog search</text>
+<rect x="52" y="252" width="300" height="44" fill="#F2C48D" stroke="#2B2724" stroke-width="0.8"/>
+<text x="60" y="266" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700">READY TO FIT  (116 to go)   web/fitqueue.js card</text>
+<text x="60" y="279" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">next site + best candidate + one-word reason;</text>
+<text x="60" y="291" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">[Place the drawing] [Skip]; done marks in localStorage</text>
+<text x="52" y="312" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site list #entries grouped by region, sorted by score</text>
+<line x1="52" y1="320" x2="358" y2="320" stroke="#8E8478" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="52" y="335" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" letter-spacing="1">SITE VIEW (select(id); route #&lt;site id&gt;)</text>
+<text x="52" y="349" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">&lt;- All sites (#back) | tabs: Map (#t-map) | Block diagram (#t-block)</text>
+<text x="52" y="363" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Ground: LiDAR relief (#g-relief) | Aerial photograph (#g-imagery)</text>
+<text x="52" y="375" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">  or the chip "Aerial photograph only" when lidar == false</text>
+<text x="52" y="389" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Plate of 1848 (six sites): opacity, Ink lines | Original paper</text>
+<text x="52" y="403" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Old drawings of the site / Survey maps and aerials: one button</text>
+<text x="52" y="415" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">  per depictions.json entry; younger surveys hidden (150 y rule);</text>
+<text x="52" y="427" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">  Ink lines (#d-ink) | Original paper; opacity #dop; Adjust</text>
+<text x="52" y="441" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Old plans in books: [Place an old plan] (#fitgo) -&gt; the fit tool</text>
+<text x="52" y="455" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">source line per overlay (who placed it, residuals in metres)</text>
+<line x1="52" y1="463" x2="358" y2="463" stroke="#8E8478" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="52" y="478" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" letter-spacing="1">FINDER TAB (private, LAN only)</text>
+<text x="52" y="492" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">scan areas (data/scans.json, data/scan/&lt;name&gt;/candidates.json):</text>
+<text x="52" y="504" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">  ring candidates, verdict keys -&gt; db verdicts/&lt;id&gt;; dormant</text>
+<text x="52" y="516" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Amazon forest LiDAR by eye (data/amazon/areas.json + tiles):</text>
+<text x="52" y="528" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">  surveys, marks -&gt; db marks/, surveyseen/; route #amazon-&lt;name&gt;</text>
+<rect x="800" y="74" width="272" height="150" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="808" y="89" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">#fitpane  the fit tool (right side)</text>
+<text x="808" y="102.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">canvas #fitcv with the page scan (books/&lt;ia&gt;/</text>
+<text x="808" y="115.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">n&lt;N&gt;.jpg or media/commons/...); drag / scroll</text>
+<text x="808" y="127.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Crop to the plan (#fcrop), zoom #fz-in/out/all</text>
+<text x="808" y="140.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">mode: Plan, drawn from above (#m-plan,</text>
+<text x="808" y="152.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  similarity) | View, drawn at an angle</text>
+<text x="808" y="165.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  (#m-view, homography)</text>
+<text x="808" y="177.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">pairs list with "off by N m" (red &gt; 15 m)</text>
+<text x="808" y="190.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Undo point, Clear, Another plan; Save on the</text>
+<text x="808" y="202.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">map (#fsave): 3 points (plan) / 5 (view)</text>
+<rect x="800" y="236" width="272" height="118" fill="#D8BCD5" stroke="#2B2724" stroke-width="1"/>
+<text x="808" y="251" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">#sheet  isometric block diagram</text>
+<text x="808" y="264.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">opens over the map (Block diagram tab); three.js</text>
+<text x="808" y="277.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">heights from block_h.png (16-bit in R,G), top</text>
+<text x="808" y="289.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">texture block_top.jpg (shaded relief, contours,</text>
+<text x="808" y="302.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tinted water); drag to rotate; caption credits</text>
+<text x="808" y="314.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the LiDAR source (lidar_credit)</text>
+<text x="808" y="327.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">toggles: Show the 1848 survey (#b-plate),</text>
+<text x="808" y="339.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Open the section (#b-gap); none for aerial-only</text>
+<rect x="800" y="366" width="272" height="100" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="808" y="381" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Data the page fetches</text>
+<text x="808" y="394.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/sites.json, data/catalog.json (pins, search)</text>
+<text x="808" y="407.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/plans.json, data/review.json, data/</text>
+<text x="808" y="419.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit_queue.json, data/sites/&lt;id&gt;/depictions.json,</text>
+<text x="808" y="432.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/scans.json, data/amazon/areas.json;</text>
+<text x="808" y="444.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">/api/db/{plates, depalign, verdicts, platefits}</text>
+<text x="808" y="457.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">a missing review or queue file is tolerated</text>
+<rect x="800" y="478" width="272" height="66" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="808" y="493" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Routes (location.hash)</text>
+<text x="808" y="506.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">#&lt;site id&gt;   #c/&lt;catalog id&gt;   #finder</text>
+<text x="808" y="519.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">#scan-&lt;name&gt;[/&lt;cand&gt;]   #amazon-&lt;name&gt;</text>
+<text x="808" y="531.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">per-viewer state in localStorage (aw.*)</text>
+<line x1="788" y1="150" x2="800" y2="150" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<line x1="788" y1="300" x2="800" y2="300" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="28" y="560" width="1044" height="102" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="550.0" y="575" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="38.0" y="586" width="22" height="12" fill="#9ED8D8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="596" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit tool</text>
+<rect x="38.0" y="604" width="22" height="12" fill="#D8BCD5" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="614" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">block diagram (three.js)</text>
+<rect x="38.0" y="622" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="632" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">Ready-to-fit card (fitqueue.js)</text>
+<rect x="38.0" y="640" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="650" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">panel / data</text>
+<rect x="560.0" y="586" width="22" height="12" fill="#8A1230" stroke="#2B2724" stroke-width="0.9"/>
+<text x="590.0" y="596" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">t4: oldest, truest (Bergues 1545, Old Sarum 1761)</text>
+<rect x="560.0" y="604" width="22" height="12" fill="#CE2E4E" stroke="#2B2724" stroke-width="0.9"/>
+<text x="590.0" y="614" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">t3: the 1848 plates; survey red #CE2E4E</text>
+<rect x="560.0" y="622" width="22" height="12" fill="#E2697F" stroke="#2B2724" stroke-width="0.9"/>
+<text x="590.0" y="632" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">t2: c.1900 plans on 1840s OS sheets</text>
+<rect x="560.0" y="640" width="22" height="12" fill="#F4B4C0" stroke="#2B2724" stroke-width="0.9"/>
+<text x="590.0" y="650" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">t1: old survey sheets only</text>
+<text x="28" y="670" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Not on the page yet (open tasks): arrowhead markers (308); the reworked fit tool that opens on the works with the drawing already placed (307). Finder and Amazon data never leave the Mac.</text>
+<text x="28" y="686" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Every site opens on the aerial photograph with its first drawing in ink; ground, ink/paper and opacity are per-viewer (localStorage). Nudges are saved on the server for everyone.</text>
+</svg>

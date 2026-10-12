@@ -1,0 +1,90 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_5badc8c867ef5d98",
+ "crop": [
+  0,
+  0,
+  1280,
+  823
+ ],
+ "pairs": [
+  [
+   493.4,
+   534.7,
+   7.7499359,
+   48.5814452
+  ],
+  [
+   699.2,
+   667.3,
+   7.7613938,
+   48.5768613
+  ],
+  [
+   337.7,
+   347.6,
+   7.7411376,
+   48.5880512
+  ],
+  [
+   337.8,
+   672.7,
+   7.7416457,
+   48.5762974
+  ],
+  [
+   701.0,
+   462.9,
+   7.7611753,
+   48.5842557
+  ],
+  [
+   539.5,
+   689.9,
+   7.7526991,
+   48.57588
+  ],
+  [
+   337.2,
+   508.4,
+   7.7413619,
+   48.5822377
+  ],
+  [
+   504.9,
+   382.2,
+   7.7503328,
+   48.5869703
+  ]
+ ],
+ "label": "1880",
+ "title": "Plan Strasbourg projet Conrath 1880",
+ "cite": "by Buchsweiler67330; CC BY-SA 3.0; https://commons.wikimedia.org/wiki/File:Plan_Strasbourg_projet_Conrath_1880.png",
+ "at": "2026-10-12T04:58:47.220816+00:00",
+ "auto": true,
+ "score": 9.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/5badc8c867ef5d98.jpg",
+ "ref": "File:Plan Strasbourg projet Conrath 1880.png",
+ "size": [
+  1280,
+  823
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3140,
+  "matches": 5000,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": -1.62,
+  "spread": [
+   0.693,
+   74.3
+  ]
+ }
+}

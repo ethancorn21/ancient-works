@@ -1,0 +1,90 @@
+{
+ "site": "watson-brake-q2552689",
+ "plan": "c_b52ddcad2ee295c4",
+ "crop": [
+  0,
+  0,
+  1280,
+  1259
+ ],
+ "pairs": [
+  [
+   462.6,
+   347.2,
+   -92.131613,
+   32.3688126
+  ],
+  [
+   734.4,
+   78.8,
+   -92.1300584,
+   32.37004
+  ],
+  [
+   605.3,
+   674.0,
+   -92.1308682,
+   32.3672566
+  ],
+  [
+   207.5,
+   480.5,
+   -92.1330544,
+   32.3682186
+  ],
+  [
+   281.7,
+   125.3,
+   -92.1325867,
+   32.3698796
+  ],
+  [
+   707.9,
+   315.4,
+   -92.1302418,
+   32.3689306
+  ],
+  [
+   367.6,
+   650.4,
+   -92.1321886,
+   32.3673986
+  ],
+  [
+   504.4,
+   63.4,
+   -92.1313366,
+   32.3701422
+  ]
+ ],
+ "label": null,
+ "title": "Watson Brake Mounds - Map",
+ "cite": "by Maximilian D\u00f6rrbecker ( Chumwa ); CC BY-SA 2.5; https://commons.wikimedia.org/wiki/File:Watson_Brake_Mounds_-_Map.png",
+ "at": "2026-10-12T04:52:47.945931+00:00",
+ "auto": true,
+ "score": 2.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/watson-brake-q2552689/b52ddcad2ee295c4.jpg",
+ "ref": "File:Watson Brake Mounds - Map.png",
+ "size": [
+  1280,
+  1259
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2926,
+  "matches": 4999,
+  "ground": "relief.jpg",
+  "window": 0.5,
+  "rot_deg": 1.57,
+  "spread": [
+   0.633,
+   124.2
+  ]
+ }
+}

@@ -251,8 +251,69 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "the model recorded no usable pairs"
+  },
+  {
+   "plan": "c_ea3e1ff2d9cab7a6",
+   "title": "Plan de la ville et du si\u00e8ge d'Orl\u00e9ans en 1428",
+   "url": "media/commons/cenabum-q2710144/ea3e1ff2d9cab7a6.jpg",
+   "pairs": [
+    [
+     200.0,
+     500.0,
+     1.9016368,
+     47.9040675
+    ],
+    [
+     800.0,
+     500.0,
+     1.9116867,
+     47.9040675
+    ],
+    [
+     300.0,
+     450.0,
+     1.9033118,
+     47.9046335
+    ],
+    [
+     700.0,
+     450.0,
+     1.9100117,
+     47.9046335
+    ],
+    [
+     500.0,
+     200.0,
+     1.9066617,
+     47.907436
+    ],
+    [
+     500.0,
+     800.0,
+     1.9066617,
+     47.9006988
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "sheet_mention",
+    "checked": "2026-10-11",
+    "named_place": "Orleans",
+    "place_qid": "Q6548",
+    "place_label": "Orl\u00e9ans",
+    "place_lon": 1.9041666666667,
+    "place_lat": 47.902222222222,
+    "site_lon": 1.909,
+    "site_lat": 47.9025,
+    "dist_m": 361.6
+   },
+   "gate_score": 0.2
   }
  ],
  "no_picture_found": null,
- "resolved": null
+ "resolved": {
+  "doc": "cenabum-q2710144.c_e73dc8c09b2fea43",
+  "at": "2026-10-12T05:19:36.230550+00:00"
+ }
 }
