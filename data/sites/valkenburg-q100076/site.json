@@ -1,0 +1,13 @@
+{
+ "id": "valkenburg-q100076",
+ "name": "Valkenburg",
+ "place": "Limburg, Netherlands",
+ "lon": 5.83205,
+ "lat": 50.86523,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q100076"
+}

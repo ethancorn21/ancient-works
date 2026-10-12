@@ -1,0 +1,15 @@
+{
+ "id": "lambeth-palace-q1130266",
+ "name": "Lambeth Palace",
+ "place": "City of London, England",
+ "lon": -0.11972,
+ "lat": 51.49556,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "England",
+ "kind": "garden",
+ "qid": "Q1130266",
+ "summary": "Lambeth Palace is the official London residence of the Archbishop of Canterbury. It is situated in north Lambeth, London, on the south bank of the River Thames, 400 yards south-east of the Palace of Westminster, which houses Parliament, on the opposite bank.",
+ "wiki": "https://en.wikipedia.org/wiki/Lambeth_Palace"
+}

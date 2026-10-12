@@ -50,6 +50,55 @@
    "overlays": 1
   },
   {
+   "id": "aardenburg-q955",
+   "name": "Aardenburg",
+   "place": "Sluis, Netherlands",
+   "lon": 3.4453,
+   "lat": 51.2744,
+   "summary": "Aardenburg is a small city close to the Dutch border with Belgium. It is part of the Sluis Municipality, located in the province of Zeeland in the Netherlands. Its medieval name was Rodenburgh.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q955",
+   "wiki": "https://en.wikipedia.org/wiki/Aardenburg",
+   "lidar_credit": "Wallonia (EODaS), 2015 (28.2 points/m2)",
+   "corners": [
+    [
+     3.430940540503732,
+     51.283382274662706
+    ],
+    [
+     3.459659459496269,
+     51.283382274662706
+    ],
+    [
+     3.459659459496269,
+     51.26541596893945
+    ],
+    [
+     3.430940540503732,
+     51.26541596893945
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.88,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.7,
+    "zmax": 9.1,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "abbotsbury-castle-q3662453",
    "name": "Abbotsbury Castle",
    "aka": "Abbotsbury Castle (camp)",
@@ -545,6 +594,55 @@
    "overlays": 2
   },
   {
+   "id": "alkmaar-q972",
+   "name": "Alkmaar",
+   "place": "North Holland, Netherlands",
+   "lon": 4.7427,
+   "lat": 52.6285,
+   "summary": "Alkmaar is a city and municipality in the Netherlands, located in the province of North Holland. Alkmaar is well known for its traditional cheese market. For tourists, it is a popular cultural destination. The municipality has a population of 113,170 as of 2023.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q972",
+   "wiki": "https://en.wikipedia.org/wiki/Alkmaar",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.727900263854045,
+     52.637482230843034
+    ],
+    [
+     4.757499736145956,
+     52.637482230843034
+    ],
+    [
+     4.757499736145956,
+     52.61951592510807
+    ],
+    [
+     4.727900263854045,
+     52.61951592510807
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.84,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.76,
+    "zmax": 11.21,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
    "id": "alligator-effigy-mound-q4732645",
    "name": "Alligator Effigy Mound",
    "place": "Ohio",
@@ -642,6 +740,55 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "amsterdam-q727",
+   "name": "Amsterdam",
+   "place": "North Holland, Netherlands",
+   "lon": 4.8865,
+   "lat": 52.3725,
+   "summary": "Amsterdam is the capital and largest city of the Netherlands. As of 1 January 2026, it had a population of 941,873 within the city proper, 1,457,018 in the urban area and 2,480,394 in the metropolitan area. Located in the Dutch province of North Holland, Amsterdam is colloquially referred to as the \"Venice of the North\", for its large number of canals, now a UNESCO World Heritage Site.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q727",
+   "wiki": "https://en.wikipedia.org/wiki/Amsterdam",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.871786192267829,
+     52.38148223933257
+    ],
+    [
+     4.90121380773217,
+     52.38148223933257
+    ],
+    [
+     4.90121380773217,
+     52.36351593359993
+    ],
+    [
+     4.871786192267829,
+     52.36351593359993
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.63,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -4.67,
+    "zmax": 6.63,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "andone-castrum-q2941535",
@@ -1245,6 +1392,55 @@
    "overlays": 0
   },
   {
+   "id": "arras-q131329",
+   "name": "Arras",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.78,
+   "lat": 50.2892,
+   "summary": "Arras is the prefecture of the Pas-de-Calais department, which forms part of the region of Hauts-de-France; before the reorganization of 2014 it was in Nord-Pas-de-Calais. The historic centre of the Artois region, with a Baroque town square, Arras is in northern France at the confluence of the rivers Scarpe and Crinchon.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q131329",
+   "wiki": "https://en.wikipedia.org/wiki/Arras",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.7659399399179487,
+     50.29818230495256
+    ],
+    [
+     2.7940600600820518,
+     50.29818230495256
+    ],
+    [
+     2.7940600600820518,
+     50.280215999237065
+    ],
+    [
+     2.7659399399179487,
+     50.280215999237065
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 53.3,
+    "zmax": 91.26,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "arzbach-q1735331",
    "name": "Arzbach",
    "place": "Rhineland-Palatinate, Germany",
@@ -1632,6 +1828,55 @@
    "score": 1.45,
    "oldest": 1842,
    "overlays": 2
+  },
+  {
+   "id": "badminton-house-q2628510",
+   "name": "Badminton House",
+   "place": "Wiltshire, England",
+   "lon": -2.28045,
+   "lat": 51.5455,
+   "summary": "Badminton House is a large country house and Grade I listed building in Badminton, Gloucestershire, England. It has been the principal seat of the Dukes of Beaufort since the late 17th century. The house, which has given its name to the sport of badminton, is set among 52,000 acres (21,000\u00a0ha) of land. The gardens and park surrounding the house are listed at Grade I on the Register of Historic Parks and Gardens.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q2628510",
+   "wiki": "https://en.wikipedia.org/wiki/Badminton_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.2920058831330445,
+     51.552685954755376
+    ],
+    [
+     -2.268894116866956,
+     51.552685954755376
+    ],
+    [
+     -2.268894116866956,
+     51.53831291018739
+    ],
+    [
+     -2.2920058831330445,
+     51.53831291018739
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.57,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 113.06,
+    "zmax": 141.73,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "balfarg-henge",
@@ -3735,6 +3980,54 @@
    "drawings": 0,
    "score": 0.91,
    "oldest": 1850,
+   "overlays": 1
+  },
+  {
+   "id": "burford-house-windsor",
+   "name": "Burford House",
+   "place": "Windsor and Maidenhead, England",
+   "lon": -0.6056,
+   "lat": 51.481,
+   "summary": "Eleanor Gwyn was an English stage actress and celebrity figure of the Restoration period. Praised by Samuel Pepys for her comic performances as one of the first actresses on the English stage, she became best known for being a longtime mistress of King Charles II of England.",
+   "region": "England",
+   "kind": "garden",
+   "wiki": "https://en.wikipedia.org/wiki/Nell_Gwyn",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.6171395325260667,
+     51.48818595606522
+    ],
+    [
+     -0.5940604674739335,
+     51.48818595606522
+    ],
+    [
+     -0.5940604674739335,
+     51.473812911497525
+    ],
+    [
+     -0.6171395325260667,
+     51.473812911497525
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 16.14,
+    "zmax": 63.66,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
    "overlays": 1
   },
   {
@@ -8283,6 +8576,55 @@
    "overlays": 0
   },
   {
+   "id": "enkhuizen-q9918",
+   "name": "Enkhuizen",
+   "place": "North Holland, Netherlands",
+   "lon": 5.286,
+   "lat": 52.7025,
+   "summary": "Enkhuizen is a historic city and municipality in the Netherlands. Located in the region of West Friesland in the province of North Holland, the city developed as an important fishing and trading port during the Middle Ages and the Dutch Golden Age, when it was one of the wealthiest and most influential cities in the country.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q9918",
+   "wiki": "https://en.wikipedia.org/wiki/Enkhuizen",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     5.271175182558679,
+     52.71148222837051
+    ],
+    [
+     5.300824817441321,
+     52.71148222837051
+    ],
+    [
+     5.300824817441321,
+     52.69351592263485
+    ],
+    [
+     5.271175182558679,
+     52.69351592263485
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.23,
+    "zmax": 5.84,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
    "id": "ensemble-castral-de-vesvre-q3054866",
    "name": "Ensemble castral de Vesvre",
    "aka": "ensemble castral de V\u00e8vre, Vesvre",
@@ -9805,6 +10147,55 @@
    "overlays": 1
   },
   {
+   "id": "goes-q81220",
+   "name": "Goes",
+   "place": "Goes, Netherlands",
+   "lon": 3.885,
+   "lat": 51.5043,
+   "summary": "Goes is a city and municipality in the southwestern Netherlands on Zuid-Beveland, in the province of Zeeland. The city of Goes has approximately 29,000 residents.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q81220",
+   "wiki": "https://en.wikipedia.org/wiki/Goes",
+   "lidar_credit": "AHN (Rijkswaterstaat, Kadaster), 2022 (24.21 points/m2)",
+   "corners": [
+    [
+     3.8705682100055148,
+     51.51328226740725
+    ],
+    [
+     3.8994317899944853,
+     51.51328226740725
+    ],
+    [
+     3.8994317899944853,
+     51.49531596168211
+    ],
+    [
+     3.8705682100055148,
+     51.49531596168211
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -6.53,
+    "zmax": 8.02,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
    "id": "gondole-q775166",
    "name": "Gondole",
    "aka": "oppidum de Gondole",
@@ -10102,6 +10493,55 @@
    "overlays": 1
   },
   {
+   "id": "groningen-q749",
+   "name": "Groningen",
+   "place": "Groningen (province), Netherlands",
+   "lon": 6.571,
+   "lat": 53.2197,
+   "summary": "Groningen is the capital city and main municipality of Groningen province in the Netherlands. Dubbed the \"capital of the north\", Groningen is the largest city as well as the economic and cultural centre of the northern part of the country; as of January 2025, it had 244,807 inhabitants, making it the sixth largest city/municipality in the Netherlands and the second largest outside the Randstad. As of 2025, the Groningen metro area had a population of 557,369 inhabitants.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q749",
+   "wiki": "https://en.wikipedia.org/wiki/Groningen",
+   "lidar_credit": "AHN (Rijkswaterstaat, Kadaster), 2022 (19.68 points/m2)",
+   "corners": [
+    [
+     6.555996778070137,
+     53.228682210852256
+    ],
+    [
+     6.586003221929862,
+     53.228682210852256
+    ],
+    [
+     6.586003221929862,
+     53.21071590511174
+    ],
+    [
+     6.555996778070137,
+     53.21071590511174
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.11,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.82,
+    "zmax": 9.27,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
    "id": "gurnard-s-head-q5620199",
    "name": "Gurnard's Head",
    "aka": "Gurnards Head, Promontory Fort called Trereen Dinas",
@@ -10149,6 +10589,55 @@
    "drawings": 0,
    "score": 1.1,
    "oldest": 1842,
+   "overlays": 1
+  },
+  {
+   "id": "haarlem-q9920",
+   "name": "Haarlem",
+   "place": "North Holland, Netherlands",
+   "lon": 4.634,
+   "lat": 52.388,
+   "summary": "Haarlem is a city and municipality in the Netherlands. It is the capital of the province of North Holland. Haarlem is situated at the northern edge of the Randstad, one of the most populated metropolitan areas in Europe; it is also part of the Amsterdam metropolitan area. Haarlem had a population of 162,543 in 2021.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q9920",
+   "wiki": "https://en.wikipedia.org/wiki/Haarlem",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.619281026301956,
+     52.39698223882134
+    ],
+    [
+     4.6487189736980445,
+     52.39698223882134
+    ],
+    [
+     4.6487189736980445,
+     52.37901593308856
+    ],
+    [
+     4.619281026301956,
+     52.37901593308856
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.23,
+    "zmax": 5.77,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
    "overlays": 1
   },
   {
@@ -10336,6 +10825,55 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "hampton-court-palace-q205666",
+   "name": "Hampton Court Palace",
+   "place": "Kingston upon Thames, England",
+   "lon": -0.337499,
+   "lat": 51.4034,
+   "summary": "Hampton Court Palace is a Grade I listed royal palace in the London Borough of Richmond upon Thames, 12 miles southwest and upstream of central London on the River Thames.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q205666",
+   "wiki": "https://en.wikipedia.org/wiki/Hampton_Court_Palace",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.3490189416305,
+     51.41058595763624
+    ],
+    [
+     -0.3259790583695001,
+     51.41058595763624
+    ],
+    [
+     -0.3259790583695001,
+     51.39621291306887
+    ],
+    [
+     -0.3490189416305,
+     51.39621291306887
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.98,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 3.14,
+    "zmax": 13.34,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "hampton-court-herefordshire-q1443802",
@@ -11390,6 +11928,55 @@
    "overlays": 0
   },
   {
+   "id": "hutton-hall-q5951100",
+   "name": "Hutton Hall",
+   "place": "Cumbria, England",
+   "lon": -2.839,
+   "lat": 54.714,
+   "summary": "Hutton in the Forest is a Grade I listed country house near the village of Skelton in the historic county of Cumberland, which now forms part of the modern county of Cumbria, England. It belonged to the Fletcher-Vane family from 1605 until 1931, when it became the property of the Barons Inglewood who were distant relatives of the Fletcher-Vane family.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q5951100",
+   "wiki": "https://en.wikipedia.org/wiki/Hutton_in_the_Forest",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.851440786668348,
+     54.72118588541926
+    ],
+    [
+     -2.826559213331652,
+     54.72118588541926
+    ],
+    [
+     -2.826559213331652,
+     54.70681284083578
+    ],
+    [
+     -2.851440786668348,
+     54.70681284083578
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 156.71,
+    "zmax": 196.3,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "ilkley-roman-fort-q7086777",
    "name": "Ilkley Roman Fort",
    "aka": "Site of Roman Fort, Ilkley., Verbeia Roman Fort",
@@ -12355,6 +12942,54 @@
    "overlays": 1
   },
   {
+   "id": "kings-weston-house",
+   "name": "Kings Weston House",
+   "place": "Bristol, England",
+   "lon": -2.661541,
+   "lat": 51.494382,
+   "summary": "Kings Weston House is a historic building in Kings Weston Lane, Kingsweston, Bristol, England. Built during the early 18th century, it was remodelled several times, most recently in the mid-19th century. The building was owned by several generations of the Southwell family. By World War I, the house was used as a hospital and then later used as a school by the University of Bath School of Architecture. The building is today used as a conference and wedding venue, as well as a communal residence.",
+   "region": "England",
+   "kind": "garden",
+   "wiki": "https://en.wikipedia.org/wiki/Kings_Weston_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.6730839198259733,
+     51.501567955793796
+    ],
+    [
+     -2.649998080174027,
+     51.501567955793796
+    ],
+    [
+     -2.649998080174027,
+     51.48719491122602
+    ],
+    [
+     -2.6730839198259733,
+     51.48719491122602
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -4.88,
+    "zmax": 97.95,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "kleinkastell-anhausen-q1746855",
    "name": "Kleinkastell Anhausen",
    "place": "Rhineland-Palatinate, Germany",
@@ -12777,6 +13412,55 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "lambeth-palace-q1130266",
+   "name": "Lambeth Palace",
+   "place": "City of London, England",
+   "lon": -0.11972,
+   "lat": 51.49556,
+   "summary": "Lambeth Palace is the official London residence of the Archbishop of Canterbury. It is situated in north Lambeth, London, on the south bank of the River Thames, 400 yards south-east of the Palace of Westminster, which houses Parliament, on the opposite bank.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q1130266",
+   "wiki": "https://en.wikipedia.org/wiki/Lambeth_Palace",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.1312632181309572,
+     51.50274595576988
+    ],
+    [
+     -0.1081767818690428,
+     51.50274595576988
+    ],
+    [
+     -0.1081767818690428,
+     51.48837291120213
+    ],
+    [
+     -0.1312632181309572,
+     51.48837291120213
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.29,
+    "zmax": 8.58,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "lancaster-castle-q2969640",
@@ -17522,6 +18206,45 @@
    "overlays": 2
   },
   {
+   "id": "reimerswaal-q2590944",
+   "name": "Reimerswaal",
+   "place": "Zeeland, Netherlands",
+   "lon": 4.172486,
+   "lat": 51.507539,
+   "summary": "Reimerswaal is a lost city in the Netherlands. The present-day municipality of Reimerswaal is named after this city, which was granted city rights in 1374. The city was destroyed by repeated floods, and the last citizens left in 1632. Nothing remains. It was located north of the current municipality, on the east end of the Oosterschelde, on land which is now called the Verdronken Land van Reimerswaal. The site of the city has been recognized as a national archeological monument and is buried under the Oesterdam.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q2590944",
+   "wiki": "https://en.wikipedia.org/wiki/Reimerswaal_(city)",
+   "corners": [
+    [
+     4.158053184091751,
+     51.51652126730451
+    ],
+    [
+     4.186918815908249,
+     51.51652126730451
+    ],
+    [
+     4.186918815908249,
+     51.498554961579345
+    ],
+    [
+     4.158053184091751,
+     51.498554961579345
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
    "id": "rendelkastell-ohringen-q91949042",
    "name": "Rendelkastell \u00d6hringen",
    "place": "Baden-W\u00fcrttemberg, Germany",
@@ -17808,6 +18531,55 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "rotterdam-q34370",
+   "name": "Rotterdam",
+   "place": "South Holland, Netherlands",
+   "lon": 4.4745,
+   "lat": 51.9155,
+   "summary": "Rotterdam is the second-largest city in the Netherlands by population and the largest by area (319.4\u00a0km2). It is in the province of South Holland, part of the North Sea mouth of the Rhine\u2013Meuse\u2013Scheldt delta, via the New Meuse inland shipping channel, dug to connect to the Meuse at first and now to the Rhine.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q34370",
+   "wiki": "https://en.wikipedia.org/wiki/Rotterdam",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.45993641638831,
+     51.924482254245746
+    ],
+    [
+     4.489063583611688,
+     51.924482254245746
+    ],
+    [
+     4.489063583611688,
+     51.90651594851712
+    ],
+    [
+     4.45993641638831,
+     51.90651594851712
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.04,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -6.04,
+    "zmax": 7.84,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "rough-castle-fort",
@@ -18772,6 +19544,104 @@
    "overlays": 1
   },
   {
+   "id": "sluis-q10080",
+   "name": "Sluis",
+   "place": "Zeeland, Netherlands",
+   "lon": 3.493,
+   "lat": 51.347,
+   "summary": "Sluis is a city and municipality located in the west of Zeelandic Flanders, in the south-western Dutch province of Zeeland.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q10080",
+   "wiki": "https://en.wikipedia.org/wiki/Sluis",
+   "lidar_credit": "AHN (Rijkswaterstaat, Kadaster), 2022 (21.71 points/m2)",
+   "corners": [
+    [
+     3.4786178027451564,
+     51.35598227237937
+    ],
+    [
+     3.5073821972548442,
+     51.35598227237937
+    ],
+    [
+     3.5073821972548442,
+     51.338015966655526
+    ],
+    [
+     3.4786178027451564,
+     51.338015966655526
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.87,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -0.85,
+    "zmax": 3.85,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
+  },
+  {
+   "id": "somerset-house-q1344889",
+   "name": "Somerset House",
+   "place": "City of Westminster, England",
+   "lon": -0.117778,
+   "lat": 51.511111,
+   "summary": "Somerset House is a large neoclassical building complex situated on the south side of the Strand in central London, overlooking the River Thames, just east of Waterloo Bridge. The Georgian era quadrangle is built on the site of a Tudor palace originally belonging to Edward Seymour, 1st Duke of Somerset. The present Somerset House was designed by Sir William Chambers, begun in 1776, and was further extended with Victorian era outer wings to the east and west in 1831 and 1856 respectively. The site of Somerset House stood directly on the River Thames until the Victoria Embankment was built in the late 1860s.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q1344889",
+   "wiki": "https://en.wikipedia.org/wiki/Somerset_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.12932515801466196,
+     51.518296955454204
+    ],
+    [
+     -0.10623084198533808,
+     51.518296955454204
+    ],
+    [
+     -0.10623084198533808,
+     51.50392391088638
+    ],
+    [
+     -0.12932515801466196,
+     51.50392391088638
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -31.26,
+    "zmax": 26.78,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "spiro-mounds-q2044290",
    "name": "Spiro Mounds",
    "place": "Oklahoma",
@@ -18821,6 +19691,55 @@
    "overlays": 0
   },
   {
+   "id": "st-james-palace-q272162",
+   "name": "St James's Palace",
+   "place": "City of Westminster, England",
+   "lon": -0.137778,
+   "lat": 51.504722,
+   "summary": "St James's Palace is the most senior royal palace in London, England. The palace gives its name to the Court of St James's, which is the monarch's royal court, and is located in the City of Westminster. Although no longer the principal residence of the monarch, it is the ceremonial meeting place of the Accession Council, the office of the Marshal of the Diplomatic Corps, and the London residence of several members of the royal family.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q272162",
+   "wiki": "https://en.wikipedia.org/wiki/St_James%27s_Palace",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -0.1493235389175718,
+     51.51190795558392
+    ],
+    [
+     -0.1262324610824282,
+     51.51190795558392
+    ],
+    [
+     -0.1262324610824282,
+     51.497534911016125
+    ],
+    [
+     -0.1493235389175718,
+     51.497534911016125
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -6.04,
+    "zmax": 25.54,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "stanton-drew-stone-circles-q1516300",
    "name": "Stanton Drew stone circles",
    "aka": "Two stone circles and two stone avenues at Stanton Drew, east of Court Farm",
@@ -18865,6 +19784,55 @@
     1000
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
+   "id": "stanway-house-q7600303",
+   "name": "Stanway House",
+   "place": "Gloucestershire, England",
+   "lon": -1.9122,
+   "lat": 51.9899,
+   "summary": "Stanway House is a Jacobean manor house near the village of Stanway in Gloucestershire, England. The manor of Stanway was owned by Tewkesbury Abbey for 800 years, then for 500 years by the Tracy family and their descendants, the Earls of Wemyss and March.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q7600303",
+   "wiki": "https://en.wikipedia.org/wiki/Stanway_House",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.9238702141889656,
+     51.99708594562829
+    ],
+    [
+     -1.900529785811035,
+     51.99708594562829
+    ],
+    [
+     -1.900529785811035,
+     51.9827129010584
+    ],
+    [
+     -1.9238702141889656,
+     51.9827129010584
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 67.68,
+    "zmax": 216.61,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 1.1,
    "oldest": 1842,
@@ -18958,6 +19926,54 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "stoke-house",
+   "name": "Stoke House",
+   "place": "Bristol, England",
+   "lon": -2.6294812,
+   "lat": 51.4767404,
+   "summary": "Stoke Bishop is a suburb and ecclesiastical parish in the north-west of Bristol, England, of which Sneyd Park is a subdivision. Bordered by The Downs, the River Avon and the River Trym, it is located between the suburbs of Westbury-on-Trym and Sea Mills. Although relatively low, Stoke Bishop's population has significantly increased in recent years due to the infilling of former school and company playing fields. It also increases greatly in term time because of the influx of students to the large campus of Bristol University halls of residence situated on the edge of The Downs.",
+   "region": "England",
+   "kind": "garden",
+   "wiki": "https://en.wikipedia.org/wiki/Stoke_Bishop",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.641019654869932,
+     51.48392635615162
+    ],
+    [
+     -2.617942745130067,
+     51.48392635615162
+    ],
+    [
+     -2.617942745130067,
+     51.46955331158395
+    ],
+    [
+     -2.641019654869932,
+     51.46955331158395
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.84,
+    "zmax": 101.4,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "stokesay-castle-q7618555",
@@ -19447,6 +20463,55 @@
    "overlays": 1
   },
   {
+   "id": "temple-newsam-q2748017",
+   "name": "Temple Newsam",
+   "place": "North Yorkshire, England",
+   "lon": -1.4595,
+   "lat": 53.7842,
+   "summary": "Temple Newsam, is a Tudor-Jacobean house in Leeds, West Yorkshire, England, with grounds landscaped by Capability Brown. The house is a Grade I listed building, one of eight Leeds Museums and Galleries sites and part of the research group, Yorkshire Country House Partnership.",
+   "region": "England",
+   "kind": "garden",
+   "qid": "Q2748017",
+   "wiki": "https://en.wikipedia.org/wiki/Temple_Newsam",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -1.4716634725410227,
+     53.7913859068457
+    ],
+    [
+     -1.4473365274589776,
+     53.7913859068457
+    ],
+    [
+     -1.4473365274589776,
+     53.777012862267206
+    ],
+    [
+     -1.4716634725410227,
+     53.777012862267206
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 26.34,
+    "zmax": 84.96,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "terpensmole-q4687217",
    "name": "Terpensmole",
    "aka": "rijksmonumentnummer 22914",
@@ -19545,6 +20610,55 @@
    "score": 0.91,
    "oldest": 1850,
    "overlays": 1
+  },
+  {
+   "id": "the-hague-q36600",
+   "name": "The Hague",
+   "place": "South Holland, Netherlands",
+   "lon": 4.305,
+   "lat": 52.079,
+   "summary": "The Hague is the capital city of the South Holland province of the Netherlands. With a population of over half a million, it is the third-largest city in the Netherlands. Situated on the west coast facing the North Sea, The Hague is the country's administrative centre and its seat of government, and has been described as the country's de facto capital since the time of the Dutch Republic, while Amsterdam is the official capital of the Netherlands.",
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q36600",
+   "wiki": "https://en.wikipedia.org/wiki/The_Hague",
+   "lidar_credit": "AHN (Rijkswaterstaat)",
+   "corners": [
+    [
+     4.290383131428627,
+     52.0879822489454
+    ],
+    [
+     4.319616868571373,
+     52.0879822489454
+    ],
+    [
+     4.319616868571373,
+     52.070015943215346
+    ],
+    [
+     4.290383131428627,
+     52.070015943215346
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.65,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -4.71,
+    "zmax": 9.34,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "theilenhofen-q1214616",
@@ -20333,6 +21447,53 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "valkenburg-q100076",
+   "name": "Valkenburg",
+   "place": "Limburg, Netherlands",
+   "lon": 5.83205,
+   "lat": 50.86523,
+   "region": "Netherlands",
+   "kind": "town",
+   "qid": "Q100076",
+   "lidar_credit": "AHN (Rijkswaterstaat, Kadaster), 2022 (24.96 points/m2)",
+   "corners": [
+    [
+     5.817816932228271,
+     50.874212287397874
+    ],
+    [
+     5.846283067771729,
+     50.874212287397874
+    ],
+    [
+     5.846283067771729,
+     50.85624598167793
+    ],
+    [
+     5.817816932228271,
+     50.85624598167793
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 62.56,
+    "zmax": 145.23,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "velda-mound-q7918862",

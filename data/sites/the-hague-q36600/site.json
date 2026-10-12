@@ -1,0 +1,15 @@
+{
+ "id": "the-hague-q36600",
+ "name": "The Hague",
+ "place": "South Holland, Netherlands",
+ "lon": 4.305,
+ "lat": 52.079,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q36600",
+ "summary": "The Hague is the capital city of the South Holland province of the Netherlands. With a population of over half a million, it is the third-largest city in the Netherlands. Situated on the west coast facing the North Sea, The Hague is the country's administrative centre and its seat of government, and has been described as the country's de facto capital since the time of the Dutch Republic, while Amsterdam is the official capital of the Netherlands.",
+ "wiki": "https://en.wikipedia.org/wiki/The_Hague"
+}

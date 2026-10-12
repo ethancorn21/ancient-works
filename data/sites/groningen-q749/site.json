@@ -1,0 +1,15 @@
+{
+ "id": "groningen-q749",
+ "name": "Groningen",
+ "place": "Groningen (province), Netherlands",
+ "lon": 6.571,
+ "lat": 53.2197,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q749",
+ "summary": "Groningen is the capital city and main municipality of Groningen province in the Netherlands. Dubbed the \"capital of the north\", Groningen is the largest city as well as the economic and cultural centre of the northern part of the country; as of January 2025, it had 244,807 inhabitants, making it the sixth largest city/municipality in the Netherlands and the second largest outside the Randstad. As of 2025, the Groningen metro area had a population of 557,369 inhabitants.",
+ "wiki": "https://en.wikipedia.org/wiki/Groningen"
+}

@@ -1,0 +1,15 @@
+{
+ "id": "sluis-q10080",
+ "name": "Sluis",
+ "place": "Zeeland, Netherlands",
+ "lon": 3.493,
+ "lat": 51.347,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q10080",
+ "summary": "Sluis is a city and municipality located in the west of Zeelandic Flanders, in the south-western Dutch province of Zeeland.",
+ "wiki": "https://en.wikipedia.org/wiki/Sluis"
+}
