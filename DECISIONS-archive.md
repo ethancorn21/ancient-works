@@ -4460,6 +4460,55 @@ logged in PITFALLS and above).
   then judging (21 lines appended under the 306 section of docs/site_flow.md) and 303-way removals of any
   wrong fits (site-scoped `review.export('.', sid)`, never tools/site_done.py on a matcher-reachable site).
 
+## 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)
+- Second session on 306b. Re-shot the argentoratum c_191c6221a81caad0 couple with the fixed driver and
+  verified both page-behavior fixes actually work: imagery shot `relLayer: none`, relief shot
+  `relLayer: visible`, zoom 14.97/14.99 (site-scale, not the pre-fix country zoom 6.38), `img: true`,
+  `layer: true`, `n: 8`, fithint normal, fit resid 0.0-0.1 m / mpx 2.17 / rot -32.3. Visual check of both
+  pngs: town at site scale with the 1833 Villot plate fitted, anchor dots 1-8 on the plate and on the map,
+  etatmajor red ink (85 %) above the aerial (imagery) and above grey hillshade + the Ill river (relief) -
+  the faithful visitor view. The earlier hand-over's zoom estimate (~13.8) was off; the driver's own
+  target formula gives ~14.97 for argentoratum's size_m and that is the correct site-scale view.
+- The full run is now in the background (nohup, one `server/serve.py --port 0`, server on 44225 at launch;
+  21 docs, 42 shots, 40 to write, skips the 2 existing pngs; est. 15-20 min at ~22 s/shot). Next session:
+  tail /tmp/audit_306b.log for FAILURES/MISSING (or just re-run the driver - it is idempotent), then judge
+  the 42 shots and append the 21 lines to the end of docs/site_flow.md's task-306 section (which is the
+  file's last section; 306a's last line is bethlehem fc4566d6947287f4).
+- No test-affecting change this session (two pngs re-shot in docs/site_flow/agent_fits/), so the suite was
+  not re-run; it stays due at the judging/removals session.
+
+### 2026-10-12 306b DECISION: judging-prep sheet built; discovered all 10 items are RESOLVED by my own 21 docs (no review-tab presence today); deletions are union-safe
+- Third session on 306b. Audit run (pid 3719656, log /tmp/audit_306b.log) healthy: 12/21 docs (24
+  pngs) done by 13:49 CDT, zero failures; ~45-50 s/doc in practice (22 s estimate was optimistic),
+  ~20 min left. Next session: confirm completion (re-run idempotently if dead), judge from
+  argentoratum.
+- The review-queue state differs from the task's wording in one way that must be reflected in the
+  verdict lines: ALL 10 item files carry a recorded `resolved`, and every resolver is one of my 21
+  docs (argentoratum: c_e882645cc479c889; the other 9 sites: their own doc). None of the 10 sites
+  is in web/data/review.json today (333 open items, file written 18:01 UTC) - the review tab shows
+  nothing for them. So "the review tab would pre-place the item's version" is a counterfactual:
+  each line notes the item's own coarse candidate for the same plan (6-anchor rectangle/center,
+  scale_m_px from picture size) and its rejection `why` as the version the owner WOULD see when/if
+  the item reopens. (fit/review.py: `resolved` is write-once; `resolved_doc` falls back to the
+  first candidate that has a store doc only after the recorded one is deleted.)
+- Coverage is safe under my deletions: union_check (fit/batch_eu.py) counts a site covered by ANY
+  doc OR ANY item file (open or resolved), and upsert_item never deletes an item file. The 10
+  item files always exist -> the 10 sites stay covered no matter what I delete. Deleting a site's
+  LAST remaining doc reopens its item (all store docs for these sites are my 21; no by:hand);
+  306a's bethlehem is the working precedent (item now open, in today's open list).
+- Built /tmp/306b_judge.md (persists in /tmp across iterations): per doc - the item candidate (why,
+  gate_score, evidence) vs the doc placement (center/extent in metres, matcher inliers/rot), plus
+  site context (name/region/size, web/data/site dir, relief flag). Noted in it: weak matcher
+  inliers on 5 docs (c_e882645 32/1822, castle-neroche c_44529 52/98, n0110_1 15/26, castra-lemanis
+  c_be12fb 15/25, ferme c_804aa7 11/203) - judge the image, not the stats; two candidates with
+  200-evidence CONFLICTS (c_e882645: "Ville" Q1165252 ~350 km west near Paris; cenabum c_e73dc8:
+  "Epinal" Q173695 ~350 km NE); n0110_1's item pairs equal the doc's pairs exactly (0 m offset,
+  the one match).
+- Verified the "never reached the map" premise for all 10 sites: web/data/sites/<s>/depictions.json
+  holds zero depictions in each.
+- No file changes this session (only /tmp prep sheet and memory), so the suite stays due at the
+  judging/removals session; baseline 128 passed, 1 skipped, test_gate pre-existing red.
+
 
 <!-- task 307a -->
 # Task 307a place-check
