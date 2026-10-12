@@ -124,7 +124,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/composite.py` (16 lines) - Preview: site relief with the exported plate ink on top.
 - `tools/export_catalog.py` (52 lines) - Compact catalog for the page: web/data/catalog.json (every catalog entry as a pin; built sites are the full pages). Exports: dist_m, main.
 - `tools/export_plans.py` (88 lines) - Site plans from the old books (data/books/index.jsonl) as a compact list for the page's plate-fitting tool. Exports: commons_rows, main.
-- `tools/fit_queue.py` (218 lines) - The "Ready to fit" queue (task 305): the built sites with candidate pictures but no hand fit yet, one per entry, ordered so the site most worth seeing comes first. Exports: build L171-197, main L200-218.
+- `tools/fit_queue.py` (227 lines) - The "Ready to fit" queue (task 305): the built sites with candidate pictures but no hand fit yet, one per entry, ordered so the site most worth seeing comes first. Exports: build L188-206, main L209-227.
 - `tools/fitkit.py` (223 lines) - Hand-fitting helper for Claude (the page's plate-fitting tool does the same for people). Exports: ground L35-52, ground_view L55-59, site L62-63, plan L66-74, plan_image L77-80, grid L83-99, sheet L102-123, zoom L126-135, lonlat L138-143, save L146-167, ... (+2 more).
 - `tools/gate_heldout.py` (174 lines) - The one-shot measurement of the fit gate on the hand fits (docs/gate.md, sections 3-6). Exports: partition L78-104, check_registered L107-114, load_sites L117-118, box_centre_ground L121-126, placements L129-152, main L155-174.
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
