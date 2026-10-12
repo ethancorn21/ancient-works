@@ -8,16 +8,15 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/220-review-page-reexport.md` (open) - hand-over: (2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 120, agent a - still WAITING; re-verified, no code change. New this
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 121, agent a - the wait is over on the main side. 220's export is
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/215-books-llm-ports.md`
+- `tasks/216-view-books-entries.md`
 
 ## Your task's journal
 
@@ -72,56 +71,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
-
-### 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits
-
-One step (investigation + bookkeeping on my own task files, no code change): the driver
-returned 307ba while 220 is still open. I verified the dependency state and learned the 309
-split; all facts below were checked by running git, not assumed.
-
-**State.** main is still cf29be2 (`agent/a..main` empty - no re-sync needed, nothing new);
-web/data/review.json on main is byte-identical to my branch's copy (md5 b6506007, the stale
-340-open-of-341 page), so the 3 re-claim-blocking failures are unchanged and a re-claim now
-would fail the same way. 309's task file on main still says `Status: open` - the split is
-not on main yet. On agent/c (read via `git show`, not merged): 309 is `Status: split` with
-two subtask files: 804-fit-queue-wire.md (`Depends on: none`; Touches: tools/fit_queue.py,
-data/review/README.md, tests/test_fit_queue.py; the two-phase build wiring the right-place
-check into build(); explicitly must not touch agent a's web files or write the real
-checkout's data files) and 805-fit-queue-rebuild.md (`Depends on: 804`; Touches: web/data/
-fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_
-place_drift.py; runs the wired build on the real checkout - 15 flagged namesake pairings
-over 9 sites dropped/moved - and re-exports web/data/review.json in-process "by
-fit/review.py export from the same run").
-
-**805 subsumes 220.** fit/review.py::export(root, site_id=None) (line 184) writes the
-write-once `resolved` record into every item file whose resolving doc exists, and the page
-file is always computed over the whole queue; 805's in-run export must be a full export
-(site_id=None) because the namesake upserts span sites and the page must reflect all of
-them. A full export is exactly 220's box 1: it records the same 6 resolutions the
-iteration-116 scratch run verified (335 open of 341; second run a no-op). So when 220 runs
-(after 309's closure, which comes after 804+805), both its boxes are a no-op verification.
-I refreshed 220's now-stale "Depends on 309 because ..." note to describe the split and
-wrote 220 a runner's hand-over (run the export, expect no-op, verify the 3 tests, close as
-verified). I KEPT 220's `Depends on: 309` rather than re-pointing it at 805: 309 is the
-driver-visible task (the loop prompt names agent c's work as 309 with the parent's Touches),
-while 804/805 exist only on agent/c's branch and in no checkout's shared tasks/ yet - a
-dep naming a task file no checkout shares risks parking forever. 309's closure after 805
-adds no store change (the tools/right_place.py module file lands then; inert to the 3
-tests' data), so the extra wait costs one agent-c session, not a store dependency. (Agent
-c's own 2026-10-12 309 DECISION entry, iteration 98, documents the convention I am
-navigating: a split parent becomes done only after its subtasks, so a dep on a split parent
-parks until full closure, and a subtask dep on its own parent is a circular deadlock. 220
-is not a subtask of 309, so its dep is a long wait, not a deadlock.) A PITFALLS entry under
-Agent-tools records the convention and this exception.
-
-**Merge recipe written into 307ba's hand-over (the next session that sees 804/805 on main
-executes it).** tools/fit_queue.py: take 804's two-phase build (all flag decisions over the
-pre-mutation candidate sets, then drops/moves/upserts, then entries recomputed); keep my
-`_entry_propose(root, sid, plan)` call at the END of the per-site loop - after the final
-best selection, before entries.append - so a move that changes a site's best candidate
-recomputes that entry's propose (my committed wiring already sits there, so a two-phase
-restructure keeps it correct without moving it); keep the helper, the `import propose`
-... (6.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits' DECISIONS.md`)
 
 ### 2026-10-12 307ba DECISION: wait re-verified (iteration 119) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty), agent/c snapshot unchanged (804's two-phase wiring still unwritten), fresh FULL suite = exactly the 3 known stale-page failures (3 failed, 70 passed, 1 skipped, 107.4 s) - re-claim stays parked on 220; recorded the post-export item-drift watch (203b writes data/review item files after the page's snapshot) in 220's runner note, the 307ba hand-over and the review-page PITFALLS entry; no code change
 
@@ -205,6 +154,48 @@ iteration-100 data state), not my earlier "~116"; it may shift again if 203b (EU
 or 207 (Roman books) land on main before 805's rebuild (new index rows / review items) -
 regenerate, never pin. Still waiting: 804 boxes 3-4 + 805 -> 309's closure -> 220's export
 -> my re-claim. No code change, no ask_human (plain dependency wait).
+
+### 2026-10-12 307ba DECISION: iteration 121 - the wait is over on the main side: the lead ran 220 themselves (c5250a4 full export, overriding my "wait for 309" dep) and ordered a resume without waiting for c's 309/804/805 chain; verified in scratch that main's state makes the 3 stale-page tests green (full seeded suite 75+1, re-export a no-op); re-measured my branch's 3 failures as pure stale-page arithmetic; closed my 220 filing as done (all boxes verified); the re-claim is pinned to the post-sync session (expect 75 passed + 1 skipped)
+
+One step (verification + bookkeeping, no code change): the lead's message closed the
+dependency ("220 done on main ... Resume 307ba now: build on main, do not wait for c
+309/804/805; if their merge conflicts later, the second to land resolves it"). Verified
+by running (nothing merged - agent/a..main = 4 lead commits at the time of writing; the
+driver's sync is still ahead):
+
+- Main tip 57b3988 = cf29be2 + c5250a4 (220's export: page md5 2609ecef, 335 open of 341,
+  `at` 05:02:09; the 6 item files each only gain a resolved record; lead's own words:
+  "The lead placed matcher docs without a full export; that staled the page") + 5c153b9
+  (214 region names, +2 tests in test_region.py) + 2dd6596 (215: books.py probes the live
+  Qwen ports 8080-8082) + 57b3988 (PITFALLS fold). None touches my files; right_place.py
+  / the 804 wiring are still agent/c only.
+- Scratch copy of main's exact tree (git archive main -> /tmp/mn121; seeded with the
+  gitignored store elements: web/data/sites copy, the data/raw symlink - I re-hit the
+  data/raw du=0 symlink trap fresh this session; it is already recorded in PITFALLS
+  ("data/raw in the repo is a symlink to a sibling project"), so no new entry): the 3
+  named tests all pass in 25.5 s; the full seeded suite = 75 passed + 1 skipped, 0
+  failed (the main baseline; the "73" in the old 220 box 3 predates 214's 2 region
+  tests); a re-export over main's state is a no-op (only `at` moves, the 335-item list
+  identical) -> the page is in sync as of c5250a4.
+- My branch (before the sync): re-ran the 3 tests - all fail EXACTLY on the stale-page
+  arithmetic (334 vs 339; 335 vs 340; 334 vs 339) with the machinery intact (the fixture
+  pick works, the one-site line ~18 s, the page re-exports in the temp tree) -> post-
+  sync (the page becomes 335/341) all three flip green with no test change. Merge
+  preview (read-only git merge-tree from merge-base cf29be2): no conflicts (only
+  PITFALLS.md on both sides, different sections) -> the driver's sync should be clean.
+- Closed my 220 filing as done: box 1 verified from c5250a4's diff (exactly the 6 item
+  files + the page, nothing else in the store) + the scratch re-export; box 2 from the
+  scratch no-op; box 3 from the 3/3 green + 75+1 scratch suite. 220's Notes now record
+  the lead's override of my dep-309 safety gate (the human's word wins).
+- The review-page PITFALLS entry's fix description now reflects that the lead ran
+  c5250a4 (was "220, after 309"); the third-trigger drift watch stays armed.
+- 307ba's hand-over is rewritten around the re-claim: after the driver syncs main into
+  agent/a, one step = verify agent/a..main empty, run the full suite (expect 75 passed +
+  1 skipped, 0 failed), set done, commit. The old merge recipe (for when c's 309 chain
+  lands on main before/in the same sync as my re-claim) stays in this entry and is
+  referenced from the hand-over. The parent 307b's hand-over note on 307bb's start
+  condition is updated to match (220 on main; baseline 75+1).
+- No ask_human, no code change. The next session (after the sync) makes the re-claim.
 
 ## Project-wide driver notes (newest)
 
