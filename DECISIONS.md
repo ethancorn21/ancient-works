@@ -731,3 +731,63 @@ NEXT (step B, next session): triage the volume (fetch -> triageA -> triageF with
 resumable; LLM 127.0.0.1:8080/8081 up, 8082 down per the 5060 Ti image matchers), then no-args index +
 validate with the expected values in the hand-over (66 index rows on 63 leaves + stage-A-only extras; merian
 validate entry appears; everything else byte-identical), restore the shared files, tick box 2, done.
+
+## 2026-10-12 217 DECISION: Merian s9 - step B complete: the (cut-off) iter-123 triage is verified (a fresh no-args rebuild is byte-identical to the driver-committed shared files); TWO table rows corrected (S. Luciensteig -> fig 350, Werdenstein+S. Urbani -> fig 384: both plates exist - s7's leafless call wrong, proven by hOCR + stage A reading each plate's own printed title); per-book ink floor BLANK_INK_BOOKS[ia]=0.01 in books.py drops the 4 faint show-throughs Qwen typed plate_site_plan (one with a cross-book invented title); final merian = 60 hand-list rows on 57 leaves, no stage-A-only rows; shared files restored to 6fff103 for 211; box 2 ticked, done
+Session 9 (iteration 124) on 217. Discovery: iteration 123 (a cut-off session of mine on this branch) had
+already run step B's fetch (400 triage images, data/raw, gitignored) + triageA (400/400) + triageF (108/108)
++ no-args index + validate, but was cut before the verify/restore/memory steps; the driver's safety-net
+commit 354b38c "[driver] uncommitted work after iteration 123" committed everything including the shared
+files (index.jsonl/validation.json) - against the s8 plan ("this task commits NEITHER; restore after
+verification; 211 owns them"). So this session verified that state, fixed what verification exposed, then
+completed the plan.
+Verification of the committed state: a fresh no-args `books.py index` + `validate` under the current code is
+BYTE-IDENTICAL to 354b38c's files (md5 4ae18b29.../2cb0e2c1...) - the files are faithful artifacts of the
+code, not hand-edits. Per-row/entry diff vs the 6fff103 pre-task baseline: 890 plan-book rows byte-identical
+IN ORDER (box 3 holds), 8 plan validation entries byte-identical; 118 civitates rows (107 new + 11 old
+model-flagged rows reshaped by 217's machinery - the intended delta, s2-verified, byte-identical to the
+s2-era numbers); civitates validation entry differs from baseline ONLY by the s2-verified "figures" block
+(listed 121, site 7, recall 0.429, precision 0.273, flagged_on_other_only [30,62,65,66,93,105,186,229],
+missed [58,85,98,109]) - which the 207/216 precedent deliberately left out of the committed file (211's
+rebuild owns it); new merian entry.
+S8 PREDICTIONS CORRECTED (all verified against the actual run; the actuals are self-consistent):
+- list rows 58 on 55 leaves, not 66 on 63: s8 counted the 8 kind-u rows as index rows; list_pages/index
+carry only s+o (u = unsure, excluded by the module's documented design).
+- gt_site_pages 10, not 11: the 11th s row (Nünkirchen, leaf 55) is leafless (BR-hidden foldout).
+- stage-A-only rows were [121, 153, 205, 231, 350, 384], not the speculative {76, 176, 264, 320, 342}: the
+  known extras n76 (Oron), n264, n320 (Neuenburg 2nd view), n342 (Flursium) were typed other_illustration by
+  stage A and stage F says no plan -> no rows, as designed (they surface only if the model ever flags them).
+TWO TABLE CORRECTIONS (s7's leafless calls were wrong; both plates exist in the item and were verified by
+TWO independent readers - stage A's 1400-px read and the cached hOCR, which agree):
+- n350 (leaf 383, ink 0.2025) = 'S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen.'
+  (hOCR leaf 383 garbles exactly this title) -> the list row 'S. Luciensteig 85' has its leaf; s7's
+  "no plate leaf between n348 and n356: plain pages" missed n350.
+- n384 (leaf 419, ink 0.3551) = 'WERDENSTEIN. Kloster S. Urban' (hOCR leaf 419 carries the legend
+  'MONASTERIU S.URBANI. ... Die kirche, Die Abtey, Das Convent, Studier vnd Krancken Haus, ...') -> the list
+  row 'Werdenstein und S. Urbani 90' has its leaf. Stage A typed it other_illustration (a view), consistent
+  with kind o; titles in the table updated to the plates' own printed wording (the other rows' convention).
+FOUR JUNK ROWS REMOVED BY A PER-BOOK INK FLOOR: n121 (ink 0.0054), n153 (0.0073), n205 (0.0097), n231
+(0.0073) were typed plate_site_plan by stage A and passed the global BLANK_INK=0.005 gate, producing four
+titleless view rows (n153 with a cross-book invented title: 'Plan of the Mound at the Fork of the Road,
+near the Village of' + 'PLATE XXV' - a 19th-c American idiom in a 1654 Swiss book; 'PLATE XXV' was read on
+n121 too). All four have garbage hOCR (show-through backs of foldouts); every GENUINE plate leaf in the
+item has ink >= 0.1834 (min n308), so a 0.01 floor for this book alone (BLANK_INK_BOOKS in books.py -
+Touche added; site_pages_model uses it, global BLANK_INK untouched so no plan book is affected) drops
+exactly the four and keeps everything real.
+FINAL STATE (verified; this is what 211's no-args rebuild reproduces): index 1068 rows = 890 plan + 118
+civitates + 60 merian. Merian: 60 rows on 57 leaves, ALL list-derived (title_source 'book's figure list,
+hand-transcribed'; zero null titles; n72/n124/n134 give 2 rows each): view true 50 / false 10; found_by
+list_view 45 / list 6 / list+qwen 6 / list_view+qwen 3; page_type other_illustration 58 / plate_site_plan 2
+(n308, n350 - stage A's type kept, the view field disambiguates); NO stage-A-only rows remain. Merian
+validate entry: pages 400, triaged_A 400, flagged_stageA 66, F 108, flagged 8; figures: listed 80,
+parsed_with_page_on_a_leaf 68, site 11, unsure 8, other 61, gt_site_pages 10, recall_pages 0.5, recall_pm1
+0.5, precision_strict 0.625, precision_lenient 0.625, flagged_on_other_only_pages [246, 350, 384],
+flagged_not_in_list [], missed_pages [32, 66, 134, 218, 298], stage_A_only {recall 0.1, precision 0.015,
+66} (the model's quality on this book; recorded, not forced). data/books/lists/topographiahelve00zeil.json
+= the corrected table's dump (md5 1f49058c); .map.json = 57 mapped leaves (site_plan leaves unchanged:
+32, 66, 124, 134, 172, 218, 268, 288, 298, 308). Shared files restored to 6fff103 (the pre-task baseline).
+Suite after all changes: 101 passed / 1 skipped (184 s). Boxes: 1 (s2) and 3 (s2, re-verified today: 890
+plan rows + 8 validation entries byte-identical) already ticked; 2 ticked this session - one row per
+indexed town-view plate for the view books (civitates 118 + merian 60, all with the view field: true for
+kind o, false for kind s; the 2 mixed leaves n124/n134 give one of each) and zero plan-book rows carry the
+view key. Status: done. 211's rebuild (with my triage artifacts + corrected lists on main) reproduces the
+merian rows; the page branches on `view`.
