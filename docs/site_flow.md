@@ -287,3 +287,85 @@ Outcome: **map** — Shotwick's agent fit passes the line's fabrication check an
 with the honest automatic source line (no gate score, because a session placed it). A
 second run of the line is a no-op: "skipped: overlay already current", "drawings 1 -> 1",
 the item file and `depictions.json` byte-identical.
+
+## The one-shot held-out measurement of the survey-sheet fit (task 304, pre-registered before the run)
+
+Pre-registered 2026-10-12, before any document below was measured by this method. Two
+automatic fits have failed: the vision model invents its points (301) and ink against LiDAR
+relief lands 231-2204 m off on this same set (the 302b table above). This third try matches
+the plan against the site's old survey sheet — both are ink drawings of the same banks and
+ditches, often of the same decades — and carries the sheet's georeference over. The method
+is `fit/surveyfit.py` as of the freeze commit: the exact API parameters, thresholds and
+grids are restated in this section at that commit, which must precede the run; this
+section is amended at the freeze commit and at the run (the measured table), never
+otherwise.
+**No parameter of the method is chosen or adjusted against the 21 held-out documents,
+before or after the run.** Development and smoke tests use only non-held-out pictures of
+sheet-carrying sites, recorded in `data/surveyfit/devlog.md`.
+
+**What the method sees.** For a (site, plan) pair it reads only: the **plan panel** — the
+doc's `crop` box in the page picture (book scans: `data/raw/books/<ia>/full/<file>`
+resampled to the doc's `size` frame; Commons: the big picture `data/raw/commons/big/
+<id>.jpg`); the **sheet** — the site's finest-scale `kind "map"` / `"topo"` depiction from
+`web/data/sites/<site>/` (the `.webp` mosaic and its `corners`, which georeference it;
+15 of the 19 sites carry the OS six-inch 1st edition and the 1-inch map, bergues and
+camp-d-attila the Cassini and Etat-major, aztalan / cahokia / mound-bottom /
+serpent-mound USGS historical topo 1:62,500 or 1:48,000); and **priors** — the plan's
+recorded scale bar (8 of the 21 docs; the plan's m/px from the 302b seed records) and its
+recorded north arrow where trustworthy. It never opens a platefit document: the comparison
+with the hand fits happens only in the evaluator `fit/surveyfit_heldout.py`, which reads
+each hand doc's stored pairs solely to compute this table (the 302b separation).
+
+**The match.** The lead's pre-trained cross-modal matcher MatchAnything-ELoFTR
+(zju-community/matchanything_eloftr, Apache-2.0), served on the 5060 Ti behind the VM
+tunnel at `http://127.0.0.1:8091`: `POST /match` `{image0, image1 (base64 png/jpg),
+threshold (0.2), max_side (832)}` -> `{keypoints0, keypoints1 (original pixel frames),
+scores, size0, size1}`; `GET /health` gates the run. The plan panel is image0, the sheet
+image1. A RANSAC similarity (scale, rotation, translation) is fitted through the matched
+pairs with a frozen inlier threshold. Priors shrink the search: where a scale bar exists
+the scale is constrained to (plan m/px)/(sheet m/px, from the corners) within a frozen
+tolerance band, otherwise the matcher's scale; where the arrow is trustworthy the
+rotation is fixed, otherwise a frozen coarse-to-fine rotation sweep (the panel image
+rotated before each match call) scored by inlier count; translation is then solved from
+the matches and refined. This targets what the 302b table shows: scale ratios 0.24-13.2x
+and rotations to 126 deg are what the relief search had to (and did) guess wrong.
+
+**Carrying the georeference over.** Plan page-px -> (the similarity) -> sheet px -> (the
+depiction corners' rectilinear map) -> Web Mercator; the reported placement is the plan
+panel's corners on the ground.
+
+**Null recipe (search-matched).** The same matcher and fit run twice more, through the
+same service: (a) the 302b scramble of the plan panel (each piece rigidly rotated about
+its centroid, centroid translated, one seeded RNG, the 302b seed convention) against the
+real sheet; (b) the real panel against the sheet shifted half the box north and half east
+(the 302b DEM shift, applied to the sheet image). null = the higher of the two null
+scores; margin = score(fit) - null.
+
+**Score and confidence.** Score = the RANSAC inlier fraction, reweighted by the inliers'
+reprojection RMS; confidence is a monotone function of score and margin (the exact formula
+fixed at the freeze commit).
+
+**Aerial column.** The only held-out site with a `kind "aerial"` depiction is camp-d-attila
+(`fr_ortho1950.webp`); where the matcher also works on the plan against that aerial, both
+columns are reported, the sheet column first.
+
+**The 21 held-out documents** are the list in the 302b section above, unchanged. A hand
+fit whose site has no survey sheet is listed as "no sheet", not dropped (not expected:
+all 19 sites carry a sheet).
+
+**One-shot.** `fit/surveyfit_heldout.py` checkpoints per document into
+`data/surveyfit/heldout/results.json` as each completes (a cut session resumes from the
+checkpoint); each (document, ground) pair is measured exactly once, after the freeze
+commit.
+
+**Corner-error metric.** As in the 302b section: both similarities in the doc's size frame,
+the four full-image corners, `k0 = aw.ground_scale(lat0)`.
+
+**The verdict (from the task).** The method passes only if a confidence threshold exists
+under which every accepted fit is within 60 m of the hand fit and at least 5 of the 21 are
+accepted; the threshold is the pass criterion itself (as in 302b's one authorised choice),
+not a method parameter, and the table is reported as it comes out. Pass -> task 304b wires
+the fit into `tools/site_done.py`'s fit step (confident -> map, unsure -> review with the
+reason). Fail -> this section says so and the method stops: no wiring, no fourth method.
+
+(The measured table is pasted here after the one run, as in the 302b section.)
