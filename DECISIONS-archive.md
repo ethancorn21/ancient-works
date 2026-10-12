@@ -3212,6 +3212,64 @@ Follow-up, filed not built: tasks/219-source-line-year.md - the commons source l
 Next: none - task complete. If the driver reopens it: the hand-over's "if this task ever reopens" note says what the 303 tests pin (the 21-hand set, the stonehenge 13-candidate item) and what is deliberately NOT 303's (the 201 contract hiding a refused candidate from the page's Review tab; the 219 string blemish).
 
 
+<!-- task 304 -->
+# Task 304 survey-fit
+
+## 2026-10-12 304 DECISION: pre-register the survey-sheet fit before any measurement; learned matcher (SuperPoint+LightGlue, pinned) with scale/rotation priors, translation from the matches
+
+Human direction (2026-10-12, iteration 85): (1) dense learned matchers are allowed and
+encouraged (RoMa, LoFTR, LightGlue+SuperPoint/DISK, pinned); ask for a GPU via a request if
+the 3090 is busy with the model server. (2) Priors that shrink the search: 302b's scale
+ratios ran 0.24-13x and rotations to 126 deg; read the plan's north arrow and scale bar
+where present, and the site's known size, to fix rotation and scale, leaving mostly
+translation. (3) Plan against the survey sheet first; if the matcher also works plan
+against aerial, report both columns; same pre-registered held-out protocol; no tuning on
+the 21 after the run.
+
+Investigation (all verified on this machine): every one of the 19 held-out sites carries a
+georeferenced sheet with coverage=1.0, corners and an _ink.webp - 15 OS six-inch 1st
+edition + 1-inch (six-inch = 1:10,560 is the finest), bergues and camp-d-attila Cassini +
+Etat-major, aztalan/cahokia/mound-bottom/serpent-mound USGS topo (1:62,500 x3, 1:48,000);
+camp-d-attila also has the aerial fr_ortho1950.webp (the aerial column). Plan panels are
+on disk (plan_<id>.webp + _ink) for 20 of 21 docs; doc 21 (the DPLA Maiden Castle plan)
+has no plan webp - its panel must be cropped from data/raw/commons/big/<id>.jpg (1280x889)
+with the doc's crop [165,256,895,663]. Book docs: page at data/raw/books/<ia>/full/<file>
+in the doc's size frame + crop (avebury: 3367x5050, crop [700,1000,3150,3700]). 302b seed
+records: 8/21 have a scale bar, 12/21 are commons coarse anchors with no scale, 1 has
+scale text with unrecorded scan ppi - so the matcher must supply scale for ~13 docs, which
+is exactly the learned matcher's job. The catalog's size_m/diameter_m are None for these
+sites, so "known size" is available only where a bar or ratio text is recorded.
+
+Machine facts: this VM has no GPU (no /dev/nvidia*, virtual VGA only), 6 cores, 15 GB RAM,
+a torch-free .venv; the AI box (10.0.10.75: 3090 Ti = vLLM Qwen model server, 5060 Ti =
+clef re-ranker) is not shell-reachable from here (only forced-command keys: doorbell,
+labdash-feed, lab-archive; hostname "aibox" does not resolve). A GPU ask_human was drafted
+but never sent, because the lead's second message (same iteration) superseded it: a
+pre-trained cross-modal matcher, MatchAnything-ELoFTR, is served on the 5060 Ti behind a
+VM tunnel at 127.0.0.1:8091 (see the follow-up entry below). .venv is rebuilt from the
+hashed requirements.txt before every test run; the matcher runs remotely, so the client
+needs only requests + numpy (already in requirements.in) - no requirements change was
+made this session.
+
+Action taken: pre-registered in docs/site_flow.md (new section "The one-shot held-out
+measurement of the survey-sheet fit (task 304, pre-registered before the run)"): the method
+never opens a platefit document (the evaluator fit/surveyfit_heldout.py alone compares
+against the hand fits); null recipe = 302b scramble of the panel + 302b half-box shift of
+the sheet; score = RANSAC inlier fraction reweighted by reprojection RMS, confidence from
+score and margin; the 21 docs = the 302b list unchanged; verdict per the task (a
+confidence threshold exists under which every accepted fit is within 60 m and >=5 of 21
+are accepted; pass -> 304b wiring, fail -> stop, no fourth method). The section's frozen
+config (versions, thresholds, sweep grid, confidence formula) is restated at the freeze
+commit, which must precede the run.
+
+Next step (session 2): fit/surveyfit.py v0 against the ELoFTR API (client POST /match with
+the plan panel as image0 and the sheet as image1; RANSAC similarity through the matched
+pairs; the two nulls; a JSON fit record per call), developed against a stub server (the
+real tunnel to 8091 was down at session end - "waiting on the owner, one command") with
+hermetic tests; once /health answers, reproduce the lead's smoke numbers as a canary, then
+freeze the config and run the one-shot.
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
