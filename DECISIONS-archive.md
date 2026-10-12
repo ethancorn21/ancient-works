@@ -3496,6 +3496,12 @@ script tag. The queue file (117/117 propose) is the joint artifact with agent c'
 moved since cf29be2 (309 still in flight), so no regeneration was needed this session - 307bb re-runs
 the generator on top of 309's merge before its work.
 
+## 2026-10-11 307ba DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc
+    tests/test_fit_queue.py::test_save_runs_the_one_site_line
+    tests/test_site_done.py::test_site_done_line
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
