@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
-- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 85, agent c - FIRST session on 304. Investigation + pre-registration; no code yet.)
+- `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 86, agent c - session 2. fit/surveyfit.py v0 BUILT on disk (UNCOMMITTED,
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
