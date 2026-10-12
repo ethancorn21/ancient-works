@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 149, agent c - third session. 15/16 judged: 8 DELETED (all executed 303-way in the PREVIOUS session, committed), 7 STAYS (verdi
+- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: ## Hand-over
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -50,53 +50,23 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
 
-### 2026-10-12 306c DECISION: first session - audit driver built and running; marietta judged as the task's first DELETED case
-- The 16 US orphan docs are all confirmed orphans in this checkout (no overlay, not referenced by any of the 346
-  review items; the only overlays on the 9 sites are cahokia's non-ours c_aff1b996dce7fe3a and serpent-mound's
-  HAND fit n0210_1, untouched). tools/audit_306c.mjs = a clone of 306b's driver (16-doc list, log tag
-  [audit 306c]); verified on the post-307 page: the unwrapped refit() (P.placed false after the IIFE empties
-  FQ.entries) still runs simFit on the doc's pairs and draws fit-prev, so 306b's judging recipe carries over.
-  Full 32-shot run launched in the background (nohup, /tmp/audit_306c.log); at the context limit 2 of the last
-  3 shots were still pending - the driver skips existing files, so a plain re-run finishes it.
-- marietta.b24849959_n0195_1 (Fowke 1902 Fig. 15) judged DELETED: the fit (1.000 m/px, 0 deg, resid 0) agrees
-  with the plate's own scale bar (measured: 500 ft = 142 page px -> 1.073 m/px, ticks at x 1375/1516/1659/1946,
-  bar y~455 of the 2456x4075 full page), but the drawn Conus mound (page px ~1888,1800) lands at
-  (-81.4467, 39.4122) while the real Conus - the ringed disc of Mound Cemetery, LiDAR block_top.jpg px
-  (1163,704) on block [-81.4686167..-81.4383833] x [39.4283808..39.4086178] - is at (-81.4514, 39.4204):
-  ~1.3 km S-E of it, on farm; the drawn complex is not the real complex (the site's own hand-placed S&D plate
-  anchors on the real Conus). Scale right, placement not: the 303 way - upsert the candidate (with the doc's
-  4 pairs and a place_reason) into data/review/ via fit/review.py upsert_item, delete the doc, scoped
-  export('.', 'marietta') so the item stays open (union coverage). NOT yet executed - next session, after
-  reading test_batch_eu/test_serve to confirm the coverage semantics.
-- Pitfalls found (to file): web/data/sites/<site>/depictions.json is a DICT {'depictions': [...]} (a quick
-  scanner crashed on a float); some data/review/*.json lines parse to non-dict JSON (bare float) - scanners
-  must isinstance-check; PIL 12.3.0 is in the project .venv (system python3 has none) for scale-bar measurement.
-- The 2 fit-queue-contaminated docs (hodgen-s-cemetery-mound b24849959_n0353_1, pyramid-mound
-  ancientmonuments00squi_n0134_1) need a placed:false check in /tmp/audit_306c.log; note the [eval] field
-  fqEntries is the TOTAL queue entry count (114), not a match count - 306b's log misled on that too.
-
-### 2026-10-12 306c DECISION: 32-shot run finished; all 7 serpent-mound agent docs judged DELETED (none matches the hand fit)
-- The iteration-146 background run completed on its own: /tmp/audit_306c.log ends with "[audit 306c] all shots written to
-  docs/site_flow/agent_fits"; all 16 docs x (aerial, relief) are in docs/site_flow/agent_fits/. Every [eval] line reports
-  placed:false (the two FQ-contaminated docs, hodgen-s b24849959_n0353_1 and pyramid-mound ancientmonuments00squi_n0134_1,
-  verified uncontaminated; fqEntries=114 is the total queue count, not a match).
-- Established the site's ground truth from the prebuilt LiDAR relief (relief.jpg maps to site.corners, image px -> lon/lat
-  linear): the real effigy's head coil (-83.4288, 39.0254), tail coil (-83.4314, 39.0258), centre ~(-83.4301, 39.0256) -
-  exactly the owner's hand fit n0210_1 (S&D 1848 Plate XXXV) plate-quad centre, so the hand fit is the reference placement
-  and it sits on the real works.
-- Judged all 7 serpent agent docs against that reference (14 shots): the three "A School History" p26 copies place their
-  serpent ~230-265 m NORTH of the effigy; Holmes/Fowke Fig. 81 is stretched to ~800 m and runs N-S vs the real E-W
-  effigy (66 m mid-residual = the stretch); the Baer 1889 engraving (view row) lands ~180 m NW; the Commons copy of
-  S&D Plate XXXV (the very plate the owner hand-placed) sits ~150-190 m SE of the hand fit AND at ~4x the true scale
-  (the Commons file is the plate alone: 1280 px = 1.28 km at the fitted 1 m/px vs the real ~320 m figure) - so it is NOT
-... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-12 306c DECISION: first session - audit driver built and running; marietta judged as the task's first DELETED case' DECISIONS.md`)
-
 ### 2026-10-12 306c DECISION: iteration 149 - the 8 previous removals were ALREADY executed (hand-over stale); 7 of the 8 remaining docs judged STAYS, hodgen n0092 judged DELETE, pyramid-mound pending
 - The 303-way removals for the 8 judged docs (7 serpent-mound + marietta) had been executed in the previous session and committed by the driver (b9cbc46): the 8 doc files are gone from data/db/platefits/, the candidates are upserted into data/review/serpent-mound-q968802.annualreportofbu1218901891smit_n0636_1.json (7) and data/review/marietta.ancientmonuments00squi_n0169_1.json (1) with place_reason, and web/data/review.json was re-exported (333 open, at 2026-10-12T21:12:09). The hand-over's "removals not yet executed" was stale - verified on disk this session before acting. fit/review.py bodies read (upsert_item creates missing items, merges by plan, resolved write-once; export recomputes the whole page file but records resolution only for the given site); union coverage predicate confirmed in fit/batch_eu.py (a site is covered by ANY doc OR ANY item naming it, open or not, or an old-style site.json fit).
 - Judged the remaining 8 docs from the committed shots (map pane cropped 2.6x): STAYS = cahokia n0200_1 (the mound-group cluster - the plate's subject - sits on the real Cahokia complex on LiDAR; Collinsville road + Mississippi aligned; 9.5-174.7 m / 1.3 m/px / -3 deg residuals are frame-level page skew), etowah n0386_1 (georeferenced: ditch, platform mound a, mounds b/c and the river all on the real works, resid 0), fort-ancient n0264_1 (georeferenced: the walled loops on the real ditch bands, creek on the real meander, resid 0), hodgen n0353_1 (Fowke: the drawn hatched ring concentric on the real cemetery-mound LiDAR bump in the residential block, 8-33 m), mound-cemetery n0563_1 (Thomas Fig. 306: the drawn big concentric Cemetery Mound on the real conical mound of the Marietta Mound Cemetery, fence circle over the real parcel, streets aligned, resid 0), mount-horeb c_d1dff07f0da57b0e (S&D Plate XIV Fig. 3 / Rafinesque: the drawn bank arc on the real LiDAR bank+ditch including the ditch's S-bend, resid 0; plate's "500 ft to the inch" consistent with 1.0 m/px).
 - DELETE = hodgen-s-cemetery-mound-q5876069.ArcheologicalAtlasOfOhio_n0092_1 (Mills 1914, 4 pts, 1.0 m/px, 0 deg, resid 0): the 100x100 m anchor square with the drawn mound sits ~110 m S-E of the real mound's LiDAR bump, on flat residential ground - the real mound lies just outside the drawn extent at its NW. Same mound as n0353 (which sits right). 303-way removal NOT yet executed: upsert the candidate (doc fields + the doc's 4 pairs + place_reason) into a NEW item for the site (none exists yet), delete the doc, scoped export.
 - pyramid-mound-q7263260.ancientmonuments00squi_n0134_1 (S&D 1848 n0134 = FIG. 9: a big double-ring circular earthwork with a SW entrance gap + a small square enclosure at the left; 4 pts, 0.54 m/px, -5.5 deg, resid 17.7-33.9 m): the real subject is the dark-ringed ~100 m mound at ~(-87.5056, 38.6705) ~= the site point. The drawn ring's centre works out at ~(-87.5063, 38.6705): the real mound sits INSIDE the drawn outer ring (~230 m) but ~60 m east of its centre, near the east rim; the drawn square (anchor 4's feature) lands ~300 m west over residential ground with no visible earthwork. Leaning STAYS (the plate's subject - the circle/ditch - encloses the real mound; the 60 m offset on a 230 m ring is not the serpent-mound class of miss). Final call left to the next session after re-reading the relief crop; if DELETE, the 303 way with the doc's 4 pairs.
 - Pitfall (to file): per-site /tmp crop names collide for a site with two docs (the second overwrote the first); I misattributed the 8-marker hodgen crop to n0092 before regenerating with plan-suffixed names. Next session also: append the 8 pending-doc lines to the 306c block of docs/site_flow.md (preamble's "remaining 8 pending" sentence is now stale), update boxes, run the suite (128/1 baseline, --ignore=tests/test_gate.py).
+
+### 2026-10-12 306c DECISION: iteration 150 - pyramid-mound judged STAYS, hodgen n0092 removed the 303 way, all 16 lines written, task done
+- pyramid-mound-q7263260.ancientmonuments00squi_n0134_1 (S&D 1848 n0134 = FIG. 9, 4 pts, 0.54 m/px per audit, resid 17.7-33.9 m) final call = **STAYS**: least-squares similarity on the doc's 4 pairs (0.495 m/px, +0.66 deg) maps the plate's double-ring circle centre (page px (1023.5, 2493.5), read off the 2x-zoomed crop box of the full page n0134.jpg) to (-87.5065, 38.6706); the real dark-ringed ~100 m mound, read directly off the committed 800x800 relief.jpg (1 px = 1.00 m; linear map onto the site corners - no live tiles), is at ~(-87.5056, 38.6705). The drawn ring's centre is ~82 m west of the mound's: the real mound sits inside the drawn outer ring (~230 m across), east rim just touching it - concentric-ish, the n0353 (Fowke Mt. Vernon) class, not the 145-265 m serpent-mound class. The drawn square enclosure (anchor 4) is ~340 m west over residential ground - a secondary feature; call stands. (This session's own fit differs from the audit's 0.54/-5.5 in the last digit of scale and the rotation sign - same plate, the audit's [eval] convention; the geometric conclusion is robust to both.)
+- **hodgen n0092 303-way removal executed.** The hand-over's "no item file for hodgen" was stale: the item data/review/hodgen-s-cemetery-mound-q5876069.annualreportofbu1218901891smit_n0563_1.json already held a coarse Thomas n0563 candidate. upsert_item merged the n0092 candidate (doc's fields + 4 pairs + place_reason) into it (lead stays n0563, file name unchanged, item stays open - neither candidate has a doc), the doc was deleted, scoped export: 333 open of 346, page at 2026-10-12T21:45:44.
+- The 306c block of docs/site_flow.md is now complete: preamble rewritten (stale "nine judged in this pass / remaining 8 pending" replaced with the final 9-deleted/7-stays summary) + all 16 lines (8 prior + cahokia, etowah, fort-ancient, hodgen n0353/n0092, mound-cemetery, mount-horeb, pyramid-mound).
+- **Suite: 127 passed, 1 skipped, 1 failed** (--ignore=tests/test_gate.py; test_gate is the driver's pre-existing baseline red). The one failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (307bb, agent a) at its pre-gesture seed step ("the gestures own the mouse (map pan/zoom off), the earlier overlay hidden"). **A/B verified pre-existing**: a clean worktree at the pre-session HEAD (1ade748) fails it identically (deterministic, not flaky) - it is agent a's in-flight 307 rework landing on main, not 306c's store changes (one doc deleted, one review item updated, page re-export, docs; none of it in the test's path: the test copies platefits into a temp tree and exercises web/fitqueue.js). Not fixed here: web/fitqueue.js is outside 306c's Touches and owned by 307. Filed in PITFALLS (new tests/test_fit_queue.py section) with the A/B evidence for the driver's done-claim check.
+- Task done: all four acceptance boxes ticked (32 shots committed in b9cbc46; 16 lines; every DELETE done the 303 way - 9 total; no by:hand doc touched - the sole one, serpent n0210_1, git-clean). All six pending PITFALLS entries filed (depictions.json dict; data/review single-object files; PIL in .venv; view-row homFit with no mpx/rot; relief.jpg linear corners map; /tmp crop name collision) + the 307bb-red entry.
+
+### 2026-10-12 306c DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_serve.py::test_document_store_roundtrip
 
 ## Project-wide driver notes (newest)
 
