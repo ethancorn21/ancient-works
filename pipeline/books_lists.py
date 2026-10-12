@@ -21,7 +21,7 @@ from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 import books_ia as ia  # noqa: E402
-from books import BOOKS, OUT, SITE_TYPES, ink, site_pages_model, site_pages_qwen, stage_a, stage_b, stage_f, triage_path, _jsonl  # noqa: E402
+from books import BOOKS, OUT, ROOT, SITE_TYPES, ink, site_pages_model, site_pages_qwen, stage_a, stage_b, stage_f, triage_path, _jsonl  # noqa: E402
 
 # ---------------------------------------------------------------- plate lists (transcribed)
 # plate | sub-number | title as printed | page printed in the list | kind
@@ -748,18 +748,6 @@ def cmd_validate(args):
                           for k, v in r.items()}, indent=1)[:3000])
 
 
-def cmd_ocrmap(args):
-    for key in args or BOOKS:
-        ia_id = BOOKS[key]["ia"]
-        os.makedirs(os.path.join(OUT, "lists"), exist_ok=True)
-        plates = parse_plates(ia_id) if ia_id != "b30449492" else squier_ny_gt()
-        figs = parse_figures(ia_id)
-        json.dump({"plates": plates, "figures": figs}, open(os.path.join(OUT, "lists", f"{ia_id}.json"), "w"),
-                  indent=0)
-        print(key, "plates", len(plates or []), "figures", len(figs),
-              "fig kinds", {k: sum(f["kind"] == k for f in figs) for k in "suo"})
-
-
 # ---------------------------------------------------------------- list -> leaves, index
 
 def list_pages(key):
@@ -787,9 +775,17 @@ def list_pages(key):
 def cmd_ocrmap(args):
     for key in args or BOOKS:
         ia_id = BOOKS[key]["ia"]
-        os.makedirs(os.path.join(OUT, "lists"), exist_ok=True)
         plates = parse_plates(ia_id) if ia_id != "b30449492" else squier_ny_gt()
         figs = parse_figures(ia_id)
+        if not plates and not figs:
+            # No OCR list source for this book (PLATES / FIG_LISTS): never write its list file - it may hold a
+            # hand transcription (213's civitates list) that a re-derive would clobber with empty. 217 lifts the
+            # hand list into the module, where this command regenerates it.
+            p = os.path.join(OUT, "lists", f"{ia_id}.json")
+            kept = f"; keeping the existing {os.path.relpath(p, ROOT)}" if os.path.exists(p) else ""
+            print(f"{key}: no list yet (no OCR list source){kept}")
+            continue
+        os.makedirs(os.path.join(OUT, "lists"), exist_ok=True)
         json.dump({"plates": plates, "figures": figs}, open(os.path.join(OUT, "lists", f"{ia_id}.json"), "w"),
                   indent=0)
         lp = list_pages(key) if stage_a(ia_id) else {}
