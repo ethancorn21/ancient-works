@@ -2620,6 +2620,55 @@
    "overlays": 1
   },
   {
+   "id": "beaumont-q95100",
+   "name": "Beaumont",
+   "place": "Arrondissement of Thuin, Belgium",
+   "lon": 4.2383,
+   "lat": 50.2355,
+   "summary": "Beaumont is a city and municipality of Wallonia located in the Belgian province of Hainaut, on the border with France.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q95100",
+   "wiki": "https://en.wikipedia.org/wiki/Beaumont,_Belgium",
+   "lidar_credit": "Service public de Wallonie, 2022 (13.77 points/m2)",
+   "corners": [
+    [
+     4.224255782370653,
+     50.2444823065674
+    ],
+    [
+     4.2523442176293464,
+     50.2444823065674
+    ],
+    [
+     4.2523442176293464,
+     50.22651600085231
+    ],
+    [
+     4.224255782370653,
+     50.22651600085231
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 155.52,
+    "zmax": 227.49,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
+  },
+  {
    "id": "bedford-castle-q4879112",
    "name": "Bedford Castle",
    "aka": "Bedford Castle motte and bailey",
@@ -17324,6 +17373,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "oudenaarde-q12992",
+   "name": "Oudenaarde",
+   "place": "Arrondissement of Oudenaarde, Belgium",
+   "lon": 3.6,
+   "lat": 50.85,
+   "summary": "Oudenaarde is a Belgian city and municipality in the Flemish province of East Flanders. The municipality comprises the city of Oudenaarde proper and the towns of Bevere, Edelare, Eine, Ename, Heurne, Leupegem, Mater, Melden, Mullem, Nederename, Volkegem, Welden and a part of Ooike.",
+   "region": "Belgium",
+   "kind": "town",
+   "qid": "Q12992",
+   "wiki": "https://en.wikipedia.org/wiki/Oudenaarde",
+   "lidar_credit": "Wallonia (EODaS), 2015 (37.05 points/m2)",
+   "corners": [
+    [
+     3.5857715798426124,
+     50.85898228786759
+    ],
+    [
+     3.614228420157388,
+     50.85898228786759
+    ],
+    [
+     3.614228420157388,
+     50.84101598214774
+    ],
+    [
+     3.5857715798426124,
+     50.84101598214774
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 8.26,
+    "zmax": 34.27,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "oxford-castle-q2600886",

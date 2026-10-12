@@ -1,0 +1,15 @@
+{
+ "id": "oudenaarde-q12992",
+ "name": "Oudenaarde",
+ "place": "Arrondissement of Oudenaarde, Belgium",
+ "lon": 3.6,
+ "lat": 50.85,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q12992",
+ "summary": "Oudenaarde is a Belgian city and municipality in the Flemish province of East Flanders. The municipality comprises the city of Oudenaarde proper and the towns of Bevere, Edelare, Eine, Ename, Heurne, Leupegem, Mater, Melden, Mullem, Nederename, Volkegem, Welden and a part of Ooike.",
+ "wiki": "https://en.wikipedia.org/wiki/Oudenaarde"
+}

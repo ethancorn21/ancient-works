@@ -469,3 +469,80 @@ built 1, skipped 0, failed 0
 marks refreshed: tournai-q173219 depictions: 1
 === tournai-q173219 ok ===
 === beaumont-q95100 start 2026-10-12T21:11:57Z ===
+=== run start 2026-10-12T21:18:46Z: beaumont-q95100 oudenaarde-q12992 soignies-q462985 luxembourg-city-q1842 aire-sur-la-lys-q259903 avesnes-sur-helpe-q217178 bapaume-q317235 bavay-q477176 bethune-q207145 bouchain-q632348 cambrai-q181285 conde-sur-l-escaut-q494533 douai-q193826 gravelines-q323399 hesdin-q467366 landrecies-q632808 le-cateau-cambresis-q329103 le-quesnoy-q180067 maubeuge-q138648 saint-omer-q208793 therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 ===
+=== beaumont-q95100 start 2026-10-12T21:18:46Z ===
+[1/1] beaumont-q95100 (ign, 2000 m)
+  ign has no data here; reading pc
+  LiDAR survey BE/HAINAUT_2021-2022 (2022), 25 tiles, 13.77 pts/m2, 100% of the box
+    LIDAR_2021_2022_500mN6015E6395.copc.laz: 695531 ground points so far
+    LIDAR_2021_2022_500mN6015E6400.copc.laz: 1809068 ground points so far
+    LIDAR_2021_2022_500mN6015E6405.copc.laz: 2860995 ground points so far
+    LIDAR_2021_2022_500mN6015E6410.copc.laz: 3949848 ground points so far
+    LIDAR_2021_2022_500mN6015E6415.copc.laz: 4450855 ground points so far
+    LIDAR_2021_2022_500mN6020E6395.copc.laz: 5580324 ground points so far
+    LIDAR_2021_2022_500mN6020E6400.copc.laz: 7211331 ground points so far
+    LIDAR_2021_2022_500mN6020E6405.copc.laz: 8798054 ground points so far
+    LIDAR_2021_2022_500mN6020E6410.copc.laz: 10634592 ground points so far
+    LIDAR_2021_2022_500mN6020E6415.copc.laz: 11452750 ground points so far
+    LIDAR_2021_2022_500mN6025E6395.copc.laz: 12429135 ground points so far
+    LIDAR_2021_2022_500mN6025E6400.copc.laz: 13705124 ground points so far
+    LIDAR_2021_2022_500mN6025E6405.copc.laz: 14904881 ground points so far
+    LIDAR_2021_2022_500mN6025E6410.copc.laz: 16648758 ground points so far
+    LIDAR_2021_2022_500mN6025E6415.copc.laz: 17452378 ground points so far
+    LIDAR_2021_2022_500mN6030E6395.copc.laz: 18229708 ground points so far
+    LIDAR_2021_2022_500mN6030E6400.copc.laz: 19430902 ground points so far
+    LIDAR_2021_2022_500mN6030E6405.copc.laz: 20733852 ground points so far
+    LIDAR_2021_2022_500mN6030E6410.copc.laz: 22010007 ground points so far
+    LIDAR_2021_2022_500mN6030E6415.copc.laz: 22645310 ground points so far
+    LIDAR_2021_2022_500mN6035E6395.copc.laz: 23061960 ground points so far
+    LIDAR_2021_2022_500mN6035E6400.copc.laz: 23714328 ground points so far
+    LIDAR_2021_2022_500mN6035E6405.copc.laz: 24446957 ground points so far
+    LIDAR_2021_2022_500mN6035E6410.copc.laz: 25141157 ground points so far
+    LIDAR_2021_2022_500mN6035E6415.copc.laz: 25457701 ground points so far
+beaumont-q95100 relief clip 1.2 m; {'block_h.png': 277, 'block_top.jpg': 889, 'relief.jpg': 514} KB
+beaumont-q95100 cassini zoom 14 coverage 100% 181 KB
+beaumont-q95100 etatmajor blank paper here
+beaumont-q95100 cassini_ink.webp 589 KB
+   ok 158s
+built 1, skipped 0, failed 0
+=== beaumont-q95100 build rc=0 2026-10-12T21:21:25Z ===
+marks refreshed: beaumont-q95100 depictions: 1
+=== beaumont-q95100 ok ===
+=== oudenaarde-q12992 start 2026-10-12T21:21:26Z ===
+[1/1] oudenaarde-q12992 (pc, 2000 m)
+  LiDAR survey BE/LiDAR_DHMV_II-2013-2015 (2015), 25 tiles, 37.05 pts/m2, 100% of the box
+    LiDAR_DHMV_2_P2_ATL12229_ES_94500_170000.copc.laz: 91423 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_94500_170500.copc.laz: 585100 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_94500_171000.copc.laz: 1383723 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_94500_171500.copc.laz: 2278518 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_94500_172000.copc.laz: 2880990 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95000_170000.copc.laz: 3457157 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95000_170500.copc.laz: 4904496 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95000_171000.copc.laz: 7663710 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95000_171500.copc.laz: 10197041 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95000_172000.copc.laz: 11842657 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95500_170000.copc.laz: 12880698 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95500_170500.copc.laz: 15300139 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95500_171000.copc.laz: 17284227 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95500_171500.copc.laz: 19476685 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_95500_172000.copc.laz: 21075958 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96000_170000.copc.laz: 21757719 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96000_170500.copc.laz: 23400545 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96000_171000.copc.laz: 25311964 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96000_171500.copc.laz: 27582149 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96000_172000.copc.laz: 28992899 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96500_170000.copc.laz: 29552586 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96500_170500.copc.laz: 30965416 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96500_171000.copc.laz: 32639432 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96500_171500.copc.laz: 34238335 ground points so far
+    LiDAR_DHMV_2_P2_ATL12229_ES_96500_172000.copc.laz: 35832604 ground points so far
+oudenaarde-q12992 relief clip 1.2 m; {'block_h.png': 232, 'block_top.jpg': 823, 'relief.jpg': 543} KB
+oudenaarde-q12992 cassini blank paper here
+oudenaarde-q12992 etatmajor no data here
+oudenaarde-q12992 tmk1850 no data here
+   ok 137s
+built 1, skipped 0, failed 0
+=== oudenaarde-q12992 build rc=0 2026-10-12T21:23:44Z ===
+marks refreshed: oudenaarde-q12992 depictions: 0
+=== oudenaarde-q12992 ok ===
+=== soignies-q462985 start 2026-10-12T21:23:44Z ===
