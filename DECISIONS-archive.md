@@ -2998,6 +2998,59 @@ Boxes 2-3 ticked, Status: done.
   new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
   the red set of 10 was 222-228's, and the 229 pin.
 
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)
+- Session 188. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (committed today 17:43; unchanged since
+  the 187 session, whose hand-over already recorded it; my branch tip 22036f9 contains
+  it). Per the hand-over the done-claim stays gated: no re-run of fit/merge.py
+  (idempotent), no site rebuilds, no box changes, no new full-suite run (the red set is
+  still exactly the 10 222-228 source-guard failures; the driver re-checks the suite at
+  claim time anyway).
+- The session's step. `git fetch origin` (read-only ref update; team rules forbid me
+  from merging) revealed the human's GitHub main moved during the session: the local
+  remote-tracking ref was stale at 984b1b4 (committed yesterday 15:28 - GitHub had not
+  been pushed since before the matchfit/302 era landed). New tip: c063314 (today 13:34,
+  "Merge remote-tracking branch 'vm/main'") = the human's Mac work: map UI (d939bd2
+  plate-style base map, 6fb2b61 aerial-photo base, 76feacb marker clicks, 503c978
+  ?base=), the Stonehenge site_done sync (2e41a6c: sites.json drawings 0->7 + review
+  queue), the Maiden Castle hand-fit copy (cd104ca of 3e7daea), the 301 Argentoratum
+  line (f0d8c0b), [lead] 302 (2eb60f2, the fork point of the STALE ref) and [lead]
+  304/305 (b7a708c), plus the 303 provenance commits and driver bookkeeping from the
+  Mac side.
+- Topology: merge-base(HEAD, origin/main) = 4ca9e2c (today 13:21, "306a: done - 5
+  audit-broken tests re-pointed..."). My live-merge commit 09a9472 is 13:29 - 8 minutes
+  after the fork - so origin contains NONE of my 211 outputs: extras 78 / files 1490 /
+  classified 797 (vs my 193/1623/930), index.jsonl 901 (vs 1068), validation.json
+  pre-box-2, sites.json 385 entries (vs 499), sources.md without section 9, no
+  data/merge/*, no tests/test_merge.py, and no tasks/222-229 (filed 13:29, my side
+  only). Its plans.json is content-identical to mine apart from a trailing newline.
+- Union audit (what the driver's eventual origin -> local main -> my branch merge
+  produces), per file: (1) the three canonical files, index.jsonl, validation.json,
+  plans.json, sources.md, test_merge.py - origin is unchanged from the fork point and
+  my side changed them, so the union takes mine, zero conflict, boxes 1/2/4/5
+  invariants hold. (2) sites.json - BOTH sides differ from the fork point but in
+  disjoint regions: my side only adds the 114 new site entries; the origin side only
+  touches the four marker fields (drawings/score/oldest/overlays = test_merge's MARKERS
+  tuple, the fields 212 owns) on the 385 old entries (the human's fit deletions and
+  the 306a-era audit aftermath, e.g. several sites' drawings 1->0, Stonehenge 0->7).
+  Box 3's test_served_sites_grew_purely explicitly tolerates exactly that, so it
+  survives; a textual three-way merge may still flag the file - the driver resolves it
+  as: keep my 114 entries + accept their marker values on old entries. (3) data/db/
+  platefits - origin made ZERO changes since the fork point, and the golden files
+  (hand_fit_sites.txt, hand_fit_docs.sha256) are byte-identical on both sides, so box
+  6's 000 reference (the 25 hand fits / 19 sites) survives the union. (4) web/data/
+  review.json - origin differs (the human's queue work), my side is unchanged from the
+  fork point, so the union takes origin's; it is not in my Touches (306x / agent c
+  owns it) and none of my tests read it. Conclusion: the incoming origin merge cannot
+  break any of my six boxes nor the driver's claim-time suite check.
+- No Touches-line change and no PITFALLS entry this session: the origin topology is a
+  moving target (it changes with every human push), so the timestamped hand-over/
+  DECISIONS coverage is the right home; a static PITFALLS entry would go stale on the
+  next push. 229 (imagecodecs pin) stays `Status: open`, dependency-gated on 302a/304
+  (both in flight on agent c per this session's prompt) - still NOT a blocker for the
+  211 claim (the driver's in-place .venv rebuild keeps the ad-hoc package until 229
+  lands).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
