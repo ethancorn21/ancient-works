@@ -6,11 +6,14 @@ Leg 1 - the Internet Archive British Museum scan of the 1740 book (ia=bim_eighte
 stonehenge-a-temple-rest_stukeley-william_1740, 166 leaves; BookReader pages + hOCR verified
 2026-10-12): the standard book machinery runs UNMODIFIED (the book really is on IA, so no
 local-copy wrap - the key difference from 209a's Hoare), per-book artifacts only (triage/<ia>.*.
-jsonl, lists/<ia>.json + .map.json). The book's printed plate list is transcribed from the hOCR
-(the --list session) into STUKLEY_PLATES in the books_lists PLATES format; when set, register()
-injects it into books_lists.PLATES in-process (pipeline/books_lists.py is owned by 217; the
-213/civitates hand-list pattern that cmd_ocrmap's comment points at) and --list runs
-books_lists.cmd_ocrmap over it.
+jsonl, lists/<ia>.json + .map.json). The book has NO printed list of plates (checked 2026-10-13: leaves 10-13 blank/preface-only; the hOCR of the front matter is too garbled to read anyway):
+instead the plates carry the only list, each labelled "P. <page>. TAB. <roman numeral>" in its
+header. STUKLEY_PLATES below is the transcription of those 31 printed headers (33 plates, two
+labelled TAB. II and a duplicate TAB. III impression; TAB. XXI and XXIV absent from this copy;
+XXXIIII printed old-style), read by eye from the triage-size plate leaves 2026-10-13 - the
+civitates hand-list pattern (213) that books_lists.cmd_ocrmap's comment points at. When set,
+register() injects it into books_lists.PLATES in-process (pipeline/books_lists.py is owned by
+217) and --list runs books_lists.cmd_ocrmap over it.
 
 Leg 2 - the Commons-hosted Stukeley plates (the 205-Kip pattern, no book machinery): the three
 rows in STAGED below, visually verified 2026-10-12 (the Houghton 1743 TAB. VIII Avebury plan ->
@@ -59,13 +62,15 @@ IA = "bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740"
 REGION = "Europe"
 YEAR = 1740
 CITE = ("William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, London 1740 "
-        "(British Museum scan; the exact printed title wording to be confirmed from the hOCR title "
-        "page when --list runs)")
-WHY = ("Stukeley's 1740 Stonehenge book: the numbered Stonehenge plan, the Avenue plan and the "
-       "Wiltshire map tie to stonehenge-q39671. The only Stukeley book on IA - the true Wiltshire "
-       "volume, A survey of Wilts (1740), is not on IA; a human-downloaded copy, if it arrives, "
-       "joins this task as a second book (the 209a wrap pattern). The IA metadata carries no "
-       "title/date/creator, so the cite is hand-written (checked 2026-10-13).")
+        "(M.DCC.XL.; printed for W. Innys and R. Manby; British Museum scan BMB) - exact title page "
+        "read from the leaf-1 image 2026-10-13 (the IA hOCR of that leaf is unreadable)")
+WHY = ("Stukeley's 1740 Stonehenge book: its site plans (TAB. XI the Geometrical Ground of the Plan "
+       "of Stonehenge, TAB. XII the Orthography of Stonehenge, TAB. XXIII the Area of Stonehenge "
+       "with the Avenue) tie to stonehenge-q39671. The book holds no Wiltshire map (verified leaf "
+       "by leaf 2026-10-13) and no avenue plan apart from those; the true Wiltshire volume (A survey "
+       "of Wilts, 1740) is not on IA, so a human-downloaded copy, if it arrives, joins this task as "
+       "a second book (the 209a wrap pattern). The IA metadata carries no title/date/creator, so "
+       "the cite is hand-written.")
 
 FILES_B = os.path.join(ROOT, "data", "commons", "files_wiltshire_b.jsonl")
 CLASSIFIED_B = os.path.join(ROOT, "data", "commons", "classified_wiltshire_b.jsonl")
@@ -74,16 +79,58 @@ SITES_JSONL = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
 WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
 NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: check() skips an absent books file
 
-# TODO (the IA-leg session, after --fetch / --triage A): transcribe the book's printed list of
-# plates from the hOCR (--list prints the front leaves) into the books_lists PLATES format,
-#   STUKLEY_PLATES = """
-#   I||<title as printed>|<page printed in the list>|<s/o/u kind>
-#   II||...
-#   """
-# (kind s = site plan, o = other, u = unsure - the books_lists header). When set, register()
-# injects it into books_lists.PLATES in-process and --list runs books_lists.cmd_ocrmap, which
-# writes the per-book lists/<ia>.json + .map.json.
-STUKLEY_PLATES = None
+# The books_lists PLATES format: plate|sub|title|page|kind. This book has no list of plates,
+# so the transcription IS the plate headers themselves, read by eye from each plate leaf at
+# triage size (1400 px; the hOCR of engraved plates is garbage - see the title page). "page" is
+# the plate's own header (the only pagination the plates carry); "" where
+# the header prints none or the label is cut off in the scan (TAB. XX); VII's printed digit is faint
+# and was read 12 by the plate page sequence 8,12,14,16,...; IX/X titles are the two near-identical
+# "View westward from Stonehenge" captions (the 700-1400 px read cannot resolve which carries which
+# legend words). Kinds from the visual check: only
+# the three plan-view plates are "s" (XI the famous numbered plan as a fold-out on leaves 56/57,
+# XII the orthographic plan, XXIII the Area plan - the Avenue shows in the latter and in the
+# perspective views, there is no separate avenue plan); views/sections/artifacts/portrait/table
+# are "o". Duplicates as printed: TAB. II twice (leaf 15 the Cadiz round; leaves 19/20 Stonehenge
+# from the East), TAB. III twice (identical impressions, leaves 24/26), TAB. XXIII twice (leaf 111
+# the Area plan, leaf 115 the Avenue-track view), TAB. XXXIII twice (identical impressions, leaves
+# 155/157). TAB. XXI and XXIV do not occur in this copy. XXXIIII is the old-style 34 as printed.
+STUKLEY_PLATES = """
+I||A British Druid (portrait)||o
+II||Prospect of the Roman's Round & Moundable, just above Cadiz, May 20th 1714|2|o
+II||Stonehenge from the East, by Vespasian's camp|4|o
+III||A View a little beyond Woodlakes, where the Thames first enters part of a Druidical Barrow, June 8, 1724|6|o
+V||The Front view of Stonehenge|8|o
+VI||Table of measures: English feet, cubits, inches||o
+VII||A peep into the Sanctum Sanctorum, 6 June 1734|12|o
+VIII||View westward from Stonehenge|14|o
+IX||View westward from Stonehenge|16|o
+X||View westward from Stonehenge, near Stoweybury|18|o
+XI||The Geometrical Ground of the Plan of Stonehenge|20|s
+XII||The Orthography of Stonehenge|22|s
+XIII||Stonehenge from the South-west|24|o
+XIII||The Orthographic section of Stonehenge upon the Croft boundary|26|o
+XIV||The Orthographic section of Stonehenge upon the Calf boundary|28|o
+XV||The section of Stonehenge looking toward the Cursus|30|o
+XVI||An inward View of Stonehenge, from the north, Aug. 1722|32|o
+XVII||A direct view of the Remains of the adytum of Stonehenge|34|o
+XVIII||An Inward View of Stonehenge from the high altar, Aug. 1722|36|o
+XIX||An inward view of Stonehenge from behind the high Altar, looking towards the grand entrance & a little oblique, Aug. 1722|38|o
+XX||An inward View of Stonehenge, AA. the altar (label cut off in the scan; number from the sequence)||o
+XXII||An inward view of the Cell obliquely|42|o
+XXIII||The Area of Stonehenge|44|s
+XXIII||The Track opposite of the beginning of the Avenue to Stonehenge, 6 Aug 1723|46|o
+XXV||The approach to Badlin, forming the Avenue of Stonehenge & Damer's Barrows, 3 Aug 1724|48|o
+XXVI||Prospect of Isamborough Camp, near Canterbury, 7 Aug 1728; a direct view from the 7 barrows to the opening of the Avenue of Stonehenge|50|o
+XXVII||The Beginning of the Avenue to Stonehenge, where it is Round up|52|o
+XXVIII||A direct view of Standbury from the union of the two streams|54|o
+XXIX||Prospect of the Cothamton & Hamdon from the North, 6 Aug 1743|56|o
+XXX||Perspect. from the west end of the Cursus of Stonehenge|58|o
+XXXI||A Prospect of the barrows in Lake field called the Eleven barrows & lately the perplext barrows, 24 Sep 1723|60|o
+XXXII||Female Celtic ornaments found in a barrow near Stonehenge, opened 8 July 1723|62|o
+XXXIIII||Prospect from Cothamton to the Stonehenge Cursus|64|o
+XXXIII||Carvili Regis Tumulus, July 29 1723 (two impressions)||o
+XXXV||The Perspective of the Second Temple at Persepolis, with a plan of the same|70|o
+"""
 
 # The three sites the Commons rows tie to - all existing catalog sites (no extras file needed).
 # Cross-checked against data/catalog/sites.jsonl (and web/data/sites.json) at stage time: a
