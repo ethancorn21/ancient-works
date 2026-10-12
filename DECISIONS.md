@@ -401,3 +401,31 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   commit (task file + DECISIONS.md + the 6-line docs/site_flow.md append). No deletions => no
   test re-pointing needed; the only test touching site_flow is test_fit_queue.py (queue docs,
   not these lines).
+
+## 2026-10-12 306b DECISION: DONE - 21/21 STAYS, zero removals; suite 128/1 at baseline; filed 5 PITFALLS entries; task closed
+- Seventh session. Completed the remaining hand-over steps: boxes 2-4 ticked (all 21 lines in
+  docs/site_flow.md, every one STAYS - the 303-way removal path was never needed; all 21 docs are
+  by:agent and the branch has no data/ or web/data/ diff vs main), suite green at the 306a-done
+  baseline (128 passed, 1 skipped in 204 s; test_gate excluded, pre-existing red per the driver's
+  loop-start note), Status: done, committed. Also corrected the stale 306b preamble in the block
+  ("All fifteen judged so far stay" -> "All twenty-one stay (2026-10-12: judged from the 42 shots,
+  none removed)").
+- PITFALLS filed (5), so 306c-f (the orphan subtasks the parent 306 returns after this one) do not
+  re-discover them: (1) corrected the stale "The machine has no internet" sentence in the Esri
+  entry - this VM HAS internet (tile 200 in 0.2 s, re-verified this session); (2) extended the
+  Nominatim entry (plain `curl -H 'User-Agent: ...'` works, not only commons.get; `/search` 400s
+  without a `q`); (3) new web/ entry: the web/data/sites/<site>/ survey layers (etatmajor,
+  cassini, tmk1850, fr_ortho1950) are site-sized georeferenced blocks, 1 px = 1 m for sites
+  <= 2400 m across, centred on the site point (pipeline/depict.py build/sample_xyz; depictions.json
+  corners give the block's [lon,lat] corners) - ideal local ground truth for judging fits;
+  (4) new web/ entry: driving the fit tool headlessly with your own pairs - a fitqueue entry for
+  the opened plan seeds 5 anchor pairs into your least squares (fitkit.js _fkActivate); empty
+  FQ.entries before openPlan and check placed/n in the shot log; (5) new "### data/sites.json
+  (site points)" subsection: a site's canonical point can be a real modern city (cenabum-q2710144
+  at (1.909, 47.9025) IS Orléans - my 2.09°E memory was wrong; 2.09, 47.90 is Mardre/Donnery
+  farmland); reverse-geocode the site's own point before judging placement.
+- Left in the task hand-over for 306c-f: tools/audit_306b.mjs is site- and queue-independent (doc-id
+  positional args; empties FQ.entries) - reuse verbatim as the orphan-audit driver; orphan docs
+  have no review item, so their verdict lines say "not shown to the owner at all" instead of an
+  item-cand comparison; the scale-bar judging technique (crop the plate's lower region 3x, read
+  the bar) is documented there.

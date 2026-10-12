@@ -802,7 +802,7 @@ their review-queue and orphan fits below this list.
 306b - the 21 review-queue documents. All ten of these sites' review items are resolved by these
 documents today (none is in the open list), so the review tab shows nothing for them; each line's
 item-cand note records the coarse candidate the tab would pre-place for the same plan if/when the
-item reopens. All fifteen judged so far stay.
+item reopens. All twenty-one stay (2026-10-12: judged from the 42 shots, none removed).
 
 - argentoratum-q2361353.c_191c6221a81caad0 - Plan de Strasbourg, réduit, d'après Villot 1833,
   similarity (score 7.8; 0.0-0.1 m, 2.17 m/px, -32.3°): the 19th-c star-fort ring and street grid

@@ -82,8 +82,8 @@ impossible here, only the owner's machine renders relief.
 
 #### The page's base imagery is a live Esri feed: no-internet headless runs always get ERR_ABORTED on it, and its URL segment is the SINGULAR 'tile/'
 Where: `web/index.html` (base imagery source ~line 314: `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}`), every headless page test that asserts on reqfail lines (tests/test_fit_queue.py card tests, tests/test_review.py, 307bb's part 4)
-Symptom: `[reqfail] https://server.arcgisonline.com/.../MapServer/tile/... net::ERR_ABORTED` lines in a no-internet headless run (flaky: an abort only lands while a fetch is in flight at a map-view change or teardown, so an unexcluded test fails on some runs and not others)
-The machine has no internet and the page requests this live feed, so these fetches die in every headless run - a page-caused abort, the same allowed class as the relief-tile aborts above, to be excluded in reqfail assertions. Excluding by path alone is NOT enough: the Esri path segment is the singular 'tile/' (`MapServer/tile/`), which the common `'/tiles/' not in url` filter misses - exclude by host instead: `'/tiles/' not in ln and 'arcgisonline' not in ln`.
+Symptom: `[reqfail] https://server.arcgisonline.com/.../MapServer/tile/... net::ERR_ABORTED` lines in headless runs (they land while a fetch is in flight at a map-view change or teardown, so an unexcluded test fails on some runs and not others)
+The page requests this live feed, so in a no-network run these fetches die, and on this VM (which HAS internet - a tile answers 200 in 0.2 s, verified 2026-10-12 in task 306b) the probes' rapid map teardown aborts in-flight tiles instead (see the web/ entry on the same feed): either way a page-caused abort, the same allowed class as the relief-tile aborts above, to be excluded in reqfail assertions. Excluding by path alone is NOT enough: the Esri path segment is the singular 'tile/' (`MapServer/tile/`), which the common `'/tiles/' not in url` filter misses - exclude by host instead: `'/tiles/' not in ln and 'arcgisonline' not in ln`.
 
 #### The driver's .venv build needs a fully pinned and hashed requirements.txt
 Where: `requirements.in`, `requirements.txt`, the driver's venv build (`pip install --require-hashes`)
@@ -189,6 +189,8 @@ Symptom: none - it works, in contrast to the MET/AIC APIs which are TLS-refused 
 Why: the egress allowlist covers both hosts and `commons.get` sets the UA Nominatim's policy requires; pace
       Nominatim at 1 request/second. Verified live 2026-10-13 (task 205): "Kings Weston House, Bristol" 4 m from
       the enwiki infobox point, "Trinity Theological College, Bristol" 0 m, "Royal Mews, Windsor" 72 m.
+      A plain `curl -H 'User-Agent: ...'` works too, not only `commons.get`, and `/search` 400s without a `q`
+      parameter (task 306b, 2026-10-12).
 #### NFKD on this machine does NOT apply Unicode compatibility (F-type) decompositions
 Where: `unicodedata.normalize("NFKD", ...)` anywhere on this machine - `pipeline/catalog.py`'s `slug()`,
       `pipeline/books_match.py`'s `norm()`, and hence every site id built from a town name (`fit/
@@ -1143,6 +1145,29 @@ Where: `web/review.js:74` and `web/fitqueue.js:56` (the page's own matchers, whi
 Symptom: a consumer pinned to one wording (201's test filtered the substring "built in all") stops finding the line after a re-word - "the home stats line must be present" fails on every branch, while the page's own feature still works (its matcher accepts both wordings).
 Why: the lead re-worded the line in 939382a ("...laid on today's ground...") and both page matchers already accept the disjunction. The page's regex is the source of truth: mirror it (either wording), never re-pin one - the wording may move again in 307's page rework.
 
+#### web/data/sites/<site>/ survey layers (etatmajor, cassini, tmk1850, fr_ortho1950) are site-sized georeferenced blocks - 1 px = 1 m for sites up to 2400 m across
+Where: `pipeline/depict.py` (`build`: `aw.site_bbox` + `px = max(1.0, max(width_m, height_m)/2400)` + `sample_xyz`/
+      `sample_rd`); the `web/data/sites/<site>/*.webp` files and their `depictions.json` `corners`; the source
+      records `data/sites/<id>/site.json`
+Symptom: treating `etatmajor.webp` (or a sibling survey layer) as a zoom-level tile or a variable sheet - it is a
+      fixed box: the site's width_m x height_m centred on the site's own lon/lat, resampled to width_m/px x
+      height_m/px pixels (cenabum's 1600 m box -> a 1600 x 1600 px file)
+Why: for sites whose max dimension is <= 2400 m, px = 1.0, so 1 px = 1 m and the image centre is the site point;
+      the `corners` in depictions.json are the block's [lon, lat] corners, so any crop is exactly georeferenced.
+      That makes these files ideal local ground truth for judging a fit (task 306b): crop the region, measure in
+      pixels, 1 px = 1 m, and the printed survey ink (the 1850s etatmajor town names) verifies a placement with no
+      network.
+
+#### Driving the fit tool headlessly with your own pairs: a fitqueue entry for the opened plan seeds 5 anchor pairs into your least squares
+Where: `web/fitkit.js` (`_fkActivate` seeds the entry's 5 anchor pairs when the opened plan matches an entry in
+      `web/data/fit_queue.json`); any headless audit that pushes its own pairs through `openPlan` + `refit`
+      (task 306b's `tools/audit_306b.mjs`; the 306c-f orphan audits)
+Symptom: the fitted preview (the fit-prev map source, the fithint m/px) reflects a 13-point blend (5 seed + 8 your)
+      instead of your 8-point fit - silently, no pageerror; the transform you judge is not the document's
+Why/fix: after `startFit` and before `openPlan`, wait for `FQ.loaded` and empty `FQ.entries` in the page context
+      (fitkit falls open), and verify from the shot log that the fit ran on your own pairs (306b's driver reports
+      `placed:false`, `n:8` in `[eval]`).
+
 ### tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`)
 
 #### The check runs when ANY of catalog / book index / book lists is present - a tree with only data/books/index.jsonl is NOT the no-op degrade
@@ -1164,3 +1189,15 @@ Why: `--live` (caption words re-resolved through the cached Wikidata, a human-on
 Where: tests/test_right_place_drift.py; the region between the two "# =====" VERBATIM marker lines in tools/right_place.py; pipeline/books_match.py
 Symptom: extracting the same named block from both files and comparing the blocks for equality fails on almost every block - the only difference is a single trailing blank line (books_match keeps two blank lines between top-level definitions, the right_place copy one); the content lines are byte-identical
 Why: the VERBATIM promise covers the block text, not the surrounding whitespace, so 805's box-3 test extracts each of the 17 named blocks from right_place's region and asserts the block text OCCURS in pipeline/books_match.py. Containment fails on any content drift in either direction (mutation-verified 2026-10-12: a changed line in the copy, a deleted line in the source) and passes on blank-line-only differences. Do not "upgrade" the test to full block equality - it would red on the untouched, in-sync tree.
+
+### data/sites.json (site points)
+
+#### A site's canonical point can be a real modern city: reverse-geocode it before judging a fit, never from memory
+Where: the site records' `lon`/`lat` (`data/sites/<id>/site.json`, `web/data/sites.json`); this one: cenabum-q2710144 at (1.909, 47.9025) - Wikidata Q2710144 'Cenabum'; the 306b audit (task 306b's hand-over); Nominatim `/reverse` and the site's own etatmajor webp (see the web/ entry on the survey blocks)
+Symptom: assuming Orléans sits at ~2.09°E and calling a fit of Jollois 1833's 'Plan général de la ville et des
+      environs d'Orléans en 1828' (the cenabum document) a ~12 km miss - in fact the site point is the city itself
+      (1.9°E, 47.9°N): the 1850s état-major tiles print 'ORLÉANS' exactly at (1.909, 47.9025), while (2.09, 47.90)
+      is open Mardre/Donnery farmland with no town
+Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and a site's point is exactly what the
+      fit must land on. Before judging placement, re-derive the point's meaning: Nominatim `/reverse` (reachable
+      from this VM, see the machine section) and the site's own georeferenced survey ink.
