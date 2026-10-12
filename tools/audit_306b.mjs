@@ -8,6 +8,15 @@
 //   draws the fitted plate as the map layer 'fit-prev' and shows the residuals in the pane.
 // The review tab would pre-place the item's candidate pairs instead; for all 21 docs they differ
 // from the doc's (only castle-neroche n0110_1 matches), so this audit looks at the document.
+//
+// One 307 trap, neutralised in the IIFE (web/*.js is agent a's territory, so the fix lives here):
+// the fit queue (web/fit_queue.json + fitkit.js) pre-places a machine candidate (5 anchor
+// pairs) whenever a queue entry proposes the same site's plan - nine of the 21 docs match one.
+// Those 5 pairs then blend with the doc's 8 in a 13-point least squares, and the preview ink
+// (and the fithint) show the blend, not the document. The IIFE empties FQ.entries before
+// openPlan (fitkit's _fkActivate falls open when no entry matches) so the shot is the doc's
+// own placement; the [eval] line reports fqEntries (count before emptying) and placed
+// (P.placed after openPlan) so a contaminated run is visible in the log.
 // One 1440x900 shot per doc over the aerial photograph, plus a second over the prebuilt LiDAR
 // relief (web/data/sites/<site>/relief.jpg) where the site has one (all 10 sites here do).
 //
@@ -59,6 +68,16 @@ const iife = (ground, site, pairs, cand) => `(async () => {
   // start() set S.ready - until then ensureSite() (called from select) bails, and the per-site relief.jpg layer
   // is never added (the live /tiles/relief is off on this machine, so relief.jpg is the only relief the page shows)
   for (let i = 0; i < 200; i++) { if (typeof P !== 'undefined' && P.rows && P.rows.length && S.ready) break; await sleep(150); }
+  // 307's fit queue pre-places its machine candidate when a queue entry proposes this site's
+  // plan: _fkActivate seeds 5 anchor pairs that the doc's 8 would blend into a 13-point fit, so
+  // the preview would show the blend, not the document. The audit looks at the document: wait
+  // for the one-shot fetch to land, then empty it (_fkActivate finds no entry and falls open).
+  let fqEntries = 'no FQ';
+  if (typeof FQ !== 'undefined') {
+    for (let i = 0; i < 100 && !FQ.loaded; i++) await sleep(150);
+    fqEntries = FQ.entries.length;
+    FQ.entries.length = 0;
+  }
   select(s.id);
   await loadDeps(s);
   setGround(${JSON.stringify(ground)}, s);
@@ -79,6 +98,7 @@ const iife = (ground, site, pairs, cand) => `(async () => {
     img: !!P.img, fithint: ($('#fithint') || {}).textContent || null,
     ground: S.ground, model: P.model, ready: S.ready,
     relLayer: map.getLayer('rel-' + s.id) ? map.getLayoutProperty('rel-' + s.id, 'visibility') : 'absent',
+    fqEntries, placed: !!P.placed, anchor: !!P.anchor,
     n: 0, fit: null, layer: !!map.getLayer('fit-prev'),
   };
   if (P.img) {
