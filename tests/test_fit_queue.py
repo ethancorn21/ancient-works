@@ -64,13 +64,15 @@ Part 4 (task 307bb, the parent 307b's box 3) proves the placement in the same he
 Chrome on a FULL temp tree (the one-site line's home: tools/fit/pipeline present, the
 picked entry's book page materialised locally): the card's own done map seeded past the
 earlier queue entries puts the card on the pick, 'Place the drawing' opens the placement
-on the works, scripted input (a drag, a wheel, a shift+wheel) moves, scales and turns the
-drawing, a map-click pin refines it on top (undo restores), the page's save writes the
-platefit doc (by: hand) from the placement alone and the one-site line lands the overlay
-in the tree, and a fresh run's Cancel brings the site's earlier overlay back exactly. The
-checkout's write surface is hashed around the run: nothing in the shared store moves.
+on the works, one scripted drag, wheel and shift+wheel move, scale and turn the drawing,
+the page's save writes the platefit doc (by: hand, the five placed pairs) from the
+placement alone - read back from the temp tree, its own fit agrees with the placed anchor
+(1e-3 scale, 0.01 deg) - and the one-site line lands the overlay in the tree; a fresh
+run's Cancel brings the earlier overlay back exactly; the write surface is hashed around
+the run; pinning on top is checked by hand (307d).
 """
 import json
+import math
 import os
 import re
 import shutil
