@@ -128,7 +128,8 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/site_done.py` (323 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L281-323.
 
 ## web/
-- `web/index.html` (1709 lines) - (no header comment - add one)
+- `web/fitqueue.js` (147 lines) - Ready to fit (task 305): the owner's hand fits are the ones that land right, so the line queues them - the built sites that still have a candidate picture and no hand fit yet, o...
+- `web/index.html` (1710 lines) - (no header comment - add one)
 - `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
