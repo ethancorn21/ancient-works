@@ -30,91 +30,79 @@ survey sheet, then carry the sheet's georeference over.
 
 ## Hand-over
 
-(2026-10-12, iteration 90, agent c - session 6. Killed the centroid-bias problem at its root:
-8x supersampling DISPROVEN (the bias is a threshold-edge effect; 8x is worse), the stub now
-models a good sub-pixel matcher (keypoints at expected positions + +-0.25 px wobble + 0.6 px/deg
-jitter; centroids kept for detection only), fixed a real ndi.shift rank bug in the null path,
-tightened tolerances to ~2x observed, fixture committed. Suite 7/7, full suite 75 passed 1
-skipped. The REAL ELoFTR service now answers at 127.0.0.1:8091.)
+(2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
+(it was already frozen with the method), do the live canaries, then the one-shot run. DONE:
+both Re-read passes, stub suite re-confirmed 7/7, 3 live canaries eyeballed, devlog written,
+the freeze committed as 156aa19, the held-out evaluator written and selfchecked 21/21.
+The ONE RUN has NOT started - it is the entire next step.)
 
-**State.** Status: in-progress. All 7 stub tests green:
-`.venv/bin/pytest tests/test_surveyfit.py -q` -> 7 passed; full suite 75 passed, 1 skipped.
-Observed placement errors (all far inside the new asserts db<1.3 / da<0.006 / corners<1.6):
-theta_d=42 rot=42: db 0.624 m, da 0.00273, corners 0.797; theta_d=0 sweep: 0.461 / 0.00137 /
-0.460; theta_d=6 sweep: theta recovered exactly 6.0, 0.466 / 0.00230 / 0.597; null run:
-fit 0.5278 vs null 0.3923 (margin 0.1355, confidence 0.0715). Fixture
-data/surveyfit/fixture_match.json committed (north-42 ideal world: 26 pairs, 14 inliers,
-rms 3.6e-12, score 0.538462).
+**State.** Status: in-progress. Freeze commit **156aa19** contains: data/surveyfit/devlog.md
+(new), the 304 section of docs/site_flow.md (amended AT the freeze: frozen config restated
+with hash **737508d**, the pre-freeze canaries recorded, sheet count corrected 15->13 of 19),
+and fit/surveyfit_heldout.py (new evaluator, mirrors inkfit_heldout). **fit/surveyfit.py is
+FROZEN as of 737508d - never touch it again.** Stub suite 7/7 (last full suite per session 6:
+75 passed, 1 skipped - re-run after any main merge). ELoFTR answers at 127.0.0.1:8091
+(health-checked this session). Evaluator selfcheck: 21/21 OK (0.0 m / 0.0 deg / 1.0). The run
+is **22 pairs**: the 21 sheets + the camp-d-attila aerial (row 11, right after its sheet row).
 
-**Changes this session:**
-1. tests/test_surveyfit.py: NEW `_wobble(theta, i)` (deterministic +-WOBBLE_PX=0.25 px per
-   (theta, i), seed stream separate from `_jitter`); `match_response` now returns plan-side
-   keypoints at `_expected(theta, plan_centers)[i]` (the module's own visual-rotation matrix)
-   + wobble + angular jitter instead of the measured blob centroid - `matched` still gates
-   WHICH glyphs are detected (the sent-image geometry still drives detection, the _take bands,
-   the junk set and the response format are all unchanged). Module docstring updated to say
-   so. Tolerances tightened to ~2x the observed worst (db 1.3, da 0.006, corners 1.6).
-2. fit/surveyfit.py: REAL BUG FIXED - `shift_sheet_image`'s `ndi.shift` got a 2-element shift
-   for the RGB (rank-3) sheet image -> "RuntimeError: sequence argument must have length
-equal to input rank" on the FIRST null run ever (tests 1-3 use null=False, so it had never
-   executed). Now a 3-element shift (0.0 on the channel axis).
-3. PITFALLS.md: new `### scipy (1.18.1)` subsection (center_of_mass label-index form returns a
-   list of (cy, cx) tuples - the session-5 candidate; ndi.shift shift-sequence rank match) and
-   a fit/ entry on the digital-disc centroid bias (0.3-0.8 px, no supersample fixes it, 8x is
-   worse; blob centroids = detection only, never sub-pixel truth).
-4. The 8x supersample plan (session-5 next step 1-2) is ABANDONED on the evidence in
-   DECISIONS.md; `_rasterize` stays at ss=4.
+**Canaries (this session, all --no-null, live service; full table in data/surveyfit/devlog.md):**
+- maiden (held-out #14, the lead's directed canary): 43 calls, 215 s; chosen theta=94
+  (20 pairs / 6 inliers / score 0.2048 / conf 0.0419) - EYEBALL: polygon ~1 km NW of the
+  hillfort, OFF (the inlier-fraction score preferred a small tight cluster); the SAME run's
+  theta=0 call: 625 pairs / 31 inliers / 0.0311 = the lead's raw smoke (his: 633 pairs - the
+  service's pair count drifts a few % between calls). No tuning from any of this.
+- barnard (NOT held-out): 43 calls, 44 s; theta=216, 3 pairs / 3 inliers / 0.7262 /
+  conf 0.5274 (no null run); polygon ON the earthworks. Note: the frozen score has no
+  minimum-pair floor (3/3 -> 0.73) - a method property, not tuned from.
+- avaricum (NOT held-out): 43 calls, 98 s; theta=0, 9 pairs / 3 inliers / 0.2364 / 0.0559;
+  polygon ON the earthworks.
+- Per-call wall time scales with the sheet's PNG re-encode: ~1 s (533 px), ~2.3 s (1600 px),
+  ~5 s (dense 1066 px). Full sweep = 43 calls + 2 null calls per doc; expect the whole run
+  ~30-60 min. Smoke artifacts: .agent/smoke_{maiden,barnard,avaricum}.{json,log},
+  .agent/eyeball_*.png, .agent/eyeball.py (all gitignored).
 
-**Acceptance boxes:** still none ticked. Box 1 (method: matching points from the images,
-similarity through the georeference, confidence) is tick-able once the NEXT step (the
-real-service smoke) proves the pipeline on a real site; the stub suite already proves it
-against the API contract. Boxes 2-3 need the one run.
+**Acceptance boxes:** still none ticked. Box 1 (matching points from the images, similarity
+through the georeference, confidence) is now proven on real sites (canaries) - tick it once
+the one run has produced its table (the run is the box-2 deliverable, so tick 1 and 2
+together, after). Box 3 (the verdict written plainly) comes with the table.
 
-**Next step (session 7):**
-(1) REAL-SERVICE SMOKE (the service is UP now: /health -> zju-community/matchanything_eloftr
-    on the RTX 5060 Ti): canary `.venv/bin/python fit/surveyfit.py maiden-castle-q1232816
-    c_c20ff6b1f16d173d --no-null` (expect a match; the lead's 633 matches / 31 inliers /
-    20-35-53 m at the 3 hand points are confirmation ONLY - NEVER tune from them), then
-    barnard-castle-q4185811 and avaricum-q281826 (same, --no-null first). Eyeball the reported
-    panel corners vs the sheet (they should land on the plan's own ground features). Watch for:
-    first real-sheet load (load_sheet), scale-prior band from the catalog (maiden has a scale
-    bar? if a band is active it constrains |a| - the note lines say), rotation (prior or
-    sweep), runtime (~1 s per match call warm).
-(2) Write data/surveyfit/devlog.md (hand-over step 4): the world (400 px sheet, 2 km box at
-    (2,50), 7x2 grid pitch 25/30 centred (195,235), SHEET_R 3.5, M_PX 4, JUNK_SEED 304777,
-    JITTER_SEED 304778, JITTER 0.6 px/deg, WOBBLE 0.25, HIT_PX 2, ORIENTED_MIN 8), the measured
-    fit/null scores + inlier counts per world (numbers above), the per-disc bias table
-    (0.33-0.88 px, ss4 vs ss8 vs radius, JPEG/rotation contribution ~0.05 px), corner/placement
-    errors, the two scipy 1.18 gotchas, the fixture pin. (It is referenced by the test header,
-    docs/site_flow.md:304 and the devlog line the freeze section will cite.)
-(3) FREEZE: restate the frozen config in MY section of docs/site_flow.md ("The one-shot
-    held-out measurement..." - match params threshold 0.2 / max_side 832, RANSAC 400 iters /
-    8 px / min 3 inliers / s_band 1.5, sweep 12 deg coarse + 2 deg fine +-1 coarse step, nulls
-    = 302b scramble (SEED 20261012) + half-box sheet shift, score = inlier fraction / (1 +
-    rms/8), confidence = score * margin) + the FREEZE COMMIT HASH; commit; the config is
-    FROZEN from that commit.
-(4) fit/surveyfit_heldout.py (mirror fit/inkfit_heldout.py: the 21 docs from the 302b list,
-    both similarities in the doc's size frame, four full-image corners, k0 = aw.ground_scale,
-    aerial column camp-d-attila only, per-doc checkpoint to data/surveyfit/heldout/results.json
-    + pid lock, selfcheck 0.0 m / 0.0 deg / 1.0 on the synthetic tree before the real run).
-(5) THE ONE RUN, then the verbatim table (corner error m, rotation, scale, confidence per
-    doc; "no sheet" rows for sheetless hand fits) + plain verdict: PASS iff a confidence
-    threshold exists under which every accepted fit is within 60 m and >= 5 of 21 accepted
-    (the threshold = the single authorised post-run choice) -> pass: write 304b (wire into
-    tools/site_done.py's fit step: confident -> map, unsure -> review with the reason); fail:
-    say so and stop - no wiring, no fourth method.
+**Next step (session 8) - THE ONE RUN (the owner is waiting on the table):**
+1. `cd <checkout> && nohup .venv/bin/python fit/surveyfit_heldout.py run > .agent/surveyfit_run.log 2>&1 &`
+   (pid lock data/surveyfit/heldout/runner.pid; checkpoints per pair into
+   data/surveyfit/heldout/results.json - a cut session resumes; one disclosed re-run per
+   errored pair; the run's timestamp is fixed when results.json is first created). The run
+   does NOT need the test suite or any other agent's work; it only needs the 8091 service
+   (check `curl -s -m 5 http://127.0.0.1:8091/health` first).
+2. Monitor: `tail -f .agent/surveyfit_run.log` (per-pair completion lines: placed/corner/drot/
+   scale/null/margin/conf). If the service dies mid-run, the errored pair stores an
+   exception; when it is back, re-running `run` uses the one permitted re-run on those pairs.
+3. When all 22 rows are in the checkpoint: `.venv/bin/python fit/surveyfit_heldout.py table`
+   -> paste the output VERBATIM into MY 304 section of docs/site_flow.md, replacing the
+   placeholder line "(The measured table is pasted here after the one run, as in the 302b
+   section.)". That line + the verdict are the ONLY further edits to the section.
+4. The verdict, written plainly next to the table: PASS iff a confidence threshold exists
+   under which every accepted fit is within 60 m of the hand fit AND at least 5 of the 21
+   docs are accepted (the threshold = the single authorised post-run choice, as in 302b;
+   the table is reported as it comes out, no cherry-picking). PASS -> write tasks/304b
+   (wire into tools/site_done.py's fit step: confident -> map, unsure -> review with the
+   reason) as a NEW top-level task (lowest free number in 800-1099, with Depends on: 304 and
+   its own Touches: line - tools/site_done.py is NOT in 304's Touches). FAIL -> say so in
+   the section and STOP: no wiring, no fourth method.
+5. Then tick the 3 acceptance boxes and set Status: done.
 
-**Never:** read the 21's stored hand pairs during development (the evaluator is the only
-reader); tune any parameter from the lead's smoke numbers or from the held-out run; edit
-docs/site_flow.md outside my 304 section (agent a owns 305's parts); change the 302b
-golden/hand docs; bind fixed network ports in tests (the stub uses port 0; the smoke runs
-against 8091 from a script, not a test); write outside the project + the temp dir; `git
-merge/rebase/reset/stash` outside a merge request.
+**Never:** read the 21's stored hand pairs outside fit/surveyfit_heldout.py (the evaluator is
+the only reader); tune any parameter from the canary numbers, the run numbers, or the lead's
+smoke (everything is frozen at 737508d); edit docs/site_flow.md outside my 304 section (agent
+a owns 305's parts); change the 302b golden/hand docs; bind fixed network ports in tests (the
+stub uses port 0; the run script is not a test); write outside the project + the temp dir
+(.agent/ is gitignored and fine for logs); `git merge/rebase/reset/stash` outside a merge
+request. Before starting: if main has moved (agent a's 305), confirm after the driver's merge
+that my 304 section in docs/site_flow.md is intact (it sits far from 305's parts; re-apply my
+freeze lines only if the merge damaged them).
 
-**Re-read:** tests/test_surveyfit.py:match_response + _wobble + _jitter - confirm (a) both
-wobble streams are seeded per (theta, i) only (a repeated call at the same theta must return
-IDENTICAL points - the sweep's first-max tie-break and the duplicate-payload test depend on
-it), and (b) the `matched` gate still excludes undetected glyphs from the returned pairs
-(detected-but-not-in-_take must never be returned); fit/surveyfit.py:shift_sheet_image -
-confirm the shift direction is still half-box NORTH (negative row shift) and half-box EAST
-(positive column shift) in image coordinates.
+**Re-read:** fit/surveyfit_heldout.py:measure - confirm `surveyfit.fit` is called with
+null=True and the right `kinds` (default SHEET_KINDS for the sheet, ("aerial",) for the aerial
+pair) and that the entry stores objective/null/margin/confidence exactly as table() and the
+verdict need them; run() - confirm the all_done check counts all 22 pair keys (it iterates
+pairs() keys, not just the 21 docs); pairs() - the aerial pair sits right after the
+AERIAL_DOC sheet row.

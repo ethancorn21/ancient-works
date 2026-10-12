@@ -415,3 +415,40 @@ measured numbers (world params, per-world fit/null scores, the bias table above,
 scipy gotchas); then FREEZE (restate the frozen config in my site_flow 304 section + the
 freeze commit hash) -> fit/surveyfit_heldout.py -> THE ONE RUN -> verbatim table + plain
 verdict -> pass: 304b task; fail: stop.
+
+## 2026-10-12 304 DECISION: session 7 - re-reads passed; live canaries on three sites (the lead's direction); the method FROZEN at 737508d (freeze commit 156aa19: devlog + site_flow restatement + evaluator); the one-shot run is the entire next step
+
+(1) Re-read passes, no changes: (a) `_jitter`/`_wobble` are seeded per (theta, i) only, so a
+repeated call at the same theta returns identical points (the sweep tie-break and the
+duplicate-payload test depend on it); (b) `match_response` iterates `_take` and skips any
+index not in `matched`, so detected-but-unselected glyphs are never returned; (c)
+`shift_sheet_image` still shifts half the box north (-h/2 rows) / east (+w/2 columns) with
+the 3-element shift. The lead (this iteration) directed: the stub is frozen as it is - a
+test that runs end to end is enough - so the stub suite (7/7) stands untouched.
+(2) Live canaries (all --no-null against 127.0.0.1:8091; full table in
+data/surveyfit/devlog.md): maiden (held-out #14, the lead's directed canary) 43 calls /
+215 s; the frozen sweep chose theta=94 (20 pairs / 6 inliers / 0.2048 / conf 0.0419) -
+eyeballed OFF (~1 km NW of the hillfort; the inlier-fraction score preferred a small tight
+cluster), while the same run's theta=0 call gave 625 pairs / 31 inliers / 0.0311,
+reproducing the lead's raw smoke (his 633 pairs: the service's pair count drifts a few %
+between calls of identical images). barnard (not held-out): 3/3/0.7262/0.5274, on the
+earthworks; avaricum (not held-out): 9/3/0.2364/0.0559, on the earthworks. Recorded as
+observations, nothing tuned: the pre-registration bars any parameter choice from held-out
+numbers, and the lead's own raw smoke was a raw-API check, not my method.
+(3) Task 303's golden re-key broke the 302b evaluator's `doc_ids()` (it expects exactly 20
+platefit docs; the file now pins the 21 hand fits). 302b is done and re-runs nothing, and
+the golden file is not mine to touch; the 304 evaluator instead asserts the golden file
+pins exactly the 21 registered docs (it does) and uses the hard-coded 302b list, sorted.
+(4) Freeze: 737508d (last commit touching fit/surveyfit.py) is the frozen method; commit
+156aa19 amends my 304 section of docs/site_flow.md at the freeze - the frozen config
+restated (threshold 0.2 / max_side 832 / 30 s + one retry; RANSAC 400 iters / min 3 / 8 px /
+seed 20261012 / s_band x1.5; sweep 12 deg + 2 deg +-1 coarse; nulls = 302b scramble +
+half-box sheet shift; score (inliers/pairs)/(1+rms/8); confidence max(0, score x margin)),
+the pre-freeze canaries disclosed, and a factual slip corrected (13 of the 19 sites carry
+the six-inch sheet, not 15). fit/surveyfit.py is never to change again.
+(5) Evaluator fit/surveyfit_heldout.py written (22 pairs: 21 sheets + the camp-d-attila
+aerial on row 11; per-pair atomic checkpoint + pid lock; one disclosed re-run per errored
+pair). Selfcheck 21/21 OK (0.0 m / 0.0 deg / 1.0). The one run has NOT started: next
+session launches it (hand-over has the exact commands), pastes the verbatim table into the
+section, and writes the plain verdict (pass iff a confidence threshold exists with every
+accepted fit within 60 m and >= 5 of 21 accepted).
