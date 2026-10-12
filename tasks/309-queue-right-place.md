@@ -1,11 +1,11 @@
 Status: open
-# 307b: The queue pairs a drawing with the right place, not a namesake
+# 309: The queue pairs a drawing with the right place, not a namesake
 Depends on: 305
-Carved from: 307
+Carved from: 307 (box 1)
 Touches: tools/fit_queue.py, tools/right_place.py, web/data/fit_queue.json, data/review/, web/data/review.json, tests/test_fit_queue.py, docs/site_flow.md
 
 ## Goal
-307's first box, carved out so it runs in parallel with 307's page work (agent a). The queue's first entry paired
+307 box 1, carved out so it runs in parallel with 307's page work (agent a). The queue's first entry paired
 Allcroft 1908 Fig. 217, "The Devil's Dyke Camp, near Brighton" (a Sussex hillfort), with devil-s-dyke-q3307343, the
 Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the map.
 

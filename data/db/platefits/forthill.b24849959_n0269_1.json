@@ -1,0 +1,79 @@
+{
+ "site": "forthill",
+ "plan": "b24849959_n0269_1",
+ "crop": [
+  201,
+  448,
+  2619,
+  3708
+ ],
+ "pairs": [
+  [
+   1560.4,
+   2345.4,
+   -83.4031833,
+   39.1154698
+  ],
+  [
+   1630.4,
+   1310.8,
+   -83.4025385,
+   39.1193546
+  ],
+  [
+   1165.6,
+   3284.6,
+   -83.4053779,
+   39.112019
+  ],
+  [
+   1980.6,
+   1810.6,
+   -83.4009839,
+   39.1173903
+  ],
+  [
+   1796.0,
+   1686.4,
+   -83.4018446,
+   39.1179006
+  ],
+  [
+   1655.9,
+   1403.1,
+   -83.4024419,
+   39.1190008
+  ],
+  [
+   1143.3,
+   3192.3,
+   -83.4054591,
+   39.1123722
+  ],
+  [
+   1818.3,
+   1750.1,
+   -83.4017551,
+   39.1176554
+  ]
+ ],
+ "label": "Fig. 61",
+ "title": "Fort Hill, Highland county",
+ "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+ "at": "2026-10-12T03:05:18.953607+00:00",
+ "auto": true,
+ "score": 5.7,
+ "by": "agent",
+ "ia": "b24849959",
+ "file": "n0269.jpg",
+ "book": "Fowke 1902",
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 12,
+  "matches": 272,
+  "ground": "relief.jpg",
+  "window": 0.5,
+  "rot_deg": 3.47
+ }
+}

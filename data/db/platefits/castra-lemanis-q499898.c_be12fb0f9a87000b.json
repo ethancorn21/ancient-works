@@ -1,0 +1,86 @@
+{
+ "site": "castra-lemanis-q499898",
+ "plan": "c_be12fb0f9a87000b",
+ "crop": [
+  0,
+  0,
+  361,
+  600
+ ],
+ "pairs": [
+  [
+   255.0,
+   205.0,
+   1.0219922,
+   51.0687923
+  ],
+  [
+   88.0,
+   476.0,
+   1.0202108,
+   51.0669374
+  ],
+  [
+   251.0,
+   435.0,
+   1.021972,
+   51.0672267
+  ],
+  [
+   251.0,
+   84.0,
+   1.0219367,
+   51.0696155
+  ],
+  [
+   210.0,
+   118.0,
+   1.0214961,
+   51.0693816
+  ],
+  [
+   262.0,
+   153.0,
+   1.0220628,
+   51.0691467
+  ],
+  [
+   71.0,
+   453.0,
+   1.0200244,
+   51.0670928
+  ],
+  [
+   248.0,
+   112.0,
+   1.0219071,
+   51.0694248
+  ]
+ ],
+ "label": "19th century",
+ "title": "Plan Portus Lemanis",
+ "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Plan_Portus_Lemanis.jpg",
+ "at": "2026-10-12T03:14:05.023722+00:00",
+ "auto": true,
+ "score": 2.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/castra-lemanis-q499898/be12fb0f9a87000b.jpg",
+ "ref": "File:Plan Portus Lemanis.jpg",
+ "size": [
+  361,
+  600
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 15,
+  "matches": 25,
+  "ground": "six-inch-1st.webp",
+  "window": 0.25,
+  "rot_deg": -0.53
+ }
+}
