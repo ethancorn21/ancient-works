@@ -614,3 +614,45 @@ iter-132's 100 passed + 1 skipped + 0 failed at c8e6cab). Working tree clean. Ne
 session: write the part-4 section per the hand-over's step-by-step spec (it now doubles
 as a transcription checklist with the exact check names), append after test_card_done_
 mark_moves_on's last two lines, run the file, commit, tick boxes 1-3.
+
+## 2026-10-12 307bb DECISION: iteration 137 - lead scope cut on the headless test (their message wins over the iter-132 36-check design); verification-only session - every page-side fact the transcription needs re-read and confirmed in the merged tree
+The lead cut the part-4 test to the small form after 5+ verification/hand-over sessions:
+ONE Chrome run on the pick (oswestry) - open place mode, one drag, one wheel, one
+shift+wheel, save - asserting from the temp tree (a) the doc exists with by:hand and
+5 pairs, (b) its simFit scale/rotation match the final anchor within 1e-3 / 0.01,
+(c) depictions.json has the overlay; plus ONE Cancel run checking the earlier overlay
+is back. Transcribe /tmp/fkverify/probe.mjs as-is where it fits; DROP the
+pixel-corner, pin/undo, hint, gesture-bool and reqfail checks (pin/undo get a manual
+check in 307d). No verification-only or hand-over-only session from now on; a failing
+test gets committed and fixed next session. Box 4 (docs) is one short paragraph.
+So the committed probe keeps 22 named checks: boot, fitkit, cardOffersPick,
+seed: opensOnWorks/anchorIsPropose/fivePairsOnMap, drag: moves/keepsScaleRot/
+keepsUv/centrePairTracks/fitAgrees, wheel: scalesAboutCentre/fitAgrees, shift+wheel:
+turnsOneDegree/keepsScale, save: closesPane/stateCleared/newOverlayShowing/
+docFitsThePlacedAnchor, cancel: overlayBack/stateCleared, noPageErrors. The
+rotated-parallelogram pixel proof (the _fkvFitChecks corner math) goes away with the
+cut - it stays proven in the throwaway's run128c (41/41, pre-merge tree) and the claim
+moves to this record rather than the committed test. This session was verification (the
+one the cut now forbids): all facts in the task's hand-over section were re-read in the
+merged tree - fitkit.js (_fkAbsorb ~163: a wheel re-plants the anchor at the fit's own
+at(u0,v0) and adopts the fit's mpx/rot, a no-op to float-point over the exact re-
+emitted five - so the wheel's expected base is simFit(P.pairs).mpx, not the anchor's;
+_fkOnWheel 261: shift ? rot += dy*0.01 : mpx *= exp(-dy*0.0015); _fkOnMove: absolute
+from press-down, engages at 4px; _fkActivate 319: fitBounds duration 900ms, pad left
+390 when !narrow, hides dep-<site>, re-emits 5 pairs + markers); index.html (simFit
+983: least squares over W=[u,-v] -> Z=merc, a=[nr/d, ni/d] with nr += zr*wr+zi*wi,
+ni += zi*wr-zr*wi, k = cos(pairs[0].lat), mpx = |a|*k, rot = atan2 deg - the _simfit
+port in the hand-over is exactly this; merc 343 R=6378137 no clamping; lsGet/lsSet
+299-300 JSON.parse/stringify - the seed must JSON.stringify aw.ground too; select 801
+default dep = first DRAWING kind (plan/drawing/view, 636) else last 'map', 150y survey
+filter 413-414; setGround 799 persists; saveFit ~1129-1150 as in the iter-135
+corrections); fitqueue.js (FQ.done = lsGet aw.fitQueue.done with the self-heal in
+fqLoad; fqPending = S.byId && !done && !skipped; card 'Ready to fit <span>N to go
+</span>' with N = fqPending(); fqPlace: select -> setGround(lidar === false ?
+'imagery' : 'relief') -> await loadDeps -> startFit -> await openPlan(row)). Pick
+unchanged: entries[3] oswestry-castle-q20713795 (114-entry queue), done-seed = the
+three earlier entries (fort-ancient, marietta, forthill). Next session is mechanical:
+write the section per the hand-over's numbered steps (docstring reword, PLACE_PROBE,
+_run_place_probe, place_served, _simfit, the test, the box rewords), py_compile, run
+the file (~5-8 min), commit, tick boxes per the cut, write the one-paragraph box-4
+docs edit.
