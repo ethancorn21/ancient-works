@@ -135,6 +135,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/test_surveyfit.py` (599 lines) - Task 304: the survey-sheet fit method (fit/surveyfit.py) tested end to end against a stub of the MatchAnything-ELoFTR service - no GPU, no network, no fixed port (the stub liste... Exports: sheet_corners L90-95, sheet_centers L103-114, true_placement L117-125, plan_centers L128-144, junk_plan_centers L145-158, junk_pairs L159-166, sheet_image L185-189, plan_image L190-192, build_tree L195-207, build_world L210-217, ... (+11 more).
 
 ## tools/
+- `tools/audit_306a.mjs` (130 lines) - Task 306a - headless visual audit of the 23 agent fits that are ON the map.
 - `tools/composite.py` (16 lines) - Preview: site relief with the exported plate ink on top.
 - `tools/export_catalog.py` (52 lines) - Compact catalog for the page: web/data/catalog.json (every catalog entry as a pin; built sites are the full pages). Exports: dist_m, main.
 - `tools/export_plans.py` (88 lines) - Site plans from the old books (data/books/index.jsonl) as a compact list for the page's plate-fitting tool. Exports: commons_rows, main.
