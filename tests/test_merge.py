@@ -19,6 +19,14 @@ refresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in
 data/merge/plans_premerge_keys.jsonl) is still present, (id, sites[0]) stays unique (the shared-id picture
 keeps one row per (picture, site)), the merged pictures that qualify as plans/bird's-eye views reach the
 list, and every picture row joins a files row carrying the 200 evidence field.
+
+Box 3 (the built sites): the test asserts the data-level result of the build phase, read-only on the
+served data (never a rebuild). web/data/sites.json grew purely against the frozen pre-build baseline
+(data/merge/sites_premerge_baseline.jsonl, the 385 entries served at commit 406562b): nothing removed, no
+entry rewritten except the marker fields 212's page-facing sync later owns; and every site built in this
+phase is complete (its directory, the page's required fields, relief.jpg iff the entry credits a LiDAR
+source, and a coverable old-map layer implies a depictions.json), with three sites pinned to the exact
+values their recorded builds produced.
 """
 import hashlib
 import json
@@ -27,6 +35,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import time
 
 from collections import Counter
 
@@ -265,6 +274,96 @@ def test_plan_list_refresh_is_pure_growth():
         ev = files.get((r[i_sites][0], r[i_ref]))
         assert isinstance(ev, dict) and ev.get("rec") == "evidence/1", \
             f"plan row {r[i_id]} joins a files row without the 200 evidence field"
+
+
+# The four marker fields build_site.marks() re-writes whenever a fit is saved or deleted; 212's
+# page-facing sync owns them for every site, so the baseline identity check tolerates changes to
+# exactly these (the box: "the old entries are unchanged except fields 212 later owns").
+MARKERS = ("drawings", "score", "oldest", "overlays")
+
+
+def _site_entries():
+    return json.load(open(os.path.join(ROOT, "web", "data", "sites.json")))
+
+
+def _baseline_entries():
+    return [json.loads(l) for l in _lines(os.path.join(ROOT, "data/merge/sites_premerge_baseline.jsonl"))]
+
+
+def test_served_sites_grew_purely():
+    """Box 3, read-only: the served sites.json grew without ever rewriting the pre-build set. The frozen
+    baseline is the 385 entries served at commit 406562b, the last commit before 211's first build (the
+    box's "old 384" was the human's estimate; 385 is the measured count). Nothing was removed, and no
+    baseline entry changed outside the marker fields 212 later owns."""
+    pre = _baseline_entries()
+    assert len(pre) == 385, f"the frozen pre-build baseline holds {len(pre)} entries, expected 385"
+    sites = _site_entries()["sites"]
+    assert len({s["id"] for s in sites}) == len(sites), "duplicate site ids in the served file"
+    by_id = {s["id"]: s for s in sites}
+    for p in pre:
+        c = by_id.get(p["id"])
+        assert c is not None, f"pre-build site removed from the served file: {p['id']}"
+        diff = {k for k in set(c) | set(p) if c.get(k) != p.get(k)}
+        outside = diff - set(MARKERS)
+        assert not outside, f"pre-build site rewritten: {p['id']}: {sorted(outside)}: {[(p.get(k), c.get(k)) for k in outside]}"
+
+
+def test_new_sites_are_complete():
+    """Box 3, read-only: every site built in this phase is complete by the machinery's own rule - its
+    directory exists, the entry carries the fields the page renders, relief.jpg is present exactly when
+    the entry credits a LiDAR source, and a site under a coverable old-map layer (depict.LAYERS: covers
+    and old enough, year <= now - MIN_AGE_YEARS) has a depictions.json; an aerial-only site correctly
+    has none."""
+    pre_ids = {s["id"] for s in _baseline_entries()}
+    sys.path.insert(0, os.path.join(ROOT, "pipeline"))
+    import depict  # noqa: E402  (read-only: covers() is a box check, no network at import)
+    newest = time.gmtime().tm_year - depict.MIN_AGE_YEARS
+    new = [s for s in _site_entries()["sites"] if s["id"] not in pre_ids]
+    assert new, "no new sites: the build phase produced nothing"
+    for s in new:
+        sdir = os.path.join(ROOT, "web", "data", "sites", s["id"])
+        assert os.path.isdir(sdir), f"{s['id']}: no web/data/sites directory"
+        for k in ("id", "name", "lon", "lat", "corners", "size_m", "drawings"):
+            assert k in s, f"{s['id']}: entry field {k} missing"
+        relief = os.path.exists(os.path.join(sdir, "relief.jpg"))
+        assert relief == bool(s.get("lidar_credit")), \
+            f"{s['id']}: relief.jpg={relief} but lidar_credit={s.get('lidar_credit')!r}"
+        coverable = [n for n, L in depict.LAYERS.items()
+                     if depict.covers(L, s["lon"], s["lat"]) and L["year"] <= newest]
+        if coverable:
+            assert os.path.exists(os.path.join(sdir, "depictions.json")), \
+                f"{s['id']}: old-map layer {coverable} covers it but depictions.json is missing"
+
+
+def test_new_site_golden_samples():
+    """Box 3: three built sites pinned to the exact values their recorded builds produced - an AHN Dutch
+town with the 1850 military map, an aerial-only Belgian city (relief, no depictions), an IGN French city
+with the two 18th/19th-century French maps. A regression in the build machinery shows up here."""
+    by_id = {s["id"]: s for s in _site_entries()["sites"]}
+    samples = {
+        "the-hague-q36600": dict(score=0.91, oldest=1850, overlays=1, relief_clip_m=0.65,
+                                 lidar_credit="AHN (Rijkswaterstaat)",
+                                 files=["relief.jpg", "tmk1850.webp", "depictions.json"]),
+        "ostend-q12996": dict(score=0, oldest=None, overlays=0, relief_clip_m=1.2,
+                              lidar_credit="Wallonia (EODaS), 2015 (35.06 points/m2)",
+                              files=["relief.jpg"],
+                              absent=["depictions.json"]),
+        "cambrai-q181285": dict(score=1.01, oldest=1780, overlays=2, relief_clip_m=1.2,
+                                lidar_credit="IGN, LiDAR HD (Licence Ouverte 2.0)",
+                                files=["relief.jpg", "cassini.webp", "etatmajor.webp", "depictions.json"]),
+    }
+    for sid, exp in samples.items():
+        s = by_id[sid]
+        sdir = os.path.join(ROOT, "web", "data", "sites", sid)
+        for k, v in exp.items():
+            if k == "files":
+                for f in v:
+                    assert os.path.exists(os.path.join(sdir, f)), f"{sid}: missing {f}"
+            elif k == "absent":
+                for f in v:
+                    assert not os.path.exists(os.path.join(sdir, f)), f"{sid}: {f} must not exist (aerial-only site)"
+            else:
+                assert s.get(k) == v, f"{sid}.{k}: {s.get(k)!r} != {v!r}"
 
 
 if __name__ == "__main__":
