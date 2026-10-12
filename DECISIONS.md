@@ -431,3 +431,60 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
   the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
   claim.
+
+## 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them
+- Session 186. All six acceptance boxes are now ticked; Status stays `open` (not done)
+  because 222-228 (the seven source-guard fix tasks, all still `Status: open`) are in
+  Depends on: and their 10 check_staged/join failures are the branch's entire red set.
+  Next session: if 222-228 have landed on main, re-run the suite (expect green; the merge
+  is idempotent - do not re-run fit/merge.py), set Status: done, claim.
+- Box 5: docs/sources.md section 9, "The drawing leads (GOAL point 5): what was staged
+  and what was dropped, per lead". One table row per GOAL.md lead, each sourced from its
+  docs/lead_*.md status section plus the merge log: 204 Van Deventer (56 of 60 stageable
+  town categories staged - 13/16 NL, 21/22 BE, 21/21 FR, 1/1 LU; 4 documented drops:
+  Groningen-province a province map, Leeuwarden a 1975 redrawn model, Middelburg a 1942
+  detail crop, Aarschot dated 1570 outside the c. 1545-1565 window); 205 Kip (12 of the
+  22 verified large-scan views staged - 11 new garden sites + 2 St James's plates; 4
+  review-queue views with their reasons; the 6 hand-tied views never re-staged); 206
+  Mackenzie (the p.212 captionless plan identified as Shotwick Castle, 1 row; its fit doc
+  the first post-gate-registration hand fit); 207 Roman (NONE in this merge - stopped by
+  the owner before staging anything; a later merge re-run picks up the staging when it
+  lands on main; the lead doc noted that 207 has since resumed as 207a/207b/207c); 208
+  Limes (56 named plans from 43 ORL fort numbers, 45 staging items -> 45 new fort sites,
+  from 3 free collections spanning 9 ORL volumes; the per-number drop list); 209 Wiltshire
+  (209a Hoare DROPPED - not on IA, HathiTrust 403s, Google 429s, human refused the download
+  (ask_human 001), dormant fetch leg left in place; 209b Stukeley 5 rows; 209c Petrie's book
+  leg refused (ask_human 002) but its fallback held - the two canonical Pl. I/II rows ARE
+  the Petrie plates, verified not re-staged); 210 Numancia (1 row on the existing site);
+  213 artists (2 new aerial sites - Imola, Venice - plus the triaged Civitates/Merian books
+  whose index rows the box-2 rebuild carries: civitates 11 -> 118, merian 0 -> 60).
+  A "merge itself" paragraph records the measured growth: 381 staging rows (115 site /
+  133 picture / 133 classified), extras.jsonl 78 -> 193, files.jsonl 1490 -> 1623,
+  classified.jsonl 797 -> 930, 0 refused / 0 conflicts, 114 NEW sites (shotwick's row
+  created no site - it was the 385th pre-merge entry), sites.json 385 -> 499,
+  plans.json 1166 -> 1168, books index 901 -> 1068.
+- Box 5 gotchas (cost edits, not sessions): (a) web/data/sites.json is a JSON OBJECT
+  ({"sites": [...]}), not JSONL - json.loads per line fails; (b) the limes lead's exact
+  wording is "56 named plans from 43 ORL fort numbers (45 staging items)" - the 45 is
+  staging items (= the 45 extras rows / 45 sites), the 43 is distinct fort numbers;
+  (c) the Mackenzie schematics (Framlingham/Carisbrooke/Cooling) are pre-merge CANONICAL
+  rows (fitted by hand), not drops - the first draft of the section called them drops and
+  was corrected against the 406562b files.jsonl.
+- Box 6: re-read tests/test_serve.py::test_hand_fits_are_the_reference and conftest fresh.
+  The golden file (tests/golden/hand_fit_sites.txt) lists 19 sites; its header says "20
+  documents" (000's reference count). The store today holds 123 docs (26 book-leaf +
+  97 Commons) - the batch tasks' agent fits joined per GOAL's "fits in data/db/platefits/";
+  the golden file is unchanged. All 19 golden sites have web/data/sites/<sid>/depictions.json
+  in this checkout, so the test's per-site depictions assertion (a plan/view depiction
+  whose fit doc id starts with "<sid>.") runs for all 19 - the os.path.exists guard skips
+  none. Hermeticity verified in conftest.served: --port 0 (ephemeral), session-scoped temp
+  copy of web/+server/+data/ minus data/raw/ and .npy/.npz (the book/media routes 404,
+  nothing fetches; also why the suite is light since 7e61147), server terminated in
+  teardown. The test is green in this session's run.
+- Suite this session: 10 failed / 130 passed / 1 skipped in 234 s. The 10 = exactly the
+  222-228 set (artists 1, kip 1, limes 1, mackenzie 1, numancia 1, van_deventer 2,
+  wiltshire_stukeley 3); test_serve/test_gate/test_merge green. No new failures.
+  GOTCHA: `pytest --timeout=600` fails with an argparse error here - pytest-timeout is
+  not installed in the .venv; run plain `pytest tests/ -q` (a nohup pidfile is the safe
+  way to track the run: pkill -f patterns self-match the launching shell's command line
+  and kill it).
