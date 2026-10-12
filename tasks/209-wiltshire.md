@@ -45,9 +45,11 @@ Acceptance box 1 says 'fetched from the Internet Archive (data/raw/books/<ia>/)'
 
 ## Hand-over
 
-(2026-10-13, iteration 144, agent a - FIRST session; investigation + split only, no code written; no tests run this session - last known suite state: the driver notes record 4 failures at loop start (test_batch_eu union tests, test_gate, test_serve) - all other agents' tasks.)
+(2026-10-12, iteration 145, agent a - update on the 144 split; the per-book facts below stand.)
 
-**SPLIT (this session)** into 209a (Hoare, blocked), 209b (Stukeley, open), 209c (Petrie, blocked) - one work per subtask, per the Notes; order kept a=Hoare, b=Stukeley, c=Petrie. **Next: 209b first** (the only one that can run without a human); file the two ask_human requests for 209a/209c from 209b's session. Read the per-book facts below before starting any subtask.
+**State.** 209a (Hoare) in-progress, waiting on **ask_human 001** (filed 2026-10-12 from 209a's own session: human downloads the Cherhill volume -> data/raw/books/hoare_cherhill1821/; fallbacks drop/other scan); its fetch leg is BUILT and tested (fit/src_wiltshire_hoare.py --fetch/--status/--triage, the 207c 3-point in-process wrap; tests/test_src_wiltshire_hoare.py 3 green; docs/lead_wiltshire.md created with the Hoare section) - see 209a's Hand-over for the on-arrival runbook. 209c (Petrie) blocked, now with **ask_human 002** open (filed from 209a's session too: the plan here had assigned both filings to 209b's session, which never ran; 002 asks for the 1880 book -> data/raw/books/petrie1880/, fallbacks "hold" for 209b's Commons Flickr visual check then "drop"). Suite state at 209a's session: 104 passed, 1 skipped, 0 failed.
+
+**Next: 209b first** (the only subtask that can run without a human: the Stukeley IA book leg + the Commons leg; its Notes carry the file list). Read the per-book facts below before starting any subtask.
 
 ### Per-book facts (measured this session)
 
