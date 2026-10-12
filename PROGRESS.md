@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/220-review-page-reexport.md` (open) - hand-over: (2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 117, agent a - WAIT, now exact. main is still cf29be2: no 309/804/805
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 118, agent a - still WAITING, now verified exact.) main is still
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -180,7 +180,7 @@ pre-mutation candidate sets, then drops/moves/upserts, then entries recomputed);
 best selection, before entries.append - so a move that changes a site's best candidate
 recomputes that entry's propose (my committed wiring already sits there, so a two-phase
 restructure keeps it correct without moving it); keep the helper, the `import propose`
-... (1.6 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits' DECISIONS.md`)
+... (6.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
