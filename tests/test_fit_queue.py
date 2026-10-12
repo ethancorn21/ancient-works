@@ -44,6 +44,16 @@ loads the page with the browser's done map pre-seeded with the first queued site
 key and value the card's own saveFit wrapper writes when a save lands - and shows the card
 starting at entry 2. Runs only where Chrome is installed (the recipe is in PITFALLS); the
 committed screenshots of the real checkout (book pages loading) live in docs/site_flow/.
+
+Part 4 (task 307bb, the parent 307b's box 3) proves the placement in the same headless
+Chrome on a FULL temp tree (the one-site line's home: tools/fit/pipeline present, the
+picked entry's book page materialised locally): the card's own done map seeded past the
+earlier queue entries puts the card on the pick, 'Place the drawing' opens the placement
+on the works, scripted input (a drag, a wheel, a shift+wheel) moves, scales and turns the
+drawing, a map-click pin refines it on top (undo restores), the page's save writes the
+platefit doc (by: hand) from the placement alone and the one-site line lands the overlay
+in the tree, and a fresh run's Cancel brings the site's earlier overlay back exactly. The
+checkout's write surface is hashed around the run: nothing in the shared store moves.
 """
 import json
 import os
