@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/220-review-page-reexport.md` (open) - hand-over: (2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 119, agent a - still WAITING; re-verified, no code change.) main is
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 120, agent a - still WAITING; re-verified, no code change. New this
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -72,59 +72,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
-
-### 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands
-One step (diagnosis + task filing, no code change): the done claim (9efb944, all five boxes
-ticked) was rejected for exactly the three tests the iteration-115 note had already named.
-Iteration 116 pins the mechanism and the ownership; all facts below were checked by
-running code, not by reading.
-
-**Mechanism.** web/data/review.json is a DERIVED page written only by fit/review.py::
-export. The committed page (main cf29be2) was published 2026-10-11 18:48 - 340 open of
-341, with alligator-effigy-mound n0214_2 the only item off it. Two lead commits landed on
-main that night without re-exporting: b22a2d2 (22:27, "review resolution needs its
-document") changed resolved_doc so a recorded `resolved` counts only while its document
-file exists, and placed 4 matcher fit documents (argentoratum c_e882645cc479c889 at
-22:09, forthill b24849959_n0269_1 at 22:05, ferme-d-azincourt c_804aa7af3eb2ac7c at
-22:13, castra-lemanis c_be12fb0f9a87000b at 22:14); cf29be2 (22:35) added Castle Neroche's
-(its own n0110_1 doc at 22:31, updated c_44529cdbe2d10a9c). Net: 5 items still LISTED on
-the page now have resolving docs, so the current export hides them, and 6 items (those 5
-+ alligator) lack the write-once `resolved` record that only a FULL export (site_id=None)
-writes - one-site exports record only their own site. The three failing tests all derive
-the expected count from the LIVE page (340) while running the CURRENT code in a copied
-tree: test_site_done_line's line prints "335 open of 341" (expected 340); test_fit_
-provenance seeds one more resolving doc (the refused one) -> "334" (expected 339 =
-340-1); test_fit_queue's part-2 page save resolves one more -> open_after 334 (expected
-339). Reproduced all three verbatim (asserts at tests/test_site_done.py:288, tests/test_
-fit_provenance.py:317, tests/test_fit_queue.py:712).
-
-**Fix verified in a scratch copy of the store** (/tmp/rv220: data/review + data/db/
-platefits + web/data/{sites,review}.json): `fit/review.py export --root <scratch>` ->
-"review: 335 open of 341 items"; exactly 6 item files changed, each gaining only
-`resolved: {doc, at}` (alligator n0214_2 -> c_618a6be74dfaff32, the 203a batch doc; the
-other five -> their matcher docs); a second export is a no-op (same 335, files
-byte-identical). With that page, all three tests' expectations agree by construction
-(they derive from the page plus their run's own delta).
-
-**Why it is a new task and not my fix.** The fix rewrites data/review (6 item files) and
-web/data/review.json - agent c's 309 module (active, own branch: 309's Touches include
-both paths). Team rules: do not edit another task's files, and do not build stand-ins -
-so tasks/220-review-page-reexport.md was filed (Status: open, Depends on: 309 so the
-export runs on top of 309's final store state, Touches: data/review, web/data/review.
-json) and 220 was added to this task's Depends on line. I will re-claim done once the
-driver merges main (carrying 220) into this branch and the suite re-verifies (expect 73
-passed + 1 skipped, no known failures).
-
-**Deliberately NOT done.** Re-baselining the three tests: two of the files (test_fit_
-provenance.py = 303, test_site_done.py = 300/301) are not mine to edit, and re-baselining
-would paper over a real store invariant - the owner's Review tab currently advertises 5
-items whose fits are already on the map. 803's re-baseline precedent applies to tests
-that PIN a population; these three derive, so a consistent store is the only right fix.
-
-**Correction to the iteration-115 note.** I cited "agent c recorded exactly these three as
-pre-existing on main at iteration 95 (its 309 branch notes)" - no such entry exists in
-DECISIONS.md or DECISIONS-archive.md (agent c's branch notes are not in my checkout's
-... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands' DECISIONS.md`)
 
 ### 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits
 
@@ -208,6 +155,56 @@ review-page PITFALLS entry (third trigger: new item files; heading extended for 
 If a future re-claim hits exactly this, the move is to file/propose a fresh re-export
 task, never to touch the three tests. No ask_human: this is a plain dependency wait on
 220, which the driver handles by bringing 307ba back once 309's chain lands.
+
+### 2026-10-12 307ba DECISION: wait re-verified (iteration 120) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty); agent/c advanced: 804's two-phase wiring is now WRITTEN and verified on real data (077ccb8: 15 flags, queue 116 -> 114, 5 item files / 6 upserts, zero churn, part 1 unmodified, its full suite at baseline) - merge recipe re-pinned to the actual code (post-pass between the entries comprehension and the sort; import dedupe; tools/right_place.py is a new file dep that lands only with the 309 chain); no code change
+
+One step (wait bookkeeping + reading agent/c's new state; no code change). Verified by
+running: `git log main --oneline -20` (tip still cf29be2 - no 804/805/309 commit on main),
+`git show main:web/data/review.json | md5sum` (b6506007 - the stale 340-open-of-341 page),
+`git log agent/a..main` (empty: nothing to sync), and `git diff --stat ffd88ab..HEAD`
+(only PROGRESS/DECISIONS/DECISIONS-archive - my code state is byte-identical to the one
+the full suite verified at iteration 119: 3 failed / 70 passed / 1 skipped, so no re-run
+this session, and no re-claim - it would fail the same way).
+
+**What is new on agent/c (since the iteration-119 snapshot; read via `git show agent/c`,
+never merged):** commits 7fd3ef5 (804/309 hand-over: "boxes 1+2 (the two-phase
+right-place wiring) in and verified on real data; code uncommitted (harness-saved); next:
+box 4 tests + box 3 README note, then 805"), f746c04 (804 DECISIONS) and 077ccb8 ([driver]
+uncommitted work: tools/fit_queue.py +131/-5 = the wiring itself). I read the resulting
+file and re-pinned the 307ba merge recipe to the actual code (the full re-pinned recipe
+is in the task hand-over): the final build() is `cands` map -> `_place_store` (None ->
+no-op) -> `_place_flags` (pre-mutation) -> `_apply_flags` -> `entries = [_entry(...)]` ->
+sort -> envelope, so my propose becomes a POST-PASS loop inserted between the entries
+comprehension and the sort (the exact snippet is in the hand-over); `_entry`'s signature
+has no root, so the post-pass stays outside it. Their import block already inserts
+ROOT/fit, so the merged file has ONE pair of path inserts (ROOT/tools + ROOT/fit) and
+three imports (right_place, review, my propose) - my separate fit-insert line is dropped
+as a duplicate.
+
+**804's measured effects (from its iteration-100 hand-over, taken on its word - I have not
+re-run its verification):** 15 flags == the right_place CLI's set exactly; queue 116 ->
+114 entries (vindomora and windmill-hill leave entirely); exactly 5 new review item files
+/ 6 upserts, each gaining place_reason; 341 existing item files unchanged; second build
+byte-identical (zero churn); part-1 tests pass unmodified in 0.68 s; 804's own full suite
+= 3 failed / 77 passed / 1 skipped (its baseline) - so parts 2-3, whose full-tree
+fixtures copy data/catalog and therefore run the live check, are empirically green with
+the wiring in.
+
+**New dependency fact (recorded for the merge session):** `tools/right_place.py` exists
+only on agent/c (checked: missing on main AND agent/a). The merged fit_queue.py imports
+it unconditionally, so the driver's sync of the 309 chain into my branch must bring the
+module file together with the rewired fit_queue.py - one atomic step; never cherry-pick
+the rewired fit_queue.py onto a branch without right_place.py. right_place.load degrades
+gracefully (catalog/index/lists each optional; missing -> empty -> no flags), which is
+why the no-catalog temp trees (my synthetic; my real test's copy list, which takes
+index.jsonl but not data/catalog) stay pure no-ops while the full-tree fixtures (parts
+2-3, 805's rebuild) run the live check.
+
+Queue-count expectation corrected in the hand-over: 114 (804's measured 116 -> 114 at its
+iteration-100 data state), not my earlier "~116"; it may shift again if 203b (EU batch)
+or 207 (Roman books) land on main before 805's rebuild (new index rows / review items) -
+regenerate, never pin. Still waiting: 804 boxes 3-4 + 805 -> 309's closure -> 220's export
+-> my re-claim. No code change, no ask_human (plain dependency wait).
 
 ## Project-wide driver notes (newest)
 
