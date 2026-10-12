@@ -27,75 +27,89 @@ Devil's Dyke in Cambridgeshire, 150 km away. The owner could not find it on the 
 
 ## Hand-over
 
-(2026-10-12, iteration 107, agent c - session 16 on the 309 lane. 805 BOX 1 CLOSED
-(ticked): the suite sits at the recorded not-mine baseline 81 passed / 1 skipped /
-2 failed. This session's fix: renamed fit/catalog.py -> fit/site_catalog.py - the
-bare name shadowed pipeline/catalog.py in the shared-sys.path tests and broke
-test_src_van_deventer (AttributeError: module 'catalog' has no attribute 'slug');
-session 15's 3-file verification never ran that test. Committed. NEXT STEP (exact):
-805 box 2 - the docs/site_flow.md section: how many of the queue's 117 entries were
-wrong (15 pairs over 9 sites, with the list: site, caption, reason), which candidates
-moved to which site and which went to review, the queue's size before and after
-(117 -> 114), and how the check decides (stored fields only: the caption's explicit
-county/state word, its towns resolved to classic counties through the catalog, the
-site's county/state from its catalog record; an unknown place never flags - fail
-open; the --live Wikidata path is for a human re-run, never in the build). The
-15-flag list and the per-flag dispositions are in the DECISIONS entries of
-iterations 102/103 (grep '309 DECISION: iteration 10' DECISIONS.md) and the 805
-Goal. Then box 3: tests/test_right_place_drift.py (hermetic, stdlib, no network:
-for each top-level name between tools/right_place.py's two VERBATIM markers,
-extract the block's text from both that file and pipeline/books_match.py and assert
-byte-identical). Do not edit the verbatim core: a real drift is fixed in
-pipeline/books_match.py (the source of truth) - and if that file is agent a's or
-the lead's in flight, log it in DECISIONS.md rather than editing it. The 2
-test_review failures stay NOT MINE (below) - agent a's 307 reworks web/index.html
-+ tests/.)
+(2026-10-12, iteration 108, agent c - session 17. 805 BOX 2 DONE (UNCOMMITTED - the harness saved it):
+docs/site_flow.md gained the "The right-place check" section (appended at the end, after "The
+matcher fit"; self-contained - agent a's 306 also touches this file, nothing above it was edited).
+Every number in it was re-verified this session by running code (below). Tick 805's box 2, then
+box 3 is the next step.)
 
-State of the tree (all committed; worktree clean):
-- 805 box 1 complete. The rebuilt web/data/fit_queue.json (117 -> 114 entries) and
-  the 5 new data/review/ items (unbuilt catalog right sites: a-saucer-barrow, castle-
-  dyke, devil-s-dyke-hillfort, down-end-castle, oval-barrow; each with place_reason)
-  are in the driver's 1914931 merge commit; web/data/review.json (336 open of 346,
-  the 5 catalog names) is the session-15 in-process fit/review.py export; the
-  contract fix (fit/review.py export name chain sites.json -> catalog -> id; fit/
-  batch_eu.py union_check's catalog-aware unbuilt_items bucket; the catalog-aware
-  temp-tree builders in test_site_done/test_fit_provenance; the test_review
-  _site_names helper) is in 268d1f5; this session's rename commit finishes it.
-  No test assertion was ever edited.
-- The owner's case verified on the current data: n0686_1 (Devil's Dyke Camp near
-  Brighton) is paired with NO queue entry - devil-s-dyke-q3307343 (Cambridgeshire)
-  is narrowed to n0662_1, its only remaining candidate - and n0686_1 lives in the
-  review item devil-s-dyke-hillfort-q17674160.earthworkenglan01allcgoog_n0686_1.json
-  (the Sussex hillfort, unbuilt). That is 804's rule applied: right site exists in
-  the catalog but is unbuilt -> review item, not queue.
-- Suite: 81 passed / 1 skipped / 2 failed (145 s). The skip = test_batch_eu::
-  test_union_full_coverage_live (skip-gated on docs/batch_eu.md's "Sites run"
-  matching the live EU partition - expected, not a failure).
+WHAT THIS SESSION DID (805 box 2, all verified by running code on the current tree):
+- Appended the section to docs/site_flow.md (~75 lines): what the check reads (catalog + book
+  index + book lists, stdlib, no network), how it decides (H1 explicit county/state word; H2
+  towns->classic counties through the catalog, UK book rows only; fail open), the right-site
+  rule (matcher's own verbatim core, place gate, min_score 0.5), the 15-flag table (site,
+  candidate, caption, verbatim reason - all `same name, other place: ...`), the disposition
+  (10 flags found unbuilt right sites -> 6 candidate writes into 5 new review items, 4 dedup
+  skips; 5 flags found no catalog site -> stayed in the source item already holding the plan,
+  upsert skipped, batch record as written; 0 moves into built-site entries), queue size
+  117/325 -> 116/324 -> 114/309, and the --live note (a human-only path from the dropped
+  spec; the shipped check is stored-fields only).
+- Verified facts behind it: `tools/right_place.py --root .` -> "checked 324: 15 flagged"
+  (identical flags to iterations 95/103/109); queue versions 9c805d7 = 117 entries/325
+  candidates (shotwick present, its only candidate n0575_1), 939382a = 116/324 (shotwick gone),
+  current committed file = 114/309, zero of the 15 flagged (site,plan) pairs in it, n0686_1 in
+  no entry; the 5 new item files carry place_reason, the 5 source-site items hold the parked
+  plans with NO place_reason (upsert skipped); review.json = 336 open of 346 files, the 5 new
+  sites in it; the 17 verbatim-core top-level names in tools/right_place.py are byte-identical
+  to pipeline/books_match.py today (zero drift) - that is exactly what box 3's test will pin.
+- WHY shotwick left the queue (the doc states it): its site dir web/data/sites/<id>/ is gone
+  (no longer "built" per tools/fit_queue.py _built_sites; sites.json drawings: 0) after the
+  lead's Oct 12 review export (939382a, sites.json 1925 lines changed) rebuilt site state;
+  its fit doc (data/db/platefits/shotwick-castle-...c_e6e5490609414bb9.json) and its review
+  item (data/review/...n0575_1.json, tracked since 303's 011e48b) remain; the queue holds
+  built sites only, so it is neither in the queue nor checked (the 324 count excludes it).
 
-The 2 remaining failures are NOT MINE (do not fix; both in tests/test_review.py,
-which agent a's 307 - web/index.html + tests/ - is actively reworking):
-(a) test_page_shows_the_review_list: asserts the home stats line contains "built in
-    all"; the lead's 939382a PAGE REWORK replaced that line (git show 939382a --
-    web/index.html). The page otherwise boots cleanly (boot, no pageerror, the
-    tabs and the list all pass; only the phrase is gone).
-(b) test_plan_lookup_is_keyed_by_id_and_site: external ArcGIS World_Imagery tile
-    requests abort in flight while the probe keeps the page open ([reqfail] ... net::
-    ERR_ABORTED); now 3/3 failing (2/2 in session 15). Machine/network flake - my
-    data files add no map tiles, and the boot/plan-lookup assertions pass.
+STATE: docs/site_flow.md is MODIFIED UNCOMMITTED in the worktree (the only changed file).
+No test run this session (the edit is docs-only; suite is at the not-mine baseline
+81 passed / 1 skipped / 2 failed from session 16 - the 2 = test_review::test_page_shows_the_
+review_list (lead's 939382a page rework removed the "built in all" phrase; web/index.html +
+tests/ are agent a's 307 - NOT MINE) and test_review::test_plan_lookup_is_keyed_by_id_and_site
+(ArcGIS tile ERR_ABORTED flake, 3/3 now, 2/2 in session 15 - NOT MINE). The 1 skip =
+test_batch_eu::test_union_full_coverage_live (skip-gated on docs/batch_eu.md staleness).
+PITFALLS: run the suite with .venv/bin/python -m pytest, never bare python3 (no numpy in the
+system interpreter -> 12 collection ImportErrors via pipeline/fit_gate.py); stat
+.agent/reports/last-test-output.txt before trusting it (a day stale in session 16).
 
-Pitfalls added this session (PITFALLS.md is now on the 309/805 Touches lines):
-(i) run the suite with `.venv/bin/python -m pytest`, never bare python3 (system
-interpreter: no numpy - 12 collection ImportErrors via pipeline/fit_gate.py); (ii)
-.agent/reports/last-test-output.txt can be a day stale (the one I read at session
-start was mtime 2026-10-11 17:14 and listed 3 shotwick failures that no longer
-exist: shotwick is now a built site - 385 in sites.json - and the untracked item it
-named has no git history in any ref). Stat the report and cross-check PROGRESS
-note dates before chasing anything in it.
+NEXT STEP (exact, one session each):
+1. 805 box 2 close-out: tick box 2 in tasks/805-fit-queue-rebuild.md (acceptance text: "docs/
+   site_flow.md gains the section: ..."); append this session's facts to DECISIONS.md (entry
+   "2026-10-12 309 DECISION: iteration 108 (session 17) - 805 box 2: the right-place section
+   written into docs/site_flow.md (appended, verified facts: 15 flags over 9 sites, 10->6
+   writes/4 dedup/5 parked, 117/325->116/324->114/309, shotwick left via unbuilt status, 336
+   of 346 open, verbatim core in sync today); --live/fit_place.json never shipped (dropped
+   309-place-check.md spec)"); add the PITFALLS entry (under the "### tools/right_place.py
+   (the right-place check...)" section): "The module has NO --live flag and no
+   data/fit_place.json - those belong to the DROPPED spec tasks/309-place-check.md (kept as
+   reference); the shipped module is a single commit fc67bb9, catalog-driven, stdlib only;
+   do not hunt for them or add them without a new task"; then run the full suite
+   (.venv/bin/python -m pytest; expect 81/1/2, docs-only edit should change nothing -
+   test_serve::test_platefits_docs_match_sites checks data/db/platefits docs, not site_flow)
+   and commit (docs/site_flow.md + the task files + DECISIONS + PITFALLS together, or the
+   docs commit first and the notes second).
+2. 805 box 3: write tests/test_right_place_drift.py (hermetic, stdlib, no network, no ports,
+   no writes outside the tree): for each of the 17 top-level names between the two VERBATIM
+   markers in tools/right_place.py (US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC, norm,
+   SUFFIX is NOT one of the 17 - it is a module-level regex inside the core but the 805 box
+   list is the 17 names in the box text: US_STATES, ABBR, UK_ABBR, UK_COUNTIES, GENERIC,
+   norm, name_keys, tokens, place_of, site_place, site_toks, name_lookup_keys, row_inputs,
+   score_candidate, BOOK_SCOPE, PLACE_WORDS, phrases), extract the block's text from BOTH
+   tools/right_place.py and pipeline/books_match.py and assert byte-identical; the test
+   fails when either file drifts. Extraction rule that works (verified this session): in
+   right_place.py take the region between the two "# ===== ... VERBATIM ..." marker lines,
+   then match each name at the start of a line (US_STATES = ... through the end of the
+   statement, def name: def line + its 4-space-indented body) and assert the exact block
+   string occurs verbatim in pipeline/books_match.py. I verified all 17 match byte-identical
+   today with a throwaway script, so the test must pass on first run. DO NOT edit the
+   verbatim core: a real drift is fixed in pipeline/books_match.py (source of truth) - if
+   that file is agent a's or the lead's in flight, log it in DECISIONS.md instead. After
+   box 3: run the suite, tick 805's boxes 2+3, and 805 is done (box 4, the queue-shape
+   contract, is already satisfied by box 1's rebuild + 804's tests - re-verify and tick it
+   when you close 805, then the driver returns parent 309 and you tick its three carved
+   boxes and set it done, per the iteration-109 plan).
 
-Carried facts: the 15-flag list, the 117 -> 114 rebuild, the 5-item / 340 -> 336
-open history: DECISIONS iterations 100-103 (grep '309 DECISION'). Box 1's
-"three pre-existing main-side failures stay as they is" wording is stale (the lead
-fixed those three main-side); the current not-mine set is the two test_review
-failures above - same spirit: no assertion edits outside my Touches, re-baseline
-if a merge moves them.
+Carried facts (unchanged since session 16): 804 is done (all five boxes, on this branch and
+merged); 805 box 1 done (rebuild 117->114, 5 new items, review.json re-exported, the
+contract fix in fit/review.py export + fit/batch_eu.py union_check + fit/site_catalog.py,
+suite at 81/1/2); the 15-flag list and dispositions: this session's DECISIONS entry and the
+new site_flow section; the 2 not-mine failures above.
 %%DELETE%%

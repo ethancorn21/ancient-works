@@ -111,3 +111,25 @@ the shared-sys.path tests: test_src_van_deventer, AttributeError: module 'catalo
 no attribute 'slug') and verified the full suite at the not-mine baseline 81/1/2. Next:
 box 2 (the docs/site_flow.md section - content spec in the parent's hand-over), then
 box 3 (tests/test_right_place_drift.py).)
+
+(2026-10-12, iteration 108, agent c: BOX 2 WRITTEN, uncommitted in the worktree
+tasks/309-queue-right-place.md holds the full session record): docs/site_flow.md gains the
+self-contained "The right-place check" section appended after "The matcher fit". Every
+number was re-verified this session by running code: 324 checked / 15 flagged over 9
+sites (the table carries the verbatim reason strings, all `same name, other place: ...`);
+10 flags found unbuilt right sites -> 6 candidate writes into the 5 new items (a-saucer
+barrow took n0558_1 + n0558_2; castle-dyke n0599_1; devil-s-dyke-hillfort n0686_1;
+down-end-castle n0285_1; oval-barrow n0557_1), the other 4 being dedup skips (same
+(target, plan) re-flagged from a second source site); 5 flags found no catalog site
+passing 0.5 (n0354_1 Ardoch x2, n0438_1 x2, n0575_1) -> stayed in the source item that
+already held the plan (upsert skipped, batch record as written, no place_reason); 0 moves
+into built-site entries; queue 117/325 (305) -> 116/324 (lead's Oct 12 export: shotwick
+no longer "built" - its web/data/sites/ dir gone, so neither queued nor checked) ->
+114/309; review.json 336 open of 346; the 17 verbatim-core names are byte-identical to
+pipeline/books_match.py today (zero drift - box 3's test must pass first run). The
+section's --live sentence: a human-only path from the dropped spec, never part of the
+build (the shipped module has no --live flag and no data/fit_place.json - that was the
+dropped tasks/309-place-check.md design). NEXT: run .venv/bin/python -m pytest (expect
+81/1/2, the 2 = the not-mine test_review pair - see the parent's hand-over), tick box 2,
+commit; then box 3 (tests/test_right_place_drift.py; the 17 names, the extraction rule
+and the verified-zero-drift fact are in the parent's hand-over).)
