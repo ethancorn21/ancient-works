@@ -8,6 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/219-source-line-year.md` (open) - hand-over: (2026-10-12, iteration 132, agent c - FIRST session on 219. Investigation + code done; tests not yet written. 302c no longer blocks: the lead dropped 
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/302c-decision-wiring.md` (open) - hand-over: (2026-10-12, iteration 84, agent c - FIRST session on 302c. Investigation + design only: NO code
 - `tasks/304-survey-fit.md` (in-progress) - hand-over: (2026-10-12, iteration 91, agent c - session 7. The lead directed: freeze the stub as it is
@@ -17,13 +18,39 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/219-source-line-year.md`
+- `tasks/221-review-stats-test.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 219 DECISION: 302c no longer blocks - the lead dropped 302c/302d in main d39ead8
+The task's `Depends on: 302c` existed only because both touched pipeline/plan_fit.py. The lead's
+commit d39ead8 (main, 2026-10-12) dropped 302c/302d as superseded by the matcher fit and set 219's
+Depends line to `none`. 302c never made its design changes to plan_fit.py (its own hand-over:
+investigation only, no code), so nothing from it collides with 219's edit; plan_fit.py is
+byte-identical between my branch and main (merge-base e2ca3d9; main's only commit since is d39ead8,
+task files + journals only). Proceeded on this branch without waiting.
+
+### 2026-10-12 219 DECISION: year-once rule = drop the label parenthesis whenever the title carries any 4-digit year
+The task's two sentences ("drop the label's parenthesis when the title already contains that year"
+vs "only a title without a year shows the label (or 'undated')") diverge for the 3 docs whose
+label-year differs from the title-year (argentoratum 1831/1836, bethlehem 1881/1882, mound-bottom
+1923/1924). Implemented the stricter, unambiguous one: the parenthesis appears ONLY for a yearless
+title (label or "undated"); a titled year always drops it. The label is not lost from the page: it
+stays in the entry's `scale` field. The year check reuses the same 4-digit pattern as the entry's
+sort year (_year4) so the two can never disagree; non-4-digit numbers ("116", "0154", 5-digit ids,
+"17th century") are not years, so "(1750-1900)"-style labels still show under yearless titles.
+
+### 2026-10-12 219 DECISION: refactor source_line extraction is byte-identical for all 133 store docs
+Extracted the citation + who/how clause from build() into pure source_line(doc, n, m, who) and the
+year regex into _year4 (committed 4b93f5c). Proof: a throwaway script evaluated the old inline
+expressions (copied verbatim from HEAD) and the new function for every doc in data/db/platefits
+(133) with m from similarity(doc['pairs']) unscaled - 0 mismatches. The least-squares similarity is
+scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, leaving the ground
+residuals the same), so m and corners do not depend on which image size stands in for the picture;
+this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
+and still pin the exact how-clause.
 
 ## Project-wide driver notes (newest)
 
