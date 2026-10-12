@@ -435,3 +435,33 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
   on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
   today.
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).

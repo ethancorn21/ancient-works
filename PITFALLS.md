@@ -443,6 +443,11 @@ Larned History..." (avebury-q661855 + stonehenge-q39671) and "File:Mayburgh-1769
 (mayburgh-henge + king-arthur-s-round-table). The page's `P.byId` keeps only the last of the shared-
 `id` rows; the fit-tool keying fix is scoped into 201.
 
+#### `web/data/sites.json` and `web/data/plans.json` are dicts at the top level, not arrays
+Where: `web/data/sites.json` ({"sites": [...]}), `web/data/plans.json` ({"cols": [...], "rows": [...]}); any script that counts or iterates their entries
+Symptom: `len(json.load(open("web/data/plans.json")))` returns 2 (and sites.json 1) instead of the entry count - a "the file lost its rows" check fires on an intact file
+Why: the serving machinery wraps the list: sites.json keeps the site array under "sites"; plans.json is the columnar cols/rows export written by tools/export_plans.py. Index into the wrapper before counting or iterating (verified 2026-10-12, iteration 190: 499 sites / 1,168 rows).
+
 #### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
 Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
 Symptom: (a safety fact, not an error) a GET-only test server never rebuilds site overlays; a
