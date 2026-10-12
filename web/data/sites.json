@@ -1190,10 +1190,10 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
-   "drawings": 1,
-   "score": 2.36,
+   "drawings": 2,
+   "score": 2.73,
    "oldest": 1780,
-   "overlays": 3
+   "overlays": 4
   },
   {
    "id": "arledge-mounds-i-and-ii-q4792111",
@@ -5504,10 +5504,10 @@
     2500,
     2500
    ],
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.45,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "cenabum-q2710144",
@@ -5554,10 +5554,10 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
-   "drawings": 0,
-   "score": 1.01,
+   "drawings": 1,
+   "score": 2.22,
    "oldest": 1780,
-   "overlays": 2
+   "overlays": 3
   },
   {
    "id": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
@@ -18795,7 +18795,7 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
-   "drawings": 0,
+   "drawings": 2,
    "score": 0,
    "oldest": null,
    "overlays": 0
@@ -19241,10 +19241,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 1,
+   "score": 4.89,
+   "oldest": 1560,
+   "overlays": 2
   }
  ]
 }
