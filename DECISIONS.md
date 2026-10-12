@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 272 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+274 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -54,6 +55,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 304 survey-fit (5 entries)
 - 305 ready-to-fit (6 entries)
 - 306a agent-fits-on-map (4 entries)
+- 306b agent-fits-in-review (2 entries, older ones; the task is still open)
 - 307a place-check (2 entries)
 - 307ba open-map (9 entries)
 - 307bb move-it (9 entries)
@@ -415,3 +417,127 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - Re-read item resolved: fit/merge.py:run_target's evidence gate applies to files.jsonl titled rows only
   (classified rows are not gated; book-index rows are never merge-gated - their evidence comes from record).
   The reading was confirmed by re-reading the whole module; no change made.
+## 2026-10-12 306b DECISION: audit complete (42 shots); found + neutralised a 307 fit-queue trap that contaminated 9 shots (re-shot clean); argentoratum judged 10/10 STAYS; 11 docs left
+- Fourth session. The 42-shot run finished (zero failures). NEW DISCOVERY: nine of my 21 docs
+  (c_436bea, c_c280ff, n0110_1, c_be12fb, n0325, c_e66ec, c_804aa7, c_b52dd, c_f9cdda) match a
+  web/data/fit_queue.json entry proposing the same site's plan; 307's web/fitkit.js _fkActivate
+  then seeds 5 anchor pairs that blend with my 8 doc pairs into a 13-point least squares, so the
+  preview ink + fithint showed the blend, not the document. Fix in MY driver tools/audit_306b.mjs
+  (web/*.js stays agent a's): the IIFE waits for FQ.loaded, empties FQ.entries before openPlan
+  (fitkit falls open), and reports fqEntries/placed/anchor in [eval]. All 18 reshoots verified
+  clean (placed:false, n:8, resid ~0); the [eval] numbers in /tmp/audit_306b_reshoot.log are the
+  docs' own transforms. If another task ever drives openPlan headlessly with its own pairs, it
+  hits this too: check P.placed / pair count in the shot log.
+- Judging: argentoratum 10/10 STAYS (all ten sit on the real old town / fort ring / Roman castrum /
+  Krutenau district; details in the task hand-over, with per-doc mpx/rot and the item candidate's
+  rejection). c_e8826 - the item's recorded resolver - verified right, so the item stays resolved
+  by a fit that is actually good; its "Ville" Q1165252 evidence conflict is a sheet-level red
+  herring. NEXT (in order): judge the remaining 11 docs (hand-over has per-doc numbers; earthwork
+  sites - neroche, lemanis, cawthorne, watson-brake x2 - judge the RELIEF image first), append all
+  21 lines to the END of docs/site_flow.md (section "## The agent fits, looked at (task 306)"
+  starts line 702; last existing line = bethlehem fc4566d6947287f4 at line 800), 303-way removals
+  of any misses (upsert_item full doc + why, delete doc, site-scoped review export; NEVER
+  tools/site_done.py on these 10 sites), then tick boxes and run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed /
+  1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
+  surviving one - never loosen).
+
+## 2026-10-12 306b DECISION: judged the next 5 (carisbrooke, neroche x2, lemanis, cawthorne) - ALL STAYS; wrote all 15 lines to docs/site_flow.md
+- Fifth session. Box 1 ticked (42 pngs present + clean). The 306b block (preamble + 15 lines) was
+  appended to docs/site_flow.md after the last 306a line (bethlehem fc4566d6947287f4; file now
+  891 lines) and is UNCOMMITTED - the harness keeps it for the next agent to commit.
+- Verdicts, all STAYS (details in the written lines): carisbrooke c_c280ff (keep/gates/prison/
+  tilt yard on the 1842 OS 6-inch first-edition's same-named features, 3783/5000 inliers against
+  that surveyed map; fitted 0.50 within 20% of the plate's stated 0.415; item cand 0.695 coarse /
+  0.901 hand-tied, gate-rejected). Neroche c_44529 (hachured hillfort on the real hill, aerial +
+  relief; item fabricated grid-round 8/8). Neroche n0110_1 (summit/ditches/Castle Farm on the real
+  ones; 0.39 matches the plate's 300-ft scale bar 0.397; item pairs == doc pairs, offset 0 m, but
+  flagged 1D-ladder - placement verified on the image). Lemanis c_be12fb (port quadrangle on the
+  real headland slope; NE corner on the 1848 red-ink 'STVTFAE CASTLE / Roman port' label, SW on
+  'PORTVS LEMANIS (Site of)'; 0.76 vs its 500-ft scale bar 0.726; item coarse 2.667 = ~3.5x too
+  big, median 63>45). Cawthorne n0325 (three camps on the 1848 Squire & Davis red-ink triple-camp
+  complex, 'C A M P S' on anchor 6; 4625/4997 = 93% inliers against the LiDAR relief - strongest of
+  the batch; 0.30 = the plate's 300-ft scale bar; item 0.790 vs scale bar 0.259 gate-rejected,
+  644 m north off the camps).
+- Technique that settled the scale questions (the Stonehenge trap: 0-residual anchors do NOT prove
+  scale): measure the plate's OWN scale bar (PIL: crop the plate's lower region 3x and read it -
+  worked for lemanis/n0110_1/cawthorne); a doc whose fitted mpx matches its scale bar/stated scale
+  within ~20% is trustworthy, and a gate rejection of "stated X disagrees with its own points (Y)"
+  means the doc's near-stated fit is the one to believe. Also: red-ink 6-inch/1-inch/1848 maps are
+  georeferenced ground truth - anchors on same-named red-ink labels = placement verified. Coarse
+  item candidates store only 3-6 rectangle points (feature names live in `why`), so compare
+  centers/scales, not feature positions.
+- NEXT (hand-over has the ordered steps): judge the remaining 6 (cenabum c_e73dc8 - check it lands
+  on real Tours not the Epinal red herring; dudley c_e66ec; azincourt c_804aa7; watson x2 - RELIEF
+  decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
+  (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
+  sites), tick boxes 2-4, run the suite, done.
+
+## 2026-10-12 306b DECISION: judged the final 6 - ALL STAYS (21/21, zero removals); 6 lines appended to docs/site_flow.md (uncommitted, harness keeps it); boxes + suite + PITFALLS entries left to the next session
+- Sixth session. Judged the last 6 docs from their clean shots (relief first for watson x2). ALL
+  STAYS, so the whole 21-doc batch is 21/21 STAYS with no 303-way removals, no data/review/
+  platefits changes. Appended their 6 lines to the END of the 306b block of docs/site_flow.md
+  (same format as the committed 15; the append is UNCOMMITTED - the harness keeps it).
+- cenabum c_e73dc8: the plate is Jollois 1833 'Plan général de la ville et des environs
+  d'Orléans en 1828'. Discovery: the site's canonical point (1.909, 47.9025, Wikidata Q2710144
+  'Cenabum') IS the city of Orléans (1.9°E, 47.9°N) - I had mis-remembered Orléans at 2.09°E and
+  nearly called it a 12 km miss. Verification: the 1850s IGN état-major (GEOF, layer etatmajor)
+  tiles show 'ORLÉANS' printed at that point (radial old town, fortified quays, bridges; the
+  (2.09, 47.90) area is open Mardre/Donnery country with no town). The drawn 1828 city aligns
+  with that georeferenced survey within 100-200 m (radial centre, Faubourg St-Vincent, river,
+  bridges), and the fitted 5.41 m/px equals the plate's ~1:20000 printed scale at scan dpi (the
+  scan has no scale bar; least-squares transform from the 8 anchors reproduces the stored fit:
+  5.389 m/px, +1.06°). The item's 'Epinal' Q173695 (~350 km NE) 200-sheet evidence = sheet-level
+  red herring (same pattern as argentoratum c_e882645's 'Ville' hit).
+- ferme-d-azincourt c_804aa7: the plate is the 1810 cadastre of the Ferme d'Azincourt hamlet
+  ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site itself, not the Agincourt
+  village of the Somme. The plate's own road labels ('Chemin d'Émerchicourt', 'Chemin de
+  Boursolain', 'Bonnay') proved it; Nominatim reverse-geocode of anchor 1 = 'Rue d'Azincourt,
+  Émerchicourt'; the drawn river = the real Scarpe near Aniche. Red farm cluster on the real
+  hamlet, roads on roads (aerial + relief). Fitted 1.23 m/px agrees with the item's own points
+  (1.171), its stated 0.55 does not. Lesson: when a plate's title names a famous place, check
+  the plate's OWN toponyms before trusting the title (names are recycled - farms/streets are
+  named after famous battles).
+- dudley c_e66ec: 1885 'Plan of Dudley Castle Grounds' on the real conical Castle Rock (summit
+  anchor on the real summit, aerial + relief; 2639/4998 inliers vs the 1842 OS 6-inch first
+  edition; +24.9° is the plate's own north-arrow rotation). watson-brake c_5e7bb + c_b52dd: the
+  mounds maps trace the real Gentry Mound / S-ring / Watson Bayou on the LiDAR relief (the
+  deciding evidence) and aerial; 1.28 m/px agrees with item points 1.448, the cands' stated
+  0.625 does not. zwolle c_f9cdda: van Deventer 1563 walled town on the real Zwolle core, drawn
+  Swol river on the real meanders (aerial + relief; 1981/4998 vs tmk1850).
+- NEXT (next session, in order): tick boxes 2-4 in the task file, run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed/1
+  skipped, test_gate pre-existing red), file the PITFALLS entries (Orléans at 1.9°E;
+  etatmajor.webp = 1 px = 1 m block centred on the site point, pipeline/depict.py;
+  Nominatim/Wikidata reachable from this VM, /search 400s without a query), set Status: done,
+  commit (task file + DECISIONS.md + the 6-line docs/site_flow.md append). No deletions => no
+  test re-pointing needed; the only test touching site_flow is test_fit_queue.py (queue docs,
+  not these lines).
+
+## 2026-10-12 306b DECISION: DONE - 21/21 STAYS, zero removals; suite 128/1 at baseline; filed 5 PITFALLS entries; task closed
+- Seventh session. Completed the remaining hand-over steps: boxes 2-4 ticked (all 21 lines in
+  docs/site_flow.md, every one STAYS - the 303-way removal path was never needed; all 21 docs are
+  by:agent and the branch has no data/ or web/data/ diff vs main), suite green at the 306a-done
+  baseline (128 passed, 1 skipped in 204 s; test_gate excluded, pre-existing red per the driver's
+  loop-start note), Status: done, committed. Also corrected the stale 306b preamble in the block
+  ("All fifteen judged so far stay" -> "All twenty-one stay (2026-10-12: judged from the 42 shots,
+  none removed)").
+- PITFALLS filed (5), so 306c-f (the orphan subtasks the parent 306 returns after this one) do not
+  re-discover them: (1) corrected the stale "The machine has no internet" sentence in the Esri
+  entry - this VM HAS internet (tile 200 in 0.2 s, re-verified this session); (2) extended the
+  Nominatim entry (plain `curl -H 'User-Agent: ...'` works, not only commons.get; `/search` 400s
+  without a `q`); (3) new web/ entry: the web/data/sites/<site>/ survey layers (etatmajor,
+  cassini, tmk1850, fr_ortho1950) are site-sized georeferenced blocks, 1 px = 1 m for sites
+  <= 2400 m across, centred on the site point (pipeline/depict.py build/sample_xyz; depictions.json
+  corners give the block's [lon,lat] corners) - ideal local ground truth for judging fits;
+  (4) new web/ entry: driving the fit tool headlessly with your own pairs - a fitqueue entry for
+  the opened plan seeds 5 anchor pairs into your least squares (fitkit.js _fkActivate); empty
+  FQ.entries before openPlan and check placed/n in the shot log; (5) new "### data/sites.json
+  (site points)" subsection: a site's canonical point can be a real modern city (cenabum-q2710144
+  at (1.909, 47.9025) IS Orléans - my 2.09°E memory was wrong; 2.09, 47.90 is Mardre/Donnery
+  farmland); reverse-geocode the site's own point before judging placement.
+- Left in the task hand-over for 306c-f: tools/audit_306b.mjs is site- and queue-independent (doc-id
+  positional args; empties FQ.entries) - reuse verbatim as the orphan-audit driver; orphan docs
+  have no review item, so their verdict lines say "not shown to the owner at all" instead of an
+  item-cand comparison; the scale-bar judging technique (crop the plate's lower region 3x, read
+  the bar) is documented there.

@@ -798,3 +798,142 @@ their review-queue and orphan fits below this list.
 - bethlehem-q2523914.c_fc4566d6947287f4 - Survey of Palestine, Bethlehem 05-beit-jala, identity
   fit (4 pts, resid 0 m): same collision as sheet 01; the dense hatched Judean contour field lands
   on the polder's upper parcels. REMOVED (wrong place).
+
+306b - the 21 review-queue documents. All ten of these sites' review items are resolved by these
+documents today (none is in the open list), so the review tab shows nothing for them; each line's
+item-cand note records the coarse candidate the tab would pre-place for the same plan if/when the
+item reopens. All twenty-one stay (2026-10-12: judged from the 42 shots, none removed).
+
+- argentoratum-q2361353.c_191c6221a81caad0 - Plan de Strasbourg, réduit, d'après Villot 1833,
+  similarity (score 7.8; 0.0-0.1 m, 2.17 m/px, -32.3°): the 19th-c star-fort ring and street grid
+  sit on the real town; the etatmajor ink (the 19th-c survey, still the visible texture) follows
+  it, on the aerial and the relief. Item cand: coarse 6-pt anchor, median 54.8 m > 45, rejected.
+  STAYS.
+- argentoratum-q2361353.c_436bea5010beea89 - Strasbourg-Krutenau-Plan de 1852 (12) (score 4.3;
+  0 m, 0.55 m/px, -36.3°): the Krutenau island district - Ill running through the plate's middle,
+  Porte des Pêcheurs top, dense 1852 streets - sits on the real eastern old town; the plate's Ill
+  lands on the real river (aerial + relief). Same 1852 survey as (13)/(15); the three crops agree
+  (centres 7.75274/7.75375/7.75374). Item cand: coarse, median 133.4 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_5badc8c867ef5d98 - Plan Strasbourg projet Conrath 1880 (score 9.2;
+  0.1-0.2 m, 4.03 m/px, +1.6°): old town + star-fort ring on the real core and ring. Item cand:
+  coarse, median 122.7 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_5bfb0472f266c056 - 1831. Strasbourg (Tirage avec changement), after
+  Villot (score 10.0; 0-0.2 m, 2.99 m/px, -32.1°): the full redrawing of the same source as the
+  réduit above, on the same ground. Item cand REJECTED AS FABRICATED (10/10 anchors grid-round,
+  the gate's 0.0 m measures their internal consistency only) - the document's fit is the real
+  one. STAYS.
+- argentoratum-q2361353.c_6acfd94dec8c011b - 91 of 'Strassburg und seine Bauten' (1894),
+  'Argentoratum nach v. Appell' (score 1.8; 0 m, 0.62 m/px, +32.2°): the Roman castrum - wall
+  rectangle, Decumane/Kreuzgasse grid, cathedral inside, Ill south - on the real built-up core,
+  the grid on the real streets; independent of, and agreeing with, the 1775 wall plan
+  (c_8bdbed9b69d51319). Item cand: coarse, median 47.8 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_87dc28a9645f0e59 - Strasbourg-Krutenau-Plan de 1852 (15) (score 4.6;
+  0-0.1 m, 0.99 m/px, -36.3°): the Krutenau strip on the real eastern old town; one of the three
+  crops of the same 1852 survey (see c_436bea5010beea89). Item cand: coarse, median 78.8 m > 45,
+  rejected. STAYS.
+- argentoratum-q2361353.c_8bdbed9b69d51319 - 1775 'Plan mur et tours Argentoratum', Weiss (score
+  2.5; 0 m, 0.55 m/px, +39.0°): the Roman wall with its towers and the hatched interior blocks
+  (cathedral etc.) on the real core; agrees with the independent 1894 castrum plan. Item cand:
+  coarse, median 65.8 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_b3533cd48dfc6452 - Strasbourg-Krutenau-Plan de 1852 (13) (score 4.9;
+  0 m, 0.58 m/px, -35.3°): the third crop of the same 1852 survey, on the real eastern old town.
+  Item cand: coarse, median 101.6 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_e882645cc479c889 - 1819 'Plan topographique ... quatre Cantons' (score
+  9.0; 0-0.1 m, 2.56 m/px, -10.7°): the 1819 star-fort line on the real ring (today's park belt)
+  around the core. This is the item's recorded resolver - verified right, so the item stays
+  resolved by a fit that is actually good. Its candidate carried a sheet-level 'Ville' Q1165252
+  evidence conflict (~350 km west, near Paris) - a red herring (the plate is titled
+  'Strasbourg'); the weak matcher count (32/1822) reflects the sheet-style drawing. Item cand:
+  coarse, median 50.5 m > 45, rejected. STAYS.
+- argentoratum-q2361353.c_ec1930f8ba9bbabb - 'Strasbourg plan 1870', Villot (score 8.7; 0.1 m,
+  2.23 m/px, -32.3°): the four-cantons plan, fort line on the real ring. Item cand rejected
+  (only 38% of its recorded feature points sit on textured ground: 'features are not visible
+  where claimed'). STAYS.
+- carisbrooke-castle-q328595.c_c280ff908ad8318d - Mackenzie 1897, The Castles of England (score
+  3.0; 0.50 m/px, +16.2°, 8 anchors exact): the drawn Keep, Queen Elizabeth Gate, Woodhull Gate,
+  K. Charles prison and Tilt yard sit on the 1842 OS 6-inch first edition's same-named features
+  (3783/5000 line inliers against that surveyed map) - the real castle on its hill, visible on
+  the aerial and the relief; the fitted 0.50 m/px is within 20% of the plate's stated 0.415.
+  Item cand: a coarse 3-pt rectangle (0.695 m/px from picture size) whose eight hand-tied
+  features the gate rejected (points give 0.901 m/px, disagreeing with the stated 0.415) - that
+  rejected version is what the tab would pre-place. STAYS.
+- castle-neroche-q5050201.c_44529cdbe2d10a9c - Bothamley 1911 'Somerset Map', hachured hillfort
+  plan (score 3.6; 0.86 m/px, +1.8°, 8 anchors exact): the summit platform, ditch rings and the
+  NE Plantation patch sit on the real Castle Neroche hill - summit anchors on the flat forested
+  summit (aerial + relief), ditch anchors on the real SW ditch, the Plantation on the real NE
+  plantation, drawn hachures following the real slopes; the weak matcher count (52/98) reflects
+  the hachure style. Item cand REJECTED AS FABRICATED (8/8 anchors on a 10-px grid; the gate's
+  0.0 m measures internal consistency only) - the tab would pre-place that grid-regular
+  version. STAYS.
+- castle-neroche-q5050201.earthworkenglan01allcgoog_n0110_1 - Allcroft 1908 Fig. 13, hachured
+  summit + ditches (score 6.5; 0.39 m/px, -3.1°, 8 anchors exact): the summit platform ('856'),
+  the concentric ditch rings and the Castle Farm buildings sit on the real summit, ditch ring
+  and farm cluster (aerial + relief); fitted 0.39 m/px matches the plate's own 300-ft scale bar
+  (0.397 m/px); the weak matcher (15/26) reflects the hachure style. The item cand holds the
+  same pairs as this document (offset 0 m - the only 306b doc whose versions agree) but was
+  flagged by the gate as a 1D-ladder anchor pattern; the placement itself is verified on the
+  image. STAYS.
+- castra-lemanis-q499898.c_be12fb0f9a87000b - 'Plan Portus Lemanis' (19th c.) (score 2.0;
+  0.76 m/px, +0.5°, 8 anchors exact): the drawn port quadrangle spans the real headland slope
+  above the sea - NE corner on the 1848 Squire & Davis red-ink 'STVTFAE CASTLE / Roman port'
+  identification, SW corner ('Cutle') on the 'PORTVS LEMANIS (Site of)' one; fitted 0.76 m/px
+  matches the plate's 500-ft scale bar (0.726); the weak matcher (15/25) reflects the sketch
+  style. Item cand: coarse 2.667 m/px, median 63.0 m > 45, rejected - the tab would pre-place
+  that ~3.5x too big version. STAYS.
+- cawthorne-camp-q5055239.earthworkenglan01allcgoog_n0325_1 - Allcroft 1908 Fig. 97, the three
+  Roman camps (score 2.2; 0.30 m/px, +0.4°, 8 anchors exact): the three drawn camps sit on the
+  real Cawthorn Camps as the 1848 Squire & Davis map records them - the small square camp (1) on
+  the red-ink square ring, the irregular camp (2) on the red-ink oval, the large camp (3) on the
+  red-ink 'C A M P S' field complex - with 4625/4997 (93%) inliers against the LiDAR relief and
+  the fitted 0.30 m/px equal to the plate's 300-ft scale bar. Item cand (not coarse): its point
+  scale 0.790 m/px disagrees with the plate's scale bar (0.259) - gate-rejected, and it sits
+  644 m north of this placement, off the 1848 camps; that is what the tab would pre-place.
+  STAYS.
+- cenabum-q2710144.c_e73dc8c09b2fea43 - Jollois 1833 'Plan général de la ville et des
+  environs d'Orléans en 1828' (score 9.3; 5.41 m/px, +1.1°, 8 anchors, resid 0.1-0.3):
+  the drawn 1828 city of Orléans - the radial old town, the fortified quays with the
+  Portefeu de Todelaie/Du Coq river gates, the bridges, Faubourg St-Vincent, St-Jean-le-Blanc,
+  Marceau - sits on the real city of Orléans, which is where this site's own point (the
+  Wikidata 'Cenabum') lies: the radial centre and St-Vincent line up with the georeferenced
+  1850s état-major survey within ~100-200 m, and the fitted 5.41 m/px is the plate's own
+  ~1:20000 printed scale (2537/5000 matcher inliers against that survey). Item cand: the
+  'Epinal' (Q173695, ~350 km NE) 200-sheet hit is a sheet-level red herring, and the coarse
+  1.25 m/px candidate (median 161.9 m > 45, rejected) is what the tab would pre-place.
+  STAYS.
+- dudley-castle-q5311832.c_e66ec095ee45aed0 - 1885 'Plan of Dudley Castle Grounds' (score
+  2.5; 0.69 m/px, +24.9°, 8 anchors exact): the hachured castle hill with its 26-36 contours,
+  the Priory Ruins, St. Edmund's Church and the railway station on the Bingham Road sit on
+  the real Castle Rock - summit anchor on the real summit (aerial + relief), drawn contours
+  following the real cone; 2639/4998 inliers against the 1842 OS 6-inch first edition. Item
+  cand: coarse 0.4379 m/px with 33% textured features (gate-rejected), centre 268 m off -
+  the tab would pre-place that version. STAYS.
+- ferme-d-azincourt-q20669811.c_804aa7af3eb2ac7c - 'Azincourt - cadastre de 1810' (score 4.7;
+  1.23 m/px, -1.5°, 8 anchors, resid 0-0.1): the sheet is the 1810 cadastre of the Ferme
+  d'Azincourt hamlet ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site
+  itself, not the Agincourt village of the Somme: the red farm cluster sits on the real
+  hamlet, the drawn 'Chemin d'Émerchicourt', 'Chemin de Boursolain' and 'Bonnay' roads on
+  the real roads, the drawn river on the real Scarpe near Aniche; fitted 1.23 m/px agrees
+  with the item's own points (1.171), its stated 0.55 does not; the weak matcher (11/203)
+  reflects the parcel style. Item cand: coarse 0.7246 m/px, 50x50 m rectangle, centre 363 m
+  off - the tab would pre-place that. STAYS.
+- watson-brake-q2552689.c_5e7bb19c79b509ed - 'Watson Brake - Map' (score 4.4; 1.28 m/px,
+  -0.9°, 8 anchors, resid 0-0.1): the drawn round Gentry Mound, the S-shaped ring of North
+  and South Mounds, the Watson Bayou meanders and the Watson School road sit on the real
+  earthworks - over the LiDAR relief the ink traces the real ring and bayou, over the aerial
+  the drawn ring aligns with the real ringed hill; 2399/5000 inliers against the relief; the
+  fitted 1.28 agrees with the item's own points (1.448), its stated 0.625 does not. Item
+  cand: coarse 0.625 m/px, 200x199 m rectangle (vs 635x743 here), centre 146 m off - the tab
+  would pre-place that. STAYS.
+- watson-brake-q2552689.c_b52ddcad2ee295c4 - 'Watson Brake Mounds - Map' (score 2.2; 0.52
+  m/px, -1.6°, 8 anchors exact): the closer version of the same plate - the central Gentry
+  Mound, the North and South Mounds bands and the bayou sit on the real earthworks (over the
+  relief the ink traces the real ring; over the aerial the drawn central mound is on the real
+  one, the bayou on the real meanders); 2926/4999 inliers against the relief. Item cand:
+  coarse 0.625 m/px with 0% textured features (the strongest rejection of this batch), 94x248
+  m rectangle, centre 187 m off - the tab would pre-place that. STAYS.
+- zwolle-q793.c_f9cddae6b944a648 - van Deventer 1563 Zwolle town plan (score 10.2; 2.53
+  m/px, -6.2°, 8 anchors, resid 0-0.1): the drawn walled medieval town (dense block grid,
+  wall ring) and the meandering Swol river sit on the real Zwolle core and the real river
+  meanders (aerial + relief); 1981/4998 inliers against the 1850 TMK. Item cand: coarse
+  1.5625 m/px from hand-tied bastion/gate points, 38% textured (gate-rejected), a thin
+  800x99 m rectangle, centre 455 m off - the tab would pre-place that. STAYS.
