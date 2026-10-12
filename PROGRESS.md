@@ -8,9 +8,9 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
-- `tasks/220-review-page-reexport.md` (open) - hand-over: (none yet - the task is fresh)
+- `tasks/220-review-page-reexport.md` (open) - hand-over: (2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 116, agent a - the done claim (9efb944) was REJECTED by the driver
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 117, agent a - WAIT, now exact. main is still cf29be2: no 309/804/805
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -73,51 +73,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-### 2026-10-12 307ba DECISION: boxes 4-5 done, task complete - box 4 verified in a real browser (place mode opens ON the works, the overlay hides and restores exactly, the anchor is the propose's centre pair); the 3 remaining suite failures are the lead's 309 matcher wiring on main, not mine
-One step: verified box 4 (web/fitkit.js + the one index.html script tag, preserved by the driver as
-732fe57 after the iteration-114 context-limit cut) with the /tmp/fkprobe.mjs smoke probe in a real
-headless Chrome, and wrote box 5 (docs/site_flow.md's "Ready to fit" section). No code changed this
-session beyond the docs; fitkit.js and index.html are exactly as iteration 114 left them (the probe's
-only fixes were its own throwaway scaffolding: the playwright require path, the direct `map` reference).
-
-**Smoke probe results (throwaway, NOT a committed test - the committed headless test is 307bb's part 4).**
-Scratch tree /tmp/fkscratch (web/server/data minus raw + Devil's Dyke's book page) served with
-`.venv/bin/python server/serve.py --port 0`; the probe seeded aw.depSel for Devil's Dyke
-(six-inch-1st.webp), clicked the card's own #fqplace, and asserted (all green):
-- placed:true via the card button; the dep layer (dep-devil-s-dyke-q3307343) visibility "none" while
-  placed and "visible" again after #fcancel, with S.depSel/S.ground unchanged (the exact restore).
-- anchor == the propose's centre pair exactly (u0 1683.5, v0 2525, 0.297247/52.269819); mpx 0.3621 ==
-  propose.scale_m_px; rot 0. The 5 re-emitted pairs drift <= 0.117 m from the queue file's propose
-  pairs - exactly the 4-dp scale_m_px rounding applied over ~3000 px predicted in iteration 114.
-  The page's least-squares refit over the five recovered mpx 0.36203 / rot 0 / maxResid 0.00097.
-- Map centre within 17 px of the padded viewport centre (fitBounds padding left 390 at 1200x800),
-  bounds contain the site's four corners; pane reads "Scale 0.36 m per page pixel, turned 0.0°. With
-  5 points one rotation and scale fits all within 1 m."; fsave enabled; 5 pairs, 5 markers.
-- No pageerror, no reqfail outside /tiles/ (relief 404s: the new PITFALLS entry).
-Screenshots (/tmp/fkout, throwaway): the 1908 plan sits ON the real dyke over the LiDAR ground - the
-hatched earthwork lines line up with the ground feature.
-
-**Deviation from box 4's wording (the record it asked for).** The box says fitkit "injects its own
-<style>" - it deliberately does not: box 4 adds zero visible UI (the page's existing preview, numbered
-markers, pane and buttons do everything), so there is nothing to style; 307bb adds the block if its
-gestures need one. No behaviour depends on it.
-
-**Suite: 70 passed, 1 skipped, 3 failed - all 3 pre-exist on main (cf29be2, the lead's 309 matcher-fit
-wiring), not mine.** The three: test_fit_provenance::test_line_refuses_unmarked_non_auto_doc,
-test_fit_queue::test_save_runs_the_one_site_line, test_site_done::test_site_done_line. Agent c recorded
-exactly these three as pre-existing on main at iteration 95 (its 309 branch notes). The shared failure
-signature is the review-queue open-item count (334/339 vs the expected 340/339): the matcher wiring
-changed what the one-site line resolves. fitkit cannot affect any of them: test_save_runs_the_one_site_line
-saves via a DIRECT HTTP PUT from the test (no page load at all), and the other two are pure-python
-tests of tools/site_done.py/pipeline code that touch none of my files (fit/propose.py is byte-identical
-at its root defaults, verified iteration 111; tools/fit_queue.py is not on their path). Every test I own
-passes: test_fit_queue 4/5 (part-1 propose pins, the part-3 byte-identity card pin - its served tree
-404s the scan so fitkit never fires, the done-mark card), test_propose's golden, test_batch_us/eu.
-web/fitqueue.js is byte-identical to cf29be2 and web/index.html's diff against main is exactly the one
-script tag. The queue file (117/117 propose) is the joint artifact with agent c's 309: main has not
-moved since cf29be2 (309 still in flight), so no regeneration was needed this session - 307bb re-runs
-... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: boxes 4-5 done, task complete - box 4 verified in a real browser (place mode opens ON the works, the overlay hides and restores exactly, the anchor is the propose's centre pair); the 3 remaining suite failures are the lead's 309 matcher wiring on main, not mine' DECISIONS.md`)
-
 ### 2026-10-11 307ba DRIVER: done claim rejected, task reopened
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc
@@ -176,6 +131,56 @@ that PIN a population; these three derive, so a consistent store is the only rig
 pre-existing on main at iteration 95 (its 309 branch notes)" - no such entry exists in
 DECISIONS.md or DECISIONS-archive.md (agent c's branch notes are not in my checkout's
 ... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands' DECISIONS.md`)
+
+### 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits
+
+One step (investigation + bookkeeping on my own task files, no code change): the driver
+returned 307ba while 220 is still open. I verified the dependency state and learned the 309
+split; all facts below were checked by running git, not assumed.
+
+**State.** main is still cf29be2 (`agent/a..main` empty - no re-sync needed, nothing new);
+web/data/review.json on main is byte-identical to my branch's copy (md5 b6506007, the stale
+340-open-of-341 page), so the 3 re-claim-blocking failures are unchanged and a re-claim now
+would fail the same way. 309's task file on main still says `Status: open` - the split is
+not on main yet. On agent/c (read via `git show`, not merged): 309 is `Status: split` with
+two subtask files: 804-fit-queue-wire.md (`Depends on: none`; Touches: tools/fit_queue.py,
+data/review/README.md, tests/test_fit_queue.py; the two-phase build wiring the right-place
+check into build(); explicitly must not touch agent a's web files or write the real
+checkout's data files) and 805-fit-queue-rebuild.md (`Depends on: 804`; Touches: web/data/
+fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_
+place_drift.py; runs the wired build on the real checkout - 15 flagged namesake pairings
+over 9 sites dropped/moved - and re-exports web/data/review.json in-process "by
+fit/review.py export from the same run").
+
+**805 subsumes 220.** fit/review.py::export(root, site_id=None) (line 184) writes the
+write-once `resolved` record into every item file whose resolving doc exists, and the page
+file is always computed over the whole queue; 805's in-run export must be a full export
+(site_id=None) because the namesake upserts span sites and the page must reflect all of
+them. A full export is exactly 220's box 1: it records the same 6 resolutions the
+iteration-116 scratch run verified (335 open of 341; second run a no-op). So when 220 runs
+(after 309's closure, which comes after 804+805), both its boxes are a no-op verification.
+I refreshed 220's now-stale "Depends on 309 because ..." note to describe the split and
+wrote 220 a runner's hand-over (run the export, expect no-op, verify the 3 tests, close as
+verified). I KEPT 220's `Depends on: 309` rather than re-pointing it at 805: 309 is the
+driver-visible task (the loop prompt names agent c's work as 309 with the parent's Touches),
+while 804/805 exist only on agent/c's branch and in no checkout's shared tasks/ yet - a
+dep naming a task file no checkout shares risks parking forever. 309's closure after 805
+adds no store change (the tools/right_place.py module file lands then; inert to the 3
+tests' data), so the extra wait costs one agent-c session, not a store dependency. (Agent
+c's own 2026-10-12 309 DECISION entry, iteration 98, documents the convention I am
+navigating: a split parent becomes done only after its subtasks, so a dep on a split parent
+parks until full closure, and a subtask dep on its own parent is a circular deadlock. 220
+is not a subtask of 309, so its dep is a long wait, not a deadlock.) A PITFALLS entry under
+Agent-tools records the convention and this exception.
+
+**Merge recipe written into 307ba's hand-over (the next session that sees 804/805 on main
+executes it).** tools/fit_queue.py: take 804's two-phase build (all flag decisions over the
+pre-mutation candidate sets, then drops/moves/upserts, then entries recomputed); keep my
+`_entry_propose(root, sid, plan)` call at the END of the per-site loop - after the final
+best selection, before entries.append - so a move that changes a site's best candidate
+recomputes that entry's propose (my committed wiring already sits there, so a two-phase
+restructure keeps it correct without moving it); keep the helper, the `import propose`
+... (1.6 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: the wait is now exact - 309 is split into 804+805 on agent/c; 805's in-run full review export subsumes my 220 (its stale dep note refreshed, dep kept on 309 as the driver-visible gate); merge recipe written into the hand-over; main still cf29be2 so the task still waits' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
