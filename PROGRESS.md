@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 142, agent c - fourth session. All 42 shots done and clean; argentoratum (10/10 docs) judged; 11 docs left to judge, then lines
+- `tasks/306b-agent-fits-in-review.md` (open) - hand-over: (2026-10-12, iteration 143, agent c - fifth session. 15/21 judged - ALL STAYS - and 15 lines written
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -139,6 +139,37 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
   surviving one - never loosen).
 
+### 2026-10-12 306b DECISION: judged the next 5 (carisbrooke, neroche x2, lemanis, cawthorne) - ALL STAYS; wrote all 15 lines to docs/site_flow.md
+- Fifth session. Box 1 ticked (42 pngs present + clean). The 306b block (preamble + 15 lines) was
+  appended to docs/site_flow.md after the last 306a line (bethlehem fc4566d6947287f4; file now
+  891 lines) and is UNCOMMITTED - the harness keeps it for the next agent to commit.
+- Verdicts, all STAYS (details in the written lines): carisbrooke c_c280ff (keep/gates/prison/
+  tilt yard on the 1842 OS 6-inch first-edition's same-named features, 3783/5000 inliers against
+  that surveyed map; fitted 0.50 within 20% of the plate's stated 0.415; item cand 0.695 coarse /
+  0.901 hand-tied, gate-rejected). Neroche c_44529 (hachured hillfort on the real hill, aerial +
+  relief; item fabricated grid-round 8/8). Neroche n0110_1 (summit/ditches/Castle Farm on the real
+  ones; 0.39 matches the plate's 300-ft scale bar 0.397; item pairs == doc pairs, offset 0 m, but
+  flagged 1D-ladder - placement verified on the image). Lemanis c_be12fb (port quadrangle on the
+  real headland slope; NE corner on the 1848 red-ink 'STVTFAE CASTLE / Roman port' label, SW on
+  'PORTVS LEMANIS (Site of)'; 0.76 vs its 500-ft scale bar 0.726; item coarse 2.667 = ~3.5x too
+  big, median 63>45). Cawthorne n0325 (three camps on the 1848 Squire & Davis red-ink triple-camp
+  complex, 'C A M P S' on anchor 6; 4625/4997 = 93% inliers against the LiDAR relief - strongest of
+  the batch; 0.30 = the plate's 300-ft scale bar; item 0.790 vs scale bar 0.259 gate-rejected,
+  644 m north off the camps).
+- Technique that settled the scale questions (the Stonehenge trap: 0-residual anchors do NOT prove
+  scale): measure the plate's OWN scale bar (PIL: crop the plate's lower region 3x and read it -
+  worked for lemanis/n0110_1/cawthorne); a doc whose fitted mpx matches its scale bar/stated scale
+  within ~20% is trustworthy, and a gate rejection of "stated X disagrees with its own points (Y)"
+  means the doc's near-stated fit is the one to believe. Also: red-ink 6-inch/1-inch/1848 maps are
+  georeferenced ground truth - anchors on same-named red-ink labels = placement verified. Coarse
+  item candidates store only 3-6 rectangle points (feature names live in `why`), so compare
+  centers/scales, not feature positions.
+- NEXT (hand-over has the ordered steps): judge the remaining 6 (cenabum c_e73dc8 - check it lands
+  on real Tours not the Epinal red herring; dudley c_e66ec; azincourt c_804aa7; watson x2 - RELIEF
+  decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
+  (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
+  sites), tick boxes 2-4, run the suite, done.
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
@@ -164,13 +195,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12 306b (agent c, iteration 143) session status
-    15/21 docs judged (ALL STAYS, no removals yet); all 15 lines + 306b preamble written to
-    docs/site_flow.md (UNCOMMITTED - the harness keeps that edit for the next agent to commit
-    together with the remaining work); box 1 ticked. NEXT: judge the remaining 6 (cenabum
-    c_e73dc8 - check real Tours vs the Epinal red herring; dudley c_e66ec; azincourt c_804aa7;
-    watson-brake x2 - RELIEF decides; zwolle c_f9cdda), append their 6 lines at the end of the
-    306b block, 303-way any miss (upsert_item + rm doc + site-scoped export, never
-    tools/site_done.py on the 10 sites), tick boxes 2-4, run the suite. Full state in
-    tasks/306b-agent-fits-in-review.md Hand-over.
