@@ -148,3 +148,53 @@ Readings:
 - Both the fraction and the rotation rule were read off this table. Treat 11/21 as the ceiling to confirm on
   the next hand-checked fits (the line lead's and the owner's eye checks on queue fits are that test set).
 - Cost: RoMa ~4 s per window pair on the 5060 Ti vs ~1 s for ELoFTR; 21 docs took ~14 min.
+
+## 8. RoMa on the whole queue, and the rotation gate (run 2026-10-12 00:00-01:10 CDT, record data/matchfit/queue_roma/results.jsonl)
+
+`fit/matchfit_queue.py run` calls `fit_row()` on every picture of every Ready-to-fit site (116 sites, 236
+pictures, 5 of them documented by the line lead between the two passes) with RoMa at port 8092 and writes the
+whole best candidate per picture (inliers, matches, rotation, ground, window, spread, m/px, residual), so any
+rule can be read off afterwards with `table`. Two full passes were run; per-picture fractions agree within
+0.02 between them, so RoMa's sampling noise does not move a verdict. One RoMa crash (service auto-restart
+00:17, both matchers plus two clients on the 5060 Ti at 14.9 of 16.3 GB) cost 4 sites / 22 pictures, rerun
+afterwards with no errors.
+
+Rule sweep over the same record and, for comparison, the held-out RoMa record of section 7 (best candidate by
+fraction, spread guard applied to both):
+
+| rot rule | min fraction | held-out accepted | wrong (centre > 100 m) | queue pictures | queue sites |
+|---|---|---|---|---|---|
+| within 10 deg of k x 90 (section 7) | 0.3 | 11 | 0 | 9 | 7 |
+| abs(rot) <= 30 or near k x 90 | 0.3 | 11 | 0 | 13 | 11 |
+| any rotation | 0.3 | 11 | 0 | 22 | 11 |
+| any rotation | 0.4 | 10 | 0 | 16 | 7 |
+| any rotation | 0.5 | 9 | 0 | 11 | 6 |
+
+(Queue counts include the 5 pictures the line lead placed from the first pass: Cawthorn 0.92, Argentoratum
+Conrath 0.62, Watson Brake 0.57 / 0.46, Zwolle 0.40.)
+
+Readings:
+- **The rotation gate buys nothing on the held-out set and costs 13 fits on the queue.** All four rotation
+  rules accept the same 11 held-out documents at fraction >= 0.3, because every held-out wrong with a large
+  rotation (arbor-low -33 deg, cahokia -109, whitley -117) is below 0.25 fraction anyway. On the queue, nine
+  Strasbourg plans sit at 32-39 deg (the town is drawn on the Rhine axis) with fractions 0.42-0.78 on the
+  etat-major sheet and on relief, Carisbrooke's Mackenzie plan 0.76 at -16 deg and Dudley's guide plan 0.52
+  at -25 deg on the six-inch sheet. The 90-degree clause of section 7 was a reading of three sideways plates,
+  not a rule; dropped.
+- **The 0.3-0.4 band holds the only doubtful accepts**: Eaton Socon offered the "Windmill sites, Lewes Down"
+  plate (a Sussex plate on a Cambridgeshire site, wrong pairing, 0.32 on the OS one-inch sheet: ink-on-ink
+  matches lock onto generic hachures), and the Norwich Castle museum guide plan 0.30 at 0.02 m/px (a building
+  plan fitted at whole-site scale; a plan-width / site-box floor cannot separate it, since hand fits go as low
+  as 0.04 at Cahokia, measured by the line lead). Everything at >= 0.4 looks right on its numbers and goes to
+  the line lead's warp check.
+- **Adopted rule (line lead, 2026-10-12 ~01:00): RoMa accepts at fraction >= 0.4 with the spread guard and no
+  rotation gate; 0.3-0.4 is "unsure" and stays in the queue with the candidate shown; ELoFTR keeps count >= 10
+  and |rot| <= 30.** Held-out: 10 of 21, 0 wrong (loses Camp d'Attila at 0.34, which was right). Queue: 16 of
+  236 pictures on 7 of 116 sites (~7% of pictures, 6% of sites), pending eye checks; near misses below the bar:
+  Pontefract "Collections" 0.29 on relief, Stonehenge earthworks 0.26, Strasbourg 1750 0.35.
+- **What the queue looks like to the matcher**: 21 pictures no consistent points at all, 51 spread-rejected
+  (RoMa's inliers bunch in a few plan pixels: "4 px across"), ~170 below 0.3. The 1850s US plates on relief
+  are still the hard class (best: Marietta temple mound, Hopewell, Newark at 0.1-0.3). The matcher is now the
+  cheap first pass; the hand fit tool stays the main path for the queue.
+- Cost: whole queue ~1 min per picture (5 windows x 2-4 grounds at ~4 s each), 231 pictures in ~2.5 h on the
+  5060 Ti while it also served the line's runs. Do not run two RoMa clients plus ELoFTR on the card at once.
