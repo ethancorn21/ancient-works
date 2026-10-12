@@ -24,7 +24,16 @@ item candidate with no size stored: 0), then the plan id (stable). The one-word 
 several plans), "the clearest view" (the views win). Sites are ordered by the same rule applied to each
 site's best candidate, then by the site's name - the cleanest, most ink to click on comes first.
 
-Stdlib only: it reads exactly those four inputs and never opens an image (the sizes come from the json
+Each entry whose best row admits a starting placement carries it as the propose key - the anchor
+mapping the picture's panel centre onto the site at the recorded scale and rotation (fit/propose.py
+propose_for: bar scale, printed ratio at the book's ppi, the site-size fallback, the north arrow where
+trustworthy) re-emitted as 3-5 page-px -> lon/lat pairs - so the page (307b) opens the map on the works
+before any clicking. A row the proposal cannot anchor (no size, no size_m, no stage-B index row, no
+index file) gets no propose key: the page falls back to the three-point flow for it.
+
+Stdlib only: it reads five inputs (the four above plus data/books/index.jsonl, the stage-B fields
+scale_text, blank_boxes, north_angle_deg, north_arrow, map_box, full_size - fit/propose.py, which
+computes the propose, is stdlib-only too) and never opens an image (the sizes come from the json
 files), so the owner's Mac can run it with any python. Finder/Amazon data never enters the queue.
 """
 import argparse
@@ -35,6 +44,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "fit"))
+import propose as _propose  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention)
 
 # The row's named fields, in web/data/plans.json column order (the page's openPlan reads them).
 ROW_FIELDS = ("id", "book", "ia", "file", "title", "label", "size", "map_box",
@@ -168,6 +179,19 @@ def _reason(cands):
     return "the clearest view"
 
 
+def _entry_propose(root, site_id, plan):
+    """The entry's starting placement for the page (307b): fit/propose.propose_for's keys in the
+    entry's order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}, "ground" dropped (the
+    page derives it from site.lidar, as it already does in fqPlace). None when the proposal cannot
+    anchor (no size, no size_m, no stage-B row, no index file) - fail open: the page falls back
+    to the three-point flow for that row."""
+    try:
+        p = _propose.propose_for(site_id, plan, root=root)
+    except Exception:
+        return None
+    return {k: p[k] for k in ("pairs", "scale_m_px", "rot_deg", "scale_source", "coarse", "note")}
+
+
 def build(root):
     """The queue, ready to serialize: one entry per built site with a candidate and no hand fit,
     ordered by each site's best candidate (plan over view, then drawing area, then name)."""
@@ -182,7 +206,7 @@ def build(root):
         if not cands:
             continue
         plan, row = min(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
-        entries.append({
+        entry = {
             "site": sid,
             "name": name,
             "best": {"plan": plan, "reason": _reason(cands),
@@ -192,7 +216,11 @@ def build(root):
                  "view": bool(r.get("view")), "draw_px": _draw_px(r)}
                 for p, r in sorted(cands.items(), key=lambda kv: _best_key(kv[0], kv[1]))
             ],
-        })
+        }
+        p = _entry_propose(root, sid, plan)  # the key lands after "candidates" (the page's order)
+        if p is not None:
+            entry["propose"] = p
+        entries.append(entry)
     entries.sort(key=lambda e: _best_key(e["best"]["plan"], e["best"]["row"]) + (e["name"],))
     return {"at": datetime.now(timezone.utc).isoformat(), "entries": entries}
 

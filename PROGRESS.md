@@ -9,127 +9,193 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/305-ready-to-fit.md` (open) - hand-over: (2026-10-12, iteration 104, agent a - part 3 (headless card probe, boxes 2+4 page half) is WRITTEN and GREEN; both card tests pass. Next: copy the ver
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 121, agent a - the wait is over on the main side. 220's export is
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/215-books-llm-ports.md`
+- `tasks/216-view-books-entries.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 305 DECISION: page card built (web/fitqueue.js + the index.html script tag); test_serve.py read whole - the hand-over's "test d" does not exist
-Steps 2+3 of the plan. web/fitqueue.js (loaded after review.js, index.html L1708) chains the wrappers
-review.js installed: renderList -> a "Ready to fit (N to go)" card as the next sibling of the home
-stats line (the "built in all" p; the tabs row and that line's text stay byte for byte), naming the
-next site (first queue entry not done in this browser and not skipped this session, and still a built
-site in this build), its best candidate's row (title, book, label, the one-word reason) and buttons
-Place the drawing / Skip / Undo skips. Place runs the existing fit tool in the fitkit convention
-(endFit-if-active -> select -> setGround(lidar?relief:imagery) -> loadDeps -> startFit ->
-openPlan(entry.best.row)); RV.pending is deliberately never set (the queue's row is the owner's clean
-slate). saveFit wrapper (after review.js's): a landed doc for a queued site marks it done in
-localStorage aw.fitQueue.done (self-healed against the file on load) and the card moves on. Skips are
-session-only with a reset in the card. The card never breaks a page load: missing/404/stale file =
-no card.
+### 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
 
-Two pitfalls hit and fixed, both in the browser only (node --check passes): (1) review.js's
-wrapper-saved names (_renderList, _saveFit, ...) are top-level consts in the page's global lexical
-scope - fitqueue.js re-declaring them made Chrome reject the whole script ("Identifier '_renderList'
-has already been declared"; FQ then undefined). Renamed to _fqRenderList/_fqSaveFit; PITFALLS.md has
-the rule. (2) fqPatch re-assigned a const (old -> card).
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-Verified headless against a conftest-style temp tree (shot.mjs, chrome, real click-through of the
-DOM buttons): card renders ("Ready to fit 117 to go" / Devil's Dyke / Allcroft's row / "the clearest
-scan"); Place opens the fit tool with P.site=devil-s-dyke-q3307343, P.plan=earthworkenglan01allcgoog_n0686_1,
-S.ground=relief, pane open, correct header; back out -> card still on the same site; Skip -> Fort
-Ancient (116, reset link appears); Undo -> back. No [pageerror], no [reqfail]; only the expected 200s
-and 404s (scans/amazon/book image). Full suite after: 70 passed, 1 skipped - unchanged from loop
-start, including test_review's headless n404==2 (the committed fit_queue.json answers 200) and
-index.html footprint tests (the tag is a distinct src string).
+### 2026-10-12 307ba DECISION: wait re-verified (iteration 119) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty), agent/c snapshot unchanged (804's two-phase wiring still unwritten), fresh FULL suite = exactly the 3 known stale-page failures (3 failed, 70 passed, 1 skipped, 107.4 s) - re-claim stays parked on 220; recorded the post-export item-drift watch (203b writes data/review item files after the page's snapshot) in 220's runner note, the 307ba hand-over and the review-page PITFALLS entry; no code change
 
-tests/test_serve.py read WHOLE this session (81 lines, 5 tests): test_page_loads (body contains
-"Ancient Works" + "maplibre"), test_sites_data (>=384 sites, sum drawings >=25, per-site C fields),
-test_hand_fits_are_the_reference (golden), test_platefits_docs_match_sites (every doc's site built,
-plan+pairs present), test_document_store_roundtrip (PUT/GET/DELETE on the SCRATCH collection
-"awtest" - never platefits, so no worker involvement). The earlier hand-over's "test d" (a tree
-without tools/ asserting an exact file set after PUTs) does NOT exist in this file - stale
-description, now corrected. The exact file-set assertion that DOES exist is test_review.py::
-test_save_resolves_the_item (platefits docs + per-site depictions: after the PUT, exactly one new
-doc and nothing else; in that tree the worker dies on the pipeline/ import - the server stays up).
-So the serve.py worker change (next step) must keep: no tools/ in the tree -> the site_done import
-fails -> swallowed by the existing except-BaseException-and-print -> no new files; and no new files
-for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
-([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
-list drained per wake) is unchanged and still valid.
+One step (wait bookkeeping, no code change): the driver returned 307ba with 220 still
+open. Verified by running, not assuming: `git log main --oneline -20` (tip still cf29be2,
+no 804/805/309 commits), `git show main:web/data/review.json | md5sum` (b6506007 - the
+stale 340-open-of-341 page, unchanged since iteration 118), `git log agent/a..main`
+(empty: nothing to sync), and the local agent/c branch still at its iteration-100 snapshot
+(tip c24c135, work tip d413d0e = 804's build() refactor only, two-phase wiring unwritten).
+So nothing new to merge or verify against. I then re-ran the FULL suite on this branch:
+3 failed, 70 passed, 1 skipped, 107.4 s - the identical three stale-page failures the
+driver's rejection run saw (same asserts, same 335/334/334-vs-340 arithmetic), zero new
+failures. My committed state (cbb36c8 boxes 1-3, 732fe57 box 4, 7f7e7c0 box 5, 9efb944 the
+rejected done claim) contributes nothing to the block; the re-claim stays parked on 220
+(no re-claim this session - it would fail exactly as before; the driver counts the 3 as
+new-to-task because b22a2d2/cf29be2 landed after 307ba started - iteration-116 entry
+stands).
 
-### 2026-10-12 305 DECISION: part 2 (save -> one-site line) verified green - the pick rule generalized (population moved) and the drain was the bug, not the worker
-Ran the iteration-102-written part 2. Two failures, both fixed: (1) `_pick_site()` returned None -
-the population moved under the batch tasks since iteration 102: Devil's Dyke's last uncovered row
-(n0662_1) now has an agent doc, so EVERY queue site with a book page + item candidate is fully
-covered (batch items hold every non-auto row). Generalized: hard conditions = book row with a local
-page + unresolved item carrying it with >=3 pairs + NO platefits docs for the site (the line then
-builds exactly one overlay: drawings +1 and the open count drop by exactly one); "uncovered rows"
-became a soft preference (pick first, assertion block conditional). Current pick: forthill
-(ancientmonuments00squi_n0068_1, 0 uncovered, 3 pairs). (2) The fixture's `sd.unlink()` crashed on
-a real per-site dir (forthill) - copytree already materializes the checkout's per-site symlinks into
-the tree, so the unlink/re-copy was unnecessary and wrong; deleted it (real dirs are already
-private; the test's symlink + realpath asserts still guard). Then the first full run: PUT ok, the
-drawing landed on the map (depictions poll passed) but the 30 s drain for "finished (exit 0)" timed
-out with only the PUT log line visible. Investigation (throwaway /tmp/diag305*.py, raw os.read
-reader + watchdog dumps): NO hang - the whole one-site line finishes in 23 s (PUT at +1 s, first
-worker print and "finished (exit 0)" at +23 s; the ~22 s is the heavy first import of the
-numpy/scipy/PIL chain). The drain pattern was the bug: select() on the fd of a buffered reader
-(proc.stdout, text mode) is not a wait for lines - the first readline() pre-fetched the OS pipe
-into Python's buffer and select never fired again; a second run also showed a whole-process stall
-of minutes (its watchdog time.sleep(60) never woke - an OS-level thing under parallel-agent load,
-not a Python deadlock: the identical run completes in 23 s elsewhere). Fix in tests/test_fit_queue.py:
-the server's stdout is pulled by a dedicated reader thread (blocking reads, no select at all), the
-fit-entry poll and the "finished" wait merged into one 180 s loop (8x the measured 23 s; the server-
-stays-up assert runs every tick), and the network-freedom / no-failure asserts scan the collected
-lines. Part 1 (synthetic + real population) unchanged and green. Full suite after: 71 passed,
-1 skipped (baseline 70+1; the +1 is part 2). web/data/fit_queue.json re-generated: content identical
-(117 entries, same order - the batch docs are agent docs, which do not move a site out of the queue),
-only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + buffered reader on a
-coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
-real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
-section (box 1's "say how" + the card/save->line semantics).
+**New watch item for the re-claim** (learned from this iteration's driver prompt, which
+lists agent c's in-flight tasks as 203b, 207, 302a, 304, 309 - still the PARENT, so the
+split has not closed): 203b (the EU batch) writes new REVIEW ITEMS into data/review for
+its unplaceable sites. The committed page is a SNAPSHOT of the item population at the last
+full export, so a 203b merge landing AFTER 805/220's export re-stales the page against
+the three derived-count tests - with DIFFERENT numbers than 335/334, so it would read as
+new failures on my re-claim and could get rejected again for a store reason I did not
+cause. Recorded in three places: 220's runner hand-over (a no-op export + still-red tests
+= item-population drift; re-run the export - no item files change, only the page rewrites;
+that is 220's box 1, not a re-baseline), the 307ba hand-over's wait condition (diagnose
+with a scratch `fit/review.py export --root <copy>` before blaming code), and the
+review-page PITFALLS entry (third trigger: new item files; heading extended for grep).
+If a future re-claim hits exactly this, the move is to file/propose a fresh re-export
+task, never to touch the three tests. No ask_human: this is a plain dependency wait on
+220, which the driver handles by bringing 307ba back once 309's chain lands.
 
-### 2026-10-12 305 DECISION: part 3 (headless card probe, boxes 2+4 page half) written and green; screenshots verified
-Added Part 3 to tests/test_fit_queue.py: PROBE_SCRIPT (a standalone playwright probe the test writes to a
-tmp dir and runs with node + NODE_PATH=/home/agent/tools/shot/node_modules; the createRequire trick from
-shot.mjs) plus test_card_in_the_browser and test_card_done_mark_moves_on. The probe boots the served
-temp tree, reads the card, then real-clicks #fqplace -> the fit view's back -> the site view's back ->
-#fqskip -> #fqreset, reading the card and the fit tool's page state (P.site/P.plan/P.model/S.ground/
-#fitname/#fithint/save-disabled) at each stage. The done-mark test pre-seeds localStorage
-aw.fitQueue.done = {first entry site: <iso ts>} via addInitScript - the EXACT key/value the card's own
-saveFit wrapper writes when a save lands - and checks the load starts at entry 2 (self-heal keeps the
-mark: the site is still in the file), skip then goes to entry 3, undo restores entry 2. Both tests pass
-(2 passed in 26.7 s with -k card); full suite still to run (expect 73 passed / 1 skipped).
+### 2026-10-12 307ba DECISION: wait re-verified (iteration 120) - main still cf29be2 (review-page md5 b6506007, agent/a..main empty); agent/c advanced: 804's two-phase wiring is now WRITTEN and verified on real data (077ccb8: 15 flags, queue 116 -> 114, 5 item files / 6 upserts, zero churn, part 1 unmodified, its full suite at baseline) - merge recipe re-pinned to the actual code (post-pass between the entries comprehension and the sort; import dedupe; tools/right_place.py is a new file dep that lands only with the 309 chain); no code change
 
-Four bugs hit while building the probe, all fixed: (1) conftest's `served` fixture yields a TUPLE
-(base_url, tree), not the dict test_review's own `queue` fixture wraps it into; (2) probe stages that
-read page globals must be `await page.evaluate(() => ({...}))` - bare node-context references to P/S/FQ
-throw (and they are lexical: globalThis.S is undefined while bare S works); (3) `const extra = {}`
-reassigned later -> "Assignment to constant variable" is a RUNTIME error, and the boot block's
-swallowing try/catch turned it into silently missing fields ({ok:true} with no state) - the misleading
-failure mode cost ~30 min; now `let extra` and PITFALLS has the entry; (4) MapLibre aborts in-flight
-/tiles/relief fetches during the card's flyTo (net::ERR_ABORTED -> [reqfail]), so the tests assert no
-reqfail except /tiles/ lines (test_review never navigates, hence its stricter assert). Also: after
-#fitback the fit pane is HIDDEN again (endFit), so back1.pane is False.
+One step (wait bookkeeping + reading agent/c's new state; no code change). Verified by
+running: `git log main --oneline -20` (tip still cf29be2 - no 804/805/309 commit on main),
+`git show main:web/data/review.json | md5sum` (b6506007 - the stale 340-open-of-341 page),
+`git log agent/a..main` (empty: nothing to sync), and `git diff --stat ffd88ab..HEAD`
+(only PROGRESS/DECISIONS/DECISIONS-archive - my code state is byte-identical to the one
+the full suite verified at iteration 119: 3 failed / 70 passed / 1 skipped, so no re-run
+this session, and no re-claim - it would fail the same way).
 
-Screenshots for docs/site_flow/ were generated against the REAL checkout (server --port 0 on this
-checkout; the probe never saves, so no shared-store writes) and visually verified: 1-card.png shows
-"READY TO FIT 117 TO GO / Devil's Dyke / The Devil's Dyke Camp, near Brighton Allcroft 1908 - Fig. 217
-- the clearest scan" with PLACE THE DRAWING / SKIP under the stats line; 2-place.png shows the fit view
-(title, Plan/View seg, step hint, save floor "at least 3 points", citation) AND the Allcroft plate
-image fully rendered in the sheet pane (book pages load in the real tree; in the conftest temp tree
-they 404 and the tool keeps the row with "Could not load the page scan." - asserted in the test);
-3-skip.png shows Fort Ancient 116 to go + "Undo 1 skip"; a second run with the done mark pre-seeded
-starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
-/tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
-in the hand-over).
+**What is new on agent/c (since the iteration-119 snapshot; read via `git show agent/c`,
+never merged):** commits 7fd3ef5 (804/309 hand-over: "boxes 1+2 (the two-phase
+right-place wiring) in and verified on real data; code uncommitted (harness-saved); next:
+box 4 tests + box 3 README note, then 805"), f746c04 (804 DECISIONS) and 077ccb8 ([driver]
+uncommitted work: tools/fit_queue.py +131/-5 = the wiring itself). I read the resulting
+file and re-pinned the 307ba merge recipe to the actual code (the full re-pinned recipe
+is in the task hand-over): the final build() is `cands` map -> `_place_store` (None ->
+no-op) -> `_place_flags` (pre-mutation) -> `_apply_flags` -> `entries = [_entry(...)]` ->
+sort -> envelope, so my propose becomes a POST-PASS loop inserted between the entries
+comprehension and the sort (the exact snippet is in the hand-over); `_entry`'s signature
+has no root, so the post-pass stays outside it. Their import block already inserts
+ROOT/fit, so the merged file has ONE pair of path inserts (ROOT/tools + ROOT/fit) and
+three imports (right_place, review, my propose) - my separate fit-insert line is dropped
+as a duplicate.
+
+**804's measured effects (from its iteration-100 hand-over, taken on its word - I have not
+re-run its verification):** 15 flags == the right_place CLI's set exactly; queue 116 ->
+114 entries (vindomora and windmill-hill leave entirely); exactly 5 new review item files
+/ 6 upserts, each gaining place_reason; 341 existing item files unchanged; second build
+byte-identical (zero churn); part-1 tests pass unmodified in 0.68 s; 804's own full suite
+= 3 failed / 77 passed / 1 skipped (its baseline) - so parts 2-3, whose full-tree
+fixtures copy data/catalog and therefore run the live check, are empirically green with
+the wiring in.
+
+**New dependency fact (recorded for the merge session):** `tools/right_place.py` exists
+only on agent/c (checked: missing on main AND agent/a). The merged fit_queue.py imports
+it unconditionally, so the driver's sync of the 309 chain into my branch must bring the
+module file together with the rewired fit_queue.py - one atomic step; never cherry-pick
+the rewired fit_queue.py onto a branch without right_place.py. right_place.load degrades
+gracefully (catalog/index/lists each optional; missing -> empty -> no flags), which is
+why the no-catalog temp trees (my synthetic; my real test's copy list, which takes
+index.jsonl but not data/catalog) stay pure no-ops while the full-tree fixtures (parts
+2-3, 805's rebuild) run the live check.
+
+Queue-count expectation corrected in the hand-over: 114 (804's measured 116 -> 114 at its
+iteration-100 data state), not my earlier "~116"; it may shift again if 203b (EU batch)
+or 207 (Roman books) land on main before 805's rebuild (new index rows / review items) -
+regenerate, never pin. Still waiting: 804 boxes 3-4 + 805 -> 309's closure -> 220's export
+-> my re-claim. No code change, no ask_human (plain dependency wait).
+
+### 2026-10-12 307ba DECISION: iteration 121 - the wait is over on the main side: the lead ran 220 themselves (c5250a4 full export, overriding my "wait for 309" dep) and ordered a resume without waiting for c's 309/804/805 chain; verified in scratch that main's state makes the 3 stale-page tests green (full seeded suite 75+1, re-export a no-op); re-measured my branch's 3 failures as pure stale-page arithmetic; closed my 220 filing as done (all boxes verified); the re-claim is pinned to the post-sync session (expect 75 passed + 1 skipped)
+
+One step (verification + bookkeeping, no code change): the lead's message closed the
+dependency ("220 done on main ... Resume 307ba now: build on main, do not wait for c
+309/804/805; if their merge conflicts later, the second to land resolves it"). Verified
+by running (nothing merged - agent/a..main = 4 lead commits at the time of writing; the
+driver's sync is still ahead):
+
+- Main tip 57b3988 = cf29be2 + c5250a4 (220's export: page md5 2609ecef, 335 open of 341,
+  `at` 05:02:09; the 6 item files each only gain a resolved record; lead's own words:
+  "The lead placed matcher docs without a full export; that staled the page") + 5c153b9
+  (214 region names, +2 tests in test_region.py) + 2dd6596 (215: books.py probes the live
+  Qwen ports 8080-8082) + 57b3988 (PITFALLS fold). None touches my files; right_place.py
+  / the 804 wiring are still agent/c only.
+- Scratch copy of main's exact tree (git archive main -> /tmp/mn121; seeded with the
+  gitignored store elements: web/data/sites copy, the data/raw symlink - I re-hit the
+  data/raw du=0 symlink trap fresh this session; it is already recorded in PITFALLS
+  ("data/raw in the repo is a symlink to a sibling project"), so no new entry): the 3
+  named tests all pass in 25.5 s; the full seeded suite = 75 passed + 1 skipped, 0
+  failed (the main baseline; the "73" in the old 220 box 3 predates 214's 2 region
+  tests); a re-export over main's state is a no-op (only `at` moves, the 335-item list
+  identical) -> the page is in sync as of c5250a4.
+- My branch (before the sync): re-ran the 3 tests - all fail EXACTLY on the stale-page
+  arithmetic (334 vs 339; 335 vs 340; 334 vs 339) with the machinery intact (the fixture
+  pick works, the one-site line ~18 s, the page re-exports in the temp tree) -> post-
+  sync (the page becomes 335/341) all three flip green with no test change. Merge
+  preview (read-only git merge-tree from merge-base cf29be2): no conflicts (only
+  PITFALLS.md on both sides, different sections) -> the driver's sync should be clean.
+- Closed my 220 filing as done: box 1 verified from c5250a4's diff (exactly the 6 item
+  files + the page, nothing else in the store) + the scratch re-export; box 2 from the
+  scratch no-op; box 3 from the 3/3 green + 75+1 scratch suite. 220's Notes now record
+  the lead's override of my dep-309 safety gate (the human's word wins).
+- The review-page PITFALLS entry's fix description now reflects that the lead ran
+  c5250a4 (was "220, after 309"); the third-trigger drift watch stays armed.
+- 307ba's hand-over is rewritten around the re-claim: after the driver syncs main into
+  agent/a, one step = verify agent/a..main empty, run the full suite (expect 75 passed +
+  1 skipped, 0 failed), set done, commit. The old merge recipe (for when c's 309 chain
+  lands on main before/in the same sync as my re-claim) stays in this entry and is
+  referenced from the hand-over. The parent 307b's hand-over note on 307bb's start
+  condition is updated to match (220 on main; baseline 75+1).
+- No ask_human, no code change. The next session (after the sync) makes the re-claim.
 
 ## Project-wide driver notes (newest)
 
