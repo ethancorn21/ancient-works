@@ -2704,6 +2704,46 @@ Boxes 2-3 ticked, Status: done.
   book-machinery PITFALLS entry: books.py index drops the evidence field; byte-diff against
   `git show HEAD:data/books/index.jsonl`, never a /tmp snapshot).
 
+## 2026-10-12 211 DECISION: box 2 - rebuilt the book index + validation.json with the machinery (the 216/217 view books land), re-recorded the 200 evidence on all 1068 rows, the offline check passes - box 2 ticked
+- Proceeded with box 2 before 222-228 land (the previous hand-over said to wait): the book-index work is
+  independent of those tasks (they touch fit/src_*.py + their tests; I touch data/books/index.jsonl,
+  data/books/validation.json, the evidence fields and tests/test_merge.py), and it does not change my branch's
+  red set either way - the suite is 10 failed / 124 passed / 1 skipped before and after, the same 10
+  source-guard reds (baseline diff: identical failure list). 222-228 still gate the CLAIM (Depends on), not
+  the remaining boxes.
+- `pipeline/books.py index` over all 14 BOOKS entries (the 5 untriaged view books contribute 0 rows - do not
+  invent them) -> 1068 rows vs HEAD's 901: 167 added (civitates_liber2 11->118: 217's hand-list views; merian_
+  helvete00zeil 0->60: the 216/217 book), 0 removed, 11 changed (all the old qwen-only civitates rows gain the
+  hand list: fig numbers, view flags, hand-transcribed title_source, found_by union) - exactly what the
+  machinery's hand-list path is for. The 8 original books' counts are unchanged (145/115/197/88/55/18/235/37).
+  Byte-diffed against `git show HEAD:data/books/index.jsonl` (the pitfall's rule), never a working-tree snapshot.
+- `pipeline/books.py validate` -> validation.json: the 9 pre-existing entries unchanged except civitates_
+  liber2 (the figures stats filled from the hand list: 121 listed, 7 site, 111 views, recall 0.429, 4 missed
+  pages); merian_helvete00zeil's entry added. Nothing removed.
+- `fit/evidence.py record` (offline, no --live): 1068 book rows got the evidence field appended (0 hand-tied
+  files rows missing - all 1514 titled files rows already carry it; the 109 no-evidence files rows are
+  title-less sentinels that never reach the plan list). files.jsonl untouched (record rewrites only changed
+  lines; none changed).
+- `fit/evidence.py check` offline on the merged set: rc 0 - 2582 rows, 1385 pass, 0 fail, 1197 no-tie. Of the
+  264 files NONE rows, 0 reach plans.json (every plan-list files row has a real tie). The 933 book NONE rows
+  are mostly US-mound/Swiss-town plates with no catalog site: the expected 200 fail-closed end state (NONE
+  rows are reported, not failed; 200 itself closed with 354 none). Improving tie coverage is 801's job, not
+  211's. All 890 book rows that reach plans.json (full_local exists) carry the field (135 caption_coords,
+  755 none).
+- tests/test_merge.py extended with the box-2 data-level invariants (per the Notes: the test asserts the data
+  result, never a rebuild): (1) every index row and every titled files row carries rec evidence/1, every index
+  row joins to its ia's stage-A triage, ids follow <ia>_nNNNN_k, and `fit/evidence.py check` exits 0 with
+  "0 fail"; (2) a small synthetic sample: record appends the field to an unrecorded row (stored fields keep
+  their values), leaves a recorded row and a title-less sentinel byte-identical, and a second run is a
+  complete no-op. 5/5 pass.
+- Box 2's book set resolves as: the 8 originals + the 2 triaged artist-view books (213/216/217's). 207 is
+  stopped (no books, per the lead note) and 209's Stukeley book has triage+list files but is not a BOOKS entry
+  (209b stages files rows directly), so neither adds index rows. When 207a/207b land, a later re-run of this
+  step picks them up.
+- Re-read item resolved: fit/merge.py:run_target's evidence gate applies to files.jsonl titled rows only
+  (classified rows are not gated; book-index rows are never merge-gated - their evidence comes from record).
+  The reading was confirmed by re-reading the whole module; no change made.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
