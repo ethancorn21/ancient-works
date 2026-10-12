@@ -84,140 +84,97 @@ passing unmodified. Rebuilding the committed data files is 805.
 
 ## Hand-over
 
-(2026-10-12, iteration 100, agent c - session 9 on 309's lane. Step done: 804 boxes 1+2 -
-the two-phase right-place wiring is IN tools/fit_queue.py and verified (see below and the
-iteration-100 DECISIONS entry). The code change is uncommitted in the checkout at hand-over
-(harness saves it); the next session commits it with the box-3/box-4 work or on its own.
-NEXT STEP (next session, same lane): commit the wiring, then 804 box 4 (tests, sketch below)
-and box 3 (the README note); then 805 (the rebuild). When 804+805 are done the driver
-returns 309 and I tick its three carved boxes and set it done.)
+(2026-10-12, iteration 101, agent c - session 10 on 309's lane. Boxes 1+2 (the two-phase
+wiring + dispositions) are IN tools/fit_queue.py, verified on real data (iteration 100)
+and committed by the driver as 077ccb8. Box 4 (tests) is now WRITTEN into
+tests/test_fit_queue.py but UNCOMMITTED and NOT YET RUN - one known bug to fix first
+(dict-unpack in _build_namesake_tree, in 309's hand-over), then run the two fast tests,
+then the full suite, then box 3 (the README note). 805 follows. The full current state,
+the written test's design, the verification evidence and the exact next steps are in
+PARENT 309's hand-over - read it first. Condensed state here:)
 
-Box state: 1 (two-phase wiring) and 2 (dispositions) - IN and verified. 3 (README note),
-4 (tests) - not started. 5 (no new failures) - verified at the last suite run (baseline
-3 failed / 77 passed / 1 skipped, the same three pre-existing main-side failures); leave
-unticked until the box-4 tests land and a final run is green at the same count.
+Box state: 1 + 2 done (committed 077ccb8). 3 (data/review/README.md place_reason note)
+not started. 4 (tests) written, unrun. 5 (no new failures) last verified at baseline
+(3 failed / 77 passed / 1 skipped); re-run after box 4 lands -> expect 3 failed /
+78 passed / 1 skipped.
 
-**What is in tools/fit_queue.py now (all verified this session):**
-- Header docstring: namesake-rule paragraph; stdlib-only line names right_place/review as
-  the only imports (both stdlib-only, no pipeline/).
-- After ROOT: sys.path.insert of ROOT/tools and ROOT/fit, then import right_place / import
-  review (noqa E402, the site_done.py pattern - required: runpy.run_path leaves the script
-dir off sys.path under the test GUARD; PITFALLS entry exists).
-- _site_records(root): sites.json keyed by id (site_facts' input).
-- _place_store(root): right_place.load; None when catalog AND index AND lists all empty ->
-  build is exactly 305's (no-op degrade; keeps the synthetic test green).
-- _place_flags(root, store, cands): one site_facts per site, picture_facts + check_pairing
-  per candidate, over the PRE-MUTATION maps -> {(sid, plan): (facts, reason)}.
-- _item_candidate(item_cands, sid, plan): the item candidate a queue candidate came from.
-- _place_entry(plan, row, item_cand, reason): the review-item candidate for a moved
-  picture - the item's own stored fields (dict copy: pairs/evidence/why travel with it)
-  when item-origin, the row's fields (batch_us._entry's shape, books/<ia>/<file> url
-  fallback) when plans-origin - plus plan and the reason under the key place_reason (new;
-  the batch's why/gate_score stay untouched). Deterministic from stored fields.
-- _apply_flags(root, store, cands, rows, item_cands, hand, built, flags) (sorted flag
-  order): drops the plan (site leaves the queue when emptied); top of find_right_site
-  (min_score 0.5) = T: T QUEUE-ELIGIBLE (in sites.json, dir exists, no hand doc - the
-  eligible set from built/hand; NOT merely "dir exists" - see DECISIONS) -> dict-copy of
-  the row with sites narrowed to [T] joins T's map; else upsert into T's item (or S's own
-  item when no passing T) - SKIPPED when that item already holds the plan (zero churn);
-  per-build moved set so the same (target, plan) is upserted at most once.
-- build(): maps -> _place_store (None -> no-op) -> _place_flags -> _apply_flags -> entries
-  via _entry; final sort and {at, entries} envelope untouched. The build never calls
-  review.export and never removes a candidate from an item (the flag+drop is recomputed
-  from stored fields every build - the queue stays clean forever).
+What is in tools/fit_queue.py (committed; re-read before touching):
+_header docstring namesake-rule paragraph; sys.path.insert of ROOT/tools and ROOT/fit
+before `import right_place` / `import review` (noqa E402 - required: runpy.run_path
+leaves the script dir off sys.path under the test GUARD; PITFALLS entry exists);
+_site_records/_place_store (None when catalog AND index AND lists all empty = no-op
+degrade)/_place_flags (flags over PRE-MUTATION maps; one site_facts per site, picture
+facts per candidate)/_item_candidate/_place_entry (stored fields + plan + place_reason;
+plans-origin: row fields with url fallback books/<ia>/<file>; item-origin: the item
+candidate's dict copy)/_apply_flags (sorted flag order: drop; top of find_right_site
+min_score 0.5 = T; T eligible (in sites.json + dir + no hand) -> dict-copy of the row
+with sites narrowed joins T's map; else upsert into T's item or S's own item; SKIPPED
+when the pristine item already holds the plan; per-build moved set)/build() two-phase.
+The build never calls review.export and never removes a candidate from an item.
 
-**Real-data verification (temp tree: four 305 inputs + data/catalog + data/books, build()
-in-process, run twice):** flags == the CLI's set exactly (15; `python3 tools/right_place.py
---all` still 324 checked / 15 flagged). Queue 116 -> 114 entries: vindomora and
-windmill-hill leave entirely; the other seven flagged sites stay (devil-s-dyke keeps only
-n0662_1 - the owner's Brighton case is out of the Cambridgeshire dyke's entry; bokerley-
-dyke keeps n0174_1; must-not-flag set untouched). EXACTLY 5 new review-item files / 6
-upserts, each with place_reason and the row's url: a-saucer-barrow-and-a-bowl-barrow-600m-
-n-q17677473.earthworkenglan01allcgoog_n0558_1.json (carries n0558_1 AND n0558_2), castle-
-dyke-q31112898.earthworkenglan01allcgoog_n0599_1.json, devil-s-dyke-hillfort-q17674160.
-earthworkenglan01allcgoog_n0686_1.json, down-end-castle-q5302812.earthworkenglan01allcgoog
-_n0285_1.json, oval-barrow-and-adjacent-bowl-barrow-220-q17672356.earthworkenglan01allcgoog
-_n0557_1.json (805's rebuild must reproduce exactly these; 341 existing item files
-unchanged). Second build: queue identical (ex-at) and all item files byte-identical (zero
-churn). Part 1 tests pass UNMODIFIED in 0.68 s (synthetic = pure no-op; current
-four-inputs-only test_fit_queue_real = no-op too). Full suite at the last run: 3 failed /
-77 passed / 1 skipped = baseline.
+What is in tests/test_fit_queue.py now (working tree, UNCOMMITTED):
+- `_derive_with_check(root)`: independent re-derivation of the wiring (fit_queue input
+  readers + right_place API + fit_queue._place_entry/_entry/_best_key; two-phase,
+  sorted flags, moved set, pristine-item skip) -> (expected entries, upserts) or
+  (None, {}) for the no-op degrade.
+- test_fit_queue_real: copies data/catalog/ + data/books/ (index.jsonl + lists/) into
+  the temp tree; asserts the FULL entry list equals _derive_with_check's; re-applies
+  the derived upserts to a second pristine copy via fit/review.upsert_item and
+  byte-compares every item file; checkout-untouched check extended to the new inputs;
+  old entry-set derivation kept as the no-op-degrade branch.
+- test_fit_queue_namesake + _build_namesake_tree/_namesake_row/_namesake_item: the
+  Brighton-vs-Cambridgeshire synthetic tree, cases (a) move into built right site,
+  (b) upsert into unbuilt right site's item, (c)+(e) source-own item + site leaves
+  queue, (d) fail-open unknown county, (f) second run byte-identical. Item files
+  byte-pinned (the expected dict's key order must match _place_entry's).
+- KNOWN BUG: `for s, _ in sites:` in _build_namesake_tree unpacks dicts -> ValueError;
+  fix to `for s in sites: (wd / "sites" / s["id"]).mkdir(parents=True)` before running.
 
-**NEXT STEP detail - box 4 (tests/test_fit_queue.py; it already has the GUARD,
-_build_synthetic_tree, _run_generator, test_fit_queue_synthetic, test_fit_queue_real):**
-1. A NEW synthetic namesake test (hermetic, dead-socket, no network): its own small tree
-   with a tiny data/catalog/sites.jsonl (id/qid/name/aliases/region/admin records), a
-   data/books/index.jsonl (id, book, ia_id, fig, title) and a data/books/lists/<ia>.json
-   (figures [{fig, title}]). Book must be in right_place.BOOK_SCOPE (use "allcroft_1908" -
-   regions {england, wales}, no default state; H2 book_row requires it). Cases, one
-   picture each: (a) H2 flag (caption "... near Brighton"; Brighton -> sussex through a
-   catalog site's admin parish/district word_counties; source site admin county
-   "Cambridgeshire") with the right site in the catalog (admin county "West Sussex" ->
-   classic sussex) AND BUILT (sites.json + dir) -> candidate leaves the source entry and
-   lands in the right site's entry, sites narrowed to [it]; (b) same flag, right site
-   UNBUILT (no dir) -> the right site's item gains the candidate with place_reason;
-   (c) flag, NO passing catalog site -> the source site's own item gains it with
-   place_reason; (d) fail-open: a site whose admin county is in neither CLASSIC_UNITS nor
-   IDENTITY is never flagged even with a contradicting caption; (e) a source site whose
-   ONLY candidate is flagged leaves the queue entirely; (f) second run: byte-identical
-   queue (ex-at) and items (steady state). test_fit_queue_synthetic stays UNMODIFIED
-   (that tree must stay catalog-less: it asserts the no-op degrade) - the new case is its
-   own function with its own tree.
-2. test_fit_queue_real re-derived WITH the check (box 4.2): copy data/catalog/ and
-   data/books/ (index.jsonl + lists/) into the temp tree; the test's independent
-   derivation imports tools/right_place (stdlib) and re-runs the same two-phase logic
-   over the same inputs (its own map gathering via fit_queue._candidates/_plans_rows/
-   _item_candidates + right_place.site_facts/picture_facts/check_pairing/find_right_site
-   + fit/review.upsert_item), then matches the generator's output: entry set, per-entry
-   candidate sets, the review-item upserts in the tree (derive, never pin - 803
-   precedent; with today's data: the 5 files / 6 entries above, 114 entries), checkout
-   byte-identical, dead-socket GUARD stays.
-3. Box 3: data/review/README.md - add "309's place_reason" to the pass-through line
-   ("...203a's gate_score/why, 309's place_reason, the row's ia/file/...") + one sentence
-   on what it holds (the check's reason string; written by tools/fit_queue.py's build,
-   never by the page).
+Real-data verification (iteration 100, still the ground truth for 805): flags == the
+CLI's 15 exactly (324 checked); queue 116 -> 114 (vindomora + windmill-hill leave;
+devil-s-dyke keeps only n0662_1 - the Brighton case is out); exactly 5 new item files
+/ 6 upserts, each with place_reason + row url: a-saucer-barrow-and-a-bowl-barrow-600m-
+n-q17677473.earthworkenglan01allcgoog_n0558_1.json (n0558_1 AND n0558_2), castle-dyke-
+q31112898.earthworkenglan01allcgoog_n0599_1.json, devil-s-dyke-hillfort-q17674160.
+earthworkenglan01allcgoog_n0686_1.json, down-end-castle-q5302812.earthworkenglan01allc
+goog_n0285_1.json, oval-barrow-and-adjacent-bowl-barrow-220-q17672356.earthworkenglan01
+allcgoog_n0557_1.json; 341 existing item files unchanged; second build byte-identical
+(zero churn). 805's rebuild must reproduce exactly these.
 
-**Shared ground truth (re-verify at session start):**
-- Worktree warning (STILL APPLIES): all work belongs in /home/agent/projects/ancient-
-  works.c (branch agent/c); the three worktrees (.a, .c, main) share one repo; never
-  commit in the main worktree (PITFALLS entry covers the mixup).
-- The module tools/right_place.py (696 lines, stdlib, fc67bb9; on agent/c only - lands on
-  main when 309 closes out): load/picture_facts/site_facts/check_pairing/find_right_site.
-  Its verbatim matcher core spans lines 33-223 (17 top-level names); 805's drift test
-  compares those against pipeline/books_match.py; the six iteration-95 spec deviations
-  are baked in - do not "fix" them.
-- Suite baseline on agent/c: 3 failed / 77 passed / 1 skipped - the 3 pre-exist on main
-  (the lead's matcher-fit wiring b22a2d2/9324f8b: test_fit_provenance::
-  test_line_refuses_unmarked_non_auto_doc, test_fit_queue::test_save_runs_the_one_site_
-  line, test_site_done::test_site_done_line). Neither 804 nor 805 edits their
-  assertions; both leave the rest green.
-- The committed web/data/fit_queue.json is STALE: 117 entries vs 114 that the wired build
-  now produces (the old unwired build made 116; the extra committed entry is
-  shotwick-castle-q7502621, no longer built from current data; the same site is the
-  orphan-platefit-doc behind the main-side test_serve/test_batch_eu failures). 805's
-  rebuild fixes it; 804 never writes the file.
-- Agent a (306/307) reads web/data/fit_queue.json tolerantly and must never write it; if
-  their merge lands while 805's rebuild is in flight, expect driver reconciliation - flag
-  any hit on this task's files in DECISIONS.
-- The dropped reference spec tasks/309-place-check.md (agent a's, kept as reference) holds
-  the background: the fail-open rule (an unknown place never mismatches), the --live
-  Wikidata human path (pipeline/catalog_wd.py; tests never call it), "the 305 queue shape
-  and tests must survive". Its data/fit_place.json committed-verdict design was
-  deliberately NOT adopted (the module re-checks from stored fields on every run) - if a
-  future session revives it, data/fit_place.json + tests/test_fit_place.py must be added
-  to the relevant task's Touches first.
+Shared ground truth (re-verify at session start):
+- All work belongs in /home/agent/projects/ancient-works.c (branch agent/c); the three
+  worktrees share one repo; never commit in the main worktree (PITFALLS).
+- tools/right_place.py (696 lines, stdlib, committed fc67bb9 on agent/c, lands on main
+  when 309 closes): load/picture_facts/site_facts/check_pairing/find_right_site; the
+  verbatim matcher core spans lines 33-223 (17 top-level names); the six iteration-95
+  spec deviations are baked in - do not "fix" them.
+- Suite baseline on agent/c: 3 failed / 77 passed / 1 skipped - the 3 pre-exist on
+  main (the lead's matcher-fit wiring: test_fit_provenance::
+  test_line_refuses_unmarked_non_auto_doc, test_fit_queue::
+  test_save_runs_the_one_site_line, test_site_done::test_site_done_line). Never edit
+  their assertions; leave the rest green.
+- The committed web/data/fit_queue.json is STALE: 117 entries vs 114 the wired build
+  produces (the extra is shotwick-castle-q7502621, also behind the main-side
+  test_serve/test_batch_eu failures). 805 fixes it; 804 never writes it.
+- web/data/sites.json records must carry "region" (capitalized: "England", "Wales",
+  "US", ...) for the check to bucket the site - without it H1/H2 never fire
+  (PITFALLS entry added this session).
+- Agent a (306/307) reads web/data/fit_queue.json tolerantly and must never write it;
+  if their merge lands while 805's rebuild is in flight, expect driver reconciliation.
+- The dropped reference spec tasks/309-place-check.md (agent a's) holds the fail-open
+  rule background; its data/fit_place.json committed-verdict design was NOT adopted.
 
 Re-read:
-- tools/fit_queue.py: _place_store/_place_flags/_place_entry/_apply_flags/build - the
-  wiring this session put in (uncommitted at hand-over; verify it is intact before
-  building on it). Invariants: flags over pre-mutation maps; never rewrite an item that
-  already holds the plan; the entry join uses a dict copy (shared plans rows are never
-  mutated); the build never removes from items.
-- fit/review.py: upsert_item (write-once resolved; merges by plan, same-plan replaces in
-  place, new plans append; no_picture=None clears the record once candidates exist; the
-  file name's lead follows candidates[0].plan and renames on change - a no-picture item
-  gaining a moved first candidate gains <site>.<plan>.json); export is never called by
-  the build (only the one-site line publishes web/data/review.json).
-- tests/test_fit_queue.py: the GUARD (runpy + dead sockets), _build_synthetic_tree (must
-  stay catalog-less: the no-op degrade), test_fit_queue_real (the box-4.2 extension
-  point).
+- tools/fit_queue.py: _place_store/_place_flags/_place_entry/_apply_flags/build -
+  invariants: flags over pre-mutation maps; never rewrite an item that already holds
+  the plan; the entry join uses a dict copy (shared plans rows never mutated); the
+  build never removes from items.
+- fit/review.py: upsert_item (write-once resolved; merges by plan, same-plan replaces
+  in place, new plans append; no_picture=None clears once candidates exist; the file
+  name's lead follows candidates[0].plan and renames on change - a no-picture item
+  gaining a moved first candidate gains <site>.<plan>.json); export never called by
+  the build.
+- tests/test_fit_queue.py: _build_namesake_tree (fix the dict-unpack bug),
+  test_fit_queue_namesake (byte-pinned items), _derive_with_check (the mirror of the
+  wiring - keep it in lockstep with _apply_flags if either changes),
+  test_fit_queue_real (the no-op-degrade branch must stay).
