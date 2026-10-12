@@ -1,0 +1,90 @@
+{
+ "site": "cenabum-q2710144",
+ "plan": "c_e73dc8c09b2fea43",
+ "crop": [
+  0,
+  0,
+  1280,
+  1009
+ ],
+ "pairs": [
+  [
+   573.3,
+   460.2,
+   1.9070235,
+   47.9020828
+  ],
+  [
+   467.3,
+   308.4,
+   1.8991406,
+   47.9093576
+  ],
+  [
+   737.3,
+   470.4,
+   1.9189192,
+   47.90174
+  ],
+  [
+   453.0,
+   539.6,
+   1.8984157,
+   47.8981197
+  ],
+  [
+   650.1,
+   369.6,
+   1.9124686,
+   47.9065535
+  ],
+  [
+   457.5,
+   422.8,
+   1.8985838,
+   47.903796
+  ],
+  [
+   645.3,
+   548.7,
+   1.9123572,
+   47.8978525
+  ],
+  [
+   548.6,
+   578.5,
+   1.9053927,
+   47.8963181
+  ]
+ ],
+ "label": "1833",
+ "title": "Plan g\u00e9n\u00e9ral de la ville et des environs en 1828",
+ "cite": "by Jean-Baptiste Prosper Jollois; CC0; https://commons.wikimedia.org/wiki/File:Plan_g%C3%A9n%C3%A9ral_de_la_ville_et_des_environs_en_1828.jpg",
+ "at": "2026-10-12T05:19:36.230550+00:00",
+ "auto": true,
+ "score": 9.3,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cenabum-q2710144/e73dc8c09b2fea43.jpg",
+ "ref": "File:Plan g\u00e9n\u00e9ral de la ville et des environs en 1828.jpg",
+ "size": [
+  1280,
+  1009
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2537,
+  "matches": 5000,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": -1.07,
+  "spread": [
+   0.658,
+   53.1
+  ]
+ }
+}

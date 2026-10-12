@@ -1,0 +1,83 @@
+{
+ "site": "cawthorne-camp-q5055239",
+ "plan": "earthworkenglan01allcgoog_n0325_1",
+ "crop": [
+  532,
+  1454,
+  2946,
+  3055
+ ],
+ "pairs": [
+  [
+   1760.0,
+   2349.9,
+   -0.7968962,
+   54.2998852
+  ],
+  [
+   2930.6,
+   1510.5,
+   -0.7914379,
+   54.3021991
+  ],
+  [
+   561.3,
+   2957.7,
+   -0.8024922,
+   54.2982037
+  ],
+  [
+   815.6,
+   2075.7,
+   -0.8013271,
+   54.3006187
+  ],
+  [
+   2044.9,
+   1503.1,
+   -0.7955861,
+   54.3022043
+  ],
+  [
+   2631.7,
+   2270.2,
+   -0.7928159,
+   54.3001178
+  ],
+  [
+   1385.6,
+   3017.0,
+   -0.7986303,
+   54.2980557
+  ],
+  [
+   2094.5,
+   2964.4,
+   -0.7953114,
+   54.2982115
+  ]
+ ],
+ "label": "Fig. 97",
+ "title": "Cawthorn Camps, Pickering, Yorks",
+ "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+ "at": "2026-10-12T04:52:09.638773+00:00",
+ "auto": true,
+ "score": 2.2,
+ "by": "agent",
+ "ia": "earthworkenglan01allcgoog",
+ "file": "n0325.jpg",
+ "book": "Allcroft 1908",
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 4625,
+  "matches": 4997,
+  "ground": "relief.jpg",
+  "window": 0.35,
+  "rot_deg": -0.36,
+  "spread": [
+   0.373,
+   281.8
+  ]
+ }
+}

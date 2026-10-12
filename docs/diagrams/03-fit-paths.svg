@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="810" viewBox="0 0 1100 810" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>How a drawing gets onto the map: three paths</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="810" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="793" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="785" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">How a drawing gets onto the map: three paths</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">(a) the owner's hand fit in the page   (b) automatic fits, gated   (c) the queues where the owner finishes by hand</text>
+<rect x="28" y="76" width="1044" height="190" fill="none" stroke="#2B2724" stroke-width="0.8" stroke-dasharray="2 3"/>
+<text x="36" y="91" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" style="text-transform:uppercase" letter-spacing="1.5">(a)  hand fit in the page's fit tool  -  trusted: the 21 hand fits are the reference the gate is measured against</text>
+<rect x="920" y="80" width="146" height="18" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.8"/>
+<text x="993" y="93" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" text-anchor="middle" font-weight="700" letter-spacing="1">TRUSTED TODAY</text>
+<rect x="40" y="104" width="166" height="90" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="48" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Site panel</text>
+<text x="48" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"Place an old plan" (#fitgo),</text>
+<text x="48" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the Ready-to-fit card,</text>
+<text x="48" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">or a Review item</text>
+<rect x="215" y="104" width="166" height="90" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="223" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Pick a picture</text>
+<text x="223" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">web/data/plans.json rows</text>
+<text x="223" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">naming the site (1166 rows:</text>
+<text x="223" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">8 books + Commons)</text>
+<rect x="390" y="104" width="166" height="90" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="398" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Click pairs</text>
+<text x="398" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">a point on the plan (#fitpane)</text>
+<text x="398" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">then the same spot on the map</text>
+<text x="398" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plan: similarity, 3+ points</text>
+<text x="398" y="172" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">view: homography, 5+ points</text>
+<rect x="565" y="104" width="166" height="90" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="573" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Save on the map</text>
+<text x="573" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">PUT /api/db/platefits/</text>
+<text x="573" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">&lt;site&gt;.&lt;plan&gt; {pairs, crop,</text>
+<text x="573" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">model, at}; serve.py stamps</text>
+<text x="573" y="172" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"by": "hand"</text>
+<rect x="740" y="104" width="166" height="90" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="748" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Worker thread</text>
+<text x="748" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tools/site_done.py &lt;site&gt;:</text>
+<text x="748" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sync = plan_fit.build (no</text>
+<text x="748" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fabrication check for hand),</text>
+<text x="748" y="172" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">entry = set_drawings, review</text>
+<rect x="915" y="104" width="166" height="90" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="923" y="119" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">On the map</text>
+<text x="923" y="133" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plan_&lt;id&gt;.webp + ink in</text>
+<text x="923" y="146" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">depictions.json; the square</text>
+<text x="923" y="159" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">is recoloured; the page polls</text>
+<text x="923" y="172" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">depictions.json for its 'at'</text>
+<line x1="206" y1="149" x2="215" y2="149" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="381" y1="149" x2="390" y2="149" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="556" y1="149" x2="565" y2="149" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="731" y1="149" x2="740" y2="149" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="906" y1="149" x2="915" y2="149" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<text x="40" y="215" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">The page solves the same similarity for its preview; pipeline/plan_fit.py decides. Pairs are never moved or snapped. A DELETE runs the old all-fits sweep (a removed overlay leaves the map).</text>
+<text x="40" y="232" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Hand saves bypass the gate (PLAN.md assumption 1): the owner's drag is the authority. A fit is saved only with one point more than fixes it (3 for a plan, 5 for a view).</text>
+<text x="40" y="249" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Hand fits so far: 21 documents by: hand (20 golden in tests/golden/hand_fit_docs.sha256 + Maiden Castle 2026-10-11); no script changes or deletes them.</text>
+<rect x="28" y="280" width="1044" height="300" fill="none" stroke="#2B2724" stroke-width="0.8" stroke-dasharray="2 3"/>
+<text x="36" y="295" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" style="text-transform:uppercase" letter-spacing="1.5">(b)  automatic fit  -  experimental: two fitters failed, the matcher passed one held-out test</text>
+<rect x="920" y="284" width="146" height="18" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.8"/>
+<text x="993" y="297" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" text-anchor="middle" font-weight="700" letter-spacing="1">EXPERIMENTAL</text>
+<rect x="40" y="308" width="150" height="122" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="48" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Candidates</text>
+<text x="48" y="336.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">plans.json rows whose</text>
+<text x="48" y="349.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">'sites' names the site;</text>
+<text x="48" y="361.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit/propose.py gives a</text>
+<text x="48" y="374.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">starting placement (scale</text>
+<text x="48" y="386.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">bar, north arrow, site</text>
+<text x="48" y="399.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">centre), never a fit</text>
+<text x="48" y="411.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">(GOAL point 2)</text>
+<rect x="202" y="308" width="260" height="80" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="210" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">1. Vision-model pairs (the batch)</text>
+<text x="210" y="336.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fit/batch_us.py, batch_eu.py: fitkit sheet (plan</text>
+<text x="210" y="349.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">crop | gridded ground) -&gt; Qwen names &gt;= 4</text>
+<text x="210" y="361.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">matching features -&gt; plan_fit.similarity -&gt; gate</text>
+<text x="210" y="374.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">RESULT: 110 of 110 docs were fabricated grids (301)</text>
+<rect x="202" y="396" width="260" height="80" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="210" y="411" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">2. Ink vs relief (fit/inkfit.py)</text>
+<text x="210" y="424.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">autowalls ink -&gt; template; FFT search over</text>
+<text x="210" y="437.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">rotation / scale / shift against the LRM, with</text>
+<text x="210" y="449.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">a search-matched null; 302b held-out on the 21</text>
+<text x="210" y="462.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand fits: 231-2204 m off. Not used.</text>
+<rect x="202" y="484" width="260" height="86" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="210" y="499" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">3. Pretrained matcher (matchfit.py)</text>
+<text x="210" y="512.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">MatchAnything-ELoFTR on the AI box :8091; plan</text>
+<text x="210" y="525.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">vs relief.jpg / imagery.jpg / survey sheet, five</text>
+<text x="210" y="537.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">windows; RANSAC similarity; a doc only with</text>
+<text x="210" y="550.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">&gt;= 10 inliers and |rotation| &lt;= 30 deg. Held-out:</text>
+<text x="210" y="562.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">7 of 21 accepted, 0 wrong (docs/matchfit.md).</text>
+<line x1="190" y1="350" x2="202" y2="350" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M190,370 Q196,400 202,430" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M190,390 Q196,460 202,520" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="474" y="308" width="176" height="112" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="482" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">The gate (fit_gate.py)</text>
+<text x="482" y="336.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">docs/gate.md section 2, frozen:</text>
+<text x="482" y="349.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">n &gt;= 3 pairs; median residual</text>
+<text x="482" y="361.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">&lt;= 45 m; radial slope &lt;= 0.145;</text>
+<text x="482" y="374.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">slope &gt; 0.11 and inner-outer</text>
+<text x="482" y="386.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">gap &lt; -10 m rejects.</text>
+<text x="482" y="399.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">It cannot see a consistent</text>
+<text x="482" y="411.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">global error (section 7).</text>
+<line x1="462" y1="348" x2="474" y2="348" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="474" y="440" width="176" height="76" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="482" y="455" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Fit document</text>
+<text x="482" y="468.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/db/platefits/&lt;site&gt;.&lt;plan&gt;</text>
+<text x="482" y="481.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">by: agent, auto: true, score;</text>
+<text x="482" y="493.5" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the matcher adds fitter and</text>
+<text x="482" y="506.0" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">its inlier count</text>
+<line x1="562" y1="420" x2="562" y2="440" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="573.2" y="420.0" width="41.6" height="14" fill="#f3ecd9"/>
+<text x="594.0" y="430.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">accept</text>
+<path d="M462,530 Q468,505 474,480" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="662" y="308" width="196" height="120" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="670" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">One-site line, before sync</text>
+<text x="670" y="336.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tools/site_done.py: for every</text>
+<text x="670" y="349.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">agent document, plan_fit.</text>
+<text x="670" y="361.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fabrication_pattern() on the</text>
+<text x="670" y="374.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">stored page-px pairs (grid</text>
+<text x="670" y="386.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">roundness, 2D lattice, 1D</text>
+<text x="670" y="399.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">ladder). A hit: doc deleted,</text>
+<text x="670" y="411.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">candidate -&gt; review item.</text>
+<path d="M650,474 Q656,430 662,400" fill="none" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="870" y="308" width="196" height="60" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="878" y="323" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Map, marked automatic</text>
+<text x="878" y="336.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">overlay built; source line:</text>
+<text x="878" y="349.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"Fitted automatically ..."</text>
+<text x="878" y="361.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">(for example Shotwick, 206)</text>
+<line x1="858" y1="340" x2="870" y2="335" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="848.8" y="319.5" width="30.400000000000002" height="14" fill="#f3ecd9"/>
+<text x="864.0" y="329.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">pass</text>
+<rect x="870" y="384" width="196" height="72" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="878" y="399" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Review item</text>
+<text x="878" y="412.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/review/&lt;site&gt;.&lt;plan&gt;.json</text>
+<text x="878" y="425.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">candidate + pairs + why:</text>
+<text x="878" y="437.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">gate refusal, no model answer,</text>
+<text x="878" y="450.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fabricated pattern</text>
+<line x1="858" y1="400" x2="870" y2="416" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<rect x="851.6" y="406.0" width="24.8" height="14" fill="#f3ecd9"/>
+<text x="864.0" y="416.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">hit</text>
+<path d="M650,380 Q760,480 870,430" fill="none" stroke="#6B625A" stroke-width="1.1" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+<rect x="684.4" y="441.0" width="131.20000000000002" height="14" fill="#f3ecd9"/>
+<text x="750.0" y="451.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" text-anchor="middle" font-style="italic">refuse / could not fit</text>
+<text x="662" y="470" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Task 306 (open): every agent-placed</text>
+<text x="662" y="483" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">fit is looked at in a browser first.</text>
+<text x="662" y="502" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Today: 97 agent docs, 4 of them matcher</text>
+<text x="662" y="515" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">fits on the map; 336 open review items.</text>
+<text x="662" y="534" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">GOAL point 3: a fit is accepted by</text>
+<text x="662" y="547" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">numbers, never a model's opinion;</text>
+<text x="662" y="560" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">18 of a 20-fit human sample right.</text>
+<text x="870" y="475" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Batch counts (docs/batch_*.md):</text>
+<text x="870" y="488" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">US 90 sites: 9 auto, 8 items, 71 no</text>
+<text x="870" y="501" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">picture; EU 294: 54 auto, 47 items,</text>
+<text x="870" y="514" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">175 no picture. All 110 autos were</text>
+<text x="870" y="527" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">then caught by the line (300/301).</text>
+<text x="870" y="546" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Matcher's first queue run: 6 confident</text>
+<text x="870" y="559" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">of 240; 4 stay, Aesica rejected on sight,</text>
+<text x="870" y="572" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">Castle Neroche caught as a ladder.</text>
+<rect x="28" y="594" width="1044" height="150" fill="none" stroke="#2B2724" stroke-width="0.8" stroke-dasharray="2 3"/>
+<text x="36" y="609" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" style="text-transform:uppercase" letter-spacing="1.5">(c)  the queues  -  the owner finishes by hand (lands in path a)</text>
+<rect x="40" y="616" width="300" height="112" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="48" y="631" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Review queue (task 201)</text>
+<text x="48" y="644.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/review/*.json -&gt; fit/review.py export -&gt;</text>
+<text x="48" y="657.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">web/data/review.json (whole queue, 336 items)</text>
+<text x="48" y="669.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">web/review.js adds a Review (N) tab to the home</text>
+<text x="48" y="682.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">panel; open an item -&gt; the fit tool with the</text>
+<text x="48" y="694.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">proposed pairs pre-placed (RV.pending) -&gt; save</text>
+<text x="48" y="707.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">-&gt; a platefits doc resolves the item</text>
+<rect x="372" y="616" width="330" height="112" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="380" y="631" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Ready to fit (task 305)</text>
+<text x="380" y="644.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tools/fit_queue.py -&gt; web/data/fit_queue.json</text>
+<text x="380" y="657.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A">(116 entries: built + a candidate picture + no</text>
+<text x="380" y="669.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">hand fit; best candidate first: a true plan over</text>
+<text x="380" y="682.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">a view, then the larger drawing). web/fitqueue.js</text>
+<text x="380" y="694.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">draws the "Ready to fit (N to go)" card: Place the</text>
+<text x="380" y="707.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">drawing (clean slate, no pre-placed pairs) / Skip</text>
+<rect x="734" y="616" width="332" height="112" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="742" y="631" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">Open on these paths</text>
+<text x="742" y="644.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">307: fit tool rework (open on the works, hide</text>
+<text x="742" y="657.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the old overlay, drawing on the map first)</text>
+<text x="742" y="669.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">309: queue pairs a drawing with the right place,</text>
+<text x="742" y="682.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">not a namesake (Devil's Dyke Brighton vs Cambs)</text>
+<text x="742" y="694.5" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">304: fit the plan against the old survey sheet</text>
+<text x="742" y="707.0" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">308: arrowhead markers</text>
+<line x1="340" y1="672" x2="372" y2="672" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="702" y1="672" x2="734" y2="672" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<path d="M40,672 L22,672 L22,149 L40,149" fill="none" stroke="#6B625A" stroke-width="1.1" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+<text x="18" y="420" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic" fill="#6B625A" text-anchor="middle" transform="rotate(-90 18 420)">opens the fit tool (path a)</text>
+<rect x="28" y="756" width="1044" height="66" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="550.0" y="771" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="38.0" y="782" width="22" height="12" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="792" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">trusted path / code that runs on a save</text>
+<rect x="38.0" y="800" width="22" height="12" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="810" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">experimental automatic fit</text>
+<rect x="386.0" y="782" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="792" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">gate, queues, review items</text>
+<rect x="386.0" y="800" width="22" height="12" fill="#9ED8D8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="810" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">the owner's clicks</text>
+<rect x="734.0" y="782" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="764.0" y="792" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">files</text>
+</svg>

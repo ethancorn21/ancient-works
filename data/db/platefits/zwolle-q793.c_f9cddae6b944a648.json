@@ -1,0 +1,90 @@
+{
+ "site": "zwolle-q793",
+ "plan": "c_f9cddae6b944a648",
+ "crop": [
+  0,
+  0,
+  1280,
+  1178
+ ],
+ "pairs": [
+  [
+   584.0,
+   659.7,
+   6.0923164,
+   52.5115782
+  ],
+  [
+   359.5,
+   497.6,
+   6.0846246,
+   52.5157959
+  ],
+  [
+   400.4,
+   740.0,
+   6.0851676,
+   52.5102102
+  ],
+  [
+   729.4,
+   571.2,
+   6.0980791,
+   52.5132235
+  ],
+  [
+   696.6,
+   777.9,
+   6.0960293,
+   52.5086273
+  ],
+  [
+   447.8,
+   614.8,
+   6.0874354,
+   52.5129277
+  ],
+  [
+   471.8,
+   504.9,
+   6.0887707,
+   52.5153558
+  ],
+  [
+   340.5,
+   642.9,
+   6.0833322,
+   52.5125543
+  ]
+ ],
+ "label": "c. 1560",
+ "title": "Zwolle, town plan by Jacob van Deventer",
+ "cite": "by Ton Schollen; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Plattegrond_van_J._van_Deventer,_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Zwolle_-_20228487_-_RCE.jpg",
+ "at": "2026-10-12T05:21:14.588371+00:00",
+ "auto": true,
+ "score": 10.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/zwolle-q793/f9cddae6b944a648.jpg",
+ "ref": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist - Zwolle - 20228487 - RCE.jpg",
+ "size": [
+  1280,
+  1178
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 1981,
+  "matches": 4998,
+  "ground": "tmk1850.webp",
+  "window": 1.0,
+  "rot_deg": 6.19,
+  "spread": [
+   0.501,
+   48.5
+  ]
+ }
+}

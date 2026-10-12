@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="664" viewBox="0 0 1100 664" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11.5" fill="#2B2724">
+<title>One site, from catalog row to coloured marker</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2B2724"/></marker><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B625A"/></marker></defs>
+<rect x="0" y="0" width="1100" height="664" fill="#f3ecd9"/>
+<rect x="8.5" y="8.5" width="1083" height="647" fill="none" stroke="#2B2724" stroke-width="1"/>
+<rect x="12.5" y="12.5" width="1075" height="639" fill="none" stroke="#8E8478" stroke-width="0.6"/>
+<text x="550.0" y="40" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="20" letter-spacing="3" style="font-variant:small-caps">One site, from catalog row to coloured marker</text>
+<text x="550.0" y="58" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" font-size="12.5" font-style="italic" fill="#6B625A">pipeline/build_catalog.py --ids &lt;id&gt;   (each stage names the files it writes; &lt;id&gt; = slug-qNNN, e.g. maiden-castle-q1232816)</text>
+<rect x="28" y="84" width="204" height="150" fill="#C4D9A6" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="99" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">1. Catalog row</text>
+<text x="36" y="113" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">data/catalog/sites.jsonl (Wikidata)</text>
+<text x="36" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">or extras.jsonl (hand-tied sources)</text>
+<text x="36" y="139" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">make_site(): a square box by kind:</text>
+<text x="36" y="152" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  castle 800 m, hillfort 1600 m,</text>
+<text x="36" y="165" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  town 2000 m, default 1200 m</text>
+<text x="36" y="178" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">specs/site_boxes.json overrides</text>
+<text x="36" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">skipped: whole-degree coordinates,</text>
+<text x="36" y="204" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  aliases of the six hand sites</text>
+<rect x="238" y="84" width="204" height="150" fill="#9ED8D8" stroke="#2B2724" stroke-width="1"/>
+<text x="246" y="99" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">2. Ground: build_site.py</text>
+<text x="246" y="113" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">dem_sources.source_for_bbox -&gt;</text>
+<text x="246" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">aw.fetch_dem: 3DEP / EA / AHN / IGN</text>
+<text x="246" y="139" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  or S3 static (Scotland, COPC)</text>
+<text x="246" y="152" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">water + OSM modern mask</text>
+<text x="246" y="165" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">local relief model (24 m radius,</text>
+<text x="246" y="178" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  clip +-1.2 m) -&gt; sepia duotone</text>
+<text x="246" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">block: 16-bit height PNG + top</text>
+<text x="246" y="204" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">no LiDAR: aerial-only site</text>
+<text x="246" y="217" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  (lidar: false; no relief, block)</text>
+<rect x="448" y="84" width="204" height="150" fill="#F2C48D" stroke="#2B2724" stroke-width="1"/>
+<text x="456" y="99" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">3. Sheets: depict.py, nls.py</text>
+<text x="456" y="113" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">LAYERS that cover the point and</text>
+<text x="456" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">are &gt;= 150 years old (MIN_AGE):</text>
+<text x="456" y="139" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  cassini, etatmajor, tmk1850,</text>
+<text x="456" y="152" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  OS six-inch 1st edition, Roy</text>
+<text x="456" y="165" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tiles mosaicked onto the box</text>
+<text x="456" y="178" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">blank / paper-only sheets skipped</text>
+<text x="456" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">add_ink(): survey-red ink copy</text>
+<rect x="658" y="84" width="204" height="150" fill="#F2B5C4" stroke="#2B2724" stroke-width="1"/>
+<text x="666" y="99" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">4. Drawings: plan_fit.py</text>
+<text x="666" y="113" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">input: data/db/platefits/</text>
+<text x="666" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  &lt;site&gt;.&lt;plan&gt;.json (pairs, crop)</text>
+<text x="666" y="139" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">picture: data/raw/books/&lt;ia&gt;/full</text>
+<text x="666" y="152" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  or the Commons big file (cached)</text>
+<text x="666" y="165" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">similarity (plan) or homography</text>
+<text x="666" y="178" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  (view), solved in Web Mercator</text>
+<text x="666" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">crop -&gt; overlay + ink, &lt;= 2400 px</text>
+<text x="666" y="204" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">source line says who placed it</text>
+<rect x="868" y="84" width="204" height="150" fill="#D8BCD5" stroke="#2B2724" stroke-width="1"/>
+<text x="876" y="99" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724" font-weight="700" style="text-transform:uppercase" letter-spacing="0.8">5. Marks: set_drawings</text>
+<text x="876" y="113" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">drawings = plate + plan / drawing</text>
+<text x="876" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  / view entries (sheets: no)</text>
+<text x="876" y="139" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">overlays = (year, error m, kind)</text>
+<text x="876" y="152" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">score = best + 0.25 x the rest;</text>
+<text x="876" y="165" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  each: centuries x accuracy x</text>
+<text x="876" y="178" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  kind (drawing 1, sheet 0.6)</text>
+<text x="876" y="191" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">oldest = min year</text>
+<text x="876" y="204" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tier: t4 &gt;= 2.5, t3 &gt;= 1.6,</text>
+<text x="876" y="217" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">  t2 &gt;= 1.2, t1 &gt; 0, else plain</text>
+<line x1="232" y1="160" x2="238" y2="160" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="442" y1="160" x2="448" y2="160" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="652" y1="160" x2="658" y2="160" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<line x1="862" y1="160" x2="868" y2="160" stroke="#2B2724" stroke-width="1.1" marker-end="url(#arr)"/>
+<text x="550.0" y="268" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Files written</text>
+<line x1="28" y1="274" x2="1072" y2="274" stroke="#2B2724" stroke-width="0.8"/>
+<rect x="28" y="284" width="204" height="140" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="299" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">data/sites/&lt;id&gt;/site.json</text>
+<text x="36" y="311.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#6B625A">(name, lon/lat, width_m,</text>
+<text x="36" y="324.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724"> height_m, px_m, kind, wiki)</text>
+<line x1="130.0" y1="234" x2="130.0" y2="284" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="238" y="284" width="204" height="140" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="246" y="299" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">data/sites/&lt;id&gt;/dem.npy</text>
+<text x="246" y="311.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  dem_box.json, dem_credit.json</text>
+<text x="246" y="324.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  modern_mask.npy (caches)</text>
+<text x="246" y="336.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">web/data/sites/&lt;id&gt;/</text>
+<text x="246" y="349.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  relief.jpg</text>
+<text x="246" y="361.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  block_h.png, block_top.jpg</text>
+<text x="246" y="374.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  imagery.jpg (US; not shown)</text>
+<text x="246" y="386.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  plate_ink.webp, plate_paper</text>
+<text x="246" y="399.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">    (the six 1848 plate sites)</text>
+<line x1="340.0" y1="234" x2="340.0" y2="284" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="448" y="284" width="204" height="140" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="456" y="299" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">web/data/sites/&lt;id&gt;/</text>
+<text x="456" y="311.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  &lt;layer&gt;.webp  (tmk1850.webp)</text>
+<text x="456" y="324.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  &lt;layer&gt;_ink.webp</text>
+<text x="456" y="336.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  depictions.json</text>
+<text x="456" y="349.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">   {kind: map, year, label,</text>
+<text x="456" y="361.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">    corners, coverage, source}</text>
+<line x1="550.0" y1="234" x2="550.0" y2="284" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="658" y="284" width="204" height="140" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="666" y="299" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">web/data/sites/&lt;id&gt;/</text>
+<text x="666" y="311.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  plan_&lt;plan&gt;.webp</text>
+<text x="666" y="324.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  plan_&lt;plan&gt;_ink.webp</text>
+<text x="666" y="336.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  depictions.json entry</text>
+<text x="666" y="349.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">   {kind: plan|view, year,</text>
+<text x="666" y="361.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">    fit: {resid_m, m_per_px,</text>
+<text x="666" y="374.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">     rot_deg, at, doc}}</text>
+<text x="666" y="386.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">data/raw/commons/big/ (cache)</text>
+<line x1="760.0" y1="234" x2="760.0" y2="284" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="868" y="284" width="204" height="140" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="876" y="299" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">web/data/sites.json entry</text>
+<text x="876" y="311.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724"> {id, name, place, corners,</text>
+<text x="876" y="324.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  size_m, block, lidar, plate,</text>
+<text x="876" y="336.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  drawings, score, oldest,</text>
+<text x="876" y="349.0" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#2B2724">  overlays, lidar_credit}</text>
+<text x="876" y="361.5" font-size="9.5" font-family="Menlo, Consolas, 'Courier New', monospace" fill="#6B625A">(locked, replaced atomically)</text>
+<line x1="970.0" y1="234" x2="970.0" y2="284" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<text x="550.0" y="458" font-size="12" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">What the page does with them</text>
+<line x1="28" y1="464" x2="1072" y2="464" stroke="#2B2724" stroke-width="0.8"/>
+<rect x="28" y="474" width="204" height="58" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="36" y="489" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sites.json -&gt; markers and the</text>
+<text x="36" y="502" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">site list; corners place every</text>
+<text x="36" y="515" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">image layer on the globe</text>
+<line x1="130.0" y1="424" x2="130.0" y2="474" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="238" y="474" width="204" height="58" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="246" y="489" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">relief.jpg = ground when</text>
+<text x="246" y="502" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"LiDAR relief" is on; the block</text>
+<text x="246" y="515" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">sheet reads block_h + block_top</text>
+<line x1="340.0" y1="424" x2="340.0" y2="474" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="448" y="474" width="204" height="58" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="456" y="489" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"Survey maps and aerials"</text>
+<text x="456" y="502" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">buttons; ink or paper mode;</text>
+<text x="456" y="515" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">surveyOldEnough() hides &lt; 150 y</text>
+<line x1="550.0" y1="424" x2="550.0" y2="474" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="658" y="474" width="204" height="58" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="666" y="489" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">"Old drawings of the site"</text>
+<text x="666" y="502" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">buttons; a site opens on its</text>
+<text x="666" y="515" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">first drawing in ink</text>
+<line x1="760.0" y1="424" x2="760.0" y2="474" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="868" y="474" width="204" height="58" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="876" y="489" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">tier t1-t4 = square size and</text>
+<text x="876" y="502" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">colour; plain squares only</text>
+<text x="876" y="515" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">with "More sites"</text>
+<line x1="970.0" y1="424" x2="970.0" y2="474" stroke="#6B625A" stroke-width="1.1" marker-end="url(#arr2)"/>
+<rect x="28" y="548" width="1044" height="66" fill="#F8F4E8" stroke="#2B2724" stroke-width="1"/>
+<text x="550.0" y="563" font-size="11" font-family="Georgia, 'Times New Roman', 'Iowan Old Style', serif" fill="#2B2724" text-anchor="middle" style="text-transform:uppercase" letter-spacing="2">Explanation</text>
+<rect x="38.0" y="574" width="22" height="12" fill="#C4D9A6" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="584" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">catalog</text>
+<rect x="38.0" y="592" width="22" height="12" fill="#9ED8D8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="68.0" y="602" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">ground (LiDAR / aerial)</text>
+<rect x="386.0" y="574" width="22" height="12" fill="#F2C48D" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="584" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">old survey sheets</text>
+<rect x="386.0" y="592" width="22" height="12" fill="#F2B5C4" stroke="#2B2724" stroke-width="0.9"/>
+<text x="416.0" y="602" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">fitted drawings</text>
+<rect x="734.0" y="574" width="22" height="12" fill="#D8BCD5" stroke="#2B2724" stroke-width="0.9"/>
+<text x="764.0" y="584" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">marker scoring</text>
+<rect x="734.0" y="592" width="22" height="12" fill="#F8F4E8" stroke="#2B2724" stroke-width="0.9"/>
+<text x="764.0" y="602" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2B2724">files</text>
+<text x="28" y="640" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6B625A" font-style="italic">build_catalog.py runs stages 1-3 for new sites; stage 4 runs on every save (serve.py) or with pipeline/plan_fit.py; stage 5 runs after each fit and with build_site.py --marks.</text>
+</svg>

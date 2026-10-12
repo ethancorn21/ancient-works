@@ -5,6 +5,57 @@
    "plan": "earthworkenglan01allcgoog_n0110_1",
    "title": "Castle Neroche, Somerset",
    "url": "books/earthworkenglan01allcgoog/n0110.jpg",
+   "pairs": [
+    [
+     790.6,
+     2573.4,
+     -3.0397794,
+     50.9368971
+    ],
+    [
+     878.5,
+     1500.2,
+     -3.0389773,
+     50.9405914
+    ],
+    [
+     878.5,
+     2706.6,
+     -3.0393369,
+     50.9364202
+    ],
+    [
+     745.3,
+     2706.6,
+     -3.0400675,
+     50.9364452
+    ],
+    [
+     811.9,
+     2680.0,
+     -3.0396942,
+     50.9365248
+    ],
+    [
+     769.3,
+     2626.7,
+     -3.0399122,
+     50.936717
+    ],
+    [
+     745.3,
+     2600.1,
+     -3.0400357,
+     50.9368136
+    ],
+    [
+     745.3,
+     2653.3,
+     -3.0400516,
+     50.9366294
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); the gate's 6.5 m measures internal consistency of the anchors, not their truth",
    "evidence": {
     "rec": "evidence/1",
     "checked": "2026-10-10",
@@ -29,14 +80,7 @@
     "runner_up": 0,
     "why": []
    },
-   "pairs": [],
-   "coarse": false,
-   "ground": "relief",
-   "scale_m_px": 0.1429,
-   "rot_deg": 0.0,
-   "scale_source": "bar",
-   "note": "scale from the scale bar: '0 100 200 300 Feet'",
-   "why": "the model recorded no usable pairs"
+   "gate_score": 6.5
   },
   {
    "plan": "earthworkenglan01allcgoog_n0438_1",
@@ -141,6 +185,64 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: North-eastern rampart corner, Central gate gap, South-eastern rampart corner, South-western rampart corner, Road junction at south-west, Field edge at south-east; only 17% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_44529cdbe2d10a9c",
+   "title": "Castle Neroche Somerset Map",
+   "url": "media/commons/castle-neroche-q5050201/44529cdbe2d10a9c.jpg",
+   "pairs": [
+    [
+     100.0,
+     500.0,
+     -3.0472186,
+     50.9373447
+    ],
+    [
+     500.0,
+     400.0,
+     -3.0386656,
+     50.9386921
+    ],
+    [
+     900.0,
+     500.0,
+     -3.0301126,
+     50.9373447
+    ],
+    [
+     500.0,
+     700.0,
+     -3.0386656,
+     50.9346497
+    ],
+    [
+     500.0,
+     200.0,
+     -3.0386656,
+     50.9413869
+    ],
+    [
+     100.0,
+     600.0,
+     -3.0472186,
+     50.9359972
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Castle Neroche",
+    "place_qid": "Q5050201",
+    "place_label": "Castle Neroche",
+    "place_lon": -3.03796,
+    "place_lat": 50.9369,
+    "site_lon": -3.03796,
+    "site_lat": 50.9369,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,
