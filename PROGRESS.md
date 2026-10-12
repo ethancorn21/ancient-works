@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 186, agent a - BOXES 5 AND 6 DONE. Box 5: docs/sources.md section 9 (per-lead staged/dropped consolidated from the docs/lead_*.
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 187, agent a - GATE STILL OPEN: all seven of 222-228 are
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,56 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)
-- Session 183. Run 3 (23 ids) finished 23/23 by ~22:05Z but the runner DIED at
-  therouanne: its build hit `OSError: [Errno 28] No space left on device` in
-  depict.py's layer save (the shared 48G disk filled - agent c's /tmp/loop-ancient-
-  works.c had grown to 3.5G that evening) and run_build's own log() then raised on
-  write, killing the process mid-line (truncated `=== therouanne-q261399 FAILED ==`;
-  valenciennes/vieil-hesdin never started). build_catalog itself survives per-site
-  exceptions (prints "built 0, skipped 0, failed 1", exits 0) - the death is the
-  runner's log write, and log() has no error handling.
-- Fix (my own file, in Touches): data/merge/run_build.py now accepts --force, forwarded
-  to build_catalog (its ONLY effect is the `sid in built and not a.force` skip guard;
-  a no-op for ids not in sites.json). Critical: without --force a site that is in
-  sites.json but only half-built (entry written by the killed build, maps missing) is
-  skipped FOREVER by every later run. Resumed `nohup .venv/bin/python data/merge/
-  run_build.py --force therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 &`
-  - all ok by 22:16Z (therouanne rebuilt in place: score 1.01, overlays 2, oldest
-  1780). Disk recovered to 2.6-6G during the run.
-- Then found the SECOND orphan: the-hague-q36600 sat half-built (relief+block but no
-  maps/depictions.json, entry score 0/overlays 0) since RUN 2's kill at 20:27Z (unlogged
-  sessions): its build_catalog child was killed mid LiDAR-load, the completion lines
-  were lost, and the later third invocation (20:40Z: utrecht + ostend/mons/saint-
-  ghislain/tournai) never included it; sessions 178-182's monitoring missed it (the
-  entry looks plausible: it has lidar_credit and relief.jpg). Forensic tell: the orphan
-  `marks refreshed: lille-q648` log line is a later session that built lille directly
-  (output never logged) and refreshed its marks via `run_build.py --marks-only`. The
-  previous hand-over's run inventory had missed that third invocation entirely; the
-  true new-site set is the 114 below, not the "20 target sids".
-- Audit (the machinery's own logic, over all 114 new sids): a site is complete iff
-  (a) relief.jpg ⇔ lidar_credit, and (b) a coverable old-map layer (depict.LAYERS:
-  covers(L, lon, lat) and L["year"] <= tm_year - MIN_AGE_YEARS) ⇒ depictions.json
-  exists. Exactly one violator: the-hague (tmk1850 covers it). Rebuilt with --force:
-  ok 22:22Z (score 0.91, overlays 1, oldest 1850, tmk1850 100% coverage). A broad
-  "overlays field vs depictions count" audit is a dead end (340/499 entries differ -
-  pre-existing; the field is not maintained that way); the covers⇒depictions rule is
-  the sound one.
-- FINAL BUILD STATE verified against the true pre-build baseline, commit 406562b
-  ("uncommitted work after iteration 137" - the last commit before 211's first build at
-  19:55Z): 385 entries then, 499 now = 385 + 114 added, 0 removed, 0 changed (all 385
-  object-identical). The 114 = UK houses (11), NL (12), BE (~12), ~38 German Limes
-  forts, FR/LU towns (~40), IT (imola, venice). NOTE: the box's "old 384" is the
-  human's estimate; the measured pre-build count is 385 - the tests are set to the
-  measured value (permitted deviation, listed here; the human's 384 stood for
-  "the pre-merge served set", which is 385).
-- LOG CAVEAT for the next session's test design: build_sites.log (890 lines) has LOST
-  per-site lines for ~65 of the 114 (killed runs; both the old runner format without
-  `ok` lines and lost lines). The data is the source of truth; do not assert per-sid
-  terminal log lines in the test.
-- 222-228 re-checked: still OPEN, no fix commits on main (branch in sync with main tip
-... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)' DECISIONS.md`)
 
 ### 2026-10-12 211 DECISION: box 3 verified and ticked (the tests were written in the unlogged session and pass 9/9 this session); merged main per the lead's mid-session instruction (7e61147 skips the 1.6 GB .npy/.npz grids in full-tree test copies - the 48G disk was at 1 GB)
 - Session 185. Box 3's tests already existed in the worktree at session start (committed by the
@@ -154,6 +104,38 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   the golden file is unchanged. All 19 golden sites have web/data/sites/<sid>/depictions.json
   in this checkout, so the test's per-site depictions assertion (a plan/view depiction
 ... (0.9 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them' DECISIONS.md`)
+
+### 2026-10-12 211 DECISION: gate still open (222-228 all Status: open, main moved nothing since the 186 sync) - no re-run, no claim; the imagecodecs open thread becomes task 229 (Depends on: 302a, 304)
+- Session 187. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`, and my branch tip (6ad8570) already contains main's tip (7e61147; only
+  driver bookkeeping commits in between), so since the 186 suite run nothing on main
+  changed and the red set is still exactly the 10 222-228 source-guard failures. Per the
+  hand-over the done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (it would measure the same red set;
+  the driver re-checks the suite at claim time anyway).
+- The session's one step: the open thread (imagecodecs 2026.10.10 in the .venv but not in
+  requirements.in/.txt) is now a durable unit of work - filed tasks/229-imagecodecs-
+  pin.md (Status: open; lowest free number in 200-499; Depends on: 302a, 304 because
+  both own requirements.in/.txt in flight; Touches: requirements.in, requirements.txt,
+  PITFALLS.md). Facts re-verified this session before filing: the .venv has imagecodecs
+  2026.10.10 and NO numba/llvmlite (its only hard dep is the already-pinned numpy, so
+  the pin adds one package); it is absent from requirements.in and requirements.txt
+  (task 800 pinned the old set at iteration 14, before the package entered the story);
+  the usage is the AHN Float32 DEM decode (pipeline/build_site.py:load_dem ->
+  aw.fetch_dem -> dem_sources.fetch/_ahn_native; all seven AHN sites built with it, 0
+  failures); data/raw holds no AHN raw files (WCS responses are decoded in flight, only
+  dem.npy persists), so 229's acceptance proves the decode in a from-scratch venv with a
+  working-phase fetch through the project's own machinery, not a stored-file replay.
+- PITFALLS.md: the pillow/imagecodecs entry's "What to do" line now names task 229
+  instead of the vague "when agent c's in-flight requirements work has landed"; the
+  heading and the rest of the entry stay true until 229 lands.
+- 229 is deliberately NOT on 211's Depends-on list: it does not block the 211 claim
+  (the driver's in-place .venv rebuild keeps the ad-hoc package until 229 lands).
+- Hand-over rewritten: the open thread is closed (it is 229 now); the claim trigger is
+  unchanged - all of 222-228 no longer open -> suite run (expect green) -> Status: done
+  -> claim citing the six boxes, the 381-row merge (0 refused / 0 conflicts), the 114
+  new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
+  the red set of 10 was 222-228's, and the 229 pin.
 
 ## Project-wide driver notes (newest)
 
