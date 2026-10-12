@@ -210,3 +210,35 @@ fails -> swallowed by the existing except-BaseException-and-print -> no new file
 for DELETEs either. The worker design from iteration 99/100 (PUT -> ("line", site) -> site_done.main
 ([site]) in-process with model=None, network-free; DELETE -> the old plan_fit sweep; a small job
 list drained per wake) is unchanged and still valid.
+
+## 2026-10-12 305 DECISION: part 2 (save -> one-site line) verified green - the pick rule generalized (population moved) and the drain was the bug, not the worker
+Ran the iteration-102-written part 2. Two failures, both fixed: (1) `_pick_site()` returned None -
+the population moved under the batch tasks since iteration 102: Devil's Dyke's last uncovered row
+(n0662_1) now has an agent doc, so EVERY queue site with a book page + item candidate is fully
+covered (batch items hold every non-auto row). Generalized: hard conditions = book row with a local
+page + unresolved item carrying it with >=3 pairs + NO platefits docs for the site (the line then
+builds exactly one overlay: drawings +1 and the open count drop by exactly one); "uncovered rows"
+became a soft preference (pick first, assertion block conditional). Current pick: forthill
+(ancientmonuments00squi_n0068_1, 0 uncovered, 3 pairs). (2) The fixture's `sd.unlink()` crashed on
+a real per-site dir (forthill) - copytree already materializes the checkout's per-site symlinks into
+the tree, so the unlink/re-copy was unnecessary and wrong; deleted it (real dirs are already
+private; the test's symlink + realpath asserts still guard). Then the first full run: PUT ok, the
+drawing landed on the map (depictions poll passed) but the 30 s drain for "finished (exit 0)" timed
+out with only the PUT log line visible. Investigation (throwaway /tmp/diag305*.py, raw os.read
+reader + watchdog dumps): NO hang - the whole one-site line finishes in 23 s (PUT at +1 s, first
+worker print and "finished (exit 0)" at +23 s; the ~22 s is the heavy first import of the
+numpy/scipy/PIL chain). The drain pattern was the bug: select() on the fd of a buffered reader
+(proc.stdout, text mode) is not a wait for lines - the first readline() pre-fetched the OS pipe
+into Python's buffer and select never fired again; a second run also showed a whole-process stall
+of minutes (its watchdog time.sleep(60) never woke - an OS-level thing under parallel-agent load,
+not a Python deadlock: the identical run completes in 23 s elsewhere). Fix in tests/test_fit_queue.py:
+the server's stdout is pulled by a dedicated reader thread (blocking reads, no select at all), the
+fit-entry poll and the "finished" wait merged into one 180 s loop (8x the measured 23 s; the server-
+stays-up assert runs every tick), and the network-freedom / no-failure asserts scan the collected
+lines. Part 1 (synthetic + real population) unchanged and green. Full suite after: 71 passed,
+1 skipped (baseline 70+1; the +1 is part 2). web/data/fit_queue.json re-generated: content identical
+(117 entries, same order - the batch docs are agent docs, which do not move a site out of the queue),
+only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + buffered reader on a
+coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
+real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
+section (box 1's "say how" + the card/save->line semantics).
