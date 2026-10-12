@@ -1097,6 +1097,85 @@
   "triaged_A": 292,
   "flagged_site_pages_stageA": 3,
   "stageF_pages": 118,
-  "flagged_site_pages": 11
+  "flagged_site_pages": 11,
+  "figures": {
+   "listed": 121,
+   "expected": null,
+   "parsed_with_page_on_a_leaf": 121,
+   "site": 7,
+   "unsure": 3,
+   "other": 111,
+   "gt_site_pages": 7,
+   "recall_pages": 0.429,
+   "recall_pages_pm1": 0.429,
+   "flagged_nonplate_pages": 11,
+   "precision_strict": 0.273,
+   "precision_lenient": 0.273,
+   "flagged_on_other_only_pages": [
+    30,
+    62,
+    65,
+    66,
+    93,
+    105,
+    186,
+    229
+   ],
+   "flagged_not_in_list": [],
+   "missed_pages": [
+    58,
+    85,
+    98,
+    109
+   ],
+   "stage_A_only": {
+    "recall": 0.143,
+    "precision_strict": 0.333,
+    "precision_lenient": 1.0,
+    "flagged": 3
+   }
+  }
+ },
+ {
+  "book": "merian_helvete00zeil",
+  "ia": "topographiahelve00zeil",
+  "pages": 400,
+  "triaged_A": 400,
+  "flagged_site_pages_stageA": 66,
+  "stageF_pages": 108,
+  "flagged_site_pages": 8,
+  "figures": {
+   "listed": 80,
+   "expected": null,
+   "parsed_with_page_on_a_leaf": 68,
+   "site": 11,
+   "unsure": 8,
+   "other": 61,
+   "gt_site_pages": 10,
+   "recall_pages": 0.5,
+   "recall_pages_pm1": 0.5,
+   "flagged_nonplate_pages": 8,
+   "precision_strict": 0.625,
+   "precision_lenient": 0.625,
+   "flagged_on_other_only_pages": [
+    246,
+    350,
+    384
+   ],
+   "flagged_not_in_list": [],
+   "missed_pages": [
+    32,
+    66,
+    134,
+    218,
+    298
+   ],
+   "stage_A_only": {
+    "recall": 0.1,
+    "precision_strict": 0.015,
+    "precision_lenient": 0.015,
+    "flagged": 66
+   }
+  }
  }
 ]

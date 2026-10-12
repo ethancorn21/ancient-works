@@ -8,6 +8,11 @@ written outside the project and the temp dir:
 - on a synthetic tree the failure paths are fail-closed: a conflict keeps the first row and records the drop,
   a picture row without the 200 evidence field (or of kind "none") is refused, and the run exits 1 - stable
   across reruns.
+
+Box 2 (the rebuilt book index): the test asserts the data-level result, never a rebuild - every index row
+and every titled files row carries the 200 evidence field, the index rows join to their stage-A triage,
+`fit/evidence.py check` passes offline on the merged set, and `record` is a byte-identical no-op once every
+row is recorded.
 """
 import hashlib
 import json
@@ -167,6 +172,57 @@ def test_conflict_and_rejection_are_fail_closed(tmp_path):
     assert proc2.returncode == 1
     after = hashes(watched)
     assert before == after, "the second run must change nothing, refusal included"
+
+
+def test_index_and_plan_list_rows_carry_evidence():
+    """Full-data invariant (no rebuild): every book-index row and every titled files row carries the 200
+    evidence field; every index row joins to its book's stage-A triage; the offline re-check passes."""
+    idx = [json.loads(l) for l in _lines(os.path.join(ROOT, "data/books/index.jsonl"))]
+    assert idx, "the book index is empty"
+    for r in idx:
+        ev = r.get("evidence")
+        assert isinstance(ev, dict) and ev.get("rec") == "evidence/1", f"{r['id']}: no 200 evidence field"
+        # the index is regenerated from the per-book artifacts: a row can only exist for a triaged book
+        assert os.path.exists(os.path.join(ROOT, "data/books/triage", r["ia_id"] + ".A.jsonl")), r["id"]
+        assert r["id"].startswith(r["ia_id"] + "_n"), r["id"]
+    for r in [json.loads(l) for l in _lines(os.path.join(ROOT, "data/commons/files.jsonl"))]:
+        if r.get("title"):
+            ev = r.get("evidence")
+            assert isinstance(ev, dict) and ev.get("rec") == "evidence/1", f"{r['site']}|{r['title']}: no 200 evidence field"
+    # the offline re-check over the merged set: every recorded tie re-verifies from stored fields (rc 0, no FAIL)
+    proc = subprocess.run([sys.executable, "fit/evidence.py", "check"], cwd=ROOT, capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stdout[-2000:]
+    assert " 0 fail" in proc.stdout, proc.stdout[-2000:]
+
+
+def test_record_appends_evidence_and_rerun_is_a_noop(tmp_path):
+    """Small fixed sample: record appends the evidence field to a row missing it (the stored fields keep
+    their values), leaves an already-recorded row byte-identical, and a second run changes nothing."""
+    books = tmp_path / "index.jsonl"
+    files = tmp_path / "files.jsonl"
+    bare = json.dumps({"id": "zzzbook_n0001_1", "book": "zzzbook", "title": "No such place on any sheet"},
+                      ensure_ascii=False) + "\n"
+    done = json.dumps({"id": "zzzbook_n0002_1", "book": "zzzbook", "title": "Kept row",
+                       "evidence": {"rec": "evidence/1", "kind": "caption_coords", "score": 0.9}},
+                      ensure_ascii=False) + "\n"
+    books.write_text(bare + done, encoding="utf-8")
+    files_text = json.dumps({"site": "s-sentinel"}) + "\n"  # no title: never recorded
+    files.write_text(files_text, encoding="utf-8")
+    argv = [sys.executable, os.path.join(ROOT, "fit/evidence.py"), "record", "--files", str(files), "--books", str(books)]
+    proc = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True)
+    assert proc.returncode == 0, proc.stderr + proc.stdout
+    lines = open(books, encoding="utf-8").read().splitlines()
+    got = json.loads(lines[0])
+    assert got["evidence"]["rec"] == "evidence/1", "the bare row must be recorded"
+    for k, v in json.loads(bare).items():
+        assert got[k] == v, f"existing field {k} changed by record"
+    assert lines[1] == done.rstrip("\n"), "an already-recorded row must stay byte-identical"
+    assert open(files, encoding="utf-8").read() == files_text, "the sentinel files row has no title: untouched"
+    h = {p: hashlib.sha256(open(p, "rb").read()).hexdigest() for p in (str(books), str(files))}
+    proc2 = subprocess.run(argv, cwd=ROOT, capture_output=True, text=True)
+    assert proc2.returncode == 0, proc2.stderr + proc2.stdout
+    assert {p: hashlib.sha256(open(p, "rb").read()).hexdigest() for p in (str(books), str(files))} == h, \
+        "the second record run must change nothing"
 
 
 if __name__ == "__main__":
