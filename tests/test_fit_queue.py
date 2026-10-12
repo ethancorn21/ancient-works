@@ -832,8 +832,8 @@ def line_served(tmp_path_factory):
     for d in ("web", "server", "tools", "fit", "pipeline"):
         shutil.copytree(str(ROOT / d), str(tree / d))
 
-    def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+    def ignore(d, names):  # data/raw (book scans) and the gitignored elevation grids (data/sites/*/dem.npy)
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw") or n.endswith((".npy", ".npz"))]
 
     shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
     # the one page the line needs: a real file under the tree's own data/raw (the checkout's data/raw
@@ -1682,8 +1682,8 @@ def place_served(tmp_path_factory):
     for d in ("web", "server", "tools", "fit", "pipeline"):
         shutil.copytree(str(ROOT / d), str(tree / d))
 
-    def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+    def ignore(d, names):  # data/raw (book scans) and the gitignored elevation grids (data/sites/*/dem.npy)
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw") or n.endswith((".npy", ".npz"))]
 
     shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
     dst = tree / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]
