@@ -1,0 +1,6021 @@
+{
+ "at": "2026-10-12T00:11:48.039371+00:00",
+ "entries": [
+  {
+   "site": "devil-s-dyke-q3307343",
+   "name": "Devil's Dyke",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0686_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0686_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0686.jpg",
+     "title": "The Devil's Dyke Camp, near Brighton",
+     "label": "Fig. 217",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": null,
+     "sites": [
+      "devil-s-dyke-q3307343"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0686_1",
+     "title": "The Devil's Dyke Camp, near Brighton",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 17003350
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0662_1",
+     "title": "SWEALD",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 6078698
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0599_1",
+     "title": "CASTLE DYKE, AYSGARTH.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5320348
+    }
+   ]
+  },
+  {
+   "site": "fort-ancient-q5470727",
+   "name": "Fort Ancient",
+   "best": {
+    "plan": "ancientmonuments00squi_n0076_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "ancientmonuments00squi_n0076_1",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0076.jpg",
+     "title": "\"Fort Ancient,\" Warren county, Ohio",
+     "label": "Plate VII",
+     "size": [
+      2912,
+      4064
+     ],
+     "map_box": [
+      0.05,
+      0.09,
+      0.94,
+      0.92
+     ],
+     "sites": [
+      "fort-ancient-q5470727"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0076_1",
+     "title": "\"Fort Ancient,\" Warren county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 8742048
+    },
+    {
+     "plan": "b24849959_n0264_1",
+     "title": "Fort Ancient, Warren county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 7570307
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0188_1",
+     "title": "MAP OF FORT ANCIENT",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 1876361
+    }
+   ]
+  },
+  {
+   "site": "marietta",
+   "name": "Marietta Works",
+   "best": {
+    "plan": "ancientmonuments00squi_n0169_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "ancientmonuments00squi_n0169_1",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0169.jpg",
+     "title": "Marietta works, Washington county, Ohio",
+     "label": "Plate XXVI",
+     "size": [
+      3016,
+      4108
+     ],
+     "map_box": [
+      0.125,
+      0.085,
+      0.96,
+      0.92
+     ],
+     "sites": [
+      "marietta"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0169_1",
+     "title": "Marietta works, Washington county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 8638428
+    },
+    {
+     "plan": "b24849959_n0195_1",
+     "title": "The Marietta works",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5614600
+    },
+    {
+     "plan": "b24849959_n0361_1",
+     "title": "\u201cTemple Mound\u201d at Marietta",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 946776
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0178_1",
+     "title": "Earthworks at Marietta.",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 495366
+    }
+   ]
+  },
+  {
+   "site": "forthill",
+   "name": "Fort Hill",
+   "best": {
+    "plan": "ancientmonuments00squi_n0068_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "ancientmonuments00squi_n0068_1",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0068.jpg",
+     "title": "\"Fort Hill,\" Highland county, Ohio",
+     "label": "Plate V",
+     "size": [
+      2844,
+      4064
+     ],
+     "map_box": [
+      0.06,
+      0.09,
+      0.92,
+      0.9
+     ],
+     "sites": [
+      "forthill"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0068_1",
+     "title": "\"Fort Hill,\" Highland county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 8051314
+    },
+    {
+     "plan": "b24849959_n0269_1",
+     "title": "Fort Hill, Highland county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 7880724
+    },
+    {
+     "plan": "b24849959_n0270_1",
+     "title": "Map of the vicinity of Fort Hill",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 4658734
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0080_1",
+     "title": "FORT HILL",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 703479
+    }
+   ]
+  },
+  {
+   "site": "oswestry-castle-q20713795",
+   "name": "Oswestry Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0119_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0119_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0119.jpg",
+     "title": "Camp, Old Oswestry, Salop",
+     "label": "Fig. 17",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.198,
+      0.168,
+      0.875,
+      0.778
+     ],
+     "sites": [
+      "oswestry-castle-q20713795",
+      "coed-y-gaer-hillfort-q17642475",
+      "old-oswestry-hillfort-and-two-adjacent-s-q17673191"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0119_1",
+     "title": "Camp, Old Oswestry, Salop",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 7021873
+    }
+   ]
+  },
+  {
+   "site": "newark",
+   "name": "Newark Works",
+   "best": {
+    "plan": "ancientmonuments00squi_n0161_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "ancientmonuments00squi_n0161_1",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0161.jpg",
+     "title": "Newark works, Licking county, Ohio",
+     "label": "Plate XXV",
+     "size": [
+      3060,
+      4096
+     ],
+     "map_box": [
+      0.15,
+      0.08,
+      0.85,
+      0.85
+     ],
+     "sites": [
+      "newark"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0161_1",
+     "title": "Newark works, Licking county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 6755697
+    },
+    {
+     "plan": "b24849959_n0187_1",
+     "title": "The Newark works, Licking county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 6413675
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0422_1",
+     "title": "Fair Ground Circle, near Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 6180645
+    },
+    {
+     "plan": "b24849959_n0192_1",
+     "title": "The Fair Ground Circle at Newark",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 6048720
+    },
+    {
+     "plan": "b24849959_n0228_1",
+     "title": "Clark\u2019s works, or Hopewell group, Ross county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5981901
+    },
+    {
+     "plan": "b24849959_n0193_1",
+     "title": "The Square at Newark",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5784740
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0416_1",
+     "title": "Observatory Circle, near Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 5109705
+    },
+    {
+     "plan": "b24849959_n0186_1",
+     "title": "Six miles of Raccoon creek valley, Licking county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 3320320
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0596_1",
+     "title": "Square, Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 3228379
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0580_1",
+     "title": "Newark works, Licking county, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 3218911
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0588_1",
+     "title": "Observatory Circle, Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2438799
+    },
+    {
+     "plan": "b24849959_n0285_1",
+     "title": "Fort south-east of Newark.",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 2353929
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0584_1",
+     "title": "Fair Ground Circle, Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2207795
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0592_1",
+     "title": "Octagon, Newark, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2166138
+    },
+    {
+     "plan": "ancientmonuments00squi_n0214_4",
+     "title": "Map of section of Newark valley",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 1965527
+    },
+    {
+     "plan": "b24849959_n0189_1",
+     "title": "Minor work at Newark",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 1378129
+    },
+    {
+     "plan": "descriptionsofan00whit_n0034_4",
+     "title": "Fortified Summit, three miles South of Newark, Licking County",
+     "book": "Whittlesey 1850",
+     "view": false,
+     "draw_px": 1206354
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0098_1",
+     "title": "Earthworks at Newark.",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 578432
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0152_2",
+     "title": "HOPEWELL WORKS",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 529385
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0583_1",
+     "title": "Small iuclosure, Newark group. Licking county, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 475389
+    },
+    {
+     "plan": "ancientmonuments00squi_n0163_1",
+     "title": "Bird-shaped Mound, Newark, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 236067
+    }
+   ]
+  },
+  {
+   "site": "hopewell-culture-national-historical-par-q4315010",
+   "name": "Hopewell Culture National Historical Park",
+   "best": {
+    "plan": "annualreportofbu1218901891smit_n0138_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "annualreportofbu1218901891smit_n0138_1",
+     "book": "Thomas 1894",
+     "ia": "annualreportofbu1218901891smit",
+     "file": "n0138.jpg",
+     "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+     "label": "",
+     "size": [
+      1940,
+      3289
+     ],
+     "map_box": null,
+     "sites": [
+      "mazique-archeological-site-q6798604",
+      "poverty-point-q964745",
+      "hopewell-culture-national-historical-par-q4315010",
+      "effigy-mounds-national-monument-q1296201"
+     ],
+     "cite": "Cyrus Thomas, Report on the Mound Explorations of the Bureau of Ethnology, in 12th Annual Report of the Bureau of Ethnology 1890-91, Washington 1894",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "annualreportofbu1218901891smit_n0138_1",
+     "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 6380660
+    },
+    {
+     "plan": "b24849959_n0228_1",
+     "title": "Clark\u2019s works, or Hopewell group, Ross county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5981901
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0152_2",
+     "title": "HOPEWELL WORKS",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 529385
+    }
+   ]
+  },
+  {
+   "site": "poverty-point-q964745",
+   "name": "Poverty Point",
+   "best": {
+    "plan": "annualreportofbu1218901891smit_n0138_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "annualreportofbu1218901891smit_n0138_1",
+     "book": "Thomas 1894",
+     "ia": "annualreportofbu1218901891smit",
+     "file": "n0138.jpg",
+     "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+     "label": "",
+     "size": [
+      1940,
+      3289
+     ],
+     "map_box": null,
+     "sites": [
+      "mazique-archeological-site-q6798604",
+      "poverty-point-q964745",
+      "hopewell-culture-national-historical-par-q4315010",
+      "effigy-mounds-national-monument-q1296201"
+     ],
+     "cite": "Cyrus Thomas, Report on the Mound Explorations of the Bureau of Ethnology, in 12th Annual Report of the Bureau of Ethnology 1890-91, Washington 1894",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "annualreportofbu1218901891smit_n0138_1",
+     "title": "Copper plate from Mound No. 6, White's group (No. 8836, National Museum).",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 6380660
+    }
+   ]
+  },
+  {
+   "site": "coria-q3819299",
+   "name": "Coria",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0354_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0354_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0354.jpg",
+     "title": "ARDOCH, PERTHSHIRE.",
+     "label": "Fig. 109",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.13,
+      0.185,
+      0.85,
+      0.7
+     ],
+     "sites": [
+      "coria-q3819299",
+      "vindomora-q7932358",
+      "braughing-roman-town-q4958235",
+      "banovallum-q96359174"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0354_1",
+     "title": "ARDOCH, PERTHSHIRE.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 6304842
+    },
+    {
+     "plan": "c_d66bfb0db805d2cd",
+     "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1724160
+    },
+    {
+     "plan": "c_9e3b3344fd37469b",
+     "title": "Knowles 1909 Corbridge Excavations 05 Figure 2 Corstopitum the West Granary",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1112320
+    }
+   ]
+  },
+  {
+   "site": "vindomora-q7932358",
+   "name": "Vindomora",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0354_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0354_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0354.jpg",
+     "title": "ARDOCH, PERTHSHIRE.",
+     "label": "Fig. 109",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.13,
+      0.185,
+      0.85,
+      0.7
+     ],
+     "sites": [
+      "coria-q3819299",
+      "vindomora-q7932358",
+      "braughing-roman-town-q4958235",
+      "banovallum-q96359174"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0354_1",
+     "title": "ARDOCH, PERTHSHIRE.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 6304842
+    }
+   ]
+  },
+  {
+   "site": "castle-neroche-q5050201",
+   "name": "Castle Neroche",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0110_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0110_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0110.jpg",
+     "title": "Castle Neroche, Somerset",
+     "label": "Fig. 13",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.14,
+      0.18,
+      0.82,
+      0.72
+     ],
+     "sites": [
+      "castle-neroche-q5050201"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0110_1",
+     "title": "Castle Neroche, Somerset",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 6243630
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0438_1",
+     "title": "Defences of York, Roman, Norman, and Mediseval",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4949675
+    },
+    {
+     "plan": "c_07f59e5aeae2c114",
+     "title": "Earthwork of England, prehistoric, Roman, Saxon, Danish, Norman and medi\u00e6val; (1908) (14763476094)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2133760
+    },
+    {
+     "plan": "c_44529cdbe2d10a9c",
+     "title": "Castle Neroche Somerset Map",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 750737
+    }
+   ]
+  },
+  {
+   "site": "richard-s-castle-q17650937",
+   "name": "Richard's Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0453_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0453_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0453.jpg",
+     "title": "Richard's Castle, Herefordshire",
+     "label": "Fig. 137",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.15,
+      0.2,
+      0.85,
+      0.69
+     ],
+     "sites": [
+      "richard-s-castle-q17650937"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0453_1",
+     "title": "Richard's Castle, Herefordshire",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5832149
+    },
+    {
+     "plan": "c_96fa64eb44358b11",
+     "title": "Richard's Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1484924
+    }
+   ]
+  },
+  {
+   "site": "eaton-socon-castle-q5331372",
+   "name": "Eaton Socon Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0285_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0285_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0285.jpg",
+     "title": "British Village on Hampton Down, Bath",
+     "label": "Fig. 89",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.17,
+      0.23,
+      0.9,
+      0.69
+     ],
+     "sites": [
+      "martin-down-style-enclosure-bowl-barrow-q17676352",
+      "eaton-socon-castle-q5331372",
+      "wormegay-castle-q8036861",
+      "almondbury-castle-hill-q17647192"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0285_1",
+     "title": "British Village on Hampton Down, Bath",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5709725
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0557_1",
+     "title": "SITE OF WINDMILL, FIRLE HILL.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4044247
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0558_1",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 1923079
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0558_2",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 986194
+    },
+    {
+     "plan": "c_140ba00bcd9da549",
+     "title": "187 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147769526)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 935580
+    },
+    {
+     "plan": "c_beefc3808de9b125",
+     "title": "Plan of Eaton Socon (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 618969
+    },
+    {
+     "plan": "c_e4a764888b3a3db7",
+     "title": "Eaton Socon Castle Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 548720
+    }
+   ]
+  },
+  {
+   "site": "mount-caburn-q12062109",
+   "name": "Mount Caburn",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0700_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0700_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0700.jpg",
+     "title": "Mount Caburn, Lewes",
+     "label": "Fig. 223",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.11,
+      0.245,
+      0.81,
+      0.72
+     ],
+     "sites": [
+      "mount-caburn-q12062109"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0700_1",
+     "title": "Mount Caburn, Lewes",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5653614
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0556_1",
+     "title": "SITE OF WINDMILL, MOUNT CABURN.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4840854
+    }
+   ]
+  },
+  {
+   "site": "bramber-castle-q897538",
+   "name": "Bramber Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0456_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0456_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0456.jpg",
+     "title": "BRAMBER CASTLE",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.1,
+      0.25,
+      0.85,
+      0.68
+     ],
+     "sites": [
+      "bramber-castle-q897538"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0456_1",
+     "title": "BRAMBER CASTLE",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5483580
+    }
+   ]
+  },
+  {
+   "site": "beam-farm-woodland-archaeological-distri-q4876173",
+   "name": "Beam Farm Woodland Archaeological District",
+   "best": {
+    "plan": "b24849959_n0247_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "b24849959_n0247_1",
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0247.jpg",
+     "title": "Archaeological map of Miami county",
+     "label": "Fig. 51",
+     "size": [
+      2456,
+      4075
+     ],
+     "map_box": [
+      0.17,
+      0.11,
+      0.885,
+      0.875
+     ],
+     "sites": [
+      "beam-farm-woodland-archaeological-distri-q4876173",
+      "mount-nebo-archaeological-district-q6922372"
+     ],
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "b24849959_n0247_1",
+     "title": "Archaeological map of Miami county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5474235
+    }
+   ]
+  },
+  {
+   "site": "piketon-mounds-q14716786",
+   "name": "Piketon Mounds",
+   "best": {
+    "plan": "b24849959_n0300_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "b24849959_n0300_1",
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0300.jpg",
+     "title": "The \"Graded Way\" at Piketon.",
+     "label": "",
+     "size": [
+      2817,
+      4075
+     ],
+     "map_box": [
+      0.01,
+      0.42,
+      0.95,
+      0.92
+     ],
+     "sites": [
+      "piketon-mounds-q14716786"
+     ],
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "b24849959_n0300_1",
+     "title": "The \"Graded Way\" at Piketon.",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 5395259
+    },
+    {
+     "plan": "b24849959_n0299_1",
+     "title": "Graded Way, Pike county; from Squier and Davis",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 4175024
+    },
+    {
+     "plan": "b24849959_n0203_1",
+     "title": "The Barnes work. Pike county",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 3661000
+    },
+    {
+     "plan": "ancientmonuments00squi_n0194_1",
+     "title": "Graded Way, Pike county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 3107220
+    },
+    {
+     "plan": "ancientmonuments00squi_n0312_1",
+     "title": "Plan of Temple Mound with graded ascent",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 326983
+    }
+   ]
+  },
+  {
+   "site": "bokerley-dyke-q891218",
+   "name": "Bokerley Dyke",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0599_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0599_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0599.jpg",
+     "title": "CASTLE DYKE, AYSGARTH.",
+     "label": "Fig. 195",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.175,
+      0.268,
+      0.875,
+      0.715
+     ],
+     "sites": [
+      "castle-dyke-q5050065",
+      "castle-dyke-q31112898",
+      "bokerley-dyke-q891218",
+      "devil-s-dyke-q3307343"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0599_1",
+     "title": "CASTLE DYKE, AYSGARTH.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5320348
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0174_1",
+     "title": "earthworkenglan01allcgoog_n0174_1",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3115779
+    }
+   ]
+  },
+  {
+   "site": "gurnard-s-head-q5620199",
+   "name": "Gurnard's Head",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0262_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0262_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0262.jpg",
+     "title": "Castell-an-Dinas, Cornwall {after Cotton)",
+     "label": "Fig. 87",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.125,
+      0.21,
+      0.821,
+      0.64
+     ],
+     "sites": [
+      "gurnard-s-head-q5620199",
+      "castle-an-dinas-st-columb-major-q5050344",
+      "treryn-dinas-q17644367",
+      "roundwood-fort-q31114697"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0262_1",
+     "title": "Castell-an-Dinas, Cornwall {after Cotton)",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5088763
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0076_1",
+     "title": "Camp at Eamsheugh, St. Abb's Head {afUr Dr. Chridi;ton)",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 1870369
+    }
+   ]
+  },
+  {
+   "site": "ardotalia-q4788242",
+   "name": "Ardotalia",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0346_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0346_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0346.jpg",
+     "title": "Melandra, Derbyshire",
+     "label": "Fig. 107",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.15,
+      0.18,
+      0.78,
+      0.65
+     ],
+     "sites": [
+      "ardotalia-q4788242"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0346_1",
+     "title": "Melandra, Derbyshire",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 5034692
+    }
+   ]
+  },
+  {
+   "site": "alauna-q4708853",
+   "name": "Alauna",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0438_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0438_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0438.jpg",
+     "title": "Defences of York, Roman, Norman, and Mediseval",
+     "label": "Fig. 131",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.12,
+      0.25,
+      0.83,
+      0.66
+     ],
+     "sites": [
+      "rise-how-tower-25a-part-of-the-roman-fro-q17662940",
+      "alauna-q4708853",
+      "castle-neroche-q5050201",
+      "milefortlet-21-q6851204"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0438_1",
+     "title": "Defences of York, Roman, Norman, and Mediseval",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4949675
+    },
+    {
+     "plan": "c_b592f83a932f851d",
+     "title": "The Archaeological journal (1844) (14586480537)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1099520
+    },
+    {
+     "plan": "c_bcdd5cbcef3ea452",
+     "title": "Alauna - th\u00e9\u00e2tre 1695",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1027444
+    },
+    {
+     "plan": "c_e7c09f2a1fc5360e",
+     "title": "Alauna - th\u00e9\u00e2tre Caylus",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 812911
+    },
+    {
+     "plan": "c_36ba572df9678a2a",
+     "title": "Britannia Romana- or the Roman antiquities of Britain- in three books Fleuron T114864-2",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 588594
+    }
+   ]
+  },
+  {
+   "site": "totternhoe-castle-q7828481",
+   "name": "Totternhoe Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0440_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0440_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0440.jpg",
+     "title": "Tottemhoe, Beds",
+     "label": "Fig. 133",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.24,
+      0.09,
+      0.65,
+      0.78
+     ],
+     "sites": [
+      "totternhoe-castle-q7828481"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0440_1",
+     "title": "Tottemhoe, Beds",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4810248
+    }
+   ]
+  },
+  {
+   "site": "bury-castle-q5001077",
+   "name": "Bury Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0136_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0136_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0136.jpg",
+     "title": "Bury Castle, Selworthy, Somerset",
+     "label": "Fig. 23",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.1,
+      0.27,
+      0.85,
+      0.61
+     ],
+     "sites": [
+      "bury-castle-q5001077",
+      "bury-castle-an-iron-age-defended-settlem-q17645827",
+      "earthworks-w-of-bury-q17647019",
+      "round-cairn-cemetery-570m-east-of-selwor-q17672445"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0136_1",
+     "title": "Bury Castle, Selworthy, Somerset",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4335854
+    },
+    {
+     "plan": "c_de779031cda8a0dc",
+     "title": "Bury Castle Somerset Map",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 280250
+    }
+   ]
+  },
+  {
+   "site": "windmill-hill-q4348373",
+   "name": "Windmill Hill",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0557_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0557_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0557.jpg",
+     "title": "SITE OF WINDMILL, FIRLE HILL.",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.175,
+      0.33,
+      0.885,
+      0.665
+     ],
+     "sites": [
+      "windmill-hill-q4348373",
+      "eaton-socon-castle-q5331372",
+      "the-mount-a-medieval-windmill-mound-670m-q17671945",
+      "windmill-hill-q24660697"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0557_1",
+     "title": "SITE OF WINDMILL, FIRLE HILL.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 4044247
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0558_1",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 1923079
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0558_2",
+     "title": "WINDMILL SITES, LEWES DOWN",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 986194
+    }
+   ]
+  },
+  {
+   "site": "cawthorne-camp-q5055239",
+   "name": "Cawthorne Camp",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0325_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0325_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0325.jpg",
+     "title": "Cawthorn Camps, Pickering, Yorks",
+     "label": "Fig. 97",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.158,
+      0.288,
+      0.875,
+      0.605
+     ],
+     "sites": [
+      "cawthorne-camp-q5055239",
+      "pickering-castle-q7190805"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0325_1",
+     "title": "Cawthorn Camps, Pickering, Yorks",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3864674
+    }
+   ]
+  },
+  {
+   "site": "pickering-castle-q7190805",
+   "name": "Pickering Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0325_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0325_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0325.jpg",
+     "title": "Cawthorn Camps, Pickering, Yorks",
+     "label": "Fig. 97",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.158,
+      0.288,
+      0.875,
+      0.605
+     ],
+     "sites": [
+      "cawthorne-camp-q5055239",
+      "pickering-castle-q7190805"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0325_1",
+     "title": "Cawthorn Camps, Pickering, Yorks",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3864674
+    }
+   ]
+  },
+  {
+   "site": "silbury-hill-q225896",
+   "name": "Silbury Hill",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0173_2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0173_2",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0173.jpg",
+     "title": "",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.235,
+      0.48,
+      0.845,
+      0.79
+     ],
+     "sites": [
+      "silbury-hill-q225896",
+      "west-kennet-long-barrow-q541312"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0173_2",
+     "title": "earthworkenglan01allcgoog_n0173_2",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3215333
+    }
+   ]
+  },
+  {
+   "site": "west-kennet-long-barrow-q541312",
+   "name": "West Kennet Long Barrow",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0173_2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0173_2",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0173.jpg",
+     "title": "",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.235,
+      0.48,
+      0.845,
+      0.79
+     ],
+     "sites": [
+      "silbury-hill-q225896",
+      "west-kennet-long-barrow-q541312"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0173_2",
+     "title": "earthworkenglan01allcgoog_n0173_2",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3215333
+    }
+   ]
+  },
+  {
+   "site": "stonehenge-q39671",
+   "name": "Stonehenge",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0582_1",
+    "reason": "a true plan",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0582_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0582.jpg",
+     "title": "EARTHWORKS OF STONEHENGE.",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.19,
+      0.32,
+      0.78,
+      0.62
+     ],
+     "sites": [
+      "stonehenge-q39671",
+      "coneybury-henge-q17672779",
+      "bell-barrow-100m-east-of-stonehenge-imme-q17673274",
+      "bowl-barrow-150m-east-of-stonehenge-cott-q17662037"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0582_1",
+     "title": "EARTHWORKS OF STONEHENGE.",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3009593
+    },
+    {
+     "plan": "c_022604d2be0becdc",
+     "title": "47 of 'Stonehenge- plans, descriptions and theories' (11135894643)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2081280
+    },
+    {
+     "plan": "c_9d3c66e9ed1a5215",
+     "title": "0001-Ground-plan-of-Stonehenge-q75-1139x1590",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1811010
+    },
+    {
+     "plan": "c_098c4cb138676939",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 143.\u2014Ground-plan of Stonehenge as it probably was. (Stevens.)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1658880
+    },
+    {
+     "plan": "c_897a5c1632e2fdd6",
+     "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.\u2014Ground-plan of Stonehenge as it is. (Stevens.)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1359585
+    },
+    {
+     "plan": "c_20f9f11153a0b7f0",
+     "title": "Knight-Stonehenge-Restored-plan-q85-1165x1066",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1241890
+    },
+    {
+     "plan": "c_98b1e7a4534b54b5",
+     "title": "View of Stonehenge and ground plans by Wood, Jones, Smith, and Stukeley - DPLA - a7987bd31e89b5a0e984cf2c7c04bd80",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1172480
+    },
+    {
+     "plan": "c_6933e3a931a0240a",
+     "title": "Rude Stone Monuments 0128",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1170400
+    },
+    {
+     "plan": "c_83b4d6df7a6d2383",
+     "title": "Plattegrond van de Stonehenge, RP-P-2018-849",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1125120
+    },
+    {
+     "plan": "c_f8386b6404e4ee63",
+     "title": "29 of '(Our own country. Descriptive, historical, pictorial.)' (11298369994)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1091001
+    },
+    {
+     "plan": "c_2559c7f8dbce0244",
+     "title": "49 of 'Stonehenge- plans, descriptions and theories' (11133409654)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1015040
+    },
+    {
+     "plan": "c_97c1bf9ac3714bbe",
+     "title": "31 of '(Our own country. Descriptive, historical, pictorial.)' (11182140263)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 913920
+    },
+    {
+     "plan": "c_ffb3daac218b481f",
+     "title": "The new Larned History for ready reference, reading and research; the actual words of the world's best historians biographers and specialists; a complete system of history for all uses, extending to (14597089967)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1140480
+    }
+   ]
+  },
+  {
+   "site": "desborough-castle-q5263651",
+   "name": "Desborough Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0465_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0465_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0465.jpg",
+     "title": "Desborough Castle, High Wycombe, Bucks",
+     "label": "Fig. 149",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.25,
+      0.28,
+      0.8,
+      0.6
+     ],
+     "sites": [
+      "desborough-castle-q5263651",
+      "desborough-castle-q109499299",
+      "camp-on-church-hill-q17648696"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0465_1",
+     "title": "Desborough Castle, High Wycombe, Bucks",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 2992590
+    }
+   ]
+  },
+  {
+   "site": "pontefract-castle-q1949590",
+   "name": "Pontefract Castle",
+   "best": {
+    "plan": "c_d8feeea17f3f5dc2",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_d8feeea17f3f5dc2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14576238467)",
+     "label": "1807",
+     "size": [
+      1280,
+      2176
+     ],
+     "map_box": null,
+     "sites": [
+      "pontefract-castle-q1949590"
+     ],
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_history_of_the_ancient_borough_of_Pontefract,_containing_an_interesting_account_of_its_castle,_and_the_three_different_sieges_it_sustained,_during_the_civil_war,_with_notes_and_pedigrees,_of_some_(14576238467).jpg",
+     "url": "media/commons/pontefract-castle-q1949590/d8feeea17f3f5dc2.jpg",
+     "view": false,
+     "ref": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14576238467).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d8feeea17f3f5dc2",
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14576238467)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2785280
+    },
+    {
+     "plan": "c_3213330a52fe6018",
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739695456)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2718144
+    },
+    {
+     "plan": "c_d135fb32326df430",
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2536960
+    },
+    {
+     "plan": "c_ba5dfa2d2dbc645e",
+     "title": "22 of 'Supplement to the Sieges of Pontefract Castle, etc' (11186220555)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1730560
+    },
+    {
+     "plan": "c_76bab4016b6599a2",
+     "title": "8 of 'Collections towards the History of Pontefract. (Edited by R. Holmes.)' (11151748296)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1694720
+    },
+    {
+     "plan": "c_a63b8d2d96eba256",
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762784215)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1216000
+    },
+    {
+     "plan": "c_1e55f433c81a776b",
+     "title": "Reproductie van een plattegrond van Pontefract, RP-F-2001-7-1150-11",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1134080
+    },
+    {
+     "plan": "c_3ee1e830d537450c",
+     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739759706)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 896000
+    },
+    {
+     "plan": "c_8bf10bed29a07c53",
+     "title": "Pontefract Castle 1648",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 228800
+    }
+   ]
+  },
+  {
+   "site": "plum-bayou-mounds-archeological-state-pa-q7814641",
+   "name": "Plum Bayou Mounds Archeological State Park",
+   "best": {
+    "plan": "annualreportofbu1218901891smit_n0318_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "annualreportofbu1218901891smit_n0318_1",
+     "book": "Thomas 1894",
+     "ia": "annualreportofbu1218901891smit",
+     "file": "n0318.jpg",
+     "title": "Plat of the Knapp mounds, Pulaski county, Arkansas",
+     "label": "Plate X",
+     "size": [
+      1899,
+      3279
+     ],
+     "map_box": [
+      0.17,
+      0.165,
+      0.82,
+      0.84
+     ],
+     "sites": [
+      "plum-bayou-mounds-archeological-state-pa-q7814641"
+     ],
+     "cite": "Cyrus Thomas, Report on the Mound Explorations of the Bureau of Ethnology, in 12th Annual Report of the Bureau of Ethnology 1890-91, Washington 1894",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "annualreportofbu1218901891smit_n0318_1",
+     "title": "Plat of the Knapp mounds, Pulaski county, Arkansas",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2732018
+    }
+   ]
+  },
+  {
+   "site": "dunster-castle-q2969173",
+   "name": "Dunster Castle",
+   "best": {
+    "plan": "c_dc404c1e7ed48532",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_dc404c1e7ed48532",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The Archaeological journal (1844) (14778370684)",
+     "label": "1844",
+     "size": [
+      1280,
+      2032
+     ],
+     "map_box": null,
+     "sites": [
+      "dunster-castle-q2969173"
+     ],
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_Archaeological_journal_(1844)_(14778370684).jpg",
+     "url": "media/commons/dunster-castle-q2969173/dc404c1e7ed48532.jpg",
+     "view": false,
+     "ref": "File:The Archaeological journal (1844) (14778370684).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_dc404c1e7ed48532",
+     "title": "The Archaeological journal (1844) (14778370684)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2600960
+    },
+    {
+     "plan": "c_a882198e3d1045e5",
+     "title": "124 of 'Dunster and its Lords, 1066-1881 ... With a descriptive sketch of Dunster Castle, by G. T. Clark ... and a chapter on the siege and surrender of Dunster Castle, by E. Green' (11155865215)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2548480
+    },
+    {
+     "plan": "c_7a3a5f2dd48f4954",
+     "title": "A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14790306253)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 938240
+    },
+    {
+     "plan": "c_3be7a14bdd34914a",
+     "title": "Dunster Castle 1733",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 553984
+    }
+   ]
+  },
+  {
+   "site": "cenabum-q2710144",
+   "name": "Cenabum",
+   "best": {
+    "plan": "c_7c1394e5e6270991",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_7c1394e5e6270991",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plano del hospital militar en servicio en Nueva Orleans",
+     "label": "1801",
+     "size": [
+      1280,
+      2029
+     ],
+     "map_box": null,
+     "sites": [
+      "cenabum-q2710144"
+     ],
+     "cite": "by Unknown author Unknown author; CC BY 4.0; https://commons.wikimedia.org/wiki/File:Plano_del_hospital_militar_en_servicio_en_Nueva_Orleans.jpg",
+     "url": "media/commons/cenabum-q2710144/7c1394e5e6270991.jpg",
+     "view": false,
+     "ref": "File:Plano del hospital militar en servicio en Nueva Orleans.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7c1394e5e6270991",
+     "title": "Plano del hospital militar en servicio en Nueva Orleans",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2597120
+    },
+    {
+     "plan": "c_c7a322689b11f936",
+     "title": "Plan de l'ancien Pont d'Orl\u00e9ans & de ses abords, de ses bastilles et boulevards, le fort des Tourelles et les bastilles des Augustins",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2389760
+    },
+    {
+     "plan": "c_7e5cf096f5d6485e",
+     "title": "Plan et profils d'un boulevard tel que les Anglais ont pu \u00e9tablir, pour former le blocus d'Orl\u00e9ans",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2174720
+    },
+    {
+     "plan": "c_e153ca11da1b60e1",
+     "title": "Plan ancien du fort et du boulevard des Tourelles et de l'\u00e9glise des Augustins",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2159360
+    },
+    {
+     "plan": "c_6ba8606879a843fa",
+     "title": "Plano de la manzana en que se hallan comprehendidos el convento de R.R. Ursulinas, hospital real y los terrenos pertenecientes a su Magestad en ella",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1313280
+    },
+    {
+     "plan": "c_e73dc8c09b2fea43",
+     "title": "Plan g\u00e9n\u00e9ral de la ville et des environs en 1828",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1291520
+    },
+    {
+     "plan": "c_ea3e1ff2d9cab7a6",
+     "title": "Plan de la ville et du si\u00e8ge d'Orl\u00e9ans en 1428",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1288960
+    }
+   ]
+  },
+  {
+   "site": "lancaster-castle-q2969640",
+   "name": "Lancaster Castle",
+   "best": {
+    "plan": "c_0e337c3f11900baa",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0e337c3f11900baa",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Lancaster Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1955
+     ],
+     "map_box": null,
+     "sites": [
+      "lancaster-castle-q2969640"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:231_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11242140515).jpg",
+     "url": "media/commons/lancaster-castle-q2969640/0e337c3f11900baa.jpg",
+     "view": false,
+     "ref": "File:231 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242140515).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0e337c3f11900baa",
+     "title": "Lancaster Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2502400
+    }
+   ]
+  },
+  {
+   "site": "argentoratum-q2361353",
+   "name": "Argentoratum",
+   "best": {
+    "plan": "c_436bea5010beea89",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_436bea5010beea89",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Strasbourg-Krutenau-Plan de 1852 (12)",
+     "label": "1852",
+     "size": [
+      1280,
+      1920
+     ],
+     "map_box": null,
+     "sites": [
+      "argentoratum-q2361353"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Strasbourg-Krutenau-Plan_de_1852_(12).jpg",
+     "url": "media/commons/argentoratum-q2361353/436bea5010beea89.jpg",
+     "view": false,
+     "ref": "File:Strasbourg-Krutenau-Plan de 1852 (12).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_436bea5010beea89",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (12)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2457600
+    },
+    {
+     "plan": "c_b3533cd48dfc6452",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (13)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2457600
+    },
+    {
+     "plan": "c_751f9350136c699c",
+     "title": "Strasbourg-Krutenau-Plan de 1852-Rue de la Bruche",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2063360
+    },
+    {
+     "plan": "c_6acfd94dec8c011b",
+     "title": "91 of 'Strassburg und seine Bauten. Herausgegeben vom Architekten- und Ingenieur-Verein f\u00fcr Elsass-Lothringen. Mit 655 Abbildungen in Text, etc' (11226830623)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1536000
+    },
+    {
+     "plan": "c_8bdbed9b69d51319",
+     "title": "Plan mur et tours Argentoratum",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1406720
+    },
+    {
+     "plan": "c_1cb3168933122090",
+     "title": "Plan citadelle de Strasbourg (avant 1800)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1368320
+    },
+    {
+     "plan": "c_e882645cc479c889",
+     "title": "Plan topographique de la Ville de Strasbourg divis\u00e9e en quatre Cantons",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1335040
+    },
+    {
+     "plan": "c_eef566eab864daa7",
+     "title": "Argentoratvm - cuius ob antiquitatem Ptolemeus, D Hieronymus, Orosius, Eutropius, Marcellinus, et alii memin\u00eare, Alsati Metropolis, apud praeterfluentem Rhenum, alijs, Argentina, aut, si quis ex re, nomen commutare... - btv1b10223748r",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1255680
+    },
+    {
+     "plan": "c_4aa3aebf5215a446",
+     "title": "Strasbourg-Plan de la Halle aux Veaux-Place des Orphelins",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1235200
+    },
+    {
+     "plan": "c_0475b45eeeba0b5c",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (6)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_407fb0f12ddb04b5",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (10)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_5d3b3ffcb7fcb277",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (1)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_5ec42621fe00719a",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (4)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_87dc28a9645f0e59",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (15)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_a9159cd2f5dd8ccc",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_be3b4b680e2d2020",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (3)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_cd8109001e6616f1",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (8)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_d480893e5a97fbba",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (9)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_d541ee84864947c4",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (11)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_d881f658da7e9c0c",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (7)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_debcf19487a0052f",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (14)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_fc27fe4fc304b937",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (16)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1228800
+    },
+    {
+     "plan": "c_63a22f27733fed8b",
+     "title": "Atlas g\u00e9n\u00e9ral de la France - Plan de Strasbourg - E. Cortambert",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1212160
+    },
+    {
+     "plan": "c_0a017388dd93d0a0",
+     "title": "Plan Strasbourg 1720",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1196800
+    },
+    {
+     "plan": "c_79e67314b340ba5a",
+     "title": "Plan de Strasbourg 1720",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1194240
+    },
+    {
+     "plan": "c_444f7aa250b420c4",
+     "title": "Plan Strasbourg 1720 (cropped)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1190400
+    },
+    {
+     "plan": "c_191c6221a81caad0",
+     "title": "Plan de Strasbourg, r\u00e9duit - d'apr\u00e8s le plan g\u00e9n\u00e9ral de Villot... - btv1b8444967p",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1144320
+    },
+    {
+     "plan": "c_ec1930f8ba9bbabb",
+     "title": "Strasbourg plan 1870",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1127680
+    },
+    {
+     "plan": "c_0b076552cd30b220",
+     "title": "Plan de Strasbourg 1750",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1120000
+    },
+    {
+     "plan": "c_1b30b0b4b2c002cc",
+     "title": "Strasbourg-Krutenau-Plan de 1852 (5)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1091840
+    },
+    {
+     "plan": "c_95f394f9a72ecfc7",
+     "title": "Argentoratvm - cuius ob antiquitatem Ptolemeus, D HieronYmus, Orosius, Eutropius, Marcellinus, et alii memin\u00eare, Alsati Metropolis, apud prterfluentem Rhenum, alijs, Argentina, aut, si quis ex re, nomen commutare... - btv1b10223750k",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1067520
+    },
+    {
+     "plan": "c_5bfb0472f266c056",
+     "title": "1831. Strasbourg (Tirage avec changement) - d'apr\u00e8s le plan g\u00e9n\u00e9ral dress\u00e9 par J. N. Villot, Architecte de la ville - btv1b8444895n",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1066240
+    },
+    {
+     "plan": "c_5badc8c867ef5d98",
+     "title": "Plan Strasbourg projet Conrath 1880",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1053440
+    },
+    {
+     "plan": "c_d7461dcfc6ac91a2",
+     "title": "Plan de Strasbourg 1740",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1030400
+    },
+    {
+     "plan": "c_6ba6bb7b49a78014",
+     "title": "3e Plan du front de fortification construit \u00e0 l'Ecole militaire etablie pour l'Artillerie \u00e0 Strabourg et des attaques de ce front projett\u00e9es pour l'instruction de cette \u00e9cole pendant la campagne 1755 - btv1b55001392s (1 of 2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 989440
+    },
+    {
+     "plan": "c_7e281c4136c9f7f5",
+     "title": "Plattegrond van Straatsburg, ca. 1701-1713, RP-P-OB-83.037-29",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 855040
+    },
+    {
+     "plan": "c_113b4b16e557ab9c",
+     "title": "Plattegrond van Straatsburg Straatsburg, een keizerlyke stad in Duitsland met een bisdom onder Mentz behoorende (titel op object) Les Principales Forteresses & Villes Fortes, d'Espagne, de France, d'Italie, de Savoi\u00eb, , RP-P-2015-62-29",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 811520
+    },
+    {
+     "plan": "c_b8638cda17a283d0",
+     "title": "Plan Strasbourg 1911B",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 776192
+    },
+    {
+     "plan": "c_dbbdddc294b9eaa2",
+     "title": "Strasbourg-Plan de la maison d'arr\u00eat et de justice",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 751360
+    },
+    {
+     "plan": "c_52d95281943e5432",
+     "title": "Plan de la Digue de la Lobsteinwerth sur le Rhin \u00e0 la Robertsau, banlieue N.E. de Strasbourg - btv1b530998970 (2 of 2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 522240
+    },
+    {
+     "plan": "c_8c6924455678b281",
+     "title": "Plan de la Digue de la Lobsteinwerth sur le Rhin \u00e0 la Robertsau, banlieue N.E. de Strasbourg - btv1b530998970 (1 of 2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 486400
+    },
+    {
+     "plan": "c_13994601c91902bc",
+     "title": "ND Vignette des Comes Argentoratensis",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 179500
+    }
+   ]
+  },
+  {
+   "site": "uxellodunum-q1290232",
+   "name": "Uxellodunum",
+   "best": {
+    "plan": "c_bafa9634c5b30b62",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_bafa9634c5b30b62",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan et vue du Puy d'Issolu - btv1b85922144",
+     "label": "18th century",
+     "size": [
+      1280,
+      1830
+     ],
+     "map_box": null,
+     "sites": [
+      "uxellodunum-q1290232"
+     ],
+     "cite": "Public domain; https://commons.wikimedia.org/wiki/File:Plan_et_vue_du_Puy_d%27Issolu_-_btv1b85922144.jpg",
+     "url": "media/commons/uxellodunum-q1290232/bafa9634c5b30b62.jpg",
+     "view": false,
+     "ref": "File:Plan et vue du Puy d'Issolu - btv1b85922144.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_bafa9634c5b30b62",
+     "title": "Plan et vue du Puy d'Issolu - btv1b85922144",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2342400
+    },
+    {
+     "plan": "c_f9dcb2863628ff11",
+     "title": "Plan geometrique du puy d'Issolus ou l'on croit qu'etoit situ\u00e9e la ville de Uxellodunum - btv1b8592215j",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1399040
+    }
+   ]
+  },
+  {
+   "site": "dudley-castle-q5311832",
+   "name": "Dudley Castle",
+   "best": {
+    "plan": "c_e66ec095ee45aed0",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_e66ec095ee45aed0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "45 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11176108623)",
+     "label": "1885",
+     "size": [
+      1280,
+      1827
+     ],
+     "map_box": null,
+     "sites": [
+      "dudley-castle-q5311832"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:45_of_%27An_Illustrated_Guide_to_Dudley_Castle_and_Priory,_with_a_short_general_history_from_the_earliest_period%27_(11176108623).jpg",
+     "url": "media/commons/dudley-castle-q5311832/e66ec095ee45aed0.jpg",
+     "view": false,
+     "ref": "File:45 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11176108623).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e66ec095ee45aed0",
+     "title": "45 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11176108623)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2338560
+    },
+    {
+     "plan": "c_703ef7cbe77b63ff",
+     "title": "41 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11178914563)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2167631
+    },
+    {
+     "plan": "c_ee6af711aef1ea8a",
+     "title": "25 of 'An Illustrated Guide to Dudley Castle and Priory, with a short general history from the earliest period' (11175431553)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1996245
+    },
+    {
+     "plan": "c_8ad244387112ced1",
+     "title": "The South Staffordshire Coalfield - Joseph Beete Jukes - 1859 - 164",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1812480
+    },
+    {
+     "plan": "c_725697b612ce4a30",
+     "title": "Plan of Dudley Castle (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 746928
+    }
+   ]
+  },
+  {
+   "site": "richborough-roman-fort-q1309736",
+   "name": "Richborough Roman Fort",
+   "best": {
+    "plan": "c_1dcd5a7171573663",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_1dcd5a7171573663",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Image taken from page 508 of 'Collections for an History of Sandwich in Kent. With notices of the other Cinque Ports and members, and of Richborough. (With plates.)' (11216293544)",
+     "label": "1892",
+     "size": [
+      1280,
+      1821
+     ],
+     "map_box": null,
+     "sites": [
+      "richborough-roman-fort-q1309736"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Image_taken_from_page_508_of_%27Collections_for_an_History_of_Sandwich_in_Kent._With_notices_of_the_other_Cinque_Ports_and_members,_and_of_Richborough._(With_plates.)%27_(11216293544).jpg",
+     "url": "media/commons/richborough-roman-fort-q1309736/1dcd5a7171573663.jpg",
+     "view": false,
+     "ref": "File:Image taken from page 508 of 'Collections for an History of Sandwich in Kent. With notices of the other Cinque Ports and members, and of Richborough. (With plates.)' (11216293544).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1dcd5a7171573663",
+     "title": "Image taken from page 508 of 'Collections for an History of Sandwich in Kent. With notices of the other Cinque Ports and members, and of Richborough. (With plates.)' (11216293544)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2330880
+    },
+    {
+     "plan": "c_edad7da41d234534",
+     "title": "Richborough Castle, derived from Penny cyclopaedia (1836) V6 page 353",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1551360
+    }
+   ]
+  },
+  {
+   "site": "farleigh-hungerford-castle-q5435410",
+   "name": "Farleigh Hungerford Castle",
+   "best": {
+    "plan": "c_d915af45159c40ec",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d915af45159c40ec",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Farleigh Hungerford Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1810
+     ],
+     "map_box": null,
+     "sites": [
+      "farleigh-hungerford-castle-q5435410"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:87_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11242001186).jpg",
+     "url": "media/commons/farleigh-hungerford-castle-q5435410/d915af45159c40ec.jpg",
+     "view": false,
+     "ref": "File:87 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242001186).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d915af45159c40ec",
+     "title": "Farleigh Hungerford Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2316800
+    }
+   ]
+  },
+  {
+   "site": "angel-mounds-q4530064",
+   "name": "Angel Mounds",
+   "best": {
+    "plan": "annualreportofbu1218901891smit_n0702_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "annualreportofbu1218901891smit_n0702_1",
+     "book": "Thomas 1894",
+     "ia": "annualreportofbu1218901891smit",
+     "file": "n0702.jpg",
+     "title": "Plat of the \"Angel mounds,\" near Evansville, Indiana",
+     "label": "Plate XLI",
+     "size": [
+      1919,
+      3289
+     ],
+     "map_box": [
+      0.13,
+      0.26,
+      0.85,
+      0.76
+     ],
+     "sites": [
+      "angel-mounds-q4530064"
+     ],
+     "cite": "Cyrus Thomas, Report on the Mound Explorations of the Bureau of Ethnology, in 12th Annual Report of the Bureau of Ethnology 1890-91, Washington 1894",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "annualreportofbu1218901891smit_n0702_1",
+     "title": "Plat of the \"Angel mounds,\" near Evansville, Indiana",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2272173
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0701_1",
+     "title": "Plat of the large mound, \"Angel \" group",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 541039
+    }
+   ]
+  },
+  {
+   "site": "etowah-indian-mounds-q4533107",
+   "name": "Etowah Indian Mounds",
+   "best": {
+    "plan": "annualreportofbu1218901891smit_n0384_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "annualreportofbu1218901891smit_n0384_1",
+     "book": "Thomas 1894",
+     "ia": "annualreportofbu1218901891smit",
+     "file": "n0384.jpg",
+     "title": "Plan of the large mound, Etowah group",
+     "label": "Plate XVI",
+     "size": [
+      1899,
+      3279
+     ],
+     "map_box": [
+      0.12,
+      0.23,
+      0.85,
+      0.71
+     ],
+     "sites": [
+      "etowah-indian-mounds-q4533107"
+     ],
+     "cite": "Cyrus Thomas, Report on the Mound Explorations of the Bureau of Ethnology, in 12th Annual Report of the Bureau of Ethnology 1890-91, Washington 1894",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "annualreportofbu1218901891smit_n0384_1",
+     "title": "Plan of the large mound, Etowah group",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2181878
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0386_1",
+     "title": "Plat of the Etowah group (original)",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 2130943
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0377_1",
+     "title": "Plat of Etowah group, copy of Jones's plat. No. 1",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 1547461
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0381_1",
+     "title": "Plat of Etowah group, copy of Whittlesey's figure No. 1",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 772909
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0390_1",
+     "title": "Plan of burials in mound c, Etowah group.",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 572868
+    }
+   ]
+  },
+  {
+   "site": "alesia-q835966",
+   "name": "Alesia",
+   "best": {
+    "plan": "c_fa24ce4c4352a99e",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_fa24ce4c4352a99e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan d'Alise et de ses environs, GB00270",
+     "label": "",
+     "size": [
+      1280,
+      1673
+     ],
+     "map_box": null,
+     "sites": [
+      "alesia-q835966"
+     ],
+     "cite": "by Anville, Jean Baptiste Bourguignon d' (1697-1782) (designer); Public domain; https://commons.wikimedia.org/wiki/File:Plan_d%27Alise_et_de_ses_environs,_GB00270.jpg",
+     "url": "media/commons/alesia-q835966/fa24ce4c4352a99e.jpg",
+     "view": false,
+     "ref": "File:Plan d'Alise et de ses environs, GB00270.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_fa24ce4c4352a99e",
+     "title": "Plan d'Alise et de ses environs, GB00270",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2141440
+    },
+    {
+     "plan": "c_e8cfad47c197e47c",
+     "title": "Promenades au mus\u00e9e de Saint-Germain - Figure 16 - Caesars camp in Alesia",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 198612
+    },
+    {
+     "plan": "c_58e0eb394bdd9f1a",
+     "title": "Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14779067484)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 684800
+    }
+   ]
+  },
+  {
+   "site": "hodgen-s-cemetery-mound-q5876069",
+   "name": "Hodgen's Cemetery Mound",
+   "best": {
+    "plan": "b24849959_n0353_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "b24849959_n0353_1",
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0353.jpg",
+     "title": "Plan of mound at Mt. Vernon",
+     "label": "Fig. 96",
+     "size": [
+      2456,
+      4075
+     ],
+     "map_box": [
+      0.17,
+      0.18,
+      0.83,
+      0.5
+     ],
+     "sites": [
+      "mound-cemetery-mound-q14716731",
+      "mound-cemetery-q6919104",
+      "conus-mound-q34821111",
+      "hodgen-s-cemetery-mound-q5876069"
+     ],
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "b24849959_n0353_1",
+     "title": "Plan of mound at Mt. Vernon",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 2113732
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0563_1",
+     "title": "Plan of Cemetery mouud, Mt. Vernon. Knox county, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 791839
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0092_1",
+     "title": "Plan of Cemetery Mound, Mt. Vernon.",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 184626
+    }
+   ]
+  },
+  {
+   "site": "mound-cemetery-q6919104",
+   "name": "Mound Cemetery",
+   "best": {
+    "plan": "b24849959_n0353_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "b24849959_n0353_1",
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0353.jpg",
+     "title": "Plan of mound at Mt. Vernon",
+     "label": "Fig. 96",
+     "size": [
+      2456,
+      4075
+     ],
+     "map_box": [
+      0.17,
+      0.18,
+      0.83,
+      0.5
+     ],
+     "sites": [
+      "mound-cemetery-mound-q14716731",
+      "mound-cemetery-q6919104",
+      "conus-mound-q34821111",
+      "hodgen-s-cemetery-mound-q5876069"
+     ],
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "b24849959_n0353_1",
+     "title": "Plan of mound at Mt. Vernon",
+     "book": "Fowke 1902",
+     "view": false,
+     "draw_px": 2113732
+    },
+    {
+     "plan": "c_c38f017c2e104081",
+     "title": "Plan of Mound Cemetery - DPLA - e647766aa7a89dca7db59e4d013847ea",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1322240
+    },
+    {
+     "plan": "annualreportofbu1218901891smit_n0563_1",
+     "title": "Plan of Cemetery mouud, Mt. Vernon. Knox county, Ohio",
+     "book": "Thomas 1894",
+     "view": false,
+     "draw_px": 791839
+    },
+    {
+     "plan": "c_5d150a48c7b88b60",
+     "title": "Ohio - Marietta Earth Works",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 562464
+    },
+    {
+     "plan": "ArcheologicalAtlasOfOhio_n0092_1",
+     "title": "Plan of Cemetery Mound, Mt. Vernon.",
+     "book": "Mills 1914",
+     "view": false,
+     "draw_px": 184626
+    }
+   ]
+  },
+  {
+   "site": "gouda-q84125",
+   "name": "Gouda",
+   "best": {
+    "plan": "c_ba646ea988fc6bc8",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ba646ea988fc6bc8",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Gouda, town plan by Jacob van Deventer",
+     "label": "c. 1560",
+     "size": [
+      1280,
+      1645
+     ],
+     "map_box": null,
+     "sites": [
+      "gouda-q84125"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_Gouda_by_Jacob_van_Deventer.jpg",
+     "url": "media/commons/gouda-q84125/ba646ea988fc6bc8.jpg",
+     "view": false,
+     "ref": "File:Map of Gouda by Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ba646ea988fc6bc8",
+     "title": "Gouda, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2105600
+    }
+   ]
+  },
+  {
+   "site": "bethlehem-q2523914",
+   "name": "Bethlehem",
+   "best": {
+    "plan": "c_b31c3de3630246bc",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_b31c3de3630246bc",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "(1881) PLAN BASILIQUE DE BETHL\u00c9HEM",
+     "label": "1882",
+     "size": [
+      1280,
+      1585
+     ],
+     "map_box": null,
+     "sites": [
+      "bethlehem-q2523914"
+     ],
+     "cite": "Public domain; https://commons.wikimedia.org/wiki/File:(1881)_PLAN_BASILIQUE_DE_BETHL%C3%89HEM.jpg",
+     "url": "media/commons/bethlehem-q2523914/b31c3de3630246bc.jpg",
+     "view": false,
+     "ref": "File:(1881) PLAN BASILIQUE DE BETHL\u00c9HEM.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b31c3de3630246bc",
+     "title": "(1881) PLAN BASILIQUE DE BETHL\u00c9HEM",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2028800
+    },
+    {
+     "plan": "c_5ce1836b12e8e294",
+     "title": "Survey of Palestine, Bethlehem 03 (FL10423297 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1809920
+    },
+    {
+     "plan": "c_bd1a4b47da2bcb8c",
+     "title": "Survey of Palestine, Bethlehem 04-beit-jala (FL10423298 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1808640
+    },
+    {
+     "plan": "c_15b7c1bd35c0e33b",
+     "title": "Survey of Palestine, Bethlehem 10 (FL10423308 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1747200
+    },
+    {
+     "plan": "c_993872ffecfce2cf",
+     "title": "Survey of Palestine, Bethlehem 11 (FL10423309 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1744640
+    },
+    {
+     "plan": "c_855dbf3d31cbbe43",
+     "title": "Survey of Palestine, Bethlehem 02-beit-jala (FL10423296 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1739520
+    },
+    {
+     "plan": "c_075db5049e2fb635",
+     "title": "Survey of Palestine, Bethlehem 01-beit-jala (FL10423295 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1736960
+    },
+    {
+     "plan": "c_1f7f7d21b2f38b10",
+     "title": "Plan of the Church of the Nativity and adjacent chapels in Bethlehem - Cootwijck Johannes Van - 1619",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1674000
+    },
+    {
+     "plan": "c_a8499553451a203c",
+     "title": "Survey of Palestine, Bethlehem 09 (FL10423305 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1667840
+    },
+    {
+     "plan": "c_1c20017970e54a01",
+     "title": "Survey of Palestine, Bethlehem 06 (FL10423302 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1665280
+    },
+    {
+     "plan": "c_fc4566d6947287f4",
+     "title": "Survey of Palestine, Bethlehem 05-beit-jala (FL10423299 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1651200
+    },
+    {
+     "plan": "c_67ed5d45466db19e",
+     "title": "Plan of the Basilica of the Nativity in Bethlehem - Sandys George - 1615",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1612800
+    },
+    {
+     "plan": "c_46dc30fd0fb8ec07",
+     "title": "Plan of the Basilica of the Nativity and its chapels in Bethlehem - Zuallart Jean - 1587",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1520640
+    },
+    {
+     "plan": "c_ba63da7d782b9648",
+     "title": "Survey of Palestine, Bethlehem 08 (FL10423304 2369494)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1483520
+    },
+    {
+     "plan": "c_aaab4ccba112700b",
+     "title": "Plan de Maestricht et environs 1748, detail Limmel & Kanjel",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1396480
+    },
+    {
+     "plan": "c_b4266a3cc1dec09b",
+     "title": "A Plan and Views of the Holy Sepulchre, of the Church about it, and also of the Grotto and Church of Bethlehem - Pococke Richard - 1745",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1354500
+    },
+    {
+     "plan": "c_d624c308cd860a1e",
+     "title": "Plan de Maestricht et environs 1748, detail Limmel, Jerusalem & Bethlehem",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1207040
+    },
+    {
+     "plan": "c_a42a93d9589acd4d",
+     "title": "Plan de Maestricht et environs 1748, detail Limmel",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1164800
+    },
+    {
+     "plan": "c_a164ee440558d66c",
+     "title": "Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1141760
+    },
+    {
+     "plan": "c_616005edd1175042",
+     "title": "Le plan de l\u201dEglise et monast\u00e8re de Bethlehem - Cootwijck Johannes Van - 1619",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1099520
+    },
+    {
+     "plan": "c_7ee79582ebdab559",
+     "title": "(1881) PLAN SOUTERRAINS DE LA BASILIQUE",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 867840
+    },
+    {
+     "plan": "c_a62213c5797dc2be",
+     "title": "Gezicht op Bethlehem Topografische afbeeldingen van het Midden-Oosten (serietitel), RP-P-1954-395",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 784640
+    }
+   ]
+  },
+  {
+   "site": "ludlow-castle-q576369",
+   "name": "Ludlow Castle",
+   "best": {
+    "plan": "c_b24730fd9038ae4a",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b24730fd9038ae4a",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1565
+     ],
+     "map_box": null,
+     "sites": [
+      "ludlow-castle-q576369"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+     "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+     "view": false,
+     "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b24730fd9038ae4a",
+     "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2003200
+    }
+   ]
+  },
+  {
+   "site": "stanton-drew-stone-circles-q1516300",
+   "name": "Stanton Drew stone circles",
+   "best": {
+    "plan": "c_59a5c636a9e00703",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_59a5c636a9e00703",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew",
+     "label": "1836",
+     "size": [
+      1280,
+      1551
+     ],
+     "map_box": null,
+     "sites": [
+      "stanton-drew-stone-circles-q1516300"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Penny_Magazine_1836_116_Plan_of_the_Druidical_Temple_at_Stanton_Drew.jpg",
+     "url": "media/commons/stanton-drew-stone-circles-q1516300/59a5c636a9e00703.jpg",
+     "view": false,
+     "ref": "File:Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_59a5c636a9e00703",
+     "title": "Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1985280
+    }
+   ]
+  },
+  {
+   "site": "alligator-effigy-mound-q4732645",
+   "name": "Alligator Effigy Mound",
+   "best": {
+    "plan": "ancientmonuments00squi_n0214_2",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "ancientmonuments00squi_n0214_2",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0214.jpg",
+     "title": "\"The Alligator,\" Licking county, Ohio",
+     "label": "Plate XXXVI2",
+     "size": [
+      2876,
+      4068
+     ],
+     "map_box": [
+      0.03,
+      0.09,
+      0.45,
+      0.49
+     ],
+     "sites": [
+      "alligator-effigy-mound-q4732645"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0214_2",
+     "title": "\"The Alligator,\" Licking county, Ohio",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 1965527
+    },
+    {
+     "plan": "c_618a6be74dfaff32",
+     "title": "Historical Collections of Ohio- An Encyclopedia of the State; History Both General and Local, Geography with Descriptions of Its Counties, Cities and Villages, Its Agricultural, Manufacturing, Mining (14769926121)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1337600
+    }
+   ]
+  },
+  {
+   "site": "damme-q323408",
+   "name": "Damme",
+   "best": {
+    "plan": "c_61d3fef606fc3468",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_61d3fef606fc3468",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Damme, town plan by Jacob van Deventer",
+     "label": "c. 1558",
+     "size": [
+      1280,
+      1516
+     ],
+     "map_box": null,
+     "sites": [
+      "damme-q323408"
+     ],
+     "cite": "by Jacob van Deventer (died 1575); Public domain; https://commons.wikimedia.org/wiki/File:Damme,_Belgium_;_Deventer_map.jpg",
+     "url": "media/commons/damme-q323408/61d3fef606fc3468.jpg",
+     "view": false,
+     "ref": "File:Damme, Belgium ; Deventer map.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_61d3fef606fc3468",
+     "title": "Damme, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1940480
+    }
+   ]
+  },
+  {
+   "site": "taunton-castle-q7688781",
+   "name": "Taunton Castle",
+   "best": {
+    "plan": "c_05cb4a02bd58e82e",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_05cb4a02bd58e82e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1461
+     ],
+     "map_box": null,
+     "sites": [
+      "taunton-castle-q7688781"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Taunton_Castle_(1897).jpg",
+     "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
+     "view": false,
+     "ref": "File:Plan of Taunton Castle (1897).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_05cb4a02bd58e82e",
+     "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1870080
+    }
+   ]
+  },
+  {
+   "site": "leicester-castle-q6519156",
+   "name": "Leicester Castle",
+   "best": {
+    "plan": "c_581a9f82b6a805a0",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_581a9f82b6a805a0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Leicester Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1460
+     ],
+     "map_box": null,
+     "sites": [
+      "leicester-castle-q6519156"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:480_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241748276).jpg",
+     "url": "media/commons/leicester-castle-q6519156/581a9f82b6a805a0.jpg",
+     "view": false,
+     "ref": "File:480 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241748276).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_581a9f82b6a805a0",
+     "title": "Leicester Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1868800
+    }
+   ]
+  },
+  {
+   "site": "carlisle-castle-q614836",
+   "name": "Carlisle Castle",
+   "best": {
+    "plan": "c_170f5d6a3888e03c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_170f5d6a3888e03c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Carlisle Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1427
+     ],
+     "map_box": null,
+     "sites": [
+      "carlisle-castle-q614836"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:349_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11243227834).jpg",
+     "url": "media/commons/carlisle-castle-q614836/170f5d6a3888e03c.jpg",
+     "view": false,
+     "ref": "File:349 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11243227834).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_170f5d6a3888e03c",
+     "title": "Carlisle Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1826560
+    }
+   ]
+  },
+  {
+   "site": "clun-castle-q5136615",
+   "name": "Clun Castle",
+   "best": {
+    "plan": "c_a93d26aaec6ac8ec",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_a93d26aaec6ac8ec",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "162 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242297404)",
+     "label": "1897",
+     "size": [
+      1280,
+      1395
+     ],
+     "map_box": null,
+     "sites": [
+      "clun-castle-q5136615"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:162_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11242297404).jpg",
+     "url": "media/commons/clun-castle-q5136615/a93d26aaec6ac8ec.jpg",
+     "view": false,
+     "ref": "File:162 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242297404).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a93d26aaec6ac8ec",
+     "title": "162 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11242297404)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1785600
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0575_1",
+     "title": "EARTHWORKS",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 1214039
+    }
+   ]
+  },
+  {
+   "site": "venlo-q9777",
+   "name": "Venlo",
+   "best": {
+    "plan": "c_4fb122992c1574b2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4fb122992c1574b2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Venlo, town plan by Jacob van Deventer",
+     "label": "1560-1999",
+     "size": [
+      1280,
+      1361
+     ],
+     "map_box": null,
+     "sites": [
+      "venlo-q9777"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:1560_Kaart_van_Venlo_door_Jacob_van_Deventer.jpg",
+     "url": "media/commons/venlo-q9777/4fb122992c1574b2.jpg",
+     "view": false,
+     "ref": "File:1560 Kaart van Venlo door Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4fb122992c1574b2",
+     "title": "Venlo, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1742080
+    }
+   ]
+  },
+  {
+   "site": "portus-adurni-q762664",
+   "name": "Portus Adurni",
+   "best": {
+    "plan": "c_42bedb90fffce1d4",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_42bedb90fffce1d4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354",
+     "label": "1836",
+     "size": [
+      1280,
+      1292
+     ],
+     "map_box": null,
+     "sites": [
+      "portus-adurni-q762664"
+     ],
+     "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
+     "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
+     "view": false,
+     "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_42bedb90fffce1d4",
+     "title": "Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1653760
+    },
+    {
+     "plan": "c_4912bb54aa79f3ea",
+     "title": "Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1653760
+    }
+   ]
+  },
+  {
+   "site": "watson-brake-q2552689",
+   "name": "Watson Brake",
+   "best": {
+    "plan": "c_b52ddcad2ee295c4",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_b52ddcad2ee295c4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Watson Brake Mounds - Map",
+     "label": "",
+     "size": [
+      1280,
+      1259
+     ],
+     "map_box": null,
+     "sites": [
+      "watson-brake-q2552689"
+     ],
+     "cite": "by Maximilian D\u00f6rrbecker ( Chumwa ); CC BY-SA 2.5; https://commons.wikimedia.org/wiki/File:Watson_Brake_Mounds_-_Map.png",
+     "url": "media/commons/watson-brake-q2552689/b52ddcad2ee295c4.jpg",
+     "view": false,
+     "ref": "File:Watson Brake Mounds - Map.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b52ddcad2ee295c4",
+     "title": "Watson Brake Mounds - Map",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1611520
+    },
+    {
+     "plan": "c_5e7bb19c79b509ed",
+     "title": "Watson Brake - Map",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1237760
+    }
+   ]
+  },
+  {
+   "site": "king-arthur-s-round-table-q283800",
+   "name": "King Arthur's Round Table",
+   "best": {
+    "plan": "c_cfc493f72253fa8e",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_cfc493f72253fa8e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Rude Stone Monuments 0154",
+     "label": "1872",
+     "size": [
+      1280,
+      1257
+     ],
+     "map_box": null,
+     "sites": [
+      "king-arthur-s-round-table-q283800"
+     ],
+     "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
+     "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
+     "view": false,
+     "ref": "File:Rude Stone Monuments 0154.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_cfc493f72253fa8e",
+     "title": "Rude Stone Monuments 0154",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1608960
+    },
+    {
+     "plan": "c_984782b9e35e8ded",
+     "title": "Mayburgh-1769",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1164800
+    }
+   ]
+  },
+  {
+   "site": "caister-castle-q5017844",
+   "name": "Caister Castle",
+   "best": {
+    "plan": "c_f9332c59bb35b34b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f9332c59bb35b34b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Caister Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1242
+     ],
+     "map_box": null,
+     "sites": [
+      "caister-castle-q5017844"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Caister_Castle_(1897).jpg",
+     "url": "media/commons/caister-castle-q5017844/f9332c59bb35b34b.jpg",
+     "view": false,
+     "ref": "File:Plan of Caister Castle (1897).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f9332c59bb35b34b",
+     "title": "Caister Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1589760
+    }
+   ]
+  },
+  {
+   "site": "traiectum-q2199749",
+   "name": "Traiectum",
+   "best": {
+    "plan": "c_a65b37aa773876a5",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_a65b37aa773876a5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur)",
+     "label": "1749",
+     "size": [
+      1280,
+      1228
+     ],
+     "map_box": null,
+     "sites": [
+      "traiectum-q2199749"
+     ],
+     "cite": "by Jean-Baptiste Larcher d'Aubencourt (1716\u20131796); Public domain; https://commons.wikimedia.org/wiki/File:Maastricht1749LarcherDAubencourt2_(detail_Vrijthof_%26_1e_stadsmuur).jpg",
+     "url": "media/commons/traiectum-q2199749/a65b37aa773876a5.jpg",
+     "view": false,
+     "ref": "File:Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a65b37aa773876a5",
+     "title": "Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1571840
+    },
+    {
+     "plan": "c_6713f5e6c6b11f1f",
+     "title": "Traiectum ad Mosam. Maestricht - btv1b532115367 (1 of 2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1565440
+    },
+    {
+     "plan": "c_8a2055d5929c4c5d",
+     "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1438720
+    },
+    {
+     "plan": "c_e5e4b5c0234373cb",
+     "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Bouillonstraat",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1411840
+    },
+    {
+     "plan": "c_2b84bc8a246adb8d",
+     "title": "Atlas Beudeker-C9E10 043 13X-TRAIECTUM ad Mosam Vulgo MAESTRICHT.",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1333760
+    },
+    {
+     "plan": "c_709d16595ae103fc",
+     "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Brusselsestraat",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1296640
+    },
+    {
+     "plan": "c_5d442b3b66839fa3",
+     "title": "Traiectum - btv1b53225510d (1 of 2)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1093120
+    },
+    {
+     "plan": "c_437d1d60e38020f7",
+     "title": "Plan van de Bataille Laefelt - estampe - btv1b84091236",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 990720
+    },
+    {
+     "plan": "c_ffdb31f143a8bff8",
+     "title": "Traiectum ad Mosam, urbs et natura loci, munitionibusq., et populi frequentia, et edificijs... - btv1b53178839q (1 of 2)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1254400
+    },
+    {
+     "plan": "c_94f82fd629d1ed30",
+     "title": "Traiectum ad Mosam (...) - btv1b53211537p (2 of 3)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1233920
+    },
+    {
+     "plan": "c_396e4e40903408d3",
+     "title": "Traiectum ad Mosam (...) - btv1b53211537p (2b) (edited & cropped)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 826880
+    },
+    {
+     "plan": "c_7bb91dad8f2e687e",
+     "title": "Traiectum ad Mosam (...) - btv1b53211537p (2 of 3) (Nieuwstad)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 826200
+    },
+    {
+     "plan": "c_06bf9b4c7a615a6b",
+     "title": "Traiectum ad Mosam (...) - btv1b53211537p (2b) (edited)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 404480
+    },
+    {
+     "plan": "c_643f9288ce4af733",
+     "title": "Traiectum ad Mosam (...) - btv1b53211537p (2a) (edited)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 404480
+    }
+   ]
+  },
+  {
+   "site": "avaricum-q281826",
+   "name": "Avaricum",
+   "best": {
+    "plan": "c_d457524470ca0ab3",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_d457524470ca0ab3",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238)",
+     "label": "1898",
+     "size": [
+      1280,
+      1208
+     ],
+     "map_box": null,
+     "sites": [
+      "avaricum-q281826"
+     ],
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Caesar%27s_Gallic_war;_(Allen_and_Greenough%27s_ed.)_(1898)_(14594767238).jpg",
+     "url": "media/commons/avaricum-q281826/d457524470ca0ab3.jpg",
+     "view": false,
+     "ref": "File:Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d457524470ca0ab3",
+     "title": "Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1546240
+    },
+    {
+     "plan": "c_94284fd43c476662",
+     "title": "Terrace at Avaricum (plan, Caesar\u02d0 A History Of The Art Of War Among The Romans Down To The End, vol. I, 1892)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 222500
+    }
+   ]
+  },
+  {
+   "site": "zwolle-q793",
+   "name": "Zwolle",
+   "best": {
+    "plan": "c_f9cddae6b944a648",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f9cddae6b944a648",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Zwolle, town plan by Jacob van Deventer",
+     "label": "c. 1560",
+     "size": [
+      1280,
+      1178
+     ],
+     "map_box": null,
+     "sites": [
+      "zwolle-q793"
+     ],
+     "cite": "by Ton Schollen; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Plattegrond_van_J._van_Deventer,_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Zwolle_-_20228487_-_RCE.jpg",
+     "url": "media/commons/zwolle-q793/f9cddae6b944a648.jpg",
+     "view": false,
+     "ref": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist - Zwolle - 20228487 - RCE.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f9cddae6b944a648",
+     "title": "Zwolle, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1507840
+    }
+   ]
+  },
+  {
+   "site": "framlingham-castle-q2524183",
+   "name": "Framlingham Castle",
+   "best": {
+    "plan": "c_f43bc6196e097819",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f43bc6196e097819",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1171
+     ],
+     "map_box": null,
+     "sites": [
+      "framlingham-castle-q2524183"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
+     "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+     "view": false,
+     "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f43bc6196e097819",
+     "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1498880
+    }
+   ]
+  },
+  {
+   "site": "barnard-castle-q4185811",
+   "name": "Barnard Castle",
+   "best": {
+    "plan": "c_eacf8c673afcd863",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_eacf8c673afcd863",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Alnmouth Tithe Map 1843",
+     "label": "1843",
+     "size": [
+      954,
+      1494
+     ],
+     "map_box": null,
+     "sites": [
+      "barnard-castle-q4185811"
+     ],
+     "cite": "by Report authors: Archaeo-Environment Ltd Marian Cottage Lartington Barnard Castle County Durham DL12 9BP Tithe map dates to 1843, is used in the report, but was not originated by A-E Ltd.; Public domain; https://commons.wikimedia.org/wiki/File:Alnmouth_Tithe_Map_1843.png",
+     "url": "media/commons/barnard-castle-q4185811/eacf8c673afcd863.jpg",
+     "view": false,
+     "ref": "File:Alnmouth Tithe Map 1843.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_eacf8c673afcd863",
+     "title": "Alnmouth Tithe Map 1843",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1425276
+    },
+    {
+     "plan": "c_161b4363c95af84d",
+     "title": "Plan of Barnard Castle (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1117440
+    },
+    {
+     "plan": "c_71edc2901f4720f1",
+     "title": "Map of Durham Sheet 052, Ordnance Survey, 1857-1867",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1091840
+    },
+    {
+     "plan": "c_b9663c0f0ddb9da6",
+     "title": "705 of 'Comprehensive Guide to the County of Durham. With maps and plans' (11124815585)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 823440
+    }
+   ]
+  },
+  {
+   "site": "raby-castle-q4583646",
+   "name": "Raby Castle",
+   "best": {
+    "plan": "c_fe1d6c7f0ba858cb",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_fe1d6c7f0ba858cb",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Raby Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      1080
+     ],
+     "map_box": null,
+     "sites": [
+      "raby-castle-q4583646"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Raby_Castle_(1897).jpg",
+     "url": "media/commons/raby-castle-q4583646/fe1d6c7f0ba858cb.jpg",
+     "view": false,
+     "ref": "File:Plan of Raby Castle (1897).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_fe1d6c7f0ba858cb",
+     "title": "Raby Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1382400
+    }
+   ]
+  },
+  {
+   "site": "fletio-q2072212",
+   "name": "Fletio",
+   "best": {
+    "plan": "c_80f1e15c04bc5035",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_80f1e15c04bc5035",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Atlas de Wit 1698-pl033-Weesp-KB PPN 145205088",
+     "label": "c. 1698",
+     "size": [
+      1280,
+      1070
+     ],
+     "map_box": null,
+     "sites": [
+      "fletio-q2072212"
+     ],
+     "cite": "by Frederik de Wit; Public domain; https://commons.wikimedia.org/wiki/File:Atlas_de_Wit_1698-pl033-Weesp-KB_PPN_145205088.jpg",
+     "url": "media/commons/fletio-q2072212/80f1e15c04bc5035.jpg",
+     "view": false,
+     "ref": "File:Atlas de Wit 1698-pl033-Weesp-KB PPN 145205088.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_80f1e15c04bc5035",
+     "title": "Atlas de Wit 1698-pl033-Weesp-KB PPN 145205088",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1369600
+    }
+   ]
+  },
+  {
+   "site": "norwich-castle-q1672292",
+   "name": "Norwich Castle",
+   "best": {
+    "plan": "c_203cd8f6a3d536f7",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_203cd8f6a3d536f7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The official guide to the Norwich Castle Museum - Plan (page 24 crop)",
+     "label": "",
+     "size": [
+      1117,
+      1214
+     ],
+     "map_box": null,
+     "sites": [
+      "norwich-castle-q1672292"
+     ],
+     "cite": "by Southwell, Thomas; Public domain; https://commons.wikimedia.org/wiki/File:The_official_guide_to_the_Norwich_Castle_Museum_-_Plan_(page_24_crop).jpg",
+     "url": "media/commons/norwich-castle-q1672292/203cd8f6a3d536f7.jpg",
+     "view": false,
+     "ref": "File:The official guide to the Norwich Castle Museum - Plan (page 24 crop).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_203cd8f6a3d536f7",
+     "title": "The official guide to the Norwich Castle Museum - Plan (page 24 crop)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1356038
+    },
+    {
+     "plan": "c_ca71aaf87542c406",
+     "title": "Norwich Castle, Wilkins plan (pub.1796)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 758310
+    },
+    {
+     "plan": "c_afce3b5fcae7018a",
+     "title": "Norwich Castle keep plan by William Wilkins",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 441320
+    }
+   ]
+  },
+  {
+   "site": "herstmonceux-castle-q2652207",
+   "name": "Herstmonceux Castle",
+   "best": {
+    "plan": "c_8eb122e93e31c3f6",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8eb122e93e31c3f6",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1018,
+      1312
+     ],
+     "map_box": null,
+     "sites": [
+      "herstmonceux-castle-q2652207"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:120_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11297436674).jpg",
+     "url": "media/commons/herstmonceux-castle-q2652207/8eb122e93e31c3f6.jpg",
+     "view": false,
+     "ref": "File:120 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11297436674).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8eb122e93e31c3f6",
+     "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1335616
+    }
+   ]
+  },
+  {
+   "site": "york-castle-q80637",
+   "name": "York Castle",
+   "best": {
+    "plan": "c_a7db545536f13e24",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_a7db545536f13e24",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476 mod 01",
+     "label": "1855",
+     "size": [
+      1025,
+      1257
+     ],
+     "map_box": null,
+     "sites": [
+      "york-castle-q80637"
+     ],
+     "cite": "by Gifford, Franklin.; Wenig, E.; Smith, Robert Pearsall, 1827-1898; A.O. Gallup & Co.; and User:DutchTreat; Public domain; https://commons.wikimedia.org/wiki/File:Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476_mod_01.jpg",
+     "url": "media/commons/york-castle-q80637/a7db545536f13e24.jpg",
+     "view": false,
+     "ref": "File:Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476 mod 01.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a7db545536f13e24",
+     "title": "Plan-of-Center-Broome-County-1855-Gifford-Wenig-g3803b-la000476 mod 01",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1288425
+    },
+    {
+     "plan": "c_2f24e4f6aa92cb05",
+     "title": "Plan-of-Castle-Creek-Broome-County-1855-Gifford-Wenig-g3803b-la000476",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1258484
+    },
+    {
+     "plan": "c_b3c056e395d2525d",
+     "title": "Plan-of-Castle-Creek-Broome-County-1855-Gifford-Wenig-g3803b-la000476-mod01",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1156846
+    },
+    {
+     "plan": "c_81ecab4a9284f156",
+     "title": "Ground Plans for York Castle Buildings",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 326400
+    },
+    {
+     "plan": "c_c9a0d376a2f0777d",
+     "title": "York in the XVth century",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 770560
+    },
+    {
+     "plan": "c_be6959b4a59afb6f",
+     "title": "RidsdalePanorma",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 672000
+    },
+    {
+     "plan": "c_8dac5aacd73916b8",
+     "title": "York Castle in 1820",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 287154
+    }
+   ]
+  },
+  {
+   "site": "castra-exploratorum-q51433287",
+   "name": "Castra Exploratorum",
+   "best": {
+    "plan": "c_8672b8995f1cd2f1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8672b8995f1cd2f1",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Netherby R\u00f6misches Badehaus BP 1732",
+     "label": "1732",
+     "size": [
+      1044,
+      1209
+     ],
+     "map_box": null,
+     "sites": [
+      "castra-exploratorum-q51433287"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Netherby_R%C3%B6misches_Badehaus_BP_1732.png",
+     "url": "media/commons/castra-exploratorum-q51433287/8672b8995f1cd2f1.jpg",
+     "view": false,
+     "ref": "File:Netherby R\u00f6misches Badehaus BP 1732.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8672b8995f1cd2f1",
+     "title": "Netherby R\u00f6misches Badehaus BP 1732",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1262196
+    }
+   ]
+  },
+  {
+   "site": "durocortorum-q4896307",
+   "name": "Durocortorum",
+   "best": {
+    "plan": "c_d9e9cb7c45dcee8c",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_d9e9cb7c45dcee8c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Nouveau plan de Reims monumental industriel et commercial. Ann\u00e9e 1894, grav\u00e9 par H. Rollet",
+     "label": "1894",
+     "size": [
+      1280,
+      974
+     ],
+     "map_box": null,
+     "sites": [
+      "durocortorum-q4896307"
+     ],
+     "cite": "by ROLLET, Henri; Licence Ouverte; https://commons.wikimedia.org/wiki/File:Nouveau_plan_de_Reims_monumental_industriel_et_commercial._Ann%C3%A9e_1894,_grav%C3%A9_par_H._Rollet.jpg",
+     "url": "media/commons/durocortorum-q4896307/d9e9cb7c45dcee8c.jpg",
+     "view": false,
+     "ref": "File:Nouveau plan de Reims monumental industriel et commercial. Ann\u00e9e 1894, grav\u00e9 par H. Rollet.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d9e9cb7c45dcee8c",
+     "title": "Nouveau plan de Reims monumental industriel et commercial. Ann\u00e9e 1894, grav\u00e9 par H. Rollet",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1246720
+    },
+    {
+     "plan": "c_a60f570e6ce08f39",
+     "title": "Plan monumental de Reims et ses caves de champagne 1894",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1167360
+    },
+    {
+     "plan": "c_369f6580712b35a7",
+     "title": "MoSa\u00efque rue Jacquart 41825",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1136430
+    },
+    {
+     "plan": "c_d0e36d55da6546fd",
+     "title": "Brunette Reims antique 1895 GF 032",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1052160
+    },
+    {
+     "plan": "c_84fdd323caec55c2",
+     "title": "Camp de Ch\u00e2lons plan de 1862",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 606216
+    },
+    {
+     "plan": "c_262c52de83d336bf",
+     "title": "MoSa\u00efque archev\u00each\u00e9 41825",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 588294
+    },
+    {
+     "plan": "c_08d995eb23a685c2",
+     "title": "Plan-Reims-Bas-Empire",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 79750
+    }
+   ]
+  },
+  {
+   "site": "stokesay-castle-q7618555",
+   "name": "Stokesay Castle",
+   "best": {
+    "plan": "c_b78cc33241d1a599",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b78cc33241d1a599",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Stokesay Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      972
+     ],
+     "map_box": null,
+     "sites": [
+      "stokesay-castle-q7618555"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:188_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11244246185).jpg",
+     "url": "media/commons/stokesay-castle-q7618555/b78cc33241d1a599.jpg",
+     "view": false,
+     "ref": "File:188 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11244246185).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b78cc33241d1a599",
+     "title": "Stokesay Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1244160
+    }
+   ]
+  },
+  {
+   "site": "rockingham-castle-q3939808",
+   "name": "Rockingham Castle",
+   "best": {
+    "plan": "c_497e1fe3cbee8afa",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_497e1fe3cbee8afa",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Rockingham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      971
+     ],
+     "map_box": null,
+     "sites": [
+      "rockingham-castle-q3939808"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:393_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241707044).jpg",
+     "url": "media/commons/rockingham-castle-q3939808/497e1fe3cbee8afa.jpg",
+     "view": false,
+     "ref": "File:393 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241707044).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_497e1fe3cbee8afa",
+     "title": "Rockingham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1242880
+    }
+   ]
+  },
+  {
+   "site": "binche-q95121",
+   "name": "Binche",
+   "best": {
+    "plan": "c_957d7ce2933eb332",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_957d7ce2933eb332",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Binche, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      957
+     ],
+     "map_box": null,
+     "sites": [
+      "binche-q95121"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Binche_-_Deventer.jpg",
+     "url": "media/commons/binche-q95121/957d7ce2933eb332.jpg",
+     "view": false,
+     "ref": "File:Binche - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_957d7ce2933eb332",
+     "title": "Binche, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1224960
+    }
+   ]
+  },
+  {
+   "site": "shotwick-castle-q7502621",
+   "name": "Shotwick Castle",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0575_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0575_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0575.jpg",
+     "title": "EARTHWORKS",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.18,
+      0.35,
+      0.52,
+      0.56
+     ],
+     "sites": [
+      "clun-castle-q5136615",
+      "shotwick-castle-q7502621",
+      "holdgate-castle-q5879676",
+      "wandlebury-hill-fort-q7967271"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0575_1",
+     "title": "EARTHWORKS",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 1214039
+    }
+   ]
+  },
+  {
+   "site": "aesica-q4688554",
+   "name": "Aesica",
+   "best": {
+    "plan": "c_e28ed261168b49c9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e28ed261168b49c9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Befundplan Therme Great-Chesters",
+     "label": "1897",
+     "size": [
+      1280,
+      947
+     ],
+     "map_box": null,
+     "sites": [
+      "aesica-q4688554"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Befundplan_Therme_Great-Chesters.png",
+     "url": "media/commons/aesica-q4688554/e28ed261168b49c9.jpg",
+     "view": false,
+     "ref": "File:Befundplan Therme Great-Chesters.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e28ed261168b49c9",
+     "title": "Befundplan Therme Great-Chesters",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1212160
+    }
+   ]
+  },
+  {
+   "site": "norham-castle-q388705",
+   "name": "Norham Castle",
+   "best": {
+    "plan": "c_2bbf39ac472e1c30",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2bbf39ac472e1c30",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Norham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1157,
+      1004
+     ],
+     "map_box": null,
+     "sites": [
+      "norham-castle-q388705"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Norham_Castle,_(1897).jpg",
+     "url": "media/commons/norham-castle-q388705/2bbf39ac472e1c30.jpg",
+     "view": false,
+     "ref": "File:Plan of Norham Castle, (1897).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2bbf39ac472e1c30",
+     "title": "Norham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1161628
+    }
+   ]
+  },
+  {
+   "site": "barnwell-castle-q1188983",
+   "name": "Barnwell Castle",
+   "best": {
+    "plan": "c_61ae41ce152e5e5f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_61ae41ce152e5e5f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Barnwell Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1005,
+      1130
+     ],
+     "map_box": null,
+     "sites": [
+      "barnwell-castle-q1188983"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:378_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11296515666).jpg",
+     "url": "media/commons/barnwell-castle-q1188983/61ae41ce152e5e5f.jpg",
+     "view": false,
+     "ref": "File:378 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11296515666).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_61ae41ce152e5e5f",
+     "title": "Barnwell Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1135650
+    }
+   ]
+  },
+  {
+   "site": "caldicot-castle-q2968744",
+   "name": "Caldicot Castle",
+   "best": {
+    "plan": "c_a30212e5eedbbfc7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_a30212e5eedbbfc7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Caldicot Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      881
+     ],
+     "map_box": null,
+     "sites": [
+      "caldicot-castle-q2968744"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:106_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240715314).jpg",
+     "url": "media/commons/caldicot-castle-q2968744/a30212e5eedbbfc7.jpg",
+     "view": false,
+     "ref": "File:106 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240715314).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a30212e5eedbbfc7",
+     "title": "Caldicot Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1127680
+    }
+   ]
+  },
+  {
+   "site": "barwick-in-elmet-castle-q4865964",
+   "name": "Barwick-in-Elmet Castle",
+   "best": {
+    "plan": "c_81c1ff143a862ee7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_81c1ff143a862ee7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Gott Collection at Hepworth Gallery (116)",
+     "label": "1750-1900",
+     "size": [
+      1280,
+      862
+     ],
+     "map_box": null,
+     "sites": [
+      "barwick-in-elmet-castle-q4865964"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Gott_Collection_at_Hepworth_Gallery_(116).JPG",
+     "url": "media/commons/barwick-in-elmet-castle-q4865964/81c1ff143a862ee7.jpg",
+     "view": false,
+     "ref": "File:Gott Collection at Hepworth Gallery (116).JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_81c1ff143a862ee7",
+     "title": "Gott Collection at Hepworth Gallery (116)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1103360
+    }
+   ]
+  },
+  {
+   "site": "fotheringhay-castle-q1439593",
+   "name": "Fotheringhay Castle",
+   "best": {
+    "plan": "c_40851e8363f580c1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_40851e8363f580c1",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "379 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241129276)",
+     "label": "1897",
+     "size": [
+      1280,
+      806
+     ],
+     "map_box": null,
+     "sites": [
+      "fotheringhay-castle-q1439593"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:379_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241129276).jpg",
+     "url": "media/commons/fotheringhay-castle-q1439593/40851e8363f580c1.jpg",
+     "view": false,
+     "ref": "File:379 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241129276).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_40851e8363f580c1",
+     "title": "379 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241129276)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1031680
+    }
+   ]
+  },
+  {
+   "site": "leeds-castle-q746876",
+   "name": "Leeds Castle",
+   "best": {
+    "plan": "c_2e8896124401f956",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2e8896124401f956",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Leeds Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      793
+     ],
+     "map_box": null,
+     "sites": [
+      "leeds-castle-q746876"
+     ],
+     "cite": "by Sir James Dixon Mackenzie, Bart; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_Leeds_Castle_(1897).jpg",
+     "url": "media/commons/leeds-castle-q746876/2e8896124401f956.jpg",
+     "view": false,
+     "ref": "File:Plan of Leeds Castle (1897).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2e8896124401f956",
+     "title": "Leeds Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1015040
+    }
+   ]
+  },
+  {
+   "site": "cooling-castle-q5167493",
+   "name": "Cooling Castle",
+   "best": {
+    "plan": "c_7ebc7630f3197364",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7ebc7630f3197364",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cooling Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1000,
+      978
+     ],
+     "map_box": null,
+     "sites": [
+      "cooling-castle-q5167493"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:42_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147323666).jpg",
+     "url": "media/commons/cooling-castle-q5167493/7ebc7630f3197364.jpg",
+     "view": false,
+     "ref": "File:42 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147323666).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7ebc7630f3197364",
+     "title": "Cooling Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 978000
+    }
+   ]
+  },
+  {
+   "site": "scotney-castle-q17530343",
+   "name": "Scotney Castle",
+   "best": {
+    "plan": "c_9619bbc14863429f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_9619bbc14863429f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Scotney Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1280,
+      744
+     ],
+     "map_box": null,
+     "sites": [
+      "scotney-castle-q17530343"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:132_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11295498795).jpg",
+     "url": "media/commons/scotney-castle-q17530343/9619bbc14863429f.jpg",
+     "view": false,
+     "ref": "File:132 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11295498795).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9619bbc14863429f",
+     "title": "Scotney Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 952320
+    }
+   ]
+  },
+  {
+   "site": "maumbury-rings-q1702090",
+   "name": "Maumbury Rings",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0608_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0608_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0608.jpg",
+     "title": "Maumbury Rings, Dorchester",
+     "label": "Fig. 201",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.458,
+      0.362,
+      0.735,
+      0.562
+     ],
+     "sites": [
+      "maumbury-rings-q1702090"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0608_1",
+     "title": "Maumbury Rings, Dorchester",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 941986
+    }
+   ]
+  },
+  {
+   "site": "goodrich-castle-q5583571",
+   "name": "Goodrich Castle",
+   "best": {
+    "plan": "c_cd89cb69f385859b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_cd89cb69f385859b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      955,
+      943
+     ],
+     "map_box": null,
+     "sites": [
+      "goodrich-castle-q5583571"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
+     "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+     "view": false,
+     "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_cd89cb69f385859b",
+     "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 900565
+    }
+   ]
+  },
+  {
+   "site": "duffield-castle-q2073299",
+   "name": "Duffield Castle",
+   "best": {
+    "plan": "c_e915cbfd3af009b4",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e915cbfd3af009b4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      902,
+      966
+     ],
+     "map_box": null,
+     "sites": [
+      "duffield-castle-q2073299"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+     "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+     "view": false,
+     "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e915cbfd3af009b4",
+     "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 871332
+    }
+   ]
+  },
+  {
+   "site": "bolsover-castle-q2968590",
+   "name": "Bolsover Castle",
+   "best": {
+    "plan": "c_5531262b52faaea8",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_5531262b52faaea8",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bolsover Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      842,
+      976
+     ],
+     "map_box": null,
+     "sites": [
+      "bolsover-castle-q2968590"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:528_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146272565).jpg",
+     "url": "media/commons/bolsover-castle-q2968590/5531262b52faaea8.jpg",
+     "view": false,
+     "ref": "File:528 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146272565).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_5531262b52faaea8",
+     "title": "Bolsover Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 821792
+    }
+   ]
+  },
+  {
+   "site": "de-thombe-q2359601",
+   "name": "De Thombe",
+   "best": {
+    "plan": "c_b438f78e39a1aaec",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b438f78e39a1aaec",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632",
+     "label": "1642",
+     "size": [
+      960,
+      843
+     ],
+     "map_box": null,
+     "sites": [
+      "de-thombe-q2359601"
+     ],
+     "cite": "by Matth\u00e4us Merian; Public domain; https://commons.wikimedia.org/wiki/File:Dankaerts-Historis-9350_-_Maastricht_map_-_detail_-_De_Tombe_%26_southern_pontoon_bridge_1632.tiff",
+     "url": "media/commons/de-thombe-q2359601/b438f78e39a1aaec.jpg",
+     "view": false,
+     "ref": "File:Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632.tiff"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b438f78e39a1aaec",
+     "title": "Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 809280
+    }
+   ]
+  },
+  {
+   "site": "carisbrooke-castle-q328595",
+   "name": "Carisbrooke Castle",
+   "best": {
+    "plan": "c_c280ff908ad8318d",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c280ff908ad8318d",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Carisbrooke Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      1151,
+      686
+     ],
+     "map_box": null,
+     "sites": [
+      "carisbrooke-castle-q328595"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:252_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147295504).jpg",
+     "url": "media/commons/carisbrooke-castle-q328595/c280ff908ad8318d.jpg",
+     "view": false,
+     "ref": "File:252 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147295504).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c280ff908ad8318d",
+     "title": "Carisbrooke Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 789586
+    }
+   ]
+  },
+  {
+   "site": "sedgwick-castle-q17645407",
+   "name": "Sedgwick Castle",
+   "best": {
+    "plan": "c_4698419a99147c83",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4698419a99147c83",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Sedgwick Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      921,
+      820
+     ],
+     "map_box": null,
+     "sites": [
+      "sedgwick-castle-q17645407"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:134_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11145759593).jpg",
+     "url": "media/commons/sedgwick-castle-q17645407/4698419a99147c83.jpg",
+     "view": false,
+     "ref": "File:134 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11145759593).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4698419a99147c83",
+     "title": "Sedgwick Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 755220
+    }
+   ]
+  },
+  {
+   "site": "mount-horeb-earthworks-complex-q6921321",
+   "name": "Mount Horeb Earthworks Complex",
+   "best": {
+    "plan": "c_45d5d0b95cf55a09",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_45d5d0b95cf55a09",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Grimes Village enclosure Squier and Davis Plate XIV Figure 4",
+     "label": "1848",
+     "size": [
+      1000,
+      753
+     ],
+     "map_box": null,
+     "sites": [
+      "mount-horeb-earthworks-complex-q6921321"
+     ],
+     "cite": "by Ephraim George Squier and en:Edwin Hamilton Davis; Public domain; https://commons.wikimedia.org/wiki/File:Grimes_Village_enclosure_Squier_and_Davis_Plate_XIV_Figure_4.jpg",
+     "url": "media/commons/mount-horeb-earthworks-complex-q6921321/45d5d0b95cf55a09.jpg",
+     "view": false,
+     "ref": "File:Grimes Village enclosure Squier and Davis Plate XIV Figure 4.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_45d5d0b95cf55a09",
+     "title": "Grimes Village enclosure Squier and Davis Plate XIV Figure 4",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 753000
+    },
+    {
+     "plan": "c_d1dff07f0da57b0e",
+     "title": "Peter Village enclosure Squier and Davis Plate XIV Figure 3",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 733000
+    }
+   ]
+  },
+  {
+   "site": "oxford-castle-q2600886",
+   "name": "Oxford Castle",
+   "best": {
+    "plan": "c_ba6b308580428184",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ba6b308580428184",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      895,
+      781
+     ],
+     "map_box": null,
+     "sites": [
+      "oxford-castle-q2600886"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:207_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148583904).jpg",
+     "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
+     "view": false,
+     "ref": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ba6b308580428184",
+     "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 698995
+    }
+   ]
+  },
+  {
+   "site": "ferme-d-azincourt-q20669811",
+   "name": "Ferme d'Azincourt",
+   "best": {
+    "plan": "c_804aa7af3eb2ac7c",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_804aa7af3eb2ac7c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Azincourt - cadastre de 1810",
+     "label": "1810",
+     "size": [
+      1104,
+      618
+     ],
+     "map_box": null,
+     "sites": [
+      "ferme-d-azincourt-q20669811"
+     ],
+     "cite": "by inconnu \u00e9poque XIX \u00e9me; Public domain; https://commons.wikimedia.org/wiki/File:Azincourt_-_cadastre_de_1810.JPG",
+     "url": "media/commons/ferme-d-azincourt-q20669811/804aa7af3eb2ac7c.jpg",
+     "view": false,
+     "ref": "File:Azincourt - cadastre de 1810.JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_804aa7af3eb2ac7c",
+     "title": "Azincourt - cadastre de 1810",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 682272
+    },
+    {
+     "plan": "c_939d49b9a28b6f5a",
+     "title": "Azincourt - cadastre de 1810 d\u00e9tail",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 381188
+    },
+    {
+     "plan": "c_38e0686a18c76bad",
+     "title": "Azincourt - Cadastre de 1851",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 74115
+    }
+   ]
+  },
+  {
+   "site": "aldenhaag-q23650779",
+   "name": "Aldenhaag",
+   "best": {
+    "plan": "c_71c4ef3170b44288",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_71c4ef3170b44288",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Aldenhaag detail kadasterkaart 1832",
+     "label": "1832",
+     "size": [
+      968,
+      697
+     ],
+     "map_box": null,
+     "sites": [
+      "aldenhaag-q23650779"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Aldenhaag_detail_kadasterkaart_1832.jpg",
+     "url": "media/commons/aldenhaag-q23650779/71c4ef3170b44288.jpg",
+     "view": false,
+     "ref": "File:Aldenhaag detail kadasterkaart 1832.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_71c4ef3170b44288",
+     "title": "Aldenhaag detail kadasterkaart 1832",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 674696
+    }
+   ]
+  },
+  {
+   "site": "galava-q3094516",
+   "name": "Galava",
+   "best": {
+    "plan": "c_276ce7477f8eb67f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_276ce7477f8eb67f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ambleside Roman Fort - Project Gutenberg eText 19115",
+     "label": "1923",
+     "size": [
+      900,
+      702
+     ],
+     "map_box": null,
+     "sites": [
+      "galava-q3094516"
+     ],
+     "cite": "by Derivative work: Hogweard; Public domain; https://commons.wikimedia.org/wiki/File:Ambleside_Roman_Fort_-_Project_Gutenberg_eText_19115.jpg",
+     "url": "media/commons/galava-q3094516/276ce7477f8eb67f.jpg",
+     "view": false,
+     "ref": "File:Ambleside Roman Fort - Project Gutenberg eText 19115.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_276ce7477f8eb67f",
+     "title": "Ambleside Roman Fort - Project Gutenberg eText 19115",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 631800
+    }
+   ]
+  },
+  {
+   "site": "bremetennacum-q4960578",
+   "name": "Bremetennacum",
+   "best": {
+    "plan": "c_cf067786b1b33db5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_cf067786b1b33db5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ribchester Fort - Project Gutenberg eText 19115",
+     "label": "1914",
+     "size": [
+      600,
+      1036
+     ],
+     "map_box": null,
+     "sites": [
+      "bremetennacum-q4960578"
+     ],
+     "cite": "by F. Haverfield Tagishsimon Hogweard; Public domain; https://commons.wikimedia.org/wiki/File:Ribchester_Fort_-_Project_Gutenberg_eText_19115.jpg",
+     "url": "media/commons/bremetennacum-q4960578/cf067786b1b33db5.jpg",
+     "view": false,
+     "ref": "File:Ribchester Fort - Project Gutenberg eText 19115.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_cf067786b1b33db5",
+     "title": "Ribchester Fort - Project Gutenberg eText 19115",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 621600
+    }
+   ]
+  },
+  {
+   "site": "offa-s-dyke-q1127343",
+   "name": "Offa's Dyke",
+   "best": {
+    "plan": "c_1cca85e7b4b5a89e",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1cca85e7b4b5a89e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "OS1902 Nantcribba 02",
+     "label": "1902",
+     "size": [
+      725,
+      773
+     ],
+     "map_box": null,
+     "sites": [
+      "offa-s-dyke-q1127343"
+     ],
+     "cite": "by Ordnance Survey 1:2500 Montgomeryshire Sheet xxx8; Public domain; https://commons.wikimedia.org/wiki/File:OS1902_Nantcribba_02.jpeg",
+     "url": "media/commons/offa-s-dyke-q1127343/1cca85e7b4b5a89e.jpg",
+     "view": false,
+     "ref": "File:OS1902 Nantcribba 02.jpeg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1cca85e7b4b5a89e",
+     "title": "OS1902 Nantcribba 02",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 560425
+    }
+   ]
+  },
+  {
+   "site": "pyramid-mound-q7263260",
+   "name": "Pyramid Mound",
+   "best": {
+    "plan": "ancientmonuments00squi_n0134_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "ancientmonuments00squi_n0134_1",
+     "book": "Squier & Davis 1848",
+     "ia": "ancientmonuments00squi",
+     "file": "n0134.jpg",
+     "title": "",
+     "label": "",
+     "size": [
+      2884,
+      4064
+     ],
+     "map_box": [
+      0.125,
+      0.55,
+      0.44,
+      0.68
+     ],
+     "sites": [
+      "pyramid-mound-q7263260"
+     ],
+     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "ancientmonuments00squi_n0134_1",
+     "title": "ancientmonuments00squi_n0134_1",
+     "book": "Squier & Davis 1848",
+     "view": false,
+     "draw_px": 479958
+    }
+   ]
+  },
+  {
+   "site": "hardknott-roman-fort-q1584994",
+   "name": "Hardknott Roman Fort",
+   "best": {
+    "plan": "c_7dcdfcc9aceb62ec",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7dcdfcc9aceb62ec",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hardknott Roman Fort",
+     "label": "1902",
+     "size": [
+      698,
+      684
+     ],
+     "map_box": null,
+     "sites": [
+      "hardknott-roman-fort-q1584994"
+     ],
+     "cite": "by Social England, edited by H.D. Traill, D.C.L. and J. S. Mann, M.A. Cassell and Company, Limited, London, Paris, New York & Melbourne, 1902; Public domain; https://commons.wikimedia.org/wiki/File:Hardknott_Roman_Fort.png",
+     "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+     "view": false,
+     "ref": "File:Hardknott Roman Fort.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7dcdfcc9aceb62ec",
+     "title": "Hardknott Roman Fort",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 477432
+    }
+   ]
+  },
+  {
+   "site": "okehampton-castle-q1419982",
+   "name": "Okehampton Castle",
+   "best": {
+    "plan": "c_0edd7f87db67ff20",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0edd7f87db67ff20",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan of Okehampton Castle",
+     "label": "1915",
+     "size": [
+      618,
+      674
+     ],
+     "map_box": null,
+     "sites": [
+      "okehampton-castle-q1419982"
+     ],
+     "cite": "by Underlying map, Edward H. Young (died 1932); additional detail and work by hchc2009; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_Okehampton_Castle.png",
+     "url": "media/commons/okehampton-castle-q1419982/0edd7f87db67ff20.jpg",
+     "view": false,
+     "ref": "File:Plan of Okehampton Castle.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0edd7f87db67ff20",
+     "title": "Plan of Okehampton Castle",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 416532
+    }
+   ]
+  },
+  {
+   "site": "pilsbury-castle-q7194511",
+   "name": "Pilsbury Castle",
+   "best": {
+    "plan": "c_7ff765c177ca7bae",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7ff765c177ca7bae",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Pilsbury Castle plan",
+     "label": "1905",
+     "size": [
+      685,
+      506
+     ],
+     "map_box": null,
+     "sites": [
+      "pilsbury-castle-q7194511"
+     ],
+     "cite": "by J. C. Cox, died before 1921 (when he is described as the \"late J C Cox\" in correspondence; Public domain; https://commons.wikimedia.org/wiki/File:Pilsbury_Castle_plan.jpg",
+     "url": "media/commons/pilsbury-castle-q7194511/7ff765c177ca7bae.jpg",
+     "view": false,
+     "ref": "File:Pilsbury Castle plan.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7ff765c177ca7bae",
+     "title": "Pilsbury Castle plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 346610
+    }
+   ]
+  },
+  {
+   "site": "tremper-mound-and-works-q7838197",
+   "name": "Tremper Mound and Works",
+   "best": {
+    "plan": "c_75950f29c23bf033",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_75950f29c23bf033",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Tremper Mound Squier and Davis 01",
+     "label": "1846",
+     "size": [
+      604,
+      462
+     ],
+     "map_box": null,
+     "sites": [
+      "tremper-mound-and-works-q7838197"
+     ],
+     "cite": "by E.G. Squier and E.H. Davis; Public domain; https://commons.wikimedia.org/wiki/File:Tremper_Mound_Squier_and_Davis_01.jpg",
+     "url": "media/commons/tremper-mound-and-works-q7838197/75950f29c23bf033.jpg",
+     "view": false,
+     "ref": "File:Tremper Mound Squier and Davis 01.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_75950f29c23bf033",
+     "title": "Tremper Mound Squier and Davis 01",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 279048
+    }
+   ]
+  },
+  {
+   "site": "castra-lemanis-q499898",
+   "name": "Castra Lemanis",
+   "best": {
+    "plan": "c_be12fb0f9a87000b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_be12fb0f9a87000b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan Portus Lemanis",
+     "label": "19th century",
+     "size": [
+      361,
+      600
+     ],
+     "map_box": null,
+     "sites": [
+      "castra-lemanis-q499898"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Plan_Portus_Lemanis.jpg",
+     "url": "media/commons/castra-lemanis-q499898/be12fb0f9a87000b.jpg",
+     "view": false,
+     "ref": "File:Plan Portus Lemanis.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_be12fb0f9a87000b",
+     "title": "Plan Portus Lemanis",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 216600
+    }
+   ]
+  },
+  {
+   "site": "hunnum-q12060606",
+   "name": "Hunnum",
+   "best": {
+    "plan": "c_4d39c8620c3e8cee",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4d39c8620c3e8cee",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Planskizze Terme Halton Chesters (Onnum)",
+     "label": "1827",
+     "size": [
+      323,
+      534
+     ],
+     "map_box": null,
+     "sites": [
+      "hunnum-q12060606"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Planskizze_Terme_Halton_Chesters_(Onnum).png",
+     "url": "media/commons/hunnum-q12060606/4d39c8620c3e8cee.jpg",
+     "view": false,
+     "ref": "File:Planskizze Terme Halton Chesters (Onnum).png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4d39c8620c3e8cee",
+     "title": "Planskizze Terme Halton Chesters (Onnum)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 172482
+    }
+   ]
+  },
+  {
+   "site": "daw-s-castle-q5242247",
+   "name": "Daw's Castle",
+   "best": {
+    "plan": "c_8d2281628567a166",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8d2281628567a166",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Daws Castle Somerset Map",
+     "label": "1911",
+     "size": [
+      340,
+      367
+     ],
+     "map_box": null,
+     "sites": [
+      "daw-s-castle-q5242247"
+     ],
+     "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Daws_Castle_Somerset_Map.jpg",
+     "url": "media/commons/daw-s-castle-q5242247/8d2281628567a166.jpg",
+     "view": false,
+     "ref": "File:Daws Castle Somerset Map.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8d2281628567a166",
+     "title": "Daws Castle Somerset Map",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 124780
+    }
+   ]
+  },
+  {
+   "site": "fairlawne-q17530246",
+   "name": "Fairlawne",
+   "best": {
+    "plan": "c_ecdc91065124bb2c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ecdc91065124bb2c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Fairlawne, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      1084
+     ],
+     "map_box": null,
+     "sites": [
+      "fairlawne-q17530246"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_Fair_Lawn_in_ye_County_of_Kent_-_B2017.35.2_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/fairlawne-q17530246/ecdc91065124bb2c.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - Fair Lawn in ye County of Kent - B2017.35.2 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ecdc91065124bb2c",
+     "title": "Fairlawne, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1387520
+    }
+   ]
+  },
+  {
+   "site": "motte-montferland-q2845894",
+   "name": "Motte Montferland",
+   "best": {
+    "plan": "c_ca75f754d3746c96",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ca75f754d3746c96",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Montferberg, NG-1985-7-2-21",
+     "label": "1770-1778",
+     "size": [
+      1280,
+      1070
+     ],
+     "map_box": null,
+     "sites": [
+      "motte-montferland-q2845894"
+     ],
+     "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Montferberg,_NG-1985-7-2-21.jpg",
+     "url": "media/commons/motte-montferland-q2845894/ca75f754d3746c96.jpg",
+     "view": true,
+     "ref": "File:Montferberg, NG-1985-7-2-21.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ca75f754d3746c96",
+     "title": "Montferberg, NG-1985-7-2-21",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1369600
+    }
+   ]
+  },
+  {
+   "site": "chevening-q1070927",
+   "name": "Chevening",
+   "best": {
+    "plan": "c_6049b89e4ab0570c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6049b89e4ab0570c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Chevening, bird's-eye view engraved by Johannes Kip",
+     "label": "1719",
+     "size": [
+      1280,
+      1056
+     ],
+     "map_box": null,
+     "sites": [
+      "chevening-q1070927"
+     ],
+     "cite": "by Johannes Kip (d.1722) after Thomas Badeslade (d.1742) (Life time: Johannes Kip (d.1722) after Thomas Badeslade (d.1742)); Public domain; https://commons.wikimedia.org/wiki/File:An_engraving_of_Chevening_by_Johannes_Kip_(d.1722)_after_Thomas_Badeslade_(d.1742),_published_(in_History_of_Kent)_1719_by_John_Harris.jpg",
+     "url": "media/commons/chevening-q1070927/6049b89e4ab0570c.jpg",
+     "view": true,
+     "ref": "File:An engraving of Chevening by Johannes Kip (d.1722) after Thomas Badeslade (d.1742), published (in History of Kent) 1719 by John Harris.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6049b89e4ab0570c",
+     "title": "Chevening, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1351680
+    }
+   ]
+  },
+  {
+   "site": "hampton-court-herefordshire-q1443802",
+   "name": "Hampton Court, Herefordshire",
+   "best": {
+    "plan": "c_30fd5ed79644c966",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_30fd5ed79644c966",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hampton Court, Herefordshire, bird's-eye view engraved by Johannes Kip",
+     "label": "1709",
+     "size": [
+      1280,
+      957
+     ],
+     "map_box": null,
+     "sites": [
+      "hampton-court-herefordshire-q1443802"
+     ],
+     "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Gezicht_op_Hampton_Court,_RP-P-1905-194.jpg",
+     "url": "media/commons/hampton-court-herefordshire-q1443802/30fd5ed79644c966.jpg",
+     "view": true,
+     "ref": "File:Gezicht op Hampton Court, RP-P-1905-194.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_30fd5ed79644c966",
+     "title": "Hampton Court, Herefordshire, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1224960
+    }
+   ]
+  },
+  {
+   "site": "burlington-house-q225471",
+   "name": "Burlington House",
+   "best": {
+    "plan": "c_17e8fb3cf9037e19",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_17e8fb3cf9037e19",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Burlington House, bird's-eye view engraved by Johannes Kip",
+     "label": "c. 1707",
+     "size": [
+      1280,
+      933
+     ],
+     "map_box": null,
+     "sites": [
+      "burlington-house-q225471"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_Burlington_House_in_Piccadilly_-_B1977.14.17783_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/burlington-house-q225471/17e8fb3cf9037e19.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - Burlington House in Piccadilly - B1977.14.17783 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_17e8fb3cf9037e19",
+     "title": "Burlington House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1194240
+    }
+   ]
+  },
+  {
+   "site": "chiswick-house-q1074877",
+   "name": "Chiswick House",
+   "best": {
+    "plan": "c_7c44a92b3198eab2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7c44a92b3198eab2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Chiswick House, bird's-eye view engraved by Johannes Kip",
+     "label": "1715",
+     "size": [
+      1280,
+      924
+     ],
+     "map_box": null,
+     "sites": [
+      "chiswick-house-q1074877"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_The_House_at_Chiswick_in_the_County_of_Middlesex_one_of_the_Seats_of_the_Rt_Hon_Charles_Boyle_-_B1977.14.18672_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/chiswick-house-q1074877/7c44a92b3198eab2.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - The House at Chiswick in the County of Middlesex one of the Seats of the Rt Hon Charles Boyle - B1977.14.18672 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7c44a92b3198eab2",
+     "title": "Chiswick House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1182720
+    }
+   ]
+  },
+  {
+   "site": "cassiobury-house-q5049456",
+   "name": "Cassiobury House",
+   "best": {
+    "plan": "c_3446adfe7a8ed6c7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_3446adfe7a8ed6c7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cassiobury House, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      923
+     ],
+     "map_box": null,
+     "sites": [
+      "cassiobury-house-q5049456"
+     ],
+     "cite": "by Cnbrb; Public domain; https://commons.wikimedia.org/wiki/File:Cassiobury_Park_by_Kip_and_Knyff.jpg",
+     "url": "media/commons/cassiobury-house-q5049456/3446adfe7a8ed6c7.jpg",
+     "view": true,
+     "ref": "File:Cassiobury Park by Kip and Knyff.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_3446adfe7a8ed6c7",
+     "title": "Cassiobury House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1181440
+    }
+   ]
+  },
+  {
+   "site": "glevum-q360974",
+   "name": "Glevum",
+   "best": {
+    "plan": "c_00af10815696cac5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_00af10815696cac5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Transactions of the Bristol and Gloucestershire Archaeological Society (1903) (14592167049)",
+     "label": "1903",
+     "size": [
+      1280,
+      835
+     ],
+     "map_box": null,
+     "sites": [
+      "glevum-q360974"
+     ],
+     "cite": "by Bristol and Gloucestershire Archaeological Society. cn; No restrictions; https://commons.wikimedia.org/wiki/File:Transactions_of_the_Bristol_and_Gloucestershire_Archaeological_Society_(1903)_(14592167049).jpg",
+     "url": "media/commons/glevum-q360974/00af10815696cac5.jpg",
+     "view": true,
+     "ref": "File:Transactions of the Bristol and Gloucestershire Archaeological Society (1903) (14592167049).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_00af10815696cac5",
+     "title": "Transactions of the Bristol and Gloucestershire Archaeological Society (1903) (14592167049)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1068800
+    }
+   ]
+  },
+  {
+   "site": "oakham-castle-q2968294",
+   "name": "Oakham Castle",
+   "best": {
+    "plan": "c_c99f82bbb06745e6",
+    "reason": "the clearest view",
+    "row": {
+     "id": "c_c99f82bbb06745e6",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14583954347)",
+     "label": "1769",
+     "size": [
+      1280,
+      729
+     ],
+     "map_box": null,
+     "sites": [
+      "oakham-castle-q2968294"
+     ],
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:A_description_of_England_and_Wales,_containing_a_particular_account_of_each_county,_with_its_antiquities,_curiosities,_situation,_figure,_extent,_climate,_rivers,_lakes,_mineral_waters,_soils,_(14583954347).jpg",
+     "url": "media/commons/oakham-castle-q2968294/c99f82bbb06745e6.jpg",
+     "view": true,
+     "ref": "File:A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14583954347).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c99f82bbb06745e6",
+     "title": "A description of England and Wales, containing a particular account of each county, with its antiquities, curiosities, situation, figure, extent, climate, rivers, lakes, mineral waters, soils, (14583954347)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 933120
+    },
+    {
+     "plan": "c_d28e12456960aac0",
+     "title": "A new display of the beauties of England; - or A description of the most elegant or magnificent public edifices, royal palaces, noblemen's and gentlemen's seats, and other curiosities, natural or (14760980984)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 816640
+    }
+   ]
+  },
+  {
+   "site": "chateau-du-kochersberg-q1012697",
+   "name": "Ch\u00e2teau du Kochersberg",
+   "best": {
+    "plan": "c_21725fdc347026d3",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_21725fdc347026d3",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "ChateauDuKochersberg",
+     "label": "1644",
+     "size": [
+      1280,
+      640
+     ],
+     "map_box": null,
+     "sites": [
+      "chateau-du-kochersberg-q1012697"
+     ],
+     "cite": "by Anonymous Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:ChateauDuKochersberg.jpg",
+     "url": "media/commons/chateau-du-kochersberg-q1012697/21725fdc347026d3.jpg",
+     "view": true,
+     "ref": "File:ChateauDuKochersberg.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_21725fdc347026d3",
+     "title": "ChateauDuKochersberg",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 819200
+    }
+   ]
+  }
+ ]
+}
