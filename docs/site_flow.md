@@ -648,7 +648,8 @@ candidate was flagged) and Windmill Hill (all three were flagged) - and seven na
 Alauna, Bokerley Dyke, Castle Neroche, Clun Castle, Coria, Devil's Dyke, Eaton Socon Castle. Devil's Dyke's entry
 is now its only remaining candidate (n0662_1 "SWEALD"), and n0686_1, the Brighton hillfort camp, sits in the
 Sussex hillfort's review item, not in the queue. The five new items appear in the review list
-(`web/data/review.json` was re-exported in the same run: 336 open of 346). A re-run of the check over the rebuilt
+(`web/data/review.json` was re-exported in the same run: 336 open of 346; the live count moves as items get
+resolved - the lead's RoMa export of the same day resolved three more: Carisbrooke, Dudley, Newark). A re-run of the check over the rebuilt
 tree re-flags the same 15; a re-run of the build writes no new bytes.
 
 Two things to read in the reasons above: Bokerley Dyke's `sites.json` place is "Dorset, England" though the

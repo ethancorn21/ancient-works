@@ -31,7 +31,7 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
       re-exported by fit/review.py export in-process from the same run (the page file is never
       hand-written). Re-running the build over unchanged inputs is stable: same decisions, no
       candidate churn, no duplicate or changing reasons.
-- [ ] docs/site_flow.md gains the section: how many of the queue's 117 entries were wrong (15
+- [x] docs/site_flow.md gains the section: how many of the queue's 117 entries were wrong (15
       pairs over 9 sites, with the list - site, caption, reason), which candidates moved to which
       site and which went to review, the queue's size before and after, and how the check
       decides (stored fields only: the caption's explicit county/state word, its towns resolved
@@ -71,65 +71,31 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
 
 ## Hand-over
 
-(2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
-carries the verified 15-flag list, the 117-entry baseline and the worktree warning.)
+(2026-10-12, iteration 109, agent c - session 18. BOX 2 TICKED. Box 3 (tests/
+test_right_place_drift.py) is next; box 4 re-verified at close. History of boxes
+1-2 in DECISIONS.md (iterations 103/107/108) and the 309 parent's hand-over.)
 
-(2026-10-12, iteration 98, agent c: `Depends on: 309` removed from this line (split-parent
-deadlock - see 309's iteration-98 DECISIONS entry); `Depends on: 804` is the real ordering
-need and stays (the rebuild runs after the wiring merges, and the chain carries the module).
-The module is on agent/c, the owner lane, until 309 closes out.)
+STATE: box 1 ticked (rebuild committed: queue 117/325 -> 114/309, 5 new review
+items for unbuilt right sites, review.json re-exported; contract fix =
+catalog-aware fit/review.py export + fit/batch_eu.py union_check +
+fit/site_catalog.py - the bare name fit/catalog.py shadowed
+pipeline/catalog.py, renamed in session 16). Box 2 ticked this session after
+verifying the docs/site_flow.md "right-place check" section against the
+POST-MERGE tree (the lead's 89043b7 merge): right_place check re-run -> 324
+checked / 15 flagged, same 9 sites as the table; queue still 114/309;
+shotwick's item still in the review list (now 333 open of 346 after the
+lead's 3 RoMa resolutions; the section's "336 open of 346" sentence gained a
+parenthetical saying the live count moves). Box 3: tests/
+test_right_place_drift.py NOT STARTED. Box 4 (the 305 queue-shape contract):
+already satisfied by the rebuild + 804's tests; re-verify (run the three
+named tests + confirm the queue file's shape) and tick when closing.
 
-(2026-10-12, iteration 102, agent c: 804 is now done in the lane (all five boxes; tests
-green). Before the rebuild, re-read PARENT 309's hand-over: the driver merge 9be7094
-brought in the lead's matcher-fit work and c5250a4's full review export (six data/review/
-items + web/data/review.json touched, write-once resolved records) - the iteration-100
-"5 item files / 6 upserts" note predates that export, so re-derive the expected rebuild
-from THIS run's flags. Flag baseline re-verified this session: 324 checked / 15 flagged,
-identical to iterations 100/101. Suite baseline moved: fully green (83 passed / 1
-skipped / 0 failed) - the three old main-side failures are fixed main-side, so the
-criteria's "three pre-existing failures stay as they are" means: do not edit their
-assertions; if a merge moves them again, re-baseline rather than chase.)
-
-(2026-10-12, iteration 103, agent c: FIRST session of 805. Box 1's data writes are DONE
-in the worktree but UNCOMMITTED (rebuilt web/data/fit_queue.json 117->114, rebuilt
-web/data/review.json 335->340, 5 new data/review/ items for unbuilt catalog right sites;
-second run verified byte-stable). The full suite then showed 3 failures, ALL caused by
-the rebuild (all 3 pass on the pre-rebuild baseline /tmp/baseline805): the one-site
-line tests (test_site_done_line, test_line_refuses_unmarked_non_auto_doc) assert err ==
-"" and the export now prints 5 "site not in sites.json" warnings; test_union_check's
-union_check flags the 5 new items as orphans. Fix designed in PARENT 309's hand-over
-(make fit/review.py export and fit/batch_eu.py union_check catalog-aware - the new item
-kind is legitimate by 804's rule; no test file gets edited): read test_review.py and
-the batch temp-tree builder first, add fit/review.py + fit/batch_eu.py to this task's
-Touches, then commit data + fixes together. Boxes 2 (site_flow section) and 3
-(test_right_place_drift.py) not started - full step list in the parent's hand-over.)
-
-(2026-10-12, iteration 107, agent c: BOX 1 CLOSED (ticked). The rebuild data and the
-contract fix were saved by the driver (1914931/268d1f5); this session renamed
-fit/catalog.py -> fit/site_catalog.py (the bare name shadowed pipeline/catalog.py in
-the shared-sys.path tests: test_src_van_deventer, AttributeError: module 'catalog' has
-no attribute 'slug') and verified the full suite at the not-mine baseline 81/1/2. Next:
-box 2 (the docs/site_flow.md section - content spec in the parent's hand-over), then
-box 3 (tests/test_right_place_drift.py).)
-
-(2026-10-12, iteration 108, agent c: BOX 2 WRITTEN, uncommitted in the worktree
-tasks/309-queue-right-place.md holds the full session record): docs/site_flow.md gains the
-self-contained "The right-place check" section appended after "The matcher fit". Every
-number was re-verified this session by running code: 324 checked / 15 flagged over 9
-sites (the table carries the verbatim reason strings, all `same name, other place: ...`);
-10 flags found unbuilt right sites -> 6 candidate writes into the 5 new items (a-saucer
-barrow took n0558_1 + n0558_2; castle-dyke n0599_1; devil-s-dyke-hillfort n0686_1;
-down-end-castle n0285_1; oval-barrow n0557_1), the other 4 being dedup skips (same
-(target, plan) re-flagged from a second source site); 5 flags found no catalog site
-passing 0.5 (n0354_1 Ardoch x2, n0438_1 x2, n0575_1) -> stayed in the source item that
-already held the plan (upsert skipped, batch record as written, no place_reason); 0 moves
-into built-site entries; queue 117/325 (305) -> 116/324 (lead's Oct 12 export: shotwick
-no longer "built" - its web/data/sites/ dir gone, so neither queued nor checked) ->
-114/309; review.json 336 open of 346; the 17 verbatim-core names are byte-identical to
-pipeline/books_match.py today (zero drift - box 3's test must pass first run). The
-section's --live sentence: a human-only path from the dropped spec, never part of the
-build (the shipped module has no --live flag and no data/fit_place.json - that was the
-dropped tasks/309-place-check.md design). NEXT: run .venv/bin/python -m pytest (expect
-81/1/2, the 2 = the not-mine test_review pair - see the parent's hand-over), tick box 2,
-commit; then box 3 (tests/test_right_place_drift.py; the 17 names, the extraction rule
-and the verified-zero-drift fact are in the parent's hand-over).)
+NEXT (one session): write tests/test_right_place_drift.py per the box text
+(17 names; extract each top-level block between the two "# =====" VERBATIM
+marker lines in tools/right_place.py and assert it occurs byte-identical in
+pipeline/books_match.py; hermetic, stdlib, no network/ports/writes).
+Verified 17/17 in sync today (session-18 DECISIONS entry has the extraction
+rule) - must pass first run. If it fails, the drift is in
+pipeline/books_match.py (the lead's/agent a's file - log in DECISIONS.md,
+never edit it here). Then full suite, tick boxes 3+4, Status: done, and the
+driver returns parent 309 (tick its three carved boxes, done).
