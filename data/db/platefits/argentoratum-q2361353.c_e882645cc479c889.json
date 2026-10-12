@@ -1,0 +1,86 @@
+{
+ "site": "argentoratum-q2361353",
+ "plan": "c_e882645cc479c889",
+ "crop": [
+  0,
+  0,
+  1280,
+  1043
+ ],
+ "pairs": [
+  [
+   610.0,
+   496.2,
+   7.7518331,
+   48.5834866
+  ],
+  [
+   892.5,
+   696.2,
+   7.7602006,
+   48.5777457
+  ],
+  [
+   375.0,
+   626.2,
+   7.742948,
+   48.5815534
+  ],
+  [
+   461.2,
+   336.2,
+   7.7477823,
+   48.587747
+  ],
+  [
+   547.5,
+   706.2,
+   7.7483309,
+   48.5790014
+  ],
+  [
+   745.0,
+   726.2,
+   7.7549588,
+   48.5777002
+  ],
+  [
+   473.8,
+   526.2,
+   7.7469763,
+   48.5833928
+  ],
+  [
+   658.8,
+   376.2,
+   7.7542804,
+   48.5859933
+  ]
+ ],
+ "label": "1819",
+ "title": "Plan topographique de la Ville de Strasbourg divis\u00e9e en quatre Cantons",
+ "cite": "by Oberst, F.; CC0; https://commons.wikimedia.org/wiki/File:Plan_topographique_de_la_Ville_de_Strasbourg_divis%C3%A9e_en_quatre_Cantons.jpg",
+ "at": "2026-10-12T03:09:13.401092+00:00",
+ "auto": true,
+ "score": 9.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/argentoratum-q2361353/e882645cc479c889.jpg",
+ "ref": "File:Plan topographique de la Ville de Strasbourg divis\u00e9e en quatre Cantons.jpg",
+ "size": [
+  1280,
+  1043
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 32,
+  "matches": 1822,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 10.75
+ }
+}

@@ -45,6 +45,7 @@ sys.path.insert(0, str(ROOT / "pipeline"))
 
 import batch_us  # noqa: E402
 import build_site  # noqa: E402
+import matchfit  # noqa: E402
 import plan_fit  # noqa: E402
 import review  # noqa: E402
 
@@ -74,6 +75,14 @@ def _fit(root, sid, model):
     item_path, item = review._find_item(str(root), sid)
     item_cands = {c.get("plan"): c for c in (item.get("candidates") or [])} if item else {}
     uncovered = [r for r in rows if r["id"] not in docs and r["id"] not in item_cands]
+    # the pretrained matcher first (fit/matchfit.py): a fit it is sure of becomes a document here; the rest go on
+    # as before (the lead 2026-10-11: two model-free/vision-model fits failed, the matcher placed the hand-fit
+    # plans it was sure of within 26-76 m)
+    if uncovered and matchfit.reachable():
+        for path in matchfit.run(str(root), [sid]):
+            print(f"fit  matcher: fit written ({Path(path).name})")
+        docs = dict(batch_us.pre_docs(str(root), sid))
+        uncovered = [r for r in rows if r["id"] not in docs and r["id"] not in item_cands]
     need_fit = bool(uncovered) or (not rows and not batch_us.is_pre_fit(str(root), sid) and item is None)
     if need_fit:
         rec = batch_us.run_sites(str(root), [sid], model)[sid]
