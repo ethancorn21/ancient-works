@@ -3824,6 +3824,267 @@ refused) - the owner's tunnel command is still pending. Next: build the client +
 against the API contract with a stub server (hermetic), re-check /health each session,
 reproduce the lead's smoke numbers as a canary when it answers, then freeze and run.
 
+## 2026-10-12 304 DECISION: re-read passes on the +theta sign convention (no flip); panel_pieces fixed to mirror template_pieces' piece selection so the scramble draws land exactly as 302b's
+
+Session 3. The file was already committed by the driver (3b4c2b2 "[driver] uncommitted
+work after iteration 86"); the import check passed clean (no breakage to fix). The
+three Re-read items were re-verified with fresh eyes against the source:
+
+1. **Sign convention (CRITICAL item) - passes, no flip.**
+   `propose._anchor_pairs` is `z = (m_per_px/k) * e^{i theta} * (w - wc) + zc` with
+   `w = u - i v` (page coords, v down) and `z` Mercator (imag = north). A visual
+   (on-screen) counterclockwise rotation by phi multiplies the `w = x - i y` frame by
+   **+e^{i phi}** (verified: at 90 deg the up vector (0,-1) goes to left (-1,0), which is
+   CCW on screen and +i in the w frame). A drawn plan whose north arrow is theta deg
+   CLOCKWISE of page-up has the 302b anchor factor e^{i theta}; rotating the panel image
+   by **+theta** (PIL `rotate(+deg)` is counterclockwise on screen) brings it north-up.
+   So `_match_theta`'s `rotate_image(panel, +theta)` and `rotated_panel_map`'s
+   `R = [[c, s], [-s, c]]` (the visual-CCW matrix in x-right/y-down) are both correct,
+   and the composition `a_s * a_r * e^{i theta} * fs` is exactly the anchor form
+   `(m/k) e^{i theta}`. The synthetic test must still lock this (see hand-over).
+2. **Frame separation in `composite_placement` - passes.** The similarity (a, b) is fit
+   on the four FULL-FRAME (doc size frame) corners; the reported panel corners are the
+   CROP-box corners (size units, `_panel_crop`: map_box fractions * size, or (0,0,w,h)
+   full frame) pushed through that same similarity. The composition of the three
+   stage maps is an exact similarity in the w frame, so the full-frame fit is valid at
+   the crop corners. `fit()`'s `size = row.size or [panel.width, panel.height]` matches
+   `inkfit._size_frame`.
+3. **Null phase - passes.** Both null `_match_theta` calls pass the UNROTATED panel
+   (real or scrambled) plus the chosen theta; the rotation is applied inside, exactly
+   as in the fit phase. Scramble recipe checked against 302b: same seed (20261012 =
+   `inkfit.NULL_SEED`), same per-piece draw order (th, dx, dy), same R (`_rot2` form),
+   clip, white background; the sheet shift matches 302b's DEM null
+   (`ndi.shift(..., (-h/2, +w/2), order=0)`, cval 255 instead of NaN for an image).
+
+**One real bug found and fixed (committed):** `panel_pieces` kept every autowalls keep
+label, but the 302b reference `inkfit.template_pieces` drops labels that have zero of
+`extract`'s 1-in-step sampled points (deterministic seed-0 subsample, step=2). A label
+that 302b drops would still consume (th, dx, dy) draws from the single seeded RNG,
+shifting every later piece's transform in the scrambled null image. Fix: select labels
+through the sampled points, exactly as `template_pieces` does (`comp = lab[pts...]`;
+a piece exists iff a sampled point hits its label). Verified on a synthetic panel:
+identical (idx, length) piece lists, identical first scramble draw, valid scrambled
+image; `ransac` recovers an exact planted similarity to 1e-14; `sheet_similarity`
+returns |a| = 10, rot 0 deg for a known 10-merc-m/px sheet. Suite green: 68 passed,
+1 skipped (the earlier known reds from other tasks are resolved on main; nothing mine
+touches them). Matcher still live: /health -> zju-community/matchanything_eloftr on the
+RTX 5060 Ti.
+
+Next (session 4): write tests/test_surveyfit.py - the hermetic stub-server suite
+(details in the task hand-over), then the real-service smoke, freeze, held-out
+evaluator, one run.
+
+### 2026-10-12 304 DECISION: hermetic stub-server test suite for the survey fit (tests/test_surveyfit.py written, not yet run); sign convention verified by code
+
+Session 4. Wrote the complete tests/test_surveyfit.py (7 tests, uncommitted on disk -
+harness hand-over). Design decisions, recorded for the next agent:
+
+1. **Sign convention verified by code (closes the session-3 "must still lock" item).**
+   Ran a probe: PIL rotate(+90) sends a marker right-of-centre to up-of-centre (visual
+   CCW, matches the docs); rotated_panel_map(90) sends the same point to the same place
+   (its R = [[c,s],[-s,c]] is the visual-CCW matrix in x-right/y-down); and in the
+   w = x - i y frame a visual CCW rotation by phi sends a point's coordinate to
+   e^{+i phi} * w (checked numerically for both basis vectors). My own mid-session hand
+   derivation that got e^{-i phi} was an arithmetic slip (mis-decoding w = x - iy for
+   "up"): the module's convention and docstring are correct. Corollary (derived, to be
+   confirmed by the recovery tests): the true pairs satisfy a_r = (a_true/a_s) e^{-i
+   theta_sent} and the module's composition a_s*a_r*e^{i theta} recovers a_true for ANY
+   theta_sent - the rotation is absorbed by the fit, so the sweep discriminates only
+   through matcher match quality (the stub simulates this with a degradation rule).
+
+2. **The stub matcher (port 0, never a fixed port - parallel checkouts).** It decodes
+   the two sent PNGs and simulates the service: sheet classified by 3x3 ink windows at
+   the world's sheet centres (real sheet >= 12 of 14 seen; the 302b half-box shift ==
+   all 8 surviving SW-quadrant glyphs seen at (x+200, y-200)); the plan image's
+   rotation resolved to 2 deg from connected-component centroids matched against 180
+   candidate expected positions (hit window 2.0 px; oriented iff >= 8 of 14 hit - plan
+   centre radii 43-200 px make one fine step's 2.8-7 px displacement a clean miss);
+   true pairs returned in the ORIGINAL (sent) pixel frames as the service does,
+   degraded by the angular error vs the drawing's own rotation (<=3 deg: all
+   survivors; <=15: first 6; else none) so the frozen sweep has something to score;
+   plus one fixed 12-pair junk set (seed 304777).
+
+3. **The world (all constants in the test file; measured outcomes go to
+   data/surveyfit/devlog.md):** site (2.0, 50.0), 2000 m box (square in Mercator, so
+   the sheet's a_s is exactly real ~7.7786), 400x400 sheet, 14 glyph discs (7x2 grid,
+   x=30+50i, y in {250,310}), 320x320 plan at M_PX = 4.0 (|a_true|/|a_s| = 0.8; plan
+   glyph radius 4.375 px; drawn at 4x supersampling for sub-pixel centres; saved as
+   JPEG q95 to stand in for a scanned picture), b_true chosen so the plan centre
+   lands on the site centre, 4 junk glyphs at the corners (>= 25 px from true ones;
+   a rigid rotation preserves the gap, so they never match at any candidate theta),
+   12 junk match pairs (seed 304777). Three drawing rotations exercised: 42 (fixed
+   rot), 0 (sweep; the fine grid wraps 348..12 and the 0/12 deg images are sent
+   twice - the re-read item from session 3 is now a test assertion, not a note), 6
+   (sweep refinement between coarse values).
+
+4. **Expected score order (to be confirmed, then logged):** 14-true ~0.53 > 6-true
+   ~0.30 > junk-only ~0.19; the shifted-sheet null carries 8 true pairs ~0.34 < fit.
+   If the junk-only RANSAC model ever scores above the 6-true level, the theta_d=6
+   sweep's argmax can break - the fix is a different JUNK_SEED (304778, ...), not a
+   change to the frozen module.
+
+5. **Fixture (test 6, the test_gate pattern):** data/surveyfit/fixture_match.json is
+   generated by `.venv/bin/python tests/test_surveyfit.py --emit-fixture` (once, then
+   committed): the ideal true pairs of the theta_d=42 world + the junk set, with the
+   module's own ransac + score output recorded at full float precision; the test
+   re-runs the frozen core and asserts exact equality.
+
+Known bug to fix first next session: _resolve_theta crashes on a zero-centroid image
+(scrambled panel with no ink after extract: ndi.label n=0 -> min(axis=0) on empty);
+guard with `if cents.shape[0] == 0: return None, {}`. Also `__import__("io")` in the
+handler should be a top-level import.
+
+After the suite is green: devlog.md, full suite, matcher re-check (127.0.0.1:8091 was
+live this session), real-service smoke, freeze, held-out evaluator, the one run.
+
+### 2026-10-12 304 DECISION: first real run of the stub suite - the synthetic world was mis-scaled and is now centred at (195,235) with 25/30 px pitch; a match-quality jitter (0.6 px/deg) makes the true rotation the unique sweep max; scipy 1.18.1 changed center_of_mass's array-index return
+
+Session 5, first execution of tests/test_surveyfit.py. Three distinct findings, in order:
+
+1. **The session-4 world did not fit its own frame.** The old 7x2 grid (x=30+50i, y in
+   {250,310}) is 300 sheet-px wide = 375 plan-px at the plan's 0.8x scale - wider than the
+   320 px plan frame - and its centre (180,280) is 100 m west / 400 m south of the sheet
+   centre, so in the plan frame (plan centre on the site centre) the glyph field sat
+   off-centre: one true glyph landed at x=-67.5 (off-frame) and another within 9 px of the
+   (15,305) junk corner at theta_d=0. The junk-gap assertion caught it on the very first run.
+   Redesign constraint (verified numerically, not by eye): a 7-col grid can have exactly 4
+   columns <= 198 and 2 rows >= 202 (the 302b half-box shift keeps 8 glyphs) ONLY when the
+   grid centre is off-centre (pitch (198-c)/2 < p_x <= 198-c), while the plan frame (scale
+   0.8, centre on site) needs the grid within ~155 px of the panel centre at every
+   theta_d in {0,6,42}. Chosen: pitch 25/30 px, centre (195,235) - cols 120..270, rows
+   220/250. Consequences (all measured): 8 shift survivors; all 14 glyphs in-frame at all
+   three theta_d; min junk gap 35-93 px; and crucially the stub's rotation resolution is
+   binary at the grid's 2 deg step (true theta: 14 hits; any 2-deg-off candidate: 4 hits),
+   so the sent rotation always resolves to itself, never to a neighbour.
+
+2. **Score ties, broken by a quality wobble, not a count cut.** With the binary hit gate,
+   a call one fine step (2 deg) away from the true rotation still resolves and returns all
+   14 true pairs (delta <= 3 band), so without further degradation it would TIE the true
+   rotation's score and the sweep's first-max rule could land on 358/2 instead of 0. Fix
+   (test-side only, no frozen-module change): the stub's returned plan-side points wobble
+   by up to 0.6 px per degree of angular error, seeded per (theta, i) - deterministic and
+   repeat-call-stable, mimicking a matcher whose match QUALITY degrades with rotation. The
+   resulting score landscape is strictly ordered: delta 0 ~0.52 > delta 2 ~0.48 >> delta
+   4-15 ~0.15-0.19 ~ junk-only ~0.15. The sweep is now deterministic: theta_d=0 -> 0, theta
+   _d=6 -> 6, unique maxima in both cases (the fine-0 duplicate payload ties the coarse 0
+   and the strict > keeps the first).
+
+3. **Two crashes, both test-side.** (a) The anticipated zero-centroid ValueError in
+   _resolve_theta (empty scrambled image): guarded. (b) NEW, unanticipated: scipy 1.18.1's
+   ndi.center_of_mass(input, labels, index_array) returns a LIST OF (cy, cx) TUPLES (one
+   per label), not a (cy-array, cx-array) pair - `cy, cx = ...` raises "too many values to
+   unpack (expected 2)" whenever n != 2. _centroids rewritten to consume the list form. The
+   single-mask form ndi.center_of_mass(mask) still returns a (cy, cx) tuple, so
+   fit/surveyfit.py's panel_pieces (line 344) is unaffected - verified. (PITFALLS candidate.
+   Note: the .venv the driver builds from requirements.txt pins this scipy; the code must
+   match ITS behaviour, not an older one.)
+
+After these fixes the suite runs end to end against the stub; first failure is now a
+tolerance, not a crash: test 1 (theta_d=42, rot=42, no null) reports the placement centre
+2.958 m from the independently constructed true placement (limit 2 m). Diagnosis (measured,
+throwaway script): my 4x-supersample rasterizer (4x4 cells, acc >= 0.3) biases each disc's
+measured centroid 0.44-0.66 px from the intended sub-pixel centre before any JPEG, and
+0.34-0.77 px after the module's 42 deg PIL bicubic rotation - the 16-cell coverage
+quantisation makes the effective ink boundary asymmetric, and the 14 per-glyph biases share
+a common component (fitted b off ~0.7 plan-px = 2.9 m; da and the corners were not yet
+reached by the -x run). Hypothesis: 8x supersampling (1/64 coverage resolution) cuts the
+bias to ~0.1 px; the JPEG q95 roundtrip (what the stub actually decodes) adds at most a
+~0.1 px symmetric blur. One open question from the last experiment: a single-disc 8x test
+case came back with ZERO ink components after the JPEG roundtrip (the script crashed on
+the empty array before printing which point) - if a 7-px disc genuinely vanishes at q95,
+enlarge the world's glyph radii (SHEET_R 3.5 -> 5) rather than the encoder. Tolerances
+will be set to ~2x the observed worst case and the measured numbers logged in the devlog,
+as pre-decided in session 4.
+
+Next (session 6): 8x supersample (verify the vanishing-disc question), rerun, recalibrate
+tolerances, then fixture emit + devlog + full suite + real-service smoke + freeze + the
+one run, per the hand-over.
+
+## 2026-10-12 304 DECISION: 8x supersampling fails (the disc-centroid bias is a threshold-edge effect, and 8x is worse); the stub now returns sub-pixel keypoints at the expected glyph positions (+-0.25 px wobble + the 0.6 px/deg jitter), keeping the measured centroids for glyph DETECTION only; fixed a real ndi.shift rank bug in shift_sheet_image; stub suite 7/7 green, fixture committed, tolerances tightened to ~2x observed; the real ELoFTR service now answers at 8091
+
+Session 6. (1) The 8x supersample experiment (throwaway, then deleted) DISCONFIRMS the
+session-5 hypothesis: the per-disc centroid bias is NOT 4x quantisation. Measured (full test
+path: rasterise -> lossy save -> [plan] PIL bicubic rotate -> connected-component centroids
+vs the expected positions): r = 3.5 discs - 4x: 0.33-0.68 px, 8x: 0.43-0.76 px (WORSE); r = 5
+- 4x: 0.37-0.70 px, 8x: 0.49-0.88 px. Even INTEGER-centred discs (sheet) are biased: 0.329 px
+(4x) / 0.707 px (8x) - the 0.3 coverage threshold cuts the small-disc edge asymmetrically
+about the sub-pixel centre, and finer supersampling only changes which edge pixels land
+inside. JPEG q95 (the plan's path) and WEBP q95 (the sheet's) add at most ~0.05 px, and NO
+disc vanishes in the 14-disc world (the session-5 single-disc vanishing did not reproduce).
+(2) Design consequence (the fix this session, tests/test_surveyfit.py only): the stub's
+connected-component centroids are a poor model of a real matcher's KEYPOINT ACCURACY (a
+trained sub-pixel regressor, not a thresholded-blob centroid), so the stub now returns, for
+each detected glyph, its EXPECTED sub-pixel position in the sent frame (the module's own
+visual-rotation matrix) plus a small deterministic per-(theta, i) matcher wobble (+-0.25 px,
+seeded, a stream separate from the quality jitter) plus the existing 0.6 px/deg angular
+jitter. The sent-image geometry still drives what the stub sees: glyph DETECTION (which
+glyph, which rotation, real vs shifted sheet) still runs on the measured centroids, and the
+_take bands (all 14 / first 6 / none), the junk set, and the response format are unchanged.
+This is a more faithful matcher model, not a weaker test: the placement tolerance now means
+"what a good sub-pixel matcher's fit would produce", and the sweep still scores rotation
+through quality degradation. A throwaway-script red herring consumed some time first: my
+8x prototype rasteriser had INVERTED polarity (white ink / black paper) and looked like a
+single mega-blob - the module's `_rasterize` convention is black = ink (`255 * (~ink)`);
+checked rather than believed. (3) REAL MODULE BUG found and fixed (fit/surveyfit.py,
+shift_sheet_image): `ndi.shift` on the RGB sheet (rank 3) with a 2-element shift sequence
+raises "RuntimeError: sequence argument must have length equal to input rank" - the null
+path had never executed before (tests 1-3 run null=False). Fixed with a 3-element shift
+(0.0 on the channel axis). (4) Tolerances tightened to ~2x the OBSERVED worst (the
+recorded-pin discipline): observed worst over the four worlds - db 0.624 m (theta_d=42),
+da 0.00273 m/px, panel corners 0.797 m; null run (theta_d=0): fit 0.5278 vs null 0.3923,
+margin 0.1355, confidence 0.0715. New asserts: db < 1.3, da < 0.006, corners < 1.6. (5)
+Fixture emitted and committed: data/surveyfit/fixture_match.json (north-42 ideal world, 26
+pairs, 14 inliers, rms 3.6e-12, score 0.538462) - test 6 (reproduce exactly) passes.
+(6) Full suite: 75 passed, 1 skipped (was 68 passed 1 skipped before my 7 tests).
+(7) The REAL service now answers: GET 127.0.0.1:8091/health ->
+{"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}.
+
+Next (session 7): the real-service smoke (hand-over step 6): canary `fit/surveyfit.py
+maiden-castle-q1232816 c_c20ff6b1f16d173d --no-null` (the lead's 633 matches / 31 inliers /
+20-35-53 m are confirmation ONLY - no tuning from them), then barnard-castle-q4185811 and
+avaricum-q281826; eyeball the corners on the sheet; write data/surveyfit/devlog.md with all
+measured numbers (world params, per-world fit/null scores, the bias table above, the
+scipy gotchas); then FREEZE (restate the frozen config in my site_flow 304 section + the
+freeze commit hash) -> fit/surveyfit_heldout.py -> THE ONE RUN -> verbatim table + plain
+verdict -> pass: 304b task; fail: stop.
+
+## 2026-10-12 304 DECISION: session 7 - re-reads passed; live canaries on three sites (the lead's direction); the method FROZEN at 737508d (freeze commit 156aa19: devlog + site_flow restatement + evaluator); the one-shot run is the entire next step
+
+(1) Re-read passes, no changes: (a) `_jitter`/`_wobble` are seeded per (theta, i) only, so a
+repeated call at the same theta returns identical points (the sweep tie-break and the
+duplicate-payload test depend on it); (b) `match_response` iterates `_take` and skips any
+index not in `matched`, so detected-but-unselected glyphs are never returned; (c)
+`shift_sheet_image` still shifts half the box north (-h/2 rows) / east (+w/2 columns) with
+the 3-element shift. The lead (this iteration) directed: the stub is frozen as it is - a
+test that runs end to end is enough - so the stub suite (7/7) stands untouched.
+(2) Live canaries (all --no-null against 127.0.0.1:8091; full table in
+data/surveyfit/devlog.md): maiden (held-out #14, the lead's directed canary) 43 calls /
+215 s; the frozen sweep chose theta=94 (20 pairs / 6 inliers / 0.2048 / conf 0.0419) -
+eyeballed OFF (~1 km NW of the hillfort; the inlier-fraction score preferred a small tight
+cluster), while the same run's theta=0 call gave 625 pairs / 31 inliers / 0.0311,
+reproducing the lead's raw smoke (his 633 pairs: the service's pair count drifts a few %
+between calls of identical images). barnard (not held-out): 3/3/0.7262/0.5274, on the
+earthworks; avaricum (not held-out): 9/3/0.2364/0.0559, on the earthworks. Recorded as
+observations, nothing tuned: the pre-registration bars any parameter choice from held-out
+numbers, and the lead's own raw smoke was a raw-API check, not my method.
+(3) Task 303's golden re-key broke the 302b evaluator's `doc_ids()` (it expects exactly 20
+platefit docs; the file now pins the 21 hand fits). 302b is done and re-runs nothing, and
+the golden file is not mine to touch; the 304 evaluator instead asserts the golden file
+pins exactly the 21 registered docs (it does) and uses the hard-coded 302b list, sorted.
+(4) Freeze: 737508d (last commit touching fit/surveyfit.py) is the frozen method; commit
+156aa19 amends my 304 section of docs/site_flow.md at the freeze - the frozen config
+restated (threshold 0.2 / max_side 832 / 30 s + one retry; RANSAC 400 iters / min 3 / 8 px /
+seed 20261012 / s_band x1.5; sweep 12 deg + 2 deg +-1 coarse; nulls = 302b scramble +
+half-box sheet shift; score (inliers/pairs)/(1+rms/8); confidence max(0, score x margin)),
+the pre-freeze canaries disclosed, and a factual slip corrected (13 of the 19 sites carry
+the six-inch sheet, not 15). fit/surveyfit.py is never to change again.
+(5) Evaluator fit/surveyfit_heldout.py written (22 pairs: 21 sheets + the camp-d-attila
+aerial on row 11; per-pair atomic checkpoint + pid lock; one disclosed re-run per errored
+pair). Selfcheck 21/21 OK (0.0 m / 0.0 deg / 1.0). The one run has NOT started: next
+session launches it (hand-over has the exact commands), pastes the verbatim table into the
+section, and writes the plain verdict (pass iff a confidence threshold exists with every
+accepted fit within 60 m and >= 5 of 21 accepted).
+
 
 <!-- task 305 -->
 # Task 305 ready-to-fit
