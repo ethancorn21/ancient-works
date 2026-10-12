@@ -65,9 +65,94 @@ local-copy book.
 
 ## Hand-over
 
-(2026-10-13, iteration 152, agent a - session 5: the Commons leg is COMPLETE and COMMITTED
-(one commit: module fix, 2 staging files, golden, 7 tests, lead-doc line, boxes 4+6).
-NEXT SESSION = the IA book leg, runbook at the bottom.)
+(2026-10-13, iteration 153, agent a - session 6: IA-leg steps 1-3 DONE (fetch 166/166, triage A
+166/166, plate list visually transcribed into STUKLEY_PLATES and committed to the module -
+uncommitted at this moment, harness saves it). NEXT = ocrmap, then F/B, then stage the 3 plan rows.)
+
+**What this session did (all in this checkout):**
+1. `--fetch`: 166/166 triage pages in ~105 s (IIIF re-encode at 1400 px; log data/books/logs/
+   stukeley_fetch.log). `--triage A`: 166/166, 0 errors (log .../stukeley_triageA.log).
+   Distribution: text_only 119, other_illustration 41, plate_site_plan 6 (n56, n57, n111, n123,
+   n135, n143).
+2. `--list` (PLATES was None) printed the hOCR of leaves 0-19: GARBAGE on this BMB scan -
+   leaf 0 = the Chyndonath frontispiece portrait (sculpt. I. W. Gucht), leaf 1 = the real title
+   page. VISUAL read of leaf 1: "STONEHENGE, A TEMPLE RESTOR'D TO THE BRITISH DRUIDS. By WILLIAM
+   STUKELEY, M. D. Rector of All Saints in STAMFORD ... LONDON: M.DCC.XL." (Innys & Manby) ->
+   CITE in the module is now confirmed (no more "to be confirmed").
+3. Leaves 10-12 are blank/preface: **the book has NO printed list of plates** - the plates' own
+   headers are the only list. Visual walk of ALL 47 plate leaves (shrunken scratch copies in
+   /tmp/stukeley_small - gone in a fresh checkout; the 1400 px originals remain in
+   data/raw/books/bim_.../triage/): every header transcribed into STUKLEY_PLATES (31 lines, 33
+   plates). Numbering: I(11), II(15 P2) + II(19/20 P4 - two different plates both labelled II),
+   III(24/26 P6 duplicate impressions), V(30/31 P8), VI(35 measures table, no P), VII(39 P12
+   faint), VIII(43 P14), IX(47 P16), X(51 P18), XI(56/57 P20), XII(61 P22), XIII(66 P24 view +
+   70 P26 section), XIV(74 P28), XV(78 P30), XVI(82/83 P32), XVII(87/88 P34), XVIII(92/93 P36),
+   XIX(97/98 P38), XX(102 label cut in scan), [XXI absent], XXII(106/107 P42), XXIII(111 P44 +
+   115 P46), [XXIV absent], XXV(119 P48), XXVI(123 P50), XXVII(127 P52), XXVIII(131 P54),
+   XXIX(135 P56), XXX(139 P58), XXXI(143 P60), XXXII(147 P62), XXXIIII(151 P64 old-style 34),
+   XXXIII(155 P66 + 157 P68 duplicates), XXXV(161 P70 Persepolis - Persia, not Wiltshire).
+4. **Site plans found: exactly three** - TAB. XI (the famous numbered plan, fold-out: n56 left
+   half rotated 90 deg with the scale bars/the Gate/the Cell; n57 right half with the banner
+   "P.20. TAB.XI." - note: I first misread "XL" at 1400 px; the zoom crop reads XI and the
+   sequence VII..XII proves it), TAB. XII ("The Orthography of Stonehenge", n61, plan with the
+   Avenue), TAB. XXIII ("The Area of Stonehenge", n111, plan with ditch + circle + altar +
+   Avenue). **NO Wiltshire map anywhere in this book** (all 166 leaves checked - n117 is text
+   p. 47, n32/n67 blank, n163 the INDEX; the map, if it exists at all, is in A survey of
+   Wilts, not on IA). No standalone Avenue plan: the Avenue appears in the XXIII area plan and
+   in the perspective views (XXV/XXVII/XXIX/XXX). Stage A's plan label was wrong in BOTH
+   directions here: n115/n123/n135/n143 are views, and it also calls some near-blank/text
+   leaves text_only (civitates pitfall confirmed again).
+5. Module edits (committed with this hand-over by the harness; git status will show them):
+   docstring corrected (no printed list; hOCR garbage; hand-list pattern), CITE confirmed,
+   WHY updated (no map in this book), STUKLEY_PLATES set (the 31-line transcription above).
+
+**State of the world:**
+- Commons leg: done (3 rows staged, golden, 7 tests) - unchanged this session.
+- IA leg: triage pages + stage A DONE in this checkout; STUKLEY_PLATES set in the module.
+  data/books/lists/ has NO stukeley files yet; data/books/triage/ has <ia>.A.jsonl (166 rows);
+  data/books/index.jsonl untouched (0 stukeley rows - correct, 211 rebuilds it).
+- LLM replicas were up on 127.0.0.1:8080/:8081 at session start (F/B need them).
+- Suite last full run (session 5): 111 passed, 1 skipped, 0 failed. This session changed ONLY
+  fit/src_wiltshire_stukeley.py (constant + strings) - the 7 existing tests should be
+  unaffected (check() still 3/3; golden unchanged) but re-run them first next session.
+
+**Re-read:**
+- fit/src_wiltshire_stukeley.py:register - injects books_lists.PLATES[IA] when STUKLEY_PLATES
+  is set; list_cmd() then runs books_lists.cmd_ocrmap([KEY]).
+- pipeline/books_lists.py:map_plates - anchors by (Qwen numeral + OCR numeral + title
+  similarity) with an increasing DP chain; numerals_in SKIPS strings containing "p.\s*\d" -
+  stage A stored this book's headers as "P. 20. TAB. XI.", so the Qwen-numeral anchor will
+  mostly fail; the title-similarity and OCR anchors carry the mapping. If a kind-s plate
+  misses its leaf (esp. XXIII, where n111/n115 tie on area), note it - it only affects the
+  map.json attribution, NOT the manual staging.
+- pipeline/books.py:cmd_triage_f / cmd_triage_b - verify which pages each targets (F = pages
+  A called other_illustration/figure_site_plan; B = plate_site_plan pages) before running.
+
+**NEXT SESSION (runbook, .venv/bin/python; everything resumable):**
+1. `.venv/bin/python fit/src_wiltshire_stukeley.py --list` (STUKLEY_PLATES now set) ->
+   books_lists.cmd_ocrmap writes data/books/lists/bim_..._1740.json + .map.json ONLY.
+   Inspect both: plate count 31 (33 lines? no - 31 lines parsed, duplicates share numerals),
+   which leaves got kind-s entries (want XI->n56/57, XII->n61, XXIII->n111).
+2. `--triage F` then `--triage B` (needs the live replicas; run_stage exits with its own
+   message if no port answers - check `--status` first). Logs: data/books/logs/.
+3. Stage the IA-book plan rows into the SAME files_wiltshire_b.jsonl +
+   classified_wiltshire_b.jsonl: TAB. XI (fold-out: one row - look how another book's
+   fold-out plate is represented in data/books/index.jsonl: id <ia>_n{nnnn}_{k}), TAB. XII
+   (n61), TAB. XXIII (n111) - all site stonehenge-q39671, year 1740, cite = CITE, evidence =
+   the book's printed list entry (fit/evidence.py check_book/check_book_caption - copy the
+   row shape from an existing book row in data/books/index.jsonl). Extend stage()/--check/
+   --golden/tests for the book rows (the Commons rows stay exactly as they are).
+4. docs/lead_wiltshire.md Stukeley section: record Stage-A/B recall against the hand list
+   (replace the "pending the IA leg" line; also state: no Wiltshire map in this scan, Avenue
+   only in the XXIII area plan) -> box 2.
+5. Tick boxes 1 (fetched+triaged, per-book artifacts only), 2, 3 (book rows staged, date
+   1740 on the row), 5 (evidence on every staged row; 3/3 verified plans staged = 100%) as
+   they land; full suite each session; when all 6 ticked: Status: done.
+
+**Do not:** write data/books/index.jsonl / validation.json (211); re-stage the two Petrie
+files (canonical) or any hand fit; edit pipeline/ (books_lists.py is 217's - in-process
+PLATES injection is the sanctioned pattern); run tests with bare python3 (numpy/PIL are
+venv-only); bind fixed network ports in tests; git merge/rebase/reset/stash/branch-switch.
 
 **What this session did (committed):**
 1. Ran the 7 session-4 tests first: 5 passed, 2 failed - exactly the fragilities the old

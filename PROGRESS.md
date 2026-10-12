@@ -63,3 +63,5 @@ Ran tests/test_src_wiltshire_stukeley.py first (the hand-over's step 1): 5 passe
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-13 209b (agent a, iteration 153) WHERE I AM: IA-leg steps 1-3 done - fetch 166/166 triage pages, triage A 166/166 (0 errors), STUKLEY_PLATES transcribed from a visual walk of all 47 plate leaves (the book has no printed list of plates and no Wiltshire map; site plans = TAB. XI/XII/XXIII). Next session: --list (ocrmap), --triage F/B, stage the 3 plan rows, lead-doc recall line, boxes 1/2/3/5. Module edit (STUKLEY_PLATES + CITE) saved by the harness uncommitted.
