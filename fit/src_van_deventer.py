@@ -40,6 +40,10 @@ EXTRAS = os.path.join(ROOT, "data", "catalog", "extras_van_deventer.jsonl")
 FILES = os.path.join(ROOT, "data", "commons", "files_van_deventer.jsonl")
 CLASSIFIED = os.path.join(ROOT, "data", "commons", "classified_van_deventer.jsonl")
 FILES_CANONICAL = os.path.join(ROOT, "data", "commons", "files.jsonl")
+# The canonical files 211 consolidates into (module-level so a test can point them at a temp copy):
+EXTRAS_CANONICAL = os.path.join(ROOT, "data", "catalog", "extras.jsonl")
+SITES_CATALOG = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
+SITES_WEB = os.path.join(ROOT, "web", "data", "sites.json")
 NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: check() skips an absent books file
 
 CATALOG_PARENT = "Maps by Jacob van Deventer"
@@ -599,11 +603,11 @@ def known_sites():
     """{qid: site id} over the built sites, the catalog and the extras (a source never makes a second site for a
     place: a town whose QID is already cataloged gets its picture row under that existing site id, no new row)."""
     out = {}
-    for p in (os.path.join(ROOT, "data", "catalog", "sites.jsonl"), os.path.join(ROOT, "data", "catalog", "extras.jsonl")):
+    for p in (SITES_CATALOG, EXTRAS_CANONICAL):
         for s in _load(p):
             if s.get("qid") and s["qid"] not in out:
                 out[s["qid"]] = s["id"]
-    for s in json.load(open(os.path.join(ROOT, "web", "data", "sites.json"), encoding="utf-8"))["sites"]:
+    for s in json.load(open(SITES_WEB, encoding="utf-8"))["sites"]:
         if s.get("qid") and s["qid"] not in out:
             out[s["qid"]] = s["id"]
     return out
