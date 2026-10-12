@@ -6,6 +6,9 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (27): Internet Archive (archive.org) 4
 - Libraries and frameworks (11): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
 - This codebase (71): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 11, fit/ 12, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 9, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 5, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
+- This machine and its environment (29): Internet Archive (archive.org) 4
+- Libraries and frameworks (11): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
+- This codebase (79): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 12, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 4, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -247,6 +250,20 @@ Why: the human reads a human-download request as work they must do, and declines
       1793 request 003 was filed before this refusal and is still open: if it gets the same answer, drop 207c
       rather than re-asking.
 
+#### portal.dnb.de is behind an Anubis (Techaro) JS proof-of-work wall - no search is reachable from this VM
+Where: portal.dnb.de (`/sru`, `/opac/sru`, `simpleSearch`) - the German National Library; task 208's hunt for ORL/RGK volumes
+Symptom: the SRU paths 404 and `simpleSearch` returns the honeypot/challenge page instead of results - with every User-Agent tried (the project UA and a browser UA alike)
+Why: Anubis/Techaro serves a JavaScript proof-of-work challenge to non-browsers; urllib cannot solve it. It is not a UA block (unlike the 403 class of babel.hathitrust.org) - it is a genuine JS wall. Treat the DNB as unreachable from this VM; for 19th-c. German publications IA is the only viable machine source (the human has refused book downloads).
+
+#### limesblatt.uni-hd.de (the UB Heidelberg Limesblatt digitisation) is unreachable from this VM: TCP connect fails
+Where: limesblatt.uni-hd.de (the complete Limesblatt / Mitteilungen der Streckenkommissare digitisation, 35 Hefte); task 208's sweep
+Symptom: the connect fails on both http and https (DNS resolves to 129.206.119.232 but the TCP connection never completes; two attempts, 2026-10-12)
+Why: the university host is not reachable from this VM's network. The Limesblatt content this VM CAN read (the de.wikipedia GIF pages, the two IA Google scans) is already checked: text-only excavation reports with no plates - so the unreachable full digitisation costs nothing stageable.
+
+#### www.deutschedigitalebibliothek.de and digital.ub.uni-heidelberg.de have no DNS on this VM
+Where: those two hosts (Deutsche Digitale Bibliothek; the UB Heidelberg digital collections); task 208's ORL/RGK hunt
+Symptom: hostname resolution fails (getaddrinfo/urllib: no address for the host) - the lookup itself fails, it is not a connect block
+Why: this VM's DNS does not serve those hostnames. Do not retry; anything that exists only there is unusable from this VM (IA is the only book source this loop can rely on).
 ### Internet Archive (archive.org)
 
 #### IA /download/ needs a User-Agent and -L, is flaky per file, and zip-only Google-scan items have NO per-leaf image derivatives
@@ -639,6 +656,46 @@ Where: any bulk download of Commons file bytes (209b's category-scan visual chec
 Symptom: urllib HTTPError 429 "Too many requests (f061ab2)" on the 4th consecutive full-file download from upload.wikimedia.org, while the w/api.php metadata calls (paced via commons.get) never 429'd at all
 Why: the CDN that serves the file bytes owns a separate, stricter limit than the API endpoints - pacing the API does not pace the downloads. Space file downloads ~30+ s apart with backoff on a 429 (retry after 60 s); the metadata API is the cheap path, the file bytes the expensive one.
 
+#### de.wikipedia `list=allimages` paginates via the `aicontinue` continue key - `aifrom`/`aipfrom` do not advance
+Where: de.wikipedia `w/api.php?action=query&list=allimages` (task 208's 874-file ORL set; any large prefix listing on de.wiki)
+Symptom: re-issuing the call with `aifrom` (or `aipfrom`) set to the last image name returns the SAME first page forever - the loop never advances past the first N images
+Why: for allimages the API's `continue` object carries only `aicontinue`; the from-parameters of other list endpoints are not honoured here. Pass the response's `continue` object back verbatim.
+
+#### Never read a plate legend or scale off a low-dpi render - both 1895 ORL Tafel scales were misread that way
+Where: low-resolution page renders/thumbnails of large-format plates (task 208's ORL 1895 volume; any small preview of a plate with dense legends)
+Symptom: the Situationskarte's MAASSTAB 1:5000 looked like "1:3000" and the fort plan's 1:1000 like "~1:500" at 40 dpi - both wrong, found only at 70 dpi+ re-renders
+Why: in small renders the digits of dense plate legends blur into each other (5~3, 1~0). Read legends, scales and signatures only from full-resolution page images (e.g. an IA `page/n{N}.jpg`); if still ambiguous, crop the legend and upscale before recording a value.
+
+#### de.wikipedia `titles=File:X` normalizes to `Datei:<name with SPACES>` - look results up by the normalized name
+Where: de.wikipedia `action=query&titles=...&prop=imageinfo` lookups (task 208's de.wiki file metadata)
+Symptom: `pages["File:ORL_40_tab_04_pic_01_Grundriss.jpg"]` KeyErrors - the returned key is `Datei:ORL 40 tab 04 pic 01 Grundriss.jpg` (German ns prefix, underscores turned into spaces)
+Why: MediaWiki canonicalizes titles: the namespace prefix is localized (`File:` -> `Datei:` on de.wiki) and underscores become spaces. Build the lookup key by stripping the ns prefix, lowercasing and unifying space/underscore on both sides.
+
+#### `wbsearchentities` returns `description` (and `label`) as a bare STRING when called with `language=de`
+Where: Wikidata `wbsearchentities` with an explicit language (task 208's QID phase - crashed leg_b_meta after ~11 of ~28 searches)
+Symptom: `hit["description"]["value"]` raises `TypeError: string indices must be integers` - the field is a plain string, not a dict
+Why: without `language` the service returns multilingual dicts; with it, plain strings. Handle both: `v = d.get("value") if isinstance(d, dict) else d`.
+
+#### Zero-padded fort-number searches ("Kastell 01 Limes") find no Wikidata item - search the label, not the number
+Where: Wikidata `wbsearchentities` for the ORL forts (task 208's leg_c: ten forts were lost to this in the first pass)
+Symptom: `search="Kastell 01 Limes"` (and `Kastell 1 Limes`, `Kastell 05a Limes`) return [] although the item exists ("Kastell Heddesdorf")
+Why: item labels never contain the ORL number, and a zero-padded number plus a "Limes" suffix forms a query that matches nothing. Search by name with variants ("Kastell X", "X (Kastell)", "X (Limes)", "Römerkastell X", "Kastelle von X"); the number is only a routing key in your own table.
+
+#### The `action=wbgetentities` response key is `entities`, not `pages` - `d.get("pages")` silently returns {}
+Where: Wikidata `wbgetentities` (task 208's leg_d: step 3 silently dropped all three new QID entities)
+Symptom: no error at all - `d.get("pages", {})` is always {}, so downstream code continues with an empty entity set
+Why: `wbgetentities` returns `{qid: entity}` under `"entities"`; `"pages"` is the MediaWiki `action=query` shape. Use `d.get("entities", {})` and check `d.get("missing")`.
+
+#### Wikidata search is spelling-exact for umlauts: "Oehringen" finds nothing, "Öhringen" finds the items
+Where: Wikidata `wbsearchentities` (task 208's fort 42: Q86069877/Q91949042 were found only via the Ö-spelling)
+Symptom: every ASCII-transliterated phrasing ("Oehringen", "Oehringen (Kastell)", "Kastell Oehringen") returns []; the identical query with the native spelling returns the items immediately
+Why: the search matches against the labels as stored (native script); transliterations are different strings. Try the native (German) spelling first, ASCII variants only as fallback.
+
+#### de.wikipedia `srsearch "<name> Limes"` can miss a fort article - try direct titles (`Kastell X`, `X (Kastell)`, `Kastelle von X`) first
+Where: de.wikipedia `action=query&list=search` (srsearch) and `action=query&titles=...&prop=pageprops` (task 208's final no-QID check, forts 64/67)
+Symptom: `srsearch 'Kastell Schirenhof Limes'` returns [] although the article "Kastell Schirenhof" exists (and "Kastelle von Neckarburken" exists as a PLURAL title covering two forts)
+Why: small-fort article titles on de.wiki vary ("Kastell X", "X (Kastell)", "Kastelle von X") and the "Limes" suffix is often absent, so a phrase query with extra tokens drops them below the search limit. For a known fort, query the direct title candidates with `pageprops=wikibase_item` (it returns the QID when the article carries one) and use srsearch only as a last resort.
+
 ### fit/
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
@@ -1020,6 +1077,11 @@ Symptom: an entry like `civitates_liber2` has region "Europe" although the volum
 Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module does the same)
 Symptom: cmd_fetch/ia.pages/ia.page_texts hit the network for an ia id that is really a local directory name
 Why: the machinery is IA-only in exactly three places - the page list (ia.pages), the per-page OCR (ia.page_texts), the page-image fetch (books.fetch_triage) - and wrapping those for one id plus a BOOKS entry whose ia field is the local dir name (so books.triage_path lands at data/raw/books/<id>/triage/) is all that triage A/F/B, map_plates and staging need: page_texts -> {} (Qwen anchors only; empty text keeps inked pages as map_plates candidates), fetch re-encodes the local files into the triage slot (1400 px long side, q88). A test monkeypatches the module's book DIR (the triage tree follows it) + the socket-blocking fixture -> hermetic. A book that IS on IA (209b's Stukeley) needs no wrap at all: register() only adds the BOOKS entry.
+
+#### Google-book uploads: the djvu XML page number lives in the OBJECT `usemap` attribute, not `data`; per-leaf OCR = the WORDs inside that OBJECT
+Where: the `_djvu.xml` of Internet Archive Google uploads (task 208's ORL 1895 volume `derobergermanis00fabrgoog`); `pipeline/books_ia.py` (`page_texts` - hOCR-based, does not apply)
+Symptom: `books_ia.page_texts()` yields nothing (these uploads have no `_hocr_searchtext.txt.gz` and their `_djvu.txt` has no form feeds); a regex for the leaf number in `data="..._NNNN.djvu"` matches nothing
+Why: Google's djvu XML renders each page as `<OBJECT data="file://…/<id>.djvu" usemap="<id>_NNNN.djvu">` - the leaf number NNNN is in `usemap`, `data` holds the bare djvu name; the per-leaf OCR text is the `<WORD>` elements inside that OBJECT. To map leaves to text for a Google book, parse the OBJECTs by usemap and concatenate their WORDs.
 
 ### pipeline/autowalls.py (the frozen ink extractor)
 
