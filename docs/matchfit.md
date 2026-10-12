@@ -105,3 +105,16 @@ failures are unchanged: too few raw matches on the 1850s US plates against relie
 sketches. Windowing is not the lever for those; the matcher's own recall on that material is. Union of both
 window sets is the cheap step (9 of 21 on this table); a different matcher (ROMA; needs the
 image-matching-models package, not transformers) is the next real test.
+
+## 6. Queue failure modes the 21 hand fits cannot show (from the line lead's per-site runs, 2026-10-11)
+
+- **Sub-feature plan at whole-site scale.** Aesica, "Befundplan Therme Great-Chesters" (one bath-house, ~30 m):
+  13 of 32 inliers on the OS six-inch sheet, rotation 6 deg, residual 2 m, placed ~8x too big over the fields.
+  The page check caught it. The inliers lie along one column of the plan: spread ratio 0.054, minor sd 15.6 px
+  (`fit/matchfit2.py spread()`); every accepted hand-fit match has ratio >= 0.138 and minor sd >= 30 px.
+  Proposed guard for the line: accept only if ratio >= 0.1 and minor sd >= 20 px (passes all 8 accepted, rejects
+  Aesica). Measured on 21 + 1, so a lead with one confirming case, not a result.
+- **Fabrication "1D ladder" clause fires on real matcher pairs.** Castle Neroche's matcher pairs were refused as a
+  ladder: ELoFTR keypoints sit on a coarse grid, so real inliers can be grid-regular. The spread guard above
+  catches the degenerate (collinear) case for the right reason; grid-regular but two-dimensional pairs should pass.
+  Proposal: for fitter "matcher" docs, replace the ladder clause by the spread guard (line lead's call).

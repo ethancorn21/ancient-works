@@ -33,8 +33,15 @@ import propose  # noqa: E402
 import inkfit_heldout as ih  # noqa: E402
 import matchfit as mf  # noqa: E402
 
-HOLDOUT = os.path.join(ROOT, "data", "matchfit", "heldout")
+VARIANT = os.environ.get("MF_VARIANT", "")      # "" = matchfit's centred windows; "located" = fit/matchfit2.py
+TAG = os.environ.get("MF_TAG", "")              # e.g. "roma" when MATCHER_URL points at another model
+HOLDOUT = os.path.join(ROOT, "data", "matchfit", "heldout" + ("_" + VARIANT if VARIANT else "") + ("_" + TAG if TAG else ""))
 RESULTS = os.path.join(HOLDOUT, "results.json")
+if VARIANT == "located":
+    import matchfit2
+    candidates_fn = lambda root, site, row, url=None: matchfit2.candidates(root, site, row, url)  # noqa: E731
+else:
+    candidates_fn = None
 
 
 def load():
@@ -127,7 +134,7 @@ def measure(root, doc, url=None):
     se = propose._site(site)
     row = propose._plans_row(plan, site)
     t0 = time.time()
-    cands = candidates(root, se, row, url)
+    cands = (candidates_fn or candidates)(root, se, row, url)
     entry = {"doc": doc, "site": site, "plan": plan, "seconds": round(time.time() - t0, 1)}
     if cands is None:
         entry["error"] = "picture not on this machine"
@@ -172,8 +179,8 @@ def run(url=None):
             continue
         best = max((c for c in e["candidates"] if "corner_m" in c), key=lambda c: c["inliers"], default=None)
         if best:
-            print(f"    best-by-inliers: {best['ground']} x{best['window']}  inl {best['inliers']}/{best['matches']}"
-                  f"  rot {best['rot']}  corner {best['corner_m']} m", flush=True)
+            print(f"    best-by-inliers: {best['ground']} {best.get('stage', '')} x{best['window']}  inl {best['inliers']}/{best['matches']}"
+                  f"  rot {best['rot']}  corner {best['corner_m']} m  centre {best.get('centre_m')} m", flush=True)
         else:
             print("    no candidate with >= 3 inliers", flush=True)
     print("done:", len(res["docs"]), "documents")

@@ -116,3 +116,27 @@ def candidates(root, site, row, url=None):
             c["coarse_inliers"] = hits[0][0]
             out.append(c)
     return out
+
+
+def spread(pairs):
+    """How two-dimensional a set of inlier points is on the plan: (ratio, minor_sd_px).
+    ratio = sqrt(minor / major eigenvalue) of the point covariance (1.0 = round cloud, 0 = a line);
+    minor_sd_px = standard deviation along the minor axis in plan pixels.
+
+    Why (2026-10-11, the line lead's Aesica counterexample): a single bath-house plan got 13 inliers on
+    the OS six-inch sheet, all along one column of the plan (ratio 0.054, minor sd 15.6 px), and the
+    similarity solved from a near-line of points put the building 8x too big over the fields; the page
+    check caught it. On the 21 hand fits every accepted fit (>= 10 inliers) has ratio >= 0.138 and
+    minor sd >= 30 px. Proposed guard: ratio >= 0.1 and minor_sd_px >= 20, else not sure.
+    """
+    p = np.array([[u, v] for u, v, *_ in pairs], float)
+    if len(p) < 3:
+        return 0.0, 0.0
+    c = p - p.mean(0)
+    ev = np.clip(np.linalg.eigvalsh(c.T @ c / len(p)), 0, None)
+    ratio = float(np.sqrt(ev[0] / ev[1])) if ev[1] > 0 else 0.0
+    return round(ratio, 3), round(float(np.sqrt(ev[0])), 1)
+
+
+SPREAD_MIN_RATIO = 0.1
+SPREAD_MIN_SD_PX = 20.0
