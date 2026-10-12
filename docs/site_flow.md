@@ -541,10 +541,11 @@ with at least 10 consistent points and a rotation within 30 degrees of north. `t
 in its fit step whenever the matcher answers.
 
 A picture ELoFTR is not sure of goes to MatchAnything-RoMa (port 8092, `ROMA_URL`), which returns ~5000 dense
-matches per call, so it is judged by the fraction of matches that agree (>= 0.3), not a count
-(`matchfit.judge`). Both matchers accept a plan printed sideways (rotation within 10 degrees of a multiple of 90)
-and both go through the spread guard. On the 21 hand fits RoMa placed 11 at 0 wrong against ELoFTR's 7
-(docs/matchfit.md section 7; the rule was read off that table). Every automatic fit still gets an eye check.
+matches per call, so it is judged by the fraction of matches that agree (>= 0.4), not a count, at any rotation
+(`matchfit.judge`; old town plans are often drawn along a river axis, Strasbourg at 32-39 degrees). Both matchers
+go through the spread guard. On the 21 hand fits RoMa placed 10-11 at 0 wrong against ELoFTR's 7; on the queue
+the only wrong accepts sat between 0.3 and 0.4 (docs/matchfit.md sections 7-8; the rules were read off those
+tables). Every automatic fit still gets an eye check.
 
 A look at the owner's hand fits (not a held-out test: the windows and the thresholds came from it): every result
 with 10 or more consistent points landed 26-76 m from the hand fit; results with 2-7 points were 100-2000 m off.

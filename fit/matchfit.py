@@ -24,8 +24,8 @@ ground whose position is known:
             a large rotation was always a wrong match). Anything else is left for the owner's
             Ready-to-fit queue.
   RoMa      a picture ELoFTR is not sure of goes to MatchAnything-RoMa (port 8092), judged by the fraction
-            of its matches that agree (>= 0.3) instead of a count; sideways plans (rotation near a multiple
-            of 90 deg) count for both (judge; docs/matchfit.md section 7).
+            of its matches that agree (>= 0.4) instead of a count, at any rotation (judge; docs/matchfit.md
+            sections 7-8).
 
 A written fit is an ordinary platefit document (fit/batch_us.write_doc: by "agent", auto true) with
 "fitter": "matcher" and its inlier count; its pairs are up to 8 of the real matched points, spread
@@ -56,8 +56,7 @@ ROMA_URL = os.environ.get("ROMA_URL", "http://127.0.0.1:8092")
 WINDOWS = (1.0, 0.7, 0.5, 0.35, 0.25)
 MIN_INLIERS = 10
 MAX_ROT_DEG = 30.0
-ROT90_TOL_DEG = 10.0
-ROMA_MIN_FRAC = 0.3
+ROMA_MIN_FRAC = 0.4
 MODELS = {"eloftr": "zju-community/matchanything_eloftr", "roma": "zju-community/matchanything_roma"}
 N_PAIRS = 8
 SPREAD_MIN_RATIO = 0.1
@@ -78,24 +77,21 @@ def spread(pts):
     return (float(np.sqrt(ev[0] / ev[1])) if ev[1] > 0 else 0.0), float(np.sqrt(ev[0]))
 
 
-def near90(rot, tol=ROT90_TOL_DEG):
-    """Within tol of a multiple of 90 deg: plans printed sideways on the page (maiden n0124, old-sarum n0142 at
-    90.5 deg on the owner's hand fits, docs/matchfit.md section 7)."""
-    return abs(((rot + 45) % 90) - 45) <= tol
-
-
 def judge(best, kind="eloftr"):
-    """Why the best candidate is not to be trusted, or None. ELoFTR (sparse, ~100s of matches): the inlier count.
-    RoMa (dense, ~5000 matches per call, so a count means nothing): the inlier FRACTION >= 0.3, 11 of the 21 hand
-    fits at 0 wrong (projects-00, docs/matchfit.md section 7; read off that table, so a ceiling). Both: north-up
-    or sideways, and the spread guard."""
+    """Why the best candidate is not to be trusted, or None. ELoFTR (sparse, ~100s of matches): the inlier count and
+    a rotation within MAX_ROT_DEG of north. RoMa (dense, ~5000 matches per call, so a count means nothing): the
+    inlier FRACTION >= 0.4 and no rotation gate (projects-00, docs/matchfit.md sections 7-8): on the 21 hand fits
+    every rotation rule accepts the same 11 at 0 wrong at >= 0.3, because the wrong big-rotation matches all sit
+    below 0.25; on the queue the gate threw away 13 right-looking plans (Strasbourg drawn along the Rhine axis at
+    32-39 deg), and the only wrong or doubtful accepts sat in 0.3-0.4 (Eaton Socon / Lewes Down 0.32, Norwich
+    museum guide 0.30). Both: the spread guard."""
     if kind == "roma":
         frac = best["inliers"] / max(best["matches"], 1)
         if frac < ROMA_MIN_FRAC:
             return f"not sure: {frac:.2f} of the matches agree (need {ROMA_MIN_FRAC})"
     elif best["inliers"] < MIN_INLIERS:
         return f"not sure: {best['inliers']} consistent points (need {MIN_INLIERS})"
-    if not (abs(best["rot"]) <= MAX_ROT_DEG and kind == "eloftr") and not near90(best["rot"]):
+    if kind == "eloftr" and abs(best["rot"]) > MAX_ROT_DEG:
         return f"not sure: rotated {best['rot']:.0f} deg from north"
     if best["spread"][0] < SPREAD_MIN_RATIO or best["spread"][1] < SPREAD_MIN_SD_PX:
         return (f"not sure: the consistent points lie nearly on a line (spread {best['spread'][0]:.2f}, "
