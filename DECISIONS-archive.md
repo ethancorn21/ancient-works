@@ -3489,6 +3489,59 @@ iteration 104. No new failures, no new pitfalls (iteration 104's four probe bugs
 logged in PITFALLS and above).
 
 
+<!-- task 307a -->
+# Task 307a place-check
+
+## 2026-10-12 307a DECISION: iteration 108 research, written late (iteration 109) - the place-check rule set and the page-work anchors
+The iteration-108 session investigated the original 307a (the namesake place check) and
+was re-tasked mid-session by the lead (box 1 -> 309 for agent c; agent a -> the page
+work). It wrote the re-split record and the full 309 spec but never wrote the DECISIONS
+entry its hand-over promised; this entry is that write-up, summarising with pointers
+rather than restating (the detail lives in tasks/309-place-check.md, kept as reference,
+and in the parent 307's Hand-over):
+- Place-check rule set: decide from KNOWN places only - a mismatch only when a known
+  caption place contradicts the site's (a different county within one country, a
+different country, or resolved coordinates far outside the site's region); an unknown
+place never mismatches (fail open - necessary because 52 queue candidates carry noisy
+recorded conflicts that are mostly title words, not places); a place that contains the
+site (a country-level word, the site's own county/name) is not a mismatch; re-verify
+recorded verdicts offline (the evidence-check pattern: a recorded mismatch whose stored
+coordinates no longer contradict is flagged, not silently kept).
+- Measured cases: n0686 "The Devil's Dyke Camp, near Brighton" on the Cambridgeshire
+dyke - the right site exists (devil-s-dyke-hillfort-q17674160, Poynings, West Sussex,
+unbuilt) -> move there, not review; n0354 "ARDOCH, PERTHSHIRE." on the Spanish
+Coria/Vindomora - the catalog (12,603 rows, name+aliases) has no Ardoch -> review with
+the reason. Queue = 117 entries.
+- Page-work anchors (307b): propose_for(n0686) -> scale_m_px 0.3621, 5 pairs centred on
+the site, coarse false; refit() maps P.inkUrl onto the 'fit-prev' image source from the
+least-squares similarity of P.pairs, so "the drawing starts on the map" = seed P.pairs
+with the proposal's pairs, then handlers edit the anchor (drag/scale/rotate) and re-
+emit pairs; the saved doc stays pairs-shaped, so plan_fit.py/the gate/the one-site line
+are untouched.
+
+## 2026-10-12 307a DECISION: two files claimed the number 309 - my 309-place-check.md dropped in favour of the lead's 309-queue-right-place.md; the re-split record closed as done
+Timeline (git): the lead created tasks/307b-queue-right-place.md at 82e37e1 (21:34:42)
+and renamed it to tasks/309-queue-right-place.md at 720539f (21:34:48) - while my
+iteration-108 session was running and could not see it. My session created
+tasks/309-place-check.md (the full place-check spec); the driver committed it at
+0d9d5d8 (21:39:17); the main-sync d651c10 (21:39:18) brought in the lead's file, so this
+branch had two 309s. The driver's iteration-109 prompt names agent c's 309 by the lead
+file's title ("307b: The queue pairs a drawing with the right place, not a namesake")
+and touches (tools/fit_queue.py, web/data/fit_queue.json, data/review, web/data/
+review.json, tests/test_fit_queue.py, docs/site_flow.md) exactly - the lead's file is
+canonical and c works from it.
+Resolution: my 309-place-check.md -> Status: dropped, kept in place as reference for
+the 309 implementer (fail-open rule, the re-verified data/fit_place.json record, --
+live, the n0686/n0354 cases, 117 entries, 305-shape survival); the lead's file
+untouched (team mode - other tasks' files are not mine to edit, and its acceptance
+boxes define done); 307a marked done (a record with no acceptance boxes; the re-split
+is now complete and unambiguous - 307b/307c/307d + the lead's 309 hold all the work).
+Stale "307a" pointers in my 307c/307d subtasks fixed to 309; the page-work entry points
+moved from the 307a record into 307b's Notes. PITFALLS gained the durable fact (a
+number is only free inside one checkout). Suite at closure: 73 passed, 1 skipped
+(green; the d651c10 merge added task files only, no code).
+
+
 <!-- task 800 -->
 # Task 800 requirements-pinned
 
