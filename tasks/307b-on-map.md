@@ -86,10 +86,13 @@ iteration-116). Fix filed as task 220 (a full fit/review.py export; Depends on: 
 agent c owns data/review + web/data/review.json). 307ba now Depends on 220 and re-claims
 once it lands. Remaining work = 307bb ONLY: 307b's boxes 3-6 (the gestures on the
 placement, saving from it, the headless part-4 test, the full place-mode docs section with
-307c's screenshots when they land). 307bb should start once 220 (and ideally 309) is in
-main: its suite baseline is then 73 passed + 1 skipped with no known failures, and its
-headless part-4 save flow (which runs the one-site line and re-publishes the review page
-in its temp tree) sees a consistent page. The page-side design sketch below stands as
+307c's screenshots when they land). 220 is DONE on main (the lead's own commit c5250a4,
+2026-10-12 - their message overrides the old "wait for 309" sequencing: do not wait for
+c's 309 chain). 307bb starts once the driver has synced main into agent/a and 307ba has
+re-claimed (the sync was still pending at 307ba's iteration 121): its suite baseline is
+then 75 passed + 1 skipped, 0 failed (measured on a scratch copy of main's exact tree,
+iteration 121), and its headless part-4 save flow (which runs the one-site line and
+re-publishes the review page in its temp tree) sees a consistent page. The page-side design sketch below stands as
 written for 307bb; the corrections on the record: propose's private loaders take
 root=ROOT defaults (the PITFALLS entry), and fitkit deliberately has NO <style> block yet
 (box 2 adds no visible UI - 307bb adds one if its gestures need it; DECISIONS 2026-10-12

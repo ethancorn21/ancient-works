@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 309
 Touches: data/review, web/data/review.json
 
@@ -25,14 +25,14 @@ re-baseline (the tests are correct to fail; 803's re-baseline precedent is for t
 pin a population - these derive).
 
 ## Acceptance criteria
-- [ ] `.venv/bin/python fit/review.py export` run in the checkout: web/data/review.json is
+- [x] `.venv/bin/python fit/review.py export` run in the checkout: web/data/review.json is
       republished; the only item files that change are the ones whose resolving document
       now exists, and only by gaining the write-once `resolved: {doc, at}` record; nothing
       else in data/review, data/db/platefits or web/data/ changes.
-- [ ] A second export run changes nothing but the page's `at` (idempotent: page item list
+- [x] A second export run changes nothing but the page's `at` (idempotent: page item list
       identical, item files byte-identical) - the page is in sync with the items under the
       current rules.
-- [ ] The three tests above are green and the full suite has no failures beyond the
+- [x] The three tests above are green and the full suite has no failures beyond the
       driver's known-failure set (expect 73 passed + 1 skipped once 307ba is merged too).
 
 ## Notes
@@ -44,44 +44,34 @@ pin a population - these derive).
   c_be12fb0f9a87000b, ferme-d-azincourt -> c_804aa7af3eb2ac7c, forthill ->
   b24849959_n0269_1; the second export is a no-op. As of cf29be2 the page goes 340 -> 335
   open of 341.
-- Depends on 309 (agent c, active) - run the export on top of 309's final store state,
-  never in parallel with it. As of iteration 117, 309 is SPLIT (on agent/c): 804 wires the
-  right-place check into tools/fit_queue.py; 805 (depends on 804) rebuilds the committed
-  data - and 805's rebuild re-exports web/data/review.json in-process via fit/review.py
-  export, necessarily a FULL export (the namesake upserts span sites, and the page file is
-  always computed over the whole queue). A full export is this task's box 1: it records the
-  write-once `resolved` records (the 307ba iteration-116 scratch run verified the
-  site_id=None semantics and the no-op second run). So when this task runs, both boxes are
-  likely a no-op verification (page in sync, item files byte-identical, suite green) - run
-  the export anyway, prove it, close as verified. A dep on a split parent parks until full
-  closure (agent c's 2026-10-12 309 DECISION entry documents it); 309's closure after 805
-  is bookkeeping-only (no store change), so the wait costs one agent-c session, not a store
-  dependency. The dep stays on 309 (not re-pointed at 805): 309 is the driver-visible task
-  (the prompt names it), and 804/805 had not reached this checkout's tasks/ when this note
-  was written - a dep on a task file that no checkout shares risks parking forever.
+- The `Depends on: 309` was my own safety gate ("run the export on top of 309's final store
+  state, never in parallel"). The lead overrode it: their 2026-10-12 message ("220 done on
+  main ... build on main, do not wait for c 309/804/805") and their own commit c5250a4
+  (the export, committed to main) - the human's word wins. The export's inputs (data/review
+  items, the platefits docs, web/data/sites.json) were not mid-write when it ran, so the
+  override was safe in practice: the page is a snapshot of that instant, and the drift
+  watch below covers anything that lands after it.
+- Post-export drift watch (still armed): any commit that ADDS data/review item files
+  (agent c's 203b EU batch, 207 Roman, 805's rebuild upserts) or places/deletes fit docs
+  re-stales the page against the three derived-count tests with numbers different from
+  335/334 - the fix is another full export (this task's box-1 mechanism, commit the two
+  store paths), never a test re-baseline. The review-page PITFALLS entry carries the same
+  watch (third trigger).
 
 ## Hand-over
 
-(2026-10-12, iteration 117, agent a - the filer, for whoever runs this.) By the time the
-driver hands this out, main carries 804 + 805 merged (and 309's closure bookkeeping); 805's
-run already re-exported web/data/review.json in-process. Expected run: 1) `.venv/bin/python
-fit/review.py export` in the checkout - if 805 already did it, expect a no-op (only the
-page's `at` moves; item files byte-identical: the six write-once `resolved` records the
-iteration-116 307ba scratch run proved are already there); 2) confirm box 2 (a second run
-changes nothing); 3) run the three tests named in the Goal (test_fit_provenance::
-test_line_refuses_unmarked_non_auto_doc, test_site_done::test_site_done_line, test_fit_
-queue::test_save_runs_the_one_site_line) - expect green once 307ba is also merged (307ba's
-re-claim waits on this task, so by then it is). If the export DOES change item files (a
-resolving doc landed after 805's run), that is the real fix: commit the changed store paths
-and re-run the suite. Re-read fit/review.py::export (line 184) for the site_id=None
-full-export semantics; derive the expected counts, never pin them (the Goal's "340 -> 335"
-arithmetic was true at cf29be2 and moves with the store).
-
-(2026-10-12, iteration 119, the filer again.) If the export is a no-op and the three tests
-STILL fail, the drift is in the item population, not the resolutions: a batch run writing
-new data/review item files after the page's snapshot (agent c's 203b EU batch does exactly
-this for its unplaceable sites) changes the open/total the current code computes, while the
-committed page keeps the old population. Re-run the export - item files then byte-identical,
-only the page rewrites to the new population - and re-run the suite; that is this task's
-box 1, not a test re-baseline. Symptom to recognise: the three fail with numbers DIFFERENT
-from 335/334 (the 2026-10-11 rule-change signature).)
+(2026-10-12, iteration 121, agent a - closed.) The lead ran this task's work themselves:
+main's c5250a4 is the full export (340 -> 335 open of 341; the 6 write-once resolved
+records; their message names the cause - matcher docs placed without a re-export). Agent
+a verified it from main in a scratch copy (git archive main, seeded with the gitignored
+web/data/sites + the data/raw symlink): the commit's diff is exactly the 6 item files
+(each only gaining the resolved record) + the page, nothing else in the store; a
+re-export over that state is a no-op (only the page's `at` moves; the 335-item list
+byte-identical); the three named tests pass (25.5 s) and the full seeded suite is 75
+passed + 1 skipped, 0 failed (the "73" in box 3's parenthetical predates 214's 2 new
+region tests; the union after my 307ba sync is 76 tests = 75 passed + 1 skipped, which is
+what 307ba's re-claim expects). All boxes ticked, Status: done. If a future session sees
+the three derived-count tests fail with numbers OTHER than 335/334 against a
+post-c5250a4 page, that is population drift after the snapshot, not this task's work:
+run a full `fit/review.py export` on the current tree, commit the two store paths, and
+re-run the three tests.

@@ -479,3 +479,45 @@ iteration-100 data state), not my earlier "~116"; it may shift again if 203b (EU
 or 207 (Roman books) land on main before 805's rebuild (new index rows / review items) -
 regenerate, never pin. Still waiting: 804 boxes 3-4 + 805 -> 309's closure -> 220's export
 -> my re-claim. No code change, no ask_human (plain dependency wait).
+
+## 2026-10-12 307ba DECISION: iteration 121 - the wait is over on the main side: the lead ran 220 themselves (c5250a4 full export, overriding my "wait for 309" dep) and ordered a resume without waiting for c's 309/804/805 chain; verified in scratch that main's state makes the 3 stale-page tests green (full seeded suite 75+1, re-export a no-op); re-measured my branch's 3 failures as pure stale-page arithmetic; closed my 220 filing as done (all boxes verified); the re-claim is pinned to the post-sync session (expect 75 passed + 1 skipped)
+
+One step (verification + bookkeeping, no code change): the lead's message closed the
+dependency ("220 done on main ... Resume 307ba now: build on main, do not wait for c
+309/804/805; if their merge conflicts later, the second to land resolves it"). Verified
+by running (nothing merged - agent/a..main = 4 lead commits at the time of writing; the
+driver's sync is still ahead):
+
+- Main tip 57b3988 = cf29be2 + c5250a4 (220's export: page md5 2609ecef, 335 open of 341,
+  `at` 05:02:09; the 6 item files each only gain a resolved record; lead's own words:
+  "The lead placed matcher docs without a full export; that staled the page") + 5c153b9
+  (214 region names, +2 tests in test_region.py) + 2dd6596 (215: books.py probes the live
+  Qwen ports 8080-8082) + 57b3988 (PITFALLS fold). None touches my files; right_place.py
+  / the 804 wiring are still agent/c only.
+- Scratch copy of main's exact tree (git archive main -> /tmp/mn121; seeded with the
+  gitignored store elements: web/data/sites copy, the data/raw symlink - I re-hit the
+  data/raw du=0 symlink trap fresh this session; it is already recorded in PITFALLS
+  ("data/raw in the repo is a symlink to a sibling project"), so no new entry): the 3
+  named tests all pass in 25.5 s; the full seeded suite = 75 passed + 1 skipped, 0
+  failed (the main baseline; the "73" in the old 220 box 3 predates 214's 2 region
+  tests); a re-export over main's state is a no-op (only `at` moves, the 335-item list
+  identical) -> the page is in sync as of c5250a4.
+- My branch (before the sync): re-ran the 3 tests - all fail EXACTLY on the stale-page
+  arithmetic (334 vs 339; 335 vs 340; 334 vs 339) with the machinery intact (the fixture
+  pick works, the one-site line ~18 s, the page re-exports in the temp tree) -> post-
+  sync (the page becomes 335/341) all three flip green with no test change. Merge
+  preview (read-only git merge-tree from merge-base cf29be2): no conflicts (only
+  PITFALLS.md on both sides, different sections) -> the driver's sync should be clean.
+- Closed my 220 filing as done: box 1 verified from c5250a4's diff (exactly the 6 item
+  files + the page, nothing else in the store) + the scratch re-export; box 2 from the
+  scratch no-op; box 3 from the 3/3 green + 75+1 scratch suite. 220's Notes now record
+  the lead's override of my dep-309 safety gate (the human's word wins).
+- The review-page PITFALLS entry's fix description now reflects that the lead ran
+  c5250a4 (was "220, after 309"); the third-trigger drift watch stays armed.
+- 307ba's hand-over is rewritten around the re-claim: after the driver syncs main into
+  agent/a, one step = verify agent/a..main empty, run the full suite (expect 75 passed +
+  1 skipped, 0 failed), set done, commit. The old merge recipe (for when c's 309 chain
+  lands on main before/in the same sync as my re-claim) stays in this entry and is
+  referenced from the hand-over. The parent 307b's hand-over note on 307bb's start
+  condition is updated to match (220 on main; baseline 75+1).
+- No ask_human, no code change. The next session (after the sync) makes the re-claim.
