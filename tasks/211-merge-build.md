@@ -58,17 +58,55 @@ the result with no page change (GOAL.md point 5).
 207 (Roman books) is stopped by the owner; this consolidation runs without it. 207a/207b staging, if it ever resumes, goes through a later re-run of this step. (NOTE 2026-10-12 iter 186: 207 has since resumed as 207a/207b/207c - agent c is working it; 207c is blocked; its staging is on agent c's branch, not main yet.)
 
 ## Hand-over
-(2026-10-12, iteration 186, agent a - BOXES 5 AND 6 DONE. Box 5: docs/sources.md section 9 (per-lead staged/dropped consolidated from the docs/lead_*.md files, every number cross-checked). Box 6: the 000 golden test re-read fresh - 19 golden sites (all with depictions.json here), hermetic conftest, green in this session's run. 222-228 still OPEN -> the done claim stays GATED; the next session that finds them merged finishes and claims.)
+(2026-10-12, iteration 187, agent a - GATE STILL OPEN: all seven of 222-228 are
+`Status: open` and main has moved nothing since the 186 sync (branch tip 6ad8570
+contains main tip 7e61147; only driver bookkeeping in between). The done-claim
+stays gated; nothing was re-run (the merge is idempotent; the red set is
+unchanged and the driver re-checks the suite at claim time). This session's
+step: the imagecodecs open thread is now task 229 - filed, dependency-gated,
+no open thread left on this task.)
 
-State:
-- BOXES 1-4 DONE (no change this session): box 1 the live merge (381 staging rows -> the 3 canonical files, pure growth, idempotent, 0 refused, log in data/merge/log.jsonl); box 2 data/books/index.jsonl 1068 rows + validation.json (200 evidence on all book rows; `fit/evidence.py check` 0 fail); box 3 the 114 new sites built, web/data/sites.json 385 -> 499 vs the frozen 385-entry baseline, tests/test_merge.py 9/9; box 4 web/data/plans.json = 1168 (frozen 1166 pre-merge keys all present, (id, sites[0]) unique, re-running tools/export_plans.py byte-identical, sha256 852089e0...). NEVER run `pipeline/books.py match` for this task.
-- BOX 5 DONE (iter 186): docs/sources.md now has section 9 "The drawing leads (GOAL point 5): what was staged and what was dropped, per lead" - one table row per GOAL.md lead (204 Van Deventer 56 towns/4 drops; 205 Kip 12 of 22/4 review-queue; 206 Mackenzie 1 row (Shotwick); 207 Roman none (owner-stop, later re-run picks it up when the staging lands on main); 208 Limes 56 plans/43 fort numbers/45 sites + the per-number drop list; 209 Wiltshire 5 rows (209a Hoare DROPPED on the refused download, 209b Stukeley, 209c Petrie's canonical-plate fallback) + the 2 existing hand fits never re-staged; 210 Numancia 1 row; 213 artists 2 new aerial sites + the triaged Civitates/Merian books) plus the "merge itself" summary (381 rows: 115 site / 133 picture / 133 classified; 0 refused / 0 conflicts; 114 new sites - shotwick's row made no new site; sites.json 385 -> 499; plans.json 1,166 -> 1,168; books index 901 -> 1,068). The diff is purely additive (17 insertions, 0 deletions). Gotchas found while writing it: (a) web/data/sites.json is a JSON OBJECT ({"sites": [...]}), not JSONL; (b) the limes lead says "43 ORL fort numbers (45 staging items)" - 45 extras rows = 45 sites, so quote it exactly; (c) the Mackenzie schematics (Framlingham/Carisbrooke/Cooling) ARE pre-merge canonical rows (fitted), not drops.
-- BOX 6 DONE (iter 186): re-read tests/test_serve.py::test_hand_fits_are_the_reference and tests/conftest.py fresh. The golden file tests/golden/hand_fit_sites.txt = 19 sites (its header says "20 documents" - that is 000's reference count; the store today holds 123 docs: 26 book-leaf + 97 Commons, the batch tasks' agent fits having joined per GOAL's "fits in data/db/platefits/"). ALL 19 golden sites have web/data/sites/<sid>/depictions.json in this checkout, so the test's per-site depictions check (a plan/view depiction whose fit doc id starts with <sid>. ) runs for every one - none skipped by its exists() guard. The test asserts every golden site is in the served sites.json with drawings >= 1. Hermeticity confirmed in conftest: server/serve.py --port 0 (ephemeral), a session-scoped temp copy of web/+server/+data/ minus data/raw/ and the .npy/.npz grids (the book/media routes 404 in the copy, so nothing fetches; that is also why the suite is light), terminated in teardown; the test file's own docstring says "no network, ephemeral port". It is green in this session's run (not among the 10 failures).
-- SUITE (iter 186): 10 failed / 130 passed / 1 skipped in 234 s. The 10 = exactly the 222-228 source-guard set: test_src_artists 1, test_src_kip 1, test_src_limes 1, test_src_mackenzie 1, test_src_numancia 1, test_src_van_deventer 2, test_src_wiltshire_stukeley 3 (their check_staged/join assertions see their staged rows now present in the canonical files - the live merge's by-design effect; the fix tasks own their modules' post-merge check semantics). No NEW failures; test_serve / test_gate / test_merge all green. GOTCHA: `pytest --timeout=600` is a no-go here - pytest-timeout is not in the .venv (argparse error kills the run); just run `pytest tests/ -q`.
-- CLAIM GATED: 222-228 all Status: open (re-checked this session). Do not set Status: done until they land; leave it `open` for now (the driver re-checks the suite at claim time anyway).
+State (unchanged since 186; details in the 183-186 DECISIONS entries):
+- BOXES 1-4 DONE: box 1 the live merge (381 staging rows -> the 3 canonical
+  files, pure growth, idempotent, 0 refused, log in data/merge/log.jsonl);
+  box 2 data/books/index.jsonl 1068 rows + validation.json (200 evidence on
+  all book rows; `fit/evidence.py check` 0 fail); box 3 the 114 new sites
+  built, web/data/sites.json 385 -> 499 vs the frozen 385-entry baseline,
+  tests/test_merge.py 9/9; box 4 web/data/plans.json = 1168 (the 1166 pre-
+  merge keys all present, (id, sites[0]) unique, tools/export_plans.py re-run
+  byte-identical, sha256 852089e0...). NEVER run `pipeline/books.py match`
+  for this task.
+- BOX 5 DONE (iter 186): docs/sources.md section 9 - one row per GOAL.md lead
+  (staged counts + documented drops, per lead doc + merge log) plus the merge
+  summary; purely additive.
+- BOX 6 DONE (iter 186): 000's golden reference re-verified - the 19 sites
+  (all with depictions.json in this checkout), hermetic conftest (--port 0,
+  temp tree minus raw/grids, terminated in teardown), green in the run.
+- SUITE (iter 186, still current): 10 failed / 130 passed / 1 skipped in
+  234 s; the 10 are exactly the 222-228 source-guard set (their
+  check_staged/join assertions see their staged rows in the canonical files -
+  the live merge's by-design effect; the fix tasks own the post-merge check
+  semantics). No new failures; test_serve/test_gate/test_merge green.
+  Gotcha: no `--timeout` flag (pytest-timeout not in the .venv) - run
+  `pytest tests/ -q`, nohup + pidfile.
+- 229 FILED (iter 187): tasks/229-imagecodecs-pin.md (Depends on: 302a, 304;
+  Touches: requirements.in, requirements.txt, PITFALLS.md) pins the ad-hoc
+  imagecodecs 2026.10.10 the AHN builds need (PITFALLS pillow entry now
+  points at it). It is dependency-gated on c's in-flight requirements work
+  and NOT on this task's Depends-on list - it does not block the 211 claim
+  (the driver's in-place .venv rebuild keeps the package until it lands).
 
 Next session, in order:
-1. Check 222-228 statuses (head -1 of each task file). If still open: STOP (gated; the driver brings this back). Nothing else remains on 211 while they are open.
-2. If merged/closed: re-run the suite (expect fully green; the merge is idempotent - do NOT re-run fit/merge.py; a "No space left" failure would be the disk, see 7e61147), then set Status: done and file the done claim. In the claim cite: all 6 boxes; the 381-row merge (0 refused / 0 conflicts); 114 new sites (385 -> 499); the 1,068-row books index; the 19-site golden reference; and that the red set of 10 was 222-228's.
-
-Open thread: imagecodecs 2026.10.10 is installed in the .venv but NOT pinned in requirements.in/.txt (agent c's in-flight 302a/304 own those files; the AHN sites - incl. the-hague - depend on it). File the pin task once c's requirements work lands (or fold into the claim session).
+1. Check 222-228 statuses (head -1 of each task file). If any is still
+   `Status: open` (or in-progress/blocked/split without a recorded drop):
+   STOP (gated; the driver brings this back). Nothing else remains on 211
+   while they are open (229 is queued, dependency-gated).
+2. If none is open anymore (all done, or dropped with a recorded reason):
+   re-run the suite (`pytest tests/ -q`; expect fully green; the merge is
+   idempotent - do NOT re-run fit/merge.py; a "No space left" failure is the
+   disk, see 7e61147), then set Status: done and file the done claim. Cite:
+   all six boxes; the 381-row merge (0 refused / 0 conflicts); 114 new sites
+   (385 -> 499); the 1,068-row books index; the 19-site golden reference;
+   that the red set of 10 was 222-228's source-guard set (now fixed by them);
+   and that the imagecodecs pin is 229 (check its status line: landed or
+   still queued).

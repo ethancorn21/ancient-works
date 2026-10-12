@@ -295,7 +295,7 @@ One `### <library>` subsection per library or tool, with its version.
 Where: pipeline/build_site.py:load_dem (Image.open on the AHN DEM tiles), the `.venv` build from requirements.txt
 Symptom: `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package` at build time; the AHN-sourced sites (amsterdam-q727, alkmaar-q972, enkhuizen-q9918, haarlem-q9920, rotterdam-q34370, the-hague-q36600, utrecht-q803) all fail, while the point-cloud fallback saves only the boxes pc covers (reimerswaal, sluis, valkenburg)
 Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs. imagecodecs 2026.10.10 was installed ad hoc into the project .venv (2026-10-12, 211's box-3 run) and is NOT in requirements.in/requirements.txt (agent c's 302a/304 own those files; the pin is still outstanding). The driver's in-place .venv rebuild keeps extra packages, so it survives today, but a from-scratch venv would lose it and the AHN builds would fail again.
-What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build; when agent c's in-flight requirements work has landed, add `imagecodecs` to requirements.in and regenerate requirements.txt (pip-compile --generate-hashes, the usual pattern).
+What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build (the .venv still carries the ad-hoc 2026.10.10 install). Task 229 (filed 2026-10-12 by 211; Depends on 302a/304, who own requirements.in/.txt in flight) pins it in requirements.in and regenerates requirements.txt - when it lands, correct this entry.
 
 ### pyproj (3.8, project .venv)
 
