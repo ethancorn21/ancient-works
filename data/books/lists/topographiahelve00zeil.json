@@ -1,0 +1,565 @@
+{
+"plates": null,
+"figures": [
+{
+"fig": 16,
+"title": "Tafel des Teutschlands",
+"page": "10",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 24,
+"title": "der Endgnoschaffte",
+"page": "15",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Elgaw und Murrz",
+"page": "16",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 32,
+"title": "Zurich im Grund",
+"page": "17",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 36,
+"title": "Tigurvm (Zurich im Prospect)",
+"page": "17",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 42,
+"title": "Forsteck. FORSTECK.",
+"page": "19",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Eglisaw, Grüningen, Griffensee und Regensperg",
+"page": "20",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 52,
+"title": "Stein am Rhein",
+"page": "21",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 58,
+"title": "Winterhur, Undelfingen und Kyburg",
+"page": "22",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Willisaw und Wedeschwyl",
+"page": "23",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 66,
+"title": "Bern die HauptStatt in Nüchternland",
+"page": "24",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Thron",
+"page": "26",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 80,
+"title": "Araw. Arberg. Arburg.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 72,
+"title": "Lentzburg. LENTZBURGV. + Brugg im Argaw. BRVG ARGOLIA.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 72,
+"title": "Habsburg. HASSBURGŰ.",
+"page": "27",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 86,
+"title": "Burgdorff. BURGDORF.",
+"page": "28",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 90,
+"title": "Lausanne",
+"page": "79",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 94,
+"title": "THUNA. Thun.",
+"page": "31",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 98,
+"title": "S. Peter. Bibiscum. [Beven]",
+"page": "31",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 104,
+"title": "Abbildung des Gletschers im Grindelwalde in der Herrschafft Bern (GLATSCHER)",
+"page": "32",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 110,
+"title": "Mürten. Neus. Nion. Aventicum. Vifffisburg.",
+"page": "34",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 116,
+"title": "LVCERN.",
+"page": "36",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 120,
+"title": "Abbildung der 4. Waldstätten See.",
+"page": "36",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 124,
+"title": "SEMPACH. SEMPACHIUM.",
+"page": "37",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 124,
+"title": "SURSEE.",
+"page": "37",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 128,
+"title": "Ragus et Ecclesia Collegiata MUNSTER in Argovia (Der Flecken und Stift Münster im Argaw)",
+"page": "37",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 134,
+"title": "Altorff Haupt flecken des Lands URY",
+"page": "38",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 134,
+"title": "Flüelen",
+"page": "38",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 138,
+"title": "SVITIA. Schwytz",
+"page": "39",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 142,
+"title": "Prospect des Haubt Closters Schwytz",
+"page": "39",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 146,
+"title": "Einsiedelen. INSVLA EREMI",
+"page": "39",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 152,
+"title": "Das Landt Unterwalden",
+"page": "41",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Engelberg",
+"page": "41",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 160,
+"title": "TVGIVM. Zug.",
+"page": "43",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 166,
+"title": "GLARONA. Glaris.",
+"page": "44",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 172,
+"title": "Basel im Grund",
+"page": "46",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 176,
+"title": "BASILEA im Prospect (2. Kupffer)",
+"page": "46",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 180,
+"title": "Die Brück (Prospectvs Cathedrals, Pontis Rheni)",
+"page": "47",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 184,
+"title": "CAMPVS DIVI PETRI (S. Peters Platz daselbst)",
+"page": "47",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 190,
+"title": "Münchenstein",
+"page": "48",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 194,
+"title": "Viechtstall [Lichtstall]",
+"page": "49",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 198,
+"title": "WALLENBURG",
+"page": "49",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 204,
+"title": "PIERRE PERTUISE",
+"page": "50",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 208,
+"title": "Romamostier.",
+"page": "50",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 214,
+"title": "Freÿburg in Üechtlandt. FRYBURGUM NUITONIA.",
+"page": "52",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 218,
+"title": "SOLOTURVM",
+"page": "53",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 224,
+"title": "Schaffhausen",
+"page": "54",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 228,
+"title": "Eigentliche Bildnüß des Großen Wasserbruchs oder Falls des Rheins im Lauffen",
+"page": "55",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Nünkirchen",
+"page": "55",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 236,
+"title": "APPENZELL. + HERISSAW.",
+"page": "56",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 240,
+"title": "Baden im Argov",
+"page": "57",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 246,
+"title": "Klingnaw, Leuggern, Der mittlere Lauffen oder Fall des Rheins, Monast. Wettingen",
+"page": "58",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 250,
+"title": "Heidnische Münzen vnd Silbergeschirr (Monetarum)",
+"page": "58",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": 254,
+"title": "Forvm Tyberii. Zurzach.",
+"page": "58",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 258,
+"title": "BRENGGARTEN.",
+"page": "59",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Lowerk und Wellenk",
+"page": "60",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 268,
+"title": "Die Statt Dissenhofen... in grund gelegt im Jahr 1648",
+"page": "60",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 272,
+"title": "FRAWENFELD. + MELLINGEN.",
+"page": "60",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 276,
+"title": "RAP PERSWYL. Rapperswyl.",
+"page": "61",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Pfeffers (2. Kupffer, 2 Ansichten)",
+"page": "63",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 288,
+"title": "MULHUSIA ALSATIAE. Müllhausen.",
+"page": "65",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 294,
+"title": "BIENNA. Biel.",
+"page": "66",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 298,
+"title": "S. GALLEN.",
+"page": "67",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 308,
+"title": "GENEVE. GENEVA. im Grund",
+"page": "70",
+"kind": "s",
+"kind_by": "hand"
+},
+{
+"fig": 312,
+"title": "GENEUE. Genff im Prospect",
+"page": "71",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 316,
+"title": "NEOCOMVM. Steinenburg am See. (2. Ansichten, 2 Kupffer)",
+"page": "72",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 328,
+"title": "Weyerhauß. WEYERHAUS. (Castelen, Etiszwenyl)",
+"page": "77",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 334,
+"title": "Chur. CURIA RHETIA.",
+"page": "79",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Plürs",
+"page": "83",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 348,
+"title": "Fontes Rheni anterioris et Posterioris (Ursprung des hinteren und Vorderen Rheins)",
+"page": "84",
+"kind": "u",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "S. Luciensteig",
+"page": "85",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 356,
+"title": "Leugg",
+"page": "87",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 362,
+"title": "PRYG. NATERS.",
+"page": "88",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Bisp/ oder Bispach",
+"page": "88",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 368,
+"title": "S. Mauritus in Valessia. S. Mairise in Walls",
+"page": "89",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 374,
+"title": "SEDUNVM. Sitten",
+"page": "90",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": 378,
+"title": "Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino",
+"page": "90",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Chastillard und Blonay",
+"page": "90",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Sandeck und Mauwister",
+"page": "90",
+"kind": "o",
+"kind_by": "hand"
+},
+{
+"fig": null,
+"title": "Werdenstein und S. Urbani",
+"page": "90",
+"kind": "o",
+"kind_by": "hand"
+}
+]
+}

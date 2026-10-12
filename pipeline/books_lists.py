@@ -4,7 +4,8 @@ Ground truth = the book's List of Plates / List of Illustrations (or, where the 
 printed in its text). Plate lists below were transcribed by reading IA's OCR and, where the OCR was garbled,
 the list page image itself (noted per book). Figure lists are parsed from IA's OCR text automatically; where a
 book's list is its own one-plate-per-leaf pages (the artists'-view books), the entries are transcribed per leaf
-by hand instead (HAND_FIGS: fig = the leaf's n) and the book's list file is the dump of that table.
+by hand instead (HAND_FIGS: fig = the leaf's n, '' when the plate has no leaf in the item) and the
+book's list file is the dump of that table.
 
 Each list entry carries `kind`, a judgement made from its printed title only:
     s = site plan (plan view of a work, a mound group, or a map of a valley/district showing works)
@@ -507,14 +508,16 @@ KIND_OVERRIDES = {
 
 # ---------------------------------------------------------------- hand transcriptions (the view books)
 
-# Per-leaf transcription of the artists'-view book's own plates, one line per leaf:
-# fig|title|page|kind|kind_by. fig = the leaf's own n (the book prints one plate per leaf; there is no separate
-# printed page number to map, except where a fold-out numbers its own sheets: the "page" field then).
-# kind: o = town view - a drawing in its own right (GOAL.md point 5); s = bird's-eye plan; u = excluded from
-# the drawings (faded blank fold-out versos, a town's coat of arms). kind_by: hand = read from the plate pages
-# (213), A = the stage A page type (a view leaf that is not a plan).
-# data/books/lists/<ia>.json is this table's dump (cmd_ocrmap regenerates it, ensure_ascii=False for these
-# books: the printed titles keep their own diacritics). One place for the knowledge, the file is the dump.
+# Per-leaf transcription of the artists'-view books' own plates: one line per plate (a double-page or a
+# 4-page spread is one line; a leaf carrying two entries gets two lines, the o row before the s row):
+# fig|title|page|kind|kind_by. fig = the leaf's own n ('' = the plate has no leaf in the item - fold-out-only
+# or unengraved; the index skips it, validate counts it as nopage). kind: o = town view - a drawing in its own
+# right (GOAL.md point 5); s = bird's-eye plan (Merian: "im Grund"); u = excluded from the drawings (regional
+# maps, natural features, a coin sheet, faded blank fold-out versos, a town's coat of arms). kind_by: hand =
+# read from the plate pages (213 for civitates; 217's image-checked readings for Merian), A = the stage A page
+# type (a view leaf that is not a plan). data/books/lists/<ia>.json is this table's dump (cmd_ocrmap
+# regenerates it, ensure_ascii=False for these books: the printed titles keep their own diacritics). One place
+# for the knowledge, the file is the dump.
 HAND_FIGS = {"civitatesorbiste00brau": """
 4|CIVITATIS ORBIS TERRARVM||o|A
 29|LONDINVM FELICIAE REGN||o|A
@@ -637,19 +640,103 @@ HAND_FIGS = {"civitatesorbiste00brau": """
 258|AZAAMVRVM.||o|A
 261|MEXICO.||o|A
 262|CUSCO, REGNI PERU IN NOVO ORBE CAPVT.||o|A
+""",
+             "topographiahelve00zeil": """
+16|Tafel des Teutschlands|10|u|hand
+24|der Endgnoschaffte|15|u|hand
+|Elgaw und Murrz|16|o|hand
+32|Zurich im Grund|17|s|hand
+36|Tigurvm (Zurich im Prospect)|17|o|hand
+42|Forsteck. FORSTECK.|19|o|hand
+|Eglisaw, Grüningen, Griffensee und Regensperg|20|o|hand
+52|Stein am Rhein|21|o|hand
+58|Winterhur, Undelfingen und Kyburg|22|o|hand
+|Willisaw und Wedeschwyl|23|o|hand
+66|Bern die HauptStatt in Nüchternland|24|s|hand
+|Thron|26|o|hand
+80|Araw. Arberg. Arburg.|27|o|hand
+72|Lentzburg. LENTZBURGV. + Brugg im Argaw. BRVG ARGOLIA.|27|o|hand
+72|Habsburg. HASSBURGŰ.|27|o|hand
+86|Burgdorff. BURGDORF.|28|o|hand
+90|Lausanne|79|o|hand
+94|THUNA. Thun.|31|o|hand
+98|S. Peter. Bibiscum. [Beven]|31|o|hand
+104|Abbildung des Gletschers im Grindelwalde in der Herrschafft Bern (GLATSCHER)|32|u|hand
+110|Mürten. Neus. Nion. Aventicum. Vifffisburg.|34|o|hand
+116|LVCERN.|36|o|hand
+120|Abbildung der 4. Waldstätten See.|36|u|hand
+124|SEMPACH. SEMPACHIUM.|37|o|hand
+124|SURSEE.|37|s|hand
+128|Ragus et Ecclesia Collegiata MUNSTER in Argovia (Der Flecken und Stift Münster im Argaw)|37|o|hand
+134|Altorff Haupt flecken des Lands URY|38|o|hand
+134|Flüelen|38|s|hand
+138|SVITIA. Schwytz|39|o|hand
+142|Prospect des Haubt Closters Schwytz|39|o|hand
+146|Einsiedelen. INSVLA EREMI|39|o|hand
+152|Das Landt Unterwalden|41|u|hand
+|Engelberg|41|o|hand
+160|TVGIVM. Zug.|43|o|hand
+166|GLARONA. Glaris.|44|o|hand
+172|Basel im Grund|46|s|hand
+176|BASILEA im Prospect (2. Kupffer)|46|o|hand
+180|Die Brück (Prospectvs Cathedrals, Pontis Rheni)|47|o|hand
+184|CAMPVS DIVI PETRI (S. Peters Platz daselbst)|47|o|hand
+190|Münchenstein|48|o|hand
+194|Viechtstall [Lichtstall]|49|o|hand
+198|WALLENBURG|49|o|hand
+204|PIERRE PERTUISE|50|o|hand
+208|Romamostier.|50|o|hand
+214|Freÿburg in Üechtlandt. FRYBURGUM NUITONIA.|52|o|hand
+218|SOLOTURVM|53|s|hand
+224|Schaffhausen|54|o|hand
+228|Eigentliche Bildnüß des Großen Wasserbruchs oder Falls des Rheins im Lauffen|55|u|hand
+|Nünkirchen|55|s|hand
+236|APPENZELL. + HERISSAW.|56|o|hand
+240|Baden im Argov|57|o|hand
+246|Klingnaw, Leuggern, Der mittlere Lauffen oder Fall des Rheins, Monast. Wettingen|58|o|hand
+250|Heidnische Münzen vnd Silbergeschirr (Monetarum)|58|u|hand
+254|Forvm Tyberii. Zurzach.|58|o|hand
+258|BRENGGARTEN.|59|o|hand
+|Lowerk und Wellenk|60|o|hand
+268|Die Statt Dissenhofen... in grund gelegt im Jahr 1648|60|s|hand
+272|FRAWENFELD. + MELLINGEN.|60|o|hand
+276|RAP PERSWYL. Rapperswyl.|61|o|hand
+|Pfeffers (2. Kupffer, 2 Ansichten)|63|o|hand
+288|MULHUSIA ALSATIAE. Müllhausen.|65|s|hand
+294|BIENNA. Biel.|66|o|hand
+298|S. GALLEN.|67|s|hand
+308|GENEVE. GENEVA. im Grund|70|s|hand
+312|GENEUE. Genff im Prospect|71|o|hand
+316|NEOCOMVM. Steinenburg am See. (2. Ansichten, 2 Kupffer)|72|o|hand
+328|Weyerhauß. WEYERHAUS. (Castelen, Etiszwenyl)|77|o|hand
+334|Chur. CURIA RHETIA.|79|o|hand
+|Plürs|83|o|hand
+348|Fontes Rheni anterioris et Posterioris (Ursprung des hinteren und Vorderen Rheins)|84|u|hand
+|S. Luciensteig|85|o|hand
+356|Leugg|87|o|hand
+362|PRYG. NATERS.|88|o|hand
+|Bisp/ oder Bispach|88|o|hand
+368|S. Mauritus in Valessia. S. Mairise in Walls|89|o|hand
+374|SEDUNVM. Sitten|90|o|hand
+378|Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino|90|o|hand
+|Chastillard und Blonay|90|o|hand
+|Sandeck und Mauwister|90|o|hand
+|Werdenstein und S. Urbani|90|o|hand
 """}
 
 
 def parse_hand_figures(ia_id):
-    """The per-leaf hand table: one entry per plate leaf, keyed by the leaf's own n (fig); page stays a string."""
+    """The per-leaf hand table: one entry per plate leaf, keyed by the leaf's own n (fig); page stays a string.
+    fig '' = the plate has no leaf in the item (fold-out-only or unengraved): fig is None - validate counts
+    those entries as nopage, and list_pages/index skip them."""
     txt = HAND_FIGS.get(ia_id)
     if txt is None:
         return []
     out = []
     for line in txt.strip().splitlines():
         fig, title, page, kind, kind_by = line.split("|")
-        out.append(dict(fig=int(fig), title=title, page=None if page == "" else page,
-                        kind=kind, kind_by=kind_by))
+        out.append(dict(fig=None if fig == "" else int(fig), title=title,
+                        page=None if page == "" else page, kind=kind, kind_by=kind_by))
     return out
 
 
