@@ -33,7 +33,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # this script's directory on sys.path, so the sibling import below would fail without it.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import catalog  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention)
+import site_catalog  # noqa: E402  (fit/ has no __init__.py: the site_done.py convention; the name avoids pipeline/catalog.py)
 
 
 def _now():
@@ -202,7 +202,7 @@ def export(root, site_id=None):
     """
     root = Path(root)
     names = _site_names(root)
-    cat = catalog.load(root)
+    cat = site_catalog.load(root)
     entries, n_total = [], 0
     for p in _iter_item_files(root):
         item = json.loads(p.read_text())
@@ -219,7 +219,7 @@ def export(root, site_id=None):
             continue
         name = names.get(item["site"])
         if name is None:
-            rec = catalog.lookup(cat, item["site"])
+            rec = site_catalog.lookup(cat, item["site"])
             if rec is not None:
                 name = rec.get("name")
             else:

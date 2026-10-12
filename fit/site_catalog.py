@@ -1,5 +1,11 @@
 """The catalog's site lookup, shared by the fit/ modules (task 309's right-place check).
 
+Named site_catalog on purpose, not catalog: fit/ and pipeline/ share one sys.path in
+the test runs, and pipeline/catalog.py (the catalog's own builder, with slug()) must
+stay importable as ``catalog`` by fit/src_van_deventer.py - a bare fit/catalog.py
+shadowed it (iteration 107: test_src_van_deventer's AttributeError, module 'catalog'
+has no attribute 'slug').
+
 The catalog (data/catalog/sites.jsonl) lists every known earthwork, built or not; a
 record's ``id`` is the site id the page uses (``<slug>-q<Qid>``). A review item may
 legitimately name a site that is not in web/data/sites.json yet: 309's right-place

@@ -61,6 +61,12 @@ Where: the driver's task queue in team mode; any `Depends on:` naming a task who
 Symptom: the dependent task sits in Tasks-in-flight (open) and is never handed out (agent c's 804/805 at iterations 97-98: both depended on their own split parent 309; both parked until the dep lines were rewritten)
 Why/fix: a split parent becomes done only AFTER its subtasks finish, so a subtask depending on its parent is a cycle; an outsider depending on it waits for the whole chain to close. Point the dep at the LAST subtask in the chain (805, not 309) - unless the parent is the only driver-visible name (agent a's 220, iteration 117: kept `Depends on: 309` because 804/805 existed only on agent/c's branch and the driver's prompt names the parent; 309's post-805 closure adds no store change, so the extra wait is bookkeeping-only).
 
+#### .agent/reports/last-test-output.txt can be a day STALE - stat it before chasing its failures
+Where: `.agent/reports/last-test-output.txt`, `.agent/reports/last-failing-tests.txt`, the dated driver notes in PROGRESS.md
+Symptom: the "current" suite report lists failures that no longer exist (2026-10-12, 309/805: the report, mtime 2026-10-11 17:14, listed three shotwick orphans; the current tree - shotwick since built into sites.json, the named untracked item gone - passes all of them)
+Why: the driver writes these files when it runs the suite at a loop start, but that run is not every iteration; a file can be a day old while the tree behind it merges on and moves (a day of merges here rebuilt sites.json and the review data).
+What to do: `stat -c '%n %y' .agent/reports/*.txt` and cross-check the dates of the driver notes in PROGRESS; then run the suite yourself (`.venv/bin/python -m pytest tests/`) before believing or fixing anything the report says.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
@@ -196,6 +202,12 @@ Where: `data/raw` (one symlink to /home/agent/projects/ancient-works/data/raw), 
 Symptom: a byte-compare test against a per-site file fails with content your checkout never wrote (2026-10-11, test_site_done: `At index 35 diff: b'p' != b'm'` - the rebuilt depictions.json has the 7 plan entries, the comparison target only the 2 maps), while `git status` is clean; `git check-ignore` answers "pathspec ... is beyond a symbolic link"; the target file's mtime (stat -c %y) points at a moment inside another agent's session, not yours.
 Why: each agent checkout symlinks its gitignored data into the main checkout's copy - the machine's one image/scan store (data/raw's GB of book scans and the rebuilt per-site directories). Any agent's (or the lead/driver's) run rewrites those shared files in place, and concurrent checkouts see each other's churn: 301 (agent c) was mid-flight re-running Stonehenge through the new site line, resetting the shared depictions.json to the pre-sync state, which voided test_site_done's byte compare transiently.
 What to do: diagnose with `readlink web/data/sites/<site>` (target = the main checkout), `stat -c %y` on the target (who wrote it when), and `git status`/`git branch` in the other checkout (who was mid-work). If the failing file is outside your Touches, record it as transient shared-store churn (DECISIONS + hand-over) and re-check when the other task lands - never "fix" the other task's test or the shared store from your task.
+
+#### Run pytest with `.venv/bin/python -m pytest`, never bare `python3`: the system interpreter has no numpy/scipy
+Where: `python3 -m pytest tests/` (any collection), `pipeline/fit_gate.py` (the numpy import), the project `.venv` (driver-built from the pinned `requirements.txt`)
+Symptom: `Interrupted: 12 errors during collection` - `ImportError while importing test module ... pipeline/fit_gate.py:18: in <module> import numpy as np / ModuleNotFoundError: No module named 'numpy'` (2026-10-12, 309/805)
+Why: numpy/scipy/pyproj and the like live in the project venv, not in the system python3; the driver's own runs use the venv, so its reports are unaffected - the trap only bites when an agent runs the suite (or a subset) directly.
+What to do: always `.venv/bin/python -m pytest ...`. The driver rebuilds `.venv` from `requirements.txt` before every run; on 2026-10-12 it was complete as-is (`pip install --require-hashes -r requirements.txt`: all satisfied).
 
 ## Libraries and frameworks
 

@@ -29,7 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import batch_us  # noqa: E402  (203a's loop; imported, not copied)
-import catalog  # noqa: E402  (the catalog's site lookup; fit/ has no __init__.py)
+import site_catalog  # noqa: E402  (the catalog's site lookup; fit/ has no __init__.py; the name avoids pipeline/catalog.py)
 
 
 def eu_sites(root):
@@ -95,7 +95,7 @@ def union_check(root):
             docs.setdefault(sid, []).append(p.name)
 
     items, orphan_items, unbuilt_items = {}, [], {}
-    cat = catalog.load(root)
+    cat = site_catalog.load(root)
     r = Path(root) / "data" / "review"
     if r.is_dir():
         for p in sorted(r.iterdir()):
@@ -106,7 +106,7 @@ def union_check(root):
             if sid not in sites:
                 # a catalog site: 309's check upserted it (it is unbuilt, so the batch
                 # cannot cover it) - legitimate, never batch output, never an orphan
-                if catalog.lookup(cat, sid) is not None:
+                if site_catalog.lookup(cat, sid) is not None:
                     unbuilt_items.setdefault(sid, []).append(p.name)
                 else:
                     orphan_items.append(p.name)
