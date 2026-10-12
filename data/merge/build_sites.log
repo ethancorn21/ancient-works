@@ -722,3 +722,169 @@ built 1, skipped 0, failed 0
 marks refreshed: conde-sur-l-escaut-q494533 depictions: 2
 === conde-sur-l-escaut-q494533 ok ===
 === douai-q193826 start 2026-10-12T21:47:28Z ===
+[1/1] douai-q193826 (ign, 2000 m)
+douai-q193826 relief clip 1.2 m; {'block_h.png': 241, 'block_top.jpg': 890, 'relief.jpg': 584} KB
+douai-q193826 cassini zoom 14 coverage 100% 198 KB
+douai-q193826 etatmajor zoom 15 coverage 100% 248 KB
+douai-q193826 cassini_ink.webp 733 KB
+douai-q193826 etatmajor_ink.webp 992 KB
+   ok 139s
+built 1, skipped 0, failed 0
+=== douai-q193826 build rc=0 2026-10-12T21:49:49Z ===
+marks refreshed: douai-q193826 depictions: 2
+=== douai-q193826 ok ===
+=== gravelines-q323399 start 2026-10-12T21:49:49Z ===
+[1/1] gravelines-q323399 (ign, 2000 m)
+gravelines-q323399 relief clip 1.2 m; {'block_h.png': 236, 'block_top.jpg': 1039, 'relief.jpg': 502} KB
+gravelines-q323399 cassini zoom 14 coverage 100% 173 KB
+gravelines-q323399 etatmajor zoom 15 coverage 100% 215 KB
+gravelines-q323399 cassini_ink.webp 550 KB
+gravelines-q323399 etatmajor_ink.webp 811 KB
+   ok 103s
+built 1, skipped 0, failed 0
+=== gravelines-q323399 build rc=0 2026-10-12T21:51:33Z ===
+marks refreshed: gravelines-q323399 depictions: 2
+=== gravelines-q323399 ok ===
+=== hesdin-q467366 start 2026-10-12T21:51:33Z ===
+[1/1] hesdin-q467366 (ign, 2000 m)
+hesdin-q467366 relief clip 1.2 m; {'block_h.png': 243, 'block_top.jpg': 695, 'relief.jpg': 522} KB
+hesdin-q467366 cassini zoom 14 coverage 100% 165 KB
+hesdin-q467366 etatmajor zoom 15 coverage 100% 280 KB
+hesdin-q467366 cassini_ink.webp 565 KB
+hesdin-q467366 etatmajor_ink.webp 1025 KB
+   ok 122s
+built 1, skipped 0, failed 0
+=== hesdin-q467366 build rc=0 2026-10-12T21:53:37Z ===
+marks refreshed: hesdin-q467366 depictions: 2
+=== hesdin-q467366 ok ===
+=== landrecies-q632808 start 2026-10-12T21:53:37Z ===
+[1/1] landrecies-q632808 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+landrecies-q632808 aerial only (no LiDAR here)
+landrecies-q632808 cassini zoom 14 coverage 100% 171 KB
+landrecies-q632808 etatmajor zoom 15 coverage 100% 217 KB
+landrecies-q632808 cassini_ink.webp 551 KB
+landrecies-q632808 etatmajor_ink.webp 924 KB
+   ok 143s
+built 1, skipped 0, failed 0
+=== landrecies-q632808 build rc=0 2026-10-12T21:56:01Z ===
+marks refreshed: landrecies-q632808 depictions: 2
+=== landrecies-q632808 ok ===
+=== le-cateau-cambresis-q329103 start 2026-10-12T21:56:01Z ===
+[1/1] le-cateau-cambresis-q329103 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+le-cateau-cambresis-q329103 aerial only (no LiDAR here)
+le-cateau-cambresis-q329103 cassini zoom 14 coverage 100% 175 KB
+le-cateau-cambresis-q329103 etatmajor zoom 15 coverage 100% 263 KB
+le-cateau-cambresis-q329103 cassini_ink.webp 634 KB
+le-cateau-cambresis-q329103 etatmajor_ink.webp 987 KB
+   ok 155s
+built 1, skipped 0, failed 0
+=== le-cateau-cambresis-q329103 build rc=0 2026-10-12T21:58:38Z ===
+marks refreshed: le-cateau-cambresis-q329103 depictions: 2
+=== le-cateau-cambresis-q329103 ok ===
+=== le-quesnoy-q180067 start 2026-10-12T21:58:38Z ===
+[1/1] le-quesnoy-q180067 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+le-quesnoy-q180067 aerial only (no LiDAR here)
+le-quesnoy-q180067 cassini zoom 14 coverage 100% 198 KB
+le-quesnoy-q180067 etatmajor zoom 15 coverage 100% 238 KB
+le-quesnoy-q180067 cassini_ink.webp 702 KB
+le-quesnoy-q180067 etatmajor_ink.webp 855 KB
+   ok 119s
+built 1, skipped 0, failed 0
+=== le-quesnoy-q180067 build rc=0 2026-10-12T22:00:38Z ===
+marks refreshed: le-quesnoy-q180067 depictions: 2
+=== le-quesnoy-q180067 ok ===
+=== maubeuge-q138648 start 2026-10-12T22:00:38Z ===
+[1/1] maubeuge-q138648 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+maubeuge-q138648 aerial only (no LiDAR here)
+maubeuge-q138648 cassini zoom 14 coverage 100% 202 KB
+maubeuge-q138648 etatmajor zoom 15 coverage 100% 267 KB
+maubeuge-q138648 cassini_ink.webp 698 KB
+maubeuge-q138648 etatmajor_ink.webp 1021 KB
+   ok 132s
+built 1, skipped 0, failed 0
+=== maubeuge-q138648 build rc=0 2026-10-12T22:02:51Z ===
+marks refreshed: maubeuge-q138648 depictions: 2
+=== maubeuge-q138648 ok ===
+=== saint-omer-q208793 start 2026-10-12T22:02:51Z ===
+[1/1] saint-omer-q208793 (ign, 2000 m)
+saint-omer-q208793 relief clip 1.2 m; {'block_h.png': 246, 'block_top.jpg': 887, 'relief.jpg': 523} KB
+saint-omer-q208793 cassini zoom 14 coverage 100% 221 KB
+saint-omer-q208793 etatmajor zoom 15 coverage 100% 244 KB
+saint-omer-q208793 cassini_ink.webp 779 KB
+saint-omer-q208793 etatmajor_ink.webp 939 KB
+   ok 127s
+built 1, skipped 0, failed 0
+=== saint-omer-q208793 build rc=0 2026-10-12T22:04:59Z ===
+marks refreshed: saint-omer-q208793 depictions: 2
+=== saint-omer-q208793 ok ===
+=== therouanne-q261399 start 2026-10-12T22:04:59Z ===
+[1/1] therouanne-q261399 (ign, 2000 m)
+therouanne-q261399 relief clip 1.2 m; {'block_h.png': 239, 'block_top.jpg': 722, 'relief.jpg': 489} KB
+therouanne-q261399 cassini zoom 14 coverage 100% 174 KB
+built 0, skipped 0, failed 1
+   therouanne-q261399 OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/home/agent/projects/ancient-works.a/pipeline/build_catalog.py", line 194, in main
+    maps = depict.build(site)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/agent/projects/ancient-works.a/pipeline/depict.py", line 216, in build
+    Image.fromarray(img, "RGBA").save(os.path.join(out_dir, file), quality=82, method=6)
+OSError: [Errno 28] No space left on device
+=== therouanne-q261399 build rc=0 2026-10-12T22:05:37Z ===
+NOT BUILT: therouanne-q261399
+=== therouanne-q261399 FAILED ===== therouanne-q261399 start 2026-10-12T22:09:29Z ===
+[1/1] therouanne-q261399 (ign, 2000 m)
+therouanne-q261399 relief clip 1.2 m; {'block_h.png': 239, 'block_top.jpg': 722, 'cassini.webp': 174, 'relief.jpg': 489} KB
+therouanne-q261399 cassini zoom 14 coverage 100% 174 KB
+therouanne-q261399 etatmajor zoom 15 coverage 100% 275 KB
+therouanne-q261399 cassini_ink.webp 506 KB
+therouanne-q261399 etatmajor_ink.webp 1039 KB
+   ok 110s
+built 1, skipped 0, failed 0
+=== therouanne-q261399 build rc=0 2026-10-12T22:11:20Z ===
+marks refreshed: therouanne-q261399 depictions: 2
+=== therouanne-q261399 ok ===
+=== valenciennes-q163795 start 2026-10-12T22:11:21Z ===
+[1/1] valenciennes-q163795 (ign, 2000 m)
+  ign has no data here; reading pc
+  no LiDAR here: no open point-cloud LiDAR covers this box
+valenciennes-q163795 aerial only (no LiDAR here)
+valenciennes-q163795 cassini zoom 14 coverage 100% 206 KB
+valenciennes-q163795 etatmajor zoom 15 coverage 100% 267 KB
+valenciennes-q163795 cassini_ink.webp 758 KB
+valenciennes-q163795 etatmajor_ink.webp 1000 KB
+   ok 152s
+built 1, skipped 0, failed 0
+=== valenciennes-q163795 build rc=0 2026-10-12T22:13:54Z ===
+marks refreshed: valenciennes-q163795 depictions: 2
+=== valenciennes-q163795 ok ===
+=== vieil-hesdin-q1022768 start 2026-10-12T22:13:54Z ===
+[1/1] vieil-hesdin-q1022768 (ign, 2000 m)
+vieil-hesdin-q1022768 relief clip 1.2 m; {'block_h.png': 260, 'block_top.jpg': 781, 'relief.jpg': 447} KB
+vieil-hesdin-q1022768 cassini zoom 14 coverage 100% 209 KB
+vieil-hesdin-q1022768 etatmajor zoom 15 coverage 100% 261 KB
+vieil-hesdin-q1022768 cassini_ink.webp 656 KB
+vieil-hesdin-q1022768 etatmajor_ink.webp 990 KB
+   ok 130s
+built 1, skipped 0, failed 0
+=== vieil-hesdin-q1022768 build rc=0 2026-10-12T22:16:05Z ===
+marks refreshed: vieil-hesdin-q1022768 depictions: 2
+=== vieil-hesdin-q1022768 ok ===
+=== the-hague-q36600 start 2026-10-12T22:20:56Z ===
+[1/1] the-hague-q36600 (ahn, 2000 m)
+the-hague-q36600 relief clip 0.65 m; {'block_h.png': 199, 'block_top.jpg': 820, 'relief.jpg': 521} KB
+the-hague-q36600 tmk1850 zoom 11 coverage 100% 205 KB
+the-hague-q36600 tmk1850_ink.webp 870 KB
+   ok 73s
+built 1, skipped 0, failed 0
+=== the-hague-q36600 build rc=0 2026-10-12T22:22:10Z ===
+marks refreshed: the-hague-q36600 depictions: 1
+=== the-hague-q36600 ok ===

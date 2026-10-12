@@ -3,11 +3,13 @@ machinery (pipeline/build_catalog.py per site, then build_site.set_drawings so t
 site's entry in web/data/sites.json carries its post-depiction marks), logging every
 step to data/merge/build_sites.log (append).
 
-usage: run_build.py <sid> [<sid> ...]     |     run_build.py --marks-only <sid> ...
+usage: run_build.py [--force] <sid> [<sid> ...]     |     run_build.py --marks-only <sid> ...
 
 One process per site: a killed session leaves a clean boundary at the last finished
 site (the driver commits the uncommitted work; the next session resumes with the
-remaining ids - build_catalog skips already-built sites itself).
+remaining ids - build_catalog skips already-built sites itself; --force re-builds a
+site that is already in sites.json but only half-built, e.g. after a mid-build
+failure - the rebuild re-writes site.json, relief, block and map layers in place).
 """
 import json
 import os
@@ -38,10 +40,12 @@ def marks_of(sid):
     log(f"marks refreshed: {sid} depictions: {n}")
 
 
-def run(sid):
+def run(sid, force=False):
     log(f"=== {sid} start {ts()} ===")
-    r = subprocess.run([VENV, "pipeline/build_catalog.py", "--ids", sid],
-                       cwd=ROOT, capture_output=True, text=True)
+    cmd = [VENV, "pipeline/build_catalog.py", "--ids", sid]
+    if force:  # only affects build_catalog's already-built skip guard
+        cmd.append("--force")
+    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     for line in (r.stdout or "").strip().splitlines():
         log(line)
     if r.stderr and r.stderr.strip():
@@ -60,13 +64,16 @@ def run(sid):
 
 def main():
     args = sys.argv[1:]
+    force = "--force" in args
+    if force:
+        args.remove("--force")
     marks_only = []
     if "--marks-only" in args:
         i = args.index("--marks-only")
         marks_only = args[i + 1:]
         args = args[:i]
     for sid in args:
-        ok = run(sid)
+        ok = run(sid, force=force)
         log(f"=== {sid} {'ok' if ok else 'FAILED'} ===")
     for sid in marks_only:
         marks_of(sid)

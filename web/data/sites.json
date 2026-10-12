@@ -8153,9 +8153,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "dudley-castle-q5311832",
@@ -10903,6 +10903,55 @@
    "overlays": 0
   },
   {
+   "id": "gravelines-q323399",
+   "name": "Gravelines",
+   "place": "Nord, France",
+   "lon": 2.1275,
+   "lat": 50.9864,
+   "summary": "Gravelines is a commune in the Nord department in Northern France. It lies at the mouth of the river Aa 15 miles (24\u00a0km) southwest of Dunkirk. It was formed in the 12th century around the mouth of a canal built to connect Saint-Omer with the sea. As it was on the western borders of Spanish territory in Flanders it became heavily fortified, some of which remains.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q323399",
+   "wiki": "https://en.wikipedia.org/wiki/Gravelines",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.1132298113299477,
+     50.99538228364995
+    ],
+    [
+     2.1417701886700518,
+     50.99538228364995
+    ],
+    [
+     2.1417701886700518,
+     50.977415977929034
+    ],
+    [
+     2.1132298113299477,
+     50.977415977929034
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.02,
+    "zmax": 13.33,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "groby-castle-q5609924",
    "name": "Groby Castle",
    "aka": "Motte and bailey castle and manorial complex at Groby, Groby Castle Hill",
@@ -11748,6 +11797,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "hesdin-q467366",
+   "name": "Hesdin",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.0367,
+   "lat": 50.3742,
+   "summary": "Hesdin is a former commune in the Pas-de-Calais department in northern France. On 1 January 2025, it was merged into the new commune of Hesdin-la-For\u00eat.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q467366",
+   "wiki": "https://en.wikipedia.org/wiki/Hesdin",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.0226147648850805,
+     50.383182302389
+    ],
+    [
+     2.0507852351149203,
+     50.383182302389
+    ],
+    [
+     2.0507852351149203,
+     50.36521599667287
+    ],
+    [
+     2.0226147648850805,
+     50.36521599667287
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 20.75,
+    "zmax": 66.99,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "hesselbach-q1411006",
@@ -13972,6 +14070,45 @@
    "overlays": 0
   },
   {
+   "id": "landrecies-q632808",
+   "name": "Landrecies",
+   "place": "Nord, France",
+   "lon": 3.69,
+   "lat": 50.1256,
+   "summary": "Landrecies is a commune in the Nord department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q632808",
+   "wiki": "https://en.wikipedia.org/wiki/Landrecies",
+   "corners": [
+    [
+     3.675988055479942,
+     50.134582309860946
+    ],
+    [
+     3.704011944520059,
+     50.134582309860946
+    ],
+    [
+     3.704011944520059,
+     50.11661600414669
+    ],
+    [
+     3.675988055479942,
+     50.11661600414669
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "las-medulas",
    "name": "Las M\u00e9dulas",
    "place": "Le\u00f3n (Carucedo, El Bierzo), Spain, Spain",
@@ -14120,6 +14257,84 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "le-cateau-cambresis-q329103",
+   "name": "Le Cateau-Cambr\u00e9sis",
+   "place": "Nord, France",
+   "lon": 3.5411,
+   "lat": 50.1053,
+   "summary": "Le Cateau-Cambr\u00e9sis is a commune in the Nord department in northern France. The term Cambr\u00e9sis indicates that it lies in the county of that name which fell to the Prince-Bishop of Cambrai. Le Cateau station has rail connections to Paris, Maubeuge and Saint-Quentin.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q329103",
+   "wiki": "https://en.wikipedia.org/wiki/Le_Cateau-Cambr%C3%A9sis",
+   "corners": [
+    [
+     3.5270939949002815,
+     50.11428231046766
+    ],
+    [
+     3.5551060050997183,
+     50.11428231046766
+    ],
+    [
+     3.5551060050997183,
+     50.096316004753554
+    ],
+    [
+     3.5270939949002815,
+     50.096316004753554
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
+   "id": "le-quesnoy-q180067",
+   "name": "Le Quesnoy",
+   "place": "Nord, France",
+   "lon": 3.6375,
+   "lat": 50.2489,
+   "summary": "Le Quesnoy is a commune and small town in the east of the Nord department of northern France. It was part of the historical province of French Hainaut. It is known for its fortifications, dating from the 16th, 17th and 18th centuries. It had a significant shoemaking industry before the late 1940s, followed by a chemical factory and dairy, giving way to its weekly market, tourism, local commuting to elsewhere such as Valenciennes and local shops.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q180067",
+   "wiki": "https://en.wikipedia.org/wiki/Le_Quesnoy",
+   "corners": [
+    [
+     3.6234518336319677,
+     50.2578823061648
+    ],
+    [
+     3.6515481663680323,
+     50.2578823061648
+    ],
+    [
+     3.6515481663680323,
+     50.239916000449604
+    ],
+    [
+     3.6234518336319677,
+     50.239916000449604
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "le-rulx-q668861",
@@ -15322,6 +15537,45 @@
    "score": 0,
    "oldest": null,
    "overlays": 0
+  },
+  {
+   "id": "maubeuge-q138648",
+   "name": "Maubeuge",
+   "place": "Nord, France",
+   "lon": 3.9725,
+   "lat": 50.2769,
+   "summary": "Maubeuge is a commune in the Nord department in northern France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q138648",
+   "wiki": "https://en.wikipedia.org/wiki/Maubeuge",
+   "corners": [
+    [
+     3.958443572881531,
+     50.28588230532277
+    ],
+    [
+     3.9865564271184684,
+     50.28588230532277
+    ],
+    [
+     3.9865564271184684,
+     50.26791599960735
+    ],
+    [
+     3.958443572881531,
+     50.26791599960735
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "maumbury-rings-q1702090",
@@ -19423,6 +19677,55 @@
    "overlays": 1
   },
   {
+   "id": "saint-omer-q208793",
+   "name": "Saint-Omer",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.2608,
+   "lat": 50.7483,
+   "summary": "Saint-Omer is a commune and sub-prefecture of the Pas-de-Calais department in France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q208793",
+   "wiki": "https://en.wikipedia.org/wiki/Saint-Omer",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.2466025114878785,
+     50.75728229099624
+    ],
+    [
+     2.2749974885121222,
+     50.75728229099624
+    ],
+    [
+     2.2749974885121222,
+     50.7393159852772
+    ],
+    [
+     2.2466025114878785,
+     50.7393159852772
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.38,
+    "zmax": 28.19,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "sandal-castle-q1760652",
    "name": "Sandal Castle",
    "aka": "Sandal Castle: motte and bailey castle and shell keep castle",
@@ -21449,9 +21752,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "theilenhofen-q1214616",
@@ -21541,6 +21844,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "therouanne-q261399",
+   "name": "Th\u00e9rouanne",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.2589,
+   "lat": 50.6367,
+   "summary": "Th\u00e9rouanne is a commune in the Pas-de-Calais department in the Hauts-de-France region of France 10\u00a0km (6.2\u00a0mi) west of Aire-sur-la-Lys and 13\u00a0km (8.1\u00a0mi) south of Saint-Omer, on the river Lys.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q261399",
+   "wiki": "https://en.wikipedia.org/wiki/Th%C3%A9rouanne",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.244736248551754,
+     50.64568229441385
+    ],
+    [
+     2.2730637514482464,
+     50.64568229441385
+    ],
+    [
+     2.2730637514482464,
+     50.62771598869568
+    ],
+    [
+     2.244736248551754,
+     50.62771598869568
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 31.24,
+    "zmax": 92.83,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
   },
   {
    "id": "tinboeth-castle-q7808013",
@@ -22340,6 +22692,45 @@
    "overlays": 2
   },
   {
+   "id": "valenciennes-q163795",
+   "name": "Valenciennes",
+   "place": "Nord, France",
+   "lon": 3.5233,
+   "lat": 50.3581,
+   "summary": "Valenciennes is a commune in the Nord department, Hauts-de-France, France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q163795",
+   "wiki": "https://en.wikipedia.org/wiki/Valenciennes",
+   "corners": [
+    [
+     3.5092195426308366,
+     50.367082302875275
+    ],
+    [
+     3.5373804573691636,
+     50.367082302875275
+    ],
+    [
+     3.5373804573691636,
+     50.34911599715927
+    ],
+    [
+     3.5092195426308366,
+     50.34911599715927
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
    "id": "valkenburg-q100076",
    "name": "Valkenburg",
    "place": "Limburg, Netherlands",
@@ -22616,6 +23007,55 @@
     1600
    ],
    "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "drawings": 0,
+   "score": 1.01,
+   "oldest": 1780,
+   "overlays": 2
+  },
+  {
+   "id": "vieil-hesdin-q1022768",
+   "name": "Vieil-Hesdin",
+   "place": "Pas-de-Calais, France",
+   "lon": 2.0989,
+   "lat": 50.3575,
+   "summary": "Vieil-Hesdin is a commune in the Pas-de-Calais department in the Hauts-de-France region of France.",
+   "region": "France",
+   "kind": "town",
+   "qid": "Q1022768",
+   "wiki": "https://en.wikipedia.org/wiki/Vieil-Hesdin",
+   "lidar_credit": "IGN, LiDAR HD (Licence Ouverte 2.0)",
+   "corners": [
+    [
+     2.084819720599342,
+     50.36648230289344
+    ],
+    [
+     2.1129802794006585,
+     50.36648230289344
+    ],
+    [
+     2.1129802794006585,
+     50.34851599717741
+    ],
+    [
+     2.084819720599342,
+     50.34851599717741
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 29.54,
+    "zmax": 97.34,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 1.01,
    "oldest": 1780,
