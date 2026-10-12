@@ -30,100 +30,99 @@ the map. One site at a time: the page shows him the next site to fit, and when h
 
 ## Hand-over
 
-(2026-10-12, iteration 100, agent a - step 1 of the 8-step plan done: the queue generator.)
+(2026-10-12, iteration 101, agent a - steps 2+3 of the plan done: the page card. test_serve.py was
+read whole this session; the earlier hand-over's "test d" in it turned out to be a stale
+description - see DECISIONS.)
 
-**Done this session:** (a) `web/fitqueue.js` added to the Touches line. (b) `tools/fit_queue.py`:
-queue = built (a sites.json entry AND the web/data/sites/<id>/ dir, the site_done rule) + a
-candidate (a plans.json row naming the site, OR a candidate of any data/review/ item, deduped by
-plan; a plan in both resolves to the plans row) + no by:hand doc (the doc's `site` field, or the
-filename prefix before the first dot). Best candidate: plan over view, then drawing area in page
-px (map_box fraction x page/image size; a row with no box: the whole page/image; no size stored:
-0; the synth row mirrors review.js rvResolveRow, sites narrowed to the site), then plan id.
-One-word reason: "the only candidate" / "a true plan" (chosen while a view exists) / "the
-clearest scan" / "the clearest view". Sites ordered by the same key on their best candidate, then
-name. Stdlib-only (never opens an image), `--root DIR`, atomic indent=1 no-trailing-newline
-write to web/data/fit_queue.json ({"at": iso, "entries": [{site, name, best: {plan, reason, row:
-the 13 named fields}, candidates: [{plan, title, book, view, draw_px}] best first}]}). (c)
-`web/data/fit_queue.json` committed: 117 entries, first = devil-s-dyke-q3307343 "The Devil's Dyke
-Camp, near Brighton" (the clearest scan, Allcroft 1908); reason mix 72/37/7/1. (d)
-`tests/test_fit_queue.py` part 1: a synthetic 12-site tree pinning every rule exactly (entry set;
-agent-doc inclusion; hand-doc exclusion via both field shapes; a no-picture item creating no
-candidate; unbuilt sites out; the dedupe; the synth row for a plan whose only row names another
-site; the ranking and the four reasons; the order; the file bytes) and a real-population test
-(entry set derived independently, never pinned - 803 precedent; per-entry invariants; checkout
-byte-identical; dead-socket guard). Both green; the FULL suite under .venv/bin/python: 70 passed,
-1 skipped (the loop-start failures are fixed by agent c's merges).
+**Done this session:** (1) READ tests/test_serve.py WHOLE (81 lines, 5 tests - page loads, sites
+data >=384, golden hand fits, platefits docs match built sites, and a PUT/GET/DELETE roundtrip on
+the SCRATCH collection "awtest" - never platefits, so the worker is not involved at all; the
+exact file-set assertion that constrains the worker lives in
+test_review.py::test_save_resolves_the_item: after the PUT, exactly one new platefits doc and
+nothing else, with the worker dying on the pipeline/ import in that tools/-less tree - the server
+stays up). (2) NEW `web/fitqueue.js` (loaded after review.js; the index.html L1708 script tag
+added): `FQ` state {entries, loaded, fetching, done = localStorage `aw.fitQueue.done` (self-healed
+against the file on load: a site that left the file drops out), skipped = session-only};
+`fqPending()` = queue entries whose site is built in this build (S.byId), not done, not skipped;
+the card renders as the NEXT SIBLING of the home "built in all" stats `p` (home sites view only -
+the anchor is absent in the finder/review views, which also wipe the card with `#body.innerHTML`):
+`.group-title` "Ready to fit" + span "N to go" (N = fqPending), `.fq-site` name, a `.fit`
+candidate line (title · book · label — one-word reason), tools row [Place the drawing (primary),
+Skip, Undo N skips]. Place = endFit-if-active -> select(site.id) -> setGround(site.lidar===false ?
+'imagery' : 'relief', site) -> await loadDeps(site) -> startFit(site) -> await openPlan(entry.best.row);
+RV.pending is NEVER set (the queue's row is the owner's clean slate; pre-placed machine pairs are
+the review flow's contract). Wrappers chain review.js's: `_fqRenderList` (fqPatch when FQ.loaded,
+else kick fqLoad, which fqPatches on completion) and `_fqSaveFit` (after the original, incl. the
+review wrapper: a landed doc for a queued site -> FQ.done[siteId]=now, lsSet, fqPatch). Style
+block #fitqueue-style (the card's .tools buttons get explicit border/background: the page's
+.tools button rule is unstyled outside the fit pane). Two browser-only bugs found in the headless
+smoke and fixed: redeclaring review.js's top-level consts `_renderList`/`_saveFit` (a page-wide
+lexical-scope clash that makes Chrome reject the whole script - new PITFALLS.md `### web/`
+section) and reassigning a const inside fqPatch.
 
-**Next step, in order:** (1) READ tests/test_serve.py WHOLE - never read by me; it owns the
-doc-store roundtrip and "page data matches disk" and my worker change must keep it green;
-ESPECIALLY test d: it serves a tree with NO tools/ dir and asserts the exact file set after
-PUTs - the new worker's `import site_done` must raise ModuleNotFoundError there, be swallowed by
-the existing except-BaseException-and-print, and create no new files. (2) web/fitqueue.js (the
-card; design settled below). (3) index.html: one `<script src="fitqueue.js"></script>` after the
-review.js tag (L1707, the last script). (4) serve.py worker (settled below). (5) tests part 2:
-save -> the line (picture-copy solution below). (6) docs/site_flow.md section (queue rule,
-ranking + reasons, the order, the card's semantics, the save->line wiring, what the headless
-check shows) + headless screenshots into docs/site_flow/ (box 4's owner-Mac click-through is his
-acceptance; note that).
+**Verified headless this session** (shot.mjs on a conftest-style temp tree, real DOM button
+clicks): card "Ready to fit 117 to go" / Devil's Dyke / "The Devil's Dyke Camp, near Brighton ·
+Allcroft 1908 · Fig. 217 — the clearest scan"; Place -> P.active, P.site.id=devil-s-dyke-q3307343,
+P.plan.id=earthworkenglan01allcgoog_n0686_1, S.ground='relief', fit pane open, #fitname header
+correct (the page image 404s in the temp tree - openPlan sets its hint and keeps the row; assert
+row state, not pixels); back to the sites tab -> card still on the same site; Skip -> Fort
+Ancient, "116 to go", reset link appears; Undo -> back to Devil's Dyke, 117. No [pageerror], no
+[reqfail]; a plain boot adds only the usual 200s (fit_queue.json is committed and answers 200 -
+test_review's n404==2 stays green; the book-image 404 appears only after an openPlan). Full suite
+after the change: 70 passed, 1 skipped - unchanged from loop start.
 
-**The card (web/fitqueue.js, loaded AFTER review.js, chaining the wrappers it installed - the
-iteration-99 design, still valid):** home view (the sites tab of renderList): injected as the
-NEXT SIBLING of the stats `<p class="fit">` containing "built in all" (index.html L573; do NOT
-touch the tabs row or the stats line's own text - 201's tests pin them). Card: "Ready to fit
-(N)" title, the next site's name, its best candidate (title . book) with the one-word reason,
-buttons "Place the drawing" and "Skip" (+ a small reset link when the session has skips). Next
-site = first entry not in done and skipped; done = localStorage `aw.fitQueue.done` (site ids,
-self-healed against the file on load: a site that left the file is dropped), skipped =
-session-only. "Place the drawing" = select(site.id) -> setGround(site.lidar===false ?
-'imagery' : 'relief', site) -> await loadDeps(site) -> startFit(site) -> call the CURRENT global
-openPlan (review.js's wrapper) with the entry's best row - do NOT set RV.pending (the queue's
-row is the owner's clean slate; pre-placed machine pairs are the review flow's contract). "Skip"
-adds to session skipped and re-renders. Hide the card when the file is missing/404 or has no
-entries left; it must never break a page load. All existing fit-tool clicking untouched.
-
-**serve.py worker (settled):** api() passes the method to after_write: PUT platefits -> job
-("line", site), site = data.get("site") or doc_id.split(".")[0]; DELETE -> ("sweep",). The
-worker drains a small job list on each wake (two PUTs to different sites while busy must both
-run: keep list + lock, one event per enqueue as today). ("line", site) -> import site_done from
-tools/ (sys.path.insert(ROOT/tools)) and call site_done.main([site]) IN-PROCESS - NO
---working/--model-json: with model=None uncovered candidates go to the review item as "no model
-answer" and the whole line is network-free (303's dead-socket run proved it); it builds the hand
-doc with no fabrication check (303), refreshes the site's drawings count (the square colour),
-and resolves the review item scoped to the site. ("sweep",) keeps the OLD plan_fit.main([]) +
-its global prune (a deleted doc's overlay must still leave the map; no page UI deletes
-platefits today, but the API exists and 303's DELETE contract stands). The current worker
+**Next step, in order:** (1) THE serve.py WORKER (design settled in the iteration-99/100
+hand-overs, unchanged, now confirmed against test_serve.py): api() passes the method to
+after_write; PUT platefits -> job ("line", site), site = data.get("site") or doc_id.split(".")[0];
+DELETE -> ("sweep",). The worker drains a small job list on each wake (list + lock; one event per
+enqueue - two PUTs to different sites while it is busy must both run). ("line", site) ->
+sys.path.insert the tools/ dir, import site_done, call site_done.main([site]) IN-PROCESS, NO
+--working/--model-json: model=None makes the fit step write only item files (network-free - 303's
+dead-socket run proved it), uncovered candidates go to the review item as "no model answer", it
+builds the hand doc with no fabrication check, refreshes the site's drawings count (the square
+colour) and resolves the item scoped to the site. ("sweep",) keeps the OLD plan_fit.main([]) + its
+global prune (a deleted doc's overlay must still leave the map). An import failure (no tools/ in
+the tree: the conftest `served` fixture and 303's d-tree) must be swallowed by the existing
+except-BaseException-and-print and create no files - test_review's snapshot assertion depends on
+it. Keep the PUT handler's existing data["by"]="hand" stamp (303). The current worker
 (after_write/_fit_wake, ~L229-252) runs plan_fit.main([]) for both PUT and DELETE - that is what
-changes. Keep the PUT handler's existing data["by"]="hand" stamp (303). site_done.main(argv)
-returns an int (0/1/2) and never sys.exits when called as a function.
+changes; the by:hand stamp and the API shape stay. site_done.main(argv) returns an int (0/1/2)
+and never sys.exits when called as a function.
+(2) tests/test_fit_queue.py part 2 (the iteration-100 plan, still valid): a served-style temp tree
+PLUS tools/ + fit/ + pipeline/ copied in (unlike 303's d-tree, mine needs the line to actually
+run); PUT a hand doc exactly as the page's saveFit builds it (recipe from
+test_review.py::test_save_resolves_the_item: row fields + crop from map_box x size + candidate
+pairs, `at` a fixed string) for a site DERIVED (not hardcoded) from the real queue so it has a
+resolvable row and a picture that exists in THIS checkout's data/raw/ - check
+plan_fit.load_picture (L203-222) first for the exact path per source (commons:
+data/raw/commons/<site>/<hash>.jpg; book: data/raw/books/<ia>/full/<file>) and copy that ONE file
+into the temp tree; then poll until the line's effects are in the tree: the doc by:hand; the
+site's depictions.json gained an entry with fit.at == at; sites.json drawings incremented; the
+item's resolved {doc, at} (write-once). The fit step (model=None) writes only item files - no
+network (dead-socket guard, 303's pattern). Then the headless card test (shot.mjs +
+CHROME=/opt/google/chrome/chrome + NODE_PATH=/home/agent/tools/shot/node_modules; the
+_headless_or_skip pattern from test_review.py): boot, wait S.ready and FQ.loaded; assert the card
+(first entry's site + best title + reason + the "N to go" count); DOM-click Place -> P.active &&
+P.site.id == entry.site && P.plan.id == entry.best.plan; back out; DOM-click Skip -> the card
+advances to entry 2; the save flow PUTs through the page's own saveFit (a real mouse click on the
+owner's Mac is box 4's acceptance - say so in the docstring) -> the card advances. The 303 golden
+sha256 must stay green: test fits land in temp trees only, never in this checkout's store.
+(3) docs/site_flow.md section: the queue rule, ranking + one-word reasons, the order, the card's
+semantics (done vs skipped, self-heal, clean-slate open, save -> done), the save->line wiring,
+what the headless check shows (screenshots in docs/site_flow/).
 
-**Tests part 2 (save -> the line):** conftest `served` (temp copy of web/server/data MINUS
-data/raw, --port 0) PLUS tools/ + fit/ + pipeline/ copied in (unlike 303's d-tree, mine needs
-the line to actually run). PUT a hand doc exactly as the page's saveFit builds it (copy the doc
-recipe from test_review.py::test_save_resolves_the_item: row fields + crop from map_box x size +
-candidate pairs, `at` a fixed string) for a site DERIVED (not hardcoded) from the real queue so
-it has a resolvable row and a picture that exists in THIS checkout's data/raw/; first check
-plan_fit.load_picture (L203-222) for the exact path per source (commons:
-data/raw/commons/<site>/<hash>.jpg; book: data/raw/books/<ia>/full/<file>) and COPY that one
-file into the temp tree's data/raw/. Then poll until the line's effects are in the tree: the
-doc by:hand; the site's depictions.json gained an entry with fit.at == at; sites.json drawings
-incremented; the item's resolved {doc, at} (write-once). The fit step (model=None) writes only
-item files - no network (303's guard pattern: dead sockets). Headless page check (shot.mjs +
-CHROME=/opt/google/chrome/chrome + NODE_MODULES=/home/agent/tools/shot/node_modules; the
-_headless_or_skip pattern from test_review.py): boot, wait S.ready and the queue loaded; assert
-the card (first entry's site + best title + reason + the (N) count); click "Place the drawing"
--> P.active && P.site.id == entry.site && P.plan == entry.best's row (the picture 404s in the
-test tree - fine: assert the row/plan state and no page errors); back out, click Skip -> the
-card advances; the save flow PUTs through the page's own saveFit (a real mouse click is box 4's
-owner-Mac acceptance - say so in the docstring) -> the card advances. The 303 golden sha256
-must stay green: test fits land in temp trees only, never in this checkout's store.
-
-**Facts (verified this session, do not re-derive):** plans.json = {"cols", "rows"} with cols
-[id, book, ia, file, title, label, size, map_box, sites, cite, url, view, ref] - 1166 rows, rows
-are LISTS (batch_us._plans_rows converts to named dicts). sites.json = {"sites": [...]} - 385
-entries, all with a web/data/sites/<id>/ dir here (389 dirs total). data/review/ = 341 item
-files keyed by the `site` field (95 with candidates: coarse [pairs/why, some also size/map_box],
-slim [plan/title/url/why/evidence/gate_score] or full [all stored fields]); a
-no_picture_found-only item has candidates: []. data/db/platefits = 116 docs, ALL with a `site`
-field (21 hand / 95 agent). The committed fit_queue.json is in sync with the data as of this
-commit: if a merge moves the population (agent c's 203b/207), re-run tools/fit_queue.py and
-commit; the page tolerates a stale/missing file and no test pins the committed file.
+**Facts (verified, do not re-derive):** card DOM = #fqcard (next sibling of the "built in all" p
+in #body) with .group-title (span "N to go"), .fq-site, .fit, #fqplace/#fqskip/#fqreset; the
+stats line and the tabs row are byte-identical (201's tests green, incl.
+test_index_html_review_footprint - my tag is a distinct src string). web/data/fit_queue.json is
+unchanged this session and in sync (117 entries; if a merge moves the population - agent c's
+203b/207 - re-run tools/fit_queue.py and commit; the page tolerates a stale/missing file and no
+test pins it). serve.py's worker is UNCHANGED this session (both PUT and DELETE still ->
+plan_fit.main([]), ~L229-252; the by:hand stamp on PUT already exists from 303). The conftest
+`served` fixture is session-scoped, ephemeral port, copies only web/ server/ data/ (minus
+data/raw). The shot.mjs probe takes the JS as the 6th CLI arg (NODE_PATH makes its require work
+on this machine; POSTWAIT=200 keeps runs fast). plans.json = {"cols","rows"} (13 cols: id, book,
+ia, file, title, label, size, map_box, sites, cite, url, view, ref; rows are LISTS) - 1166 rows.
+sites.json = {"sites": [...]} - 385 entries, all with a web/data/sites/<id>/ dir. data/review/ =
+341 item files keyed by the `site` field. data/db/platefits = 116 docs, ALL with a `site` field
+(21 hand / 95 agent).
