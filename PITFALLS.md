@@ -6,6 +6,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (22)
 - Libraries and frameworks (11): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
 - This codebase (65): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 11, fit/ 12, pipeline/ 9, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 7, pipeline/autowalls.py (the frozen ink extractor) 1, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 4, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
+- This codebase (65): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 10, fit/ 11, pipeline/ 9, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 7, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 4, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -958,6 +959,11 @@ Where: `pipeline/books_lists.py:cmd_ocrmap` (the guard), `data/books/lists/<ia>.
 Symptom: before 216, running `books.py ocrmap <key>` for a book whose ia is in neither PLATES nor FIG_LISTS silently rewrote its list file as `{"plates": null, "figures": []}` (and .map.json as `[]`) - which would have destroyed 213's 121-entry hand list `data/books/lists/civitatesorbiste00brau.json`.
 Why: the command re-derived lists from OCR sources only, and wrote whatever it derived (nothing) over any existing file. The 216 guard makes it print "no list yet (no OCR list source)" ("; keeping the existing <path>" when the file exists) and write nothing. When 217 lifts a hand list into the module, the guard stops firing for that book and the same command regenerates the file (the module is the knowledge, the file the dump). Note mills_1914 (no list source) also hits the guard - its committed file is exactly the empty dump, so behavior there is data-identical.
 
+#### books.py CLI commands take the BOOKS key, not the IA id - an ia id dies with KeyError
+Where: `pipeline/books.py` (`__main__` dispatch, `keys`, `book`, `cmd_fetch`, `cmd_triage_a`, `cmd_triage_f`) and `pipeline/books_lists.py` (`cmd_ocrmap`, `cmd_index`, `cmd_validate`); task 217
+Symptom: `.venv/bin/python pipeline/books.py ocrmap topographiahelve00zeil` (or fetch/triageA/triageF with an ia id) dies with `KeyError: 'topographiahelve00zeil'`.
+Why: every book command iterates `args or list(BOOKS)` and looks up `BOOKS[key]` - the short name (merian_helvete00zeil, civitates_liber2, squier_davis_1848); the ia id is only a field inside each entry. 217's s6 hand-over mixed the notations (wrote the ia id for ocrmap) - use the book key in every command.
+
 #### books.py index <subset> truncates the shared index.jsonl - run it with no args only
 Where: `pipeline/books_lists.py:cmd_index` (opens `data/books/index.jsonl` with "w" and writes only the rows of the keys in its args), tasks 211, 217
 Symptom: `books.py index civitates_liber2` (or any single key) replaces the whole shared index with just that book's rows - for an untriaged book (no stage A) that is an EMPTY file: every other book's index rows gone.
@@ -973,6 +979,18 @@ Symptom: cmd_fetch/ia.pages/ia.page_texts hit the network for an ia id that is r
 Why: the machinery is IA-only in exactly three places - the page list (ia.pages), the per-page OCR (ia.page_texts), the page-image fetch (books.fetch_triage) - and wrapping those for one id plus a BOOKS entry whose ia field is the local dir name (so books.triage_path lands at data/raw/books/<id>/triage/) is all that triage A/F/B, map_plates and staging need: page_texts -> {} (Qwen anchors only; empty text keeps inked pages as map_plates candidates), fetch re-encodes the local files into the triage slot (1400 px long side, q88). A test monkeypatches the module's book DIR (the triage tree follows it) + the socket-blocking fixture -> hermetic. A book that IS on IA (209b's Stukeley) needs no wrap at all: register() only adds the BOOKS entry.
 
 ### pipeline/autowalls.py (the frozen ink extractor)
+
+#### Rebuilding index.jsonl (books.py index) drops the post-hoc `evidence` field from the book rows, and saved /tmp baseline copies of rebuilt shared files go stale across code changes
+Where: `pipeline/books_lists.py:cmd_index`, `fit/evidence.py:record` (`--books data/books/index.jsonl`), `data/books/index.jsonl`; tasks 200, 211, 217
+Symptom: rows freshly written by `books.py index` have no "evidence" key while a previously committed file (200 onward) has one on every row - so a diff between the two shows every row "changed"; and session 1's saved copy /tmp/idx_committed (890 rows, all carrying "evidence", built under an older BOOKS row order and row shape) diffs red against the current code's output for reasons unrelated to any in-flight change.
+Why: 200 recorded `evidence` onto the STORED file with fit/evidence.py record (an appended last key); it was never part of cmd_index's row shape, and cmd_index rewrites the file from scratch. /tmp copies are snapshots of some past code version and go stale whenever the row shape moves (200 added the key, 216/217 will change civitates rows, 211 rebuilds for the merge).
+What to do: byte-diff rebuilds against the current `git show HEAD:data/books/index.jsonl` (or a fresh baseline run of the UNMODIFIED code in your own tree), never against a /tmp copy from a previous iteration. 211's merge/rebuild stage must re-attach or re-record the evidence after any rebuild - the new rows come out without it; the recorded facts survive in the committed file until then.
+
+#### The civitates validation numbers are FINAL: recall_pages 0.429, precision 0.273 (leaf 238 counts in both the hand plan set and the flagged set); session 1's predicted 0.286/0.18 were an arithmetic error
+Where: `pipeline/books_lists.py:validate_book` (the "figures" section for civitates_liber2), `data/books/validation.json`; task 217
+Symptom: an agent reading the older hand-over/decision (session 1 predicted recall_pages 0.286 = 2/7, precision_strict 0.18 = 2/11) sees the actual output (0.429 = 3/7, 0.273 = 3/11) and "fixes" the code toward the stale prediction - breaking the byte-identical plan-book invariants in the process.
+Why: leaf 238 (Jerusalem, the NEW city) is kind s in the hand list (so in gt_site) AND stage A's plate_site_plan (so in the 11 flagged pages); session 1's arithmetic counted it once. flagged = F's ten + A's 238; hit = {90, 237, 238}.
+What to do: the verified ground truth (2026-10-12, iteration 114) is: recall_pages 0.429, recall_pages_pm1 0.429, precision_strict 0.273, precision_lenient 0.273, flagged_on_other_only_pages [30,62,65,66,93,105,186,229], flagged_not_in_list [], missed_pages [58,85,98,109], stage_A_only {recall 0.143, precision_strict 0.333, precision_lenient 1.0, flagged 3}. Do not touch.
 
 #### Frangi ghost-echoes a ring around razor-sharp synthetic drawings - soften test ink to scan-like edges
 Where: `pipeline/autowalls.py` `extract` with its frozen P (sigmas (4,6,9), ridge_thr 0.25, gamma 0.013, coh_sigma 25, min_len/min_extent 50, margin 20); any synthetic-plate test fixture (302c's committed test site, future plate tests)

@@ -382,23 +382,29 @@ def ink(ia_id, n):
 
 BLANK_INK = 0.005  # below this a page is blank or only show-through (Thomas: backs of fold-outs, ink <= 0.004)
 
+# A book whose scans show show-through darker than the default floor needs its own: Merian's fold-out backs
+# read 0.0054-0.0097 (Qwen typed them plate_site_plan, one inventing a title from another book), while every
+# genuine plate leaf in the item is >= 0.183. 0.01 separates the two with room to spare (217).
+BLANK_INK_BOOKS = {"topographiahelve00zeil": 0.01}
+
 
 def site_pages_model(ia_id):
     """{n: "qwen" | "clef"}: the model's site-plan pages. Plates from Qwen stage A; text pages with a plan figure
     from Qwen stage F where it ran, else Qwen stage A's figure_site_plan; plus Clef-flash p(plan) >= CLEF_T on
     pages Qwen typed other_illustration / left unparsed / never reached (Allcroft second half). Pages with no
     real ink are dropped: on the show-through backs of Thomas's fold-outs Qwen typed "plate_site_plan" and
-    invented captions."""
+    invented captions (per-book floor for the books whose show-through is darker: BLANK_INK_BOOKS)."""
     a, f, c = stage_a(ia_id), stage_f(ia_id), stage_c(ia_id)
+    blank = BLANK_INK_BOOKS.get(ia_id, BLANK_INK)
     out = {}
     for n, r in c.items():
         if n in f or (n in a and a[n]["out"].get("page_type") in SITE_TYPES):
             continue
-        if r["out"]["p_plan"] >= CLEF_T and ink(ia_id, n) >= BLANK_INK:
+        if r["out"]["p_plan"] >= CLEF_T and ink(ia_id, n) >= blank:
             out[n] = "clef"
     for n, r in a.items():
         t = r["out"].get("page_type")
-        if t in SITE_TYPES + ("other_illustration",) and ink(ia_id, n) < BLANK_INK:
+        if t in SITE_TYPES + ("other_illustration",) and ink(ia_id, n) < blank:
             continue
         if t == "plate_site_plan":
             out[n] = "qwen"

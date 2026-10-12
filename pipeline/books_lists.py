@@ -2,11 +2,15 @@
 
 Ground truth = the book's List of Plates / List of Illustrations (or, where the book has none, the plate headings
 printed in its text). Plate lists below were transcribed by reading IA's OCR and, where the OCR was garbled,
-the list page image itself (noted per book). Figure lists are parsed from IA's OCR text automatically.
+the list page image itself (noted per book). Figure lists are parsed from IA's OCR text automatically; where a
+book's list is its own one-plate-per-leaf pages (the artists'-view books), the entries are transcribed per leaf
+by hand instead (HAND_FIGS: fig = the leaf's n, '' when the plate has no leaf in the item) and the
+book's list file is the dump of that table.
 
 Each list entry carries `kind`, a judgement made from its printed title only:
     s = site plan (plan view of a work, a mound group, or a map of a valley/district showing works)
-    o = other (views, sections alone, artifacts, skulls, state/country maps)
+    o = other (views, sections alone, artifacts, skulls, state/country maps) - for the artists'-view books a
+    town view, a drawing in its own right; the index carries it with view = true
     u = unsure from the title alone (e.g. "Mound No. 9, Miller group": plan or elevation?)
 Unsure entries are left out of the strict metrics and reported separately.
 """
@@ -502,6 +506,245 @@ KIND_OVERRIDES = {
 }
 
 
+# ---------------------------------------------------------------- hand transcriptions (the view books)
+
+# Per-leaf transcription of the artists'-view books' own plates: one line per plate (a double-page or a
+# 4-page spread is one line; a leaf carrying two entries gets two lines, the o row before the s row):
+# fig|title|page|kind|kind_by. fig = the leaf's own n ('' = the plate has no leaf in the item - fold-out-only
+# or unengraved; the index skips it, validate counts it as nopage). kind: o = town view - a drawing in its own
+# right (GOAL.md point 5); s = bird's-eye plan (Merian: "im Grund"); u = excluded from the drawings (regional
+# maps, natural features, a coin sheet, faded blank fold-out versos, a town's coat of arms). kind_by: hand =
+# read from the plate pages (213 for civitates; 217's image-checked readings for Merian), A = the stage A page
+# type (a view leaf that is not a plan). data/books/lists/<ia>.json is this table's dump (cmd_ocrmap
+# regenerates it, ensure_ascii=False for these books: the printed titles keep their own diacritics). One place
+# for the knowledge, the file is the dump.
+HAND_FIGS = {"civitatesorbiste00brau": """
+4|CIVITATIS ORBIS TERRARVM||o|A
+29|LONDINVM FELICIAE REGN||o|A
+30|SSIMI AN TROPOLIS||o|A
+33|LISBOO CASCALE Lusitaniae opp.||o|A
+34|OLISIPO, SIVE VT PERVE TVSTA LAPIDVM INSCRIPTIO NES HABENT, VLYSIPPO, VVLGO LISBONA FLORENTIS SIMVM PORTVGALLIAE EMPORIVM.||o|A
+37|MALAGA||o|A
+38|SEVILLA CADIZ MACE||o|A
+41|TOLETVM VALLISOLETVM||o|A
+42|ALLISOLETVM||o|A
+45|Ormus.||o|A
+46|Granada||o|A
+49|BARCELONA||o|A
+50|Cum Privilegio [other plate: inland view; 'Depingit G. Gorizius 1587']||o|hand
+53|Burgos + S. Sebastian||o|hand
+54|BVRGOS celebris et antiqua Hispaniae civitas, quae Auca, Brautum, Masburgi, Li conitiurgis, nomina habet [other plate: SANCT. SEBASTIANVM vulgo Donostien ad mare Oceanum insigne regni Guipuzcoa oppidum]||o|hand
+57|VTELLA, vulgari nomine Paris, urbs||o|A
+58|LVTETIA PARISIORVM||s|hand
+61|MONS PESSULVVS. MONTPELLIER||o|A
+62|TVRO. TOVRS.||o|A
+65|ROTOMAGVS. VVIGO. KORN. NOR. MAGNÆ METROPOLIS||o|A
+66|ROAN||o|A
+69|LE ROSNE||o|A
+70|Lyon Qui de la France||o|A
+73|LEO||o|A
+74|DIV M. LIEGE||o|A
+77|MAGDEBURG||o|A
+78|AQVISGRA NVM, VRBS PRÆ CLARISSIMA. PRIMVM, INTER QVATVOR IMPE RII CIVITATES, LOCVM OBTINET.||o|A
+81|MONTES, HANNO NIAE METROPOLIS.||o|A
+82|ATREBATVM, EPISCO PALIS ET METROPOLITI CA ARTESIA CIVITAS||o|A
+85|BRVXELLA||s|hand
+86|BRVXELLA, vrbs aulico rum frequentia, fontium copia, magnificentia principalis aulæ, Castræ domus, ac plurium aliarum splendore, nobilissima.||o|hand
+89|GANDANVM||o|A
+90|GANDANVM||s|hand
+93|BRVGA, vulgo Brügge-Teuto: niae Flandriae urbs omnium pulcherrima||o|A
+94|ORICARVM AMENTA.||o|A
+97|ANVERP. PARS FLANDRIAE||o|hand
+98|ANVERPIA||s|hand
+101|TSHERTO LOE MAC||o|A
+102|GENBOSCH EN. ELEN.||o|A
+105|TRAIECTVM CLARA ET VETVS EST EPISCOPALIS CIVITAS||o|A
+106|RAETVM||o|A
+109|AMSTELEDAVM||s|hand
+110|AMSTELEDAVM||o|A
+113|GROENINGA. BROVERSAVIA.||o|A
+114|INGA. GORICVM, NO BILE HOLLANDI Æ. OPPIDVM.||o|A
+117|MONASTERIVM, Wesalia Inferior.||o|A
+118|OSNABRUGVM E L. GANS SAXONIAE OPP.||o|A
+121|LUNEBVRGVM, NOBILIS SAXONIAE VRBS, SALINIS CELEBERRIMA. BREMA.||o|A
+122|BRVNOPOLIS VVLGO BRVNSVICVM, BRAVNSCHWICH. VR.BS MAXIMA, V NIVERSA. Saxonis Metropolis. ALDENBVREGVM HOLSATIA.||o|A
+125|LVBECA VRBIS IMPERIALIS DALICARVM, ET INCLYTÆ||o|A
+126|HAMBURGA, CIVITATVM WANSEATICA SOCIETATIS CAPVT||o|A
+129|WEIMAR IENA GOTHA||o|A
+130|WEIMARIA NOBILE THV RINGIAE OPP. ILLVST. SAX ONIA. DVCVM SAED. E.||o|A
+133|M A R C A S S||o|A
+134|MARTPVRGVM VRBS HASSIAE METROPOLIS, VNIVERSITATE CLARA. CASSVLA, communiter Castel, florentissimum langerae Hassiae oppidum||o|A
+137|WITTENBURGA, WISMARIA||o|A
+138|CIVITAS FRANCFORDIENSIS ROSTOCHIVM||o|A
+141|DRES LEI||o|A
+142|Alte Drefzden. BZIGK||o|A
+145|PRA GA E G||o|A
+146|G A. R A.||o|A
+149|MAGDEBURGVM||o|A
+150|ARGVM.||o|A
+153|VRBIS SALISBV RG GEN. SIS GENVINA DE. SCRIPTIO||o|A
+154|LINDOLIA, oppidum superij insulare, undique aqua acromi lacis circumfusum||o|A
+157|DECEM ET TRIA LOCA CON||o|hand
+158|FEDERATORVM HELVETIAE||o|hand
+161|ARGENTORATVM.||o|A
+162|Strasburg||o|A
+165|WORMATIA||o|A
+166|IDELBERGA. PIRA.||o|A
+169|CIVITAS FRANCO||o|A
+170|TRANCORDELLE||o|A
+173|TREVERIS COBOL ROTEN||o|A
+174|TYPVS AC SITVS ANTIQVISSIMÆ ET PRÆCIPVÆ MEDIOMATRI CVM CIVITATIS TREVIRENSIS||o|A
+177|MOGVN TIA, Germaniæ Metropolis, ad Rheni ripas Vrbis cele||o|A
+178|SITTEN||o|A
+181|De Ponte et insula||o|A
+182|COLONIA AGRIPPEA||o|A
+185|AVGVSTVS||o|A
+186|HABET DELINE||o|hand
+187|AVGVSTA, verso of the fold-out||u|hand
+189|MONACVM, NOMINATIS SIMA BAVARIAE CIVITAS. FRISINGENSIS Episcopalis civitatis icon. RATISPONA antiquissima Bavaria urbs, Danubij ripis adiacens.||o|A
+190|OENIPONS. NOR.DLINGA. STRAVBINGA.||o|A
+193|VIENNA AVSTRIAE [other plate: 'Danubius flu.' panorama; 'BVDA, vulgo...' cartouche]|2|o|hand
+194|VIENNA AVSTRIAE|3|o|hand
+197|Armes de ceste Ville de Milan||u|hand
+198|MEDIOLANVM||o|hand
+199|MEDIOLANVM, verso of the fold-out||u|hand
+201|VENETIA||o|hand
+202|VENETIA, verso of the fold-out||o|hand
+205|FLORENTIA urbs est suffragio Heracius, alias Flacurios dicta, quod sita sit ad fluvium Arno fluminis [other plate: Genoa harbour; 'La sfortina']||o|hand
+206|VA. FLORENTIA [other plate: 'GENVEA Ligurum...'; Cum Privilegio]||o|hand
+209|ROMA||o|hand
+210|CVM PRIVILEGIO||o|A
+213|ANCONA||o|A
+214|ANCONA||o|hand
+217|NEAPOLIS||o|hand
+218|NEAPOLIS||o|hand
+221|PARMA||o|A
+222|SENA. ERM. ANVM.||o|A
+225|MESSANA||o|hand
+226|MESSANÆ urbs est Siciliæ maxima, firu, opulentia, & tu...||o|A
+229|CALARIS RHODVS||o|A
+230|MALTA. FAMAVGVSTA.||o|A
+233|BYZANTIUM Nunc Constantinopolis||o|A
+234|ISTANBOLIS||o|A
+237|Descriptio antiquae urbis Hierosolymorum, qua amplitudine et splendore tempore Christi Salvatoris nosteri||s|hand
+238|Nova urbis Hierosolymitanae descriptio, quia forma. Q. sita naturo fecile se conficiendam praestat.||s|hand
+241|MOMBAZA||o|A
+242|Cum Privilegio||o|A
+245|CALECHV MVM INDI ORMVVS.||o|A
+246|EBERRI PORIVM.||o|A
+249|ARUS, QVÆ OLIM BABYLON||o|A
+250|CIVITAS MAXIMA VRBS||o|A
+253|TINGIS, LVSTITANIS, TANGIARA. SEPTA. ARZILLA||o|A
+254|TZAFFIN. SALA.||o|A
+257|GOA fortissima Indiae urbs in Christo fiantorum||o|A
+258|AZAAMVRVM.||o|A
+261|MEXICO.||o|A
+262|CUSCO, REGNI PERU IN NOVO ORBE CAPVT.||o|A
+""",
+             "topographiahelve00zeil": """
+16|Tafel des Teutschlands|10|u|hand
+24|der Endgnoschaffte|15|u|hand
+|Elgaw und Murrz|16|o|hand
+32|Zurich im Grund|17|s|hand
+36|Tigurvm (Zurich im Prospect)|17|o|hand
+42|Forsteck. FORSTECK.|19|o|hand
+|Eglisaw, Grüningen, Griffensee und Regensperg|20|o|hand
+52|Stein am Rhein|21|o|hand
+58|Winterhur, Undelfingen und Kyburg|22|o|hand
+|Willisaw und Wedeschwyl|23|o|hand
+66|Bern die HauptStatt in Nüchternland|24|s|hand
+|Thron|26|o|hand
+80|Araw. Arberg. Arburg.|27|o|hand
+72|Lentzburg. LENTZBURGV. + Brugg im Argaw. BRVG ARGOLIA.|27|o|hand
+72|Habsburg. HASSBURGŰ.|27|o|hand
+86|Burgdorff. BURGDORF.|28|o|hand
+90|Lausanne|79|o|hand
+94|THUNA. Thun.|31|o|hand
+98|S. Peter. Bibiscum. [Beven]|31|o|hand
+104|Abbildung des Gletschers im Grindelwalde in der Herrschafft Bern (GLATSCHER)|32|u|hand
+110|Mürten. Neus. Nion. Aventicum. Vifffisburg.|34|o|hand
+116|LVCERN.|36|o|hand
+120|Abbildung der 4. Waldstätten See.|36|u|hand
+124|SEMPACH. SEMPACHIUM.|37|o|hand
+124|SURSEE.|37|s|hand
+128|Ragus et Ecclesia Collegiata MUNSTER in Argovia (Der Flecken und Stift Münster im Argaw)|37|o|hand
+134|Altorff Haupt flecken des Lands URY|38|o|hand
+134|Flüelen|38|s|hand
+138|SVITIA. Schwytz|39|o|hand
+142|Prospect des Haubt Closters Schwytz|39|o|hand
+146|Einsiedelen. INSVLA EREMI|39|o|hand
+152|Das Landt Unterwalden|41|u|hand
+|Engelberg|41|o|hand
+160|TVGIVM. Zug.|43|o|hand
+166|GLARONA. Glaris.|44|o|hand
+172|Basel im Grund|46|s|hand
+176|BASILEA im Prospect (2. Kupffer)|46|o|hand
+180|Die Brück (Prospectvs Cathedrals, Pontis Rheni)|47|o|hand
+184|CAMPVS DIVI PETRI (S. Peters Platz daselbst)|47|o|hand
+190|Münchenstein|48|o|hand
+194|Viechtstall [Lichtstall]|49|o|hand
+198|WALLENBURG|49|o|hand
+204|PIERRE PERTUISE|50|o|hand
+208|Romamostier.|50|o|hand
+214|Freÿburg in Üechtlandt. FRYBURGUM NUITONIA.|52|o|hand
+218|SOLOTURVM|53|s|hand
+224|Schaffhausen|54|o|hand
+228|Eigentliche Bildnüß des Großen Wasserbruchs oder Falls des Rheins im Lauffen|55|u|hand
+|Nünkirchen|55|s|hand
+236|APPENZELL. + HERISSAW.|56|o|hand
+240|Baden im Argov|57|o|hand
+246|Klingnaw, Leuggern, Der mittlere Lauffen oder Fall des Rheins, Monast. Wettingen|58|o|hand
+250|Heidnische Münzen vnd Silbergeschirr (Monetarum)|58|u|hand
+254|Forvm Tyberii. Zurzach.|58|o|hand
+258|BRENGGARTEN.|59|o|hand
+|Lowerk und Wellenk|60|o|hand
+268|Die Statt Dissenhofen... in grund gelegt im Jahr 1648|60|s|hand
+272|FRAWENFELD. + MELLINGEN.|60|o|hand
+276|RAP PERSWYL. Rapperswyl.|61|o|hand
+|Pfeffers (2. Kupffer, 2 Ansichten)|63|o|hand
+288|MULHUSIA ALSATIAE. Müllhausen.|65|s|hand
+294|BIENNA. Biel.|66|o|hand
+298|S. GALLEN.|67|s|hand
+308|GENEVE. GENEVA. im Grund|70|s|hand
+312|GENEUE. Genff im Prospect|71|o|hand
+316|NEOCOMVM. Steinenburg am See. (2. Ansichten, 2 Kupffer)|72|o|hand
+328|Weyerhauß. WEYERHAUS. (Castelen, Etiszwenyl)|77|o|hand
+334|Chur. CURIA RHETIA.|79|o|hand
+|Plürs|83|o|hand
+348|Fontes Rheni anterioris et Posterioris (Ursprung des hinteren und Vorderen Rheins)|84|u|hand
+350|S. Luzissteig in Vünken sambt Alter Demolierten vnd Neuen Schantzen|85|o|hand
+356|Leugg|87|o|hand
+362|PRYG. NATERS.|88|o|hand
+|Bisp/ oder Bispach|88|o|hand
+368|S. Mauritus in Valessia. S. Mairise in Walls|89|o|hand
+374|SEDUNVM. Sitten|90|o|hand
+378|Breiten Landenberg im Zürrcher Gebiet. BRAITEN LANDEIBERG in Territorio Tigurino|90|o|hand
+|Chastillard und Blonay|90|o|hand
+|Sandeck und Mauwister|90|o|hand
+384|WERDENSTEIN. Kloster S. Urban|90|o|hand
+"""}
+
+
+def parse_hand_figures(ia_id):
+    """The per-leaf hand table: one entry per plate leaf, keyed by the leaf's own n (fig); page stays a string.
+    fig '' = the plate has no leaf in the item (fold-out-only or unengraved): fig is None - validate counts
+    those entries as nopage, and list_pages/index skip them."""
+    txt = HAND_FIGS.get(ia_id)
+    if txt is None:
+        return []
+    out = []
+    for line in txt.strip().splitlines():
+        fig, title, page, kind, kind_by = line.split("|")
+        out.append(dict(fig=None if fig == "" else int(fig), title=title,
+                        page=None if page == "" else page, kind=kind, kind_by=kind_by))
+    return out
+
+
+def figure_list(ia_id):
+    """The book's figure list: parsed from its list page's OCR, or the per-leaf hand table where there is none."""
+    return parse_figures(ia_id) or parse_hand_figures(ia_id)
+
+
 # ---------------------------------------------------------------- page numbers -> leaves
 
 def pagenum_map(ia_id):
@@ -691,12 +934,12 @@ def validate_book(key):
             "unmapped_site": [v for v in site if v not in pm],
             "map": {str(v): pm[v] for v in sorted(pm)},
         }
-    figs = parse_figures(ia_id)
+    figs = figure_list(ia_id)
     if figs:
-        pmap = pagenum_map(ia_id)
+        pmap = {} if ia_id in HAND_FIGS else pagenum_map(ia_id)
         gt_site, gt_unsure, gt_other, nopage = set(), set(), set(), 0
         for f in figs:
-            n = pmap.get(f["page"]) if f["page"] else None
+            n = f["fig"] if ia_id in HAND_FIGS else (pmap.get(f["page"]) if f["page"] else None)
             if n is None:
                 nopage += 1
                 continue
@@ -715,7 +958,7 @@ def validate_book(key):
         hit = gt_site & flagged
         hit1 = {n for n in gt_site if {n - 1, n, n + 1} & flagged}
         rep["figures"] = {
-            "listed": len(figs), "expected": FIG_COUNT[ia_id],
+            "listed": len(figs), "expected": FIG_COUNT.get(ia_id),
             "parsed_with_page_on_a_leaf": len(figs) - nopage,
             "site": sum(f["kind"] == "s" for f in figs), "unsure": sum(f["kind"] == "u" for f in figs),
             "other": sum(f["kind"] == "o" for f in figs),
@@ -751,7 +994,8 @@ def cmd_validate(args):
 # ---------------------------------------------------------------- list -> leaves, index
 
 def list_pages(key):
-    """{n: [list entries]} for site-plan (kind s) and unsure (kind u) entries, mapped to leaves."""
+    """{n: [list entries]} for site-plan (kind s) and unsure (kind u) entries, mapped to leaves; for the view
+    books (HAND_FIGS) the town views (kind o) count too, mapped by their own leaf n."""
     ia_id = BOOKS[key]["ia"]
     A = stage_a(ia_id)
     out = defaultdict(list)
@@ -764,10 +1008,10 @@ def list_pages(key):
             v = roman(p["plate"])
             if v in pm and p["kind"] in "su":
                 out[pm[v][0]].append(dict(p, type="plate", map_method=pm[v][1]))
-    pmap = pagenum_map(ia_id)
-    for f in parse_figures(ia_id):
-        n = pmap.get(f["page"]) if f["page"] else None
-        if n is not None and f["kind"] in "su":
+    pmap = {} if ia_id in HAND_FIGS else pagenum_map(ia_id)
+    for f in figure_list(ia_id):
+        n = f["fig"] if ia_id in HAND_FIGS else (pmap.get(f["page"]) if f["page"] else None)
+        if n is not None and f["kind"] in ("so" if ia_id in HAND_FIGS else "su"):
             out[n].append(dict(f, type="figure"))
     return out
 
@@ -776,23 +1020,26 @@ def cmd_ocrmap(args):
     for key in args or BOOKS:
         ia_id = BOOKS[key]["ia"]
         plates = parse_plates(ia_id) if ia_id != "b30449492" else squier_ny_gt()
-        figs = parse_figures(ia_id)
+        figs = figure_list(ia_id)
         if not plates and not figs:
-            # No OCR list source for this book (PLATES / FIG_LISTS): never write its list file - it may hold a
-            # hand transcription (213's civitates list) that a re-derive would clobber with empty. 217 lifts the
-            # hand list into the module, where this command regenerates it.
+            # No list source for this book (PLATES, FIG_LISTS and HAND_FIGS all absent, e.g. mills): never write
+            # its list file - a hand transcription might live there and a re-derive would clobber it.
             p = os.path.join(OUT, "lists", f"{ia_id}.json")
             kept = f"; keeping the existing {os.path.relpath(p, ROOT)}" if os.path.exists(p) else ""
             print(f"{key}: no list yet (no OCR list source){kept}")
             continue
         os.makedirs(os.path.join(OUT, "lists"), exist_ok=True)
+        # The hand books' list file is the dump of their table: raw UTF-8 (the printed titles keep their own
+        # diacritics). The OCR-parsed books keep the default ascii escapes - byte identity with their committed
+        # files is an invariant (216).
         json.dump({"plates": plates, "figures": figs}, open(os.path.join(OUT, "lists", f"{ia_id}.json"), "w"),
-                  indent=0)
+                  indent=0, ensure_ascii=(ia_id not in HAND_FIGS))
         lp = list_pages(key) if stage_a(ia_id) else {}
         m = [{"n": n, "site_plan": any(e["kind"] == "s" for e in es), "entries": es} for n, es in sorted(lp.items())]
-        json.dump(m, open(os.path.join(OUT, "lists", f"{ia_id}.map.json"), "w"), indent=0)
+        json.dump(m, open(os.path.join(OUT, "lists", f"{ia_id}.map.json"), "w"), indent=0,
+                  ensure_ascii=(ia_id not in HAND_FIGS))
         print(key, "plates", len(plates or []), "figures", len(figs),
-              "fig kinds", {k: sum(f["kind"] == k for f in figs) for k in "suo"}, "list site pages", len(m))
+              "fig kinds", {k: sum(f["kind"] == k for f in figs) for k in "suo"}, "list leaves", len(m))
 
 
 def _sub_of(label):
@@ -852,13 +1099,19 @@ def cmd_index(args):
         A, B = stage_a(ia_id), stage_b(ia_id)
         if not A:
             continue
+        view_book = ia_id in HAND_FIGS
         ps = ia.pages(ia_id)
         lp = list_pages(key)
-        try:
-            T = ia.page_texts(ia_id)
-        except Exception as e:  # Mills has no hOCR page index on IA (404)
-            print(key, "no per-page OCR:", e)
+        if view_book:
+            # The view book's IA hOCR is misaligned (213's pitfall): never read it - the titles come from the
+            # hand list.
             T = {}
+        else:
+            try:
+                T = ia.page_texts(ia_id)
+            except Exception as e:  # Mills has no hOCR page index on IA (404)
+                print(key, "no per-page OCR:", e)
+                T = {}
         pages = {}
         for n, how in site_pages_model(ia_id).items():
             pages.setdefault(n, set()).add(how)
@@ -878,6 +1131,8 @@ def cmd_index(args):
         for n, es in lp.items():
             if any(e["kind"] == "s" for e in es):
                 pages.setdefault(n, set()).add("list")
+            elif any(e["kind"] == "o" for e in es):
+                pages.setdefault(n, set()).add("list_view")
             elif n in pages:
                 pages[n].add("list_unsure")
         for n in sorted(pages):
@@ -891,7 +1146,7 @@ def cmd_index(args):
                       for x in ((B.get(n, {}).get("out") or {}).get("blank_boxes") or []) if isinstance(x, dict)]
             blanks = [x for x in blanks if x["box"]]
             plate_es = [e for e in es if e["type"] == "plate"]
-            fig_es = [e for e in es if e["type"] == "figure" and e["kind"] == "s"]
+            fig_es = [e for e in es if e["type"] == "figure" and (e["kind"] == "s" or (view_book and e["kind"] == "o"))]
             # No stage B (no per-plan reading): one row per site entry the book's list puts on this leaf.
             site_es = [e for e in plate_es if e["kind"] == "s"] or fig_es
             per_entry = not B.get(n) and len(site_es) > 1
@@ -918,6 +1173,7 @@ def cmd_index(args):
                     "book": key, "ia_id": ia_id, "cite": b["cite"],
                     "leaf_n": n, "leaf_jp2": p["leafNum"], "page_printed": p.get("pageNum"),
                     "page_type": a.get("page_type") or ("plate_site_plan" if plate_es else "figure_site_plan"),
+                    **({"view": (entry["kind"] == "o") if entry else True} if view_book else {}),
                     "found_by": sorted(pages[n]),
                     "plate": entry["plate"] if entry and entry["type"] == "plate" else
                     (plate_es[0]["plate"] if plate_es else None),
@@ -927,7 +1183,8 @@ def cmd_index(args):
                     "title": entry["title"] if entry else (pl.get("title") or qtitle or
                                                            (" / ".join(c[1] for c in caps) if caps else None)),
                     "title_source": ("book's list of plates, transcribed" if entry["type"] == "plate" else
-                                     "book's list of figures, IA OCR (OCR errors kept)") if entry else
+                                     ("book's figure list, hand-transcribed" if view_book else
+                                      "book's list of figures, IA OCR (OCR errors kept)")) if entry else
                     ("page, read by Qwen" if pl.get("title") or qtitle else
                      ("caption on the page, IA OCR (OCR errors kept)" if caps else None)),
                     "captions_ocr": [f"Fig. {c[0]}. {c[1]}" for c in caps],

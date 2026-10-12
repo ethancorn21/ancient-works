@@ -1,0 +1,400 @@
+{"n": 3, "leaf": 4, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [853, 1400]}
+{"n": 0, "leaf": 1, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [890, 1400]}
+{"n": 1, "leaf": 2, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [861, 1400]}
+{"n": 6, "leaf": 7, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 2, "leaf": 3, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [861, 1400]}
+{"n": 5, "leaf": 6, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.9, "img_size": [847, 1400]}
+{"n": 7, "leaf": 8, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [847, 1400]}
+{"n": 8, "leaf": 9, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 11, "leaf": 16, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 4, "leaf": 5, "out": {"page_type": "text_only", "numbers": [], "caption": "Topographia Helvetiae, Rhaetiae et Valesiae"}, "parse": "ok", "s": 12.6, "img_size": [853, 1400]}
+{"n": 9, "leaf": 10, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 10, "leaf": 11, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 12, "leaf": 17, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 15, "leaf": 20, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.1, "img_size": [847, 1400]}
+{"n": 13, "leaf": 18, "out": {"page_type": "text_only", "numbers": [], "caption": "Kurze Beschreib: und Abtheilung de\u00df Teutschlands."}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 14, "leaf": 19, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE ANCIENT EARTHWORKS AT THE MOUND OF THE CIRCLE"}, "parse": "ok", "s": 9.5, "img_size": [847, 1400]}
+{"n": 17, "leaf": 22, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 18, "leaf": 23, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 19, "leaf": 24, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 20, "leaf": 25, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 21, "leaf": 26, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 22, "leaf": 27, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 16, "leaf": 21, "out": {"page_type": "other_illustration", "numbers": [], "caption": "NOVA TOTIVS GERMANIAE DESCRIPTIO. Teutland."}, "parse": "ok", "s": 9.9, "img_size": [1401, 1128]}
+{"n": 23, "leaf": 28, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 25, "leaf": 30, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 26, "leaf": 31, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 27, "leaf": 34, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 30, "leaf": 37, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [847, 1400]}
+{"n": 24, "leaf": 29, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Die Eydgnoschafft P\u00fcncten vnd Wallis. HELVETIA cum Confinijs."}, "parse": "ok", "s": 10.8, "img_size": [1400, 1120]}
+{"n": 31, "leaf": 38, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [847, 1400]}
+{"n": 29, "leaf": 36, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "SOUTHERN HILL"}, "parse": "ok", "s": 8.1, "img_size": [847, 1400]}
+{"n": 32, "leaf": 39, "out": {"page_type": "other_illustration", "numbers": [], "caption": "TIGVRVM. Z\u00fcrych."}, "parse": "ok", "s": 6.9, "img_size": [1400, 1096]}
+{"n": 35, "leaf": 42, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [847, 1400]}
+{"n": 33, "leaf": 40, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 34, "leaf": 41, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 28, "leaf": 35, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Marckstle: Elggewu sambt dem Schlo\u00df S. Notkers Geburthaus im Z\u00fcrgbiet. Closter Mure."}, "parse": "ok", "s": 12.9, "img_size": [847, 1400]}
+{"n": 37, "leaf": 46, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.2, "img_size": [847, 1400]}
+{"n": 36, "leaf": 43, "out": {"page_type": "other_illustration", "numbers": [], "caption": "TIGVRVM Turich."}, "parse": "ok", "s": 8.9, "img_size": [1401, 885]}
+{"n": 38, "leaf": 47, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.9, "img_size": [847, 1400]}
+{"n": 40, "leaf": 49, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [847, 1400]}
+{"n": 39, "leaf": 48, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 41, "leaf": 50, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 43, "leaf": 52, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 42, "leaf": 51, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Forsteck. Forsteck"}, "parse": "ok", "s": 8.6, "img_size": [1400, 1192]}
+{"n": 44, "leaf": 53, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 45, "leaf": 54, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 49, "leaf": 58, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 51, "leaf": 60, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [857, 1401]}
+{"n": 48, "leaf": 57, "out": {"page_type": "other_illustration", "numbers": [], "caption": "G\u00fcningen. Groningia. Regensperg. Regenstpeg."}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 47, "leaf": 56, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.7, "img_size": [847, 1400]}
+{"n": 50, "leaf": 59, "out": {"page_type": "plate_site_plan", "numbers": ["PL. I"], "caption": ""}, "parse": "ok", "s": 8.0, "img_size": [847, 1400]}
+{"n": 52, "leaf": 61, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Stein am Rhein. STENIVM ad Rhenum,"}, "parse": "ok", "s": 6.0, "img_size": [1401, 933]}
+{"n": 53, "leaf": 62, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.5, "img_size": [847, 1400]}
+{"n": 46, "leaf": 55, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Eglisaw. EGLISAU. Der Rhein. Rhenus F. GRIFENSEE. Gr\u00fcffenfee."}, "parse": "ok", "s": 13.4, "img_size": [847, 1400]}
+{"n": 57, "leaf": 66, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [847, 1400]}
+{"n": 54, "leaf": 63, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 56, "leaf": 65, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 55, "leaf": 64, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 59, "leaf": 68, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [856, 1401]}
+{"n": 63, "leaf": 72, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [847, 1400]}
+{"n": 62, "leaf": 71, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [847, 1400]}
+{"n": 58, "leaf": 67, "out": {"page_type": "other_illustration", "numbers": [], "caption": "WINTERTHUR. ANDELFINGEN. KYBURG."}, "parse": "ok", "s": 10.8, "img_size": [1400, 1095]}
+{"n": 60, "leaf": 69, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Statt Wilisaw. Wilisav. Schlo\u00df Wedeschwyl. Wedeschwyl."}, "parse": "ok", "s": 11.0, "img_size": [856, 1401]}
+{"n": 64, "leaf": 73, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 65, "leaf": 74, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 67, "leaf": 76, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [847, 1400]}
+{"n": 61, "leaf": 70, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "Hambden's Hill, Eghbly"}, "parse": "ok", "s": 9.9, "img_size": [847, 1400]}
+{"n": 69, "leaf": 78, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 68, "leaf": 77, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 66, "leaf": 75, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Bern die Hauptstatt in N\u00fcchternland"}, "parse": "ok", "s": 7.4, "img_size": [1401, 1067]}
+{"n": 74, "leaf": 83, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 71, "leaf": 80, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 73, "leaf": 82, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 75, "leaf": 84, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 70, "leaf": 79, "out": {"page_type": "other_illustration", "numbers": ["PLATE XXV"], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [847, 1400]}
+{"n": 76, "leaf": 85, "out": {"page_type": "other_illustration", "numbers": [], "caption": "ORON."}, "parse": "ok", "s": 7.4, "img_size": [1400, 1162]}
+{"n": 77, "leaf": 88, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 72, "leaf": 81, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Lentzburg. LENTZBURGV. Brugg im Aargau. BRUGG ARGOIA. Habsburg. HABSPURG."}, "parse": "ok", "s": 11.5, "img_size": [1400, 1132]}
+{"n": 79, "leaf": 90, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [847, 1400]}
+{"n": 82, "leaf": 93, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 78, "leaf": 89, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 81, "leaf": 92, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 80, "leaf": 91, "out": {"page_type": "other_illustration", "numbers": [], "caption": "ARAW. ARAW. ARBERG. ARBERG. ARBURG. ARBURG."}, "parse": "ok", "s": 9.9, "img_size": [1400, 1118]}
+{"n": 85, "leaf": 96, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 83, "leaf": 94, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 84, "leaf": 95, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.5, "img_size": [847, 1400]}
+{"n": 87, "leaf": 98, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 86, "leaf": 97, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Burgdorf. BURGDORF."}, "parse": "ok", "s": 8.3, "img_size": [1401, 1173]}
+{"n": 89, "leaf": 100, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 88, "leaf": 99, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [847, 1400]}
+{"n": 90, "leaf": 101, "out": {"page_type": "other_illustration", "numbers": [], "caption": "LAUSANNA."}, "parse": "ok", "s": 6.5, "img_size": [1400, 1123]}
+{"n": 91, "leaf": 102, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 95, "leaf": 106, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 96, "leaf": 107, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 92, "leaf": 103, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 99, "leaf": 110, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 98, "leaf": 109, "out": {"page_type": "other_illustration", "numbers": [], "caption": "BIBISCUM."}, "parse": "ok", "s": 6.5, "img_size": [1401, 1105]}
+{"n": 100, "leaf": 111, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 101, "leaf": 112, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 93, "leaf": 104, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 12.4, "img_size": [847, 1400]}
+{"n": 94, "leaf": 105, "out": {"page_type": "other_illustration", "numbers": [], "caption": "THUNA, Thun."}, "parse": "ok", "s": 16.5, "img_size": [1400, 1108]}
+{"n": 103, "leaf": 114, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 105, "leaf": 118, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 106, "leaf": 119, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 109, "leaf": 122, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.7, "img_size": [847, 1400]}
+{"n": 97, "leaf": 108, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 17.8, "img_size": [847, 1400]}
+{"n": 104, "leaf": 115, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Abbildung des Gletschers im Grimselwald in der Herrschaft Bern"}, "parse": "ok", "s": 10.9, "img_size": [1401, 1144]}
+{"n": 112, "leaf": 125, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 110, "leaf": 123, "out": {"page_type": "other_illustration", "numbers": [], "caption": "M\u00fcrten. Neuis. NION. AVENTICUM. Biffisburg."}, "parse": "ok", "s": 6.8, "img_size": [1400, 1130]}
+{"n": 111, "leaf": 124, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [847, 1400]}
+{"n": 114, "leaf": 127, "out": {"page_type": "other_illustration", "numbers": ["VI"], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 115, "leaf": 128, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 116, "leaf": 129, "out": {"page_type": "other_illustration", "numbers": [], "caption": "LVCERN."}, "parse": "ok", "s": 6.4, "img_size": [1400, 1114]}
+{"n": 118, "leaf": 131, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 117, "leaf": 130, "out": {"page_type": "plate_site_plan", "numbers": ["PL. IV"], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 119, "leaf": 132, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [847, 1400]}
+{"n": 120, "leaf": 133, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Abbildung der 4. Waldst\u00e4tten See."}, "parse": "ok", "s": 7.5, "img_size": [1400, 809]}
+{"n": 122, "leaf": 135, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 121, "leaf": 134, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 123, "leaf": 136, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.3, "img_size": [847, 1400]}
+{"n": 125, "leaf": 138, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 124, "leaf": 137, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Sempach. SEMPACHIUM."}, "parse": "ok", "s": 6.6, "img_size": [1400, 1134]}
+{"n": 127, "leaf": 140, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 126, "leaf": 139, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 129, "leaf": 142, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 130, "leaf": 143, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 131, "leaf": 144, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 128, "leaf": 141, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Ragus et Ecclesia Collegiata MUNSTER in Argau. Der Flecken und Stifft Munster im Argau."}, "parse": "ok", "s": 11.3, "img_size": [1400, 1123]}
+{"n": 132, "leaf": 145, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 133, "leaf": 146, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 134, "leaf": 147, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Altorff Haupt flecken des Lands URY."}, "parse": "ok", "s": 8.0, "img_size": [1400, 1129]}
+{"n": 136, "leaf": 149, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [847, 1400]}
+{"n": 135, "leaf": 148, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [847, 1400]}
+{"n": 137, "leaf": 150, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 139, "leaf": 152, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 138, "leaf": 151, "out": {"page_type": "other_illustration", "numbers": [], "caption": "SVITIA Schwentz."}, "parse": "ok", "s": 6.8, "img_size": [1401, 1169]}
+{"n": 140, "leaf": 153, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 141, "leaf": 154, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 142, "leaf": 155, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Prospect des Gaubt Fleckens Schwyz"}, "parse": "ok", "s": 6.1, "img_size": [1400, 813]}
+{"n": 145, "leaf": 158, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [812, 1400]}
+{"n": 143, "leaf": 156, "out": {"page_type": "other_illustration", "numbers": ["1.", "2.", "3.", "4."], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 144, "leaf": 157, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "Crawford Enclosure, Ohio"}, "parse": "ok", "s": 8.9, "img_size": [847, 1400]}
+{"n": 148, "leaf": 161, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 147, "leaf": 160, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 149, "leaf": 164, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.8, "img_size": [847, 1400]}
+{"n": 146, "leaf": 159, "out": {"page_type": "other_illustration", "numbers": [], "caption": "C\u00c6NOBIUM EREMITARUM Einsiedeln"}, "parse": "ok", "s": 6.7, "img_size": [1400, 1108]}
+{"n": 151, "leaf": 166, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 150, "leaf": 165, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 152, "leaf": 167, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Das Landt Underwalden."}, "parse": "ok", "s": 6.6, "img_size": [1400, 1114]}
+{"n": 153, "leaf": 174, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "Plan of the Mound at the Fork of the Road, near the Village of"}, "parse": "ok", "s": 11.2, "img_size": [866, 1400]}
+{"n": 154, "leaf": 175, "out": {"page_type": "other_illustration", "numbers": [], "caption": "ENGELBERG. Engelberg"}, "parse": "ok", "s": 4.9, "img_size": [866, 1400]}
+{"n": 155, "leaf": 176, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [847, 1400]}
+{"n": 157, "leaf": 178, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 156, "leaf": 177, "out": {"page_type": "text_only", "numbers": [], "caption": "Beschreibung der Endgnoschafft. 6. Underwalden"}, "parse": "ok", "s": 9.2, "img_size": [847, 1400]}
+{"n": 158, "leaf": 179, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE"], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 159, "leaf": 180, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 161, "leaf": 182, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 162, "leaf": 183, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 160, "leaf": 181, "out": {"page_type": "other_illustration", "numbers": [], "caption": "TVGIUM. B\u00fcg."}, "parse": "ok", "s": 8.1, "img_size": [1401, 1113]}
+{"n": 163, "leaf": 184, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.3, "img_size": [847, 1400]}
+{"n": 164, "leaf": 185, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 165, "leaf": 186, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 167, "leaf": 188, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 168, "leaf": 189, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [847, 1400]}
+{"n": 166, "leaf": 187, "out": {"page_type": "other_illustration", "numbers": [], "caption": "GLARONA. Glaris."}, "parse": "ok", "s": 8.1, "img_size": [1400, 1218]}
+{"n": 169, "leaf": 190, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 170, "leaf": 191, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [847, 1400]}
+{"n": 171, "leaf": 192, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 172, "leaf": 193, "out": {"page_type": "other_illustration", "numbers": [], "caption": "BASILEA Basel"}, "parse": "ok", "s": 7.4, "img_size": [1401, 1082]}
+{"n": 174, "leaf": 195, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [847, 1400]}
+{"n": 175, "leaf": 196, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [847, 1400]}
+{"n": 176, "leaf": 197, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Basilea. Basel."}, "parse": "ok", "s": 3.3, "img_size": [1400, 543]}
+{"n": 173, "leaf": 194, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE", "II"], "caption": "PLAN OF THE HILL FORT AT"}, "parse": "ok", "s": 8.3, "img_size": [847, 1400]}
+{"n": 178, "leaf": 199, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 179, "leaf": 200, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 177, "leaf": 198, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE HILL-FORT AT CAER LEI, MONTGOMERYSHIRE"}, "parse": "ok", "s": 10.0, "img_size": [847, 1400]}
+{"n": 181, "leaf": 202, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [847, 1400]}
+{"n": 180, "leaf": 201, "out": {"page_type": "other_illustration", "numbers": [], "caption": "PROSPECTVS TEMPLI CATHEDRALIS QVOD EST BASILE\u00c6, NEC NON PONTIS RHE NUM TRANSEUNTI, ADMODUM DELECTABILIS."}, "parse": "ok", "s": 9.0, "img_size": [1400, 1160]}
+{"n": 182, "leaf": 203, "out": {"page_type": "other_illustration", "numbers": [], "caption": "CAMBRIA VALLEY ON THE HAWKINS"}, "parse": "ok", "s": 8.2, "img_size": [847, 1400]}
+{"n": 183, "leaf": 204, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [847, 1400]}
+{"n": 185, "leaf": 206, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 184, "leaf": 205, "out": {"page_type": "other_illustration", "numbers": [], "caption": "S. PETERS PLATZ IN BASEL."}, "parse": "ok", "s": 8.1, "img_size": [1400, 1120]}
+{"n": 186, "leaf": 207, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [847, 1400]}
+{"n": 187, "leaf": 208, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 188, "leaf": 209, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 14.5, "img_size": [847, 1400]}
+{"n": 189, "leaf": 210, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 17.5, "img_size": [847, 1400]}
+{"n": 102, "leaf": 113, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 158.8, "img_size": [847, 1400]}
+{"n": 107, "leaf": 120, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 151.2, "img_size": [847, 1400]}
+{"n": 191, "leaf": 212, "out": {"page_type": "other_illustration", "numbers": ["PLATE XXIX"], "caption": "Hillfort"}, "parse": "ok", "s": 23.8, "img_size": [847, 1400]}
+{"n": 113, "leaf": 126, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 147.4, "img_size": [847, 1400]}
+{"n": 108, "leaf": 121, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV", "PLATE XXVI"], "caption": "PLATE XXV PLATE XXVI"}, "parse": "ok", "s": 152.9, "img_size": [847, 1400]}
+{"n": 194, "leaf": 215, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [1400, 1137]}
+{"n": 195, "leaf": 216, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 190, "leaf": 211, "out": {"page_type": "other_illustration", "numbers": [], "caption": "MUNCHENSTEIN. Munchenstein"}, "parse": "ok", "s": 29.0, "img_size": [1400, 1132]}
+{"n": 197, "leaf": 218, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [847, 1400]}
+{"n": 199, "leaf": 220, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 202, "leaf": 223, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 200, "leaf": 221, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [847, 1400]}
+{"n": 198, "leaf": 219, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Wallenburg. WALLENBURG."}, "parse": "ok", "s": 9.3, "img_size": [1400, 1129]}
+{"n": 203, "leaf": 224, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [847, 1400]}
+{"n": 204, "leaf": 225, "out": {"page_type": "other_illustration", "numbers": [], "caption": "TERRE PERTUISE"}, "parse": "ok", "s": 7.7, "img_size": [1400, 1168]}
+{"n": 206, "leaf": 227, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 205, "leaf": 226, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.3, "img_size": [847, 1400]}
+{"n": 207, "leaf": 228, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [847, 1400]}
+{"n": 192, "leaf": 213, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 34.8, "img_size": [847, 1400]}
+{"n": 193, "leaf": 214, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 31.8, "img_size": [847, 1400]}
+{"n": 201, "leaf": 222, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 20.3, "img_size": [847, 1400]}
+{"n": 196, "leaf": 217, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE 35"], "caption": "HILL LAW"}, "parse": "ok", "s": 27.0, "img_size": [847, 1400]}
+{"n": 209, "leaf": 232, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [847, 1400]}
+{"n": 211, "leaf": 234, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [847, 1400]}
+{"n": 208, "leaf": 229, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Romamostier. ROMAMOSTIER."}, "parse": "ok", "s": 9.2, "img_size": [1400, 1120]}
+{"n": 210, "leaf": 233, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 212, "leaf": 235, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 213, "leaf": 236, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.1, "img_size": [847, 1400]}
+{"n": 215, "leaf": 240, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 216, "leaf": 241, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 214, "leaf": 237, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Freyburg in Vechtlant. FRYBURGUM NUTONIA."}, "parse": "ok", "s": 11.1, "img_size": [1401, 1126]}
+{"n": 217, "leaf": 242, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 218, "leaf": 243, "out": {"page_type": "other_illustration", "numbers": [], "caption": "SOLOTURVM"}, "parse": "ok", "s": 9.0, "img_size": [1400, 1125]}
+{"n": 219, "leaf": 244, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.9, "img_size": [847, 1400]}
+{"n": 220, "leaf": 245, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 221, "leaf": 246, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.8, "img_size": [847, 1400]}
+{"n": 222, "leaf": 247, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.3, "img_size": [847, 1400]}
+{"n": 223, "leaf": 248, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [847, 1400]}
+{"n": 225, "leaf": 250, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 224, "leaf": 249, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Egentliche CONTRAFACHTUR der Loblichen Statt Schaphausen, wie selbige itziger Zeit im wesen steht. Anno 1649."}, "parse": "ok", "s": 8.4, "img_size": [1401, 1015]}
+{"n": 227, "leaf": 252, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 226, "leaf": 251, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 230, "leaf": 257, "out": {"page_type": "other_illustration", "numbers": ["Pag. 47"], "caption": "H\u00fcnkirch."}, "parse": "ok", "s": 7.2, "img_size": [847, 1400]}
+{"n": 228, "leaf": 253, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Eigentliche Bildnu\u00df des Gro\u00dfen Wasserbruhs oder Falls des Rheins im Lauffen."}, "parse": "ok", "s": 7.4, "img_size": [1400, 1115]}
+{"n": 229, "leaf": 256, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE HILL OF ST. MICHAEL'S MOUNT"}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 233, "leaf": 262, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.8, "img_size": [847, 1400]}
+{"n": 231, "leaf": 258, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.0, "img_size": [847, 1400]}
+{"n": 232, "leaf": 259, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 234, "leaf": 263, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.7, "img_size": [847, 1400]}
+{"n": 237, "leaf": 266, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 238, "leaf": 267, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 236, "leaf": 265, "out": {"page_type": "other_illustration", "numbers": [], "caption": "APPENZELL. HERISSAW."}, "parse": "ok", "s": 6.8, "img_size": [1400, 1144]}
+{"n": 235, "leaf": 264, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [847, 1400]}
+{"n": 239, "leaf": 268, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [847, 1400]}
+{"n": 241, "leaf": 270, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 240, "leaf": 269, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Baden im Aargau. BADEN ARGOL\u00c6."}, "parse": "ok", "s": 8.8, "img_size": [1401, 1089]}
+{"n": 242, "leaf": 271, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 243, "leaf": 272, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 245, "leaf": 274, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 247, "leaf": 276, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 249, "leaf": 278, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.9, "img_size": [847, 1400]}
+{"n": 248, "leaf": 277, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 251, "leaf": 280, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [847, 1400]}
+{"n": 246, "leaf": 275, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Klingnaw. Leuggern. Monast. B. Mariae Maristellae alias Wettingen."}, "parse": "ok", "s": 10.6, "img_size": [1401, 1226]}
+{"n": 253, "leaf": 282, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 244, "leaf": 273, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE ANCIENT WORKS AT THE MOUND OF THE CIRCLE, IN THE TOWN OF TROY, NEW YORK"}, "parse": "ok", "s": 12.4, "img_size": [847, 1400]}
+{"n": 256, "leaf": 285, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.7, "img_size": [847, 1400]}
+{"n": 252, "leaf": 281, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE II"], "caption": "PLAN OF THE HILL FORT AT CROESCESTER"}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 255, "leaf": 284, "out": {"page_type": "other_illustration", "numbers": ["3"], "caption": "BROOK"}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 257, "leaf": 286, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [847, 1400]}
+{"n": 254, "leaf": 283, "out": {"page_type": "other_illustration", "numbers": ["3"], "caption": "FORMV TYBERII. Zurzach."}, "parse": "ok", "s": 7.9, "img_size": [1400, 1091]}
+{"n": 259, "leaf": 288, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "BREMEN"}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 258, "leaf": 287, "out": {"page_type": "other_illustration", "numbers": [], "caption": "BRENNGARTEN."}, "parse": "ok", "s": 6.8, "img_size": [1401, 1190]}
+{"n": 260, "leaf": 289, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 261, "leaf": 290, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 263, "leaf": 292, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 262, "leaf": 291, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 250, "leaf": 279, "out": {"page_type": "other_illustration", "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"], "caption": "Abriff der Silbernen Heidnischen Gefchirren und M\u00fcnzen, so An. 1633. bey Wittingen unter der Erden gefunden und ausgegraben worden."}, "parse": "ok", "s": 19.8, "img_size": [1400, 1188]}
+{"n": 265, "leaf": 294, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 267, "leaf": 296, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 264, "leaf": 293, "out": {"page_type": "other_illustration", "numbers": [], "caption": "LVGANO. Lowerz. BELLINZONA vulgo Bellinz."}, "parse": "ok", "s": 9.8, "img_size": [1400, 1312]}
+{"n": 269, "leaf": 298, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 266, "leaf": 295, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE ANCIENT EARTHWORKS AT THE MOUND OF THE CIRCLE"}, "parse": "ok", "s": 10.1, "img_size": [847, 1400]}
+{"n": 273, "leaf": 302, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [847, 1400]}
+{"n": 270, "leaf": 299, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.5, "img_size": [847, 1400]}
+{"n": 272, "leaf": 301, "out": {"page_type": "other_illustration", "numbers": [], "caption": "FRAWENFELD. Frawenfeld. MELLINGEN. Mellingen."}, "parse": "ok", "s": 6.6, "img_size": [1400, 1133]}
+{"n": 271, "leaf": 300, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.5, "img_size": [847, 1400]}
+{"n": 268, "leaf": 297, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Die Statt Tuffenhouen mit den n\u00e4chst benegten Baum- und Krautg\u00e4rten nach Geometr. und Geographischer art in grund gelegt im Jahr 1643."}, "parse": "ok", "s": 13.6, "img_size": [1400, 1118]}
+{"n": 274, "leaf": 303, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 275, "leaf": 304, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [847, 1400]}
+{"n": 278, "leaf": 307, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [847, 1400]}
+{"n": 277, "leaf": 306, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 279, "leaf": 308, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.9, "img_size": [892, 1400]}
+{"n": 276, "leaf": 305, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Rapperswyl."}, "parse": "ok", "s": 6.9, "img_size": [1400, 1104]}
+{"n": 283, "leaf": 312, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.5, "img_size": [847, 1400]}
+{"n": 280, "leaf": 309, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Landschafft vmb das Wildebadt Graffes"}, "parse": "ok", "s": 7.5, "img_size": [892, 1400]}
+{"n": 281, "leaf": 310, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "Map of the Valley of the Rhine"}, "parse": "ok", "s": 7.8, "img_size": [899, 1401]}
+{"n": 284, "leaf": 313, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [847, 1400]}
+{"n": 285, "leaf": 314, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 287, "leaf": 316, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 286, "leaf": 315, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 290, "leaf": 319, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.2, "img_size": [847, 1400]}
+{"n": 291, "leaf": 320, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [847, 1400]}
+{"n": 282, "leaf": 311, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Wahre Contrafactur des Wunderlichen-Bads zu Pfaffers zu Ober Schweitz, Effigios Aquar\u00fc Pfefers."}, "parse": "ok", "s": 11.7, "img_size": [899, 1401]}
+{"n": 288, "leaf": 317, "out": {"page_type": "other_illustration", "numbers": [], "caption": "MULHVSIVM ALSATIAE. Mulhhausen."}, "parse": "ok", "s": 7.8, "img_size": [1400, 981]}
+{"n": 292, "leaf": 321, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 293, "leaf": 322, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.0, "img_size": [830, 1400]}
+{"n": 295, "leaf": 324, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Rome"}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 294, "leaf": 323, "out": {"page_type": "other_illustration", "numbers": [], "caption": "BIENNA. Biel."}, "parse": "ok", "s": 8.0, "img_size": [1400, 1103]}
+{"n": 289, "leaf": 318, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE ANCIENT EARTHWORKS AT THE MOUND OF THE CIRCLE"}, "parse": "ok", "s": 11.8, "img_size": [847, 1400]}
+{"n": 299, "leaf": 328, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.3, "img_size": [847, 1400]}
+{"n": 297, "leaf": 326, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 298, "leaf": 327, "out": {"page_type": "other_illustration", "numbers": [], "caption": "S. GALLEN."}, "parse": "ok", "s": 7.5, "img_size": [1400, 1148]}
+{"n": 300, "leaf": 329, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 301, "leaf": 330, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 303, "leaf": 332, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 302, "leaf": 331, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 296, "leaf": 325, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "PLAN OF THE MOUND OF THE CIRCLE OF STONE CIRCLES"}, "parse": "ok", "s": 12.5, "img_size": [847, 1400]}
+{"n": 305, "leaf": 334, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.0, "img_size": [847, 1400]}
+{"n": 306, "leaf": 335, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.4, "img_size": [847, 1400]}
+{"n": 304, "leaf": 333, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [847, 1400]}
+{"n": 307, "leaf": 336, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 310, "leaf": 339, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.1, "img_size": [847, 1400]}
+{"n": 314, "leaf": 343, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.2, "img_size": [847, 1400]}
+{"n": 309, "leaf": 338, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 308, "leaf": 337, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "GENEVE. GENEVA."}, "parse": "ok", "s": 8.1, "img_size": [1400, 1147]}
+{"n": 311, "leaf": 340, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 313, "leaf": 342, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.4, "img_size": [847, 1400]}
+{"n": 318, "leaf": 349, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.0, "img_size": [847, 1400]}
+{"n": 315, "leaf": 344, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 312, "leaf": 341, "out": {"page_type": "other_illustration", "numbers": ["POST TENEBAS LVX"], "caption": "GENEUE. Genff"}, "parse": "ok", "s": 11.1, "img_size": [1400, 1107]}
+{"n": 317, "leaf": 348, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 319, "leaf": 350, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.4, "img_size": [847, 1400]}
+{"n": 320, "leaf": 351, "out": {"page_type": "other_illustration", "numbers": [], "caption": "K\u00fcmenburg Am See. NEOCOMUM ad lacum."}, "parse": "ok", "s": 7.5, "img_size": [1400, 1024]}
+{"n": 321, "leaf": 352, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.4, "img_size": [847, 1400]}
+{"n": 316, "leaf": 345, "out": {"page_type": "other_illustration", "numbers": ["ad Fig. 62"], "caption": "NEOCOMVM. Neuenburg am See."}, "parse": "ok", "s": 11.0, "img_size": [1400, 1108]}
+{"n": 326, "leaf": 357, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.6, "img_size": [847, 1400]}
+{"n": 325, "leaf": 356, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.0, "img_size": [847, 1400]}
+{"n": 323, "leaf": 354, "out": {"page_type": "text_only", "numbers": ["II."], "caption": "Brawh\u00fcnden."}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 329, "leaf": 362, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 1.7, "img_size": [847, 1400]}
+{"n": 322, "leaf": 353, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.0, "img_size": [847, 1400]}
+{"n": 324, "leaf": 355, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.5, "img_size": [847, 1400]}
+{"n": 327, "leaf": 358, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 330, "leaf": 363, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 331, "leaf": 364, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 335, "leaf": 368, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.5, "img_size": [847, 1400]}
+{"n": 334, "leaf": 367, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Chur. CURIA RHETIA."}, "parse": "ok", "s": 6.6, "img_size": [1400, 1153]}
+{"n": 332, "leaf": 365, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 328, "leaf": 359, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Weyerhaus. Weyerhaus. Castelen. Etisweyl."}, "parse": "ok", "s": 10.9, "img_size": [1400, 1003]}
+{"n": 333, "leaf": 366, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.1, "img_size": [847, 1400]}
+{"n": 336, "leaf": 369, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.3, "img_size": [847, 1400]}
+{"n": 337, "leaf": 370, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 338, "leaf": 371, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 341, "leaf": 374, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 343, "leaf": 376, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 339, "leaf": 372, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.3, "img_size": [847, 1400]}
+{"n": 340, "leaf": 373, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.0, "img_size": [847, 1400]}
+{"n": 344, "leaf": 377, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 345, "leaf": 378, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 346, "leaf": 379, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 347, "leaf": 380, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 342, "leaf": 375, "out": {"page_type": "other_illustration", "numbers": [], "caption": "FLIURSIUM TERRA MOTU OBRUTVM"}, "parse": "ok", "s": 10.3, "img_size": [1400, 1117]}
+{"n": 349, "leaf": 382, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.0, "img_size": [882, 1400]}
+{"n": 348, "leaf": 381, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Fontes Rheni anterioris et Posterioris. Ursprung des hinderen und vorderen Rheins."}, "parse": "ok", "s": 9.6, "img_size": [1400, 1107]}
+{"n": 352, "leaf": 385, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 355, "leaf": 388, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 351, "leaf": 384, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 354, "leaf": 387, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 350, "leaf": 383, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": "S. Luzissteig in V\u00fcnken sambt Alter Demolierten vnd Neuen Schantzen."}, "parse": "ok", "s": 11.1, "img_size": [882, 1400]}
+{"n": 356, "leaf": 389, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Leug."}, "parse": "ok", "s": 6.0, "img_size": [1401, 1107]}
+{"n": 353, "leaf": 386, "out": {"page_type": "text_only", "numbers": ["86", "III. Ole"], "caption": "Beschreibung der Engadinschafft."}, "parse": "ok", "s": 9.3, "img_size": [847, 1400]}
+{"n": 357, "leaf": 390, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 360, "leaf": 393, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.8, "img_size": [847, 1400]}
+{"n": 361, "leaf": 394, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.6, "img_size": [847, 1400]}
+{"n": 358, "leaf": 391, "out": {"page_type": "text_only", "numbers": ["III."], "caption": "Die Wallisser."}, "parse": "ok", "s": 7.8, "img_size": [847, 1400]}
+{"n": 359, "leaf": 392, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.6, "img_size": [847, 1400]}
+{"n": 365, "leaf": 398, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.5, "img_size": [847, 1400]}
+{"n": 367, "leaf": 400, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.1, "img_size": [847, 1400]}
+{"n": 364, "leaf": 397, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Fischbach"}, "parse": "ok", "s": 6.6, "img_size": [881, 1400]}
+{"n": 363, "leaf": 396, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [881, 1400]}
+{"n": 366, "leaf": 399, "out": {"page_type": "plate_site_plan", "numbers": ["No. 2"], "caption": ""}, "parse": "ok", "s": 6.7, "img_size": [847, 1400]}
+{"n": 362, "leaf": 395, "out": {"page_type": "other_illustration", "numbers": [], "caption": "PRYG. NATERS, Pring Gaters"}, "parse": "ok", "s": 8.0, "img_size": [1400, 1099]}
+{"n": 368, "leaf": 401, "out": {"page_type": "other_illustration", "numbers": [], "caption": "S. MAURITIUS IN VALESIA. S. Maurise in wallis"}, "parse": "ok", "s": 6.0, "img_size": [1401, 1066]}
+{"n": 369, "leaf": 402, "out": {"page_type": "plate_site_plan", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.6, "img_size": [847, 1400]}
+{"n": 370, "leaf": 403, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 371, "leaf": 404, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.2, "img_size": [847, 1400]}
+{"n": 372, "leaf": 405, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 373, "leaf": 406, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.5, "img_size": [847, 1400]}
+{"n": 376, "leaf": 409, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [847, 1400]}
+{"n": 375, "leaf": 408, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 9.2, "img_size": [847, 1400]}
+{"n": 374, "leaf": 407, "out": {"page_type": "other_illustration", "numbers": [], "caption": "SEDUNVM. Sitten."}, "parse": "ok", "s": 9.3, "img_size": [1400, 1140]}
+{"n": 377, "leaf": 410, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 8.1, "img_size": [847, 1400]}
+{"n": 379, "leaf": 414, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.4, "img_size": [864, 1400]}
+{"n": 378, "leaf": 411, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Breiten Landenberg Im Z\u00fcrcher Gebiet. BRAITEN LANDENBERG in Territorio Tigurino."}, "parse": "ok", "s": 8.2, "img_size": [1400, 997]}
+{"n": 380, "leaf": 415, "out": {"page_type": "other_illustration", "numbers": [], "caption": "Schlo\u00df Chastillard Baronie Schlo\u00df de Blonay Baronie"}, "parse": "ok", "s": 6.4, "img_size": [864, 1400]}
+{"n": 381, "leaf": 416, "out": {"page_type": "other_illustration", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.9, "img_size": [867, 1400]}
+{"n": 382, "leaf": 417, "out": {"page_type": "other_illustration", "numbers": [], "caption": "SANDECK. Sandeck. MOVISTER. Mauerwister."}, "parse": "ok", "s": 6.4, "img_size": [867, 1400]}
+{"n": 386, "leaf": 421, "out": {"page_type": "text_only", "numbers": [], "caption": "Namen Register"}, "parse": "ok", "s": 4.1, "img_size": [847, 1400]}
+{"n": 384, "leaf": 419, "out": {"page_type": "other_illustration", "numbers": [], "caption": "WERDENSTEIN. Kloster S. Urban"}, "parse": "ok", "s": 7.2, "img_size": [847, 1400]}
+{"n": 389, "leaf": 424, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 2.1, "img_size": [847, 1400]}
+{"n": 383, "leaf": 418, "out": {"page_type": "other_illustration", "numbers": ["PLATE XXV", "PLATE XXVI"], "caption": "VIEW OF THE MOUND AT MOUND CITY, OHIO"}, "parse": "ok", "s": 10.0, "img_size": [847, 1400]}
+{"n": 387, "leaf": 422, "out": {"page_type": "text_only", "numbers": [], "caption": "Namen Register."}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 388, "leaf": 423, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 390, "leaf": 425, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 385, "leaf": 420, "out": {"page_type": "plate_site_plan", "numbers": ["PLATE XXV"], "caption": "VIEW OF THE HILL OF THE BATTLE OF WATERLOO"}, "parse": "ok", "s": 10.8, "img_size": [847, 1400]}
+{"n": 393, "leaf": 428, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 5.2, "img_size": [847, 1400]}
+{"n": 391, "leaf": 426, "out": {"page_type": "text_only", "numbers": [], "caption": "Namen Register."}, "parse": "ok", "s": 6.1, "img_size": [847, 1400]}
+{"n": 392, "leaf": 427, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 7.9, "img_size": [847, 1400]}
+{"n": 395, "leaf": 430, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.6, "img_size": [847, 1400]}
+{"n": 396, "leaf": 431, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 397, "leaf": 432, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 4.7, "img_size": [847, 1400]}
+{"n": 398, "leaf": 433, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [847, 1400]}
+{"n": 399, "leaf": 434, "out": {"page_type": "text_only", "numbers": [], "caption": ""}, "parse": "ok", "s": 3.7, "img_size": [847, 1400]}
+{"n": 394, "leaf": 429, "out": {"page_type": "text_only", "numbers": [], "caption": "Ordnung der Kupfferstuck/ welcher Orten ein jedes von dem Buchbinder inzuheften sey"}, "parse": "ok", "s": 6.3, "img_size": [847, 1400]}
