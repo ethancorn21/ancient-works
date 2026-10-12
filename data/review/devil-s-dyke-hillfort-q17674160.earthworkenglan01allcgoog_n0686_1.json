@@ -1,0 +1,25 @@
+{
+ "site": "devil-s-dyke-hillfort-q17674160",
+ "candidates": [
+  {
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0686.jpg",
+   "title": "The Devil's Dyke Camp, near Brighton",
+   "label": "Fig. 217",
+   "size": [
+    3367,
+    5050
+   ],
+   "map_box": null,
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "url": "books/earthworkenglan01allcgoog/n0686.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "earthworkenglan01allcgoog_n0686_1",
+   "place_reason": "same name, other place: near Brighton vs Stetchworth, Cambridgeshire, England"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

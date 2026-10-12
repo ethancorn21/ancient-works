@@ -1,57 +1,6 @@
 {
- "at": "2026-10-12T01:19:28.922234+00:00",
+ "at": "2026-10-12T05:31:22.746666+00:00",
  "entries": [
-  {
-   "site": "devil-s-dyke-q3307343",
-   "name": "Devil's Dyke",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0686_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0686_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0686.jpg",
-     "title": "The Devil's Dyke Camp, near Brighton",
-     "label": "Fig. 217",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": null,
-     "sites": [
-      "devil-s-dyke-q3307343"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0686_1",
-     "title": "The Devil's Dyke Camp, near Brighton",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 17003350
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0662_1",
-     "title": "SWEALD",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 6078698
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0599_1",
-     "title": "CASTLE DYKE, AYSGARTH.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 5320348
-    }
-   ]
-  },
   {
    "site": "fort-ancient-q5470727",
    "name": "Fort Ancient",
@@ -555,110 +504,6 @@
    ]
   },
   {
-   "site": "coria-q3819299",
-   "name": "Coria",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0354_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0354_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0354.jpg",
-     "title": "ARDOCH, PERTHSHIRE.",
-     "label": "Fig. 109",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.13,
-      0.185,
-      0.85,
-      0.7
-     ],
-     "sites": [
-      "coria-q3819299",
-      "vindomora-q7932358",
-      "braughing-roman-town-q4958235",
-      "banovallum-q96359174"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0354_1",
-     "title": "ARDOCH, PERTHSHIRE.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 6304842
-    },
-    {
-     "plan": "c_d66bfb0db805d2cd",
-     "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1724160
-    },
-    {
-     "plan": "c_9e3b3344fd37469b",
-     "title": "Knowles 1909 Corbridge Excavations 05 Figure 2 Corstopitum the West Granary",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1112320
-    }
-   ]
-  },
-  {
-   "site": "vindomora-q7932358",
-   "name": "Vindomora",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0354_1",
-    "reason": "the only candidate",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0354_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0354.jpg",
-     "title": "ARDOCH, PERTHSHIRE.",
-     "label": "Fig. 109",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.13,
-      0.185,
-      0.85,
-      0.7
-     ],
-     "sites": [
-      "coria-q3819299",
-      "vindomora-q7932358",
-      "braughing-roman-town-q4958235",
-      "banovallum-q96359174"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0354_1",
-     "title": "ARDOCH, PERTHSHIRE.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 6304842
-    }
-   ]
-  },
-  {
    "site": "castle-neroche-q5050201",
    "name": "Castle Neroche",
    "best": {
@@ -699,13 +544,6 @@
      "draw_px": 6243630
     },
     {
-     "plan": "earthworkenglan01allcgoog_n0438_1",
-     "title": "Defences of York, Roman, Norman, and Mediseval",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 4949675
-    },
-    {
      "plan": "c_07f59e5aeae2c114",
      "title": "Earthwork of England, prehistoric, Roman, Saxon, Danish, Norman and medi\u00e6val; (1908) (14763476094)",
      "book": "Wikimedia Commons",
@@ -718,6 +556,51 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 750737
+    }
+   ]
+  },
+  {
+   "site": "devil-s-dyke-q3307343",
+   "name": "Devil's Dyke",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0662_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0662_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0662.jpg",
+     "title": "SWEALD",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.2,
+      0.15,
+      0.85,
+      0.7
+     ],
+     "sites": [
+      "seaford-head-camp-q17678614",
+      "devil-s-dyke-q3307343",
+      "cross-dyke-720m-west-of-cheesefoot-head-q17676280",
+      "clawdd-y-milwyr-q31108166"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0662_1",
+     "title": "SWEALD",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 6078698
     }
    ]
   },
@@ -767,93 +650,6 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1484924
-    }
-   ]
-  },
-  {
-   "site": "eaton-socon-castle-q5331372",
-   "name": "Eaton Socon Castle",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0285_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0285_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0285.jpg",
-     "title": "British Village on Hampton Down, Bath",
-     "label": "Fig. 89",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.17,
-      0.23,
-      0.9,
-      0.69
-     ],
-     "sites": [
-      "martin-down-style-enclosure-bowl-barrow-q17676352",
-      "eaton-socon-castle-q5331372",
-      "wormegay-castle-q8036861",
-      "almondbury-castle-hill-q17647192"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0285_1",
-     "title": "British Village on Hampton Down, Bath",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 5709725
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0557_1",
-     "title": "SITE OF WINDMILL, FIRLE HILL.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 4044247
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0558_1",
-     "title": "WINDMILL SITES, LEWES DOWN",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 1923079
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0558_2",
-     "title": "WINDMILL SITES, LEWES DOWN",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 986194
-    },
-    {
-     "plan": "c_140ba00bcd9da549",
-     "title": "187 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147769526)",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 935580
-    },
-    {
-     "plan": "c_beefc3808de9b125",
-     "title": "Plan of Eaton Socon (1897)",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 618969
-    },
-    {
-     "plan": "c_e4a764888b3a3db7",
-     "title": "Eaton Socon Castle Plan",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 548720
     }
    ]
   },
@@ -1062,58 +858,6 @@
    ]
   },
   {
-   "site": "bokerley-dyke-q891218",
-   "name": "Bokerley Dyke",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0599_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0599_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0599.jpg",
-     "title": "CASTLE DYKE, AYSGARTH.",
-     "label": "Fig. 195",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.175,
-      0.268,
-      0.875,
-      0.715
-     ],
-     "sites": [
-      "castle-dyke-q5050065",
-      "castle-dyke-q31112898",
-      "bokerley-dyke-q891218",
-      "devil-s-dyke-q3307343"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0599_1",
-     "title": "CASTLE DYKE, AYSGARTH.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 5320348
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0174_1",
-     "title": "earthworkenglan01allcgoog_n0174_1",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 3115779
-    }
-   ]
-  },
-  {
    "site": "gurnard-s-head-q5620199",
    "name": "Gurnard's Head",
    "best": {
@@ -1208,79 +952,6 @@
    ]
   },
   {
-   "site": "alauna-q4708853",
-   "name": "Alauna",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0438_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0438_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0438.jpg",
-     "title": "Defences of York, Roman, Norman, and Mediseval",
-     "label": "Fig. 131",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.12,
-      0.25,
-      0.83,
-      0.66
-     ],
-     "sites": [
-      "rise-how-tower-25a-part-of-the-roman-fro-q17662940",
-      "alauna-q4708853",
-      "castle-neroche-q5050201",
-      "milefortlet-21-q6851204"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0438_1",
-     "title": "Defences of York, Roman, Norman, and Mediseval",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 4949675
-    },
-    {
-     "plan": "c_b592f83a932f851d",
-     "title": "The Archaeological journal (1844) (14586480537)",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1099520
-    },
-    {
-     "plan": "c_bcdd5cbcef3ea452",
-     "title": "Alauna - th\u00e9\u00e2tre 1695",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1027444
-    },
-    {
-     "plan": "c_e7c09f2a1fc5360e",
-     "title": "Alauna - th\u00e9\u00e2tre Caylus",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 812911
-    },
-    {
-     "plan": "c_36ba572df9678a2a",
-     "title": "Britannia Romana- or the Roman antiquities of Britain- in three books Fleuron T114864-2",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 588594
-    }
-   ]
-  },
-  {
    "site": "totternhoe-castle-q7828481",
    "name": "Totternhoe Castle",
    "best": {
@@ -1371,65 +1042,6 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 280250
-    }
-   ]
-  },
-  {
-   "site": "windmill-hill-q4348373",
-   "name": "Windmill Hill",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0557_1",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0557_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0557.jpg",
-     "title": "SITE OF WINDMILL, FIRLE HILL.",
-     "label": "",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.175,
-      0.33,
-      0.885,
-      0.665
-     ],
-     "sites": [
-      "windmill-hill-q4348373",
-      "eaton-socon-castle-q5331372",
-      "the-mount-a-medieval-windmill-mound-670m-q17671945",
-      "windmill-hill-q24660697"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0557_1",
-     "title": "SITE OF WINDMILL, FIRLE HILL.",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 4044247
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0558_1",
-     "title": "WINDMILL SITES, LEWES DOWN",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 1923079
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0558_2",
-     "title": "WINDMILL SITES, LEWES DOWN",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 986194
     }
    ]
   },
@@ -1602,6 +1214,51 @@
      "book": "Allcroft 1908",
      "view": false,
      "draw_px": 3215333
+    }
+   ]
+  },
+  {
+   "site": "bokerley-dyke-q891218",
+   "name": "Bokerley Dyke",
+   "best": {
+    "plan": "earthworkenglan01allcgoog_n0174_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "earthworkenglan01allcgoog_n0174_1",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0174.jpg",
+     "title": "",
+     "label": "",
+     "size": [
+      3367,
+      5050
+     ],
+     "map_box": [
+      0.188,
+      0.295,
+      0.735,
+      0.63
+     ],
+     "sites": [
+      "soldier-s-ring-hillfort-q17645301",
+      "bokerley-dyke-q891218",
+      "a-linear-earthwork-and-two-bowl-barrows-q17650858",
+      "bowl-barrow-120m-north-east-of-the-junct-q17650837"
+     ],
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0174_1",
+     "title": "earthworkenglan01allcgoog_n0174_1",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 3115779
     }
    ]
   },
@@ -3400,7 +3057,7 @@
    "name": "Clun Castle",
    "best": {
     "plan": "c_a93d26aaec6ac8ec",
-    "reason": "the clearest scan",
+    "reason": "the only candidate",
     "row": {
      "id": "c_a93d26aaec6ac8ec",
      "book": "Wikimedia Commons",
@@ -3429,13 +3086,6 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1785600
-    },
-    {
-     "plan": "earthworkenglan01allcgoog_n0575_1",
-     "title": "EARTHWORKS",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 1214039
     }
    ]
   },
@@ -3473,6 +3123,50 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1742080
+    }
+   ]
+  },
+  {
+   "site": "coria-q3819299",
+   "name": "Coria",
+   "best": {
+    "plan": "c_d66bfb0db805d2cd",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_d66bfb0db805d2cd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
+     "label": "1909",
+     "size": [
+      1280,
+      1347
+     ],
+     "map_box": null,
+     "sites": [
+      "coria-q3819299"
+     ],
+     "cite": "by Knowles,W.H. (William Henry) 1857-1943; Public domain; https://commons.wikimedia.org/wiki/File:Knowles_1909_Corbridge_Excavations_04_Figure_1_Site_Plan.jpg",
+     "url": "media/commons/coria-q3819299/d66bfb0db805d2cd.jpg",
+     "view": false,
+     "ref": "File:Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d66bfb0db805d2cd",
+     "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1724160
+    },
+    {
+     "plan": "c_9e3b3344fd37469b",
+     "title": "Knowles 1909 Corbridge Excavations 05 Figure 2 Corstopitum the West Granary",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1112320
     }
    ]
   },
@@ -4418,51 +4112,6 @@
    ]
   },
   {
-   "site": "shotwick-castle-q7502621",
-   "name": "Shotwick Castle",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0575_1",
-    "reason": "the only candidate",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0575_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0575.jpg",
-     "title": "EARTHWORKS",
-     "label": "",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.18,
-      0.35,
-      0.52,
-      0.56
-     ],
-     "sites": [
-      "clun-castle-q5136615",
-      "shotwick-castle-q7502621",
-      "holdgate-castle-q5879676",
-      "wandlebury-hill-fort-q7967271"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0575_1",
-     "title": "EARTHWORKS",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 1214039
-    }
-   ]
-  },
-  {
    "site": "aesica-q4688554",
    "name": "Aesica",
    "best": {
@@ -4644,6 +4293,64 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1103360
+    }
+   ]
+  },
+  {
+   "site": "alauna-q4708853",
+   "name": "Alauna",
+   "best": {
+    "plan": "c_b592f83a932f851d",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_b592f83a932f851d",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The Archaeological journal (1844) (14586480537)",
+     "label": "1844",
+     "size": [
+      1280,
+      859
+     ],
+     "map_box": null,
+     "sites": [
+      "alauna-q4708853"
+     ],
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_Archaeological_journal_(1844)_(14586480537).jpg",
+     "url": "media/commons/alauna-q4708853/b592f83a932f851d.jpg",
+     "view": false,
+     "ref": "File:The Archaeological journal (1844) (14586480537).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b592f83a932f851d",
+     "title": "The Archaeological journal (1844) (14586480537)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1099520
+    },
+    {
+     "plan": "c_bcdd5cbcef3ea452",
+     "title": "Alauna - th\u00e9\u00e2tre 1695",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1027444
+    },
+    {
+     "plan": "c_e7c09f2a1fc5360e",
+     "title": "Alauna - th\u00e9\u00e2tre Caylus",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 812911
+    },
+    {
+     "plan": "c_36ba572df9678a2a",
+     "title": "Britannia Romana- or the Roman antiquities of Britain- in three books Fleuron T114864-2",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 588594
     }
    ]
   },
@@ -4834,6 +4541,57 @@
      "book": "Allcroft 1908",
      "view": false,
      "draw_px": 941986
+    }
+   ]
+  },
+  {
+   "site": "eaton-socon-castle-q5331372",
+   "name": "Eaton Socon Castle",
+   "best": {
+    "plan": "c_140ba00bcd9da549",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_140ba00bcd9da549",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "187 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147769526)",
+     "label": "1897",
+     "size": [
+      1006,
+      930
+     ],
+     "map_box": null,
+     "sites": [
+      "eaton-socon-castle-q5331372"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:187_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147769526).jpg",
+     "url": "media/commons/eaton-socon-castle-q5331372/140ba00bcd9da549.jpg",
+     "view": false,
+     "ref": "File:187 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147769526).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_140ba00bcd9da549",
+     "title": "187 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147769526)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 935580
+    },
+    {
+     "plan": "c_beefc3808de9b125",
+     "title": "Plan of Eaton Socon (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 618969
+    },
+    {
+     "plan": "c_e4a764888b3a3db7",
+     "title": "Eaton Socon Castle Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 548720
     }
    ]
   },
