@@ -224,3 +224,38 @@ only the "at" stamp moved; committed. PITFALLS.md: new Python entry (select + bu
 coprocess pipe), shared-store entry corrected (382 symlinks + 6 tracked hand-fit dirs + the untracked
 real shotwick dir). Next: the headless card probe with screenshots (box 4) and the docs/site_flow.md
 section (box 1's "say how" + the card/save->line semantics).
+
+## 2026-10-12 305 DECISION: part 3 (headless card probe, boxes 2+4 page half) written and green; screenshots verified
+Added Part 3 to tests/test_fit_queue.py: PROBE_SCRIPT (a standalone playwright probe the test writes to a
+tmp dir and runs with node + NODE_PATH=/home/agent/tools/shot/node_modules; the createRequire trick from
+shot.mjs) plus test_card_in_the_browser and test_card_done_mark_moves_on. The probe boots the served
+temp tree, reads the card, then real-clicks #fqplace -> the fit view's back -> the site view's back ->
+#fqskip -> #fqreset, reading the card and the fit tool's page state (P.site/P.plan/P.model/S.ground/
+#fitname/#fithint/save-disabled) at each stage. The done-mark test pre-seeds localStorage
+aw.fitQueue.done = {first entry site: <iso ts>} via addInitScript - the EXACT key/value the card's own
+saveFit wrapper writes when a save lands - and checks the load starts at entry 2 (self-heal keeps the
+mark: the site is still in the file), skip then goes to entry 3, undo restores entry 2. Both tests pass
+(2 passed in 26.7 s with -k card); full suite still to run (expect 73 passed / 1 skipped).
+
+Four bugs hit while building the probe, all fixed: (1) conftest's `served` fixture yields a TUPLE
+(base_url, tree), not the dict test_review's own `queue` fixture wraps it into; (2) probe stages that
+read page globals must be `await page.evaluate(() => ({...}))` - bare node-context references to P/S/FQ
+throw (and they are lexical: globalThis.S is undefined while bare S works); (3) `const extra = {}`
+reassigned later -> "Assignment to constant variable" is a RUNTIME error, and the boot block's
+swallowing try/catch turned it into silently missing fields ({ok:true} with no state) - the misleading
+failure mode cost ~30 min; now `let extra` and PITFALLS has the entry; (4) MapLibre aborts in-flight
+/tiles/relief fetches during the card's flyTo (net::ERR_ABORTED -> [reqfail]), so the tests assert no
+reqfail except /tiles/ lines (test_review never navigates, hence its stricter assert). Also: after
+#fitback the fit pane is HIDDEN again (endFit), so back1.pane is False.
+
+Screenshots for docs/site_flow/ were generated against the REAL checkout (server --port 0 on this
+checkout; the probe never saves, so no shared-store writes) and visually verified: 1-card.png shows
+"READY TO FIT 117 TO GO / Devil's Dyke / The Devil's Dyke Camp, near Brighton Allcroft 1908 - Fig. 217
+- the clearest scan" with PLACE THE DRAWING / SKIP under the stats line; 2-place.png shows the fit view
+(title, Plan/View seg, step hint, save floor "at least 3 points", citation) AND the Allcroft plate
+image fully rendered in the sheet pane (book pages load in the real tree; in the conftest temp tree
+they 404 and the tool keeps the row with "Could not load the page scan." - asserted in the test);
+3-skip.png shows Fort Ancient 116 to go + "Undo 1 skip"; a second run with the done mark pre-seeded
+starts at Fort Ancient and skips to Marietta Works 115. The files sit in /tmp/fqshot-real/ and
+/tmp/fqshot-real-done/ - COPY them into docs/site_flow/ before /tmp is cleaned (regeneration recipe is
+in the hand-over).
