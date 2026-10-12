@@ -19,9 +19,9 @@ The owner opened the Ready-to-fit queue (2026-10-11) and could not fit its first
   between the side panel and a thin strip of map).
 
 ## Acceptance criteria
-- [ ] Right place: every queue entry's candidate is checked to show the same place as its site, not just the same
-      name (the book's caption/place words and county against the site's place, region and coordinates; Wikidata
-      where it helps). A mismatch leaves the queue and goes to the review queue with the reason "same name, other
+- [ ] Right place (carved to 309 - agent c, 2026-10-12; the rest of 307 is page work only): every queue entry's
+      candidate is checked to show the same place as its site, not just the same name (the book's caption/place
+      words and county against the site's place, region and coordinates; Wikidata where it helps). A mismatch leaves the queue and goes to the review queue with the reason "same name, other
       place: <caption place> vs <site place>"; where the right site exists in the catalog, the candidate is moved to
       it instead. Report how many of the queue's entries were wrong. Devil's Dyke Camp near Brighton must not be
       paired with the Cambridgeshire dyke.

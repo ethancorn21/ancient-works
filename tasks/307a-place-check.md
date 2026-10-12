@@ -1,71 +1,77 @@
-Status: open
-# 307a: The queue's place check - the candidate must show the site's place, not just its name
-Depends on: 305
-Touches: tools/fit_queue.py, web/data/fit_queue.json, data/fit_place.json, data/review/, data/review/README.md, web/data/review.json, tests/test_fit_place.py, docs/site_flow.md
+Status: split
+# 307a: re-split per the lead (2026-10-12) - the place check is carved to 309 (agent c); the page work moves up to 307a
+Depends on: 305, 309
+Touches: (none - a re-split record; the work lives in 307b/307c/307d and the carved 309)
 
-## Goal
-The queue's first entry pairs Allcroft 1908 Fig. 217 "The Devil's Dyke Camp, near Brighton"
-(a Sussex hillfort) with the Devil's Dyke in Cambridgeshire - same name, 150 km apart, and no
-zoom could have helped the owner ("it doesn't zoom me into the Devil's Dyke, so I don't know
-where it is"). So every queue candidate is checked to show the same place as its site, not
-just the same name (the book's caption/place words and county against the site's place,
-region and coordinates; Wikidata where it helps). A mismatch leaves the queue and goes to
-the review queue with the reason "same name, other place: <caption place> vs <site place>";
-where the right site exists in the catalog, the candidate is moved to it instead. This is
-parent 307's box 1, including its "report how many of the queue's entries were wrong".
+## What happened (iteration 108)
+Iteration 108 (agent a) spent the whole session investigating the original 307a (the namesake
+place check in tools/fit_queue.py: data/fit_place.json verdicts, moves to review, the report):
+all inputs mapped, the rule set drafted, and the noisy-evidence-conflict question (52 queue
+commons rows) being analysed when the lead re-tasked mid-session:
 
-## Acceptance criteria
-- [ ] tools/fit_queue.py check: for every (site, candidate) pair of the built queue, a place
-      verdict computed from the stored fields alone (hermetic, stdlib): the caption's place
-      words (the book row's place field and county, title words like "near Brighton", and the
-      recorded evidence field of fit/evidence.py - a caption_coords pass or a stored conflict
-      with its resolved coordinates) against the site's place/region/county/coordinates
-      (the web/data/sites.json entry, the catalog row and its admin county). A verdict is a
-      mismatch only when a KNOWN place contradicts the site's (a different county within one
-      country, a different country, or resolved coordinates far outside the site's region);
-      an unknown place never mismatches (fail open), and a place that contains the site
-      (a country-level word, the site's own county, the site's own name resolving near the
-      site) is not a mismatch. --live re-resolves caption place words through the cached
-      Wikidata (pipeline/catalog_wd.py) and commits the resolved coordinates into the
-      verdicts; it is for the human, the tests never call it.
-- [ ] The verdicts are the committed record data/fit_place.json: per (plan, site) the
-      caption place (word + resolved label/lon/lat/qid where known), the site place, the
-      verdict (mismatch | ok), the reason, and the right site id where one was found - the
-      file re-verifies from stored fields on every build (like fit/evidence.py check
-      re-verifies recorded facts: a recorded mismatch whose stored coordinates no longer
-      contradict is flagged, not silently kept).
-- [ ] The queue build applies the verdicts: a mismatched (site, candidate) leaves the queue;
-      the site stays if it still has a candidate (its best recomputed over the remainder),
-      and a site with no candidate left leaves entirely. Every entry that is not a known
-      mismatch stays in the file, in the same order. Devil's Dyke Camp near Brighton
-      (earthworkenglan01allcgoog_n0686_1) is no longer paired with devil-s-dyke-q3307343.
-- [ ] Where the right site exists in the catalog, the candidate is moved to it instead of
-      review: upserted (fit/review.py upsert_item) into that site's review item with the
-      row's stored fields plus the reason. Allcroft n0686 moves to
-      devil-s-dyke-hillfort-q17674160 (Poynings, West Sussex - the catalog's Devil's Dyke
-      hillfort; it is unbuilt, so it appears in the review list, not the queue). Where no
-      catalog site fits (Allcroft n0354 "ARDOCH, PERTHSHIRE." on the Spanish Coria and
-      Vindomora: the catalog has no Ardoch), the mismatched candidate goes into the
-      site's own review item instead, with the reason "same name, other place:
-      <caption place> vs <site place>".
-- [ ] The reason is a candidate extra documented in data/review/README.md's producer list,
-      and the page's Review list shows it on the item (the minimal change to web/review.js
-      if it needs one belongs to 307c, not here - only the item file and the export).
-      web/data/review.json is re-exported by fit/review.py export (called in-process from
-      the check CLI; this task never writes the page file itself).
-- [ ] The report: docs/site_flow.md gains a section stating how many of the queue's 117
-      entries were wrong (pairs and sites, both counts), which candidates moved and which
-      went to review, and how the check decides (stored fields only; --live for humans).
-- [ ] tests/test_fit_place.py (hermetic, no network, temp tree, ephemeral port where a
-      server is needed): a synthetic tree where the only mismatch is a caption place
-      contradicting the site's county (caught, pair dropped, right site's review item gains
-      the candidate with the reason); a real-tree snapshot (the committed data files as
-      fixtures): the regenerated web/data/fit_queue.json does not pair n0686 with the
-      Cambridgeshire dyke, the Sussex item carries it, n0354 is out of the Coria/Vindomora
-      entries, and the committed data/fit_place.json re-verifies from stored fields
-      (including one deliberately stale record that no longer contradicts: flagged).
+- Lead message 1: "307 box 1 (right place, the namesake check in tools/fit_queue.py) is carved
+  to 307b for agent c. Leave tools/fit_queue.py to c; do the page work (zoom, hide overlays,
+  drawing on the map, working space, save path). Untick nothing, just mark box 1 as carved."
+- Lead correction (same iteration): "the carved task is 309 (not 307b)."
 
-## Notes
-- stdlib-only constraint on tools/fit_queue.py holds: fit/review.py and fit/propose.py are
-  both stdlib-only and importable; the check itself must not import pipeline/ (numpy).
-- The parent's note stands: do not touch fit/surveyfit.py or task 304 (agent c).
+So: box 1 is carved out of 307 into the NEW top-level task 309 (agent c owns it; it carries the
+full old-307a spec and this session's research). Agent a now does the 307 page work, renumbered:
+
+- **307b (was 307a's letter, now the on-map placement)**: parent boxes 2-4 - place mode opens
+  ON the works (fly to the site's box, centred, zoomed so the works fill the view), hides every
+  overlay while open and restores on close, and the drawing starts ON the map (the proposal's
+  pairs, drag/scale/rotate, opacity, save from direct placement alone).
+- **307c (was 307b's content)**: parent box 5 - working space (map the main surface, the page
+  picture a small collapsible reference, the side panel only what placing needs; before/after
+  screenshots in docs/site_flow/).
+- **307d (was 307c's content)**: parent box 6 - the save path stays `by: hand` + the one-site
+  line (305), existing hand fits unchanged, checked in a real browser on two queue sites (the
+  queue place-check test in that box now belongs to 309).
+- **307d-old (owner check)**: dropped - merged into the new 307d above.
+
+The parent's box 1 carries the marker "(carved to 309 - agent c)". Nothing was unticked.
+
+## Hand-over
+
+(2026-10-12, iteration 108, agent a - this file is a re-split record, not a work task.
+The next agent of this project: read the parent's Hand-over first, then 307b/307c/307d.)
+
+State: NO code of 307 was written this session (investigation only; the branch is still at the
+iteration-107 baseline, .venv/bin/python -m pytest -q was 73 passed 1 skipped before my session,
+and nothing has changed it since). All research from this session is preserved: the parent's
+Hand-over (unchanged, still accurate) and the DECISIONS entry "2026-10-12 307a DECISION:
+iteration 108 research ... re-tasked to the page work" (it holds the place-check rule set, the
+data map, and the page-work anchors - the last section of it is the page-work brief for the new
+307b).
+
+The new 307b (on-map placement) starts from the parent's measured ground truth:
+- fit/propose.py propose_for already returns the anchor the page needs (bar scale / ratio at
+  the book's ppi / site-size fallback; north arrow; 3-5 pairs) and is stdlib-only - the page
+  side can call a small stdlib helper over it; it works for n0686 (scale_m_px 0.3621, 5 pairs
+  centred on the site, coarse false).
+- The page already draws ink on the map: index.html refit() maps P.inkUrl (survey-red on
+  transparent, makeInk) onto the map's 'fit-prev' image source from the least-squares
+  similarity of P.pairs (warpView() proves the image-source quad mechanism; a similarity's
+  rotated rectangle is a parallelogram, so the affine the image source builds is exact).
+  "The drawing starts on the map" = on open, set P.pairs to the proposal's 5 pairs (least
+  squares recovers the anchor exactly), then handlers edit the anchor (drag/scale/rotate) and
+  re-emit pairs; the saved doc stays pairs-shaped, so plan_fit.py/gate/one-site line are
+  untouched. review.js already shows the pattern for pre-placing pairs on open (RV.pending).
+- Fit-tool entry points to study first: web/index.html (the 1710-line page: refit(), warpView(),
+  makeInk, openPlan, the fit pane/points model, the place-mode flow fitqueue.js drives:
+  endFit -> select(site) -> setGround -> loadDeps -> startFit(site) -> openPlan(row)), and
+  web/fitkit*.js (the existing extension-script pattern to follow for a new fitkit-style
+  extension). Boxes 2-3 (fly-to on open, hide/restore overlays) live in the page's site-view
+  and map-source code; keep the extension small and let the page own the map state.
+- Concurrency note (team mode): agent c now owns tools/fit_queue.py, data/fit_place.json and
+  web/data/review.json via 309 (it may change the queue file's shape/contents while I work);
+  307b/307c/307d must read the queue file tolerantly (fitqueue.js already tolerates a missing or
+  changed file) and must not write it. web/data/fit_queue.json stays in c's 309 Touches.
+
+Exact next step for the next agent (307b): read web/index.html's fit/place flow (refit, warpView,
+startFit, openPlan, setGround, the 'fit-prev' image source, the overlay sources it must hide -
+survey sheets and earlier drawings) and web/fitqueue.js's Place handler; then implement box 2
+(place mode flies to the site's box, centred, zoomed so the works fill the view, before the
+drawing appears) as the smallest working slice, checked in a headless browser against the
+served tree (the recipe is in tests/test_fit_queue.py part 3 and in PITFALLS.md), before
+touching boxes 3-4.
