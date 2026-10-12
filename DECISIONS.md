@@ -598,3 +598,20 @@ scale-equivariant (scaling all u,v by the picture's fs scales a back by 1/fs, le
 residuals the same), so m and corners do not depend on which image size stands in for the picture;
 this is why the hermetic test can build with a stand-in image of the doc's own frame size (fs=1)
 and still pin the exact how-clause.
+
+## 2026-10-12 219 DECISION: re-bake = plan_fit.build per stale entry, then restore sites.json byte-for-byte
+The one-off re-bake (14 built year-titled commons depictions + shotwick, which had never been
+built in this checkout) ran the product's own path: plan_fit.build(doc) per doc, root = this
+checkout. Contrary to the previous hand-over's expectation, every big picture was already
+cached in data/raw/commons/big/ -> zero downloads. Proof that "only the string changes": for
+all 14 the rebuilt entry equals the stored one in every field except source; a second
+identical run is byte-stable (the fixed state is a fixed point); shotwick's rebuilt entry
+matches agent a's built entry (corners, fit, year, label, scale, coverage, kind, file, ink)
+with only the source fixed. Each build's trailing build_site.set_drawings refreshed
+web/data/sites.json (tracked, in 306's Touches) - the committed bookkeeping was stale (5
+sites: drawings 0 despite built plans, bethlehem 0->12) - and I restored the committed
+bytes: a gitignored build does not change committed bookkeeping (agent a's checkout follows
+the same convention); the product refreshes the file on its own next time. The naive
+verification check ("(label)" in source) false-positives on 3 of the 15 (avaricum, bolsover,
+castle-rising: the label string occurs inside the title itself) - the structural test is
+source.split(", Wikimedia Commons:")[0] == title (PITFALLS).

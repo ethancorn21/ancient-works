@@ -929,6 +929,18 @@ Why: only `propose_for` has a documented contract; the "private" names are impor
       Any new loader parameter needs a default (`root=ROOT`) so the direct callers keep today's
       behaviour; grep for `propose\._` in fit/ and tests/ before touching a loader signature.
 
+#### Verifying a year-once source line by substring: the label string can occur inside the title itself
+Where: `pipeline/plan_fit.py` (`source_line`'s commons branch); any verification of built
+      depictions (docs whose title carries the label: avaricum's "(1898) (14594767238)",
+      bolsover/castle-rising/shotwick's "The Castles of England (1897)")
+Symptom: a check like `"(label)" in source` flags CORRECT fixed lines, because the label string
+      (e.g. "1897") occurs inside the title's own parenthesis, not as an appended one
+Why: source_line appends the label parenthesis after the title, but the title itself may contain
+      the same string (Mackenzie plate titles end in the book's year; avaricum's raw file name
+      ends in a 10-digit id). The structural test that matches the rule exactly is
+      `source.split(", Wikimedia Commons:")[0] == title` (nothing appended after the title for a
+      yeared title), which the 219 re-bake verification uses.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
