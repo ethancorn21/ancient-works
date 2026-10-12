@@ -1,0 +1,90 @@
+{
+ "site": "castle-neroche-q5050201",
+ "plan": "c_44529cdbe2d10a9c",
+ "crop": [
+  0,
+  0,
+  1027,
+  731
+ ],
+ "pairs": [
+  [
+   577.7,
+   558.6,
+   -3.0404155,
+   50.9363164
+  ],
+  [
+   765.2,
+   635.9,
+   -3.0380985,
+   50.9357682
+  ],
+  [
+   736.2,
+   474.4,
+   -3.0385151,
+   50.9370022
+  ],
+  [
+   449.3,
+   607.8,
+   -3.0419623,
+   50.9359077
+  ],
+  [
+   677.0,
+   656.9,
+   -3.0391668,
+   50.935585
+  ],
+  [
+   656.9,
+   523.5,
+   -3.0394626,
+   50.9366054
+  ],
+  [
+   498.5,
+   586.7,
+   -3.041371,
+   50.9360815
+  ],
+  [
+   677.0,
+   481.4,
+   -3.0392341,
+   50.936934
+  ]
+ ],
+ "label": "1911",
+ "title": "Castle Neroche Somerset Map",
+ "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Castle_Neroche_Somerset_Map.jpg",
+ "at": "2026-10-12T03:32:05.628488+00:00",
+ "auto": true,
+ "score": 3.6,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/castle-neroche-q5050201/44529cdbe2d10a9c.jpg",
+ "ref": "File:Castle Neroche Somerset Map.jpg",
+ "size": [
+  1027,
+  731
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 52,
+  "matches": 98,
+  "ground": "six-inch-1st.webp",
+  "window": 0.5,
+  "rot_deg": -1.8,
+  "spread": [
+   0.371,
+   33.6
+  ]
+ }
+}
