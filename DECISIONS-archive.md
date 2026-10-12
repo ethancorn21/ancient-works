@@ -3502,6 +3502,65 @@ the generator on top of 309's merge before its work.
     tests/test_fit_queue.py::test_save_runs_the_one_site_line
     tests/test_site_done.py::test_site_done_line
 
+## 2026-10-12 307ba DECISION: the 3 rejected-claim failures are a STALE committed review page (published before the lead's b22a2d2/cf29be2 rule change + 5 matcher docs), not this task's work - filed task 220 (full re-export, Depends on: 309) and added 220 to this task's Depends on; no stand-ins, no test re-baseline, no re-claim until 220 lands
+One step (diagnosis + task filing, no code change): the done claim (9efb944, all five boxes
+ticked) was rejected for exactly the three tests the iteration-115 note had already named.
+Iteration 116 pins the mechanism and the ownership; all facts below were checked by
+running code, not by reading.
+
+**Mechanism.** web/data/review.json is a DERIVED page written only by fit/review.py::
+export. The committed page (main cf29be2) was published 2026-10-11 18:48 - 340 open of
+341, with alligator-effigy-mound n0214_2 the only item off it. Two lead commits landed on
+main that night without re-exporting: b22a2d2 (22:27, "review resolution needs its
+document") changed resolved_doc so a recorded `resolved` counts only while its document
+file exists, and placed 4 matcher fit documents (argentoratum c_e882645cc479c889 at
+22:09, forthill b24849959_n0269_1 at 22:05, ferme-d-azincourt c_804aa7af3eb2ac7c at
+22:13, castra-lemanis c_be12fb0f9a87000b at 22:14); cf29be2 (22:35) added Castle Neroche's
+(its own n0110_1 doc at 22:31, updated c_44529cdbe2d10a9c). Net: 5 items still LISTED on
+the page now have resolving docs, so the current export hides them, and 6 items (those 5
++ alligator) lack the write-once `resolved` record that only a FULL export (site_id=None)
+writes - one-site exports record only their own site. The three failing tests all derive
+the expected count from the LIVE page (340) while running the CURRENT code in a copied
+tree: test_site_done_line's line prints "335 open of 341" (expected 340); test_fit_
+provenance seeds one more resolving doc (the refused one) -> "334" (expected 339 =
+340-1); test_fit_queue's part-2 page save resolves one more -> open_after 334 (expected
+339). Reproduced all three verbatim (asserts at tests/test_site_done.py:288, tests/test_
+fit_provenance.py:317, tests/test_fit_queue.py:712).
+
+**Fix verified in a scratch copy of the store** (/tmp/rv220: data/review + data/db/
+platefits + web/data/{sites,review}.json): `fit/review.py export --root <scratch>` ->
+"review: 335 open of 341 items"; exactly 6 item files changed, each gaining only
+`resolved: {doc, at}` (alligator n0214_2 -> c_618a6be74dfaff32, the 203a batch doc; the
+other five -> their matcher docs); a second export is a no-op (same 335, files
+byte-identical). With that page, all three tests' expectations agree by construction
+(they derive from the page plus their run's own delta).
+
+**Why it is a new task and not my fix.** The fix rewrites data/review (6 item files) and
+web/data/review.json - agent c's 309 module (active, own branch: 309's Touches include
+both paths). Team rules: do not edit another task's files, and do not build stand-ins -
+so tasks/220-review-page-reexport.md was filed (Status: open, Depends on: 309 so the
+export runs on top of 309's final store state, Touches: data/review, web/data/review.
+json) and 220 was added to this task's Depends on line. I will re-claim done once the
+driver merges main (carrying 220) into this branch and the suite re-verifies (expect 73
+passed + 1 skipped, no known failures).
+
+**Deliberately NOT done.** Re-baselining the three tests: two of the files (test_fit_
+provenance.py = 303, test_site_done.py = 300/301) are not mine to edit, and re-baselining
+would paper over a real store invariant - the owner's Review tab currently advertises 5
+items whose fits are already on the map. 803's re-baseline precedent applies to tests
+that PIN a population; these three derive, so a consistent store is the only right fix.
+
+**Correction to the iteration-115 note.** I cited "agent c recorded exactly these three as
+pre-existing on main at iteration 95 (its 309 branch notes)" - no such entry exists in
+DECISIONS.md or DECISIONS-archive.md (agent c's branch notes are not in my checkout's
+memory files); the citation is withdrawn. The attribution "the lead's matcher wiring" was
+right in spirit but the mechanism is the page going stale (it predates the rule change),
+not the matcher changing what the one-site line resolves. My own work stays provably out
+of all three tests' paths: the failures are pure page-count arithmetic in review.export,
+and fitkit/propose/fit_queue appear nowhere in the three tests' code (the part-2 test in
+MY file fails at line 712, 40 lines after the part-2 save flow's PUT - far from the part-1
+propose code I added).
+
 
 <!-- task 800 -->
 # Task 800 requirements-pinned
