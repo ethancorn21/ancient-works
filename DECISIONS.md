@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 190 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+186 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -424,3 +425,89 @@ accepted fit within 60 m and >= 5 of 21 accepted).
 
 ## 2026-10-12 309 DECISION: first session - investigation only; the check will be a stdlib module (tools/right_place.py, to be added to Touches) because the owner's Mac has no PIL, and the decisive offline signal for the Brighton case is the book's own list-of-figures section (county-organized), not a gazetteer
 Task 309 (carved from 307) investigated. Facts established by running the real data (.venv/bin/python): (1) the matcher's namesake trap for Allcroft fig 217 is an exact-name tie ("Devil's Dyke Camp" -> "devil dyke" == Q3307343's name, score 1.0, runner_up 0.4) with an EMPTY place dict - Brighton is a city, and place_of() only extracts county/state words, so no contradiction check can fire inside books_match; the evidence contract is satisfied by the namesake, so 309's check is new logic. (2) The right site for the picture EXISTS in the catalog: devil-s-dyke-hillfort-q17674160 (Q17674160, West Sussex/Poynings). (3) data/books/lists/earthworkenglan01allcgoog.json's figures list is organized by county: fig 212 states Sussex, figs 213-223 (incl. 217) are county-free, fig 224 states Somerset - the section county of fig 217 is sussex; this is the picture's own metadata and the offline resolution that flags "near Brighton" vs Cambridgeshire. (4) Recorded evidence conflicts in review candidates are NOISY: true namesakes (bethlehem NL vs Holy Land x17, alauna->Ardoch 174km, cenabum->New Orleans, york-castle->Broome County NY) sit next to garbage resolutions (stonehenge "Larned" 7252km - an author name; fletio "Wit" the cartographer; glevum "Bristol" resolving to a US Bristol 5282km; durocortorum "Reims" 59km just over the 50km tolerance) - H3 (conflict>50km) needs a plausibility filter on named_place, decided by eyeballing the full flag list. (5) sites.json ids differ from catalog Q-ids for the SAME place (marietta, forthill, newark vs their Q-id catalog rows, ~150m apart) - any tied-away check needs the 50km distance guard or 12 candidates false-flag. (6) Sites with no catalog admin county (leeds-castle, fairlawne, chevening, chiswick-house) must never be flagged on a county word (unknown site county = no contradiction); my first throwaway script had exactly this bug. (7) tools/fit_queue.py must stay stdlib-only (owner's Mac, no PIL; even this VM's system python3 lacks PIL) so pipeline/books_match CANNOT be imported - a stdlib copy of its core goes in a new tools/right_place.py (added to Touches), guarded by a venv-only drift test against the real matcher. (8) test_fit_queue_synthetic's tree has only the four inputs - the check must be a no-op when the extra stores are absent (keep that test passing unmodified); test_fit_queue_real derives the entry set from the four inputs alone and WILL need updating with the same check. Design draft and the exact next steps (incl. the section-walk re-verification: the throwaway walk mis-keyed entries and returned somerset for fig 217) are in the task hand-over.
+## 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
+
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
+
+## 2026-10-12 307a DECISION: iteration 108 research, written late (iteration 109) - the place-check rule set and the page-work anchors
+The iteration-108 session investigated the original 307a (the namesake place check) and
+was re-tasked mid-session by the lead (box 1 -> 309 for agent c; agent a -> the page
+work). It wrote the re-split record and the full 309 spec but never wrote the DECISIONS
+entry its hand-over promised; this entry is that write-up, summarising with pointers
+rather than restating (the detail lives in tasks/309-place-check.md, kept as reference,
+and in the parent 307's Hand-over):
+- Place-check rule set: decide from KNOWN places only - a mismatch only when a known
+  caption place contradicts the site's (a different county within one country, a
+different country, or resolved coordinates far outside the site's region); an unknown
+place never mismatches (fail open - necessary because 52 queue candidates carry noisy
+recorded conflicts that are mostly title words, not places); a place that contains the
+site (a country-level word, the site's own county/name) is not a mismatch; re-verify
+recorded verdicts offline (the evidence-check pattern: a recorded mismatch whose stored
+coordinates no longer contradict is flagged, not silently kept).
+- Measured cases: n0686 "The Devil's Dyke Camp, near Brighton" on the Cambridgeshire
+dyke - the right site exists (devil-s-dyke-hillfort-q17674160, Poynings, West Sussex,
+unbuilt) -> move there, not review; n0354 "ARDOCH, PERTHSHIRE." on the Spanish
+Coria/Vindomora - the catalog (12,603 rows, name+aliases) has no Ardoch -> review with
+the reason. Queue = 117 entries.
+- Page-work anchors (307b): propose_for(n0686) -> scale_m_px 0.3621, 5 pairs centred on
+the site, coarse false; refit() maps P.inkUrl onto the 'fit-prev' image source from the
+least-squares similarity of P.pairs, so "the drawing starts on the map" = seed P.pairs
+with the proposal's pairs, then handlers edit the anchor (drag/scale/rotate) and re-
+emit pairs; the saved doc stays pairs-shaped, so plan_fit.py/the gate/the one-site line
+are untouched.
+
+## 2026-10-12 307a DECISION: two files claimed the number 309 - my 309-place-check.md dropped in favour of the lead's 309-queue-right-place.md; the re-split record closed as done
+Timeline (git): the lead created tasks/307b-queue-right-place.md at 82e37e1 (21:34:42)
+and renamed it to tasks/309-queue-right-place.md at 720539f (21:34:48) - while my
+iteration-108 session was running and could not see it. My session created
+tasks/309-place-check.md (the full place-check spec); the driver committed it at
+0d9d5d8 (21:39:17); the main-sync d651c10 (21:39:18) brought in the lead's file, so this
+branch had two 309s. The driver's iteration-109 prompt names agent c's 309 by the lead
+file's title ("307b: The queue pairs a drawing with the right place, not a namesake")
+and touches (tools/fit_queue.py, web/data/fit_queue.json, data/review, web/data/
+review.json, tests/test_fit_queue.py, docs/site_flow.md) exactly - the lead's file is
+canonical and c works from it.
+Resolution: my 309-place-check.md -> Status: dropped, kept in place as reference for
+the 309 implementer (fail-open rule, the re-verified data/fit_place.json record, --
+live, the n0686/n0354 cases, 117 entries, 305-shape survival); the lead's file
+untouched (team mode - other tasks' files are not mine to edit, and its acceptance
+boxes define done); 307a marked done (a record with no acceptance boxes; the re-split
+is now complete and unambiguous - 307b/307c/307d + the lead's 309 hold all the work).
+Stale "307a" pointers in my 307c/307d subtasks fixed to 309; the page-work entry points
+moved from the 307a record into 307b's Notes. PITFALLS gained the durable fact (a
+number is only free inside one checkout). Suite at closure: 73 passed, 1 skipped
+(green; the d651c10 merge added task files only, no code).

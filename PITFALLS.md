@@ -42,6 +42,11 @@ Why/fix: the read tool's rendering of that long file is not byte-for-byte reliab
 lines with `sed -n 'N,Mp'` / `grep -n` and copy them verbatim into oldText (iter 53's 28 sed-derived blocks
 and iter 54's 7 lead-doc blocks all applied clean on the first try).
 
+#### A new top-level task number can be claimed in two checkouts at once
+Where: creating tasks/<N>-<name>.md in team mode (each agent in its own branch; the driver merges main in before each session)
+Symptom: two files with the same number sit in tasks/ after a sync (iteration 109: the lead's 309-queue-right-place.md and agent a's 309-place-check.md, created 5 minutes apart, neither session seeing the other's commit)
+Why/fix: a number is only free inside your own checkout; a concurrent lead/agent commit on main can claim the same number before your session's merge. After the driver's main-sync, before creating a new task file, `ls tasks/` and check the driver's prompt (it names the in-flight tasks by number and title); on a collision, the file created first - or the one the prompt names - is canonical: set yours to Status: dropped and keep its content as reference.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
