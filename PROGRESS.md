@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 187, agent a - GATE STILL OPEN: all seven of 222-228 are
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 188, agent a - GATE STILL OPEN: all seven of 222-228
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,43 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 211 DECISION: box 3 verified and ticked (the tests were written in the unlogged session and pass 9/9 this session); merged main per the lead's mid-session instruction (7e61147 skips the 1.6 GB .npy/.npz grids in full-tree test copies - the 48G disk was at 1 GB)
-- Session 185. Box 3's tests already existed in the worktree at session start (committed by the
-  driver from the unlogged sessions): data/merge/sites_premerge_baseline.jsonl (the 385 entries
-  served at commit 406562b) plus the three tests in tests/test_merge.py -
-  test_served_sites_grew_purely (frozen baseline: nothing removed, no entry rewritten outside the
-  four marker fields 212 owns), test_new_sites_are_complete (per new site: web/data/sites/<id>/,
-  id/name/lon/lat/corners/size_m/drawings, relief.jpg iff lidar_credit, coverable old-map layer
-  (depict.covers + MIN_AGE) implies depictions.json), test_new_site_golden_samples (the-hague
-  0.91/1850/1/tmk1850, ostend aerial-only no depictions, cambrai 1.01/1780/2). Ran them: all pass
-  (test_merge.py 9/9, 19 s). Ticked box 3. The box's "old 384" stays recorded as the human's
-  estimate; the measured pre-build count is 385 (deviation noted here and in the ticked box's
-  text; per the Notes the tests assert the data-level invariants on the measured values).
-- Re-read resolved clean: data/merge/run_build.py run()/main() - --force is forwarded to
-  build_catalog only (the sole effect there is the `sid in built and not a.force` skip guard, so a
-  half-built site in sites.json can be rebuilt in place); the --marks-only path is untouched by
-  force; the module docstring states exactly this. No change needed.
-- Mid-session lead message: the VM disk was at 1 GB because each full suite run copied the
-  gitignored data/sites/*/dem.npy grids (~1.6 GB) four or more times; main now carries 7e61147
-  (tests/conftest.py + tests/test_fit_queue.py: full-tree copies skip .npy/.npz). The lead asked
-  to sync main before the next suite run. My branch had diverged (driver snapshot commits on
-  agent/a; 7e61147 on main over 23ed8b0) with ZERO file overlap (my diff since the merge base
-  23ed8b0 does not touch conftest.py or test_fit_queue.py), so `git merge main` was clean
-  (a1d224c, no conflicts, no rebase). Suite runs are light again; a "No space left" failure from
-  now on is not the .npy copy (it would be something else - disk still 98% used at merge time).
-- Suite run this session (before the sync; the sync touches only conftest/test_fit_queue, both of
-  which were green in the run): 10 failed / 130 passed / 1 skipped in 247 s. The 10 failures are
-  exactly the source-guard set of the still-OPEN 222-228 (test_src_artists/kip/limes/mackenzie/
-  numancia/van_deventer x2/wiltshire_stukeley x3) - staged rows now joining the canonical files
-  is by design of the live merge (iter 174). test_gate and test_serve are green (10-11's driver
-  notes about them are stale). 130 > 124 passed vs iter 183: main absorbed other tasks' tests in
-  the meantime; nothing new is red.
-- 222-228 re-checked this session: all seven still Status: open (no fix commits on main) -> the
-  done-claim stays gated on them (Depends on: already lists them). Box 5 (docs/sources.md) and
-  box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
-  the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
-  claim.
 
 ### 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them
 - Session 186. All six acceptance boxes are now ticked; Status stays `open` (not done)
@@ -136,6 +99,54 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   -> claim citing the six boxes, the 381-row merge (0 refused / 0 conflicts), the 114
   new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
   the red set of 10 was 222-228's, and the 229 pin.
+
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)
+- Session 188. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (committed today 17:43; unchanged since
+  the 187 session, whose hand-over already recorded it; my branch tip 22036f9 contains
+  it). Per the hand-over the done-claim stays gated: no re-run of fit/merge.py
+  (idempotent), no site rebuilds, no box changes, no new full-suite run (the red set is
+  still exactly the 10 222-228 source-guard failures; the driver re-checks the suite at
+  claim time anyway).
+- The session's step. `git fetch origin` (read-only ref update; team rules forbid me
+  from merging) revealed the human's GitHub main moved during the session: the local
+  remote-tracking ref was stale at 984b1b4 (committed yesterday 15:28 - GitHub had not
+  been pushed since before the matchfit/302 era landed). New tip: c063314 (today 13:34,
+  "Merge remote-tracking branch 'vm/main'") = the human's Mac work: map UI (d939bd2
+  plate-style base map, 6fb2b61 aerial-photo base, 76feacb marker clicks, 503c978
+  ?base=), the Stonehenge site_done sync (2e41a6c: sites.json drawings 0->7 + review
+  queue), the Maiden Castle hand-fit copy (cd104ca of 3e7daea), the 301 Argentoratum
+  line (f0d8c0b), [lead] 302 (2eb60f2, the fork point of the STALE ref) and [lead]
+  304/305 (b7a708c), plus the 303 provenance commits and driver bookkeeping from the
+  Mac side.
+- Topology: merge-base(HEAD, origin/main) = 4ca9e2c (today 13:21, "306a: done - 5
+  audit-broken tests re-pointed..."). My live-merge commit 09a9472 is 13:29 - 8 minutes
+  after the fork - so origin contains NONE of my 211 outputs: extras 78 / files 1490 /
+  classified 797 (vs my 193/1623/930), index.jsonl 901 (vs 1068), validation.json
+  pre-box-2, sites.json 385 entries (vs 499), sources.md without section 9, no
+  data/merge/*, no tests/test_merge.py, and no tasks/222-229 (filed 13:29, my side
+  only). Its plans.json is content-identical to mine apart from a trailing newline.
+- Union audit (what the driver's eventual origin -> local main -> my branch merge
+  produces), per file: (1) the three canonical files, index.jsonl, validation.json,
+  plans.json, sources.md, test_merge.py - origin is unchanged from the fork point and
+  my side changed them, so the union takes mine, zero conflict, boxes 1/2/4/5
+  invariants hold. (2) sites.json - BOTH sides differ from the fork point but in
+  disjoint regions: my side only adds the 114 new site entries; the origin side only
+  touches the four marker fields (drawings/score/oldest/overlays = test_merge's MARKERS
+  tuple, the fields 212 owns) on the 385 old entries (the human's fit deletions and
+  the 306a-era audit aftermath, e.g. several sites' drawings 1->0, Stonehenge 0->7).
+  Box 3's test_served_sites_grew_purely explicitly tolerates exactly that, so it
+  survives; a textual three-way merge may still flag the file - the driver resolves it
+  as: keep my 114 entries + accept their marker values on old entries. (3) data/db/
+  platefits - origin made ZERO changes since the fork point, and the golden files
+  (hand_fit_sites.txt, hand_fit_docs.sha256) are byte-identical on both sides, so box
+  6's 000 reference (the 25 hand fits / 19 sites) survives the union. (4) web/data/
+  review.json - origin differs (the human's queue work), my side is unchanged from the
+  fork point, so the union takes origin's; it is not in my Touches (306x / agent c
+  owns it) and none of my tests read it. Conclusion: the incoming origin merge cannot
+  break any of my six boxes nor the driver's claim-time suite check.
+- No Touches-line change and no PITFALLS entry this session: the origin topology is a
+... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
