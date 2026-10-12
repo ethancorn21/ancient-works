@@ -384,3 +384,36 @@ driver's sync is still ahead):
   referenced from the hand-over. The parent 307b's hand-over note on 307bb's start
   condition is updated to match (220 on main; baseline 75+1).
 - No ask_human, no code change. The next session (after the sync) makes the re-claim.
+
+## 2026-10-12 307ba DECISION: re-claim done (iteration 122) - the driver's sync (81d8dfc) brought c5250a4's 220 export (page md5 2609ecef, 335/341) into agent/a; full suite 75 passed + 1 skipped, 0 failed (113.7 s) = main's baseline with my test_fit_queue.py unchanged; the 3 stale-page failures cleared exactly as predicted (335/340 arithmetic, no test change); all 5 boxes re-verified on the post-sync tree; Status: done
+
+One step (the pinned re-claim; no code change). Verified by running:
+- `git log agent/a..main` = empty (sync 81d8dfc complete; nothing above it but driver
+  bookkeeping + my iteration-121 note); working tree clean.
+- `web/data/review.json` md5 = 2609ecef185bd893617cda94bedc40b7, byte-identical to
+  `git show c5250a4:web/data/review.json` (220's export, 335 open of 341, `at`
+  2026-10-12T05:02:09). The sync's full diff (13 files) contains none of my task's files
+  (PITFALLS + 6 review item files + pipeline/books.py/build_catalog.py +
+  tests/test_region.py + web/data/review.json + 2 task statuses) - so my committed
+  state (cbb36c8, 732fe57, 7f7e7c0, 9efb944) is byte-identical to what the suite runs.
+- `.venv/bin/python -m pytest -q` = **75 passed, 1 skipped, 0 failed**, 113.69 s. The
+  skip is test_batch_eu's known live-population drift skip (294 docs run vs 295 in the
+  live EU list - agent c's 203b domain, skip-by-design). The 3 stale-page tests
+  (test_line_refuses_unmarked_non_auto_doc, test_site_done_line,
+  test_save_runs_the_one_site_line) are green: post-sync the expectation side is 335,
+  matching the committed page, with no test change - exactly the iteration-121
+  prediction.
+- Box re-verification on the post-sync tree (all by reading/running, none re-done by
+  hand): box 1 = the regenerated queue file still has 117/117 entries with the exact
+  6-key propose in box order (20 bar / 4 ratio / 93 picture_size) and fit/propose.py
+  is byte-identical through the sync; box 2 = propose's golden (tests/test_propose.py)
+  and every 2-arg caller (batch_us, batch_eu) green in the suite; box 3 = part-1 tests
+  green; box 4 = web/fitkit.js + the single script tag at index.html:1709
+  byte-identical through the sync (the headless Chrome verification stood from
+  iteration 116: place mode on the works, sheet hidden/restored exactly, anchor ==
+  propose centre pair, fsave enabled, no pageerror); box 5 = docs/site_flow.md
+  untouched by the sync (the diff above proves it).
+- Set Status: done; hand-over rewritten as the current-state snapshot (done, plus the
+  rejection diagnostics: item-drift re-export via scratch, and the 309-chain merge
+  recipe pointer to the iteration-120 entry). 307bb's start condition (main synced +
+  307ba re-claimed) is now met - its baseline is this 75+1 suite. No ask_human.
