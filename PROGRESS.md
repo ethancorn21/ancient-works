@@ -9,8 +9,8 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 114, agent a - box 4 WRITTEN, not yet verified: web/fitkit.js is a
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 111, agent a - 307ba did the DATA side of box 1 (its boxes 1-3: the
+- `tasks/307ba-open-map.md` (in-progress) - hand-over: (2026-10-12, iteration 115, agent a - TASK DONE: all five boxes ticked. Box 4 verified in a
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 115, agent a - 307ba is DONE (all its boxes): the queue file carries
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
@@ -124,6 +124,57 @@ tests/test_propose.py call `_site`/`_plans_row`/`_index_row` directly. Making `r
 required argument broke test_propose (6 TypeErrors) on the first full-suite run; the
 fix is `root=ROOT` defaults on all four loaders, which keeps every external caller
 byte-identical. Logged as a PITFALLS entry.
+
+### 2026-10-12 307ba DECISION: boxes 4-5 done, task complete - box 4 verified in a real browser (place mode opens ON the works, the overlay hides and restores exactly, the anchor is the propose's centre pair); the 3 remaining suite failures are the lead's 309 matcher wiring on main, not mine
+One step: verified box 4 (web/fitkit.js + the one index.html script tag, preserved by the driver as
+732fe57 after the iteration-114 context-limit cut) with the /tmp/fkprobe.mjs smoke probe in a real
+headless Chrome, and wrote box 5 (docs/site_flow.md's "Ready to fit" section). No code changed this
+session beyond the docs; fitkit.js and index.html are exactly as iteration 114 left them (the probe's
+only fixes were its own throwaway scaffolding: the playwright require path, the direct `map` reference).
+
+**Smoke probe results (throwaway, NOT a committed test - the committed headless test is 307bb's part 4).**
+Scratch tree /tmp/fkscratch (web/server/data minus raw + Devil's Dyke's book page) served with
+`.venv/bin/python server/serve.py --port 0`; the probe seeded aw.depSel for Devil's Dyke
+(six-inch-1st.webp), clicked the card's own #fqplace, and asserted (all green):
+- placed:true via the card button; the dep layer (dep-devil-s-dyke-q3307343) visibility "none" while
+  placed and "visible" again after #fcancel, with S.depSel/S.ground unchanged (the exact restore).
+- anchor == the propose's centre pair exactly (u0 1683.5, v0 2525, 0.297247/52.269819); mpx 0.3621 ==
+  propose.scale_m_px; rot 0. The 5 re-emitted pairs drift <= 0.117 m from the queue file's propose
+  pairs - exactly the 4-dp scale_m_px rounding applied over ~3000 px predicted in iteration 114.
+  The page's least-squares refit over the five recovered mpx 0.36203 / rot 0 / maxResid 0.00097.
+- Map centre within 17 px of the padded viewport centre (fitBounds padding left 390 at 1200x800),
+  bounds contain the site's four corners; pane reads "Scale 0.36 m per page pixel, turned 0.0°. With
+  5 points one rotation and scale fits all within 1 m."; fsave enabled; 5 pairs, 5 markers.
+- No pageerror, no reqfail outside /tiles/ (relief 404s: the new PITFALLS entry).
+Screenshots (/tmp/fkout, throwaway): the 1908 plan sits ON the real dyke over the LiDAR ground - the
+hatched earthwork lines line up with the ground feature.
+
+**Deviation from box 4's wording (the record it asked for).** The box says fitkit "injects its own
+<style>" - it deliberately does not: box 4 adds zero visible UI (the page's existing preview, numbered
+markers, pane and buttons do everything), so there is nothing to style; 307bb adds the block if its
+gestures need one. No behaviour depends on it.
+
+**Suite: 70 passed, 1 skipped, 3 failed - all 3 pre-exist on main (cf29be2, the lead's 309 matcher-fit
+wiring), not mine.** The three: test_fit_provenance::test_line_refuses_unmarked_non_auto_doc,
+test_fit_queue::test_save_runs_the_one_site_line, test_site_done::test_site_done_line. Agent c recorded
+exactly these three as pre-existing on main at iteration 95 (its 309 branch notes). The shared failure
+signature is the review-queue open-item count (334/339 vs the expected 340/339): the matcher wiring
+changed what the one-site line resolves. fitkit cannot affect any of them: test_save_runs_the_one_site_line
+saves via a DIRECT HTTP PUT from the test (no page load at all), and the other two are pure-python
+tests of tools/site_done.py/pipeline code that touch none of my files (fit/propose.py is byte-identical
+at its root defaults, verified iteration 111; tools/fit_queue.py is not on their path). Every test I own
+passes: test_fit_queue 4/5 (part-1 propose pins, the part-3 byte-identity card pin - its served tree
+404s the scan so fitkit never fires, the done-mark card), test_propose's golden, test_batch_us/eu.
+web/fitqueue.js is byte-identical to cf29be2 and web/index.html's diff against main is exactly the one
+script tag. The queue file (117/117 propose) is the joint artifact with agent c's 309: main has not
+moved since cf29be2 (309 still in flight), so no regeneration was needed this session - 307bb re-runs
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-12 307ba DECISION: boxes 4-5 done, task complete - box 4 verified in a real browser (place mode opens ON the works, the overlay hides and restores exactly, the anchor is the propose's centre pair); the 3 remaining suite failures are the lead's 309 matcher wiring on main, not mine' DECISIONS.md`)
+
+### 2026-10-11 307ba DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc
+    tests/test_fit_queue.py::test_save_runs_the_one_site_line
+    tests/test_site_done.py::test_site_done_line
 
 ## Project-wide driver notes (newest)
 
