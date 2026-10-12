@@ -910,6 +910,20 @@ Where: task 207c; IA advancedsearch (exact title, creator, full-text phrases, 17
 Symptom: no IA copy of the book under any searched title/creator/phrase; ten guessed identifiers (militaryantiquit00roy*) all return {}.
 Why: the 1793 Society of Antiquaries folio (174 text pages + 51 map plates) was never scanned by a library that uploads to IA. The complete online facsimile is NLS (maps.nls.uk/roy/antiquities/), which is WAF-blocked from this VM. A human-provided copy in data/raw/books/roy1793/ is the only route (207c blocked on it, open ask_human).
 
+#### books.py ocrmap used to clobber the hand-written list file of any book without a PLATES/FIG_LISTS source (guarded since 216)
+Where: `pipeline/books_lists.py:cmd_ocrmap` (the guard), `data/books/lists/<ia>.json[.map.json]`; tasks 216, 217
+Symptom: before 216, running `books.py ocrmap <key>` for a book whose ia is in neither PLATES nor FIG_LISTS silently rewrote its list file as `{"plates": null, "figures": []}` (and .map.json as `[]`) - which would have destroyed 213's 121-entry hand list `data/books/lists/civitatesorbiste00brau.json`.
+Why: the command re-derived lists from OCR sources only, and wrote whatever it derived (nothing) over any existing file. The 216 guard makes it print "no list yet (no OCR list source)" ("; keeping the existing <path>" when the file exists) and write nothing. When 217 lifts a hand list into the module, the guard stops firing for that book and the same command regenerates the file (the module is the knowledge, the file the dump). Note mills_1914 (no list source) also hits the guard - its committed file is exactly the empty dump, so behavior there is data-identical.
+
+#### books.py index <subset> truncates the shared index.jsonl - run it with no args only
+Where: `pipeline/books_lists.py:cmd_index` (opens `data/books/index.jsonl` with "w" and writes only the rows of the keys in its args), tasks 211, 217
+Symptom: `books.py index civitates_liber2` (or any single key) replaces the whole shared index with just that book's rows - for an untriaged book (no stage A) that is an EMPTY file: every other book's index rows gone.
+Why: cmd_index rebuilds the file from scratch over `args or BOOKS`. Running it over a subset is only safe as a full rebuild with no args (all books; untriaged ones simply contribute zero rows) - which is what the 211/217 consolidation stage is for. Never run a subset-index during a normal session.
+
+#### The book-level `region` in BOOKS is coarse (US/Europe) and is not what books_match uses
+Where: `pipeline/books.py:BOOKS` (`region`), `pipeline/books_match.py:BOOK_SCOPE` (a separate book -> (regions, default_state) table)
+Symptom: an entry like `civitates_liber2` has region "Europe" although the volume contains Italian towns - looks like a bug to "fix" to a country name. Do not: the book field is informational (the town's region comes from its catalog row); books_match never reads it - it keys BOOK_SCOPE on the book key, and a book missing from BOOK_SCOPE just gets no region/state filter (`.get(key, (None, None))`), not an error.
+
 ### pipeline/autowalls.py (the frozen ink extractor)
 
 #### Frangi ghost-echoes a ring around razor-sharp synthetic drawings - soften test ink to scan-like edges

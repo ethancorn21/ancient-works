@@ -91,6 +91,48 @@ BOOKS = {
         why="Added at the lead's request. The only copy on IA (advancedsearch: 1 hit). 150 ppi colour, each image a "
             "two-page opening, median 2054x1654 px: low resolution for small red symbols, but nothing better on IA. "
             "No hOCR per-page text on IA (only djvu.txt without page breaks)."),
+    # The artists'-view books (verified 2026-10-11, docs/lead_artists.md, task 213; cite strings verbatim from its
+    # table, markdown stripped). All six are free BookReader streams. The book-level region is coarse, as in the
+    # entries above: a town's region comes from its catalog row, not the book, so each entry's cite string names
+    # the volume's dominant region (European towns; the Merian volumes, the Swiss cantons).
+    "civitates_liber2": dict(
+        ia="civitatesorbiste00brau", region="Europe", year=1575,
+        cite="Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber secundus, Antwerp 1575 (Aegidius Rade) - "
+             "towns of western Europe and the Mediterranean",
+        why="292 leaves; the only Civitates volume already triaged (213: A 292/292, F 118/118, zero errors; its hand "
+            "list is data/books/lists/civitatesorbiste00brau.json - 217 lifts it into the module). Metadata and all "
+            "292 triage images cached 2026-10-11: fetch runs offline, nothing to re-download."),
+    "civitates_liber4": dict(
+        ia="ARes73114", region="Europe", year=1586,
+        cite="Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Tomus quartus, 1586 - towns of Europe (the "
+             "dominant region; each town's region comes from its catalog row, not the book)",
+        why="BookReader stream, free; metadata cached 2026-10-11 (docs/lead_artists.md). Not triaged yet - fetch, "
+            "triageA/F and the hand list are the follow-on scope with 217."),
+    "civitates_liber5": dict(
+        ia="ARes73115", region="Europe", year=1597,
+        cite="Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber quintus, 1597 - towns of Europe (the "
+             "dominant region; each town's region comes from its catalog row, not the book)",
+        why="BookReader stream, free; metadata cached 2026-10-11 (docs/lead_artists.md). Not triaged yet - fetch, "
+            "triageA/F and the hand list are the follow-on scope with 217."),
+    "civitates_liber1": dict(
+        ia="17095748888888bsb-00105587", region="Europe", year=1600,
+        cite="Georg Braun and Frans Hogenberg, Civitates Orbis Terrarum, Liber primus, 1600 (BSB scan) - towns of "
+             "Europe (the dominant region; each town's region comes from its catalog row, not the book)",
+        why="Bayerische Staatsbibliothek (BSB) scan on IA, BookReader stream, free; metadata cached 2026-10-11 "
+            "(docs/lead_artists.md). Not triaged yet - fetch, triageA/F and the hand list are the follow-on scope "
+            "with 217."),
+    "merian_helvete00zeil": dict(
+        ia="topographiahelve00zeil", region="Europe", year=1654,
+        cite="Matthaeus Merian and Martin Zeiller, Topographia Helvetiae, Rhaetiae et Valesiae, Frankfurt 1654 "
+             "(Merianischen Erben) - the Swiss cantons",
+        why="BookReader stream, free; metadata + bookreader index cached 2026-10-11 (docs/lead_artists.md). Not "
+            "triaged yet - fetch, triageA/F and the hand list are the follow-on scope with 217."),
+    "merian_panb665": dict(
+        ia="rcin.org.pl.WA51_13719_PANB665-r1642_Topographia-Helvetia_152915", region="Europe", year=1642,
+        cite="Matthaeus Merian, Topographia Helvetiae, Rhaetiae et Valesiae, 1642 (PAN Poland) - the Swiss cantons",
+        why="PAN Poland's copy on IA (rcin.org.pl item), BookReader stream, free; metadata cached 2026-10-11 "
+            "(docs/lead_artists.md). Not triaged yet - fetch, triageA/F and the hand list are the follow-on scope "
+            "with 217."),
 }
 
 
