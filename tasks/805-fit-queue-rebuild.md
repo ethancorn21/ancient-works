@@ -1,6 +1,6 @@
 Status: open
 # 805: rebuild the queue with the right-place check, report the namesake list, guard the verbatim core
-Depends on: 309, 804
+Depends on: 804
 Carved from: 309 (box 1, the rebuild half; box 2)
 Touches: web/data/fit_queue.json, data/review/, web/data/review.json, docs/site_flow.md, tests/test_right_place_drift.py
 
@@ -55,6 +55,10 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
       stay as they are.
 
 ## Notes
+- The module (309's fc67bb9) and the wired build (804) are both on agent/c by the time this
+  runs: subtasks run in the parent's owner lane, and 804's acceptance merge lands on main.
+  If your branch does not have tools/right_place.py, add `Depends on: 309` to this file,
+  commit, and wait - do not rebuild a copy.
 - If agent a's 307 merge lands after this rebuild, only the queue file's contents change (not
   its shape); expect the driver to reconcile - flag any hit on this task's files in DECISIONS.
 - The module's six documented deviations from the session-3 spec (DECISIONS, iteration 95: the
@@ -69,3 +73,8 @@ test pins tools/right_place.py's verbatim matcher core against pipeline/books_ma
 
 (2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
 carries the verified 15-flag list, the 117-entry baseline and the worktree warning.)
+
+(2026-10-12, iteration 98, agent c: `Depends on: 309` removed from this line (split-parent
+deadlock - see 309's iteration-98 DECISIONS entry); `Depends on: 804` is the real ordering
+need and stays (the rebuild runs after the wiring merges, and the chain carries the module).
+The module is on agent/c, the owner lane, until 309 closes out.)

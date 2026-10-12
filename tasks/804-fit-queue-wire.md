@@ -1,6 +1,6 @@
 Status: open
 # 804: the queue build applies the right-place check - wiring in tools/fit_queue.py, namesake tests
-Depends on: 309
+Depends on: none
 Carved from: 309 (box 1, the wiring half; box 3)
 Touches: tools/fit_queue.py, data/review/README.md, tests/test_fit_queue.py
 
@@ -74,7 +74,9 @@ passing unmodified. Rebuilding the committed data files is 805.
 
 ## Notes
 - The module tools/right_place.py is 309's deliverable (commit fc67bb9 on agent/c; it lands on
-  main when 309 closes out as split). If your branch does not have it, 309 is not merged yet:
+  main when 309 closes out as split). This task runs in 309's owner lane (agent c), whose
+  branch already has the module. If your branch does not have it (a different agent's branch
+  was handed the task), 309 is not merged yet: add `Depends on: 309` to this file, commit, and
   wait - do not rebuild a copy of the module here.
 - Do not touch agent a's files (web/index.html, web/fitqueue.js, web/review.js, web/fitkit*.js)
   and do not write the real checkout's data/review/ items or web/data/fit_queue.json: the build
@@ -84,3 +86,9 @@ passing unmodified. Rebuilding the committed data files is 805.
 
 (2026-10-12, created by agent c while splitting 309; not started yet. Parent 309's hand-over
 carries the verified 15-flag list, the 117-entry baseline and the worktree warning.)
+
+(2026-10-12, iteration 98, agent c: the `Depends on: 309` line was removed - it deadlocked the
+driver queue: a split parent becomes done only AFTER its subtasks finish, so a dependency on it
+can never be satisfied (the project convention in 203/207/213/302/307 is no parent dependency).
+The module is on agent/c, the owner lane, so no wait is expected. See 309's iteration-98
+DECISIONS entry.)
