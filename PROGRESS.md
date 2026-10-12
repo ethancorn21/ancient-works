@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/306a-agent-fits-on-map.md` (open) - hand-over: (2026-10-12, iteration 135, agent c - session 1 of 306a; cut at the context limit during the visual
+- `tasks/306a-agent-fits-on-map.md` (open) - hand-over: (2026-10-12, iteration 136, agent c - session 2 of 306a. Audit run FINISHED, shotwick REMOVED, 11/23
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -77,6 +77,48 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
   without the qid). The test passes; all 133 store docs' sites are in sites.json.
 
+### 2026-10-12 306a DECISION: shotwick removed (2x too big, proven from the plate + NHLE listing); rebuild via upsert_item + doc delete + plan_fit.prune + review.export instead of tools/site_done.py because the matcher is reachable and its fit phase would place a NEW unaudited fit
+- Verdict: WRONG SIZE. The 1897 plate's moated ring fills the whole 839x840 plate (ink bbox 822 x 822
+  px measured with PIL) and the fitted 0.2289 m/px maps it to 188 m x 188 m on the ground; the real
+  earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch,
+  38 m bailey - the NHLE 1016616 listing description, read through web.archive.org because
+  historicengland and heritagegateway both 403 from this VM). The 4 turret anchors' 2-19 m residuals
+  are the ~2x scale mismatch the fit_gate cannot reject at n=3-6 (the documented blind spot). The
+  aerial (even zoomed to the page's cap of 18) shows only lawn where the ring sits: the earthworks
+  are buried, so the size proof is document + listing, not the picture.
+- Removal mechanics (all the product's own calls): review.upsert_item('.', sid, [entry]) with the
+  reason in `why` (entry: plan/title/url/pairs - same shape as site_done._pattern_entry; the item's
+  lead stayed earthworkenglan01allcgoog_n0575_1, so the file did not move), delete the doc,
+  plan_fit.prune('.', sid) (drops the overlay + webp, refreshes drawings via build_site.set_drawings),
+  review.export('.', site_id=sid) (page re-published, item open).
+- FAILED (a design trap, not an approach failure): running `tools/site_done.py
+  shotwick-castle-q7502621` as the task text suggested would have re-fired the FIT phase -
+  matchfit.reachable() is True (127.0.0.1 matcher health probe answers) and the earthwork row has
+  no doc, so the matcher would have placed a NEW agent fit on the map during an audit session -
+  exactly what 306 ("none reaches the map unseen") is there to prevent. site_done only prunes when
+  its own sync sends a pattern doc, so even the deletion would not have been covered by it. The
+  4-call sequence above produces the identical outcome (overlay gone, count refreshed, item
+  re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
+  dropped.
+
+### 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - its 7 SoP sheets are a toponymic collision and its 2 basilica plans are building interiors fitted as ground maps, pending confirmation
+- First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
+  Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  hamlets. So the 3 Maestricht-1748 details (c_a164, c_a42a, c_d624) look like LOCAL maps of the
+  right place (c_a164 aligned on the polder: Severen hamlet, village centre, field boundaries),
+  while 9 of the 12 are not: the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground
+  sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away (near-zero residuals measure
+  only the local pattern match - sheet grid vs polder grid - the wrong-PLACE class of the shotwick
+  size error), and the 2 basilica plans (c_67ed Sandys 1615 "Plan of the Basilica of the Nativity",
+  c_7ee7 "(1881) PLAN SOUTERRAINS DE LA BASILIQUE") are BUILDING INTERIOR plans (one rotated
+  -18.4 deg) fitted as if they were ground maps - a third failure class (wrong KIND) that applies
+  regardless of which Bethlehem the site is. Session cut at the context limit before confirming
+  Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
+  Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
+  line is written in site_flow.md until this is settled; no bethlehem doc touched.
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
@@ -102,15 +144,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-## 306a session note (iteration 136, agent c) - where the work stands
-Session 2 of 306a (full detail in tasks/306a-agent-fits-on-map.md ## Hand-over): the 45-shot audit
-run finished clean; 11/23 lines written in docs/site_flow.md (10 STAY + shotwick REMOVED - the
-2x-too-big fit, proven from the plate's measured extent and NHLE 1016616; removed via upsert_item +
-doc delete + plan_fit.prune + review.export, NOT site_done, because the reachable matcher would
-have placed a new unaudited fit). MAJOR OPEN FINDING: the bethlehem-q2523914 site is the DUTCH
-village (Het Hogeland, Groningen), so its 7 "Survey of Palestine" ground sheets look like a
-toponymic collision (maps of Judaea fitted ~2000 km away), its 2 basilica plans are building
-interiors fitted as ground maps (wrong kind), and its 3 1748 map details look like true local maps;
-next session confirms Q2523914 + the docs' pairs' lon/lat cluster before any bethlehem doc is
-judged or touched.
