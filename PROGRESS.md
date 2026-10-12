@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 128, agent a - **PROBE FULLY GREEN: RESULT PASS, 41/41 checks** (run128c.log). All three iter-127 residual failures fixed, all 
+- `tasks/307bb-move-it.md` (in-progress) - hand-over: (2026-10-12, iteration 129, agent a - **prep session for part 4; no web code touched.** This session: (1) filed tasks/221-review-stats-test.md for the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -72,56 +72,6 @@ caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract do
   root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
 ... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-### 2026-10-12 307bb DECISION: the placement gestures live in fitkit.js by reassigning refit (no index.html footprint, no new map listeners) - designed in full, not yet coded
-Investigation-only session: 307ba is done (suite 75+1, re-claimed at c5250a4 sync), so
-307bb's start condition is met. No code written; the full implementation design (function
-by function) is in 307bb's hand-over. Key decisions, all verified against the sources:
-
-- **MapLibre 5.6.0 binds ALL gesture listeners on the canvas container, not the canvas**
-  (web/vendor/maplibre-gl-5.6.0.js, readable UMD: mousedown/mousemove/mouseup/dblclick/
-  click/wheel{passive:false} on getCanvasContainer(), mousemove{capture}/mouseup on
-  document). Consequence: fitkit's gesture listeners go on the container; with
-  dragPan/scrollZoom/touchZoomRotate/doubleClickZoom/boxZoom disabled while placed, the
-  dispatcher (`if(!c.isEnabled())continue;`) skips them and none preventDefaults (the
-  scrollZoom handler returns before its e.preventDefault() when disabled) - a
-  later-registered container listener receives the events, so wheel/drag can own the mouse
-  without fighting the map.
-- **The 3px/4px disjointness is real, not assumed:** the always-enabled user-event handler
-  records _mousedownPos on every mousedown and fires the map 'click' only when the
-  mousedown->click distance is < clickTolerance (3 px, the page's default). Our move
-  engages at >4 px, so a pinning click and a moving drag cannot both fire; we null
-  P.pending the moment a move engages (a drag is not a pin).
-- **Anchor refinement hooks through a wrapped refit, not a map listener:** the page's own
-  map-click (pin), undo, clear and marker-dragend handlers all call the bare refit() - the
-  global - so `refit = wrapper` sees every pair-count change: n grew -> push the pre-pin
-  anchor(s) on P.anchorStack, refine the anchor by simFit over all pairs (view mode too:
-  the anchor stays a similarity; verified algebraically simFit's a,b equal the re-emitted
-  similarity's a,z0, so over the exact five it recovers the anchor to fp rounding),
-  re-emit the five in place (mutate lon/lat, keep the objects - the marker dragend
-  closures hold them), rebuild markers via the page's addPairMarker (push one at a time
-  for 1..n labels); n shrank -> pop the stack (clear -> the anchor before the first pin;
-  undo below the five-re-emit floor with an empty stack leaves the anchor untouched: the
-  placement is inviolable). A drag gesture does NOT absorb the fit first (a move must not
-  change mpx/rot); wheel/rotate do (so a previously dragged corner is absorbed into the
-  anchor before the transform).
-- **Gestures transform the anchor:** drag = centre += ground delta (unproject at both
-  pointer points, exact at any zoom, fly-to-tolerant); wheel = mpx *= exp(-deltaY*0.0015)
-  (the page canvas's own factor: wheel-up grows); shift+wheel = rot += deltaY*0.01 (1 deg
-  per 100-unit notch). Applied rAF-coalesced (headless rAF works on this VM - the 307ba
-  probe's fly-to animations ran). The page's fit pane already shows the fit's mpx/rot;
-  fitkit additionally overwrites #fithint after each refit with the live anchor readout +
-  gesture legend (box 1's "live scale and rotation in the panel").
-- **Save needs no new code:** with P.pairs = re-emitted five (+ pins), the page's saveFit
-  already writes exactly the doc the box asks for (same page-px frame: 307ba verified
-  every current queue entry's served image IS its recorded size, so the row-size frame is
-  the image frame). The fitqueue wrapper marks the site done; the one-site line runs as in
-  part 2. The headless proof (box 3) pins all of it in pixels.
-- **Deactivate placement at the TOP of the openPlan wrapper** (before the inner chain):
-  review.js's wrapper pushes RV.pending pairs inside the chain and "Another plan" is
-  endFit(false)->startFit->openPlan - a post-chain clear would let either inherit the
-  previous placement; the 404-page path (part 3's served tree) still returns at the first
-  P.img guard, byte-identical (keep that guard first).
-
 ### 2026-10-12 307bb DECISION: iteration 124's committed gestures verified in a throwaway headless probe - all placement state green, the DRAG gesture is broken (LngLat object into the array-destructuring merc -> NaN); next session fixes the drag and re-runs
 Verification-only session (the gesture code was written in iteration 124 and driver-committed as 711bc01 without verification; fitkit md5 5b94a8b081a481ea74925f5770f5214d). Built the iter-123 hand-over's recipe as a throwaway at /tmp/fkverify/: build_tree.py (line_served-style FULL tree: web+server+tools+fit+pipeline, data minus data/raw, Devil's Dyke's page n0686.jpg materialised into the tree's own data/raw, server via the GUARD with every socket dead, --port 0) and probe.mjs (headless Chrome 1200x800: card -> #fqplace -> wait P.placed && P.img -> seed assertions -> drag / wheel / shift+wheel / pin / undo / #fsave -> poll tree doc + overlay -> fresh run with aw.fitQueue.done='{}' + aw.depSel seeded -> #fcancel restore).
 
@@ -146,6 +96,17 @@ Verification-only session (the gesture code was written in iteration 124 and dri
 **The overlay m_per_px check was wrong units:** pipeline/plan_fit.py's fit.m_per_px is in WEBP-px units (pairs scaled by fs = image/doc.size, solved, divided by the downscale f = min(1, MAX_PX / max crop px), MAX_PX = 2400 at plan_fit.py:44) - measured 0.8849 vs the anchor's 0.4205 (ratio ~2.1 = the downscale 2400/5050). Replaced with two checks: (a) DOC level - in-page simFit over doc.pairs (4-tuples converted to {u,v,lon,lat} objects - simFit reads pair objects; raw arrays give all-nulls) must reproduce the anchor within the doc's rounding (mpx 1e-3 abs, rot 0.01 deg, maxResid < 2) - this is the box's "scale and rotation agreeing with the anchor within rounding"; (b) the overlay's m_per_px agrees with anchor.mpx * fs / f within 1e-3 rel (proves the overlay is the same similarity).
 
 ... (3.4 KB more: `grep -n -A 200 -F '## 2026-10-12 307bb DECISION: iteration 128 - the throwaway probe is FULLY GREEN (41/41, run128c): all placement behaviour hermetically verified; the three iter-127 residuals fixed (venv server, the addInitScript arg bug behind the depSel seed, the Esri reqfail filter); repo unchanged - next: file task 221 + fix the card tests' filter, then part 4' DECISIONS.md`)
+
+### 2026-10-12 307bb DECISION: iteration 129 - filed task 221 for the two review-test failures (test-side drift on pristine main: the Esri feed's singular 'tile/' URLs and the re-worded home stats line); fixed my two card tests' reqfail filters (added the arcgisonline exclusion); suite now 73 passed + 1 skipped + 2 failed (exactly the 221 pair)
+Executed the iter-128 plan steps 1-4.
+
+- **tasks/221-review-stats-test.md created** (Status: open, `Depends on: 309`, `Touches: tests/test_review.py`, 221 = lowest free number in 200-499): the two review tests fail on PRISTINE main (proved iter 128 via the /tmp/maincheck scratch of 89043b7), so they are test-side drift, not regressions: (a) test_plan_lookup_is_keyed_by_id_and_site's strict `"[reqfail]" not in p.stdout` chokes on the page's live Esri base-imagery fetches (server.arcgisonline.com/.../MapServer/tile/... - the SINGULAR 'tile/' segment defeats the '/tiles/' path exclusion the other tests use); (b) test_page_shows_the_review_list filters the home stats line by "built in all" while the lead's 939382a re-worded it (web/index.html:588) to "laid on today's ground" and web/review.js:74 already accepts both wordings. `Depends on: 309` is a same-file race gate (agent c edits tests/test_review.py now). The boxes say: fix, don't delete/loosen.
+- **tests/test_fit_queue.py (MY file): both card-test reqfail predicates now exclude `arcgisonline` in addition to `/tiles/`** (lines 874-881, 941-948), each with a comment naming the host and the singular-tile fact. Verified not a weakening: the tests' own comments already declare the relief-tile aborts "page-caused, expected"; the Esri World_Imagery feed (web/index.html:314) is the page's base imagery and this machine has no internet, so those fetches die by design - the filter was simply missing that URL class. Ran both card tests after the change: **2 passed** (31.6 s).
+- **PITFALLS.md**: new entry "the page's base imagery is a live Esri feed ... SINGULAR 'tile/'" under This machine and its environment (the relief-tile sibling's missing twin).
+- **Suite: 73 passed + 1 skipped + 2 failed** (115.9 s). The 2 failures are exactly the 221 pair (both in tests/test_review.py, the Esri reqfail and the stats wording) - they were failing before my change (part of the 4-failure main state), so my delta took the suite from 4 failed to 2. No test that was green before is red now.
+- Driver sync deb2730 merged main into my branch this session, so the lead's 89043b7 (docs/site_flow.md 9 lines, fit/matchfit*, the review export shrink) is now in my tree - box 4 will build on the lead's docs version.
+
+**Next session: the committed headless part 4 (box 3)** per the recipe in the hand-over (full-tree fixture cloned from line_served with the server under the pytest venv python, PLACE_PROBE = /tmp/fkverify/probe.mjs verbatim, test_placement_gestures_and_save_in_the_browser, first queue entry with a local page AND a propose). Then box 4 docs, then tick boxes 1-2 (their proof lands with part 4), then done-claim against the 4-failure baseline.
 
 ## Project-wide driver notes (newest)
 
