@@ -13,7 +13,11 @@ labelled TAB. II and a duplicate TAB. III impression; TAB. XXI and XXIV absent f
 XXXIIII printed old-style), read by eye from the triage-size plate leaves 2026-10-13 - the
 civitates hand-list pattern (213) that books_lists.cmd_ocrmap's comment points at. When set,
 register() injects it into books_lists.PLATES in-process (pipeline/books_lists.py is owned by
-217) and --list runs books_lists.cmd_ocrmap over it.
+217) and --list runs books_lists.cmd_ocrmap over it. Its two verified site-plan plates (TAB. XI the
+numbered plan as a fold-out, leaves 56/57; TAB. XXIII the Area plan with the Avenue, leaf 111) are
+staged as book rows into the same staging files by stage() (offline: the evidence is the plate's
+own printed header, since the book has no list of plates). The book holds no Wiltshire map and no
+separate Avenue plate: the Avenue appears only in the XXIII area plan and in the perspective views.
 
 Leg 2 - the Commons-hosted Stukeley plates (the 205-Kip pattern, no book machinery): the three
 rows in STAGED below, visually verified 2026-10-12 (the Houghton 1743 TAB. VIII Avebury plan ->
@@ -35,9 +39,10 @@ usage: src_wiltshire_stukeley.py --fetch         live: the IA book's triage page
                                                once set: register() + books_lists.cmd_ocrmap -> the per-book
                                                lists/<ia>.json + .map.json only (the shared index.jsonl /
                                                validation.json are never written - 211 rebuilds them)
-       src_wiltshire_stukeley.py [--stage]    live (one paced batched metadata call): stage the STAGED
-       [--dry]                                 Commons rows into files_wiltshire_b.jsonl +
-                                               classified_wiltshire_b.jsonl (--dry previews, --stage is the live run)
+       src_wiltshire_stukeley.py [--stage]    stage this task's rows into files_wiltshire_b.jsonl +
+       [--dry]                                 classified_wiltshire_b.jsonl: the three Commons rows (live,
+                                               one paced batched metadata call) then the book's two plan rows (offline;
+                                               --dry previews, --stage / no args is the live run)
        src_wiltshire_stukeley.py --check       offline (no network): join the staged files, run
                                                fit/evidence.py's check over every staged row
        src_wiltshire_stukeley.py --golden      write tests/golden/src_wiltshire_stukeley_sample.json
@@ -65,12 +70,14 @@ CITE = ("William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, 
         "(M.DCC.XL.; printed for W. Innys and R. Manby; British Museum scan BMB) - exact title page "
         "read from the leaf-1 image 2026-10-13 (the IA hOCR of that leaf is unreadable)")
 WHY = ("Stukeley's 1740 Stonehenge book: its site plans (TAB. XI the Geometrical Ground of the Plan "
-       "of Stonehenge, TAB. XII the Orthography of Stonehenge, TAB. XXIII the Area of Stonehenge "
-       "with the Avenue) tie to stonehenge-q39671. The book holds no Wiltshire map (verified leaf "
-       "by leaf 2026-10-13) and no avenue plan apart from those; the true Wiltshire volume (A survey "
-       "of Wilts, 1740) is not on IA, so a human-downloaded copy, if it arrives, joins this task as "
-       "a second book (the 209a wrap pattern). The IA metadata carries no title/date/creator, so "
-       "the cite is hand-written.")
+       "of Stonehenge - the famous numbered plan as a fold-out; TAB. XXIII the Area of Stonehenge "
+       "with the Avenue) tie to stonehenge-q39671. TAB. XII (The Orthography of Stonehenge) is an "
+       "orthographic section, not a plan view (re-checked against the leaf image 2026-10-13/14), so "
+       "it is not staged as a plan. The book holds no Wiltshire map (verified leaf by leaf "
+       "2026-10-13) and no avenue plan apart from the XXIII area plan; the true Wiltshire volume "
+       "(A survey of Wilts, 1740) is not on IA, so a human-downloaded copy, if it arrives, joins "
+       "this task as a second book (the 209a wrap pattern). The IA metadata carries no "
+       "title/date/creator, so the cite is hand-written.")
 
 FILES_B = os.path.join(ROOT, "data", "commons", "files_wiltshire_b.jsonl")
 CLASSIFIED_B = os.path.join(ROOT, "data", "commons", "classified_wiltshire_b.jsonl")
@@ -86,11 +93,12 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # the header prints none or the label is cut off in the scan (TAB. XX); VII's printed digit is faint
 # and was read 12 by the plate page sequence 8,12,14,16,...; IX/X titles are the two near-identical
 # "View westward from Stonehenge" captions (the 700-1400 px read cannot resolve which carries which
-# legend words). Kinds from the visual check: only
-# the three plan-view plates are "s" (XI the famous numbered plan as a fold-out on leaves 56/57,
-# XII the orthographic plan, XXIII the Area plan - the Avenue shows in the latter and in the
-# perspective views, there is no separate avenue plan); views/sections/artifacts/portrait/table
-# are "o". Duplicates as printed: TAB. II twice (leaf 15 the Cadiz round; leaves 19/20 Stonehenge
+# legend words). Kinds from the visual check: only the two plan-view plates are "s" (XI the famous
+# numbered plan as a fold-out on leaves 56/57, XXIII the Area plan - the Avenue shows in the latter
+# and in the perspective views, there is no separate avenue plan); XII is an orthographic SECTION
+# (the elevation with the "The Front" scale bar, re-checked against the leaf image 2026-10-14:
+# first read as a plan at triage size) - "o"; views/sections/artifacts/portrait/table are "o".
+# Duplicates as printed: TAB. II twice (leaf 15 the Cadiz round; leaves 19/20 Stonehenge
 # from the East), TAB. III twice (identical impressions, leaves 24/26), TAB. XXIII twice (leaf 111
 # the Area plan, leaf 115 the Avenue-track view), TAB. XXXIII twice (identical impressions, leaves
 # 155/157). TAB. XXI and XXIV do not occur in this copy. XXXIIII is the old-style 34 as printed.
@@ -106,7 +114,7 @@ VIII||View westward from Stonehenge|14|o
 IX||View westward from Stonehenge|16|o
 X||View westward from Stonehenge, near Stoweybury|18|o
 XI||The Geometrical Ground of the Plan of Stonehenge|20|s
-XII||The Orthography of Stonehenge|22|s
+XII||The Orthography of Stonehenge|22|o
 XIII||Stonehenge from the South-west|24|o
 XIII||The Orthographic section of Stonehenge upon the Croft boundary|26|o
 XIV||The Orthographic section of Stonehenge upon the Calf boundary|28|o
@@ -166,6 +174,38 @@ STAGED = [
      "Kit's Coty House, pen drawing by William Stukeley, 1722 (Itinerarium, style-attributed - "
      "Commons has no date)",
      "view", 1020, 320),
+]
+
+# The book's verified site-plan plates (209b box 3): the only plan-view plates of the 33 (the rest
+# are views/sections/artifacts/portrait/table - the lead doc records them). Both tie to
+# stonehenge-q39671, year 1740. leaf_n is the plate's first leaf; leaf_n2 the second (the XI
+# fold-out is scanned as two leaf images, 805/804 x 1401 px each - one row covers both). plate_page
+# is the page printed in the plate's own header (P. 20. / P. 44.), the only pagination the plates
+# carry. Verified against the triage-size leaf images 2026-10-13/14 (session 7): XI left half "the
+# Cell" / "the Entrance" / "the Cuts" with the 0-100 feet scale, right half the altar with the
+# compass rose and the banner "The Geometrical Ground of the Plan of STONEHENGE, P. 20. TAB. XI";
+# XXIII the ditch-and-bank ring, the dashed stone circle with the central altar, and "The Avenue"
+# running out of the circle (scale 50-300 cubits / 300 feet).
+BOOK_ROWS = [
+    dict(site="stonehenge-q39671", plate="XI", sub="", page=20, plate_page="P. 20. TAB. XI.",
+         leaf_n=56, leaf_n2=57,
+         title="The Geometrical Ground of the Plan of Stonehenge",
+         name="Stonehenge, the famous numbered plan by William Stukeley (TAB. XI, 1740) - the fold-out: "
+              "leaf 56 (left half: the Cell, the Entrance, the Cuts, scale 0-100 feet) and leaf 57 "
+              "(right half: the altar with the compass rose, the banner with the title)",
+         desc="TAB. XI of *Stonehenge, a Temple Restor'd to the British Druids* (London, 1740): the "
+              "plate's own printed header 'P. 20. TAB. XI.' - the book has no list of plates, the "
+              "plates' own headers are the only list (transcribed in fit/src_wiltshire_stukeley.py "
+              "STUKLEY_PLATES)."),
+    dict(site="stonehenge-q39671", plate="XXIII", sub="", page=44, plate_page="P. 44. TAB.XXIII",
+         leaf_n=111, leaf_n2=None,
+         title="The Area of Stonehenge",
+         name="Stonehenge, the Area plan by William Stukeley (TAB. XXIII, 1740) - the ditch-and-bank "
+              "ring, the stone circle with the altar, and the Avenue (the book's only avenue depiction)",
+         desc="TAB. XXIII of *Stonehenge, a Temple Restor'd to the British Druids* (London, 1740): "
+              "the plate's own printed header 'P. 44. TAB.XXIII' - the book has no list of plates, "
+              "the plates' own headers are the only list (transcribed in fit/src_wiltshire_stukeley.py "
+              "STUKLEY_PLATES)."),
 ]
 
 
@@ -276,15 +316,98 @@ def evidence_for(named, s):
             "site_lon": s["lon"], "site_lat": s["lat"], "dist_m": 0.0}
 
 
+def book_evidence(row, s):
+    """The 200 evidence for a staged book-plan row: the tie is the book's OWN printed list - here
+    the plate's own header, since the book has no list of plates (the transcribed entry is stored
+    verbatim in list_entry and in the row's desc; check_caption re-verifies offline, from stored
+    fields alone, that the row's title/desc still names the place). The place coordinates are the
+    site's own verified point - dist_m 0.0, never a name-search resolution."""
+    return {"rec": "evidence/1", "kind": "caption_coords", "checked": now(),
+            "named_place": s["name"],
+            "named_place_source": "the book's printed plate header (the book has no list of plates: "
+                                  "the plates' own headers are the list)",
+            "list_entry": f"{row['plate']}|{row['sub']}|{row['title']}|{row['page']}|s",
+            "place_qid": s["qid"], "place_label": s["name"],
+            "place_lon": s["lon"], "place_lat": s["lat"],
+            "site_lon": s["lon"], "site_lat": s["lat"], "dist_m": 0.0}
+
+
+def stage_book(dry=False):
+    """Offline: stage the book's verified site-plan plates (BOOK_ROWS) into the same staging files
+    (211 merges them into the canonical index). Guards, in order per row: a leaf whose stage-A row
+    is gone or no longer plate_site_plan (a triage re-run that reclassifies a staged plate fails
+    loud); the row's printed list entry drifted off STUKLEY_PLATES (the evidence is that entry);
+    a site missing from (or moved off) the catalog; a title already in the canonical files.jsonl;
+    a (site, title) already staged (idempotent skip). No network, no LLM: stage A and the catalog
+    are local files."""
+    import books
+    a = books.stage_a(IA)
+    known = _catalog()
+    have = {(r.get("site"), r.get("title")) for r in _load(FILES_B) + _load(CLASSIFIED_B)}
+    canonical = {r.get("title") for r in _load(FILES_CANONICAL) if r.get("title")}
+    new_files, new_cls = [], []
+    for row in BOOK_ROWS:
+        s = SITES[row["site"]]
+        for n in (row["leaf_n"],) + ((row["leaf_n2"],) if row.get("leaf_n2") is not None else ()):
+            r = a.get(n)
+            if r is None or r["out"].get("page_type") != "plate_site_plan":
+                raise SystemExit(f"BOOK_ROWS {row['title']!r}: leaf {n} is not plate_site_plan in "
+                                 f"stage A now ({r and r['out'].get('page_type')!r}): the machine reclassified "
+                                 f"a staged plate - re-verify before staging")
+        if row["title"] in canonical:
+            raise SystemExit(f"{row['title']!r} is already in the canonical files.jsonl: never re-staged")
+        cat = known.get(row["site"])
+        if cat is None:
+            raise SystemExit(f"BOOK_ROWS {row['title']!r}: site {row['site']!r} not in the catalog")
+        if (cat.get("qid"), cat.get("lon"), cat.get("lat")) != (s["qid"], s["lon"], s["lat"]):
+            raise SystemExit(f"catalog drift for {row['site']}: table {s['qid']} {s['lon']},{s['lat']} vs "
+                             f"catalog {cat.get('qid')} {cat.get('lon')},{cat.get('lat')}")
+        entry = f"{row['plate']}|{row['sub']}|{row['title']}|{row['page']}|s"
+        if entry not in STUKLEY_PLATES:
+            raise SystemExit(f"BOOK_ROWS {row['title']!r}: the printed list entry {entry!r} drifted off "
+                             f"STUKLEY_PLATES (the row's evidence is that entry)")
+        if (row["site"], row["title"]) in have:
+            continue
+        id_ = f"{IA}_n{row['leaf_n']:04d}" + (f"_n{row['leaf_n2']:04d}" if row.get("leaf_n2") is not None else "")
+        new_files.append({
+            "site": row["site"], "qid": s["qid"], "id": id_,
+            "book": KEY, "ia_id": IA, "cite": CITE,
+            "title": row["title"], "plate": row["plate"], "plate_page": row["plate_page"],
+            "leaf_n": row["leaf_n"], "leaf_n2": row.get("leaf_n2"),
+            "page_type": "plate_site_plan", "year": YEAR, "wd_plan": False, "cat": None,
+            "name": row["name"], "by": "fit/src_wiltshire_stukeley.py", "desc": row["desc"],
+            "evidence": book_evidence(row, s),
+        })
+        new_cls.append({"site": row["site"], "title": row["title"],
+                        "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"})
+    print(f"book: {len(new_files)} new plan rows" + (" (dry run)" if dry else ""))
+    for f in new_files:
+        print("   ", f["site"], "|", f["plate"], "|", f["title"])
+    if dry:
+        return
+    _append(FILES_B, new_files)
+    _append(CLASSIFIED_B, new_cls)
+
+
 def stage(dry=False):
-    """Stage the STAGED Commons rows into this task's own files (append-only, idempotent on
-    (site, title)). Drift fails loud: a title already in the canonical files.jsonl (the two Petrie
-    1880 files - never re-staged, whatever site a rogue row names), a site missing from (or moved
-    off) the catalog, a title Commons no longer holds, a live size moved off the table, a named
-    place the live caption no longer prints, or a row commons.keep() would drop after the date
-    override is applied. One live call: the batched, paced commons.info over the three titles -
-    the file bytes are never fetched (PITFALLS: upload.wikimedia.org rate-limits raw downloads,
-    not the API)."""
+    """Stage this task's rows into files_wiltshire_b.jsonl + classified_wiltshire_b.jsonl:
+    first the Commons rows (live, _stage_commons), then the book's plan rows (offline,
+    stage_book). Order matters: a Commons guard failure must not leave the book rows
+    written, and each phase appends only at its end, so a failed phase writes nothing.
+    --dry previews, --stage / no args run live."""
+    _stage_commons(dry)
+    stage_book(dry)
+
+
+def _stage_commons(dry=False):
+    """The Commons half of stage() (205-Kip pattern, append-only, idempotent on (site, title)).
+    Drift fails loud: a title already in the canonical files.jsonl (the two Petrie 1880 files -
+    never re-staged, whatever site a rogue row names), a site missing from (or moved off) the
+    catalog, a title Commons no longer holds, a live size moved off the table, a named place the
+    live caption no longer prints, or a row commons.keep() would drop after the date override is
+    applied. One live call: the batched, paced commons.info over the three titles - the file
+    bytes are never fetched (PITFALLS: upload.wikimedia.org rate-limits raw downloads, not the
+    API)."""
     c = _commons()
     import books_match
     known = _catalog()

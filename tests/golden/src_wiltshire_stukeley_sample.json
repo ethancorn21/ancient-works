@@ -23,6 +23,22 @@
    "p_plan": 0.0,
    "site": "kit-s-coty-house-q4222497",
    "title": "File:Stukelykitscoty.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "stonehenge-q39671",
+   "title": "The Geometrical Ground of the Plan of Stonehenge"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "stonehenge-q39671",
+   "title": "The Area of Stonehenge"
   }
  ],
  "files": [
@@ -125,6 +141,76 @@
    "w": 1020,
    "wd_plan": false,
    "year": 1722
+  },
+  {
+   "book": "stukeley_templerestored1740",
+   "by": "fit/src_wiltshire_stukeley.py",
+   "cat": null,
+   "cite": "William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, London 1740 (M.DCC.XL.; printed for W. Innys and R. Manby; British Museum scan BMB) - exact title page read from the leaf-1 image 2026-10-13 (the IA hOCR of that leaf is unreadable)",
+   "desc": "TAB. XI of *Stonehenge, a Temple Restor'd to the British Druids* (London, 1740): the plate's own printed header 'P. 20. TAB. XI.' - the book has no list of plates, the plates' own headers are the only list (transcribed in fit/src_wiltshire_stukeley.py STUKLEY_PLATES).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "list_entry": "XI||The Geometrical Ground of the Plan of Stonehenge|20|s",
+    "named_place": "Stonehenge",
+    "named_place_source": "the book's printed plate header (the book has no list of plates: the plates' own headers are the list)",
+    "place_label": "Stonehenge",
+    "place_lat": 51.178889,
+    "place_lon": -1.826111,
+    "place_qid": "Q39671",
+    "rec": "evidence/1",
+    "site_lat": 51.178889,
+    "site_lon": -1.826111
+   },
+   "ia_id": "bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740",
+   "id": "bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740_n0056_n0057",
+   "leaf_n": 56,
+   "leaf_n2": 57,
+   "name": "Stonehenge, the famous numbered plan by William Stukeley (TAB. XI, 1740) - the fold-out: leaf 56 (left half: the Cell, the Entrance, the Cuts, scale 0-100 feet) and leaf 57 (right half: the altar with the compass rose, the banner with the title)",
+   "page_type": "plate_site_plan",
+   "plate": "XI",
+   "plate_page": "P. 20. TAB. XI.",
+   "qid": "Q39671",
+   "site": "stonehenge-q39671",
+   "title": "The Geometrical Ground of the Plan of Stonehenge",
+   "wd_plan": false,
+   "year": 1740
+  },
+  {
+   "book": "stukeley_templerestored1740",
+   "by": "fit/src_wiltshire_stukeley.py",
+   "cat": null,
+   "cite": "William Stukeley, Stonehenge, a Temple Restor'd to the British Druids, London 1740 (M.DCC.XL.; printed for W. Innys and R. Manby; British Museum scan BMB) - exact title page read from the leaf-1 image 2026-10-13 (the IA hOCR of that leaf is unreadable)",
+   "desc": "TAB. XXIII of *Stonehenge, a Temple Restor'd to the British Druids* (London, 1740): the plate's own printed header 'P. 44. TAB.XXIII' - the book has no list of plates, the plates' own headers are the only list (transcribed in fit/src_wiltshire_stukeley.py STUKLEY_PLATES).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "list_entry": "XXIII||The Area of Stonehenge|44|s",
+    "named_place": "Stonehenge",
+    "named_place_source": "the book's printed plate header (the book has no list of plates: the plates' own headers are the list)",
+    "place_label": "Stonehenge",
+    "place_lat": 51.178889,
+    "place_lon": -1.826111,
+    "place_qid": "Q39671",
+    "rec": "evidence/1",
+    "site_lat": 51.178889,
+    "site_lon": -1.826111
+   },
+   "ia_id": "bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740",
+   "id": "bim_eighteenth-century_stonehenge-a-temple-rest_stukeley-william_1740_n0111",
+   "leaf_n": 111,
+   "leaf_n2": null,
+   "name": "Stonehenge, the Area plan by William Stukeley (TAB. XXIII, 1740) - the ditch-and-bank ring, the stone circle with the altar, and the Avenue (the book's only avenue depiction)",
+   "page_type": "plate_site_plan",
+   "plate": "XXIII",
+   "plate_page": "P. 44. TAB.XXIII",
+   "qid": "Q39671",
+   "site": "stonehenge-q39671",
+   "title": "The Area of Stonehenge",
+   "wd_plan": false,
+   "year": 1740
   }
  ]
 }

@@ -1,0 +1,32 @@
+[
+{
+"n": 57,
+"site_plan": true,
+"entries": [
+{
+"plate": "XI",
+"sub": "",
+"title": "The Geometrical Ground of the Plan of Stonehenge",
+"page": "20",
+"kind": "s",
+"type": "plate",
+"map_method": "title"
+}
+]
+},
+{
+"n": 115,
+"site_plan": true,
+"entries": [
+{
+"plate": "XXIII",
+"sub": "",
+"title": "The Area of Stonehenge",
+"page": "44",
+"kind": "s",
+"type": "plate",
+"map_method": "qwen+title"
+}
+]
+}
+]

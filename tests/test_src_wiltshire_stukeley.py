@@ -1,17 +1,20 @@
 """The Stukeley 1740 book + the Commons-hosted Stukeley plates (task 209b, GOAL point 4):
-fit/src_wiltshire_stukeley.py stages the three visually-verified Commons rows into this task's
-own staging files (files_wiltshire_b.jsonl + classified_wiltshire_b.jsonl) and drives the
-Internet Archive BMB scan of *Stonehenge, a Temple Restor'd to the British Druids* (1740, 166
-leaves) through the unmodified book machinery (per-book artifacts only - the shared index.jsonl
-and validation.json are never written, 211 rebuilds them). The tests are offline: a
-socket-blocking fixture makes any network attempt fail loud, so the evidence check runs from
-the stored fields only (200's fail-closed box) and commons.info is a recording fake. They pin
-the stage() guards (a live size drift, a canonical-title clash - the two Petrie 1880 files -
-and the one date override), the date bookkeeping on every staged row, the offline --check
-(join + the evidence pass on every staged row), the golden sample (regenerated only via
---golden, for an intended change), register() (a BOOKS entry ONLY - no wrap, the key
-difference from 209a's Hoare) and --status (offline, from a fabricated bookreader cache).
-No LLM calls ever run in the tests (the triage stages are live-only)."""
+fit/src_wiltshire_stukeley.py stages two kinds of rows into this task's own staging files
+(files_wiltshire_b.jsonl + classified_wiltshire_b.jsonl): the three visually-verified Commons
+rows (205-Kip pattern) and the book's two verified site-plan plates (TAB. XI the numbered plan
+as a fold-out, TAB. XXIII the Area plan with the Avenue - offline, the evidence is the plate's
+own printed header, since the book has no list of plates). The Internet Archive BMB scan of
+*Stonehenge, a Temple Restor'd to the British Druids* (1740, 166 leaves) runs through the
+unmodified book machinery (per-book artifacts only - the shared index.jsonl and validation.json
+are never written, 211 rebuilds them). The tests are offline: a socket-blocking fixture makes
+any network attempt fail loud, so the evidence check runs from the stored fields only (200's
+fail-closed box) and commons.info is a recording fake. They pin the stage() guards (a live size
+drift, a canonical-title clash - the two Petrie 1880 files - and the one date override), the
+date bookkeeping on every staged row, the offline --check (join + the evidence pass on every
+staged row), the golden sample (regenerated only via --golden, for an intended change),
+register() (a BOOKS entry ONLY - no wrap, the key difference from 209a's Hoare) and --status
+(offline, from a fabricated bookreader cache). No LLM calls ever run in the tests (the triage
+stages are live-only)."""
 import json
 import os
 import socket
@@ -71,36 +74,44 @@ def no_network(monkeypatch):
 
 
 def test_stage_offline(tmp_path, monkeypatch, capsys):
-    """stage() on a temp tree with the fake meta: both staging files written with exactly the three
-    rows; the kitscoty row alone carries the Kip/Mackenzie date override (date '1722' - the 1722
-    Itinerarium style attribution - and date_commons '' because the dump date was empty), the other
-    two keep the raw dump date with no date_commons key; a second run is an idempotent no-op; and
-    fit/evidence.py's check passes offline on all three from the stored fields alone."""
+    """stage() on a temp tree with the fake meta: the three Commons rows then the book's two plan
+    rows (offline; their evidence is the printed list entry, stored verbatim in the row) - five
+    rows total. The kitscoty row alone carries the Kip/Mackenzie date override (date '1722' - the
+    1722 Itinerarium style attribution - and date_commons '' because the dump date was empty), the
+    other Commons rows keep the raw dump date with no date_commons key; the book rows carry no
+    dump date at all, only the work's year 1740. A second run is an idempotent no-op; and
+    fit/evidence.py's check passes offline on all five from the stored fields alone."""
     monkeypatch.setattr(src, "FILES_B", str(tmp_path / "files_b.jsonl"))
     monkeypatch.setattr(src, "CLASSIFIED_B", str(tmp_path / "classified_b.jsonl"))
     src.stage()
     out = capsys.readouterr().out
-    assert "staged: 3 new pictures" in out, out
+    assert "staged: 3 new pictures" in out and "book: 2 new plan rows" in out, out
     files = src._load(src.FILES_B)
     cls = src._load(src.CLASSIFIED_B)
-    assert len(files) == 3 and len(cls) == 3
+    assert len(files) == 5 and len(cls) == 5
     assert [(r["site"], r["year"]) for r in files] == [
-        ("avebury-q661855", 1743), ("stonehenge-q39671", 1722), ("kit-s-coty-house-q4222497", 1722)]
+        ("avebury-q661855", 1743), ("stonehenge-q39671", 1722), ("kit-s-coty-house-q4222497", 1722),
+        ("stonehenge-q39671", 1740), ("stonehenge-q39671", 1740)]
     for r in files:
-        if "Stukelykitscoty" in r["title"]:
+        if r.get("book") == src.KEY:  # the book rows: no Commons dump date, just the work's year
+            assert "date" not in r and r["page_type"] == "plate_site_plan" and r["wd_plan"] is False
+            assert r["evidence"]["kind"] == "caption_coords" and r["evidence"]["dist_m"] == 0.0
+            assert r["evidence"]["list_entry"].startswith((r["plate"] + "|"))
+            assert r["evidence"]["list_entry"] in src.STUKLEY_PLATES  # the entry is the evidence
+        elif "Stukelykitscoty" in r["title"]:
             assert r["date"] == "1722" and r["date_commons"] == ""  # the only override
         else:
             assert r["date"] in ("1743", "1722") and "date_commons" not in r
         assert r["evidence"]["kind"] == "caption_coords" and r["evidence"]["dist_m"] == 0.0
     assert {(r["site"], r["title"]) for r in cls} == {(r["site"], r["title"]) for r in files}
-    assert [r["p_plan"] for r in cls] == [1.0, 0.0, 0.0]  # the plan, then the two views
+    assert [r["p_plan"] for r in cls] == [1.0, 0.0, 0.0, 1.0, 1.0]  # the Avebury plan, two views, two book plans
     src.stage()  # a second run: an idempotent no-op
     out = capsys.readouterr().out
-    assert "staged: 0 new pictures" in out, out
-    assert len(src._load(src.FILES_B)) == 3 and len(src._load(src.CLASSIFIED_B)) == 3
+    assert "staged: 0 new pictures" in out and "book: 0 new plan rows" in out, out
+    assert len(src._load(src.FILES_B)) == 5 and len(src._load(src.CLASSIFIED_B)) == 5
     code, text = evidence.check(src.FILES_B, src.NO_BOOKS)
     assert code == 0, text
-    assert "evidence: 3 rows, 3 pass, 0 fail, 0 no-tie" in text, text
+    assert "evidence: 5 rows, 5 pass, 0 fail, 0 no-tie" in text, text
 
 
 def test_canonical_title_clash_fails_loud(tmp_path, monkeypatch):
@@ -119,16 +130,17 @@ def test_canonical_title_clash_fails_loud(tmp_path, monkeypatch):
 
 
 def test_check_staged_offline(capsys):
-    """--check, offline: the staged files join (every row names an existing catalog site - all three
-    do, so no extras file -; (site, title) unique; no title in the canonical files.jsonl;
-    classified rows 1:1) and every staged row PASSes the evidence check from stored fields alone."""
+    """--check, offline: the staged files join (every row names an existing catalog site - the three
+    Commons sites and stonehenge for the book rows, so no extras file -; (site, title) unique; no
+    title in the canonical files.jsonl; classified rows 1:1) and every staged row PASSes the
+    evidence check from stored fields alone."""
     code = src.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
     assert "join:" not in out, f"join problems:\n{out}"
-    assert "evidence: 3 rows, 3 pass, 0 fail, 0 no-tie" in out, out
+    assert "evidence: 5 rows, 5 pass, 0 fail, 0 no-tie" in out, out
     rows = src._load(src.FILES_B)
-    assert len(rows) == 3
+    assert len(rows) == 5
     for r in rows:
         assert f"PASS caption_coords  {r['site']}|{r['title']}" in out, \
             f"missing PASS line for {r['site']}|{r['title']}:\n{out}"
@@ -155,11 +167,11 @@ def test_register_adds_the_book_entry_and_touches_nothing_else(monkeypatch):
     hand-written because the IA metadata carries no title/date/creator), and NOTHING else is
     touched - books_ia.pages/page_texts and books.fetch_triage stay the originals (the book
     really is on IA: the key difference from 209a's Hoare, which wraps all three for its local
-    copy); while STUKLEY_PLATES is None no plate list is injected into books_lists.PLATES.
-    The BOOKS entry is managed with setitem so the teardown removes it (a bare assignment would
-    leak the mutation across tests)."""
+    copy); with STUKLEY_PLATES transcribed it is injected into books_lists.PLATES in-process
+    (the 213/civitates hand-list pattern - pipeline/books_lists.py is owned by 217, so the
+    injection is in-process, not a file edit). The BOOKS entry is managed with setitem so the
+    teardown removes it (a bare assignment would leak the mutation across tests)."""
     monkeypatch.setitem(books.BOOKS, src.KEY, None)  # a clean baseline, removed again by the teardown
-    assert src.STUKLEY_PLATES is None
     pages_before, texts_before, fetch_before = books_ia.pages, books_ia.page_texts, books.fetch_triage
     src.register()
     src.register()  # idempotent
@@ -168,7 +180,30 @@ def test_register_adds_the_book_entry_and_touches_nothing_else(monkeypatch):
     assert books_ia.pages is pages_before and books_ia.page_texts is texts_before \
         and books.fetch_triage is fetch_before
     import books_lists
-    assert src.IA not in books_lists.PLATES  # nothing to inject while STUKLEY_PLATES is None
+    assert books_lists.PLATES[src.IA] == src.STUKLEY_PLATES  # the hand list is injected in-process
+
+
+def test_book_rows_staged_in_files_b():
+    """The committed staging files hold the book's two verified site-plan plates (209b box 3):
+    TAB. XI the numbered plan (a fold-out: leaf_n 56 + leaf_n2 57, one row) and TAB. XXIII the Area
+    plan (leaf 111), both stonehenge-q39671 year 1740, each with the 200 caption_coords evidence
+    whose list_entry is the plate's own printed header (the book has no list of plates) and whose
+    place coordinates are the site's own point (dist 0.0); each has its hand-classified row
+    (p_plan 1.0). The titles are not in the canonical files.jsonl (the join check)."""
+    files = src._load(src.FILES_B)
+    book = [r for r in files if r.get("book") == src.KEY]
+    assert len(book) == 2 and len(files) == 5
+    assert [r["plate"] for r in book] == ["XI", "XXIII"]
+    for r in book:
+        assert r["site"] == "stonehenge-q39671" and r["year"] == 1740 and r["ia_id"] == src.IA
+        assert r["evidence"]["kind"] == "caption_coords" and r["evidence"]["dist_m"] == 0.0
+        assert r["evidence"]["list_entry"] in src.STUKLEY_PLATES
+        assert r["title"] not in {x.get("title") for x in src._load(src.FILES_CANONICAL)}
+    assert book[0]["leaf_n"] == 56 and book[0]["leaf_n2"] == 57 and book[1]["leaf_n"] == 111
+    assert book[0]["id"].endswith("_n0056_n0057") and book[1]["id"].endswith("_n0111")
+    cls = src._load(src.CLASSIFIED_B)
+    book_cls = [c for c in cls if (c["site"], c["title"]) in {(r["site"], r["title"]) for r in book}]
+    assert len(book_cls) == 2 and all(c["p_plan"] == 1.0 for c in book_cls)
 
 
 def test_status_offline_fabricated_cache(tmp_path, monkeypatch, capsys):
