@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 254, agent a - **TASK DONE.** All six boxes ticked,
+- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -23,19 +23,93 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 212 DECISION: iter-253 ran the closing step - final sync clean (13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open), fresh docs/batch.md, tests green except 235's baseline red, invariant 0/499 violations; all six boxes verified (tick + done left to the next session by the context limit)
-- **Sync** (`fit/cover.py sync`, log /tmp/212-sync-iter253.log): 70 docs over 52 sites -> the 13 lead-77405cf matcher docs all passed the matchfit.spread line check and **synced** (gates 1.0-11.1 m; 10 of the 13 big jpgs downloaded from Commons by plan_fit.load_picture as predicted), 57 **skipped** (overlay already current - includes all 21 golden hand docs), **zero** sent/failed/refused/pruned. Export: "457 open of 480 -> web/data/review.json". Tracked diff in my checkout: ONLY web/data/review.json - the `at` stamp 14:34->20:37, items array BYTE-IDENTICAL to the lead's 14:34 export (the lead's 3 item-file edits in 77405cf had already recorded those resolutions, so the export wrote no new item files). web/data/sites.json was rewritten by set_drawings during the builds but is BYTE-IDENTICAL to the committed blob (git hash verified): the lead's hand-tuned score/oldest/overlays/drawings for the re-fit sites equal exactly what the plan_fit machinery derives - an independent confirmation of 77405cf. The 13 depictions.json entries + webps and the 10 big jpgs landed in the STORE via the per-site symlinks (old-sarum spot-verified; my final 13/13 script had a trivial key bug - glob path instead of os.path.basename - and died on it, re-run optional).
-- **Report** (`fit/cover.py report`, docs/batch.md @20:38 UTC): 499 built; per-outcome counts hand(golden) 19 / human-saved 0 / **automatic 33** (49 by:agent docs; 212c had 24/36) / review item 200 / no picture found 244 / **uncovered 3** (buckets sum to 499). The 3 = fudge, highbank, hopeton: measured plate:true in sites.json (drawings=1, overlays=1; sole dep entry kind=topo, fit.doc None), no fit doc, no item - the trio the CORRECTION-4 entry pre-identified as "drawings-1 site.json-plate sites -> covered by the product definition". The report's "uncovered (needs attention)" bucket is DOC-based and its header wording ("the invariant is broken") is the driver-approved 212c design (ac87a87 shipped the identical wording for 106 = the 103 the lead then itemized + these 3); I did NOT reword it (box 5 is satisfied as written).
-- **Box-6 invariant MEASURED on the final served files**: 499 sites in web/data/sites.json, **0 violations** (every site: drawings >= 1 or an open review item; open = review.resolved_doc falsy, the product rule); the 457 open item-file set == the 457 review.json entry set (identical site sets, checked both ways).
-- **Tests**: tests/test_cover.py 6/6 PASSED (41.7 s; test_report re-derives the 20-sample from the recorded seed 20261012 and checks buckets sum to the built total). Golden: `sha256sum -c tests/golden/hand_fit_docs.sha256` all 40 OK (21 hand docs + 19 site files byte-identical); test_fit_provenance::test_every_doc_carries_provenance PASSED. **Full suite: 159 passed / 1 failed / 1 skipped (390 s)** - the lone failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser at its SEED ("dep:null"): **235's pre-existing red** (tasks/235, open + unassigned, Touches tests/test_fit_queue.py; red since ~iter 199, in the driver's baseline, named in 307d's hand-over line 66). I ran `_pick_place()`: it still returns **marietta** (plan ancientmonuments00squi_n0169_1; its only depiction is a 1904 USGS topo the page's surveyOldEnough 150-year filter hides, so no dep-<site> layer is ever created and the seed check reads null) - same site and same signature as 235's record, so my sync did not move or change it (marietta is none of the 11 re-fit sites). CORRECTION to the iter-252 hand-over: "later fixed by 307d" was wrong - 307d fixed its own test_owner_check; the gesture red was never 307d's to fix. The suite is exactly the established baseline: no test newly red by this session.
-... (1.4 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: iter-253 ran the closing step - final sync clean (13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open), fresh docs/batch.md, tests green except 235's baseline red, invariant 0/499 violations; all six boxes verified (tick + done left to the next session by the context limit)' DECISIONS.md`)
+### 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
 
-### 2026-10-13 212 DECISION: done - six boxes ticked on re-verified evidence; the 457 open set is doc-derived (455 unresolved files + 2 re-opened memos); dep-entry naming pitfall filed
-The closing session (iter-254). Subtasks 212a/212b/212c were all done and driver-accepted; this session re-verified the iter-253 evidence on the current tree (only driver bookkeeping commits since: 73897d5/e31c6d4/aee0bd5) before ticking: golden `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; is_done-triple audit 70/70 current (0 missing / 0 stale); GOAL.md point 1 invariant 0/499 on the served files (499 sites; every site drawings >= 1 or an open item; fudge/highbank/hopeton covered by their site.json-plate drawings=1); tests/test_cover.py 6/6 PASSED (41.6 s) and tests/test_review.py 5/5 PASSED (51.6 s, incl. the page-level test_page_shows_the_review_list); docs/batch.md fresh @20:38 with buckets summing to 499 and seed 20261012. Ticked all six boxes, set Status: done. Box 6's written port-0 test stays waived per the lead's 212b say-so (the driver accepted the identical live-evidence tick for 212b) - the box is ticked on the measured substance (invariant 0/499, golden green, sample reproducible via test_report), per that precedent. Clarification found while re-verifying: web/data/review.json's 457 open = 455 item files without a `resolved` memo + 2 items (aesica-q4688554, alligator-effigy-mound-q4732645) whose write-once memo points at a since-deleted doc; export's doc-derived open rule (fit/review.py:189 - open iff no candidate has a current doc) reopens them, and both sites (drawings=0) are covered exactly by that openness. A naive memo-field check would miscount 455 and could make those two sites look uncovered - the page's truth is doc-derived, per the existing PITFALLS entry on fit/review.py resolution. Filed the dep-entry naming pitfall in PITFALLS (### pipeline/: entry `file` = `plan_<plan>.webp` strips the site prefix, `fit.doc` keeps `<sid>.<plan>`; audit with the is_done triple, and build doc ids with os.path.basename(path)[:-5]).
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
 
-### 2026-10-13 212 DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+### 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
+
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
