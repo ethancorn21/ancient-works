@@ -53,6 +53,113 @@ found) but are not staged as picture rows.
   PITFALLS entry).
 
 ## Hand-over
+(2026-10-13, iteration 218, agent c - country-map transcription FINISHED this session (all 6 read from the
+/tmp/horsley_full full-size images; table below is the COMPLETE 22-entry list, ready to paste into the
+module). The module edit was NOT started (context limit hit during the reading). NO code changes on disk
+yet - the module is still the iteration-212 version (CITE = the IA-record placeholder, HORSEY_PLATES=None,
+no map table, --stage/--check/--golden raise "not built yet"; git has only my uncommitted... nothing -
+I made zero file edits this session, the only artifacts are new crops in /tmp/horsley_full/). Last suite
+baseline: iteration 203 (1 failed / 155 passed / 1 skipped; lone red = agent a's in-flight 307 placement
+test). /tmp/horsley_full/ still holds every full-size image + all crops (242+ files; new this session:
+qt_*/qb_*_f, qt_*/qb_*_v2, title_0734_cw*, titleband_0734, ov0706_cw, ov0734_cw, ov0832_cw, ov0867_cw,
+ov0867_full, pv*_cw/ccw).
+
+**EXACT NEXT STEP (the module edit = 215-recipe step 3, pending since iteration 217):**
+1. Edit fit/src_roman_horsley.py:
+   (a) CITE -> "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed
+       for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the
+       Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf
+       n0015)" (title page n0014, read in 215).
+   (b) Add HORSEY_FIGS = the 22-entry table below in books_lists HAND_FIGS format
+       (fig|title|page|kind|kind_by; parse_hand_figures: fig int = leaf's n, page str or '', kind s/o/u,
+       kind_by hand; each line EXACTLY 4 pipes - no pipes in titles). Comment above it: the book has NO
+       printed list of plates (verified both copies, 215) so the list = the plates' own printed headings
+       (books_lists docstring's "headings printed in its text" case); transcribed by eye from the full-size
+       images 2026-10-13 (215/216/218); stage-A captions on this book are parametric hallucinations and were
+       never used; kind s = the 15 site-plan maps that get staged, kind o = N.11 (a wall cross-section) and
+       the six country maps (indexed, never staged).
+   (c) register(): import books + books_lists; books.BOOKS[KEY] = dict(ia=IA, region=REGION, year=YEAR,
+       cite=CITE, why=WHY); books_lists.HAND_FIGS[IA] = HORSEY_FIGS; if HORSEY_PLATES is not None:
+       books_lists.PLATES[IA] = HORSEY_PLATES. (books_lists import inside the function keeps the module top
+       stdlib-only - the fit/src_kip.py idiom; status()/fetch() also call register() and run under .venv
+       anyway.)
+   (d) list_cmd(): DROP the "print hOCR front leaves" branch (no plate list exists to print; the
+       transcription is done) -> register() then books_lists.cmd_ocrmap([KEY]). cmd_ocrmap is FULLY OFFLINE
+       for this book (HAND_FIGS books map by leaf n: no OCR, no pagenum_map network, no Qwen; inputs = the
+       local table + the stage-A file) - it writes ONLY lists/britanniaromanao00hors.json ({"plates": null,
+       "figures": the 22 figs}) + .map.json (verify: 22 list leaves, site_plan=true for exactly the 15 s
+       maps n236-254/n278-286, false for n60/n62/n256/n706/n734/n832/n867).
+   (e) Docstring: record the no-list discovery + two-table design (HORSEY_FIGS now / HORSEY_PLATES later),
+       usage lines (--fetch done 10-13; --list offline; --triage B = A's 80 site pages union the list's kind-s
+       leaves), remaining legs (stage B live, then --stage/--check/--golden, then the lead-doc recall; the
+       ~121 inscription plates trail as HORSEY_PLATES kind o, indexed never staged - the 90% box stands on
+       the maps already).
+   Commit: "207a: map list transcribed from the plates' own headings (the book has no plate list) - CITE
+   from the title page".
+2. Run --list (offline); verify the two list files (see 1d).
+3. Optional this session: books_lists.validate_book(KEY) in-process (import the module by path via
+   importlib, call register() first) - it is OFFLINE (bookreader.json cached; site_pages_model = A/F/C
+   files + local ink only; do NOT call cmd_validate - that writes the shared validation.json, forbidden).
+   Record its figures block (recall_pages, precision, flagged_not_in_list, missed_pages) here and in the
+   lead-doc section later (box 2 wants the stage-A/B recall in docs/lead_roman.md's Horsley section, with
+   stage B added after B runs).
+4. Full test suite (expect the iteration-203 baseline: 1 failed / 155 passed / 1 skipped; my changes touch
+   only fit/src_roman_horsley.py + two new per-book list files - nothing else imports the module).
+
+**THE COMPLETE 22-ENTRY LIST TABLE (paste verbatim into the module; every title read this session or in
+215/216 from the images - n60/n62 in 215, the 15 wall maps + N.11 in 216, n706/n734/n832/n867 in 218):**
+60|A Corrected Map of Britain according to Ptolemy (front-matter fold-out, faded landscape capture)||o|hand
+62|A Corrected Map of Britain according to Ptolemy's, or Rectified (front-matter fold-out, full spread)||o|hand
+236|A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.|P.158 N.1|s|hand
+238|A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.|P.158 N.2|s|hand
+240|A map of the Roman wall, from CONDERCVVM to VINDOBALA.|P.158 N.3|s|hand
+242|A map of the Roman wall, from VINDOBALA to HANNAVVM.|P.158 N.4|s|hand
+244|A map of the Roman wall, from HANNAVVM to CILVRNVA.|P.158 N.5|s|hand
+246|A map of the Roman wall, from CILVRNVA to BORCOVACEVS.|P.158 N.6|s|hand
+248|A map of the Roman walls from BORCOVACEVS to MAGNA.|P.158 N.7|s|hand
+250|A map of the Roman walls from MAGNA to PETRIANA.|P.158 N.8|s|hand
+252|A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.|P.158 N.9|s|hand
+254|A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM.|P.158 N.10|s|hand
+256|A section of both the Roman walls between one castellum and another (the south agger, Severus's ditch and vallum, Hadrian's north agger, ditch, principal vallum and south agger; a scale of 9 paces or 15 yards)|P.158 N.11|o|hand
+278|A general map of Antoninus's wall in Scotland.|P.176 N.1|s|hand
+280|A map of the Roman wall in Scotland from the west end to Bemulie.|P.176 N.2|s|hand
+282|A map of the Roman wall in Scotland from Bemulie to Crowy-hill.|P.176 N.3|s|hand
+284|A map of the Roman wall in Scotland from Crowy-hill to Falkirk.|P.176 N.4|s|hand
+286|A map of the Roman wall in Scotland from Falkirk to the east end.|P.176 N.5|s|hand
+706|BRITAIN according to PTOLEMY, taken from MERCATOR.|P.356|o|hand
+734|BRITANNIA ROMANA according to ANTONINE'S ITINERARY.|P.380|o|hand
+832|BRITANNIA ROMANA in signia Vicarii Britanniarum (the Notitia Dignitatum map: Maxima Caesariensis, Flavia, etc.)|P.472|o|hand
+867|TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM (the Peutinger table, Gaul segment; an "A scale of miles" bar)|Pag.505|o|hand
+
+**Readings this session (218), with how:** n706 = LANDSCAPE capture (2818x2526), upright: title box top-left
+of the spread "BRITAIN according to PTOLEMY, taken from MERCATOR." + corner mark "P. 356." (Book III p.356).
+n734 = rotated 90deg inside a landscape capture (2576x2511; read direction = rotate CW): title bottom-left of
+the rotated sheet "BRITANNIA ROMANA / according to ANTONINE'S / ITINERARY." + corner mark "P. 380." (Crops:
+titleband_0734.jpg). n832 = LANDSCAPE capture (2722x2592), upright: big title right page "BRITANNIA ROMANA" +
+block "IN SIGNIA VICARII BRITANNIARVM" (the Notitia Dignitatum map: provinces Maxima Caesariensis/Flavia,
+Portus Adurnus, the wall stations; corner mark "P.472."); stage A's caption "BRITANNIA ROMANA according to
+the NOTITIA." matches this pattern (rare case where A read the real title). n867 = PORTRAIT capture
+(2492x4116), upright: title top "TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM." + corner mark "Pag. 505."
+(the Peutinger table's Gaul segment: Firminiaci, Andecavi, Redones, Veneti, Bituriges, Icampenses... with
+Roman-numeral mile distances and wavy borders; stage A's caption matches it VERBATIM - another true read).
+hOCR around all four leaves is blank/garbled (fold-outs are hOCR-silent) - images are the only source.
+**MISTAKE this session (recorded so it is not repeated):** my crop script's second block (n0867) reused the
+loop variable n (still 832), so it OVERWROTE qt_0832_f/qb_0832_f with crops of n0867 - I first read the
+Peutinger leaf content mislabeled as the Notitia. Fixed with *_v2 crops (correct sources verified by file
+size: qt_0832_v2 = 4355x539 from 2722x2592). Re-read the title strips rather than trusting prior crop
+captions; stage A's n832/n867 captions happened to be true, but only the images proved it.
+**Machinery facts confirmed this session (read pipeline/books_lists.py + books.py):** HAND_FIGS books:
+figure_list = parse_hand_figures (fig = int leaf n, page str or None, kind, kind_by; one line per plate
+leaf, 5 fields, '' fig = no leaf); list_pages maps by f["fig"] directly and includes kind s AND o; cmd_ocrmap
+writes {"plates": parse_plates(...) [None here], "figures": figs} + map.json [n, site_plan, entries] and is
+offline for HAND_FIGS books (no pagenum_map, no OCR, no LLM); validate_book: plates section skipped (no
+PLATES), figures section = gt_site/gt_other from the hand table, flagged = site_pages_qwen = stage_a +
+stage_f + stage_c files + ink() over local triage images (NO LLM, NO network beyond the cached
+bookreader.json) - so validate_book can run offline in-process; cmd_triage_b runs B on site_pages_qwen ∪
+extra_site_pages (the list's kind-s leaves from map.json). The hOCR pageindex has 942 pages vs 936 leaves
+(the 6-page skew, mostly at fold-outs) - never key list lookups on the hOCR index.
+
+--- previous hand-over (iteration 216) ---
 (2026-10-13, iteration 216, agent c - map transcription FINISHED: all 15 map titles + corner marks read
 from the images (table below); staging design decided (files_roman.jsonl rows, evidence kind
 caption_coords, verified offline by fit/evidence.py check); NO code changes this session - the module
