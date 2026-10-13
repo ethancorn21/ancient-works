@@ -1,4 +1,4 @@
-Status: open
+Status: blocked
 # 207b: Maclauchlan, the survey of the Roman Wall (1857-58)
 Depends on: 200
 Touches: fit/src_roman_maclauchlan.py, data/books/triage/, data/books/lists/, data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, docs/lead_roman.md, tests/test_src_roman_maclauchlan.py, tests/golden/src_roman_maclauchlan_sample.json
@@ -48,3 +48,6 @@ location is in the plate.
   wall forts with QIDs, e.g. vindolanda QID-less extra plus hardknott, concangis, glannoventa,
   whitley-castle, milecastles). Tie to them where the plate's site matches; stage a new site
   only for a named place not in the catalog.
+
+## Lead note (2026-10-13)
+Blocked: the owner said "Stop 207". Do not start until the owner lifts it.

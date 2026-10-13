@@ -1,4 +1,4 @@
-Status: open
+Status: blocked
 # 207a: Horsley, Britannia Romana (1732)
 Depends on: 200
 Touches: fit/src_roman_horsley.py, data/books/triage/, data/books/lists/, data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, docs/lead_roman.md, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json
@@ -51,3 +51,6 @@ found) but are not staged as picture rows.
 - The LLM triage of 936 pages is the long pole: run it as a resumable background job (the
   stage jsonl is append-only and skips done pages; see the "long background data jobs"
   PITFALLS entry).
+
+## Lead note (2026-10-13)
+Blocked: the owner said "Stop 207". Do not start until the owner lifts it.
