@@ -907,6 +907,18 @@ the recorded proxy) <= max(3 x hand max-resid, 100 m, 1.0 x panel diagonal).
   rule); 4 = byte-exact golden + the three sanity tests (Option B reading).
 
 
+<!-- task 203 -->
+# Task 203 batch-fit
+
+## 2026-10-13 203 DECISION: parent returned with both subtasks done - verified boxes 1-5 live, wrote tests/test_batch.py (box 6) as a read-only check of the live checkout over the original 384, and filed done
+- The original pre-growth site set is reconstructed from the two committed batch reports' "Per candidate" tables (90 US + 294 EU = 384, disjoint, each matching its "Sites run" line). Chose report-derived set over a new golden file: the reports are the batches' own record of the population and already in the repo; no second artifact to keep in sync. 211's merge grew sites.json 384 -> 499; all 384 originals still present (asserted).
+- FAILED FIRST ATTEMPT (the trap, now PITFALLS): coverage defined by the item file's raw `resolved` field (`resolved is None` = open) flagged 2 of the 384 as uncovered - aesica-q4688554 and alligator-effigy-mound-q4732645, whose batch auto docs were later rejected on sight and DELETED (b22a2d2's rule). 201's derivation (fit/review.resolved_doc) counts a recorded resolution only while its doc exists, so both items are back in the queue and both are in web/data/review.json (page = derived, 457/457 equal). Fixed by using resolved_doc, never the raw field.
+- Live coverage of the original 384 under the 201 derivation: 41 with a doc (auto or hand), 6 old-style site.json hand fit, 348 with an open item (339 by an item alone, all in the page file), 0 missing.
+- Also added a page-file assertion: a site covered by an open item only must be in web/data/review.json, because that is what the page's Review section shows the human (the item file alone would not be a product-level guarantee).
+- Re-verified the subtask boxes before ticking: golden hand_fit_docs.sha256 40/40 OK (21 hand docs incl. maiden's DPLA plan + 19 site.json); batch_us.md (9/8/2/71 = 90, seed 20261010, sample all 16 auto docs with page URLs - 16 < 20 so the "20 where >= 20" bar is met by listing all); batch_eu.md (54/47/18/175 = 294, same seed, 20-of-94 sample, run-time union section 384/384/0 clean, no anomalies).
+- Suite baseline (full, this branch): 1 failed, 157 passed, 1 skipped (319 s). The lone red is agent a's in-flight 307 placement test (test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, documented since iter 161; 307d is agent a's current work - not fixed here, the file is not in my Touches). The lone skip is test_batch_eu's live union test, by-design skip-gated (294 vs live 409 after 211; 212 re-covers the growth).
+
+
 <!-- task 203a -->
 # Task 203a batch-us
 
