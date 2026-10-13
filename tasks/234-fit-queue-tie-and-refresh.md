@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 212, 306c, 306d, 306e, 306f
 Touches: tests/test_fit_queue.py, web/data/fit_queue.json
 
@@ -42,12 +42,12 @@ the 11 new sites.)
    file; the rest of the suite stays as green as it was before this task.
 
 ## Acceptance criteria
-- [ ] test_fit_queue_real passes with the (view, -px, plan, name) key, alone and in
+- [x] test_fit_queue_real passes with the (view, -px, plan, name) key, alone and in
       the full suite; the Lessines/Avesnes pair orders by plan id, as the generator
       does.
-- [ ] The committed web/data/fit_queue.json equals the generator's output on the
+- [x] The committed web/data/fit_queue.json equals the generator's output on the
       current live state (byte-reproducible; a new "at" if the state moved).
-- [ ] tools/fit_queue.py is untouched (the sort is the documented behaviour 307bb
+- [x] tools/fit_queue.py is untouched (the sort is the documented behaviour 307bb
       depends on).
 
 ## Notes
@@ -55,3 +55,6 @@ the 11 new sites.)
   (their candidate upserts and doc deletions change the review-derived inputs):
   regenerate only after all of them, so the committed file is the settled state, not
   an intermediate one.
+
+## Lead close (2026-10-13)
+Done by the lead on main (Mac commits ported): see the [lead] commit. Full suite on the Mac: 145 passed, 0 failed.

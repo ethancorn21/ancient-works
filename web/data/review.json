@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T03:45:09.036205+00:00",
+ "at": "2026-10-13T07:07:00.879048+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -11456,6 +11456,32 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "c_61b86efb4511e099",
+     "title": "Stonehenge, inward view by William Stukeley, 1722 (Itinerarium Curiosum)",
+     "url": "media/commons/stonehenge-q39671/61b86efb4511e099.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stonehenge",
+      "place_qid": "Q39671",
+      "place_label": "Stonehenge",
+      "place_lon": -1.826111,
+      "place_lat": 51.178889,
+      "site_lon": -1.826111,
+      "site_lat": 51.178889,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.7812,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
     },
     {
      "plan": "c_022604d2be0becdc",

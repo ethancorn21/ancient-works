@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 212, 231
 Touches: tests/test_site_done.py, tests/test_fit_provenance.py
 
@@ -65,14 +65,14 @@ the 306c-f audits then leave, if they touch it).
    place).
 
 ## Acceptance criteria
-- [ ] Both tests pass against the post-212 (and post-audit) live state, run alone and
+- [x] Both tests pass against the post-212 (and post-audit) live state, run alone and
       in the full suite; no other test's pins disturbed (231 already re-pointed case
       e's pin, so case b is the only fit_provenance pin this task moves).
-- [ ] Every doc/item/row the pins read exists in the repo at run time, and the
+- [x] Every doc/item/row the pins read exists in the repo at run time, and the
       expected strings are re-derived from the live files (recorded item entries
       recomputed with the line's own entry builders - the tests already do this for
       the 7 golden docs; extend it to whatever the live run added).
-- [ ] The docstrings carry the provenance note of step 5.
+- [x] The docstrings carry the provenance note of step 5.
 
 ## Notes
 - Depends on 212 (it writes the item/store/page state this task re-derives - do it
@@ -80,3 +80,6 @@ the 306c-f audits then leave, if they touch it).
   only case e, this task only case b).
 - If the 306c-f orphan audits delete a doc this snapshot carries, re-derive again
   from whatever they leave - the recipe is the same.
+
+## Lead close (2026-10-13)
+Done by the lead on main (Mac commits ported): see the [lead] commit. Full suite on the Mac: 145 passed, 0 failed.

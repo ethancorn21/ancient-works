@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 306c, 306d, 306e, 306f
 Touches: tests/test_fit_provenance.py
 
@@ -45,14 +45,14 @@ q244934.c_4bbca705be732b1c, durocortorum-q4896307.c_08d995eb23a685c2) all surviv
 the store and pass - do not touch them.
 
 ## Acceptance criteria
-- [ ] test_commons_yeared_title_drops_the_repeated_year passes against the post-audit
+- [x] test_commons_yeared_title_drops_the_repeated_year passes against the post-audit
       doc store (run alone, then in the full suite; no other test's pins disturbed).
-- [ ] The doc the pin reads exists in data/db/platefits/ at run time and was chosen
+- [x] The doc the pin reads exists in data/db/platefits/ at run time and was chosen
       AFTER 306c-f settle (a doc picked before the audits risks being audited off in
       turn); the expected line is recomputed from that doc's own fields (title/cite/
       pairs/score) - not copied from the old bethlehem expectation; the bethlehem docs
       are NOT resurrected (the audit's verdict stands - the anchors were fabricated).
-- [ ] The test docstring says which audit removed the original pin (306a) and why the
+- [x] The test docstring says which audit removed the original pin (306a) and why the
       case now lives on the new doc.
 
 ## Notes
@@ -60,3 +60,6 @@ the store and pass - do not touch them.
   search when they land, and only then pick and pin.
 - The candidate list above was measured on agent/a's merged tree (2026-10-13, 40
   year-titled docs total, most batch); it will shrink as the audits land.
+
+## Lead close (2026-10-13)
+Done by the lead on main (Mac commits ported): see the [lead] commit. Full suite on the Mac: 145 passed, 0 failed.

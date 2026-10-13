@@ -240,8 +240,7 @@ def _preconditions_b():
     item_path, item = _item(ROOT)
     if item is None:
         pytest.fail(f"the {SID} review item is missing")
-    if len(item["candidates"]) != 13:
-        pytest.fail(f"the {SID} item no longer holds 13 candidates; found {len(item['candidates'])}")
+    item_plans = {c["plan"] for c in item["candidates"]}
     if SEED_PLAN not in {c["plan"] for c in item["candidates"]}:
         pytest.fail(f"the {SID} item no longer lists {SEED_PLAN}: the seed's upsert could not replace it in place")
     if (item["candidates"][0]["plan"] == SEED_PLAN):
@@ -253,8 +252,9 @@ def _preconditions_b():
         pytest.fail(f"the line's fabrication check no longer fires on golden doc {SEED_PLAN}: the check drifted")
     if plan_fit.who_placed({k: v for k, v in doc.items() if k != "auto"}) is not None:
         pytest.fail("the seed (the golden doc with its auto mark stripped) is not unplaced anymore: the premise is void")
-    if len(_rows(ROOT)) != 13:
-        pytest.fail(f"plans.json no longer lists 13 {SID} candidates: the no-batch-run precondition is void")
+    # every plans.json row of the site is an item candidate (the count grows with new pictures)
+    if {r["id"] for r in _rows(ROOT)} != item_plans:
+        pytest.fail(f"plans.json's {SID} rows and the item's candidates differ: the no-batch-run precondition is void")
     rr = json.loads((ROOT / "web" / "data" / "review.json").read_text())
     if not any(e.get("site") == SID for e in rr["items"]):
         pytest.fail("the open review page no longer lists the Stonehenge item")
@@ -648,15 +648,15 @@ def test_commons_yeared_title_drops_the_repeated_year(tmp_path, no_net):
     """The fix, pinned on a surviving year-titled doc: 303's live shotwick run (the title already
     states the year, 1897, and the built entry read '...The Castles of England (1897) (1897), ...')
     was audited off the map by 306a (~2x too big), so the rule is pinned on the surviving batch doc
-    whose title states the year (the 1748 plan detail): the label's parenthesis is not repeated
-    after a title that already states the year, and the how-clause is the batch's (gate score).
+    whose title states the year: the label's parenthesis is not repeated after a title that
+    already states the year, and the how-clause is the batch's (gate score). The 1748 Maastricht
+    pin (a bethlehem doc) was itself audited out by 306a, so the rule is pinned on the
+    matcher-placed Strasbourg plan of 1870 (eye-checked by the lead on the relief, 2026-10-12).
     Note the year occurs twice in the line (title and file URL) - what the rule drops is the
     label's parenthesis, never the title's or the URL's year."""
-    src = _build_source(tmp_path, "bethlehem-q2523914.c_a164ee440558d66c")
-    assert src == ("Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped), "
-                   "Wikimedia Commons: by unknown cartographer; Public domain; "
-                   "https://commons.wikimedia.org/wiki/File:Plan_de_Maestricht_et_environs_1748,"
-                   "_detail_Severen_%26_Kanjel_(cropped).jpg. "
-                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
-                   "fits them within 113 m (gate score 39.3 m)")
-    assert " (c. 1748)" not in src  # the label's parenthesis must not follow a title that states the year
+    src = _build_source(tmp_path, "argentoratum-q2361353.c_ec1930f8ba9bbabb")
+    assert src == ("Strasbourg plan 1870, Wikimedia Commons: by J. N. Villot; Public domain; "
+                   "https://commons.wikimedia.org/wiki/File:Strasbourg_plan_1870.jpg. "
+                   "Fitted automatically by the batch on 8 matching points; one rotation and scale "
+                   "fits them within 1 m (gate score 8.7 m)")
+    assert " (1870)" not in src  # the label's parenthesis must not follow a title that states the year

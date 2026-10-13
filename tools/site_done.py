@@ -87,6 +87,12 @@ def _fit(root, sid, model):
     need_fit = bool(uncovered) or (not rows and not batch_us.is_pre_fit(str(root), sid) and item is None)
     if need_fit:
         rec = batch_us.run_sites(str(root), [sid], model)[sid]
+        # the batch runs the whole site and its upsert replaces each entry whole: put the already
+        # covered pictures' entries (line check reasons, gate scores, pairs) back as they were
+        new_ids = {r["id"] for r in uncovered}
+        keep = [c for p, c in item_cands.items() if p not in new_ids]
+        if keep:
+            review.upsert_item(str(root), sid, keep)
         if rec.get("error"):
             print("fit  " + rec["error"])
         rows_by_id = {r["id"]: r for r in rows}
