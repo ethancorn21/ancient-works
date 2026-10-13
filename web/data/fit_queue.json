@@ -1,6 +1,2052 @@
 {
- "at": "2026-10-12T06:01:51.607282+00:00",
+ "at": "2026-10-13T04:09:15.261392+00:00",
  "entries": [
+  {
+   "site": "stockstadt-q1735421",
+   "name": "Stockstadt",
+   "best": {
+    "plan": "c_db565710d4412a69",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_db565710d4412a69",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Stockstadt, baths layout, ORL 33, 1914 (Commons)",
+     "label": "1914",
+     "size": [
+      8680,
+      12600
+     ],
+     "map_box": null,
+     "sites": [
+      "stockstadt-q1735421"
+     ],
+     "cite": "Public domain; https://commons.wikimedia.org/wiki/File:ORL_33_tab_04_pic_01-09_Thermen.jpg",
+     "url": "media/commons/stockstadt-q1735421/db565710d4412a69.jpg",
+     "view": false,
+     "ref": "File:ORL 33 tab 04 pic 01-09 Thermen.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_db565710d4412a69",
+     "title": "Stockstadt, baths layout, ORL 33, 1914 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 109368000
+    },
+    {
+     "plan": "c_ad22f9fc1a370b7b",
+     "title": "Stockstadt, fort layout, ORL 33, 1914 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 91416960
+    },
+    {
+     "plan": "c_63db459cae1f88f2",
+     "title": "Stockstadt, Mithraeum and Dolichenum plan, ORL 33, 1914 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 72711320
+    },
+    {
+     "plan": "c_8d673fbcea31dfb5",
+     "title": "Stockstadt, Schnitt und Grundriss der Porta P. D., ORL 33, 1914 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 31613246
+    },
+    {
+     "plan": "c_fc733bc5db176d02",
+     "title": "Stockstadt, porta praetoria layout, ORL 33, 1914 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 20611584
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0596717,
+      49.984586
+     ],
+     [
+      8680.0,
+      0.0,
+      9.0750683,
+      49.984586
+     ],
+     [
+      8680.0,
+      12600.0,
+      9.0750683,
+      49.9702129
+     ],
+     [
+      0.0,
+      12600.0,
+      9.0596717,
+      49.9702129
+     ],
+     [
+      4340.0,
+      6300.0,
+      9.06737,
+      49.9774
+     ]
+    ],
+    "scale_m_px": 0.127,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "zugmantel-q1727277",
+   "name": "Zugmantel",
+   "best": {
+    "plan": "c_bd26602c930f647a",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_bd26602c930f647a",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Zugmantel, Grundriss, ORL 08, 1909 (de.wikipedia)",
+     "label": "1909",
+     "size": [
+      8530,
+      12278
+     ],
+     "map_box": null,
+     "sites": [
+      "zugmantel-q1727277"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_08_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/zugmantel-q1727277/bd26602c930f647a.jpg",
+     "view": false,
+     "ref": "File:ORL_08_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_bd26602c930f647a",
+     "title": "Zugmantel, Grundriss, ORL 08, 1909 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 104731340
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.1958418,
+      50.196956
+     ],
+     [
+      8530.0,
+      0.0,
+      8.2114382,
+      50.196956
+     ],
+     [
+      8530.0,
+      12278.0,
+      8.2114382,
+      50.1825829
+     ],
+     [
+      0.0,
+      12278.0,
+      8.1958418,
+      50.1825829
+     ],
+     [
+      4265.0,
+      6139.0,
+      8.20364,
+      50.18977
+     ]
+    ],
+    "scale_m_px": 0.1303,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "niedernberg-q1735399",
+   "name": "Niedernberg",
+   "best": {
+    "plan": "c_af5bf4f794e52da5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_af5bf4f794e52da5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Niedernberg, Grundriss, ORL 34, 1896 (de.wikipedia)",
+     "label": "1896",
+     "size": [
+      9643,
+      10608
+     ],
+     "map_box": null,
+     "sites": [
+      "niedernberg-q1735399"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_34_tab_01_pic_01_Grundriss.jpg",
+     "url": "media/commons/niedernberg-q1735399/af5bf4f794e52da5.jpg",
+     "view": false,
+     "ref": "File:ORL_34_tab_01_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_af5bf4f794e52da5",
+     "title": "Niedernberg, Grundriss, ORL 34, 1896 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 102292944
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1309049,
+      49.921286
+     ],
+     [
+      9643.0,
+      0.0,
+      9.1511951,
+      49.921286
+     ],
+     [
+      9643.0,
+      10608.0,
+      9.1511951,
+      49.9069129
+     ],
+     [
+      0.0,
+      10608.0,
+      9.1309049,
+      49.9069129
+     ],
+     [
+      4821.5,
+      5304.0,
+      9.14105,
+      49.9141
+     ]
+    ],
+    "scale_m_px": 0.1508,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "echzell-q1657587",
+   "name": "Echzell",
+   "best": {
+    "plan": "c_ba9cea2f40747f7e",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ba9cea2f40747f7e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Echzell, Lage und Grundriss, ORL 18, 1903 (de.wikipedia)",
+     "label": "1903",
+     "size": [
+      8245,
+      11245
+     ],
+     "map_box": null,
+     "sites": [
+      "echzell-q1657587"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_18_tab_01_pic_01_Lage_und_Grundriss.jpg",
+     "url": "media/commons/echzell-q1657587/ba9cea2f40747f7e.jpg",
+     "view": false,
+     "ref": "File:ORL_18_tab_01_pic_01_Lage_und_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ba9cea2f40747f7e",
+     "title": "Echzell, Lage und Grundriss, ORL 18, 1903 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 92715025
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.8749547,
+      50.400186
+     ],
+     [
+      8245.0,
+      0.0,
+      8.8914853,
+      50.400186
+     ],
+     [
+      8245.0,
+      11245.0,
+      8.8914853,
+      50.3858129
+     ],
+     [
+      0.0,
+      11245.0,
+      8.8749547,
+      50.3858129
+     ],
+     [
+      4122.5,
+      5622.5,
+      8.88322,
+      50.393
+     ]
+    ],
+    "scale_m_px": 0.1423,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "weienburg-q638525",
+   "name": "Wei\u00dfenburg",
+   "best": {
+    "plan": "c_055e249af7277c0e",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_055e249af7277c0e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Wei\u00dfenburg, Grundriss, ORL 72, 1906 (de.wikipedia)",
+     "label": "1906",
+     "size": [
+      9037,
+      10101
+     ],
+     "map_box": null,
+     "sites": [
+      "weienburg-q638525"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_72_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/weienburg-q638525/055e249af7277c0e.jpg",
+     "view": false,
+     "ref": "File:ORL_72_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_055e249af7277c0e",
+     "title": "Wei\u00dfenburg, Grundriss, ORL 72, 1906 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 91282737
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      10.9526937,
+      49.037986
+     ],
+     [
+      9037.0,
+      0.0,
+      10.9723063,
+      49.037986
+     ],
+     [
+      9037.0,
+      10101.0,
+      10.9723063,
+      49.023613
+     ],
+     [
+      0.0,
+      10101.0,
+      10.9526937,
+      49.023613
+     ],
+     [
+      4518.5,
+      5050.5,
+      10.9625,
+      49.0308
+     ]
+    ],
+    "scale_m_px": 0.1584,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kastell-buch",
+   "name": "Kastell Buch",
+   "best": {
+    "plan": "c_6145746f944fcc15",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6145746f944fcc15",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kastell Buch, Grundriss, ORL 67, 1896 (de.wikipedia)",
+     "label": "1896",
+     "size": [
+      9310,
+      9759
+     ],
+     "map_box": null,
+     "sites": [
+      "kastell-buch"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_67_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/kastell-buch/6145746f944fcc15.jpg",
+     "view": false,
+     "ref": "File:ORL_67_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6145746f944fcc15",
+     "title": "Kastell Buch, Grundriss, ORL 67, 1896 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 90856290
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      10.1259978,
+      48.916717
+     ],
+     [
+      9310.0,
+      0.0,
+      10.1468602,
+      48.916717
+     ],
+     [
+      9310.0,
+      9759.0,
+      10.1468602,
+      48.902344
+     ],
+     [
+      0.0,
+      9759.0,
+      10.1259978,
+      48.902344
+     ],
+     [
+      4655.0,
+      4879.5,
+      10.136429,
+      48.909531
+     ]
+    ],
+    "scale_m_px": 0.164,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "theilenhofen-q1214616",
+   "name": "Theilenhofen",
+   "best": {
+    "plan": "c_71362c4703856e49",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_71362c4703856e49",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Theilenhofen, Grundriss, ORL 71a, 1905 (de.wikipedia)",
+     "label": "1905",
+     "size": [
+      7400,
+      10271
+     ],
+     "map_box": null,
+     "sites": [
+      "theilenhofen-q1214616"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_71a_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/theilenhofen-q1214616/71362c4703856e49.jpg",
+     "view": false,
+     "ref": "File:ORL_71a_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_71362c4703856e49",
+     "title": "Theilenhofen, Grundriss, ORL 71a, 1905 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 76005400
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      10.8392536,
+      49.096706
+     ],
+     [
+      7400.0,
+      0.0,
+      10.8550664,
+      49.096706
+     ],
+     [
+      7400.0,
+      10271.0,
+      10.8550664,
+      49.082333
+     ],
+     [
+      0.0,
+      10271.0,
+      10.8392536,
+      49.082333
+     ],
+     [
+      3700.0,
+      5135.5,
+      10.84716,
+      49.08952
+     ]
+    ],
+    "scale_m_px": 0.1558,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "hesselbach-q1411006",
+   "name": "Hesselbach",
+   "best": {
+    "plan": "c_e73e636e12928335",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e73e636e12928335",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hesselbach, Grundriss, ORL 50, 1896 (de.wikipedia)",
+     "label": "1896",
+     "size": [
+      8887,
+      8277
+     ],
+     "map_box": null,
+     "sites": [
+      "hesselbach-q1411006"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_50_tab_01_pic_01_Grundriss_1.jpg",
+     "url": "media/commons/hesselbach-q1411006/e73e636e12928335.jpg",
+     "view": false,
+     "ref": "File:ORL_50_tab_01_pic_01_Grundriss_1.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e73e636e12928335",
+     "title": "Hesselbach, Grundriss, ORL 50, 1896 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 73557699
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0794727,
+      49.5829428
+     ],
+     [
+      8887.0,
+      0.0,
+      9.1016384,
+      49.5829428
+     ],
+     [
+      8887.0,
+      8277.0,
+      9.1016384,
+      49.5695563
+     ],
+     [
+      0.0,
+      8277.0,
+      9.0794727,
+      49.5695563
+     ],
+     [
+      4443.5,
+      4138.5,
+      9.0905556,
+      49.57625
+     ]
+    ],
+    "scale_m_px": 0.18,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "osterburken-q1243550",
+   "name": "Osterburken",
+   "best": {
+    "plan": "c_09a29884648c5f5a",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_09a29884648c5f5a",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Osterburken, Grundriss, Tafel IV (1:1000), ORL 40, 1895 (Internet Archive)",
+     "label": "1895",
+     "size": [
+      5398,
+      7526
+     ],
+     "map_box": null,
+     "sites": [
+      "osterburken-q1243550"
+     ],
+     "cite": "public domain (1895 scan; PD notice on the item's first leaves); https://archive.org/details/derobergermanis00fabrgoog",
+     "url": "media/commons/osterburken-q1243550/09a29884648c5f5a.jpg",
+     "view": false,
+     "ref": "Das Kastell Osterburken, Tafel IV - Grundriss (1895)"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_09a29884648c5f5a",
+     "title": "Osterburken, Grundriss, Tafel IV (1:1000), ORL 40, 1895 (Internet Archive)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 40625348
+    },
+    {
+     "plan": "c_5ae746d6388ac3b9",
+     "title": "Osterburken, Situationskarte, Tafel III (1:5000), ORL 40, 1895 (Internet Archive)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 40625348
+    },
+    {
+     "plan": "c_6ec219c06edc025d",
+     "title": "Osterburken, Grundriss, ORL 40, 1895 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9836508
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.415715,
+      49.434716
+     ],
+     [
+      5398.0,
+      0.0,
+      9.431565,
+      49.434716
+     ],
+     [
+      5398.0,
+      7526.0,
+      9.431565,
+      49.420343
+     ],
+     [
+      0.0,
+      7526.0,
+      9.415715,
+      49.420343
+     ],
+     [
+      2699.0,
+      3763.0,
+      9.42364,
+      49.42753
+     ]
+    ],
+    "scale_m_px": 0.2126,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "heddesdorf-q1735373",
+   "name": "Heddesdorf",
+   "best": {
+    "plan": "c_a219dbb67f84e81b",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_a219dbb67f84e81b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Heddesdorf, Grundriss von Kastell und Kastellbad, ORL 01, 1903 (Commons)",
+     "label": "1903",
+     "size": [
+      4435,
+      3197
+     ],
+     "map_box": null,
+     "sites": [
+      "heddesdorf-q1735373"
+     ],
+     "cite": "Public domain; https://commons.wikimedia.org/wiki/File:ORL_01_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/heddesdorf-q1735373/a219dbb67f84e81b.jpg",
+     "view": false,
+     "ref": "File:ORL 01 tab 02 pic 01 Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a219dbb67f84e81b",
+     "title": "Heddesdorf, Grundriss von Kastell und Kastellbad, ORL 01, 1903 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 14178695
+    },
+    {
+     "plan": "c_865b27217e589ed2",
+     "title": "Heddesdorf, Grundriss des Kastellbades, ORL 01, 1903 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 12821224
+    },
+    {
+     "plan": "c_cd8d15c4cc8bb287",
+     "title": "Heddesdorf, Lageplan, ORL 01, 1903 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 12504303
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.458027,
+      50.4416802
+     ],
+     [
+      4435.0,
+      0.0,
+      7.480593,
+      50.4416802
+     ],
+     [
+      4435.0,
+      3197.0,
+      7.480593,
+      50.4313193
+     ],
+     [
+      0.0,
+      3197.0,
+      7.458027,
+      50.4313193
+     ],
+     [
+      2217.5,
+      1598.5,
+      7.46931,
+      50.4365
+     ]
+    ],
+    "scale_m_px": 0.3608,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "heidenheim-q128401126",
+   "name": "Heidenheim",
+   "best": {
+    "plan": "c_bebb8bdc4dfef75b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_bebb8bdc4dfef75b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Heidenheim, Grundriss, ORL 66b, 1900 (de.wikipedia)",
+     "label": "1900",
+     "size": [
+      2963,
+      4071
+     ],
+     "map_box": null,
+     "sites": [
+      "heidenheim-q128401126"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_66b_Tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/heidenheim-q128401126/bebb8bdc4dfef75b.jpg",
+     "view": false,
+     "ref": "File:ORL_66b_Tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_bebb8bdc4dfef75b",
+     "title": "Heidenheim, Grundriss, ORL 66b, 1900 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 12062373
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      10.1457449,
+      48.6862693
+     ],
+     [
+      2963.0,
+      0.0,
+      10.1615885,
+      48.6862693
+     ],
+     [
+      2963.0,
+      4071.0,
+      10.1615885,
+      48.6718963
+     ],
+     [
+      0.0,
+      4071.0,
+      10.1457449,
+      48.6718963
+     ],
+     [
+      1481.5,
+      2035.5,
+      10.1536667,
+      48.6790833
+     ]
+    ],
+    "scale_m_px": 0.393,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "marienfels-q1359182",
+   "name": "Marienfels",
+   "best": {
+    "plan": "c_b4f66d9ec7893cb0",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b4f66d9ec7893cb0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Marienfels, Grundriss des Kastells, ORL 05a, 1903 (de.wikipedia)",
+     "label": "1903",
+     "size": [
+      2965,
+      4044
+     ],
+     "map_box": null,
+     "sites": [
+      "marienfels-q1359182"
+     ],
+     "cite": "Bild-PD-alt; https://de.wikipedia.org/wiki/File:ORL_05a_tab_02_pic_01_Grundriss_Kastell.jpg",
+     "url": "media/commons/marienfels-q1359182/b4f66d9ec7893cb0.jpg",
+     "view": false,
+     "ref": "File:ORL_05a_tab_02_pic_01_Grundriss_Kastell.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b4f66d9ec7893cb0",
+     "title": "Marienfels, Grundriss des Kastells, ORL 05a, 1903 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 11990460
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.8025216,
+      50.247486
+     ],
+     [
+      2965.0,
+      0.0,
+      7.8189984,
+      50.247486
+     ],
+     [
+      2965.0,
+      4044.0,
+      7.8189984,
+      50.2331129
+     ],
+     [
+      0.0,
+      4044.0,
+      7.8025216,
+      50.2331129
+     ],
+     [
+      1482.5,
+      2022.0,
+      7.81076,
+      50.2403
+     ]
+    ],
+    "scale_m_px": 0.3956,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "murrhardt-q1735397",
+   "name": "Murrhardt",
+   "best": {
+    "plan": "c_d3b23f9ee8151e66",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d3b23f9ee8151e66",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Murrhardt, Grundriss und Details, ORL 44, 1894 (de.wikipedia)",
+     "label": "1894",
+     "size": [
+      2910,
+      3988
+     ],
+     "map_box": null,
+     "sites": [
+      "murrhardt-q1735397"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_44_tab_01_pic_01_Grundriss_und_Details.jpg",
+     "url": "media/commons/murrhardt-q1735397/d3b23f9ee8151e66.jpg",
+     "view": false,
+     "ref": "File:ORL_44_tab_01_pic_01_Grundriss_und_Details.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d3b23f9ee8151e66",
+     "title": "Murrhardt, Grundriss und Details, ORL 44, 1894 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 11605080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.5743106,
+      48.984146
+     ],
+     [
+      2910.0,
+      0.0,
+      9.5902894,
+      48.984146
+     ],
+     [
+      2910.0,
+      3988.0,
+      9.5902894,
+      48.969773
+     ],
+     [
+      0.0,
+      3988.0,
+      9.5743106,
+      48.969773
+     ],
+     [
+      1455.0,
+      1994.0,
+      9.5823,
+      48.97696
+     ]
+    ],
+    "scale_m_px": 0.4012,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kapersburg-q1735382",
+   "name": "Kapersburg",
+   "best": {
+    "plan": "c_8c884700d5d8f3ef",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_8c884700d5d8f3ef",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kapersburg, Thermen-Grundriss und Profile, ORL 12, 1906 (de.wikipedia)",
+     "label": "1906",
+     "size": [
+      2747,
+      4100
+     ],
+     "map_box": null,
+     "sites": [
+      "kapersburg-q1735382"
+     ],
+     "cite": "Bild-PD-alt; https://de.wikipedia.org/wiki/File:ORL_12_tab_04_pic_01-06_Therme,_Grundriss_und_Profile.jpg",
+     "url": "media/commons/kapersburg-q1735382/8c884700d5d8f3ef.jpg",
+     "view": false,
+     "ref": "File:ORL_12_tab_04_pic_01-06_Therme,_Grundriss_und_Profile.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8c884700d5d8f3ef",
+     "title": "Kapersburg, Thermen-Grundriss und Profile, ORL 12, 1906 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 11262700
+    },
+    {
+     "plan": "c_dfb8ec66389697ab",
+     "title": "Kapersburg, Grundriss und Gel\u00e4ndeprofile, ORL 12, 1906 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7904376
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.6289625,
+      50.3198927
+     ],
+     [
+      2747.0,
+      0.0,
+      8.6440423,
+      50.3198927
+     ],
+     [
+      2747.0,
+      4100.0,
+      8.6440423,
+      50.3055197
+     ],
+     [
+      0.0,
+      4100.0,
+      8.6289625,
+      50.3055197
+     ],
+     [
+      1373.5,
+      2050.0,
+      8.6365024,
+      50.3127067
+     ]
+    ],
+    "scale_m_px": 0.3902,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "waldmossingen-q1735435",
+   "name": "Waldm\u00f6ssingen",
+   "best": {
+    "plan": "c_be71bd1e79e65443",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_be71bd1e79e65443",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Waldm\u00f6ssingen, Grundriss, ORL 61b, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2827,
+      3764
+     ],
+     "map_box": null,
+     "sites": [
+      "waldmossingen-q1735435"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_61b_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/waldmossingen-q1735435/be71bd1e79e65443.jpg",
+     "view": false,
+     "ref": "File:ORL_61b_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_be71bd1e79e65443",
+     "title": "Waldm\u00f6ssingen, Grundriss, ORL 61b, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 10640828
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.4852204,
+      48.281086
+     ],
+     [
+      2827.0,
+      0.0,
+      8.5014396,
+      48.281086
+     ],
+     [
+      2827.0,
+      3764.0,
+      8.5014396,
+      48.266713
+     ],
+     [
+      0.0,
+      3764.0,
+      8.4852204,
+      48.266713
+     ],
+     [
+      1413.5,
+      1882.0,
+      8.49333,
+      48.2739
+     ]
+    ],
+    "scale_m_px": 0.4251,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "hunzel-q1240802",
+   "name": "Hunzel",
+   "best": {
+    "plan": "c_587bad130e8cc392",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_587bad130e8cc392",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hunzel, Grundriss und Profile, ORL 05, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      3178,
+      3306
+     ],
+     "map_box": null,
+     "sites": [
+      "hunzel-q1240802"
+     ],
+     "cite": "Bild-PD-alt; https://de.wikipedia.org/wiki/File:ORL_05_tab_02_pic_01-06_Grundriss_und_Profile.jpg",
+     "url": "media/commons/hunzel-q1240802/587bad130e8cc392.jpg",
+     "view": false,
+     "ref": "File:ORL_05_tab_02_pic_01-06_Grundriss_und_Profile.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_587bad130e8cc392",
+     "title": "Hunzel, Grundriss und Profile, ORL 05, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 10506468
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.8170471,
+      50.253886
+     ],
+     [
+      3178.0,
+      0.0,
+      7.8386529,
+      50.253886
+     ],
+     [
+      3178.0,
+      3306.0,
+      7.8386529,
+      50.2395129
+     ],
+     [
+      0.0,
+      3306.0,
+      7.8170471,
+      50.2395129
+     ],
+     [
+      1589.0,
+      1653.0,
+      7.82785,
+      50.2467
+     ]
+    ],
+    "scale_m_px": 0.484,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "sulz-q1735424",
+   "name": "Sulz",
+   "best": {
+    "plan": "c_a304d1ee2d002394",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_a304d1ee2d002394",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Sulz, Lageplan, ORL 61a, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2927,
+      3519
+     ],
+     "map_box": null,
+     "sites": [
+      "sulz-q1735424"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_61a_tab_02_pic_01_Grundriss_und_Schnitte.jpg",
+     "url": "media/commons/sulz-q1735424/a304d1ee2d002394.jpg",
+     "view": false,
+     "ref": "File:ORL_61a_tab_02_pic_01_Grundriss_und_Schnitte.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a304d1ee2d002394",
+     "title": "Sulz, Lageplan, ORL 61a, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 10300113
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.6276738,
+      48.366886
+     ],
+     [
+      2927.0,
+      0.0,
+      8.6456662,
+      48.366886
+     ],
+     [
+      2927.0,
+      3519.0,
+      8.6456662,
+      48.352513
+     ],
+     [
+      0.0,
+      3519.0,
+      8.6276738,
+      48.352513
+     ],
+     [
+      1463.5,
+      1759.5,
+      8.63667,
+      48.3597
+     ]
+    ],
+    "scale_m_px": 0.4547,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "unterbobingen-q1424499",
+   "name": "Unterb\u00f6bingen",
+   "best": {
+    "plan": "c_cc472561175d13ba",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_cc472561175d13ba",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Unterb\u00f6bingen, Grundriss und Gel\u00e4ndeprofile, ORL 65, 1894 (de.wikipedia)",
+     "label": "1894",
+     "size": [
+      2884,
+      3556
+     ],
+     "map_box": null,
+     "sites": [
+      "unterbobingen-q1424499"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_65_tab_01_pic_01_Grundriss_und_Profile.jpg",
+     "url": "media/commons/unterbobingen-q1424499/cc472561175d13ba.jpg",
+     "view": false,
+     "ref": "File:ORL_65_tab_01_pic_01_Grundriss_und_Profile.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_cc472561175d13ba",
+     "title": "Unterb\u00f6bingen, Grundriss und Gel\u00e4ndeprofile, ORL 65, 1894 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 10255504
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.9139784,
+      48.8252877
+     ],
+     [
+      2884.0,
+      0.0,
+      9.9316818,
+      48.8252877
+     ],
+     [
+      2884.0,
+      3556.0,
+      9.9316818,
+      48.8109147
+     ],
+     [
+      0.0,
+      3556.0,
+      9.9139784,
+      48.8109147
+     ],
+     [
+      1442.0,
+      1778.0,
+      9.9228301,
+      48.8181017
+     ]
+    ],
+    "scale_m_px": 0.4499,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "welzheim-west-q32064057",
+   "name": "Welzheim-West",
+   "best": {
+    "plan": "c_d0aa138a71d76f60",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d0aa138a71d76f60",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Welzheim-West, Grundriss des Westkastells, ORL 45, 1904 (de.wikipedia)",
+     "label": "1904",
+     "size": [
+      2715,
+      3750
+     ],
+     "map_box": null,
+     "sites": [
+      "welzheim-west-q32064057"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_45_tab_02_pic_01_Grundriss_Westkastell.jpg",
+     "url": "media/commons/welzheim-west-q32064057/d0aa138a71d76f60.jpg",
+     "view": false,
+     "ref": "File:ORL_45_tab_02_pic_01_Grundriss_Westkastell.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d0aa138a71d76f60",
+     "title": "Welzheim-West, Grundriss des Westkastells, ORL 45, 1904 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 10181250
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.6244295,
+      48.879366
+     ],
+     [
+      2715.0,
+      0.0,
+      9.6402505,
+      48.879366
+     ],
+     [
+      2715.0,
+      3750.0,
+      9.6402505,
+      48.864993
+     ],
+     [
+      0.0,
+      3750.0,
+      9.6244295,
+      48.864993
+     ],
+     [
+      1357.5,
+      1875.0,
+      9.63234,
+      48.87218
+     ]
+    ],
+    "scale_m_px": 0.4267,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kleinkastell-anhausen-q1746855",
+   "name": "Kleinkastell Anhausen",
+   "best": {
+    "plan": "c_5143dfcfaff1cb4c",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_5143dfcfaff1cb4c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kleinkastell Anhausen, Grundriss und Gel\u00e4ndeprofil des Kleinkastells, ORL Anhausen, 1915 (de.wikipedia)",
+     "label": "1915",
+     "size": [
+      3111,
+      3130
+     ],
+     "map_box": null,
+     "sites": [
+      "kleinkastell-anhausen-q1746855"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_A_Strecke_1_tab_12_pic_02_KK_Anhausen_Grundriss_und_Schnitt_HR.jpg",
+     "url": "media/commons/kleinkastell-anhausen-q1746855/5143dfcfaff1cb4c.jpg",
+     "view": false,
+     "ref": "File:ORL_A_Strecke_1_tab_12_pic_02_KK_Anhausen_Grundriss_und_Schnitt_HR.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_5143dfcfaff1cb4c",
+     "title": "Kleinkastell Anhausen, Grundriss und Gel\u00e4ndeprofil des Kleinkastells, ORL Anhausen, 1915 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9737430
+    },
+    {
+     "plan": "c_132c23f1e5e6f7e8",
+     "title": "Kleinkastell Anhausen, Lageplan des Kleinkastells, ORL Anhausen, 1915 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7958037
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.5271849,
+      50.488486
+     ],
+     [
+      3111.0,
+      0.0,
+      7.5496351,
+      50.488486
+     ],
+     [
+      3111.0,
+      3130.0,
+      7.5496351,
+      50.4741129
+     ],
+     [
+      0.0,
+      3130.0,
+      7.5271849,
+      50.4741129
+     ],
+     [
+      1555.5,
+      1565.0,
+      7.53841,
+      50.4813
+     ]
+    ],
+    "scale_m_px": 0.5112,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "jagsthausen-q1735380",
+   "name": "Jagsthausen",
+   "best": {
+    "plan": "c_280057358833483f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_280057358833483f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Jagsthausen, Grundriss, ORL 41, 1909 (de.wikipedia)",
+     "label": "1909",
+     "size": [
+      2541,
+      3663
+     ],
+     "map_box": null,
+     "sites": [
+      "jagsthausen-q1735380"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_41_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/jagsthausen-q1735380/280057358833483f.jpg",
+     "view": false,
+     "ref": "File:ORL_41_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_280057358833483f",
+     "title": "Jagsthausen, Grundriss, ORL 41, 1909 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9307683
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.4615234,
+      49.318086
+     ],
+     [
+      2541.0,
+      0.0,
+      9.4768166,
+      49.318086
+     ],
+     [
+      2541.0,
+      3663.0,
+      9.4768166,
+      49.303713
+     ],
+     [
+      0.0,
+      3663.0,
+      9.4615234,
+      49.303713
+     ],
+     [
+      1270.5,
+      1831.5,
+      9.46917,
+      49.3109
+     ]
+    ],
+    "scale_m_px": 0.4368,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "cannstatt-q1735423",
+   "name": "Cannstatt",
+   "best": {
+    "plan": "c_3880ff6ff77c4f0f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_3880ff6ff77c4f0f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cannstatt, Grundriss und Schnitte, ORL 59, 1907 (de.wikipedia)",
+     "label": "1907",
+     "size": [
+      2590,
+      3556
+     ],
+     "map_box": null,
+     "sites": [
+      "cannstatt-q1735423"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_59_tab_02_pic_01_Grundriss_und_Schnitte.jpg",
+     "url": "media/commons/cannstatt-q1735423/3880ff6ff77c4f0f.jpg",
+     "view": false,
+     "ref": "File:ORL_59_tab_02_pic_01_Grundriss_und_Schnitte.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_3880ff6ff77c4f0f",
+     "title": "Cannstatt, Grundriss und Schnitte, ORL 59, 1907 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9210040
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.2028814,
+      48.820486
+     ],
+     [
+      2590.0,
+      0.0,
+      9.2187786,
+      48.820486
+     ],
+     [
+      2590.0,
+      3556.0,
+      9.2187786,
+      48.806113
+     ],
+     [
+      0.0,
+      3556.0,
+      9.2028814,
+      48.806113
+     ],
+     [
+      1295.0,
+      1778.0,
+      9.21083,
+      48.8133
+     ]
+    ],
+    "scale_m_px": 0.4499,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "welzheim-ost-q1735441",
+   "name": "Welzheim-Ost",
+   "best": {
+    "plan": "c_1fc505a34bc515bd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1fc505a34bc515bd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Welzheim-Ost, Grundriss und Schnitte des Ostkastells, ORL 45a, 1904 (de.wikipedia)",
+     "label": "1904",
+     "size": [
+      2513,
+      3615
+     ],
+     "map_box": null,
+     "sites": [
+      "welzheim-ost-q1735441"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_45_tab_03_pic_01-08_Grundriss_und_Schnitte_Ostkastell.jpg",
+     "url": "media/commons/welzheim-ost-q1735441/1fc505a34bc515bd.jpg",
+     "view": false,
+     "ref": "File:ORL_45_tab_03_pic_01-08_Grundriss_und_Schnitte_Ostkastell.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1fc505a34bc515bd",
+     "title": "Welzheim-Ost, Grundriss und Schnitte des Ostkastells, ORL 45a, 1904 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9084495
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.6346448,
+      48.878406
+     ],
+     [
+      2513.0,
+      0.0,
+      9.6498352,
+      48.878406
+     ],
+     [
+      2513.0,
+      3615.0,
+      9.6498352,
+      48.864033
+     ],
+     [
+      0.0,
+      3615.0,
+      9.6346448,
+      48.864033
+     ],
+     [
+      1256.5,
+      1807.5,
+      9.64224,
+      48.87122
+     ]
+    ],
+    "scale_m_px": 0.4426,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "walldurn-alteburg-q1735436",
+   "name": "Walld\u00fcrn (Alteburg)",
+   "best": {
+    "plan": "c_1c23d6f7eb1f9696",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1c23d6f7eb1f9696",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Walld\u00fcrn (Alteburg), Grundriss, Profile und Details, ORL 39, 1904 (de.wikipedia)",
+     "label": "1904",
+     "size": [
+      2543,
+      3567
+     ],
+     "map_box": null,
+     "sites": [
+      "walldurn-alteburg-q1735436"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_39_tab_02_pic_01-11_Grundriss_und_Details.jpg",
+     "url": "media/commons/walldurn-alteburg-q1735436/1c23d6f7eb1f9696.jpg",
+     "view": false,
+     "ref": "File:ORL_39_tab_02_pic_01-11_Grundriss_und_Details.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1c23d6f7eb1f9696",
+     "title": "Walld\u00fcrn (Alteburg), Grundriss, Profile und Details, ORL 39, 1904 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9070881
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.3788384,
+      49.585686
+     ],
+     [
+      2543.0,
+      0.0,
+      9.3946416,
+      49.585686
+     ],
+     [
+      2543.0,
+      3567.0,
+      9.3946416,
+      49.5713129
+     ],
+     [
+      0.0,
+      3567.0,
+      9.3788384,
+      49.5713129
+     ],
+     [
+      1271.5,
+      1783.5,
+      9.38674,
+      49.5785
+     ]
+    ],
+    "scale_m_px": 0.4486,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "benningen-q1735337",
+   "name": "Benningen",
+   "best": {
+    "plan": "c_ffb1d13e9afc159d",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ffb1d13e9afc159d",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Benningen, Grundriss, ORL 58, 1902 (de.wikipedia)",
+     "label": "1902",
+     "size": [
+      2631,
+      3421
+     ],
+     "map_box": null,
+     "sites": [
+      "benningen-q1735337"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_58_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/benningen-q1735337/ffb1d13e9afc159d.jpg",
+     "view": false,
+     "ref": "File:ORL_58_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ffb1d13e9afc159d",
+     "title": "Benningen, Grundriss, ORL 58, 1902 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9000651
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.240895,
+      48.951086
+     ],
+     [
+      2631.0,
+      0.0,
+      9.257725,
+      48.951086
+     ],
+     [
+      2631.0,
+      3421.0,
+      9.257725,
+      48.936713
+     ],
+     [
+      0.0,
+      3421.0,
+      9.240895,
+      48.936713
+     ],
+     [
+      1315.5,
+      1710.5,
+      9.24931,
+      48.9439
+     ]
+    ],
+    "scale_m_px": 0.4677,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kongen-q1735387",
+   "name": "K\u00f6ngen",
+   "best": {
+    "plan": "c_c33f03a7d042ef00",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c33f03a7d042ef00",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "K\u00f6ngen, Grundriss und Profile, ORL 60, 1907 (de.wikipedia)",
+     "label": "1907",
+     "size": [
+      2493,
+      3602
+     ],
+     "map_box": null,
+     "sites": [
+      "kongen-q1735387"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_60_tab_02_pic_01_Grundriss_und_Profile.jpg",
+     "url": "media/commons/kongen-q1735387/c33f03a7d042ef00.jpg",
+     "view": false,
+     "ref": "File:ORL_60_tab_02_pic_01_Grundriss_und_Profile.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c33f03a7d042ef00",
+     "title": "K\u00f6ngen, Grundriss und Profile, ORL 60, 1907 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 8979786
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.3525372,
+      48.684486
+     ],
+     [
+      2493.0,
+      0.0,
+      9.3676028,
+      48.684486
+     ],
+     [
+      2493.0,
+      3602.0,
+      9.3676028,
+      48.670113
+     ],
+     [
+      0.0,
+      3602.0,
+      9.3525372,
+      48.670113
+     ],
+     [
+      1246.5,
+      1801.0,
+      9.36007,
+      48.6773
+     ]
+    ],
+    "scale_m_px": 0.4442,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
   {
    "site": "fort-ancient-q5470727",
    "name": "Fort Ancient",
@@ -199,6 +2245,158 @@
    }
   },
   {
+   "site": "lorch-q1433981",
+   "name": "Lorch",
+   "best": {
+    "plan": "c_f7777c9749d1de7b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f7777c9749d1de7b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Lorch, Grundriss, ORL 63, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2732,
+      3049
+     ],
+     "map_box": null,
+     "sites": [
+      "lorch-q1433981"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_63_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/lorch-q1433981/f7777c9749d1de7b.jpg",
+     "view": false,
+     "ref": "File:ORL_63_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f7777c9749d1de7b",
+     "title": "Lorch, Grundriss, ORL 63, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 8329868
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.6787744,
+      48.805286
+     ],
+     [
+      2732.0,
+      0.0,
+      9.6983256,
+      48.805286
+     ],
+     [
+      2732.0,
+      3049.0,
+      9.6983256,
+      48.790913
+     ],
+     [
+      0.0,
+      3049.0,
+      9.6787744,
+      48.790913
+     ],
+     [
+      1366.0,
+      1524.5,
+      9.68855,
+      48.7981
+     ]
+    ],
+    "scale_m_px": 0.5248,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "oberscheidental-q1735404",
+   "name": "Oberscheidental",
+   "best": {
+    "plan": "c_adaaf1b044a026f8",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_adaaf1b044a026f8",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Oberscheidental, Grundriss und Schnitte, ORL 52, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2647,
+      3120
+     ],
+     "map_box": null,
+     "sites": [
+      "oberscheidental-q1735404"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_52_tab_02_pic_01-03_Grundriss_und_Schnitte.jpg",
+     "url": "media/commons/oberscheidental-q1735404/adaaf1b044a026f8.jpg",
+     "view": false,
+     "ref": "File:ORL_52_tab_02_pic_01-03_Grundriss_und_Schnitte.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_adaaf1b044a026f8",
+     "title": "Oberscheidental, Grundriss und Schnitte, ORL 52, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 8258640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1433908,
+      49.513586
+     ],
+     [
+      2647.0,
+      0.0,
+      9.1621692,
+      49.513586
+     ],
+     [
+      2647.0,
+      3120.0,
+      9.1621692,
+      49.4992129
+     ],
+     [
+      0.0,
+      3120.0,
+      9.1433908,
+      49.4992129
+     ],
+     [
+      1323.5,
+      1560.0,
+      9.15278,
+      49.5064
+     ]
+    ],
+    "scale_m_px": 0.5128,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "forthill",
    "name": "Fort Hill",
    "best": {
@@ -301,6 +2499,393 @@
    }
   },
   {
+   "site": "rendelkastell-ohringen-q91949042",
+   "name": "Rendelkastell \u00d6hringen",
+   "best": {
+    "plan": "c_0161b90ba2200eb1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0161b90ba2200eb1",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Rendelkastell \u00d6hringen, Grundriss und Grabenschnitte des Rendelkastells, ORL 42o, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2800,
+      2809
+     ],
+     "map_box": null,
+     "sites": [
+      "rendelkastell-ohringen-q91949042"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_42_tab_02_pic_01,_04-05_Rendelkastell,_Grundriss_und_Grabenschnitte.jpg",
+     "url": "media/commons/rendelkastell-ohringen-q91949042/0161b90ba2200eb1.jpg",
+     "view": false,
+     "ref": "File:ORL_42_tab_02_pic_01,_04-05_Rendelkastell,_Grundriss_und_Grabenschnitte.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0161b90ba2200eb1",
+     "title": "Rendelkastell \u00d6hringen, Grundriss und Grabenschnitte des Rendelkastells, ORL 42o, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7865200
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.5024065,
+      49.2066999
+     ],
+     [
+      2800.0,
+      0.0,
+      9.5243324,
+      49.2066999
+     ],
+     [
+      2800.0,
+      2809.0,
+      9.5243324,
+      49.1923268
+     ],
+     [
+      0.0,
+      2809.0,
+      9.5024065,
+      49.1923268
+     ],
+     [
+      1400.0,
+      1404.5,
+      9.5133694,
+      49.1995139
+     ]
+    ],
+    "scale_m_px": 0.5696,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "wiesbaden-q622981",
+   "name": "Wiesbaden",
+   "best": {
+    "plan": "c_67820b8f96789216",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_67820b8f96789216",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Wiesbaden, plan, Tafel 2, ORL 31, 1909 (Commons)",
+     "label": "1909",
+     "size": [
+      2328,
+      3276
+     ],
+     "map_box": null,
+     "sites": [
+      "wiesbaden-q622981"
+     ],
+     "cite": "Public domain; https://commons.wikimedia.org/wiki/File:ORL_B_2_3b_Taf_2_Kastell_Wiesbaden.jpg",
+     "url": "media/commons/wiesbaden-q622981/67820b8f96789216.jpg",
+     "view": false,
+     "ref": "File:ORL B 2 3b Taf 2 Kastell Wiesbaden.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_67820b8f96789216",
+     "title": "Wiesbaden, plan, Tafel 2, ORL 31, 1909 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7626528
+    },
+    {
+     "plan": "c_9e57c0405171716e",
+     "title": "Wiesbaden, plan, Tafel 1, ORL 31, 1909 (Commons)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7536096
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.2339028,
+      50.093561
+     ],
+     [
+      2328.0,
+      0.0,
+      8.2498212,
+      50.093561
+     ],
+     [
+      2328.0,
+      3276.0,
+      8.2498212,
+      50.0791879
+     ],
+     [
+      0.0,
+      3276.0,
+      8.2339028,
+      50.0791879
+     ],
+     [
+      1164.0,
+      1638.0,
+      8.241862,
+      50.086375
+     ]
+    ],
+    "scale_m_px": 0.4884,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "walheim-q1669086",
+   "name": "Walheim",
+   "best": {
+    "plan": "c_dbe2e383f9b78a60",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_dbe2e383f9b78a60",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Walheim, Grundriss, ORL 57, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2333,
+      3248
+     ],
+     "map_box": null,
+     "sites": [
+      "walheim-q1669086"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_57_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/walheim-q1669086/dbe2e383f9b78a60.jpg",
+     "view": false,
+     "ref": "File:ORL_57_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_dbe2e383f9b78a60",
+     "title": "Walheim, Grundriss, ORL 57, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7577584
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1465701,
+      49.017886
+     ],
+     [
+      2333.0,
+      0.0,
+      9.1623099,
+      49.017886
+     ],
+     [
+      2333.0,
+      3248.0,
+      9.1623099,
+      49.003513
+     ],
+     [
+      0.0,
+      3248.0,
+      9.1465701,
+      49.003513
+     ],
+     [
+      1166.5,
+      1624.0,
+      9.15444,
+      49.0107
+     ]
+    ],
+    "scale_m_px": 0.4926,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bockingen-q1735374",
+   "name": "B\u00f6ckingen",
+   "best": {
+    "plan": "c_91cd077e9d084b3b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_91cd077e9d084b3b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "B\u00f6ckingen, Grundriss, ORL 56, 1898 (de.wikipedia)",
+     "label": "1898",
+     "size": [
+      2849,
+      2622
+     ],
+     "map_box": null,
+     "sites": [
+      "bockingen-q1735374"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_56_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/bockingen-q1735374/91cd077e9d084b3b.jpg",
+     "view": false,
+     "ref": "File:ORL_56_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_91cd077e9d084b3b",
+     "title": "B\u00f6ckingen, Grundriss, ORL 56, 1898 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7470078
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1776274,
+      49.1405015
+     ],
+     [
+      2849.0,
+      0.0,
+      9.1995946,
+      49.1405015
+     ],
+     [
+      2849.0,
+      2622.0,
+      9.1995946,
+      49.1272736
+     ],
+     [
+      0.0,
+      2622.0,
+      9.1776274,
+      49.1272736
+     ],
+     [
+      1424.5,
+      1311.0,
+      9.188611,
+      49.133888
+     ]
+    ],
+    "scale_m_px": 0.5616,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "burgkastell-ohringen-q86069877",
+   "name": "B\u00fcrgkastell \u00d6hringen",
+   "best": {
+    "plan": "c_7aab59b7e414c467",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7aab59b7e414c467",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "B\u00fcrgkastell \u00d6hringen, Grundriss des B\u00fcrgkastells, ORL 42w, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2766,
+      2603
+     ],
+     "map_box": null,
+     "sites": [
+      "burgkastell-ohringen-q86069877"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_42_tab_03_pic_01_B\u00fcrgkastell_Grundriss.jpg",
+     "url": "media/commons/burgkastell-ohringen-q86069877/7aab59b7e414c467.jpg",
+     "view": false,
+     "ref": "File:ORL_42_tab_03_pic_01_B\u00fcrgkastell_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7aab59b7e414c467",
+     "title": "B\u00fcrgkastell \u00d6hringen, Grundriss des B\u00fcrgkastells, ORL 42w, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 7199898
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.4863977,
+      49.212207
+     ],
+     [
+      2766.0,
+      0.0,
+      9.5083967,
+      49.212207
+     ],
+     [
+      2766.0,
+      2603.0,
+      9.5083967,
+      49.198681
+     ],
+     [
+      0.0,
+      2603.0,
+      9.4863977,
+      49.198681
+     ],
+     [
+      1383.0,
+      1301.5,
+      9.4973972,
+      49.2054444
+     ]
+    ],
+    "scale_m_px": 0.5785,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "oswestry-castle-q20713795",
    "name": "Oswestry Castle",
    "best": {
@@ -381,6 +2966,82 @@
     "scale_source": "bar",
     "coarse": false,
     "note": "scale from the scale bar: '0 100 200 300 Feet'"
+   }
+  },
+  {
+   "site": "neckarburken-west-q1343017",
+   "name": "Neckarburken-West",
+   "best": {
+    "plan": "c_6997f6236a9a3327",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6997f6236a9a3327",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Neckarburken-West, Grundriss des Westkastells, ORL 53, 1898 (de.wikipedia)",
+     "label": "1898",
+     "size": [
+      2379,
+      2859
+     ],
+     "map_box": null,
+     "sites": [
+      "neckarburken-west-q1343017"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_53_tab_02_pic_01_Westkastell_Grundriss.jpg",
+     "url": "media/commons/neckarburken-west-q1343017/6997f6236a9a3327.jpg",
+     "view": false,
+     "ref": "File:ORL_53_tab_02_pic_01_Westkastell_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6997f6236a9a3327",
+     "title": "Neckarburken-West, Grundriss des Westkastells, ORL 53, 1898 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 6801561
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1610934,
+      49.383853
+     ],
+     [
+      2379.0,
+      0.0,
+      9.1794626,
+      49.383853
+     ],
+     [
+      2379.0,
+      2859.0,
+      9.1794626,
+      49.36948
+     ],
+     [
+      0.0,
+      2859.0,
+      9.1610934,
+      49.36948
+     ],
+     [
+      1189.5,
+      1429.5,
+      9.170278,
+      49.376667
+     ]
+    ],
+    "scale_m_px": 0.5596,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
    }
   },
   {
@@ -602,6 +3263,82 @@
     "scale_source": "ratio",
     "coarse": false,
     "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)"
+   }
+  },
+  {
+   "site": "arzbach-q1735331",
+   "name": "Arzbach",
+   "best": {
+    "plan": "c_231ac23331b1a26f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_231ac23331b1a26f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Arzbach, Grundriss und Gel\u00e4ndeprofile, ORL 03, 1900 (de.wikipedia)",
+     "label": "1900",
+     "size": [
+      2093,
+      3129
+     ],
+     "map_box": null,
+     "sites": [
+      "arzbach-q1735331"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_03_tab_02_pic_01_Grundriss_und_Gel\u00e4ndeprofile.jpg",
+     "url": "media/commons/arzbach-q1735331/231ac23331b1a26f.jpg",
+     "view": false,
+     "ref": "File:ORL_03_tab_02_pic_01_Grundriss_und_Gel\u00e4ndeprofile.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_231ac23331b1a26f",
+     "title": "Arzbach, Grundriss und Gel\u00e4ndeprofile, ORL 03, 1900 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 6548997
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.7381125,
+      50.382486
+     ],
+     [
+      2093.0,
+      0.0,
+      7.7531875,
+      50.382486
+     ],
+     [
+      2093.0,
+      3129.0,
+      7.7531875,
+      50.3681129
+     ],
+     [
+      0.0,
+      3129.0,
+      7.7381125,
+      50.3681129
+     ],
+     [
+      1046.5,
+      1564.5,
+      7.74565,
+      50.3753
+     ]
+    ],
+    "scale_m_px": 0.5113,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
    }
   },
   {
@@ -1404,6 +4141,82 @@
    }
   },
   {
+   "site": "urspring-q1735430",
+   "name": "Urspring",
+   "best": {
+    "plan": "c_e9d4ade80eba80cd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e9d4ade80eba80cd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Urspring, Grundriss und Gel\u00e4ndeprofil, ORL 66a, 1904 (de.wikipedia)",
+     "label": "1904",
+     "size": [
+      2469,
+      2144
+     ],
+     "map_box": null,
+     "sites": [
+      "urspring-q1735430"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_66a_Tab_01_pic_03-04_Grundriss.jpg",
+     "url": "media/commons/urspring-q1735430/e9d4ade80eba80cd.jpg",
+     "view": false,
+     "ref": "File:ORL_66a_Tab_01_pic_03-04_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e9d4ade80eba80cd",
+     "title": "Urspring, Grundriss und Gel\u00e4ndeprofil, ORL 66a, 1904 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 5293536
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.8898337,
+      48.5562402
+     ],
+     [
+      2469.0,
+      0.0,
+      9.9115463,
+      48.5562402
+     ],
+     [
+      2469.0,
+      2144.0,
+      9.9115463,
+      48.5437591
+     ],
+     [
+      0.0,
+      2144.0,
+      9.8898337,
+      48.5437591
+     ],
+     [
+      1234.5,
+      1072.0,
+      9.90069,
+      48.55
+     ]
+    ],
+    "scale_m_px": 0.648,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "gurnard-s-head-q5620199",
    "name": "Gurnard's Head",
    "best": {
@@ -1573,6 +4386,82 @@
     "scale_source": "picture_size",
     "coarse": true,
     "note": "no usable scale text: '0 100 200'"
+   }
+  },
+  {
+   "site": "kastell-schirenhof",
+   "name": "Kastell Schirenhof",
+   "best": {
+    "plan": "c_38beddcf7850160c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_38beddcf7850160c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kastell Schirenhof, Grundriss, ORL 64, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      2014,
+      2408
+     ],
+     "map_box": null,
+     "sites": [
+      "kastell-schirenhof"
+     ],
+     "cite": "Bild-PD-alt; https://de.wikipedia.org/wiki/File:ORL_64_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/kastell-schirenhof/38beddcf7850160c.jpg",
+     "view": false,
+     "ref": "File:ORL_64_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_38beddcf7850160c",
+     "title": "Kastell Schirenhof, Grundriss, ORL 64, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 4849712
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      10.0208875,
+      48.737186
+     ],
+     [
+      2014.0,
+      0.0,
+      10.0391125,
+      48.737186
+     ],
+     [
+      2014.0,
+      2408.0,
+      10.0391125,
+      48.722813
+     ],
+     [
+      0.0,
+      2408.0,
+      10.0208875,
+      48.722813
+     ],
+     [
+      1007.0,
+      1204.0,
+      10.03,
+      48.73
+     ]
+    ],
+    "scale_m_px": 0.6645,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
    }
   },
   {
@@ -1748,6 +4637,82 @@
    }
   },
   {
+   "site": "wurzberg-q1445553",
+   "name": "W\u00fcrzberg",
+   "best": {
+    "plan": "c_87c067b702dac888",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_87c067b702dac888",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "W\u00fcrzberg, Grundriss, ORL 49, 1896 (de.wikipedia)",
+     "label": "1896",
+     "size": [
+      1756,
+      2201
+     ],
+     "map_box": null,
+     "sites": [
+      "wurzberg-q1445553"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_49_tab_01_pic_01_Grundriss.jpg",
+     "url": "media/commons/wurzberg-q1445553/87c067b702dac888.jpg",
+     "view": false,
+     "ref": "File:ORL_49_tab_01_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_87c067b702dac888",
+     "title": "W\u00fcrzberg, Grundriss, ORL 49, 1896 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 3864956
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0664251,
+      49.6413527
+     ],
+     [
+      1756.0,
+      0.0,
+      9.0841304,
+      49.6413527
+     ],
+     [
+      1756.0,
+      2201.0,
+      9.0841304,
+      49.6269796
+     ],
+     [
+      0.0,
+      2201.0,
+      9.0664251,
+      49.6269796
+     ],
+     [
+      878.0,
+      1100.5,
+      9.0752778,
+      49.6341667
+     ]
+    ],
+    "scale_m_px": 0.7269,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "cawthorne-camp-q5055239",
    "name": "Cawthorne Camp",
    "best": {
@@ -1909,6 +4874,158 @@
     "scale_source": "bar",
     "coarse": false,
     "note": "scale from the scale bar: '0 100 200 300 Feet'"
+   }
+  },
+  {
+   "site": "niederberg-q1670400",
+   "name": "Niederberg",
+   "best": {
+    "plan": "c_ac5b8c2c7d8bb083",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ac5b8c2c7d8bb083",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Niederberg, Grundriss der Principia, ORL 02a, 1900 (de.wikipedia)",
+     "label": "1900",
+     "size": [
+      1780,
+      2040
+     ],
+     "map_box": null,
+     "sites": [
+      "niederberg-q1670400"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_02a_tab_01_pic_02_Principia,_Grundriss.jpg",
+     "url": "media/commons/niederberg-q1670400/ac5b8c2c7d8bb083.jpg",
+     "view": false,
+     "ref": "File:ORL_02a_tab_01_pic_02_Principia,_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ac5b8c2c7d8bb083",
+     "title": "Niederberg, Grundriss der Principia, ORL 02a, 1900 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 3631200
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.6175091,
+      50.376086
+     ],
+     [
+      1780.0,
+      0.0,
+      7.6371709,
+      50.376086
+     ],
+     [
+      1780.0,
+      2040.0,
+      7.6371709,
+      50.3617129
+     ],
+     [
+      0.0,
+      2040.0,
+      7.6175091,
+      50.3617129
+     ],
+     [
+      890.0,
+      1020.0,
+      7.62734,
+      50.3689
+     ]
+    ],
+    "scale_m_px": 0.7843,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kemel-q1725806",
+   "name": "Kemel",
+   "best": {
+    "plan": "c_b9ad52085976e972",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b9ad52085976e972",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kemel, Grundriss, ORL 07, 1901 (de.wikipedia)",
+     "label": "1901",
+     "size": [
+      1832,
+      1949
+     ],
+     "map_box": null,
+     "sites": [
+      "kemel-q1725806"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_07_tab_01_pic_02_Grundriss.jpg",
+     "url": "media/commons/kemel-q1725806/b9ad52085976e972.jpg",
+     "view": false,
+     "ref": "File:ORL_07_tab_01_pic_02_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b9ad52085976e972",
+     "title": "Kemel, Grundriss, ORL 07, 1901 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 3570568
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      8.0055146,
+      50.172686
+     ],
+     [
+      1832.0,
+      0.0,
+      8.0266054,
+      50.172686
+     ],
+     [
+      1832.0,
+      1949.0,
+      8.0266054,
+      50.1583129
+     ],
+     [
+      0.0,
+      1949.0,
+      8.0055146,
+      50.1583129
+     ],
+     [
+      916.0,
+      974.5,
+      8.01606,
+      50.1655
+     ]
+    ],
+    "scale_m_px": 0.8209,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
    }
   },
   {
@@ -2285,6 +5402,13 @@
      "book": "Wikimedia Commons",
      "view": true,
      "draw_px": 1140480
+    },
+    {
+     "plan": "c_61b86efb4511e099",
+     "title": "Stonehenge, inward view by William Stukeley, 1722 (Itinerarium Curiosum)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 861440
     }
    ],
    "propose": {
@@ -2536,6 +5660,82 @@
      ]
     ],
     "scale_m_px": 0.3676,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bruges-q12994",
+   "name": "Bruges",
+   "best": {
+    "plan": "c_2288e5f6a962e2d3",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2288e5f6a962e2d3",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bruges, town plan by Jacob van Deventer",
+     "label": "c. 1550",
+     "size": [
+      1280,
+      2153
+     ],
+     "map_box": null,
+     "sites": [
+      "bruges-q12994"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_Bruges_by_Jacob_van_Deventer.jpg",
+     "url": "media/commons/bruges-q12994/2288e5f6a962e2d3.jpg",
+     "view": false,
+     "ref": "File:Map of Bruges by Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2288e5f6a962e2d3",
+     "title": "Bruges, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2755840
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.2156752,
+      51.2178823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.2327248,
+      51.2178823
+     ],
+     [
+      1280.0,
+      2153.0,
+      3.2327248,
+      51.199916
+     ],
+     [
+      0.0,
+      2153.0,
+      3.2156752,
+      51.199916
+     ],
+     [
+      640.0,
+      1076.5,
+      3.2242,
+      51.2089
+     ]
+    ],
+    "scale_m_px": 0.9289,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -2832,6 +6032,234 @@
      ]
     ],
     "scale_m_px": 0.7886,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "hainhaus-q1735367",
+   "name": "Hainhaus",
+   "best": {
+    "plan": "c_4739d99690abccb0",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4739d99690abccb0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hainhaus, Grundriss, ORL 47, 1897 (de.wikipedia)",
+     "label": "1897",
+     "size": [
+      1350,
+      1902
+     ],
+     "map_box": null,
+     "sites": [
+      "hainhaus-q1735367"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_47_tab_01_pic_01_Grundriss.jpg",
+     "url": "media/commons/hainhaus-q1735367/4739d99690abccb0.jpg",
+     "view": false,
+     "ref": "File:ORL_47_tab_01_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4739d99690abccb0",
+     "title": "Hainhaus, Grundriss, ORL 47, 1897 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2567700
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0752983,
+      49.739986
+     ],
+     [
+      1350.0,
+      0.0,
+      9.0910817,
+      49.739986
+     ],
+     [
+      1350.0,
+      1902.0,
+      9.0910817,
+      49.7256129
+     ],
+     [
+      0.0,
+      1902.0,
+      9.0752983,
+      49.7256129
+     ],
+     [
+      675.0,
+      951.0,
+      9.08319,
+      49.7328
+     ]
+    ],
+    "scale_m_px": 0.8412,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "seckmauern-q1735419",
+   "name": "Seckmauern",
+   "best": {
+    "plan": "c_ffa436ce26a70357",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ffa436ce26a70357",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Seckmauern, Grundriss, ORL 46b, 1914 (de.wikipedia)",
+     "label": "1914",
+     "size": [
+      1611,
+      1577
+     ],
+     "map_box": null,
+     "sites": [
+      "seckmauern-q1735419"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_46b_tab_01_pic_02a_Grundriss.jpg",
+     "url": "media/commons/seckmauern-q1735419/ffa436ce26a70357.jpg",
+     "view": false,
+     "ref": "File:ORL_46b_tab_01_pic_02a_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ffa436ce26a70357",
+     "title": "Seckmauern, Grundriss, ORL 46b, 1914 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2540547
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.1062273,
+      49.8060621
+     ],
+     [
+      1611.0,
+      0.0,
+      9.1284949,
+      49.8060621
+     ],
+     [
+      1611.0,
+      1577.0,
+      9.1284949,
+      49.7919924
+     ],
+     [
+      0.0,
+      1577.0,
+      9.1062273,
+      49.7919924
+     ],
+     [
+      805.5,
+      788.5,
+      9.1173611,
+      49.7990278
+     ]
+    ],
+    "scale_m_px": 0.9932,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "lutzelbach-q1735392",
+   "name": "L\u00fctzelbach",
+   "best": {
+    "plan": "c_c61bd261a3c2ecee",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c61bd261a3c2ecee",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "L\u00fctzelbach, Grundriss, ORL 46, 1904 (de.wikipedia)",
+     "label": "1904",
+     "size": [
+      1380,
+      1818
+     ],
+     "map_box": null,
+     "sites": [
+      "lutzelbach-q1735392"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_46_tab_1_pic_2_Grundriss.jpg",
+     "url": "media/commons/lutzelbach-q1735392/c61bd261a3c2ecee.jpg",
+     "view": false,
+     "ref": "File:ORL_46_tab_1_pic_2_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c61bd261a3c2ecee",
+     "title": "L\u00fctzelbach, Grundriss, ORL 46, 1904 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2508840
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0801631,
+      49.7866304
+     ],
+     [
+      1380.0,
+      0.0,
+      9.0970591,
+      49.7866304
+     ],
+     [
+      1380.0,
+      1818.0,
+      9.0970591,
+      49.7722574
+     ],
+     [
+      0.0,
+      1818.0,
+      9.0801631,
+      49.7722574
+     ],
+     [
+      690.0,
+      909.0,
+      9.0886111,
+      49.7794444
+     ]
+    ],
+    "scale_m_px": 0.8801,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -3271,6 +6699,1374 @@
      ]
     ],
     "scale_m_px": 0.8333,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "eulbach-q1735359",
+   "name": "Eulbach",
+   "best": {
+    "plan": "c_b933309a4f7f7434",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b933309a4f7f7434",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Eulbach, Grundriss, ORL 48, 1896 (de.wikipedia)",
+     "label": "1896",
+     "size": [
+      1380,
+      1747
+     ],
+     "map_box": null,
+     "sites": [
+      "eulbach-q1735359"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_48_tab_01_pic_01_Grundriss.jpg",
+     "url": "media/commons/eulbach-q1735359/b933309a4f7f7434.jpg",
+     "view": false,
+     "ref": "File:ORL_48_tab_01_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b933309a4f7f7434",
+     "title": "Eulbach, Grundriss, ORL 48, 1896 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2410860
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.0691434,
+      49.687186
+     ],
+     [
+      1380.0,
+      0.0,
+      9.08669,
+      49.687186
+     ],
+     [
+      1380.0,
+      1747.0,
+      9.08669,
+      49.6728129
+     ],
+     [
+      0.0,
+      1747.0,
+      9.0691434,
+      49.6728129
+     ],
+     [
+      690.0,
+      873.5,
+      9.0779167,
+      49.68
+     ]
+    ],
+    "scale_m_px": 0.9159,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "lessines-q667790",
+   "name": "Lessines",
+   "best": {
+    "plan": "c_0193a1cf01ab0b87",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0193a1cf01ab0b87",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Lessines, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "lessines-q667790"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Lessines_-_Deventer.jpg",
+     "url": "media/commons/lessines-q667790/0193a1cf01ab0b87.jpg",
+     "view": false,
+     "ref": "File:Lessines - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0193a1cf01ab0b87",
+     "title": "Lessines, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.8201419,
+      50.7206823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.8398581,
+      50.7206823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.8398581,
+      50.702716
+     ],
+     [
+      0.0,
+      1842.0,
+      3.8201419,
+      50.702716
+     ],
+     [
+      640.0,
+      921.0,
+      3.83,
+      50.7117
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "saint-ghislain-q668950",
+   "name": "Saint-Ghislain",
+   "best": {
+    "plan": "c_0f4c29775d0296d7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0f4c29775d0296d7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Saint-Ghislain, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "saint-ghislain-q668950"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Saint-Ghislain_-_Deventer.jpg",
+     "url": "media/commons/saint-ghislain-q668950/0f4c29775d0296d7.jpg",
+     "view": false,
+     "ref": "File:Saint-Ghislain - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0f4c29775d0296d7",
+     "title": "Saint-Ghislain, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.8068965,
+      50.4589823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.8265035,
+      50.4589823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.8265035,
+      50.441016
+     ],
+     [
+      0.0,
+      1842.0,
+      3.8068965,
+      50.441016
+     ],
+     [
+      640.0,
+      921.0,
+      3.8167,
+      50.45
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "beaumont-q95100",
+   "name": "Beaumont",
+   "best": {
+    "plan": "c_10ead9dfee408a14",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_10ead9dfee408a14",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Beaumont, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "beaumont-q95100"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Beaumont_-_Deventer.jpg",
+     "url": "media/commons/beaumont-q95100/10ead9dfee408a14.jpg",
+     "view": false,
+     "ref": "File:Beaumont - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_10ead9dfee408a14",
+     "title": "Beaumont, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.2285407,
+      50.2444823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.2480593,
+      50.2444823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.2480593,
+      50.226516
+     ],
+     [
+      0.0,
+      1842.0,
+      4.2285407,
+      50.226516
+     ],
+     [
+      640.0,
+      921.0,
+      4.2383,
+      50.2355
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "braine-le-comte-q95129",
+   "name": "Braine-le-Comte",
+   "best": {
+    "plan": "c_16f1341d9cb80282",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_16f1341d9cb80282",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Braine-le-Comte, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "braine-le-comte-q95129"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Braine-le-Comte_-_Deventer.jpg",
+     "url": "media/commons/braine-le-comte-q95129/16f1341d9cb80282.jpg",
+     "view": false,
+     "ref": "File:Braine-le-Comte - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_16f1341d9cb80282",
+     "title": "Braine-le-Comte, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.1262633,
+      50.6186823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.1459367,
+      50.6186823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.1459367,
+      50.600716
+     ],
+     [
+      0.0,
+      1842.0,
+      4.1262633,
+      50.600716
+     ],
+     [
+      640.0,
+      921.0,
+      4.1361,
+      50.6097
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "gravelines-q323399",
+   "name": "Gravelines",
+   "best": {
+    "plan": "c_173e0d61c038bada",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_173e0d61c038bada",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Gravelines, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "gravelines-q323399"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Gravelines_-_Deventer.jpg",
+     "url": "media/commons/gravelines-q323399/173e0d61c038bada.jpg",
+     "view": false,
+     "ref": "File:Gravelines - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_173e0d61c038bada",
+     "title": "Gravelines, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.1175837,
+      50.9953823
+     ],
+     [
+      1280.0,
+      0.0,
+      2.1374163,
+      50.9953823
+     ],
+     [
+      1280.0,
+      1842.0,
+      2.1374163,
+      50.977416
+     ],
+     [
+      0.0,
+      1842.0,
+      2.1175837,
+      50.977416
+     ],
+     [
+      640.0,
+      921.0,
+      2.1275,
+      50.9864
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "soignies-q462985",
+   "name": "Soignies",
+   "best": {
+    "plan": "c_1d2c06e6924ff4a6",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1d2c06e6924ff4a6",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Soignies, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "soignies-q462985"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Soignies_-_Deventer.jpg",
+     "url": "media/commons/soignies-q462985/1d2c06e6924ff4a6.jpg",
+     "view": false,
+     "ref": "File:Soignies - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1d2c06e6924ff4a6",
+     "title": "Soignies, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.0568723,
+      50.5756823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.0765277,
+      50.5756823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.0765277,
+      50.557716
+     ],
+     [
+      0.0,
+      1842.0,
+      4.0568723,
+      50.557716
+     ],
+     [
+      640.0,
+      921.0,
+      4.0667,
+      50.5667
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "le-rulx-q668861",
+   "name": "Le R\u0153ulx",
+   "best": {
+    "plan": "c_2c2af513b43f9d29",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2c2af513b43f9d29",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Le R\u0153ulx, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "le-rulx-q668861"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Le_R%C5%93ulx_-_Deventer.jpg",
+     "url": "media/commons/le-rulx-q668861/2c2af513b43f9d29.jpg",
+     "view": false,
+     "ref": "File:Le R\u0153ulx - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2c2af513b43f9d29",
+     "title": "Le R\u0153ulx, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.1017854,
+      50.5125823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.1214146,
+      50.5125823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.1214146,
+      50.494616
+     ],
+     [
+      0.0,
+      1842.0,
+      4.1017854,
+      50.494616
+     ],
+     [
+      640.0,
+      921.0,
+      4.1116,
+      50.5036
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bouchain-q632348",
+   "name": "Bouchain",
+   "best": {
+    "plan": "c_35df4aa006f2cfb4",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_35df4aa006f2cfb4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bouchain, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "bouchain-q632348"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Bouchain_-_Deventer.jpg",
+     "url": "media/commons/bouchain-q632348/35df4aa006f2cfb4.jpg",
+     "view": false,
+     "ref": "File:Bouchain - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_35df4aa006f2cfb4",
+     "title": "Bouchain, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.3071307,
+      50.2931823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.3266693,
+      50.2931823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.3266693,
+      50.275216
+     ],
+     [
+      0.0,
+      1842.0,
+      3.3071307,
+      50.275216
+     ],
+     [
+      640.0,
+      921.0,
+      3.3169,
+      50.2842
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "halle-q210003",
+   "name": "Halle",
+   "best": {
+    "plan": "c_55f4781a80f908bf",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_55f4781a80f908bf",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Halle, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "halle-q210003"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Halle_-_Deventer.jpg",
+     "url": "media/commons/halle-q210003/55f4781a80f908bf.jpg",
+     "view": false,
+     "ref": "File:Halle - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_55f4781a80f908bf",
+     "title": "Halle, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.2273368,
+      50.7450823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.2470632,
+      50.7450823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.2470632,
+      50.727116
+     ],
+     [
+      0.0,
+      1842.0,
+      4.2273368,
+      50.727116
+     ],
+     [
+      640.0,
+      921.0,
+      4.2372,
+      50.7361
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "leuze-q667862",
+   "name": "Leuze",
+   "best": {
+    "plan": "c_58255a14a93914c4",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_58255a14a93914c4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Leuze-en-Hainaut, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "leuze-q667862"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Leuze_-_Deventer.jpg",
+     "url": "media/commons/leuze-q667862/58255a14a93914c4.jpg",
+     "view": false,
+     "ref": "File:Leuze - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_58255a14a93914c4",
+     "title": "Leuze-en-Hainaut, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.6068653,
+      50.6089823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.6265347,
+      50.6089823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.6265347,
+      50.591016
+     ],
+     [
+      0.0,
+      1842.0,
+      3.6068653,
+      50.591016
+     ],
+     [
+      640.0,
+      921.0,
+      3.6167,
+      50.6
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "avesnes-sur-helpe-q217178",
+   "name": "Avesnes-sur-Helpe",
+   "best": {
+    "plan": "c_61fbbcd3d6051cd9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_61fbbcd3d6051cd9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Avesnes-sur-Helpe, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "avesnes-sur-helpe-q217178"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Avesnes-sur-Helpe_-_Deventer.jpg",
+     "url": "media/commons/avesnes-sur-helpe-q217178/61fbbcd3d6051cd9.jpg",
+     "view": false,
+     "ref": "File:Avesnes-sur-Helpe - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_61fbbcd3d6051cd9",
+     "title": "Avesnes-sur-Helpe, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.9229638,
+      50.1313823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.9424362,
+      50.1313823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.9424362,
+      50.113416
+     ],
+     [
+      0.0,
+      1842.0,
+      3.9229638,
+      50.113416
+     ],
+     [
+      640.0,
+      921.0,
+      3.9327,
+      50.1224
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "chimay-q95380",
+   "name": "Chimay",
+   "best": {
+    "plan": "c_85545a4f2f3cd8bd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_85545a4f2f3cd8bd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Chimay, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "chimay-q95380"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Chimay_-_Deventer.jpg",
+     "url": "media/commons/chimay-q95380/85545a4f2f3cd8bd.jpg",
+     "view": false,
+     "ref": "File:Chimay - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_85545a4f2f3cd8bd",
+     "title": "Chimay, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.3075789,
+      50.0568823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.3270211,
+      50.0568823
+     ],
+     [
+      1280.0,
+      1842.0,
+      4.3270211,
+      50.038916
+     ],
+     [
+      0.0,
+      1842.0,
+      4.3075789,
+      50.038916
+     ],
+     [
+      640.0,
+      921.0,
+      4.3173,
+      50.0479
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bapaume-q317235",
+   "name": "Bapaume",
+   "best": {
+    "plan": "c_9ab09606928df00c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_9ab09606928df00c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bapaume, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "bapaume-q317235"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Bapaume_-_Deventer.jpg",
+     "url": "media/commons/bapaume-q317235/9ab09606928df00c.jpg",
+     "view": false,
+     "ref": "File:Bapaume - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9ab09606928df00c",
+     "title": "Bapaume, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.8413676,
+      50.1125823
+     ],
+     [
+      1280.0,
+      0.0,
+      2.8608324,
+      50.1125823
+     ],
+     [
+      1280.0,
+      1842.0,
+      2.8608324,
+      50.094616
+     ],
+     [
+      0.0,
+      1842.0,
+      2.8413676,
+      50.094616
+     ],
+     [
+      640.0,
+      921.0,
+      2.8511,
+      50.1036
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "chievres-q95318",
+   "name": "Chi\u00e8vres",
+   "best": {
+    "plan": "c_b56c5a3aab179832",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b56c5a3aab179832",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Chi\u00e8vres, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "chievres-q95318"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Chi%C3%A8vres_-_Deventer.jpg",
+     "url": "media/commons/chievres-q95318/b56c5a3aab179832.jpg",
+     "view": false,
+     "ref": "File:Chi\u00e8vres - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b56c5a3aab179832",
+     "title": "Chi\u00e8vres, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.7901688,
+      50.5922823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.8098312,
+      50.5922823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.8098312,
+      50.574316
+     ],
+     [
+      0.0,
+      1842.0,
+      3.7901688,
+      50.574316
+     ],
+     [
+      640.0,
+      921.0,
+      3.8,
+      50.5833
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "landrecies-q632808",
+   "name": "Landrecies",
+   "best": {
+    "plan": "c_d1d43cd6c38b04e0",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d1d43cd6c38b04e0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Landrecies, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "landrecies-q632808"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Landrecies_-_Deventer.jpg",
+     "url": "media/commons/landrecies-q632808/d1d43cd6c38b04e0.jpg",
+     "view": false,
+     "ref": "File:Landrecies - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d1d43cd6c38b04e0",
+     "title": "Landrecies, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.6802631,
+      50.1345823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.6997369,
+      50.1345823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.6997369,
+      50.116616
+     ],
+     [
+      0.0,
+      1842.0,
+      3.6802631,
+      50.116616
+     ],
+     [
+      640.0,
+      921.0,
+      3.69,
+      50.1256
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bavay-q477176",
+   "name": "Bavay",
+   "best": {
+    "plan": "c_e8345a33509010ae",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e8345a33509010ae",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bavay, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "bavay-q477176"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Bavay_-_Deventer.jpg",
+     "url": "media/commons/bavay-q477176/e8345a33509010ae.jpg",
+     "view": false,
+     "ref": "File:Bavay - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e8345a33509010ae",
+     "title": "Bavay, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.788328,
+      50.3064823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.807872,
+      50.3064823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.807872,
+      50.288516
+     ],
+     [
+      0.0,
+      1842.0,
+      3.788328,
+      50.288516
+     ],
+     [
+      640.0,
+      921.0,
+      3.7981,
+      50.2975
+     ]
+    ],
+    "scale_m_px": 1.0858,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "le-cateau-cambresis-q329103",
+   "name": "Le Cateau-Cambr\u00e9sis",
+   "best": {
+    "plan": "c_f613a7c2165ba280",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f613a7c2165ba280",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Le Cateau-Cambr\u00e9sis, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1842
+     ],
+     "map_box": null,
+     "sites": [
+      "le-cateau-cambresis-q329103"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Le_Cateau-Cambr%C3%A9sis_-_Deventer.jpg",
+     "url": "media/commons/le-cateau-cambresis-q329103/f613a7c2165ba280.jpg",
+     "view": false,
+     "ref": "File:Le Cateau-Cambr\u00e9sis - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f613a7c2165ba280",
+     "title": "Le Cateau-Cambr\u00e9sis, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2357760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.5313673,
+      50.1142823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.5508327,
+      50.1142823
+     ],
+     [
+      1280.0,
+      1842.0,
+      3.5508327,
+      50.096316
+     ],
+     [
+      0.0,
+      1842.0,
+      3.5313673,
+      50.096316
+     ],
+     [
+      640.0,
+      921.0,
+      3.5411,
+      50.1053
+     ]
+    ],
+    "scale_m_px": 1.0858,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -4197,6 +8993,82 @@
    }
   },
   {
+   "site": "goes-q81220",
+   "name": "Goes",
+   "best": {
+    "plan": "c_e5933ffbd0ec5ea2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e5933ffbd0ec5ea2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Goes, town plan by Jacob van Deventer",
+     "label": "1560",
+     "size": [
+      1280,
+      1617
+     ],
+     "map_box": null,
+     "sites": [
+      "goes-q81220"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Goes_1572_Bijkrt_v_Deventer.jpg",
+     "url": "media/commons/goes-q81220/e5933ffbd0ec5ea2.jpg",
+     "view": false,
+     "ref": "File:Goes 1572 Bijkrt v Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e5933ffbd0ec5ea2",
+     "title": "Goes, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2069760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.8735759,
+      51.5132823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.8964241,
+      51.5132823
+     ],
+     [
+      1280.0,
+      1617.0,
+      3.8964241,
+      51.495316
+     ],
+     [
+      0.0,
+      1617.0,
+      3.8735759,
+      51.495316
+     ],
+     [
+      640.0,
+      808.5,
+      3.885,
+      51.5043
+     ]
+    ],
+    "scale_m_px": 1.2369,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "bethlehem-q2523914",
    "name": "Bethlehem",
    "best": {
@@ -4420,6 +9292,82 @@
    }
   },
   {
+   "site": "brussels-q239",
+   "name": "Brussels",
+   "best": {
+    "plan": "c_f75255b95bf35578",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f75255b95bf35578",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Brussels, town plan by Jacob van Deventer",
+     "label": "c. 1555",
+     "size": [
+      1280,
+      1572
+     ],
+     "map_box": null,
+     "sites": [
+      "brussels-q239"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Brussels_map_by_Jacob_van_Deventer,_Atlas_des_villes_des_Pays-Bas,_73_places_lev%C3%A9es,_ca._1555_(2)_01.png",
+     "url": "media/commons/brussels-q239/f75255b95bf35578.jpg",
+     "view": false,
+     "ref": "File:Brussels map by Jacob van Deventer, Atlas des villes des Pays-Bas, 73 places lev\u00e9es, ca. 1555 (2) 01.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f75255b95bf35578",
+     "title": "Brussels, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2012160
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.3401153,
+      50.8556823
+     ],
+     [
+      1280.0,
+      0.0,
+      4.3632847,
+      50.8556823
+     ],
+     [
+      1280.0,
+      1572.0,
+      4.3632847,
+      50.837716
+     ],
+     [
+      0.0,
+      1572.0,
+      4.3401153,
+      50.837716
+     ],
+     [
+      640.0,
+      786.0,
+      4.3517,
+      50.8467
+     ]
+    ],
+    "scale_m_px": 1.2723,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "ludlow-castle-q576369",
    "name": "Ludlow Castle",
    "best": {
@@ -4496,6 +9444,82 @@
    }
   },
   {
+   "site": "amsterdam-q727",
+   "name": "Amsterdam",
+   "best": {
+    "plan": "c_a581cd4a4890eb83",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_a581cd4a4890eb83",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Amsterdam, town plan by Jacob van Deventer",
+     "label": "1550-1570",
+     "size": [
+      1280,
+      1563
+     ],
+     "map_box": null,
+     "sites": [
+      "amsterdam-q727"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Kaart_van_Amsterdam_c1550_(City_Map)_Jacob_van_Deventer.jpg",
+     "url": "media/commons/amsterdam-q727/a581cd4a4890eb83.jpg",
+     "view": false,
+     "ref": "File:Kaart van Amsterdam c1550 (City Map) Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a581cd4a4890eb83",
+     "title": "Amsterdam, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2000640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.8744503,
+      52.3814822
+     ],
+     [
+      1280.0,
+      0.0,
+      4.8985497,
+      52.3814822
+     ],
+     [
+      1280.0,
+      1563.0,
+      4.8985497,
+      52.3635159
+     ],
+     [
+      0.0,
+      1563.0,
+      4.8744503,
+      52.3635159
+     ],
+     [
+      640.0,
+      781.5,
+      4.8865,
+      52.3725
+     ]
+    ],
+    "scale_m_px": 1.2796,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "stanton-drew-stone-circles-q1516300",
    "name": "Stanton Drew stone circles",
    "best": {
@@ -4565,6 +9589,82 @@
      ]
     ],
     "scale_m_px": 0.6447,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "schlossau-q1735418",
+   "name": "Schlossau",
+   "best": {
+    "plan": "c_a74bb634290e582e",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_a74bb634290e582e",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Schlossau, Grundriss, ORL 51, 1900 (de.wikipedia)",
+     "label": "1900",
+     "size": [
+      1290,
+      1538
+     ],
+     "map_box": null,
+     "sites": [
+      "schlossau-q1735418"
+     ],
+     "cite": "PD-alt-100; https://de.wikipedia.org/wiki/File:ORL_51_tab_02_pic_01_Grundriss.jpg",
+     "url": "media/commons/schlossau-q1735418/a74bb634290e582e.jpg",
+     "view": false,
+     "ref": "File:ORL_51_tab_02_pic_01_Grundriss.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_a74bb634290e582e",
+     "title": "Schlossau, Grundriss, ORL 51, 1900 (de.wikipedia)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1984020
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      9.140151,
+      49.547786
+     ],
+     [
+      1290.0,
+      0.0,
+      9.158729,
+      49.547786
+     ],
+     [
+      1290.0,
+      1538.0,
+      9.158729,
+      49.5334129
+     ],
+     [
+      0.0,
+      1538.0,
+      9.140151,
+      49.5334129
+     ],
+     [
+      645.0,
+      769.0,
+      9.14944,
+      49.5406
+     ]
+    ],
+    "scale_m_px": 1.0403,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -5040,6 +10140,82 @@
    }
   },
   {
+   "site": "the-hague-q36600",
+   "name": "The Hague",
+   "best": {
+    "plan": "c_e113eaddba42f5da",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e113eaddba42f5da",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The Hague, town plan by Jacob van Deventer",
+     "label": "1558",
+     "size": [
+      1280,
+      1365
+     ],
+     "map_box": null,
+     "sites": [
+      "the-hague-q36600"
+     ],
+     "cite": "by Jacob van Deventer; CC0; https://commons.wikimedia.org/wiki/File:1558,_Den_Haag._Jacob_van_Deventer.jpg",
+     "url": "media/commons/the-hague-q36600/e113eaddba42f5da.jpg",
+     "view": false,
+     "ref": "File:1558, Den Haag. Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e113eaddba42f5da",
+     "title": "The Hague, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1747200
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.2912933,
+      52.0879822
+     ],
+     [
+      1280.0,
+      0.0,
+      4.3187067,
+      52.0879822
+     ],
+     [
+      1280.0,
+      1365.0,
+      4.3187067,
+      52.0700159
+     ],
+     [
+      0.0,
+      1365.0,
+      4.2912933,
+      52.0700159
+     ],
+     [
+      640.0,
+      682.5,
+      4.305,
+      52.079
+     ]
+    ],
+    "scale_m_px": 1.4652,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "venlo-q9777",
    "name": "Venlo",
    "best": {
@@ -5199,6 +10375,82 @@
    }
   },
   {
+   "site": "ghent-q1296",
+   "name": "Ghent",
+   "best": {
+    "plan": "c_82ceffa2a7846983",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_82ceffa2a7846983",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ghent, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1313
+     ],
+     "map_box": null,
+     "sites": [
+      "ghent-q1296"
+     ],
+     "cite": "by Jacob Van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Ghent_by_Jacob_Van_Deventer,_BN_1.jpg",
+     "url": "media/commons/ghent-q1296/82ceffa2a7846983.jpg",
+     "view": false,
+     "ref": "File:Ghent by Jacob Van Deventer, BN 1.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_82ceffa2a7846983",
+     "title": "Ghent, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1680640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.7113683,
+      51.0625823
+     ],
+     [
+      1280.0,
+      0.0,
+      3.7392317,
+      51.0625823
+     ],
+     [
+      1280.0,
+      1313.0,
+      3.7392317,
+      51.044616
+     ],
+     [
+      0.0,
+      1313.0,
+      3.7113683,
+      51.044616
+     ],
+     [
+      640.0,
+      656.5,
+      3.7253,
+      51.0536
+     ]
+    ],
+    "scale_m_px": 1.5232,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "portus-adurni-q762664",
    "name": "Portus Adurni",
    "best": {
@@ -5275,6 +10527,158 @@
      ]
     ],
     "scale_m_px": 1.2384,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "utrecht-q803",
+   "name": "Utrecht",
+   "best": {
+    "plan": "c_f5f96070065c0763",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f5f96070065c0763",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Utrecht, town plan by Jacob van Deventer",
+     "label": "1565-1570",
+     "size": [
+      1280,
+      1275
+     ],
+     "map_box": null,
+     "sites": [
+      "utrecht-q803"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Utrecht.jpg",
+     "url": "media/commons/utrecht-q803/f5f96070065c0763.jpg",
+     "view": false,
+     "ref": "File:Utrecht.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f5f96070065c0763",
+     "title": "Utrecht, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1632000
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      5.1038792,
+      52.0999472
+     ],
+     [
+      1280.0,
+      0.0,
+      5.1331208,
+      52.0999472
+     ],
+     [
+      1280.0,
+      1275.0,
+      5.1331208,
+      52.082051
+     ],
+     [
+      0.0,
+      1275.0,
+      5.1038792,
+      52.082051
+     ],
+     [
+      640.0,
+      637.5,
+      5.1185,
+      52.091
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "alkmaar-q972",
+   "name": "Alkmaar",
+   "best": {
+    "plan": "c_b7ab5f354d320f29",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b7ab5f354d320f29",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Alkmaar, town plan by Jacob van Deventer",
+     "label": "1550-1570",
+     "size": [
+      1280,
+      1268
+     ],
+     "map_box": null,
+     "sites": [
+      "alkmaar-q972"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Kaart_van_Alkmaar_en_Oudorp_door_Jacob_van_Deventer_01.jpg",
+     "url": "media/commons/alkmaar-q972/b7ab5f354d320f29.jpg",
+     "view": false,
+     "ref": "File:Kaart van Alkmaar en Oudorp door Jacob van Deventer 01.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b7ab5f354d320f29",
+     "title": "Alkmaar, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1623040
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.7279003,
+      52.637398
+     ],
+     [
+      1280.0,
+      0.0,
+      4.7574997,
+      52.637398
+     ],
+     [
+      1280.0,
+      1268.0,
+      4.7574997,
+      52.6196002
+     ],
+     [
+      0.0,
+      1268.0,
+      4.7279003,
+      52.6196002
+     ],
+     [
+      640.0,
+      634.0,
+      4.7427,
+      52.6285
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -5524,6 +10928,82 @@
    }
   },
   {
+   "site": "haarlem-q9920",
+   "name": "Haarlem",
+   "best": {
+    "plan": "c_c741e8c431c6c0f2",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c741e8c431c6c0f2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Haarlem, town plan by Jacob van Deventer",
+     "label": "1565",
+     "size": [
+      1280,
+      1233
+     ],
+     "map_box": null,
+     "sites": [
+      "haarlem-q9920"
+     ],
+     "cite": "by Anonymous Unknown author Deventer, Jacob van (1501/1502-1575); CC0; https://commons.wikimedia.org/wiki/File:Kaart_van_de_stad_Haarlem,_waarop_de_kerken,_kloosters,_stadspoorten_en_invalswegen_staan_aangegeven_kartografisch_document_door_Jacobus_van_Deventer_vervaardigd_voor_Filips_II,_Inventarisnummer_NL-HlmNHA_1100_KNA006000046.JPG",
+     "url": "media/commons/haarlem-q9920/c741e8c431c6c0f2.jpg",
+     "view": false,
+     "ref": "File:Kaart van de stad Haarlem, waarop de kerken, kloosters, stadspoorten en invalswegen staan aangegeven kartografisch document door Jacobus van Deventer vervaardigd voor Filips II, Inventarisnummer NL-HlmNHA 1100 KNA006000046.JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c741e8c431c6c0f2",
+     "title": "Haarlem, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1578240
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.619281,
+      52.3966525
+     ],
+     [
+      1280.0,
+      0.0,
+      4.648719,
+      52.3966525
+     ],
+     [
+      1280.0,
+      1233.0,
+      4.648719,
+      52.3793458
+     ],
+     [
+      0.0,
+      1233.0,
+      4.619281,
+      52.3793458
+     ],
+     [
+      640.0,
+      616.5,
+      4.634,
+      52.388
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "traiectum-q2199749",
    "name": "Traiectum",
    "best": {
@@ -5691,6 +11171,82 @@
    }
   },
   {
+   "site": "enkhuizen-q9918",
+   "name": "Enkhuizen",
+   "best": {
+    "plan": "c_9b8db40f5bf4ef47",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_9b8db40f5bf4ef47",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Enkhuizen, town plan by Jacob van Deventer",
+     "label": "1558-1560",
+     "size": [
+      1280,
+      1215
+     ],
+     "map_box": null,
+     "sites": [
+      "enkhuizen-q9918"
+     ],
+     "cite": "by Scan by the uploader, taken from the abovementioned book. A 1558-1560 map that was compiled by Jacob van Deventer.; Public domain; https://commons.wikimedia.org/wiki/File:Jacob_van_Deventer_Enkhuizen_1558-1560.jpg",
+     "url": "media/commons/enkhuizen-q9918/9b8db40f5bf4ef47.jpg",
+     "view": false,
+     "ref": "File:Jacob van Deventer Enkhuizen 1558-1560.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9b8db40f5bf4ef47",
+     "title": "Enkhuizen, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1555200
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      5.2711752,
+      52.7110261
+     ],
+     [
+      1280.0,
+      0.0,
+      5.3008248,
+      52.7110261
+     ],
+     [
+      1280.0,
+      1215.0,
+      5.3008248,
+      52.6939722
+     ],
+     [
+      0.0,
+      1215.0,
+      5.2711752,
+      52.6939722
+     ],
+     [
+      640.0,
+      607.5,
+      5.286,
+      52.7025
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "avaricum-q281826",
    "name": "Avaricum",
    "best": {
@@ -5767,6 +11323,82 @@
      ]
     ],
     "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "mechelen-q162022",
+   "name": "Mechelen",
+   "best": {
+    "plan": "c_2855bae8824664c9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2855bae8824664c9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Mechelen, town plan by Jacob van Deventer",
+     "label": "1550",
+     "size": [
+      1280,
+      1189
+     ],
+     "map_box": null,
+     "sites": [
+      "mechelen-q162022"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Mechelen,_Belgium,_Deventer,_1550.png",
+     "url": "media/commons/mechelen-q162022/2855bae8824664c9.jpg",
+     "view": false,
+     "ref": "File:Mechelen, Belgium, Deventer, 1550.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2855bae8824664c9",
+     "title": "Mechelen, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1521920
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.466017,
+      51.0364438
+     ],
+     [
+      1280.0,
+      0.0,
+      4.494583,
+      51.0364438
+     ],
+     [
+      1280.0,
+      1189.0,
+      4.494583,
+      51.0197547
+     ],
+     [
+      0.0,
+      1189.0,
+      4.466017,
+      51.0197547
+     ],
+     [
+      640.0,
+      594.5,
+      4.4803,
+      51.0281
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -6175,6 +11807,82 @@
    }
   },
   {
+   "site": "luxembourg-city-q1842",
+   "name": "Luxembourg City",
+   "best": {
+    "plan": "c_1278a807525ed2b7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1278a807525ed2b7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Luxembourg, town plan by Jacob van Deventer",
+     "label": "1550",
+     "size": [
+      1280,
+      1063
+     ],
+     "map_box": null,
+     "sites": [
+      "luxembourg-city-q1842"
+     ],
+     "cite": "by Deventer, Jacob van; Public domain; https://commons.wikimedia.org/wiki/File:Luxemburg_1550_65_v_Deventer.jpg",
+     "url": "media/commons/luxembourg-city-q1842/1278a807525ed2b7.jpg",
+     "view": false,
+     "ref": "File:Luxemburg 1550 65 v Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1278a807525ed2b7",
+     "title": "Luxembourg, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1360640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      6.1161364,
+      49.6188597
+     ],
+     [
+      1280.0,
+      0.0,
+      6.1438636,
+      49.6188597
+     ],
+     [
+      1280.0,
+      1063.0,
+      6.1438636,
+      49.6039392
+     ],
+     [
+      0.0,
+      1063.0,
+      6.1161364,
+      49.6039392
+     ],
+     [
+      640.0,
+      531.5,
+      6.13,
+      49.6114
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "norwich-castle-q1672292",
    "name": "Norwich Castle",
    "best": {
@@ -6265,6 +11973,82 @@
    }
   },
   {
+   "site": "arras-q131329",
+   "name": "Arras",
+   "best": {
+    "plan": "c_4e242bc2623751a0",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4e242bc2623751a0",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Arras, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1051
+     ],
+     "map_box": null,
+     "sites": [
+      "arras-q131329"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Arras_(2)_-_Deventer.jpg",
+     "url": "media/commons/arras-q131329/4e242bc2623751a0.jpg",
+     "view": false,
+     "ref": "File:Arras (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4e242bc2623751a0",
+     "title": "Arras, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1345280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.7659399,
+      50.2965754
+     ],
+     [
+      1280.0,
+      0.0,
+      2.7940601,
+      50.2965754
+     ],
+     [
+      1280.0,
+      1051.0,
+      2.7940601,
+      50.2818234
+     ],
+     [
+      0.0,
+      1051.0,
+      2.7659399,
+      50.2818234
+     ],
+     [
+      640.0,
+      525.5,
+      2.78,
+      50.2892
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "herstmonceux-castle-q2652207",
    "name": "Herstmonceux Castle",
    "best": {
@@ -6334,6 +12118,82 @@
      ]
     ],
     "scale_m_px": 0.6098,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "tournai-q173219",
+   "name": "Tournai",
+   "best": {
+    "plan": "c_8d705fd69f50dfcf",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8d705fd69f50dfcf",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Tournai, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      1013
+     ],
+     "map_box": null,
+     "sites": [
+      "tournai-q173219"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Tournai_-_Deventer.jpg",
+     "url": "media/commons/tournai-q173219/8d705fd69f50dfcf.jpg",
+     "view": false,
+     "ref": "File:Tournai - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8d705fd69f50dfcf",
+     "title": "Tournai, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1296640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.3739456,
+      50.6127088
+     ],
+     [
+      1280.0,
+      0.0,
+      3.4022544,
+      50.6127088
+     ],
+     [
+      1280.0,
+      1013.0,
+      3.4022544,
+      50.5984901
+     ],
+     [
+      0.0,
+      1013.0,
+      3.3739456,
+      50.5984901
+     ],
+     [
+      640.0,
+      506.5,
+      3.3881,
+      50.6056
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -6459,6 +12319,158 @@
    }
   },
   {
+   "site": "oudenaarde-q12992",
+   "name": "Oudenaarde",
+   "best": {
+    "plan": "c_07ead0a02185e2e9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_07ead0a02185e2e9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Oudenaarde, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      993
+     ],
+     "map_box": null,
+     "sites": [
+      "oudenaarde-q12992"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Oudenaarde,_map_by_Jacob_van_Deventer,_Version_Madrid.JPG",
+     "url": "media/commons/oudenaarde-q12992/07ead0a02185e2e9.jpg",
+     "view": false,
+     "ref": "File:Oudenaarde, map by Jacob van Deventer, Version Madrid.JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_07ead0a02185e2e9",
+     "title": "Oudenaarde, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1271040
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.5857716,
+      50.8569684
+     ],
+     [
+      1280.0,
+      0.0,
+      3.6142284,
+      50.8569684
+     ],
+     [
+      1280.0,
+      993.0,
+      3.6142284,
+      50.8430305
+     ],
+     [
+      0.0,
+      993.0,
+      3.5857716,
+      50.8430305
+     ],
+     [
+      640.0,
+      496.5,
+      3.6,
+      50.85
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "groningen-q749",
+   "name": "Groningen",
+   "best": {
+    "plan": "c_498f9aa12d03fc30",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_498f9aa12d03fc30",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Groningen, town plan by Jacob van Deventer",
+     "label": "c. 1563-1567",
+     "size": [
+      1280,
+      992
+     ],
+     "map_box": null,
+     "sites": [
+      "groningen-q749"
+     ],
+     "cite": "by Jakob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Jacob_van_Deventer_-_Groningen_volledig.jpg",
+     "url": "media/commons/groningen-q749/498f9aa12d03fc30.jpg",
+     "view": false,
+     "ref": "File:Jacob van Deventer - Groningen volledig.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_498f9aa12d03fc30",
+     "title": "Groningen, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1269760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      6.5559968,
+      53.2266614
+     ],
+     [
+      1280.0,
+      0.0,
+      6.5860032,
+      53.2266614
+     ],
+     [
+      1280.0,
+      992.0,
+      6.5860032,
+      53.2127375
+     ],
+     [
+      0.0,
+      992.0,
+      6.5559968,
+      53.2127375
+     ],
+     [
+      640.0,
+      496.0,
+      6.571,
+      53.2197
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "castra-exploratorum-q51433287",
    "name": "Castra Exploratorum",
    "best": {
@@ -6528,6 +12540,234 @@
      ]
     ],
     "scale_m_px": 1.3234,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "aire-sur-la-lys-q259903",
+   "name": "Aire-sur-la-Lys",
+   "best": {
+    "plan": "c_d1ca997e67377769",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d1ca997e67377769",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Aire-sur-la-Lys, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      986
+     ],
+     "map_box": null,
+     "sites": [
+      "aire-sur-la-lys-q259903"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Aire-sur-la-Lys_-_Deventer.jpg",
+     "url": "media/commons/aire-sur-la-lys-q259903/d1ca997e67377769.jpg",
+     "view": false,
+     "ref": "File:Aire-sur-la-Lys - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d1ca997e67377769",
+     "title": "Aire-sur-la-Lys, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1262080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.3825357,
+      50.6455193
+     ],
+     [
+      1280.0,
+      0.0,
+      2.4108643,
+      50.6455193
+     ],
+     [
+      1280.0,
+      986.0,
+      2.4108643,
+      50.6316797
+     ],
+     [
+      0.0,
+      986.0,
+      2.3825357,
+      50.6316797
+     ],
+     [
+      640.0,
+      493.0,
+      2.3967,
+      50.6386
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "hesdin-q467366",
+   "name": "Hesdin",
+   "best": {
+    "plan": "c_92e4e5135b1bbadb",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_92e4e5135b1bbadb",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hesdin, town plan by Jacob van Deventer",
+     "label": "1545-1575",
+     "size": [
+      1280,
+      982
+     ],
+     "map_box": null,
+     "sites": [
+      "hesdin-q467366"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Hesdin_-_Deventer.jpg",
+     "url": "media/commons/hesdin-q467366/92e4e5135b1bbadb.jpg",
+     "view": false,
+     "ref": "File:Hesdin - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_92e4e5135b1bbadb",
+     "title": "Hesdin, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1256960
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.0226148,
+      50.3810913
+     ],
+     [
+      1280.0,
+      0.0,
+      2.0507852,
+      50.3810913
+     ],
+     [
+      1280.0,
+      982.0,
+      2.0507852,
+      50.3673077
+     ],
+     [
+      0.0,
+      982.0,
+      2.0226148,
+      50.3673077
+     ],
+     [
+      640.0,
+      491.0,
+      2.0367,
+      50.3742
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "enghien-q666238",
+   "name": "Enghien",
+   "best": {
+    "plan": "c_ee629c434d9f93df",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ee629c434d9f93df",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Enghien, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      977
+     ],
+     "map_box": null,
+     "sites": [
+      "enghien-q666238"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Enghien_-_Deventer.jpg",
+     "url": "media/commons/enghien-q666238/ee629c434d9f93df.jpg",
+     "view": false,
+     "ref": "File:Enghien - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ee629c434d9f93df",
+     "title": "Enghien, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1250560
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.0269185,
+      50.7024562
+     ],
+     [
+      1280.0,
+      0.0,
+      4.0552815,
+      50.7024562
+     ],
+     [
+      1280.0,
+      977.0,
+      4.0552815,
+      50.6887428
+     ],
+     [
+      0.0,
+      977.0,
+      4.0269185,
+      50.6887428
+     ],
+     [
+      640.0,
+      488.5,
+      4.0411,
+      50.6956
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -6646,6 +12886,158 @@
      ]
     ],
     "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "ath-q95096",
+   "name": "Ath",
+   "best": {
+    "plan": "c_c78f45d3fc19aeee",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c78f45d3fc19aeee",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ath, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      973
+     ],
+     "map_box": null,
+     "sites": [
+      "ath-q95096"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Ath_-_Deventer.jpg",
+     "url": "media/commons/ath-q95096/c78f45d3fc19aeee.jpg",
+     "view": false,
+     "ref": "File:Ath - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c78f45d3fc19aeee",
+     "title": "Ath, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1245440
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.7627379,
+      50.6379281
+     ],
+     [
+      1280.0,
+      0.0,
+      3.7910621,
+      50.6379281
+     ],
+     [
+      1280.0,
+      973.0,
+      3.7910621,
+      50.6242709
+     ],
+     [
+      0.0,
+      973.0,
+      3.7627379,
+      50.6242709
+     ],
+     [
+      640.0,
+      486.5,
+      3.7769,
+      50.6311
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bethune-q207145",
+   "name": "B\u00e9thune",
+   "best": {
+    "plan": "c_33c9e6b8ce6b352b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_33c9e6b8ce6b352b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "B\u00e9thune, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      972
+     ],
+     "map_box": null,
+     "sites": [
+      "bethune-q207145"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:B%C3%A9thune_-_Deventer.jpg",
+     "url": "media/commons/bethune-q207145/33c9e6b8ce6b352b.jpg",
+     "view": false,
+     "ref": "File:B\u00e9thune - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_33c9e6b8ce6b352b",
+     "title": "B\u00e9thune, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1244160
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.625168,
+      50.5378211
+     ],
+     [
+      1280.0,
+      0.0,
+      2.653432,
+      50.5378211
+     ],
+     [
+      1280.0,
+      972.0,
+      2.653432,
+      50.5241779
+     ],
+     [
+      0.0,
+      972.0,
+      2.625168,
+      50.5241779
+     ],
+     [
+      640.0,
+      486.0,
+      2.6393,
+      50.531
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -6805,6 +13197,234 @@
    }
   },
   {
+   "site": "le-quesnoy-q180067",
+   "name": "Le Quesnoy",
+   "best": {
+    "plan": "c_6c0ffd4cdd0fc9eb",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6c0ffd4cdd0fc9eb",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Le Quesnoy, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      971
+     ],
+     "map_box": null,
+     "sites": [
+      "le-quesnoy-q180067"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Le_Quesnoy_-_Deventer.jpg",
+     "url": "media/commons/le-quesnoy-q180067/6c0ffd4cdd0fc9eb.jpg",
+     "view": false,
+     "ref": "File:Le Quesnoy - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6c0ffd4cdd0fc9eb",
+     "title": "Le Quesnoy, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1242880
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.6234518,
+      50.2557141
+     ],
+     [
+      1280.0,
+      0.0,
+      3.6515482,
+      50.2557141
+     ],
+     [
+      1280.0,
+      971.0,
+      3.6515482,
+      50.2420849
+     ],
+     [
+      0.0,
+      971.0,
+      3.6234518,
+      50.2420849
+     ],
+     [
+      640.0,
+      485.5,
+      3.6375,
+      50.2489
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "saint-omer-q208793",
+   "name": "Saint-Omer",
+   "best": {
+    "plan": "c_df791c935a4905f7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_df791c935a4905f7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Saint-Omer, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      970
+     ],
+     "map_box": null,
+     "sites": [
+      "saint-omer-q208793"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Saint-Omer_(2)_-_Deventer.jpg",
+     "url": "media/commons/saint-omer-q208793/df791c935a4905f7.jpg",
+     "view": false,
+     "ref": "File:Saint-Omer (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_df791c935a4905f7",
+     "title": "Saint-Omer, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1241600
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.2466025,
+      50.7551071
+     ],
+     [
+      1280.0,
+      0.0,
+      2.2749975,
+      50.7551071
+     ],
+     [
+      1280.0,
+      970.0,
+      2.2749975,
+      50.741492
+     ],
+     [
+      0.0,
+      970.0,
+      2.2466025,
+      50.741492
+     ],
+     [
+      640.0,
+      485.0,
+      2.2608,
+      50.7483
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "maubeuge-q138648",
+   "name": "Maubeuge",
+   "best": {
+    "plan": "c_c3a9cd0c691d4fd5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c3a9cd0c691d4fd5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Maubeuge, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      961
+     ],
+     "map_box": null,
+     "sites": [
+      "maubeuge-q138648"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Maubeuge_-_Deventer.jpg",
+     "url": "media/commons/maubeuge-q138648/c3a9cd0c691d4fd5.jpg",
+     "view": false,
+     "ref": "File:Maubeuge - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c3a9cd0c691d4fd5",
+     "title": "Maubeuge, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1230080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.9584436,
+      50.2836439
+     ],
+     [
+      1280.0,
+      0.0,
+      3.9865564,
+      50.2836439
+     ],
+     [
+      1280.0,
+      961.0,
+      3.9865564,
+      50.2701551
+     ],
+     [
+      0.0,
+      961.0,
+      3.9584436,
+      50.2701551
+     ],
+     [
+      640.0,
+      480.5,
+      3.9725,
+      50.2769
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "binche-q95121",
    "name": "Binche",
    "best": {
@@ -6871,6 +13491,82 @@
       478.5,
       4.1652,
       50.4103
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "conde-sur-l-escaut-q494533",
+   "name": "Cond\u00e9-sur-l'Escaut",
+   "best": {
+    "plan": "c_9c59296498a678b5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_9c59296498a678b5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cond\u00e9-sur-l'Escaut, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      948
+     ],
+     "map_box": null,
+     "sites": [
+      "conde-sur-l-escaut-q494533"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Cond%C3%A9-sur-l%27Escaut_-_Deventer.jpg",
+     "url": "media/commons/conde-sur-l-escaut-q494533/9c59296498a678b5.jpg",
+     "view": false,
+     "ref": "File:Cond\u00e9-sur-l'Escaut - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9c59296498a678b5",
+     "title": "Cond\u00e9-sur-l'Escaut, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1213440
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.5764925,
+      50.4558527
+     ],
+     [
+      1280.0,
+      0.0,
+      3.6047075,
+      50.4558527
+     ],
+     [
+      1280.0,
+      948.0,
+      3.6047075,
+      50.4425464
+     ],
+     [
+      0.0,
+      948.0,
+      3.5764925,
+      50.4425464
+     ],
+     [
+      640.0,
+      474.0,
+      3.5906,
+      50.4492
      ]
     ],
     "scale_m_px": 1.5625,
@@ -6957,6 +13653,386 @@
    }
   },
   {
+   "site": "sluis-q10080",
+   "name": "Sluis",
+   "best": {
+    "plan": "c_6b2bc5d7e27b7a64",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6b2bc5d7e27b7a64",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Sluis, town plan by Jacob van Deventer",
+     "label": "c. 1545-1565",
+     "size": [
+      1280,
+      943
+     ],
+     "map_box": null,
+     "sites": [
+      "sluis-q10080"
+     ],
+     "cite": "by Ton Schollen; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Plattegrond_van_J._van_Deventer,_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_en_Sint_Anna_ter_Muiden_-_Sluis_-_20201361_-_RCE.jpg",
+     "url": "media/commons/sluis-q10080/6b2bc5d7e27b7a64.jpg",
+     "view": false,
+     "ref": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist en Sint Anna ter Muiden - Sluis - 20201361 - RCE.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6b2bc5d7e27b7a64",
+     "title": "Sluis, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1207040
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.4786178,
+      51.3536176
+     ],
+     [
+      1280.0,
+      0.0,
+      3.5073822,
+      51.3536176
+     ],
+     [
+      1280.0,
+      943.0,
+      3.5073822,
+      51.3403815
+     ],
+     [
+      0.0,
+      943.0,
+      3.4786178,
+      51.3403815
+     ],
+     [
+      640.0,
+      471.5,
+      3.493,
+      51.347
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "valkenburg-q100076",
+   "name": "Valkenburg",
+   "best": {
+    "plan": "c_deef87c2020d3cbc",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_deef87c2020d3cbc",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Valkenburg, town plan by Jacob van Deventer",
+     "label": "c. 1545-1565",
+     "size": [
+      1280,
+      935
+     ],
+     "map_box": null,
+     "sites": [
+      "valkenburg-q100076"
+     ],
+     "cite": "by Ton Schollen; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Plattegrond_van_J._van_Deventer,_reproductie_uit_album_Rijksdienst_voor_de_Monumenten_Zorg_te_Zeist_-_Valkenburg_-_20237999_-_RCE.jpg",
+     "url": "media/commons/valkenburg-q100076/deef87c2020d3cbc.jpg",
+     "view": false,
+     "ref": "File:Plattegrond van J. van Deventer, reproductie uit album Rijksdienst voor de Monumenten Zorg te Zeist - Valkenburg - 20237999 - RCE.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_deef87c2020d3cbc",
+     "title": "Valkenburg, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1196800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      5.8178169,
+      50.8717915
+     ],
+     [
+      1280.0,
+      0.0,
+      5.8462831,
+      50.8717915
+     ],
+     [
+      1280.0,
+      935.0,
+      5.8462831,
+      50.8586676
+     ],
+     [
+      0.0,
+      935.0,
+      5.8178169,
+      50.8586676
+     ],
+     [
+      640.0,
+      467.5,
+      5.83205,
+      50.86523
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "reimerswaal-q2590944",
+   "name": "Reimerswaal",
+   "best": {
+    "plan": "c_5e7a601debf4e2f3",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_5e7a601debf4e2f3",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Reimerswaal, town plan by Jacob van Deventer",
+     "label": "1560",
+     "size": [
+      1280,
+      929
+     ],
+     "map_box": null,
+     "sites": [
+      "reimerswaal-q2590944"
+     ],
+     "cite": "by Deventer, Jacob van; Public domain; https://commons.wikimedia.org/wiki/File:Reimerswaal_1560_Minuut_v_Deventer.jpg",
+     "url": "media/commons/reimerswaal-q2590944/5e7a601debf4e2f3.jpg",
+     "view": false,
+     "ref": "File:Reimerswaal 1560 Minuut v Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_5e7a601debf4e2f3",
+     "title": "Reimerswaal, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1189120
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.1580532,
+      51.5140583
+     ],
+     [
+      1280.0,
+      0.0,
+      4.1869188,
+      51.5140583
+     ],
+     [
+      1280.0,
+      929.0,
+      4.1869188,
+      51.5010187
+     ],
+     [
+      0.0,
+      929.0,
+      4.1580532,
+      51.5010187
+     ],
+     [
+      640.0,
+      464.5,
+      4.172486,
+      51.507539
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "lille-q648",
+   "name": "Lille",
+   "best": {
+    "plan": "c_1f7cce1c856a7bcb",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1f7cce1c856a7bcb",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Lille, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      926
+     ],
+     "map_box": null,
+     "sites": [
+      "lille-q648"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Lille_(2)_-_Deventer.jpg",
+     "url": "media/commons/lille-q648/1f7cce1c856a7bcb.jpg",
+     "view": false,
+     "ref": "File:Lille (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1f7cce1c856a7bcb",
+     "title": "Lille, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1185280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.0433377,
+      50.6383983
+     ],
+     [
+      1280.0,
+      0.0,
+      3.0716623,
+      50.6383983
+     ],
+     [
+      1280.0,
+      926.0,
+      3.0716623,
+      50.6254008
+     ],
+     [
+      0.0,
+      926.0,
+      3.0433377,
+      50.6254008
+     ],
+     [
+      640.0,
+      463.0,
+      3.0575,
+      50.6319
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "douai-q193826",
+   "name": "Douai",
+   "best": {
+    "plan": "c_661c074bcd04d49a",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_661c074bcd04d49a",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Douai, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      913
+     ],
+     "map_box": null,
+     "sites": [
+      "douai-q193826"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Douai_(2)_-_Deventer.jpg",
+     "url": "media/commons/douai-q193826/661c074bcd04d49a.jpg",
+     "view": false,
+     "ref": "File:Douai (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_661c074bcd04d49a",
+     "title": "Douai, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1168640
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.0651158,
+      50.3772071
+     ],
+     [
+      1280.0,
+      0.0,
+      3.0932842,
+      50.3772071
+     ],
+     [
+      1280.0,
+      913.0,
+      3.0932842,
+      50.3643921
+     ],
+     [
+      0.0,
+      913.0,
+      3.0651158,
+      50.3643921
+     ],
+     [
+      640.0,
+      456.5,
+      3.0792,
+      50.3708
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "norham-castle-q388705",
    "name": "Norham Castle",
    "best": {
@@ -7026,6 +14102,158 @@
      ]
     ],
     "scale_m_px": 0.6914,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "cambrai-q181285",
+   "name": "Cambrai",
+   "best": {
+    "plan": "c_fbfc4b72f92d823f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_fbfc4b72f92d823f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cambrai, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      899
+     ],
+     "map_box": null,
+     "sites": [
+      "cambrai-q181285"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Cambrai_-_Deventer.jpg",
+     "url": "media/commons/cambrai-q181285/fbfc4b72f92d823f.jpg",
+     "view": false,
+     "ref": "File:Cambrai - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_fbfc4b72f92d823f",
+     "title": "Cambrai, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1150720
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.2206733,
+      50.1821088
+     ],
+     [
+      1280.0,
+      0.0,
+      3.2487267,
+      50.1821088
+     ],
+     [
+      1280.0,
+      899.0,
+      3.2487267,
+      50.1694903
+     ],
+     [
+      0.0,
+      899.0,
+      3.2206733,
+      50.1694903
+     ],
+     [
+      640.0,
+      449.5,
+      3.2347,
+      50.1758
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kortrijk-q12995",
+   "name": "Kortrijk",
+   "best": {
+    "plan": "c_b10c72a5e6b4eebc",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b10c72a5e6b4eebc",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kortrijk, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      892
+     ],
+     "map_box": null,
+     "sites": [
+      "kortrijk-q12995"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Kortrijk,_map_by_Jacob_van_Deventer.JPG",
+     "url": "media/commons/kortrijk-q12995/b10c72a5e6b4eebc.jpg",
+     "view": false,
+     "ref": "File:Kortrijk, map by Jacob van Deventer.JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b10c72a5e6b4eebc",
+     "title": "Kortrijk, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1141760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.2515784,
+      50.8337597
+     ],
+     [
+      1280.0,
+      0.0,
+      3.2800216,
+      50.8337597
+     ],
+     [
+      1280.0,
+      892.0,
+      3.2800216,
+      50.8212394
+     ],
+     [
+      0.0,
+      892.0,
+      3.2515784,
+      50.8212394
+     ],
+     [
+      640.0,
+      446.0,
+      3.2658,
+      50.8275
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -7178,6 +14406,82 @@
      ]
     ],
     "scale_m_px": 0.625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "rotterdam-q34370",
+   "name": "Rotterdam",
+   "best": {
+    "plan": "c_bb70d8aaeb0dc7aa",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_bb70d8aaeb0dc7aa",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Rotterdam, town plan by Jacob van Deventer",
+     "label": "c. 1560",
+     "size": [
+      1280,
+      881
+     ],
+     "map_box": null,
+     "sites": [
+      "rotterdam-q34370"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_Rotterdam_around_1560s_by_Jacob_van_Deventer.jpg",
+     "url": "media/commons/rotterdam-q34370/bb70d8aaeb0dc7aa.jpg",
+     "view": false,
+     "ref": "File:Map of Rotterdam around 1560s by Jacob van Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_bb70d8aaeb0dc7aa",
+     "title": "Rotterdam, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1127680
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.4599364,
+      51.9216825
+     ],
+     [
+      1280.0,
+      0.0,
+      4.4890636,
+      51.9216825
+     ],
+     [
+      1280.0,
+      881.0,
+      4.4890636,
+      51.9093166
+     ],
+     [
+      0.0,
+      881.0,
+      4.4599364,
+      51.9093166
+     ],
+     [
+      640.0,
+      440.5,
+      4.4745,
+      51.9155
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -7358,6 +14662,82 @@
    }
   },
   {
+   "site": "ostend-q12996",
+   "name": "Ostend",
+   "best": {
+    "plan": "c_6af6f1481c92a973",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6af6f1481c92a973",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Ostend, town plan by Jacob van Deventer",
+     "label": "c. 1562",
+     "size": [
+      872,
+      1255
+     ],
+     "map_box": null,
+     "sites": [
+      "ostend-q12996"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Oostende_map_Jacob_van_Deventer.png",
+     "url": "media/commons/ostend-q12996/6af6f1481c92a973.jpg",
+     "view": false,
+     "ref": "File:Oostende map Jacob van Deventer.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6af6f1481c92a973",
+     "title": "Ostend, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1094360
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.9094333,
+      51.2347823
+     ],
+     [
+      872.0,
+      0.0,
+      2.9293667,
+      51.2347823
+     ],
+     [
+      872.0,
+      1255.0,
+      2.9293667,
+      51.216816
+     ],
+     [
+      0.0,
+      1255.0,
+      2.9094333,
+      51.216816
+     ],
+     [
+      436.0,
+      627.5,
+      2.9194,
+      51.2258
+     ]
+    ],
+    "scale_m_px": 1.5936,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "fotheringhay-castle-q1439593",
    "name": "Fotheringhay Castle",
    "best": {
@@ -7427,6 +14807,82 @@
      ]
     ],
     "scale_m_px": 0.625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "valenciennes-q163795",
+   "name": "Valenciennes",
+   "best": {
+    "plan": "c_0b5e6f27e6aeba51",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0b5e6f27e6aeba51",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Valenciennes, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      805
+     ],
+     "map_box": null,
+     "sites": [
+      "valenciennes-q163795"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Valenciennes_(2)_-_Deventer.jpg",
+     "url": "media/commons/valenciennes-q163795/0b5e6f27e6aeba51.jpg",
+     "view": false,
+     "ref": "File:Valenciennes (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0b5e6f27e6aeba51",
+     "title": "Valenciennes, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1030400
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.5092195,
+      50.3637492
+     ],
+     [
+      1280.0,
+      0.0,
+      3.5373805,
+      50.3637492
+     ],
+     [
+      1280.0,
+      805.0,
+      3.5373805,
+      50.3524501
+     ],
+     [
+      0.0,
+      805.0,
+      3.5092195,
+      50.3524501
+     ],
+     [
+      640.0,
+      402.5,
+      3.5233,
+      50.3581
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -7579,6 +15035,82 @@
      ]
     ],
     "scale_m_px": 0.8,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "mons-q83407",
+   "name": "Mons",
+   "best": {
+    "plan": "c_e5b141a1578a1c82",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e5b141a1578a1c82",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Mons, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      1280,
+      762
+     ],
+     "map_box": null,
+     "sites": [
+      "mons-q83407"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Mons_(2)_-_Deventer.jpg",
+     "url": "media/commons/mons-q83407/e5b141a1578a1c82.jpg",
+     "view": false,
+     "ref": "File:Mons (2) - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e5b141a1578a1c82",
+     "title": "Mons, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 975360
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.9383908,
+      50.4600475
+     ],
+     [
+      1280.0,
+      0.0,
+      3.9666092,
+      50.4600475
+     ],
+     [
+      1280.0,
+      762.0,
+      3.9666092,
+      50.4493519
+     ],
+     [
+      0.0,
+      762.0,
+      3.9383908,
+      50.4493519
+     ],
+     [
+      640.0,
+      381.0,
+      3.9525,
+      50.4547
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -7985,6 +15517,82 @@
    }
   },
   {
+   "site": "therouanne-q261399",
+   "name": "Th\u00e9rouanne",
+   "best": {
+    "plan": "c_caea879d0ab526f1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_caea879d0ab526f1",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Th\u00e9rouanne, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      986,
+      867
+     ],
+     "map_box": null,
+     "sites": [
+      "therouanne-q261399"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Th%C3%A9rouanne_-_Deventer.jpg",
+     "url": "media/commons/therouanne-q261399/caea879d0ab526f1.jpg",
+     "view": false,
+     "ref": "File:Th\u00e9rouanne - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_caea879d0ab526f1",
+     "title": "Th\u00e9rouanne, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 854862
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.2447362,
+      50.6445983
+     ],
+     [
+      986.0,
+      0.0,
+      2.2730638,
+      50.6445983
+     ],
+     [
+      986.0,
+      867.0,
+      2.2730638,
+      50.6288004
+     ],
+     [
+      0.0,
+      867.0,
+      2.2447362,
+      50.6288004
+     ],
+     [
+      493.0,
+      433.5,
+      2.2589,
+      50.6367
+     ]
+    ],
+    "scale_m_px": 2.0284,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "bolsover-castle-q2968590",
    "name": "Bolsover Castle",
    "best": {
@@ -8372,6 +15980,82 @@
    }
   },
   {
+   "site": "shotwick-castle-q7502621",
+   "name": "Shotwick Castle",
+   "best": {
+    "plan": "c_e6e5490609414bb9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e6e5490609414bb9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Shotwick Castle, plan from Mackenzie, The Castles of England (1897)",
+     "label": "1897",
+     "size": [
+      839,
+      840
+     ],
+     "map_box": null,
+     "sites": [
+      "shotwick-castle-q7502621"
+     ],
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:212_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11296081346).jpg",
+     "url": "media/commons/shotwick-castle-q7502621/e6e5490609414bb9.jpg",
+     "view": false,
+     "ref": "File:212 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11296081346).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e6e5490609414bb9",
+     "title": "Shotwick Castle, plan from Mackenzie, The Castles of England (1897)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 704760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.9820752,
+      53.2307931
+     ],
+     [
+      839.0,
+      0.0,
+      -2.9700848,
+      53.2307931
+     ],
+     [
+      839.0,
+      840.0,
+      -2.9700848,
+      53.2236066
+     ],
+     [
+      0.0,
+      840.0,
+      -2.9820752,
+      53.2236066
+     ],
+     [
+      419.5,
+      420.0,
+      -2.97608,
+      53.2272
+     ]
+    ],
+    "scale_m_px": 0.9524,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "oxford-castle-q2600886",
    "name": "Oxford Castle",
    "best": {
@@ -8607,6 +16291,82 @@
      ]
     ],
     "scale_m_px": 0.8264,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "vieil-hesdin-q1022768",
+   "name": "Vieil-Hesdin",
+   "best": {
+    "plan": "c_8e35559c8c12e1f5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8e35559c8c12e1f5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Vieil-Hesdin, town plan by Jacob van Deventer",
+     "label": "1545",
+     "size": [
+      757,
+      857
+     ],
+     "map_box": null,
+     "sites": [
+      "vieil-hesdin-q1022768"
+     ],
+     "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Vieil-Hesdin_-_Deventer.jpg",
+     "url": "media/commons/vieil-hesdin-q1022768/8e35559c8c12e1f5.jpg",
+     "view": false,
+     "ref": "File:Vieil-Hesdin - Deventer.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8e35559c8c12e1f5",
+     "title": "Vieil-Hesdin, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 648749
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      2.0864627,
+      50.3664823
+     ],
+     [
+      757.0,
+      0.0,
+      2.1113373,
+      50.3664823
+     ],
+     [
+      757.0,
+      857.0,
+      2.1113373,
+      50.348516
+     ],
+     [
+      0.0,
+      857.0,
+      2.0864627,
+      50.348516
+     ],
+     [
+      378.5,
+      428.5,
+      2.0989,
+      50.3575
+     ]
+    ],
+    "scale_m_px": 2.3337,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -9227,6 +16987,82 @@
    }
   },
   {
+   "site": "aardenburg-q955",
+   "name": "Aardenburg",
+   "best": {
+    "plan": "c_d0a020dec428fa00",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d0a020dec428fa00",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Aardenburg, town plan by Jacob van Deventer",
+     "label": "c. 1560",
+     "size": [
+      500,
+      500
+     ],
+     "map_box": null,
+     "sites": [
+      "aardenburg-q955"
+     ],
+     "cite": "by Jacob van Deventer (c1505-1575); Public domain; https://commons.wikimedia.org/wiki/File:Aardenburg_1560.jpg",
+     "url": "media/commons/aardenburg-q955/d0a020dec428fa00.jpg",
+     "view": false,
+     "ref": "File:Aardenburg 1560.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d0a020dec428fa00",
+     "title": "Aardenburg, town plan by Jacob van Deventer",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 250000
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.4309405,
+      51.2833823
+     ],
+     [
+      500.0,
+      0.0,
+      3.4596595,
+      51.2833823
+     ],
+     [
+      500.0,
+      500.0,
+      3.4596595,
+      51.265416
+     ],
+     [
+      0.0,
+      500.0,
+      3.4309405,
+      51.265416
+     ],
+     [
+      250.0,
+      250.0,
+      3.4453,
+      51.2744
+     ]
+    ],
+    "scale_m_px": 4.0,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "castra-lemanis-q499898",
    "name": "Castra Lemanis",
    "best": {
@@ -9452,6 +17288,82 @@
     "scale_source": "picture_size",
     "coarse": true,
     "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "stanway-house-q7600303",
+   "name": "Stanway House",
+   "best": {
+    "plan": "c_0db2f4e9845fbe48",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_0db2f4e9845fbe48",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Stanway House, bird's-eye view engraved by Johannes Kip",
+     "label": "1709",
+     "size": [
+      1280,
+      1160
+     ],
+     "map_box": null,
+     "sites": [
+      "stanway-house-q7600303"
+     ],
+     "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Gezicht_op_Stanway,_RP-P-1949-369.jpg",
+     "url": "media/commons/stanway-house-q7600303/0db2f4e9845fbe48.jpg",
+     "view": true,
+     "ref": "File:Gezicht op Stanway, RP-P-1949-369.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0db2f4e9845fbe48",
+     "title": "Stanway House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1484800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -1.9238702,
+      51.9964123
+     ],
+     [
+      1280.0,
+      0.0,
+      -1.9005298,
+      51.9964123
+     ],
+     [
+      1280.0,
+      1160.0,
+      -1.9005298,
+      51.9833867
+     ],
+     [
+      0.0,
+      1160.0,
+      -1.9238702,
+      51.9833867
+     ],
+     [
+      640.0,
+      580.0,
+      -1.9122,
+      51.9899
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
    }
   },
   {
@@ -9683,6 +17595,310 @@
    }
   },
   {
+   "site": "kings-weston-house",
+   "name": "Kings Weston House",
+   "best": {
+    "plan": "c_c67b53c1463bbb8d",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_c67b53c1463bbb8d",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kings Weston House, bird's-eye view engraved by Johannes Kip",
+     "label": "1710",
+     "size": [
+      1280,
+      1049
+     ],
+     "map_box": null,
+     "sites": [
+      "kings-weston-house"
+     ],
+     "cite": "by Jan Kip; Public domain; https://commons.wikimedia.org/wiki/File:Kingsweston_Kip.jpg",
+     "url": "media/commons/kings-weston-house/c67b53c1463bbb8d.jpg",
+     "view": true,
+     "ref": "File:Kingsweston Kip.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c67b53c1463bbb8d",
+     "title": "Kings Weston House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1342720
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.6730839,
+      51.5002712
+     ],
+     [
+      1280.0,
+      0.0,
+      -2.6499981,
+      51.5002712
+     ],
+     [
+      1280.0,
+      1049.0,
+      -2.6499981,
+      51.488492
+     ],
+     [
+      0.0,
+      1049.0,
+      -2.6730839,
+      51.488492
+     ],
+     [
+      640.0,
+      524.5,
+      -2.661541,
+      51.494382
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "stoke-house",
+   "name": "Stoke House",
+   "best": {
+    "plan": "c_b8084bbec8b80e7c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b8084bbec8b80e7c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Stoke House, bird's-eye view engraved by Johannes Kip",
+     "label": "1709",
+     "size": [
+      1280,
+      1017
+     ],
+     "map_box": null,
+     "sites": [
+      "stoke-house"
+     ],
+     "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Gezicht_op_Stoke_Bishop,_RP-P-1949-367.jpg",
+     "url": "media/commons/stoke-house/b8084bbec8b80e7c.jpg",
+     "view": true,
+     "ref": "File:Gezicht op Stoke Bishop, RP-P-1949-367.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b8084bbec8b80e7c",
+     "title": "Stoke House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1301760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.6410197,
+      51.48245
+     ],
+     [
+      1280.0,
+      0.0,
+      -2.6179427,
+      51.48245
+     ],
+     [
+      1280.0,
+      1017.0,
+      -2.6179427,
+      51.4710301
+     ],
+     [
+      0.0,
+      1017.0,
+      -2.6410197,
+      51.4710301
+     ],
+     [
+      640.0,
+      508.5,
+      -2.6294812,
+      51.4767404
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "badminton-house-q2628510",
+   "name": "Badminton House",
+   "best": {
+    "plan": "c_f47f1d59b72456cd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_f47f1d59b72456cd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Badminton House, bird's-eye view engraved by Johannes Kip",
+     "label": "1709",
+     "size": [
+      1280,
+      967
+     ],
+     "map_box": null,
+     "sites": [
+      "badminton-house-q2628510"
+     ],
+     "cite": "by Rijksmuseum; CC0; https://commons.wikimedia.org/wiki/File:Landgoed_Badminton,_RP-P-1949-371.jpg",
+     "url": "media/commons/badminton-house-q2628510/f47f1d59b72456cd.jpg",
+     "view": true,
+     "ref": "File:Landgoed Badminton, RP-P-1949-371.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_f47f1d59b72456cd",
+     "title": "Badminton House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1237760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.2920059,
+      51.5509289
+     ],
+     [
+      1280.0,
+      0.0,
+      -2.2688941,
+      51.5509289
+     ],
+     [
+      1280.0,
+      967.0,
+      -2.2688941,
+      51.5400705
+     ],
+     [
+      0.0,
+      967.0,
+      -2.2920059,
+      51.5400705
+     ],
+     [
+      640.0,
+      483.5,
+      -2.28045,
+      51.5455
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "temple-newsam-q2748017",
+   "name": "Temple Newsam",
+   "best": {
+    "plan": "c_4156b1bf72bcb72b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4156b1bf72bcb72b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Temple Newsam, bird's-eye view engraved by Johannes Kip",
+     "label": "1707-1709",
+     "size": [
+      1280,
+      966
+     ],
+     "map_box": null,
+     "sites": [
+      "temple-newsam-q2748017"
+     ],
+     "cite": "by Engraved by Johannes Kip after a drawing by L. Knuff; Public domain; https://commons.wikimedia.org/wiki/File:Gott_Collection_at_Hepworth_Gallery_(112a).JPG",
+     "url": "media/commons/temple-newsam-q2748017/4156b1bf72bcb72b.jpg",
+     "view": true,
+     "ref": "File:Gott Collection at Hepworth Gallery (112a).JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4156b1bf72bcb72b",
+     "title": "Temple Newsam, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1236480
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -1.4716635,
+      53.7896232
+     ],
+     [
+      1280.0,
+      0.0,
+      -1.4473365,
+      53.7896232
+     ],
+     [
+      1280.0,
+      966.0,
+      -1.4473365,
+      53.7787761
+     ],
+     [
+      0.0,
+      966.0,
+      -1.4716635,
+      53.7787761
+     ],
+     [
+      640.0,
+      483.0,
+      -1.4595,
+      53.7842
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
    "site": "hampton-court-herefordshire-q1443802",
    "name": "Hampton Court, Herefordshire",
    "best": {
@@ -9749,6 +17965,469 @@
       478.5,
       -2.70414,
       52.1677
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "hampton-court-palace-q205666",
+   "name": "Hampton Court Palace",
+   "best": {
+    "plan": "c_668523359890be17",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_668523359890be17",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hampton Court Palace, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      956
+     ],
+     "map_box": null,
+     "sites": [
+      "hampton-court-palace-q205666"
+     ],
+     "cite": "by Sailko; CC BY 3.0; https://commons.wikimedia.org/wiki/File:Jan_kip_per_david_mortier,_hampton_court_(da_leonard_mortier),_dalla_britannia_illustrata,_1707.jpg",
+     "url": "media/commons/hampton-court-palace-q205666/668523359890be17.jpg",
+     "view": true,
+     "ref": "File:Jan kip per david mortier, hampton court (da leonard mortier), dalla britannia illustrata, 1707.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_668523359890be17",
+     "title": "Hampton Court Palace, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1223680
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.3490189,
+      51.4087671
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.3259791,
+      51.4087671
+     ],
+     [
+      1280.0,
+      956.0,
+      -0.3259791,
+      51.3980323
+     ],
+     [
+      0.0,
+      956.0,
+      -0.3490189,
+      51.3980323
+     ],
+     [
+      640.0,
+      478.0,
+      -0.337499,
+      51.4034
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "burford-house-windsor",
+   "name": "Burford House",
+   "best": {
+    "plan": "c_05dbb0409f834f02",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_05dbb0409f834f02",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Burford House, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      951
+     ],
+     "map_box": null,
+     "sites": [
+      "burford-house-windsor"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_A_Prospect_of_the_House_at_Windsor,_Belonging_to_his_Grace_Charles_Beauclerck_-_B2017.35.1_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/burford-house-windsor/05dbb0409f834f02.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - A Prospect of the House at Windsor, Belonging to his Grace Charles Beauclerck - B2017.35.1 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_05dbb0409f834f02",
+     "title": "Burford House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1217280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.6171395,
+      51.486339
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.5940605,
+      51.486339
+     ],
+     [
+      1280.0,
+      951.0,
+      -0.5940605,
+      51.4756603
+     ],
+     [
+      0.0,
+      951.0,
+      -0.6171395,
+      51.4756603
+     ],
+     [
+      640.0,
+      475.5,
+      -0.6056,
+      51.481
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "lambeth-palace-q1130266",
+   "name": "Lambeth Palace",
+   "best": {
+    "plan": "c_e669cedb900ef29b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e669cedb900ef29b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Lambeth Palace, bird's-eye view engraved by Johannes Kip",
+     "label": "1711",
+     "size": [
+      1280,
+      951
+     ],
+     "map_box": null,
+     "sites": [
+      "lambeth-palace-q1130266"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_Lambeth,_His_Grace_the_Lord_Archbishop_of_Canterbury_Palace_-_B1977.14.17372_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/lambeth-palace-q1130266/e669cedb900ef29b.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - Lambeth, His Grace the Lord Archbishop of Canterbury Palace - B1977.14.17372 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e669cedb900ef29b",
+     "title": "Lambeth Palace, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1217280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.1312632,
+      51.500899
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.1081768,
+      51.500899
+     ],
+     [
+      1280.0,
+      951.0,
+      -0.1081768,
+      51.4902203
+     ],
+     [
+      0.0,
+      951.0,
+      -0.1312632,
+      51.4902203
+     ],
+     [
+      640.0,
+      475.5,
+      -0.11972,
+      51.49556
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "imola-q50195",
+   "name": "Imola",
+   "best": {
+    "plan": "c_4b37fff254ca1e45",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4b37fff254ca1e45",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Imola, aerial plan by Leonardo da Vinci (1502)",
+     "label": "1502",
+     "size": [
+      1280,
+      949
+     ],
+     "map_box": null,
+     "sites": [
+      "imola-q50195"
+     ],
+     "cite": "by Leonardo da Vinci; Public domain; https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_RCIN_912284,_A_map_of_Imola_1502.jpg",
+     "url": "media/commons/imola-q50195/4b37fff254ca1e45.jpg",
+     "view": true,
+     "ref": "File:Leonardo da Vinci - RCIN 912284, A map of Imola 1502.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4b37fff254ca1e45",
+     "title": "Imola, aerial plan by Leonardo da Vinci (1502)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1214720
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      11.6986369,
+      44.3601598
+     ],
+     [
+      1280.0,
+      0.0,
+      11.7237631,
+      44.3601598
+     ],
+     [
+      1280.0,
+      949.0,
+      11.7237631,
+      44.3468395
+     ],
+     [
+      0.0,
+      949.0,
+      11.6986369,
+      44.3468395
+     ],
+     [
+      640.0,
+      474.5,
+      11.7112,
+      44.3535
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "somerset-house-q1344889",
+   "name": "Somerset House",
+   "best": {
+    "plan": "c_6529e84a3e7f57d5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6529e84a3e7f57d5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Somerset House, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      942
+     ],
+     "map_box": null,
+     "sites": [
+      "somerset-house-q1344889"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_Somerset_House_-_B1977.14.18272_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/somerset-house-q1344889/6529e84a3e7f57d5.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - Somerset House - B1977.14.18272 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6529e84a3e7f57d5",
+     "title": "Somerset House, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1205760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.1293252,
+      51.5163995
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.1062308,
+      51.5163995
+     ],
+     [
+      1280.0,
+      942.0,
+      -0.1062308,
+      51.5058219
+     ],
+     [
+      0.0,
+      942.0,
+      -0.1293252,
+      51.5058219
+     ],
+     [
+      640.0,
+      471.0,
+      -0.117778,
+      51.511111
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "st-james-palace-q272162",
+   "name": "St James's Palace",
+   "best": {
+    "plan": "c_242c66ba94fce523",
+    "reason": "the clearest view",
+    "row": {
+     "id": "c_242c66ba94fce523",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+     "label": "1707",
+     "size": [
+      1280,
+      938
+     ],
+     "map_box": null,
+     "sites": [
+      "st-james-palace-q272162"
+     ],
+     "cite": "by Jan Kip; CC0; https://commons.wikimedia.org/wiki/File:Jan_Kip_-_St_James%5Es_House,_Le_Palais_Royal_de_St_James_-_B2017.35.3_-_Yale_Center_for_British_Art.jpg",
+     "url": "media/commons/st-james-palace-q272162/242c66ba94fce523.jpg",
+     "view": true,
+     "ref": "File:Jan Kip - St James^s House, Le Palais Royal de St James - B2017.35.3 - Yale Center for British Art.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_242c66ba94fce523",
+     "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1200640
+    },
+    {
+     "plan": "c_12be67d29c3019d6",
+     "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1166080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.1493235,
+      51.5099881
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.1262325,
+      51.5099881
+     ],
+     [
+      1280.0,
+      938.0,
+      -0.1262325,
+      51.4994553
+     ],
+     [
+      0.0,
+      938.0,
+      -0.1493235,
+      51.4994553
+     ],
+     [
+      640.0,
+      469.0,
+      -0.137778,
+      51.504722
      ]
     ],
     "scale_m_px": 1.25,
@@ -9901,6 +18580,82 @@
       462.0,
       -0.258611,
       51.483611
+     ]
+    ],
+    "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "hutton-hall-q5951100",
+   "name": "Hutton Hall",
+   "best": {
+    "plan": "c_982eb6b47836dde3",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_982eb6b47836dde3",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hutton Hall, bird's-eye view engraved by Johannes Kip",
+     "label": "1709",
+     "size": [
+      1280,
+      924
+     ],
+     "map_box": null,
+     "sites": [
+      "hutton-hall-q5951100"
+     ],
+     "cite": "by Jan Kip; Public domain; https://commons.wikimedia.org/wiki/File:Hutton_Hall_Kip.jpg",
+     "url": "media/commons/hutton-hall-q5951100/982eb6b47836dde3.jpg",
+     "view": true,
+     "ref": "File:Hutton Hall Kip.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_982eb6b47836dde3",
+     "title": "Hutton Hall, bird's-eye view engraved by Johannes Kip",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1182720
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.8514408,
+      54.7191874
+     ],
+     [
+      1280.0,
+      0.0,
+      -2.8265592,
+      54.7191874
+     ],
+     [
+      1280.0,
+      924.0,
+      -2.8265592,
+      54.7088119
+     ],
+     [
+      0.0,
+      924.0,
+      -2.8514408,
+      54.7088119
+     ],
+     [
+      640.0,
+      462.0,
+      -2.839,
+      54.714
      ]
     ],
     "scale_m_px": 1.25,
@@ -10215,6 +18970,82 @@
      ]
     ],
     "scale_m_px": 0.625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "venice-q641",
+   "name": "Venice",
+   "best": {
+    "plan": "c_1abba1f15dd49dcd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_1abba1f15dd49dcd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Venice, bird's-eye view by Jacopo de' Barbari (1500)",
+     "label": "1500",
+     "size": [
+      1280,
+      635
+     ],
+     "map_box": null,
+     "sites": [
+      "venice-q641"
+     ],
+     "cite": "by Jacopo de' Barbari; Public domain; https://commons.wikimedia.org/wiki/File:(Venice)_View_of_Venice_by_Jacopo_de%27_Barbari_-_Museo_Correr.jpg",
+     "url": "media/commons/venice-q641/1abba1f15dd49dcd.jpg",
+     "view": true,
+     "ref": "File:(Venice) View of Venice by Jacopo de' Barbari - Museo Correr.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1abba1f15dd49dcd",
+     "title": "Venice, bird's-eye view by Jacopo de' Barbari (1500)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 812800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      12.3191413,
+      45.4441783
+     ],
+     [
+      1280.0,
+      0.0,
+      12.3447467,
+      45.4441783
+     ],
+     [
+      1280.0,
+      635.0,
+      12.3447467,
+      45.4352653
+     ],
+     [
+      0.0,
+      635.0,
+      12.3191413,
+      45.4352653
+     ],
+     [
+      640.0,
+      317.5,
+      12.331944,
+      45.439722
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,

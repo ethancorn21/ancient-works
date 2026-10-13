@@ -1264,3 +1264,38 @@ the site stays covered for the union check, an open item counts).
   bigger than the real complex, walls through the town. DELETED - an orphan today, invisible on
   the page (the 303 way: the picture and its 6 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
+
+## The site markers become arrowheads (task 308, 2026-10-13)
+
+Owner, 2026-10-11: instead of the squares, a shape that says "this is a point of interest", "like an
+old arrowhead ... a notched arrowhead ... a contracting stem arrowhead", small, keeping the colour
+gradient and everything else.
+
+All marker drawing lives inline in `web/index.html` (there are no `web/*.css` files):
+
+- The silhouette is one shared inline SVG constant (viewBox 100x100, path `M50 99 L8 40 L34 12 L50 24
+  L66 12 L92 40 Z`: a notched contracting stem, tip at bottom-centre). It scales into the tier's box
+  (15/13/11/9 px, plain 7 px), is filled with the tier colour through a `--mks` custom property, and the
+  square's old ink border becomes a 1.2 px `non-scaling-stroke` on the path - one constant ink outline at
+  every tier, crisp on retina, the notch still visible at the 9 px tier.
+- The marker anchors at its TIP: MapLibre anchor `bottom` with offset `[0,0]`, so the svg's bottom-centre
+  sits on the site's coordinate. The marker element's box is exactly the arrowhead (the label is
+  positioned absolute to the right of the head, centred on the site point, out of layout), so the tip
+  lands on the point exactly - the old square's box was 9.5 px off its point from a border-box/
+  content-box anchor mismatch, so the arrowhead is strictly more accurate.
+- The colour gradient (older/truer darker: `#8A1230` / `--survey` / `#E2697F` / `#F4B4C0` / `--sheet`) and
+  the size tiers are unchanged. The "Marker key" legend row and the list-row swatch carry the same
+  silhouette, so the key still reads the same as the map.
+- The label/square collision in `syncMarkers()` changed only in that the head now occupies
+  `[x±8, y-16..y+1]` instead of the centred ±8 box (the head grows up from the point); the label box and
+  all placement rules are unchanged. Clicking the head opens the site as before.
+- Finder search-area markers (`.scan`) keep their dashed square at the area's corner.
+- One trap found while doing this (see PITFALLS): the page's `.marker` rule must restate the vendor's
+  `.maplibregl-marker { position: absolute; top: 0; left: 0 }` parking. With a flowing position the
+  markers stack in DOM order and the inline transform lands them 500-3000 px from their sites.
+
+Before/after shots (same cameras; before = the pre-308 page): `markers-before-{globe,zoom,legend,
+phone}.png` and `markers-after-{globe,zoom,legend,phone}.png` in `docs/site_flow/`. Globe: the whole
+disc, same distribution as before, now as arrowheads. Zoom: the Wiltshire/Dorset region, tips on their
+earthworks, labels as before. Legend: the sidebar crop with the Marker-key row (four gradient
+arrowheads) and the list-row swatches. Phone: the 1170x2532 view at 3x - readable at the smallest tier.
