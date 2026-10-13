@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 222, agent a - the live run is DONE and committed (box 4's
+- `tasks/212a-cover-search.md` (in-progress) - hand-over: (2026-10-13, iteration 223, agent a - DONE. All 4 boxes ticked, Status: done.
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -109,66 +109,6 @@ data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
 dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
-
-### 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
-
-The iter-219 hand-over said box 4 waits for 203b because "agent c is in
-flight" on the batch. That reading was stale: the 203b file has been Status:
-done on main since c49aeb9 (agent c's iteration 50, 2026-10-11: the 294-site
-EU run - 54 auto fit / 47 review / 18 hand / 175 no-picture, 94 EU docs + 252
-items, union 384/384), and there is NO "[driver] reopened 203b" commit on
-main (the reopen list is 215/214/309/307ba/302a/206/802/203a - no 203b). Yet
-this iteration's driver prompt lists "Agent c is working on 203b" with the
-original touches (fit/batch_eu.py data/db/platefits data/review
-docs/batch_eu.md tests/test_batch_eu.py) - consistent with 203b's own
-hand-over note: "If this task is ever reopened (e.g. a 212-era re-coverage
-run changes the tree), re-verify the checks below." The batch ran over the
-384-site world; the world is now 499 built, and the batch's live union test
-gates on "Sites run: 294" vs the live EU partition (grown). So the wait
-stands, but the reason is: agent c's current 203b session re-runs/re-verifies
-the batch over the grown world, and its writes (new EU docs + item
-re-upserts, incl. the batch's searched wording on search-set items my
-nopicture also writes) must land before my live run's commit ("212 runs last
-on purpose"). 203b is already on my Depends on line; no line change.
-Agent c's other in-flight work is file-disjoint from the live run, verified
-on the live tree: 306's audit items are doc-keyed (<site>.<doc>.json) for
-doc'd sites, my nopicture writes the 245 EXACT bare <site>.json files of the
-no-doc search set (245/245 checked, 0 doc-keyed in the set; upsert_item's
-lead follows candidates[0].plan and these items are candidate-less, so the
-names never move); 306 exports web/data/sites.json + review.json, I
-re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
-disjoint.
-Re-measured the live world today (main is frozen at 77bdf5d - an ancestor of
-my pre-218 sync 54c0711, so the git world is byte-identical to what I
-verified in 217/219): 499 built; 131 docs = 21 by:hand + 110 by:agent;
-nofit 402; cand-sites 601; search set 245 = 204 qid + 41 no-qid (matches the
-iter-217 post-aeeb5aa measurement; the 246 in the CORRECTION-4 entry was
-pre-aeeb5aa, when numancia had no row yet) - first4 aalsum-q3902030,
-abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
-first no-qid aggersborg. files.jsonl: 923 kept rows, only 1 without a local
-copy - the no-source Stukeley TAB XI (stonehenge-q39671, thumb/url null):
-the ~328 missing copies measured 10-13 all arrived in the shared store via
-the lead's aeeb5aa "data/raw synced both ways Mac<->VM", so the fetch phase
-is now a no-op (0 thumb, 0 url, 1 nosrc) that only prints counts +
-re-exports plans. plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs,
-0 rows referencing a search-set site - the baseline for the key-set diff
-rule (aeeb5aa's 1474 + numancia's row back). data/cover/searches.json
-absent (fresh start). data/review: 346 items + README. Golden 40/40.
-tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
-(no store file-count assertions, by design - the 328 new store files broke
-nothing). No code change this session; next step (the live run recipe) is in
-the hand-over.
-
-### 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
-
-Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
-
-### 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)
-Session 222 (agent a). The lead answered request 003: option (b) modified - classify with MY OWN model server 127.0.0.1:8080 (vLLM qwen3.8-27b on the 3090 Ti), NOT 8081 (the other worker's card); Clef-flash is not running anywhere (the 5060 Ti now serves the matchers), so option (a) was void. Record in classified.jsonl and data/cover that the rows are 8080-Qwen one-off; placement stays the matcher. Done this session, in order:
-1. fit/cover_qwen8080.py (new, committed 870d4f9): the one-off adapter - asks the Clef questions themselves (commons.CLEF_STATE/CLEF_Q) as 0..1 probabilities to 127.0.0.1:8080 via pipeline/llm.ask (the proven client for exactly this model), 4 workers, retries; smoke-verified on known images (book page -> 0/0/0; old photos -> p_photo 0.94/0.98; bibracte's 1832 page -> plan 0.95 and carnac's engraved view -> 0/0/0 both visually confirmed). stage gained an optional classifier_note recorded as a per-row "classifier" field (no default change; test_cover's byte-pinned fake-classifier rows stay identical - suite was green before the run: 155 passed, 1 skipped).
-2. THE FIRST STAGE RUN EXPOSED TWO REAL BUGS (both fixed, committed in 9c48d94): (a) fit/cover.py _fetch_one did `open(dst + ".part")` on a PosixPath - TypeError swallowed by the per-file except as a per-file "fetch failed" (symptom: EVERY fetch fails with "unsupported operand type(s) for +: 'PosixPath' and 'str'"; the tests never reach this path - their trees pre-seed every local copy, p.exists() short-circuits; the live run was the first to actually download). Fixed: dst = str(dst). (b) my module's first version returned {plan, birdseye, photo} - stage expects p_-prefixed keys (KeyError: 'p_plan'); I misread the smoke-test output shape. Both filed in PITFALLS.md (entry in "This machine" on Clef being dead + 8080 approved one-off; entries in "This codebase" on the _fetch_one swallow and on export_plans' min_p gate).
-3. THE RUN (second launch, clean): 107/107 local copies fetched (1/s), 107/107 classified (every row carries the note), evidence.record live (107 live - categories/page ids/file entities/P180 all answered, 0 failures), plans.json re-export 1475 -> 1510. KEY-SET DIFF vs the committed baseline (/tmp/aw222-plans-keys-before.json): 0 LOST, 35 gained - and the 35 are EXACTLY the gate-passing population (p_photo < 0.5 AND max(p_plan, p_birdseye) >= 0.3, tools/export_plans commons_rows min_p=0.3): 11 of the 16 sites got plans rows (aventicum, bibracte, burcht-van-leiden, hopewell, los-millares, maeshowe, motte-castrale-quiquempois, moundville, stones-of-stenness, vicus-bridge, trundle); 5 sites' pictures ALL fell below the gate (arbeia, carnac-stones, craig-phadrig, indian-mounds-park, ocmulgee) and stay no-picture sites. nopicture: 234 items stamped (245 records - 11 now-in-cand sites), NOT the 229 the old hand-over guessed (it assumed all 16 would gain rows). fit_queue.json regenerated 229 -> 241, 0 sites lost (+12: my 11 + numancia - numancia is live drift since the lead's 04:09:15 regeneration, picked up by the same generator; test_fit_queue_real is derived-never-pinned and passed). data/cover/stage_qwen8080.json records the one-off. Committed 9c48d94 (242 files). Golden 40/40 OK after the run.
-... (2.2 KB more: `grep -n -A 200 -F '## 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
