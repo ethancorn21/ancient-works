@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 220, agent a - boxes 1-3 stay DONE and verified
+- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 221, agent a - the live SEARCH phase ran and is committed;
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -110,39 +110,6 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
-### 2026-10-13 212a DECISION: 233+234 verified on the merged tree (lead's marking instruction); live state re-measured post-aeeb5aa (search set 245, no-qid-with-title set empty, 328 missing local copies)
-Session 216 (agent a, first session on 212a after the lead split). No test file
-written yet (context limit after verification + measurement). Verified the lead's
-"233+234 done by the lead (aeeb5aa)" before ticking them done: (1) 233:
-test_plan_list_refresh_is_pure_growth passes in 0.07 s (numancia's c_0fa271e2444f7bfc
-row is back in the re-exported 1475-row plans.json); the machine-dependence PITFALLS
-entry (### tools/export_plans.py) already exists from my 212 investigation -> all
-boxes satisfied, mark Status: done (next session). (2) 234: test_fit_queue_real
-passes in 4.1 s (the (view, -px, plan, name) key change is in aeeb5aa;
-tools/fit_queue.py untouched); box 2 verified on the VM with a scratch hard-linked
-tree (data/raw re-linked as symlink - the generator never opens images): two
-regenerations byte-identical apart from the "at" timestamp; committed 229 entries
-vs VM-regenerated 230 - the ONLY difference is site 'numancia' present in the VM
-regen (the machine-dependent "built" rule: the VM's shared store holds the numancia
-site dir, the lead's Mac did not - the same environment effect 233 documents, not a
-state drift; the committed file equals the generator output on the machine it was
-generated on) -> mark Status: done. Live state re-measured on the merged tree
-(aeeb5aa in via 400431f): built 499; 131 docs; nofit 402; plans 1475 rows; search
-set 245 = 204 qid + 41 no-qid (numancia dropped out - it has its plans row back);
-with-row nofit 157; CHOOSE unchanged (aardenburg/aesica/aire-sur-la-lys/alauna);
-fake hit site = aalsum-q3902030 (Q3902030, no existing titles); **the
-no-qid-with-title set is now EMPTY** (numancia was the only one) so per the
-iter-211 D1 the test asserts it empty: no failure site, every record's failed == []
-(code both branches); all 245 search-set sites carry the batch-era no_picture mark;
-328 titled files.jsonl rows lack a local copy (the live fetch phase's work; the
-test's fake _fetch_one fills them). Next: mark 233/234 done, then write
-tests/test_cover.py per the 212a design in the hand-over (fetch->search->stage->
-nopicture in a hard-linked tree, the 3 in-place files copied, searches.json deleted
-in the tree first, socket guard + time.sleep no-op + pure fakes; assertions:
-searches.json per-site records + resumability, stdout counts, staged rows + local
-copies + plans growth-only, no-picture items with the exact searched string,
-checkout-integrity hashes). The live run (box 4) waits for 203b.
-
 ### 2026-10-13 212a DECISION: tests/test_cover.py green on its first run (5 passed, 33.8s) - boxes 1-3 done; the live run (box 4) waits on 203b, added to Depends on
 Session 219 (agent a). The test file the driver committed in ccafaa0
 (iteration-218 work) is CORRECT AS-IS: before its first run I re-verified every
@@ -217,6 +184,10 @@ tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
 (no store file-count assertions, by design - the 328 new store files broke
 nothing). No code change this session; next step (the live run recipe) is in
 the hand-over.
+
+### 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
+
+Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
 
 ## Project-wide driver notes (newest)
 
