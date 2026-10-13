@@ -3941,6 +3941,31 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
   already captured by the 222/223 sibling entries and task Notes).
 
 
+<!-- task 226 -->
+# Task 226 numancia-merged-check
+
+## 2026-10-12 226 DECISION: check_staged accepts its own 211-merged row (identical under the merge norm) as a no-op; same-key different row still fails loud - the 1 self-triggered join problem on the merged tree is gone
+- Iteration 196, agent a. Followed the 222/223/224/225 sibling pattern exactly (no prep-refactor
+  commit needed: unlike 222, numancia's canonical path constants were already module-level -
+  FILES_CANONICAL/EXTRAS_CANONICAL/SITES_WEB - so the test monkeypatches them as-is). Added
+  `_canon_norm(r)` before check_staged(); replaced the set-based clash guard
+  (`seen & canonical` -> one problem listing sorted keys) with a first-row-wins canonical norm
+  dict + per-row compare `canonical[k] != _canon_norm(r)` -> "join: staged title already in the
+  canonical files.jsonl: {k}" (one key per problem, the sibling wording); the duplicate-row check
+  folded into the same loop. Docstring/usage wording updated; no data file touched.
+- tests/test_src_numancia.py: added test_check_staged_three_states (limes pattern, adapted: no
+  staged extras, so only FILES_CANONICAL is pointed at constructed temp copies; (a) canonical
+  minus the key -> 0; (b) minus the key + the staged line verbatim -> 0; (c) the key with
+  year+1 -> 1 with exactly one join line naming the key). test_check_staged_files_join_and_pass
+  assertions unchanged (docstring only).
+- Verified: 5/5 numancia tests (its one red, test_check_staged_files_join_and_pass, fixed); live
+  `--check` on the real merged canonical (files.jsonl line 1562) went rc 1 -> rc 0; full suite
+  (nohup, 252 s) 5 -> 4 red: 227 stukeley x3 (test_stage_offline, test_check_staged_offline,
+  test_book_rows_staged_in_files_b) + 228 artists x1 (test_check_staged_files_join_and_pass), both
+  still open and proven pre-existing (this diff touches only the two numancia files). Box 4
+  checked per the 225 precedent (suite reds exactly the remaining unfixed siblings).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
