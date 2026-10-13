@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 306d: Look at the orphan agent fits, UK part 1 (a-l) - 18 docs, 18 sites
 Depends on: none
 Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json, tools/audit_306d.mjs, PITFALLS.md, DECISIONS.md
@@ -51,18 +51,20 @@ placement is good enough to keep.
 - ludlow-castle-q576369.c_b24730fd9038ae4a - Ludlow Castle, plan from Mackenzie, The Castles of England (1897)
 
 ## Hand-over
-(2026-10-13, iteration 177, agent c - **waiting on human request 005** (filed this session,
-blocking; the loop answers with my recommendation (a) after 120 min of silence). The work has been
-COMPLETE and committed since 6da5393 (iteration 174). This session root-caused all 5
-driver-rejected reds to main-side events, created task 806, filed 005, and corrected 176's
-attribution.)
+(2026-10-13, iteration 178, agent c - **DONE**. Human request 005 settled by the lead's message:
+the 5 reds are FIXED on main (commit 77bdf5d, tasks 231-234: site_done keeps covered review
+entries, the Stonehenge item gained the Stukeley 1722 view so the plans.json 13->14 pin moved,
+year-once re-pinned onto a surviving doc, tests derive counts). Merged main into agent/c
+(88c5545; the two expected conflicts resolved the 306d way: web/data/review.json kept main's
+newer 'at', docs/site_flow.md kept my 306c+306d blocks then main's 308 section after). Full suite
+on the merged tree: **149 passed, 1 skipped, 1 red** - the lone red is
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, agent a's in-flight
+307 seed flow (probe fails at 'seed: the gestures own the mouse'; 404 /tiles/relief - the live
+relief is off on this VM, Mac-only `aw`), which the 161/176/177 A/Bs already proved failing on
+pure main. No 306d red remains; no test fails that was not failing before 306d. Status set
+done on the lead's instruction; the A/B record (DECISIONS 176/177) stands as the proof.)
 
-**What 005 asks.** Accept 306d as done and add the 5 rejected reds to the driver's
-known-failures baseline (same class as open 004/306c); (a) recommended, (b) hold until the 5 go
-green on main.
-
-**The 5 reds - final root causes (all on main; re-verified still failing on this session's merged
-tree, same signatures as the pure-main A/B).**
+**Superseded record - the 5 reds that 005 asked about, all now fixed on main (77bdf5d).**
 | red | root | who clears it |
 |---|---|---|
 | fit_provenance::test_commons_yeared_title_drops_the_repeated_year | the pin bethlehem-q2523914.c_a164ee440558d66c is the 1748 Maastricht batch doc: 4ca9e2c (306a) re-pointed the test onto it (green at that commit - the doc existed), then the lead's 20277f3 "port from Mac: ... 3 fabricated Bethlehem docs removed" deleted it -> FileNotFoundError | task 806 (created this session; re-pin onto a surviving doc: fletio-q2072212.c_80f1e15c04bc5035 "Atlas de Wit 1698" label "c. 1698" recommended, durocortorum-q4896307.c_a60f570e6ce08f39 1894 alternative; fallback restores the doc into tests/golden/ from 20277f3^) |
