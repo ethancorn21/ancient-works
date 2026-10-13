@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 252, agent a - **closing 212: the world moved after the
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 253, agent a - **ALL EVIDENCE IN: sync ran, report
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -22,56 +22,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
-Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
-post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
-the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
-box 6 - did NOT materialize:
-1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
-   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
-   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
-   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
-   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
-   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
-   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
-2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
-   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
-   re-pruned here) still carries the STALE plan entry of that doc -
-   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
-   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
-   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
-   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
-   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
-Both sit in the 52-site population whose plans rows are ALL already review-item
-candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
-entry (its docstring: a blind re-run would swap the audit entries whole), so the
-loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
-also in DECISIONS under the 306a entries). Neither is in the search set (both have
-rows), so nopicture does not touch them. Box 6 holds for both via the open item -
-NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
-hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
-upsert in-place replacement + the skip guard that protects audit notes.
-Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
-doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
-pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
-carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
-searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
-no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
-definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
-untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
-the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
-CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
-row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
-(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
-n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
-the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
-(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
-hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
-well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
-expected item end states follow 201's derivation computed from the live items (doc on
-an in-item row -> item resolved write-once and off the open list, as for aesica; doc
-... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
 
 ### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
 Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
@@ -93,6 +43,13 @@ unconditionally. No code changed this session.
 
 ### 2026-10-13 212 DECISION: iter-252 closing investigation - the world moved after the last sync and report (lead 77405cf); one step remains: final sync + report + tests + tick, no subtasks
 212 returned with all subtasks done; box-verification session. FINDINGS (all measured on this tree, main merged in): (1) ONE lead commit `77405cf` (14:34 UTC; "port: 13 matcher re-fits on 11 sites after the 212b sync (eye-checked); review items for the 103 uncovered sites in 212c's report; test_batch_us...") is the entire delta since 212c's report (13:22): 13 NEW by:agent docs (all fitter:"matcher", 8 pairs, model similarity, src commons; sites bolsover-castle/bury-castle/cahokia/coria/daw-s-castle/framlingham/goodrich/gouda/ludlow/old-sarum x2/portus-adurni x2 - names via `git show 77405cf --name-only -- data/db/platefits`), 103 NEW item files (377 -> 480: the 103 uncovered sites of 212c's report, mostly Civitates/Merian/Limes), web/data/review.json re-exported at 14:34:07, web/data/sites.json hand-edited (score 0.91/oldest 1850/overlays 1, drawings still 0), fit_queue.json, tests/test_batch_us.py; ZERO depictions.json touched (the port came from the lead's Mac without the overlay webps). (2) Store and checkout agree on all 557 tracked data files (0 differing); tree clean; .venv ok (numpy 2.5.4, scipy 1.18.1). (3) Exact dep audit (entry name == "plan_" + doc["plan"] + ".webp", matching is_done's fit.doc): EXACTLY those 13 docs lack a current entry; the other 57 all have one; 0 stale entries. PITFALLS: a substring search on the source file name false-flags book docs (entries are plan_<ia>_nXXXX_Y.webp / plan_c_<sha16>.webp). (4) 10 of the 13 have no data/raw/commons/big/<plan>.jpg cache -> plan_fit.load_picture will download them from Commons during the sync (paced; 212b's live sync did the same fine). DECISION: no subtasks; the closing step is `.venv/bin/python fit/cover.py sync` (fit/cover.py:615 - the phase this task alone runs: per-doc site_done._sync_doc -> plan_fit.prune -> review.export) on this checkout, then `.venv/bin/python fit/cover.py report` (fresh docs/batch.md; the lead's own 212c note says re-run when the store moved), then tests (tests/test_cover.py all 6; the 000 golden hand-fit test - `grep -rn hand_fit_docs.sha256 tests/` - must show the 21 hand fits' overlays byte-identical; tests/test_serve.py; full suite - baseline 155 passed / 1 red was 307bb's pre-existing gesture test, since fixed by 307d, expect all green), then MEASURE the box-6 invariant on the served files (every site in web/data/sites.json: drawings >= 1 or an open review item via review.resolved_doc) - expected to hold now (103 items added + re-fit drawings). Tick all six boxes on that evidence and set done: box 6's written port-0 test stays waived per the lead's 212b say-so (design preserved in git show 45675c9/1cd9671:tasks/212b-cover-sync.md; the driver accepted the identical live-evidence tick for 212b) - do NOT re-open it as 212d. If the line check sends any of the 13 to review (spread/fabrication) or stragglers remain after the 103 items: log it, leave the box unticked, add a 212d subtask - do not force.
+
+### 2026-10-13 212 DECISION: iter-253 ran the closing step - final sync clean (13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open), fresh docs/batch.md, tests green except 235's baseline red, invariant 0/499 violations; all six boxes verified (tick + done left to the next session by the context limit)
+- **Sync** (`fit/cover.py sync`, log /tmp/212-sync-iter253.log): 70 docs over 52 sites -> the 13 lead-77405cf matcher docs all passed the matchfit.spread line check and **synced** (gates 1.0-11.1 m; 10 of the 13 big jpgs downloaded from Commons by plan_fit.load_picture as predicted), 57 **skipped** (overlay already current - includes all 21 golden hand docs), **zero** sent/failed/refused/pruned. Export: "457 open of 480 -> web/data/review.json". Tracked diff in my checkout: ONLY web/data/review.json - the `at` stamp 14:34->20:37, items array BYTE-IDENTICAL to the lead's 14:34 export (the lead's 3 item-file edits in 77405cf had already recorded those resolutions, so the export wrote no new item files). web/data/sites.json was rewritten by set_drawings during the builds but is BYTE-IDENTICAL to the committed blob (git hash verified): the lead's hand-tuned score/oldest/overlays/drawings for the re-fit sites equal exactly what the plan_fit machinery derives - an independent confirmation of 77405cf. The 13 depictions.json entries + webps and the 10 big jpgs landed in the STORE via the per-site symlinks (old-sarum spot-verified; my final 13/13 script had a trivial key bug - glob path instead of os.path.basename - and died on it, re-run optional).
+- **Report** (`fit/cover.py report`, docs/batch.md @20:38 UTC): 499 built; per-outcome counts hand(golden) 19 / human-saved 0 / **automatic 33** (49 by:agent docs; 212c had 24/36) / review item 200 / no picture found 244 / **uncovered 3** (buckets sum to 499). The 3 = fudge, highbank, hopeton: measured plate:true in sites.json (drawings=1, overlays=1; sole dep entry kind=topo, fit.doc None), no fit doc, no item - the trio the CORRECTION-4 entry pre-identified as "drawings-1 site.json-plate sites -> covered by the product definition". The report's "uncovered (needs attention)" bucket is DOC-based and its header wording ("the invariant is broken") is the driver-approved 212c design (ac87a87 shipped the identical wording for 106 = the 103 the lead then itemized + these 3); I did NOT reword it (box 5 is satisfied as written).
+- **Box-6 invariant MEASURED on the final served files**: 499 sites in web/data/sites.json, **0 violations** (every site: drawings >= 1 or an open review item; open = review.resolved_doc falsy, the product rule); the 457 open item-file set == the 457 review.json entry set (identical site sets, checked both ways).
+- **Tests**: tests/test_cover.py 6/6 PASSED (41.7 s; test_report re-derives the 20-sample from the recorded seed 20261012 and checks buckets sum to the built total). Golden: `sha256sum -c tests/golden/hand_fit_docs.sha256` all 40 OK (21 hand docs + 19 site files byte-identical); test_fit_provenance::test_every_doc_carries_provenance PASSED. **Full suite: 159 passed / 1 failed / 1 skipped (390 s)** - the lone failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser at its SEED ("dep:null"): **235's pre-existing red** (tasks/235, open + unassigned, Touches tests/test_fit_queue.py; red since ~iter 199, in the driver's baseline, named in 307d's hand-over line 66). I ran `_pick_place()`: it still returns **marietta** (plan ancientmonuments00squi_n0169_1; its only depiction is a 1904 USGS topo the page's surveyOldEnough 150-year filter hides, so no dep-<site> layer is ever created and the seed check reads null) - same site and same signature as 235's record, so my sync did not move or change it (marietta is none of the 11 re-fit sites). CORRECTION to the iter-252 hand-over: "later fixed by 307d" was wrong - 307d fixed its own test_owner_check; the gesture red was never 307d's to fix. The suite is exactly the established baseline: no test newly red by this session.
+... (1.4 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: iter-253 ran the closing step - final sync clean (13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open), fresh docs/batch.md, tests green except 235's baseline red, invariant 0/499 violations; all six boxes verified (tick + done left to the next session by the context limit)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
