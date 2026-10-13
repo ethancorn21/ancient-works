@@ -1,6 +1,6 @@
 Status: open
 # 230: The Roman staging into the canonical data - the 211 consolidation re-run
-Depends on: 211, 207a, 207b, 207c
+Depends on: 211, 207a, 207b, 807, 808
 Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py
 
 ## Goal
