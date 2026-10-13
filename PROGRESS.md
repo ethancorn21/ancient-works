@@ -13,7 +13,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 243, agent a - FOURTH session; re-ran the pick scan (picks unchanged, queue at the same `at` 2026-10-13T14:34:09.559141+00:00, 
+- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 245, agent a - FIFTH session; investigation only: every mechanism re-verified against current code (template, fitqueue/fitkit, site_done/review/matchfit, plan_fit.build, serve PUT, build_site score); two corrections to 243: pre-run tier is t1 (1.1 < 1.2) so the square's tier CHANGES t1->t2 after save, and a hash boot never runs renderList so after page.reload() FQ.loaded stays false until the first #back. Picks unchanged (A=[38] oswestry bar / B=[45] devil-s-dyke picture_size, both LiDAR relief; next pendings [39]/[46]). NEXT SESSION: write tests/test_owner_check.py straight from the spec in the hand-over, run it, then the docs/site_flow.md section. `Touches:` line still needs `docs/site_flow/` added (step 0).
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
