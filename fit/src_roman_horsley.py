@@ -7,9 +7,13 @@ list names the place) and the book's date (1732). 211 consolidates the *_roman s
 canonical index. The book is on IA (Google Books scan britanniaromanao00hors, 936 leaves; BookReader
 pages + hOCR verified 2026-10-13, iteration 202), so the standard book machinery runs UNMODIFIED - no
 local-copy wrap (the key difference from 209a's Hoare and 207c's Roy): books.cmd_fetch downloads the
-triage pages, books.run_stage triages them, and (once HORSEY_PLATES is transcribed)
-books_lists.cmd_ocrmap maps the list to leaves after an in-process injection into books_lists.PLATES
-(the 213/civitates hand-list pattern). Per-book artifacts only: triage/britanniaromanao00hors.*.jsonl,
+triage pages, books.run_stage triages them, and books_lists.cmd_ocrmap maps the list to leaves after
+an in-process injection of this module's per-leaf table HORSEY_FIGS (the 213/civitates hand-list
+pattern). The book has NO printed list of plates (verified 2026-10-13, iteration 215, on both copies:
+the Google hOCR's 942 pages hold no LIST/PLATES heading and the British Museum copy's pages were
+searched one by one), so the list = the plates' own printed headings, transcribed by eye from the
+full-size page images (books_lists' own fallback: "where the book has none, the plate headings
+printed in its text"). Per-book artifacts only: triage/britanniaromanao00hors.*.jsonl,
 lists/britanniaromanao00hors.json + .map.json; the shared index.jsonl / validation.json are never
 written by this module (211 rebuilds them).
 
@@ -23,12 +27,11 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
        src_roman_horsley.py --triage A|F|B  live (Qwen replicas on 127.0.0.1:8080/8081): the triage
                                            stages through books.cmd_triage_* unmodified (append-only,
                                            resumable)
-       src_roman_horsley.py --list         live until HORSEY_PLATES is set: print the hOCR text of
-                                           the book's front leaves (the printed list of plates, for
-                                           transcription); once set: register() +
-                                           books_lists.cmd_ocrmap -> the per-book lists/<ia>.json +
-                                           .map.json only (the shared validation.json / index.jsonl
-                                           are never written)
+       src_roman_horsley.py --list         offline: register() + books_lists.cmd_ocrmap -> the
+                                           per-book lists/<ia>.json (the HORSEY_FIGS table's dump)
+                                           + .map.json (22 list leaves, site_plan = true for the 15
+                                           kind-s maps) only (the shared validation.json /
+                                           index.jsonl are never written)
        src_roman_horsley.py [--stage]      stage the verified kind-s (site-plan) rows into
        [--dry]                            files_roman.jsonl + classified_roman.jsonl (+
                                            extras_roman.jsonl for new sites): append-only,
@@ -40,13 +43,15 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
                                            staged rows
        src_roman_horsley.py --golden       write tests/golden/src_roman_horsley_sample.json
 
-Later legs (built as the book lands, in order): --list (transcribe the printed list of plates from
-the front-matter hOCR, verify against the list-page images - the kind column is a judgement from the
-printed title, as in the 213/civitates pattern), then the stage-B boxes on the plan pages (the
-stage-B leg reuses the unmodified machinery once the list exists: books.cmd_triage_b runs on A's
-site pages + the list's kind-s leaves), then --stage / --check / --golden, and the stage-A/B recall
-against the list recorded in the Horsley section of docs/lead_roman.md (books_lists.validate_book,
-never the shared validation.json).
+Later legs (built as the book lands, in order): --list (done: the 22-entry table HORSEY_FIGS - the 15
+kind-s wall maps + N.11's wall section and the six kind-o country maps, each leaf's printed heading,
+corner mark and kind, transcribed by eye 2026-10-13 in 215/216/218), then the stage-B boxes on the
+plan pages (the stage-B leg reuses the unmodified machinery now that the list exists:
+books.cmd_triage_b runs on A's site pages + the list's kind-s leaves), then --stage / --check /
+--golden, and the stage-A/B recall against the list recorded in the Horsley section of
+docs/lead_roman.md (books_lists.validate_book, never the shared validation.json). The ~121
+inscription/sculpture plates (Roman numerals I-CXXI) trail as HORSEY_PLATES (kind o, indexed but never
+staged) and do not block the 90%-of-site-plans box, which counts only kind-s leaves.
 
 The system python3 has no numpy/PIL, so every command runs under .venv/bin/python; the module top
 stays stdlib-only (books, books_ia, books_lists and evidence import lazily at call time, the
@@ -66,8 +71,10 @@ KEY = "horsley_britannia_romana_1732"
 IA = "britanniaromanao00hors"
 REGION = "Europe"
 YEAR = 1732
-CITE = ("John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, London 1732 "
-        "(title per the IA record; the exact title page to be read from the first leaves when the fetch lands)")
+CITE = ("John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed "
+        "for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); "
+        "the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, "
+        "on leaf n0015)")
 WHY = ("Google Books scan (britanniaromanao00hors): 936 leaves, long side 2576-4116 px, hOCR page text + "
        "djvu.txt present - chosen 2026-10-11 (207) as the working copy. The British Museum copies "
        "(bim_eighteenth-century_britannia-romana-or-the_horsley-john_1732, 831 leaves ~14000 px images; "
@@ -80,10 +87,47 @@ EXTRAS_ROMAN = os.path.join(ROOT, "data", "catalog", "extras_roman.jsonl")
 SITES_JSONL = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
 WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
 
-# The books_lists PLATES format: plate|sub|title|page|kind. The printed list of plates (the front matter)
-# transcribed here once the fetch lands: kind s = the few site plans/maps that get staged, kind o = the
-# inscription and sculpture plates (indexed in the list mapping, each naming the site where the stone was
-# found, but not staged as picture rows), kind u = unsure from the title alone.
+# The per-leaf figure table in books_lists' HAND_FIGS format: fig|title|page|kind|kind_by (one line per
+# plate leaf, exactly 4 pipes; fig = the leaf's n; page = the printed corner mark or '' - none; kind
+# s = a site-plan map that gets staged, o = indexed but never staged, u = unsure; kind_by hand = read
+# from the images). The book has NO printed list of plates (verified on both copies, 215), so the list
+# = the plates' own printed headings - transcribed by eye from the full-size page images 2026-10-13
+# (215/216/218); stage-A captions on this book are parametric hallucinations and were never used.
+# kind s: the 15 site-plan maps (Book II's P.158 Hadrian's-wall series N.1-N.10 + Book III's P.176
+# Antonine-wall series N.1-N.5) that get staged; kind o: N.11 (a wall cross-section, not a site plan)
+# and the six country maps (n0060/n0062 the Ptolemy fold-outs, n0706 the Mercator-Ptolemy, n0734 the
+# Antonine-Itinerary map, n0832 the Notitia Dignitatum map, n0867 the Peutinger table) - indexed in the
+# list mapping, never staged as picture rows.
+HORSEY_FIGS = """
+60|A Corrected Map of Britain according to Ptolemy (front-matter fold-out, faded landscape capture)||o|hand
+62|A Corrected Map of Britain according to Ptolemy's, or Rectified (front-matter fold-out, full spread)||o|hand
+236|A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.|P.158 N.1|s|hand
+238|A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.|P.158 N.2|s|hand
+240|A map of the Roman wall, from CONDERCVVM to VINDOBALA.|P.158 N.3|s|hand
+242|A map of the Roman wall, from VINDOBALA to HANNAVVM.|P.158 N.4|s|hand
+244|A map of the Roman wall, from HANNAVVM to CILVRNVA.|P.158 N.5|s|hand
+246|A map of the Roman wall, from CILVRNVA to BORCOVACEVS.|P.158 N.6|s|hand
+248|A map of the Roman walls from BORCOVACEVS to MAGNA.|P.158 N.7|s|hand
+250|A map of the Roman walls from MAGNA to PETRIANA.|P.158 N.8|s|hand
+252|A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.|P.158 N.9|s|hand
+254|A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM.|P.158 N.10|s|hand
+256|A section of both the Roman walls between one castellum and another (the south agger, Severus's ditch and vallum, Hadrian's north agger, ditch, principal vallum and south agger; a scale of 9 paces or 15 yards)|P.158 N.11|o|hand
+278|A general map of Antoninus's wall in Scotland.|P.176 N.1|s|hand
+280|A map of the Roman wall in Scotland from the west end to Bemulie.|P.176 N.2|s|hand
+282|A map of the Roman wall in Scotland from Bemulie to Crowy-hill.|P.176 N.3|s|hand
+284|A map of the Roman wall in Scotland from Crowy-hill to Falkirk.|P.176 N.4|s|hand
+286|A map of the Roman wall in Scotland from Falkirk to the east end.|P.176 N.5|s|hand
+706|BRITAIN according to PTOLEMY, taken from MERCATOR.|P.356|o|hand
+734|BRITANNIA ROMANA according to ANTONINE'S ITINERARY.|P.380|o|hand
+832|BRITANNIA ROMANA in signia Vicarii Britanniarum (the Notitia Dignitatum map: Maxima Caesariensis, Flavia, etc.)|P.472|o|hand
+867|TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM (the Peutinger table, Gaul segment; an "A scale of miles" bar)|Pag.505|o|hand
+"""
+
+# The books_lists PLATES format: plate|sub|title|page|kind. The ~121 inscription/sculpture plates
+# (Roman numerals I-CXXI, scattered through Book I-III) to be transcribed by eye from each plate's own
+# printed heading (the book has no list) as a second table, kind o: indexed in the list mapping, each
+# naming the site where the stone was found, but never staged as picture rows. The 90%-of-site-plans box
+# concerns only the kind-s maps above, so this trails without blocking.
 HORSEY_PLATES = None  # set when transcribed; register() injects it into books_lists.PLATES in-process
 
 
@@ -96,13 +140,15 @@ def _load(path):
 
 
 def register():
-    """In-process registration: books.BOOKS gets this book and (once transcribed) its plate list is
-    injected into books_lists.PLATES - nothing else is touched, the book really is on IA, so the
-    machinery's IA calls (pages, page_texts, fetch_triage) run unmodified. Idempotent."""
+    """In-process registration: books.BOOKS gets this book and the per-leaf figure table is injected
+    into books_lists.HAND_FIGS (plus the plate list, once HORSEY_PLATES is transcribed) - nothing else
+    is touched, the book really is on IA, so the machinery's IA calls (pages, page_texts,
+    fetch_triage) run unmodified. Idempotent."""
     import books
+    import books_lists
     books.BOOKS[KEY] = dict(ia=IA, region=REGION, year=YEAR, cite=CITE, why=WHY)
+    books_lists.HAND_FIGS[IA] = HORSEY_FIGS
     if HORSEY_PLATES is not None:
-        import books_lists
         books_lists.PLATES[IA] = HORSEY_PLATES
 
 
@@ -146,18 +192,10 @@ def triage(stage):
 
 
 def list_cmd():
-    """Until HORSEY_PLATES is transcribed: print the hOCR text of the book's front leaves (the
-    printed list of plates lives there; the hOCR pair is downloaded once and cached). Once
-    transcribed: run books_lists.cmd_ocrmap over the injected plate list - it writes only the
-    per-book lists/<ia>.json + .map.json (the map stays [] until stage A exists, as cmd_ocrmap
-    guards)."""
-    if HORSEY_PLATES is None:
-        import books_ia
-        texts = books_ia.page_texts(IA)  # downloads + caches the hOCR pair
-        for leaf in sorted(texts)[:24]:
-            print(f"--- leaf {leaf} ---")
-            print(texts[leaf][:1500])
-        return
+    """Offline: register() (injects HORSEY_FIGS into books_lists.HAND_FIGS) then
+    books_lists.cmd_ocrmap - for a HAND_FIGS book it maps the table by leaf n directly (no OCR, no
+    LLM, no network beyond the cached bookreader.json) and writes only the per-book lists/<ia>.json
+    (the table's dump) + .map.json (the map stays [] until stage A exists, as cmd_ocrmap guards)."""
     register()
     import books_lists
     books_lists.cmd_ocrmap([KEY])

@@ -432,6 +432,17 @@ Why: in a generator expression the text after the first `for <name> in <expr>` i
       iterable `<expr>` must not reference the loop variable. Write the conjunction inside the body:
       `any(r.get("site") == s["id"] and r.get("title") in picked for r in files)`.
 
+#### Replacing `socket.socket` with a function breaks a later `ssl` import - import `urllib.request`/`ssl` first, then patch the connect methods
+Where: ad-hoc offline verification runs (207a iteration 219's --list socket-block wrapper); the in-test in-process
+      pattern is tests/test_batch_us.py's `no_network` fixture
+Symptom: `socket.socket = fn` followed by any import chain that reaches `import ssl` dies with
+      `TypeError: function() argument 'code' must be code, not str` (in `class SSLSocket(socket.socket)`) -
+      an stdlib crash that looks unrelated to the patch
+Why: `ssl` subclasses `socket.socket` at import time, so the attribute must still be a class by the time
+      ssl is imported. To prove a command path is offline: `import urllib.request, ssl` FIRST, then
+      `socket.socket.connect = dead` and `socket.create_connection = dead`, then run the script (urlopen and
+      http.client both funnel through those two; DNS never runs because connect raises first).
+
 #### A monkeypatched socket in the parent process never reaches a subprocess - guard the subprocess itself with `python -c` + runpy (and there sys.argv[0] == "-c")
 Where: tests that run the product's CLI as a subprocess (tests/test_site_done.py's GUARD); the in-process pattern
       is tests/test_batch_us.py's `no_network` fixture
