@@ -12,6 +12,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 212, agent a - FIRST session on 308. Investigation done, before-baseline
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -22,7 +23,45 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-13 308 DECISION: first session - investigate, capture the before-baseline, design the arrowhead; no code yet
+The lead (61c6bdb on main) removed 308's "Depends on: 307" (only 307d, the owner check, is open;
+markers do not need it) - my branch had not received that commit, so I re-applied the lead's
+exact task-file change locally (result byte-identical to main: no "Depends on" line + their lead
+note) and committed it with the before-screenshots (0470610) so the driver's next main-sync is a
+no-op on that file and the human's file keeps the human's own bytes.
+Investigation (web/index.html only; there are NO web/*.css files, styles are inline): site
+markers are `<button class="marker tN"><span class="sq"></span><span class="tag">…</span></button>`
+maplibre Markers anchored `anchor:'left', offset:[-6,0]` (square centre ~ the point); per-tier
+sizes 15/13/11/9/7 px and colours #8A1230 / var(--survey) / #E2697F / #F4B4C0 / var(--sheet)
+(defined in TWO places: .marker .sq and the .tiers legend swatches); the label is a flex child
+kept out of click-hit only via pointer-events (it still occupies layout - the comment records
+the Old Sarum/Taunton bug that produced it); syncMarkers() does the label/square collision with
+a ±8 box per marker; the list row (siteEntries, line 563) and the "Marker key" legend (line
+589) reuse the same .sq swatches; Finder search-area markers (addScanAreas ~1187) are dashed
+squares at an area corner and stay squares; no test pins the marker CSS/JS (test_review.py
+pins only the review.js script tag).
+Chose an inline SVG silhouette (one shared constant AH, viewBox 100x100, notched:
+M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z - tip bottom-centre, contracting stem, central notch)
+over a CSS clip-path (an SVG stroke with vector-effect:non-scaling-stroke gives a constant 1.2px
+ink outline at every tier size and stays crisp on retina; clip-path would lose the outline) and
+over a data-URI background (it cannot take a CSS colour var for the tier gradient). The .sq span
+keeps its per-tier width/height and gains an .ah class + the tier colour as a --mks custom
+property (one definition per existing colour site); the marker button becomes inline-block +
+position:relative, the tag absolute (left:100%, top:100%, translateY(-50%) => still centred on
+the site point, and out of layout so the button box = the arrowhead), and the MapLibre anchor
+becomes 'bottom' + offset [0,0] so the TIP (bottom-centre) sits on the coordinate - MapLibre
+5.6.0 defaults the offset to [0,-14] when omitted, so it must be passed explicitly; the 'bottom'
+semantics will be verified empirically in the probe, not assumed. syncMarkers' per-marker box
+becomes [x±8, y-16..y+1] (the head grows above the point); the label box and all placement rules
+are unchanged.
+Captured the BEFORE baseline before touching anything (the page on this branch is the baseline):
+docs/site_flow/markers-before-{globe,zoom,legend,phone}.png via a throwaway playwright probe
+(/tmp/aw308shot.mjs; playwright-core from /home/agent/tools/shot/node_modules, channel 'chrome'
+= /opt/google/chrome/chrome; web/ served by python3 -m http.server on an ephemeral port; live
+Esri tiles load fine - the only 404s are the handled fallbacks data/scans.json,
+data/amazon/areas.json, api/db/ping). The probe's phase 'after' also self-checks: worst tip-to-
+point delta per tier, a real click on a marker opening its site, and svg counts in markers/
+legend/list with scan markers still square.
 
 ## Project-wide driver notes (newest)
 
@@ -49,6 +88,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-13 308 (agent a, iteration 212)
-    First session: before-baseline committed (docs/site_flow/markers-before-*.png), arrowhead design final in the task file's hand-over, NO code changed yet. Next: implement the .ah SVG marker in web/index.html exactly per that hand-over, run /tmp/aw308shot.mjs in phase 'after' (it self-checks tip-anchoring/click/shape), suite, docs/site_flow.md section, tick boxes.
