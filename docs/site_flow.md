@@ -1399,6 +1399,19 @@ the site stays covered for the union check, an open item counts).
   way: the picture and its 6 points went to a new review item for the site with this reason -
   the site had none before - the document was deleted, the site's review page file
   re-exported scoped to the site; the site stays covered by the new open item).
+- portus-adurni-q762664.c_4912bb54aa79f3ea - Burg von Portchester (GB), Plan von 1836 aus der
+  Penny Cyclopaedia, Seite 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the
+  German-titled twin of the deleted c_42bedb90fffce1d4 - the same Penny Cyclopaedia 1836 v6 p
+  354 plate, the same 1280x1292 scan and the same drawn geometry. The 6 anchors are the same
+  perfect 900-px grid (the corners plus the centre (800,800)), so the fit again carries no
+  placement information; the site point inverse-maps to plate (799.5, 799.5), the open
+  interior just NW of the drawn church, exactly as on its twin. The drawn works stand where
+  they stood on the twin: the outer-wall square ~954 x 927 m over farmland ~440 m NW of the
+  real ~250 x 210 m fort, the keep ~865 m NW over village fields, only St Mary's near its
+  real church. Wrong place, wrong size, right kind. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
+  created by the twin's deletion - the item keeps its file name and its lead, and the site
+  stays covered by the still-open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
