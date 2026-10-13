@@ -102,14 +102,10 @@ Module map (one module per task, so agents never collide):
   a search-width failure, not a stack failure, and point-pair fitting is proven by 25 fits.
 - **Web Mercator similarity fit** (existing `plan_fit.similarity`: conformal, so a similarity in Mercator
   metres is a similarity on the ground). No new fitting algorithm. The gate (001) scores fits, it does not fit.
-- **The model fits, the gate decides** (GOAL point 2). The fitting itself is done by the local vision model
-  (`pipeline/llm.py`, reached at `$AW_LLM_URL` on this machine) the way the 25 hand fits were made: it looks
-  at the fitkit sheet (the picture's crop next to the site's ground, both gridded), reads the grid labels,
-  finds the same features on both sides, and records at least four point pairs; 202's anchor is its
-  starting point, never the fit. GOAL's standing caveat - what the model says is a lead to check, not a
-  fact - is enforced by the gate: no model pair-set reaches the map without a gate score. The model step is
-  an injectable function: the working phase calls the real model, tests supply a fixed recorded answer, so
-  no test touches the model server (hermetic, like the evidence fetch).
+- **The image matcher fits, the gate decides** (GOAL point 2, rewritten by the owner 2026-10-13). The only
+  automatic placement is fit/matchfit.py (MatchAnything RoMa/ELoFTR) against a georeferenced ground image, on
+  LiDAR sites only. The local vision model never places a drawing or writes point pairs: the model fitting pass
+  of fit/batch_us.py / fit/batch_eu.py is retired (its ~100 fits of 2026-10-11 failed the 306 look audits).
 - **Evidence as row fields, checked offline.** Wikidata/Commons metadata is fetched in the working phase
   and stored in the row (`"evidence"`); the check pass re-verifies rows from stored fields only, so tests
   never touch the network (Commons and Wikidata are rate-limited and flaky by nature).
