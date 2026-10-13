@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
-- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 236, agent a - FIRST session on 221 since its 309 gate settled.
+- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 237, agent a - boxes 1+2 done (236); box 3 still blocked on 235,
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
@@ -33,6 +33,12 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - The page behaviour is deliberate (Ethan 2026-10-10, comment at web/index.html:~428: topographic quads "don't really ever show anything"), so the fix belongs to the test's pick, not the page: `_pick_place` must mirror the page's filter + auto-select rules. That is new task 235 (lowest free number in 200-499; the fix is one module, tests/test_fit_queue.py).
 - 235's gates: Depends on 306e (agent c is still re-exporting web/data/review.json and the data/review items, which drive _line_eligible - the pick's second gate) and 307d (open, Touches: tests/ - same-file gate; 307d's own acceptance is a NEW tests/ file, so the overlap risk is low but the gate is cheap).
 - This session's changes: only tasks/221-review-stats-test.md (boxes 1+2 ticked, Notes updated, Hand-over written), tasks/235-placement-test-dep-pick.md (new) and this entry. tests/test_review.py and tests/test_fit_queue.py untouched (the former is my Touches, the latter is not mine).
+
+### 2026-10-13 221 DECISION: iteration 237 - box 3 re-checked against the live suite: still blocked on 235, no new task to file, no code change
+- Suite this session: 155 passed / 1 skipped / 1 failed (325 s) - byte-for-byte the 236 baseline; the one failure is still tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser with the same failing seed-check label as every prior record (no new mode; the 306d/306c "changed signature" concern does not apply - I compared labels, not truncated JSON).
+- Pick re-verified by running the test's own helper read-only: `_pick_place()` -> marietta / ancientmonuments00squi_n0169_1, depictions = [('topo', 1904)] - the exact un-pinnable state 235's spec fixes (surveyOldEnough 150-yr cutoff: 1904 > 2026-150, and the auto-select rule's {plan,drawing,view}/last-'map' never matches a topo).
+- Gates re-checked: 235 = Status: open (never started, fix not on main); 306e = in-progress; 307d = open (Depends on: 307c). 221's Depends on (309, 235) already carries the live gate; 309 is done/inert.
+- No code touched (my Touches: tests/test_review.py - unchanged since 309's b5cdf19 landed). Only this task file's Hand-over and this entry changed.
 
 ## Project-wide driver notes (newest)
 
