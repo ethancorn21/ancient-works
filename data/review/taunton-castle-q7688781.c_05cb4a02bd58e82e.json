@@ -3,7 +3,7 @@
  "candidates": [
   {
    "plan": "c_05cb4a02bd58e82e",
-   "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+   "title": "File:Plan of Taunton Castle (1897).jpg",
    "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
    "pairs": [
     [
@@ -31,13 +31,22 @@
      51.0134988
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "hand_tied",
     "checked": "2026-10-10",
     "source": "pipeline/sources.py mackenzie"
    },
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Taunton_Castle_(1897).jpg",
+   "ref": "File:Plan of Taunton Castle (1897).jpg",
+   "size": [
+    1280,
+    1461
+   ],
+   "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 0.5 m/px, +0.0 deg) - the 4 anchors are a 200-px (100 m) grid ladder, so the fit carries no placement information: it pins the 1280x1461 plate centre (the site point inverse-maps to plate (599,599)) onto the site point. The plate is a genuine plan of THIS castle from Mackenzie, The Castles of England (1897) - the features match the real complex (Great Hall/inner ward, outwork, filled-in moats, Castle Green as the outer bailey, E. gate, Bishop Foxe's school) - but the catalog site point sits ~640 m WEST of the real castle: the real works (51.0158 N, 3.1046 W = E+643 N+55; today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the tree-lined moat ring and the Castle Green, on the east bank of the Tone) were verified on modern aerial imagery. The drawn complex (E-205..+190 m) instead sits on the 1842 Wellington Terrace house cluster and the Stepps Water stream - no castle, no moat, no 'Castle' label anywhere in the 800 m site box - and the real castle (E+643) is beyond the plate's east edge (E+340.5). Wrong place, right kind. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   }
  ],

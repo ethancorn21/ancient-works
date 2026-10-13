@@ -3,7 +3,7 @@
  "candidates": [
   {
    "plan": "c_42bedb90fffce1d4",
-   "title": "Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354",
+   "title": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
    "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
    "pairs": [
     [
@@ -43,7 +43,7 @@
      50.8407904
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -52,11 +52,20 @@
     "file_cat": "Portus Adurni",
     "via": []
    },
+   "label": "1836",
+   "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
+   "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
+   "size": [
+    1280,
+    1292
+   ],
+   "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   },
   {
    "plan": "c_4912bb54aa79f3ea",
-   "title": "Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354",
+   "title": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
    "url": "media/commons/portus-adurni-q762664/4912bb54aa79f3ea.jpg",
    "pairs": [
     [
@@ -96,7 +105,7 @@
      50.8407904
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -105,6 +114,15 @@
     "file_cat": "Portus Adurni",
     "via": []
    },
+   "label": "1836",
+   "cite": "by Editor of the Penny cyclopaedia V6.; Public domain; https://commons.wikimedia.org/wiki/File:Burg_von_Portchester_(GB)_Plan_von_1836_aus_der_Penny_Cyclopaedia,_Seite_354.jpg",
+   "ref": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
+   "size": [
+    1280,
+    1292
+   ],
+   "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The German-titled twin of the deleted c_42bedb90fffce1d4: same source (Penny Cyclopaedia 1836 v6 p 354), same 1280x1292 plate and drawn geometry - the drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   }
  ],

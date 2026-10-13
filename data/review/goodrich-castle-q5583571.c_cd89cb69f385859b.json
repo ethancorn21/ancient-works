@@ -5,6 +5,12 @@
    "plan": "c_cd89cb69f385859b",
    "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
    "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
    "pairs": [
     [
      210.0,
@@ -31,13 +37,16 @@
      51.8751594
     ]
    ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
+   "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg",
+   "size": [
+    955,
+    943
+   ],
+   "place_reason": "306d audit 2026-10-13: the 4 anchors are a consistent 0.838 m/px 370x470-px rectangle (resid 0.8 m) spanning the whole castle plan, and the fit is centred right - the 1842 'Goodrich Castle (Remains of)' (~30 m hatched building) and the aerial's stone ruin sit at the drawn plan's centre, ~the site point - but the drawn plan is ~620x490 m on the ground, ~4-5x too big for the real ~130x90 m castle: its walls run through the village, through Old Castle Wood to the west, and across the River Wye to the north (the 1842 'GOODRICH' label sits inside the drawn castle). Document deleted.",
    "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.8 m measures internal consistency of the anchors, not their truth",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "hand_tied",
-    "checked": "2026-10-10",
-    "source": "pipeline/sources.py mackenzie"
-   },
    "gate_score": 0.8
   }
  ],

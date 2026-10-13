@@ -5,6 +5,12 @@
    "plan": "c_e915cbfd3af009b4",
    "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
    "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
    "pairs": [
     [
      550.0,
@@ -55,13 +61,16 @@
      52.9877537
     ]
    ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+   "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg",
+   "size": [
+    902,
+    966
+   ],
+   "place_reason": "306d audit 2026-10-13: the 8 anchors are a 100-px grid ladder that is internally inconsistent (the 300-px square u 250-550 x v 450-750 spans 500 m at 1.667 m/px, but the 400-px v=600 row u 200..600 spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy (LSQ 1.737 m/px, resid 5.9-52.9 m). The aerial confirms: the drawn keep (~290x180 m) sits on village housing ESE of the 1842 'Site of Castle' (next to 'Castleorchard'), and the drawn ring (~975x825 m) wraps the whole village at ~5x the real ~200 m earthworks; the plate's own geography is also wrong - its 'Duffield' label and 'To Duffield'/'To Belper' roads lie SOUTH of the ring, but the real town and the A535 run WEST of the castle. Document deleted.",
    "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 19.6 m measures internal consistency of the anchors, not their truth",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "hand_tied",
-    "checked": "2026-10-10",
-    "source": "pipeline/sources.py mackenzie"
-   },
    "gate_score": 19.6
   }
  ],

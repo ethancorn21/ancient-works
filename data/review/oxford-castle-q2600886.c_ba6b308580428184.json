@@ -3,7 +3,7 @@
  "candidates": [
   {
    "plan": "c_ba6b308580428184",
-   "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+   "title": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
    "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
    "pairs": [
     [
@@ -31,13 +31,22 @@
      51.7499988
     ]
    ],
-   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "hand_tied",
     "checked": "2026-10-10",
     "source": "pipeline/sources.py mackenzie"
    },
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:207_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148583904).jpg",
+   "ref": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
+   "size": [
+    895,
+    781
+   ],
+   "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 4 anchors are a perfect 100-px diagonal ladder (300,300)-(600,600), so the fit carries no placement information; the site point (Corn Market) inverse-maps to the centre of the drawn bailey. The drawn keep (the dark square '1') is ~170 m south of the real moated keep island at the site point, over a built-up block just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's big hill outline (~665 x 540 m) render over the flat built-up city with no corresponding earthworks or hill (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on the real Thames. Wrong place, right kind (the bury-castle class). Document deleted.",
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   }
  ],

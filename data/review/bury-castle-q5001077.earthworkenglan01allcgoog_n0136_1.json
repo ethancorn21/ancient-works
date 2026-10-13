@@ -93,7 +93,7 @@
      51.0321955
     ]
    ],
-   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -102,6 +102,15 @@
     "file_cat": "Bury Castle, Somerset",
     "via": []
    },
+   "label": "1911",
+   "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Bury_Castle_Somerset_Map.jpg",
+   "ref": "File:Bury Castle Somerset Map.jpg",
+   "size": [
+    590,
+    475
+   ],
+   "place_reason": "306d audit 2026-10-12: similarity (8 pts, resid 10.9-39 m, 2.63 m/px, +1.1 deg); the 8 anchors are a 100-px grid ladder (three on the left edge, whose 200/100-px lat steps span 0.0054/0.0018 deg - a 1.5:1 ratio no similarity can hit), so the residuals only measure the grid's own inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own 'SCALE OF FEET 0-300' bar (~1.45 m/px). The drawn hachured hillfort (~280-340 m across) maps to (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps; LiDAR bump at the same spot), on a small hachured wood hill. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
    "gate_score": 30.2
   }
  ],
