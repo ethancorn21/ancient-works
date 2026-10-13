@@ -150,3 +150,16 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### Lead note (2026-10-12, after 211) - the lead's steering, read before design (verbatim from ef84a05)
+- The fit in this task's loop is the MATCHER, not a vision-model fit: tools/site_done.py already runs
+  fit/matchfit.py first on every picture without a document whenever the matcher answers (ELoFTR on
+  127.0.0.1:8091 is reachable from this VM; RoMa on 8092 is not, and site_done works without it).
+  The vision-model batch fit invented its points (301) and must not place anything. An unsure matcher
+  result goes to the review item, as site_done already does.
+- 211's new pictures are in the canonical files but most have no local copy, so they are not in
+  web/data/plans.json yet (still 1168 rows on main): `python pipeline/commons.py thumbs` fetches rows
+  with a `thumb`; the Limes rows carry only a full-file `url` (upload.wikimedia.org) - fetch those too
+  (the original, or a standard thumbnail width), then `tools/export_plans.py`. The lead did this on the
+  owner's Mac (1168 -> 1296 rows, plus the Civitates/Merian full pages); data/raw is gitignored, so
+  this checkout needs its own copies.
