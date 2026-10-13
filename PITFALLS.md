@@ -414,6 +414,14 @@ What to do: drain coprocess output in a dedicated thread that does plain blockin
       proc.stdout:` or `os.read` in a loop) into a list the test polls; never combine select() with a
       buffered reader on the same fd.
 
+### pytest (9.1.1, project .venv)
+
+#### Two pytest sessions of one checkout trash each other's temp trees: a session that ends green rmtree's the WHOLE basetemp, so a suite left running past its session gets destroyed
+Where: every pytest run in this checkout (the harness sets `TMPDIR=/tmp/loop-<checkout-dir>` for all processes, and pytest 9.1.1's default basetemp is `$TMPDIR/pytest-of-<user>` - ONE directory shared by all sessions of the checkout); pytest.ini (`tmp_path_retention_count=1`, `tmp_path_retention_policy=failed`); tests/conftest.py's session-scoped `served` fixture; tests/test_serve.py, tests/test_review.py
+Symptom: a suite left in the background (nohup'd, outliving its session) fails with `urllib.error.HTTPError: HTTP Error 404` in test_serve on the served `/` and `FileNotFoundError` in test_review for files of its OWN tree's data/review/ that exist in the checkout, while a run of the same tree minutes earlier was green; the leftover temp tree (.../pytest-of-agent/pytest-N/aw0) is near-empty (web/ and server/ gone, only directories the tests recreated after the deletion remain). (Observed 2026-10-13, task 308: a nohup'd full suite lost its tree ~80 s in; the 00:40 run of the same tree had passed those tests, and an in-session re-run was green apart from the known 231/232 reds. The exact concurrent run that did it could not be identified - its process was gone - but the mechanism below is from pytest 9.1.1's own source.)
+Why: at session end pytest (a) rmtree's the entire basetemp root when the session ended green with the "failed" policy and no explicit --basetemp, and (b) the numbered-dir cleanup (keep=1) removes older `pytest-N` directories - both act on directories of OTHER still-running sessions that share the TMPDIR-derived basetemp.
+How to avoid: run the full suite in the FOREGROUND of your session (a plain `&`, not nohup - it then dies with the session, so it can never outlive it), and never start a second pytest run in this checkout while one is running (the driver's suite runs happen at iteration boundaries, which is when a leftover run gets destroyed). If a run you left behind fails with this signature, re-run the suite in-session before blaming the code: compare with the last clean run of the same tree.
+
 ## This codebase
 
 One `### <module or service>` subsection per part of this project. Say in `Where:` which other parts depend on it:
@@ -1196,6 +1204,12 @@ Symptom: the fitted preview (the fit-prev map source, the fithint m/px) reflects
 Why/fix: after `startFit` and before `openPlan`, wait for `FQ.loaded` and empty `FQ.entries` in the page context
       (fitkit falls open), and verify from the shot log that the fit ran on your own pairs (306b's driver reports
       `placed:false`, `n:8` in `[eval]`).
+
+#### MapLibre marker elements are parked at the canvas origin by the vendor css and placed only by their inline transform - a page rule with a flowing position (relative) that loads after the vendor link re-enters the marker into normal flow and lands it 500-3000px off its site
+Where: `web/index.html` (`.marker` / `.ah` / `.tag` css, `addMarkers` / `syncMarkers`) + `web/vendor/maplibre-gl-5.6.0.css` (`.maplibregl-marker { left: 0; position: absolute; top: 0 }`)
+Symptom: most markers missing in globe view (61/324 in-view instead of 324/324); for the visible ones the measured rect's bottom-centre minus the marker's inline transform point is a large, VARYING offset (505-3023px) instead of a constant; markers that should be out of view get pushed in by the flow offset (Orkney showed up, Wiltshire dropped out).
+Why: MapLibre parks the marker element at the canvas origin and places it purely with the inline transform (`translate(-50%,-100%) translate(Xpx,Ypx)`). A page rule with equal-or-higher specificity that loads after the vendor `<link>` (for 308, `.marker { ...; position: relative }`, both 0,1,0 - the inline `<style>` wins the cascade tie) puts each marker back into normal flow, stacking it below the previous one in DOM order. Found while building 308's arrowheads; the initial "globe projection" reading (transform = on-globe position, `map.project()` = flat plane, 3023px apart) was a MISDIAGNOSIS of this bug: transform and `map.project()` agree within 0.35px. (Separate, informational: in globe mode the canvas container is larger than the viewport - 1440x3038 at 1440x900.)
+How to avoid: restate `position: absolute; top: 0; left: 0;` in the page's `.marker` rule (a comment there explains why a flowing position must not be used). The acceptance check: rect bottom-centre minus the transform point must be a small CONSTANT (= the anchor geometry; 0 for the borderless `.ah` box) and the in-view count must match the pre-change baseline.
 
 ### tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`)
 
