@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
-- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 237, agent a - boxes 1+2 done (236); box 3 still blocked on 235,
+- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 238, agent a - box 3 re-checked on the state after main's
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
@@ -39,6 +39,13 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - Pick re-verified by running the test's own helper read-only: `_pick_place()` -> marietta / ancientmonuments00squi_n0169_1, depictions = [('topo', 1904)] - the exact un-pinnable state 235's spec fixes (surveyOldEnough 150-yr cutoff: 1904 > 2026-150, and the auto-select rule's {plan,drawing,view}/last-'map' never matches a topo).
 - Gates re-checked: 235 = Status: open (never started, fix not on main); 306e = in-progress; 307d = open (Depends on: 307c). 221's Depends on (309, 235) already carries the live gate; 309 is done/inert.
 - No code touched (my Touches: tests/test_review.py - unchanged since 309's b5cdf19 landed). Only this task file's Hand-over and this entry changed.
+
+### 2026-10-13 221 DECISION: iteration 238 - box 3 re-checked on the post-77405cf state: suite 155/1/1 unchanged (same placement red, same seed label), pick still marietta/1904-topo (the 103 new review items did not shift it); 235 still open on 306e (in-progress, 2 sites left) / 307d (now unblocked, 307c done); no new task to file; box 3 stays unticked
+- Main changed since 237 by ONE merge (77405cf, lead): 13 matcher re-fits on 11 sites after the 212b sync, review items for the 103 uncovered sites in 212c's report (web/data/review.json +5172 lines, new data/review/* items, fit_queue.json now 241 entries, sites.json +102) and a 4-line tweak in tests/test_batch_us.py. tests/test_review.py and tests/test_fit_queue.py are UNCHANGED in the merge (verified via `git diff --stat 10f4683 d359be8`) - the 221 lane is untouched.
+- Suite this session (`.venv/bin/python -m pytest -q -p no:cacheprovider`): 155 passed / 1 skipped / 1 failed (340 s) - identical to the 236/237 baseline; the one failure is still tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser with the same failing seed-check label ("seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden"). The 103 new review items created no new failure (test_serve, test_review, test_fit_queue all green) - so nothing is filed as a new task.
+- Pick re-verified by running the test's own helper read-only (.venv python, `import test_fit_queue; _pick_place()`): still marietta - queue index 29, plan ancientmonuments00squi_n0169_1, single depiction ('topo', 1904) - unchanged by 77405cf (fit_queue.json already had 241 entries at 237; the merge touched only 2 of its lines, and the first entry passing propose + _line_eligible + non-empty depictions is still marietta). 235's spec (the pick must mirror the page's surveyOldEnough 150-yr filter and its {plan,drawing,view}/last-'map' auto-select) is still accurate.
+- Gates re-checked in this checkout: 235 = Status: open (never started; fix not on main); 306e = in-progress (agent c's UK part 2; its last hand-over: 14 of 17 lines, york x2 + windmill-hill x1 pending); 307d = open and NOW UNBLOCKED (its gate 307c is done) - awaiting a driver assignment; still a same-file gate for 235 (Touches: tests/, docs/site_flow.md); 309 = done/merged, inert. 221's Depends on (309, 235) already carries the live gate; nothing added.
+- No code touched. Only this task file's Hand-over and this entry changed.
 
 ## Project-wide driver notes (newest)
 
