@@ -1139,6 +1139,21 @@ Why: source_line appends the label parenthesis after the title, but the title it
       `source.split(", Wikimedia Commons:")[0] == title` (nothing appended after the title for a
       yeared title), which the 219 re-bake verification uses.
 
+#### The dep entry's FILE name strips the site prefix, but its fit.doc keeps the full doc id - audit overlays with the is_done triple or you get false missing/stale
+Where: `web/data/sites/<sid>/depictions.json` (the entries plan_fit.build writes, keyed by `file`);
+      `pipeline/plan_fit.py` (`build`, `is_done`); any audit that joins `data/db/platefits/*.json`
+      docs to their overlays
+Symptom: joining docs to overlay entries by the doc id `<sid>.<plan>` reports every doc "missing"
+      (and the truly current ones "stale") - the 212 iter-253 first pass reported 70 missing /
+      57 stale where the truth was 13 / 0
+Why: the webp file - and the entry's `file` - is named `plan_<plan>.webp`, the site prefix
+      STRIPPED (the per-site directory already carries it), while the entry's `fit.doc` keeps the
+      full `<site>.<plan>` id. The only correct join is is_done's triple: entry `file` ==
+      `plan_<doc.plan>.webp` AND `fit.doc` == `<doc.site>.<doc.plan>` AND `fit.at` == the doc's
+      `at` (all three, or a re-built doc whose overlay is not yet synced reads current). Also:
+      a platefits doc id built from a glob path must be `os.path.basename(path)[:-5]` - the dir
+      prefix breaks the key.
+
 ### fit/evidence.py (the evidence contract)
 
 #### check_category re-verifies only the chain's SHAPE - the walk itself is the verification
