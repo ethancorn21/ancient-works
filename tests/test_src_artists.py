@@ -8,6 +8,11 @@ negative control pins the trap the hand record exists for: the Imola row with th
 (44.245 N, 12.367 E) instead of the site's own point - ~54 km away, a name-search-style resolution that record
 --live could store - must be reported FAIL, never kept. The golden file (tests/golden/src_artists_sample.json)
 pins the staged rows as a whole; it is regenerated only via the module's --golden flag for an intended change.
+Task 228 (211's live merge puts the module's own staged rows into the canonical files) extends the check-staged
+test: test_check_staged_three_states covers the three merge states of the --check guards hermetically -
+pre-merge; the 211 first-row-wins merge already run (the module's own rows a no-op, the known-site guards stop
+self-triggering); and a same-key different row, or a staged QID/site id held by a different site, still failing
+loud.
 """
 import json
 import os
@@ -46,6 +51,103 @@ def test_check_staged_files_join_and_pass(capsys):
     for key in ("imola-q50195|File:Leonardo da Vinci - RCIN 912284, A map of Imola 1502.jpg",
                 "venice-q641|File:(Venice) View of Venice by Jacopo de' Barbari - Museo Correr.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
+
+
+def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
+    """The 211 merge states of the --check guards, hermetically (temp copies of the canonical files, so the
+    test holds whether or not 211's live merge has run on this checkout): (a) staged rows ABSENT from the
+    canonical files (the pre-merge state) - check 0, no join problems, evidence all PASS; (b) staged rows
+    present with IDENTICAL content (the 211 first-row-wins merge has run) - check 0, no join problems: an
+    already-merged row is a no-op and the known-site checks stop self-triggering on the module's own rows;
+    (c) the same (site, title) key, or a staged QID or site id, held by a DIFFERENT row or site - still fails
+    loud, naming exactly that problem and no other."""
+    staged_files = src_artists._load(src_artists.FILES_ARTISTS)
+    staged_sites = src_artists._load(src_artists.EXTRAS_ARTISTS)
+    skeys = {(r.get("site"), r.get("title")) for r in staged_files}
+    sids = {s["id"] for s in staged_sites}
+
+    def write(name, text):
+        p = tmp_path / name
+        p.write_text(text, encoding="utf-8")
+        return str(p)
+
+    # the canonical files with this module's staged rows removed: the pre-merge state of ITS keys/sites on
+    # any checkout (the other sources' merged rows are untouched, the guards do not care about them)
+    files_pre = [json.dumps(r, ensure_ascii=False) for r in src_artists._load(src_artists.FILES_CANONICAL)
+                 if (r.get("site"), r.get("title")) not in skeys]
+    extras_pre = [json.dumps(r, ensure_ascii=False) for r in src_artists._load(src_artists.EXTRAS)
+                  if r.get("id") not in sids]
+    web = json.load(open(src_artists.WEB_SITES, encoding="utf-8"))
+    monkeypatch.setattr(src_artists, "WEB_SITES",
+                        write("sites.json", json.dumps(dict(web, sites=[s for s in web["sites"]
+                                                               if s.get("id") not in sids]),
+                                                       ensure_ascii=False)))
+    sites = tmp_path / "sites.jsonl"
+    sites.write_text(open(src_artists.SITES_JSONL, encoding="utf-8").read(), encoding="utf-8")
+    monkeypatch.setattr(src_artists, "SITES_JSONL", str(sites))
+
+    def point(files_rows, extras_rows):
+        monkeypatch.setattr(src_artists, "FILES_CANONICAL",
+                            write("files.jsonl", "\n".join(files_rows) + "\n"))
+        monkeypatch.setattr(src_artists, "EXTRAS", write("extras.jsonl", "\n".join(extras_rows) + "\n"))
+
+    staged_file_lines = [json.dumps(r, ensure_ascii=False) for r in staged_files]
+    staged_site_lines = [json.dumps(s, ensure_ascii=False) for s in staged_sites]
+    evidence_line = f"evidence: {len(staged_files)} rows, {len(staged_files)} pass, 0 fail, 0 no-tie"
+
+    # (a) pre-merge: the staged rows are not in the canonical files yet
+    point(files_pre, extras_pre)
+    code = src_artists.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert evidence_line in out, out
+
+    # (b) the 211 merge ran: every staged row is in the canonical files with identical content
+    point(files_pre + staged_file_lines, extras_pre + staged_site_lines)
+    code = src_artists.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert evidence_line in out, out
+
+    # (c1) the same (site, title) key held by a DIFFERENT row: the pre-merge conflict protection still fires
+    victim = staged_files[0]
+    k = (victim["site"], victim["title"])
+    other = dict(victim, name="a different row holds this key")
+    lines = [json.dumps(other, ensure_ascii=False) if (r.get("site"), r.get("title")) == k
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_site_lines)
+    code = src_artists.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged title already in the canonical files.jsonl: {k}"], join
+    assert evidence_line in out, out
+
+    # (c2) a staged site's QID held by a DIFFERENT site: the pre-merge QID protection still fires
+    venice = next(s for s in staged_sites if s["qid"] == "Q641")
+    other_site = dict(venice, id="venice-lagoon-q641")  # same QID, a different site
+    point(files_pre, extras_pre + [json.dumps(other_site, ensure_ascii=False)])
+    code = src_artists.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged site {venice['id']} re-uses existing QID {venice['qid']} "
+                    f"(venice-lagoon-q641)"], join
+    assert evidence_line in out, out
+
+    # (c3) a staged site's id held by a DIFFERENT site (a different QID): the pre-merge id protection
+    # still fires
+    imola = next(s for s in staged_sites if s["qid"] == "Q50195")
+    other_site = dict(imola, qid="Q773853")  # same id, a different QID
+    point(files_pre, extras_pre + [json.dumps(other_site, ensure_ascii=False)])
+    code = src_artists.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged site ids collide with existing sites: [{imola['id']!r}]"], join
+    assert evidence_line in out, out
 
 
 def test_qid_table_and_staged_rows():
