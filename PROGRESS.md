@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 219, agent a - **Boxes 1-3 DONE and verified:
+- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 220, agent a - boxes 1-3 stay DONE and verified
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -168,6 +168,55 @@ per the lead's split), so 203b is added to my Depends on line (team-mode rule);
 the driver brings the task back after 203b merges. The live-run recipe
 (phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
 is in the hand-over.
+
+### 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
+
+The iter-219 hand-over said box 4 waits for 203b because "agent c is in
+flight" on the batch. That reading was stale: the 203b file has been Status:
+done on main since c49aeb9 (agent c's iteration 50, 2026-10-11: the 294-site
+EU run - 54 auto fit / 47 review / 18 hand / 175 no-picture, 94 EU docs + 252
+items, union 384/384), and there is NO "[driver] reopened 203b" commit on
+main (the reopen list is 215/214/309/307ba/302a/206/802/203a - no 203b). Yet
+this iteration's driver prompt lists "Agent c is working on 203b" with the
+original touches (fit/batch_eu.py data/db/platefits data/review
+docs/batch_eu.md tests/test_batch_eu.py) - consistent with 203b's own
+hand-over note: "If this task is ever reopened (e.g. a 212-era re-coverage
+run changes the tree), re-verify the checks below." The batch ran over the
+384-site world; the world is now 499 built, and the batch's live union test
+gates on "Sites run: 294" vs the live EU partition (grown). So the wait
+stands, but the reason is: agent c's current 203b session re-runs/re-verifies
+the batch over the grown world, and its writes (new EU docs + item
+re-upserts, incl. the batch's searched wording on search-set items my
+nopicture also writes) must land before my live run's commit ("212 runs last
+on purpose"). 203b is already on my Depends on line; no line change.
+Agent c's other in-flight work is file-disjoint from the live run, verified
+on the live tree: 306's audit items are doc-keyed (<site>.<doc>.json) for
+doc'd sites, my nopicture writes the 245 EXACT bare <site>.json files of the
+no-doc search set (245/245 checked, 0 doc-keyed in the set; upsert_item's
+lead follows candidates[0].plan and these items are candidate-less, so the
+names never move); 306 exports web/data/sites.json + review.json, I
+re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
+disjoint.
+Re-measured the live world today (main is frozen at 77bdf5d - an ancestor of
+my pre-218 sync 54c0711, so the git world is byte-identical to what I
+verified in 217/219): 499 built; 131 docs = 21 by:hand + 110 by:agent;
+nofit 402; cand-sites 601; search set 245 = 204 qid + 41 no-qid (matches the
+iter-217 post-aeeb5aa measurement; the 246 in the CORRECTION-4 entry was
+pre-aeeb5aa, when numancia had no row yet) - first4 aalsum-q3902030,
+abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
+first no-qid aggersborg. files.jsonl: 923 kept rows, only 1 without a local
+copy - the no-source Stukeley TAB XI (stonehenge-q39671, thumb/url null):
+the ~328 missing copies measured 10-13 all arrived in the shared store via
+the lead's aeeb5aa "data/raw synced both ways Mac<->VM", so the fetch phase
+is now a no-op (0 thumb, 0 url, 1 nosrc) that only prints counts +
+re-exports plans. plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs,
+0 rows referencing a search-set site - the baseline for the key-set diff
+rule (aeeb5aa's 1474 + numancia's row back). data/cover/searches.json
+absent (fresh start). data/review: 346 items + README. Golden 40/40.
+tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
+(no store file-count assertions, by design - the 328 new store files broke
+nothing). No code change this session; next step (the live run recipe) is in
+the hand-over.
 
 ## Project-wide driver notes (newest)
 
