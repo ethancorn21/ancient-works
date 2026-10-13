@@ -7729,6 +7729,124 @@ docs edit.
 - Nothing failed; nothing ran (last suite state remains 100 passed + 1 skipped + 0 failed at c8e6cab; the driver's merge before this session added no tests - the first run will re-confirm). Working tree clean (only the task file and this entry changed).
 
 
+<!-- task 307d -->
+# Task 307d owner-check
+
+## 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today
+First session on 307d; investigation only, nothing written, no tests run.
+
+- Context check: 309 (the place-check box) is DONE; 307ba/307bb/307c done; 307d is the last
+  subtask of 307. Task 235 (open, mine via 221, `Depends on: 306e, 307d`, `Touches:
+  tests/test_fit_queue.py`) is gated on 307d by the broad `tests/` claim - so 307d's test is a
+  NEW file in tests/, never tests/test_fit_queue.py. Suite baseline (driver notes, re-verify
+  before claiming): 155 passed / 1 skipped / 1 failed - the one red is 235's
+  test_placement_gestures_and_save_in_the_browser (the 307bb `_pick_place` lands on marietta,
+  whose only depiction is a 1904 USGS topo the page's loadDeps/surveyOldEnough filter drops ->
+  dep:null at the seed check; red since ~iteration 199).
+- Queue population (241 entries, 2026-10-13T14:34Z): agent c's 203b EU batch filled the top of
+  the queue with commons-row candidates (c_..., no ia/file) - those are NOT line-eligible
+  (the one-site line reads book pages locally). Every line-eligible entry (book row with a
+  local page, an unresolved item carrying the row with >=3 pairs, no docs yet) has
+  `lidar: None` (LiDAR/DEM relief ground). No `lidar: False` (aerial-photograph-only) site is
+  line-eligible today: every aerial-only queue site is a commons-row candidate. So the task's
+  "different ground (LiDAR relief vs aerial photograph)" hedge is NOT satisfiable this
+  session - both picks are on LiDAR relief; the docs section must say so plainly. (Re-scan
+  after each merge: a site gaining a doc in a merge drops out of eligibility; the picker is
+  derived, so it adapts.)
+- The two picks (verified by running code; file order of web/data/fit_queue.json): A (recorded
+  bar scale) = [38] oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 (bar
+  "0 100 200 300 Feet", mpx 0.1646, rot 0, uncovered=0, page-showable auto dep six-inch-1st.webp
+  1842, no pre-existing drawing dep, England/Environment Agency LiDAR). B (site-size-only
+  fallback) = [45] devil-s-dyke-q3307343 / earthworkenglan01allcgoog_n0662_1 (scale_source
+  'picture_size', coarse, mpx 0.7201, rot 0, uncovered=0, six-inch-1st.webp, England/EA).
+  uncovered=0 for both means the one-site line runs sync+entry+review only (no batch run, no
+  model, offline-safe). Both sites' web/data/sites dirs are symlinks (copytree materialises
+  them into the private tree).
+- Scanning pitfall (my throwaway /tmp/aw307d/scan_picks.py, not repo code): its line_eligible
+  returns a failure STRING (the repo test's _line_eligible returns None); a `if li is None:
+  continue` filter silently passed every entry, so the first "eligible" list I read was wrong
+  (it included all commons-row EU sites). Re-ran with `isinstance(li, list)` - the real
+  eligible set is the 24 entries listed in the hand-over. The scan also crashed at [163]
+  maeshowe on row.ia being None (a commons best-row) - the Scottish picture_size sites'
+  eligibility was not fully verified; oswestry + devil-s-dyke need no more facts.
+- Plan (details in the task hand-over): one module-scoped fixture (307bb's line_served recipe:
+  full private tree, both book pages materialised, sockets dead, ephemeral port); two test
+  functions, one per site, each running the owner's flow in headless Chrome (card -> place on
+  the works -> drag -> wheel-scale -> save -> verify the line's four effects: overlay in
+  depictions.json, sites.json square recoloured, item resolved, card moved on -> page.reload()
+  -> the fit loads back unchanged); before/after hash of the checkout write surface proves the
+  shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
+  green; fit_queue.json and the review exports are never written by the page or the line in the
+  checkout). Then the docs/site_flow.md verification section.
+
+### 2026-10-13 307d DECISION: iteration 242 - all mechanics re-verified against the current branch; picks hold (A oswestry bar / B devil-s-dyke picture_size fallback); the test file is the next step, fully speced in the hand-over
+Third session on 307d; investigation completed, nothing written, no tests run. The 241
+hand-over's mechanics were re-read against the code as it stands on this branch (307c's
+working-space merge is in): every reference holds, none shifted. Facts re-confirmed this
+session (all by running/reading code):
+
+- Queue still 241 entries, `at` 2026-10-13T14:34:09.559141+00:00 (file did not move in the
+  merge). The raw line-eligible set is now 25: [49] beam-farm-woodland-... and [50] piketon-
+  mounds... are NEW (both EA/LiDAR) but have no page-showable auto dep (beam-farm's only dep
+  is a <150-yr topo -> auto None; piketon has no depictions.json), so the picker's 15
+  showable-dep eligibles are unchanged and ALL carry the Environment Agency credit. The
+  picks re-derive exactly as before: A = [38] oswestry-castle-q20713795 (bar 0.1646/rot 0),
+  B = [45] devil-s-dyke-q3307343 (picture_size 0.7201/coarse/rot 0) via the credit-differ
+  FALLBACK (no eligible differs from A's EA credit). The 241-note "25" and this "25" are
+  different sets - the previous 25 included no-dep sites the picker drops; the count is not
+  stable, the picker is.
+- Both book pages exist in the checkout's data/raw at exactly their recorded size (n0119.jpg
+  and n0662.jpg, (3367,5050)) -> fitkit's _fkFrameScale = 1, no fallback path.
+- Item files: oswestry's is keyed by the queue row itself (one candidate, 3 pairs);
+  devil-s-dyke's is keyed by the LEAD candidate n0599 (3 candidates: n0599/n0686/n0662; the
+  queue row n0662 is the third, 4 pairs, why 'line check: fabricated anchor pattern...').
+  Both unresolved; both sites in the open list (457 open). The test finds item files by the
+  `site` field, never by name.
+- depictions.json for both: [six-inch-1st.webp 1842 map, os1inch.webp 1900 map]; the 150-yr
+  surveyOldEnough filter (index.html L431, now = current year) drops the 1900 one (126 yrs)
+  -> the page's auto-dep (select's `ds.find(DRAWING) || ds.filter(map).pop()`, L834-836) is
+  six-inch-1st.webp for both; current sites.json: drawings 0, score 1.1 (t2), oldest 1842,
+  lidar None. After the hand fit: score = round(best + 0.25*rest, 2) with the plan overlay
+  (1908, rms(resid_m) ~ 0) vs the map (1842, SERIES_ERR_M 8 for 'Ordnance Survey six-inch')
+  -> ~1.46, still t2 (the marker TIER does not change; the score/square do).
+- The page's reload contract (select L822-838): UNCONDITIONALLY S.ground='imagery',
+  plateMode/depMode='ink' (L828 "every site opens on the aerial photograph") - so the reload
+  check asserts S.ground==='imagery' even for these LiDAR sites; S.depSel persists from
+  localStorage (aw.depSel, L319) and beats select's default pick; applyDep (L439) then shows
+  the overlay's ink webp (depMode 'ink'). boot (L1700-1706) drives select from '#<site>'.
+- saveFit (L1150-1185) and the _fqSaveFit wrapper (fitqueue.js L117-134) confirmed as in the
+  241 notes: doc fields, 60x1.5s overlay poll, S.dep[site]=RAW depictions (unfiltered) then
+  S.depSel=overlay, sites.json re-fetch (drawings/score/oldest/overlays), marker class
+  `marker ${tierOf(s)}` (TIERS L475-476), dep layer removed + endFit (fitkit re-applies) +
+  applyDep; the wrapper GETs the doc and on existence sets FQ.done[site]=ISO + lsSet +
+  fqPatch (card moves to the next fqPending entry). openDb (L1519) is the LOCAL /api/db
+  store (no external network).
+- The one-site line (serve.py _fit_line L240-256 -> site_done.main([site])) prints
+  "  one-site line for <site>: finished (exit 0)" (two-space indent) and, for uncovered=0,
+  "fit  N candidate picture(s): N fitted (doc), M in the review item -> no batch run
+  needed" (site_done L113). review.export(root, site) records resolved {doc, at: doc.at}
+  write-once into that site's item only, republishes web/data/review.json over the whole
+  queue; the write-once condition (item not already resolved) means B's run does not rewrite
+  A's item file. plan_fit.build (MAX_PX=2400 at L44) writes plan_<plan>.webp + _ink.webp,
+  the depictions entry (year = first 4-digit year in book+label = 1908; fit.m_per_px =
+  abs(a)*k/f rounded 4dp, f = min(1, MAX_PX/max crop px); rot rounded 2dp; resid rounded
+  1dp), then build_site.set_drawings (flock on sites.json.lock).
+- The probe mechanics to copy verbatim from 307bb's PLACE_PROBE (L1289-1650): the HELPERS
+  (_fkvAnchorAt/_fkvFitChecks), the seed checks, the drag (absolute from press-down), the
+  wheel (absorb-first: wheelBase = simFit(P.pairs).mpx) and shift+wheel (1 deg/100), the
+  gesture/reqfail rules. 307d's probe adds: the in-page line-effect polls (fetches to the
+  tree: depictions.json, sites.json, the item file, review.json, FQ.done, the next-pending
+  card - the fqPending rule is FQ.entries.filter(e => e && e.site && S.byId[e.site] &&
+  !(e.site in FQ.done) && !FQ.skipped.includes(e.site))[0]) and the page.reload() + reload
+  checks; screenshots 1-card/2-placed/3-gestured/4-saved/5-reload.
+- The full test spec (picker, fixture, probe flow, the nine Python-side checks incl. the
+  extended write-surface over both sites' checkout web dirs + fit_queue.json, the stdlib
+  simFit port, the score recomputation) is written out in the task hand-over - the next
+  session writes tests/test_owner_check.py directly from it, runs it (~5-10 min), then the
+  docs/site_flow.md section. The only known red in the suite stays 235's marietta dep:null
+  placement test; my test must not depend on it or on test_fit_queue.py (235's file).
+
+
 <!-- task 308 -->
 # Task 308 arrowhead-markers
 
