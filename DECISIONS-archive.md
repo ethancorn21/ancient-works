@@ -6255,6 +6255,46 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
   state unchanged from 180/181 (149 passed, 1 skipped, 1 red = agent a's in-flight 307
   placement seed).
 
+## 2026-10-13 306e DECISION: iteration 183 - old-sarum DONE: both orphan docs (c_ff62 Basire 1806, c_0410 Ditchfield 1901) judged DELETED and removed the 303 way; 4 of 17 lines written; remaining 13 docs (10 sites) next
+- Fixed /tmp/aw306e_meas.py's syntax error (one extra close-paren on the "inner ring radii" line)
+  and ran it. Results: the drawn inner 'Castle Well' circle is centred E+18 / N-31 (~35 m SE of the
+  site point), radius median 115 m (p10/p90 84/140), vs the real moated 'Castle' r~85 m centred on
+  the site point. The per-azimuth "farthest ink" probe saturated at the rmax cap (318-319 px in most
+  azimuths) because the plate is FULLY HATCHED: the strong-ink mask (alpha>120) covers ~34% of the
+  plate at a flat annulus density (~10/px), so a drawn ring radius cannot be isolated by luminance
+  thresholding. Filed this as a new PITFALLS entry (web/ section, alongside the 182 ink/simFit
+  facts): for a dense plate, read drawn radii off the 800 m box grid composite or the fitted
+  aerial/relief screenshots, not an ink histogram.
+- Judged: c_0410 DELETED (goodrich/oversize class - centre ~right, drawn outer ring reaches
+  ~450-480 m S/SE vs the real 250-275 m, drawn S 'Leaving Street' ~150 m past the real hill edge
+  over the flat 'Old Sarum Farm' ground; radii read off the grid composite + the fitted shots).
+  c_ff62 DELETED (wrong place, right kind - the 6 anchors are a perfect 100-px ladder so the fit is
+  exactly 2.000 m/px / 0.0 deg / residuals 0.0 with no placement information; the site point
+  inverse-maps to blank paper and the drawn 780 m schematic ring sits 440 m E / 180 m S over the SE
+  farmland).
+- Executed the 303 way for both (fit/review.py API, no hand-edited JSON):
+  upsert_item(root,'old-sarum-q782719',[entry_ff62, entry_0410]) appended both AFTER the existing
+  coarse candidate c_b2701b5231da42f2 (each entry = {plan, title, url, pairs (the doc's own),
+  coarse:false, evidence (via candidate_evidence), label, cite, ref, size, place_reason '306e audit
+  2026-10-13: ... Document deleted.'}); deleted both data/db/platefits/old-sarum-q782719.c_*.json;
+  then export(root,'old-sarum-q782719') (n_open 342, n_total 355 - unchanged). The item file keeps
+  the name old-sarum-q782719.c_b2701b5231da42f2.json (lead unchanged) and stays open (no candidate
+  has a doc); the site stays covered for the union check (union_check: covered=True - its two
+  built depictions c_8192abb966d030a3 + earthworkenglan01allcgoog_n0142_1 plus the open item;
+  old-sarum not in missing; orphan_docs / orphan_items / bad_doc_names all empty). Only 3 files
+  changed: D the 2 docs, M the item, M web/data/review.json.
+- Wrote the two old-sarum lines into the 306e block of docs/site_flow.md (after the okehampton
+  line, before the 308 arrowheads section) - that makes 4 of 17 lines done.
+- Full suite (.venv/bin/python -m pytest -p no:cacheprovider): 149 passed, 1 skipped, 1 failed in
+  271 s. The one failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser - the
+  known pre-existing red (agent a's 307 seed; 'the gestures own the mouse' + 404 /tiles/relief),
+  identical to the 182 baseline. No NEW failure from this change (the union tests and
+  test_platefits_docs_match_sites are green).
+- Next: the remaining 13 docs (10 sites) - oxford, pilsbury, pontefract x2, portus-adurni x2, raby,
+  richborough, stanton-drew, taunton, windmill-hill n0558_2 (model None - merge into the existing
+  item, do not create a second), york x2 (c_a7db = toponymic collision with Center, NEW YORK -
+  almost certainly DELETED wrong place).
+
 
 <!-- task 307a -->
 # Task 307a place-check
