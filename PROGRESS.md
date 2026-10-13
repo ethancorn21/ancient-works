@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 226, agent a - LIVE SYNC IN FLIGHT at the context limit: nohup
+- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 227, agent a - LIVE SYNC COMPLETE AND VERIFIED; sync artifacts + memory UNCOMMITTED (harness saves them). **NEXT: step 4 (suite
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -110,39 +110,6 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
-### 2026-10-13 212b DECISION: sync phase gains the trailing full review export (box 1's code done); dry-run script written but not run (context limit); live run is next
-Session 224 (agent a, first session on 212b after my 212a).
-1. fit/cover.py `sync()` now ends with `n_open, n_total = review.export(root)` after
-   `plan_fit.prune(root)` and prints the open/total line: box 1's "and the review
-   export". Rationale: PITFALLS 1171 (web/data/review.json is a derived page - doc
-   changes without a full export leave test_fit_provenance/test_site_done/
-   test_fit_queue red on every branch); sync is the one page-facing writer of the doc
-   world, so the export lands with the overlays. Docstrings updated (module phase list
-   + sync's own). My Touches line gained data/db/platefits (stamp-by:agent / pattern
-   delete) and data/review/ (per-doc containment upserts + the export's write-once
-   resolution records) BEFORE touching them. The edit is uncommitted (harness-saved).
-2. Live world re-measured (.venv): 131 docs (21 hand + 110 agent + 0 unmarked); 105
-   commons (big cache has 72 -> 54 will download in the live sync) + 26 book (all local
-   files present); all docs have ref+crop; is_done=0 for ALL 131 (checkout view) -> the
-   live sync rebuilds every overlay; 94 doc sites (80 symlinked to the store, 14 real
-   checkout dirs - separate copies); 499 built sites, 36 drawings>0; review.json 333
-   open of 346 items (14 recorded resolutions). The store (/home/agent/projects/
-   ancient-works) is a git checkout of main at 77bdf5d, clean except .venv - writes
-   through my 382 site symlinks land in its working tree (shared canonical home; same
-   pattern the batches used). Git tracks only 6 site dirs; among doc sites:
-   forthill/marietta/newark (all real dirs) - the only committable per-site artifacts
-   of the live run. All JSON writers on this path are atomic (tmp + os.replace) ->
-   hard-link trees safe.
-3. Dry run: /tmp/aw212b-dryrun.py (hard-linked tree with web/data/sites FOLLOWED into
-   real dirs, big stand-ins for all 105 commons docs, socket guard, store + golden +
-   item + review.json + drawings before/after reporting). NOT RUN: first invocation
-   died on line 24, `os.path.mkdtemp` (AttributeError - fix: tempfile.mkdtemp). That
-   is the exact next step, then the live run (box 1+2 evidence) + commit, then box 3's
-   test (parent design, 212-cover-final's D1-D5/CHOOSE sections).
-4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
-   path in the edit); 212a's file restored byte-identical (git diff clean before the
-   commit).
-
 ### 2026-10-13 212b DECISION: live sync launched 06:01 (nohup, /tmp/aw212b-live.out) and proceeding per the dry-run state predictions; NEW fact: data/db/platefits is hard-linked into the store (link 3) and was re-hardlinked with 3 extra store docs (argentoratum c_191c6221/c_436bea50/c_5badc8c8) around session start; agent c's suite is a concurrent writer through the store's site symlinks
 
 Session 226 (agent a). The 224/225 plan's NEXT STEP 2 (the live run) is executing:
@@ -215,6 +182,13 @@ hand-over; reconstructed it from .agent/sessions/iter-0225.jsonl (the command lo
    slip: the doc's authorship field is `by`, not `author` (a wrong-key one-liner
    reports 0 hand docs). Live run launched: nohup .venv/bin/python -X faulthandler -u
    fit/cover.py sync > /tmp/aw212b-live.out 2>&1 & (~16 min, no network).
+
+### 2026-10-13 212b DECISION: live sync finished and verified in iteration 227 - run 1 matched the dry run exactly (76 sent / 25 skipped / 30 synced / 0 failed, 365 open / 377 items), the 06:07 driver merge (0685a4c) put 2 burcht-van-leiden docs into my checkout AFTER run 1's once-at-start enumeration so run 2 (1m43s) synced just those two; all invariants verified; sync artifacts left uncommitted at the context limit (harness saves them; next session commits + runs the suite)
+Session 227 (agent a).
+1. Run 1 (launched iter 226 06:01:48) finished ~06:18: `sync: 131 document(s) over 94 site(s)`, `sync: 365 open of 377 item(s)`. Actions reproduced the dry run EXACTLY: 76 sent / 25 skipped / 30 synced / 0 failed - the NEW FACT (b) worry (agent c's concurrent store writes changing is_now) did not materialize; every decision was stable. NOTE: each skip prints 2 lines (plan_fit's picture-title line + cover's doc line) and each build prints 2, so raw grep counts read 76/50/60 - the cover-line counts are the true ones.
+2. MID-RUN MERGE (the only genuine delta): the driver merged main's 0685a4c (the lead's Burcht van Leiden port, committed 05:58:34; store received it 05:58) into my branch at 06:07:23 - AFTER run 1's _all_docs enumeration (~06:01:49, fit/cover.py sync() line ~136, one-shot `sorted(d.iterdir())`). Consequence: the 2 new burcht-van-leiden docs (c_2ed7167f77ea05d4, c_b790b0ce40d7d26b; by:agent, fitter:matcher) were NOT in run 1's list. Also 0685a4c swapped data/review/burcht-van-leiden.json for data/review/burcht-van-leiden.c_2da8ced53ce1c3da.json (the 3rd "burcht" in the merge stat is that ITEM file, not a doc - the truncated stat path made it look like a platefits doc), changed one moundville doc (+15 lines) and fit/matchfit.py (matcher skips dropped entries - run 1's in-memory module is unaffected, _sync_doc never calls matchfit.run). The driver's 4e1dabf ("uncommitted work after iteration 226") had already captured the run's first 5 sends (aldenhaag/alligator/avaricum/barnard/barwick: their platefits deletions + 2 new item files) and their sites.json entries (arras/avesnes-sur-helpe already drawings 1/3/5.1 in HEAD) - which is why the final diff is smaller than the action counts.
+3. Run 2 (this session, foreground, 1m43s, /tmp/aw212b-live2.out): `57 document(s) over 43 site(s)`, 0 sent / 0 failed, 2 builds, re-exported 365/377 (byte-stable). The burcht docs PASSED the agent line check (pattern None, spread ok, 8 pairs each) and were SYNCED: burcht-van-leiden sites.json = drawings 2 / overlays 3 / score 4.41; overlays (4 webps) in the store's site dir via the symlink; both docs kept in platefits. Store stayed clean both times (no tracked changes, only ?? .venv; store platefits still 133 - sends deleted only my checkout's dir entries, the 306a precedent; a later re-run is now all-skip and cheap).
+... (2.5 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: live sync finished and verified in iteration 227 - run 1 matched the dry run exactly (76 sent / 25 skipped / 30 synced / 0 failed, 365 open / 377 items), the 06:07 driver merge (0685a4c) put 2 burcht-van-leiden docs into my checkout AFTER run 1's once-at-start enumeration so run 2 (1m43s) synced just those two; all invariants verified; sync artifacts left uncommitted at the context limit (harness saves them; next session commits + runs the suite)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
