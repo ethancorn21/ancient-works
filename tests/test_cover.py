@@ -171,6 +171,23 @@ class Fakes:
         commons.time.sleep = saved["time.sleep"]
 
 
+def _no_network(saved):
+    """The socket guard: any connection attempt - by a phase route the fakes missed - fails loudly
+    instead of touching the network. Held from the baseline re-export to the last phase."""
+    def guard(*a, **k):
+        raise AssertionError("the 212a test never opens a socket: %r" % (a[:2],))
+    saved["socket.create_connection"] = socket.create_connection
+    saved["socket.socket.connect"] = socket.socket.connect
+    socket.create_connection = guard
+    socket.socket.connect = guard
+
+
+def _network_again(saved):
+    if "socket.create_connection" in saved:
+        socket.create_connection = saved.pop("socket.create_connection")
+        socket.socket.connect = saved.pop("socket.socket.connect")
+
+
 # ---------------------------------------------------------------- the world (state-aware)
 
 def build_world():
@@ -248,24 +265,26 @@ def build_world():
 
 def _link_dir(src, dst, skip=(), in_place=None, follow=()):
     """Hard-link every file of src into dst (new directory inodes, shared file inodes); a symlink is
-    re-linked, never followed, unless its name is in `follow` (then its target is walked). Writes the
-    phases make in dst are new inodes and never touch the originals."""
+    re-linked, never followed, unless its name is in `follow` (then its target is walked). `skip` holds
+    paths relative to src whose subtree is neither linked nor walked. Writes the phases make in dst
+    are new inodes and never touch the originals."""
+    skip = set(skip)
     os.makedirs(dst, exist_ok=True)
     for dirpath, dirnames, filenames in os.walk(src):
         rel = os.path.relpath(dirpath, src)
         d = dst if rel == "." else os.path.join(dst, rel)
         os.makedirs(d, exist_ok=True)
-        for name in dirnames:
+        for name in list(dirnames):
             s = os.path.join(dirpath, name)
-            if name in skip:
+            if os.path.relpath(s, src) in skip:
+                dirnames.remove(name)  # not linked, not walked
                 continue
             if os.path.islink(s):
                 if name in follow:  # a symlinked subtree that must be a real (linked) tree here
-                    _link_dir(os.readlink(s), os.path.join(d, name), skip, in_place, ())
+                    _link_dir(os.path.realpath(s), os.path.join(d, name), skip, in_place, ())
                 else:
                     os.symlink(os.readlink(s), os.path.join(d, name))
                 continue
-            # a symlinked subdirectory that is neither skipped nor followed: leave it un-walked
         for name in filenames:
             s = os.path.join(dirpath, name)
             if name.endswith((".npy", ".npz")):
@@ -283,28 +302,16 @@ def build_tree(tree, include_sites=False):
     """The throwaway tree (D3, 212a-scoped): web/ data/ docs/ specs/ tests/ hard-linked (the 3 in-place
     files copied); data/raw a REAL directory of hard links to the shared store (the phases write new
     copies into it - never the store's); web/data/sites/<id> skipped unless include_sites (the parent's
-    sync needs them; the 212a phases never touch them)."""
+    sync needs them; the 212a phases never open them - an empty dir is left, as before)."""
     for top in ("web", "data", "docs", "specs", "tests"):
         skip = set()
-        follow = set()
         if top == "data":
             skip.add("raw")  # rebuilt from the store as a real directory below
         if top == "web" and not include_sites:
-            follow = set()
-            # web/data/sites holds the per-site symlinks: skip the whole directory
-            _link_dir(os.path.join(ROOT, "web"), os.path.join(tree, "web"), in_place=IN_PLACE)
-            # remove the linked sites dir: the 212a phases never open it
-            sd = os.path.join(tree, "web", "data", "sites")
-            if os.path.isdir(sd) and not os.path.islink(sd):
-                for n in os.listdir(sd):
-                    p = os.path.join(sd, n)
-                    if os.path.islink(p):
-                        os.unlink(p)
-                    elif os.path.isdir(p):
-                        shutil.rmtree(p)
-                continue
-        if top != "web":
-            _link_dir(os.path.join(ROOT, top), os.path.join(tree, top), skip=skip, in_place=IN_PLACE)
+            skip.add("data/sites")
+        _link_dir(os.path.join(ROOT, top), os.path.join(tree, top), skip=skip, in_place=IN_PLACE)
+    if not include_sites:
+        os.makedirs(os.path.join(tree, "web", "data", "sites"), exist_ok=True)
     # data/raw: a real directory of hard links to the store (every file, new inodes for new writes)
     raw = os.path.join(tree, "data", "raw")
     _link_dir(STORE, raw)
@@ -371,7 +378,9 @@ def expected_record(sid, site, world, fakes):
             "cat": fakes.cat, "n_cat_files": 4, "n_p180": 1, "n_p180_gathered": 4,
             "n_title_hits": 2, "n_gathered": 4, "n_kept": 2,
             "new": [
-                {"title": fakes.t_plan, "via": ["cat", "claims", "p180"], "wd_plan": True,
+                # the plan file is gathered by every route: the category, the P3311 claims, the P180
+                # re-test and the title search (tags accumulate, sorted on the record)
+                {"title": fakes.t_plan, "via": ["cat", "claims", "p180", "title"], "wd_plan": True,
                  "meta": fakes.meta(fakes.t_plan)},
                 {"title": fakes.t_view, "via": ["cat", "title"], "wd_plan": False,
                  "meta": fakes.meta(fakes.t_view)},
@@ -406,12 +415,15 @@ def expected_searched(rec):
 
 
 def planned_row(hit, t, name, when, fakes):
-    """The exact 13-column plans.json row the stage phase's re-export must write for a staged
-    picture (tools/export_plans.py::commons_rows, field for field)."""
+    """The exact plans.json row the stage phase's re-export must write for a staged picture
+    (tools/export_plans.py::commons_rows, field for field), as a dict over the writer's 13 cols:
+    for a commons row title holds the picture's name, label its when, ref the File: title."""
     meta = fakes.meta(t)
     cite = meta["page"]  # artist/license empty in the fake: only the page survives
-    return ["c_" + _sha16(t), "Wikimedia Commons", None, None, name, when, [1280, 960],
-            None, [hit], cite, "media/commons/%s/%s.jpg" % (hit, _sha16(t)), False, t]
+    return {"id": "c_" + _sha16(t), "book": "Wikimedia Commons", "ia": None, "file": None,
+            "title": name, "label": when, "size": [1280, 960], "map_box": None,
+            "sites": [hit], "cite": cite, "url": "media/commons/%s/%s.jpg" % (hit, _sha16(t)),
+            "view": False, "ref": t}
 
 
 # ---------------------------------------------------------------- the run
@@ -437,23 +449,24 @@ def run(tmp_path_factory):
         "files_bytes": (Path(tree) / "data" / "commons" / "files.jsonl").read_bytes(),
         "classified_bytes": (Path(tree) / "data" / "commons" / "classified.jsonl").read_bytes(),
         "searches_bytes": None,
-        "items": {p: v["bytes"] for p, v in world["items"].items()},
+        "items": _tree_items(tree),  # tree paths: the same key space as after["items"]
         "checkout": checkout_hashes(),
     }
     assert before["plans_bytes"] == world["plans_bytes"], "the tree's plans.json must be a byte-copy"
 
-    # the baseline re-export of the PRISTINE tree: what this machine's export produces before any
-    # phase (the key-set arithmetic below is measured against it, so machine drift in the store
-    # reads as explainable environment, not a phase bug)
-    with contextlib.redirect_stdout(io.StringIO()):
-        cover._regen_plans(tree)
-    baseline = _plans_keys(tree)
-    (Path(tree) / "web" / "data" / "plans.json").write_bytes(before["plans_bytes"])  # restore the committed file
-
     saved = {}
     out = {"tree": tree, "world": world, "fakes": fakes, "before": before,
-           "keys_baseline": baseline, "stdout": {}, "n": {}, "records": None}
+           "stdout": {}, "n": {}, "records": None}
+    _no_network(saved)  # from here on (the baseline re-export included): no network on any route
     try:
+        # the baseline re-export of the PRISTINE tree: what this machine's export produces before
+        # any phase (the key-set arithmetic below is measured against it, so machine drift in the
+        # store reads as explainable environment, not a phase bug)
+        with contextlib.redirect_stdout(io.StringIO()):
+            cover._regen_plans(tree)
+        out["keys_baseline"] = _plans_keys(tree)
+        (Path(tree) / "web" / "data" / "plans.json").write_bytes(before["plans_bytes"])  # restore the committed file
+
         fakes.install(saved)
         for phase in PHASES:
             buf = io.StringIO()
@@ -468,7 +481,8 @@ def run(tmp_path_factory):
                 elif phase == "nopicture":
                     out["n"]["marked"] = cover.nopicture(tree)
             out["stdout"][phase] = buf.getvalue()
-        out["keys_after_fetch"] = _plans_keys(tree)
+            if phase in ("fetch", "stage"):  # the key set right after this phase's own re-export
+                out["keys_after_" + phase] = _plans_keys(tree)
 
         # resumability: search re-runs nothing (everything recorded), stage re-stages nothing,
         # nopicture re-marks the same items (the at-timestamp re-stamp is the 201 contract)
@@ -489,21 +503,27 @@ def run(tmp_path_factory):
             out["n"]["marked2"] = cover.nopicture(tree)
         out["stdout"]["nopicture2"] = buf.getvalue()
     finally:
-        fakes.restore(saved)
+        if "commons.wd_claims" in saved:
+            fakes.restore(saved)
+        _network_again(saved)
 
     after = {
         "searches_bytes": (Path(tree) / "data" / "cover" / "searches.json").read_bytes(),
-        "items": {},
+        "items": _tree_items(tree),
         "checkout": checkout_hashes(),
     }
-    d = Path(tree) / "data" / "review"
-    for p in sorted(d.iterdir()) if d.is_dir() else []:
-        if p.suffix == ".json":
-            after["items"][str(p)] = p.read_bytes()
     out["after"] = after
-    out["keys_after_stage"] = _plans_keys(tree)
     out["store_hit_dir"] = os.path.join(STORE, "commons", world["hit"])
     return out
+
+
+def _tree_items(tree):
+    """{path: bytes} of every item file in the tree's data/review - the before/after snapshots
+    (tree paths, so the two key sets match)."""
+    d = Path(tree) / "data" / "review"
+    if not d.is_dir():
+        return {}
+    return {str(p): p.read_bytes() for p in sorted(d.iterdir()) if p.suffix == ".json"}
 
 
 def _plans_keys(tree):
@@ -569,18 +589,12 @@ def test_counts(run):
     s, ss = run["stdout"], run["ss_at_search"]
 
     f = s["fetch"].splitlines()
-    assert f[0] == "fetch: %d row(s) with a local copy, %d without a source, fetched %d thumb(s) + %d url-only" % (
-        world["n_have"], world["n_nosrc"], n["fetch"] - sum(1 for k in world["kept"] if not k["has_copy"] and k["fetchable"] and not k["thumb"]) and 0 or 0, 0) or True  # placeholder, replaced below
-    # the fetch line is the product's own arithmetic over the kept rows: mirror it exactly
-    miss = [k for k in world["kept"] if not k["has_copy"]]
-    exp_fetch = "fetch: %d row(s) with a local copy, %d without a source, fetched 0 thumb(s) + 0 url-only" % (
-        world["n_have"] + sum(1 for k in miss if not k["fetchable"]), 0, ) if False else None
-    # (the two placeholder lines above are replaced by the single checked line below)
-    assert f and f[0].startswith("fetch: ")
-    got = f[0]
-    exp = "fetch: %d row(s) with a local copy, %d without a source, fetched 0 thumb(s) + 0 url-only" % (
-        world["n_have"], world["n_nosrc"])
-    assert got == exp, "got %r exp %r" % (got, exp)
+    # the fetch line is the product's own arithmetic over the kept rows: the no-source rows count in
+    # "with a local copy" (neither fetched nor fetchable), and the fake fetch never fails
+    exp = "fetch: %d row(s) with a local copy, %d without a source, fetched %d thumb(s) + %d url-only" % (
+        world["n_have"] + world["n_nosrc"], world["n_nosrc"], world["n_thumb"], world["n_url"])
+    assert f[0] == exp, "got %r exp %r" % (f[0], exp)
+    assert n["fetch"] == world["n_thumb"] + world["n_url"]
     # the fetch phase's re-export reports the same row count the key set has
     assert any("%d plans," % len(run["keys_after_fetch"]) in line for line in f), s["fetch"]
 
@@ -666,13 +680,13 @@ def test_stage(run):
     assert rows["c_" + _sha16(fakes.t_plan)] == planned_row(hit, fakes.t_plan, "Plan of %s (c. 1701)" % name, "1701", fakes)
     assert rows["c_" + _sha16(fakes.t_view)] == planned_row(hit, fakes.t_view, "View of %s (c. 1850)" % name, "1850", fakes)
 
-    # the re-run re-stages nothing and rewrites nothing
+    # the re-run re-stages nothing and rewrites nothing (the re-export is deterministic: same
+    # inputs, same bytes; files.jsonl and classified.jsonl were already pinned above)
     assert run["n"]["staged2"] == 0
     assert "stage: nothing new to stage" in run["stdout"]["stage2"]
-    assert run["after"]["files_bytes" if False else "searches_bytes"] is not None  # (files checked below via the stage2 plans)
-    assert run["plans_bytes_after_stage"] == json.loads(run["after"]["searches_bytes"] or "{}") and False or True  # placeholder
-    # the stage re-run's re-export is byte-identical (same inputs, deterministic writer)
     assert (Path(run["tree"]) / "web" / "data" / "plans.json").read_bytes() == run["plans_bytes_after_stage"]
+    assert (Path(run["tree"]) / "data" / "commons" / "files.jsonl").read_bytes() == run["files_bytes_after_stage"]
+    assert (Path(run["tree"]) / "data" / "commons" / "classified.jsonl").read_bytes() == run["classified_bytes_after_stage"]
 
 
 def test_nopicture(run):
