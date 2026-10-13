@@ -384,3 +384,70 @@ The closing session (iter-254). Subtasks 212a/212b/212c were all done and driver
 ## 2026-10-13 212 DRIVER: done claim rejected, task reopened
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
+## 2026-10-13 212 DECISION: the driver's rejection was factually right - 212b's sync moved the placement test's pick from oswestry (green) to marietta (red); the "pre-existing since iter 161/197" attribution in my iter-253/254 entries was wrong; the fix is 235's file, so 212 now carries Depends on: 235
+The driver reopened 212 (0b4dd2d) on one failing test:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+("not failing before this task"). I investigated before accepting or rebutting,
+and the driver was right. Measured this session (no code changed):
+- Current pick (re-simulated the test module's own `_pick_place()` + a stdlib
+  port of the page's filter): **marietta** (idx 29 of 241 in
+  web/data/fit_queue.json) - line-eligible (zero docs, unresolved item carrying
+  the squi row, local page) and dep file non-empty (ONE entry: the 1904 USGS
+  topo) - but the topo fails the page's surveyOldEnough 150-year filter
+  (1904 > 2026-150=1876), so the page never creates the `dep-marietta` layer
+  and the seed check reads dep:null -> red.
+- The tree just before 212b's final sync (870d4f9^ and 6ce742f^, checked with
+  `git ls-tree`): marietta had exactly ONE doc -
+  marietta.b24849959_n0195_1.json (a 301 pattern doc; blob 6996872 in both) -
+  so `_line_eligible` returned None (site has a doc) and the pick fell to
+  **oswestry-castle-q20713795** (idx 36), whose 1842 map survives the page
+  filter (its 1900 map does not) -> dep layer created -> seed 'none' -> GREEN.
+- **6ce742f** (Oct 13 06:31, "[driver] uncommitted work after iteration 227")
+  is 212b's final sync (306d's 08c0cf1 attributes it exactly that way; 306e's
+  6554a14 credits "212b's sync notes" on the item conflicts): it deleted that
+  doc among the 76 pattern docs the sync exists to delete, and upserted the
+  item entry recording it (why + the b248 candidate). With her last doc gone,
+  marietta (idx 29, before oswestry's 38) became the first line-eligible entry
+  with a non-empty dep file -> the pick moved -> red, on every tree since
+  (77405cf, my iter-253 sync, HEAD). 221's iter-237/238 recorded "pick still
+  marietta/1904-topo (77405cf's 103 new review items shifted nothing)" - that
+  observation was right but its cause (212b, not 77405cf) had already happened.
+- Side history, so the journal stays straight: the test went GREEN at 081c773
+  (307bb, Oct 12 05:02, "Suite 101 passed"); during 306c's Oct-12 audit era
+  (114-entry queue) its own audit deleted marietta's doc on agent c's branch
+  and the pick went red there (306d iter-161 and 306e iter-197 recorded "the
+  307bb gesture red, the baseline from both parents"); my 212 notes-only
+  phase's 229-entry regeneration (f0dfd66, Oct 12 23:23) put the pick back on
+  oswestry -> GREEN again; 6ce742f (212b) -> RED. The driver's 212 baseline
+  predates all of it, so its re-check flags the red against 212 - and my
+  iter-253/254 "pre-existing since ~iter 161" claim was wrong about the state
+  adjacent to my task (that phrasing copied the 306-era episode, whose red had
+  already been cured by f0dfd66). (b9cbc46, Oct 12 16:18 - a driver capture on
+  agent c's 306c branch swapping marietta's docs b248->squi - is NOT an
+  ancestor of main's pre-sync state; main kept the b248 doc until 6ce742f.)
+- The doc deletion itself was CORRECT and stays: the 306c audit had judged
+  that b248 doc ("scale right (1.0 m/px, the plate's own bar) but..."), the
+  pattern docs are 301's fabricated points, and the sync's item-upsert keeps
+  marietta covered by her open review item (the GOAL.md point-1 invariant
+  holds - 0/499, re-verified in iter 254 and unchanged this session). No
+  rollback, no stand-in.
+- The real defect is `_pick_place`: it checks what the SITE has (a non-empty
+  dep file), not what the PAGE will show (surveyOldEnough + the auto-select
+  rule). tasks/235 (open; its deps 306e and 307d are both done; listed in the
+  driver's "Next open tasks") owns tests/test_fit_queue.py and spells out
+  exactly this fix. Verified the post-fix pick on this very tree: **oswestry**
+  (idx 38 - propose, unresolved item, 3-pair candidate, local page, zero docs,
+  1842 map page-visible) -> once 235 lands the test is green with no further
+  data change, and 212's done re-claim passes the driver's suite gate. Per
+  team rules I did not touch 235's file: 212's `Depends on:` now carries 235.
+- Boxes: all six remain ticked and were re-verified this session on the
+  current tree (golden `sha256sum -c` 40/40 OK; test_cover 6/6 in 41.3 s;
+  test_review 5/5 in 50.6 s; the pick simulation above). The red test is not
+  part of any box's substance; it is the suite-level gate. Status stays
+  in-progress; the driver brings 212 back after 235 merges. On return:
+  (1) re-simulate `_pick_place()` (seconds) - if it is not oswestry, the
+  world moved (another doc deletion or queue regeneration) and re-run this
+  analysis; (2) run the full suite (expect fully green per 235's box 3);
+  (3) re-verify the boxes (golden, the 0/499 invariant on the served files,
+  test_cover, test_review, docs/batch.md seed 20261012); (4) re-claim done.

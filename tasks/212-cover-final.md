@@ -1,6 +1,6 @@
 Status: in-progress
 # 212: Cover - the last uncovered sites, the final sync, the report
-Depends on: 203a, 203b, 211
+Depends on: 203a, 203b, 211, 235 (235 is open with both its deps (306e, 307d) done: its fix to tests/test_fit_queue.py's _pick_place - mirror the page's dep filter - is what clears the driver's suite gate on 212's done re-claim; 212b's sync (6ce742f) moved the test's pick from oswestry (green) to marietta (red) by deleting marietta's 301 pattern doc, and that test file is 235's, not mine)
 Touches: fit/cover.py, data/db/platefits/ (the loop's matcher writes docs; the line check may delete a pattern doc; the sync may stamp by:agent into an unmarked auto doc), data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
 
 ## Goal
@@ -76,52 +76,67 @@ Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 
 
 ## Hand-over
 
-(2026-10-13, iteration 254, agent a - **TASK DONE.** All six boxes ticked,
-Status set to done. Subtasks 212a/212b/212c were already done and
-driver-accepted; this session re-verified the evidence on the current tree
-before ticking. No work remains; the iter-254 DECISIONS entry carries the
-verdict. The iter-253 hand-over (the full evidence record) is preserved in
-git: `git show 1de8d04:tasks/212-cover-final.md`.)
+(2026-10-13, iteration 255, agent a, written at the context limit -
+**investigation of the driver's done-claim rejection (0b4dd2d) is COMPLETE and
+recorded; the task now waits on 235.**) 
 
-**Re-verified this session (all measured on the current tree):**
-- `sha256sum -c tests/golden/hand_fit_docs.sha256` -> 40/40 OK (21 hand docs
-  + 19 site files byte-identical) -> box 3's "hand fits unchanged".
-- is_done-triple audit (entry `file` == `plan_<doc.plan>.webp` - site prefix
-  STRIPPED - AND `fit.doc` == `<sid>.<plan>` AND `fit.at` == the doc's `at`):
-  70/70 docs have a current overlay, 0 missing / 0 stale -> box 3's "every
-  fit document produces its overlay".
-- GOAL.md point 1 invariant on the served files: 499 sites, **0
-  violations** (every site: drawings >= 1 or an open review item; the open
-  set is web/data/review.json, which the page renders). fudge/highbank/
-  hopeton are covered by their site.json-plate (drawings=1).
-- web/data/review.json (at 2026-10-13T20:37): 457 open of 480 item files =
-  455 files with no `resolved` memo + 2 items (aesica-q4688554,
-  alligator-effigy-mound-q4732645) whose write-once memo points at a
-  since-deleted doc - export's doc-derived open rule (fit/review.py:189)
-  reopens them, and both sites (drawings=0) are covered exactly by that
-  openness. A naive memo-field check would miscount 455; the doc-derived
-  rule is the page's truth (PITFALLS, fit/review.py entry).
-- tests/test_review.py 5/5 PASSED (51.6 s, incl. test_page_shows_the_review_
-  list - box 4's page-level check) and tests/test_cover.py 6/6 PASSED
-  (41.6 s; test_report re-derives the 20-sample from the recorded seed
-  20261012 -> box 5/6 reproducibility).
-- docs/batch.md (@2026-10-13T20:38, committed in the driver's aee0bd5): 499
-  built; buckets sum to 499 (hand 19 / human-saved 0 / automatic 33 / item
-  200 / no-picture 244 / uncovered 3); the 20-sample with a page URL each;
-  the no-picture list with the exact searched string per site (box 5).
+**Where I am:** the driver rejected the iter-254 done claim on one test:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser. I
+verified the driver was FACTUALLY RIGHT (my iter-253/254 "pre-existing"
+attribution was wrong): 212b's final sync (6ce742f, Oct 13 06:31 - 306d's own
+attribution) deleted marietta's last doc (her 301 pattern doc
+b24849959_n0195_1), which flipped her to line-eligible and moved the test's
+derived pick from oswestry (idx 36, green - 1842 map page-visible) to
+marietta (idx 29, red - only a 1904 USGS topo, hidden by the page's
+surveyOldEnough filter -> dep:null at the seed check). Every tree since has
+been red. The doc deletion itself was correct (306c audit + 301 pattern
+class; marietta stays covered by her open item; the 0/499 invariant holds),
+so there is nothing to roll back. The real defect is `_pick_place` not
+mirroring the page's filter - that is tasks/235's file and goal.
 
-**Box 6 port-0 note:** the written port-0 test stays WAIVED per the lead's
-212b say-so (design in `git show 45675c9/1cd9671:tasks/212b-cover-sync.md`;
-the driver accepted the identical live-evidence tick for 212b). Box 6 is
-ticked on the measured substance above, per that precedent.
+**Changes made this session (committed with this hand-over unless noted):**
+- tasks/212-cover-final.md: `Depends on:` now carries 235 (235 is open; its
+deps 306e+307d are both done; it is in the driver's "Next open tasks");
+hand-over rewritten. Status left in-progress (the driver reschedules on the
+Depends line; it brings 212 back when 235 merges).
+- DECISIONS.md: full causal record ("the driver's rejection was factually
+right..." - includes the green/red episode timeline, the b9cbc46 side-note,
+and the return recipe).
+- PITFALLS.md: the tests/test_fit_queue.py entry corrected (its "a 307 bug,
+never a local change" claim is disproven) and merged with the new fact:
+any doc-deletion sync/audit can move `_pick_place`; simulate it before and
+after (it's a pure function over committed inputs).
 
-**Where the boxes' evidence lives:** boxes 1-2 = 212a's run and its
-recorded searches (tasks/212a-cover-search.md, done; the 244 exact-searched
-strings are in docs/batch.md's no-picture table); boxes 3-4 = the iter-253
-final sync (DECISIONS "iter-253 ran the closing step" - its stdout, 13
-synced / 57 skipped / 0 sent-failed-refused-pruned, is quoted there); box 5
-= docs/batch.md; box 6 = this session's measurements plus the two test runs
-above.
+**Tests as last run (this session, current tree):** golden
+`sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; tests/test_cover.py
+6/6 (41.3 s); tests/test_review.py 5/5 (50.6 s); `_pick_place()` re-simulated
+= marietta (idx 29 of 241). NOT re-run this session: the full suite, and the
+placement test itself (it is red; known and expected until 235). 
+
+**Current hypothesis:** once 235 lands its `_pick_place` fix, the pick on
+THIS tree is oswestry-castle (idx 38: propose, unresolved item, 3-pair
+candidate, local page, zero docs, 1842 map page-visible, 1900 map filtered)
+-> the test goes green with no further data change -> 212's done re-claim
+passes the driver's suite gate. 
+
+**Exact next step (when the driver brings 212 back, i.e. after 235 merges):**
+1. Re-simulate `_pick_place()` (a few seconds: import tests/test_fit_queue.py,
+call it). If it is NOT oswestry, the world moved - re-run the analysis in
+the DECISIONS entry first.
+2. Run the full suite (expect fully green per 235's box 3).
+3. Re-verify the boxes: golden sha256, the 0/499 invariant on the served
+files, tests/test_cover.py, tests/test_review.py, docs/batch.md (seed
+20261012).
+4. Re-claim done (all six boxes are already ticked and stand; the port-0
+test stays waived per the lead's 212b say-so - see the 212b task file in
+git: `git show 45675c9/1cd9671:tasks/212b-cover-sync.md`).
+
+**Box evidence pointers (unchanged from the iter-254 record, kept in git at
+tag-less commit 1242a31 / file 1de8d04):** boxes 1-2 = 212a's run (tasks/
+212a-cover-search.md; the 244 exact-searched strings are in docs/batch.md);
+boxes 3-4 = the iter-253 final sync (DECISIONS "iter-253 ran the closing
+step": 13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open);
+box 5 = docs/batch.md; box 6 = the measurements in the DECISIONS entry above.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
