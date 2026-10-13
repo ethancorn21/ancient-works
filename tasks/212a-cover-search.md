@@ -30,8 +30,10 @@ note ef84a05 - the matcher is the fit, never the vision-model fit).
 ## Hand-over
 
 (2026-10-13, iteration 221, agent a - the live SEARCH phase ran and is committed;
-the STAGE phase is blocked on a human classifier decision (ask_human filed,
-blocking); the rest of the live run is one session once the answer lands.
+the STAGE phase is blocked on a human classifier decision - ask_human filed
+as request 003 (.agent/asks/003.md, blocking) and THIS TASK NOW WAITS ON IT;
+when the answer arrives: do (a) or (b) per its text, then the EXACT NEXT
+STEPS 1-6 below in one session.
 
 **STATE:** Box 4 half-executed. The search phase ran LIVE today (08:08-08:44
 UTC, `.venv/bin/python fit/cover.py search` on this checkout; resumable
