@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 208, agent a - measurement session. Step (2) of the
+- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 209, agent a - RE-VERIFICATION session on the current
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
