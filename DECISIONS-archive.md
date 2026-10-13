@@ -2478,6 +2478,16 @@ Chose to build the site inside 206 (adding the two store paths to my Touches) ov
 Step: main unmoved since iter 90's sync (1dcbc06; main...agent/a = 0/8, all bookkeeping). Prechecked: dem_sources.source_for_bbox(800 m box) = "ea" (EA 1 m LiDAR, epsg 27700; Cheshire inside the ENGLAND area), nls.covers = True, not in specs/aliases.json. Ran `.venv/bin/python pipeline/build_catalog.py --ids shotwick-castle-q7502621`: 17 s, "built 1, skipped 0, failed 0" (relief clip 1.2 m; OS six-inch 1st edition 1842 from NLS, coverage 1.0; Wikipedia summary). web/data/sites.json 384->385: exactly one entry added (corners, size_m [800,800], drawings 0, lidar_credit EA, summary), the other 384 byte-identical (verified by parsed diff; only the name-sorted insertion point shifted). The 3 reds: union_check PASS, union_full_coverage_live SKIP (its "Sites run: 294" gate vs the grown live EU list 295 - a skip, not a failure; 203b/212 re-covers), test_serve PASS. Full suite: 64 passed / 1 skipped / 0 failed (63.91 s; was 62/3). Decision: Status done. If rejected again: ask_human (a policy question - the lead's cycle-cut vs the driver's rule - with this evidence), not another re-verification pass.
 
 
+<!-- task 207a -->
+# Task 207a horsley
+
+## 2026-10-13 207a DECISION: first session - module fit/src_roman_horsley.py created (register/fetch/status/triage/list legs); all 936 triage pages fetched; next step is triage A in the background
+- Module pattern: 209b's Stukeley (the book really is on IA: no local-copy wrap, the machinery runs unmodified; register() only adds the BOOKS entry, and - once HORSEY_PLATES is transcribed - injects it into books_lists.PLATES in-process). NO LLM_URLS patch: books.py's default LLM_PORTS is now "8080,8081,8082,18080,18081" (215 re-pointed it), and 8080/8081 answer (8082 down) - the parent's "patch books.LLM_URLS" mechanics note is stale on that point.
+- Fetch measured: 936 pages in ~10 min at 2 workers (~4 s/page, IIIF 1400 px JPEG q88; median output 812x1400, every file 1300+ px long side, zero failures, one auto-retry after an SSL handshake timeout - books.get tries=2). No IIIF problem like Allcroft's NO_IIIF case.
+- The hOCR pageindex has 942 pages against the bookreader's 936 leaves (6 extra) - the civitates-style misalignment: text looked up by hOCR index can land on the wrong leaf; the leaf images are the ground truth. The printed list of plates is hOCR-silent (i53-i68, between the preface ending i52/printed xxxii and the body starting i69) and must be transcribed by eye from the triage images (the Stukeley/213 hand-list pattern).
+- Suite re-baseline this session (the parent's hand-over asked for it): 1 failed / 155 passed / 1 skipped (312 s); the lone red is agent a's in-flight 307 placement test, the same signature 306d recorded at 161/201.
+
+
 <!-- task 207c -->
 # Task 207c roy
 
