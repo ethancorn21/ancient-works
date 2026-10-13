@@ -12,7 +12,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 187, agent c - **merged main** (the only conflict: the review.json
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 188, agent c - **the PENDING 187 PITFALLS entry is filed** (new entry in
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -53,46 +53,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
 
-### 2026-10-13 306e DECISION: iteration 183 - old-sarum DONE: both orphan docs (c_ff62 Basire 1806, c_0410 Ditchfield 1901) judged DELETED and removed the 303 way; 4 of 17 lines written; remaining 13 docs (10 sites) next
-- Fixed /tmp/aw306e_meas.py's syntax error (one extra close-paren on the "inner ring radii" line)
-  and ran it. Results: the drawn inner 'Castle Well' circle is centred E+18 / N-31 (~35 m SE of the
-  site point), radius median 115 m (p10/p90 84/140), vs the real moated 'Castle' r~85 m centred on
-  the site point. The per-azimuth "farthest ink" probe saturated at the rmax cap (318-319 px in most
-  azimuths) because the plate is FULLY HATCHED: the strong-ink mask (alpha>120) covers ~34% of the
-  plate at a flat annulus density (~10/px), so a drawn ring radius cannot be isolated by luminance
-  thresholding. Filed this as a new PITFALLS entry (web/ section, alongside the 182 ink/simFit
-  facts): for a dense plate, read drawn radii off the 800 m box grid composite or the fitted
-  aerial/relief screenshots, not an ink histogram.
-- Judged: c_0410 DELETED (goodrich/oversize class - centre ~right, drawn outer ring reaches
-  ~450-480 m S/SE vs the real 250-275 m, drawn S 'Leaving Street' ~150 m past the real hill edge
-  over the flat 'Old Sarum Farm' ground; radii read off the grid composite + the fitted shots).
-  c_ff62 DELETED (wrong place, right kind - the 6 anchors are a perfect 100-px ladder so the fit is
-  exactly 2.000 m/px / 0.0 deg / residuals 0.0 with no placement information; the site point
-  inverse-maps to blank paper and the drawn 780 m schematic ring sits 440 m E / 180 m S over the SE
-  farmland).
-- Executed the 303 way for both (fit/review.py API, no hand-edited JSON):
-  upsert_item(root,'old-sarum-q782719',[entry_ff62, entry_0410]) appended both AFTER the existing
-  coarse candidate c_b2701b5231da42f2 (each entry = {plan, title, url, pairs (the doc's own),
-  coarse:false, evidence (via candidate_evidence), label, cite, ref, size, place_reason '306e audit
-  2026-10-13: ... Document deleted.'}); deleted both data/db/platefits/old-sarum-q782719.c_*.json;
-  then export(root,'old-sarum-q782719') (n_open 342, n_total 355 - unchanged). The item file keeps
-  the name old-sarum-q782719.c_b2701b5231da42f2.json (lead unchanged) and stays open (no candidate
-  has a doc); the site stays covered for the union check (union_check: covered=True - its two
-  built depictions c_8192abb966d030a3 + earthworkenglan01allcgoog_n0142_1 plus the open item;
-  old-sarum not in missing; orphan_docs / orphan_items / bad_doc_names all empty). Only 3 files
-  changed: D the 2 docs, M the item, M web/data/review.json.
-- Wrote the two old-sarum lines into the 306e block of docs/site_flow.md (after the okehampton
-  line, before the 308 arrowheads section) - that makes 4 of 17 lines done.
-- Full suite (.venv/bin/python -m pytest -p no:cacheprovider): 149 passed, 1 skipped, 1 failed in
-  271 s. The one failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser - the
-  known pre-existing red (agent a's 307 seed; 'the gestures own the mouse' + 404 /tiles/relief),
-  identical to the 182 baseline. No NEW failure from this change (the union tests and
-  test_platefits_docs_match_sites are green).
-- Next: the remaining 13 docs (10 sites) - oxford, pilsbury, pontefract x2, portus-adurni x2, raby,
-  richborough, stanton-drew, taunton, windmill-hill n0558_2 (model None - merge into the existing
-  item, do not create a second), york x2 (c_a7db = toponymic collision with Center, NEW YORK -
-  almost certainly DELETED wrong place).
-
 ### 2026-10-13 306e DECISION: iteration 184 - oxford-castle c_ba6b308580428184 (Mackenzie 1897 'THE FORTRESS OF OXFORD') judged DELETED (wrong place, right kind) - keep 174 m south of its real moated island; the 303 removal is the NEXT session's first step (exact recipe in the task hand-over)
 - Judged DELETED. The 4 stored anchors are a PERFECT 100-px diagonal ladder (300,300)-(400,400)-
   (500,500)-(600,600) -> the fit is exactly 1.000 m/px, -0.00 deg, all residuals 0.0 (verified by
@@ -132,6 +92,11 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - Wrote the oxford line into the 306e block of docs/site_flow.md (after the old-sarum c_0410 line, before '## The site markers become arrowheads (task 308, 2026-10-13)') - that is 5 of 17 lines.
 - Full suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider): 149 passed, 1 skipped, 1 failed (270.6 s) - IDENTICAL to the 183 baseline; the 1 is agent a's in-flight 307 test_fit_queue::test_placement_gestures_and_save_in_the_browser (the known pre-existing red: 'the gestures own the mouse' + 404 /tiles/relief). No NEW failure from this change (union check: oxford stays covered - its built 1842 depiction plus the new open item; test_platefits_docs_match_sites green).
 - Next: judge the remaining 12 docs (9 sites, listed in the hand-over); first = pilsbury-castle-q7194511.c_7ff765c177ca7bae (no item).
+
+### 2026-10-13 306e DECISION: iteration 188 - filed the PENDING 187 PITFALLS entry (web/: the review.json merge-conflict recurrence); pontefract judged in depth - c_3213330a52fe6018 KEEPS (drawn castle centred on the real moated mound at the site point), c_d135fb32326df430 DELETED the 303 way (site point on the plate's Newgate/Head Lands fields; drawn castle 17 ~520 m SSE of the real castle); 8 of 17 lines written
+- Housekeeping first, as the 187 hand-over demanded: the pending PITFALLS entry. DISCOVERY: the 186 and 187 306e journal entries are LOST - neither is in DECISIONS.md, DECISIONS-archive.md, or any git commit (the 187 session's context limit closed it before those writes landed; the driver's post-187 harness-save commit 9c40f48 carried only docs/site_flow.md and the task file). So the hand-over's "exact text in the 187 DECISIONS entry, section 2" no longer exists anywhere; I re-filed the entry from the hand-over's description into the `### web/` section after the simFit-inversion entry (where the hand-over says it was to go): merging main after your branch re-exported web/data/review.json conflicts on the "at" line only (keep the newer; the later export reflects the later store state), and the auto-merged items union must be verified (json.load + count against both parents + spot-check each side's known additions; a mismatch means run a full fit/review.py export over the merged item files instead of hand-reconciling). The 169 platefits-section entry (the original of this fact) was left intact - a future PITFALLS sweep can fold the two together.
+- Replicated the page's simFit on both pontefract docs and matched the committed shots' [eval] exactly (the /tmp/aw306e_fit.py recipe: least squares over w=[u,-v] against true-Mercator z; at(u,v) takes PAGE coords - a first draft with the flipped v gave 4.2e6 m residuals and garbage anchor geos, fixed by using v_page in at(): the 182 simFit-inversion PITFALLS is the reference). c_3213: 0.60 m/px, +1.1 deg, resid 5.5-37.3 (8 anchors: the v=1089 row u 328/624/920, the u=870 column v 842/1337/1584, plus (378,842) and (378,1337) - a near-regular grid, ladder class). c_d135: 0.72 m/px, -0.1 deg, resid 6.0-35.6 (8 anchors = a 199-200 m per 100 px grid: u/v 100/200/500/800/1000 - the bury-castle class). Site point inverse-maps: c_3213 -> plate (623.6, 1097.3); c_d135 -> plate (633.0, 630.8).
+... (3.7 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 188 - filed the PENDING 187 PITFALLS entry (web/: the review.json merge-conflict recurrence); pontefract judged in depth - c_3213330a52fe6018 KEEPS (drawn castle centred on the real moated mound at the site point), c_d135fb32326df430 DELETED the 303 way (site point on the plate's Newgate/Head Lands fields; drawn castle 17 ~520 m SSE of the real castle); 8 of 17 lines written' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
