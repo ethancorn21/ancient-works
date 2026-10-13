@@ -4010,6 +4010,53 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
   left in the 222-228 set.
 
 
+<!-- task 228 -->
+# Task 228 artists-merged-check
+
+## 2026-10-12 228 DECISION: check_staged's guards accept the module's own 211-merged rows as no-ops (identical under the merge's norm); the id guard is per-site (stricter than the siblings' set-difference) so "a staged id held by a DIFFERENT site" still fails loud; three-state hermetic test - 228 done, 211's 222-228 gate now fully cleared
+- Session 198. First session on 228 (filed on 211's branch in iteration 174; queued behind
+  207a/207b/221, so the siblings 222-227 all merged first - last was a974b86, 227). On this
+  checkout (agent a's branch) 211's live merge has already run: extras.jsonl/files.jsonl/
+  classified.jsonl carry the staged imola/venice rows and web/data/sites.json has the two built
+  sites - so test_check_staged_files_join_and_pass was red here with exactly the five
+  self-triggered join problems (the red set 227's hand-over predicted).
+- The fix (fit/src_artists.py, check_staged only; stage() needed no change - already a no-op on
+  the merged tree via its have/staged_ids checks):
+  (1) title-key guard: canonical files.jsonl read first-row-wins into key -> _canon_norm(row)
+  (new helper; the same identity rule as fit/merge.py's norm: json.dumps sort_keys,
+  ensure_ascii=False); a staged row whose key is in the canonical passes only when the norms are
+  equal ("already merged by 211"), and still fails when the key is held by a DIFFERENT row;
+  (2) QID guard: fires only when known[qid] != the staged site's own id (self-reference via the
+  merged row, or the same site via the catalog, is a no-op; a different site holding the QID
+  still fails);
+  (3) id guard: per-site - a staged site's id is a problem when a known site holding that id has
+  a different QID. Deliberate deviation from the 222-227 set-difference pattern
+  (staged_ids & (known.values() - staged_ids)): that form CANNOT report "a staged id held by a
+  different site" (the id is in staged_ids, so the subtraction removes it) - 228's acceptance
+  box 2 requires it reported, and the test's (c3) pins it (same id, Q773853 - the LA
+  neighborhood QID from the module's own docstring). Message formats unchanged from the
+  originals; QID guard and canonical-identity rule follow the siblings exactly.
+- The test: test_check_staged_three_states (the 225/227 pattern): monkeypatches the module's
+  SITES_JSONL/EXTRAS/WEB_SITES/FILES_CANONICAL constants at temp copies of the real files with
+  this module's own rows stripped (the hermetic pre-merge state on ANY checkout - the test does
+  not depend on 211's live merge having run here); (a) pre-merge -> rc 0, no join problems,
+  evidence 2/2 pass; (b) identical merged rows -> rc 0, no join problems; (c1) same
+  (site, title) key held by a different row / (c2) staged QID held by a different site /
+  (c3) staged id held by a different site -> each rc 1 with exactly one named join line.
+  No network (autouse socket-blocker), no ports, writes only to the test tmp dir.
+- Verified: 5/5 test_src_artists.py (the four pre-existing tests unchanged, passing on this
+  checkout's merged tree and hermetically pre-merge); live fit/src_artists.py --check rc 0 with
+  zero join lines on this checkout's merged tree; full suite 150 passed / 1 skipped - no reds
+  left on this branch.
+- Consequence: 228 was the last of the seven 222-228 gate tasks of 211 - all seven are done.
+  211's next session: re-run fit/merge.py merge (expect a no-op run, byte-identical log),
+  re-verify the 222-228 test files green on the real merged files, then claim done.
+- Files written: fit/src_artists.py, tests/test_src_artists.py, tasks/228-artists-merged-check.md
+  (Status: done, all four boxes ticked, Hand-over), DECISIONS.md (this entry), PITFALLS.md
+  (one new entry under fit/: the source-module --check self-trigger trap and the guard/test
+  pattern the new source modules must adopt).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
