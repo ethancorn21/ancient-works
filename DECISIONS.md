@@ -537,3 +537,11 @@ unconditionally. No code changed this session.
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     (run after merging main, the other agents' finished work, into your branch: fix the combination)
+
+## 2026-10-13 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    tests/test_fit_queue.py:1749: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    1 failed, 159 passed, 1 skipped in 409.92s (0:06:49)
+    (full test output: .agent/reports/last-test-output.txt)
