@@ -1,4 +1,4 @@
-Status: open
+Status: split
 # 212: Cover - the last uncovered sites, the final sync, the report
 Depends on: 203a, 203b, 211
 Touches: fit/cover.py, data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
@@ -67,3 +67,6 @@ check, and the "no picture found" list.
   (the original, or a standard thumbnail width), then `tools/export_plans.py`. The lead did this on the
   owner's Mac (1168 -> 1296 rows, plus the Civitates/Merian full pages); data/raw is gitignored, so
   this checkout needs its own copies.
+
+## Lead split (2026-10-13)
+Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 notes-only sessions. a's design notes stay on agent/a (d0ac06b, the hand-over); the fit step is the matcher, run by the lead.
