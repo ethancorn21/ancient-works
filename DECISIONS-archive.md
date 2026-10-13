@@ -3051,6 +3051,396 @@ Boxes 2-3 ticked, Status: done.
   211 claim (the driver's in-place .venv rebuild keeps the ad-hoc package until 229
   lands).
 
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
+- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
+  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
+  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
+  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
+  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
+  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
+  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
+  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
+  unmoved main; the driver re-checks the suite at claim time).
+- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
+  staging, if it ever resumes, goes through a later re-run of this step", but no task
+  existed for that re-run - after 211 claims done, nothing would trigger the Roman
+  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
+  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
+  post-merge canonical state and all of the parent 207's subtask staging; the file notes
+  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
+  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
+  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
+  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
+  one module, and it runs only after 211 is done, so no parallel conflict with any
+  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
+  merge re-run over the Roman staging - every staged row in the canonical files, pure
+  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
+  index + validation rebuilt from ALL per-book files including the three Roman books,
+  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
+  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
+  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
+  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
+  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
+  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
+  25/19 golden reference still passes. Notes: site building is a working-phase command
+  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
+  frozen 385-entry baseline shifts to the post-211 499.
+- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
+  iter-186 note already in it) - no other human section of my task file touched. Files
+  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
+  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
+- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
+  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
+  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
+  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
+  today.
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
+- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
+  all still `Status: open` (they remain `Depends on: none`; the driver's
+  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
+  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
+  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
+  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (the red set is still
+  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
+  re-checks the suite at claim time anyway).
+- Cheap freshness checks (both green, both exactly as the hand-over
+  predicted):
+  1. `git fetch origin` (read-only ref update; team rules forbid me from
+     merging) moved nothing: origin/main is still c063314 and
+     `git log c063314..origin/main` is empty, so the 188 union audit (origin
+     holds none of my 211 outputs; only sites.json differs on both sides,
+     disjoint: my 114 entries vs the human's marker-field updates;
+     platefits/goldens byte-identical) is still current - nothing to
+     re-audit.
+  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
+     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
+     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
+     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
+     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
+     invariants hold in the live files (dict-shape gotcha per PITFALLS:
+     these files are dicts, `len(json.load(...))` is not the entry count).
+- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
+  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
+  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
+  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
+  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
+  branch only - verified absent on main in 189). Neither is a 211 blocker.
+- Files written this session: tasks/211-merge-build.md (Hand-over header
+  line only - state bullets and next-steps unchanged, still accurate),
+  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
+  (nothing new learned).
+
+## 2026-10-12 211 DECISION: GATE OPEN -> DONE: all seven of 222-228 are `Status: done`, the full suite re-run is green (150 passed, 1 skipped) on the merged tree, and all six boxes verified intact - Status: done, done claim filed
+
+- Session 199. Ordered next-step 1 flipped: head -1 of all seven 222-228
+  task files -> all `Status: done` (last landed: 228's 643dfa1
+  "artists ... suite 150/1 green"; then 227 a974b86, 226 f5e0fe4, 225
+  ee6513c, 224 bf739d9, 223 a061fc5, 222 293048d; plus the lead's
+  6692bb5 which LINKs the per-site web folders in the full-tree fixtures
+  instead of copying ~750 MB each - the disk fix that made the suite
+  runnable again). All of 211's Depends are satisfied (200/204/205/206/
+  208/209/210 done long ago; 222-228 done now).
+- Provenance audit before claiming (cheap, decisive): my merge commit
+  09a9472 IS on main (the driver merged 211's work long ago); my branch's
+  merge base with main = main's tip 643dfa1, so my branch = main + 3
+  driver commits -> the driver's acceptance merge of this branch is a
+  fast-forward. Between 09a9472 and the branch tip, the only commits
+  touching the six shared outputs (index.jsonl, validation.json,
+  plans.json, sites.json, sources.md, test_merge.py) are my own 211
+  commits (214c642 box-2 rebuild, 0c33b8b sources.md section 9, the
+  build-run snapshots); 222-228 touched only their own fit/src_*.py +
+  tests/test_src_*.py + tests/conftest.py + tests/test_fit_queue.py. The
+  three canonical .jsonl are byte-identical to the merge commit (git
+  diff). Row-count sanity on the live files: extras 193 / files 1623 /
+  classified 930 / index 1068 / sites 499 (unique ids) / plans 1168 rows
+  (574 carrying a non-empty sites list, all (id, sites[0]) unique) -
+  exactly the hand-over's expected values.
+- Suite (the driver re-checks this at claim time anyway):
+  `.venv/bin/python -m pytest tests/ -q` (nohup + pidfile; the suite
+  takes ~4 min now) -> 150 passed, 1 skipped in 248.96s - FULLY GREEN.
+  The 10 reds seen in sessions 186-191 were exactly 222-228's
+  source-guard failures; they fixed them by teaching each
+  check_staged/stage to treat its own already-merged rows (identical
+  under the 211 merge norm) as no-ops while a same-key-different row and
+  a different-site id/QID holder still fail loud. The 1 skipped is the
+  standing baseline. One trip over a documented pitfall: I first ran
+  bare `pytest`, which resolves to the system python3.12 without
+  numpy/PIL -> 16 collection errors; the remedy (PITFALLS "This
+  codebase": always `.venv/bin/python -m pytest`) was followed for the
+  real run. No new PITFALLS entry (the fact is already recorded).
+- Origin: `git fetch origin` moved nothing - origin/main still c063314,
+  `git log c063314..origin/main` empty -> the 188 union audit stands
+  (origin holds none of my 211 outputs; only sites.json differs on both
+  sides and is disjoint - my 114 entries vs the human's marker-field
+  updates on the old 385, the fields 212 owns; platefits and goldens
+  byte-identical -> all six boxes survive the eventual union). New fact
+  this session: c063314 is NOT an ancestor of main - the driver has not
+  pulled the human's push, so the origin union is entirely the driver's
+  job at push/merge time; nothing for 211 to do.
+- DONE CLAIM (citations, per the hand-over's ordered list): all six
+  boxes - (1) the 381-row merge (0 refused / 0 conflicts; log in
+  data/merge/log.jsonl; idempotent; pure growth); (2) the 1,068-row
+  books index + validation.json with 200 evidence on every plan-list
+  row, `fit/evidence.py check` 0 fail offline; (3) the 114 new sites
+  (web/data/sites.json 385 -> 499, the 385-entry baseline 0 removed / 0
+  changed; the box's "384" was the human's estimate - measured 385);
+  (4) plans.json 1168 rows with every pre-merge (id, sites[0]) key
+  present and (id, sites[0]) unique, export_plans.py byte-identical on
+  re-run; (5) sources.md section 9 (per-lead staged/dropped + merge
+  summary); (6) 000's 25-hand-fit / 19-site golden reference green in
+  this run's suite (test_serve.py hermetic). The red set of 10 was
+  222-228's source-guard set and is now fixed by them (suite fully
+  green, better than the "no test failing that wasn't failing before"
+  bar). The imagecodecs pin is task 229 (still open, gated on 302a/304
+  in flight with agent c; the ad-hoc .venv install is alive via the
+  driver's in-place rebuild - not a 211 blocker). The Roman re-run is
+  filed as task 230 (gated on 211 [now done] + 207a/207b/207c; the Roman
+  staging lives on agent c's branch only, so there is nothing to re-run
+  until those land).
+- Files written this session: tasks/211-merge-build.md (Status: done +
+  Hand-over rewritten), DECISIONS.md (this entry). No data/code changes
+  at all: the merge is idempotent, so fit/merge.py was deliberately NOT
+  re-run; the green suite on the merged tree is the re-check the claim
+  rests on.
+
+
+<!-- task 212 -->
+# Task 212 cover-final
+
+## 2026-10-12 212 DECISION: fit/cover.py designed - six phases on an injectable root, the live run later
+The task's loop, search and sync become one module, fit/cover.py (new; its tests tests/test_cover.py).
+Design settled after reading site_done.py, matchfit.py, batch_us.run_sites, review.upsert_item/export,
+commons (search/files_of/keep/info/thumbs/classify), fit/evidence.record, plan_fit, export_plans and
+serve.after_write. Phases (each takes root, so a test drives them on a temp tree; a CLI runs them in
+order, `all`, with --root and --working/--model-json like site_done):
+
+1. fetch(root): local copies before export_plans (the lead's second point). Files with a `thumb`
+   missing their local jpg: fetch the 1280 thumb (commons.thumbs' behaviour: .part->rename, 1/s pace,
+   resumable - re-implemented here with a root parameter; commons.thumbs itself is bound to the
+   checkout's module-level RAW/OUT). Files with only a `url` (the ORL/Limes rows, 54): commons.info(
+   [title]) gives the 1280 thumburl (imageinfo iiurlwidth=1280) - fetch that; fall back to the raw
+   url (utm-stripped) when info has no thumb. Then regenerate web/data/plans.json with
+   export_plans.main() (in-process; its ROOT/BOOKS and commons' OUT/RAW are module constants - a
+   temp-tree test monkeypatches them, that is setup, not product behaviour). Measured on the synced
+   tree (main a858f48): 131 classified rows missing a local copy (ALL meet the plans threshold
+   p_photo<0.5 and max(p_plan,p_birdseye)>=0.3, none in plans yet -> plans.json grows 1168 -> ~1299,
+   matching the lead's Mac 1296); 401 thumb rows missing locally; 54 url-only rows (1 has a copy).
+   The 211 rows are ALREADY classified (all 930 classified rows are in files.jsonl) - no classifier
+   needed for them, only copies.
+2. search(root): for every BUILT site with no fit (no doc and drawings 0 - recomputed after phase 1,
+   so sites that just gained candidates drop out of the set) and no plans.json candidate: with a qid -
+   (a) its P373 category via commons.wd_claims, files with commons.files_of(cat, depth=1); (b) P180 -
+   evidence.fetch_page_ids + fetch_file_entities on every title gathered so far, keep the ones whose
+   MediaInfo depicts the qid (the proven path, not a new API); (c) the title search
+   commons.search(name) (its 3 full-text queries). Without a qid: (c) only, and the record says so.
+   Keep with commons.keep (1925 cut-off, no regex); dedupe against files.jsonl titles. Per site the
+   SEARCH RECORD names exactly what ran: the category (name or "none"), the file counts, the qid
+   queried for P180 (or "no qid"), the 3 title queries, the date, and any route that failed (a
+   429/timeout is recorded, not hidden - the record must be true).
+3. stage(root): newly found files -> files.jsonl (harvest row shape + qid + by:"212") + local copy
+   (phase 1's fetcher) + classified.jsonl via an INJECTABLE classifier (default the clef batch,
+   commons.classify's questions) + the 200 evidence field via evidence.record(files, books, live,
+   only=new sites) (live in the working phase; a stub in tests) + export_plans again (growth-only).
+4. loop(root, model=None): the normal loop, and the FIT IS THE MATCHER (see next entry). For every
+   built site that still has no fit, run site_done.main([sid, --root root]) in-process WITHOUT
+   --working: matchfit.run (ELoFTR 8091; RoMa 8092 is down on this VM and skipped automatically)
+   writes a doc (fitter:"matcher") for every picture it is sure of, including ones already in a
+   review item (a confident matcher fit resolves the item); the rest get batch_us.run_sites'
+   upsert ("no model answer" when model=None) into the item; a site with zero candidates gets the
+   batch's no_picture item, which phase 5 re-records with the exact searched string. site_done
+   already syncs each new doc (line check: agent docs get the matcher's spread guard, not the
+   batch-model ladder clause), refreshes drawings, and scopes the review export to the site.
+   --working (the vision model, 301) is NEVER passed by 212: it invented points and must not place.
+5. nopicture(root): every search-set site that ends with no candidates and no fit gets
+   review.upsert_item(root, sid, [], no_picture={searched: <exact record>, at}) - entries=[] + a
+   dict keeps any existing candidates (verified in upsert_item: the dict branch wins; candidates are
+   merged, never cleared) and rewrites the batch's generic "plans.json (N rows, ...)" searched string
+   with the exact one. A site whose search routes all failed gets the item too, with the failures
+   recorded - box 6's invariant (every built site: drawings >= 1 OR an open item) holds even when
+   the network lies.
+6. sync(root) + export(root) + report(root): sync = the page-facing sync (box 3), a plan_fit sweep
+   over EVERY doc but per-doc proof: plan_fit.main's own loop only catches SystemExit per doc (the
+   serve worker catches the WHOLE sweep and gives up, serve.py ~line 261-273), so cover owns the
+   loop and imports plan_fit's primitives (who_placed, is_done, build, prune, NO_PROVENANCE): per
+   doc, hand -> build with no check; agent -> build; unmarked auto -> stamp by:agent then build;
+   no provenance -> refuse (item entry); ANY other exception -> record the failure, continue, and
+   upsert that site's item with the build-failure reason (so the invariant holds when an overlay
+   cannot be built). prune at the end (the deleted docs' overlays). export = review.export(root)
+   full (box 4, the one and only writer of web/data/review.json). report = docs/batch.md (box 5) in
+   batch_us.write_report's shape but FINAL over all built sites: counts per outcome (fit hand = the
+   golden 21, fit automatic = every by:agent doc (batch + matcher + line-saved), human-saved =
+   by:hand docs outside the golden 21, review item, no picture found), the 20-sample of
+   automatically accepted fits drawn from the WHOLE auto-doc union with 212's OWN recorded seed
+   SEED_212 = 20261012 (batch 20261010, null 20261011 - the date convention) and page URL + gate
+   score per pick, and the no-picture list with each site's exact searched record.
+
+Tests (tests/test_cover.py, no network, port 0): temp tree (conftest pattern: web/ + data/ copied,
+per-site web dirs, stand-in pictures PIL-drawn to the doc's size) seeded with a matcher doc, a
+golden hand doc, an unmarked auto doc, a no-provenance doc and a bad-commons doc; monkeypatched
+(setup, not product): the commons/evidence network getters (recorded titles/metadata), the
+classifier (recorded p_*), matchfit.reachable/run (a recorded confident fit and the unreachable
+case), export_plans' ROOT/BOOKS and commons' OUT/RAW (the temp root). Drive the phases in-process,
+then check through the SERVED page (the served fixture, port 0): every built site in the served
+sites.json has drawings >= 1 or is in the served review.json open list (box 6, the GOAL point 1 in
+full); the 000 golden test re-runs unchanged (the 21 hand docs and 19 site.json stay byte-identical -
+verified separately with sha256sum -c after every live run); the docs/batch.md sample equals
+random.Random(SEED_212).sample(sorted auto-doc ids, 20) recomputed in the test (fixed, reproducible
+- the human's 18/20 check depends on it). State-aware per the 203b pitfall: the test computes its
+expected sets from the temp tree's live docs/items, never from pinned counts (agent c's 302a/304/306
+drift the live store in parallel).
+
+## 2026-10-12 212 DECISION: the loop's fit is the matcher, never the vision model (the lead, ef84a05)
+The lead note (commit ef84a05, merged into this branch 2026-10-12) steers the task: the fit in 212's
+loop is the MATCHER via tools/site_done.py, never a vision-model fit. Rationale recorded by the
+lead: the vision-model batch fit invented its points (301) and must not place anything; an unsure
+matcher result goes to the review item, as site_done already does. Evidence on this VM (measured
+this session): ELoFTR on 127.0.0.1:8091 answers /health (matchanything_eloftr on the RTX 5060 Ti)
+so matchfit.reachable() is TRUE here - the matcher pass will actually run in the working phase;
+RoMa on 8092 does not answer (matchfit.run skips its second pass when it is down, by design).
+Consequently 212's loop runs site_done WITHOUT --working and WITHOUT --model-json (model=None):
+the matcher places what it is sure of (>= 10 inliers, rotation within 30 deg, spread guard -
+matchfit.judge); the rest land in the review item as "no model answer" (batch_us.run_sites'
+upsert, the path site_done already uses). This supersedes the iteration-200 hand-over plan that
+had the loop on batch_us.llm_model (the AI-box LLM on 8081 does answer, but it is the 301 fabricator
+and the lead forbids it for placement). The vision model may still be used nowhere in 212: not for
+placement, and not as a classifier substitute without a human decision (see next entry).
+
+## 2026-10-12 212 DECISION: fetch-before-export measured; clef unreachable from this VM, so the classifier is injectable and its use in the working phase is a human decision
+The lead's second point (211 pictures need local copies before export_plans) is measured on the
+synced tree: 131 of the 930 classified rows have no local jpg and ALL of them meet the plans.json
+thresholds (p_photo < 0.5, max(p_plan, p_birdseye) >= 0.3) - none is in plans.json yet, so fetching
+them grows plans.json 1168 -> ~1299 (the lead's Mac run got 1296; the small difference is the
+Mac's own tree state). Additionally 401 files.jsonl rows carry a `thumb` without a local copy
+(commons.thumbs() fetches exactly those) and 54 rows (the ORL/Limes set) carry only a full-file
+`url` - commons.thumbs() skips them (no thumb field), so cover.fetch adds a step for them:
+commons.info([title]) (imageinfo, iiurlwidth=1280) returns the 1280 thumburl to download (the
+original when the file is narrower).
+CleF (pipeline/clef.py -> 127.0.0.1:18083, the tunnel `ssh -N -L 18083:127.0.0.1:8083 aibox`) does
+NOT answer on this VM, and the tunnel cannot be opened here: `aibox` does not resolve and every
+key in ~/.ssh is forced-command (doorbell / labdash-feed / lab-archive; none opens a shell or
+forwards). So newly-found pictures (phase 3 of the design) cannot be clef-classified in this
+checkout as it stands. The 211 rows do not need classification (already in classified.jsonl), so
+the working phase only hits this if the targeted search finds NEW files. cover's classifier is
+injectable for this: if new files are found and clef still does not answer, that is an
+ask_human moment (set up the tunnel, or approve the LLM on 8081 as a one-off classifier) - it is
+NOT decided in advance, because the search may well find nothing new (the batches already
+searched these sites and recorded no_picture).
+
+## 2026-10-13 212 DECISION: merge of main (20277f3) committed 0becc52 - review.json resolved to our items + their at
+The driver ordered `git merge main` before the task step. The only conflict: web/data/review.json.
+Main's 20277f3 (lead's Mac port: 11 matcher docs on 11 newly built sites, plans.json 1168->1474,
+3 fabricated bethlehem docs deleted) changed review.json ONLY in "at" (18:01:52 -> 03:45:09);
+my branch (a858f48, the same audit work committed directly here) regenerated it with the
+22-candidate bethlehem item. Both sides deleted the SAME 3 docs; the auto-merged bethlehem item
+file is the 22-candidate one (main never changed it), so the correct open-list entry is ours
+(22). Resolution = our items + main's fresher "at". Verified: 333 items, only bethlehem differs
+across base/ours/theirs; 0 bethlehem docs remain after the merge; both plans.json versions
+carry the same 22 beth rows; none of the 11 new-doc sites has any review item (their docs
+resolve nothing). The committed merge = 11 platefits docs + plans.json (byte-equal to main)
++ review.json. web/data/fit_queue.json was regenerated by my diagnostic probe (229 entries vs
+committed 114) and left for the driver's sweep - it is a live-store-derived artifact, not a
+merge resolution.
+
+## 2026-10-13 212 DECISION: 5 red tests on the merged tree, none mine - filed fix-tasks 231-234
+Full suite on the merged tree: 5 failed, 145 passed, 1 skipped (237 s). Verified with throwaway
+worktrees (/tmp/awmain at main 20277f3; /tmp/awhead at pre-merge 953d9ab - remove with
+`git worktree remove --force`):
+- test_fit_provenance.py::test_commons_yeared_title_drops_the_repeated_year: FileNotFoundError on
+  the bethlehem doc c_a164ee440558d66c, deleted by the 306a audit (a858f48 / main 20277f3); the
+  pin was never re-pointed (306a's Touches listed the file). Red on BOTH branches since the
+  deletion (pre-existing on my branch, not caused by the merge).
+- test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc and
+  test_site_done.py::test_site_done_line: both fail the shared stonehenge 13-candidate/13-row
+  pin. The 14th plans row is c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley,
+  1722 (Itinerarium Curiosum)" (Wikimedia Commons, File:Stonehenge Dessin Stukeley 1722
+  03547.jpg, [1280,673]) - new in main's 1474 (211 pictures), missing from the 13-candidate item
+  file. Red on main since f970500; green on my pre-merge branch (1168 had 13). (The /tmp/awhead
+  site_done failure was a worktree artifact: web/data/sites is live/untracked data absent from a
+  bare worktree.)
+- test_merge.py::test_plan_list_refresh_is_pure_growth: "no Wikimedia Commons plan row for the
+  merged picture of numancia". At 9590abf/ef84a05 the row was c_0fa271e2444f7bfc with book
+  'Wikimedia Commons'; the lead's f970500 re-export dropped it - the files.jsonl row now carries
+  url=archive.org (memoriasdelareal009real), i.e. book-sourced, and that book has no
+  data/books/index.jsonl row and no local copy in data/raw (verified), so export_plans excludes
+  it. Red on main since f970500; green pre-merge.
+- test_fit_queue.py::test_fit_queue_real: ordering invariant. The test expects (view, -draw_px,
+  name); the generator sorts by the documented (view, -px, plan, name) (tools/fit_queue.py:365).
+  Main's new rows made the breaking pair: Lessines (c_0193a1cf01ab0b87) vs Avesnes-sur-Helpe
+  (c_61fbbcd3d6051cd9), both view False, both [1280,1842] px; plan order != name order. Neither
+  row exists in my pre-merge 1168 (green then); the pair fires only where the live site dirs
+  exist (my checkout: 503 site entries; the main git tree has none for the 11 new sites, so the
+  main worktree passed). Environment-dependent.
+None of the five files is in my 212 Touches, so instead of editing them I filed four fix-tasks
+(lowest free numbers in 200-499): 231 (the bethlehem year-pin re-point; depends on 306c-f so the
+replacement pin survives the ongoing orphan audits), 232 (the stonehenge snapshot re-pin in both
+tests; depends on 212 - my live loop upserts the 14th candidate into the item and may place a
+matcher doc - and on 231, same file), 233 (numancia plan row: make the data whole - book index
+row + local copy + re-export - or re-pin to the documented absence; depends on 212 to avoid
+concurrent plans.json writes), 234 (fit-queue invariant aligned to the documented generator key
++ regenerate/commit the 229-entry queue file; depends on 212 + 306c-f churn). 231 is written
+(needs its second-pin paragraph corrected - see the 212 hand-over); 232-234 are specced in the
+212 hand-over and still to be written. My 212 Depends on line stays 203a/203b/211 (I can verify
+my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
+claim anyway, add 231-234 to the line).
+
+## 2026-10-13 212 DECISION: the numancia plan-list exclusion is machine-dependent (local-copy requirement), not a data loss - 233 re-speced, PITFALLS entry added
+Measured on the merged tree with an in-memory export_plans run (the real
+web/data/plans.json was accidentally truncated once by the probe - `open(dst,"w")`
+runs before `json.dump` - and restored from HEAD; the committed file is intact,
+1474 rows). Facts: (1) export_plans' commons_rows() includes a picture only when a
+local copy exists at data/raw/commons/<site>/<sha16(title)>.jpg, and the books
+branch only with its full_local page image - data/raw is gitignored, so both are
+machine-dependent. (2) The numancia files.jsonl and classified.jsonl rows are
+byte-identical across ef84a05/f970500/HEAD; the local jpg is in this VM's shared
+store (210 staged it) but was absent on the lead's Mac, so f970500's re-export
+dropped the row - no data was lost or rewritten. (3) A re-export on THIS machine
+reproduces 953d9ab's 1168-row plans.json byte-for-byte: the numancia row returns
+as a COMMONS row (book "Wikimedia Commons", c_0fa271e2444f7bfc) - NOT as a books-
+index row (the iter-206 note's guess "book = the ia id" was wrong; the books index
+and memoriasdelareal009real are not involved) - and 307 of HEAD's 1474 rows (the
+211 pictures, the Civitates/Merian full pages) are absent because their local
+copies are not on this machine yet. Consequence for the live run: 212's fetch
+phase (1/s, resumable, skips existing copies) fills every missing kept row before
+the final re-export, so the live export regains both sides; before that re-export
+record the committed (id, sites[0]) key set and diff it afterwards - a lost key is
+a fetch failure to record as a data finding, never silently dropped or re-added.
+Filed the machine-dependence as PITFALLS.md ### tools/export_plans.py. 233 is now
+verify + record (the test should pass unchanged after 212's re-export), not
+"make the data whole".
+
 
 <!-- task 213 -->
 # Task 213 artist-views

@@ -7,132 +7,72 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 191, agent a - GATE STILL OPEN: all seven of 222-228
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 214, agent a - ROOT CAUSE FOUND AND FIXED in web/index.html (uncommitted: harness holds it);
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/221-review-stats-test.md`
+- `tasks/212a-cover-search.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
-- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
-  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
-  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
-  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
-  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
-  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
-  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
-  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
-  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
-  unmoved main; the driver re-checks the suite at claim time).
-- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
-  staging, if it ever resumes, goes through a later re-run of this step", but no task
-  existed for that re-run - after 211 claims done, nothing would trigger the Roman
-  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
-  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
-  post-merge canonical state and all of the parent 207's subtask staging; the file notes
-  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
-  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
-  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
-  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
-  one module, and it runs only after 211 is done, so no parallel conflict with any
-  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
-  merge re-run over the Roman staging - every staged row in the canonical files, pure
-  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
-  index + validation rebuilt from ALL per-book files including the three Roman books,
-  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
-  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
-  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
-  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
-  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
-  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
-  25/19 golden reference still passes. Notes: site building is a working-phase command
-  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
-  frozen 385-entry baseline shifts to the post-211 499.
-- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
-  iter-186 note already in it) - no other human section of my task file touched. Files
-  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
-  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
-- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
-  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
-  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
-  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
-  today.
+### 2026-10-13 308 DECISION: first session - investigate, capture the before-baseline, design the arrowhead; no code yet
+The lead (61c6bdb on main) removed 308's "Depends on: 307" (only 307d, the owner check, is open;
+markers do not need it) - my branch had not received that commit, so I re-applied the lead's
+exact task-file change locally (result byte-identical to main: no "Depends on" line + their lead
+note) and committed it with the before-screenshots (0470610) so the driver's next main-sync is a
+no-op on that file and the human's file keeps the human's own bytes.
+Investigation (web/index.html only; there are NO web/*.css files, styles are inline): site
+markers are `<button class="marker tN"><span class="sq"></span><span class="tag">…</span></button>`
+maplibre Markers anchored `anchor:'left', offset:[-6,0]` (square centre ~ the point); per-tier
+sizes 15/13/11/9/7 px and colours #8A1230 / var(--survey) / #E2697F / #F4B4C0 / var(--sheet)
+(defined in TWO places: .marker .sq and the .tiers legend swatches); the label is a flex child
+kept out of click-hit only via pointer-events (it still occupies layout - the comment records
+the Old Sarum/Taunton bug that produced it); syncMarkers() does the label/square collision with
+a ±8 box per marker; the list row (siteEntries, line 563) and the "Marker key" legend (line
+589) reuse the same .sq swatches; Finder search-area markers (addScanAreas ~1187) are dashed
+squares at an area corner and stay squares; no test pins the marker CSS/JS (test_review.py
+pins only the review.js script tag).
+Chose an inline SVG silhouette (one shared constant AH, viewBox 100x100, notched:
+M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z - tip bottom-centre, contracting stem, central notch)
+over a CSS clip-path (an SVG stroke with vector-effect:non-scaling-stroke gives a constant 1.2px
+ink outline at every tier size and stays crisp on retina; clip-path would lose the outline) and
+over a data-URI background (it cannot take a CSS colour var for the tier gradient). The .sq span
+keeps its per-tier width/height and gains an .ah class + the tier colour as a --mks custom
+property (one definition per existing colour site); the marker button becomes inline-block +
+position:relative, the tag absolute (left:100%, top:100%, translateY(-50%) => still centred on
+the site point, and out of layout so the button box = the arrowhead), and the MapLibre anchor
+becomes 'bottom' + offset [0,0] so the TIP (bottom-centre) sits on the coordinate - MapLibre
+5.6.0 defaults the offset to [0,-14] when omitted, so it must be passed explicitly; the 'bottom'
+semantics will be verified empirically in the probe, not assumed. syncMarkers' per-marker box
+becomes [x±8, y-16..y+1] (the head grows above the point); the label box and all placement rules
+are unchanged.
+Captured the BEFORE baseline before touching anything (the page on this branch is the baseline):
+docs/site_flow/markers-before-{globe,zoom,legend,phone}.png via a throwaway playwright probe
+(/tmp/aw308shot.mjs; playwright-core from /home/agent/tools/shot/node_modules, channel 'chrome'
+= /opt/google/chrome/chrome; web/ served by python3 -m http.server on an ephemeral port; live
+Esri tiles load fine - the only 404s are the handled fallbacks data/scans.json,
+data/amazon/areas.json, api/db/ping). The probe's phase 'after' also self-checks: worst tip-to-
+point delta per tier, a real click on a marker opening its site, and svg counts in markers/
+legend/list with scan markers still square.
 
-### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
-- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
-  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
-  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
-  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
-  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
-  them; they run when the driver dispatches them.
-- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
-  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
-  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
-  (origin holds none of my 211 outputs; only sites.json differs on both sides,
-  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
-  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
-  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
-  main; the driver re-checks the suite at claim time anyway).
-- The session's step: a state-freshness pass over all of 211's outputs in this checkout
-  - all present and internally consistent: canonical files extras 193 / files 1623 /
-  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
-  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
-  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
-  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
-  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
-  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
-  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
-  added to my Touches line for it; the contents-block counts are driver-generated and
-  were left alone).
-- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
-  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
-  facts).
+### 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()
+Merge 4b12889 into agent/a: 212 conflict = main added the lead note + lead split (212a/b/c; the fit step is the matcher, run by the lead; "a's design notes stay on agent/a") while my side held the iter-211 design hand-over - resolved as a union, hand-over last (AGENTS.md: the hand-over is the final section); 308 conflict = main's side empty (main never had my hand-over) - kept ours. The merge brought no code changes (main's new commits are task-file-only).
+Implementation (working tree, uncommitted at session end - the harness saved it): the iter-212 design, 7 edits - AH svg (M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z: tip bottom-centre, notched contracting stem), --mks tier colour on every size rule, .sq.ah path (fill var(--mks), 1.2px non-scaling stroke), tag absolute (left:100%, top:100%, translateY(-50%)) with .marker.scan .tag {top:50%}, addMarkers anchor 'bottom' offset [0,0], syncMarkers box [x±8, y-16..y+1] (label box unchanged), swatches + the 5 legend spans .ah + AH (the S.more fragment converted to a backtick template literal so ${AH} interpolates), addScanAreas untouched. ONE DEVIATION (intentional): .marker stays display:flex + position:relative instead of the designed inline-block - a flex container is sized to exactly its one in-flow child (.sq), while an inline-block parent adds line-box descender height that would shift the bottom-centre (the tip) off the assigned point.
+FAILED (anchor measurement, attempt 1): probe compared the rendered tip to map.project(lnglat) -> worst 3023 px. Root cause, verified: the page's map is projection:{type:'globe'} (MapLibre 5.6, index.html ~324) - map.project() returns the flat 2D map plane, but markers live in the globe pipeline; the marker's own inline transform `translate(-50%,-100%) translate(Xpx,Ypx)` carries the on-globe screen position MapLibre computed from the lnglat, and at pitch 0 the element is un-rotated (rotateX(0deg)), so its measured rect's bottom-centre vs (X,Y) is the correct anchor reference. map.project stays only as a loose cross-check (globe curvature: a few px at the view edge).
+FAILED (anchor measurement, attempt 2): even the transform-based comparison showed worst 3023 px, because markers OUTSIDE the viewport (US sites while viewing Wiltshire, or the far side of the globe) keep display:'' (syncMarkers only hides by shown()/sel) and their rect/transform is a wrapped 2D-plane position - meaningless to compare. Fix applied (NOT yet re-run): anchorCheck skips markers whose svg rect is outside the 1440x900 viewport.
+Verified in the latest probe run: 499/499 site markers + 328/328 legend + 324/324 list-row swatches carry the arrowhead svg; clicking a marker's .sq opens its site; the visual path tip sits within 0.15 px of the svg box's bottom-centre (the 99/100 vertex + 1.2 px stroke lands the visual tip within ~0.5 px of the assigned point - sub-pixel; the old square was centred on the point, so this is also strictly closer to the point).
+Pending: probe re-run after the viewport-filter edit; the merged-tree suite (running in the background at session end: /tmp/aw308-suite-merged.log, last check 2 Fs = the expected 231/232 merge-reds); then per the lead's instruction in my 212 hand-over ("WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked" - the lead did their work in aeeb5aa): verify and mark 233 (plan-list growth test + key-set + machine-dependence record) and 234 (test key + fit_queue.json reproducibility + fit_queue.py untouched).
 
-### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
-- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
-  all still `Status: open` (they remain `Depends on: none`; the driver's
-  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
-  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
-  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
-  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
-  rebuilds, no box changes, no new full-suite run (the red set is still
-  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
-  re-checks the suite at claim time anyway).
-- Cheap freshness checks (both green, both exactly as the hand-over
-  predicted):
-  1. `git fetch origin` (read-only ref update; team rules forbid me from
-     merging) moved nothing: origin/main is still c063314 and
-     `git log c063314..origin/main` is empty, so the 188 union audit (origin
-     holds none of my 211 outputs; only sites.json differs on both sides,
-     disjoint: my 114 entries vs the human's marker-field updates;
-     platefits/goldens byte-identical) is still current - nothing to
-     re-audit.
-  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
-     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
-     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
-     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
-     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
-     invariants hold in the live files (dict-shape gotcha per PITFALLS:
-     these files are dicts, `len(json.load(...))` is not the entry count).
-- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
-  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
-  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
-  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
-  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
-  branch only - verified absent on main in 189). Neither is a 211 blocker.
-- Files written this session: tasks/211-merge-build.md (Hand-over header
-  line only - state bullets and next-steps unchanged, still accurate),
-  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
-  (nothing new learned).
+### 2026-10-13 308 DECISION: CORRECTION + fix found - my position:relative on .marker overrode the vendor's .maplibregl-marker absolute parking; the huge anchor deltas were a CSS cascade bug, not globe projection
+... (2.8 KB more: `grep -n -A 200 -F '## 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
