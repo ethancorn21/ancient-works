@@ -46,17 +46,23 @@ work that every subtask reads. Order was deliberately changed from the Notes: a 
 (first unblocked and the biggest), b = Maclauchlan, c = Roy (blocked, waiting on a
 human-provided copy).)
 
+(2026-10-13, iteration 214, agent c - 207c DROPPED on the owner's answer to ask 008 ("drop
+Roy"); the State paragraph and exact-next-steps item 3 below are updated to that; everything
+else stands as written.)
+
 **Tests:** none run this session (an investigation/split session - no code written; the last
 suite state is the 50 passed recorded in 204's hand-over in PROGRESS). 207a's first session
 re-baselines the suite, then starts the fetch.
 
-**State.** 207a open (next to hand out), 207b open, 207c blocked: WAITING ON ask_human request 003 (the human must
-download the NLS facsimile of the Roy book in a real browser and place it in
-data/raw/books/roy1793/; the alternatives in the request are: drop Roy, or another source).
-When the answer arrives: if files are in data/raw/books/roy1793/ -> unblock 207c and run its
-pipeline (adapt fetch to the local files); if "drop Roy" -> set 207c to Status: dropped, note
-it in docs/lead_roman.md, and the parent's boxes 1-4 stand on the two remaining books.
-No per-book work has started; data/books/ has no roman rows yet.
+**State.** (updated 2026-10-13, iteration 214) 207a in progress (stage A complete; the
+printed plate-list transcription is next), 207b in progress, 207c DROPPED: the owner's answer
+to ask 008 (2026-10-13 14:36, console) was "drop Roy. I dont want to have to ever go out and
+get a file. If you need it get it. If you can't get it, then you don't need it." - the book
+is unobtainable from this VM (NLS WAF 405, no IA copy, HathiTrust 403, Google Books quota 0;
+all re-verified that day) and the owner declined to supply it (the standing refusal of
+209a/209c). The record is in docs/lead_roman.md's Roy section and 207c's own hand-over; if a
+complete scan ever lands in data/raw/books/roy1793/ the subtask resumes per
+exact-next-steps item 3. The parent's boxes 1-4 stand on the two remaining books.
 
 ### Per-book facts (measured this session, via books_ia + IA searches)
 - **Horsley** -> ia=`britanniaromanao00hors` (Google Books, 936 leaves, median 2237x3861 px,
@@ -113,5 +119,14 @@ No per-book work has started; data/books/ has no roman rows yet.
 2. **207b (Maclauchlan):** same; the 1858 original has no hOCR, so transcribe its list from
    the 1971 reprint's OCR (memoirwrittendur0000henr) and cross-check against the original's
    list-page image; stage images from the 1858 original only.
-3. **207c (Roy):** on the human-provided copy (ask_human open); adapt fetch to local files,
-   then the same pipeline.
+3. **207c (Roy):** DROPPED 2026-10-13 (owner, ask 008 - see the State above and
+   docs/lead_roman.md). If a complete copy ever lands in data/raw/books/roy1793/ (any
+   layout: full PDF or page images): adapt the fetch to the local files (the Wiltshire-Hoare
+   3-point in-process wrap: books_ia.pages / books_ia.page_texts / books.fetch_triage for
+   this id only, re-encoded into the books.triage_path slots), then the same pipeline;
+   transcribe the book's printed 51-plate list by eye from the arrived pages (no OCR text
+   for the book exists in any accessible copy); rows tagged with this book (region
+   scotland, year 1793), mostly NEW Scottish fort sites in extras_roman.jsonl - tie to the
+   four no-QID Antonine Wall camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort)
+   where a plate matches; stage-A/B recall in the Roy section of docs/lead_roman.md; tests +
+   golden as for the other books.

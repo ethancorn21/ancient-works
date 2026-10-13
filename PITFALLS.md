@@ -261,33 +261,38 @@ Symptom: `Interrupted: 12 errors during collection` - `ImportError while importi
 Why: numpy/scipy/pyproj and the like live in the project venv, not in the system python3; the driver's own runs use the venv, so its reports are unaffected - the trap only bites when an agent runs the suite (or a subset) directly.
 What to do: always `.venv/bin/python -m pytest ...`. The driver rebuilds `.venv` from `requirements.txt` before every run; on 2026-10-12 it was complete as-is (`pip install --require-hashes -r requirements.txt`: all satisfied).
 
-#### HathiTrust and Google Books refuse this VM - books not on IA need a human download (the 207c pattern)
+#### HathiTrust and Google Books refuse this VM - a book not on IA is unreachable here, and the human will not download it
 Where: any fetch from babel.hathitrust.org / the Google Books API (207c Roy 1793, 209a Hoare Cherhill 1821, 209c Petrie 1880)
 Symptom: HTTP 403 from babel.hathitrust.org with every UA (including a full browser UA) and HTTP 429 from the
-      Google Books API with our and a browser UA; IA advancedsearch empty for these titles.
+      Google Books API with our and a browser UA - the API's anonymous consumer carries a 0-queries/day quota
+      (RESOURCE_EXHAUSTED, quota_limit_value: 0; re-checked 2026-10-13 for Roy at the drop decision), so the 429
+      is a hard refusal, not pacing; IA advancedsearch empty for these titles.
 Why: bot walls that a real browser passes and this VM cannot. The planned route was a human-downloaded copy
       (ask_human, human_only: outside-vm) into data/raw/books/<id>/, one image per leaf page, filenames sorting
       in book order, with the consuming module adapting the fetch locally (fit/src_wiltshire_hoare.py; 207c's
-      Roy module will) - but the human declined to download books for this project (next entry), so a book that
-      is not on IA is effectively unreachable here. Verified 2026-10-11 (Roy) and 2026-10-12 (Hoare); the refusal
-      came in between iterations 145 and 151 (journal date 2026-10-13; the ask file's own 06:55 answer stamp is VM
-      clock, which lags the journal dates).
+      Roy module would - it never was, the book dropped 2026-10-13) - but the human declined to download books
+      for this project (next entry), so a book that is not on IA is effectively unreachable here. Verified
+      2026-10-11 (Roy), 2026-10-12 (Hoare) and 2026-10-13 (Roy, final: maps.nls.uk still 405, the NLS S3 tile
+      bucket still has no antiquities set, Google Books API 429/quota-0 - no source is reachable; 207c dropped
+      that day). The human refusal came in between iterations 145 and 151 (journal date 2026-10-13; the ask
+      file's own 06:55 answer stamp is VM clock, which lags the journal dates).
 
 #### The human will not download books for this project - book leads stand on IA and Commons only
-Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821) and 002 (Petrie,
-      Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151; any
-      future ask_human that asks the human to fetch a book copy
+Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821), 002 (Petrie,
+      Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151 - and
+      008 (Roy, Military Antiquities of the Romans in North Britain, 1793, for 207c: filed and answered
+      2026-10-13); any future ask_human that asks the human to fetch a book copy
 Symptom: "No. If you can't find the book at all, then i am not going to go get it. Just skip it." (001);
-      "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." (002) -
-      even though a real browser on the human's machine passes both bot walls (the refusal is a willingness
-      call, not a feasibility one).
+      "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." (002);
+      "drop Roy. I dont want to have to ever go out and get a file. If you need it get it. If you can't get
+      it, then you don't need it." (008) - even though a real browser on the human's machine passes both bot
+      walls (the refusal is a willingness call, not a feasibility one).
 Why: the human reads a human-download request as work they must do, and declines it; they will not browse
       HathiTrust/Google Books for the project. Consequence: for any book lead, IA is the only source this loop
       can rely on (the only one this VM can reach, and the human will not cover the gap); if the book is not on
       IA, plan the drop or a Commons fallback from the start and do not file a download ask (209a dropped;
-      209c stands on 209b's verified Commons rows - the two canonical Petrie 1880 Pl. I/II rows). 207c's Roy
-      1793 request 003 was filed before this refusal and is still open: if it gets the same answer, drop 207c
-      rather than re-asking.
+      209c stands on 209b's verified Commons rows - the two canonical Petrie 1880 Pl. I/II rows; 207c's Roy
+      1793 got the same answer on 2026-10-13, ask 008, and was dropped that day - record: docs/lead_roman.md).
 
 #### portal.dnb.de is behind an Anubis (Techaro) JS proof-of-work wall - no search is reachable from this VM
 Where: portal.dnb.de (`/sru`, `/opac/sru`, `simpleSearch`) - the German National Library; task 208's hunt for ORL/RGK volumes
@@ -1216,7 +1221,7 @@ Where: `pipeline/books.py:BOOKS` (`region`), `pipeline/books_match.py:BOOK_SCOPE
 Symptom: an entry like `civitates_liber2` has region "Europe" although the volume contains Italian towns - looks like a bug to "fix" to a country name. Do not: the book field is informational (the town's region comes from its catalog row); books_match never reads it - it keys BOOK_SCOPE on the book key, and a book missing from BOOK_SCOPE just gets no region/state filter (`.get(key, (None, None))`), not an error.
 
 #### A human-downloaded book (not on IA) runs the UNMODIFIED machinery through a 3-point in-process wrap
-Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module does the same)
+Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module would have done the same - never built; the book was dropped 2026-10-13, and the parent 207 hand-over's item 3 keeps the recipe if a scan ever lands)
 Symptom: cmd_fetch/ia.pages/ia.page_texts hit the network for an ia id that is really a local directory name
 Why: the machinery is IA-only in exactly three places - the page list (ia.pages), the per-page OCR (ia.page_texts), the page-image fetch (books.fetch_triage) - and wrapping those for one id plus a BOOKS entry whose ia field is the local dir name (so books.triage_path lands at data/raw/books/<id>/triage/) is all that triage A/F/B, map_plates and staging need: page_texts -> {} (Qwen anchors only; empty text keeps inked pages as map_plates candidates), fetch re-encodes the local files into the triage slot (1400 px long side, q88). A test monkeypatches the module's book DIR (the triage tree follows it) + the socket-blocking fixture -> hermetic. A book that IS on IA (209b's Stukeley) needs no wrap at all: register() only adds the BOOKS entry.
 

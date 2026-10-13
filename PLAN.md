@@ -88,7 +88,7 @@ Module map (one module per task, so agents never collide):
 | `fit/review.py` | 201 | the review queue: item format, page section (`web/review.js`), resolution |
 | `fit/propose.py` | 202 | the starting point per (site, picture) the model's fit pass begins from: scale / north / centre anchor plus a few pairs - a starting point, never a fit (GOAL point 2) |
 | `fit/batch_us.py` / `fit/batch_eu.py` | 203a / 203b | the model's fitting loop over the built sites (US / rest of world): per candidate picture, fitkit sheet -> model records >= 4 matched-feature pairs -> solver -> gate; each writes its report (`docs/batch_us.md` / `docs/batch_eu.md`); the parent 203, on return, checks the original site set is fully covered |
-| `fit/src_van_deventer.py`, `fit/src_kip.py`, `fit/src_mackenzie.py`, `fit/src_roman.py`, `fit/src_limes.py`, `fit/src_wiltshire.py`, `fit/src_numancia.py`, `fit/src_artists.py` | 204-210, 213 | the eight growth leads: find, verify age + free access, tie, stage rows in its own staging files and its own `docs/lead_<name>.md` (book leads write per-book artifacts only; 213 uses the book machinery only if Civitates/Merian turn out to be IA books) |
+| `fit/src_van_deventer.py`, `fit/src_kip.py`, `fit/src_mackenzie.py`, `fit/src_roman_horsley.py` / `fit/src_roman_maclauchlan.py`, `fit/src_limes.py`, `fit/src_wiltshire.py`, `fit/src_numancia.py`, `fit/src_artists.py` | 204-210, 213 | the eight growth leads: find, verify age + free access, tie, stage rows in its own staging files and its own `docs/lead_<name>.md` (book leads write per-book artifacts only; the Roman lead split into per-book modules at the 207 split, and 207c's Roy 1793 was dropped 2026-10-13 - its module was never built; 213 uses the book machinery only if Civitates/Merian turn out to be IA books) |
 | `fit/merge.py` | 211 | consolidate per-source rows into the canonical files; rebuild the book index (the shared one, once); build the new sites; refresh the page data; consolidate the lead statuses into `docs/sources.md` |
 | `fit/src_<lead>.py` (check/stage guards only) | 222-228 (one per module: 222 van_deventer, 223 kip, 224 mackenzie, 225 limes, 226 numancia, 227 stukeley, 228 artists) | accept the staging rows once 211 has merged them: a staged row identical to its canonical twin is an already-merged no-op, a different row with the same key still fails loud, known-site self-references are not collisions |
 | `fit/cover.py` | 212 | targeted picture search for the still-uncovered sites; the only page-facing sync; the final report (`docs/batch.md`) and the current 20-sample |
@@ -178,7 +178,7 @@ Module map (one module per task, so agents never collide):
 | 2. the local model does the fitting itself (fitkit sheet, grid labels, >= 4 matched-feature pairs; a scale/north/centre-only placement is a starting point, not a fit; the queue is overflow, not a plan for every site) | 202 (the starting point), 203a/203b (the loop: sheet -> model -> solver -> gate), 201 (the queue receives the refusals and the could-not-fit), 001 (every model fit passes the gate) |
 | 3. a fit is accepted by numbers via a gate validated on held-out hand fits; 18/20 of a 20-sample of auto fits must be right | 001 (the gate), 203a/203b (their reports list the seeded 20-sample for the human check; 212 keeps it current until 999 checks it) |
 | 4. every picture tied to its place with machine-checkable evidence in its row | 200 (the checker), 204-210 + 213 (each lead records the evidence of its rows), 211 (consolidates) |
-| 5. the map grows: the eight leads, each verified before use | 204 Van Deventer, 205 Kip, 206 Mackenzie p. 212, 207 Roy/Horsley/Maclauchlan, 208 German Limes, 209 Hoare/Stukeley/Petrie, 210 Numancia, 213 artists' views (Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian); 211 builds them |
+| 5. the map grows: the eight leads, each verified before use | 204 Van Deventer, 205 Kip, 206 Mackenzie p. 212, 207 Horsley/Maclauchlan (Roy 1793 dropped 2026-10-13, owner's call - see Deviations), 208 German Limes, 209 Hoare/Stukeley/Petrie, 210 Numancia, 213 artists' views (Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian); 211 builds them |
 | 6. the page shows what changed without breaking anything | 201 (review section, only page change), 211 (new sites/pictures via the existing data files), 212 (the fit documents become overlays and drawings counts), every task's test re-runs the served page |
 
 ## Waves (all tasks of a wave can run at once; two agents pick from each wave)
@@ -230,3 +230,22 @@ because they share the `data/books/` directory, not because one needs the other'
   measured; box 2 re-worded to the registered contract ("at most 1 in 20, or the measured
   numbers are recorded in docs/gate.md section 9 and the review queue absorbs the difference")
   and the task is done.
+
+- **Task 207c (Roy, *Military Antiquities of the Romans in North Britain*, 1793) dropped: the
+  book cannot be fetched from this VM and the owner declined to supply it.** GOAL's "the map
+  grows" lead list names three Roman books for old site plans: Roy (1793), Horsley (1732),
+  Maclauchlan (1857). The project does: index Horsley and Maclauchlan (207a/207b, in flight)
+  and drop Roy (207c, DROPPED 2026-10-13 on the owner's answer to ask 008: "drop Roy. I dont
+  want to have to ever go out and get a file. If you need it get it. If you can't get it,
+  then you don't need it."). The book is not on the Internet Archive (exhaustive search,
+  10-11) and its only complete online facsimile (the NLS maps.nls.uk page) answers HTTP 405
+  AWS-WAF "Human Verification" from this VM (re-verified 10-13); HathiTrust 403s it and the
+  Google Books API's anonymous quota is 0 queries/day, so no copy is fetchable here at all -
+  the same wall that dropped 209a (Hoare) and forced 209c onto its Commons fallback, under
+  the owner's standing "I am not going to go get it" (PITFALLS). Evidence the owner accepts
+  the difference: they made this exact trade for Hoare earlier the same day ("Just skip
+  it") and repeated it for Roy knowing the map loses the early Scottish camp plans (the four
+  no-QID Antonine Wall camps in extras.jsonl stay without plans; no new Scottish roman_fort
+  rows from this book); the Roman site-plan lead still stands on Horsley + Maclauchlan (the
+  German Limes fort plans grow the separate 208 lead), and the parent's (207) acceptance
+  boxes 1-4 are met by 207a/207b alone.
