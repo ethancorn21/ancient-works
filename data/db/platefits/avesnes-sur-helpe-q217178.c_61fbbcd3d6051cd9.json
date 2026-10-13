@@ -1,0 +1,90 @@
+{
+ "site": "avesnes-sur-helpe-q217178",
+ "plan": "c_61fbbcd3d6051cd9",
+ "crop": [
+  0,
+  0,
+  1280,
+  1842
+ ],
+ "pairs": [
+  [
+   562.9,
+   802.4,
+   3.9311106,
+   50.1224215
+  ],
+  [
+   1012.6,
+   1079.8,
+   3.9407745,
+   50.1163893
+  ],
+  [
+   305.6,
+   985.4,
+   3.9236834,
+   50.1204136
+  ],
+  [
+   298.4,
+   636.4,
+   3.9254419,
+   50.1260146
+  ],
+  [
+   608.5,
+   544.9,
+   3.9336746,
+   50.126372
+  ],
+  [
+   788.9,
+   926.3,
+   3.9360526,
+   50.1196376
+  ],
+  [
+   725.1,
+   722.0,
+   3.9355964,
+   50.1231292
+  ],
+  [
+   361.0,
+   805.0,
+   3.9260634,
+   50.1230975
+  ]
+ ],
+ "label": "1545",
+ "title": "Avesnes-sur-Helpe, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Avesnes-sur-Helpe_-_Deventer.jpg",
+ "at": "2026-10-13T03:12:50.703437+00:00",
+ "auto": true,
+ "score": 9.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/avesnes-sur-helpe-q217178/61fbbcd3d6051cd9.jpg",
+ "ref": "File:Avesnes-sur-Helpe - Deventer.jpg",
+ "size": [
+  1280,
+  1842
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2159,
+  "matches": 4996,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 12.56,
+  "spread": [
+   0.771,
+   86.4
+  ]
+ }
+}

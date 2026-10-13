@@ -1,0 +1,90 @@
+{
+ "site": "bavay-q477176",
+ "plan": "c_e8345a33509010ae",
+ "crop": [
+  0,
+  0,
+  1280,
+  1842
+ ],
+ "pairs": [
+  [
+   732.1,
+   787.9,
+   3.79246,
+   50.2985147
+  ],
+  [
+   732.1,
+   1090.1,
+   3.7887956,
+   50.2936206
+  ],
+  [
+   904.8,
+   717.7,
+   3.7976885,
+   50.2983133
+  ],
+  [
+   645.8,
+   663.8,
+   3.791776,
+   50.3011935
+  ],
+  [
+   584.6,
+   787.9,
+   3.7887205,
+   50.2996572
+  ],
+  [
+   671.0,
+   735.7,
+   3.791542,
+   50.2998332
+  ],
+  [
+   782.5,
+   735.7,
+   3.7943694,
+   50.2989694
+  ],
+  [
+   795.1,
+   1072.1,
+   3.7906098,
+   50.2934242
+  ]
+ ],
+ "label": "1545",
+ "title": "Bavay, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Bavay_-_Deventer.jpg",
+ "at": "2026-10-13T03:13:55.866249+00:00",
+ "auto": true,
+ "score": 4.6,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bavay-q477176/e8345a33509010ae.jpg",
+ "ref": "File:Bavay - Deventer.jpg",
+ "size": [
+  1280,
+  1842
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 13,
+  "matches": 423,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 25.56,
+  "spread": [
+   0.7,
+   92.0
+  ]
+ }
+}
