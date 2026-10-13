@@ -486,3 +486,11 @@ Parent 307's hand-over got the closure note; PITFALLS needed no new entry (the
 "placement test's pick" entry at ~1410 already carries the 6ce742f episode, the
 post-fix pick prediction - oswestry-castle, 1842 map shown, 1900 filtered - and the
 practical rules; today's run corroborated it exactly).
+
+## 2026-10-13 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    tests/test_fit_queue.py:1749: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
+    (full test output: .agent/reports/last-test-output.txt)
