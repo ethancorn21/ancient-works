@@ -7,17 +7,17 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 212, agent a - FIRST session on 308. Investigation done, before-baseline
+- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 213, agent a - merge done + CODE IMPLEMENTED in web/index.html (uncommitted, in the
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/221-review-stats-test.md`
+- `tasks/212a-cover-search.md`
 
 ## Your task's journal
 
@@ -62,6 +62,14 @@ Esri tiles load fine - the only 404s are the handled fallbacks data/scans.json,
 data/amazon/areas.json, api/db/ping). The probe's phase 'after' also self-checks: worst tip-to-
 point delta per tier, a real click on a marker opening its site, and svg counts in markers/
 legend/list with scan markers still square.
+
+### 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()
+Merge 4b12889 into agent/a: 212 conflict = main added the lead note + lead split (212a/b/c; the fit step is the matcher, run by the lead; "a's design notes stay on agent/a") while my side held the iter-211 design hand-over - resolved as a union, hand-over last (AGENTS.md: the hand-over is the final section); 308 conflict = main's side empty (main never had my hand-over) - kept ours. The merge brought no code changes (main's new commits are task-file-only).
+Implementation (working tree, uncommitted at session end - the harness saved it): the iter-212 design, 7 edits - AH svg (M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z: tip bottom-centre, notched contracting stem), --mks tier colour on every size rule, .sq.ah path (fill var(--mks), 1.2px non-scaling stroke), tag absolute (left:100%, top:100%, translateY(-50%)) with .marker.scan .tag {top:50%}, addMarkers anchor 'bottom' offset [0,0], syncMarkers box [x±8, y-16..y+1] (label box unchanged), swatches + the 5 legend spans .ah + AH (the S.more fragment converted to a backtick template literal so ${AH} interpolates), addScanAreas untouched. ONE DEVIATION (intentional): .marker stays display:flex + position:relative instead of the designed inline-block - a flex container is sized to exactly its one in-flow child (.sq), while an inline-block parent adds line-box descender height that would shift the bottom-centre (the tip) off the assigned point.
+FAILED (anchor measurement, attempt 1): probe compared the rendered tip to map.project(lnglat) -> worst 3023 px. Root cause, verified: the page's map is projection:{type:'globe'} (MapLibre 5.6, index.html ~324) - map.project() returns the flat 2D map plane, but markers live in the globe pipeline; the marker's own inline transform `translate(-50%,-100%) translate(Xpx,Ypx)` carries the on-globe screen position MapLibre computed from the lnglat, and at pitch 0 the element is un-rotated (rotateX(0deg)), so its measured rect's bottom-centre vs (X,Y) is the correct anchor reference. map.project stays only as a loose cross-check (globe curvature: a few px at the view edge).
+FAILED (anchor measurement, attempt 2): even the transform-based comparison showed worst 3023 px, because markers OUTSIDE the viewport (US sites while viewing Wiltshire, or the far side of the globe) keep display:'' (syncMarkers only hides by shown()/sel) and their rect/transform is a wrapped 2D-plane position - meaningless to compare. Fix applied (NOT yet re-run): anchorCheck skips markers whose svg rect is outside the 1440x900 viewport.
+Verified in the latest probe run: 499/499 site markers + 328/328 legend + 324/324 list-row swatches carry the arrowhead svg; clicking a marker's .sq opens its site; the visual path tip sits within 0.15 px of the svg box's bottom-centre (the 99/100 vertex + 1.2 px stroke lands the visual tip within ~0.5 px of the assigned point - sub-pixel; the old square was centred on the point, so this is also strictly closer to the point).
+Pending: probe re-run after the viewport-filter edit; the merged-tree suite (running in the background at session end: /tmp/aw308-suite-merged.log, last check 2 Fs = the expected 231/232 merge-reds); then per the lead's instruction in my 212 hand-over ("WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked" - the lead did their work in aeeb5aa): verify and mark 233 (plan-list growth test + key-set + machine-dependence record) and 234 (test key + fit_queue.json reproducibility + fit_queue.py untouched).
 
 ## Project-wide driver notes (newest)
 
