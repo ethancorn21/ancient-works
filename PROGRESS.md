@@ -7,6 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 216, agent a - investigation + verification session; NO test
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -16,7 +17,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/212a-cover-search.md`
+- `tasks/212b-cover-sync.md`
 
 ## Your task's journal
 
@@ -108,6 +109,39 @@ data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
 dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
+
+### 2026-10-13 212a DECISION: 233+234 verified on the merged tree (lead's marking instruction); live state re-measured post-aeeb5aa (search set 245, no-qid-with-title set empty, 328 missing local copies)
+Session 216 (agent a, first session on 212a after the lead split). No test file
+written yet (context limit after verification + measurement). Verified the lead's
+"233+234 done by the lead (aeeb5aa)" before ticking them done: (1) 233:
+test_plan_list_refresh_is_pure_growth passes in 0.07 s (numancia's c_0fa271e2444f7bfc
+row is back in the re-exported 1475-row plans.json); the machine-dependence PITFALLS
+entry (### tools/export_plans.py) already exists from my 212 investigation -> all
+boxes satisfied, mark Status: done (next session). (2) 234: test_fit_queue_real
+passes in 4.1 s (the (view, -px, plan, name) key change is in aeeb5aa;
+tools/fit_queue.py untouched); box 2 verified on the VM with a scratch hard-linked
+tree (data/raw re-linked as symlink - the generator never opens images): two
+regenerations byte-identical apart from the "at" timestamp; committed 229 entries
+vs VM-regenerated 230 - the ONLY difference is site 'numancia' present in the VM
+regen (the machine-dependent "built" rule: the VM's shared store holds the numancia
+site dir, the lead's Mac did not - the same environment effect 233 documents, not a
+state drift; the committed file equals the generator output on the machine it was
+generated on) -> mark Status: done. Live state re-measured on the merged tree
+(aeeb5aa in via 400431f): built 499; 131 docs; nofit 402; plans 1475 rows; search
+set 245 = 204 qid + 41 no-qid (numancia dropped out - it has its plans row back);
+with-row nofit 157; CHOOSE unchanged (aardenburg/aesica/aire-sur-la-lys/alauna);
+fake hit site = aalsum-q3902030 (Q3902030, no existing titles); **the
+no-qid-with-title set is now EMPTY** (numancia was the only one) so per the
+iter-211 D1 the test asserts it empty: no failure site, every record's failed == []
+(code both branches); all 245 search-set sites carry the batch-era no_picture mark;
+328 titled files.jsonl rows lack a local copy (the live fetch phase's work; the
+test's fake _fetch_one fills them). Next: mark 233/234 done, then write
+tests/test_cover.py per the 212a design in the hand-over (fetch->search->stage->
+nopicture in a hard-linked tree, the 3 in-place files copied, searches.json deleted
+in the tree first, socket guard + time.sleep no-op + pure fakes; assertions:
+searches.json per-site records + resumability, stdout counts, staged rows + local
+copies + plans growth-only, no-picture items with the exact searched string,
+checkout-integrity hashes). The live run (box 4) waits for 203b.
 
 ## Project-wide driver notes (newest)
 
