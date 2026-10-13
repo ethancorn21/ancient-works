@@ -4,6 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/212-cover-final.md` (in progress, agent a, iteration 200) - hand-over: (2026-10-12, iteration 200, agent a - FIRST session on 212; investigation only, no code written yet. fit/cover.py and tests/test_cover.py do NOT exist yet; the task is unsplit and ready to design.)
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
