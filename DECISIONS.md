@@ -408,3 +408,21 @@ expected item end states follow 201's derivation computed from the live items (d
 an in-item row -> item resolved write-once and off the open list, as for aesica; doc
 on a not-in-item row or no item -> item stays open if it exists; sent case -> item
 keeps the line-check why on that row's plan).
+
+## 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
