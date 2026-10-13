@@ -1426,6 +1426,25 @@ the site stays covered for the union check, an open item counts).
   on the page (the 303 way: the picture and its 4 points went to a NEW review item for the site
   with this reason - the site had none before - the document was deleted, the site's review
   page file re-exported scoped to the site; the site stays covered by the new open item).
+- richborough-roman-fort-q1309736.c_edad7da41d234534 - Richborough Castle, derived from the
+  Penny Cyclopaedia (1836) v6 p 353 (similarity, 6 pts, resid 0.0 m, 1.25 m/px, 0.0 deg):
+  the 6 anchors are a 640-px grid ladder - the drawn outer wall's four corners
+  (320,160)/(960,160)/(320,640)/(960,800), plus (640,560) at the drawn Quadrifrons and
+  (640,960) at the drawn river - so the fit carries no placement information; the site
+  point inverse-maps to plate (639.6, 639.6) of [1280,1212], the near-centre of the plate.
+  The drawn fort (a square with a rounded SE corner) has outer walls spanning 632 x 632 px
+  = 790 x 790 m, centred E+5 N+195 m; the real fort - the 1842 six-inch's hatched
+  'RITVPIA' block and the LiDAR's wall ruins, ~200 m on the long axis, centred ~E+70 N-130
+  m - sits just E-S of the site point, so the drawn complex is ~4x too big with its centre
+  ~330 m off (mainly N), over open farmland north of the real fort, and the drawn river
+  band at the plate's bottom (N-399) sits ~100 m S of the real estuary crossing at the
+  fort's SE corner. The plate's own 0-400 ft scale bar (598 px, ~0.20 m/px) is ~6x smaller
+  than the fit - a 1836 drawing, not a survey (the portus-adurni class): the plate is
+  drawn near its true scale and the fit, not the plate, is wrong. Wrong place, wrong size,
+  right kind. DELETED - an orphan today, invisible on the page (the 303 way: the picture
+  and its 6 points were APPENDED to the site's existing review item, after its coarse
+  candidate c_1dcd5a7171573663 with this reason - the item keeps its file name and its
+  lead and stays open, and the site stays covered).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
