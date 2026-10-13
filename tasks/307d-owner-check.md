@@ -1,7 +1,7 @@
 Status: open
 # 307d: The owner's check - two queue sites end to end, then reverted
 Depends on: 307c
-Touches: tests/, docs/site_flow.md
+Touches: tests/, docs/site_flow.md, docs/site_flow/
 
 ## Goal
 The last box of 307: "Saving still writes 'by': 'hand' and runs the one-site line (305),
