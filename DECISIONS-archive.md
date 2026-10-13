@@ -3557,6 +3557,59 @@ the hand-over.
 
 Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
 
+## 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)
+Session 222 (agent a). The lead answered request 003: option (b) modified - classify with MY OWN model server 127.0.0.1:8080 (vLLM qwen3.8-27b on the 3090 Ti), NOT 8081 (the other worker's card); Clef-flash is not running anywhere (the 5060 Ti now serves the matchers), so option (a) was void. Record in classified.jsonl and data/cover that the rows are 8080-Qwen one-off; placement stays the matcher. Done this session, in order:
+1. fit/cover_qwen8080.py (new, committed 870d4f9): the one-off adapter - asks the Clef questions themselves (commons.CLEF_STATE/CLEF_Q) as 0..1 probabilities to 127.0.0.1:8080 via pipeline/llm.ask (the proven client for exactly this model), 4 workers, retries; smoke-verified on known images (book page -> 0/0/0; old photos -> p_photo 0.94/0.98; bibracte's 1832 page -> plan 0.95 and carnac's engraved view -> 0/0/0 both visually confirmed). stage gained an optional classifier_note recorded as a per-row "classifier" field (no default change; test_cover's byte-pinned fake-classifier rows stay identical - suite was green before the run: 155 passed, 1 skipped).
+2. THE FIRST STAGE RUN EXPOSED TWO REAL BUGS (both fixed, committed in 9c48d94): (a) fit/cover.py _fetch_one did `open(dst + ".part")` on a PosixPath - TypeError swallowed by the per-file except as a per-file "fetch failed" (symptom: EVERY fetch fails with "unsupported operand type(s) for +: 'PosixPath' and 'str'"; the tests never reach this path - their trees pre-seed every local copy, p.exists() short-circuits; the live run was the first to actually download). Fixed: dst = str(dst). (b) my module's first version returned {plan, birdseye, photo} - stage expects p_-prefixed keys (KeyError: 'p_plan'); I misread the smoke-test output shape. Both filed in PITFALLS.md (entry in "This machine" on Clef being dead + 8080 approved one-off; entries in "This codebase" on the _fetch_one swallow and on export_plans' min_p gate).
+3. THE RUN (second launch, clean): 107/107 local copies fetched (1/s), 107/107 classified (every row carries the note), evidence.record live (107 live - categories/page ids/file entities/P180 all answered, 0 failures), plans.json re-export 1475 -> 1510. KEY-SET DIFF vs the committed baseline (/tmp/aw222-plans-keys-before.json): 0 LOST, 35 gained - and the 35 are EXACTLY the gate-passing population (p_photo < 0.5 AND max(p_plan, p_birdseye) >= 0.3, tools/export_plans commons_rows min_p=0.3): 11 of the 16 sites got plans rows (aventicum, bibracte, burcht-van-leiden, hopewell, los-millares, maeshowe, motte-castrale-quiquempois, moundville, stones-of-stenness, vicus-bridge, trundle); 5 sites' pictures ALL fell below the gate (arbeia, carnac-stones, craig-phadrig, indian-mounds-park, ocmulgee) and stay no-picture sites. nopicture: 234 items stamped (245 records - 11 now-in-cand sites), NOT the 229 the old hand-over guessed (it assumed all 16 would gain rows). fit_queue.json regenerated 229 -> 241, 0 sites lost (+12: my 11 + numancia - numancia is live drift since the lead's 04:09:15 regeneration, picked up by the same generator; test_fit_queue_real is derived-never-pinned and passed). data/cover/stage_qwen8080.json records the one-off. Committed 9c48d94 (242 files). Golden 40/40 OK after the run.
+4. POST-RUN SUITE: 4 failed, 151 passed, 1 skipped (/tmp/aw222-postsuite.log, persists on this VM). (1) test_batch_eu::test_sample_run_real_gate - bibracte is NO_PIC pinned "zero candidates"; my run gave it plans rows, so the no-picture expectation is void. (2) test_batch_eu::test_batch_adds_files_rewrites_none - FileNotFoundError at :708, a sample-site item file missing from the tree post-run (my working hypothesis: bibracte's item got resolved by a doc the batch built, so the site's scoped export deleted it). BOTH are 203b's test file - not mine to edit (agent c is working on 203b right now; the test's own docstring says "if plans.json gains rows for these sites ... a future 203b session extends the lists for an intended change" - my 212a run IS that intended change, and 203b's hand-over anticipated a "212-era re-coverage run"). ACTION: 203b added to my Depends on line (the established pattern for merge-induced reds owned by other tasks - the 231-234 precedent); the driver re-checks my claim against 203b's fixed lists once it merges. (3) test_site_done::test_site_done_line:330 - the repo's web/data/review.json is STALE: it predates my nopicture re-stamps (aalsum's item now carries the exact searched string; the page file still carries the batch-era "web/data/plans.json ..." string); the test re-derives the open list in its tree from the re-stamped items and compares to the repo page file. FIX (next session, mine): add web/data/review.json to my Touches and run `fit/cover.py export` (my module's phase, the one and only writer of that page file) - the lead's loop + 212b run sync+export again later; mine just makes the page file consistent with the items my run stamped. (4) test_fit_provenance::test_line_refuses_unmarked_non_auto_doc:377 - NOT YET DIAGNOSED (context limit before reading log lines 153-246); it copies ROOT data into a tree and runs the one-site line on stonehenge (whose rows/item are UNCHANGED by me - stonehenge has rows, so its item was never re-stamped). Working hypothesis: it compares the post-run published page against the stale repo review.json (same root cause as (3) -> fixed by the export) - VERIFY by reading the log section; if the root cause is instead one of my data changes, the fix is data-side (never edit their test).
+
+## 2026-10-13 212a DECISION: task DONE - export phase re-derived web/data/review.json after the 234 re-stamps (a7f5dda); my two reds fixed by that; the two remaining reds are 203b's pinned bibracte case (mechanism verified: no-picture expectation void + the upsert's lead-follow rename); lead's loop / 212b / 212c follow after the merge
+
+Session 223 (agent a), the small session the iter-222 hand-over prescribed.
+1. Touches gained web/data/review.json; ran `fit/cover.py export`
+   (review.export): it wrote ONLY web/data/review.json - all 346 item files
+   byte-identical (sha256 before/after), no write-once resolutions needed
+   (my run built no docs, so no item gained a resolving doc). Page diff vs
+   HEAD: same 333 open sites (0 lost, 0 gained); exactly 234 entries
+   changed = my no-picture re-stamps (batch-era "web/data/plans.json
+   (1166 rows, matched by the sites field)" -> the exact per-site searched
+   string); at-timestamp refreshed. Committed a7f5dda.
+2. My two owned reds were both fixed by that commit (hypothesis confirmed
+   from /tmp/aw222-postsuite.log): test_site_done::test_site_done_line:330
+   and test_fit_provenance::test_line_refuses_unmarked_non_auto_doc:377
+   compare their tree's re-derived page against the repo's STALE page file
+   (pre-re-stamps; the aalsum entry differed only in the searched string).
+   Both now green (8 passed in the pair).
+3. Full suite: 2 failed, 153 passed, 1 skipped. Both failures are 203b's
+   pinned bibracte case in tests/test_batch_eu.py; mechanism verified from
+   the same log: (a) test_sample_run_real_gate:539 asserts NO_PIC=bibracte
+   is zero-candidates -> the batch's no-picture re-stamp, but my 212a run
+   gave bibracte gate-passing plans rows, so run_sites writes "no model
+   answer" entries instead (no recorded answer for those fresh rows) and
+   rec["no_picture"] is False; (b) test_batch_adds_files_rewrites_none:708
+   - that same upsert changed bibracte's lead (0 candidates -> N) so
+   review.upsert_item renamed the item file (<site>.json ->
+   <site>.<lead>.json, old unlinked at fit/review.py:115) and the test reads
+   its recorded pre-run path -> FileNotFoundError. Both are exactly what the
+   test's own docstring assigns to a future 203b session ("if plans.json
+   gains rows for these sites ... a future 203b session extends the lists
+   for an intended change"); agent c is working on 203b now. 203b stays on
+   my Depends on line; if the driver rejects the done claim on these two,
+   that is the mechanism.
+4. Gates at done: golden sha256sum -c 40/40 (data/db/platefits untouched by
+   the export); tests/test_cover.py green in the suite; web/data/review.json
+   consistent with the items. Box 4 ticked, Status: done. The remainder of
+   the 212 line after this merges: the lead runs matchfit (fit/matchfit.py
+   + tools/site_done.py) over my 16 found-picture sites (11 rowed, 5
+   below-gate stay no-picture), then 212b (sync) and 212c (report) - none of
+   it is this task.
+
+## 2026-10-13 212a DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_batch_eu.py::test_batch_adds_files_rewrites_none
+    tests/test_batch_eu.py::test_sample_run_real_gate
+
 
 <!-- task 213 -->
 # Task 213 artist-views
