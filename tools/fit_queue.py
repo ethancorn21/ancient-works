@@ -104,6 +104,15 @@ def _built_sites(root):
             if s.get("id") and (base / s["id"]).is_dir()]
 
 
+def _no_lidar_sites(root):
+    """The sites whose sites.json entry says lidar: false (aerial-photograph ground only). The
+    owner, 2026-10-13: fits on aerial photographs alone mostly do not line up, so the queue
+    offers LiDAR sites only. Their review items stay; they just do not enter the queue."""
+    d = _load_json(Path(root) / "web" / "data" / "sites.json")
+    ss = d.get("sites") if isinstance(d, dict) else d
+    return {s["id"] for s in (ss or []) if s.get("id") and s.get("lidar") is False}
+
+
 def _item_candidates(root):
     """The candidates of every data/review/ item file, keyed by the item's `site` field (open and
     resolved items alike: a resolved item's candidates are still the site's candidate pictures - what
@@ -353,9 +362,10 @@ def build(root):
     if store is not None:
         flags = _place_flags(root, store, cands)
         _apply_flags(root, store, cands, rows, item_cands, hand, built, flags)
+    no_lidar = _no_lidar_sites(root)
     entries = []
     for sid, name in built:
-        if sid not in cands:
+        if sid not in cands or sid in no_lidar:
             continue
         e = _entry(sid, name, cands[sid])
         p = _entry_propose(root, sid, e["best"]["plan"])  # the key lands after "candidates" (the page's order)
