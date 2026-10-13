@@ -1,4 +1,4 @@
-Status: open
+Status: blocked
 Depends on: 807
 Touches: fit/src_roman_horsley.py, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl, docs/lead_roman.md
 
