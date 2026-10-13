@@ -1,0 +1,59 @@
+{
+ "site": "wiesbaden-q622981",
+ "candidates": [
+  {
+   "plan": "c_9e57c0405171716e",
+   "title": "Wiesbaden, plan, Tafel 1, ORL 31, 1909 (Commons)",
+   "url": "media/commons/wiesbaden-q622981/9e57c0405171716e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Wiesbaden",
+    "place_qid": "Q622981",
+    "place_label": "Wiesbaden",
+    "place_lon": 8.241862,
+    "place_lat": 50.086375,
+    "site_lon": 8.241862,
+    "site_lat": 50.086375,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4866,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_67820b8f96789216",
+   "title": "Wiesbaden, plan, Tafel 2, ORL 31, 1909 (Commons)",
+   "url": "media/commons/wiesbaden-q622981/67820b8f96789216.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Wiesbaden",
+    "place_qid": "Q622981",
+    "place_label": "Wiesbaden",
+    "place_lon": 8.241862,
+    "place_lat": 50.086375,
+    "site_lon": 8.241862,
+    "site_lat": 50.086375,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4884,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "marienfels-q1359182",
+ "candidates": [
+  {
+   "plan": "c_b4f66d9ec7893cb0",
+   "title": "Marienfels, Grundriss des Kastells, ORL 05a, 1903 (de.wikipedia)",
+   "url": "media/commons/marienfels-q1359182/b4f66d9ec7893cb0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Marienfels",
+    "place_qid": "Q1359182",
+    "place_label": "Marienfels",
+    "place_lon": 7.81076,
+    "place_lat": 50.2403,
+    "site_lon": 7.81076,
+    "site_lat": 50.2403,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.3956,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,32 @@
+{
+ "site": "mechelen-q162022",
+ "candidates": [
+  {
+   "plan": "c_2855bae8824664c9",
+   "title": "Mechelen, town plan by Jacob van Deventer",
+   "url": "media/commons/mechelen-q162022/2855bae8824664c9.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Mechelen",
+    "file_cat": "Map of Mechelen by Jacob van Deventer",
+    "via": [
+     "Old maps of Mechelen",
+     "History of Mechelen",
+     "Mechelen"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

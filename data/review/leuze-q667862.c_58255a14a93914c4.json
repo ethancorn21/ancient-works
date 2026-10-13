@@ -1,0 +1,33 @@
+{
+ "site": "leuze-q667862",
+ "candidates": [
+  {
+   "plan": "c_58255a14a93914c4",
+   "title": "Leuze-en-Hainaut, town plan by Jacob van Deventer",
+   "url": "media/commons/leuze-q667862/58255a14a93914c4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Leuze-en-Hainaut",
+    "file_cat": "Map of Leuze by Jacob van Deventer",
+    "via": [
+     "Old maps of Leuze",
+     "Maps of Leuze-en-Hainaut",
+     "Geography of Leuze-en-Hainaut",
+     "Leuze-en-Hainaut"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.0858,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

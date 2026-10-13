@@ -1,0 +1,33 @@
+{
+ "site": "oberscheidental-q1735404",
+ "candidates": [
+  {
+   "plan": "c_adaaf1b044a026f8",
+   "title": "Oberscheidental, Grundriss und Schnitte, ORL 52, 1897 (de.wikipedia)",
+   "url": "media/commons/oberscheidental-q1735404/adaaf1b044a026f8.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Oberscheidental",
+    "place_qid": "Q1735404",
+    "place_label": "Oberscheidental",
+    "place_lon": 9.15278,
+    "place_lat": 49.5064,
+    "site_lon": 9.15278,
+    "site_lat": 49.5064,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5128,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

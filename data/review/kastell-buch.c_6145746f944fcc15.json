@@ -1,0 +1,33 @@
+{
+ "site": "kastell-buch",
+ "candidates": [
+  {
+   "plan": "c_6145746f944fcc15",
+   "title": "Kastell Buch, Grundriss, ORL 67, 1896 (de.wikipedia)",
+   "url": "media/commons/kastell-buch/6145746f944fcc15.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Buch",
+    "place_qid": null,
+    "place_label": "Kastell Buch (no Wikidata item: name+coords from the de.wikipedia article)",
+    "place_lon": 10.136429,
+    "place_lat": 48.909531,
+    "site_lon": 10.136429,
+    "site_lat": 48.909531,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.164,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

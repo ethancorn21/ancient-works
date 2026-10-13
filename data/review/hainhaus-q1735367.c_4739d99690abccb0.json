@@ -1,0 +1,33 @@
+{
+ "site": "hainhaus-q1735367",
+ "candidates": [
+  {
+   "plan": "c_4739d99690abccb0",
+   "title": "Hainhaus, Grundriss, ORL 47, 1897 (de.wikipedia)",
+   "url": "media/commons/hainhaus-q1735367/4739d99690abccb0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Hainhaus",
+    "place_qid": "Q1735367",
+    "place_label": "Hainhaus",
+    "place_lon": 9.08319,
+    "place_lat": 49.7328,
+    "site_lon": 9.08319,
+    "site_lat": 49.7328,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.8412,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "temple-newsam-q2748017",
+ "candidates": [
+  {
+   "plan": "c_4156b1bf72bcb72b",
+   "title": "Temple Newsam, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/temple-newsam-q2748017/4156b1bf72bcb72b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Temple Newsam",
+    "place_qid": "Q2748017",
+    "place_label": "Temple Newsam",
+    "place_lon": -1.4595,
+    "place_lat": 53.7842,
+    "site_lon": -1.4595,
+    "site_lat": 53.7842,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

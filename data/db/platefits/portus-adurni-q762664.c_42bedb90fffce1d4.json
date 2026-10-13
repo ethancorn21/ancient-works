@@ -1,0 +1,90 @@
+{
+ "site": "portus-adurni-q762664",
+ "plan": "c_42bedb90fffce1d4",
+ "crop": [
+  0,
+  0,
+  1280,
+  1292
+ ],
+ "pairs": [
+  [
+   547.8,
+   528.7,
+   -1.1143984,
+   50.8373008
+  ],
+  [
+   1217.0,
+   20.2,
+   -1.1121899,
+   50.8379068
+  ],
+  [
+   81.8,
+   1147.3,
+   -1.1161165,
+   50.836414
+  ],
+  [
+   29.0,
+   131.1,
+   -1.1155716,
+   50.8382226
+  ],
+  [
+   1234.8,
+   669.2,
+   -1.1125823,
+   50.8367586
+  ],
+  [
+   680.1,
+   9.2,
+   -1.1136766,
+   50.8381568
+  ],
+  [
+   602.1,
+   1042.8,
+   -1.1145972,
+   50.8363741
+  ],
+  [
+   47.9,
+   638.6,
+   -1.1158645,
+   50.8373226
+  ]
+ ],
+ "label": "1836",
+ "title": "Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354",
+ "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
+ "at": "2026-10-13T13:19:14.185380+00:00",
+ "auto": true,
+ "score": 2.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
+ "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
+ "size": [
+  1280,
+  1292
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2130,
+  "matches": 4985,
+  "ground": "six-inch-1st.webp",
+  "window": 0.25,
+  "rot_deg": 13.75,
+  "spread": [
+   0.551,
+   255.4
+  ]
+ }
+}

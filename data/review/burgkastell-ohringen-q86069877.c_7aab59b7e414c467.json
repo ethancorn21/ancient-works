@@ -1,0 +1,33 @@
+{
+ "site": "burgkastell-ohringen-q86069877",
+ "candidates": [
+  {
+   "plan": "c_7aab59b7e414c467",
+   "title": "B\u00fcrgkastell \u00d6hringen, Grundriss des B\u00fcrgkastells, ORL 42w, 1897 (de.wikipedia)",
+   "url": "media/commons/burgkastell-ohringen-q86069877/7aab59b7e414c467.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "\u00d6hringen",
+    "place_qid": "Q86069877",
+    "place_label": "B\u00fcrgkastell \u00d6hringen",
+    "place_lon": 9.497397222222222,
+    "place_lat": 49.205444444444446,
+    "site_lon": 9.497397222222222,
+    "site_lat": 49.205444444444446,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5785,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,59 @@
+{
+ "site": "st-james-palace-q272162",
+ "candidates": [
+  {
+   "plan": "c_242c66ba94fce523",
+   "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/st-james-palace-q272162/242c66ba94fce523.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "St James",
+    "place_qid": "Q272162",
+    "place_label": "St James's Palace",
+    "place_lon": -0.137778,
+    "place_lat": 51.504722,
+    "site_lon": -0.137778,
+    "site_lat": 51.504722,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_12be67d29c3019d6",
+   "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/st-james-palace-q272162/12be67d29c3019d6.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "St James",
+    "place_qid": "Q272162",
+    "place_label": "St James's Palace",
+    "place_lon": -0.137778,
+    "place_lat": 51.504722,
+    "site_lon": -0.137778,
+    "site_lat": 51.504722,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,90 @@
+{
+ "site": "bury-castle-q5001077",
+ "plan": "c_de779031cda8a0dc",
+ "crop": [
+  0,
+  0,
+  590,
+  475
+ ],
+ "pairs": [
+  [
+   225.0,
+   115.2,
+   -3.5156853,
+   51.0322577
+  ],
+  [
+   14.7,
+   53.0,
+   -3.5183562,
+   51.032749
+  ],
+  [
+   134.2,
+   251.0,
+   -3.5168333,
+   51.0311722
+  ],
+  [
+   356.8,
+   154.8,
+   -3.5140117,
+   51.0319446
+  ],
+  [
+   145.8,
+   8.0,
+   -3.5166941,
+   51.0331115
+  ],
+  [
+   259.8,
+   237.8,
+   -3.5152394,
+   51.0312802
+  ],
+  [
+   102.8,
+   134.4,
+   -3.5172358,
+   51.0321016
+  ],
+  [
+   297.7,
+   27.5,
+   -3.5147657,
+   51.0329587
+  ]
+ ],
+ "label": "1911",
+ "title": "Bury Castle Somerset Map",
+ "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Bury_Castle_Somerset_Map.jpg",
+ "at": "2026-10-13T12:48:26.745602+00:00",
+ "auto": true,
+ "score": 3.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bury-castle-q5001077/de779031cda8a0dc.jpg",
+ "ref": "File:Bury Castle Somerset Map.jpg",
+ "size": [
+  590,
+  475
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 4673,
+  "matches": 5000,
+  "ground": "six-inch-1st.webp",
+  "window": 0.7,
+  "rot_deg": -0.15,
+  "spread": [
+   0.782,
+   54.4
+  ]
+ }
+}

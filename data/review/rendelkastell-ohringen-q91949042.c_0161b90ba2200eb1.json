@@ -1,0 +1,33 @@
+{
+ "site": "rendelkastell-ohringen-q91949042",
+ "candidates": [
+  {
+   "plan": "c_0161b90ba2200eb1",
+   "title": "Rendelkastell \u00d6hringen, Grundriss und Grabenschnitte des Rendelkastells, ORL 42o, 1897 (de.wikipedia)",
+   "url": "media/commons/rendelkastell-ohringen-q91949042/0161b90ba2200eb1.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "\u00d6hringen",
+    "place_qid": "Q91949042",
+    "place_label": "Rendelkastell \u00d6hringen",
+    "place_lon": 9.51336944444444,
+    "place_lat": 49.1995138888889,
+    "site_lon": 9.51336944444444,
+    "site_lat": 49.1995138888889,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5696,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

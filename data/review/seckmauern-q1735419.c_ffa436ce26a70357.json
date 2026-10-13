@@ -1,0 +1,33 @@
+{
+ "site": "seckmauern-q1735419",
+ "candidates": [
+  {
+   "plan": "c_ffa436ce26a70357",
+   "title": "Seckmauern, Grundriss, ORL 46b, 1914 (de.wikipedia)",
+   "url": "media/commons/seckmauern-q1735419/ffa436ce26a70357.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Seckmauern",
+    "place_qid": "Q1735419",
+    "place_label": "Seckmauern",
+    "place_lon": 9.11736111,
+    "place_lat": 49.79902778,
+    "site_lon": 9.11736111,
+    "site_lat": 49.79902778,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.9932,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

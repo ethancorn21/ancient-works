@@ -1,0 +1,33 @@
+{
+ "site": "kings-weston-house",
+ "candidates": [
+  {
+   "plan": "c_c67b53c1463bbb8d",
+   "title": "Kings Weston House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/kings-weston-house/c67b53c1463bbb8d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Kingsweston",
+    "place_qid": null,
+    "place_label": "Kings Weston House",
+    "place_lon": -2.661541,
+    "place_lat": 51.494382,
+    "site_lon": -2.661541,
+    "site_lat": 51.494382,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

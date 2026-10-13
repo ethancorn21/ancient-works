@@ -1,0 +1,33 @@
+{
+ "site": "urspring-q1735430",
+ "candidates": [
+  {
+   "plan": "c_e9d4ade80eba80cd",
+   "title": "Urspring, Grundriss und Gel\u00e4ndeprofil, ORL 66a, 1904 (de.wikipedia)",
+   "url": "media/commons/urspring-q1735430/e9d4ade80eba80cd.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Urspring",
+    "place_qid": "Q1735430",
+    "place_label": "Urspring",
+    "place_lon": 9.90069,
+    "place_lat": 48.55,
+    "site_lon": 9.90069,
+    "site_lat": 48.55,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.648,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

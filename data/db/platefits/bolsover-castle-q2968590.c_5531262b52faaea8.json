@@ -1,0 +1,90 @@
+{
+ "site": "bolsover-castle-q2968590",
+ "plan": "c_5531262b52faaea8",
+ "crop": [
+  0,
+  0,
+  842,
+  976
+ ],
+ "pairs": [
+  [
+   405.0,
+   438.6,
+   -1.2965383,
+   53.2310046
+  ],
+  [
+   829.8,
+   155.3,
+   -1.2944406,
+   53.2301
+  ],
+  [
+   26.8,
+   600.4,
+   -1.2979774,
+   53.2319058
+  ],
+  [
+   403.9,
+   57.0,
+   -1.2947311,
+   53.2314132
+  ],
+  [
+   718.8,
+   648.6,
+   -1.2969767,
+   53.2298904
+  ],
+  [
+   322.1,
+   757.4,
+   -1.2981973,
+   53.2309008
+  ],
+  [
+   123.3,
+   283.0,
+   -1.2963009,
+   53.2319696
+  ],
+  [
+   668.0,
+   376.7,
+   -1.2957777,
+   53.2303237
+  ]
+ ],
+ "label": "1897",
+ "title": "Bolsover Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:528_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146272565).jpg",
+ "at": "2026-10-13T12:47:15.901476+00:00",
+ "auto": true,
+ "score": 1.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/bolsover-castle-q2968590/5531262b52faaea8.jpg",
+ "ref": "File:528 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146272565).jpg",
+ "size": [
+  842,
+  976
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3462,
+  "matches": 4994,
+  "ground": "six-inch-1st.webp",
+  "window": 0.35,
+  "rot_deg": 69.46,
+  "spread": [
+   0.669,
+   145.5
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "site": "le-quesnoy-q180067",
+ "candidates": [
+  {
+   "plan": "c_6c0ffd4cdd0fc9eb",
+   "title": "Le Quesnoy, town plan by Jacob van Deventer",
+   "url": "media/commons/le-quesnoy-q180067/6c0ffd4cdd0fc9eb.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Le Quesnoy",
+    "file_cat": "Map of Le Quesnoy by Jacob van Deventer",
+    "via": [
+     "Old maps of Le Quesnoy",
+     "Le Quesnoy"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

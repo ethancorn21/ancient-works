@@ -1,0 +1,90 @@
+{
+ "site": "framlingham-castle-q2524183",
+ "plan": "c_f43bc6196e097819",
+ "crop": [
+  0,
+  0,
+  1280,
+  1171
+ ],
+ "pairs": [
+  [
+   695.0,
+   377.5,
+   1.3468689,
+   52.224158
+  ],
+  [
+   535.0,
+   411.2,
+   1.346091,
+   52.2242982
+  ],
+  [
+   745.0,
+   467.5,
+   1.3468755,
+   52.2238452
+  ],
+  [
+   633.8,
+   298.8,
+   1.3467867,
+   52.2244568
+  ],
+  [
+   770.0,
+   422.5,
+   1.3470905,
+   52.2239296
+  ],
+  [
+   585.0,
+   411.2,
+   1.3463093,
+   52.2242262
+  ],
+  [
+   707.5,
+   422.5,
+   1.3468176,
+   52.2240196
+  ],
+  [
+   560.0,
+   377.5,
+   1.3462795,
+   52.2243525
+  ]
+ ],
+ "label": "1897",
+ "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
+ "at": "2026-10-13T13:03:51.961888+00:00",
+ "auto": true,
+ "score": 4.7,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+ "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg",
+ "size": [
+  1280,
+  1171
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 13,
+  "matches": 61,
+  "ground": "six-inch-1st.webp",
+  "window": 1.0,
+  "rot_deg": 28.31,
+  "spread": [
+   0.468,
+   38.2
+  ]
+ }
+}

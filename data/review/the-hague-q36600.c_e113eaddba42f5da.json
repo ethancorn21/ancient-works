@@ -1,0 +1,32 @@
+{
+ "site": "the-hague-q36600",
+ "candidates": [
+  {
+   "plan": "c_e113eaddba42f5da",
+   "title": "The Hague, town plan by Jacob van Deventer",
+   "url": "media/commons/the-hague-q36600/e113eaddba42f5da.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "The Hague",
+    "file_cat": "Map of The Hague by Jacob van Deventer",
+    "via": [
+     "Old maps of The Hague",
+     "History of The Hague",
+     "The Hague"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.4652,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

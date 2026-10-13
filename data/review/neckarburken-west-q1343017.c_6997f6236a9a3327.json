@@ -1,0 +1,33 @@
+{
+ "site": "neckarburken-west-q1343017",
+ "candidates": [
+  {
+   "plan": "c_6997f6236a9a3327",
+   "title": "Neckarburken-West, Grundriss des Westkastells, ORL 53, 1898 (de.wikipedia)",
+   "url": "media/commons/neckarburken-west-q1343017/6997f6236a9a3327.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Neckarburken",
+    "place_qid": "Q1343017",
+    "place_label": "Neckarburken-West",
+    "place_lon": 9.170278,
+    "place_lat": 49.376667,
+    "site_lon": 9.170278,
+    "site_lat": 49.376667,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5596,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
