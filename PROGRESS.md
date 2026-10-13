@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 183, agent c - **old-sarum DONE: both docs judged DELETED and removed the
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 184, agent c - **oxford-castle c_ba6b308580428184 JUDGED DELETED (wrong
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -51,42 +51,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
-
-### 2026-10-13 306e DECISION: iteration 181 - OFFA and OKEHAMPTON both KEEPS; both lines written into docs/site_flow.md (new 306e block, 2 of 17 lines); the okehampton outcrop is NE-SW, not N-S - the drawn chain is right-sized for it
-- Offa (1/17): unchanged since 179/180 - KEEPS. The 180-drafted line was pasted verbatim into
-  the new 306e block in docs/site_flow.md (inserted between the 306d ludlow line and the 308
-  arrowheads section, 306d-style header).
-- Okehampton (2/17): judged KEEPS; the length question is settled - the drawn chain is NOT too
-  big. Measured this session (page simFit replicated EXACTLY: 1.196 m/px, +0.33 deg, resid
-  0.8-1.1 m; site point inverse-maps to plate px (334,333) = dead centre of the chain): drawn
-  chain A->G = 702 m centre-to-centre / ~920 m tip-to-tip, axis azimuth 220 (NE-SW), A at
-  E+253/N+308, G at E-199/N-230. The 1842 six-inch shows a hatched rocky band running NE-SW
-  across the whole 800 m site box (West Okement loops the NE end at Lady Bridge, 'Springt' at
-  the SW end), hatching reaching the box edges beyond both chain ends; the LiDAR angular
-  contrast profile through the site point peaks at azimuth 25-55 (centre-bright 100-121 grey;
-  N-S only 47, E-W 16) - the outcrop is NE-SW, parallel to the chain within ~10 deg, spanning
-  the whole box. The 1842 'Okehampton Castle (Remains of)' label (~175 m W of the site point)
-  leads east to the hatched building cluster under the drawn B-F centre at the site point;
-  building order matches the documented castle (keep SW / hall-lodgings middle /
-  gatehouse-barbican NE). Not the goodrich/ludlow class (no oversize, nothing through town,
-  same side of the river as the real ruins).
-- The 180 hand-over note "outcrop ridge runs ~N-S (a few deg west of north)" is WRONG -
-  superseded by the angular profile (a pure N-S line through the site gives only a 240 m
-  strong span; the NE-SW band spans the box).
-- NEW PITFALLS (not yet filed; the 180 two pending ones are still unfiled too): (1)
-  six-inch-1st_ink.webp (and any _ink webp) is SURVEY-RED ink - every non-transparent pixel
-  has rgb.sum ~330 (colour (206,46,78)) - so a "dark ink" recipe like rgb.sum()<300 finds ZERO
-  pixels; the ink mask is alpha>40 (hatched band = uniform_filter(ink,15)>0.06). (2) The page's
-  simFit inverse (merc -> plate): w=(z-b)/a = u - i v, so u = (q0*a0+q1*a1)/a2 and v =
-  (q0*a1-q1*a0)/a2 (v = -Im); a wrong v sign places the plate ink as a mirrored/offset ghost
-  (caught: zero blue ink on the grid); verify with the 4-point round-trip atv(at(u,v))=(u,v).
-- Box 2 now 2/17 lines; box 3 no deletions yet; box 4 docs-only change, suite state unchanged
-  (149/1/1, lone red = agent a's 307 seed; not run this session, no test reads site_flow.md).
-- NEXT: continue the batch - old-sarum c_0410 + c_ff62, oxford, pilsbury, pontefract x2,
-  portus-adurni x2, raby, richborough, stanton-drew, taunton, windmill-hill n0558_2 (model
-  None), york c_8dac (keep?) + c_a7db ('Plan of Center, Broome County 1855' = Center, NEW YORK
-  town - toponymic collision, almost certainly DELETED wrong place). File the four PITFALLS
-  entries above when next in touch with PITFALLS.md.
 
 ### 2026-10-13 306e DECISION: iteration 182 - filed the four pending PITFALLS entries; old-sarum judged in depth - c_ff62 (Basire 1806) is a clear DELETED (site point on blank paper, drawn plan 440 m E over the SE farmland), c_0410 (Ditchfield 1901) leaning DELETED (oversize + SE shift), precise measurement pending
 - PITFALLS.md: filed the four entries the 180/181 hand-overs carried (3 new under 'web/': every
@@ -172,6 +136,40 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   richborough, stanton-drew, taunton, windmill-hill n0558_2 (model None - merge into the existing
   item, do not create a second), york x2 (c_a7db = toponymic collision with Center, NEW YORK -
   almost certainly DELETED wrong place).
+
+### 2026-10-13 306e DECISION: iteration 184 - oxford-castle c_ba6b308580428184 (Mackenzie 1897 'THE FORTRESS OF OXFORD') judged DELETED (wrong place, right kind) - keep 174 m south of its real moated island; the 303 removal is the NEXT session's first step (exact recipe in the task hand-over)
+- Judged DELETED. The 4 stored anchors are a PERFECT 100-px diagonal ladder (300,300)-(400,400)-
+  (500,500)-(600,600) -> the fit is exactly 1.000 m/px, -0.00 deg, all residuals 0.0 (verified by
+  replicating the page's simFit in /tmp/aw306e_doc.py; matches the committed shot's [eval]
+  'Scale 1.00 m per page pixel, turned -0.0 deg'). A perfect ladder carries no placement
+  information (the bury-castle / old-sarum c_ff62 class); the placement is whatever the anchors
+  imply: the site point (-1.26248, 51.7518 = Corn Market) inverse-maps to plate (399.5, 399.5) =
+  the CENTRE of the drawn bailey.
+- Measured plate features on the raw scan (data/raw/commons/oxford-castle-q2600886/
+  ba6b308580428184.jpg, 895x781; densest-window search of the luminance-ink mask): the keep (dark
+  filled square '1', with barbican '2' south of it) is centred at plate (416,573) -> E+17 / N-174
+  = 174 m SOUTH of the site point, over a built-up 1842 block just north of the Thames; the real
+  moated keep island (small 1842 circle at the site point; the dark spot on the aerial just W of
+  marker 2 in the committed shot) sits where the drawn bailey's centre is. The drawn bailey
+  (curtain polygon ~450 m E-W x ~380 m N-S, centred ~130 m E of the site point) and the plate's
+  big natural-hill outline (~665 x 540 m) render over the flat built-up city (1842 walls cross
+  streets/building blocks; LiDAR relief is flat, 161-165 in every annulus; no hill, no
+  earthworks). Only the drawn river (plate v 585-665 -> 185-230 m south) lands on the real Thames
+  (~200 m south of the market).
+- Also verified this session (useful for the rest of the batch): the page's fit-tool map in the
+  committed shots draws the plate as SURVEY-RED ink on transparent paper (index.html makeInk(),
+  ~L993-1010, same rule as build_site.plate_ink) at the 85% opacity slider - so in those shots
+  RED is BOTH the 1842 ink and the plate ink; separating them needs the /tmp composite (1842 red
+  vs plate blue), not the shots. web/data/plans.json has NO row for this doc at baseline (the
+  306c/306d/306e-deleted docs' rows ARE still in it - accepted staleness), so the deletion needs
+  no plans.json edit. oxford has NO review item yet (checked data/review/ + review.json) - the
+  303 way CREATES data/review/oxford-castle-q2600886.c_ba6b308580428184.json with this doc as
+  lead/only candidate (evidence row verified: files.jsonl, kind hand_tied, source
+  'pipeline/sources.py mackenzie'; the row title with its 'File: ' prefix hashes to the plan id).
+- NOT executed (context limit): the upsert_item + doc deletion + export(ROOT,'oxford-castle-
+  q2600886') (expect n_open 342 -> 343) and the oxford line in docs/site_flow.md. Both are fully
+  specified in the task hand-over (steps 1-4). No project file was changed this session (read-only
+  audit + /tmp scripts); suite last run in 183 at 149/1/1 (the 1 = agent a's 307 seed).
 
 ## Project-wide driver notes (newest)
 
