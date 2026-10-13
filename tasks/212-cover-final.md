@@ -55,6 +55,118 @@ check, and the "no picture found" list.
 
 ## Hand-over
 
+(2026-10-13, iteration 206, agent a - MERGE SESSION. The driver-ordered merge of main is
+COMMITTED (0becc52, over pre-merge HEAD 953d9ab; main = 20277f3). NO 212 code work was done;
+cover.py is still DONE (863 lines, 55678e3) and everything below the superseded marker stays
+in force.)
+
+**Merge resolution (committed):** the only conflict was web/data/review.json. Resolved to
+OUR items + THEIR "at": main's 20277f3 (lead's Mac port: 11 new matcher docs on
+arras/avesnes-sur-helpe/bavay/douai/gravelines/groningen/le-cateau-cambresis/lille/saint-omer/
+utrecht/valenciennes, plans.json 1168->1474, the 3 fabricated bethlehem docs deleted) changed
+review.json only in "at"; its 19-candidate bethlehem entry read main's UNCHANGED item file,
+while my branch (a858f48, the same audit) carried the 22-candidate item file (the 3
+Maastricht details re-added as candidates after the doc deletion) and the auto-merged item
+file is the 22-candidate one, so the open-list entry had to be ours. Verified: 333 items;
+only bethlehem differs across base/ours/theirs; 0 bethlehem docs remain; both plans versions
+have the same 22 beth rows; none of the 11 new-doc sites has any review item (their docs
+resolve nothing). Committed merge = 11 new platefits docs + web/data/plans.json (byte-equal
+to main's 1474) + web/data/review.json (resolved). web/data/fit_queue.json was left
+UNSTAGED in the working tree: my diagnostic probe ran the generator against the checkout and
+regenerated it (229 entries, at 2026-10-13T04:09:15, vs committed 114 from 10-12 08:04) - a
+live-store-derived artifact; the driver's sweep commits it as usual (see task 234).
+
+**Full suite on the merged tree: 5 failed, 145 passed, 1 skipped (237 s).** Verified with
+two throwaway worktrees - /tmp/awmain at main 20277f3 (4 of 5 red there) and /tmp/awhead at
+pre-merge 953d9ab (only fit_provenance red there; the site_done failure in that worktree was
+a worktree artifact: web/data/sites is live/untracked data, absent from a bare worktree). REMOVED?
+Not yet - clean up with `git worktree remove --force /tmp/awmain /tmp/awhead` when convenient:
+1. test_fit_provenance.py::test_commons_yeared_title_drops_the_repeated_year -
+   FileNotFoundError on data/db/platefits/bethlehem-q2523914.c_a164ee440558d66c.json (audited
+   off by 306a; pin never re-pointed). RED on both branches since the deletion - pre-existing.
+2. test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc - NOT bethlehem: its
+   stonehenge precondition "plans.json no longer lists 13 stonehenge-q39671 candidates" (14
+   now). The 14th row = c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley, 1722
+   (Itinerarium Curiosum)", book 'Wikimedia Commons', ref 'File:Stonehenge Dessin Stukeley 1722
+   03547.jpg', size [1280,673] - new in main's 1474 (211 pictures), absent from the
+   13-candidate item file. Red on main since f970500; was green pre-merge (1168 had 13).
+3. test_site_done.py::test_site_done_line - the SAME 13-pin (item 13 = 7 line-check + 6 batch
+   vs 14 plans rows). Red on main since f970500; green pre-merge.
+4. test_merge.py::test_plan_list_refresh_is_pure_growth - "no Wikimedia Commons plan row for
+   the merged picture of numancia": at 9590abf/ef84a05 the row was c_0fa271e2444f7bfc, book
+   'Wikimedia Commons', url media/commons/numancia/0fa271e2444f7bfc.jpg; the lead's f970500
+   re-export DROPPED it - the files.jsonl row now carries url=archive.org
+   (details/memoriasdelareal009real) i.e. it became book-sourced, and book
+   'memoriasdelareal009real' has NO data/books/index.jsonl row and NO local copy in data/raw
+   (verified) -> export_plans excludes it. Classified row: p_plan 1.0, by hand; files row rec
+   evidence/1. The shotwick half passes. Red on main since f970500; green pre-merge.
+5. test_fit_queue.py::test_fit_queue_real - ordering invariant only: the test expects
+   (view, -best draw_px, name) order; the generator sorts by the documented _best_key + name
+   = (view, -px, PLAN, name) (tools/fit_queue.py:365). Main's new rows made a pair that
+   breaks it: Lessines (lessines-q667790, best c_0193a1cf01ab0b87) and Avesnes-sur-Helpe
+   (avesnes-sur-helpe-q217178, best c_61fbbcd3d6051cd9) - both view False, both size
+   [1280,1842] (=2357760 px); plan order puts Lessines first, the test wants Avesnes by
+   name. Neither row exists in my pre-merge 1168 (test green then). It fires only in a
+   checkout whose live web/data/sites store holds BOTH site dirs (mine does - 503 entries);
+   the main GIT tree has no committed site dirs for the 11 new sites, so the main worktree
+   run passed. Environment-dependent. NOTE: my checkout's web/data/sites is a real dir of
+   per-site entries (symlinks into /home/agent/projects/ancient-works/web/data/sites - a
+   real dir there - plus a few real dirs like aardenburg-q955); only forthill/* is tracked
+   (58 files).
+
+**Red attribution (for the driver's "was not already failing before" rule):** before this
+merge, on my live branch: only (1) was red (since a858f48, pre-session); 2, 3, 4, 5 were
+green. After the merge: 1, 2, 3, 4 are red on pure main too (main-attributable); 5 is
+red only in my live checkout (merge + environment). None is caused by my work; none of the
+five files is in my Touches, so I filed fix-tasks instead (below).
+
+**New tasks FILED (next agent, FIRST):** 231 (tasks/231-fit-provenance-repoint.md) EXISTS but
+its second-pin paragraph is WRONG (it claims the line-refuses test reads the bethlehem doc -
+it does not; that failure is the stonehenge 13-pin and belongs to 232): FIX that paragraph
+(231 covers ONLY test_commons_yeared_title_drops_the_repeated_year: re-point the year-once
+pin to a surviving batch doc whose title states the 4-digit year, recompute the expected
+source line from that doc's own fields; do NOT resurrect the bethlehem docs; Depends on:
+306c,306d,306e,306f so the replacement pin survives the ongoing orphan audits; Touches:
+tests/test_fit_provenance.py). Then WRITE 232 (tasks/232-stonehenge-snapshot-repin.md):
+Depends on: 212, 231 (212's live loop upserts c_61b86efb4511e099 into the stonehenge item and
+may place a matcher doc - re-derive after that; 231 first - both edit test_fit_provenance.py);
+Touches: tests/test_site_done.py, tests/test_fit_provenance.py; re-pin the shared
+stonehenge snapshot in both tests (13 rows/cands -> the live state; the golden-7-doc and
+no-docs checks if a matcher doc lands) and say in the docstrings the 14th candidate came in
+with the 211 pictures (main f970500), not a batch run. WRITE 233
+(tasks/233-merge-numancia-plan-row.md): Depends on: 212 (my stage/sync write plans.json -
+run after); Touches: tests/test_merge.py, data/books/index.jsonl, web/data/plans.json;
+facts as in (4) above; prefer making the data whole (book index row for
+memoriasdelareal009real via the books pipeline + local page copy in data/raw/books +
+re-export plans.json - the row returns with book = the ia id, not 'Wikimedia Commons' -
+then re-pin the test to the row's actual book value, per 210's intent that the merged
+picture reaches the list); alternative: re-pin the test to assert the documented absence
+with the reason. WRITE 234 (tasks/234-fit-queue-tie-and-refresh.md): Depends on: 212,
+306c,306d,306e,306f (queue churn: the audit re-upserts candidates; regenerate after both);
+Touches: tests/test_fit_queue.py, web/data/fit_queue.json; change the test's invariant key
+to the generator's documented (view, -px, plan, name) - do NOT change tools/fit_queue.py's
+sort (307bb's headless page-card pins depend on the entry order; the plan tie-break is the
+documented behaviour); then verify the working tree's 229-entry fit_queue.json is
+byte-reproducible (run the generator again) and commit it.
+
+**My 212 Depends on line stays "203a, 203b, 211"** (203a/211 done, 203b in flight - the live
+run genuinely needs the batch done). I did NOT add 231-234 to it: my six boxes are
+verifiable before them (my test is self-contained in its temp tree; the five reds are not
+mine, documented above). If the driver's done-claim check counts the merge-induced reds
+against me anyway, add "231, 232, 233, 234" to the Depends on line then.
+
+**EXACT NEXT STEPS (in order):** (1) fix 231's second-pin paragraph, write 232/233/234 as
+specced above, append the DECISIONS entries (merge resolution + the five-failure
+attribution, with the worktree evidence), commit the task files + DECISIONS; remove the
+/tmp/awmain + /tmp/awhead worktrees when done with them. (2) THEN the iteration-205 plan
+below (blocked measurement -> write tests/test_cover.py -> run it alone -> full suite ->
+the live run) - all of it still valid, including corrections 1-5.
+
+---
+
+### (superseded - iteration 205 hand-over: the full test design and corrections 1-5;
+complete text also in git: `git show 953d9ab:tasks/212-cover-final.md`)
+
 (2026-10-12, iteration 205, agent a - investigation session: every API the test drives was
 re-verified against the real code; the open question (no-qid failure site) is RESOLVED;
 ONE design correction found (seed docs (b)/(c) must move to FAKE sites, CORRECTION 5);
