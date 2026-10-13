@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 359 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+327 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -40,6 +41,8 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 212 cover-final (6 entries, older ones; the task is still open)
 - 212a cover-search (7 entries)
 - 212b cover-sync (11 entries)
+- 212b cover-sync (10 entries)
+- 212c batch-report (2 entries)
 - 213 artist-views (11 entries)
 - 213a civitates-list (3 entries)
 - 213b qids-tests (1 entry)
