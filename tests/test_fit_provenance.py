@@ -628,20 +628,22 @@ def test_book_source_line_stays_byte_identical(tmp_path, no_net):
 
 def test_commons_yearless_title_keeps_the_label(tmp_path, no_net):
     """A commons title without a 4-digit year keeps the label parenthesis exactly as before: a titled
-    label (bergues) and a batch doc with no label at all (durocortorum, which reads 'undated') both
-    come out byte-identical to the pre-fix line. The original undated pin (bethlehem) was audited out
-    by 306a (maps of Judaea fitted onto the Dutch polder, 2000 km away), so the case is pinned on a
-    surviving batch doc."""
+    label (bergues) and a doc with no label at all (watson-brake, which reads 'undated') both come
+    out byte-identical to the pre-fix line. The original undated pin (bethlehem) was audited out by
+    306a (maps of Judaea fitted onto the Dutch polder, 2000 km away) and its re-pin (durocortorum,
+    the Reims plan) was sent by 212b's live sync as a fabricated-pattern doc, so the case is pinned
+    on the surviving matcher-placed Watson Brake map."""
     src = _build_source(tmp_path, "bergues-q244934.c_4bbca705be732b1c")
     assert src == ("Bergues, town plan by Jacob van Deventer (1545), Wikimedia Commons: by "
                    "Jacob van Deventer; Public domain; "
                    "https://commons.wikimedia.org/wiki/File:Bergues_-_Deventer.jpg. "
                    "Placed by hand on 4 matching points; one rotation and scale fits them within 33 m.")
-    src = _build_source(tmp_path, "durocortorum-q4896307.c_08d995eb23a685c2")
-    assert src == ("Plan-Reims-Bas-Empire (undated), Wikimedia Commons: by October Ends; CC BY-SA 3.0; "
-                   "https://commons.wikimedia.org/wiki/File:Plan-Reims-Bas-Empire.png. "
-                   "Fitted automatically by the batch on 4 matching points; one rotation and scale "
-                   "fits them within 1 m (gate score 0.0 m)")
+    src = _build_source(tmp_path, "watson-brake-q2552689.c_5e7bb19c79b509ed")
+    assert src == ("Watson Brake - Map (undated), Wikimedia Commons: by Maximilian Dörrbecker "
+                   "( Chumwa ); CC BY-SA 2.5; "
+                   "https://commons.wikimedia.org/wiki/File:Watson_Brake_-_Map.png. "
+                   "Fitted automatically by the batch on 8 matching points; one rotation and scale "
+                   "fits them within 1 m (gate score 4.4 m)")
 
 
 def test_commons_yeared_title_drops_the_repeated_year(tmp_path, no_net):

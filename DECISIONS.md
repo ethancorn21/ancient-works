@@ -485,3 +485,60 @@ Session 227 (agent a).
 3. Run 2 (this session, foreground, 1m43s, /tmp/aw212b-live2.out): `57 document(s) over 43 site(s)`, 0 sent / 0 failed, 2 builds, re-exported 365/377 (byte-stable). The burcht docs PASSED the agent line check (pattern None, spread ok, 8 pairs each) and were SYNCED: burcht-van-leiden sites.json = drawings 2 / overlays 3 / score 4.41; overlays (4 webps) in the store's site dir via the symlink; both docs kept in platefits. Store stayed clean both times (no tracked changes, only ?? .venv; store platefits still 133 - sends deleted only my checkout's dir entries, the 306a precedent; a later re-run is now all-skip and cheap).
 4. VERIFIED (all pass, details in the task hand-over): sha256sum -c tests/golden/hand_fit_docs.sha256 = 40/40; bibracte-q650053 item byte-identical; review.json 365 open = HEAD's 333 + 32 gained (the dry run's list verbatim) + 0 lost; item files 377 = 348 HEAD + 29 new, 21 changed, 0 deleted (348 = 346 pre-merge + the 2 items in 4e1dabf + the burcht swap); alligator is the 32nd open gain - its write-once resolution names the doc the sync just deleted, so review.resolved_doc sees the doc gone and the item re-opens (write-once file stays byte-identical, 201 contract); this means the dry-run totals were 377 all along (31 new files + 1 reopen) - the iter-226 note's "378" was my arithmetic error (I read 32 open-gains as 32 new files). sites.json live-vs-HEAD: 13 diffs = dry-run's 13 minus arras/avesnes (already in HEAD, see 2) plus old-sarum (3->2 drawings, 4->3 overlays, 3.15->2.86: the 225-bench self-heal, c_0410 webps pruned) and shotwick (drawings 0, overlays 0->1, score 1.1: map-only, stale plan_c_e6e54906 webps pruned). No web/data/sites/* file shows in git status: the 3 tracked real dirs (marietta/forthill/newark) were already at post-sync state in HEAD and their sent-doc webps were never tracked (marietta's b24849959_n0195_1 webp untracked, pruned by run 1, no git trace).
 5. State at the context limit: the task's boxes 1+2 are ticked in the task file (both verified above); box 3 (the test) stays open. The sync artifacts (71 D platefits, 29 ?? item files, 21 M item files, M web/data/review.json, M web/data/sites.json) are UNCOMMITTED - left for the harness per the context-limit protocol (precedent: the driver committed bc83645/4e1dabf the same way). NEXT SESSION (exact): (a) `git add -A && git commit -m "212b: live sync ran twice - 76 fabricated-pattern docs sent to review and deleted (5 already in HEAD via 4e1dabf), 32 built, lead's 2 burcht-van-leiden matcher fits synced, 365-open list; boxes 1+2"`; (b) `.venv/bin/python -m pytest tests/ -q` expecting ONLY 203b's two reds (test_batch_eu::test_sample_run_real_gate / ::test_batch_adds_files_rewrites_none, the bibracte FileNotFoundError, agent c's in flight); any other red is mine (PITFALLS 1171 - but this sync carries the export, so a red means the test reads some other state); (c) if the driver rejects the done claim on 203b's reds, add 203b to `Depends on` (212a precedent); (d) box 3: write tests/test_cover.py per the parent design (git show 953d9ab:tasks/212-cover-final.md) - RE-MEASURE the CHOOSE population first against this tree's post-sync world (76 docs gone, 365 open, 29 fresh items).
+
+## 2026-10-13 212b DECISION: post-live-sync suite run (324 s, log /tmp/aw212b-suite.out) = 2 red / 153 pass / 1 skip of 156 - red 1 is mine (the yearless-title pin on the deleted durocortorum doc; re-pinned to watson-brake c_5e7bb19c, file now 7/7 green); red 2 is the pre-existing 307bb part-4 gestures red (fails on this VM since before my 06:01 live run; my sync provably does not move its pick); the hand-over's expected 203b reds are GONE (green on this run), so 203b stays off Depends on
+
+Step 4 of the iter-227 plan ran on the post-sync tree. Full suite `.venv/bin/python -m
+pytest tests/ -q`: 2 failed, 153 passed, 1 skipped in 324.45 s (156 total = agent c's
+9f92b3a "154/1/1" total; the one skip is the same environmental one).
+
+**Red 1 (mine - FIXED this session):** tests/test_fit_provenance.py::
+test_commons_yearless_title_keeps_the_label - FileNotFoundError on
+data/db/platefits/durocortorum-q4896307.c_08d995eb23a685c2.json, one of the 76
+fabricated-pattern docs my live sync sent and deleted. 219's test pins the yearless-
+no-label case on a "surviving batch doc" (306a had already moved it once, bethlehem ->
+durocortorum); the sync is the next audit, so the pin moves again. Re-pinned to
+watson-brake-q2552689.c_5e7bb19c79b509ed (surviving matcher-placed doc: title
+'Watson Brake - Map' has no 4-digit year, label None -> plan_fit L290-291 renders the
+'({label or undated})' parenthesis; the how-clause is keyed on the doc's auto/score
+fields, not fitter - it reads 'Fitted automatically by the batch ... (gate score 4.4
+m)' exactly like the old pin). Expected line measured with the test's own
+_build_source stand-in recipe; docstring now records both moves (306a bethlehem, 212b
+durocortorum). tests/test_fit_provenance.py now 7/7. Added tests/test_fit_provenance.py
+to my task's Touches line (the pin move is part of making the sync land green).
+
+**Red 2 (pre-existing - NOT mine, not fixed in 212b):** tests/test_fit_queue.py::
+test_placement_gestures_and_save_in_the_browser - 307bb's part-4 headless test,
+committed by the lead in 081c773 ("Suite 101 passed + 1 skipped" on the lead's Mac).
+Fails at the first seed check 'seed: the gestures own the mouse (map pan/zoom off), the
+earlier overlay hidden' (probe condition: seed.gestures.every(v => v === false) &&
+seed.dep === 'none'); the log also shows /tiles/relief 404s, which are BY DESIGN in
+that fixture (the temp tree skips .npy/.npz elevation grids, so relief tiles 404; the
+probe's request-failure check excludes '/tiles/'). Attribution, three independent
+factors: (a) agent c's branch recorded exactly this red in fdfeddf (05:24) and 9f92b3a
+(06:19) - both BEFORE my live run (06:01-06:18) and before my artifacts were committed
+(06:31), and my work could not be in her branch (it is not on main); (b) my sync
+provably did not change the test's inputs - the pick is entries[3]
+oswestry-castle-q20713795 and its item file is byte-identical pre/post sync (0fbea54
+vs HEAD: unresolved, one candidate n0119 with 3 pairs), the site has no platefits doc
+in either state, web/data/fit_queue.json is unchanged (git diff 0fbea54..HEAD empty),
+and the sync wrote no oswestry overlay (no doc); (c) the failure is a page-state check
+in headless Chrome on this VM, an environment the lead's green run (Mac) did not
+share. Ownership: the 307 series - 307bb is done (lead's), 307d (open, 'the owner's
+check - two queue sites end to end', Touches tests/) is the next 307 session and the
+natural home of the fix; no new task filed (a top-level task would duplicate the open
+series subtask). The driver's PROGRESS notes already list the red; this entry adds the
+attribution.
+
+**203b's two reds (the hand-over's expectation) did not materialize:** test_batch_eu.py
+passes fully on this run - the lead's 0685a4c moved the no-picture fixture from
+bibracte to Yeavering Bell (212a found 18 pictures of bibracte, making it a normal
+candidate site) and agent c's in-flight 203b work tracks the rest. No Depends-on
+change needed (stays "212a").
+
+**The driver's 6ce742f committed my uncommitted sync artifacts** (iter 227 left them
+for the harness; the COMMIT step in the hand-over is thus done by the driver): 29 A
+(new item files), 71 D (platefits docs = the 76 sends minus the 5 already in 4e1dabf;
+the 2 run-2 burcht docs kept), 23 M (21 item files + web/data/review.json +
+web/data/sites.json). Working tree was clean at session start; this session's delta is
+only the re-pin, the task file (Touches + hand-over) and this entry.
