@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 298 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+293 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -50,6 +51,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 223 kip-merged-check (1 entry)
 - 224 mackenzie-merged-check (1 entry)
 - 225 limes-merged-check (1 entry)
+- 226 numancia-merged-check (1 entry)
 - 300 site-stonehenge (3 entries)
 - 301 site-argentoratum (6 entries)
 - 302a inkfit-method (9 entries)
@@ -479,3 +481,42 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - COOLING KEEPS (judged 163, composite read: inner ward on the OS 6-inch castle square, outer ward on the moat, stream + village match; 0.8 m/px, 6 pts, resid 0.0). Its line is still to be written.
 - CASSIOBURY NOT YET JUDGED (context limit). Plate = Kip bird's-eye of Cassiobury, seat of the Earl of Essex (1280x923): house centre-left (roughly u 200-560, v 300-500), wooded park + diagonal avenue right, oval pond bottom-right. Site point (-0.418889,51.665; kind garden; house demolished 1927) maps through the doc's homFit inverse to plate px (549,671) - just below/right of the drawn house at its garden front. 4 anchors (1150,450)/(600,400)/(800,600)/(1000,700) -> (E+650.5,N+249.5)/(-49.5,+299.5)/(+200.5,+49.5)/(+450.5,-100.5); resid 0.0 (4 pts = exact, proves nothing). Test to run: does the drawn-house region map onto a ~200-300 m region around the site point (then KEEPS, same class as chevening) or away from it (then the bury trap in view-clothing -> DELETE the 303 way; the site has NO existing review item - 306c's items via git log -- data/review/ show the pattern). Remember: the homography extrapolates outside the anchor band (corners to ~1.5 km) - judge anchors + site-point inverse only, never the fitted far field.
 - State at hand-over: NO repo files changed this session (judging only; git status clean at start except driver files). No test run owed until data changes land. Box 2 still 1 of 18 (bury-castle); the five lines to write are cooling, coria, daw-s, chevening, cassiobury.
+## 2026-10-12 227 DECISION: Stukeley check/stage three-state guard (identical-twin no-op under the 211 merge norm, same-key-different-row still fails loud) - both stage legs and the join, hermetic three-state test following the 222-226 pattern
+- The fix mirrors 223 (kip) and 226 (numancia), adapted to Stukeley's two-legged stage():
+  `_canon_norm(r)` (json.dumps sort_keys/ensure_ascii=False - the same norm fit/merge.py uses)
+  was added; `_stage_commons`, `stage_book` and `check_staged` now build a first-row-wins
+  `(site, title) -> norm` map plus a title set from the canonical files.jsonl. A key the
+  canonical file holds is a no-op only when the module's OWN staged row (read from
+  files_wiltshire_b.jsonl - deliberately not the freshly-built row, whose evidence.checked is
+  the run date and would break byte-identity the next day) is identical to the canonical row;
+  a same-key different row still SystemExits (stage) / is a join problem (check); the
+  original title-only clash (a title held by a different site - the two Petrie 1880 files)
+  stays as the fallback. Guard order is unchanged in both legs (canonical first in
+  _stage_commons so the clash test's "fires before any meta use" holds; stage-A
+  reclassification first in stage_book).
+- Tests: new `_merge_states` helper (temp copy of the canonical file; pre-merge state =
+  canonical minus the module's own (site, title) keys; staged lines byte-identical to the
+  merge's append) + `test_check_staged_three_states` (a/b/c) and
+  `test_stage_offline_three_states` (a/b/c/d - the d case covers the BOOK leg: the Commons
+  leg no-ops and stage_book refuses; both legs write nothing on refusal). The three
+  previously-red tests now point FILES_CANONICAL at the pre-merge temp state, so the file
+  holds whether or not 211's live merge ran on the checkout.
+- WRINKLE (local to this test file, commented in it): `_merge_states` must read the staged
+  rows from a module-level snapshot (`FILES_B_REAL = src.FILES_B` at import) because
+  test_stage_offline monkeypatches src.FILES_B at a temp write target BEFORE the helper runs;
+  reading the (monkeypatched) attribute gave an empty staged set and the first state looked
+  like "different row holds the key". Symptom: SystemExit "a different row holds the key -
+  refused" from test_stage_offline with an empty FILES_B.
+- Also hit one self-inflicted syntax break while editing: the stage_book docstring lost a
+  quote in one edit batch ("...are local files." instead of '"""'), which swallowed the
+  following stage() docstring (SyntaxError "unterminated string literal" reported at the
+  NEXT docstring's line, not the broken one). py_compile before pytest catches this in
+  seconds - do that first when a docstring edit makes tests fail at collection.
+- Verified on this (merged) checkout: 10/10 module tests; live --check rc 0 (5 rows, 5
+  pass, 0 join problems - was 5 self-triggered) and --dry a clean no-op (was SystemExit on
+  the Houghton title). Full suite: 148 passed / 1 skipped / 1 failed - the single failure is
+  tests/test_src_artists.py (the 228 sibling; the 226 session's run proved the 227+228 set
+  pre-existing, so no test that passed before now fails). Pre-merge main is unaffected: the
+  hermetic states are constructed, and with the canonical file holding no Stukeley row every
+  assertion passes exactly as before. Task set to done; 211's box 1 gate now has only 228
+  left in the 222-228 set.

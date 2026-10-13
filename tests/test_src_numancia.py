@@ -12,7 +12,11 @@ itself, not a stale record). The golden files (tests/golden/src_numancia_sample.
 src_numancia_evidence.txt) pin the staged rows and the offline check's exact output; they are regenerated
 only via the module's --golden flag for an intended change. The rendered image lives in the gitignored
 data/raw/ (per worktree, re-derived by --render): the tests check the path convention, never the file's
-existence.
+existence. Task 226 extends the guard's test: test_check_staged_three_states covers the three states of
+the canonical clash guard hermetically (staged row absent from the canonical files / present with
+identical content = an already-merged no-op / present with different content = still fails loud),
+pointing the module's canonical path constants at constructed temp copies, so it holds whether or not
+211's live merge has run on this checkout.
 """
 import hashlib
 import json
@@ -44,9 +48,11 @@ def no_network(monkeypatch):
 def test_check_staged_files_join_and_pass(capsys):
     """src_numancia --check, offline: the staged files join (exactly one row, the EXISTING numancia site
     whose catalog point matches the stored evidence point, the QID/year/by/name/mime fields, classified
-    1:1 as a hand-recorded plan, (site, title) unique, no clash with the canonical files.jsonl, the
-    sha1(title) image-path convention) and the row PASSes the evidence check (the caption route, 26.1 m).
-    The render image is gitignored and worktree-local: its absence is a note, not a failure."""
+    1:1 as a hand-recorded plan, (site, title) unique, a staged row already in the canonical files.jsonl
+    is a no-op only when identical to the canonical row (211's first-row-wins merge) - a same-key
+    different row still fails loud, the sha1(title) image-path convention) and the row PASSes the
+    evidence check (the caption route, 26.1 m). The render image is gitignored and worktree-local: its
+    absence is a note, not a failure."""
     code = num.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
@@ -63,6 +69,57 @@ def test_check_staged_files_join_and_pass(capsys):
     cls = num._load(num.CLASSIFIED)
     assert len(cls) == 1 and (cls[0]["site"], cls[0]["title"]) == (r["site"], r["title"])
     assert (cls[0]["p_plan"], cls[0]["p_birdseye"], cls[0]["p_photo"], cls[0]["by"]) == (1.0, 0.0, 0.0, "hand")
+
+
+def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
+    """The 211 merge states of the --check guard, hermetically (the canonical files pointed at constructed
+    temp copies, so the test holds whether or not 211's live merge has run on this checkout):
+    (a) the staged row ABSENT from the canonical files (the pre-merge state) - check 0, no join problems,
+    evidence PASS; (b) the staged row present with IDENTICAL content (the 211 first-row-wins merge has
+    run) - check 0, no join problems: an already-merged row is a no-op, not a clash; (c) the same
+    (site, title) key held by a DIFFERENT row - still fails loud (the pre-merge conflict protection),
+    naming exactly that key and no other join problem."""
+    staged = num._load(num.FILES)
+    skey = (staged[0]["site"], staged[0]["title"])
+
+    def write(name, text):
+        p = tmp_path / name
+        p.write_text(text, encoding="utf-8")
+        return str(p)
+
+    # the canonical files with this module's staged row removed: the pre-merge state of ITS key, on any
+    # checkout (the other sources' merged rows are untouched, the guard does not care about them)
+    files_pre = [json.dumps(r, ensure_ascii=False) for r in num._load(num.FILES_CANONICAL)
+                 if (r.get("site"), r.get("title")) != skey]
+    staged_line = json.dumps(staged[0], ensure_ascii=False)
+
+    def point(files_rows):
+        monkeypatch.setattr(num, "FILES_CANONICAL", write("files.jsonl", "\n".join(files_rows) + "\n"))
+
+    # (a) pre-merge: the staged row is not in the canonical files yet
+    point(files_pre)
+    code = num.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie" in out, out
+
+    # (b) the 211 merge ran: the staged row is in the canonical files with identical content
+    point(files_pre + [staged_line])
+    code = num.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie" in out, out
+
+    # (c) the same (site, title) key held by a DIFFERENT row: the pre-merge conflict protection still fires
+    altered = dict(staged[0], year=staged[0]["year"] + 1)  # same key, different content
+    point(files_pre + [json.dumps(altered, ensure_ascii=False)])
+    code = num.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    assert [l for l in out.splitlines() if l.startswith("join:")] == \
+        [f"join: staged title already in the canonical files.jsonl: {skey}"], out
 
 
 def test_evidence_cli_matches_golden():
