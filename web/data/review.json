@@ -1,5 +1,5 @@
 {
- "at": "2026-10-12T18:01:52.916280+00:00",
+ "at": "2026-10-12T18:34:20.218854+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -2964,6 +2964,172 @@
      ],
      "by": "agent",
      "why": "306a audit 2026-10-12: wrong kind - this is an interior plan of the Basilica of the Nativity building (nave, chapels and grotto), not a ground map, fitted as if it were ground over the Dutch site. The sheet is rotated -18.4 deg. Removed from the map; the doc record is kept here."
+    },
+    {
+     "plan": "c_a164ee440558d66c",
+     "title": "Plan de Maestricht et environs 1748, detail Severen & Kanjel (cropped)",
+     "url": "media/commons/bethlehem-q2523914/a164ee440558d66c.jpg",
+     "pairs": [
+      [
+       350.0,
+       450.0,
+       6.6097295,
+       53.3837777
+      ],
+      [
+       100.0,
+       300.0,
+       6.6037052,
+       53.3851251
+      ],
+      [
+       100.0,
+       700.0,
+       6.6037052,
+       53.3815318
+      ],
+      [
+       900.0,
+       200.0,
+       6.6157539,
+       53.3860234
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 39.3 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Maestricht",
+       "place_qid": "Q1309",
+       "place_label": "Maastricht",
+       "place_lon": 5.6833333333333,
+       "place_lat": 50.866666666667,
+       "site_lon": 6.609722,
+       "site_lat": 53.383333
+      }
+     },
+     "gate_score": 39.3
+    },
+    {
+     "plan": "c_a42a93d9589acd4d",
+     "title": "Plan de Maestricht et environs 1748, detail Limmel",
+     "url": "media/commons/bethlehem-q2523914/a42a93d9589acd4d.jpg",
+     "pairs": [
+      [
+       520.0,
+       330.0,
+       6.6094283,
+       53.3844065
+      ],
+      [
+       520.0,
+       620.0,
+       6.6094283,
+       53.3813522
+      ],
+      [
+       820.0,
+       620.0,
+       6.6154526,
+       53.3813522
+      ],
+      [
+       680.0,
+       40.0,
+       6.6121393,
+       53.3876402
+      ],
+      [
+       680.0,
+       180.0,
+       6.6121393,
+       53.386203
+      ],
+      [
+       820.0,
+       180.0,
+       6.6142478,
+       53.386203
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 14.4 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "named_place": "Bethlehem",
+       "place_qid": "Q5776",
+       "place_label": "Bethlehem",
+       "place_lon": 35.206111111111,
+       "place_lat": 31.704444444444,
+       "site_lon": 6.609722,
+       "site_lat": 53.383333
+      }
+     },
+     "gate_score": 14.4
+    },
+    {
+     "plan": "c_d624c308cd860a1e",
+     "title": "Plan de Maestricht et environs 1748, detail Limmel, Jerusalem & Bethlehem",
+     "url": "media/commons/bethlehem-q2523914/d624c308cd860a1e.jpg",
+     "pairs": [
+      [
+       560.0,
+       380.0,
+       6.6100307,
+       53.3844065
+      ],
+      [
+       620.0,
+       380.0,
+       6.6115368,
+       53.3844065
+      ],
+      [
+       560.0,
+       460.0,
+       6.6100307,
+       53.3835082
+      ],
+      [
+       620.0,
+       460.0,
+       6.6115368,
+       53.3835082
+      ],
+      [
+       680.0,
+       420.0,
+       6.6124405,
+       53.3839573
+      ],
+      [
+       720.0,
+       520.0,
+       6.6130429,
+       53.3826099
+      ]
+     ],
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 10.3 m measures internal consistency of the anchors, not their truth",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-11",
+      "conflict": {
+       "named_place": "Bethlehem",
+       "place_qid": "Q5776",
+       "place_label": "Bethlehem",
+       "place_lon": 35.206111111111,
+       "place_lat": 31.704444444444,
+       "site_lon": 6.609722,
+       "site_lat": 53.383333
+      }
+     },
+     "gate_score": 10.3
     }
    ],
    "no_picture_found": null
