@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 184, agent c - **oxford-castle c_ba6b308580428184 JUDGED DELETED (wrong
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 185, agent c - **oxford-castle c_ba6b308580428184 DELETED the 303 way this
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -51,51 +51,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
-
-### 2026-10-13 306e DECISION: iteration 182 - filed the four pending PITFALLS entries; old-sarum judged in depth - c_ff62 (Basire 1806) is a clear DELETED (site point on blank paper, drawn plan 440 m E over the SE farmland), c_0410 (Ditchfield 1901) leaning DELETED (oversize + SE shift), precise measurement pending
-- PITFALLS.md: filed the four entries the 180/181 hand-overs carried (3 new under 'web/': every
-  web/data/sites `*_ink.webp` is a survey-red (206,46,78) overlay whose ink lives in the ALPHA
-  channel only - a 'dark ink' rgb.sum()<300 recipe finds zero pixels, mask = a>40, hatched band
-  = uniform_filter(ink,15)>0.06; the transparent pixels carry the ink colour as RGB so a plain
-  .convert('RGB') crop is solid pink - composite through the alpha channel; the simFit inverse
-  is u=(q0*a0+q1*a1)/a2, v=(q0*a1-q1*a0)/a2 (v = -Im, a wrong sign mirrors the plate, verify
-  with the 4-point round-trip) - plus 1 under 'Agent tools and harness': web_fetch returns page
-  text without image URLs, curl the raw HTML and grep src/data-src.
-- Old-sarum setup: the site already has 2 built depictions (c_8192abb966d030a3,
-  earthworkenglan01allcgoog_n0142_1) - NEITHER of my two orphan docs, both stay orphans. The
-  site's review item is data/review/old-sarum-q782719.c_b2701b5231da42f2.json, one coarse
-  candidate (c_b2701b5231da42f2, gate-rejected at 59.7 m) - a 303 deletion appends after it.
-- Real earthworks (1842 six-inch ink density in 25 m annuli / 16 az bins, script
-  /tmp/aw306e_profile.py): the hatched oval is the 'OLD SARUM 74.778 Acres' hill parcel;
-  inner moated 'Castle' circle r~85 m (centre on the site point, ~16 m W/6 m N), trough
-  100-150 m (the sub-castle court), outer bank 175-225 m N/NE/NW, 200-250 m E/W, 225-275 m
-  SE/S - the outer oval is ~400-550 m across, centre ~25 m SE of the site point; the LiDAR
-  agrees (bright summit r<100 m, ditch ring 100-175 m N/E/S and 200-275 m W, flat beyond).
-- c_ff62c9585a92b375 (Basire 1806, DPLA, 1280x1858 book page: text column, four hill
-  ELEVATIONS, small plan with 'Castle' circle + 'Cornfields' + S road, caption 'PLAN &
-  ELEVATIONS OF OLD SARUM'): the 6 stored pairs are a PERFECT 100-px grid ladder (5 distinct
-  points) -> the fit is exactly 2.000 m/px, 0.0 deg, residuals all 0.0 m (reproduces the page
-  [eval]; a perfectly regular ladder carries no placement information - the bury-castle
-  class). The site point inverse-maps to plate (399.7, 1399.7) = blank paper WEST of the
-  drawn plan; the drawn plan's centre is at plate (620,1490) = 440 m E / 180 m S of the site
-  point, i.e. over the flat farmland SE of the hill (1842 'Old Sarum Farm'/'Castle Villa'
-  ground), and its ~780 m drawn ring is a schematic that misses the real 400-550 m oval.
-  Verdict: DELETED the 303 way (not yet executed - next session).
-- c_041083ec68b532f8 (Ditchfield 1901, 'Ancient Plan of Old Sarum' = the 'Ichnography'
-  bird's-eye engraving, 686x892): fit 1.294 m/px, +0.23 deg, residuals 15.3/40.2/21.6/9.0/
-  27.9/16.5 m (max 40.2 - the 6 pairs form a ~350x400 px rough ladder with ~14% anisotropy,
-  so the residuals measure ladder inconsistency, not a placement miss). The site point
-  inverse-maps to plate (326.1, 396.0). Read off the 800 m box composite (100 m grid +
-  100-500 m circles): the drawn inner circle (r~90-110 m) sits ~60-80 m SE of the real
-  inner circle (r~85 m, on the site point) and the drawn outer ring spans ~150-175 m on
-  the NW side (sits on the real NW arc) to ~450-480 m on the S/SE side (real S edge
-  250-275 m) - the drawn S/SW quarter runs 150-200 m past the hill over flat fields and
-  the drawn S road extends ~150 m past the real hill edge; the NW half of the complex
-  matches. Leaning DELETED (goodrich class: centre ~right, drawn works bigger, walls past
-  the town/fields); the precise measurement script /tmp/aw306e_meas.py (drawn inner
-  circle centre/radius via strongest-ink-fraction search u/v 250-520 band 45-110 px; drawn
-  outer ring farthest-ink per azimuth, rmax 320 px, from both the drawn centre and the
-... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 182 - filed the four pending PITFALLS entries; old-sarum judged in depth - c_ff62 (Basire 1806) is a clear DELETED (site point on blank paper, drawn plan 440 m E over the SE farmland), c_0410 (Ditchfield 1901) leaning DELETED (oversize + SE shift), precise measurement pending' DECISIONS.md`)
 
 ### 2026-10-13 306e DECISION: iteration 183 - old-sarum DONE: both orphan docs (c_ff62 Basire 1806, c_0410 Ditchfield 1901) judged DELETED and removed the 303 way; 4 of 17 lines written; remaining 13 docs (10 sites) next
 - Fixed /tmp/aw306e_meas.py's syntax error (one extra close-paren on the "inner ring radii" line)
@@ -170,6 +125,12 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   q2600886') (expect n_open 342 -> 343) and the oxford line in docs/site_flow.md. Both are fully
   specified in the task hand-over (steps 1-4). No project file was changed this session (read-only
   audit + /tmp scripts); suite last run in 183 at 149/1/1 (the 1 = agent a's 307 seed).
+
+### 2026-10-13 306e DECISION: iteration 185 - oxford-castle c_ba6b308580428184 DELETED the 303 way (item created, doc deleted, page re-exported 343/356); oxford line written (5 of 17); suite identical to baseline (149/1/1)
+- Executed the 184-pending removal with the 184 hand-over's exact recipe (script /tmp/aw306e_oxford.py, .venv/bin/python): doc loaded from the store; t = the files.jsonl row title 'File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg' (sha16 asserted == c_ba6b308580428184); evidence = fit.review.candidate_evidence(doc['plan']) = {rec evidence/1, kind hand_tied, checked 2026-10-10, source 'pipeline/sources.py mackenzie'}; entry = {plan, title: t, url, pairs (the doc's own 4), coarse False, evidence, label '1897', cite, ref (keeps the 'File: ' prefix), size, place_reason '306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). ... Wrong place, right kind (the bury-castle class). Document deleted.'}. fit.review.upsert_item(ROOT,'oxford-castle-q2600886',[entry]) CREATED data/review/oxford-castle-q2600886.c_ba6b308580428184.json (this doc = lead and only candidate; no_picture_found None, resolved None - the item stays open; no_picture_found was set None by the upsert because the item has candidates). Then os.remove of the doc; fit.review.export(ROOT,'oxford-castle-q2600886') -> 343 open of 356 (342/355 before). Only 3 files changed: D the doc, A the item, M web/data/review.json.
+- Wrote the oxford line into the 306e block of docs/site_flow.md (after the old-sarum c_0410 line, before '## The site markers become arrowheads (task 308, 2026-10-13)') - that is 5 of 17 lines.
+- Full suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider): 149 passed, 1 skipped, 1 failed (270.6 s) - IDENTICAL to the 183 baseline; the 1 is agent a's in-flight 307 test_fit_queue::test_placement_gestures_and_save_in_the_browser (the known pre-existing red: 'the gestures own the mouse' + 404 /tiles/relief). No NEW failure from this change (union check: oxford stays covered - its built 1842 depiction plus the new open item; test_platefits_docs_match_sites green).
+- Next: judge the remaining 12 docs (9 sites, listed in the hand-over); first = pilsbury-castle-q7194511.c_7ff765c177ca7bae (no item).
 
 ## Project-wide driver notes (newest)
 
