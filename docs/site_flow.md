@@ -1516,3 +1516,53 @@ phone}.png` and `markers-after-{globe,zoom,legend,phone}.png` in `docs/site_flow
 disc, same distribution as before, now as arrowheads. Zoom: the Wiltshire/Dorset region, tips on their
 earthworks, labels as before. Legend: the sidebar crop with the Marker-key row (four gradient
 arrowheads) and the list-row swatches. Phone: the 1170x2532 view at 3x - readable at the smallest tier.
+
+## The owner's check: two queue sites end to end, then reverted (task 307d, 2026-10-13)
+
+The 307 rework's last box, verified the way the owner works: `tests/test_owner_check.py` drives headless
+Chrome (the 305 part-3 recipe) against the real `server/serve.py --port 0` on a FULL PRIVATE COPY of the
+tree - every socket in the server process dead (a connect attempts to assert loudly), ephemeral port, both
+picks' site dirs real copies, both book pages in the tree's own `data/raw` - and does what the owner does:
+open the queue, read the card, click "Place the drawing" (the placement opens on the works: the propose's
+anchor, the five pairs and markers, the gestures on, the earlier overlay hidden), drag, scale with the
+wheel, turn with shift+wheel, save. One shared server for both runs; B's run sees A's tree state on purpose,
+which is what the write-once item check watches.
+
+**The two sites are derived, never pinned** (the queue's population moves under the batch tasks): the first
+line-eligible queue entry with a page-showable auto depiction, no pre-existing drawing depiction, a following
+entry and a RECORDED BAR scale; the same with the site-size-only fallback scale. On the 241-entry queue of
+2026-10-13 that was entry 38, **Old Oswestry** (`oswestry-castle-q20713795`, Allcroft 1908 "Camp, Old Oswestry,
+Salop", bar 0.1646 m/page-px, north-up) and entry 45, **Devil's Dyke** (`devil-s-dyke-q3307343`, Allcroft's
+"SWEALD" plan, the fallback's 0.7201). Plainly stated: both sit on LiDAR relief (`lidar: null`, Environment
+Agency credit) - no aerial-photograph-only (`lidar: false`) site was line-eligible in that queue, so the
+task's "different ground where possible" hedge is not satisfiable today.
+
+**What the save produced (measured in the tree, both sites).** The saved document is `"by": "hand"` with
+exactly the five placed pairs, its own least-squares fit agreeing with the placed anchor to 1e-3 m/px and
+0.01 deg, and its overlay `plan_<plan>.webp` (+ ink) landing in the site's `depictions.json` with fit
+`{doc, at, 5 pairs, model similarity}` - the overlay's five residuals are 0.0 at stored precision, because
+the saved pairs are the five points the similarity was fit from. The one-site line's four effects: (a) the
+page shows the overlay's ink on the map as the site's selected depiction; (b) the site's marker fields in
+`sites.json` move from `{drawings 0, score 1.1, oldest 1842, overlays 1}` to `{drawings 1, score 1.45,
+oldest 1842, overlays 2}` - the new drawing scores 1.18 (118 years, residual 0 m) against the 1842 six-inch
+map's 1.10, best-plus-a-quarter rounds to 1.45, tier t1 to t2, on both sites; (c) the site's review item is
+resolved by the saved document - write-once: B's run left A's already-resolved item file byte-identical -
+and the site leaves the open review list (457 -> 456 -> 455 across the two runs); (d) the card's done map
+carries the site and the card moves on to the next pending entry (39, Neckarburken-West; 46, Richard's
+Castle). The server's log for each run carries exactly the line's own record: the no-model line, the no-batch
+line (`1 candidate picture(s): 1 fitted (doc), 0 in the review item` for Old Oswestry, `3 ... 1 ... 2 ...`
+for Devil's Dyke), the per-picture lines, `done`, and the finished report `one-site line for <site>:
+finished (exit 0)` - no matcher line, no network attempt. A page reload then loads the fit back unchanged:
+the persisted selected depiction is the overlay's ink, the page's done-site contract (ground imagery, ink
+modes) restored, the same 1.45/t2 square, the done map kept, and the card still names the next pending.
+
+**Reverted.** The private tree is a tmp dir, discarded when the test ends. The checkout's shared store is
+proven byte-identical around each run: every platefits document, every review item, `sites.json`,
+`review.json`, `fit_queue.json` and every file under both picks' site dirs - hashed through the checkout's
+own symlinks into the store. The golden hand-fit hash check (`tests/golden/hand_fit_docs.sha256`) and
+`test_fit_provenance` run on the same checkout and stay green for the same reason; nothing the owner would
+see in his tree changed.
+
+Ten views of the two runs, in `docs/site_flow/`: `307d_A_{1-card,2-placed,3-gestured,4-saved,5-reload}.png`
+and `307d_B_*.png` - the card, the drawing on the works, after the three gestures, the saved overlay on the
+map, and the unchanged reload.
