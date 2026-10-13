@@ -1,0 +1,46 @@
+{
+ "site": "taunton-castle-q7688781",
+ "candidates": [
+  {
+   "plan": "c_05cb4a02bd58e82e",
+   "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
+   "pairs": [
+    [
+     800.0,
+     200.0,
+     -3.112365,
+     51.0170921
+    ],
+    [
+     800.0,
+     400.0,
+     -3.112365,
+     51.0161938
+    ],
+    [
+     800.0,
+     800.0,
+     -3.112365,
+     51.0143972
+    ],
+    [
+     400.0,
+     1000.0,
+     -3.1152208,
+     51.0134988
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

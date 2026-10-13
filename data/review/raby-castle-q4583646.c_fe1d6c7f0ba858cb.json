@@ -1,0 +1,46 @@
+{
+ "site": "raby-castle-q4583646",
+ "candidates": [
+  {
+   "plan": "c_fe1d6c7f0ba858cb",
+   "title": "Raby Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/raby-castle-q4583646/fe1d6c7f0ba858cb.jpg",
+   "pairs": [
+    [
+     1000.0,
+     100.0,
+     -1.7970911,
+     54.5936104
+    ],
+    [
+     1000.0,
+     1000.0,
+     -1.7970911,
+     54.5882205
+    ],
+    [
+     100.0,
+     1000.0,
+     -1.8063934,
+     54.5882205
+    ],
+    [
+     100.0,
+     100.0,
+     -1.8063934,
+     54.5936104
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

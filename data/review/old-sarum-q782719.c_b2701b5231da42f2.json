@@ -49,6 +49,119 @@
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "median residual 59.717511454442274 m > 45.0 m",
    "gate_score": 59.7
+  },
+  {
+   "plan": "c_041083ec68b532f8",
+   "title": "Ancient Plan of Old Sarum",
+   "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
+   "pairs": [
+    [
+     300.0,
+     200.0,
+     -1.80543,
+     51.0955742
+    ],
+    [
+     450.0,
+     400.0,
+     -1.8018542,
+     51.0933285
+    ],
+    [
+     300.0,
+     600.0,
+     -1.80543,
+     51.0910827
+    ],
+    [
+     100.0,
+     400.0,
+     -1.8090058,
+     51.0933285
+    ],
+    [
+     200.0,
+     300.0,
+     -1.8068603,
+     51.0942268
+    ],
+    [
+     300.0,
+     400.0,
+     -1.80543,
+     51.0933285
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 19.1 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Old Sarum",
+    "file_cat": "Old Sarum in art",
+    "via": [
+     "Old Sarum"
+    ]
+   },
+   "gate_score": 19.1
+  },
+  {
+   "plan": "c_ff62c9585a92b375",
+   "title": "Plan & Elevations of Old Sarum - DPLA - 60c302909f6eb4cd381618b14c48481e",
+   "url": "media/commons/old-sarum-q782719/ff62c9585a92b375.jpg",
+   "pairs": [
+    [
+     400.0,
+     1400.0,
+     -1.8047148,
+     51.0933285
+    ],
+    [
+     500.0,
+     1400.0,
+     -1.8018542,
+     51.0933285
+    ],
+    [
+     300.0,
+     1400.0,
+     -1.8075755,
+     51.0933285
+    ],
+    [
+     500.0,
+     1400.0,
+     -1.8018542,
+     51.0933285
+    ],
+    [
+     400.0,
+     1300.0,
+     -1.8047148,
+     51.0951251
+    ],
+    [
+     400.0,
+     1500.0,
+     -1.8047148,
+     51.0915318
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Old Sarum",
+    "place_qid": "Q60576019",
+    "place_label": "Old Sarum",
+    "place_lon": -1.804722222,
+    "place_lat": 51.093333333,
+    "site_lon": -1.804722,
+    "site_lat": 51.093333,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

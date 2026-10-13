@@ -38,6 +38,71 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 100 200 300 Feet'",
    "why": "features: North-eastern tip of the central mound, South-eastern corner of the earthwork, South-western corner of the earthwork; stated scale 0.151 disagrees with its own points (0.593 m/px): not trusted"
+  },
+  {
+   "plan": "c_de779031cda8a0dc",
+   "title": "Bury Castle Somerset Map",
+   "url": "media/commons/bury-castle-q5001077/de779031cda8a0dc.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -3.5238734,
+     51.0375851
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     400.0,
+     400.0,
+     -3.512446,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Bury Castle, Somerset",
+    "file_cat": "Bury Castle, Somerset",
+    "via": []
+   },
+   "gate_score": 30.2
   }
  ],
  "no_picture_found": null,

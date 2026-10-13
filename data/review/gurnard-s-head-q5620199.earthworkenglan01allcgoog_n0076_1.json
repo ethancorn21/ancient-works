@@ -19,6 +19,69 @@
    "scale_source": "ratio",
    "note": "scale from the printed ratio at 600 ppi (the scale-bar box holds the ratio text, not ticks)",
    "why": "the model recorded no usable pairs"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0262_1",
+   "title": "Castell-an-Dinas, Cornwall {after Cotton)",
+   "url": "books/earthworkenglan01allcgoog/n0262.jpg",
+   "pairs": [
+    [
+     1500.0,
+     2500.0,
+     -5.599214,
+     50.1898038
+    ],
+    [
+     1500.0,
+     2000.0,
+     -5.599214,
+     50.1916005
+    ],
+    [
+     1500.0,
+     1500.0,
+     -5.599214,
+     50.1933971
+    ],
+    [
+     1000.0,
+     2500.0,
+     -5.6020202,
+     50.1898038
+    ],
+    [
+     1000.0,
+     2000.0,
+     -5.6020202,
+     50.1916005
+    ],
+    [
+     1000.0,
+     1500.0,
+     -5.6020202,
+     50.1933971
+    ],
+    [
+     2000.0,
+     2500.0,
+     -5.5964077,
+     50.1898038
+    ],
+    [
+     2000.0,
+     2000.0,
+     -5.5964077,
+     50.1916005
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

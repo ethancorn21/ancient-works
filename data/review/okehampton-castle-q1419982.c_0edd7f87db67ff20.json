@@ -1,0 +1,48 @@
+{
+ "site": "okehampton-castle-q1419982",
+ "candidates": [
+  {
+   "plan": "c_0edd7f87db67ff20",
+   "title": "Plan of Okehampton Castle",
+   "url": "media/commons/okehampton-castle-q1419982/0edd7f87db67ff20.jpg",
+   "pairs": [
+    [
+     420.0,
+     100.0,
+     -4.0068737,
+     50.7331107
+    ],
+    [
+     250.0,
+     300.0,
+     -4.0097121,
+     50.7309548
+    ],
+    [
+     150.0,
+     500.0,
+     -4.0114152,
+     50.7287988
+    ],
+    [
+     350.0,
+     400.0,
+     -4.0080091,
+     50.7298769
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 1.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Okehampton Castle",
+    "file_cat": "Okehampton Castle",
+    "via": []
+   },
+   "gate_score": 1.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

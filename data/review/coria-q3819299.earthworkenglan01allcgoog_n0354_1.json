@@ -80,6 +80,61 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: West Granary NW corner, West Granary NE corner, West Granary SE corner, West Granary SW corner, River crossing NW, River crossing SE, Field boundary east of granary, Field boundary south of granary; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_d66bfb0db805d2cd",
+   "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
+   "url": "media/commons/coria-q3819299/d66bfb0db805d2cd.jpg",
+   "pairs": [
+    [
+     100.0,
+     600.0,
+     -2.0405096,
+     54.979007
+    ],
+    [
+     600.0,
+     400.0,
+     -2.031196,
+     54.9811449
+    ],
+    [
+     200.0,
+     700.0,
+     -2.0386469,
+     54.977947
+    ],
+    [
+     400.0,
+     800.0,
+     -2.0349214,
+     54.976887
+    ],
+    [
+     200.0,
+     900.0,
+     -2.0386469,
+     54.975818
+    ],
+    [
+     800.0,
+     200.0,
+     -2.0275019,
+     54.9832827
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 0.6 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Coria (Corbridge)",
+    "file_cat": "The Corbridge Excavations, 1908 (1909)",
+    "via": [
+     "Coria (Corbridge)"
+    ]
+   },
+   "gate_score": 0.6
   }
  ],
  "no_picture_found": null,

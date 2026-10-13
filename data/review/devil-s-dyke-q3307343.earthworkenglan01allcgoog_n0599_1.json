@@ -99,6 +99,45 @@
    "note": "scale from the scale bar: '0 100 200 300 400 Yards'",
    "why": "median residual 50.81639021199786 m > 45.0 m",
    "gate_score": 50.8
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0662_1",
+   "title": "SWEALD",
+   "url": "books/earthworkenglan01allcgoog/n0662.jpg",
+   "pairs": [
+    [
+     1000.0,
+     1500.0,
+     0.2913825,
+     52.2716111
+    ],
+    [
+     2000.0,
+     1500.0,
+     0.3001903,
+     52.2716111
+    ],
+    [
+     2000.0,
+     2500.0,
+     0.3001903,
+     52.2662211
+    ],
+    [
+     1000.0,
+     2500.0,
+     0.2913825,
+     52.2662211
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

@@ -1,0 +1,58 @@
+{
+ "site": "cooling-castle-q5167493",
+ "candidates": [
+  {
+   "plan": "c_7ebc7630f3197364",
+   "title": "Cooling Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/cooling-castle-q5167493/7ebc7630f3197364.jpg",
+   "pairs": [
+    [
+     450.0,
+     150.0,
+     0.5221626,
+     51.4580107
+    ],
+    [
+     800.0,
+     250.0,
+     0.5261991,
+     51.4572921
+    ],
+    [
+     800.0,
+     600.0,
+     0.5261991,
+     51.4547769
+    ],
+    [
+     450.0,
+     650.0,
+     0.5221626,
+     51.4544175
+    ],
+    [
+     150.0,
+     300.0,
+     0.5187026,
+     51.4569328
+    ],
+    [
+     400.0,
+     450.0,
+     0.5215859,
+     51.4558548
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

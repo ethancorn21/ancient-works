@@ -1,0 +1,48 @@
+{
+ "site": "de-thombe-q2359601",
+ "candidates": [
+  {
+   "plan": "c_b438f78e39a1aaec",
+   "title": "Dankaerts-Historis-9350 - Maastricht map - detail - De Tombe & southern pontoon bridge 1632",
+   "url": "media/commons/de-thombe-q2359601/b438f78e39a1aaec.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     5.6726808,
+     50.8288604
+    ],
+    [
+     400.0,
+     400.0,
+     5.6769471,
+     50.8261655
+    ],
+    [
+     100.0,
+     700.0,
+     5.6726808,
+     50.8234705
+    ],
+    [
+     800.0,
+     400.0,
+     5.6826356,
+     50.8261655
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "De Tombe, Maastricht",
+    "file_cat": "De Tombe, Maastricht",
+    "via": []
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

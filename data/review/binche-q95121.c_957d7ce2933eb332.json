@@ -1,0 +1,58 @@
+{
+ "site": "binche-q95121",
+ "candidates": [
+  {
+   "plan": "c_957d7ce2933eb332",
+   "title": "Binche, town plan by Jacob van Deventer",
+   "url": "media/commons/binche-q95121/957d7ce2933eb332.jpg",
+   "pairs": [
+    [
+     400.0,
+     200.0,
+     4.1599211,
+     50.4164755
+    ],
+    [
+     800.0,
+     200.0,
+     4.168731,
+     50.4164755
+    ],
+    [
+     800.0,
+     400.0,
+     4.168731,
+     50.4136641
+    ],
+    [
+     400.0,
+     600.0,
+     4.1599211,
+     50.4108614
+    ],
+    [
+     1200.0,
+     600.0,
+     4.177541,
+     50.4108614
+    ],
+    [
+     800.0,
+     800.0,
+     4.168731,
+     50.4080497
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py deventer"
+   },
+   "gate_score": 0.2
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

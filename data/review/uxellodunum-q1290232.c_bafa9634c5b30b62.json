@@ -1,0 +1,130 @@
+{
+ "site": "uxellodunum-q1290232",
+ "candidates": [
+  {
+   "plan": "c_bafa9634c5b30b62",
+   "title": "Plan et vue du Puy d'Issolu - btv1b85922144",
+   "url": "media/commons/uxellodunum-q1290232/bafa9634c5b30b62.jpg",
+   "pairs": [
+    [
+     100.0,
+     300.0,
+     1.6883432,
+     44.9562834
+    ],
+    [
+     200.0,
+     300.0,
+     1.6896125,
+     44.9553851
+    ],
+    [
+     300.0,
+     300.0,
+     1.6908818,
+     44.9544869
+    ],
+    [
+     400.0,
+     300.0,
+     1.6921511,
+     44.9535887
+    ],
+    [
+     500.0,
+     300.0,
+     1.6934204,
+     44.9526904
+    ],
+    [
+     600.0,
+     300.0,
+     1.6946897,
+     44.9517921
+    ],
+    [
+     700.0,
+     300.0,
+     1.695959,
+     44.9508938
+    ],
+    [
+     800.0,
+     300.0,
+     1.6972283,
+     44.9499955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Uxellodunum",
+    "file_cat": "Uxellodunum",
+    "via": []
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_f9dcb2863628ff11",
+   "title": "Plan geometrique du puy d'Issolus ou l'on croit qu'etoit situ\u00e9e la ville de Uxellodunum - btv1b8592215j",
+   "url": "media/commons/uxellodunum-q1290232/f9dcb2863628ff11.jpg",
+   "pairs": [
+    [
+     320.0,
+     250.0,
+     1.6921511,
+     44.9543971
+    ],
+    [
+     580.0,
+     250.0,
+     1.6962764,
+     44.9543971
+    ],
+    [
+     580.0,
+     580.0,
+     1.6962764,
+     44.9506692
+    ],
+    [
+     320.0,
+     580.0,
+     1.6921511,
+     44.9506692
+    ],
+    [
+     650.0,
+     850.0,
+     1.6973553,
+     44.9476598
+    ],
+    [
+     950.0,
+     450.0,
+     1.7021152,
+     44.9521514
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 1.5 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Uxellodunum",
+    "place_qid": "Q1290232",
+    "place_label": "Uxellodunum",
+    "place_lon": 1.69722222,
+    "place_lat": 44.95,
+    "site_lon": 1.697222,
+    "site_lat": 44.95,
+    "dist_m": 0.0
+   },
+   "gate_score": 1.5
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

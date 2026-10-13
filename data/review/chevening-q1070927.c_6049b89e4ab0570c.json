@@ -1,0 +1,70 @@
+{
+ "site": "chevening-q1070927",
+ "candidates": [
+  {
+   "plan": "c_6049b89e4ab0570c",
+   "title": "Chevening, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/chevening-q1070927/6049b89e4ab0570c.jpg",
+   "pairs": [
+    [
+     400.0,
+     600.0,
+     0.1273471,
+     51.2991447
+    ],
+    [
+     800.0,
+     600.0,
+     0.1330939,
+     51.2991447
+    ],
+    [
+     200.0,
+     400.0,
+     0.1244737,
+     51.3013904
+    ],
+    [
+     1000.0,
+     400.0,
+     0.1359673,
+     51.3013904
+    ],
+    [
+     400.0,
+     300.0,
+     0.1273471,
+     51.3022886
+    ],
+    [
+     800.0,
+     300.0,
+     0.1330939,
+     51.3022886
+    ],
+    [
+     300.0,
+     500.0,
+     0.1259104,
+     51.3004921
+    ],
+    [
+     900.0,
+     500.0,
+     0.1345306,
+     51.3004921
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 14.3 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "gate_score": 14.3
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

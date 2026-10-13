@@ -1,0 +1,46 @@
+{
+ "site": "oxford-castle-q2600886",
+ "candidates": [
+  {
+   "plan": "c_ba6b308580428184",
+   "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
+   "pairs": [
+    [
+     300.0,
+     300.0,
+     -1.2639238,
+     51.7526938
+    ],
+    [
+     400.0,
+     400.0,
+     -1.2624727,
+     51.7517955
+    ],
+    [
+     500.0,
+     500.0,
+     -1.2610217,
+     51.7508972
+    ],
+    [
+     600.0,
+     600.0,
+     -1.2595706,
+     51.7499988
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

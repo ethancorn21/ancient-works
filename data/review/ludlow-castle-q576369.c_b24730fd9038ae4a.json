@@ -1,0 +1,58 @@
+{
+ "site": "ludlow-castle-q576369",
+ "candidates": [
+  {
+   "plan": "c_b24730fd9038ae4a",
+   "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+   "pairs": [
+    [
+     100.0,
+     300.0,
+     -2.7244738,
+     52.3680938
+    ],
+    [
+     800.0,
+     300.0,
+     -2.7200602,
+     52.3680938
+    ],
+    [
+     800.0,
+     1200.0,
+     -2.7200602,
+     52.3653988
+    ],
+    [
+     100.0,
+     1200.0,
+     -2.7244738,
+     52.3653988
+    ],
+    [
+     100.0,
+     700.0,
+     -2.7244738,
+     52.3667463
+    ],
+    [
+     800.0,
+     700.0,
+     -2.7200602,
+     52.3667463
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 22.4 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 22.4
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

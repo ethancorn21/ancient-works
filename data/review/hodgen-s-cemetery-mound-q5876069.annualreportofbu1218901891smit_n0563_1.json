@@ -38,6 +38,108 @@
    "scale_source": "picture_size",
    "note": "no scale text recorded",
    "why": "features: Northwest corner of the mound, North-east corner of the mound, South-east corner of the mound, South-west corner of the mound; stated scale 0.400 disagrees with its own points (1.000 m/px): not trusted"
+  },
+  {
+   "plan": "ArcheologicalAtlasOfOhio_n0092_1",
+   "title": "Plan of Cemetery Mound, Mt. Vernon.",
+   "url": "books/ArcheologicalAtlasOfOhio/n0092.jpg",
+   "pairs": [
+    [
+     1380.0,
+     580.0,
+     -80.694459,
+     40.1736769
+    ],
+    [
+     1480.0,
+     580.0,
+     -80.6932833,
+     40.1736769
+    ],
+    [
+     1380.0,
+     680.0,
+     -80.694459,
+     40.1727785
+    ],
+    [
+     1480.0,
+     680.0,
+     -80.6932833,
+     40.1727785
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "b24849959_n0353_1",
+   "title": "Plan of mound at Mt. Vernon",
+   "url": "books/b24849959/n0353.jpg",
+   "pairs": [
+    [
+     1100.0,
+     1300.0,
+     -80.6958698,
+     40.1752938
+    ],
+    [
+     1100.0,
+     1500.0,
+     -80.6958698,
+     40.1734972
+    ],
+    [
+     1300.0,
+     1500.0,
+     -80.6935184,
+     40.1734972
+    ],
+    [
+     800.0,
+     1000.0,
+     -80.6982211,
+     40.1770904
+    ],
+    [
+     800.0,
+     1800.0,
+     -80.6982211,
+     40.1717005
+    ],
+    [
+     1200.0,
+     1900.0,
+     -80.6946941,
+     40.1708022
+    ],
+    [
+     1600.0,
+     1400.0,
+     -80.6911671,
+     40.1743955
+    ],
+    [
+     1200.0,
+     900.0,
+     -80.6946941,
+     40.1779887
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (12 of 12 distinct values on a 10-px grid); the gate's 17.3 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 17.3
   }
  ],
  "no_picture_found": null,

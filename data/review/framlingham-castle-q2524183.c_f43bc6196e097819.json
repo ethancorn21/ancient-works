@@ -1,0 +1,70 @@
+{
+ "site": "framlingham-castle-q2524183",
+ "candidates": [
+  {
+   "plan": "c_f43bc6196e097819",
+   "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+   "pairs": [
+    [
+     250.0,
+     250.0,
+     1.3458841,
+     52.2245955
+    ],
+    [
+     350.0,
+     250.0,
+     1.3473506,
+     52.2245955
+    ],
+    [
+     450.0,
+     300.0,
+     1.348817,
+     52.2241463
+    ],
+    [
+     450.0,
+     400.0,
+     1.348817,
+     52.223248
+    ],
+    [
+     350.0,
+     450.0,
+     1.3473506,
+     52.2227988
+    ],
+    [
+     250.0,
+     400.0,
+     1.3458841,
+     52.223248
+    ],
+    [
+     250.0,
+     300.0,
+     1.3458841,
+     52.2241463
+    ],
+    [
+     300.0,
+     350.0,
+     1.3466173,
+     52.2236972
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

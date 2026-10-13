@@ -1,0 +1,58 @@
+{
+ "site": "leicester-castle-q6519156",
+ "candidates": [
+  {
+   "plan": "c_581a9f82b6a805a0",
+   "title": "Leicester Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/leicester-castle-q6519156/581a9f82b6a805a0.jpg",
+   "pairs": [
+    [
+     600.0,
+     300.0,
+     -1.1426627,
+     52.6331938
+    ],
+    [
+     600.0,
+     400.0,
+     -1.1426627,
+     52.6322955
+    ],
+    [
+     600.0,
+     500.0,
+     -1.1426627,
+     52.6313972
+    ],
+    [
+     600.0,
+     600.0,
+     -1.1426627,
+     52.6304988
+    ],
+    [
+     600.0,
+     700.0,
+     -1.1426627,
+     52.6296005
+    ],
+    [
+     600.0,
+     800.0,
+     -1.1426627,
+     52.6287021
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

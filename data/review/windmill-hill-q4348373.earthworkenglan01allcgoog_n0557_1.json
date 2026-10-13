@@ -76,6 +76,57 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 10 20 30 40 50 Feet'",
    "why": "features: Upper-left mound tip, Central mound tip, Lower-left mound tip, Lower-right mound tip; stated scale 0.017 disagrees with its own points (0.498 m/px): not trusted"
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0558_2",
+   "title": "WINDMILL SITES, LEWES DOWN",
+   "url": "books/earthworkenglan01allcgoog/n0558.jpg",
+   "pairs": [
+    [
+     2000.0,
+     2000.0,
+     -1.8819766,
+     51.4451196
+    ],
+    [
+     2800.0,
+     2000.0,
+     -1.870447,
+     51.4451196
+    ],
+    [
+     2800.0,
+     2800.0,
+     -1.870447,
+     51.4379331
+    ],
+    [
+     2400.0,
+     2900.0,
+     -1.8762118,
+     51.4370347
+    ],
+    [
+     2000.0,
+     2800.0,
+     -1.8819766,
+     51.4379331
+    ],
+    [
+     1900.0,
+     2400.0,
+     -1.8834178,
+     51.4415265
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

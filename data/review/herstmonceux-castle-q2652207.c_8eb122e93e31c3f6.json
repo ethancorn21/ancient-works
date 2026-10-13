@@ -1,0 +1,70 @@
+{
+ "site": "herstmonceux-castle-q2652207",
+ "candidates": [
+  {
+   "plan": "c_8eb122e93e31c3f6",
+   "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/herstmonceux-castle-q2652207/8eb122e93e31c3f6.jpg",
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     0.3363742,
+     50.8719921
+    ],
+    [
+     800.0,
+     200.0,
+     0.342068,
+     50.8719921
+    ],
+    [
+     100.0,
+     1000.0,
+     0.3363742,
+     50.8683988
+    ],
+    [
+     800.0,
+     1000.0,
+     0.342068,
+     50.8683988
+    ],
+    [
+     50.0,
+     600.0,
+     0.3349507,
+     50.8701955
+    ],
+    [
+     850.0,
+     600.0,
+     0.3434915,
+     50.8701955
+    ],
+    [
+     400.0,
+     600.0,
+     0.3392211,
+     50.8701955
+    ],
+    [
+     400.0,
+     1100.0,
+     0.3392211,
+     50.8675005
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 34.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 34.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

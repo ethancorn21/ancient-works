@@ -148,6 +148,61 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 500 1000 2000 SCALE FT.'",
    "why": "features: Northwest bastion tip, Northwest wall corner, Central gate gap, Southwest bastion tip, Southwest wall corner, Southeast bastion tip, Southeast wall corner, River crossing; stated scale 3.650 disagrees with its own points (1.024 m/px): not trusted"
+  },
+  {
+   "plan": "b24849959_n0195_1",
+   "title": "The Marietta works",
+   "url": "books/b24849959/n0195.jpg",
+   "pairs": [
+    [
+     500.0,
+     500.0,
+     -81.4627968,
+     39.4238852
+    ],
+    [
+     1000.0,
+     1000.0,
+     -81.4569827,
+     39.4193938
+    ],
+    [
+     500.0,
+     2000.0,
+     -81.4627968,
+     39.4104102
+    ],
+    [
+     1500.0,
+     2000.0,
+     -81.4511685,
+     39.4104102
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "caption_coords",
+    "named_place": "Marietta Earthworks",
+    "place": {
+     "state": "ohio"
+    },
+    "site": {
+     "id": "marietta-earthworks-q6763227",
+     "qid": "Q6763227",
+     "name": "Marietta Earthworks",
+     "lon": -81.4519,
+     "lat": 39.42,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

@@ -1,0 +1,46 @@
+{
+ "site": "cassiobury-house-q5049456",
+ "candidates": [
+  {
+   "plan": "c_3446adfe7a8ed6c7",
+   "title": "Cassiobury House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/cassiobury-house-q5049456/3446adfe7a8ed6c7.jpg",
+   "pairs": [
+    [
+     1150.0,
+     450.0,
+     -0.4094679,
+     51.6672412
+    ],
+    [
+     600.0,
+     400.0,
+     -0.4196059,
+     51.6676904
+    ],
+    [
+     800.0,
+     600.0,
+     -0.4159852,
+     51.6654447
+    ],
+    [
+     1000.0,
+     700.0,
+     -0.4123644,
+     51.6640972
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 10.4 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "gate_score": 10.4
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,46 @@
+{
+ "site": "goodrich-castle-q5583571",
+ "candidates": [
+  {
+   "plan": "c_cd89cb69f385859b",
+   "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+   "pairs": [
+    [
+     210.0,
+     210.0,
+     -2.6189522,
+     51.8787077
+    ],
+    [
+     580.0,
+     210.0,
+     -2.6144559,
+     51.8787077
+    ],
+    [
+     210.0,
+     680.0,
+     -2.6189522,
+     51.8751594
+    ],
+    [
+     580.0,
+     680.0,
+     -2.6144559,
+     51.8751594
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.8 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "gate_score": 0.8
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -360,6 +360,385 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
    "why": "features: Serpent head, Serpent body curve 1, Serpent body curve 2, Serpent tail tip; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "b24849959_n0313_1",
+   "title": "Serpent Mound; from Holmes",
+   "url": "books/b24849959/n0313.jpg",
+   "pairs": [
+    [
+     1000.0,
+     1000.0,
+     -83.4327509,
+     39.0276501
+    ],
+    [
+     1200.0,
+     1500.0,
+     -83.4315946,
+     39.0258535
+    ],
+    [
+     1500.0,
+     2000.0,
+     -83.4304382,
+     39.0240569
+    ],
+    [
+     1500.0,
+     2500.0,
+     -83.4292819,
+     39.0222602
+    ],
+    [
+     1000.0,
+     3000.0,
+     -83.4327509,
+     39.0204634
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.7 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "gate_score": 26.7
+  },
+  {
+   "plan": "c_15ff865e5f3d8ddb",
+   "title": "Serpent Mound by William Jacob Baer",
+   "url": "media/commons/serpent-mound-q968802/15ff865e5f3d8ddb.jpg",
+   "pairs": [
+    [
+     400.0,
+     200.0,
+     -83.43304,
+     39.0295635
+    ],
+    [
+     500.0,
+     250.0,
+     -83.4319646,
+     39.0291413
+    ],
+    [
+     600.0,
+     300.0,
+     -83.4308776,
+     39.0287191
+    ],
+    [
+     300.0,
+     400.0,
+     -83.4341269,
+     39.0278747
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 0.3
+  },
+  {
+   "plan": "c_2c260a03d1f8df1c",
+   "title": "SD35 Serpent Mound Squier and Davis Plate XXXV",
+   "url": "media/commons/serpent-mound-q968802/2c260a03d1f8df1c.jpg",
+   "pairs": [
+    [
+     350.0,
+     250.0,
+     -83.4333291,
+     39.0289975
+    ],
+    [
+     450.0,
+     550.0,
+     -83.4321727,
+     39.0263027
+    ],
+    [
+     350.0,
+     850.0,
+     -83.4333291,
+     39.0236077
+    ],
+    [
+     550.0,
+     400.0,
+     -83.4310164,
+     39.0276501
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_52dfe1fc979edf2c",
+   "title": "Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263)",
+   "url": "media/commons/serpent-mound-q968802/52dfe1fc979edf2c.jpg",
+   "pairs": [
+    [
+     150.0,
+     550.0,
+     -83.4362199,
+     39.0267518
+    ],
+    [
+     400.0,
+     350.0,
+     -83.4333291,
+     39.0285484
+    ],
+    [
+     250.0,
+     450.0,
+     -83.4350636,
+     39.0276501
+    ],
+    [
+     300.0,
+     400.0,
+     -83.4344854,
+     39.0280993
+    ],
+    [
+     350.0,
+     380.0,
+     -83.4339072,
+     39.0282789
+    ],
+    [
+     380.0,
+     360.0,
+     -83.4335603,
+     39.0284586
+    ],
+    [
+     420.0,
+     340.0,
+     -83.4330978,
+     39.0286382
+    ],
+    [
+     450.0,
+     330.0,
+     -83.4327509,
+     39.0287281
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_7b01a4bb50d68b56",
+   "title": "26 of 'A School History of the United States ... Being a revision and rewriting of Swinton's \"Condensed School History of the United States.\"' (11303842305)",
+   "url": "media/commons/serpent-mound-q968802/7b01a4bb50d68b56.jpg",
+   "pairs": [
+    [
+     150.0,
+     550.0,
+     -83.4357574,
+     39.0265722
+    ],
+    [
+     1050.0,
+     450.0,
+     -83.4259285,
+     39.0274705
+    ],
+    [
+     500.0,
+     350.0,
+     -83.4319415,
+     39.0282789
+    ],
+    [
+     750.0,
+     400.0,
+     -83.4292819,
+     39.0278298
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 2.4
+  },
+  {
+   "plan": "c_8ebd42607fbb96d8",
+   "title": "26 of 'A School History of the United States ...Serpent Mound in Ohio\"' (11303842305) (cropped)",
+   "url": "media/commons/serpent-mound-q968802/8ebd42607fbb96d8.jpg",
+   "pairs": [
+    [
+     100.0,
+     400.0,
+     -83.4362199,
+     39.0276501
+    ],
+    [
+     1000.0,
+     400.0,
+     -83.4258129,
+     39.0276501
+    ],
+    [
+     200.0,
+     300.0,
+     -83.4350636,
+     39.0285484
+    ],
+    [
+     300.0,
+     300.0,
+     -83.4339072,
+     39.0285484
+    ],
+    [
+     400.0,
+     300.0,
+     -83.4327509,
+     39.0285484
+    ],
+    [
+     500.0,
+     300.0,
+     -83.4315946,
+     39.0285484
+    ],
+    [
+     600.0,
+     300.0,
+     -83.4304382,
+     39.0285484
+    ],
+    [
+     700.0,
+     300.0,
+     -83.4292819,
+     39.0285484
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_dd2c553d611e610b",
+   "title": "26 of 'A School History of the United States ...Serpent Mound in Ohio\"' no cap (11303842305) (cropped)",
+   "url": "media/commons/serpent-mound-q968802/dd2c553d611e610b.jpg",
+   "pairs": [
+    [
+     100.0,
+     400.0,
+     -83.4362199,
+     39.0276501
+    ],
+    [
+     600.0,
+     400.0,
+     -83.4304382,
+     39.0276501
+    ],
+    [
+     200.0,
+     300.0,
+     -83.4350636,
+     39.0285484
+    ],
+    [
+     300.0,
+     300.0,
+     -83.4339072,
+     39.0285484
+    ],
+    [
+     400.0,
+     300.0,
+     -83.4327509,
+     39.0285484
+    ],
+    [
+     500.0,
+     300.0,
+     -83.4315946,
+     39.0285484
+    ],
+    [
+     600.0,
+     300.0,
+     -83.4304382,
+     39.0285484
+    ],
+    [
+     700.0,
+     300.0,
+     -83.4292819,
+     39.0285484
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Serpent Mound",
+    "file_cat": "Serpent Mound",
+    "via": []
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

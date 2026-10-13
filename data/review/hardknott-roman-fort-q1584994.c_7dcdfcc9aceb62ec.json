@@ -1,0 +1,72 @@
+{
+ "site": "hardknott-roman-fort-q1584994",
+ "candidates": [
+  {
+   "plan": "c_7dcdfcc9aceb62ec",
+   "title": "Hardknott Roman Fort",
+   "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+   "pairs": [
+    [
+     70.0,
+     70.0,
+     -3.2130394,
+     54.4090443
+    ],
+    [
+     350.0,
+     50.0,
+     -3.2031623,
+     54.4094485
+    ],
+    [
+     630.0,
+     70.0,
+     -3.193208,
+     54.4090443
+    ],
+    [
+     300.0,
+     300.0,
+     -3.2049062,
+     54.4043106
+    ],
+    [
+     70.0,
+     630.0,
+     -3.2130394,
+     54.397501
+    ],
+    [
+     350.0,
+     650.0,
+     -3.2031623,
+     54.3970967
+    ],
+    [
+     630.0,
+     630.0,
+     -3.193208,
+     54.397501
+    ],
+    [
+     50.0,
+     350.0,
+     -3.2137339,
+     54.4032955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 1.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Hardknott Roman Fort",
+    "file_cat": "Hardknott Roman Fort",
+    "via": []
+   },
+   "gate_score": 1.2
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

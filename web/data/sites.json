@@ -487,10 +487,10 @@
     800
    ],
    "lidar_credit": "AHN (Rijkswaterstaat)",
-   "drawings": 1,
-   "score": 2.17,
-   "oldest": 1832,
-   "overlays": 2
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "aldford-castle-q4713789",
@@ -2642,10 +2642,10 @@
     2000
    ],
    "lidar": false,
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "bayou-grande-cheniere-mounds-q4874725",
@@ -4201,10 +4201,10 @@
     1000,
     1000
    ],
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 2,
+   "score": 4.41,
+   "oldest": 1690,
+   "overlays": 3
   },
   {
    "id": "burcht-van-voorne-q2765622",
@@ -8152,10 +8152,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "dudley-castle-q5311832",
@@ -10946,10 +10946,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "groby-castle-q5609924",
@@ -11045,10 +11045,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 1,
+   "score": 4.86,
+   "oldest": 1563,
+   "overlays": 2
   },
   {
    "id": "gurnard-s-head-q5620199",
@@ -14292,10 +14292,10 @@
     2000
    ],
    "lidar": false,
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "le-quesnoy-q180067",
@@ -14665,10 +14665,10 @@
     2000
    ],
    "lidar": false,
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "lincoln-castle-q727760",
@@ -15242,10 +15242,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 1,
-   "score": 1.42,
-   "oldest": 1842,
-   "overlays": 2
+   "drawings": 2,
+   "score": 2.76,
+   "oldest": 1806,
+   "overlays": 3
   },
   {
    "id": "mamucium-q3285089",
@@ -17699,10 +17699,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 3,
-   "score": 3.15,
+   "drawings": 2,
+   "score": 2.86,
    "oldest": 1761,
-   "overlays": 4
+   "overlays": 3
   },
   {
    "id": "oldorp-q931301",
@@ -19720,10 +19720,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "sandal-castle-q1760652",
@@ -20339,9 +20339,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "shrum-mound-q28403189",
@@ -22637,10 +22637,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 1,
+   "score": 4.84,
+   "oldest": 1565,
+   "overlays": 2
   },
   {
    "id": "uxellodunum-q1290232",
@@ -22725,10 +22725,10 @@
     2000
    ],
    "lidar": false,
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "valkenburg-q100076",
