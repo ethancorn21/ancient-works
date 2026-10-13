@@ -500,3 +500,39 @@ unconditionally. No code changed this session.
       replaces the same-file plan depiction (both year 1908), so drawings stays 1 -> the entry
       line is "drawings 1 -> 1" in BOTH branches; no review item is created in the confident
       branch (batch never runs) => export never runs => review.json byte-identical.
+
+## 2026-10-13 302f DECISION: iteration 211 - design fully verified against the current code (matchfit/site_done/batch_us/review/plan_fit/propose/build_site all re-read; heldout + index + depictions re-checked live); recorder left as a truncated stub to rewrite; expected stdout is 11 lines confident / 8 lines unsure (the 210 note's "9" was wrong); the sites.json entry recomputes to the same 1.45 but only just - the recorder must verify
+- This session read the whole chain with fresh eyes and confirmed the 210 design end to end;
+  three corrections that change the recorder's asserts:
+  1. The unsure branch's expected stdout is 8 lines, not 9 (210's count included a non-existent
+     "fit written" line): no-model, site, not-sure, sent-to-queue, entry, review, summary, done.
+  2. build_site.marks() recomputes score/oldest/overlays from depictions: hand fit rms 5.99 ->
+     score 1.45 (the repo's value); the matcher's ~3 m residuals give 1.4535 -> rounds back to
+     1.45, but the margin is narrow. The recorder MUST assert post-run site entry == repo entry
+     (parsed); if any marker field moves, the test relaxes to field-level asserts (drawings==1)
+     and records the actuals in the fixture header instead of whole-entry equality.
+  3. propose.propose_for's default root is the importing module's own ROOT: in the recorder's
+     IN-PROCESS site_done run it reads the CHECKOUT's data (same bytes as the tree copies made
+     the same moment); in the subprocess it reads the tree copies. Same input -> same output,
+     but the recorder should note which copy it read in the header so a future drift is visible.
+- matchfit_heldout.candidates(root, site, row, url) is the right offline-replay vehicle (it
+  calls mf.match/mf.ransac, so patching mf.match answers all 15 windows; the frozen
+  data/matchfit/heldout/results.json "docs" dict is the checkpoint: badbury best = six-inch
+  x0.35, 22/61, rot 3.62, resid 3.1, corner 58.6, centre 2.9; both six-inch x0.5 (15) and x0.35
+  (22) need their ground keypoints permuted for the unsure variant - fit_row keeps the
+  strict-greater best, so one would survive otherwise).
+- Environment re-verified this session: ELoFTR 127.0.0.1:8091 healthy (RTX 5060 Ti), RoMa 8092
+  refused (curl exit 7), .venv py3.12.3, hand doc/row/site entry/depictions/index row as
+  recorded in the 210 hand-over. The full-suite baseline was started in the background (nohup,
+  log /tmp/aw302f_baseline.log, ~5 min); check it in the next session (rerun if the log is
+  incomplete) before adding my test, to diff new reds.
+- State on disk: tests/fixtures/matchfit_station/record.py is a TRUNCATED STUB (ends in a bogus
+  `import matchfit_holdout_dummy`, no body) - the session hit the context limit mid-write.
+  NEXT SESSION: rewrite record.py from the design in the task hand-over (complete: tree
+  builder, live double-run with urlopen recording keyed by sha256 of the exact request body,
+  offline replay via the mf.match fake, in-process site_done runs for both branches,
+  perturbation loop with seed 7+, header with input hashes for the test's drift detector);
+  run it live once; commit both fixtures + the script; then write tests/test_matchfit_
+  station.py per the hand-over's test design (two tests; ephemeral-port in-process stub;
+  pass-through guard variant; drift-checked queue counts); run it; then the full suite diffed
+  against the baseline; tick the six boxes as verified.

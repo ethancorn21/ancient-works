@@ -5,181 +5,200 @@ Touches: tests/
 
 ## Hand-over
 
-(2026-10-13, iteration 210, agent c - INVESTIGATION ONLY, no code written. The whole test design
-is now fully traced and verified against the code; the next session writes the recorder, runs it
-live once, and writes the test. All facts below were verified this session by reading/running code
-on this branch, fresh eyes.)
+(2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
+branch after the 302e merge); the complete verified design is below. ON DISK NOW: only
+`tests/fixtures/matchfit_station/record.py` as a TRUNCATED STUB - it ends with a bogus line
+`import matchfit_holdout_dummy  # noqa: F401` and has no body: REWRITE IT FROM SCRATCH (the
+design is complete below; the stub is worthless except for its docstring). No tests run yet;
+I started the full-suite baseline in the background (nohup, log /tmp/aw302f_baseline.log, was
+still running at session end - CHECK IT; if incomplete, rerun: `.venv/bin/python -m pytest -q
+-p no:cacheprovider > /tmp/aw302f_baseline.log 2>&1` ~5 min) before adding my test, so I can
+diff new reds. Nothing else in the tree changed.)
 
-**Environment (verified this session):** .venv current (py3.12.3, numpy 2.5.4, scipy 1.18.1,
-PIL 12.3.0). ELoFTR LIVE: 127.0.0.1:8091/health -> {model: zju-community/matchanything_eloftr,
-device: NVIDIA GeForce RTX 5060 Ti}. RoMa 8092 REFUSED (curl exit 7). tests/test_site_done.py
-passes on this branch (5.3 s). No test suite run yet beyond that; the newest driver loop-start
-note in PROGRESS is stale (4 tests, 2026-10-11) - the 306d-era baseline (10 failed/130 passed/1
-skipped of 141, agent a's in-flight 307/211/224 work) is the practical yardstick; run the full
-suite at the end of the next session and diff against whatever failures exist BEFORE adding the
-new test (they are not mine to fix: my only new files are tests/test_matchfit_station.py +
-tests/fixtures/matchfit_station/*).
+**Verified this session (fresh eyes, current tree):** ELoFTR LIVE 127.0.0.1:8091/health ->
+{model: zju-community/matchanything_eloftr, device: RTX 5060 Ti}; RoMa 8092 refused (curl exit
+7). .venv py3.12.3. Hand doc + row + site entry + depictions.json + heldout + index row all
+re-verified (see 210 hand-over details preserved below). Additionally verified:
+- matchfit_heldout.candidates(root, site, row, url) returns ALL 15 candidates (matches, inliers,
+  rot, resid_m, pairs in row frame; rot/resid only when ransac kept >=3; seconds each). It calls
+  mf.match/mf.ransac/mf._merc - patching mf.match makes it a faithful offline replay. Importing
+  it is safe (it imports inkfit_heldout, which 302e fixed; no golden_docs call at import).
+- batch_us.write_doc book row: {site, plan, crop: _crop_px(row), pairs: _norm_pairs(8), label,
+  title, cite, at(_now), auto:True, score:round(resid_m,1), by:"agent", ia, file, book} then
+  matchfit.run appends fitter:"matcher", matcher:{model, inliers, matches, ground, window,
+  rot_deg 2dp, spread [3dp,1dp]} (the fit_row all-inliers spread, in the pairs frame). Key order
+  as written; the test compares dicts (order-free) with "at" removed.
+- plan_fit.build(doc, root): book doc without "size" key -> size = image size (3367x5050) ->
+  fs=1.0; crop _crop_px [360,1404,2886,3323] (2526x1919 > MAX_PX 2400 -> LANCZOS-resized ~
+  2400x1818); saves plan_<plan>.webp (quality=80, method=6) + _ink.webp (depict.make_ink,
+  quality=85); REPLACES the same-file depiction in depictions.json (remove-then-append, stable
+  sort by year); prints `{sid} {plan}: 8 pairs, similarity, residuals m [...]` (one residual per
+  pair, 1dp); set_drawings. The matcher doc has NO "model" key -> build prints "similarity" via
+  the default; source_line for agent+auto+score -> "Fitted automatically by the batch on 8
+  matching points; one rotation and scale fits them within {ceil(resid.max())} m (gate score
+  {score} m)".
+- build_site.marks(s, root): recomputes drawings/score/oldest/overlays from depictions. I
+  hand-computed: overlays = six-inch (1842 <= 2026-150, err 8, not drawing) + plan (1908, rms of
+  its resid_m, drawing); score = round(best + 0.25*rest, 2). Hand fit rms 5.99 -> score 1.45
+  (= repo's value). Matcher residuals ~3 m -> rms ~3.2 -> 1.18/(1+0.001) + 0.25*1.0989 =
+  1.4535 -> round -> 1.45 STILL. But this is a narrow margin: THE RECORDER MUST ASSERT the
+  post-run tree site entry == the repo entry (parsed); if score/oldest/overlays move, relax the
+  test to field-level asserts (drawings==1, others recorded in the fixture) and say why in the
+  header.
+- propose.propose_for(site_id, plan_id, root=ROOT): ROOT is the MODULE constant of whichever
+  copy is imported. In the recorder's IN-PROCESS site_done run, fit/propose.py is the CHECKOUT's
+  (site_done inserts checkout fit/ on sys.path; my recorder's import is the same module object)
+  -> it reads checkout data/books/index.jsonl + plans.json + sites.json; the subprocess reads
+  the tree copies. Same bytes (copied at the same moment) -> same result. The index row has
+  scale_bar true + scale_text "0 100 200 300 400 500 Scale of Feet" + a scale_bar blank_box +
+  north_arrow true angle 0.0 + evidence dict -> propose succeeds (verify in recorder; run_sites
+  wraps it in try/except (ValueError, KeyError) -> prop None -> entry coarse:True either way -
+  the fixture records whatever actually happens).
+- review.export(root, site_id): reads EVERY item file + sites.json + catalog for names; records
+  "resolved" into item files ONLY when a resolving doc exists without a recorded resolution AND
+  (site_id is None or the item's site == site_id); publishes open items (name-sorted) to
+  web/data/review.json {"at", "items"}; returns (n_open, n_total). Repo state is consistent
+  (306d ended with an export), so the scoped export writes NO item files - the recorder must
+  verify (hash all item files before/after its in-process unsure run) and the test asserts it.
+- Exact expected stdout, CONFIDENT (11 lines, in order):
+  1 `fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"`
+  2 `site badbury-rings-q798831: the one-site line (fit -> sync -> entry -> review)`
+  3 `{sid}  {title}: FIT (eloftr) 22/61 points on six-inch-1st.webp x0.35, rot 3.6 deg, {m:.2f} m/px, residual 3 m`
+  4 `fit  matcher: fit written (badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json)`
+  5 `fit  1 candidate picture(s): 1 fitted (doc), 0 in the review item -> no batch run needed`
+  6 `badbury-rings-q798831 earthworkenglan01allcgoog_n0132_1: 8 pairs, similarity, residuals m [...]`
+  7 `sync Badbury Rings, Wimbome, Dorset: synced to the map (plan_earthworkenglan01allcgoog_n0132_1.webp, 8 pairs, gate 3.1 m)`
+  8 `entry  web/data/sites.json: drawings 1 -> 1`
+  9 `review no review item (every picture is a fit)`
+  10 `  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): synced to the map, gate 3.1 m`
+  11 `done`
+  (3 and 7/10 numbers come from the LIVE replay; 3-5 order verified in code: run() prints FIT
+  before returning paths; _fit prints "fit written" after; the no-batch line is the
+  need_fit-False branch. Lines 6-7: build prints before _sync_doc's synced line. Line 10: the
+  summary's `pid in docs` branch, sc from doc["score"].)
+- Exact expected stdout, UNSURE (8 lines - CORRECTION: the 210 note said 9; the trace gives 8):
+  1, 2 as above; 3 `{sid}  {title}: not sure: {N} consistent points (need 10) [{ground} x{window}, rot {rot:.0f}]`
+  (N 3..9, frozen expectation 8 from six-inch x0.7 rot -44); 4 `fit  Badbury Rings, Wimbome, Dorset: sent to the review queue (no model answer)`;
+  5 `entry  web/data/sites.json: drawings 1 -> 1`; 6 `review badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json: 1 candidate(s), open; page now has {n_open} open of {n_total} items`;
+  7 `  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): sent to the review queue (no model answer)`;
+  8 `done`. (No "fit written", no no-batch line, no build/sync lines: the batch runs because
+  uncovered is non-empty; _sync loops over zero docs.)
 
-**Site facts (all verified):**
-- Hand doc data/db/platefits/badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json:
-  by:"hand", auto:null, fitter:null, score:null, at 2026-10-10T17:38:04.576244+00:00, 4 pairs,
-  crop [300,1380,2900,3330], size [3367,5050], ia earthworkenglan01allcgoog, file n0132.jpg.
-  The image data/raw/books/earthworkenglan01allcgoog/full/n0132.jpg is EXACTLY 3367x5050 (L mode)
-  -> every scale factor is 1.0.
-- NO review item for badbury (ls data/review | grep badbury: empty). data/review has 481 files
-  (2.2M); web/data/review.json has 457 items; data/db/platefits 70 files (296K); data/catalog/
-  sites.jsonl 6.0M; data/books/index.jsonl 1.7M (badbury row HAS an evidence dict); data/commons/
-  files.jsonl 2.2M.
-- web/data/sites/badbury-rings-q798831 is a SYMLINK to /home/agent/projects/ancient-works/web/...
-  (another checkout). Tmp tree: copy os.path.realpath(...) as a REAL dir (it is the writer).
-  Site dir contents: relief.jpg (1600x1600 RGB), six-inch-1st.webp (1066x1066 RGBA),
-  os1inch.webp (1600x1600 RGB), os1inch_ink.webp, six-inch-1st_ink.webp, block_h.png,
-  block_top.jpg, depictions.json (2 kind:map depictions with corners + 1 kind:plan depiction,
-  fit block: 4 pairs, at 2026-10-10T17:38:04.576244+00:00, doc = the key), NO imagery.jpg.
-  data/sites/badbury.../site.json has no "plate" field (is_pre_fit -> False).
-- sites.json badbury entry: drawings 1, score 1.45, oldest 1842, overlays 2 (six-inch 1842 is
-  >= depict.MIN_AGE_YEARS=150 so it counts; os1inch c.1900 hidden; the 1 plan depiction counts
-  for drawings). After the matcher rebuilds the SAME plan file, drawings stays 1.
-- plans.json row (cols table format): title "Badbury Rings, Wimbome, Dorset", label "Fig. 21",
-  book "Allcroft 1908", map_box [0.107,0.278,0.857,0.658], url null, view false, sites [badbury].
-  _crop_px(row) -> [360,1404,2886,3323] (recompute via code, don't hardcode).
+**RECORDER DESIGN (write it from scratch; .venv/bin/python, working phase only):**
+- Header constants: ROOT = Path(__file__).resolve().parents[2]; SID/PLAN; MATCHER_URL = env or
+  http://127.0.0.1:8091; sys.path.insert fit/ and pipeline/; import matchfit as mf,
+  matchfit_heldout as mfh, batch_us, propose, review (all the same module objects site_done
+  gets, so patches apply). GET live /health first (record the answer).
+- build_tree(dest, delete_hand_doc): copy tools/ fit/ pipeline/ (ignore __pycache__); web/data/
+  {sites,plans,review}.json; web/data/sites/SID via os.path.realpath (real copy - it is a
+  symlink to another checkout); data/review (all); data/books/index.jsonl; data/commons/
+  files.jsonl; data/catalog/sites.jsonl; data/sites/SID/site.json; data/raw/books/
+  earthworkenglan01allcgoog/full/n0132.jpg; data/db/platefits (all), unlink the badbury doc if
+  delete_hand_doc. (Same list the test uses - keep them in lockstep.)
+- LIVE phase (run on a scratch tree so live and offline read identical files): patch
+  urllib.request.urlopen: on POST */match record {sha256(req.data): parsed response JSON} and
+  also the raw bytes (for the byte-stability verdict), return a wrapper with .read() -> raw
+  bytes (matchfit's json.load keeps working); everything else passes through to the original.
+  Run mfh.candidates(tree, site, row, MATCHER_URL) TWICE. Assert: same 15 keys in the same
+  order both runs; record byte-identical verdict (expect True: same weights/GPU/inputs).
+  Pair the i-th request (call order) with the i-th candidate to get key -> (ground, window).
+- Offline replay: mf.match = fake(records) - rebuilds the body EXACTLY as match() does
+  (json.dumps({"image0": mf._b64(a), "image1": mf._b64(b), "threshold": 0.2, "max_side":
+  1024}).encode(); same key), KeyError if absent, else np.array(r["keypoints0"]).reshape(-1,2),
+  same for 1. Also mf.reachable = lambda url=None: (url is None or url == MATCHER_URL) and
+  mf.ROMA_URL = "http://127.0.0.1:%d" % dead_port (bind-then-close; reassign the module attr -
+  env is read at import time). Run mfh.candidates offline -> must equal live run1 per
+  candidate (record). Compare each of the 15 with the frozen heldout (ground, window, matches,
+  inliers, rot, resid_m; frozen file has rot/resid only when present) -> discrepancies list;
+  live==frozen expected (22/61/x0.35/3.62/3.1 at six-inch x0.35; if the GPU drifted, record and
+  proceed with live numbers - box 1 allows it).
+- CONFIDENT in-process run: fresh tree T1 (doc deleted). Import site_done via importlib from
+  ROOT/tools/site_done.py; mf.match=confident-fake, mf.reachable as above; capture
+  sd.main([SID, "--root", str(T1)]) rc/out/err with contextlib.redirect_stdout/stderr; restore
+  patches after. ASSERT rc==0 and err=="" (if err non-empty: likely a missing catalog name -
+  check what it says; the catalog copy should prevent it). Then record: doc_fields = parsed
+  tree doc minus "at" (assert it has auto/by/fitter/matcher and at is present); spreads:
+  fit_row's = doc matcher.spread (unrounded values: recompute mf.spread on the 8 pairs and on
+  all inliers via the offline fit_row) + the _sync_doc guard values (ratio, sd on the doc's 8
+  pairs) + pass/fail (expect pass: 22 inliers spread over the plan); expected_stdout =
+  out.splitlines() (assert == the 11-line shape above, esp. lines 3 and 7 values); expected_
+  depiction = tree depictions.json plan entry minus fit.at; repo input hashes (hand doc,
+  n0132.jpg, depictions.json, site-dir file list, extracted plans row, extracted site entry,
+  extracted index row, data/catalog/sites.jsonl, data/review as one combined hash of the
+  sorted (name, sha256) list) for the test's drift detector.
+- UNSURE: from the confident records, for EVERY response whose live candidate has inliers >= 10
+  (expect exactly two: six-inch x0.5=15, x0.35=22), keypoints1 = [k1[i] for i in
+  np.random.default_rng(seed).permutation(len(k1))], seed 7 first (next seed if the final best
+  still >= 10; record the seed). Offline fit_row -> best must land 3..9 inliers (frozen
+  expectation: 8, six-inch x0.7, rot -43.51; the unperturbed x0.7 stays 8, relief x0.25 stays
+  7, os1inch 0). Fresh tree T2 -> in-process run -> ASSERT rc==0, err=="", and that NO item
+  file changed except the new data/review/SID.PLAN.json (hash all before/after - if another
+  changed, the repo queue is inconsistent: record and adjust the test's item assertions). From
+  T2: expected_item = parsed new item (site, candidates [the one _entry: plan, title, url
+  books/ia/file, evidence from index.jsonl, pairs [] or proposal pairs? - _entry with pairs=[]
+  writes e["pairs"]: [], plus the proposal's coarse/ground/scale_m_px/rot_deg/scale_source/
+  note fields when not None, why "no model answer"], no_picture_found None, resolved None);
+  expected_review_counts = n_open/n_total parsed from the review line (over the 482-file tree);
+  expected_stdout = out.splitlines() (8 lines). Both fixtures: {"header": {...},
+  "responses": {15 keys -> response JSON}}, indent=1, no trailing newline (project _save_json
+  convention), committed under tests/fixtures/matchfit_station/.
 
-**Held-out checkpoint (data/matchfit/heldout/results.json, at 2026-10-12T02:58:37.021604+00:00,
-"docs" is a DICT keyed by doc id, each doc has a "candidates" list in grounds-then-windows order:
-relief, six-inch, os1inch x 1.0/0.7/0.5/0.35/0.25):** badbury's 15 candidates: relief 0/3/3/2/16
-matches (7 inliers at x0.25, rot -0.93), six-inch 5/44/84/61/6 (x0.5: 15 inliers rot 2.98;
-x0.7: 8 inliers rot -43.51; x0.35: 22 inliers, 61 matches, rot 3.62, resid_m 3.1, corner_m 58.6,
-centre_m 2.9 = THE BEST), os1inch all 0. fit/matchfit_heldout.candidates() uses the IDENTICAL
-request path as fit_row (mf.plan_image/mf.grounds/mf.WINDOWS/mf.match/mf.ransac, tol
-0.01*max(W,H)*f) - importing it and patching matchfit.match to answer from records is a faithful
-offline replay. matchfit_heldout imports inkfit_heldout -> inkfit -> scikit-image/scipy (all in
-the .venv; verified the import chain's needs exist).
+**TEST DESIGN (tests/test_matchfit_station.py):** tmp tree = recorder's build_tree; in-process
+ThreadingHTTPServer on 127.0.0.1:0 (handler: GET /health -> header's health JSON; POST /match
+-> sha256(body) lookup in the fixture, 500 {"error": ...} if absent; count every request for
+assertions; log_message silenced); dead RoMa port = bind-then-close; GUARD = the test_site_done
+one EXCEPT: patch socket.socket.connect AND connect_ex (NOT create_connection - it must flow
+to the patched instance method) to pass through only ("127.0.0.1", stub_port) (port via env
+GUARD_ALLOW; the guard reads it) and raise AssertionError otherwise - RoMa's dead-port connect
+raises inside reachable()'s try -> except Exception -> False, deterministically. Subprocess =
+[sys.executable, "-c", GUARD, tree/tools/site_done.py, SID], cwd=tree, env MATCHER_URL/
+ROMA_URL/GUARD_ALLOW + PYTHONIOENCODING, timeout 600.
+- confident test: preconditions (repo has the hand doc, no badbury review item, no badbury entry
+  in repo review.json, fixture's input hashes match the repo now - else "drift: rerun
+  record.py"); before = _hash_all(checkout: site dir via realpath, data/db/platefits, data/
+  review, data/books/index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/
+  sites/SID/site.json, web/data 3 files, tools/fit/pipeline) (test_site_done's _hash_all
+  idiom); run; assert rc 0, stderr == "", stdout == header expected_stdout; tree doc minus at
+  == doc_fields (+ at present); depictions plan entry minus fit.at == expected_depiction and
+  fit.at == doc's at, map entries parsed-equal to the repo's; plan_*.webp pair exists and
+  DIFFERS from the repo copies (rebuilt, different crop/pairs); tree sites.json parsed-equal to
+  repo's; tree web/data/review.json BYTE-identical to repo's (export never ran); data/review:
+  same file set + every file byte-identical (no new item); stub served exactly 15 /match (all
+  fixture keys) + >=1 /health and nothing else; _hash_all(checkout) == before.
+- unsure test (fresh tree, records_unsure): baseline = build_tree WITHOUT doc deletion; in-
+  process: import checkout fit/review.py, n_open, n_total = review.export(str(baseline))
+  (baseline items = its published review.json); assert no badbury in baseline items, and (n_
+  open, n_total) == fixture's recorded counts (drift detector: fail with "queue drifted since
+  the fixture: rerun record.py" if not); run subprocess; assert rc 0, stderr == "", stdout ==
+  header expected_stdout (the not-sure line verbatim); NO doc for the plan in the tree store;
+  new item file parses equal to expected_item; depictions.json and both plan_*.webp BYTE-
+  identical to the repo's (no build); tree sites.json parsed-equal to repo's; published review
+  items == sorted(baseline_items + [{site, name (repo's), lead PLAN, candidates, no_picture_
+  found}], key=name.lower) (assert the name is unique in the queue first); data/review: all
+  repo files byte-identical + exactly one new file; checkout hashes unchanged.
 
-**Code traces (this is where the expected values come from):**
-- fit_row(root, site, row, url): plan_image reads data/raw/books/<ia>/full/<file>, crops _crop_px;
-  for each ground x window: match(plan, win, url) sends POST /match with body json.dumps(
-  {"image0": _b64(a), "image1": _b64(b), "threshold": 0.2, "max_side": 1024}) - THE EXACT
-  request whose sha256 keys the fixture. 15 requests per fit_row (3 grounds x 5 windows). Best =
-  strict-greater inliers while iterating. Pairs: up to 8 (fit/matchfit._spread farthest-point
-  selection), in the ROW SIZE frame, lon/lat from the ground's corners. Deterministic: same image
-  bytes -> same PIL PNG bytes -> same request -> same key (the recording and the test subprocess
-  both use the .venv's PIL 12.3.0).
-- matchfit.run(root, [sid]): use_roma = reachable(ROMA_URL) FIRST (a guarded AssertionError is
-  caught by its `except Exception` -> RoMa deterministically absent). ELoFTR confident ->
-  prints `{sid}  {title}: FIT (eloftr) {inliers}/{matches} points on {ground} x{window}, rot
-  {rot:.1f} deg, {m_per_px:.2f} m/px, residual {resid_m:.0f} m`, then batch_us.write_doc
-  (book row: doc has ia/file/book but NO model/src fields; at = wall clock) + doc.update(
-  fitter:"matcher", matcher:{model: MODELS[kind], inliers, matches, ground, window, rot_deg
-  rounded 2dp, spread [3dp, 1dp]}), _save_json. Unsure -> prints `{sid}  {title}: {why}{extra}`
-  where extra = ` [{ground} x{window}, rot {rot:.0f}]` and NO doc is written.
-- site_done._fit: matcher reachable -> run; then re-reads docs/item. Confident: uncovered empty
-  -> `fit  1 candidate picture(s): 1 fitted (doc), 0 in the review item -> no batch run needed`.
-  Unsure: uncovered -> batch_us.run_sites(root,[sid], None): propose.propose_for (LOCAL: reads
-  index.jsonl + the picture's scale bar/north arrow; row has scale_bar true "0 100 ... 500 Scale
-  of Feet", north_arrow true) -> candidate entry via batch_us._entry (gets evidence from
-  data/books/index.jsonl, plus coarse/ground/scale_m_px/rot_deg/scale_source/note from the
-  proposal when it succeeds; why = "no model answer") -> review.upsert_item writes data/review/
-  badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json (lead = cands[0].plan; indent=1,
-  no trailing newline) -> prints `fit  {title}: sent to the review queue (no model answer)`. NO
-  "no batch run needed" line in this branch (that line is only in the need_fit-False else).
-- _sync_doc (confident only): who_placed -> agent (by=agent); fitter matcher -> spread guard on
-  the DOC's 8 stored pairs (ratio>=0.1 AND sd>=20 px; expect PASS - verify in the replay and
-  record in the fixture header); is_done compares the existing plan depiction's fit.at (2026-10-10)
-  with the new doc's at -> False -> plan_fit.build: book load_picture local, similarity, writes
-  plan_earthworkenglan01allcgoog_n0132_1.webp + _ink.webp (REPLACES the hand fit's same-named
-  files), replaces the same-file depiction in depictions.json (both year 1908; sorted by year),
-  prints `{sid} {plan}: 8 pairs, similarity, residuals m [...]`, build_site.set_drawings (locks
-  sites.json.lock, local only).
-- _entry: `entry  web/data/sites.json: drawings 1 -> 1` (both branches; entry values recompute
-  identically).
-- _review: confident -> item None -> `review no review item (every picture is a fit)` and the
-  export is NEVER called (web/data/review.json byte-identical). Unsure -> export(root, site_id)
-  -> publishes the WHOLE queue to web/data/review.json (reads all 481 item files + sites.json +
-  data/catalog/sites.jsonl for names - COPY THE CATALOG, else stderr warnings and my test asserts
-  stderr == ""); returns (n_open, n_total) over the tmp tree: 482 item files; the repo's current
-  457-open may have DRIFTED (other tasks add docs/items since the last publish) so DO NOT assert
-  equality with the repo's review.json: recompute the baseline by calling review.export in-process
-  on a second clean tmp copy of the same inputs, then expected items =
-  sorted(baseline_items + [badbury_entry], key=lambda e: (e["name"] or "").lower());
-  badbury_entry = {site, name "Badbury Rings", lead = plan id, candidates: [the _entry result],
-  no_picture_found: None}.
-- _summary + `done` + exit 0 (both branches; unsure summary line: `  {title} ({pid}): sent to the
-  review queue (no model answer)`).
+**Then:** run my test until green; FULL suite; diff failures against /tmp/aw302f_baseline.log
+(the 306d-era baseline 10 failed/130 passed/1 skipped of 141 is the yardstick; agent a's
+212/307d in-flight work is on main - reds in their files are not mine); tick boxes as verified
+(box 1 fixture + header incl. frozen 22/58.6; box 2 ephemeral stub + dead RoMa + deleted doc;
+box 3 guard variant; box 4 confident; box 5 unsure; box 6 checkout untouched + no new reds);
+commit "302f: ...". The 210 hand-over's detail blocks (site facts, code traces) are still true
+where this one does not supersede them; its "9 expected lines" is corrected to 8 above.
 
-**Next step (one session's worth, in order):**
-1. Write tests/fixtures/matchfit_station/record.py (one-off, network phase only, .venv/bin/python):
-   - monkeypatch urllib.request.urlopen to record every POST */match (body sha256 -> response
-     JSON; return a small Resp wrapper with .read() so matchfit's json.load keeps working;
-     skip bodyless GETs); call matchfit.fit_row(str(ROOT), site, row, MATCHER_URL) LIVE TWICE
-     (stability: the two response sets must be byte-identical - record the verdict in the header).
-   - Offline replay: patch matchfit.match to answer from the records (same request build ->
-     same key; raise if a key is missing so a drift fails loudly), run matchfit.fit_row and
-     matchfit_heldout.candidates; compare every candidate's (matches, inliers, rot, resid_m)
-     with the frozen heldout entry; record both in the header ("heldout" frozen numbers incl.
-     the 22/58.6 line, "live_replay", "replay_from_records"); if live drifted but is stable,
-     keep the live numbers (box 1 allows it, with the discrepancy recorded) and note it.
-   - Confident fixture records.json: header (generated utc, matcher_url, /health answer,
-     site/plan, request {threshold 0.2, max_side 1024, key scheme}, heldout, live_replay,
-     replay_from_records, doc_fields: the exact doc the test must find (site, plan, ia, file,
-     book, title, label, cite, crop, auto true, by agent, fitter matcher, matcher block incl.
-     spread, score, and doc_pairs = batch_us._norm_pairs(fit_row's 8 pairs) - do NOT record
-     "at", it is wall-clock) + the exact expected stdout lines (the FIT line, the build
-     residuals line computed with plan_fit.similarity on doc_pairs, the sync line with the gate
-     score, the entry/summary lines) + the two spread values (fit_row all-inliers; doc 8-pairs)
-     and the guard pass/fail + responses {15 keys}.
-   - Unsure variant records_unsure.json: take the confident records; for every response whose
-     offline candidate has inliers >= 10 (frozen: six-inch x0.5 and x0.35; determine from the
-     LIVE replay in case it drifted) replace keypoints1 with a deterministic permutation
-     (np.random.default_rng(7).permutation(len) - try the next seed if the perturbed best ever
-     lands >= 10; the script asserts the final best has 3..9 inliers so a candidate exists) and
-     re-run the offline replay; header: same as confident plus variant {best: {ground, window,
-     inliers, rot}, exact "not sure: N consistent points (need 10) [G xW, rot R]" line, the exact
-     remaining 4 expected stdout lines incl. the review line with NO/NT computed from the copied
-     queue, and the expected item dict = batch_us._entry(checkout, row, [], "no model answer",
-     None, propose.propose_for(SID, PLAN)) and expected_candidate}. Commit both fixtures + script.
-2. Write tests/test_matchfit_station.py: conftest-style tmp tree (copy tools/, fit/, pipeline/
-   code; web/data/{sites,plans,review}.json; REAL copy of the site dir; data/db/platefits all
-   then DELETE the badbury doc; data/review all; data/books/index.jsonl; data/commons/files.jsonl;
-   data/catalog/sites.jsonl; data/sites/<SID>/site.json; data/raw/books/<ia>/full/n0132.jpg);
-   in-process ThreadingHTTPServer on 127.0.0.1:0 (GET /health -> header health; POST /match ->
-   sha256(body) lookup, 500 {"error":...} if absent); dead ROMA_URL = bind-then-close ephemeral
-   port; GUARD = the test_site_done one EXCEPT socket.socket.connect/connect_ex pass through
-   (127.0.0.1, stub_port) (allowed port via env GUARD_ALLOW) and everything else raises
-   AssertionError - do NOT patch socket.create_connection to dead (it must flow through to the
-   patched instance connect); subprocess = [sys.executable, "-c", GUARD, tree/tools/site_done.py,
-   SID] with env MATCHER_URL/ROMA_URL, cwd=tree, timeout 600. Two tests:
-   - confident (records.json): exit 0, stderr == ""; stdout equals the 11 expected lines in
-     order (list them in the test from the header); tmp store gained the doc byte-equal to the
-     header's doc_fields except "at"; depictions.json: plan depiction replaced (fit.at == doc
-     at, fit.pairs 8, fit.doc the key, the two map depictions unchanged), plan_*.webp pair
-     rebuilt; sites.json badbury entry parsed-equal to the repo's (drawings still 1) and every
-     OTHER site entry unchanged; web/data/review.json byte-identical to the repo's; data/review
-     byte-identical (no new item); checkout hashes (site dir, the copied data files, the three
-     web data files, tools/fit/pipeline) before == after.
-   - unsure (fresh tree, records_unsure.json): exit 0, stderr == ""; stdout equals the 9
-     expected lines (the not-sure line verbatim from the header); store has NO doc for the
-     plan; the new item file parses equal to the header's expected item (resolved None, no_
-     picture_found None); depictions.json byte-identical to the repo's and the plan_*.webp pair
-     byte-identical (no overlay built); sites.json badbury entry unchanged; published
-     web/data/review.json items == sorted(clean-copy baseline items + badbury entry); all other
-     review items byte-identical; checkout hashes unchanged.
-3. Run .venv/bin/python -m pytest tests/test_matchfit_station.py -q -p no:cacheprovider until
-   green; then the FULL suite, diffing failures against the pre-change run; update memory;
-   commit as "302f: ...". Tick boxes as verified (box 6 = no new reds vs the newest driver note;
-   box 6's "git status clean" = the test itself proves the checkout untouched via the hash check).
+**Pitfalls:** results.json "docs" is a DICT keyed by doc id (candidates in grounds-then-
+windows order); plans.json is a cols/rows table; web/data/sites/<id> is a symlink - copy
+realpath; the batch _entry for a book row carries the evidence dict (copy index.jsonl) or the
+item won't match; MATCHER_URL/ROMA_URL are read at matchfit IMPORT time (reassign the module
+attributes in the recorder; env works in the subprocess); site_done's imports yield the SAME
+matchfit/batch_us/... module objects the recorder imported (sys.path same paths) - patches
+apply to both; pytest.ini keeps only FAILED tmp dirs (a failing run's tree survives in
+/tmp/pytest-of-agent for debugging); the in-process baseline export in the test writes only
+into its own baseline tree (never the repo).
 
-**Pitfalls to remember:** results.json "docs" is a dict (docs[docid]["candidates"]); plans.json
-is a cols/rows table, not a list; web/data/sites/<id> is a symlink - copy realpath; the batch
-_entry candidate for a book row carries the evidence dict (copy index.jsonl into the tmp tree)
-or the item won't match; pytest.ini keeps only FAILED tmp dirs (retention policy) so a failing
-run's tree survives in /tmp/pytest-of-agent - useful for debugging.
-
-**Re-read (next session, fresh eyes):** fit/matchfit.py fit_row/run (the request build is the
-fixture key - if you change the test's stub, the key scheme must stay "sha256 of the exact
-request body matchfit.match sends"); tools/site_done.py _fit (need_fit True vs else decides the
-"no batch run needed" line - the unsure branch has NO such line); fit/review.py export (whole-
-queue publish, site_id-scoped item writes, catalog name fallback); tests/test_site_done.py
-(the tree-building and hash-check idiom this test copies).
+**Re-read (fresh eyes):** fit/matchfit.py match/fit_row/run (request build = fixture key);
+tools/site_done.py _fit/_sync_doc/_review (branch line shapes); fit/review.py export (scoped
+writes, name fallback, resolved side-effect); tests/test_site_done.py (tree + hash idiom);
+fit/propose.py propose_for (what fields the entry gains when it succeeds).
 
 ## Goal
 Parent box 4: "Wired into tools/site_done.py's fit step; a test runs it end to end on one
