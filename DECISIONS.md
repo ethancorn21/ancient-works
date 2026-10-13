@@ -441,6 +441,47 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
+## 2026-10-13 229 DECISION: pin imagecodecs==2026.10.10 in requirements.in/.txt (the AHN Float32 DEM decode) - and proceed in one session, because both Depends-on tasks were already terminal (302a merged, 304 dropped)
+The task's `Depends on: 302a, 304` existed only to avoid a collision on requirements.in/.txt
+while both were in flight. At session start (iter 235): 302a is **done and merged** (its
+scikit-image 0.26.0 pin is already in this branch's files, commit e46f5fd) and 304 is
+**Status: dropped** (lead note 2026-10-12: superseded by the matcher fit fit/matchfit.py;
+the one-shot run never landed, so it will never merge). No other in-flight task (203b, 207,
+306) touches requirements.in/.txt, and the driver handed out 229 - the loop prompt's
+"agent c is working on 304" line was stale against the file state. Conclusion: no live
+conflict; do the whole task now rather than wait for tasks that cannot land.
+- The pin goes in requirements.in as `imagecodecs==2026.10.10` (pinned, not bare): a bare
+  name resolves to whatever PyPI's latest is at compile time (today that happens to be
+  2026.10.10, not yanked), and the task notes forbid bumping past the version proven by
+  all seven AHN builds. The pinned .in line forces the exact version into the compile.
+- Regenerated with pip-compile 7.6.2 (the same version 800 used, installed in throwaway
+  venv /tmp/aw-229) from the project dir, WITHOUT --upgrade, so all existing pins were
+  kept as constraints. Diff vs HEAD: exactly the imagecodecs block (23 sha256 hashes,
+  `# via -r requirements.in`) plus one line in numpy's existing `via` comment
+  (`#   imagecodecs` - its only hard dependency, already pinned at 2.5.4; no
+  numba/llvmlite, as predicted). Zero unpinned lines; the direct-package set
+  (`via -r requirements.in`) equals requirements.in (12 packages).
+- Verification (box 2): fresh venv /tmp/aw-229b, `pip install --require-hashes` from the
+  new requirements.txt in 26 s, `pip check` clean; in that venv `aw.fetch_dem` for the
+  EXACT utrecht-q803 box recorded in data/sites/utrecht-q803/dem_box.json (2000x2000)
+  fetched PDOK's WCS live (37 s) and decoded the Float32 grid: shape (2000, 2000),
+  1.000 finite-nonzero share (the build's own >=0.5 acceptance bar), median 2.73 m
+  (plausible for Utrecht), and it matches the cached build dem.npy exactly
+  (0.000 m mean abs diff, corr 1.00000 - the PDOK server grid is deterministic).
+  Negative control: a scratch venv with pillow+tifffile but no imagecodecs fails on one
+  AHN tile with exactly `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the
+  'imagecodecs' package` (the GDAL_NODATA tag warning on the same tile is the known
+  benign one, dem_sources sets tifffile logging to ERROR for it) - so the pin, and
+  nothing else, is what fixes the decode.
+- Suite (existing .venv, which my change does not alter): 1 failed (pre-existing
+  test_fit_queue gesture failure, the 307bb baseline), 155 passed, 1 skipped - no new
+  failures. PITFALLS pillow entry rewritten per box 3 (Where now names the real decode
+  path dem_sources._read_geotiff -> Pillow; the ad-hoc `pip install imagecodecs`
+  workaround line is gone; the negative reproduction is recorded).
+- The `Depends on:` line in the task file is left as-is (it is history, and the task is
+  done). If the driver still shows 304 as in flight to agent c: it is dropped on main
+  and cannot merge; agent c's 304 branch may carry old requirements work that is now
+  superseded by this file.
 ## 2026-10-13 306e DECISION: iteration 195 - judged taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie, The Castles of England 1897) DELETED the 303 way (site has NO item -> CREATE one with this doc as lead; expect (346,359) -> (347,360)); VERDICT ONLY this session (investigation, no files touched) - the 303-way execution, the 14th line and the suite run are the next session's step
 - Fit replicated (/tmp/aw306e_fit.py, still alive): 0.5000 m/px, +0.00 deg, all 4 residuals 0.0. Anchors plate (800,200)/(800,400)/(800,800)/(400,1000) -> E+100 N+199, E+100 N+99, E+100 N-100, E-99 N-200 = a 200-px (100 m) grid ladder, no placement information. Site point (-3.11380, 51.0153) inverse-maps to plate (599,599) of [1280,1461] = near-centre: the fit pins the plate centre onto the site point.
 - THE key fact: the real Taunton Castle is ~640 m EAST of the catalog site point. Wikipedia 'Taunton Castle' (en.wikipedia.org/wiki/Taunton_Castle, fetched this session) gives 51.0158 N, 3.1046 W = E+643, N+55 m from the site point: the castle still stands (inner ward / Great Hall 37x9 m = the Museum of Somerset, opened 2011; outer ward = two crenellated hotels; outer bailey = the modern 'Castle Green'). Verified on modern Esri World_Imagery z18 (this VM has internet): the red-roofed Great Hall complex + hotel row + tree-lined moat ring + green sit exactly at the Wikipedia point, Tone on the NW, railway on the E. Gotcha while fetching tiles: my first pass used ln(tan+sec)/pi for the y-tile and got a dark image 40 km off - the correct slippy-tile y formula is asinh(tan(lat_rad))/pi. z18 tiles for the real castle: x=128811, y=87787 (5x5 = /tmp/taunton_castle_z18.png if alive; the site-point-centred 5x5 = /tmp/taunton_z18.png, 0.376 m/px).
