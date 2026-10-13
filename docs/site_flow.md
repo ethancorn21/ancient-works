@@ -1265,6 +1265,45 @@ the site stays covered for the union check, an open item counts).
   the page (the 303 way: the picture and its 6 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
 
+306e - the 17 UK orphan documents (sites o-y): in the store, but no overlay built on the site
+and no review item referencing them, so the page shows them to a visitor not at all; each was
+rendered the way the page would if it ever showed it (the fit tool over the aerial, and over
+the LiDAR relief, with the doc's stored pairs placed and refitted; shots in
+docs/site_flow/agent_fits/). Each line below says what the drawing's lines sit on (the real
+banks, walls, ditches, streets) and the verdict; a fit whose drawn works visibly miss the real
+ones is deleted the 303 way (the picture and the doc's own points go to the site's review item
+with the reason, the document is deleted, the site's page file re-exported scoped to the site -
+the site stays covered for the union check, an open item counts).
+
+- offa-s-dyke-q1127343.c_1cca85e7b4b5a89e - OS 2nd ed 1902, Montgomeryshire xxx8, 'Site of
+  Nantcribba Hall and Parkland with Offa's Dyke' (similarity, 4 pts, resid 42-73 m, 1.44 m/px,
+  +2.1 deg, score 42.6): the 4 anchors are a 100-px 45-deg diagonal ladder, so the residuals
+  only measure the ladder's internal inconsistency, not a placement miss; the site point
+  inverse-maps to the sheet's own 'Lodge' at the NW end of its hatched Nantcribba wood, and a
+  composite of the sheet (warped by the page's own transform) over the 1842 six-inch ink and the
+  LiDAR shows the 1884 and 1841/42 surveys agree on the lodge, the Nantcribba stream running
+  S-SE past Port Faen and Ford into the wood, the parkland trees and the roads, and the sheet's
+  caption places the Dyke on it. KEEPS - an orphan today, invisible on the page (its drawn
+  works sit on the real Nantcribba hall/parkland/stream at the site point; the Dyke passed this
+  wood).
+- okehampton-castle-q1419982.c_0edd7f87db67ff20 - Plan of Okehampton Castle (Wikimedia Commons
+  1915, Edward H. Young; similarity, 4 pts, resid 0.8-1.1 m, 1.20 m/px, +0.3 deg): the 4 anchors
+  are a 100-px grid and the fit reproduces the page exactly (resid under 1.1 m), with the site
+  point inverse-mapping to plate px (334,333) = the dead centre of the drawn chain. The plate is
+  a NE-SW chain of ~10 lettered multi-room buildings (A a small two-room building at the NE end,
+  G a larger block at the SW end; 702 m centre-to-centre, ~920 m tip-to-tip) drawn ON the real
+  outcrop: the 1842 six-inch shows a hatched rocky band running NE-SW across the whole 800 m
+  site box (the West Okement loops round its NE end at Lady Bridge, a spring at its SW end,
+  'Springt'), the hatching reaching the box edges beyond both ends of the drawn chain, and the
+  LiDAR shows the same band as a bright ridge with steep flanks spanning the whole box, its
+  contrast profile peaking at azimuth 25-55 deg (the drawn chain's axis is 40 deg; N-S and E-W
+  are weak, so the ridge is NE-SW, not N-S). The 1842 'Okehampton Castle (Remains of)' label
+  (~175 m W of the site point) has its leader pointing east to the hatched building cluster
+  under the drawn B-F centre at the site point, and the plate's building order matches the
+  documented castle (keep at the SW end, the great hall and lodgings in the middle, gatehouse
+  and barbican at the NE end). KEEPS - an orphan today, invisible on the page (its drawn works
+  sit on the real Okehampton Castle outcrop and ruins at the site point).
+
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
 Owner, 2026-10-11: instead of the squares, a shape that says "this is a point of interest", "like an
