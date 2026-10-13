@@ -118,6 +118,11 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## tests/
 - `tests/conftest.py` (112 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, copy_web, served, golden_sites.
+
+## tests/fixtures/matchfit_station/
+- `tests/fixtures/matchfit_station/record.py` (43 lines) - One-off fixture recorder for tests/test_matchfit_station.py (task 302f, working phase).
+
+## tests/
 - `tests/test_batch.py` (181 lines) - The batch, parent (task 203 box 6, GOAL.md point 1): the final coverage check over the original site set. Exports: no_network L48-53, coverage L94-124, test_original_set_is_the_reports_union L130-150, test_original_sites_still_covered L153-181.
 - `tests/test_batch_eu.py` (841 lines) - The batch, EU (task 203b, GOAL points 1-2): fit/batch_eu.py, hermetic. Exports: no_network L119-124, tree L161-170, tmp_path_retention_policy L171-174, test_sample_run_real_gate L469-547, test_hand_fitted_sites_get_items_for_their_other_pictures L550-593, test_stub_gate_always_accept L596-623, test_stub_gate_always_reject L626-667, test_batch_adds_files_rewrites_none L670-730, test_report L733-793, test_union_check L796-815, ... (+1 more).
 - `tests/test_batch_us.py` (677 lines) - The batch, US (task 203a, GOAL points 1-2): fit/batch_us.py, hermetic. Exports: no_network L81-86, tree L122-131, tmp_path_retention_policy L132-135, test_sample_run_real_gate L407-502, test_stub_gate_always_accept L505-531, test_stub_gate_always_reject L534-574, test_batch_adds_files_rewrites_none L577-631, test_report_reproducible_from_seed L638-677.
