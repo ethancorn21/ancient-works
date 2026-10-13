@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 178, agent c - **ALL 34 SHOTS DONE and committed (129590d)**; 306d claimed done per the
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 179, agent c - **offa JUDGED: KEEPS (evidence complete); okehampton still
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
