@@ -467,4 +467,3 @@ First session on 307d; investigation only, nothing written, no tests run.
   shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
   green; fit_queue.json and the review exports are never written by the page or the line in the
   checkout). Then the docs/site_flow.md verification section.
-
