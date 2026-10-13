@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T13:35:09.316949+00:00",
+ "at": "2026-10-13T14:34:07.713702+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -64,6 +64,39 @@
     "searched": "wikidata Q3902030; Commons category 'Aalsum (Groningen)' (3 files); P180 depictions of Q3902030: 0 of 3 file(s) checked; title searches: \"\"Aalsum\" plan\", \"\"Aalsum\" map OR survey\", \"\"Aalsum\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.042519+00:00"
    }
+  },
+  {
+   "site": "aardenburg-q955",
+   "name": "Aardenburg",
+   "lead": "c_d0a020dec428fa00",
+   "candidates": [
+    {
+     "plan": "c_d0a020dec428fa00",
+     "title": "Aardenburg, town plan by Jacob van Deventer",
+     "url": "media/commons/aardenburg-q955/d0a020dec428fa00.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Aardenburg",
+      "file_cat": "Map of Aardenburg by Jacob van Deventer",
+      "via": [
+       "Old maps of Aardenburg",
+       "Maps of Aardenburg",
+       "Aardenburg"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 4.0,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "abbotsbury-castle-q3662453",
@@ -168,6 +201,38 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Aggersborg\" plan\", \"\"Aggersborg\" map OR survey\", \"\"Aggersborg\" engraving OR drawing OR view OR prospect -\"style of\"\" (2 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.073654+00:00"
    }
+  },
+  {
+   "site": "aire-sur-la-lys-q259903",
+   "name": "Aire-sur-la-Lys",
+   "lead": "c_d1ca997e67377769",
+   "candidates": [
+    {
+     "plan": "c_d1ca997e67377769",
+     "title": "Aire-sur-la-Lys, town plan by Jacob van Deventer",
+     "url": "media/commons/aire-sur-la-lys-q259903/d1ca997e67377769.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Aire-sur-la-Lys",
+      "file_cat": "Map of Aire-sur-la-Lys by Jacob van Deventer",
+      "via": [
+       "Old maps of Aire-sur-la-Lys",
+       "Aire-sur-la-Lys"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "alauna-q4708853",
@@ -752,6 +817,39 @@
    }
   },
   {
+   "site": "alkmaar-q972",
+   "name": "Alkmaar",
+   "lead": "c_b7ab5f354d320f29",
+   "candidates": [
+    {
+     "plan": "c_b7ab5f354d320f29",
+     "title": "Alkmaar, town plan by Jacob van Deventer",
+     "url": "media/commons/alkmaar-q972/b7ab5f354d320f29.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Alkmaar",
+      "file_cat": "Maps of Alkmaar by Jacob van Deventer",
+      "via": [
+       "Old maps of Alkmaar",
+       "History of Alkmaar",
+       "Alkmaar"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "alligator-effigy-mound-q4732645",
    "name": "Alligator Effigy Mound",
    "lead": "ancientmonuments00squi_n0214_2",
@@ -866,6 +964,40 @@
     "searched": "wikidata Q1458146; Commons category 'Ambrussum' (41 files); P180 depictions of Q1458146: 0 of 42 file(s) checked; title searches: \"\"Ambrussum\" plan\", \"\"Ambrussum\" map OR survey\", \"\"Ambrussum\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.116790+00:00"
    }
+  },
+  {
+   "site": "amsterdam-q727",
+   "name": "Amsterdam",
+   "lead": "c_a581cd4a4890eb83",
+   "candidates": [
+    {
+     "plan": "c_a581cd4a4890eb83",
+     "title": "Amsterdam, town plan by Jacob van Deventer",
+     "url": "media/commons/amsterdam-q727/a581cd4a4890eb83.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Amsterdam",
+      "file_cat": "Maps of Amsterdam by Jacob van Deventer",
+      "via": [
+       "16th-century maps of Amsterdam",
+       "Old maps of Amsterdam",
+       "History of Amsterdam",
+       "Amsterdam"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.2796,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "andone-castrum-q2941535",
@@ -1136,6 +1268,73 @@
     "searched": "wikidata Q4792111; no Commons category; P180 depictions of Q4792111: 0 of 1 file(s) checked; title searches: \"\"Arledge Mounds I and II\" plan\", \"\"Arledge Mounds I and II\" map OR survey\", \"\"Arledge Mounds I and II\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.194657+00:00"
    }
+  },
+  {
+   "site": "arzbach-q1735331",
+   "name": "Arzbach",
+   "lead": "c_231ac23331b1a26f",
+   "candidates": [
+    {
+     "plan": "c_231ac23331b1a26f",
+     "title": "Arzbach, Grundriss und Gel\u00e4ndeprofile, ORL 03, 1900 (de.wikipedia)",
+     "url": "media/commons/arzbach-q1735331/231ac23331b1a26f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Arzbach",
+      "place_qid": "Q1735331",
+      "place_label": "Arzbach",
+      "place_lon": 7.74565,
+      "place_lat": 50.3753,
+      "site_lon": 7.74565,
+      "site_lat": 50.3753,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5113,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "ath-q95096",
+   "name": "Ath",
+   "lead": "c_c78f45d3fc19aeee",
+   "candidates": [
+    {
+     "plan": "c_c78f45d3fc19aeee",
+     "title": "Ath, town plan by Jacob van Deventer",
+     "url": "media/commons/ath-q95096/c78f45d3fc19aeee.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Ath",
+      "file_cat": "Map of Ath by Jacob van Deventer",
+      "via": [
+       "Maps of Ath city walls",
+       "City walls of Ath",
+       "Ath"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "athelney-q3496233",
@@ -1709,6 +1908,40 @@
    "no_picture_found": null
   },
   {
+   "site": "badminton-house-q2628510",
+   "name": "Badminton House",
+   "lead": "c_f47f1d59b72456cd",
+   "candidates": [
+    {
+     "plan": "c_f47f1d59b72456cd",
+     "title": "Badminton House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/badminton-house-q2628510/f47f1d59b72456cd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Badminton",
+      "place_qid": "Q2628510",
+      "place_label": "Badminton House",
+      "place_lon": -2.28045,
+      "place_lat": 51.5455,
+      "site_lon": -2.28045,
+      "site_lat": 51.5455,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "balfarg-henge",
    "name": "Balfarg Henge",
    "lead": null,
@@ -1737,6 +1970,39 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Balnuaran of Clava cairns\" plan\", \"\"Balnuaran of Clava cairns\" map OR survey\", \"\"Balnuaran of Clava cairns\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.217098+00:00"
    }
+  },
+  {
+   "site": "bapaume-q317235",
+   "name": "Bapaume",
+   "lead": "c_9ab09606928df00c",
+   "candidates": [
+    {
+     "plan": "c_9ab09606928df00c",
+     "title": "Bapaume, town plan by Jacob van Deventer",
+     "url": "media/commons/bapaume-q317235/9ab09606928df00c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Bapaume",
+      "file_cat": "Map of Bapaume by Jacob van Deventer",
+      "via": [
+       "Maps of Bapaume city walls",
+       "City walls of Bapaume",
+       "Bapaume"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "bar-hill-fort",
@@ -2204,6 +2470,39 @@
    }
   },
   {
+   "site": "beaumont-q95100",
+   "name": "Beaumont",
+   "lead": "c_10ead9dfee408a14",
+   "candidates": [
+    {
+     "plan": "c_10ead9dfee408a14",
+     "title": "Beaumont, town plan by Jacob van Deventer",
+     "url": "media/commons/beaumont-q95100/10ead9dfee408a14.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Beaumont (Hainaut)",
+      "file_cat": "Map of Beaumont by Jacob van Deventer",
+      "via": [
+       "Old maps of Beaumont (Hainaut)",
+       "Maps of Beaumont (Hainaut)",
+       "Beaumont (Hainaut)"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "bedford-castle-q4879112",
    "name": "Bedford Castle",
    "lead": null,
@@ -2212,6 +2511,40 @@
     "searched": "wikidata Q4879112; Commons category 'Bedford Castle' (44 files); P180 depictions of Q4879112: 0 of 44 file(s) checked; title searches: \"\"Bedford Castle\" plan\", \"\"Bedford Castle\" map OR survey\", \"\"Bedford Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
     "at": "2026-10-13T09:21:27.353767+00:00"
    }
+  },
+  {
+   "site": "benningen-q1735337",
+   "name": "Benningen",
+   "lead": "c_ffb1d13e9afc159d",
+   "candidates": [
+    {
+     "plan": "c_ffb1d13e9afc159d",
+     "title": "Benningen, Grundriss, ORL 58, 1902 (de.wikipedia)",
+     "url": "media/commons/benningen-q1735337/ffb1d13e9afc159d.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Benningen",
+      "place_qid": "Q1735337",
+      "place_label": "Benningen",
+      "place_lon": 9.24931,
+      "place_lat": 48.9439,
+      "site_lon": 9.24931,
+      "site_lat": 48.9439,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4677,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "bethlehem-q2523914",
@@ -3707,53 +4040,6 @@
    "no_picture_found": null
   },
   {
-   "site": "bolsover-castle-q2968590",
-   "name": "Bolsover Castle",
-   "lead": "c_5531262b52faaea8",
-   "candidates": [
-    {
-     "plan": "c_5531262b52faaea8",
-     "title": "Bolsover Castle, plan from Mackenzie, The Castles of England (1897)",
-     "url": "media/commons/bolsover-castle-q2968590/5531262b52faaea8.jpg",
-     "pairs": [
-      [
-       150.0,
-       300.0,
-       -1.3003045,
-       53.232043
-      ],
-      [
-       350.0,
-       500.0,
-       -1.2976032,
-       53.2302463
-      ],
-      [
-       250.0,
-       400.0,
-       -1.2991039,
-       53.2311447
-      ],
-      [
-       400.0,
-       350.0,
-       -1.2968529,
-       53.2315938
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 5.6 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
-     "gate_score": 5.6
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "borgring",
    "name": "Borgring",
    "lead": null,
@@ -3772,6 +4058,71 @@
     "searched": "wikidata Q4949038; Commons category 'Bottle Creek Indian Mounds' (4 files); P180 depictions of Q4949038: 0 of 4 file(s) checked; title searches: \"\"Bottle Creek Indian Mounds\" plan\", \"\"Bottle Creek Indian Mounds\" map OR survey\", \"\"Bottle Creek Indian Mounds\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.499811+00:00"
    }
+  },
+  {
+   "site": "bouchain-q632348",
+   "name": "Bouchain",
+   "lead": "c_35df4aa006f2cfb4",
+   "candidates": [
+    {
+     "plan": "c_35df4aa006f2cfb4",
+     "title": "Bouchain, town plan by Jacob van Deventer",
+     "url": "media/commons/bouchain-q632348/35df4aa006f2cfb4.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Bouchain",
+      "file_cat": "Map of Bouchain by Jacob van Deventer",
+      "via": [
+       "Old maps of Bouchain",
+       "Bouchain"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "braine-le-comte-q95129",
+   "name": "Braine-le-Comte",
+   "lead": "c_16f1341d9cb80282",
+   "candidates": [
+    {
+     "plan": "c_16f1341d9cb80282",
+     "title": "Braine-le-Comte, town plan by Jacob van Deventer",
+     "url": "media/commons/braine-le-comte-q95129/16f1341d9cb80282.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Braine-le-Comte",
+      "file_cat": "Map of Braine-le-Comte by Jacob van Deventer",
+      "via": [
+       "Old maps of Braine-le-Comte",
+       "Maps of Braine-le-Comte",
+       "Braine-le-Comte"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "bramber-castle-q897538",
@@ -3904,6 +4255,74 @@
    }
   },
   {
+   "site": "bruges-q12994",
+   "name": "Bruges",
+   "lead": "c_2288e5f6a962e2d3",
+   "candidates": [
+    {
+     "plan": "c_2288e5f6a962e2d3",
+     "title": "Bruges, town plan by Jacob van Deventer",
+     "url": "media/commons/bruges-q12994/2288e5f6a962e2d3.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Bruges",
+      "file_cat": "Maps of Bruges by Jacob van Deventer",
+      "via": [
+       "16th-century maps of Bruges",
+       "Old maps of Bruges",
+       "History of Bruges",
+       "Bruges"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.9289,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "brussels-q239",
+   "name": "Brussels",
+   "lead": "c_f75255b95bf35578",
+   "candidates": [
+    {
+     "plan": "c_f75255b95bf35578",
+     "title": "Brussels, town plan by Jacob van Deventer",
+     "url": "media/commons/brussels-q239/f75255b95bf35578.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Brussels",
+      "place_qid": "Q239",
+      "place_label": "Brussels",
+      "place_lon": 4.3517,
+      "place_lat": 50.8467,
+      "site_lon": 4.3517,
+      "site_lat": 50.8467,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.2723,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "bryn-amlwg-castle-q4980826",
    "name": "Bryn Amlwg Castle",
    "lead": null,
@@ -4016,6 +4435,40 @@
    }
   },
   {
+   "site": "burford-house-windsor",
+   "name": "Burford House",
+   "lead": "c_05dbb0409f834f02",
+   "candidates": [
+    {
+     "plan": "c_05dbb0409f834f02",
+     "title": "Burford House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/burford-house-windsor/05dbb0409f834f02.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Windsor",
+      "place_qid": null,
+      "place_label": "Burford House",
+      "place_lon": -0.6056,
+      "place_lat": 51.481,
+      "site_lon": -0.6056,
+      "site_lat": 51.481,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "burlington-house-q225471",
    "name": "Burlington House",
    "lead": "c_17e8fb3cf9037e19",
@@ -4117,126 +4570,6 @@
    }
   },
   {
-   "site": "bury-castle-q5001077",
-   "name": "Bury Castle",
-   "lead": "earthworkenglan01allcgoog_n0136_1",
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0136_1",
-     "title": "Bury Castle, Selworthy, Somerset",
-     "url": "books/earthworkenglan01allcgoog/n0136.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-10",
-      "kind": "none",
-      "reason": "ambiguous: runner-up within 0.15"
-     },
-     "pairs": [
-      [
-       1500.0,
-       1500.0,
-       -3.512446,
-       51.0303988
-      ],
-      [
-       2000.0,
-       2500.0,
-       -3.5053039,
-       51.0259069
-      ],
-      [
-       500.0,
-       2500.0,
-       -3.5195881,
-       51.0259069
-      ]
-     ],
-     "coarse": false,
-     "ground": "relief",
-     "scale_m_px": 0.1509,
-     "rot_deg": 0.0,
-     "scale_source": "bar",
-     "note": "scale from the scale bar: '0 100 200 300 Feet'",
-     "why": "features: North-eastern tip of the central mound, South-eastern corner of the earthwork, South-western corner of the earthwork; stated scale 0.151 disagrees with its own points (0.593 m/px): not trusted"
-    },
-    {
-     "plan": "c_de779031cda8a0dc",
-     "title": "Bury Castle Somerset Map",
-     "url": "media/commons/bury-castle-q5001077/de779031cda8a0dc.jpg",
-     "pairs": [
-      [
-       100.0,
-       100.0,
-       -3.5238734,
-       51.0375851
-      ],
-      [
-       100.0,
-       400.0,
-       -3.5238734,
-       51.0303988
-      ],
-      [
-       400.0,
-       400.0,
-       -3.512446,
-       51.0303988
-      ],
-      [
-       100.0,
-       300.0,
-       -3.5238734,
-       51.0321955
-      ],
-      [
-       100.0,
-       400.0,
-       -3.5238734,
-       51.0303988
-      ],
-      [
-       100.0,
-       300.0,
-       -3.5238734,
-       51.0321955
-      ],
-      [
-       100.0,
-       400.0,
-       -3.5238734,
-       51.0303988
-      ],
-      [
-       100.0,
-       300.0,
-       -3.5238734,
-       51.0321955
-      ]
-     ],
-     "coarse": false,
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Bury Castle, Somerset",
-      "file_cat": "Bury Castle, Somerset",
-      "via": []
-     },
-     "label": "1911",
-     "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Bury_Castle_Somerset_Map.jpg",
-     "ref": "File:Bury Castle Somerset Map.jpg",
-     "size": [
-      590,
-      475
-     ],
-     "place_reason": "306d audit 2026-10-12: similarity (8 pts, resid 10.9-39 m, 2.63 m/px, +1.1 deg); the 8 anchors are a 100-px grid ladder (three on the left edge, whose 200/100-px lat steps span 0.0054/0.0018 deg - a 1.5:1 ratio no similarity can hit), so the residuals only measure the grid's own inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own 'SCALE OF FEET 0-300' bar (~1.45 m/px). The drawn hachured hillfort (~280-340 m across) maps to (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps; LiDAR bump at the same spot), on a small hachured wood hill. Document deleted.",
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 30.2
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "butte-saint-clair-du-mesnil-vigot-q22963275",
    "name": "Butte Saint-Clair du Mesnil-Vigot",
    "lead": null,
@@ -4245,6 +4578,107 @@
     "searched": "wikidata Q22963275; Commons category 'Butte Saint-Clair du Mesnil-Vigot' (2 files); P180 depictions of Q22963275: 0 of 2 file(s) checked; title searches: \"\"Butte Saint-Clair du Mesnil-Vigot\" plan\", \"\"Butte Saint-Clair du Mesnil-Vigot\" map OR survey\", \"\"Butte Saint-Clair du Mesnil-Vigot\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.636034+00:00"
    }
+  },
+  {
+   "site": "bethune-q207145",
+   "name": "B\u00e9thune",
+   "lead": "c_33c9e6b8ce6b352b",
+   "candidates": [
+    {
+     "plan": "c_33c9e6b8ce6b352b",
+     "title": "B\u00e9thune, town plan by Jacob van Deventer",
+     "url": "media/commons/bethune-q207145/33c9e6b8ce6b352b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "B\u00e9thune",
+      "file_cat": "Map of B\u00e9thune by Jacob van Deventer",
+      "via": [
+       "Old maps of B\u00e9thune",
+       "Maps of B\u00e9thune",
+       "B\u00e9thune"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "bockingen-q1735374",
+   "name": "B\u00f6ckingen",
+   "lead": "c_91cd077e9d084b3b",
+   "candidates": [
+    {
+     "plan": "c_91cd077e9d084b3b",
+     "title": "B\u00f6ckingen, Grundriss, ORL 56, 1898 (de.wikipedia)",
+     "url": "media/commons/bockingen-q1735374/91cd077e9d084b3b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "B\u00f6ckingen",
+      "place_qid": "Q1735374",
+      "place_label": "B\u00f6ckingen",
+      "place_lon": 9.188611,
+      "place_lat": 49.133888,
+      "site_lon": 9.188611,
+      "site_lat": 49.133888,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5616,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "burgkastell-ohringen-q86069877",
+   "name": "B\u00fcrgkastell \u00d6hringen",
+   "lead": "c_7aab59b7e414c467",
+   "candidates": [
+    {
+     "plan": "c_7aab59b7e414c467",
+     "title": "B\u00fcrgkastell \u00d6hringen, Grundriss des B\u00fcrgkastells, ORL 42w, 1897 (de.wikipedia)",
+     "url": "media/commons/burgkastell-ohringen-q86069877/7aab59b7e414c467.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "\u00d6hringen",
+      "place_qid": "Q86069877",
+      "place_label": "B\u00fcrgkastell \u00d6hringen",
+      "place_lon": 9.497397222222222,
+      "place_lat": 49.205444444444446,
+      "site_lon": 9.497397222222222,
+      "site_lat": 49.205444444444446,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5785,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "cadbury-castle-q1025082",
@@ -4377,240 +4811,6 @@
     "searched": "wikidata Q5016882; Commons category 'Caerau Hillfort' (5 files); P180 depictions of Q5016882: 0 of 5 file(s) checked; title searches: \"\"Caerau Hillfort\" plan\", \"\"Caerau Hillfort\" map OR survey\", \"\"Caerau Hillfort\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.690026+00:00"
    }
-  },
-  {
-   "site": "cahokia-q333661",
-   "name": "Cahokia",
-   "lead": "ancientmonuments00squi_n0309_1",
-   "candidates": [
-    {
-     "plan": "ancientmonuments00squi_n0309_1",
-     "title": "Plan of Cahokia Mound",
-     "url": "books/ancientmonuments00squi/n0309.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-10",
-      "kind": "caption_coords",
-      "named_place": "Cahokia",
-      "place": {
-       "state": "illinois"
-      },
-      "site": {
-       "id": "cahokia-q333661",
-       "qid": "Q333661",
-       "name": "Cahokia",
-       "lon": -90.064444,
-       "lat": 38.653889,
-       "admin": {
-        "state": "Illinois"
-       }
-      },
-      "score": 1.0,
-      "runner_up": 0,
-      "why": []
-     },
-     "pairs": [
-      [
-       800.0,
-       1900.0,
-       -90.0715468,
-       38.6634834
-      ],
-      [
-       1000.0,
-       1900.0,
-       -90.065795,
-       38.6634834
-      ],
-      [
-       1000.0,
-       2200.0,
-       -90.065795,
-       38.6500086
-      ]
-     ],
-     "coarse": true,
-     "ground": "relief",
-     "scale_m_px": 3.5837,
-     "rot_deg": 0.0,
-     "scale_source": "picture_size",
-     "note": "no scale text recorded",
-     "why": "features: Northwest corner of the main enclosure, North-central gate gap, South-central gate gap, Southwest corner of the main enclosure; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
-    },
-    {
-     "plan": "c_1a7c2a11c3a0dd21",
-     "title": "Manuscript map of St. Clair and Madison counties, Illinois, with survey of the Cahokia mounds. - DPLA - 7ba7aeec37bb36736b769dc4456361a4",
-     "url": "media/commons/cahokia-q333661/1a7c2a11c3a0dd21.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "caption_coords",
-      "checked": "2026-10-10",
-      "named_place": "Cahokia",
-      "place_qid": "Q333661",
-      "place_label": "Cahokia",
-      "place_lon": -90.064444444444,
-      "place_lat": 38.653888888889,
-      "site_lon": -90.064444,
-      "site_lat": 38.653889,
-      "dist_m": 0.0
-     },
-     "pairs": [
-      [
-       200.0,
-       200.0,
-       -90.0715468,
-       38.6634834
-      ],
-      [
-       600.0,
-       400.0,
-       -90.065795,
-       38.6589921
-      ],
-      [
-       800.0,
-       600.0,
-       -90.0600432,
-       38.6545005
-      ],
-      [
-       1000.0,
-       800.0,
-       -90.0542913,
-       38.6500086
-      ]
-     ],
-     "coarse": true,
-     "ground": "relief",
-     "scale_m_px": 1.875,
-     "rot_deg": 0.0,
-     "scale_source": "picture_size",
-     "note": "commons row: no stage-B fields: coarse anchor",
-     "why": "median residual 106.37228419985452 m > 45.0 m",
-     "gate_score": 106.4
-    },
-    {
-     "plan": "c_8c44bb427b76aa7a",
-     "title": "Cahokia. Arrowhead found on Monks Mound",
-     "url": "media/commons/cahokia-q333661/8c44bb427b76aa7a.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Cahokia",
-      "file_cat": "Cahokia",
-      "via": []
-     },
-     "pairs": [
-      [
-       100.0,
-       0.0,
-       -90.0715468,
-       38.6679745
-      ],
-      [
-       300.0,
-       0.0,
-       -90.0600432,
-       38.6679745
-      ],
-      [
-       0.0,
-       700.0,
-       -90.0772986,
-       38.6500086
-      ]
-     ],
-     "coarse": true,
-     "ground": "relief",
-     "scale_m_px": 3.2787,
-     "rot_deg": 0.0,
-     "scale_source": "picture_size",
-     "note": "commons row: no stage-B fields: coarse anchor",
-     "why": "features: Top-left corner of the rampart, Top-right corner of the rampart, Bottom-left corner of the rampart, Bottom-right corner of the rampart, Left-side gate gap, Right-side gate gap, Bottom-center gate gap, Central mound tip; stated scale 1.639 disagrees with its own points (3.333 m/px): not trusted"
-    },
-    {
-     "plan": "annualreportofbu1218901891smit_n0200_1",
-     "title": "Map of Cahokia group, Madison county, Illinois",
-     "url": "books/annualreportofbu1218901891smit/n0200.jpg",
-     "pairs": [
-      [
-       1200.0,
-       800.0,
-       -90.0600432,
-       38.6634834
-      ],
-      [
-       1200.0,
-       1200.0,
-       -90.0600432,
-       38.6589921
-      ],
-      [
-       1400.0,
-       1000.0,
-       -90.0542913,
-       38.6612378
-      ],
-      [
-       1000.0,
-       1400.0,
-       -90.0629191,
-       38.6567463
-      ],
-      [
-       1000.0,
-       1800.0,
-       -90.0629191,
-       38.6522546
-      ],
-      [
-       800.0,
-       1600.0,
-       -90.065795,
-       38.6545005
-      ],
-      [
-       1200.0,
-       1600.0,
-       -90.0600432,
-       38.6545005
-      ],
-      [
-       1000.0,
-       2200.0,
-       -90.0629191,
-       38.6477626
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 33.9 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-12",
-      "kind": "caption_coords",
-      "named_place": "Cahokia",
-      "place": {
-       "county": "madison",
-       "state": "illinois"
-      },
-      "site": {
-       "id": "cahokia-q333661",
-       "qid": "Q333661",
-       "name": "Cahokia",
-       "lon": -90.064444,
-       "lat": 38.653889,
-       "admin": {
-        "state": "Illinois"
-       }
-      },
-      "score": 1.0,
-      "runner_up": 0,
-      "why": []
-     },
-     "gate_score": 33.9
-    }
-   ],
-   "no_picture_found": null
   },
   {
    "site": "cairnpapple-hill",
@@ -5039,6 +5239,40 @@
    "no_picture_found": null
   },
   {
+   "site": "cambrai-q181285",
+   "name": "Cambrai",
+   "lead": "c_fbfc4b72f92d823f",
+   "candidates": [
+    {
+     "plan": "c_fbfc4b72f92d823f",
+     "title": "Cambrai, town plan by Jacob van Deventer",
+     "url": "media/commons/cambrai-q181285/fbfc4b72f92d823f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Cambrai",
+      "file_cat": "Map of Cambrai by Jacob van Deventer",
+      "via": [
+       "Maps of Cambrai city walls (general)",
+       "Maps of Cambrai city walls",
+       "City walls of Cambrai",
+       "Cambrai"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "camp-celtique-de-la-bure-q2935231",
    "name": "Camp celtique de la Bure",
    "lead": null,
@@ -5077,6 +5311,40 @@
     "searched": "wikidata Q630604; Commons category 'Camulodunum' (35 files); P180 depictions of Q630604: 0 of 36 file(s) checked; title searches: \"\"Camulodunum\" plan\", \"\"Camulodunum\" map OR survey\", \"\"Camulodunum\" engraving OR drawing OR view OR prospect -\"style of\"\" (20 hits); 2026-10-13",
     "at": "2026-10-13T09:21:27.786072+00:00"
    }
+  },
+  {
+   "site": "cannstatt-q1735423",
+   "name": "Cannstatt",
+   "lead": "c_3880ff6ff77c4f0f",
+   "candidates": [
+    {
+     "plan": "c_3880ff6ff77c4f0f",
+     "title": "Cannstatt, Grundriss und Schnitte, ORL 59, 1907 (de.wikipedia)",
+     "url": "media/commons/cannstatt-q1735423/3880ff6ff77c4f0f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stuttgart-Bad Cannstatt",
+      "place_qid": "Q1735423",
+      "place_label": "Cannstatt",
+      "place_lon": 9.21083,
+      "place_lat": 48.8133,
+      "site_lon": 9.21083,
+      "site_lat": 48.8133,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4499,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "carlisle-castle-q614836",
@@ -5500,6 +5768,39 @@
    "no_picture_found": null
   },
   {
+   "site": "chimay-q95380",
+   "name": "Chimay",
+   "lead": "c_85545a4f2f3cd8bd",
+   "candidates": [
+    {
+     "plan": "c_85545a4f2f3cd8bd",
+     "title": "Chimay, town plan by Jacob van Deventer",
+     "url": "media/commons/chimay-q95380/85545a4f2f3cd8bd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Chimay",
+      "file_cat": "Map of Chimay by Jacob van Deventer",
+      "via": [
+       "Old maps of Chimay",
+       "History of Chimay",
+       "Chimay"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "chiswick-house-q1074877",
    "name": "Chiswick House",
    "lead": "c_7c44a92b3198eab2",
@@ -5541,6 +5842,39 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "features: River bend, Main house, Park boundary, River crossing; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "chievres-q95318",
+   "name": "Chi\u00e8vres",
+   "lead": "c_b56c5a3aab179832",
+   "candidates": [
+    {
+     "plan": "c_b56c5a3aab179832",
+     "title": "Chi\u00e8vres, town plan by Jacob van Deventer",
+     "url": "media/commons/chievres-q95318/b56c5a3aab179832.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Chi\u00e8vres",
+      "file_cat": "Map of Chi\u00e8vres by Jacob van Deventer",
+      "via": [
+       "Old maps of Chi\u00e8vres",
+       "Maps of Chi\u00e8vres",
+       "Chi\u00e8vres"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -5769,6 +6103,39 @@
    }
   },
   {
+   "site": "conde-sur-l-escaut-q494533",
+   "name": "Cond\u00e9-sur-l'Escaut",
+   "lead": "c_9c59296498a678b5",
+   "candidates": [
+    {
+     "plan": "c_9c59296498a678b5",
+     "title": "Cond\u00e9-sur-l'Escaut, town plan by Jacob van Deventer",
+     "url": "media/commons/conde-sur-l-escaut-q494533/9c59296498a678b5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Cond\u00e9-sur-l'Escaut",
+      "file_cat": "Map of Cond\u00e9-sur-l'Escaut by Jacob van Deventer",
+      "via": [
+       "Old maps of Cond\u00e9-sur-l'Escaut",
+       "Maps of Cond\u00e9-sur-l'Escaut",
+       "Cond\u00e9-sur-l'Escaut"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "cooling-castle-q5167493",
    "name": "Cooling Castle",
    "lead": "c_7ebc7630f3197364",
@@ -5823,149 +6190,6 @@
       "source": "pipeline/sources.py mackenzie"
      },
      "gate_score": 0.0
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
-   "site": "coria-q3819299",
-   "name": "Coria",
-   "lead": "earthworkenglan01allcgoog_n0354_1",
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0354_1",
-     "title": "ARDOCH, PERTHSHIRE.",
-     "url": "books/earthworkenglan01allcgoog/n0354.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-10",
-      "kind": "none",
-      "reason": "ambiguous: score below 0.75"
-     },
-     "pairs": [
-      [
-       1000.0,
-       1000.0,
-       -2.0360954,
-       54.9818186
-      ],
-      [
-       2500.0,
-       1000.0,
-       -2.0235729,
-       54.9818186
-      ],
-      [
-       2500.0,
-       2500.0,
-       -2.0235729,
-       54.9746321
-      ]
-     ],
-     "coarse": false,
-     "ground": "relief",
-     "scale_m_px": 0.1684,
-     "rot_deg": 0.0,
-     "scale_source": "bar",
-     "note": "scale from the scale bar: '0 10 20 300 400 500 600 700 800 FEET'",
-     "why": "features: Northwest corner of the main enclosure, North-eastern bastion tip, South-eastern bastion tip, South-western bastion tip; stated scale 0.168 disagrees with its own points (0.533 m/px): not trusted"
-    },
-    {
-     "plan": "c_9e3b3344fd37469b",
-     "title": "Knowles 1909 Corbridge Excavations 05 Figure 2 Corstopitum the West Granary",
-     "url": "media/commons/coria-q3819299/9e3b3344fd37469b.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Coria (Corbridge)",
-      "file_cat": "The Corbridge Excavations, 1908 (1909)",
-      "via": [
-       "Coria (Corbridge)"
-      ]
-     },
-     "pairs": [
-      [
-       100.0,
-       100.0,
-       -2.0407914,
-       54.9845132
-      ],
-      [
-       1100.0,
-       100.0,
-       -2.0251382,
-       54.9845132
-      ],
-      [
-       1100.0,
-       400.0,
-       -2.0251382,
-       54.9818186
-      ]
-     ],
-     "coarse": true,
-     "ground": "relief",
-     "scale_m_px": 1.25,
-     "rot_deg": 0.0,
-     "scale_source": "picture_size",
-     "note": "commons row: no stage-B fields: coarse anchor",
-     "why": "features: West Granary NW corner, West Granary NE corner, West Granary SE corner, West Granary SW corner, River crossing NW, River crossing SE, Field boundary east of granary, Field boundary south of granary; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
-    },
-    {
-     "plan": "c_d66bfb0db805d2cd",
-     "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
-     "url": "media/commons/coria-q3819299/d66bfb0db805d2cd.jpg",
-     "pairs": [
-      [
-       100.0,
-       600.0,
-       -2.0405096,
-       54.979007
-      ],
-      [
-       600.0,
-       400.0,
-       -2.031196,
-       54.9811449
-      ],
-      [
-       200.0,
-       700.0,
-       -2.0386469,
-       54.977947
-      ],
-      [
-       400.0,
-       800.0,
-       -2.0349214,
-       54.976887
-      ],
-      [
-       200.0,
-       900.0,
-       -2.0386469,
-       54.975818
-      ],
-      [
-       800.0,
-       200.0,
-       -2.0275019,
-       54.9832827
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 0.6 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Coria (Corbridge)",
-      "file_cat": "The Corbridge Excavations, 1908 (1909)",
-      "via": [
-       "Coria (Corbridge)"
-      ]
-     },
-     "gate_score": 0.6
     }
    ],
    "no_picture_found": null
@@ -6104,60 +6328,6 @@
     "searched": "wikidata Q677333; Commons category 'Danebury' (83 files); P180 depictions of Q677333: 0 of 83 file(s) checked; title searches: \"\"Danebury Hill Camp\" plan\", \"\"Danebury Hill Camp\" map OR survey\", \"\"Danebury Hill Camp\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.462546+00:00"
    }
-  },
-  {
-   "site": "daw-s-castle-q5242247",
-   "name": "Daw's Castle",
-   "lead": "c_8d2281628567a166",
-   "candidates": [
-    {
-     "plan": "c_8d2281628567a166",
-     "title": "Daws Castle Somerset Map",
-     "url": "media/commons/daw-s-castle-q5242247/8d2281628567a166.jpg",
-     "pairs": [
-      [
-       280.0,
-       280.0,
-       -3.3375442,
-       51.1767224
-      ],
-      [
-       200.0,
-       200.0,
-       -3.3425597,
-       51.1798667
-      ],
-      [
-       300.0,
-       300.0,
-       -3.3363977,
-       51.1760037
-      ],
-      [
-       200.0,
-       300.0,
-       -3.3425597,
-       51.1760037
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 2.5 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "caption_coords",
-      "checked": "2026-10-10",
-      "named_place": "Daw's Castle",
-      "place_qid": "Q5242247",
-      "place_label": "Daw's Castle",
-      "place_lon": -3.34357,
-      "place_lat": 51.1805,
-      "site_lon": -3.34357,
-      "site_lat": 51.1805,
-      "dist_m": 0.0
-     },
-     "gate_score": 2.5
-    }
-   ],
-   "no_picture_found": null
   },
   {
    "site": "de-thombe-q2359601",
@@ -7545,6 +7715,40 @@
    "no_picture_found": null
   },
   {
+   "site": "echzell-q1657587",
+   "name": "Echzell",
+   "lead": "c_ba9cea2f40747f7e",
+   "candidates": [
+    {
+     "plan": "c_ba9cea2f40747f7e",
+     "title": "Echzell, Lage und Grundriss, ORL 18, 1903 (de.wikipedia)",
+     "url": "media/commons/echzell-q1657587/ba9cea2f40747f7e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Echzell",
+      "place_qid": "Q1657587",
+      "place_label": "Echzell",
+      "place_lon": 8.88322,
+      "place_lat": 50.393,
+      "site_lon": 8.88322,
+      "site_lat": 50.393,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1423,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "eddisbury-hill-fort-q5336613",
    "name": "Eddisbury hill fort",
    "lead": null,
@@ -7633,6 +7837,73 @@
     "searched": "wikidata Q4604102; Commons category 'Emmeloord (Schokland)' (33 files); P180 depictions of Q4604102: 0 of 33 file(s) checked; title searches: \"\"Emmeloord\" plan\", \"\"Emmeloord\" map OR survey\", \"\"Emmeloord\" engraving OR drawing OR view OR prospect -\"style of\"\" (40 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.829617+00:00"
    }
+  },
+  {
+   "site": "enghien-q666238",
+   "name": "Enghien",
+   "lead": "c_ee629c434d9f93df",
+   "candidates": [
+    {
+     "plan": "c_ee629c434d9f93df",
+     "title": "Enghien, town plan by Jacob van Deventer",
+     "url": "media/commons/enghien-q666238/ee629c434d9f93df.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Enghien",
+      "file_cat": "Map of Enghien by Jacob van Deventer",
+      "via": [
+       "Old maps of Enghien",
+       "Maps of Enghien",
+       "Enghien"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "enkhuizen-q9918",
+   "name": "Enkhuizen",
+   "lead": "c_9b8db40f5bf4ef47",
+   "candidates": [
+    {
+     "plan": "c_9b8db40f5bf4ef47",
+     "title": "Enkhuizen, town plan by Jacob van Deventer",
+     "url": "media/commons/enkhuizen-q9918/9b8db40f5bf4ef47.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Enkhuizen",
+      "file_cat": "Map of Enkhuizen by Jacob van Deventer",
+      "via": [
+       "Old maps of Enkhuizen",
+       "Maps of Enkhuizen",
+       "Geography of Enkhuizen",
+       "Enkhuizen"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "ensemble-castral-de-vesvre-q3054866",
@@ -7964,6 +8235,40 @@
       "why": []
      },
      "gate_score": 0.0
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "eulbach-q1735359",
+   "name": "Eulbach",
+   "lead": "c_b933309a4f7f7434",
+   "candidates": [
+    {
+     "plan": "c_b933309a4f7f7434",
+     "title": "Eulbach, Grundriss, ORL 48, 1896 (de.wikipedia)",
+     "url": "media/commons/eulbach-q1735359/b933309a4f7f7434.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Eulbach",
+      "place_qid": "Q1735359",
+      "place_label": "Eulbach",
+      "place_lon": 9.07791667,
+      "place_lat": 49.68,
+      "site_lon": 9.07791667,
+      "site_lat": 49.68,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.9159,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -8480,86 +8785,6 @@
    "no_picture_found": null
   },
   {
-   "site": "framlingham-castle-q2524183",
-   "name": "Framlingham Castle",
-   "lead": "c_f43bc6196e097819",
-   "candidates": [
-    {
-     "plan": "c_f43bc6196e097819",
-     "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
-     "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
-     "pairs": [
-      [
-       250.0,
-       250.0,
-       1.3458841,
-       52.2245955
-      ],
-      [
-       350.0,
-       250.0,
-       1.3473506,
-       52.2245955
-      ],
-      [
-       450.0,
-       300.0,
-       1.348817,
-       52.2241463
-      ],
-      [
-       450.0,
-       400.0,
-       1.348817,
-       52.223248
-      ],
-      [
-       350.0,
-       450.0,
-       1.3473506,
-       52.2227988
-      ],
-      [
-       250.0,
-       400.0,
-       1.3458841,
-       52.223248
-      ],
-      [
-       250.0,
-       300.0,
-       1.3458841,
-       52.2241463
-      ],
-      [
-       300.0,
-       350.0,
-       1.3466173,
-       52.2236972
-      ]
-     ],
-     "coarse": false,
-     "label": "1897",
-     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
-     "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg",
-     "size": [
-      1280,
-      1171
-     ],
-     "place_reason": "306d audit 2026-10-13: the 8 anchors form a perfect 200 m square at plate u 250-450, v 250-450 (an exact 1.0 m/px similarity, resid 0.0, rot 0.0) - but that plate region is the plain road area WEST of the drawn island, so the fit shifts the whole plate ~430 m SE: the drawn keep (E +273..+447, N -97..-310) lands on an open sports field SE of the town; the drawn island loop (E +140..+567, N -497..+30) falls over the village with ZERO overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, the hatched '(In Ruins)' keep at its west end, at the site point; aerial: a grassy island with a water ring and a stone ruin there); the drawn Old Moat arc (E +487..+767) lies over fields east of the A141; the drawn St Michael's (E +127, N -737) is ~1 km from the real church (E -188, N +174); the drawn 'FRAMLINGHAM' label is ~600-800 m off the town. Document deleted.",
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 0.0
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "frankfort-works",
    "name": "Frankfort Works",
    "lead": null,
@@ -8648,6 +8873,40 @@
    }
   },
   {
+   "site": "ghent-q1296",
+   "name": "Ghent",
+   "lead": "c_82ceffa2a7846983",
+   "candidates": [
+    {
+     "plan": "c_82ceffa2a7846983",
+     "title": "Ghent, town plan by Jacob van Deventer",
+     "url": "media/commons/ghent-q1296/82ceffa2a7846983.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Ghent",
+      "file_cat": "Map of Ghent by Jacob van Deventer",
+      "via": [
+       "16th-century maps of Ghent",
+       "Old maps of Ghent",
+       "Historical images of Ghent",
+       "Ghent"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5232,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "glannoventa-q16839208",
    "name": "Glannoventa",
    "lead": null,
@@ -8732,6 +8991,39 @@
    "no_picture_found": null
   },
   {
+   "site": "goes-q81220",
+   "name": "Goes",
+   "lead": "c_e5933ffbd0ec5ea2",
+   "candidates": [
+    {
+     "plan": "c_e5933ffbd0ec5ea2",
+     "title": "Goes, town plan by Jacob van Deventer",
+     "url": "media/commons/goes-q81220/e5933ffbd0ec5ea2.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Goes",
+      "file_cat": "Map of Goes by Jacob van Deventer",
+      "via": [
+       "Old maps of Goes",
+       "History of Goes",
+       "Goes"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.2369,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "gondole-q775166",
    "name": "Gondole",
    "lead": null,
@@ -8740,133 +9032,6 @@
     "searched": "wikidata Q775166; Commons category 'Gondole' (4 files); P180 depictions of Q775166: 0 of 4 file(s) checked; title searches: \"\"Gondole\" plan\", \"\"Gondole\" map OR survey\", \"\"Gondole\" engraving OR drawing OR view OR prospect -\"style of\"\" (26 hits); 2026-10-13",
     "at": "2026-10-13T09:21:29.244356+00:00"
    }
-  },
-  {
-   "site": "goodrich-castle-q5583571",
-   "name": "Goodrich Castle",
-   "lead": "c_cd89cb69f385859b",
-   "candidates": [
-    {
-     "plan": "c_cd89cb69f385859b",
-     "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
-     "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
-     "pairs": [
-      [
-       210.0,
-       210.0,
-       -2.6189522,
-       51.8787077
-      ],
-      [
-       580.0,
-       210.0,
-       -2.6144559,
-       51.8787077
-      ],
-      [
-       210.0,
-       680.0,
-       -2.6189522,
-       51.8751594
-      ],
-      [
-       580.0,
-       680.0,
-       -2.6144559,
-       51.8751594
-      ]
-     ],
-     "coarse": false,
-     "label": "1897",
-     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
-     "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg",
-     "size": [
-      955,
-      943
-     ],
-     "place_reason": "306d audit 2026-10-13: the 4 anchors are a consistent 0.838 m/px 370x470-px rectangle (resid 0.8 m) spanning the whole castle plan, and the fit is centred right - the 1842 'Goodrich Castle (Remains of)' (~30 m hatched building) and the aerial's stone ruin sit at the drawn plan's centre, ~the site point - but the drawn plan is ~620x490 m on the ground, ~4-5x too big for the real ~130x90 m castle: its walls run through the village, through Old Castle Wood to the west, and across the River Wye to the north (the 1842 'GOODRICH' label sits inside the drawn castle). Document deleted.",
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.8 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 0.8
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
-   "site": "gouda-q84125",
-   "name": "Gouda",
-   "lead": "c_ba646ea988fc6bc8",
-   "candidates": [
-    {
-     "plan": "c_ba646ea988fc6bc8",
-     "title": "Gouda, town plan by Jacob van Deventer",
-     "url": "media/commons/gouda-q84125/ba646ea988fc6bc8.jpg",
-     "pairs": [
-      [
-       250.0,
-       450.0,
-       4.7002909,
-       52.0157377
-      ],
-      [
-       450.0,
-       350.0,
-       4.7039396,
-       52.016636
-      ],
-      [
-       650.0,
-       450.0,
-       4.7068586,
-       52.0157377
-      ],
-      [
-       750.0,
-       650.0,
-       4.7090478,
-       52.0139412
-      ],
-      [
-       650.0,
-       850.0,
-       4.7068586,
-       52.0116955
-      ],
-      [
-       250.0,
-       850.0,
-       4.7002909,
-       52.0116955
-      ],
-      [
-       150.0,
-       650.0,
-       4.6988314,
-       52.0139412
-      ],
-      [
-       450.0,
-       600.0,
-       4.7039396,
-       52.0143904
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 15.9 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py deventer"
-     },
-     "gate_score": 15.9
-    }
-   ],
-   "no_picture_found": null
   },
   {
    "site": "grand-mound-q5594814",
@@ -8996,6 +9161,39 @@
    "no_picture_found": null
   },
   {
+   "site": "haarlem-q9920",
+   "name": "Haarlem",
+   "lead": "c_c741e8c431c6c0f2",
+   "candidates": [
+    {
+     "plan": "c_c741e8c431c6c0f2",
+     "title": "Haarlem, town plan by Jacob van Deventer",
+     "url": "media/commons/haarlem-q9920/c741e8c431c6c0f2.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Haarlem",
+      "file_cat": "Maps of Haarlem by Jacob van Deventer",
+      "via": [
+       "Old maps of Haarlem",
+       "History of Haarlem",
+       "Haarlem"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "habitancum-q5636876",
    "name": "Habitancum",
    "lead": null,
@@ -9006,6 +9204,73 @@
    }
   },
   {
+   "site": "hainhaus-q1735367",
+   "name": "Hainhaus",
+   "lead": "c_4739d99690abccb0",
+   "candidates": [
+    {
+     "plan": "c_4739d99690abccb0",
+     "title": "Hainhaus, Grundriss, ORL 47, 1897 (de.wikipedia)",
+     "url": "media/commons/hainhaus-q1735367/4739d99690abccb0.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Hainhaus",
+      "place_qid": "Q1735367",
+      "place_label": "Hainhaus",
+      "place_lon": 9.08319,
+      "place_lat": 49.7328,
+      "site_lon": 9.08319,
+      "site_lat": 49.7328,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.8412,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "halle-q210003",
+   "name": "Halle",
+   "lead": "c_55f4781a80f908bf",
+   "candidates": [
+    {
+     "plan": "c_55f4781a80f908bf",
+     "title": "Halle, town plan by Jacob van Deventer",
+     "url": "media/commons/halle-q210003/55f4781a80f908bf.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Halle (Belgium)",
+      "file_cat": "Map of Halle by Jacob van Deventer",
+      "via": [
+       "Old maps of Halle",
+       "Maps of Halle (Belgium)",
+       "Halle (Belgium)"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "halvorson-mound-group-q117715230",
    "name": "Halvorson Mound Group",
    "lead": null,
@@ -9014,6 +9279,40 @@
     "searched": "wikidata Q117715230; Commons category 'Halvorson Mound Group' (1 file); P180 depictions of Q117715230: 0 of 1 file(s) checked; title searches: \"\"Halvorson Mound Group\" plan\", \"\"Halvorson Mound Group\" map OR survey\", \"\"Halvorson Mound Group\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:29.403559+00:00"
    }
+  },
+  {
+   "site": "hampton-court-palace-q205666",
+   "name": "Hampton Court Palace",
+   "lead": "c_668523359890be17",
+   "candidates": [
+    {
+     "plan": "c_668523359890be17",
+     "title": "Hampton Court Palace, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/hampton-court-palace-q205666/668523359890be17.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Hampton Court",
+      "place_qid": "Q205666",
+      "place_label": "Hampton Court Palace",
+      "place_lon": -0.337499,
+      "place_lat": 51.4034,
+      "site_lon": -0.337499,
+      "site_lat": 51.4034,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "hampton-court-herefordshire-q1443802",
@@ -9164,6 +9463,126 @@
    }
   },
   {
+   "site": "heddesdorf-q1735373",
+   "name": "Heddesdorf",
+   "lead": "c_865b27217e589ed2",
+   "candidates": [
+    {
+     "plan": "c_865b27217e589ed2",
+     "title": "Heddesdorf, Grundriss des Kastellbades, ORL 01, 1903 (de.wikipedia)",
+     "url": "media/commons/heddesdorf-q1735373/865b27217e589ed2.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Heddesdorf",
+      "place_qid": "Q1735373",
+      "place_label": "Heddesdorf",
+      "place_lon": 7.46931,
+      "place_lat": 50.4365,
+      "site_lon": 7.46931,
+      "site_lat": 50.4365,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.3578,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_cd8d15c4cc8bb287",
+     "title": "Heddesdorf, Lageplan, ORL 01, 1903 (Commons)",
+     "url": "media/commons/heddesdorf-q1735373/cd8d15c4cc8bb287.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Heddesdorf",
+      "place_qid": "Q1735373",
+      "place_label": "Heddesdorf",
+      "place_lon": 7.46931,
+      "place_lat": 50.4365,
+      "site_lon": 7.46931,
+      "site_lat": 50.4365,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.3789,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_a219dbb67f84e81b",
+     "title": "Heddesdorf, Grundriss von Kastell und Kastellbad, ORL 01, 1903 (Commons)",
+     "url": "media/commons/heddesdorf-q1735373/a219dbb67f84e81b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Heddesdorf",
+      "place_qid": "Q1735373",
+      "place_label": "Heddesdorf",
+      "place_lon": 7.46931,
+      "place_lat": 50.4365,
+      "site_lon": 7.46931,
+      "site_lat": 50.4365,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.3608,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "heidenheim-q128401126",
+   "name": "Heidenheim",
+   "lead": "c_bebb8bdc4dfef75b",
+   "candidates": [
+    {
+     "plan": "c_bebb8bdc4dfef75b",
+     "title": "Heidenheim, Grundriss, ORL 66b, 1900 (de.wikipedia)",
+     "url": "media/commons/heidenheim-q128401126/bebb8bdc4dfef75b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Heidenheim",
+      "place_qid": "Q128401126",
+      "place_label": "Heidenheim",
+      "place_lon": 10.153666666666666,
+      "place_lat": 48.67908333333333,
+      "site_lon": 10.153666666666666,
+      "site_lat": 48.67908333333333,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.393,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "hembury-q3784763",
    "name": "Hembury",
    "lead": "earthworkenglan01allcgoog_n0439_1",
@@ -9283,6 +9702,73 @@
      "place_reason": "306d audit 2026-10-13: the 8 anchors form a trapezoid (0.581 m/px along the u=100/400/50/850 side but 0.70 along the u=800 column - no similarity can hit both; the fit is 0.581 m/px, rot 0.66, resid 20.5-74.6 m, plate centre ~42/-34 m ESE of the site point), and the drawn Mackenzie 1897 plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px = 465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread over the pond, wood and fields EAST of the real building. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 34.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 34.0
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "hesdin-q467366",
+   "name": "Hesdin",
+   "lead": "c_92e4e5135b1bbadb",
+   "candidates": [
+    {
+     "plan": "c_92e4e5135b1bbadb",
+     "title": "Hesdin, town plan by Jacob van Deventer",
+     "url": "media/commons/hesdin-q467366/92e4e5135b1bbadb.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Hesdin",
+      "file_cat": "Map of Hesdin by Jacob van Deventer",
+      "via": [
+       "Old maps of Hesdin",
+       "History of Hesdin",
+       "Hesdin"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "hesselbach-q1411006",
+   "name": "Hesselbach",
+   "lead": "c_e73e636e12928335",
+   "candidates": [
+    {
+     "plan": "c_e73e636e12928335",
+     "title": "Hesselbach, Grundriss, ORL 50, 1896 (de.wikipedia)",
+     "url": "media/commons/hesselbach-q1411006/e73e636e12928335.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Hesselbach",
+      "place_qid": "Q1411006",
+      "place_label": "Hesselbach",
+      "place_lon": 9.09055556,
+      "place_lat": 49.57625,
+      "site_lon": 9.09055556,
+      "site_lat": 49.57625,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.18,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -9634,6 +10120,74 @@
    }
   },
   {
+   "site": "hunzel-q1240802",
+   "name": "Hunzel",
+   "lead": "c_587bad130e8cc392",
+   "candidates": [
+    {
+     "plan": "c_587bad130e8cc392",
+     "title": "Hunzel, Grundriss und Profile, ORL 05, 1897 (de.wikipedia)",
+     "url": "media/commons/hunzel-q1240802/587bad130e8cc392.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Hunzel",
+      "place_qid": "Q1240802",
+      "place_label": "Hunzel",
+      "place_lon": 7.82785,
+      "place_lat": 50.2467,
+      "site_lon": 7.82785,
+      "site_lat": 50.2467,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.484,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "hutton-hall-q5951100",
+   "name": "Hutton Hall",
+   "lead": "c_982eb6b47836dde3",
+   "candidates": [
+    {
+     "plan": "c_982eb6b47836dde3",
+     "title": "Hutton Hall, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/hutton-hall-q5951100/982eb6b47836dde3.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Hutton Hall",
+      "place_qid": "Q5951100",
+      "place_label": "Hutton Hall",
+      "place_lon": -2.839,
+      "place_lat": 54.714,
+      "site_lon": -2.839,
+      "site_lat": 54.714,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "ilkley-roman-fort-q7086777",
    "name": "Ilkley Roman Fort",
    "lead": null,
@@ -9642,6 +10196,40 @@
     "searched": "wikidata Q7086777; Commons category 'Olicana' (13 files); P180 depictions of Q7086777: 0 of 13 file(s) checked; title searches: \"\"Ilkley Roman Fort\" plan\", \"\"Ilkley Roman Fort\" map OR survey\", \"\"Ilkley Roman Fort\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:29.709264+00:00"
    }
+  },
+  {
+   "site": "imola-q50195",
+   "name": "Imola",
+   "lead": "c_4b37fff254ca1e45",
+   "candidates": [
+    {
+     "plan": "c_4b37fff254ca1e45",
+     "title": "Imola, aerial plan by Leonardo da Vinci (1502)",
+     "url": "media/commons/imola-q50195/4b37fff254ca1e45.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Imola",
+      "place_qid": "Q50195",
+      "place_label": "Imola",
+      "place_lon": 11.7112,
+      "place_lat": 44.3535,
+      "site_lon": 11.7112,
+      "site_lat": 44.3535,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "inchtuthil",
@@ -9694,6 +10282,40 @@
    }
   },
   {
+   "site": "jagsthausen-q1735380",
+   "name": "Jagsthausen",
+   "lead": "c_280057358833483f",
+   "candidates": [
+    {
+     "plan": "c_280057358833483f",
+     "title": "Jagsthausen, Grundriss, ORL 41, 1909 (de.wikipedia)",
+     "url": "media/commons/jagsthausen-q1735380/280057358833483f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Jagsthausen",
+      "place_qid": "Q1735380",
+      "place_label": "Jagsthausen",
+      "place_lon": 9.46917,
+      "place_lat": 49.3109,
+      "site_lon": 9.46917,
+      "site_lat": 49.3109,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4368,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "jaketown-site-q6125125",
    "name": "Jaketown Site",
    "lead": null,
@@ -9744,6 +10366,100 @@
    }
   },
   {
+   "site": "kapersburg-q1735382",
+   "name": "Kapersburg",
+   "lead": "c_8c884700d5d8f3ef",
+   "candidates": [
+    {
+     "plan": "c_8c884700d5d8f3ef",
+     "title": "Kapersburg, Thermen-Grundriss und Profile, ORL 12, 1906 (de.wikipedia)",
+     "url": "media/commons/kapersburg-q1735382/8c884700d5d8f3ef.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Kapersburg",
+      "place_qid": "Q1735382",
+      "place_label": "Kapersburg",
+      "place_lon": 8.636502423992,
+      "place_lat": 50.31270674931,
+      "site_lon": 8.636502423992,
+      "site_lat": 50.31270674931,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.3902,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_dfb8ec66389697ab",
+     "title": "Kapersburg, Grundriss und Gel\u00e4ndeprofile, ORL 12, 1906 (Commons)",
+     "url": "media/commons/kapersburg-q1735382/dfb8ec66389697ab.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Kapersburg",
+      "place_qid": "Q1735382",
+      "place_label": "Kapersburg",
+      "place_lon": 8.636502423992,
+      "place_lat": 50.31270674931,
+      "site_lon": 8.636502423992,
+      "site_lat": 50.31270674931,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5666,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "kastell-buch",
+   "name": "Kastell Buch",
+   "lead": "c_6145746f944fcc15",
+   "candidates": [
+    {
+     "plan": "c_6145746f944fcc15",
+     "title": "Kastell Buch, Grundriss, ORL 67, 1896 (de.wikipedia)",
+     "url": "media/commons/kastell-buch/6145746f944fcc15.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Buch",
+      "place_qid": null,
+      "place_label": "Kastell Buch (no Wikidata item: name+coords from the de.wikipedia article)",
+      "place_lon": 10.136429,
+      "place_lat": 48.909531,
+      "site_lon": 10.136429,
+      "site_lat": 48.909531,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.164,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "kastell-lostmarc-h-q22925755",
    "name": "Kastell Lostmarc'h",
    "lead": null,
@@ -9752,6 +10468,74 @@
     "searched": "wikidata Q22925755; Commons category 'Kastell Lostmarc'h' (11 files); P180 depictions of Q22925755: 0 of 11 file(s) checked; title searches: \"\"Kastell Lostmarc'h\" plan\", \"\"Kastell Lostmarc'h\" map OR survey\", \"\"Kastell Lostmarc'h\" engraving OR drawing OR view OR prospect -\"style of\"\" (2 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.088418+00:00"
    }
+  },
+  {
+   "site": "kastell-schirenhof",
+   "name": "Kastell Schirenhof",
+   "lead": "c_38beddcf7850160c",
+   "candidates": [
+    {
+     "plan": "c_38beddcf7850160c",
+     "title": "Kastell Schirenhof, Grundriss, ORL 64, 1897 (de.wikipedia)",
+     "url": "media/commons/kastell-schirenhof/38beddcf7850160c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Schirenhof",
+      "place_qid": null,
+      "place_label": "Kastell Schirenhof (no Wikidata item: name+coords from the de.wikipedia article)",
+      "place_lon": 10.03,
+      "place_lat": 48.73,
+      "site_lon": 10.03,
+      "site_lat": 48.73,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.6645,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "kemel-q1725806",
+   "name": "Kemel",
+   "lead": "c_b9ad52085976e972",
+   "candidates": [
+    {
+     "plan": "c_b9ad52085976e972",
+     "title": "Kemel, Grundriss, ORL 07, 1901 (de.wikipedia)",
+     "url": "media/commons/kemel-q1725806/b9ad52085976e972.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Kemel",
+      "place_qid": "Q1725806",
+      "place_label": "Kemel",
+      "place_lon": 8.01606,
+      "place_lat": 50.1655,
+      "site_lon": 8.01606,
+      "site_lat": 50.1655,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.8209,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "kilmartin-temple-wood",
@@ -9901,6 +10685,100 @@
    "no_picture_found": null
   },
   {
+   "site": "kings-weston-house",
+   "name": "Kings Weston House",
+   "lead": "c_c67b53c1463bbb8d",
+   "candidates": [
+    {
+     "plan": "c_c67b53c1463bbb8d",
+     "title": "Kings Weston House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/kings-weston-house/c67b53c1463bbb8d.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Kingsweston",
+      "place_qid": null,
+      "place_label": "Kings Weston House",
+      "place_lon": -2.661541,
+      "place_lat": 51.494382,
+      "site_lon": -2.661541,
+      "site_lat": 51.494382,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "kleinkastell-anhausen-q1746855",
+   "name": "Kleinkastell Anhausen",
+   "lead": "c_132c23f1e5e6f7e8",
+   "candidates": [
+    {
+     "plan": "c_132c23f1e5e6f7e8",
+     "title": "Kleinkastell Anhausen, Lageplan des Kleinkastells, ORL Anhausen, 1915 (de.wikipedia)",
+     "url": "media/commons/kleinkastell-anhausen-q1746855/132c23f1e5e6f7e8.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Anhausen",
+      "place_qid": "Q1746855",
+      "place_label": "Kleinkastell Anhausen",
+      "place_lon": 7.53841,
+      "place_lat": 50.4813,
+      "site_lon": 7.53841,
+      "site_lat": 50.4813,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5668,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_5143dfcfaff1cb4c",
+     "title": "Kleinkastell Anhausen, Grundriss und Gel\u00e4ndeprofil des Kleinkastells, ORL Anhausen, 1915 (de.wikipedia)",
+     "url": "media/commons/kleinkastell-anhausen-q1746855/5143dfcfaff1cb4c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Anhausen",
+      "place_qid": "Q1746855",
+      "place_label": "Kleinkastell Anhausen",
+      "place_lon": 7.53841,
+      "place_lat": 50.4813,
+      "site_lon": 7.53841,
+      "site_lat": 50.4813,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5112,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "kolomoki-mounds-state-park-q4228402",
    "name": "Kolomoki Mounds State Park",
    "lead": null,
@@ -9931,6 +10809,73 @@
    }
   },
   {
+   "site": "kortrijk-q12995",
+   "name": "Kortrijk",
+   "lead": "c_b10c72a5e6b4eebc",
+   "candidates": [
+    {
+     "plan": "c_b10c72a5e6b4eebc",
+     "title": "Kortrijk, town plan by Jacob van Deventer",
+     "url": "media/commons/kortrijk-q12995/b10c72a5e6b4eebc.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Kortrijk",
+      "file_cat": "Map of Kortrijk by Jacob van Deventer",
+      "via": [
+       "Maps of Kortrijk city walls",
+       "City walls of Kortrijk",
+       "Kortrijk"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "kongen-q1735387",
+   "name": "K\u00f6ngen",
+   "lead": "c_c33f03a7d042ef00",
+   "candidates": [
+    {
+     "plan": "c_c33f03a7d042ef00",
+     "title": "K\u00f6ngen, Grundriss und Profile, ORL 60, 1907 (de.wikipedia)",
+     "url": "media/commons/kongen-q1735387/c33f03a7d042ef00.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "K\u00f6ngen",
+      "place_qid": "Q1735387",
+      "place_label": "K\u00f6ngen",
+      "place_lon": 9.36007,
+      "place_lat": 48.6773,
+      "site_lon": 9.36007,
+      "site_lat": 48.6773,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4442,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "lake-jackson-mounds-archaeological-state-q6476328",
    "name": "Lake Jackson Mounds Archaeological State Park",
    "lead": null,
@@ -9949,6 +10894,40 @@
     "searched": "wikidata Q6480896; no Commons category; P180 depictions of Q6480896: 0 of 0 file(s) checked; title searches: \"\"Lamar Mounds and Village Site\" plan\", \"\"Lamar Mounds and Village Site\" map OR survey\", \"\"Lamar Mounds and Village Site\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.338965+00:00"
    }
+  },
+  {
+   "site": "lambeth-palace-q1130266",
+   "name": "Lambeth Palace",
+   "lead": "c_e669cedb900ef29b",
+   "candidates": [
+    {
+     "plan": "c_e669cedb900ef29b",
+     "title": "Lambeth Palace, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/lambeth-palace-q1130266/e669cedb900ef29b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Lambeth",
+      "place_qid": "Q1130266",
+      "place_label": "Lambeth Palace",
+      "place_lon": -0.11972,
+      "place_lat": 51.49556,
+      "site_lon": -0.11972,
+      "site_lat": 51.49556,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "lancaster-castle-q2969640",
@@ -10004,6 +10983,38 @@
    "no_picture_found": null
   },
   {
+   "site": "landrecies-q632808",
+   "name": "Landrecies",
+   "lead": "c_d1d43cd6c38b04e0",
+   "candidates": [
+    {
+     "plan": "c_d1d43cd6c38b04e0",
+     "title": "Landrecies, town plan by Jacob van Deventer",
+     "url": "media/commons/landrecies-q632808/d1d43cd6c38b04e0.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Landrecies",
+      "file_cat": "Map of Landrecies by Jacob van Deventer",
+      "via": [
+       "Old maps of Landrecies",
+       "Landrecies"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "las-medulas",
    "name": "Las M\u00e9dulas",
    "lead": null,
@@ -10032,6 +11043,71 @@
     "searched": "wikidata Q6502549; Commons category 'Lavendon Castle' (4 files); P180 depictions of Q6502549: 0 of 4 file(s) checked; title searches: \"\"Lavendon Castle\" plan\", \"\"Lavendon Castle\" map OR survey\", \"\"Lavendon Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.470831+00:00"
    }
+  },
+  {
+   "site": "le-quesnoy-q180067",
+   "name": "Le Quesnoy",
+   "lead": "c_6c0ffd4cdd0fc9eb",
+   "candidates": [
+    {
+     "plan": "c_6c0ffd4cdd0fc9eb",
+     "title": "Le Quesnoy, town plan by Jacob van Deventer",
+     "url": "media/commons/le-quesnoy-q180067/6c0ffd4cdd0fc9eb.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Le Quesnoy",
+      "file_cat": "Map of Le Quesnoy by Jacob van Deventer",
+      "via": [
+       "Old maps of Le Quesnoy",
+       "Le Quesnoy"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "le-rulx-q668861",
+   "name": "Le R\u0153ulx",
+   "lead": "c_2c2af513b43f9d29",
+   "candidates": [
+    {
+     "plan": "c_2c2af513b43f9d29",
+     "title": "Le R\u0153ulx, town plan by Jacob van Deventer",
+     "url": "media/commons/le-rulx-q668861/2c2af513b43f9d29.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Le Roeulx",
+      "file_cat": "Map of Le R\u0153ulx by Jacob van Deventer",
+      "via": [
+       "Old maps of Le R\u0153ulx",
+       "Maps of Le R\u0153ulx",
+       "Le Roeulx"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "leeds-castle-q746876",
@@ -10148,6 +11224,39 @@
    "no_picture_found": null
   },
   {
+   "site": "lessines-q667790",
+   "name": "Lessines",
+   "lead": "c_0193a1cf01ab0b87",
+   "candidates": [
+    {
+     "plan": "c_0193a1cf01ab0b87",
+     "title": "Lessines, town plan by Jacob van Deventer",
+     "url": "media/commons/lessines-q667790/0193a1cf01ab0b87.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Lessines",
+      "file_cat": "Map of Lessines by Jacob van Deventer",
+      "via": [
+       "Old maps of Lessines",
+       "Maps of Lessines",
+       "Lessines"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "letchworth-love-mounds-archaeological-st-q6533192",
    "name": "Letchworth-Love Mounds Archaeological State Park",
    "lead": null,
@@ -10156,6 +11265,40 @@
     "searched": "wikidata Q6533192; no Commons category; P180 depictions of Q6533192: 0 of 1 file(s) checked; title searches: \"\"Letchworth-Love Mounds Archaeological State Park\" plan\", \"\"Letchworth-Love Mounds Archaeological State Park\" map OR survey\", \"\"Letchworth-Love Mounds Archaeological State Park\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.508387+00:00"
    }
+  },
+  {
+   "site": "leuze-q667862",
+   "name": "Leuze",
+   "lead": "c_58255a14a93914c4",
+   "candidates": [
+    {
+     "plan": "c_58255a14a93914c4",
+     "title": "Leuze-en-Hainaut, town plan by Jacob van Deventer",
+     "url": "media/commons/leuze-q667862/58255a14a93914c4.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Leuze-en-Hainaut",
+      "file_cat": "Map of Leuze by Jacob van Deventer",
+      "via": [
+       "Old maps of Leuze",
+       "Maps of Leuze-en-Hainaut",
+       "Geography of Leuze-en-Hainaut",
+       "Leuze-en-Hainaut"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "lincoln-castle-q727760",
@@ -10188,6 +11331,40 @@
    }
   },
   {
+   "site": "lorch-q1433981",
+   "name": "Lorch",
+   "lead": "c_f7777c9749d1de7b",
+   "candidates": [
+    {
+     "plan": "c_f7777c9749d1de7b",
+     "title": "Lorch, Grundriss, ORL 63, 1897 (de.wikipedia)",
+     "url": "media/commons/lorch-q1433981/f7777c9749d1de7b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Lorch",
+      "place_qid": "Q1433981",
+      "place_label": "Lorch",
+      "place_lon": 9.68855,
+      "place_lat": 48.7981,
+      "site_lon": 9.68855,
+      "site_lat": 48.7981,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5248,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "los-millares",
    "name": "Los Millares",
    "lead": null,
@@ -10208,69 +11385,69 @@
    }
   },
   {
-   "site": "ludlow-castle-q576369",
-   "name": "Ludlow Castle",
-   "lead": "c_b24730fd9038ae4a",
+   "site": "luxembourg-city-q1842",
+   "name": "Luxembourg City",
+   "lead": "c_1278a807525ed2b7",
    "candidates": [
     {
-     "plan": "c_b24730fd9038ae4a",
-     "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
-     "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+     "plan": "c_1278a807525ed2b7",
+     "title": "Luxembourg, town plan by Jacob van Deventer",
+     "url": "media/commons/luxembourg-city-q1842/1278a807525ed2b7.jpg",
      "evidence": {
       "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
-     "pairs": [
-      [
-       100.0,
-       300.0,
-       -2.7244738,
-       52.3680938
-      ],
-      [
-       800.0,
-       300.0,
-       -2.7200602,
-       52.3680938
-      ],
-      [
-       800.0,
-       1200.0,
-       -2.7200602,
-       52.3653988
-      ],
-      [
-       100.0,
-       1200.0,
-       -2.7244738,
-       52.3653988
-      ],
-      [
-       100.0,
-       700.0,
-       -2.7244738,
-       52.3667463
-      ],
-      [
-       800.0,
-       700.0,
-       -2.7200602,
-       52.3667463
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Luxembourg City",
+      "file_cat": "Maps of Luxembourg City Jacob van Deventer",
+      "via": [
+       "Old maps of Luxembourg City",
+       "Maps of Luxembourg City",
+       "Geography of Luxembourg City",
+       "Luxembourg City"
       ]
-     ],
-     "coarse": false,
-     "label": "1897",
-     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
-     "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
-     "size": [
-      1280,
-      1565
-     ],
-     "place_reason": "306d audit 2026-10-13: the 6 anchors are a uniform 0.378 m/px rectangle (rot 0, resid 21.8-31.8 m), but that is 2.6x the plate's own bar (its five ticks span 623 px for 300 ft = 0.147 m/px; independent check: the drawn round tower circle, 54.5 px, is 8.0 m at the bar's scale - matching the plate's text '28 feet in diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m outer). The centre is ~right - the drawn rounded W curtain + hatched buildings sit ON the real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m, centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works bigger than the real complex, walls through the town. Document deleted.",
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 22.4 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 22.4
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "lutzelbach-q1735392",
+   "name": "L\u00fctzelbach",
+   "lead": "c_c61bd261a3c2ecee",
+   "candidates": [
+    {
+     "plan": "c_c61bd261a3c2ecee",
+     "title": "L\u00fctzelbach, Grundriss, ORL 46, 1904 (de.wikipedia)",
+     "url": "media/commons/lutzelbach-q1735392/c61bd261a3c2ecee.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "L\u00fctzelbach",
+      "place_qid": "Q1735392",
+      "place_label": "L\u00fctzelbach",
+      "place_lon": 9.08861111,
+      "place_lat": 49.77944444,
+      "site_lon": 9.08861111,
+      "site_lat": 49.77944444,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.8801,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -10381,6 +11558,40 @@
     "searched": "wikidata Q139573; Commons category 'Marden Henge' (8 files); P180 depictions of Q139573: 0 of 8 file(s) checked; title searches: \"\"Marden Henge\" plan\", \"\"Marden Henge\" map OR survey\", \"\"Marden Henge\" engraving OR drawing OR view OR prospect -\"style of\"\" (2 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.769527+00:00"
    }
+  },
+  {
+   "site": "marienfels-q1359182",
+   "name": "Marienfels",
+   "lead": "c_b4f66d9ec7893cb0",
+   "candidates": [
+    {
+     "plan": "c_b4f66d9ec7893cb0",
+     "title": "Marienfels, Grundriss des Kastells, ORL 05a, 1903 (de.wikipedia)",
+     "url": "media/commons/marienfels-q1359182/b4f66d9ec7893cb0.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Marienfels",
+      "place_qid": "Q1359182",
+      "place_label": "Marienfels",
+      "place_lon": 7.81076,
+      "place_lat": 50.2403,
+      "site_lon": 7.81076,
+      "site_lat": 50.2403,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.3956,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "marietta",
@@ -10611,6 +11822,39 @@
    }
   },
   {
+   "site": "maubeuge-q138648",
+   "name": "Maubeuge",
+   "lead": "c_c3a9cd0c691d4fd5",
+   "candidates": [
+    {
+     "plan": "c_c3a9cd0c691d4fd5",
+     "title": "Maubeuge, town plan by Jacob van Deventer",
+     "url": "media/commons/maubeuge-q138648/c3a9cd0c691d4fd5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Maubeuge",
+      "file_cat": "Map of Maubeuge by Jacob van Deventer",
+      "via": [
+       "Maps of Maubeuge city walls",
+       "City walls of Maubeuge",
+       "Maubeuge"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "maumbury-rings-q1702090",
    "name": "Maumbury Rings",
    "lead": "earthworkenglan01allcgoog_n0608_1",
@@ -10672,6 +11916,39 @@
    "no_picture_found": null
   },
   {
+   "site": "mechelen-q162022",
+   "name": "Mechelen",
+   "lead": "c_2855bae8824664c9",
+   "candidates": [
+    {
+     "plan": "c_2855bae8824664c9",
+     "title": "Mechelen, town plan by Jacob van Deventer",
+     "url": "media/commons/mechelen-q162022/2855bae8824664c9.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Mechelen",
+      "file_cat": "Map of Mechelen by Jacob van Deventer",
+      "via": [
+       "Old maps of Mechelen",
+       "History of Mechelen",
+       "Mechelen"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "miamisburg-mound-q34827561",
    "name": "Miamisburg Mound",
    "lead": null,
@@ -10700,6 +11977,39 @@
     "searched": "wikidata Q6895734; Commons category 'Mold Castle' (56 files); P180 depictions of Q6895734: 0 of 56 file(s) checked; title searches: \"\"Mold Castle\" plan\", \"\"Mold Castle\" map OR survey\", \"\"Mold Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.922952+00:00"
    }
+  },
+  {
+   "site": "mons-q83407",
+   "name": "Mons",
+   "lead": "c_e5b141a1578a1c82",
+   "candidates": [
+    {
+     "plan": "c_e5b141a1578a1c82",
+     "title": "Mons, town plan by Jacob van Deventer",
+     "url": "media/commons/mons-q83407/e5b141a1578a1c82.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Mons (Hainaut)",
+      "file_cat": "Map of Mons by Jacob van Deventer",
+      "via": [
+       "Maps of Mons city walls (Hainaut)",
+       "City walls of Mons (Hainaut)",
+       "Mons (Hainaut)"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "montlaures-q3322814",
@@ -11343,6 +12653,40 @@
    }
   },
   {
+   "site": "murrhardt-q1735397",
+   "name": "Murrhardt",
+   "lead": "c_d3b23f9ee8151e66",
+   "candidates": [
+    {
+     "plan": "c_d3b23f9ee8151e66",
+     "title": "Murrhardt, Grundriss und Details, ORL 44, 1894 (de.wikipedia)",
+     "url": "media/commons/murrhardt-q1735397/d3b23f9ee8151e66.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Murrhardt",
+      "place_qid": "Q1735397",
+      "place_label": "Murrhardt",
+      "place_lon": 9.5823,
+      "place_lat": 48.97696,
+      "site_lon": 9.5823,
+      "site_lat": 48.97696,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4012,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "nacoochee-mound-q4312576",
    "name": "Nacoochee Mound",
    "lead": null,
@@ -11371,6 +12715,108 @@
     "searched": "wikidata Q17667745; no Commons category; P180 depictions of Q17667745: 0 of 2 file(s) checked; title searches: \"\"Navio Roman fort\" plan\", \"\"Navio Roman fort\" map OR survey\", \"\"Navio Roman fort\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:31.399994+00:00"
    }
+  },
+  {
+   "site": "neckarburken-west-q1343017",
+   "name": "Neckarburken-West",
+   "lead": "c_6997f6236a9a3327",
+   "candidates": [
+    {
+     "plan": "c_6997f6236a9a3327",
+     "title": "Neckarburken-West, Grundriss des Westkastells, ORL 53, 1898 (de.wikipedia)",
+     "url": "media/commons/neckarburken-west-q1343017/6997f6236a9a3327.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Neckarburken",
+      "place_qid": "Q1343017",
+      "place_label": "Neckarburken-West",
+      "place_lon": 9.170278,
+      "place_lat": 49.376667,
+      "site_lon": 9.170278,
+      "site_lat": 49.376667,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5596,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "niederberg-q1670400",
+   "name": "Niederberg",
+   "lead": "c_ac5b8c2c7d8bb083",
+   "candidates": [
+    {
+     "plan": "c_ac5b8c2c7d8bb083",
+     "title": "Niederberg, Grundriss der Principia, ORL 02a, 1900 (de.wikipedia)",
+     "url": "media/commons/niederberg-q1670400/ac5b8c2c7d8bb083.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Niederberg",
+      "place_qid": "Q1670400",
+      "place_label": "Niederberg",
+      "place_lon": 7.62734,
+      "place_lat": 50.3689,
+      "site_lon": 7.62734,
+      "site_lat": 50.3689,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.7843,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "niedernberg-q1735399",
+   "name": "Niedernberg",
+   "lead": "c_af5bf4f794e52da5",
+   "candidates": [
+    {
+     "plan": "c_af5bf4f794e52da5",
+     "title": "Niedernberg, Grundriss, ORL 34, 1896 (de.wikipedia)",
+     "url": "media/commons/niedernberg-q1735399/af5bf4f794e52da5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Niedernberg",
+      "place_qid": "Q1735399",
+      "place_label": "Niedernberg",
+      "place_lon": 9.14105,
+      "place_lat": 49.9141,
+      "site_lon": 9.14105,
+      "site_lat": 49.9141,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1508,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "norham-castle-q388705",
@@ -11718,6 +13164,40 @@
    "no_picture_found": null
   },
   {
+   "site": "oberscheidental-q1735404",
+   "name": "Oberscheidental",
+   "lead": "c_adaaf1b044a026f8",
+   "candidates": [
+    {
+     "plan": "c_adaaf1b044a026f8",
+     "title": "Oberscheidental, Grundriss und Schnitte, ORL 52, 1897 (de.wikipedia)",
+     "url": "media/commons/oberscheidental-q1735404/adaaf1b044a026f8.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Oberscheidental",
+      "place_qid": "Q1735404",
+      "place_label": "Oberscheidental",
+      "place_lon": 9.15278,
+      "place_lat": 49.5064,
+      "site_lon": 9.15278,
+      "site_lat": 49.5064,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5128,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "ocmulgee-mounds-national-historical-park-q1517500",
    "name": "Ocmulgee Mounds National Historical Park",
    "lead": null,
@@ -11841,194 +13321,6 @@
    "no_picture_found": null
   },
   {
-   "site": "old-sarum-q782719",
-   "name": "Old Sarum",
-   "lead": "c_b2701b5231da42f2",
-   "candidates": [
-    {
-     "plan": "c_b2701b5231da42f2",
-     "title": "Plan of Old Sarum",
-     "url": "media/commons/old-sarum-q782719/b2701b5231da42f2.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Old Sarum",
-      "file_cat": "Old Sarum in art",
-      "via": [
-       "Old Sarum"
-      ]
-     },
-     "pairs": [
-      [
-       390.0,
-       210.0,
-       -1.7982784,
-       51.0944963
-      ],
-      [
-       70.0,
-       180.0,
-       -1.8130107,
-       51.0949454
-      ],
-      [
-       180.0,
-       130.0,
-       -1.8061452,
-       51.0953048
-      ],
-      [
-       220.0,
-       200.0,
-       -1.80543,
-       51.094676
-      ]
-     ],
-     "coarse": true,
-     "ground": "relief",
-     "scale_m_px": 3.2,
-     "rot_deg": 0.0,
-     "scale_source": "picture_size",
-     "note": "commons row: no stage-B fields: coarse anchor",
-     "why": "median residual 59.717511454442274 m > 45.0 m",
-     "gate_score": 59.7
-    },
-    {
-     "plan": "c_ff62c9585a92b375",
-     "title": "Plan & Elevations of Old Sarum - DPLA - 60c302909f6eb4cd381618b14c48481e",
-     "url": "media/commons/old-sarum-q782719/ff62c9585a92b375.jpg",
-     "pairs": [
-      [
-       400.0,
-       1400.0,
-       -1.8047148,
-       51.0933285
-      ],
-      [
-       500.0,
-       1400.0,
-       -1.8018542,
-       51.0933285
-      ],
-      [
-       300.0,
-       1400.0,
-       -1.8075755,
-       51.0933285
-      ],
-      [
-       500.0,
-       1400.0,
-       -1.8018542,
-       51.0933285
-      ],
-      [
-       400.0,
-       1300.0,
-       -1.8047148,
-       51.0951251
-      ],
-      [
-       400.0,
-       1500.0,
-       -1.8047148,
-       51.0915318
-      ]
-     ],
-     "coarse": false,
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "caption_coords",
-      "checked": "2026-10-10",
-      "named_place": "Old Sarum",
-      "place_qid": "Q60576019",
-      "place_label": "Old Sarum",
-      "place_lon": -1.804722222,
-      "place_lat": 51.093333333,
-      "site_lon": -1.804722,
-      "site_lat": 51.093333,
-      "dist_m": 0.0
-     },
-     "label": "1806",
-     "cite": "by Camden, William, 1551-1623; Basire, James, 1769-1822; Public domain; https://commons.wikimedia.org/wiki/File:Plan_%26_Elevations_of_Old_Sarum_-_DPLA_-_60c302909f6eb4cd381618b14c48481e.jpg",
-     "ref": "File:Plan & Elevations of Old Sarum - DPLA - 60c302909f6eb4cd381618b14c48481e.jpg",
-     "size": [
-      1280,
-      1858
-     ],
-     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 2.00 m/px, +0.0 deg). The 6 anchors are a perfect 100-px grid ladder (5 distinct points: u 300/400/500 at v 1400, u 400 at v 1300/1500), so the fit carries no placement information at all and the site point inverse-maps to plate px (399.7, 1399.7) = blank paper WEST of the drawn plan. The drawn plan (Basire's schematic, a ring ~780 m across) is centred at plate (620,1490) = 440 m E / 180 m S of the site point, so it renders over the flat farmland SE of the hill ('Old Sarum Farm' / 'Castle Villa' on the 1842 six-inch); the drawn ring misses the real 400-550 m oval (the central moated 'Castle' r~85 m on the site point, the outer bank 175-275 m). Wrong place, right kind of picture (the bury-castle class). Document deleted.",
-     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 0.0
-    },
-    {
-     "plan": "c_041083ec68b532f8",
-     "title": "Ancient Plan of Old Sarum",
-     "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
-     "pairs": [
-      [
-       300.0,
-       200.0,
-       -1.80543,
-       51.0955742
-      ],
-      [
-       450.0,
-       400.0,
-       -1.8018542,
-       51.0933285
-      ],
-      [
-       300.0,
-       600.0,
-       -1.80543,
-       51.0910827
-      ],
-      [
-       100.0,
-       400.0,
-       -1.8090058,
-       51.0933285
-      ],
-      [
-       200.0,
-       300.0,
-       -1.8068603,
-       51.0942268
-      ],
-      [
-       300.0,
-       400.0,
-       -1.80543,
-       51.0933285
-      ]
-     ],
-     "coarse": false,
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Old Sarum",
-      "file_cat": "Old Sarum in art",
-      "via": [
-       "Old Sarum"
-      ]
-     },
-     "label": "1901",
-     "cite": "by P.H. Ditchfield; Public domain; https://commons.wikimedia.org/wiki/File:Ancient_Plan_of_Old_Sarum.png",
-     "ref": "File:Ancient Plan of Old Sarum.png",
-     "size": [
-      686,
-      892
-     ],
-     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 9.0-40.2 m, 1.29 m/px, +0.2 deg). The 6 anchors are a rough ~350x400-px ladder with ~14% anisotropy, so the residuals measure the ladder's own inconsistency, not a placement miss. The drawn complex (the 'Ichnography' bird's-eye of the concentric ring-castle) is centred ~on the site point (the drawn inner 'Castle Well' circle at 18 E / 31 S, radius ~115 m vs the real moated 'Castle' r~85 m on the site point) but the drawn works are consistently OVERSIZE: the drawn outer ring reaches ~150-175 m on the NW (sitting on the real NW arc) but ~450-480 m on the S/SE (the real S outer edge is 250-275 m), and the drawn S 'Leaving Street' runs ~150 m past the real hill edge out over the flat 'Old Sarum Farm' ground. Goodrich class: centre ~right, drawn works bigger than the real complex, walls past the fields. Document deleted.",
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 19.1 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 19.1
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "oldorp-q931301",
    "name": "Oldorp",
    "lead": null,
@@ -12079,6 +13371,125 @@
    }
   },
   {
+   "site": "ostend-q12996",
+   "name": "Ostend",
+   "lead": "c_6af6f1481c92a973",
+   "candidates": [
+    {
+     "plan": "c_6af6f1481c92a973",
+     "title": "Ostend, town plan by Jacob van Deventer",
+     "url": "media/commons/ostend-q12996/6af6f1481c92a973.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Ostend",
+      "file_cat": "Map of Ostend by Jacob van Deventer",
+      "via": [
+       "Old maps of Ostend",
+       "Maps of Ostend",
+       "Ostend"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5936,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "osterburken-q1243550",
+   "name": "Osterburken",
+   "lead": "c_6ec219c06edc025d",
+   "candidates": [
+    {
+     "plan": "c_6ec219c06edc025d",
+     "title": "Osterburken, Grundriss, ORL 40, 1895 (de.wikipedia)",
+     "url": "media/commons/osterburken-q1243550/6ec219c06edc025d.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Osterburken",
+      "place_qid": "Q1243550",
+      "place_label": "Osterburken",
+      "place_lon": 9.42364,
+      "place_lat": 49.42753,
+      "site_lon": 9.42364,
+      "site_lat": 49.42753,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4616,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_5ae746d6388ac3b9",
+     "title": "Osterburken, Situationskarte, Tafel III (1:5000), ORL 40, 1895 (Internet Archive)",
+     "url": "media/commons/osterburken-q1243550/5ae746d6388ac3b9.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Osterburken",
+      "place_qid": "Q1243550",
+      "place_label": "Osterburken",
+      "place_lon": 9.42364,
+      "place_lat": 49.42753,
+      "site_lon": 9.42364,
+      "site_lat": 49.42753,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.2126,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_09a29884648c5f5a",
+     "title": "Osterburken, Grundriss, Tafel IV (1:1000), ORL 40, 1895 (Internet Archive)",
+     "url": "media/commons/osterburken-q1243550/09a29884648c5f5a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Osterburken",
+      "place_qid": "Q1243550",
+      "place_label": "Osterburken",
+      "place_lon": 9.42364,
+      "place_lat": 49.42753,
+      "site_lon": 9.42364,
+      "site_lat": 49.42753,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.2126,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "oswestry-castle-q20713795",
    "name": "Oswestry Castle",
    "lead": "earthworkenglan01allcgoog_n0119_1",
@@ -12120,6 +13531,39 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 100 200 300 Feet'",
      "why": "features: North-eastern rampart corner, Eastern gate gap, South-eastern rampart corner, South-western rampart corner, North-western rampart corner, Central mound tip; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "oudenaarde-q12992",
+   "name": "Oudenaarde",
+   "lead": "c_07ead0a02185e2e9",
+   "candidates": [
+    {
+     "plan": "c_07ead0a02185e2e9",
+     "title": "Oudenaarde, town plan by Jacob van Deventer",
+     "url": "media/commons/oudenaarde-q12992/07ead0a02185e2e9.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Oudenaarde",
+      "file_cat": "Maps of Oudenaarde by Jacob van Deventer",
+      "via": [
+       "Old maps of Oudenaarde",
+       "Maps of Oudenaarde",
+       "Oudenaarde"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -13254,138 +14698,6 @@
    }
   },
   {
-   "site": "portus-adurni-q762664",
-   "name": "Portus Adurni",
-   "lead": "c_42bedb90fffce1d4",
-   "candidates": [
-    {
-     "plan": "c_42bedb90fffce1d4",
-     "title": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
-     "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
-     "pairs": [
-      [
-       100.0,
-       1000.0,
-       -1.1249502,
-       50.8362988
-      ],
-      [
-       100.0,
-       100.0,
-       -1.1249502,
-       50.8443833
-      ],
-      [
-       1000.0,
-       1000.0,
-       -1.1121479,
-       50.8362988
-      ],
-      [
-       850.0,
-       800.0,
-       -1.1142816,
-       50.8380955
-      ],
-      [
-       200.0,
-       200.0,
-       -1.1235278,
-       50.8434851
-      ],
-      [
-       1000.0,
-       500.0,
-       -1.1121479,
-       50.8407904
-      ]
-     ],
-     "coarse": false,
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Portus Adurni",
-      "file_cat": "Portus Adurni",
-      "via": []
-     },
-     "label": "1836",
-     "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
-     "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
-     "size": [
-      1280,
-      1292
-     ],
-     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 0.0
-    },
-    {
-     "plan": "c_4912bb54aa79f3ea",
-     "title": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
-     "url": "media/commons/portus-adurni-q762664/4912bb54aa79f3ea.jpg",
-     "pairs": [
-      [
-       100.0,
-       100.0,
-       -1.1249502,
-       50.8443833
-      ],
-      [
-       100.0,
-       1000.0,
-       -1.1249502,
-       50.8362988
-      ],
-      [
-       1000.0,
-       1000.0,
-       -1.1121479,
-       50.8362988
-      ],
-      [
-       800.0,
-       800.0,
-       -1.1149929,
-       50.8380955
-      ],
-      [
-       1000.0,
-       500.0,
-       -1.1121479,
-       50.8407904
-      ],
-      [
-       100.0,
-       500.0,
-       -1.1249502,
-       50.8407904
-      ]
-     ],
-     "coarse": false,
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Portus Adurni",
-      "file_cat": "Portus Adurni",
-      "via": []
-     },
-     "label": "1836",
-     "cite": "by Editor of the Penny cyclopaedia V6.; Public domain; https://commons.wikimedia.org/wiki/File:Burg_von_Portchester_(GB)_Plan_von_1836_aus_der_Penny_Cyclopaedia,_Seite_354.jpg",
-     "ref": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
-     "size": [
-      1280,
-      1292
-     ],
-     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The German-titled twin of the deleted c_42bedb90fffce1d4: same source (Penny Cyclopaedia 1836 v6 p 354), same 1280x1292 plate and drawn geometry - the drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "gate_score": 0.0
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "poverty-point-q964745",
    "name": "Poverty Point",
    "lead": "annualreportofbu1218901891smit_n0138_1",
@@ -13524,6 +14836,73 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Raedykes Roman camp\" plan\", \"\"Raedykes Roman camp\" map OR survey\", \"\"Raedykes Roman camp\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:32.205951+00:00"
    }
+  },
+  {
+   "site": "reimerswaal-q2590944",
+   "name": "Reimerswaal",
+   "lead": "c_5e7a601debf4e2f3",
+   "candidates": [
+    {
+     "plan": "c_5e7a601debf4e2f3",
+     "title": "Reimerswaal, town plan by Jacob van Deventer",
+     "url": "media/commons/reimerswaal-q2590944/5e7a601debf4e2f3.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Reimerswaal",
+      "file_cat": "Map of Reimerswaal by Jacob van Deventer",
+      "via": [
+       "Old maps of Reimerswaal",
+       "History of Reimerswaal",
+       "Reimerswaal"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "rendelkastell-ohringen-q91949042",
+   "name": "Rendelkastell \u00d6hringen",
+   "lead": "c_0161b90ba2200eb1",
+   "candidates": [
+    {
+     "plan": "c_0161b90ba2200eb1",
+     "title": "Rendelkastell \u00d6hringen, Grundriss und Grabenschnitte des Rendelkastells, ORL 42o, 1897 (de.wikipedia)",
+     "url": "media/commons/rendelkastell-ohringen-q91949042/0161b90ba2200eb1.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "\u00d6hringen",
+      "place_qid": "Q91949042",
+      "place_label": "Rendelkastell \u00d6hringen",
+      "place_lon": 9.51336944444444,
+      "place_lat": 49.1995138888889,
+      "site_lon": 9.51336944444444,
+      "site_lat": 49.1995138888889,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.5696,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "richard-s-castle-q17650937",
@@ -13822,6 +15201,40 @@
    }
   },
   {
+   "site": "rotterdam-q34370",
+   "name": "Rotterdam",
+   "lead": "c_bb70d8aaeb0dc7aa",
+   "candidates": [
+    {
+     "plan": "c_bb70d8aaeb0dc7aa",
+     "title": "Rotterdam, town plan by Jacob van Deventer",
+     "url": "media/commons/rotterdam-q34370/bb70d8aaeb0dc7aa.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Rotterdam",
+      "file_cat": "Maps of Rotterdam by Jacob van Deventer",
+      "via": [
+       "16th-century maps of Rotterdam",
+       "Old maps of Rotterdam",
+       "History of Rotterdam",
+       "Rotterdam"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "rough-castle-fort",
    "name": "Rough Castle Roman fort (Antonine Wall)",
    "lead": null,
@@ -13840,6 +15253,39 @@
     "searched": "wikidata Q7398614; no Commons category; P180 depictions of Q7398614: 0 of 1 file(s) checked; title searches: \"\"Safety Harbor Site\" plan\", \"\"Safety Harbor Site\" map OR survey\", \"\"Safety Harbor Site\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:32.389860+00:00"
    }
+  },
+  {
+   "site": "saint-ghislain-q668950",
+   "name": "Saint-Ghislain",
+   "lead": "c_0f4c29775d0296d7",
+   "candidates": [
+    {
+     "plan": "c_0f4c29775d0296d7",
+     "title": "Saint-Ghislain, town plan by Jacob van Deventer",
+     "url": "media/commons/saint-ghislain-q668950/0f4c29775d0296d7.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Saint-Ghislain",
+      "file_cat": "Map of Saint-Ghislain by Jacob van Deventer",
+      "via": [
+       "Old maps of Saint-Ghislain",
+       "Maps of Saint-Ghislain",
+       "Saint-Ghislain"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "sandal-castle-q1760652",
@@ -13870,6 +15316,40 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Santok stronghold\" plan\", \"\"Santok stronghold\" map OR survey\", \"\"Santok stronghold\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:32.530909+00:00"
    }
+  },
+  {
+   "site": "schlossau-q1735418",
+   "name": "Schlossau",
+   "lead": "c_a74bb634290e582e",
+   "candidates": [
+    {
+     "plan": "c_a74bb634290e582e",
+     "title": "Schlossau, Grundriss, ORL 51, 1900 (de.wikipedia)",
+     "url": "media/commons/schlossau-q1735418/a74bb634290e582e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Schlo\u00dfau",
+      "place_qid": "Q1735418",
+      "place_label": "Schlossau",
+      "place_lon": 9.14944,
+      "place_lat": 49.5406,
+      "site_lon": 9.14944,
+      "site_lat": 49.5406,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.0403,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "scotney-castle-q17530343",
@@ -13913,6 +15393,40 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "features: River crossing / bridge, Old entrance gap, South-east wall corner, South-west wall corner, North-west wall corner, Mote tip; stated scale 0.363 disagrees with its own points (1.039 m/px): not trusted"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "seckmauern-q1735419",
+   "name": "Seckmauern",
+   "lead": "c_ffa436ce26a70357",
+   "candidates": [
+    {
+     "plan": "c_ffa436ce26a70357",
+     "title": "Seckmauern, Grundriss, ORL 46b, 1914 (de.wikipedia)",
+     "url": "media/commons/seckmauern-q1735419/ffa436ce26a70357.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Seckmauern",
+      "place_qid": "Q1735419",
+      "place_label": "Seckmauern",
+      "place_lon": 9.11736111,
+      "place_lat": 49.79902778,
+      "site_lon": 9.11736111,
+      "site_lat": 49.79902778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.9932,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -15009,6 +16523,107 @@
    }
   },
   {
+   "site": "sluis-q10080",
+   "name": "Sluis",
+   "lead": "c_6b2bc5d7e27b7a64",
+   "candidates": [
+    {
+     "plan": "c_6b2bc5d7e27b7a64",
+     "title": "Sluis, town plan by Jacob van Deventer",
+     "url": "media/commons/sluis-q10080/6b2bc5d7e27b7a64.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Sluis",
+      "file_cat": "Map of Sluis by Jacob van Deventer",
+      "via": [
+       "Old maps of Sluis",
+       "History of Sluis",
+       "Sluis"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "soignies-q462985",
+   "name": "Soignies",
+   "lead": "c_1d2c06e6924ff4a6",
+   "candidates": [
+    {
+     "plan": "c_1d2c06e6924ff4a6",
+     "title": "Soignies, town plan by Jacob van Deventer",
+     "url": "media/commons/soignies-q462985/1d2c06e6924ff4a6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Soignies",
+      "file_cat": "Map of Soignies by Jacob van Deventer",
+      "via": [
+       "Old maps of Soignies",
+       "Maps of Soignies",
+       "Geography of Soignies",
+       "Soignies"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.0858,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "somerset-house-q1344889",
+   "name": "Somerset House",
+   "lead": "c_6529e84a3e7f57d5",
+   "candidates": [
+    {
+     "plan": "c_6529e84a3e7f57d5",
+     "title": "Somerset House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/somerset-house-q1344889/6529e84a3e7f57d5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Somerset House",
+      "place_qid": "Q1344889",
+      "place_label": "Somerset House",
+      "place_lon": -0.117778,
+      "place_lat": 51.511111,
+      "site_lon": -0.117778,
+      "site_lat": 51.511111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "spiro-mounds-q2044290",
    "name": "Spiro Mounds",
    "lead": null,
@@ -15017,6 +16632,66 @@
     "searched": "wikidata Q2044290; Commons category 'Spiro Site' (38 files); P180 depictions of Q2044290: 0 of 38 file(s) checked; title searches: \"\"Spiro Mounds\" plan\", \"\"Spiro Mounds\" map OR survey\", \"\"Spiro Mounds\" engraving OR drawing OR view OR prospect -\"style of\"\" (18 hits); 2026-10-13",
     "at": "2026-10-13T09:21:32.970572+00:00"
    }
+  },
+  {
+   "site": "st-james-palace-q272162",
+   "name": "St James's Palace",
+   "lead": "c_242c66ba94fce523",
+   "candidates": [
+    {
+     "plan": "c_242c66ba94fce523",
+     "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/st-james-palace-q272162/242c66ba94fce523.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "St James",
+      "place_qid": "Q272162",
+      "place_label": "St James's Palace",
+      "place_lon": -0.137778,
+      "place_lat": 51.504722,
+      "site_lon": -0.137778,
+      "site_lat": 51.504722,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_12be67d29c3019d6",
+     "title": "St James's Palace, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/st-james-palace-q272162/12be67d29c3019d6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "St James",
+      "place_qid": "Q272162",
+      "place_label": "St James's Palace",
+      "place_lon": -0.137778,
+      "place_lat": 51.504722,
+      "site_lon": -0.137778,
+      "site_lat": 51.504722,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "stanton-drew-stone-circles-q1516300",
@@ -15089,6 +16764,40 @@
    "no_picture_found": null
   },
   {
+   "site": "stanway-house-q7600303",
+   "name": "Stanway House",
+   "lead": "c_0db2f4e9845fbe48",
+   "candidates": [
+    {
+     "plan": "c_0db2f4e9845fbe48",
+     "title": "Stanway House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/stanway-house-q7600303/0db2f4e9845fbe48.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Stanway",
+      "place_qid": "Q7600303",
+      "place_label": "Stanway House",
+      "place_lon": -1.9122,
+      "place_lat": 51.9899,
+      "site_lon": -1.9122,
+      "site_lat": 51.9899,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "stanwick-camp-q15242545",
    "name": "Stanwick Camp",
    "lead": null,
@@ -15097,6 +16806,178 @@
     "searched": "wikidata Q15242545; Commons category 'Stanwick Iron Age Fortifications' (17 files); P180 depictions of Q15242545: 0 of 17 file(s) checked; title searches: \"\"Stanwick Camp\" plan\", \"\"Stanwick Camp\" map OR survey\", \"\"Stanwick Camp\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
     "at": "2026-10-13T09:21:33.019521+00:00"
    }
+  },
+  {
+   "site": "stockstadt-q1735421",
+   "name": "Stockstadt",
+   "lead": "c_8d673fbcea31dfb5",
+   "candidates": [
+    {
+     "plan": "c_8d673fbcea31dfb5",
+     "title": "Stockstadt, Schnitt und Grundriss der Porta P. D., ORL 33, 1914 (de.wikipedia)",
+     "url": "media/commons/stockstadt-q1735421/8d673fbcea31dfb5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stockstadt",
+      "place_qid": "Q1735421",
+      "place_label": "Stockstadt",
+      "place_lon": 9.06737,
+      "place_lat": 49.9774,
+      "site_lon": 9.06737,
+      "site_lat": 49.9774,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.2794,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_ad22f9fc1a370b7b",
+     "title": "Stockstadt, fort layout, ORL 33, 1914 (Commons)",
+     "url": "media/commons/stockstadt-q1735421/ad22f9fc1a370b7b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stockstadt",
+      "place_qid": "Q1735421",
+      "place_label": "Stockstadt",
+      "place_lon": 9.06737,
+      "place_lat": 49.9774,
+      "site_lon": 9.06737,
+      "site_lat": 49.9774,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1412,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_fc733bc5db176d02",
+     "title": "Stockstadt, porta praetoria layout, ORL 33, 1914 (Commons)",
+     "url": "media/commons/stockstadt-q1735421/fc733bc5db176d02.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stockstadt",
+      "place_qid": "Q1735421",
+      "place_label": "Stockstadt",
+      "place_lon": 9.06737,
+      "place_lat": 49.9774,
+      "site_lon": 9.06737,
+      "site_lat": 49.9774,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.2347,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_db565710d4412a69",
+     "title": "Stockstadt, baths layout, ORL 33, 1914 (Commons)",
+     "url": "media/commons/stockstadt-q1735421/db565710d4412a69.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stockstadt",
+      "place_qid": "Q1735421",
+      "place_label": "Stockstadt",
+      "place_lon": 9.06737,
+      "place_lat": 49.9774,
+      "site_lon": 9.06737,
+      "site_lat": 49.9774,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.127,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_63db459cae1f88f2",
+     "title": "Stockstadt, Mithraeum and Dolichenum plan, ORL 33, 1914 (Commons)",
+     "url": "media/commons/stockstadt-q1735421/63db459cae1f88f2.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Stockstadt",
+      "place_qid": "Q1735421",
+      "place_label": "Stockstadt",
+      "place_lon": 9.06737,
+      "place_lat": 49.9774,
+      "site_lon": 9.06737,
+      "site_lat": 49.9774,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1065,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "stoke-house",
+   "name": "Stoke House",
+   "lead": "c_b8084bbec8b80e7c",
+   "candidates": [
+    {
+     "plan": "c_b8084bbec8b80e7c",
+     "title": "Stoke House, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/stoke-house/b8084bbec8b80e7c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Stoke Bishop",
+      "place_qid": null,
+      "place_label": "Stoke House",
+      "place_lon": -2.6294812,
+      "place_lat": 51.4767404,
+      "site_lon": -2.6294812,
+      "site_lat": 51.4767404,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "stokesay-castle-q7618555",
@@ -15906,6 +17787,40 @@
    }
   },
   {
+   "site": "sulz-q1735424",
+   "name": "Sulz",
+   "lead": "c_a304d1ee2d002394",
+   "candidates": [
+    {
+     "plan": "c_a304d1ee2d002394",
+     "title": "Sulz, Lageplan, ORL 61a, 1897 (de.wikipedia)",
+     "url": "media/commons/sulz-q1735424/a304d1ee2d002394.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Sulz",
+      "place_qid": "Q1735424",
+      "place_label": "Sulz",
+      "place_lon": 8.63667,
+      "place_lat": 48.3597,
+      "site_lon": 8.63667,
+      "site_lat": 48.3597,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4547,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "sutton-hoo-q503256",
    "name": "Sutton Hoo",
    "lead": null,
@@ -15992,6 +17907,40 @@
    }
   },
   {
+   "site": "temple-newsam-q2748017",
+   "name": "Temple Newsam",
+   "lead": "c_4156b1bf72bcb72b",
+   "candidates": [
+    {
+     "plan": "c_4156b1bf72bcb72b",
+     "title": "Temple Newsam, bird's-eye view engraved by Johannes Kip",
+     "url": "media/commons/temple-newsam-q2748017/4156b1bf72bcb72b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Temple Newsam",
+      "place_qid": "Q2748017",
+      "place_label": "Temple Newsam",
+      "place_lon": -1.4595,
+      "place_lat": 53.7842,
+      "site_lon": -1.4595,
+      "site_lat": 53.7842,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.25,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "terpensmole-q4687217",
    "name": "Terpensmole",
    "lead": null,
@@ -16012,6 +17961,73 @@
    }
   },
   {
+   "site": "the-hague-q36600",
+   "name": "The Hague",
+   "lead": "c_e113eaddba42f5da",
+   "candidates": [
+    {
+     "plan": "c_e113eaddba42f5da",
+     "title": "The Hague, town plan by Jacob van Deventer",
+     "url": "media/commons/the-hague-q36600/e113eaddba42f5da.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "The Hague",
+      "file_cat": "Map of The Hague by Jacob van Deventer",
+      "via": [
+       "Old maps of The Hague",
+       "History of The Hague",
+       "The Hague"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.4652,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "theilenhofen-q1214616",
+   "name": "Theilenhofen",
+   "lead": "c_71362c4703856e49",
+   "candidates": [
+    {
+     "plan": "c_71362c4703856e49",
+     "title": "Theilenhofen, Grundriss, ORL 71a, 1905 (de.wikipedia)",
+     "url": "media/commons/theilenhofen-q1214616/71362c4703856e49.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Theilenhofen",
+      "place_qid": "Q1214616",
+      "place_label": "Theilenhofen",
+      "place_lon": 10.84716,
+      "place_lat": 49.08952,
+      "site_lon": 10.84716,
+      "site_lat": 49.08952,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1558,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "thurnham-castle-q7799359",
    "name": "Thurnham Castle",
    "lead": null,
@@ -16020,6 +18036,39 @@
     "searched": "wikidata Q7799359; Commons category 'Thurnham Castle' (31 files); P180 depictions of Q7799359: 0 of 31 file(s) checked; title searches: \"\"Thurnham Castle\" plan\", \"\"Thurnham Castle\" map OR survey\", \"\"Thurnham Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
     "at": "2026-10-13T09:21:33.420717+00:00"
    }
+  },
+  {
+   "site": "therouanne-q261399",
+   "name": "Th\u00e9rouanne",
+   "lead": "c_caea879d0ab526f1",
+   "candidates": [
+    {
+     "plan": "c_caea879d0ab526f1",
+     "title": "Th\u00e9rouanne, town plan by Jacob van Deventer",
+     "url": "media/commons/therouanne-q261399/caea879d0ab526f1.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Th\u00e9rouanne",
+      "file_cat": "Map of Th\u00e9rouanne by Jacob van Deventer",
+      "via": [
+       "Old maps of Th\u00e9rouanne",
+       "Maps of Th\u00e9rouanne",
+       "Th\u00e9rouanne"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 2.0284,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "tinboeth-castle-q7808013",
@@ -16100,6 +18149,39 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 100 200 300 Feet'",
      "why": "features: wall corner, wall corner, wall corner"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "tournai-q173219",
+   "name": "Tournai",
+   "lead": "c_8d705fd69f50dfcf",
+   "candidates": [
+    {
+     "plan": "c_8d705fd69f50dfcf",
+     "title": "Tournai, town plan by Jacob van Deventer",
+     "url": "media/commons/tournai-q173219/8d705fd69f50dfcf.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Tournai",
+      "file_cat": "Map of Tournai by Jacob van Deventer",
+      "via": [
+       "Old maps of Tournai",
+       "History of Tournai",
+       "Tournai"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
     }
    ],
    "no_picture_found": null
@@ -16968,6 +19050,74 @@
    }
   },
   {
+   "site": "unterbobingen-q1424499",
+   "name": "Unterb\u00f6bingen",
+   "lead": "c_cc472561175d13ba",
+   "candidates": [
+    {
+     "plan": "c_cc472561175d13ba",
+     "title": "Unterb\u00f6bingen, Grundriss und Gel\u00e4ndeprofile, ORL 65, 1894 (de.wikipedia)",
+     "url": "media/commons/unterbobingen-q1424499/cc472561175d13ba.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Unterb\u00f6bingen",
+      "place_qid": "Q1424499",
+      "place_label": "Unterb\u00f6bingen",
+      "place_lon": 9.9228301,
+      "place_lat": 48.8181017,
+      "site_lon": 9.9228301,
+      "site_lat": 48.8181017,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4499,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "urspring-q1735430",
+   "name": "Urspring",
+   "lead": "c_e9d4ade80eba80cd",
+   "candidates": [
+    {
+     "plan": "c_e9d4ade80eba80cd",
+     "title": "Urspring, Grundriss und Gel\u00e4ndeprofil, ORL 66a, 1904 (de.wikipedia)",
+     "url": "media/commons/urspring-q1735430/e9d4ade80eba80cd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Urspring",
+      "place_qid": "Q1735430",
+      "place_label": "Urspring",
+      "place_lon": 9.90069,
+      "place_lat": 48.55,
+      "site_lon": 9.90069,
+      "site_lat": 48.55,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.648,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "uxellodunum-q1290232",
    "name": "Uxellodunum",
    "lead": "c_bafa9634c5b30b62",
@@ -17099,6 +19249,40 @@
    "no_picture_found": null
   },
   {
+   "site": "valkenburg-q100076",
+   "name": "Valkenburg",
+   "lead": "c_deef87c2020d3cbc",
+   "candidates": [
+    {
+     "plan": "c_deef87c2020d3cbc",
+     "title": "Valkenburg, town plan by Jacob van Deventer",
+     "url": "media/commons/valkenburg-q100076/deef87c2020d3cbc.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Valkenburg",
+      "place_qid": "Q100076",
+      "place_label": "Valkenburg",
+      "place_lon": 5.83205,
+      "place_lat": 50.86523,
+      "site_lon": 5.83205,
+      "site_lat": 50.86523,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "velda-mound-q7918862",
    "name": "Velda Mound",
    "lead": null,
@@ -17117,6 +19301,40 @@
     "searched": "wikidata Q673209; no Commons category; P180 depictions of Q673209: 0 of 0 file(s) checked; title searches: \"\"Vellaunodunum\" plan\", \"\"Vellaunodunum\" map OR survey\", \"\"Vellaunodunum\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:33.937471+00:00"
    }
+  },
+  {
+   "site": "venice-q641",
+   "name": "Venice",
+   "lead": "c_1abba1f15dd49dcd",
+   "candidates": [
+    {
+     "plan": "c_1abba1f15dd49dcd",
+     "title": "Venice, bird's-eye view by Jacopo de' Barbari (1500)",
+     "url": "media/commons/venice-q641/1abba1f15dd49dcd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-11",
+      "named_place": "Venice",
+      "place_qid": "Q641",
+      "place_label": "Venice",
+      "place_lon": 12.331944,
+      "place_lat": 45.439722,
+      "site_lon": 12.331944,
+      "site_lat": 45.439722,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "venlo-q9777",
@@ -17174,6 +19392,38 @@
     "searched": "wikidata Q7922962; Commons category 'Vertillum' (6 files); P180 depictions of Q7922962: 0 of 6 file(s) checked; title searches: \"\"Vertillum\" plan\", \"\"Vertillum\" map OR survey\", \"\"Vertillum\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:33.990343+00:00"
    }
+  },
+  {
+   "site": "vieil-hesdin-q1022768",
+   "name": "Vieil-Hesdin",
+   "lead": "c_8e35559c8c12e1f5",
+   "candidates": [
+    {
+     "plan": "c_8e35559c8c12e1f5",
+     "title": "Vieil-Hesdin, town plan by Jacob van Deventer",
+     "url": "media/commons/vieil-hesdin-q1022768/8e35559c8c12e1f5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-11",
+      "site_cat": "Vieil-Hesdin",
+      "file_cat": "Map of Vieil-Hesdin by Jacob van Deventer",
+      "via": [
+       "City walls of Vieil-Hesdin",
+       "Vieil-Hesdin"
+      ]
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 2.3337,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "vindolanda",
@@ -17242,6 +19492,108 @@
    }
   },
   {
+   "site": "waldmossingen-q1735435",
+   "name": "Waldm\u00f6ssingen",
+   "lead": "c_be71bd1e79e65443",
+   "candidates": [
+    {
+     "plan": "c_be71bd1e79e65443",
+     "title": "Waldm\u00f6ssingen, Grundriss, ORL 61b, 1897 (de.wikipedia)",
+     "url": "media/commons/waldmossingen-q1735435/be71bd1e79e65443.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Waldm\u00f6ssingen",
+      "place_qid": "Q1735435",
+      "place_label": "Waldm\u00f6ssingen",
+      "place_lon": 8.49333,
+      "place_lat": 48.2739,
+      "site_lon": 8.49333,
+      "site_lat": 48.2739,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4251,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "walheim-q1669086",
+   "name": "Walheim",
+   "lead": "c_dbe2e383f9b78a60",
+   "candidates": [
+    {
+     "plan": "c_dbe2e383f9b78a60",
+     "title": "Walheim, Grundriss, ORL 57, 1897 (de.wikipedia)",
+     "url": "media/commons/walheim-q1669086/dbe2e383f9b78a60.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Walheim",
+      "place_qid": "Q1669086",
+      "place_label": "Walheim",
+      "place_lon": 9.15444,
+      "place_lat": 49.0107,
+      "site_lon": 9.15444,
+      "site_lat": 49.0107,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4926,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "walldurn-alteburg-q1735436",
+   "name": "Walld\u00fcrn (Alteburg)",
+   "lead": "c_1c23d6f7eb1f9696",
+   "candidates": [
+    {
+     "plan": "c_1c23d6f7eb1f9696",
+     "title": "Walld\u00fcrn (Alteburg), Grundriss, Profile und Details, ORL 39, 1904 (de.wikipedia)",
+     "url": "media/commons/walldurn-alteburg-q1735436/1c23d6f7eb1f9696.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Walld\u00fcrn",
+      "place_qid": "Q1735436",
+      "place_label": "Walld\u00fcrn (Alteburg)",
+      "place_lon": 9.38674,
+      "place_lat": 49.5785,
+      "site_lon": 9.38674,
+      "site_lat": 49.5785,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4486,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "warffum-q1942428",
    "name": "Warffum",
    "lead": null,
@@ -17280,6 +19632,108 @@
     "searched": "wikidata Q696088; Commons category 'Wat's Dyke' (14 files); P180 depictions of Q696088: 0 of 14 file(s) checked; title searches: \"\"Wat's Dyke\" plan\", \"\"Wat's Dyke\" map OR survey\", \"\"Wat's Dyke\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:34.380821+00:00"
    }
+  },
+  {
+   "site": "weienburg-q638525",
+   "name": "Wei\u00dfenburg",
+   "lead": "c_055e249af7277c0e",
+   "candidates": [
+    {
+     "plan": "c_055e249af7277c0e",
+     "title": "Wei\u00dfenburg, Grundriss, ORL 72, 1906 (de.wikipedia)",
+     "url": "media/commons/weienburg-q638525/055e249af7277c0e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Wei\u00dfenburg",
+      "place_qid": "Q638525",
+      "place_label": "Wei\u00dfenburg",
+      "place_lon": 10.9625,
+      "place_lat": 49.0308,
+      "site_lon": 10.9625,
+      "site_lat": 49.0308,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1584,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "welzheim-ost-q1735441",
+   "name": "Welzheim-Ost",
+   "lead": "c_1fc505a34bc515bd",
+   "candidates": [
+    {
+     "plan": "c_1fc505a34bc515bd",
+     "title": "Welzheim-Ost, Grundriss und Schnitte des Ostkastells, ORL 45a, 1904 (de.wikipedia)",
+     "url": "media/commons/welzheim-ost-q1735441/1fc505a34bc515bd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Welzheim",
+      "place_qid": "Q1735441",
+      "place_label": "Welzheim-Ost",
+      "place_lon": 9.64224,
+      "place_lat": 48.87122,
+      "site_lon": 9.64224,
+      "site_lat": 48.87122,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4426,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "welzheim-west-q32064057",
+   "name": "Welzheim-West",
+   "lead": "c_d0aa138a71d76f60",
+   "candidates": [
+    {
+     "plan": "c_d0aa138a71d76f60",
+     "title": "Welzheim-West, Grundriss des Westkastells, ORL 45, 1904 (de.wikipedia)",
+     "url": "media/commons/welzheim-west-q32064057/d0aa138a71d76f60.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Welzheim",
+      "place_qid": "Q32064057",
+      "place_label": "Welzheim-West",
+      "place_lon": 9.63234,
+      "place_lat": 48.87218,
+      "site_lon": 9.63234,
+      "site_lat": 48.87218,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4267,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "west-kennet-long-barrow-q541312",
@@ -17336,6 +19790,66 @@
     "searched": "wikidata Q1269580; Commons category 'Wickliffe site' (15 files); P180 depictions of Q1269580: 0 of 15 file(s) checked; title searches: \"\"Wickliffe Mounds\" plan\", \"\"Wickliffe Mounds\" map OR survey\", \"\"Wickliffe Mounds\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:34.489462+00:00"
    }
+  },
+  {
+   "site": "wiesbaden-q622981",
+   "name": "Wiesbaden",
+   "lead": "c_9e57c0405171716e",
+   "candidates": [
+    {
+     "plan": "c_9e57c0405171716e",
+     "title": "Wiesbaden, plan, Tafel 1, ORL 31, 1909 (Commons)",
+     "url": "media/commons/wiesbaden-q622981/9e57c0405171716e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Wiesbaden",
+      "place_qid": "Q622981",
+      "place_label": "Wiesbaden",
+      "place_lon": 8.241862,
+      "place_lat": 50.086375,
+      "site_lon": 8.241862,
+      "site_lat": 50.086375,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4866,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_67820b8f96789216",
+     "title": "Wiesbaden, plan, Tafel 2, ORL 31, 1909 (Commons)",
+     "url": "media/commons/wiesbaden-q622981/67820b8f96789216.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Wiesbaden",
+      "place_qid": "Q622981",
+      "place_label": "Wiesbaden",
+      "place_lon": 8.241862,
+      "place_lat": 50.086375,
+      "site_lon": 8.241862,
+      "site_lat": 50.086375,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.4884,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "windmill-hill-q4348373",
@@ -17481,6 +19995,40 @@
     "searched": "wikidata Q4470180; Commons category 'Winterville site' (17 files); P180 depictions of Q4470180: 0 of 17 file(s) checked; title searches: \"\"Winterville Site\" plan\", \"\"Winterville Site\" map OR survey\", \"\"Winterville Site\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
     "at": "2026-10-13T09:21:34.543757+00:00"
    }
+  },
+  {
+   "site": "wurzberg-q1445553",
+   "name": "W\u00fcrzberg",
+   "lead": "c_87c067b702dac888",
+   "candidates": [
+    {
+     "plan": "c_87c067b702dac888",
+     "title": "W\u00fcrzberg, Grundriss, ORL 49, 1896 (de.wikipedia)",
+     "url": "media/commons/wurzberg-q1445553/87c067b702dac888.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "W\u00fcrzberg",
+      "place_qid": "Q1445553",
+      "place_label": "W\u00fcrzberg",
+      "place_lon": 9.07527778,
+      "place_lat": 49.63416667,
+      "site_lon": 9.07527778,
+      "site_lat": 49.63416667,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.7269,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "yeavering-bell-camp-q17643662",
@@ -17838,6 +20386,40 @@
     "searched": "wikidata Q8065456; Commons category 'Ranger Station Mound' (5 files); P180 depictions of Q8065456: 0 of 6 file(s) checked; title searches: \"\"Zaleski Mound Group\" plan\", \"\"Zaleski Mound Group\" map OR survey\", \"\"Zaleski Mound Group\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:34.653299+00:00"
    }
+  },
+  {
+   "site": "zugmantel-q1727277",
+   "name": "Zugmantel",
+   "lead": "c_bd26602c930f647a",
+   "candidates": [
+    {
+     "plan": "c_bd26602c930f647a",
+     "title": "Zugmantel, Grundriss, ORL 08, 1909 (de.wikipedia)",
+     "url": "media/commons/zugmantel-q1727277/bd26602c930f647a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-12",
+      "named_place": "Zugmantel",
+      "place_qid": "Q1727277",
+      "place_label": "Zugmantel",
+      "place_lon": 8.20364,
+      "place_lat": 50.18977,
+      "site_lon": 8.20364,
+      "site_lat": 50.18977,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "aerial",
+     "scale_m_px": 0.1303,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   }
  ]
 }

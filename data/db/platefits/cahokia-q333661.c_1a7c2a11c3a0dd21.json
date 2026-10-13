@@ -1,0 +1,90 @@
+{
+ "site": "cahokia-q333661",
+ "plan": "c_1a7c2a11c3a0dd21",
+ "crop": [
+  0,
+  0,
+  1280,
+  935
+ ],
+ "pairs": [
+  [
+   602.7,
+   398.4,
+   -90.0621291,
+   38.659296
+  ],
+  [
+   325.7,
+   364.1,
+   -90.0728456,
+   38.6606095
+  ],
+  [
+   820.0,
+   388.0,
+   -90.0536764,
+   38.6593978
+  ],
+  [
+   697.8,
+   220.8,
+   -90.0582106,
+   38.6645872
+  ],
+  [
+   500.2,
+   547.2,
+   -90.0662987,
+   38.6548832
+  ],
+  [
+   477.8,
+   286.2,
+   -90.0668403,
+   38.6628204
+  ],
+  [
+   682.4,
+   522.5,
+   -90.0591906,
+   38.6554515
+  ],
+  [
+   391.7,
+   475.3,
+   -90.0704229,
+   38.657172
+  ]
+ ],
+ "label": null,
+ "title": "Manuscript map of St. Clair and Madison counties, Illinois, with survey of the Cahokia mounds. - DPLA - 7ba7aeec37bb36736b769dc4456361a4",
+ "cite": "by Patrick, John J.R., 1828-1895; Public domain; https://commons.wikimedia.org/wiki/File:Manuscript_map_of_St._Clair_and_Madison_counties,_Illinois,_with_survey_of_the_Cahokia_mounds._-_DPLA_-_7ba7aeec37bb36736b769dc4456361a4.jpg",
+ "at": "2026-10-13T12:49:31.531319+00:00",
+ "auto": true,
+ "score": 11.1,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/cahokia-q333661/1a7c2a11c3a0dd21.jpg",
+ "ref": "File:Manuscript map of St. Clair and Madison counties, Illinois, with survey of the Cahokia mounds. - DPLA - 7ba7aeec37bb36736b769dc4456361a4.jpg",
+ "size": [
+  1280,
+  935
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3450,
+  "matches": 5000,
+  "ground": "relief.jpg",
+  "window": 1.0,
+  "rot_deg": 1.86,
+  "spread": [
+   0.745,
+   70.4
+  ]
+ }
+}

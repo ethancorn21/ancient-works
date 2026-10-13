@@ -1,0 +1,33 @@
+{
+ "site": "badminton-house-q2628510",
+ "candidates": [
+  {
+   "plan": "c_f47f1d59b72456cd",
+   "title": "Badminton House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/badminton-house-q2628510/f47f1d59b72456cd.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Badminton",
+    "place_qid": "Q2628510",
+    "place_label": "Badminton House",
+    "place_lon": -2.28045,
+    "place_lat": 51.5455,
+    "site_lon": -2.28045,
+    "site_lat": 51.5455,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "arzbach-q1735331",
+ "candidates": [
+  {
+   "plan": "c_231ac23331b1a26f",
+   "title": "Arzbach, Grundriss und Gel\u00e4ndeprofile, ORL 03, 1900 (de.wikipedia)",
+   "url": "media/commons/arzbach-q1735331/231ac23331b1a26f.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Arzbach",
+    "place_qid": "Q1735331",
+    "place_label": "Arzbach",
+    "place_lon": 7.74565,
+    "place_lat": 50.3753,
+    "site_lon": 7.74565,
+    "site_lat": 50.3753,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5113,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

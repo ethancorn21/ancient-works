@@ -1,0 +1,33 @@
+{
+ "site": "benningen-q1735337",
+ "candidates": [
+  {
+   "plan": "c_ffb1d13e9afc159d",
+   "title": "Benningen, Grundriss, ORL 58, 1902 (de.wikipedia)",
+   "url": "media/commons/benningen-q1735337/ffb1d13e9afc159d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Benningen",
+    "place_qid": "Q1735337",
+    "place_label": "Benningen",
+    "place_lon": 9.24931,
+    "place_lat": 48.9439,
+    "site_lon": 9.24931,
+    "site_lat": 48.9439,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4677,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

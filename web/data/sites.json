@@ -94,9 +94,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "abbotsbury-castle-q3662453",
@@ -1573,9 +1573,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
   },
   {
    "id": "athelney-q3496233",
@@ -1962,9 +1962,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "balfarg-henge",
@@ -3608,10 +3608,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "borgring",
@@ -4537,10 +4537,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.42,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "butte-saint-clair-du-mesnil-vigot-q22963275",
@@ -4948,7 +4948,7 @@
     2400
    ],
    "lidar_credit": "USGS 3DEP",
-   "drawings": 1,
+   "drawings": 2,
    "score": 1.48,
    "oldest": 1876,
    "overlays": 1
@@ -6756,9 +6756,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
   },
   {
    "id": "chiswick-house-q1074877",
@@ -6854,9 +6854,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
   },
   {
    "id": "chateau-d-olivet-q2968304",
@@ -7422,10 +7422,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.44,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "craig-phadrig",
@@ -7864,10 +7864,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.42,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "de-thombe-q2359601",
@@ -10111,10 +10111,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "frankfort-works",
@@ -10749,10 +10749,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "gouda-q84125",
@@ -10798,10 +10798,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0.91,
-   "oldest": 1850,
-   "overlays": 1
+   "drawings": 1,
+   "score": 4.89,
+   "oldest": 1560,
+   "overlays": 2
   },
   {
    "id": "grand-mound-q5594814",
@@ -14627,9 +14627,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 0.2,
+   "oldest": 1780,
+   "overlays": 1
   },
   {
    "id": "lille-q648",
@@ -15001,10 +15001,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 1.1,
+   "drawings": 1,
+   "score": 1.56,
    "oldest": 1842,
-   "overlays": 1
+   "overlays": 2
   },
   {
    "id": "luxembourg-city-q1842",
@@ -17699,10 +17699,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 2,
-   "score": 2.86,
+   "drawings": 4,
+   "score": 3.45,
    "oldest": 1761,
-   "overlays": 3
+   "overlays": 5
   },
   {
    "id": "oldorp-q931301",
@@ -18951,10 +18951,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 0,
-   "score": 1.1,
-   "oldest": 1842,
-   "overlays": 1
+   "drawings": 2,
+   "score": 2.65,
+   "oldest": 1836,
+   "overlays": 3
   },
   {
    "id": "poverty-point-q964745",

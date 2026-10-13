@@ -1,0 +1,33 @@
+{
+ "site": "schlossau-q1735418",
+ "candidates": [
+  {
+   "plan": "c_a74bb634290e582e",
+   "title": "Schlossau, Grundriss, ORL 51, 1900 (de.wikipedia)",
+   "url": "media/commons/schlossau-q1735418/a74bb634290e582e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Schlo\u00dfau",
+    "place_qid": "Q1735418",
+    "place_label": "Schlossau",
+    "place_lon": 9.14944,
+    "place_lat": 49.5406,
+    "site_lon": 9.14944,
+    "site_lat": 49.5406,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 1.0403,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "murrhardt-q1735397",
+ "candidates": [
+  {
+   "plan": "c_d3b23f9ee8151e66",
+   "title": "Murrhardt, Grundriss und Details, ORL 44, 1894 (de.wikipedia)",
+   "url": "media/commons/murrhardt-q1735397/d3b23f9ee8151e66.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Murrhardt",
+    "place_qid": "Q1735397",
+    "place_label": "Murrhardt",
+    "place_lon": 9.5823,
+    "place_lat": 48.97696,
+    "site_lon": 9.5823,
+    "site_lat": 48.97696,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4012,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

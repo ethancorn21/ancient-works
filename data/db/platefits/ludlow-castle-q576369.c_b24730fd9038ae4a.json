@@ -1,0 +1,90 @@
+{
+ "site": "ludlow-castle-q576369",
+ "plan": "c_b24730fd9038ae4a",
+ "crop": [
+  0,
+  0,
+  1280,
+  1565
+ ],
+ "pairs": [
+  [
+   572.6,
+   678.4,
+   -2.7231968,
+   52.3673389
+  ],
+  [
+   231.8,
+   1325.0,
+   -2.7236821,
+   52.3663208
+  ],
+  [
+   991.6,
+   1270.2,
+   -2.7219398,
+   52.3666195
+  ],
+  [
+   1070.6,
+   357.5,
+   -2.7221905,
+   52.3679396
+  ],
+  [
+   211.2,
+   214.2,
+   -2.724259,
+   52.3678935
+  ],
+  [
+   1200.7,
+   816.0,
+   -2.7216693,
+   52.3673258
+  ],
+  [
+   646.7,
+   218.5,
+   -2.7232434,
+   52.3680139
+  ],
+  [
+   581.5,
+   1098.6,
+   -2.7229761,
+   52.3667442
+  ]
+ ],
+ "label": "1897",
+ "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+ "at": "2026-10-13T13:08:23.295597+00:00",
+ "auto": true,
+ "score": 1.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+ "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
+ "size": [
+  1280,
+  1565
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2052,
+  "matches": 4979,
+  "ground": "six-inch-1st.webp",
+  "window": 0.25,
+  "rot_deg": -11.56,
+  "spread": [
+   0.729,
+   239.5
+  ]
+ }
+}

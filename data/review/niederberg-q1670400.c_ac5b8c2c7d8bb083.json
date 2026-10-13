@@ -1,0 +1,33 @@
+{
+ "site": "niederberg-q1670400",
+ "candidates": [
+  {
+   "plan": "c_ac5b8c2c7d8bb083",
+   "title": "Niederberg, Grundriss der Principia, ORL 02a, 1900 (de.wikipedia)",
+   "url": "media/commons/niederberg-q1670400/ac5b8c2c7d8bb083.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Niederberg",
+    "place_qid": "Q1670400",
+    "place_label": "Niederberg",
+    "place_lon": 7.62734,
+    "place_lat": 50.3689,
+    "site_lon": 7.62734,
+    "site_lat": 50.3689,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.7843,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

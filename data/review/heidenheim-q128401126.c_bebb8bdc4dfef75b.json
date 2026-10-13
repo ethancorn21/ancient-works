@@ -1,0 +1,33 @@
+{
+ "site": "heidenheim-q128401126",
+ "candidates": [
+  {
+   "plan": "c_bebb8bdc4dfef75b",
+   "title": "Heidenheim, Grundriss, ORL 66b, 1900 (de.wikipedia)",
+   "url": "media/commons/heidenheim-q128401126/bebb8bdc4dfef75b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Heidenheim",
+    "place_qid": "Q128401126",
+    "place_label": "Heidenheim",
+    "place_lon": 10.153666666666666,
+    "place_lat": 48.67908333333333,
+    "site_lon": 10.153666666666666,
+    "site_lat": 48.67908333333333,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.393,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

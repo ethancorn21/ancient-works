@@ -1,0 +1,32 @@
+{
+ "site": "mons-q83407",
+ "candidates": [
+  {
+   "plan": "c_e5b141a1578a1c82",
+   "title": "Mons, town plan by Jacob van Deventer",
+   "url": "media/commons/mons-q83407/e5b141a1578a1c82.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Mons (Hainaut)",
+    "file_cat": "Map of Mons by Jacob van Deventer",
+    "via": [
+     "Maps of Mons city walls (Hainaut)",
+     "City walls of Mons (Hainaut)",
+     "Mons (Hainaut)"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

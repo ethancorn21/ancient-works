@@ -1,0 +1,32 @@
+{
+ "site": "therouanne-q261399",
+ "candidates": [
+  {
+   "plan": "c_caea879d0ab526f1",
+   "title": "Th\u00e9rouanne, town plan by Jacob van Deventer",
+   "url": "media/commons/therouanne-q261399/caea879d0ab526f1.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Th\u00e9rouanne",
+    "file_cat": "Map of Th\u00e9rouanne by Jacob van Deventer",
+    "via": [
+     "Old maps of Th\u00e9rouanne",
+     "Maps of Th\u00e9rouanne",
+     "Th\u00e9rouanne"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.0284,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

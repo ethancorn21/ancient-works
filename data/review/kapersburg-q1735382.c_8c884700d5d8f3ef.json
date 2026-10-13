@@ -1,0 +1,59 @@
+{
+ "site": "kapersburg-q1735382",
+ "candidates": [
+  {
+   "plan": "c_8c884700d5d8f3ef",
+   "title": "Kapersburg, Thermen-Grundriss und Profile, ORL 12, 1906 (de.wikipedia)",
+   "url": "media/commons/kapersburg-q1735382/8c884700d5d8f3ef.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Kapersburg",
+    "place_qid": "Q1735382",
+    "place_label": "Kapersburg",
+    "place_lon": 8.636502423992,
+    "place_lat": 50.31270674931,
+    "site_lon": 8.636502423992,
+    "site_lat": 50.31270674931,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.3902,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_dfb8ec66389697ab",
+   "title": "Kapersburg, Grundriss und Gel\u00e4ndeprofile, ORL 12, 1906 (Commons)",
+   "url": "media/commons/kapersburg-q1735382/dfb8ec66389697ab.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Kapersburg",
+    "place_qid": "Q1735382",
+    "place_label": "Kapersburg",
+    "place_lon": 8.636502423992,
+    "place_lat": 50.31270674931,
+    "site_lon": 8.636502423992,
+    "site_lat": 50.31270674931,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.5666,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

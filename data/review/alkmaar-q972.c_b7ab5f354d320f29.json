@@ -1,0 +1,32 @@
+{
+ "site": "alkmaar-q972",
+ "candidates": [
+  {
+   "plan": "c_b7ab5f354d320f29",
+   "title": "Alkmaar, town plan by Jacob van Deventer",
+   "url": "media/commons/alkmaar-q972/b7ab5f354d320f29.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Alkmaar",
+    "file_cat": "Maps of Alkmaar by Jacob van Deventer",
+    "via": [
+     "Old maps of Alkmaar",
+     "History of Alkmaar",
+     "Alkmaar"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

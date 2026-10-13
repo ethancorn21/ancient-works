@@ -441,7 +441,9 @@ def test_sample_run_real_gate(tree):
             reproposed = {r["id"] for r in cands if r["id"] not in pre}
             # set equality: the upsert keeps the existing candidates' order and appends the
             # new ones (201's writer business, pinned by test_review)
-            assert {c["plan"] for c in it["candidates"]} == {r["id"] for r in cands if r["id"] in item}
+            # a candidate that already has a document (a later fit of a picture once sent to the
+            # queue) stays in the item: its document resolves the item (review.resolved_doc)
+            assert {c["plan"] for c in it["candidates"]} - set(pre) == {r["id"] for r in cands if r["id"] in item}
             for c in it["candidates"]:
                 if c["plan"] in reproposed:
                     _check_entry(sid, rows[c["plan"]], c, (answers.get(sid) or {}).get(c["plan"]))

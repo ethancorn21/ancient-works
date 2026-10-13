@@ -1,0 +1,33 @@
+{
+ "site": "venice-q641",
+ "candidates": [
+  {
+   "plan": "c_1abba1f15dd49dcd",
+   "title": "Venice, bird's-eye view by Jacopo de' Barbari (1500)",
+   "url": "media/commons/venice-q641/1abba1f15dd49dcd.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Venice",
+    "place_qid": "Q641",
+    "place_label": "Venice",
+    "place_lon": 12.331944,
+    "place_lat": 45.439722,
+    "site_lon": 12.331944,
+    "site_lat": 45.439722,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
