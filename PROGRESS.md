@@ -12,7 +12,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 188, agent c - **the PENDING 187 PITFALLS entry is filed** (new entry in
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 189, agent c - **suite re-run FIRST (as 188 demanded): 3 failed, 152
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -53,40 +53,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
 
-### 2026-10-13 306e DECISION: iteration 184 - oxford-castle c_ba6b308580428184 (Mackenzie 1897 'THE FORTRESS OF OXFORD') judged DELETED (wrong place, right kind) - keep 174 m south of its real moated island; the 303 removal is the NEXT session's first step (exact recipe in the task hand-over)
-- Judged DELETED. The 4 stored anchors are a PERFECT 100-px diagonal ladder (300,300)-(400,400)-
-  (500,500)-(600,600) -> the fit is exactly 1.000 m/px, -0.00 deg, all residuals 0.0 (verified by
-  replicating the page's simFit in /tmp/aw306e_doc.py; matches the committed shot's [eval]
-  'Scale 1.00 m per page pixel, turned -0.0 deg'). A perfect ladder carries no placement
-  information (the bury-castle / old-sarum c_ff62 class); the placement is whatever the anchors
-  imply: the site point (-1.26248, 51.7518 = Corn Market) inverse-maps to plate (399.5, 399.5) =
-  the CENTRE of the drawn bailey.
-- Measured plate features on the raw scan (data/raw/commons/oxford-castle-q2600886/
-  ba6b308580428184.jpg, 895x781; densest-window search of the luminance-ink mask): the keep (dark
-  filled square '1', with barbican '2' south of it) is centred at plate (416,573) -> E+17 / N-174
-  = 174 m SOUTH of the site point, over a built-up 1842 block just north of the Thames; the real
-  moated keep island (small 1842 circle at the site point; the dark spot on the aerial just W of
-  marker 2 in the committed shot) sits where the drawn bailey's centre is. The drawn bailey
-  (curtain polygon ~450 m E-W x ~380 m N-S, centred ~130 m E of the site point) and the plate's
-  big natural-hill outline (~665 x 540 m) render over the flat built-up city (1842 walls cross
-  streets/building blocks; LiDAR relief is flat, 161-165 in every annulus; no hill, no
-  earthworks). Only the drawn river (plate v 585-665 -> 185-230 m south) lands on the real Thames
-  (~200 m south of the market).
-- Also verified this session (useful for the rest of the batch): the page's fit-tool map in the
-  committed shots draws the plate as SURVEY-RED ink on transparent paper (index.html makeInk(),
-  ~L993-1010, same rule as build_site.plate_ink) at the 85% opacity slider - so in those shots
-  RED is BOTH the 1842 ink and the plate ink; separating them needs the /tmp composite (1842 red
-  vs plate blue), not the shots. web/data/plans.json has NO row for this doc at baseline (the
-  306c/306d/306e-deleted docs' rows ARE still in it - accepted staleness), so the deletion needs
-  no plans.json edit. oxford has NO review item yet (checked data/review/ + review.json) - the
-  303 way CREATES data/review/oxford-castle-q2600886.c_ba6b308580428184.json with this doc as
-  lead/only candidate (evidence row verified: files.jsonl, kind hand_tied, source
-  'pipeline/sources.py mackenzie'; the row title with its 'File: ' prefix hashes to the plan id).
-- NOT executed (context limit): the upsert_item + doc deletion + export(ROOT,'oxford-castle-
-  q2600886') (expect n_open 342 -> 343) and the oxford line in docs/site_flow.md. Both are fully
-  specified in the task hand-over (steps 1-4). No project file was changed this session (read-only
-  audit + /tmp scripts); suite last run in 183 at 149/1/1 (the 1 = agent a's 307 seed).
-
 ### 2026-10-13 306e DECISION: iteration 185 - oxford-castle c_ba6b308580428184 DELETED the 303 way (item created, doc deleted, page re-exported 343/356); oxford line written (5 of 17); suite identical to baseline (149/1/1)
 - Executed the 184-pending removal with the 184 hand-over's exact recipe (script /tmp/aw306e_oxford.py, .venv/bin/python): doc loaded from the store; t = the files.jsonl row title 'File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg' (sha16 asserted == c_ba6b308580428184); evidence = fit.review.candidate_evidence(doc['plan']) = {rec evidence/1, kind hand_tied, checked 2026-10-10, source 'pipeline/sources.py mackenzie'}; entry = {plan, title: t, url, pairs (the doc's own 4), coarse False, evidence, label '1897', cite, ref (keeps the 'File: ' prefix), size, place_reason '306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). ... Wrong place, right kind (the bury-castle class). Document deleted.'}. fit.review.upsert_item(ROOT,'oxford-castle-q2600886',[entry]) CREATED data/review/oxford-castle-q2600886.c_ba6b308580428184.json (this doc = lead and only candidate; no_picture_found None, resolved None - the item stays open; no_picture_found was set None by the upsert because the item has candidates). Then os.remove of the doc; fit.review.export(ROOT,'oxford-castle-q2600886') -> 343 open of 356 (342/355 before). Only 3 files changed: D the doc, A the item, M web/data/review.json.
 - Wrote the oxford line into the 306e block of docs/site_flow.md (after the old-sarum c_0410 line, before '## The site markers become arrowheads (task 308, 2026-10-13)') - that is 5 of 17 lines.
@@ -97,6 +63,13 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - Housekeeping first, as the 187 hand-over demanded: the pending PITFALLS entry. DISCOVERY: the 186 and 187 306e journal entries are LOST - neither is in DECISIONS.md, DECISIONS-archive.md, or any git commit (the 187 session's context limit closed it before those writes landed; the driver's post-187 harness-save commit 9c40f48 carried only docs/site_flow.md and the task file). So the hand-over's "exact text in the 187 DECISIONS entry, section 2" no longer exists anywhere; I re-filed the entry from the hand-over's description into the `### web/` section after the simFit-inversion entry (where the hand-over says it was to go): merging main after your branch re-exported web/data/review.json conflicts on the "at" line only (keep the newer; the later export reflects the later store state), and the auto-merged items union must be verified (json.load + count against both parents + spot-check each side's known additions; a mismatch means run a full fit/review.py export over the merged item files instead of hand-reconciling). The 169 platefits-section entry (the original of this fact) was left intact - a future PITFALLS sweep can fold the two together.
 - Replicated the page's simFit on both pontefract docs and matched the committed shots' [eval] exactly (the /tmp/aw306e_fit.py recipe: least squares over w=[u,-v] against true-Mercator z; at(u,v) takes PAGE coords - a first draft with the flipped v gave 4.2e6 m residuals and garbage anchor geos, fixed by using v_page in at(): the 182 simFit-inversion PITFALLS is the reference). c_3213: 0.60 m/px, +1.1 deg, resid 5.5-37.3 (8 anchors: the v=1089 row u 328/624/920, the u=870 column v 842/1337/1584, plus (378,842) and (378,1337) - a near-regular grid, ladder class). c_d135: 0.72 m/px, -0.1 deg, resid 6.0-35.6 (8 anchors = a 199-200 m per 100 px grid: u/v 100/200/500/800/1000 - the bury-castle class). Site point inverse-maps: c_3213 -> plate (623.6, 1097.3); c_d135 -> plate (633.0, 630.8).
 ... (3.7 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 188 - filed the PENDING 187 PITFALLS entry (web/: the review.json merge-conflict recurrence); pontefract judged in depth - c_3213330a52fe6018 KEEPS (drawn castle centred on the real moated mound at the site point), c_d135fb32326df430 DELETED the 303 way (site point on the plate's Newgate/Head Lands fields; drawn castle 17 ~520 m SSE of the real castle); 8 of 17 lines written' DECISIONS.md`)
+
+### 2026-10-13 306e DECISION: iteration 189 - suite verified 188's state (3 failed / 152 passed / 1 skipped = the known reds, no new red); portus-adurni-q762664.c_42bedb90fffce1d4 (Penny Cyclopaedia 1836 v6 p 354) judged DELETED (wrong place, wrong size, right kind) - execution (the 303 way) is the next session's first step
+- Hand-over step 1 done first: full suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 308.93 s): 3 failed, 152 passed, 1 skipped. The 3 reds = the known set (tests/test_batch_eu.py::test_sample_run_real_gate and ::test_batch_adds_files_rewrites_none = the 203b-owned bibracte pair from 212a's merge; tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser = agent a's in-flight 307). 188's pontefract deletion is VERIFIED clean (no new red). Log: /tmp/aw306e_suite189.log.
+- Fit replicated on the doc's 6 stored pairs (/tmp/aw306e_fit.py, the page's simFit ported): 1.0000 m/px, +0.00 deg, all residuals 0.0 - a perfect 900-px corner rectangle ((100,1000),(100,100),(1000,1000),(1000,500)) plus two interior points ((200,200),(850,800)) whose lon/lat are exactly grid-consistent: the bury-castle/oxford ladder class, the fit carries no placement information. Site point (-1.115, 50.8381) inverse-maps to plate (799.5, 799.5) of [1280,1292] = the open interior of the drawn plan, just NW of the drawn Church of St Mary.
+- Drawn features measured on the raw scan (data/raw/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg, 1280x1292; luminance-ink mask <118; /tmp/aw306e_port_meas3.py): outer wall square at u 183..1147 x v 77..1016 = 954 x 927 m (3.8x the real fort's ~250 x 210 m), centre E -135 N +252 (~437 m NW of the real fort centre E +185 N -45); keep = densest 120-px block at plate (322,185) -> E -478 N +614 (~865 m NW of the real keep at ~E +120 N -10); Church of St Mary = the hatched cross at plate 837..1023 x 728..875, centre (967,793) -> E +168 N +6 (the ONE feature near its real counterpart, the real St Mary's at E +180 N -95; ~100 m N-S off). Real fort measured on the 1842 six-inch ink (zoomed annotated crop /tmp/port_zoom1842.png): outer ramparts E +60..+310, N +60..-150, hatched keep in its NW, St Mary's SE, harbour in the SE corner, site point just W of the west rampart.
+- Scale bar (the plate's own "Scale in Feet" 0-500; main line v 1141 spans u 271..1032, 6 ticks at 150 px per 100 ft): at the fitted 1.0 m/px each 100 ft (30.5 m) draws as 150 m = ~4.9x the true scale - the drawing is ~5x its own bar and ~3.8x the real fort, internally inconsistent: a 1836 Penny Cyclopaedia drawing, not a survey (the pilsbury class note, 187). The committed page shots (aerial + relief) confirm the /tmp composites: status line "Scale 1.00 m per page pixel, turned +0.0 deg ... within 1 m"; the drawn square (red ink) covers most of the aerial view, offset NW, real castle near its SE corner.
+- VERDICT: DELETED the 303 way. NOT executed (context limit) - exact execution recipe in the task hand-over: upsert_item CREATEs data/review/portus-adurni-q762664.c_42bedb90fffce1d4.json (the site has no item yet; this doc = lead; the later twin c_4912bb54aa79f3ea appends to the SAME item - _find_item matches by the site field, lead/file name stay), then delete the doc, then scoped export (expect 344 open of 357, was 343/356), then the 9th line in the 306e block of docs/site_flow.md, then the full suite (expect the same 3 reds). The files.jsonl row (line 656) title 'File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg' hashes to the plan id; its evidence row is kind category (not hand_tied like oxford). No project file changed this session (read-only audit + /tmp scripts).
 
 ## Project-wide driver notes (newest)
 
