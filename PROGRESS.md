@@ -7,10 +7,11 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 191, agent a - GATE STILL OPEN: all seven of 222-228
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
+- `tasks/306d-orphan-fits-uk-1.md` (in-progress) - hand-over: (2026-10-12, iteration 159, agent c - FIRST session. Driver built and ALL 36 shots taken and verified; no verdicts written yet. Next session starts ju
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
@@ -49,6 +50,14 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
+
+### 2026-10-12 306d DECISION: iteration 159 (first session) - audit driver built from the 306c recipe and all 36 orphan shots taken and verified; judging is the remaining work
+- 306d (18 UK orphan docs, sites a-l) is a fresh start: my task file had no hand-over. I re-derived the orphan status of all 18 from the current tree (throwaway scanner: overlay in web/data/sites/<site>/depictions.json with fit.doc == doc id; review = a candidate with that plan in the site's data/review item; else orphan) - all 18 still orphans, all 18 sites have a relief.jpg, all docs exist with 4+ pairs.
+- Driver: tools/audit_306d.mjs = 306c's tools/audit_306c.mjs with the 18-doc list (verbatim IIFE). It works on the CURRENT web/ despite agent a's 307 rework: every symbol the IIFE uses still exists (select/setGround/ensureSite/startFit/rvResolveRow/openPlan/refit/addPairMarker/fit-prev/rel-<site>/FQ); applyAll is a `const` arrow fn (a grep for "function applyAll" misses it - it is still callable). The FQ emptying (the 307 queue-seed trap, PITFALLS L1194) fired as designed: fqEntries=114 reported before emptying, placed:false, n = the doc's own pair count in every [eval].
+- All 36 shots written (1440x900, docs/site_flow/agent_fits/, aerial + _relief per doc; one serve.py --port 0 for the run; GET only). Mechanical verification of every [eval] line: ok, img, n correct, fit-prev drawn, zoom ~15, relief layer visible/none as expected - 0 genuinely bad. Two apparent anomalies are NOT failures: cassiobury-house and chevening are VIEW (homography) docs - mpx/rot null by design and cassiobury's 4-point resid is 0 by construction (PITFALLS L892 already records this: judge the ink, never the residual).
+- The ArcGIS World_Imagery ERR_ABORTED reqfail lines in the run log are the live tile feed aborting at page close - expected on this machine (the aerial still renders; 306c's committed shots show the same lines).
+- Deliberately did not run the full test suite this session: the session changed no code or data (new PNGs + new tools/ script + the task file only), so no test can newly fail from it (tests reference docs/site_flow/ in comments only), and a full-suite run writes ~3.5G into /tmp while the disk is 94% full (the ENOSPC false-red story from 306c). The suite runs in the removal session, when data changes actually land.
+- Next: judging in batches of ~5 docs/session starting bury-castle (prelim STAYS from this session's look: the hachured ring sits on the real moat by the map's "Burr Castle" label), then the 306d block in docs/site_flow.md, then 303-way removals of any wrong fits.
 
 ## Project-wide driver notes (newest)
 
