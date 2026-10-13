@@ -6035,6 +6035,57 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
   town - toponymic collision, almost certainly DELETED wrong place). File the four PITFALLS
   entries above when next in touch with PITFALLS.md.
 
+## 2026-10-13 306e DECISION: iteration 182 - filed the four pending PITFALLS entries; old-sarum judged in depth - c_ff62 (Basire 1806) is a clear DELETED (site point on blank paper, drawn plan 440 m E over the SE farmland), c_0410 (Ditchfield 1901) leaning DELETED (oversize + SE shift), precise measurement pending
+- PITFALLS.md: filed the four entries the 180/181 hand-overs carried (3 new under 'web/': every
+  web/data/sites `*_ink.webp` is a survey-red (206,46,78) overlay whose ink lives in the ALPHA
+  channel only - a 'dark ink' rgb.sum()<300 recipe finds zero pixels, mask = a>40, hatched band
+  = uniform_filter(ink,15)>0.06; the transparent pixels carry the ink colour as RGB so a plain
+  .convert('RGB') crop is solid pink - composite through the alpha channel; the simFit inverse
+  is u=(q0*a0+q1*a1)/a2, v=(q0*a1-q1*a0)/a2 (v = -Im, a wrong sign mirrors the plate, verify
+  with the 4-point round-trip) - plus 1 under 'Agent tools and harness': web_fetch returns page
+  text without image URLs, curl the raw HTML and grep src/data-src.
+- Old-sarum setup: the site already has 2 built depictions (c_8192abb966d030a3,
+  earthworkenglan01allcgoog_n0142_1) - NEITHER of my two orphan docs, both stay orphans. The
+  site's review item is data/review/old-sarum-q782719.c_b2701b5231da42f2.json, one coarse
+  candidate (c_b2701b5231da42f2, gate-rejected at 59.7 m) - a 303 deletion appends after it.
+- Real earthworks (1842 six-inch ink density in 25 m annuli / 16 az bins, script
+  /tmp/aw306e_profile.py): the hatched oval is the 'OLD SARUM 74.778 Acres' hill parcel;
+  inner moated 'Castle' circle r~85 m (centre on the site point, ~16 m W/6 m N), trough
+  100-150 m (the sub-castle court), outer bank 175-225 m N/NE/NW, 200-250 m E/W, 225-275 m
+  SE/S - the outer oval is ~400-550 m across, centre ~25 m SE of the site point; the LiDAR
+  agrees (bright summit r<100 m, ditch ring 100-175 m N/E/S and 200-275 m W, flat beyond).
+- c_ff62c9585a92b375 (Basire 1806, DPLA, 1280x1858 book page: text column, four hill
+  ELEVATIONS, small plan with 'Castle' circle + 'Cornfields' + S road, caption 'PLAN &
+  ELEVATIONS OF OLD SARUM'): the 6 stored pairs are a PERFECT 100-px grid ladder (5 distinct
+  points) -> the fit is exactly 2.000 m/px, 0.0 deg, residuals all 0.0 m (reproduces the page
+  [eval]; a perfectly regular ladder carries no placement information - the bury-castle
+  class). The site point inverse-maps to plate (399.7, 1399.7) = blank paper WEST of the
+  drawn plan; the drawn plan's centre is at plate (620,1490) = 440 m E / 180 m S of the site
+  point, i.e. over the flat farmland SE of the hill (1842 'Old Sarum Farm'/'Castle Villa'
+  ground), and its ~780 m drawn ring is a schematic that misses the real 400-550 m oval.
+  Verdict: DELETED the 303 way (not yet executed - next session).
+- c_041083ec68b532f8 (Ditchfield 1901, 'Ancient Plan of Old Sarum' = the 'Ichnography'
+  bird's-eye engraving, 686x892): fit 1.294 m/px, +0.23 deg, residuals 15.3/40.2/21.6/9.0/
+  27.9/16.5 m (max 40.2 - the 6 pairs form a ~350x400 px rough ladder with ~14% anisotropy,
+  so the residuals measure ladder inconsistency, not a placement miss). The site point
+  inverse-maps to plate (326.1, 396.0). Read off the 800 m box composite (100 m grid +
+  100-500 m circles): the drawn inner circle (r~90-110 m) sits ~60-80 m SE of the real
+  inner circle (r~85 m, on the site point) and the drawn outer ring spans ~150-175 m on
+  the NW side (sits on the real NW arc) to ~450-480 m on the S/SE side (real S edge
+  250-275 m) - the drawn S/SW quarter runs 150-200 m past the hill over flat fields and
+  the drawn S road extends ~150 m past the real hill edge; the NW half of the complex
+  matches. Leaning DELETED (goodrich class: centre ~right, drawn works bigger, walls past
+  the town/fields); the precise measurement script /tmp/aw306e_meas.py (drawn inner
+  circle centre/radius via strongest-ink-fraction search u/v 250-520 band 45-110 px; drawn
+  outer ring farthest-ink per azimuth, rmax 320 px, from both the drawn centre and the
+  site point) has a SYNTAX ERROR - one extra close paren on its 3rd print line
+  ('...np.percentile(rr,90)),1)))' should be '...np.percentile(rr,90)),1))') - so it never
+  ran. Next session: fix that one char, run it, then write the line and (if DELETED)
+  execute the 303 way.
+- Not run: the test suite (this session touched only PITFALLS.md, which no test reads);
+  state unchanged from 180/181 (149 passed, 1 skipped, 1 red = agent a's in-flight 307
+  placement seed).
+
 
 <!-- task 307a -->
 # Task 307a place-check
