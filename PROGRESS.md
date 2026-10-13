@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 179, agent c - **offa JUDGED: KEEPS (evidence complete); okehampton still
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 180, agent c - **offa KEEPS (evidence complete since 179; its line is
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -83,6 +83,19 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   least squares did not. The [eval] fit line (1.20 m/px, -0.3 deg, resid <=1.1 m) is the truth;
   single-point inversions are fine for spot checks, full-plane ones are not. (Filed to the
   306e hand-over; PITFALLS candidate if it recurs.)
+
+### 2026-10-13 306e DECISION: iteration 180 - offa's KEEPS line drafted (unwritten); okehampton's 'town-centre / wrong-kind' hypothesis RETIRED: the site point is the castle, at the dead centre of the drawn chain; verdict now hangs on the drawn chain's length vs the real outcrop (leaning KEEPS)
+- Offa (1/17): judged KEEPS at 179 and unchanged. The full line (306c/306d style) is drafted in the
+  task hand-over and is ready to paste into docs/site_flow.md (the 306e block itself is still
+  unwritten - it goes between the ludlow line (~L1267) and the 308 arrowheads section (L1268)).
+- Okehampton (2/17): the 178-179 hypothesis (plate = a 1915 town-centre plan, wrong kind of
+  subject for a motte site, or the castle 1 km away = wrong place) is RETIRED. Evidence this
+  session: (a) simFit replicated on the doc's 4 pairs matches the page [eval] EXACTLY (resid
+  [0.9,1.1,0.8,1.0], 1.196 m/px, +0.33 deg), and the site point (-4.0083, 50.7306) inverse-maps
+  to plate px (333.8, 333.2) of 618x674 = the DEAD CENTRE of the drawn chain (A->G, ~570-600 m,
+  NE-SW); (b) the 1842 six-inch ink (533x533 RGBA, box-aligned) shows the label 'Okehampton
+  Castle (Remains of)' at E -174 m / N -50 m from the site point with its leader pointing EAST
+... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: first session - 34/34 orphan shots taken (o-y, 17 docs); merged main per the lead; claimed 306d done' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
