@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 306d: Look at the orphan agent fits, UK part 1 (a-l) - 18 docs, 18 sites
 Depends on: none
 Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json, tools/audit_306d.mjs, PITFALLS.md, DECISIONS.md
@@ -51,61 +51,67 @@ placement is good enough to keep.
 - ludlow-castle-q576369.c_b24730fd9038ae4a - Ludlow Castle, plan from Mackenzie, The Castles of England (1897)
 
 ## Hand-over
-(2026-10-13, iteration 178, agent c - **DONE**. Human request 005 settled by the lead's message:
-the 5 reds are FIXED on main (commit 77bdf5d, tasks 231-234: site_done keeps covered review
-entries, the Stonehenge item gained the Stukeley 1722 view so the plans.json 13->14 pin moved,
-year-once re-pinned onto a surviving doc, tests derive counts). Merged main into agent/c
-(88c5545; the two expected conflicts resolved the 306d way: web/data/review.json kept main's
-newer 'at', docs/site_flow.md kept my 306c+306d blocks then main's 308 section after). Full suite
-on the merged tree: **149 passed, 1 skipped, 1 red** - the lone red is
-tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, agent a's in-flight
-307 seed flow (probe fails at 'seed: the gestures own the mouse'; 404 /tiles/relief - the live
-relief is off on this VM, Mac-only `aw`), which the 161/176/177 A/Bs already proved failing on
-pure main. No 306d red remains; no test fails that was not failing before 306d. Status set
-done on the lead's instruction; the A/B record (DECISIONS 176/177) stands as the proof.)
+(2026-10-13, iteration 200, agent c - **FINAL CLOSE**. Processed the human's answer to request
+005: "LEAD: accepted. 306d is closed on main (12b2274); the reds it was blamed for were fixed
+on main (77bdf5d)". Restored Status: done - that is the lead's own close (12b2274 set the file
+to done on main); the driver's 122ac9e "resumed" put it back to in-progress on this branch only
+to deliver the answer, exactly as f1ad899 did for 306c. This processes the answer; it is not a
+new done-claim, and 005 stays closed - do not re-file it.)
 
-**Superseded record - the 5 reds that 005 asked about, all now fixed on main (77bdf5d).**
-| red | root | who clears it |
-|---|---|---|
-| fit_provenance::test_commons_yeared_title_drops_the_repeated_year | the pin bethlehem-q2523914.c_a164ee440558d66c is the 1748 Maastricht batch doc: 4ca9e2c (306a) re-pointed the test onto it (green at that commit - the doc existed), then the lead's 20277f3 "port from Mac: ... 3 fabricated Bethlehem docs removed" deleted it -> FileNotFoundError | task 806 (created this session; re-pin onto a surviving doc: fletio-q2072212.c_80f1e15c04bc5035 "Atlas de Wit 1698" label "c. 1698" recommended, durocortorum-q4896307.c_a60f570e6ce08f39 1894 alternative; fallback restores the doc into tests/golden/ from 20277f3^) |
-| fit_provenance::test_line_refuses_unmarked_non_auto_doc + site_done::test_site_done_line (same root) | both pin exactly 13 stonehenge-q39671 candidates (test_fit_provenance.py:257, test_site_done.py:195); the lead's 20277f3 Mac-port plans.json lists 14: the 13 item candidates + source picture c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley, 1722", which never had a store doc and is not an item candidate | a plans.json baseline decision (keep the row: re-pin 13->14 in both tests; drop it: re-export); recommend agent a's in-flight 212 (owns web/data/plans.json) or a driver-assigned small task after 212 |
-| merge::test_new_sites_are_complete + merge::test_new_site_golden_samples | 211's four new sites (aardenburg-q955, the-hague-q36600, ostend-q12996, cambrai-q181285) carry their web/data/sites/ builds as per-checkout local artifacts (gitignored; only 58 site dirs tracked) - the dirs exist in NO checkout, main included, so the tests cannot pass on main as-is | agent a's 211/212 (in flight: 212 = "the final sync, the report") |
+**Expect the driver to reject the restore on this tree and re-open the file** (the 306c
+precedent: I did exactly this at 199, the driver rejected it - ebe1228 - naming the one red).
+The driver's re-check compares the suite against its known-failure set; on this checkout the
+only red is agent a's in-flight 307 test
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - re-ran at 200
+(53 s): fails at the seed check "the gestures own the mouse (map pan/zoom off), the earlier
+overlay hidden" plus 404s on GET /tiles/relief (live relief is off on this VM: Mac-only `aw`
+DEM upstream - PITFALLS; the test and web/fitkit* are agent a's 307 Touches; agent a is
+actively reworking 307). Not 306d's, not fixable from 306d's Touches.
+**Recipe for the next session if the file comes back in-progress with a driver note:**
+(1) sanity (30 s): 36 shots present (ls docs/site_flow/agent_fits/ | grep the 18 site
+prefixes), the 306d block still has 18 bullets (grep -cE '^- ' between the '306d - the 18 UK
+orphan documents' line and the '306e -' line), grep '306d audit' data/review/ = 14 files,
+git diff --name-status main..HEAD contains no 306d deliverable;
+(2) run that one 307 test (53 s): if it is STILL the only red (same seed-check + /tiles/relief
+404 family), restore Status: done and commit again - the lead's decision stands, the red
+clears via agent a's 307 merge (or the driver's baseline catching up); if ANY other test is
+red, diagnose it before touching the status (that would be new information, not the known
+red). Do not file an ask: 005 is answered, and this blocker is on its 1st/2nd attempt, not the
+3rd (the stuck rule does not trigger).
 
-**CORRECTION to 176's record.** 176 lumped both fit_provenance reds as "bethlehem
-FileNotFoundError". Wrong for line_refuses: its SID is stonehenge (test file L68); it fails at the
-plans.json 13-row precondition (L257) - the same root as site_done_line (see
-/tmp/aw306d_ab_main.log L3-38 and L142-149). Only commons_yeared pins bethlehem - and at 4ca9e2c
-the bethlehem doc WAS the 1748 Maastricht doc (docstring, expected string and _build_source call
-all name it; 306a's re-point was valid at the time). The deleter was the lead's 20277f3, not
-306a. 176's "none of the 5 named tests reads either file" also over-stated it: line_refuses'
-_preconditions_b does read web/data/review.json (a late check, after the plans.json check that
-fails first; 306d's review.json still lists the stonehenge item, so that check passes).
+**The audit itself (all on main; git diff main..HEAD = bookkeeping files only, so nothing
+diverges).** 18/18 UK orphan docs (sites a-l) audited 2026-10-12/13: 36 shots in
+docs/site_flow/agent_fits/ (<site>_<plan>.png aerial + _relief.png; all 18 sites have a
+relief.jpg); 18 verdict lines in docs/site_flow.md's "## The agent fits, looked at (task
+306)" 306d block (starts at the '306d - the 18 UK orphan documents' line, ends before the
+'306e -' line: 18 bullets, one per doc); 14 WRONG fits deleted the 303 way - each deleted
+plan appears exactly once in its site's review item with a '306d audit ... Document deleted.'
+place_reason (14 item files, re-verified by grep at 200); 4 KEEPS (chevening,
+cooling-castle, coria, daw-s); no by:hand doc touched. All 4 boxes were ticked and verified
+before the first driver rejection (175); none has been edited since.
 
-**NEXT STEP (in order).**
-(1) On the human's acceptance of 005 (a) - or the loop's 120-min answer with my recommendation:
-set Status: done in this file and commit; the driver's re-check passes against the re-baselined red
-set (no test fails that was not failing before: DECISIONS 176 A/B + the root causes above). Do NOT
-re-file a done-claim while 005 is open (the 306c/004 pattern).
-(2) If the human answers (b) (hold until green): stay in-progress; the 5 clear via 806 (when
-merged) and 212 (final sync); re-file done once main's red set is back within the pre-306d
-baseline.
-(3) If the 5 simply go green on main before any answer: re-file Status: done directly (the A/B
-stands as the record).
-(4) After 005 is settled: tasks/806 is open (Depends on: none) and in the driver's queue - if it
-has not been picked up, it is the one remaining 306d-adjacent red's fix; do not work it from this
-task (it is its own task now).
+**Current store state (re-verified at 200; supersedes the 178 record's '4 KEEPS'):** ALL 18
+docs are gone from data/db/platefits/ - the 14 by 306d's own 303-way deletions, and the 4
+KEEPs by main's 212b final sync (6ce742f, iteration 227: the documented 301/303 line
+behaviour - fabricated anchor pattern, grid-round page coordinates -> review item entry, doc
+deleted; 306e's 198 hand-over is the full record). All 18 plans remain review-item
+candidates at their sites (14 carry the 306d audit entry; the 4 KEEP sites' items carry
+212b-style entries - why='line check: fabricated anchor pattern...', gate_score, no
+place_reason). The anchor-pattern check overrode the visual KEEP verdict (the grid anchors
+are what a screenshot cannot show). Nothing restores or re-upserts any of the 18; the 18
+lines in docs/site_flow.md stand as the audit's record of the time (a KEEP line reads as the
+audit verdict, not a live instruction). Sites stay covered for the union check (open items
+count).
 
-**Cleanup.** rm -rf /tmp/aw306d_main (4.8G, the pure-main A/B copy); /tmp/aw306d_ab_{pristine,mine,
-main}.log cited by DECISIONS 176-177, may go after that entry lands; /tmp/aw306d_mine2 (saved file
-copies) confirmed restored at 176 - delete; /tmp/j306d keep (batch3/4_remove.py + composites = the
-record of the 16 place_reasons).
+**Cleanup done at 200.** /tmp/aw306d_* deleted (the A/B logs/sh, handover_177, the item/
+review mine copies, run159, siteflow_mine - 178 claimed this was done, it was not; the A/B
+record is fully in DECISIONS 161/176/177). Kept: /tmp/j306d (batch3/4_remove.py + composites
+= the record of the 16 place_reasons); /tmp/aw306cab (306c's, leave it to 306c's sessions);
+the /tmp/aw306d_ab worktree was already gone (git worktree list clean).
 
-**Final state (unchanged since 6da5393; re-verified 176 and 177).** 18/18 docs audited (36 shots in
-docs/site_flow/agent_fits/); 4 KEEPS (chevening, cooling, coria, daw-s, all by:agent) and 14
-DELETED the 303 way (bury, cassiobury, duffield, eaton, framlingham, goodrich, desborough,
-devil-s, gurnard-s, hardknott, herstmonceux, king-arthur, leicester, ludlow) - each deleted plan
-appears exactly once in a site review item with a '306d audit 2026-10-13: ... Document deleted.'
-place_reason (5 new single-candidate items, 3 appends to iteration-50 open items; leads unchanged);
-18/18 lines in the docs/site_flow.md 306d block; page file 342 open of 355; no by:hand doc
-touched; the page file's 'at' timestamp in web/data/review.json is the known merge-conflict point
-with agent a (keep the newer 'at').
+**Remaining for agent c (other tasks, not 306d's):** 306e in-progress (last 2 sites'
+303-way upserts + lines + task 807; recipe in its 198/199 hand-over) and 306f open (17
+continental docs, all deleted on main by 6ce742f -> verdict work against the surviving item
+entries; 306e's final form is the template). Task 806 (open) is likely MOOT now: it re-pins
+fit_provenance's yeared-title test, and main's 77bdf5d (tasks 231-234) already re-pinned it -
+verify at pick-up and drop it if so.
