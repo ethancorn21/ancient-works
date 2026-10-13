@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 212
 Touches: tests/test_merge.py, web/data/plans.json
 
@@ -54,12 +54,12 @@ copies on this machine yet, so a naive re-export HERE would drop them instead.
    anything new is found).
 
 ## Acceptance criteria
-- [ ] test_plan_list_refresh_is_pure_growth passes (both the shotwick and the numancia
+- [x] test_plan_list_refresh_is_pure_growth passes (both the shotwick and the numancia
       half) against the post-212 plans.json, alone and in the full suite.
-- [ ] Every (id, sites[0]) key of the committed pre-212 plans.json (1474) is present
+- [x] Every (id, sites[0]) key of the committed pre-212 plans.json (1474) is present
       in the re-exported file: no silent loss of the 211/Civitates rows on this
       machine.
-- [ ] The machine-dependence is recorded (docstring and PITFALLS), so the next
+- [x] The machine-dependence is recorded (docstring and PITFALLS), so the next
       re-export's row deltas are explainable at a glance.
 
 ## Notes
@@ -67,3 +67,6 @@ copies on this machine yet, so a naive re-export HERE would drop them instead.
   its fetch/re-export); run strictly after it.
 - If step 1 finds the test already green, this task shrinks to verification + the
   recording of step 3: that is still worth its own commit.
+
+## Lead close (2026-10-13)
+Done by the lead on main (Mac commits ported): see the [lead] commit. Full suite on the Mac: 145 passed, 0 failed.
