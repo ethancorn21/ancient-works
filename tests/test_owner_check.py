@@ -184,7 +184,8 @@ def _picker():
     for i, e in enumerate(q["entries"]):
         if not e.get("propose") or i + 1 >= len(q["entries"]):
             continue
-        if not isinstance(_line_eligible(e, items.get(e["site"])), list):
+        # [] = line-eligible with NO uncovered rows: the no-batch path is the only path
+        if _line_eligible(e, items.get(e["site"])) != []:
             continue
         auto = _auto_dep(e["site"])
         if not auto:
@@ -210,7 +211,7 @@ def _tier_of(score):
 def _score_of_deps(deps):
     """pipeline/build_site.py's overlays()+score() ported to the standard library: drawings at
     their fit residual, survey maps only at 150 years or older, at the series error.
-    -> (score, number of counted overlays)."""
+    -> (score, the counted overlays as (year, error in metres, is a drawing))."""
     year_now = datetime.now(timezone.utc).year
     newest = year_now - MIN_AGE_YEARS
     ovs = []
@@ -225,9 +226,11 @@ def _score_of_deps(deps):
         elif y <= newest:
             err = next((e for k, e in SERIES_ERR_M.items() if k in (d.get("label") or "")), 100)
             ovs.append((y, err, False))
+    if not ovs:
+        return (0, ovs)
     vals = sorted(((year_now - y) / 100.0 / (1.0 + (e / 100.0) ** 2) * (1.0 if dr else 0.6)
                    for y, e, dr in ovs), reverse=True)
-    return (round(vals[0] + 0.25 * sum(vals[1:]), 2), len(ovs)) if vals else (0, 0)
+    return (round(vals[0] + 0.25 * sum(vals[1:]), 2), ovs)
 
 
 def _merc(lon, lat):
@@ -325,8 +328,11 @@ page.on('console', m => log1('[console] ' + m.type() + ' ' + m.text()));
 page.on('pageerror', e => log1('[pageerror] ' + e.message));
 page.on('requestfailed', r => log1('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
 // the card's done map seeded past the earlier queue entries puts the card on the pick (one object
-// argument: this playwright-core takes at most one; its keys must match the destructured names)
+// argument: this playwright-core takes at most one; its keys must match the destructured names).
+// addInitScript runs on EVERY navigation (playwright's own semantics): seed only while the key is
+// absent, so the later page.reload() keeps _fqSaveFit's done mark instead of re-seeding it
 await page.addInitScript(({ done }) => {
+  if (localStorage.getItem('aw.fitQueue.done')) return;
   try { localStorage.setItem('aw.fitQueue.done', JSON.stringify(done)); } catch {}
 }, { done: doneMap });
 await page.goto(url);
@@ -387,9 +393,12 @@ const seed = await page.evaluate(id => {
            hint: (document.getElementById('fithint') || {}).textContent };
 }, site);
 console.log('[seed] ' + JSON.stringify(seed));
+// the queue stores the propose rounded (7dp lon/lat, 1dp u/v, 4dp scale): least squares over the
+// five ROUNDED pairs recovers the anchor only to that rounding (measured: centre 1e-7 deg, scale
+// 2e-4, rot 1e-9), so the tolerance is the rounding, not exactness
 check('seed: anchor matches the propose (derived from the served queue file)',
-  Math.abs(seed.mpx[0] - seed.mpx[1]) < 1e-9 && Math.abs(seed.rot[0] - seed.rot[1]) < 1e-9 &&
-  Math.abs(seed.centre[0] - seed.centre[2]) < 1e-9 && Math.abs(seed.centre[1] - seed.centre[3]) < 1e-9, seed);
+  Math.abs(seed.mpx[0] - seed.mpx[1]) < 1e-3 && Math.abs(seed.rot[0] - seed.rot[1]) < 1e-6 &&
+  Math.abs(seed.centre[0] - seed.centre[2]) < 1e-6 && Math.abs(seed.centre[1] - seed.centre[3]) < 1e-6, seed);
 check('seed: the five pairs and markers are on the map, the drawing preview is up',
   seed.n === 5 && seed.nMarks === 5 && seed.fitPrev, seed);
 check('seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden',
@@ -560,6 +569,7 @@ const cardPoll = (s) => page.evaluate(async (s) => {
       const pend = (typeof fqPending === 'function') ? fqPending() : [];
       const next = pend.length ? { name: pend[0].name || pend[0].site, site: pend[0].site } : null;
       return { name: (c.querySelector('.fq-site b') || {}).textContent || null,
+               pickName: ((FQ.entries.find(x => x.site === s) || {}).name || s),
                text: c.textContent, next, n: pend.length };
     }
     await new Promise(r => setTimeout(r, 250));
@@ -569,8 +579,7 @@ const cardPoll = (s) => page.evaluate(async (s) => {
 const card2 = await cardPoll(site);
 check('after save: the card names the next pending entry, not the pick',
   !!card2 && !!card2.next && card2.name === card2.next.name && card2.next.site !== site &&
-  !card2.text.includes(card2.expect ?? '') && card2.name !== (await page.evaluate(s =>
-    (FQ.entries.find(x => x.site === s) || {}).name || s, site)),
+  card2.name !== card2.pickName,
   card2);
 
 // ---- the reload: the fit loads back unchanged (same context: aw.depSel, aw.fitQueue.done
@@ -630,8 +639,7 @@ await page.click('#back', { timeout: 20000 });
 const card3 = await cardPoll(site);
 check('after reload: the card still names the next pending entry, not the pick',
   !!card3 && !!card3.next && card3.name === card3.next.name && card3.next.site !== site &&
-  card3.name !== (await page.evaluate(s =>
-    (FQ.entries.find(x => x.site === s) || {}).name || s, site)),
+  card3.name !== card3.pickName,
   card3);
 
 const out = {
@@ -767,9 +775,14 @@ def _run_one(fx, tag, tmp_path_factory):
                           capture_output=True, encoding="utf-8", errors="replace", timeout=600)
     assert proc.returncode == 0 and "RESULT PASS" in proc.stdout, \
         (proc.returncode, proc.stdout[-4000:], proc.stderr[-2000:], out[-30:])
-    runlog = out[n0:]
-    assert not any("attempted a network connection" in ln for ln in runlog), runlog
     data = next(json.loads(ln[len("[eval]"):]) for ln in proc.stdout.splitlines() if ln.startswith("[eval]"))
+    # the line runs in the server's worker thread, after the page already saw the overlay: wait
+    # for its finished report before slicing runlog, so runlog holds the run's complete output
+    deadline = time.time() + 30
+    while time.time() < deadline and not any(ln.strip() == f"one-site line for {site}: finished (exit 0)"
+                                             for ln in out):
+        time.sleep(0.2)
+    runlog = out[n0:]
 
     # 1. the saved doc (read from the tree's store): by hand, exactly the placed pairs
     doc = data["doc"]
@@ -778,6 +791,8 @@ def _run_one(fx, tag, tmp_path_factory):
     assert doc["site"] == site and doc["plan"] == plan
     assert doc["ia"] == row["ia"] and doc["file"] == row["file"]
     assert doc["model"] == "similarity" and doc["src"] == "book" and doc["url"] is None and doc["ref"] is None
+    for k in ("label", "title", "book", "cite"):  # saveFit copies them verbatim from the row
+        assert doc[k] == row[k], (doc.get(k), row.get(k))
     assert doc["size"] == data["imgSize"] == row["size"]
     mb, W, H = row.get("map_box"), row["size"][0], row["size"][1]
     want_crop = ([round(mb[0] * W), round(mb[1] * H), round(mb[2] * W), round(mb[3] * H)] if mb
@@ -799,6 +814,7 @@ def _run_one(fx, tag, tmp_path_factory):
     ov = next(d for d in deps if (d.get("fit") or {}).get("doc") == doc_id)
     assert ov["kind"] == "plan"
     assert ov["file"] == f"plan_{plan}.webp" and ov["ink"] == f"plan_{plan}_ink.webp"
+    assert ov["label"] == f"{row['book']}: {row['title'] or row['label'] or 'site plan'}", ov["label"]
     assert not sd.is_symlink(), "the pick's site dir in the tree is a symlink (the fixture must copy it)"
     for name in (ov["file"], ov["ink"]):
         fp = (sd / name).resolve()
@@ -825,14 +841,10 @@ def _run_one(fx, tag, tmp_path_factory):
                  if x["id"] == site)
     before = p["sitesBefore"]
     assert entry["drawings"] == before["drawings"] + 1, (entry["drawings"], before["drawings"])
-    score, n_ov = _score_of_deps(deps)
+    score, ovs = _score_of_deps(deps)
     assert entry["score"] == score, (entry["score"], score)
-    assert entry["overlays"] == n_ov, (entry["overlays"], n_ov)
-    assert entry["oldest"] == min(x for x, _, _ in
-                                  [(y, 0, 0) for y in
-                                   [d["year"] for d in deps
-                                    if d.get("year") and (d.get("kind") in DRAWING_KINDS or
-                                                          d["year"] <= datetime.now(timezone.utc).year - MIN_AGE_YEARS)]])
+    assert entry["overlays"] == len(ovs), (entry["overlays"], len(ovs))
+    assert entry["oldest"] == min(y for y, _, _ in ovs), (entry["oldest"], [y for y, _, _ in ovs])
     assert data["effects"]["markerClass"] == "marker " + _tier_of(entry["score"])
     assert data["reload"]["markerClass"] == "marker " + _tier_of(entry["score"])
 
@@ -846,11 +858,26 @@ def _run_one(fx, tag, tmp_path_factory):
     want = set(fx["picks"]["reviewBefore"]) - gone
     assert open_sites == want, (sorted(open_sites ^ want))
 
-    # 7. the server log: the one-site line finished, no matcher, no batch, nothing failed
-    assert any(ln.strip() == f"one-site line for {site}: finished (exit 0)" for ln in runlog), runlog
-    assert not any(ln.strip().startswith(f"one-site line for {site} failed") for ln in runlog), runlog
-    assert not any("matcher" in ln or "sent to the review queue" in ln or
-                   "no model answer" in ln for ln in runlog), runlog
+    # 7. the server log: the line's report and the line's own prints, exactly. The no-model line
+    #    prints on every run (the worker runs the line without a model) and so does the no-batch
+    #    line: every candidate is the saved doc or an item candidate, so the batch never runs.
+    #    _summary's per-picture lines are two-space indented (not 'fit  ' lines) and may say
+    #    'sent to the review queue' for the unfitted candidates - that is the line's own record.
+    line_lines = [ln for ln in runlog if "one-site line" in ln]
+    assert line_lines == [f"  one-site line for {site}: finished (exit 0)"], line_lines
+    rows = _rows_naming(tree, site)
+    doc_plans = {json.loads(pth.read_text()).get("plan") for pth
+                 in (tree / "data" / "db" / "platefits").glob("*.json") if pth.name.startswith(site + ".")}
+    n_doc = sum(1 for r in rows if r["id"] in doc_plans)
+    want_fit = ['fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"',
+                f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), "
+                f"{len(rows) - n_doc} in the review item -> no batch run needed"]
+    fit_lines = [ln for ln in runlog if ln.startswith("fit  ")]
+    assert fit_lines == want_fit, fit_lines
+    assert not any("matcher" in ln for ln in runlog), runlog
+    assert not any("attempted a network connection" in ln for ln in runlog), runlog
+    assert not any(ln.startswith("sync ") and ("refused" in ln or "FAILED" in ln
+                  or "sent to the review queue" in ln) for ln in runlog), runlog
 
     # 8. the reload state the probe checked in the browser, cross-checked against the tree
     assert data["reload"]["sel"] == site
@@ -867,6 +894,9 @@ def _run_one(fx, tag, tmp_path_factory):
     docs = ROOT / "docs" / "site_flow"
     for name in ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload"):
         shutil.copy2(outdir / f"{name}.png", docs / f"307d_{tag}_{name}.png")
+    if tag == "A":
+        # B's run must not rewrite A's already-resolved item file (write-once): record the bytes
+        fx["picks"]["A"]["itemBytes"] = _h(tree / "data" / "review" / p["itemFile"])
     return data
 
 
