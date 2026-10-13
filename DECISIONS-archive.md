@@ -3870,6 +3870,129 @@ extended tests/test_cover.py per the rewritten hand-over (the design it points t
 iter-230 "EXACT NEXT STEP", now corrected by this entry), run it alone under .venv, fix,
 then the full suite (known non-212b red: 307bb's part-4 gestures, pre-existing on this VM).
 
+## 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py
+Session 232 (agent a). Investigation only; the tree was clean and untouched (HEAD 0e6d5df, no
+data-file diff between 8555682 and HEAD - so the iter-231 note measured the same files, it
+simply mis-bucketed). Re-measured live: built 499; nofit 452 = search 234 (199 qid + 35 no-qid)
++ with-row 218 = 105 allcovered + 0 partial + 103 no-item-file + 10 empty-candidate items
+(aventicum, bibracte-q650053 (16 rows), hopewell-mound-group, los-millares, maeshowe,
+motte-castrale-quiquempois-q22961457, numancia, stones-of-stenness,
+the-roman-fort-vicus-bridge-abutments-an-q17650519, trundle-q7847949 - all resolved None,
+all with the batch-era no_picture "web/data/plans.json (1166 rows, matched by the sites
+field)"); docs 57 (21 by:hand + 36 by:agent ALL fitter:matcher, 0 unmarked) ALL is_done in the
+tree, 0 line-check failures; item files 377, open 365 (recomputed with review.resolved_doc);
+plans 1510; store big cache 75 (aesica's c_e28ed261168b49c9.jpg present, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg absent -> the test seeds them);
+CHOOSE == the pinned 4 with pinned row ids/sizes/map_box (CHOOSE site dirs: aardenburg/aire
+real, aesica/alauna symlinked - the realize converts all 382 symlinks anyway); bethlehem dep
+map-only (tmk1850.webp, 22-cand audit item) and shotwick dep map-only (six-inch-1st.webp,
+2-cand audit item), both drawings 0; aesica 1-cand item with the STALE recorded resolution
+{doc: aesica-q4688554.c_e28ed261168b49c9, at: 2026-10-12T03:13:35.590448+00:00} -> D2 holds;
+alauna 5-cand item resolved None (first row book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66]); hit aalsum-q3902030 (item aalsum-q3902030.json,
+candidates []); fail site craig-phadrig; spot aggersborg; web/data/review.json at
+2026-10-13T11:26:15.291892+00:00 with 365. Loop consequence (worked out against
+site_done._fit + batch_us.run_sites, both re-read this session): at loop time 11 sites have
+an empty-candidate item with rows (the 10 + aalsum after staging) - for each, uncovered =
+ALL rows (no docs, empty item_cands -> the keep-restore restores nothing) -> run_sites
+upserts every row "no model answer" (+ the propose-for-checkout extras; the hit's two staged
+rows raise ValueError - not in the checkout's plans.json -> coarse); no_picture_found
+cleared; resolved stays (write-once, None) -> the file MOVES to <site>.<lead>.json (lead =
+first row in the tree's plans order) and stays open. End arithmetic: 377 - 11 (old files
+unlinked) + 112 (101 fresh from the 103 no-file minus the 2 CHOOSE, which get docs not items,
++ 11 renames) = 478 files; open = 365 - aesica + 101 = 465 (the 11 renamed were already
+open). Sync: 60 docs (57 pre + 3 CHOOSE; alauna's was written then deleted by its own
+line) all "skipped" (the 3 built in the loop, the 57 is_done), no "pruned" line, beth/shotwick
+deps byte-identical, the full export is the only page-file writer. Re-read this session,
+all as the iter-230/231 notes say: fit/cover.py, tools/site_done.py, fit/batch_us.py,
+fit/review.py, pipeline/plan_fit.py, fit/matchfit.py, fit/propose.py, tests/conftest.py,
+tests/test_fit_queue.py (the GUARD + reader-thread port-0 server pattern; sys.executable is
+the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corner_pairs, the
+golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
+this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
+is writing the extended test per the corrected hand-over.
+
+## 2026-10-13 212b DECISION: marked done on the lead's instruction - the last box (the no-network port-0 test) ticked on the verified live-sync evidence; the written test stays designed-but-unwritten in git; parent hand-over rewritten for 212c
+Session 233 (agent a). The lead (mid-session human message): "212b has one box
+left and the sync is done and verified. Tick it with the evidence you have,
+mark 212b done this session - no more re-measuring. 212c, the report, is
+next." I ticked box 3 and set Status: done on the evidence already in this
+journal (no new measuring, per the instruction): the verified live sync run
+(iter-227: run1 an exact dry-run match - 76 sent / 25 skipped / 30 synced;
+run2 the 2 lead burcht docs the 06:07 merge added mid-run; 365 open / 377
+items; golden 40/40; store clean), the post-sync suite classification
+(iter-228: the only reds = 307bb's part-4 gestures, pre-existing, agent c's
+307 series), and the iter-231/232 confirmations that the post-sync world is
+stable at 0e6d5df (no merge since: only driver commits on my branch; main is
+contained in agent/a). Consequence for any future agent: tests/test_cover.py
+on disk remains 212a's 770-line search + no-picture version (green); the
+extended no-network test (6 phases + port-0 served-page assertions) is fully
+designed in the iter-230/232 hand-overs (`git show
+45675c9:tasks/212b-cover-sync.md` and `git show 1cd9671:tasks/212b-cover-sync.md`)
+but was never written, on the lead's say-so - if it is ever wanted, start
+from those notes (the census, recipes and pins are all there). The parent
+tasks/212-cover-final.md hand-over was rewritten as the 212c snapshot: the
+`report` phase already exists in fit/cover.py (212a wrote it) -
+`python3 fit/cover.py report` writes docs/batch.md from the store (seed
+SEED_212 = 20261012, per-site buckets, the 20-sample over the 36 matcher
+docs, the no-picture table); docs/batch.md does not exist yet; the live
+report will honestly bucket the 103 loop-never-ran no-item nofit sites as
+"uncovered (needs attention)". No code or data files touched this session.
+Full suite run for the done-claim: 1 failed / 154 passed / 1 skipped in
+309s - the only failure is
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+(307bb part-4 gestures, the known pre-existing red belonging to the 307
+series, not this task).
+
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
+
+<!-- task 212c -->
+# Task 212c batch-report
+
+## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
+Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
+test and commit them. Then write docs/batch.md from it. No census re-measuring - the store
+is the source." The `report` phase 212a wrote needed no change: `.venv/bin/python
+fit/cover.py report` on the live store (system python3 has no numpy - the driver's venv
+does) produced docs/batch.md: 499 built; buckets 19 hand-golden / 0 human-saved / 24
+automatic / 106 review item / 244 no picture found / 106 uncovered-needs-attention - the
+sum is 499, the partition holds; the invariant line honestly reports the break for the 106
+(the loop phase never ran live; the number moved from the 103 estimated at 0e6d5df because
+the store moved - lead: no re-measuring); the sample is random.Random(20261012) over the 36
+by:agent docs (20 drawn, page URL + gate median - the same table convention as
+docs/batch_us.md); the no-picture table is 244 rows and cross-checked 1:1 against the
+no-picture bucket (no fitted site carries an open no-picture item, so the table is exactly
+the bucket; one batch-era string, a with-candidate site outside the 212a search set,
+renders as-is - the store's own record, not a phase defect). tests/test_cover.py extended
+with test_report (the run fixture runs the report on the same tree after the integrity
+snapshots, socket guard re-armed, fixed at=; docs/batch.md moved into IN_PLACE so the
+report's in-place rewrite stays in the tree): recorded seed == SEED_212, the named
+automatic total == the store's, the six buckets sum to the built-site total, the invariant
+line agrees with the uncovered bucket, the sample is exactly random.Random(recorded
+seed).sample(sorted auto ids, 20) in draw order with page URL + gate score per row, and
+the no-picture table is complete with non-empty searched records. Suite: 155 passed, 1
+failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - 307bb's
+pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
+skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
+tick both boxes, set done.
+
+## 2026-10-13 212c DECISION: docs/batch.md committed from a fresh store run - 212 complete (a done, b done by the lead, c done)
+Session 234 (agent a), second commit of the session, per the lead's order ("Then write
+docs/batch.md from it"). The file (at: 2026-10-13T13:22:09.600423+00:00, 293 lines) is the
+report the owner reads: the six per-site outcome buckets summing to the 499 built sites
+(19 hand-golden / 0 human-saved / 24 automatic / 106 review item / 244 no picture found /
+106 uncovered-needs-attention - the loop phase never ran live, so the invariant line
+honestly prints the break for the 106), the fixed 20-sample of the 36 by:agent docs
+(random.Random(20261012) over the sorted ids; page URL + gate median per row - the
+owner's 18/20 check is repeatable from the file), and the 244-row no-picture table with
+the exact searched record per site. tests/test_cover.py passes with the checkout carrying
+the file (the IN_PLACE copy path in the tree builder) - 6 passed, 35 s; full suite as
+before (the one red is 307bb's pre-existing gesture test). The parent 212 hand-over now
+says the whole 212 is complete; its Status stays split until the driver hands it back.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
