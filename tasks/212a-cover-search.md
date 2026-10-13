@@ -29,13 +29,138 @@ note ef84a05 - the matcher is the fit, never the vision-model fit).
 
 ## Hand-over
 
-(2026-10-13, iteration 216, agent a - investigation + verification session; NO test
-file written yet, session hit the context limit after the 233/234 verification and the
-live-state re-measurement. **EXACT NEXT STEP: (1) mark tasks/233 + tasks/234
-Status: done, all boxes ticked (lead's instruction, verified this session - evidence
-below); (2) write tests/test_cover.py per the settled 212a design below; (3) run it
-alone, fix, run the full suite; (4) the live run (box 4) is a LATER session and waits
-for 203b - see end.**)}
+(2026-10-13, iteration 217, agent a - **tests/test_cover.py WRITTEN (uncommitted, in the
+working tree) but NOT YET RUN; the session hit the context limit right after writing
+it.** Box 1 of my task file is now substantially in place (the search/stage/nopicture
+test). **EXACT NEXT STEP: (A) fix the KNOWN DEFECTS in tests/test_cover.py listed
+below (they are marked with "placeholder" comments and I list them all - the file will
+not pass as-is); (B) `git add DECISIONS.md tasks tests/test_cover.py && git commit`;
+(C) mark tasks/233 + tasks/234 Status: done, all boxes ticked (lead's instruction,
+verified iter-216, still valid - re-verify with a 30-second test run first: `.venv/bin/python -m pytest tests/test_merge.py::test_plan_list_refresh_is_pure_growth tests/test_fit_queue.py::test_fit_queue_real -q`); (D) run
+`.venv/bin/python -m pytest tests/test_cover.py -q`, fix what it exposes (expect
+iteration on the fakes' edge cases), then the full suite in the FOREGROUND (PITFALLS:
+basetemp race); (E) live run (box 4) remains a LATER session, waits for 203b.**
+
+**KNOWN DEFECTS in tests/test_cover.py (written, unrun - fix before first run):**
+1. `test_counts`: the first two asserts on the fetch line are GARBAGE placeholders (one
+   with `or True`, one dead `if False else None`) - DELETE them; keep only the final
+   checked line, and fix its numbers to the product's own arithmetic: expected =
+   "fetch: %d row(s) with a local copy, %d without a source, fetched %d thumb(s) + %d
+   url-only" % (world["n_have"] + world["n_nosrc"], world["n_nosrc"], world["n_thumb"],
+   world["n_url"]) (product's n_have counts the nosrc rows too: len(rows) - thumb -
+   url; n_thumb/n_url = world's missing-fetchable counts - the fake fetch never fails).
+2. `test_stage`: the last 4 lines contain two GARBAGE placeholder asserts (`"files_bytes"
+   if False else "searches_bytes"` etc.) - DELETE them; keep only the final
+   byte-identical re-export check.
+3. **before/after item key mismatch**: `run["before"]["items"]` is keyed by CHECKOUT
+   paths (world's snapshot) but `run["after"]["items"]` by TREE paths - test_nopicture's
+   per-file identity compares them and will fail on key mismatch (before.get(tree_path)
+   -> None). FIX: in the `run` fixture, build `before["items"]` from the TREE after
+   build_tree (same shape as `after`), keep world["items"] only for the
+   candidates/resolved pre-values (its `_pre_by_site` lookup is path-agnostic).
+4. `build_tree` web-branch: with include_sites=False it links the whole web/ then
+   rmtree's web/data/sites contents (works, ~3147 wasted links); with
+   include_sites=True the `if top != "web"` fall-through means **web/ is never linked
+   at all** - broken seam for 212b. Clean it up when 212b flips it (or now): one
+   builder with a per-top skip list for web/data/sites.
+5. Minor: `run` fixture does `out["ss_at_search"] = cover._search_set(tree)` inside the
+   try block before `cover.search` - fine, but it is only set if fetch didn't raise;
+   the fixtures' world["ss"] (checkout) equals it on the current machine.
+
+**VERIFIED THIS SESSION (all on the current merged tree, main tip 206e4b5 IN my branch
+via merge-base == main; aeeb5aa (lead's 233+234) present):**
+- Live state re-measured, MATCHES iter-216: built 499; docs 131; nofit 402; cand sites
+  601; plans 1475 rows; search set 245 = 204 qid + 41 no-qid; no-qid-with-title set
+  EMPTY (D1: every record's failed == []); hit = aalsum-q3902030 (Q3902030, name
+  "Aalsum", no existing titles, pre-existing BARE item aalsum-q3902030.json with the
+  batch-era no_picture string); all 245 search-set sites have bare plain-named items
+  (246 bare total, 100 candidate/lead-named among 346 item files).
+- **PURE GROWTH HOLDS ON THIS MACHINE**: all 405 committed commons keys and all 1068
+  committed book keys have local copies in the VM store (aeeb5aa's Mac<->VM sync held
+  for both branches) - the key-set assertions' lost/gained sets are empty today
+  (they stay armed as state-aware guards for future store drift). The one kept
+  files.jsonl row missing a copy ("The Geometrical Ground of the Plan of Stonehenge",
+  Stukeley TAB XI, by fit/src_wiltshire_stukeley.py, sha c_3e7c76bf954bd4d3) has no
+  thumb AND no url (a book-derived 211-consolidation row) - the fetch phase counts it
+  "without a source" and it is NOT in the committed plans.json (its book has 0 rows in
+  data/books/index.jsonl on this machine) - so it neither fetches nor drops anything.
+  328 titled rows lack copies but 327 of those are non-kept (the 216 note's "328"
+  counted titled rows; only kept rows matter to fetch/export).
+- **fit/cover.py re-read in full (863 lines, unchanged since 55678e3)**: exact
+  signatures verified for the fakes - _search_site's record fields; keep/NO mime
+  filter order (mime before keep); _stage_row's field order (site,qid,title,year,
+  wd_plan,cat,by,**meta 10 keys) -> the test builds the expected files.jsonl line
+  bytes from that exact dict; stage appends json.dumps rows; evidence.record(live=False)
+  is a NO-OP here (by:"212" not in source_tables() - {pipeline/sources.py deventer,
+  kip, mackenzie} - and every book row already carries rec "evidence/1" (1068/1068)
+  -> neither file is rewritten); _regen_plans re-points export_plans.ROOT/BOOKS +
+  commons.OUT/RAW and restores (the fixture uses it for the pre-phase baseline
+  re-export, then restores the committed plans bytes); _searched_string format
+  (mirrored in expected_searched; spot-checks pin the wording literally);
+  nopicture upserts via review.upsert_item (entries=[] keeps candidates, dict sets
+  no_picture_found, resolved write-once, lead=None -> <site>.json, atomic new inode);
+  _claims does one batched wd_claims call for all 204 qids; search() skips
+  already-recorded sites (resumable) and writes searches.json per site via
+  batch_us._save_json (atomic).
+- **commons.py re-read**: search()/files_of() return "File:"-prefixed titles (the
+  real convention; the fakes match it); MAX_YEAR=1925; year_of/keep on the fake
+  titles verified by hand (1701/1850 kept via title year; 2010 dropped; the special
+  title-year override does NOT fire for (c. 2010)); info() returns the 10-key meta
+  the record stores verbatim; export_plans' commons_rows skips unclassified rows
+  (min_p=0.3) and PIL-opens every local copy for [w,h] (the fake JPEGs are real
+  1280x960); new plans row shape = [c_sha16, "Wikimedia Commons", None, None,
+  name, when, [1280,960], None, [site], cite, media url, False, title] with
+  when="1701"/"1850" (when_of on empty date) and cite = the page url only.
+- **evidence.py fetch_page_ids -> {title: pageid}; fetch_file_entities(page_ids)
+  -> {title: {item, p180}}** (title-keyed - the fakes match); review._find_item
+  measured at **4 ms** (not 216's 200-300 ms estimate) -> nopicture ~2 s, the whole
+  test module should run in ~15-20 s.
+- conftest.py re-read: my test does NOT use the session `served` fixture (212a has no
+  server; the parent's page checks will start their own port-0 server after the
+  phases, per the parent hand-over) and does not edit conftest. The basetemp-race
+  PITFALLS (pytest 9.1.1, shared TMPDIR basetemp, green session rmtree's it) means:
+  run the suite in the FOREGROUND, never a second concurrent pytest in this
+  checkout; the module fixture's tree lives under basetemp and is hard-linked
+  (near-zero disk; retention "failed" already in pytest.ini, re-declared per module).
+- data/cover/ does not exist in the checkout yet (the builder unlinks the tree's
+  searches.json defensively for the post-live-run state); the store (real dir behind
+  the data/raw symlink) has 0 symlinks, 0 .npy/.npz, ~11531 files, 3.8 G (growing -
+  other agents write to it, so NO store file-count assertions; the only store check
+  is that no <hit> dir appears in data/raw/commons). checkout_hashes() covers data/
+  (raw symlink skipped), web/data top level (6 files: catalog.json fit_queue.json
+  plans.json review.json sites.json sites.json.lock world.jpg), docs/ specs/ tests/
+  (skips __pycache__, .npy/.npz, symlinks).
+
+**212a DESIGN AS COMMITTED IN THE TEST (settled iter-216, encoded now):** one
+module-scoped fixture builds the tree (hard-link web/data/docs/specs/tests EXCEPT
+the 3 in-place files copied; data/raw a REAL dir of hard links to the store; web/
+/data/sites skipped) + world + baseline re-export + fakes (socket guard + time.sleep
+no-op + Fakes class patched onto the shared module objects), runs fetch->search->
+stage(classifier fake, live=False)->nopicture, re-runs search/stage/nopicture,
+snapshots before/after; 5 test functions assert (i) searches.json per-site records +
+resumability (ii) stdout counts (iii) stage bytes/rows/plans keys + exact new rows
+(iv) nopicture items with the exact searched string (spot-checked literally) +
+byte-identity of everything else (v) checkout integrity. No loop/sync/export/report
+- those are 212b/212c extending this same file (seams: PHASES, include_sites).
+
+**LIVE RUN (box 4) - later sessions, genuinely waits for 203b (agent c, in flight):**
+fetch (1/s paced, resumable; today: 0 fetches - everything fetchable already has a
+copy; 1 "without a source" row, the Stukeley TAB XI - if the live run's key-set
+diff ever shows it lost, record it as a data finding per the 212 hand-over's rule;
+it is not in the committed plans.json so its loss is not a committed-key loss) ->
+search (real Commons/Wikidata, resumable via data/cover/searches.json) ->
+stage --live (evidence record for the new rows; ask_human ONLY if new files found and
+clef 127.0.0.1:18083 still down: tunnel, or approve the LLM on 8081 as one-off
+classifier) -> nopicture -> commit (searches.json, grown files/classified.jsonl,
+new raw copies (data/raw gitignored - note it), item files, re-exported plans.json -
+record the (id, sites[0]) key-set diff: lost keys = data finding, expected pure
+adds) -> `sha256sum -c tests/golden/hand_fit_docs.sha256` must pass 40/40.
+The loop is the LEAD's (ELoFTR 8091; RoMa 8092 down, skipped; LLM 8081 forbidden
+for placement); sync/export are 212b's; report is 212c's.
+
+---
+(iteration 216 hand-over, superseded sections kept in git: `git show
+590284f:tasks/212a-cover-search.md`.)}
 
 **233/234 VERIFIED THIS SESSION (lead instructed marking them done once main merged;
 aeeb5aa IS in my branch via 400431f):**
