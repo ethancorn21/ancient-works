@@ -458,3 +458,9 @@ unconditionally. No code changed this session.
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     (run after merging main, the other agents' finished work, into your branch: fix the combination)
+
+## 2026-10-13 207a DECISION: first session - module fit/src_roman_horsley.py created (register/fetch/status/triage/list legs); all 936 triage pages fetched; next step is triage A in the background
+- Module pattern: 209b's Stukeley (the book really is on IA: no local-copy wrap, the machinery runs unmodified; register() only adds the BOOKS entry, and - once HORSEY_PLATES is transcribed - injects it into books_lists.PLATES in-process). NO LLM_URLS patch: books.py's default LLM_PORTS is now "8080,8081,8082,18080,18081" (215 re-pointed it), and 8080/8081 answer (8082 down) - the parent's "patch books.LLM_URLS" mechanics note is stale on that point.
+- Fetch measured: 936 pages in ~10 min at 2 workers (~4 s/page, IIIF 1400 px JPEG q88; median output 812x1400, every file 1300+ px long side, zero failures, one auto-retry after an SSL handshake timeout - books.get tries=2). No IIIF problem like Allcroft's NO_IIIF case.
+- The hOCR pageindex has 942 pages against the bookreader's 936 leaves (6 extra) - the civitates-style misalignment: text looked up by hOCR index can land on the wrong leaf; the leaf images are the ground truth. The printed list of plates is hOCR-silent (i53-i68, between the preface ending i52/printed xxxii and the body starting i69) and must be transcribed by eye from the triage images (the Stukeley/213 hand-list pattern).
+- Suite re-baseline this session (the parent's hand-over asked for it): 1 failed / 155 passed / 1 skipped (312 s); the lone red is agent a's in-flight 307 placement test, the same signature 306d recorded at 161/201.

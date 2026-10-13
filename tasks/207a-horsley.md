@@ -1,4 +1,4 @@
-Status: open
+Status: in-progress
 # 207a: Horsley, Britannia Romana (1732)
 Depends on: 200
 Touches: fit/src_roman_horsley.py, data/books/triage/, data/books/lists/, data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, docs/lead_roman.md, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json
@@ -51,3 +51,71 @@ found) but are not staged as picture rows.
 - The LLM triage of 936 pages is the long pole: run it as a resumable background job (the
   stage jsonl is append-only and skips done pages; see the "long background data jobs"
   PITFALLS entry).
+
+## Hand-over
+(2026-10-13, iteration 202, agent c - FIRST session. Module created, all 936 triage images fetched
+and verified. Next session: start triage A in the background, transcribe the plate list while it runs.)
+
+**Suite baseline** (this session, `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`, 312 s):
+1 failed, 155 passed, 1 skipped. The lone failure = agent a's in-flight 307 work on main
+(test_fit_queue.py::test_placement_gestures_and_save_in_the_browser; same signature as 306d's 161/201
+records: "seed: the gestures own the mouse..." + /tiles/relief 404). No new red from my changes.
+
+**State.**
+- `fit/src_roman_horsley.py` exists (KEY=horsley_britannia_romana_1732, ia=britanniaromanao00hors).
+  Built legs: `--fetch`, `--status`, `--triage A|F|B`, `--list` (prints front-matter hOCR until
+  HORSEY_PLATES is set). NOT built yet: `--stage`/`--check`/`--golden` (raise "not built yet").
+  The module top is stdlib-only; books/books_ia/books_lists import lazily.
+- All 936 triage images fetched and verified: data/raw/books/britanniaromanao00hors/triage/n0000-n0935.jpg,
+  every one 812-1400 x 1051-1401 px (median 812x1400 portrait), zero failures, the fetch process is gone
+  (log /tmp/horsley_fetch.log). data/raw is the shared symlinked store (PITFALLS line 170/230).
+- Triage stages NOT run yet. LLM replicas checked this session: 8080 and 8081 up, 8082 down; books.LLM_URLS'
+  default port list (215 re-pointed books.py) covers the live ones, so NO in-process LLM_URLS patch is
+  needed - the parent's "patch LLM_URLS" mechanics note is stale on that point.
+
+**Book facts (measured this session from the cached bookreader.json + the hOCR pair, both now local):**
+- 936 bookreader leaves (long side 2576-4116 px; 5 landscape). The hOCR pageindex has 942 pages - SIX more
+  than the leaves - the civitates-style misalignment (PITFALLS): text looked up by page index can land on
+  the wrong leaf; the leaf IMAGES are the ground truth. Verify the exact skew when you first view images.
+- Title page = hOCR leaf 15 (full title + "In three books"); dedication/preface i16-i52 (preface ends on
+  printed page xxxii, i52); the body starts i69 ("BOOK THE FIRST").
+- **The printed list of plates is the hOCR-SILENT leaves i53-i68** (16 leaves between preface and body; zero
+  hOCR text except garbage on i63). Read it BY EYE from the triage images - the Stukeley/213 hand-list pattern.
+  These are hOCR indices; in bookreader n they sit in the same front-matter region (locate visually among
+  n0047-n0070). The 1732 list runs printed pages xxv-xxxii (~8 pages), so only part of i53-i68 is list -
+  the rest may be blank leaves or early plates; confirm visually.
+- Plates are numbered "PL. <roman numeral>"; the ~121 plates are mostly inscriptions/sculptures (kind o),
+  the site plans are the few maps (kind s) - only those get staged.
+
+**Catalog context for the later tie work:** data/catalog/sites.jsonl has 299 roman_fort rows, ALL with QID
+(206 england, 54 wales, 22 netherlands, 17 france). extras.jsonl carries ~45 german Limes forts (kind
+"roman fort", region "Germany" capitalized - the parent's hand-over says extras rows use capitalized
+regions and 211 normalizes). files_roman.jsonl / classified_roman.jsonl / extras_roman.jsonl do NOT exist
+yet - the first --stage creates them; tag every row book=horsley_britannia_romana_1732 (207b/207c append
+their own tagged rows to the same files). The canonical book-row shape to follow: the two Stukeley rows in
+data/commons/files.jsonl (site, qid, id=<ia>_n%04d[_n%04d], book, ia_id, cite, title, plate, plate_page,
+leaf_n, leaf_n2, page_type, year, wd_plan, cat, name, by, desc, evidence) and their classified twin
+(p_plan 1.0, by hand).
+
+**Re-read: fit/src_roman_horsley.py:list_cmd - when transcribing the list, verify the hOCR-vs-bookreader
+skew (hOCR i vs bookreader n) from the list-page images, and that i63's OCR garbage is not part of the
+list. Also read the leaf-15 title page to finalize CITE (currently the IA-record title).**
+
+**Exact next steps.**
+1. Start triage A in the background: `nohup .venv/bin/python fit/src_roman_horsley.py --triage A >
+   /tmp/horsley_triageA.log 2>&1 &` (936 pages, 8080+8081 x 4 workers each; append-only, resumable;
+   check `--status`). Commit the A file only when complete (the long-background-job pitfall: process gone
+   + 936 rows + mtime settled) - a partial A file is fine to resume, but don't present it as complete.
+2. While A runs: view the front-matter triage images (n0047-n0070 region), locate and transcribe the
+   printed list of plates into HORSEY_PLATES (format plate|sub|title|page|kind; kind judged from the
+   printed title - s = maps/site plans, o = inscriptions/sculptures/views, u = unsure), set the constant,
+   then `--list` once stage A exists (map_plates needs A) -> lists/britanniaromanao00hors.json + .map.json.
+   Also verify no specific Google-scan pages are unreadable (the Bim copies are the alternates for that).
+3. Then: triage B on the plan pages -> stage the verified kind-s rows (--stage, append-only idempotent,
+   200 evidence field naming the list entry/caption/coordinates distance, 1732 on every row) into
+   files_roman.jsonl + classified_roman.jsonl + extras_roman.jsonl (new sites only, kind
+   "roman fort"/"roman site", QID where one exists) -> --check (offline join + fit/evidence.py) ->
+   --golden (tests/golden/src_roman_horsley_sample.json) -> tests/test_src_roman_horsley.py (no-network,
+   the test_fit_queue/no_network socket-blocking fixture pattern; LLM calls never in tests) -> record the
+   stage-A/B recall against the list in a new Horsley section of docs/lead_roman.md via
+   books_lists.validate_book (NEVER the shared validation.json/index.jsonl - 211 rebuilds those).
