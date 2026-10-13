@@ -96,3 +96,17 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
 - A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
 ... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
+
+### 2026-10-13 302f HAND-OVER (iteration 210, agent c, context-limit save)
+    Task 302f (matcher station e2e test) - INVESTIGATION ONLY, no code written yet. The complete
+    test design is traced in tasks/302f-matcher-station-test.md's ## Hand-over (fixture keyed by
+    sha256 of the exact /match request body; in-process ephemeral-port stub; guard variant that
+    allows only the stub port; exact expected stdout for both branches; unsure variant =
+    permuted ground keypoints of the >=10-inlier responses). NEXT STEP (one session): write
+    tests/fixtures/matchfit_station/record.py, run it live once against 127.0.0.1:8091 (ELoFTR
+    verified reachable this session; RoMa dead), commit the two fixtures, write
+    tests/test_matchfit_station.py (two tests: confident + unsure), run it, then the full suite
+    (baseline yardstick: 306d-era 10 failed/130 passed/1 skipped of 141; agent a's 212/307d work
+    is in flight - new failures in their files are not mine). tests/test_site_done.py passes on
+    this branch (5.3 s, .venv current). Nothing else in the working tree was changed this session
+    except the task file (git status: only tasks/302f-... modified before this note).
