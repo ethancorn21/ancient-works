@@ -12,7 +12,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 250, agent a - TENTH session. **The test is FULLY GREEN.** All three
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
@@ -24,60 +23,92 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
-The owner's 307 rework has six acceptance boxes across two independent planes: the data side
-(the queue must not pair a caption with the wrong site - a new place check in
-tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
-web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
--> c -> d. No code this session; the split is the step.
+### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
+The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
+(case b) never reads the deleted bethlehem doc - its seed is the golden doc
+c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
+is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
+c_61b86efb4511e099 with the 211 pictures; the item file and the published page
+entry still agree with each other at 13 candidates - verified). 231 was rewritten
+to cover only the year-once pin (case e) with a candidate list measured from the
+live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
+"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
+Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
+state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
+entry above (depends on 212). 234: test key to the generator's documented
+(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
+depend on the entry order) - plus a byte-reproducible regeneration of
+web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
+212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
+worktrees were removed (agent c's /tmp/aw306cab untouched).
 
-Ground truth measured while planning (all verified by running code, iteration 107):
-- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
-  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
-  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
-  Cambridgeshire site. The catalog DOES contain the right site:
-  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
-  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
-  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
-  searched) has no Ardoch, so that mismatch goes to review, not a move.
-- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
-  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
-  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
-  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
-  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
-  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
-  re-verify recorded verdicts offline (the evidence-check pattern).
-- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
-  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
-  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
-  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
-  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
-  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
-- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
-  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
-  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
-  so the affine the image source builds is exact). So "drawing starts on the map" = set
-  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
-  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
-  plan_fit.py/gate/one-site line are untouched.
-- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
+### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
 
-### 2026-10-13 307d DECISION: seventh session - first run of test_owner_check.py: both tests fail instantly at the probe's ESM import, a JS syntax error from `\\'` in three check-name strings (raw Python string keeps both backslashes; the JS parser reads `\\` as an escaped backslash and the next quote closes the string); fixed to `\'` (one backslash in the raw string), node --check passes; re-running
-- The 247 session had applied the 246 hand-over's five fixes (seed-only-when-absent addInitScript, pickName card checks, itemBytes assignment, exact fit-line runlog asserts, 1e-3/1e-6 seed tolerances) plus the picker `_line_eligible == []` and the _score_of_deps (score, ovs) refactor; its work was never run and no 247 entry exists (the driver committed it as acb3f2c). Verified this session that all five fixes are present, that the current tools/site_done.py print order (no-model line in main before _fit's no-batch line; _summary lines two-space indented) matches the test's exact-match runlog asserts, that both picks' item candidates carry clean whys (no 'matcher'/'network' keywords) and no recorded resolution, and that the picker still derives A=[38] oswestry bar / B=[45] devil-s-dyke picture_size (queue 241 at 2026-10-13T14:34:09.559141+00:00, unchanged).
-- FIRST RUN FAILURE (the only one so far): node v22 ESM SyntaxError at owner_probe.mjs:137 on both tests, in 1.66 s. Cause: three check-name strings in the PROBE raw string carry a possessive apostrophe written `\\'` (two backslashes + quote in the file) - lines 406/554/558 (`site\\'s own`, `score\\'s tier`, `card\\'s done map`): in JS `\\` is an escaped backslash, so the quote after it closes the string and the word following is an unexpected identifier. The 307bb template never put an apostrophe in a JS string literal (only in `//` comments), so 244's port introduced the bug. Fix: `\'` (one backslash in the raw string = one in the file = the JS escape). `node --check` on the regenerated probe passes; no other `\\` sequences exist in the file. This was a static defect, not a page-behaviour one - no page state was reached, no re-derivation needed.
-- Re-running the test now (2 browser runs, ~5-10 min). If a check then fails: commit the test as-is with the failing check name and the probe's [eval] dump (the 307bb rule) and fix next session.
-
-### 2026-10-13 307d DECISION: eighth session - second run: both saves complete perfectly on the server side (verified in the retained tree) but both probes fail at the effects poll, which fetched the review ITEM file in-page - that URL can never work (the server's static root is web/, and web/data/ has no review/ dir; items live only in the store's data/review/); also the doc's readFileSync in the same evaluate runs in the browser, which has no fs. Fixed both (item resolution now python-side; doc read Node-side, passed in as docAt/docBy); node --check clean; context limit hit before the third run
-- Run 1 (after the `\\'` syntax fix): both probes died at probe line 242 with an in-page ReferenceError - the effects evaluate's first statement called `readFileSync` (a Node builtin) inside `page.evaluate`, which executes in the browser. Crucially, BOTH saves had completed on the server before the crash: the retained tree (pytest-1) showed both docs {by: hand, 5 pairs}, both overlays (plan_<plan>.webp + _ink with fit.doc/at), both sites.json entries {drawings: 1, score: 1.45, oldest: 1842, overlays: 2} (the t1->t2 recolour), both items resolved, review.json 455 = 457 - 2.
-- Run 2: both runs ran the full flow (~7 min 10 s total). Both probes then failed at the effects poll, which fetches `data/review/<itemFile>?t=` every second: 404 on EVERY fetch (the server access log shows them), because serve.py serves with `directory=WEB` - `/data/...` maps to `<tree>/web/data/...`, and web/data/ has no review/ subdirectory in the checkout or any tree (verified on disk; the item files live only in data/review/, which is store-only and never served; the page consumes only the aggregate web/data/review.json). Not transient: the no-batch path never calls review.upsert_item (the only renamer, and only when the lead moves), and export writes resolved in place.
-- Cascade that made run 2 look worse than it was: the item fetch threw before `state` was assigned -> the 120 s poll returned {ok: false, state: {}} -> all four line-effect checks FAILed AND the reload check FAILed against wantScore/wantDrawings derived from the empty state (1 === undefined). Every page stage BEFORE the effects poll (boot, card1, place, seed, drag, wheel, shift+wheel, save) passed in run 2, and the server side completed fully in both runs.
-- Fixes applied to tests/test_owner_check.py (working tree, UNCOMMITTED - the harness saves them; do not lose): (a) the saved doc is read on the NODE side right after the !P.active poll (try/catch -> null if absent; it exists once the page saw the overlay - the PUT writes it before the line runs), passed into the effects evaluate as docAt/docBy; (b) the effects poll no longer fetches the item and no longer checks `resolved` in-page (it fetches only depictions.json / sites.json / review.json - all under web/data/ and all served); the item's resolution is asserted from the tree in python check 5 - ordering-safe because export writes `resolved` into the item file before it writes review.json, and the poll only returns ok once the site is gone from review.json. The probe's argv still carries itemFile (unused now, harmless).
-- NEXT SESSION: run the test (expect green), then the full suite (expect 157 passed / 1 skipped / 1 failed = 235's only red), then the docs/site_flow.md section after the 308 section + tick boxes + Status done. Lasting facts to file in PITFALLS (could not, context limit): page fetches are limited to web/data/* (store data/review + data/db are not served; GET /data/* is also cached max-age=3600 - probes must pass ?t=); page.evaluate has no fs/process; a JS string in a Python r-string needs one backslash before an embedded quote.
-
-### 2026-10-13 307d DECISION: tenth session - the test is FULLY GREEN (2 passed in 74 s); the last three failures were all test bugs, not page bugs: `_tier_of` indexed into the tier string, check 7's phrase filter caught the line's own header print, and test B's write-once compare wrapped already-read bytes in `Path()`; check 4 now calls the real build_site functions on the private tree instead of a port, and every check-4/7 assert is self-diagnosing
-- The retained pytest-3 tree was GONE before this session (driver cleanup at 14:15; /tmp/pytest-of-agent is shared and pruned in team mode), so the ninth session's "instrument the retained tree" plan became LIVE instrumentation: check 4 recomputes the expected marker fields with the REAL `pipeline/build_site.py` functions (`overlays(site, entry.get("plate"), str(tree))`, `drawings(...)`, `score(...)`) against the private tree's own depictions.json - the root-aware `_root(root)` pattern the one-site line itself uses (tools/site_done.py) - and every check-4 assert now carries a `diag` dict (the entry, the recomputation, every depiction with kind/year/file/label/fit-doc/resid, both phases' markerClass, the tier). The old stdlib `_score_of_deps` port and its `SERIES_ERR_M` copy are deleted (one source of knowledge: the port had drifted in the ninth session's reading of it). Also added (the ninth session's planned step 2): the server runlog is dumped to `outdir/server_runlog.log` right after the slice, so check 7's exact-match asserts are diagnosable after any failure.
-- **Failure 1 (run this session): check 4, both sites - the diag named it in one line.** `assert ('marker' in ['marker','t2'] and '2' in ['marker','t2'])`: `_tier_of` was `next(t for th, t in TIERS if ...)[1]` - the generator yields the tier STRING and `[1]` indexes INTO it, so `'t2'` became `'2'`. This was ALSO the ninth session's "check 4, AssertionError with no message" mystery (that file version's markerClass asserts were the only message-less ones; the 9th session's guess that overlays/oldest was the culprit was wrong - those carry tuple messages). Fixed to `next((t for th, t in TIERS if (score or 0) >= th), "plain")`, mirroring the page's `tierOf` (web/index.html:476 `(TIERS.find(t => (s.score||0) >= t[0]) || [0,'plain'])[1]`; the test's TIERS list matches the page's line 475 exactly). Side finding the diag gave for free: the real build_site recomputation EQUALS the tree's entry on all four fields ({drawings 1, score 1.45, oldest 1842, overlays 2} on both sites), and the ninth session's "1.45 is unreachable" doubt was an arithmetic slip in the notes: (2026-1908)/100 = 1.18 (not 0.98), so best 1.18 (the 1908 Allcroft drawing, residuals 0.0 at stored precision - the saved pairs ARE the five points the similarity was fit from) + 0.25 x 1.10 (the 1842 six-inch at 8 m) = 1.4542 -> 1.45. The formula, the old port and the line all agree.
-... (3.2 KB more: `grep -n -A 200 -F '## 2026-10-13 307d DECISION: tenth session - the test is FULLY GREEN (2 passed in 74 s); the last three failures were all test bugs, not page bugs: `_tier_of` indexed into the tier string, check 7's phrase filter caught the line's own header print, and test B's write-once compare wrapped already-read bytes in `Path()`; check 4 now calls the real build_site functions on the private tree instead of a port, and every check-4/7 assert is self-diagnosing' DECISIONS.md`)
+### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
 
 ## Project-wide driver notes (newest)
 
