@@ -73,6 +73,11 @@ Where: audit-script judging crops (tools/audit_306c.mjs's helpers, e.g. /tmp/cro
 Symptom: judging the 2nd doc of a site silently reads the 1st doc's crop - 306c misattributed the 8-marker hodgen-s-cemetery-mound crop to n0092 when it was n0353's; the near-identical anchors survived a visual check
 Why: the site is the natural naming key, but a site has multiple docs (hodgen-s-cemetery-mound has 2 in 306c); the second write overwrites the first. Key /tmp assets by the full doc id (site + plan) and regenerate on demand from the committed docs/site_flow/agent_fits/ shots - the map pane is a crop (1040, 0, w, 880) of the 1440x900 shot at 2.6x LANCZOS, so the repo shots are always the re-derivable source of truth.
 
+#### web_fetch returns page TEXT without image URLs - curl the raw HTML and grep src/data-src for picture URLs
+Where: the web_fetch tool; any HTML page whose pictures come from HTML attributes (Wikimedia Commons File: pages with lazy-loaded thumbnails)
+Symptom: asking web_fetch for "the file URL" / "the image" of a page returns the readable text (description, metadata, captions) with no image URLs at all, so the needed upload.wikimedia.org / archive.org path is unobtainable through the tool
+Why/how: the tool returns a text extraction, and images are only referenced in markup (`src`, or `data-src` on lazy-loaded thumbnails). Curl the page instead and grep the attributes: `curl -s <url> | grep -o 'src="[^"]*"\|data-src="[^"]*"' | head` - a Commons file page carries the canonical image URL in the preview `src` and the "Original file" link (306d/306e used this for Commons file pages while judging orphan docs).
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
@@ -1275,6 +1280,21 @@ Where: `web/index.html` (`.marker` / `.ah` / `.tag` css, `addMarkers` / `syncMar
 Symptom: most markers missing in globe view (61/324 in-view instead of 324/324); for the visible ones the measured rect's bottom-centre minus the marker's inline transform point is a large, VARYING offset (505-3023px) instead of a constant; markers that should be out of view get pushed in by the flow offset (Orkney showed up, Wiltshire dropped out).
 Why: MapLibre parks the marker element at the canvas origin and places it purely with the inline transform (`translate(-50%,-100%) translate(Xpx,Ypx)`). A page rule with equal-or-higher specificity that loads after the vendor `<link>` (for 308, `.marker { ...; position: relative }`, both 0,1,0 - the inline `<style>` wins the cascade tie) puts each marker back into normal flow, stacking it below the previous one in DOM order. Found while building 308's arrowheads; the initial "globe projection" reading (transform = on-globe position, `map.project()` = flat plane, 3023px apart) was a MISDIAGNOSIS of this bug: transform and `map.project()` agree within 0.35px. (Separate, informational: in globe mode the canvas container is larger than the viewport - 1440x3038 at 1440x900.)
 How to avoid: restate `position: absolute; top: 0; left: 0;` in the page's `.marker` rule (a comment there explains why a flowing position must not be used). The acceptance check: rect bottom-centre minus the transform point must be a small CONSTANT (= the anchor geometry; 0 for the borderless `.ah` box) and the in-view count must match the pre-change baseline.
+
+#### Every web/data/sites `*_ink.webp` survey layer is a SURVEY-RED overlay: the ink lives in the ALPHA channel only - every pixel's RGB is the constant colour (206,46,78)
+Where: `pipeline/depict.py` (`make_ink`, `add_ink`), `pipeline/build_site.py` (`plate_ink`, `INK = (206, 46, 78)`); the `web/data/sites/<site>/six-inch-1st_ink.webp`, `os1inch_ink.webp`, `tmk1850_ink.webp`, ... files (gitignored shared build output)
+Symptom: a "dark ink" mask recipe (e.g. `alpha>40 & rgb.sum()<300`) applied to a `_ink.webp` finds ZERO pixels - the rgb of every non-transparent pixel sums to ~330
+Why/how: `make_ink` stamps the constant INK (206,46,78) into the RGB of every pixel and puts the plate-ink darkness into the alpha channel, so alpha is the only per-pixel information. The ink mask is `a>40` (measured on the 1842 six-inch of okehampton-castle and old-sarum, 2026-10-13, 306e iteration 181); a hatched/wood band is the dilated mask `uniform_filter(ink, 15) > 0.06`. See also the companion entry on compositing these files.
+
+#### An `*_ink.webp`'s TRANSPARENT pixels carry the ink colour as RGB - a plain `.convert("RGB")` crop comes out solid pink; composite through the alpha channel
+Where: any audit script reading `web/data/sites/<site>/*_ink.webp` (306d/306e's /tmp composites); PIL `.convert("RGB")` on RGBA input
+Symptom: cropping a `_ink.webp` region and `.convert("RGB")`-ing it yields a uniformly pink (206,46,78) image instead of "ink on paper" - the ink appears everywhere, because the RGB of the "empty" pixels is the ink colour, only their alpha is 0
+Why/how: the files are built as constant-RGB + alpha (the entry above). To composite one over a background (relief grey, a plate paper, another layer), paste through the alpha channel - `Image.composite(fg, bg, fg.getchannel("A"))` or `bg.paste(fg, box, fg)` - or work in `getchannel("A")` alone for masks. Never `convert("RGB")` a crop for measuring or drawing.
+
+#### Inverting the page's simFit (mercator -> plate px): u = (q0*a0 + q1*a1)/a2, v = (q0*a1 - q1*a0)/a2 with a2 = a0^2 + a1^2 (v = -Im); a wrong v sign lands the plate ink as a mirrored ghost
+Where: `web/index.html` (`simFit` at L1004; `merc` at L360 - TRUE Mercator, y = R*ln(tan(pi/4 + lat*pi/360)), NOT R*angle); any audit that inverse-maps the page's stored fit (306d/306e's /tmp composites)
+Symptom: the composite's plate-ink overlay (blue, sampled through the inverse) lands mirrored or offset - e.g. zero blue ink over the site grid or a left-right mirror of the drawing - while the page's own rendering of the same pairs looks correct
+Why/how: simFit solves z = a*w + b with w = u - i*v (image v-axis points DOWN, complex convention) and a complex a (a0 + i*a1); the inverse is w = (z - b)/a, and division by a complex number conjugates the denominator, giving u = (q0*a0 + q1*a1)/a2 and v = (q0*a1 - q1*a0)/a2 for q = z - b. A sign slip in v (writing +a1 where -a1 belongs, or the like) mirrors the plate. Verify any inversion BEFORE trusting a composite: the 4 stored anchor pairs must round-trip, atv(at(u,v)) = (u,v) to ~1e-9.
 
 ### tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`)
 
