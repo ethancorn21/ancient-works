@@ -3981,9 +3981,54 @@ series, not this task).
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
 
 <!-- task 212c -->
 # Task 212c batch-report
+
+## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
+Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
+test and commit them. Then write docs/batch.md from it. No census re-measuring - the store
+is the source." The `report` phase 212a wrote needed no change: `.venv/bin/python
+fit/cover.py report` on the live store (system python3 has no numpy - the driver's venv
+does) produced docs/batch.md: 499 built; buckets 19 hand-golden / 0 human-saved / 24
+automatic / 106 review item / 244 no picture found / 106 uncovered-needs-attention - the
+sum is 499, the partition holds; the invariant line honestly reports the break for the 106
+(the loop phase never ran live; the number moved from the 103 estimated at 0e6d5df because
+the store moved - lead: no re-measuring); the sample is random.Random(20261012) over the 36
+by:agent docs (20 drawn, page URL + gate median - the same table convention as
+docs/batch_us.md); the no-picture table is 244 rows and cross-checked 1:1 against the
+no-picture bucket (no fitted site carries an open no-picture item, so the table is exactly
+the bucket; one batch-era string, a with-candidate site outside the 212a search set,
+renders as-is - the store's own record, not a phase defect). tests/test_cover.py extended
+with test_report (the run fixture runs the report on the same tree after the integrity
+snapshots, socket guard re-armed, fixed at=; docs/batch.md moved into IN_PLACE so the
+report's in-place rewrite stays in the tree): recorded seed == SEED_212, the named
+automatic total == the store's, the six buckets sum to the built-site total, the invariant
+line agrees with the uncovered bucket, the sample is exactly random.Random(recorded
+seed).sample(sorted auto ids, 20) in draw order with page URL + gate score per row, and
+the no-picture table is complete with non-empty searched records. Suite: 155 passed, 1
+failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - 307bb's
+pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
+skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
+tick both boxes, set done.
+
+## 2026-10-13 212c DECISION: docs/batch.md committed from a fresh store run - 212 complete (a done, b done by the lead, c done)
+Session 234 (agent a), second commit of the session, per the lead's order ("Then write
+docs/batch.md from it"). The file (at: 2026-10-13T13:22:09.600423+00:00, 293 lines) is the
+report the owner reads: the six per-site outcome buckets summing to the 499 built sites
+(19 hand-golden / 0 human-saved / 24 automatic / 106 review item / 244 no picture found /
+106 uncovered-needs-attention - the loop phase never ran live, so the invariant line
+honestly prints the break for the 106), the fixed 20-sample of the 36 by:agent docs
+(random.Random(20261012) over the sorted ids; page URL + gate median per row - the
+owner's 18/20 check is repeatable from the file), and the 244-row no-picture table with
+the exact searched record per site. tests/test_cover.py passes with the checkout carrying
+the file (the IN_PLACE copy path in the tree builder) - 6 passed, 35 s; full suite as
+before (the one red is 307bb's pre-existing gesture test). The parent 212 hand-over now
+says the whole 212 is complete; its Status stays split until the driver hands it back.
 
 ## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
 Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
@@ -6386,6 +6431,20 @@ logged in PITFALLS and above).
 - New machine facts (filed to PITFALLS as a new entry next to the 3.5G-per-run one): (1) the loop has a maintenance process that wipes stale /tmp/loop-*/pytest-of-agent dirs when the disk nears full (freed agent a's 7.0G at ~17:47 and 2.3G at ~17:55 - I did not touch them); (2) the driver's verification cycle in a checkout kills competing in-flight runs (my 17:44 run died SIGTERM/143 at ~28/129, 5 min before the driver's 17:48-49 verification here, which died early itself - no temp dir, no report - leaving two PPID-1 orphan servers, killed); (3) agent a's 17:49 run (211) ended "10 failed, 130 passed, 1 skipped" - their own reds. The 48G disk oscillated 83%->98%->83% in the hour; two concurrent full-suite runs (mine at 17:44 + the driver's at 17:49, plus agent a's) is what pushed it over 95%.
 - This session (the hand-over's case (a), with the new facts): verified the work intact (16 verdict lines in docs/site_flow.md, the 306c block from L941: 9 DELETED the 303 way + 7 STAYS; 32 shots in docs/site_flow/agent_fits/; the by:hand serpent doc n0210_1 untouched; tree clean); killed the two orphan servers (138899/139733); deleted my dead 2.3G pytest-0; re-ran the full suite (`.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py`, 223 s, 17:55-17:59): 127 passed, 1 skipped, 1 failed - the sole failure is 307bb's test_placement_gestures_and_save_in_the_browser at the same pre-gesture seed step as iterations 150/151 and the A/B at 1ade748 (deterministic pre-existing; PITFALLS tests/test_fit_queue.py); deleted my 3.5G run leftover -> 8.0G free (83%), my loop dir 2.2M. Status: done (3rd filing).
 - Attempt count at the done-claim blocker: 1 = original claim (rejected 17:06), 2 = iteration 152 re-file (rejected 17:35), 3 = this filing. If the driver rejects a third time: stuck rule -> blocking ask_human with human_only (machine-level: 48G disk vs ~3.5G-per-run x 4-5 concurrent checkouts; ask for disk enlargement/trim, or approval of a dedicated tests/conftest.py footprint task) + Status: blocked + commit + stop, pointing the human at the twice-proven evidence (16-line block L941+, 32 shots, commits 0b83599/b9cbc46, 127/1/1 green at 151/152/156).
+
+## 2026-10-12 306c DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
+
+## 2026-10-12 306c DECISION: iteration 157 - the 3rd rejection (18:13) is 307bb's own dep-null box-3 test, NOT a 306c regression (A/B: main is vacuous-red too); no in-scope fix; stuck rule -> Status: blocked + ask_human
+- The 18:13 note names tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser as a "new" failure and says "fix the combination." It is 307bb's OWN box-3 test (307bb Status: done, merged to main; its Touches = web/fitkit.js, web/index.html, tests/test_fit_queue.py, docs/site_flow.md - agent a's 307 rework). The driver's 2026-10-11 loop-start baseline predates 307bb landing on main, so this red is not in its known-failures list -> flagged "new".
+- A/B on the CURRENT tree (main moved since iteration 150, so I re-proved, did not rely on the old entry): (1) my branch (agent/c = main 7e61147 + 306c): the test RUNS and FAILS at the seed check - reproduced via /tmp/aw306c_repro_probe.py (copies tree, hermetic serve.py --port 0, runs the real place_probe.mjs, full stdout; ~51 s). The [seed] JSON: gestures:[false x5] (pan/zoom correctly off -> that half PASSES) but dep:null -> the assertion `seed.dep === 'none'` FAILS. dep = the dep-<site> layer's visibility, or null if the layer is absent -> the dep-marietta layer does not exist on the map. Picked site = marietta (plan ancientmonuments00squi_n0169_1). (2) main alone (worktree @7e61147, no 306c): the test ERRORS earlier at the fixture - _pick_place() returns None -> "no queue entry with a proposal, a local book page, an unresolved item and an overlay - vacuous." So it is red on a clean HEAD too, but as a vacuous error, NOT the seed failure.
+- Why 306c's data changes move the pick (the "combination"): _pick_place() takes the first queue entry (file order) that is propose + _line_eligible + non-empty depictions. _line_eligible requires (5) no platefit docs for the site yet AND (3/4) an unresolved item carrying the row (>=3 pairs). 306c deleted marietta's ONLY doc (b24849959_n0195_1) and upserted marietta's review item (candidate + reason) -> both satisfied -> marietta becomes the pick (main still has the doc -> not eligible -> vacuous).
+- Root cause is 307bb's code, not 306c's: web/fitkit.js:349 `if (map.getLayer('dep-'+site.id)) setLayoutProperty('dep-'+site.id,'visibility','none')` hides the earlier overlay ONLY if the layer exists; a site whose depiction layer was never created (marietta) stays absent -> dep null -> `dep === 'none'` fails. The test's pick is "derived, never pinned," so which site it lands on (and whether dep is null vs 'none') depends on the store/review state = 306c's deletions/upserts. All involved files are 307bb's Touches. 306c's Touches (docs, platefits, review, review.json, audit_306c.mjs) touch none of it, and marietta's depictions.json is UNCHANGED by 306c.
+- No in-scope fix: passing needs 307bb to make placement-mode-open leave the dep layer present-and-hidden (or relax the test to accept dep===null when there's no earlier overlay). The only 306c lever would be to NOT delete/upsert marietta's doc+item = undo 306c box 3 (forbidden: weakens the deliverable). So 306c cannot turn it green without editing 307bb's files or weakening its own audit.
+- Action (stuck rule: 3rd done-claim rejection; 1 = 17:06 ENOSPC, 2 = iteration 152 17:35 ENOSPC, 3 = this 18:13): set Status: blocked; ask_human NOT yet filed (this session was context-limited to PROGRESS/DECISIONS/tasks/git, which excludes ask_human) - the next session files it FIRST (blocking, not human_only) with this evidence + recommendation (re-open/fix 307bb's fitkit.js:349 dep handling or relax its test; add the 307bb red to the driver's known-failures baseline; or accept 306c on the A/B evidence). If the loop answers for me (no human reply in 120 min): stay blocked on 307bb (safe - the fix is agent a's, outside my Touches). 306c deliverables remain done + verified: git diff --name-status main..agent/c = 9 D platefits (7 serpent + hodgen ArcheologicalAtlasOfOhio_n0092_1 + marietta b24849959_n0195_1), 3 M review items (those 3 sites), 1 M web/data/review.json, 32 A agent_fits/*.png, 1 A tools/audit_306c.mjs, docs/site_flow.md 306c block L941+ (9 DELETED + 7 STAYS); by:hand serpent n0210_1 untouched.
+- CORRECTION for the next agent: the PITFALLS tests/test_fit_queue.py entry (iteration 150) says the seed failure "fails DETERMINISTICALLY on a clean pre-change HEAD" - that is now INCOMPLETE/wrong. On a clean HEAD (main) the test is VACUOUS (no qualifying entry), NOT a seed failure; the seed/dep-null failure is specific to the pick shifting to a site (marietta) with no dep layer, which 306c's data changes cause. Update that PITFALLS entry when editing PITFALLS is allowed again (this session was context-limited to PROGRESS/DECISIONS/tasks only).
 
 
 <!-- task 306d -->
