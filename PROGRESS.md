@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: ## Lead note (2026-10-12, after 211)
+- `tasks/212-cover-final.md` (split) - hand-over: ## Lead note (2026-10-12, after 211)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
@@ -18,7 +18,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/221-review-stats-test.md`
+- `tasks/212a-cover-search.md`
 
 ## Your task's journal
 
@@ -50,15 +50,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
-
-### 2026-10-13 306d DECISION: iteration 168 - batch 3 fully judged: ALL FOUR WRONG (duffield/eaton-socon/framlingham/goodrich); 167's framlingham KEEPS overturned; /tmp aerial machinery had a zero-height-box geometry bug, fixed
-- No repo file changed (only /tmp rebuilt); the committed tree is still 166's state, so no A/B is owed yet. REMOVALS NOT YET EXECUTED - that is the next session's step (exact recipe in the task hand-over).
-- /tmp bug found and fixed: v167's j167_aerial.py built the mosaic crop box from the WEST/EAST corners (both at centre lat) for its Y edges -> zero-height box -> resize stretched a 1-px row into full-height vertical stripes (the 8KB "aerials" that looked like data). Raw Esri tiles are FINE (probed one: real imagery, dark forest, mean ~55-70/255). Fixed to north/south corners + tile() retries 4x; j167_aerial_composite.py had the same bug in its plate-warp Y mapping (Y = myN - (gy+0.5)/OUT*(myN-myS)). Rebuilt: aerials 1.8-2.3MB, composites 1.7-2.3MB, and the plate regions land where the numbers say (eaton/framlingham region composites read and matched the ground grids).
-- FIT GEOMETRY re-verified from source: page simFit stores a=[a0,a1], forward X=a0*u+a1*v+b0, Y=a1*u-a0*v+b1, mpx=|a|*cos(lat) (eaton's stored a=[1.617,-0.0005] with mpx 0.991 = 1.617*cos(52.2159) - consistent). Inverse u=(cU+dV)/den, v=(dU-cV)/den, den=c^2+d^2 - round-trip verified (site pt -> eaton plate (402.9,402.8); centre_EN reproduces). j306d_fit.py still the exact port.
-- FRAMLINGHAM (167 said KEEPS - OVERTURNED to DELETED): the 8 anchors are a perfect 1.0 m/px 200-m square (resid 0.0) but that square is the PLAIN ROAD AREA west of the drawn island (site pt inverse-maps to plate (299,249)), pinning the whole plate ~430 m SE of the real castle: drawn keep (u 573-747, v 347-560 -> E +273..+447, N -97..-310) on an open sports field; drawn island loop (u 440-867, v 320-747 -> E +140..+567, N -497..+30) over the village, ZERO overlap of the real moated island (1842 hatched, ~190 m, E -76..+112 N -176..+81, '(In Ruins)' keep at its west end = at the site point; aerial: grassy island + water ring + stone ruin at the site point); drawn Old Moat (u 787-1067, v 240-573 -> E +487..+767) over fields east of the A141; drawn St Michael's (E +127, N -737) vs real church (E -188, N +174). The 167 1842 composite was deceptive: the 1842 island's own hachures blur with the drawn island's. Decisive image: /tmp/j306d/framlingham-castle-q2524183_aerial_decision.png (100 m grid + boxes). Lesson: a 0.0-resid perfect-square anchor set does NOT prove the placement - judge where the drawn SUBJECT lands.
-- EATON SOCON (DELETED; 167's borderline delete confirmed but reasoning CORRECTED): the real moated site is at the site point (1842 'Site of Castle' hatched building + moat loop at E +37 N -5, ~170-200 m, still a grassy island ringed by trees today - /tmp/j306d/eaton_aerial_sitepoint_zoom.png; OSM has no moat water mapped). The drawn Inner Ward ring (centre E -39, N -119, ~220x230 m) is OFFSET ~120 m SW of the real moat (the real moat sits at the drawn ring's NE edge) - 167's "sits ON the 1842 moat" was wrong. North Ward (E +215, N -111) over the hatched 'Castle Hills' WOOD east of the Great Ouse (no earthwork, 1842 + aerial); Outer Ward loop (~730x500 m) encloses the village with no 1842 bank/ditch trace. OSM saved /tmp/j306d/eaton_osm.json: Great Ouse +90..+241 E, Castle Hill Close ~114 W, Rivermill/lock 140-260 S, Pightle Millennium Green (+62,+316).
-- DUFFIELD (DELETED, 167 confirmed): ladder anchors internally inconsistent (300-px square = 500 m but the 400-px v=600 row = 800 m, 1.2:1 - no similarity can hit it); aerial: drawn keep (~290x180 m) over village housing ESE of the 1842 'Site of Castle', drawn ring (~975x825 m) wraps the whole village, plate's own geography wrong ('Duffield' + roads south of the ring, real town/A535 west).
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-13 306d DECISION: iteration 168 - batch 3 fully judged: ALL FOUR WRONG (duffield/eaton-socon/framlingham/goodrich); 167's framlingham KEEPS overturned; /tmp aerial machinery had a zero-height-box geometry bug, fixed' DECISIONS.md`)
 
 ### 2026-10-13 306d DECISION: iteration 169 - merged main (the review.json conflict was only the "at" timestamp); executed ALL FOUR batch-3 removals the 303 way (duffield, eaton-socon, framlingham, goodrich) and wrote their 4 site_flow lines; 7 suite reds, all A/B-verified pre-existing (3 known + 4 new from agent a's merged 212/307/306a in-flight work)
 - Merge first (driver note): `git merge main` conflicted only in web/data/review.json - the sole hunk was the "at" field (my 02:39:04 vs main's 03:45:09; main's whole diff of the file was that one line). Kept main's newer "at"; my two item additions (the bury-castle candidate, the cassiobury item) had auto-merged; JSON validated, 334 open of 347. The merge also brought 13 NEW platefits docs (arras, avesnes, bavay, douai, gravelines, groningen, le-cateau-cambresis, lille, saint-omer, utrecht, valenciennes - agent a's 212 work), 3 bethlehem doc DELETIONS (306a) and plans.json changes (307).
