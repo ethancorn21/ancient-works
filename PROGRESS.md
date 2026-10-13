@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 230, agent a - **INVESTIGATION session, hit the context limit before
+- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 231, agent a - **WORLD RE-VERIFIED AGAINST HEAD, NO CODE WRITTEN (hit the context
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -110,13 +110,6 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
-### 2026-10-13 212b DECISION: live sync finished and verified in iteration 227 - run 1 matched the dry run exactly (76 sent / 25 skipped / 30 synced / 0 failed, 365 open / 377 items), the 06:07 driver merge (0685a4c) put 2 burcht-van-leiden docs into my checkout AFTER run 1's once-at-start enumeration so run 2 (1m43s) synced just those two; all invariants verified; sync artifacts left uncommitted at the context limit (harness saves them; next session commits + runs the suite)
-Session 227 (agent a).
-1. Run 1 (launched iter 226 06:01:48) finished ~06:18: `sync: 131 document(s) over 94 site(s)`, `sync: 365 open of 377 item(s)`. Actions reproduced the dry run EXACTLY: 76 sent / 25 skipped / 30 synced / 0 failed - the NEW FACT (b) worry (agent c's concurrent store writes changing is_now) did not materialize; every decision was stable. NOTE: each skip prints 2 lines (plan_fit's picture-title line + cover's doc line) and each build prints 2, so raw grep counts read 76/50/60 - the cover-line counts are the true ones.
-2. MID-RUN MERGE (the only genuine delta): the driver merged main's 0685a4c (the lead's Burcht van Leiden port, committed 05:58:34; store received it 05:58) into my branch at 06:07:23 - AFTER run 1's _all_docs enumeration (~06:01:49, fit/cover.py sync() line ~136, one-shot `sorted(d.iterdir())`). Consequence: the 2 new burcht-van-leiden docs (c_2ed7167f77ea05d4, c_b790b0ce40d7d26b; by:agent, fitter:matcher) were NOT in run 1's list. Also 0685a4c swapped data/review/burcht-van-leiden.json for data/review/burcht-van-leiden.c_2da8ced53ce1c3da.json (the 3rd "burcht" in the merge stat is that ITEM file, not a doc - the truncated stat path made it look like a platefits doc), changed one moundville doc (+15 lines) and fit/matchfit.py (matcher skips dropped entries - run 1's in-memory module is unaffected, _sync_doc never calls matchfit.run). The driver's 4e1dabf ("uncommitted work after iteration 226") had already captured the run's first 5 sends (aldenhaag/alligator/avaricum/barnard/barwick: their platefits deletions + 2 new item files) and their sites.json entries (arras/avesnes-sur-helpe already drawings 1/3/5.1 in HEAD) - which is why the final diff is smaller than the action counts.
-3. Run 2 (this session, foreground, 1m43s, /tmp/aw212b-live2.out): `57 document(s) over 43 site(s)`, 0 sent / 0 failed, 2 builds, re-exported 365/377 (byte-stable). The burcht docs PASSED the agent line check (pattern None, spread ok, 8 pairs each) and were SYNCED: burcht-van-leiden sites.json = drawings 2 / overlays 3 / score 4.41; overlays (4 webps) in the store's site dir via the symlink; both docs kept in platefits. Store stayed clean both times (no tracked changes, only ?? .venv; store platefits still 133 - sends deleted only my checkout's dir entries, the 306a precedent; a later re-run is now all-skip and cheap).
-... (2.5 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: live sync finished and verified in iteration 227 - run 1 matched the dry run exactly (76 sent / 25 skipped / 30 synced / 0 failed, 365 open / 377 items), the 06:07 driver merge (0685a4c) put 2 burcht-van-leiden docs into my checkout AFTER run 1's once-at-start enumeration so run 2 (1m43s) synced just those two; all invariants verified; sync artifacts left uncommitted at the context limit (harness saves them; next session commits + runs the suite)' DECISIONS.md`)
-
 ### 2026-10-13 212b DECISION: post-live-sync suite run (324 s, log /tmp/aw212b-suite.out) = 2 red / 153 pass / 1 skip of 156 - red 1 is mine (the yearless-title pin on the deleted durocortorum doc; re-pinned to watson-brake c_5e7bb19c, file now 7/7 green); red 2 is the pre-existing 307bb part-4 gestures red (fails on this VM since before my 06:01 live run; my sync provably does not move its pick); the hand-over's expected 203b reds are GONE (green on this run), so 203b stays off Depends on
 
 Step 4 of the iter-227 plan ran on the post-sync tree. Full suite `.venv/bin/python -m
@@ -201,6 +194,49 @@ recipe). Consequence for the written test (full design in the task hand-over): s
 site except aardenburg/aesica/aire (+1 each); bethlehem/shotwick items byte-identical.
 NO code changed this session; the one remaining step is writing the extended
 tests/test_cover.py per the hand-over.
+
+### 2026-10-13 212b DECISION: iter-231 re-measured the entire world at HEAD and re-read every module the test drives; all iter-230 pins hold exactly (499 built / 57 docs all is_done / nofit 452 = 234 search + 218 with-row = 105+10+103 / 377 items 365 open / plans 1510 / big cache 75 / CHOOSE the pinned 4 / hit aalsum / fail craig-phadrig / spot aggersborg); no code written - context limit during the module reads; next step is writing the extended tests/test_cover.py
+Session 231 (agent a). Investigation only; the tree was clean and untouched (HEAD 8555682, the
+driver's iter-231 PROGRESS update after aab6ff6's iter-230 hand-over commit). Re-measured the
+live world with a throwaway script (.venv python): built 499; nofit 452 = search set 234
+(199 qid + 35 no-qid) + with-row 218 = 105 allcovered + 10 partial + 103 no-item; 57 docs
+(21 by:hand, 36 by:agent ALL fitter:matcher, 0 unmarked), ALL 57 is_done in the checkout,
+0 line-check failures (matchfit.spread for the matcher docs, plan_fit.fabrication_pattern for
+the rest); item files 377, open 365 (recomputed with review.resolved_doc); web/data/review.json
+at 2026-10-13T11:26:15.291892+00:00 (365); plans.json 1510 rows; store big cache 75 files
+(aesica's stand-in present; aardenburg's and aire's absent -> the test seeds them). CHOOSE ==
+the first 4 with-row nofit, sorted, EXACTLY the pinned aardenburg-q955 / aesica-q4688554 /
+aire-sur-la-lys-q259903 / alauna-q4708853 with the pinned row ids, sizes and map_box (alauna's
+first row = book earthworkenglan01allcgoog_n0438_1 [3367,5050] map_box [0.12,0.25,0.83,0.66],
+then 4 commons rows); hit = aalsum-q3902030; the ONLY no-qid search-set site with a
+files.jsonl title is craig-phadrig (the failure site); the first no-qid search-set site
+without one is aggersborg (the spot pick). bethlehem/shotwick dep files map-only (1 entry
+each). Re-read this session, all as the iter-230 note says: fit/cover.py (loop's in-process
+site_done.main per nofit site; sync's once-at-start _all_docs + per-doc _sync_doc + bare-
+exception containment + full prune + full export), tools/site_done.py (_fit's matcher-first
+flow; matchfit.run called only when some row lacks a doc AND reachable; keep-restore upsert;
+_sync_doc's refused/stamped/sent/skipped/synced paths; _entry; scoped export; the summary),
+fit/batch_us.py (write_doc's exact doc field set; _entry's coarse-vs-proposal branch;
+run_sites' propose call WITHOUT root + except (ValueError, KeyError) -> coarse for the
+hit's staged rows; the entries upsert; write_item; the no-picture item), fit/matchfit.py
+(run(root, site_ids, dry, url, roma_url)'s per-doc write shape: write_doc + fitter:"matcher"
++ matcher dict + _save_json, returns paths; spread's eigenvalue definition), fit/review.py
+(upsert merge-by-plan in-place; no_picture dict always set, cleared once candidates exist;
+resolved write-once; file-lead move; export over the whole queue with write-once recording
+scoped by site_id), pipeline/plan_fit.py (who_placed; is_done; build's dep entry + webps +
+set_drawings; load_picture's big-cache os.path.exists short-circuit; prune's doc-existence
+rule), pipeline/build_site.py (marks from the site's own dep; set_drawings' flock on
+web/data/sites.json.lock - created only in the tree, checkout safe; aw.save_json
++os.replace), fit/propose.py (every loader cached by (str(root), kind); propose_for's
+default ROOT = this checkout - the run_sites call never passes root), fit/evidence.py
+(record(live=False): by:"212" rows not hand-tied -> skipped, no network, no file change;
+book rows recorded only when lacking evidence.rec == REC - all do in this checkout, so the
+phase prints 0/0/0 and rewrites nothing - 212a's pinned line stays the guard),
+server/serve.py (ROOT = the server dir's parent; the fit worker only on platefits PUT/DELETE
+- GET-only traffic inert; relief_tiles needs venv python; the "Ancient Works on ..."
+startup line with the bound port), tests/test_fit_queue.py (the GUARD subprocess pattern +
+reader thread for a port-0 server), tests/test_batch_eu.py::_corner_pairs (the 5%-frame
+... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: iter-231 re-measured the entire world at HEAD and re-read every module the test drives; all iter-230 pins hold exactly (499 built / 57 docs all is_done / nofit 452 = 234 search + 218 with-row = 105+10+103 / 377 items 365 open / plans 1510 / big cache 75 / CHOOSE the pinned 4 / hit aalsum / fail craig-phadrig / spot aggersborg); no code written - context limit during the module reads; next step is writing the extended tests/test_cover.py' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
