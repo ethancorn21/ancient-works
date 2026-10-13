@@ -501,3 +501,56 @@ recipe). Consequence for the written test (full design in the task hand-over): s
 site except aardenburg/aesica/aire (+1 each); bethlehem/shotwick items byte-identical.
 NO code changed this session; the one remaining step is writing the extended
 tests/test_cover.py per the hand-over.
+
+## 2026-10-13 212b DECISION: iter-231 re-measured the entire world at HEAD and re-read every module the test drives; all iter-230 pins hold exactly (499 built / 57 docs all is_done / nofit 452 = 234 search + 218 with-row = 105+10+103 / 377 items 365 open / plans 1510 / big cache 75 / CHOOSE the pinned 4 / hit aalsum / fail craig-phadrig / spot aggersborg); no code written - context limit during the module reads; next step is writing the extended tests/test_cover.py
+Session 231 (agent a). Investigation only; the tree was clean and untouched (HEAD 8555682, the
+driver's iter-231 PROGRESS update after aab6ff6's iter-230 hand-over commit). Re-measured the
+live world with a throwaway script (.venv python): built 499; nofit 452 = search set 234
+(199 qid + 35 no-qid) + with-row 218 = 105 allcovered + 10 partial + 103 no-item; 57 docs
+(21 by:hand, 36 by:agent ALL fitter:matcher, 0 unmarked), ALL 57 is_done in the checkout,
+0 line-check failures (matchfit.spread for the matcher docs, plan_fit.fabrication_pattern for
+the rest); item files 377, open 365 (recomputed with review.resolved_doc); web/data/review.json
+at 2026-10-13T11:26:15.291892+00:00 (365); plans.json 1510 rows; store big cache 75 files
+(aesica's stand-in present; aardenburg's and aire's absent -> the test seeds them). CHOOSE ==
+the first 4 with-row nofit, sorted, EXACTLY the pinned aardenburg-q955 / aesica-q4688554 /
+aire-sur-la-lys-q259903 / alauna-q4708853 with the pinned row ids, sizes and map_box (alauna's
+first row = book earthworkenglan01allcgoog_n0438_1 [3367,5050] map_box [0.12,0.25,0.83,0.66],
+then 4 commons rows); hit = aalsum-q3902030; the ONLY no-qid search-set site with a
+files.jsonl title is craig-phadrig (the failure site); the first no-qid search-set site
+without one is aggersborg (the spot pick). bethlehem/shotwick dep files map-only (1 entry
+each). Re-read this session, all as the iter-230 note says: fit/cover.py (loop's in-process
+site_done.main per nofit site; sync's once-at-start _all_docs + per-doc _sync_doc + bare-
+exception containment + full prune + full export), tools/site_done.py (_fit's matcher-first
+flow; matchfit.run called only when some row lacks a doc AND reachable; keep-restore upsert;
+_sync_doc's refused/stamped/sent/skipped/synced paths; _entry; scoped export; the summary),
+fit/batch_us.py (write_doc's exact doc field set; _entry's coarse-vs-proposal branch;
+run_sites' propose call WITHOUT root + except (ValueError, KeyError) -> coarse for the
+hit's staged rows; the entries upsert; write_item; the no-picture item), fit/matchfit.py
+(run(root, site_ids, dry, url, roma_url)'s per-doc write shape: write_doc + fitter:"matcher"
++ matcher dict + _save_json, returns paths; spread's eigenvalue definition), fit/review.py
+(upsert merge-by-plan in-place; no_picture dict always set, cleared once candidates exist;
+resolved write-once; file-lead move; export over the whole queue with write-once recording
+scoped by site_id), pipeline/plan_fit.py (who_placed; is_done; build's dep entry + webps +
+set_drawings; load_picture's big-cache os.path.exists short-circuit; prune's doc-existence
+rule), pipeline/build_site.py (marks from the site's own dep; set_drawings' flock on
+web/data/sites.json.lock - created only in the tree, checkout safe; aw.save_json
++os.replace), fit/propose.py (every loader cached by (str(root), kind); propose_for's
+default ROOT = this checkout - the run_sites call never passes root), fit/evidence.py
+(record(live=False): by:"212" rows not hand-tied -> skipped, no network, no file change;
+book rows recorded only when lacking evidence.rec == REC - all do in this checkout, so the
+phase prints 0/0/0 and rewrites nothing - 212a's pinned line stays the guard),
+server/serve.py (ROOT = the server dir's parent; the fit worker only on platefits PUT/DELETE
+- GET-only traffic inert; relief_tiles needs venv python; the "Ancient Works on ..."
+startup line with the bound port), tests/test_fit_queue.py (the GUARD subprocess pattern +
+reader thread for a port-0 server), tests/test_batch_eu.py::_corner_pairs (the 5%-frame
+recipe to copy, not import). Re-derived the loop's end states and confirmed the subtle
+point the test must encode: allcovered sites (105, incl. aesica and alauna) never call
+run_sites (their rows are all in the item, so uncovered stays empty even after the fake's
+doc) - the only batch-upsert writers are the 10 partial, the 99 no-item (103 minus
+aardenburg/aire) and the hit; after loop+nopicture the item store is 478 files and the open
+list 465 (365 - aesica + 101; the iter-230 note's "= 365" tail was a typo for 465); the sync
+then sees 60 docs (57 + the 3 built CHOOSE; alauna's was deleted) all skipped, no pruned
+line, and writes only web/data/review.json. NO code changed this session. Next: write the
+extended tests/test_cover.py per the rewritten hand-over (the design it points to is the
+iter-230 "EXACT NEXT STEP", now corrected by this entry), run it alone under .venv, fix,
+then the full suite (known non-212b red: 307bb's part-4 gestures, pre-existing on this VM).

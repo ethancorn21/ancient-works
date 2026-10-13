@@ -18,6 +18,119 @@ web/data/review.json is regenerated (python3 fit/review.py export).
 
 ## Hand-over
 
+(2026-10-13, iteration 231, agent a - **WORLD RE-VERIFIED AGAINST HEAD, NO CODE WRITTEN (hit the context
+limit while reading modules; everything the test drives was re-read and the full world re-measured
+digit by digit - it matches the iter-230 pins EXACTLY, so all of that note stays valid). The previous
+hand-over's full design is `git show 45675c9:tasks/212b-cover-sync.md` - read it first; this note
+updates it with what was verified since. NOTHING on disk changed this session; tests/test_cover.py
+is still 212a's 770-line version. NEXT: write the extended test (one step), run it alone, fix what
+it exposes, then the full suite.)**
+
+**WORLD RE-MEASURED THIS SESSION (tree HEAD 8555682, driver notes after iter-230; all pins hold):**
+built 499; nofit 452 = search set 234 (199 qid + 35 no-qid) + with-row 218 = 105 allcovered +
+10 partial + 103 no-item; docs 57 (21 by:hand ALL golden + 36 by:agent ALL fitter:matcher, 0
+unmarked; ALL 57 is_done in the tree; 0 line-check failures - verified per doc with
+matchfit.spread / plan_fit.fabrication_pattern); item files 377; open 365 (recomputed with
+review.resolved_doc); web/data/review.json at 2026-10-13T11:26:15.291892+00:00 with 365; plans.json
+1510 rows; store big cache 75 files: aesica's c_e28ed261168b49c9.jpg PRESENT, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg ABSENT (seed them in the tree);
+bethlehem/shotwick deps map-only (1 entry each). CHOOSE = withrow[:4] EXACTLY:
+aardenburg-q955 (1 row c_d0a020dec428fa00, [500,500], map_box None, NO item, title "Aardenburg,
+town plan by Jacob van Deventer"), aesica-q4688554 (1 row c_e28ed261168b49c9, [1280,947], 1-cand
+item with STALE recorded resolution), aire-sur-la-lys-q259903 (1 row c_d1ca997e67377769,
+[1280,986], NO item), alauna-q4708853 (5 rows: FIRST = book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66], then commons c_bcdd5cbcef3ea452 / c_e7c09f2a1fc5360e /
+c_36ba572df9678a2a / c_b592f83a932f851d; 5-cand item, resolved None). HIT = aalsum-q3902030
+(first qid search-set site; item aalsum-q3902030.json, candidates [], no_picture re-stamped by the
+live run). FAIL site = craig-phadrig (the ONLY no-qid search-set site with a files.jsonl title).
+spot_n = aggersborg (first of 8 no-qid search-set sites with no files title: aggersborg,
+antequera-menga-dolmen, apuole-hillfort, balfarg-henge, bar-hill-fort, biggs-site, borgring,
+burnswark-hill).
+
+**CODE RE-READ THIS SESSION (beyond the iter-230 list - all confirmed as that note says):**
+(a) fit/propose.py: _plans_rows/_plans_row/_site all cached by (str(root), kind); propose_for
+(sid, plan_id, root=ROOT) - batch_us.run_sites calls it WITHOUT root, so it always reads THIS
+CHECKOUT's plans.json: the hit's two staged rows are not there -> ValueError ("no plans row for
+%r") -> run_sites' except (ValueError, KeyError) -> prop None -> COARSE entry. Every existing row
+is in both plans.json files (tree is a byte copy; the loop never rewrites plans.json) -> the
+mirror is deterministic. (b) site_done._fit: matchfit.run is called only when `any(row without
+doc) and matchfit.reachable()`; its keep-restore upsert uses new_ids = the uncovered rows AT THAT
+POINT and restores the covered entries from the pre-run item_cands. (c) set_drawings: lock file =
+web/data/sites.json.lock, created ONLY in the tree; aw.save_json tmp+os.replace (checkout safe).
+(d) evidence.record(live=False): the by:"212" staged rows are not hand-tied -> skipped (no
+network, no file change); book index rows get evidence only when they LACK evidence.rec == REC -
+in this checkout all do, so the phase prints "evidence recorded: 0 hand-tied, 0 book, 0 live"
+(212a's test pins that line - it stays the in-place-rewrite guard). (e) serve.py: ROOT = the
+server dir's PARENT (the tree when server/ is copied in); the fit worker fires only on platefits
+PUT/DELETE - GET-only traffic never triggers it; relief_tiles imports only under venv python
+(start the server with the venv python). (f) tests/test_fit_queue.py has the exact server pattern
+to copy: subprocess.Popen([sys.executable, "-c", GUARD, "server/serve.py", "--port", "0"],
+cwd=tree) with the GUARD string (kills socket.connect/connect_ex/create_connection in the
+subprocess) and a reader thread that appends stdout lines (a blocking readline; a select() on the
+buffered reader misses lines); poll for "Ancient Works on (\S+)" with a 90 s deadline, then poll
+GET / until 200.
+
+**LOOP END STATES RE-DERIVED THIS SESSION (confirms the iter-230 hand-over; note the subtle
+point it makes concrete):** because ALL allcovered rows sit in the item, `uncovered` is EMPTY even
+after matchfit writes a doc -> need_fit is False -> **run_sites is NEVER called for the 105
+allcovered sites (incl. aesica and alauna)**: aesica/alauna's only writes are _sync_doc's
+build / pattern-upsert+delete, never a candidate upsert from the batch. run_sites runs ONLY for:
+10 partial (every row re-upserted "no model answer"+propose, then keep-restore puts the covered
+entries back; uncovered rows keep their new entries), 99 no-item (the 103 minus aardenburg/aire:
+fresh item, ALL rows "no model answer" + propose extras or coarse; file
+<site>.<first-row-id>.json), and the hit aalsum (2 staged rows: both COARSE - propose raises -
+file MOVED to aalsum-q3902030.c_<sha16(t_plan)>.json, no_picture cleared). So after loop +
+nopicture: item files 478 (377 + 101 new; the hit's move is net zero); OPEN = 465 (365 - aesica
+[its stale recorded resolution now points at the built doc] + 101). Sync: 60 docs (57 pre +
+3 CHOOSE - alauna's was deleted), ALL "skipped" (the 3 new were already built in the loop);
+stdout: "sync: 60 document(s) over 43 site(s)" + "sync: 465 open of 478 item(s)"; NO "pruned"
+line (no stale plan/view dep entries anywhere - live sync pruned them); bethlehem/shotwick dep
+files byte-identical; the full export is the only file the sync writes (no new resolution records
+possible: every item with a doc-candidate is already recorded-resolved, and the new items have
+no docs). Served: every built site drawings>=1 or in the open list; the 19 golden sites
+(tests/golden/hand_fit_sites.txt) drawings>=1; aardenburg/aesica/aire 0->1 (each site dir gains
+plan_<plan>.webp + plan_<plan>_ink.webp + the depictions entry); EVERY other built site's
+drawings == the committed value (assert the field, not whole-entry bytes - the sync re-stamps
+score/oldest/overlays on the 43 touched sites via set_drawings' marks() from their own dep).
+
+**EXACT NEXT STEP: write the extended tests/test_cover.py** (keep 212a's structure - its full
+text is on disk; the design to add is the iter-230 hand-over's "EXACT NEXT STEP" sections 1-6:
+PHASES + loop/sync; build_tree include_sites=True then REALIZE the symlinked web/data/sites
+entries (walk the tree dir, each symlink -> os.unlink + _link_dir(realpath(target), entry);
+the 121 real per-site dirs stay hard-linked as built); shutil.copytree checkout server/ ->
+tree/server/ AFTER build_tree; seed the two BIG stand-ins (aardenburg [500,500], aire
+[1280,986] solid-colour PIL JPEGs) at tree/data/raw/commons/big/ AFTER build_tree; Fakes gains
+matchfit.reachable -> lambda url=None: True and matchfit.run -> the fake with the REAL signature
+run(root, site_ids, dry=False, url=None, roma_url=None) that for each CHOOSE sid writes
+doc = batch_us.write_doc(tree, sid, first-row-without-doc, recipe-pairs, 25.0) +
+doc.update({"fitter":"matcher","matcher":{small fixed dict}}) + batch_us._save_json, returns
+paths (copy matchfit.run's doc shape); non-CHOOSE -> []; recipes: CHOOSE[0..2] =
+test_batch_eu._corner_pairs COPIED (5%-frame corners on the site's 4 corners; verify at setup:
+fabrication_pattern None AND matchfit.spread ratio>=0.1 sd>=20), CHOOSE[3] = u
+500/900/1300/1700 v 1300/1320/1340/1360 (exactly collinear -> spread (0.0, 0.0) -> pattern
+"matcher points nearly on a line (spread 0.00, 0 px): the scale is not pinned" + "; the gate's
+25.0 m measures..." sentence in the entry's why); setup preconditions per the iter-230 note
+(40 golden files byte-match the tree; all 57 agent docs pass the line check AND are is_done;
+CHOOSE == the 4 pinned; the recipe checks; beth/shotwick map-only; store big has aesica's);
+run the 6 phases in-process (socket guard up for ALL of them - it stays up through loop/sync);
+then start the server per (f) above, LIFT the guard only around the urllib GETs of /,
+/data/sites.json, /data/review.json from our own 127.0.0.1:PORT, terminate+kill in teardown;
+assertions (i)-(viii) per the iter-230 note, with the state-aware end states above - in
+particular: 233 marked items (search set minus hit) each with the record's searched string +
+new at, candidates/resolved unchanged; the 101 fresh items; the 10 partial + alauna single-
+entry in-place changes; aesica byte-identical AND off the open list; aardenburg/aire have no
+item; the hit's moved coarse item; sync's 60 skips + no pruned + 465/478 export; the served
+checks; checkout integrity = 212a's hashing PLUS the 121 REAL per-site dirs (computed
+dynamically: non-symlink entries of the checkout's web/data/sites) hashed before/after, and
+assert the tree's site dirs are all real dirs (no symlinks left after realize). Run with
+`.venv/bin/python -m pytest tests/test_cover.py -q` (never bare pytest). Known non-212b red on
+this VM: test_fit_queue.py part-4 gestures (307bb, pre-existing, belongs to the 307 series). **
+
+**Do NOT touch:** requirements.in/.txt (302a/304), tests/conftest.py, and any module the test
+calls (monkeypatch in the test or file a new task). Agent c's in-flight 203b/203/302a/304/306
+work is other tasks' business.
+
+---
 (2026-10-13, iteration 230, agent a - **INVESTIGATION session, hit the context limit before
 writing code. Every API the test drives was re-read and verified against the current tree
 (clean at 724559f; tests/test_cover.py is still 212a's 770-line version). NOTHING changed on
