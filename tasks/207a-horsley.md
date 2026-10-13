@@ -53,6 +53,143 @@ found) but are not staged as picture rows.
   PITFALLS entry).
 
 ## Hand-over
+(2026-10-13, iteration 216, agent c - map transcription FINISHED: all 15 map titles + corner marks read
+from the images (table below); staging design decided (files_roman.jsonl rows, evidence kind
+caption_coords, verified offline by fit/evidence.py check); NO code changes this session - the module
+on disk is still the iteration-212 version (HORSEY_PLATES=None, no map table, CITE = the IA-record
+placeholder, --stage/--check/--golden raise "not built yet"). Next session = the module edit (step 3
+of the 215 recipe). /tmp/horsley_full/ still holds every full-size image + all crops made in 215/216
+(t*/b* = top/bottom 16% 2x; ro_*/up_* = rotated/portrait overviews; tt_*/tb_*/ov_* = title strips).
+Last suite baseline: iteration 203 (1 failed / 155 passed / 1 skipped; the lone red = agent a's in-flight
+307 placement test).
+
+**ALL 15 MAPS (the complete transcription, read this session from the images):**
+P.158 series = Hadrian's Wall, Book II. N.1-N.10 are ROTATED landscape sheets (portrait capture
+text rotated 90deg; rotate CW to read; title box then sits at the bottom of the landscape map;
+corner mark at the sheet's top-right). N.11 is an upright portrait SECTION drawing (no title box).
+  n236  P.158 N.1   s  "A general map of the Roman walls in the north of England, and so much of the
+                       adjacent countryes as includes the secondary stations per lineam valli."
+                       [A's caption said "pertaining thereto" - the printed ending is the Latin
+                       "per lineam valli"; A is close but not verbatim] scale "two miles"; J. Mande sc.
+  n238  P.158 N.2   s  "A map of the Roman walls from SEGEDV[NAVM] to CONDERCV[VM]."
+                       [eastern half of the wall: plans of SEGEDUNVM (Wallsend), PONSAELIVM (Newcastle),
+                       CONDERCVVM ("now Benwell hill"); Tyne; HADRIAN'S VALLVM + SEVERVS'S WALL; scale
+                       "two miles"]  (the ro_n0238 overview is fully legible)
+  n240  P.158 N.3   s  "A map of the Roman wall, from CONDERCVVM to VINDOBALA." [plan of VINDOBALA
+                       "now Rutchester", own scale 100 yards]
+  n242  P.158 N.4   s  "A map of the Roman wall, from VINDOBALA to HANNAVVM." [plan of HANNAVVM
+                       "now Halton Cheisters"]
+  n244  P.158 N.5   s  "A map of the Roman wall, from HANNAVVM to CILVRNVA." [plan of CILVRNVA
+                       "now West Chesters" (the fort plan; the modern town is Chesters)]
+  n246  P.158 N.6   s  "A map of the Roman wall, from CILVRNVA to BORCOVACEVS." [plans of PROCO[LTIA]
+                       ("now West Wall"? near Stanwix) and BORCOVACEVS "now Birdoswald"; Bowness; the
+                       Solway end]
+  n248  P.158 N.7   s  "A map of the Roman walls from BORCOVACEVS to MAGNA." [plan of MAGNA (Bowness-on-
+                       Solway area); also VINDOLANA "now Vindolane cheisters" (= Vindolanda) and a plan of
+                       A[ESICA] "now Birn Cheisters" (= Birnchester, Aesica)]
+  n250  P.158 N.8   s  "A map of the Roman walls from MAGNA to PETRIANA." ["PART of CUMBERLAND" /
+                       "PART of NORTHUMBERLAND" coast map; plans of AMBOLIANA and PETRIANA (Horsley's
+                       hypothetical Solway-coast stations); Longhope, the Cark? etc.]
+  n252  P.158 N.9   s  "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA."
+                       [Petriana "now ...", UBILAVRA?, CONGAVATA "now Somersets" (Castlesteads), Ithen
+                       (Irthing/Eamont) rivers]
+  n254  P.158 N.10  s  "A map of the Roman walls in the north of England, from CONGAVATA to
+                       TVNNOCELVVM." [CONGAVATA "now Somersets", AXELODVNVM "now Bright Monomeby", the
+                       Solway Frith, ITVNAE AESTVARIVM, TVNNOCELIVM "now Bonholm" (near the Esk mouth),
+                       "GA RBOS ENTVVM"? a coastal station, Longfowlis, Burghall]
+  n256  P.158 N.11  o  UPRIGHT portrait SECTION of both walls between castella: labels Castellum,
+                       "The south agger", "Severus's ditch/vallum", "Hadrian's north agger / ditch /
+                       principal vallum / south agger", "A scale of 9 paces or 15 yards". NOT a site
+                       plan (a cross-section) -> kind o, indexed but not staged.
+P.176 series = the Antonine ("Severus's") wall, Scotland. N.1 is a ROTATED landscape sheet; N.2-N.5 are
+UPRIGHT portrait sheets (title box at the sheet's bottom, read from the b* crops).
+  n278  P.176 N.1   s  "A general map of Antoninus's wall in Scotland." [the whole wall: New Kilpatrick
+                       ("Old Kilpatrick"?) to Falkirk; Barhill, Kinknittoch, Archindavay, Rough castle,
+                       Camelon, Falkirk; Clyde and Forth; scale 10 miles; legend "An explanation of
+                       the Figures"]
+  n280  P.176 N.2   s  "A map of the Roman wall in Scotland from the west end to Bemulie." [New
+                       Kilpatrick fort plan (cross inside the plan), the Clyde (Dunglass, Auchintorly,
+                       Dunnerbuck, Free-land, Church), the wall east to Bemulie; scale 10 miles]
+  n282  P.176 N.3   s  "A map of the Roman wall in Scotland from Bemulie to Crowy-hill." [the Peel of
+                       Kirkintilloch (concentric square plans + compass), ANTONINVS'S W[ALL], Balmure/
+                       Bemulie fort plan, Kelvin; scale 1 mile?]
+  n284  P.176 N.4   s  "A map of the Roman wall in Scotland from Crowy-hill to Falkirk." [Crawy-hill
+                       (Crowry), Mailling-house (Milton?), Dillater (Dilston), Rough hill (Rough
+                       Castle), Falkirk fort plan, Westburn, Stinghouse]
+  n286  P.176 N.5   s  "A map of the Roman wall in Scotland from Falkirk to the east end." [Falkirk,
+                       Callender-house, Deadarse, the wall drawn down to the Forth at Cumbernauld
+                       ("Cuffabout"?), "Old Park", "Church", Caer-ridden; scale "two English miles"]
+  n287  verso (no corner mark; faint ink show-through of N.5) - NOT a list page
+Versos with no mark (faint/empty frames, stage-A flags them plate_site_plan on the engraved border -
+expected, not recall misses): n239, n243, n249, n253, n287.
+Country maps (kind o, IN the list, NOT staged): n0060/n0062 the Ptolemy map (front matter), n0706
+Mercator-Ptolemy (Book III), n0734 the Antonine Itinerary map, n0832 the Notitia, n0867 the Peutinger.
+
+**STAGING DESIGN (decided this session):** one files_roman.jsonl row per map leaf that is kind s, tied
+to the named fort(s) of its title: site = the catalog row where the fort has a QID (verified in
+data/catalog/sites.jsonl this session: castrum-segedunum-q637958 = Segedunum/Wallsend; pons-aelius-
+q7227963 = Pons Aelius/Newcastle; rudchester-roman-fort-associated-civil-s-q17669775 = Vindobala/
+Rudchester; haltonchesters-roman-fort-settlement-and-q17648018 = Hannavam/Onnum (West Chesters);
+aesica-q4688554 = Aesica (Great Chesters, for N.7's Aesica plan); birdoswald-roman-fort-and-the-
+section-of-q17650767 = Borcovaceus/Birdoswald) or a new extras_roman.jsonl entry where not (Condercum,
+Cilurni/Chesters, Procolitia, the Solway-coast hypotheticals Magna/Petriana/Congavata/Tunnocelum if
+staged, and the Antonine forts: Old Kilpatrick (check extras.jsonl bar-hill-fort), Kirkintilloch,
+Balmuildie, Rough Castle (check extras.jsonl rough-castle-fort), Falkirk-end). extras.jsonl holds the
+no-QID row shape (id, qid null, name, lon, lat, region lowercase, kind "roman fort", source,
+place, wikipedia, note) - extras_roman.jsonl rows follow it (parent hand-over: kind "roman fort" /
+"roman site", QID where it exists, lon/lat from the book's list or a cross-check). Row shape:
+site, qid, title (the plate's printed title + book/series), year 1732, url/thumb (the IA page), w/h,
+desc (the book's printed list entry = the plate heading, the 200 evidence's "list entry"), evidence
+= {rec evidence/1, kind caption_coords, checked, named_place (the fort as printed, e.g. "Vindobala"),
+place_qid/place_label/place_lon/place_lat (the resolved coordinates), site_lon/site_lat (the catalog
+row's), dist_m} - fit/evidence.py check_caption verifies this OFFLINE from stored fields only
+(named place in norm(title+desc), stored distance reproduces within 1 km, <=50 km), so the check leg
+needs no network even for new extra sites. classified_roman.jsonl: one row per staged map, "plan" by
+hand. For each kind-s map with a single principal fort (N.3-N.6, N.8-N.10, P.176 N.2-N.5) one row to
+that fort; N.1/N.2 and the multi-fort maps: tie to the most-named/planned fort and record the others
+in desc (decide the exact row split when building --stage; at minimum every map leaf with a real fort
+gets at least one row, and the 90% box counts verified site-plan leaves staged).
+
+**EXACT NEXT STEP (iteration 217 = the module edit, recipe step 3):**
+1. Edit fit/src_roman_horsley.py: (a) CITE -> the title-page text: "John Horsley, Britannia Romana, or
+   the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the
+   Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume
+   (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)"; (b) add the MAP list as a module
+   constant in books_lists HAND_FIGS format (read pipeline/books_lists.py first for the exact field
+   spec - the 215 hand-over says fig|title|page|kind|kind_by, fig = the leaf's n, page = the printed
+   "P.158"/"P.176" string or "", kind s/o, kind_by hand) covering the 15 maps above PLUS the 5 country
+   maps as kind o; (c) extend register() to inject books_lists.HAND_FIGS[IA] in-process (keep
+   HORSEY_PLATES=None until the inscription-plate transcription starts - the inscription list can
+   trail: the 90% box concerns kind-s maps only); (d) update the module docstring (the no-list
+   discovery: the book has NO printed plate list, the list = the plates' own printed headings, the
+   books_lists docstring's "headings printed in its text" fallback; usage lines). Commit:
+   "207a: map list transcribed from the plates' own headings (the book has no plate list) - CITE from
+   the title page".
+2. Then --list (books_lists.cmd_ocrmap) once -> lists/britanniaromanao00hors.json + .map.json; verify
+   the map.json entries carry the right n's (236..256, 278..286 + the country maps). Note: --list is a
+   live call (Qwen 8080/8081) but only over the mapped pages - should be minutes, not the 936-page pole.
+3. Then --triage B (resumable background, nohup; the long-background-job PITFALLS: writer gone +
+   mtime settled before commit): covers A's 80 site pages + the mapped leaves.
+4. Then build the --stage/--check/--golden legs (staging design above; --check runs fit/evidence.py
+   check over files_roman.jsonl + the join test: every row names an existing or staged site, every new
+   extra has its plans) + tests/test_src_roman_horsley.py (no_network socket-blocking fixture as in
+   tests/test_src_van_deventer.py) + tests/golden/src_roman_horsley_sample.json + the Horsley section
+   of docs/lead_roman.md (validate_book recall; record that the list = the printed plate headings
+   because the edition has no list, and that N.11 is a section drawing, kind o).
+5. Later sessions: transcribe the ~121 inscription plates (Roman numerals I-CXXI, scattered through
+   n0067-n0900) into HORSEY_PLATES in batches (kind o, each names the site where the stone was found);
+   the 90%-of-site-plans box is already covered by the maps, so this can trail without blocking.
+
+**Full-size images on disk this session: /tmp/horsley_full/** - n0047-n0070, n0236-n0287, n0706,
+n0734, n0832, n0867 (2427x3893-class jpgs) + crops: t*/b* (top/bottom 16% 2x), ro_* (CW-rotated
+overviews of the rotated sheets), up_* (portrait overviews of the upright Antonine sheets), ov_*
+(quarter-scale overviews), tt_*/tb_* (top/bottom title strips), corner_*/ghost_*/c4_*/csheet*/m*/pv*.
+If /tmp is gone: re-download via https://archive.org/download/britanniaromanao00hors/page/nNNNN.jpg
+with a browser UA (the way 215 did). Re-reading any title: rotated sheets = rotate -90 (CW) then read
+the bottom strip; upright sheets = the b* bottom 16% 2x crop.
+
+### Also written to PROGRESS.md (moved here by the driver)
+
 (2026-10-13, iteration 215, agent c - recipe step 2 ran as an investigation and CHANGED the
 approach: the book has NO printed list of plates (verified on BOTH copies), so the list is
 transcribed by eye from the plates' own printed headings (the books_lists "plate headings
