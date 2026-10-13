@@ -10,6 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
+- `tasks/302f-matcher-station-test.md` (open) - hand-over: (2026-10-13, iteration 210, agent c - INVESTIGATION ONLY, no code written. The whole test design
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -17,7 +18,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/235-placement-test-dep-pick.md`
-- `tasks/302f-matcher-station-test.md`
+- `tasks/302g-stonehenge-matcher-run.md`
 
 ## Your task's journal
 
@@ -71,6 +72,50 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
 ... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)' DECISIONS.md`)
 
+### 2026-10-13 302f DECISION: iteration 210 - investigation only; the fixture is keyed by the sha256 of the exact request body matchfit.match sends, and the test's stub reuses that key, so no image code runs in the stub
+    No code written this session (context limit during design; the full trace is in the task
+    hand-over). Design decisions taken, so the next session does not re-litigate them:
+    - Fixture format (tests/fixtures/matchfit_station/records.json + records_unsure.json):
+      {"header": {...}, "responses": {sha256(exact request body): <verbatim live /match JSON>}}.
+      matchfit.match sends json.dumps({"image0": b64(PNG of the plan crop), "image1": b64(PNG of
+      the ground window), "threshold": 0.2, "max_side": 1024}); the recorder monkeypatches
+      urllib.request.urlopen to record (body sha256 -> response) while matchfit.fit_row runs
+      live against 127.0.0.1:8091 (twice, for a stability check), and the test's in-process
+      stub answers POST /match by the same key. Same .venv PIL (12.3.0) + same source bytes on
+      both sides => same PNG bytes => same key; a missing key 500s and the test's stderr==""
+      assertion fails loudly. 15 requests per fit_row (3 grounds x 5 windows); RoMa needs no
+      responses (ROMA_URL points at a dead ephemeral port; reachable()'s except Exception swallows
+      the guard's AssertionError).
+    - Unsure variant: deterministic permutation (np.random.default_rng(7)) of the ground-side
+      keypoints of every response whose candidate has >= 10 inliers (frozen heldout: six-inch
+      x0.5 = 15, x0.35 = 22 - BOTH must be broken, since fit_row's strict-greater best would
+      otherwise stay confident on x0.5); the script asserts the perturbed best lands at
+      3..9 inliers (frozen values say 8, six-inch x0.7, rot -43.51) and records the exact
+      "not sure: N consistent points (need 10)" line in the header; the test asserts that line
+      verbatim (N from the header, never hardcoded).
+    - GUARD variant: patch socket.socket.connect and connect_ex to pass through only
+      (127.0.0.1, stub_port) (allowed port via env GUARD_ALLOW) and raise AssertionError
+      otherwise; do NOT patch socket.create_connection to dead (it must flow through to the
+      patched instance connect). The test_site_done/test_fit_queue full-dead guard is the
+      template.
+    - The unsure branch's published review.json must NOT be asserted equal to the repo's
+      current web/data/review.json (457 items may have drifted from what export recomputes
+      today): the test recomputes the baseline by calling fit/review.py export in-process on a
+      second clean tmp copy and expects exactly baseline + the badbury entry (same name sort).
+    - Tmp tree inputs (all verified to exist in this checkout): the code dirs tools/ fit/
+      pipeline/; web/data/{sites,plans,review}.json; a REAL copy of web/data/sites/badbury...
+      (it is a symlink to another checkout - copy os.path.realpath); data/db/platefits (all 70,
+      then delete the badbury doc); data/review (all 481); data/books/index.jsonl (evidence +
+      propose), data/commons/files.jsonl, data/catalog/sites.jsonl (export's name fallback -
+      missing => stderr warning, and the test asserts stderr == ""), data/sites/<SID>/site.json
+      (no "plate" field: is_pre_fit False), data/raw/books/earthworkenglan01allcgoog/full/
+      n0132.jpg (3367x5050, exactly the row's size => every scale factor 1.0).
+    - Confident-branch file effects: the matcher doc replaces nothing in the store (the hand doc
+      was deleted in the tmp only), build() REBUILDS the same-named plan_*.webp/_ink.webp and
+      replaces the same-file plan depiction (both year 1908), so drawings stays 1 -> the entry
+      line is "drawings 1 -> 1" in BOTH branches; no review item is created in the confident
+      branch (batch never runs) => export never runs => review.json byte-identical.
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
@@ -96,17 +141,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
 - A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
 ... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
-
-### 2026-10-13 302f HAND-OVER (iteration 210, agent c, context-limit save)
-    Task 302f (matcher station e2e test) - INVESTIGATION ONLY, no code written yet. The complete
-    test design is traced in tasks/302f-matcher-station-test.md's ## Hand-over (fixture keyed by
-    sha256 of the exact /match request body; in-process ephemeral-port stub; guard variant that
-    allows only the stub port; exact expected stdout for both branches; unsure variant =
-    permuted ground keypoints of the >=10-inlier responses). NEXT STEP (one session): write
-    tests/fixtures/matchfit_station/record.py, run it live once against 127.0.0.1:8091 (ELoFTR
-    verified reachable this session; RoMa dead), commit the two fixtures, write
-    tests/test_matchfit_station.py (two tests: confident + unsure), run it, then the full suite
-    (baseline yardstick: 306d-era 10 failed/130 passed/1 skipped of 141; agent a's 212/307d work
-    is in flight - new failures in their files are not mine). tests/test_site_done.py passes on
-    this branch (5.3 s, .venv current). Nothing else in the working tree was changed this session
-    except the task file (git status: only tasks/302f-... modified before this note).
