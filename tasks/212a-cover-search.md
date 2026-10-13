@@ -1,7 +1,7 @@
 Status: open
 # 212a: Cover search - a targeted picture search for every uncovered site, "no picture found" items
 Depends on: 211
-Touches: fit/cover.py, data/cover/ (searches.json + the run log), data/review/, data/commons/files.jsonl, data/commons/classified.jsonl, data/raw/commons/, web/data/plans.json, tests/test_cover.py
+Touches: fit/cover.py, fit/cover_qwen8080.py, data/cover/ (searches.json + the run log + the stage record), data/review/, data/commons/files.jsonl, data/commons/classified.jsonl, data/raw/commons/, web/data/plans.json, web/data/fit_queue.json, tests/test_cover.py
 
 ## Goal
 For every built site with no fit document and no plan candidate in web/data/plans.json:

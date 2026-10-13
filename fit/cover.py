@@ -25,7 +25,8 @@ usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working | --model-j
     stage      the new files into the canonical files.jsonl (the harvest row shape + qid +
                by:"212"), local copies, classified.jsonl through an injectable classifier
                (default the Clef-flash batch, commons' questions - if it does not answer, that
-               is an ask_human moment, not a module decision), the 200 evidence field, and
+               is an ask_human moment, not a module decision; classifier_note is recorded on
+               each classified row when a non-default model answers), the 200 evidence field, and
                plans.json again (growth-only)
     loop       the normal loop, one site at a time through tools/site_done.py's one-site line:
                matchfit first (it places what it is sure of and resolves the item), the rest to
@@ -443,13 +444,15 @@ def _stage_row(root, sid, rec, e):
     }
 
 
-def stage(root, classifier=None, live=False):
+def stage(root, classifier=None, live=False, classifier_note=None):
     """The newly found files into the canonical data: files.jsonl rows (the harvest shape,
     + qid, + by:"212"), their local copies, classified.jsonl through the INJECTABLE
     classifier (default the Clef-flash batch - a test supplies a recorded answer; if the AI
     box does not answer in the working phase that is an ask_human moment, never a silent
-    substitution), the 200 evidence field on the new rows (evidence.record, only the new
-    sites), and plans.json again (growth-only: it rewrites no row it already wrote)."""
+    substitution; classifier_note, when given, is recorded on each classified row so the
+    file itself says which model answered - the one-off 8080 Qwen approval, lead 003), the
+    200 evidence field on the new rows (evidence.record, only the new sites), and
+    plans.json again (growth-only: it rewrites no row it already wrote)."""
     root = str(root)
     records = _load_searches(root)
     have = {r["title"] for r in _files_rows(root) if r.get("title")}
@@ -479,9 +482,12 @@ def stage(root, classifier=None, live=False):
         classified.parent.mkdir(parents=True, exist_ok=True)
         with open(classified, "a") as f:
             for r, a in zip(todo, ans):
-                f.write(json.dumps({"site": r["row"]["site"], "title": r["row"]["title"],
-                                    "p_plan": a["p_plan"], "p_birdseye": a["p_birdseye"],
-                                    "p_photo": a["p_photo"]}) + "\n")
+                d = {"site": r["row"]["site"], "title": r["row"]["title"],
+                     "p_plan": a["p_plan"], "p_birdseye": a["p_birdseye"],
+                     "p_photo": a["p_photo"]}
+                if classifier_note:
+                    d["classifier"] = classifier_note
+                f.write(json.dumps(d) + "\n")
                 n_classified += 1
         for r in rows:
             if not r["local"]:
