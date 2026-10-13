@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 217, agent a - **tests/test_cover.py WRITTEN (uncommitted, in the
+- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 219, agent a - **Boxes 1-3 DONE and verified:
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -142,6 +142,32 @@ in the tree first, socket guard + time.sleep no-op + pure fakes; assertions:
 searches.json per-site records + resumability, stdout counts, staged rows + local
 copies + plans growth-only, no-picture items with the exact searched string,
 checkout-integrity hashes). The live run (box 4) waits for 203b.
+
+### 2026-10-13 212a DECISION: tests/test_cover.py green on its first run (5 passed, 33.8s) - boxes 1-3 done; the live run (box 4) waits on 203b, added to Depends on
+Session 219 (agent a). The test file the driver committed in ccafaa0
+(iteration-218 work) is CORRECT AS-IS: before its first run I re-verified every
+pinned string and shape against fit/cover.py and tools/export_plans.py -
+_search_site's via-tag arithmetic and per-site print line ("4 gathered, 2 kept
+old, 2 new (all routes answered)" - n_kept counts kept-before-dedup), fetch's
+n_have counting the no-source rows in "with a local copy", _searched_string
+(== the test's expected_searched, char for char, qid and no-qid variants),
+nopicture's nofit-and-not-cand rule (the hit drops out via cand after stage),
+_stage_row's field order (== the test's byte-exact appended rows),
+evidence.record no-opping (by:"212" not in source_tables, every book row
+already carries rec), export_plans' cols/row shape (a commons row's title is
+the FILE-derived name, not the site name; label = when_of; cite = page only),
+and _now's tz-aware ISO - no drift, no changes needed. First run: 5 passed in
+33.8s (nopicture ~2s - _find_item is 4ms, not iter-216's 200-300ms estimate);
+full suite 155 passed / 1 skipped on this VM. My iter-217 step C is moot: the
+lead marked 231-234 done with all boxes ticked in 77bdf5d (his note: suite
+green on the Mac, 145 passed); 233's pure-growth and 234's fit-queue tests
+pass on this VM as part of the green suite, so the marking holds on both
+machines. The live run (box 4) genuinely waits on 203b (agent c, in flight -
+the batch and my live run write the same files, and 212 runs last on purpose
+per the lead's split), so 203b is added to my Depends on line (team-mode rule);
+the driver brings the task back after 203b merges. The live-run recipe
+(phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
+is in the hand-over.
 
 ## Project-wide driver notes (newest)
 
