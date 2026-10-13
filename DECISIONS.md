@@ -420,3 +420,51 @@ data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
 dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
+
+## 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today
+First session on 307d; investigation only, nothing written, no tests run.
+
+- Context check: 309 (the place-check box) is DONE; 307ba/307bb/307c done; 307d is the last
+  subtask of 307. Task 235 (open, mine via 221, `Depends on: 306e, 307d`, `Touches:
+  tests/test_fit_queue.py`) is gated on 307d by the broad `tests/` claim - so 307d's test is a
+  NEW file in tests/, never tests/test_fit_queue.py. Suite baseline (driver notes, re-verify
+  before claiming): 155 passed / 1 skipped / 1 failed - the one red is 235's
+  test_placement_gestures_and_save_in_the_browser (the 307bb `_pick_place` lands on marietta,
+  whose only depiction is a 1904 USGS topo the page's loadDeps/surveyOldEnough filter drops ->
+  dep:null at the seed check; red since ~iteration 199).
+- Queue population (241 entries, 2026-10-13T14:34Z): agent c's 203b EU batch filled the top of
+  the queue with commons-row candidates (c_..., no ia/file) - those are NOT line-eligible
+  (the one-site line reads book pages locally). Every line-eligible entry (book row with a
+  local page, an unresolved item carrying the row with >=3 pairs, no docs yet) has
+  `lidar: None` (LiDAR/DEM relief ground). No `lidar: False` (aerial-photograph-only) site is
+  line-eligible today: every aerial-only queue site is a commons-row candidate. So the task's
+  "different ground (LiDAR relief vs aerial photograph)" hedge is NOT satisfiable this
+  session - both picks are on LiDAR relief; the docs section must say so plainly. (Re-scan
+  after each merge: a site gaining a doc in a merge drops out of eligibility; the picker is
+  derived, so it adapts.)
+- The two picks (verified by running code; file order of web/data/fit_queue.json): A (recorded
+  bar scale) = [38] oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 (bar
+  "0 100 200 300 Feet", mpx 0.1646, rot 0, uncovered=0, page-showable auto dep six-inch-1st.webp
+  1842, no pre-existing drawing dep, England/Environment Agency LiDAR). B (site-size-only
+  fallback) = [45] devil-s-dyke-q3307343 / earthworkenglan01allcgoog_n0662_1 (scale_source
+  'picture_size', coarse, mpx 0.7201, rot 0, uncovered=0, six-inch-1st.webp, England/EA).
+  uncovered=0 for both means the one-site line runs sync+entry+review only (no batch run, no
+  model, offline-safe). Both sites' web/data/sites dirs are symlinks (copytree materialises
+  them into the private tree).
+- Scanning pitfall (my throwaway /tmp/aw307d/scan_picks.py, not repo code): its line_eligible
+  returns a failure STRING (the repo test's _line_eligible returns None); a `if li is None:
+  continue` filter silently passed every entry, so the first "eligible" list I read was wrong
+  (it included all commons-row EU sites). Re-ran with `isinstance(li, list)` - the real
+  eligible set is the 24 entries listed in the hand-over. The scan also crashed at [163]
+  maeshowe on row.ia being None (a commons best-row) - the Scottish picture_size sites'
+  eligibility was not fully verified; oswestry + devil-s-dyke need no more facts.
+- Plan (details in the task hand-over): one module-scoped fixture (307bb's line_served recipe:
+  full private tree, both book pages materialised, sockets dead, ephemeral port); two test
+  functions, one per site, each running the owner's flow in headless Chrome (card -> place on
+  the works -> drag -> wheel-scale -> save -> verify the line's four effects: overlay in
+  depictions.json, sites.json square recoloured, item resolved, card moved on -> page.reload()
+  -> the fit loads back unchanged); before/after hash of the checkout write surface proves the
+  shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
+  green; fit_queue.json and the review exports are never written by the page or the line in the
+  checkout). Then the docs/site_flow.md verification section.
+
