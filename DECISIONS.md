@@ -506,3 +506,35 @@ for the harness; the COMMIT step in the hand-over is thus done by the driver): 2
 the 2 run-2 burcht docs kept), 23 M (21 item files + web/data/review.json +
 web/data/sites.json). Working tree was clean at session start; this session's delta is
 only the re-pin, the task file (Touches + hand-over) and this entry.
+
+## 2026-10-13 212b DECISION: iter-230 verified the whole test API surface against the current tree (no code written - context limit before writing) and CORRECTED two points of the iter-229 design: (1) the entry mirror must call propose.propose_for WITHOUT a root (the product's run_sites call), so the hit site's two staged rows get COARSE entries, not tree-root proposals; (2) the post-live-run world has NO stale plan/view overlays (shotwick/bethlehem deps are map-only now), so the test's sync prune drops nothing - the assertions move from "prune drops the webps" to "prune is a no-op; both stay covered by their open items"
+Investigation session (tree clean at 724559f; tests/test_cover.py still 212a's 770-line
+version). Re-read and re-verified against the code: fit/cover.py (loop: in-process
+site_done.main per nofit site; sync: once-at-start _all_docs enumeration, per-doc
+_sync_doc, bare-exception containment -> _fail_entry, full prune, full review export),
+tools/site_done.py (_fit's matcher-first flow, the keep-restoration upsert, _sync_doc's
+sent/refused/stamped paths, scoped review export per site), fit/review.py (upsert merge
+by plan, write-once resolved, file-lead move, export over the whole queue), fit/matchfit.py
+(run's doc shape: write_doc + fitter:"matcher" + matcher dict + _save_json; spread's
+eigenvalue definition; SPREAD_MIN_RATIO 0.1 / SPREAD_MIN_SD_PX 20.0), fit/batch_us.py
+(write_doc's doc field set, _entry's coarse-vs-proposal branch, run_sites' propose call
+WITHOUT root + except (ValueError, KeyError), the entries-only-uncovered upsert),
+pipeline/plan_fit.py (load_picture's big-cache os.path.exists short-circuit, is_done's
+fit.at+fit.doc compare, build's dep entry + set_drawings, prune's doc-existence rule),
+pipeline/build_site.py (marks: drawings/score/oldest/overlays from the site's own dep),
+pipeline/aw.py (save_json tmp+os.replace -> the hard-linked tree sites.json is safe under
+452 set_drawings), server/serve.py (--port 0, after_write only on platefits writes),
+tests/conftest.py + tests/test_fit_queue.py (the port-0 server pattern with the reader
+thread), tests/test_batch_eu.py::_corner_pairs (to be copied, not imported).
+Verified arithmetic: the 5%-frame corner recipe gives spread (1.0, sqrt(0.2*max(w^2,h^2)))
+= (1.0, 223.6/452.5/572.4) for the three commons rows and fabrication_pattern None (2
+distinct u and v; no 10-px-grid coordinate); the near-line recipe (500,1300)-(900,1320)-
+(1300,1340)-(1700,1360), slope 0.05, is exactly collinear so its covariance det is 0 in
+float and the spread check prints "spread 0.00, 0 px" deterministically. All four CHOOSE
+sites carry 4 [lon,lat] corners in their sites.json entries (needed by the corner
+recipe). Consequence for the written test (full design in the task hand-over): sync phase
+= 60 skips, 0 builds, 0 network, 0 pruned lines; expected open list = 365 - aesica +
+101 new no-item items = 365; expected drawings = the committed value for every built
+site except aardenburg/aesica/aire (+1 each); bethlehem/shotwick items byte-identical.
+NO code changed this session; the one remaining step is writing the extended
+tests/test_cover.py per the hand-over.
