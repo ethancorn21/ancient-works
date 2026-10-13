@@ -41,7 +41,9 @@ usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working | --model-j
                auto doc is stamped by:agent; an unmarked non-auto doc is refused and recorded)
                and per-doc failure containment: one document that cannot be built becomes a
                review entry and the sweep goes on (the fix for the serve worker's
-               give-up-the-whole-sweep weakness), prune at the end
+               give-up-the-whole-sweep weakness), prune at the end, then the full review export:
+               web/data/review.json = the current open list (the phase is the one page-facing
+               writer pair - the overlays and the open list land together)
     export     web/data/review.json = the current open list for the page's Review section (201)
                - the one and only writer of that page file
     report     docs/batch.md (see the phase)
@@ -621,7 +623,10 @@ def sync(root):
     Unlike the serve worker, a failure on one document never stops the sweep: the failure
     is recorded, the site's review item gets the reason, and the sweep goes on (the fix for
     the give-up-the-whole-sweep weakness, PITFALLS pipeline/plan_fit.py). prune drops the
-    overlays the deleted pattern docs left behind. -> {site: [{doc, action, detail}]}."""
+    overlays the deleted pattern docs left behind, and the full review export ends the
+    phase: web/data/review.json is the current open list (resolution records written
+    write-once into the item files the sweep just changed), so the overlays and the open
+    list land together - the one page-facing sync. -> {site: [{doc, action, detail}]}."""
     root = str(root)
     results = {}
     n = 0
@@ -640,6 +645,8 @@ def sync(root):
         n += 1
     plan_fit.prune(root)
     print("sync: %d document(s) over %d site(s)" % (n, len(results)))
+    n_open, n_total = review.export(root)
+    print("sync: %d open of %d item(s) -> web/data/review.json" % (n_open, n_total))
     return results
 
 
