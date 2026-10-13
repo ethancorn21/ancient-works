@@ -3416,6 +3416,31 @@ concurrent plans.json writes), 234 (fit-queue invariant aligned to the documente
 my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
 claim anyway, add 231-234 to the line).
 
+## 2026-10-13 212 DECISION: the numancia plan-list exclusion is machine-dependent (local-copy requirement), not a data loss - 233 re-speced, PITFALLS entry added
+Measured on the merged tree with an in-memory export_plans run (the real
+web/data/plans.json was accidentally truncated once by the probe - `open(dst,"w")`
+runs before `json.dump` - and restored from HEAD; the committed file is intact,
+1474 rows). Facts: (1) export_plans' commons_rows() includes a picture only when a
+local copy exists at data/raw/commons/<site>/<sha16(title)>.jpg, and the books
+branch only with its full_local page image - data/raw is gitignored, so both are
+machine-dependent. (2) The numancia files.jsonl and classified.jsonl rows are
+byte-identical across ef84a05/f970500/HEAD; the local jpg is in this VM's shared
+store (210 staged it) but was absent on the lead's Mac, so f970500's re-export
+dropped the row - no data was lost or rewritten. (3) A re-export on THIS machine
+reproduces 953d9ab's 1168-row plans.json byte-for-byte: the numancia row returns
+as a COMMONS row (book "Wikimedia Commons", c_0fa271e2444f7bfc) - NOT as a books-
+index row (the iter-206 note's guess "book = the ia id" was wrong; the books index
+and memoriasdelareal009real are not involved) - and 307 of HEAD's 1474 rows (the
+211 pictures, the Civitates/Merian full pages) are absent because their local
+copies are not on this machine yet. Consequence for the live run: 212's fetch
+phase (1/s, resumable, skips existing copies) fills every missing kept row before
+the final re-export, so the live export regains both sides; before that re-export
+record the committed (id, sites[0]) key set and diff it afterwards - a lost key is
+a fetch failure to record as a data finding, never silently dropped or re-added.
+Filed the machine-dependence as PITFALLS.md ### tools/export_plans.py. 233 is now
+verify + record (the test should pass unchanged after 212's re-export), not
+"make the data whole".
+
 
 <!-- task 213 -->
 # Task 213 artist-views
