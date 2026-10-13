@@ -34,130 +34,89 @@ sites and proves the shared store comes back byte-identical.
 
 ## Hand-over
 
-(2026-10-13, iteration 249, agent a - NINTH session. The probe is now FULLY GREEN (first
-time in the file's life): run 5 (pytest-3) printed RESULT PASS on BOTH sites - every
-in-page check passes (boot, card1, place, seed, drag, wheel, shift+wheel, save, all four
-line effects, card2, reload, card3, no pageerror, no non-tile reqfail). The test still
-fails because the PYTHON-side checks (never executed in runs 1-4 - the probe assert fired
-first) fail in check 4 for both sites. Nothing is ticked yet; no boxes. The DECISIONS
-entry (ninth session) has the full evidence; this is the working state.
+(2026-10-13, iteration 250, agent a - TENTH session. **The test is FULLY GREEN.** All three
+acceptance boxes are satisfied and verified; only the tick + Status done + final commit remain
+(the working tree is uncommitted - the harness saves it). Full details in the DECISIONS entry
+(tenth session).
 
-**Working tree (UNCOMMITTED - the harness saved it; do not lose):**
-- `tests/test_owner_check.py`: (a) the probe's stdout+stderr now dumped to
-  `outdir/owner_probe.log` before the assert (evidence survives failures); (b) all three
-  marker-class comparisons (effects ok, effect-(b) check, reload ok) and python check-4's
-  two asserts changed from full-string equality to CLASS-MEMBERSHIP: the page sets
-  `marker <tier>` but MapLibre's Marker constructor ADDS `maplibregl-marker
-  maplibregl-marker-anchor-bottom` to freshly-created elements (post-reload), while the
-  page's post-save sync REPLACES the list (post-save) - both states carry the tier class;
-  the page was never wrong. `node --check` on the regenerated probe passes.
-- `PITFALLS.md` (MODIFIED in the working tree, UNCOMMITTED - the harness saves it; commit
-  it with the rest at the end): 3 new entries: web/ page-fetch limits; tests/playwright
-  no-fs-in-evaluate; raw-string JS-escape trap.
+**What this session changed (all in tests/test_owner_check.py + docs/site_flow.md):**
+1. Check 4 no longer ports build_site's formula: it calls the REAL `build_site.overlays / drawings
+   / score` (pipeline/, numpy ok in .venv) pointed at the PRIVATE TREE via the root-aware
+   `_root(root)` pattern (the same pattern the one-site line uses) - one source of knowledge;
+   the old `_score_of_deps` port and its `SERIES_ERR_M` table are DELETED. Every check-4 assert
+   now carries a self-describing `diag` (the entry, the recomputation, every depiction, both
+   phases' markerClass, the tier) instead of dying with a bare AssertionError.
+2. `server_runlog.log` is dumped into the run's outdir right after the runlog slice (the ninth
+   session's planned step 2).
+3. **`_tier_of` fixed** - the real culprit of runs 2-5's "check 4, no message" failures:
+   `next(t for th, t in TIERS if ...)[1]` indexes into the tier STRING (`'t2'[1]` -> `'2'`). Now
+   `next((t for th, t in TIERS if (score or 0) >= th), "plain")`, mirroring the page's
+   `TIERS.find(...)[1]` (web/index.html:475-476; the test's TIERS mirror matches it exactly).
+4. Check 7's filter was the phrase `"one-site line" in ln`, which also catches the line's own
+   HEADER `site <sid>: the one-site line (fit -> sync -> entry -> review)` (tools/site_done.py:326,
+   present since 300's build - the eighth session's static verification missed it; check 7 had
+   never actually run before this session). Now a shape filter `ln.startswith("  one-site line for ")`
+   (the server worker's report; also catches the unavailable/failed variants, which the exact-equality
+   assert would then fail on, as intended).
+5. Test B's write-once compare: `_h(a["itemBytes"])` called `Path()` on ALREADY-READ BYTES ->
+   TypeError (the 6th session's itemBytes fix stored bytes; the compare wrapped them in `_h` again).
+   Now `_h(file) == a["itemBytes"]`, with a guard that fails loudly if test A didn't run first.
 
-**Where the test stands (5 runs total, this file):** 1-2 (sessions 247/248): probe died
-early (syntax, then effects-poll 404/in-page readFileSync - both fixed, see the 7th/8th
-DECISIONS entries). 3-4 (this session, before the class fix): the ONLY failing in-page
-check = the reload check (markerClass string mismatch). 5 (this session, after the fix):
-probes PASS; failure moved to the Python checks.
+**Test state (last runs, this session):**
+- `.venv/bin/python -m pytest tests/test_owner_check.py -q` -> **2 passed in 74.06s** (both sites:
+  probe + all eight python-side checks + the revert proof + the ten screenshots).
+- Full suite (background, 0:06:44): **1 failed, 159 passed, 1 skipped** - the ONLY failure is the
+  pre-existing 235 red `tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser`
+  (the seed check "the gestures own the mouse (map pan/zoom off), the earlier overlay hidden" -
+  documented in PITFALLS, present in the driver's loop-start baseline; my two new tests are the
+  157->159 delta). `tests/test_fit_provenance.py` 7 passed; `-k hand_fit` (the golden
+  tests/golden/hand_fit_docs.sha256 checks) 2 passed. So box 2's "golden hash check and
+  test_fit_provenance stay green" is satisfied.
 
-**The only remaining failure - check 4 (both A and B, AssertionError with NO message).**
-Check 4 = the site's marker fields in the tree's sites.json. Its message-bearing asserts
-(drawings, score) pass (check 8 cross-confirms the page's reload drawings/score equal the
-tree's entry, and check 8 PASSES). So the culprit is one of the message-less asserts:
-`entry["overlays"] == len(ovs)` or `entry["oldest"] == min(y for y, _, _ in ovs)` (the
-two new markerClass membership asserts are the least likely - the [eval] markerClass
-strings contain `marker` and `t2` in both phases; 248's evidence says both entries ended
-as {drawings 1, score 1.45, oldest 1842, overlays 2}). LEADING SUSPECT: `_score_of_deps`
-is MY OWN port of build_site's formula inside the test - its `ovs` list must count
-exactly what `pipeline/build_site.py`'s set_drawings/score counts as overlays (if the
-port counts only kind plan/drawing/view or only depictions with a fit key it returns 1
-instead of 2 for the six-inch + new plan).
-
-**Retained evidence (COPY IT BEFORE THE NEXT FAILED RUN - pytest retention is 1, the next
-failed run deletes pytest-3):** /tmp/loop-ancient-works.a/pytest-of-agent/pytest-3/ -
-`awowner0/` (the full private tree: both docs by:hand 5-pairs in data/db/platefits, both
-overlays in the site dirs, both items resolved by the right doc, tree page file 455 open
-of 480, sites.json entries), `ownerA0/` + `ownerB0/` (owner_probe.mjs, the five .png
-shots each, owner_probe.log = full probe stdout incl. the [eval] dump). The repro script
-/tmp/loop-ancient-works.a/repro307d.py may be gone; its method: import tests.test_owner_check
-(sys.path the tests dir), recompute picks via _picker/_item_of exactly as the fixture,
-read the [eval] line from each owner{tag}0/owner_probe.log, exec the numbered `# N.`
-blocks of _run_one textwrap.dedent'ed in ONE persistent merged namespace
-(globals==locals, or comprehension free-vars NameError; runlog=None). Result there:
-checks 1, 2, 3, 5 PASS both; 8 PASS both; 7 unverifiable offline; 6-PASS for B, 6-FAIL
-for A = REPRO ARTIFACT ONLY (the script evaluates A against the FINAL page file after B's
-run; in the real test A's check 6 runs against the post-A page file where B's site is
-still open - I verified the page file is in perfect sync with the store: checkout
-457-open page = 480 store items minus 23 store-resolved, symmetric diff 0, so check 6
-passes in the real test).
-
-**INSTRUMENT CHECK 4 EXACTLY (I was doing this when the limit hit; do it first):** for
-each pick's site (A oswestry-castle-q20713795, B devil-s-dyke-q3307343) in the retained
-tree print: (a) the tree's sites.json entry {drawings,score,oldest,overlays}; (b)
-`toc._score_of_deps(deps)` -> (score, ovs), len(ovs), min year over ovs; (c) every
-depiction's (file, kind, year, fit-doc); (d) the markerClass strings from the [eval]
-line. Compare (a)/(b) to name the failing assert, then read pipeline/build_site.py's
-set_drawings + score computation and make the test's `_score_of_deps` mirror the real
-code exactly (or assert the page's own fields against each other). Fix the TEST ONLY -
-do not touch the page or build code (not in my Touches).
+**Docs (box 3, done):** docs/site_flow.md gained the 307d section at the file's end (after the
+308 section): what was checked and how, the two derived picks + picker rules, the four effects with
+measured values (both sites 1.1->1.45 t1->t2; 1.45 = 1.18 from the 1908 drawing at 0.0 m residual -
+the saved pairs define the similarity exactly - plus 0.25 x 1.10 from the 1842 six-inch; item
+resolved write-once; card moves on to 39/46), the unchanged reload, the revert proof, the ten
+screenshots, and the PLAIN statement that both picks sit on LiDAR relief because no aerial-photo-only
+(lidar false) site was line-eligible in the 2026-10-13 queue - the "different ground where possible"
+hedge is not satisfiable today. All ten shots exist in docs/site_flow/ (307d_A_1-card..5-reload.png,
+307d_B_*).
 
 **Exact next step (one session, in order):**
-(1) Copy the retained tree (cp -a pytest-3/awowner0 -> a safe path) and instrument check
-    4 as above; fix the test's `_score_of_deps` / check-4 asserts accordingly.
-(2) Add a runlog dump so check 7 (the server runlog - NOT verifiable offline; the server
-    stdout lives in the fixture's in-memory `out`) is diagnosable after any failure: in
-    _run_one right after `runlog = out[n0:]`, add
-    `(outdir / "server_runlog.log").write_text("\n".join(runlog) + "\n", encoding="utf-8")`.
-    248's exact-match asserts to satisfy: exactly `  one-site line for {site}: finished
-    (exit 0)`; exactly two `fit  ` lines = the no-model line + the no-batch line with
-    counts from the tree's plans rows (A: 1/1/0, B: 3/1/2); no 'matcher'; no 'attempted a
-    network connection'; no refused/FAILED/sent sync lines. (Run-tail evidence shows
-    these lines appear, incl. plan_fit's `{sid} {plan}: {n} pairs, similarity, residuals
-    m [...]` print at pipeline/plan_fit.py:370 - it starts with the site id, so it does
-    not pollute the `fit  ` filter.)
-(3) `node --check` the regenerated probe; run `.venv/bin/python -m pytest
-    tests/test_owner_check.py -q` (~3-4 min now the probe passes fast) - EXPECT GREEN.
-(4) If green: full suite `.venv/bin/python -m pytest -q` (~6 min) - expected 157 passed /
-    1 skipped / 1 failed, the ONLY red 235's tests/test_fit_queue.py::
-    test_placement_gestures_and_save_in_the_browser (pre-existing since iter 161,
-    documented in PITFALLS); tests/golden/hand_fit_docs.sha256 and test_fit_provenance
-    must be green (my test's revert proof asserts the checkout write surface - every
-    platefits doc, every review item, sites.json, review.json, fit_queue.json, both
-    picks' site dirs - byte-identical around each run; it has held in all 5 runs).
-(5) docs/site_flow.md: append the verification section AFTER the 308 section ("## The
-    site markers become arrowheads (task 308, 2026-10-13)" at ~L1485): what was checked
-    and how (owner's flow in headless Chrome on a private tree: card -> place on the
-    works -> drag -> wheel -> shift+wheel -> save -> the line's four effects -> reload
-    unchanged -> card still moved on), the two DERIVED picks (A [38] oswestry bar
-    0.1646, Allcroft 1908 "Camp, Old Oswestry, Salop"; B [45] devil-s-dyke picture_size
-    0.7201 "SWEALD") + picker rules, the four effects with measured values (overlay
-    plan_<plan>.webp ink on the map, square 1.1->1.45 t1->t2 on both, item resolved
-    write-once, card moves on to [39]/[46]), reload unchanged (persisted depSel = the
-    overlay ink, ground 'imagery' page contract, done map kept), the revert proof, the
-    ten screenshots (docs/site_flow/307d_A_1-card..5-reload.png, 307d_B_* - the test
-    copies them on success; they do not exist yet), and STATE PLAINLY: both sites sit on
-    LiDAR relief (lidar null) because no aerial-photograph-only (lidar false) site is
-    line-eligible today - the task's "different ground where possible" hedge is not
-    satisfiable.
-(6) Tick all three acceptance boxes, set Status: done, DECISIONS entry, commit
-    EVERYTHING (test file, docs, screenshots, task file - all uncommitted in the working
-    tree now).
+(1) Optional, cheap: add the two PITFALLS entries this session earned - (a) under the existing
+    `tools/site_done.py, fit/review.py` section: the one-site line prints the header `site <sid>:
+    the one-site line (fit -> sync -> entry -> review)` (site_done.py:326) BEFORE its own work, and
+    the server worker prints `  one-site line for <sid>: finished (exit N)` - a runlog filter keyed
+    on the phrase "one-site line" catches the header too; filter the finished reports by their
+    2-space-indented shape. (b) under "Agent tools and harness": in team mode /tmp/pytest-of-agent
+    is SHARED by every agent's pytest sessions and their retention cleanup deletes other sessions'
+    tmp trees (this session's ownerA0/ownerB0/awowner0 evidence vanished mid-session under agent c's
+    concurrent runs) - do not plan around /tmp retention; dump evidence into the repo or read it in
+    the session it was made.
+(2) Tick all three acceptance boxes in this task file and set `Status: done` (verified: box 1 = the
+    green run above; box 2 = the `_write_surface` byte-identity asserts held around BOTH runs in that
+    run + the golden/provenance green in the full suite; box 3 = the docs section above).
+(3) `git add -A && git commit -m "307d: the owner's check green end to end (two derived queue sites:
+    place/move/scale/save, the line's four effects, unchanged reload, byte-identical revert) + the
+    docs section closes the parent's last box"` - the working tree carries tests/test_owner_check.py,
+    docs/site_flow.md, the ten 307d screenshots, DECISIONS.md, this task file (+ PITFALLS.md if (1) is
+    done). Nothing else: no web/, no fit/, no data files, no other tasks' files.
+(4) If the driver re-runs the suite: expect 159 passed / 1 skipped / 1 failed (235's red only).
 
-**Picks (unchanged; re-verified this session):** A = [38] oswestry-castle-q20713795 /
-earthworkenglan01allcgoog_n0119_1 (bar, scale_m_px 0.1646 rot 0, book 'Allcroft 1908',
-title 'Camp, Old Oswestry, Salop'); B = [45] devil-s-dyke-q3307343 /
-earthworkenglan01allcgoog_n0662_1 (picture_size 0.7201, title 'SWEALD'; its item file is
-named after lead n0599_1). Both: LiDAR relief (lidar null, EA credit), sites.json before
-{drawings 0, score 1.1 (t1), oldest 1842, overlays 1}, auto dep six-inch-1st.webp,
-both items UNRESOLVED in the checkout, whys clean (no 'matcher'/'network'). Queue 241
-entries at 2026-10-13T14:34:09.559141+00:00; next pendings [39] Neckarburken-West /
-[46] Richard's Castle.
+**Retained facts (in case a re-run misbehaves):** picks A = [38]
+  oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 (bar 0.1646 rot 0, Allcroft 1908
+  "Camp, Old Oswestry, Salop"); B = [45] devil-s-dyke-q3307343 / n0662_1 (picture_size 0.7201,
+  "SWEALD"; its item file is named after lead n0599_1). Queue 241 at 2026-10-13T14:34:09.559141+00:00.
+  Both LiDAR (lidar null, EA credit); before both {drawings 0, score 1.1 (t1), oldest 1842, overlays 1}
+  (one 1842 six-inch map); after both {drawings 1, score 1.45, oldest 1842, overlays 2} (t2). The
+  9th session's "1.45 unreachable" doubt was an arithmetic slip: (2026-1908)/100 = 1.18, not 0.98.
+  No-batch line counts: A 1/1/0, B 3/1/2 (from the tree's plans.json rows). review.json open count
+  457 -> 456 (A) -> 455 (B). The probe's .mjs was NOT touched this session (no node --check needed).
+  Team mode: agent c runs concurrent pytest sessions in its .c checkout (its 302f baseline writes
+  /tmp/aw302f_baseline.log); my tests bind only ephemeral ports and write only into their tmp tree -
+  no interference observed.
 
-**Do not touch:** fit/surveyfit.py or task 304 (agent c); web/* (not in my Touches - the
-page behaviour this task checks is done); tests/test_fit_queue.py (235 owns it - its red
-test stays the only suite red); tests/conftest.py; any data file in the checkout (the
-test writes only into its private tmp tree; the revert proof checks that); the other
-agents' in-flight files (207a/302/306 are agent c's, on its own branch). The test binds
-no fixed port (ephemeral, GUARD'd) and writes only into its tmp tree + docs/site_flow/ -
-team-mode safe.
+**Do not touch:** fit/surveyfit.py or task 304 (agent c); web/* (not in my Touches); 235's
+  tests/test_fit_queue.py (the pre-existing red stays the only suite red); tests/conftest.py; any
+  checkout data file (the test writes only into its private tmp tree; the revert proof checks that).
