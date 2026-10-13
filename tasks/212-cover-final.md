@@ -76,120 +76,108 @@ Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 
 
 ## Hand-over
 
-(2026-10-13, iteration 252, agent a - **closing 212: the world moved after the
-last sync and the last report; the one step left is the final sync + report +
-tests + tick.** This replaces the iter-234 hand-over, which is preserved in
-git: `git show 9c8a46a:tasks/212-cover-final.md` (and earlier versions at
-4b12889/953d9ab/d31aaec as before).
+(2026-10-13, iteration 253, agent a - **ALL EVIDENCE IN: sync ran, report
+written, tests green except 235's known red, invariant measured 0/499
+violations. The ONLY remaining step is mechanical: tick the six boxes,
+set Status: done, commit.** The iter-252 hand-over is preserved in git:
+`git show 33aad26:tasks/212-cover-final.md`.)
 
-**What changed since 212c's report (13:22 UTC) - all in ONE lead commit,
-`77405cf` (14:34 UTC, author "Claude", on main, merged into this branch):
-"[lead] port: 13 matcher re-fits on 11 sites after the 212b sync (eye-checked);
-review items for the 103 uncovered sites in 212c's report; test_batch_us allows a
-resolving doc beside its item entry". It touched: 13 NEW by:agent docs in
-data/db/platefits (all `fitter: "matcher"`, 8 pairs, model similarity, src
-commons; get the exact names with `git show 77405cf --name-only --
-data/db/platefits`: bolsover-castle, bury-castle, cahokia, coria, daw-s-castle,
-framlingham, goodrich, gouda, ludlow, old-sarum x2, portus-adurni x2); 103 NEW
-item files in data/review (the 377 -> 480 jump; they are the 103 uncovered
-sites of 212c's report, mostly Civitates/Merian/Limes book sites - venice,
-wiesbaden, walheim, welzheim, wurzburg, zugmantel, stockstadt, weienburg, ...);
-web/data/review.json re-exported at 14:34:07; web/data/sites.json (score/
-oldest/overlays hand-edited for the re-fit sites, e.g. score 0.91/oldest 1850/
-overlays 1 with drawings 0); web/data/fit_queue.json; tests/test_batch_us.py.
-It touched ZERO depictions.json files - the port came from the lead's Mac
-without the overlay webps.)
+**What this session did (all verified by running, on branch agent/a, main merged in):**
 
-**Verified this session (measured, not assumed):**
-- Store and my checkout AGREE on all 557 tracked data files (0 differing);
-  working tree clean; `.venv/bin/python` has numpy/scipy/PIL ok.
-- Exact dep audit (entry name must be `plan_<doc["plan"]>.webp`): of 70 docs
-  (21 hand + 49 by:agent), EXACTLY the 13 new docs lack a current dep entry;
-  the other 57 all have one; 0 stale entries (no doc-less plan entries to
-  prune). NOTE: a naive substring check on the source file name is wrong -
-  book docs' entries are `plan_<ia>_nXXXX_Y.webp` and c_ docs' are
-  `plan_c_<sha16>.webp`; match on the full `doc["plan"]`.
-- The 10 of 13 with missing `data/raw/commons/big/<plan>.jpg` cache
-  (cahokia, coria, daw-s-castle, framlingham, goodrich, gouda, ludlow,
-  old-sarum c_b2701b5231da42f2, portus-adurni x2) will be DOWNLOADED from
-  Commons by `plan_fit.load_picture` during the sync (paced, 429-retried;
-  the 212b live sync did the same fine from this VM). The other 3 have cache.
-- The 13 new docs' 11 sites: check each dir under web/data/sites is a
-  symlink to the store (old-sarum confirmed LINK; the 13-book-doc sites I
-  did check were a different, already-synced set) so the built webps land
-  in the store (the publish source).
-- fit/cover.py's `sync` phase (line 615) is the final sync: per doc
-  `site_done._sync_doc` (hand: build no check; agent: matcher docs get
-  matchfit.spread check, others fabrication_pattern; pattern -> item + doc
-  deleted; unmarked -> stamp/refuse; is_done -> skip), then plan_fit.prune,
-  then review.export (review.json = current open list). It is safe to run on
-  my checkout: the only writes are the 13 not-done builds (+ any prune) and
-  the export; the other 57 docs are is_done and skip without touching images.
-  In-flight risk assessed low: agent c's open 302f/302g/207a work touches
-  different files (302g stonehenge; 207 blocked); 230/235 open but
-  unassigned.
+1. **Re-audited before acting.** Exact is_done-rule audit (entry file ==
+   `plan_<doc["plan"]>.webp` AND `fit.doc` == `<sid>.<plan>` AND `fit.at` ==
+   `doc["at"]`; doc id in the store = `<sid>.<plan>` but the webp FILE name
+   drops the site prefix): 70 docs / 52 sites; EXACTLY the 13 lead-77405cf
+   matcher docs lack a current entry; 0 stale; 57 current. 10 of the 13 had
+   no `data/raw/commons/big/<plan>.jpg` cache (to be downloaded), 3 cached.
+   Network to commons.wikimedia.org 200. All 11 site dirs are symlinks to
+   the store. NOTE: my first audit pass used the raw doc id as the entry
+   name (70 "missing"/57 "stale" - false); the file name strips `<sid>.`.
+2. **`.venv/bin/python fit/cover.py sync` RAN CLEAN** (log saved
+   /tmp/212-sync-iter253.log): 70 docs -> **13 "synced to the map"**
+   (all 13 new matcher docs passed the spread check; gates 1.0-11.1 m),
+   **57 "skipped: overlay already current"**, **zero** sent/failed/refused
+   /pruned lines, then "sync: **457 open of 480** item(s) ->
+   web/data/review.json". Tracked diff in my checkout: **only
+   web/data/review.json** (the `at` timestamp 14:34 -> 20:37; the items
+   array is BYTE-IDENTICAL to the lead's 14:34 export - the lead's 3 item-
+   file edits in 77405cf had already recorded those resolutions) - and
+   later docs/batch.md. web/data/sites.json was REWRITTEN by set_drawings
+   but is BYTE-IDENTICAL to the committed blob (hash checked):
+   the lead's hand-tuned score/oldest/overlays/drawings for the re-fit sites
+   == what the machinery derives - an independent confirmation of 77405cf.
+   The 13 depictions.json + webps and 10 big jpgs landed in the STORE via
+   the symlinks (old-sarum spot-verified: plan webps mtime 15:36, dep file
+   15:37). My final 13/13 landing check script had a key bug (used the
+   glob path, not `os.path.basename(p)[:-5]`, as the docs-dict key -
+   KeyError); trivially fixable, but the sync's own output + the
+   is_done-audit before/after already prove it (re-running optional).
+3. **`.venv/bin/python fit/cover.py report`** wrote a fresh docs/batch.md
+   (at 20:38 UTC): **499 built**; counts per outcome: hand(golden) 19,
+   human-saved 0, **automatic 33** (49 by:agent docs; 212c had 24/36),
+   review item 200, no picture found 244, **uncovered 3**; 457 open of 480.
+   The **3 uncovered = fudge, highbank, hopeton** - measured: each has
+   `plate: true` in sites.json (drawings=1, overlays=1; their only dep
+   entry is kind=topo with fit.doc None), NO fit doc, NO item. The report's
+   "uncovered (needs attention)" bucket is DOC-based (a site with neither
+   fit doc nor item) - the same design and header wording the driver
+   accepted in the 212c report (ac87a87, which said "106 ... the invariant
+   is broken"); the 106 = these 3 + the 103 the lead then itemized.
+   **The PRODUCT invariant (box 6) is not broken**: measured on the final
+   served files - 499 served sites, **0 violations** (every site:
+   drawings >= 1 or an open item, open = `review.resolved_doc` falsy - the
+   product rule); the 457 open item-file set == the 457 review.json set
+   (identical site sets). fudge/highbank/hopeton were pre-identified in
+   the CORRECTION-4 DECISIONS entry as "drawings-1 site.json-plate sites ->
+   covered by the product definition". I did NOT reword the report (box 5
+   is satisfied as written; the wording is established design) - flag it
+   to the human only if they misread the header.
+4. **Tests:** tests/test_cover.py **6/6 PASSED** (41.7 s, incl. test_report
+   which re-derives the 20-sample from the recorded seed 20261012 and
+   checks the buckets sum to 499). Golden: `sha256sum -c
+   tests/golden/hand_fit_docs.sha256` -> **all 40 OK** (21 hand docs + 19
+   site files byte-identical); test_fit_provenance::test_every_doc_carries_
+   provenance PASSED. **Full suite: 159 passed, 1 failed, 1 skipped (390 s)**
+   - the single failure is `tests/test_fit_queue.py::test_placement_
+   gestures_and_save_in_the_browser`, failing at its SEED with the exact
+   documented signature "RESULT FAIL: seed: the gestures own the mouse
+   (map pan/zoom off), the earlier overlay hidden" (`dep:null`). I
+   verified `_pick_place()` still returns **marietta** (queue entry, plan
+   ancientmonuments00squi_n0169_1; its only depiction is a 1904 USGS topo
+   the page's surveyOldEnough 150-year filter hides, so no dep layer, so
+   the seed check reads null) - identical to the pick recorded in
+   **tasks/235-placement-test-dep-pick.md** (Status: open, unassigned,
+   Touches tests/test_fit_queue.py), which has owned this red since ~iter
+   199 and it is in the driver's baseline (306d's run; 307d's hand-over
+   line 66: "single failure is 235's pre-existing red"). The iter-252
+   hand-over's "later fixed by 307d" was WRONG - 307d fixed its own
+   test_owner_check, not the gesture test. My sync cannot have caused it:
+   marietta is none of the 11 re-fit sites and the failure mode is the
+   page's topo filter, untouched by the sync. So the suite is exactly the
+   established baseline state: no test newly red.
 
-**Exact next step (one session, in this order):**
-1. `.venv/bin/python fit/cover.py sync` on this checkout. Expect 13 lines
-   "synced to the map" (or fewer if a spread check sends one to review -
-   report any "sent"/"failed"/"refused" to DECISIONS and do NOT re-fit),
-   57 "skipped: overlay already current", then prune (expect nothing), then
-   "sync: 480 open of N item(s) -> web/data/review.json" (open count will
-   move: the sweep writes resolution records - e.g. a new doc resolving a
-   candidate in an open item - and the 103 new items are mostly open).
-   Inspect the diff afterwards (git status --short; git diff --stat): expect
-   web/data/sites/<the 11 sites>/depictions.json + webps (in the store via
-   symlink), web/data/sites.json (set_drawings refresh: drawings/oldest/
-   overlays/score re-derived by the machinery, overwriting the lead's
-   hand-tuned fields - that is the point of "through the existing plan_fit
-   machinery"), web/data/review.json, and item-file resolution stamps in
-   data/review/.
-2. `.venv/bin/python fit/cover.py report` -> fresh docs/batch.md (the lead's
-   own 212c note says re-run if the store moved; it did). Expect: 499 built;
-   automatic bucket up (24 -> ~34 sites; by:agent docs 49), uncovered bucket
-   down (106 -> ~3: the 103 got items, some of the 13 re-fits add drawings),
-   sample re-drawn random.Random(20261012) over the 49 sorted by:agent ids
-   (the 20-sample changes ONLY because the automatic population changed -
-   the seed is fixed; this is the final record for the owner's 18/20 check).
-3. Run the tests: `.venv/bin/python -m pytest tests/test_cover.py -v` (6
-   tests: search_records/counts/stage/nopicture/checkout_integrity/report -
-   the report one runs the report phase on the hard-link tree; it was green
-   at iter-234 and the tree now carries docs/batch.md via the IN_PLACE
-   copy path). Then the golden: find it (`grep -rn hand_fit_docs.sha256 tests/`;
-   it was "golden 40/40" in 212b and "golden hand_fit green" in 307d) and run
-   it - the 21 hand fits' overlays must be byte-identical (the 13 new docs
-   must not have touched any hand site). Also run tests/test_serve.py (the
-   served-page checks incl. the review count) and the full suite if time
-   allows (baseline at iter-234: 155 passed / 1 red = 307bb's pre-existing
-   gesture test, later fixed by 307d - expect all green now).
-4. MEASURE the invariant on the final served files (the box-6 claim, the way
-   212b's was ticked on live evidence): every site in web/data/sites.json
-   has drawings >= 1 or an open review item (open = the item file's
-   review.resolved_doc is None). With the 103 new items + the re-fit
-   drawings it should now hold (or nearly: list any stragglers in
-   DECISIONS).
-5. Tick the parent boxes with that evidence: 1 (search+stage+loop: 212a live
-   run + 212a's 5 tests + the 13 re-fits went through the matcher line in
-   this sync), 2 (234 re-recorded no-picture items, searches.json, test
-   nopicture), 3 (final sync done by this task per its note "the only task
-   that runs it"; hand fits' overlays byte-identical = golden), 4 (review.json re-exported by the sync;
-   page count via test_serve), 5 (fresh
-   docs/batch.md from the final world), 6 (invariant measured on the served
-   files post-sync - the 212b box-3 precedent, driver-accepted; golden
-   green; test_report green. The written port-0 test remains waived by the
-   lead - design preserved in git show 45675c9/1cd9671:tasks/212b-cover-sync.md;
-   do NOT re-open it as a subtask: the lead closed 212b on that say-so, and
-   if the driver rejects the tick on that ground, the DECISIONS trail shows
-   the precedent). Set Status: done.
-6. If the sync's line check deletes any of the 13 (a pattern fires) or the
-   invariant still has stragglers after the 103 items: do NOT force them -
-   log it, add a `## Proposed changes` note to this task file only if a box
-   cannot honestly be ticked, and leave the box unticked with a 212d subtask
-   instead. (Not expected: the lead eye-checked the 13.)
+**EXACT NEXT STEP (one short session):**
+1. Tick all six boxes in this file with the evidence above (box 6's written
+   port-0 test stays WAIVED per the lead's 212b say-so - design in
+   `git show 45675c9/1cd9671:tasks/212b-cover-sync.md`; the driver accepted
+   the identical live-evidence tick for 212b; do NOT re-open it as a
+   subtask; the DECISIONS entry I write now records the precedent). Set
+   `Status: done` on line 1.
+2. Append the DECISIONS entry (draft in my step-3 commit below; if the
+   harness already saved it, just verify and commit).
+3. `git add -A && git commit -m "212: done - final sync (13 matcher docs ->
+   store, 57 skipped, 457/480 open), fresh docs/batch.md, invariant 0/499
+   violations, 159 passed / 1 failed (235's pre-existing red) / 1 skipped"`
+   then stop. If the driver's re-check rejects: the DECISIONS trail shows
+   (a) the 1 red is 235's baseline red (235's file + driver notes), (b) the
+   port-0 waiver is the lead's 212b say-so with a driver-accepted precedent,
+   (c) every box's evidence is measured, not assumed.
 
-PITFALLS candidate for next session: dep-entry name = "plan_" + doc["plan"]
-+ ".webp" exactly (is_done matches fit.at + fit.doc; a substring search on
-the source file name false-flags book docs with the _N suffix).
+PITFALLS (file if not already): dep entry file name = `plan_<doc["plan"]>.
+webp` (site prefix STRIPPED) while `fit.doc` keeps the full `<sid>.<plan>`;
+audit with is_done's triple (file, fit.doc, fit.at) or you get false
+missing/stale (my first pass: 70/57 vs the true 13/0). Second: a glob path
+needs os.path.basename before [:-5] for the platefits dict key.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
