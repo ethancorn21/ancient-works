@@ -391,3 +391,47 @@ concurrent plans.json writes), 234 (fit-queue invariant aligned to the documente
 212 hand-over and still to be written. My 212 Depends on line stays 203a/203b/211 (I can verify
 my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
 claim anyway, add 231-234 to the line).
+
+## 2026-10-13 212 DECISION: the numancia plan-list exclusion is machine-dependent (local-copy requirement), not a data loss - 233 re-speced, PITFALLS entry added
+Measured on the merged tree with an in-memory export_plans run (the real
+web/data/plans.json was accidentally truncated once by the probe - `open(dst,"w")`
+runs before `json.dump` - and restored from HEAD; the committed file is intact,
+1474 rows). Facts: (1) export_plans' commons_rows() includes a picture only when a
+local copy exists at data/raw/commons/<site>/<sha16(title)>.jpg, and the books
+branch only with its full_local page image - data/raw is gitignored, so both are
+machine-dependent. (2) The numancia files.jsonl and classified.jsonl rows are
+byte-identical across ef84a05/f970500/HEAD; the local jpg is in this VM's shared
+store (210 staged it) but was absent on the lead's Mac, so f970500's re-export
+dropped the row - no data was lost or rewritten. (3) A re-export on THIS machine
+reproduces 953d9ab's 1168-row plans.json byte-for-byte: the numancia row returns
+as a COMMONS row (book "Wikimedia Commons", c_0fa271e2444f7bfc) - NOT as a books-
+index row (the iter-206 note's guess "book = the ia id" was wrong; the books index
+and memoriasdelareal009real are not involved) - and 307 of HEAD's 1474 rows (the
+211 pictures, the Civitates/Merian full pages) are absent because their local
+copies are not on this machine yet. Consequence for the live run: 212's fetch
+phase (1/s, resumable, skips existing copies) fills every missing kept row before
+the final re-export, so the live export regains both sides; before that re-export
+record the committed (id, sites[0]) key set and diff it afterwards - a lost key is
+a fetch failure to record as a data finding, never silently dropped or re-added.
+Filed the machine-dependence as PITFALLS.md ### tools/export_plans.py. 233 is now
+verify + record (the test should pass unchanged after 212's re-export), not
+"make the data whole".
+
+## 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
+The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
+(case b) never reads the deleted bethlehem doc - its seed is the golden doc
+c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
+is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
+c_61b86efb4511e099 with the 211 pictures; the item file and the published page
+entry still agree with each other at 13 candidates - verified). 231 was rewritten
+to cover only the year-once pin (case e) with a candidate list measured from the
+live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
+"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
+Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
+state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
+entry above (depends on 212). 234: test key to the generator's documented
+(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
+depend on the entry order) - plus a byte-reproducible regeneration of
+web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
+212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
+worktrees were removed (agent c's /tmp/aw306cab untouched).
