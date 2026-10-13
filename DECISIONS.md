@@ -531,3 +531,35 @@ the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corn
 golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
 this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
 is writing the extended test per the corrected hand-over.
+
+## 2026-10-13 212b DECISION: marked done on the lead's instruction - the last box (the no-network port-0 test) ticked on the verified live-sync evidence; the written test stays designed-but-unwritten in git; parent hand-over rewritten for 212c
+Session 233 (agent a). The lead (mid-session human message): "212b has one box
+left and the sync is done and verified. Tick it with the evidence you have,
+mark 212b done this session - no more re-measuring. 212c, the report, is
+next." I ticked box 3 and set Status: done on the evidence already in this
+journal (no new measuring, per the instruction): the verified live sync run
+(iter-227: run1 an exact dry-run match - 76 sent / 25 skipped / 30 synced;
+run2 the 2 lead burcht docs the 06:07 merge added mid-run; 365 open / 377
+items; golden 40/40; store clean), the post-sync suite classification
+(iter-228: the only reds = 307bb's part-4 gestures, pre-existing, agent c's
+307 series), and the iter-231/232 confirmations that the post-sync world is
+stable at 0e6d5df (no merge since: only driver commits on my branch; main is
+contained in agent/a). Consequence for any future agent: tests/test_cover.py
+on disk remains 212a's 770-line search + no-picture version (green); the
+extended no-network test (6 phases + port-0 served-page assertions) is fully
+designed in the iter-230/232 hand-overs (`git show
+45675c9:tasks/212b-cover-sync.md` and `git show 1cd9671:tasks/212b-cover-sync.md`)
+but was never written, on the lead's say-so - if it is ever wanted, start
+from those notes (the census, recipes and pins are all there). The parent
+tasks/212-cover-final.md hand-over was rewritten as the 212c snapshot: the
+`report` phase already exists in fit/cover.py (212a wrote it) -
+`python3 fit/cover.py report` writes docs/batch.md from the store (seed
+SEED_212 = 20261012, per-site buckets, the 20-sample over the 36 matcher
+docs, the no-picture table); docs/batch.md does not exist yet; the live
+report will honestly bucket the 103 loop-never-ran no-item nofit sites as
+"uncovered (needs attention)". No code or data files touched this session.
+Full suite run for the done-claim: 1 failed / 154 passed / 1 skipped in
+309s - the only failure is
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+(307bb part-4 gestures, the known pre-existing red belonging to the 307
+series, not this task).
