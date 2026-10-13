@@ -1,0 +1,90 @@
+{
+ "site": "arras-q131329",
+ "plan": "c_4e242bc2623751a0",
+ "crop": [
+  0,
+  0,
+  1280,
+  1051
+ ],
+ "pairs": [
+  [
+   691.0,
+   454.3,
+   2.7766588,
+   50.2920393
+  ],
+  [
+   457.5,
+   473.1,
+   2.766212,
+   50.2924332
+  ],
+  [
+   560.8,
+   310.9,
+   2.771791,
+   50.2966097
+  ],
+  [
+   840.2,
+   553.7,
+   2.7826454,
+   50.2886368
+  ],
+  [
+   717.9,
+   306.7,
+   2.7787688,
+   50.296104
+  ],
+  [
+   853.2,
+   405.3,
+   2.784142,
+   50.2927791
+  ],
+  [
+   565.2,
+   428.8,
+   2.7712519,
+   50.2932597
+  ],
+  [
+   640.6,
+   541.6,
+   2.7738869,
+   50.2897721
+  ]
+ ],
+ "label": "1545",
+ "title": "Arras, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Arras_(2)_-_Deventer.jpg",
+ "at": "2026-10-13T03:12:02.257636+00:00",
+ "auto": true,
+ "score": 12.7,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/arras-q131329/4e242bc2623751a0.jpg",
+ "ref": "File:Arras (2) - Deventer.jpg",
+ "size": [
+  1280,
+  1051
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2235,
+  "matches": 5000,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 8.0,
+  "spread": [
+   0.557,
+   58.5
+  ]
+ }
+}
