@@ -13,3 +13,4 @@ requests
 pyshp
 pytest
 scikit-image
+imagecodecs==2026.10.10  # the AHN Float32 DEM decode (229): the version proven by all seven AHN site builds; do not bump

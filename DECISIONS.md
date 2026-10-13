@@ -425,6 +425,54 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
+## 2026-10-13 229 DECISION: pin imagecodecs==2026.10.10 in requirements.in/.txt (the AHN Float32 DEM decode) - and proceed in one session, because both Depends-on tasks were already terminal (302a merged, 304 dropped)
+The task's `Depends on: 302a, 304` existed only to avoid a collision on requirements.in/.txt
+while both were in flight. At session start (iter 235): 302a is **done and merged** (its
+scikit-image 0.26.0 pin is already in this branch's files, commit e46f5fd) and 304 is
+**Status: dropped** (lead note 2026-10-12: superseded by the matcher fit fit/matchfit.py;
+the one-shot run never landed, so it will never merge). No other in-flight task (203b, 207,
+306) touches requirements.in/.txt, and the driver handed out 229 - the loop prompt's
+"agent c is working on 304" line was stale against the file state. Conclusion: no live
+conflict; do the whole task now rather than wait for tasks that cannot land.
+- The pin goes in requirements.in as `imagecodecs==2026.10.10` (pinned, not bare): a bare
+  name resolves to whatever PyPI's latest is at compile time (today that happens to be
+  2026.10.10, not yanked), and the task notes forbid bumping past the version proven by
+  all seven AHN builds. The pinned .in line forces the exact version into the compile.
+- Regenerated with pip-compile 7.6.2 (the same version 800 used, installed in throwaway
+  venv /tmp/aw-229) from the project dir, WITHOUT --upgrade, so all existing pins were
+  kept as constraints. Diff vs HEAD: exactly the imagecodecs block (23 sha256 hashes,
+  `# via -r requirements.in`) plus one line in numpy's existing `via` comment
+  (`#   imagecodecs` - its only hard dependency, already pinned at 2.5.4; no
+  numba/llvmlite, as predicted). Zero unpinned lines; the direct-package set
+  (`via -r requirements.in`) equals requirements.in (12 packages).
+- Verification (box 2): fresh venv /tmp/aw-229b, `pip install --require-hashes` from the
+  new requirements.txt in 26 s, `pip check` clean; in that venv `aw.fetch_dem` for the
+  EXACT utrecht-q803 box recorded in data/sites/utrecht-q803/dem_box.json (2000x2000)
+  fetched PDOK's WCS live (37 s) and decoded the Float32 grid: shape (2000, 2000),
+  1.000 finite-nonzero share (the build's own >=0.5 acceptance bar), median 2.73 m
+  (plausible for Utrecht), and it matches the cached build dem.npy exactly
+  (0.000 m mean abs diff, corr 1.00000 - the PDOK server grid is deterministic).
+  Negative control: a scratch venv with pillow+tifffile but no imagecodecs fails on one
+  AHN tile with exactly `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the
+  'imagecodecs' package` (the GDAL_NODATA tag warning on the same tile is the known
+  benign one, dem_sources sets tifffile logging to ERROR for it) - so the pin, and
+  nothing else, is what fixes the decode.
+- Suite (existing .venv, which my change does not alter): 1 failed (pre-existing
+  test_fit_queue gesture failure, the 307bb baseline), 155 passed, 1 skipped - no new
+  failures. PITFALLS pillow entry rewritten per box 3 (Where now names the real decode
+  path dem_sources._read_geotiff -> Pillow; the ad-hoc `pip install imagecodecs`
+  workaround line is gone; the negative reproduction is recorded).
+- The `Depends on:` line in the task file is left as-is (it is history, and the task is
+  done). If the driver still shows 304 as in flight to agent c: it is dropped on main
+  and cannot merge; agent c's 304 branch may carry old requirements work that is now
+  superseded by this file.
+## 2026-10-13 306e DECISION: iteration 195 - judged taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie, The Castles of England 1897) DELETED the 303 way (site has NO item -> CREATE one with this doc as lead; expect (346,359) -> (347,360)); VERDICT ONLY this session (investigation, no files touched) - the 303-way execution, the 14th line and the suite run are the next session's step
+- Fit replicated (/tmp/aw306e_fit.py, still alive): 0.5000 m/px, +0.00 deg, all 4 residuals 0.0. Anchors plate (800,200)/(800,400)/(800,800)/(400,1000) -> E+100 N+199, E+100 N+99, E+100 N-100, E-99 N-200 = a 200-px (100 m) grid ladder, no placement information. Site point (-3.11380, 51.0153) inverse-maps to plate (599,599) of [1280,1461] = near-centre: the fit pins the plate centre onto the site point.
+- THE key fact: the real Taunton Castle is ~640 m EAST of the catalog site point. Wikipedia 'Taunton Castle' (en.wikipedia.org/wiki/Taunton_Castle, fetched this session) gives 51.0158 N, 3.1046 W = E+643, N+55 m from the site point: the castle still stands (inner ward / Great Hall 37x9 m = the Museum of Somerset, opened 2011; outer ward = two crenellated hotels; outer bailey = the modern 'Castle Green'). Verified on modern Esri World_Imagery z18 (this VM has internet): the red-roofed Great Hall complex + hotel row + tree-lined moat ring + green sit exactly at the Wikipedia point, Tone on the NW, railway on the E. Gotcha while fetching tiles: my first pass used ln(tan+sec)/pi for the y-tile and got a dark image 40 km off - the correct slippy-tile y formula is asinh(tan(lat_rad))/pi. z18 tiles for the real castle: x=128811, y=87787 (5x5 = /tmp/taunton_castle_z18.png if alive; the site-point-centred 5x5 = /tmp/taunton_z18.png, 0.376 m/px).
+- Drawn works (measured off the plate composite /tmp/_05cb4a02bd58e82e.plate.png, 1 m/px, site point (400,400)): N. Gate E+140 N+150; Great Hall E+55 N+110; Outwork E+145 N+100; Inner Bailey E+50 N+60; 'Site of Saxon Castle' E+165 N+25; Inner Moat (now filled in) E+50 N-20; Outer Bailey E+30 N-90; Bo Langford E+90 N-90; Bishop's House E+145 N-90; Castle Green E+50 N-170; E. Gate E+190 N-170; Bp Fox's E-5 N-230; College-School E-10 N-265; Outer Moat (south edge) E+30 N-315; Porwater E-205 N-30; Barbican E-185 N-90. Plate ground extent E-299.5..+340.5, N-191..+299.5. The 1842 six-inch webp (533 px over the 800 m corners box) shows at the site point only the Wellington Terrace house cluster (big dark hatched building at E-25..+40, N-50..+10 plus the hatched row W of it) and the 'Stepps Water' dotted stream (E+50 N+62 -> E+95 N-125) - no castle, no moat, no 'Castle' label anywhere in the 800 m box: the box does not even reach the real castle (E+643 > E+400 edge). The drawn river band (N+175..+250) does match the real Tone near the site point (z18: E+98..+143, N+100..+150; 1842: E+65..+103, N+84..+400) - that is how the agent's two N-side anchors (E+100, N+199/N+99) locked the plate: the agent matched the drawn river to the wrong river bend and centred the plate on the (itself ~640 m wrong) site point.
+- So the drawn complex (E-205..+190, N-40..+153) sits on the Wellington Terrace houses and the Stepps Water stream; the real castle (the museum + hotels + moat + green) is 545-655 m EAST, beyond the plate's E+340.5 edge and beyond the site box. The 1897 plate IS a genuine, correct plan of THIS castle (features match the real works: Great Hall/inner ward, outwork, filled-in moats, Castle Green = outer bailey, E. gate, Bishop Foxe's school, St John's) - 'wrong place, right kind' (the oxford-castle class), so the picture is worth keeping in the review item. VERDICT: DELETED the 303 way with a NEW item (site has none - verified `ls data/review/ | grep taunton` empty and depictions.json holds only the 1842 map; files.jsonl line 1457: title 'File:Plan of Taunton Castle (1897).jpg', evidence hand_tied checked 2026-10-10, by 'pipeline/sources.py mackenzie').
+- Execution pending (next session): the /tmp/aw306e_stexec.py pattern - first assert fr._find_item(fr.ROOT, site) == (None, None) and fr.candidate_evidence(plan) non-None; entry = {plan, title 'File:Plan of Taunton Castle (1897).jpg', url (the row's), pairs (the 4), coarse False, evidence (the hand_tied row 1457), label '1897', cite+ref, size [1280,1461], place_reason '306e audit 2026-10-13: ... pinned ~545-655 m west of the real works (site point ~640 m west of the castle; real: 51.0158, -3.1046, east bank of the Tone); drawn complex on the Wellington Terrace houses and the Stepps Water stream, no works there. Wrong place, right kind. Document deleted.'}; fr.upsert_item (returns an ABSOLUTE path - assert the basename); os.remove the doc; fr.export -> expect (346,359) -> (347,360); then the 14th line in the 306e block of docs/site_flow.md (after the stanton-drew line); then the suite (expect 154/1/1 = baseline); then the last 2 sites (windmill-hill n0558_2 APPEND to its existing item; york x2). Suite last run: the 194 run (154/1/1 = baseline); not re-run in 195 (no code changed; git tree clean at session start).
+
 ## 2026-10-13 306e DECISION: iteration 196 - EXECUTED taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie 1897) the 303 way: NEW item created (lead = this plan, the site had none), doc deleted, scoped export (346,359)->(347,360) as predicted; the 14th of 17 lines written in docs/site_flow.md; suite 154/1/1 = baseline, no new red
 - Preconditions re-checked live first: fr._find_item(fr.ROOT, site) == (None, None); fr.candidate_evidence('c_05cb4a02bd58e82e') = the hand_tied row (rec evidence/1, kind hand_tied, checked 2026-10-10, source 'pipeline/sources.py mackenzie'); fr._sha16('File:Plan of Taunton Castle (1897).jpg') == the plan. The current export baseline confirmed by counting: 359 item files on disk, 346 open page entries.
 - Execution (script /tmp/aw306e_texec.py, pattern /tmp/aw306e_stexec.py; sys.path.insert(0,"fit"); import review as fr): entry = {plan c_05cb4a02bd58e82e, title 'File:Plan of Taunton Castle (1897).jpg' (fr._sha16 asserted == plan), url = doc["url"] = media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg - REPO-RELATIVE, consistent with all 8 previously created 306e items (old-sarum x2, oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew); the 195 hand-over's 'use the row's url verbatim' (upload.wikimedia.org) is a loose note: the page must be able to serve the image, so the local path it serves is the right url. pairs (the doc's 4), coarse False, evidence (row 1457), label '1897', cite+ref (the doc's), size [1280,1461], place_reason '306e audit 2026-10-13: ... Wrong place, right kind. Document deleted.'}. fr.upsert_item returned an ABSOLUTE path (known pitfall) - asserted the basename == taunton-castle-q7688781.c_05cb4a02bd58e82e.json: the item CREATED (lead = this plan, sole candidate). os.remove the doc. fr.export(fr.ROOT, site) -> (347, 360) exactly as the 195 prediction (a NEW open item adds one to both counts). Verified: item = [c_05cb4a02bd58e82e], resolved None, no_picture_found None; the web/data/review.json entry shows under name 'Taunton Castle' (from sites.json). git status = exactly 3 files (D doc, M web/data/review.json, ?? new item) - no other site's item touched.
