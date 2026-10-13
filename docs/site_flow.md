@@ -1124,3 +1124,48 @@ the site stays covered for the union check, an open item counts).
   plate's own 'SCALE OF FEET 0-300' bar measures 0.885 m/px, 4.9x smaller than the fit - the inset
   is not to its own bar, and the fit's scale is the one consistent with the real headland's ~400 m
   width and the 1-inch layout. KEEPS - an orphan today, invisible on the page.
+- duffield-castle-q2073299.c_e915cbfd3af009b4 - Mackenzie 1897, The Castles of England (similarity,
+  8 points, resid 5.9-52.9 m, 1.74 m/px, 0.0 deg): the 8 anchors are a 100-px grid ladder that is
+  internally inconsistent (the 300-px square spans 500 m at 1.667 m/px but the 400-px v=600 row
+  spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy; the
+  aerial puts the drawn keep (~290x180 m, ~10x the ~27x20 m ruin) on village housing ESE of the
+  1842 'Site of Castle' and the drawn ring (~975x825 m, ~5x the real ~200 m earthworks) wrapping
+  the whole village, with the plate's own geography wrong (its 'Duffield' label and the
+  'To Duffield'/'To Belper' roads south of the ring, the real town and A535 west of the castle).
+  DELETED - an orphan today, invisible on the page (the 303 way: the picture and its 8 points
+  went to the site's review item with this reason, creating its item; the document was deleted
+  2026-10-13).
+- eaton-socon-castle-q5331372.c_beefc3808de9b125 - Plan of Eaton Socon (1897) (similarity, 4
+  points, resid 0.33-0.51 m, 0.99 m/px, -0.02 deg): the anchors are a consistent quadrilateral
+  (the transform is trustworthy), but the drawn works miss the real ones: the real moated site
+  is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still
+  in the aerial: a grassy island ringed by trees, water at its west, the Great Ouse east), while
+  the drawn Inner Ward ring (~220x230 m) is offset ~120 m SW - the real moat sits at its NE edge,
+  ~2/3 of its radius off - and its hatched building is 40-70 m SW of the 1842 building; the
+  drawn North Ward lies over the hatched 'Castle Hills' wood east of the river, where no
+  earthwork exists (1842 + aerial); the drawn Outer Ward loop (~730x500 m) encloses the whole
+  village with no 1842 trace of any bank or ditch. DELETED - an orphan today, invisible on the
+  page (the 303 way: the picture and its 4 points went to the site's review item with this
+  reason - added to the item that already held six picture candidates, which stays open with
+  them; the document was deleted 2026-10-13).
+- framlingham-castle-q2524183.c_f43bc6196e097819 - Mackenzie 1897, The Castles of England
+  (similarity, 8 points, resid 0.0, 1.0 m/px, 0.0 deg): the 8 anchors form a perfect 200 m square
+  at plate u 250-450, v 250-450 - but that plate region is the plain road area WEST of the drawn
+  island, so the exact fit shifts the whole plate ~430 m SE: the drawn keep (~200x280 m) lands on
+  an open sports field SE of the town, the drawn moated-island loop falls over the village with
+  zero overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, its '(In
+  Ruins)' keep at the island's west end at the site point; still a grassy island with a water
+  ring and a stone ruin in the aerial), the drawn 'Old Moat' arc lies over fields east of the
+  A141, drawn St Michael's is ~1 km off the real church, and the 'FRAMLINGHAM' label is
+  ~600-800 m off the town. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 8 points went to the site's review item with this reason, creating its item;
+  the document was deleted 2026-10-13).
+- goodrich-castle-q5583571.c_cd89cb69f385859b - Mackenzie 1897, The Castles of England
+  (similarity, 4 points, resid 0.8 m, 0.84 m/px, 0.0 deg): the 4 anchors are a consistent 0.838
+  m/px rectangle spanning the plan and the fit is centred right (the 1842 'Goodrich Castle
+  (Remains of)' and the aerial's stone ruin sit at the drawn plan's centre, ~the site point), but
+  the drawn plan is ~620x490 m on the ground, ~4-5x the real ~130x90 m castle: its walls run
+  through the village, through Old Castle Wood to the west, and across the River Wye to the north
+  (the 1842 'GOODRICH' label sits inside the drawn castle). DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 4 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).

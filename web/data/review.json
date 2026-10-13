@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T03:45:09.036205+00:00",
+ "at": "2026-10-13T03:57:21.530872+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -5278,6 +5278,84 @@
    "no_picture_found": null
   },
   {
+   "site": "duffield-castle-q2073299",
+   "name": "Duffield Castle",
+   "lead": "c_e915cbfd3af009b4",
+   "candidates": [
+    {
+     "plan": "c_e915cbfd3af009b4",
+     "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       550.0,
+       450.0,
+       -1.4882005,
+       52.9926947
+      ],
+      [
+       250.0,
+       450.0,
+       -1.4956626,
+       52.9926947
+      ],
+      [
+       250.0,
+       750.0,
+       -1.4956626,
+       52.9882029
+      ],
+      [
+       550.0,
+       750.0,
+       -1.4882005,
+       52.9882029
+      ],
+      [
+       400.0,
+       600.0,
+       -1.4919315,
+       52.9904488
+      ],
+      [
+       600.0,
+       600.0,
+       -1.4859619,
+       52.9904488
+      ],
+      [
+       200.0,
+       600.0,
+       -1.4979012,
+       52.9904488
+      ],
+      [
+       400.0,
+       800.0,
+       -1.4919315,
+       52.9877537
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+     "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg",
+     "size": [
+      902,
+      966
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors are a 100-px grid ladder that is internally inconsistent (the 300-px square u 250-550 x v 450-750 spans 500 m at 1.667 m/px, but the 400-px v=600 row u 200..600 spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy (LSQ 1.737 m/px, resid 5.9-52.9 m). The aerial confirms: the drawn keep (~290x180 m) sits on village housing ESE of the 1842 'Site of Castle' (next to 'Castleorchard'), and the drawn ring (~975x825 m) wraps the whole village at ~5x the real ~200 m earthworks; the plate's own geography is also wrong - its 'Duffield' label and 'To Duffield'/'To Belper' roads lie SOUTH of the ring, but the real town and the A535 run WEST of the castle. Document deleted."
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "dunadd",
    "name": "Dunadd",
    "lead": null,
@@ -5964,6 +6042,54 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "features: North-eastern ditch corner, North-western ditch corner, Inner Ward east bastion, Inner Ward west ditch corner, North Ward east bastion, North Ward west ditch corner, South-eastern ditch corner, South-western ditch corner; stated scale 0.526 disagrees with its own points (1.053 m/px): not trusted"
+    },
+    {
+     "plan": "c_beefc3808de9b125",
+     "title": "Plan of Eaton Socon (1897)",
+     "url": "media/commons/eaton-socon-castle-q5331372/beefc3808de9b125.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Eaton Socon Castle",
+      "file_cat": "Eaton Socon Castle",
+      "via": []
+     },
+     "pairs": [
+      [
+       650.0,
+       150.0,
+       -0.2804302,
+       52.2181502
+      ],
+      [
+       400.0,
+       400.0,
+       -0.2840517,
+       52.2159225
+      ],
+      [
+       600.0,
+       600.0,
+       -0.2811486,
+       52.2141438
+      ],
+      [
+       200.0,
+       650.0,
+       -0.2869694,
+       52.2137036
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Eaton_Socon_(1897).jpg",
+     "ref": "File:Plan of Eaton Socon (1897).jpg",
+     "size": [
+      807,
+      767
+     ],
+     "place_reason": "306d audit 2026-10-13: the 4 anchors are an internally consistent 0.991 m/px quadrilateral (resid 0.33-0.51 m - the transform is trustworthy), but the drawn works visibly miss the real ones: the real moated site is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still there in the aerial: a grassy island ringed by trees, water at its west, the river to the east), while the drawn Inner Ward ring (~220x230 m, centre E -39 N -119) is offset ~120 m SW (the real moat sits at its NE edge, ~2/3 of its radius) and its drawn hatched building is 40-70 m SW of the 1842 building; the drawn North Ward lies over the hatched 'Castle Hills' wood east of the Great Ouse, where no earthwork exists in the 1842 map or the aerial; the drawn Outer Ward loop (~730x500 m) encloses the whole village with no 1842 trace of any bank or ditch. Document deleted."
     }
    ],
    "no_picture_found": null
@@ -6665,6 +6791,84 @@
    "no_picture_found": null
   },
   {
+   "site": "framlingham-castle-q2524183",
+   "name": "Framlingham Castle",
+   "lead": "c_f43bc6196e097819",
+   "candidates": [
+    {
+     "plan": "c_f43bc6196e097819",
+     "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       250.0,
+       250.0,
+       1.3458841,
+       52.2245955
+      ],
+      [
+       350.0,
+       250.0,
+       1.3473506,
+       52.2245955
+      ],
+      [
+       450.0,
+       300.0,
+       1.348817,
+       52.2241463
+      ],
+      [
+       450.0,
+       400.0,
+       1.348817,
+       52.223248
+      ],
+      [
+       350.0,
+       450.0,
+       1.3473506,
+       52.2227988
+      ],
+      [
+       250.0,
+       400.0,
+       1.3458841,
+       52.223248
+      ],
+      [
+       250.0,
+       300.0,
+       1.3458841,
+       52.2241463
+      ],
+      [
+       300.0,
+       350.0,
+       1.3466173,
+       52.2236972
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
+     "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg",
+     "size": [
+      1280,
+      1171
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors form a perfect 200 m square at plate u 250-450, v 250-450 (an exact 1.0 m/px similarity, resid 0.0, rot 0.0) - but that plate region is the plain road area WEST of the drawn island, so the fit shifts the whole plate ~430 m SE: the drawn keep (E +273..+447, N -97..-310) lands on an open sports field SE of the town; the drawn island loop (E +140..+567, N -497..+30) falls over the village with ZERO overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, the hatched '(In Ruins)' keep at its west end, at the site point; aerial: a grassy island with a water ring and a stone ruin there); the drawn Old Moat arc (E +487..+767) lies over fields east of the A141; the drawn St Michael's (E +127, N -737) is ~1 km from the real church (E -188, N +174); the drawn 'FRAMLINGHAM' label is ~600-800 m off the town. Document deleted."
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "frankfort-works",
    "name": "Frankfort Works",
    "lead": null,
@@ -6845,6 +7049,60 @@
     "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
     "at": "2026-10-11T14:10:33.835228+00:00"
    }
+  },
+  {
+   "site": "goodrich-castle-q5583571",
+   "name": "Goodrich Castle",
+   "lead": "c_cd89cb69f385859b",
+   "candidates": [
+    {
+     "plan": "c_cd89cb69f385859b",
+     "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       210.0,
+       210.0,
+       -2.6189522,
+       51.8787077
+      ],
+      [
+       580.0,
+       210.0,
+       -2.6144559,
+       51.8787077
+      ],
+      [
+       210.0,
+       680.0,
+       -2.6189522,
+       51.8751594
+      ],
+      [
+       580.0,
+       680.0,
+       -2.6144559,
+       51.8751594
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
+     "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg",
+     "size": [
+      955,
+      943
+     ],
+     "place_reason": "306d audit 2026-10-13: the 4 anchors are a consistent 0.838 m/px 370x470-px rectangle (resid 0.8 m) spanning the whole castle plan, and the fit is centred right - the 1842 'Goodrich Castle (Remains of)' (~30 m hatched building) and the aerial's stone ruin sit at the drawn plan's centre, ~the site point - but the drawn plan is ~620x490 m on the ground, ~4-5x too big for the real ~130x90 m castle: its walls run through the village, through Old Castle Wood to the west, and across the River Wye to the north (the 1842 'GOODRICH' label sits inside the drawn castle). Document deleted."
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "grand-mound-q5594814",

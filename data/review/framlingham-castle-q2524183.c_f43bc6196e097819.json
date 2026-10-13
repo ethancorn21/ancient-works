@@ -1,0 +1,77 @@
+{
+ "site": "framlingham-castle-q2524183",
+ "candidates": [
+  {
+   "plan": "c_f43bc6196e097819",
+   "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     250.0,
+     250.0,
+     1.3458841,
+     52.2245955
+    ],
+    [
+     350.0,
+     250.0,
+     1.3473506,
+     52.2245955
+    ],
+    [
+     450.0,
+     300.0,
+     1.348817,
+     52.2241463
+    ],
+    [
+     450.0,
+     400.0,
+     1.348817,
+     52.223248
+    ],
+    [
+     350.0,
+     450.0,
+     1.3473506,
+     52.2227988
+    ],
+    [
+     250.0,
+     400.0,
+     1.3458841,
+     52.223248
+    ],
+    [
+     250.0,
+     300.0,
+     1.3458841,
+     52.2241463
+    ],
+    [
+     300.0,
+     350.0,
+     1.3466173,
+     52.2236972
+    ]
+   ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
+   "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg",
+   "size": [
+    1280,
+    1171
+   ],
+   "place_reason": "306d audit 2026-10-13: the 8 anchors form a perfect 200 m square at plate u 250-450, v 250-450 (an exact 1.0 m/px similarity, resid 0.0, rot 0.0) - but that plate region is the plain road area WEST of the drawn island, so the fit shifts the whole plate ~430 m SE: the drawn keep (E +273..+447, N -97..-310) lands on an open sports field SE of the town; the drawn island loop (E +140..+567, N -497..+30) falls over the village with ZERO overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, the hatched '(In Ruins)' keep at its west end, at the site point; aerial: a grassy island with a water ring and a stone ruin there); the drawn Old Moat arc (E +487..+767) lies over fields east of the A141; the drawn St Michael's (E +127, N -737) is ~1 km from the real church (E -188, N +174); the drawn 'FRAMLINGHAM' label is ~600-800 m off the town. Document deleted."
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

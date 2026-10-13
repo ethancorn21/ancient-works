@@ -1,0 +1,77 @@
+{
+ "site": "duffield-castle-q2073299",
+ "candidates": [
+  {
+   "plan": "c_e915cbfd3af009b4",
+   "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     550.0,
+     450.0,
+     -1.4882005,
+     52.9926947
+    ],
+    [
+     250.0,
+     450.0,
+     -1.4956626,
+     52.9926947
+    ],
+    [
+     250.0,
+     750.0,
+     -1.4956626,
+     52.9882029
+    ],
+    [
+     550.0,
+     750.0,
+     -1.4882005,
+     52.9882029
+    ],
+    [
+     400.0,
+     600.0,
+     -1.4919315,
+     52.9904488
+    ],
+    [
+     600.0,
+     600.0,
+     -1.4859619,
+     52.9904488
+    ],
+    [
+     200.0,
+     600.0,
+     -1.4979012,
+     52.9904488
+    ],
+    [
+     400.0,
+     800.0,
+     -1.4919315,
+     52.9877537
+    ]
+   ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+   "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg",
+   "size": [
+    902,
+    966
+   ],
+   "place_reason": "306d audit 2026-10-13: the 8 anchors are a 100-px grid ladder that is internally inconsistent (the 300-px square u 250-550 x v 450-750 spans 500 m at 1.667 m/px, but the 400-px v=600 row u 200..600 spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy (LSQ 1.737 m/px, resid 5.9-52.9 m). The aerial confirms: the drawn keep (~290x180 m) sits on village housing ESE of the 1842 'Site of Castle' (next to 'Castleorchard'), and the drawn ring (~975x825 m) wraps the whole village at ~5x the real ~200 m earthworks; the plate's own geography is also wrong - its 'Duffield' label and 'To Duffield'/'To Belper' roads lie SOUTH of the ring, but the real town and the A535 run WEST of the castle. Document deleted."
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -263,6 +263,54 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: North-eastern ditch corner, North-western ditch corner, Inner Ward east bastion, Inner Ward west ditch corner, North Ward east bastion, North Ward west ditch corner, South-eastern ditch corner, South-western ditch corner; stated scale 0.526 disagrees with its own points (1.053 m/px): not trusted"
+  },
+  {
+   "plan": "c_beefc3808de9b125",
+   "title": "Plan of Eaton Socon (1897)",
+   "url": "media/commons/eaton-socon-castle-q5331372/beefc3808de9b125.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Eaton Socon Castle",
+    "file_cat": "Eaton Socon Castle",
+    "via": []
+   },
+   "pairs": [
+    [
+     650.0,
+     150.0,
+     -0.2804302,
+     52.2181502
+    ],
+    [
+     400.0,
+     400.0,
+     -0.2840517,
+     52.2159225
+    ],
+    [
+     600.0,
+     600.0,
+     -0.2811486,
+     52.2141438
+    ],
+    [
+     200.0,
+     650.0,
+     -0.2869694,
+     52.2137036
+    ]
+   ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Eaton_Socon_(1897).jpg",
+   "ref": "File:Plan of Eaton Socon (1897).jpg",
+   "size": [
+    807,
+    767
+   ],
+   "place_reason": "306d audit 2026-10-13: the 4 anchors are an internally consistent 0.991 m/px quadrilateral (resid 0.33-0.51 m - the transform is trustworthy), but the drawn works visibly miss the real ones: the real moated site is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still there in the aerial: a grassy island ringed by trees, water at its west, the river to the east), while the drawn Inner Ward ring (~220x230 m, centre E -39 N -119) is offset ~120 m SW (the real moat sits at its NE edge, ~2/3 of its radius) and its drawn hatched building is 40-70 m SW of the 1842 building; the drawn North Ward lies over the hatched 'Castle Hills' wood east of the Great Ouse, where no earthwork exists in the 1842 map or the aerial; the drawn Outer Ward loop (~730x500 m) encloses the whole village with no 1842 trace of any bank or ditch. Document deleted."
   }
  ],
  "no_picture_found": null,
