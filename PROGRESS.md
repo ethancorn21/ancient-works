@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/203-batch-fit.md` (split)
 - `tasks/207a-horsley.md` (blocked) - hand-over: (2026-10-13, iteration 203, agent c - the main merge brought the owner's "Stop 207" onto this
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
@@ -24,7 +23,43 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-11 302 DECISION: split into 302a (method module), 302b (one-shot held-out table), 302c (decision + site_done wiring + e2e test), 302d (Stonehenge run) - the method is ink-vs-relief, never model coordinates
+    First session on this task (iteration 74): investigation only, no code written. The split files carry the
+    per-step acceptance boxes; the parent hand-over carries the verified facts and the frozen design.
+    Method choice (evidence, not hope): matching points = the plate's own ink (autowalls' frozen extractor,
+    docs/autofit.md section 3) matched against the site's bare-earth relief with fit_plate's ridge-contrast
+    objective (the 2026-10-09 Fudge proof: commit 16c6b9a) and autofit.py's coarse-FFT + refine search from a
+    fit/propose.py seed (scale bar / ratio text / picture size, north arrow / north-up, catalog centre). The
+    2026-10-10 pre-registered run (docs/autofit.md, FAIL 0/40 seeds) showed: the search works, the relief score
+    has false peaks, random-placement nulls cannot accept/reject, and template junk is the binding problem -
+    so the design keeps the proven machinery, adds a per-piece keep/drop step (model-classified where the AI
+    box is reachable, deterministic no-model fallback otherwise), a search-matched null (same search on a
+    scrambled template and a shifted DEM box, whichever scores higher), and the frozen gate + fabrication
+    check on the method's own ink pairs as acceptance layers. The 10-10 test sites (US 1848 plates) are none
+    of the 19 held-out sites, so their failures are warnings, not predictions.
+    Verified by running this session:
+    - All 19 hand-fit sites have 0.5-1 m DEMs reachable from this VM: dem_sources probe -> ea (13 England
+      sites, EA composite DTM 1 m), usgs (serpent-mound, cahokia, aztalan, mound-bottom), ign (bergues,
+      camp-d-attila); all returned finite data for the site box.
+    - Plate images: 20 of 21 present in this VM's data/raw (9 books pages under data/raw/books/<ia>/full/,
+      11 commons bigs under data/raw/commons/big/); the lead's new maiden-castle c_c20ff6b1f16d173d has only
+      its 1280 px thumbnail here - plan_fit.load_picture fetches the big on demand (network, working phase).
+    - The AI box is NOT reachable from this VM (127.0.0.1:18080/18083 refused; the 10-10 Qwen calls ran on
+      the Mac through its tunnel). Consequence: the model step (page-triage boxes, piece labels) must be
+      injectable with a deterministic no-model fallback; the held-out run here is the no-model variant.
+    - scikit-image is missing from requirements.in/.txt and from this .venv, but autowalls.py needs it
+      (Frangi + skeletonize); 302a pins it (001's archive note anticipated exactly this). .npy is
+      gitignored globally, so committed relief seeds are .npz under data/inkfit/ (only data/autofit/*.npz
+      is ignored); data/sites/<id>/dem.npy stays a local cache built in the working phase.
+    - The lead's 21st hand fit (main 984b1b4, merged from vm/main) is the no-auto version of
+      maiden-castle-q1232816.c_c20ff6b1f16d173d.json (3 hand pairs, crop [165,256,895,663]); my branch still
+      carries the pre-merge auto version until the driver's next sync. Held-out set = the original 20 golden
+      docs + this one = 21 rows over 19 sites (old-sarum and maiden-castle each have 2). The golden files
+      (hand_fit_docs.sha256, hand_fit_sites.txt) stay at the original 20/19 and are never edited.
+    One trap recorded for the builders: plan_fit.fabrication_pattern clause (b) (1D ladder) fires on >=3
+    anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
+    stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
+    junction/feature points, never a fixed stride on a straight run.
 
 ## Project-wide driver notes (newest)
 
