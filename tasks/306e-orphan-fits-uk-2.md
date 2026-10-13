@@ -51,15 +51,139 @@ placement is good enough to keep.
 
 
 ## Hand-over
-(2026-10-13, iteration 197, agent c - **MERGE OF main INTO agent/c RESOLVED (all 26 conflicts,
-verified, STAGED but NOT yet committed - the merge commit is the next session's first act
-after the test run). No 306e judging work done this session.**
-**NEXT session: 1) run the full suite (expect baseline 154/1/1 = only 307bb's gesture red;
-the merged world is 377 item files / 365 open - if a test fails that passed on both
-parents, it is the merge's, classify against main's 212b notes, fix, re-run). 2) `git commit`
-(merges main in; do not amend). 3) THEN judge the LAST 2 sites (3 docs) per the 196 plan
-below: windmill-hill n0558_2 (APPEND to its existing item) and york-castle x2 (append;
-c_a7db is the toponymic-collision class).**
+(2026-10-13, iteration 198, agent c - **197's merge is COMMITTED (6554a14) and the post-merge
+suite = baseline (154 passed, 1 skipped, 1 failed = only 307bb's gesture red, log
+/tmp/aw306e_suite198.log). MAJOR STATE CHANGE discovered: main's 6ce742f ("[driver]
+uncommitted work after iteration 227" = a snapshot of agent a's 212b live-sync work, on main
+after my 197 merge-base 0685a4c, came in WITH the 197 merge) DELETED 71 platefit docs = ALL
+68 orphans (306c/d/e/f) + 3 306a wrong fits - so ALL 17 of my 306e docs are GONE from the
+store now, including my 4 KEEPS (offa c_1cca, okehampton c_0edd, pilsbury c_7ff7, pontefract
+c_3213) and the 3 I had not yet judged. All 17 plans still exist as candidates in their site
+item files: the 10 deleted carry my 197-union full audit entry (place_reason + 212b's
+why/gate_score); the 4 KEEPS and the 3 remaining carry ONLY 212b-style entries
+(why='line check: fabricated anchor pattern...', gate_score, evidence, no place_reason,
+no coarse key). All those items are unresolved (no candidate doc exists anymore).
+**NEXT session (one step = finish the last 2 sites, then the task is DONE):**
+1. Read the 3 composites I built (scripts /tmp/aw306e_final3.py, /tmp/aw306e_fit.py alive):
+   /tmp/_n0558_2.{1842,plate,relief}.png, /tmp/_c_8dac5aacd73916b8.{...}.png,
+   /tmp/_c_a7db545536f13e24.{...}.png (800-px site box, 100 m grid + rings; 1842 red,
+   plate blue warped by the replicated fit, relief grey; doc JSONs restored to
+   /tmp/aw306e_doc3_*.json from 6554a14^1). Confirm the placement facts below.
+2. Verdicts (from the committed shots + fit replication + sites.json):
+   - **windmill-hill n0558_2 = DELETED (wrong place, wrong kind)**. Site = Windmill Hill,
+     Avebury, WILTS (Neolithic causewayed enclosure, largest in Britain; site point
+     -1.876219/51.441531 per sites.json; 1842 labels the real hill 'Windmill Hill'). The
+     plate is Allcroft 1908 'WINDMILL SITES, LEWES DOWN' = a conical hachured hill with a
+     ring of ~6 barrow mounds - Lewes Down is EAST SUSSEX, a toponymic collision. Fit:
+     1.0000 m/px, 0.0 deg, all 6 residuals 0.0 (the 6 anchors are the grid box
+     (2000,2000)..(2800,2800) + (2400,2900) + (1900,2400); site point -> page (2399.5,
+     2399.5) = the box centre - no placement info). On the shots the plate sits ~one
+     hill-width W-NW of the real hill (open downland/fields); the drawn barrow-hill does
+     not match the real causewayed enclosure.
+   - **york-castle c_8dac5aacd73916b8 'York Castle in 1820' = KEEP in the item (owner's
+call flag)**. Genuine 1820 watercolour (Wikimedia, 'From a 1820 watercolour by Mr Waud',
+     public domain) - a PERSPECTIVE view ('View, drawn at an angle' tab) of THIS castle:
+     Clifford's Tower on its conical motte, the 1820 curtain walls, the Foss lower-left,
+     the city behind. Fit 1.0507 m/px +7.03 deg, res 42.9/16.3/40.9/22.6 (gate 31.7 =
+     fabricated grid anchors, 4-point perspective fits are unverifiable by construction);
+     site point -> page (412.9, 91.5) = top of the drawn tower (anchor 2 (400,100) ->
+     site point). The surviving tower/moat ring (visible on the modern aerial) sits ~300 m
+     N of the catalog point (Clifford's Tower ~53.9585/-1.0806 vs site 53.9558/-1.08) -
+     the drawn complex inherits the site's catalog offset, like taunton's 640 m but the
+     picture is of the right site. Verdict line: right site, right kind, view placed at
+     the site point; 212b deleted the doc as a pattern doc - the item holds it with this
+     audit note; the KEEP-vs-gate conflict is FLAGGED (task 807 below), do NOT
+     unilaterally restore the doc file (it is gone on main; re-adding would fight the
+     212b pipeline and the next main merge).
+   - **york-castle c_a7db545536f13e24 'Plan of Center, Broome County 1855' (Gifford Wenig)
+     = DELETED (wrong place, toponymic collision)**. The plate is a street plan of the
+     VILLAGE OF CENTER, BROOME COUNTY, NEW YORK (the item entry's evidence conflict block
+     says named_place Broome County Q47894 at -75.888/42.137 NY): 'PLAN of CENTER', Store
+     St / Main St / Elm St, the SUNBURY R. creek, named houses. Fit 0.9742 m/px +0.38 deg,
+     res 36.1/11/11/16.1. The drawn street grid sits on the 1842 dense old-town fabric of
+     York with no matching streets; the SUNBURY R. band does not land on the Foss.
+3. EXECUTE the 303 way for all 3 (docs are ALREADY deleted by 6ce742f - skip os.remove):
+   fit/review.py, pattern /tmp/aw306e_texec.py (alive): entry = {plan, title (the doc's
+   title - restored JSONs in /tmp/aw306e_doc3_*.json; for commons assert
+   fr._sha16(title-with-'File:'-if-applicable) == plan; windmill is a BOOKS doc: title
+   as-is 'WINDMILL SITES, LEWES DOWN', url the item's 'books/earthworkenglan01allcgoog/
+   n0558.jpg' like its sibling entries, evidence = fr.candidate_evidence(plan) (books row;
+   the 212b entries show kind 'none' for books - accept non-None as the existing n0557_1/
+   n0558_1 entries prove books kind-none entries are stored), pairs (the doc's own),
+   coarse False, label, cite, ref, size (commons docs: the restored JSON's size; windmill:
+   the crop box [1886,1919,2862,2929] -> size [976,1010] or leave as the item's twin
+   n0558_1 does), place_reason '306e audit 2026-10-13: <verdict above>. Document deleted.'
+   (for c_8dac: '... right site, right kind, perspective view unverifiable; 212b sync
+   deleted the doc as a pattern document - kept in the item, owner's call.')
+   fr.upsert_item REPLACES an existing plan's entry in place (same plan present: n0558_2
+   in windmill-hill-...n0557_1.json; c_8dac and c_a7db in york-castle-...
+c_81ecab4a9284f156.json) - lead and file name stay. NO new items. Then fr.export(fr.ROOT,
+   site) scoped per site (windmill-hill-q4348373, york-castle-q80637). Export counts:
+   baseline 365 open of 377; in-place entry replacement of plans already in OPEN items
+   leaves BOTH counts unchanged (items stay open - no doc exists to resolve them).
+   git status must show only: M windmill item, M york item, M web/data/review.json.
+4. Write the LAST 3 lines into the 306e block of docs/site_flow.md (after the taunton
+   line, before '## The site markers become arrowheads (task 308, 2026-10-13)') in the
+   established shape (doc id - source (similarity, N pts, resid, m/px, rot): what the
+   lines sit on - verdict). ALSO update my 4 stale KEEPS lines (offa, okehampton, pilsbury,
+   pontefract c_3213) with a one-sentence postscript each: 'Post-212b: the 212b live sync
+   (main 6ce742f, 2026-10-13) deleted this doc as a fabricated-anchor-pattern document -
+   the review item keeps it with the audit entry; flagged in task 807.' (the 306e block
+   header at line ~1268 - the 4 lines are at ~1278-1340; re-read before editing; touch
+   ONLY my 306e block, not 306a/b/c/d/f or 308+).
+5. Create task **tasks/807-306e-keeps-vs-212b-pattern-deletion.md** (Status: open, Depends
+   on: none - it is a question for the human, Touches: data/db/platefits/ data/review/
+   web/data/review.json): the 5 docs the 306e visual audit endorsed (offa, okehampton,
+   pilsbury, pontefract c_3213, york c_8dac) were deleted by the 212b sync on the
+   fabricated-anchor-pattern rule, which for 4-point perspective views and grid-anchored
+   plates cannot see that the drawn works sit on the real works. Ask the human to
+   adjudicate: restore those 5 docs (recoverable from git, e.g. 6554a14^1:data/db/
+   platefits/<doc>.json) or keep the 212b deletion as the line's word. My
+   recommendation: keep the 212b deletion (the gate is the documented last line; the
+   pictures are preserved in the review items with the audit reasons) unless the owner
+   wants a specific one back.
+6. TICK boxes 2 and 3 (box 1 was already ticked, box 4 holds: no by:hand doc touched -
+   n0557_1/n0558_1 stay as-is; suite = baseline at this session's run - re-run the full
+   suite after the upserts before ticking box 4: expect 154/1/1 again; the export touches
+   only the 2 scoped page entries). Set Status: done when all 4 boxes are ticked.
+7. DECISIONS.md: one entry for this state change + the verdicts + the execution.
+
+**Facts for the road:** 6ce742f full deletion list saved at /tmp/aw306e_6ce_deletions.txt
+(71 files). The merge (6554a14) is committed; 41bd4de = my 197 journal. The 197 union's
+work stands (web/data/review.json = 365 open of 377). windmill-hill item file =
+data/review/windmill-hill-q4348373.earthworkenglan01allcgoog_n0557_1.json (holds
+n0557_1 lead + n0558_1 + n0558_2[212b: gate 0.0, ev none, 6 grid pairs]); york item =
+data/review/york-castle-q80637.c_81ecab4a9284f156.json (7 candidates: c_81ecab4a9284f156
+[coarse, ev category], c_b3c056e395d2525d [Castle Creek Broome NY, ev none+conflict],
+c_2f24e4f6aa92cb05 [same sheet, gate 86.3], c_be6959b4a59afb6f [RidsdalePanorma, gate
+48.7], c_c9a0d376a2f0777d ['York in the XVth century'], c_8dac [gate 31.7, ev category],
+c_a7db [gate 13.6, ev none+conflict]); pontefract item = c_ba5dfa2d2dbc645e.json (9
+candidates incl my c_d135 audit + 212b's c_3213). offa/okehampton/pilsbury items =
+named after their plan, sole candidate = the 212b entry. Composites + fit outputs from
+step 1 of this session are in /tmp (fit replication: windmill res all 0.0 @ 1.0000 m/px;
+c_8dac 42.9/16.3/40.9/22.6 @ 1.0507 m/px +7.03 deg, site point -> page (412.9, 91.5);
+c_a7db 36.1/11/11/16.1 @ 0.9742 m/px +0.38 deg, site point -> page (298.3, 384.9)).
+
+**Baseline (unchanged since the 190 main merge, commit 9f92b3a):** full suite
+`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` (~5 min) = **154 passed, 1
+skipped, 1 failed** (last run: 198, 307 s, /tmp/aw306e_suite198.log). The ONLY known red:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent a's
+in-flight 307). Any other failure = my new red.
+
+**State of the 17 docs (o-y) AFTER 6ce742f:** all 17 doc files GONE (deleted on main by
+the 212b sync; my 10 earlier deletions = same fate, consistent). My audit verdicts: offa
+KEEPS (181), okehampton KEEPS (181), old-sarum x2 DELETED (183), oxford DELETED (184/185),
+pilsbury KEEPS (187), pontefract c_3213 KEEPS (188), pontefract c_d135 DELETED (188),
+portus x2 DELETED (190/191), raby DELETED (192), richborough DELETED (193), stanton-drew
+DELETED (194), taunton DELETED (judged 195, executed 196) - and now judged 198:
+windmill-hill n0558_2 DELETED (wrong place + wrong kind), york c_8dac KEEP in item
+(right-site view, owner's call), york c_a7db DELETED (toponymic collision).
+
+**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2: 14 of 17 lines; the last 3
+are written in next step 4 (+ the 4 KEEPS postscripts). Box 3: the 10 earlier deletions
+executed in 183-196; the 3 remaining are executed in next step 3 (doc deletion part was
+done by 6ce742f; I complete upsert + scoped export). Box 4: no by:hand doc touched;
+suite = baseline at the 198 run - re-run after the upserts before ticking.)
 
 **What 197 did (the merge, start-of-prompt order of operations):**
 1. `git merge main` -> 26 conflicts: 25 in data/review/*.json + web/data/review.json.
