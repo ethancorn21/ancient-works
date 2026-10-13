@@ -3966,6 +3966,50 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
   checked per the 225 precedent (suite reds exactly the remaining unfixed siblings).
 
 
+<!-- task 227 -->
+# Task 227 stukeley-merged-check
+
+## 2026-10-12 227 DECISION: Stukeley check/stage three-state guard (identical-twin no-op under the 211 merge norm, same-key-different-row still fails loud) - both stage legs and the join, hermetic three-state test following the 222-226 pattern
+- The fix mirrors 223 (kip) and 226 (numancia), adapted to Stukeley's two-legged stage():
+  `_canon_norm(r)` (json.dumps sort_keys/ensure_ascii=False - the same norm fit/merge.py uses)
+  was added; `_stage_commons`, `stage_book` and `check_staged` now build a first-row-wins
+  `(site, title) -> norm` map plus a title set from the canonical files.jsonl. A key the
+  canonical file holds is a no-op only when the module's OWN staged row (read from
+  files_wiltshire_b.jsonl - deliberately not the freshly-built row, whose evidence.checked is
+  the run date and would break byte-identity the next day) is identical to the canonical row;
+  a same-key different row still SystemExits (stage) / is a join problem (check); the
+  original title-only clash (a title held by a different site - the two Petrie 1880 files)
+  stays as the fallback. Guard order is unchanged in both legs (canonical first in
+  _stage_commons so the clash test's "fires before any meta use" holds; stage-A
+  reclassification first in stage_book).
+- Tests: new `_merge_states` helper (temp copy of the canonical file; pre-merge state =
+  canonical minus the module's own (site, title) keys; staged lines byte-identical to the
+  merge's append) + `test_check_staged_three_states` (a/b/c) and
+  `test_stage_offline_three_states` (a/b/c/d - the d case covers the BOOK leg: the Commons
+  leg no-ops and stage_book refuses; both legs write nothing on refusal). The three
+  previously-red tests now point FILES_CANONICAL at the pre-merge temp state, so the file
+  holds whether or not 211's live merge ran on the checkout.
+- WRINKLE (local to this test file, commented in it): `_merge_states` must read the staged
+  rows from a module-level snapshot (`FILES_B_REAL = src.FILES_B` at import) because
+  test_stage_offline monkeypatches src.FILES_B at a temp write target BEFORE the helper runs;
+  reading the (monkeypatched) attribute gave an empty staged set and the first state looked
+  like "different row holds the key". Symptom: SystemExit "a different row holds the key -
+  refused" from test_stage_offline with an empty FILES_B.
+- Also hit one self-inflicted syntax break while editing: the stage_book docstring lost a
+  quote in one edit batch ("...are local files." instead of '"""'), which swallowed the
+  following stage() docstring (SyntaxError "unterminated string literal" reported at the
+  NEXT docstring's line, not the broken one). py_compile before pytest catches this in
+  seconds - do that first when a docstring edit makes tests fail at collection.
+- Verified on this (merged) checkout: 10/10 module tests; live --check rc 0 (5 rows, 5
+  pass, 0 join problems - was 5 self-triggered) and --dry a clean no-op (was SystemExit on
+  the Houghton title). Full suite: 148 passed / 1 skipped / 1 failed - the single failure is
+  tests/test_src_artists.py (the 228 sibling; the 226 session's run proved the 227+228 set
+  pre-existing, so no test that passed before now fails). Pre-merge main is unaffected: the
+  hermetic states are constructed, and with the canonical file holding no Stukeley row every
+  assertion passes exactly as before. Task set to done; 211's box 1 gate now has only 228
+  left in the 222-228 set.
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
@@ -5320,6 +5364,17 @@ logged in PITFALLS and above).
 - New machine facts (filed to PITFALLS as a new entry next to the 3.5G-per-run one): (1) the loop has a maintenance process that wipes stale /tmp/loop-*/pytest-of-agent dirs when the disk nears full (freed agent a's 7.0G at ~17:47 and 2.3G at ~17:55 - I did not touch them); (2) the driver's verification cycle in a checkout kills competing in-flight runs (my 17:44 run died SIGTERM/143 at ~28/129, 5 min before the driver's 17:48-49 verification here, which died early itself - no temp dir, no report - leaving two PPID-1 orphan servers, killed); (3) agent a's 17:49 run (211) ended "10 failed, 130 passed, 1 skipped" - their own reds. The 48G disk oscillated 83%->98%->83% in the hour; two concurrent full-suite runs (mine at 17:44 + the driver's at 17:49, plus agent a's) is what pushed it over 95%.
 - This session (the hand-over's case (a), with the new facts): verified the work intact (16 verdict lines in docs/site_flow.md, the 306c block from L941: 9 DELETED the 303 way + 7 STAYS; 32 shots in docs/site_flow/agent_fits/; the by:hand serpent doc n0210_1 untouched; tree clean); killed the two orphan servers (138899/139733); deleted my dead 2.3G pytest-0; re-ran the full suite (`.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py`, 223 s, 17:55-17:59): 127 passed, 1 skipped, 1 failed - the sole failure is 307bb's test_placement_gestures_and_save_in_the_browser at the same pre-gesture seed step as iterations 150/151 and the A/B at 1ade748 (deterministic pre-existing; PITFALLS tests/test_fit_queue.py); deleted my 3.5G run leftover -> 8.0G free (83%), my loop dir 2.2M. Status: done (3rd filing).
 - Attempt count at the done-claim blocker: 1 = original claim (rejected 17:06), 2 = iteration 152 re-file (rejected 17:35), 3 = this filing. If the driver rejects a third time: stuck rule -> blocking ask_human with human_only (machine-level: 48G disk vs ~3.5G-per-run x 4-5 concurrent checkouts; ask for disk enlargement/trim, or approval of a dedicated tests/conftest.py footprint task) + Status: blocked + commit + stop, pointing the human at the twice-proven evidence (16-line block L941+, 32 shots, commits 0b83599/b9cbc46, 127/1/1 green at 151/152/156).
+
+
+<!-- task 306d -->
+# Task 306d orphan-fits-uk-1
+
+## 2026-10-12 306d DECISION: iteration 159 (first session) - audit driver built from the 306c recipe and all 36 orphan shots taken and verified; judging is the remaining work
+- 306d (18 UK orphan docs, sites a-l) is a fresh start: my task file had no hand-over. I re-derived the orphan status of all 18 from the current tree (throwaway scanner: overlay in web/data/sites/<site>/depictions.json with fit.doc == doc id; review = a candidate with that plan in the site's data/review item; else orphan) - all 18 still orphans, all 18 sites have a relief.jpg, all docs exist with 4+ pairs.
+- Driver: tools/audit_306d.mjs = 306c's tools/audit_306c.mjs with the 18-doc list (verbatim IIFE). It works on the CURRENT web/ despite agent a's 307 rework: every symbol the IIFE uses still exists (select/setGround/ensureSite/startFit/rvResolveRow/openPlan/refit/addPairMarker/fit-prev/rel-<site>/FQ); applyAll is a `const` arrow fn (a grep for "function applyAll" misses it - it is still callable). The FQ emptying (the 307 queue-seed trap, PITFALLS L1194) fired as designed: fqEntries=114 reported before emptying, placed:false, n = the doc's own pair count in every [eval].
+- All 36 shots written (1440x900, docs/site_flow/agent_fits/, aerial + _relief per doc; one serve.py --port 0 for the run; GET only). Mechanical verification of every [eval] line: ok, img, n correct, fit-prev drawn, zoom ~15, relief layer visible/none as expected - 0 genuinely bad. Two apparent anomalies are NOT failures: cassiobury-house and chevening are VIEW (homography) docs - mpx/rot null by design and cassiobury's 4-point resid is 0 by construction (PITFALLS L892 already records this: judge the ink, never the residual).
+- The ArcGIS World_Imagery ERR_ABORTED reqfail lines in the run log are the live tile feed aborting at page close - expected on this machine (the aerial still renders; 306c's committed shots show the same lines).
+- Deliberately did not run the full test suite this session: the session changed no code or data (new PNGs + new tools/ script + the task file only), so no test can newly fail from it (tests reference docs/site_flow/ in comments only), and a full-suite run writes ~3.5G into /tmp while the disk is 94% full (the ENOSPC false-red story from 306c). The suite runs in the removal session, when data changes actually land.
 
 
 <!-- task 307a -->
