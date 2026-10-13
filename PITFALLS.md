@@ -192,6 +192,12 @@ Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/bo
 Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
 Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
 
+#### Book triage stage-A captions/numbers can be parametric hallucinations - never stage from them
+Where: pipeline/books.py `run_stage` (PROMPT_A; PROMPT_B's caption output carries the same caveat), data/books/triage/<ia>.A.jsonl - observed on 207a Horsley (britanniaromanao00hors, qwen3.8-27b on 127.0.0.1:8080/8081, 2026-10-13)
+Symptom: page_type looks right but caption/numbers are invented from a different, well-known book in the model's training data: Horsley's 1732 plate pages got "MAP OF THE VALLEY OF THE CHAMBERLAIN RIVER, ILLINOIS", "PLAN OF THE ANCIENT WORKS AT THE MOUND CITY, OHIO", "HERCULANEUM, CAMP OF CAESAR" (all Squier & Davis, *Ancient Monuments of the Mississippi Valley*) and the number "PLATE XXV" repeated verbatim across unrelated pages, while the one genuine cluster (the Roman-wall maps, n236-n287) carried plausible captions.
+Why: where a page's actual caption is faint, small or in engraved lettering the model fills in from memory. The page_type field is mostly sound (Horsley: 703 text_only / 151 other_illustration / 80 plate_site_plan over 936 pages); caption and numbers are not evidence.
+What to do: treat stage A as a page-type candidate filter only; make every kind (s/o/u) decision and every 200 evidence field from the book's printed plate list transcribed by eye from the triage images plus the images themselves (the 207 subtask recipe). Re-run stage F over other_illustration pages if a verified plan page is missing from the candidates.
+
 #### The VM clock lags the project's journal dates - date new work by the journal's sequence, not `date`
 Where: date stamps in `DECISIONS.md`, `docs/*.md` ("checked ..." lines), the task hand-overs
 Symptom: on 2026-10-11 (machine time, Sun Oct 11 CDT) the newest DECISIONS entry was already dated 2026-10-12 -
