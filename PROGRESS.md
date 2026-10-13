@@ -7,72 +7,142 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/212a-cover-search.md` (in-progress) - hand-over: (2026-10-13, iteration 223, agent a - DONE. All 4 boxes ticked, Status: done.
+- `tasks/212b-cover-sync.md` (open) - hand-over: (2026-10-13, iteration 224, agent a - CODE DONE, dry run not yet run. 212a is my own prior
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 214, agent a - ROOT CAUSE FOUND AND FIXED in web/index.html (uncommitted: harness holds it);
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/212a-cover-search.md`
+- `tasks/212c-batch-report.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 308 DECISION: first session - investigate, capture the before-baseline, design the arrowhead; no code yet
-The lead (61c6bdb on main) removed 308's "Depends on: 307" (only 307d, the owner check, is open;
-markers do not need it) - my branch had not received that commit, so I re-applied the lead's
-exact task-file change locally (result byte-identical to main: no "Depends on" line + their lead
-note) and committed it with the before-screenshots (0470610) so the driver's next main-sync is a
-no-op on that file and the human's file keeps the human's own bytes.
-Investigation (web/index.html only; there are NO web/*.css files, styles are inline): site
-markers are `<button class="marker tN"><span class="sq"></span><span class="tag">…</span></button>`
-maplibre Markers anchored `anchor:'left', offset:[-6,0]` (square centre ~ the point); per-tier
-sizes 15/13/11/9/7 px and colours #8A1230 / var(--survey) / #E2697F / #F4B4C0 / var(--sheet)
-(defined in TWO places: .marker .sq and the .tiers legend swatches); the label is a flex child
-kept out of click-hit only via pointer-events (it still occupies layout - the comment records
-the Old Sarum/Taunton bug that produced it); syncMarkers() does the label/square collision with
-a ±8 box per marker; the list row (siteEntries, line 563) and the "Marker key" legend (line
-589) reuse the same .sq swatches; Finder search-area markers (addScanAreas ~1187) are dashed
-squares at an area corner and stay squares; no test pins the marker CSS/JS (test_review.py
-pins only the review.js script tag).
-Chose an inline SVG silhouette (one shared constant AH, viewBox 100x100, notched:
-M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z - tip bottom-centre, contracting stem, central notch)
-over a CSS clip-path (an SVG stroke with vector-effect:non-scaling-stroke gives a constant 1.2px
-ink outline at every tier size and stays crisp on retina; clip-path would lose the outline) and
-over a data-URI background (it cannot take a CSS colour var for the tier gradient). The .sq span
-keeps its per-tier width/height and gains an .ah class + the tier colour as a --mks custom
-property (one definition per existing colour site); the marker button becomes inline-block +
-position:relative, the tag absolute (left:100%, top:100%, translateY(-50%) => still centred on
-the site point, and out of layout so the button box = the arrowhead), and the MapLibre anchor
-becomes 'bottom' + offset [0,0] so the TIP (bottom-centre) sits on the coordinate - MapLibre
-5.6.0 defaults the offset to [0,-14] when omitted, so it must be passed explicitly; the 'bottom'
-semantics will be verified empirically in the probe, not assumed. syncMarkers' per-marker box
-becomes [x±8, y-16..y+1] (the head grows above the point); the label box and all placement rules
-are unchanged.
-Captured the BEFORE baseline before touching anything (the page on this branch is the baseline):
-docs/site_flow/markers-before-{globe,zoom,legend,phone}.png via a throwaway playwright probe
-(/tmp/aw308shot.mjs; playwright-core from /home/agent/tools/shot/node_modules, channel 'chrome'
-= /opt/google/chrome/chrome; web/ served by python3 -m http.server on an ephemeral port; live
-Esri tiles load fine - the only 404s are the handled fallbacks data/scans.json,
-data/amazon/areas.json, api/db/ping). The probe's phase 'after' also self-checks: worst tip-to-
-point delta per tier, a real click on a marker opening its site, and svg counts in markers/
-legend/list with scan markers still square.
+### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
+The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
+(case b) never reads the deleted bethlehem doc - its seed is the golden doc
+c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
+is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
+c_61b86efb4511e099 with the 211 pictures; the item file and the published page
+entry still agree with each other at 13 candidates - verified). 231 was rewritten
+to cover only the year-once pin (case e) with a candidate list measured from the
+live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
+"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
+Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
+state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
+entry above (depends on 212). 234: test key to the generator's documented
+(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
+depend on the entry order) - plus a byte-reproducible regeneration of
+web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
+212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
+worktrees were removed (agent c's /tmp/aw306cab untouched).
 
-### 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()
-Merge 4b12889 into agent/a: 212 conflict = main added the lead note + lead split (212a/b/c; the fit step is the matcher, run by the lead; "a's design notes stay on agent/a") while my side held the iter-211 design hand-over - resolved as a union, hand-over last (AGENTS.md: the hand-over is the final section); 308 conflict = main's side empty (main never had my hand-over) - kept ours. The merge brought no code changes (main's new commits are task-file-only).
-Implementation (working tree, uncommitted at session end - the harness saved it): the iter-212 design, 7 edits - AH svg (M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z: tip bottom-centre, notched contracting stem), --mks tier colour on every size rule, .sq.ah path (fill var(--mks), 1.2px non-scaling stroke), tag absolute (left:100%, top:100%, translateY(-50%)) with .marker.scan .tag {top:50%}, addMarkers anchor 'bottom' offset [0,0], syncMarkers box [x±8, y-16..y+1] (label box unchanged), swatches + the 5 legend spans .ah + AH (the S.more fragment converted to a backtick template literal so ${AH} interpolates), addScanAreas untouched. ONE DEVIATION (intentional): .marker stays display:flex + position:relative instead of the designed inline-block - a flex container is sized to exactly its one in-flow child (.sq), while an inline-block parent adds line-box descender height that would shift the bottom-centre (the tip) off the assigned point.
-FAILED (anchor measurement, attempt 1): probe compared the rendered tip to map.project(lnglat) -> worst 3023 px. Root cause, verified: the page's map is projection:{type:'globe'} (MapLibre 5.6, index.html ~324) - map.project() returns the flat 2D map plane, but markers live in the globe pipeline; the marker's own inline transform `translate(-50%,-100%) translate(Xpx,Ypx)` carries the on-globe screen position MapLibre computed from the lnglat, and at pitch 0 the element is un-rotated (rotateX(0deg)), so its measured rect's bottom-centre vs (X,Y) is the correct anchor reference. map.project stays only as a loose cross-check (globe curvature: a few px at the view edge).
-FAILED (anchor measurement, attempt 2): even the transform-based comparison showed worst 3023 px, because markers OUTSIDE the viewport (US sites while viewing Wiltshire, or the far side of the globe) keep display:'' (syncMarkers only hides by shown()/sel) and their rect/transform is a wrapped 2D-plane position - meaningless to compare. Fix applied (NOT yet re-run): anchorCheck skips markers whose svg rect is outside the 1440x900 viewport.
-Verified in the latest probe run: 499/499 site markers + 328/328 legend + 324/324 list-row swatches carry the arrowhead svg; clicking a marker's .sq opens its site; the visual path tip sits within 0.15 px of the svg box's bottom-centre (the 99/100 vertex + 1.2 px stroke lands the visual tip within ~0.5 px of the assigned point - sub-pixel; the old square was centred on the point, so this is also strictly closer to the point).
-Pending: probe re-run after the viewport-filter edit; the merged-tree suite (running in the background at session end: /tmp/aw308-suite-merged.log, last check 2 Fs = the expected 231/232 merge-reds); then per the lead's instruction in my 212 hand-over ("WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked" - the lead did their work in aeeb5aa): verify and mark 233 (plan-list growth test + key-set + machine-dependence record) and 234 (test key + fit_queue.json reproducibility + fit_queue.py untouched).
+### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
 
-### 2026-10-13 308 DECISION: CORRECTION + fix found - my position:relative on .marker overrode the vendor's .maplibregl-marker absolute parking; the huge anchor deltas were a CSS cascade bug, not globe projection
-... (2.8 KB more: `grep -n -A 200 -F '## 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()' DECISIONS.md`)
+### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
+
+### 2026-10-13 212b DECISION: sync phase gains the trailing full review export (box 1's code done); dry-run script written but not run (context limit); live run is next
+Session 224 (agent a, first session on 212b after my 212a).
+1. fit/cover.py `sync()` now ends with `n_open, n_total = review.export(root)` after
+   `plan_fit.prune(root)` and prints the open/total line: box 1's "and the review
+   export". Rationale: PITFALLS 1171 (web/data/review.json is a derived page - doc
+   changes without a full export leave test_fit_provenance/test_site_done/
+   test_fit_queue red on every branch); sync is the one page-facing writer of the doc
+   world, so the export lands with the overlays. Docstrings updated (module phase list
+   + sync's own). My Touches line gained data/db/platefits (stamp-by:agent / pattern
+   delete) and data/review/ (per-doc containment upserts + the export's write-once
+   resolution records) BEFORE touching them. The edit is uncommitted (harness-saved).
+2. Live world re-measured (.venv): 131 docs (21 hand + 110 agent + 0 unmarked); 105
+   commons (big cache has 72 -> 54 will download in the live sync) + 26 book (all local
+   files present); all docs have ref+crop; is_done=0 for ALL 131 (checkout view) -> the
+   live sync rebuilds every overlay; 94 doc sites (80 symlinked to the store, 14 real
+   checkout dirs - separate copies); 499 built sites, 36 drawings>0; review.json 333
+   open of 346 items (14 recorded resolutions). The store (/home/agent/projects/
+   ancient-works) is a git checkout of main at 77bdf5d, clean except .venv - writes
+   through my 382 site symlinks land in its working tree (shared canonical home; same
+   pattern the batches used). Git tracks only 6 site dirs; among doc sites:
+   forthill/marietta/newark (all real dirs) - the only committable per-site artifacts
+   of the live run. All JSON writers on this path are atomic (tmp + os.replace) ->
+   hard-link trees safe.
+3. Dry run: /tmp/aw212b-dryrun.py (hard-linked tree with web/data/sites FOLLOWED into
+   real dirs, big stand-ins for all 105 commons docs, socket guard, store + golden +
+   item + review.json + drawings before/after reporting). NOT RUN: first invocation
+   died on line 24, `os.path.mkdtemp` (AttributeError - fix: tempfile.mkdtemp). That
+   is the exact next step, then the live run (box 1+2 evidence) + commit, then box 3's
+   test (parent design, 212-cover-final's D1-D5/CHOOSE sections).
+4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
+   path in the edit); 212a's file restored byte-identical (git diff clean before the
+   commit).
 
 ## Project-wide driver notes (newest)
 

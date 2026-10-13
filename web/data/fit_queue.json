@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T07:06:41.342707+00:00",
+ "at": "2026-10-13T10:10:56.196683+00:00",
  "entries": [
   {
    "site": "stockstadt-q1735421",
@@ -251,6 +251,187 @@
      ]
     ],
     "scale_m_px": 0.1508,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bibracte-q650053",
+   "name": "Bibracte",
+   "best": {
+    "plan": "c_1c5a468184538998",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_1c5a468184538998",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Autun, l'antique Bibracte que Cisar, apr\u00e8s ses conqu\u00eates qualifia du nom de Soeur et Emule de Rome. Carte de l'arrondissement. Plan de la ville, ses antiquit\u00e9s et ses monuments. Cet ouvrage a \u00e9t\u00e9 esquis s\u00e9 sur... - btv1b530849404",
+     "label": "1834",
+     "size": [
+      11454,
+      8285
+     ],
+     "map_box": null,
+     "sites": [
+      "bibracte-q650053"
+     ],
+     "cite": "by Moni, Claude (1754-18.. ; dessinateur). Cartographe; Public domain; https://commons.wikimedia.org/wiki/File:Autun,_l%27antique_Bibracte_que_Cisar,_apr%C3%A8s_ses_conqu%C3%AAtes_qualifia_du_nom_de_Soeur_et_Emule_de_Rome._Carte_de_l%27arrondissement._Plan_de_la_ville,_ses_antiquit%C3%A9s_et_ses_monuments._Cet_ouvrage_a_%C3%A9t%C3%A9_esquis_s%C3%A9_sur..._-_btv1b530849404.jpg",
+     "url": "media/commons/bibracte-q650053/1c5a468184538998.jpg",
+     "view": false,
+     "ref": "File:Autun, l'antique Bibracte que Cisar, apr\u00e8s ses conqu\u00eates qualifia du nom de Soeur et Emule de Rome. Carte de l'arrondissement. Plan de la ville, ses antiquit\u00e9s et ses monuments. Cet ouvrage a \u00e9t\u00e9 esquis s\u00e9 sur... - btv1b530849404.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1c5a468184538998",
+     "title": "Autun, l'antique Bibracte que Cisar, apr\u00e8s ses conqu\u00eates qualifia du nom de Soeur et Emule de Rome. Carte de l'arrondissement. Plan de la ville, ses antiquit\u00e9s et ses monuments. Cet ouvrage a \u00e9t\u00e9 esquis s\u00e9 sur... - btv1b530849404",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 94896390
+    },
+    {
+     "plan": "c_acda1d62e0cc843d",
+     "title": "Oppidum de Bibracte - Plan1",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2248960
+    },
+    {
+     "plan": "c_55292184cf48ca7a",
+     "title": "Garenne 1867 - Plan de diverses branches de l'aqueduc",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1964800
+    },
+    {
+     "plan": "c_8d34cc8e241b26f4",
+     "title": "Garenne 1867 - Plan de montagne de Beuvray d'apr\u00e8s l'\u00e9tat major et la vue des lieux",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1924192
+    },
+    {
+     "plan": "c_71cc0b68455938b8",
+     "title": "Garenne 1867 - Plan Bibracte",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1888000
+    },
+    {
+     "plan": "c_649ce60676da7439",
+     "title": "Garenne 1867 - Citadelle de Bibracte Citadelle d'Alise Citadelle de Dardon",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1418240
+    },
+    {
+     "plan": "c_170886471ec27ec9",
+     "title": "Garenne 1867 - Le Parc aux chevaux Th\u00e9\u00e2tre",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1402880
+    },
+    {
+     "plan": "c_e089c7df4afaab16",
+     "title": "Guillaumet 1996 n60 - Fouilles de Bibracte, 1864. Maison ovale de la P\u00e2ture du Sabotier ou Chaintre du Mitan. Plan et coupe",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1302132
+    },
+    {
+     "plan": "c_b936c6fa9add8082",
+     "title": "Guillaumet 1996 n05 - Plan de Bibracte d'apr\u00e8s X. Garenne",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1116744
+    },
+    {
+     "plan": "c_dab612dba552e547",
+     "title": "Guillaumet 1996 n23 - Fouilles de Bibracte, 1865. Champlain, \u00ab maison \u00bb 33 (33)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 905836
+    },
+    {
+     "plan": "c_7e6386e71d2d599f",
+     "title": "Guillaumet 1996 n44 - Fouilles de Bibracte, avant le 5 septembre 1865. Parc aux Chevaux, \u00ab maison \u00bb 1, mur de sout\u00e8nement, aqueduc. Plans, \u00e9l\u00e9vation, coupe",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 812032
+    },
+    {
+     "plan": "c_2e29e0ebe18ff9cb",
+     "title": "Guillaumet 1996 n62 - Fouilles de Bibracte, avant 1867. Terrasse dite Citadelle. Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 451580
+    },
+    {
+     "plan": "c_bee4be61714bc4c3",
+     "title": "Guillaumet 1996 n55 - Fouilles de Bibracte, 1865. Parc aux Chevaux, \u00ab maison \u00bb 8 (PC 8). Plan et \u00e9l\u00e9vation",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 433794
+    },
+    {
+     "plan": "c_2802e1ee38933515",
+     "title": "Guillaumet 1996 n42 - Fouilles de Bibracte, avant 1867. Parc aux Chevaux, \u00ab maison \u00bb 1 dite le Th\u00e9\u00e2tre. Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 430140
+    },
+    {
+     "plan": "c_cd3c5b51b1480942",
+     "title": "Porte Saint-Andr\u00e9 1839",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 318500
+    },
+    {
+     "plan": "c_8ab7044f8b8f6b11",
+     "title": "Guillaumet 1996 n58 - Fouilles de Bibracte, 1865. Fontaine Saint\u2011Pierre. Plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 106960
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.0244774,
+      46.929598
+     ],
+     [
+      11454.0,
+      0.0,
+      4.0455226,
+      46.929598
+     ],
+     [
+      11454.0,
+      8285.0,
+      4.0455226,
+      46.9192015
+     ],
+     [
+      0.0,
+      8285.0,
+      4.0244774,
+      46.9192015
+     ],
+     [
+      5727.0,
+      4142.5,
+      4.035,
+      46.9244
+     ]
+    ],
+    "scale_m_px": 0.1397,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -5743,6 +5924,96 @@
    }
   },
   {
+   "site": "hopewell-mound-group",
+   "name": "Hopewell Mound Group",
+   "best": {
+    "plan": "c_613c225484b8fb63",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_613c225484b8fb63",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The Hopewell mound group of Ohio BHL6715016",
+     "label": "1922",
+     "size": [
+      1280,
+      2175
+     ],
+     "map_box": null,
+     "sites": [
+      "hopewell-mound-group"
+     ],
+     "cite": "by Laufer, Berthold; Moorehead, Warren King; Public domain; https://commons.wikimedia.org/wiki/File:The_Hopewell_mound_group_of_Ohio_BHL6715016.jpg",
+     "url": "media/commons/hopewell-mound-group/613c225484b8fb63.jpg",
+     "view": false,
+     "ref": "File:The Hopewell mound group of Ohio BHL6715016.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_613c225484b8fb63",
+     "title": "The Hopewell mound group of Ohio BHL6715016",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2784000
+    },
+    {
+     "plan": "c_88eb3b885c312dc2",
+     "title": "The Hopewell mound group of Ohio BHL6715023",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2784000
+    },
+    {
+     "plan": "c_8e1c72af5f821dae",
+     "title": "The Hopewell mound group of Ohio BHL6715024",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 968960
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -83.1036265,
+      39.3744534
+     ],
+     [
+      1280.0,
+      0.0,
+      -83.0831135,
+      39.3744534
+     ],
+     [
+      1280.0,
+      2175.0,
+      -83.0831135,
+      39.347504
+     ],
+     [
+      0.0,
+      2175.0,
+      -83.1036265,
+      39.347504
+     ],
+     [
+      640.0,
+      1087.5,
+      -83.09337,
+      39.36098
+     ]
+    ],
+    "scale_m_px": 1.3793,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "bruges-q12994",
    "name": "Bruges",
    "best": {
@@ -8581,6 +8852,82 @@
     "scale_source": "bar",
     "coarse": false,
     "note": "scale from the scale bar: '0 100 200 300 Ft.'"
+   }
+  },
+  {
+   "site": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
+   "name": "Chesters Roman Fort (Cilurnum)",
+   "best": {
+    "plan": "c_4585b3fd9e23c6fa",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4585b3fd9e23c6fa",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Bruce Page115 Plan of Chesters 1885",
+     "label": "1885",
+     "size": [
+      1280,
+      1731
+     ],
+     "map_box": null,
+     "sites": [
+      "the-roman-fort-vicus-bridge-abutments-an-q17650519"
+     ],
+     "cite": "by John Collingwood Bruce; Public domain; https://commons.wikimedia.org/wiki/File:Bruce_Page115_Plan_of_Chesters_1885.jpg",
+     "url": "media/commons/the-roman-fort-vicus-bridge-abutments-an-q17650519/4585b3fd9e23c6fa.jpg",
+     "view": false,
+     "ref": "File:Bruce Page115 Plan of Chesters 1885.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4585b3fd9e23c6fa",
+     "title": "Bruce Page115 Plan of Chesters 1885",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2215680
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.1443736,
+      55.0299404
+     ],
+     [
+      1280.0,
+      0.0,
+      -2.1316264,
+      55.0299404
+     ],
+     [
+      1280.0,
+      1731.0,
+      -2.1316264,
+      55.020059
+     ],
+     [
+      0.0,
+      1731.0,
+      -2.1443736,
+      55.020059
+     ],
+     [
+      640.0,
+      865.5,
+      -2.138,
+      55.025
+     ]
+    ],
+    "scale_m_px": 0.6355,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
    }
   },
   {
@@ -11731,6 +12078,110 @@
    }
   },
   {
+   "site": "burcht-van-leiden",
+   "name": "Burcht van Leiden",
+   "best": {
+    "plan": "c_b790b0ce40d7d26b",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_b790b0ce40d7d26b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Atlas Van der Hagen-KW1049B11 089-LUGDINI BATAVORUM VULGO LEYDEN SIC ULTIMO AMPLIFICAM DELINEATIO",
+     "label": "c. 1690",
+     "size": [
+      1280,
+      1109
+     ],
+     "map_box": null,
+     "sites": [
+      "burcht-van-leiden"
+     ],
+     "cite": "by Publisher: Frederik de Wit; Public domain; https://commons.wikimedia.org/wiki/File:Atlas_Van_der_Hagen-KW1049B11_089-LUGDINI_BATAVORUM_VULGO_LEYDEN_SIC_ULTIMO_AMPLIFICAM_DELINEATIO.jpeg",
+     "url": "media/commons/burcht-van-leiden/b790b0ce40d7d26b.jpg",
+     "view": false,
+     "ref": "File:Atlas Van der Hagen-KW1049B11 089-LUGDINI BATAVORUM VULGO LEYDEN SIC ULTIMO AMPLIFICAM DELINEATIO.jpeg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b790b0ce40d7d26b",
+     "title": "Atlas Van der Hagen-KW1049B11 089-LUGDINI BATAVORUM VULGO LEYDEN SIC ULTIMO AMPLIFICAM DELINEATIO",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1419520
+    },
+    {
+     "plan": "c_2ed7167f77ea05d4",
+     "title": "Atlas de Wit 1698-pl017-Leiden-KB PPN 145205088",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1329920
+    },
+    {
+     "plan": "c_fb2db5d2a7552887",
+     "title": "Plattegrond der Zaal op de plaats van den Burgt ter feestviering van Oud-Studenten den 9.den Augustus 1838, RP-P-OB-88.641",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1296640
+    },
+    {
+     "plan": "c_5681b77efdcafcbd",
+     "title": "Rand van de Grote Hagen, bestaande uit veertien delen Lugdunum Batavorum ANo 1670 (titel op object), RP-P-2016-1124",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 2705920
+    },
+    {
+     "plan": "c_2da8ced53ce1c3da",
+     "title": "De Kleine Hagen, bestaande uit drie delen Lugdunum Batavorum (titel op object), RP-P-AO-10-81",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1249280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      4.4856784,
+      52.1628914
+     ],
+     [
+      1280.0,
+      0.0,
+      4.5003216,
+      52.1628914
+     ],
+     [
+      1280.0,
+      1109.0,
+      4.5003216,
+      52.1551083
+     ],
+     [
+      0.0,
+      1109.0,
+      4.4856784,
+      52.1551083
+     ],
+     [
+      640.0,
+      554.5,
+      4.493,
+      52.159
+     ]
+    ],
+    "scale_m_px": 0.7812,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "raby-castle-q4583646",
    "name": "Raby Castle",
    "best": {
@@ -13646,6 +14097,82 @@
      ]
     ],
     "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "maeshowe",
+   "name": "Maeshowe",
+   "best": {
+    "plan": "c_9dd03a4a57bb7c05",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_9dd03a4a57bb7c05",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Rude Stone Monuments 0272",
+     "label": "1872",
+     "size": [
+      1280,
+      947
+     ],
+     "map_box": null,
+     "sites": [
+      "maeshowe"
+     ],
+     "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0272.png",
+     "url": "media/commons/maeshowe/9dd03a4a57bb7c05.jpg",
+     "view": false,
+     "ref": "File:Rude Stone Monuments 0272.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9dd03a4a57bb7c05",
+     "title": "Rude Stone Monuments 0272",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1212160
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.19692,
+      58.9999229
+     ],
+     [
+      1280.0,
+      0.0,
+      -3.17948,
+      58.9999229
+     ],
+     [
+      1280.0,
+      947.0,
+      -3.17948,
+      58.9932768
+     ],
+     [
+      0.0,
+      947.0,
+      -3.19692,
+      58.9932768
+     ],
+     [
+      640.0,
+      473.5,
+      -3.1882,
+      58.9966
+     ]
+    ],
+    "scale_m_px": 0.7812,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -16602,6 +17129,82 @@
    }
   },
   {
+   "site": "stones-of-stenness",
+   "name": "Stones of Stenness",
+   "best": {
+    "plan": "c_fd337c0a99e335bd",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_fd337c0a99e335bd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Stenness Plan Thomas 1851 50",
+     "label": "1851",
+     "size": [
+      1280,
+      452
+     ],
+     "map_box": null,
+     "sites": [
+      "stones-of-stenness"
+     ],
+     "cite": "by Thomas, F.W.L. (Frederick William Leopold) c.1812\u20131885; Public domain; https://commons.wikimedia.org/wiki/File:Stenness_Plan_Thomas_1851_50.png",
+     "url": "media/commons/stones-of-stenness/fd337c0a99e335bd.jpg",
+     "view": false,
+     "ref": "File:Stenness Plan Thomas 1851 50.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_fd337c0a99e335bd",
+     "title": "Stenness Plan Thomas 1851 50",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 578560
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.2177193,
+      58.9955861
+     ],
+     [
+      1280.0,
+      0.0,
+      -3.2002807,
+      58.9955861
+     ],
+     [
+      1280.0,
+      452.0,
+      -3.2002807,
+      58.9924139
+     ],
+     [
+      0.0,
+      452.0,
+      -3.2177193,
+      58.9924139
+     ],
+     [
+      640.0,
+      226.0,
+      -3.209,
+      58.994
+     ]
+    ],
+    "scale_m_px": 0.7812,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "offa-s-dyke-q1127343",
    "name": "Offa's Dyke",
    "best": {
@@ -16835,6 +17438,89 @@
    }
   },
   {
+   "site": "los-millares",
+   "name": "Los Millares",
+   "best": {
+    "plan": "c_1d89be22583fc871",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_1d89be22583fc871",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Louis siret--espagne prehist--1893--fig168--millares--plan",
+     "label": "1893",
+     "size": [
+      586,
+      771
+     ],
+     "map_box": null,
+     "sites": [
+      "los-millares"
+     ],
+     "cite": "by Louis Siret; Public domain; https://commons.wikimedia.org/wiki/File:Louis_siret--espagne_prehist--1893--fig168--millares--plan.png",
+     "url": "media/commons/los-millares/1d89be22583fc871.jpg",
+     "view": false,
+     "ref": "File:Louis siret--espagne prehist--1893--fig168--millares--plan.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_1d89be22583fc871",
+     "title": "Louis siret--espagne prehist--1893--fig168--millares--plan",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 451806
+    },
+    {
+     "plan": "c_93254f4d88a8afcb",
+     "title": "Louis siret--espagne prehist--1893--fig172--millares--sepulture 21-coupe",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 75384
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.5286089,
+      36.9714371
+     ],
+     [
+      586.0,
+      0.0,
+      -2.5157911,
+      36.9714371
+     ],
+     [
+      586.0,
+      771.0,
+      -2.5157911,
+      36.9579623
+     ],
+     [
+      0.0,
+      771.0,
+      -2.5286089,
+      36.9579623
+     ],
+     [
+      293.0,
+      385.5,
+      -2.5222,
+      36.9647
+     ]
+    ],
+    "scale_m_px": 1.9455,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "okehampton-castle-q1419982",
    "name": "Okehampton Castle",
    "best": {
@@ -16980,6 +17666,82 @@
      ]
     ],
     "scale_m_px": 1.1679,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "moundville-archaeological-site-q1320821",
+   "name": "Moundville Archaeological Site",
+   "best": {
+    "plan": "c_ca57b707992bb337",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_ca57b707992bb337",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Plan of Moundville",
+     "label": "",
+     "size": [
+      514,
+      552
+     ],
+     "map_box": null,
+     "sites": [
+      "moundville-archaeological-site-q1320821"
+     ],
+     "cite": "by Siyajkak; CC BY-SA 3.0; https://commons.wikimedia.org/wiki/File:Plan_of_Moundville.JPG",
+     "url": "media/commons/moundville-archaeological-site-q1320821/ca57b707992bb337.jpg",
+     "view": false,
+     "ref": "File:Plan of Moundville.JPG"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_ca57b707992bb337",
+     "title": "Plan of Moundville",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 283728
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -87.6350587,
+      33.0082622
+     ],
+     [
+      514.0,
+      0.0,
+      -87.6270793,
+      33.0082622
+     ],
+     [
+      514.0,
+      552.0,
+      -87.6270793,
+      33.0010757
+     ],
+     [
+      0.0,
+      552.0,
+      -87.6350587,
+      33.0010757
+     ],
+     [
+      257.0,
+      276.0,
+      -87.631069,
+      33.004669
+     ]
+    ],
+    "scale_m_px": 1.4493,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -17291,6 +18053,89 @@
    }
   },
   {
+   "site": "aventicum",
+   "name": "Aventicum (Avenches)",
+   "best": {
+    "plan": "c_0bdbfc863ce80b51",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_0bdbfc863ce80b51",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Avenches plan 1731",
+     "label": "1731",
+     "size": [
+      400,
+      331
+     ],
+     "map_box": null,
+     "sites": [
+      "aventicum"
+     ],
+     "cite": "by Unknown author Unknown author; CC0; https://commons.wikimedia.org/wiki/File:Avenches_plan_1731.jpg",
+     "url": "media/commons/aventicum/0bdbfc863ce80b51.jpg",
+     "view": false,
+     "ref": "File:Avenches plan 1731.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0bdbfc863ce80b51",
+     "title": "Avenches plan 1731",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 132400
+    },
+    {
+     "plan": "c_9ff8c52c90f4413a",
+     "title": "Zentralbibliothek Z\u00fcrich - Prospect von der Statt Wifflisburg - 991044663879705501",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1391360
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      7.0222862,
+      46.8921492
+     ],
+     [
+      400.0,
+      0.0,
+      7.0617138,
+      46.8921492
+     ],
+     [
+      400.0,
+      331.0,
+      7.0617138,
+      46.8698485
+     ],
+     [
+      0.0,
+      331.0,
+      7.0222862,
+      46.8698485
+     ],
+     [
+      200.0,
+      165.5,
+      7.042,
+      46.881
+     ]
+    ],
+    "scale_m_px": 7.5,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "daw-s-castle-q5242247",
    "name": "Daw's Castle",
    "best": {
@@ -17360,6 +18205,82 @@
      ]
     ],
     "scale_m_px": 4.3597,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "motte-castrale-quiquempois-q22961457",
+   "name": "Motte castrale Quiquempois",
+   "best": {
+    "plan": "c_e61f01cc894e88ea",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_e61f01cc894e88ea",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Motte quiquempois cadastre 1825 2",
+     "label": "1825",
+     "size": [
+      315,
+      217
+     ],
+     "map_box": null,
+     "sites": [
+      "motte-castrale-quiquempois-q22961457"
+     ],
+     "cite": "by Totorvdr59; CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Motte_quiquempois_cadastre_1825_2.jpg",
+     "url": "media/commons/motte-castrale-quiquempois-q22961457/e61f01cc894e88ea.jpg",
+     "view": false,
+     "ref": "File:Motte quiquempois cadastre 1825 2.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_e61f01cc894e88ea",
+     "title": "Motte quiquempois cadastre 1825 2",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 68355
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      3.1418748,
+      50.6370763
+     ],
+     [
+      315.0,
+      0.0,
+      3.1532052,
+      50.6370763
+     ],
+     [
+      315.0,
+      217.0,
+      3.1532052,
+      50.6321256
+     ],
+     [
+      0.0,
+      217.0,
+      3.1418748,
+      50.6321256
+     ],
+     [
+      157.5,
+      108.5,
+      3.14754,
+      50.634601
+     ]
+    ],
+    "scale_m_px": 2.5397,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -18887,6 +19808,89 @@
      ]
     ],
     "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "trundle-q7847949",
+   "name": "Trundle",
+   "best": {
+    "plan": "c_d0416f3835753b0f",
+    "reason": "the clearest view",
+    "row": {
+     "id": "c_d0416f3835753b0f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "St Roche's Hill Sussex by T King from William Hayley Mason Goodwood 1839",
+     "label": "1839",
+     "size": [
+      1280,
+      795
+     ],
+     "map_box": null,
+     "sites": [
+      "trundle-q7847949"
+     ],
+     "cite": "by T. King; Public domain; https://commons.wikimedia.org/wiki/File:St_Roche%27s_Hill_Sussex_by_T_King_from_William_Hayley_Mason_Goodwood_1839.jpg",
+     "url": "media/commons/trundle-q7847949/d0416f3835753b0f.jpg",
+     "view": true,
+     "ref": "File:St Roche's Hill Sussex by T King from William Hayley Mason Goodwood 1839.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d0416f3835753b0f",
+     "title": "St Roche's Hill Sussex by T King from William Hayley Mason Goodwood 1839",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1017600
+    },
+    {
+     "plan": "c_7143c9206fa76ffd",
+     "title": "St Roc's Hill 1723 from William Stukeley's Itinerarium Curiosum",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 492800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -0.7610207,
+      50.8952896
+     ],
+     [
+      1280.0,
+      0.0,
+      -0.7467793,
+      50.8952896
+     ],
+     [
+      1280.0,
+      795.0,
+      -0.7467793,
+      50.8897102
+     ],
+     [
+      0.0,
+      795.0,
+      -0.7610207,
+      50.8897102
+     ],
+     [
+      640.0,
+      397.5,
+      -0.7539,
+      50.8925
+     ]
+    ],
+    "scale_m_px": 0.7812,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,

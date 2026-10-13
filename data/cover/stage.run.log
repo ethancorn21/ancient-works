@@ -1,0 +1,18 @@
+   categories 50/107
+   categories 100/107
+   categories 150/107
+   page ids 50/107
+   page ids 100/107
+   page ids 150/107
+   file entities 50/107
+   file entities 100/107
+   file entities 150/107
+   places: 323 searched, 1389 candidates
+   recorded 25/107
+   recorded 50/107
+   recorded 75/107
+   recorded 100/107
+evidence recorded: 0 hand-tied, 0 book, 107 live
+1510 plans, 552 KB -> /home/agent/projects/ancient-works.a/web/data/plans.json
+stage: 107 file(s) staged (107 classified) -> files.jsonl, classified.jsonl, plans.json
+STAGE DRIVER DONE, staged: 107

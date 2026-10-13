@@ -3442,6 +3442,122 @@ verify + record (the test should pass unchanged after 212's re-export), not
 "make the data whole".
 
 
+<!-- task 212a -->
+# Task 212a cover-search
+
+## 2026-10-13 212a DECISION: 233+234 verified on the merged tree (lead's marking instruction); live state re-measured post-aeeb5aa (search set 245, no-qid-with-title set empty, 328 missing local copies)
+Session 216 (agent a, first session on 212a after the lead split). No test file
+written yet (context limit after verification + measurement). Verified the lead's
+"233+234 done by the lead (aeeb5aa)" before ticking them done: (1) 233:
+test_plan_list_refresh_is_pure_growth passes in 0.07 s (numancia's c_0fa271e2444f7bfc
+row is back in the re-exported 1475-row plans.json); the machine-dependence PITFALLS
+entry (### tools/export_plans.py) already exists from my 212 investigation -> all
+boxes satisfied, mark Status: done (next session). (2) 234: test_fit_queue_real
+passes in 4.1 s (the (view, -px, plan, name) key change is in aeeb5aa;
+tools/fit_queue.py untouched); box 2 verified on the VM with a scratch hard-linked
+tree (data/raw re-linked as symlink - the generator never opens images): two
+regenerations byte-identical apart from the "at" timestamp; committed 229 entries
+vs VM-regenerated 230 - the ONLY difference is site 'numancia' present in the VM
+regen (the machine-dependent "built" rule: the VM's shared store holds the numancia
+site dir, the lead's Mac did not - the same environment effect 233 documents, not a
+state drift; the committed file equals the generator output on the machine it was
+generated on) -> mark Status: done. Live state re-measured on the merged tree
+(aeeb5aa in via 400431f): built 499; 131 docs; nofit 402; plans 1475 rows; search
+set 245 = 204 qid + 41 no-qid (numancia dropped out - it has its plans row back);
+with-row nofit 157; CHOOSE unchanged (aardenburg/aesica/aire-sur-la-lys/alauna);
+fake hit site = aalsum-q3902030 (Q3902030, no existing titles); **the
+no-qid-with-title set is now EMPTY** (numancia was the only one) so per the
+iter-211 D1 the test asserts it empty: no failure site, every record's failed == []
+(code both branches); all 245 search-set sites carry the batch-era no_picture mark;
+328 titled files.jsonl rows lack a local copy (the live fetch phase's work; the
+test's fake _fetch_one fills them). Next: mark 233/234 done, then write
+tests/test_cover.py per the 212a design in the hand-over (fetch->search->stage->
+nopicture in a hard-linked tree, the 3 in-place files copied, searches.json deleted
+in the tree first, socket guard + time.sleep no-op + pure fakes; assertions:
+searches.json per-site records + resumability, stdout counts, staged rows + local
+copies + plans growth-only, no-picture items with the exact searched string,
+checkout-integrity hashes). The live run (box 4) waits for 203b.
+
+## 2026-10-13 212a DECISION: tests/test_cover.py green on its first run (5 passed, 33.8s) - boxes 1-3 done; the live run (box 4) waits on 203b, added to Depends on
+Session 219 (agent a). The test file the driver committed in ccafaa0
+(iteration-218 work) is CORRECT AS-IS: before its first run I re-verified every
+pinned string and shape against fit/cover.py and tools/export_plans.py -
+_search_site's via-tag arithmetic and per-site print line ("4 gathered, 2 kept
+old, 2 new (all routes answered)" - n_kept counts kept-before-dedup), fetch's
+n_have counting the no-source rows in "with a local copy", _searched_string
+(== the test's expected_searched, char for char, qid and no-qid variants),
+nopicture's nofit-and-not-cand rule (the hit drops out via cand after stage),
+_stage_row's field order (== the test's byte-exact appended rows),
+evidence.record no-opping (by:"212" not in source_tables, every book row
+already carries rec), export_plans' cols/row shape (a commons row's title is
+the FILE-derived name, not the site name; label = when_of; cite = page only),
+and _now's tz-aware ISO - no drift, no changes needed. First run: 5 passed in
+33.8s (nopicture ~2s - _find_item is 4ms, not iter-216's 200-300ms estimate);
+full suite 155 passed / 1 skipped on this VM. My iter-217 step C is moot: the
+lead marked 231-234 done with all boxes ticked in 77bdf5d (his note: suite
+green on the Mac, 145 passed); 233's pure-growth and 234's fit-queue tests
+pass on this VM as part of the green suite, so the marking holds on both
+machines. The live run (box 4) genuinely waits on 203b (agent c, in flight -
+the batch and my live run write the same files, and 212 runs last on purpose
+per the lead's split), so 203b is added to my Depends on line (team-mode rule);
+the driver brings the task back after 203b merges. The live-run recipe
+(phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
+is in the hand-over.
+
+## 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
+
+The iter-219 hand-over said box 4 waits for 203b because "agent c is in
+flight" on the batch. That reading was stale: the 203b file has been Status:
+done on main since c49aeb9 (agent c's iteration 50, 2026-10-11: the 294-site
+EU run - 54 auto fit / 47 review / 18 hand / 175 no-picture, 94 EU docs + 252
+items, union 384/384), and there is NO "[driver] reopened 203b" commit on
+main (the reopen list is 215/214/309/307ba/302a/206/802/203a - no 203b). Yet
+this iteration's driver prompt lists "Agent c is working on 203b" with the
+original touches (fit/batch_eu.py data/db/platefits data/review
+docs/batch_eu.md tests/test_batch_eu.py) - consistent with 203b's own
+hand-over note: "If this task is ever reopened (e.g. a 212-era re-coverage
+run changes the tree), re-verify the checks below." The batch ran over the
+384-site world; the world is now 499 built, and the batch's live union test
+gates on "Sites run: 294" vs the live EU partition (grown). So the wait
+stands, but the reason is: agent c's current 203b session re-runs/re-verifies
+the batch over the grown world, and its writes (new EU docs + item
+re-upserts, incl. the batch's searched wording on search-set items my
+nopicture also writes) must land before my live run's commit ("212 runs last
+on purpose"). 203b is already on my Depends on line; no line change.
+Agent c's other in-flight work is file-disjoint from the live run, verified
+on the live tree: 306's audit items are doc-keyed (<site>.<doc>.json) for
+doc'd sites, my nopicture writes the 245 EXACT bare <site>.json files of the
+no-doc search set (245/245 checked, 0 doc-keyed in the set; upsert_item's
+lead follows candidates[0].plan and these items are candidate-less, so the
+names never move); 306 exports web/data/sites.json + review.json, I
+re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
+disjoint.
+Re-measured the live world today (main is frozen at 77bdf5d - an ancestor of
+my pre-218 sync 54c0711, so the git world is byte-identical to what I
+verified in 217/219): 499 built; 131 docs = 21 by:hand + 110 by:agent;
+nofit 402; cand-sites 601; search set 245 = 204 qid + 41 no-qid (matches the
+iter-217 post-aeeb5aa measurement; the 246 in the CORRECTION-4 entry was
+pre-aeeb5aa, when numancia had no row yet) - first4 aalsum-q3902030,
+abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
+first no-qid aggersborg. files.jsonl: 923 kept rows, only 1 without a local
+copy - the no-source Stukeley TAB XI (stonehenge-q39671, thumb/url null):
+the ~328 missing copies measured 10-13 all arrived in the shared store via
+the lead's aeeb5aa "data/raw synced both ways Mac<->VM", so the fetch phase
+is now a no-op (0 thumb, 0 url, 1 nosrc) that only prints counts +
+re-exports plans. plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs,
+0 rows referencing a search-set site - the baseline for the key-set diff
+rule (aeeb5aa's 1474 + numancia's row back). data/cover/searches.json
+absent (fresh start). data/review: 346 items + README. Golden 40/40.
+tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
+(no store file-count assertions, by design - the 328 new store files broke
+nothing). No code change this session; next step (the live run recipe) is in
+the hand-over.
+
+## 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
+
+Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
@@ -6432,6 +6548,70 @@ docs edit.
 - **The pickmirror re-run on today's merged tree**: pick unchanged (entries[3] oswestry-castle-q20713795, bar 0.1646/0.0, 5 propose pairs, 3 cand pairs, no uncovered, dep six-inch-1st.webp, done-seed the three earlier entries); NEW: entry 9 richard-s-castle-q17650937 ALSO passes all three pick constraints (propose bar 0.0503/0.0, dep default, line-eligible) - the picker takes file order so oswestry still wins; the test's pick must stay DERIVED (it is). Review items now total 346 (batch work landing via main merges); the 114-entry queue file is unaffected (new docs do not auto-regenerate it) and the picker's checkout doc scan rejects any queue site that gained a doc, so the test adapts to population drift automatically.
 - simFit (index.html:983) re-read VERBATIM this session: the hand-over's _simfit port matches it exactly (W=[u,-v] -> Z=merc centred least squares, nr += zr*wr+zi*wi, ni += zi*wr-zr*wi, k = cos(first pair's lat), mpx = |a|*k, rot = atan2 deg). #map is fixed inset:0 (the canvas spans the viewport: canvas-relative x == client x) and .fitpane spans client x 398..950 at 1200x800 (left:398, width min(46vw,780px)=552) - the drag-start grid's elementFromPoint + pane-rect guard is load-bearing for the x 900-949 column. saveFit (index.html ~1130) re-read: the 16-key doc + by:hand = 17, the 60x1.5s overlay poll on fit.at, depSel repointed at the new overlay, endFit -> applyDep; the fitkit endFit wrapper restores the overlay on close. fqPlace (fitqueue.js) re-read: select -> setGround (persists aw.ground) -> await loadDeps -> startFit -> await openPlan; the card markup and fqPending (S.byId && !done && !skipped) confirmed.
 - Nothing failed; nothing ran (last suite state remains 100 passed + 1 skipped + 0 failed at c8e6cab; the driver's merge before this session added no tests - the first run will re-confirm). Working tree clean (only the task file and this entry changed).
+
+
+<!-- task 308 -->
+# Task 308 arrowhead-markers
+
+## 2026-10-13 308 DECISION: first session - investigate, capture the before-baseline, design the arrowhead; no code yet
+The lead (61c6bdb on main) removed 308's "Depends on: 307" (only 307d, the owner check, is open;
+markers do not need it) - my branch had not received that commit, so I re-applied the lead's
+exact task-file change locally (result byte-identical to main: no "Depends on" line + their lead
+note) and committed it with the before-screenshots (0470610) so the driver's next main-sync is a
+no-op on that file and the human's file keeps the human's own bytes.
+Investigation (web/index.html only; there are NO web/*.css files, styles are inline): site
+markers are `<button class="marker tN"><span class="sq"></span><span class="tag">…</span></button>`
+maplibre Markers anchored `anchor:'left', offset:[-6,0]` (square centre ~ the point); per-tier
+sizes 15/13/11/9/7 px and colours #8A1230 / var(--survey) / #E2697F / #F4B4C0 / var(--sheet)
+(defined in TWO places: .marker .sq and the .tiers legend swatches); the label is a flex child
+kept out of click-hit only via pointer-events (it still occupies layout - the comment records
+the Old Sarum/Taunton bug that produced it); syncMarkers() does the label/square collision with
+a ±8 box per marker; the list row (siteEntries, line 563) and the "Marker key" legend (line
+589) reuse the same .sq swatches; Finder search-area markers (addScanAreas ~1187) are dashed
+squares at an area corner and stay squares; no test pins the marker CSS/JS (test_review.py
+pins only the review.js script tag).
+Chose an inline SVG silhouette (one shared constant AH, viewBox 100x100, notched:
+M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z - tip bottom-centre, contracting stem, central notch)
+over a CSS clip-path (an SVG stroke with vector-effect:non-scaling-stroke gives a constant 1.2px
+ink outline at every tier size and stays crisp on retina; clip-path would lose the outline) and
+over a data-URI background (it cannot take a CSS colour var for the tier gradient). The .sq span
+keeps its per-tier width/height and gains an .ah class + the tier colour as a --mks custom
+property (one definition per existing colour site); the marker button becomes inline-block +
+position:relative, the tag absolute (left:100%, top:100%, translateY(-50%) => still centred on
+the site point, and out of layout so the button box = the arrowhead), and the MapLibre anchor
+becomes 'bottom' + offset [0,0] so the TIP (bottom-centre) sits on the coordinate - MapLibre
+5.6.0 defaults the offset to [0,-14] when omitted, so it must be passed explicitly; the 'bottom'
+semantics will be verified empirically in the probe, not assumed. syncMarkers' per-marker box
+becomes [x±8, y-16..y+1] (the head grows above the point); the label box and all placement rules
+are unchanged.
+Captured the BEFORE baseline before touching anything (the page on this branch is the baseline):
+docs/site_flow/markers-before-{globe,zoom,legend,phone}.png via a throwaway playwright probe
+(/tmp/aw308shot.mjs; playwright-core from /home/agent/tools/shot/node_modules, channel 'chrome'
+= /opt/google/chrome/chrome; web/ served by python3 -m http.server on an ephemeral port; live
+Esri tiles load fine - the only 404s are the handled fallbacks data/scans.json,
+data/amazon/areas.json, api/db/ping). The probe's phase 'after' also self-checks: worst tip-to-
+point delta per tier, a real click on a marker opening its site, and svg counts in markers/
+legend/list with scan markers still square.
+
+## 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()
+Merge 4b12889 into agent/a: 212 conflict = main added the lead note + lead split (212a/b/c; the fit step is the matcher, run by the lead; "a's design notes stay on agent/a") while my side held the iter-211 design hand-over - resolved as a union, hand-over last (AGENTS.md: the hand-over is the final section); 308 conflict = main's side empty (main never had my hand-over) - kept ours. The merge brought no code changes (main's new commits are task-file-only).
+Implementation (working tree, uncommitted at session end - the harness saved it): the iter-212 design, 7 edits - AH svg (M50 99 L8 40 L34 12 L50 24 L66 12 L92 40 Z: tip bottom-centre, notched contracting stem), --mks tier colour on every size rule, .sq.ah path (fill var(--mks), 1.2px non-scaling stroke), tag absolute (left:100%, top:100%, translateY(-50%)) with .marker.scan .tag {top:50%}, addMarkers anchor 'bottom' offset [0,0], syncMarkers box [x±8, y-16..y+1] (label box unchanged), swatches + the 5 legend spans .ah + AH (the S.more fragment converted to a backtick template literal so ${AH} interpolates), addScanAreas untouched. ONE DEVIATION (intentional): .marker stays display:flex + position:relative instead of the designed inline-block - a flex container is sized to exactly its one in-flow child (.sq), while an inline-block parent adds line-box descender height that would shift the bottom-centre (the tip) off the assigned point.
+FAILED (anchor measurement, attempt 1): probe compared the rendered tip to map.project(lnglat) -> worst 3023 px. Root cause, verified: the page's map is projection:{type:'globe'} (MapLibre 5.6, index.html ~324) - map.project() returns the flat 2D map plane, but markers live in the globe pipeline; the marker's own inline transform `translate(-50%,-100%) translate(Xpx,Ypx)` carries the on-globe screen position MapLibre computed from the lnglat, and at pitch 0 the element is un-rotated (rotateX(0deg)), so its measured rect's bottom-centre vs (X,Y) is the correct anchor reference. map.project stays only as a loose cross-check (globe curvature: a few px at the view edge).
+FAILED (anchor measurement, attempt 2): even the transform-based comparison showed worst 3023 px, because markers OUTSIDE the viewport (US sites while viewing Wiltshire, or the far side of the globe) keep display:'' (syncMarkers only hides by shown()/sel) and their rect/transform is a wrapped 2D-plane position - meaningless to compare. Fix applied (NOT yet re-run): anchorCheck skips markers whose svg rect is outside the 1440x900 viewport.
+Verified in the latest probe run: 499/499 site markers + 328/328 legend + 324/324 list-row swatches carry the arrowhead svg; clicking a marker's .sq opens its site; the visual path tip sits within 0.15 px of the svg box's bottom-centre (the 99/100 vertex + 1.2 px stroke lands the visual tip within ~0.5 px of the assigned point - sub-pixel; the old square was centred on the point, so this is also strictly closer to the point).
+Pending: probe re-run after the viewport-filter edit; the merged-tree suite (running in the background at session end: /tmp/aw308-suite-merged.log, last check 2 Fs = the expected 231/232 merge-reds); then per the lead's instruction in my 212 hand-over ("WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked" - the lead did their work in aeeb5aa): verify and mark 233 (plan-list growth test + key-set + machine-dependence record) and 234 (test key + fit_queue.json reproducibility + fit_queue.py untouched).
+
+### 2026-10-13 308 DECISION: CORRECTION + fix found - my position:relative on .marker overrode the vendor's .maplibregl-marker absolute parking; the huge anchor deltas were a CSS cascade bug, not globe projection
+The iter-213 "KEY FINDING" (MapLibre globe: the marker's own transform carries the on-globe position; map.project() is the flat plane, up to ~3023px apart) was a MISDIAGNOSIS of this CSS bug. Measured this session: the transform point and map.project() agree within 0.35px (the transform IS the 2D-plane position). The huge rect-vs-transform deltas came from the marker elements being in NORMAL FLOW: my 308 CSS `.marker { ... position: relative }` (specificity 0,1,0, in the page's inline style which loads AFTER the vendor <link>) overrode the vendor's `.maplibregl-marker { left: 0; position: absolute; top: 0; }` (same specificity, earlier in the cascade). MapLibre parks marker elements at the canvas origin and places them purely with the inline transform; in flow, each marker stacks below the previous one in DOM order, so the transform lands it 500-3023px below its site. Proof by A/B (pre-308 0470610 served from /tmp/aw308before, port 44269, vs current, port 33187): BEFORE - all 324 shown markers in-view in globe/default (98-100 in zoom), rect-minus-transform = one constant 9.5px (the old square's anchor geometry, its border-box/content-box mismatch); AFTER (broken) - only 61/324 in-view in globe, flow offsets 505-3023px (Orkney markers with negative plane Y pushed into view, the Wiltshire markers that should be visible pushed off-window). The broken after-globe/zoom shots are artifacts of this bug, NOT globe behaviour.
+Fix (applied to web/index.html, UNCOMMITTED at context limit): `.marker { ...; position: absolute; top: 0; left: 0; }` restating the vendor rule explicitly, with a comment explaining why it must not be a flowing position. Verified: rect-minus-transform = 0/0 for every shown marker in default/zoom/globe (the .ah box has border:0 so the anchor is exact); inView back to 324/324 (globe/default) and 98 (zoom).
+Full probe re-run after the fix, ALL GREEN: shape 499/499 site markers + 328/328 legend + 324/324 list rows carry the arrowhead svg (scan areas: 0 on page, code untouched); anchorZoom n=98 worstTransform 0 / worstProject 0.69px; anchorGlobe n=324 worstTransform 0 / worstProject 0.68px; worstTipBelow 0.15px (visual stroke tip vs svg box bottom); click opens the site (aalsum). Eyeballed the 4 regenerated after-shots (/tmp/aw308shots/): globe distribution identical to the committed baseline but with arrowheads; zoom markers sit on their earthworks with correct labels; Marker-key row = four gradient arrowheads (15/13/11/9px, notch visible at 9px); list-row swatch an arrowhead; phone readable.
+Suite: merged tree (pre-fix) = 3 failed/147 passed/1 skipped (test_fit_provenance x2 = 231, test_site_done_line = 232 - the same reds as the driver's pre-merge run; no 308-attributable failures). A fresh full suite after the CSS fix was started at context limit: log /tmp/aw308-suite-final.log (tail for the summary line; expect the same 3).
+
+## 2026-10-13 308 DECISION: 308 DONE - the 214 nohup suite's extra reds were the pytest shared-basetemp race (new PITFALLS), not 308; in-session suite = the known 231/232 reds only; after-shots -> docs/site_flow/, docs section, both PITFALLS entries, all boxes ticked, committed
+The 214 nohup'd full suite (log /tmp/aw308-suite-final.log) came back 7 failed/138 passed/1 skipped/5 errors - four test_serve HTTPError-404 on top of the expected 231/232 reds, plus five test_review setup errors. Per the hand-over I investigated before ticking. The failing paths are inside the run's OWN temp tree (/tmp/loop-ancient-works.a/pytest-of-agent/pytest-0/aw0), which is now near-empty: web/ and server/ gone, most of data/ gone, only the directories the tests recreated after the deletion remain (data/db/awtest, test_site_done_line0). The files that "cannot be found" (web/index.html, data/review/lavendon-castle-q6502549.json) all exist in the checkout and in main. Mechanism, from pytest 9.1.1's own source (_pytest/tmpdir.py): the harness sets `TMPDIR=/tmp/loop-$(basename $P)` for every process (a .agent/harness script), so EVERY pytest session of this checkout shares `$TMPDIR/pytest-of-<user>` as its basetemp; at session end a session that ended GREEN with policy=failed and no explicit --basetemp rmtree's the WHOLE basetemp root, and the numbered-dir cleanup (keep=1) removes other sessions' pytest-N directories. My nohup'd run outlived the 214 session (the hand-over's last action) and was wiped ~80 s in, mid-run. The exact erasing run is unidentifiable (its process is gone; the 01:23 pytest and 01:24 node processes I observed were agent c's, in c's checkout with c's own basetemp /tmp/loop-ancient-works.c - a different dir, not a factor; the driver's 214-end work (01:20:22-01:20:36 commits) postdates the wipe). Innocence of 308 and the tree, proven two ways: (a) the 00:40 run of the same tree (before my fix, no concurrent sessions) passed test_review and test_serve; (b) a fresh full suite run IN this session (plain `&`, not nohup - it now dies with the session): 3 failed / 147 passed / 1 skipped = exactly the known reds (test_fit_provenance x2 = 231, both reading the bethlehem docs the lead removed in a858f48; test_site_done_line = 232), log /tmp/aw308-suite-215.log with SUITE-EXIT:1.
+Finished the task: the four fixed after-shots copied to docs/site_flow/markers-after-{globe,zoom,legend,phone}.png (before-pair markers-before-*.png already committed; dimensions and content re-verified this session: 2880x1800 globe/zoom, 792x1800 legend = the sidebar crop with the Marker-key row, 1170x2532 phone @3x; zoom tips sit on their earthworks, the key shows four gradient arrowheads, list rows carry the silhouette); appended "## The site markers become arrowheads (task 308, 2026-10-13)" to docs/site_flow.md (silhouette and tip anchoring, unchanged gradient/tiers/labels, .scan stays a dashed square, the parking-trap note, the shot names); ticked all three boxes, Status: done. The web/index.html position fix itself was already committed by the driver as f51e342 (uncommitted work after the 214 context limit).
+PITFALLS: (1) the corrected MapLibre marker entry under web/ - replaces the planned-but-never-written 213 globe entry (the globe-projection theory was a misdiagnosis: transform and map.project() agree within 0.35px; the real bug was the vendor parking rule being overridden into normal flow). (2) A NEW `### pytest (9.1.1, project .venv)` subsection under "This machine and its environment" recording the shared-TMPDIR basetemp race and the standing rule: run the full suite in the foreground of your session (plain &, never nohup), never start a second pytest run in this checkout while one is running.
+Next session (agent a, per the lead's 212 instruction "WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done"): verify and close 233/234 - the box-by-box procedure is in the 308 hand-over.
 
 
 <!-- task 309 -->
