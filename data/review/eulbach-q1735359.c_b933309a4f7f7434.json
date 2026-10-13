@@ -1,0 +1,33 @@
+{
+ "site": "eulbach-q1735359",
+ "candidates": [
+  {
+   "plan": "c_b933309a4f7f7434",
+   "title": "Eulbach, Grundriss, ORL 48, 1896 (de.wikipedia)",
+   "url": "media/commons/eulbach-q1735359/b933309a4f7f7434.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Eulbach",
+    "place_qid": "Q1735359",
+    "place_label": "Eulbach",
+    "place_lon": 9.07791667,
+    "place_lat": 49.68,
+    "site_lon": 9.07791667,
+    "site_lat": 49.68,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.9159,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

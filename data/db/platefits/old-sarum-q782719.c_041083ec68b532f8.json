@@ -1,0 +1,90 @@
+{
+ "site": "old-sarum-q782719",
+ "plan": "c_041083ec68b532f8",
+ "crop": [
+  0,
+  0,
+  686,
+  892
+ ],
+ "pairs": [
+  [
+   373.0,
+   236.0,
+   -1.8044846,
+   51.0945181
+  ],
+  [
+   458.0,
+   673.0,
+   -1.8051832,
+   51.0912978
+  ],
+  [
+   353.0,
+   476.0,
+   -1.8056022,
+   51.0929062
+  ],
+  [
+   366.0,
+   330.0,
+   -1.8049132,
+   51.0938848
+  ],
+  [
+   432.0,
+   176.0,
+   -1.8036109,
+   51.0947943
+  ],
+  [
+   326.0,
+   176.0,
+   -1.8047775,
+   51.0950432
+  ],
+  [
+   379.0,
+   184.0,
+   -1.8042241,
+   51.0948635
+  ],
+  [
+   333.0,
+   253.0,
+   -1.8049884,
+   51.0944946
+  ]
+ ],
+ "label": "1901",
+ "title": "Ancient Plan of Old Sarum",
+ "cite": "by P.H. Ditchfield; Public domain; https://commons.wikimedia.org/wiki/File:Ancient_Plan_of_Old_Sarum.png",
+ "at": "2026-10-13T13:13:01.100964+00:00",
+ "auto": true,
+ "score": 4.1,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
+ "ref": "File:Ancient Plan of Old Sarum.png",
+ "size": [
+  686,
+  892
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 14,
+  "matches": 343,
+  "ground": "relief.jpg",
+  "window": 0.5,
+  "rot_deg": 18.77,
+  "spread": [
+   0.286,
+   39.6
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "site": "brussels-q239",
+ "candidates": [
+  {
+   "plan": "c_f75255b95bf35578",
+   "title": "Brussels, town plan by Jacob van Deventer",
+   "url": "media/commons/brussels-q239/f75255b95bf35578.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Brussels",
+    "place_qid": "Q239",
+    "place_label": "Brussels",
+    "place_lon": 4.3517,
+    "place_lat": 50.8467,
+    "site_lon": 4.3517,
+    "site_lat": 50.8467,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.2723,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

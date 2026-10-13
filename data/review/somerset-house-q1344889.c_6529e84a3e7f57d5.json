@@ -1,0 +1,33 @@
+{
+ "site": "somerset-house-q1344889",
+ "candidates": [
+  {
+   "plan": "c_6529e84a3e7f57d5",
+   "title": "Somerset House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/somerset-house-q1344889/6529e84a3e7f57d5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Somerset House",
+    "place_qid": "Q1344889",
+    "place_label": "Somerset House",
+    "place_lon": -0.117778,
+    "place_lat": 51.511111,
+    "site_lon": -0.117778,
+    "site_lat": 51.511111,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

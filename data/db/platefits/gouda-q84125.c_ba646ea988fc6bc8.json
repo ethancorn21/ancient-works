@@ -1,0 +1,90 @@
+{
+ "site": "gouda-q84125",
+ "plan": "c_ba646ea988fc6bc8",
+ "crop": [
+  0,
+  0,
+  1280,
+  1645
+ ],
+ "pairs": [
+  [
+   456.8,
+   721.5,
+   4.7088989,
+   52.0110641
+  ],
+  [
+   938.5,
+   357.0,
+   4.7239939,
+   52.0153555
+  ],
+  [
+   940.8,
+   875.5,
+   4.7210096,
+   52.0067652
+  ],
+  [
+   554.6,
+   1117.9,
+   4.709201,
+   52.0041482
+  ],
+  [
+   516.3,
+   389.4,
+   4.71245,
+   52.0163459
+  ],
+  [
+   760.7,
+   616.4,
+   4.7176884,
+   52.0117057
+  ],
+  [
+   206.7,
+   863.4,
+   4.7013399,
+   52.0096185
+  ],
+  [
+   276.5,
+   500.4,
+   4.7053492,
+   52.0153739
+  ]
+ ],
+ "label": "c. 1560",
+ "title": "Gouda, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_Gouda_by_Jacob_van_Deventer.jpg",
+ "at": "2026-10-13T13:04:30.405923+00:00",
+ "auto": true,
+ "score": 9.3,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/gouda-q84125/ba646ea988fc6bc8.jpg",
+ "ref": "File:Map of Gouda by Jacob van Deventer.jpg",
+ "size": [
+  1280,
+  1645
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2101,
+  "matches": 4999,
+  "ground": "relief.jpg",
+  "window": 1.0,
+  "rot_deg": 12.32,
+  "spread": [
+   0.839,
+   129.8
+  ]
+ }
+}

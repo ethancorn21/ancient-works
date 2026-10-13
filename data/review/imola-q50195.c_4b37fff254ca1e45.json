@@ -1,0 +1,33 @@
+{
+ "site": "imola-q50195",
+ "candidates": [
+  {
+   "plan": "c_4b37fff254ca1e45",
+   "title": "Imola, aerial plan by Leonardo da Vinci (1502)",
+   "url": "media/commons/imola-q50195/4b37fff254ca1e45.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Imola",
+    "place_qid": "Q50195",
+    "place_label": "Imola",
+    "place_lon": 11.7112,
+    "place_lat": 44.3535,
+    "site_lon": 11.7112,
+    "site_lat": 44.3535,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

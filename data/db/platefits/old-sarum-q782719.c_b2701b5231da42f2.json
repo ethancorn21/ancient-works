@@ -1,0 +1,90 @@
+{
+ "site": "old-sarum-q782719",
+ "plan": "c_b2701b5231da42f2",
+ "crop": [
+  0,
+  0,
+  500,
+  436
+ ],
+ "pairs": [
+  [
+   223.0,
+   149.0,
+   -1.8049133,
+   51.0940408
+  ],
+  [
+   84.0,
+   300.0,
+   -1.8078598,
+   51.0920488
+  ],
+  [
+   396.0,
+   245.0,
+   -1.8012735,
+   51.0927585
+  ],
+  [
+   247.0,
+   316.0,
+   -1.8044232,
+   51.091827
+  ],
+  [
+   60.0,
+   140.0,
+   -1.8083506,
+   51.0941699
+  ],
+  [
+   358.0,
+   128.0,
+   -1.8020637,
+   51.0943108
+  ],
+  [
+   151.0,
+   52.0,
+   -1.8064226,
+   51.0953301
+  ],
+  [
+   161.0,
+   341.0,
+   -1.8062396,
+   51.091501
+  ]
+ ],
+ "label": "1916",
+ "title": "Plan of Old Sarum",
+ "cite": "by Ordnance Survey Plan; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_Old_Sarum.jpg",
+ "at": "2026-10-13T13:13:39.185139+00:00",
+ "auto": true,
+ "score": 2.5,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/old-sarum-q782719/b2701b5231da42f2.jpg",
+ "ref": "File:Plan of Old Sarum.jpg",
+ "size": [
+  500,
+  436
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 112,
+  "matches": 345,
+  "ground": "six-inch-1st.webp",
+  "window": 0.35,
+  "rot_deg": 0.26,
+  "spread": [
+   0.685,
+   79.1
+  ]
+ }
+}

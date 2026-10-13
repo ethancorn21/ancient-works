@@ -1,0 +1,32 @@
+{
+ "site": "aardenburg-q955",
+ "candidates": [
+  {
+   "plan": "c_d0a020dec428fa00",
+   "title": "Aardenburg, town plan by Jacob van Deventer",
+   "url": "media/commons/aardenburg-q955/d0a020dec428fa00.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Aardenburg",
+    "file_cat": "Map of Aardenburg by Jacob van Deventer",
+    "via": [
+     "Old maps of Aardenburg",
+     "Maps of Aardenburg",
+     "Aardenburg"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 4.0,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

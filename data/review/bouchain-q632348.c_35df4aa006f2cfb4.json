@@ -1,0 +1,31 @@
+{
+ "site": "bouchain-q632348",
+ "candidates": [
+  {
+   "plan": "c_35df4aa006f2cfb4",
+   "title": "Bouchain, town plan by Jacob van Deventer",
+   "url": "media/commons/bouchain-q632348/35df4aa006f2cfb4.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Bouchain",
+    "file_cat": "Map of Bouchain by Jacob van Deventer",
+    "via": [
+     "Old maps of Bouchain",
+     "Bouchain"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.0858,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
