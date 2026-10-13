@@ -546,3 +546,45 @@ line, and writes only web/data/review.json. NO code changed this session. Next: 
 extended tests/test_cover.py per the rewritten hand-over (the design it points to is the
 iter-230 "EXACT NEXT STEP", now corrected by this entry), run it alone under .venv, fix,
 then the full suite (known non-212b red: 307bb's part-4 gestures, pre-existing on this VM).
+
+## 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py
+Session 232 (agent a). Investigation only; the tree was clean and untouched (HEAD 0e6d5df, no
+data-file diff between 8555682 and HEAD - so the iter-231 note measured the same files, it
+simply mis-bucketed). Re-measured live: built 499; nofit 452 = search 234 (199 qid + 35 no-qid)
++ with-row 218 = 105 allcovered + 0 partial + 103 no-item-file + 10 empty-candidate items
+(aventicum, bibracte-q650053 (16 rows), hopewell-mound-group, los-millares, maeshowe,
+motte-castrale-quiquempois-q22961457, numancia, stones-of-stenness,
+the-roman-fort-vicus-bridge-abutments-an-q17650519, trundle-q7847949 - all resolved None,
+all with the batch-era no_picture "web/data/plans.json (1166 rows, matched by the sites
+field)"); docs 57 (21 by:hand + 36 by:agent ALL fitter:matcher, 0 unmarked) ALL is_done in the
+tree, 0 line-check failures; item files 377, open 365 (recomputed with review.resolved_doc);
+plans 1510; store big cache 75 (aesica's c_e28ed261168b49c9.jpg present, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg absent -> the test seeds them);
+CHOOSE == the pinned 4 with pinned row ids/sizes/map_box (CHOOSE site dirs: aardenburg/aire
+real, aesica/alauna symlinked - the realize converts all 382 symlinks anyway); bethlehem dep
+map-only (tmk1850.webp, 22-cand audit item) and shotwick dep map-only (six-inch-1st.webp,
+2-cand audit item), both drawings 0; aesica 1-cand item with the STALE recorded resolution
+{doc: aesica-q4688554.c_e28ed261168b49c9, at: 2026-10-12T03:13:35.590448+00:00} -> D2 holds;
+alauna 5-cand item resolved None (first row book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66]); hit aalsum-q3902030 (item aalsum-q3902030.json,
+candidates []); fail site craig-phadrig; spot aggersborg; web/data/review.json at
+2026-10-13T11:26:15.291892+00:00 with 365. Loop consequence (worked out against
+site_done._fit + batch_us.run_sites, both re-read this session): at loop time 11 sites have
+an empty-candidate item with rows (the 10 + aalsum after staging) - for each, uncovered =
+ALL rows (no docs, empty item_cands -> the keep-restore restores nothing) -> run_sites
+upserts every row "no model answer" (+ the propose-for-checkout extras; the hit's two staged
+rows raise ValueError - not in the checkout's plans.json -> coarse); no_picture_found
+cleared; resolved stays (write-once, None) -> the file MOVES to <site>.<lead>.json (lead =
+first row in the tree's plans order) and stays open. End arithmetic: 377 - 11 (old files
+unlinked) + 112 (101 fresh from the 103 no-file minus the 2 CHOOSE, which get docs not items,
++ 11 renames) = 478 files; open = 365 - aesica + 101 = 465 (the 11 renamed were already
+open). Sync: 60 docs (57 pre + 3 CHOOSE; alauna's was written then deleted by its own
+line) all "skipped" (the 3 built in the loop, the 57 is_done), no "pruned" line, beth/shotwick
+deps byte-identical, the full export is the only page-file writer. Re-read this session,
+all as the iter-230/231 notes say: fit/cover.py, tools/site_done.py, fit/batch_us.py,
+fit/review.py, pipeline/plan_fit.py, fit/matchfit.py, fit/propose.py, tests/conftest.py,
+tests/test_fit_queue.py (the GUARD + reader-thread port-0 server pattern; sys.executable is
+the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corner_pairs, the
+golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
+this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
+is writing the extended test per the corrected hand-over.
