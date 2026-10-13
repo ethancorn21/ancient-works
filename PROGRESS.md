@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-12, iteration 205, agent a - investigation session: every API the test drives was
+- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 206, agent a - MERGE SESSION. The driver-ordered merge of main is
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,68 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 212 DECISION: fit/cover.py designed - six phases on an injectable root, the live run later
-The task's loop, search and sync become one module, fit/cover.py (new; its tests tests/test_cover.py).
-Design settled after reading site_done.py, matchfit.py, batch_us.run_sites, review.upsert_item/export,
-commons (search/files_of/keep/info/thumbs/classify), fit/evidence.record, plan_fit, export_plans and
-serve.after_write. Phases (each takes root, so a test drives them on a temp tree; a CLI runs them in
-order, `all`, with --root and --working/--model-json like site_done):
-
-1. fetch(root): local copies before export_plans (the lead's second point). Files with a `thumb`
-   missing their local jpg: fetch the 1280 thumb (commons.thumbs' behaviour: .part->rename, 1/s pace,
-   resumable - re-implemented here with a root parameter; commons.thumbs itself is bound to the
-   checkout's module-level RAW/OUT). Files with only a `url` (the ORL/Limes rows, 54): commons.info(
-   [title]) gives the 1280 thumburl (imageinfo iiurlwidth=1280) - fetch that; fall back to the raw
-   url (utm-stripped) when info has no thumb. Then regenerate web/data/plans.json with
-   export_plans.main() (in-process; its ROOT/BOOKS and commons' OUT/RAW are module constants - a
-   temp-tree test monkeypatches them, that is setup, not product behaviour). Measured on the synced
-   tree (main a858f48): 131 classified rows missing a local copy (ALL meet the plans threshold
-   p_photo<0.5 and max(p_plan,p_birdseye)>=0.3, none in plans yet -> plans.json grows 1168 -> ~1299,
-   matching the lead's Mac 1296); 401 thumb rows missing locally; 54 url-only rows (1 has a copy).
-   The 211 rows are ALREADY classified (all 930 classified rows are in files.jsonl) - no classifier
-   needed for them, only copies.
-2. search(root): for every BUILT site with no fit (no doc and drawings 0 - recomputed after phase 1,
-   so sites that just gained candidates drop out of the set) and no plans.json candidate: with a qid -
-   (a) its P373 category via commons.wd_claims, files with commons.files_of(cat, depth=1); (b) P180 -
-   evidence.fetch_page_ids + fetch_file_entities on every title gathered so far, keep the ones whose
-   MediaInfo depicts the qid (the proven path, not a new API); (c) the title search
-   commons.search(name) (its 3 full-text queries). Without a qid: (c) only, and the record says so.
-   Keep with commons.keep (1925 cut-off, no regex); dedupe against files.jsonl titles. Per site the
-   SEARCH RECORD names exactly what ran: the category (name or "none"), the file counts, the qid
-   queried for P180 (or "no qid"), the 3 title queries, the date, and any route that failed (a
-   429/timeout is recorded, not hidden - the record must be true).
-3. stage(root): newly found files -> files.jsonl (harvest row shape + qid + by:"212") + local copy
-   (phase 1's fetcher) + classified.jsonl via an INJECTABLE classifier (default the clef batch,
-   commons.classify's questions) + the 200 evidence field via evidence.record(files, books, live,
-   only=new sites) (live in the working phase; a stub in tests) + export_plans again (growth-only).
-4. loop(root, model=None): the normal loop, and the FIT IS THE MATCHER (see next entry). For every
-   built site that still has no fit, run site_done.main([sid, --root root]) in-process WITHOUT
-   --working: matchfit.run (ELoFTR 8091; RoMa 8092 is down on this VM and skipped automatically)
-   writes a doc (fitter:"matcher") for every picture it is sure of, including ones already in a
-   review item (a confident matcher fit resolves the item); the rest get batch_us.run_sites'
-   upsert ("no model answer" when model=None) into the item; a site with zero candidates gets the
-   batch's no_picture item, which phase 5 re-records with the exact searched string. site_done
-   already syncs each new doc (line check: agent docs get the matcher's spread guard, not the
-   batch-model ladder clause), refreshes drawings, and scopes the review export to the site.
-   --working (the vision model, 301) is NEVER passed by 212: it invented points and must not place.
-... (3.3 KB more: `grep -n -A 200 -F '## 2026-10-12 212 DECISION: fit/cover.py designed - six phases on an injectable root, the live run later' DECISIONS.md`)
-
-### 2026-10-12 212 DECISION: the loop's fit is the matcher, never the vision model (the lead, ef84a05)
-The lead note (commit ef84a05, merged into this branch 2026-10-12) steers the task: the fit in 212's
-loop is the MATCHER via tools/site_done.py, never a vision-model fit. Rationale recorded by the
-lead: the vision-model batch fit invented its points (301) and must not place anything; an unsure
-matcher result goes to the review item, as site_done already does. Evidence on this VM (measured
-this session): ELoFTR on 127.0.0.1:8091 answers /health (matchanything_eloftr on the RTX 5060 Ti)
-so matchfit.reachable() is TRUE here - the matcher pass will actually run in the working phase;
-RoMa on 8092 does not answer (matchfit.run skips its second pass when it is down, by design).
-Consequently 212's loop runs site_done WITHOUT --working and WITHOUT --model-json (model=None):
-the matcher places what it is sure of (>= 10 inliers, rotation within 30 deg, spread guard -
-matchfit.judge); the rest land in the review item as "no model answer" (batch_us.run_sites'
-upsert, the path site_done already uses). This supersedes the iteration-200 hand-over plan that
-had the loop on batch_us.llm_model (the AI-box LLM on 8081 does answer, but it is the 301 fabricator
-and the lead forbids it for placement). The vision model may still be used nowhere in 212: not for
-placement, and not as a classifier substitute without a human decision (see next entry).
 
 ### 2026-10-12 212 DECISION: fetch-before-export measured; clef unreachable from this VM, so the classifier is injectable and its use in the working phase is a human decision
 The lead's second point (211 pictures need local copies before export_plans) is measured on the
@@ -104,6 +42,63 @@ injectable for this: if new files are found and clef still does not answer, that
 ask_human moment (set up the tunnel, or approve the LLM on 8081 as a one-off classifier) - it is
 NOT decided in advance, because the search may well find nothing new (the batches already
 searched these sites and recorded no_picture).
+
+### 2026-10-13 212 DECISION: merge of main (20277f3) committed 0becc52 - review.json resolved to our items + their at
+The driver ordered `git merge main` before the task step. The only conflict: web/data/review.json.
+Main's 20277f3 (lead's Mac port: 11 matcher docs on 11 newly built sites, plans.json 1168->1474,
+3 fabricated bethlehem docs deleted) changed review.json ONLY in "at" (18:01:52 -> 03:45:09);
+my branch (a858f48, the same audit work committed directly here) regenerated it with the
+22-candidate bethlehem item. Both sides deleted the SAME 3 docs; the auto-merged bethlehem item
+file is the 22-candidate one (main never changed it), so the correct open-list entry is ours
+(22). Resolution = our items + main's fresher "at". Verified: 333 items, only bethlehem differs
+across base/ours/theirs; 0 bethlehem docs remain after the merge; both plans.json versions
+carry the same 22 beth rows; none of the 11 new-doc sites has any review item (their docs
+resolve nothing). The committed merge = 11 platefits docs + plans.json (byte-equal to main)
++ review.json. web/data/fit_queue.json was regenerated by my diagnostic probe (229 entries vs
+committed 114) and left for the driver's sweep - it is a live-store-derived artifact, not a
+merge resolution.
+
+### 2026-10-13 212 DECISION: 5 red tests on the merged tree, none mine - filed fix-tasks 231-234
+Full suite on the merged tree: 5 failed, 145 passed, 1 skipped (237 s). Verified with throwaway
+worktrees (/tmp/awmain at main 20277f3; /tmp/awhead at pre-merge 953d9ab - remove with
+`git worktree remove --force`):
+- test_fit_provenance.py::test_commons_yeared_title_drops_the_repeated_year: FileNotFoundError on
+  the bethlehem doc c_a164ee440558d66c, deleted by the 306a audit (a858f48 / main 20277f3); the
+  pin was never re-pointed (306a's Touches listed the file). Red on BOTH branches since the
+  deletion (pre-existing on my branch, not caused by the merge).
+- test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc and
+  test_site_done.py::test_site_done_line: both fail the shared stonehenge 13-candidate/13-row
+  pin. The 14th plans row is c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley,
+  1722 (Itinerarium Curiosum)" (Wikimedia Commons, File:Stonehenge Dessin Stukeley 1722
+  03547.jpg, [1280,673]) - new in main's 1474 (211 pictures), missing from the 13-candidate item
+  file. Red on main since f970500; green on my pre-merge branch (1168 had 13). (The /tmp/awhead
+  site_done failure was a worktree artifact: web/data/sites is live/untracked data absent from a
+  bare worktree.)
+- test_merge.py::test_plan_list_refresh_is_pure_growth: "no Wikimedia Commons plan row for the
+  merged picture of numancia". At 9590abf/ef84a05 the row was c_0fa271e2444f7bfc with book
+  'Wikimedia Commons'; the lead's f970500 re-export dropped it - the files.jsonl row now carries
+  url=archive.org (memoriasdelareal009real), i.e. book-sourced, and that book has no
+  data/books/index.jsonl row and no local copy in data/raw (verified), so export_plans excludes
+  it. Red on main since f970500; green pre-merge.
+- test_fit_queue.py::test_fit_queue_real: ordering invariant. The test expects (view, -draw_px,
+  name); the generator sorts by the documented (view, -px, plan, name) (tools/fit_queue.py:365).
+  Main's new rows made the breaking pair: Lessines (c_0193a1cf01ab0b87) vs Avesnes-sur-Helpe
+  (c_61fbbcd3d6051cd9), both view False, both [1280,1842] px; plan order != name order. Neither
+  row exists in my pre-merge 1168 (green then); the pair fires only where the live site dirs
+  exist (my checkout: 503 site entries; the main git tree has none for the 11 new sites, so the
+  main worktree passed). Environment-dependent.
+None of the five files is in my 212 Touches, so instead of editing them I filed four fix-tasks
+(lowest free numbers in 200-499): 231 (the bethlehem year-pin re-point; depends on 306c-f so the
+replacement pin survives the ongoing orphan audits), 232 (the stonehenge snapshot re-pin in both
+tests; depends on 212 - my live loop upserts the 14th candidate into the item and may place a
+matcher doc - and on 231, same file), 233 (numancia plan row: make the data whole - book index
+row + local copy + re-export - or re-pin to the documented absence; depends on 212 to avoid
+concurrent plans.json writes), 234 (fit-queue invariant aligned to the documented generator key
++ regenerate/commit the 229-entry queue file; depends on 212 + 306c-f churn). 231 is written
+(needs its second-pin paragraph corrected - see the 212 hand-over); 232-234 are specced in the
+212 hand-over and still to be written. My 212 Depends on line stays 203a/203b/211 (I can verify
+my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
+claim anyway, add 231-234 to the line).
 
 ## Project-wide driver notes (newest)
 
