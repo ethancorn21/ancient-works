@@ -50,15 +50,25 @@ placement is good enough to keep.
 - york-castle-q80637.c_a7db545536f13e24 - Plan of Center, Broome County 1855 (Gifford Wenig)
 
 ## Hand-over
-(2026-10-13, iteration 185, agent c - **oxford-castle c_ba6b308580428184 DELETED the 303 way this
-session** (new review item created, doc deleted, page re-exported 343/356) **and its line written
-- 5 of 17 lines done**. 12 docs (9 sites) remain to judge; next = pilsbury.)
+(2026-10-13, iteration 187, agent c - **merged main** (the only conflict: the review.json
+"at" timestamp - kept my newer one; the merged file = the union of both sides' item sets,
+verified) and **pilsbury-castle c_7ff765c177ca7bae judged KEEPS, its line written - 6 of 17
+lines done**. 11 docs (8 sites) remain to judge; next = pontefract x2. One PITFALLS entry is
+PENDING because the context limit closed the session before it could be added - add it FIRST
+in the next session (exact text in the 187 DECISIONS entry, section 2, under the `### web/`
+subsection, after the simFit-inversion entry): it records that review.json merge conflicts
+are only the "at" line when both sides re-exported, and how to verify a resolution kept both
+sides' intent.)
 
 **State of the 17 docs (o-y):** offa-s-dyke c_1cca85e7b4b5a89e KEEPS (181); okehampton-castle
 c_0edd7f87db67ff20 KEEPS (181); old-sarum c_ff62c9585a92b375 DELETED (183, 303 way); old-sarum
 c_041083ec68b532f8 DELETED (183, 303 way); oxford-castle c_ba6b308580428184 DELETED (judged 184,
-executed 185, 303 way - item CREATED, not appended). The 303-removal detail of the oxford
-deletion (the exact entry fields, the export numbers) is in the DECISIONS 185 entry.
+executed 185, 303 way - item CREATED, not appended); pilsbury-castle c_7ff765c177ca7bae KEEPS
+(187 - drawn castle hill sits on the real hill; the plate's own scale bar is ~1/3 of the
+drawing's actual scale, a feet/yards mix-up in the doc, not a fit error). The 303-removal
+detail of the oxford deletion (the exact entry fields, the export numbers) is in the
+DECISIONS 185 entry; the pilsbury evidence (fit replica vs the shot's [eval], the hilltop
+composite, the scale-bar measurement) is in the DECISIONS 187 entry.
 
 **oxford-castle (executed this session, 185):** fit/review.py API only, no hand-edited JSON
 (the script was /tmp/aw306e_oxford.py): upsert_item(ROOT,'oxford-castle-q2600886',[entry]) created
@@ -72,8 +82,7 @@ doc deleted; export(ROOT, site) -> 343 open of 356 (342/355 before). Only 3 file
 (D the doc, A the item, M web/data/review.json). The oxford line is in the 306e block of
 docs/site_flow.md (after the old-sarum c_0410 line) - that is 5 of 17 lines.
 
-**Remaining work - 12 docs (9 sites):**
-- pilsbury-castle-q7194511.c_7ff765c177ca7bae. NO item.
+**Remaining work - 11 docs (8 sites):**
 - pontefract-castle-q1949590 c_3213330a52fe6018 + c_d135fb32326df430 (two pages of the 1807 borough
   history, 8 pairs each - LADDER class, expect the bury-castle treatment). Existing item
   [c_ba5dfa2d2dbc645e + 6 more].
@@ -113,8 +122,8 @@ data/db/platefits/<doc>.json; then `export(root, site)` scoped to the site (NEVE
 item file; the page file is recomputed over the whole queue - that is intended). Sites WITH an
 existing review item: pontefract [c_ba5dfa2d2dbc645e + 6 more], richborough [c_1dcd5a7171573663],
 windmill-hill [earthworkenglan01allcgoog_n0557_1, _n0558_1], york-castle [c_81ecab4a9284f156 + 4
-more]. NO item (create if deleted): pilsbury, portus-adurni, raby-castle, stanton-drew, taunton.
-(oxford now HAS one - created for c_ba6b308580428184 this session; offa, okehampton KEEPT - no
+more]. NO item (create if deleted): portus-adurni, raby-castle, stanton-drew, taunton.
+(oxford HAS one - created for c_ba6b308580428184 at 185; offa, okehampton, pilsbury KEEPT - no
 item; old-sarum's existing item was reused for both deletions.)
 
 **/tmp recipe (re-writable in ~40 lines):** .venv/bin/python (has PIL + scipy). (a) merc =
@@ -134,17 +143,21 @@ site box (1600 px for old-sarum), ink = alpha>40, r and compass-az from the box 
 25 m annulus and per 22.5 deg az bin (use i*22.5 in a plain list, NOT range(0,360,22.5) - range
 rejects float steps).
 
-**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 5 of 17 lines (offa,
-okehampton, old-sarum x2, oxford); tick when all 17 are in. Box 3 PARTIAL: 3 deletions executed
-(old-sarum c_ff62, c_0410; oxford c_ba6b308580428184); the rest await the remaining 12 verdicts.
-Box 4 satisfied (no `by: hand` touched; suite this session: 149 passed, 1 skipped, 1 failed
-(270.6 s) = IDENTICAL to the 183 baseline - the 1 is agent a's in-flight 307
-test_fit_queue::test_placement_gestures_and_save_in_the_browser, the pre-existing red on every
-tree that merged main since 7e61147; no new failure from this change - the union tests and
-test_platefits_docs_match_sites are green).
+**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 6 of 17 lines (offa,
+okehampton, old-sarum x2, oxford, pilsbury); tick when all 17 are in. Box 3 PARTIAL: 3
+deletions executed (old-sarum c_ff62, c_0410; oxford c_ba6b308580428184); the rest await the
+remaining 11 verdicts. Box 4 satisfied (no `by: hand` touched; suite this session after the
+merge: 152 passed, 1 skipped, 3 failed, 311 s - baseline was 149/1/1: +3 passed = main's new
+tests (212a's test_cover.py +770 lines etc.), +2 failed = the 203b-owned bibracte pair
+(212a's merge-induced reds, documented in 212a's DECISIONS entry; NOT caused by my merge -
+see the 187 entry); the 3rd red is agent a's standing 307 gestures test).
 
 **Re-read:** the 306e block in docs/site_flow.md (header + offa + okehampton + old-sarum x2 +
-oxford lines, between the 306d ludlow line and '## The site markers become arrowheads (task 308)')
-- continue it in the same format (one line per doc, KEEPS/DELETED - an orphan today, invisible on
-the page). NEXT DOC TO JUDGE: pilsbury-castle c_7ff765c177ca7bae (the /tmp/aw306e_doc.py helper,
-re-writable from the /tmp recipe above; the committed shots are the fallback).
+oxford + pilsbury lines, between the 306d ludlow line and '## The site markers become
+arrowheads (task 308)') - continue it in the same format (one line per doc, KEEPS/DELETED -
+an orphan today, invisible on the page). NEXT DOC TO JUDGE: pontefract-castle c_3213330a52fe6018
+(then c_d135fb32326df430) - 8 pairs each, LADDER class, expect the bury-castle treatment;
+existing item [c_ba5dfa2d2dbc645e + 6 more] so a deletion APPENDS, it does not create. (The
+/tmp scripts were wiped by the context limit - re-write from the /tmp recipe above; the
+committed shots docs/site_flow/agent_fits/pontefract-castle-q1949590_c_*.png + _relief are the
+fallback source of truth.)

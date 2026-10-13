@@ -1340,6 +1340,21 @@ the site stays covered for the union check, an open item counts).
   page (the 303 way: the picture went to a new review item for the site with this reason, the
   document was deleted, the site's review page file re-exported; the site stays covered by its
   built 1842 depiction plus the open item).
+- pilsbury-castle-q7194511.c_7ff765c177ca7bae - Pilsbury Castle plan (Wikimedia Commons,
+  J. C. Cox, 1905; similarity, 4 pts, resid 7.7-21.3 m, 1.35 m/px, -4.7 deg, score 15.8):
+  the 4 anchors are a real spread (the W river bank, the drawn castle's centre, the drawn
+  S hill's centre, the scale bar's 0 end), so the placement is anchored, not a ladder. The
+  drawn castle hill (the hatched motte-and-bailey hill with the 'Pilsbury Castle' caption and
+  its N arrow) sits on the real hill: the drawn flanks' hatching follows the real LiDAR
+  ridge on both slopes, and the 1842 six-inch summit contour of the hill lies inside the
+  drawn hill; the drawn 'Hills' hatch (the S hill) is on the real S hill, the drawn
+  'River Dove' on the real Dove, and the 'Section at A-B-C' profile on the real
+  valley-hill-valley line (the catalog site point itself lies ~140 m SSW of the summit, on
+  flat ground at the village's N edge - the fit is anchored by the 4 pairs, not by it).
+  The plate's own 'SCALE OF FEET 100/200/300' bar is ~74 px per 100 ft (~0.41 m/px), about
+  a third of the drawing's actual 1.35 m/px - the bar disagrees with the drawing (the usual
+  feet/yards factor-of-3 mix-up); the drawing itself matches the real hill in size and
+  place. KEEPS - an orphan today, invisible on the page.
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
