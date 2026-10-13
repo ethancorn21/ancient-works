@@ -20,148 +20,80 @@ Dependency on 307 removed: 307's only open part is 307d, the owner's own check, 
 
 ## Hand-over
 
-(2026-10-13, iteration 212, agent a - FIRST session on 308. Investigation done, before-baseline
-committed, design complete, NO code changed yet. One step left to implement, then shots/docs.)
+(2026-10-13, iteration 213, agent a - merge done + CODE IMPLEMENTED in web/index.html (uncommitted, in the
+working tree); probe self-checks mostly green; one measurement fix applied but NOT yet re-run. Next session:
+re-run probe, shots -> docs, tick boxes.)
 
 **State.**
-- Task file byte-identical to the lead's main version (61c6bdb dropped "Depends on: 307").
-- Committed 0470610: `docs/site_flow/markers-before-{globe,zoom,legend,phone}.png`. Globe = the
-  page's default view (center [-35,45] z2.3, 1440x900 dsf2); zoom = `map.flyTo([-1.9, 51.15], 7.2)`
-  (Wiltshire/Devon/Dorset: many sites incl. t4 Old Sarum/Mayburgh; 1440x900 dsf2); legend = clip
-  {0,0,396,900} of the left panel (Marker key + list rows, 1440x900 dsf2); phone = 390x844 dsf3
-  isMobile of the same zoom view. Take the "after" pair with the identical probe (below).
-- `web/index.html` is UNTOUCHED (still squares). No uncommitted code.
-- Suite not run this session. Driver notes carry pre-existing failures (newest: test_gate::
-  test_recorded_measurement_reproduces_and_agrees; older notes also list test_batch_eu union
-  tests and test_serve::test_platefits_docs_match_sites). After the code change run
-  `.venv/bin/python -m pytest -q` and compare against that set.
+- main merged into agent/a, commit 4b12889 (2 parents b26b97a+735ec66). Conflicts resolved:
+  tasks/212-cover-final.md = union (lead note + lead split from main, my iter-211 design hand-over kept last,
+  per the lead split's "a's design notes stay on agent/a"); tasks/308-arrowhead-markers.md = my side (main's was
+  empty). The merge brought NO code changes (main's new commits 61c6bdb/735ec66 are task-file-only).
+- **web/index.html: the arrowhead is IMPLEMENTED in the working tree (uncommitted; the harness saved it).**
+  All 7 edits landed and node-syntax-checked: the AH svg constant near TIERS; the markers CSS block rewritten
+  (each tier keeps its size AND carries `--mks:` colour; `.sq.ah` rules with the non-scaling-stroke path; tag
+  absolute left:100%/top:100%/translateY(-50%); `.marker.scan .tag { top: 50% }`); addMarkers (`.sq ah` + AH,
+  anchor 'bottom' offset [0,0]); syncMarkers (`squares`->`marks`, box [x±8, y-16..y+1], label box unchanged);
+  siteEntries swatch; the Marker-key legend (all 5 spans `.ah` + AH; the S.more fragment is now a backtick
+  template literal); addScanAreas untouched (square, anchor 'left' [-6,0]); comments updated ("coloured
+  arrowhead" at ~811, "most of the arrowheads" at ~340, section headers).
+  DEVIATION from the iter-212 design (logged in DECISIONS): `.marker` stays `display: flex` (not inline-block)
+  with `position: relative` - flex keeps the button box to exactly the .sq (an inline-block parent would add
+  line-box descender height and shift the tip).
+- **KEY FINDING: the map is a MapLibre 5.6 GLOBE (`projection: {type:'globe'}`, index.html ~324).**
+  `map.project(lnglat)` returns the FLAT 2D map plane - NOT the on-screen position of a globe marker (up to
+  ~3000 px apart at z2.3). A marker's own inline transform `translate(-50%,-100%) translate(Xpx,Ypx)` carries
+  the on-globe screen position MapLibre computed from the lnglat. So the anchor check compares the measured
+  tip to THAT transform point, and map.project only as a loose cross-check. (Write this as a PITFALLS entry:
+  "MapLibre 5.6 globe mode: map.project() != marker screen position".)
+- **Probe** /tmp/aw308shot.mjs (survives in /tmp; usage `node /tmp/aw308shot.mjs <url> <outdir> after`):
+  rewritten this session (checks reordered: shape -> anchorZoom -> legend shot -> anchorGlobe -> click; anchor
+  now = svg-box bottom-centre vs the marker's own transform point + the visual path-tip offset; latest edit:
+  skip markers whose rect is outside the 1440x900 viewport - off-view markers carry wrapped/2D-plane positions
+  that made the "worst" 3023 px before the fix). Last run's results: shape 499/499 site + 328/328 legend +
+  324/324 list rows all carry the svg (scan markers: none on the page, Finder tab closed); click OK (aalsum
+  opens); worstTipBelow 0.15 px (visual tip vs the svg box bottom - sub-pixel, fine); the 3023 worst was the
+  off-view artifact the latest edit removes. **The re-run with the viewport filter has NOT happened yet.**
+- Server for the probe: `python3 -m http.server 0 --bind 127.0.0.1` in web/, pid in /tmp/aw308-srv.pid (was
+  port 33187; may be dead - restart fresh, log /tmp/aw308-srv.log, port via `ss -tlnp`). The 6 console 404s in
+  the probe report are the known handled fallbacks (data/scans.json, data/amazon/areas.json, api/db/ping ...).
+- After-shots from the pre-fix run are in /tmp/aw308shots/after-{globe,zoom,legend,phone}.png - REGENERATE after
+  the final probe run, then copy to docs/site_flow/markers-after-{globe,zoom,legend,phone}.png (before-pair is
+  already committed in docs/site_flow/). Eyeball after-zoom.png: tips land on the earthworks.
+- **Suite**: full `.venv/bin/python -m pytest -q` on the merged tree was running in the background at session
+  end (log /tmp/aw308-suite-merged.log, ends with a `SUITE-EXIT:n` line; last check: 2 Fs so far - expected
+  231/232 merge-reds per my 212 hand-over). The pre-merge last-test-output (driver's, older) had 3 failed:
+  test_fit_provenance x2 (231), test_site_done_line (232) - the 233/234 tests were NOT among them (the lead's
+  aeeb5aa fixed them on main).
+- **233/234 (my tasks) - pending bookkeeping, per the lead's instruction in my 212 hand-over** ("WHEN MAIN IS
+  MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked"; the lead did their work in aeeb5aa).
+  NOT marked yet. Verify from /tmp/aw308-suite-merged.log: 233 box 1 = tests/test_merge.py::
+  test_plan_list_refresh_is_pure_growth passes; 233 box 2 = all pre-212 (id, sites[0]) keys present in
+  web/data/plans.json (1474 committed incl. numancia c_0fa271e2444f7bfc - check it's in the file); 233 box 3 =
+  machine-dependence recorded (test docstring + PITFALLS export_plans entry - check both, extend if needed);
+  234 box 1 = test_fit_queue_real passes with the (view,-px,plan,name) key (check the test's key tuple in
+  tests/test_fit_queue.py); 234 box 2 = committed web/data/fit_queue.json byte-reproducible by tools/fit_queue.
+  py on the current tree (run it twice, compare, note the "at" field); 234 box 3 = tools/fit_queue.py
+  untouched (`git diff main -- tools/fit_queue.py`). If any box fails: don't tick it, log in DECISIONS, leave
+  the task open. 231/232 stay open (their deps 306c-f/212 - see the 212 hand-over in tasks/212-cover-final.md).
 
-**The marker system (all in web/index.html - there are NO web/*.css files; styles are inline):**
-- CSS ~157-179: `.marker` = flex row (`.sq` square + `.tag` label); per-tier sizes/colors:
-  t4 15px #8A1230 (border 2px), t3 13px var(--survey), t2 11px #E2697F, t1 9px #F4B4C0,
-  plain 7px var(--sheet); base `.marker .sq` 11px + 1.5px var(--ink) border. `.tiers` legend
-  swatches repeat the same sizes/colors on their own spans (two places define each colour).
-  z-index per tier; `pointer-events` only on `.sq`/`.tag` (comment: the hidden label once
-  widened the button - keep it out of layout). `.marker.scan .sq` = dashed sheet square.
-- JS: `TIERS` ~452 + `tierOf` (score thresholds) + `LABEL_FROM` (label zoom per tier);
-  `addMarkers()` ~466: button `<span class="sq"></span><span class="tag">…</span>`,
-  `new maplibregl.Marker({ element: el, anchor: 'left', offset: [-6, 0] })` (= square centre on
-  the point); `syncMarkers()` ~480: per-marker box ±8 around the projected point, label box
-  [p.x+6, p.y-10, p.x+12+tag.offsetWidth, p.y+10], higher tiers placed first, labels hide on
-  overlap; `siteEntries()` line 563 (list-row swatch `<span class="tiers"><span class="sq
-  ${tierOf(s)}"></span></span>`); `renderList()` line 589 (the "Marker key" legend spans, the
-  plain one inside a plain-string `${S.more ? '…' : ''}` - beware, see below);
-  `addScanAreas()` ~1187 (Finder search areas - dashed square at the area's corner: KEEP square
-  and its anchor 'left' [-6,0]); line ~1151 resets `mk.el.className` after a save (innerHTML is
-  untouched, safe); comment ~811 says "coloured square" (update wording).
-- MapLibre 5.6.0 (web/vendor/, minified): the element itself gets class `maplibregl-marker`;
-  default offset when none passed is [0,-14] - so PASS `offset: [0,0]` explicitly.
-  `anchor: 'bottom'` should put the element's bottom-centre on the coordinate - VERIFY in the
-  probe (the after-check below measures it), don't assume.
-- Tests: none touch the markers (grep .sq/tiers/markers in tests/ finds nothing but fit-pair
-  markers in test_fit_queue's part 4 and unrelated strings). test_review.py::
-  test_index_html_review_footprint pins only the review.js script tag - unaffected.
+**Exact next step.**
+1. `tail /tmp/aw308-suite-merged.log` (the SUITE-EXIT line) - record the merged-tree failure set in DECISIONS.
+2. Re-run the probe: ensure the web/ server (see above), `node /tmp/aw308shot.mjs http://127.0.0.1:<port>/ /tmp/aw308shots after`.
+   Pass = per-tier worstTransform <= ~1 px in BOTH anchorZoom and anchorGlobe (globe view: the transform is the
+   only valid reference; project will show a few-px globe-curvature difference - informational only),
+   worstTipBelow <= 1, shape all-equal, click ok. If worstTransform > 1 for an ON-screen marker: the button box
+   isn't exactly the .sq - measure `k.el.offsetWidth/Height` vs the .sq box and fix the flex/CSS, don't offset
+   the anchor blindly.
+3. Eyeball the 4 after-shots; copy to docs/site_flow/markers-after-*.png; append to docs/site_flow.md a section
+   "## The site markers become arrowheads (task 308, 2026-10-13)": silhouette (notched contracting stem, tip on
+   the point), same colours/sizes/collision rules, scan areas stay dashed squares at the area corner, before/
+   after shot names.
+4. Tick the three boxes, Status: done, commit (web/index.html + shots + docs).
+5. Mark 233/234 per the verification list above (their own commits), commit.
+6. Write the PITFALLS entry (MapLibre globe map.project vs marker transform; where: web/index.html ~324,
+   /tmp/aw308shot.mjs; symptom: anchor deltas of ~3000 px at z2.3). Kill the http server.
 
-**The design (decided this session - implement exactly this):**
-1. Near `TIERS` add: `const AH = '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 99L8 40L34 12L50 24L66 12L92 40Z"/></svg>';`
-   (notched arrowhead: tip at bottom (50,99); widest head (8,40)/(92,40); contracting stem to
-   shoulders (34,12)/(66,12); central notch dipping to (50,24). Straight edges read crispest at
-   7px. Owner's "notched / contracting-stem arrowhead".)
-2. CSS: keep every existing size rule and add the tier colour as a custom property in each:
-   `.marker.t4 .sq { …; --mks:#8A1230 }` (t3 var(--survey), t2 #E2697F, t1 #F4B4C0, plain
-   var(--sheet)) and the SAME `--mks` in each `.tiers .tN` rule. Add:
-   `.marker .sq { display: inline-block; … }` (display needed once `.marker` is no longer flex);
-   `.marker { display: inline-block; position: relative; … }` (was display:flex);
-   `.marker .sq.ah, .tiers .sq.ah { border: 0; background: none; }`; `.marker .sq.ah svg,
-   .tiers .sq.ah svg { display:block; width:100%; height:100%; overflow:visible; }`; `.marker
-   .sq.ah path, .tiers .sq.ah path { fill: var(--mks, var(--survey)); stroke: var(--ink);
-   stroke-width: 1.2px; vector-effect: non-scaling-stroke; }` (non-scaling = 1.2px outline at
-   every tier size, crisp on retina; svg overflow visible so the tip stroke isn't clipped).
-   Label: `.marker .tag { position: absolute; left: 100%; top: 100%; transform:
-   translateY(-50%); margin-left: 5px; …keep existing look… }` (button box = only the `.sq`,
-   so the button's bottom-centre = the svg tip = the site point; the tag hangs to the right,
-   vertically centred ON the point, same as the flex row did). Scan marker keeps the old
-   look: `.marker.scan .tag { top: 50%; }` (its button is centred on the point, anchor 'left').
-3. JS: `addMarkers()` - innerHTML `<span class="sq ah">${AH}</span><span class="tag">…</span>`,
-   `new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, 0] })`. `syncMarkers()`
-   - marker footprint box becomes `[p.x-8, p.y-16, p.x+8, p.y+1]` (rename `squares`->`marks`;
-   covers the tallest 15px head above the point, tip at the point); label box UNCHANGED
-   [p.x+6, p.y-10, p.x+12+tagW, p.y+10] - the rules work as before. `siteEntries()` line 563 -
-   `<span class="sq ah ${tierOf(s)}">${AH}</span>`. `renderList()` line 589 - all five legend
-   spans get `ah` + `${AH}`; the `${S.more ? '…plain…' : ''}` fragment must become a TEMPLATE
-   literal (backticks) or ${AH} won't interpolate. `addScanAreas()` stays as-is (no `.ah`, no
-   AH, anchor 'left' [-6,0]). Comment ~811: "coloured square" -> "coloured arrowhead".
-   Update the marker-section header comment (square -> arrowhead, tip-anchored, scan stays square).
-4. After shots: reuse the probe - it still runs (server: `python3 -m http.server 0 --bind
-   127.0.0.1` in web/; this session's was pid in /tmp/aw308-srv.pid, port 44713 - may be dead;
-   restart fresh and kill any of mine when done). `node /tmp/aw308shot.mjs <url> <outdir> after`
-   (it writes {phase}-globe/zoom/legend/phone.png; for phase 'after' it also reports: anchor =
-   worst |tip - site point| over all visible markers per tier (must be ≤ ~1px; if bigger, the
-   MapLibre anchor semantics differ - measure and adjust with an offset), click = clicking a
-   marker's .sq sets S.sel to its site, shape = counts of svg-bearing .sq in markers/legend/list
-   and that .marker.scan .sq still has NO svg). Copy to docs/site_flow/markers-after-*.png.
-5. docs/site_flow.md: append a section "## The site markers become arrowheads (task 308, …)":
-   what changed (silhouette, tip-anchored, same colours/sizes/collisions, scan areas stay
-   squares), and the before/after shot names. Then tick all three boxes (verify: boxes 1-2 via
-   the probe's after-checks + the shots, box 3 via the files), Status: done.
-
-**Re-read** (for the next agent): web/index.html ~157-179 (the CSS block being replaced), ~452-500
-(TIERS/addMarkers/syncMarkers), 563 (siteEntries swatch), 589 (legend), 805-815 (the "coloured
-square" comment), 1145-1155 (className reset), 1180-1195 (addScanAreas).
-
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/203-batch-fit.md` (split)
-- `tasks/207c-roy.md` (blocked)
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-
-## Next open tasks
-- `tasks/207a-horsley.md`
-- `tasks/207b-maclauchlan.md`
-- `tasks/221-review-stats-test.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-(no entries yet)
-
-## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_gate.py:36: AssertionError
-    =========================== short test summary info ============================
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    1 failed, 59 passed in 63.50s (0:01:03)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_serve.py::test_platefits_docs_match_sites
-    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
-    4 failed, 60 passed in 64.37s (0:01:04)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-13 308 (agent a, iteration 212)
-    First session: before-baseline committed (docs/site_flow/markers-before-*.png), arrowhead design final in the task file's hand-over, NO code changed yet. Next: implement the .ah SVG marker in web/index.html exactly per that hand-over, run /tmp/aw308shot.mjs in phase 'after' (it self-checks tip-anchoring/click/shape), suite, docs/site_flow.md section, tick boxes.
+**Re-read** (next agent, with fresh eyes): web/index.html ~157-195 (the rewritten markers CSS - check the
+  .ah rules come AFTER the tier rules: equal specificity, order wins) and ~455-500 (AH/TIERS/addMarkers/
+  syncMarkers), 563-600 (swatches/legend), /tmp/aw308shot.mjs (the anchorCheck function).
