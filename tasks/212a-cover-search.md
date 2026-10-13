@@ -1,7 +1,7 @@
 Status: open
 # 212a: Cover search - a targeted picture search for every uncovered site, "no picture found" items
-Depends on: 211, 203b
-Touches: fit/cover.py, data/review/, data/commons/files.jsonl, data/commons/classified.jsonl, data/raw/commons/, web/data/plans.json, tests/test_cover.py
+Depends on: 211
+Touches: fit/cover.py, data/cover/ (searches.json + the run log), data/review/, data/commons/files.jsonl, data/commons/classified.jsonl, data/raw/commons/, web/data/plans.json, tests/test_cover.py
 
 ## Goal
 For every built site with no fit document and no plan candidate in web/data/plans.json:
@@ -29,97 +29,86 @@ note ef84a05 - the matcher is the fit, never the vision-model fit).
 
 ## Hand-over
 
-(2026-10-13, iteration 220, agent a - boxes 1-3 stay DONE and verified
-(re-ran tests/test_cover.py today: 5 passed, 33.9 s - still green after the
-store grew ~328 files). Box 4 (the live run) still waits on 203b, but THIS
-session CORRECTED the reason for the wait and re-measured everything the run
-depends on. No code changes.
+(2026-10-13, iteration 221, agent a - the live SEARCH phase ran and is committed;
+the STAGE phase is blocked on a human classifier decision (ask_human filed,
+blocking); the rest of the live run is one session once the answer lands.
 
-**WHY THE WAIT (corrected understanding - replaces the iter-219 one):**
-203b's file has been Status: done on main since c49aeb9 (2026-10-11, agent c
-iter 50 - the 294-site EU run: 94 auto docs + 252 items, union 384/384), and
-there is NO driver reopen commit for 203b on main. But this iteration's
-driver prompt lists 203b as agent c's CURRENT work (fit/batch_eu.py
-data/db/platefits data/review docs/batch_eu.md tests/test_batch_eu.py), and
-203b's own hand-over anticipates exactly this: "If this task is ever
-reopened (e.g. a 212-era re-coverage run changes the tree), re-verify the
-checks below." The batch ran over the 384-site world; the world is now 499
-built, and the batch's live union test gates on "Sites run: 294" vs the live
-EU partition - so agent c's 203b session is a re-run/re-verify over the
-grown world, and its writes (new EU docs + item re-upserts, incl. the
-batch's searched wording on search-set items my nopicture also writes) must
-land before my live run's commit ("212 runs last on purpose"). 203b is
-already on my Depends on line (211 satisfied); the driver brings this task
-back once 203b is (re-)merged. Do NOT run the live phases before then
-(searches.json is resumable, so nothing is lost by waiting).
+**STATE:** Box 4 half-executed. The search phase ran LIVE today (08:08-08:44
+UTC, `.venv/bin/python fit/cover.py search` on this checkout; resumable
+per-site atomic writes; the run is logged in data/cover/search.run.log).
+Result: 245/245 records = exactly the measured search set (204 qid + 41
+no-qid), **107 new files on 16 sites, 0 failed routes** (every record says
+"all routes answered"). Committed: data/cover/searches.json (new to git) +
+the run log; data/cover/ is on my Touches line. tests/test_cover.py re-ran
+with searches.json present in the checkout: 5 passed, 33.7 s (the test's
+tree unlinks it, so it stays deterministic). The lead (mid-session message):
+203b is done on main and its listed re-run is NOT a dependency of 212a -
+the wait is lifted and 203b is off my Depends on line (211 stays; done).
 
-Agent c's other in-flight work is FILE-DISJOINT from the live run (verified
-on the live tree): 306's audit items are doc-keyed (<site>.<doc>.json) for
-doc'd sites; my nopicture writes the 245 EXACT bare <site>.json files of the
-no-doc search set (245/245 checked, 0 doc-keyed in the set - upsert_item's
-lead follows candidates[0].plan and these items are candidate-less, so the
-names never move); 306 exports web/data/sites.json + review.json, I
-re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
-disjoint.
+**The 107 new files (16 sites, from searches.json "new"; all carry
+meta.url):** arbeia-q1131391 1, aventicum 3, bibracte-q650053 18,
+burcht-van-leiden 11, carnac-stones-q833850 2, craig-phadrig 1,
+hopewell-mound-group 40, indian-mounds-park-q3150092 2, los-millares 3,
+maeshowe 1, motte-castrale-quiquempois-q22961457 1,
+moundville-archaeological-site-q1320821 1,
+ocmulgee-mounds-national-historical-park-q1517500 9, stones-of-stenness 1,
+the-roman-fort-vicus-bridge-abutments-an-q17650519 3, trundle-q7847949 10.
 
-**LIVE WORLD RE-MEASURED TODAY (the run recomputes all of this at run time -
-these pins feed the diff rules and the expectations):** main is frozen at
-77bdf5d (an ancestor of my pre-218 sync 54c0711 - the git world is
-byte-identical to what I verified in 217/219):
-- 499 built; 131 docs = 21 by:hand + 110 by:agent; nofit 402; cand-sites 601;
-  search set 245 = 204 qid + 41 no-qid (first4: aalsum-q3902030,
-  abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
-  first no-qid: aggersborg) - matches the iter-217 post-aeeb5aa measurement
-  (the 246 in the CORRECTION-4 entry was pre-aeeb5aa, when numancia had no
-  row yet).
-- files.jsonl: 923 kept rows, only 1 without a local copy - the no-source
-  Stukeley TAB XI (stonehenge-q39671, thumb/url null - neither fetches nor
-  drops). The ~328 missing copies measured 10-13 all arrived in the shared
-  store via the lead's aeeb5aa "data/raw synced both ways Mac<->VM" - **the
-  fetch phase is now a no-op** (0 thumb, 0 url, 1 nosrc): it only prints
-  counts + re-exports plans.
-- plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs, 0 rows
-  referencing a search-set site (aeeb5aa's 1474 + numancia's row back) -
-  the baseline for the key-set diff rule in step 5; re-record it at run
-  time anyway (the 203b re-run or other merges may have moved it).
-- data/cover/searches.json: absent (fresh start; the test's build_tree
-  unlinks it from the test tree, so the test stays deterministic before AND
-  after the live run).
-- data/review: 346 items + README (347 files).
-- Golden: sha256sum -c tests/golden/hand_fit_docs.sha256 = 40/40 today.
+**BLOCKER (ask_human filed, blocking): the stage phase needs the
+classifier.** The 107 files need classified.jsonl rows (my box 1 stages
+"files.jsonl + classified.jsonl with the 200 evidence field"). The default
+is Clef-flash on the AI box (10.0.10.75), reachable only through the ssh
+tunnel at 127.0.0.1:18083 (pipeline/clef.py header:
+`ssh -N -L 18083:127.0.0.1:8083 aibox`; the client honors AW_CLEF_URL).
+From THIS VM: 18083 refused; the box's 8083/8081 are firewalled (TCP
+timeout - no alternative endpoint for the override); the VM's only aibox
+keys are the forced-command doorbell / labdash-feed / lab-archive (no
+shell, no port forwarding) - so no tunnel is openable here. The LLM on
+127.0.0.1:8081 (the one the lead FORBIDS for placement) is UP and is the
+offered one-off alternative. The request offers: (a) RECOMMENDED - give
+this VM an aibox ssh key with normal session/forwarding rights, I open
+the tunnel and stage with the real Clef-flash (the classifier the batch
+used); (b) approve the 8081 LLM as one-off classifier (I write a small
+adapter, pass it to cover.stage, and record that it is not Clef-flash);
+(c) only if both are refused - stage without classified rows (needs a
+small stage code change and departs from the box-1 contract; not my pick).
 
-**EXACT NEXT STEP (when 212a reopens, i.e. 203b re-merged) - the live run,
-network allowed, in this checkout, one session per phase if it does not fit
-in one:**
- 1. `.venv/bin/python fit/cover.py fetch` (near-instant now: 0 fetches)
- 2. `.venv/bin/python fit/cover.py search` (real Commons/Wikidata, 1/s paced,
-    resumable via data/cover/searches.json)
- 3. `.venv/bin/python fit/cover.py stage --live` (evidence.record for the new
-    rows; ask_human ONLY if new files were found and clef 127.0.0.1:18083 is
-    still down: tunnel, or approve the LLM on 8081 as one-off classifier)
- 4. `.venv/bin/python fit/cover.py nopicture` (re-stamps no_picture_found on
-    the 245 bare items with the exact searched string)
- 5. Record the plans.json (id, sites[0]) key-set diff vs the committed file
-    (any LOST key = a fetch failure to record as a data finding, never
-    silently dropped; expected growth is pure adds), then commit:
-    data/cover/searches.json (new to git), grown files.jsonl +
-    classified.jsonl, the item files, the re-exported plans.json (data/raw
-    is gitignored - note the new copies; expect ~0 new copies today)
- 6. `sha256sum -c tests/golden/hand_fit_docs.sha256` must pass 40/40; re-run
-    `.venv/bin/python -m pytest tests/test_cover.py -q` green (the test is
-    state-aware: the fake-hit site is recomputed as the first qid site still
-    in the search set, and the fake-title preconditions re-check themselves).
- The loop (box 1's "site goes through the normal loop") is the LEAD's
- (matcher ELoFTR 127.0.0.1:8091; RoMa 8092 down, skipped; the LLM on 8081 is
- forbidden for placement); sync/export are 212b's; the report is 212c's.
+**EXACT NEXT STEPS (one session, once the classifier is available):**
+ 1. (a) open the tunnel on this VM (`ssh -N -f -L 18083:127.0.0.1:8083
+    aibox`) and verify the port; (b) write the 8081 adapter as an
+    INJECTABLE classifier passed to cover.stage (classifier=...) - do not
+    change the module default; record which model answered.
+ 2. `.venv/bin/python fit/cover.py stage --live` - the 107 local copies
+    (1/s), the classifier in batches of 6, evidence.record live for the
+    107 rows, plans.json re-export. Expect "stage: 107 file(s) staged".
+ 3. `.venv/bin/python fit/cover.py nopicture` - expect **229** items
+    stamped (245 records minus the 16 sites that now have plans rows and
+    are skipped; those 16 stay unstamped - their pictures go to the loop).
+ 4. Key-set diff: plans.json (id, sites[0]) pairs now vs the committed
+    1475 (recompute the baseline from `git show HEAD:web/data/plans.json`
+    - /tmp/aw212a-plans-keys-before.json is ephemeral). Expected: pure
+    adds (~107, minus any title the keep filter already had in
+    files.jsonl); ANY LOST key = a fetch failure to record as a data
+    finding, never silently dropped.
+ 5. Commit: grown data/commons/files.jsonl + classified.jsonl, the 229
+    re-stamped item files, the re-exported web/data/plans.json (the new
+    data/raw/commons copies are gitignored - note their count in the
+    commit message).
+ 6. Gates: `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40;
+    `.venv/bin/python -m pytest tests/test_cover.py -q` green. Then box 4
+    ticked, Status: done.
+ The loop (the matcher) over the 16 found-picture sites, the sync, the
+ export and the report are NOT 212a: the lead's loop + 212b + 212c.
 
-**If the 203b re-run reshapes the world before I run (new EU docs on grown
-sites):** every phase recomputes at run time (search set, nofit, fetch,
-search, nopicture); the only pinned things are the 40 golden docs and the
-pure-adds key-set rule, both of which the re-run respects (203b's
-golden-intact hand-over + union check).
+**World pins still hold (re-verified today):** 499 built; 131 docs (21
+by:hand + 110 by:agent); nofit 402; committed plans.json 1475 rows = 1475
+unique (id, sites[0]) pairs (working tree == committed, checked); the
+search wrote nothing outside data/cover/, so the 40 golden docs, the 52
+all-in-item item files and the bethlehem/shotwick states are untouched.
+
 ---
-(iteration 219 hand-over, superseded sections in git: `git show
+(iteration 220 hand-over in git: `git show
+32fc092:tasks/212a-cover-search.md`; iteration 219: `git show
 dfbc286:tasks/212a-cover-search.md`; iteration 217: `git show
 0ca160f:tasks/212a-cover-search.md`; iteration 216: `git show
 590284f:tasks/212a-cover-search.md`.)
