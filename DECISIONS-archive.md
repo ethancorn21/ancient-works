@@ -3966,6 +3966,50 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
   checked per the 225 precedent (suite reds exactly the remaining unfixed siblings).
 
 
+<!-- task 227 -->
+# Task 227 stukeley-merged-check
+
+## 2026-10-12 227 DECISION: Stukeley check/stage three-state guard (identical-twin no-op under the 211 merge norm, same-key-different-row still fails loud) - both stage legs and the join, hermetic three-state test following the 222-226 pattern
+- The fix mirrors 223 (kip) and 226 (numancia), adapted to Stukeley's two-legged stage():
+  `_canon_norm(r)` (json.dumps sort_keys/ensure_ascii=False - the same norm fit/merge.py uses)
+  was added; `_stage_commons`, `stage_book` and `check_staged` now build a first-row-wins
+  `(site, title) -> norm` map plus a title set from the canonical files.jsonl. A key the
+  canonical file holds is a no-op only when the module's OWN staged row (read from
+  files_wiltshire_b.jsonl - deliberately not the freshly-built row, whose evidence.checked is
+  the run date and would break byte-identity the next day) is identical to the canonical row;
+  a same-key different row still SystemExits (stage) / is a join problem (check); the
+  original title-only clash (a title held by a different site - the two Petrie 1880 files)
+  stays as the fallback. Guard order is unchanged in both legs (canonical first in
+  _stage_commons so the clash test's "fires before any meta use" holds; stage-A
+  reclassification first in stage_book).
+- Tests: new `_merge_states` helper (temp copy of the canonical file; pre-merge state =
+  canonical minus the module's own (site, title) keys; staged lines byte-identical to the
+  merge's append) + `test_check_staged_three_states` (a/b/c) and
+  `test_stage_offline_three_states` (a/b/c/d - the d case covers the BOOK leg: the Commons
+  leg no-ops and stage_book refuses; both legs write nothing on refusal). The three
+  previously-red tests now point FILES_CANONICAL at the pre-merge temp state, so the file
+  holds whether or not 211's live merge ran on the checkout.
+- WRINKLE (local to this test file, commented in it): `_merge_states` must read the staged
+  rows from a module-level snapshot (`FILES_B_REAL = src.FILES_B` at import) because
+  test_stage_offline monkeypatches src.FILES_B at a temp write target BEFORE the helper runs;
+  reading the (monkeypatched) attribute gave an empty staged set and the first state looked
+  like "different row holds the key". Symptom: SystemExit "a different row holds the key -
+  refused" from test_stage_offline with an empty FILES_B.
+- Also hit one self-inflicted syntax break while editing: the stage_book docstring lost a
+  quote in one edit batch ("...are local files." instead of '"""'), which swallowed the
+  following stage() docstring (SyntaxError "unterminated string literal" reported at the
+  NEXT docstring's line, not the broken one). py_compile before pytest catches this in
+  seconds - do that first when a docstring edit makes tests fail at collection.
+- Verified on this (merged) checkout: 10/10 module tests; live --check rc 0 (5 rows, 5
+  pass, 0 join problems - was 5 self-triggered) and --dry a clean no-op (was SystemExit on
+  the Houghton title). Full suite: 148 passed / 1 skipped / 1 failed - the single failure is
+  tests/test_src_artists.py (the 228 sibling; the 226 session's run proved the 227+228 set
+  pre-existing, so no test that passed before now fails). Pre-merge main is unaffected: the
+  hermetic states are constructed, and with the canonical file holding no Stukeley row every
+  assertion passes exactly as before. Task set to done; 211's box 1 gate now has only 228
+  left in the 222-228 set.
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
