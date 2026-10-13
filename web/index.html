@@ -159,10 +159,14 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 /* ---------- markers: small notched arrowheads, tip on the site's point (Ethan 2026-10-11: "like an old arrowhead",
    a contracting-stem / notched head; task 308). The .sq span holds the silhouette (AH in the script) at the tier's
    size and colour; Finder search areas (.scan) keep the dashed square at the area's corner. */
-.marker { display: flex; align-items: center; cursor: pointer; background: none; border: 0; padding: 0; position: relative; }
+.marker { display: flex; align-items: center; cursor: pointer; background: none; border: 0; padding: 0; position: absolute; top: 0; left: 0; }
 /* only the arrowhead and a showing label take clicks: a hidden label once widened its button, so clicking Old Sarum's
    square from z6 opened Taunton Castle, 90 km west (Ethan 2026-10-10). The flex keeps the button box to its one
-   in-flow child (.sq) - the tip-anchored marker below relies on the box being exactly the arrowhead. */
+   in-flow child (.sq) - the tip-anchored marker below relies on the box being exactly the arrowhead.
+   MapLibre parks marker elements at the canvas origin and places them with their inline transform (the vendor css
+   does the same: .maplibregl-marker { position: absolute; top: 0; left: 0 }); this restates it explicitly, because a
+   flowing position (relative/static) stacks the markers in DOM order and the transform then lands them hundreds to
+   thousands of px from their sites (found while doing 308). */
 .marker { pointer-events: none; } .marker .sq, .marker .tag { pointer-events: auto; }
 .marker.t4 { z-index: 4; } .marker.t3 { z-index: 3; } .marker.t2 { z-index: 2; } .marker.t1 { z-index: 1; }
 /* --mks is the tier colour the arrowhead silhouette is painted with (.ah below); the plain background stays for .scan */
