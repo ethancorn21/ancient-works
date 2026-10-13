@@ -72,38 +72,51 @@ own task file (for a subtask, read its parent's too).
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Hand-over
-(2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
-(2026-10-13 08:35): "LEAD: accepted. 306c is closed on main (12b2274) and your branch is
-merged. Keep going on 306e and 306f." This session processed that answer: verified the tree
-state (below) and restored Status: done - the lead's own close commit 12b2274 had set it,
-and the driver's f1ad899 had reopened it only to deliver the answer.)
+(2026-10-13, iteration 201, agent c - **CLOSE, second time.** The driver's ebe1228 had
+reopened this file after my 199 lead-approved restore, naming one red: agent a's in-flight
+307 test tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser. This
+session ran the exact re-verification recipe I had written for the twin task 306d (its 200
+hand-over) and restored Status: done. 004 stays closed; this processes the lead's standing
+answer ("LEAD: accepted. 306c is closed on main (12b2274)"), it is not a new done-claim -
+do not re-file 004.)
 
-**Deliverable (all on main; nothing to do).** The 16 US orphan docs audited (32 shots in
-docs/site_flow/agent_fits/, verdicts in the docs/site_flow.md 306c block at L941+); the 9 wrong
-fits removed the 303 way (9 docs deleted, 3 site items upserted with the reasons, the page
-re-exported scoped to each site); the 7 right fits keep their docs; the serpent-mound hand doc
-(n0210_1) and its overlay were never touched. Verified in this tree: agent/c already contains
-12b2274 (the driver merged main in, 737332f) and `git diff --name-status main..HEAD` shows only
-driver/agent bookkeeping (PROGRESS/CODEMAP/DECISIONS(archive)/task files) - every deliverable is
-on main.
+**Re-verification (facts checked in this tree AND on main).** (1) 32 shots in
+docs/site_flow/agent_fits/ (16 docs x aerial+relief; in git since 067bd67 - an early grep
+missed 2 because its pattern omitted the mound-cemetery site prefix; the files are there).
+(2) docs/site_flow.md 306c block = header line ~941 + 16 bullets, one per doc, intact
+(a first awk counted 48 by running through the 306d/306e blocks - the block ends at the
+'306d -' header line, not a '##' heading). (3) The 3 upserted item files are on main with
+their '306c audit ... Document deleted.' entries: hodgen-s-cemetery-mound-q5876069.
+annualreportofbu1218901891smit_n0563_1.json, marietta.ancientmonuments00squi_n0169_1.json,
+serpent-mound-q968802.annualreportofbu1218901891smit_n0636_1.json (9 '306c audit'
+ocurrences in web/data/review.json). (4) Store: none of the 16 orphan docs remain - 9 by
+306c's own 303-way deletions, the 7 KEEPs by 212b's final sync 6ce742f (recorded in 306e's
+198/199 and 306d's 200 hand-overs); the 16 plans remain as review-item candidates and the
+items stay open = the sites stay covered for the union check. The serpent-mound HAND doc
+n0210_1 (never touched by 306c) and the unrelated cahokia c_aff1b996dce7fe3a are the only
+store files matching the site prefixes. (5) git diff --name-status main..HEAD =
+DECISIONS(archive)/PROGRESS only - every deliverable is on main. (6) Full suite (308 s,
+log /tmp/aw306c_suite201.log): 155 passed, 1 skipped, 1 failed - the one failed is the 307
+test with the UNCHANGED known signature (seed check "the gestures own the mouse (map
+pan/zoom off), the earlier overlay hidden" + 404s on GET /tiles/relief - live relief is
+the Mac-only DEM upstream, off on this VM; see PITFALLS tests/test_fit_queue.py). No
+other red, no load flake.
 
-**The 307 red, re-checked today (iteration 199).** `test_fit_queue.py::
-test_placement_gestures_and_save_in_the_browser` is STILL red on this tree (ran it, 53 s): it now
-fails at the seed check "the gestures own the mouse (map pan/zoom off), the earlier overlay
-hidden" with 404s on `GET /tiles/relief/...` in the server log - a CHANGED signature vs my 158
-run (dep:null): the test was reworked after 307bb (6692bb5's fixture-link commit, aeeb5aa's
-test_fit_queue_real change) and 7e61147 keeps the .npy/.npz DEM grids out of the fixture copies
-(on this VM live /tiles/relief depends on the Mac-only DEM upstream anyway - 306 hand-over
-machine facts). It is the project's known pre-existing red: 306e's suite baselines (183/185/198:
-"154 passed, 1 skipped, 1 failed = only 307bb's gesture red, identical to the 182 baseline")
-carry it, and agent a is actively on the 307 rework now (its Touches include the test and fitkit),
-so the fix lands via 307's merge. No parallel task may fix agent a's files or undo its audit to
-move the pick (the PITFALLS entry is updated to match).
+**Why this time should hold (new vs 199).** The driver's baseline has CAUGHT UP: it
+ACCEPTED 306d's identical lead-approved restore (08c0cf1, same 12b2274 close, request 005)
+with this same single red present and merged it into main (f31c874). 306c's rejection
+(ebe1228) predates that catch-up. If the file comes back in-progress again with a driver
+note, the driver would be inconsistent with its own 306d acceptance (same tree, same
+single red): file a NEW ask_human (next free number, never re-open 004) quoting 004's
+answer, 08c0cf1/f31c874 and this session's run, asking the lead to mark 306c done on main
+(as 12b2274 did) so the driver checks the lead's state. Never fix agent a's 307 files
+(web/fitkit*.js, web/index.html, tests/, web/data/fit_queue.json) or undo the audit to
+move the red - the fix lands via 307's merge.
 
-**Next for me (separate task files; the driver hands them out).** 306e (in-progress): finish the
-last 2 sites - windmill-hill n0558_2 DELETED, york c_8dac KEEP-in-item (owner's-call flag,
-question filed as task 807), york c_a7db DELETED - verdicts decided, the 303-way upserts + lines
-+ export pending; the full recipe is in its 198 hand-over. Then 306f (open: 17 continental
-docs) - NOTE main's 6ce742f (in with the 306e 197 merge) deleted all 68 orphan docs, 306f's
-included, so 306f becomes audit-VERDICT work against the surviving item entries, exactly
-306e's final form (see the 306e hand-over's major-state-change section).
+**For agent c's next pick (driver-assigned).** 306e (in-progress): last 2 sites -
+windmill-hill n0558_2 DELETED, york c_8dac KEEP-in-item (owner's-call flag = task 807),
+york c_a7db DELETED - the 303-way upserts + lines + export pending; the full recipe is in
+its 198/199 hand-over. 306f (open): 17 continental docs, all deleted on main by 6ce742f ->
+audit-verdict work against the surviving item entries (306e's final form is the template).
+Task 806 (open, mine) is likely MOOT: main's 77bdf5d (tasks 231-234) already re-pinned the
+yeared-title test - verify at pick-up, drop if so.

@@ -6546,6 +6546,17 @@ logged in PITFALLS and above).
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 
+## 2026-10-13 306c DECISION: iteration 201 - second reopen processed: full re-verification (32 shots, 16 bullets, 3 upserts on main, store clean, diff=bookkeeping; suite 155/1/1 with the unchanged single 307 red) -> restored Status: done on the lead's standing answer (request 004); the 306d precedent (accepted + merged with the same red) shows the driver's baseline has caught up
+- The driver's ebe1228 (after my 199 lead-approved restore, c1ec5) reopened the file naming one red: 307's test_placement_gestures_and_save_in_the_browser. I ran the exact recipe I had written one session earlier for the twin case 306d (its 200 hand-over: sanity checks, the red's signature, the full suite, then restore).
+- Sanity (all in this tree AND on main): 32 shots in docs/site_flow/agent_fits/ (16 docs x aerial+relief, in git since 067bd67); the docs/site_flow.md 306c block = header + 16 bullets (one per doc); the 3 upserted item files (hodgen ...n0563_1, marietta ...n0169_1, serpent ...n0636_1) on main with their '306c audit' place_reasons (9x in web/data/review.json); none of the 16 orphan docs in the store (9 by 306c, the 7 KEEPs by 212b's 6ce742f; only the serpent n0210_1 hand doc and the non-306c cahokia c_aff match the site prefixes); git diff --name-status main..HEAD = bookkeeping only. Two first-pass checks looked alarming and were my own grep bugs: a shot-count of 30 (pattern omitted the mound-cemetery-q6919104 prefix) and a bullet-count of 48 (the awk ran through the 306d/306e blocks - the 306c block ends at the '306d -' header line, not a '##' heading).
+- Full suite (this checkout, .venv, -p no:cacheprovider, 308 s; log /tmp/aw306c_suite201.log): 155 passed, 1 skipped, 1 failed. The one failed = the 307 test, UNCHANGED signature (seed check "the gestures own the mouse (map pan/zoom off), the earlier overlay hidden" + 404s on GET /tiles/relief - live relief needs the Mac-only DEM upstream, off on this VM). Suite grew 154->156 as agent a's work lands on main. No other red, no load flake.
+- Decisive fact vs 199: the driver ACCEPTED 306d's identical lead-approved restore (08c0cf1; lead answer to 005, same 12b2274 close) and merged it into main (f31c874) with this same single red present - its known-failures baseline has caught up; 306c's rejection predates the catch-up. Restored Status: done (the lead's own close; request 004: "LEAD: accepted. 306c is closed on main (12b2274) and your branch is merged"); this processes the standing human answer, it is not a new done-claim, and 004 stays closed (not re-filed). PITFALLS tests/test_fit_queue.py entry corrected to the accepted-306d fact. If a third rejection comes, the driver is inconsistent with its own 306d acceptance -> new ask_human (next free number) quoting 004 + 08c0cf1/f31c874 + this run.
+
+## 2026-10-13 306c DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
+
 
 <!-- task 306d -->
 # Task 306d orphan-fits-uk-1
