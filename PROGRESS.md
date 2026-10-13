@@ -7,11 +7,11 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (split) - hand-over: ## Lead note (2026-10-12, after 211)
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306d-orphan-fits-uk-1.md` (in-progress) - hand-over: (2026-10-13, iteration 177, agent c - **waiting on human request 005** (filed this session,
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 178, agent c - **ALL 34 SHOTS DONE and committed (129590d)**; 306d claimed done per the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -52,6 +52,38 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
 
+### 2026-10-13 306e DECISION: first session - 34/34 orphan shots taken (o-y, 17 docs); merged main per the lead; claimed 306d done
+- Built tools/audit_306e.mjs (clone of tools/audit_306d.mjs, the 17 o-y docs; the 307 fit-queue
+  trap neutralised in the IIFE exactly as in 306d: FQ.entries emptied before openPlan so
+  _fkActivate falls open - verified: every [eval] line reports fqEntries:114, placed:false,
+  layer:true, n = the doc's pair count). All 34 shots (aerial + relief per doc; all 13 sites
+  have relief.jpg) written to docs/site_flow/agent_fits/ and committed (129590d).
+- Lead message: the 5 reds the driver blamed on 306d are fixed on main (77bdf5d, tasks
+  231-234). Merged main into agent/c (88c5545). Conflicts, resolved the known way:
+  web/data/review.json 'at' kept main's newer (07:07 > 05:48); docs/site_flow.md kept my
+  unmerged 306c+306d blocks then main's 308 arrowheads section (both sides were additions at
+  the same anchor - the 308 section sits after the 306d ludlow line). Full suite on the
+  merged tree: 149 passed, 1 skipped, 1 red = test_fit_queue::test_placement_gestures_and_
+  save_in_the_browser (probe 'RESULT FAIL: seed: the gestures own the mouse' + 404
+  /tiles/relief - the live relief is Mac-only; agent a's in-flight 307 seed flow; the
+  161/176/177 A/Bs already proved it red on pure main). On that basis 306d set Status: done
+  (74f80e3, the lead's explicit instruction; its 005 is settled).
+- Started judging batch 1. offa-s-dyke (OS 1902 Nantcribba 02 sheet): seen; the sheet's hatched
+  wood covers the real wood but its N-E half covers the town and anchor 4 sits on bare ground
+  - leaning deleted (wrong place), needs one Nantcribba-position web check.
+  okehampton (Commons 1915 'Plan of Okehampton Castle'): seen; the plate is a 600 m chain of
+  ~10 multi-room buildings with radial trees - per Wikipedia (fetched) the real castle is a
+  few ruins on a rocky outcrop with the town 1 km away, so the plate is a 1915 TOWN map
+  (local mapmaker Edward H. Young) correctly georeferenced but the wrong kind of subject for
+  the motte site - undecided at cutoff, next session pins the site point vs town vs castle.
+- FAILED (attempt 1): hand-rolled pure-Python similarity fit of the okehampton pairs -
+  ZeroDivisionError, rank-deficient 5-param design matrix [u,-v,u,v,1]. Attempt 2 (per-row
+  3-param with the page's sign convention) came out 0.85 m/px, -45.2 deg, residuals 205-833 m
+  = GARBAGE: the page's simFit flips the plate's v axis (image coords, v down) which my naive
+  least squares did not. The [eval] fit line (1.20 m/px, -0.3 deg, resid <=1.1 m) is the truth;
+  single-point inversions are fine for spot checks, full-plane ones are not. (Filed to the
+  306e hand-over; PITFALLS candidate if it recurs.)
+
 ## Project-wide driver notes (newest)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
@@ -77,10 +109,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 - TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
 - A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
 ... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
-
-### 2026-10-13 306e (agent c, iteration 178): where I am
-- 306e: all 34 orphan shots taken + committed (129590d); batch-1 judging started (offa leaning
-  deleted; okehampton = mislabelled 1915 town map, undecided). Full detail in the 306e hand-over.
-- Per the lead's message: merged main (88c5545; review.json 'at' + site_flow.md 308-section
-  conflicts resolved), suite on merged tree 149/1/1 (lone red = agent a's in-flight 307
-  placement seed, A/B-proven on pure main at 161/176/177), 306d claimed done (74f80e3).
