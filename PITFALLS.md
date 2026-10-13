@@ -4,13 +4,9 @@
 Contents, with the number of entries. Search for a file, function, library or error text: `grep -n -i "<key>" PITFALLS.md`; every entry's one-line fact: `grep -n "^#### " PITFALLS.md`.
 - Agent tools and harness (8)
 - This machine and its environment (32): Internet Archive (archive.org) 6
-- Libraries and frameworks (12): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1
-- This codebase (88): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 14, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 9, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 1
+- Libraries and frameworks (13): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1
+- This codebase (92): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 16, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 9, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 1, data/merge/ (211's consolidation runners) 1
 1 entry lacks a `Where:` or `Symptom:` line: add them when you touch those entries.
-- Agent tools and harness (7)
-- This machine and its environment (30): Internet Archive (archive.org) 4
-- Libraries and frameworks (12): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
-- This codebase (87): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 14, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 7, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, data/merge/ (211's consolidation runners) 1
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
