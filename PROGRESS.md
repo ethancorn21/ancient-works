@@ -8,9 +8,11 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
+- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 236, agent a - FIRST session on 221 since its 309 gate settled.
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 197, agent c - **MERGE OF main INTO agent/c RESOLVED (all 26 conflicts,
+- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
+- `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 198, agent c - **197's merge is COMMITTED (6554a14) and the post-merge
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -18,13 +20,19 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/221-review-stats-test.md`
+- `tasks/230-roman-merge-rerun.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-13 221 DECISION: iteration 236 - first session: boxes 1+2 verified (the fix already landed in 309's lane, b5cdf19, exactly this task's spec); box 3 blocked on new task 235 - the placement-test seed failure (dep:null on marietta's filtered-out 1904 topo) is pre-existing, in the driver's baseline, and owned by 235 (Depends on: 306e, 307d; Touches: tests/test_fit_queue.py); 221's Depends on now 309, 235
+- Verification, no fix (the file was fixed in 309's own lane; 221 may only touch tests/test_review.py): `git diff b5cdf19^ HEAD -- tests/test_review.py` = 11+/2- and is EXACTLY the two documented changes - the stats filter (line ~270: accepts "built in all" OR "laid on today", modelled on web/review.js:74's /built in all|laid on today/, verified still there) and the keying reqfail assertion (line ~414: excludes '/tiles/' AND 'arcgisonline', comment names the Esri host and the SINGULAR 'tile/' segment); `git log b5cdf19..HEAD -- tests/test_review.py` is empty (nothing else touched it since). Both tests green in the live suite: pytest -k "plan_lookup_is_keyed or page_shows_the_review_list" -> 2 passed.
+- Full suite (155 passed / 1 skipped / 1 failed, 321 s): the one failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, NOT a 221-lane file, NOT a regression of this task - it is in the driver's .agent/reports/test-baseline.txt and was already red at 306d's iter-199 run ("dep:null") and 306e's iter-197 journal ("the 307bb gesture red, the baseline from both parents").
+- Root cause pinned (facts by running code, per AGENTS.md): the pick `_pick_place()` takes the first queue entry with a propose + a line-eligible unresolved review item + a non-empty RAW depictions.json. That is now `marietta` (queue entry 29, plan ancientmonuments00squi_n0169_1, (-81.4535, 39.4185)); its ONLY depiction is the 1904 USGS topo quad. The page filters it out twice over: loadDeps' surveyOldEnough (kind in {map,aerial,topo} needs year <= currentYear-150; 1904 > 1876) and select()'s auto-select (a {plan,drawing,view} depiction, else the last 'map' - a topo matches neither). So S.dep['marietta'] = [], no `dep-marietta` layer is ever created, the probe reads `map.getLayer('dep-'+id) ? visibility : null` = null, and the seed check's `dep === 'none'` fails (the gestures half passes: all five false).
+- The page behaviour is deliberate (Ethan 2026-10-10, comment at web/index.html:~428: topographic quads "don't really ever show anything"), so the fix belongs to the test's pick, not the page: `_pick_place` must mirror the page's filter + auto-select rules. That is new task 235 (lowest free number in 200-499; the fix is one module, tests/test_fit_queue.py).
+- 235's gates: Depends on 306e (agent c is still re-exporting web/data/review.json and the data/review items, which drive _line_eligible - the pick's second gate) and 307d (open, Touches: tests/ - same-file gate; 307d's own acceptance is a NEW tests/ file, so the overlap risk is low but the gate is cheap).
+- This session's changes: only tasks/221-review-stats-test.md (boxes 1+2 ticked, Notes updated, Hand-over written), tasks/235-placement-test-dep-pick.md (new) and this entry. tests/test_review.py and tests/test_fit_queue.py untouched (the former is my Touches, the latter is not mine).
 
 ## Project-wide driver notes (newest)
 
