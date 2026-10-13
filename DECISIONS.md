@@ -466,3 +466,37 @@ unconditionally. No code changed this session.
   least squares did not. The [eval] fit line (1.20 m/px, -0.3 deg, resid <=1.1 m) is the truth;
   single-point inversions are fine for spot checks, full-plane ones are not. (Filed to the
   306e hand-over; PITFALLS candidate if it recurs.)
+
+### 2026-10-13 306e DECISION: iteration 180 - offa's KEEPS line drafted (unwritten); okehampton's 'town-centre / wrong-kind' hypothesis RETIRED: the site point is the castle, at the dead centre of the drawn chain; verdict now hangs on the drawn chain's length vs the real outcrop (leaning KEEPS)
+- Offa (1/17): judged KEEPS at 179 and unchanged. The full line (306c/306d style) is drafted in the
+  task hand-over and is ready to paste into docs/site_flow.md (the 306e block itself is still
+  unwritten - it goes between the ludlow line (~L1267) and the 308 arrowheads section (L1268)).
+- Okehampton (2/17): the 178-179 hypothesis (plate = a 1915 town-centre plan, wrong kind of
+  subject for a motte site, or the castle 1 km away = wrong place) is RETIRED. Evidence this
+  session: (a) simFit replicated on the doc's 4 pairs matches the page [eval] EXACTLY (resid
+  [0.9,1.1,0.8,1.0], 1.196 m/px, +0.33 deg), and the site point (-4.0083, 50.7306) inverse-maps
+  to plate px (333.8, 333.2) of 618x674 = the DEAD CENTRE of the drawn chain (A->G, ~570-600 m,
+  NE-SW); (b) the 1842 six-inch ink (533x533 RGBA, box-aligned) shows the label 'Okehampton
+  Castle (Remains of)' at E -174 m / N -50 m from the site point with its leader pointing EAST
+  to a cluster of elongated NE-SW building footprints centred ON the site point - the site
+  point is inside the real castle ruins; the town is ~1 mile NE (English Heritage: castle '1
+  mile south-west of Okehampton town centre'); (c) the plate's building inventory (A = small
+  two-room bldg at the NE end, central multi-room cluster, G at the SW end) matches the
+  documented castle in order: gatehouse + 'small two storied guardroom' + barbican passage at
+  the NE, the bailey (Great Hall, chapel, lodgings) in the middle, keep on the motte 'on a
+  separate hillock to the south-west of the ruin' (Wikipedia + legendarydartmoor.co.uk, both
+  cached in pi-web); (d) the LiDAR outcrop ridge runs ~N-S through the site point and spans
+  the whole 550 m window examined and beyond - the real outcrop is at least ~600 m, i.e.
+  comparable to the drawn chain. The 1842 hatched band's exact extent and the drawn chain's
+  axis-vs-ridge angle are the last measurements before the verdict; LEANING KEEPS (if the
+  measured outcrop extent is only ~200-300 m it is the 306d 'centred but 2-3x too big' class
+  and gets deleted the 303 way, creating the site's review item).
+- FAILED (n/a - no approach failed this session): none. (The okehampton 1842 zoom first came
+  out as a solid pink image: the ink webp's transparent pixels carry the pink ink colour as
+  RGB, so .convert('RGB') is useless - must composite onto a background with the alpha
+  channel. Filing a PITFALLS entry is pending - the context limit ended the session before
+  PITFALLS.md could be edited; next agent files it under fit/ or web/ with: Where: the
+  six-inch-1st_ink.webp site layers (and any ink webp), Symptom: a converted crop is solid
+  pink, fix: Image.new bg + paste(im, (0,0), im) or use getchannel('A').) Also pending:
+  PITFALLS note that web_fetch returns page TEXT without image URLs (curl the raw HTML and
+  grep src/data-src to find them).

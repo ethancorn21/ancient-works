@@ -5,7 +5,7 @@ Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, w
 
 ## Goal
 Subtask of 306 (the parent's Hand-over holds the audit recipe and the full inventory): the 17
-UK platefit documents with `by: agent` (sites o-y) that are ORPHANS - in the store, but with no
+UK platefit documents with `by: agent` (sites o-y) that are ORPHANS - in the store, but no
 overlay built on the site and not referenced by any review item, so a visitor sees them not at
 all. Render each the way the page would if it ever showed it: the fit tool over the aerial
 photograph, and over the LiDAR relief where the site has a `relief.jpg`, with the doc's stored
@@ -50,133 +50,151 @@ placement is good enough to keep.
 - york-castle-q80637.c_a7db545536f13e24 - Plan of Center, Broome County 1855 (Gifford Wenig)
 
 ## Hand-over
-(2026-10-13, iteration 179, agent c - **offa JUDGED: KEEPS (evidence complete); okehampton still
-UNDECIDED. No project files modified this session** - all work was /tmp throwaways, web checks
-and reading the committed shots; the suite is exactly as of iteration 178 (149 passed, 1 skipped,
-1 red = agent a's in-flight 307 placement seed, pre-existing; tests were NOT run this session).
+(2026-10-13, iteration 180, agent c - **offa KEEPS (evidence complete since 179; its line is
+drafted below, still UNWRITTEN); okehampton investigated hard this session: the 178-179
+'town-centre / wrong-kind' hypothesis is RETIRED - the site point IS the castle (inside the
+1842 ruins cluster, at the dead centre of the drawn chain); the verdict now hangs on the
+drawn chain's LENGTH vs the real outcrop - leaning KEEPS, one measurement left. NO project
+files modified this session** - all work was /tmp scripts, web fetches, reading the committed
+shots and the raw plate. Suite state unchanged from 178: 149 passed, 1 skipped, 1 red (agent
+a's in-flight 307 placement seed, pre-existing, A/B-proven on pure main); tests NOT run this
+session; the audit server is not running.
 
-**Offa (doc 1/17) - KEEPS. Evidence assembled this session (all re-derivable; /tmp is wiped per
-session, so re-run the recipes, they are small).**
-1. Web check (DONE, the one the 178 hand-over asked for): the Commons page of
-   File:OS1902_Nantcribba_02.jpeg (cached /home/agent/.cache/pi-web/50d4fe074fc3495c.txt) has caption
-   **"Site of Nantcribba Hall and Parkland with Offa's Dyke"** - OS 2nd ed 1902, surveyed 1884,
-   revised 1901, Montgomeryshire Sheet xxx8. Web search confirms Nantcribba = the wood/hall/stream
-   W of Knighton, Powys, on the Dyke line ('Nantcribba Castle, Powys' is a vanished castle -
-   castlewales.com; 'the Dyke avoids west-flowing streams ... Nantcribba ... Knighton (Powys)').
-   So the sheet IS the site's local area: the 178 hand-over's 'leaning deleted / placed 1-2 km E
-   over the town' is RETIRED - the drawn sheet is centred ON the site point, not offset from it.
-2. Exact page transform (the page's simFit, web/index.html L1004, is complex least squares
-   `merc = a*(u - i v) + b`: W=[u,-v], Z=merc([lon,lat]) with R=6378137, k=cos(lat0*deg),
-   resid=hypot(q-Z)*k, mpx=hypot(a)*k, rot=atan2(a1,a0); inverse: w=(z-b)/a, u=Re(w), v=-Im(w);
-   forward: X=a0*u+a1*v+bx, Y=a1*u-a0*v+by; inverse: u=(a0*dx+a1*dy)/det, v=(a1*dx-a0*dy)/det,
-   det=a0^2+a1^2). My Python replica on offa's 4 pairs reproduces the page's [eval] EXACTLY
-   (1.44 m/px, +2.1 deg, resid [42.2,72.5,42.2,43.0], score 42.6) - so the transform can be used
-   for feature-level checks. The 4 anchors are a 100-px 45-deg diagonal ladder (bury-castle
-   class): the residuals only measure the ladder's internal inconsistency, not a placement miss.
-3. Inverse-mapped the site point (-3.049, 52.344; Q1127343 = the GENERAL Offa's-Dyke article point,
-   kind earthwork, NOT a specific Dyke section) onto the plate: plate px (174,234) of 725x773 =
-   the NW end of the sheet's hatched wood, right at the sheet's 'Lodge' (anchor 1 (150,250) maps
-   34 m W/24 m N of the site point; plate centre maps to (-3.0449,52.3421)).
-4. COMPOSITE (the decisive check): the 1902 plate (blue, ink = inverted luminance as alpha,
-   warped with the exact transform above) drawn over the site's relief.jpg (2000x2000 = 1 m/px,
-   box corners (-3.0637,52.3530)..(-3.0343,52.3350), row 0 = north; g2r(X,Y) =
-   ((X-W_)/(E_-W_)*(rw-1), (1-(Y-S_)/(N_-S_))*(rh-1)), W_/N_ = merc(NW corner), E_/S_ =
-   merc(SE corner)) PLUS the site's 1842 six-inch ink
-   (web/data/sites/offa-s-dyke-q1127343/six-inch-1st_ink.webp, 1333x1333, box-aligned; resize to
-   2000) in red (the same layer the page draws). RESULT - the two independent surveys (1841/42
-   and 1884) AGREE: (a) the 1902 'Lodge' + hatched building sit ON the 1842 'Lodge' + building at
-   the site point (within ~20-30 m); (b) the 1902 'Nant-cribau' stream label (plate (575,505) ->
-   (-3.0403,52.3407)) sits on the 1842 stream that runs S-SE past 'Port Faen' and 'Ford' into the
-   hatched wood on the LiDAR (the real Nantcribba stream, a Wye tributary); (c) 1902 hatched 'P'
-   bldg (plate (590,280)) = 1842 'Port Faen'; (d) the drawn parkland wood overlaps the 1842
-   trees, the LiDAR dark wood and the aerial's dark green wood (the committed aerial shot's SE
-   corner); (e) the roads align. The sheet's own caption says the Dyke is on it. Verdict: KEEPS -
-   an orphan today, invisible on the page (its drawn works sit on the real Nantcribba
-   hall/parkland/stream at the site point; the Dyke passed this wood). NOTE for the line: the
-   sheet's content is tilted ~45 deg in its own frame; the fit's +2.1 deg is near-identity
-   because the parkland's wood axis IS a 45-deg ground line - the composite proves the fit is
-   the sheet's true orientation, not an accident of the ladder. (Optional belt-and-braces before
-   writing the line: one real-page zoomed shot, zoom ~17, of the stream/wood corner - this
-   composite is NOT the 306d mpp/256 judge-composite trap: it uses the exact page transform and
-   the page's own ink layer; but a real-page zoom removes the last doubt cheaply.)
+**OFFA (doc 1/17) - JUDGED KEEPS at 179; line drafted, just write it.** Evidence (all
+re-derivable; see git history of this task file for the 179 details): the OS 1902 Nantcribba 02
+sheet (Commons File:OS1902_Nantcribba_02.jpeg, caption 'Site of Nantcribba Hall and Parkland
+with Offa's Dyke') is centred ON the site point (-3.049, 52.344, kind earthwork; Q1127343 =
+the general Offa's-Dyke article point). The page's simFit (web/index.html L1004) replicated in
+Python reproduces [eval] EXACTLY (1.44 m/px, +2.1 deg, resid [42.2,72.5,42.2,43.0]) - replica
+formulas: W=[u,-v], Z=merc([lon,lat]) (R=6378137); wm,zm = means; nr=Σ(zr*wr+zi*wi),
+ni=Σ(zi*wr-zr*wi), d=Σ(wr²+wi²) over centred values; a0,a1=nr/d,ni/d; b=zm-a*wm (complex);
+forward (X,Y)=(a0*u+a1*v+b0, a1*u-a0*v+b1); INVERSE: (z-b)/a = (x+iy)(a0-ia1)/a2 with
+x=X-b0, y=Y-b1, u=Re, v=-Im (a naive unflipped least squares gives garbage - see PITFALLS).
+The site point inverse-maps to plate px (174,234) of 725x773 = the sheet's 'Lodge' at the NW
+end of its hatched Nantcribba wood. The composite (plate warped with the exact transform over
+relief.jpg 2000x2000 + six-inch-1st_ink.webp 1333x1333, box-aligned, resized) shows the 1884
+and 1841/42 surveys AGREE: the lodge, the 'Nant-cribau' stream (= the real Nantcribba stream,
+Wye tributary running S-SE past Port Faen/Ford into the hatched wood on the LiDAR), the 'P'
+bldg = Port Faen, the parkland wood, the roads; the sheet's own caption places the Dyke on it.
+Nantcribba = the wood/hall/stream W of Knighton, Powys, on the Dyke line. NOTE for the line:
+the sheet's content is tilted ~45 deg in its own frame; the fit's +2.1 deg is near-identity
+because the parkland's wood axis IS a 45-deg ground line. LINE DRAFT (306c/306d style):
+'- offa-s-dyke-q1127343.c_1cca85e7b4b5a89e - OS 2nd ed 1902, Montgomeryshire xxx8, 'Site of
+Nantcribba Hall and Parkland with Offa's Dyke' (similarity, 4 pts, resid 42-73 m, 1.44 m/px,
++2.1 deg, score 42.6): the 4 anchors are a 100-px 45-deg diagonal ladder, so the residuals
+only measure the ladder's internal inconsistency, not a placement miss; the site point
+inverse-maps to the sheet's own 'Lodge' at the NW end of its hatched Nantcribba wood, and a
+composite of the sheet (warped by the page's own transform) over the 1842 six-inch ink and the
+LiDAR shows the 1884 and 1841/42 surveys agree on the lodge, the Nantcribba stream running
+S-SE past Port Faen and Ford into the wood, the parkland trees and the roads, and the sheet's
+caption places the Dyke on it. KEEPS - an orphan today, invisible on the page (its drawn
+works sit on the real Nantcribba hall/parkland/stream at the site point; the Dyke passed this
+wood).'
 
-**Okehampton (doc 2/17) - UNDECIDED (178 state, unchanged).** The plate (Commons 1915 'Plan of
-Okehampton Castle', 'Underlying map Edward H. Young (d. 1932)', 618x674, 4 pts a 100-px grid,
-page fit 1.20 m/px -0.3 deg resid<=1.1, score 1.0) is a long NE-SW CHAIN of ~10 multi-room
-buildings with radial tree hatching - NOT a motte-and-bailey; centred on the site point
-(-4.0083, 50.7306, kind motte), its buildings line up with the real town-centre cluster
-(aerial + 1842 red overlay). Wikipedia (cached /home/agent/.cache/pi-web/1387d53e134165ed.txt):
-the real castle = Norman keep on a long thin rocky outcrop (mote 29.5x15.5 m, 32 m high), ~1 km
-from the town. NEXT: (a) re-read the 2 committed shots
-(docs/site_flow/agent_fits/okehampton-castle-q1419982_c_0edd7f87db67ff20{,_relief}.png) and pin
-the plate centre vs the town cluster vs the red 1842 'Okehampton Castle' label; (b) web check
-where the real castle sits relative to the town centre ('Okehampton Castle' outcrop position /
-Higham 1984; the site point's kind=motte + coords say which of castle-vs-town it is); (c)
-verdict: if the site point is the TOWN (the castle is 1 km away): the plate is a correctly
-georeferenced map of the WRONG KIND of subject for a motte site (the bethlehem 'wrong kind'
-class) - likely DELETED the 303 way (the 306c precedent for right-map/wrong-kind was deletion);
-if the site point is genuinely the castle 1 km out: wrong PLACE, DELETED. Either way the line
-says what it is (a 1915 town-centre plan by Edward Young) and where it sits.
+**OKEHAMPTON (doc 2/17) - investigated this session. The site point is the castle; the open
+question is the drawn chain's LENGTH (is it 2-3x too big, the 306d ludlow/goodrich/bury class,
+or comparable to the real outcrop?). LEANING KEEPS.**
+- The raw plate (data/raw/commons/okehampton-castle-q1419982/0edd7f87db67ff20.jpg, 618x674,
+  1915, 'Underlying map Edward H. Young (d. 1932)') is a NE-SW CHAIN of ~10 multi-room
+  buildings (A-G lettered) with radial tree hatching around; A (NE end) is a small two-room
+  building, G (SW end) a larger block; no title in the image (the page draws the title).
+  A->G spans ~570-600 m at the fit's 1.2 m/px; chain axis ~28 deg west of south on the map.
+- simFit replica on its 4 pairs (the doc's pairs are a 100-px grid but the fit is clean)
+  matches [eval] EXACTLY (resid [0.9,1.1,0.8,1.0], 1.196 m/px, +0.33 deg). Site point
+  (-4.0083, 50.7306) -> plate px (333.8, 333.2) = DEAD CENTRE of the plate; plate centre ->
+  (-4.00872, 50.73056), ~5 m from the site point.
+- 1842 six-inch-1st_ink.webp (533x533 RGBA, box-aligned to sites.json corners; the site box is
+  797.5 m real - 1264 m in merc units - relief.jpg 800x800 ~1 m/px). PITFALL: its transparent
+  pixels carry the pink ink colour as RGB - always composite onto a background USING THE ALPHA
+  CHANNEL; a plain .convert('RGB') gives solid pink. It shows: label 'Okehampton Castle
+  (Remains of)' at 1x px (150,245) = E -174 m / N -50 m from the site point, leader pointing
+  EAST to a cluster of elongated NE-SW building footprints (the 1842 ruins) centred ON the
+  site point; the West Okement river runs along the castle's east side and loops round the
+  outcrop to the NW; Lady Bridge NE; 'Springt' hamlet + the railway SE. So the site point sits
+  INSIDE the real castle ruins cluster; the town is ~1 mile NE (English Heritage: the castle
+  is '1 mile south-west of Okehampton town centre') - this is why the 178-179 'town-centre /
+  wrong kind' reading was wrong.
+- Building inventory from web sources (Wikipedia, cached pi-web/1387d53e134165ed.txt;
+  legendarydartmoor.co.uk 2016 visit, cached pi-web/e69f7851c44c536b.txt): real castle =
+  keep/motte at the SW end ('the keep towered on a separate hillock to the south-west of the
+  ruin', mote 29.5x15.5 m, 32 m high), the bailey buildings (Great Hall with dais, kitchens,
+  buttery, chapel, priest's + eastern + western lodgings) in the middle, gatehouse + long
+  barbican passage + barbican at the NE end ('a small two storied guardroom on the side of the
+  gatehouse'; 'visitors entering from the barbican in the north-east, along a long passageway
+  up the hill'). The plate's A (small two-room bldg, NE) / central cluster / G (SW) match that
+  inventory in order. English Heritage: 'the remains ... stretch from the keep mound to the
+  tall gatehouse'; 'built along a long, thin rocky outcrop'.
+- LiDAR: the outcrop ridge runs ~N-S (a few deg west) through the site point and spans the
+  whole 550 m relief window examined (relief.jpg (150,100)-(650,650)) and beyond - the real
+  outcrop is at least ~600 m long, comparable to the drawn chain.
+- NEXT (exact): 1) measure the outcrop's N-S extent on the FULL 800x800 relief (the sharp
+  bright band with steep dark flanks; the 550 m window already shows it crossing the whole
+  frame) and/or the 1842 hatched band (scipy: dark=(alpha>40)&(rgb.sum()<300), dens=
+  uniform_filter(dark,15)>0.06, like /tmp/okeham_hatch recipe) - if it is ~500-700 m the
+  drawn chain is right-sized -> KEEPS; if only ~200-300 m -> DELETED the 303 way (site has NO
+  review item yet: upsert_item(root,'okehampton-castle-q1419982',[entry]) with the doc's 4
+  pairs + place_reason '306e audit 2026-10-13: ... Document deleted.', delete
+  data/db/platefits/okehampton-castle-q1419982.c_0edd7f87db67ff20.json, export(root, site)
+  scoped to the site; web/data/review.json 'at' = agent-a merge-conflict point, keep newer).
+  2) Optionally: curl https://www.legendarydartmoor.co.uk/2016/03/18/okehampton_castle/ and
+  grep data-src/src for the aerial + clickable-plan images (the cached text has no URLs; the
+  raw HTML was saved to /tmp/okeham_page.html and a plain src-grep found only sidebar
+  thumbnails - try data-src / image maps / a .plan file); a georeferenced plan (Higham 1977/
+  1980 or Endacott 1999) would settle the extent at a stroke. 3) Write the okehampton line.
+  4) Write the 306e block into docs/site_flow.md: header in the 306d style (copy the 306d
+  header at L1048: '306d - the 18 UK orphan documents (sites a-l): ...' -> '306e - the 17 UK
+  orphan documents (sites o-y): ...') + the offa line (draft above) + the okehampton line,
+  inserted BETWEEN the ludlow line (ends 'the document was deleted 2026-10-13).', ~L1267) and
+  '## The site markers become arrowheads (task 308, 2026-10-13)' (L1268). 5) Commit.
+  6) Continue the batch (15 docs left): old-sarum c_0410 (Ditchfield 1901 - the site already
+  has 2 built depictions; check web/data/sites/old-sarum-q782719/depictions.json) + c_ff62
+  (1806 Camden/Basire DPLA plate), oxford (Mackenzie 1897), pilsbury (Cox 1905), pontefract
+  x2 (two pages of the 1807 borough history, 8 pairs each), portus-adurni x2 (twin Penny
+  Cyclopaedia 1836 plans, one German-titled 'Burg von Portchester'), raby (Mackenzie),
+  richborough, stanton-drew (Penny Magazine 1836 druidical temple), taunton (Mackenzie),
+  windmill-hill (Allcroft 1908 n0558_2, **model None** - the page's default plan model fits
+  it: relief shot resid 0, 1.0 m/px, 0 deg, rowMapBox [0.56,0.38,0.85,0.58]; the site's item
+  already holds n0557_1+n0558_1 - merge into that item if deleted), york c_8dac ('York Castle
+  in 1820' watercolour, 31.7) + c_a7db ('Plan of Center, Broome County 1855' = Center is a
+  TOWN in Broome County, NEW YORK - the devil-s-dyke/bethlehem toponymic-collision class,
+  almost certainly DELETED wrong place). Box 2 ticks when all 17 lines are in; box 3 after
+  any deletions; box 4 = suite check (merged-tree red set must be the 307 one only).
 
-**Where I am / state.** All 34 shots committed (129590d) - box 1 is done. NO 306e block exists in
-docs/site_flow.md yet: the 306d block ends at the ludlow line (line 1267) and
-'## The site markers become arrowheads (task 308)' starts at line 1268; the 306e block header
-(306c/306d style: '306e - the 17 UK orphan documents (sites o-y): ...') goes AFTER the 306d
-block, BEFORE the 308 section. docs/site_flow.md is in my Touches; the 308 section belongs to
-agent a's territory only via the merge - I only ADD the 306e block at the 306d/308 boundary
-(306c/306d did the same). No deletions to do for offa (it keeps). If okehampton ends up DELETED,
-its site has NO review item yet - create one the 306d way (see below).
-
-**Exact next step.** 1) (Optional) one real-page zoom shot of the offa stream/wood corner.
-2) Write the 306e block header + the OFFA line (KEEPS, per the evidence above) into
-docs/site_flow.md between the ludlow line and the 308 section. 3) Finish okehampton per (a)-(c)
-above; write its line (if DELETED: 303 way - create the site's review item with the picture +
-the doc's 4 pairs + place_reason, delete data/db/platefits/okehampton-castle-q1419982.
-c_0edd7f87db67ff20.json, export scoped to the site; web/data/review.json 'at' = known agent-a
-merge-conflict point, keep the newer). 4) Commit. 5) Continue batches: old-sarum x2 (c_0410
-Ditchfield 1901 - the site already has 2 built depictions, check
-web/data/sites/old-sarum-q782719/depictions.json for what they are; c_ff62 the 1806
-Camden/Basire DPLA plate), oxford (Mackenzie 1897), pilsbury (Cox 1905), pontefract x2 (two
-pages of the 1807 borough history, 8 pairs each), portus-adurni x2 (twin Penny Cyclopaedia 1836
-plans, one German-titled), raby, richborough, stanton-drew (Penny Magazine druidical temple),
-taunton (Mackenzie), windmill-hill (Allcroft 1908 n0558_2; the site's item already holds
-n0557_1+n0558_1 - merge into that item if deleted), york x2 (c_8dac 'York Castle in 1820'
-watercolour; c_a7db = 'Plan of Center, Broome County 1855' - Center is a TOWN in Broome County,
-NEW YORK: the devil-s-dyke/bethlehem toponymic-collision class, almost certainly DELETED wrong
-place). Box 2 ticks when all 17 lines are in; box 3 after any deletions; box 4 = suite check
-(merged-tree red set must be the 307 one only).
-
-**The 303 way (per 306d, for any deletion):** fit/review.py API, no hand-edited JSON:
-upsert_item(root, site, [entry]) with entry = {plan, title, url, pairs (the doc's own),
-coarse:false, evidence (from the data/commons/files.jsonl row), label, cite, ref, size,
-place_reason '306e audit 2026-10-13: ... Document deleted.'} appended AFTER the item's existing
-candidates (lead candidate first, item filename unchanged); then delete
-data/db/platefits/<doc>.json; then export(root, site) scoped to the site (NEVER another site's
-item file). Sites WITH existing items: old-sarum [c_b2701b5231da42f2], pontefract [c_ba5dfa2d2dbc645e
-+ 6 more], richborough [c_1dcd5a7171573663], windmill-hill [earthworkenglan01allcgoog_n0557_1,
-_n0558_1], york-castle [c_81ecab4a9284f156 + 4 more]. NO item (create one): offa-s-dyke,
+**State / housekeeping.** All 34 shots committed (129590d) - box 1 done. NO 306e block in
+docs/site_flow.md yet. No deletions executed yet. Sites WITH existing review items:
+old-sarum [c_b2701b5231da42f2], pontefract [c_ba5dfa2d2dbc645e + 6 more], richborough
+[c_1dcd5a7171573663], windmill-hill [earthworkenglan01allcgoog_n0557_1, _n0558_1],
+york-castle [c_81ecab4a9284f156 + 4 more]. NO item (create if deleted): offa-s-dyke,
 okehampton, oxford-castle, pilsbury, portus-adurni, raby-castle, stanton-drew, taunton.
+**The 303 way (per 306d):** fit/review.py API, no hand-edited JSON: upsert_item(root, site,
+[entry]) with entry = {plan, title, url, pairs (the doc's own), coarse:false, evidence (from
+the data/commons/files.jsonl row), label, cite, ref, size, place_reason '306e audit
+2026-10-13: ... Document deleted.'} appended AFTER the item's existing candidates (lead
+candidate first, item filename unchanged); then delete data/db/platefits/<doc>.json; then
+export(root, site) scoped to the site (NEVER another site's item file).
 
-**Metadata (from the doc JSONs).** All by:agent. Scores: offa 42.6 (4 pairs), okehampton 1.0
-(4), old-sarum c_0410 19.1 (6) + c_ff62 0.0 (6), oxford 0.0 (4), pilsbury 15.8 (4), pontefract
-c_3213 9.5 (8) + c_d135 24.5 (8), portus-adurni both 0.0 (6+6), raby 0.0 (4), richborough 0.0
-(6), stanton 0.0 (6), taunton 0.0 (4), windmill-hill 0.0 (6, **model None** - the page's
-default plan model fits it: relief shot shows resid 0, 1.0 m/px, 0 deg, rowMapBox [0.56,0.38,
-0.85,0.58] from plans.json), york c_8dac 31.7 (4) + c_a7db 13.6 (4).
+**/tmp recipe from this session (re-writable in ~30 lines; constants above):** a Python script
+(.venv/bin/python) that (a) replicates simFit (formulas above) on the doc's pairs, (b)
+inverse-transforms any box/feature point to plate px, (c) builds the composite: for each
+800x800 output pixel (i,j): (X,Y) = Wx+i/799*(Ex-Wx), Ny-j/799*(Ny-Sy) with
+Wx,Ex,Ny,Sy = merc(x) of the NW/NE corners and merc(y) of the NW/SE corners from
+web/data/sites.json site.corners [NW,NE,SE,SW]; base grey = relief.jpg (resized 800x800);
+1842 ink RED with alpha = the webp's alpha channel (resized); plate ink BLUE = inverted
+luminance thresholded (alpha 0 for L>=170 else (170-L)*1.9 capped 255) at the inverse
+transform, bilinear. Outputs made this session (all in /tmp, wiped per session):
+okeham_comp2.png (composite with yellow site-point cross + white anchor dots),
+okeham_1842_ink_preview.png (1842 composited on grey), okeham_1842_castle_zoom2.png (4x zoom
+on the ruins cluster - the one that settled castle-vs-town), okeham_hatch.png
+(hatch-density map), okeham_sidebyside2.png (LiDAR vs 1842, same 300 m window),
+okeham_page.html (legendarydartmoor raw HTML), okeham_relief_area.png (500x550 LiDAR crop),
+okeham_comp.py / okeham_comp2.py (the scripts).
 
 **Pitfalls that bite here (all in PITFALLS.md, don't re-learn).** The mpp/256 judge-composite
-bug (line 314) - judge from the real 1440x900 shots (my composite was safe: exact page
-transform + the page's own ink layer). In-checkout A/B only (locally-built site dirs are
-gitignored). Geographic distances: dx=dlon*111194.9266*cos(lat0), dy=dlat*110900 (not raw
-Mercator). The page's simFit flips plate v (W=u-iv) - a naive least squares WITHOUT the flip
-gives GARBAGE (my first attempt: -45 deg/0.85 m/px, resid 200-800 m); the pane's [eval] fit
-line is the truth, and the formulas in point 2 of the offa section above replicate it exactly.
-PIL Image.transform AFFINE tuple is (a,b,c,d,e,f) with src_x=a*i+b*j+c, src_y=d*i+e*j+f - b
-and d are the easy-to-swap pair (swapping mirrors the image); a similarity is exactly affine.
-A JPEG has no alpha channel: for an ink overlay use inverted luminance as the alpha, warped
-with the same affine. PIL Image.open(...).convert("RGBA") on a JPEG = opaque everywhere.
-**Suite state:** last full run (178, merged tree): 149 passed, 1 skipped, 1 red (agent a's 307
-placement seed, pre-existing, A/B-proven on pure main at 161/176/177). .venv present. This
-session ran no tests and changed no project files. The audit server is not running;
-/tmp/audit_306e.log had the [eval] record for all 34 shots (the audit script regenerates and
-skips existing shots).
+bug (line 314) - my composites are safe (exact page transform + the page's own ink layers),
+but the final verdict stands on the real 1440x900 shots. In-checkout A/B only (locally-built
+site dirs are gitignored). Geographic distances: dx=dlon*111194.9266*cos(lat0),
+dy=dlat*110900 (NOT raw Mercator; the site's corners box is 1264 m in merc units = 797 m
+real). The page's simFit flips plate v (W=u-iv) - a naive least squares WITHOUT the flip
+gives garbage (first attempt: -45 deg/0.85 m/px, resid 200-800 m). A JPEG has no alpha
+channel (ink overlay = inverted luminance as alpha); an RGBA webp MUST be composited WITH
+its alpha (transparent pixels carry the ink colour as RGB).
