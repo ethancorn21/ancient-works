@@ -9,7 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 207, agent c - the driver returned the parent: 302a done, 302b done,
+- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -17,7 +17,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/235-placement-test-dep-pick.md`
-- `tasks/307d-owner-check.md`
+- `tasks/302e-heldout-runner-21.md`
 
 ## Your task's journal
 
@@ -60,6 +60,16 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
     stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
     junction/feature points, never a fixed stride on a straight run.
+
+### 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)
+    The driver's post-207 commit 745056e touched only tasks/302-autofit-real.md, so the 207 hand-over's "created subtasks 302e/302f/302g" was a false claim (the session was cut before the writes landed). This session re-verified all five boxes from the current tree and ticked 1-3:
+    - Box 1 met: fit/inkfit.py (302a: ink skeleton vs LiDAR relief, ridge-contrast objective, frozen no-model variant, model injectable) + the lead's fit/matchfit.py (pretrained MatchAnything ELoFTR/RoMa correspondences between the plan and relief/aerial/OS sheets - points computed from the images, never a vision-model list). The line is matcher-first (site_done._fit:78-84). The lead's newer fit/matchfit2.py (two-stage located windows), fit/matchfit_queue.py (rule sweep) and fit/surveyfit* are lead work, outside the boxes.
+    - Box 2 met: docs/site_flow.md line 129 (pre-registered protocol, "the method never sees the hand fits", the 21 docs, frozen config) + the 21-row table at lines 226-248 (corner errors 231.2-2203.6 m as measured; fabrication column silent on every placed fit; the lone non-silent cell is camp-d-attila "not enough wall ink (2 candidate points, need 4)"). Checkpoint re-verified by script: 21 entries == the golden's 21 exactly, 0 errors, 0 re-runs, all "no-model", fixed at 2026-10-11T22:47:37.081160+00:00. The matcher's own held-out tables (data/matchfit/heldout{,_located,_roma}; docs/matchfit.md: ELoFTR 7/21 accepted, 0 wrong, worst centre 55 m) re-verified present.
+    - Box 3 met: fit/matchfit.judge() - ELoFTR inliers>=10 & |rot|<=30, RoMa fraction>=0.4 (set on the held-out + queue tables, docstring cites docs/matchfit.md sections 7-8), both plus the spread guard (ratio>=0.1, sd>=20 px); "not sure: ..." reasons; matchfit.run writes a document only when judge is silent, so unsure fits never become docs and never build; second line of defence at site_done._sync_doc:204-206 (spread guard on fitter:"matcher" docs before build).
+    - Box 4 half-met -> 302f (file written): wiring met (site_done._fit:78-84) but `grep matchfit tests/` is empty - the matcher station has never been exercised by a test. 302f's site is badbury-rings-q798831: exactly one candidate picture (a confident fit empties uncovered, so the vision batch never runs in the test - the only network is the ephemeral-port stub), all ground images local, its ELoFTR held-out best re-verified this session (six-inch-1st.webp x0.35, 61 matches, 22 inliers, rot 3.62, 58.6 m corner / 2.9 m centre from data/matchfit/heldout/results.json).
+    - Box 5 not met -> 302g (file written): no post-matcher Stonehenge run anywhere; stonehenge-q39671 = 0 drawings / 1 overlay / 14 candidates (7 fabricated-line, 4 median-residual, 2 feature-based, 1 no-model-answer), no matcher doc; the only screenshot (stonehenge.png, 2026-10-11) predates the matcher. 302g runs the current line live (ELoFTR up, RoMa down -> ELoFTR-only run), checks whatever lands in a browser against the sarsens (301/306 shot.mjs pattern), and records it plainly - "places nothing" is a passing answer.
+    Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
+... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
