@@ -548,7 +548,9 @@ const effects = await page.evaluate(async ({ site, plan, docAt, docBy }) => {
         doneOk: doneVal !== undefined && !Number.isNaN(Date.parse(doneVal))
       };
       ok = !!overlay && docAt && state.overlayAt === docAt && state.depSel === state.overlayFile &&
-        state.depVis === 'visible' && state.depSrc === state.want && state.markerClass === 'marker ' + state.tier &&
+        state.depVis === 'visible' && state.depSrc === state.want &&
+        (state.markerClass || '').split(/\s+/).includes('marker') &&
+        (state.markerClass || '').split(/\s+/).includes(state.tier) &&
         !state.inOpen && state.doneOk;
     } catch {}
     if (!ok) await new Promise(r => setTimeout(r, 1000));
@@ -558,8 +560,9 @@ const effects = await page.evaluate(async ({ site, plan, docAt, docBy }) => {
 check('line effect (a): the overlay landed in the tree and the page shows its ink on the map',
   effects.ok && effects.state.depVis === 'visible' && !!effects.state.overlayInk &&
   effects.state.depSrc === 'data/sites/' + site + '/' + effects.state.overlayInk, effects.state);
-check('line effect (b): the site square recolours to the new score\'s tier',
-  effects.ok && effects.state.markerClass === 'marker ' + effects.state.tier, effects.state);
+check('line effect (b): the site square recolours to the new score\'s tier (the tier class sits on the marker element; MapLibre adds its own classes to elements it owns)',
+  effects.ok && (effects.state.markerClass || '').split(/\s+/).includes('marker') &&
+    (effects.state.markerClass || '').split(/\s+/).includes(effects.state.tier), effects.state);
 check('line effect (c): the site left the open review list (the item\'s resolution is checked '
   + 'from the tree in the python checks - the export writes it before review.json)',
   effects.ok && !effects.state.inOpen, effects.state);
@@ -630,7 +633,9 @@ const reload = await page.evaluate(async ({ site, plan, wantScore, wantDrawings 
       ok = state.sel === site && state.ground === 'imagery' && state.depMode === 'ink' &&
         state.plateMode === 'ink' && state.overlayFile && state.depSel === state.overlayFile &&
         state.depVis === 'visible' && state.depSrc === state.want &&
-        state.markerClass === 'marker ' + state.tier && state.doneOk &&
+        (state.markerClass || '').split(/\s+/).includes('marker') &&
+        (state.markerClass || '').split(/\s+/).includes(state.tier) &&
+        state.doneOk &&
         state.drawings === wantDrawings && state.score === wantScore;
     } catch {}
     if (!ok) await new Promise(r => setTimeout(r, 500));
@@ -781,6 +786,8 @@ def _run_one(fx, tag, tmp_path_factory):
                            str(outdir), json.dumps(p["done"]), p["itemFile"]],
                           cwd=str(ROOT), env=dict(os.environ, NODE_PATH=NODE_MODULES),
                           capture_output=True, encoding="utf-8", errors="replace", timeout=600)
+    (outdir / "owner_probe.log").write_text(proc.stdout + "\n=== stderr ===\n" + proc.stderr,
+                                            encoding="utf-8")  # survives the failure: the [eval] dump and RESULT line
     assert proc.returncode == 0 and "RESULT PASS" in proc.stdout, \
         (proc.returncode, proc.stdout[-4000:], proc.stderr[-2000:], out[-30:])
     data = next(json.loads(ln[len("[eval]"):]) for ln in proc.stdout.splitlines() if ln.startswith("[eval]"))
@@ -853,8 +860,11 @@ def _run_one(fx, tag, tmp_path_factory):
     assert entry["score"] == score, (entry["score"], score)
     assert entry["overlays"] == len(ovs), (entry["overlays"], len(ovs))
     assert entry["oldest"] == min(y for y, _, _ in ovs), (entry["oldest"], [y for y, _, _ in ovs])
-    assert data["effects"]["markerClass"] == "marker " + _tier_of(entry["score"])
-    assert data["reload"]["markerClass"] == "marker " + _tier_of(entry["score"])
+    t = _tier_of(entry["score"])
+    # the page sets 'marker <tier>' on the marker element, but MapLibre's own constructor adds
+    # maplibregl-marker / maplibregl-marker-anchor-* to elements it owns, so class membership, never full equality
+    assert "marker" in (data["effects"]["markerClass"] or "").split() and t in data["effects"]["markerClass"].split()
+    assert "marker" in (data["reload"]["markerClass"] or "").split() and t in data["reload"]["markerClass"].split()
 
     # 5. the review item (the tree): resolved by the saved doc
     it = json.loads((tree / "data" / "review" / p["itemFile"]).read_text())
