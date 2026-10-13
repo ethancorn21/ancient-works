@@ -1,0 +1,15 @@
+{
+ "id": "alkmaar-q972",
+ "name": "Alkmaar",
+ "place": "North Holland, Netherlands",
+ "lon": 4.7427,
+ "lat": 52.6285,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q972",
+ "summary": "Alkmaar is a city and municipality in the Netherlands, located in the province of North Holland. Alkmaar is well known for its traditional cheese market. For tourists, it is a popular cultural destination. The municipality has a population of 113,170 as of 2023.",
+ "wiki": "https://en.wikipedia.org/wiki/Alkmaar"
+}

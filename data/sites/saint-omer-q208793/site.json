@@ -1,0 +1,15 @@
+{
+ "id": "saint-omer-q208793",
+ "name": "Saint-Omer",
+ "place": "Pas-de-Calais, France",
+ "lon": 2.2608,
+ "lat": 50.7483,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "town",
+ "qid": "Q208793",
+ "summary": "Saint-Omer is a commune and sub-prefecture of the Pas-de-Calais department in France.",
+ "wiki": "https://en.wikipedia.org/wiki/Saint-Omer"
+}

@@ -1,0 +1,15 @@
+{
+ "id": "utrecht-q803",
+ "name": "Utrecht",
+ "place": "Utrecht (province), Netherlands",
+ "lon": 5.1185,
+ "lat": 52.091,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q803",
+ "summary": "Utrecht is the fourth-largest city of the Netherlands, as well as the capital and the most populous city of the province of Utrecht. The municipality of Utrecht is located in the eastern part of the Randstad conurbation, in the very centre of mainland Netherlands, and includes Haarzuilens, Vleuten and De Meern. It has a population of 378,140 as of January\u00a02026.",
+ "wiki": "https://en.wikipedia.org/wiki/Utrecht"
+}

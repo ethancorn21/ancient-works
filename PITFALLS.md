@@ -7,6 +7,10 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Libraries and frameworks (12): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1
 - This codebase (88): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 14, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 9, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 1
 1 entry lacks a `Where:` or `Symptom:` line: add them when you touch those entries.
+- Agent tools and harness (7)
+- This machine and its environment (30): Internet Archive (archive.org) 4
+- Libraries and frameworks (12): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
+- This codebase (87): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 14, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 7, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, data/merge/ (211's consolidation runners) 1
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -305,6 +309,14 @@ Why: the loop self-heals disk pressure by reclaiming dead numbered dirs, and pre
 
 One `### <library>` subsection per library or tool, with its version.
 
+### pillow (12.3.0, project .venv)
+
+#### A Float32 DEM (the Dutch AHN) needs the unpinned `imagecodecs` package - without it every AHN-sourced site fails to build
+Where: pipeline/build_site.py:load_dem (Image.open on the AHN DEM tiles), the `.venv` build from requirements.txt
+Symptom: `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package` at build time; the AHN-sourced sites (amsterdam-q727, alkmaar-q972, enkhuizen-q9918, haarlem-q9920, rotterdam-q34370, the-hague-q36600, utrecht-q803) all fail, while the point-cloud fallback saves only the boxes pc covers (reimerswaal, sluis, valkenburg)
+Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs. imagecodecs 2026.10.10 was installed ad hoc into the project .venv (2026-10-12, 211's box-3 run) and is NOT in requirements.in/requirements.txt (agent c's 302a/304 own those files; the pin is still outstanding). The driver's in-place .venv rebuild keeps extra packages, so it survives today, but a from-scratch venv would lose it and the AHN builds would fail again.
+What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build (the .venv still carries the ad-hoc 2026.10.10 install). Task 229 (filed 2026-10-12 by 211; Depends on 302a/304, who own requirements.in/.txt in flight) pins it in requirements.in and regenerates requirements.txt - when it lands, correct this entry.
+
 ### pyproj (3.8, project .venv)
 
 #### `pyproj.CRS("OSGB36")` is NOT the British National Grid, and EPSG:4326's authority axis order is (lat, lon)
@@ -457,6 +469,11 @@ row per site from the site's own candidate list. As of the plan two pairs share 
 Larned History..." (avebury-q661855 + stonehenge-q39671) and "File:Mayburgh-1769.png"
 (mayburgh-henge + king-arthur-s-round-table). The page's `P.byId` keeps only the last of the shared-
 `id` rows; the fit-tool keying fix is scoped into 201.
+
+#### `web/data/sites.json` and `web/data/plans.json` are dicts at the top level, not arrays
+Where: `web/data/sites.json` ({"sites": [...]}), `web/data/plans.json` ({"cols": [...], "rows": [...]}); any script that counts or iterates their entries
+Symptom: `len(json.load(open("web/data/plans.json")))` returns 2 (and sites.json 1) instead of the entry count - a "the file lost its rows" check fires on an intact file
+Why: the serving machinery wraps the list: sites.json keeps the site array under "sites"; plans.json is the columnar cols/rows export written by tools/export_plans.py. Index into the wrapper before counting or iterating (verified 2026-10-12, iteration 190: 499 sites / 1,168 rows).
 
 #### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
 Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
@@ -898,6 +915,16 @@ Why: refit() takes the 8-parameter homFit path for `view: true` rows (no scale/r
 Where: `data/review/*.json` (fit/review.py writes them with `json.dump(..., indent=1)`), any scanner over the review store
 Symptom: reading a file line by line and `json.loads`-ing each line yields bare floats / brackets / strings, and a `.get` over a float crashes (hit by the 306c inventory scanner); the line "[950.0" does not even parse
 Why: one item per FILE, one JSON document per file; only the whole-file `json.loads` returns the item dict. If you need per-line scanning (the JSONL stores: data/books/index.jsonl, data/commons/files.jsonl), that is where line-JSON applies - not to data/review/.
+#### Staging -> canonical path mapping must be a stem map, never string surgery: source names contain underscores
+Where: staging naming `data/{catalog,commons}/<stem>_<source>.jsonl`; `tests/test_merge.py` (`_canon_of`), `fit/merge.py` (`source_of`)
+Symptom: `p.replace("extras_", "extras.")` on `extras_artists.jsonl` yields `extras.artists.jsonl` (FileNotFoundError the moment you open it); `p.rsplit("_", 1)[0]` mangles underscored sources: `files_wiltshire_b.jsonl` -> `files_wiltshire.jsonl`, `classified_van_deventer.jsonl` -> `classified_van.jsonl`
+Why: a staging filename is `<stem>_<source>.jsonl` and the source name itself may carry underscores (wiltshire_b, van_deventer). Derive the canonical path from a fixed stem map (`data/catalog/extras_` -> `data/catalog/extras.jsonl`, `data/commons/files_` -> `data/commons/files.jsonl`, `data/commons/classified_` -> `data/commons/classified.jsonl`) - or from the glob prefix the reader already used - and never slice on `_` inside a name.
+
+#### After 211's live merge, every source module's "no staged row in canonical" guard self-triggers - identical twins are the merged state, not a clash
+Where: every fit/src_<lead>.py guard that reads the canonical data/commons/files.jsonl or data/catalog/extras.jsonl (van_deventer, kip, mackenzie, limes, numancia, wiltshire_stukeley, artists - tasks 204/205/206/208/210/209b/213), and their test files
+Symptom: after running fit/merge.py merge on the real tree, the module's --check (or stage command) reds with "staged title already in the canonical files.jsonl: ..." / SystemExit, and the known-site checks ("staged site re-uses existing QID", "staged site ids collide") false-positive on the module's OWN merged sites
+Why: merge.py's contract is that the staging files stay in place and each source's --check still reads them, so "staged row present in the canonical file" is the NORMAL post-merge state, not a clash. A clash is only a DIFFERENT row holding the same key (or an id/QID held by a different site). known_sites() reads the canonical extras, which after the merge contain the source's own staged sites - that is a self-reference, not a duplicate.
+What to do: accept a row identical to its canonical twin under the merge's norm() (json.dumps sort_keys, ensure_ascii=False) as an already-merged no-op (check rc 0, stage a no-op); keep fail-loud for a different row with the same key; exclude self-references from known-site collisions (id: staged_ids & (known.values() - staged_ids); QID: known[qid] != staged id). The guard extensions were filed as tasks 222-228 (one module each; 211 depends on them). 222 (fit/src_van_deventer.py + its three-state test) is the reference implementation of the pattern; 223-228 copy it (note: stukeley's stage leg is also red; mackenzie's guard is named check).
 
 ### pipeline/
 
@@ -1251,3 +1278,10 @@ Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and
 Where: `tests/test_fit_queue.py` (307bb box 3: pick at `_pick_place`, dep assertion at the seed check, the cancel 'none'->'visible' assertion), `web/fitkit.js` (the startFit line hiding the earlier overlay ONLY if the layer exists), `web/index.html` / `web/data/fit_queue.json` (agent a's 307/307bb Touches); 306c hit it 2026-10-12 (iterations 150/157/158)
 Symptom: on a CLEAN main (no local changes): fixture error "no queue entry with a proposal, a local book page, an unresolved item and an overlay - vacuous." On a branch whose audit deleted a site's only platefit doc and upserted its review item (306c: the pick shifts to marietta, plan ancientmonuments00squi_n0169_1): `RESULT FAIL: seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden :: dep:null` - the assertion demands `dep === 'none'` but the `dep-marietta` layer is ABSENT at runtime (fitkit hides only an existing layer); plus, machine-load dependent, save checks ("the page closed the fit view" undefined, "the overlay landed in the tree" - the one-site line's "Making the overlay (a few seconds)" build not finished by the probe read) and cancel ("the earlier overlay is back" - before.vis:null, there was never an earlier overlay to restore).
 Why: the pick is derived (first queue entry that is propose + _line_eligible + has a depiction file), so which site it lands on depends on the store/review state = on other tasks' deletions/upserts; 307bb's pick preconditions don't require a runtime dep layer, and the test assumes the earlier overlay is hidden ('none') and restorable ('visible') even when the site has never had one. The driver's 2026-10-11 loop-start baseline predates 307bb landing on main, so the red is not in its known-failures list and gets flagged "new" for every task merged after it. A parallel task must not "fix" web/fitkit.js / web/index.html / tests/test_fit_queue.py / web/data/fit_queue.json (agent a's files) and must not undo its own audit to move the pick: A/B against main, cite the baseline, and let 307bb's owner (or the driver's known-failures baseline) own the red. (306c's done-claim is held on it: human request 004, filed 2026-10-12 iteration 158; recommendation = accept 306c on the A/B, baseline the red, reopen 307bb for the fix.)
+### data/merge/ (211's consolidation runners)
+
+#### run_build.py is nohup'd, survives session teardown, and is one site per child - never start a second one for overlapping ids
+Where: data/merge/run_build.py (the box-3 site runner), data/merge/build_sites.log (append-only run log)
+Symptom: a previous session's `nohup .venv/bin/python data/merge/run_build.py <ids> &` is still running (`ps aux | grep run_build`); the log's last `=== <sid> start` has no `build rc=` tail yet; a second instance for the same ids would race it on web/data/sites.json
+Why: ending a session does not kill the detached process; each site is one `pipeline/build_catalog.py --ids <sid>` subprocess, so a kill leaves a clean boundary at the last finished site, and build_catalog skips already-built sites, so resuming with the remaining ids is always safe.
+What to do: before launching anything, check `ps`. Log semantics: `NOT BUILT: <sid>` = the machinery skipped it (no LiDAR and no old map, or the id matched no catalog row - sids include the Q-id, so a typo'd id like `vieille-hesdin` silently builds nothing); `=== <sid> FAILED ===` = the subprocess exited non-zero (traceback logged above it). The per-site `marks refreshed` line is build_site.set_drawings on that one site only.

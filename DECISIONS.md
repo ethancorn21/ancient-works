@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 284 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+288 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -36,6 +37,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 209b stukeley (6 entries)
 - 209c petrie (1 entry)
 - 210 numancia (5 entries)
+- 211 merge-build (10 entries, older ones; the task is still open)
 - 213 artist-views (11 entries)
 - 213a civitates-list (3 entries)
 - 213b qids-tests (1 entry)
@@ -333,3 +335,153 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - The ArcGIS World_Imagery ERR_ABORTED reqfail lines in the run log are the live tile feed aborting at page close - expected on this machine (the aerial still renders; 306c's committed shots show the same lines).
 - Deliberately did not run the full test suite this session: the session changed no code or data (new PNGs + new tools/ script + the task file only), so no test can newly fail from it (tests reference docs/site_flow/ in comments only), and a full-suite run writes ~3.5G into /tmp while the disk is 94% full (the ENOSPC false-red story from 306c). The suite runs in the removal session, when data changes actually land.
 - Next: judging in batches of ~5 docs/session starting bury-castle (prelim STAYS from this session's look: the hachured ring sits on the real moat by the map's "Burr Castle" label), then the 306d block in docs/site_flow.md, then 303-way removals of any wrong fits.
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
+- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
+  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
+  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
+  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
+  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
+  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
+  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
+  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
+  unmoved main; the driver re-checks the suite at claim time).
+- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
+  staging, if it ever resumes, goes through a later re-run of this step", but no task
+  existed for that re-run - after 211 claims done, nothing would trigger the Roman
+  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
+  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
+  post-merge canonical state and all of the parent 207's subtask staging; the file notes
+  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
+  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
+  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
+  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
+  one module, and it runs only after 211 is done, so no parallel conflict with any
+  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
+  merge re-run over the Roman staging - every staged row in the canonical files, pure
+  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
+  index + validation rebuilt from ALL per-book files including the three Roman books,
+  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
+  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
+  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
+  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
+  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
+  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
+  25/19 golden reference still passes. Notes: site building is a working-phase command
+  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
+  frozen 385-entry baseline shifts to the post-211 499.
+- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
+  iter-186 note already in it) - no other human section of my task file touched. Files
+  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
+  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
+- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
+  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
+  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
+  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
+  today.
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
+- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
+  all still `Status: open` (they remain `Depends on: none`; the driver's
+  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
+  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
+  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
+  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (the red set is still
+  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
+  re-checks the suite at claim time anyway).
+- Cheap freshness checks (both green, both exactly as the hand-over
+  predicted):
+  1. `git fetch origin` (read-only ref update; team rules forbid me from
+     merging) moved nothing: origin/main is still c063314 and
+     `git log c063314..origin/main` is empty, so the 188 union audit (origin
+     holds none of my 211 outputs; only sites.json differs on both sides,
+     disjoint: my 114 entries vs the human's marker-field updates;
+     platefits/goldens byte-identical) is still current - nothing to
+     re-audit.
+  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
+     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
+     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
+     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
+     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
+     invariants hold in the live files (dict-shape gotcha per PITFALLS:
+     these files are dicts, `len(json.load(...))` is not the entry count).
+- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
+  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
+  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
+  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
+  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
+  branch only - verified absent on main in 189). Neither is a 211 blocker.
+- Files written this session: tasks/211-merge-build.md (Hand-over header
+  line only - state bullets and next-steps unchanged, still accurate),
+  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
+  (nothing new learned).
+
+## 2026-10-12 222 DECISION: merged-state check fix - a staged row already in the canonical file with identical content passes (211's merge is a no-op); same key, different row, and same-site-only id/QID semantics keep the pre-merge protection - done in one session, pattern set for 223-228
+- Session 192. Human lead: "222-228 are yours, in order, on your branch (the merge lives
+  there); each is the same small fix; reuse the pattern of the first fix; keep each to
+  one or two sessions." This session = 222 (van deventer), complete.
+- The fix (fit/src_van_deventer.py, two commits):
+  - refactor: known_sites() reads module-level constants EXTRAS_CANONICAL / SITES_CATALOG /
+    SITES_WEB (new) alongside the existing FILES_CANONICAL - so a test can point the
+    canonical files at temp copies. Proved behavior-neutral: same red set (2 failed /
+    2 passed, 113 join problems) before and after.
+  - check_staged(): (1) id collision only when the staged id is in
+    known.values() - staged_ids (the merge's own rows map back to the same ids);
+    (2) QID reuse only when known[qid] != staged id; (3) canonical (site, title) clash only
+    when the staged row differs from the canonical row under _canon_norm =
+    json.dumps(row, sort_keys=True, ensure_ascii=False) (the same norm fit/merge.py uses on
+    the line; canonical map built first-row-wins like the merge). Failure message text kept
+    verbatim. The six done towns' TOWNS-table check untouched.
+  - test: test_table_and_staged_rows' disjointness assertion became the same-site-only loop
+    (if qid in known: known[qid] == staged id). New test_check_staged_three_states,
+    hermetic: monkeypatched canonical paths to temp copies built from the live files minus
+    this module's staged rows (works pre- or post-merge on any checkout); state (a) absent
+    -> rc 0 / no join / evidence 56 pass; (b) staged rows appended verbatim + web sites.json
+    {id,qid} entries -> rc 0 (the 113 self-triggers gone); (c) one row's year altered in the
+    temp canonical -> rc 1, join lines exactly the one clash naming that key.
+- Verification: live `fit/src_van_deventer.py --check` on this merged branch: rc 0, 0 join,
+  evidence 56/56 (previously rc 1, 113 join). Live negative control (temp canonical with
+  Aardenburg's row altered): rc 1, exactly that clash. vd test file 5/5 green. Full suite:
+  8 failed / 133 passed / 1 skipped vs loop start 10 failed / 130 passed / 1 skipped - the
+  8 remaining are exactly the 223-228 sibling guard tests (artists 1, kip 1, limes 1,
+  mackenzie 1, numancia 1, stukeley 3 incl. a stage()-leg SystemExit - inspect 227's stage
+  before copying the pattern). Zero new reds.
+- Minor failure (not a blocker): two successive edit-tool writes mangled the bracket count of
+  the new assert's f-string (SyntaxError each time); fixed line-by-line with a python
+  rewrite and verified with ast.parse. When editing these guard blocks, parse-check after
+  each edit.
+- Next: 223 kip (tasks/223-kip-merged-check.md), same pattern (its known_sites/check_staged
+  shape may differ - read the module first; kip's check is called check_staged per its test).
+  Note mackenzie's guard is named `check` (not check_staged) and stukeley's failure set
+  includes its stage leg.

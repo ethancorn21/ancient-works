@@ -1,0 +1,15 @@
+{
+ "id": "tournai-q173219",
+ "name": "Tournai",
+ "place": "Arrondissement of Tournai, Belgium",
+ "lon": 3.3881,
+ "lat": 50.6056,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q173219",
+ "summary": "Tournai is a city and municipality of Wallonia located in the Province of Hainaut, Belgium. It lies 89\u00a0km (55\u00a0mi) by road southwest of the centre of Brussels on the river Scheldt, and is part of Eurometropolis Lille\u2013Kortrijk\u2013Tournai. In 2022, the municipality of Tournai had an estimated population of 68,518 people.",
+ "wiki": "https://en.wikipedia.org/wiki/Tournai"
+}

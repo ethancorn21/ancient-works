@@ -41,6 +41,23 @@ def put_json(url, obj, timeout=10):
         return r.status, r.read()
 
 
+def copy_web(tree, real=()):
+    """Copy web/ into a test tree, with the per-site folders (web/data/sites/<id>, ~500 once the
+    sites are built) LINKED to the checkout's, not copied: every full-tree fixture used to copy them
+    all and the suite runs filled the VM disk (2026-10-12). `real` names the sites a test writes into
+    (the one-site line's pick): those are real copies, so a write can never reach the checkout."""
+    src, dst = os.path.join(ROOT, "web"), os.path.join(str(tree), "web")
+    shutil.copytree(src, dst, ignore=lambda d, names: ["sites"] if d == os.path.join(src, "data") else [])
+    sites = os.path.join(src, "data", "sites")
+    os.makedirs(os.path.join(dst, "data", "sites"), exist_ok=True)
+    for n in sorted(os.listdir(sites)):
+        s, t = os.path.join(sites, n), os.path.join(dst, "data", "sites", n)
+        if n in real:
+            shutil.copytree(s, t)  # follows the checkout's own link into the shared store
+        else:
+            os.symlink(os.path.realpath(s), t)
+
+
 @pytest.fixture(scope="session")
 def served(tmp_path_factory):
     """The real server on an ephemeral port, serving a temp copy of the project (web/, server/, data/ minus data/raw/).
@@ -48,7 +65,7 @@ def served(tmp_path_factory):
     Yields (base_url, tree): base_url like http://127.0.0.1:39411/, tree the copied project root.
     """
     tree = tmp_path_factory.mktemp("aw")
-    shutil.copytree(os.path.join(ROOT, "web"), os.path.join(tree, "web"))
+    copy_web(tree)
     shutil.copytree(os.path.join(ROOT, "server"), os.path.join(tree, "server"))
     # the whole data/ tree except data/raw/ (GB of book scans and downloads the tests never need):
     # data/db (document store), data/books, data/commons, data/catalog, data/review ...

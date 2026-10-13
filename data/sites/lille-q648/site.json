@@ -1,0 +1,15 @@
+{
+ "id": "lille-q648",
+ "name": "Lille",
+ "place": "Nord, France",
+ "lon": 3.0575,
+ "lat": 50.6319,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "town",
+ "qid": "Q648",
+ "summary": "Lille is a city in the northern part of France, within French Flanders. Positioned along the De\u00fble river, near France's border with Belgium, it is the capital of the Hauts-de-France region, the prefecture of the Nord department, and the main city of the European Metropolis of Lille. It is also the seat of the European Union Customs Authority.",
+ "wiki": "https://en.wikipedia.org/wiki/Lille"
+}

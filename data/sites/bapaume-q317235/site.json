@@ -1,0 +1,15 @@
+{
+ "id": "bapaume-q317235",
+ "name": "Bapaume",
+ "place": "Pas-de-Calais, France",
+ "lon": 2.8511,
+ "lat": 50.1036,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "town",
+ "qid": "Q317235",
+ "summary": "Bapaume is a commune in the Pas-de-Calais department in the Hauts-de-France region of northern France.",
+ "wiki": "https://en.wikipedia.org/wiki/Bapaume"
+}
