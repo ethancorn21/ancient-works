@@ -58,14 +58,6 @@ AT = "2026-10-12T00:00:00.000Z"  # the done-map timestamp 307bb's card runs seed
 # then the auto depiction is the first drawing or the LAST map.
 SURVEY_KINDS = frozenset({"map", "aerial", "topo"})
 DRAWING_KINDS = frozenset({"plan", "drawing", "view"})
-# pipeline/build_site.py: the series error in metres, keyed by a substring of the depiction label
-SERIES_ERR_M = {
-    "Ordnance Survey six-inch": 8,
-    "Etat-major": 40,
-    "Topographic and Military Map of the Netherlands": 40,
-    "Cassini": 250,
-    "Roy's Military Survey": 250,
-}
 MIN_AGE_YEARS = 150  # pipeline/depict.py
 
 # The page's marker tiers (web/index.html)
@@ -204,33 +196,9 @@ def _picker():
 
 
 def _tier_of(score):
-    """The page's tierOf (web/index.html)."""
-    return next(t for th, t in TIERS if (score or 0) >= th)[1] if any((score or 0) >= th for th, _ in TIERS) else "plain"
-
-
-def _score_of_deps(deps):
-    """pipeline/build_site.py's overlays()+score() ported to the standard library: drawings at
-    their fit residual, survey maps only at 150 years or older, at the series error.
-    -> (score, the counted overlays as (year, error in metres, is a drawing))."""
-    year_now = datetime.now(timezone.utc).year
-    newest = year_now - MIN_AGE_YEARS
-    ovs = []
-    for d in deps:
-        y = d.get("year")
-        if not y:
-            continue
-        if d.get("kind") in DRAWING_KINDS:
-            res = (d.get("fit") or {}).get("resid_m")
-            rms = math.sqrt(sum(r * r for r in res) / len(res)) if res else 30.0
-            ovs.append((y, rms, True))
-        elif y <= newest:
-            err = next((e for k, e in SERIES_ERR_M.items() if k in (d.get("label") or "")), 100)
-            ovs.append((y, err, False))
-    if not ovs:
-        return (0, ovs)
-    vals = sorted(((year_now - y) / 100.0 / (1.0 + (e / 100.0) ** 2) * (1.0 if dr else 0.6)
-                   for y, e, dr in ovs), reverse=True)
-    return (round(vals[0] + 0.25 * sum(vals[1:]), 2), ovs)
+    """The page's tierOf (web/index.html: TIERS.find(t => (s.score || 0) >= t[0]) || [0, 'plain'])[1]) -
+    note the find yields the [threshold, tier] pair, so the tier is the element, never an index into it."""
+    return next((t for th, t in TIERS if (score or 0) >= th), "plain")
 
 
 def _merc(lon, lat):
@@ -798,6 +766,7 @@ def _run_one(fx, tag, tmp_path_factory):
                                              for ln in out):
         time.sleep(0.2)
     runlog = out[n0:]
+    (outdir / "server_runlog.log").write_text("\n".join(runlog) + "\n", encoding="utf-8")  # survives a failure: check 7's exact-match asserts
 
     # 1. the saved doc (read from the tree's store): by hand, exactly the placed pairs
     doc = data["doc"]
@@ -851,20 +820,41 @@ def _run_one(fx, tag, tmp_path_factory):
     m = math.ceil(max(f["resid"]))
     assert ov["source"] == plan_fit.source_line(doc, len(doc["pairs"]), m, "hand"), ov["source"]
 
-    # 4. the site's marker fields in the tree's sites.json: recomputed build_site formula
+    # 4. the site's marker fields in the tree's sites.json: exactly what build_site's own marks()
+    #    recomputes from the tree's depictions (the line called set_drawings -> marks on this very
+    #    tree). The real functions, not a port: the old port assumed the counted set and it was the
+    #    source of the only remaining failure (session 249). Every assert below carries the full diag
+    #    (the entry, the recomputation, every depiction it saw, the page's marker classes), so a
+    #    failure names its own cause instead of dying with a bare AssertionError.
     entry = next(x for x in json.loads((tree / "web" / "data" / "sites.json").read_text())["sites"]
                  if x["id"] == site)
     before = p["sitesBefore"]
-    assert entry["drawings"] == before["drawings"] + 1, (entry["drawings"], before["drawings"])
-    score, ovs = _score_of_deps(deps)
-    assert entry["score"] == score, (entry["score"], score)
-    assert entry["overlays"] == len(ovs), (entry["overlays"], len(ovs))
-    assert entry["oldest"] == min(y for y, _, _ in ovs), (entry["oldest"], [y for y, _, _ in ovs])
+    sys.path.insert(0, str(ROOT / "pipeline"))
+    import build_site  # the line's own writer of these fields (pipeline/ imports numpy: .venv)
+    exp_ovs = build_site.overlays(site, entry.get("plate"), str(tree))
+    exp = {
+        "drawings": build_site.drawings(site, entry.get("plate"), str(tree)),
+        "score": build_site.score(exp_ovs),
+        "oldest": min((y for y, _, _ in exp_ovs), default=None),
+        "overlays": len(exp_ovs),
+    }
+    diag = {
+        "entry": {k: entry.get(k) for k in ("drawings", "score", "oldest", "overlays")},
+        "expected": exp, "ovs": exp_ovs, "plate": entry.get("plate"), "before": before,
+        "deps": [(d.get("kind"), d.get("year"), d.get("file"), d.get("label"),
+                  (d.get("fit") or {}).get("doc"), (d.get("fit") or {}).get("resid_m")) for d in deps],
+        "effectsClass": data["effects"].get("markerClass"), "reloadClass": data["reload"].get("markerClass"),
+        "tier": _tier_of(entry["score"]),
+    }
+    assert entry["drawings"] == before["drawings"] + 1 == exp["drawings"], diag
+    assert entry["score"] == exp["score"], diag
+    assert entry["overlays"] == exp["overlays"], diag
+    assert entry["oldest"] == exp["oldest"], diag
     t = _tier_of(entry["score"])
     # the page sets 'marker <tier>' on the marker element, but MapLibre's own constructor adds
     # maplibregl-marker / maplibregl-marker-anchor-* to elements it owns, so class membership, never full equality
-    assert "marker" in (data["effects"]["markerClass"] or "").split() and t in data["effects"]["markerClass"].split()
-    assert "marker" in (data["reload"]["markerClass"] or "").split() and t in data["reload"]["markerClass"].split()
+    assert "marker" in (data["effects"]["markerClass"] or "").split() and t in (data["effects"]["markerClass"] or "").split(), diag
+    assert "marker" in (data["reload"]["markerClass"] or "").split() and t in (data["reload"]["markerClass"] or "").split(), diag
 
     # 5. the review item (the tree): resolved by the saved doc
     it = json.loads((tree / "data" / "review" / p["itemFile"]).read_text())
@@ -881,7 +871,10 @@ def _run_one(fx, tag, tmp_path_factory):
     #    line: every candidate is the saved doc or an item candidate, so the batch never runs.
     #    _summary's per-picture lines are two-space indented (not 'fit  ' lines) and may say
     #    'sent to the review queue' for the unfitted candidates - that is the line's own record.
-    line_lines = [ln for ln in runlog if "one-site line" in ln]
+    #    The finished reports are filtered by their own shape, never by the phrase: the line's own
+    #    header (site_done: 'site <sid>: the one-site line (fit -> sync -> entry -> review)') also
+    #    contains the phrase and would join an in-substring filter.
+    line_lines = [ln for ln in runlog if ln.startswith("  one-site line for ")]
     assert line_lines == [f"  one-site line for {site}: finished (exit 0)"], line_lines
     rows = _rows_naming(tree, site)
     doc_plans = {json.loads(pth.read_text()).get("plan") for pth
@@ -933,5 +926,6 @@ def test_owner_save_site_size_fallback(owner_served, tmp_path_factory):
     checkout's shared store is still byte-identical when B finishes."""
     data = _run_one(owner_served, "B", tmp_path_factory)
     a = owner_served["picks"]["A"]
-    assert _h(owner_served["tree"] / "data" / "review" / a["itemFile"]) == _h(a["itemBytes"]), \
+    assert a.get("itemBytes"), "test A did not run first (the write-once check records A's item bytes)"
+    assert _h(owner_served["tree"] / "data" / "review" / a["itemFile"]) == a["itemBytes"], \
         "B's run rewrote A's already-resolved item file"
