@@ -1355,6 +1355,34 @@ the site stays covered for the union check, an open item counts).
   a third of the drawing's actual 1.35 m/px - the bar disagrees with the drawing (the usual
   feet/yards factor-of-3 mix-up); the drawing itself matches the real hill in size and
   place. KEEPS - an orphan today, invisible on the page.
+- pontefract-castle-q1949590.c_3213330a52fe6018 - The history of the ancient borough of
+  Pontefract (1807; the 'Ground Plan of Pontefract Castle and the Town' plate; similarity,
+  8 pts, resid 5.5-37.3 m, 0.60 m/px, +1.1 deg): the 8 anchors are a near-regular grid (the
+  v=1089 row, the u=870 column, two rectangle corners), so the residuals only measure the
+  grid's own inconsistency - but the placement this grid implies lands right: the site point
+  inverse-maps to plate (624, 1097) = the centre of the drawn castle (the keep circle '1'
+  inside the hatched moated complex, 'Barbican' W of it). The drawn castle sits on the real
+  one: the 1842 six-inch 'Castle' / 'Castle Precincts' with their small dashed moat ring, and
+  the LiDAR's bright moated mound (~80-100 m) with its ditch ring (~120-150 m), are both
+  centred on the site point under the drawn keep; the drawn big rounded moat (the 1807
+  idealisation of the medieval moat, ~230 m across) encloses the real mound and its ditch and
+  tracks the River Calder valley curving round the E side of the castle on the relief, and
+  the drawn town fabric (Market Place rows NW, Babill Lane W, Skinner Lane NE, the star
+  bastions) lies on the real 1842 town and its bastions. KEEPS - an orphan today, invisible
+  on the page.
+- pontefract-castle-q1949590.c_d135fb32326df430 - The history of the ancient borough of
+  Pontefract (1807; the 'Ground Plan of the Siege of Pontefract Castle, with the Situation of
+  the Forces' plate; similarity, 8 pts, resid 6.0-35.6 m, 0.72 m/px, -0.1 deg): the 8 anchors
+  are a 199-200 m per 100 px grid, so the fit carries no placement information (the
+  bury-castle class). The site point inverse-maps to the plate's 'Newgate' / 'Head Lands'
+  ground west of the town centre (open hatched fields); the plate's own Market Place lands
+  ~310 m SSE of the real market and its drawn castle (feature 17, the square island with the
+  keep, W of the river) ~520 m SSE of the real moated castle, south of the River Calder, where
+  the 1842 and LiDAR show fields and no castle; the plate's main street crosses over the real
+  castle. Wrong place, right kind (the bury-castle class). DELETED - an orphan today,
+  invisible on the page (the 303 way: the picture and its 8 points went to the site's review
+  item, appended after its seven coarse candidates with this reason; the item keeps its file
+  name and stays open, and the site stays covered).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
