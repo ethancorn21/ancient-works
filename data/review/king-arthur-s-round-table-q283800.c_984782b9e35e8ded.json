@@ -40,6 +40,85 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: Arthur's Round Table center, Little Round Table center, River crossing at top, River crossing at bottom; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_cfc493f72253fa8e",
+   "title": "Rude Stone Monuments 0154",
+   "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "King Arthur's Round Table",
+    "place_qid": "Q283800",
+    "place_label": "King Arthur's Round Table",
+    "place_lon": -2.74026,
+    "place_lat": 54.6482,
+    "site_lon": -2.74026,
+    "site_lat": 54.6482,
+    "dist_m": 0.0
+   },
+   "pairs": [
+    [
+     640.0,
+     600.0,
+     -2.7402522,
+     54.6483752
+    ],
+    [
+     640.0,
+     200.0,
+     -2.7402522,
+     54.6513395
+    ],
+    [
+     900.0,
+     400.0,
+     -2.7363708,
+     54.6499921
+    ],
+    [
+     640.0,
+     800.0,
+     -2.7402522,
+     54.6463988
+    ],
+    [
+     300.0,
+     400.0,
+     -2.7441337,
+     54.6499921
+    ],
+    [
+     640.0,
+     100.0,
+     -2.7402522,
+     54.6519683
+    ],
+    [
+     1000.0,
+     400.0,
+     -2.7355945,
+     54.6499921
+    ],
+    [
+     640.0,
+     1000.0,
+     -2.7402522,
+     54.6450513
+    ]
+   ],
+   "coarse": false,
+   "label": "1872",
+   "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
+   "ref": "File:Rude Stone Monuments 0154.png",
+   "size": [
+    1280,
+    1257
+   ],
+   "place_reason": "306d audit 2026-10-13: the fit is 0.862 m/px (8 uniform cross anchors, the centre anchor ON the site point, rot 0.03, resid 7.7-40.8 m) = ~9x the plate's own bar (486 px for 100 ft = 0.094 m/px). The drawn central small circle (~200 m) does cover the real feature (a small ~100 m grassy hill with a shallow ring gully at the site point), but the drawn concentric arcs (radii 100-450 m) spread over farmland, cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no rings exist (the OS 6-inch composite); the real site has no concentric earthwork. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 23.2
   }
  ],
  "no_picture_found": null,

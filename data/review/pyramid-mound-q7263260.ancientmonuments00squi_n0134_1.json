@@ -1,0 +1,46 @@
+{
+ "site": "pyramid-mound-q7263260",
+ "candidates": [
+  {
+   "plan": "ancientmonuments00squi_n0134_1",
+   "title": "ancientmonuments00squi_n0134_1",
+   "url": "books/ancientmonuments00squi/n0134.jpg",
+   "pairs": [
+    [
+     1000.0,
+     2400.0,
+     -87.5066695,
+     38.6710447
+    ],
+    [
+     850.0,
+     2500.0,
+     -87.5078201,
+     38.6701463
+    ],
+    [
+     1150.0,
+     2500.0,
+     -87.505519,
+     38.6701463
+    ],
+    [
+     500.0,
+     2500.0,
+     -87.509546,
+     38.6705955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 24.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 24.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

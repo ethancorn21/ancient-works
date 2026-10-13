@@ -383,6 +383,149 @@
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "radial gradient: slope_o 0.18974358974398525 > 0.145",
    "gate_score": 29.3
+  },
+  {
+   "plan": "c_d135fb32326df430",
+   "title": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065).jpg",
+   "url": "media/commons/pontefract-castle-q1949590/d135fb32326df430.jpg",
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     -1.3084841,
+     53.6981904
+    ],
+    [
+     800.0,
+     200.0,
+     -1.3024152,
+     53.6981904
+    ],
+    [
+     800.0,
+     800.0,
+     -1.3024152,
+     53.6945972
+    ],
+    [
+     200.0,
+     800.0,
+     -1.3084841,
+     53.6945972
+    ],
+    [
+     500.0,
+     500.0,
+     -1.3054496,
+     53.6963938
+    ],
+    [
+     1000.0,
+     500.0,
+     -1.2993807,
+     53.6963938
+    ],
+    [
+     100.0,
+     500.0,
+     -1.3100013,
+     53.6963938
+    ],
+    [
+     500.0,
+     1000.0,
+     -1.3054496,
+     53.6928005
+    ]
+   ],
+   "coarse": false,
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "The history of the ancient borough of Pontefract",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "label": "1807",
+   "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_history_of_the_ancient_borough_of_Pontefract,_containing_an_interesting_account_of_its_castle,_and_the_three_different_sieges_it_sustained,_during_the_civil_war,_with_notes_and_pedigrees,_of_some_(14762763065).jpg",
+   "ref": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065).jpg",
+   "size": [
+    1280,
+    1982
+   ],
+   "place_reason": "306e audit 2026-10-13: similarity (8 pts, resid 6.0-35.6 m, 0.72 m/px, -0.1 deg). The 8 anchors are a 199-200 m per 100 px grid, so the fit carries no placement information (the bury-castle class). The site point inverse-maps to the plate's 'Newgate'/'Head Lands' ground west of the town centre (open hatched fields); the plate's own Market Place lands ~310 m SSE of the real market and its drawn castle (feature 17) ~520 m SSE of the real moated castle, south of the River Calder, where the 1842 and LiDAR show fields and no castle; the plate's main street crosses over the real castle. Wrong place, right kind. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 24.5 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 24.5
+  },
+  {
+   "plan": "c_3213330a52fe6018",
+   "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739695456)",
+   "url": "media/commons/pontefract-castle-q1949590/3213330a52fe6018.jpg",
+   "pairs": [
+    [
+     624.0,
+     1089.0,
+     -1.3039324,
+     53.6954955
+    ],
+    [
+     870.0,
+     842.0,
+     -1.3016566,
+     53.696843
+    ],
+    [
+     870.0,
+     1337.0,
+     -1.3016566,
+     53.694148
+    ],
+    [
+     378.0,
+     1337.0,
+     -1.3062083,
+     53.694148
+    ],
+    [
+     378.0,
+     842.0,
+     -1.3062083,
+     53.696843
+    ],
+    [
+     920.0,
+     1089.0,
+     -1.300898,
+     53.6954955
+    ],
+    [
+     328.0,
+     1089.0,
+     -1.3069669,
+     53.6954955
+    ],
+    [
+     870.0,
+     1584.0,
+     -1.3016566,
+     53.6932497
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); the gate's 9.5 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pontefract Castle",
+    "file_cat": "Pontefract Castle in art",
+    "via": [
+     "Pontefract Castle"
+    ]
+   },
+   "gate_score": 9.5
   }
  ],
  "no_picture_found": null,

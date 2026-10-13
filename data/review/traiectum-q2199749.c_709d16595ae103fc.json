@@ -315,6 +315,428 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
    "why": "features: River bend top, River bend mid, River bend lower, River bend bottom; stated scale 0.630 disagrees with its own points (1.918 m/px): not trusted"
+  },
+  {
+   "plan": "c_437d1d60e38020f7",
+   "title": "Plan van de Bataille Laefelt - estampe - btv1b84091236",
+   "url": "media/commons/traiectum-q2199749/437d1d60e38020f7.jpg",
+   "pairs": [
+    [
+     800.0,
+     300.0,
+     5.1245735,
+     52.0942806
+    ],
+    [
+     200.0,
+     200.0,
+     5.114339,
+     52.0960771
+    ],
+    [
+     1000.0,
+     500.0,
+     5.1274976,
+     52.0924841
+    ],
+    [
+     400.0,
+     400.0,
+     5.1172631,
+     52.0933824
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 25.9 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Bataille",
+     "place_qid": "Q1110936",
+     "place_label": "La Bataille",
+     "place_lon": -0.10833333333333,
+     "place_lat": 46.086111111111,
+     "site_lon": 5.121642,
+     "site_lat": 52.090692
+    }
+   },
+   "gate_score": 25.9
+  },
+  {
+   "plan": "c_5d442b3b66839fa3",
+   "title": "Traiectum - btv1b53225510d (1 of 2)",
+   "url": "media/commons/traiectum-q2199749/5d442b3b66839fa3.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     5.1114148,
+     52.0969753
+    ],
+    [
+     200.0,
+     100.0,
+     5.1128769,
+     52.0969753
+    ],
+    [
+     300.0,
+     100.0,
+     5.114339,
+     52.0969753
+    ],
+    [
+     400.0,
+     100.0,
+     5.115801,
+     52.0969753
+    ],
+    [
+     500.0,
+     100.0,
+     5.1172631,
+     52.0969753
+    ],
+    [
+     600.0,
+     100.0,
+     5.1187252,
+     52.0969753
+    ],
+    [
+     700.0,
+     100.0,
+     5.1201872,
+     52.0969753
+    ],
+    [
+     800.0,
+     100.0,
+     5.1216493,
+     52.0969753
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_6713f5e6c6b11f1f",
+   "title": "Traiectum ad Mosam. Maestricht - btv1b532115367 (1 of 2)",
+   "url": "media/commons/traiectum-q2199749/6713f5e6c6b11f1f.jpg",
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     5.1126868,
+     52.0961938
+    ],
+    [
+     640.0,
+     100.0,
+     5.1216493,
+     52.0967507
+    ],
+    [
+     640.0,
+     600.0,
+     5.1216493,
+     52.0911367
+    ],
+    [
+     150.0,
+     1050.0,
+     5.1126868,
+     52.0860879
+    ],
+    [
+     640.0,
+     1100.0,
+     5.1216493,
+     52.0855219
+    ],
+    [
+     1100.0,
+     1050.0,
+     5.1300562,
+     52.0860879
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.3
+  },
+  {
+   "plan": "c_8a2055d5929c4c5d",
+   "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM",
+   "url": "media/commons/traiectum-q2199749/8a2055d5929c4c5d.jpg",
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     5.1126868,
+     52.0961938
+    ],
+    [
+     800.0,
+     100.0,
+     5.1245735,
+     52.0967507
+    ],
+    [
+     800.0,
+     600.0,
+     5.1245735,
+     52.0911367
+    ],
+    [
+     150.0,
+     800.0,
+     5.1126868,
+     52.0888908
+    ],
+    [
+     800.0,
+     1000.0,
+     5.1245735,
+     52.0866449
+    ],
+    [
+     1100.0,
+     600.0,
+     5.1300562,
+     52.0911367
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.2
+  },
+  {
+   "plan": "c_94f82fd629d1ed30",
+   "title": "Traiectum ad Mosam (...) - btv1b53211537p (2 of 3)",
+   "url": "media/commons/traiectum-q2199749/94f82fd629d1ed30.jpg",
+   "pairs": [
+    [
+     1000.0,
+     200.0,
+     5.1245735,
+     52.0960771
+    ],
+    [
+     1000.0,
+     400.0,
+     5.1245735,
+     52.0942806
+    ],
+    [
+     1000.0,
+     600.0,
+     5.1245735,
+     52.0924841
+    ],
+    [
+     1000.0,
+     800.0,
+     5.1245735,
+     52.0906875
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_a65b37aa773876a5",
+   "title": "Maastricht1749LarcherDAubencourt2 (detail Vrijthof & 1e stadsmuur)",
+   "url": "media/commons/traiectum-q2199749/a65b37aa773876a5.jpg",
+   "pairs": [
+    [
+     150.0,
+     150.0,
+     5.1126868,
+     52.0961938
+    ],
+    [
+     1100.0,
+     150.0,
+     5.1300562,
+     52.0961938
+    ],
+    [
+     1100.0,
+     1100.0,
+     5.1300562,
+     52.0855219
+    ],
+    [
+     150.0,
+     1100.0,
+     5.1126868,
+     52.0855219
+    ],
+    [
+     600.0,
+     600.0,
+     5.1209183,
+     52.0911367
+    ],
+    [
+     900.0,
+     600.0,
+     5.126401,
+     52.0911367
+    ],
+    [
+     300.0,
+     600.0,
+     5.1154355,
+     52.0911367
+    ],
+    [
+     600.0,
+     900.0,
+     5.1209183,
+     52.0877679
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.2 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Maastricht",
+     "place_qid": "Q1309",
+     "place_label": "Maastricht",
+     "place_lon": 5.6833333333333,
+     "place_lat": 50.866666666667,
+     "site_lon": 5.121642,
+     "site_lat": 52.090692
+    }
+   },
+   "gate_score": 0.2
+  },
+  {
+   "plan": "c_e5e4b5c0234373cb",
+   "title": "Atlas Beudeker-C9E10 039 011-TRAIECTUM AD MOSAM - Bouillonstraat",
+   "url": "media/commons/traiectum-q2199749/e5e4b5c0234373cb.jpg",
+   "pairs": [
+    [
+     600.0,
+     200.0,
+     5.1209183,
+     52.095628
+    ],
+    [
+     600.0,
+     400.0,
+     5.1209183,
+     52.0933824
+    ],
+    [
+     600.0,
+     600.0,
+     5.1209183,
+     52.0911367
+    ],
+    [
+     600.0,
+     800.0,
+     5.1209183,
+     52.0888908
+    ],
+    [
+     400.0,
+     400.0,
+     5.1172631,
+     52.0933824
+    ],
+    [
+     800.0,
+     400.0,
+     5.1245735,
+     52.0933824
+    ],
+    [
+     600.0,
+     100.0,
+     5.1209183,
+     52.0967507
+    ],
+    [
+     600.0,
+     900.0,
+     5.1209183,
+     52.0877679
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Traiectum",
+    "place_qid": "Q2199749",
+    "place_label": "Traiectum",
+    "place_lon": 5.121642,
+    "place_lat": 52.090692,
+    "site_lon": 5.121642,
+    "site_lat": 52.090692,
+    "dist_m": 0.0
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

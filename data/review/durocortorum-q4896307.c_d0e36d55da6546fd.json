@@ -143,6 +143,213 @@
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "median residual 77.65842242638826 m > 45.0 m",
    "gate_score": 77.7
+  },
+  {
+   "plan": "c_08d995eb23a685c2",
+   "title": "Plan-Reims-Bas-Empire",
+   "url": "media/commons/durocortorum-q4896307/08d995eb23a685c2.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     4.8381003,
+     49.2654704
+    ],
+    [
+     200.0,
+     150.0,
+     4.844983,
+     49.2632247
+    ],
+    [
+     100.0,
+     200.0,
+     4.8381003,
+     49.2609788
+    ],
+    [
+     200.0,
+     250.0,
+     4.844983,
+     49.2587329
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Durocortorum",
+    "file_cat": "Durocortorum",
+    "via": []
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "c_262c52de83d336bf",
+   "title": "MoSa\u00efque archev\u00each\u00e9 41825",
+   "url": "media/commons/durocortorum-q4896307/262c52de83d336bf.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     4.8325941,
+     49.2690633
+    ],
+    [
+     1100.0,
+     100.0,
+     4.8518656,
+     49.2690633
+    ],
+    [
+     1100.0,
+     400.0,
+     4.8518656,
+     49.2654704
+    ],
+    [
+     100.0,
+     400.0,
+     4.8325941,
+     49.2654704
+    ],
+    [
+     600.0,
+     250.0,
+     4.8422299,
+     49.2672669
+    ],
+    [
+     50.0,
+     250.0,
+     4.8319059,
+     49.2672669
+    ],
+    [
+     1150.0,
+     250.0,
+     4.8525539,
+     49.2672669
+    ],
+    [
+     600.0,
+     50.0,
+     4.8422299,
+     49.2695124
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 10.4 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Durocortorum",
+    "file_cat": "Durocortorum",
+    "via": []
+   },
+   "gate_score": 10.4
+  },
+  {
+   "plan": "c_369f6580712b35a7",
+   "title": "MoSa\u00efque rue Jacquart 41825",
+   "url": "media/commons/durocortorum-q4896307/369f6580712b35a7.jpg",
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     4.8346589,
+     49.2668178
+    ],
+    [
+     750.0,
+     250.0,
+     4.8463595,
+     49.2668178
+    ],
+    [
+     750.0,
+     850.0,
+     4.8463595,
+     49.2587329
+    ],
+    [
+     150.0,
+     850.0,
+     4.8346589,
+     49.2587329
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 17.7 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Durocortorum",
+    "file_cat": "Durocortorum",
+    "via": []
+   },
+   "gate_score": 17.7
+  },
+  {
+   "plan": "c_a60f570e6ce08f39",
+   "title": "Plan monumental de Reims et ses caves de champagne 1894",
+   "url": "media/commons/durocortorum-q4896307/a60f570e6ce08f39.jpg",
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     4.8346589,
+     49.267716
+    ],
+    [
+     400.0,
+     400.0,
+     4.8381003,
+     49.2654704
+    ],
+    [
+     600.0,
+     600.0,
+     4.8415416,
+     49.2632247
+    ],
+    [
+     100.0,
+     300.0,
+     4.8329383,
+     49.2665932
+    ],
+    [
+     700.0,
+     300.0,
+     4.8432623,
+     49.2665932
+    ],
+    [
+     300.0,
+     500.0,
+     4.8363796,
+     49.2643475
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Reims",
+     "place_qid": "Q41876",
+     "place_label": "Reims",
+     "place_lon": 4.0286111111111,
+     "place_lat": 49.265277777778,
+     "site_lon": 4.842223,
+     "site_lat": 49.26278
+    }
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

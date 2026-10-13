@@ -1,0 +1,53 @@
+{
+ "site": "offa-s-dyke-q1127343",
+ "candidates": [
+  {
+   "plan": "c_1cca85e7b4b5a89e",
+   "title": "OS1902 Nantcribba 02",
+   "url": "media/commons/offa-s-dyke-q1127343/1cca85e7b4b5a89e.jpg",
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     -3.0489926,
+     52.3439955
+    ],
+    [
+     350.0,
+     350.0,
+     -3.0460518,
+     52.3421988
+    ],
+    [
+     450.0,
+     550.0,
+     -3.0431109,
+     52.3404021
+    ],
+    [
+     550.0,
+     650.0,
+     -3.0401701,
+     52.3386053
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 42.6 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Offa's Dyke",
+    "place_qid": "Q1127343",
+    "place_label": "Offa's Dyke",
+    "place_lon": -3.049,
+    "place_lat": 52.344,
+    "site_lon": -3.049,
+    "site_lat": 52.344,
+    "dist_m": 0.0
+   },
+   "gate_score": 42.6
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

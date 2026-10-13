@@ -1,0 +1,70 @@
+{
+ "site": "burlington-house-q225471",
+ "candidates": [
+  {
+   "plan": "c_17e8fb3cf9037e19",
+   "title": "Burlington House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/burlington-house-q225471/17e8fb3cf9037e19.jpg",
+   "pairs": [
+    [
+     320.0,
+     320.0,
+     -0.1452101,
+     51.5124776
+    ],
+    [
+     960.0,
+     320.0,
+     -0.1336635,
+     51.5124776
+    ],
+    [
+     160.0,
+     480.0,
+     -0.1480967,
+     51.5106811
+    ],
+    [
+     1120.0,
+     480.0,
+     -0.1307768,
+     51.5106811
+    ],
+    [
+     80.0,
+     640.0,
+     -0.1495401,
+     51.5088845
+    ],
+    [
+     1200.0,
+     640.0,
+     -0.1293335,
+     51.5088845
+    ],
+    [
+     240.0,
+     800.0,
+     -0.1466534,
+     51.5070878
+    ],
+    [
+     1040.0,
+     800.0,
+     -0.1322202,
+     51.5070878
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (12 of 12 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

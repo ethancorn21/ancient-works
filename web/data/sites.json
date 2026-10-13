@@ -487,10 +487,10 @@
     800
    ],
    "lidar_credit": "AHN (Rijkswaterstaat)",
-   "drawings": 1,
-   "score": 2.17,
-   "oldest": 1832,
-   "overlays": 2
+   "drawings": 0,
+   "score": 0.91,
+   "oldest": 1850,
+   "overlays": 1
   },
   {
    "id": "aldford-castle-q4713789",
@@ -15242,10 +15242,10 @@
     1600
    ],
    "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
-   "drawings": 1,
-   "score": 1.42,
-   "oldest": 1842,
-   "overlays": 2
+   "drawings": 2,
+   "score": 2.76,
+   "oldest": 1806,
+   "overlays": 3
   },
   {
    "id": "mamucium-q3285089",
@@ -20339,9 +20339,9 @@
     "top": "block_top.jpg"
    },
    "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "shrum-mound-q28403189",

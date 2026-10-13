@@ -1,0 +1,79 @@
+{
+ "site": "fletio-q2072212",
+ "candidates": [
+  {
+   "plan": "c_80f1e15c04bc5035",
+   "title": "Atlas de Wit 1698-pl033-Weesp-KB PPN 145205088",
+   "url": "media/commons/fletio-q2072212/80f1e15c04bc5035.jpg",
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     5.0339066,
+     52.092156
+    ],
+    [
+     800.0,
+     200.0,
+     5.0448712,
+     52.092156
+    ],
+    [
+     200.0,
+     800.0,
+     5.0339066,
+     52.0854188
+    ],
+    [
+     800.0,
+     800.0,
+     5.0448712,
+     52.0854188
+    ],
+    [
+     500.0,
+     500.0,
+     5.0393889,
+     52.0887875
+    ],
+    [
+     300.0,
+     500.0,
+     5.035734,
+     52.0887875
+    ],
+    [
+     700.0,
+     500.0,
+     5.0430438,
+     52.0887875
+    ],
+    [
+     500.0,
+     900.0,
+     5.0393889,
+     52.0842959
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-11",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Wit",
+     "place_qid": "Q9679",
+     "place_label": "Isle of Wight",
+     "place_lon": -1.3,
+     "place_lat": 50.7,
+     "site_lon": 5.04194,
+     "site_lat": 52.08722
+    }
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,48 @@
+{
+ "site": "pilsbury-castle-q7194511",
+ "candidates": [
+  {
+   "plan": "c_7ff765c177ca7bae",
+   "title": "Pilsbury Castle plan",
+   "url": "media/commons/pilsbury-castle-q7194511/7ff765c177ca7bae.jpg",
+   "pairs": [
+    [
+     100.0,
+     300.0,
+     -1.8348291,
+     53.1716955
+    ],
+    [
+     300.0,
+     150.0,
+     -1.8303332,
+     53.173043
+    ],
+    [
+     350.0,
+     250.0,
+     -1.8295839,
+     53.1721447
+    ],
+    [
+     100.0,
+     400.0,
+     -1.8348291,
+     53.170348
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 15.8 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Pilsbury Castle",
+    "file_cat": "Pilsbury Castle",
+    "via": []
+   },
+   "gate_score": 15.8
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

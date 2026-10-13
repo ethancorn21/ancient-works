@@ -42,6 +42,49 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: Northwest tower, Northeast tower, Central mound, Southwest vineyard edge, Southeast vineyard edge; only 40% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "c_d457524470ca0ab3",
+   "title": "Caesar's Gallic war; (Allen and Greenough's ed.) (1898) (14594767238)",
+   "url": "media/commons/avaricum-q281826/d457524470ca0ab3.jpg",
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     2.3874905,
+     47.08938
+    ],
+    [
+     350.0,
+     800.0,
+     2.3916198,
+     47.0826428
+    ],
+    [
+     450.0,
+     1000.0,
+     2.3932689,
+     47.0803969
+    ],
+    [
+     150.0,
+     1000.0,
+     2.3883217,
+     47.0803969
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.1 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Avaricum (ville romaine)",
+    "file_cat": "Battle of Avaricum",
+    "via": [
+     "Avaricum (ville romaine)"
+    ]
+   },
+   "gate_score": 0.1
   }
  ],
  "no_picture_found": null,
