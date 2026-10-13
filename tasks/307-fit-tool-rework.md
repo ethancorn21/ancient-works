@@ -99,3 +99,11 @@ reorder - the driver hands out 307ba then 307bb in order, then 307c, then 307d. 
 design (box 1 implementation plan, the anchor/gesture/wrap sketch, the headless-test
 fixture plan) is in 307b's own ## Hand-over and the 2026-10-12 307b DECISIONS entry.
 If 307bb itself exceeds its budget, its headless test splits off (307bb's notes say so).
+
+307b closure note (iteration 256, agent a): the driver returned 307b with both subtasks
+done; its boxes 1-4 and 6 are verified and ticked (evidence in 307b's hand-over). Box 5
+(the headless part-4 proof) waits on task 235: 212b's sync (6ce742f) moved the test's
+derived pick onto marietta, whose only depiction (a 1904 USGS topo) the page's 150-year
+filter hides, so the seed check is red on every branch until 235 merges. Subtask 307bc
+(re-run the proof on the fixed pick, tick box 5, set 307b done) is filed, Depends on:
+235.

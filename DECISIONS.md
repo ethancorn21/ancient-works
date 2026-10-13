@@ -443,3 +443,58 @@ and the driver was right. Measured this session (no code changed):
   analysis; (2) run the full suite (expect fully green per 235's box 3);
   (3) re-verify the boxes (golden, the 0/499 invariant on the served files,
   test_cover, test_review, docs/batch.md seed 20261012); (4) re-claim done.
+
+## 2026-10-13 307b DECISION: driver returned the parent with both subtasks done - boxes 1, 2, 3, 4, 6 verified and ticked (iteration 256); box 5 not ticked because its headless proof is red on the 235 pick drift; filed 307bc (Depends on: 235) to re-run it and close the task; no done claim this session
+Session did verification only (no code written; working tree change = the three task
+files + this entry). The driver's instruction: check 307b's own boxes, tick the
+verifiable, done or new subtasks.
+
+Verified by running code / reading the merged tree (machine date 2026-10-13):
+- Box 1: part 1+1b tests green (3 passed, 4.4 s: synthetic with bar/ratio/fallback/
+  no-propose rows, real population, namesake place check). Live web/data/fit_queue.json
+  = 241 entries, 241/241 with the exact 6-key propose (13 bar / 4 ratio / 224
+  picture_size). stdlib-only confirmed by reading every import (fit_queue.py,
+  tools/right_place.py, fit/review.py, fit/propose.py).
+- Box 2: fitkit's _fkActivate (fitBounds to the site's four corners before the ink,
+  hide dep-<site>) and the endFit wrapper (applyDep restore, S.* untouched) committed
+  and in main; the site panel's #fitgo "Place an old plan" (index.html:793) flows into
+  the wrapped openPlan. Green at 307ba's accepted done-claim; re-proven today by 307d's
+  test_owner_check.py (in the 159 passed) and by today's part-4 run passing every seed
+  sub-check except dep-visibility.
+- Box 3: the committed gestures (_fkOnDown/_fkOnMove 4-px-engage absolute drag,
+  _fkOnWheel wheel scale + shift+wheel 1 deg/notch, in-place re-emit + coalesced
+  refit, _fkHint live readout, _fkSync anchor stack vs pin/undo/clear) match the
+  design; today's red run shows all gesture checks [ok].
+- Box 4: save = the page's own saveFit doc (re-emitted pairs, 17 keys, by:hand, one-
+  site line) - proven at 307bb's acceptance (doc read back from the temp store, fit ==
+  placed anchor) and today by 307d's test_owner_check.py (two derived sites end to
+  end, shared store byte-identical after; test_fit_provenance + golden hand-fit hash
+  in the 159 passed).
+- Box 6: docs/site_flow.md sections (the propose ~449, "Place mode (task 307bb)" ~518,
+  "The working space (task 307c)" ~530, "The owner's check" ~1520) all present with
+  307c's place_before/after.png and 307d's ten 307d_*.png in docs/site_flow/.
+
+Box 5 NOT ticked (honest tick rule: the test does not pass today). The part-4 test is
+committed and hermetic; it fails solely on the 235-assigned pick drift: 212b's sync
+(6ce742f, Oct 13 06:31) deleted marietta's last doc and upserted her item, moving the
+derived pick from oswestry to marietta (re-ran _pick_place() myself: site marietta,
+entry 29, plan ancientmonuments00squi_n0169_1, propose ratio 0.6096; her only
+depiction = the 1904 USGS topo, hidden by the page's surveyOldEnough). Full suite
+today: 159 passed + 1 skipped + 1 failed (6:29), the lone red = this test, the
+RESULT line identical to 235's record ("seed: the gestures own the mouse ..., the
+earlier overlay hidden" with dep:null). The driver gates done claims on a green
+suite (it rejected 212 over this same red), so a done claim now would be rejected:
+per AGENTS.md I add the blocker to Depends-on-style waiting instead - as subtask
+307bc (Depends on: 235; its box 3 ticks 307b's box 5 and sets it done).
+
+Choices recorded: (1) ticked 1/2/3/4/6 on CURRENT evidence (today's runs + the
+accepted subtask done-claims, which the driver re-checked with green suites at their
+time) rather than waiting for 235 to tick them - the page code they prove is
+unchanged since those acceptances and the only delta is the 235 pick; (2) did not
+touch tests/test_fit_queue.py (235's file, and PITFALLS rule (b): a parallel task
+must not fix it) and did not claim done; (3) 307bc's Touches = tests/test_fit_queue.py
++ web/fitkit.js (the latter only for a real page defect a post-235 run would expose).
+Parent 307's hand-over got the closure note; PITFALLS needed no new entry (the
+"placement test's pick" entry at ~1410 already carries the 6ce742f episode, the
+post-fix pick prediction - oswestry-castle, 1842 map shown, 1900 filtered - and the
+practical rules; today's run corroborated it exactly).
