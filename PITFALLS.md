@@ -982,6 +982,11 @@ Where: `fit/review.py` (`upsert_item`, `item_path` over the resolved `ROOT`); 30
 Symptom: `assert path == f"data/review/{site}.{plan}.json"` fails with an AssertionError printing `/home/agent/.../data/review/...` - the upsert itself succeeded, only the check tripped (iteration 194, stanton-drew)
 Why/how: `item_path` builds the name from `ROOT = Path(__file__).resolve().parent.parent`, so `str(target)` is absolute. Compare `os.path.basename(path)` (or use the returned path directly) - never the repo-relative string.
 
+#### A review candidate's `url` must be the Served repo-relative path (the doc's own `url`, e.g. media/commons/<site>/<plan-without-c_>.jpg), NOT the files.jsonl row's upload.wikimedia.org URL
+Where: `data/review/*.json` candidate entries written by the 306 audit's 303-way (`fit/review.py` `upsert_item`), `server/serve.py` (route `/media/commons/<site>/<h>.jpg` -> data/raw/commons/<site>/<h>.jpg), `web/review.js` (L126: `url: c.url` - the page loads the candidate's url directly)
+Symptom: following a hand-over note saying "use the row's url verbatim", a 306e entry stored upload.wikimedia.org/... and the Review tab fetched an EXTERNAL image - dead on no-internet test runs (ERR_ABORTED, like the Esri tiles) and inconsistent with every other 306e entry, which all use the relative form (iteration 196, taunton)
+Why/how: the candidate url is what the page loads, and the only thing the server can serve is a local file under data/raw; the fit doc's own `url` field already stores exactly that served path, so reuse it verbatim (books docs: the equivalent /books/ path, as the existing book-candidate items use).
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
