@@ -3885,6 +3885,62 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
 - Verified: 6/6 mackenzie tests pass (offline, hermetic temp copies only); LIVE on this merged checkout `--check` rc 0 with no join problems and `--dry` an idempotent no-op. Full suite: 139 passed, 1 skipped, 6 failed - exactly the 225-228 sibling set (artists/limes/numancia join tests, wiltshire_stukeley stage/check/book-rows); proven PRE-EXISTING by temporarily restoring the HEAD versions of my two files and re-running those six (all fail identically without my change) - they are the same 211 self-triggered guards that their own open tasks fix (their modules/tests, not mine). Box 4 ticked on the driver's own criterion for own tasks ("no test failing that was not already failing before") - the same condition under which 222/223 were accepted (their notes: "suite 10->8 red (exactly the 223-228 sibling set)", "suite 8->7 red (exactly the 224-228 sibling set)"). The PITFALLS entry "After 211's live merge, every source module's... guard self-triggers" is kept current (222/223/224 fixed, 225-228 remain).
 
 
+<!-- task 225 -->
+# Task 225 limes-merged-check
+
+## 2026-10-12 225 DECISION: limes check_staged accepts its own 211-merged rows (identical under the merge norm) as no-ops; a same-key different row and a DIFFERENT-site id/QID holder still fail loud - live --check rc 0 on the merged tree, 6/6 limes tests, suite reds shrink to exactly the 226-228 siblings (proven pre-existing)
+- Session 195. Ported the 222/223 sibling pattern to fit/src_limes.py, the
+  fourth of the seven 222-228 guards; 222/223/224 were done in earlier
+  sessions of this same branch, so their code was read straight off the
+  branch (van_deventer = closest structural sibling to limes: staged
+  sites/files/classified + known set from SITES_JSONL + EXTRAS, no web
+  check; kip = stage()-side variant, not needed here).
+- Guard change (fit/src_limes.py check_staged, was L1131-1189):
+  (1) id-collision check now `staged_ids & (known_ids - staged_ids)` and
+  QID check now `known_qids[s["qid"]] != s["id"]` - after 211's live merge
+  the module's own 45 staged sites sit in canonical extras.jsonl and were
+  self-triggering both checks; the different-site fail-loud protection is
+  unchanged. (2) canonical files.jsonl loads into a first-row-wins dict of
+  `_canon_norm` (new helper: `json.dumps(r, sort_keys=True,
+  ensure_ascii=False)`, the same identity fit/merge.py's norm() uses on a
+  line) instead of a set of keys - a staged row already in canonical is OK
+  iff its norm equals the canonical row's norm (211's merge is
+  byte-identical, first-row-wins), a same-key different row still fires
+  `join: staged title already in the canonical files.jsonl: (site, title)`.
+  Everything else (forts-table join, row completeness, classified 1:1,
+  evidence pass) untouched; docstring updated in the sibling wording.
+  limes' stage() needed no change: it is offline by construction (no
+  network, no canonical read) and idempotent on its own staging files,
+  unlike kip/mackenzie whose stage() reads canonical.
+- Test change (tests/test_src_limes.py): added
+  test_check_staged_three_states, hermetic per the task (temp copies of
+  files.jsonl / extras.jsonl / sites.jsonl, monkeypatched onto
+  FILES_CANONICAL / EXTRAS / SITES_JSONL; no web constant in limes so no
+  web pre/staged handling, and no _fake_commons - nothing in the check or
+  stage path makes a network call): (a) staged rows removed from the temp
+  canonical files (pre-merge on ANY checkout, so the test holds whether or
+  not 211's live merge ran here) - rc 0, no join, 56/56 evidence PASS;
+  (b) staged rows present with identical content - rc 0, no join;
+  (c) victim row with year+1 - rc 1 with exactly that one join line.
+  test_check_staged_files_join_and_pass kept, docstring updated; it passes
+  on both real-tree states after the fix.
+- Verification: before the change, live `fit/src_limes.py --check` was rc 1
+  with 100 self-triggered join problems (1 id-collision line naming all 45
+  staged ids, 43 QID re-uses, 56 title collisions) and
+  test_check_staged_files_join_and_pass red (evidence 56/56 PASS was
+  already fine). After: live --check rc 0, 0 join lines, evidence 56/56
+  PASS; test_src_limes.py 6/6. Pre-change baseline full suite: 6 failed
+  (limes + 226 numancia + 227 stukeley x3 + 228 artists), 139 passed;
+  post-change: 141 passed, 1 skipped, 5 failed = exactly the 226-228
+  siblings, all proven pre-existing by the baseline. 211's gate (it depends
+  on all seven) is still open on 226/227/228; the limes share of it is
+  done.
+- Files written this session: fit/src_limes.py, tests/test_src_limes.py,
+  tasks/225-limes-merged-check.md (boxes ticked, Hand-over), DECISIONS.md
+  (this entry). No new PITFALLS entry (the pattern and its pitfalls are
+  already captured by the 222/223 sibling entries and task Notes).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
