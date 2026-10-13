@@ -3442,6 +3442,122 @@ verify + record (the test should pass unchanged after 212's re-export), not
 "make the data whole".
 
 
+<!-- task 212a -->
+# Task 212a cover-search
+
+## 2026-10-13 212a DECISION: 233+234 verified on the merged tree (lead's marking instruction); live state re-measured post-aeeb5aa (search set 245, no-qid-with-title set empty, 328 missing local copies)
+Session 216 (agent a, first session on 212a after the lead split). No test file
+written yet (context limit after verification + measurement). Verified the lead's
+"233+234 done by the lead (aeeb5aa)" before ticking them done: (1) 233:
+test_plan_list_refresh_is_pure_growth passes in 0.07 s (numancia's c_0fa271e2444f7bfc
+row is back in the re-exported 1475-row plans.json); the machine-dependence PITFALLS
+entry (### tools/export_plans.py) already exists from my 212 investigation -> all
+boxes satisfied, mark Status: done (next session). (2) 234: test_fit_queue_real
+passes in 4.1 s (the (view, -px, plan, name) key change is in aeeb5aa;
+tools/fit_queue.py untouched); box 2 verified on the VM with a scratch hard-linked
+tree (data/raw re-linked as symlink - the generator never opens images): two
+regenerations byte-identical apart from the "at" timestamp; committed 229 entries
+vs VM-regenerated 230 - the ONLY difference is site 'numancia' present in the VM
+regen (the machine-dependent "built" rule: the VM's shared store holds the numancia
+site dir, the lead's Mac did not - the same environment effect 233 documents, not a
+state drift; the committed file equals the generator output on the machine it was
+generated on) -> mark Status: done. Live state re-measured on the merged tree
+(aeeb5aa in via 400431f): built 499; 131 docs; nofit 402; plans 1475 rows; search
+set 245 = 204 qid + 41 no-qid (numancia dropped out - it has its plans row back);
+with-row nofit 157; CHOOSE unchanged (aardenburg/aesica/aire-sur-la-lys/alauna);
+fake hit site = aalsum-q3902030 (Q3902030, no existing titles); **the
+no-qid-with-title set is now EMPTY** (numancia was the only one) so per the
+iter-211 D1 the test asserts it empty: no failure site, every record's failed == []
+(code both branches); all 245 search-set sites carry the batch-era no_picture mark;
+328 titled files.jsonl rows lack a local copy (the live fetch phase's work; the
+test's fake _fetch_one fills them). Next: mark 233/234 done, then write
+tests/test_cover.py per the 212a design in the hand-over (fetch->search->stage->
+nopicture in a hard-linked tree, the 3 in-place files copied, searches.json deleted
+in the tree first, socket guard + time.sleep no-op + pure fakes; assertions:
+searches.json per-site records + resumability, stdout counts, staged rows + local
+copies + plans growth-only, no-picture items with the exact searched string,
+checkout-integrity hashes). The live run (box 4) waits for 203b.
+
+## 2026-10-13 212a DECISION: tests/test_cover.py green on its first run (5 passed, 33.8s) - boxes 1-3 done; the live run (box 4) waits on 203b, added to Depends on
+Session 219 (agent a). The test file the driver committed in ccafaa0
+(iteration-218 work) is CORRECT AS-IS: before its first run I re-verified every
+pinned string and shape against fit/cover.py and tools/export_plans.py -
+_search_site's via-tag arithmetic and per-site print line ("4 gathered, 2 kept
+old, 2 new (all routes answered)" - n_kept counts kept-before-dedup), fetch's
+n_have counting the no-source rows in "with a local copy", _searched_string
+(== the test's expected_searched, char for char, qid and no-qid variants),
+nopicture's nofit-and-not-cand rule (the hit drops out via cand after stage),
+_stage_row's field order (== the test's byte-exact appended rows),
+evidence.record no-opping (by:"212" not in source_tables, every book row
+already carries rec), export_plans' cols/row shape (a commons row's title is
+the FILE-derived name, not the site name; label = when_of; cite = page only),
+and _now's tz-aware ISO - no drift, no changes needed. First run: 5 passed in
+33.8s (nopicture ~2s - _find_item is 4ms, not iter-216's 200-300ms estimate);
+full suite 155 passed / 1 skipped on this VM. My iter-217 step C is moot: the
+lead marked 231-234 done with all boxes ticked in 77bdf5d (his note: suite
+green on the Mac, 145 passed); 233's pure-growth and 234's fit-queue tests
+pass on this VM as part of the green suite, so the marking holds on both
+machines. The live run (box 4) genuinely waits on 203b (agent c, in flight -
+the batch and my live run write the same files, and 212 runs last on purpose
+per the lead's split), so 203b is added to my Depends on line (team-mode rule);
+the driver brings the task back after 203b merges. The live-run recipe
+(phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
+is in the hand-over.
+
+## 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
+
+The iter-219 hand-over said box 4 waits for 203b because "agent c is in
+flight" on the batch. That reading was stale: the 203b file has been Status:
+done on main since c49aeb9 (agent c's iteration 50, 2026-10-11: the 294-site
+EU run - 54 auto fit / 47 review / 18 hand / 175 no-picture, 94 EU docs + 252
+items, union 384/384), and there is NO "[driver] reopened 203b" commit on
+main (the reopen list is 215/214/309/307ba/302a/206/802/203a - no 203b). Yet
+this iteration's driver prompt lists "Agent c is working on 203b" with the
+original touches (fit/batch_eu.py data/db/platefits data/review
+docs/batch_eu.md tests/test_batch_eu.py) - consistent with 203b's own
+hand-over note: "If this task is ever reopened (e.g. a 212-era re-coverage
+run changes the tree), re-verify the checks below." The batch ran over the
+384-site world; the world is now 499 built, and the batch's live union test
+gates on "Sites run: 294" vs the live EU partition (grown). So the wait
+stands, but the reason is: agent c's current 203b session re-runs/re-verifies
+the batch over the grown world, and its writes (new EU docs + item
+re-upserts, incl. the batch's searched wording on search-set items my
+nopicture also writes) must land before my live run's commit ("212 runs last
+on purpose"). 203b is already on my Depends on line; no line change.
+Agent c's other in-flight work is file-disjoint from the live run, verified
+on the live tree: 306's audit items are doc-keyed (<site>.<doc>.json) for
+doc'd sites, my nopicture writes the 245 EXACT bare <site>.json files of the
+no-doc search set (245/245 checked, 0 doc-keyed in the set; upsert_item's
+lead follows candidates[0].plan and these items are candidate-less, so the
+names never move); 306 exports web/data/sites.json + review.json, I
+re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
+disjoint.
+Re-measured the live world today (main is frozen at 77bdf5d - an ancestor of
+my pre-218 sync 54c0711, so the git world is byte-identical to what I
+verified in 217/219): 499 built; 131 docs = 21 by:hand + 110 by:agent;
+nofit 402; cand-sites 601; search set 245 = 204 qid + 41 no-qid (matches the
+iter-217 post-aeeb5aa measurement; the 246 in the CORRECTION-4 entry was
+pre-aeeb5aa, when numancia had no row yet) - first4 aalsum-q3902030,
+abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
+first no-qid aggersborg. files.jsonl: 923 kept rows, only 1 without a local
+copy - the no-source Stukeley TAB XI (stonehenge-q39671, thumb/url null):
+the ~328 missing copies measured 10-13 all arrived in the shared store via
+the lead's aeeb5aa "data/raw synced both ways Mac<->VM", so the fetch phase
+is now a no-op (0 thumb, 0 url, 1 nosrc) that only prints counts +
+re-exports plans. plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs,
+0 rows referencing a search-set site - the baseline for the key-set diff
+rule (aeeb5aa's 1474 + numancia's row back). data/cover/searches.json
+absent (fresh start). data/review: 346 items + README. Golden 40/40.
+tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
+(no store file-count assertions, by design - the 328 new store files broke
+nothing). No code change this session; next step (the live run recipe) is in
+the hand-over.
+
+## 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
+
+Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 

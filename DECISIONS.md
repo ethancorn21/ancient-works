@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 331 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+312 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -38,6 +39,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 210 numancia (5 entries)
 - 211 merge-build (14 entries)
 - 212 cover-final (6 entries, older ones; the task is still open)
+- 212a cover-search (4 entries, older ones; the task is still open)
 - 213 artist-views (11 entries)
 - 213a civitates-list (3 entries)
 - 213b qids-tests (1 entry)
@@ -515,3 +517,88 @@ unconditionally. No code changed this session.
 - Wrote the oxford line into the 306e block of docs/site_flow.md (after the old-sarum c_0410 line, before '## The site markers become arrowheads (task 308, 2026-10-13)') - that is 5 of 17 lines.
 - Full suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider): 149 passed, 1 skipped, 1 failed (270.6 s) - IDENTICAL to the 183 baseline; the 1 is agent a's in-flight 307 test_fit_queue::test_placement_gestures_and_save_in_the_browser (the known pre-existing red: 'the gestures own the mouse' + 404 /tiles/relief). No NEW failure from this change (union check: oxford stays covered - its built 1842 depiction plus the new open item; test_platefits_docs_match_sites green).
 - Next: judge the remaining 12 docs (9 sites, listed in the hand-over); first = pilsbury-castle-q7194511.c_7ff765c177ca7bae (no item).
+## 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)
+Session 222 (agent a). The lead answered request 003: option (b) modified - classify with MY OWN model server 127.0.0.1:8080 (vLLM qwen3.8-27b on the 3090 Ti), NOT 8081 (the other worker's card); Clef-flash is not running anywhere (the 5060 Ti now serves the matchers), so option (a) was void. Record in classified.jsonl and data/cover that the rows are 8080-Qwen one-off; placement stays the matcher. Done this session, in order:
+1. fit/cover_qwen8080.py (new, committed 870d4f9): the one-off adapter - asks the Clef questions themselves (commons.CLEF_STATE/CLEF_Q) as 0..1 probabilities to 127.0.0.1:8080 via pipeline/llm.ask (the proven client for exactly this model), 4 workers, retries; smoke-verified on known images (book page -> 0/0/0; old photos -> p_photo 0.94/0.98; bibracte's 1832 page -> plan 0.95 and carnac's engraved view -> 0/0/0 both visually confirmed). stage gained an optional classifier_note recorded as a per-row "classifier" field (no default change; test_cover's byte-pinned fake-classifier rows stay identical - suite was green before the run: 155 passed, 1 skipped).
+2. THE FIRST STAGE RUN EXPOSED TWO REAL BUGS (both fixed, committed in 9c48d94): (a) fit/cover.py _fetch_one did `open(dst + ".part")` on a PosixPath - TypeError swallowed by the per-file except as a per-file "fetch failed" (symptom: EVERY fetch fails with "unsupported operand type(s) for +: 'PosixPath' and 'str'"; the tests never reach this path - their trees pre-seed every local copy, p.exists() short-circuits; the live run was the first to actually download). Fixed: dst = str(dst). (b) my module's first version returned {plan, birdseye, photo} - stage expects p_-prefixed keys (KeyError: 'p_plan'); I misread the smoke-test output shape. Both filed in PITFALLS.md (entry in "This machine" on Clef being dead + 8080 approved one-off; entries in "This codebase" on the _fetch_one swallow and on export_plans' min_p gate).
+3. THE RUN (second launch, clean): 107/107 local copies fetched (1/s), 107/107 classified (every row carries the note), evidence.record live (107 live - categories/page ids/file entities/P180 all answered, 0 failures), plans.json re-export 1475 -> 1510. KEY-SET DIFF vs the committed baseline (/tmp/aw222-plans-keys-before.json): 0 LOST, 35 gained - and the 35 are EXACTLY the gate-passing population (p_photo < 0.5 AND max(p_plan, p_birdseye) >= 0.3, tools/export_plans commons_rows min_p=0.3): 11 of the 16 sites got plans rows (aventicum, bibracte, burcht-van-leiden, hopewell, los-millares, maeshowe, motte-castrale-quiquempois, moundville, stones-of-stenness, vicus-bridge, trundle); 5 sites' pictures ALL fell below the gate (arbeia, carnac-stones, craig-phadrig, indian-mounds-park, ocmulgee) and stay no-picture sites. nopicture: 234 items stamped (245 records - 11 now-in-cand sites), NOT the 229 the old hand-over guessed (it assumed all 16 would gain rows). fit_queue.json regenerated 229 -> 241, 0 sites lost (+12: my 11 + numancia - numancia is live drift since the lead's 04:09:15 regeneration, picked up by the same generator; test_fit_queue_real is derived-never-pinned and passed). data/cover/stage_qwen8080.json records the one-off. Committed 9c48d94 (242 files). Golden 40/40 OK after the run.
+4. POST-RUN SUITE: 4 failed, 151 passed, 1 skipped (/tmp/aw222-postsuite.log, persists on this VM). (1) test_batch_eu::test_sample_run_real_gate - bibracte is NO_PIC pinned "zero candidates"; my run gave it plans rows, so the no-picture expectation is void. (2) test_batch_eu::test_batch_adds_files_rewrites_none - FileNotFoundError at :708, a sample-site item file missing from the tree post-run (my working hypothesis: bibracte's item got resolved by a doc the batch built, so the site's scoped export deleted it). BOTH are 203b's test file - not mine to edit (agent c is working on 203b right now; the test's own docstring says "if plans.json gains rows for these sites ... a future 203b session extends the lists for an intended change" - my 212a run IS that intended change, and 203b's hand-over anticipated a "212-era re-coverage run"). ACTION: 203b added to my Depends on line (the established pattern for merge-induced reds owned by other tasks - the 231-234 precedent); the driver re-checks my claim against 203b's fixed lists once it merges. (3) test_site_done::test_site_done_line:330 - the repo's web/data/review.json is STALE: it predates my nopicture re-stamps (aalsum's item now carries the exact searched string; the page file still carries the batch-era "web/data/plans.json ..." string); the test re-derives the open list in its tree from the re-stamped items and compares to the repo page file. FIX (next session, mine): add web/data/review.json to my Touches and run `fit/cover.py export` (my module's phase, the one and only writer of that page file) - the lead's loop + 212b run sync+export again later; mine just makes the page file consistent with the items my run stamped. (4) test_fit_provenance::test_line_refuses_unmarked_non_auto_doc:377 - NOT YET DIAGNOSED (context limit before reading log lines 153-246); it copies ROOT data into a tree and runs the one-site line on stonehenge (whose rows/item are UNCHANGED by me - stonehenge has rows, so its item was never re-stamped). Working hypothesis: it compares the post-run published page against the stale repo review.json (same root cause as (3) -> fixed by the export) - VERIFY by reading the log section; if the root cause is instead one of my data changes, the fix is data-side (never edit their test).
+
+## 2026-10-13 212a DECISION: task DONE - export phase re-derived web/data/review.json after the 234 re-stamps (a7f5dda); my two reds fixed by that; the two remaining reds are 203b's pinned bibracte case (mechanism verified: no-picture expectation void + the upsert's lead-follow rename); lead's loop / 212b / 212c follow after the merge
+
+Session 223 (agent a), the small session the iter-222 hand-over prescribed.
+1. Touches gained web/data/review.json; ran `fit/cover.py export`
+   (review.export): it wrote ONLY web/data/review.json - all 346 item files
+   byte-identical (sha256 before/after), no write-once resolutions needed
+   (my run built no docs, so no item gained a resolving doc). Page diff vs
+   HEAD: same 333 open sites (0 lost, 0 gained); exactly 234 entries
+   changed = my no-picture re-stamps (batch-era "web/data/plans.json
+   (1166 rows, matched by the sites field)" -> the exact per-site searched
+   string); at-timestamp refreshed. Committed a7f5dda.
+2. My two owned reds were both fixed by that commit (hypothesis confirmed
+   from /tmp/aw222-postsuite.log): test_site_done::test_site_done_line:330
+   and test_fit_provenance::test_line_refuses_unmarked_non_auto_doc:377
+   compare their tree's re-derived page against the repo's STALE page file
+   (pre-re-stamps; the aalsum entry differed only in the searched string).
+   Both now green (8 passed in the pair).
+3. Full suite: 2 failed, 153 passed, 1 skipped. Both failures are 203b's
+   pinned bibracte case in tests/test_batch_eu.py; mechanism verified from
+   the same log: (a) test_sample_run_real_gate:539 asserts NO_PIC=bibracte
+   is zero-candidates -> the batch's no-picture re-stamp, but my 212a run
+   gave bibracte gate-passing plans rows, so run_sites writes "no model
+   answer" entries instead (no recorded answer for those fresh rows) and
+   rec["no_picture"] is False; (b) test_batch_adds_files_rewrites_none:708
+   - that same upsert changed bibracte's lead (0 candidates -> N) so
+   review.upsert_item renamed the item file (<site>.json ->
+   <site>.<lead>.json, old unlinked at fit/review.py:115) and the test reads
+   its recorded pre-run path -> FileNotFoundError. Both are exactly what the
+   test's own docstring assigns to a future 203b session ("if plans.json
+   gains rows for these sites ... a future 203b session extends the lists
+   for an intended change"); agent c is working on 203b now. 203b stays on
+   my Depends on line; if the driver rejects the done claim on these two,
+   that is the mechanism.
+4. Gates at done: golden sha256sum -c 40/40 (data/db/platefits untouched by
+   the export); tests/test_cover.py green in the suite; web/data/review.json
+   consistent with the items. Box 4 ticked, Status: done. The remainder of
+   the 212 line after this merges: the lead runs matchfit (fit/matchfit.py
+   + tools/site_done.py) over my 16 found-picture sites (11 rowed, 5
+   below-gate stay no-picture), then 212b (sync) and 212c (report) - none of
+   it is this task.
+
+## 2026-10-13 212a DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_batch_eu.py::test_batch_adds_files_rewrites_none
+    tests/test_batch_eu.py::test_sample_run_real_gate
+
+## 2026-10-13 212b DECISION: sync phase gains the trailing full review export (box 1's code done); dry-run script written but not run (context limit); live run is next
+Session 224 (agent a, first session on 212b after my 212a).
+1. fit/cover.py `sync()` now ends with `n_open, n_total = review.export(root)` after
+   `plan_fit.prune(root)` and prints the open/total line: box 1's "and the review
+   export". Rationale: PITFALLS 1171 (web/data/review.json is a derived page - doc
+   changes without a full export leave test_fit_provenance/test_site_done/
+   test_fit_queue red on every branch); sync is the one page-facing writer of the doc
+   world, so the export lands with the overlays. Docstrings updated (module phase list
+   + sync's own). My Touches line gained data/db/platefits (stamp-by:agent / pattern
+   delete) and data/review/ (per-doc containment upserts + the export's write-once
+   resolution records) BEFORE touching them. The edit is uncommitted (harness-saved).
+2. Live world re-measured (.venv): 131 docs (21 hand + 110 agent + 0 unmarked); 105
+   commons (big cache has 72 -> 54 will download in the live sync) + 26 book (all local
+   files present); all docs have ref+crop; is_done=0 for ALL 131 (checkout view) -> the
+   live sync rebuilds every overlay; 94 doc sites (80 symlinked to the store, 14 real
+   checkout dirs - separate copies); 499 built sites, 36 drawings>0; review.json 333
+   open of 346 items (14 recorded resolutions). The store (/home/agent/projects/
+   ancient-works) is a git checkout of main at 77bdf5d, clean except .venv - writes
+   through my 382 site symlinks land in its working tree (shared canonical home; same
+   pattern the batches used). Git tracks only 6 site dirs; among doc sites:
+   forthill/marietta/newark (all real dirs) - the only committable per-site artifacts
+   of the live run. All JSON writers on this path are atomic (tmp + os.replace) ->
+   hard-link trees safe.
+3. Dry run: /tmp/aw212b-dryrun.py (hard-linked tree with web/data/sites FOLLOWED into
+   real dirs, big stand-ins for all 105 commons docs, socket guard, store + golden +
+   item + review.json + drawings before/after reporting). NOT RUN: first invocation
+   died on line 24, `os.path.mkdtemp` (AttributeError - fix: tempfile.mkdtemp). That
+   is the exact next step, then the live run (box 1+2 evidence) + commit, then box 3's
+   test (parent design, 212-cover-final's D1-D5/CHOOSE sections).
+4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
+   path in the edit); 212a's file restored byte-identical (git diff clean before the
+   commit).
