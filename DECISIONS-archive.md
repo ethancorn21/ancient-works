@@ -4010,6 +4010,53 @@ source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
   left in the 222-228 set.
 
 
+<!-- task 228 -->
+# Task 228 artists-merged-check
+
+## 2026-10-12 228 DECISION: check_staged's guards accept the module's own 211-merged rows as no-ops (identical under the merge's norm); the id guard is per-site (stricter than the siblings' set-difference) so "a staged id held by a DIFFERENT site" still fails loud; three-state hermetic test - 228 done, 211's 222-228 gate now fully cleared
+- Session 198. First session on 228 (filed on 211's branch in iteration 174; queued behind
+  207a/207b/221, so the siblings 222-227 all merged first - last was a974b86, 227). On this
+  checkout (agent a's branch) 211's live merge has already run: extras.jsonl/files.jsonl/
+  classified.jsonl carry the staged imola/venice rows and web/data/sites.json has the two built
+  sites - so test_check_staged_files_join_and_pass was red here with exactly the five
+  self-triggered join problems (the red set 227's hand-over predicted).
+- The fix (fit/src_artists.py, check_staged only; stage() needed no change - already a no-op on
+  the merged tree via its have/staged_ids checks):
+  (1) title-key guard: canonical files.jsonl read first-row-wins into key -> _canon_norm(row)
+  (new helper; the same identity rule as fit/merge.py's norm: json.dumps sort_keys,
+  ensure_ascii=False); a staged row whose key is in the canonical passes only when the norms are
+  equal ("already merged by 211"), and still fails when the key is held by a DIFFERENT row;
+  (2) QID guard: fires only when known[qid] != the staged site's own id (self-reference via the
+  merged row, or the same site via the catalog, is a no-op; a different site holding the QID
+  still fails);
+  (3) id guard: per-site - a staged site's id is a problem when a known site holding that id has
+  a different QID. Deliberate deviation from the 222-227 set-difference pattern
+  (staged_ids & (known.values() - staged_ids)): that form CANNOT report "a staged id held by a
+  different site" (the id is in staged_ids, so the subtraction removes it) - 228's acceptance
+  box 2 requires it reported, and the test's (c3) pins it (same id, Q773853 - the LA
+  neighborhood QID from the module's own docstring). Message formats unchanged from the
+  originals; QID guard and canonical-identity rule follow the siblings exactly.
+- The test: test_check_staged_three_states (the 225/227 pattern): monkeypatches the module's
+  SITES_JSONL/EXTRAS/WEB_SITES/FILES_CANONICAL constants at temp copies of the real files with
+  this module's own rows stripped (the hermetic pre-merge state on ANY checkout - the test does
+  not depend on 211's live merge having run here); (a) pre-merge -> rc 0, no join problems,
+  evidence 2/2 pass; (b) identical merged rows -> rc 0, no join problems; (c1) same
+  (site, title) key held by a different row / (c2) staged QID held by a different site /
+  (c3) staged id held by a different site -> each rc 1 with exactly one named join line.
+  No network (autouse socket-blocker), no ports, writes only to the test tmp dir.
+- Verified: 5/5 test_src_artists.py (the four pre-existing tests unchanged, passing on this
+  checkout's merged tree and hermetically pre-merge); live fit/src_artists.py --check rc 0 with
+  zero join lines on this checkout's merged tree; full suite 150 passed / 1 skipped - no reds
+  left on this branch.
+- Consequence: 228 was the last of the seven 222-228 gate tasks of 211 - all seven are done.
+  211's next session: re-run fit/merge.py merge (expect a no-op run, byte-identical log),
+  re-verify the 222-228 test files green on the real merged files, then claim done.
+- Files written: fit/src_artists.py, tests/test_src_artists.py, tasks/228-artists-merged-check.md
+  (Status: done, all four boxes ticked, Hand-over), DECISIONS.md (this entry), PITFALLS.md
+  (one new entry under fit/: the source-module --check self-trigger trap and the guard/test
+  pattern the new source modules must adopt).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
@@ -5375,6 +5422,17 @@ logged in PITFALLS and above).
 - All 36 shots written (1440x900, docs/site_flow/agent_fits/, aerial + _relief per doc; one serve.py --port 0 for the run; GET only). Mechanical verification of every [eval] line: ok, img, n correct, fit-prev drawn, zoom ~15, relief layer visible/none as expected - 0 genuinely bad. Two apparent anomalies are NOT failures: cassiobury-house and chevening are VIEW (homography) docs - mpx/rot null by design and cassiobury's 4-point resid is 0 by construction (PITFALLS L892 already records this: judge the ink, never the residual).
 - The ArcGIS World_Imagery ERR_ABORTED reqfail lines in the run log are the live tile feed aborting at page close - expected on this machine (the aerial still renders; 306c's committed shots show the same lines).
 - Deliberately did not run the full test suite this session: the session changed no code or data (new PNGs + new tools/ script + the task file only), so no test can newly fail from it (tests reference docs/site_flow/ in comments only), and a full-suite run writes ~3.5G into /tmp while the disk is 94% full (the ENOSPC false-red story from 306c). The suite runs in the removal session, when data changes actually land.
+
+## 2026-10-13 306d DECISION: iteration 162 - in-checkout A/B of the bury-castle removal is complete and airtight: zero new failures in either scope; placement_gestures fails at the same seed check in BOTH states (pre-existing since 307 landed on main, no longer a vacuous ERROR), so the fit-queue red stays with 306c's request 004
+
+- Restored my 306d state from /tmp/aw306d_mine (item file + review.json copied back, the platefit doc deleted; verified: item = 2 candidates [n0136_1 lead intact + c_de779031cda8a0dc with 8 pairs/coarse false/place_reason/evidence], page entry 2 candidates, git status = exactly my 3 files). Removed the invalid /tmp/aw306d_ab worktree (git worktree remove --force + prune; left 306c's /tmp/aw306cab alone).
+- A/B run 1 (the 2-file pair tests/test_fit_queue.py + tests/test_gate.py, both states, baseline = current HEAD after the 161 driver merge): PRISTINE 1 failed / 9 passed; MINE 1 failed / 9 passed. The only red in both states is test_placement_gestures_and_save_in_the_browser, failing at the SAME seed step: "RESULT FAIL: seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden". The 161 hand-over's prediction (pristine = vacuous ERROR "no queue entry", as in 306c's older clean-main A/B) is STALE: after agent a's 307 rework landed on main the test no longer vacuously errors - it fails at the seed on a pristine tree too. Not a 306d regression; the hand-over's "stop and dig" trigger (pristine PASSING) did not fire. Ownership stays with 306c's open human request 004 (baseline the fit-queue red once 307 lands).
+- All three tests/test_gate.py pass in both states - the "test_gate pre-existing red" from the 2026-10-12 driver note is fixed on main since.
+- Full suite with my state (main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider): 9 failed, 133 passed, 1 skipped (258 s). The 9: placement_gestures (above) + test_merge::test_new_sites_are_complete + test_new_site_golden_samples (211's still-open 222-228 gate) + test_src_artists/limes/numancia check_staged-join + test_src_wiltshire_stukeley stage_offline/check_staged_offline/book_rows_staged (the 222-228 family; kip and mackenzie went green with 223/224 landing on main - that is why the red count dropped from 161's 10 and passed rose 130->133 between the two full runs).
+- A/B run 2 (decisive for the 8 non-fit_queue reds): flipped my 3 files back to pristine (git checkout -- the item, review.json, doc), re-ran exactly those 5 test files: identical 8 failed / 22 passed (23 s). Restored my state again (cp + rm, re-verified). Conclusion: my 306d change (one orphan agent doc deleted, its picture + 8 points upserted into the site's already-open review item, page re-exported) introduces ZERO new failures in any scope; all 9 reds pre-exist at current HEAD and belong to agent a's in-flight 211/222-228 work and the 307 rework.
+- Boxes: 1 already ticked (36 shots, 159); 2 stays open (1 of 18 lines - the bury-castle line, committed in docs/site_flow.md with the driver's 5c58a20); 3 stays open (1 wrong fit dealt with, 17 more to judge); 4's substance now holds (no new failures vs pristine, proven) but stays open until the final batch's suite run, per the 161 plan.
+- Filed PITFALLS: A/B in this project must be done in-checkout with the changed files temporarily at HEAD - a fresh worktree at HEAD lacks the locally-built per-site web data (only 58 of 389 site dirs git-tracked) and data/raw, and deterministically fails 3 tests (site_done_line, fit_provenance line_refuses, fit_queue save_runs) that pass in the main checkout. (Same method agent a used for 224's 6 reds - it is the project's established A/B idiom.)
+- NEXT: batch 2 (cassiobury, chevening, cooling, coria, + daw-s if time allows) - see the task hand-over for the judging toolbox and the resid-0 grid-ladder warning.
 
 
 <!-- task 307a -->
