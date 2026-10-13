@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306d-orphan-fits-uk-1.md` (in-progress) - hand-over: (2026-10-13, iteration 162, agent c - A/B of the bury-castle removal COMPLETE and airtight (zero new failures, both states identical in every scope); 
+- `tasks/306d-orphan-fits-uk-1.md` (in-progress) - hand-over: (2026-10-13, iteration 163, agent c - batch 2 in progress: fit-reproduction machinery built and validated; COOLING judged RIGHT (its composite read); 
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
