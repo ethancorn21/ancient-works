@@ -455,3 +455,29 @@ unconditionally. No code changed this session.
     - Box 5 not met -> 302g (file written): no post-matcher Stonehenge run anywhere; stonehenge-q39671 = 0 drawings / 1 overlay / 14 candidates (7 fabricated-line, 4 median-residual, 2 feature-based, 1 no-model-answer), no matcher doc; the only screenshot (stonehenge.png, 2026-10-11) predates the matcher. 302g runs the current line live (ELoFTR up, RoMa down -> ELoFTR-only run), checks whatever lands in a browser against the sarsens (301/306 shot.mjs pattern), and records it plainly - "places nothing" is a passing answer.
     Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
     Environment: ELoFTR 127.0.0.1:8091 reachable (RTX 5060 Ti); RoMa :8092 refused; .venv current (numpy 2.5.4); all 40 golden pins verify (sha256sum -c). No code or data touched this session (task files + journal only); suite NOT run - subtasks diff against the newest driver loop-start note (306d-era baseline 10 failed / 130 passed / 1 skipped of 141, 2026-10-12/13).
+
+## 2026-10-13 302e DECISION: one-shot runner made compatible with the re-keyed golden - golden_docs returns ids as-is (21), doc_ids = sorted set union with MAIDEN, every stated count derives from the set; no measurement changed
+    The one-shot is SPENT, so this was a compatibility fix, not a re-measurement: 303's re-key
+    1f562ca put the 21st platefit doc (MAIDEN) into the golden, which (a) tripped golden_docs'
+    hard "expected the 20" assert and (b) made doc_ids = sorted(golden + [MAIDEN]) return 22
+    ids with MAIDEN duplicated (list append, not set) - a second latent defect the 20-assert
+    had been masking. Fix, exactly the box scope (fit/inkfit_heldout.py only): golden_docs()
+    returns the golden's platefit ids as-is in file order (no assert - precheck stays the
+    drift guard: bytes vs golden, auto flag, catalog/plans resolution); doc_ids() =
+    sorted(set(golden) | {MAIDEN}) = 21, robust to any future re-key; precheck() prints the
+    actual counts; run()'s six "%d/21" progress strings now derive from len(ids) (display
+    only, the set size lives in one place). fit/matchfit_heldout.py deliberately UNCHANGED:
+    the parent's hand-over says its own doc_ids() already set-unions the golden (do not
+    "fix" it) - verified instead: import chain clean, its doc_ids() == the same 21 ids as
+    inkfit's, its table prints its frozen 21-row data/matchfit/ checkpoint (badbury row
+    matches the parent's re-verified best: six-inch-1st x0.35, 22/61 inliers, 3.62 deg,
+    58.6/2.9 m). Verified by running: table output byte-identical to docs/site_flow.md
+    lines 224-248 (diff empty); selfcheck 21/21 OK (corner 0.0 / drot 0.0 / scale 1.0),
+    exit 0, fully local (propose._site/_plans_row read web/data/*.json only); sha256
+    unchanged before/after for data/inkfit/heldout/results.json (445d3823...), run.log
+    (863683be...), tests/golden/hand_fit_docs.sha256 (f8166d34...); git diff = the one
+    file. Full suite: 1 failed / 157 passed / 1 skipped - identical to this checkout's
+    driver loop-start baseline (Oct 13 13:20 report); the single failure is the
+    pre-existing test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (also
+    failing at baseline, unrelated). grep confirms no test imports either held-out runner,
+    so the change is outside the test path - zero new reds. Task done in one session.

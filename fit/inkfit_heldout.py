@@ -54,21 +54,22 @@ METHOD_COMMIT = "f7dbba6"   # fit/inkfit.py as registered in the protocol
 # ---------------------------------------------------------------- the held-out set
 
 def golden_docs():
-    """The 20 registered hand-fit document ids, in file order (path -> 'site.plan' stem)."""
+    """The registered hand-fit document ids, in file order (path -> 'site.plan' stem): 21 since
+    the golden's re-key by 303 (1f562ca) - the original 20 plus the lead's 21st, MAIDEN."""
     out = []   # the golden file also pins 19 site.json files: take only the platefit docs
     for line in open(GOLDEN):
         line = line.strip()
         if not line or "platefits/" not in line:
             continue
         out.append(line.split()[-1].split("platefits/")[-1][:-len(".json")])
-    if len(out) != 20:
-        raise SystemExit("expected the 20 golden hand-fit documents, found %d" % len(out))
     return out
 
 
 def doc_ids():
-    """The 21 held-out documents, sorted - exactly the list registered in the protocol."""
-    return sorted(golden_docs() + [MAIDEN])
+    """The held-out documents, sorted - the golden's docs plus the lead's 21st as a set, so the
+    count is 21 whatever the golden holds (MAIDEN is already in the golden since 1f562ca; the
+    set union keeps 21 on any future re-key)."""
+    return sorted(set(golden_docs()) | {MAIDEN})
 
 
 def precheck(ids):
@@ -95,7 +96,7 @@ def precheck(ids):
         site, plan = doc.split(".", 1)
         propose._site(site)          # raises if the site is not in the catalog
         propose._plans_row(plan, site)  # raises if the plan row does not resolve
-    print("precheck: 21 held-out documents verified (20 golden bytes + the lead's 21st, no auto flags)")
+    print("precheck: %d held-out documents verified (%d golden byte pins, no auto flags)" % (len(ids), len(pins)))
 
 
 # ---------------------------------------------------------------- checkpoint
@@ -211,32 +212,33 @@ def run(argv):
     open(LOCK, "w").write(str(os.getpid()))
     try:
         ids = doc_ids()
+        n = len(ids)   # the held-out set size, stated everywhere from the set itself
         res = load_results()
         precheck(ids)
         done_before = sum(1 for d in ids if d in res["docs"] and "error" not in res["docs"][d])
-        print("one-shot run: %d/21 measured already, run at %s" % (done_before, res["at"]))
+        print("one-shot run: %d/%d measured already, run at %s" % (done_before, n, res["at"]))
         for i, doc in enumerate(ids, 1):
             e = res["docs"].get(doc)
             if e is not None and "error" not in e:
-                print("[%d/21] %s: measured (checkpoint), skipping" % (i, doc), flush=True)
+                print("[%d/%d] %s: measured (checkpoint), skipping" % (i, n, doc), flush=True)
                 continue
             if e is not None and int(e.get("reruns", 0)) >= 1:
-                print("[%d/21] %s: error stands (re-run already used): %s" % (i, doc, e.get("error")), flush=True)
+                print("[%d/%d] %s: error stands (re-run already used): %s" % (i, n, doc, e.get("error")), flush=True)
                 continue
             reruns = 0 if e is None else int(e.get("reruns", 0)) + 1
             if e is not None:
-                print("[%d/21] %s: RE-RUN 1 (disclosed) after %s" % (i, doc, e.get("error")), flush=True)
+                print("[%d/%d] %s: RE-RUN 1 (disclosed) after %s" % (i, n, doc, e.get("error")), flush=True)
             t0 = time.time()
-            print("[%d/21] %s: fitting..." % (i, doc), flush=True)
+            print("[%d/%d] %s: fitting..." % (i, n, doc), flush=True)
             entry = measure(ROOT, doc, res["at"], reruns)
             res["docs"][doc] = entry
             save_results(res)
             if "error" in entry:
-                print("[%d/21] %s: ERROR after %.0fs: %s" % (i, doc, time.time() - t0, entry["error"]), flush=True)
+                print("[%d/%d] %s: ERROR after %.0fs: %s" % (i, n, doc, time.time() - t0, entry["error"]), flush=True)
             else:
-                print("[%d/21] %s: %.0fs  placed=%s  corner=%s m  drot=%s  scale=%s  "
+                print("[%d/%d] %s: %.0fs  placed=%s  corner=%s m  drot=%s  scale=%s  "
                       "null=%s  margin=%s  gate=%s  fab=%s" % (
-                          i, doc, time.time() - t0, entry["placed"], entry["corner_error_m"],
+                          i, n, doc, time.time() - t0, entry["placed"], entry["corner_error_m"],
                           entry["drot_deg"], entry["scale_ratio"], entry["null"],
                           entry["confidence"],
                           (entry["gate"] or {}).get("verdict"), entry["fabrication"]), flush=True)
