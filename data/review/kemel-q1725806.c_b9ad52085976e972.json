@@ -1,0 +1,33 @@
+{
+ "site": "kemel-q1725806",
+ "candidates": [
+  {
+   "plan": "c_b9ad52085976e972",
+   "title": "Kemel, Grundriss, ORL 07, 1901 (de.wikipedia)",
+   "url": "media/commons/kemel-q1725806/b9ad52085976e972.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Kemel",
+    "place_qid": "Q1725806",
+    "place_label": "Kemel",
+    "place_lon": 8.01606,
+    "place_lat": 50.1655,
+    "site_lon": 8.01606,
+    "site_lat": 50.1655,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.8209,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

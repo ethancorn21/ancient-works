@@ -1,0 +1,90 @@
+{
+ "site": "portus-adurni-q762664",
+ "plan": "c_4912bb54aa79f3ea",
+ "crop": [
+  0,
+  0,
+  1280,
+  1292
+ ],
+ "pairs": [
+  [
+   523.8,
+   576.1,
+   -1.1144975,
+   50.8372335
+  ],
+  [
+   1231.8,
+   72.5,
+   -1.112184,
+   50.8378243
+  ],
+  [
+   52.8,
+   1176.8,
+   -1.1162137,
+   50.8363716
+  ],
+  [
+   1171.1,
+   772.4,
+   -1.1128197,
+   50.836615
+  ],
+  [
+   52.9,
+   105.5,
+   -1.1154999,
+   50.8382619
+  ],
+  [
+   655.0,
+   34.9,
+   -1.1137708,
+   50.8381332
+  ],
+  [
+   559.2,
+   1073.0,
+   -1.1147295,
+   50.8363418
+  ],
+  [
+   61.7,
+   633.3,
+   -1.1158269,
+   50.8373268
+  ]
+ ],
+ "label": "1836",
+ "title": "Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354",
+ "cite": "by Editor of the Penny cyclopaedia V6.; Public domain; https://commons.wikimedia.org/wiki/File:Burg_von_Portchester_(GB)_Plan_von_1836_aus_der_Penny_Cyclopaedia,_Seite_354.jpg",
+ "at": "2026-10-13T13:18:49.440223+00:00",
+ "auto": true,
+ "score": 2.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/portus-adurni-q762664/4912bb54aa79f3ea.jpg",
+ "ref": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
+ "size": [
+  1280,
+  1292
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2405,
+  "matches": 4995,
+  "ground": "six-inch-1st.webp",
+  "window": 0.25,
+  "rot_deg": 13.4,
+  "spread": [
+   0.781,
+   287.4
+  ]
+ }
+}

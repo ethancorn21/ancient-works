@@ -1,0 +1,33 @@
+{
+ "site": "theilenhofen-q1214616",
+ "candidates": [
+  {
+   "plan": "c_71362c4703856e49",
+   "title": "Theilenhofen, Grundriss, ORL 71a, 1905 (de.wikipedia)",
+   "url": "media/commons/theilenhofen-q1214616/71362c4703856e49.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Theilenhofen",
+    "place_qid": "Q1214616",
+    "place_label": "Theilenhofen",
+    "place_lon": 10.84716,
+    "place_lat": 49.08952,
+    "site_lon": 10.84716,
+    "site_lat": 49.08952,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.1558,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

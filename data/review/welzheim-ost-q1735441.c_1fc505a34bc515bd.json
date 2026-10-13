@@ -1,0 +1,33 @@
+{
+ "site": "welzheim-ost-q1735441",
+ "candidates": [
+  {
+   "plan": "c_1fc505a34bc515bd",
+   "title": "Welzheim-Ost, Grundriss und Schnitte des Ostkastells, ORL 45a, 1904 (de.wikipedia)",
+   "url": "media/commons/welzheim-ost-q1735441/1fc505a34bc515bd.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Welzheim",
+    "place_qid": "Q1735441",
+    "place_label": "Welzheim-Ost",
+    "place_lon": 9.64224,
+    "place_lat": 48.87122,
+    "site_lon": 9.64224,
+    "site_lat": 48.87122,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4426,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "weienburg-q638525",
+ "candidates": [
+  {
+   "plan": "c_055e249af7277c0e",
+   "title": "Wei\u00dfenburg, Grundriss, ORL 72, 1906 (de.wikipedia)",
+   "url": "media/commons/weienburg-q638525/055e249af7277c0e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Wei\u00dfenburg",
+    "place_qid": "Q638525",
+    "place_label": "Wei\u00dfenburg",
+    "place_lon": 10.9625,
+    "place_lat": 49.0308,
+    "site_lon": 10.9625,
+    "site_lat": 49.0308,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.1584,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

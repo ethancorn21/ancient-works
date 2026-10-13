@@ -1,0 +1,31 @@
+{
+ "site": "vieil-hesdin-q1022768",
+ "candidates": [
+  {
+   "plan": "c_8e35559c8c12e1f5",
+   "title": "Vieil-Hesdin, town plan by Jacob van Deventer",
+   "url": "media/commons/vieil-hesdin-q1022768/8e35559c8c12e1f5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Vieil-Hesdin",
+    "file_cat": "Map of Vieil-Hesdin by Jacob van Deventer",
+    "via": [
+     "City walls of Vieil-Hesdin",
+     "Vieil-Hesdin"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 2.3337,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

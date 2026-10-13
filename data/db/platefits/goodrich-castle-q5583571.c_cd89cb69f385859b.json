@@ -1,0 +1,90 @@
+{
+ "site": "goodrich-castle-q5583571",
+ "plan": "c_cd89cb69f385859b",
+ "crop": [
+  0,
+  0,
+  955,
+  943
+ ],
+ "pairs": [
+  [
+   411.7,
+   468.8,
+   -2.6158576,
+   51.8767603
+  ],
+  [
+   771.0,
+   234.1,
+   -2.615214,
+   51.8769082
+  ],
+  [
+   150.9,
+   202.5,
+   -2.6161708,
+   51.8770738
+  ],
+  [
+   522.3,
+   246.1,
+   -2.6156064,
+   51.8769508
+  ],
+  [
+   255.9,
+   656.5,
+   -2.6161672,
+   51.8766133
+  ],
+  [
+   496.8,
+   682.7,
+   -2.6158002,
+   51.8765356
+  ],
+  [
+   614.0,
+   443.7,
+   -2.6155329,
+   51.8767404
+  ],
+  [
+   253.7,
+   361.8,
+   -2.6160666,
+   51.8768978
+  ]
+ ],
+ "label": "1897",
+ "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
+ "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
+ "at": "2026-10-13T13:04:08.054079+00:00",
+ "auto": true,
+ "score": 1.6,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+ "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg",
+ "size": [
+  955,
+  943
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3501,
+  "matches": 5000,
+  "ground": "six-inch-1st.webp",
+  "window": 0.35,
+  "rot_deg": 12.74,
+  "spread": [
+   0.646,
+   80.6
+  ]
+ }
+}

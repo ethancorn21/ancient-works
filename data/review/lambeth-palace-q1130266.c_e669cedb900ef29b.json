@@ -1,0 +1,33 @@
+{
+ "site": "lambeth-palace-q1130266",
+ "candidates": [
+  {
+   "plan": "c_e669cedb900ef29b",
+   "title": "Lambeth Palace, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/lambeth-palace-q1130266/e669cedb900ef29b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-11",
+    "named_place": "Lambeth",
+    "place_qid": "Q1130266",
+    "place_label": "Lambeth Palace",
+    "place_lon": -0.11972,
+    "place_lat": 51.49556,
+    "site_lon": -0.11972,
+    "site_lat": 51.49556,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.25,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

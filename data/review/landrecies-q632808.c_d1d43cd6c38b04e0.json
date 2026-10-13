@@ -1,0 +1,31 @@
+{
+ "site": "landrecies-q632808",
+ "candidates": [
+  {
+   "plan": "c_d1d43cd6c38b04e0",
+   "title": "Landrecies, town plan by Jacob van Deventer",
+   "url": "media/commons/landrecies-q632808/d1d43cd6c38b04e0.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Landrecies",
+    "file_cat": "Map of Landrecies by Jacob van Deventer",
+    "via": [
+     "Old maps of Landrecies",
+     "Landrecies"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 1.0858,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

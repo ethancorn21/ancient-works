@@ -1,0 +1,85 @@
+{
+ "site": "heddesdorf-q1735373",
+ "candidates": [
+  {
+   "plan": "c_865b27217e589ed2",
+   "title": "Heddesdorf, Grundriss des Kastellbades, ORL 01, 1903 (de.wikipedia)",
+   "url": "media/commons/heddesdorf-q1735373/865b27217e589ed2.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Heddesdorf",
+    "place_qid": "Q1735373",
+    "place_label": "Heddesdorf",
+    "place_lon": 7.46931,
+    "place_lat": 50.4365,
+    "site_lon": 7.46931,
+    "site_lat": 50.4365,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.3578,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_cd8d15c4cc8bb287",
+   "title": "Heddesdorf, Lageplan, ORL 01, 1903 (Commons)",
+   "url": "media/commons/heddesdorf-q1735373/cd8d15c4cc8bb287.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Heddesdorf",
+    "place_qid": "Q1735373",
+    "place_label": "Heddesdorf",
+    "place_lon": 7.46931,
+    "place_lat": 50.4365,
+    "site_lon": 7.46931,
+    "site_lat": 50.4365,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.3789,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_a219dbb67f84e81b",
+   "title": "Heddesdorf, Grundriss von Kastell und Kastellbad, ORL 01, 1903 (Commons)",
+   "url": "media/commons/heddesdorf-q1735373/a219dbb67f84e81b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Heddesdorf",
+    "place_qid": "Q1735373",
+    "place_label": "Heddesdorf",
+    "place_lon": 7.46931,
+    "place_lat": 50.4365,
+    "site_lon": 7.46931,
+    "site_lat": 50.4365,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.3608,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "waldmossingen-q1735435",
+ "candidates": [
+  {
+   "plan": "c_be71bd1e79e65443",
+   "title": "Waldm\u00f6ssingen, Grundriss, ORL 61b, 1897 (de.wikipedia)",
+   "url": "media/commons/waldmossingen-q1735435/be71bd1e79e65443.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-12",
+    "named_place": "Waldm\u00f6ssingen",
+    "place_qid": "Q1735435",
+    "place_label": "Waldm\u00f6ssingen",
+    "place_lon": 8.49333,
+    "place_lat": 48.2739,
+    "site_lon": 8.49333,
+    "site_lat": 48.2739,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "aerial",
+   "scale_m_px": 0.4251,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

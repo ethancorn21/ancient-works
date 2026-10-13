@@ -1,0 +1,32 @@
+{
+ "site": "le-rulx-q668861",
+ "candidates": [
+  {
+   "plan": "c_2c2af513b43f9d29",
+   "title": "Le R\u0153ulx, town plan by Jacob van Deventer",
+   "url": "media/commons/le-rulx-q668861/2c2af513b43f9d29.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-11",
+    "site_cat": "Le Roeulx",
+    "file_cat": "Map of Le R\u0153ulx by Jacob van Deventer",
+    "via": [
+     "Old maps of Le R\u0153ulx",
+     "Maps of Le R\u0153ulx",
+     "Le Roeulx"
+    ]
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.0858,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

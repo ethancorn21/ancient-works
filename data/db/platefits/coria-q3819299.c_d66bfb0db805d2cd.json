@@ -1,0 +1,90 @@
+{
+ "site": "coria-q3819299",
+ "plan": "c_d66bfb0db805d2cd",
+ "crop": [
+  0,
+  0,
+  1280,
+  1347
+ ],
+ "pairs": [
+  [
+   868.2,
+   382.8,
+   -2.0274777,
+   54.9790593
+  ],
+  [
+   560.4,
+   1043.1,
+   -2.0303954,
+   54.975159
+  ],
+  [
+   227.6,
+   84.2,
+   -2.0340707,
+   54.9806836
+  ],
+  [
+   190.7,
+   589.3,
+   -2.0342872,
+   54.9777357
+  ],
+  [
+   966.8,
+   1030.0,
+   -2.0262753,
+   54.9753082
+  ],
+  [
+   486.7,
+   731.4,
+   -2.0312399,
+   54.9769613
+  ],
+  [
+   1077.3,
+   589.3,
+   -2.0252913,
+   54.9778941
+  ],
+  [
+   670.9,
+   175.0,
+   -2.0295445,
+   54.9802342
+  ]
+ ],
+ "label": "1909",
+ "title": "Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan",
+ "cite": "by Knowles,W.H. (William Henry) 1857-1943; Public domain; https://commons.wikimedia.org/wiki/File:Knowles_1909_Corbridge_Excavations_04_Figure_1_Site_Plan.jpg",
+ "at": "2026-10-13T12:51:15.250539+00:00",
+ "auto": true,
+ "score": 2.3,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/coria-q3819299/d66bfb0db805d2cd.jpg",
+ "ref": "File:Knowles 1909 Corbridge Excavations 04 Figure 1 Site Plan.jpg",
+ "size": [
+  1280,
+  1347
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 85,
+  "matches": 658,
+  "ground": "six-inch-1st.webp",
+  "window": 0.5,
+  "rot_deg": -1.76,
+  "spread": [
+   0.688,
+   177.1
+  ]
+ }
+}
