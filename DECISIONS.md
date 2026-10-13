@@ -489,3 +489,40 @@ Session 224 (agent a, first session on 212b after my 212a).
 4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
    path in the edit); 212a's file restored byte-identical (git diff clean before the
    commit).
+
+## 2026-10-13 212b DECISION: iter-225 reconstructed (dry run DONE: 76 sent / 25 skipped / 30 synced, golden 0, open 333->365); its live-tree bench polluted the store's old-sarum through the symlink (self-heals in the live run); the live run is network-free (0 downloads) and launched under nohup
+
+Session 226 (agent a). Iteration 225 died at the context limit before writing its
+hand-over; reconstructed it from .agent/sessions/iter-0225.jsonl (the command log) +
+/tmp/aw212b-dryrun2.out (the completed output, 28 KB):
+1. The dry run COMPLETED (the tempfile.mkdtemp fix had already landed in the script):
+   tree 1.5 s, snapshots 30 s, sync 912.7 s. Actions: sent 76, skipped 25, synced 30,
+   refused 0 (131 docs). Golden: 0 mismatches. 76 docs DELETED - all fabricated-pattern
+   (grid-round / 1D-ladder / 2D-lattice anchor signatures, the 301 vision-model tells;
+   incl. both old-sarum agent docs, marietta, serpent-mound x7, traiectum x7). Item
+   files: 24 changed (incl. alligator's write-once RE-resolution pointing at the doc
+   the sync just sent - the item stays open because the resolved doc no longer exists)
+   + ~32 new. review.json: 333 -> 365 open (32 gained, 0 lost). sites.json: 12 sites
+   0->1 drawings + maiden-castle 1->2, aldenhaag 1->0. depictions.json: 31 changed, 18
+   webps pruned (the sent docs'), 60 new webps (30 built x 2), shotwick map-only.
+   box-6 probe: 103 built sites with no drawings, no doc, no open item (the loop
+   phase's job in the TEST, not the live run).
+2. 225 also ran a plan_fit.build bench against the LIVE tree: it rebuilt old-sarum's
+   c_041083ec68b532f8 overlay THROUGH the site symlink into the shared store (3
+   gitignored files) and updated this checkout's web/data/sites.json (old-sarum
+   2->3 drawings, 3->4 overlays, 2.86->3.15; driver committed as bc83645). The live
+   sync self-heals it: c_0410 is pattern -> sent, prune drops the webps, depictions
+   returns to the 3-entry version, and the sites.json entry back to 2/3/2.86.
+3. Live-run preflight (this session): the world is unchanged - an offline recompute
+   of the exact _sync_doc decisions (who_placed -> matcher?spread:fabrication_pattern
+   -> is_done) reproduces the dry run EXACTLY (76/25/30/0). Downloads needed: 0 - the
+   30 built docs include 29 commons, all present in the big cache (now 73 files;
+   224's "54 will download" assumed all 105 commons docs would be built). _sync_doc
+   never calls matchfit.run (pure checks only) -> no ELoFTR dependency in sync.
+   data/review is a real tracked dir in this checkout (347 tracked files);
+   data/db/platefits is a real independent copy (file link count 1) -> every run
+   artifact is committable and the store receives only gitignored writes through the
+   80 symlinked doc-site dirs (accepted concurrency, the batches' pattern). Measured
+   slip: the doc's authorship field is `by`, not `author` (a wrong-key one-liner
+   reports 0 hand docs). Live run launched: nohup .venv/bin/python -X faulthandler -u
+   fit/cover.py sync > /tmp/aw212b-live.out 2>&1 & (~16 min, no network).

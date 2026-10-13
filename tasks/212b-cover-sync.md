@@ -1,4 +1,4 @@
-Status: open
+Status: in-progress
 # 212b: The page-facing sync - every fit is an overlay, review.json is the open list
 Depends on: 212a
 Touches: fit/cover.py, web/data/sites.json, web/data/sites/, web/data/review.json, data/db/platefits (the sync stamps by:agent into an unmarked auto doc and deletes a pattern doc), data/review/ (the sync's per-doc failure containment upserts item entries; the trailing export records write-once resolutions), tests/test_cover.py
@@ -18,97 +18,107 @@ web/data/review.json is regenerated (python3 fit/review.py export).
 
 ## Hand-over
 
-(2026-10-13, iteration 224, agent a - CODE DONE, dry run not yet run. 212a is my own prior
-task (reopened by the driver only over 203b's two reds - see its journal); its work is
-already in this branch, so I proceed on 212b. I accidentally overwrote 212a's hand-over
-mid-session and restored it byte-identical (verified: git diff clean).)
+(2026-10-13, iteration 226, agent a - LIVE SYNC RUNNING NOW: nohup'd, log
+/tmp/aw212b-live.out, started ~06:01 CDT, expect ~16 min, ZERO network needed. If this
+session died mid-run: `ps aux | grep 'cover.py sync' | grep -v grep` + tail the log;
+re-running the same command is safe - the run is idempotent (pattern check pure, item
+upsert in-place, export derived). Then follow NEXT STEPS 2-5.)
 
-**What changed this session (fit/cover.py is UNCOMMITTED - the harness saved it):**
-- `sync()` now ends with the full review export: after `plan_fit.prune(root)` it calls
-  `n_open, n_total = review.export(root)` and prints `sync: %d open of %d item(s) ->
-  web/data/review.json`. Box 1's "and the review export". PITFALLS 1171: doc changes
-  without a full export leave three count-deriving tests red, so sync (the one writer of
-  the doc world) carries the export.
-- Module docstring's sync phase line + sync()'s own docstring updated to match.
-- My `Touches:` gained `data/db/platefits` (sync stamps by:agent into an unmarked auto
-  doc, deletes a pattern doc) and `data/review/` (per-doc failure containment upserts
-  entries; the trailing export records write-once resolutions) - added before touching.
-- `ast.parse` passes; NO tests run this session (last suite state on this branch, from
-  212a's done claim: 2 failed = 203b's pinned bibracte case in tests/test_batch_eu.py,
-  153 passed, 1 skipped; golden 40/40).
+**World / prior state (reconstructed - iter 225 was unlogged, see DECISIONS):**
+- 212a DONE (lead marked it, a31c5bc). 231/232/233/234 all Status: done now (lead's
+  233+234 = aeeb5aa, in my history; no marking work left for me).
+- Iter 224 (184a43e + driver 6c7682b): the sync code is committed: sync() ends with
+  plan_fit.prune + the full review.export (box 1's "and the review export").
+- Iter 225: ran the dry run to COMPLETION (/tmp/aw212b-dryrun2.out, full results below)
+  and ran a plan_fit.build bench against the LIVE tree. The bench rebuilt old-sarum's
+  c_041083ec68b532f8 overlay THROUGH the site symlink into the shared store (3
+  gitignored files: depictions.json + 2 webps) and updated this checkout's
+  web/data/sites.json (old-sarum 2->3 drawings, 3->4 overlays, score 2.86->3.15;
+  driver committed it as bc83645). The live sync self-heals all of it: both old-sarum
+  agent docs are pattern -> sent, prune drops the c_0410 webps, and the entry returns
+  to the pre-bench 2/3/2.86 (the net diff vs HEAD undoes bc83645).
+- Dry run results = the live run's expectations (the world has not changed since):
+  actions **sent 76, skipped 25, synced 30, refused 0** (131 docs); golden 40/40
+  unchanged; 0 docs changed; **76 docs DELETED** (all fabricated-pattern: grid-round /1D-ladder/
+  2D-lattice anchor signatures - the 301 vision-model tells; incl. both old-sarum agent
+  docs, marietta, serpent-mound x7, traiectum x7, old-sarum...); item files 24 changed
+  (incl. alligator's write-once RE-resolution to the doc the sync just sent) + ~32 new;
+  **review.json 333 -> 365 open (32 gained, 0 lost)**; sites.json drawings: 12 sites
+  0->1 + maiden-castle 1->2, aldenhaag 1->0; depictions.json 31 changed, 18 webps
+  pruned (the sent docs'), 60 new webps (30 built x2), shotwick now map-only (expected
+  prune of the stale plan entry); box-6 probe: **103 built sites with no drawings, no
+  doc, no open item** (that is the loop phase's job in the TEST, not the live run -
+  the lead runs the matcher loop live, per the parent's lead note).
 
-**Re-measured live world (this branch, .venv/bin/python):** 131 docs = 21 by:hand + 110
-by:agent + 0 unmarked; src: 105 commons + 26 book(s); ALL docs have ref + crop; ALL book
-local files present (data/raw/books via the store). big cache has 72 files -> 54 commons
-docs will DOWNLOAD in the live sync (paced ~1/s + one API call each). 94 doc sites: 80
-symlinked to the store, 14 real dirs in the checkout (separate copies, not hard links).
-is_done == 0 for ALL 131 docs in the checkout view -> the live sync REBUILDS every
-overlay. 499 built sites; 36 with drawings>0. web/data/review.json: 333 open of 346 item
-files (14 carry recorded resolutions). The store /home/agent/projects/ancient-works is a
-git checkout of main at tip 77bdf5d, clean except .venv: writes through my checkout's 382
-site symlinks land in ITS working tree (the shared canonical home; other agents' checkouts
-symlink to it too - accepted concurrency, same as the batches did). Git tracks only 6
-site dirs (forthill fudge highbank hopeton marietta newark; doc sites among them:
-forthill, marietta, newark - all real dirs) -> the live run's committable web/data/sites
-artifacts are those three dirs' rebuilt overlays + web/data/sites.json + review.json +
-any data/review/ or data/db/platefits changes. All JSON writers verified atomic
-(aw.save_json, review._save_json, batch_us._save_json: tmp + os.replace) -> hard-link
-scratch trees are safe.
+**Live-run preflight (this session, .venv):**
+- Docs: 131 = 21 by:hand + 110 by:agent + 0 unmarked. NOTE: the doc field is `by`,
+  NOT `author` (a wrong-key one-liner misreports "0 hand" - measured it both ways).
+- Offline recompute of the same _sync_doc decisions (who_placed -> matcher?spread:
+  fabrication_pattern -> is_done) reproduces the dry run EXACTLY: 76/25/30/0.
+- **Downloads needed: 0.** 224's "54 will download" assumed all 105 commons docs get
+  built; only 30 are built, 29 of them commons, ALL already in the big cache (now 73
+  files, data/raw is the store's shared cache). So the live run is ~16 min pure compute,
+  no network, no 429 risk (_fetch has Retry-After handling anyway).
+- _sync_doc never calls matchfit.run (only the pure spread / pattern checks) -> no
+  ELoFTR dependency in sync.
+- data/review = REAL tracked dir in this checkout (347 tracked: 346 items + README) ->
+  item upserts/creates are committable and never touch the store. data/db/platefits =
+  real independent copy (link count 1) -> the 76 deletions stay in this checkout (the
+  store keeps its own copies until main lands there; 306a's audit set the precedent).
+- Store (/home/agent/projects/ancient-works) is clean (only ?? .venv). Writes through
+  the 80 symlinked doc-site dirs land in the store's gitignored site dirs (accepted
+  concurrency, same as the batches); the 14 real doc-site dirs (incl. tracked
+  forthill/marietta/newark) are written in the checkout only.
+- git HEAD is clean before the run (baseline = committed state).
 
-**NEXT STEP 1 - dry run (script exists, NOT yet run): /tmp/aw212b-dryrun.py.**
-BUG TO FIX FIRST: line 24 `TREE = os.path.mkdtemp("aw212b-dry")` ->
-`import tempfile` + `TREE = tempfile.mkdtemp("aw212b-dry")` (os.path has no mkdtemp;
-I hit the context limit before the first run). What it does: builds a hard-linked tree
-of web/data (FOLLOWING the 382 site symlinks into real hard-linked dirs, so nothing
-reaches the store) + data/db, data/review, data/commons, data/books, data/catalog +
-data/raw from the store; seeds a solid 2400x1600 JPEG big stand-in for every commons doc
-(load_picture cache hit -> zero network); socket guard (create_connection + socket.connect
-raise); time.sleep no-op; snapshots all tree files + the store's web/data,
-data/db/platefits, data/review before/after; runs `cover.sync(TREE)` and prints: action
-counts + every non-skip doc with its detail, store files changed (expect 0), golden 40
-in-tree vs the sha256 file (expect 0 mismatches), docs added/removed/changed, item files
-changed (with their new resolved field), review.json open count before/after (vs git
-HEAD) + lost/gained open sites, sites.json drawings diffs, depictions.json changes
-incl. shotwick's expected prune (stale plan_c_e6e5490609414bb9 entry + both webps
-dropped, dep 2->1), and a box-6 probe: built sites with no drawings, no doc, no open
-item (expect ~114: the 103 no-item with-row sites + 11 found-picture sites - the loop
-phase's job in the TEST, not the live run: the lead runs the matcher loop live).
-Run: `.venv/bin/python /tmp/aw212b-dryrun.py` (~2-4 min; tail -100 the output).
+**NEXT STEPS (in order):**
+1. Wait for the run: `ps aux | grep 'cover.py sync' | grep -v grep; tail -5 /tmp/aw212b-live.out`.
+   Last lines should be `sync: 131 document(s) over 94 site(s)` then `sync: 365 open of
+   378 item(s) -> web/data/review.json` (378 = 346 + 32 new items).
+2. Verify against the dry-run expectations:
+   - `sha256sum -c tests/golden/hand_fit_docs.sha256` -> 40/40 (box 2; find and run the
+     000 golden test that consumes this file too - it is 000's golden test per the box).
+   - bibracte item untouched: `git diff -- data/review/bibracte-q650053.json` empty
+     (no doc on it -> sync never upserts it; the export's write-once guard means no
+     resolution write either).
+   - Store still clean: `cd /home/agent/projects/ancient-works && git status --short`
+     -> only `?? .venv` (its old-sarum files are gitignored; the 3 bench artifacts
+     should be pruned/rewritten by the sync).
+   - review.json 365 open / 32 gained / 0 lost (diff vs dryrun2.out's lists).
+   - sites.json: 13 entries differ from HEAD, old-sarum back to 2/3/2.86; 18 webps
+     gone, 60 new, shotwick map-only (the dry-run tree checks are the template).
+3. Commit (git add -A): the 76 platefits deletions, web/data/sites.json, web/data/
+   review.json, data/review/* (24 changed + ~32 new), web/data/sites/{forthill,
+   marietta,newark}/* if changed, memory files. Message: `212b: live sync ran - 76
+   fabricated-pattern docs sent to review and deleted, 30 rebuilt, 365-open list;
+   boxes 1+2`.
+4. Suite: `.venv/bin/python -m pytest tests/ -q` (~5 min). Expect ONLY 203b's two reds
+   (test_sample_run_real_gate, test_batch_adds_files_rewrites_none - the bibracte
+   FileNotFoundError; in flight with agent c, who extends the pins per the test's own
+   docstring). If my done claim is rejected on them, add 203b to my Depends on (the
+   212a precedent). Any OTHER red = mine to fix (PITFALLS 1171: a doc change without a
+   matching export/page state leaves count-deriving tests red - but my sync carries the
+   export, so check what state the red test reads).
+5. Tick boxes 1+2, keep box 3 (the test) open, rewrite this hand-over around the
+   parent's box-3 design (below), commit, done.
 
-**NEXT STEP 2 - the LIVE run** (network allowed): `.venv/bin/python fit/cover.py sync` in
-this checkout. Expect: 131 built (54 downloads), maybe a few "sent" (pattern check
-fires -> doc deleted + item entry) - the one-site line's decision, not a bug; the
-trailing export rewrites web/data/review.json (the open list may SHRINK: export records
-write-once resolutions for items whose candidate has a doc - which ones: the dry run
-tells you) and may change a handful of data/review/ item files. VERIFY before
-committing: `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 (box 2 - hand docs
-all marked, no check applies, build/skip never rewrites a golden file); bibracte's item
-file (data/review/bibracte-*.json) stays as 212a left it (no doc -> no resolution
-write). COMMIT: fit/cover.py (the harness-saved edit), web/data/sites.json,
-web/data/review.json, changed data/review/* item files, data/db/platefits/* if any
-stamped/deleted, web/data/sites/{forthill,marietta,newark}/* (tracked; the other real
-site dirs are gitignored). Then the suite (`.venv/bin/python -m pytest tests/ -q`):
-expect exactly the two known 203b reds (if my claim is rejected on them, add 203b to my
-Depends on - the 212a precedent).
+**BOX 3 (next sessions) - the test in tests/test_cover.py**, per the PARENT design (full
+text: `git show 953d9ab:tasks/212-cover-final.md`, esp. the D1-D5 + CHOOSE recipe
+sections and the 7 numbered assertion groups): extend the existing 212a fixture with
+include_sites=True (real hard-linked site dirs), PHASES + "loop" + "sync" (report is
+212c's), matcher fakes monkeypatched on the shared module objects (site_done.
+matchfit.reachable -> False OR matchfit.run -> a fake writing the CHOOSE docs;
+matchfit.spread stays real - pure), big stand-ins for the CHOOSE commons docs -
+**RE-MEASURE CHOOSE first: the live run deleted 76 docs and re-derived review.json,
+so the parent's CHOOSE ids (aardenburg/aesica/aire-sur-la-lys/alauna) may have moved
+or their rows' items changed**; port-0 served page (Popen [.venv python, server/
+serve.py, --port 0] cwd=tree, parse "Ancient Works on (\S+)"), checked: (v) EVERY
+built site in the served sites.json has drawings>=1 OR is in the served open list, and
+the page's review count matches review.json (through the served page, not the file).
+Socket guard stays on; tmp_path_retention_policy "failed" (the 48 GB box). The test's
+loop phase makes the box-6 invariant TRUE in the tree (fresh all-rows items for the
+103 no-item sites etc.); sync in the test uses stand-ins (no downloads).
 
-**NEXT STEP 3 - box 3, the test in tests/test_cover.py** (the big remaining piece, 1-2
-sessions). Extend the existing 212a fixture per the PARENT design (full text:
-`git show 953d9ab:tasks/212-cover-final.md`, esp. the D1-D5 + CHOOSE recipe sections and
-the 7 numbered assertion groups): fixture gains include_sites=True (real hard-linked
-site dirs), PHASES extended with "loop" + "sync" (report is 212c's), matcher fakes
-(monkeypatch on the shared module objects: site_done.matchfit.reachable -> False OR
-matchfit.run -> a fake writing the CHOOSE docs; matchfit.spread stays real - it is
-pure), big stand-ins for the CHOOSE commons docs (c_d0a020dec428fa00 /
-c_e28ed261168b49c9 / c_d1ca997e67377769 - but RE-MEASURE CHOOSE first: the live world
-changed after the 212a run, so the parent's CHOOSE ids may have shifted), then a port-0
-served page (Popen [.venv python, server/serve.py, --port 0] cwd=tree, parse "Ancient
-Works on (\S+)") checked with: (v) EVERY built site in the served sites.json has
-drawings>=1 OR is in the served open list, and the page's review count matches
-review.json (through the served page, not the file). Socket guard stays on;
-tmp_path_retention_policy "failed" (the 48 GB box). The test's loop phase is what makes
-the box-6 invariant TRUE in the tree (fresh all-rows items for the 103 no-item sites
-etc.); sync in the test uses the stand-ins (no downloads).
-
-**Depends on stays "212a"** (212a's work is in this branch; its reopening is only over
-203b's two reds, which are not mine to fix). 203b in flight with agent c (they extend
-the bibracte pins per the test's own docstring).
+**Depends on stays "212a"** (done; in this branch). 203b (agent c) in flight: its two
+reds are not mine to fix; add to Depends on only if the driver rejects my claim on
+them.
