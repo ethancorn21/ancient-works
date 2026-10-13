@@ -181,6 +181,7 @@ def _fetch_one(url, dst):
     """One picture download to dst, through .part -> rename (commons.thumbs' behaviour):
     atomic (a failed download leaves no partial file) and resumable (the caller skips an
     existing dst). -> True on success."""
+    dst = str(dst)  # dst is a Path from _local_path
     try:
         req = urllib.request.Request(url, headers=aw.UA)
         with urllib.request.urlopen(req, timeout=120) as resp:

@@ -36,16 +36,19 @@ PROMPT = (commons.CLEF_STATE +
 
 def _one(r, tries=3):
     """One row's local jpg -> {p_plan, p_birdseye, p_photo} clamped to 0..1, rounded 4.
-    A parse failure (chatter instead of JSON) retries up to tries times."""
+    A parse failure (chatter instead of JSON) retries up to tries times. The row is
+    cover.stage's {"row": files.jsonl row, "local": path}."""
+    title = ((r.get("row") or {}).get("title") or r.get("title") or "?")
     last = None
     for i in range(tries):
         try:
             d = llm.parse_json(llm.ask(PROMPT, images=[r["local"]], url=URL,
                                        max_tokens=200, tries=2))
-            return {k: round(min(1.0, max(0.0, float(d["p_" + k]))), 4) for k in commons.CLEF_Q}
+            return {("p_" + k): round(min(1.0, max(0.0, float(d["p_" + k]))), 4)
+                    for k in commons.CLEF_Q}
         except Exception as e:
             last = e
-    raise RuntimeError("qwen8080: %s: %r" % (r["title"][:80], str(last)[:200]))
+    raise RuntimeError("qwen8080: %s: %r" % (title[:80], str(last)[:200]))
 
 
 def classify(rows, workers=4):

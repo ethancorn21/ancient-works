@@ -1,0 +1,37 @@
+{
+ "phase": "stage (the 212a live run)",
+ "at": "2026-10-13T09:22:03.266642+00:00",
+ "classifier": {
+  "model": "qwen3.8-27b (vLLM on the agent VM's own 3090 Ti)",
+  "url": "http://127.0.0.1:8080/v1/chat/completions",
+  "one-off": true,
+  "reason": "Clef-flash is not running anywhere (the 5060 Ti now serves the matchers) and this VM cannot open the ssh tunnel to it; the lead's answer to request 003 approved the VM's own 8080 Qwen for these rows (classification only - placement stays the matcher, ef84a05)",
+  "questions": "the Clef-flash questions themselves (commons.CLEF_STATE / CLEF_Q: plan / birdseye / photo), asked as 0..1 confidence probabilities"
+ },
+ "rows_classified": 107,
+ "note_on_each_row": "qwen3.8-27b vLLM 127.0.0.1:8080 (one-off, lead's answer to request 003)",
+ "rows_staged_into_files": 107,
+ "rows_got_the_200_evidence_field": 107,
+ "plans_rows_added": 0,
+ "sites_with_a_plans_row_now": [],
+ "sites_whose_pictures_all_fell_below_the_0_3_plan_gate": [
+  "arbeia-q1131391",
+  "aventicum",
+  "bibracte-q650053",
+  "burcht-van-leiden",
+  "carnac-stones-q833850",
+  "craig-phadrig",
+  "hopewell-mound-group",
+  "indian-mounds-park-q3150092",
+  "los-millares",
+  "maeshowe",
+  "motte-castrale-quiquempois-q22961457",
+  "moundville-archaeological-site-q1320821",
+  "ocmulgee-mounds-national-historical-park-q1517500",
+  "stones-of-stenness",
+  "the-roman-fort-vicus-bridge-abutments-an-q17650519",
+  "trundle-q7847949"
+ ],
+ "nopicture_items_marked": 234,
+ "log": "data/cover/stage.run.log"
+}
