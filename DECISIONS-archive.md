@@ -3504,6 +3504,59 @@ the driver brings the task back after 203b merges. The live-run recipe
 (phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
 is in the hand-over.
 
+## 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
+
+The iter-219 hand-over said box 4 waits for 203b because "agent c is in
+flight" on the batch. That reading was stale: the 203b file has been Status:
+done on main since c49aeb9 (agent c's iteration 50, 2026-10-11: the 294-site
+EU run - 54 auto fit / 47 review / 18 hand / 175 no-picture, 94 EU docs + 252
+items, union 384/384), and there is NO "[driver] reopened 203b" commit on
+main (the reopen list is 215/214/309/307ba/302a/206/802/203a - no 203b). Yet
+this iteration's driver prompt lists "Agent c is working on 203b" with the
+original touches (fit/batch_eu.py data/db/platefits data/review
+docs/batch_eu.md tests/test_batch_eu.py) - consistent with 203b's own
+hand-over note: "If this task is ever reopened (e.g. a 212-era re-coverage
+run changes the tree), re-verify the checks below." The batch ran over the
+384-site world; the world is now 499 built, and the batch's live union test
+gates on "Sites run: 294" vs the live EU partition (grown). So the wait
+stands, but the reason is: agent c's current 203b session re-runs/re-verifies
+the batch over the grown world, and its writes (new EU docs + item
+re-upserts, incl. the batch's searched wording on search-set items my
+nopicture also writes) must land before my live run's commit ("212 runs last
+on purpose"). 203b is already on my Depends on line; no line change.
+Agent c's other in-flight work is file-disjoint from the live run, verified
+on the live tree: 306's audit items are doc-keyed (<site>.<doc>.json) for
+doc'd sites, my nopicture writes the 245 EXACT bare <site>.json files of the
+no-doc search set (245/245 checked, 0 doc-keyed in the set; upsert_item's
+lead follows candidates[0].plan and these items are candidate-less, so the
+names never move); 306 exports web/data/sites.json + review.json, I
+re-export plans.json. 207 (files_roman/classified_roman jsonl), 302a, 304
+disjoint.
+Re-measured the live world today (main is frozen at 77bdf5d - an ancestor of
+my pre-218 sync 54c0711, so the git world is byte-identical to what I
+verified in 217/219): 499 built; 131 docs = 21 by:hand + 110 by:agent;
+nofit 402; cand-sites 601; search set 245 = 204 qid + 41 no-qid (matches the
+iter-217 post-aeeb5aa measurement; the 246 in the CORRECTION-4 entry was
+pre-aeeb5aa, when numancia had no row yet) - first4 aalsum-q3902030,
+abbotsbury-castle-q3662453, aberdeen-mound-q4666953, aden-site-q4682175;
+first no-qid aggersborg. files.jsonl: 923 kept rows, only 1 without a local
+copy - the no-source Stukeley TAB XI (stonehenge-q39671, thumb/url null):
+the ~328 missing copies measured 10-13 all arrived in the shared store via
+the lead's aeeb5aa "data/raw synced both ways Mac<->VM", so the fetch phase
+is now a no-op (0 thumb, 0 url, 1 nosrc) that only prints counts +
+re-exports plans. plans.json: 1475 rows = 1475 unique (id, sites[0]) pairs,
+0 rows referencing a search-set site - the baseline for the key-set diff
+rule (aeeb5aa's 1474 + numancia's row back). data/cover/searches.json
+absent (fresh start). data/review: 346 items + README. Golden 40/40.
+tests/test_cover.py re-ran today against the grown store: 5 passed, 33.9s
+(no store file-count assertions, by design - the 328 new store files broke
+nothing). No code change this session; next step (the live run recipe) is in
+the hand-over.
+
+## 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
+
+Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
