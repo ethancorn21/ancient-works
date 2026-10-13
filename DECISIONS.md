@@ -504,3 +504,8 @@ Session 223 (agent a), the small session the iter-222 hand-over prescribed.
    + tools/site_done.py) over my 16 found-picture sites (11 rowed, 5
    below-gate stay no-picture), then 212b (sync) and 212c (report) - none of
    it is this task.
+
+## 2026-10-13 212a DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_batch_eu.py::test_batch_adds_files_rewrites_none
+    tests/test_batch_eu.py::test_sample_run_real_gate
