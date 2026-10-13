@@ -70,8 +70,9 @@ MARIETTA = "marietta"
 # The 6 sites with no region field at all (203b's must-not-drop set). fudge, highbank and
 # hopeton have zero candidates but an old-style site.json hand fit.
 REGIONLESS = [FORTHILL, "fudge", "highbank", "hopeton", MARIETTA, NEWARK]
-# bibracte (France): zero candidates, no hand fit, a 201-era no-picture item.
-NO_PIC = "bibracte-q650053"
+# Yeavering Bell (England): zero candidates, no hand fit, a no-picture item (bibracte held this
+# role until 212a found 18 pictures of it, 2026-10-13).
+NO_PIC = "yeavering-bell-camp-q17643662"
 AVEBURY = "avebury-q661855"
 OLDSARUM = "old-sarum-q782719"
 

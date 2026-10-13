@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T10:53:09.331883+00:00",
+ "at": "2026-10-13T10:58:34.887198+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -3492,12 +3492,94 @@
   {
    "site": "burcht-van-leiden",
    "name": "Burcht van Leiden",
-   "lead": null,
-   "candidates": [],
-   "no_picture_found": {
-    "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
-    "at": "2026-10-11T14:04:38.688328+00:00"
-   }
+   "lead": "c_2da8ced53ce1c3da",
+   "candidates": [
+    {
+     "plan": "c_2da8ced53ce1c3da",
+     "title": "De Kleine Hagen, bestaande uit drie delen Lugdunum Batavorum (titel op object), RP-P-AO-10-81",
+     "url": "media/commons/burcht-van-leiden/2da8ced53ce1c3da.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-13",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Kleine Hagen",
+       "place_qid": "Q19303338",
+       "place_label": "Kleine Hagen",
+       "place_lon": 6.6461,
+       "place_lat": 52.1026,
+       "site_lon": 4.493,
+       "site_lat": 52.159
+      }
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.7812,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_fb2db5d2a7552887",
+     "title": "Plattegrond der Zaal op de plaats van den Burgt ter feestviering van Oud-Studenten den 9.den Augustus 1838, RP-P-OB-88.641",
+     "url": "media/commons/burcht-van-leiden/fb2db5d2a7552887.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-13",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Zaal",
+       "place_qid": "Q1206886",
+       "place_label": "Trans-Alay Range",
+       "place_lon": 72.916667,
+       "place_lat": 39.333333,
+       "site_lon": 4.493,
+       "site_lat": 52.159
+      }
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.7812,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "no model answer"
+    },
+    {
+     "plan": "c_5681b77efdcafcbd",
+     "title": "Rand van de Grote Hagen, bestaande uit veertien delen Lugdunum Batavorum ANo 1670 (titel op object), RP-P-2016-1124",
+     "url": "media/commons/burcht-van-leiden/5681b77efdcafcbd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "none",
+      "checked": "2026-10-13",
+      "conflict": {
+       "route": "sheet",
+       "named_place": "Rand",
+       "place_qid": "Q2194369",
+       "place_label": "Rand",
+       "place_lon": -0.3433,
+       "place_lat": 53.2952,
+       "site_lon": 4.493,
+       "site_lat": 52.159
+      }
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.473,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "burcht-van-voorne-q2765622",
@@ -9438,12 +9520,18 @@
   {
    "site": "moundville-archaeological-site-q1320821",
    "name": "Moundville Archaeological Site",
-   "lead": null,
-   "candidates": [],
-   "no_picture_found": {
-    "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
-    "at": "2026-10-11T11:34:45.084712+00:00"
-   }
+   "lead": "c_ca57b707992bb337",
+   "candidates": [
+    {
+     "plan": "c_ca57b707992bb337",
+     "title": "Plan of Moundville",
+     "url": "media/commons/moundville-archaeological-site-q1320821/ca57b707992bb337.jpg",
+     "pairs": [],
+     "dropped": true,
+     "why": "dropped by the lead: a modern diagram (Wikimedia user Siyajkak, CC BY-SA 3.0, Japanese captions) - historical depictions only; the matcher placed it exactly (RoMa 3842/5000), so the overlay is not the problem, the source is"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "mount-caburn-q12062109",

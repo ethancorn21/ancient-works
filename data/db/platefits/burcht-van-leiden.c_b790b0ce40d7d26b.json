@@ -1,0 +1,90 @@
+{
+ "site": "burcht-van-leiden",
+ "plan": "c_b790b0ce40d7d26b",
+ "crop": [
+  0,
+  0,
+  1280,
+  1109
+ ],
+ "pairs": [
+  [
+   597.5,
+   527.5,
+   4.4926862,
+   52.1597589
+  ],
+  [
+   400.0,
+   303.8,
+   4.4895222,
+   52.1631042
+  ],
+  [
+   400.0,
+   751.2,
+   4.4876678,
+   52.1574175
+  ],
+  [
+   671.2,
+   336.2,
+   4.4950065,
+   52.1620017
+  ],
+  [
+   781.2,
+   602.5,
+   4.4961818,
+   52.1583386
+  ],
+  [
+   523.8,
+   687.5,
+   4.4904955,
+   52.157913
+  ],
+  [
+   757.5,
+   431.2,
+   4.4963995,
+   52.1605753
+  ],
+  [
+   498.8,
+   783.8,
+   4.4895787,
+   52.1567534
+  ]
+ ],
+ "label": "c. 1690",
+ "title": "Atlas Van der Hagen-KW1049B11 089-LUGDINI BATAVORUM VULGO LEYDEN SIC ULTIMO AMPLIFICAM DELINEATIO",
+ "cite": "by Publisher: Frederik de Wit; Public domain; https://commons.wikimedia.org/wiki/File:Atlas_Van_der_Hagen-KW1049B11_089-LUGDINI_BATAVORUM_VULGO_LEYDEN_SIC_ULTIMO_AMPLIFICAM_DELINEATIO.jpeg",
+ "at": "2026-10-13T10:20:01.229946+00:00",
+ "auto": true,
+ "score": 7.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/burcht-van-leiden/b790b0ce40d7d26b.jpg",
+ "ref": "File:Atlas Van der Hagen-KW1049B11 089-LUGDINI BATAVORUM VULGO LEYDEN SIC ULTIMO AMPLIFICAM DELINEATIO.jpeg",
+ "size": [
+  1280,
+  1109
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 15,
+  "matches": 1112,
+  "ground": "tmk1850.webp",
+  "window": 1.0,
+  "rot_deg": 11.31,
+  "spread": [
+   0.712,
+   133.6
+  ]
+ }
+}
