@@ -8,14 +8,10 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
-- `tasks/221-review-stats-test.md` (in-progress) - hand-over: (2026-10-13, iteration 238, agent a - box 3 re-checked on the state after main's
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
-- `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 198, agent c - **197's merge is COMMITTED (6554a14) and the post-merge
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -26,26 +22,43 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 221 DECISION: iteration 236 - first session: boxes 1+2 verified (the fix already landed in 309's lane, b5cdf19, exactly this task's spec); box 3 blocked on new task 235 - the placement-test seed failure (dep:null on marietta's filtered-out 1904 topo) is pre-existing, in the driver's baseline, and owned by 235 (Depends on: 306e, 307d; Touches: tests/test_fit_queue.py); 221's Depends on now 309, 235
-- Verification, no fix (the file was fixed in 309's own lane; 221 may only touch tests/test_review.py): `git diff b5cdf19^ HEAD -- tests/test_review.py` = 11+/2- and is EXACTLY the two documented changes - the stats filter (line ~270: accepts "built in all" OR "laid on today", modelled on web/review.js:74's /built in all|laid on today/, verified still there) and the keying reqfail assertion (line ~414: excludes '/tiles/' AND 'arcgisonline', comment names the Esri host and the SINGULAR 'tile/' segment); `git log b5cdf19..HEAD -- tests/test_review.py` is empty (nothing else touched it since). Both tests green in the live suite: pytest -k "plan_lookup_is_keyed or page_shows_the_review_list" -> 2 passed.
-- Full suite (155 passed / 1 skipped / 1 failed, 321 s): the one failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, NOT a 221-lane file, NOT a regression of this task - it is in the driver's .agent/reports/test-baseline.txt and was already red at 306d's iter-199 run ("dep:null") and 306e's iter-197 journal ("the 307bb gesture red, the baseline from both parents").
-- Root cause pinned (facts by running code, per AGENTS.md): the pick `_pick_place()` takes the first queue entry with a propose + a line-eligible unresolved review item + a non-empty RAW depictions.json. That is now `marietta` (queue entry 29, plan ancientmonuments00squi_n0169_1, (-81.4535, 39.4185)); its ONLY depiction is the 1904 USGS topo quad. The page filters it out twice over: loadDeps' surveyOldEnough (kind in {map,aerial,topo} needs year <= currentYear-150; 1904 > 1876) and select()'s auto-select (a {plan,drawing,view} depiction, else the last 'map' - a topo matches neither). So S.dep['marietta'] = [], no `dep-marietta` layer is ever created, the probe reads `map.getLayer('dep-'+id) ? visibility : null` = null, and the seed check's `dep === 'none'` fails (the gestures half passes: all five false).
-- The page behaviour is deliberate (Ethan 2026-10-10, comment at web/index.html:~428: topographic quads "don't really ever show anything"), so the fix belongs to the test's pick, not the page: `_pick_place` must mirror the page's filter + auto-select rules. That is new task 235 (lowest free number in 200-499; the fix is one module, tests/test_fit_queue.py).
-- 235's gates: Depends on 306e (agent c is still re-exporting web/data/review.json and the data/review items, which drive _line_eligible - the pick's second gate) and 307d (open, Touches: tests/ - same-file gate; 307d's own acceptance is a NEW tests/ file, so the overlap risk is low but the gate is cheap).
-- This session's changes: only tasks/221-review-stats-test.md (boxes 1+2 ticked, Notes updated, Hand-over written), tasks/235-placement-test-dep-pick.md (new) and this entry. tests/test_review.py and tests/test_fit_queue.py untouched (the former is my Touches, the latter is not mine).
+### 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
 
-### 2026-10-13 221 DECISION: iteration 237 - box 3 re-checked against the live suite: still blocked on 235, no new task to file, no code change
-- Suite this session: 155 passed / 1 skipped / 1 failed (325 s) - byte-for-byte the 236 baseline; the one failure is still tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser with the same failing seed-check label as every prior record (no new mode; the 306d/306c "changed signature" concern does not apply - I compared labels, not truncated JSON).
-- Pick re-verified by running the test's own helper read-only: `_pick_place()` -> marietta / ancientmonuments00squi_n0169_1, depictions = [('topo', 1904)] - the exact un-pinnable state 235's spec fixes (surveyOldEnough 150-yr cutoff: 1904 > 2026-150, and the auto-select rule's {plan,drawing,view}/last-'map' never matches a topo).
-- Gates re-checked: 235 = Status: open (never started, fix not on main); 306e = in-progress; 307d = open (Depends on: 307c). 221's Depends on (309, 235) already carries the live gate; 309 is done/inert.
-- No code touched (my Touches: tests/test_review.py - unchanged since 309's b5cdf19 landed). Only this task file's Hand-over and this entry changed.
-
-### 2026-10-13 221 DECISION: iteration 238 - box 3 re-checked on the post-77405cf state: suite 155/1/1 unchanged (same placement red, same seed label), pick still marietta/1904-topo (the 103 new review items did not shift it); 235 still open on 306e (in-progress, 2 sites left) / 307d (now unblocked, 307c done); no new task to file; box 3 stays unticked
-- Main changed since 237 by ONE merge (77405cf, lead): 13 matcher re-fits on 11 sites after the 212b sync, review items for the 103 uncovered sites in 212c's report (web/data/review.json +5172 lines, new data/review/* items, fit_queue.json now 241 entries, sites.json +102) and a 4-line tweak in tests/test_batch_us.py. tests/test_review.py and tests/test_fit_queue.py are UNCHANGED in the merge (verified via `git diff --stat 10f4683 d359be8`) - the 221 lane is untouched.
-- Suite this session (`.venv/bin/python -m pytest -q -p no:cacheprovider`): 155 passed / 1 skipped / 1 failed (340 s) - identical to the 236/237 baseline; the one failure is still tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser with the same failing seed-check label ("seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden"). The 103 new review items created no new failure (test_serve, test_review, test_fit_queue all green) - so nothing is filed as a new task.
-- Pick re-verified by running the test's own helper read-only (.venv python, `import test_fit_queue; _pick_place()`): still marietta - queue index 29, plan ancientmonuments00squi_n0169_1, single depiction ('topo', 1904) - unchanged by 77405cf (fit_queue.json already had 241 entries at 237; the merge touched only 2 of its lines, and the first entry passing propose + _line_eligible + non-empty depictions is still marietta). 235's spec (the pick must mirror the page's surveyOldEnough 150-yr filter and its {plan,drawing,view}/last-'map' auto-select) is still accurate.
-- Gates re-checked in this checkout: 235 = Status: open (never started; fix not on main); 306e = in-progress (agent c's UK part 2; its last hand-over: 14 of 17 lines, york x2 + windmill-hill x1 pending); 307d = open and NOW UNBLOCKED (its gate 307c is done) - awaiting a driver assignment; still a same-file gate for 235 (Touches: tests/, docs/site_flow.md); 309 = done/merged, inert. 221's Depends on (309, 235) already carries the live gate; nothing added.
-- No code touched. Only this task file's Hand-over and this entry changed.
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
 
 ## Project-wide driver notes (newest)
 
