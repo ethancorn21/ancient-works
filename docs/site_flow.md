@@ -1067,3 +1067,60 @@ the site stays covered for the union check, an open item counts).
   on the page (the 303 way: the picture and its 8 points went to the site's review item with this
   reason - merged into the item that already held the Allcroft 1908 n0136_1 candidate, which stays
   open; the document was deleted 2026-10-12).
+- cassiobury-house-q5049456.c_3446adfe7a8ed6c7 - Kip 1707 bird's-eye view of the house (the page's
+  view model: homography, 4 points, an exact 4-point fit resid 0.0, near-affine ~1.29 m/px): the
+  4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue
+  features, and all four ground points fall in the residential area EAST of the River Gade. The
+  site point (-0.418889, 51.665, kind garden) is the Wikipedia Q5049456 coordinate of Cassiobury
+  House itself (demolished 1927; the site is now the Temple Close / Parkside Drive housing) and
+  inverse-maps to plate px (549,671) - on the garden/wood at the drawn house's front, ~200-300 m
+  south of it - so the fit places the drawn house (E -364..-47, N +179..+427) ~360 m NW of its
+  real site, over the Cassiobury school complex (playfields and its rectangular pool), where no
+  house stood; the drawn oval pond maps to (E +406, N -202), 453 m SE, mid-residential, where
+  there is no water; and the plate's big wood masses map east of the site while the real park
+  woods, the park's round lake and the Gade lie west. The drawn works sit on the wrong side of
+  the river from the real ones. DELETED - an orphan today, invisible on the page (the 303 way:
+  the picture and its 4 points went to the site's review item with this reason, creating its item;
+  the document was deleted 2026-10-13).
+- chevening-q1070927.c_6049b89e4ab0570c - Kip bird's-eye view of the house (the page's view model:
+  homography, 8 points, resid 4.2-17.9 m, ~1.15 m/px near-affine): the decisive check is airtight -
+  the catalog site point (kind garden) inverse-maps to plate px (695,650), INSIDE the drawn house
+  body (the house spans u 560-840, v 590-800; its centre (700,700) lands at E +6, N -63 of the site
+  point), i.e. the house sits at its own site; the drawn lake (the long rectangular water behind-
+  left of the house) maps NW of the site point (E -206..-223, N +111..+418) and the park/horizon
+  north (+533) - matching the real Chevening House layout (house, lake to the north, avenue to
+  the south); the 8 anchors are a 100-px grid band (v 300-600, the lake/kitchen-garden zone; the
+  real band is E -496..+297, N +62..+407), and the 4-18 m residuals are the mild grid distortion
+  of an over-constrained homography, not a miss. KEEPS - an orphan today, invisible on the page
+  (its fit sits on the house itself).
+- cooling-castle-q5167493.c_7ebc7630f3197364 - Mackenzie 1897, The Castles of England (similarity,
+  6 points, resid 0.0, 0.8 m/px, 0 deg): the drawn Inner Ward square lands exactly on the castle
+  square the 1842 OS 6-inch map draws (same position and size, the moat lines coincide), the Outer
+  Ward boundary follows the map's moat/ditch line, the plate's 'Water' stream matches the OS
+  stream, and 'Modern houses and farm' sits where the map's village buildings are, with the
+  'Cooling' village label below; the 6 anchors are an internally consistent grid (100 px = 0.80
+  m/px, not a bury-style ladder), so the 1897 plan georeferences true over the site's 800 m box.
+  KEEPS - an orphan today, invisible on the page.
+- coria-q3819299.c_d66bfb0db805d2cd - Knowles 1909, Corbridge Excavations, fig 1 site plan
+  (similarity, 6 points, resid 0.2-1.1 m, 1.187 m/px, 0.02 deg): the hatched fort sits exactly on
+  the 1-inch OS 'CORSTOPITUM' dotted outline (same position and size), the plate's 'MODERN ROAD'
+  (A69) + 'ROMAN ROAD' (Stanegate) follow the OS roads, the two bridge abutments + 'CORBRIDGE
+  MILL' sit on the OS bridge and mill at the Tyne crossing, and the plate's Tyne runs parallel to
+  and over the OS 'RIVER TYNE'; the 6 anchors are 100-px multiples but a UNIFORM metric grid (100
+  px = 118.8 m both axes - the sub-metre residuals are the snapped grid, not a bury-type
+  inconsistent ladder), so the grid encodes the true transform. KEEPS - an orphan today,
+  invisible on the page.
+- daw-s-castle-q5242247.c_8d2281628567a166 - Daws Castle Somerset Map inset (similarity, 4 points,
+  resid 1.4-5.6 m, 4.32 m/px, -0.13 deg): the drawn hatched headland (the 'Cliff and Rocks' mass,
+  the hillfort) maps over the REAL headland - its drawn edge line agrees with the 1-inch OS cliff
+  line within ~40 m over E -532..-359; the tip is exaggerated ~220 m west into the sea/shoal and
+  the mass's ~400 m northward overhang sits on the headland's own upland (207/225 m 'Coastguard'
+  ground), not foreign ground - the real headland is INSIDE the drawn extent; the drawn HIGH
+  WATER sits on the real sea, the railway in the real gap between headland and town, and the town
+  on the town side. The site point (on the 'WATCHET' town label, the scheduled-monument point) sits
+  ~450-550 m E of the headland itself. Caveats: the 4 anchors are a 100-px grid in the plate's SE
+  corner (the north-arrow/spot-heights area) - a bury-style ladder shape but internally uniform
+  (430 m / 100 px both axes, so the fit's 4.32 m/px is consistent with the composite); and the
+  plate's own 'SCALE OF FEET 0-300' bar measures 0.885 m/px, 4.9x smaller than the fit - the inset
+  is not to its own bar, and the fit's scale is the one consistent with the real headland's ~400 m
+  width and the 1-inch layout. KEEPS - an orphan today, invisible on the page.

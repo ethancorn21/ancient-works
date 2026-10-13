@@ -301,6 +301,26 @@ Where: /tmp/loop-* of every checkout; .agent/reports/last-test-output.txt; `ps -
 Symptom: another checkout's multi-G pytest dir vanishes on its own (agent a's: 7.0G at 2026-10-12 ~17:47, 2.3G at ~17:55 - no agent did it); your own full-suite run dies with exit 143 (SIGTERM) mid-run with no error in its own output; after a dead driver verification, PPID-1 orphan `server/serve.py --port 0` and hermetic `-c runpy ... server/serve.py` processes sit in the checkout, and .agent/reports/last-test-output.txt's mtime is older than the crash (a crashed driver run writes no report).
 Why: the loop self-heals disk pressure by reclaiming dead numbered dirs, and preempts a checkout it is about to verify. Consequences: before starting a full-suite run check `ps -eo pid,ppid,etime,args | grep -E "pytest|serve.py|runpy"` for (a) live runs in other checkouts (their 3.5G writes race yours for the same 48G disk - two concurrent full runs need ~7G free) and (b) driver processes in THIS checkout (starting then gets your run killed, as at 2026-10-12 17:44, 5 min before the driver's 17:48-49 verification). PPID-1 orphan servers from a dead run are safe to `kill`; their dead numbered dirs safe to delete. A run with ≥4G headroom at start (3.5G write + margin) survives; one starting at <2G free dies with the Errno 28 cascade above.
 
+#### The Web-Mercator y-tile formula is y = ((1 - ln(tan φ + sec φ)/π)/2)·2^z - a misplaced /2 shifts by half the tile ring (Gulf-of-Guinea blanks)
+Where: the 306d/306c audit scripts' tile fetchers (/tmp/j306d/j165c_tiles.py, /tmp/j306c/); any code that converts a lat/lon to a slippy-map tile
+Symptom: the fetched tiles are blank ocean (the Gulf of Guinea) instead of the requested location - the y index is off by 0.5·2^z (at z15 London lands at y 13640 instead of 10897)
+Why: writing (1 - ln(...)/(2π))·2^z (the /2 applied inside the parentheses) doubles the y fraction. Sanity check, verified by running it: London (0, 51.5) z15 = (16384, 10897); the x index is the simple (lon+180)/360·2^z.
+
+#### ArcGIS online service names both start with 'World' - never name tile output files by a service prefix
+Where: the 306d audit scripts fetching https://server.arcgisonline.com/.../World_Imagery and World_Topo_Map tiles (/tmp/j306d/j165c_tiles.py)
+Symptom: the second service's fetch silently overwrote the first's files (both write 'cass15_wor_*.png' if named by svc[:3]), so a 'topo' composite was actually imagery - no error anywhere
+Why: World_Imagery[:3] == World_Topo_Map[:3] == 'wor'. Name output files with a tag derived from the full service name ('imag'/'topo') or separate directories.
+
+#### In a raw-tile composite, metres-per-pixel = (360/2^z · 111194.93 · cos lat)/256 - forgetting the /256 collapses every marker onto the site point
+Where: the 306d marker composites (/tmp/j306d/j165e_compose.py); any overlay of ground-referenced markers on pasted slippy-map tiles
+Symptom: markers that should be 300-450 m apart all sit 1-2 px from the centre, and the 200 m scale bar draws as a 1-px dot - the whole judge image looked like the fit was perfect while it was 256x too small (this masked the cassiobury miss on the first 165 read)
+Why: 360/2^z is one TILE's lon span (256 px), not one pixel's; mpp = that product / 256 (0.74 at z17/51.7°, 3.0 at z15). Equivalently: a pixel offset computed as metres/tile-span needs *256.
+
+#### overpass-api.de 504s (and 400s long GETs) on box queries from this VM - keep queries to one `out center;` and have a non-OSM fallback ready
+Where: the 306d/306c OSM context queries (/tmp/j306d/j165d_osm.py, j166_osm.py), overpass-api.de and overpass.kumi.systems
+Symptom: HTTP 504 Gateway Timeout on kumi (read timeout); 400 Bad Request on overpass-api.de for the multi-way `out geom` box query; even the lighter `out center;` variant 504'd on 2026-10-13 (both hosts, twice)
+Why: the public overpass endpoints are overloaded for multi-selector box queries. Keep it to a single simple `out center;` query, POST `data=`, try a second host, and do not burn the session on retries: for identifying a site's real subject, the Wikipedia infobox coordinate of the site's Qid is the decisive source (it settled cassiobury - infobox 51.66500N 0.41889W equals the catalog site point exactly, i.e. the house site, demolished 1927, now housing between Temple Close and Parkside Drive).
+
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.

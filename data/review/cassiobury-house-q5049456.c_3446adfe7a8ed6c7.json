@@ -1,0 +1,53 @@
+{
+ "site": "cassiobury-house-q5049456",
+ "candidates": [
+  {
+   "plan": "c_3446adfe7a8ed6c7",
+   "title": "Cassiobury House, bird's-eye view engraved by Johannes Kip",
+   "url": "media/commons/cassiobury-house-q5049456/3446adfe7a8ed6c7.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py kip"
+   },
+   "pairs": [
+    [
+     1150.0,
+     450.0,
+     -0.4094679,
+     51.6672412
+    ],
+    [
+     600.0,
+     400.0,
+     -0.4196059,
+     51.6676904
+    ],
+    [
+     800.0,
+     600.0,
+     -0.4159852,
+     51.6654447
+    ],
+    [
+     1000.0,
+     700.0,
+     -0.4123644,
+     51.6640972
+    ]
+   ],
+   "coarse": false,
+   "label": "1707",
+   "cite": "by Cnbrb; Public domain; https://commons.wikimedia.org/wiki/File:Cassiobury_Park_by_Kip_and_Knyff.jpg",
+   "ref": "File:Cassiobury Park by Kip and Knyff.jpg",
+   "size": [
+    1280,
+    923
+   ],
+   "place_reason": "306d audit 2026-10-13: the 4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue features (homography an exact 4-point fit: resid 0.0, near-affine 1.29 m/px), and all four ground points fall in the residential area EAST of the River Gade. The site point (-0.418889, 51.665, kind garden) is the Wikipedia Q5049456 coordinate of Cassiobury House itself (demolished 1927; the site is now the Temple Close / Parkside Drive housing) and inverse-maps to plate px (549,671) - on the garden/wood at the drawn house's front, ~200-300 m south of it - so the fit places the drawn house ~360 m NW of its real site, over the Cassiobury school complex (playfields and its rectangular pool), where no house stood; the drawn oval pond maps to (E +406, N -202), 453 m SE, mid-residential, where there is no water; and the plate's big wood masses map EAST of the site while the real park woods and the park's round lake lie WEST, across the Gade. The drawn works sit on the wrong side of the river from the real ones. Document deleted."
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
