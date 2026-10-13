@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 231, agent a - **WORLD RE-VERIFIED AGAINST HEAD, NO CODE WRITTEN (hit the context
+- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 232, agent a - **WORLD RE-MEASURED AT HEAD 0e6d5df + EVERY MODULE THE TEST
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -110,59 +110,6 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
-### 2026-10-13 212b DECISION: post-live-sync suite run (324 s, log /tmp/aw212b-suite.out) = 2 red / 153 pass / 1 skip of 156 - red 1 is mine (the yearless-title pin on the deleted durocortorum doc; re-pinned to watson-brake c_5e7bb19c, file now 7/7 green); red 2 is the pre-existing 307bb part-4 gestures red (fails on this VM since before my 06:01 live run; my sync provably does not move its pick); the hand-over's expected 203b reds are GONE (green on this run), so 203b stays off Depends on
-
-Step 4 of the iter-227 plan ran on the post-sync tree. Full suite `.venv/bin/python -m
-pytest tests/ -q`: 2 failed, 153 passed, 1 skipped in 324.45 s (156 total = agent c's
-9f92b3a "154/1/1" total; the one skip is the same environmental one).
-
-**Red 1 (mine - FIXED this session):** tests/test_fit_provenance.py::
-test_commons_yearless_title_keeps_the_label - FileNotFoundError on
-data/db/platefits/durocortorum-q4896307.c_08d995eb23a685c2.json, one of the 76
-fabricated-pattern docs my live sync sent and deleted. 219's test pins the yearless-
-no-label case on a "surviving batch doc" (306a had already moved it once, bethlehem ->
-durocortorum); the sync is the next audit, so the pin moves again. Re-pinned to
-watson-brake-q2552689.c_5e7bb19c79b509ed (surviving matcher-placed doc: title
-'Watson Brake - Map' has no 4-digit year, label None -> plan_fit L290-291 renders the
-'({label or undated})' parenthesis; the how-clause is keyed on the doc's auto/score
-fields, not fitter - it reads 'Fitted automatically by the batch ... (gate score 4.4
-m)' exactly like the old pin). Expected line measured with the test's own
-_build_source stand-in recipe; docstring now records both moves (306a bethlehem, 212b
-durocortorum). tests/test_fit_provenance.py now 7/7. Added tests/test_fit_provenance.py
-to my task's Touches line (the pin move is part of making the sync land green).
-
-**Red 2 (pre-existing - NOT mine, not fixed in 212b):** tests/test_fit_queue.py::
-test_placement_gestures_and_save_in_the_browser - 307bb's part-4 headless test,
-committed by the lead in 081c773 ("Suite 101 passed + 1 skipped" on the lead's Mac).
-Fails at the first seed check 'seed: the gestures own the mouse (map pan/zoom off), the
-earlier overlay hidden' (probe condition: seed.gestures.every(v => v === false) &&
-seed.dep === 'none'); the log also shows /tiles/relief 404s, which are BY DESIGN in
-that fixture (the temp tree skips .npy/.npz elevation grids, so relief tiles 404; the
-probe's request-failure check excludes '/tiles/'). Attribution, three independent
-factors: (a) agent c's branch recorded exactly this red in fdfeddf (05:24) and 9f92b3a
-(06:19) - both BEFORE my live run (06:01-06:18) and before my artifacts were committed
-(06:31), and my work could not be in her branch (it is not on main); (b) my sync
-provably did not change the test's inputs - the pick is entries[3]
-oswestry-castle-q20713795 and its item file is byte-identical pre/post sync (0fbea54
-vs HEAD: unresolved, one candidate n0119 with 3 pairs), the site has no platefits doc
-in either state, web/data/fit_queue.json is unchanged (git diff 0fbea54..HEAD empty),
-and the sync wrote no oswestry overlay (no doc); (c) the failure is a page-state check
-in headless Chrome on this VM, an environment the lead's green run (Mac) did not
-share. Ownership: the 307 series - 307bb is done (lead's), 307d (open, 'the owner's
-check - two queue sites end to end', Touches tests/) is the next 307 session and the
-natural home of the fix; no new task filed (a top-level task would duplicate the open
-series subtask). The driver's PROGRESS notes already list the red; this entry adds the
-attribution.
-
-**203b's two reds (the hand-over's expectation) did not materialize:** test_batch_eu.py
-passes fully on this run - the lead's 0685a4c moved the no-picture fixture from
-bibracte to Yeavering Bell (212a found 18 pictures of bibracte, making it a normal
-candidate site) and agent c's in-flight 203b work tracks the rest. No Depends-on
-change needed (stays "212a").
-
-**The driver's 6ce742f committed my uncommitted sync artifacts** (iter 227 left them
-... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: post-live-sync suite run (324 s, log /tmp/aw212b-suite.out) = 2 red / 153 pass / 1 skip of 156 - red 1 is mine (the yearless-title pin on the deleted durocortorum doc; re-pinned to watson-brake c_5e7bb19c, file now 7/7 green); red 2 is the pre-existing 307bb part-4 gestures red (fails on this VM since before my 06:01 live run; my sync provably does not move its pick); the hand-over's expected 203b reds are GONE (green on this run), so 203b stays off Depends on' DECISIONS.md`)
-
 ### 2026-10-13 212b DECISION: iter-230 verified the whole test API surface against the current tree (no code written - context limit before writing) and CORRECTED two points of the iter-229 design: (1) the entry mirror must call propose.propose_for WITHOUT a root (the product's run_sites call), so the hit site's two staged rows get COARSE entries, not tree-root proposals; (2) the post-live-run world has NO stale plan/view overlays (shotwick/bethlehem deps are map-only now), so the test's sync prune drops nothing - the assertions move from "prune drops the webps" to "prune is a no-op; both stay covered by their open items"
 Investigation session (tree clean at 724559f; tests/test_cover.py still 212a's 770-line
 version). Re-read and re-verified against the code: fit/cover.py (loop: in-process
@@ -237,6 +184,48 @@ server/serve.py (ROOT = the server dir's parent; the fit worker only on platefit
 startup line with the bound port), tests/test_fit_queue.py (the GUARD subprocess pattern +
 reader thread for a port-0 server), tests/test_batch_eu.py::_corner_pairs (the 5%-frame
 ... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: iter-231 re-measured the entire world at HEAD and re-read every module the test drives; all iter-230 pins hold exactly (499 built / 57 docs all is_done / nofit 452 = 234 search + 218 with-row = 105+10+103 / 377 items 365 open / plans 1510 / big cache 75 / CHOOSE the pinned 4 / hit aalsum / fail craig-phadrig / spot aggersborg); no code written - context limit during the module reads; next step is writing the extended tests/test_cover.py' DECISIONS.md`)
+
+### 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py
+Session 232 (agent a). Investigation only; the tree was clean and untouched (HEAD 0e6d5df, no
+data-file diff between 8555682 and HEAD - so the iter-231 note measured the same files, it
+simply mis-bucketed). Re-measured live: built 499; nofit 452 = search 234 (199 qid + 35 no-qid)
++ with-row 218 = 105 allcovered + 0 partial + 103 no-item-file + 10 empty-candidate items
+(aventicum, bibracte-q650053 (16 rows), hopewell-mound-group, los-millares, maeshowe,
+motte-castrale-quiquempois-q22961457, numancia, stones-of-stenness,
+the-roman-fort-vicus-bridge-abutments-an-q17650519, trundle-q7847949 - all resolved None,
+all with the batch-era no_picture "web/data/plans.json (1166 rows, matched by the sites
+field)"); docs 57 (21 by:hand + 36 by:agent ALL fitter:matcher, 0 unmarked) ALL is_done in the
+tree, 0 line-check failures; item files 377, open 365 (recomputed with review.resolved_doc);
+plans 1510; store big cache 75 (aesica's c_e28ed261168b49c9.jpg present, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg absent -> the test seeds them);
+CHOOSE == the pinned 4 with pinned row ids/sizes/map_box (CHOOSE site dirs: aardenburg/aire
+real, aesica/alauna symlinked - the realize converts all 382 symlinks anyway); bethlehem dep
+map-only (tmk1850.webp, 22-cand audit item) and shotwick dep map-only (six-inch-1st.webp,
+2-cand audit item), both drawings 0; aesica 1-cand item with the STALE recorded resolution
+{doc: aesica-q4688554.c_e28ed261168b49c9, at: 2026-10-12T03:13:35.590448+00:00} -> D2 holds;
+alauna 5-cand item resolved None (first row book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66]); hit aalsum-q3902030 (item aalsum-q3902030.json,
+candidates []); fail site craig-phadrig; spot aggersborg; web/data/review.json at
+2026-10-13T11:26:15.291892+00:00 with 365. Loop consequence (worked out against
+site_done._fit + batch_us.run_sites, both re-read this session): at loop time 11 sites have
+an empty-candidate item with rows (the 10 + aalsum after staging) - for each, uncovered =
+ALL rows (no docs, empty item_cands -> the keep-restore restores nothing) -> run_sites
+upserts every row "no model answer" (+ the propose-for-checkout extras; the hit's two staged
+rows raise ValueError - not in the checkout's plans.json -> coarse); no_picture_found
+cleared; resolved stays (write-once, None) -> the file MOVES to <site>.<lead>.json (lead =
+first row in the tree's plans order) and stays open. End arithmetic: 377 - 11 (old files
+unlinked) + 112 (101 fresh from the 103 no-file minus the 2 CHOOSE, which get docs not items,
++ 11 renames) = 478 files; open = 365 - aesica + 101 = 465 (the 11 renamed were already
+open). Sync: 60 docs (57 pre + 3 CHOOSE; alauna's was written then deleted by its own
+line) all "skipped" (the 3 built in the loop, the 57 is_done), no "pruned" line, beth/shotwick
+deps byte-identical, the full export is the only page-file writer. Re-read this session,
+all as the iter-230/231 notes say: fit/cover.py, tools/site_done.py, fit/batch_us.py,
+fit/review.py, pipeline/plan_fit.py, fit/matchfit.py, fit/propose.py, tests/conftest.py,
+tests/test_fit_queue.py (the GUARD + reader-thread port-0 server pattern; sys.executable is
+the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corner_pairs, the
+golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
+this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
