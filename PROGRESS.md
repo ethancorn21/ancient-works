@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 182, agent c - **the four pending PITFALLS entries are FILED**
+- `tasks/306e-orphan-fits-uk-2.md` (open) - hand-over: (2026-10-13, iteration 183, agent c - **old-sarum DONE: both docs judged DELETED and removed the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
@@ -51,51 +51,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
-
-### 2026-10-13 306e DECISION: first session - 34/34 orphan shots taken (o-y, 17 docs); merged main per the lead; claimed 306d done
-- Built tools/audit_306e.mjs (clone of tools/audit_306d.mjs, the 17 o-y docs; the 307 fit-queue
-  trap neutralised in the IIFE exactly as in 306d: FQ.entries emptied before openPlan so
-  _fkActivate falls open - verified: every [eval] line reports fqEntries:114, placed:false,
-  layer:true, n = the doc's pair count). All 34 shots (aerial + relief per doc; all 13 sites
-  have relief.jpg) written to docs/site_flow/agent_fits/ and committed (129590d).
-- Lead message: the 5 reds the driver blamed on 306d are fixed on main (77bdf5d, tasks
-  231-234). Merged main into agent/c (88c5545). Conflicts, resolved the known way:
-  web/data/review.json 'at' kept main's newer (07:07 > 05:48); docs/site_flow.md kept my
-  unmerged 306c+306d blocks then main's 308 arrowheads section (both sides were additions at
-  the same anchor - the 308 section sits after the 306d ludlow line). Full suite on the
-  merged tree: 149 passed, 1 skipped, 1 red = test_fit_queue::test_placement_gestures_and_
-  save_in_the_browser (probe 'RESULT FAIL: seed: the gestures own the mouse' + 404
-  /tiles/relief - the live relief is Mac-only; agent a's in-flight 307 seed flow; the
-  161/176/177 A/Bs already proved it red on pure main). On that basis 306d set Status: done
-  (74f80e3, the lead's explicit instruction; its 005 is settled).
-- Started judging batch 1. offa-s-dyke (OS 1902 Nantcribba 02 sheet): seen; the sheet's hatched
-  wood covers the real wood but its N-E half covers the town and anchor 4 sits on bare ground
-  - leaning deleted (wrong place), needs one Nantcribba-position web check.
-  okehampton (Commons 1915 'Plan of Okehampton Castle'): seen; the plate is a 600 m chain of
-  ~10 multi-room buildings with radial trees - per Wikipedia (fetched) the real castle is a
-  few ruins on a rocky outcrop with the town 1 km away, so the plate is a 1915 TOWN map
-  (local mapmaker Edward H. Young) correctly georeferenced but the wrong kind of subject for
-  the motte site - undecided at cutoff, next session pins the site point vs town vs castle.
-- FAILED (attempt 1): hand-rolled pure-Python similarity fit of the okehampton pairs -
-  ZeroDivisionError, rank-deficient 5-param design matrix [u,-v,u,v,1]. Attempt 2 (per-row
-  3-param with the page's sign convention) came out 0.85 m/px, -45.2 deg, residuals 205-833 m
-  = GARBAGE: the page's simFit flips the plate's v axis (image coords, v down) which my naive
-  least squares did not. The [eval] fit line (1.20 m/px, -0.3 deg, resid <=1.1 m) is the truth;
-  single-point inversions are fine for spot checks, full-plane ones are not. (Filed to the
-  306e hand-over; PITFALLS candidate if it recurs.)
-
-### 2026-10-13 306e DECISION: iteration 180 - offa's KEEPS line drafted (unwritten); okehampton's 'town-centre / wrong-kind' hypothesis RETIRED: the site point is the castle, at the dead centre of the drawn chain; verdict now hangs on the drawn chain's length vs the real outcrop (leaning KEEPS)
-- Offa (1/17): judged KEEPS at 179 and unchanged. The full line (306c/306d style) is drafted in the
-  task hand-over and is ready to paste into docs/site_flow.md (the 306e block itself is still
-  unwritten - it goes between the ludlow line (~L1267) and the 308 arrowheads section (L1268)).
-- Okehampton (2/17): the 178-179 hypothesis (plate = a 1915 town-centre plan, wrong kind of
-  subject for a motte site, or the castle 1 km away = wrong place) is RETIRED. Evidence this
-  session: (a) simFit replicated on the doc's 4 pairs matches the page [eval] EXACTLY (resid
-  [0.9,1.1,0.8,1.0], 1.196 m/px, +0.33 deg), and the site point (-4.0083, 50.7306) inverse-maps
-  to plate px (333.8, 333.2) of 618x674 = the DEAD CENTRE of the drawn chain (A->G, ~570-600 m,
-  NE-SW); (b) the 1842 six-inch ink (533x533 RGBA, box-aligned) shows the label 'Okehampton
-  Castle (Remains of)' at E -174 m / N -50 m from the site point with its leader pointing EAST
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: first session - 34/34 orphan shots taken (o-y, 17 docs); merged main per the lead; claimed 306d done' DECISIONS.md`)
 
 ### 2026-10-13 306e DECISION: iteration 181 - OFFA and OKEHAMPTON both KEEPS; both lines written into docs/site_flow.md (new 306e block, 2 of 17 lines); the okehampton outcrop is NE-SW, not N-S - the drawn chain is right-sized for it
 - Offa (1/17): unchanged since 179/180 - KEEPS. The 180-drafted line was pasted verbatim into
@@ -177,6 +132,46 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   circle centre/radius via strongest-ink-fraction search u/v 250-520 band 45-110 px; drawn
   outer ring farthest-ink per azimuth, rmax 320 px, from both the drawn centre and the
 ... (0.5 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 182 - filed the four pending PITFALLS entries; old-sarum judged in depth - c_ff62 (Basire 1806) is a clear DELETED (site point on blank paper, drawn plan 440 m E over the SE farmland), c_0410 (Ditchfield 1901) leaning DELETED (oversize + SE shift), precise measurement pending' DECISIONS.md`)
+
+### 2026-10-13 306e DECISION: iteration 183 - old-sarum DONE: both orphan docs (c_ff62 Basire 1806, c_0410 Ditchfield 1901) judged DELETED and removed the 303 way; 4 of 17 lines written; remaining 13 docs (10 sites) next
+- Fixed /tmp/aw306e_meas.py's syntax error (one extra close-paren on the "inner ring radii" line)
+  and ran it. Results: the drawn inner 'Castle Well' circle is centred E+18 / N-31 (~35 m SE of the
+  site point), radius median 115 m (p10/p90 84/140), vs the real moated 'Castle' r~85 m centred on
+  the site point. The per-azimuth "farthest ink" probe saturated at the rmax cap (318-319 px in most
+  azimuths) because the plate is FULLY HATCHED: the strong-ink mask (alpha>120) covers ~34% of the
+  plate at a flat annulus density (~10/px), so a drawn ring radius cannot be isolated by luminance
+  thresholding. Filed this as a new PITFALLS entry (web/ section, alongside the 182 ink/simFit
+  facts): for a dense plate, read drawn radii off the 800 m box grid composite or the fitted
+  aerial/relief screenshots, not an ink histogram.
+- Judged: c_0410 DELETED (goodrich/oversize class - centre ~right, drawn outer ring reaches
+  ~450-480 m S/SE vs the real 250-275 m, drawn S 'Leaving Street' ~150 m past the real hill edge
+  over the flat 'Old Sarum Farm' ground; radii read off the grid composite + the fitted shots).
+  c_ff62 DELETED (wrong place, right kind - the 6 anchors are a perfect 100-px ladder so the fit is
+  exactly 2.000 m/px / 0.0 deg / residuals 0.0 with no placement information; the site point
+  inverse-maps to blank paper and the drawn 780 m schematic ring sits 440 m E / 180 m S over the SE
+  farmland).
+- Executed the 303 way for both (fit/review.py API, no hand-edited JSON):
+  upsert_item(root,'old-sarum-q782719',[entry_ff62, entry_0410]) appended both AFTER the existing
+  coarse candidate c_b2701b5231da42f2 (each entry = {plan, title, url, pairs (the doc's own),
+  coarse:false, evidence (via candidate_evidence), label, cite, ref, size, place_reason '306e audit
+  2026-10-13: ... Document deleted.'}); deleted both data/db/platefits/old-sarum-q782719.c_*.json;
+  then export(root,'old-sarum-q782719') (n_open 342, n_total 355 - unchanged). The item file keeps
+  the name old-sarum-q782719.c_b2701b5231da42f2.json (lead unchanged) and stays open (no candidate
+  has a doc); the site stays covered for the union check (union_check: covered=True - its two
+  built depictions c_8192abb966d030a3 + earthworkenglan01allcgoog_n0142_1 plus the open item;
+  old-sarum not in missing; orphan_docs / orphan_items / bad_doc_names all empty). Only 3 files
+  changed: D the 2 docs, M the item, M web/data/review.json.
+- Wrote the two old-sarum lines into the 306e block of docs/site_flow.md (after the okehampton
+  line, before the 308 arrowheads section) - that makes 4 of 17 lines done.
+- Full suite (.venv/bin/python -m pytest -p no:cacheprovider): 149 passed, 1 skipped, 1 failed in
+  271 s. The one failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser - the
+  known pre-existing red (agent a's 307 seed; 'the gestures own the mouse' + 404 /tiles/relief),
+  identical to the 182 baseline. No NEW failure from this change (the union tests and
+  test_platefits_docs_match_sites are green).
+- Next: the remaining 13 docs (10 sites) - oxford, pilsbury, pontefract x2, portus-adurni x2, raby,
+  richborough, stanton-drew, taunton, windmill-hill n0558_2 (model None - merge into the existing
+  item, do not create a second), york x2 (c_a7db = toponymic collision with Center, NEW YORK -
+  almost certainly DELETED wrong place).
 
 ## Project-wide driver notes (newest)
 
