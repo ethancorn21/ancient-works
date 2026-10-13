@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 301 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+294 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -483,3 +484,45 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - Built (in /tmp/j306d, all rebuildable from the hand-over): j165_cass.py (the numbers above), j165d_osm.py (light Overpass box query -> cass_osm.json: named buildings/ponds with E/N - NOT yet run; the first, heavier `out geom` query 504'd on overpass-api.de), j165c_tiles.py (ArcGIS World_Imagery+'imag'/World_Topo_Map+'topo' tiles: z15 1600 m box = 9 tiles/svc, z17 1100 m box = 49 tiles/svc, all fetched OK), j165e_compose.py (north-up composites with red site / lime house+extent / cyan pond+extent / yellow A1-A4 markers + 200 m scale bar) -> cass_15_imag.png, cass_17_imag.png (1792px, the judge image), cass_15_topo.png, cass_17_topo.png.
 - PITFALLS (filed): the Web-Mercator ytile formula y = ((1 - ln(tan+sec)/pi)/2)*2^z - a misplaced /2 shifts 0.5*2^z tiles (Gulf of Guinea blanks); sanity London z15 = (16384,10897). ArcGIS service names both start with 'World' - never name files by svc[:3] (Imagery silently overwrote Topo once). Pixel offsets from a tile origin need *256 after the lon-delta/tile-span division. Overpass: multi-way `out geom` box queries 504; use `out center;`.
 - NEXT: read /tmp/j306d/cass_17_imag.png (+ cass_15_topo.png, run j165d_osm.py) -> judge cassiobury (KEEP if the real house sits near lime and the real pond near cyan; DELETE the 303 way if the real house is at the red site point and the drawn house 360 m away) -> write ALL FIVE batch-2 lines in the 306d block of docs/site_flow.md -> df -h (>=5G) -> full suite vs the 162 baseline (9 failed) -> commit -> batch 3 (duffield, eaton-socon, framlingham, goodrich; all Mackenzie, sim).
+## 2026-10-12 228 DECISION: check_staged's guards accept the module's own 211-merged rows as no-ops (identical under the merge's norm); the id guard is per-site (stricter than the siblings' set-difference) so "a staged id held by a DIFFERENT site" still fails loud; three-state hermetic test - 228 done, 211's 222-228 gate now fully cleared
+- Session 198. First session on 228 (filed on 211's branch in iteration 174; queued behind
+  207a/207b/221, so the siblings 222-227 all merged first - last was a974b86, 227). On this
+  checkout (agent a's branch) 211's live merge has already run: extras.jsonl/files.jsonl/
+  classified.jsonl carry the staged imola/venice rows and web/data/sites.json has the two built
+  sites - so test_check_staged_files_join_and_pass was red here with exactly the five
+  self-triggered join problems (the red set 227's hand-over predicted).
+- The fix (fit/src_artists.py, check_staged only; stage() needed no change - already a no-op on
+  the merged tree via its have/staged_ids checks):
+  (1) title-key guard: canonical files.jsonl read first-row-wins into key -> _canon_norm(row)
+  (new helper; the same identity rule as fit/merge.py's norm: json.dumps sort_keys,
+  ensure_ascii=False); a staged row whose key is in the canonical passes only when the norms are
+  equal ("already merged by 211"), and still fails when the key is held by a DIFFERENT row;
+  (2) QID guard: fires only when known[qid] != the staged site's own id (self-reference via the
+  merged row, or the same site via the catalog, is a no-op; a different site holding the QID
+  still fails);
+  (3) id guard: per-site - a staged site's id is a problem when a known site holding that id has
+  a different QID. Deliberate deviation from the 222-227 set-difference pattern
+  (staged_ids & (known.values() - staged_ids)): that form CANNOT report "a staged id held by a
+  different site" (the id is in staged_ids, so the subtraction removes it) - 228's acceptance
+  box 2 requires it reported, and the test's (c3) pins it (same id, Q773853 - the LA
+  neighborhood QID from the module's own docstring). Message formats unchanged from the
+  originals; QID guard and canonical-identity rule follow the siblings exactly.
+- The test: test_check_staged_three_states (the 225/227 pattern): monkeypatches the module's
+  SITES_JSONL/EXTRAS/WEB_SITES/FILES_CANONICAL constants at temp copies of the real files with
+  this module's own rows stripped (the hermetic pre-merge state on ANY checkout - the test does
+  not depend on 211's live merge having run here); (a) pre-merge -> rc 0, no join problems,
+  evidence 2/2 pass; (b) identical merged rows -> rc 0, no join problems; (c1) same
+  (site, title) key held by a different row / (c2) staged QID held by a different site /
+  (c3) staged id held by a different site -> each rc 1 with exactly one named join line.
+  No network (autouse socket-blocker), no ports, writes only to the test tmp dir.
+- Verified: 5/5 test_src_artists.py (the four pre-existing tests unchanged, passing on this
+  checkout's merged tree and hermetically pre-merge); live fit/src_artists.py --check rc 0 with
+  zero join lines on this checkout's merged tree; full suite 150 passed / 1 skipped - no reds
+  left on this branch.
+- Consequence: 228 was the last of the seven 222-228 gate tasks of 211 - all seven are done.
+  211's next session: re-run fit/merge.py merge (expect a no-op run, byte-identical log),
+  re-verify the 222-228 test files green on the real merged files, then claim done.
+- Files written: fit/src_artists.py, tests/test_src_artists.py, tasks/228-artists-merged-check.md
+  (Status: done, all four boxes ticked, Hand-over), DECISIONS.md (this entry), PITFALLS.md
+  (one new entry under fit/: the source-module --check self-trigger trap and the guard/test
+  pattern the new source modules must adopt).
