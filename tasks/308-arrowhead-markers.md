@@ -1,6 +1,5 @@
 Status: open
 # 308: Site markers as small arrowheads, not squares
-Depends on: 307
 Touches: web/index.html, web/*.css, web/vendor/, docs/site_flow.md, docs/site_flow/
 
 ## Goal
@@ -15,3 +14,6 @@ would need to be small though, like a contracting stem arrowhead".
 - [ ] The point of the arrowhead is the site's coordinate (the marker anchors at its tip, not its centre); clicking
       and the label placement/collision rules work as before.
 - [ ] Screenshots before/after (the globe view, a zoomed region with many sites, the legend) in docs/site_flow/.
+
+## Lead note (2026-10-13)
+Dependency on 307 removed: 307's only open part is 307d, the owner's own check, which the markers do not need. Marker code only; commit working code each session.
