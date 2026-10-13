@@ -8,6 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212a-cover-search.md` (in-progress) - hand-over: (2026-10-13, iteration 223, agent a - DONE. All 4 boxes ticked, Status: done.
+- `tasks/212b-cover-sync.md` (open) - hand-over: (2026-10-13, iteration 224, agent a - CODE DONE, dry run not yet run. 212a is my own prior
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -17,7 +18,7 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/212b-cover-sync.md`
+- `tasks/212c-batch-report.md`
 
 ## Your task's journal
 
@@ -109,6 +110,39 @@ data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
 dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
+
+### 2026-10-13 212b DECISION: sync phase gains the trailing full review export (box 1's code done); dry-run script written but not run (context limit); live run is next
+Session 224 (agent a, first session on 212b after my 212a).
+1. fit/cover.py `sync()` now ends with `n_open, n_total = review.export(root)` after
+   `plan_fit.prune(root)` and prints the open/total line: box 1's "and the review
+   export". Rationale: PITFALLS 1171 (web/data/review.json is a derived page - doc
+   changes without a full export leave test_fit_provenance/test_site_done/
+   test_fit_queue red on every branch); sync is the one page-facing writer of the doc
+   world, so the export lands with the overlays. Docstrings updated (module phase list
+   + sync's own). My Touches line gained data/db/platefits (stamp-by:agent / pattern
+   delete) and data/review/ (per-doc containment upserts + the export's write-once
+   resolution records) BEFORE touching them. The edit is uncommitted (harness-saved).
+2. Live world re-measured (.venv): 131 docs (21 hand + 110 agent + 0 unmarked); 105
+   commons (big cache has 72 -> 54 will download in the live sync) + 26 book (all local
+   files present); all docs have ref+crop; is_done=0 for ALL 131 (checkout view) -> the
+   live sync rebuilds every overlay; 94 doc sites (80 symlinked to the store, 14 real
+   checkout dirs - separate copies); 499 built sites, 36 drawings>0; review.json 333
+   open of 346 items (14 recorded resolutions). The store (/home/agent/projects/
+   ancient-works) is a git checkout of main at 77bdf5d, clean except .venv - writes
+   through my 382 site symlinks land in its working tree (shared canonical home; same
+   pattern the batches used). Git tracks only 6 site dirs; among doc sites:
+   forthill/marietta/newark (all real dirs) - the only committable per-site artifacts
+   of the live run. All JSON writers on this path are atomic (tmp + os.replace) ->
+   hard-link trees safe.
+3. Dry run: /tmp/aw212b-dryrun.py (hard-linked tree with web/data/sites FOLLOWED into
+   real dirs, big stand-ins for all 105 commons docs, socket guard, store + golden +
+   item + review.json + drawings before/after reporting). NOT RUN: first invocation
+   died on line 24, `os.path.mkdtemp` (AttributeError - fix: tempfile.mkdtemp). That
+   is the exact next step, then the live run (box 1+2 evidence) + commit, then box 3's
+   test (parent design, 212-cover-final's D1-D5/CHOOSE sections).
+4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
+   path in the edit); 212a's file restored byte-identical (git diff clean before the
+   commit).
 
 ## Project-wide driver notes (newest)
 
