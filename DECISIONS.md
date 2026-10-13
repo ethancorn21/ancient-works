@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 347 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+322 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -39,6 +40,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 211 merge-build (14 entries)
 - 212 cover-final (6 entries, older ones; the task is still open)
 - 212a cover-search (7 entries)
+- 212b cover-sync (7 entries, older ones; the task is still open)
 - 213 artist-views (11 entries)
 - 213a civitates-list (3 entries)
 - 213b qids-tests (1 entry)
@@ -490,3 +492,80 @@ Session 224 (agent a, first session on 212b after my 212a).
 - Execution (script /tmp/aw306e_texec.py, pattern /tmp/aw306e_stexec.py; sys.path.insert(0,"fit"); import review as fr): entry = {plan c_05cb4a02bd58e82e, title 'File:Plan of Taunton Castle (1897).jpg' (fr._sha16 asserted == plan), url = doc["url"] = media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg - REPO-RELATIVE, consistent with all 8 previously created 306e items (old-sarum x2, oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew); the 195 hand-over's 'use the row's url verbatim' (upload.wikimedia.org) is a loose note: the page must be able to serve the image, so the local path it serves is the right url. pairs (the doc's 4), coarse False, evidence (row 1457), label '1897', cite+ref (the doc's), size [1280,1461], place_reason '306e audit 2026-10-13: ... Wrong place, right kind. Document deleted.'}. fr.upsert_item returned an ABSOLUTE path (known pitfall) - asserted the basename == taunton-castle-q7688781.c_05cb4a02bd58e82e.json: the item CREATED (lead = this plan, sole candidate). os.remove the doc. fr.export(fr.ROOT, site) -> (347, 360) exactly as the 195 prediction (a NEW open item adds one to both counts). Verified: item = [c_05cb4a02bd58e82e], resolved None, no_picture_found None; the web/data/review.json entry shows under name 'Taunton Castle' (from sites.json). git status = exactly 3 files (D doc, M web/data/review.json, ?? new item) - no other site's item touched.
 - 14th of 17 lines written into the 306e block of docs/site_flow.md (after the stanton-drew line, before '## The site markers become arrowheads (task 308, 2026-10-13)'), same shape as the raby/oxford/portus lines: the 200-px (100 m) grid ladder pins the 1280x1461 plate (site point inverse-maps to plate (599,599), near-centre) on the site point; the plate is the genuine Mackenzie 1897 plan of THIS castle (features match the real complex - today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the moat ring, Castle Green, east bank of the Tone, 51.0158/-3.1046 verified on modern aerial + Wikipedia); the catalog site point is ~640 m WEST of the real castle, so the drawn complex (E-205..+190) sits on the Wellington Terrace house cluster and the Stepps Water stream where the 1842 shows no works (the 800 m box does not even reach the castle: E+643 > its E+400 edge) and the real castle is beyond the plate's east edge (E+340.5). Wrong place, right kind. DELETED - an orphan today, invisible on the page (new open item).
 - Suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 309 s): 154 passed, 1 skipped, 1 failed - the only failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent a's in-flight 307, the known pre-existing red). = baseline, no new red. 306e status now: 14 of 17 lines, 10 deletions executed; REMAINING 3 docs / 2 sites: windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (book doc, model None, 6 pairs, url None - a books/index.jsonl row, not files.jsonl), york-castle-q80637 c_8dac5aacd73916b8 + c_a7db545536f13e24 (existing item c_81ecab4a9284f156 holds 5 candidates -> append; c_a7db545536f13e24 is the 'Plan of Center, Broome County 1855' toponymic-collision class).
+## 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py
+Session 232 (agent a). Investigation only; the tree was clean and untouched (HEAD 0e6d5df, no
+data-file diff between 8555682 and HEAD - so the iter-231 note measured the same files, it
+simply mis-bucketed). Re-measured live: built 499; nofit 452 = search 234 (199 qid + 35 no-qid)
++ with-row 218 = 105 allcovered + 0 partial + 103 no-item-file + 10 empty-candidate items
+(aventicum, bibracte-q650053 (16 rows), hopewell-mound-group, los-millares, maeshowe,
+motte-castrale-quiquempois-q22961457, numancia, stones-of-stenness,
+the-roman-fort-vicus-bridge-abutments-an-q17650519, trundle-q7847949 - all resolved None,
+all with the batch-era no_picture "web/data/plans.json (1166 rows, matched by the sites
+field)"); docs 57 (21 by:hand + 36 by:agent ALL fitter:matcher, 0 unmarked) ALL is_done in the
+tree, 0 line-check failures; item files 377, open 365 (recomputed with review.resolved_doc);
+plans 1510; store big cache 75 (aesica's c_e28ed261168b49c9.jpg present, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg absent -> the test seeds them);
+CHOOSE == the pinned 4 with pinned row ids/sizes/map_box (CHOOSE site dirs: aardenburg/aire
+real, aesica/alauna symlinked - the realize converts all 382 symlinks anyway); bethlehem dep
+map-only (tmk1850.webp, 22-cand audit item) and shotwick dep map-only (six-inch-1st.webp,
+2-cand audit item), both drawings 0; aesica 1-cand item with the STALE recorded resolution
+{doc: aesica-q4688554.c_e28ed261168b49c9, at: 2026-10-12T03:13:35.590448+00:00} -> D2 holds;
+alauna 5-cand item resolved None (first row book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66]); hit aalsum-q3902030 (item aalsum-q3902030.json,
+candidates []); fail site craig-phadrig; spot aggersborg; web/data/review.json at
+2026-10-13T11:26:15.291892+00:00 with 365. Loop consequence (worked out against
+site_done._fit + batch_us.run_sites, both re-read this session): at loop time 11 sites have
+an empty-candidate item with rows (the 10 + aalsum after staging) - for each, uncovered =
+ALL rows (no docs, empty item_cands -> the keep-restore restores nothing) -> run_sites
+upserts every row "no model answer" (+ the propose-for-checkout extras; the hit's two staged
+rows raise ValueError - not in the checkout's plans.json -> coarse); no_picture_found
+cleared; resolved stays (write-once, None) -> the file MOVES to <site>.<lead>.json (lead =
+first row in the tree's plans order) and stays open. End arithmetic: 377 - 11 (old files
+unlinked) + 112 (101 fresh from the 103 no-file minus the 2 CHOOSE, which get docs not items,
++ 11 renames) = 478 files; open = 365 - aesica + 101 = 465 (the 11 renamed were already
+open). Sync: 60 docs (57 pre + 3 CHOOSE; alauna's was written then deleted by its own
+line) all "skipped" (the 3 built in the loop, the 57 is_done), no "pruned" line, beth/shotwick
+deps byte-identical, the full export is the only page-file writer. Re-read this session,
+all as the iter-230/231 notes say: fit/cover.py, tools/site_done.py, fit/batch_us.py,
+fit/review.py, pipeline/plan_fit.py, fit/matchfit.py, fit/propose.py, tests/conftest.py,
+tests/test_fit_queue.py (the GUARD + reader-thread port-0 server pattern; sys.executable is
+the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corner_pairs, the
+golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
+this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
+is writing the extended test per the corrected hand-over.
+
+## 2026-10-13 212b DECISION: marked done on the lead's instruction - the last box (the no-network port-0 test) ticked on the verified live-sync evidence; the written test stays designed-but-unwritten in git; parent hand-over rewritten for 212c
+Session 233 (agent a). The lead (mid-session human message): "212b has one box
+left and the sync is done and verified. Tick it with the evidence you have,
+mark 212b done this session - no more re-measuring. 212c, the report, is
+next." I ticked box 3 and set Status: done on the evidence already in this
+journal (no new measuring, per the instruction): the verified live sync run
+(iter-227: run1 an exact dry-run match - 76 sent / 25 skipped / 30 synced;
+run2 the 2 lead burcht docs the 06:07 merge added mid-run; 365 open / 377
+items; golden 40/40; store clean), the post-sync suite classification
+(iter-228: the only reds = 307bb's part-4 gestures, pre-existing, agent c's
+307 series), and the iter-231/232 confirmations that the post-sync world is
+stable at 0e6d5df (no merge since: only driver commits on my branch; main is
+contained in agent/a). Consequence for any future agent: tests/test_cover.py
+on disk remains 212a's 770-line search + no-picture version (green); the
+extended no-network test (6 phases + port-0 served-page assertions) is fully
+designed in the iter-230/232 hand-overs (`git show
+45675c9:tasks/212b-cover-sync.md` and `git show 1cd9671:tasks/212b-cover-sync.md`)
+but was never written, on the lead's say-so - if it is ever wanted, start
+from those notes (the census, recipes and pins are all there). The parent
+tasks/212-cover-final.md hand-over was rewritten as the 212c snapshot: the
+`report` phase already exists in fit/cover.py (212a wrote it) -
+`python3 fit/cover.py report` writes docs/batch.md from the store (seed
+SEED_212 = 20261012, per-site buckets, the 20-sample over the 36 matcher
+docs, the no-picture table); docs/batch.md does not exist yet; the live
+report will honestly bucket the 103 loop-never-ran no-item nofit sites as
+"uncovered (needs attention)". No code or data files touched this session.
+Full suite run for the done-claim: 1 failed / 154 passed / 1 skipped in
+309s - the only failure is
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+(307bb part-4 gestures, the known pre-existing red belonging to the 307
+series, not this task).
+
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser

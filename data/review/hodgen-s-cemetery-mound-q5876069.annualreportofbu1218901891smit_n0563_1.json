@@ -75,7 +75,78 @@
    "file": "n0092.jpg",
    "label": null,
    "cite": "William C. Mills, Archeological Atlas of Ohio, Columbus: Ohio State Archaeological and Historical Society 1914",
-   "place_reason": "306c audit 2026-10-12: the 100x100 m anchor square with the hatched mound it encloses sits ~110 m S-E of the real mound's LiDAR bump, on flat residential ground - the real mound lies just outside the drawn extent at its NW (the same mound the Fowke Fig. 96 doc n0353 fits concentrically, and which keeps its document). Document deleted."
+   "place_reason": "306c audit 2026-10-12: the 100x100 m anchor square with the hatched mound it encloses sits ~110 m S-E of the real mound's LiDAR bump, on flat residential ground - the real mound lies just outside the drawn extent at its NW (the same mound the Fowke Fig. 96 doc n0353 fits concentrically, and which keeps its document). Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 0.0
+  },
+  {
+   "plan": "b24849959_n0353_1",
+   "title": "Plan of mound at Mt. Vernon",
+   "url": "books/b24849959/n0353.jpg",
+   "pairs": [
+    [
+     1100.0,
+     1300.0,
+     -80.6958698,
+     40.1752938
+    ],
+    [
+     1100.0,
+     1500.0,
+     -80.6958698,
+     40.1734972
+    ],
+    [
+     1300.0,
+     1500.0,
+     -80.6935184,
+     40.1734972
+    ],
+    [
+     800.0,
+     1000.0,
+     -80.6982211,
+     40.1770904
+    ],
+    [
+     800.0,
+     1800.0,
+     -80.6982211,
+     40.1717005
+    ],
+    [
+     1200.0,
+     1900.0,
+     -80.6946941,
+     40.1708022
+    ],
+    [
+     1600.0,
+     1400.0,
+     -80.6911671,
+     40.1743955
+    ],
+    [
+     1200.0,
+     900.0,
+     -80.6946941,
+     40.1779887
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (12 of 12 distinct values on a 10-px grid); the gate's 17.3 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 17.3
   }
  ],
  "no_picture_found": null,

@@ -166,6 +166,69 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: central_circular_mound, northwest_grave_row_corner, northeast_grave_row_corner, southwest_grave_row_corner, southeast_grave_row_corner, central_grave_row_corner; only 17% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "annualreportofbu1218901891smit_n0563_1",
+   "title": "Plan of Cemetery mouud, Mt. Vernon. Knox county, Ohio",
+   "url": "books/annualreportofbu1218901891smit/n0563.jpg",
+   "pairs": [
+    [
+     1000.0,
+     1600.0,
+     -81.4519382,
+     39.4199955
+    ],
+    [
+     950.0,
+     1550.0,
+     -81.4525196,
+     39.4204447
+    ],
+    [
+     1050.0,
+     1650.0,
+     -81.4513568,
+     39.4195463
+    ],
+    [
+     950.0,
+     1650.0,
+     -81.4525196,
+     39.4195463
+    ],
+    [
+     1050.0,
+     1550.0,
+     -81.4513568,
+     39.4204447
+    ],
+    [
+     1000.0,
+     1400.0,
+     -81.4519382,
+     39.4217921
+    ],
+    [
+     1000.0,
+     1800.0,
+     -81.4519382,
+     39.4181989
+    ],
+    [
+     800.0,
+     1600.0,
+     -81.4542639,
+     39.4199955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: score below 0.75"
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

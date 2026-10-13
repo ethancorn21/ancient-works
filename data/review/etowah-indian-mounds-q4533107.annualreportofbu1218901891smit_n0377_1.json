@@ -227,6 +227,85 @@
    "scale_source": "picture_size",
    "note": "no scale text recorded",
    "why": "features: Mound i, Mound j, Mound g, Mound h, Mound f, Mound d, Mound e, Mound b; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+  },
+  {
+   "plan": "annualreportofbu1218901891smit_n0386_1",
+   "title": "Plat of the Etowah group (original)",
+   "url": "books/annualreportofbu1218901891smit/n0386.jpg",
+   "pairs": [
+    [
+     800.0,
+     2100.0,
+     -84.807052,
+     34.1218513
+    ],
+    [
+     600.0,
+     1800.0,
+     -84.8092223,
+     34.1245463
+    ],
+    [
+     400.0,
+     2000.0,
+     -84.8113926,
+     34.1227497
+    ],
+    [
+     200.0,
+     1800.0,
+     -84.813563,
+     34.1245463
+    ],
+    [
+     1000.0,
+     1800.0,
+     -84.8048817,
+     34.1245463
+    ],
+    [
+     1200.0,
+     1800.0,
+     -84.8027113,
+     34.1245463
+    ],
+    [
+     800.0,
+     1600.0,
+     -84.807052,
+     34.126343
+    ],
+    [
+     1000.0,
+     1600.0,
+     -84.8048817,
+     34.126343
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "caption_coords",
+    "named_place": "Etowah Indian Mounds",
+    "place": {
+     "state": "georgia"
+    },
+    "site": {
+     "id": "etowah-indian-mounds-q4533107",
+     "qid": "Q4533107",
+     "name": "Etowah Indian Mounds",
+     "lon": -84.807064,
+     "lat": 34.128012,
+     "admin": {
+      "state": "Georgia"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

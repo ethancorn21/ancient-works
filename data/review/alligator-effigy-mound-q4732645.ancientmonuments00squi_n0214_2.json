@@ -56,6 +56,39 @@
    "plan": "c_618a6be74dfaff32",
    "title": "Historical Collections of Ohio- An Encyclopedia of the State; History Both General and Local, Geography with Descriptions of Its Counties, Cities and Villages, Its Agricultural, Manufacturing, Mining (14769926121)",
    "url": "media/commons/alligator-effigy-mound-q4732645/618a6be74dfaff32.jpg",
+   "pairs": [
+    [
+     200.0,
+     200.0,
+     -82.5057206,
+     40.0735217
+    ],
+    [
+     800.0,
+     200.0,
+     -82.4986774,
+     40.0735217
+    ],
+    [
+     200.0,
+     800.0,
+     -82.5057206,
+     40.0681319
+    ],
+    [
+     800.0,
+     800.0,
+     -82.4986774,
+     40.0681319
+    ],
+    [
+     500.0,
+     500.0,
+     -82.502199,
+     40.0708268
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -64,55 +97,7 @@
     "file_cat": "Alligator Effigy Mound",
     "via": []
    },
-   "pairs": [
-    [
-     0.0,
-     0.0,
-     -82.5080742,
-     40.0743332
-    ],
-    [
-     1280.0,
-     0.0,
-     -82.4939878,
-     40.0743332
-    ],
-    [
-     1280.0,
-     1045.0,
-     -82.4939878,
-     40.0655325
-    ],
-    [
-     0.0,
-     1045.0,
-     -82.5080742,
-     40.0655325
-    ],
-    [
-     640.0,
-     522.5,
-     -82.501031,
-     40.069933
-    ]
-   ],
-   "coarse": true,
-   "ground": "relief",
-   "scale_m_px": 0.9375,
-   "rot_deg": 0.0,
-   "scale_source": "picture_size",
-   "note": "202-style coarse starting point, computed before 202 merged: the map panel's centre sits on the site centre, scale from the site box (picture_size), north-up; 4 panel corners + centre in the candidate's image frame. 202's propose_for replaces these pairs when it lands; the human drag is expected to do the rest.",
-   "ia": null,
-   "file": null,
-   "book": "Wikimedia Commons",
-   "label": "1891",
-   "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Historical_Collections_of_Ohio-_An_Encyclopedia_of_the_State;_History_Both_General_and_Local,_Geography_with_Descriptions_of_Its_Counties,_Cities_and_Villages,_Its_Agricultural,_Manufacturing,_Mining_(14769926121).jpg",
-   "map_box": null,
-   "view": false,
-   "size": [
-    1280,
-    1045
-   ]
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

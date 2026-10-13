@@ -71,6 +71,53 @@
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "median residual 71.51380647631706 m > 45.0 m",
    "gate_score": 71.5
+  },
+  {
+   "plan": "c_d1dff07f0da57b0e",
+   "title": "Peter Village enclosure Squier and Davis Plate XIV Figure 3",
+   "url": "media/commons/mount-horeb-earthworks-complex-q6921321/d1dff07f0da57b0e.jpg",
+   "pairs": [
+    [
+     150.0,
+     250.0,
+     -84.4753052,
+     38.1656326
+    ],
+    [
+     500.0,
+     200.0,
+     -84.4713066,
+     38.1660817
+    ],
+    [
+     800.0,
+     400.0,
+     -84.4678792,
+     38.1642852
+    ],
+    [
+     450.0,
+     550.0,
+     -84.4718778,
+     38.1629378
+    ],
+    [
+     150.0,
+     600.0,
+     -84.4753052,
+     38.1624887
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Mount Horeb Earthworks Complex",
+    "file_cat": "Mount Horeb Earthworks Complex",
+    "via": []
+   },
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

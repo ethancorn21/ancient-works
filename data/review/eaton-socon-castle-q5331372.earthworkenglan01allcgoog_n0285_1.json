@@ -310,7 +310,9 @@
     807,
     767
    ],
-   "place_reason": "306d audit 2026-10-13: the 4 anchors are an internally consistent 0.991 m/px quadrilateral (resid 0.33-0.51 m - the transform is trustworthy), but the drawn works visibly miss the real ones: the real moated site is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still there in the aerial: a grassy island ringed by trees, water at its west, the river to the east), while the drawn Inner Ward ring (~220x230 m, centre E -39 N -119) is offset ~120 m SW (the real moat sits at its NE edge, ~2/3 of its radius) and its drawn hatched building is 40-70 m SW of the 1842 building; the drawn North Ward lies over the hatched 'Castle Hills' wood east of the Great Ouse, where no earthwork exists in the 1842 map or the aerial; the drawn Outer Ward loop (~730x500 m) encloses the whole village with no 1842 trace of any bank or ditch. Document deleted."
+   "place_reason": "306d audit 2026-10-13: the 4 anchors are an internally consistent 0.991 m/px quadrilateral (resid 0.33-0.51 m - the transform is trustworthy), but the drawn works visibly miss the real ones: the real moated site is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still there in the aerial: a grassy island ringed by trees, water at its west, the river to the east), while the drawn Inner Ward ring (~220x230 m, centre E -39 N -119) is offset ~120 m SW (the real moat sits at its NE edge, ~2/3 of its radius) and its drawn hatched building is 40-70 m SW of the 1842 building; the drawn North Ward lies over the hatched 'Castle Hills' wood east of the Great Ouse, where no earthwork exists in the 1842 map or the aerial; the drawn Outer Ward loop (~730x500 m) encloses the whole village with no 1842 trace of any bank or ditch. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.4 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.4
   }
  ],
  "no_picture_found": null,

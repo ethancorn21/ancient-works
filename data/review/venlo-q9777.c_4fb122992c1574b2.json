@@ -1,0 +1,46 @@
+{
+ "site": "venlo-q9777",
+ "candidates": [
+  {
+   "plan": "c_4fb122992c1574b2",
+   "title": "Venlo, town plan by Jacob van Deventer",
+   "url": "media/commons/venlo-q9777/4fb122992c1574b2.jpg",
+   "pairs": [
+    [
+     100.0,
+     400.0,
+     6.1595566,
+     51.3758851
+    ],
+    [
+     400.0,
+     600.0,
+     6.1638734,
+     51.3740886
+    ],
+    [
+     1000.0,
+     400.0,
+     6.1725072,
+     51.3758851
+    ],
+    [
+     600.0,
+     1000.0,
+     6.1667514,
+     51.3704955
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py deventer"
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

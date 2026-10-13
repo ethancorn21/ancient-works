@@ -1,0 +1,53 @@
+{
+ "site": "daw-s-castle-q5242247",
+ "candidates": [
+  {
+   "plan": "c_8d2281628567a166",
+   "title": "Daws Castle Somerset Map",
+   "url": "media/commons/daw-s-castle-q5242247/8d2281628567a166.jpg",
+   "pairs": [
+    [
+     280.0,
+     280.0,
+     -3.3375442,
+     51.1767224
+    ],
+    [
+     200.0,
+     200.0,
+     -3.3425597,
+     51.1798667
+    ],
+    [
+     300.0,
+     300.0,
+     -3.3363977,
+     51.1760037
+    ],
+    [
+     200.0,
+     300.0,
+     -3.3425597,
+     51.1760037
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 2.5 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Daw's Castle",
+    "place_qid": "Q5242247",
+    "place_label": "Daw's Castle",
+    "place_lon": -3.34357,
+    "place_lat": 51.1805,
+    "site_lon": -3.34357,
+    "site_lat": 51.1805,
+    "dist_m": 0.0
+   },
+   "gate_score": 2.5
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

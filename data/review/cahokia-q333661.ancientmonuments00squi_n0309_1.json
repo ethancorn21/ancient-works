@@ -146,6 +146,86 @@
    "scale_source": "picture_size",
    "note": "commons row: no stage-B fields: coarse anchor",
    "why": "features: Top-left corner of the rampart, Top-right corner of the rampart, Bottom-left corner of the rampart, Bottom-right corner of the rampart, Left-side gate gap, Right-side gate gap, Bottom-center gate gap, Central mound tip; stated scale 1.639 disagrees with its own points (3.333 m/px): not trusted"
+  },
+  {
+   "plan": "annualreportofbu1218901891smit_n0200_1",
+   "title": "Map of Cahokia group, Madison county, Illinois",
+   "url": "books/annualreportofbu1218901891smit/n0200.jpg",
+   "pairs": [
+    [
+     1200.0,
+     800.0,
+     -90.0600432,
+     38.6634834
+    ],
+    [
+     1200.0,
+     1200.0,
+     -90.0600432,
+     38.6589921
+    ],
+    [
+     1400.0,
+     1000.0,
+     -90.0542913,
+     38.6612378
+    ],
+    [
+     1000.0,
+     1400.0,
+     -90.0629191,
+     38.6567463
+    ],
+    [
+     1000.0,
+     1800.0,
+     -90.0629191,
+     38.6522546
+    ],
+    [
+     800.0,
+     1600.0,
+     -90.065795,
+     38.6545005
+    ],
+    [
+     1200.0,
+     1600.0,
+     -90.0600432,
+     38.6545005
+    ],
+    [
+     1000.0,
+     2200.0,
+     -90.0629191,
+     38.6477626
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 33.9 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "caption_coords",
+    "named_place": "Cahokia",
+    "place": {
+     "county": "madison",
+     "state": "illinois"
+    },
+    "site": {
+     "id": "cahokia-q333661",
+     "qid": "Q333661",
+     "name": "Cahokia",
+     "lon": -90.064444,
+     "lat": 38.653889,
+     "admin": {
+      "state": "Illinois"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "gate_score": 33.9
   }
  ],
  "no_picture_found": null,

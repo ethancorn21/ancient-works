@@ -403,7 +403,31 @@
    "file": "n0313.jpg",
    "label": "Fig. 81",
    "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
-   "place_reason": "306c audit 2026-10-12: the Holmes serpent runs N-S down the page and the fit stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual is the stretch); head/tail coils sit NW/SE of the real ones, which carry the hand fit n0210_1. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the Holmes serpent runs N-S down the page and the fit stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual is the stretch); head/tail coils sit NW/SE of the real ones, which carry the hand fit n0210_1. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.7 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "caption_coords",
+    "named_place": "Serpent Mound",
+    "place": {
+     "state": "ohio"
+    },
+    "site": {
+     "id": "serpent-mound-q968802",
+     "qid": "Q968802",
+     "name": "Serpent Mound",
+     "lon": -83.430444,
+     "lat": 39.025858,
+     "admin": {
+      "state": "Ohio"
+     }
+    },
+    "score": 1.0,
+    "runner_up": 0,
+    "why": []
+   },
+   "gate_score": 26.7
   },
   {
    "plan": "c_15ff865e5f3d8ddb",
@@ -451,7 +475,9 @@
     1280,
     904
    ],
-   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~180 m NW of the real effigy (the hand fit n0210_1 traces it on the LiDAR). View row: the 4 near-collinear pairs make the homography exact by construction, so the 0 resid proves nothing about placement. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~180 m NW of the real effigy (the hand fit n0210_1 traces it on the LiDAR). View row: the 4 near-collinear pairs make the homography exact by construction, so the 0 resid proves nothing about placement. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.3
   },
   {
    "plan": "c_2c260a03d1f8df1c",
@@ -499,7 +525,9 @@
     1280,
     1883
    ],
-   "place_reason": "306c audit 2026-10-12: a second copy of S&D Plate XXXV - the very plate the owner hand-placed: it sits ~145-190 m SE of the hand fit AND at ~4x the true scale (the plate-alone file is 1280 px = 1.28 km at the fitted 1 m/px vs the ~320 m figure). Not a duplicate of the hand fit. Document deleted."
+   "place_reason": "306c audit 2026-10-12: a second copy of S&D Plate XXXV - the very plate the owner hand-placed: it sits ~145-190 m SE of the hand fit AND at ~4x the true scale (the plate-alone file is 1280 px = 1.28 km at the fitted 1 m/px vs the ~320 m figure). Not a duplicate of the hand fit. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   },
   {
    "plan": "c_52dfe1fc979edf2c",
@@ -571,7 +599,9 @@
     1280,
     1086
    ],
-   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). View row: the 8 near-collinear pairs make the homography exact by construction. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). View row: the 8 near-collinear pairs make the homography exact by construction. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   },
   {
    "plan": "c_7b01a4bb50d68b56",
@@ -619,7 +649,9 @@
     1280,
     942
    ],
-   "place_reason": "306c audit 2026-10-12: the page-26 serpent (full-page copy) lands ~230 m north of the real effigy, over the hatched hill in farmland; the real effigy carries the hand fit only. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the page-26 serpent (full-page copy) lands ~230 m north of the real effigy, over the hatched hill in farmland; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 2.4
   },
   {
    "plan": "c_8ebd42607fbb96d8",
@@ -691,7 +723,9 @@
     1117,
     836
    ],
-   "place_reason": "306c audit 2026-10-12: the serpent and its 'Mound 10 ft. high' spiral (cropped copy) land ~255 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the serpent and its 'Mound 10 ft. high' spiral (cropped copy) land ~255 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   },
   {
    "plan": "c_dd2c553d611e610b",
@@ -763,7 +797,9 @@
     1112,
     791
    ],
-   "place_reason": "306c audit 2026-10-12: the serpent ('no cap' copy) lands ~265 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted."
+   "place_reason": "306c audit 2026-10-12: the serpent ('no cap' copy) lands ~265 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

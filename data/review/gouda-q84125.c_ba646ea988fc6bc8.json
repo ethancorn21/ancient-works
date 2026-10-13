@@ -1,0 +1,70 @@
+{
+ "site": "gouda-q84125",
+ "candidates": [
+  {
+   "plan": "c_ba646ea988fc6bc8",
+   "title": "Gouda, town plan by Jacob van Deventer",
+   "url": "media/commons/gouda-q84125/ba646ea988fc6bc8.jpg",
+   "pairs": [
+    [
+     250.0,
+     450.0,
+     4.7002909,
+     52.0157377
+    ],
+    [
+     450.0,
+     350.0,
+     4.7039396,
+     52.016636
+    ],
+    [
+     650.0,
+     450.0,
+     4.7068586,
+     52.0157377
+    ],
+    [
+     750.0,
+     650.0,
+     4.7090478,
+     52.0139412
+    ],
+    [
+     650.0,
+     850.0,
+     4.7068586,
+     52.0116955
+    ],
+    [
+     250.0,
+     850.0,
+     4.7002909,
+     52.0116955
+    ],
+    [
+     150.0,
+     650.0,
+     4.6988314,
+     52.0139412
+    ],
+    [
+     450.0,
+     600.0,
+     4.7039396,
+     52.0143904
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 15.9 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py deventer"
+   },
+   "gate_score": 15.9
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

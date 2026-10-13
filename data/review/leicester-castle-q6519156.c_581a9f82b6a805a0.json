@@ -57,7 +57,9 @@
     1280,
     1460
    ],
-   "place_reason": "306d audit 2026-10-13: the 6 anchors all lie on plate u=600 (v 300..800, 100 m steps), which FULLY determines the fit: 1.0 m/px, rot 0, u=600 pinned at E -99.5, v=300 at N +99.5 (the whole plate spans 1.28x1.46 km). The central cluster lands on the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point, the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and the drawn river departs west of the real Soar in its southern stretch. Document deleted."
+   "place_reason": "306d audit 2026-10-13: the 6 anchors all lie on plate u=600 (v 300..800, 100 m steps), which FULLY determines the fit: 1.0 m/px, rot 0, u=600 pinned at E -99.5, v=300 at N +99.5 (the whole plate spans 1.28x1.46 km). The central cluster lands on the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point, the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and the drawn river departs west of the real Soar in its southern stretch. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,

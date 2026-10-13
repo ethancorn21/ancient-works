@@ -99,7 +99,9 @@
     1280,
     1212
    ],
-   "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.25 m/px, 0.0 deg) - a 640-px grid ladder with no placement information; the 4 corner anchors are the drawn fort's outer-wall corners. At this fit the drawn outer walls span 790 x 790 m, centred E+5 N+195 m, against the real fort's ~200 m (1842 six-inch RITVPIA hatch block ~120 x 90 m, the LiDAR wall ruins ~190 x 210 m, centre ~E+70 N-120 m): ~4x too big and its centre ~250 m off; the drawn SE corner and its river band sit ~100 m south of the real estuary crossing. The plate's own 100-400 ft scale bar measures ~0.27 m/px - 4.6x smaller than the fit - so the 1836 plate is drawn near its true scale and the fit, not the plate, is wrong. Wrong place, wrong size, right kind. Document deleted."
+   "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.25 m/px, 0.0 deg) - a 640-px grid ladder with no placement information; the 4 corner anchors are the drawn fort's outer-wall corners. At this fit the drawn outer walls span 790 x 790 m, centred E+5 N+195 m, against the real fort's ~200 m (1842 six-inch RITVPIA hatch block ~120 x 90 m, the LiDAR wall ruins ~190 x 210 m, centre ~E+70 N-120 m): ~4x too big and its centre ~250 m off; the drawn SE corner and its river band sit ~100 m south of the real estuary crossing. The plate's own 100-400 ft scale bar measures ~0.27 m/px - 4.6x smaller than the fit - so the 1836 plate is drawn near its true scale and the fit, not the plate, is wrong. Wrong place, wrong size, right kind. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "gate_score": 0.0
   }
  ],
  "no_picture_found": null,
