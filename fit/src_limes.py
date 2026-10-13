@@ -1130,9 +1130,11 @@ def stage(dry=False):
 
 def check_staged():
     """Offline (no network): join the staged files (every file row names a staged extras row; every staged
-    extras row has a picture; (site, title) unique; no staged id/QID pre-exists in the catalog; no clash with
-    the canonical files.jsonl; classified rows 1:1; rows complete) and run fit/evidence.py's check over the
-    staged rows. Returns the exit code (0 iff no problem and no FAIL)."""
+    extras row has a picture; a staged id/QID is a problem only when a DIFFERENT site holds it - the
+    module's own rows already merged by 211 are a no-op, not a collision; (site, title) unique; a staged row
+    whose key is in the canonical files.jsonl must be identical to the canonical row (211's first-row-wins
+    merge) - a same-key different row still fails loud; classified rows 1:1; rows complete) and run
+    fit/evidence.py's check over the staged rows. Returns the exit code (0 iff no problem and no FAIL)."""
     import evidence
     files = _load(FILES_LIMES)
     sites = _load(EXTRAS_LIMES)
@@ -1145,10 +1147,13 @@ def check_staged():
                 known_qids[s["qid"]] = s["id"]
     problems = []
     staged_ids = {s["id"] for s in sites}
-    if staged_ids & known_ids:
-        problems.append(f"staged site ids collide with existing sites: {sorted(staged_ids & known_ids)}")
+    # after 211's merge the module's own staged sites sit in the canonical extras (known): a staged id/QID
+    # is a problem only when it resolves to a DIFFERENT site (the pre-merge clash protection)
+    if staged_ids & (known_ids - staged_ids):
+        problems.append(f"staged site ids collide with existing sites: "
+                        f"{sorted(staged_ids & (known_ids - staged_ids))}")
     for s in sites:
-        if s.get("qid") in known_qids:
+        if s.get("qid") in known_qids and known_qids[s["qid"]] != s["id"]:
             problems.append(f"staged site {s['id']} re-uses existing QID {s['qid']} ({known_qids[s['qid']]})")
     for s in sites:
         for k in ("id", "name", "lon", "lat", "region", "kind", "aerial_ok", "source", "place", "wikipedia"):
@@ -1157,7 +1162,11 @@ def check_staged():
         if s.get("region") != "germany" or s.get("kind") != "roman fort":
             problems.append(f"staged site {s['id']} has region {s.get('region')!r} / kind {s.get('kind')!r}")
     pics = {s["id"]: 0 for s in sites}
-    seen, canonical = set(), {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
+    seen, canonical = set(), {}
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
     for r in files:
         sid = r.get("site")
         if sid not in pics:
@@ -1172,7 +1181,7 @@ def check_staged():
         k = (sid, r.get("title"))
         if k in seen:
             problems.append(f"duplicate staged row {k}")
-        if k in canonical:
+        if k in canonical and canonical[k] != _canon_norm(r):
             problems.append(f"staged title already in the canonical files.jsonl: {k}")
         seen.add(k)
     for sid in pics:
@@ -1188,6 +1197,12 @@ def check_staged():
     code, text = evidence.check(FILES_LIMES, NO_BOOKS, catalog=EXTRAS_LIMES)
     print(text)
     return 1 if (problems or code) else 0
+
+
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
 
 
 def _norm(rows):
