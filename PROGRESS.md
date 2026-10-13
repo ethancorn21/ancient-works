@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 209, agent a - RE-VERIFICATION session on the current
+- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 210, agent a - D3 cost measurement done: the real-dir/
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,31 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-13 212 DECISION: the numancia plan-list exclusion is machine-dependent (local-copy requirement), not a data loss - 233 re-speced, PITFALLS entry added
-Measured on the merged tree with an in-memory export_plans run (the real
-web/data/plans.json was accidentally truncated once by the probe - `open(dst,"w")`
-runs before `json.dump` - and restored from HEAD; the committed file is intact,
-1474 rows). Facts: (1) export_plans' commons_rows() includes a picture only when a
-local copy exists at data/raw/commons/<site>/<sha16(title)>.jpg, and the books
-branch only with its full_local page image - data/raw is gitignored, so both are
-machine-dependent. (2) The numancia files.jsonl and classified.jsonl rows are
-byte-identical across ef84a05/f970500/HEAD; the local jpg is in this VM's shared
-store (210 staged it) but was absent on the lead's Mac, so f970500's re-export
-dropped the row - no data was lost or rewritten. (3) A re-export on THIS machine
-reproduces 953d9ab's 1168-row plans.json byte-for-byte: the numancia row returns
-as a COMMONS row (book "Wikimedia Commons", c_0fa271e2444f7bfc) - NOT as a books-
-index row (the iter-206 note's guess "book = the ia id" was wrong; the books index
-and memoriasdelareal009real are not involved) - and 307 of HEAD's 1474 rows (the
-211 pictures, the Civitates/Merian full pages) are absent because their local
-copies are not on this machine yet. Consequence for the live run: 212's fetch
-phase (1/s, resumable, skips existing copies) fills every missing kept row before
-the final re-export, so the live export regains both sides; before that re-export
-record the committed (id, sites[0]) key set and diff it afterwards - a lost key is
-a fetch failure to record as a data finding, never silently dropped or re-added.
-Filed the machine-dependence as PITFALLS.md ### tools/export_plans.py. 233 is now
-verify + record (the test should pass unchanged after 212's re-export), not
-"make the data whole".
 
 ### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
 The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
@@ -115,6 +90,24 @@ well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and th
 expected item end states follow 201's derivation computed from the live items (doc on
 an in-item row -> item resolved write-once and off the open list, as for aesica; doc
 ... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
+
+### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
 
 ## Project-wide driver notes (newest)
 
