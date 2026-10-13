@@ -50,195 +50,133 @@ placement is good enough to keep.
 - york-castle-q80637.c_a7db545536f13e24 - Plan of Center, Broome County 1855 (Gifford Wenig)
 
 ## Hand-over
-(2026-10-13, iteration 178, agent c - **ALL 34 SHOTS DONE and committed (129590d)**; 306d claimed done per the
-lead's message; judgment batch 1 started (offa + okehampton seen; okehampton undecided at cutoff).
+(2026-10-13, iteration 179, agent c - **offa JUDGED: KEEPS (evidence complete); okehampton still
+UNDECIDED. No project files modified this session** - all work was /tmp throwaways, web checks
+and reading the committed shots; the suite is exactly as of iteration 178 (149 passed, 1 skipped,
+1 red = agent a's in-flight 307 placement seed, pre-existing; tests were NOT run this session).
 
-**What the lead's message triggered (all done + committed).** (1) Merged main into agent/c
-(88c5545): two conflicts, both resolved the known way - `web/data/review.json` kept main's newer
-'at' (07:07 > my 05:48); `docs/site_flow.md` kept my unmerged 306c+306d blocks then main's 308
-arrowheads section after them (both sides were additions at the same anchor). (2) Full suite on the
-merged tree: **149 passed, 1 skipped, 1 red** - the red is
-tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, agent a's in-flight 307
-seed flow (probe: 'RESULT FAIL: seed: the gestures own the mouse'; 404 /tiles/relief - the live
-relief is Mac-only `aw`); the 161/176/177 A/Bs already proved it red on pure main. (3) 306d set
-`Status: done` (74f80e3) on the lead's instruction (005 settled by the fix: the 5 reds are fixed on
-main, 77bdf5d, tasks 231-234). /tmp/aw306d_main + /tmp/aw306d_mine2 deleted.
+**Offa (doc 1/17) - KEEPS. Evidence assembled this session (all re-derivable; /tmp is wiped per
+session, so re-run the recipes, they are small).**
+1. Web check (DONE, the one the 178 hand-over asked for): the Commons page of
+   File:OS1902_Nantcribba_02.jpeg (cached /home/agent/.cache/pi-web/50d4fe074fc3495c.txt) has caption
+   **"Site of Nantcribba Hall and Parkland with Offa's Dyke"** - OS 2nd ed 1902, surveyed 1884,
+   revised 1901, Montgomeryshire Sheet xxx8. Web search confirms Nantcribba = the wood/hall/stream
+   W of Knighton, Powys, on the Dyke line ('Nantcribba Castle, Powys' is a vanished castle -
+   castlewales.com; 'the Dyke avoids west-flowing streams ... Nantcribba ... Knighton (Powys)').
+   So the sheet IS the site's local area: the 178 hand-over's 'leaning deleted / placed 1-2 km E
+   over the town' is RETIRED - the drawn sheet is centred ON the site point, not offset from it.
+2. Exact page transform (the page's simFit, web/index.html L1004, is complex least squares
+   `merc = a*(u - i v) + b`: W=[u,-v], Z=merc([lon,lat]) with R=6378137, k=cos(lat0*deg),
+   resid=hypot(q-Z)*k, mpx=hypot(a)*k, rot=atan2(a1,a0); inverse: w=(z-b)/a, u=Re(w), v=-Im(w);
+   forward: X=a0*u+a1*v+bx, Y=a1*u-a0*v+by; inverse: u=(a0*dx+a1*dy)/det, v=(a1*dx-a0*dy)/det,
+   det=a0^2+a1^2). My Python replica on offa's 4 pairs reproduces the page's [eval] EXACTLY
+   (1.44 m/px, +2.1 deg, resid [42.2,72.5,42.2,43.0], score 42.6) - so the transform can be used
+   for feature-level checks. The 4 anchors are a 100-px 45-deg diagonal ladder (bury-castle
+   class): the residuals only measure the ladder's internal inconsistency, not a placement miss.
+3. Inverse-mapped the site point (-3.049, 52.344; Q1127343 = the GENERAL Offa's-Dyke article point,
+   kind earthwork, NOT a specific Dyke section) onto the plate: plate px (174,234) of 725x773 =
+   the NW end of the sheet's hatched wood, right at the sheet's 'Lodge' (anchor 1 (150,250) maps
+   34 m W/24 m N of the site point; plate centre maps to (-3.0449,52.3421)).
+4. COMPOSITE (the decisive check): the 1902 plate (blue, ink = inverted luminance as alpha,
+   warped with the exact transform above) drawn over the site's relief.jpg (2000x2000 = 1 m/px,
+   box corners (-3.0637,52.3530)..(-3.0343,52.3350), row 0 = north; g2r(X,Y) =
+   ((X-W_)/(E_-W_)*(rw-1), (1-(Y-S_)/(N_-S_))*(rh-1)), W_/N_ = merc(NW corner), E_/S_ =
+   merc(SE corner)) PLUS the site's 1842 six-inch ink
+   (web/data/sites/offa-s-dyke-q1127343/six-inch-1st_ink.webp, 1333x1333, box-aligned; resize to
+   2000) in red (the same layer the page draws). RESULT - the two independent surveys (1841/42
+   and 1884) AGREE: (a) the 1902 'Lodge' + hatched building sit ON the 1842 'Lodge' + building at
+   the site point (within ~20-30 m); (b) the 1902 'Nant-cribau' stream label (plate (575,505) ->
+   (-3.0403,52.3407)) sits on the 1842 stream that runs S-SE past 'Port Faen' and 'Ford' into the
+   hatched wood on the LiDAR (the real Nantcribba stream, a Wye tributary); (c) 1902 hatched 'P'
+   bldg (plate (590,280)) = 1842 'Port Faen'; (d) the drawn parkland wood overlaps the 1842
+   trees, the LiDAR dark wood and the aerial's dark green wood (the committed aerial shot's SE
+   corner); (e) the roads align. The sheet's own caption says the Dyke is on it. Verdict: KEEPS -
+   an orphan today, invisible on the page (its drawn works sit on the real Nantcribba
+   hall/parkland/stream at the site point; the Dyke passed this wood). NOTE for the line: the
+   sheet's content is tilted ~45 deg in its own frame; the fit's +2.1 deg is near-identity
+   because the parkland's wood axis IS a 45-deg ground line - the composite proves the fit is
+   the sheet's true orientation, not an accident of the ladder. (Optional belt-and-braces before
+   writing the line: one real-page zoomed shot, zoom ~17, of the stream/wood corner - this
+   composite is NOT the 306d mpp/256 judge-composite trap: it uses the exact page transform and
+   the page's own ink layer; but a real-page zoom removes the last doubt cheaply.)
 
-**Shots (box 1 evidence, all in docs/site_flow/agent_fits/, committed 129590d).** 17 docs x 2
-(aerial + relief; all 13 sites have relief.jpg) = 34, via tools/audit_306e.mjs (clone of the 306d
-recipe, in Touches) against serve.py --port 0. Every [eval] line: ok, img true, layer true, n =
-doc pair count, placed:false (FQ emptied - 114 entries loaded, 11 of my 13 sites have queue entries
-but none contaminated). Suite baseline for my task: the driver's newest loop-start note era had the
-5 now-fixed reds; today's merged-tree red set = the 307 one above (pre-existing, agent a's).
+**Okehampton (doc 2/17) - UNDECIDED (178 state, unchanged).** The plate (Commons 1915 'Plan of
+Okehampton Castle', 'Underlying map Edward H. Young (d. 1932)', 618x674, 4 pts a 100-px grid,
+page fit 1.20 m/px -0.3 deg resid<=1.1, score 1.0) is a long NE-SW CHAIN of ~10 multi-room
+buildings with radial tree hatching - NOT a motte-and-bailey; centred on the site point
+(-4.0083, 50.7306, kind motte), its buildings line up with the real town-centre cluster
+(aerial + 1842 red overlay). Wikipedia (cached /home/agent/.cache/pi-web/1387d53e134165ed.txt):
+the real castle = Norman keep on a long thin rocky outcrop (mote 29.5x15.5 m, 32 m high), ~1 km
+from the town. NEXT: (a) re-read the 2 committed shots
+(docs/site_flow/agent_fits/okehampton-castle-q1419982_c_0edd7f87db67ff20{,_relief}.png) and pin
+the plate centre vs the town cluster vs the red 1842 'Okehampton Castle' label; (b) web check
+where the real castle sits relative to the town centre ('Okehampton Castle' outcrop position /
+Higham 1984; the site point's kind=motte + coords say which of castle-vs-town it is); (c)
+verdict: if the site point is the TOWN (the castle is 1 km away): the plate is a correctly
+georeferenced map of the WRONG KIND of subject for a motte site (the bethlehem 'wrong kind'
+class) - likely DELETED the 303 way (the 306c precedent for right-map/wrong-kind was deletion);
+if the site point is genuinely the castle 1 km out: wrong PLACE, DELETED. Either way the line
+says what it is (a 1915 town-centre plan by Edward Young) and where it sits.
 
-**Metadata (from the doc JSONs; useful next session).** All by:agent. Scores: offa 42.6 (4 pairs),
-okehampton 1.0 (4), old-sarum c_0410 19.1 (6) + c_ff62 0.0 (6), oxford 0.0 (4), pilsbury 15.8 (4),
-pontefract c_3213 9.5 (8) + c_d135 24.5 (8), portus-adurni both 0.0 (6+6), raby 0.0 (4),
-richborough 0.0 (6), stanton 0.0 (6), taunton 0.0 (4), windmill-hill 0.0 (6, **model None** - the
-page's default plan model fits it: the relief shot shows resid 0, 1.0 m/px, 0 deg, rowMapBox
-[0.56,0.38,0.85,0.58] from plans.json), york c_8dac 31.7 (4) + c_a7db 13.6 (4). York c_a7db's title
-= 'Plan-of-Center-Broome-County-1855-Gifford-Wenig' - Center is a TOWN in Broome County, NEW YORK
-= the 306d devil-s-dyke/bethlehem toponymic-collision class; its first audit job is to say what the
-picture shows (an 1855 US town plan) - almost certainly DELETED as wrong place.
+**Where I am / state.** All 34 shots committed (129590d) - box 1 is done. NO 306e block exists in
+docs/site_flow.md yet: the 306d block ends at the ludlow line (line 1267) and
+'## The site markers become arrowheads (task 308)' starts at line 1268; the 306e block header
+(306c/306d style: '306e - the 17 UK orphan documents (sites o-y): ...') goes AFTER the 306d
+block, BEFORE the 308 section. docs/site_flow.md is in my Touches; the 308 section belongs to
+agent a's territory only via the merge - I only ADD the 306e block at the 306d/308 boundary
+(306c/306d did the same). No deletions to do for offa (it keeps). If okehampton ends up DELETED,
+its site has NO review item yet - create one the 306d way (see below).
 
-**Review items for the 13 sites (for the 303-way deletions, box 3).** Existing items (candidates in
-brackets): old-sarum [c_b2701b5231da42f2], pontefract [c_ba5dfa2d2dbc645e + 6 more], richborough
-[c_1dcd5a7171573663], windmill-hill [earthworkenglan01allcgoog_n0557_1, _n0558_1 - same Allcroft
-book, my doc is page n0558_2], york-castle [c_81ecab4a9284f156 + 4 more]. NO item (create one, the
-306d way): offa-s-dyke, okehampton, oxford-castle, pilsbury, portus-adurni, raby-castle,
-stanton-drew, taunton. Upsert via fit/review.py upsert_item, delete doc, export scoped to the site
-(NEVER another site's item file); 'at' timestamp in web/data/review.json is the known agent-a
-merge-conflict point - keep the newer.
+**Exact next step.** 1) (Optional) one real-page zoom shot of the offa stream/wood corner.
+2) Write the 306e block header + the OFFA line (KEEPS, per the evidence above) into
+docs/site_flow.md between the ludlow line and the 308 section. 3) Finish okehampton per (a)-(c)
+above; write its line (if DELETED: 303 way - create the site's review item with the picture +
+the doc's 4 pairs + place_reason, delete data/db/platefits/okehampton-castle-q1419982.
+c_0edd7f87db67ff20.json, export scoped to the site; web/data/review.json 'at' = known agent-a
+merge-conflict point, keep the newer). 4) Commit. 5) Continue batches: old-sarum x2 (c_0410
+Ditchfield 1901 - the site already has 2 built depictions, check
+web/data/sites/old-sarum-q782719/depictions.json for what they are; c_ff62 the 1806
+Camden/Basire DPLA plate), oxford (Mackenzie 1897), pilsbury (Cox 1905), pontefract x2 (two
+pages of the 1807 borough history, 8 pairs each), portus-adurni x2 (twin Penny Cyclopaedia 1836
+plans, one German-titled), raby, richborough, stanton-drew (Penny Magazine druidical temple),
+taunton (Mackenzie), windmill-hill (Allcroft 1908 n0558_2; the site's item already holds
+n0557_1+n0558_1 - merge into that item if deleted), york x2 (c_8dac 'York Castle in 1820'
+watercolour; c_a7db = 'Plan of Center, Broome County 1855' - Center is a TOWN in Broome County,
+NEW YORK: the devil-s-dyke/bethlehem toponymic-collision class, almost certainly DELETED wrong
+place). Box 2 ticks when all 17 lines are in; box 3 after any deletions; box 4 = suite check
+(merged-tree red set must be the 307 one only).
 
-**Judgment state.**
-- **offa-s-dyke-q1127343.c_1cca85e7b4b5a89e** (OS 1902 1:2500 Montgomeryshire sheet xxx8
-'Nantcribba 02'; 4 pts, 1.44 m/px, +2.1 deg, resid 42-73 m): SEEN (aerial + relief). The sheet (a
-hatched Nantcribba wood, a 'Lodge' building, a hatched path, dashed boundary, spot heights 847/850)
-sits over the Knighton-area aerial: the drawn wood covers the real dark-green wood at the panel's
-bottom-centre, but the sheet's N-E half covers the TOWN (buildings where the sheet has open field),
-and anchor 4 sits on bare ground S of the wood. Site point (-3.049, 52.344, kind earthwork) is the
-Offa's-Dyke point at the sheet's S-W edge area. LEANING: the sheet is the right local area (Nantcribba
-is the wood/stream W of the site point along the Dyke) but placed ~1-2 km E over the town - needs
-one web check (where Nantcribba 1:2500 sheet xxx8 sits vs the site point; the real wood vs the drawn
-one on the relief) to call DELETED (wrong place) vs KEEPS. Decisive measurement: inverse-map the
-site point onto the plate (where on the sheet is the site point? on the wood or on the open field?)
-and/or where the drawn 'Nant-criba' label lands vs the real stream.
-- **okehampton-castle-q1419982.c_0edd7f87db67ff20** (Commons 1915 'Plan of Okehampton Castle',
-'Underlying map Edward H. Young (d. 1932)'; 618x674 px; 4 pts a 100-px grid (150-420,100-500);
-page fit 1.20 m/px, -0.3 deg, resid <=1.1 m, score 1.0): SEEN (aerial + relief). The plate is a long
-NE-SW CHAIN of ~10 multi-room buildings (A-G) with dense radial tree hatching - NOT a
-motte-and-bailey; it is placed centred on the site point (-4.0083, 50.7306, kind motte) and its
-buildings line up with the real town-centre building cluster (1842 OS red overlay + modern aerial;
-the dashed line by A on a real road/stream, trees on the real park). WIKIPEDIA (fetched, cached at
-/home/agent/.cache/pi-web/1387d53e134165ed.txt): the real castle is a Norman (1068-1086) keep on a
-long thin ROCKY OUTCROP (mote 29.5x15.5 m top, 32 m high), bailey N of the motte, stream N, the town
-~1 km away, the 690-ha deer park S cleared to farmland by 1915; Simmons cleared/repaired 1911-13.
-So the drawn 600 m building chain is ~10x the real ruin - it is a map of the TOWN (Edward Young was
-Okehampton's local mapmaker), correctly georeferenced (near-identity over the real buildings),
-mislabelled 'Castle'. UNDECIDED at cutoff - next session: (a) re-read the 2 shots and pin the plate
-centre vs the town cluster vs the red 1842 'Okehampton Castle' label; (b) one web check of the
-real castle's position relative to the town (Higham 1984 'Okehampton Castle'; the motte grid ref)
-to see whether the site point (kind=motte) is on the castle or on the town; (c) verdict: if the
-drawn works sit on the real town and the site point is the town centre -> the plate is a right
-local map but the WRONG KIND of subject for a motte site (the bethlehem 'wrong kind' class) -
-likely DELETED; if the site point is genuinely the castle 1 km from the town, the placement is also
-the wrong PLACE. Either way the line must say what it is (a 1915 town plan) and where it sits.
+**The 303 way (per 306d, for any deletion):** fit/review.py API, no hand-edited JSON:
+upsert_item(root, site, [entry]) with entry = {plan, title, url, pairs (the doc's own),
+coarse:false, evidence (from the data/commons/files.jsonl row), label, cite, ref, size,
+place_reason '306e audit 2026-10-13: ... Document deleted.'} appended AFTER the item's existing
+candidates (lead candidate first, item filename unchanged); then delete
+data/db/platefits/<doc>.json; then export(root, site) scoped to the site (NEVER another site's
+item file). Sites WITH existing items: old-sarum [c_b2701b5231da42f2], pontefract [c_ba5dfa2d2dbc645e
++ 6 more], richborough [c_1dcd5a7171573663], windmill-hill [earthworkenglan01allcgoog_n0557_1,
+_n0558_1], york-castle [c_81ecab4a9284f156 + 4 more]. NO item (create one): offa-s-dyke,
+okehampton, oxford-castle, pilsbury, portus-adurni, raby-castle, stanton-drew, taunton.
 
-**Exact next step (batch 1 of ~8, in task-file order).**
-1. Finish offa (one web check on Nantcribba's position; write its line).
-2. Finish okehampton as above; write its line.
-3. Read old-sarum x2 (c_0410 'Ancient Plan of Old Sarum' Ditchfield 1901 - a famous real plan; site
-drawings=2 so the site already has 2 built depictions - check what they are in
-web/data/sites/old-sarum-q782719/depictions.json; c_ff62 is the 1806 Camden/Basire DPLA plate),
-then oxford (Mackenzie 1897) and pilsbury (J.C. Cox 1905 motte plan) - read 10 more shots, judge,
-write 5 lines. Write the 306e block header (306c/306d style: '306e - the 17 UK orphan documents
-(o-y): ...') BEFORE the first 306e line, after the 306d block and before the 308 section in
-docs/site_flow.md. Tick box 1 when all 34 shots are listed (already true - 34 files committed);
-box 2 when all 17 lines are in; box 3 after any deletions; box 4 = suite check (merged-tree red
-set = the 307 one only).
-4. Batches 2-3 next sessions: pontefract x2 (two pages of the 1807 borough history, 8 pairs each),
-portus-adurni x2 (twin Penny Cyclopaedia 1836 plans, one German-titled), raby, richborough; then
-stanton-drew (Penny Magazine druidical temple plan), taunton (Mackenzie), windmill-hill (Allcroft
-1908 n0558_2 - the site's item already holds n0557_1+n0558_1, merge into that item if deleted),
-york x2 (c_8dac 'York Castle in 1820' watercolour; c_a7db the Broome County NY collision).
+**Metadata (from the doc JSONs).** All by:agent. Scores: offa 42.6 (4 pairs), okehampton 1.0
+(4), old-sarum c_0410 19.1 (6) + c_ff62 0.0 (6), oxford 0.0 (4), pilsbury 15.8 (4), pontefract
+c_3213 9.5 (8) + c_d135 24.5 (8), portus-adurni both 0.0 (6+6), raby 0.0 (4), richborough 0.0
+(6), stanton 0.0 (6), taunton 0.0 (4), windmill-hill 0.0 (6, **model None** - the page's
+default plan model fits it: relief shot shows resid 0, 1.0 m/px, 0 deg, rowMapBox [0.56,0.38,
+0.85,0.58] from plans.json), york c_8dac 31.7 (4) + c_a7db 13.6 (4).
 
-**Pitfalls that bite here (all in PITFALLS.md, don't re-learn).** The mpp/256 judge-composite bug
-(line 314) - judge from the real 1440x900 shots, not hand-rolled composites. In-checkout A/B only
-(never a bare worktree - locally-built site dirs are gitignored). Geographic distances: dx=dlon
-*111194.9266*cos(lat0), dy=dlat*110900 (not raw Mercator). My hand-rolled pure-Python similarity
-fit of a doc's pairs gets the v-axis convention wrong (the page's simFit flips plate v; my naive
-least squares came out rotation -45 deg / 0.85 m/px, residuals 200-800 m, GARBAGE - the pane's
-[eval] fit line is the truth; use it, or use inversions of single points only for spot checks).
-**Suite state:** last full run (merged tree, this session): 149 passed, 1 skipped, 1 red (the 307
-one, pre-existing). .venv present. The audit server (nohup'd node) has exited; /tmp/audit_306e.log
-has the full [eval] record for all 34 shots. /tmp/aw306cab (306c's worktree) still registered -
-not mine to remove.
-
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/203-batch-fit.md` (split)
-- `tasks/207c-roy.md` (blocked)
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (split) - hand-over: ## Lead note (2026-10-12, after 211)
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306d-orphan-fits-uk-1.md` (in-progress) - hand-over: (2026-10-13, iteration 177, agent c - **waiting on human request 005** (filed this session,
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
-
-## Next open tasks
-- `tasks/207a-horsley.md`
-- `tasks/207b-maclauchlan.md`
-- `tasks/212a-cover-search.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
-- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
-  class is new to the project: in the store but neither built as an overlay nor referenced by any
-  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
-  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
-  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
-  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
-  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
-  subtasks - PITFALLS); the driver hands them out a-f.
-- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
-  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
-  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
-  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
-  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
-  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
-  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
-  verified this session): the "no-internet headless" pitfall applies only to the no-network test
-  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
-  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
-- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
-  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
-  and the verdict notes where the item's version differs.
-- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
-  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
-  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
-  sites it changes.
-
-## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_serve.py::test_platefits_docs_match_sites
-    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
-    4 failed, 60 passed in 64.37s (0:01:04)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
-- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
-- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
-- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
-- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
-- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
-
-### 2026-10-13 306e (agent c, iteration 178): where I am
-- 306e: all 34 orphan shots taken + committed (129590d); batch-1 judging started (offa leaning
-  deleted; okehampton = mislabelled 1915 town map, undecided). Full detail in the 306e hand-over.
-- Per the lead's message: merged main (88c5545; review.json 'at' + site_flow.md 308-section
-  conflicts resolved), suite on merged tree 149/1/1 (lone red = agent a's in-flight 307
-  placement seed, A/B-proven on pure main at 161/176/177), 306d claimed done (74f80e3).
+**Pitfalls that bite here (all in PITFALLS.md, don't re-learn).** The mpp/256 judge-composite
+bug (line 314) - judge from the real 1440x900 shots (my composite was safe: exact page
+transform + the page's own ink layer). In-checkout A/B only (locally-built site dirs are
+gitignored). Geographic distances: dx=dlon*111194.9266*cos(lat0), dy=dlat*110900 (not raw
+Mercator). The page's simFit flips plate v (W=u-iv) - a naive least squares WITHOUT the flip
+gives GARBAGE (my first attempt: -45 deg/0.85 m/px, resid 200-800 m); the pane's [eval] fit
+line is the truth, and the formulas in point 2 of the offa section above replicate it exactly.
+PIL Image.transform AFFINE tuple is (a,b,c,d,e,f) with src_x=a*i+b*j+c, src_y=d*i+e*j+f - b
+and d are the easy-to-swap pair (swapping mirrors the image); a similarity is exactly affine.
+A JPEG has no alpha channel: for an ink overlay use inverted luminance as the alpha, warped
+with the same affine. PIL Image.open(...).convert("RGBA") on a JPEG = opaque everywhere.
+**Suite state:** last full run (178, merged tree): 149 passed, 1 skipped, 1 red (agent a's 307
+placement seed, pre-existing, A/B-proven on pure main at 161/176/177). .venv present. This
+session ran no tests and changed no project files. The audit server is not running;
+/tmp/audit_306e.log had the [eval] record for all 34 shots (the audit script regenerates and
+skips existing shots).
