@@ -1,0 +1,91 @@
+{
+ "site": "burcht-van-leiden",
+ "candidates": [
+  {
+   "plan": "c_2da8ced53ce1c3da",
+   "title": "De Kleine Hagen, bestaande uit drie delen Lugdunum Batavorum (titel op object), RP-P-AO-10-81",
+   "url": "media/commons/burcht-van-leiden/2da8ced53ce1c3da.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-13",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Kleine Hagen",
+     "place_qid": "Q19303338",
+     "place_label": "Kleine Hagen",
+     "place_lon": 6.6461,
+     "place_lat": 52.1026,
+     "site_lon": 4.493,
+     "site_lat": 52.159
+    }
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_fb2db5d2a7552887",
+   "title": "Plattegrond der Zaal op de plaats van den Burgt ter feestviering van Oud-Studenten den 9.den Augustus 1838, RP-P-OB-88.641",
+   "url": "media/commons/burcht-van-leiden/fb2db5d2a7552887.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-13",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Zaal",
+     "place_qid": "Q1206886",
+     "place_label": "Trans-Alay Range",
+     "place_lon": 72.916667,
+     "place_lat": 39.333333,
+     "site_lon": 4.493,
+     "site_lat": 52.159
+    }
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.7812,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor",
+   "why": "no model answer"
+  },
+  {
+   "plan": "c_5681b77efdcafcbd",
+   "title": "Rand van de Grote Hagen, bestaande uit veertien delen Lugdunum Batavorum ANo 1670 (titel op object), RP-P-2016-1124",
+   "url": "media/commons/burcht-van-leiden/5681b77efdcafcbd.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "none",
+    "checked": "2026-10-13",
+    "conflict": {
+     "route": "sheet",
+     "named_place": "Rand",
+     "place_qid": "Q2194369",
+     "place_label": "Rand",
+     "place_lon": -0.3433,
+     "place_lat": 53.2952,
+     "site_lon": 4.493,
+     "site_lat": 52.159
+    }
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 0.473,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "no model answer"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

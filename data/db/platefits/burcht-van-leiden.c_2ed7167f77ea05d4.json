@@ -1,0 +1,90 @@
+{
+ "site": "burcht-van-leiden",
+ "plan": "c_2ed7167f77ea05d4",
+ "crop": [
+  0,
+  0,
+  1280,
+  1039
+ ],
+ "pairs": [
+  [
+   498.8,
+   305.0,
+   4.4912784,
+   52.1627929
+  ],
+  [
+   892.5,
+   385.0,
+   4.4993351,
+   52.1603261
+  ],
+  [
+   461.2,
+   515.0,
+   4.4892456,
+   52.1601386
+  ],
+  [
+   683.8,
+   275.0,
+   4.4954568,
+   52.1625313
+  ],
+  [
+   351.2,
+   305.0,
+   4.4880861,
+   52.1633191
+  ],
+  [
+   363.8,
+   435.0,
+   4.4876006,
+   52.1615486
+  ],
+  [
+   572.5,
+   295.0,
+   4.4929327,
+   52.1626626
+  ],
+  [
+   523.8,
+   495.0,
+   4.4907145,
+   52.1601812
+  ]
+ ],
+ "label": "c. 1698",
+ "title": "Atlas de Wit 1698-pl017-Leiden-KB PPN 145205088",
+ "cite": "by Frederik de Wit; Public domain; https://commons.wikimedia.org/wiki/File:Atlas_de_Wit_1698-pl017-Leiden-KB_PPN_145205088.jpg",
+ "at": "2026-10-13T10:20:06.641614+00:00",
+ "auto": true,
+ "score": 6.2,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/burcht-van-leiden/2ed7167f77ea05d4.jpg",
+ "ref": "File:Atlas de Wit 1698-pl017-Leiden-KB PPN 145205088.jpg",
+ "size": [
+  1280,
+  1039
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_eloftr",
+  "inliers": 19,
+  "matches": 1197,
+  "ground": "tmk1850.webp",
+  "window": 1.0,
+  "rot_deg": 15.04,
+  "spread": [
+   0.653,
+   82.6
+  ]
+ }
+}
