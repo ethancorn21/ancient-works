@@ -1303,6 +1303,31 @@ the site stays covered for the union check, an open item counts).
   documented castle (keep at the SW end, the great hall and lodgings in the middle, gatehouse
   and barbican at the NE end). KEEPS - an orphan today, invisible on the page (its drawn works
   sit on the real Okehampton Castle outcrop and ruins at the site point).
+- old-sarum-q782719.c_ff62c9585a92b375 - Plan & elevations of Old Sarum (Camden's Britannia
+  1806, Basire's plate via DPLA; similarity, 6 pts, resid 0.0 m, 2.00 m/px, +0.0 deg): the 6
+  anchors are a perfect 100-px grid ladder (5 distinct points: u 300/400/500 at v 1400, u 400
+  at v 1300/1500), so the fit carries no placement information at all - the site point
+  inverse-maps to plate (399.7, 1399.7), blank paper west of the drawn plan, and the drawn plan
+  (a schematic ring ~780 m across) sits 440 m E / 180 m S of the site point, over the flat
+  farmland SE of the hill ('Old Sarum Farm' / 'Castle Villa' on the 1842 six-inch, fields there
+  in the LiDAR). The drawn ring is an inflated schematic and misses the real 400-550 m oval (the
+  central moated 'Castle' r~85 m on the site point, the outer bank 175-275 m; the LiDAR shows a
+  bright summit r<100 m and a ditch ring). DELETED - an orphan today, invisible on the page (the
+  303 way: the picture and its 6 points went to the site's review item, appended after its
+  existing coarse candidate c_b2701b5231da42f2 with this reason; the item keeps that file name
+  and stays open, and the site stays covered by its two hand-built depictions).
+- old-sarum-q782719.c_041083ec68b532f8 - Ancient Plan of Old Sarum (Ditchfield 1901, the
+  'Ichnography' bird's-eye of the concentric ring-castle; similarity, 6 pts, resid 9.0-40.2 m,
+  1.29 m/px, +0.2 deg): the 6 anchors are a rough ~350x400-px ladder with ~14% anisotropy, so the
+  residuals only measure the ladder's own inconsistency. The drawn complex is centred ~on the
+  site point (the drawn inner 'Castle Well' circle 18 E / 31 S, r~115 m vs the real moated
+  'Castle' r~85 m on the site point) but the drawn works are consistently oversize: the drawn
+  outer ring reaches ~150-175 m on the NW (sitting on the real NW arc) but ~450-480 m on the
+  S/SE (the real S outer edge is 250-275 m), and the drawn S 'Leaving Street' runs ~150 m past
+  the real hill edge out over the flat 'Old Sarum Farm' ground. Goodrich class: centre ~right,
+  drawn works bigger than the real complex, walls past the fields. DELETED - an orphan today,
+  invisible on the page (the 303 way, as for c_ff62: the picture and its 6 points went to the
+  site's review item with this reason, the document deleted, the site stays covered).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
