@@ -1,0 +1,90 @@
+{
+ "site": "utrecht-q803",
+ "plan": "c_f5f96070065c0763",
+ "crop": [
+  0,
+  0,
+  1280,
+  1275
+ ],
+ "pairs": [
+  [
+   633.1,
+   432.8,
+   5.1196064,
+   52.0925208
+  ],
+  [
+   1145.9,
+   915.7,
+   5.1297128,
+   52.0833062
+  ],
+  [
+   19.2,
+   265.9,
+   5.1051802,
+   52.0972231
+  ],
+  [
+   647.9,
+   15.5,
+   5.1223415,
+   52.0988877
+  ],
+  [
+   1076.3,
+   508.0,
+   5.1302786,
+   52.0898204
+  ],
+  [
+   796.1,
+   764.5,
+   5.1218097,
+   52.0868505
+  ],
+  [
+   356.6,
+   213.9,
+   5.1139238,
+   52.0968487
+  ],
+  [
+   320.7,
+   527.6,
+   5.1112479,
+   52.0921492
+  ]
+ ],
+ "label": "1565-1570",
+ "title": "Utrecht, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Utrecht.jpg",
+ "at": "2026-10-13T03:33:59.020859+00:00",
+ "auto": true,
+ "score": 12.1,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/utrecht-q803/f5f96070065c0763.jpg",
+ "ref": "File:Utrecht.jpg",
+ "size": [
+  1280,
+  1275
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2333,
+  "matches": 5000,
+  "ground": "tmk1850.webp",
+  "window": 1.0,
+  "rot_deg": 12.75,
+  "spread": [
+   0.404,
+   135.0
+  ]
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "site": "saint-omer-q208793",
+ "plan": "c_df791c935a4905f7",
+ "crop": [
+  0,
+  0,
+  1280,
+  970
+ ],
+ "pairs": [
+  [
+   512.6,
+   417.3,
+   2.2567452,
+   50.7501967
+  ],
+  [
+   721.0,
+   297.9,
+   2.2680898,
+   50.7529726
+  ],
+  [
+   321.6,
+   366.4,
+   2.2475759,
+   50.7527287
+  ],
+  [
+   429.1,
+   568.9,
+   2.2514128,
+   50.7457973
+  ],
+  [
+   564.5,
+   241.4,
+   2.2606827,
+   50.7555151
+  ],
+  [
+   639.5,
+   487.0,
+   2.2625669,
+   50.7473757
+  ],
+  [
+   439.5,
+   298.8,
+   2.2539922,
+   50.7543013
+  ],
+  [
+   618.0,
+   360.1,
+   2.262457,
+   50.7515
+  ]
+ ],
+ "label": "1545",
+ "title": "Saint-Omer, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Saint-Omer_(2)_-_Deventer.jpg",
+ "at": "2026-10-13T03:29:16.258102+00:00",
+ "auto": true,
+ "score": 11.3,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/saint-omer-q208793/df791c935a4905f7.jpg",
+ "ref": "File:Saint-Omer (2) - Deventer.jpg",
+ "size": [
+  1280,
+  970
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 3240,
+  "matches": 5000,
+  "ground": "etatmajor.webp",
+  "window": 1.0,
+  "rot_deg": 8.66,
+  "spread": [
+   0.786,
+   65.9
+  ]
+ }
+}
