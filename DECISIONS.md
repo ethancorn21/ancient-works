@@ -509,3 +509,17 @@ failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
 skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
 tick both boxes, set done.
+
+## 2026-10-13 212c DECISION: docs/batch.md committed from a fresh store run - 212 complete (a done, b done by the lead, c done)
+Session 234 (agent a), second commit of the session, per the lead's order ("Then write
+docs/batch.md from it"). The file (at: 2026-10-13T13:22:09.600423+00:00, 293 lines) is the
+report the owner reads: the six per-site outcome buckets summing to the 499 built sites
+(19 hand-golden / 0 human-saved / 24 automatic / 106 review item / 244 no picture found /
+106 uncovered-needs-attention - the loop phase never ran live, so the invariant line
+honestly prints the break for the 106), the fixed 20-sample of the 36 by:agent docs
+(random.Random(20261012) over the sorted ids; page URL + gate median per row - the
+owner's 18/20 check is repeatable from the file), and the 244-row no-picture table with
+the exact searched record per site. tests/test_cover.py passes with the checkout carrying
+the file (the IN_PLACE copy path in the tree builder) - 6 passed, 35 s; full suite as
+before (the one red is 307bb's pre-existing gesture test). The parent 212 hand-over now
+says the whole 212 is complete; its Status stays split until the driver hands it back.

@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 212c: docs/batch.md - the final report for the owner
 Depends on: 212b
 Touches: fit/cover.py, docs/batch.md, tests/test_cover.py
@@ -10,8 +10,8 @@ page URL each for the owner's 18/20 check, and the "no picture found" list with 
 searched per site.
 
 ## Acceptance criteria
-- [ ] `python3 fit/cover.py report` writes docs/batch.md from the store, seed recorded in the file.
-- [ ] Test: the sample is reproducible from the recorded seed; the counts add up to the built-site total.
+- [x] `python3 fit/cover.py report` writes docs/batch.md from the store, seed recorded in the file.
+- [x] Test: the sample is reproducible from the recorded seed; the counts add up to the built-site total.
 
 ## Hand-over
 
@@ -44,7 +44,13 @@ census re-measuring - the store is the source." 212b was closed on main by the l
   non-empty searched record. Green this session; suite: 155 passed, the one red is
   307bb's pre-existing gesture test (agent c's 307 series, as classified in iter-228),
   1 skipped.
-- Remaining (this session, per the lead): regenerate docs/batch.md fresh
-  (`.venv/bin/python fit/cover.py report` - the working-tree preview is stale) and commit
-  it, tick both boxes, set done. If the lead runs the loop phase live later, re-run the
-  report before any re-publish: it reads the store, not a snapshot.
+- DONE this session (both boxes, lead's order: report + test commit 77a090b, then the
+  file): docs/batch.md committed from a fresh run (at: 2026-10-13T13:22:09.600423+00:00;
+  293 lines: the counts, the 20-sample with seed 20261012, the 244-row no-picture table).
+  tests/test_cover.py passes with the checkout carrying the file (the IN_PLACE copy path)
+  as well as without (6 passed, 35 s).
+- If the lead runs the loop phase live later, re-run `.venv/bin/python fit/cover.py report`
+  before any re-publish: it reads the store, not a snapshot (the uncovered bucket will
+  shrink; the sample changes only if the automatic-doc population changes - the seed is
+  fixed, so a changed sample means the population changed). The owner's 18/20 check reads
+  this file's sample table (the page URL is the site-page anchor #<id>).
