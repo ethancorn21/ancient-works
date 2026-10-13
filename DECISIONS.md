@@ -562,3 +562,37 @@ unconditionally. No code changed this session.
   richborough, stanton-drew, taunton, windmill-hill n0558_2 (model None - merge into the existing
   item, do not create a second), york x2 (c_a7db = toponymic collision with Center, NEW YORK -
   almost certainly DELETED wrong place).
+
+## 2026-10-13 306e DECISION: iteration 184 - oxford-castle c_ba6b308580428184 (Mackenzie 1897 'THE FORTRESS OF OXFORD') judged DELETED (wrong place, right kind) - keep 174 m south of its real moated island; the 303 removal is the NEXT session's first step (exact recipe in the task hand-over)
+- Judged DELETED. The 4 stored anchors are a PERFECT 100-px diagonal ladder (300,300)-(400,400)-
+  (500,500)-(600,600) -> the fit is exactly 1.000 m/px, -0.00 deg, all residuals 0.0 (verified by
+  replicating the page's simFit in /tmp/aw306e_doc.py; matches the committed shot's [eval]
+  'Scale 1.00 m per page pixel, turned -0.0 deg'). A perfect ladder carries no placement
+  information (the bury-castle / old-sarum c_ff62 class); the placement is whatever the anchors
+  imply: the site point (-1.26248, 51.7518 = Corn Market) inverse-maps to plate (399.5, 399.5) =
+  the CENTRE of the drawn bailey.
+- Measured plate features on the raw scan (data/raw/commons/oxford-castle-q2600886/
+  ba6b308580428184.jpg, 895x781; densest-window search of the luminance-ink mask): the keep (dark
+  filled square '1', with barbican '2' south of it) is centred at plate (416,573) -> E+17 / N-174
+  = 174 m SOUTH of the site point, over a built-up 1842 block just north of the Thames; the real
+  moated keep island (small 1842 circle at the site point; the dark spot on the aerial just W of
+  marker 2 in the committed shot) sits where the drawn bailey's centre is. The drawn bailey
+  (curtain polygon ~450 m E-W x ~380 m N-S, centred ~130 m E of the site point) and the plate's
+  big natural-hill outline (~665 x 540 m) render over the flat built-up city (1842 walls cross
+  streets/building blocks; LiDAR relief is flat, 161-165 in every annulus; no hill, no
+  earthworks). Only the drawn river (plate v 585-665 -> 185-230 m south) lands on the real Thames
+  (~200 m south of the market).
+- Also verified this session (useful for the rest of the batch): the page's fit-tool map in the
+  committed shots draws the plate as SURVEY-RED ink on transparent paper (index.html makeInk(),
+  ~L993-1010, same rule as build_site.plate_ink) at the 85% opacity slider - so in those shots
+  RED is BOTH the 1842 ink and the plate ink; separating them needs the /tmp composite (1842 red
+  vs plate blue), not the shots. web/data/plans.json has NO row for this doc at baseline (the
+  306c/306d/306e-deleted docs' rows ARE still in it - accepted staleness), so the deletion needs
+  no plans.json edit. oxford has NO review item yet (checked data/review/ + review.json) - the
+  303 way CREATES data/review/oxford-castle-q2600886.c_ba6b308580428184.json with this doc as
+  lead/only candidate (evidence row verified: files.jsonl, kind hand_tied, source
+  'pipeline/sources.py mackenzie'; the row title with its 'File: ' prefix hashes to the plan id).
+- NOT executed (context limit): the upsert_item + doc deletion + export(ROOT,'oxford-castle-
+  q2600886') (expect n_open 342 -> 343) and the oxford line in docs/site_flow.md. Both are fully
+  specified in the task hand-over (steps 1-4). No project file was changed this session (read-only
+  audit + /tmp scripts); suite last run in 183 at 149/1/1 (the 1 = agent a's 307 seed).
