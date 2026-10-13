@@ -13,7 +13,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 245, agent a - FIFTH session; investigation only, NO code written, NO tests run. Re-verified every mechanism against the curren
+- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 246, agent a - SIXTH session. The first action changed everything: **tests/test_owner_check.py ALREADY EXISTS** (889 lines, com
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
@@ -62,55 +62,6 @@ Ground truth measured while planning (all verified by running code, iteration 10
   plan_fit.py/gate/one-site line are untouched.
 - Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
 
-### 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today
-First session on 307d; investigation only, nothing written, no tests run.
-
-- Context check: 309 (the place-check box) is DONE; 307ba/307bb/307c done; 307d is the last
-  subtask of 307. Task 235 (open, mine via 221, `Depends on: 306e, 307d`, `Touches:
-  tests/test_fit_queue.py`) is gated on 307d by the broad `tests/` claim - so 307d's test is a
-  NEW file in tests/, never tests/test_fit_queue.py. Suite baseline (driver notes, re-verify
-  before claiming): 155 passed / 1 skipped / 1 failed - the one red is 235's
-  test_placement_gestures_and_save_in_the_browser (the 307bb `_pick_place` lands on marietta,
-  whose only depiction is a 1904 USGS topo the page's loadDeps/surveyOldEnough filter drops ->
-  dep:null at the seed check; red since ~iteration 199).
-- Queue population (241 entries, 2026-10-13T14:34Z): agent c's 203b EU batch filled the top of
-  the queue with commons-row candidates (c_..., no ia/file) - those are NOT line-eligible
-  (the one-site line reads book pages locally). Every line-eligible entry (book row with a
-  local page, an unresolved item carrying the row with >=3 pairs, no docs yet) has
-  `lidar: None` (LiDAR/DEM relief ground). No `lidar: False` (aerial-photograph-only) site is
-  line-eligible today: every aerial-only queue site is a commons-row candidate. So the task's
-  "different ground (LiDAR relief vs aerial photograph)" hedge is NOT satisfiable this
-  session - both picks are on LiDAR relief; the docs section must say so plainly. (Re-scan
-  after each merge: a site gaining a doc in a merge drops out of eligibility; the picker is
-  derived, so it adapts.)
-- The two picks (verified by running code; file order of web/data/fit_queue.json): A (recorded
-  bar scale) = [38] oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 (bar
-  "0 100 200 300 Feet", mpx 0.1646, rot 0, uncovered=0, page-showable auto dep six-inch-1st.webp
-  1842, no pre-existing drawing dep, England/Environment Agency LiDAR). B (site-size-only
-  fallback) = [45] devil-s-dyke-q3307343 / earthworkenglan01allcgoog_n0662_1 (scale_source
-  'picture_size', coarse, mpx 0.7201, rot 0, uncovered=0, six-inch-1st.webp, England/EA).
-  uncovered=0 for both means the one-site line runs sync+entry+review only (no batch run, no
-  model, offline-safe). Both sites' web/data/sites dirs are symlinks (copytree materialises
-  them into the private tree).
-- Scanning pitfall (my throwaway /tmp/aw307d/scan_picks.py, not repo code): its line_eligible
-  returns a failure STRING (the repo test's _line_eligible returns None); a `if li is None:
-  continue` filter silently passed every entry, so the first "eligible" list I read was wrong
-  (it included all commons-row EU sites). Re-ran with `isinstance(li, list)` - the real
-  eligible set is the 24 entries listed in the hand-over. The scan also crashed at [163]
-  maeshowe on row.ia being None (a commons best-row) - the Scottish picture_size sites'
-  eligibility was not fully verified; oswestry + devil-s-dyke need no more facts.
-- Plan (details in the task hand-over): one module-scoped fixture (307bb's line_served recipe:
-  full private tree, both book pages materialised, sockets dead, ephemeral port); two test
-  functions, one per site, each running the owner's flow in headless Chrome (card -> place on
-  the works -> drag -> wheel-scale -> save -> verify the line's four effects: overlay in
-  depictions.json, sites.json square recoloured, item resolved, card moved on -> page.reload()
-  -> the fit loads back unchanged); before/after hash of the checkout write surface proves the
-  shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
-  green; fit_queue.json and the review exports are never written by the page or the line in the
-  checkout). Then the docs/site_flow.md verification section.
-
-... (5.5 KB more: `grep -n -A 200 -F '## 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today' DECISIONS.md`)
-
 ### 2026-10-13 307d DECISION: fourth session - re-verified every page/line mechanism against the current code; three new facts change the probe (card needs #back to home, FQ.done value is the wrapper's own clock, B's line calls matchfit.reachable and it must stay silent under the guard); test file still unwritten
 - Re-ran /tmp/aw307d/scan_picks.py (script still on disk): picks unchanged from 242 (A = [38] oswestry bar / B = [45] devil-s-dyke picture_size, both LiDAR relief); the queue file did not move (`at` 2026-10-13T14:34:09.559141+00:00, 241 entries) and the 25-eligible/15-showable sets are byte-identical to 242's list. So the test's derived picker (recomputed at run time from the checkout, never pin ids) will land on the same two sites unless a merge moves the population first.
 - Re-read the entire 307bb template (tests/test_fit_queue.py, 1764 lines) and re-verified the mechanisms my probe drives, this time against the code as it is on this branch after the 307c merge:
@@ -122,6 +73,11 @@ First session on 307d; investigation only, nothing written, no tests run.
 - Nothing failed this session (no code was run that could fail); no blockers. Next session: write tests/test_owner_check.py from the hand-over spec (which now encodes facts 1-5), run it, then the docs section; the only suite red must remain 235's.
 
 ### 2026-10-13 307d DECISION: fifth session - every mechanism re-verified against the current code by reading whole (the 307bb template, fitqueue.js, fitkit.js, site_done.py, review.py, matchfit.reachable, plan_fit.build/source_line/similarity, serve.py PUT/_fit_line, build_site score/overlays, aw.to_merc, index.html select/start/saveFit/simFit/TIERS); two corrections to the 243 hand-over: (a) the pre-run tier is t1, not t2 - score 1.1 < 1.2, so after the save the square's tier CHANGES t1 -> t2 (score 1.1 -> ~1.45 recomputed: 1908 overlay (year_now-1908)/100 ~1.18 + 0.25*1.10 the 1842 sheet) - that tier change IS the parent box's "site square coloured", but the probe must assert className === 'marker ' + tierOf(fresh score) with the page's own tierOf, never a hardcoded tier (year_now moves); (b) a boot WITH a hash never runs renderList (start(): S.byId[id] ? select(id) : renderList()), so after page.reload() on '#<site>' FQ.loaded stays FALSE and FQ.entries stays [] until the first #back -> renderList fires fqLoad async - the reload boot poll must be only S.ready && S.sites.length, and card3 must poll for the card to appear. FQ.done is fine after reload (init from localStorage at script load). Picks re-scanned, unchanged: A=[38] oswestry-castle-q20713795 bar / B=[45] devil-s-dyke-q3307343 picture_size, both LiDAR relief, both sites.json {drawings:0, score:1.1, oldest:1842, overlays:1}, queue 241 at 2026-10-13T14:34:09.559141+00:00; next pendings [39] Neckarburken-West and [46] Richard's Castle. Also re-confirmed: saveFit's success path (page poll 60x1.5s on fit.at; S.dep/depSel/lsSet; copies drawings/score/oldest/overlays into S.byId; marker class; removeSource + endFit wrapper applyDep + own applyDep), select() sets ground/plateMode/depMode 'imagery'/'ink'/'ink' unconditionally (no lsSet for ground), the fitkit endFit wrapper re-applies applyDep on close (save included), site_done's log line is two-space-indented "one-site line for <site>: finished (exit N)", review.export's write-once record only rewrites an item that is not yet resolved (B's run must not touch A's item bytes), and plan_fit.build's m_per_px = |a|*k/fs/f with f = min(1, MAX_PX/max crop px) (MAX_PX=2400, regex-read from the tree). NO files changed, NO tests run; tests/test_owner_check.py is fully speced in the hand-over and is the next step.
+
+### 2026-10-13 307d DECISION: sixth session - the test file already exists (written as 244's uncommitted work, never run); five concrete defects characterized with measured values; next session fixes them and runs the browser test
+- **Discovery:** tests/test_owner_check.py (889 lines) has existed since commit e80e412 ("[driver] uncommitted work after iteration 244") - session 244 wrote it after its hand-over said "investigation only", and sessions 244/245 never ran it. It is otherwise a faithful port of the 307bb part-4 template extended to the 307d flow (card -> place -> drag -> wheel -> shift+wheel -> save -> the line's four effects -> #back -> card2 -> reload -> reload checks -> #back -> card3; python side: doc / simFit-vs-anchor / overlay / sites.json / item / review.json / server log / revert-proof / screenshots). The picker (verified by running it this session) derives the same picks, unchanged: A [38] oswestry-castle-q20713795 / n0119_1 (bar) and B [45] devil-s-dyke-q3307343 / n0662_1 (picture_size), both li == [], both LiDAR relief, queue 241 at 2026-10-13T14:34:09.559141+00:00.
+- **Defects the file carries (all will fail; fixes are small, with exact locations/values in the task hand-over):** (1) the probe's addInitScript runs on EVERY navigation (playwright semantics), so page.reload() re-seeds aw.fitQueue.done to the seed map, wiping _fqSaveFit's write -> the reload's doneOk check fails; fix: seed only when the key is absent. (2) the card2/card3 checks test `card2.expect ?? ''` - cardPoll never returns expect -> `''` -> `text.includes('')` always true -> the check always fails; fix: return pickName from cardPoll, assert card2.name !== pickName (plus the existing next-pending checks). (3) test B reads `picks["A"]["itemBytes"]`, never assigned -> AttributeError; fix: _run_one stores the item bytes after A's checks. (4) the log asserts mispredict site_done's own prints: EVERY no-model run prints `fit  no model given: ... as "no model answer"` (current `not any("no model answer"...)` fails for BOTH runs) and B's `_summary` prints 2-space-indented `  {title} ({pid}): sent to the review queue ({why}); the item is resolved by {doc}` for its two unfitted candidates (current `not any("sent to the review queue"...)` fails for B); verified all candidates of both items carry a why, so the bare "no model answer" reason never appears. Correct asserts: exactly two 'fit  '-lines (no lstrip - summary lines are 2-space-indented): the no-model line + the no-batch line `fit  {n_rows} candidate picture(s): {n_doc} fitted (doc), {n_rows-n_doc} in the review item -> no batch run needed` (A: 1/1/0, B: 3/1/2 - computed from the tree's plans.json rows and post-run docs); `  one-site line for {site}: finished (exit 0)` exactly once, no other one-site line; no 'matcher'; no 'attempted a network connection'; no 'sync '-line containing refused/FAILED/sent (all candidates resolved or hand-synced). (5) the seed checks use 1e-9, but the queue stores propose pairs at 7dp lon/lat (1dp u/v) and scale_m_px at 4dp, and least squares over the five ROUNDED pairs does not recover them exactly - measured this session: oswestry dlon 0 / dlat 5.13e-08, |mpx 0.16458416 - 0.1646| 1.58e-05, rot 0.0; devil-s-dyke dlon 4.23e-07 / dlat 2.27e-07, |mpx 0.7199329 - 0.7201| 1.67e-04, rot 1.13e-09 (exceeds 1e-9 alone); fix tolerances to 1e-6 deg centre, 1e-3 mpx absolute, 1e-6 deg rot (the propose's stored rounding); the gesture checks (page fit vs anchor, 1e-3/0.01 deg) stay - they compare the page's own numbers and the anchor is re-absorbed from the same rounded pairs.
+... (2.1 KB more: `grep -n -A 200 -F '## 2026-10-13 307d DECISION: sixth session - the test file already exists (written as 244's uncommitted work, never run); five concrete defects characterized with measured values; next session fixes them and runs the browser test' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
