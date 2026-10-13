@@ -3523,6 +3523,27 @@ an in-item row -> item resolved write-once and off the open list, as for aesica;
 on a not-in-item row or no item -> item stays open if it exists; sent case -> item
 keeps the line-check why on that row's plan).
 
+## 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
+
+## 2026-10-13 212 DECISION: iter-252 closing investigation - the world moved after the last sync and report (lead 77405cf); one step remains: final sync + report + tests + tick, no subtasks
+212 returned with all subtasks done; box-verification session. FINDINGS (all measured on this tree, main merged in): (1) ONE lead commit `77405cf` (14:34 UTC; "port: 13 matcher re-fits on 11 sites after the 212b sync (eye-checked); review items for the 103 uncovered sites in 212c's report; test_batch_us...") is the entire delta since 212c's report (13:22): 13 NEW by:agent docs (all fitter:"matcher", 8 pairs, model similarity, src commons; sites bolsover-castle/bury-castle/cahokia/coria/daw-s-castle/framlingham/goodrich/gouda/ludlow/old-sarum x2/portus-adurni x2 - names via `git show 77405cf --name-only -- data/db/platefits`), 103 NEW item files (377 -> 480: the 103 uncovered sites of 212c's report, mostly Civitates/Merian/Limes), web/data/review.json re-exported at 14:34:07, web/data/sites.json hand-edited (score 0.91/oldest 1850/overlays 1, drawings still 0), fit_queue.json, tests/test_batch_us.py; ZERO depictions.json touched (the port came from the lead's Mac without the overlay webps). (2) Store and checkout agree on all 557 tracked data files (0 differing); tree clean; .venv ok (numpy 2.5.4, scipy 1.18.1). (3) Exact dep audit (entry name == "plan_" + doc["plan"] + ".webp", matching is_done's fit.doc): EXACTLY those 13 docs lack a current entry; the other 57 all have one; 0 stale entries. PITFALLS: a substring search on the source file name false-flags book docs (entries are plan_<ia>_nXXXX_Y.webp / plan_c_<sha16>.webp). (4) 10 of the 13 have no data/raw/commons/big/<plan>.jpg cache -> plan_fit.load_picture will download them from Commons during the sync (paced; 212b's live sync did the same fine). DECISION: no subtasks; the closing step is `.venv/bin/python fit/cover.py sync` (fit/cover.py:615 - the phase this task alone runs: per-doc site_done._sync_doc -> plan_fit.prune -> review.export) on this checkout, then `.venv/bin/python fit/cover.py report` (fresh docs/batch.md; the lead's own 212c note says re-run when the store moved), then tests (tests/test_cover.py all 6; the 000 golden hand-fit test - `grep -rn hand_fit_docs.sha256 tests/` - must show the 21 hand fits' overlays byte-identical; tests/test_serve.py; full suite - baseline 155 passed / 1 red was 307bb's pre-existing gesture test, since fixed by 307d, expect all green), then MEASURE the box-6 invariant on the served files (every site in web/data/sites.json: drawings >= 1 or an open review item via review.resolved_doc) - expected to hold now (103 items added + re-fit drawings). Tick all six boxes on that evidence and set done: box 6's written port-0 test stays waived per the lead's 212b say-so (design preserved in git show 45675c9/1cd9671:tasks/212b-cover-sync.md; the driver accepted the identical live-evidence tick for 212b) - do NOT re-open it as 212d. If the line check sends any of the 13 to review (spread/fabrication) or stragglers remain after the 103 items: log it, leave the box unticked, add a 212d subtask - do not force.
+
 
 <!-- task 212a -->
 # Task 212a cover-search
