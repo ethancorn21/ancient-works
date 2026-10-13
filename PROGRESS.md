@@ -13,7 +13,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 241, agent a - SECOND session; investigation only again: re-ran the pick
+- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 242, agent a - THIRD session; investigation completed: picks re-verified
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
@@ -108,6 +108,8 @@ First session on 307d; investigation only, nothing written, no tests run.
   shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
   green; fit_queue.json and the review exports are never written by the page or the line in the
   checkout). Then the docs/site_flow.md verification section.
+
+... (5.5 KB more: `grep -n -A 200 -F '## 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
