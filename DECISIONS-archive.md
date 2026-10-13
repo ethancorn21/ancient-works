@@ -3374,6 +3374,48 @@ resolve nothing). The committed merge = 11 platefits docs + plans.json (byte-equ
 committed 114) and left for the driver's sweep - it is a live-store-derived artifact, not a
 merge resolution.
 
+## 2026-10-13 212 DECISION: 5 red tests on the merged tree, none mine - filed fix-tasks 231-234
+Full suite on the merged tree: 5 failed, 145 passed, 1 skipped (237 s). Verified with throwaway
+worktrees (/tmp/awmain at main 20277f3; /tmp/awhead at pre-merge 953d9ab - remove with
+`git worktree remove --force`):
+- test_fit_provenance.py::test_commons_yeared_title_drops_the_repeated_year: FileNotFoundError on
+  the bethlehem doc c_a164ee440558d66c, deleted by the 306a audit (a858f48 / main 20277f3); the
+  pin was never re-pointed (306a's Touches listed the file). Red on BOTH branches since the
+  deletion (pre-existing on my branch, not caused by the merge).
+- test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc and
+  test_site_done.py::test_site_done_line: both fail the shared stonehenge 13-candidate/13-row
+  pin. The 14th plans row is c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley,
+  1722 (Itinerarium Curiosum)" (Wikimedia Commons, File:Stonehenge Dessin Stukeley 1722
+  03547.jpg, [1280,673]) - new in main's 1474 (211 pictures), missing from the 13-candidate item
+  file. Red on main since f970500; green on my pre-merge branch (1168 had 13). (The /tmp/awhead
+  site_done failure was a worktree artifact: web/data/sites is live/untracked data absent from a
+  bare worktree.)
+- test_merge.py::test_plan_list_refresh_is_pure_growth: "no Wikimedia Commons plan row for the
+  merged picture of numancia". At 9590abf/ef84a05 the row was c_0fa271e2444f7bfc with book
+  'Wikimedia Commons'; the lead's f970500 re-export dropped it - the files.jsonl row now carries
+  url=archive.org (memoriasdelareal009real), i.e. book-sourced, and that book has no
+  data/books/index.jsonl row and no local copy in data/raw (verified), so export_plans excludes
+  it. Red on main since f970500; green pre-merge.
+- test_fit_queue.py::test_fit_queue_real: ordering invariant. The test expects (view, -draw_px,
+  name); the generator sorts by the documented (view, -px, plan, name) (tools/fit_queue.py:365).
+  Main's new rows made the breaking pair: Lessines (c_0193a1cf01ab0b87) vs Avesnes-sur-Helpe
+  (c_61fbbcd3d6051cd9), both view False, both [1280,1842] px; plan order != name order. Neither
+  row exists in my pre-merge 1168 (green then); the pair fires only where the live site dirs
+  exist (my checkout: 503 site entries; the main git tree has none for the 11 new sites, so the
+  main worktree passed). Environment-dependent.
+None of the five files is in my 212 Touches, so instead of editing them I filed four fix-tasks
+(lowest free numbers in 200-499): 231 (the bethlehem year-pin re-point; depends on 306c-f so the
+replacement pin survives the ongoing orphan audits), 232 (the stonehenge snapshot re-pin in both
+tests; depends on 212 - my live loop upserts the 14th candidate into the item and may place a
+matcher doc - and on 231, same file), 233 (numancia plan row: make the data whole - book index
+row + local copy + re-export - or re-pin to the documented absence; depends on 212 to avoid
+concurrent plans.json writes), 234 (fit-queue invariant aligned to the documented generator key
++ regenerate/commit the 229-entry queue file; depends on 212 + 306c-f churn). 231 is written
+(needs its second-pin paragraph corrected - see the 212 hand-over); 232-234 are specced in the
+212 hand-over and still to be written. My 212 Depends on line stays 203a/203b/211 (I can verify
+my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
+claim anyway, add 231-234 to the line).
+
 
 <!-- task 213 -->
 # Task 213 artist-views
