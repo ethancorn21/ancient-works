@@ -51,10 +51,81 @@ placement is good enough to keep.
 - ludlow-castle-q576369.c_b24730fd9038ae4a - Ludlow Castle, plan from Mackenzie, The Castles of England (1897)
 
 ## Hand-over
-(2026-10-13, iteration 175, agent c - **task done.** Batch 4's 8 removals (the last UK orphan
-docs, all judged WRONG) were executed at 174 and committed by the driver as 6da5393; this
-session ran the final suite, ticked boxes 2-4 and closed the task. Nothing left to do; no
-Re-read items.)
+(2026-10-13, iteration 176, agent c - **the 175 done-claim was REJECTED by the driver (8200a33):
+5 named "new" failures; this session proved all 5 fail on main itself (A/B, two independent
+methods) - none is caused by 306d. Work has been COMPLETE and committed since 6da5393; the
+task is waiting on the human (request 005, filing is the next step) - do not re-file a
+done-claim while 005 is open, exactly as 306c does while 004 is open. No Re-read items.)
+
+**What the driver rejected.** 8200a33 names 5 tests "failing that were not failing before
+this task": test_fit_provenance::{test_commons_yeared_title_drops_the_repeated_year,
+test_line_refuses_unmarked_non_auto_doc}, test_merge::{test_new_site_golden_samples,
+test_new_sites_are_complete}, test_site_done::test_site_done_line. It does NOT name
+test_fit_queue::test_placement_gestures_and_save_in_the_browser (it attributes that one to
+306c: .agent/reports/new-failures-306c.txt; the same file .agent/reports/new-failures-306d.txt
+holds my 5). My 175 entry's premise ("no A/B was needed") was wrong: the driver's baseline
+is not my 169-verified 7-red baseline.
+
+**The A/B (this session, both methods conclusive; details in the DECISIONS 176 entry).**
+(1) In-checkout (the PITFALLS idiom): 306d's 14 deleted docs restored from baseline 6374286
+(pre-159), the 14 item files (9 new deleted, 5 appended restored to 6374286), the 36 shots
+and tools/audit_306d.mjs removed; site_flow.md + web/data/review.json deliberately left as-is
+(the main side changed them after 6374286 - mostly deletions - and NO driver-named test
+reads either file). Ran the 6 tests (my 5 + fit_queue): ALL 6 FAIL, byte-identical
+signatures to the with-my-changes run (logs /tmp/aw306d_ab_{pristine,mine}.log). Restored;
+git status clean (0 delta) at the limit. (2) Pure main (735ec66 = the tip my branch merged
+via 6eb4f99, contains NONE of agent/c's 306a/c/d work beyond main's own): copied the main
+checkout to /tmp/aw306d_main (4.8G; main's .venv; .git/.venv excluded - none of the 5 needs
+git), ran the 5: ALL 5 FAIL with the same messages (log /tmp/aw306d_ab_main.log). They are
+main's own reds, independent of anything agent/c ever did:
+- fit_provenance x2: FileNotFoundError data/db/platefits/bethlehem-q2523914.
+c_a164ee440558d66c.json - the doc 306a deleted ON MAIN (absent in the main checkout too).
+  306a's merge commit 4ca9e2c re-pointed 5 audit-broken provenance tests to surviving docs
+  but these two still pin bethlehem (test_line_refuses via SEED_PLAN/_golden_doc/_build_tree_b;
+  grep the main log for test_commons_yeared's exact failing line next session - only ONE
+  FileNotFoundError appears in each log, so confirm each test's own failure mode).
+- merge x2: aardenburg-q955 "no web/data/sites directory" and the-hague-q36600 "missing
+  relief.jpg" - 211's new-site builds are per-checkout LOCAL artifacts (web/data/sites is
+  gitignored except 58 files); the four sample site dirs (aardenburg, the-hague, ostend,
+  cambrai) exist in NO checkout, main included -> these two tests cannot pass on main as-is.
+- site_done: plans.json lists 14 stonehenge-q39671 rows vs the expected 13 - aeeb5aa
+  (233+234, lead) re-exported plans.json on main; identical 14 on main and on my branch.
+
+**Fresh-eyes spot-check of the final state (all clean, matches 175's record):** 14 docs
+absent / 4 kept present with by:agent (chevening, cooling, coria, daw-s); each deleted doc's
+plan appears exactly once in an item with a '306d audit ...' place_reason; page file in sync
+(342 open of 355 per fit/review.py resolved_doc - 13 resolved excluded; an earlier quick
+heuristic said 341, that was the heuristic, not the file); 18/18 site_flow lines present
+exactly once each in the 306d block.
+
+**NEXT STEP (in order).** (1) Create tasks/806-*.md: "Fix the two fit_provenance tests that
+still pin the bethlehem doc 306a deleted on main" - lowest free number in 800-1099 (800-805
+taken), Status: open, `Depends on: none` (all owners 303/219/306a are done), Touches:
+tests/test_fit_provenance.py (plus tests/golden/ only if the re-point needs a golden change;
+keep one module per task), goal: re-point them the 306a way (4ca9e2c) to surviving docs so
+main's suite loses these 2 reds; before writing, confirm each test's exact failing line in
+/tmp/aw306d_ab_main.log. (2) File ask_human request 005 (blocking=true, NOT human_only,
+number = next free in .agent/asks/ after 004), self-contained: 306d's 18-doc UK orphan audit
+is complete and committed (batches at 161/166/169/174, final tree 6da5393, 4 KEEPS + 14
+DELETED the 303 way, 36 shots, 18 lines); the driver rejected the 175 done-claim on the 5
+tests above; A/B in DECISIONS 176 shows all 5 fail on main itself (bethlehem x2 = 306a on
+main; merge x2 = 211 per-checkout artifacts no checkout has; site_done = aeeb5aa's plans.json
+re-export) and fail identically with 306d's changes reverted; recommend (a) accept 306d as
+done and add the 5 to the driver's known-failure baseline - same class as open request 004
+(306c) - and let the reds clear on their own (merge/site_done with agent a's 211/212 final
+sync; the fit_provenance pair via new task 806); (b) hold 306d until the 5 go green on main;
+(recommend: a). (3) Keep Status: in-progress while 005 is open (306c's exact pattern: no
+re-filed done-claim while the request is pending; the loop answers with my recommendation
+after 120 min of silence). (4) Commit the task file + DECISIONS + 806. On the human's
+acceptance (or the loop's 120-min answer): set Status: done and commit - the driver's
+re-check will then pass against the re-baselined red set. If instead the 5 simply go green
+on main before any answer: re-file Status: done directly (the A/B stands as the record).
+
+**Cleanup for the next session:** rm -rf /tmp/aw306d_main (4.8G; keep the three small logs
+/tmp/aw306d_ab_{pristine,mine,main}.log until the DECISIONS entry cites them, then they too
+may go); /tmp/aw306d_mine2 holds my saved file copies (safe to delete once confirmed
+restored - it was). /tmp/j306d still holds batch3/4_remove.py + composites (the record of
+the 16 place_reasons).
 
 **Final state (all in commit 6da5393 on this branch):**
 - All 18 docs in the list above audited (box 1: 36 shots in docs/site_flow/agent_fits/, done at
