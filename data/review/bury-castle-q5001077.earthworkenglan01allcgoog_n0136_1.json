@@ -38,6 +38,78 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 100 200 300 Feet'",
    "why": "features: North-eastern tip of the central mound, South-eastern corner of the earthwork, South-western corner of the earthwork; stated scale 0.151 disagrees with its own points (0.593 m/px): not trusted"
+  },
+  {
+   "plan": "c_de779031cda8a0dc",
+   "title": "Bury Castle Somerset Map",
+   "url": "media/commons/bury-castle-q5001077/de779031cda8a0dc.jpg",
+   "pairs": [
+    [
+     100.0,
+     100.0,
+     -3.5238734,
+     51.0375851
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     400.0,
+     400.0,
+     -3.512446,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ],
+    [
+     100.0,
+     400.0,
+     -3.5238734,
+     51.0303988
+    ],
+    [
+     100.0,
+     300.0,
+     -3.5238734,
+     51.0321955
+    ]
+   ],
+   "coarse": false,
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Bury Castle, Somerset",
+    "file_cat": "Bury Castle, Somerset",
+    "via": []
+   },
+   "label": "1911",
+   "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Bury_Castle_Somerset_Map.jpg",
+   "ref": "File:Bury Castle Somerset Map.jpg",
+   "size": [
+    590,
+    475
+   ],
+   "place_reason": "306d audit 2026-10-12: similarity (8 pts, resid 10.9-39 m, 2.63 m/px, +1.1 deg); the 8 anchors are a 100-px grid ladder (three on the left edge, whose 200/100-px lat steps span 0.0054/0.0018 deg - a 1.5:1 ratio no similarity can hit), so the residuals only measure the grid's own inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own 'SCALE OF FEET 0-300' bar (~1.45 m/px). The drawn hachured hillfort (~280-340 m across) maps to (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps; LiDAR bump at the same spot), on a small hachured wood hill. Document deleted."
   }
  ],
  "no_picture_found": null,
