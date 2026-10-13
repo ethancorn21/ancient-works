@@ -403,7 +403,7 @@ check('seed: the five pairs and markers are on the map, the drawing preview is u
   seed.n === 5 && seed.nMarks === 5 && seed.fitPrev, seed);
 check('seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden',
   seed.gestures.every(v => v === false) && seed.dep === 'none', seed);
-check('seed: the ground is the site\\'s own (LiDAR relief when lidar is not false)',
+check('seed: the ground is the site\'s own (LiDAR relief when lidar is not false)',
   seed.ground === (seed.lidar === false ? 'imagery' : 'relief'), { ground: seed.ground, lidar: seed.lidar });
 check('seed: the panel readout shows the live scale and rotation',
   seed.hint.includes(seed.mpx[0].toFixed(2)) && seed.hint.includes('m per page pixel'), seed);
@@ -506,11 +506,21 @@ const saveOut = await page.evaluate(async () => {
 });
 check('save: the page closed the fit view (the overlay landed, the page endFit)', saveOut);
 
+// ---- the saved doc, read on the NODE side (a page evaluate runs in the browser, which cannot
+//      read the tree's files): the PUT writes it before the line runs, so it exists once the page
+//      saw the overlay; if the page never saw it, doc stays null and the effects fail cleanly
+let doc = null;
+try { doc = JSON.parse(readFileSync(tree + '/data/db/platefits/' + docId + '.json', 'utf8')); } catch {}
+
 // ---- the one-site line's effects, read through the page on the site view (the page sits there
-//      after endFit; the card is only in the home view, so it is checked after the #back click)
-const effects = await page.evaluate(async ({ site, plan, tree, itemFile }) => {
+//      after endFit; the card is only in the home view, so it is checked after the #back click).
+//      The page can fetch the page-facing files (depictions, sites.json, review.json - all under
+//      web/data/); the review ITEM files live in the store's data/review/ and the server does not
+//      serve that tree, so the item's resolution is verified from the tree in Python (check 5):
+//      the export writes it into the item file before it writes review.json, so by the time the
+//      poll sees the site gone from the open list the resolution is on disk.
+const effects = await page.evaluate(async ({ site, plan, docAt, docBy }) => {
   const docId = site + '.' + plan;
-  const doc = JSON.parse(readFileSync(tree + '/data/db/platefits/' + docId + '.json', 'utf8'));
   const t0 = Date.now();
   let ok = false, state = {};
   while (Date.now() - t0 < 120000 && !ok) {
@@ -519,7 +529,6 @@ const effects = await page.evaluate(async ({ site, plan, tree, itemFile }) => {
       const overlay = (deps.depictions || []).find(d => (d.fit || {}).doc === docId) || null;
       const sites = await fetch('data/sites.json?t=' + Date.now()).then(r => r.json());
       const entry = (Array.isArray(sites) ? sites : sites.sites).find(x => x.id === site) || {};
-      const item = await fetch('data/review/' + itemFile + '?t=' + Date.now()).then(r => r.json());
       const review = await fetch('data/review.json?t=' + Date.now()).then(r => r.json());
       const lid = 'dep-' + site;
       const d = (S.dep[site] || []).find(x => x.file === S.depSel[site]);
@@ -527,7 +536,7 @@ const effects = await page.evaluate(async ({ site, plan, tree, itemFile }) => {
       const mk = markers.find(k => k.id === site);
       const doneVal = FQ.done[site];
       state = {
-        docAt: doc.at, docBy: doc.by,
+        docAt, docBy,
         overlayFile: overlay && overlay.file, overlayInk: overlay && overlay.ink,
         overlayAt: overlay && overlay.fit && overlay.fit.at,
         depVis: map.getLayer(lid) ? map.getLayoutProperty(lid, 'visibility') : null,
@@ -535,27 +544,26 @@ const effects = await page.evaluate(async ({ site, plan, tree, itemFile }) => {
         depSel: S.depSel[site], depMode: S.depMode,
         drawings: entry.drawings, score: entry.score, oldest: entry.oldest, overlays: entry.overlays,
         markerClass: mk ? mk.el.className : null, tier: tierOf(entry),
-        resolved: item.resolved || null,
         inOpen: (review.items || []).some(x => x.site === site),
         doneOk: doneVal !== undefined && !Number.isNaN(Date.parse(doneVal))
       };
-      ok = !!overlay && state.overlayAt === doc.at && state.depSel === state.overlayFile &&
+      ok = !!overlay && docAt && state.overlayAt === docAt && state.depSel === state.overlayFile &&
         state.depVis === 'visible' && state.depSrc === state.want && state.markerClass === 'marker ' + state.tier &&
-        state.resolved && state.resolved.doc === docId && state.resolved.at === doc.at &&
         !state.inOpen && state.doneOk;
     } catch {}
     if (!ok) await new Promise(r => setTimeout(r, 1000));
   }
   return { ok, state };
-}, { site, plan, tree, itemFile });
+}, { site, plan, docAt: doc && doc.at, docBy: doc && doc.by });
 check('line effect (a): the overlay landed in the tree and the page shows its ink on the map',
   effects.ok && effects.state.depVis === 'visible' && !!effects.state.overlayInk &&
   effects.state.depSrc === 'data/sites/' + site + '/' + effects.state.overlayInk, effects.state);
-check('line effect (b): the site square recolours to the new score\\'s tier',
+check('line effect (b): the site square recolours to the new score\'s tier',
   effects.ok && effects.state.markerClass === 'marker ' + effects.state.tier, effects.state);
-check('line effect (c): the review item is resolved by the saved doc and the site left the open list',
-  effects.ok && !!effects.state.resolved && !effects.state.inOpen, effects.state);
-check('line effect (d): the card\\'s done map carries a parseable timestamp for the site',
+check('line effect (c): the site left the open review list (the item\'s resolution is checked '
+  + 'from the tree in the python checks - the export writes it before review.json)',
+  effects.ok && !effects.state.inOpen, effects.state);
+check('line effect (d): the card\'s done map carries a parseable timestamp for the site',
   effects.ok && effects.state.doneOk, effects.state);
 await page.screenshot({ path: outdir + '/4-saved.png' });
 
