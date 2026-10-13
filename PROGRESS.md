@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-12, iteration 200, agent a - FIRST session on 212; investigation only, no code written yet. fit/cover.py and tests/test_cover.py do NOT exist
+- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-12, iteration 201, agent a - SYNCED main per the lead: merged origin/main (a858f48, the Bethlehem doc
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -22,7 +22,88 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-12 212 DECISION: fit/cover.py designed - six phases on an injectable root, the live run later
+The task's loop, search and sync become one module, fit/cover.py (new; its tests tests/test_cover.py).
+Design settled after reading site_done.py, matchfit.py, batch_us.run_sites, review.upsert_item/export,
+commons (search/files_of/keep/info/thumbs/classify), fit/evidence.record, plan_fit, export_plans and
+serve.after_write. Phases (each takes root, so a test drives them on a temp tree; a CLI runs them in
+order, `all`, with --root and --working/--model-json like site_done):
+
+1. fetch(root): local copies before export_plans (the lead's second point). Files with a `thumb`
+   missing their local jpg: fetch the 1280 thumb (commons.thumbs' behaviour: .part->rename, 1/s pace,
+   resumable - re-implemented here with a root parameter; commons.thumbs itself is bound to the
+   checkout's module-level RAW/OUT). Files with only a `url` (the ORL/Limes rows, 54): commons.info(
+   [title]) gives the 1280 thumburl (imageinfo iiurlwidth=1280) - fetch that; fall back to the raw
+   url (utm-stripped) when info has no thumb. Then regenerate web/data/plans.json with
+   export_plans.main() (in-process; its ROOT/BOOKS and commons' OUT/RAW are module constants - a
+   temp-tree test monkeypatches them, that is setup, not product behaviour). Measured on the synced
+   tree (main a858f48): 131 classified rows missing a local copy (ALL meet the plans threshold
+   p_photo<0.5 and max(p_plan,p_birdseye)>=0.3, none in plans yet -> plans.json grows 1168 -> ~1299,
+   matching the lead's Mac 1296); 401 thumb rows missing locally; 54 url-only rows (1 has a copy).
+   The 211 rows are ALREADY classified (all 930 classified rows are in files.jsonl) - no classifier
+   needed for them, only copies.
+2. search(root): for every BUILT site with no fit (no doc and drawings 0 - recomputed after phase 1,
+   so sites that just gained candidates drop out of the set) and no plans.json candidate: with a qid -
+   (a) its P373 category via commons.wd_claims, files with commons.files_of(cat, depth=1); (b) P180 -
+   evidence.fetch_page_ids + fetch_file_entities on every title gathered so far, keep the ones whose
+   MediaInfo depicts the qid (the proven path, not a new API); (c) the title search
+   commons.search(name) (its 3 full-text queries). Without a qid: (c) only, and the record says so.
+   Keep with commons.keep (1925 cut-off, no regex); dedupe against files.jsonl titles. Per site the
+   SEARCH RECORD names exactly what ran: the category (name or "none"), the file counts, the qid
+   queried for P180 (or "no qid"), the 3 title queries, the date, and any route that failed (a
+   429/timeout is recorded, not hidden - the record must be true).
+3. stage(root): newly found files -> files.jsonl (harvest row shape + qid + by:"212") + local copy
+   (phase 1's fetcher) + classified.jsonl via an INJECTABLE classifier (default the clef batch,
+   commons.classify's questions) + the 200 evidence field via evidence.record(files, books, live,
+   only=new sites) (live in the working phase; a stub in tests) + export_plans again (growth-only).
+4. loop(root, model=None): the normal loop, and the FIT IS THE MATCHER (see next entry). For every
+   built site that still has no fit, run site_done.main([sid, --root root]) in-process WITHOUT
+   --working: matchfit.run (ELoFTR 8091; RoMa 8092 is down on this VM and skipped automatically)
+   writes a doc (fitter:"matcher") for every picture it is sure of, including ones already in a
+   review item (a confident matcher fit resolves the item); the rest get batch_us.run_sites'
+   upsert ("no model answer" when model=None) into the item; a site with zero candidates gets the
+   batch's no_picture item, which phase 5 re-records with the exact searched string. site_done
+   already syncs each new doc (line check: agent docs get the matcher's spread guard, not the
+   batch-model ladder clause), refreshes drawings, and scopes the review export to the site.
+   --working (the vision model, 301) is NEVER passed by 212: it invented points and must not place.
+... (3.3 KB more: `grep -n -A 200 -F '## 2026-10-12 212 DECISION: fit/cover.py designed - six phases on an injectable root, the live run later' DECISIONS.md`)
+
+### 2026-10-12 212 DECISION: the loop's fit is the matcher, never the vision model (the lead, ef84a05)
+The lead note (commit ef84a05, merged into this branch 2026-10-12) steers the task: the fit in 212's
+loop is the MATCHER via tools/site_done.py, never a vision-model fit. Rationale recorded by the
+lead: the vision-model batch fit invented its points (301) and must not place anything; an unsure
+matcher result goes to the review item, as site_done already does. Evidence on this VM (measured
+this session): ELoFTR on 127.0.0.1:8091 answers /health (matchanything_eloftr on the RTX 5060 Ti)
+so matchfit.reachable() is TRUE here - the matcher pass will actually run in the working phase;
+RoMa on 8092 does not answer (matchfit.run skips its second pass when it is down, by design).
+Consequently 212's loop runs site_done WITHOUT --working and WITHOUT --model-json (model=None):
+the matcher places what it is sure of (>= 10 inliers, rotation within 30 deg, spread guard -
+matchfit.judge); the rest land in the review item as "no model answer" (batch_us.run_sites'
+upsert, the path site_done already uses). This supersedes the iteration-200 hand-over plan that
+had the loop on batch_us.llm_model (the AI-box LLM on 8081 does answer, but it is the 301 fabricator
+and the lead forbids it for placement). The vision model may still be used nowhere in 212: not for
+placement, and not as a classifier substitute without a human decision (see next entry).
+
+### 2026-10-12 212 DECISION: fetch-before-export measured; clef unreachable from this VM, so the classifier is injectable and its use in the working phase is a human decision
+The lead's second point (211 pictures need local copies before export_plans) is measured on the
+synced tree: 131 of the 930 classified rows have no local jpg and ALL of them meet the plans.json
+thresholds (p_photo < 0.5, max(p_plan, p_birdseye) >= 0.3) - none is in plans.json yet, so fetching
+them grows plans.json 1168 -> ~1299 (the lead's Mac run got 1296; the small difference is the
+Mac's own tree state). Additionally 401 files.jsonl rows carry a `thumb` without a local copy
+(commons.thumbs() fetches exactly those) and 54 rows (the ORL/Limes set) carry only a full-file
+`url` - commons.thumbs() skips them (no thumb field), so cover.fetch adds a step for them:
+commons.info([title]) (imageinfo, iiurlwidth=1280) returns the 1280 thumburl to download (the
+original when the file is narrower).
+CleF (pipeline/clef.py -> 127.0.0.1:18083, the tunnel `ssh -N -L 18083:127.0.0.1:8083 aibox`) does
+NOT answer on this VM, and the tunnel cannot be opened here: `aibox` does not resolve and every
+key in ~/.ssh is forced-command (doorbell / labdash-feed / lab-archive; none opens a shell or
+forwards). So newly-found pictures (phase 3 of the design) cannot be clef-classified in this
+checkout as it stands. The 211 rows do not need classification (already in classified.jsonl), so
+the working phase only hits this if the targeted search finds NEW files. cover's classifier is
+injectable for this: if new files are found and clef still does not answer, that is an
+ask_human moment (set up the tunnel, or approve the LLM on 8081 as a one-off classifier) - it is
+NOT decided in advance, because the search may well find nothing new (the batches already
+searched these sites and recorded no_picture).
 
 ## Project-wide driver notes (newest)
 
