@@ -14,13 +14,13 @@ The owner's hand fits (20 of them, tests/golden/hand_fit_*; Maiden Castle's DPLA
 the similarity. An automatic fit must find spots that really match, not invent them.
 
 ## Acceptance criteria
-- [ ] An automatic fit method whose matching points come from the pictures themselves (the drawing's ink against the
+- [x] An automatic fit method whose matching points come from the pictures themselves (the drawing's ink against the
       site's LiDAR relief and/or aerial: edges, ridges, ditch lines - the 2026-10-09 Fudge proof fitted a plate by
       ridge contrast), not from a model's list of coordinates. A vision model may give a starting guess only.
-- [ ] Measured against the hand fits as truth, held out (the method never sees the hand pairs): for each of the 20,
+- [x] Measured against the hand fits as truth, held out (the method never sees the hand pairs): for each of the 20,
       the corner error of the automatic fit against the hand fit, in metres, in a table in docs/site_flow.md. The
       fabrication check passes every automatic fit it produces. Report the numbers as they are, good or bad.
-- [ ] The method decides for itself when it is not sure (a score with a threshold set on the held-out table), and an
+- [x] The method decides for itself when it is not sure (a score with a threshold set on the held-out table), and an
       unsure fit goes to the review queue with the reason, never to the map.
 - [ ] Wired into tools/site_done.py's fit step; a test runs it end to end on one hand-fit site's files (no network).
 - [ ] Run on Stonehenge: whatever it puts on the map, checked in a browser against the real stones (screenshot in
@@ -32,30 +32,103 @@ the similarity. An automatic fit must find spots that really match, not invent t
 
 ## Hand-over
 
-(2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+(2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
+(302a/302b done, 302c/302d dropped) were terminal, so this session re-verified the parent's
+boxes with fresh eyes and ticked 1-3. **Correction to the 207 hand-over:** it claimed
+subtasks 302e/302f/302g were "created", but no such files existed on disk (the driver's
+post-207 commit 745056e touched only this file) - this session WROTE them for real:
+tasks/302e-heldout-runner-21.md, tasks/302f-matcher-station-test.md,
+tasks/302g-stonehenge-matcher-run.md. Status stays split (4 and 5 open). No code or data
+touched this session; the suite was NOT run (bookkeeping step; each subtask diffs against
+the NEWEST driver loop-start note in its own PROGRESS.md - 306d-era baseline: 10 failed /
+130 passed / 1 skipped of 141, 2026-10-12/13).)
 
-**State.** Parent split; subtask files created (302a method module, 302b one-shot held-out measurement, 302c decision + site_done wiring + e2e test, 302d Stonehenge run). Nothing else changed: no code, no data, no docs. Suite was never run this session (investigation was read-only; last known state from 301's commits: green in this checkout, .venv has numpy/scipy/pillow/rasterio/pyproj/pytest but NO scikit-image).
+**Box verdicts (re-verified this session, fresh eyes, on the current tree):**
+- **Box 1 MET (ticked).** Two methods whose matching points come from the pictures themselves:
+  fit/inkfit.py (302a: the plate's ink skeleton vs the site's LiDAR relief, ridge-contrast
+  objective, frozen no-model variant, model injectable - the Fudge proof done properly) and the
+  lead's fit/matchfit.py (pretrained MatchAnything ELoFTR/RoMa correspondences between the plan
+  and the relief / aerial / OS sheets - computed from the images, never a vision-model list of
+  coordinates). The line is matcher-first: site_done._fit:78-84. The lead since added
+  fit/matchfit2.py (two-stage: coarse whole-ground hit, then windows centred on the hit) and
+  fit/matchfit_queue.py (accept-rule sweep over a recorded queue run) plus fit/surveyfit* -
+  LEAD work; none of it is part of a box here, and 302c/302d (the dropped ink decision/wiring/
+  Stonehenge chain) stay dropped.
+- **Box 2 MET (ticked).** docs/site_flow.md line 129, "The one-shot held-out measurement of the
+  ink fit (task 302b, pre-registered before the run)": the frozen protocol, the 21 sorted docs,
+  "The method never sees the hand fits", then the 21-row table at lines 226-248 (corner errors
+  231.2-2203.6 m, reported as they are; fabrication column silent on every placed fit; the only
+  non-silent cell is camp-d-attila "not enough wall ink (2 candidate points, need 4)").
+  Checkpoint re-verified this session: data/inkfit/heldout/results.json has 21 entries == the
+  golden's 21 exactly (set-equal, checked by script), 0 errors, 0 re-runs, all model "no-model",
+  one fixed at 2026-10-11T22:47:37.081160+00:00. The matcher's own held-out table is
+  docs/matchfit.md (ELoFTR 7/21 accepted at >=10 inliers, 0 wrong, worst centre 55 m) with its
+  checkpoints under data/matchfit/heldout{,_located,_roma}.
+- **Box 3 MET (ticked).** fit/matchfit.judge(): ELoFTR inliers>=10 & |rot|<=30; RoMa inlier
+  fraction >=0.4 (thresholds set on the held-out + queue tables - the docstring cites
+  docs/matchfit.md sections 7-8); both plus the spread guard (ratio>=0.1, sd>=20 px, the Aesica
+  near-line case); human-readable "not sure: ..." reasons. matchfit.run writes a document ONLY
+  when judge is silent (an unsure candidate is just printed and stays in the queue / review item
+  with a reason - no doc, so nothing can be built); second line of defence: site_done._sync_doc
+  (tools/site_done.py:204-206) applies the spread guard to fitter:"matcher" docs before any
+  build.
+- **Box 4: wiring MET, TEST not met -> 302f.** site_done._fit:78-84 calls matchfit.run first on
+  every undocumented picture (review-item ones too) whenever matchfit.reachable(); _sync handles
+  the docs it writes. But `grep matchfit tests/` is EMPTY: test_site_done.py runs the line on
+  stonehenge (not a hand-fit site) with the matcher unreachable, so the matcher station has never
+  been exercised end to end. 302f's site: badbury-rings-q798831 (one candidate picture - a
+  confident fit empties `uncovered`, so the vision batch never runs and the only network in the
+  test is the stub; all ground images local; the golden's 21 include its doc, deleted in the tmp
+  copy only; its ELoFTR held-out best is six-inch-1st.webp x0.35, 22 inliers, 3.62 deg, 58.6 m
+  corner / 2.9 m centre - verified this session from data/matchfit/heldout/results.json, which
+  also has heldout_located and heldout_roma variants).
+- **Box 5 not met -> 302g.** No post-matcher Stonehenge run is recorded: stonehenge-q39671 =
+  0 drawings, 1 overlay (checked in sites.json this session), 14 candidates in
+  data/review/stonehenge-q39671.earthworkenglan01allcgoog_n0582_1.json (7 "line check:
+  fabricated...", 4 "median residual > 45 m", 2 feature-based, 1 "no model answer"), no matcher
+  doc; the only screenshot (docs/site_flow/stonehenge.png, 2026-10-11) predates the matcher. The
+  lead dropped 302d because the INK method was dead; box 5 is method-agnostic and was never
+  commented on - 302g runs the current matcher-first line (the a-priori expectation from the
+  queue run is "places nothing", which the box accepts - it must be said plainly, with a
+  screenshot of whatever is on the map).
+- **Notes hold.** All 40 lines of tests/golden/hand_fit_docs.sha256 verify in this checkout
+  (sha256sum -c: 40 OK, run this session). The golden = 21 hand docs + 19 site.json since 303's
+  re-key 1f562ca; the held-out truth set is "the golden's platefit docs"; the 20-of-the-parent-
+  world is superseded.
 
-**The lead's note (2026-10-11, must honour).** The 21st hand fit is on main (origin/main 984b1b4, from vm/main): data/db/platefits/maiden-castle-q1232816.c_c20ff6b1f16d173d.json with NO auto flag - 3 hand pairs [[551.9,461.3,-2.4691357,50.6948631],[310.1,422.5,-2.4746373,50.695179],[738,516.1,-2.4649471,50.6941682]], crop [165,256,895,663], size [1280,889], book "Wikimedia Commons", src commons. Use it as truth like the 20; never delete or re-fit it. NOTE: MY CHECKOUT still carries the OLD version of that file (auto:true, score 19.4, 6 regular pairs, crop full-page) because my branch predates the merge; the driver syncs main into my branch next session - after the sync, do not touch that file (it will no longer be in tests/golden/hand_fit_docs.sha256, which stays at the original 20 docs + 19 site.json - the golden must not be edited per the task's Notes). The held-out table therefore has 21 rows over 19 sites (old-sarum x2, maiden-castle x2).
+**LIVE DEFECT (302e, re-confirmed by running this session):**
+`.venv/bin/python fit/inkfit_heldout.py table` -> SystemExit "expected the 20 golden hand-fit
+documents, found 21" (golden_docs() still asserts 20). `run` and `selfcheck` call the same
+function, so all three commands die. RESOLUTION of the 207 Re-read item: fit/matchfit_heldout.py
+does NOT call golden_docs() - it uses ih.GOLDEN (reads the golden file itself), ih.MAIDEN,
+ih.hand_similarity, ih.corner_metrics and ih.precheck; its own doc_ids() and its table/load
+read its own data/matchfit/ checkpoints. So the assert breaks only inkfit_heldout's own
+commands; the fix scope is exactly fit/inkfit_heldout.py's golden_docs/doc_ids/precheck
+(302e's boxes). The one-shot is SPENT: compatibility fix only, never re-measure, never edit the
+docs table. (The 207 hand-over's "fit/matchfit_heldout will hit the same wall" was wrong -
+noted here so the 302e session does not "fix" matchfit_heldout's doc_ids.)
 
-**Verified by running this session (facts you can trust):**
-- All 19 hand-fit sites have 0.5-1 m bare-earth DEMs reachable FROM THIS VM: `dem_sources.source_for_bbox(aw.site_bbox(lon,lat,w,h), probe=True)` returned a finite-data source for every site: 13 England sites -> `ea` (Environment Agency composite DTM 1 m WCS); serpent-mound, cahokia, aztalan, mound-bottom -> `usgs` (3DEP); bergues, camp-d-attila (both in France/North Sea area) -> `ign` (IGN LiDAR HD MNT 0.5 m). So every held-out site can be fitted against real 1 m-class relief; no site needs the aerial fallback for relief.
-- Plate images in this VM's data/raw: 20 of 21 present. Books docs (9): data/raw/books/<ia>/full/<file>.jpg (earthworkenglan01allcgoog n0597/n0581/n0132/n0360/n0108/n0124/n0142, antiquitiesofwis00saph n0182, ancientmonuments00squi n0210). Commons docs: the big cache data/raw/commons/big/<plan>.jpg exists for 11 (bergues c_4bbca705be732b1c, berkhamsted c_1699141d593ead5a, cadbury c_1fab2a0abe5b99d7, cahokia c_aff1b996dce7fe3a, camp-d-attila c_6a912845c1e1aa28, castle-rising c_70f937b71ae63d6a, little-solsbury c_7ff7261c6b3574b6, mayburgh c_984782b9e35e8ded, mound-bottom c_0b98157d7af17d6e, old-sarum c_6a912845c1e1aa28... wait no: old-sarum commons doc is c_6a912845c1e1aa28? no - old-sarum's commons doc is c_6a912845c1e1aa28 ONLY IF that is its plan id; it is camp-d-attila's. Re-verify per doc: use the doc's own "plan" field with data/raw/commons/big/<plan>.jpg); the NEW maiden-castle c_c20ff6b1f16d173d has only the 1280 px thumbnail (data/raw/commons/maiden-castle-q1232816/c20ff6b1f16d173d.jpg) - plan_fit.load_picture fetches the big one on demand (network OK in the working phase, paced _fetch).
-- The AI-box vision model is NOT reachable from this VM: 127.0.0.1:18080 and 18083 refuse connections (the 10-10 Qwen box/piece calls were made on the Mac through its SSH tunnel). The env here has LLM_URL=http://127.0.0.1:8081 (the harness's own model - do NOT point pipeline/llm.py at it). Consequence: the method's model-dependent steps (page-triage blank boxes, per-piece wall/water labels) must have a deterministic no-model fallback, and the held-out run in this VM uses the no-model variant; make the model step injectable so a recorded-answers file can stand in (batch pattern) and so a future Mac run could use the live model.
-- scikit-image is NOT in requirements.in/.txt, but pipeline/autowalls.py (the frozen extractor of docs/autofit.md section 3) needs it for Frangi + skeletonize. 302a must add it to requirements.in, regenerate requirements.txt with pip-compile --generate-hashes from a throwaway venv OUTSIDE the project, and commit both (001's archive note says exactly this was anticipated). DONE in 302a session 2 (2026-10-11): scikit-image==0.26.0 (+imageio 2.38.1, lazy-loader 0.6, networkx 3.7) pinned, all other pins unchanged, .venv rebuilt, suite green except one PRE-EXISTING failure (see Environment). The .npy extension is gitignored globally; data/autofit/*.npz too - so committed relief/templates must be .npz under a path of my own (data/inkfit/), and data/sites/<id>/dem.npy stays a local working-phase cache.
+**Environment (verified this session):** .venv current (numpy 2.5.4, scikit-image; ALWAYS
+.venv/bin/python). ELoFTR REACHABLE: 127.0.0.1:8091/health ->
+{model: zju-community/matchanything_eloftr, device: RTX 5060 Ti}. RoMa :8092 REFUSED (302g's
+live run degrades to ELoFTR only; 302f pins ROMA_URL to a dead ephemeral port so the test is
+deterministic either way). Suite NOT run this session (bookkeeping step) - last known baseline
+(306d note, 2026-10-12/13, main): 10 failed / 130 passed / 1 skipped of 141 (test_fit_queue
+placement dep:null + agent a's in-flight 307 work).
 
-**Key sources already read (re-read the named ones with fresh eyes):**
-- docs/autofit.md - the 2026-10-10 pre-registered auto-fit test: FAIL 0/5 sites, 0/40 seeds. Findings that shape 302: (1) the FFT coarse search + pattern-search refine works; the RELIEF SCORE HAS FALSE PEAKS over wide windows; (2) random-placement nulls are useless (21/40 wrong fits beat null p99) - a SEARCH-MATCHED null (same search on a scrambled template or shifted DEM) is the accepted fix; (3) template junk (rivers) is the binding problem - a per-piece keep/drop step is REQUIRED, oracle junk removal made fudge/hopeton pass 16/16 from tight seeds; Qwen piece labels fixed fudge only. The 5 test sites (fudge/hopeton/newark/forthill/highbank) are US 1848-plate sites and are NOT among the 19 hand-fit sites - the held-out set is a fresh set, so these results are leads, not predictions. Frozen extractor config and fitter parameters are in that file's section 3 - reuse, don't re-tune.
-- docs/gate.md - the frozen gate (section 2 rule, pipeline/fit_gate.py): my method's emitted pairs must pass it; its documented limit (consistent global errors pass) is why the search-matched null and the threshold matter. The held-out set of the GATE (seed 20260108, 8 docs) is SPENT - do not use it to tune anything.
-- The "2026-10-09 Fudge proof" of the task = commit 16c6b9a: fit_plate.py fitted the Fudge plate (hand-traced walls, narrow window, ridge contrast = template point minus the higher of its two sides at side_m, LRM clipped, modern/water masked) - the proof that plate ink against LiDAR relief carries a real signal.
-- pipeline/fit_plate.py (scorer/search conventions: ground(uv)=M@[u-u0,-(v-v0)]+t, LRM knobs lrm_radius_m/clip_m/side_m, coarse-to-fine grid search, null check), pipeline/autofit.py (Site class, Coarse FFT, refine, corner_rms, evaluate - reuse the machinery read-only; its SITES/seeds are the 10-10 test's), pipeline/plan_fit.py (similarity(): merc=a*(u-iv)+b, k=cos(lat0); fabrication_pattern() clauses - WARNING: clause (b) "1D ladder" fires on >=3 anchors sharing one coordinate (spread <=2 px) with near-arithmetic spacing on the other, so my emitted ink pairs must NEVER be evenly stepped along one straight wall: use irregular steps or junction/feature points, otherwise the line's pre-sync check kills my own docs), pipeline/autowalls.py (frozen extractor), fit/propose.py (the SEED: scale from bar/ratio text/picture_size, rotation from north arrow else north-up, centre from the site catalog - stdlib-only, deterministic; commons rows are coarse), tools/site_done.py (the line: _fit currently calls batch_us.run_sites - that is the station to replace; _sync's fabrication check stays as the second line of defence), fit/review.py + data/review/README.md (item format: candidates with pairs/why/coarse; upsert_item is the writer), tools/shot.mjs + node v22 (the 301 screenshot pattern works in this VM).
+**Next (driver order, all three subtask files now exist on disk):** 302e (small compatibility
+fix) -> 302f (no-network e2e test of the matcher station) -> 302g (Stonehenge live run +
+browser check + plain statement). Team-mode caution for 302g: agent a's 307d also writes
+docs/site_flow.md (its changes revert per its task, but the section must be APPEND-only and
+touch no other section); web/data/review.json is a generated whole-queue publish shared with
+agent a's 212 work - regenerate via fit/review.py export on any merge conflict, never hand-
+merge.
 
-**The method (302a, evidence-based):** plate ink (autowalls frozen config on the page's ink map, blank boxes from triage when available, no-model fallback: keep all pieces that pass the geometry filters) -> per-piece keep/drop (Qwen when reachable, else none - labelled as a variant in the held-out table) -> seed from fit/propose.py's anchor (scale/rot/centre; the model is a lead only) -> autofit-style coarse FFT search around the seed (frozen window) + pattern-search refine, fit_plate's ridge-contrast objective -> decision: search-matched null margin + frozen fit_gate on the emitted pairs + fabrication_pattern must be silent; a confidence score with a threshold SET ON THE HELD-OUT TABLE (box 3) decides sync vs review-queue-with-reason. Output doc: pairs = N ink points (plate px in the doc's size frame -> lon/lat), auto:true, a new "fitter":"ink" field so plan_fit.build's source line can say the truth (build's "how" string is keyed on auto:true alone today and would say "by the batch" - 302c fixes the wording; pipeline/plan_fit.py is in my Touches). Corner-error metric (box 2): both the hand fit and the auto fit are similarities in the same plate-px frame; error = RMS over the 4 full-image corners mapped to ground metres (k-scaled Mercator), exactly autofit.Site.corner_rms's convention.
-
-**Pre-registration discipline (302b):** BEFORE the one-shot run, commit a section in docs/site_flow.md with: the frozen config (extractor params, no-model fallback rule, search window, objective, null recipe: same search on (a) template with piece identities shuffled and (b) the DEM box shifted by ~half its width, whichever scores higher, 1000 or fewer draws as time allows), the 21 sorted doc ids, the corner-error metric, and the statement that the method never reads the hand pairs (the comparison happens in the evaluator only). Then run ONCE (the runner must checkpoint per site like autofit.run does - a cut session continues), then paste the verbatim table (report as it is, good or bad), then set the confidence threshold on that table (box 3 explicitly authorises this: "a threshold set on the held-out table").
-
-**Environment:** .venv here has scikit-image 0.26.0 (pinned by 302a, 2026-10-11) alongside numpy/scipy/pillow/rasterio/pyproj/pytest; the driver builds the venv from requirements.txt --require-hashes before test runs. Node v22 is installed (shot.mjs screenshots work here, 301 proved it). Network: Commons/Wikimedia, USGS S3, EA/AHN/IGN WCS, Google/IA book scans all reachable in the working phase; tests must stay hermetic (no fixed ports, no network, writes only to project + temp). KNOWN PRE-EXISTING FAILURE (main, 2026-10-11): tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - gate_heldout requires exactly 20 non-auto docs but the lead's 21st hand fit (cd104ca) + 206's shotwick doc broke the count; owned by tasks/218 (agent a, open), NOT by any 302 subtask; the driver's last-failing-tests.txt records it, so other tasks' done claims are unaffected (302a's run: 59 passed / that 1 failed).
-
-**Exact next step (302a):** steps (1) and (2) are DONE (2026-10-11, session 2 - see the 302a hand-over): the synced maiden-castle doc is the no-auto version, the goldens are byte-identical to main, scikit-image is pinned and the venv/suite are proven. REMAINING: (3) write fit/inkfit.py per the design above (one job per function; import aw/autowalls/fit_plate/plan_fit/fit_gate/propose read-only; model step injectable with a deterministic no-model default; relief cache data/sites/<id>/dem.npy built via dem_sources.fetch, committed test relief as data/inkfit/relief/<site>.npz later in 302c); (4) smoke-run it on 1-2 non-held-out sites (e.g. a US site or stonehenge) in the working phase and eyeball the overlay via tools/composite.py - this is development data, NOT the held-out set (the 19 hand-fit sites stay untouched by any parameter choice); keep every parameter frozen before 302b's registration commit.
-
-**Re-read:** fit/inkfit.py:template_of - does the no-model fallback keep pieces that would make fabrication_pattern clause (b) fire (evenly spaced collinear points)? pipeline/plan_fit.py:build - the "how" string for fitter:"ink" docs. tools/site_done.py:_fit - the replacement of the batch model loop must keep the covered-pictures rule (never re-fit a doc or an item's candidate) and the exit codes.
+**Re-read:** 302e: fit/inkfit_heldout.py golden_docs/doc_ids/precheck (the fix) plus 302b's
+"Do NOT touch (frozen by 302b)" list in tasks/302b-heldout-table.md. 302f: tests/test_fit_queue.py
+GUARD at line ~99 (socket-dead subprocess guard - 302f needs a variant that allows ONLY the
+stub's loopback port) + conftest.py's served fixture (ephemeral-port server idiom) +
+fit/matchfit.py match()/fit_row (the exact /match request: base64 PNG, threshold 0.2, max_side
+1024) + the data/matchfit/heldout/results.json candidate schema. 302g: tools/shot.mjs (Chrome
+155 + NODE_PATH recipe in PITFALLS) + docs/matchfit.md's Stonehenge lines + the current 14-
+entry review item.
