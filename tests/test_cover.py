@@ -1,12 +1,14 @@
-"""Cover search (task 212a, GOAL.md point 1): fit/cover.py's fetch -> search -> stage -> nopicture, hermetic.
+"""Cover search and report (tasks 212a/212c, GOAL.md point 1): fit/cover.py's fetch -> search ->
+stage -> nopicture, and the report phase (docs/batch.md), hermetic.
 
 Every phase is driven in-process against a throwaway tree of this checkout (web/ data/ docs/ specs/
-tests/ hard-linked, near-zero disk), so nothing the phase writes can reach the checkout: the three
-files the phases rewrite in place (web/data/plans.json, data/commons/files.jsonl,
-data/commons/classified.jsonl) are real copies, data/raw is a REAL directory of hard links to the
-shared image store (the phases write new picture copies into it - new inodes, never the store's),
-and every other write the phases make is an atomic tmp+os.replace new inode. web/data/sites/<id>
-are skipped (the 212a phases never touch them; the parent task's sync phase flips include_sites).
+tests/ hard-linked, near-zero disk), so nothing the phase writes can reach the checkout: the files
+the phases rewrite in place (web/data/plans.json, data/commons/files.jsonl,
+data/commons/classified.jsonl, and the report's docs/batch.md) are real copies, data/raw is a REAL
+directory of hard links to the shared image store (the phases write new picture copies into it -
+new inodes, never the store's), and every other write the phases make is an atomic tmp+os.replace
+new inode. web/data/sites/<id> are skipped (the 212a phases never touch them; the parent task's
+sync phase flips include_sites).
 
 No network: every network route the phases use is a recorded fake (a pure function of its inputs),
 and a socket guard fails loudly on any connection attempt. The one site the fake search answers for
@@ -15,8 +17,11 @@ and a socket guard fails loudly on any connection attempt. The one site the fake
 2010 (kept out by the 1925 cut-off), one a video (kept out by the mime filter); every other site's
 search answers nothing. The two kept pictures are staged the normal way (files.jsonl + classified
 rows, local copies, plans.json) and every remaining search-set site gets its "no picture found"
-review item with exactly what was searched. The fit itself is NOT this task: the loop/sync/report
-phases (212b/212c) extend this same file (the seams: PHASES, include_sites).
+review item with exactly what was searched. The fit itself is NOT this task: the loop/sync phases
+(212b) extend this same file (the seams: PHASES, include_sites). The report phase (212c) is
+exercised here too: it is read-only (it writes only docs/batch.md - copied into the tree, not
+hard-linked, so its in-place rewrite never reaches the checkout) and runs after the integrity
+snapshots, with the socket guard re-armed.
 
 After all phases the checkout is byte-identical (sha256 of data/ minus data/raw, web/data top level,
 docs/ specs/ tests/) and the shared store gained nothing for the fake site.
@@ -26,6 +31,8 @@ import hashlib
 import io
 import json
 import os
+import random
+import re
 import shutil
 import socket
 import sys
@@ -43,17 +50,22 @@ import commons  # noqa: E402  (the patched module: wd_claims/files_of/search/inf
 import cover  # noqa: E402  (the phases under test; its module-level imports pull evidence/export_plans)
 import evidence  # noqa: E402  (the patched module: the P180 fetchers)
 import export_plans  # noqa: E402  (the module _regen_plans re-points)
+import plan_fit  # noqa: E402  (who_placed: the report's automatic-doc rule, mirrored by the test)
+import review  # noqa: E402  (resolved_doc: the report's open-item rule, mirrored by the test)
 from PIL import Image  # noqa: E402
 
 # the shared image store (the target of the checkout's data/raw symlink)
 STORE = os.path.realpath(os.path.join(ROOT, "data", "raw"))
 
-# The 212a phase sequence (the parent task extends this: loop, sync, export, report).
+# The 212a phase sequence (the parent task's loop/sync extend this; the report phase is exercised
+# separately, after the integrity snapshots - test_report).
 PHASES = ["fetch", "search", "stage", "nopicture"]
 
-# The files the 212a phases rewrite in place (open("a") appends and export_plans' open("w")):
-# real copies in the tree, or the write would land in this checkout through the hard link.
-IN_PLACE = {"web/data/plans.json", "data/commons/files.jsonl", "data/commons/classified.jsonl"}
+# The files the phases rewrite in place (open("a") appends, export_plans' open("w"), the report's
+# write_text): real copies in the tree, or the write would land in this checkout through the hard
+# link.
+IN_PLACE = {"web/data/plans.json", "data/commons/files.jsonl", "data/commons/classified.jsonl",
+            "docs/batch.md"}
 
 # The injected classifier's answer for every staged row (a confident plan, aligned with the todo list).
 FAKE_SCORES = {"p_plan": 0.9, "p_birdseye": 0.1, "p_photo": 0.1}
@@ -513,6 +525,21 @@ def run(tmp_path_factory):
         "checkout": checkout_hashes(),
     }
     out["after"] = after
+
+    # the 212c report phase on the same tree: read-only over the store; it writes only
+    # docs/batch.md (a real file in the tree - IN_PLACE - so its in-place rewrite never reaches
+    # the checkout). It runs AFTER the integrity snapshots, with the socket guard re-armed: the
+    # report needs no network, and the fixed `at` makes the file fully deterministic.
+    _no_network(saved)
+    try:
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            out["report_path"] = cover.report(tree, at="2026-10-13T00:00:00+00:00")
+        out["stdout"]["report"] = buf.getvalue()
+    finally:
+        _network_again(saved)
+    out["report_text"] = Path(out["report_path"]).read_text()
+
     out["store_hit_dir"] = os.path.join(STORE, "commons", world["hit"])
     return out
 
@@ -768,3 +795,98 @@ def test_checkout_integrity(run):
     diff = {p: (before.get(p), after.get(p)) for p in set(before) | set(after)
             if before.get(p) != after.get(p)}
     assert not diff, "checkout files changed by the phases: %r" % list(diff)[:10]
+
+
+# ---------------------------------------------------------------- 212c: the report
+
+def _parse_report(text):
+    """The report's machine-readable parts, straight from the file: the recorded seed, the
+    automatic-doc total it names, the bucket counts in file order, the sample rows (doc, page,
+    score) and the no-picture rows (site, searched). The searched cell is split-aware: the report
+    escapes a literal pipe in it, so the cell is everything between the name and the last
+    separator."""
+    seed = int(re.search(r"^Seed: (\d+)", text, re.M).group(1))
+    n_auto = int(re.search(
+        r"random\.Random\(\d+\) over the sorted ids of all (\d+) automatic documents", text).group(1))
+    lines = text.splitlines()
+    counts = {}
+    i = next(i for i, l in enumerate(lines) if l.startswith("## Counts"))
+    for l in lines[i + 1:]:
+        if l.startswith("- ") and not l.startswith("- review items open"):
+            name, _, n = l[2:].rpartition(": ")
+            counts[name] = int(n)
+        elif l.startswith("##"):
+            break
+    sample = []
+    i = next(i for i, l in enumerate(lines) if l == "| doc | page | gate med (m) |")
+    j = i
+    while j < len(lines) and lines[j] != "|---|---|---|":
+        j += 1
+    j += 1
+    while j < len(lines) and lines[j].startswith("|"):
+        cells = [c.strip() for c in lines[j].split("|")]
+        sample.append((cells[1], cells[2], cells[3]))
+        j += 1
+    no_pic = []
+    i = next(i for i, l in enumerate(lines) if l.startswith("## No picture found"))
+    j = i
+    while j < len(lines) and lines[j] != "|---|---|":
+        j += 1
+    j += 1
+    while j < len(lines) and lines[j].startswith("|"):
+        cells = lines[j].split("|")
+        name_cell = cells[1].strip()
+        searched = "\\|".join(c.strip() for c in cells[2:-1])
+        m = re.search(r"\(([^()]+)\)$", name_cell)
+        no_pic.append((m.group(1) if m else name_cell, searched))
+        j += 1
+    return seed, n_auto, counts, sample, no_pic
+
+
+def test_report(run):
+    """(vi, 212c) docs/batch.md: the report the owner reads. The six buckets partition the built
+    sites - they add up to the built-site total the report names, and the invariant line agrees
+    with the uncovered bucket. The seed is recorded in the file and the sample it lists is
+    reproducible from it: drawing random.Random(recorded seed) over the sorted ids of the store's
+    automatic documents gives exactly the table's rows, in draw order, each with its page URL and
+    the store's gate score. The no-picture table names every site whose open item is marked "no
+    picture found" with no candidates, with a non-empty searched record each."""
+    tree = run["tree"]
+    text = run["report_text"]
+    seed, n_auto, counts, sample, no_pic = _parse_report(text)
+
+    # the recorded seed is the module's, and the automatic total it names is the store's
+    assert seed == cover.SEED_212
+    auto_ids = sorted(n for n, d in cover._all_docs(tree) if plan_fit.who_placed(d) == "agent")
+    assert n_auto == len(auto_ids)
+
+    # the buckets partition the built sites: they add up to the built-site total
+    sites = cover._sites(tree)
+    m = re.search(r"^Built sites: (\d+)\.", text, re.M)
+    assert int(m.group(1)) == len(sites)
+    assert sum(counts.values()) == len(sites), (counts, sum(counts.values()), len(sites))
+    n_unc = counts.get("uncovered (needs attention)", 0)
+    if n_unc:
+        assert "%d site(s) still have neither" % n_unc in text, text.splitlines()[3]
+    else:
+        assert "Every built site ends with a fit or an open review item." in text
+
+    # the sample: reproducible from the recorded seed, in draw order, with the page URL and the
+    # store's gate score per row
+    k = min(20, len(auto_ids))
+    expected = random.Random(seed).sample(auto_ids, k) if k else []
+    got = [row for row in sample if row[0] != "(none)"]
+    assert [r[0] for r in got] == expected, "the sample is not reproducible from the recorded seed"
+    docs = dict(cover._all_docs(tree))
+    for name, page, score in got:
+        assert page == "#%s" % docs[name].get("site"), name
+        assert score == str(docs[name].get("score")), (name, score, docs[name].get("score"))
+
+    # the no-picture table: complete for the store's marked items, each with a searched record
+    items = cover._item_files(tree)
+    open_items = [i for i in items if not review.resolved_doc(i, tree)]
+    marked = {i["site"] for i in open_items
+              if i.get("no_picture_found") and not (i.get("candidates") or [])}
+    table_sites = {sid for sid, searched in no_pic if searched}
+    assert marked <= table_sites, "dropped from the no-picture table: %r" % sorted(marked - table_sites)[:10]
+    assert all(searched for _, searched in no_pic)

@@ -76,7 +76,8 @@ Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 
 
 ## Hand-over
 
-(2026-10-13, iteration 233, agent a - **212a done, 212b done, 212c next.**
+(2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
+whole 212 is complete.**
 This replaces the iter-211 investigation note (the file's previous version is in
 git: `git show 4b12889:tasks/212-cover-final.md`; the design it cited: the
 iter-205 settled design in `git show 953d9ab:tasks/212-cover-final.md`, the
@@ -98,24 +99,30 @@ iter-209 note in `git show d31aaec:tasks/212-cover-final.md`).
   test was not produced - its full design is preserved in `git show
   45675c9:tasks/212b-cover-sync.md` and `git show
   1cd9671:tasks/212b-cover-sync.md`.
-- **212c (the report): open, next** (its own file has the two boxes). The
-  `report` phase already exists in fit/cover.py (212a wrote it):
-  `python3 fit/cover.py report` writes docs/batch.md from the store with the
-  seed recorded (SEED_212 = 20261012): per-built-site buckets (fit:
-  hand-golden / human-saved / automatic; review item; no picture found;
-  uncovered-needs-attention), the 20-sample of the automatic-fit union
-  (random.Random(20261012) over the sorted doc ids; page URL + gate median
-  per row) for the owner's 18/20 check, and the no-picture table (each
-  site's exact searched string; fallback data/cover/searches.json).
-  docs/batch.md does not exist yet. The test goes into tests/test_cover.py:
-  the sample reproducible from the seed recorded in the file, and the bucket
-  counts adding up to the built-site total. Two honest-state notes for the
-  report: (1) the live run never did the loop phase, so the 103 no-item nofit
-  sites bucket as "uncovered (needs attention)" and the invariant line prints
-  "the invariant is broken" - correct against the store as-is; (2) the
-  20-sample is a fixed record drawn over the 36 matcher docs (the whole
-  automatic union) - keep it stable, the owner's 18/20 check must be
-  repeatable. State as of 0e6d5df (re-measure in the 212c session if a merge
-  moved the world): 499 built; 57 docs (21 hand, 36 by:agent matcher, 0
-  unmarked, all is_done); 377 item files / 365 open; plans 1510 rows;
-  web/data/review.json = 365 items at 2026-10-13T11:26:15.291892+00:00.)
+- **212c (the report): DONE (iter-234, agent a; lead: report + test first,
+  then the file, no census re-measuring - the store is the source).** The
+  report phase 212a wrote needed no code change; verified as-is on the store
+  and docs/batch.md is committed from a fresh run (at: 2026-10-13T13:22:09):
+  499 built; buckets 19 hand-golden / 0 human-saved / 24 automatic / 106
+  review item / 244 no picture found / 106 uncovered-needs-attention (sums to
+  499 - the loop never ran live, so those 106 no-item nofit sites are the
+  honest "invariant is broken" line; the number moved from the 103 estimated
+  at 0e6d5df because the store moved); 57 docs (21 hand, 36 by:agent, 0
+  unmarked); 377 item files / 365 open. The sample is the fixed record:
+  random.Random(20261012) over the 36 sorted by:agent doc ids (20 drawn,
+  page URL + gate median each) - the owner's 18/20 check reads it from the
+  file. The no-picture table (244 rows) is 1:1 the no-picture bucket
+  (cross-checked; one batch-era string renders as-is for a with-candidate
+  site outside the 212a search set - the store's own record). Test:
+  tests/test_cover.py::test_report (the run fixture runs the report on the
+  tree after the integrity snapshots, socket guard re-armed, fixed at=;
+  docs/batch.md in IN_PLACE): recorded seed == SEED_212, the named automatic
+  total == the store's, the six buckets sum to the built-site total, the
+  invariant line agrees with the uncovered bucket, the sample is exactly
+  random.Random(recorded seed).sample(sorted ids, 20) in draw order with
+  page URL + gate score, the no-picture table complete with non-empty
+  searched records. Suite: 155 passed, the one red is 307bb's pre-existing
+  gesture test (agent c's 307 series, iter-228 classification), 1 skipped.
+  Re-run the report before any re-publish if the store moves (it reads the
+  store, not a snapshot); if the lead ever runs the loop live, the
+  uncovered bucket shrinks on the next run.)

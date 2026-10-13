@@ -7,14 +7,12 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 233, agent a - **DONE, by the lead's decision.** The
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 233, agent a - **212a done, 212b done, 212c next.**
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
-- `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 197, agent c - **MERGE OF main INTO agent/c RESOLVED (all 26 conflicts,
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -25,55 +23,102 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
-- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
-  class is new to the project: in the store but neither built as an overlay nor referenced by any
-  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
-  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
-  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
-  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
-  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
-  subtasks - PITFALLS); the driver hands them out a-f.
-- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
-  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
-  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
-  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
-  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
-  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
-  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
-  verified this session): the "no-internet headless" pitfall applies only to the no-network test
-  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
-  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
-- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
-  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
-  and the verdict notes where the item's version differs.
-- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
-  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
-  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
-  sites it changes.
+### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
+The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
+(case b) never reads the deleted bethlehem doc - its seed is the golden doc
+c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
+is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
+c_61b86efb4511e099 with the 211 pictures; the item file and the published page
+entry still agree with each other at 13 candidates - verified). 231 was rewritten
+to cover only the year-once pin (case e) with a candidate list measured from the
+live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
+"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
+Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
+state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
+entry above (depends on 212). 234: test key to the generator's documented
+(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
+depend on the entry order) - plus a byte-reproducible regeneration of
+web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
+212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
+worktrees were removed (agent c's /tmp/aw306cab untouched).
 
-### 2026-10-13 306e DECISION: iteration 195 - judged taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie, The Castles of England 1897) DELETED the 303 way (site has NO item -> CREATE one with this doc as lead; expect (346,359) -> (347,360)); VERDICT ONLY this session (investigation, no files touched) - the 303-way execution, the 14th line and the suite run are the next session's step
-- Fit replicated (/tmp/aw306e_fit.py, still alive): 0.5000 m/px, +0.00 deg, all 4 residuals 0.0. Anchors plate (800,200)/(800,400)/(800,800)/(400,1000) -> E+100 N+199, E+100 N+99, E+100 N-100, E-99 N-200 = a 200-px (100 m) grid ladder, no placement information. Site point (-3.11380, 51.0153) inverse-maps to plate (599,599) of [1280,1461] = near-centre: the fit pins the plate centre onto the site point.
-- THE key fact: the real Taunton Castle is ~640 m EAST of the catalog site point. Wikipedia 'Taunton Castle' (en.wikipedia.org/wiki/Taunton_Castle, fetched this session) gives 51.0158 N, 3.1046 W = E+643, N+55 m from the site point: the castle still stands (inner ward / Great Hall 37x9 m = the Museum of Somerset, opened 2011; outer ward = two crenellated hotels; outer bailey = the modern 'Castle Green'). Verified on modern Esri World_Imagery z18 (this VM has internet): the red-roofed Great Hall complex + hotel row + tree-lined moat ring + green sit exactly at the Wikipedia point, Tone on the NW, railway on the E. Gotcha while fetching tiles: my first pass used ln(tan+sec)/pi for the y-tile and got a dark image 40 km off - the correct slippy-tile y formula is asinh(tan(lat_rad))/pi. z18 tiles for the real castle: x=128811, y=87787 (5x5 = /tmp/taunton_castle_z18.png if alive; the site-point-centred 5x5 = /tmp/taunton_z18.png, 0.376 m/px).
-- Drawn works (measured off the plate composite /tmp/_05cb4a02bd58e82e.plate.png, 1 m/px, site point (400,400)): N. Gate E+140 N+150; Great Hall E+55 N+110; Outwork E+145 N+100; Inner Bailey E+50 N+60; 'Site of Saxon Castle' E+165 N+25; Inner Moat (now filled in) E+50 N-20; Outer Bailey E+30 N-90; Bo Langford E+90 N-90; Bishop's House E+145 N-90; Castle Green E+50 N-170; E. Gate E+190 N-170; Bp Fox's E-5 N-230; College-School E-10 N-265; Outer Moat (south edge) E+30 N-315; Porwater E-205 N-30; Barbican E-185 N-90. Plate ground extent E-299.5..+340.5, N-191..+299.5. The 1842 six-inch webp (533 px over the 800 m corners box) shows at the site point only the Wellington Terrace house cluster (big dark hatched building at E-25..+40, N-50..+10 plus the hatched row W of it) and the 'Stepps Water' dotted stream (E+50 N+62 -> E+95 N-125) - no castle, no moat, no 'Castle' label anywhere in the 800 m box: the box does not even reach the real castle (E+643 > E+400 edge). The drawn river band (N+175..+250) does match the real Tone near the site point (z18: E+98..+143, N+100..+150; 1842: E+65..+103, N+84..+400) - that is how the agent's two N-side anchors (E+100, N+199/N+99) locked the plate: the agent matched the drawn river to the wrong river bend and centred the plate on the (itself ~640 m wrong) site point.
-- So the drawn complex (E-205..+190, N-40..+153) sits on the Wellington Terrace houses and the Stepps Water stream; the real castle (the museum + hotels + moat + green) is 545-655 m EAST, beyond the plate's E+340.5 edge and beyond the site box. The 1897 plate IS a genuine, correct plan of THIS castle (features match the real works: Great Hall/inner ward, outwork, filled-in moats, Castle Green = outer bailey, E. gate, Bishop Foxe's school, St John's) - 'wrong place, right kind' (the oxford-castle class), so the picture is worth keeping in the review item. VERDICT: DELETED the 303 way with a NEW item (site has none - verified `ls data/review/ | grep taunton` empty and depictions.json holds only the 1842 map; files.jsonl line 1457: title 'File:Plan of Taunton Castle (1897).jpg', evidence hand_tied checked 2026-10-10, by 'pipeline/sources.py mackenzie').
-... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 195 - judged taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie, The Castles of England 1897) DELETED the 303 way (site has NO item -> CREATE one with this doc as lead; expect (346,359) -> (347,360)); VERDICT ONLY this session (investigation, no files touched) - the 303-way execution, the 14th line and the suite run are the next session's step' DECISIONS.md`)
+### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
 
-### 2026-10-13 306e DECISION: iteration 196 - EXECUTED taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie 1897) the 303 way: NEW item created (lead = this plan, the site had none), doc deleted, scoped export (346,359)->(347,360) as predicted; the 14th of 17 lines written in docs/site_flow.md; suite 154/1/1 = baseline, no new red
-- Preconditions re-checked live first: fr._find_item(fr.ROOT, site) == (None, None); fr.candidate_evidence('c_05cb4a02bd58e82e') = the hand_tied row (rec evidence/1, kind hand_tied, checked 2026-10-10, source 'pipeline/sources.py mackenzie'); fr._sha16('File:Plan of Taunton Castle (1897).jpg') == the plan. The current export baseline confirmed by counting: 359 item files on disk, 346 open page entries.
-- Execution (script /tmp/aw306e_texec.py, pattern /tmp/aw306e_stexec.py; sys.path.insert(0,"fit"); import review as fr): entry = {plan c_05cb4a02bd58e82e, title 'File:Plan of Taunton Castle (1897).jpg' (fr._sha16 asserted == plan), url = doc["url"] = media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg - REPO-RELATIVE, consistent with all 8 previously created 306e items (old-sarum x2, oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew); the 195 hand-over's 'use the row's url verbatim' (upload.wikimedia.org) is a loose note: the page must be able to serve the image, so the local path it serves is the right url. pairs (the doc's 4), coarse False, evidence (row 1457), label '1897', cite+ref (the doc's), size [1280,1461], place_reason '306e audit 2026-10-13: ... Wrong place, right kind. Document deleted.'}. fr.upsert_item returned an ABSOLUTE path (known pitfall) - asserted the basename == taunton-castle-q7688781.c_05cb4a02bd58e82e.json: the item CREATED (lead = this plan, sole candidate). os.remove the doc. fr.export(fr.ROOT, site) -> (347, 360) exactly as the 195 prediction (a NEW open item adds one to both counts). Verified: item = [c_05cb4a02bd58e82e], resolved None, no_picture_found None; the web/data/review.json entry shows under name 'Taunton Castle' (from sites.json). git status = exactly 3 files (D doc, M web/data/review.json, ?? new item) - no other site's item touched.
-- 14th of 17 lines written into the 306e block of docs/site_flow.md (after the stanton-drew line, before '## The site markers become arrowheads (task 308, 2026-10-13)'), same shape as the raby/oxford/portus lines: the 200-px (100 m) grid ladder pins the 1280x1461 plate (site point inverse-maps to plate (599,599), near-centre) on the site point; the plate is the genuine Mackenzie 1897 plan of THIS castle (features match the real complex - today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the moat ring, Castle Green, east bank of the Tone, 51.0158/-3.1046 verified on modern aerial + Wikipedia); the catalog site point is ~640 m WEST of the real castle, so the drawn complex (E-205..+190) sits on the Wellington Terrace house cluster and the Stepps Water stream where the 1842 shows no works (the 800 m box does not even reach the castle: E+643 > its E+400 edge) and the real castle is beyond the plate's east edge (E+340.5). Wrong place, right kind. DELETED - an orphan today, invisible on the page (new open item).
-- Suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 309 s): 154 passed, 1 skipped, 1 failed - the only failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent a's in-flight 307, the known pre-existing red). = baseline, no new red. 306e status now: 14 of 17 lines, 10 deletions executed; REMAINING 3 docs / 2 sites: windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (book doc, model None, 6 pairs, url None - a books/index.jsonl row, not files.jsonl), york-castle-q80637 c_8dac5aacd73916b8 + c_a7db545536f13e24 (existing item c_81ecab4a9284f156 holds 5 candidates -> append; c_a7db545536f13e24 is the 'Plan of Center, Broome County 1855' toponymic-collision class).
-
-### 2026-10-13 306e DECISION: iteration 197 - merged main into agent/c; resolved all 26 conflicts the union way (25 data/review items + web/data/review.json); merge committed (6554a14) BEFORE the post-merge suite run - next session runs the suite first, then judges the last 2 sites (windmill-hill n0558_2, york x2)
-- Context: main's 33 commits since the merge base 0685a4c (= the 190 main merge) are agent a's 212b (final live sync: 76 pattern docs sent to review items as COARSE entries {plan, title(doc's own), url, pairs, why='line check: fabricated anchor pattern...', evidence, gate_score}; created 31 new item files; deleted none; left all `resolved` records). My side's 195 commits = 306c/306d/306e (upserts of FULL entries {plan, title(File: source title), url, pairs, coarse, evidence, label, cite, ref, size, place_reason='306x audit ...'}).
-- Every one of the 25 item-file conflicts had the same shape: both sides added (or kept) the same plan; mine = the audit entry, theirs = the gate entry; url/pairs/evidence identical on both sides. Resolution (inline python over the git stages, written with fr._save_json - indent=1, no trailing newline, the module's own writer): merged entry = my entry + their extra keys (why, gate_score; plus their `evidence` for 3 book docs where my 306c entry had none: hodgen n0092_1, marietta n0195_1, serpent n0313_1). Order = my order, then theirs-only plans (hodgen b24849959_n0353_1, pontefract c_3213330a52fe6018 - both kept verbatim). Kept MY `title` on the 7 commons plans where it differed (oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew, taunton): mine = 'File:...' = the title whose _sha16 IS the plan id (fit/cover.py derives raw image paths from _sha16(title); review.js only displays it); theirs = the doc's own shorter title. The union keeps both sides' intent: the audit verdict (place_reason) and the gate's flag (why/gate_score) on the same candidate.
-- web/data/review.json (the 26th): regenerated from the union item set with a FULL fr.export(fr.ROOT) -> 365 open of 377 total, exactly main's census (212b's hand-over). Verified per site: the merged page file differs from both parents only in `candidates`, is a strict superset of both sides' candidate plans (0 plans lost, 0 plans extra, page- and item-level checks), and the export wrote no new `resolved` records (212b left them all). 306a/b/f-style side effects are all main's own (18 theirs-only new open sites incl. my 306e KEEPs offa/okehampton/pilsbury and the 306a on-map sites) - consistent, kept.
-- Consequence to remember: the pontefract item now holds c_3213330a52fe6018 (my 306e KEEP doc, whose data/db/platefits doc still exists) alongside c_d135 (deleted-doc audit entry): by resolved_doc's rule the item RESOLVES via the existing doc, so the site leaves the open page list but stays covered for the union check (an open OR a resolved item both cover). Same kind of derivation applies anywhere a kept doc is a candidate.
-- Census (json items): base 346, my HEAD 360 (= 346 + my 14 created, 0 deleted), main 377 (= 346 + 31 created, 0 deleted), merged = main's 377 exactly (all 14 of mine conflicted add/add with main's 31 -> the union-resolved files; the other 363 came from main or were identical on both sides). Staged in the merge commit: 17 A (main's item files I lacked), 43 D (my platefits doc deletions, 306a/c/d/e - untouched by this merge), 45 M (25 resolved items + review.json + main's auto-merges: DECISIONS.md, DECISIONS-archive.md, web/data/*, docs/*). data/review/README.md intact.
-... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-13 306e DECISION: iteration 197 - merged main into agent/c; resolved all 26 conflicts the union way (25 data/review items + web/data/review.json); merge committed (6554a14) BEFORE the post-merge suite run - next session runs the suite first, then judges the last 2 sites (windmill-hill n0558_2, york x2)' DECISIONS.md`)
+### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
 
 ## Project-wide driver notes (newest)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_gate.py:36: AssertionError
+    =========================== short test summary info ============================
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    1 failed, 59 passed in 63.50s (0:01:03)
+    (full test output: .agent/reports/last-test-output.txt)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
     tests/test_batch_eu.py::test_union_check
@@ -90,11 +135,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
-- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
-- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
-- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
-- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
-- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)

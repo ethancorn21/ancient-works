@@ -19,6 +19,8 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 360 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+359 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+327 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -40,6 +42,8 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 212 cover-final (6 entries, older ones; the task is still open)
 - 212a cover-search (7 entries)
 - 212b cover-sync (11 entries)
+- 212b cover-sync (10 entries)
+- 212c batch-report (2 entries)
 - 213 artist-views (11 entries)
 - 213a civitates-list (3 entries)
 - 213b qids-tests (1 entry)
@@ -444,6 +448,50 @@ unconditionally. No code changed this session.
 - 14th of 17 lines written into the 306e block of docs/site_flow.md (after the stanton-drew line, before '## The site markers become arrowheads (task 308, 2026-10-13)'), same shape as the raby/oxford/portus lines: the 200-px (100 m) grid ladder pins the 1280x1461 plate (site point inverse-maps to plate (599,599), near-centre) on the site point; the plate is the genuine Mackenzie 1897 plan of THIS castle (features match the real complex - today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the moat ring, Castle Green, east bank of the Tone, 51.0158/-3.1046 verified on modern aerial + Wikipedia); the catalog site point is ~640 m WEST of the real castle, so the drawn complex (E-205..+190) sits on the Wellington Terrace house cluster and the Stepps Water stream where the 1842 shows no works (the 800 m box does not even reach the castle: E+643 > its E+400 edge) and the real castle is beyond the plate's east edge (E+340.5). Wrong place, right kind. DELETED - an orphan today, invisible on the page (new open item).
 - Suite (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 309 s): 154 passed, 1 skipped, 1 failed - the only failure is tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent a's in-flight 307, the known pre-existing red). = baseline, no new red. 306e status now: 14 of 17 lines, 10 deletions executed; REMAINING 3 docs / 2 sites: windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (book doc, model None, 6 pairs, url None - a books/index.jsonl row, not files.jsonl), york-castle-q80637 c_8dac5aacd73916b8 + c_a7db545536f13e24 (existing item c_81ecab4a9284f156 holds 5 candidates -> append; c_a7db545536f13e24 is the 'Plan of Center, Broome County 1855' toponymic-collision class).
 
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
+## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
+Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
+test and commit them. Then write docs/batch.md from it. No census re-measuring - the store
+is the source." The `report` phase 212a wrote needed no change: `.venv/bin/python
+fit/cover.py report` on the live store (system python3 has no numpy - the driver's venv
+does) produced docs/batch.md: 499 built; buckets 19 hand-golden / 0 human-saved / 24
+automatic / 106 review item / 244 no picture found / 106 uncovered-needs-attention - the
+sum is 499, the partition holds; the invariant line honestly reports the break for the 106
+(the loop phase never ran live; the number moved from the 103 estimated at 0e6d5df because
+the store moved - lead: no re-measuring); the sample is random.Random(20261012) over the 36
+by:agent docs (20 drawn, page URL + gate median - the same table convention as
+docs/batch_us.md); the no-picture table is 244 rows and cross-checked 1:1 against the
+no-picture bucket (no fitted site carries an open no-picture item, so the table is exactly
+the bucket; one batch-era string, a with-candidate site outside the 212a search set,
+renders as-is - the store's own record, not a phase defect). tests/test_cover.py extended
+with test_report (the run fixture runs the report on the same tree after the integrity
+snapshots, socket guard re-armed, fixed at=; docs/batch.md moved into IN_PLACE so the
+report's in-place rewrite stays in the tree): recorded seed == SEED_212, the named
+automatic total == the store's, the six buckets sum to the built-site total, the invariant
+line agrees with the uncovered bucket, the sample is exactly random.Random(recorded
+seed).sample(sorted auto ids, 20) in draw order with page URL + gate score per row, and
+the no-picture table is complete with non-empty searched records. Suite: 155 passed, 1
+failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - 307bb's
+pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
+skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
+tick both boxes, set done.
+
+## 2026-10-13 212c DECISION: docs/batch.md committed from a fresh store run - 212 complete (a done, b done by the lead, c done)
+Session 234 (agent a), second commit of the session, per the lead's order ("Then write
+docs/batch.md from it"). The file (at: 2026-10-13T13:22:09.600423+00:00, 293 lines) is the
+report the owner reads: the six per-site outcome buckets summing to the 499 built sites
+(19 hand-golden / 0 human-saved / 24 automatic / 106 review item / 244 no picture found /
+106 uncovered-needs-attention - the loop phase never ran live, so the invariant line
+honestly prints the break for the 106), the fixed 20-sample of the 36 by:agent docs
+(random.Random(20261012) over the sorted ids; page URL + gate median per row - the
+owner's 18/20 check is repeatable from the file), and the 244-row no-picture table with
+the exact searched record per site. tests/test_cover.py passes with the checkout carrying
+the file (the IN_PLACE copy path in the tree builder) - 6 passed, 35 s; full suite as
+before (the one red is 307bb's pre-existing gesture test). The parent 212 hand-over now
+says the whole 212 is complete; its Status stays split until the driver hands it back.
 ## 2026-10-13 306e DECISION: iteration 197 - merged main into agent/c; resolved all 26 conflicts the union way (25 data/review items + web/data/review.json); merge committed (6554a14) BEFORE the post-merge suite run - next session runs the suite first, then judges the last 2 sites (windmill-hill n0558_2, york x2)
 - Context: main's 33 commits since the merge base 0685a4c (= the 190 main merge) are agent a's 212b (final live sync: 76 pattern docs sent to review items as COARSE entries {plan, title(doc's own), url, pairs, why='line check: fabricated anchor pattern...', evidence, gate_score}; created 31 new item files; deleted none; left all `resolved` records). My side's 195 commits = 306c/306d/306e (upserts of FULL entries {plan, title(File: source title), url, pairs, coarse, evidence, label, cite, ref, size, place_reason='306x audit ...'}).
 - Every one of the 25 item-file conflicts had the same shape: both sides added (or kept) the same plan; mine = the audit entry, theirs = the gate entry; url/pairs/evidence identical on both sides. Resolution (inline python over the git stages, written with fr._save_json - indent=1, no trailing newline, the module's own writer): merged entry = my entry + their extra keys (why, gate_score; plus their `evidence` for 3 book docs where my 306c entry had none: hodgen n0092_1, marietta n0195_1, serpent n0313_1). Order = my order, then theirs-only plans (hodgen b24849959_n0353_1, pontefract c_3213330a52fe6018 - both kept verbatim). Kept MY `title` on the 7 commons plans where it differed (oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew, taunton): mine = 'File:...' = the title whose _sha16 IS the plan id (fit/cover.py derives raw image paths from _sha16(title); review.js only displays it); theirs = the doc's own shorter title. The union keeps both sides' intent: the audit verdict (place_reason) and the gate's flag (why/gate_score) on the same candidate.
