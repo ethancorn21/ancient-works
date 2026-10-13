@@ -512,19 +512,36 @@ def _append(path, rows):
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
 def stage(dry=False):
     """Stage the STAGED table into this task's own files (append-only, idempotent on (site, title)). Drift
     fails loud: a staged title missing from INVENTORY or whose live size moved off it (a renamed or replaced
     file), a title Commons no longer holds, a title commons.keep() would drop after the known plate date is
-    applied, a (site, title) already in the canonical files.jsonl (the six hand-tied views - never re-staged;
-    a QID the catalog since grew keeps its picture on the existing site instead), or a named place the live
-    caption no longer prints (the tie would be dead)."""
+    applied, a (site, title) the canonical files.jsonl already holds - the six hand-tied views are refused
+    outright (never re-staged), and any other key is a no-op (already merged by 211, byte-identical) only
+    when the module's own staged row is identical to the canonical row, a different row holding the key
+    fails loud; a QID the catalog since grew keeps its picture on the existing site instead; or a named
+    place the live caption no longer prints (the tie would be dead)."""
     c = _commons()
     import books_match
     known = known_sites()
     inv = {r[0]: r for r in INVENTORY}
     have = {(r.get("site"), r.get("title")) for r in _load(FILES_KIP) + _load(CLASSIFIED_KIP)}
-    canonical = {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
+    staged_norm = {}  # (site, title) -> the module's own staged row, under the merge's identity
+    for r in _load(FILES_KIP):
+        staged_norm[(r.get("site"), r.get("title"))] = _canon_norm(r)
+    canonical, hand_tied = {}, set()  # the canonical file: first row wins per key, as in the 211 merge
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:
+            canonical[k] = _canon_norm(r)
+        if r.get("by") == "pipeline/sources.py kip":  # the six hand-tied views, in sources.py's row shape
+            hand_tied.add(k)
     staged_ids = {s["id"] for s in _load(EXTRAS_KIP)}
     meta = c.info([t for t, *_ in STAGED])
     new_sites, new_files, new_cls, to_build = [], [], [], []
@@ -544,10 +561,16 @@ def stage(dry=False):
             raise SystemExit(f"the live caption no longer names {named!r} for {title}: the tie is dead")
         if s["qid"] and s["qid"] in known:  # the catalog grew: the picture stays on the existing site, no new row
             sid = known[s["qid"]]
-        if (sid, title) in canonical:
-            raise SystemExit(f"{title!r} is already in the canonical files.jsonl (site {sid!r}): the six "
-                             f"hand-tied views are never re-staged (their evidence kind stays hand_tied)")
-        if (sid, title) in have:
+        k = (sid, title)
+        if k in hand_tied:  # the six hand-tied views are never re-staged, whatever the row shape
+            raise SystemExit(f"{title!r} is a hand-tied view (pipeline/sources.py kip): never re-staged (its "
+                             f"evidence kind stays hand_tied)")
+        if k in canonical:  # the 211 merge already holds the key: identical row = no-op, different = refused
+            if k in staged_norm and canonical[k] == staged_norm[k]:
+                continue
+            raise SystemExit(f"{title!r} is already in the canonical files.jsonl (site {sid!r}): a different "
+                             f"row holds the key - refused")
+        if k in have:
             continue
         m2 = dict(m)
         if want and c.year_of(title, m2) != c.year_of(title, {"date": want}):
@@ -584,10 +607,13 @@ def stage(dry=False):
 
 
 def check_staged():
-    """Offline (no network): join the staged files (every file row names a staged or existing site; no staged
-    id or QID pre-exists; every staged site has a picture; (site, title) unique; none of the six hand-tied
-    titles re-staged; no title clash with the canonical files.jsonl; classified rows 1:1) and run
-    fit/evidence.py's check over every staged row. Returns the exit code (0 iff no problem and no FAIL)."""
+    """Offline (no network): join the staged files (every file row names a staged or existing site; a staged
+    id or QID is a problem only when a DIFFERENT site holds it - the module's own rows already merged by 211
+    are a no-op, not a collision; every staged site has a picture; (site, title) unique; none of the six
+    hand-tied titles re-staged; a staged row whose key is in the canonical files.jsonl must be identical to
+    the canonical row (211's first-row-wins merge) - a same-key different row still fails loud; classified
+    rows 1:1) and run fit/evidence.py's check over every staged row. Returns the exit code (0 iff no problem
+    and no FAIL)."""
     import evidence
     files = _load(FILES_KIP)
     sites = _load(EXTRAS_KIP)
@@ -595,15 +621,23 @@ def check_staged():
     known = known_sites()
     problems = []
     staged_ids = {s["id"] for s in sites}
-    if staged_ids & set(known.values()):
-        problems.append(f"staged site ids collide with existing sites: {sorted(staged_ids & set(known.values()))}")
+    # after 211's merge the module's own staged sites sit in the canonical extras/sites (known): a staged
+    # id/QID is a problem only when it resolves to a DIFFERENT site (the pre-merge clash protection)
+    if staged_ids & (set(known.values()) - staged_ids):
+        problems.append(f"staged site ids collide with existing sites: "
+                        f"{sorted(staged_ids & (set(known.values()) - staged_ids))}")
     for s in sites:
-        if s.get("qid") in known:
+        if s.get("qid") in known and known[s["qid"]] != s["id"]:
             problems.append(f"staged site {s['id']} re-uses existing QID {s['qid']} ({known[s['qid']]})")
     pics = {s["id"]: 0 for s in sites}
     valid = set(pics) | set(known.values())  # a file row may also name an existing site (no new catalog entry)
-    seen, canonical = set(), {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
-    kip_six = {r["title"] for r in _load(FILES_CANONICAL) if r.get("by") == "pipeline/sources.py kip"}
+    seen, canonical, kip_six = set(), {}, set()
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
+        if r.get("by") == "pipeline/sources.py kip":
+            kip_six.add(r.get("title"))
     for r in files:
         sid = r.get("site")
         if sid not in valid:
@@ -614,7 +648,7 @@ def check_staged():
         k = (sid, r.get("title"))
         if k in seen:
             problems.append(f"duplicate staged row {k}")
-        if k in canonical:
+        if k in canonical and canonical[k] != _canon_norm(r):
             problems.append(f"staged title already in the canonical files.jsonl: {k}")
         if r.get("title") in kip_six:
             problems.append(f"staged row re-stages a hand-tied view (evidence kind must stay hand_tied): "

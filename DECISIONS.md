@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 295 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+289 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -447,3 +448,38 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
   line only - state bullets and next-steps unchanged, still accurate),
   DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
   (nothing new learned).
+
+## 2026-10-12 223 DECISION: Kip guards accept their own 211-merged rows (identical under the merge's identity) as no-ops; a same-key different row still fails loud; the six hand-tied (site, title) keys are refused outright in stage()
+- Session 193, first session on 223. Followed the 222 pattern (its hand-over documents it; the
+  three-state test here is 222's test plus the stage() leg 222 did not need).
+- Module (fit/src_kip.py, one commit): new `_canon_norm` (the 211 merge's row identity, the same
+  `json.dumps(..., sort_keys=True, ensure_ascii=False)` norm fit/merge.py uses). `stage()`: guard
+  order is now (1) the six hand-tied keys - derived from the canonical file's `by ==
+  "pipeline/sources.py kip"` rows, refused outright whatever the row shape (the airtight
+  protection the task asked for) - (2) a canonical-held key is a no-op `continue` only when the
+  module's own staged row (files_kip, via `staged_norm`) is identical to the first-row-wins
+  canonical row, else SystemExit - (3) the `have` check. The no-op compares stored rows against
+  each other, never a freshly built row: a re-run would rebuild `evidence.checked` to today's
+  date, which would make an identical merge row look different. `check_staged()`: staged
+  id/QID problems only when a DIFFERENT site holds the key (the module's own rows merged by 211
+  are a no-op, not a collision); the canonical map is first-row-wins `_canon_norm` with the
+  original failure message; the kip_six title check and every other join rule untouched.
+- Tests (tests/test_src_kip.py, same commit): `test_check_staged_three_states` (a pre-merge: rc 0,
+  no join, evidence 12/12; b merged-identical: rc 0, no join, evidence 12/12; c same key held by a
+  hand-tied-shape row: rc 1, exactly the 2 join lines - the key clash and the hand-tied re-stage)
+  and `test_stage_offline_three_states` (a/b no-op "staged: 0 new sites, 0 new pictures"; c
+  SystemExit naming the hand-tied view; d SystemExit for a different non-hand-tied row). Helpers
+  `_merge_states` (points the module's canonical path constants at temp copies built from the real
+  files minus/plus this module's own rows - holds whether or not 211's live merge ran on the
+  checkout) and `_fake_commons` (serves `c.info` from the stored FILES_KIP rows; `year_of`/`keep`
+  delegate to the real pure pipeline/commons functions) are reusable verbatim for 224-228.
+- No separate refactor commit: src_kip's canonical paths (SITES_JSONL/EXTRAS/FILES_CANONICAL/
+  WEB_SITES) were already module-level constants, unlike van_deventer.
+- Verification: on this branch (211's merge HAS run: all 12 kip rows in the canonical files
+  byte-identical, the 11 sites in extras.jsonl and web/data/sites.json, no QID/id collisions with
+  non-kip rows) live `fit/src_kip.py --check` rc 0 (was red: the 12 canonical clashes + 8 QID +
+  1 site-id self-trigger); test_src_kip.py 11/11 (was 1 red, 8 green); full suite 8->7 failed /
+  133->136 passed / 1 skipped - the 7 remaining are exactly the 224-228 sibling set (artists,
+  limes, mackenzie, numancia, stukeley x3), each owned by its own queued task; zero new reds.
+- Files changed: fit/src_kip.py, tests/test_src_kip.py (per the task's Touches line). No new
+  PITFALLS entry (the pattern and its gotchas are recorded in 222's entry and both hand-overs).
