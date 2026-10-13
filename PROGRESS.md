@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 221, agent a - the live SEARCH phase ran and is committed;
+- `tasks/212a-cover-search.md` (open) - hand-over: (2026-10-13, iteration 222, agent a - the live run is DONE and committed (box 4's
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 211, agent a - investigation session: every API the test
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -110,32 +110,6 @@ dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
 
-### 2026-10-13 212a DECISION: tests/test_cover.py green on its first run (5 passed, 33.8s) - boxes 1-3 done; the live run (box 4) waits on 203b, added to Depends on
-Session 219 (agent a). The test file the driver committed in ccafaa0
-(iteration-218 work) is CORRECT AS-IS: before its first run I re-verified every
-pinned string and shape against fit/cover.py and tools/export_plans.py -
-_search_site's via-tag arithmetic and per-site print line ("4 gathered, 2 kept
-old, 2 new (all routes answered)" - n_kept counts kept-before-dedup), fetch's
-n_have counting the no-source rows in "with a local copy", _searched_string
-(== the test's expected_searched, char for char, qid and no-qid variants),
-nopicture's nofit-and-not-cand rule (the hit drops out via cand after stage),
-_stage_row's field order (== the test's byte-exact appended rows),
-evidence.record no-opping (by:"212" not in source_tables, every book row
-already carries rec), export_plans' cols/row shape (a commons row's title is
-the FILE-derived name, not the site name; label = when_of; cite = page only),
-and _now's tz-aware ISO - no drift, no changes needed. First run: 5 passed in
-33.8s (nopicture ~2s - _find_item is 4ms, not iter-216's 200-300ms estimate);
-full suite 155 passed / 1 skipped on this VM. My iter-217 step C is moot: the
-lead marked 231-234 done with all boxes ticked in 77bdf5d (his note: suite
-green on the Mac, 145 passed); 233's pure-growth and 234's fit-queue tests
-pass on this VM as part of the green suite, so the marking holds on both
-machines. The live run (box 4) genuinely waits on 203b (agent c, in flight -
-the batch and my live run write the same files, and 212 runs last on purpose
-per the lead's split), so 203b is added to my Depends on line (team-mode rule);
-the driver brings the task back after 203b merges. The live-run recipe
-(phase commands, the (id, sites[0]) key-set diff rule, the 40/40 golden gate)
-is in the hand-over.
-
 ### 2026-10-13 212a DECISION: 203b has been done on main since 10-11 (no reopen) - the live run keeps waiting, but for the corrected reason: the driver lists 203b as agent c's CURRENT work (a batch re-run/re-verify over the grown 499-site world); re-measured the live world - all pins hold, the fetch phase is now a no-op (328 copies arrived via the lead's aeeb5aa Mac<->VM sync), test re-verified green on the grown store
 
 The iter-219 hand-over said box 4 waits for 203b because "agent c is in
@@ -188,6 +162,13 @@ the hand-over.
 ### 2026-10-13 212a DECISION: live search phase ran and committed (245 records, 107 new files on 16 sites, 0 failed routes); the stage phase is blocked on a human classifier decision - Clef is unreachable from this VM
 
 Per the lead's mid-session message (203b is done on main and its listed re-run is NOT a dependency of 212a), the live run no longer waits; I ran the search phase first - it is file-disjoint from everything in flight (re-read fit/cover.py to verify: only `search` writes data/cover/searches.json; fetch writes copies+plans; stage writes the canonical files; nopicture writes items). It ran 08:08-08:44 UTC on this checkout at the built-in 1/s pace: 245/245 records (204 qid + 41 no-qid = exactly the measured search set), 107 new files on 16 sites (list in the hand-over), every record "all routes answered" (0 429s, 0 failed routes). Committed: data/cover/searches.json (new to git) + data/cover/search.run.log; added data/cover/ to my Touches line. tests/test_cover.py re-ran green with the file present (its tree unlinks it, by design): 5 passed, 33.7 s. The stage phase then hit its DESIGNED human-decision point: the 107 files need classified.jsonl rows (my box 1 stages "files.jsonl + classified.jsonl with the 200 evidence field"), and the default classifier - Clef-flash on the AI box (10.0.10.75), reachable only through the ssh tunnel at 127.0.0.1:18083 (pipeline/clef.py header: `ssh -N -L 18083:127.0.0.1:8083 aibox`) - is unreachable from this VM: 18083 refused; the box's 8083 and 8081 time out (firewalled, so the AW_CLEF_URL env override has no alternative endpoint to point at); the VM's only aibox keys are the forced-command doorbell / labdash-feed / lab-archive (no shell, no port forwarding). The fit/cover.py docstring is explicit: that is an ask_human moment, not a module decision. Filed the request (blocking): (a) RECOMMENDED - give this VM an aibox ssh key with normal session/forwarding rights, then I open the tunnel and stage with the real Clef-flash (the classifier the batch used); (b) one-off approval of the LLM on 127.0.0.1:8081 (it is UP) as the classifier through a small adapter I pass to cover.stage (a different model than Clef-flash - recorded as such; the lead's placement ban on the 8081 LLM still stands); (c) noted, not my pick: staging without classified rows, which needs a stage code change and departs from the box-1 staging contract. The remainder of the live run is one session once the answer lands: stage --live -> nopicture (expect 229 stamped: 245 records minus the 16 now-rowed sites) -> key-set diff of plans.json vs the committed 1475 (pure adds expected; a lost key is recorded, never dropped) -> commit -> the 40/40 golden gate + test_cover green -> box 4, Status: done. The request was filed as 003 (.agent/asks/003.md); the task keeps Status: open and waits for the answer.
+
+### 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)
+Session 222 (agent a). The lead answered request 003: option (b) modified - classify with MY OWN model server 127.0.0.1:8080 (vLLM qwen3.8-27b on the 3090 Ti), NOT 8081 (the other worker's card); Clef-flash is not running anywhere (the 5060 Ti now serves the matchers), so option (a) was void. Record in classified.jsonl and data/cover that the rows are 8080-Qwen one-off; placement stays the matcher. Done this session, in order:
+1. fit/cover_qwen8080.py (new, committed 870d4f9): the one-off adapter - asks the Clef questions themselves (commons.CLEF_STATE/CLEF_Q) as 0..1 probabilities to 127.0.0.1:8080 via pipeline/llm.ask (the proven client for exactly this model), 4 workers, retries; smoke-verified on known images (book page -> 0/0/0; old photos -> p_photo 0.94/0.98; bibracte's 1832 page -> plan 0.95 and carnac's engraved view -> 0/0/0 both visually confirmed). stage gained an optional classifier_note recorded as a per-row "classifier" field (no default change; test_cover's byte-pinned fake-classifier rows stay identical - suite was green before the run: 155 passed, 1 skipped).
+2. THE FIRST STAGE RUN EXPOSED TWO REAL BUGS (both fixed, committed in 9c48d94): (a) fit/cover.py _fetch_one did `open(dst + ".part")` on a PosixPath - TypeError swallowed by the per-file except as a per-file "fetch failed" (symptom: EVERY fetch fails with "unsupported operand type(s) for +: 'PosixPath' and 'str'"; the tests never reach this path - their trees pre-seed every local copy, p.exists() short-circuits; the live run was the first to actually download). Fixed: dst = str(dst). (b) my module's first version returned {plan, birdseye, photo} - stage expects p_-prefixed keys (KeyError: 'p_plan'); I misread the smoke-test output shape. Both filed in PITFALLS.md (entry in "This machine" on Clef being dead + 8080 approved one-off; entries in "This codebase" on the _fetch_one swallow and on export_plans' min_p gate).
+3. THE RUN (second launch, clean): 107/107 local copies fetched (1/s), 107/107 classified (every row carries the note), evidence.record live (107 live - categories/page ids/file entities/P180 all answered, 0 failures), plans.json re-export 1475 -> 1510. KEY-SET DIFF vs the committed baseline (/tmp/aw222-plans-keys-before.json): 0 LOST, 35 gained - and the 35 are EXACTLY the gate-passing population (p_photo < 0.5 AND max(p_plan, p_birdseye) >= 0.3, tools/export_plans commons_rows min_p=0.3): 11 of the 16 sites got plans rows (aventicum, bibracte, burcht-van-leiden, hopewell, los-millares, maeshowe, motte-castrale-quiquempois, moundville, stones-of-stenness, vicus-bridge, trundle); 5 sites' pictures ALL fell below the gate (arbeia, carnac-stones, craig-phadrig, indian-mounds-park, ocmulgee) and stay no-picture sites. nopicture: 234 items stamped (245 records - 11 now-in-cand sites), NOT the 229 the old hand-over guessed (it assumed all 16 would gain rows). fit_queue.json regenerated 229 -> 241, 0 sites lost (+12: my 11 + numancia - numancia is live drift since the lead's 04:09:15 regeneration, picked up by the same generator; test_fit_queue_real is derived-never-pinned and passed). data/cover/stage_qwen8080.json records the one-off. Committed 9c48d94 (242 files). Golden 40/40 OK after the run.
+... (2.2 KB more: `grep -n -A 200 -F '## 2026-10-13 212a DECISION: live stage run completed per the lead's 003 answer (one-off 8080 Qwen); post-run suite 4 failed - 2 = 203b's pinned bibracte case (added 203b to my Depends on), 2 = stale web/data/review.json (fix: run my export phase)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
