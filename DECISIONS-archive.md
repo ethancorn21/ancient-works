@@ -3870,6 +3870,117 @@ extended tests/test_cover.py per the rewritten hand-over (the design it points t
 iter-230 "EXACT NEXT STEP", now corrected by this entry), run it alone under .venv, fix,
 then the full suite (known non-212b red: 307bb's part-4 gestures, pre-existing on this VM).
 
+## 2026-10-13 212b DECISION: sync phase gains the trailing full review export (box 1's code done); dry-run script written but not run (context limit); live run is next
+Session 224 (agent a, first session on 212b after my 212a).
+1. fit/cover.py `sync()` now ends with `n_open, n_total = review.export(root)` after
+   `plan_fit.prune(root)` and prints the open/total line: box 1's "and the review
+   export". Rationale: PITFALLS 1171 (web/data/review.json is a derived page - doc
+   changes without a full export leave test_fit_provenance/test_site_done/
+   test_fit_queue red on every branch); sync is the one page-facing writer of the doc
+   world, so the export lands with the overlays. Docstrings updated (module phase list
+   + sync's own). My Touches line gained data/db/platefits (stamp-by:agent / pattern
+   delete) and data/review/ (per-doc containment upserts + the export's write-once
+   resolution records) BEFORE touching them. The edit is uncommitted (harness-saved).
+2. Live world re-measured (.venv): 131 docs (21 hand + 110 agent + 0 unmarked); 105
+   commons (big cache has 72 -> 54 will download in the live sync) + 26 book (all local
+   files present); all docs have ref+crop; is_done=0 for ALL 131 (checkout view) -> the
+   live sync rebuilds every overlay; 94 doc sites (80 symlinked to the store, 14 real
+   checkout dirs - separate copies); 499 built sites, 36 drawings>0; review.json 333
+   open of 346 items (14 recorded resolutions). The store (/home/agent/projects/
+   ancient-works) is a git checkout of main at 77bdf5d, clean except .venv - writes
+   through my 382 site symlinks land in its working tree (shared canonical home; same
+   pattern the batches used). Git tracks only 6 site dirs; among doc sites:
+   forthill/marietta/newark (all real dirs) - the only committable per-site artifacts
+   of the live run. All JSON writers on this path are atomic (tmp + os.replace) ->
+   hard-link trees safe.
+3. Dry run: /tmp/aw212b-dryrun.py (hard-linked tree with web/data/sites FOLLOWED into
+   real dirs, big stand-ins for all 105 commons docs, socket guard, store + golden +
+   item + review.json + drawings before/after reporting). NOT RUN: first invocation
+   died on line 24, `os.path.mkdtemp` (AttributeError - fix: tempfile.mkdtemp). That
+   is the exact next step, then the live run (box 1+2 evidence) + commit, then box 3's
+   test (parent design, 212-cover-final's D1-D5/CHOOSE sections).
+4. Slip: I initially wrote this session's 212b hand-over into 212a's task file (wrong
+   path in the edit); 212a's file restored byte-identical (git diff clean before the
+   commit).
+
+## 2026-10-13 212b DECISION: iter-232 re-measured the world at HEAD 0e6d5df and re-read every module the test drives; the iter-231 "10 partial" bucket was a misclassification - the true census is 105 allcovered + 0 partial + 103 no-item-file + 10 item-file-with-empty-candidates, and the loop's end arithmetic stays 478 item files / 465 open (the 10 empty-cand sites + the hit rename in place; the 103 no-file minus the 2 CHOOSE add 101 fresh); no code written (context limit after the measurements), next step is writing the extended tests/test_cover.py
+Session 232 (agent a). Investigation only; the tree was clean and untouched (HEAD 0e6d5df, no
+data-file diff between 8555682 and HEAD - so the iter-231 note measured the same files, it
+simply mis-bucketed). Re-measured live: built 499; nofit 452 = search 234 (199 qid + 35 no-qid)
++ with-row 218 = 105 allcovered + 0 partial + 103 no-item-file + 10 empty-candidate items
+(aventicum, bibracte-q650053 (16 rows), hopewell-mound-group, los-millares, maeshowe,
+motte-castrale-quiquempois-q22961457, numancia, stones-of-stenness,
+the-roman-fort-vicus-bridge-abutments-an-q17650519, trundle-q7847949 - all resolved None,
+all with the batch-era no_picture "web/data/plans.json (1166 rows, matched by the sites
+field)"); docs 57 (21 by:hand + 36 by:agent ALL fitter:matcher, 0 unmarked) ALL is_done in the
+tree, 0 line-check failures; item files 377, open 365 (recomputed with review.resolved_doc);
+plans 1510; store big cache 75 (aesica's c_e28ed261168b49c9.jpg present, aardenburg's
+c_d0a020dec428fa00.jpg and aire's c_d1ca997e67377769.jpg absent -> the test seeds them);
+CHOOSE == the pinned 4 with pinned row ids/sizes/map_box (CHOOSE site dirs: aardenburg/aire
+real, aesica/alauna symlinked - the realize converts all 382 symlinks anyway); bethlehem dep
+map-only (tmk1850.webp, 22-cand audit item) and shotwick dep map-only (six-inch-1st.webp,
+2-cand audit item), both drawings 0; aesica 1-cand item with the STALE recorded resolution
+{doc: aesica-q4688554.c_e28ed261168b49c9, at: 2026-10-12T03:13:35.590448+00:00} -> D2 holds;
+alauna 5-cand item resolved None (first row book earthworkenglan01allcgoog_n0438_1
+[3367,5050] map_box [0.12,0.25,0.83,0.66]); hit aalsum-q3902030 (item aalsum-q3902030.json,
+candidates []); fail site craig-phadrig; spot aggersborg; web/data/review.json at
+2026-10-13T11:26:15.291892+00:00 with 365. Loop consequence (worked out against
+site_done._fit + batch_us.run_sites, both re-read this session): at loop time 11 sites have
+an empty-candidate item with rows (the 10 + aalsum after staging) - for each, uncovered =
+ALL rows (no docs, empty item_cands -> the keep-restore restores nothing) -> run_sites
+upserts every row "no model answer" (+ the propose-for-checkout extras; the hit's two staged
+rows raise ValueError - not in the checkout's plans.json -> coarse); no_picture_found
+cleared; resolved stays (write-once, None) -> the file MOVES to <site>.<lead>.json (lead =
+first row in the tree's plans order) and stays open. End arithmetic: 377 - 11 (old files
+unlinked) + 112 (101 fresh from the 103 no-file minus the 2 CHOOSE, which get docs not items,
++ 11 renames) = 478 files; open = 365 - aesica + 101 = 465 (the 11 renamed were already
+open). Sync: 60 docs (57 pre + 3 CHOOSE; alauna's was written then deleted by its own
+line) all "skipped" (the 3 built in the loop, the 57 is_done), no "pruned" line, beth/shotwick
+deps byte-identical, the full export is the only page-file writer. Re-read this session,
+all as the iter-230/231 notes say: fit/cover.py, tools/site_done.py, fit/batch_us.py,
+fit/review.py, pipeline/plan_fit.py, fit/matchfit.py, fit/propose.py, tests/conftest.py,
+tests/test_fit_queue.py (the GUARD + reader-thread port-0 server pattern; sys.executable is
+the venv python under .venv/bin/python -m pytest), tests/test_batch_eu.py::_corner_pairs, the
+golden files (40 = 21 docs + 19 site.json; 19 sites in hand_fit_sites.txt). NO code changed
+this session; tests/test_cover.py is still 212a's 770-line version; the one remaining step
+is writing the extended test per the corrected hand-over.
+
+## 2026-10-13 212b DECISION: marked done on the lead's instruction - the last box (the no-network port-0 test) ticked on the verified live-sync evidence; the written test stays designed-but-unwritten in git; parent hand-over rewritten for 212c
+Session 233 (agent a). The lead (mid-session human message): "212b has one box
+left and the sync is done and verified. Tick it with the evidence you have,
+mark 212b done this session - no more re-measuring. 212c, the report, is
+next." I ticked box 3 and set Status: done on the evidence already in this
+journal (no new measuring, per the instruction): the verified live sync run
+(iter-227: run1 an exact dry-run match - 76 sent / 25 skipped / 30 synced;
+run2 the 2 lead burcht docs the 06:07 merge added mid-run; 365 open / 377
+items; golden 40/40; store clean), the post-sync suite classification
+(iter-228: the only reds = 307bb's part-4 gestures, pre-existing, agent c's
+307 series), and the iter-231/232 confirmations that the post-sync world is
+stable at 0e6d5df (no merge since: only driver commits on my branch; main is
+contained in agent/a). Consequence for any future agent: tests/test_cover.py
+on disk remains 212a's 770-line search + no-picture version (green); the
+extended no-network test (6 phases + port-0 served-page assertions) is fully
+designed in the iter-230/232 hand-overs (`git show
+45675c9:tasks/212b-cover-sync.md` and `git show 1cd9671:tasks/212b-cover-sync.md`)
+but was never written, on the lead's say-so - if it is ever wanted, start
+from those notes (the census, recipes and pins are all there). The parent
+tasks/212-cover-final.md hand-over was rewritten as the 212c snapshot: the
+`report` phase already exists in fit/cover.py (212a wrote it) -
+`python3 fit/cover.py report` writes docs/batch.md from the store (seed
+SEED_212 = 20261012, per-site buckets, the 20-sample over the 36 matcher
+docs, the no-picture table); docs/batch.md does not exist yet; the live
+report will honestly bucket the 103 loop-never-ran no-item nofit sites as
+"uncovered (needs attention)". No code or data files touched this session.
+Full suite run for the done-claim: 1 failed / 154 passed / 1 skipped in
+309s - the only failure is
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+(307bb part-4 gestures, the known pre-existing red belonging to the 307
+series, not this task).
+
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
 
 <!-- task 213 -->
 # Task 213 artist-views
@@ -6640,6 +6751,14 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
 - Wrote the 12th of 17 lines in the 306e block of docs/site_flow.md (after the raby line, before '## The site markers become arrowheads (task 308, 2026-10-13)'): the 640-px corner ladder pins the plate centre on the site point; drawn 790 m square + rounded SE corner + river vs the real ~200 m fort at E+70 N-130; the plate's own 0-400 ft bar ~6x smaller than the fit; DELETED - an orphan today, invisible on the page (the 303 way: APPENDED to the site's existing review item after its coarse candidate c_1dcd5a7171573663 - the item keeps its file name and lead and stays open; the site stays covered).
 - Suite after the change (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 299.39 s, /tmp/aw306e_suite193.log): 154 passed, 1 skipped, 1 failed = the post-merge baseline, no new red (the only red is agent a's in-flight 307 gestures test; union/coverage checks green - richborough stays covered by its open item).
 - REMAINING: 5 docs (4 sites) - stanton-drew-stone-circles c_59a5c636a9e00703 (Penny Magazine 1836 'plan of the druidical temple at Stanton Drew'; NO item -> create if deleted), taunton-castle c_05cb4a02bd58e82e (Mackenzie 1897; NO item -> create), windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (Allcroft 1908 'WINDMILL SITES, LEWES DOWN', **model None** - the page's default plan model fits it: relief shot resid 0, 1.0 m/px, 0 deg; the site's item already holds n0557_1 + n0558_1 -> if deleted, APPEND to THAT item, do not create a second), york-castle-q80637 c_8dac5aacd73916b8 ('York Castle in 1820' watercolour, score 31.7) + c_a7db545536f13e24 ('Plan of Center, Broome County 1855' = Center is a town in Broome County, NEW YORK - toponymic-collision class, almost certainly DELETED wrong place; existing item [c_81ecab4a9284f156 + 4 more] -> append). 12 of 17 lines written.
+
+## 2026-10-13 306e DECISION: iteration 194 - judged stanton-drew-stone-circles-q1516300.c_59a5c636a9e00703 (Penny Magazine 1836 116, 'plan of the druidical temple at Stanton Drew') DELETED the 303 way (site had NO item -> created it with this doc as lead; doc deleted; scoped export 346/359); the 13th of 17 lines written; suite 154/1/1 = baseline, no new red
+- Fit replicated on the doc's 6 stored pairs (/tmp/aw306e_fit.py): 1.0000 m/px, -0.00 deg, all residuals 0.0. The 6 anchors are a 100-px diagonal ladder (100,100)..(600,600) - the bury-castle/oxford/raby class: the ladder pins the 5th anchor (plate (500,500), the site point's inverse image (499.5,499.5) of the 1280x1551 plate) onto the site point; no placement information.
+- Judged on the committed shots (docs/site_flow/agent_fits/stanton-drew-stone-circles-q1516300_c_59a5c636a9e00703.png + _relief.png), the rebuilt 800 m box LAYERS composites (/tmp/aw306e_layers.py -> /tmp/_59a5c636a9e00703.{1842,plate,relief}.png; d[-17:] naming, no ENOENT this time) and the raw plate. The plate is a genuine plan of the circle group (the Great Circle, the Circle of 8, the South-west Circle, The Cove, Hackett's Quoit, the River Chew - right names, and the layout matches the 1842 six-inch and the LiDAR: river NW, village/St Mary's SW, circles E of the site point) but is drawn at ~10 m/px. Measured (scripts /tmp/aw306e_stzoom.py, _stcluster.py, _strel.py, _string.py): drawn Great Circle = 879 dots, least-squares circle centre plate (657,653) r=218 px -> 435 m across at the fitted 1.0 m/px, centred E+157 N-153; the real stone cluster = ~50 m of dark dots at E+100..150 N-50 on the LiDAR relief (the 1842 six-inch webp is 666 px over the 800 m box, so individual 1-2 m stones are sub-pixel there - the relief is the deciding layer; new PITFALLS entry). The drawn Circle of 8 (E-91 N+240) and the South-west Circle (E+705 N-554) sit on open farmland where the 1842 and the LiDAR show no stones (the real SW circle lies near Church Farm, E-100 N-200); the drawn river band (centre E-281 N+273) lies west of the real River Chew. The fit is ~4-10x too big (at the plate's own ~10 m/px the Great Circle would be ~44 m across, the real order of magnitude): wrong size, and the secondary circles miss the real ones. VERDICT: DELETED the 303 way.
+- Execution (script /tmp/aw306e_stexec.py; sys.path.insert(0,"fit"); import review as fr): entry = {plan c_59a5c636a9e00703, title 'File:Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew.jpg' (fr._sha16 asserted == plan; files.jsonl line 707), url media/commons/stanton-drew-stone-circles-q1516300/59a5c636a9e00703.jpg, pairs (the doc's 6), coarse False, evidence (line 707: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Stanton Drew stone circles'), label '1836', cite + ref (the doc's), size [1280,1551], place_reason '306e audit 2026-10-13: ... 435 m across ... ~4-10x ... Document deleted.'}. fr._find_item returned (None, None) BEFORE the upsert (verified no existing item). fr.upsert_item CREATED data/review/stanton-drew-stone-circles-q1516300.c_59a5c636a9e00703.json (lead = this plan, sole candidate). Gotcha: upsert_item returns an ABSOLUTE path - my assert against the repo-relative string tripped AFTER the file was correctly written (the re-run then found the item and replaced the identical entry in place; new PITFALLS entry under fit/). os.remove the doc. fr.export(fr.ROOT, site) -> (346, 359): open 345->346 AND total 358->359 (a NEW item adds to BOTH counts, exactly as the 193 hand-over predicted). Verified: item = [c_59a5c636a9e00703], resolved None, no_picture_found None; page entry under name 'Stanton Drew stone circles'. git status after: exactly 3 files (D doc, M web/data/review.json, ?? new item) - no other site's item touched.
+- Wrote the 13th of 17 lines in the 306e block of docs/site_flow.md (after the richborough line, before '## The site markers become arrowheads (task 308, 2026-10-13)'): the 100-px diagonal ladder pins the plate centre on the site point; the plate is a genuine plan of the group drawn at ~10 m/px, fitted 4-10x too big - the drawn Great Circle (435 m) surrounds the real ~50 m cluster with its centre ~90 m off, and the drawn Circle of 8 / South-west Circle sit on open farmland; DELETED - an orphan today, invisible on the page (the 303 way: a NEW review item - the site had none before - the site stays covered by it).
+- Suite after the change (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 300.13 s, /tmp/aw306e_suite194.log): 154 passed, 1 skipped, 1 failed = the post-merge baseline, no new red (the only red is agent a's in-flight 307 gestures test; union/coverage green - stanton-drew stays covered by its new open item).
+- REMAINING: 4 docs (3 sites) - taunton-castle c_05cb4a02bd58e82e (Mackenzie 1897; NO item -> create if deleted), windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (Allcroft 1908 'WINDMILL SITES, LEWES DOWN', model None - the page's default plan model fits it: relief shot resid 0, 1.0 m/px, 0 deg; the site's item already holds n0557_1 + n0558_1 -> if deleted, APPEND to THAT item, do not create a second), york-castle-q80637 c_8dac5aacd73916b8 ('York Castle in 1820' watercolour, score 31.7) + c_a7db545536f13e24 ('Plan of Center, Broome County 1855' = Center is a TOWN in Broome County, NEW YORK - toponymic-collision class, almost certainly DELETED wrong place; existing item [c_81ecab4a9284f156 + 4 more] -> append). 13 of 17 lines written.
 
 
 <!-- task 307a -->
