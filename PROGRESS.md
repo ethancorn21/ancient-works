@@ -7,118 +7,71 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212b-cover-sync.md` (in-progress) - hand-over: (2026-10-13, iteration 233, agent a - **DONE, by the lead's decision.** The
-- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 233, agent a - **212a done, 212b done, 212c next.**
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
+- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted th
+- `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 198, agent c - **197's merge is COMMITTED (6554a14) and the post-merge
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+- `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
-- `tasks/212c-batch-report.md`
+- `tasks/221-review-stats-test.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
-The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
-(case b) never reads the deleted bethlehem doc - its seed is the golden doc
-c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
-is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
-c_61b86efb4511e099 with the 211 pictures; the item file and the published page
-entry still agree with each other at 13 candidates - verified). 231 was rewritten
-to cover only the year-once pin (case e) with a candidate list measured from the
-live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
-"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
-Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
-state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
-entry above (depends on 212). 234: test key to the generator's documented
-(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
-depend on the entry order) - plus a byte-reproducible regeneration of
-web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
-212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
-worktrees were removed (agent c's /tmp/aw306cab untouched).
+### 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
+- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
+  class is new to the project: in the store but neither built as an overlay nor referenced by any
+  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
+  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
+  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
+  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
+  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
+  subtasks - PITFALLS); the driver hands them out a-f.
+- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
+  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
+  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
+  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
+  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
+  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
+  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
+  verified this session): the "no-internet headless" pitfall applies only to the no-network test
+  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
+  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
+- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
+  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
+  and the verdict notes where the item's version differs.
+- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
+  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
+  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
+  sites it changes.
 
-### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
-Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
-post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
-the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
-box 6 - did NOT materialize:
-1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
-   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
-   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
-   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
-   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
-   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
-   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
-2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
-   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
-   re-pruned here) still carries the STALE plan entry of that doc -
-   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
-   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
-   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
-   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
-   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
-Both sit in the 52-site population whose plans rows are ALL already review-item
-candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
-entry (its docstring: a blind re-run would swap the audit entries whole), so the
-loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
-also in DECISIONS under the 306a entries). Neither is in the search set (both have
-rows), so nopicture does not touch them. Box 6 holds for both via the open item -
-NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
-hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
-upsert in-place replacement + the skip guard that protects audit notes.
-Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
-doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
-pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
-carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
-searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
-no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
-definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
-untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
-the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
-CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
-row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
-(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
-n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
-the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
-(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
-hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
-well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
-expected item end states follow 201's derivation computed from the live items (doc on
-an in-item row -> item resolved write-once and off the open list, as for aesica; doc
-... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
+### 2026-10-12 306c DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
 
-### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
-Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
-Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
-dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
-3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
-files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
-web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
-store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
-Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
-new inodes - and os.link every existing file; nothing is ever written in place):
-data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
-data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
-.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
-3.6G). Consequence: the hand-over's fallback (hard-link files only under the
-dirs that exist in the store + a few known dirs) is DROPPED - the test builder
-walks the store's data/raw and the followed checkout sites view
-unconditionally. No code changed this session.
+### 2026-10-12 306c DECISION: iteration 157 - the 3rd rejection (18:13) is 307bb's own dep-null box-3 test, NOT a 306c regression (A/B: main is vacuous-red too); no in-scope fix; stuck rule -> Status: blocked + ask_human
+- The 18:13 note names tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser as a "new" failure and says "fix the combination." It is 307bb's OWN box-3 test (307bb Status: done, merged to main; its Touches = web/fitkit.js, web/index.html, tests/test_fit_queue.py, docs/site_flow.md - agent a's 307 rework). The driver's 2026-10-11 loop-start baseline predates 307bb landing on main, so this red is not in its known-failures list -> flagged "new".
+- A/B on the CURRENT tree (main moved since iteration 150, so I re-proved, did not rely on the old entry): (1) my branch (agent/c = main 7e61147 + 306c): the test RUNS and FAILS at the seed check - reproduced via /tmp/aw306c_repro_probe.py (copies tree, hermetic serve.py --port 0, runs the real place_probe.mjs, full stdout; ~51 s). The [seed] JSON: gestures:[false x5] (pan/zoom correctly off -> that half PASSES) but dep:null -> the assertion `seed.dep === 'none'` FAILS. dep = the dep-<site> layer's visibility, or null if the layer is absent -> the dep-marietta layer does not exist on the map. Picked site = marietta (plan ancientmonuments00squi_n0169_1). (2) main alone (worktree @7e61147, no 306c): the test ERRORS earlier at the fixture - _pick_place() returns None -> "no queue entry with a proposal, a local book page, an unresolved item and an overlay - vacuous." So it is red on a clean HEAD too, but as a vacuous error, NOT the seed failure.
+- Why 306c's data changes move the pick (the "combination"): _pick_place() takes the first queue entry (file order) that is propose + _line_eligible + non-empty depictions. _line_eligible requires (5) no platefit docs for the site yet AND (3/4) an unresolved item carrying the row (>=3 pairs). 306c deleted marietta's ONLY doc (b24849959_n0195_1) and upserted marietta's review item (candidate + reason) -> both satisfied -> marietta becomes the pick (main still has the doc -> not eligible -> vacuous).
+- Root cause is 307bb's code, not 306c's: web/fitkit.js:349 `if (map.getLayer('dep-'+site.id)) setLayoutProperty('dep-'+site.id,'visibility','none')` hides the earlier overlay ONLY if the layer exists; a site whose depiction layer was never created (marietta) stays absent -> dep null -> `dep === 'none'` fails. The test's pick is "derived, never pinned," so which site it lands on (and whether dep is null vs 'none') depends on the store/review state = 306c's deletions/upserts. All involved files are 307bb's Touches. 306c's Touches (docs, platefits, review, review.json, audit_306c.mjs) touch none of it, and marietta's depictions.json is UNCHANGED by 306c.
+- No in-scope fix: passing needs 307bb to make placement-mode-open leave the dep layer present-and-hidden (or relax the test to accept dep===null when there's no earlier overlay). The only 306c lever would be to NOT delete/upsert marietta's doc+item = undo 306c box 3 (forbidden: weakens the deliverable). So 306c cannot turn it green without editing 307bb's files or weakening its own audit.
+... (1.5 KB more: `grep -n -A 200 -F '## 2026-10-12 306c DECISION: iteration 157 - the 3rd rejection (18:13) is 307bb's own dep-null box-3 test, NOT a 306c regression (A/B: main is vacuous-red too); no in-scope fix; stuck rule -> Status: blocked + ask_human' DECISIONS.md`)
+
+### 2026-10-12 306c DECISION: iteration 158 - stuck rule executed: filed ask_human request 004 FIRST (blocking, not human_only) with the 3-rejection A/B evidence + recommendation; task stays in-progress while 004 is open; the 307bb test re-confirmed red (seed dep:null + new save/cancel failures) on the current tree
+- 3rd done-claim rejection (18:13) = 307bb's own test_placement_gestures_and_save_in_the_browser (diagnosed at 157; A/B: vacuous-red on clean main 7e61147, seed dep:null on my branch after 306c's marietta delete/upsert shifts the derived pick; fitkit.js:349 hides only an existing layer; all involved files are 307bb's Touches). Unfixable inside 306c's Touches without undoing box 3 (forbidden).
+- This session (per the 157 hand-over's case (0)): filed blocking request 004 (.agent/asks/004.md) with the full A/B and the three options; recommendation (a): accept 306c on the A/B evidence, add the 307bb test to the driver's known-failures baseline, reopen 307bb for the fix (fitkit.js:349 leave the dep layer present-and-hidden on placement-mode-open, or the test accepts dep===null when there is no earlier overlay; pick requires a runtime layer; save checks wait for the overlay build). The filing's instruction: keep the task status as-is (in-progress) while the request is open; the loop answers with my recommendation after 120 min of human silence. Do NOT file a 4th mechanical done-claim meanwhile.
+- Fresh run today (tree unchanged since 157; main tip 7e61147; no new commit touches the 307bb files): the test still red and WIDER than 157's run - seed dep:null as diagnosed, PLUS save ("the page closed the fit view" undefined; "the overlay landed in the tree" - the "Making the overlay (a few seconds)" build not finished by the probe read; "the new overlay is showing" vis:null) and cancel ("the earlier overlay is back" - before.vis:null, never an earlier overlay). All doc-write/anchor/rounding checks [ok]. The save timing failures are machine-load dependent (3 checkouts running suites in parallel; disk 90% full) - same test, same root-cause family; nothing in 306c's files.
+- Corrected the PITFALLS tests/test_fit_queue.py entry per the 157 note (on a clean HEAD the test is VACUOUS, not a seed failure; the seed/dep-null + save/cancel failures are specific to the pick shifting to a site with no runtime dep layer).
 
 ## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (1 tests)
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_gate.py:36: AssertionError
-    =========================== short test summary info ============================
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    1 failed, 59 passed in 63.50s (0:01:03)
-    (full test output: .agent/reports/last-test-output.txt)
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
     tests/test_batch_eu.py::test_union_check
@@ -135,3 +88,11 @@ unconditionally. No code changed this session.
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
+- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
+- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
+- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
+- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
+- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
+... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
