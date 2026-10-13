@@ -1,0 +1,90 @@
+{
+ "site": "gravelines-q323399",
+ "plan": "c_173e0d61c038bada",
+ "crop": [
+  0,
+  0,
+  1280,
+  1842
+ ],
+ "pairs": [
+  [
+   701.0,
+   726.1,
+   2.1282141,
+   50.9869035
+  ],
+  [
+   462.3,
+   871.5,
+   2.1209513,
+   50.985097
+  ],
+  [
+   683.2,
+   497.4,
+   2.1288124,
+   50.9909219
+  ],
+  [
+   870.7,
+   650.7,
+   2.1332487,
+   50.9877029
+  ],
+  [
+   688.8,
+   895.6,
+   2.1270722,
+   50.9840022
+  ],
+  [
+   539.3,
+   715.1,
+   2.1238153,
+   50.9875788
+  ],
+  [
+   826.2,
+   803.0,
+   2.1312986,
+   50.9851945
+  ],
+  [
+   645.0,
+   615.4,
+   2.127199,
+   50.9889902
+  ]
+ ],
+ "label": "1545",
+ "title": "Gravelines, town plan by Jacob van Deventer",
+ "cite": "by Jacob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Gravelines_-_Deventer.jpg",
+ "at": "2026-10-13T03:20:41.477768+00:00",
+ "auto": true,
+ "score": 8.0,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/gravelines-q323399/173e0d61c038bada.jpg",
+ "ref": "File:Gravelines - Deventer.jpg",
+ "size": [
+  1280,
+  1842
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2206,
+  "matches": 4999,
+  "ground": "relief.jpg",
+  "window": 0.7,
+  "rot_deg": 9.8,
+  "spread": [
+   0.814,
+   76.1
+  ]
+ }
+}

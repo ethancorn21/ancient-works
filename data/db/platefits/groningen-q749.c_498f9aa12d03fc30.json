@@ -1,0 +1,90 @@
+{
+ "site": "groningen-q749",
+ "plan": "c_498f9aa12d03fc30",
+ "crop": [
+  0,
+  0,
+  1280,
+  992
+ ],
+ "pairs": [
+  [
+   823.4,
+   423.9,
+   6.5635931,
+   53.2172218
+  ],
+  [
+   1084.6,
+   407.0,
+   6.5774951,
+   53.2164084
+  ],
+  [
+   947.0,
+   264.9,
+   6.5714714,
+   53.2216005
+  ],
+  [
+   720.0,
+   282.9,
+   6.5593555,
+   53.2222011
+  ],
+  [
+   759.8,
+   563.7,
+   6.5590403,
+   53.2131393
+  ],
+  [
+   957.1,
+   449.8,
+   6.5704141,
+   53.2157173
+  ],
+  [
+   699.2,
+   423.6,
+   6.5570508,
+   53.2178698
+  ],
+  [
+   837.3,
+   294.7,
+   6.5654329,
+   53.2212243
+  ]
+ ],
+ "label": "c. 1563-1567",
+ "title": "Groningen, town plan by Jacob van Deventer",
+ "cite": "by Jakob van Deventer; Public domain; https://commons.wikimedia.org/wiki/File:Jacob_van_Deventer_-_Groningen_volledig.jpg",
+ "at": "2026-10-13T03:21:03.069923+00:00",
+ "auto": true,
+ "score": 11.1,
+ "by": "agent",
+ "ia": null,
+ "file": null,
+ "model": "similarity",
+ "src": "commons",
+ "url": "media/commons/groningen-q749/498f9aa12d03fc30.jpg",
+ "ref": "File:Jacob van Deventer - Groningen volledig.jpg",
+ "size": [
+  1280,
+  992
+ ],
+ "fitter": "matcher",
+ "matcher": {
+  "model": "zju-community/matchanything_roma",
+  "inliers": 2103,
+  "matches": 5000,
+  "ground": "relief.jpg",
+  "window": 1.0,
+  "rot_deg": 9.27,
+  "spread": [
+   0.667,
+   66.4
+  ]
+ }
+}
