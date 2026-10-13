@@ -399,3 +399,54 @@ depend on the entry order) - plus a byte-reproducible regeneration of
 web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
 212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
 worktrees were removed (agent c's /tmp/aw306cab untouched).
+
+## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+on a not-in-item row or no item -> item stays open if it exists; sent case -> item
+keeps the line-check why on that row's plan).

@@ -55,71 +55,98 @@ check, and the "no picture found" list.
 
 ## Hand-over
 
-(2026-10-13, iteration 207, agent a - task-file session. Step (1) of the iter-206
-hand-over is DONE: 231 corrected, 232/233/234 written, /tmp/awmain+/tmp/awhead
-worktrees removed, the export_plans machine-dependence filed in PITFALLS
-(### tools/export_plans.py), DECISIONS updated. No 212 code work this session;
-cover.py is still DONE (863 lines, 55678e3). The iter-205 test design below stays
-in force; its full text is in git: `git show 953d9ab:tasks/212-cover-final.md`.)
+(2026-10-13, iteration 208, agent a - measurement session. Step (2) of the
+iter-207 hand-over is DONE: the CORRECTION 4 measurement ran on the merged tree
+and the box-6 risk did NOT materialize (both sites keep their open audit items -
+full results in DECISIONS and below). NO test file written yet. The settled
+iter-205 test design (full text: `git show 953d9ab:tasks/212-cover-final.md`) stays
+in force, with the deltas in this note. cover.py is still DONE (863 lines,
+55678e3).)
 
-**New task files (all Status: open):**
-- 231 (corrected): covers ONLY test_commons_yeared_title_drops_the_repeated_year -
-  re-point the year-once pin off the deleted bethlehem doc to a surviving batch doc
-  with a year-titled title (40 candidates measured; the Mackenzie (1897) set,
-  "York Castle in 1820", ...). Chosen AFTER 306c-f settle. Does NOT touch case b.
-- 232: re-pin the shared Stonehenge snapshot in test_site_done + fit_provenance b
-  to the POST-212 live state (14th plans row c_61b86efb4511e099 came in with the 211
-  pictures, main f970500, not a batch run; the live loop may place a matcher doc,
-  which would resolve the item - re-derive mechanically, recipe in the file).
-  Depends on 212, 231.
-- 233 (RE-SPECED - the iter-206 note was wrong): the numancia exclusion is
-  MACHINE-DEPENDENT (export_plans includes a row only where its local copy exists;
-  data/raw is gitignored). The files/classified rows never changed; the local jpg
-  is in this VM's shared store (210 staged it); the lead's Mac lacked it, so f970500
-  dropped the row. It is a COMMONS row (book "Wikimedia Commons", c_0fa271e2444f7bfc
-  = sha16 of the title) - NOT a books-index row; the memoriasdelareal009real index
-  row is not involved (the earlier "book = the ia id" guess was wrong). After 212's
-  fetch+re-export on this machine the row returns unchanged and the test should
-  pass; 233 = verify + record (docstring/PITFALLS). Depends on 212.
-- 234: change test_fit_queue_real's key to the generator's documented
-  (view, -px, plan, name) - do NOT touch tools/fit_queue.py's sort (307bb's
-  page-card pins depend on it); then regenerate web/data/fit_queue.json (committed
-  at 229 entries, at 2026-10-13T04:09:15) after 212 + 306c-f settle the live
-  inputs; byte-reproducibility check. Depends on 212, 306c-f.
+**Measured this session (merged tree, HEAD f62d50c, plans.json 1474 rows, 499 built):**
 
-**Measured this session (facts for the live run, all on the merged tree):**
-- export_plans on THIS machine (in-memory probe, real file untouched and restored
-  after - probe truncated it once, see DECISIONS) = 953d9ab's 1168-row plans.json
-  BYTE-IDENTICAL: numancia in, all 307 of HEAD's 1474-only rows (the 211 pictures,
-  the Civitates/Merian full pages) ABSENT - they have no local copies on this
-  machine yet. 212's fetch phase (1/s pace, resumable, skips rows that already have
-  a copy) fetches every missing kept row BEFORE the re-export, so the live run's
-  export regains both sides; LIVE-RUN RULE: before the final re-export record the
-  committed (id, sites[0]) key set, after the re-export diff it - any lost key is a
-  fetch failure to record as a data finding (never silently drop or re-add).
-- The stonehenge published review.json entry matches its 13-candidate item file
-  (order, set and bytes) - the only currently-failing precondition in both
-  pinned tests is the 13-row plans check (14 rows).
-- worktrees /tmp/awmain, /tmp/awhead removed (agent c's /tmp/aw306cab left alone).
+bethlehem / shotwick (the CORRECTION 4 question) - box 6 is safe, no action needed:
+- bethlehem-q2523914: drawings 0, no docs; dep already map-only (tmk1850 1850) -
+  its plan entries were pruned on this machine ~1h after the 306a audit a858f48
+  (dep mtime Oct 12 22:38 CDT), drawings reset with them. Item: 22 candidates with
+  306a audit whys + detail fields (coarse/ground/rot_deg/scale/note), no_picture
+  None, resolved None -> OPEN, published in the 333-item review.json. Sync's prune
+  leaves it byte-identical (prune only drops kind plan/view entries).
+- shotwick-castle-q7502621: drawings 0, no docs; dep = map (six-inch-1st 1842) +
+  the STALE plan entry of the doc deleted at 6841f07 (after iter 136) -
+  plan_c_e6e5490609414bb9.webp + its _ink.webp still on disk (dep mtime Oct 11
+  18:47, never re-pruned here). Item: 2 candidates (audit whys), OPEN, published.
+  The sync's full prune drops the plan entry and BOTH webps; set_drawings ->
+  drawings stays 0 (map is not a DRAWING kind, no plate).
+- Both are in the 52-site "all rows already item candidates" population: site_done
+  fit() re-fits only rows with NEITHER doc NOR item entry (docstring: a blind
+  re-run would swap the audit entries whole) -> the loop leaves both item files
+  BYTE-IDENTICAL. New PITFALLS entry filed on this (### tools/site_done.py,
+  fit/review.py). Neither site is in the search set (both have rows) -> nopicture
+  does not touch them.
 
-**EXACT NEXT STEPS (unchanged from iter 205/206, step 1 now done):**
-(2) run the one blocked measurement from CORRECTION 4 (bethlehem/shotwick coverage
-after the sync's prune - it decides a box-6 edge case; command in the superseded
-iter-205 text below);
-(3) write tests/test_cover.py per the settled design in that text (corrections 1-5
-incorporated - (b)/(c) seeds on fake sites, (a) on the first nofit-no-row site,
-fakes as pure functions of the tree's live state, own tree + own port-0 server,
-checkout-integrity hashes, box 6 through the served page, report re-run
-byte-identical);
+Re-measured population (PRODUCT definitions; the iter-205 numbers were the 1168
+pre-merge tree): nofit (drawings 0 and no doc) = 402 (94 sites have docs); search
+set (no plans row) = 246 - ALL already carry the batch-era no_picture mark -> the
+nopicture phase re-records all 246 with the exact searched string, 0 bare. (fudge/
+highbank/hopeton look bare under a looser no-doc definition but are drawings-1
+site.json-plate sites -> covered, outside _no_fit_sites.) with-row nofit = 156 =
+52 all-rows-in-item (item untouched) + 1 partial overlap (upsert "no model answer"
+only for the uncovered rows, in place) + 103 no item (fresh all-rows item).
+
+CHOOSE on THIS tree (first 4 with-row nofit, sorted) = aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-
+q259903 (1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft
+1908 n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell
+out of the first 4 (211 gave aardenburg/aire their rows; the lead's Mac port
+20277f3 added 11 matcher docs on 11 newly built sites).
+
+**EXACT NEXT STEPS:**
+(3) write tests/test_cover.py per the settled iter-205 design (`git show
+    953d9ab:tasks/212-cover-final.md`) WITH these deltas:
+    - assertion (iv) is now concrete: bethlehem's dep + item byte-identical after
+      the sync; shotwick's dep 2->1 entries (plan entry + both webps gone), item
+      byte-identical; both items on the served open list. Correction 4's open
+      question is resolved: no nopicture re-record for either.
+    - CHOOSE stays state-aware (first 4 with-row nofit, sorted), but the matcher
+      fake assigns the pair recipes by POSITION: CHOOSE[0..2] well-spread
+      non-pattern pairs on their first candidate row (doc built; source = that
+      row's own src - here 3 commons; the shared-store book file of a book first
+      row must be hard-linked in the tree), CHOOSE[3] (here alauna, book first row
+      n0438_1) near-collinear -> doc written, then sent+deleted by the loop's
+      per-site line check; item why = the line-check string recomputed from
+      matchfit.spread at runtime.
+    - Item end states per 201's derivation, computed from the live item: doc on an
+      in-item row -> item resolved write-once, OFF the open list (here: aesica);
+      doc on a not-in-item row or no item -> item, if any, stays open (here:
+      aardenburg/aire have no item; alauna stays open with the line-check why on
+      n0438_1). Everything else stays exactly as settled (state-aware fakes and
+      assertions; own tree + own port-0 server; checkout-integrity hashes; box 6
+      through the served page; report re-run byte-identical).
 (4) run it alone (`.venv/bin/python -m pytest tests/test_cover.py -q`), fix what it
-exposes, then the full suite;
-(5) the live run (network allowed): fetch (1/s) -> search -> stage (ask_human ONLY
-if new files are found and clef 127.0.0.1:18083 is still down: tunnel, or approve
-the LLM on 8081 as one-off classifier) -> loop (ELoFTR 8091; RoMa 8092 down,
-skipped by design; LLM 8081 FORBIDDEN for placement) -> nopicture -> sync (check
-`ls data/raw/commons/big | wc -l` first) -> export (with the key-set diff rule
-above) -> report (seed 20261012) -> commit everything -> `sha256sum -c
-tests/golden/hand_fit_docs.sha256` must pass 40/40 -> suite green.
+    exposes, then the full suite.
+(5) the live run (network allowed) - unchanged from the iter-207 hand-over: fetch
+    (1/s) -> search -> stage (ask_human ONLY if new files are found and clef
+    127.0.0.1:18083 is still down: tunnel, or approve the LLM on 8081 as one-off
+    classifier) -> loop (ELoFTR 8091; RoMa 8092 down, skipped by design; LLM 8081
+    FORBIDDEN for placement) -> nopicture -> sync (check `ls data/raw/commons/big |
+    wc -l` first) -> export (with the key-set diff rule) -> report (seed 20261012)
+    -> commit everything -> `sha256sum -c tests/golden/hand_fit_docs.sha256` must
+    pass 40/40 -> suite green. LIVE-RUN NOTE from this session: the 103 no-item
+    with-row sites gain fresh all-rows "no model answer" items; the 1 partial site's
+    uncovered rows are upserted in place; the 52 all-in-item sites' items (incl.
+    bethlehem/shotwick's audit whys) stay byte-identical; all 246 search-set sites
+    get the nopicture re-record with the exact searched string.
+    EXPORT-PHASE RULE (still in force, from the iter-207 hand-over): a bare
+    re-export on THIS machine yields 953d9ab's 1168-row plans.json byte-identical
+    (numancia's c_0fa271e2444f7bfc in as a COMMONS row; the 307 rows that exist only
+    in HEAD's 1474 - the 211 pictures, the Civitates/Merian full pages - have no
+    local copies here yet). The fetch phase (1/s, resumable, skips rows that already
+    have a copy) fills every missing kept row BEFORE the re-export, so the live
+    export regains both sides; before the final re-export record the committed
+    (id, sites[0]) key set and diff it after - any LOST key is a fetch failure to
+    record as a data finding (never silently drop or re-add), expected growth is
+    pure adds.
 
 **My Depends on line stays "203a, 203b, 211"** (203a/211 done, 203b in flight - the
 live run genuinely needs the batch done; 232-234 depend on ME, not the other way
@@ -128,5 +155,7 @@ e, 232's two tests, 233's test, 234's test) against my claim, add them to the li
 
 ---
 
-### (superseded - iteration 205 hand-over: the full test design and corrections 1-5;
-complete text also in git: `git show 953d9ab:tasks/212-cover-final.md`)
+### (superseded - iteration 207 hand-over; its step (1) is done: 231 corrected,
+232/233/234 written, probe worktrees removed. Complete text in git:
+`git show 2eef3ce:tasks/212-cover-final.md`; the iter-205 design text it pointed to
+is `git show 953d9ab:tasks/212-cover-final.md`.)
