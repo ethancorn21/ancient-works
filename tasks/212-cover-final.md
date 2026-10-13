@@ -55,9 +55,32 @@ check, and the "no picture found" list.
 
 ## Hand-over
 
-(2026-10-13, iteration 210, agent a - D3 cost measurement done: the real-dir/
-hard-link tree build is ~0.7s, the fallback is dropped; NO code changed. Next
-step: write tests/test_cover.py.)
+(2026-10-13, iteration 211, agent a - investigation session: every API the test
+drives re-read and re-verified this session (see "verified this session" below);
+NO code written yet - the session hit the context limit after reading. **The
+lead (mid-session message): 233+234 he did himself on main (commit aeeb5aa, now
+the main tip - confirmed in my repo view); WHEN MAIN IS MERGED INTO MY BRANCH
+(next session start) mark tasks/233-merge-numancia-plan-row.md and
+tasks/234-fit-queue-tie-and-refresh.md Status: done with all boxes ticked
+(he instructed me to do it; 231/232 stay mine after their deps - 232 after 212,
+231 after 306c-f). Spend THIS (next) session committing CODE: write
+tests/test_cover.py per the design below and commit it.**}
+
+**STATE:** tests/test_cover.py does NOT exist yet (checked: tests/ has no
+test_cover.py). fit/cover.py DONE (863 lines, 55678e3, verified). HEAD 29994f2
+(driver files); main tip now aeeb5aa (lead's 233+234: plans.json re-exported with
+every local copy - numancia row back, data/raw synced Mac<->VM both ways, so a
+bare re-export here is complete again; the row is a COMMONS row, not books -
+233's record). aeeb5aa is NOT yet in my branch (driver merges main before the
+next session). Because aeeb5aa re-exported plans.json and re-synced data/raw,
+the iter-210 world measurements (499 built / 131 docs / nofit 402 / search set
+246 / CHOOSE aardenburg,aesica,aire,alauna / 1474 rows) MUST BE RE-MEASURED in
+the merged tree before writing the test's preconditions (same one-liner as
+iter-209's; numbers may shift - the design is state-aware, so only the
+precondition pins move). Agent c's 203b is still in flight: my Depends on line
+stays "203a, 203b, 211"; the TEST is state-aware (world computed ONCE at setup
+from the tree's live files) so it can be written and run now and re-run after
+203b; the LIVE run (step 3 of the iter-205 plan) genuinely waits for 203b.
 
 **Re-measured live state (current tree, unchanged since iter-209):** 499 built;
 plans.json 1474 rows; 131 docs = 21 by:hand + 110 by:agent + 0 unmarked; nofit
