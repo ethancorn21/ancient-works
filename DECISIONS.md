@@ -563,3 +563,7 @@ Full suite run for the done-claim: 1 failed / 154 passed / 1 skipped in
 tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 (307bb part-4 gestures, the known pre-existing red belonging to the 307
 series, not this task).
+
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
