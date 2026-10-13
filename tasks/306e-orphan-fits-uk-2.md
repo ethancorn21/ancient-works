@@ -50,86 +50,27 @@ placement is good enough to keep.
 - york-castle-q80637.c_a7db545536f13e24 - Plan of Center, Broome County 1855 (Gifford Wenig)
 
 ## Hand-over
-(2026-10-13, iteration 184, agent c - **oxford-castle c_ba6b308580428184 JUDGED DELETED (wrong
-place) but the 303 removal is NOT yet executed** - it was the next action when the context
-limit hit. 4 of 17 lines written; after the oxford line will be 5.)
+(2026-10-13, iteration 185, agent c - **oxford-castle c_ba6b308580428184 DELETED the 303 way this
+session** (new review item created, doc deleted, page re-exported 343/356) **and its line written
+- 5 of 17 lines done**. 12 docs (9 sites) remain to judge; next = pilsbury.)
 
 **State of the 17 docs (o-y):** offa-s-dyke c_1cca85e7b4b5a89e KEEPS (181); okehampton-castle
 c_0edd7f87db67ff20 KEEPS (181); old-sarum c_ff62c9585a92b375 DELETED (183, 303 way); old-sarum
-c_041083ec68b532f8 DELETED (183, 303 way); **oxford-castle c_ba6b308580428184 JUDGED DELETED
-(184, wrong place) - the 303 removal is NOT yet executed.** Remaining to judge: 12 docs / 9 sites
-(list below). The old-sarum measurement detail lives in DECISIONS entries 182/183 (grep '306e').
+c_041083ec68b532f8 DELETED (183, 303 way); oxford-castle c_ba6b308580428184 DELETED (judged 184,
+executed 185, 303 way - item CREATED, not appended). The 303-removal detail of the oxford
+deletion (the exact entry fields, the export numbers) is in the DECISIONS 185 entry.
 
-**oxford-castle (this session, 184) - verdict DELETED (wrong place, right kind):** Mackenzie 1897
-'THE FORTRESS OF OXFORD' plate (895x781, British Library scan, data/raw/commons/oxford-castle-
-q2600886/ba6b308580428184.jpg). Fit: 4 anchors = PERFECT 100-px diagonal ladder (300,300)-
-(600,600) -> exactly 1.000 m/px, -0.00 deg, all resid 0.0 (no placement information; the bury-
-castle/c_ff62 class; the page [eval] in the committed shot agrees: 'Scale 1.00 m per page pixel,
-turned -0.0 deg'). Site point (-1.26248, 51.7518 = Corn Market) inverse-maps to plate (399.5,
-399.5) = the CENTRE of the drawn bailey. Measured plate features (densest-window search on the
-luminance mask): the keep (dark square '1') is centred at plate (416,573) -> E+17 / N-174, i.e.
-174 m SOUTH of the site point, over a built-up 1842 block just north of the Thames, while the real
-moated keep island (small 1842 circle at the site point; the dark spot on the aerial just W of
-marker 2) sits at the site point = the drawn bailey's centre: the keep is ~170 m south of its own
-moat. The drawn bailey (curtain polygon ~450 m E-W x ~380 m N-S, centred ~130 m E of the site
-point) renders over the flat built-up city - walls over streets/building blocks, on no earthwork -
-and the plate's big natural-hill outline (~665 x 540 m) is over the same flat ground (1842 and
-LiDAR relief 161-165 show no hill). Only the drawn river (plate v 585-665 -> 185-230 m south)
-lands on the real Thames (~200 m south).
-
-**oxford: exact next step (303 removal, unexecuted):** no review item exists for oxford yet
-(checked data/review/ + web/data/review.json this session), so the 303 way CREATES one:
-  1. Script at project root (.venv/bin/python): doc = json.load(data/db/platefits/oxford-castle-
-     q2600886.c_ba6b308580428184.json); t = 'File:207 of ' + "'The Castles of England- their story
-     and structure ... With ... illustrations and ... plans'" + ' (11148583904).jpg' = the
-     files.jsonl row title (assert 'c_'+sha16(t) == doc['plan'] matches c_ba6b308580428184);
-     entry = {plan: doc['plan'], title: t, url: doc['url'], pairs: doc['pairs'], coarse: False,
-     evidence: fit.review.candidate_evidence(doc['plan']) (verified returns {rec: 'evidence/1',
-     kind: 'hand_tied', checked: '2026-10-10', source: 'pipeline/sources.py mackenzie'}), label:
-     doc['label'] ('1897'), cite: doc['cite'], ref: doc['ref'] (keeps the 'File: ' prefix), size:
-     doc['size'], place_reason: '306e audit 2026-10-13: <condense the paragraph above> Document
-     deleted.'}; p = fit.review.upsert_item(ROOT, 'oxford-castle-q2600886', [entry]) -> creates
-     data/review/oxford-castle-q2600886.c_ba6b308580428184.json (this doc is the lead and only
-     candidate; item stays open); then os.remove(data/db/platefits/oxford-castle-q2600886.
-     c_ba6b308580428184.json); then print(fit.review.export(ROOT, 'oxford-castle-q2600886')) ->
-     (n_open, n_total), expect n_open 342 -> 343.
-  2. Write the oxford line into the 306e block of docs/site_flow.md (after the old-sarum c_0410
-     line, before '## The site markers become arrowheads (task 308)') in the standard one-line
-     format (see the offa/old-sarum lines): '… similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0
-     deg): the 4 anchors are a perfect 100-px diagonal ladder, so the fit carries no placement
-     information; the site point inverse-maps to the centre of the drawn bailey. The drawn keep
-     (the dark square '1') is ~170 m south of the real moated keep island at the site point, over
-     a built-up block just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's
-     big hill outline (~665 x 540 m) render over the flat built-up city with no corresponding
-     earthworks or hill (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on
-     the real Thames. Wrong place, right kind (the bury-castle class). DELETED (2026-10-13): the
-     picture went to a new review item for the site with this reason, the document was deleted,
-     the site's review page file re-exported.'
-  3. Full suite: .venv/bin/python -m pytest tests/ -q -p no:cacheprovider. Baseline when last run
-     (183): 149 passed, 1 skipped, 1 failed = agent a's in-flight 307
-     test_fit_queue::test_placement_gestures_and_save_in_the_browser (pre-existing red on every
-     tree that merged main since 7e61147: 'the gestures own the mouse' + 404 /tiles/relief) -
-     expect IDENTICAL, no new red (union check: oxford stays covered - its built 1842 depiction
-     plus the new open item; test_platefits_docs_match_sites must stay green).
-  4. Commit: data files + docs/site_flow.md + this task file + DECISIONS.md.
-
-**Useful facts verified this session:** the page's fit-tool map in the committed shots draws the
-plate as SURVEY-RED ink on TRANSPARENT paper (index.html makeInk(), ~L993-1010, same rule as
-build_site.plate_ink) at the 85% opacity slider - so in the shots RED is BOTH the 1842 ink and
-the plate ink; to separate them use the /tmp composite (1842 red vs plate blue). web/data/plans.
-json has NO row for this doc (already true at baseline; the 306c/306d/306e-deleted docs' rows
-ARE still in it - accepted staleness) so the deletion needs no plans.json edit. oxford's box in
-web/data/sites.json is 799 m E-W x 797 m N-S (site point at box centre (399.5,399.5)). oxford's
-1842 ink is saturated over the whole city (density ~0.5-0.7 in every 25 m annulus) so the moat
-cannot be read from ink density - read it off the composite/aerial (small circle ~10 m W of the
-site point). Measured plate geometry (plate px, 1 m/px here): keep centre (416,573); hatched
-round tower/mound centre (309,300) = 90 W / 100 N of the site point; curtain polygon ~u 297-760
-/ v 184-585; hill outline ~u 144-808 / v 85-630; river line v 585-665; caption v ~700-740.
-/tmp/aw306e_doc.py exists: generic per-doc audit helper (usage: aw306e_doc.py <site-id>
-<site.plan>) - simFit replica + site-point inverse-map + 800x800 box composite with 100 m grid
-and 100-500 m circles (grid/circle spacing computed from the box width; plate read from
-data/raw/commons/<site>/<plan minus 'c_'>.jpg). /tmp/aw306e_osarum.py, aw306e_profile.py,
-aw306e_meas.py also still present.
+**oxford-castle (executed this session, 185):** fit/review.py API only, no hand-edited JSON
+(the script was /tmp/aw306e_oxford.py): upsert_item(ROOT,'oxford-castle-q2600886',[entry]) created
+data/review/oxford-castle-q2600886.c_ba6b308580428184.json - this doc = lead and only candidate
+(no_picture_found None, resolved None, item stays open); entry = {plan, title (the files.jsonl row
+title, sha16-asserted), url, pairs (the doc's own 4), coarse False, evidence (candidate_evidence
+-> the mackenzie hand_tied row {evidence/1, hand_tied, 2026-10-10, pipeline/sources.py
+mackenzie}), label '1897', cite, ref (keeps the 'File: ' prefix), size, place_reason '306e audit
+2026-10-13: ... Wrong place, right kind (the bury-castle class). Document deleted.'}; then the
+doc deleted; export(ROOT, site) -> 343 open of 356 (342/355 before). Only 3 files changed
+(D the doc, A the item, M web/data/review.json). The oxford line is in the 306e block of
+docs/site_flow.md (after the old-sarum c_0410 line) - that is 5 of 17 lines.
 
 **Remaining work - 12 docs (9 sites):**
 - pilsbury-castle-q7194511.c_7ff765c177ca7bae. NO item.
@@ -156,11 +97,12 @@ aw306e_meas.py also still present.
 (the /tmp recipe block below); inverse-map the site point; build the 800x800 box composite (relief
 grey + six-inch-1st_ink.webp red alpha>40 + plate ink blue via atv + bilinear of the
 luminance-alpha mask; for a DENSE/hatched plate the blue ink saturates - read the composite /
-screenshots instead of an ink histogram, per the trap above); add a 100 m grid (50 px) and 100-500 m
-circles centred on the site point to read radii off; where size is in question, measure the real
-earthworks as 1842 ink density in 25 m annuli / 16 az bins (template /tmp/aw306e_profile.py). The
-committed shots (docs/site_flow/agent_fits/<doc>.png + _relief.png) are the source of truth if the
-/tmp crops were wiped. KEEPS -> line in the 306e block; DELETED -> the 303 way below.
+screenshots instead of an ink histogram, per the PITFALLS entry); add a 100 m grid (50 px) and
+100-500 m circles centred on the site point to read radii off; where size is in question, measure
+the real earthworks as 1842 ink density in 25 m annuli / 16 az bins (template
+/tmp/aw306e_profile.py). The committed shots (docs/site_flow/agent_fits/<doc>.png + _relief.png)
+are the source of truth if the /tmp crops were wiped. KEEPS -> line in the 306e block; DELETED
+-> the 303 way below.
 
 **The 303 way (per 306d/303, unchanged):** fit/review.py API, no hand-edited JSON:
 `upsert_item(root, site, [entry])` with entry = {plan, title, url, pairs (the doc's own),
@@ -171,8 +113,9 @@ data/db/platefits/<doc>.json; then `export(root, site)` scoped to the site (NEVE
 item file; the page file is recomputed over the whole queue - that is intended). Sites WITH an
 existing review item: pontefract [c_ba5dfa2d2dbc645e + 6 more], richborough [c_1dcd5a7171573663],
 windmill-hill [earthworkenglan01allcgoog_n0557_1, _n0558_1], york-castle [c_81ecab4a9284f156 + 4
-more]. NO item (create if deleted): oxford, pilsbury, portus-adurni, raby-castle, stanton-drew,
-taunton. (offa, okehampton KEEPT - no item; old-sarum's existing item was reused for both deletions.)
+more]. NO item (create if deleted): pilsbury, portus-adurni, raby-castle, stanton-drew, taunton.
+(oxford now HAS one - created for c_ba6b308580428184 this session; offa, okehampton KEEPT - no
+item; old-sarum's existing item was reused for both deletions.)
 
 **/tmp recipe (re-writable in ~40 lines):** .venv/bin/python (has PIL + scipy). (a) merc =
 ([lon,lat]) => [lon*R*pi/180, log(tan(pi/4 + lat*pi/360))*R], R=6378137 (web/index.html L360, TRUE
@@ -191,16 +134,17 @@ site box (1600 px for old-sarum), ink = alpha>40, r and compass-az from the box 
 25 m annulus and per 22.5 deg az bin (use i*22.5 in a plain list, NOT range(0,360,22.5) - range
 rejects float steps).
 
-**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 4 of 17 lines (offa,
-okehampton, old-sarum x2); the oxford line is drafted (step 2 above) but not written; tick when
-all 17 are in. Box 3 PARTIAL: 2 deletions executed (old-sarum c_ff62, c_0410); oxford judged
-DELETED, deletion pending (step 1 above); the rest await the remaining 12 verdicts. Box 4
-satisfied (no `by: hand` touched; last full run 183: 149 passed, 1 skipped, 1 failed = agent a's
-in-flight 307 test_fit_queue::test_placement_gestures_and_save_in_the_browser - the pre-existing
-red on every tree that merges main since 7e61147; this 184 session ran no tests - it was
-read-only + /tmp measurement, no project file changed yet).
+**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 5 of 17 lines (offa,
+okehampton, old-sarum x2, oxford); tick when all 17 are in. Box 3 PARTIAL: 3 deletions executed
+(old-sarum c_ff62, c_0410; oxford c_ba6b308580428184); the rest await the remaining 12 verdicts.
+Box 4 satisfied (no `by: hand` touched; suite this session: 149 passed, 1 skipped, 1 failed
+(270.6 s) = IDENTICAL to the 183 baseline - the 1 is agent a's in-flight 307
+test_fit_queue::test_placement_gestures_and_save_in_the_browser, the pre-existing red on every
+tree that merged main since 7e61147; no new failure from this change - the union tests and
+test_platefits_docs_match_sites are green).
 
-**Re-read:** the 306e block in docs/site_flow.md (header + offa + okehampton + the two old-sarum
-lines, between the 306d ludlow line and '## The site markers become arrowheads (task 308)') -
-continue it in the same format (one line per doc, KEEPS/DELETED - an orphan today, invisible on the
-page).
+**Re-read:** the 306e block in docs/site_flow.md (header + offa + okehampton + old-sarum x2 +
+oxford lines, between the 306d ludlow line and '## The site markers become arrowheads (task 308)')
+- continue it in the same format (one line per doc, KEEPS/DELETED - an orphan today, invisible on
+the page). NEXT DOC TO JUDGE: pilsbury-castle c_7ff765c177ca7bae (the /tmp/aw306e_doc.py helper,
+re-writable from the /tmp recipe above; the committed shots are the fallback).

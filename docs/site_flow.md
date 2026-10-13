@@ -1328,6 +1328,18 @@ the site stays covered for the union check, an open item counts).
   drawn works bigger than the real complex, walls past the fields. DELETED - an orphan today,
   invisible on the page (the 303 way, as for c_ff62: the picture and its 6 points went to the
   site's review item with this reason, the document deleted, the site stays covered).
+- oxford-castle-q2600886.c_ba6b308580428184 - Oxford Castle, plan from Mackenzie, The Castles
+  of England (1897; similarity, 4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the 4 anchors are a
+  perfect 100-px diagonal ladder, so the fit carries no placement information; the site point
+  (Corn Market) inverse-maps to the centre of the drawn bailey. The drawn keep (the dark square
+  '1') is ~170 m south of the real moated keep island at the site point, over a built-up block
+  just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's big hill outline
+  (~665 x 540 m) render over the flat built-up city with no corresponding earthworks or hill
+  (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on the real Thames.
+  Wrong place, right kind (the bury-castle class). DELETED - an orphan today, invisible on the
+  page (the 303 way: the picture went to a new review item for the site with this reason, the
+  document was deleted, the site's review page file re-exported; the site stays covered by its
+  built 1842 depiction plus the open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 

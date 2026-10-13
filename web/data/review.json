@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T09:10:12.437362+00:00",
+ "at": "2026-10-13T09:44:19.455464+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -10343,6 +10343,60 @@
      "ref": null,
      "plan": "earthworkenglan01allcgoog_n0557_1",
      "place_reason": "same name, other place: FIRLE HILL vs St Neots, Cambridgeshire, England"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "oxford-castle-q2600886",
+   "name": "Oxford Castle",
+   "lead": "c_ba6b308580428184",
+   "candidates": [
+    {
+     "plan": "c_ba6b308580428184",
+     "title": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
+     "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
+     "pairs": [
+      [
+       300.0,
+       300.0,
+       -1.2639238,
+       51.7526938
+      ],
+      [
+       400.0,
+       400.0,
+       -1.2624727,
+       51.7517955
+      ],
+      [
+       500.0,
+       500.0,
+       -1.2610217,
+       51.7508972
+      ],
+      [
+       600.0,
+       600.0,
+       -1.2595706,
+       51.7499988
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:207_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148583904).jpg",
+     "ref": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
+     "size": [
+      895,
+      781
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 4 anchors are a perfect 100-px diagonal ladder (300,300)-(600,600), so the fit carries no placement information; the site point (Corn Market) inverse-maps to the centre of the drawn bailey. The drawn keep (the dark square '1') is ~170 m south of the real moated keep island at the site point, over a built-up block just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's big hill outline (~665 x 540 m) render over the flat built-up city with no corresponding earthworks or hill (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on the real Thames. Wrong place, right kind (the bury-castle class). Document deleted."
     }
    ],
    "no_picture_found": null
