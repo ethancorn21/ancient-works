@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 306c: Look at the orphan agent fits, US - 16 docs, 9 sites
 Depends on: none
 Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json, tools/audit_306c.mjs, PITFALLS.md, DECISIONS.md
@@ -72,12 +72,38 @@ own task file (for a subtask, read its parent's too).
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Hand-over
-(2026-10-12, iteration 158, agent c - ninth session. **Work has been COMPLETE and committed since iteration 150 (9 wrong-fit US orphan docs deleted the 303 way, 7 STAYS, 16/16 audited, 32 shots, verdicts in docs/site_flow.md L941+; by:hand serpent n0210_1 untouched). This session: filed ask_human request 004 FIRST (stuck rule after the 3rd done-claim rejection; blocking, NOT human_only) with the full A/B evidence + recommendation (accept 306c on the A/B, baseline the 307bb red, reopen 307bb for the fix). The task stays in-progress while request 004 is open (the filing's instruction: keep the status as-is; the loop answers with my recommendation after 120 min of human silence). A fresh run today re-confirmed the red and showed the same test's save/cancel checks fail too (same root + a timing fragility). Corrected the stale PITFALLS entry. WAITING ON HUMAN ANSWER 004 - do not re-file the done-claim, do not touch 307bb's files.)
+(2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
+(2026-10-13 08:35): "LEAD: accepted. 306c is closed on main (12b2274) and your branch is
+merged. Keep going on 306e and 306f." This session processed that answer: verified the tree
+state (below) and restored Status: done - the lead's own close commit 12b2274 had set it,
+and the driver's f1ad899 had reopened it only to deliver the answer.)
 
-**State.** Unchanged since 157: main tip 7e61147; no commit since 081c773 touches web/fitkit.js / web/index.html / tests/test_fit_queue.py / web/data/fit_queue.json (all = 307bb's files, agent a's 307 rework - not 306c's Touches). git diff --name-status main..agent/c: 9 D platefits (7 serpent-mound + hodgen-s-cemetery-mound ArcheologicalAtlasOfOhio_n0092_1 + marietta b24849959_n0195_1), 3 M data/review items, 1 M web/data/review.json, 32 A docs/site_flow/agent_fits/*.png, 1 A tools/audit_306c.mjs, docs/site_flow.md 306c block L941+ (9 DELETED + 7 STAYS); this session added the PITFALLS/DECISIONS corrections only.
+**Deliverable (all on main; nothing to do).** The 16 US orphan docs audited (32 shots in
+docs/site_flow/agent_fits/, verdicts in the docs/site_flow.md 306c block at L941+); the 9 wrong
+fits removed the 303 way (9 docs deleted, 3 site items upserted with the reasons, the page
+re-exported scoped to each site); the 7 right fits keep their docs; the serpent-mound hand doc
+(n0210_1) and its overlay were never touched. Verified in this tree: agent/c already contains
+12b2274 (the driver merged main in, 737332f) and `git diff --name-status main..HEAD` shows only
+driver/agent bookkeeping (PROGRESS/CODEMAP/DECISIONS(archive)/task files) - every deliverable is
+on main.
 
-**The 307bb test today (fresh run; log /tmp/aw306c_probe_158.log, ~51 s probe on a copied tree).** Pick = marietta (plan ancientmonuments00squi_n0169_1) - the derived pick lands on marietta because 306c deleted its ONLY doc and upserted its review item (both _line_eligible preconditions now hold; on main it is still ineligible -> the test is vacuous-red there). seed JSON: gestures all false (that half ok), **dep:null** -> `seed.dep === 'none'` FAILS: the `dep-marietta` layer is ABSENT at runtime; web/fitkit.js:349 hides the earlier overlay only IF the layer exists. NEW vs the 157 run (same root family + timing): "save: the page closed the fit view" :: undefined and "save: the overlay landed in the tree" (the one-site line's "Making the overlay (a few seconds)…" build had not finished when the probe read state - machine-load dependent: 3 checkouts running suites in parallel, disk 90% full), "save: the new overlay is showing" vis:null, "cancel: the earlier overlay is back" (before.vis:null - there was never an earlier overlay to restore; the test wants 'none'->'visible'). All doc-write/anchor/rounding checks [ok].
+**The 307 red, re-checked today (iteration 199).** `test_fit_queue.py::
+test_placement_gestures_and_save_in_the_browser` is STILL red on this tree (ran it, 53 s): it now
+fails at the seed check "the gestures own the mouse (map pan/zoom off), the earlier overlay
+hidden" with 404s on `GET /tiles/relief/...` in the server log - a CHANGED signature vs my 158
+run (dep:null): the test was reworked after 307bb (6692bb5's fixture-link commit, aeeb5aa's
+test_fit_queue_real change) and 7e61147 keeps the .npy/.npz DEM grids out of the fixture copies
+(on this VM live /tiles/relief depends on the Mac-only DEM upstream anyway - 306 hand-over
+machine facts). It is the project's known pre-existing red: 306e's suite baselines (183/185/198:
+"154 passed, 1 skipped, 1 failed = only 307bb's gesture red, identical to the 182 baseline")
+carry it, and agent a is actively on the 307 rework now (its Touches include the test and fitkit),
+so the fix lands via 307's merge. No parallel task may fix agent a's files or undo its audit to
+move the pick (the PITFALLS entry is updated to match).
 
-**What to do with answer 004.** (a) Accepted / red baselined / 307bb reopened (my recommendation; also the loop's 120-min default): nothing left in 306c - the work is done, all boxes ticked, committed; if the driver re-verifies with the baseline the done-claim passes. No further commit needed unless the tree changes. (b) 307bb is fixed in ITS files (fitkit.js:349 leaves the dep layer present-and-hidden on placement-mode-open, or the test accepts dep===null when there is no earlier overlay; and/or the pick requires a runtime dep layer; and/or the save checks wait for the overlay build): re-run `.venv/bin/python -m pytest "tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser" -q -p no:cacheprovider` in THIS checkout; if green, re-file the done-claim (Status: done) - the rest of the suite was green (127/1/1 at 156; tree unchanged since). (c) Rejected again with NO baseline change and NO 307bb fix: do NOT file a 4th mechanical done-claim; the A/B evidence stands, note it in DECISIONS only. (d) A DIFFERENT new named failure (not this test) = a real 306c regression: dig (roundtrip -> server/serve.py db routes; else diff the failing test against the report baseline).
-
-**Repro.** /tmp/aw306c_repro_probe.py (copies the tree to /tmp/aw306c_probe_tree, hermetic server/serve.py --port 0, runs the real place_probe.mjs, prints full stdout; ~51 s, ~0.6 G). Clean up /tmp/aw306c_probe_tree after a run (disk 90% full; leave >=5G free - the 17:06/17:35 rejections were machine-level ENOSPC). A/B baseline: main alone (worktree @7e61147) = vacuous fixture error, proven at 157.
+**Next for me (separate task files; the driver hands them out).** 306e (in-progress): finish the
+last 2 sites - windmill-hill n0558_2 DELETED, york c_8dac KEEP-in-item (owner's-call flag,
+question filed as task 807), york c_a7db DELETED - verdicts decided, the 303-way upserts + lines
++ export pending; the full recipe is in its 198 hand-over. Then 306f (open: 17 continental
+docs) - NOTE main's 6ce742f (in with the 306e 197 merge) deleted all 68 orphan docs, 306f's
+included, so 306f becomes audit-VERDICT work against the surviving item entries, exactly
+306e's final form (see the 306e hand-over's major-state-change section).

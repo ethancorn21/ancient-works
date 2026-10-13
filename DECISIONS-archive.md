@@ -3981,9 +3981,54 @@ series, not this task).
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 
+## 2026-10-13 212b DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
 
 <!-- task 212c -->
 # Task 212c batch-report
+
+## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
+Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
+test and commit them. Then write docs/batch.md from it. No census re-measuring - the store
+is the source." The `report` phase 212a wrote needed no change: `.venv/bin/python
+fit/cover.py report` on the live store (system python3 has no numpy - the driver's venv
+does) produced docs/batch.md: 499 built; buckets 19 hand-golden / 0 human-saved / 24
+automatic / 106 review item / 244 no picture found / 106 uncovered-needs-attention - the
+sum is 499, the partition holds; the invariant line honestly reports the break for the 106
+(the loop phase never ran live; the number moved from the 103 estimated at 0e6d5df because
+the store moved - lead: no re-measuring); the sample is random.Random(20261012) over the 36
+by:agent docs (20 drawn, page URL + gate median - the same table convention as
+docs/batch_us.md); the no-picture table is 244 rows and cross-checked 1:1 against the
+no-picture bucket (no fitted site carries an open no-picture item, so the table is exactly
+the bucket; one batch-era string, a with-candidate site outside the 212a search set,
+renders as-is - the store's own record, not a phase defect). tests/test_cover.py extended
+with test_report (the run fixture runs the report on the same tree after the integrity
+snapshots, socket guard re-armed, fixed at=; docs/batch.md moved into IN_PLACE so the
+report's in-place rewrite stays in the tree): recorded seed == SEED_212, the named
+automatic total == the store's, the six buckets sum to the built-site total, the invariant
+line agrees with the uncovered bucket, the sample is exactly random.Random(recorded
+seed).sample(sorted auto ids, 20) in draw order with page URL + gate score per row, and
+the no-picture table is complete with non-empty searched records. Suite: 155 passed, 1
+failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - 307bb's
+pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
+skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
+tick both boxes, set done.
+
+## 2026-10-13 212c DECISION: docs/batch.md committed from a fresh store run - 212 complete (a done, b done by the lead, c done)
+Session 234 (agent a), second commit of the session, per the lead's order ("Then write
+docs/batch.md from it"). The file (at: 2026-10-13T13:22:09.600423+00:00, 293 lines) is the
+report the owner reads: the six per-site outcome buckets summing to the 499 built sites
+(19 hand-golden / 0 human-saved / 24 automatic / 106 review item / 244 no picture found /
+106 uncovered-needs-attention - the loop phase never ran live, so the invariant line
+honestly prints the break for the 106), the fixed 20-sample of the 36 by:agent docs
+(random.Random(20261012) over the sorted ids; page URL + gate median per row - the
+owner's 18/20 check is repeatable from the file), and the 244-row no-picture table with
+the exact searched record per site. tests/test_cover.py passes with the checkout carrying
+the file (the IN_PLACE copy path in the tree builder) - 6 passed, 35 s; full suite as
+before (the one red is 307bb's pre-existing gesture test). The parent 212 hand-over now
+says the whole 212 is complete; its Status stays split until the driver hands it back.
 
 ## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
 Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
@@ -6387,6 +6432,20 @@ logged in PITFALLS and above).
 - This session (the hand-over's case (a), with the new facts): verified the work intact (16 verdict lines in docs/site_flow.md, the 306c block from L941: 9 DELETED the 303 way + 7 STAYS; 32 shots in docs/site_flow/agent_fits/; the by:hand serpent doc n0210_1 untouched; tree clean); killed the two orphan servers (138899/139733); deleted my dead 2.3G pytest-0; re-ran the full suite (`.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py`, 223 s, 17:55-17:59): 127 passed, 1 skipped, 1 failed - the sole failure is 307bb's test_placement_gestures_and_save_in_the_browser at the same pre-gesture seed step as iterations 150/151 and the A/B at 1ade748 (deterministic pre-existing; PITFALLS tests/test_fit_queue.py); deleted my 3.5G run leftover -> 8.0G free (83%), my loop dir 2.2M. Status: done (3rd filing).
 - Attempt count at the done-claim blocker: 1 = original claim (rejected 17:06), 2 = iteration 152 re-file (rejected 17:35), 3 = this filing. If the driver rejects a third time: stuck rule -> blocking ask_human with human_only (machine-level: 48G disk vs ~3.5G-per-run x 4-5 concurrent checkouts; ask for disk enlargement/trim, or approval of a dedicated tests/conftest.py footprint task) + Status: blocked + commit + stop, pointing the human at the twice-proven evidence (16-line block L941+, 32 shots, commits 0b83599/b9cbc46, 127/1/1 green at 151/152/156).
 
+## 2026-10-12 306c DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
+
+## 2026-10-12 306c DECISION: iteration 157 - the 3rd rejection (18:13) is 307bb's own dep-null box-3 test, NOT a 306c regression (A/B: main is vacuous-red too); no in-scope fix; stuck rule -> Status: blocked + ask_human
+- The 18:13 note names tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser as a "new" failure and says "fix the combination." It is 307bb's OWN box-3 test (307bb Status: done, merged to main; its Touches = web/fitkit.js, web/index.html, tests/test_fit_queue.py, docs/site_flow.md - agent a's 307 rework). The driver's 2026-10-11 loop-start baseline predates 307bb landing on main, so this red is not in its known-failures list -> flagged "new".
+- A/B on the CURRENT tree (main moved since iteration 150, so I re-proved, did not rely on the old entry): (1) my branch (agent/c = main 7e61147 + 306c): the test RUNS and FAILS at the seed check - reproduced via /tmp/aw306c_repro_probe.py (copies tree, hermetic serve.py --port 0, runs the real place_probe.mjs, full stdout; ~51 s). The [seed] JSON: gestures:[false x5] (pan/zoom correctly off -> that half PASSES) but dep:null -> the assertion `seed.dep === 'none'` FAILS. dep = the dep-<site> layer's visibility, or null if the layer is absent -> the dep-marietta layer does not exist on the map. Picked site = marietta (plan ancientmonuments00squi_n0169_1). (2) main alone (worktree @7e61147, no 306c): the test ERRORS earlier at the fixture - _pick_place() returns None -> "no queue entry with a proposal, a local book page, an unresolved item and an overlay - vacuous." So it is red on a clean HEAD too, but as a vacuous error, NOT the seed failure.
+- Why 306c's data changes move the pick (the "combination"): _pick_place() takes the first queue entry (file order) that is propose + _line_eligible + non-empty depictions. _line_eligible requires (5) no platefit docs for the site yet AND (3/4) an unresolved item carrying the row (>=3 pairs). 306c deleted marietta's ONLY doc (b24849959_n0195_1) and upserted marietta's review item (candidate + reason) -> both satisfied -> marietta becomes the pick (main still has the doc -> not eligible -> vacuous).
+- Root cause is 307bb's code, not 306c's: web/fitkit.js:349 `if (map.getLayer('dep-'+site.id)) setLayoutProperty('dep-'+site.id,'visibility','none')` hides the earlier overlay ONLY if the layer exists; a site whose depiction layer was never created (marietta) stays absent -> dep null -> `dep === 'none'` fails. The test's pick is "derived, never pinned," so which site it lands on (and whether dep is null vs 'none') depends on the store/review state = 306c's deletions/upserts. All involved files are 307bb's Touches. 306c's Touches (docs, platefits, review, review.json, audit_306c.mjs) touch none of it, and marietta's depictions.json is UNCHANGED by 306c.
+- No in-scope fix: passing needs 307bb to make placement-mode-open leave the dep layer present-and-hidden (or relax the test to accept dep===null when there's no earlier overlay). The only 306c lever would be to NOT delete/upsert marietta's doc+item = undo 306c box 3 (forbidden: weakens the deliverable). So 306c cannot turn it green without editing 307bb's files or weakening its own audit.
+- Action (stuck rule: 3rd done-claim rejection; 1 = 17:06 ENOSPC, 2 = iteration 152 17:35 ENOSPC, 3 = this 18:13): set Status: blocked; ask_human NOT yet filed (this session was context-limited to PROGRESS/DECISIONS/tasks/git, which excludes ask_human) - the next session files it FIRST (blocking, not human_only) with this evidence + recommendation (re-open/fix 307bb's fitkit.js:349 dep handling or relax its test; add the 307bb red to the driver's known-failures baseline; or accept 306c on the A/B evidence). If the loop answers for me (no human reply in 120 min): stay blocked on 307bb (safe - the fix is agent a's, outside my Touches). 306c deliverables remain done + verified: git diff --name-status main..agent/c = 9 D platefits (7 serpent + hodgen ArcheologicalAtlasOfOhio_n0092_1 + marietta b24849959_n0195_1), 3 M review items (those 3 sites), 1 M web/data/review.json, 32 A agent_fits/*.png, 1 A tools/audit_306c.mjs, docs/site_flow.md 306c block L941+ (9 DELETED + 7 STAYS); by:hand serpent n0210_1 untouched.
+- CORRECTION for the next agent: the PITFALLS tests/test_fit_queue.py entry (iteration 150) says the seed failure "fails DETERMINISTICALLY on a clean pre-change HEAD" - that is now INCOMPLETE/wrong. On a clean HEAD (main) the test is VACUOUS (no qualifying entry), NOT a seed failure; the seed/dep-null failure is specific to the pick shifting to a site (marietta) with no dep layer, which 306c's data changes cause. Update that PITFALLS entry when editing PITFALLS is allowed again (this session was context-limited to PROGRESS/DECISIONS/tasks only).
+
 
 <!-- task 306d -->
 # Task 306d orphan-fits-uk-1
@@ -6804,6 +6863,13 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
 - Wrote the 13th of 17 lines in the 306e block of docs/site_flow.md (after the richborough line, before '## The site markers become arrowheads (task 308, 2026-10-13)'): the 100-px diagonal ladder pins the plate centre on the site point; the plate is a genuine plan of the group drawn at ~10 m/px, fitted 4-10x too big - the drawn Great Circle (435 m) surrounds the real ~50 m cluster with its centre ~90 m off, and the drawn Circle of 8 / South-west Circle sit on open farmland; DELETED - an orphan today, invisible on the page (the 303 way: a NEW review item - the site had none before - the site stays covered by it).
 - Suite after the change (.venv/bin/python -m pytest tests/ -q -p no:cacheprovider, 300.13 s, /tmp/aw306e_suite194.log): 154 passed, 1 skipped, 1 failed = the post-merge baseline, no new red (the only red is agent a's in-flight 307 gestures test; union/coverage green - stanton-drew stays covered by its new open item).
 - REMAINING: 4 docs (3 sites) - taunton-castle c_05cb4a02bd58e82e (Mackenzie 1897; NO item -> create if deleted), windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (Allcroft 1908 'WINDMILL SITES, LEWES DOWN', model None - the page's default plan model fits it: relief shot resid 0, 1.0 m/px, 0 deg; the site's item already holds n0557_1 + n0558_1 -> if deleted, APPEND to THAT item, do not create a second), york-castle-q80637 c_8dac5aacd73916b8 ('York Castle in 1820' watercolour, score 31.7) + c_a7db545536f13e24 ('Plan of Center, Broome County 1855' = Center is a TOWN in Broome County, NEW YORK - toponymic-collision class, almost certainly DELETED wrong place; existing item [c_81ecab4a9284f156 + 4 more] -> append). 13 of 17 lines written.
+
+## 2026-10-13 306e DECISION: iteration 195 - judged taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie, The Castles of England 1897) DELETED the 303 way (site has NO item -> CREATE one with this doc as lead; expect (346,359) -> (347,360)); VERDICT ONLY this session (investigation, no files touched) - the 303-way execution, the 14th line and the suite run are the next session's step
+- Fit replicated (/tmp/aw306e_fit.py, still alive): 0.5000 m/px, +0.00 deg, all 4 residuals 0.0. Anchors plate (800,200)/(800,400)/(800,800)/(400,1000) -> E+100 N+199, E+100 N+99, E+100 N-100, E-99 N-200 = a 200-px (100 m) grid ladder, no placement information. Site point (-3.11380, 51.0153) inverse-maps to plate (599,599) of [1280,1461] = near-centre: the fit pins the plate centre onto the site point.
+- THE key fact: the real Taunton Castle is ~640 m EAST of the catalog site point. Wikipedia 'Taunton Castle' (en.wikipedia.org/wiki/Taunton_Castle, fetched this session) gives 51.0158 N, 3.1046 W = E+643, N+55 m from the site point: the castle still stands (inner ward / Great Hall 37x9 m = the Museum of Somerset, opened 2011; outer ward = two crenellated hotels; outer bailey = the modern 'Castle Green'). Verified on modern Esri World_Imagery z18 (this VM has internet): the red-roofed Great Hall complex + hotel row + tree-lined moat ring + green sit exactly at the Wikipedia point, Tone on the NW, railway on the E. Gotcha while fetching tiles: my first pass used ln(tan+sec)/pi for the y-tile and got a dark image 40 km off - the correct slippy-tile y formula is asinh(tan(lat_rad))/pi. z18 tiles for the real castle: x=128811, y=87787 (5x5 = /tmp/taunton_castle_z18.png if alive; the site-point-centred 5x5 = /tmp/taunton_z18.png, 0.376 m/px).
+- Drawn works (measured off the plate composite /tmp/_05cb4a02bd58e82e.plate.png, 1 m/px, site point (400,400)): N. Gate E+140 N+150; Great Hall E+55 N+110; Outwork E+145 N+100; Inner Bailey E+50 N+60; 'Site of Saxon Castle' E+165 N+25; Inner Moat (now filled in) E+50 N-20; Outer Bailey E+30 N-90; Bo Langford E+90 N-90; Bishop's House E+145 N-90; Castle Green E+50 N-170; E. Gate E+190 N-170; Bp Fox's E-5 N-230; College-School E-10 N-265; Outer Moat (south edge) E+30 N-315; Porwater E-205 N-30; Barbican E-185 N-90. Plate ground extent E-299.5..+340.5, N-191..+299.5. The 1842 six-inch webp (533 px over the 800 m corners box) shows at the site point only the Wellington Terrace house cluster (big dark hatched building at E-25..+40, N-50..+10 plus the hatched row W of it) and the 'Stepps Water' dotted stream (E+50 N+62 -> E+95 N-125) - no castle, no moat, no 'Castle' label anywhere in the 800 m box: the box does not even reach the real castle (E+643 > E+400 edge). The drawn river band (N+175..+250) does match the real Tone near the site point (z18: E+98..+143, N+100..+150; 1842: E+65..+103, N+84..+400) - that is how the agent's two N-side anchors (E+100, N+199/N+99) locked the plate: the agent matched the drawn river to the wrong river bend and centred the plate on the (itself ~640 m wrong) site point.
+- So the drawn complex (E-205..+190, N-40..+153) sits on the Wellington Terrace houses and the Stepps Water stream; the real castle (the museum + hotels + moat + green) is 545-655 m EAST, beyond the plate's E+340.5 edge and beyond the site box. The 1897 plate IS a genuine, correct plan of THIS castle (features match the real works: Great Hall/inner ward, outwork, filled-in moats, Castle Green = outer bailey, E. gate, Bishop Foxe's school, St John's) - 'wrong place, right kind' (the oxford-castle class), so the picture is worth keeping in the review item. VERDICT: DELETED the 303 way with a NEW item (site has none - verified `ls data/review/ | grep taunton` empty and depictions.json holds only the 1842 map; files.jsonl line 1457: title 'File:Plan of Taunton Castle (1897).jpg', evidence hand_tied checked 2026-10-10, by 'pipeline/sources.py mackenzie').
+- Execution pending (next session): the /tmp/aw306e_stexec.py pattern - first assert fr._find_item(fr.ROOT, site) == (None, None) and fr.candidate_evidence(plan) non-None; entry = {plan, title 'File:Plan of Taunton Castle (1897).jpg', url (the row's), pairs (the 4), coarse False, evidence (the hand_tied row 1457), label '1897', cite+ref, size [1280,1461], place_reason '306e audit 2026-10-13: ... pinned ~545-655 m west of the real works (site point ~640 m west of the castle; real: 51.0158, -3.1046, east bank of the Tone); drawn complex on the Wellington Terrace houses and the Stepps Water stream, no works there. Wrong place, right kind. Document deleted.'}; fr.upsert_item (returns an ABSOLUTE path - assert the basename); os.remove the doc; fr.export -> expect (346,359) -> (347,360); then the 14th line in the 306e block of docs/site_flow.md (after the stanton-drew line); then the suite (expect 154/1/1 = baseline); then the last 2 sites (windmill-hill n0558_2 APPEND to its existing item; york x2). Suite last run: the 194 run (154/1/1 = baseline); not re-run in 195 (no code changed; git tree clean at session start).
 
 
 <!-- task 307a -->
