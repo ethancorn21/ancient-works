@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 212: Cover - the last uncovered sites, the final sync, the report
 Depends on: 203a, 203b, 211
 Touches: fit/cover.py, data/db/platefits/ (the loop's matcher writes docs; the line check may delete a pattern doc; the sync may stamp by:agent into an unmarked auto doc), data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
