@@ -1445,6 +1445,23 @@ the site stays covered for the union check, an open item counts).
   and its 6 points were APPENDED to the site's existing review item, after its coarse
   candidate c_1dcd5a7171573663 with this reason - the item keeps its file name and its
   lead and stays open, and the site stays covered).
+- stanton-drew-stone-circles-q1516300.c_59a5c636a9e00703 - Penny Magazine 1836 116, plan
+  of the druidical temple at Stanton Drew (similarity, 6 pts, resid 0.0 m, 1.00 m/px,
+  -0.0 deg): the 6 anchors are a 100-px diagonal ladder (100,100)..(600,600) that pins the
+  1280x1551 plate centre onto the site point (the site point inverse-maps to plate
+  (499.5, 499.5)) - the fit carries no placement information. The 1836 plate is a genuine
+  plan of the circle group (the Great Circle, the Circle of 8, the South-west Circle, The
+  Cove, Hackett's Quoit, the River Chew - the right names and layout against the 1842
+  six-inch and the LiDAR), drawn at ~10 m/px: the fitted 1.0 m/px inflates the group
+  ~4-10x. The drawn Great Circle (least-squares r=218 px = 435 m across, centre E+157
+  N-153) surrounds the real stone cluster (~50 m of dots at E+100..150 N-50) with its
+  centre ~90 m south of it; the drawn Circle of 8 (E-91 N+240) and the South-west Circle
+  (E+705 N-554) sit on open farmland where the 1842 and the LiDAR show no stones (the real
+  SW circle lies near Church Farm, E-100 N-200). Wrong size, and the secondary circles
+  miss the real ones. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 6 points went to a NEW review item for the site with this reason - the
+  site had none before - the document was deleted, the site's review page file
+  re-exported scoped to the site; the site stays covered by the new open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 

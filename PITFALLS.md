@@ -977,6 +977,11 @@ Where: tools/export_plans.py `commons_rows` (a files.jsonl row gets a plans row 
 Symptom: after staging N new pictures, plans.json grows by far fewer than N rows (212a live run: 107 staged -> 35 rows on 11 of the 16 sites; the other 5 sites' pictures were all photos/views/engravings below the gate). This is the DESIGN, not a failure: plans.json is the plate-fit input, so only plan/birdseye candidates go in; the photos stay in files.jsonl (with their classified + evidence fields) and the no-picture/loop phases work from the sites, not from plans.json growth.
 What to do: don't "fix" a short growth by lowering min_p or adding rows by hand; the (id, sites[0]) key-set diff (pure adds, 0 lost) is the check, and a site whose pictures all fall below the gate is legitimately still a no-picture site.
 
+#### fit/review.py upsert_item returns the item path as an ABSOLUTE string (ROOT is resolved), not repo-relative
+Where: `fit/review.py` (`upsert_item`, `item_path` over the resolved `ROOT`); 306e's /tmp audit scripts
+Symptom: `assert path == f"data/review/{site}.{plan}.json"` fails with an AssertionError printing `/home/agent/.../data/review/...` - the upsert itself succeeded, only the check tripped (iteration 194, stanton-drew)
+Why/how: `item_path` builds the name from `ROOT = Path(__file__).resolve().parent.parent`, so `str(target)` is absolute. Compare `os.path.basename(path)` (or use the returned path directly) - never the repo-relative string.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
@@ -1293,6 +1298,12 @@ Why: the file's top level is `{"depictions": [...]}` (web/review.js reads `...["
 Where: `web/index.html` (`ensureSite` L367-368), `web/data/sites/<id>/relief.jpg`, `web/data/sites.json` (`corners`)
 Symptom/need: `/tiles/relief/*` is off on this VM (aw is Mac-only), so the only LiDAR the page - and any audit of it - sees is the per-site relief.jpg raster stretched over the site corners rect; to judge a fit you need the real work's coordinates off that raster
 Why: the mapping is linear (image px -> corners interpolation, no projection), so it inverts exactly: site point -> image px, or a feature's image px -> site point. That is how 306c pinned the serpent effigy (head (-83.4288, 39.0254), tail (-83.4314, 39.0258)) and the pyramid-mound's ~100 m dark-ringed mound at ~(-87.5056, 38.6705) - one from the committed audit shots' map panes, the other straight off the committed 800x800 relief.jpg (1 px = 1.00 m for that site). No network, no live tiles.
+
+#### On the 1842 six-inch *_ink.webp individual standing stones do not resolve (~666 px over the 800 m box); for stone-circle sites the LiDAR relief's dark dots are the deciding layer
+Where: `web/data/sites/<site>/six-inch-1st_ink.webp`, `web/data/sites/<site>/relief.jpg`; 306e's stone-circle audits (stanton-drew, iteration 194)
+Symptom: zooming the 1842 six-inch's "Druidical Circles" dot cluster smears it into blobs and hachure at any magnification - the cluster's location and extent are readable, but any "how many / how big are the real circles" measurement off the six-inch ink comes out over-broad
+Why/how: the webp is only 666 px over the site's 800 m box (~1.2 m/px), so 1-2 m stones are sub-pixel and merge with the surrounding hachure/field ink. The relief.jpg shows each stone as a distinct dark dot on the local bright field (stanton-drew: the real cluster reads as ~50 m of dots at E+100..150 N-50, which the drawn 435 m ring only surrounds). For stone-circle/standing-stone sites, judge the drawn circles against the relief's dark dots (a local window, threshold ~ median-25) and use the 1842 for the cluster's location and the printed labels only.
+
 #### MapLibre marker elements are parked at the canvas origin by the vendor css and placed only by their inline transform - a page rule with a flowing position (relative) that loads after the vendor link re-enters the marker into normal flow and lands it 500-3000px off its site
 Where: `web/index.html` (`.marker` / `.ah` / `.tag` css, `addMarkers` / `syncMarkers`) + `web/vendor/maplibre-gl-5.6.0.css` (`.maplibregl-marker { left: 0; position: absolute; top: 0 }`)
 Symptom: most markers missing in globe view (61/324 in-view instead of 324/324); for the visible ones the measured rect's bottom-centre minus the marker's inline transform point is a large, VARYING offset (505-3023px) instead of a constant; markers that should be out of view get pushed in by the flow offset (Orkney showed up, Wiltshire dropped out).
