@@ -557,7 +557,7 @@ def test_fit_queue_real(tmp_path):
     assert anchored, "no entry anchored: propose is broken the same way in both processes"
     keys = [(bool(e["best"]["row"]["view"]),
              -next(c["draw_px"] for c in e["candidates"] if c["plan"] == e["best"]["plan"]),
-             e["name"]) for e in entries]
+             e["best"]["plan"], e["name"]) for e in entries]  # the generator's _best_key + name
     assert keys == sorted(keys)
 
     # the checkout itself is untouched
