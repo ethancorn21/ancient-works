@@ -1,4 +1,4 @@
-Status: open
+Status: split
 # 212: Cover - the last uncovered sites, the final sync, the report
 Depends on: 203a, 203b, 211
 Touches: fit/cover.py, data/db/platefits/ (the loop's matcher writes docs; the line check may delete a pattern doc; the sync may stamp by:agent into an unmarked auto doc), data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
@@ -52,6 +52,22 @@ check, and the "no picture found" list.
   the served result.
 - The 20-sample must stay a fixed record: the human's 18/20 check (GOAL.md point 3) is
   the project's acceptance, and a moving sample would make it unrepeatable.
+
+## Lead note (2026-10-12, after 211)
+- The fit in this task's loop is the MATCHER, not a vision-model fit: tools/site_done.py already runs
+  fit/matchfit.py first on every picture without a document whenever the matcher answers (ELoFTR on
+  127.0.0.1:8091 is reachable from this VM; RoMa on 8092 is not, and site_done works without it).
+  The vision-model batch fit invented its points (301) and must not place anything. An unsure matcher
+  result goes to the review item, as site_done already does.
+- 211's new pictures are in the canonical files but most have no local copy, so they are not in
+  web/data/plans.json yet (still 1168 rows on main): `python pipeline/commons.py thumbs` fetches rows
+  with a `thumb`; the Limes rows carry only a full-file `url` (upload.wikimedia.org) - fetch those too
+  (the original, or a standard thumbnail width), then `tools/export_plans.py`. The lead did this on the
+  owner's Mac (1168 -> 1296 rows, plus the Civitates/Merian full pages); data/raw is gitignored, so
+  this checkout needs its own copies.
+
+## Lead split (2026-10-13)
+Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 notes-only sessions. a's design notes stay on agent/a (d0ac06b, the hand-over); the fit step is the matcher, run by the lead.
 
 ## Hand-over
 
