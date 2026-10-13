@@ -1383,6 +1383,22 @@ the site stays covered for the union check, an open item counts).
   invisible on the page (the 303 way: the picture and its 8 points went to the site's review
   item, appended after its seven coarse candidates with this reason; the item keeps its file
   name and stays open, and the site stays covered).
+- portus-adurni-q762664.c_42bedb90fffce1d4 - Portchester Castle, derived from the Penny
+  Cyclopaedia (1836) v6 p 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg): the 6
+  anchors are a perfect 900-px grid (the corners (100,1000)/(100,100)/(1000,1000)/(1000,500)
+  plus interior (200,200)/(850,800)), so the fit carries no placement information (the
+  bury-castle/oxford ladder class); the site point inverse-maps to plate (799.5, 799.5) of
+  [1280,1292], the open interior just NW of the drawn church. The drawn outer-wall square
+  spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big), its centre ~440 m
+  NW of the real fort (the 1842 six-inch ramparts E +60..+310, N +60..-150); the drawn keep
+  (the plate's densest 120-px block) lands ~865 m NW of the real keep (the hatched keep E
+  +80..+160), over village farmland west of the site; only the drawn Church of St Mary (the
+  hatched cross) sits near its real church (~100 m N-S off). The plate's own 0-500 ft bar
+  (761 px, six 150-px ticks) implies ~5x the true scale - a 1836 drawing, not a survey. Wrong
+  place, wrong size, right kind. DELETED - an orphan today, invisible on the page (the 303
+  way: the picture and its 6 points went to a new review item for the site with this reason -
+  the site had none before - the document was deleted, the site's review page file
+  re-exported scoped to the site; the site stays covered by the new open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 

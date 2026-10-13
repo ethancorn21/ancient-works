@@ -50,173 +50,139 @@ placement is good enough to keep.
 - york-castle-q80637.c_a7db545536f13e24 - Plan of Center, Broome County 1855 (Gifford Wenig)
 
 ## Hand-over
-(2026-10-13, iteration 189, agent c - **suite re-run FIRST (as 188 demanded): 3 failed, 152
-passed, 1 skipped (308.93 s)** - the 3 reds are exactly the known set (test_batch_eu.py::
-test_sample_run_real_gate + ::test_batch_adds_files_rewrites_none = the 203b-owned bibracte
-pair; test_fit_queue.py::test_placement_gestures_and_save_in_the_browser = agent a's 307). NO
-new red from 188's pontefract deletion - 188's change is VERIFIED. Log: /tmp/aw306e_suite189.log.
-**portus-adurni c_42bedb90fffce1d4 JUDGED DELETED** (wrong place, wrong size, right kind) - all
-measurements done this session, EXECUTION (the 303 way) is the next session's only remaining
-work, then the line. No project file changed this session (read-only audit + /tmp scripts).
+(2026-10-13, iteration 190, agent c - **merged main, then executed the 303 way on portus
+c_42bedb90fffce1d4 (NEW item = lead, doc deleted, scoped export 344/357), and wrote the 9th
+of 17 lines. Suite after the change = the post-merge baseline 154/1/1, no new red. NEXT:
+judge the twin c_4912bb54aa79f3ea (same source plate -> almost certainly DELETED, APPENDED
+to the same item).**
+
+**Baseline (changed by the main merge, commit 9f92b3a):** post-merge suite = **154 passed,
+1 skipped, 1 failed**. The 203b bibracte pair (tests/test_batch_eu.py::test_sample_run_real_gate
++ ::test_batch_adds_files_rewrites_none) now PASSES after main's 0685a4c (burcht-van-leiden
+matcher fits; the no-picture fixture moved to Yeavering Bell). The ONLY known red:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent a's in-flight
+307). Expect exactly that in every run; any other failure = my new red. Logs
+/tmp/aw306e_merge190.log + /tmp/aw306e_suite190.log (may be wiped; the numbers are in the 190
+DECISIONS entry). Run: `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` (~5 min).
 
 **State of the 17 docs (o-y):** offa-s-dyke c_1cca85e7b4b5a89e KEEPS (181); okehampton-castle
-c_0edd7f87db67ff20 KEEPS (181); old-sarum c_ff62c9585a92b375 DELETED (183, 303 way); old-sarum
-c_041083ec68b532f8 DELETED (183, 303 way); oxford-castle c_ba6b308580428184 DELETED (184/185,
-303 way - item CREATED); pilsbury-castle c_7ff765c177ca7bae KEEPS (187); pontefract-castle
-c_3213330a52fe6018 KEEPS (188); pontefract-castle c_d135fb32326df430 DELETED (188, 303 way -
-item APPENDED); portus-adurni c_42bedb90fffce1d4 JUDGED DELETED (189, NOT yet executed). 8 docs
-(7 sites) remain after portus: portus c_4912 (the German-titled twin), raby, richborough,
-stanton-drew, taunton, windmill-hill, york x2.
+c_0edd7f87db67ff20 KEEPS (181); old-sarum c_ff62c9585a92b375 DELETED (183); old-sarum
+c_041083ec68b532f8 DELETED (183); oxford-castle c_ba6b308580428184 DELETED (184/185);
+pilsbury-castle c_7ff765c177ca7bae KEEPS (187); pontefract-castle c_3213330a52fe6018 KEEPS
+(188); pontefract-castle c_d135fb32326df430 DELETED (188); portus-adurni c_42bedb90fffce1d4
+**DELETED, executed at 190** (new item is lead; doc deleted; scoped export 344/357; 9th line
+written). **8 docs (7 sites) remain:** portus c_4912bb54aa79f3ea (next), raby, richborough,
+stanton-drew, taunton, windmill-hill n0558_2, york x2.
 
-**The portus verdict (all numbers verified this session - re-derive with the /tmp scripts if
-needed; committed shots are the source of truth if /tmp is wiped):** fit = 1.0000 m/px,
-+0.00 deg, all 6 residuals 0.0 (the 6 anchors are a perfect 900-px grid: corners
-(100,1000)/(100,100)/(1000,1000)/(1000,500) + interior (200,200)/(850,800) = the bury-castle/
-oxford ladder class - the fit carries no placement information). Site point (-1.115, 50.8381)
-inverse-maps to plate (799.5, 799.5) of [1280,1292]. Drawn outer-wall square: strong wall lines
-at u 183..1147 / v 77..1016 = 954 x 927 m, centre E -135 N +252 = ~437 m NW of the real fort's
-centre (E +185 N -45). Real fort (1842 zoom /tmp/port_zoom1842.png): outer ramparts E
-+60..+310, N +60..-150 (~250 x 210 m) with the hatched keep at E +80..+160 (centre ~E +120
-N -10) and St Mary's at E +180 N -95; the site point sits just W of the west rampart. Drawn
-keep (densest 120-px block, plate (322,185)) lands at E -478 N +614 = ~865 m NW of the real
-keep, over village farmland. Drawn Church of St Mary (the hatched cross, plate 837..1023 x
-728..875, centre (967,793) = E +168 N +6) is the ONE feature near its real counterpart (~100 m
-N-S off the real church). The site point lands on the plate's open interior just NW of the
-drawn church. Scale bar: main line v 1141 spans u 271..1032 (761 px), 6 ticks at 150 px = 100 ft
-divisions -> at 1.0 m/px, 100 ft (30.5 m) draws as 150 m = ~4.9x the true scale; the drawn
-square is 3.8x the real fort - the 1836 plate is a drawing, not a survey, internally
-inconsistent (the pilsbury class note). Page shots (aerial + relief, committed) confirm: status
-line "Scale 1.00 m per page pixel, turned +0.0 deg ... within 1 m"; the drawn square covers most
-of the aerial view, offset NW, with the real castle near its SE corner. VERDICT: DELETED the
-303 way.
+**What 190 did:**
+1. **Merged main** (9f92b3a). Only conflict in web/data/review.json = the `at` timestamp (both
+   branches are full re-exports) -> took main's newer stamp (10:58:34). Per-item regions
+   auto-merged: my oxford/old-sarum/pontefract items kept + main's burcht-van-leiden (renamed
+   to lead c_2da8ced53ce1c3da, 3 candidates), moundville (lead c_ca57b707992bb337) and the 234
+   no-picture re-stamps. Before touching anything, verified the page file is a PURE FUNCTION
+   of the item files (0 no_picture_found diffs across all 343 page items vs their item files;
+   the 234 re-stamps live in the item files - 9c48d94 committed them, a7f5dda only re-derived
+   the page). New PITFALLS entry under `### tools/site_done.py, fit/review.py` (search:
+   "full re-export of data/review/").
+2. **Executed the 303 way on portus c_42bedb90fffce1d4** exactly per the 189 recipe (script:
+   `sys.path.insert(0,"fit"); import review as fr` - fit/ has NO __init__.py): entry
+   {plan, title 'File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page
+   354.jpg' (fr._sha16-asserted == plan), url (the doc's media/commons/.../42bedb90fffce1d4.jpg),
+   pairs (the doc's 6), coarse False, evidence (files.jsonl row: rec evidence/1, kind
+   category, checked 2026-10-10, site_cat/file_cat 'Portus Adurni', via []), label '1836',
+   cite (the doc's), ref (the doc's, 'File: ' prefix kept), size [1280,1292], place_reason
+   '306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg) ... Wrong
+   place, wrong size, right kind. Document deleted.'}; fr.upsert_item **CREATED**
+   data/review/portus-adurni-q762664.c_42bedb90fffce1d4.json (the site had NO item; this doc
+   is the lead; no_picture_found None; resolved None); os.remove the doc; fr.export(fr.ROOT,
+   "portus-adurni-q762664") -> **(344, 357)** as predicted; page entry = lead
+   c_42bedb90fffce1d4, 1 candidate, no_picture_found None; item stays open (no candidate doc).
+3. **Wrote the 9th of 17 lines** in the 306e block of docs/site_flow.md (after the pontefract
+   c_d135 line, before '## The site markers become arrowheads (task 308, 2026-10-13)'): the 6
+   anchors are a perfect 900-px grid -> no placement info; drawn square 954 x 927 m vs the
+   real ~250 x 210 m, centre ~440 m NW; keep ~865 m NW over farmland; only St Mary's near its
+   real church; the plate's own 0-500 ft bar ~5x the true scale (a 1836 drawing, not a
+   survey); DELETED - an orphan today, invisible on the page (the 303 way: a NEW review item
+   - the site had none).
+4. **Suite 154/1/1** = the post-merge baseline (no new red).
 
-**NEXT STEP - execute the 303 way (exact recipe, all inputs verified):** script
-`sys.path.insert(0, "fit"); import review as fr` (fit/ has NO __init__.py). doc = json.load
-from the store. t = "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6
-page 354.jpg" (files.jsonl line 656; assert fr._sha16(t) == "c_42bedb90fffce1d4").
-evidence = fr.candidate_evidence("c_42bedb90fffce1d4") = {rec evidence/1, kind category,
-checked 2026-10-10, site_cat "Portus Adurni", file_cat "Portus Adurni", via []}. entry keys in
-188's order: plan, title (=t), url (doc's "media/commons/portus-adurni-q762664/
-42bedb90fffce1d4.jpg"), pairs (the doc's 6), coarse False, evidence, label "1836", cite
-(doc's), ref (doc's, keeps the "File: " prefix), size [1280,1292], place_reason
-'306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg). The 6 anchors
-are a perfect 900-px grid, so the fit carries no placement information (the bury-castle
-ladder class). The drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x
-210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands
-~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of
-St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the
-true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document
-deleted.' (or equivalent). fr.upsert_item(fr.ROOT, "portus-adurni-q762664", [entry]) - the
-site has NO item yet (data/review/ has none for it), so this CREATES
-data/review/portus-adurni-q762664.c_42bedb90fffce1d4.json with this doc as lead; then
-os.remove the doc; then fr.export(fr.ROOT, "portus-adurni-q762664") -> expect (344, 357)
-(343/356 before). Verify: item file has 1 candidate, no_picture_found None, resolved None;
-web/data/review.json has the portus entry (lead c_42bedb90fffce1d4). LATER twin c_4912bb54aa79f3ea:
-upsert_item finds the item by SITE field (_find_item scans data/review/ by item["site"]),
-appends after the lead, lead/file name stay - do NOT create a second item. Then write the
-line in docs/site_flow.md AFTER the pontefract c_d135 line and BEFORE "## The site markers
-become arrowheads (task 308, 2026-10-13)" (= 9 of 17 lines; format: see the c_d135 line -
-"DELETED - an orphan today, invisible on the page (the 303 way: ...)", here say the item was
-NEW - the site had none). Then re-run the FULL suite (expect the same 3 known reds, 152
-passed, 1 skipped) - my change touches store + review item + page file, so the union checks
-and test_platefits_docs_match_sites must stay green. /tmp scripts alive this session:
-aw306e_fit.py (fit replicate), aw306e_port_meas3.py (wall lines + keep), aw306e_port_zoom.py
-(1842 zoom -> /tmp/port_zoom1842.png + scale bar).
+**NEXT STEP - judge the twin portus-adurni-q762664.c_4912bb54aa79f3ea** ('Burg von
+Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354' = the German-titled twin
+of the plate just deleted; SAME 1280x1292 Penny Cyclopaedia 1836 v6 p 354 plate). (a) Its 6
+stored pairs: (100,100),(100,1000),(1000,1000),(800,800),(1000,500),(100,500) - all on the
+same 2 lon lines (-1.1249502/-1.1121479) x 2 lat lines (50.8443833/50.8362988) plus the
+(800,800) centre -> a perfect grid ladder, the fit carries NO placement information (the
+bury-castle/oxford class); replicate it if you want the exact numbers (the /tmp/aw306e_fit.py
+pattern in the 188/189 DECISIONS entries: least squares over w=[u,-v]; **at(u,v) takes PAGE
+coords - v_page, NOT the flipped w** - the 182 simFit-inversion PITFALLS is the reference;
+expect 1.00 m/px, 0.0 deg, resid 0.0). (b) Read the committed shots
+docs/site_flow/agent_fits/portus-adurni-q762664_c_4912bb54aa79f3ea.png + _relief.png (both
+exist from box 1) - if they show the same drawn geometry as the c_42bedb twin (the square
+~954 x 927 m, centre ~440 m NW of the real ~250 x 210 m fort, keep ~865 m NW over farmland,
+only St Mary's near its real church; 1842 ramparts E +60..+310 / N +60..-150 with the hatched
+keep NW and St Mary's SE) -> **DELETED the 303 way, APPENDED to the existing portus item**:
+fr.upsert_item(fr.ROOT, "portus-adurni-q762664", [entry2]) - _find_item matches by the SITE
+field and finds the c_42bedb file; the new plan APPENDS after the lead; **lead and file name
+stay c_42bedb90fffce1d4 - do NOT create a second item**. entry2 = {plan c_4912bb54aa79f3ea,
+title 'File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg'
+(assert fr._sha16 == plan; row exists in data/commons/files.jsonl with kind-category
+evidence), url (the doc's .../4912bb54aa79f3ea.jpg), pairs (the doc's 6), coarse False,
+evidence (that row's), label '1836', cite (the doc's), ref (the doc's, 'File: ' prefix), size
+[1280,1292], place_reason '306e audit 2026-10-13: ... the German-titled twin of the deleted
+c_42bedb90fffce1d4: same source (Penny Cyclopaedia 1836 v6 p 354), same 1280x1292 plate and
+drawn geometry ... Wrong place, wrong size, right kind. Document deleted.'}; then os.remove
+the doc; then scoped export - **counts stay (344, 357)** (the item already exists and stays
+open: neither candidate has a doc). (c) Write the **10th of 17 lines** (after the c_42bedb
+line, same format; say it was APPENDED to the existing portus item). (d) Re-run the full
+suite (expect 154/1/1). If the twin's shots instead showed a correct fit (they should not -
+it is the same plate as one just deleted), KEEPS: just the line, no 303 way.
 
-**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 8 of 17 lines (portus =
-9th, after execution). Box 3 PARTIAL: 4 deletions executed (old-sarum x2, oxford, pontefract
-c_d135); the 5th (portus) awaits this execution. Box 4: suite as above (no new reds).
-
-**State of the 17 docs (o-y):** offa-s-dyke c_1cca85e7b4b5a89e KEEPS (181); okehampton-castle
-c_0edd7f87db67ff20 KEEPS (181); old-sarum c_ff62c9585a92b375 DELETED (183, 303 way); old-sarum
-c_041083ec68b532f8 DELETED (183, 303 way); oxford-castle c_ba6b308580428184 DELETED (184/185,
-303 way - item CREATED); pilsbury-castle c_7ff765c177ca7bae KEEPS (187); pontefract-castle
-c_3213330a52fe6018 KEEPS (188); pontefract-castle c_d135fb32326df430 DELETED (188, 303 way -
-item APPENDED). The 303-removal details of the executed deletions are in the DECISIONS entries
-183/184/185 and 188. The 186/187 journal entries are LOST (the 187 context limit died before
-they were committed; the driver's harness-save commit 9c40f48 carried only site_flow.md + this
-file) - so the pilsbury evidence survives only in the 187 hand-over text, recoverable via
-`git show 9c40f48:tasks/306e-orphan-fits-uk-2.md`; its verdict summary (drawn castle hill on the
-real hill; the plate's own scale bar is ~1/3 of the drawing's actual scale = a feet/yards
-mix-up in the doc, not a fit error) is in the 188 entry's discovery note.
-
-**What 188 changed in this checkout (uncommitted at hand-over; the harness saves them):**
-D data/db/platefits/pontefract-castle-q1949590.c_d135fb32326df430.json;
-M data/review/pontefract-castle-q1949590.c_ba5dfa2d2dbc645e.json (the d135 entry APPENDED after
-the 7 coarse candidates - lead + file name unchanged, now 8 candidates, no_picture_found None,
-resolved None - stays open); M web/data/review.json (export scoped to the site, 343 open of
-356 = UNCHANGED - the item was open before and stays open: no candidate has a doc);
-M docs/site_flow.md (the two pontefract lines, after the pilsbury line, before '## The site
-markers become arrowheads (task 308, 2026-10-13)'); M PITFALLS.md (one new entry, `### web/`);
-M DECISIONS.md (the 188 entry). No `by: hand` doc touched.
-
-**Tests:** last run was 187, after the main merge: 152 passed, 1 skipped, 3 failed (311 s).
-The 3 reds: 2 = the 203b-owned bibracte pair (212a's merge-induced reds, NOT mine), 1 = agent
-a's standing 307 test_fit_queue::test_placement_gestures_and_save_in_the_browser. The 188
-change is expected to keep exactly that state - verify with `.venv/bin/python -m pytest
-tests/ -q -p no:cacheprovider` and confirm NO new red beyond those 3 (union checks and
-test_platefits_docs_match_sites must stay green: the site stays covered by its open item, and
-every remaining doc names a built site).
-
-**Remaining work - 9 docs (7 sites):**
-- portus-adurni-q762664 c_42bedb90fffce1d4 (Penny Cyclopaedia 1836 v6 p 354, 'Portchester
-  Castle') + c_4912bb54aa79f3ea (same source, German-titled 'Burg von Portchester') - twin
-  plans, NO review item.
-- raby-castle-q4583646.c_fe1d6c7f0ba858cb (Mackenzie 1897). NO item.
-- richborough-roman-fort-q1309736.c_edad7da41d234534 (Penny Cyclopaedia 1836 v6 p 353). Existing
-  item [c_1dcd5a7171573663].
+**Remaining work after the twin - 7 docs (6 sites):**
+- raby-castle-q4583646.c_fe1d6c7f0ba858cb (Mackenzie 1897). NO item (create if deleted).
+- richborough-roman-fort-q1309736.c_edad7da41d234534 (Penny Cyclopaedia 1836 v6 p 353).
+  Existing item [c_1dcd5a7171573663] -> append.
 - stanton-drew-stone-circles-q1516300.c_59a5c636a9e00703 (Penny Magazine 1836 druidical
-  temple). NO item.
-- taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie 1897). NO item.
+  temple). NO item (create if deleted).
+- taunton-castle-q7688781.c_05cb4a02bd58e82e (Mackenzie 1897). NO item (create if deleted).
 - windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 (Allcroft 1908 'WINDMILL SITES,
   LEWES DOWN', **model None** - the page's default plan model fits it: relief shot resid 0,
-  1.0 m/px, 0 deg. The site's item already holds n0557_1 + n0558_1 - if deleted, merge into
+  1.0 m/px, 0 deg. The site's item already holds n0557_1 + n0558_1 -> if deleted, merge into
   THAT item, do not create a second).
 - york-castle-q80637 c_8dac5aacd73916b8 ('York Castle in 1820' watercolour, score 31.7 - to
   judge) + c_a7db545536f13e24 ('Plan of Center, Broome County 1855' = Center is a TOWN in
   Broome County, NEW YORK - toponymic-collision class, almost certainly DELETED wrong place).
-  Existing item [c_81ecab4a9284f156 + 4 more].
+  Existing item [c_81ecab4a9284f156 + 4 more] -> append.
 
-**Verdict recipe (per doc) - unchanged, still valid:** replicate simFit on the doc's stored
-pairs (the /tmp/aw306e_fit.py pattern in the 188 DECISIONS entry: least squares over w=[u,-v]
-against true-Mercator z; at(u,v) takes PAGE coords - v_page, NOT the flipped w: my 188 first
-draft used the flipped v in at() and got 4.2e6 m residuals and garbage anchor geos; the fix is
-v_page in at(), and the 182 simFit-inversion PITFALLS is the reference); inverse-map the site
-point via atv; build the 800 m box LAYERS (the /tmp/aw306e_layers.py pattern - cleaner than the
-single blend: 1842 six-inch-1st_ink.webp red-on-white, plate luminance-ink mask (lo 118 / hi
-200) blue-on-white via atv + bilinear, relief grey; 100 m grid + 100-500 m circles centred on
-the site point; the raw jpgs are exactly the docs' sizes - no rescale; note the raw file is
-data/raw/commons/<site>/<plan-without-c_>.jpg). For a DENSE/hatched plate read the
-composite/screenshots, not an ink histogram (182 PITFALLS). Where size is in question: 1842 ink
-density in 25 m annuli / 16 az bins (use i*22.5 in a plain list, NOT range(0,360,22.5) - range
-rejects float steps). The committed shots (docs/site_flow/agent_fits/<doc>.png + _relief.png)
-are the source of truth if the /tmp files were wiped. KEEPS -> line in the 306e block.
-DELETED -> the 303 way below.
+**The 303 way (summary; full recipe in the 189/190 DECISIONS entries):** fit/review.py API,
+no hand-edited JSON. entry = {plan, title (the files.jsonl row title WITH its 'File: '
+prefix, fr._sha16-asserted == plan), url, pairs (the doc's own), coarse False, evidence
+(fr.candidate_evidence(plan)), label, cite, ref, size, place_reason '306e audit 2026-10-13:
+... Document deleted.'}; fr.upsert_item(fr.ROOT, site, [entry]) - new plans APPEND, the
+lead/file name stay; a site with no item gets CREATED (lead = first candidate); then
+os.remove the doc; then fr.export(fr.ROOT, site) (scoped: writes `resolved` only into that
+site's item file; recomputes the whole page file - that is intended and keeps other
+branches' re-stamps, see the new PITFALLS). An item with no candidate docs stays open
+(resolved None; the site stays covered for the union check).
 
-**The 303 way (unchanged):** fit/review.py API, no hand-edited JSON. In the script
-`sys.path.insert(0, "fit"); import review as fr` (fit/ has NO __init__.py - `import fit.review`
-fails, ModuleNotFoundError; 188 hit exactly that). `fr.upsert_item(fr.ROOT, site, [entry])`
-with entry = {plan, title (the files.jsonl row title WITH its 'File: ' prefix, sha16-asserted
-== the plan, = the doc's ref), url, pairs (the doc's own), coarse False, evidence
-(fr.candidate_evidence(plan)), label, cite, ref, size, place_reason '306e audit 2026-10-13: ...
-Document deleted.'}; new plans APPEND, the lead/file name stay; an item with no candidate docs
-stays open (verify after: resolved None on the page, and no candidate has a doc); then
-os.remove the doc; then `fr.export(fr.ROOT, site)` (NEVER another site's item file; the page
-file is recomputed over the whole queue - that is intended). Sites WITH an existing review
-item: richborough [c_1dcd5a7171573663], windmill-hill [n0557_1, n0558_1], york-castle
-[c_81ecab4a9284f156 + 4 more] - APPEND (pontefract's was appended at 188). NO item (create if
-deleted): portus-adurni, raby-castle, stanton-drew, taunton. (oxford's was CREATED at 185;
-offa, okehampton, pilsbury, pontefract c_3213 KEEPT - no item; old-sarum's existing item was
-reused for both its deletions.)
+**Verdict recipe (per doc, unchanged):** replicate the fit on the doc's stored pairs;
+inverse-map the site point; build the 800 m box LAYERS composite (1842 six-inch-1st_ink.webp
+red-on-white, plate luminance-ink mask (lo 118 / hi 200) blue-on-white via atv + bilinear,
+relief grey; 100 m grid + 100-500 m circles centred on the site point; raw jpgs at
+data/raw/commons/<site>/<plan-without-c_>.jpg are exactly the doc's sizes); for a DENSE/
+hatched plate read the composite/screenshots, not an ink histogram (182 PITFALLS). Where
+size is in question: 1842 ink density in 25 m annuli / 16 az bins (i*22.5 in a plain list,
+NOT range(0,360,22.5)). The committed shots (docs/site_flow/agent_fits/<doc>.png +
+_relief.png) are the source of truth if /tmp was wiped. KEEPS -> line only. DELETED -> the
+303 way.
 
-**Re-read:** the 306e block in docs/site_flow.md (header + offa + okehampton + old-sarum x2 +
-oxford + pilsbury + pontefract x2 lines, between the 306d ludlow line and '## The site markers
-become arrowheads (task 308)') - continue it in the same format (one line per doc,
-KEEPS/DELETED - an orphan today, invisible on the page). NEXT DOC TO JUDGE:
-portus-adurni-q762664.c_42bedb90fffce1d4 (twin Penny Cyclopaedia 1836 plan, no item).
+**Re-read:** the 306e block in docs/site_flow.md (header + the 9 lines: offa, okehampton,
+old-sarum x2, oxford, pilsbury, pontefract x2, portus c_42bedb - between the 306d ludlow
+line and '## The site markers become arrowheads (task 308, 2026-10-13)') - continue it after
+the portus c_42bedb line. data/review/portus-adurni-q762664.c_42bedb90fffce1d4.json - the
+item to append the twin into (lead + file name must stay).
 
-**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 8 of 17 lines (offa,
-okehampton, old-sarum x2, oxford, pilsbury, pontefract x2); tick when all 17 are in. Box 3
-PARTIAL: 4 deletions executed (old-sarum c_ff62, c_0410; oxford c_ba6b308580428184; pontefract
-c_d135); the rest await the remaining 9 verdicts. Box 4 satisfied so far (no `by: hand`
-touched; suite status as above - re-verify at the next run).
+**Box status:** Box 1 TICKED (34/34 shots, 129590d). Box 2 NOT ticked: 9 of 17 lines; tick
+when all 17 are in. Box 3 PARTIAL: 5 deletions executed (old-sarum c_ff62 + c_0410; oxford
+c_ba6b308580428184; pontefract c_d135; portus c_42bedb); the rest awaits the remaining 8
+verdicts. Box 4 satisfied so far (no `by: hand` doc touched; suite = baseline, re-verify at
+the next run).

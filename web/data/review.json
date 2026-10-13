@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T10:58:34.887198+00:00",
+ "at": "2026-10-13T11:20:31.484546+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -11412,6 +11412,74 @@
     "searched": "wikidata Q116268128; no Commons category; P180 depictions of Q116268128: 0 of 1 file(s) checked; title searches: \"\"Portsmouth Earthworks (Horseshoe Mound)\" plan\", \"\"Portsmouth Earthworks (Horseshoe Mound)\" map OR survey\", \"\"Portsmouth Earthworks (Horseshoe Mound)\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:29.639288+00:00"
    }
+  },
+  {
+   "site": "portus-adurni-q762664",
+   "name": "Portus Adurni",
+   "lead": "c_42bedb90fffce1d4",
+   "candidates": [
+    {
+     "plan": "c_42bedb90fffce1d4",
+     "title": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
+     "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
+     "pairs": [
+      [
+       100.0,
+       1000.0,
+       -1.1249502,
+       50.8362988
+      ],
+      [
+       100.0,
+       100.0,
+       -1.1249502,
+       50.8443833
+      ],
+      [
+       1000.0,
+       1000.0,
+       -1.1121479,
+       50.8362988
+      ],
+      [
+       850.0,
+       800.0,
+       -1.1142816,
+       50.8380955
+      ],
+      [
+       200.0,
+       200.0,
+       -1.1235278,
+       50.8434851
+      ],
+      [
+       1000.0,
+       500.0,
+       -1.1121479,
+       50.8407904
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Portus Adurni",
+      "file_cat": "Portus Adurni",
+      "via": []
+     },
+     "label": "1836",
+     "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
+     "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
+     "size": [
+      1280,
+      1292
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted."
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "poverty-point-q964745",
