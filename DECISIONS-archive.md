@@ -3051,6 +3051,191 @@ Boxes 2-3 ticked, Status: done.
   211 claim (the driver's in-place .venv rebuild keeps the ad-hoc package until 229
   lands).
 
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
+- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
+  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
+  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
+  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
+  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
+  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
+  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
+  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
+  unmoved main; the driver re-checks the suite at claim time).
+- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
+  staging, if it ever resumes, goes through a later re-run of this step", but no task
+  existed for that re-run - after 211 claims done, nothing would trigger the Roman
+  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
+  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
+  post-merge canonical state and all of the parent 207's subtask staging; the file notes
+  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
+  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
+  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
+  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
+  one module, and it runs only after 211 is done, so no parallel conflict with any
+  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
+  merge re-run over the Roman staging - every staged row in the canonical files, pure
+  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
+  index + validation rebuilt from ALL per-book files including the three Roman books,
+  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
+  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
+  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
+  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
+  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
+  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
+  25/19 golden reference still passes. Notes: site building is a working-phase command
+  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
+  frozen 385-entry baseline shifts to the post-211 499.
+- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
+  iter-186 note already in it) - no other human section of my task file touched. Files
+  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
+  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
+- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
+  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
+  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
+  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
+  today.
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
+- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
+  all still `Status: open` (they remain `Depends on: none`; the driver's
+  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
+  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
+  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
+  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (the red set is still
+  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
+  re-checks the suite at claim time anyway).
+- Cheap freshness checks (both green, both exactly as the hand-over
+  predicted):
+  1. `git fetch origin` (read-only ref update; team rules forbid me from
+     merging) moved nothing: origin/main is still c063314 and
+     `git log c063314..origin/main` is empty, so the 188 union audit (origin
+     holds none of my 211 outputs; only sites.json differs on both sides,
+     disjoint: my 114 entries vs the human's marker-field updates;
+     platefits/goldens byte-identical) is still current - nothing to
+     re-audit.
+  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
+     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
+     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
+     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
+     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
+     invariants hold in the live files (dict-shape gotcha per PITFALLS:
+     these files are dicts, `len(json.load(...))` is not the entry count).
+- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
+  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
+  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
+  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
+  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
+  branch only - verified absent on main in 189). Neither is a 211 blocker.
+- Files written this session: tasks/211-merge-build.md (Hand-over header
+  line only - state bullets and next-steps unchanged, still accurate),
+  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
+  (nothing new learned).
+
+## 2026-10-12 211 DECISION: GATE OPEN -> DONE: all seven of 222-228 are `Status: done`, the full suite re-run is green (150 passed, 1 skipped) on the merged tree, and all six boxes verified intact - Status: done, done claim filed
+
+- Session 199. Ordered next-step 1 flipped: head -1 of all seven 222-228
+  task files -> all `Status: done` (last landed: 228's 643dfa1
+  "artists ... suite 150/1 green"; then 227 a974b86, 226 f5e0fe4, 225
+  ee6513c, 224 bf739d9, 223 a061fc5, 222 293048d; plus the lead's
+  6692bb5 which LINKs the per-site web folders in the full-tree fixtures
+  instead of copying ~750 MB each - the disk fix that made the suite
+  runnable again). All of 211's Depends are satisfied (200/204/205/206/
+  208/209/210 done long ago; 222-228 done now).
+- Provenance audit before claiming (cheap, decisive): my merge commit
+  09a9472 IS on main (the driver merged 211's work long ago); my branch's
+  merge base with main = main's tip 643dfa1, so my branch = main + 3
+  driver commits -> the driver's acceptance merge of this branch is a
+  fast-forward. Between 09a9472 and the branch tip, the only commits
+  touching the six shared outputs (index.jsonl, validation.json,
+  plans.json, sites.json, sources.md, test_merge.py) are my own 211
+  commits (214c642 box-2 rebuild, 0c33b8b sources.md section 9, the
+  build-run snapshots); 222-228 touched only their own fit/src_*.py +
+  tests/test_src_*.py + tests/conftest.py + tests/test_fit_queue.py. The
+  three canonical .jsonl are byte-identical to the merge commit (git
+  diff). Row-count sanity on the live files: extras 193 / files 1623 /
+  classified 930 / index 1068 / sites 499 (unique ids) / plans 1168 rows
+  (574 carrying a non-empty sites list, all (id, sites[0]) unique) -
+  exactly the hand-over's expected values.
+- Suite (the driver re-checks this at claim time anyway):
+  `.venv/bin/python -m pytest tests/ -q` (nohup + pidfile; the suite
+  takes ~4 min now) -> 150 passed, 1 skipped in 248.96s - FULLY GREEN.
+  The 10 reds seen in sessions 186-191 were exactly 222-228's
+  source-guard failures; they fixed them by teaching each
+  check_staged/stage to treat its own already-merged rows (identical
+  under the 211 merge norm) as no-ops while a same-key-different row and
+  a different-site id/QID holder still fail loud. The 1 skipped is the
+  standing baseline. One trip over a documented pitfall: I first ran
+  bare `pytest`, which resolves to the system python3.12 without
+  numpy/PIL -> 16 collection errors; the remedy (PITFALLS "This
+  codebase": always `.venv/bin/python -m pytest`) was followed for the
+  real run. No new PITFALLS entry (the fact is already recorded).
+- Origin: `git fetch origin` moved nothing - origin/main still c063314,
+  `git log c063314..origin/main` empty -> the 188 union audit stands
+  (origin holds none of my 211 outputs; only sites.json differs on both
+  sides and is disjoint - my 114 entries vs the human's marker-field
+  updates on the old 385, the fields 212 owns; platefits and goldens
+  byte-identical -> all six boxes survive the eventual union). New fact
+  this session: c063314 is NOT an ancestor of main - the driver has not
+  pulled the human's push, so the origin union is entirely the driver's
+  job at push/merge time; nothing for 211 to do.
+- DONE CLAIM (citations, per the hand-over's ordered list): all six
+  boxes - (1) the 381-row merge (0 refused / 0 conflicts; log in
+  data/merge/log.jsonl; idempotent; pure growth); (2) the 1,068-row
+  books index + validation.json with 200 evidence on every plan-list
+  row, `fit/evidence.py check` 0 fail offline; (3) the 114 new sites
+  (web/data/sites.json 385 -> 499, the 385-entry baseline 0 removed / 0
+  changed; the box's "384" was the human's estimate - measured 385);
+  (4) plans.json 1168 rows with every pre-merge (id, sites[0]) key
+  present and (id, sites[0]) unique, export_plans.py byte-identical on
+  re-run; (5) sources.md section 9 (per-lead staged/dropped + merge
+  summary); (6) 000's 25-hand-fit / 19-site golden reference green in
+  this run's suite (test_serve.py hermetic). The red set of 10 was
+  222-228's source-guard set and is now fixed by them (suite fully
+  green, better than the "no test failing that wasn't failing before"
+  bar). The imagecodecs pin is task 229 (still open, gated on 302a/304
+  in flight with agent c; the ad-hoc .venv install is alive via the
+  driver's in-place rebuild - not a 211 blocker). The Roman re-run is
+  filed as task 230 (gated on 211 [now done] + 207a/207b/207c; the Roman
+  staging lives on agent c's branch only, so there is nothing to re-run
+  until those land).
+- Files written this session: tasks/211-merge-build.md (Status: done +
+  Hand-over rewritten), DECISIONS.md (this entry). No data/code changes
+  at all: the merge is idempotent, so fit/merge.py was deliberately NOT
+  re-run; the green suite on the merged tree is the re-check the claim
+  rests on.
+
 
 <!-- task 213 -->
 # Task 213 artist-views
