@@ -1,4 +1,4 @@
-Status: blocked
+Status: in-progress
 # 207a: Horsley, Britannia Romana (1732)
 Depends on: 200
 Touches: fit/src_roman_horsley.py, data/books/triage/, data/books/lists/, data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, docs/lead_roman.md, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json
