@@ -1044,3 +1044,26 @@ the drawn works land on the real ones, and each line below says which.
   ~340 m west over residential ground with no visible earthwork - a secondary plate feature
   that does not change the call; the 18-34 m residuals reflect anchor quality, not the
   subject's placement. STAYS.
+
+306d - the 18 UK orphan documents (sites a-l): in the store, but no overlay built on the site
+and no review item referencing them, so the page shows them to a visitor not at all; each was
+rendered the way the page would if it ever showed it (the fit tool over the aerial, and over
+the LiDAR relief, with the doc's stored pairs placed and refitted; shots in
+docs/site_flow/agent_fits/). Each line below says what the drawing's lines sit on (the real
+banks, walls, ditches, streets) and the verdict; a fit whose drawn works visibly miss the real
+ones is deleted the 303 way (the picture and the doc's own points go to the site's review item
+with the reason, the document is deleted, the site's page file re-exported scoped to the site -
+the site stays covered for the union check, an open item counts).
+
+- bury-castle-q5001077.c_de779031cda8a0dc - Bury Castle Somerset Map 1911 (Bothamley's 'Ancient
+  Earthworks' chapter; 8 points, similarity, resid 10.9-39 m, 2.63 m/px, +1.1 deg): the 8 anchors
+  are a 100-px grid ladder (three on the left edge) whose 200-px and 100-px lat steps span
+  0.0054 and 0.0018 deg (a 1.5:1 per-pixel ratio no similarity can hit) - the residuals only
+  measure the grid's internal inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own
+  'SCALE OF FEET 0-300' bar (~1.45 m/px); it places the drawn hachured hillfort (~280-340 m
+  across, entrance gap at the SW) at (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle
+  hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps, the LiDAR bump
+  at the same spot), on a small hachured wood hill instead. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason - merged into the item that already held the Allcroft 1908 n0136_1 candidate, which stays
+  open; the document was deleted 2026-10-12).
