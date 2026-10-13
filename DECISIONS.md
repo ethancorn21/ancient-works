@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 303 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+295 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (13 entries)
 - 001 fit-gate (10 entries)
@@ -484,3 +485,75 @@ Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short vers
 - Filed the four 165 pitfalls (they were NOT actually filed in 165 despite the decision note saying so - verified by grep) plus today's: (1) the Web-Mercator ytile formula (London z15 = (16384,10897) correct, the /2-inside variant = 13640 = Gulf of Guinea); (2) ArcGIS service names both start with 'World' - never name files by the prefix; (3) raw-tile composites: mpp = tile-span metres /256 (the bug that masked this miss); (4) overpass 504/400 from this VM - single out-center query + non-OSM fallback (Wikipedia infobox).
 
 NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodrich-castle (all Mackenzie 1897, similarity model; the cooling-castle precedent from batch 2 judged a Mackenzie plan KEEPS via the ink-on-OS composite). Then the remaining 8 (desborough + devil-s-dyke = Allcroft 1908; gurnard-s-head, hardknott, herstmonceux, king-arthur-s-round-table, leicester, ludlow). Judge in the task file's doc order and insert each line at its alphabetical position in the 306d block. Re-verify /tmp/j306d/j306d_fit.py against the CURRENT web/index.html first (agent a's 307 keeps landing page changes on main; it was byte-identical at 165, not since checked).
+## 2026-10-12 211 DECISION: GATE OPEN -> DONE: all seven of 222-228 are `Status: done`, the full suite re-run is green (150 passed, 1 skipped) on the merged tree, and all six boxes verified intact - Status: done, done claim filed
+
+- Session 199. Ordered next-step 1 flipped: head -1 of all seven 222-228
+  task files -> all `Status: done` (last landed: 228's 643dfa1
+  "artists ... suite 150/1 green"; then 227 a974b86, 226 f5e0fe4, 225
+  ee6513c, 224 bf739d9, 223 a061fc5, 222 293048d; plus the lead's
+  6692bb5 which LINKs the per-site web folders in the full-tree fixtures
+  instead of copying ~750 MB each - the disk fix that made the suite
+  runnable again). All of 211's Depends are satisfied (200/204/205/206/
+  208/209/210 done long ago; 222-228 done now).
+- Provenance audit before claiming (cheap, decisive): my merge commit
+  09a9472 IS on main (the driver merged 211's work long ago); my branch's
+  merge base with main = main's tip 643dfa1, so my branch = main + 3
+  driver commits -> the driver's acceptance merge of this branch is a
+  fast-forward. Between 09a9472 and the branch tip, the only commits
+  touching the six shared outputs (index.jsonl, validation.json,
+  plans.json, sites.json, sources.md, test_merge.py) are my own 211
+  commits (214c642 box-2 rebuild, 0c33b8b sources.md section 9, the
+  build-run snapshots); 222-228 touched only their own fit/src_*.py +
+  tests/test_src_*.py + tests/conftest.py + tests/test_fit_queue.py. The
+  three canonical .jsonl are byte-identical to the merge commit (git
+  diff). Row-count sanity on the live files: extras 193 / files 1623 /
+  classified 930 / index 1068 / sites 499 (unique ids) / plans 1168 rows
+  (574 carrying a non-empty sites list, all (id, sites[0]) unique) -
+  exactly the hand-over's expected values.
+- Suite (the driver re-checks this at claim time anyway):
+  `.venv/bin/python -m pytest tests/ -q` (nohup + pidfile; the suite
+  takes ~4 min now) -> 150 passed, 1 skipped in 248.96s - FULLY GREEN.
+  The 10 reds seen in sessions 186-191 were exactly 222-228's
+  source-guard failures; they fixed them by teaching each
+  check_staged/stage to treat its own already-merged rows (identical
+  under the 211 merge norm) as no-ops while a same-key-different row and
+  a different-site id/QID holder still fail loud. The 1 skipped is the
+  standing baseline. One trip over a documented pitfall: I first ran
+  bare `pytest`, which resolves to the system python3.12 without
+  numpy/PIL -> 16 collection errors; the remedy (PITFALLS "This
+  codebase": always `.venv/bin/python -m pytest`) was followed for the
+  real run. No new PITFALLS entry (the fact is already recorded).
+- Origin: `git fetch origin` moved nothing - origin/main still c063314,
+  `git log c063314..origin/main` empty -> the 188 union audit stands
+  (origin holds none of my 211 outputs; only sites.json differs on both
+  sides and is disjoint - my 114 entries vs the human's marker-field
+  updates on the old 385, the fields 212 owns; platefits and goldens
+  byte-identical -> all six boxes survive the eventual union). New fact
+  this session: c063314 is NOT an ancestor of main - the driver has not
+  pulled the human's push, so the origin union is entirely the driver's
+  job at push/merge time; nothing for 211 to do.
+- DONE CLAIM (citations, per the hand-over's ordered list): all six
+  boxes - (1) the 381-row merge (0 refused / 0 conflicts; log in
+  data/merge/log.jsonl; idempotent; pure growth); (2) the 1,068-row
+  books index + validation.json with 200 evidence on every plan-list
+  row, `fit/evidence.py check` 0 fail offline; (3) the 114 new sites
+  (web/data/sites.json 385 -> 499, the 385-entry baseline 0 removed / 0
+  changed; the box's "384" was the human's estimate - measured 385);
+  (4) plans.json 1168 rows with every pre-merge (id, sites[0]) key
+  present and (id, sites[0]) unique, export_plans.py byte-identical on
+  re-run; (5) sources.md section 9 (per-lead staged/dropped + merge
+  summary); (6) 000's 25-hand-fit / 19-site golden reference green in
+  this run's suite (test_serve.py hermetic). The red set of 10 was
+  222-228's source-guard set and is now fixed by them (suite fully
+  green, better than the "no test failing that wasn't failing before"
+  bar). The imagecodecs pin is task 229 (still open, gated on 302a/304
+  in flight with agent c; the ad-hoc .venv install is alive via the
+  driver's in-place rebuild - not a 211 blocker). The Roman re-run is
+  filed as task 230 (gated on 211 [now done] + 207a/207b/207c; the Roman
+  staging lives on agent c's branch only, so there is nothing to re-run
+  until those land).
+- Files written this session: tasks/211-merge-build.md (Status: done +
+  Hand-over rewritten), DECISIONS.md (this entry). No data/code changes
+  at all: the merge is idempotent, so fit/merge.py was deliberately NOT
+  re-run; the green suite on the merged tree is the re-check the claim
+  rests on.
