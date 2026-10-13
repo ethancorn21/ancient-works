@@ -1124,6 +1124,28 @@ the site stays covered for the union check, an open item counts).
   plate's own 'SCALE OF FEET 0-300' bar measures 0.885 m/px, 4.9x smaller than the fit - the inset
   is not to its own bar, and the fit's scale is the one consistent with the real headland's ~400 m
   width and the 1-inch layout. KEEPS - an orphan today, invisible on the page.
+- desborough-castle-q5263651.earthworkenglan01allcgoog_n0465_1 - Allcroft 1908 Fig. 149, 'Desborough
+  Castle, High Wycombe, Bucks' (similarity, 8 points, resid 0, 1.0 m/px, 0.0 deg): the anchors are a
+  trustworthy 1.0 m/px square, but the drawn 'Roundabout' ring - the real hillfort by its own
+  labelling ('90 x 60 paces', 'in area about an acre'; ~90 m, hatched at the site point on the OS
+  6-inch) - is drawn ~500x670 m, ~5-6x too big, its centre ~450 m SE of the real hill (the site
+  point lands on the drawn ring's NW rim, over housing) and the plate's own text matches the
+  drawing only at ~0.18 m/px, not the fitted 1.0; the drawn scarp oval stretches far beyond the
+  hill (the drawn arcs over Castlefield Wood in the OS composite). DELETED - an orphan today,
+  invisible on the page (the 303 way: the picture and its 8 points went to the site's review item
+  with this reason, creating its item; the document was deleted 2026-10-13).
+- devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0662_1 - Allcroft 1908 'SWEALD' (similarity,
+  4 points, resid 0, 0.6 m/px, 0.0 deg): WRONG PLACE - a toponymic collision: this site is
+  Devil's Dyke, CAMBRIDGESHIRE (the ~5.6 km cross-dyke linear earthwork in the Sleaford uplands,
+  visible in the aerial at the site point), but the plate is Allcroft's SWEALD map of EAST
+  SUSSEX (Brighton, the Cuckmere, Pevensey Level, Seaford, the Roman camps I-XVIII incl. Roman
+  camp IX 'Devil's Dyke' near Edburton) - a different Devil's Dyke ~500 km away. The page would
+  draw the Sussex coast and roman camps over the Sleaford fens (the 'SWEALD' title over Sleaford
+  village, the drawn Cuckmere over the Ouse 'Reach'); the drawn Roman camp IX lands ~400-600 m
+  SE of the site point. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 4 points went to the site's review item with this reason - added to the item
+  that already held two picture candidates, which stays open with them; the document was deleted
+  2026-10-13).
 - duffield-castle-q2073299.c_e915cbfd3af009b4 - Mackenzie 1897, The Castles of England (similarity,
   8 points, resid 5.9-52.9 m, 1.74 m/px, 0.0 deg): the 8 anchors are a 100-px grid ladder that is
   internally inconsistent (the 300-px square spans 500 m at 1.667 m/px but the 400-px v=600 row
@@ -1168,4 +1190,77 @@ the site stays covered for the union check, an open item counts).
   through the village, through Old Castle Wood to the west, and across the River Wye to the north
   (the 1842 'GOODRICH' label sits inside the drawn castle). DELETED - an orphan today, invisible
   on the page (the 303 way: the picture and its 4 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).
+- gurnard-s-head-q5620199.earthworkenglan01allcgoog_n0262_1 - Allcroft 1908 Fig. 87, 'Castell-an-
+  Dinas, Cornwall' after Cotton (similarity, 8 points, resid 0, 0.4 m/px, 0.0 deg): the fit is
+  centred on the site point, but the drawn W. Cotton schematic dun (the plate's own footnote:
+  'much too geometrical in drawing': barrow circles, a 'slight wall' dimensioned 254, walls 13 ft
+  and 5 ft thick, an outer vallum, arcs opening SW) is on the wrong side of the headland and
+  ~2.2-2.3x too big - the plate's own 254-ft dimension (77 m drawn at ~443 px) implies ~0.17
+  m/px, not the fitted 0.4 (drawn vallum ~860 m vs the real headland ~250 m wide / ~600 m long) -
+  and the drawn system's centre lands ~130 m SSE of the site point (the Green Cone/Lawn at the
+  headland's base) while the real fort's three ramparts (NHLE 1004300, the grassy ridge in the
+  aerial) are ~100-150 m NW. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 8 points went to the site's review item with this reason - added to the item
+  that already held one picture candidate, which stays open with it; the document was deleted
+  2026-10-13).
+- hardknott-roman-fort-q1584994.c_7dcdfcc9aceb62ec - Social England 1902, hatched plan of the
+  Roman fort (similarity, 8 points, resid <=2.3 m, 2.29 m/px, -0.02 deg): the plate IS the real
+  fort (near-square with rounded corners, four corner turrets, gates mid-sides, the PRAETORium
+  and buildings inside - matching NHLE 1009349 / Wikipedia: 114 m external, 105 m internal), and
+  its own 'FEET 0-300' bar (461 px = 0.1984 m/px) sizes the drawn 575x562 px fort at 114x112 m -
+  exactly the real size. But the stored fit is 11.6x the plate's own bar: at 2.29 m/px the drawn
+  fort becomes 1320x1290 m and its walls land on the surrounding moor (Butterilket W, New Crags
+  N, Pathill Crags E, Horseshow Crags S, ~600-700 m out), while the real small hatched 'Hardknott
+  Castle CAMP' sits by the drawn PRAETORium near the plate centre; the 8 anchors are a
+  1.29x1.38 km ring across the whole sheet, not on the fort. Goodrich class: centred right,
+  ~11x too big. DELETED - an orphan today, invisible on the page (the 303 way: the picture and
+  its 8 points went to the site's review item with this reason, creating its item; the document
+  was deleted 2026-10-13).
+- herstmonceux-castle-q2652207.c_8eb122e93e31c3f6 - Mackenzie 1897, The Castles of England
+  (similarity, 8 points, resid 20.5-74.6 m, 0.58 m/px, +0.66 deg): the 8 anchors form a
+  trapezoid (0.581 m/px along one side, 0.70 along the other - no similarity can hit both), and
+  the drawn plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px =
+  465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the
+  site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits
+  at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn
+  rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread
+  over the pond, wood and fields EAST of the real building. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).
+- king-arthur-s-round-table-q283800.c_cfc493f72253fa8e - Fergusson 1872, 'Rude Stone Monuments'
+  plate 0154 (similarity, 8 points, resid 7.7-40.8 m, 0.86 m/px, +0.03 deg): the fit's centre
+  anchor sits on the site point, and the drawn central small circle (~200 m) does cover the real
+  feature (a small ~100 m grassy hill with a shallow ring gully), but the fit is ~9x the plate's
+  own bar (486 px for 100 ft = 0.094 m/px), and the drawn concentric arcs (radii 100-450 m)
+  spread over farmland, the cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no
+  rings exist; the real site has no concentric earthwork. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason - added to the item that already held one picture candidate, which stays open with it;
+  the document was deleted 2026-10-13).
+- leicester-castle-q6519156.c_581a9f82b6a805a0 - Mackenzie 1897, The Castles of England, 'LEICESTER
+  IN SEVENTEENTH CENTURY' (similarity, 6 points, resid 0, 1.0 m/px, 0.0 deg): all 6 anchors lie on
+  plate u=600 (v 300..800, 100 m steps), which fully determines the fit (u=600 pinned at
+  E -99.5, v=300 at N +99.5; the whole plate spans 1.28x1.46 km). The central cluster lands on
+  the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point,
+  the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the
+  plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across
+  the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real
+  gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and
+  the drawn river departs west of the real Soar in its southern stretch. DELETED - an orphan
+  today, invisible on the page (the 303 way: the picture and its 6 points went to the site's
+  review item with this reason, creating its item; the document was deleted 2026-10-13).
+- ludlow-castle-q576369.c_b24730fd9038ae4a - Mackenzie 1897, The Castles of England (similarity,
+  6 points, resid 21.8-31.8 m, 0.38 m/px, 0.0 deg): the 6 anchors are a uniform 0.378 m/px
+  rectangle, but that is 2.6x the plate's own bar (623 px for 300 ft = 0.147 m/px; the drawn
+  54.5 px round tower is 8.0 m at the bar's scale - matching the plate's text '28 feet in
+  diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m
+  outer). The centre is ~right - the drawn rounded W curtain and hatched buildings sit ON the
+  real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m,
+  centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland
+  ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m
+  beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the
+  drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works
+  bigger than the real complex, walls through the town. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 6 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).

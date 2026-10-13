@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T03:57:21.530872+00:00",
+ "at": "2026-10-13T05:48:07.595097+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -5094,6 +5094,82 @@
    }
   },
   {
+   "site": "desborough-castle-q5263651",
+   "name": "Desborough Castle",
+   "lead": "earthworkenglan01allcgoog_n0465_1",
+   "candidates": [
+    {
+     "plan": "earthworkenglan01allcgoog_n0465_1",
+     "title": "Desborough Castle, High Wycombe, Bucks",
+     "url": "books/earthworkenglan01allcgoog/n0465.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: runner-up within 0.15"
+     },
+     "pairs": [
+      [
+       2200.0,
+       2000.0,
+       -0.7720038,
+       51.6323955
+      ],
+      [
+       2400.0,
+       2400.0,
+       -0.7691093,
+       51.6288021
+      ],
+      [
+       2000.0,
+       2600.0,
+       -0.7748983,
+       51.6270053
+      ],
+      [
+       1800.0,
+       2200.0,
+       -0.7777928,
+       51.6305988
+      ],
+      [
+       2400.0,
+       2200.0,
+       -0.7691093,
+       51.6305988
+      ],
+      [
+       1800.0,
+       2400.0,
+       -0.7777928,
+       51.6288021
+      ],
+      [
+       1600.0,
+       1800.0,
+       -0.7806873,
+       51.6341921
+      ],
+      [
+       1600.0,
+       2800.0,
+       -0.7806873,
+       51.6252084
+      ]
+     ],
+     "coarse": false,
+     "label": "Fig. 149",
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0465.jpg",
+     "place_reason": "306d audit 2026-10-13: the 8 anchors are a trustworthy uniform 1.0 m/px square (resid 0, rot 0), but the drawn 'Roundabout' ring - labelled '90 x 60 paces' and 'in area about an acre', the real hillfort (~90 m, hatched 'Desborough Castle (Rondabout)' at the site point on the OS 6-inch) - is drawn ~500x670 m, ~5-6x too big, with its centre ~450 m SE of the real hill (the site point lands on the drawn ring's NW rim, over housing); the plate's own text matches the drawing only at ~0.18 m/px, not the fitted 1.0 m/px, and the drawn scarp oval stretches far beyond the hill (the drawn arcs over Castlefield Wood and the fields in the OS composite). Document deleted."
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "devil-s-dyke-q3307343",
    "name": "Devil's Dyke",
    "lead": "earthworkenglan01allcgoog_n0599_1",
@@ -5196,6 +5272,50 @@
      "note": "scale from the scale bar: '0 100 200 300 400 Yards'",
      "why": "median residual 50.81639021199786 m > 45.0 m",
      "gate_score": 50.8
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0662_1",
+     "title": "SWEALD",
+     "url": "books/earthworkenglan01allcgoog/n0662.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: runner-up within 0.15"
+     },
+     "pairs": [
+      [
+       1000.0,
+       1500.0,
+       0.2913825,
+       52.2716111
+      ],
+      [
+       2000.0,
+       1500.0,
+       0.3001903,
+       52.2716111
+      ],
+      [
+       2000.0,
+       2500.0,
+       0.3001903,
+       52.2662211
+      ],
+      [
+       1000.0,
+       2500.0,
+       0.2913825,
+       52.2662211
+      ]
+     ],
+     "coarse": false,
+     "label": null,
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0662.jpg",
+     "place_reason": "306d audit 2026-10-13: WRONG PLACE - a toponymic collision (bethlehem class). The site is Devil's Dyke, CAMBRIDGESHIRE (Q3307343, parish Stetchworth: the ~5.6 km cross-dyke linear earthwork in the Sleaford uplands, visible in the aerial at the site point), but the plate is Allcroft's SWEALD map of EAST SUSSEX (Brighton, the Cuckmere, Pevensey Level, Seaford, Roman camps I-XVIII incl. Roman camp IX 'Devil's Dyke' near Edburton) - a different Devil's Dyke ~500 km away. The page would draw the Sussex coast and roman camps over the Sleaford fens (the OS composite puts the 'SWEALD' title over Sleaford village and the drawn Cuckmere over the Ouse 'Reach'); the drawn Roman camp IX lands ~400-600 m SE of the site point. Document deleted."
     }
    ],
    "no_picture_found": null
@@ -7157,6 +7277,74 @@
      "scale_source": "ratio",
      "note": "scale from the printed ratio at 600 ppi (the scale-bar box holds the ratio text, not ticks)",
      "why": "the model recorded no usable pairs"
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0262_1",
+     "title": "Castell-an-Dinas, Cornwall {after Cotton)",
+     "url": "books/earthworkenglan01allcgoog/n0262.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: score below 0.75"
+     },
+     "pairs": [
+      [
+       1500.0,
+       2500.0,
+       -5.599214,
+       50.1898038
+      ],
+      [
+       1500.0,
+       2000.0,
+       -5.599214,
+       50.1916005
+      ],
+      [
+       1500.0,
+       1500.0,
+       -5.599214,
+       50.1933971
+      ],
+      [
+       1000.0,
+       2500.0,
+       -5.6020202,
+       50.1898038
+      ],
+      [
+       1000.0,
+       2000.0,
+       -5.6020202,
+       50.1916005
+      ],
+      [
+       1000.0,
+       1500.0,
+       -5.6020202,
+       50.1933971
+      ],
+      [
+       2000.0,
+       2500.0,
+       -5.5964077,
+       50.1898038
+      ],
+      [
+       2000.0,
+       2000.0,
+       -5.5964077,
+       50.1916005
+      ]
+     ],
+     "coarse": false,
+     "label": "Fig. 87",
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0262.jpg",
+     "place_reason": "306d audit 2026-10-13: the fit is 0.4 m/px rot 0 (8 anchors centred on the site point, resid 0), but the drawn W. Cotton schematic dun (the plate's own footnote: 'much too geometrical in drawing': barrow circles, a 'slight wall' dimensioned 254, walls 13 ft and 5 ft thick, an outer vallum, arcs opening SW) is both on the wrong side of the headland and ~2.2-2.3x too big: the plate's own 254-ft dimension (77 m drawn at ~443 px) implies ~0.17 m/px, not the fitted 0.4 (drawn vallum ~860 m vs the real headland ~250 m wide / ~600 m long), and the drawn system's centre lands ~130 m SSE of the site point (the Green Cone/Lawn at the headland's base) while the real fort's three ramparts (NHLE 1004300, the grassy ridge in the aerial) are ~100-150 m NW. Document deleted."
     }
    ],
    "no_picture_found": null
@@ -7238,6 +7426,86 @@
    }
   },
   {
+   "site": "hardknott-roman-fort-q1584994",
+   "name": "Hardknott Roman Fort",
+   "lead": "c_7dcdfcc9aceb62ec",
+   "candidates": [
+    {
+     "plan": "c_7dcdfcc9aceb62ec",
+     "title": "Hardknott Roman Fort",
+     "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Hardknott Roman Fort",
+      "file_cat": "Hardknott Roman Fort",
+      "via": []
+     },
+     "pairs": [
+      [
+       70.0,
+       70.0,
+       -3.2130394,
+       54.4090443
+      ],
+      [
+       350.0,
+       50.0,
+       -3.2031623,
+       54.4094485
+      ],
+      [
+       630.0,
+       70.0,
+       -3.193208,
+       54.4090443
+      ],
+      [
+       300.0,
+       300.0,
+       -3.2049062,
+       54.4043106
+      ],
+      [
+       70.0,
+       630.0,
+       -3.2130394,
+       54.397501
+      ],
+      [
+       350.0,
+       650.0,
+       -3.2031623,
+       54.3970967
+      ],
+      [
+       630.0,
+       630.0,
+       -3.193208,
+       54.397501
+      ],
+      [
+       50.0,
+       350.0,
+       -3.2137339,
+       54.4032955
+      ]
+     ],
+     "coarse": false,
+     "label": "1902",
+     "cite": "by Social England, edited by H.D. Traill, D.C.L. and J. S. Mann, M.A. Cassell and Company, Limited, London, Paris, New York & Melbourne, 1902; Public domain; https://commons.wikimedia.org/wiki/File:Hardknott_Roman_Fort.png",
+     "ref": "File:Hardknott Roman Fort.png",
+     "size": [
+      698,
+      684
+     ],
+     "place_reason": "306d audit 2026-10-13: the plate IS the real fort (near-square, rounded corners, four corner turrets, gates mid-sides, the PRAETORium and buildings inside - matching NHLE 1009349 / Wikipedia: 114 m external, 105 m internal), and its own 'FEET 0-300' scale bar (461 px = 0.1984 m/px) sizes the drawn 575x562 px fort at 114x112 m - exactly the real size. But the stored fit is 2.293 m/px (8 uniform anchors, resid <=2.26 m, centred ON the site point) = 11.6x the plate's own bar: at it the drawn fort becomes 1320x1290 m and its walls land on the surrounding moor - Butterilket (W), New Crags (N), Pathill Crags (E), Horseshow Crags (S), ~600-700 m out (the OS composite: the drawn rectangle spans the whole sheet while the real small hatched 'Hardknott Castle CAMP (Remains of)' sits by the drawn PRAETORium near the plate centre). The 8 anchors are a 1.29x1.38 km ring placed across the whole sheet, not on the fort. Goodrich class: the centre is right, the size is ~11x off. Document deleted."
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "hartshill-castle-q15223134",
    "name": "Hartshill Castle",
    "lead": null,
@@ -7290,6 +7558,84 @@
     "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
     "at": "2026-10-11T14:11:03.633137+00:00"
    }
+  },
+  {
+   "site": "herstmonceux-castle-q2652207",
+   "name": "Herstmonceux Castle",
+   "lead": "c_8eb122e93e31c3f6",
+   "candidates": [
+    {
+     "plan": "c_8eb122e93e31c3f6",
+     "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/herstmonceux-castle-q2652207/8eb122e93e31c3f6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       100.0,
+       200.0,
+       0.3363742,
+       50.8719921
+      ],
+      [
+       800.0,
+       200.0,
+       0.342068,
+       50.8719921
+      ],
+      [
+       100.0,
+       1000.0,
+       0.3363742,
+       50.8683988
+      ],
+      [
+       800.0,
+       1000.0,
+       0.342068,
+       50.8683988
+      ],
+      [
+       50.0,
+       600.0,
+       0.3349507,
+       50.8701955
+      ],
+      [
+       850.0,
+       600.0,
+       0.3434915,
+       50.8701955
+      ],
+      [
+       400.0,
+       600.0,
+       0.3392211,
+       50.8701955
+      ],
+      [
+       400.0,
+       1100.0,
+       0.3392211,
+       50.8675005
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:120_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11297436674).jpg",
+     "ref": "File:120 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11297436674).jpg",
+     "size": [
+      1018,
+      1312
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors form a trapezoid (0.581 m/px along the u=100/400/50/850 side but 0.70 along the u=800 column - no similarity can hit both; the fit is 0.581 m/px, rot 0.66, resid 20.5-74.6 m, plate centre ~42/-34 m ESE of the site point), and the drawn Mackenzie 1897 plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px = 465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread over the pond, wood and fields EAST of the real building. Document deleted."
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "heveskesklooster-q3276052",
@@ -7750,6 +8096,83 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "features: Arthur's Round Table center, Little Round Table center, River crossing at top, River crossing at bottom; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "plan": "c_cfc493f72253fa8e",
+     "title": "Rude Stone Monuments 0154",
+     "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "King Arthur's Round Table",
+      "place_qid": "Q283800",
+      "place_label": "King Arthur's Round Table",
+      "place_lon": -2.74026,
+      "place_lat": 54.6482,
+      "site_lon": -2.74026,
+      "site_lat": 54.6482,
+      "dist_m": 0.0
+     },
+     "pairs": [
+      [
+       640.0,
+       600.0,
+       -2.7402522,
+       54.6483752
+      ],
+      [
+       640.0,
+       200.0,
+       -2.7402522,
+       54.6513395
+      ],
+      [
+       900.0,
+       400.0,
+       -2.7363708,
+       54.6499921
+      ],
+      [
+       640.0,
+       800.0,
+       -2.7402522,
+       54.6463988
+      ],
+      [
+       300.0,
+       400.0,
+       -2.7441337,
+       54.6499921
+      ],
+      [
+       640.0,
+       100.0,
+       -2.7402522,
+       54.6519683
+      ],
+      [
+       1000.0,
+       400.0,
+       -2.7355945,
+       54.6499921
+      ],
+      [
+       640.0,
+       1000.0,
+       -2.7402522,
+       54.6450513
+      ]
+     ],
+     "coarse": false,
+     "label": "1872",
+     "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
+     "ref": "File:Rude Stone Monuments 0154.png",
+     "size": [
+      1280,
+      1257
+     ],
+     "place_reason": "306d audit 2026-10-13: the fit is 0.862 m/px (8 uniform cross anchors, the centre anchor ON the site point, rot 0.03, resid 7.7-40.8 m) = ~9x the plate's own bar (486 px for 100 ft = 0.094 m/px). The drawn central small circle (~200 m) does cover the real feature (a small ~100 m grassy hill with a shallow ring gully at the site point), but the drawn concentric arcs (radii 100-450 m) spread over farmland, cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no rings exist (the OS 6-inch composite); the real site has no concentric earthwork. Document deleted."
     }
    ],
    "no_picture_found": null
@@ -7934,6 +8357,72 @@
    "no_picture_found": null
   },
   {
+   "site": "leicester-castle-q6519156",
+   "name": "Leicester Castle",
+   "lead": "c_581a9f82b6a805a0",
+   "candidates": [
+    {
+     "plan": "c_581a9f82b6a805a0",
+     "title": "Leicester Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/leicester-castle-q6519156/581a9f82b6a805a0.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       600.0,
+       300.0,
+       -1.1426627,
+       52.6331938
+      ],
+      [
+       600.0,
+       400.0,
+       -1.1426627,
+       52.6322955
+      ],
+      [
+       600.0,
+       500.0,
+       -1.1426627,
+       52.6313972
+      ],
+      [
+       600.0,
+       600.0,
+       -1.1426627,
+       52.6304988
+      ],
+      [
+       600.0,
+       700.0,
+       -1.1426627,
+       52.6296005
+      ],
+      [
+       600.0,
+       800.0,
+       -1.1426627,
+       52.6287021
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:480_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241748276).jpg",
+     "ref": "File:480 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241748276).jpg",
+     "size": [
+      1280,
+      1460
+     ],
+     "place_reason": "306d audit 2026-10-13: the 6 anchors all lie on plate u=600 (v 300..800, 100 m steps), which FULLY determines the fit: 1.0 m/px, rot 0, u=600 pinned at E -99.5, v=300 at N +99.5 (the whole plate spans 1.28x1.46 km). The central cluster lands on the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point, the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and the drawn river departs west of the real Soar in its southern stretch. Document deleted."
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "letchworth-love-mounds-archaeological-st-q6533192",
    "name": "Letchworth-Love Mounds Archaeological State Park",
    "lead": null,
@@ -7992,6 +8481,72 @@
     "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
     "at": "2026-10-11T11:34:24.470874+00:00"
    }
+  },
+  {
+   "site": "ludlow-castle-q576369",
+   "name": "Ludlow Castle",
+   "lead": "c_b24730fd9038ae4a",
+   "candidates": [
+    {
+     "plan": "c_b24730fd9038ae4a",
+     "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
+     "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "pairs": [
+      [
+       100.0,
+       300.0,
+       -2.7244738,
+       52.3680938
+      ],
+      [
+       800.0,
+       300.0,
+       -2.7200602,
+       52.3680938
+      ],
+      [
+       800.0,
+       1200.0,
+       -2.7200602,
+       52.3653988
+      ],
+      [
+       100.0,
+       1200.0,
+       -2.7244738,
+       52.3653988
+      ],
+      [
+       100.0,
+       700.0,
+       -2.7244738,
+       52.3667463
+      ],
+      [
+       800.0,
+       700.0,
+       -2.7200602,
+       52.3667463
+      ]
+     ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+     "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
+     "size": [
+      1280,
+      1565
+     ],
+     "place_reason": "306d audit 2026-10-13: the 6 anchors are a uniform 0.378 m/px rectangle (rot 0, resid 21.8-31.8 m), but that is 2.6x the plate's own bar (its five ticks span 623 px for 300 ft = 0.147 m/px; independent check: the drawn round tower circle, 54.5 px, is 8.0 m at the bar's scale - matching the plate's text '28 feet in diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m outer). The centre is ~right - the drawn rounded W curtain + hatched buildings sit ON the real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m, centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works bigger than the real complex, walls through the town. Document deleted."
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "madira-bickel-mound-state-archeological-q6727810",

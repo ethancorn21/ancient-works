@@ -1,0 +1,77 @@
+{
+ "site": "herstmonceux-castle-q2652207",
+ "candidates": [
+  {
+   "plan": "c_8eb122e93e31c3f6",
+   "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
+   "url": "media/commons/herstmonceux-castle-q2652207/8eb122e93e31c3f6.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
+   "pairs": [
+    [
+     100.0,
+     200.0,
+     0.3363742,
+     50.8719921
+    ],
+    [
+     800.0,
+     200.0,
+     0.342068,
+     50.8719921
+    ],
+    [
+     100.0,
+     1000.0,
+     0.3363742,
+     50.8683988
+    ],
+    [
+     800.0,
+     1000.0,
+     0.342068,
+     50.8683988
+    ],
+    [
+     50.0,
+     600.0,
+     0.3349507,
+     50.8701955
+    ],
+    [
+     850.0,
+     600.0,
+     0.3434915,
+     50.8701955
+    ],
+    [
+     400.0,
+     600.0,
+     0.3392211,
+     50.8701955
+    ],
+    [
+     400.0,
+     1100.0,
+     0.3392211,
+     50.8675005
+    ]
+   ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:120_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11297436674).jpg",
+   "ref": "File:120 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11297436674).jpg",
+   "size": [
+    1018,
+    1312
+   ],
+   "place_reason": "306d audit 2026-10-13: the 8 anchors form a trapezoid (0.581 m/px along the u=100/400/50/850 side but 0.70 along the u=800 column - no similarity can hit both; the fit is 0.581 m/px, rot 0.66, resid 20.5-74.6 m, plate centre ~42/-34 m ESE of the site point), and the drawn Mackenzie 1897 plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px = 465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread over the pond, wood and fields EAST of the real building. Document deleted."
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

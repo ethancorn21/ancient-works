@@ -99,6 +99,50 @@
    "note": "scale from the scale bar: '0 100 200 300 400 Yards'",
    "why": "median residual 50.81639021199786 m > 45.0 m",
    "gate_score": 50.8
+  },
+  {
+   "plan": "earthworkenglan01allcgoog_n0662_1",
+   "title": "SWEALD",
+   "url": "books/earthworkenglan01allcgoog/n0662.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "checked": "2026-10-12",
+    "kind": "none",
+    "reason": "ambiguous: runner-up within 0.15"
+   },
+   "pairs": [
+    [
+     1000.0,
+     1500.0,
+     0.2913825,
+     52.2716111
+    ],
+    [
+     2000.0,
+     1500.0,
+     0.3001903,
+     52.2716111
+    ],
+    [
+     2000.0,
+     2500.0,
+     0.3001903,
+     52.2662211
+    ],
+    [
+     1000.0,
+     2500.0,
+     0.2913825,
+     52.2662211
+    ]
+   ],
+   "coarse": false,
+   "label": null,
+   "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+   "book": "Allcroft 1908",
+   "ia": "earthworkenglan01allcgoog",
+   "file": "n0662.jpg",
+   "place_reason": "306d audit 2026-10-13: WRONG PLACE - a toponymic collision (bethlehem class). The site is Devil's Dyke, CAMBRIDGESHIRE (Q3307343, parish Stetchworth: the ~5.6 km cross-dyke linear earthwork in the Sleaford uplands, visible in the aerial at the site point), but the plate is Allcroft's SWEALD map of EAST SUSSEX (Brighton, the Cuckmere, Pevensey Level, Seaford, Roman camps I-XVIII incl. Roman camp IX 'Devil's Dyke' near Edburton) - a different Devil's Dyke ~500 km away. The page would draw the Sussex coast and roman camps over the Sleaford fens (the OS composite puts the 'SWEALD' title over Sleaford village and the drawn Cuckmere over the Ouse 'Reach'); the drawn Roman camp IX lands ~400-600 m SE of the site point. Document deleted."
   }
  ],
  "no_picture_found": null,
