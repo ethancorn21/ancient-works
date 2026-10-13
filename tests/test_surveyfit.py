@@ -530,11 +530,13 @@ def test_recorded_match_response_reproduces_ransac_and_score():
     s = sf.score(int(mask.sum()), len(p0), rms)
     rec = fx["ransac"]
     assert a is not None, "the fixture response must yield a similarity"
-    assert (a.real, a.imag) == (rec["a"][0], rec["a"][1]), "ransac a drifted"
-    assert (b.real, b.imag) == (rec["b"][0], rec["b"][1]), "ransac b drifted"
+    # float tolerance, not ==: the last bit differs between the Mac (arm64) and the VM (x86)
+    close = lambda u, v: abs(u - v) <= 1e-9 * max(1.0, abs(v))
+    assert close(a.real, rec["a"][0]) and close(a.imag, rec["a"][1]), "ransac a drifted"
+    assert close(b.real, rec["b"][0]) and close(b.imag, rec["b"][1]), "ransac b drifted"
     assert int(mask.sum()) == rec["n_inliers"], "ransac inliers drifted"
-    assert rms == rec["rms"], "ransac rms drifted: %r vs %r" % (rms, rec["rms"])
-    assert s == fx["score"], "score drifted: %r vs %r" % (s, fx["score"])
+    assert close(rms, rec["rms"]), "ransac rms drifted: %r vs %r" % (rms, rec["rms"])
+    assert close(s, fx["score"]), "score drifted: %r vs %r" % (s, fx["score"])
     assert rec["n_inliers"] >= 14, "the true pairs must be the inliers"
 
 
