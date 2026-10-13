@@ -51,8 +51,9 @@ entry (ninth session) has the full evidence; this is the working state.
   maplibregl-marker-anchor-bottom` to freshly-created elements (post-reload), while the
   page's post-save sync REPLACES the list (post-save) - both states carry the tier class;
   the page was never wrong. `node --check` on the regenerated probe passes.
-- `PITFALLS.md`: committed with the hand-over below (3 new entries: web/ page-fetch
-  limits; tests/playwright no-fs-in-evaluate; raw-string JS-escape trap).
+- `PITFALLS.md` (MODIFIED in the working tree, UNCOMMITTED - the harness saves it; commit
+  it with the rest at the end): 3 new entries: web/ page-fetch limits; tests/playwright
+  no-fs-in-evaluate; raw-string JS-escape trap.
 
 **Where the test stands (5 runs total, this file):** 1-2 (sessions 247/248): probe died
 early (syntax, then effects-poll 404/in-page readFileSync - both fixed, see the 7th/8th
