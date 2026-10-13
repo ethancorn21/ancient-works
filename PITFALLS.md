@@ -263,6 +263,11 @@ Why: the university host is not reachable from this VM's network. The Limesblatt
 Where: those two hosts (Deutsche Digitale Bibliothek; the UB Heidelberg digital collections); task 208's ORL/RGK hunt
 Symptom: hostname resolution fails (getaddrinfo/urllib: no address for the host) - the lookup itself fails, it is not a connect block
 Why: this VM's DNS does not serve those hostnames. Do not retry; anything that exists only there is unusable from this VM (IA is the only book source this loop can rely on).
+
+#### the Clef tunnel (18083 -> aibox:8083) cannot be opened from this VM - 127.0.0.1:18083 never answers
+Where: pipeline/clef.py (URL 127.0.0.1:18083, docs/finder_models.md's `ssh -N -L 18083:127.0.0.1:8083 aibox`); any task that classifies pictures with Clef-flash (pipeline/commons.py classify, the Finder re-ranker)
+Symptom: curl / connect to 127.0.0.1:18083 fails (nothing listening) and it cannot be started: the hostname `aibox` does not resolve on this VM and every key in ~/.ssh is forced-command (doorbell, labdash-feed, lab-archive - none opens a shell or allows local forwarding). (ELoFTR 8091, the LLM 8081 and RoMa 8092 are separate: 8091 and 8081 DO answer here, 8092 does not - 2026-10-12.)
+Why: the AI box is only reachable through those forced-command accounts; a forwarding tunnel needs a normal shell session. Do not burn attempts re-trying the tunnel; code that needs Clef (picture classification) must take an injectable classifier and, in a working phase, ask the human (a tunnel from a machine that has shell access, or an approved one-off substitute) instead of failing. The 211 pictures do not need it (they are already in data/commons/classified.jsonl) - only brand-new files would.
 ### Internet Archive (archive.org)
 
 #### IA /download/ needs a User-Agent and -L, is flaky per file, and zip-only Google-scan items have NO per-leaf image derivatives
