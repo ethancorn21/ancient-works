@@ -49,6 +49,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "fit"))
 import batch_us  # noqa: E402
+import review  # noqa: E402
 
 Image.MAX_IMAGE_PIXELS = None
 MATCHER_URL = os.environ.get("MATCHER_URL", "http://127.0.0.1:8091")
@@ -279,8 +280,12 @@ def run(root, site_ids, dry=False, url=None, roma_url=None):
             print(f"{sid}: not a built site")
             continue
         docs = dict(batch_us.pre_docs(str(root), sid))
+        # a picture the lead or the owner dropped (e.g. a modern diagram: historical depictions only)
+        # carries "dropped" in the site's review item and is never fitted again
+        _, item = review._find_item(str(root), sid)
+        dropped = {c.get("plan") for c in ((item or {}).get("candidates") or []) if c.get("dropped")}
         for row in batch_us.candidates(sid, rows):
-            if row["id"] in docs:
+            if row["id"] in docs or row["id"] in dropped:
                 continue
             r, kind = fit_row(root, site, row, url), "eloftr"
             title = (row.get("title") or row["id"])[:70]

@@ -1,0 +1,15 @@
+{
+ "site": "moundville-archaeological-site-q1320821",
+ "candidates": [
+  {
+   "plan": "c_ca57b707992bb337",
+   "title": "Plan of Moundville",
+   "url": "media/commons/moundville-archaeological-site-q1320821/ca57b707992bb337.jpg",
+   "pairs": [],
+   "dropped": true,
+   "why": "dropped by the lead: a modern diagram (Wikimedia user Siyajkak, CC BY-SA 3.0, Japanese captions) - historical depictions only; the matcher placed it exactly (RoMa 3842/5000), so the overlay is not the problem, the source is"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
