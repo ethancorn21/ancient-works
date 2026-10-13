@@ -397,6 +397,13 @@
      39.0204634
     ]
    ],
+   "coarse": false,
+   "book": "Fowke 1902",
+   "ia": "b24849959",
+   "file": "n0313.jpg",
+   "label": "Fig. 81",
+   "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+   "place_reason": "306c audit 2026-10-12: the Holmes serpent runs N-S down the page and the fit stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual is the stretch); head/tail coils sit NW/SE of the real ones, which carry the hand fit n0210_1. Document deleted.",
    "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.7 m measures internal consistency of the anchors, not their truth",
    "evidence": {
     "rec": "evidence/1",
@@ -452,7 +459,7 @@
      39.0278747
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -461,6 +468,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1889",
+   "cite": "by Engraver: R. C. Collins, after William Jacob Baer; Public domain; https://commons.wikimedia.org/wiki/File:Serpent_Mound_by_William_Jacob_Baer.jpg",
+   "ref": "File:Serpent Mound by William Jacob Baer.jpg",
+   "size": [
+    1280,
+    904
+   ],
+   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~180 m NW of the real effigy (the hand fit n0210_1 traces it on the LiDAR). View row: the 4 near-collinear pairs make the homography exact by construction, so the 0 resid proves nothing about placement. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.3
   },
   {
@@ -493,7 +509,7 @@
      39.0276501
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -502,6 +518,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1848",
+   "cite": "by Ephraim George Squier and Edwin Hamilton Davis; Public domain; https://commons.wikimedia.org/wiki/File:SD35_Serpent_Mound_Squier_and_Davis_Plate_XXXV.png",
+   "ref": "File:SD35 Serpent Mound Squier and Davis Plate XXXV.png",
+   "size": [
+    1280,
+    1883
+   ],
+   "place_reason": "306c audit 2026-10-12: a second copy of S&D Plate XXXV - the very plate the owner hand-placed: it sits ~145-190 m SE of the hand fit AND at ~4x the true scale (the plate-alone file is 1280 px = 1.28 km at the fitted 1 m/px vs the ~320 m figure). Not a duplicate of the hand fit. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   },
   {
@@ -558,7 +583,7 @@
      39.0287281
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -567,6 +592,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1902",
+   "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Harper%27s_New_Monthly_Magazine_Volume_104_December_1901_to_May_1902_(1902)_(14803170263).jpg",
+   "ref": "File:Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263).jpg",
+   "size": [
+    1280,
+    1086
+   ],
+   "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). View row: the 8 near-collinear pairs make the homography exact by construction. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   },
   {
@@ -599,7 +633,7 @@
      39.0278298
     ]
    ],
-   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -608,6 +642,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1893",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_..._Being_a_revision_and_rewriting_of_Swinton%27s_%22Condensed_School_History_of_the_United_States.%22%27_(11303842305).jpg",
+   "ref": "File:26 of 'A School History of the United States ... Being a revision and rewriting of Swinton's \"Condensed School History of the United States.\"' (11303842305).jpg",
+   "size": [
+    1280,
+    942
+   ],
+   "place_reason": "306c audit 2026-10-12: the page-26 serpent (full-page copy) lands ~230 m north of the real effigy, over the hatched hill in farmland; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
    "gate_score": 2.4
   },
   {
@@ -664,7 +707,7 @@
      39.0285484
     ]
    ],
-   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -673,6 +716,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1893",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_(11303842305)_(cropped).jpg",
+   "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' (11303842305) (cropped).jpg",
+   "size": [
+    1117,
+    836
+   ],
+   "place_reason": "306c audit 2026-10-12: the serpent and its 'Mound 10 ft. high' spiral (cropped copy) land ~255 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   },
   {
@@ -729,7 +781,7 @@
      39.0285484
     ]
    ],
-   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "coarse": false,
    "evidence": {
     "rec": "evidence/1",
     "kind": "category",
@@ -738,6 +790,15 @@
     "file_cat": "Serpent Mound",
     "via": []
    },
+   "label": "1893",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_no_cap_(11303842305)_(cropped).jpg",
+   "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' no cap (11303842305) (cropped).jpg",
+   "size": [
+    1112,
+    791
+   ],
+   "place_reason": "306c audit 2026-10-12: the serpent ('no cap' copy) lands ~265 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "gate_score": 0.0
   }
  ],

@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T13:06:54.937799+00:00",
+ "at": "2026-10-13T13:35:09.316949+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -4213,7 +4213,7 @@
        51.0321955
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -4222,6 +4222,15 @@
       "file_cat": "Bury Castle, Somerset",
       "via": []
      },
+     "label": "1911",
+     "cite": "by Editor - W.Page; Chapter on Ancient Earthworks - C.H.Bothamley; Public domain; https://commons.wikimedia.org/wiki/File:Bury_Castle_Somerset_Map.jpg",
+     "ref": "File:Bury Castle Somerset Map.jpg",
+     "size": [
+      590,
+      475
+     ],
+     "place_reason": "306d audit 2026-10-12: similarity (8 pts, resid 10.9-39 m, 2.63 m/px, +1.1 deg); the 8 anchors are a 100-px grid ladder (three on the left edge, whose 200/100-px lat steps span 0.0054/0.0018 deg - a 1.5:1 ratio no similarity can hit), so the residuals only measure the grid's own inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own 'SCALE OF FEET 0-300' bar (~1.45 m/px). The drawn hachured hillfort (~280-340 m across) maps to (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps; LiDAR bump at the same spot), on a small hachured wood hill. Document deleted.",
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 30.2 m measures internal consistency of the anchors, not their truth",
      "gate_score": 30.2
     }
    ],
@@ -5163,6 +5172,12 @@
      "plan": "c_3446adfe7a8ed6c7",
      "title": "Cassiobury House, bird's-eye view engraved by Johannes Kip",
      "url": "media/commons/cassiobury-house-q5049456/3446adfe7a8ed6c7.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py kip"
+     },
      "pairs": [
       [
        1150.0,
@@ -5189,13 +5204,16 @@
        51.6640972
       ]
      ],
+     "coarse": false,
+     "label": "1707",
+     "cite": "by Cnbrb; Public domain; https://commons.wikimedia.org/wiki/File:Cassiobury_Park_by_Kip_and_Knyff.jpg",
+     "ref": "File:Cassiobury Park by Kip and Knyff.jpg",
+     "size": [
+      1280,
+      923
+     ],
+     "place_reason": "306d audit 2026-10-13: the 4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue features (homography an exact 4-point fit: resid 0.0, near-affine 1.29 m/px), and all four ground points fall in the residential area EAST of the River Gade. The site point (-0.418889, 51.665, kind garden) is the Wikipedia Q5049456 coordinate of Cassiobury House itself (demolished 1927; the site is now the Temple Close / Parkside Drive housing) and inverse-maps to plate px (549,671) - on the garden/wood at the drawn house's front, ~200-300 m south of it - so the fit places the drawn house ~360 m NW of its real site, over the Cassiobury school complex (playfields and its rectangular pool), where no house stood; the drawn oval pond maps to (E +406, N -202), 453 m SE, mid-residential, where there is no water; and the plate's big wood masses map EAST of the site while the real park woods and the park's round lake lie WEST, across the Gade. The drawn works sit on the wrong side of the river from the real ones. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 10.4 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py kip"
-     },
      "gate_score": 10.4
     }
    ],
@@ -6199,6 +6217,12 @@
      "plan": "earthworkenglan01allcgoog_n0465_1",
      "title": "Desborough Castle, High Wycombe, Bucks",
      "url": "books/earthworkenglan01allcgoog/n0465.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: runner-up within 0.15"
+     },
      "pairs": [
       [
        2200.0,
@@ -6249,13 +6273,14 @@
        51.6252084
       ]
      ],
+     "coarse": false,
+     "label": "Fig. 149",
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0465.jpg",
+     "place_reason": "306d audit 2026-10-13: the 8 anchors are a trustworthy uniform 1.0 m/px square (resid 0, rot 0), but the drawn 'Roundabout' ring - labelled '90 x 60 paces' and 'in area about an acre', the real hillfort (~90 m, hatched 'Desborough Castle (Rondabout)' at the site point on the OS 6-inch) - is drawn ~500x670 m, ~5-6x too big, with its centre ~450 m SE of the real hill (the site point lands on the drawn ring's NW rim, over housing); the plate's own text matches the drawing only at ~0.18 m/px, not the fitted 1.0 m/px, and the drawn scarp oval stretches far beyond the hill (the drawn arcs over Castlefield Wood and the fields in the OS composite). Document deleted.",
      "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-12",
-      "kind": "none",
-      "reason": "ambiguous: runner-up within 0.15"
-     },
      "gate_score": 0.0
     }
    ],
@@ -6369,6 +6394,12 @@
      "plan": "earthworkenglan01allcgoog_n0662_1",
      "title": "SWEALD",
      "url": "books/earthworkenglan01allcgoog/n0662.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: runner-up within 0.15"
+     },
      "pairs": [
       [
        1000.0,
@@ -6395,13 +6426,14 @@
        52.2662211
       ]
      ],
+     "coarse": false,
+     "label": null,
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0662.jpg",
+     "place_reason": "306d audit 2026-10-13: WRONG PLACE - a toponymic collision (bethlehem class). The site is Devil's Dyke, CAMBRIDGESHIRE (Q3307343, parish Stetchworth: the ~5.6 km cross-dyke linear earthwork in the Sleaford uplands, visible in the aerial at the site point), but the plate is Allcroft's SWEALD map of EAST SUSSEX (Brighton, the Cuckmere, Pevensey Level, Seaford, Roman camps I-XVIII incl. Roman camp IX 'Devil's Dyke' near Edburton) - a different Devil's Dyke ~500 km away. The page would draw the Sussex coast and roman camps over the Sleaford fens (the OS composite puts the 'SWEALD' title over Sleaford village and the drawn Cuckmere over the Ouse 'Reach'); the drawn Roman camp IX lands ~400-600 m SE of the site point. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-12",
-      "kind": "none",
-      "reason": "ambiguous: runner-up within 0.15"
-     },
      "gate_score": 0.0
     }
    ],
@@ -6493,6 +6525,12 @@
      "plan": "c_e915cbfd3af009b4",
      "title": "Duffield Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/duffield-castle-q2073299/e915cbfd3af009b4.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        550.0,
@@ -6543,13 +6581,16 @@
        52.9877537
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:533_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11147871174).jpg",
+     "ref": "File:533 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11147871174).jpg",
+     "size": [
+      902,
+      966
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors are a 100-px grid ladder that is internally inconsistent (the 300-px square u 250-550 x v 450-750 spans 500 m at 1.667 m/px, but the 400-px v=600 row u 200..600 spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy (LSQ 1.737 m/px, resid 5.9-52.9 m). The aerial confirms: the drawn keep (~290x180 m) sits on village housing ESE of the 1842 'Site of Castle' (next to 'Castleorchard'), and the drawn ring (~975x825 m) wraps the whole village at ~5x the real ~200 m earthworks; the plate's own geography is also wrong - its 'Duffield' label and 'To Duffield'/'To Belper' roads lie SOUTH of the ring, but the real town and the A535 run WEST of the castle. Document deleted.",
      "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 19.6 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 19.6
     }
    ],
@@ -7454,6 +7495,14 @@
      "plan": "c_beefc3808de9b125",
      "title": "Plan of Eaton Socon (1897)",
      "url": "media/commons/eaton-socon-castle-q5331372/beefc3808de9b125.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Eaton Socon Castle",
+      "file_cat": "Eaton Socon Castle",
+      "via": []
+     },
      "pairs": [
       [
        650.0,
@@ -7480,15 +7529,16 @@
        52.2137036
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Eaton_Socon_(1897).jpg",
+     "ref": "File:Plan of Eaton Socon (1897).jpg",
+     "size": [
+      807,
+      767
+     ],
+     "place_reason": "306d audit 2026-10-13: the 4 anchors are an internally consistent 0.991 m/px quadrilateral (resid 0.33-0.51 m - the transform is trustworthy), but the drawn works visibly miss the real ones: the real moated site is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still there in the aerial: a grassy island ringed by trees, water at its west, the river to the east), while the drawn Inner Ward ring (~220x230 m, centre E -39 N -119) is offset ~120 m SW (the real moat sits at its NE edge, ~2/3 of its radius) and its drawn hatched building is 40-70 m SW of the 1842 building; the drawn North Ward lies over the hatched 'Castle Hills' wood east of the Great Ouse, where no earthwork exists in the 1842 map or the aerial; the drawn Outer Ward loop (~730x500 m) encloses the whole village with no 1842 trace of any bank or ditch. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.4 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Eaton Socon Castle",
-      "file_cat": "Eaton Socon Castle",
-      "via": []
-     },
      "gate_score": 0.4
     }
    ],
@@ -8438,6 +8488,12 @@
      "plan": "c_f43bc6196e097819",
      "title": "Framlingham Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/framlingham-castle-q2524183/f43bc6196e097819.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        250.0,
@@ -8488,13 +8544,16 @@
        52.2236972
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:337_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11240694796).jpg",
+     "ref": "File:337 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11240694796).jpg",
+     "size": [
+      1280,
+      1171
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors form a perfect 200 m square at plate u 250-450, v 250-450 (an exact 1.0 m/px similarity, resid 0.0, rot 0.0) - but that plate region is the plain road area WEST of the drawn island, so the fit shifts the whole plate ~430 m SE: the drawn keep (E +273..+447, N -97..-310) lands on an open sports field SE of the town; the drawn island loop (E +140..+567, N -497..+30) falls over the village with ZERO overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, the hatched '(In Ruins)' keep at its west end, at the site point; aerial: a grassy island with a water ring and a stone ruin there); the drawn Old Moat arc (E +487..+767) lies over fields east of the A141; the drawn St Michael's (E +127, N -737) is ~1 km from the real church (E -188, N +174); the drawn 'FRAMLINGHAM' label is ~600-800 m off the town. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 0.0
     }
    ],
@@ -8691,6 +8750,12 @@
      "plan": "c_cd89cb69f385859b",
      "title": "Goodrich Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/goodrich-castle-q5583571/cd89cb69f385859b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        210.0,
@@ -8717,13 +8782,16 @@
        51.8751594
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:135_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11146434133).jpg",
+     "ref": "File:135 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11146434133).jpg",
+     "size": [
+      955,
+      943
+     ],
+     "place_reason": "306d audit 2026-10-13: the 4 anchors are a consistent 0.838 m/px 370x470-px rectangle (resid 0.8 m) spanning the whole castle plan, and the fit is centred right - the 1842 'Goodrich Castle (Remains of)' (~30 m hatched building) and the aerial's stone ruin sit at the drawn plan's centre, ~the site point - but the drawn plan is ~620x490 m on the ground, ~4-5x too big for the real ~130x90 m castle: its walls run through the village, through Old Castle Wood to the west, and across the River Wye to the north (the 1842 'GOODRICH' label sits inside the drawn castle). Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.8 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 0.8
     }
    ],
@@ -8858,6 +8926,12 @@
      "plan": "earthworkenglan01allcgoog_n0262_1",
      "title": "Castell-an-Dinas, Cornwall {after Cotton)",
      "url": "books/earthworkenglan01allcgoog/n0262.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "checked": "2026-10-12",
+      "kind": "none",
+      "reason": "ambiguous: score below 0.75"
+     },
      "pairs": [
       [
        1500.0,
@@ -8908,13 +8982,14 @@
        50.1916005
       ]
      ],
+     "coarse": false,
+     "label": "Fig. 87",
+     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
+     "book": "Allcroft 1908",
+     "ia": "earthworkenglan01allcgoog",
+     "file": "n0262.jpg",
+     "place_reason": "306d audit 2026-10-13: the fit is 0.4 m/px rot 0 (8 anchors centred on the site point, resid 0), but the drawn W. Cotton schematic dun (the plate's own footnote: 'much too geometrical in drawing': barrow circles, a 'slight wall' dimensioned 254, walls 13 ft and 5 ft thick, an outer vallum, arcs opening SW) is both on the wrong side of the headland and ~2.2-2.3x too big: the plate's own 254-ft dimension (77 m drawn at ~443 px) implies ~0.17 m/px, not the fitted 0.4 (drawn vallum ~860 m vs the real headland ~250 m wide / ~600 m long), and the drawn system's centre lands ~130 m SSE of the site point (the Green Cone/Lawn at the headland's base) while the real fort's three ramparts (NHLE 1004300, the grassy ridge in the aerial) are ~100-150 m NW. Document deleted.",
      "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-12",
-      "kind": "none",
-      "reason": "ambiguous: score below 0.75"
-     },
      "gate_score": 0.0
     }
    ],
@@ -9005,6 +9080,14 @@
      "plan": "c_7dcdfcc9aceb62ec",
      "title": "Hardknott Roman Fort",
      "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Hardknott Roman Fort",
+      "file_cat": "Hardknott Roman Fort",
+      "via": []
+     },
      "pairs": [
       [
        70.0,
@@ -9055,15 +9138,16 @@
        54.4032955
       ]
      ],
+     "coarse": false,
+     "label": "1902",
+     "cite": "by Social England, edited by H.D. Traill, D.C.L. and J. S. Mann, M.A. Cassell and Company, Limited, London, Paris, New York & Melbourne, 1902; Public domain; https://commons.wikimedia.org/wiki/File:Hardknott_Roman_Fort.png",
+     "ref": "File:Hardknott Roman Fort.png",
+     "size": [
+      698,
+      684
+     ],
+     "place_reason": "306d audit 2026-10-13: the plate IS the real fort (near-square, rounded corners, four corner turrets, gates mid-sides, the PRAETORium and buildings inside - matching NHLE 1009349 / Wikipedia: 114 m external, 105 m internal), and its own 'FEET 0-300' scale bar (461 px = 0.1984 m/px) sizes the drawn 575x562 px fort at 114x112 m - exactly the real size. But the stored fit is 2.293 m/px (8 uniform anchors, resid <=2.26 m, centred ON the site point) = 11.6x the plate's own bar: at it the drawn fort becomes 1320x1290 m and its walls land on the surrounding moor - Butterilket (W), New Crags (N), Pathill Crags (E), Horseshow Crags (S), ~600-700 m out (the OS composite: the drawn rectangle spans the whole sheet while the real small hatched 'Hardknott Castle CAMP (Remains of)' sits by the drawn PRAETORium near the plate centre). The 8 anchors are a 1.29x1.38 km ring placed across the whole sheet, not on the fort. Goodrich class: the centre is right, the size is ~11x off. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 1.2 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Hardknott Roman Fort",
-      "file_cat": "Hardknott Roman Fort",
-      "via": []
-     },
      "gate_score": 1.2
     }
    ],
@@ -9132,6 +9216,12 @@
      "plan": "c_8eb122e93e31c3f6",
      "title": "Herstmonceux Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/herstmonceux-castle-q2652207/8eb122e93e31c3f6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        100.0,
@@ -9182,13 +9272,16 @@
        50.8675005
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:120_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11297436674).jpg",
+     "ref": "File:120 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11297436674).jpg",
+     "size": [
+      1018,
+      1312
+     ],
+     "place_reason": "306d audit 2026-10-13: the 8 anchors form a trapezoid (0.581 m/px along the u=100/400/50/850 side but 0.70 along the u=800 column - no similarity can hit both; the fit is 0.581 m/px, rot 0.66, resid 20.5-74.6 m, plate centre ~42/-34 m ESE of the site point), and the drawn Mackenzie 1897 plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px = 465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread over the pond, wood and fields EAST of the real building. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 34.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 34.0
     }
    ],
@@ -9277,6 +9370,13 @@
        40.1727785
       ]
      ],
+     "coarse": false,
+     "book": "Mills 1914",
+     "ia": "ArcheologicalAtlasOfOhio",
+     "file": "n0092.jpg",
+     "label": null,
+     "cite": "William C. Mills, Archeological Atlas of Ohio, Columbus: Ohio State Archaeological and Historical Society 1914",
+     "place_reason": "306c audit 2026-10-12: the 100x100 m anchor square with the hatched mound it encloses sits ~110 m S-E of the real mound's LiDAR bump, on flat residential ground - the real mound lies just outside the drawn extent at its NW (the same mound the Fowke Fig. 96 doc n0353 fits concentrically, and which keeps its document). Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "evidence": {
       "rec": "evidence/1",
@@ -9722,6 +9822,19 @@
      "plan": "c_cfc493f72253fa8e",
      "title": "Rude Stone Monuments 0154",
      "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-10",
+      "named_place": "King Arthur's Round Table",
+      "place_qid": "Q283800",
+      "place_label": "King Arthur's Round Table",
+      "place_lon": -2.74026,
+      "place_lat": 54.6482,
+      "site_lon": -2.74026,
+      "site_lat": 54.6482,
+      "dist_m": 0.0
+     },
      "pairs": [
       [
        640.0,
@@ -9772,20 +9885,16 @@
        54.6450513
       ]
      ],
+     "coarse": false,
+     "label": "1872",
+     "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
+     "ref": "File:Rude Stone Monuments 0154.png",
+     "size": [
+      1280,
+      1257
+     ],
+     "place_reason": "306d audit 2026-10-13: the fit is 0.862 m/px (8 uniform cross anchors, the centre anchor ON the site point, rot 0.03, resid 7.7-40.8 m) = ~9x the plate's own bar (486 px for 100 ft = 0.094 m/px). The drawn central small circle (~200 m) does cover the real feature (a small ~100 m grassy hill with a shallow ring gully at the site point), but the drawn concentric arcs (radii 100-450 m) spread over farmland, cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no rings exist (the OS 6-inch composite); the real site has no concentric earthwork. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "caption_coords",
-      "checked": "2026-10-10",
-      "named_place": "King Arthur's Round Table",
-      "place_qid": "Q283800",
-      "place_label": "King Arthur's Round Table",
-      "place_lon": -2.74026,
-      "place_lat": 54.6482,
-      "site_lon": -2.74026,
-      "site_lat": 54.6482,
-      "dist_m": 0.0
-     },
      "gate_score": 23.2
     }
    ],
@@ -9979,6 +10088,12 @@
      "plan": "c_581a9f82b6a805a0",
      "title": "Leicester Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/leicester-castle-q6519156/581a9f82b6a805a0.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        600.0,
@@ -10017,13 +10132,16 @@
        52.6287021
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:480_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241748276).jpg",
+     "ref": "File:480 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241748276).jpg",
+     "size": [
+      1280,
+      1460
+     ],
+     "place_reason": "306d audit 2026-10-13: the 6 anchors all lie on plate u=600 (v 300..800, 100 m steps), which FULLY determines the fit: 1.0 m/px, rot 0, u=600 pinned at E -99.5, v=300 at N +99.5 (the whole plate spans 1.28x1.46 km). The central cluster lands on the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point, the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and the drawn river departs west of the real Soar in its southern stretch. Document deleted.",
      "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 0.0
     }
    ],
@@ -10098,6 +10216,12 @@
      "plan": "c_b24730fd9038ae4a",
      "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
      "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
      "pairs": [
       [
        100.0,
@@ -10136,13 +10260,16 @@
        52.3667463
       ]
      ],
+     "coarse": false,
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+     "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
+     "size": [
+      1280,
+      1565
+     ],
+     "place_reason": "306d audit 2026-10-13: the 6 anchors are a uniform 0.378 m/px rectangle (rot 0, resid 21.8-31.8 m), but that is 2.6x the plate's own bar (its five ticks span 623 px for 300 ft = 0.147 m/px; independent check: the drawn round tower circle, 54.5 px, is 8.0 m at the bar's scale - matching the plate's text '28 feet in diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m outer). The centre is ~right - the drawn rounded W curtain + hatched buildings sit ON the real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m, centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works bigger than the real complex, walls through the town. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 22.4 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "hand_tied",
-      "checked": "2026-10-10",
-      "source": "pipeline/sources.py mackenzie"
-     },
      "gate_score": 22.4
     }
    ],
@@ -10438,6 +10565,13 @@
        39.4104102
       ]
      ],
+     "coarse": false,
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0195.jpg",
+     "label": "Fig. 15",
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "place_reason": "306c audit 2026-10-12: scale right (1.0 m/px, the plate's own bar) but the placement is wrong - the drawn fort (50 Acres, 27 Acres, old stockade) and the 60-ft Conus mound profile at the page's foot land ~1.3 km S-E of the real Marietta earthworks (the ringed disc of Mound Cemetery on the LiDAR); farm ground beneath the placement. Document deleted.",
      "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "evidence": {
       "rec": "evidence/1",
@@ -11761,61 +11895,6 @@
      "gate_score": 59.7
     },
     {
-     "plan": "c_041083ec68b532f8",
-     "title": "Ancient Plan of Old Sarum",
-     "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
-     "pairs": [
-      [
-       300.0,
-       200.0,
-       -1.80543,
-       51.0955742
-      ],
-      [
-       450.0,
-       400.0,
-       -1.8018542,
-       51.0933285
-      ],
-      [
-       300.0,
-       600.0,
-       -1.80543,
-       51.0910827
-      ],
-      [
-       100.0,
-       400.0,
-       -1.8090058,
-       51.0933285
-      ],
-      [
-       200.0,
-       300.0,
-       -1.8068603,
-       51.0942268
-      ],
-      [
-       300.0,
-       400.0,
-       -1.80543,
-       51.0933285
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 19.1 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Old Sarum",
-      "file_cat": "Old Sarum in art",
-      "via": [
-       "Old Sarum"
-      ]
-     },
-     "gate_score": 19.1
-    },
-    {
      "plan": "c_ff62c9585a92b375",
      "title": "Plan & Elevations of Old Sarum - DPLA - 60c302909f6eb4cd381618b14c48481e",
      "url": "media/commons/old-sarum-q782719/ff62c9585a92b375.jpg",
@@ -11857,7 +11936,7 @@
        51.0915318
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "caption_coords",
@@ -11871,7 +11950,80 @@
       "site_lat": 51.093333,
       "dist_m": 0.0
      },
+     "label": "1806",
+     "cite": "by Camden, William, 1551-1623; Basire, James, 1769-1822; Public domain; https://commons.wikimedia.org/wiki/File:Plan_%26_Elevations_of_Old_Sarum_-_DPLA_-_60c302909f6eb4cd381618b14c48481e.jpg",
+     "ref": "File:Plan & Elevations of Old Sarum - DPLA - 60c302909f6eb4cd381618b14c48481e.jpg",
+     "size": [
+      1280,
+      1858
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 2.00 m/px, +0.0 deg). The 6 anchors are a perfect 100-px grid ladder (5 distinct points: u 300/400/500 at v 1400, u 400 at v 1300/1500), so the fit carries no placement information at all and the site point inverse-maps to plate px (399.7, 1399.7) = blank paper WEST of the drawn plan. The drawn plan (Basire's schematic, a ring ~780 m across) is centred at plate (620,1490) = 440 m E / 180 m S of the site point, so it renders over the flat farmland SE of the hill ('Old Sarum Farm' / 'Castle Villa' on the 1842 six-inch); the drawn ring misses the real 400-550 m oval (the central moated 'Castle' r~85 m on the site point, the outer bank 175-275 m). Wrong place, right kind of picture (the bury-castle class). Document deleted.",
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
+    },
+    {
+     "plan": "c_041083ec68b532f8",
+     "title": "Ancient Plan of Old Sarum",
+     "url": "media/commons/old-sarum-q782719/041083ec68b532f8.jpg",
+     "pairs": [
+      [
+       300.0,
+       200.0,
+       -1.80543,
+       51.0955742
+      ],
+      [
+       450.0,
+       400.0,
+       -1.8018542,
+       51.0933285
+      ],
+      [
+       300.0,
+       600.0,
+       -1.80543,
+       51.0910827
+      ],
+      [
+       100.0,
+       400.0,
+       -1.8090058,
+       51.0933285
+      ],
+      [
+       200.0,
+       300.0,
+       -1.8068603,
+       51.0942268
+      ],
+      [
+       300.0,
+       400.0,
+       -1.80543,
+       51.0933285
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Old Sarum",
+      "file_cat": "Old Sarum in art",
+      "via": [
+       "Old Sarum"
+      ]
+     },
+     "label": "1901",
+     "cite": "by P.H. Ditchfield; Public domain; https://commons.wikimedia.org/wiki/File:Ancient_Plan_of_Old_Sarum.png",
+     "ref": "File:Ancient Plan of Old Sarum.png",
+     "size": [
+      686,
+      892
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 9.0-40.2 m, 1.29 m/px, +0.2 deg). The 6 anchors are a rough ~350x400-px ladder with ~14% anisotropy, so the residuals measure the ladder's own inconsistency, not a placement miss. The drawn complex (the 'Ichnography' bird's-eye of the concentric ring-castle) is centred ~on the site point (the drawn inner 'Castle Well' circle at 18 E / 31 S, radius ~115 m vs the real moated 'Castle' r~85 m on the site point) but the drawn works are consistently OVERSIZE: the drawn outer ring reaches ~150-175 m on the NW (sitting on the real NW arc) but ~450-480 m on the S/SE (the real S outer edge is 250-275 m), and the drawn S 'Leaving Street' runs ~150 m past the real hill edge out over the flat 'Old Sarum Farm' ground. Goodrich class: centre ~right, drawn works bigger than the real complex, walls past the fields. Document deleted.",
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 19.1 m measures internal consistency of the anchors, not their truth",
+     "gate_score": 19.1
     }
    ],
    "no_picture_found": null
@@ -12010,7 +12162,7 @@
    "candidates": [
     {
      "plan": "c_ba6b308580428184",
-     "title": "Oxford Castle, plan from Mackenzie, The Castles of England (1897)",
+     "title": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
      "url": "media/commons/oxford-castle-q2600886/ba6b308580428184.jpg",
      "pairs": [
       [
@@ -12038,13 +12190,22 @@
        51.7499988
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "hand_tied",
       "checked": "2026-10-10",
       "source": "pipeline/sources.py mackenzie"
      },
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:207_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11148583904).jpg",
+     "ref": "File:207 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11148583904).jpg",
+     "size": [
+      895,
+      781
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 4 anchors are a perfect 100-px diagonal ladder (300,300)-(600,600), so the fit carries no placement information; the site point (Corn Market) inverse-maps to the centre of the drawn bailey. The drawn keep (the dark square '1') is ~170 m south of the real moated keep island at the site point, over a built-up block just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's big hill outline (~665 x 540 m) render over the flat built-up city with no corresponding earthworks or hill (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on the real Thames. Wrong place, right kind (the bury-castle class). Document deleted.",
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -12927,6 +13088,82 @@
      "gate_score": 29.3
     },
     {
+     "plan": "c_d135fb32326df430",
+     "title": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065).jpg",
+     "url": "media/commons/pontefract-castle-q1949590/d135fb32326df430.jpg",
+     "pairs": [
+      [
+       200.0,
+       200.0,
+       -1.3084841,
+       53.6981904
+      ],
+      [
+       800.0,
+       200.0,
+       -1.3024152,
+       53.6981904
+      ],
+      [
+       800.0,
+       800.0,
+       -1.3024152,
+       53.6945972
+      ],
+      [
+       200.0,
+       800.0,
+       -1.3084841,
+       53.6945972
+      ],
+      [
+       500.0,
+       500.0,
+       -1.3054496,
+       53.6963938
+      ],
+      [
+       1000.0,
+       500.0,
+       -1.2993807,
+       53.6963938
+      ],
+      [
+       100.0,
+       500.0,
+       -1.3100013,
+       53.6963938
+      ],
+      [
+       500.0,
+       1000.0,
+       -1.3054496,
+       53.6928005
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "category",
+      "checked": "2026-10-10",
+      "site_cat": "Pontefract Castle",
+      "file_cat": "The history of the ancient borough of Pontefract",
+      "via": [
+       "Pontefract Castle"
+      ]
+     },
+     "label": "1807",
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:The_history_of_the_ancient_borough_of_Pontefract,_containing_an_interesting_account_of_its_castle,_and_the_three_different_sieges_it_sustained,_during_the_civil_war,_with_notes_and_pedigrees,_of_some_(14762763065).jpg",
+     "ref": "File:The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065).jpg",
+     "size": [
+      1280,
+      1982
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (8 pts, resid 6.0-35.6 m, 0.72 m/px, -0.1 deg). The 8 anchors are a 199-200 m per 100 px grid, so the fit carries no placement information (the bury-castle class). The site point inverse-maps to the plate's 'Newgate'/'Head Lands' ground west of the town centre (open hatched fields); the plate's own Market Place lands ~310 m SSE of the real market and its drawn castle (feature 17) ~520 m SSE of the real moated castle, south of the River Calder, where the 1842 and LiDAR show fields and no castle; the plate's main street crosses over the real castle. Wrong place, right kind. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 24.5 m measures internal consistency of the anchors, not their truth",
+     "gate_score": 24.5
+    },
+    {
      "plan": "c_3213330a52fe6018",
      "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14739695456)",
      "url": "media/commons/pontefract-castle-q1949590/3213330a52fe6018.jpg",
@@ -12992,73 +13229,6 @@
       ]
      },
      "gate_score": 9.5
-    },
-    {
-     "plan": "c_d135fb32326df430",
-     "title": "The history of the ancient borough of Pontefract, containing an interesting account of its castle, and the three different sieges it sustained, during the civil war, with notes and pedigrees, of some (14762763065)",
-     "url": "media/commons/pontefract-castle-q1949590/d135fb32326df430.jpg",
-     "pairs": [
-      [
-       200.0,
-       200.0,
-       -1.3084841,
-       53.6981904
-      ],
-      [
-       800.0,
-       200.0,
-       -1.3024152,
-       53.6981904
-      ],
-      [
-       800.0,
-       800.0,
-       -1.3024152,
-       53.6945972
-      ],
-      [
-       200.0,
-       800.0,
-       -1.3084841,
-       53.6945972
-      ],
-      [
-       500.0,
-       500.0,
-       -1.3054496,
-       53.6963938
-      ],
-      [
-       1000.0,
-       500.0,
-       -1.2993807,
-       53.6963938
-      ],
-      [
-       100.0,
-       500.0,
-       -1.3100013,
-       53.6963938
-      ],
-      [
-       500.0,
-       1000.0,
-       -1.3054496,
-       53.6928005
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 24.5 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "kind": "category",
-      "checked": "2026-10-10",
-      "site_cat": "Pontefract Castle",
-      "file_cat": "The history of the ancient borough of Pontefract",
-      "via": [
-       "Pontefract Castle"
-      ]
-     },
-     "gate_score": 24.5
     }
    ],
    "no_picture_found": null
@@ -13090,7 +13260,7 @@
    "candidates": [
     {
      "plan": "c_42bedb90fffce1d4",
-     "title": "Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354",
+     "title": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
      "url": "media/commons/portus-adurni-q762664/42bedb90fffce1d4.jpg",
      "pairs": [
       [
@@ -13130,7 +13300,7 @@
        50.8407904
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -13139,11 +13309,20 @@
       "file_cat": "Portus Adurni",
       "via": []
      },
+     "label": "1836",
+     "cite": "by Editor of the Penny cyclopaedia (1836) V6; Public domain; https://commons.wikimedia.org/wiki/File:Portchester_Castle,_derived_from_the_Penny_Cyclopaedia_(1836)_V6_page_354.jpg",
+     "ref": "File:Portchester Castle, derived from the Penny Cyclopaedia (1836) V6 page 354.jpg",
+     "size": [
+      1280,
+      1292
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     },
     {
      "plan": "c_4912bb54aa79f3ea",
-     "title": "Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354",
+     "title": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
      "url": "media/commons/portus-adurni-q762664/4912bb54aa79f3ea.jpg",
      "pairs": [
       [
@@ -13183,7 +13362,7 @@
        50.8407904
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -13192,6 +13371,15 @@
       "file_cat": "Portus Adurni",
       "via": []
      },
+     "label": "1836",
+     "cite": "by Editor of the Penny cyclopaedia V6.; Public domain; https://commons.wikimedia.org/wiki/File:Burg_von_Portchester_(GB)_Plan_von_1836_aus_der_Penny_Cyclopaedia,_Seite_354.jpg",
+     "ref": "File:Burg von Portchester (GB) Plan von 1836 aus der Penny Cyclopaedia, Seite 354.jpg",
+     "size": [
+      1280,
+      1292
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg). The 6 anchors are a perfect 900-px grid, so the fit carries no placement information (the bury-castle ladder class). The German-titled twin of the deleted c_42bedb90fffce1d4: same source (Penny Cyclopaedia 1836 v6 p 354), same 1280x1292 plate and drawn geometry - the drawn outer-wall square spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big) with its centre ~440 m NW of the real fort; the drawn NW keep lands ~865 m NW of the real keep, over village farmland west of the site; only the drawn Church of St Mary sits near its real church (~100 m N). The plate's own 0-500 ft bar implies ~5x the true scale - a 1836 drawing, not a survey. Wrong place, wrong size, right kind. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -13278,7 +13466,7 @@
    "candidates": [
     {
      "plan": "c_fe1d6c7f0ba858cb",
-     "title": "Raby Castle, plan from Mackenzie, The Castles of England (1897)",
+     "title": "File:Plan of Raby Castle (1897).jpg",
      "url": "media/commons/raby-castle-q4583646/fe1d6c7f0ba858cb.jpg",
      "pairs": [
       [
@@ -13306,13 +13494,22 @@
        54.5936104
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "hand_tied",
       "checked": "2026-10-10",
       "source": "pipeline/sources.py mackenzie"
      },
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Raby_Castle_(1897).jpg",
+     "ref": "File:Plan of Raby Castle (1897).jpg",
+     "size": [
+      1280,
+      1080
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg) - the 4 anchors are the plate's 900-px corners, a ladder with no placement information: the fit pins the plate centre onto the site point. The drawing is an idealised 1897 castle complex spanning the whole 600 m fit box (the 1280x1080 plate = 853 x 720 m on the ground): Great Keep, Great Hall, Gate House, Main Street, Market Cross, St Mary's, North/South Towers. The real Raby Castle (1842 six-inch + LiDAR) is a small ~50 m ruin on a ~90 m round terrace with a moat, centred on the site point just north of Low Pond; the drawn Gate House (E-139 N-214), St Mary's (E-93 N+45) and N Tower (E+34 N+281) all sit on open park. Wrong size (~10x), the drawn works miss the real ones. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -13476,7 +13673,7 @@
     },
     {
      "plan": "c_edad7da41d234534",
-     "title": "Richborough Castle, derived from Penny cyclopaedia (1836) V6 page 353",
+     "title": "File:Richborough Castle, derived from Penny cyclopaedia (1836) V6 page 353.jpg",
      "url": "media/commons/richborough-roman-fort-q1309736/edad7da41d234534.jpg",
      "pairs": [
       [
@@ -13516,7 +13713,7 @@
        51.2904021
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -13525,6 +13722,15 @@
       "file_cat": "Rutupi\u00e6",
       "via": []
      },
+     "label": "1836",
+     "cite": "by George Long (ed); Public domain; https://commons.wikimedia.org/wiki/File:Richborough_Castle,_derived_from_Penny_cyclopaedia_(1836)_V6_page_353.jpg",
+     "ref": "File:Richborough Castle, derived from Penny cyclopaedia (1836) V6 page 353.jpg",
+     "size": [
+      1280,
+      1212
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 pts, resid 0.0 m, 1.25 m/px, 0.0 deg) - a 640-px grid ladder with no placement information; the 4 corner anchors are the drawn fort's outer-wall corners. At this fit the drawn outer walls span 790 x 790 m, centred E+5 N+195 m, against the real fort's ~200 m (1842 six-inch RITVPIA hatch block ~120 x 90 m, the LiDAR wall ruins ~190 x 210 m, centre ~E+70 N-120 m): ~4x too big and its centre ~250 m off; the drawn SE corner and its river band sit ~100 m south of the real estuary crossing. The plate's own 100-400 ft scale bar measures ~0.27 m/px - 4.6x smaller than the fit - so the 1836 plate is drawn near its true scale and the fit, not the plate, is wrong. Wrong place, wrong size, right kind. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -14209,6 +14415,13 @@
        39.0204634
       ]
      ],
+     "coarse": false,
+     "book": "Fowke 1902",
+     "ia": "b24849959",
+     "file": "n0313.jpg",
+     "label": "Fig. 81",
+     "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+     "place_reason": "306c audit 2026-10-12: the Holmes serpent runs N-S down the page and the fit stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual is the stretch); head/tail coils sit NW/SE of the real ones, which carry the hand fit n0210_1. Document deleted.",
      "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.7 m measures internal consistency of the anchors, not their truth",
      "evidence": {
       "rec": "evidence/1",
@@ -14264,7 +14477,7 @@
        39.0278747
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14273,6 +14486,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1889",
+     "cite": "by Engraver: R. C. Collins, after William Jacob Baer; Public domain; https://commons.wikimedia.org/wiki/File:Serpent_Mound_by_William_Jacob_Baer.jpg",
+     "ref": "File:Serpent Mound by William Jacob Baer.jpg",
+     "size": [
+      1280,
+      904
+     ],
+     "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~180 m NW of the real effigy (the hand fit n0210_1 traces it on the LiDAR). View row: the 4 near-collinear pairs make the homography exact by construction, so the 0 resid proves nothing about placement. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.3 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.3
     },
     {
@@ -14305,7 +14527,7 @@
        39.0276501
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14314,6 +14536,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1848",
+     "cite": "by Ephraim George Squier and Edwin Hamilton Davis; Public domain; https://commons.wikimedia.org/wiki/File:SD35_Serpent_Mound_Squier_and_Davis_Plate_XXXV.png",
+     "ref": "File:SD35 Serpent Mound Squier and Davis Plate XXXV.png",
+     "size": [
+      1280,
+      1883
+     ],
+     "place_reason": "306c audit 2026-10-12: a second copy of S&D Plate XXXV - the very plate the owner hand-placed: it sits ~145-190 m SE of the hand fit AND at ~4x the true scale (the plate-alone file is 1280 px = 1.28 km at the fitted 1 m/px vs the ~320 m figure). Not a duplicate of the hand fit. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     },
     {
@@ -14370,7 +14601,7 @@
        39.0287281
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14379,6 +14610,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1902",
+     "cite": "by Internet Archive Book Images; No restrictions; https://commons.wikimedia.org/wiki/File:Harper%27s_New_Monthly_Magazine_Volume_104_December_1901_to_May_1902_(1902)_(14803170263).jpg",
+     "ref": "File:Harper's New Monthly Magazine Volume 104 December 1901 to May 1902 (1902) (14803170263).jpg",
+     "size": [
+      1280,
+      1086
+     ],
+     "place_reason": "306c audit 2026-10-12: the engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). View row: the 8 near-collinear pairs make the homography exact by construction. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (16 of 16 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     },
     {
@@ -14411,7 +14651,7 @@
        39.0278298
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14420,6 +14660,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_..._Being_a_revision_and_rewriting_of_Swinton%27s_%22Condensed_School_History_of_the_United_States.%22%27_(11303842305).jpg",
+     "ref": "File:26 of 'A School History of the United States ... Being a revision and rewriting of Swinton's \"Condensed School History of the United States.\"' (11303842305).jpg",
+     "size": [
+      1280,
+      942
+     ],
+     "place_reason": "306c audit 2026-10-12: the page-26 serpent (full-page copy) lands ~230 m north of the real effigy, over the hatched hill in farmland; the real effigy carries the hand fit only. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 2.4 m measures internal consistency of the anchors, not their truth",
      "gate_score": 2.4
     },
     {
@@ -14476,7 +14725,7 @@
        39.0285484
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14485,6 +14734,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_(11303842305)_(cropped).jpg",
+     "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' (11303842305) (cropped).jpg",
+     "size": [
+      1117,
+      836
+     ],
+     "place_reason": "306c audit 2026-10-12: the serpent and its 'Mound 10 ft. high' spiral (cropped copy) land ~255 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     },
     {
@@ -14541,7 +14799,7 @@
        39.0285484
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14550,6 +14808,15 @@
       "file_cat": "Serpent Mound",
       "via": []
      },
+     "label": "1893",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:26_of_%27A_School_History_of_the_United_States_...Serpent_Mound_in_Ohio%22%27_no_cap_(11303842305)_(cropped).jpg",
+     "ref": "File:26 of 'A School History of the United States ...Serpent Mound in Ohio\"' no cap (11303842305) (cropped).jpg",
+     "size": [
+      1112,
+      791
+     ],
+     "place_reason": "306c audit 2026-10-12: the serpent ('no cap' copy) lands ~265 m north of the real effigy, on the hatched hill in farmland/NE hills; the real effigy carries the hand fit only. Document deleted.",
+     "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 9 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -14758,7 +15025,7 @@
    "candidates": [
     {
      "plan": "c_59a5c636a9e00703",
-     "title": "Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew",
+     "title": "File:Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew.jpg",
      "url": "media/commons/stanton-drew-stone-circles-q1516300/59a5c636a9e00703.jpg",
      "pairs": [
       [
@@ -14798,7 +15065,7 @@
        51.3662972
       ]
      ],
-     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (12 of 12 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "category",
@@ -14807,6 +15074,15 @@
       "file_cat": "Stanton Drew stone circles",
       "via": []
      },
+     "label": "1836",
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Penny_Magazine_1836_116_Plan_of_the_Druidical_Temple_at_Stanton_Drew.jpg",
+     "ref": "File:Penny Magazine 1836 116 Plan of the Druidical Temple at Stanton Drew.jpg",
+     "size": [
+      1280,
+      1551
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (6 points, resid 0.0 m, 1.00 m/px, -0.0 deg) - the 6 anchors are a 100-px diagonal ladder (100,100)..(600,600) that pins the 1280x1551 plate centre onto the site point; no placement information. The 1836 Penny Magazine plate is a genuine plan of the Stanton Drew circle group (Great Circle, Circle of 8, South-west Circle, The Cove, Hackett's Quoit, River Chew - the right names and layout against the 1842 six-inch and the LiDAR) drawn at ~10 m/px: the fitted 1.0 m/px inflates the group ~4-10x. The drawn Great Circle (least-squares r=218 px = 435 m across, centre E+157 N-153) surrounds the real stone cluster (~50 m of dots at E+100-150 N-50) about 90 m south of it; the drawn Circle of 8 (E-91 N+240) and South-west Circle (E+705 N-554) sit on open farmland where the 1842 and the LiDAR show no stones (the real SW circle lies near Church Farm, E-100 N-200). Wrong size, and the secondary circles miss the real ones. Document deleted.",
+     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (12 of 12 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],
@@ -15656,7 +15932,7 @@
    "candidates": [
     {
      "plan": "c_05cb4a02bd58e82e",
-     "title": "Taunton Castle, plan from Mackenzie, The Castles of England (1897)",
+     "title": "File:Plan of Taunton Castle (1897).jpg",
      "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
      "pairs": [
       [
@@ -15684,13 +15960,22 @@
        51.0134988
       ]
      ],
-     "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+     "coarse": false,
      "evidence": {
       "rec": "evidence/1",
       "kind": "hand_tied",
       "checked": "2026-10-10",
       "source": "pipeline/sources.py mackenzie"
      },
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Taunton_Castle_(1897).jpg",
+     "ref": "File:Plan of Taunton Castle (1897).jpg",
+     "size": [
+      1280,
+      1461
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 0.5 m/px, +0.0 deg) - the 4 anchors are a 200-px (100 m) grid ladder, so the fit carries no placement information: it pins the 1280x1461 plate centre (the site point inverse-maps to plate (599,599)) onto the site point. The plate is a genuine plan of THIS castle from Mackenzie, The Castles of England (1897) - the features match the real complex (Great Hall/inner ward, outwork, filled-in moats, Castle Green as the outer bailey, E. gate, Bishop Foxe's school) - but the catalog site point sits ~640 m WEST of the real castle: the real works (51.0158 N, 3.1046 W = E+643 N+55; today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the tree-lined moat ring and the Castle Green, on the east bank of the Tone) were verified on modern aerial imagery. The drawn complex (E-205..+190 m) instead sits on the 1842 Wellington Terrace house cluster and the Stepps Water stream - no castle, no moat, no 'Castle' label anywhere in the 800 m site box - and the real castle (E+643) is beyond the plate's east edge (E+340.5). Wrong place, right kind. Document deleted.",
+     "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
     }
    ],

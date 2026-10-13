@@ -5,6 +5,14 @@
    "plan": "c_7dcdfcc9aceb62ec",
    "title": "Hardknott Roman Fort",
    "url": "media/commons/hardknott-roman-fort-q1584994/7dcdfcc9aceb62ec.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Hardknott Roman Fort",
+    "file_cat": "Hardknott Roman Fort",
+    "via": []
+   },
    "pairs": [
     [
      70.0,
@@ -55,15 +63,16 @@
      54.4032955
     ]
    ],
+   "coarse": false,
+   "label": "1902",
+   "cite": "by Social England, edited by H.D. Traill, D.C.L. and J. S. Mann, M.A. Cassell and Company, Limited, London, Paris, New York & Melbourne, 1902; Public domain; https://commons.wikimedia.org/wiki/File:Hardknott_Roman_Fort.png",
+   "ref": "File:Hardknott Roman Fort.png",
+   "size": [
+    698,
+    684
+   ],
+   "place_reason": "306d audit 2026-10-13: the plate IS the real fort (near-square, rounded corners, four corner turrets, gates mid-sides, the PRAETORium and buildings inside - matching NHLE 1009349 / Wikipedia: 114 m external, 105 m internal), and its own 'FEET 0-300' scale bar (461 px = 0.1984 m/px) sizes the drawn 575x562 px fort at 114x112 m - exactly the real size. But the stored fit is 2.293 m/px (8 uniform anchors, resid <=2.26 m, centred ON the site point) = 11.6x the plate's own bar: at it the drawn fort becomes 1320x1290 m and its walls land on the surrounding moor - Butterilket (W), New Crags (N), Pathill Crags (E), Horseshow Crags (S), ~600-700 m out (the OS composite: the drawn rectangle spans the whole sheet while the real small hatched 'Hardknott Castle CAMP (Remains of)' sits by the drawn PRAETORium near the plate centre). The 8 anchors are a 1.29x1.38 km ring placed across the whole sheet, not on the fort. Goodrich class: the centre is right, the size is ~11x off. Document deleted.",
    "why": "line check: fabricated anchor pattern: grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 1.2 m measures internal consistency of the anchors, not their truth",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "category",
-    "checked": "2026-10-10",
-    "site_cat": "Hardknott Roman Fort",
-    "file_cat": "Hardknott Roman Fort",
-    "via": []
-   },
    "gate_score": 1.2
   }
  ],

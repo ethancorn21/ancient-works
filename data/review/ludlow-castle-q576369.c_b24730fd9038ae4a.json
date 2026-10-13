@@ -5,6 +5,12 @@
    "plan": "c_b24730fd9038ae4a",
    "title": "Ludlow Castle, plan from Mackenzie, The Castles of England (1897)",
    "url": "media/commons/ludlow-castle-q576369/b24730fd9038ae4a.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "hand_tied",
+    "checked": "2026-10-10",
+    "source": "pipeline/sources.py mackenzie"
+   },
    "pairs": [
     [
      100.0,
@@ -43,13 +49,16 @@
      52.3667463
     ]
    ],
+   "coarse": false,
+   "label": "1897",
+   "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:175_of_%27The_Castles_of_England-_their_story_and_structure_..._With_..._illustrations_and_..._plans%27_(11241133755).jpg",
+   "ref": "File:175 of 'The Castles of England- their story and structure ... With ... illustrations and ... plans' (11241133755).jpg",
+   "size": [
+    1280,
+    1565
+   ],
+   "place_reason": "306d audit 2026-10-13: the 6 anchors are a uniform 0.378 m/px rectangle (rot 0, resid 21.8-31.8 m), but that is 2.6x the plate's own bar (its five ticks span 623 px for 300 ft = 0.147 m/px; independent check: the drawn round tower circle, 54.5 px, is 8.0 m at the bar's scale - matching the plate's text '28 feet in diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m outer). The centre is ~right - the drawn rounded W curtain + hatched buildings sit ON the real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m, centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works bigger than the real complex, walls through the town. Document deleted.",
    "why": "line check: fabricated anchor pattern: grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 22.4 m measures internal consistency of the anchors, not their truth",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "hand_tied",
-    "checked": "2026-10-10",
-    "source": "pipeline/sources.py mackenzie"
-   },
    "gate_score": 22.4
   }
  ],

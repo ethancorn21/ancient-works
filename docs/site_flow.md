@@ -938,6 +938,550 @@ item reopens. All twenty-one stay (2026-10-12: judged from the 42 shots, none re
   1.5625 m/px from hand-tied bastion/gate points, 38% textured (gate-rejected), a thin
   800x99 m rectangle, centre 455 m off - the tab would pre-place that. STAYS.
 
+306c - the 16 US orphan documents: in the store, but no overlay built on the site and no
+review item referencing them, so the page shows them to a visitor not at all; each was rendered
+the way the page would if it ever showed it (the fit tool over the aerial, and over the LiDAR
+relief, with the doc's stored pairs placed and refitted; shots in docs/site_flow/agent_fits/).
+The eight serpent-mound docs were judged against the site's hand fit (n0210_1, S&D 1848 Plate
+XXXV), which traces the real effigy on the LiDAR (head (-83.4288, 39.0254), tail
+(-83.4314, 39.0258)) and is the reference placement. All sixteen were judged (2026-10-12):
+nine sit wrong and were deleted the 303 way - the picture and the doc's own points went into
+the site's review item with the reason, the document was deleted, the site's page file
+re-exported scoped - and the site stays covered for the union check (an open item counts;
+serpent-mound also keeps its hand overlay). The other 7 sit right and keep their document:
+the drawn works land on the real ones, and each line below says which.
+
+- marietta.b24849959_n0195_1 - Fowke 1902 Fig. 15 "The Marietta works", similarity (4 points,
+  resid 0, 1.0 m/px, 0 deg): the scale agrees with the plate's own bar (1.073 m/px measured),
+  but the placement is wrong - the drawn fort (50 Acres, 27 Acres, the old stockade) and the
+  60-ft Conus mound profile at the page's foot land ~1.3 km S-E of the real Marietta earthworks
+  (the ringed disc of Mound Cemetery on the LiDAR); farm ground with a parcel grid lies beneath
+  the placement. DELETED - an orphan today, invisible on the page (the 303 way: the picture and
+  its 4 points went to the site's review item with this reason; the document was deleted 2026-10-12).
+- serpent-mound-q968802.b24849959_n0313_1 - Fowke 1902 Fig. 81 (the Holmes serpent; 5 points,
+  resid 9-66 m, 0.41 m/px, +2 deg): the Holmes serpent runs N-S down the page and the fit
+  stretches it to ~800 m of ground span (the real effigy runs E-W, ~400 m; the 66 m mid-residual
+  is that stretch); head/tail coils and hatched hills sit NW/SE of the real ones, which the hand
+  fit traces on the LiDAR. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_15ff865e5f3d8ddb - Baer 1889 engraving (a view row; 4 points,
+  homography, resid 22/61/27/0 m): the 4 near-collinear pairs make the fit exact by construction,
+  so the resid proves nothing; the engraved serpent lands ~180 m NW of the real effigy (whose
+  hand fit traces it on the LiDAR). DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_2c260a03d1f8df1c - S&D Plate XXXV via Commons (a second copy of the
+  very plate the owner hand-placed; 4 points, resid 0, 1.0 m/px, 0 deg): it sits ~145-190 m SE of
+  the hand fit and at ~4x the true scale (the Commons file is the plate alone: 1280 px = 1.28 km
+  at the fitted 1 m/px, the real figure ~320 m) - the drawn S is bigger than and offset from the
+  real effigy; not a duplicate of the hand fit. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_52dfe1fc979edf2c - Harper's New Monthly Magazine 1902 engraving (a view
+  row; 8 near-collinear points, homography, resid 0 m): the 8 points sit along the north ridge
+  line, so the fit is exact by construction and under-constrained perpendicular to it; the
+  engraved serpent lands ~200 m NE of the real effigy (the plate centre maps to
+  (-83.43055, 39.02681) vs the effigy's (-83.4301, 39.0256)). DELETED - an orphan today (the 303
+  way, 2026-10-12).
+- serpent-mound-q968802.c_7b01a4bb50d68b56 - "A School History of the United States" p. 26,
+  full-page copy (4 points, resid 1-6 m, 0.94 m/px, +0.3 deg): the page-26 serpent lands ~230 m
+  north of the real effigy, over the hatched hill in the farmland; the real effigy carries the
+  hand fit only. DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_8ebd42607fbb96d8 - the same figure, cropped copy (8 points, resid 0,
+  1.0 m/px, 0 deg): the serpent and its "Mound 10 ft. high" spiral land ~255 m north of the real
+  effigy, on the hatched hill in the farmland/NE hills; the real effigy carries the hand fit only.
+  DELETED - an orphan today (the 303 way, 2026-10-12).
+- serpent-mound-q968802.c_dd2c553d611e610b - the same figure, "no cap" copy (8 points, resid 0,
+  1.0 m/px, 0 deg): the serpent lands ~265 m north of the real effigy, on the hatched hill in
+  the farmland/NE hills (the twin of the cropped copy above). DELETED - an orphan today (the 303
+  way, 2026-10-12).
+- cahokia-q333661.annualreportofbu1218901891smit_n0200_1 - Thomas 1894 Plate VI "Map of the
+  Cahokia group, Madison county, Illinois" (8 points, 1.3 m/px, -3 deg, resid 9.5-174.7 m): the
+  plate's dense mound-group cluster (its subject) sits on the real Cahokia mound complex on the
+  LiDAR (the bright mound cluster in the dark floodplain depression); the dashed "St. Louis and
+  Collinsville Road" line follows the real road, the Mississippi hatch sits on the real river
+  (dark band at the right edge) and the Horse-Shoe slough is at the NE end. The residuals are
+  frame-level (the 1894 survey grid's page skew, -3 deg), not subject misplacement. STAYS.
+- etowah-indian-mounds-q4533107.annualreportofbu1218901891smit_n0386_1 - Thomas 1894 Fig. 182
+  "Plat of the Etowah group (original)" (8 points, 1.0 m/px, 0 deg, resid 0): a georeferenced
+  plate - the drawn great ditch traces the real ditch band in the aerial, the hatched platform
+  mound "a" sits on the real grassy mound, mounds b/c on the real mounds, and the Etowah River
+  line follows the real channel. STAYS.
+- fort-ancient-q5470727.b24849959_n0264_1 - Fowke 1902 Fig. 59 "Fort Ancient, Warren county"
+  (from Squier & Davis; 8 points, 1.0 m/px, 0 deg, resid 0): the drawn walled loops (north and
+  south forts) trace the real ditch/bank bands (the light lines in the aerial), the creek line
+  follows the real meander at the SE, and the park is centred. STAYS.
+- hodgen-s-cemetery-mound-q5876069.b24849959_n0353_1 - Fowke 1902 Fig. 96 "Plan of mound at Mt.
+  Vernon" (8 points, 0.78 m/px, -0.1 deg, resid 8-33 m): the drawn hatched mound ring is
+  concentric on the real cemetery mound - the distinct round LiDAR bump (bright centre, dark
+  ring) in the residential block by the Big Sandy; the drawn ring is ~2x the real diameter but
+  centred on it. STAYS.
+- hodgen-s-cemetery-mound-q5876069.ArcheologicalAtlasOfOhio_n0092_1 - Mills 1914 "Plan of
+  Cemetery Mound, Mt. Vernon." (4 points, 1.0 m/px, 0 deg, resid 0): the 100x100 m anchor
+  square (and the drawn mound it encloses) sits ~110 m S-E of the real mound's LiDAR bump, on
+  flat residential ground - the real mound lies just outside the drawn extent at its NW. Same
+  mound as n0353 above, which sits right. DELETED - an orphan today (the 303 way: the picture
+  and its 4 points went to the site's review item - merged into the item that already held the
+  Thomas n0563 candidate, which stays open - with this reason; the document was deleted
+  2026-10-12).
+- mound-cemetery-q6919104.annualreportofbu1218901891smit_n0563_1 - Thomas 1894 Fig. 306 "Plan of
+  Cemetery mouud, Mt. Vernon. Knox county, Ohio" (8 points, 1.0 m/px, 0 deg, resid 0): the
+  drawn big concentric "Cemetery Mound" circle sits on the real conical mound (the ringed disc
+  of Mound Cemetery, Marietta - the bright LiDAR bump with the dark ring), the drawn fence
+  circle spans the real cemetery parcel, and the drawn streets (Market/High/North St) follow the
+  real street grid; the page's "MARIETTA WORKS" label is centred in the drawing. (The caption's
+  "Mt. Vernon, Knox county" is the source's own labelling; the plan matches the Marietta
+  cemetery.) STAYS.
+- mount-horeb-earthworks-complex-q6921321.c_d1dff07f0da57b0e - S&D 1848 Plate XIV Fig. 3 "Peter
+  Village enclosure" (drawn by C. Rafinesque; 5 points, 1.0 m/px, 0 deg, resid 0): the drawn
+  bank/ditch arc (hatched double line) lies on the real bright bank band + dark ditch line of
+  the earthwork in the LiDAR, following the real ditch's S-bend near anchor 3; the plate's own
+  "500 ft to the inch" is consistent with the fitted 1.0 m/px. STAYS.
+- pyramid-mound-q7263260.ancientmonuments00squi_n0134_1 - S&D 1848 n0134 (the plate is FIG. 9:
+  a big double-ring circular earthwork with an entrance gap at the SW + a small square
+  enclosure at the left; 4 points, 0.54 m/px, -5.5 deg, resid 17.7-33.9 m): the drawn
+  double-ring circle (~230 m outer diameter) encloses the real dark-ringed ~100 m mound at
+  ~(-87.5056, 38.6705): the drawn centre works out at ~(-87.5065, 38.6706), ~80 m west of the
+  mound's centre, so the real mound sits in the eastern part of the drawn ring, its rim just
+  touching the drawn outer ring - concentric-ish (the same class as the Fowke Mt. Vernon ring
+  above: larger than the real works but centred on them), not the serpent-mound class of miss
+  (145-265 m off, on foreign ground). The drawn square enclosure (anchor 4's feature) lands
+  ~340 m west over residential ground with no visible earthwork - a secondary plate feature
+  that does not change the call; the 18-34 m residuals reflect anchor quality, not the
+  subject's placement. STAYS.
+
+306d - the 18 UK orphan documents (sites a-l): in the store, but no overlay built on the site
+and no review item referencing them, so the page shows them to a visitor not at all; each was
+rendered the way the page would if it ever showed it (the fit tool over the aerial, and over
+the LiDAR relief, with the doc's stored pairs placed and refitted; shots in
+docs/site_flow/agent_fits/). Each line below says what the drawing's lines sit on (the real
+banks, walls, ditches, streets) and the verdict; a fit whose drawn works visibly miss the real
+ones is deleted the 303 way (the picture and the doc's own points go to the site's review item
+with the reason, the document is deleted, the site's page file re-exported scoped to the site -
+the site stays covered for the union check, an open item counts).
+
+- bury-castle-q5001077.c_de779031cda8a0dc - Bury Castle Somerset Map 1911 (Bothamley's 'Ancient
+  Earthworks' chapter; 8 points, similarity, resid 10.9-39 m, 2.63 m/px, +1.1 deg): the 8 anchors
+  are a 100-px grid ladder (three on the left edge) whose 200-px and 100-px lat steps span
+  0.0054 and 0.0018 deg (a 1.5:1 per-pixel ratio no similarity can hit) - the residuals only
+  measure the grid's internal inconsistency, and the fit's 2.63 m/px is ~1.8x the plate's own
+  'SCALE OF FEET 0-300' bar (~1.45 m/px); it places the drawn hachured hillfort (~280-340 m
+  across, entrance gap at the SW) at (-3.5187, 51.0370), ~550-580 m N-NW of the real Burr Castle
+  hillfort (the ~80-90 m hachured ring just NW of the site point on the OS maps, the LiDAR bump
+  at the same spot), on a small hachured wood hill instead. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason - merged into the item that already held the Allcroft 1908 n0136_1 candidate, which stays
+  open; the document was deleted 2026-10-12).
+- cassiobury-house-q5049456.c_3446adfe7a8ed6c7 - Kip 1707 bird's-eye view of the house (the page's
+  view model: homography, 4 points, an exact 4-point fit resid 0.0, near-affine ~1.29 m/px): the
+  4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue
+  features, and all four ground points fall in the residential area EAST of the River Gade. The
+  site point (-0.418889, 51.665, kind garden) is the Wikipedia Q5049456 coordinate of Cassiobury
+  House itself (demolished 1927; the site is now the Temple Close / Parkside Drive housing) and
+  inverse-maps to plate px (549,671) - on the garden/wood at the drawn house's front, ~200-300 m
+  south of it - so the fit places the drawn house (E -364..-47, N +179..+427) ~360 m NW of its
+  real site, over the Cassiobury school complex (playfields and its rectangular pool), where no
+  house stood; the drawn oval pond maps to (E +406, N -202), 453 m SE, mid-residential, where
+  there is no water; and the plate's big wood masses map east of the site while the real park
+  woods, the park's round lake and the Gade lie west. The drawn works sit on the wrong side of
+  the river from the real ones. DELETED - an orphan today, invisible on the page (the 303 way:
+  the picture and its 4 points went to the site's review item with this reason, creating its item;
+  the document was deleted 2026-10-13).
+- chevening-q1070927.c_6049b89e4ab0570c - Kip bird's-eye view of the house (the page's view model:
+  homography, 8 points, resid 4.2-17.9 m, ~1.15 m/px near-affine): the decisive check is airtight -
+  the catalog site point (kind garden) inverse-maps to plate px (695,650), INSIDE the drawn house
+  body (the house spans u 560-840, v 590-800; its centre (700,700) lands at E +6, N -63 of the site
+  point), i.e. the house sits at its own site; the drawn lake (the long rectangular water behind-
+  left of the house) maps NW of the site point (E -206..-223, N +111..+418) and the park/horizon
+  north (+533) - matching the real Chevening House layout (house, lake to the north, avenue to
+  the south); the 8 anchors are a 100-px grid band (v 300-600, the lake/kitchen-garden zone; the
+  real band is E -496..+297, N +62..+407), and the 4-18 m residuals are the mild grid distortion
+  of an over-constrained homography, not a miss. KEEPS - an orphan today, invisible on the page
+  (its fit sits on the house itself).
+- cooling-castle-q5167493.c_7ebc7630f3197364 - Mackenzie 1897, The Castles of England (similarity,
+  6 points, resid 0.0, 0.8 m/px, 0 deg): the drawn Inner Ward square lands exactly on the castle
+  square the 1842 OS 6-inch map draws (same position and size, the moat lines coincide), the Outer
+  Ward boundary follows the map's moat/ditch line, the plate's 'Water' stream matches the OS
+  stream, and 'Modern houses and farm' sits where the map's village buildings are, with the
+  'Cooling' village label below; the 6 anchors are an internally consistent grid (100 px = 0.80
+  m/px, not a bury-style ladder), so the 1897 plan georeferences true over the site's 800 m box.
+  KEEPS - an orphan today, invisible on the page.
+- coria-q3819299.c_d66bfb0db805d2cd - Knowles 1909, Corbridge Excavations, fig 1 site plan
+  (similarity, 6 points, resid 0.2-1.1 m, 1.187 m/px, 0.02 deg): the hatched fort sits exactly on
+  the 1-inch OS 'CORSTOPITUM' dotted outline (same position and size), the plate's 'MODERN ROAD'
+  (A69) + 'ROMAN ROAD' (Stanegate) follow the OS roads, the two bridge abutments + 'CORBRIDGE
+  MILL' sit on the OS bridge and mill at the Tyne crossing, and the plate's Tyne runs parallel to
+  and over the OS 'RIVER TYNE'; the 6 anchors are 100-px multiples but a UNIFORM metric grid (100
+  px = 118.8 m both axes - the sub-metre residuals are the snapped grid, not a bury-type
+  inconsistent ladder), so the grid encodes the true transform. KEEPS - an orphan today,
+  invisible on the page.
+- daw-s-castle-q5242247.c_8d2281628567a166 - Daws Castle Somerset Map inset (similarity, 4 points,
+  resid 1.4-5.6 m, 4.32 m/px, -0.13 deg): the drawn hatched headland (the 'Cliff and Rocks' mass,
+  the hillfort) maps over the REAL headland - its drawn edge line agrees with the 1-inch OS cliff
+  line within ~40 m over E -532..-359; the tip is exaggerated ~220 m west into the sea/shoal and
+  the mass's ~400 m northward overhang sits on the headland's own upland (207/225 m 'Coastguard'
+  ground), not foreign ground - the real headland is INSIDE the drawn extent; the drawn HIGH
+  WATER sits on the real sea, the railway in the real gap between headland and town, and the town
+  on the town side. The site point (on the 'WATCHET' town label, the scheduled-monument point) sits
+  ~450-550 m E of the headland itself. Caveats: the 4 anchors are a 100-px grid in the plate's SE
+  corner (the north-arrow/spot-heights area) - a bury-style ladder shape but internally uniform
+  (430 m / 100 px both axes, so the fit's 4.32 m/px is consistent with the composite); and the
+  plate's own 'SCALE OF FEET 0-300' bar measures 0.885 m/px, 4.9x smaller than the fit - the inset
+  is not to its own bar, and the fit's scale is the one consistent with the real headland's ~400 m
+  width and the 1-inch layout. KEEPS - an orphan today, invisible on the page.
+- desborough-castle-q5263651.earthworkenglan01allcgoog_n0465_1 - Allcroft 1908 Fig. 149, 'Desborough
+  Castle, High Wycombe, Bucks' (similarity, 8 points, resid 0, 1.0 m/px, 0.0 deg): the anchors are a
+  trustworthy 1.0 m/px square, but the drawn 'Roundabout' ring - the real hillfort by its own
+  labelling ('90 x 60 paces', 'in area about an acre'; ~90 m, hatched at the site point on the OS
+  6-inch) - is drawn ~500x670 m, ~5-6x too big, its centre ~450 m SE of the real hill (the site
+  point lands on the drawn ring's NW rim, over housing) and the plate's own text matches the
+  drawing only at ~0.18 m/px, not the fitted 1.0; the drawn scarp oval stretches far beyond the
+  hill (the drawn arcs over Castlefield Wood in the OS composite). DELETED - an orphan today,
+  invisible on the page (the 303 way: the picture and its 8 points went to the site's review item
+  with this reason, creating its item; the document was deleted 2026-10-13).
+- devil-s-dyke-q3307343.earthworkenglan01allcgoog_n0662_1 - Allcroft 1908 'SWEALD' (similarity,
+  4 points, resid 0, 0.6 m/px, 0.0 deg): WRONG PLACE - a toponymic collision: this site is
+  Devil's Dyke, CAMBRIDGESHIRE (the ~5.6 km cross-dyke linear earthwork in the Sleaford uplands,
+  visible in the aerial at the site point), but the plate is Allcroft's SWEALD map of EAST
+  SUSSEX (Brighton, the Cuckmere, Pevensey Level, Seaford, the Roman camps I-XVIII incl. Roman
+  camp IX 'Devil's Dyke' near Edburton) - a different Devil's Dyke ~500 km away. The page would
+  draw the Sussex coast and roman camps over the Sleaford fens (the 'SWEALD' title over Sleaford
+  village, the drawn Cuckmere over the Ouse 'Reach'); the drawn Roman camp IX lands ~400-600 m
+  SE of the site point. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 4 points went to the site's review item with this reason - added to the item
+  that already held two picture candidates, which stays open with them; the document was deleted
+  2026-10-13).
+- duffield-castle-q2073299.c_e915cbfd3af009b4 - Mackenzie 1897, The Castles of England (similarity,
+  8 points, resid 5.9-52.9 m, 1.74 m/px, 0.0 deg): the 8 anchors are a 100-px grid ladder that is
+  internally inconsistent (the 300-px square spans 500 m at 1.667 m/px but the 400-px v=600 row
+  spans 800 m at 2.0 m/px - 1.2:1, the bury-castle class), so no similarity is trustworthy; the
+  aerial puts the drawn keep (~290x180 m, ~10x the ~27x20 m ruin) on village housing ESE of the
+  1842 'Site of Castle' and the drawn ring (~975x825 m, ~5x the real ~200 m earthworks) wrapping
+  the whole village, with the plate's own geography wrong (its 'Duffield' label and the
+  'To Duffield'/'To Belper' roads south of the ring, the real town and A535 west of the castle).
+  DELETED - an orphan today, invisible on the page (the 303 way: the picture and its 8 points
+  went to the site's review item with this reason, creating its item; the document was deleted
+  2026-10-13).
+- eaton-socon-castle-q5331372.c_beefc3808de9b125 - Plan of Eaton Socon (1897) (similarity, 4
+  points, resid 0.33-0.51 m, 0.99 m/px, -0.02 deg): the anchors are a consistent quadrilateral
+  (the transform is trustworthy), but the drawn works miss the real ones: the real moated site
+  is at the site point (the 1842 'Site of Castle' hatched building + moat loop, ~170-200 m, still
+  in the aerial: a grassy island ringed by trees, water at its west, the Great Ouse east), while
+  the drawn Inner Ward ring (~220x230 m) is offset ~120 m SW - the real moat sits at its NE edge,
+  ~2/3 of its radius off - and its hatched building is 40-70 m SW of the 1842 building; the
+  drawn North Ward lies over the hatched 'Castle Hills' wood east of the river, where no
+  earthwork exists (1842 + aerial); the drawn Outer Ward loop (~730x500 m) encloses the whole
+  village with no 1842 trace of any bank or ditch. DELETED - an orphan today, invisible on the
+  page (the 303 way: the picture and its 4 points went to the site's review item with this
+  reason - added to the item that already held six picture candidates, which stays open with
+  them; the document was deleted 2026-10-13).
+- framlingham-castle-q2524183.c_f43bc6196e097819 - Mackenzie 1897, The Castles of England
+  (similarity, 8 points, resid 0.0, 1.0 m/px, 0.0 deg): the 8 anchors form a perfect 200 m square
+  at plate u 250-450, v 250-450 - but that plate region is the plain road area WEST of the drawn
+  island, so the exact fit shifts the whole plate ~430 m SE: the drawn keep (~200x280 m) lands on
+  an open sports field SE of the town, the drawn moated-island loop falls over the village with
+  zero overlap with the real moated island (1842: E -76..+112, N -176..+81, ~190 m, its '(In
+  Ruins)' keep at the island's west end at the site point; still a grassy island with a water
+  ring and a stone ruin in the aerial), the drawn 'Old Moat' arc lies over fields east of the
+  A141, drawn St Michael's is ~1 km off the real church, and the 'FRAMLINGHAM' label is
+  ~600-800 m off the town. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 8 points went to the site's review item with this reason, creating its item;
+  the document was deleted 2026-10-13).
+- goodrich-castle-q5583571.c_cd89cb69f385859b - Mackenzie 1897, The Castles of England
+  (similarity, 4 points, resid 0.8 m, 0.84 m/px, 0.0 deg): the 4 anchors are a consistent 0.838
+  m/px rectangle spanning the plan and the fit is centred right (the 1842 'Goodrich Castle
+  (Remains of)' and the aerial's stone ruin sit at the drawn plan's centre, ~the site point), but
+  the drawn plan is ~620x490 m on the ground, ~4-5x the real ~130x90 m castle: its walls run
+  through the village, through Old Castle Wood to the west, and across the River Wye to the north
+  (the 1842 'GOODRICH' label sits inside the drawn castle). DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 4 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).
+- gurnard-s-head-q5620199.earthworkenglan01allcgoog_n0262_1 - Allcroft 1908 Fig. 87, 'Castell-an-
+  Dinas, Cornwall' after Cotton (similarity, 8 points, resid 0, 0.4 m/px, 0.0 deg): the fit is
+  centred on the site point, but the drawn W. Cotton schematic dun (the plate's own footnote:
+  'much too geometrical in drawing': barrow circles, a 'slight wall' dimensioned 254, walls 13 ft
+  and 5 ft thick, an outer vallum, arcs opening SW) is on the wrong side of the headland and
+  ~2.2-2.3x too big - the plate's own 254-ft dimension (77 m drawn at ~443 px) implies ~0.17
+  m/px, not the fitted 0.4 (drawn vallum ~860 m vs the real headland ~250 m wide / ~600 m long) -
+  and the drawn system's centre lands ~130 m SSE of the site point (the Green Cone/Lawn at the
+  headland's base) while the real fort's three ramparts (NHLE 1004300, the grassy ridge in the
+  aerial) are ~100-150 m NW. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 8 points went to the site's review item with this reason - added to the item
+  that already held one picture candidate, which stays open with it; the document was deleted
+  2026-10-13).
+- hardknott-roman-fort-q1584994.c_7dcdfcc9aceb62ec - Social England 1902, hatched plan of the
+  Roman fort (similarity, 8 points, resid <=2.3 m, 2.29 m/px, -0.02 deg): the plate IS the real
+  fort (near-square with rounded corners, four corner turrets, gates mid-sides, the PRAETORium
+  and buildings inside - matching NHLE 1009349 / Wikipedia: 114 m external, 105 m internal), and
+  its own 'FEET 0-300' bar (461 px = 0.1984 m/px) sizes the drawn 575x562 px fort at 114x112 m -
+  exactly the real size. But the stored fit is 11.6x the plate's own bar: at 2.29 m/px the drawn
+  fort becomes 1320x1290 m and its walls land on the surrounding moor (Butterilket W, New Crags
+  N, Pathill Crags E, Horseshow Crags S, ~600-700 m out), while the real small hatched 'Hardknott
+  Castle CAMP' sits by the drawn PRAETORium near the plate centre; the 8 anchors are a
+  1.29x1.38 km ring across the whole sheet, not on the fort. Goodrich class: centred right,
+  ~11x too big. DELETED - an orphan today, invisible on the page (the 303 way: the picture and
+  its 8 points went to the site's review item with this reason, creating its item; the document
+  was deleted 2026-10-13).
+- herstmonceux-castle-q2652207.c_8eb122e93e31c3f6 - Mackenzie 1897, The Castles of England
+  (similarity, 8 points, resid 20.5-74.6 m, 0.58 m/px, +0.66 deg): the 8 anchors form a
+  trapezoid (0.581 m/px along one side, 0.70 along the other - no similarity can hit both), and
+  the drawn plan (numbered rooms 1-38, the great courtyard, the GREAT DOOR; ~800x860 px =
+  465x500 m at the fitted scale) is ~10x too big: the real castle (a ~50x40 m stone house at the
+  site point - the green-roofed house with the pond SE and formal gardens N in the aerial) sits
+  at the drawn plan's WEST edge (the OS 'Herstmonceux Castle (Remains of)' label lands on drawn
+  rooms 10/16/22), and the drawn great courtyard (151x134 m) and all the eastern rooms spread
+  over the pond, wood and fields EAST of the real building. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).
+- king-arthur-s-round-table-q283800.c_cfc493f72253fa8e - Fergusson 1872, 'Rude Stone Monuments'
+  plate 0154 (similarity, 8 points, resid 7.7-40.8 m, 0.86 m/px, +0.03 deg): the fit's centre
+  anchor sits on the site point, and the drawn central small circle (~200 m) does cover the real
+  feature (a small ~100 m grassy hill with a shallow ring gully), but the fit is ~9x the plate's
+  own bar (486 px for 100 ft = 0.094 m/px), and the drawn concentric arcs (radii 100-450 m)
+  spread over farmland, the cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no
+  rings exist; the real site has no concentric earthwork. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 8 points went to the site's review item with this
+  reason - added to the item that already held one picture candidate, which stays open with it;
+  the document was deleted 2026-10-13).
+- leicester-castle-q6519156.c_581a9f82b6a805a0 - Mackenzie 1897, The Castles of England, 'LEICESTER
+  IN SEVENTEENTH CENTURY' (similarity, 6 points, resid 0, 1.0 m/px, 0.0 deg): all 6 anchors lie on
+  plate u=600 (v 300..800, 100 m steps), which fully determines the fit (u=600 pinned at
+  E -99.5, v=300 at N +99.5; the whole plate spans 1.28x1.46 km). The central cluster lands on
+  the real rock ridge (Castle Ho. at B.M.203.5, Entrance / St Mary de Castro at the site point,
+  the Mill near Old Bridge), but the drawn works visibly miss the real ones: the drawn Mound (the
+  plan's hatched signature feature) is ~200 m SW of the ridge, over Rath Ho. / Dye Works across
+  the Soar; the drawn Hall is over the Soar floodplain; the drawn Turret Gateway (the real
+  gatehouse is at the site point) is ~300-400 m south, over the Eve Works / flour-mill area; and
+  the drawn river departs west of the real Soar in its southern stretch. DELETED - an orphan
+  today, invisible on the page (the 303 way: the picture and its 6 points went to the site's
+  review item with this reason, creating its item; the document was deleted 2026-10-13).
+- ludlow-castle-q576369.c_b24730fd9038ae4a - Mackenzie 1897, The Castles of England (similarity,
+  6 points, resid 21.8-31.8 m, 0.38 m/px, 0.0 deg): the 6 anchors are a uniform 0.378 m/px
+  rectangle, but that is 2.6x the plate's own bar (623 px for 300 ft = 0.147 m/px; the drawn
+  54.5 px round tower is 8.0 m at the bar's scale - matching the plate's text '28 feet in
+  diameter inside, with walls 4 feet' - but 20.6 m at the stored fit, 2x the stated ~11 m
+  outer). The centre is ~right - the drawn rounded W curtain and hatched buildings sit ON the
+  real hatched 12th-c core at the site point - but the drawn outer enclosure (~315x340 m,
+  centred E +151 / N -60) is bigger than the real cliff-top complex (aerial: grassland
+  ~230 m E-W x 165 m N-S, centred ~40 m E of the site point): the drawn E wall runs ~150 m
+  beyond the real grassland over the town blocks (Brewery Yard / Linney Villa side) and the
+  drawn S wall ~140 m over the town near the Wye. Goodrich class: centred ~right, drawn works
+  bigger than the real complex, walls through the town. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 6 points went to the site's review item with this
+  reason, creating its item; the document was deleted 2026-10-13).
+
+306e - the 17 UK orphan documents (sites o-y): in the store, but no overlay built on the site
+and no review item referencing them, so the page shows them to a visitor not at all; each was
+rendered the way the page would if it ever showed it (the fit tool over the aerial, and over
+the LiDAR relief, with the doc's stored pairs placed and refitted; shots in
+docs/site_flow/agent_fits/). Each line below says what the drawing's lines sit on (the real
+banks, walls, ditches, streets) and the verdict; a fit whose drawn works visibly miss the real
+ones is deleted the 303 way (the picture and the doc's own points go to the site's review item
+with the reason, the document is deleted, the site's page file re-exported scoped to the site -
+the site stays covered for the union check, an open item counts).
+
+- offa-s-dyke-q1127343.c_1cca85e7b4b5a89e - OS 2nd ed 1902, Montgomeryshire xxx8, 'Site of
+  Nantcribba Hall and Parkland with Offa's Dyke' (similarity, 4 pts, resid 42-73 m, 1.44 m/px,
+  +2.1 deg, score 42.6): the 4 anchors are a 100-px 45-deg diagonal ladder, so the residuals
+  only measure the ladder's internal inconsistency, not a placement miss; the site point
+  inverse-maps to the sheet's own 'Lodge' at the NW end of its hatched Nantcribba wood, and a
+  composite of the sheet (warped by the page's own transform) over the 1842 six-inch ink and the
+  LiDAR shows the 1884 and 1841/42 surveys agree on the lodge, the Nantcribba stream running
+  S-SE past Port Faen and Ford into the wood, the parkland trees and the roads, and the sheet's
+  caption places the Dyke on it. KEEPS - an orphan today, invisible on the page (its drawn
+  works sit on the real Nantcribba hall/parkland/stream at the site point; the Dyke passed this
+  wood).
+- okehampton-castle-q1419982.c_0edd7f87db67ff20 - Plan of Okehampton Castle (Wikimedia Commons
+  1915, Edward H. Young; similarity, 4 pts, resid 0.8-1.1 m, 1.20 m/px, +0.3 deg): the 4 anchors
+  are a 100-px grid and the fit reproduces the page exactly (resid under 1.1 m), with the site
+  point inverse-mapping to plate px (334,333) = the dead centre of the drawn chain. The plate is
+  a NE-SW chain of ~10 lettered multi-room buildings (A a small two-room building at the NE end,
+  G a larger block at the SW end; 702 m centre-to-centre, ~920 m tip-to-tip) drawn ON the real
+  outcrop: the 1842 six-inch shows a hatched rocky band running NE-SW across the whole 800 m
+  site box (the West Okement loops round its NE end at Lady Bridge, a spring at its SW end,
+  'Springt'), the hatching reaching the box edges beyond both ends of the drawn chain, and the
+  LiDAR shows the same band as a bright ridge with steep flanks spanning the whole box, its
+  contrast profile peaking at azimuth 25-55 deg (the drawn chain's axis is 40 deg; N-S and E-W
+  are weak, so the ridge is NE-SW, not N-S). The 1842 'Okehampton Castle (Remains of)' label
+  (~175 m W of the site point) has its leader pointing east to the hatched building cluster
+  under the drawn B-F centre at the site point, and the plate's building order matches the
+  documented castle (keep at the SW end, the great hall and lodgings in the middle, gatehouse
+  and barbican at the NE end). KEEPS - an orphan today, invisible on the page (its drawn works
+  sit on the real Okehampton Castle outcrop and ruins at the site point).
+- old-sarum-q782719.c_ff62c9585a92b375 - Plan & elevations of Old Sarum (Camden's Britannia
+  1806, Basire's plate via DPLA; similarity, 6 pts, resid 0.0 m, 2.00 m/px, +0.0 deg): the 6
+  anchors are a perfect 100-px grid ladder (5 distinct points: u 300/400/500 at v 1400, u 400
+  at v 1300/1500), so the fit carries no placement information at all - the site point
+  inverse-maps to plate (399.7, 1399.7), blank paper west of the drawn plan, and the drawn plan
+  (a schematic ring ~780 m across) sits 440 m E / 180 m S of the site point, over the flat
+  farmland SE of the hill ('Old Sarum Farm' / 'Castle Villa' on the 1842 six-inch, fields there
+  in the LiDAR). The drawn ring is an inflated schematic and misses the real 400-550 m oval (the
+  central moated 'Castle' r~85 m on the site point, the outer bank 175-275 m; the LiDAR shows a
+  bright summit r<100 m and a ditch ring). DELETED - an orphan today, invisible on the page (the
+  303 way: the picture and its 6 points went to the site's review item, appended after its
+  existing coarse candidate c_b2701b5231da42f2 with this reason; the item keeps that file name
+  and stays open, and the site stays covered by its two hand-built depictions).
+- old-sarum-q782719.c_041083ec68b532f8 - Ancient Plan of Old Sarum (Ditchfield 1901, the
+  'Ichnography' bird's-eye of the concentric ring-castle; similarity, 6 pts, resid 9.0-40.2 m,
+  1.29 m/px, +0.2 deg): the 6 anchors are a rough ~350x400-px ladder with ~14% anisotropy, so the
+  residuals only measure the ladder's own inconsistency. The drawn complex is centred ~on the
+  site point (the drawn inner 'Castle Well' circle 18 E / 31 S, r~115 m vs the real moated
+  'Castle' r~85 m on the site point) but the drawn works are consistently oversize: the drawn
+  outer ring reaches ~150-175 m on the NW (sitting on the real NW arc) but ~450-480 m on the
+  S/SE (the real S outer edge is 250-275 m), and the drawn S 'Leaving Street' runs ~150 m past
+  the real hill edge out over the flat 'Old Sarum Farm' ground. Goodrich class: centre ~right,
+  drawn works bigger than the real complex, walls past the fields. DELETED - an orphan today,
+  invisible on the page (the 303 way, as for c_ff62: the picture and its 6 points went to the
+  site's review item with this reason, the document deleted, the site stays covered).
+- oxford-castle-q2600886.c_ba6b308580428184 - Oxford Castle, plan from Mackenzie, The Castles
+  of England (1897; similarity, 4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the 4 anchors are a
+  perfect 100-px diagonal ladder, so the fit carries no placement information; the site point
+  (Corn Market) inverse-maps to the centre of the drawn bailey. The drawn keep (the dark square
+  '1') is ~170 m south of the real moated keep island at the site point, over a built-up block
+  just north of the Thames; the drawn bailey (~450 x 380 m) and the plate's big hill outline
+  (~665 x 540 m) render over the flat built-up city with no corresponding earthworks or hill
+  (1842 and LiDAR are flat); only the drawn river (185-230 m south) lands on the real Thames.
+  Wrong place, right kind (the bury-castle class). DELETED - an orphan today, invisible on the
+  page (the 303 way: the picture went to a new review item for the site with this reason, the
+  document was deleted, the site's review page file re-exported; the site stays covered by its
+  built 1842 depiction plus the open item).
+- pilsbury-castle-q7194511.c_7ff765c177ca7bae - Pilsbury Castle plan (Wikimedia Commons,
+  J. C. Cox, 1905; similarity, 4 pts, resid 7.7-21.3 m, 1.35 m/px, -4.7 deg, score 15.8):
+  the 4 anchors are a real spread (the W river bank, the drawn castle's centre, the drawn
+  S hill's centre, the scale bar's 0 end), so the placement is anchored, not a ladder. The
+  drawn castle hill (the hatched motte-and-bailey hill with the 'Pilsbury Castle' caption and
+  its N arrow) sits on the real hill: the drawn flanks' hatching follows the real LiDAR
+  ridge on both slopes, and the 1842 six-inch summit contour of the hill lies inside the
+  drawn hill; the drawn 'Hills' hatch (the S hill) is on the real S hill, the drawn
+  'River Dove' on the real Dove, and the 'Section at A-B-C' profile on the real
+  valley-hill-valley line (the catalog site point itself lies ~140 m SSW of the summit, on
+  flat ground at the village's N edge - the fit is anchored by the 4 pairs, not by it).
+  The plate's own 'SCALE OF FEET 100/200/300' bar is ~74 px per 100 ft (~0.41 m/px), about
+  a third of the drawing's actual 1.35 m/px - the bar disagrees with the drawing (the usual
+  feet/yards factor-of-3 mix-up); the drawing itself matches the real hill in size and
+  place. KEEPS - an orphan today, invisible on the page.
+- pontefract-castle-q1949590.c_3213330a52fe6018 - The history of the ancient borough of
+  Pontefract (1807; the 'Ground Plan of Pontefract Castle and the Town' plate; similarity,
+  8 pts, resid 5.5-37.3 m, 0.60 m/px, +1.1 deg): the 8 anchors are a near-regular grid (the
+  v=1089 row, the u=870 column, two rectangle corners), so the residuals only measure the
+  grid's own inconsistency - but the placement this grid implies lands right: the site point
+  inverse-maps to plate (624, 1097) = the centre of the drawn castle (the keep circle '1'
+  inside the hatched moated complex, 'Barbican' W of it). The drawn castle sits on the real
+  one: the 1842 six-inch 'Castle' / 'Castle Precincts' with their small dashed moat ring, and
+  the LiDAR's bright moated mound (~80-100 m) with its ditch ring (~120-150 m), are both
+  centred on the site point under the drawn keep; the drawn big rounded moat (the 1807
+  idealisation of the medieval moat, ~230 m across) encloses the real mound and its ditch and
+  tracks the River Calder valley curving round the E side of the castle on the relief, and
+  the drawn town fabric (Market Place rows NW, Babill Lane W, Skinner Lane NE, the star
+  bastions) lies on the real 1842 town and its bastions. KEEPS - an orphan today, invisible
+  on the page.
+- pontefract-castle-q1949590.c_d135fb32326df430 - The history of the ancient borough of
+  Pontefract (1807; the 'Ground Plan of the Siege of Pontefract Castle, with the Situation of
+  the Forces' plate; similarity, 8 pts, resid 6.0-35.6 m, 0.72 m/px, -0.1 deg): the 8 anchors
+  are a 199-200 m per 100 px grid, so the fit carries no placement information (the
+  bury-castle class). The site point inverse-maps to the plate's 'Newgate' / 'Head Lands'
+  ground west of the town centre (open hatched fields); the plate's own Market Place lands
+  ~310 m SSE of the real market and its drawn castle (feature 17, the square island with the
+  keep, W of the river) ~520 m SSE of the real moated castle, south of the River Calder, where
+  the 1842 and LiDAR show fields and no castle; the plate's main street crosses over the real
+  castle. Wrong place, right kind (the bury-castle class). DELETED - an orphan today,
+  invisible on the page (the 303 way: the picture and its 8 points went to the site's review
+  item, appended after its seven coarse candidates with this reason; the item keeps its file
+  name and stays open, and the site stays covered).
+- portus-adurni-q762664.c_42bedb90fffce1d4 - Portchester Castle, derived from the Penny
+  Cyclopaedia (1836) v6 p 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, 0.0 deg): the 6
+  anchors are a perfect 900-px grid (the corners (100,1000)/(100,100)/(1000,1000)/(1000,500)
+  plus interior (200,200)/(850,800)), so the fit carries no placement information (the
+  bury-castle/oxford ladder class); the site point inverse-maps to plate (799.5, 799.5) of
+  [1280,1292], the open interior just NW of the drawn church. The drawn outer-wall square
+  spans 954 x 927 m against the real fort's ~250 x 210 m (~3.8x too big), its centre ~440 m
+  NW of the real fort (the 1842 six-inch ramparts E +60..+310, N +60..-150); the drawn keep
+  (the plate's densest 120-px block) lands ~865 m NW of the real keep (the hatched keep E
+  +80..+160), over village farmland west of the site; only the drawn Church of St Mary (the
+  hatched cross) sits near its real church (~100 m N-S off). The plate's own 0-500 ft bar
+  (761 px, six 150-px ticks) implies ~5x the true scale - a 1836 drawing, not a survey. Wrong
+  place, wrong size, right kind. DELETED - an orphan today, invisible on the page (the 303
+  way: the picture and its 6 points went to a new review item for the site with this reason -
+  the site had none before - the document was deleted, the site's review page file
+  re-exported scoped to the site; the site stays covered by the new open item).
+- portus-adurni-q762664.c_4912bb54aa79f3ea - Burg von Portchester (GB), Plan von 1836 aus der
+  Penny Cyclopaedia, Seite 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the
+  German-titled twin of the deleted c_42bedb90fffce1d4 - the same Penny Cyclopaedia 1836 v6 p
+  354 plate, the same 1280x1292 scan and the same drawn geometry. The 6 anchors are the same
+  perfect 900-px grid (the corners plus the centre (800,800)), so the fit again carries no
+  placement information; the site point inverse-maps to plate (799.5, 799.5), the open
+  interior just NW of the drawn church, exactly as on its twin. The drawn works stand where
+  they stood on the twin: the outer-wall square ~954 x 927 m over farmland ~440 m NW of the
+  real ~250 x 210 m fort, the keep ~865 m NW over village fields, only St Mary's near its
+  real church. Wrong place, wrong size, right kind. DELETED - an orphan today, invisible on
+  the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
+  created by the twin's deletion - the item keeps its file name and its lead, and the site
+  stays covered by the still-open item).
+- raby-castle-q4583646.c_fe1d6c7f0ba858cb - Raby Castle, plan from Mackenzie, The Castles of
+  England (1897) (similarity, 4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg): the 4 anchors are the
+  plate's 900-px corner square - a ladder with no placement information: the fit pins the plate
+  centre (plate (549,549) of [1280,1080]) onto the site point. The drawing is an idealised 1897
+  castle complex spanning the whole 600 m fit box (the 1280x1080 plate = 853 x 720 m on the
+  ground): Great Keep, Great Hall, Gate House, Main Street, Market Cross, St Mary's, North/
+  South Towers. The real Raby Castle (1842 six-inch + LiDAR) is a small ~50 m ruin on a ~90 m
+  round terrace with a moat, centred on the site point just north of Low Pond: the drawn
+  complex overlaps the real ruin only because the ladder centred it, and the drawn Gate House
+  (E-139 N-214), St Mary's (E-93 N+45) and N Tower (E+34 N+281) all sit on open parkland. Wrong
+  size (~10x too big), the drawn works miss the real ones. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 4 points went to a NEW review item for the site
+  with this reason - the site had none before - the document was deleted, the site's review
+  page file re-exported scoped to the site; the site stays covered by the new open item).
+- richborough-roman-fort-q1309736.c_edad7da41d234534 - Richborough Castle, derived from the
+  Penny Cyclopaedia (1836) v6 p 353 (similarity, 6 pts, resid 0.0 m, 1.25 m/px, 0.0 deg):
+  the 6 anchors are a 640-px grid ladder - the drawn outer wall's four corners
+  (320,160)/(960,160)/(320,640)/(960,800), plus (640,560) at the drawn Quadrifrons and
+  (640,960) at the drawn river - so the fit carries no placement information; the site
+  point inverse-maps to plate (639.6, 639.6) of [1280,1212], the near-centre of the plate.
+  The drawn fort (a square with a rounded SE corner) has outer walls spanning 632 x 632 px
+  = 790 x 790 m, centred E+5 N+195 m; the real fort - the 1842 six-inch's hatched
+  'RITVPIA' block and the LiDAR's wall ruins, ~200 m on the long axis, centred ~E+70 N-130
+  m - sits just E-S of the site point, so the drawn complex is ~4x too big with its centre
+  ~330 m off (mainly N), over open farmland north of the real fort, and the drawn river
+  band at the plate's bottom (N-399) sits ~100 m S of the real estuary crossing at the
+  fort's SE corner. The plate's own 0-400 ft scale bar (598 px, ~0.20 m/px) is ~6x smaller
+  than the fit - a 1836 drawing, not a survey (the portus-adurni class): the plate is
+  drawn near its true scale and the fit, not the plate, is wrong. Wrong place, wrong size,
+  right kind. DELETED - an orphan today, invisible on the page (the 303 way: the picture
+  and its 6 points were APPENDED to the site's existing review item, after its coarse
+  candidate c_1dcd5a7171573663 with this reason - the item keeps its file name and its
+  lead and stays open, and the site stays covered).
+- stanton-drew-stone-circles-q1516300.c_59a5c636a9e00703 - Penny Magazine 1836 116, plan
+  of the druidical temple at Stanton Drew (similarity, 6 pts, resid 0.0 m, 1.00 m/px,
+  -0.0 deg): the 6 anchors are a 100-px diagonal ladder (100,100)..(600,600) that pins the
+  1280x1551 plate centre onto the site point (the site point inverse-maps to plate
+  (499.5, 499.5)) - the fit carries no placement information. The 1836 plate is a genuine
+  plan of the circle group (the Great Circle, the Circle of 8, the South-west Circle, The
+  Cove, Hackett's Quoit, the River Chew - the right names and layout against the 1842
+  six-inch and the LiDAR), drawn at ~10 m/px: the fitted 1.0 m/px inflates the group
+  ~4-10x. The drawn Great Circle (least-squares r=218 px = 435 m across, centre E+157
+  N-153) surrounds the real stone cluster (~50 m of dots at E+100..150 N-50) with its
+  centre ~90 m south of it; the drawn Circle of 8 (E-91 N+240) and the South-west Circle
+  (E+705 N-554) sit on open farmland where the 1842 and the LiDAR show no stones (the real
+  SW circle lies near Church Farm, E-100 N-200). Wrong size, and the secondary circles
+  miss the real ones. DELETED - an orphan today, invisible on the page (the 303 way: the
+  picture and its 6 points went to a NEW review item for the site with this reason - the
+  site had none before - the document was deleted, the site's review page file
+  re-exported scoped to the site; the site stays covered by the new open item).
+- taunton-castle-q7688781.c_05cb4a02bd58e82e - Taunton Castle, plan from Mackenzie, The
+  Castles of England (1897) (similarity, 4 pts, resid 0.0 m, 0.5 m/px, +0.0 deg): the 4
+  anchors are a 200-px (100 m) grid ladder, so the fit carries no placement information:
+  the site point inverse-maps to plate (599,599) of [1280,1461], near the plate centre, and
+  the fit pins the plate there. The plate is a genuine plan of THIS castle from Mackenzie
+  1897 - the drawn features match the real complex (Great Hall/inner ward, outwork,
+  filled-in moats, Castle Green as the outer bailey, E. gate, Bishop Foxe's school) - but
+  the catalog site point sits ~640 m WEST of the real castle: the real works (51.0158 N,
+  3.1046 W = E+643 N+55 from the site point - today the Museum of Somerset in the Great
+  Hall, the crenellated hotel outer ward, the tree-lined moat ring and the Castle Green, on
+  the east bank of the Tone) were verified on modern aerial imagery and Wikipedia. The
+  drawn complex (E-205..+190 m) instead sits on the 1842 Wellington Terrace house cluster
+  and the Stepps Water stream - no castle, no moat, no 'Castle' label anywhere in the 800 m
+  site box (the box does not even reach the real castle: E+643 > its E+400 edge) - and the
+  real castle is beyond the plate's east edge (E+340.5). Wrong place, right kind. DELETED -
+  an orphan today, invisible on the page (the 303 way: the picture and its 4 points went to
+  a NEW review item for the site with this reason - the site had none before - the document
+  was deleted, the site's review page file re-exported scoped to the site; the site stays
+  covered by the new open item).
+
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
 Owner, 2026-10-11: instead of the squares, a shape that says "this is a point of interest", "like an

@@ -45,6 +45,19 @@
    "plan": "c_cfc493f72253fa8e",
    "title": "Rude Stone Monuments 0154",
    "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "King Arthur's Round Table",
+    "place_qid": "Q283800",
+    "place_label": "King Arthur's Round Table",
+    "place_lon": -2.74026,
+    "place_lat": 54.6482,
+    "site_lon": -2.74026,
+    "site_lat": 54.6482,
+    "dist_m": 0.0
+   },
    "pairs": [
     [
      640.0,
@@ -95,20 +108,16 @@
      54.6450513
     ]
    ],
+   "coarse": false,
+   "label": "1872",
+   "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
+   "ref": "File:Rude Stone Monuments 0154.png",
+   "size": [
+    1280,
+    1257
+   ],
+   "place_reason": "306d audit 2026-10-13: the fit is 0.862 m/px (8 uniform cross anchors, the centre anchor ON the site point, rot 0.03, resid 7.7-40.8 m) = ~9x the plate's own bar (486 px for 100 ft = 0.094 m/px). The drawn central small circle (~200 m) does cover the real feature (a small ~100 m grassy hill with a shallow ring gully at the site point), but the drawn concentric arcs (radii 100-450 m) spread over farmland, cottages (Fluird's / Bridgie / Milldam) and Comont Bridge where no rings exist (the OS 6-inch composite); the real site has no concentric earthwork. Document deleted.",
    "why": "line check: fabricated anchor pattern: grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
-   "evidence": {
-    "rec": "evidence/1",
-    "kind": "caption_coords",
-    "checked": "2026-10-10",
-    "named_place": "King Arthur's Round Table",
-    "place_qid": "Q283800",
-    "place_label": "King Arthur's Round Table",
-    "place_lon": -2.74026,
-    "place_lat": 54.6482,
-    "site_lon": -2.74026,
-    "site_lat": 54.6482,
-    "dist_m": 0.0
-   },
    "gate_score": 23.2
   }
  ],

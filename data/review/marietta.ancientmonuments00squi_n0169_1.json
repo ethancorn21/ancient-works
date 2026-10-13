@@ -179,6 +179,13 @@
      39.4104102
     ]
    ],
+   "coarse": false,
+   "book": "Fowke 1902",
+   "ia": "b24849959",
+   "file": "n0195.jpg",
+   "label": "Fig. 15",
+   "cite": "Gerard Fowke, Archaeological History of Ohio: the Mound Builders and Later Indians, Columbus 1902",
+   "place_reason": "306c audit 2026-10-12: scale right (1.0 m/px, the plate's own bar) but the placement is wrong - the drawn fort (50 Acres, 27 Acres, old stockade) and the 60-ft Conus mound profile at the page's foot land ~1.3 km S-E of the real Marietta earthworks (the ringed disc of Mound Cemetery on the LiDAR); farm ground beneath the placement. Document deleted.",
    "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
    "evidence": {
     "rec": "evidence/1",
