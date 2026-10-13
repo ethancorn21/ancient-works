@@ -1,0 +1,54 @@
+{
+ "site": "barwick-in-elmet-castle-q4865964",
+ "candidates": [
+  {
+   "plan": "c_81c1ff143a862ee7",
+   "title": "Gott Collection at Hepworth Gallery (116)",
+   "url": "media/commons/barwick-in-elmet-castle-q4865964/81c1ff143a862ee7.jpg",
+   "pairs": [
+    [
+     800.0,
+     100.0,
+     -1.392138,
+     53.8393587
+    ],
+    [
+     800.0,
+     400.0,
+     -1.392138,
+     53.8359904
+    ],
+    [
+     800.0,
+     700.0,
+     -1.392138,
+     53.8326218
+    ],
+    [
+     100.0,
+     700.0,
+     -1.4054573,
+     53.8326218
+    ],
+    [
+     1000.0,
+     300.0,
+     -1.3883324,
+     53.8371132
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "category",
+    "checked": "2026-10-10",
+    "site_cat": "Barwick-in-Elmet Castle",
+    "file_cat": "Barwick-in-Elmet Castle",
+    "via": []
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

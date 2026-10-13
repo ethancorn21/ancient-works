@@ -1484,10 +1484,10 @@
     "height": "block_h.png",
     "top": "block_top.jpg"
    },
-   "drawings": 0,
-   "score": 0,
-   "oldest": null,
-   "overlays": 0
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "arzbach-q1735331",
@@ -1813,10 +1813,10 @@
     2000
    ],
    "lidar": false,
-   "drawings": 0,
-   "score": 1.01,
-   "oldest": 1780,
-   "overlays": 2
+   "drawings": 1,
+   "score": 5.1,
+   "oldest": 1545,
+   "overlays": 3
   },
   {
    "id": "aztalan-state-park-q4832928",

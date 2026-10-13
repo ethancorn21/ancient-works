@@ -1,0 +1,53 @@
+{
+ "site": "aldenhaag-q23650779",
+ "candidates": [
+  {
+   "plan": "c_71c4ef3170b44288",
+   "title": "Aldenhaag detail kadasterkaart 1832",
+   "url": "media/commons/aldenhaag-q23650779/71c4ef3170b44288.jpg",
+   "pairs": [
+    [
+     200.0,
+     250.0,
+     5.3970101,
+     51.9155865
+    ],
+    [
+     250.0,
+     300.0,
+     5.3977383,
+     51.9151373
+    ],
+    [
+     300.0,
+     350.0,
+     5.3984665,
+     51.9146882
+    ],
+    [
+     150.0,
+     300.0,
+     5.3962819,
+     51.9151373
+    ]
+   ],
+   "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (7 of 7 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-10",
+    "named_place": "Aldenhaag",
+    "place_qid": "Q17465191",
+    "place_label": "Aldenhaag",
+    "place_lon": 5.39801,
+    "place_lat": 51.91543,
+    "site_lon": 5.397731,
+    "site_lat": 51.915591,
+    "dist_m": 26.2
+   },
+   "gate_score": 0.0
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

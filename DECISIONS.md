@@ -490,6 +490,42 @@ Session 224 (agent a, first session on 212b after my 212a).
    path in the edit); 212a's file restored byte-identical (git diff clean before the
    commit).
 
+## 2026-10-13 212b DECISION: live sync launched 06:01 (nohup, /tmp/aw212b-live.out) and proceeding per the dry-run state predictions; NEW fact: data/db/platefits is hard-linked into the store (link 3) and was re-hardlinked with 3 extra store docs (argentoratum c_191c6221/c_436bea50/c_5badc8c8) around session start; agent c's suite is a concurrent writer through the store's site symlinks
+
+Session 226 (agent a). The 224/225 plan's NEXT STEP 2 (the live run) is executing:
+1. Preflight (05:58, on the then-current 131-doc view): offline recompute of the exact
+   _sync_doc decisions reproduced the dry run exactly (76 sent / 25 skipped / 30 synced
+   / 0 refused); downloads needed 0 (all 29 built commons docs big-cached, cache now
+   73 files - 224's "54 downloads" assumed all 105 commons docs would build); _sync_doc
+   never calls matchfit.run (pure spread/pattern checks only) -> no ELoFTR dependency;
+   data/review is a real tracked dir (347 files); store clean. Measured slip: the doc
+   authorship field is `by`, not `author` (a wrong-key one-liner reports 0 hand docs).
+2. Launched 06:01:48: nohup .venv/bin/python -X faulthandler -u fit/cover.py sync >
+   /tmp/aw212b-live.out 2>&1 & (pid 1967760). By 06:01:48 it had reached argentoratum
+   with exactly the first 2 sends done (aldenhaag, alligator; platefits 131 -> 129) -
+   progress matches the plan.
+3. MID-RUN DISCOVERY (a): my checkout's data/db/platefits files show link count 3
+   (store + me + agent c) with Oct-12 mtimes - the driver re-hardlinked the store's
+   platefits into my checkout around session start, and the store's state carries 3
+   docs my 05:58 view lacked (argentoratum c_191c6221 / c_436bea50 / c_5badc8c8 - the
+   lead's Oct-12 Mac placements; the store's own depictions already carry their
+   overlays, at Oct 12 04:58-06:36). So the run effectively started from the store's
+   ~134-doc world; final platefits expected ~134 - 76 = 58. Consequences: sends delete
+   only MY checkout's dir entries (the store keeps its own until main lands; 306a
+   precedent); _sync_doc never writes platefits content in place (only deletes, or
+   atomic stamps - and it stamps 0 docs: none unmarked), so the run is store-safe.
+4. MID-RUN DISCOVERY (b): agent c's checkout (ancient-works.c) is running its full
+   suite since 06:00 incl. hermetic port-0 serve tests (306: place_probe.mjs on
+   marietta); the store's argentoratum depictions.json was rewritten 06:02 (a
+   concurrent write through the store's site symlinks). Both writers use atomic
+   tmp+replace for JSON and byte-deterministic webp builds; last writer wins per file
+   and content converges (same docs). Accepted concurrency (same as the batches), but
+   it means the live run's action COUNTS will differ from the dry run's 76/25/30 (more
+   skips, since is_now sees the store's current depictions) - verify by the final
+   state (depictions, sites.json, review.json, items, the 76 deletions), not the
+   counts. If the run finished before the next session, its tail lines in
+   /tmp/aw212b-live.out are the record.
+
 ## 2026-10-13 212b DECISION: iter-225 reconstructed (dry run DONE: 76 sent / 25 skipped / 30 synced, golden 0, open 333->365); its live-tree bench polluted the store's old-sarum through the symlink (self-heals in the live run); the live run is network-free (0 downloads) and launched under nohup
 
 Session 226 (agent a). Iteration 225 died at the context limit before writing its
