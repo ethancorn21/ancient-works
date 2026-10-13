@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 207a: Horsley, Britannia Romana (1732)
 Depends on: 200
 Touches: fit/src_roman_horsley.py, data/books/triage/, data/books/lists/, data/raw/books/britanniaromanao00hors/
@@ -50,17 +50,48 @@ found) but are not staged as picture rows.
   PITFALLS entry). (Done: A 936/0err, B 17/0err - no long pole remains.)
 
 ## Hand-over
-(2026-10-14, iteration 221, agent c - SPLIT per the driver: agent a had nothing to build for
-25 minutes and other open tasks (230) waited on this one, so the unbuilt work became three
-top-level tasks in the free 800-range: 807 (the list correction to 24 entries + the lead-doc
-section; Depends on: this task), 808 (the --stage: 17 staged rows + the new extras sites;
-Depends on: 807), 809 (the --check + golden + no-network test; Depends on: 808). Each
-carries its own Goal/Acceptance and the operational details that lived in this hand-over (the
-two-entry transcription, the validate_book one-liner, the catalog check, the image notes) in
-its Notes section. This task keeps what is already built and committed (below) and is DONE:
-box 1 ticked, boxes 2-5 moved into the parts. Task 230's Depends on line was updated the same
-session (807/808 added; 207c removed per 230's own dropped-subtask note). No tests run this
-session - a task-file-only change, no code touched; last suite state below.)
+(2026-10-14, iteration 222, agent c - the driver REOPENED this task (done-claim rejected on
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, "fix the
+combination"). This session answered it the way the PITFALLS entry on that exact test
+prescribes for a parallel task: in-checkout A/B (my 207a files restored to main's state and
+back again, same test, same selection) -> the failure is byte-identical in both states:
+the known pre-existing 307 red, never a 207a change, not fixable from 207a's Touches (its
+code lives in agent a's files: web/fitkit.js, web/index.html, tests/test_fit_queue.py,
+web/data/fit_queue.json - do-not-touch). No code, data or test file changed this session;
+207a stays DONE (box 1 ticked, boxes 2-5 in 807/808/809 per the 221 split) and the claim is
+re-filed with the corrected record. Full evidence: DECISIONS "207a 222". The 221 split
+record and everything below the red note stand as written.)
+
+**The red, named exactly (correcting the 221 misnomer).**
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (307bb's headless
+part 4) - NOT agent a's 307d test (that is tests/test_owner_check.py; it PASSED in the
+driver's verification run, its docs/site_flow/307d_*.png evidence screenshots regenerated
+and committed in the reopen commit 464a2c1). Signature on this branch: `RESULT FAIL: seed:
+the gestures own the mouse (map pan/zoom off), the earlier overlay hidden` + 404s on
+GET /tiles/relief/12/1121/1559.webp (~52 s). Cause (measured 222): the derived pick lands on
+marietta (queue idx 29, plan ancientmonuments00squi_n0169_1, Squier & Davis 1848), whose
+git-tracked depictions.json holds only a no-fit topo (306c's audit deleted its only doc) ->
+fitkit has no earlier dep-marietta layer to hide (an absent layer reports null, not 'none')
+-> the seed check (dep === 'none') can never pass for that pick. All pick inputs are
+git-tracked (web/data/fit_queue.json, the 481 data/review items, the 58 web/data/sites
+files) -> identical on every checkout at main -> the known pre-existing red per PITFALLS
+("on every current tree ... the fix comes via the 307 merge"). The /tiles/relief 404s are
+the known VM limit (the Mac-only DEM upstream is off here). A/B this session: FAIL 52.13 s
+with my files / FAIL 52.14 s without (main-state files), same pick, same signature, same
+404s -> not a 207a change. The pre-split suite (1 failed / 156 passed / 1 skipped) carried
+this same red, misnamed in the 221 hand-over as "agent a's 307d placement test".
+
+**Ownership path.** All five 307 subtasks done (307a/307ba/307bb/307c/307d; 307d merged at
+9c8a46a); the parents 307b (box 5 = this headless part) and 307 (box 2 = hide/restore the
+earlier overlays, box 6 = two real-browser sites) await the driver's hand-back - the fix
+(a pick that requires an earlier fitted overlay, or the seed check accepting none) lands
+there, by agent a. If the driver's re-check rejects the re-filed claim on the same named
+red, the next step is the 306c/306d precedent: ask_human to the lead with the A/B evidence
+(their 2026-10-13 acceptance of both tasks' identical reds, commit 12b2274).
+
+**Suite at 222.** No full-suite run this session (the driver's verification run on exactly
+this tree - the merge 8623273 added only tasks/prep/807.md, no code - is the latest: one
+red, the one above; my two A/B single-test runs confirm the same red in both states).
 
 **Built and committed (the parts build on this - all in this branch's git history):**
 - data/raw/books/britanniaromanao00hors/ - fetched: 936 triage-size jpgs + the bookreader/hOCR/
@@ -100,10 +131,14 @@ session - a task-file-only change, no code touched; last suite state below.)
   Antonine camps bar-hill-fort/inchtuthil/raedykes/rough-castle-fort already exist in
   extras.jsonl (reuse, don't re-create).
 - Suite at the split: 1 failed / 156 passed / 1 skipped (389 s; .venv/bin/python -m pytest
-  tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red = agent a's 307d
-  placement test (known pre-existing: seed check + /tiles/relief 404, PITFALLS).
+  tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red = the 307 placement
+  test named in the red note above (it was misnamed here at 221 as "agent a's 307d
+  placement test" - the same signature: seed check + /tiles/relief 404, PITFALLS).
 - If a 807/808/809 session needs context its Notes lack: the DECISIONS entries "207a 215"
   (no-list discovery + front-matter map + corner marks), "207a 218" (country-map reads +
-  machinery re-verification) and "207a 221" (this split, incl. the 220 pivot fact 220 never
-  journaled), and the git history of this file (the 216/219/220 hand-overs, superseded
-  here).
+  machinery re-verification), "207a 221" (the split, incl. the 220 pivot fact 220 never
+  journaled) and "207a 222" (the reopen's A/B evidence), the git history of this file (the
+  216/219/220 hand-overs, superseded here), and - for 807 specifically - tasks/prep/807.md
+  (agent a's 218-line prep notes, merged into main at 8623273: the exact code state, the
+  mechanics, and a simulated 24-entry validate_book run that already returns 1.0/1.0/1.0/1.0
+  with no flags).
