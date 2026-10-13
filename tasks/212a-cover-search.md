@@ -29,88 +29,116 @@ note ef84a05 - the matcher is the fit, never the vision-model fit).
 
 ## Hand-over
 
-(2026-10-13, iteration 221, agent a - the live SEARCH phase ran and is committed;
-the STAGE phase is blocked on a human classifier decision - ask_human filed
-as request 003 (.agent/asks/003.md, blocking) and THIS TASK NOW WAITS ON IT;
-when the answer arrives: do (a) or (b) per its text, then the EXACT NEXT
-STEPS 1-6 below in one session.
+(2026-10-13, iteration 222, agent a - the live run is DONE and committed (box 4's
+work: stage + nopicture + re-export + gates); the session hit the context limit
+with 4 suite failures to resolve - 2 are MINE (one command away), 2 are 203b's
+(added to my Depends on). NEXT SESSION IS SMALL: follow EXACT NEXT STEPS 1-5.)
 
-**STATE:** Box 4 half-executed. The search phase ran LIVE today (08:08-08:44
-UTC, `.venv/bin/python fit/cover.py search` on this checkout; resumable
-per-site atomic writes; the run is logged in data/cover/search.run.log).
-Result: 245/245 records = exactly the measured search set (204 qid + 41
-no-qid), **107 new files on 16 sites, 0 failed routes** (every record says
-"all routes answered"). Committed: data/cover/searches.json (new to git) +
-the run log; data/cover/ is on my Touches line. tests/test_cover.py re-ran
-with searches.json present in the checkout: 5 passed, 33.7 s (the test's
-tree unlinks it, so it stays deterministic). The lead (mid-session message):
-203b is done on main and its listed re-run is NOT a dependency of 212a -
-the wait is lifted and 203b is off my Depends on line (211 stays; done).
+**STATE:** Box 4 executed per the lead's answer to request 003 (option b
+modified: the VM's OWN 8080 vLLM qwen3.8-27b as ONE-OFF classifier, not 8081;
+Clef-flash is dead - the 5060 Ti serves the matchers). Committed this session:
+870d4f9 (fit/cover_qwen8080.py one-off adapter + stage's optional
+classifier_note - no default change, test bytes untouched) and 9c48d94 (the
+whole live run, 242 files):
+- data/commons/files.jsonl +107 (by:"212", ALL with the 200 evidence field,
+  recorded live - 0 failures) and classified.jsonl +107 (every row carries the
+  note "qwen3.8-27b vLLM 127.0.0.1:8080 (one-off, lead's answer to request
+  003)");
+- web/data/plans.json 1475 -> 1510: KEY-SET DIFF = 0 LOST, 35 gained = exactly
+  the gate-passing pictures (p_photo<0.5 AND max(p_plan,p_birdseye)>=0.3 -
+  export_plans' design, PITFALLS filed). 11 of the 16 found-picture sites got
+  rows; 5 (arbeia, carnac-stones, craig-phadrig, indian-mounds-park,
+  ocmulgee-mounds) had ALL pictures fall below the gate (photos/views) and
+  stay no-picture sites;
+- 234 no-picture items re-stamped with the exact searched string (245 records
+  minus the 11 now-in-cand) - NOT the 229 the previous hand-over guessed;
+- web/data/fit_queue.json regenerated via tools/fit_queue.py: 229 -> 241
+  entries, 0 sites lost (+12: my 11 + numancia live drift); the test is
+  derived-never-pinned and passed;
+- data/cover/stage_qwen8080.json (the one-off record the lead asked for) +
+  stage.run.log; data/cover/ stays on Touches (now "...+ the stage record").
+Golden gate after the run: sha256sum -c tests/golden/hand_fit_docs.sha256 =
+40/40 OK. Untouched by me, per pins: the 40 golden docs, the 52 all-in-item
+items, bethlehem/shotwick, stonehenge's rows/item (it has rows -> never in
+the search set).
 
-**The 107 new files (16 sites, from searches.json "new"; all carry
-meta.url):** arbeia-q1131391 1, aventicum 3, bibracte-q650053 18,
-burcht-van-leiden 11, carnac-stones-q833850 2, craig-phadrig 1,
-hopewell-mound-group 40, indian-mounds-park-q3150092 2, los-millares 3,
-maeshowe 1, motte-castrale-quiquempois-q22961457 1,
-moundville-archaeological-site-q1320821 1,
-ocmulgee-mounds-national-historical-park-q1517500 9, stones-of-stenness 1,
-the-roman-fort-vicus-bridge-abutments-an-q17650519 3, trundle-q7847949 10.
+**TWO REAL BUGS found + fixed this session (both in 9c48d94, PITFALLS filed):**
+(a) fit/cover.py _fetch_one did `open(dst + ".part")` on a PosixPath -
+TypeError swallowed by its per-file except as "fetch failed ... unsupported
+operand type(s) for +: 'PosixPath' and 'str'" for EVERY file (the tests never
+reach this path: their trees pre-seed every local copy, so p.exists()
+short-circuits - the live run was the first to actually download). (b) my
+adapter's first version returned {plan,birdseye,photo} instead of
+p_-prefixed keys (KeyError: 'p_plan' in the stage writer).
 
-**BLOCKER (ask_human filed, blocking): the stage phase needs the
-classifier.** The 107 files need classified.jsonl rows (my box 1 stages
-"files.jsonl + classified.jsonl with the 200 evidence field"). The default
-is Clef-flash on the AI box (10.0.10.75), reachable only through the ssh
-tunnel at 127.0.0.1:18083 (pipeline/clef.py header:
-`ssh -N -L 18083:127.0.0.1:8083 aibox`; the client honors AW_CLEF_URL).
-From THIS VM: 18083 refused; the box's 8083/8081 are firewalled (TCP
-timeout - no alternative endpoint for the override); the VM's only aibox
-keys are the forced-command doorbell / labdash-feed / lab-archive (no
-shell, no port forwarding) - so no tunnel is openable here. The LLM on
-127.0.0.1:8081 (the one the lead FORBIDS for placement) is UP and is the
-offered one-off alternative. The request offers: (a) RECOMMENDED - give
-this VM an aibox ssh key with normal session/forwarding rights, I open
-the tunnel and stage with the real Clef-flash (the classifier the batch
-used); (b) approve the 8081 LLM as one-off classifier (I write a small
-adapter, pass it to cover.stage, and record that it is not Clef-flash);
-(c) only if both are refused - stage without classified rows (needs a
-small stage code change and departs from the box-1 contract; not my pick).
+**POST-RUN SUITE (ran once, after the commit): 4 failed, 151 passed, 1
+skipped. Full trace: /tmp/aw222-postsuite.log (persists on this VM).**
+1. test_site_done.py::test_site_done_line:330 - MINE TO FIX: the repo's
+   web/data/review.json is STALE (it predates my nopicture re-stamps; aalsum's
+   item now carries the exact searched string, the page file the batch-era
+   "web/data/plans.json ..." string). The test re-derives the open list in
+   its tree from the re-stamped items and compares to the repo page file.
+   FIX: add `web/data/review.json` to my Touches line, run
+   `.venv/bin/python fit/cover.py export` (my module's phase - the one and
+   only writer of that page file; it re-derives the open list from the
+   current items, write-once resolutions only - no docs changed this session
+   so expect no item-file writes, only the page file), commit, re-run that
+   test. The lead's loop + 212b run sync+export again later; this just makes
+   my branch's page file consistent with my items.
+2. test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc:377 - NOT
+   YET DIAGNOSED (context limit). It copies ROOT data (my re-stamped items,
+   my plans.json) into a tree and runs the one-site line on stonehenge
+   (unchanged by me: it has rows). READ /tmp/aw222-postsuite.log lines 153-246
+   first. Working hypothesis: it also compares against the stale repo
+   review.json (same root cause as 1 -> the export fixes it). If instead the
+   assertion touches something my data changed, fix data-side - NEVER edit
+   their test (it belongs to the 303/232 line; the 232 re-pin is done by the
+   lead in 77bdf5d).
+3. + 4. test_batch_eu.py::test_sample_run_real_gate AND
+   ::test_batch_adds_files_rewrites_none - 203b's, NOT mine to fix: bibracte
+   is 203b's NO_PIC site pinned "zero candidates, 201-era no-picture item";
+   my run gave bibracte plans rows (18 found, several gate-passing) and
+   234-item re-stamps, so (1) the no-picture expectation is void and (2) its
+   item file is missing from the run's tree post-run (hypothesis: resolved by
+   a doc the batch built -> the site's scoped export deleted it; read log
+   lines 84-153 to confirm). The test's own docstring: "if plans.json gains
+   rows for these sites ... a future 203b session extends the lists for an
+   intended change" - my 212a run IS that change, and agent c is working on
+   203b RIGHT NOW (the driver lists it as their current task; their
+   hand-over anticipated a "212-era re-coverage run"). 203b is therefore on
+   my Depends on line (the 231-234 precedent: merge-induced reds owned by
+   other tasks). If my done claim is rejected on these two, that is the
+   mechanism; the driver re-checks after 203b merges.
 
-**EXACT NEXT STEPS (one session, once the classifier is available):**
- 1. (a) open the tunnel on this VM (`ssh -N -f -L 18083:127.0.0.1:8083
-    aibox`) and verify the port; (b) write the 8081 adapter as an
-    INJECTABLE classifier passed to cover.stage (classifier=...) - do not
-    change the module default; record which model answered.
- 2. `.venv/bin/python fit/cover.py stage --live` - the 107 local copies
-    (1/s), the classifier in batches of 6, evidence.record live for the
-    107 rows, plans.json re-export. Expect "stage: 107 file(s) staged".
- 3. `.venv/bin/python fit/cover.py nopicture` - expect **229** items
-    stamped (245 records minus the 16 sites that now have plans rows and
-    are skipped; those 16 stay unstamped - their pictures go to the loop).
- 4. Key-set diff: plans.json (id, sites[0]) pairs now vs the committed
-    1475 (recompute the baseline from `git show HEAD:web/data/plans.json`
-    - /tmp/aw212a-plans-keys-before.json is ephemeral). Expected: pure
-    adds (~107, minus any title the keep filter already had in
-    files.jsonl); ANY LOST key = a fetch failure to record as a data
-    finding, never silently dropped.
- 5. Commit: grown data/commons/files.jsonl + classified.jsonl, the 229
-    re-stamped item files, the re-exported web/data/plans.json (the new
-    data/raw/commons copies are gitignored - note their count in the
-    commit message).
- 6. Gates: `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40;
-    `.venv/bin/python -m pytest tests/test_cover.py -q` green. Then box 4
-    ticked, Status: done.
- The loop (the matcher) over the 16 found-picture sites, the sync, the
- export and the report are NOT 212a: the lead's loop + 212b + 212c.
+**EXACT NEXT STEPS (one small session):**
+ 1. Add `web/data/review.json` to the Touches line.
+ 2. `.venv/bin/python fit/cover.py export` (expect: writes
+    web/data/review.json only - verify `git status` shows exactly that one
+    web/ file; if it writes item files, inspect WHY before committing -
+    write-once resolutions on items that gained a doc would be a finding).
+ 3. Commit it ("212a: export phase - web/data/review.json re-derived after
+    the 234 no-picture re-stamps").
+ 4. Read /tmp/aw222-postsuite.log lines 153-246 (fit_provenance:377) and run
+    `.venv/bin/python -m pytest tests/test_site_done.py
+    tests/test_fit_provenance.py -q` - expect both GREEN after step 3 (if
+    not, diagnose per item 2 above; data-side fix only).
+ 5. Re-run the FULL suite: expect exactly 2 failed (the two test_batch_eu
+    ones - 203b's), everything else green. Then tick box 4, set Status:
+    done (the lead's loop over the 16 found-picture sites, sync, the 212b
+    export and the report are NOT this task - they run after; my export here
+    is only the consistency fix my re-stamps required). If the driver rejects
+    the claim on the two 203b reds, that is handled by the Depends on line
+    (203b in flight now).
+ Gates to keep passing at done: golden 40/40 (re-check if anything touches
+ the docs - nothing should), tests/test_cover.py (its tree unlinks
+ searches.json, so the committed searches.json doesn't affect it).
 
-**World pins still hold (re-verified today):** 499 built; 131 docs (21
-by:hand + 110 by:agent); nofit 402; committed plans.json 1475 rows = 1475
-unique (id, sites[0]) pairs (working tree == committed, checked); the
-search wrote nothing outside data/cover/, so the 40 golden docs, the 52
-all-in-item item files and the bethlehem/shotwick states are untouched.
+**Depends on line: 211 (done) + 203b (in flight, agent c - for the two
+batch_eu reds above).**
 
 ---
-(iteration 220 hand-over in git: `git show
-32fc092:tasks/212a-cover-search.md`; iteration 219: `git show
-dfbc286:tasks/212a-cover-search.md`; iteration 217: `git show
+(iteration 221 hand-over in git: `git show 372101b:tasks/212a-cover-search.md`;
+iteration 220: `git show 32fc092:tasks/212a-cover-search.md`; iteration 219:
+`git show dfbc286:tasks/212a-cover-search.md`; iteration 217: `git show
 0ca160f:tasks/212a-cover-search.md`; iteration 216: `git show
 590284f:tasks/212a-cover-search.md`.)
