@@ -55,12 +55,127 @@ check, and the "no picture found" list.
 
 ## Hand-over
 
-(2026-10-12, iteration 201, agent a - SYNCED main per the lead: merged origin/main (a858f48, the Bethlehem doc
-removals) + the lead note ef84a05 into this branch (merge commits 906b332 + 1e016af; conflict in this file
-resolved by keeping the hand-over and folding the lead note in verbatim at the end). Re-measured the live
-tree. **The fit/cover.py design is now settled in DECISIONS.md (three 2026-10-12 212 entries: the design,
-the matcher-as-fit decision, the fetch/clef availability decision) - no code written yet.** Next session
-WRITES fit/cover.py from that design.)
+(2026-10-12, iteration 203, agent a - **fit/cover.py is DONE (written in iteration 202, committed by the
+driver as 55678e3, 863 lines; I re-read it fully this session and verified every import/symbol it uses
+against the real APIs - all exist and match**). This session did NO code: it investigated the modules and
+worked out the full design of tests/test_cover.py, which is the EXACT NEXT STEP (one step = write that
+test file, run it to green, fix fit/cover.py bugs it exposes if any). No session yet ran the suite on
+this synced tree; last known green is 150 passed/1 skipped at 9590abf, tree since = a858f48 + driver files
+only (no code drift) - run `.venv/bin/python -m pytest tests/ -q` first if time allows (NEVER bare pytest).
+The suite's last full run took 253s; the new test adds ~2-4 min - keep total < ~10 min, optimize the loop
+phase if it outruns that (it is the cost centre).
+
+**Branch state:** origin/main tip a858f48 = merge-base with this branch (verified); nothing new to sync.
+Live tree (measured this session): 499 sites, 120 docs (76 by:agent+auto non-matcher, 23 by:agent
+fitter:matcher, 21 by:hand), 413 no-fit sites = 359 no-row (the search set) + 54 with-row; search set has
+46 no-qid sites. Golden: 20/21 hand docs is_done - **maiden-castle-q1232816.c_c20ff6b1f16d173d is NOT
+is_done (its depictions fit.at != doc.at) - the sync will rebuild that golden site's overlay in the test
+tree; that is fine (tmp+replace writes a new inode, the golden FILE bytes stay identical - the golden pins
+the doc json + site.json, not depictions.json), but the test's precondition must NOT require all golden
+docs is_done, only that the golden 40 files stay byte-identical after the run.** 21 agent docs need a
+build (18 commons matcher, 3 book matcher: castle-neroche n0110, cawthorne-camp n0325, + the commons ones
+listed in the session log above - recompute in setup, never pin). Sizes: web/data/sites 179MB, data/sites
+1.6G (mostly .npy; 14M without), data 1.7G; **data/raw is a SYMLINK to /home/agent/projects/ancient-works/data/raw (the shared store) - never link it into the test tree, create a real data/raw dir instead**.
+
+**Design of tests/test_cover.py (this session's settled plan - follow it):**
+1. OWN module-scoped tree + OWN server, NOT conftest's session `served` fixture: 7 later test files
+   (test_data, test_fit_queue, test_merge, test_review, test_serve, test_src_kip, test_src_mackenzie,
+   test_src_wiltshire_stukeley) share `served` and pin its state; my 8-phase run would mutate it.
+   Tree = test_batch_us._link_tree pattern (hard-link every file of web/ data/ docs/ specs/; real copies
+   ONLY for the in-place-write set {web/data/plans.json, data/commons/files.jsonl,
+   data/commons/classified.jsonl, docs/batch.md} - all other writers are tmp+os.replace = new inode =
+   safe on hard links; new files (webp, docs, items, searches.json) are new inodes = safe). Copy server/
+   into the tree; Popen [sys.executable, "server/serve.py", "--port", "0"] cwd=tree (venv python);
+   parse "Ancient Works on (\S+)" from stdout (conftest's pattern); kill in teardown.
+   data/raw: real dir (never the checkout symlink); seed stand-in 1280x960 PIL jpgs: (a) every
+   books index row's full_local path (so book rows stay in plans.json as live); (b) data/raw/commons/
+   big/<plan>.jpg for every doc the sync will BUILD (predict in setup: who_placed != None, site dir
+   exists, pairs >= min, not the pattern/spread-sent case, not is_done - EXCLUDING the deliberate
+   bad-commons doc); (c) per staged new file data/raw/commons/<site>/<sha16>.jpg (the fake fetch writes
+   these anyway). Image size = doc.get("size") or the crop max, so fs=1 and the crop is in-bounds.
+2. Seeded docs (before the phases) on the first 3 nofit-no-row sites (sorted; precondition: at least 3
+   exist - measured 359, safe): (a) unmarked AUTO (auto:True, no by, by:agent absent, non-pattern pairs)
+   -> stamped by:agent + built; (b) NO-PROVENANCE (no by, no auto, src commons) -> refused, doc kept,
+   item entry why == plan_fit.NO_PROVENANCE, site stays drawings 0 with an open item (invariant);
+   (c) BAD-COMMONS (by:agent, no fitter, non-pattern pairs, src commons, big cache deliberately NOT
+   seeded) -> line check passes, build fails on the dead socket, cover.sync catches -> item entry
+   "sync failed: ...", doc kept, sweep continues.
+   CHOOSE (the loop's matcher) = first 4 nofit-WITH-row sites (sorted; measured 54): fake matchfit.run
+   writes a matcher doc (batch_us.write_doc + fitter:"matcher" mark) for the site's first candidate row:
+   CHOOSE[0..2] confident = well-spread non-grid-round pairs, score 25.0 (seed their big-cache stand-ins
+   in setup); CHOOSE[3] near-collinear (spread guard fires at sync -> "sent": doc deleted, item
+   candidate "matcher points nearly on a line", prune drops the overlay). Precondition-verify the pair
+   sets in the test: fabrication_pattern(confident+auto pairs) is None and matchfit.spread(near-collinear)
+   trips (ratio < 0.1 or sd < 20) - fail loudly if the checks drifted. Non-pattern pair recipe: 4
+   anchors, coords with fractional parts away from .0 (e.g. x.3/x.7, so <90% within 0.5px of a 10-px
+   grid), 3+ distinct u and v with irregular gaps (gap ratios outside [0.67,1.3]), no 3+ sharing one
+   coord within 2px.
+3. Recorded network world (all monkeypatch.setattr on the shared module objects - cover/site_done/
+   batch_us/evidence all import the SAME modules: fit/, pipeline/, tools/ absolute paths):
+   autouse no_network (socket.socket.connect + socket.create_connection -> AssertionError, the
+   test_batch_us pattern); cover.time.sleep -> no-op (the 1/s pace would take minutes); cover._fetch_one
+   -> write the stand-in jpg to dst, return True, record the (url, dst); commons.info -> for a title in
+   the NEW pool return keep-passing metadata (title carries "(c. 1701)", mime image/jpeg, date/desc free
+   of the NO regex - re-read commons.NO/PLANWORD/year_of before finalising the exact strings), else a
+   default keep-passing metadata (so the dedupe case keeps); commons.wd_claims -> {qid: {cat:
+   "Category:<name> (old drawings)", plan: [new claims title], image: []}}; commons.files_of -> [1 new
+   cat-file title "(c. 1850)"]; commons.search -> the site's one EXISTING files.jsonl title (dedupe
+   case) for qid-carrying sites, and for no-qid sites the same existing title EXCEPT the designated
+   failure site (first no-qid site of the search set, sorted) where it RAISES -> the record's failed[]
+   must carry "title search: ..." and the site still ends with its no-picture item (invariant holds when
+   the network lies); evidence.fetch_page_ids -> {t: 1000+i}; evidence.fetch_file_entities ->
+   {t: {"item": "M<id>", "p180": [the site's qid]}} (the fake keeps a title->qid map it built with
+   wd_claims); matchfit.reachable -> True; matchfit.run(root, site_ids, ...) -> the CHOOSE writer above,
+   returns [paths]. New pool: 2 new files per qid-carrying search-set site (claims + cat), 0 for no-qid
+   sites (title route returns only the existing title) -> ~2 x #(qid search-set sites) new files total
+   (recompute at run time; the fake is a pure function of its inputs so it stays consistent).
+4. Drive in-process on the tree: cover.fetch -> search -> stage(classifier=lambda rows: fake p_*
+   aligned) -> loop() -> nopicture -> sync -> export -> report.
+5. Assertions (STATE-AWARE: compute every expectation from the tree's live docs/items/plans, never from
+   pinned counts - the 203b pitfall; the live store drifts in parallel on agent c's branches):
+   (i) search records: data/cover/searches.json - one record per search-set site (recomputed); each has
+   qid (or "no qid"), cat (name or "none"), n_cat_files, n_p180/n_p180_gathered, title_queries ==
+   [q.format(n=name) for q in commons.SEARCHES], n_title_hits, failed (the failure site non-empty),
+   date; union of records' new == the by:"212" rows in files.jsonl == the classified.jsonl rows (fake
+   p values) == the new local jpgs. (ii) plans.json: grew vs pre-run; every by:212 title has a row
+   (id c_<sha16>, sites [site]); (id, sites[0]) unique (the test_data contract, re-check because I add
+   rows). (iii) CHOOSE outcomes as in 2.; other with-row nofit sites: open item with "no model answer"
+   entries for their new candidates. (iv) sync: golden 40 files (tests/golden/hand_fit_docs.sha256: 21
+   docs + 19 data/sites/*/site.json) byte-identical tree-vs-checkout (box 3; note the maiden-castle
+   golden doc rebuilds its overlay - the golden files themselves must not move); the seed docs' outcomes
+   as in 2.; no pattern doc left built (prune clean). (v) THROUGH THE SERVED PAGE (port 0, http only):
+   GET / -> 200 "Ancient Works"; GET /data/review.json -> items equal the open items recomputed from the
+   tree's item files with review's own open rule (resolved_doc None), same entry fields and order
+   (box 4: the served page's data is this file; also GET /index.html and /review.js -> 200); GET
+   /data/sites.json -> for EVERY built site: drawings >= 1 OR its item is in the served open list
+   (box 6, GOAL point 1 in full) (box 6: every built site has a fit or an open item); golden sites
+   drawings >= 1. (vi) report: docs/batch.md (tree) - sample rows == random.Random(20261012).sample(
+   sorted auto-doc ids, min(20, n)) recomputed from the tree's FINAL docs (auto = who_placed ==
+   "agent"); seed line names 20261012; each row's page == "#<site>", gate == the doc's score; the
+   no-picture table == the served open no_picture items (same searched strings, same order); the counts
+   section == the buckets recomputed from the tree (independent of cover.report's code); re-run
+   cover.report(tree) -> the sample section byte-identical (fixed & reproducible - the human's 18/20
+   check). (vii) CHECKOUT INTEGRITY: hash (sha256) every file under the checkout's data/ (skip .npy/
+   .npz and the data/raw symlink) + web/data/** + docs/ + specs/ + tests/ before and after the phases;
+   they must be identical (catches any write that leaks through a hard link or the data/raw symlink -
+   the web/data/sites 179MB hash is ~10s, fine). The tmp tree: module-scoped fixture +
+   tmp_path_retention_policy "failed" (the pytest.ini already keeps only failed runs).
+
+**Then (iteration 204+):** the WORKING run on the live tree (network allowed): fetch -> search -> stage
+(ask_human ONLY if the search finds new files and clef is still down: tunnel or approve the LLM as
+one-off classifier) -> loop (ELoFTR 8091 up) -> nopicture -> sync (check `ls data/raw/commons/big | wc -l`
+first - the big-jpg cache decides download cost) -> export -> report -> commit everything (grown
+files.jsonl/classified.jsonl/plans.json, review items, review.json, sites.json, overlays, docs/batch.md);
+finish with `sha256sum -c tests/golden/hand_fit_docs.sha256` (must pass - 40/40) and the suite green.
+
+**Known traps learned this session (keep in the test's docstring):** propose.propose_for is called by
+batch_us.run_sites WITHOUT a root arg -> it reads the CHECKOUT's sites.json/index/plans (pure reads, safe;
+the effect only fills an entry's optional proposal field, which the test does not pin); evidence.record
+with live=False records no field for by:"212" rows (record_commons_row only hand-ties sources from
+source_tables(); the 200 evidence field for 212's rows comes in the LIVE run via record_live) - so the
+test asserts staged rows' shape but NOT an evidence field; commons.keep/NO/PLANWORD/year_of regexes
+gate every recorded title - verify the fake titles pass keep() in a test precondition; fit/evidence.py
+is NOT in my Touches (200's contract) - never edit it, drive it through evidence.record only.
 
 **Live state after the sync (measured this session - the numbers to work from):**
 - data/db/platefits: **120 docs = 21 by:hand (all 21 byte-identical to tests/golden/hand_fit_docs.sha256,
