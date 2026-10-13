@@ -517,3 +517,35 @@ The 214 nohup'd full suite (log /tmp/aw308-suite-final.log) came back 7 failed/1
 Finished the task: the four fixed after-shots copied to docs/site_flow/markers-after-{globe,zoom,legend,phone}.png (before-pair markers-before-*.png already committed; dimensions and content re-verified this session: 2880x1800 globe/zoom, 792x1800 legend = the sidebar crop with the Marker-key row, 1170x2532 phone @3x; zoom tips sit on their earthworks, the key shows four gradient arrowheads, list rows carry the silhouette); appended "## The site markers become arrowheads (task 308, 2026-10-13)" to docs/site_flow.md (silhouette and tip anchoring, unchanged gradient/tiers/labels, .scan stays a dashed square, the parking-trap note, the shot names); ticked all three boxes, Status: done. The web/index.html position fix itself was already committed by the driver as f51e342 (uncommitted work after the 214 context limit).
 PITFALLS: (1) the corrected MapLibre marker entry under web/ - replaces the planned-but-never-written 213 globe entry (the globe-projection theory was a misdiagnosis: transform and map.project() agree within 0.35px; the real bug was the vendor parking rule being overridden into normal flow). (2) A NEW `### pytest (9.1.1, project .venv)` subsection under "This machine and its environment" recording the shared-TMPDIR basetemp race and the standing rule: run the full suite in the foreground of your session (plain &, never nohup), never start a second pytest run in this checkout while one is running.
 Next session (agent a, per the lead's 212 instruction "WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done"): verify and close 233/234 - the box-by-box procedure is in the 308 hand-over.
+
+## 2026-10-13 306e DECISION: first session - 34/34 orphan shots taken (o-y, 17 docs); merged main per the lead; claimed 306d done
+- Built tools/audit_306e.mjs (clone of tools/audit_306d.mjs, the 17 o-y docs; the 307 fit-queue
+  trap neutralised in the IIFE exactly as in 306d: FQ.entries emptied before openPlan so
+  _fkActivate falls open - verified: every [eval] line reports fqEntries:114, placed:false,
+  layer:true, n = the doc's pair count). All 34 shots (aerial + relief per doc; all 13 sites
+  have relief.jpg) written to docs/site_flow/agent_fits/ and committed (129590d).
+- Lead message: the 5 reds the driver blamed on 306d are fixed on main (77bdf5d, tasks
+  231-234). Merged main into agent/c (88c5545). Conflicts, resolved the known way:
+  web/data/review.json 'at' kept main's newer (07:07 > 05:48); docs/site_flow.md kept my
+  unmerged 306c+306d blocks then main's 308 arrowheads section (both sides were additions at
+  the same anchor - the 308 section sits after the 306d ludlow line). Full suite on the
+  merged tree: 149 passed, 1 skipped, 1 red = test_fit_queue::test_placement_gestures_and_
+  save_in_the_browser (probe 'RESULT FAIL: seed: the gestures own the mouse' + 404
+  /tiles/relief - the live relief is Mac-only; agent a's in-flight 307 seed flow; the
+  161/176/177 A/Bs already proved it red on pure main). On that basis 306d set Status: done
+  (74f80e3, the lead's explicit instruction; its 005 is settled).
+- Started judging batch 1. offa-s-dyke (OS 1902 Nantcribba 02 sheet): seen; the sheet's hatched
+  wood covers the real wood but its N-E half covers the town and anchor 4 sits on bare ground
+  - leaning deleted (wrong place), needs one Nantcribba-position web check.
+  okehampton (Commons 1915 'Plan of Okehampton Castle'): seen; the plate is a 600 m chain of
+  ~10 multi-room buildings with radial trees - per Wikipedia (fetched) the real castle is a
+  few ruins on a rocky outcrop with the town 1 km away, so the plate is a 1915 TOWN map
+  (local mapmaker Edward H. Young) correctly georeferenced but the wrong kind of subject for
+  the motte site - undecided at cutoff, next session pins the site point vs town vs castle.
+- FAILED (attempt 1): hand-rolled pure-Python similarity fit of the okehampton pairs -
+  ZeroDivisionError, rank-deficient 5-param design matrix [u,-v,u,v,1]. Attempt 2 (per-row
+  3-param with the page's sign convention) came out 0.85 m/px, -45.2 deg, residuals 205-833 m
+  = GARBAGE: the page's simFit flips the plate's v axis (image coords, v down) which my naive
+  least squares did not. The [eval] fit line (1.20 m/px, -0.3 deg, resid <=1.1 m) is the truth;
+  single-point inversions are fine for spot checks, full-plane ones are not. (Filed to the
+  306e hand-over; PITFALLS candidate if it recurs.)
