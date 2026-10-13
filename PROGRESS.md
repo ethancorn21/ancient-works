@@ -23,25 +23,6 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
-The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
-(case b) never reads the deleted bethlehem doc - its seed is the golden doc
-c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
-is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
-c_61b86efb4511e099 with the 211 pictures; the item file and the published page
-entry still agree with each other at 13 candidates - verified). 231 was rewritten
-to cover only the year-once pin (case e) with a candidate list measured from the
-live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
-"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
-Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
-state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
-entry above (depends on 212). 234: test key to the generator's documented
-(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
-depend on the entry order) - plus a byte-reproducible regeneration of
-web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
-212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
-worktrees were removed (agent c's /tmp/aw306cab untouched).
-
 ### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
 Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
 post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
