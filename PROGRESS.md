@@ -12,7 +12,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 213, agent a - merge done + CODE IMPLEMENTED in web/index.html (uncommitted, in the
+- `tasks/308-arrowhead-markers.md` (open) - hand-over: (2026-10-13, iteration 214, agent a - ROOT CAUSE FOUND AND FIXED in web/index.html (uncommitted: harness holds it);
 
 ## Next open tasks
 - `tasks/207a-horsley.md`
@@ -70,6 +70,9 @@ FAILED (anchor measurement, attempt 1): probe compared the rendered tip to map.p
 FAILED (anchor measurement, attempt 2): even the transform-based comparison showed worst 3023 px, because markers OUTSIDE the viewport (US sites while viewing Wiltshire, or the far side of the globe) keep display:'' (syncMarkers only hides by shown()/sel) and their rect/transform is a wrapped 2D-plane position - meaningless to compare. Fix applied (NOT yet re-run): anchorCheck skips markers whose svg rect is outside the 1440x900 viewport.
 Verified in the latest probe run: 499/499 site markers + 328/328 legend + 324/324 list-row swatches carry the arrowhead svg; clicking a marker's .sq opens its site; the visual path tip sits within 0.15 px of the svg box's bottom-centre (the 99/100 vertex + 1.2 px stroke lands the visual tip within ~0.5 px of the assigned point - sub-pixel; the old square was centred on the point, so this is also strictly closer to the point).
 Pending: probe re-run after the viewport-filter edit; the merged-tree suite (running in the background at session end: /tmp/aw308-suite-merged.log, last check 2 Fs = the expected 231/232 merge-reds); then per the lead's instruction in my 212 hand-over ("WHEN MAIN IS MERGED ... mark tasks/233 and 234 Status: done with all boxes ticked" - the lead did their work in aeeb5aa): verify and mark 233 (plan-list growth test + key-set + machine-dependence record) and 234 (test key + fit_queue.json reproducibility + fit_queue.py untouched).
+
+### 2026-10-13 308 DECISION: CORRECTION + fix found - my position:relative on .marker overrode the vendor's .maplibregl-marker absolute parking; the huge anchor deltas were a CSS cascade bug, not globe projection
+... (2.8 KB more: `grep -n -A 200 -F '## 2026-10-13 308 DECISION: merged main (union resolution); arrowhead implemented in web/index.html; the anchor check must measure against the marker's own transform (globe projection), not map.project()' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
