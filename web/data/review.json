@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T12:21:07.301809+00:00",
+ "at": "2026-10-13T13:01:37.916557+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -13991,6 +13991,60 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Tap o' Noth\" plan\", \"\"Tap o' Noth\" map OR survey\", \"\"Tap o' Noth\" engraving OR drawing OR view OR prospect -\"style of\"\" (4 hits); 2026-10-13",
     "at": "2026-10-13T09:21:33.218137+00:00"
    }
+  },
+  {
+   "site": "taunton-castle-q7688781",
+   "name": "Taunton Castle",
+   "lead": "c_05cb4a02bd58e82e",
+   "candidates": [
+    {
+     "plan": "c_05cb4a02bd58e82e",
+     "title": "File:Plan of Taunton Castle (1897).jpg",
+     "url": "media/commons/taunton-castle-q7688781/05cb4a02bd58e82e.jpg",
+     "pairs": [
+      [
+       800.0,
+       200.0,
+       -3.112365,
+       51.0170921
+      ],
+      [
+       800.0,
+       400.0,
+       -3.112365,
+       51.0161938
+      ],
+      [
+       800.0,
+       800.0,
+       -3.112365,
+       51.0143972
+      ],
+      [
+       400.0,
+       1000.0,
+       -3.1152208,
+       51.0134988
+      ]
+     ],
+     "coarse": false,
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "hand_tied",
+      "checked": "2026-10-10",
+      "source": "pipeline/sources.py mackenzie"
+     },
+     "label": "1897",
+     "cite": "by The British Library; No restrictions; https://commons.wikimedia.org/wiki/File:Plan_of_Taunton_Castle_(1897).jpg",
+     "ref": "File:Plan of Taunton Castle (1897).jpg",
+     "size": [
+      1280,
+      1461
+     ],
+     "place_reason": "306e audit 2026-10-13: similarity (4 pts, resid 0.0 m, 0.5 m/px, +0.0 deg) - the 4 anchors are a 200-px (100 m) grid ladder, so the fit carries no placement information: it pins the 1280x1461 plate centre (the site point inverse-maps to plate (599,599)) onto the site point. The plate is a genuine plan of THIS castle from Mackenzie, The Castles of England (1897) - the features match the real complex (Great Hall/inner ward, outwork, filled-in moats, Castle Green as the outer bailey, E. gate, Bishop Foxe's school) - but the catalog site point sits ~640 m WEST of the real castle: the real works (51.0158 N, 3.1046 W = E+643 N+55; today the Museum of Somerset in the Great Hall, the crenellated hotel outer ward, the tree-lined moat ring and the Castle Green, on the east bank of the Tone) were verified on modern aerial imagery. The drawn complex (E-205..+190 m) instead sits on the 1842 Wellington Terrace house cluster and the Stepps Water stream - no castle, no moat, no 'Castle' label anywhere in the 800 m site box - and the real castle (E+643) is beyond the plate's east edge (E+340.5). Wrong place, right kind. Document deleted."
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "teerd-q13138282",

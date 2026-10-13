@@ -1462,6 +1462,25 @@ the site stays covered for the union check, an open item counts).
   picture and its 6 points went to a NEW review item for the site with this reason - the
   site had none before - the document was deleted, the site's review page file
   re-exported scoped to the site; the site stays covered by the new open item).
+- taunton-castle-q7688781.c_05cb4a02bd58e82e - Taunton Castle, plan from Mackenzie, The
+  Castles of England (1897) (similarity, 4 pts, resid 0.0 m, 0.5 m/px, +0.0 deg): the 4
+  anchors are a 200-px (100 m) grid ladder, so the fit carries no placement information:
+  the site point inverse-maps to plate (599,599) of [1280,1461], near the plate centre, and
+  the fit pins the plate there. The plate is a genuine plan of THIS castle from Mackenzie
+  1897 - the drawn features match the real complex (Great Hall/inner ward, outwork,
+  filled-in moats, Castle Green as the outer bailey, E. gate, Bishop Foxe's school) - but
+  the catalog site point sits ~640 m WEST of the real castle: the real works (51.0158 N,
+  3.1046 W = E+643 N+55 from the site point - today the Museum of Somerset in the Great
+  Hall, the crenellated hotel outer ward, the tree-lined moat ring and the Castle Green, on
+  the east bank of the Tone) were verified on modern aerial imagery and Wikipedia. The
+  drawn complex (E-205..+190 m) instead sits on the 1842 Wellington Terrace house cluster
+  and the Stepps Water stream - no castle, no moat, no 'Castle' label anywhere in the 800 m
+  site box (the box does not even reach the real castle: E+643 > its E+400 edge) - and the
+  real castle is beyond the plate's east edge (E+340.5). Wrong place, right kind. DELETED -
+  an orphan today, invisible on the page (the 303 way: the picture and its 4 points went to
+  a NEW review item for the site with this reason - the site had none before - the document
+  was deleted, the site's review page file re-exported scoped to the site; the site stays
+  covered by the new open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
