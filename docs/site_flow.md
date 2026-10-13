@@ -1412,6 +1412,20 @@ the site stays covered for the union check, an open item counts).
   the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
   created by the twin's deletion - the item keeps its file name and its lead, and the site
   stays covered by the still-open item).
+- raby-castle-q4583646.c_fe1d6c7f0ba858cb - Raby Castle, plan from Mackenzie, The Castles of
+  England (1897) (similarity, 4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg): the 4 anchors are the
+  plate's 900-px corner square - a ladder with no placement information: the fit pins the plate
+  centre (plate (549,549) of [1280,1080]) onto the site point. The drawing is an idealised 1897
+  castle complex spanning the whole 600 m fit box (the 1280x1080 plate = 853 x 720 m on the
+  ground): Great Keep, Great Hall, Gate House, Main Street, Market Cross, St Mary's, North/
+  South Towers. The real Raby Castle (1842 six-inch + LiDAR) is a small ~50 m ruin on a ~90 m
+  round terrace with a moat, centred on the site point just north of Low Pond: the drawn
+  complex overlaps the real ruin only because the ladder centred it, and the drawn Gate House
+  (E-139 N-214), St Mary's (E-93 N+45) and N Tower (E+34 N+281) all sit on open parkland. Wrong
+  size (~10x too big), the drawn works miss the real ones. DELETED - an orphan today, invisible
+  on the page (the 303 way: the picture and its 4 points went to a NEW review item for the site
+  with this reason - the site had none before - the document was deleted, the site's review
+  page file re-exported scoped to the site; the site stays covered by the new open item).
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
