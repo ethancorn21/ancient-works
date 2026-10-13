@@ -1,0 +1,15 @@
+{
+ "id": "amsterdam-q727",
+ "name": "Amsterdam",
+ "place": "North Holland, Netherlands",
+ "lon": 4.8865,
+ "lat": 52.3725,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q727",
+ "summary": "Amsterdam is the capital and largest city of the Netherlands. As of 1 January 2026, it had a population of 941,873 within the city proper, 1,457,018 in the urban area and 2,480,394 in the metropolitan area. Located in the Dutch province of North Holland, Amsterdam is colloquially referred to as the \"Venice of the North\", for its large number of canals, now a UNESCO World Heritage Site.",
+ "wiki": "https://en.wikipedia.org/wiki/Amsterdam"
+}

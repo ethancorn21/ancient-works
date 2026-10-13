@@ -1,0 +1,15 @@
+{
+ "id": "rotterdam-q34370",
+ "name": "Rotterdam",
+ "place": "South Holland, Netherlands",
+ "lon": 4.4745,
+ "lat": 51.9155,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q34370",
+ "summary": "Rotterdam is the second-largest city in the Netherlands by population and the largest by area (319.4\u00a0km2). It is in the province of South Holland, part of the North Sea mouth of the Rhine\u2013Meuse\u2013Scheldt delta, via the New Meuse inland shipping channel, dug to connect to the Meuse at first and now to the Rhine.",
+ "wiki": "https://en.wikipedia.org/wiki/Rotterdam"
+}

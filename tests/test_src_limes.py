@@ -7,7 +7,10 @@ stage on name+coordinates per the task Notes) and re-verifies offline from the s
 (200's fail-closed box). The negative control pins the trap the hand record exists for: the Heddesdorf row
 re-pointed at a different fort's coordinates must be reported FAIL, never kept. The golden file
 (tests/golden/src_limes_sample.json) pins one staged row per source plus their extras and classified rows;
-it is regenerated only via the module's --golden flag for an intended change.
+it is regenerated only via the module's --golden flag for an intended change. The 211 merge states (task 225)
+are constructed hermetically: the module's canonical path constants are pointed at temp copies (pre-merge /
+merged-identical / same-key-different-row), so the guard test holds whether or not 211's live merge has run on
+this checkout.
 """
 import json
 import os
@@ -38,8 +41,10 @@ def no_network(monkeypatch):
 
 def test_check_staged_files_join_and_pass(capsys):
     """src_limes --check, offline: the staged files join (every file row names a staged extras row, every
-    staged site has a picture, (site, title) unique, no staged id/QID pre-exists in the catalog, no clash
-    with the canonical files.jsonl, classified rows 1:1) and every staged row PASSes the evidence check."""
+    staged site has a picture, a staged id/QID is a problem only when a different site holds it (the module's
+    own rows already merged by 211 are a no-op), (site, title) unique, a staged row already in the canonical
+    files.jsonl must be identical to the canonical row, classified rows 1:1) and every staged row PASSes the
+    evidence check."""
     code = src_limes.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
@@ -49,6 +54,73 @@ def test_check_staged_files_join_and_pass(capsys):
                 "heddesdorf-q1735373|File:ORL_01_tab_03_pic_01_Grundriss_Kastellbad.jpg",
                 "heddesdorf-q1735373|File:ORL 01 tab 01 pic 01 Lageplan.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
+
+
+def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
+    """The 211 merge states of the --check guard, hermetically (temp copies of the canonical files, so the
+    test holds whether or not 211's live merge has run on this checkout): (a) staged rows ABSENT from the
+    canonical files (the pre-merge state) - check 0, no join problems, evidence all PASS; (b) staged rows
+    present with IDENTICAL content (the 211 first-row-wins merge has run) - check 0, no join problems: an
+    already-merged row is a no-op and the known-site checks stop self-triggering on the module's own rows;
+    (c) the same (site, title) key held by a DIFFERENT row - still fails loud (the pre-merge conflict
+    protection), naming exactly that key and no other join problem."""
+    staged_files = src_limes._load(src_limes.FILES_LIMES)
+    staged_sites = src_limes._load(src_limes.EXTRAS_LIMES)
+    skeys = {(r["site"], r["title"]) for r in staged_files}
+    sids = {s["id"] for s in staged_sites}
+
+    def write(name, text):
+        p = tmp_path / name
+        p.write_text(text, encoding="utf-8")
+        return str(p)
+
+    # the canonical files with this module's staged rows removed: the pre-merge state of ITS keys, on any
+    # checkout (the other sources' merged rows are untouched, the guard does not care about them)
+    files_pre = [json.dumps(r, ensure_ascii=False) for r in src_limes._load(src_limes.FILES_CANONICAL)
+                 if (r["site"], r["title"]) not in skeys]
+    extras_pre = [json.dumps(r, ensure_ascii=False) for r in src_limes._load(src_limes.EXTRAS)
+                  if r["id"] not in sids]
+    sites = tmp_path / "sites.jsonl"
+    sites.write_text(open(src_limes.SITES_JSONL, encoding="utf-8").read(), encoding="utf-8")
+    monkeypatch.setattr(src_limes, "SITES_JSONL", str(sites))
+
+    def point(files_rows, extras_rows):
+        monkeypatch.setattr(src_limes, "FILES_CANONICAL",
+                            write("files.jsonl", "\n".join(files_rows) + "\n"))
+        monkeypatch.setattr(src_limes, "EXTRAS", write("extras.jsonl", "\n".join(extras_rows) + "\n"))
+
+    staged_file_lines = [json.dumps(r, ensure_ascii=False) for r in staged_files]
+    staged_extras_lines = [json.dumps(s, ensure_ascii=False) for s in staged_sites]
+
+    # (a) pre-merge: the staged rows are not in the canonical files yet
+    point(files_pre, extras_pre)
+    code = src_limes.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert "evidence: 56 rows, 56 pass, 0 fail, 0 no-tie" in out, out
+
+    # (b) the 211 merge ran: every staged row is in the canonical files with identical content
+    point(files_pre + staged_file_lines, extras_pre + staged_extras_lines)
+    code = src_limes.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert "evidence: 56 rows, 56 pass, 0 fail, 0 no-tie" in out, out
+
+    # (c) the same (site, title) key held by a DIFFERENT row: the pre-merge conflict protection still fires
+    victim = staged_files[0]
+    altered = dict(victim, year=victim["year"] + 1)  # same key, different content
+    lines = [json.dumps(altered, ensure_ascii=False)
+             if (r["site"], r["title"]) == (victim["site"], victim["title"])
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_extras_lines)
+    code = src_limes.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged title already in the canonical files.jsonl: "
+                    f"{(victim['site'], victim['title'])}"], join
 
 
 def test_forts_table_and_staged_rows():

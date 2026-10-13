@@ -1,0 +1,15 @@
+{
+ "id": "venice-q641",
+ "name": "Venice",
+ "place": "Veneto, Italy, Italy",
+ "lon": 12.331944,
+ "lat": 45.439722,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Italy",
+ "kind": "town",
+ "qid": "Q641",
+ "summary": "Venice is a coastal city in northeastern Italy and the capital of the region of Veneto, as well as the Metropolitan City of Venice. It is built on a group of 126 islands that are separated by expanses of open water and by canals; portions of the city are linked by 472 bridges.",
+ "wiki": "https://en.wikipedia.org/wiki/Venice"
+}

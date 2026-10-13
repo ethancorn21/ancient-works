@@ -2629,6 +2629,429 @@ Next session (6): run --stage/--check/--golden, write tests/test_src_numancia.py
 Boxes 2-3 ticked, Status: done.
 
 
+<!-- task 211 -->
+# Task 211 merge-build
+
+## 2026-10-12 211 DECISION: merged main (header-line conflict) and fixed the 3 test_merge bugs iteration 172 left behind
+- Merge main into agent/a (b9f1abd). Only conflict: tasks/211-merge-build.md header. Main (the
+  lead) dropped 207 from Depends (207 stopped by the owner; the lead note is kept below the
+  hand-over) and my iteration 172 had added `data/merge/` to Touches. Resolution keeps BOTH
+  intents: `Depends on: 200, 204, 205, 206, 208, 209, 210` (no 207) + `data/merge/` kept in
+  Touches (merge.py writes data/merge/log.jsonl when run live; tests run with --root in a
+  temp tree and never create it in the repo).
+- Bug 1 (the real one): fit/merge.py::grow() wrote str lines into a `open(..., "wb")` file ->
+  `TypeError: a bytes-like object is required, not 'str'`. The run died with rc 1 AFTER
+  zero appends, so test 3 saw x2 missing and the canonical files unchanged. Fix:
+  `f.write("".join(new_lines).encode("utf-8"))` (the lines came from utf-8 text reads, so the
+  re-encoding is byte-identical).
+- Bug 2: tests/test_merge.py::_tree() copied fit/merge.py into the temp tree without creating
+  the `fit/` directory -> FileNotFoundError (tests 1-2). Added the mkdir.
+- Bug 3 (four sub-bugs in the test's path/line handling): (a) `_canon_of` now maps by stem
+  (`data/catalog/extras_` -> `data/catalog/extras.jsonl` ...); the old
+  `p.replace("extras_", "extras.")` produced `extras.artists.jsonl`, and rsplit on `_` would
+  mangle wiltshire_b/van_deventer (PITFALLS entry filed); (b) `hashes()` hashed paths relative
+  to pytest's CWD (repo root) instead of the tree - data/merge/log.jsonl does not exist at the
+  repo root, so every call raised; (c) the pre-merge membership test compared `\n`-terminated
+  lines against `splitlines()` (no `\n`) so canon_before was ALWAYS empty (and startswith on
+  an empty prefix passed trivially) - fixed with rstrip("\n"); (d) growth-count comprehension
+  lacked the exists() guard for the absent roman staging. Also deleted dead code left in the
+  growth block (unused keys/expected/st_rows).
+- Verified on the real staging data: 0 rows fail the 200 evidence gate, 0 cross-source or
+  canonical conflicts (so the distinct-row growth count is exact for this data).
+- Result: full suite 134 passed, 1 skipped (perf). The live canonical files are still
+  unmerged; the next step is the live merge run + the five remaining acceptance boxes
+  (books index, site builds, plans.json, sources.md, human-reference golden).
+
+## 2026-10-12 211 DECISION: box 1 (the live merge) done and committed; the merge's consequence turned 7 done-tasks' source checks red - filed 222-228 to fix them, 211 now depends on them
+- Ran `.venv/bin/python fit/merge.py merge` on the real repo (first live run; data/merge/ did
+  not exist). Result: +115 extras.jsonl, +133 files.jsonl, +133 classified.jsonl = 381 staging
+  rows (artists 2, kip, limes, mackenzie, van_deventer in extras; + numancia, wiltshire_b in
+  files/classified; no roman staging - 207 stopped by the owner), 0 refused, rc 0;
+  data/merge/log.jsonl = 381 "merged" entries, 0 conflicts.
+- Verified box 1's invariants on the real tree: all three canonical files are pure growth (the
+  HEAD bytes are a byte-identical prefix of the new files); every staging row present in its
+  canonical file; a second run is a complete no-op (0 added, all four files byte-identical,
+  log re-written byte-identical). The merge is committed on this branch; it is idempotent, so a
+  later main merge cannot re-do it.
+- The live merge turned 10 tests red in 7 source modules, all owned by DONE tasks (204/205/206/
+  208/210/209b/213): every module's check/stage guard asserts its staged rows are NOT in the
+  canonical files, and after the merge they ARE (identically - the merge's own success, per its
+  own contract that staging stays and the source's --check still reads it). Red: test_src_
+  artists::test_check_staged_files_join_and_pass; test_src_kip::test_check_staged_offline;
+  test_src_limes::test_check_staged_files_join_and_pass; test_src_mackenzie::test_staged_row_
+  and_join; test_src_numancia::test_check_staged_files_join_and_pass; test_src_van_deventer::
+  test_check_staged_files_join_and_pass + test_table_and_staged_rows; test_src_wiltshire_
+  stukeley::test_stage_offline (SystemExit) + test_check_staged_offline + test_book_rows_
+  staged_in_files_b (that one asserts the pre-merge invariant in the test itself). Diagnosed as
+  systemic, not a merge bug; confirmed these are the only new reds (full run minus 203b's own
+  file: 10 failed / 117 passed; the 8 deselected batch_eu reds are 203b's, pre-existing per the
+  driver's loop-start notes; test_gate green this time).
+- Did NOT edit the 7 modules in this session: they are other tasks' files (team-mode rule; the
+  module-ownership carve-out does not distinguish done from open tasks). Instead FILED seven new
+  tasks, one module + its test each, in lead order: 222 van_deventer (204), 223 kip (205), 224
+  mackenzie (206), 225 limes (208), 226 numancia (210), 227 stukeley (209b), 228 artists (213).
+  Each carries the full fix spec: a staged row identical to its canonical twin under the merge's
+  norm() (sort-keys JSON, ensure_ascii=False) is an already-merged no-op (check rc 0, stage a
+  no-op); a different row holding the same key still fails loud; known-site self-references
+  (artists, van_deventer - known_sites() reads the now-merged canonical extras, so the module's
+  own staged sites look "existing") are a problem only when the id/QID resolves to a DIFFERENT
+  site; tests must cover all three states hermetically (absent / identical-present /
+  different-present) without depending on the live merge having run. Main stays green while they
+  run (pre-merge state passes the new guards); 211 cannot be claimed until they are on main,
+  so they are in 211's Depends on and this session ends here (driver brings 211 back).
+- Next step (211, once 222-228 are on main): box 2 - rebuild data/books/index.jsonl +
+  validation.json with the books machinery and RE-RECORD the 200 evidence after the rebuild (the
+  book-machinery PITFALLS entry: books.py index drops the evidence field; byte-diff against
+  `git show HEAD:data/books/index.jsonl`, never a /tmp snapshot).
+
+## 2026-10-12 211 DECISION: box 2 - rebuilt the book index + validation.json with the machinery (the 216/217 view books land), re-recorded the 200 evidence on all 1068 rows, the offline check passes - box 2 ticked
+- Proceeded with box 2 before 222-228 land (the previous hand-over said to wait): the book-index work is
+  independent of those tasks (they touch fit/src_*.py + their tests; I touch data/books/index.jsonl,
+  data/books/validation.json, the evidence fields and tests/test_merge.py), and it does not change my branch's
+  red set either way - the suite is 10 failed / 124 passed / 1 skipped before and after, the same 10
+  source-guard reds (baseline diff: identical failure list). 222-228 still gate the CLAIM (Depends on), not
+  the remaining boxes.
+- `pipeline/books.py index` over all 14 BOOKS entries (the 5 untriaged view books contribute 0 rows - do not
+  invent them) -> 1068 rows vs HEAD's 901: 167 added (civitates_liber2 11->118: 217's hand-list views; merian_
+  helvete00zeil 0->60: the 216/217 book), 0 removed, 11 changed (all the old qwen-only civitates rows gain the
+  hand list: fig numbers, view flags, hand-transcribed title_source, found_by union) - exactly what the
+  machinery's hand-list path is for. The 8 original books' counts are unchanged (145/115/197/88/55/18/235/37).
+  Byte-diffed against `git show HEAD:data/books/index.jsonl` (the pitfall's rule), never a working-tree snapshot.
+- `pipeline/books.py validate` -> validation.json: the 9 pre-existing entries unchanged except civitates_
+  liber2 (the figures stats filled from the hand list: 121 listed, 7 site, 111 views, recall 0.429, 4 missed
+  pages); merian_helvete00zeil's entry added. Nothing removed.
+- `fit/evidence.py record` (offline, no --live): 1068 book rows got the evidence field appended (0 hand-tied
+  files rows missing - all 1514 titled files rows already carry it; the 109 no-evidence files rows are
+  title-less sentinels that never reach the plan list). files.jsonl untouched (record rewrites only changed
+  lines; none changed).
+- `fit/evidence.py check` offline on the merged set: rc 0 - 2582 rows, 1385 pass, 0 fail, 1197 no-tie. Of the
+  264 files NONE rows, 0 reach plans.json (every plan-list files row has a real tie). The 933 book NONE rows
+  are mostly US-mound/Swiss-town plates with no catalog site: the expected 200 fail-closed end state (NONE
+  rows are reported, not failed; 200 itself closed with 354 none). Improving tie coverage is 801's job, not
+  211's. All 890 book rows that reach plans.json (full_local exists) carry the field (135 caption_coords,
+  755 none).
+- tests/test_merge.py extended with the box-2 data-level invariants (per the Notes: the test asserts the data
+  result, never a rebuild): (1) every index row and every titled files row carries rec evidence/1, every index
+  row joins to its ia's stage-A triage, ids follow <ia>_nNNNN_k, and `fit/evidence.py check` exits 0 with
+  "0 fail"; (2) a small synthetic sample: record appends the field to an unrecorded row (stored fields keep
+  their values), leaves a recorded row and a title-less sentinel byte-identical, and a second run is a
+  complete no-op. 5/5 pass.
+- Box 2's book set resolves as: the 8 originals + the 2 triaged artist-view books (213/216/217's). 207 is
+  stopped (no books, per the lead note) and 209's Stukeley book has triage+list files but is not a BOOKS entry
+  (209b stages files rows directly), so neither adds index rows. When 207a/207b land, a later re-run of this
+  step picks them up.
+- Re-read item resolved: fit/merge.py:run_target's evidence gate applies to files.jsonl titled rows only
+  (classified rows are not gated; book-index rows are never merge-gated - their evidence comes from record).
+  The reading was confirmed by re-reading the whole module; no change made.
+
+## 2026-10-12 211 DECISION: box 3 - sessions 176-179's build runs (unlogged; reconstructed from data/merge/build_sites.log) and session 180 confirmed the detached run is alive; memory rebuilt
+- Sessions 176-179 did no DECISIONS/hand-over updates (the task file's hand-over stayed at 175; the driver
+  committed their raw work as "uncommitted work after iteration 176/177/178"). Reconstructed from
+  data/merge/build_sites.log (append-only, committed): 176 wrote data/merge/run_build.py (box-3 runner:
+  one build_catalog.py --ids <sid> subprocess per site, then build_site.set_drawings(sid) to refresh the
+  site's markers, all logged); ran it nohup'd.
+- Run 1 (19:55Z, 22 ids: 10 English country houses from the artists wave + 12 NL towns): 15 built ok
+  (EA 1m LiDAR + OS six-inch 1st ed; reimerswaal/sluis/valkenburg via the point-cloud fallback, aerial-only
+  with tmk1850). 7 AHN-sourced NL towns FAILED: load_dem -> `ValueError: <PREDICTOR.FLOATINGPOINT: 3>
+  requires the 'imagecodecs' package` (AHN DEMs are Float32 rasters). Fix: installed imagecodecs 2026.10.10
+  into the project .venv ad hoc (NOT pinned in requirements.in/.txt - those files belong to agent c's
+  in-flight 302a/304; the pin is still outstanding, PITFALLS filed).
+- Run 2 (20:19Z, 26 ids: the 7 AHN retries + 19 FR/LU towns + lille): all 7 AHN built ok on retry (relief
+  clips 0.63-1.2 m, tmk1850 old maps). The French towns built at 2-5 min each (IGN-era national LiDAR,
+  Cassini/état-major old maps). Run 2's last id was a typo, `vieille-hesdin-q1022768` (the extras row's id
+  is `vieil-hesdin-q1022768`): --ids matches row ids exactly, so the typo matched nothing and built
+  nothing; verified no misnamed site was created (no vieille-hesdin in sites.json or data/sites/).
+- Run 3 (21:18Z, 23 ids: beaumont oudenaarde soignies luxembourg-city + the 18 remaining FR/LU towns):
+  beaumont/oudenaarde/soignies built ok (Wallonia 2021-22 LiDAR 10-37 pts/m2, Cassini 1780 maps),
+  luxembourg-city killed mid-build at the session's end (only site.json written).
+- Session 180 (this one): the run-3 process SURVIVED the teardown (ps: run_build.py + its build_catalog
+  child; it resumed on its own - luxembourg-city completed: Luxembourg government 2019 DEM 28.7 pts/m2,
+  Cassini 1780, oldest=1780; aire-sur-la-lys was next). So: 5 of the 20 unbuilt extras sids are built
+  (beaumont-q95100, oudenaarde-q12992, soignies-q462985, luxembourg-city-q1842,
+  aire-sur-la-lys-q259903); 18 remain, all in the live run's queue (avesnes-sur-helpe-q217178
+  bapaume-q317235 bavay-q477176 bethune-q207145 bouchain-q632348 cambrai-q181285
+  conde-sur-l-escaut-q494533 douai-q193826 gravelines-q323399 hesdin-q467366 landrecies-q632808
+  le-cateau-cambresis-q329103 le-quesnoy-q180067 maubeuge-q138648 saint-omer-q208793
+  therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768) at 2-5 min each.
+- Invariants verified on the worktree mid-run: web/data/sites.json = 481 entries = HEAD 478 + {soignies,
+  luxembourg-city, aire-sur-la-lys} (beaumont/oudenaarde were already in HEAD); 0 removed, 0 changed
+  shared entries (object-equality diff) - pure growth, as the box requires. Every new entry carries
+  id/name/lon/lat/corners(4)/size_m/drawings plus the LiDAR credit.
+- This session made no new builds (the live process owns them; a second instance would race it on
+  sites.json): memory rebuild only - 2 PITFALLS entries (imagecodecs/AHN; run_build protocol), this
+  entry, hand-over rewritten with the exact resume/verify plan.
+- 222-228 checked this session: still open (task files Status: open, no fix commits on main) -> the
+  done-claim stays gated on them; boxes 4-6 are unaffected.
+
+## 2026-10-12 211 DECISION: box 4 verified and ticked - the plan-list refresh had already been done by the unlogged sessions (driver snapshot 27a6053); re-running export_plans.py is byte-identical; the re-read resolved as the stable pre-merge matches.jsonl join
+- Session 182. The build run is ALIVE (pid 4098676): cambrai-q181285 finished 21:45Z,
+  conde-sur-l-escaut-q494533 in flight, 11 ids in the queue after it - monitored only,
+  never a duplicate (two writers would race on web/data/sites.json).
+- Discovered box 4 had already been executed in the unlogged sessions 176-179: the
+  driver snapshot 27a6053 contains plans.json refreshed after box 2 (1168 rows = 890
+  book + 278 commons; the 2 new commons rows are shotwick-castle-q7502621 and numancia
+  - the only 2 of the 133 merged picture rows with local copies in data/raw/commons;
+  the 167 newly indexed book rows have no local full pages and are correctly absent)
+  plus the frozen pre-merge key list data/merge/plans_premerge_keys.jsonl (1166 keys,
+  from the pre-merge plans.json at 0fecaeb). Session 180's memory reconstruction missed
+  all of it; this session resolved the re-read and verified the result.
+- Re-read resolved by reading tools/export_plans.py:main: the "sites" column is
+  matches.get(row_id) over the EXISTING data/books/matches.jsonl (890 rows, last
+  written by 813bf9a, pre-merge) - the stable pre-merge join the box demands; the
+  data/catalog/sites.jsonl map (id + qid) is used only to resolve ambiguous-candidate
+  names to ids; commons rows filter through a (site,title)->classified dict and the
+  merged classified rows were checked for shadowing: 0 (site,title) collisions between
+  the 797 pre-merge and the 133 new rows, so dict-later-wins cannot flip a pre-merge
+  row. No `pipeline/books.py match` was run or is needed - re-matching against the
+  grown extras could re-point pre-merge keys, which the box forbids.
+- Verification: `.venv/bin/python tools/export_plans.py` on the current tree produced
+  BYTE-IDENTICAL output (sha256 852089e00006efb30d7d96e68f157fd714e4db778c11a3fe83f12b526aab4add)
+  - the committed file is the tool's stable output on current data, not a stale one.
+  Frozen 1166 keys all present in the current 1168; (id, sites[0]) unique;
+  tests/test_merge.py 6/6 including test_plan_list_refresh_is_pure_growth (written in
+  the unlogged session; asserts the frozen keys survive, uniqueness, the 2 new picture
+  rows, and the 200 evidence join on every picture row). Box 4 ticked.
+- 222-228 re-checked: still OPEN -> the done-claim stays gated on them; the branch's
+  red set is unchanged by this session (no code or data file changed - only the task
+  file, this entry, and the live build's append-only log/snapshot).
+
+## 2026-10-12 211 DECISION: box 3 build phase complete - ran run 3 to its end (ENOSPC killed the runner at therouanne; added --force to run_build.py and resumed the 3 remaining), found and rebuilt the-hague (half-built since run 2's kill in the unlogged sessions); all 114 new sites now complete against the 385-entry pre-build baseline (0 removed, 0 changed)
+- Session 183. Run 3 (23 ids) finished 23/23 by ~22:05Z but the runner DIED at
+  therouanne: its build hit `OSError: [Errno 28] No space left on device` in
+  depict.py's layer save (the shared 48G disk filled - agent c's /tmp/loop-ancient-
+  works.c had grown to 3.5G that evening) and run_build's own log() then raised on
+  write, killing the process mid-line (truncated `=== therouanne-q261399 FAILED ==`;
+  valenciennes/vieil-hesdin never started). build_catalog itself survives per-site
+  exceptions (prints "built 0, skipped 0, failed 1", exits 0) - the death is the
+  runner's log write, and log() has no error handling.
+- Fix (my own file, in Touches): data/merge/run_build.py now accepts --force, forwarded
+  to build_catalog (its ONLY effect is the `sid in built and not a.force` skip guard;
+  a no-op for ids not in sites.json). Critical: without --force a site that is in
+  sites.json but only half-built (entry written by the killed build, maps missing) is
+  skipped FOREVER by every later run. Resumed `nohup .venv/bin/python data/merge/
+  run_build.py --force therouanne-q261399 valenciennes-q163795 vieil-hesdin-q1022768 &`
+  - all ok by 22:16Z (therouanne rebuilt in place: score 1.01, overlays 2, oldest
+  1780). Disk recovered to 2.6-6G during the run.
+- Then found the SECOND orphan: the-hague-q36600 sat half-built (relief+block but no
+  maps/depictions.json, entry score 0/overlays 0) since RUN 2's kill at 20:27Z (unlogged
+  sessions): its build_catalog child was killed mid LiDAR-load, the completion lines
+  were lost, and the later third invocation (20:40Z: utrecht + ostend/mons/saint-
+  ghislain/tournai) never included it; sessions 178-182's monitoring missed it (the
+  entry looks plausible: it has lidar_credit and relief.jpg). Forensic tell: the orphan
+  `marks refreshed: lille-q648` log line is a later session that built lille directly
+  (output never logged) and refreshed its marks via `run_build.py --marks-only`. The
+  previous hand-over's run inventory had missed that third invocation entirely; the
+  true new-site set is the 114 below, not the "20 target sids".
+- Audit (the machinery's own logic, over all 114 new sids): a site is complete iff
+  (a) relief.jpg ⇔ lidar_credit, and (b) a coverable old-map layer (depict.LAYERS:
+  covers(L, lon, lat) and L["year"] <= tm_year - MIN_AGE_YEARS) ⇒ depictions.json
+  exists. Exactly one violator: the-hague (tmk1850 covers it). Rebuilt with --force:
+  ok 22:22Z (score 0.91, overlays 1, oldest 1850, tmk1850 100% coverage). A broad
+  "overlays field vs depictions count" audit is a dead end (340/499 entries differ -
+  pre-existing; the field is not maintained that way); the covers⇒depictions rule is
+  the sound one.
+- FINAL BUILD STATE verified against the true pre-build baseline, commit 406562b
+  ("uncommitted work after iteration 137" - the last commit before 211's first build at
+  19:55Z): 385 entries then, 499 now = 385 + 114 added, 0 removed, 0 changed (all 385
+  object-identical). The 114 = UK houses (11), NL (12), BE (~12), ~38 German Limes
+  forts, FR/LU towns (~40), IT (imola, venice). NOTE: the box's "old 384" is the
+  human's estimate; the measured pre-build count is 385 - the tests are set to the
+  measured value (permitted deviation, listed here; the human's 384 stood for
+  "the pre-merge served set", which is 385).
+- LOG CAVEAT for the next session's test design: build_sites.log (890 lines) has LOST
+  per-site lines for ~65 of the 114 (killed runs; both the old runner format without
+  `ok` lines and lost lines). The data is the source of truth; do not assert per-sid
+  terminal log lines in the test.
+- 222-228 re-checked: still OPEN, no fix commits on main (branch in sync with main tip
+  23ed8b0 / 306b done) -> the done-claim stays gated. Uncommitted at session end:
+  data/merge/run_build.py, data/merge/build_sites.log, web/data/sites.json, 10 new
+  data/sites/ dirs (the harness holds them); tests/test_merge.py and the suite are
+  untouched (last run per iter 182: 10 failed = the source-guard reds, 124 passed, 1
+  skipped).
+- PITFALLS: new entry in the data/merge/ section (ENOSPC kill + --force + audit
+  recipe); the imagecodecs entry stands (the AHN rebuilds today relied on the ad-hoc
+  .venv install; the pin is still outstanding, agent c owns requirements.in/.txt).
+
+## 2026-10-12 211 DECISION: box 3 verified and ticked (the tests were written in the unlogged session and pass 9/9 this session); merged main per the lead's mid-session instruction (7e61147 skips the 1.6 GB .npy/.npz grids in full-tree test copies - the 48G disk was at 1 GB)
+- Session 185. Box 3's tests already existed in the worktree at session start (committed by the
+  driver from the unlogged sessions): data/merge/sites_premerge_baseline.jsonl (the 385 entries
+  served at commit 406562b) plus the three tests in tests/test_merge.py -
+  test_served_sites_grew_purely (frozen baseline: nothing removed, no entry rewritten outside the
+  four marker fields 212 owns), test_new_sites_are_complete (per new site: web/data/sites/<id>/,
+  id/name/lon/lat/corners/size_m/drawings, relief.jpg iff lidar_credit, coverable old-map layer
+  (depict.covers + MIN_AGE) implies depictions.json), test_new_site_golden_samples (the-hague
+  0.91/1850/1/tmk1850, ostend aerial-only no depictions, cambrai 1.01/1780/2). Ran them: all pass
+  (test_merge.py 9/9, 19 s). Ticked box 3. The box's "old 384" stays recorded as the human's
+  estimate; the measured pre-build count is 385 (deviation noted here and in the ticked box's
+  text; per the Notes the tests assert the data-level invariants on the measured values).
+- Re-read resolved clean: data/merge/run_build.py run()/main() - --force is forwarded to
+  build_catalog only (the sole effect there is the `sid in built and not a.force` skip guard, so a
+  half-built site in sites.json can be rebuilt in place); the --marks-only path is untouched by
+  force; the module docstring states exactly this. No change needed.
+- Mid-session lead message: the VM disk was at 1 GB because each full suite run copied the
+  gitignored data/sites/*/dem.npy grids (~1.6 GB) four or more times; main now carries 7e61147
+  (tests/conftest.py + tests/test_fit_queue.py: full-tree copies skip .npy/.npz). The lead asked
+  to sync main before the next suite run. My branch had diverged (driver snapshot commits on
+  agent/a; 7e61147 on main over 23ed8b0) with ZERO file overlap (my diff since the merge base
+  23ed8b0 does not touch conftest.py or test_fit_queue.py), so `git merge main` was clean
+  (a1d224c, no conflicts, no rebase). Suite runs are light again; a "No space left" failure from
+  now on is not the .npy copy (it would be something else - disk still 98% used at merge time).
+- Suite run this session (before the sync; the sync touches only conftest/test_fit_queue, both of
+  which were green in the run): 10 failed / 130 passed / 1 skipped in 247 s. The 10 failures are
+  exactly the source-guard set of the still-OPEN 222-228 (test_src_artists/kip/limes/mackenzie/
+  numancia/van_deventer x2/wiltshire_stukeley x3) - staged rows now joining the canonical files
+  is by design of the live merge (iter 174). test_gate and test_serve are green (10-11's driver
+  notes about them are stale). 130 > 124 passed vs iter 183: main absorbed other tasks' tests in
+  the meantime; nothing new is red.
+- 222-228 re-checked this session: all seven still Status: open (no fix commits on main) -> the
+  done-claim stays gated on them (Depends on: already lists them). Box 5 (docs/sources.md) and
+  box 6 (tests/test_serve.py golden - test_hand_fits_are_the_reference is green; re-read it for
+  the 25/19 coverage and hermeticity, then tick) remain; the hand-over orders them before the
+  claim.
+
+## 2026-10-12 211 DECISION: boxes 5 and 6 done and ticked - docs/sources.md gained section 9 (the per-lead staged/dropped consolidation); the 000 golden test re-read confirmed the 19 reference sites (all 19 with depictions.json in this checkout) and a hermetic conftest; the suite's 10 failures are still exactly 222-228's source-guard set, so the done claim stays gated on them
+- Session 186. All six acceptance boxes are now ticked; Status stays `open` (not done)
+  because 222-228 (the seven source-guard fix tasks, all still `Status: open`) are in
+  Depends on: and their 10 check_staged/join failures are the branch's entire red set.
+  Next session: if 222-228 have landed on main, re-run the suite (expect green; the merge
+  is idempotent - do not re-run fit/merge.py), set Status: done, claim.
+- Box 5: docs/sources.md section 9, "The drawing leads (GOAL point 5): what was staged
+  and what was dropped, per lead". One table row per GOAL.md lead, each sourced from its
+  docs/lead_*.md status section plus the merge log: 204 Van Deventer (56 of 60 stageable
+  town categories staged - 13/16 NL, 21/22 BE, 21/21 FR, 1/1 LU; 4 documented drops:
+  Groningen-province a province map, Leeuwarden a 1975 redrawn model, Middelburg a 1942
+  detail crop, Aarschot dated 1570 outside the c. 1545-1565 window); 205 Kip (12 of the
+  22 verified large-scan views staged - 11 new garden sites + 2 St James's plates; 4
+  review-queue views with their reasons; the 6 hand-tied views never re-staged); 206
+  Mackenzie (the p.212 captionless plan identified as Shotwick Castle, 1 row; its fit doc
+  the first post-gate-registration hand fit); 207 Roman (NONE in this merge - stopped by
+  the owner before staging anything; a later merge re-run picks up the staging when it
+  lands on main; the lead doc noted that 207 has since resumed as 207a/207b/207c); 208
+  Limes (56 named plans from 43 ORL fort numbers, 45 staging items -> 45 new fort sites,
+  from 3 free collections spanning 9 ORL volumes; the per-number drop list); 209 Wiltshire
+  (209a Hoare DROPPED - not on IA, HathiTrust 403s, Google 429s, human refused the download
+  (ask_human 001), dormant fetch leg left in place; 209b Stukeley 5 rows; 209c Petrie's book
+  leg refused (ask_human 002) but its fallback held - the two canonical Pl. I/II rows ARE
+  the Petrie plates, verified not re-staged); 210 Numancia (1 row on the existing site);
+  213 artists (2 new aerial sites - Imola, Venice - plus the triaged Civitates/Merian books
+  whose index rows the box-2 rebuild carries: civitates 11 -> 118, merian 0 -> 60).
+  A "merge itself" paragraph records the measured growth: 381 staging rows (115 site /
+  133 picture / 133 classified), extras.jsonl 78 -> 193, files.jsonl 1490 -> 1623,
+  classified.jsonl 797 -> 930, 0 refused / 0 conflicts, 114 NEW sites (shotwick's row
+  created no site - it was the 385th pre-merge entry), sites.json 385 -> 499,
+  plans.json 1166 -> 1168, books index 901 -> 1068.
+- Box 5 gotchas (cost edits, not sessions): (a) web/data/sites.json is a JSON OBJECT
+  ({"sites": [...]}), not JSONL - json.loads per line fails; (b) the limes lead's exact
+  wording is "56 named plans from 43 ORL fort numbers (45 staging items)" - the 45 is
+  staging items (= the 45 extras rows / 45 sites), the 43 is distinct fort numbers;
+  (c) the Mackenzie schematics (Framlingham/Carisbrooke/Cooling) are pre-merge CANONICAL
+  rows (fitted by hand), not drops - the first draft of the section called them drops and
+  was corrected against the 406562b files.jsonl.
+- Box 6: re-read tests/test_serve.py::test_hand_fits_are_the_reference and conftest fresh.
+  The golden file (tests/golden/hand_fit_sites.txt) lists 19 sites; its header says "20
+  documents" (000's reference count). The store today holds 123 docs (26 book-leaf +
+  97 Commons) - the batch tasks' agent fits joined per GOAL's "fits in data/db/platefits/";
+  the golden file is unchanged. All 19 golden sites have web/data/sites/<sid>/depictions.json
+  in this checkout, so the test's per-site depictions assertion (a plan/view depiction
+  whose fit doc id starts with "<sid>.") runs for all 19 - the os.path.exists guard skips
+  none. Hermeticity verified in conftest.served: --port 0 (ephemeral), session-scoped temp
+  copy of web/+server/+data/ minus data/raw/ and .npy/.npz (the book/media routes 404,
+  nothing fetches; also why the suite is light since 7e61147), server terminated in
+  teardown. The test is green in this session's run.
+- Suite this session: 10 failed / 130 passed / 1 skipped in 234 s. The 10 = exactly the
+  222-228 set (artists 1, kip 1, limes 1, mackenzie 1, numancia 1, van_deventer 2,
+  wiltshire_stukeley 3); test_serve/test_gate/test_merge green. No new failures.
+  GOTCHA: `pytest --timeout=600` fails with an argparse error here - pytest-timeout is
+  not installed in the .venv; run plain `pytest tests/ -q` (a nohup pidfile is the safe
+  way to track the run: pkill -f patterns self-match the launching shell's command line
+  and kill it).
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all Status: open, main moved nothing since the 186 sync) - no re-run, no claim; the imagecodecs open thread becomes task 229 (Depends on: 302a, 304)
+- Session 187. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`, and my branch tip (6ad8570) already contains main's tip (7e61147; only
+  driver bookkeeping commits in between), so since the 186 suite run nothing on main
+  changed and the red set is still exactly the 10 222-228 source-guard failures. Per the
+  hand-over the done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (it would measure the same red set;
+  the driver re-checks the suite at claim time anyway).
+- The session's one step: the open thread (imagecodecs 2026.10.10 in the .venv but not in
+  requirements.in/.txt) is now a durable unit of work - filed tasks/229-imagecodecs-
+  pin.md (Status: open; lowest free number in 200-499; Depends on: 302a, 304 because
+  both own requirements.in/.txt in flight; Touches: requirements.in, requirements.txt,
+  PITFALLS.md). Facts re-verified this session before filing: the .venv has imagecodecs
+  2026.10.10 and NO numba/llvmlite (its only hard dep is the already-pinned numpy, so
+  the pin adds one package); it is absent from requirements.in and requirements.txt
+  (task 800 pinned the old set at iteration 14, before the package entered the story);
+  the usage is the AHN Float32 DEM decode (pipeline/build_site.py:load_dem ->
+  aw.fetch_dem -> dem_sources.fetch/_ahn_native; all seven AHN sites built with it, 0
+  failures); data/raw holds no AHN raw files (WCS responses are decoded in flight, only
+  dem.npy persists), so 229's acceptance proves the decode in a from-scratch venv with a
+  working-phase fetch through the project's own machinery, not a stored-file replay.
+- PITFALLS.md: the pillow/imagecodecs entry's "What to do" line now names task 229
+  instead of the vague "when agent c's in-flight requirements work has landed"; the
+  heading and the rest of the entry stay true until 229 lands.
+- 229 is deliberately NOT on 211's Depends-on list: it does not block the 211 claim
+  (the driver's in-place .venv rebuild keeps the ad-hoc package until 229 lands).
+- Hand-over rewritten: the open thread is closed (it is 229 now); the claim trigger is
+  unchanged - all of 222-228 no longer open -> suite run (expect green) -> Status: done
+  -> claim citing the six boxes, the 381-row merge (0 refused / 0 conflicts), the 114
+  new sites (385 -> 499), the 1,068-row books index, the 19-site golden reference, that
+  the red set of 10 was 222-228's, and the 229 pin.
+
+## 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, local main unmoved at 7e61147) - session's step: fetched the human's GitHub main (origin/main now c063314; fork point with my branch 4ca9e2c, 8 min BEFORE my merge commit 09a9472, so origin holds none of my 211 outputs) and audited the union against all six acceptance boxes - all survive, no conflict blocking, nothing for me to do (merging is the driver's)
+- Session 188. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (committed today 17:43; unchanged since
+  the 187 session, whose hand-over already recorded it; my branch tip 22036f9 contains
+  it). Per the hand-over the done-claim stays gated: no re-run of fit/merge.py
+  (idempotent), no site rebuilds, no box changes, no new full-suite run (the red set is
+  still exactly the 10 222-228 source-guard failures; the driver re-checks the suite at
+  claim time anyway).
+- The session's step. `git fetch origin` (read-only ref update; team rules forbid me
+  from merging) revealed the human's GitHub main moved during the session: the local
+  remote-tracking ref was stale at 984b1b4 (committed yesterday 15:28 - GitHub had not
+  been pushed since before the matchfit/302 era landed). New tip: c063314 (today 13:34,
+  "Merge remote-tracking branch 'vm/main'") = the human's Mac work: map UI (d939bd2
+  plate-style base map, 6fb2b61 aerial-photo base, 76feacb marker clicks, 503c978
+  ?base=), the Stonehenge site_done sync (2e41a6c: sites.json drawings 0->7 + review
+  queue), the Maiden Castle hand-fit copy (cd104ca of 3e7daea), the 301 Argentoratum
+  line (f0d8c0b), [lead] 302 (2eb60f2, the fork point of the STALE ref) and [lead]
+  304/305 (b7a708c), plus the 303 provenance commits and driver bookkeeping from the
+  Mac side.
+- Topology: merge-base(HEAD, origin/main) = 4ca9e2c (today 13:21, "306a: done - 5
+  audit-broken tests re-pointed..."). My live-merge commit 09a9472 is 13:29 - 8 minutes
+  after the fork - so origin contains NONE of my 211 outputs: extras 78 / files 1490 /
+  classified 797 (vs my 193/1623/930), index.jsonl 901 (vs 1068), validation.json
+  pre-box-2, sites.json 385 entries (vs 499), sources.md without section 9, no
+  data/merge/*, no tests/test_merge.py, and no tasks/222-229 (filed 13:29, my side
+  only). Its plans.json is content-identical to mine apart from a trailing newline.
+- Union audit (what the driver's eventual origin -> local main -> my branch merge
+  produces), per file: (1) the three canonical files, index.jsonl, validation.json,
+  plans.json, sources.md, test_merge.py - origin is unchanged from the fork point and
+  my side changed them, so the union takes mine, zero conflict, boxes 1/2/4/5
+  invariants hold. (2) sites.json - BOTH sides differ from the fork point but in
+  disjoint regions: my side only adds the 114 new site entries; the origin side only
+  touches the four marker fields (drawings/score/oldest/overlays = test_merge's MARKERS
+  tuple, the fields 212 owns) on the 385 old entries (the human's fit deletions and
+  the 306a-era audit aftermath, e.g. several sites' drawings 1->0, Stonehenge 0->7).
+  Box 3's test_served_sites_grew_purely explicitly tolerates exactly that, so it
+  survives; a textual three-way merge may still flag the file - the driver resolves it
+  as: keep my 114 entries + accept their marker values on old entries. (3) data/db/
+  platefits - origin made ZERO changes since the fork point, and the golden files
+  (hand_fit_sites.txt, hand_fit_docs.sha256) are byte-identical on both sides, so box
+  6's 000 reference (the 25 hand fits / 19 sites) survives the union. (4) web/data/
+  review.json - origin differs (the human's queue work), my side is unchanged from the
+  fork point, so the union takes origin's; it is not in my Touches (306x / agent c
+  owns it) and none of my tests read it. Conclusion: the incoming origin merge cannot
+  break any of my six boxes nor the driver's claim-time suite check.
+- No Touches-line change and no PITFALLS entry this session: the origin topology is a
+  moving target (it changes with every human push), so the timestamped hand-over/
+  DECISIONS coverage is the right home; a static PITFALLS entry would go stale on the
+  next push. 229 (imagecodecs pin) stays `Status: open`, dependency-gated on 302a/304
+  (both in flight on agent c per this session's prompt) - still NOT a blocker for the
+  211 claim (the driver's in-place .venv rebuild keeps the ad-hoc package until 229
+  lands).
+
+
 <!-- task 213 -->
 # Task 213 artist-views
 
@@ -3367,6 +3790,271 @@ the same convention); the product refreshes the file on its own next time. The n
 verification check ("(label)" in source) false-positives on 3 of the 15 (avaricum, bolsover,
 castle-rising: the label string occurs inside the title itself) - the structural test is
 source.split(", Wikimedia Commons:")[0] == title (PITFALLS).
+
+
+<!-- task 222 -->
+# Task 222 van_deventer-merged-check
+
+## 2026-10-12 222 DECISION: merged-state check fix - a staged row already in the canonical file with identical content passes (211's merge is a no-op); same key, different row, and same-site-only id/QID semantics keep the pre-merge protection - done in one session, pattern set for 223-228
+- Session 192. Human lead: "222-228 are yours, in order, on your branch (the merge lives
+  there); each is the same small fix; reuse the pattern of the first fix; keep each to
+  one or two sessions." This session = 222 (van deventer), complete.
+- The fix (fit/src_van_deventer.py, two commits):
+  - refactor: known_sites() reads module-level constants EXTRAS_CANONICAL / SITES_CATALOG /
+    SITES_WEB (new) alongside the existing FILES_CANONICAL - so a test can point the
+    canonical files at temp copies. Proved behavior-neutral: same red set (2 failed /
+    2 passed, 113 join problems) before and after.
+  - check_staged(): (1) id collision only when the staged id is in
+    known.values() - staged_ids (the merge's own rows map back to the same ids);
+    (2) QID reuse only when known[qid] != staged id; (3) canonical (site, title) clash only
+    when the staged row differs from the canonical row under _canon_norm =
+    json.dumps(row, sort_keys=True, ensure_ascii=False) (the same norm fit/merge.py uses on
+    the line; canonical map built first-row-wins like the merge). Failure message text kept
+    verbatim. The six done towns' TOWNS-table check untouched.
+  - test: test_table_and_staged_rows' disjointness assertion became the same-site-only loop
+    (if qid in known: known[qid] == staged id). New test_check_staged_three_states,
+    hermetic: monkeypatched canonical paths to temp copies built from the live files minus
+    this module's staged rows (works pre- or post-merge on any checkout); state (a) absent
+    -> rc 0 / no join / evidence 56 pass; (b) staged rows appended verbatim + web sites.json
+    {id,qid} entries -> rc 0 (the 113 self-triggers gone); (c) one row's year altered in the
+    temp canonical -> rc 1, join lines exactly the one clash naming that key.
+- Verification: live `fit/src_van_deventer.py --check` on this merged branch: rc 0, 0 join,
+  evidence 56/56 (previously rc 1, 113 join). Live negative control (temp canonical with
+  Aardenburg's row altered): rc 1, exactly that clash. vd test file 5/5 green. Full suite:
+  8 failed / 133 passed / 1 skipped vs loop start 10 failed / 130 passed / 1 skipped - the
+  8 remaining are exactly the 223-228 sibling guard tests (artists 1, kip 1, limes 1,
+  mackenzie 1, numancia 1, stukeley 3 incl. a stage()-leg SystemExit - inspect 227's stage
+  before copying the pattern). Zero new reds.
+- Minor failure (not a blocker): two successive edit-tool writes mangled the bracket count of
+  the new assert's f-string (SyntaxError each time); fixed line-by-line with a python
+  rewrite and verified with ast.parse. When editing these guard blocks, parse-check after
+  each edit.
+- Next: 223 kip (tasks/223-kip-merged-check.md), same pattern (its known_sites/check_staged
+  shape may differ - read the module first; kip's check is called check_staged per its test).
+  Note mackenzie's guard is named `check` (not check_staged) and stukeley's failure set
+  includes its stage leg.
+
+
+<!-- task 223 -->
+# Task 223 kip-merged-check
+
+## 2026-10-12 223 DECISION: Kip guards accept their own 211-merged rows (identical under the merge's identity) as no-ops; a same-key different row still fails loud; the six hand-tied (site, title) keys are refused outright in stage()
+- Session 193, first session on 223. Followed the 222 pattern (its hand-over documents it; the
+  three-state test here is 222's test plus the stage() leg 222 did not need).
+- Module (fit/src_kip.py, one commit): new `_canon_norm` (the 211 merge's row identity, the same
+  `json.dumps(..., sort_keys=True, ensure_ascii=False)` norm fit/merge.py uses). `stage()`: guard
+  order is now (1) the six hand-tied keys - derived from the canonical file's `by ==
+  "pipeline/sources.py kip"` rows, refused outright whatever the row shape (the airtight
+  protection the task asked for) - (2) a canonical-held key is a no-op `continue` only when the
+  module's own staged row (files_kip, via `staged_norm`) is identical to the first-row-wins
+  canonical row, else SystemExit - (3) the `have` check. The no-op compares stored rows against
+  each other, never a freshly built row: a re-run would rebuild `evidence.checked` to today's
+  date, which would make an identical merge row look different. `check_staged()`: staged
+  id/QID problems only when a DIFFERENT site holds the key (the module's own rows merged by 211
+  are a no-op, not a collision); the canonical map is first-row-wins `_canon_norm` with the
+  original failure message; the kip_six title check and every other join rule untouched.
+- Tests (tests/test_src_kip.py, same commit): `test_check_staged_three_states` (a pre-merge: rc 0,
+  no join, evidence 12/12; b merged-identical: rc 0, no join, evidence 12/12; c same key held by a
+  hand-tied-shape row: rc 1, exactly the 2 join lines - the key clash and the hand-tied re-stage)
+  and `test_stage_offline_three_states` (a/b no-op "staged: 0 new sites, 0 new pictures"; c
+  SystemExit naming the hand-tied view; d SystemExit for a different non-hand-tied row). Helpers
+  `_merge_states` (points the module's canonical path constants at temp copies built from the real
+  files minus/plus this module's own rows - holds whether or not 211's live merge ran on the
+  checkout) and `_fake_commons` (serves `c.info` from the stored FILES_KIP rows; `year_of`/`keep`
+  delegate to the real pure pipeline/commons functions) are reusable verbatim for 224-228.
+- No separate refactor commit: src_kip's canonical paths (SITES_JSONL/EXTRAS/FILES_CANONICAL/
+  WEB_SITES) were already module-level constants, unlike van_deventer.
+- Verification: on this branch (211's merge HAS run: all 12 kip rows in the canonical files
+  byte-identical, the 11 sites in extras.jsonl and web/data/sites.json, no QID/id collisions with
+  non-kip rows) live `fit/src_kip.py --check` rc 0 (was red: the 12 canonical clashes + 8 QID +
+  1 site-id self-trigger); test_src_kip.py 11/11 (was 1 red, 8 green); full suite 8->7 failed /
+  133->136 passed / 1 skipped - the 7 remaining are exactly the 224-228 sibling set (artists,
+  limes, mackenzie, numancia, stukeley x3), each owned by its own queued task; zero new reds.
+- Files changed: fit/src_kip.py, tests/test_src_kip.py (per the task's Touches line). No new
+  PITFALLS entry (the pattern and its gotchas are recorded in 222's entry and both hand-overs).
+
+
+<!-- task 224 -->
+# Task 224 mackenzie-merged-check
+
+## 2026-10-12 224 DECISION: mackenzie's check/stage guards accept their own 211-merged rows (identical under the merge's norm) as no-ops; a same-key different row still fails loud - fix + three-state hermetic tests (the 222/223 pattern); live --check now rc 0 on the merged tree
+
+- The checkout is in the 211 POST-MERGE state: main (synced into agent/a at a89e54b) already carries 211's live-merge commit 09a9472 - the staged mackenzie rows sit in data/commons/files.jsonl, classified.jsonl and data/catalog/extras.jsonl, all identical to the staging rows under the merge's norm (verified programmatically; the merge log records all three "merged"). Before the fix: live `fit/src_mackenzie.py --check` was rc 1 with exactly the two self-triggered problems ("staged title already in the canonical files.jsonl", "the merge would double it"), and test_staged_row_and_join was red on its two raw-non-membership assertions.
+- Fix (fit/src_mackenzie.py only): `_canon_norm()` (the same identity rule as fit/merge.py's norm(): json.dumps sort_keys, ensure_ascii=False - content matters, key order/escaping don't). `check()` builds first-row-wins key->norm maps for the canonical files/extras and fires its two original problem messages only when a staged row DIFFERS from its canonical twin; an identical twin is the already-merged no-op. `stage()` split the old combined SystemExit: a site in its OWN staging extras file still SystemExits ("no second row"); a site in the canonical extras is the no-op "already merged by 211" when `_canon_norm(_extras_row())` equals the canonical row, else SystemExit "a different row - no second row". Module top stays stdlib-only (system python3 still imports it).
+- Tests (tests/test_src_mackenzie.py only): added `_merge_states`/`_fake_commons` (kip's 223 helpers adapted to the single-row shape: temp canonical copies via the module's path constants, Commons metadata served from the stored staged row) + `test_check_three_states` (a: pre-merge rc 0, no join, evidence PASS / b: merged-identical rc 0, no join / c: same (site,title) key held by a different files row -> rc 1, exactly that one join line / d: same site id held by a different extras row -> rc 1, exactly that one join line) and `test_stage_three_states` (a/b: staging files present -> "already staged (idempotent, no-op)", nothing written / c: staging emptied + merged-identical canonical (a fresh re-stage onto a merged tree) -> "already merged by 211" no-op, no second row lands / d: staging emptied + different extras row -> SystemExit naming the site and "different row - no second row", nothing lands). test_staged_row_and_join lost ONLY its two state-dependent raw-canonical non-membership assertions (they encoded the pre-merge state that no longer holds on this tree); every other test in the file is byte-unchanged.
+- Verified: 6/6 mackenzie tests pass (offline, hermetic temp copies only); LIVE on this merged checkout `--check` rc 0 with no join problems and `--dry` an idempotent no-op. Full suite: 139 passed, 1 skipped, 6 failed - exactly the 225-228 sibling set (artists/limes/numancia join tests, wiltshire_stukeley stage/check/book-rows); proven PRE-EXISTING by temporarily restoring the HEAD versions of my two files and re-running those six (all fail identically without my change) - they are the same 211 self-triggered guards that their own open tasks fix (their modules/tests, not mine). Box 4 ticked on the driver's own criterion for own tasks ("no test failing that was not already failing before") - the same condition under which 222/223 were accepted (their notes: "suite 10->8 red (exactly the 223-228 sibling set)", "suite 8->7 red (exactly the 224-228 sibling set)"). The PITFALLS entry "After 211's live merge, every source module's... guard self-triggers" is kept current (222/223/224 fixed, 225-228 remain).
+
+
+<!-- task 225 -->
+# Task 225 limes-merged-check
+
+## 2026-10-12 225 DECISION: limes check_staged accepts its own 211-merged rows (identical under the merge norm) as no-ops; a same-key different row and a DIFFERENT-site id/QID holder still fail loud - live --check rc 0 on the merged tree, 6/6 limes tests, suite reds shrink to exactly the 226-228 siblings (proven pre-existing)
+- Session 195. Ported the 222/223 sibling pattern to fit/src_limes.py, the
+  fourth of the seven 222-228 guards; 222/223/224 were done in earlier
+  sessions of this same branch, so their code was read straight off the
+  branch (van_deventer = closest structural sibling to limes: staged
+  sites/files/classified + known set from SITES_JSONL + EXTRAS, no web
+  check; kip = stage()-side variant, not needed here).
+- Guard change (fit/src_limes.py check_staged, was L1131-1189):
+  (1) id-collision check now `staged_ids & (known_ids - staged_ids)` and
+  QID check now `known_qids[s["qid"]] != s["id"]` - after 211's live merge
+  the module's own 45 staged sites sit in canonical extras.jsonl and were
+  self-triggering both checks; the different-site fail-loud protection is
+  unchanged. (2) canonical files.jsonl loads into a first-row-wins dict of
+  `_canon_norm` (new helper: `json.dumps(r, sort_keys=True,
+  ensure_ascii=False)`, the same identity fit/merge.py's norm() uses on a
+  line) instead of a set of keys - a staged row already in canonical is OK
+  iff its norm equals the canonical row's norm (211's merge is
+  byte-identical, first-row-wins), a same-key different row still fires
+  `join: staged title already in the canonical files.jsonl: (site, title)`.
+  Everything else (forts-table join, row completeness, classified 1:1,
+  evidence pass) untouched; docstring updated in the sibling wording.
+  limes' stage() needed no change: it is offline by construction (no
+  network, no canonical read) and idempotent on its own staging files,
+  unlike kip/mackenzie whose stage() reads canonical.
+- Test change (tests/test_src_limes.py): added
+  test_check_staged_three_states, hermetic per the task (temp copies of
+  files.jsonl / extras.jsonl / sites.jsonl, monkeypatched onto
+  FILES_CANONICAL / EXTRAS / SITES_JSONL; no web constant in limes so no
+  web pre/staged handling, and no _fake_commons - nothing in the check or
+  stage path makes a network call): (a) staged rows removed from the temp
+  canonical files (pre-merge on ANY checkout, so the test holds whether or
+  not 211's live merge ran here) - rc 0, no join, 56/56 evidence PASS;
+  (b) staged rows present with identical content - rc 0, no join;
+  (c) victim row with year+1 - rc 1 with exactly that one join line.
+  test_check_staged_files_join_and_pass kept, docstring updated; it passes
+  on both real-tree states after the fix.
+- Verification: before the change, live `fit/src_limes.py --check` was rc 1
+  with 100 self-triggered join problems (1 id-collision line naming all 45
+  staged ids, 43 QID re-uses, 56 title collisions) and
+  test_check_staged_files_join_and_pass red (evidence 56/56 PASS was
+  already fine). After: live --check rc 0, 0 join lines, evidence 56/56
+  PASS; test_src_limes.py 6/6. Pre-change baseline full suite: 6 failed
+  (limes + 226 numancia + 227 stukeley x3 + 228 artists), 139 passed;
+  post-change: 141 passed, 1 skipped, 5 failed = exactly the 226-228
+  siblings, all proven pre-existing by the baseline. 211's gate (it depends
+  on all seven) is still open on 226/227/228; the limes share of it is
+  done.
+- Files written this session: fit/src_limes.py, tests/test_src_limes.py,
+  tasks/225-limes-merged-check.md (boxes ticked, Hand-over), DECISIONS.md
+  (this entry). No new PITFALLS entry (the pattern and its pitfalls are
+  already captured by the 222/223 sibling entries and task Notes).
+
+
+<!-- task 226 -->
+# Task 226 numancia-merged-check
+
+## 2026-10-12 226 DECISION: check_staged accepts its own 211-merged row (identical under the merge norm) as a no-op; same-key different row still fails loud - the 1 self-triggered join problem on the merged tree is gone
+- Iteration 196, agent a. Followed the 222/223/224/225 sibling pattern exactly (no prep-refactor
+  commit needed: unlike 222, numancia's canonical path constants were already module-level -
+  FILES_CANONICAL/EXTRAS_CANONICAL/SITES_WEB - so the test monkeypatches them as-is). Added
+  `_canon_norm(r)` before check_staged(); replaced the set-based clash guard
+  (`seen & canonical` -> one problem listing sorted keys) with a first-row-wins canonical norm
+  dict + per-row compare `canonical[k] != _canon_norm(r)` -> "join: staged title already in the
+  canonical files.jsonl: {k}" (one key per problem, the sibling wording); the duplicate-row check
+  folded into the same loop. Docstring/usage wording updated; no data file touched.
+- tests/test_src_numancia.py: added test_check_staged_three_states (limes pattern, adapted: no
+  staged extras, so only FILES_CANONICAL is pointed at constructed temp copies; (a) canonical
+  minus the key -> 0; (b) minus the key + the staged line verbatim -> 0; (c) the key with
+  year+1 -> 1 with exactly one join line naming the key). test_check_staged_files_join_and_pass
+  assertions unchanged (docstring only).
+- Verified: 5/5 numancia tests (its one red, test_check_staged_files_join_and_pass, fixed); live
+  `--check` on the real merged canonical (files.jsonl line 1562) went rc 1 -> rc 0; full suite
+  (nohup, 252 s) 5 -> 4 red: 227 stukeley x3 (test_stage_offline, test_check_staged_offline,
+  test_book_rows_staged_in_files_b) + 228 artists x1 (test_check_staged_files_join_and_pass), both
+  still open and proven pre-existing (this diff touches only the two numancia files). Box 4
+  checked per the 225 precedent (suite reds exactly the remaining unfixed siblings).
+
+
+<!-- task 227 -->
+# Task 227 stukeley-merged-check
+
+## 2026-10-12 227 DECISION: Stukeley check/stage three-state guard (identical-twin no-op under the 211 merge norm, same-key-different-row still fails loud) - both stage legs and the join, hermetic three-state test following the 222-226 pattern
+- The fix mirrors 223 (kip) and 226 (numancia), adapted to Stukeley's two-legged stage():
+  `_canon_norm(r)` (json.dumps sort_keys/ensure_ascii=False - the same norm fit/merge.py uses)
+  was added; `_stage_commons`, `stage_book` and `check_staged` now build a first-row-wins
+  `(site, title) -> norm` map plus a title set from the canonical files.jsonl. A key the
+  canonical file holds is a no-op only when the module's OWN staged row (read from
+  files_wiltshire_b.jsonl - deliberately not the freshly-built row, whose evidence.checked is
+  the run date and would break byte-identity the next day) is identical to the canonical row;
+  a same-key different row still SystemExits (stage) / is a join problem (check); the
+  original title-only clash (a title held by a different site - the two Petrie 1880 files)
+  stays as the fallback. Guard order is unchanged in both legs (canonical first in
+  _stage_commons so the clash test's "fires before any meta use" holds; stage-A
+  reclassification first in stage_book).
+- Tests: new `_merge_states` helper (temp copy of the canonical file; pre-merge state =
+  canonical minus the module's own (site, title) keys; staged lines byte-identical to the
+  merge's append) + `test_check_staged_three_states` (a/b/c) and
+  `test_stage_offline_three_states` (a/b/c/d - the d case covers the BOOK leg: the Commons
+  leg no-ops and stage_book refuses; both legs write nothing on refusal). The three
+  previously-red tests now point FILES_CANONICAL at the pre-merge temp state, so the file
+  holds whether or not 211's live merge ran on the checkout.
+- WRINKLE (local to this test file, commented in it): `_merge_states` must read the staged
+  rows from a module-level snapshot (`FILES_B_REAL = src.FILES_B` at import) because
+  test_stage_offline monkeypatches src.FILES_B at a temp write target BEFORE the helper runs;
+  reading the (monkeypatched) attribute gave an empty staged set and the first state looked
+  like "different row holds the key". Symptom: SystemExit "a different row holds the key -
+  refused" from test_stage_offline with an empty FILES_B.
+- Also hit one self-inflicted syntax break while editing: the stage_book docstring lost a
+  quote in one edit batch ("...are local files." instead of '"""'), which swallowed the
+  following stage() docstring (SyntaxError "unterminated string literal" reported at the
+  NEXT docstring's line, not the broken one). py_compile before pytest catches this in
+  seconds - do that first when a docstring edit makes tests fail at collection.
+- Verified on this (merged) checkout: 10/10 module tests; live --check rc 0 (5 rows, 5
+  pass, 0 join problems - was 5 self-triggered) and --dry a clean no-op (was SystemExit on
+  the Houghton title). Full suite: 148 passed / 1 skipped / 1 failed - the single failure is
+  tests/test_src_artists.py (the 228 sibling; the 226 session's run proved the 227+228 set
+  pre-existing, so no test that passed before now fails). Pre-merge main is unaffected: the
+  hermetic states are constructed, and with the canonical file holding no Stukeley row every
+  assertion passes exactly as before. Task set to done; 211's box 1 gate now has only 228
+  left in the 222-228 set.
+
+
+<!-- task 228 -->
+# Task 228 artists-merged-check
+
+## 2026-10-12 228 DECISION: check_staged's guards accept the module's own 211-merged rows as no-ops (identical under the merge's norm); the id guard is per-site (stricter than the siblings' set-difference) so "a staged id held by a DIFFERENT site" still fails loud; three-state hermetic test - 228 done, 211's 222-228 gate now fully cleared
+- Session 198. First session on 228 (filed on 211's branch in iteration 174; queued behind
+  207a/207b/221, so the siblings 222-227 all merged first - last was a974b86, 227). On this
+  checkout (agent a's branch) 211's live merge has already run: extras.jsonl/files.jsonl/
+  classified.jsonl carry the staged imola/venice rows and web/data/sites.json has the two built
+  sites - so test_check_staged_files_join_and_pass was red here with exactly the five
+  self-triggered join problems (the red set 227's hand-over predicted).
+- The fix (fit/src_artists.py, check_staged only; stage() needed no change - already a no-op on
+  the merged tree via its have/staged_ids checks):
+  (1) title-key guard: canonical files.jsonl read first-row-wins into key -> _canon_norm(row)
+  (new helper; the same identity rule as fit/merge.py's norm: json.dumps sort_keys,
+  ensure_ascii=False); a staged row whose key is in the canonical passes only when the norms are
+  equal ("already merged by 211"), and still fails when the key is held by a DIFFERENT row;
+  (2) QID guard: fires only when known[qid] != the staged site's own id (self-reference via the
+  merged row, or the same site via the catalog, is a no-op; a different site holding the QID
+  still fails);
+  (3) id guard: per-site - a staged site's id is a problem when a known site holding that id has
+  a different QID. Deliberate deviation from the 222-227 set-difference pattern
+  (staged_ids & (known.values() - staged_ids)): that form CANNOT report "a staged id held by a
+  different site" (the id is in staged_ids, so the subtraction removes it) - 228's acceptance
+  box 2 requires it reported, and the test's (c3) pins it (same id, Q773853 - the LA
+  neighborhood QID from the module's own docstring). Message formats unchanged from the
+  originals; QID guard and canonical-identity rule follow the siblings exactly.
+- The test: test_check_staged_three_states (the 225/227 pattern): monkeypatches the module's
+  SITES_JSONL/EXTRAS/WEB_SITES/FILES_CANONICAL constants at temp copies of the real files with
+  this module's own rows stripped (the hermetic pre-merge state on ANY checkout - the test does
+  not depend on 211's live merge having run here); (a) pre-merge -> rc 0, no join problems,
+  evidence 2/2 pass; (b) identical merged rows -> rc 0, no join problems; (c1) same
+  (site, title) key held by a different row / (c2) staged QID held by a different site /
+  (c3) staged id held by a different site -> each rc 1 with exactly one named join line.
+  No network (autouse socket-blocker), no ports, writes only to the test tmp dir.
+- Verified: 5/5 test_src_artists.py (the four pre-existing tests unchanged, passing on this
+  checkout's merged tree and hermetically pre-merge); live fit/src_artists.py --check rc 0 with
+  zero join lines on this checkout's merged tree; full suite 150 passed / 1 skipped - no reds
+  left on this branch.
+- Consequence: 228 was the last of the seven 222-228 gate tasks of 211 - all seven are done.
+  211's next session: re-run fit/merge.py merge (expect a no-op run, byte-identical log),
+  re-verify the 222-228 test files green on the real merged files, then claim done.
+- Files written: fit/src_artists.py, tests/test_src_artists.py, tasks/228-artists-merged-check.md
+  (Status: done, all four boxes ticked, Hand-over), DECISIONS.md (this entry), PITFALLS.md
+  (one new entry under fit/: the source-module --check self-trigger trap and the guard/test
+  pattern the new source modules must adopt).
 
 
 <!-- task 300 -->
@@ -4327,6 +5015,312 @@ points, save, on the map), citing the four screenshots. (4) Ticked all four boxe
 done. Also killed the stray read-only server (pid 1189532) left on 127.0.0.1:40035 by
 iteration 104. No new failures, no new pitfalls (iteration 104's four probe bugs are already
 logged in PITFALLS and above).
+
+
+<!-- task 306a -->
+# Task 306a agent-fits-on-map
+
+## 2026-10-12 306a DECISION: audit driver built and the full 45-shot run launched in the background; four docs judged (all stays); parent split completed (306d/306e/306f created, 306c count fixed to 16)
+- tools/audit_306a.mjs: one `server/serve.py --port 0` for the whole run; per shot the page is driven
+  the visitor's way (select -> S.depSel = the doc's depiction file -> setGround -> applyDep) and shot.mjs
+  screenshots at 1440x900. The [eval] line confirms the active depiction; the [audit] line prints the
+  stored fit stats from depictions.json. Run: `node tools/audit_306a.mjs [site ...]` from the project
+  root; re-run is idempotent. Background run: `nohup node tools/audit_306a.mjs > /tmp/audit_306a.log
+  2>&1 &` (16/45 at context-limit, all written, no pageerrors).
+- FAILED (twice, same root causes, both fixed): (1) shot.mjs's `page.evaluate(js)` with `js =
+  'async () => {...}'` returned undefined - Playwright 1.63 treats the string as an expression and does
+  NOT auto-invoke a function string; fix: wrap as an IIFE `(async () => {...})()` (verified with a
+  throwaway probe page). (2) `window.S` is undefined in page context - S is a top-level const (page-wide
+  lexical environment, not globalThis); fix: bare `S` with a typeof guard. Both are now PITFALLS
+  candidates (filed in the 306a hand-over; the context-limit message barred editing PITFALLS.md).
+- Judged (aerials): aldenhaag 1832 kadaster detail, alligator-effigy-mound 1891 map, avaricum Caesar
+  (Allen & Greenough) map, barnard-castle 1843 tithe map - all four are georeferenced sheets
+  (identity or near-identity fits, gate <= 0.1 m) whose ink sits on the real ground (village/terp,
+  mound park, Cher town centre, Alnmouth streets+river). All STAY. The interesting cases are the rest
+  (true similarity fits): bethlehem x12 (up to 25.7 m resid, rot 4.7), shotwick (14-19 m), binche,
+  bolsover, burlington, forthill, newark.
+- The parent's split counts were off: UK part 2 (o-y) is 17 docs, not 15 (old-sarum/pontefract/
+  portus-adurni/york-castle carry two each), and the US orphan set is 16 (marietta.b24849959_n0195_1 -
+  a US site, already in 306c's list but not its 15 header). Created 306d (UK a-l, 18), 306e (UK o-y,
+  17), 306f (continental, 17); corrected 306c to 16. Total 23+21+16+18+17+17 = 112 = all non-hand docs.
+- False alarm I nearly logged: fort-ancient-q5470727 looked missing from web/data/sites.json, which
+  would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
+  without the qid). The test passes; all 133 store docs' sites are in sites.json.
+
+## 2026-10-12 306a DECISION: shotwick removed (2x too big, proven from the plate + NHLE listing); rebuild via upsert_item + doc delete + plan_fit.prune + review.export instead of tools/site_done.py because the matcher is reachable and its fit phase would place a NEW unaudited fit
+- Verdict: WRONG SIZE. The 1897 plate's moated ring fills the whole 839x840 plate (ink bbox 822 x 822
+  px measured with PIL) and the fitted 0.2289 m/px maps it to 188 m x 188 m on the ground; the real
+  earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch,
+  38 m bailey - the NHLE 1016616 listing description, read through web.archive.org because
+  historicengland and heritagegateway both 403 from this VM). The 4 turret anchors' 2-19 m residuals
+  are the ~2x scale mismatch the fit_gate cannot reject at n=3-6 (the documented blind spot). The
+  aerial (even zoomed to the page's cap of 18) shows only lawn where the ring sits: the earthworks
+  are buried, so the size proof is document + listing, not the picture.
+- Removal mechanics (all the product's own calls): review.upsert_item('.', sid, [entry]) with the
+  reason in `why` (entry: plan/title/url/pairs - same shape as site_done._pattern_entry; the item's
+  lead stayed earthworkenglan01allcgoog_n0575_1, so the file did not move), delete the doc,
+  plan_fit.prune('.', sid) (drops the overlay + webp, refreshes drawings via build_site.set_drawings),
+  review.export('.', site_id=sid) (page re-published, item open).
+- FAILED (a design trap, not an approach failure): running `tools/site_done.py
+  shotwick-castle-q7502621` as the task text suggested would have re-fired the FIT phase -
+  matchfit.reachable() is True (127.0.0.1 matcher health probe answers) and the earthwork row has
+  no doc, so the matcher would have placed a NEW agent fit on the map during an audit session -
+  exactly what 306 ("none reaches the map unseen") is there to prevent. site_done only prunes when
+  its own sync sends a pattern doc, so even the deletion would not have been covered by it. The
+  4-call sequence above produces the identical outcome (overlay gone, count refreshed, item
+  re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
+  dropped.
+
+## 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - its 7 SoP sheets are a toponymic collision and its 2 basilica plans are building interiors fitted as ground maps, pending confirmation
+- First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
+  Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
+  hamlets. So the 3 Maestricht-1748 details (c_a164, c_a42a, c_d624) look like LOCAL maps of the
+  right place (c_a164 aligned on the polder: Severen hamlet, village centre, field boundaries),
+  while 9 of the 12 are not: the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground
+  sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away (near-zero residuals measure
+  only the local pattern match - sheet grid vs polder grid - the wrong-PLACE class of the shotwick
+  size error), and the 2 basilica plans (c_67ed Sandys 1615 "Plan of the Basilica of the Nativity",
+  c_7ee7 "(1881) PLAN SOUTERRAINS DE LA BASILIQUE") are BUILDING INTERIOR plans (one rotated
+  -18.4 deg) fitted as if they were ground maps - a third failure class (wrong KIND) that applies
+  regardless of which Bethlehem the site is. Session cut at the context limit before confirming
+  Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
+  Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
+  line is written in site_flow.md until this is settled; no bethlehem doc touched.
+
+## 2026-10-12 306a DECISION: session 4 - TASK DONE: 5 audit-broken tests re-pointed, golden re-baselined, suite green 128/1/0; all four boxes ticked, Status: done
+- The session-3 bethlehem audit (9 removals, 3 stays, 12 lines, count refreshes, review.json
+  re-export) was already committed by the driver as 406562b; the working tree was clean at loop
+  start, so this session was exactly the session-3 hand-over's planned step (2): the 5 tests
+  broken by the removals (3 mackenzie readers of the deleted shotwick store doc + 2 provenance-e
+  source-line cases on deleted docs).
+- Deviations from the hand-over's design, both verified by running code: (1) the yeared-title
+  re-point to bethlehem c_a164ee440558d66c cannot assert src.count("1748") == 1 - the file URL
+  (Plan_de_Maestricht_et_environs_1748,...) contains the year too; the guard is
+  `" (c. 1748)" not in src` (same shape as the original `"(1897) (1897)" not in src`: the rule
+  drops the label's parenthesis, never the title's or URL's year). (2) the undated re-point went
+  to durocortorum c_08d995eb23a685c2 (first of the hand-over's 4 candidates; 4 pairs, score 0.0),
+  not a watson-brake doc: the watson-brake pair is 306b's review-group set (parent inventory B),
+  so an orphan is the more stable pin. Both pinned strings were obtained by running the test's
+  own _build_source before writing the assertions.
+- src_mackenzie.doc_record() (store file, else the review item's candidate record; stdlib-only)
+  now backs --gate/--check/--golden and the three test readers; the item record carries every
+  doc field plus why = the audit reason. Golden re-baselined via the module's own --golden:
+  golden["doc"] = the item record (diff: +why only; at normalizes to the same 0000-00-00 as the
+  store doc's did). Lost pin, noted in the task hand-over: shotwick's doc was the only by:agent
+  non-auto doc in the store, i.e. the only pin of source_line's plain-agent how-clause
+  ("Fitted automatically on N matching points", no gate score); none survives, and re-pinning it
+  would need a synthetic doc (a unit test, against the project's rules) - left to a future agent
+  fit landing in the store.
+- web/data/fit_queue.json still lists the removed bethlehem SoP docs among the bethlehem
+  entry's candidates: verified that is CORRECT, not dangling - the queue is derived
+  (tools/fit_queue.py: plans.json rows + review-item candidates), and the items now hold those
+  candidates with their audit why. Not touched (not on my Touches line; agent a's 307 owns the
+  fit tool/queue rework).
+- Full suite after the fixes: 128 passed, 1 skipped, 0 failed (.venv, --ignore=tests/test_gate.py;
+  test_gate stays the pre-existing driver-baseline red). 306a done: 13 of 23 docs stay (10
+  non-bethlehem + the 3 local 1748 plans), 10 removed (shotwick + 9 bethlehem: 7 SoP of Judaea +
+  2 basilica interiors). 306b-f append their lines below the bethlehem block in the site_flow.md
+  section.
+
+
+<!-- task 306b -->
+# Task 306b agent-fits-in-review
+
+## 2026-10-12 306b DECISION: audit the 21 review-queue docs with a fit-tool headless driver (built, half-validated; full run pending)
+- First session on 306b. The 21 docs (10 sites, all with relief.jpg -> 42 shots) were verified present in the
+  store and in their site's review item (each item's candidate holds the machine's own pairs with a rejection
+  `why`; only castle-neroche n0110_1's item pairs match the doc's). Built tools/audit_306b.mjs on 306a's
+  pattern: per doc, select -> setGround -> startFit -> openPlan(rvResolveRow) -> push the DOC's 8 pairs ->
+  refit, shot over imagery and relief, one `server/serve.py --port 0`, idempotent, doc-id args.
+- Two page-behavior traps hit in the argentoratum test shot and fixed IN THE DRIVER (web/*.js is agent a's
+  307 territory, not mine to edit): (1) `select()` -> `ensureSite()` bails when `!S.ready`, so the per-site
+  relief.jpg layer can be missing (relief shot shows the aerial; live /tiles/relief is off on this machine) -
+  wait for S.ready, re-arm ensureSite after setGround; (2) openPlan's trailing easeTo keeps the CURRENT zoom,
+  so if select()'s flyTo is mid-flight the shot lands at country zoom (observed 6.38) - poll for the target
+  zoom before startFit and re-issue the easeTo with the explicit target zoom after refit.
+- The earlier "commons images missing" scare was a wrong path guess: the plan id is `c_<sha1[:16]>` but the
+  raw file is `<sha1[:16]>.jpg` (no prefix) and serve.py strips the `media/` segment - all 19 Commons images
+  and both IA pages serve fine (verified by path, sizes, and a 200 from the live server).
+- Suite not re-run this session (no test-affecting change yet); baseline at 306a's done commit: 128 passed,
+  1 skipped, test_gate pre-existing red. NEXT: one-doc re-check with the fixes, then the background full run,
+  then judging (21 lines appended under the 306 section of docs/site_flow.md) and 303-way removals of any
+  wrong fits (site-scoped `review.export('.', sid)`, never tools/site_done.py on a matcher-reachable site).
+
+## 2026-10-12 306b DECISION: one-doc re-check passed with both race fixes; full 42-shot run launched in the background (pid 3719656, log /tmp/audit_306b.log)
+- Second session on 306b. Re-shot the argentoratum c_191c6221a81caad0 couple with the fixed driver and
+  verified both page-behavior fixes actually work: imagery shot `relLayer: none`, relief shot
+  `relLayer: visible`, zoom 14.97/14.99 (site-scale, not the pre-fix country zoom 6.38), `img: true`,
+  `layer: true`, `n: 8`, fithint normal, fit resid 0.0-0.1 m / mpx 2.17 / rot -32.3. Visual check of both
+  pngs: town at site scale with the 1833 Villot plate fitted, anchor dots 1-8 on the plate and on the map,
+  etatmajor red ink (85 %) above the aerial (imagery) and above grey hillshade + the Ill river (relief) -
+  the faithful visitor view. The earlier hand-over's zoom estimate (~13.8) was off; the driver's own
+  target formula gives ~14.97 for argentoratum's size_m and that is the correct site-scale view.
+- The full run is now in the background (nohup, one `server/serve.py --port 0`, server on 44225 at launch;
+  21 docs, 42 shots, 40 to write, skips the 2 existing pngs; est. 15-20 min at ~22 s/shot). Next session:
+  tail /tmp/audit_306b.log for FAILURES/MISSING (or just re-run the driver - it is idempotent), then judge
+  the 42 shots and append the 21 lines to the end of docs/site_flow.md's task-306 section (which is the
+  file's last section; 306a's last line is bethlehem fc4566d6947287f4).
+- No test-affecting change this session (two pngs re-shot in docs/site_flow/agent_fits/), so the suite was
+  not re-run; it stays due at the judging/removals session.
+
+### 2026-10-12 306b DECISION: judging-prep sheet built; discovered all 10 items are RESOLVED by my own 21 docs (no review-tab presence today); deletions are union-safe
+- Third session on 306b. Audit run (pid 3719656, log /tmp/audit_306b.log) healthy: 12/21 docs (24
+  pngs) done by 13:49 CDT, zero failures; ~45-50 s/doc in practice (22 s estimate was optimistic),
+  ~20 min left. Next session: confirm completion (re-run idempotently if dead), judge from
+  argentoratum.
+- The review-queue state differs from the task's wording in one way that must be reflected in the
+  verdict lines: ALL 10 item files carry a recorded `resolved`, and every resolver is one of my 21
+  docs (argentoratum: c_e882645cc479c889; the other 9 sites: their own doc). None of the 10 sites
+  is in web/data/review.json today (333 open items, file written 18:01 UTC) - the review tab shows
+  nothing for them. So "the review tab would pre-place the item's version" is a counterfactual:
+  each line notes the item's own coarse candidate for the same plan (6-anchor rectangle/center,
+  scale_m_px from picture size) and its rejection `why` as the version the owner WOULD see when/if
+  the item reopens. (fit/review.py: `resolved` is write-once; `resolved_doc` falls back to the
+  first candidate that has a store doc only after the recorded one is deleted.)
+- Coverage is safe under my deletions: union_check (fit/batch_eu.py) counts a site covered by ANY
+  doc OR ANY item file (open or resolved), and upsert_item never deletes an item file. The 10
+  item files always exist -> the 10 sites stay covered no matter what I delete. Deleting a site's
+  LAST remaining doc reopens its item (all store docs for these sites are my 21; no by:hand);
+  306a's bethlehem is the working precedent (item now open, in today's open list).
+- Built /tmp/306b_judge.md (persists in /tmp across iterations): per doc - the item candidate (why,
+  gate_score, evidence) vs the doc placement (center/extent in metres, matcher inliers/rot), plus
+  site context (name/region/size, web/data/site dir, relief flag). Noted in it: weak matcher
+  inliers on 5 docs (c_e882645 32/1822, castle-neroche c_44529 52/98, n0110_1 15/26, castra-lemanis
+  c_be12fb 15/25, ferme c_804aa7 11/203) - judge the image, not the stats; two candidates with
+  200-evidence CONFLICTS (c_e882645: "Ville" Q1165252 ~350 km west near Paris; cenabum c_e73dc8:
+  "Epinal" Q173695 ~350 km NE); n0110_1's item pairs equal the doc's pairs exactly (0 m offset,
+  the one match).
+- Verified the "never reached the map" premise for all 10 sites: web/data/sites/<s>/depictions.json
+  holds zero depictions in each.
+- No file changes this session (only /tmp prep sheet and memory), so the suite stays due at the
+  judging/removals session; baseline 128 passed, 1 skipped, test_gate pre-existing red.
+
+## 2026-10-12 306b DECISION: audit complete (42 shots); found + neutralised a 307 fit-queue trap that contaminated 9 shots (re-shot clean); argentoratum judged 10/10 STAYS; 11 docs left
+- Fourth session. The 42-shot run finished (zero failures). NEW DISCOVERY: nine of my 21 docs
+  (c_436bea, c_c280ff, n0110_1, c_be12fb, n0325, c_e66ec, c_804aa7, c_b52dd, c_f9cdda) match a
+  web/data/fit_queue.json entry proposing the same site's plan; 307's web/fitkit.js _fkActivate
+  then seeds 5 anchor pairs that blend with my 8 doc pairs into a 13-point least squares, so the
+  preview ink + fithint showed the blend, not the document. Fix in MY driver tools/audit_306b.mjs
+  (web/*.js stays agent a's): the IIFE waits for FQ.loaded, empties FQ.entries before openPlan
+  (fitkit falls open), and reports fqEntries/placed/anchor in [eval]. All 18 reshoots verified
+  clean (placed:false, n:8, resid ~0); the [eval] numbers in /tmp/audit_306b_reshoot.log are the
+  docs' own transforms. If another task ever drives openPlan headlessly with its own pairs, it
+  hits this too: check P.placed / pair count in the shot log.
+- Judging: argentoratum 10/10 STAYS (all ten sit on the real old town / fort ring / Roman castrum /
+  Krutenau district; details in the task hand-over, with per-doc mpx/rot and the item candidate's
+  rejection). c_e8826 - the item's recorded resolver - verified right, so the item stays resolved
+  by a fit that is actually good; its "Ville" Q1165252 evidence conflict is a sheet-level red
+  herring. NEXT (in order): judge the remaining 11 docs (hand-over has per-doc numbers; earthwork
+  sites - neroche, lemanis, cawthorne, watson-brake x2 - judge the RELIEF image first), append all
+  21 lines to the END of docs/site_flow.md (section "## The agent fits, looked at (task 306)"
+  starts line 702; last existing line = bethlehem fc4566d6947287f4 at line 800), 303-way removals
+  of any misses (upsert_item full doc + why, delete doc, site-scoped review export; NEVER
+  tools/site_done.py on these 10 sites), then tick boxes and run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed /
+  1 skipped at 306a's done commit 4ca9e2c; re-point any test pinning a removed doc at a
+  surviving one - never loosen).
+
+## 2026-10-12 306b DECISION: judged the next 5 (carisbrooke, neroche x2, lemanis, cawthorne) - ALL STAYS; wrote all 15 lines to docs/site_flow.md
+- Fifth session. Box 1 ticked (42 pngs present + clean). The 306b block (preamble + 15 lines) was
+  appended to docs/site_flow.md after the last 306a line (bethlehem fc4566d6947287f4; file now
+  891 lines) and is UNCOMMITTED - the harness keeps it for the next agent to commit.
+- Verdicts, all STAYS (details in the written lines): carisbrooke c_c280ff (keep/gates/prison/
+  tilt yard on the 1842 OS 6-inch first-edition's same-named features, 3783/5000 inliers against
+  that surveyed map; fitted 0.50 within 20% of the plate's stated 0.415; item cand 0.695 coarse /
+  0.901 hand-tied, gate-rejected). Neroche c_44529 (hachured hillfort on the real hill, aerial +
+  relief; item fabricated grid-round 8/8). Neroche n0110_1 (summit/ditches/Castle Farm on the real
+  ones; 0.39 matches the plate's 300-ft scale bar 0.397; item pairs == doc pairs, offset 0 m, but
+  flagged 1D-ladder - placement verified on the image). Lemanis c_be12fb (port quadrangle on the
+  real headland slope; NE corner on the 1848 red-ink 'STVTFAE CASTLE / Roman port' label, SW on
+  'PORTVS LEMANIS (Site of)'; 0.76 vs its 500-ft scale bar 0.726; item coarse 2.667 = ~3.5x too
+  big, median 63>45). Cawthorne n0325 (three camps on the 1848 Squire & Davis red-ink triple-camp
+  complex, 'C A M P S' on anchor 6; 4625/4997 = 93% inliers against the LiDAR relief - strongest of
+  the batch; 0.30 = the plate's 300-ft scale bar; item 0.790 vs scale bar 0.259 gate-rejected,
+  644 m north off the camps).
+- Technique that settled the scale questions (the Stonehenge trap: 0-residual anchors do NOT prove
+  scale): measure the plate's OWN scale bar (PIL: crop the plate's lower region 3x and read it -
+  worked for lemanis/n0110_1/cawthorne); a doc whose fitted mpx matches its scale bar/stated scale
+  within ~20% is trustworthy, and a gate rejection of "stated X disagrees with its own points (Y)"
+  means the doc's near-stated fit is the one to believe. Also: red-ink 6-inch/1-inch/1848 maps are
+  georeferenced ground truth - anchors on same-named red-ink labels = placement verified. Coarse
+  item candidates store only 3-6 rectangle points (feature names live in `why`), so compare
+  centers/scales, not feature positions.
+- NEXT (hand-over has the ordered steps): judge the remaining 6 (cenabum c_e73dc8 - check it lands
+  on real Tours not the Epinal red herring; dudley c_e66ec; azincourt c_804aa7; watson x2 - RELIEF
+  decides; zwolle c_f9cdda), append their 6 lines at the end of the 306b block, 303-way any miss
+  (upsert_item full doc + why / rm doc / site-scoped export - never tools/site_done.py on these 10
+  sites), tick boxes 2-4, run the suite, done.
+
+## 2026-10-12 306b DECISION: judged the final 6 - ALL STAYS (21/21, zero removals); 6 lines appended to docs/site_flow.md (uncommitted, harness keeps it); boxes + suite + PITFALLS entries left to the next session
+- Sixth session. Judged the last 6 docs from their clean shots (relief first for watson x2). ALL
+  STAYS, so the whole 21-doc batch is 21/21 STAYS with no 303-way removals, no data/review/
+  platefits changes. Appended their 6 lines to the END of the 306b block of docs/site_flow.md
+  (same format as the committed 15; the append is UNCOMMITTED - the harness keeps it).
+- cenabum c_e73dc8: the plate is Jollois 1833 'Plan général de la ville et des environs
+  d'Orléans en 1828'. Discovery: the site's canonical point (1.909, 47.9025, Wikidata Q2710144
+  'Cenabum') IS the city of Orléans (1.9°E, 47.9°N) - I had mis-remembered Orléans at 2.09°E and
+  nearly called it a 12 km miss. Verification: the 1850s IGN état-major (GEOF, layer etatmajor)
+  tiles show 'ORLÉANS' printed at that point (radial old town, fortified quays, bridges; the
+  (2.09, 47.90) area is open Mardre/Donnery country with no town). The drawn 1828 city aligns
+  with that georeferenced survey within 100-200 m (radial centre, Faubourg St-Vincent, river,
+  bridges), and the fitted 5.41 m/px equals the plate's ~1:20000 printed scale at scan dpi (the
+  scan has no scale bar; least-squares transform from the 8 anchors reproduces the stored fit:
+  5.389 m/px, +1.06°). The item's 'Epinal' Q173695 (~350 km NE) 200-sheet evidence = sheet-level
+  red herring (same pattern as argentoratum c_e882645's 'Ville' hit).
+- ferme-d-azincourt c_804aa7: the plate is the 1810 cadastre of the Ferme d'Azincourt hamlet
+  ('Monts d'Azincourt') of the Émerchicourt commune (Nord) - this site itself, not the Agincourt
+  village of the Somme. The plate's own road labels ('Chemin d'Émerchicourt', 'Chemin de
+  Boursolain', 'Bonnay') proved it; Nominatim reverse-geocode of anchor 1 = 'Rue d'Azincourt,
+  Émerchicourt'; the drawn river = the real Scarpe near Aniche. Red farm cluster on the real
+  hamlet, roads on roads (aerial + relief). Fitted 1.23 m/px agrees with the item's own points
+  (1.171), its stated 0.55 does not. Lesson: when a plate's title names a famous place, check
+  the plate's OWN toponyms before trusting the title (names are recycled - farms/streets are
+  named after famous battles).
+- dudley c_e66ec: 1885 'Plan of Dudley Castle Grounds' on the real conical Castle Rock (summit
+  anchor on the real summit, aerial + relief; 2639/4998 inliers vs the 1842 OS 6-inch first
+  edition; +24.9° is the plate's own north-arrow rotation). watson-brake c_5e7bb + c_b52dd: the
+  mounds maps trace the real Gentry Mound / S-ring / Watson Bayou on the LiDAR relief (the
+  deciding evidence) and aerial; 1.28 m/px agrees with item points 1.448, the cands' stated
+  0.625 does not. zwolle c_f9cdda: van Deventer 1563 walled town on the real Zwolle core, drawn
+  Swol river on the real meanders (aerial + relief; 1981/4998 vs tmk1850).
+- NEXT (next session, in order): tick boxes 2-4 in the task file, run the suite
+  (.venv/bin/python -m pytest tests/ -q --ignore=tests/test_gate.py; baseline 128 passed/1
+  skipped, test_gate pre-existing red), file the PITFALLS entries (Orléans at 1.9°E;
+  etatmajor.webp = 1 px = 1 m block centred on the site point, pipeline/depict.py;
+  Nominatim/Wikidata reachable from this VM, /search 400s without a query), set Status: done,
+  commit (task file + DECISIONS.md + the 6-line docs/site_flow.md append). No deletions => no
+  test re-pointing needed; the only test touching site_flow is test_fit_queue.py (queue docs,
+  not these lines).
+
+## 2026-10-12 306b DECISION: DONE - 21/21 STAYS, zero removals; suite 128/1 at baseline; filed 5 PITFALLS entries; task closed
+- Seventh session. Completed the remaining hand-over steps: boxes 2-4 ticked (all 21 lines in
+  docs/site_flow.md, every one STAYS - the 303-way removal path was never needed; all 21 docs are
+  by:agent and the branch has no data/ or web/data/ diff vs main), suite green at the 306a-done
+  baseline (128 passed, 1 skipped in 204 s; test_gate excluded, pre-existing red per the driver's
+  loop-start note), Status: done, committed. Also corrected the stale 306b preamble in the block
+  ("All fifteen judged so far stay" -> "All twenty-one stay (2026-10-12: judged from the 42 shots,
+  none removed)").
+- PITFALLS filed (5), so 306c-f (the orphan subtasks the parent 306 returns after this one) do not
+  re-discover them: (1) corrected the stale "The machine has no internet" sentence in the Esri
+  entry - this VM HAS internet (tile 200 in 0.2 s, re-verified this session); (2) extended the
+  Nominatim entry (plain `curl -H 'User-Agent: ...'` works, not only commons.get; `/search` 400s
+  without a `q`); (3) new web/ entry: the web/data/sites/<site>/ survey layers (etatmajor,
+  cassini, tmk1850, fr_ortho1950) are site-sized georeferenced blocks, 1 px = 1 m for sites
+  <= 2400 m across, centred on the site point (pipeline/depict.py build/sample_xyz; depictions.json
+  corners give the block's [lon,lat] corners) - ideal local ground truth for judging fits;
+  (4) new web/ entry: driving the fit tool headlessly with your own pairs - a fitqueue entry for
+  the opened plan seeds 5 anchor pairs into your least squares (fitkit.js _fkActivate); empty
+  FQ.entries before openPlan and check placed/n in the shot log; (5) new "### data/sites.json
+  (site points)" subsection: a site's canonical point can be a real modern city (cenabum-q2710144
+  at (1.909, 47.9025) IS Orléans - my 2.09°E memory was wrong; 2.09, 47.90 is Mardre/Donnery
+  farmland); reverse-geocode the site's own point before judging placement.
+- Left in the task hand-over for 306c-f: tools/audit_306b.mjs is site- and queue-independent (doc-id
+  positional args; empties FQ.entries) - reuse verbatim as the orphan-audit driver; orphan docs
+  have no review item, so their verdict lines say "not shown to the owner at all" instead of an
+  item-cand comparison; the scale-bar judging technique (crop the plate's lower region 3x, read
+  the bar) is documented there.
 
 
 <!-- task 307a -->

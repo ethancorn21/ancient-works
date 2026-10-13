@@ -32,7 +32,9 @@ usage: src_numancia.py --render       working phase (network): the IA PDF (with 
                                       is missing (--render first)
        src_numancia.py --check        offline (no network): the join (the row names the existing numancia
                                       site, whose catalog point matches the stored evidence point; (site,
-                                      title) unique; no clash with the canonical files.jsonl; classified
+                                      title) unique; a staged row already in the canonical files.jsonl is
+                                      a no-op only when identical to the canonical row (211's first-row-
+                                      wins merge) - a same-key different row still fails loud; classified
                                       1:1; the image-path convention holds and the render, when present,
                                       matches the row) + the fit/evidence.py check over the staged row
        src_numancia.py --golden       write tests/golden/src_numancia_sample.json (the staged rows,
@@ -302,11 +304,20 @@ def stage(dry=False):
     _append(CLASSIFIED, [cl])
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
 def check_staged():
     """Offline (no network): the join of the staged files + the fit/evidence.py check over the staged
     row. The catalog for the check is the canonical extras.jsonl (the site is a catalog site, not a
     staged one); the caption route never consults the catalog, so the verdict is stable after 211's
-    consolidation. Returns the exit code (0 iff no join problem and no FAIL)."""
+    consolidation. A staged row whose (site, title) key is in the canonical files.jsonl is a no-op
+    ("already merged by 211") only when it is identical to the canonical row under the merge's identity
+    rule - a same-key different row still fails loud (the pre-merge clash protection). Returns the exit
+    code (0 iff no join problem and no FAIL)."""
     import evidence
     files = _load(FILES)
     cls = _load(CLASSIFIED)
@@ -341,15 +352,19 @@ def check_staged():
     for r in cls:
         if r.get("p_plan") != 1.0 or r.get("p_birdseye") != 0.0 or r.get("p_photo") != 0.0 or r.get("by") != "hand":
             problems.append(f"classified row wrong: {r}")
+    canonical = {}
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
     seen = set()
     for r in files:
         k = (r.get("site"), r.get("title"))
         if k in seen:
             problems.append(f"duplicate staged row {k}")
+        if k in canonical and canonical[k] != _canon_norm(r):
+            problems.append(f"staged title already in the canonical files.jsonl: {k}")
         seen.add(k)
-    canonical = {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
-    if seen & canonical:
-        problems.append(f"staged titles already in the canonical files.jsonl: {sorted(seen & canonical)}")
     # the image-path convention (commons.local): <sha1(title)[:16]>.jpg in the site's data/raw/commons
     # dir. The file is worktree-local (gitignored): never fail on its absence, validate it when present.
     p = _image_path()

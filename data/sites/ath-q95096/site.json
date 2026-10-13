@@ -1,0 +1,15 @@
+{
+ "id": "ath-q95096",
+ "name": "Ath",
+ "place": "Arrondissement of Ath, Belgium",
+ "lon": 3.7769,
+ "lat": 50.6311,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q95096",
+ "summary": "Ath is a city and municipality of Wallonia located in the province of Hainaut, Belgium.",
+ "wiki": "https://en.wikipedia.org/wiki/Ath"
+}

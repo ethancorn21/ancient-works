@@ -1,0 +1,15 @@
+{
+ "id": "valenciennes-q163795",
+ "name": "Valenciennes",
+ "place": "Nord, France",
+ "lon": 3.5233,
+ "lat": 50.3581,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "France",
+ "kind": "town",
+ "qid": "Q163795",
+ "summary": "Valenciennes is a commune in the Nord department, Hauts-de-France, France.",
+ "wiki": "https://en.wikipedia.org/wiki/Valenciennes"
+}

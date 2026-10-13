@@ -86,7 +86,7 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from conftest import get, get_json, put_json
+from conftest import copy_web, get, get_json, put_json
 
 ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, str(ROOT / "fit"))
@@ -829,11 +829,12 @@ def line_served(tmp_path_factory):
     entry, item, uncovered = pick
     row = entry["best"]["row"]
     tree = tmp_path_factory.mktemp("awline")
-    for d in ("web", "server", "tools", "fit", "pipeline"):
+    copy_web(tree, real={entry["site"]})
+    for d in ("server", "tools", "fit", "pipeline"):
         shutil.copytree(str(ROOT / d), str(tree / d))
 
-    def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+    def ignore(d, names):  # data/raw (book scans) and the gitignored elevation grids (data/sites/*/dem.npy)
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw") or n.endswith((".npy", ".npz"))]
 
     shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
     # the one page the line needs: a real file under the tree's own data/raw (the checkout's data/raw
@@ -1679,11 +1680,12 @@ def place_served(tmp_path_factory):
     entry, done = pick
     row = entry["best"]["row"]
     tree = tmp_path_factory.mktemp("awplace")
-    for d in ("web", "server", "tools", "fit", "pipeline"):
+    copy_web(tree, real={entry["site"]})
+    for d in ("server", "tools", "fit", "pipeline"):
         shutil.copytree(str(ROOT / d), str(tree / d))
 
-    def ignore(d, names):
-        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw")]
+    def ignore(d, names):  # data/raw (book scans) and the gitignored elevation grids (data/sites/*/dem.npy)
+        return [n for n in names if os.path.join(d, n) == str(ROOT / "data" / "raw") or n.endswith((".npy", ".npz"))]
 
     shutil.copytree(str(ROOT / "data"), str(tree / "data"), ignore=ignore)
     dst = tree / "data" / "raw" / "books" / row["ia"] / "full" / row["file"]

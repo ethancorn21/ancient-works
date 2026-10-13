@@ -399,8 +399,17 @@ def _extras_row():
                     "carries the same id and the full record (admin, heritage, designation)"}
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
 def stage(dry=False):
-    """Stage the one row into this task's files (append-only, idempotent on (site, title)). Drift fails loud."""
+    """Stage the one row into this task's files (append-only, idempotent on (site, title)). Drift fails
+    loud. The 211-merged state (the site already in the canonical extras.jsonl) is a no-op - already merged
+    by 211 - only when that canonical row is identical to this module's own row under the merge's identity
+    rule; a different row holding the site still fails loud, so a second, conflicting row never lands."""
     c = _commons()
     have = {(r.get("site"), r.get("title")) for r in _load(FILES) + _load(CLASSIFIED)}
     if (SITE, TITLE) in have:
@@ -411,8 +420,17 @@ def stage(dry=False):
         raise SystemExit(f"not on Commons (title changed?): {TITLE}")
     if (meta.get("w"), meta.get("h")) != (PAGE_W, PAGE_H):
         raise SystemExit(f"the live file is {meta.get('w')}x{meta.get('h')}, the page is {PAGE_W}x{PAGE_H} - R4 drift")
-    if any(r.get("id") == SITE for r in _load(EXTRAS) + _load(EXTRAS_CANONICAL)):
-        raise SystemExit(f"{SITE} already staged or already in the canonical extras.jsonl - no second row")
+    if any(r.get("id") == SITE for r in _load(EXTRAS)):
+        raise SystemExit(f"{SITE} already staged in this task's extras file - no second row")
+    canon_extras = {}  # first row wins per site, as in the 211 merge
+    for r in _load(EXTRAS_CANONICAL):
+        if r.get("id") not in canon_extras:
+            canon_extras[r.get("id")] = _canon_norm(r)
+    if SITE in canon_extras:
+        if canon_extras[SITE] == _canon_norm(_extras_row()):
+            print(f"{SITE} already merged by 211 (the canonical extras row is identical) - no-op")
+            return
+        raise SystemExit(f"{SITE} is already in the canonical extras.jsonl with a different row - no second row")
     f = _file_row(meta)
     cl = {"site": SITE, "title": TITLE, "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
     ex = _extras_row()
@@ -428,14 +446,23 @@ def stage(dry=False):
 
 
 def check():
-    """Offline (no network): the join + fit/evidence.py check over the staged row."""
+    """Offline (no network): the join + fit/evidence.py check over the staged row. A staged row whose key
+    the canonical files already hold is a no-op (already merged by 211) when it is identical to the
+    canonical row under the merge's identity rule; a different row holding the key is a problem."""
     import evidence
     files = _load(FILES)
     cls = _load(CLASSIFIED)
     extras = _load(EXTRAS)
     sites = {s["id"]: s for s in _load(SITES_CANONICAL)}
-    canonical = {(r.get("site"), r.get("title")) for r in _load(FILES_CANONICAL)}
-    extras_canonical = {s["id"] for s in _load(EXTRAS_CANONICAL)}
+    canonical = {}  # (site, title) -> first canonical row, as in the 211 merge
+    for r in _load(FILES_CANONICAL):
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:
+            canonical[k] = _canon_norm(r)
+    extras_canonical = {}  # id -> first canonical extras row
+    for r in _load(EXTRAS_CANONICAL):
+        if r.get("id") not in extras_canonical:
+            extras_canonical[r.get("id")] = _canon_norm(r)
     problems = []
     pics = [r for r in files if r.get("title")]
     if len(pics) != 1:
@@ -446,8 +473,9 @@ def check():
         s = sites.get(SITE)
         if s is None or s.get("qid") != QID:
             problems.append(f"site {SITE} not in the catalog with QID {QID} (the existing-by-QID path)")
-        if (r.get("site"), r.get("title")) in canonical:
-            problems.append(f"staged title already in the canonical files.jsonl: {(r.get('site'), r.get('title'))}")
+        k = (r.get("site"), r.get("title"))
+        if k in canonical and canonical[k] != _canon_norm(r):
+            problems.append(f"staged title already in the canonical files.jsonl: {k}")
         if r.get("qid") != QID:
             problems.append(f"row qid {r.get('qid')!r} is not {QID}")
     if {(r.get("site"), r.get("title")) for r in cls} != {(r.get("site"), r.get("title")) for r in pics}:
@@ -457,7 +485,8 @@ def check():
             problems.append(f"classified row wrong: {r}")
     if len(extras) != 1 or extras[0].get("id") != SITE or not extras[0].get("aerial_ok"):
         problems.append("the extras row is missing, wrong or not aerial_ok (211 would not build the site)")
-    if SITE in extras_canonical:
+    staged_ex = extras[0] if len(extras) == 1 else None
+    if SITE in extras_canonical and (staged_ex is None or extras_canonical[SITE] != _canon_norm(staged_ex)):
         problems.append(f"{SITE} is already in the canonical extras.jsonl - the merge would double it")
     d = doc_record()
     if d is None:

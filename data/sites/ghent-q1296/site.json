@@ -1,0 +1,15 @@
+{
+ "id": "ghent-q1296",
+ "name": "Ghent",
+ "place": "East Flanders, Belgium",
+ "lon": 3.7253,
+ "lat": 51.0536,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q1296",
+ "summary": "Ghent is a city and a municipality in the East Flanders province of the Flemish Region of Belgium. It is the capital and largest city of the province and the third largest in the country, after Brussels and Antwerp. It is a port and university city.",
+ "wiki": "https://en.wikipedia.org/wiki/Ghent"
+}

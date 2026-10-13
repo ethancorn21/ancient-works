@@ -8,7 +8,9 @@ hop is not the town's P373 category (a hand-typed path the walk never took), and
 resolution is a ~52 km neighbour (the name-search-style resolution a live record could store) - both must be
 reported FAIL, never kept. The golden file (tests/golden/src_van_deventer_sample.json) pins the staged rows
 (a sample of the first two towns per evidence kind plus the full counts); it is regenerated only via the
-module's --golden flag for an intended change.
+module's --golden flag for an intended change. The 211 merge states (task 222) are constructed hermetically:
+the module's canonical path constants are pointed at temp copies (pre-merge / merged-identical /
+same-key-different-row), so the guard test holds whether or not 211's live merge has run on this checkout.
 """
 import json
 import os
@@ -39,9 +41,10 @@ def no_network(monkeypatch):
 
 def test_check_staged_files_join_and_pass(capsys):
     """src_van_deventer --check, offline: the staged files join (every file row names a staged or existing
-    site, no staged id/QID pre-exists, the six done towns are not re-staged, every staged site has a picture,
-    (site, title) unique, no clash with the canonical files.jsonl, classified rows 1:1) and every staged row
-    PASSes the evidence check (54 category chains, 2 caption routes)."""
+    site, a staged id/QID is a problem only when a different site holds it, the six done towns are not
+    re-staged, every staged site has a picture, (site, title) unique, a staged row already in the canonical
+    files.jsonl must be identical to the canonical row, classified rows 1:1) and every staged row PASSes the
+    evidence check (54 category chains, 2 caption routes)."""
     code = vd.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
@@ -58,10 +61,10 @@ def test_check_staged_files_join_and_pass(capsys):
 
 def test_table_and_staged_rows():
     """The hand-checked table is complete and the staged files are exactly it: 56 of the 66 towns (the six
-    hand-tied in pipeline/sources.py are not re-staged), no staged QID pre-exists in the catalog (no
-    duplicate sites), every row carries the full site fields, every year_of lands in the c. 1545-1565 drawing
-    window (box 6), and the evidence split is exactly 54 category chains + 2 caption routes (the two capped
-    walks)."""
+    hand-tied in pipeline/sources.py are not re-staged), no duplicate sites (a staged QID that is in known -
+    211's merge made this module's own rows canonical - resolves to the SAME site), every row carries the full
+    site fields, every year_of lands in the c. 1545-1565 drawing window (box 6), and the evidence split is
+    exactly 54 category chains + 2 caption routes (the two capped walks)."""
     assert len(vd.TOWNS) == 66
     st = vd.stageable()
     assert len(st) == STAGED
@@ -72,7 +75,9 @@ def test_table_and_staged_rows():
     extras = vd._load(vd.EXTRAS)
     assert len(extras) == STAGED and len({s["id"] for s in extras}) == STAGED
     assert {s["qid"] for s in extras} == {vd.TOWNS[t]["qid"] for t in st}
-    assert not {s["qid"] for s in extras} & set(known)  # no staged QID pre-exists: no duplicate sites
+    for s in extras:  # no duplicate sites: a staged QID held in known must resolve to the same site
+        if s["qid"] in known:
+            assert known[s["qid"]] == s["id"], f"{s['id']}: QID {s['qid']} is held by {known[s['qid']]}"
     assert not {s["qid"] for s in extras} & {vd.TOWNS[t]["qid"] for t in done}  # the six done towns absent
 
     rows_by_id = {s["id"]: s for s in extras}
@@ -107,6 +112,81 @@ def test_table_and_staged_rows():
     assert {(r["site"], r["title"]) for r in cls} == {(r["site"], r["title"]) for r in files}
     for r in cls:
         assert (r["p_plan"], r["by"]) == (1.0, "hand")
+
+
+def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
+    """The 211 merge states of the --check guard, hermetically (temp copies of the canonical files, so the
+    test holds whether or not 211's live merge has run on this checkout): (a) staged rows ABSENT from the
+    canonical files (the pre-merge state) - check 0, no join problems, evidence all PASS; (b) staged rows
+    present with IDENTICAL content (the 211 first-row-wins merge has run) - check 0, no join problems: an
+    already-merged row is a no-op and the known-site checks stop self-triggering on the module's own rows;
+    (c) the same (site, title) key held by a DIFFERENT row - still fails loud (the pre-merge conflict
+    protection), naming exactly that key and no other join problem."""
+    staged_files = vd._load(vd.FILES)
+    staged_sites = vd._load(vd.EXTRAS)
+    skeys = {(r["site"], r["title"]) for r in staged_files}
+    sids = {s["id"] for s in staged_sites}
+
+    def write(name, text):
+        p = tmp_path / name
+        p.write_text(text, encoding="utf-8")
+        return str(p)
+
+    # the canonical files with this module's staged rows removed: the pre-merge state of ITS keys, on any
+    # checkout (the other sources' merged rows are untouched, the guard does not care about them)
+    files_pre = [json.dumps(r, ensure_ascii=False) for r in vd._load(vd.FILES_CANONICAL)
+                 if (r["site"], r["title"]) not in skeys]
+    extras_pre = [json.dumps(r, ensure_ascii=False) for r in vd._load(vd.EXTRAS_CANONICAL)
+                  if r["id"] not in sids]
+    web = json.load(open(vd.SITES_WEB, encoding="utf-8"))
+    web_pre = {k: v for k, v in web.items() if k != "sites"}
+    web_pre["sites"] = [s for s in web["sites"] if s.get("id") not in sids]
+    cat = tmp_path / "sites_catalog.jsonl"
+    cat.write_text(open(vd.SITES_CATALOG, encoding="utf-8").read(), encoding="utf-8")
+    monkeypatch.setattr(vd, "SITES_CATALOG", str(cat))
+
+    def point(files_rows, extras_rows, web_rows):
+        monkeypatch.setattr(vd, "FILES_CANONICAL",
+                            write("files.jsonl", "\n".join(files_rows) + "\n"))
+        monkeypatch.setattr(vd, "EXTRAS_CANONICAL",
+                            write("extras.jsonl", "\n".join(extras_rows) + "\n"))
+        monkeypatch.setattr(vd, "SITES_WEB",
+                            write("sites.json", json.dumps({**web_pre, "sites": web_rows},
+                                                          ensure_ascii=False, indent=1) + "\n"))
+
+    staged_file_lines = [json.dumps(r, ensure_ascii=False) for r in staged_files]
+    staged_extras_lines = [json.dumps(s, ensure_ascii=False) for s in staged_sites]
+    web_staged = [{"id": s["id"], "qid": s["qid"]} for s in staged_sites]  # what 211's built sites add to known
+
+    # (a) pre-merge: the staged rows are not in the canonical files yet
+    point(files_pre, extras_pre, web_pre["sites"])
+    code = vd.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert f"evidence: {STAGED} rows, {STAGED} pass, 0 fail, 0 no-tie" in out, out
+
+    # (b) the 211 merge ran: every staged row is in the canonical files with identical content
+    point(files_pre + staged_file_lines, extras_pre + staged_extras_lines,
+          web_pre["sites"] + web_staged)
+    code = vd.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert f"evidence: {STAGED} rows, {STAGED} pass, 0 fail, 0 no-tie" in out, out
+
+    # (c) the same (site, title) key held by a DIFFERENT row: the pre-merge conflict protection still fires
+    victim = staged_files[0]
+    altered = dict(victim, year=victim["year"] + 1)  # same key, different content
+    lines = [json.dumps(altered, ensure_ascii=False) if (r["site"], r["title"]) == (victim["site"], victim["title"])
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_extras_lines, web_pre["sites"] + web_staged)
+    code = vd.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged title already in the canonical files.jsonl: "
+                    f"{(victim['site'], victim['title'])}"], join
 
 
 def test_evidence_offline_and_negative_control(tmp_path):

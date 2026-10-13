@@ -7,9 +7,8 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/211-merge-build.md` (open) - hand-over: **From 213 (2026-10-11, iteration 39, parent done-claim):** the *_artists* staging files exist and
+- `tasks/211-merge-build.md` (open) - hand-over: (2026-10-12, iteration 191, agent a - GATE STILL OPEN: all seven of 222-228
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
-- `tasks/306a-agent-fits-on-map.md` (open) - hand-over: (2026-10-12, iteration 137, agent c - session 3 of 306a. BETHLEHEM AUDIT FINISHED AND REMOVED (9 of 12
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -23,101 +22,117 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
-- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
-  class is new to the project: in the store but neither built as an overlay nor referenced by any
-  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
-  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
-  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
-  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
-  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
-  subtasks - PITFALLS); the driver hands them out a-f.
-- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
-  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
-  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
-  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
-  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
-  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
-  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
-  verified this session): the "no-internet headless" pitfall applies only to the no-network test
-  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
-  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
-- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
-  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
-  and the verdict notes where the item's version differs.
-- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
-  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
-  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
-  sites it changes.
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: filed tasks/230-roman-merge-rerun (lowest free number in 200-499; Depends on: 211, 207a, 207b, 207c) to own the lead note's "later re-run of this step" for the Roman staging
+- Session 189. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Local `main` still at 7e61147 (unchanged since the 186/187/188 sessions).
+  `git fetch origin` (read-only ref update; team rules forbid me from merging) moved
+  nothing: origin/main is still c063314 and `git log c063314..origin/main` is empty, so
+  the 188 union audit (origin holds none of my 211 outputs; only sites.json differs on
+  both sides, disjoint: my 114 entries vs the human's marker-field updates; platefits and
+  goldens byte-identical) is still current and nothing needed re-auditing. Gated: no
+  re-run of fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite
+  re-run (the red set is still exactly the 10 222-228 source-guard failures on an
+  unmoved main; the driver re-checks the suite at claim time).
+- The session's step: give the lead note's promise an owner. The Lead note says "207a/207b
+  staging, if it ever resumes, goes through a later re-run of this step", but no task
+  existed for that re-run - after 211 claims done, nothing would trigger the Roman
+  consolidation. Filed tasks/230-roman-merge-rerun.md (lowest free number in 200-499:
+  200-229 all taken): Status: open; Depends on: 211, 207a, 207b, 207c (needs 211's
+  post-merge canonical state and all of the parent 207's subtask staging; the file notes
+  that if a subtask is dropped, its Depends line edits down and the re-run runs on the
+  staging that exists - 207c is currently the blocked one); Touches = 211's canonical
+  merge module (fit/merge.py, the three canonical .jsonl, data/merge/, the shared
+  index.jsonl/validation.json, docs/sources.md, the served data, tests/test_merge.py) -
+  one module, and it runs only after 211 is done, so no parallel conflict with any
+  in-flight task (agent c owns the per-book staging files, not these). Boxes: (1) the
+  merge re-run over the Roman staging - every staged row in the canonical files, pure
+  growth, idempotent, logged (first-wins + logged on conflict, the 211 rule); (2) books
+  index + validation rebuilt from ALL per-book files including the three Roman books,
+  200-evidence on every plan-list row, fit/evidence.py check offline; (3) new Roman
+  sites built (207c's are mostly new no-QID Scottish forts) with the 211 served-data
+  invariants - sites.json grows by exactly the new sites, pre-run entries unchanged
+  except the 212-owned marker fields, plans.json (id, sites[0]) keys preserved + unique;
+  (4) the sources.md section 9 Roman row updated from "NONE in this merge" to the actual
+  per-book staged/dropped, sourced from docs/lead_roman.md + the merge log; (5) 000's
+  25/19 golden reference still passes. Notes: site building is a working-phase command
+  (tests assert data-level results); tests hermetic; and when it runs, test_merge.py's
+  frozen 385-entry baseline shifts to the post-211 499.
+- 211's Lead note got the pointer appended as a parenthetical NOTE (same pattern as the
+  iter-186 note already in it) - no other human section of my task file touched. Files
+  written this session: tasks/230-roman-merge-rerun.md (new), tasks/211-merge-build.md
+  (Hand-over rewritten + that one Lead-note pointer), DECISIONS.md (this entry).
+- Unchanged: 229 still open, dependency-gated on 302a/304 (agent c is working both per
+  this session's prompt) - not a 211 blocker. Roman staging verified absent from main
+  (no extras_roman/files_roman/classified_roman.jsonl in data/catalog/ or data/commons/
+  on main) - it is on agent c's branch only, so there is nothing for 211 itself to merge
+  today.
 
-### 2026-10-12 306a DECISION: audit driver built and the full 45-shot run launched in the background; four docs judged (all stays); parent split completed (306d/306e/306f created, 306c count fixed to 16)
-- tools/audit_306a.mjs: one `server/serve.py --port 0` for the whole run; per shot the page is driven
-  the visitor's way (select -> S.depSel = the doc's depiction file -> setGround -> applyDep) and shot.mjs
-  screenshots at 1440x900. The [eval] line confirms the active depiction; the [audit] line prints the
-  stored fit stats from depictions.json. Run: `node tools/audit_306a.mjs [site ...]` from the project
-  root; re-run is idempotent. Background run: `nohup node tools/audit_306a.mjs > /tmp/audit_306a.log
-  2>&1 &` (16/45 at context-limit, all written, no pageerrors).
-- FAILED (twice, same root causes, both fixed): (1) shot.mjs's `page.evaluate(js)` with `js =
-  'async () => {...}'` returned undefined - Playwright 1.63 treats the string as an expression and does
-  NOT auto-invoke a function string; fix: wrap as an IIFE `(async () => {...})()` (verified with a
-  throwaway probe page). (2) `window.S` is undefined in page context - S is a top-level const (page-wide
-  lexical environment, not globalThis); fix: bare `S` with a typeof guard. Both are now PITFALLS
-  candidates (filed in the 306a hand-over; the context-limit message barred editing PITFALLS.md).
-- Judged (aerials): aldenhaag 1832 kadaster detail, alligator-effigy-mound 1891 map, avaricum Caesar
-  (Allen & Greenough) map, barnard-castle 1843 tithe map - all four are georeferenced sheets
-  (identity or near-identity fits, gate <= 0.1 m) whose ink sits on the real ground (village/terp,
-  mound park, Cher town centre, Alnmouth streets+river). All STAY. The interesting cases are the rest
-  (true similarity fits): bethlehem x12 (up to 25.7 m resid, rot 4.7), shotwick (14-19 m), binche,
-  bolsover, burlington, forthill, newark.
-- The parent's split counts were off: UK part 2 (o-y) is 17 docs, not 15 (old-sarum/pontefract/
-  portus-adurni/york-castle carry two each), and the US orphan set is 16 (marietta.b24849959_n0195_1 -
-  a US site, already in 306c's list but not its 15 header). Created 306d (UK a-l, 18), 306e (UK o-y,
-  17), 306f (continental, 17); corrected 306c to 16. Total 23+21+16+18+17+17 = 112 = all non-hand docs.
-- False alarm I nearly logged: fort-ancient-q5470727 looked missing from web/data/sites.json, which
-  would have failed test_platefits_docs_match_sites - it was a typo in my own probe list ('fort-ancient'
-  without the qid). The test passes; all 133 store docs' sites are in sites.json.
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`, each `Depends on: none` - not circularly gated on 211; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (all intact) and filed the web-data top-level-dict gotcha; no re-run, no claim
+- Session 190. Ordered next-step 1: head -1 of all seven 222-228 task files - all still
+  `Status: open`. Also read their Depends lines: all `Depends on: none` - so 222-228 are
+  NOT circularly gated on 211; they are simply un-dispatched (the driver's "Next open
+  tasks" lists 207a/207b/221; 222-228 queue behind them). Each touches only its own
+  fit/src_*.py + tests file (no overlap with my Touches), so nothing I can do unblocks
+  them; they run when the driver dispatches them.
+- Local `main` still at 7e61147 (unchanged since 186/187/188/189). `git fetch origin`
+  (read-only ref update; team rules forbid me from merging) moved nothing: origin/main
+  is still c063314 and `git log c063314..origin/main` is empty, so the 188 union audit
+  (origin holds none of my 211 outputs; only sites.json differs on both sides,
+  disjoint; platefits/goldens byte-identical) is still current. Gated: no re-run of
+  fit/merge.py (idempotent), no site rebuilds, no box changes, no full-suite re-run
+  (the red set is still exactly the 10 222-228 source-guard failures on an unmoved
+  main; the driver re-checks the suite at claim time anyway).
+- The session's step: a state-freshness pass over all of 211's outputs in this checkout
+  - all present and internally consistent: canonical files extras 193 / files 1623 /
+  classified 930 rows; data/books/index.jsonl 1068; web/data/sites.json 499 entries
+  (unique ids) under its "sites" wrapper; web/data/plans.json {cols: 13, rows: 1168}
+  with 574 rows carrying a non-empty sites list and all 574 (id, sites[0]) pairs
+  unique - the box 3 and box 4 invariants hold in the live files. Gotcha found in the
+  process: a bare `len(json.load(open("web/data/plans.json")))` returns 2 (sites.json:
+  1) because both files are dicts, not arrays - filed as a PITFALLS entry under
+  "This codebase" next to the existing sites.json/plans.json entries (PITFALLS.md
+  added to my Touches line for it; the contents-block counts are driver-generated and
+  were left alone).
+- Hand-over rewritten: gate still open; state unchanged since 186; next-step ordering
+  unchanged (the only new content is the dict-shape gotcha and the 222-228 dependency
+  facts).
 
-### 2026-10-12 306a DECISION: shotwick removed (2x too big, proven from the plate + NHLE listing); rebuild via upsert_item + doc delete + plan_fit.prune + review.export instead of tools/site_done.py because the matcher is reachable and its fit phase would place a NEW unaudited fit
-- Verdict: WRONG SIZE. The 1897 plate's moated ring fills the whole 839x840 plate (ink bbox 822 x 822
-  px measured with PIL) and the fitted 0.2289 m/px maps it to 188 m x 188 m on the ground; the real
-  earthworks are at most ~90 m across (40 m x 20 m hexagonal motte, 25 m-wide surrounding ditch,
-  38 m bailey - the NHLE 1016616 listing description, read through web.archive.org because
-  historicengland and heritagegateway both 403 from this VM). The 4 turret anchors' 2-19 m residuals
-  are the ~2x scale mismatch the fit_gate cannot reject at n=3-6 (the documented blind spot). The
-  aerial (even zoomed to the page's cap of 18) shows only lawn where the ring sits: the earthworks
-  are buried, so the size proof is document + listing, not the picture.
-- Removal mechanics (all the product's own calls): review.upsert_item('.', sid, [entry]) with the
-  reason in `why` (entry: plan/title/url/pairs - same shape as site_done._pattern_entry; the item's
-  lead stayed earthworkenglan01allcgoog_n0575_1, so the file did not move), delete the doc,
-  plan_fit.prune('.', sid) (drops the overlay + webp, refreshes drawings via build_site.set_drawings),
-  review.export('.', site_id=sid) (page re-published, item open).
-- FAILED (a design trap, not an approach failure): running `tools/site_done.py
-  shotwick-castle-q7502621` as the task text suggested would have re-fired the FIT phase -
-  matchfit.reachable() is True (127.0.0.1 matcher health probe answers) and the earthwork row has
-  no doc, so the matcher would have placed a NEW agent fit on the map during an audit session -
-  exactly what 306 ("none reaches the map unseen") is there to prevent. site_done only prunes when
-  its own sync sends a pattern doc, so even the deletion would not have been covered by it. The
-  4-call sequence above produces the identical outcome (overlay gone, count refreshed, item
-  re-exported) without the fit phase. If site_done ever gets a `--no-fit` flag, this note can be
-  dropped.
-
-### 2026-10-12 306a DECISION: the bethlehem-q2523914 site is the DUTCH Bethlehem (Het Hogeland, Groningen) - its 7 SoP sheets are a toponymic collision and its 2 basilica plans are building interiors fitted as ground maps, pending confirmation
-- First bethlehem aerial actually read (c_a164, the 1748 "Plan de Maestricht et environs, detail
-  Severen & Kanjel"): page header says "BETHLEHEM / Het Hogeland, Groningen, Netherlands" over a
-  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
-  Dutch polder, and the drawing's ink reads Severen / Cantel / C. Harnesstg - all real Het Hogeland
-  hamlets. So the 3 Maestricht-1748 details (c_a164, c_a42a, c_d624) look like LOCAL maps of the
-  right place (c_a164 aligned on the polder: Severen hamlet, village centre, field boundaries),
-  while 9 of the 12 are not: the 7 "Survey of Palestine, Bethlehem 01/03/05/06/08/09/11" ground
-  sheets are maps of JUDEAN Bethlehem fitted to a site ~2000 km away (near-zero residuals measure
-  only the local pattern match - sheet grid vs polder grid - the wrong-PLACE class of the shotwick
-  size error), and the 2 basilica plans (c_67ed Sandys 1615 "Plan of the Basilica of the Nativity",
-  c_7ee7 "(1881) PLAN SOUTERRAINS DE LA BASILIQUE") are BUILDING INTERIOR plans (one rotated
-  -18.4 deg) fitted as if they were ground maps - a third failure class (wrong KIND) that applies
-  regardless of which Bethlehem the site is. Session cut at the context limit before confirming
-  Q2523914, the site.json place field, or the pairs' lon/lat cluster (Groningen ~53.3N/6.3E vs
-  Judea ~31.7N/35.2E settles which side of the collision holds for the 7 SoP sheets). No bethlehem
-  line is written in site_flow.md until this is settled; no bethlehem doc touched.
+### 2026-10-12 211 DECISION: gate still open (222-228 all `Status: open`; local main still 7e61147; `git fetch origin` found zero new commits, origin/main still c063314, so the 188 union audit stands) - session's step: full state-freshness pass over 211's outputs (every count exactly as expected); no re-run, no claim
+- Session 191. Ordered next-step 1: head -1 of all seven 222-228 task files -
+  all still `Status: open` (they remain `Depends on: none`; the driver's
+  "Next open tasks" still lists 207a/207b/221, with 222-228 queued behind).
+  Local `main` still at 7e61147 (unchanged since the 186 session; my branch
+  tip 3733880 is the driver's PROGRESS overview). Per the hand-over the
+  done-claim stays gated: no re-run of fit/merge.py (idempotent), no site
+  rebuilds, no box changes, no new full-suite run (the red set is still
+  exactly the 10 222-228 source-guard failures on an unmoved main; the driver
+  re-checks the suite at claim time anyway).
+- Cheap freshness checks (both green, both exactly as the hand-over
+  predicted):
+  1. `git fetch origin` (read-only ref update; team rules forbid me from
+     merging) moved nothing: origin/main is still c063314 and
+     `git log c063314..origin/main` is empty, so the 188 union audit (origin
+     holds none of my 211 outputs; only sites.json differs on both sides,
+     disjoint: my 114 entries vs the human's marker-field updates;
+     platefits/goldens byte-identical) is still current - nothing to
+     re-audit.
+  2. Row-count sanity on this checkout's live files: extras.jsonl 193 /
+     files.jsonl 1623 / classified.jsonl 930 / data/books/index.jsonl 1068
+     rows; web/data/sites.json 499 entries under its "sites" wrapper, all ids
+     unique; web/data/plans.json 1168 rows, 574 carrying a non-empty sites
+     list, all 574 (id, sites[0]) pairs unique - the box 3 and box 4
+     invariants hold in the live files (dict-shape gotcha per PITFALLS:
+     these files are dicts, `len(json.load(...))` is not the entry count).
+- Agent-c status per this session's prompt: 207 (i.e. 207a/207b in flight;
+  207c still blocked), 302a, 304, 306, 203b. So task 229 (imagecodecs pin)
+  stays dependency-gated (302a/304 hold requirements.in/.txt in flight - do
+  NOT touch those files for 229), and task 230 (Roman merge re-run) stays
+  gated on 211 + 207a/207b/207c (the Roman staging files exist on agent c's
+  branch only - verified absent on main in 189). Neither is a 211 blocker.
+- Files written this session: tasks/211-merge-build.md (Hand-over header
+  line only - state bullets and next-steps unchanged, still accurate),
+  DECISIONS.md (this entry). No Touches-line change; no new PITFALLS entry
+  (nothing new learned).
 
 ## Project-wide driver notes (newest)
 

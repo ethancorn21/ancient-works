@@ -1,0 +1,15 @@
+{
+ "id": "aardenburg-q955",
+ "name": "Aardenburg",
+ "place": "Sluis, Netherlands",
+ "lon": 3.4453,
+ "lat": 51.2744,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q955",
+ "summary": "Aardenburg is a small city close to the Dutch border with Belgium. It is part of the Sluis Municipality, located in the province of Zeeland in the Netherlands. Its medieval name was Rodenburgh.",
+ "wiki": "https://en.wikipedia.org/wiki/Aardenburg"
+}

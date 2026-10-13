@@ -7,7 +7,9 @@ tests are offline: a socket-blocking fixture makes any network attempt fail loud
 from the stored fields only (200's fail-closed box). They pin the inventory's own rules (the 1000 px
 threshold, the verdict tally, the six hand-tied titles that must never be re-staged), the SITES table against
 the staged extras rows, the lead-doc mirror (§2's verified-site tables, §3 row for row, §1 headline
-numbers), the offline --check (join + the evidence pass on every staged row), the age recorded on every
+numbers), the offline --check (join + the evidence pass on every staged row), the --check and stage guards
+across 211's three merge states (hermetic temp canonical copies: pre-merge, merged-identical no-op, same-key
+different row and the six hand-tied keys still refused), the age recorded on every
 staged row (the date overrides, the AIC title-year row, the two raw QS-suffixed dates), the negative control
 (the Hutton Hall trap: the row with the Derbyshire Q5951058 point, 116 km away, must be reported FAIL,
 never kept; it is written to a tmp file only) and the golden sample (regenerated only via --golden, for an
@@ -23,6 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for d in (os.path.join(ROOT, "fit"), os.path.join(ROOT, "pipeline")):
     if d not in sys.path:
         sys.path.insert(0, d)
+import commons  # noqa: E402  pipeline/commons.py (year_of/keep, the pure date/keep functions the stage fake delegates to)
 import evidence  # noqa: E402  fit/evidence.py (the offline check over the staged rows)
 import sources  # noqa: E402  pipeline/sources.py (the KIP table the six hand-tied titles must equal)
 import src_kip  # noqa: E402  fit/src_kip.py, the module under test
@@ -167,6 +170,171 @@ def test_check_staged_offline(capsys):
     for r in rows:
         assert f"PASS caption_coords  {r['site']}|{r['title']}" in out, \
             f"missing PASS line for {r['site']}|{r['title']}:\n{out}"
+
+
+def _merge_states(tmp_path, monkeypatch):
+    """The 211 merge states of the canonical files as temp copies (the tests hold whether or not 211's live
+    merge has run on this checkout). Returns (point, files_pre, extras_pre, staged_file_lines,
+    staged_extras_lines, web_pre_sites, web_staged): point(files_rows, extras_rows, web_rows) points the
+    module's canonical path constants at temp files built in that state. The pre-merge state is the canonical
+    files with this module's own rows removed (the other sources' merged rows are untouched; the guards do
+    not care about them)."""
+    staged_files = src_kip._load(src_kip.FILES_KIP)
+    staged_sites = src_kip._load(src_kip.EXTRAS_KIP)
+    skeys = {(r["site"], r["title"]) for r in staged_files}
+    sids = {s["id"] for s in staged_sites}
+
+    def write(name, text):
+        p = tmp_path / name
+        p.write_text(text, encoding="utf-8")
+        return str(p)
+
+    files_pre = [json.dumps(r, ensure_ascii=False) for r in src_kip._load(src_kip.FILES_CANONICAL)
+                 if (r["site"], r["title"]) not in skeys]
+    extras_pre = [json.dumps(r, ensure_ascii=False) for r in src_kip._load(src_kip.EXTRAS)
+                  if r["id"] not in sids]
+    web = json.load(open(src_kip.WEB_SITES, encoding="utf-8"))
+    web_pre = {k: v for k, v in web.items() if k != "sites"}
+    web_pre_sites = [s for s in web["sites"] if s.get("id") not in sids]
+    cat = tmp_path / "sites_catalog.jsonl"
+    cat.write_text(open(src_kip.SITES_JSONL, encoding="utf-8").read(), encoding="utf-8")
+    monkeypatch.setattr(src_kip, "SITES_JSONL", str(cat))
+
+    def point(files_rows, extras_rows, web_rows):
+        monkeypatch.setattr(src_kip, "FILES_CANONICAL",
+                            write("files.jsonl", "\n".join(files_rows) + "\n"))
+        monkeypatch.setattr(src_kip, "EXTRAS", write("extras.jsonl", "\n".join(extras_rows) + "\n"))
+        monkeypatch.setattr(src_kip, "WEB_SITES",
+                            write("sites.json", json.dumps({**web_pre, "sites": web_rows},
+                                                          ensure_ascii=False, indent=1) + "\n"))
+
+    staged_file_lines = [json.dumps(r, ensure_ascii=False) for r in staged_files]
+    staged_extras_lines = [json.dumps(s, ensure_ascii=False) for s in staged_sites]
+    web_staged = [{"id": s["id"], "qid": s["qid"]} for s in staged_sites]  # what 211's built sites add to known
+    return point, files_pre, extras_pre, staged_file_lines, staged_extras_lines, web_pre_sites, web_staged
+
+
+def _fake_commons(monkeypatch):
+    """The live Commons metadata, served from the stored staged rows (205's live dump): stage()'s only
+    network call is c.info(); year_of/keep stay the real pure functions."""
+    rows = {r["title"]: r for r in src_kip._load(src_kip.FILES_KIP)}
+    meta = {}
+    for t, r in rows.items():
+        meta[t] = {k: r.get(k) for k in ("url", "w", "h", "desc")}
+        meta[t]["date"] = r["date_commons"] if "date_commons" in r else r["date"]
+
+    class _Fake:
+        def info(self, titles):
+            return {t: dict(meta[t]) for t in titles}
+
+        def year_of(self, title, m):
+            return commons.year_of(title, m)
+
+        def keep(self, title, m):
+            return commons.keep(title, m)
+
+    monkeypatch.setattr(src_kip, "_commons", lambda: _Fake())
+
+
+def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
+    """The 211 merge states of the --check guard, hermetically (temp copies of the canonical files, so the
+    test holds whether or not 211's live merge has run on this checkout): (a) staged rows ABSENT from the
+    canonical files (the pre-merge state) - check 0, no join problems, evidence all PASS; (b) staged rows
+    present with IDENTICAL content (the 211 first-row-wins merge has run) - check 0, no join problems: an
+    already-merged row is a no-op and the known-site checks stop self-triggering on the module's own rows;
+    (c) the same (site, title) key held by a DIFFERENT row, in the hand-tied shape - still fails loud,
+    naming exactly that key (and the re-stage of that title) and no other join problem."""
+    point, files_pre, extras_pre, staged_file_lines, staged_extras_lines, web_pre_sites, web_staged = \
+        _merge_states(tmp_path, monkeypatch)
+    staged_files = src_kip._load(src_kip.FILES_KIP)
+    evidence_line = f"evidence: {len(staged_files)} rows, {len(staged_files)} pass, 0 fail, 0 no-tie"
+
+    # (a) pre-merge: the staged rows are not in the canonical files yet
+    point(files_pre, extras_pre, web_pre_sites)
+    code = src_kip.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert evidence_line in out, out
+
+    # (b) the 211 merge ran: every staged row is in the canonical files with identical content
+    point(files_pre + staged_file_lines, extras_pre + staged_extras_lines, web_pre_sites + web_staged)
+    code = src_kip.check_staged()
+    out = capsys.readouterr().out
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert evidence_line in out, out
+
+    # (c) the same (site, title) key held by a DIFFERENT row (the hand-tied shape): the pre-merge conflict
+    # protection still fires
+    victim = staged_files[0]
+    vkey = (victim["site"], victim["title"])
+    hand = dict(victim, by="pipeline/sources.py kip",
+                evidence={"rec": "evidence/1", "kind": "hand_tied", "checked": "2026-10-10",
+                          "source": "pipeline/sources.py kip"})
+    lines = [json.dumps(hand, ensure_ascii=False) if (r["site"], r["title"]) == vkey
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_extras_lines, web_pre_sites + web_staged)
+    code = src_kip.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged title already in the canonical files.jsonl: {vkey}",
+                    f"join: staged row re-stages a hand-tied view (evidence kind must stay hand_tied): "
+                    f"{victim['title']!r}"], join
+
+
+def test_stage_offline_three_states(tmp_path, monkeypatch, capsys):
+    """stage() under the 211 merge states, hermetically (temp copies of the canonical files; the live
+    Commons metadata served from the stored staged rows - no network, no ports, no writes but the temp dir):
+    (a) staged rows ABSENT from the canonical files (pre-merge) - a no-op re-stage (the rows are
+    already in the module's staging files); (b) staged rows present with IDENTICAL content (the 211 merge
+    has run) - still a no-op: an already-merged row is never re-written; (c) the same (site, title) key
+    held by a hand-tied row (the sources.py shape) - SystemExit: the six hand-tied views are never
+    re-staged, whatever the row shape; (d) the same key held by a different, non-hand-tied row -
+    SystemExit: the pre-merge conflict protection."""
+    point, files_pre, extras_pre, staged_file_lines, staged_extras_lines, web_pre_sites, web_staged = \
+        _merge_states(tmp_path, monkeypatch)
+    _fake_commons(monkeypatch)
+    staged_files = src_kip._load(src_kip.FILES_KIP)
+
+    def no_op():
+        out = capsys.readouterr().out
+        assert out.strip() == "staged: 0 new sites, 0 new pictures", out
+
+    # (a) pre-merge: the staged rows are not in the canonical files yet
+    point(files_pre, extras_pre, web_pre_sites)
+    src_kip.stage()
+    no_op()
+
+    # (b) the 211 merge ran: every staged row is in the canonical files with identical content
+    point(files_pre + staged_file_lines, extras_pre + staged_extras_lines, web_pre_sites + web_staged)
+    src_kip.stage()
+    no_op()
+
+    # (c) the victim key held by a hand-tied row (same key, the sources.py shape): never re-staged
+    victim = staged_files[0]
+    vkey = (victim["site"], victim["title"])
+    hand = dict(victim, by="pipeline/sources.py kip",
+                evidence={"rec": "evidence/1", "kind": "hand_tied", "checked": "2026-10-10",
+                          "source": "pipeline/sources.py kip"})
+    lines = [json.dumps(hand, ensure_ascii=False) if (r["site"], r["title"]) == vkey
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_extras_lines, web_pre_sites + web_staged)
+    with pytest.raises(SystemExit) as exc:
+        src_kip.stage()
+    assert victim["title"] in str(exc.value) and "hand-tied" in str(exc.value), str(exc.value)
+
+    # (d) another staged key held by a different, non-hand-tied row (same key, different content): refused
+    victim2 = staged_files[1]
+    v2key = (victim2["site"], victim2["title"])
+    different = dict(victim2, year=victim2["year"] + 1)
+    lines = [json.dumps(different, ensure_ascii=False) if (r["site"], r["title"]) == v2key
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_extras_lines, web_pre_sites + web_staged)
+    with pytest.raises(SystemExit) as exc:
+        src_kip.stage()
+    assert victim2["title"] in str(exc.value) and "canonical files.jsonl" in str(exc.value), str(exc.value)
 
 
 def test_staged_rows_record_the_plate_dates():

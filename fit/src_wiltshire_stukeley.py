@@ -26,7 +26,8 @@ pen drawing of Kit's Coty House -> kit-s-coty-house-q4222497). All three sites a
 catalog sites (cross-checked against data/catalog/sites.jsonl at stage time; drift fails loud),
 so no extras file is needed. The two Petrie 1880 files of the same Commons category are already
 canonical (data/commons/files.jsonl rows 713/714) - a title in the canonical files is a hard fail
-here; their identification unblocked 209c's Commons fallback (docs/lead_wiltshire.md).
+here, except the module's own rows once 211 has merged them (an identical twin is a no-op);
+their identification unblocked 209c's Commons fallback (docs/lead_wiltshire.md).
 
 usage: src_wiltshire_stukeley.py --fetch         live: the IA book's triage pages (books.cmd_fetch,
                                                resumable; the book is short, no long background job)
@@ -43,7 +44,11 @@ usage: src_wiltshire_stukeley.py --fetch         live: the IA book's triage page
        [--dry]                                 classified_wiltshire_b.jsonl: the three Commons rows (live,
                                                one paced batched metadata call) then the book's two plan rows (offline;
                                                --dry previews, --stage / no args is the live run)
-       src_wiltshire_stukeley.py --check       offline (no network): join the staged files, run
+       src_wiltshire_stukeley.py --check       offline (no network): join the staged files (a staged row
+                                               whose (site, title) key is in the canonical files.jsonl is a no-op -
+                                               already merged by 211 - only when identical to the canonical row
+                                               under the merge's identity rule; a different row holding the key, or a
+                                               title held by a different site, is still a problem) and run
                                                fit/evidence.py's check over every staged row
        src_wiltshire_stukeley.py --golden      write tests/golden/src_wiltshire_stukeley_sample.json
 
@@ -230,6 +235,12 @@ def _append(path, rows):
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
 def _catalog():
     """{id: site} over the catalog and the web build: the rows may only tie to sites that exist."""
     out = {s["id"]: s for s in _load(SITES_JSONL)}
@@ -336,15 +347,28 @@ def stage_book(dry=False):
     """Offline: stage the book's verified site-plan plates (BOOK_ROWS) into the same staging files
     (211 merges them into the canonical index). Guards, in order per row: a leaf whose stage-A row
     is gone or no longer plate_site_plan (a triage re-run that reclassifies a staged plate fails
-    loud); the row's printed list entry drifted off STUKLEY_PLATES (the evidence is that entry);
-    a site missing from (or moved off) the catalog; a title already in the canonical files.jsonl;
-    a (site, title) already staged (idempotent skip). No network, no LLM: stage A and the catalog
-    are local files."""
+    loud); a (site, title) key the canonical files.jsonl already holds - a no-op (already merged
+    by 211, byte-identical) only when the module's own staged row is identical to the canonical
+    row, a different row holding the key is refused - a title held by a different canonical row
+    (never re-staged); a site missing from (or moved off) the catalog; the row's printed list
+    entry drifted off STUKLEY_PLATES (the evidence is that entry); a (site, title) already
+    staged (idempotent skip). No network, no LLM: stage A and the catalog are local files."""
     import books
     a = books.stage_a(IA)
     known = _catalog()
     have = {(r.get("site"), r.get("title")) for r in _load(FILES_B) + _load(CLASSIFIED_B)}
-    canonical = {r.get("title") for r in _load(FILES_CANONICAL) if r.get("title")}
+    staged_norm = {}  # (site, title) -> the module's own staged row, under the merge's identity
+    for r in _load(FILES_B):
+        if r.get("title"):
+            staged_norm[(r.get("site"), r.get("title"))] = _canon_norm(r)
+    canonical, canonical_titles = {}, set()
+    for r in _load(FILES_CANONICAL):
+        if not r.get("title"):
+            continue
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
+        canonical_titles.add(r.get("title"))
     new_files, new_cls = [], []
     for row in BOOK_ROWS:
         s = SITES[row["site"]]
@@ -354,7 +378,13 @@ def stage_book(dry=False):
                 raise SystemExit(f"BOOK_ROWS {row['title']!r}: leaf {n} is not plate_site_plan in "
                                  f"stage A now ({r and r['out'].get('page_type')!r}): the machine reclassified "
                                  f"a staged plate - re-verify before staging")
-        if row["title"] in canonical:
+        k = (row["site"], row["title"])
+        if k in canonical:  # the 211 merge already holds the key: identical = no-op, different = refused
+            if k in staged_norm and canonical[k] == staged_norm[k]:
+                continue
+            raise SystemExit(f"{row['title']!r} is already in the canonical files.jsonl (site {row['site']!r}): "
+                             f"a different row holds the key - refused")
+        if row["title"] in canonical_titles:
             raise SystemExit(f"{row['title']!r} is already in the canonical files.jsonl: never re-staged")
         cat = known.get(row["site"])
         if cat is None:
@@ -401,23 +431,42 @@ def stage(dry=False):
 
 def _stage_commons(dry=False):
     """The Commons half of stage() (205-Kip pattern, append-only, idempotent on (site, title)).
-    Drift fails loud: a title already in the canonical files.jsonl (the two Petrie 1880 files -
-    never re-staged, whatever site a rogue row names), a site missing from (or moved off) the
-    catalog, a title Commons no longer holds, a live size moved off the table, a named place the
-    live caption no longer prints, or a row commons.keep() would drop after the date override is
-    applied. One live call: the batched, paced commons.info over the three titles - the file
-    bytes are never fetched (PITFALLS: upload.wikimedia.org rate-limits raw downloads, not the
-    API)."""
+    Drift fails loud: a (site, title) key the canonical files.jsonl already holds - a no-op
+    (already merged by 211, byte-identical) only when the module's own staged row is identical to
+    the canonical row, a different row holding the key is refused - a title held by a DIFFERENT
+    site (the two Petrie 1880 files - never re-staged, whatever site a rogue row names), a site
+    missing from (or moved off) the catalog, a title Commons no longer holds, a live size moved
+    off the table, a named place the live caption no longer prints, or a row commons.keep() would
+    drop after the date override is applied. One live call: the batched, paced commons.info over
+    the three titles - the file bytes are never fetched (PITFALLS: upload.wikimedia.org
+    rate-limits raw downloads, not the API)."""
     c = _commons()
     import books_match
     known = _catalog()
     have = {(r.get("site"), r.get("title")) for r in _load(FILES_B) + _load(CLASSIFIED_B)}
-    canonical = {r.get("title") for r in _load(FILES_CANONICAL) if r.get("title")}
+    staged_norm = {}  # (site, title) -> the module's own staged row, under the merge's identity
+    for r in _load(FILES_B):
+        if r.get("title"):
+            staged_norm[(r.get("site"), r.get("title"))] = _canon_norm(r)
+    canonical, canonical_titles = {}, set()
+    for r in _load(FILES_CANONICAL):
+        if not r.get("title"):
+            continue
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
+        canonical_titles.add(r.get("title"))
     meta = c.info([t for t, *_ in STAGED])
     new_files, new_cls = [], []
     for title, sid, named, want, label, kind, w, h in STAGED:
         s = SITES[sid]
-        if title in canonical:
+        k = (sid, title)
+        if k in canonical:  # the 211 merge already holds the key: identical = no-op, different = refused
+            if k in staged_norm and canonical[k] == staged_norm[k]:
+                continue
+            raise SystemExit(f"{title!r} is already in the canonical files.jsonl (site {sid!r}): a different "
+                             f"row holds the key - refused")
+        if title in canonical_titles:
             raise SystemExit(f"{title!r} is already in the canonical files.jsonl: never re-staged "
                              f"(the two Petrie 1880 files are the case this title-only guard was built for)")
         cat = known.get(sid)
@@ -461,16 +510,25 @@ def _stage_commons(dry=False):
 
 def check_staged():
     """Offline (no network): join the staged files (every file row names a catalog or web-built
-    site; (site, title) unique; no title already in the canonical files.jsonl; classified rows
-    1:1 with the file rows) and run fit/evidence.py's check over every staged row. Returns the
-    exit code (0 iff no problem and no FAIL)."""
+    site; (site, title) unique; a staged row whose (site, title) key is in the canonical
+    files.jsonl is a no-op - "already merged by 211" - only when identical to the canonical row
+    under the merge's identity rule, a same-key different row and a title held by a different
+    site are still problems; classified rows 1:1 with the file rows) and run fit/evidence.py's
+    check over every staged row. Returns the exit code (0 iff no problem and no FAIL)."""
     import evidence
     files = _load(FILES_B)
     cls = _load(CLASSIFIED_B)
     known = set(_catalog())
     problems = []
     seen = set()
-    canonical = {r.get("title") for r in _load(FILES_CANONICAL) if r.get("title")}
+    canonical, canonical_titles = {}, set()
+    for r in _load(FILES_CANONICAL):
+        if not r.get("title"):
+            continue
+        k = (r.get("site"), r.get("title"))
+        if k not in canonical:  # first row wins, as in the 211 merge
+            canonical[k] = _canon_norm(r)
+        canonical_titles.add(r.get("title"))
     for r in files:
         if not r.get("title"):
             continue
@@ -481,7 +539,11 @@ def check_staged():
         if k in seen:
             problems.append(f"duplicate staged row {k}")
         seen.add(k)
-        if r.get("title") in canonical:
+        if k in canonical:
+            if canonical[k] != _canon_norm(r):
+                problems.append(f"staged row already in the canonical files.jsonl: {k} "
+                                f"(a different row holds the key)")
+        elif r.get("title") in canonical_titles:
             problems.append(f"staged title already in the canonical files.jsonl: {r['title']!r}")
     if {(r.get("site"), r.get("title")) for r in cls} != seen:
         problems.append("the classified rows are not 1:1 with the staged file rows")

@@ -1,0 +1,15 @@
+{
+ "id": "haarlem-q9920",
+ "name": "Haarlem",
+ "place": "North Holland, Netherlands",
+ "lon": 4.634,
+ "lat": 52.388,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Netherlands",
+ "kind": "town",
+ "qid": "Q9920",
+ "summary": "Haarlem is a city and municipality in the Netherlands. It is the capital of the province of North Holland. Haarlem is situated at the northern edge of the Randstad, one of the most populated metropolitan areas in Europe; it is also part of the Amsterdam metropolitan area. Haarlem had a population of 162,543 in 2021.",
+ "wiki": "https://en.wikipedia.org/wiki/Haarlem"
+}

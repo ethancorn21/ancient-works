@@ -4,8 +4,8 @@
 Contents, with the number of entries. Search for a file, function, library or error text: `grep -n -i "<key>" PITFALLS.md`; every entry's one-line fact: `grep -n "^#### " PITFALLS.md`.
 - Agent tools and harness (7)
 - This machine and its environment (30): Internet Archive (archive.org) 4
-- Libraries and frameworks (11): pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
-- This codebase (80): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 12, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 5, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4
+- Libraries and frameworks (12): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3
+- This codebase (87): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 14, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 3, web/ (the page and its extension scripts) 7, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, data/merge/ (211's consolidation runners) 1
 <!-- contents:end -->
 
 Facts that stay true after the task that found them: a tool quirk, a library trap, a trap in this code, what this
@@ -82,8 +82,8 @@ impossible here, only the owner's machine renders relief.
 
 #### The page's base imagery is a live Esri feed: no-internet headless runs always get ERR_ABORTED on it, and its URL segment is the SINGULAR 'tile/'
 Where: `web/index.html` (base imagery source ~line 314: `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}`), every headless page test that asserts on reqfail lines (tests/test_fit_queue.py card tests, tests/test_review.py, 307bb's part 4)
-Symptom: `[reqfail] https://server.arcgisonline.com/.../MapServer/tile/... net::ERR_ABORTED` lines in a no-internet headless run (flaky: an abort only lands while a fetch is in flight at a map-view change or teardown, so an unexcluded test fails on some runs and not others)
-The machine has no internet and the page requests this live feed, so these fetches die in every headless run - a page-caused abort, the same allowed class as the relief-tile aborts above, to be excluded in reqfail assertions. Excluding by path alone is NOT enough: the Esri path segment is the singular 'tile/' (`MapServer/tile/`), which the common `'/tiles/' not in url` filter misses - exclude by host instead: `'/tiles/' not in ln and 'arcgisonline' not in ln`.
+Symptom: `[reqfail] https://server.arcgisonline.com/.../MapServer/tile/... net::ERR_ABORTED` lines in headless runs (they land while a fetch is in flight at a map-view change or teardown, so an unexcluded test fails on some runs and not others)
+The page requests this live feed, so in a no-network run these fetches die, and on this VM (which HAS internet - a tile answers 200 in 0.2 s, verified 2026-10-12 in task 306b) the probes' rapid map teardown aborts in-flight tiles instead (see the web/ entry on the same feed): either way a page-caused abort, the same allowed class as the relief-tile aborts above, to be excluded in reqfail assertions. Excluding by path alone is NOT enough: the Esri path segment is the singular 'tile/' (`MapServer/tile/`), which the common `'/tiles/' not in url` filter misses - exclude by host instead: `'/tiles/' not in ln and 'arcgisonline' not in ln`.
 
 #### The driver's .venv build needs a fully pinned and hashed requirements.txt
 Where: `requirements.in`, `requirements.txt`, the driver's venv build (`pip install --require-hashes`)
@@ -189,6 +189,8 @@ Symptom: none - it works, in contrast to the MET/AIC APIs which are TLS-refused 
 Why: the egress allowlist covers both hosts and `commons.get` sets the UA Nominatim's policy requires; pace
       Nominatim at 1 request/second. Verified live 2026-10-13 (task 205): "Kings Weston House, Bristol" 4 m from
       the enwiki infobox point, "Trinity Theological College, Bristol" 0 m, "Royal Mews, Windsor" 72 m.
+      A plain `curl -H 'User-Agent: ...'` works too, not only `commons.get`, and `/search` 400s without a `q`
+      parameter (task 306b, 2026-10-12).
 #### NFKD on this machine does NOT apply Unicode compatibility (F-type) decompositions
 Where: `unicodedata.normalize("NFKD", ...)` anywhere on this machine - `pipeline/catalog.py`'s `slug()`,
       `pipeline/books_match.py`'s `norm()`, and hence every site id built from a town name (`fit/
@@ -286,6 +288,14 @@ Why: pinning the render recipe keeps the per-worktree re-derivation identical, s
 ## Libraries and frameworks
 
 One `### <library>` subsection per library or tool, with its version.
+
+### pillow (12.3.0, project .venv)
+
+#### A Float32 DEM (the Dutch AHN) needs the unpinned `imagecodecs` package - without it every AHN-sourced site fails to build
+Where: pipeline/build_site.py:load_dem (Image.open on the AHN DEM tiles), the `.venv` build from requirements.txt
+Symptom: `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package` at build time; the AHN-sourced sites (amsterdam-q727, alkmaar-q972, enkhuizen-q9918, haarlem-q9920, rotterdam-q34370, the-hague-q36600, utrecht-q803) all fail, while the point-cloud fallback saves only the boxes pc covers (reimerswaal, sluis, valkenburg)
+Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs. imagecodecs 2026.10.10 was installed ad hoc into the project .venv (2026-10-12, 211's box-3 run) and is NOT in requirements.in/requirements.txt (agent c's 302a/304 own those files; the pin is still outstanding). The driver's in-place .venv rebuild keeps extra packages, so it survives today, but a from-scratch venv would lose it and the AHN builds would fail again.
+What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build (the .venv still carries the ad-hoc 2026.10.10 install). Task 229 (filed 2026-10-12 by 211; Depends on 302a/304, who own requirements.in/.txt in flight) pins it in requirements.in and regenerates requirements.txt - when it lands, correct this entry.
 
 ### pyproj (3.8, project .venv)
 
@@ -432,6 +442,11 @@ row per site from the site's own candidate list. As of the plan two pairs share 
 Larned History..." (avebury-q661855 + stonehenge-q39671) and "File:Mayburgh-1769.png"
 (mayburgh-henge + king-arthur-s-round-table). The page's `P.byId` keeps only the last of the shared-
 `id` rows; the fit-tool keying fix is scoped into 201.
+
+#### `web/data/sites.json` and `web/data/plans.json` are dicts at the top level, not arrays
+Where: `web/data/sites.json` ({"sites": [...]}), `web/data/plans.json` ({"cols": [...], "rows": [...]}); any script that counts or iterates their entries
+Symptom: `len(json.load(open("web/data/plans.json")))` returns 2 (and sites.json 1) instead of the entry count - a "the file lost its rows" check fires on an intact file
+Why: the serving machinery wraps the list: sites.json keeps the site array under "sites"; plans.json is the columnar cols/rows export written by tools/export_plans.py. Index into the wrapper before counting or iterating (verified 2026-10-12, iteration 190: 499 sites / 1,168 rows).
 
 #### `serve.py` runs the plan_fit sync only after a platefits write, never at startup
 Where: `server/serve.py` (`after_write`), `pipeline/plan_fit.py`
@@ -864,6 +879,17 @@ Where: fit/src_wiltshire_hoare.py (status()/register() import books lazily; src_
 Symptom: `python fit/src_wiltshire_hoare.py --status` -> ModuleNotFoundError: No module named 'books' while the pytest suite passes
 Why: the test file inserts pipeline/ (and fit/) into sys.path before importing the module, but bare `python <script>` puts only the script's own directory on the path. Do `sys.path.insert(0, <root>/pipeline)` at module top (the src_mackenzie.py idiom) so the CLI and the tests share one import path.
 
+#### Staging -> canonical path mapping must be a stem map, never string surgery: source names contain underscores
+Where: staging naming `data/{catalog,commons}/<stem>_<source>.jsonl`; `tests/test_merge.py` (`_canon_of`), `fit/merge.py` (`source_of`)
+Symptom: `p.replace("extras_", "extras.")` on `extras_artists.jsonl` yields `extras.artists.jsonl` (FileNotFoundError the moment you open it); `p.rsplit("_", 1)[0]` mangles underscored sources: `files_wiltshire_b.jsonl` -> `files_wiltshire.jsonl`, `classified_van_deventer.jsonl` -> `classified_van.jsonl`
+Why: a staging filename is `<stem>_<source>.jsonl` and the source name itself may carry underscores (wiltshire_b, van_deventer). Derive the canonical path from a fixed stem map (`data/catalog/extras_` -> `data/catalog/extras.jsonl`, `data/commons/files_` -> `data/commons/files.jsonl`, `data/commons/classified_` -> `data/commons/classified.jsonl`) - or from the glob prefix the reader already used - and never slice on `_` inside a name.
+
+#### After 211's live merge, every source module's "no staged row in canonical" guard self-triggers - identical twins are the merged state, not a clash
+Where: every fit/src_<lead>.py guard that reads the canonical data/commons/files.jsonl or data/catalog/extras.jsonl (van_deventer, kip, mackenzie, limes, numancia, wiltshire_stukeley, artists - tasks 204/205/206/208/210/209b/213), and their test files
+Symptom: after running fit/merge.py merge on the real tree, the module's --check (or stage command) reds with "staged title already in the canonical files.jsonl: ..." / SystemExit, and the known-site checks ("staged site re-uses existing QID", "staged site ids collide") false-positive on the module's OWN merged sites
+Why: merge.py's contract is that the staging files stay in place and each source's --check still reads them, so "staged row present in the canonical file" is the NORMAL post-merge state, not a clash. A clash is only a DIFFERENT row holding the same key (or an id/QID held by a different site). known_sites() reads the canonical extras, which after the merge contain the source's own staged sites - that is a self-reference, not a duplicate.
+What to do: accept a row identical to its canonical twin under the merge's norm() (json.dumps sort_keys, ensure_ascii=False) as an already-merged no-op (check rc 0, stage a no-op); keep fail-loud for a different row with the same key; exclude self-references from known-site collisions (id: staged_ids & (known.values() - staged_ids); QID: known[qid] != staged id). The guard extensions were filed as tasks 222-228 (one module each; 211 depends on them). 222 (fit/src_van_deventer.py + its three-state test) is the reference implementation of the pattern; 223-228 copy it (notes: stukeley's stage leg is also red; mackenzie's guard is named check and its stage leg is the site-id guard on the canonical extras.jsonl - its three-state test covers a fresh re-stage onto a merged tree with the staging files emptied; numancia has no staged site, so its three-state test varies only the canonical files.jsonl, leaving the catalog extras and sites.json reads as-is; artists 228 deviates on the id check: per-site - a staged id is a problem when a known site holding it has a different QID - because the set-difference form above cannot report "a staged id held by a different site" (the id is in staged_ids, so the subtraction removes it); 228's three-state test pins it in (c3)). Fixed: 222-228 (all seven done, iteration 198, 2026-10-12).
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
@@ -1143,6 +1169,29 @@ Where: `web/review.js:74` and `web/fitqueue.js:56` (the page's own matchers, whi
 Symptom: a consumer pinned to one wording (201's test filtered the substring "built in all") stops finding the line after a re-word - "the home stats line must be present" fails on every branch, while the page's own feature still works (its matcher accepts both wordings).
 Why: the lead re-worded the line in 939382a ("...laid on today's ground...") and both page matchers already accept the disjunction. The page's regex is the source of truth: mirror it (either wording), never re-pin one - the wording may move again in 307's page rework.
 
+#### web/data/sites/<site>/ survey layers (etatmajor, cassini, tmk1850, fr_ortho1950) are site-sized georeferenced blocks - 1 px = 1 m for sites up to 2400 m across
+Where: `pipeline/depict.py` (`build`: `aw.site_bbox` + `px = max(1.0, max(width_m, height_m)/2400)` + `sample_xyz`/
+      `sample_rd`); the `web/data/sites/<site>/*.webp` files and their `depictions.json` `corners`; the source
+      records `data/sites/<id>/site.json`
+Symptom: treating `etatmajor.webp` (or a sibling survey layer) as a zoom-level tile or a variable sheet - it is a
+      fixed box: the site's width_m x height_m centred on the site's own lon/lat, resampled to width_m/px x
+      height_m/px pixels (cenabum's 1600 m box -> a 1600 x 1600 px file)
+Why: for sites whose max dimension is <= 2400 m, px = 1.0, so 1 px = 1 m and the image centre is the site point;
+      the `corners` in depictions.json are the block's [lon, lat] corners, so any crop is exactly georeferenced.
+      That makes these files ideal local ground truth for judging a fit (task 306b): crop the region, measure in
+      pixels, 1 px = 1 m, and the printed survey ink (the 1850s etatmajor town names) verifies a placement with no
+      network.
+
+#### Driving the fit tool headlessly with your own pairs: a fitqueue entry for the opened plan seeds 5 anchor pairs into your least squares
+Where: `web/fitkit.js` (`_fkActivate` seeds the entry's 5 anchor pairs when the opened plan matches an entry in
+      `web/data/fit_queue.json`); any headless audit that pushes its own pairs through `openPlan` + `refit`
+      (task 306b's `tools/audit_306b.mjs`; the 306c-f orphan audits)
+Symptom: the fitted preview (the fit-prev map source, the fithint m/px) reflects a 13-point blend (5 seed + 8 your)
+      instead of your 8-point fit - silently, no pageerror; the transform you judge is not the document's
+Why/fix: after `startFit` and before `openPlan`, wait for `FQ.loaded` and empty `FQ.entries` in the page context
+      (fitkit falls open), and verify from the shot log that the fit ran on your own pairs (306b's driver reports
+      `placed:false`, `n:8` in `[eval]`).
+
 ### tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`)
 
 #### The check runs when ANY of catalog / book index / book lists is present - a tree with only data/books/index.jsonl is NOT the no-op degrade
@@ -1164,3 +1213,23 @@ Why: `--live` (caption words re-resolved through the cached Wikidata, a human-on
 Where: tests/test_right_place_drift.py; the region between the two "# =====" VERBATIM marker lines in tools/right_place.py; pipeline/books_match.py
 Symptom: extracting the same named block from both files and comparing the blocks for equality fails on almost every block - the only difference is a single trailing blank line (books_match keeps two blank lines between top-level definitions, the right_place copy one); the content lines are byte-identical
 Why: the VERBATIM promise covers the block text, not the surrounding whitespace, so 805's box-3 test extracts each of the 17 named blocks from right_place's region and asserts the block text OCCURS in pipeline/books_match.py. Containment fails on any content drift in either direction (mutation-verified 2026-10-12: a changed line in the copy, a deleted line in the source) and passes on blank-line-only differences. Do not "upgrade" the test to full block equality - it would red on the untouched, in-sync tree.
+
+### data/sites.json (site points)
+
+#### A site's canonical point can be a real modern city: reverse-geocode it before judging a fit, never from memory
+Where: the site records' `lon`/`lat` (`data/sites/<id>/site.json`, `web/data/sites.json`); this one: cenabum-q2710144 at (1.909, 47.9025) - Wikidata Q2710144 'Cenabum'; the 306b audit (task 306b's hand-over); Nominatim `/reverse` and the site's own etatmajor webp (see the web/ entry on the survey blocks)
+Symptom: assuming Orléans sits at ~2.09°E and calling a fit of Jollois 1833's 'Plan général de la ville et des
+      environs d'Orléans en 1828' (the cenabum document) a ~12 km miss - in fact the site point is the city itself
+      (1.9°E, 47.9°N): the 1850s état-major tiles print 'ORLÉANS' exactly at (1.909, 47.9025), while (2.09, 47.90)
+      is open Mardre/Donnery farmland with no town
+Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and a site's point is exactly what the
+      fit must land on. Before judging placement, re-derive the point's meaning: Nominatim `/reverse` (reachable
+      from this VM, see the machine section) and the site's own georeferenced survey ink.
+
+### data/merge/ (211's consolidation runners)
+
+#### run_build.py is nohup'd, survives session teardown, and is one site per child - never start a second one for overlapping ids
+Where: data/merge/run_build.py (the box-3 site runner), data/merge/build_sites.log (append-only run log)
+Symptom: a previous session's `nohup .venv/bin/python data/merge/run_build.py <ids> &` is still running (`ps aux | grep run_build`); the log's last `=== <sid> start` has no `build rc=` tail yet; a second instance for the same ids would race it on web/data/sites.json
+Why: ending a session does not kill the detached process; each site is one `pipeline/build_catalog.py --ids <sid>` subprocess, so a kill leaves a clean boundary at the last finished site, and build_catalog skips already-built sites, so resuming with the remaining ids is always safe.
+What to do: before launching anything, check `ps`. Log semantics: `NOT BUILT: <sid>` = the machinery skipped it (no LiDAR and no old map, or the id matched no catalog row - sids include the Q-id, so a typo'd id like `vieille-hesdin` silently builds nothing); `=== <sid> FAILED ===` = the subprocess exited non-zero (traceback logged above it). The per-site `marks refreshed` line is build_site.set_drawings on that one site only.

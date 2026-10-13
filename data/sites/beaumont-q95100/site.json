@@ -1,0 +1,15 @@
+{
+ "id": "beaumont-q95100",
+ "name": "Beaumont",
+ "place": "Arrondissement of Thuin, Belgium",
+ "lon": 4.2383,
+ "lat": 50.2355,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "Belgium",
+ "kind": "town",
+ "qid": "Q95100",
+ "summary": "Beaumont is a city and municipality of Wallonia located in the Belgian province of Hainaut, on the border with France.",
+ "wiki": "https://en.wikipedia.org/wiki/Beaumont,_Belgium"
+}
