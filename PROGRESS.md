@@ -49,3 +49,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     tests/test_batch_eu.py::test_union_check
     tests/test_batch_eu.py::test_union_full_coverage_live
     tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-13 308 (agent a, iteration 212)
+    First session: before-baseline committed (docs/site_flow/markers-before-*.png), arrowhead design final in the task file's hand-over, NO code changed yet. Next: implement the .ah SVG marker in web/index.html exactly per that hand-over, run /tmp/aw308shot.mjs in phase 'after' (it self-checks tip-anchoring/click/shape), suite, docs/site_flow.md section, tick boxes.
