@@ -428,8 +428,14 @@ def _derive_with_check(root):
         if any(c.get("plan") == plan for c in item_cands.get(target) or []):
             continue
         upserts.setdefault(target, []).append(fit_queue._place_entry(plan, row, item_cand, reason))
+    # the owner's 2026-10-13 rule: sites.json lidar: false never enters the queue
+    ss = json.loads((root / "web" / "data" / "sites.json").read_text())
+    ss = ss.get("sites") if isinstance(ss, dict) else ss
+    no_lidar = {s["id"] for s in ss if s.get("lidar") is False}
     entries = []
     for sid in after:
+        if sid in no_lidar:
+            continue
         e = fit_queue._entry(sid, names[sid], after[sid])
         p = fit_queue._entry_propose(root, sid, e["best"]["plan"])  # the 307b key: same run, same inputs
         if p is not None:
