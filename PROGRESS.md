@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 199, agent c - CLOSED, nothing left. The human answered request 004
+- `tasks/306c-orphan-fits-us.md` (in-progress) - hand-over: (2026-10-13, iteration 201, agent c - **CLOSE, second time.** The driver's ebe1228 had
 - `tasks/306e-orphan-fits-uk-2.md` (in-progress) - hand-over: (2026-10-13, iteration 198, agent c - **197's merge is COMMITTED (6554a14) and the post-merge
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -25,48 +25,15 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-12 306 DECISION: split into six look-audits by visibility class and region
-- Box 1 of 306 covers ALL 112 non-hand docs (23 on-map, 21 in review items, 68 orphans - the orphan
-  class is new to the project: in the store but neither built as an overlay nor referenced by any
-  review item, so a visitor can see them not at all; audited by rendering the doc's saved pairs in
-  the fit tool). Six subtasks: 306a on-map (23), 306b review (21), 306c orphan US (15), 306d orphan
-  UK part 1 (18), 306e orphan UK part 2 (15), 306f orphan continental (17). A before B before C:
-  only A sits on the map (the title's "none reaches the map unseen"); only 306a performs the
-  removals (box 2). No subtask carries `Depends on: 306` (a split parent deadlocks its own
-  subtasks - PITFALLS); the driver hands them out a-f.
-- The audit is headless-browser work, not a test: serve the tree once (server/serve.py --port 0,
-  ephemeral port, GET-only - safe for parallel checkouts) and drive the real page through
-  tools/shot.mjs's [js] argument: select(site) -> setGround('imagery'|'relief', site) ->
-  startFit(site) -> openPlan(row) -> push the doc's pairs as {u,v,lon,lat} + addPairMarker +
-  refit (refit renders the fitted plate as the fit-prev map source; web/review.js does exactly
-  this for item pairs, L142-146/L189-196). On-map docs go the visitor's way instead: open the
-  site, activate the depiction (applyDep). This VM HAS internet (Esri World_Imagery 200 in 0.17 s,
-  verified this session): the "no-internet headless" pitfall applies only to the no-network test
-  runs. LiDAR on the page is the per-site prebuilt relief.jpg (index.html L367-368), not the live
-  /tiles/relief (off here, `aw` is Mac-only); shotwick has no relief.jpg (aerial-only).
-- For the 21 B docs the doc's stored pairs DIFFER from the review item's candidate pairs (except
-  castle-neroche n0110_1): the audit renders the DOC's own pairs (the document is the artifact)
-  and the verdict notes where the item's version differs.
-- All 112 docs carry 4+ pairs, so every one renders as a fitted plate (simFit needs 3). sites.json
-  `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
-  forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
-  sites it changes.
+### 2026-10-11 207 DECISION: split into 207a (Horsley), 207b (Maclauchlan), 207c (Roy); reordered so the unblocked books go first
+Chose per-book subtasks over one task: the three-book pipeline (fetch + triage A/F/C/B + list mapping + recall + staging + tests + lead doc) is far beyond a few sessions, and the task's own Notes anticipate the split. Reordered from the Notes' (Roy, Horsley, Maclauchlan) to (Horsley, Maclauchlan, Roy): the driver hands out subtasks in a/b/c order, and Roy (207c) is blocked waiting on a human-provided copy (BLOCKER below), so putting it last keeps the pipeline moving.
+Copy choices (measured this session via books_ia): Horsley -> `britanniaromanao00hors` (Google Books, 936 leaves, median 2237x3861 px, hOCR + djvu.txt; alternates the bim British Museum copies, 831/827 leaves, ~14000 px images - only if the Google pages are unreadable). Maclauchlan -> `memoirwrittendu00maclgoog` (the 1858 original, 171 leaves, 3290x5182 px, djvu.txt only, no hOCR; the 1971 reprint `memoirwrittendur0000henr`, 292 leaves 1625x2697, has hOCR and is the OCR source for the book's list; stage images only from the 1858 original). Mechanics: each subtask's module registers its book in `books.BOOKS` and patches `books.LLM_URLS` in-process to the live replicas (127.0.0.1:8080-8082, model qwen3.8-27b, verified up this session) - no edits to pipeline/ (215 re-points books.py properly); per-book artifacts only (triage/<ia>.*, lists/<ia>.json/.map.json via `books_lists.cmd_ocrmap` after in-process `books_lists.PLATES[ia]` injection); recall recorded per book in docs/lead_roman.md via `books_lists.validate_book` (the shared validation.json/index.jsonl stay untouched until 211); staging appends to the parent's shared files (files_roman.jsonl etc.) with rows tagged per book, the 204/205 append-only idempotent pattern.
 
-### 2026-10-12 306c DECISION: iteration 158 - stuck rule executed: filed ask_human request 004 FIRST (blocking, not human_only) with the 3-rejection A/B evidence + recommendation; task stays in-progress while 004 is open; the 307bb test re-confirmed red (seed dep:null + new save/cancel failures) on the current tree
-- 3rd done-claim rejection (18:13) = 307bb's own test_placement_gestures_and_save_in_the_browser (diagnosed at 157; A/B: vacuous-red on clean main 7e61147, seed dep:null on my branch after 306c's marietta delete/upsert shifts the derived pick; fitkit.js:349 hides only an existing layer; all involved files are 307bb's Touches). Unfixable inside 306c's Touches without undoing box 3 (forbidden).
-- This session (per the 157 hand-over's case (0)): filed blocking request 004 (.agent/asks/004.md) with the full A/B and the three options; recommendation (a): accept 306c on the A/B evidence, add the 307bb test to the driver's known-failures baseline, reopen 307bb for the fix (fitkit.js:349 leave the dep layer present-and-hidden on placement-mode-open, or the test accepts dep===null when there is no earlier overlay; pick requires a runtime layer; save checks wait for the overlay build). The filing's instruction: keep the task status as-is (in-progress) while the request is open; the loop answers with my recommendation after 120 min of human silence. Do NOT file a 4th mechanical done-claim meanwhile.
-- Fresh run today (tree unchanged since 157; main tip 7e61147; no new commit touches the 307bb files): the test still red and WIDER than 157's run - seed dep:null as diagnosed, PLUS save ("the page closed the fit view" undefined; "the overlay landed in the tree" - the "Making the overlay (a few seconds)" build not finished by the probe read; "the new overlay is showing" vis:null) and cancel ("the earlier overlay is back" - before.vis:null, never an earlier overlay). All doc-write/anchor/rounding checks [ok]. The save timing failures are machine-load dependent (3 checkouts running suites in parallel; disk 90% full) - same test, same root-cause family; nothing in 306c's files.
-- Corrected the PITFALLS tests/test_fit_queue.py entry per the 157 note (on a clean HEAD the test is VACUOUS, not a seed failure; the seed/dep-null + save/cancel failures are specific to the pick shifting to a site with no runtime dep layer).
-
-### 2026-10-13 306c DECISION: iteration 199 - human answered request 004 (LEAD: accepted; 306c closed on main 12b2274); restored Status: done; the 307 placement test re-ran still red with a CHANGED signature (seed check + /tiles/relief 404) - the known red owned by agent a's in-flight 307; nothing left on 306c
-- Request 004 (filed 2026-10-12 iteration 158, the stuck-rule escalation after the 3rd done-claim rejection, with the A/B evidence and my recommendation (a): accept 306c on the A/B, baseline the 307bb red, reopen 307bb for the fix) was answered 2026-10-13 08:35 by the lead: "LEAD: accepted. 306c is closed on main (12b2274) and your branch is merged. Keep going on 306e and 306f."
-- Verified before restoring the status (checked facts, did not assume): (1) `git show 12b2274` - the lead's close commit set the task file to done (and touched web/data/review.json); `git show f1ad899` - the driver reopened it to in-progress solely to deliver the answer ("resumed: the human answered"). (2) 12b2274 is an ancestor of my HEAD (the driver merged main in, 737332f) and `git diff --name-status main..HEAD` = only PROGRESS/CODEMAP/DECISIONS(archive)/the 306c+306e task files - every 306c deliverable (9 deleted docs, 3 upserted items, review.json, 32 shots, the L941+ verdicts) is on main. (3) Re-ran the test the rejections had named: STILL red, 53 s, but with a CHANGED signature: seed check "the gestures own the mouse (map pan/zoom off), the earlier overlay hidden" + 404s on GET /tiles/relief webp (my 158 run had been dep:null + machine-load save/cancel). The change: the test itself was reworked after 307bb (6692bb5's fixture-link commit, aeeb5aa's test_fit_queue_real change) and 7e61147 keeps the .npy/.npz DEM grids out of the fixture copies; on this VM live /tiles/relief needs the Mac-only DEM upstream (306 hand-over machine facts), so the 404s are the environment - matching 306e's baseline note ("only 307bb's gesture red, identical to the 182 baseline"; 154/1/1 at 198). Agent a is actively on the 307 rework now (its Touches include the test and fitkit per the driver note), so the fix lands via 307's merge.
-- Action taken: Status: in-progress -> done (restoring the lead's own close - this processes the human answer, it is not a new done-claim, so no 4th claim is filed); hand-over rewritten as a final close; the tests/test_fit_queue.py PITFALLS entry corrected (changed signature, 306c resolved by 12b2274, 306e's baselines, 307 owns the red). No code/data change - the deliverable needed none.
-- Next (separate tasks the driver hands out): 306e finish (last 2 sites: windmill-hill n0558_2 DELETED, york c_8dac KEEP-in-item (owner's-call flag -> task 807), york c_a7db DELETED - 303-way upserts + lines + export pending, recipe in its 198 hand-over) and 306f (open; its 17 docs already deleted on main by 6ce742f -> audit-verdict work against the surviving item entries, 306e's final form).
-
-### 2026-10-13 306c DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+### 2026-10-11 207 BLOCKER: Roy 1793 "Military Antiquities of the Romans in North Britain" is not on the Internet Archive
+- Attempt 1: IA advancedsearch by exact title, "romans in north britain", "antiquities of the romans in north britain", creator "Roy, William" (fuzzy: unrelated hits), title:"military antiquities" (20 hits: Grose et al., never Roy), a 1790-1800 year-range text query -> the only related item is a 1917 dissertation ABOUT Roy (macdonald-1917-roy, ~76 journal leaves, no facsimile, no plate list) - not the book
+- Attempt 2: ten guessed identifier patterns (militaryantiquit00roy, ...u, ...0, ...w, ...goog, ...0000roy, ...0000royw, militaryantiquities00{,00}roy{,w}, militaryantiquiti00roy, militaryantiquit01roy) -> all return `{}`
+- Attempt 3: the NLS complete facsimile (maps.nls.uk/roy/antiquities/, "174 pages, 51 map plates") via web_fetch and curl with three browser UAs, HTML and guessed image paths alike -> HTTP 405 AWS-WAF "Human Verification" captcha challenge on every path; the NLS open S3 tile bucket (mapseries-tilesets) lists fine but holds no antiquities set (roy/ = 1747-55 military survey only, already used by pipeline/nls.py as background maps)
+Needed: a human with a real browser to download the NLS facsimile and place it in data/raw/books/roy1793/ (or a decision to drop Roy). Filed ask_human (request 003, open, human_only); 207c set to blocked. 207a/207b proceed independently: the subtasks run in sequence, so the shared staging files (files_roman.jsonl etc.) carry per-book tagged rows without conflict; each subtask's module, triage/lists artifacts and tests are disjoint.
 
 ## Project-wide driver notes (newest)
 
