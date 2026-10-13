@@ -81,7 +81,7 @@ _run_one(served, tag, tmp_path_factory, prev_item_bytes):
 
 _write_surface(picks): {str(p): _h(p) for p in: every data/db/platefits/*.json + every data/review/*.json in the CHECKOUT + web/data/sites.json + web/data/review.json + web/data/fit_queue.json + EVERY file under web/data/sites/<A>/ and web/data/sites/<B>/ in the CHECKOUT (symlinks into the shared store - hashing through them proves the store never moved)} - 307bb's _write_surface extended with fit_queue.json and the two site dirs.
 
-OWNER_PROBE (node, new file; copy 307bb's PLACE_PROBE shape and its HELPERS/_fkvAnchorAt/_fkvFitChecks/drag/wheel/shift+wheel blocks VERBATIM; args <base> <site> <plan> <tree> <outdir> <done_json> <item_file>): addInitScript seeds aw.fitQueue.done=doneJson -> goto base (NO hash: the home view boots renderList -> fqLoad, so the boot poll S.ready && S.sites.length && FQ.loaded && FQ.entries.length works) -> card1 = #fqcard: assert in-page it names the pick (e = FQ.entries.find(x=>x.site===site); text contains e.name && (e.best.row.title||e.best.row.id)) -> shot 1-card.png -> #fqplace -> poll P.placed===true && P.img (60 s) -> sleep 2500 (fitBounds 900 + settle) -> the 243 seed checks VERBATIM (anchor == propose's LAST pair to 1e-9 mpx/rot/centre; n===5 pairs+marks; fitPrev source; gestures [dragPan,scrollZoom,touchZoomRotate,doubleClickZoom,boxZoom] all disabled; dep layer 'dep-<site>' visibility 'none'; hint contains anchor.mpx.toFixed(2) + 'm per page pixel') -> shot 2-placed.png -> inject HELPERS -> drag (307bb verbatim: clear-point candidates [1075,1105,1040,1140,1000] at y 400, down/move +30/+20 in 2 steps/up, the 7 drag checks incl. pair5 at doc rounding, dmpx<1e-3 drot<0.01, maxResid<2, maxCorner<0.2 closure<0.2) -> wheelBase = simFit(P.pairs).mpx FIRST then mouse.wheel(0,-100) (mpx *= exp(0.15), centre/rot held) -> shift+wheel +100 (rot += 1.0, scale held 1e-3) -> shot 3-gestured.png -> record anchorBeforeSave = P.anchor, pairsBefore = P.pairs.map([u,v,lon,lat]), imgSize = [P.img.naturalWidth, P.img.naturalHeight] -> #fsave -> poll !P.active (120 s) -> **site-view effects** (one in-page async poll, 120 s, until ALL true): doc = JSON.parse(readFileSync(tree/data/db/platefits/<docId>.json)); deps = fetch data/sites/<site>/depictions.json?t= -> overlay = find fit.doc===docId; sites = fetch data/sites.json?t= -> entry; item = fetch data/review/<itemFile>?t=; rv = fetch data/review.json?t=; conditions: overlay exists && overlay.fit.at===doc.at && kind 'plan' && file/ink names match; map layer 'dep-<site>' visibility 'visible' && source url === 'data/sites/<site>/plan_<plan>_ink.webp' && S.depSel[site]===overlay.file; entry.drawings === S.byId[site].drawings (the page's own copy, updated by saveFit) and entry.score !== (page's S.byId[site].score before the save - capture it in the placed stage as beforeScore); marker el (markers.find(k=>k.id===site).el).className === 'marker ' + tierOf(entry); item.resolved === {doc: docId, at: doc.at}; rv.items.map(x=>x.site) does NOT contain site; FQ.done[site] is a string and !isNaN(Date.parse(FQ.done[site])) (NEVER compare it to doc.at - the wrapper's own clock) -> shot 4-saved.png (the site view: the new overlay on the map) -> click #back (the site view's '← All sites') -> poll #fqcard presence (20 s; on this page FQ was already loaded at boot so it appears at once) -> card2: next = FQ.entries.filter(e=>e && e.site && S.byId[e.site] && !(e.site in FQ.done) && !FQ.skipped.includes(e.site))[0] (the page's own fqPending rule, in-page); assert next.site === passed nextSite arg AND card text contains next.name AND does NOT contain the pick's e.name -> page.reload() (same context: aw.depSel + aw.fitQueue.done persist) -> boot poll ONLY S.ready && S.sites.length (fact 11: FQ is NOT loaded after a hash boot; 60 s) -> sleep 5000 (select's 4500 ms flyTo) -> shot 5-reload.png (site view) -> RELOAD checks (in-page): S.sel===site; S.ground==='imagery'; S.depMode==='ink'; S.depMode==='ink'... (plateMode==='ink' too); S.depSel[site]===overlay.file (fetch deps again to get the file); dep layer 'visible' with the ink url; markers.find(k=>k.id===site).el.className === 'marker ' + tierOf(S.byId[site]); S.byId[site].drawings === entry.drawings from the pre-reload fetch; S.byId[site].score === the pre-reload entry.score; FQ.done[site] still set -> #back -> poll #fqcard (NOW the fetch really happens: fqLoad is async after this reload; 20 s) -> card3: same fqPending rule -> next.name in text, pick's name not in text -> print [eval] {boot, card1, seed, anchorBeforeSave, pairsBefore, imgSize, doc, overlay, sitesEntry, item, reviewOpenSites, done, card2: {text, nextSite: next && next.site, nextName: next && next.name}, card3: {text, nextSite, nextName}, reload: {sel, ground, depMode, plateMode, depSel, depVis, depSrc, markerClass, score, drawings, doneSet}, beforeScore} -> print all console non-'[console' lines (pageerror/reqfail) -> check no pageerror, reqfails only '/tiles/','arcgisonline','MapServer/tile/' -> RESULT PASS/FAIL -> exit 0/1.
+OWNER_PROBE (node, new file; copy 307bb's PLACE_PROBE shape and its HELPERS/_fkvAnchorAt/_fkvFitChecks/drag/wheel/shift+wheel blocks VERBATIM; args <base> <site> <plan> <tree> <outdir> <done_json> <item_file>): addInitScript seeds aw.fitQueue.done=doneJson -> goto base (NO hash: the home view boots renderList -> fqLoad, so the boot poll S.ready && S.sites.length && FQ.loaded && FQ.entries.length works) -> card1 = #fqcard: assert in-page it names the pick (e = FQ.entries.find(x=>x.site===site); text contains e.name && (e.best.row.title||e.best.row.id)) -> shot 1-card.png -> #fqplace -> poll P.placed===true && P.img (60 s) -> sleep 2500 (fitBounds 900 + settle) -> the 243 seed checks VERBATIM (anchor == propose's LAST pair to 1e-9 mpx/rot/centre; n===5 pairs+marks; fitPrev source; gestures [dragPan,scrollZoom,touchZoomRotate,doubleClickZoom,boxZoom] all disabled; dep layer 'dep-<site>' visibility 'none'; hint contains anchor.mpx.toFixed(2) + 'm per page pixel') -> shot 2-placed.png -> inject HELPERS -> drag (307bb verbatim: clear-point candidates [1075,1105,1040,1140,1000] at y 400, down/move +30/+20 in 2 steps/up, the 7 drag checks incl. pair5 at doc rounding, dmpx<1e-3 drot<0.01, maxResid<2, maxCorner<0.2 closure<0.2) -> wheelBase = simFit(P.pairs).mpx FIRST then mouse.wheel(0,-100) (mpx *= exp(0.15), centre/rot held) -> shift+wheel +100 (rot += 1.0, scale held 1e-3) -> shot 3-gestured.png -> record anchorBeforeSave = P.anchor, pairsBefore = P.pairs.map([u,v,lon,lat]), imgSize = [P.img.naturalWidth, P.img.naturalHeight] -> #fsave -> poll !P.active (120 s) -> **site-view effects** (one in-page async poll, 120 s, until ALL true): doc = JSON.parse(readFileSync(tree/data/db/platefits/<docId>.json)); deps = fetch data/sites/<site>/depictions.json?t= -> overlay = find fit.doc===docId; sites = fetch data/sites.json?t= -> entry; item = fetch data/review/<itemFile>?t=; rv = fetch data/review.json?t=; conditions: overlay exists && overlay.fit.at===doc.at && kind 'plan' && file/ink names match; map layer 'dep-<site>' visibility 'visible' && source url === 'data/sites/<site>/plan_<plan>_ink.webp' && S.depSel[site]===overlay.file; entry.drawings === S.byId[site].drawings (the page's own copy, updated by saveFit) and entry.score !== (page's S.byId[site].score before the save - capture it in the placed stage as beforeScore); marker el (markers.find(k=>k.id===site).el).className === 'marker ' + tierOf(entry); item.resolved === {doc: docId, at: doc.at}; rv.items.map(x=>x.site) does NOT contain site; FQ.done[site] is a string and !isNaN(Date.parse(FQ.done[site])) (NEVER compare it to doc.at - the wrapper's own clock) -> shot 4-saved.png (the site view: the new overlay on the map) -> click #back (the site view's '← All sites') -> poll #fqcard presence (20 s; on this page FQ was already loaded at boot so it appears at once) -> card2: next = FQ.entries.filter(e=>e && e.site && S.byId[e.site] && !(e.site in FQ.done) && !FQ.skipped.includes(e.site))[0] (the page's own fqPending rule, in-page); assert next.site === passed nextSite arg AND card text contains next.name AND does NOT contain the pick's e.name -> page.reload() (same context: aw.depSel + aw.fitQueue.done persist) -> boot poll ONLY S.ready && S.sites.length (fact 11: FQ is NOT loaded after a hash boot; 60 s) -> sleep 5000 (select's 4500 ms flyTo) -> shot 5-reload.png (site view) -> RELOAD checks (in-page): S.sel===site; S.ground==='imagery'; S.plateMode==='ink'; S.depMode==='ink'; S.depSel[site]===overlay.file (fetch deps again to get the file); dep layer 'visible' with the ink url; markers.find(k=>k.id===site).el.className === 'marker ' + tierOf(S.byId[site]); S.byId[site].drawings === entry.drawings from the pre-reload fetch; S.byId[site].score === the pre-reload entry.score; FQ.done[site] still set -> #back -> poll #fqcard (NOW the fetch really happens: fqLoad is async after this reload; 20 s) -> card3: same fqPending rule -> next.name in text, pick's name not in text -> print [eval] {boot, card1, seed, anchorBeforeSave, pairsBefore, imgSize, doc, overlay, sitesEntry, item, reviewOpenSites, done, card2: {text, nextSite: next && next.site, nextName: next && next.name}, card3: {text, nextSite, nextName}, reload: {sel, ground, depMode, plateMode, depSel, depVis, depSrc, markerClass, score, drawings, doneSet}, beforeScore} -> print all console non-'[console' lines (pageerror/reqfail) -> check no pageerror, reqfails only '/tiles/','arcgisonline','MapServer/tile/' -> RESULT PASS/FAIL -> exit 0/1.
 
 **Exact next step (one session):** (0) add `docs/site_flow/` to this task's `Touches:` line (step 0 of 243; not yet done); (1) write tests/test_owner_check.py per the spec above (the new file; suite baseline to beat: 155 passed / 1 skipped / 1 failed - the one red is 235's test_placement_gestures_and_save_in_the_browser, unrelated, must stay the ONLY red; .venv/bin/python -m pytest); (2) run `.venv/bin/python -m pytest tests/test_owner_check.py -q` (~5-10 min: two browser runs; the first line's heavy import ~23 s, second cached; the fixture serves BOTH picks, so the second run is cheaper) - if a check fails: commit the test AS-IS and name the failing check + the probe's [eval] dump in DECISIONS (307bb's rule), fix next session; (3) run the full suite once (confirm only 235's red remains; tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay green - they run on the checkout, which the revert proof shows untouched); (4) docs/site_flow.md section AFTER the 308 section: what was checked, the two derived picks + the picker rules, the line's four effects (overlay on the map, square recoloured t1->t2 with the score 1.1->~1.45, item resolved write-once, card moved on to the next queue entry), the reload unchanged, the revert proof, the five screenshots per site - and state PLAINLY that both sites sit on LiDAR relief (lidar None) because no aerial-photograph-only (lidar False) site is line-eligible today: every aerial-only queue site is a commons-row candidate with no local book page (243's first-session finding, re-verified 244/245); tick the boxes; DECISIONS entry; commit.
 
@@ -285,3 +285,154 @@ commit.
 **Do not touch:** fit/surveyfit.py or task 304 (agent c); tests/test_fit_queue.py (235's
 file); tests/conftest.py (ask for shared fixtures in DECISIONS instead); any data file in
 the checkout (the test writes only into its private tree).
+
+### Also written to PROGRESS.md (moved here by the driver)
+
+# PROGRESS (generated by the driver before every session)
+
+Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
+task file (for a subtask, read its parent's too).
+
+## Tasks in flight
+- `tasks/203-batch-fit.md` (split)
+- `tasks/207a-horsley.md` (blocked)
+- `tasks/207b-maclauchlan.md` (blocked)
+- `tasks/207c-roy.md` (blocked)
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
+- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
+- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+- `tasks/307d-owner-check.md` (open) - hand-over: (2026-10-13, iteration 245, agent a - FIFTH session; investigation only: every mechanism re-verified against current code (template, fitqueue/fitkit, site_done/review/matchfit, plan_fit.build, serve PUT, build_site score); two corrections to 243: pre-run tier is t1 (1.1 < 1.2) so the square's tier CHANGES t1->t2 after save, and a hash boot never runs renderList so after page.reload() FQ.loaded stays false until the first #back. Picks unchanged (A=[38] oswestry bar / B=[45] devil-s-dyke picture_size, both LiDAR relief; next pendings [39]/[46]). NEXT SESSION: write tests/test_owner_check.py straight from the spec in the hand-over, run it, then the docs/site_flow.md section. `Touches:` line still needs `docs/site_flow/` added (step 0).
+- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+
+## Next open tasks
+- `tasks/230-roman-merge-rerun.md`
+- `tasks/235-placement-test-dep-pick.md`
+
+## Your task's journal
+
+Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
+
+### 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
+
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
+
+### 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today
+First session on 307d; investigation only, nothing written, no tests run.
+
+- Context check: 309 (the place-check box) is DONE; 307ba/307bb/307c done; 307d is the last
+  subtask of 307. Task 235 (open, mine via 221, `Depends on: 306e, 307d`, `Touches:
+  tests/test_fit_queue.py`) is gated on 307d by the broad `tests/` claim - so 307d's test is a
+  NEW file in tests/, never tests/test_fit_queue.py. Suite baseline (driver notes, re-verify
+  before claiming): 155 passed / 1 skipped / 1 failed - the one red is 235's
+  test_placement_gestures_and_save_in_the_browser (the 307bb `_pick_place` lands on marietta,
+  whose only depiction is a 1904 USGS topo the page's loadDeps/surveyOldEnough filter drops ->
+  dep:null at the seed check; red since ~iteration 199).
+- Queue population (241 entries, 2026-10-13T14:34Z): agent c's 203b EU batch filled the top of
+  the queue with commons-row candidates (c_..., no ia/file) - those are NOT line-eligible
+  (the one-site line reads book pages locally). Every line-eligible entry (book row with a
+  local page, an unresolved item carrying the row with >=3 pairs, no docs yet) has
+  `lidar: None` (LiDAR/DEM relief ground). No `lidar: False` (aerial-photograph-only) site is
+  line-eligible today: every aerial-only queue site is a commons-row candidate. So the task's
+  "different ground (LiDAR relief vs aerial photograph)" hedge is NOT satisfiable this
+  session - both picks are on LiDAR relief; the docs section must say so plainly. (Re-scan
+  after each merge: a site gaining a doc in a merge drops out of eligibility; the picker is
+  derived, so it adapts.)
+- The two picks (verified by running code; file order of web/data/fit_queue.json): A (recorded
+  bar scale) = [38] oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 (bar
+  "0 100 200 300 Feet", mpx 0.1646, rot 0, uncovered=0, page-showable auto dep six-inch-1st.webp
+  1842, no pre-existing drawing dep, England/Environment Agency LiDAR). B (site-size-only
+  fallback) = [45] devil-s-dyke-q3307343 / earthworkenglan01allcgoog_n0662_1 (scale_source
+  'picture_size', coarse, mpx 0.7201, rot 0, uncovered=0, six-inch-1st.webp, England/EA).
+  uncovered=0 for both means the one-site line runs sync+entry+review only (no batch run, no
+  model, offline-safe). Both sites' web/data/sites dirs are symlinks (copytree materialises
+  them into the private tree).
+- Scanning pitfall (my throwaway /tmp/aw307d/scan_picks.py, not repo code): its line_eligible
+  returns a failure STRING (the repo test's _line_eligible returns None); a `if li is None:
+  continue` filter silently passed every entry, so the first "eligible" list I read was wrong
+  (it included all commons-row EU sites). Re-ran with `isinstance(li, list)` - the real
+  eligible set is the 24 entries listed in the hand-over. The scan also crashed at [163]
+  maeshowe on row.ia being None (a commons best-row) - the Scottish picture_size sites'
+  eligibility was not fully verified; oswestry + devil-s-dyke need no more facts.
+- Plan (details in the task hand-over): one module-scoped fixture (307bb's line_served recipe:
+  full private tree, both book pages materialised, sockets dead, ephemeral port); two test
+  functions, one per site, each running the owner's flow in headless Chrome (card -> place on
+  the works -> drag -> wheel-scale -> save -> verify the line's four effects: overlay in
+  depictions.json, sites.json square recoloured, item resolved, card moved on -> page.reload()
+  -> the fit loads back unchanged); before/after hash of the checkout write surface proves the
+  shared store byte-identical (tests/golden/hand_fit_docs.sha256 + test_fit_provenance stay
+  green; fit_queue.json and the review exports are never written by the page or the line in the
+  checkout). Then the docs/site_flow.md verification section.
+
+... (5.5 KB more: `grep -n -A 200 -F '## 2026-10-13 307d DECISION: owner check = new tests/test_owner_check.py, two derived queue sites (oswestry bar-scale / devil-s-dyke site-size fallback), both on LiDAR relief - no aerial-photograph site is line-eligible today' DECISIONS.md`)
+
+### 2026-10-13 307d DECISION: fourth session - re-verified every page/line mechanism against the current code; three new facts change the probe (card needs #back to home, FQ.done value is the wrapper's own clock, B's line calls matchfit.reachable and it must stay silent under the guard); test file still unwritten
+- Re-ran /tmp/aw307d/scan_picks.py (script still on disk): picks unchanged from 242 (A = [38] oswestry bar / B = [45] devil-s-dyke picture_size, both LiDAR relief); the queue file did not move (`at` 2026-10-13T14:34:09.559141+00:00, 241 entries) and the 25-eligible/15-showable sets are byte-identical to 242's list. So the test's derived picker (recomputed at run time from the checkout, never pin ids) will land on the same two sites unless a merge moves the population first.
+- Re-read the entire 307bb template (tests/test_fit_queue.py, 1764 lines) and re-verified the mechanisms my probe drives, this time against the code as it is on this branch after the 307c merge:
+  1. **The card is only in the home view.** fqPatch inserts #fqcard as the next sibling of the home stats line, and renderSite replaces #body wholesale, so on the site view the card is gone (fqPatch's own guard removes it). After a save the page sits on the site view, so the "queue moved on" assertion needs the page's own #back button (text '← All sites') clicked first; after reload (hash '#<site>' -> select() -> site view) the same dance again. The 242 hand-over implied reading #fqcard straight off the site view - it would be null there. This is the biggest change to the planned probe: 4-saved.png stays the site view (the owner's "see it on the map"), card2 is read after #back on home, 5-reload.png is the site view, card3 after #back again.
+  2. **_fqSaveFit writes FQ.done[siteId] = new Date().toISOString()** (fitqueue.js L125) - the wrapper's own wall clock, NOT the doc's at, then lsSet + fqPatch. The probe must only assert the value is a parseable ISO string; the 242 plan to compare it with doc.at would fail (and would be the wrong contract anyway: the page's part-3 tests seed exactly this shape).
+  3. **B's line calls matchfit.reachable()** (site_done._fit: after B's save, devil-s-dyke's three plans rows n0599_1/n0662_1/n0686_1 are not all in docs, so `any(r not in docs)` is true) - it urlopens http://127.0.0.1:8091/health; under the GUARD that raises AssertionError which reachable's `try/except Exception` swallows -> False, so no batch run and NO log line. Verified by reading reachable (fit/matchfit.py L103-108), not by running it. A's line (oswestry: its single row is in docs) never calls it. Both sites stay offline-safe and model-free.
+  4. select() (index.html L823-845) unconditionally sets S.ground='imagery', S.plateMode='ink', S.depMode='ink' at every open (no lsSet for ground), while fqPlace's setGround('relief') DOES persist aw.ground='relief' to localStorage during the run - so the reload state is ground 'imagery' (page contract), depSel survives via aw.depSel (saveFit persists it; select only default-picks when absent), and the persisted depSel beats select's default pick, so the reloaded page shows the NEW overlay, not the 1842 map.
+  5. Devil-s-dyke's item file is named after its LEAD candidate (…n0599_1.json) while the resolving doc is n0662_1 (resolved_doc picks the first item candidate with a doc: n0599 none, n0686 none - deleted earlier as a pattern, n0662 the new hand doc). The probe gets itemFile as an explicit arg; B's item candidate n0662_1 still carries the old 'line check: fabricated anchor pattern' why - harmless, the hand doc is built with no check (who_placed == 'hand'), which is exactly the 305 contract this task proves.
+- Nothing failed this session (no code was run that could fail); no blockers. Next session: write tests/test_owner_check.py from the hand-over spec (which now encodes facts 1-5), run it, then the docs section; the only suite red must remain 235's.
+
+## Project-wide driver notes (newest)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_serve.py::test_platefits_docs_match_sites
+    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
+    4 failed, 60 passed in 64.37s (0:01:04)
+    (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
+- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
+- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
+- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
+- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
+- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
+... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
