@@ -5999,6 +5999,42 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
   PITFALLS note that web_fetch returns page TEXT without image URLs (curl the raw HTML and
   grep src/data-src to find them).
 
+## 2026-10-13 306e DECISION: iteration 181 - OFFA and OKEHAMPTON both KEEPS; both lines written into docs/site_flow.md (new 306e block, 2 of 17 lines); the okehampton outcrop is NE-SW, not N-S - the drawn chain is right-sized for it
+- Offa (1/17): unchanged since 179/180 - KEEPS. The 180-drafted line was pasted verbatim into
+  the new 306e block in docs/site_flow.md (inserted between the 306d ludlow line and the 308
+  arrowheads section, 306d-style header).
+- Okehampton (2/17): judged KEEPS; the length question is settled - the drawn chain is NOT too
+  big. Measured this session (page simFit replicated EXACTLY: 1.196 m/px, +0.33 deg, resid
+  0.8-1.1 m; site point inverse-maps to plate px (334,333) = dead centre of the chain): drawn
+  chain A->G = 702 m centre-to-centre / ~920 m tip-to-tip, axis azimuth 220 (NE-SW), A at
+  E+253/N+308, G at E-199/N-230. The 1842 six-inch shows a hatched rocky band running NE-SW
+  across the whole 800 m site box (West Okement loops the NE end at Lady Bridge, 'Springt' at
+  the SW end), hatching reaching the box edges beyond both chain ends; the LiDAR angular
+  contrast profile through the site point peaks at azimuth 25-55 (centre-bright 100-121 grey;
+  N-S only 47, E-W 16) - the outcrop is NE-SW, parallel to the chain within ~10 deg, spanning
+  the whole box. The 1842 'Okehampton Castle (Remains of)' label (~175 m W of the site point)
+  leads east to the hatched building cluster under the drawn B-F centre at the site point;
+  building order matches the documented castle (keep SW / hall-lodgings middle /
+  gatehouse-barbican NE). Not the goodrich/ludlow class (no oversize, nothing through town,
+  same side of the river as the real ruins).
+- The 180 hand-over note "outcrop ridge runs ~N-S (a few deg west of north)" is WRONG -
+  superseded by the angular profile (a pure N-S line through the site gives only a 240 m
+  strong span; the NE-SW band spans the box).
+- NEW PITFALLS (not yet filed; the 180 two pending ones are still unfiled too): (1)
+  six-inch-1st_ink.webp (and any _ink webp) is SURVEY-RED ink - every non-transparent pixel
+  has rgb.sum ~330 (colour (206,46,78)) - so a "dark ink" recipe like rgb.sum()<300 finds ZERO
+  pixels; the ink mask is alpha>40 (hatched band = uniform_filter(ink,15)>0.06). (2) The page's
+  simFit inverse (merc -> plate): w=(z-b)/a = u - i v, so u = (q0*a0+q1*a1)/a2 and v =
+  (q0*a1-q1*a0)/a2 (v = -Im); a wrong v sign places the plate ink as a mirrored/offset ghost
+  (caught: zero blue ink on the grid); verify with the 4-point round-trip atv(at(u,v))=(u,v).
+- Box 2 now 2/17 lines; box 3 no deletions yet; box 4 docs-only change, suite state unchanged
+  (149/1/1, lone red = agent a's 307 seed; not run this session, no test reads site_flow.md).
+- NEXT: continue the batch - old-sarum c_0410 + c_ff62, oxford, pilsbury, pontefract x2,
+  portus-adurni x2, raby, richborough, stanton-drew, taunton, windmill-hill n0558_2 (model
+  None), york c_8dac (keep?) + c_a7db ('Plan of Center, Broome County 1855' = Center, NEW YORK
+  town - toponymic collision, almost certainly DELETED wrong place). File the four PITFALLS
+  entries above when next in touch with PITFALLS.md.
+
 
 <!-- task 307a -->
 # Task 307a place-check
