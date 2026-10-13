@@ -482,3 +482,30 @@ series, not this task).
 ## 2026-10-13 212b DRIVER: done claim rejected, task reopened
 - Tests failing that were not failing before this task (known failures are allowed, new ones are not):
     tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
+## 2026-10-13 212c DECISION: the report phase was already in fit/cover.py (212a) and verified as-is against the store - no code change; the report test written (seed-reproducible sample; buckets partition the built sites)
+Session 234 (agent a). Lead: "For 212c, first session: write fit/cover.py report plus its
+test and commit them. Then write docs/batch.md from it. No census re-measuring - the store
+is the source." The `report` phase 212a wrote needed no change: `.venv/bin/python
+fit/cover.py report` on the live store (system python3 has no numpy - the driver's venv
+does) produced docs/batch.md: 499 built; buckets 19 hand-golden / 0 human-saved / 24
+automatic / 106 review item / 244 no picture found / 106 uncovered-needs-attention - the
+sum is 499, the partition holds; the invariant line honestly reports the break for the 106
+(the loop phase never ran live; the number moved from the 103 estimated at 0e6d5df because
+the store moved - lead: no re-measuring); the sample is random.Random(20261012) over the 36
+by:agent docs (20 drawn, page URL + gate median - the same table convention as
+docs/batch_us.md); the no-picture table is 244 rows and cross-checked 1:1 against the
+no-picture bucket (no fitted site carries an open no-picture item, so the table is exactly
+the bucket; one batch-era string, a with-candidate site outside the 212a search set,
+renders as-is - the store's own record, not a phase defect). tests/test_cover.py extended
+with test_report (the run fixture runs the report on the same tree after the integrity
+snapshots, socket guard re-armed, fixed at=; docs/batch.md moved into IN_PLACE so the
+report's in-place rewrite stays in the tree): recorded seed == SEED_212, the named
+automatic total == the store's, the six buckets sum to the built-site total, the invariant
+line agrees with the uncovered bucket, the sample is exactly random.Random(recorded
+seed).sample(sorted auto ids, 20) in draw order with page URL + gate score per row, and
+the no-picture table is complete with non-empty searched records. Suite: 155 passed, 1
+failed (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser - 307bb's
+pre-existing gesture red, agent c's 307 series, per the iter-228 classification), 1
+skipped. Next (same session, per the lead): regenerate docs/batch.md fresh and commit it,
+tick both boxes, set done.
