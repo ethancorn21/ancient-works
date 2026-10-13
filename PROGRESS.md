@@ -5,6 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/203-batch-fit.md` (split)
+- `tasks/207a-horsley.md` (in-progress) - hand-over: (2026-10-13, iteration 202, agent c - FIRST session. Module created, all 936 triage images fetched
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
@@ -17,9 +18,9 @@ task file (for a subtask, read its parent's too).
 - `tasks/806-yeared-title-repin.md` (open) - hand-over: (2026-10-13, created by agent c in 306d iteration 177; the full A/B record of the five rejected reds
 
 ## Next open tasks
-- `tasks/207a-horsley.md`
 - `tasks/207b-maclauchlan.md`
 - `tasks/221-review-stats-test.md`
+- `tasks/230-roman-merge-rerun.md`
 
 ## Your task's journal
 
@@ -34,6 +35,12 @@ Copy choices (measured this session via books_ia): Horsley -> `britanniaromanao0
 - Attempt 2: ten guessed identifier patterns (militaryantiquit00roy, ...u, ...0, ...w, ...goog, ...0000roy, ...0000royw, militaryantiquities00{,00}roy{,w}, militaryantiquiti00roy, militaryantiquit01roy) -> all return `{}`
 - Attempt 3: the NLS complete facsimile (maps.nls.uk/roy/antiquities/, "174 pages, 51 map plates") via web_fetch and curl with three browser UAs, HTML and guessed image paths alike -> HTTP 405 AWS-WAF "Human Verification" captcha challenge on every path; the NLS open S3 tile bucket (mapseries-tilesets) lists fine but holds no antiquities set (roy/ = 1747-55 military survey only, already used by pipeline/nls.py as background maps)
 Needed: a human with a real browser to download the NLS facsimile and place it in data/raw/books/roy1793/ (or a decision to drop Roy). Filed ask_human (request 003, open, human_only); 207c set to blocked. 207a/207b proceed independently: the subtasks run in sequence, so the shared staging files (files_roman.jsonl etc.) carry per-book tagged rows without conflict; each subtask's module, triage/lists artifacts and tests are disjoint.
+
+### 2026-10-13 207a DECISION: first session - module fit/src_roman_horsley.py created (register/fetch/status/triage/list legs); all 936 triage pages fetched; next step is triage A in the background
+- Module pattern: 209b's Stukeley (the book really is on IA: no local-copy wrap, the machinery runs unmodified; register() only adds the BOOKS entry, and - once HORSEY_PLATES is transcribed - injects it into books_lists.PLATES in-process). NO LLM_URLS patch: books.py's default LLM_PORTS is now "8080,8081,8082,18080,18081" (215 re-pointed it), and 8080/8081 answer (8082 down) - the parent's "patch books.LLM_URLS" mechanics note is stale on that point.
+- Fetch measured: 936 pages in ~10 min at 2 workers (~4 s/page, IIIF 1400 px JPEG q88; median output 812x1400, every file 1300+ px long side, zero failures, one auto-retry after an SSL handshake timeout - books.get tries=2). No IIIF problem like Allcroft's NO_IIIF case.
+- The hOCR pageindex has 942 pages against the bookreader's 936 leaves (6 extra) - the civitates-style misalignment: text looked up by hOCR index can land on the wrong leaf; the leaf images are the ground truth. The printed list of plates is hOCR-silent (i53-i68, between the preface ending i52/printed xxxii and the body starting i69) and must be transcribed by eye from the triage images (the Stukeley/213 hand-list pattern).
+- Suite re-baseline this session (the parent's hand-over asked for it): 1 failed / 155 passed / 1 skipped (312 s); the lone red is agent a's in-flight 307 placement test, the same signature 306d recorded at 161/201.
 
 ## Project-wide driver notes (newest)
 
