@@ -53,19 +53,117 @@ found) but are not staged as picture rows.
   PITFALLS entry).
 
 ## Hand-over
-(2026-10-13, iteration 219, agent c - the module edit landed and is committed: CITE from the title page,
-the 22-entry HORSEY_FIGS table (now the single source of truth for the list), register() injects
-books.BOOKS + books_lists.HAND_FIGS, and --list = offline register + cmd_ocrmap. --list ran verified-
-fully-offline (socket-blocked) and wrote the two per-book list files. validate_book (in-process,
-offline) measured stage-A recall = 1.0 on all 15 gt map leaves. NEXT = stage B (17 pages, minutes),
-then --stage/--check/--golden + tests + the lead-doc section. /tmp/horsley_full/ still holds every
-full-size image + crop (277 files).)
+(2026-10-14, iteration 220, agent c - stage B RAN AND IS COMMITTED (17 pages, 0 errors, 18 s on
+replicas 8080/8081); then a PIVOT discovery: n0114 (P.44) and n0185 (P.113) - the two "false
+positives" 219 dismissed as parametric hallucinations - are GENUINE site-plan plates the 22-entry
+list missed (verified on the full-size images + the book's own text pp.43-44/113). A systematic
+hOCR sweep found no further plan plates in the whole book, so the list is 24 entries / 17 kind-s.
+The module edit (2 entries) has NOT been made yet. NEXT: edit HORSEY_FIGS, re-run --list, re-run
+validate_book (expect 1.0/1.0/1.0/1.0, []), then the lead-doc Horsley section.)
 
 **State.**
-- fit/src_roman_horsley.py: done through --list (215 recipe steps 1-3: fetch 202, triage A 212, list
-  219). HORSEY_FIGS holds the 22 entries with its comment (the no-list discovery; the kinds; transcribed
-  by eye 215/216/218; stage-A captions = parametric hallucinations, never used). HORSEY_PLATES is still
-  None (the ~121 inscription plates trail as kind o: indexed, never staged).
+- fit/src_roman_horsley.py: still the 219 version (22-entry table) - NO edit this session. The two
+  new entries to add (leaf-order: after the 62 line, before 236), transcribed by eye from the
+  full-size images (crops in /tmp/horsley_full/c2_0114_*.jpg, c2_0185_*.jpg, c3-c5_0185_*.jpg):
+    114|Innerpeffery camp. (top plan) and Ardoch camp. (bottom plan): the two legionary camps of
+        the Mons Graupius campaign per the book's text pp.43-44 ("the legions might poflibly have
+        been at Ardoch, or Innerpeffery, before they marched to the battle"); each with its scale
+        (200 / 300 yards), rivers Ruchel and Knoch, a military way and a Praetorium box|P. 44|s|hand
+    185|The five fecondary ftations per lineam valli: five fort plans, I GLANNIBANTA near Lanchester,
+        II ALIONE now Whitley caftle, III BREMETEN RACUM now Old Penrith, IV OLENACUM now Old
+        Carlifle, V VIROSIDUM near Elenborough; Praetorium boxes on I and III, Watling Street,
+        a compass, "A feale of 100 paces"|P. 113|s|hand
+  (long-s spellings as printed; also update the comment block above the table: 17 kind-s not 15,
+  and the module docstring's "22 list leaves / 15 kind-s" lines to 24/17.)
+- data/books/triage/britanniaromanao00hors.B.jsonl: NEW, committed this session (17 rows, 0 errors;
+  ran 2026-10-14 on replicas 8080+8081, 8082 still down). B's schema has NO kind/is_plan field
+  (PROMPT_B: label/title/site_names/place/scale_bar/scale_text/north_arrow/north_tip/south_end/
+  map_box + blank_boxes) - B's verdict = non-empty plans[] per page; it re-read all 17 as plans and
+  gave the printed titles + site_names that the staging rows use (n0114: "Innerpeffery camp." +
+  "Ardoch camp."; n0185: all five Roman names; the wall maps: their segment fort names).
+- lists/*.json + .map.json: still the 219 22-entry versions - regenerate with --list (offline) after
+  the edit -> 24 entries, site_plan=true on 17 leaves (adds 114, 185 to the 15). cmd_triage_b's set
+  is UNCHANGED (A's ink-filtered 17 already include both), so B does not need re-running.
+- validate_book (offline, socket-block; one-liner below): with the corrected 17-leaf gt_site set,
+  flagged = 17 -> recall_pages 1.0, recall_pm1 1.0, precision_strict = precision_lenient 1.0
+  (17/17), flagged_not_in_list [], flagged_on_other_only_pages [], missed_pages []; the stage-A-only
+  sub-block (80 flagged, precision 0.188) is worth quoting in the lead doc as why the BLANK_INK floor
+  is what makes the set usable on this book.
+- COMPLETENESS PROOF (this session, hOCR only, low cost): every hOCR page with text <700 chars was
+  listed (the plate-like pages) and every page scanned for plan-vocabulary (camp/ftation/fort/
+  fecondary/map of/plan/scale of/section). The only plan-like plates in the whole book = the 15 wall
+  maps + n0114 + n0185 (plus the already-tabled N.11 section and 6 country maps). The ~121
+  inscription plates are the rest (SCOTLAND/NORTHUMBERLAND/CUMBERLAND/DURHAM/... headings, kind o,
+  deferred); other short pages = front matter, the Book-II letter-table (hocr 306), the
+  altar-instruments plate (312), the Book-II collection title (315), the chronological table (885),
+  the index (895), the hOCR-silent fold-outs (hocr 63/705/834/868). No further kind-s pages exist;
+  nothing else to chase before staging.
+- CATALOG (checked this session; sites.jsonl 12603 rows + extras.jsonl 193, keyed by "name"): NONE of
+  the P.113 five forts (Olenacum/Old Carlisle, Virodidum/Elenborough, Bremenetracum/Old Penrith,
+  Alione/Whitley Castle, Glannibanta/Lanchester) nor Ardoch nor Innerpeffery exists in the catalog -
+  all seven are NEW extras_roman.jsonl entries (no QIDs). The wall-map forts keep the 216 QIDs.
+- Tests: last full run (219, before this session's B file): 1 failed / 156 passed / 1 skipped
+  (.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red
+  = agent a's 307d placement test (known pre-existing, same signature: seed check + /tiles/relief
+  404). No test imports the module yet, so the B file changes nothing test-wise; re-baseline next run.
+- Acceptance boxes: 1 done; 2 half (list corrected next session, then the lead-doc recall recording);
+  3/4/5 pending.
+
+**PITFALLS worth filing (220):** (a) archive.org /download/<ia>/page/nNNNN.jpg returns HTTP 302 -
+curl WITHOUT -L writes a 0-byte file (-sL + browser UA worked this session). (b) books_ia.page_texts
+keys are hOCR page indices; on this book the hOCR offset vs leaf n is small in the front matter
+(n0114's plate = hocr 115, n0185's = hocr 186) but drifts at the fold-outs - never assume 1:1.
+
+**EXACT NEXT STEPS (one session each, in order):**
+1. Module edit (offline): add the two HORSEY_FIGS entries above (with the comment/docstring updates
+   and the "219 mislabel correction" note), re-run --list under the socket-block wrapper (verify it
+   stays offline: 24 entries, "fig kinds {'s': 17, 'u': 0, 'o': 7}"), re-run the validate_book
+   one-liner and record the corrected figures block (expect 1.0/1.0/1.0/1.0, []).
+2. Write docs/lead_roman.md's Horsley section (it goes BEFORE the Roy section, per the lead's own
+   "in subtask order" line; the Roy section is the format model): source (IA britanniaromanao00hors,
+   BM volume note, CITE from n0014), the no-list discovery (215, both copies), list = plates' own
+   printed headings (the books_lists fallback) = 24 entries (17 s / 7 o) with the two new P.44/P.113
+   plates described (incl. the 219 mislabel correction + the completeness proof), the stage A/B
+   numbers above, staging plan: 17 rows (the 15 wall maps on the 216 QID design; n0114 tied to a NEW
+   Ardoch "roman site" extras row with Innerpeffery recorded on the row; n0185 ONE row - pick the
+   principal fort's new extras row, the other four forts' names on desc; create extras rows for all
+   five P.113 forts only if the join check requires each new site to have a plan - check how the
+   join counts first), then the deferred ~121 inscription plates (kind o, never staged).
+3. Build --stage (the 219 step-3 design, now 17 rows): read fit/evidence.py in full FIRST (only
+   skimmed at 220's limit: check_caption ~line 190, check_book 265, check_book_caption 290 - book
+   rows re-derive the books_match matcher's one-pair rule from the row's printed text + the current
+   catalog row at the stored score; only the runner-up margin stays stored). Row fields per 219
+   step 3 (files.jsonl shape: site/qid/title/year/wd_plan/cat/url/thumb/w/h/mime/date/desc/evidence;
+   classified_roman.jsonl: site/title/p_plan/p_birdseye/p_photo - by hand "plan"); extras_roman
+   rows: the extras.jsonl no-QID shape (id/name/place/lon/lat/region lowercase/kind roman fort|
+   roman site/location_check{...}/source) - lon/lat from a cross-check (Wikipedia/Wikidata for the
+   seven new sites) recorded in location_check. url/thumb = the IA full page image (https://
+   archive.org/download/britanniaromanao00hors/page/nNNNN.jpg) - remember the 302, store the stable
+   URL not the redirect target.
+4. --check (offline join + evidence over the book's rows) + --golden + tests/test_src_roman_horsley.py
+   (no_network fixture as in test_src_van_deventer.py; importlib + register() in-process; LLM never
+   runs in tests).
+5. Later: transcribe the ~121 inscription plates (I-CXXI) into HORSEY_PLATES in batches (kind o,
+   indexed, never staged) - does not block any box.
+
+**The validate_book one-liner (offline; run with .venv/bin/python):**
+    import urllib.request, ssl, socket   # FIRST - the ssl import must precede the patch (PITFALLS)
+    def dead(*a, **k): raise RuntimeError("network blocked in this run")
+    socket.socket.connect = dead; socket.create_connection = dead
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("h207a", "fit/src_roman_horsley.py")
+    h = importlib.util.module_from_spec(spec); spec.loader.exec_module(h); h.register()
+    import books_lists
+    rep = books_lists.validate_book(h.KEY)   # print rep["figures"] + rep["flagged_site_pages"]
+
+**Images (if /tmp is gone, re-download):** /tmp/horsley_full/ = every full-size jpg + all crops made
+in 215/216/218 (plus n0114.jpg/n0185.jpg + crops c2_0114_corner, c2_0114_ardoch, c2_0185_corner,
+c2_0185_title, c3/c4/c5_0185_* made at 220). Re-download: https://archive.org/download/
+britanniaromanao00hors/page/nNNNN.jpg with `curl -sL` + a browser UA (-L REQUIRED: 302 redirect).
+Reading conventions: rotated sheets (P.158 N.1-N.10, P.176 N.1) = rotate CW, title box at the
+sheet's bottom edge, corner mark at its top edge; upright sheets (P.176 N.2-N.5, N.11, P.44, P.113,
+the four Book-III country maps, the two front-matter Ptolemy fold-outs) = corner mark top-right,
+titles as noted in the DECISIONS entries 215/216/218/220.
 - lists/britanniaromanao00hors.json = {"plates": null, "figures": 22} (the table's dump, UTF-8);
   .map.json = 22 leaves, site_plan=true exactly on n236-254 even + n278-286 even (15 s maps), false on
   [60, 62, 256, 706, 734, 832, 867].
