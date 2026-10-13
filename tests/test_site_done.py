@@ -168,8 +168,9 @@ def _preconditions():
     cands = item.get("candidates") or []
     pat = [c for c in cands if (c.get("why") or "").startswith("line check:")]
     orig = [c for c in cands if not (c.get("why") or "").startswith("line check:")]
-    if len(cands) != 13 or len(pat) != 7 or len(orig) != 6:
-        pytest.fail(f"the {SID} item no longer holds 13 candidates (7 line check + 6 batch); "
+    # the batch part grows as new pictures of the site arrive (6 in 2026-10-11, 7 since the 211 pictures)
+    if len(pat) != 7 or not orig:
+        pytest.fail(f"the {SID} item no longer holds the 7 line check entries plus batch ones; "
                     f"found {len(cands)} ({len(pat)} line check, {len(orig)} batch)")
     if {c["plan"] for c in pat} != set(docs):
         pytest.fail("the item's line-check candidates and the golden documents disagree on plans")
@@ -191,8 +192,8 @@ def _preconditions():
     rows = _rows()
     row_ids = {r["id"] for r in rows}
     covered = set(docs) | {c["plan"] for c in orig}
-    if len(rows) != 13 or covered != row_ids:
-        pytest.fail(f"plans.json no longer lists exactly the 13 {SID} candidates "
+    if covered != row_ids:
+        pytest.fail(f"plans.json no longer lists exactly the item's {len(cands)} {SID} candidates "
                     f"({len(rows)} rows): the no-batch-run precondition is void")
 
     rr = json.loads((ROOT / "web" / "data" / "review.json").read_text())
