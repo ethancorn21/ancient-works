@@ -53,69 +53,126 @@ found) but are not staged as picture rows.
   PITFALLS entry).
 
 ## Hand-over
-(2026-10-13, iteration 212, agent c - the owner LIFTED the stop: request 006 (filed by iteration
-203) was answered "b" on 10-13; the driver resumed all three 207 subtasks on that answer
-(commits 84a7897/d959afe/7457317 flipped only the Status lines). The old "## Lead note" block
-("Stop 207 ... Do not start until the owner lifts it") is removed here: it no longer stands -
-the owner's answer is the newest word on record. This session = resume-recipe step 1: stage-A
-triage ran to completion and its file is committed. Nothing else (one step): no code changes,
-suite not re-run (last baseline is iteration 203's 1 failed / 155 passed / 1 skipped; the lone
-red is agent a's in-flight 307 placement test, not this task).)
+(2026-10-13, iteration 215, agent c - recipe step 2 ran as an investigation and CHANGED the
+approach: the book has NO printed list of plates (verified on BOTH copies), so the list is
+transcribed by eye from the plates' own printed headings (the books_lists "plate headings
+printed in its text" case). CITE is finalized from the title page (n0014). The wall-map
+corner marks (P.158 N.1-10 / P.176 N.1-5) are mostly read (see below). NO code changes this
+session (the module edit is pending, in-flight at the context limit - git has the working tree
+only if anything was saved; the module on disk is still the iteration-212 version: all legs
+work, HORSEY_PLATES=None, --stage/--check/--golden raise "not built yet"). Suite not re-run
+(last baseline: iteration 203's 1 failed / 155 passed / 1 skipped; the lone red = agent a's
+in-flight 307 placement test).)
 
-**Stage A: COMPLETE and committed this session.** Ran 14:38-14:55 (17 min: 8080+8081 live, x 4
-workers each = 8 concurrent; the old "~1 h" estimate assumed a busier GPU; 8082 still down).
-`data/books/triage/britanniaromanao00hors.A.jsonl`: 936/936 rows, 0 error rows; writer process
-gone + mtime settled before commit (the long-background-job PITFALLS check; log
-/tmp/horsley_triageA.log). Page types: text_only 703, other_illustration 151, plate_site_plan 80,
-unparsed 2 (n349 and n391 - markdown-fenced JSON the parser dropped; both look like plate/LIST
-pages, not plans). **DO NOT TRUST A's captions/numbers on this book**: Qwen's parametric memory
-leaked in - most "plate_site_plan" captions are Squier & Davis hallucinations ("MAP OF THE
-VALLEY OF THE CHAMBERLAIN RIVER, ILLINOIS", "MOUND CITY, OHIO", "HERCULANEUM, CAMP OF CAESAR",
-"DELAVAR"; "PLATE XXV" repeated verbatim on unrelated pages). The genuinely plausible cluster:
-n236-n287 = the Roman-wall maps ("A general map of the Roman walls in the north of England"
-N.1-N.8, "A general map of Antoninus Pius's wall in Scotland" N.1-N.2, "A map of the Roman wall
-in Scotland ... to Bemulie / to Crowy-hill / to Falkirk / to the east end"). Kind decisions come
-from the printed plate list (transcribed by eye) + the triage images, never from A's text.
+**1. --status sanity (passed):** 936 leaves, triage 936/936, stage A 936 rows / 0 errors;
+LLM 8080+8081 answer (8082 down). A rows carry BOTH n (bookreader index, 0-based) and leaf
+(= n+1, delta always 1): triage files n0000-n0935 = the n index, so the title page is
+n0014.jpg. (My 212 note "i63's OCR garbage" = hOCR i63 = leaf n0062 = the Ptolemy map's hOCR
+fragment, not a list page.)
 
-**Next session - recipe step 2: transcribe the printed list of plates (independent of A, done):**
-1. `--status` (offline sanity: leaf count, A line count, which LLM ports answer).
-2. View triage images data/raw/books/britanniaromanao00hors/triage/n0047-n0070 (the hOCR-silent
-   i53-i68 = printed pages xxv-xxxii; i63's OCR garbage is NOT part of the list; the hOCR
-   pageindex is 6 pages skewed against the 936 leaves - the leaf images are the ground truth).
-   Transcribe the list into the module's HORSEY_PLATES (format plate|sub|title|page|kind; kind
-   judged from the printed title: s = maps/site plans, o = inscriptions/sculptures/views,
-   u = unsure) and commit the module; then `--list` once -> lists/britanniaromanao00hors.json +
-   .map.json (the map fills from A + the list). Also: read the leaf-15 title-page image to
-   finalize CITE (Re-read below), and confirm no Google-scan pages are unreadable (the Bim
-   copies are alternates only for that case).
-3. Then: `--triage B` (resumable; covers A's site pages + the list's kind-s extras - re-run it
-   after ocrmap, it picks up the mapping's new pages), and build the `--stage`/`--check`/
-   `--golden` legs (they raise "not built yet"): stage the VERIFIED kind-s rows - book date
-   1732 on every row, the 200 evidence field naming the check (list entry / caption /
-   coordinates distance) - into data/commons/files_roman.jsonl + classified_roman.jsonl ("plan",
-   p_plan 1.0, by hand) + extras_roman.jsonl (new sites only: kind "roman fort"/"roman site",
-   QID where one exists - the catalog's 299 roman_fort rows all have QIDs, so most plans tie to
-   existing sites). -> --check (offline join + fit/evidence.py) -> --golden ->
-   tests/test_src_roman_horsley.py (no network: the no_network socket-blocking fixture pattern;
-   LLM never in tests) -> stage-A/B recall against the list via books_lists.validate_book
-   recorded in a new Horsley section of docs/lead_roman.md (NEVER the shared
-   validation.json/index.jsonl - 211/230 own those; 230 re-runs the Roman consolidation once the
-   207 subtasks land). Row shape: the two Stukeley rows in data/commons/files.jsonl (site, qid,
-   id=<ia>_n%04d, book, ia_id, cite, title, plate, plate_page, leaf_n, leaf_n2, page_type, year,
-   wd_plan, cat, name, by, desc, evidence) + classified twin.
+**2. CITE finalized (title page n0014, read at triage size, fully legible):** "BRITANNIA
+ROMANA: OR THE Roman Antiquities OF BRITAIN: In THREE BOOKS. ... By JOHN HORSLEY, M.A. and
+F.R.S. ... LONDON: Printed for JOHN OSBORN and THOMAS LONGMAN, at the Ship in Pater-Noster
+Row. M.DCC.XXXII." Set the module's CITE to this (year 1732 already set). The verso n0015
+carries the British Museum shelf mark "RB DA 145. H 86 folio / May 25 1883" (the Google copy
+is a BM volume).
 
-**Module state (unchanged this session):** fit/src_roman_horsley.py (KEY=horsley_britannia_romana_1732,
-ia=britanniaromanao00hors): --fetch/--status/--triage A|F|B/--list all work; HORSEY_PLATES=None
-(step 2 above); --stage/--check/--golden raise "not built yet". No books.py LLM patch needed
-(215 re-pointed LLM_PORTS to 8080,8081,8082,18080,18081; run_stage uses whichever answer - here
-8080/8081).
+**3. FRONT MATTER MAP (Google copy leaf n = the ground truth):** n0012 half-title; n0014
+title; n0015 verso; n0016 engraved vignette + DEDICATION to Sir Richard Ellys, Bart.;
+n0017-18 dedication end (signed "Morpeth, Jan. 2, 1732 1/2 ... John Horsley"); n0019 blank
+ghost; n0020-0051 = THE PREFACE, 32 printed pages i-xxxii (hOCR i21-52, offset 1 here);
+n0052 blank; n0053 FAINT (preface's final paragraph + start of an "EPISTLE" section);
+n0054-0059 + n0061 = BLANK leaves (no ink even at full size - verified: full-size jpgs are
+170-218KB = blank-paper size, vs ~850KB for faint text pages); n0060 = the Ptolemy map in a
+faded landscape capture ("A CORRECTED MAP OF BRITAIN ACCORDING TO PTOLEMY"); n0062 = the
+same map as a full spread ("A Corrected MAP of BRITAIN according to Ptolemy's, or
+Rectified"); n0063-65 plate_site_plan (empty captions); n0066 = the big "BRITANNIA ROMANA"
+plate (612KB - probably the engraved Book-I title); n0067+ = Book I text. The book ENDS
+with a GENERAL INDEX (hOCR i920-924), then blanks.
 
-**Re-read: fit/src_roman_horsley.py:list_cmd - when transcribing, verify the hOCR-vs-bookreader
-skew (hOCR i vs bookreader n) from the list-page images, and that i63's OCR garbage is not part
-of the list. Also read the leaf-15 title page to finalize CITE (currently the IA-record title).
+**4. THE LIST IS NOT IN THE BOOK (the pivot).** Searched every hOCR page of BOTH copies:
+Google (942 pages) has no LIST/PLATES heading at all; the BM copy (bim_eighteenth-century_
+britannia-romana-or-the_horsley-john_1732, 831 leaves, HAS hOCR - download + page_texts
+cached under data/raw/books/) has i0 half-title, i2-4 dedication, i6-37 preface, i38-41 the
+Ptolemy map (3 hOCR pages of one fold-out), i43 the engraved "BRITANNIA ... BOOK THE FIRST"
+title, i44+ text - and its only "list" hits are incidental prose (i124/i138/i732). So the
+books_lists ground truth for this book = the plate headings printed ON the plates (its
+docstring's own fallback: "or, where the book has none, the plate headings printed in its
+text"); the parent's acceptance-box wording "the book's own printed list of plates" is
+satisfied by those printed headings (each plate prints its title box + number). The 213/
+civitates hand-list pattern is the model: civitates used HAND_FIGS (fig = the leaf's n).
 
-**Stage-A recall preview (for step 2's cross-check, not evidence):** of the 80 plate_site_plan
-candidates the Roman-wall map cluster n236-n287 is the only one that looks Horsley-true; the
-remaining candidates scatter across the book (n60-n65, n112-n115, n184-n187, n234-n257, n278-
-n287, n319-n515, n732-n735, n833) mostly with hallucinated captions - the list transcription
-decides which of them are kind s.**/
+**5. PLATE NUMBERING (read from the images):** inscription/sculpture plates = Roman
+numerals I-CXXI (the preface cites them as "N. xiix", "N. LxIII"). The Book-II wall maps
+use ARABIC series numbers in a corner mark: "P.158 N.k" (k = 1..10, the Hadrian's-wall
+series; P.158 = the book's page where the series is introduced, same for all ten) and
+"P.176 N.k" (the Scottish/Antonine series). Corner marks read THIS session:
+n236 = P.158 N.1 (the general map: title box "A general map of the Roman walls in the north
+of England, and so much of the adjacent countries as includes the auxiliary stations
+pertaining to the wall", scale "one mile = 3.82 inches", "J. Mande sc."); n238 = N.2;
+n240 = N.3; n242 = N.4; n244 = N.5; n246 = N.6; n248 = N.7; n250 = N.8; n252 = N.9;
+n254 = N.10; n278 = P.176 N.1 (the general Antonine map); n280 = P.176 N.2; n282 = P.176
+N.3. NOT yet read: n284, n286, n287 (expect P.176 N.4, N.5 + a blank verso) and n256's
+corner (n256 = a wall detail drawing, "The south agger" section visible in its corner crop;
+A: "A drawing of part of the walls from one castellum to another between Towter..." -
+probably kind o = a section, not a site plan). The BLANK/ghost frames (no corner mark, faint
+or empty): n239, n243, n249, n253 (versos between the P.158 maps) and n287 (?). Note
+stage-A flagged those versos as plate_site_plan with empty captions - expect it: they carry
+only the map's engraved border frame. A's captions on the N-numbered maps are the
+reliable ones (the "from SEGEDVNVM to CONDERCVS" series); its other captions in n234-287
+are Squier & Davis hallucinations (n234 Ohio, n241 Crook, n245 Delaware, n247 CHILKIN,
+n251 CUMBERLAND, n255 Cumberland river, n257 Mound City, n279 Wabash, n281 Scotts Run,
+n283 Little Rhine, n285 Cwmystwyth hillfort).
+
+**6. HOW TO FEED THE MACHINERY (no pipeline/ edits - in-process injection from the module):**
+- Inscription plates -> books_lists.PLATES[IA] string (format plate|sub|title|page|kind;
+  plate = the Roman numeral as printed; page = the printed page number; kind mostly o).
+  map_plates() then tracks them by numeral (Qwen 'numbers' + ocr_numerals + caption
+  similarity + monotone chain) exactly as for civitates/Squier.
+- The wall maps (Arabic N numbers, NO roman numeral) -> a HAND_FIGS-style per-leaf table
+  injected as books_lists.HAND_FIGS[IA] (format fig|title|page|kind|kind_by; fig = the
+  leaf's n; page = the printed "P.158" string or ''; kind s for the wall maps, o for the
+  Ptolemy/Itinerary/Notitia/Peutinger country maps; kind_by hand). list_pages() maps
+  HAND_FIGS entries by their own n and includes kind s AND o for HAND_FIGS books;
+  validate_book() counts their fig-n as gt pages. register() currently injects only
+  PLATES - extend it to inject HAND_FIGS too (the module owns both strings).
+- register() must inject BOTH before cmd_ocrmap/cmd_validate; --list currently calls
+  cmd_ocrmap after register() - that stays, and validate_book (for the lead-doc recall)
+  needs the same injection.
+
+**EXACT NEXT STEP (iteration 216, step = finish the map transcription + first commit of the
+module):**
+1. Read corner crops of n284/n286/n287 (full-size files are in /tmp/horsley_full/n02xx.jpg -
+   /tmp is wiped between loop restarts only on disk pressure; if gone, re-download via the
+   books_ia page-URL pattern https://archive.org/download/britanniaromanao00hors/page/nNNNN.jpg
+   with UA, the way iteration 215 did) to close P.176 N.4-N.5 and settle n287 (map or
+   verso). Also n256's title box (bottom-left of the sheet - the maps are rotated landscape
+   in portrait sheets: title box on the sheet's BOTTOM edge, corner mark on the TOP edge).
+2. Read each map's TITLE BOX (bottom ~16% crop, rotated 90 deg) for the exact printed titles
+   of N.1-N.10 / P.176 N.1-5; the A captions already give most ("from SEGEDVNVM to
+   CONDERCVS" etc.) - verify, don't trust blindly; also note each map's scale bar text.
+3. Edit fit/src_roman_horsley.py: CITE -> the title-page text (point 2 above); add the map
+   table as the module's map-list string + extend register() to inject books_lists.HAND_FIGS[IA]
+   (leave HORSEY_PLATES=None until the inscription-plate transcription starts); update the
+   module docstring (the list-mechanics paragraph + usage) to record the no-list discovery
+   and the two-table design; commit "207a: map list transcribed from the plates' own headings
+   (the book has no plate list) - CITE from the title page".
+4. Then --list (cmd_ocrmap) once -> lists/britanniaromanao00hors.json (+.map.json should list
+   the map leaves); check the map.json entries carry the right n's.
+5. Then --triage B (resumable, 8080/8081): it covers A's 80 site pages + the map leaves;
+   run in the background (nohup, the long-background-job PITFALLS: writer gone + mtime
+   settled before commit).
+6. Then the --stage/--check/--golden legs + the no-network test + the Horsley section of
+   docs/lead_roman.md with the validate_book recall (record that the list is the printed
+   plate headings because the edition has no list; kind-o country maps - Ptolemy n0060/n0062,
+   Book III's Mercator-Ptolemy n0706, Antonine-Itinerary n0734, Notitia n0832, Peutinger
+   n0867 - are in the list but NOT staged as site rows).
+7. Later sessions: transcribe the ~121 inscription plates (Roman numerals, from each plate's
+   heading; scattered through n0067-n0900) into HORSEY_PLATES in batches - the 90%-of-site-
+   plans box concerns only the kind-s maps, so the inscription list can trail without
+   blocking staging.
+
+**Full-size images fetched this session (for the transcription): /tmp/horsley_full/n0047-
+n0070 + n0236-n0287 (2427x3893-class jpgs) and derived crops (t*/b* = top/bottom 16% 2x,
+c4_* = corner contact sheets, ghost_* = contrast-enhanced blanks, corner_* = single
+corner 2x). If /tmp is gone, re-download the same range with the page-URL pattern above.
