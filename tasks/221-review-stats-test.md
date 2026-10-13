@@ -60,31 +60,32 @@ skipped + 4 failed; the other 2 failures are in tests/test_fit_queue.py's card t
   Touches: tests/test_fit_queue.py) and added to this task's Depends on.
 
 ## Hand-over
-(2026-10-13, iteration 236, agent a - FIRST session on 221 since its 309 gate settled.
-Boxes 1+2 VERIFIED and ticked; box 3 blocked on 235.)
+(2026-10-13, iteration 237, agent a - boxes 1+2 done (236); box 3 still blocked on 235,
+re-verified this session: state unchanged since 236.)
 
-- Verified, not fixed: the fix already landed on main in 309's lane (commit b5cdf19,
-  merged via the lead; my branch carries it after 3ceb3a5). I did not touch the file this
-  session. Verification: (a) `git diff b5cdf19^ HEAD -- tests/test_review.py` = 11+/2-
-  and is EXACTLY the two documented changes (the stats filter at ~line 270 accepting
-  "built in all" or "laid on today", modelled on web/review.js:74's /built in all|laid
-  on today/ - still there; and the reqfail assertion at ~line 414 excluding '/tiles/' and
-  'arcgisonline', commented with the Esri host and the SINGULAR 'tile/' fact) - no other
-  assertion in either test changed; (b) web/review.js:74 regex intact; (c) both tests run
-  green in the live suite: `.venv/bin/python -m pytest -q tests/test_review.py -k
-  "plan_lookup_is_keyed or page_shows_the_review_list"` -> 2 passed.
-- Box 3 is the only thing left, and it is NOT my code: full suite this session =
-  155 passed / 1 skipped / 1 failed; the one failure is
-  test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, failing its seed
-  check with `dep: null` (gestures all false) on the picked site `marietta` (only
-  depiction: 1904 USGS topo -> filtered out by loadDeps' surveyOldEnough, so no
-  dep-marietta layer is ever created). It is in the driver's test-baseline.txt (pre-
-  existing, not a regression of this lane) and red since ~iter 199 (306d's journal).
-- NEXT (after 306e and 307d merge, when the driver brings 221 back): run the full suite
-  (`.venv/bin/python -m pytest -q -p no:cacheprovider`); if 235 landed and the suite is
-  green, tick box 3, set Status: done, and this task is finished. If a placement-gesture
-  failure still shows (235 not merged yet), keep box 3 unticked and end. If a DIFFERENT
-  test fails, file a new task (lowest free number 200-499, then re-check the list) and
-  add it to Depends on - do not fix outside this task's Touches (tests/test_review.py).
+- Re-verification this session (no code change; tests/test_review.py untouched again):
+  (a) full suite `.venv/bin/python -m pytest -q -p no:cacheprovider` = 155 passed /
+  1 skipped / 1 failed (325 s) - IDENTICAL to the 236 baseline; (b) the one failure is
+  still tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, same
+  failing label as every prior red record ("seed: the gestures own the mouse (map
+  pan/zoom off), the earlier overlay hidden") - no new failure mode, so nothing to file
+  as a new task; (c) the pick is still `marietta` / plan ancientmonuments00squi_n0169_1
+  with its single depiction `('topo', 1904)` - ran `_pick_place()` read-only
+  (`import test_fit_queue; _pick_place()`): the exact un-pinnable state 235's spec
+  fixes.
+- Gates, re-checked: tasks/235 = `Status: open` (never started; its fix is not on main),
+  its gate 306e = in-progress (agent c, UK part 2, still re-exporting web/data/review
+  .json + data/review items that drive `_line_eligible`), 307d = open (Depends on: 307c).
+  So box 3 cannot be settled yet; the `Depends on: 309, 235` line already carries the
+  only live gate (309 is done/merged, inert - see Notes).
+- NEXT (when the driver brings 221 back, i.e. after 235's gates 306e/307d merge and 235
+  lands): run the full suite (`.venv/bin/python -m pytest -q -p no:cacheprovider`); if
+  235's fix is on main and the suite is green, tick box 3 and set Status: done (this
+  task is finished). If the placement-gesture failure still shows, keep box 3 unticked
+  and end. If a DIFFERENT test fails, file a new task at the lowest free number in
+  200-499 (re-check `ls tasks/` at that moment - as of this session the highest is 235,
+  so 236 is the first candidate) with the proper Depends on/Touches lines, and add it to
+  this task's Depends on - do NOT fix it here (my Touches is only tests/test_review.py
+  and my files in tasks/).
 - Re-read: tests/test_fit_queue.py::_pick_place + PLACE_PROBE seed check - only if 235
   comes back and its fix needs cross-checking against this task's suite run.
