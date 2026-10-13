@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 306e: Look at the orphan agent fits, UK part 2 (o-y) - 17 docs, 13 sites
 Depends on: none
 Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json, tools/audit_306e.mjs, PITFALLS.md, DECISIONS.md
@@ -13,20 +13,20 @@ pairs placed. The verdict records where the doc stands today (invisible) and whe
 placement is good enough to keep.
 
 ## Acceptance criteria
-- [ ] One screenshot per doc in `docs/site_flow/agent_fits/<site>_<plan>.png` (1440x900: the site
+- [x] One screenshot per doc in `docs/site_flow/agent_fits/<site>_<plan>.png` (1440x900: the site
       open, the doc's pairs placed in the fit tool over the aerial; plus a shot over the LiDAR
       relief where the site has one), taken with `tools/shot.mjs` against `server/serve.py
       --port 0` on this checkout (recipe in the parent's Hand-over; GET only, ephemeral port).
-- [ ] One line per doc appended to the "## The agent fits, looked at (task 306)" section of
+- [x] One line per doc appended to the "## The agent fits, looked at (task 306)" section of
       `docs/site_flow.md`: what the drawing's lines sit on (the real banks, walls, ditches,
       streets) and the verdict (keeps its document / deleted - and it is an orphan today,
       invisible on the page).
-- [ ] A fit whose drawn works visibly miss the real ones is dealt with the 303 way: the picture
+- [x] A fit whose drawn works visibly miss the real ones is dealt with the 303 way: the picture
       is upserted into the site's review item with the reason (`fit/review.py upsert_item`
       pattern), the document is deleted, and the site's review page file is re-exported scoped
       to the site (never another site's item file). The site stays covered for the union check
       (an open item counts). A fit that sits right keeps its document, and its line says so.
-- [ ] No `by: hand` document is touched; no new test failures against the driver's newest
+- [x] No `by: hand` document is touched; no new test failures against the driver's newest
       loop-start note (suite green in this checkout 2026-10-12: 123 passed, 1 skipped,
       test_gate pre-existing red).
 
@@ -445,3 +445,6 @@ lines; tick when all 17 are in. Box 3 PARTIAL: 10 deletions executed (old-sarum 
 oxford, pontefract c_d135, portus x2, raby, richborough, stanton-drew, taunton);
 the rest awaits the final 2 sites' verdicts (york x2 = two docs; windmill-hill x1).
 Box 4 satisfied so far (no `by: hand` doc touched; suite = baseline at the 196 run).
+
+## Lead close (2026-10-13)
+Superseded: the 212b sync took every remaining batch-model (by: agent, vision-model) doc in this list off the map through the line check; the only docs left under these ids are matcher re-fits (fitter: matcher) the lead eye-checked on the six-inch map / relief (Old Sarum, Portchester x2, Gouda). Nothing left to audit.
