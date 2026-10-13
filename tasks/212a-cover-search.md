@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 212a: Cover search - a targeted picture search for every uncovered site, "no picture found" items
 Depends on: 211, 203b (203b in flight, agent c - my 212a re-coverage gave bibracte plans rows, which voids 203b's pinned zero-candidate no-picture case in test_batch_eu; the test's own docstring assigns that list extension to a 203b session)
 Touches: fit/cover.py, fit/cover_qwen8080.py, data/cover/ (searches.json + the run log + the stage record), data/review/, data/commons/files.jsonl, data/commons/classified.jsonl, data/raw/commons/, web/data/plans.json, web/data/fit_queue.json, web/data/review.json, tests/test_cover.py
