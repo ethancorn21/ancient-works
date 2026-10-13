@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/203-batch-fit.md` (split)
 - `tasks/207c-roy.md` (blocked)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 207, agent a - task-file session. Step (1) of the iter-206
+- `tasks/212-cover-final.md` (open) - hand-over: (2026-10-13, iteration 208, agent a - measurement session. Step (2) of the
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-11, iteration 74, agent c - FIRST session on this task; investigation only, no code written. Split into 302a-302d; next step is 302a.)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
@@ -21,48 +21,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-13 212 DECISION: 5 red tests on the merged tree, none mine - filed fix-tasks 231-234
-Full suite on the merged tree: 5 failed, 145 passed, 1 skipped (237 s). Verified with throwaway
-worktrees (/tmp/awmain at main 20277f3; /tmp/awhead at pre-merge 953d9ab - remove with
-`git worktree remove --force`):
-- test_fit_provenance.py::test_commons_yeared_title_drops_the_repeated_year: FileNotFoundError on
-  the bethlehem doc c_a164ee440558d66c, deleted by the 306a audit (a858f48 / main 20277f3); the
-  pin was never re-pointed (306a's Touches listed the file). Red on BOTH branches since the
-  deletion (pre-existing on my branch, not caused by the merge).
-- test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc and
-  test_site_done.py::test_site_done_line: both fail the shared stonehenge 13-candidate/13-row
-  pin. The 14th plans row is c_61b86efb4511e099 "Stonehenge, inward view by William Stukeley,
-  1722 (Itinerarium Curiosum)" (Wikimedia Commons, File:Stonehenge Dessin Stukeley 1722
-  03547.jpg, [1280,673]) - new in main's 1474 (211 pictures), missing from the 13-candidate item
-  file. Red on main since f970500; green on my pre-merge branch (1168 had 13). (The /tmp/awhead
-  site_done failure was a worktree artifact: web/data/sites is live/untracked data absent from a
-  bare worktree.)
-- test_merge.py::test_plan_list_refresh_is_pure_growth: "no Wikimedia Commons plan row for the
-  merged picture of numancia". At 9590abf/ef84a05 the row was c_0fa271e2444f7bfc with book
-  'Wikimedia Commons'; the lead's f970500 re-export dropped it - the files.jsonl row now carries
-  url=archive.org (memoriasdelareal009real), i.e. book-sourced, and that book has no
-  data/books/index.jsonl row and no local copy in data/raw (verified), so export_plans excludes
-  it. Red on main since f970500; green pre-merge.
-- test_fit_queue.py::test_fit_queue_real: ordering invariant. The test expects (view, -draw_px,
-  name); the generator sorts by the documented (view, -px, plan, name) (tools/fit_queue.py:365).
-  Main's new rows made the breaking pair: Lessines (c_0193a1cf01ab0b87) vs Avesnes-sur-Helpe
-  (c_61fbbcd3d6051cd9), both view False, both [1280,1842] px; plan order != name order. Neither
-  row exists in my pre-merge 1168 (green then); the pair fires only where the live site dirs
-  exist (my checkout: 503 site entries; the main git tree has none for the 11 new sites, so the
-  main worktree passed). Environment-dependent.
-None of the five files is in my 212 Touches, so instead of editing them I filed four fix-tasks
-(lowest free numbers in 200-499): 231 (the bethlehem year-pin re-point; depends on 306c-f so the
-replacement pin survives the ongoing orphan audits), 232 (the stonehenge snapshot re-pin in both
-tests; depends on 212 - my live loop upserts the 14th candidate into the item and may place a
-matcher doc - and on 231, same file), 233 (numancia plan row: make the data whole - book index
-row + local copy + re-export - or re-pin to the documented absence; depends on 212 to avoid
-concurrent plans.json writes), 234 (fit-queue invariant aligned to the documented generator key
-+ regenerate/commit the 229-entry queue file; depends on 212 + 306c-f churn). 231 is written
-(needs its second-pin paragraph corrected - see the 212 hand-over); 232-234 are specced in the
-212 hand-over and still to be written. My 212 Depends on line stays 203a/203b/211 (I can verify
-my six boxes before 231-234; the reds are not mine - if the driver counts them against my done
-claim anyway, add 231-234 to the line).
 
 ### 2026-10-13 212 DECISION: the numancia plan-list exclusion is machine-dependent (local-copy requirement), not a data loss - 233 re-speced, PITFALLS entry added
 Measured on the merged tree with an in-memory export_plans run (the real
@@ -107,6 +65,56 @@ depend on the entry order) - plus a byte-reproducible regeneration of
 web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
 212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
 worktrees were removed (agent c's /tmp/aw306cab untouched).
+
+### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
