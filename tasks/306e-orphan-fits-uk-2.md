@@ -1,7 +1,7 @@
 Status: open
 # 306e: Look at the orphan agent fits, UK part 2 (o-y) - 17 docs, 13 sites
 Depends on: none
-Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json
+Touches: docs/site_flow.md, docs/site_flow/, data/db/platefits/, data/review/, web/data/review.json, tools/audit_306e.mjs, PITFALLS.md, DECISIONS.md
 
 ## Goal
 Subtask of 306 (the parent's Hand-over holds the audit recipe and the full inventory): the 17
