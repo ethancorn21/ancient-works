@@ -303,11 +303,11 @@ One `### <library>` subsection per library or tool, with its version.
 
 ### pillow (12.3.0, project .venv)
 
-#### A Float32 DEM (the Dutch AHN) needs the unpinned `imagecodecs` package - without it every AHN-sourced site fails to build
-Where: pipeline/build_site.py:load_dem (Image.open on the AHN DEM tiles), the `.venv` build from requirements.txt
+#### A Float32 DEM (the Dutch AHN) needs the `imagecodecs` package - without it every AHN-sourced site fails to build
+Where: pipeline/build_site.py:load_dem -> aw.fetch_dem -> dem_sources._read_geotiff (tifffile on the AHN WCS bytes; the FLOATINGPOINT predictor is decoded via Pillow), the `.venv` build from requirements.txt
 Symptom: `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package` at build time; the AHN-sourced sites (amsterdam-q727, alkmaar-q972, enkhuizen-q9918, haarlem-q9920, rotterdam-q34370, the-hague-q36600, utrecht-q803) all fail, while the point-cloud fallback saves only the boxes pc covers (reimerswaal, sluis, valkenburg)
-Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs. imagecodecs 2026.10.10 was installed ad hoc into the project .venv (2026-10-12, 211's box-3 run) and is NOT in requirements.in/requirements.txt (agent c's 302a/304 own those files; the pin is still outstanding). The driver's in-place .venv rebuild keeps extra packages, so it survives today, but a from-scratch venv would lose it and the AHN builds would fail again.
-What to do: on this exact error, `.venv/bin/pip install imagecodecs` unblocks the build (the .venv still carries the ad-hoc 2026.10.10 install). Task 229 (filed 2026-10-12 by 211; Depends on 302a/304, who own requirements.in/.txt in flight) pins it in requirements.in and regenerates requirements.txt - when it lands, correct this entry.
+Why: AHN DEMs ship as Float32 rasters and Pillow cannot decode that predictor without imagecodecs (reproduced 2026-10-13 in a scratch venv with pillow+tifffile only: one AHN tile fails with exactly this error). It is now pinned in requirements.in as imagecodecs==2026.10.10 (229) and lands in every venv built from requirements.txt, including from scratch: 2026-10-13 a fresh venv from the regenerated file fetched and decoded the full utrecht-q803 2000x2000 box (1.00 share, matching the cached dem.npy to 0.000 m).
+What to do: on this exact error, imagecodecs has gone missing from the venv (a requirements.txt regeneration dropped the pin, or the venv predates 229): regenerate requirements.txt from requirements.in (pip-compile --generate-hashes from a throwaway venv, the 800 recipe) and rebuild the venv. Do not bump past 2026.10.10 without re-verifying an AHN build.
 
 ### pyproj (3.8, project .venv)
 

@@ -1,4 +1,4 @@
-Status: open
+Status: done
 # 229: Pin `imagecodecs` in requirements - the AHN Float32 DEM decode
 Depends on: 302a, 304
 Touches: requirements.in, requirements.txt, PITFALLS.md
@@ -23,20 +23,20 @@ requirements.in/.txt; by the time it runs it adds exactly one package on top of
 whatever they landed.
 
 ## Acceptance criteria
-- [ ] requirements.in lists imagecodecs, and requirements.txt is the regenerated
+- [x] requirements.in lists imagecodecs, and requirements.txt is the regenerated
       pip-compile --generate-hashes output: `imagecodecs==2026.10.10` pinned with
       its sha256 hash, zero unpinned lines, the `via -r requirements.in` block
       equal to requirements.in, and the diff against the file committed when this
       task starts is the imagecodecs addition only (no other package's version or
       hash moves; if the version pulls a transitive dependency not already
       pinned, that addition is expected and recorded in the decision entry)
-- [ ] A fresh throwaway venv (e.g. /tmp/aw-229) built from the new requirements.txt
+- [x] A fresh throwaway venv (e.g. /tmp/aw-229) built from the new requirements.txt
       with `pip install --require-hashes` succeeds with `pip check` clean, and in
       that venv the exact AHN path the build uses works: `aw.fetch_dem` for one of
       the seven sites' boxes (a working-phase network fetch, not a test) returns
       the decoded Float32 grid without
       `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs' package`
-- [ ] The PITFALLS entry ("Libraries and frameworks / pillow", "A Float32 DEM (the
+- [x] The PITFALLS entry ("Libraries and frameworks / pillow", "A Float32 DEM (the
       Dutch AHN) needs ... imagecodecs ...") is corrected to match reality: the
       package is pinned in requirements, and the ad-hoc-install workaround line is
       gone
@@ -58,3 +58,32 @@ whatever they landed.
 - If 302a or 304 land the pin themselves while in flight, this task degenerates to
   verifying their version is 2026.10.10 and correcting the PITFALLS entry -
   finish (or drop, with a note) accordingly.
+
+## Hand-over
+
+(2026-10-13, iteration 235, agent a - **DONE in one session.** Both dependencies were
+already terminal: 302a is done and merged (its scikit-image pin is in this branch's
+requirements, commit e46f5fd) and 304 is DROPPED (lead note 2026-10-12: superseded by
+fit/matchfit.py), so no in-flight task owns requirements.in/.txt anymore (203b/207/306
+never touch it) - the prompt's "agent c is working on 304" line was stale against the
+file state, and the driver had handed out 229, so I proceeded.
+
+What landed: `imagecodecs==2026.10.10` in requirements.in (pinned there deliberately -
+a bare name would resolve to whatever is newest on PyPI at compile time; the notes
+forbid bumping, and 2026.10.10 is today's latest and not yanked, so nothing else was
+possible); requirements.txt regenerated with pip-compile 7.6.2 (the 800 version) from
+/tmp/aw-229 WITHOUT --upgrade, so every existing pin was kept - the diff is only the
+imagecodecs block (23 sha256 hashes) plus its `via` note on the already-pinned numpy
+block (its one hard dependency; no numba/llvmlite, as the notes predicted). Verified:
+(a) a from-scratch venv /tmp/aw-229b from the new file installs with --require-hashes
+in 26 s, pip check clean; (b) in that venv `aw.fetch_dem` for the exact utrecht-q803
+box (data/sites/utrecht-q803/dem_box.json: 2000x2000) fetched PDOK live in 37 s and
+returned the decoded grid - 1.00 finite-nonzero share (build's own >=0.5 bar), median
+2.73 m, identical to the cached build dem.npy (0.000 m mean abs diff, corr 1.00000);
+(c) negative control in a pillow+tifffile-only scratch venv: the same AHN tile fails
+with exactly `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the 'imagecodecs'
+package` (plus the known-benign GDAL_NODATA tag warning, see dem_sources). Suite:
+1 failed (the pre-existing test_fit_queue gesture failure, 307bb baseline) / 155
+passed / 1 skipped - no new failures. PITFALLS pillow entry rewritten (Where now says
+dem_sources._read_geotiff -> Pillow; the ad-hoc workaround line is gone). The
+`Depends on: 302a, 304` line is left as-is (historical); nothing further to do.)

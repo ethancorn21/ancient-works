@@ -405,3 +405,45 @@ data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
 dirs that exist in the store + a few known dirs) is DROPPED - the test builder
 walks the store's data/raw and the followed checkout sites view
 unconditionally. No code changed this session.
+
+## 2026-10-13 229 DECISION: pin imagecodecs==2026.10.10 in requirements.in/.txt (the AHN Float32 DEM decode) - and proceed in one session, because both Depends-on tasks were already terminal (302a merged, 304 dropped)
+The task's `Depends on: 302a, 304` existed only to avoid a collision on requirements.in/.txt
+while both were in flight. At session start (iter 235): 302a is **done and merged** (its
+scikit-image 0.26.0 pin is already in this branch's files, commit e46f5fd) and 304 is
+**Status: dropped** (lead note 2026-10-12: superseded by the matcher fit fit/matchfit.py;
+the one-shot run never landed, so it will never merge). No other in-flight task (203b, 207,
+306) touches requirements.in/.txt, and the driver handed out 229 - the loop prompt's
+"agent c is working on 304" line was stale against the file state. Conclusion: no live
+conflict; do the whole task now rather than wait for tasks that cannot land.
+- The pin goes in requirements.in as `imagecodecs==2026.10.10` (pinned, not bare): a bare
+  name resolves to whatever PyPI's latest is at compile time (today that happens to be
+  2026.10.10, not yanked), and the task notes forbid bumping past the version proven by
+  all seven AHN builds. The pinned .in line forces the exact version into the compile.
+- Regenerated with pip-compile 7.6.2 (the same version 800 used, installed in throwaway
+  venv /tmp/aw-229) from the project dir, WITHOUT --upgrade, so all existing pins were
+  kept as constraints. Diff vs HEAD: exactly the imagecodecs block (23 sha256 hashes,
+  `# via -r requirements.in`) plus one line in numpy's existing `via` comment
+  (`#   imagecodecs` - its only hard dependency, already pinned at 2.5.4; no
+  numba/llvmlite, as predicted). Zero unpinned lines; the direct-package set
+  (`via -r requirements.in`) equals requirements.in (12 packages).
+- Verification (box 2): fresh venv /tmp/aw-229b, `pip install --require-hashes` from the
+  new requirements.txt in 26 s, `pip check` clean; in that venv `aw.fetch_dem` for the
+  EXACT utrecht-q803 box recorded in data/sites/utrecht-q803/dem_box.json (2000x2000)
+  fetched PDOK's WCS live (37 s) and decoded the Float32 grid: shape (2000, 2000),
+  1.000 finite-nonzero share (the build's own >=0.5 acceptance bar), median 2.73 m
+  (plausible for Utrecht), and it matches the cached build dem.npy exactly
+  (0.000 m mean abs diff, corr 1.00000 - the PDOK server grid is deterministic).
+  Negative control: a scratch venv with pillow+tifffile but no imagecodecs fails on one
+  AHN tile with exactly `ValueError: <PREDICTOR.FLOATINGPOINT: 3> requires the
+  'imagecodecs' package` (the GDAL_NODATA tag warning on the same tile is the known
+  benign one, dem_sources sets tifffile logging to ERROR for it) - so the pin, and
+  nothing else, is what fixes the decode.
+- Suite (existing .venv, which my change does not alter): 1 failed (pre-existing
+  test_fit_queue gesture failure, the 307bb baseline), 155 passed, 1 skipped - no new
+  failures. PITFALLS pillow entry rewritten per box 3 (Where now names the real decode
+  path dem_sources._read_geotiff -> Pillow; the ad-hoc `pip install imagecodecs`
+  workaround line is gone; the negative reproduction is recorded).
+- The `Depends on:` line in the task file is left as-is (it is history, and the task is
+  done). If the driver still shows 304 as in flight to agent c: it is dropped on main
+  and cannot merge; agent c's 304 branch may carry old requirements work that is now
+  superseded by this file.
