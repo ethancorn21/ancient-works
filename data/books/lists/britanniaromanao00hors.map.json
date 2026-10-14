@@ -1,0 +1,310 @@
+[
+{
+"n": 60,
+"site_plan": false,
+"entries": [
+{
+"fig": 60,
+"title": "A Corrected Map of Britain according to Ptolemy (front-matter fold-out, faded landscape capture)",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 62,
+"site_plan": false,
+"entries": [
+{
+"fig": 62,
+"title": "A Corrected Map of Britain according to Ptolemy's, or Rectified (front-matter fold-out, full spread)",
+"page": null,
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 236,
+"site_plan": true,
+"entries": [
+{
+"fig": 236,
+"title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+"page": "P.158 N.1",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 238,
+"site_plan": true,
+"entries": [
+{
+"fig": 238,
+"title": "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.",
+"page": "P.158 N.2",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 240,
+"site_plan": true,
+"entries": [
+{
+"fig": 240,
+"title": "A map of the Roman wall, from CONDERCVVM to VINDOBALA.",
+"page": "P.158 N.3",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 242,
+"site_plan": true,
+"entries": [
+{
+"fig": 242,
+"title": "A map of the Roman wall, from VINDOBALA to HANNAVVM.",
+"page": "P.158 N.4",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 244,
+"site_plan": true,
+"entries": [
+{
+"fig": 244,
+"title": "A map of the Roman wall, from HANNAVVM to CILVRNVA.",
+"page": "P.158 N.5",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 246,
+"site_plan": true,
+"entries": [
+{
+"fig": 246,
+"title": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.",
+"page": "P.158 N.6",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 248,
+"site_plan": true,
+"entries": [
+{
+"fig": 248,
+"title": "A map of the Roman walls from BORCOVACEVS to MAGNA.",
+"page": "P.158 N.7",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 250,
+"site_plan": true,
+"entries": [
+{
+"fig": 250,
+"title": "A map of the Roman walls from MAGNA to PETRIANA.",
+"page": "P.158 N.8",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 252,
+"site_plan": true,
+"entries": [
+{
+"fig": 252,
+"title": "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.",
+"page": "P.158 N.9",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 254,
+"site_plan": true,
+"entries": [
+{
+"fig": 254,
+"title": "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM.",
+"page": "P.158 N.10",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 256,
+"site_plan": false,
+"entries": [
+{
+"fig": 256,
+"title": "A section of both the Roman walls between one castellum and another (the south agger, Severus's ditch and vallum, Hadrian's north agger, ditch, principal vallum and south agger; a scale of 9 paces or 15 yards)",
+"page": "P.158 N.11",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 278,
+"site_plan": true,
+"entries": [
+{
+"fig": 278,
+"title": "A general map of Antoninus's wall in Scotland.",
+"page": "P.176 N.1",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 280,
+"site_plan": true,
+"entries": [
+{
+"fig": 280,
+"title": "A map of the Roman wall in Scotland from the west end to Bemulie.",
+"page": "P.176 N.2",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 282,
+"site_plan": true,
+"entries": [
+{
+"fig": 282,
+"title": "A map of the Roman wall in Scotland from Bemulie to Crowy-hill.",
+"page": "P.176 N.3",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 284,
+"site_plan": true,
+"entries": [
+{
+"fig": 284,
+"title": "A map of the Roman wall in Scotland from Crowy-hill to Falkirk.",
+"page": "P.176 N.4",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 286,
+"site_plan": true,
+"entries": [
+{
+"fig": 286,
+"title": "A map of the Roman wall in Scotland from Falkirk to the east end.",
+"page": "P.176 N.5",
+"kind": "s",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 706,
+"site_plan": false,
+"entries": [
+{
+"fig": 706,
+"title": "BRITAIN according to PTOLEMY, taken from MERCATOR.",
+"page": "P.356",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 734,
+"site_plan": false,
+"entries": [
+{
+"fig": 734,
+"title": "BRITANNIA ROMANA according to ANTONINE'S ITINERARY.",
+"page": "P.380",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 832,
+"site_plan": false,
+"entries": [
+{
+"fig": 832,
+"title": "BRITANNIA ROMANA in signia Vicarii Britanniarum (the Notitia Dignitatum map: Maxima Caesariensis, Flavia, etc.)",
+"page": "P.472",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+},
+{
+"n": 867,
+"site_plan": false,
+"entries": [
+{
+"fig": 867,
+"title": "TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM (the Peutinger table, Gaul segment; an \"A scale of miles\" bar)",
+"page": "Pag.505",
+"kind": "o",
+"kind_by": "hand",
+"type": "figure"
+}
+]
+}
+]

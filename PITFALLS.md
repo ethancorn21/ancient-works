@@ -6,6 +6,10 @@ Contents, with the number of entries. Search for a file, function, library or er
 - This machine and its environment (38): Model servers (this VM's own cards) 28, Internet Archive (archive.org) 10
 - Libraries and frameworks (14): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 6, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1, pytest (9.1.1, project .venv) 1
 - This codebase (116): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 21, fit/ 20, pipeline/ 11, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 10, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 4, web/ (the page and its extension scripts) 16, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 1, tests/playwright 2, data/merge/ (211's consolidation runners) 1, A/B-testing a change against a pristine tree (in-checkout, never a fresh worktree) 1, tools/export_plans.py 1, tools/site_done.py, fit/review.py 5
+- Agent tools and harness (12)
+- This machine and its environment (39): Model servers (this VM's own cards) 29, Internet Archive (archive.org) 10
+- Libraries and frameworks (15): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 7, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1, pytest (9.1.1, project .venv) 1
+- This codebase (114): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 19, fit/ 20, pipeline/ 10, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 11, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 4, web/ (the page and its extension scripts) 16, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 1, tests/playwright 2, data/merge/ (211's consolidation runners) 1, A/B-testing a change against a pristine tree (in-checkout, never a fresh worktree) 1, tools/export_plans.py 1, tools/site_done.py, fit/review.py 5
 1 entry lacks a `Where:` or `Symptom:` line: add them when you touch those entries.
 <!-- contents:end -->
 
@@ -204,6 +208,12 @@ Where: nohup'd background runs (e.g. 213's /tmp/civitates_triage.py over data/bo
 Symptom: a data file a background job is still writing keeps growing after your session ends; the driver's snapshot commit then captures it at a mid-growth line count (213's A file: committed at 191 of its final 292 lines), so a later agent cannot tell a complete file from a partial one.
 Why: ending a session (context limit) does not kill a nohup'd process; run_stage appends one row per page and exits on its own, much later. Before committing or trusting any file a background job may still be writing: compare its mtime with now, check the writer process is gone (`ps`), and confirm the line count matches the expected total (213's A: 292/292 rows, zero error rows) - only then commit.
 
+#### Book triage stage-A captions/numbers can be parametric hallucinations - never stage from them
+Where: pipeline/books.py `run_stage` (PROMPT_A; PROMPT_B's caption output carries the same caveat), data/books/triage/<ia>.A.jsonl - observed on 207a Horsley (britanniaromanao00hors, qwen3.8-27b on 127.0.0.1:8080/8081, 2026-10-13)
+Symptom: page_type looks right but caption/numbers are invented from a different, well-known book in the model's training data: Horsley's 1732 plate pages got "MAP OF THE VALLEY OF THE CHAMBERLAIN RIVER, ILLINOIS", "PLAN OF THE ANCIENT WORKS AT THE MOUND CITY, OHIO", "HERCULANEUM, CAMP OF CAESAR" (all Squier & Davis, *Ancient Monuments of the Mississippi Valley*) and the number "PLATE XXV" repeated verbatim across unrelated pages, while the one genuine cluster (the Roman-wall maps, n236-n287) carried plausible captions.
+Why: where a page's actual caption is faint, small or in engraved lettering the model fills in from memory. The page_type field is mostly sound (Horsley: 703 text_only / 151 other_illustration / 80 plate_site_plan over 936 pages); caption and numbers are not evidence.
+What to do: treat stage A as a page-type candidate filter only; make every kind (s/o/u) decision and every 200 evidence field from the book's printed plate list transcribed by eye from the triage images plus the images themselves (the 207 subtask recipe). Re-run stage F over other_illustration pages if a verified plan page is missing from the candidates.
+
 #### The VM clock lags the project's journal dates - date new work by the journal's sequence, not `date`
 Where: date stamps in `DECISIONS.md`, `docs/*.md` ("checked ..." lines), the task hand-overs
 Symptom: on 2026-10-11 (machine time, Sun Oct 11 CDT) the newest DECISIONS entry was already dated 2026-10-12 -
@@ -261,33 +271,38 @@ Symptom: `Interrupted: 12 errors during collection` - `ImportError while importi
 Why: numpy/scipy/pyproj and the like live in the project venv, not in the system python3; the driver's own runs use the venv, so its reports are unaffected - the trap only bites when an agent runs the suite (or a subset) directly.
 What to do: always `.venv/bin/python -m pytest ...`. The driver rebuilds `.venv` from `requirements.txt` before every run; on 2026-10-12 it was complete as-is (`pip install --require-hashes -r requirements.txt`: all satisfied).
 
-#### HathiTrust and Google Books refuse this VM - books not on IA need a human download (the 207c pattern)
+#### HathiTrust and Google Books refuse this VM - a book not on IA is unreachable here, and the human will not download it
 Where: any fetch from babel.hathitrust.org / the Google Books API (207c Roy 1793, 209a Hoare Cherhill 1821, 209c Petrie 1880)
 Symptom: HTTP 403 from babel.hathitrust.org with every UA (including a full browser UA) and HTTP 429 from the
-      Google Books API with our and a browser UA; IA advancedsearch empty for these titles.
+      Google Books API with our and a browser UA - the API's anonymous consumer carries a 0-queries/day quota
+      (RESOURCE_EXHAUSTED, quota_limit_value: 0; re-checked 2026-10-13 for Roy at the drop decision), so the 429
+      is a hard refusal, not pacing; IA advancedsearch empty for these titles.
 Why: bot walls that a real browser passes and this VM cannot. The planned route was a human-downloaded copy
       (ask_human, human_only: outside-vm) into data/raw/books/<id>/, one image per leaf page, filenames sorting
       in book order, with the consuming module adapting the fetch locally (fit/src_wiltshire_hoare.py; 207c's
-      Roy module will) - but the human declined to download books for this project (next entry), so a book that
-      is not on IA is effectively unreachable here. Verified 2026-10-11 (Roy) and 2026-10-12 (Hoare); the refusal
-      came in between iterations 145 and 151 (journal date 2026-10-13; the ask file's own 06:55 answer stamp is VM
-      clock, which lags the journal dates).
+      Roy module would - it never was, the book dropped 2026-10-13) - but the human declined to download books
+      for this project (next entry), so a book that is not on IA is effectively unreachable here. Verified
+      2026-10-11 (Roy), 2026-10-12 (Hoare) and 2026-10-13 (Roy, final: maps.nls.uk still 405, the NLS S3 tile
+      bucket still has no antiquities set, Google Books API 429/quota-0 - no source is reachable; 207c dropped
+      that day). The human refusal came in between iterations 145 and 151 (journal date 2026-10-13; the ask
+      file's own 06:55 answer stamp is VM clock, which lags the journal dates).
 
 #### The human will not download books for this project - book leads stand on IA and Commons only
-Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821) and 002 (Petrie,
-      Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151; any
-      future ask_human that asks the human to fetch a book copy
+Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821), 002 (Petrie,
+      Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151 - and
+      008 (Roy, Military Antiquities of the Romans in North Britain, 1793, for 207c: filed and answered
+      2026-10-13); any future ask_human that asks the human to fetch a book copy
 Symptom: "No. If you can't find the book at all, then i am not going to go get it. Just skip it." (001);
-      "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." (002) -
-      even though a real browser on the human's machine passes both bot walls (the refusal is a willingness
-      call, not a feasibility one).
+      "No. If you can't find it on the internet i am not going to go get it. Just skip it and move on." (002);
+      "drop Roy. I dont want to have to ever go out and get a file. If you need it get it. If you can't get
+      it, then you don't need it." (008) - even though a real browser on the human's machine passes both bot
+      walls (the refusal is a willingness call, not a feasibility one).
 Why: the human reads a human-download request as work they must do, and declines it; they will not browse
       HathiTrust/Google Books for the project. Consequence: for any book lead, IA is the only source this loop
       can rely on (the only one this VM can reach, and the human will not cover the gap); if the book is not on
       IA, plan the drop or a Commons fallback from the start and do not file a download ask (209a dropped;
-      209c stands on 209b's verified Commons rows - the two canonical Petrie 1880 Pl. I/II rows). 207c's Roy
-      1793 request 003 was filed before this refusal and is still open: if it gets the same answer, drop 207c
-      rather than re-asking.
+      209c stands on 209b's verified Commons rows - the two canonical Petrie 1880 Pl. I/II rows; 207c's Roy
+      1793 got the same answer on 2026-10-13, ask 008, and was dropped that day - record: docs/lead_roman.md).
 
 #### portal.dnb.de is behind an Anubis (Techaro) JS proof-of-work wall - no search is reachable from this VM
 Where: portal.dnb.de (`/sru`, `/opac/sru`, `simpleSearch`) - the German National Library; task 208's hunt for ORL/RGK volumes
@@ -312,7 +327,7 @@ Why: the AI box is only reachable through those forced-command accounts; a forwa
 
 #### IA /download/ needs a User-Agent and -L, is flaky per file, and zip-only Google-scan items have NO per-leaf image derivatives
 Where: any fetch from archive.org (fit/src_numancia.py _ia_get/render, pipeline/books_ia.py); verified on item memoriasdelareal009real, 2026-10-12 (task 210)
-Symptom: a GET /download/<item>/<file> without a UA returns 0 bytes; a HEAD without -L shows the 302 CDN redirect (normal); some files serve a transient 170-byte nginx 500 HTML page that comes and go per file/day; on a zip-only Google-scan item, /download/<item>_NNN.jpg and .jp2, BookReaderImages.php and /composite/ all 404.
+Symptom: a GET /download/<item>/<file> without a UA returns 0 bytes; a HEAD without -L shows the 302 CDN redirect (normal); a GET on a per-leaf page image (/download/<item>/page/nNNNN.jpg) WITH a UA but WITHOUT -L also writes a 0-byte file (the 302 has an empty body - curl -sL + a browser UA is what works, verified 2026-10-14 on britanniaromanao00hors); some files serve a transient 170-byte nginx 500 HTML page that comes and go per file/day; on a zip-only Google-scan item, /download/<item>_NNN.jpg and .jp2, BookReaderImages.php and /composite/ all 404.
 Why: the CDN wants a UA and follows redirects, and the /download/ backend fails intermittently per file - retry with backoff (the module tries 3x). A zip-only Google-scan item has no per-leaf image derivatives AT ALL: per-leaf images exist only inside the jp2.zip / orig tar, so per-leaf images come from the PDF (pdftoppm) or the zip, never from a per-leaf URL. When /download/page_numbers.json 500s, /metadata/<item> returns the page_numbers dict inline (its "pages" list has one {leafNum, ...} entry per leaf; files[].size values are STRINGS, e.g. "37664978").
 
 #### In memoriasdelareal009real the OCR page index does not line up with the PDF leaf order - ground truth is the PDF
@@ -426,6 +441,17 @@ Symptom: `UnboundLocalError: cannot access local variable 'r' where it is not as
 Why: in a generator expression the text after the first `for <name> in <expr>` is the FILTER test; the
       iterable `<expr>` must not reference the loop variable. Write the conjunction inside the body:
       `any(r.get("site") == s["id"] and r.get("title") in picked for r in files)`.
+
+#### Replacing `socket.socket` with a function breaks a later `ssl` import - import `urllib.request`/`ssl` first, then patch the connect methods
+Where: ad-hoc offline verification runs (207a iteration 219's --list socket-block wrapper); the in-test in-process
+      pattern is tests/test_batch_us.py's `no_network` fixture
+Symptom: `socket.socket = fn` followed by any import chain that reaches `import ssl` dies with
+      `TypeError: function() argument 'code' must be code, not str` (in `class SSLSocket(socket.socket)`) -
+      an stdlib crash that looks unrelated to the patch
+Why: `ssl` subclasses `socket.socket` at import time, so the attribute must still be a class by the time
+      ssl is imported. To prove a command path is offline: `import urllib.request, ssl` FIRST, then
+      `socket.socket.connect = dead` and `socket.create_connection = dead`, then run the script (urlopen and
+      http.client both funnel through those two; DNS never runs because connect raises first).
 
 #### A monkeypatched socket in the parent process never reaches a subprocess - guard the subprocess itself with `python -c` + runpy (and there sys.argv[0] == "-c")
 Where: tests that run the product's CLI as a subprocess (tests/test_site_done.py's GUARD); the in-process pattern
@@ -1206,6 +1232,11 @@ Where: `pipeline/books_ia.py` (`page_texts`, `djvu_txt`, `ocr_captions`) for IA 
 Symptom: the hOCR leaf 85 text holds the Brussels title that stage A reads on leaf 87; the drift is not constant - it runs 0-2 leaves down the book (leaf 53 matches, leaf 109 is off by two) - so text looked up through the page index lands on the wrong leaf.
 Why: this BookReader scan's hOCR stream and jp2 leaf sequence do not line up. The image-based stage A rows (read from the leaf image) are the ground truth for this book; 217's view-as-drawing index must key on leaf n, never on the hOCR page index.
 
+#### books_ia.page_texts keys are hOCR page indices, not bookreader leaf n - the offset drifts, so never key per-leaf lookups on it
+Where: `pipeline/books_ia.py` (`page_texts`); `data/books/triage/britanniaromanao00hors.*.jsonl`; task 207a / 807
+Symptom: on britanniaromanao00hors the hOCR stream has 942 pages vs 936 leaves; the offset is small in the front matter (leaf n0114's plate = hocr 115, n0185's = hocr 186 - one off) but drifts further at the fold-outs; a per-leaf text lookup through the hOCR index lands on the wrong leaf (same class as the civitatesorbiste00brau and memoriasdelareal009real entries).
+Why: BookReader's hOCR sequence is not the leaf sequence. Key everything per-leaf on leaf n (the bookreader n / the image file nNNNN.jpg); use hOCR text only as an unkeyed search corpus (a whitespace-collapsed grep for a known line is reliable, a page-index lookup is not).
+
 #### The civitates A/F "plan" labels are unreliable in both directions - the hand list's kind is the only source
 Where: `pipeline/books.py` stage A/F prompts, `data/books/triage/civitatesorbiste00brau.{A,F}.jsonl`, `data/books/lists/civitatesorbiste00brau.json`; tasks 216/217
 Symptom: F flags 11 of the 121 figure pages as containing a "plan", but of F's ten distinct plan leaves (A30, 62, 65, 66, 90, 93, 105, 186, 229x2, 237) only A90 (Ghent) and A237 (Jerusalem old) are true plans - it misses the five famous plans (A58 Paris, A85 Brussels, A98 Antwerp, A109 Amsterdam, A238 Jerusalem new) and false-flags A186 (the Augsburg view); stage A typed only 3 of 121 figure leaves as plate_site_plan (A187/A199 are blank fold-out versos).
@@ -1241,7 +1272,7 @@ Where: `pipeline/books.py:BOOKS` (`region`), `pipeline/books_match.py:BOOK_SCOPE
 Symptom: an entry like `civitates_liber2` has region "Europe" although the volume contains Italian towns - looks like a bug to "fix" to a country name. Do not: the book field is informational (the town's region comes from its catalog row); books_match never reads it - it keys BOOK_SCOPE on the book key, and a book missing from BOOK_SCOPE just gets no region/state filter (`.get(key, (None, None))`), not an error.
 
 #### A human-downloaded book (not on IA) runs the UNMODIFIED machinery through a 3-point in-process wrap
-Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module does the same)
+Where: fit/src_wiltshire_hoare.py register(); books.py run_stage; books_ia.pages/page_texts; books_lists.map_plates (207c's Roy module would have done the same - never built; the book was dropped 2026-10-13, and the parent 207 hand-over's item 3 keeps the recipe if a scan ever lands)
 Symptom: cmd_fetch/ia.pages/ia.page_texts hit the network for an ia id that is really a local directory name
 Why: the machinery is IA-only in exactly three places - the page list (ia.pages), the per-page OCR (ia.page_texts), the page-image fetch (books.fetch_triage) - and wrapping those for one id plus a BOOKS entry whose ia field is the local dir name (so books.triage_path lands at data/raw/books/<id>/triage/) is all that triage A/F/B, map_plates and staging need: page_texts -> {} (Qwen anchors only; empty text keeps inked pages as map_plates candidates), fetch re-encodes the local files into the triage slot (1400 px long side, q88). A test monkeypatches the module's book DIR (the triage tree follows it) + the socket-blocking fixture -> hermetic. A book that IS on IA (209b's Stukeley) needs no wrap at all: register() only adds the BOOKS entry.
 
@@ -1427,6 +1458,11 @@ Why: remembered city coordinates go stale (a 1° error is ~110 km at 48°N), and
 Where: `tests/test_fit_queue.py` (`_pick_place` ~line 1654: first queue entry with propose + `_line_eligible` + a non-empty depictions.json; `_line_eligible`'s "no docs yet" gate is a site-level glob over data/db/platefits), `web/data/fit_queue.json`, `web/index.html` (loadDeps' surveyOldEnough: kinds {map, aerial, topo} pass only with a year <= currentYear-150; the auto-select takes a {plan, drawing, view} depiction else the last surviving 'map'), `web/fitkit.js` (startFit hides an earlier overlay ONLY if its dep layer exists - an absent layer reports null at the seed check)
 Symptom: test_placement_gestures_and_save_in_the_browser fails at the seed check ("the gestures own the mouse (map pan/zoom off), the earlier overlay hidden") with dep:null whenever the pick lands on a site whose depictions the page will not show. Current instance: marietta (since 6ce742f = 212b's final sync deleted her last doc, the 301 pattern doc b24849959_n0195_1, and upserted her item) - her only depiction is a 1904 USGS topo, which surveyOldEnough hides, so the dep layer is never created. (The 404s on GET /tiles/relief in the server log are a separate, harmless live-feed 404 on this VM - no DEM upstream.) History: GREEN at 081c773 (307bb, Oct 12 05:02, "Suite 101 passed"); a red episode during 306c's Oct-12 audit era on the 114-entry queue (its audit deleted marietta's doc on agent c's branch; 306d iter-161 / 306e iter-197 recorded "the 307bb gesture red, the baseline from both parents"); GREEN again from f0dfd66's 229-entry queue regeneration (Oct 12 23:23, the 212 notes-only phase) when the pick returned to oswestry; RED again from 6ce742f (Oct 13 06:31). The driver's 212 baseline predates all of it, so its re-check flagged the red against 212 and rejected the iter-254 done claim; 212 now Depends on: 235 (235's deps 306e+307d are done). An earlier version of this entry called it "a 307 bug, never a local change" - that was wrong in both directions: it is a local change (any doc deletion can move the pick) and its fix is no longer the 307 merge but 235.
 Why: the pick is derived (first qualifying entry in file order), so any doc deletion that leaves a site with zero docs can flip it line-eligible and move the pick onto it, and the test's dep check reads the raw file while the page applies surveyOldEnough + the auto-select before creating the dep layer. The fix (235) mirrors both page rules in the pick; on the current tree the post-fix pick is oswestry-castle (idx 38: eligible, 1842 map visible, 1900 map filtered). Practical rules: (a) any task that deletes docs (a sync, an audit) should simulate `_pick_place()` before and after - it is a pure function over committed inputs, seconds to run - and expect this test red until 235 lands if the pick moves onto a site with no page-visible depiction; the driver's done-claim re-check (baseline vs current failures) attributes that red to the deleting task; (b) a parallel task must not "fix" tests/test_fit_queue.py (235's file) or undo its own audit/deletion to move the pick; (c) the GOAL.md point-1 invariant is unaffected either way - a deleted doc's site keeps its open review item, which covers it.
+#### The 307bb-era test_placement_gestures_and_save_in_the_browser red (seed check + /tiles/relief 404s) is CLEARED on main by the 307 merge (bba5961, lead port of the owner's Mac work 2026-10-13: the fit-tool rework and e2e-only fit tests) - the old test no longer exists, the rewritten one is green on this VM (full suite 158 passed / 1 skipped, measured 2026-10-13, iterations 120/121); driver notes or loop-start baselines naming the OLD signature are stale
+Where: `tests/test_fit_queue.py` (the 3c91518-era box-3 test - the `_pick_place` pick, the seed check, save/cancel - replaced by bba5961's e2e-only parts; c72706b made 307d's test_owner_check e2e-only too), `web/fitkit.js` (startFit hides an earlier overlay ONLY if its dep layer exists - an absent layer reports null), `web/index.html` / `web/data/fit_queue.json` (agent a's 307/307bb Touches, reworked by bba5961's fit tool)
+Symptom: (history - trees BEFORE bba5961, e.g. the 3c91518-era test the loop-start baseline d14577e and the 207a rejections 464a2c1/2a0b228 named): `RESULT FAIL: seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden` plus 404s for `GET /tiles/relief/<z>/<x>/<y>.webp` in the server log; earlier still (main 7e61147, pre-rework) a vacuous fixture error on clean main ("no queue entry ... - vacuous.") and `dep:null` at the seed on branches whose audit deleted a site's only doc. After bba5961 the failure does not exist: the e2e-only test passes (iteration 121 on the real merged tree: 158 passed / 1 skipped, 432 s).
+Why: the pick is derived (first queue entry that is propose + _line_eligible + has a depiction file), so which site it landed on depended on store/review state = other tasks' deletions/upserts, and 307bb's preconditions assumed the earlier overlay exists (hidden 'none', restorable 'visible') and live LiDAR relief tiles (the Mac-only DEM upstream, off on this VM; the .npy/.npz grids were kept out of the fixture copies). The driver's 2026-10-11 loop-start baseline predated 307bb, so the red was flagged "new" for every task merged after it; the lead accepted 306c and 306d on the A/B evidence (12b2274) while it was live, and it cleared for real when bba5961 (+ c72706b) reworked the tests to run hermetically without the live relief upstream.
+What to do: a driver note or loop-start baseline that names the OLD signature against a branch whose merge-base is at/after bba5961 is stale - run the named test on the merged tree and answer with that measurement (no A/B needed: the test file itself is what changed). A parallel task must still not edit web/fitkit.js / web/index.html / tests/test_fit_queue.py / web/data/fit_queue.json (agent a's files) and must not undo its own audit to move the derived pick.
 
 ### tests/playwright
 

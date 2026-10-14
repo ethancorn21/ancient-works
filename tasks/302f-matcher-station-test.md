@@ -3,6 +3,203 @@ Depends on: none
 # 302f: The matcher station end to end - the line on one hand-fit site's files, no network
 Touches: tests/
 
+## Hand-over
+
+(2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
+branch after the 302e merge); the complete verified design is below. ON DISK NOW: only
+`tests/fixtures/matchfit_station/record.py` as a TRUNCATED STUB - it ends with a bogus line
+`import matchfit_holdout_dummy  # noqa: F401` and has no body: REWRITE IT FROM SCRATCH (the
+design is complete below; the stub is worthless except for its docstring). No tests run yet;
+I started the full-suite baseline in the background (nohup, log /tmp/aw302f_baseline.log, was
+still running at session end - CHECK IT; if incomplete, rerun: `.venv/bin/python -m pytest -q
+-p no:cacheprovider > /tmp/aw302f_baseline.log 2>&1` ~5 min) before adding my test, so I can
+diff new reds. Nothing else in the tree changed.)
+
+**Verified this session (fresh eyes, current tree):** ELoFTR LIVE 127.0.0.1:8091/health ->
+{model: zju-community/matchanything_eloftr, device: RTX 5060 Ti}; RoMa 8092 refused (curl exit
+7). .venv py3.12.3. Hand doc + row + site entry + depictions.json + heldout + index row all
+re-verified (see 210 hand-over details preserved below). Additionally verified:
+- matchfit_heldout.candidates(root, site, row, url) returns ALL 15 candidates (matches, inliers,
+  rot, resid_m, pairs in row frame; rot/resid only when ransac kept >=3; seconds each). It calls
+  mf.match/mf.ransac/mf._merc - patching mf.match makes it a faithful offline replay. Importing
+  it is safe (it imports inkfit_heldout, which 302e fixed; no golden_docs call at import).
+- batch_us.write_doc book row: {site, plan, crop: _crop_px(row), pairs: _norm_pairs(8), label,
+  title, cite, at(_now), auto:True, score:round(resid_m,1), by:"agent", ia, file, book} then
+  matchfit.run appends fitter:"matcher", matcher:{model, inliers, matches, ground, window,
+  rot_deg 2dp, spread [3dp,1dp]} (the fit_row all-inliers spread, in the pairs frame). Key order
+  as written; the test compares dicts (order-free) with "at" removed.
+- plan_fit.build(doc, root): book doc without "size" key -> size = image size (3367x5050) ->
+  fs=1.0; crop _crop_px [360,1404,2886,3323] (2526x1919 > MAX_PX 2400 -> LANCZOS-resized ~
+  2400x1818); saves plan_<plan>.webp (quality=80, method=6) + _ink.webp (depict.make_ink,
+  quality=85); REPLACES the same-file depiction in depictions.json (remove-then-append, stable
+  sort by year); prints `{sid} {plan}: 8 pairs, similarity, residuals m [...]` (one residual per
+  pair, 1dp); set_drawings. The matcher doc has NO "model" key -> build prints "similarity" via
+  the default; source_line for agent+auto+score -> "Fitted automatically by the batch on 8
+  matching points; one rotation and scale fits them within {ceil(resid.max())} m (gate score
+  {score} m)".
+- build_site.marks(s, root): recomputes drawings/score/oldest/overlays from depictions. I
+  hand-computed: overlays = six-inch (1842 <= 2026-150, err 8, not drawing) + plan (1908, rms of
+  its resid_m, drawing); score = round(best + 0.25*rest, 2). Hand fit rms 5.99 -> score 1.45
+  (= repo's value). Matcher residuals ~3 m -> rms ~3.2 -> 1.18/(1+0.001) + 0.25*1.0989 =
+  1.4535 -> round -> 1.45 STILL. But this is a narrow margin: THE RECORDER MUST ASSERT the
+  post-run tree site entry == the repo entry (parsed); if score/oldest/overlays move, relax the
+  test to field-level asserts (drawings==1, others recorded in the fixture) and say why in the
+  header.
+- propose.propose_for(site_id, plan_id, root=ROOT): ROOT is the MODULE constant of whichever
+  copy is imported. In the recorder's IN-PROCESS site_done run, fit/propose.py is the CHECKOUT's
+  (site_done inserts checkout fit/ on sys.path; my recorder's import is the same module object)
+  -> it reads checkout data/books/index.jsonl + plans.json + sites.json; the subprocess reads
+  the tree copies. Same bytes (copied at the same moment) -> same result. The index row has
+  scale_bar true + scale_text "0 100 200 300 400 500 Scale of Feet" + a scale_bar blank_box +
+  north_arrow true angle 0.0 + evidence dict -> propose succeeds (verify in recorder; run_sites
+  wraps it in try/except (ValueError, KeyError) -> prop None -> entry coarse:True either way -
+  the fixture records whatever actually happens).
+- review.export(root, site_id): reads EVERY item file + sites.json + catalog for names; records
+  "resolved" into item files ONLY when a resolving doc exists without a recorded resolution AND
+  (site_id is None or the item's site == site_id); publishes open items (name-sorted) to
+  web/data/review.json {"at", "items"}; returns (n_open, n_total). Repo state is consistent
+  (306d ended with an export), so the scoped export writes NO item files - the recorder must
+  verify (hash all item files before/after its in-process unsure run) and the test asserts it.
+- Exact expected stdout, CONFIDENT (11 lines, in order):
+  1 `fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"`
+  2 `site badbury-rings-q798831: the one-site line (fit -> sync -> entry -> review)`
+  3 `{sid}  {title}: FIT (eloftr) 22/61 points on six-inch-1st.webp x0.35, rot 3.6 deg, {m:.2f} m/px, residual 3 m`
+  4 `fit  matcher: fit written (badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json)`
+  5 `fit  1 candidate picture(s): 1 fitted (doc), 0 in the review item -> no batch run needed`
+  6 `badbury-rings-q798831 earthworkenglan01allcgoog_n0132_1: 8 pairs, similarity, residuals m [...]`
+  7 `sync Badbury Rings, Wimbome, Dorset: synced to the map (plan_earthworkenglan01allcgoog_n0132_1.webp, 8 pairs, gate 3.1 m)`
+  8 `entry  web/data/sites.json: drawings 1 -> 1`
+  9 `review no review item (every picture is a fit)`
+  10 `  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): synced to the map, gate 3.1 m`
+  11 `done`
+  (3 and 7/10 numbers come from the LIVE replay; 3-5 order verified in code: run() prints FIT
+  before returning paths; _fit prints "fit written" after; the no-batch line is the
+  need_fit-False branch. Lines 6-7: build prints before _sync_doc's synced line. Line 10: the
+  summary's `pid in docs` branch, sc from doc["score"].)
+- Exact expected stdout, UNSURE (8 lines - CORRECTION: the 210 note said 9; the trace gives 8):
+  1, 2 as above; 3 `{sid}  {title}: not sure: {N} consistent points (need 10) [{ground} x{window}, rot {rot:.0f}]`
+  (N 3..9, frozen expectation 8 from six-inch x0.7 rot -44); 4 `fit  Badbury Rings, Wimbome, Dorset: sent to the review queue (no model answer)`;
+  5 `entry  web/data/sites.json: drawings 1 -> 1`; 6 `review badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json: 1 candidate(s), open; page now has {n_open} open of {n_total} items`;
+  7 `  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): sent to the review queue (no model answer)`;
+  8 `done`. (No "fit written", no no-batch line, no build/sync lines: the batch runs because
+  uncovered is non-empty; _sync loops over zero docs.)
+
+**RECORDER DESIGN (write it from scratch; .venv/bin/python, working phase only):**
+- Header constants: ROOT = Path(__file__).resolve().parents[2]; SID/PLAN; MATCHER_URL = env or
+  http://127.0.0.1:8091; sys.path.insert fit/ and pipeline/; import matchfit as mf,
+  matchfit_heldout as mfh, batch_us, propose, review (all the same module objects site_done
+  gets, so patches apply). GET live /health first (record the answer).
+- build_tree(dest, delete_hand_doc): copy tools/ fit/ pipeline/ (ignore __pycache__); web/data/
+  {sites,plans,review}.json; web/data/sites/SID via os.path.realpath (real copy - it is a
+  symlink to another checkout); data/review (all); data/books/index.jsonl; data/commons/
+  files.jsonl; data/catalog/sites.jsonl; data/sites/SID/site.json; data/raw/books/
+  earthworkenglan01allcgoog/full/n0132.jpg; data/db/platefits (all), unlink the badbury doc if
+  delete_hand_doc. (Same list the test uses - keep them in lockstep.)
+- LIVE phase (run on a scratch tree so live and offline read identical files): patch
+  urllib.request.urlopen: on POST */match record {sha256(req.data): parsed response JSON} and
+  also the raw bytes (for the byte-stability verdict), return a wrapper with .read() -> raw
+  bytes (matchfit's json.load keeps working); everything else passes through to the original.
+  Run mfh.candidates(tree, site, row, MATCHER_URL) TWICE. Assert: same 15 keys in the same
+  order both runs; record byte-identical verdict (expect True: same weights/GPU/inputs).
+  Pair the i-th request (call order) with the i-th candidate to get key -> (ground, window).
+- Offline replay: mf.match = fake(records) - rebuilds the body EXACTLY as match() does
+  (json.dumps({"image0": mf._b64(a), "image1": mf._b64(b), "threshold": 0.2, "max_side":
+  1024}).encode(); same key), KeyError if absent, else np.array(r["keypoints0"]).reshape(-1,2),
+  same for 1. Also mf.reachable = lambda url=None: (url is None or url == MATCHER_URL) and
+  mf.ROMA_URL = "http://127.0.0.1:%d" % dead_port (bind-then-close; reassign the module attr -
+  env is read at import time). Run mfh.candidates offline -> must equal live run1 per
+  candidate (record). Compare each of the 15 with the frozen heldout (ground, window, matches,
+  inliers, rot, resid_m; frozen file has rot/resid only when present) -> discrepancies list;
+  live==frozen expected (22/61/x0.35/3.62/3.1 at six-inch x0.35; if the GPU drifted, record and
+  proceed with live numbers - box 1 allows it).
+- CONFIDENT in-process run: fresh tree T1 (doc deleted). Import site_done via importlib from
+  ROOT/tools/site_done.py; mf.match=confident-fake, mf.reachable as above; capture
+  sd.main([SID, "--root", str(T1)]) rc/out/err with contextlib.redirect_stdout/stderr; restore
+  patches after. ASSERT rc==0 and err=="" (if err non-empty: likely a missing catalog name -
+  check what it says; the catalog copy should prevent it). Then record: doc_fields = parsed
+  tree doc minus "at" (assert it has auto/by/fitter/matcher and at is present); spreads:
+  fit_row's = doc matcher.spread (unrounded values: recompute mf.spread on the 8 pairs and on
+  all inliers via the offline fit_row) + the _sync_doc guard values (ratio, sd on the doc's 8
+  pairs) + pass/fail (expect pass: 22 inliers spread over the plan); expected_stdout =
+  out.splitlines() (assert == the 11-line shape above, esp. lines 3 and 7 values); expected_
+  depiction = tree depictions.json plan entry minus fit.at; repo input hashes (hand doc,
+  n0132.jpg, depictions.json, site-dir file list, extracted plans row, extracted site entry,
+  extracted index row, data/catalog/sites.jsonl, data/review as one combined hash of the
+  sorted (name, sha256) list) for the test's drift detector.
+- UNSURE: from the confident records, for EVERY response whose live candidate has inliers >= 10
+  (expect exactly two: six-inch x0.5=15, x0.35=22), keypoints1 = [k1[i] for i in
+  np.random.default_rng(seed).permutation(len(k1))], seed 7 first (next seed if the final best
+  still >= 10; record the seed). Offline fit_row -> best must land 3..9 inliers (frozen
+  expectation: 8, six-inch x0.7, rot -43.51; the unperturbed x0.7 stays 8, relief x0.25 stays
+  7, os1inch 0). Fresh tree T2 -> in-process run -> ASSERT rc==0, err=="", and that NO item
+  file changed except the new data/review/SID.PLAN.json (hash all before/after - if another
+  changed, the repo queue is inconsistent: record and adjust the test's item assertions). From
+  T2: expected_item = parsed new item (site, candidates [the one _entry: plan, title, url
+  books/ia/file, evidence from index.jsonl, pairs [] or proposal pairs? - _entry with pairs=[]
+  writes e["pairs"]: [], plus the proposal's coarse/ground/scale_m_px/rot_deg/scale_source/
+  note fields when not None, why "no model answer"], no_picture_found None, resolved None);
+  expected_review_counts = n_open/n_total parsed from the review line (over the 482-file tree);
+  expected_stdout = out.splitlines() (8 lines). Both fixtures: {"header": {...},
+  "responses": {15 keys -> response JSON}}, indent=1, no trailing newline (project _save_json
+  convention), committed under tests/fixtures/matchfit_station/.
+
+**TEST DESIGN (tests/test_matchfit_station.py):** tmp tree = recorder's build_tree; in-process
+ThreadingHTTPServer on 127.0.0.1:0 (handler: GET /health -> header's health JSON; POST /match
+-> sha256(body) lookup in the fixture, 500 {"error": ...} if absent; count every request for
+assertions; log_message silenced); dead RoMa port = bind-then-close; GUARD = the test_site_done
+one EXCEPT: patch socket.socket.connect AND connect_ex (NOT create_connection - it must flow
+to the patched instance method) to pass through only ("127.0.0.1", stub_port) (port via env
+GUARD_ALLOW; the guard reads it) and raise AssertionError otherwise - RoMa's dead-port connect
+raises inside reachable()'s try -> except Exception -> False, deterministically. Subprocess =
+[sys.executable, "-c", GUARD, tree/tools/site_done.py, SID], cwd=tree, env MATCHER_URL/
+ROMA_URL/GUARD_ALLOW + PYTHONIOENCODING, timeout 600.
+- confident test: preconditions (repo has the hand doc, no badbury review item, no badbury entry
+  in repo review.json, fixture's input hashes match the repo now - else "drift: rerun
+  record.py"); before = _hash_all(checkout: site dir via realpath, data/db/platefits, data/
+  review, data/books/index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/
+  sites/SID/site.json, web/data 3 files, tools/fit/pipeline) (test_site_done's _hash_all
+  idiom); run; assert rc 0, stderr == "", stdout == header expected_stdout; tree doc minus at
+  == doc_fields (+ at present); depictions plan entry minus fit.at == expected_depiction and
+  fit.at == doc's at, map entries parsed-equal to the repo's; plan_*.webp pair exists and
+  DIFFERS from the repo copies (rebuilt, different crop/pairs); tree sites.json parsed-equal to
+  repo's; tree web/data/review.json BYTE-identical to repo's (export never ran); data/review:
+  same file set + every file byte-identical (no new item); stub served exactly 15 /match (all
+  fixture keys) + >=1 /health and nothing else; _hash_all(checkout) == before.
+- unsure test (fresh tree, records_unsure): baseline = build_tree WITHOUT doc deletion; in-
+  process: import checkout fit/review.py, n_open, n_total = review.export(str(baseline))
+  (baseline items = its published review.json); assert no badbury in baseline items, and (n_
+  open, n_total) == fixture's recorded counts (drift detector: fail with "queue drifted since
+  the fixture: rerun record.py" if not); run subprocess; assert rc 0, stderr == "", stdout ==
+  header expected_stdout (the not-sure line verbatim); NO doc for the plan in the tree store;
+  new item file parses equal to expected_item; depictions.json and both plan_*.webp BYTE-
+  identical to the repo's (no build); tree sites.json parsed-equal to repo's; published review
+  items == sorted(baseline_items + [{site, name (repo's), lead PLAN, candidates, no_picture_
+  found}], key=name.lower) (assert the name is unique in the queue first); data/review: all
+  repo files byte-identical + exactly one new file; checkout hashes unchanged.
+
+**Then:** run my test until green; FULL suite; diff failures against /tmp/aw302f_baseline.log
+(the 306d-era baseline 10 failed/130 passed/1 skipped of 141 is the yardstick; agent a's
+212/307d in-flight work is on main - reds in their files are not mine); tick boxes as verified
+(box 1 fixture + header incl. frozen 22/58.6; box 2 ephemeral stub + dead RoMa + deleted doc;
+box 3 guard variant; box 4 confident; box 5 unsure; box 6 checkout untouched + no new reds);
+commit "302f: ...". The 210 hand-over's detail blocks (site facts, code traces) are still true
+where this one does not supersede them; its "9 expected lines" is corrected to 8 above.
+
+**Pitfalls:** results.json "docs" is a DICT keyed by doc id (candidates in grounds-then-
+windows order); plans.json is a cols/rows table; web/data/sites/<id> is a symlink - copy
+realpath; the batch _entry for a book row carries the evidence dict (copy index.jsonl) or the
+item won't match; MATCHER_URL/ROMA_URL are read at matchfit IMPORT time (reassign the module
+attributes in the recorder; env works in the subprocess); site_done's imports yield the SAME
+matchfit/batch_us/... module objects the recorder imported (sys.path same paths) - patches
+apply to both; pytest.ini keeps only FAILED tmp dirs (a failing run's tree survives in
+/tmp/pytest-of-agent for debugging); the in-process baseline export in the test writes only
+into its own baseline tree (never the repo).
+
+**Re-read (fresh eyes):** fit/matchfit.py match/fit_row/run (request build = fixture key);
+tools/site_done.py _fit/_sync_doc/_review (branch line shapes); fit/review.py export (scoped
+writes, name fallback, resolved side-effect); tests/test_site_done.py (tree + hash idiom);
+fit/propose.py propose_for (what fields the entry gains when it succeeds).
+
 ## Goal
 Parent box 4: "Wired into tools/site_done.py's fit step; a test runs it end to end on one
 hand-fit site's files (no network)". The wiring exists (site_done._fit calls matchfit.run
@@ -63,3 +260,118 @@ network the line touches in the test is the stub itself.
 - [ ] The real checkout stays byte-identical after the test (the tmp root is the only
       writer; git status clean), and the suite has no new reds against the newest driver
       loop-start note.
+
+### Also written to PROGRESS.md (moved here by the driver)
+
+# PROGRESS (generated by the driver before every session)
+
+Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
+task file (for a subtask, read its parent's too).
+
+## Tasks in flight
+- `tasks/207a-horsley.md` (blocked) - hand-over: (2026-10-13, iteration 203, agent c - the main merge brought the owner's "Stop 207" onto this
+- `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
+- `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
+- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
+- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+- `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+
+## Next open tasks
+- `tasks/230-roman-merge-rerun.md`
+- `tasks/235-placement-test-dep-pick.md`
+- `tasks/302f-matcher-station-test.md`
+
+## Your task's journal
+
+Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
+
+### 2026-10-11 302 DECISION: split into 302a (method module), 302b (one-shot held-out table), 302c (decision + site_done wiring + e2e test), 302d (Stonehenge run) - the method is ink-vs-relief, never model coordinates
+    First session on this task (iteration 74): investigation only, no code written. The split files carry the
+    per-step acceptance boxes; the parent hand-over carries the verified facts and the frozen design.
+    Method choice (evidence, not hope): matching points = the plate's own ink (autowalls' frozen extractor,
+    docs/autofit.md section 3) matched against the site's bare-earth relief with fit_plate's ridge-contrast
+    objective (the 2026-10-09 Fudge proof: commit 16c6b9a) and autofit.py's coarse-FFT + refine search from a
+    fit/propose.py seed (scale bar / ratio text / picture size, north arrow / north-up, catalog centre). The
+    2026-10-10 pre-registered run (docs/autofit.md, FAIL 0/40 seeds) showed: the search works, the relief score
+    has false peaks, random-placement nulls cannot accept/reject, and template junk is the binding problem -
+    so the design keeps the proven machinery, adds a per-piece keep/drop step (model-classified where the AI
+    box is reachable, deterministic no-model fallback otherwise), a search-matched null (same search on a
+    scrambled template and a shifted DEM box, whichever scores higher), and the frozen gate + fabrication
+    check on the method's own ink pairs as acceptance layers. The 10-10 test sites (US 1848 plates) are none
+    of the 19 held-out sites, so their failures are warnings, not predictions.
+    Verified by running this session:
+    - All 19 hand-fit sites have 0.5-1 m DEMs reachable from this VM: dem_sources probe -> ea (13 England
+      sites, EA composite DTM 1 m), usgs (serpent-mound, cahokia, aztalan, mound-bottom), ign (bergues,
+      camp-d-attila); all returned finite data for the site box.
+    - Plate images: 20 of 21 present in this VM's data/raw (9 books pages under data/raw/books/<ia>/full/,
+      11 commons bigs under data/raw/commons/big/); the lead's new maiden-castle c_c20ff6b1f16d173d has only
+      its 1280 px thumbnail here - plan_fit.load_picture fetches the big on demand (network, working phase).
+    - The AI box is NOT reachable from this VM (127.0.0.1:18080/18083 refused; the 10-10 Qwen calls ran on
+      the Mac through its tunnel). Consequence: the model step (page-triage boxes, piece labels) must be
+      injectable with a deterministic no-model fallback; the held-out run here is the no-model variant.
+    - scikit-image is missing from requirements.in/.txt and from this .venv, but autowalls.py needs it
+      (Frangi + skeletonize); 302a pins it (001's archive note anticipated exactly this). .npy is
+      gitignored globally, so committed relief seeds are .npz under data/inkfit/ (only data/autofit/*.npz
+      is ignored); data/sites/<id>/dem.npy stays a local cache built in the working phase.
+    - The lead's 21st hand fit (main 984b1b4, merged from vm/main) is the no-auto version of
+      maiden-castle-q1232816.c_c20ff6b1f16d173d.json (3 hand pairs, crop [165,256,895,663]); my branch still
+      carries the pre-merge auto version until the driver's next sync. Held-out set = the original 20 golden
+      docs + this one = 21 rows over 19 sites (old-sarum and maiden-castle each have 2). The golden files
+      (hand_fit_docs.sha256, hand_fit_sites.txt) stay at the original 20/19 and are never edited.
+    One trap recorded for the builders: plan_fit.fabrication_pattern clause (b) (1D ladder) fires on >=3
+    anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
+    stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
+    junction/feature points, never a fixed stride on a straight run.
+
+### 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)
+    The driver's post-207 commit 745056e touched only tasks/302-autofit-real.md, so the 207 hand-over's "created subtasks 302e/302f/302g" was a false claim (the session was cut before the writes landed). This session re-verified all five boxes from the current tree and ticked 1-3:
+    - Box 1 met: fit/inkfit.py (302a: ink skeleton vs LiDAR relief, ridge-contrast objective, frozen no-model variant, model injectable) + the lead's fit/matchfit.py (pretrained MatchAnything ELoFTR/RoMa correspondences between the plan and relief/aerial/OS sheets - points computed from the images, never a vision-model list). The line is matcher-first (site_done._fit:78-84). The lead's newer fit/matchfit2.py (two-stage located windows), fit/matchfit_queue.py (rule sweep) and fit/surveyfit* are lead work, outside the boxes.
+    - Box 2 met: docs/site_flow.md line 129 (pre-registered protocol, "the method never sees the hand fits", the 21 docs, frozen config) + the 21-row table at lines 226-248 (corner errors 231.2-2203.6 m as measured; fabrication column silent on every placed fit; the lone non-silent cell is camp-d-attila "not enough wall ink (2 candidate points, need 4)"). Checkpoint re-verified by script: 21 entries == the golden's 21 exactly, 0 errors, 0 re-runs, all "no-model", fixed at 2026-10-11T22:47:37.081160+00:00. The matcher's own held-out tables (data/matchfit/heldout{,_located,_roma}; docs/matchfit.md: ELoFTR 7/21 accepted, 0 wrong, worst centre 55 m) re-verified present.
+    - Box 3 met: fit/matchfit.judge() - ELoFTR inliers>=10 & |rot|<=30, RoMa fraction>=0.4 (set on the held-out + queue tables, docstring cites docs/matchfit.md sections 7-8), both plus the spread guard (ratio>=0.1, sd>=20 px); "not sure: ..." reasons; matchfit.run writes a document only when judge is silent, so unsure fits never become docs and never build; second line of defence at site_done._sync_doc:204-206 (spread guard on fitter:"matcher" docs before build).
+    - Box 4 half-met -> 302f (file written): wiring met (site_done._fit:78-84) but `grep matchfit tests/` is empty - the matcher station has never been exercised by a test. 302f's site is badbury-rings-q798831: exactly one candidate picture (a confident fit empties uncovered, so the vision batch never runs in the test - the only network is the ephemeral-port stub), all ground images local, its ELoFTR held-out best re-verified this session (six-inch-1st.webp x0.35, 61 matches, 22 inliers, rot 3.62, 58.6 m corner / 2.9 m centre from data/matchfit/heldout/results.json).
+    - Box 5 not met -> 302g (file written): no post-matcher Stonehenge run anywhere; stonehenge-q39671 = 0 drawings / 1 overlay / 14 candidates (7 fabricated-line, 4 median-residual, 2 feature-based, 1 no-model-answer), no matcher doc; the only screenshot (stonehenge.png, 2026-10-11) predates the matcher. 302g runs the current line live (ELoFTR up, RoMa down -> ELoFTR-only run), checks whatever lands in a browser against the sarsens (301/306 shot.mjs pattern), and records it plainly - "places nothing" is a passing answer.
+    Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
+... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)' DECISIONS.md`)
+
+## Project-wide driver notes (newest)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
+    tests/test_serve.py::test_platefits_docs_match_sites
+    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
+    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
+    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
+    4 failed, 60 passed in 64.37s (0:01:04)
+    (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
+    tests/test_batch_eu.py::test_union_check
+    tests/test_batch_eu.py::test_union_full_coverage_live
+    tests/test_serve.py::test_platefits_docs_match_sites
+
+### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
+- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
+- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
+- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
+- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
+- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
+... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
+
+### 2026-10-13 302f HAND-OVER (iteration 210, agent c, context-limit save)
+    Task 302f (matcher station e2e test) - INVESTIGATION ONLY, no code written yet. The complete
+    test design is traced in tasks/302f-matcher-station-test.md's ## Hand-over (fixture keyed by
+    sha256 of the exact /match request body; in-process ephemeral-port stub; guard variant that
+    allows only the stub port; exact expected stdout for both branches; unsure variant =
+    permuted ground keypoints of the >=10-inlier responses). NEXT STEP (one session): write
+    tests/fixtures/matchfit_station/record.py, run it live once against 127.0.0.1:8091 (ELoFTR
+    verified reachable this session; RoMa dead), commit the two fixtures, write
+    tests/test_matchfit_station.py (two tests: confident + unsure), run it, then the full suite
+    (baseline yardstick: 306d-era 10 failed/130 passed/1 skipped of 141; agent a's 212/307d work
+    is in flight - new failures in their files are not mine). tests/test_site_done.py passes on
+    this branch (5.3 s, .venv current). Nothing else in the working tree was changed this session
+    except the task file (git status: only tasks/302f-... modified before this note).
