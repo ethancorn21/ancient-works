@@ -1,6 +1,6 @@
 Status: in-progress
 # 212: Cover - the last uncovered sites, the final sync, the report
-Depends on: 203a, 203b, 211, 235 (235 is open with both its deps (306e, 307d) done: its fix to tests/test_fit_queue.py's _pick_place - mirror the page's dep filter - is what clears the driver's suite gate on 212's done re-claim; 212b's sync (6ce742f) moved the test's pick from oswestry (green) to marietta (red) by deleting marietta's 301 pattern doc, and that test file is 235's, not mine)
+Depends on: 203a, 203b, 211, 235
 Touches: fit/cover.py, data/db/platefits/ (the loop's matcher writes docs; the line check may delete a pattern doc; the sync may stamp by:agent into an unmarked auto doc), data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
 
 ## Goal

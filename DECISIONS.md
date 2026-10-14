@@ -609,3 +609,42 @@ closed the planning task.
   deliberately left requirements.in/requirements.txt untouched (they are 800's files). If the
   driver's re-check of this done claim fails on the main-side venv build, the fix belongs to 800
   and merges independently.
+
+## 2026-10-13 000 DECISION: done-claim rejection fixed - the `Depends on:` line must be a bare id list (212/212a/307a); 000 re-claimed done
+The driver reopened 000 (commit 6955a66) with: "Team project: these tasks can never
+start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits
+on 212 238 302f 302g)". Diagnosis (checked by running code, /tmp/depcheck2.py, not
+reasoned): the driver's team-mode scheduler tokenizes every `NNN`/`NNNx` on the
+one-line `Depends on:` line, prose included. tasks/212-cover-final.md:3 carried an
+explanatory parenthetical that the 212 session (69ed411 - my own task, other checkout)
+added when it made 212 wait on 235; its prose contained "212's" and "212b's" (plus
+301, 306e, 307d), so the parse gave 212 a self-dependency. The driver's "waits on 212
+235" is exactly the PENDING subset of the parsed tokens (203a, 203b, 211, 212b, 301,
+306e, 307d are all done and dropped from the note; only 212 and 235 are pending) - the
+note reproduces the tokenizer, confirming the theory. 239's wait on 212 is legitimate
+(cover.py is 212's in-flight file; not a code dependency, a same-file gate) and
+parked behind 212.
+
+Fix (box 5 of 000 is exactly "the numbers of the tasks that must be finished first, or
+none" - a format-line cleanup on agent-created files, precedent 302a/308/309 from
+iteration 157; goal/acceptance boxes untouched; each file's hand-over body already
+carries the full rationale, so nothing moved):
+- tasks/212-cover-final.md:3 -> `Depends on: 203a, 203b, 211, 235` (212 now waits only
+  on 235, whose deps 306e+307d are done - it starts when 235 merges)
+- tasks/212a-cover-search.md:3 -> `Depends on: 211, 203b` (parenthetical carried a
+  "212a" self-ref; done task)
+- tasks/307a-place-check.md:3 -> `Depends on: none` (was `(none - a record; ...
+  307b/307c/307d ... 309)`, which tokenized as deps ON the live work - inverted
+  intent; done task)
+
+Verification after the fix (checker over all 99 task files): every `Depends on:` line
+is a bare comma list or `none`; every id names an existing task file; no
+self-references; the pending graph (24 tasks) has no cycle and no task that can never
+start. Note: 307bb's `Depends on: 307ba` looks like a prose hit to a one-letter regex
+but is a valid two-letter subtask id (done task) - checker artifact, no action. The
+2026-10-13 GOAL re-plan stands untouched (PLAN.md committed 5420291; 238/239 created
+f828ce0; assumptions 10-11). Residual team-mode risk: 212's other checkout may still
+carry the parenthetical on line 3, so a main<->branch merge can conflict on that one
+line; the resolution is always the bare list (the scheduler requires it) with the
+rationale staying in the hand-over body. PITFALLS gained the tokenizer fact under
+Agent tools and harness. All seven boxes re-verified true; Status set back to done.

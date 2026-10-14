@@ -1,6 +1,6 @@
 Status: done
 # 307a: re-split per the lead (2026-10-12) - the place check is carved to 309 (agent c); the page work moves up to 307a
-Depends on: (none - a record; the live work is 307b/307c/307d and the lead's 309)
+Depends on: none
 Touches: tasks/309-place-check.md, tasks/307-fit-tool-rework.md, tasks/307b-on-map.md, tasks/307c-working-space.md, tasks/307d-owner-check.md (a re-split record; the work lives in 307b/307c/307d and the lead's 309)
 
 ## What happened (iteration 108)
