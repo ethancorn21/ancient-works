@@ -72,10 +72,14 @@ usage: src_roman_maclauchlan.py --fetch         live: triage-size page images of
                                            each if absent); append-only, idempotent on (site, title)
                                            and site id, rows tagged with this book's module; --dry
                                            previews
-       src_roman_maclauchlan.py --check        (not built yet) offline (no network): join the staged
-                                           roman rows and run fit/evidence.py's check over this book's
-                                           rows
-       src_roman_maclauchlan.py --golden       (not built yet) write tests/golden/src_roman_maclauchlan_sample.json
+       src_roman_maclauchlan.py --check        OFFLINE (no LLM, no network): join this book's staged roman
+                                           rows (every row names an existing or staged site, a staged
+                                           id/QID held by a different site is a problem, every new site
+                                           has its plan, classified 1:1) and run fit/evidence.py's check
+                                           over this book's rows
+       src_roman_maclauchlan.py --golden       write tests/golden/src_roman_maclauchlan_sample.json (this
+                                           book's staged rows, dates normalized, keys sorted) - regenerate
+                                           only for an intended change
 
 The system python3 has no numpy/PIL, so every command runs under .venv/bin/python; the module top
 stays stdlib-only (books, books_ia, books_lists import lazily at call time, the fit/src_kip.py
@@ -115,6 +119,13 @@ WHY = ("Google scan (memoirwrittendu00maclgoog, the 1858 original): 171 leaves, 
 FILES_ROMAN = os.path.join(ROOT, "data", "commons", "files_roman.jsonl")
 CLASSIFIED_ROMAN = os.path.join(ROOT, "data", "commons", "classified_roman.jsonl")
 EXTRAS_ROMAN = os.path.join(ROOT, "data", "catalog", "extras_roman.jsonl")
+MODULE = "fit/src_roman_maclauchlan.py"   # the by/source tag every staged row of this book carries
+# The canonical files 211 consolidates the roman staging into (module-level so a test can point them at a
+# temp copy):
+SITES_CATALOG = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
+EXTRAS_CANONICAL = os.path.join(ROOT, "data", "catalog", "extras.jsonl")
+NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")   # never exists: evidence.check skips an absent books file
+GOLDEN = os.path.join(ROOT, "tests", "golden", "src_roman_maclauchlan_sample.json")
 
 # The per-leaf figure table in books_lists' HAND_FIGS format: fig|title|page|kind|kind_by (one line per
 # plate/figure leaf, exactly 4 pipes; fig = the leaf's n; page = the printed page the binder's list
@@ -290,12 +301,12 @@ def stage(dry=False):
                                          "from the city's P625 point; VICI 12444; the item has no enwiki article "
                                          "(sitelinks checked 2026-10-14)"),
                                "checked": now()},
-            "source": "fit/src_roman_maclauchlan.py",
+            "source": MODULE,
             "note": ("new site staged by 207b (Maclauchlan 1858, Fig. 4, leaf n0093): the fort's own item, "
                      "not Carlisle Castle (Q614836) - DECISIONS 207b 130")}
     url = f"https://archive.org/download/{IA}/page/n0093.jpg"
     f = {"site": site["id"], "qid": SITE_QID, "title": FILE_TITLE, "year": YEAR, "wd_plan": False,
-         "cat": None, "name": FILE_NAME, "by": "fit/src_roman_maclauchlan.py", "url": url, "thumb": url,
+         "cat": None, "name": FILE_NAME, "by": MODULE, "url": url, "thumb": url,
          "w": w, "h": h, "mime": "image/jpeg", "date": "1858", "desc": FILE_DESC,
          "artist": "Henry Maclauchlan", "license": "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)",
          "page": f"https://archive.org/details/{IA}",
@@ -322,6 +333,116 @@ def stage(dry=False):
             with open(path, "a", encoding="utf-8") as fh:
                 fh.write(json.dumps(r, ensure_ascii=False) + "\n")
             print(f"   {tag}: appended 1 row")
+
+
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does."""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
+def check_staged():
+    """OFFLINE (no LLM, no network): join this book's staged rows against the roman staging files and the
+    catalog, then run fit/evidence.py's check over this book's rows only (stored fields). The join: every
+    file row of this book names a site that exists (the catalog, the canonical extras, or this book's own
+    staged sites), a staged site id already in the canonical files must be IDENTICAL to the canonical row
+    (211's first-row-wins merge; a same-id different row is a pre-merge conflict), a staged QID held by a
+    different existing site is a collision, every new site this book staged has a picture, (site, title) is
+    unique, and the classified rows are 1:1 with the file rows. Returns the exit code (0 iff no join
+    problem and no FAIL)."""
+    import evidence
+    import tempfile
+    from collections import Counter
+
+    files = [r for r in _load(FILES_ROMAN) if r.get("by") == MODULE]
+    sites = [s for s in _load(EXTRAS_ROMAN) if s.get("source") == MODULE]
+    canon = {p: {r["id"]: _canon_norm(r) for r in _load(p) if r.get("id")}
+             for p in (SITES_CATALOG, EXTRAS_CANONICAL)}
+    known_ids = {i for rows in canon.values() for i in rows}
+    known_qids = {}
+    for p in (SITES_CATALOG, EXTRAS_CANONICAL):
+        for r in _load(p):
+            if r.get("qid"):
+                known_qids.setdefault(r["qid"], r["id"])
+
+    problems = []
+    staged_ids = {s["id"] for s in sites}
+    for s in sites:
+        for p, rows in canon.items():
+            if s["id"] in rows and rows[s["id"]] != _canon_norm(s):
+                problems.append(f"staged site {s['id']} differs from its canonical row in {os.path.basename(p)}")
+        q = s.get("qid")
+        if q and known_qids.get(q) not in (None, s["id"]):
+            problems.append(f"staged site {s['id']} re-uses QID {q} held by {known_qids[q]}")
+    pics = {s["id"]: 0 for s in sites}
+    seen = set()
+    for r in files:
+        sid = r.get("site")
+        if sid not in staged_ids | known_ids:
+            problems.append(f"file row names a site that is neither staged nor existing: {sid!r} ({r.get('title')!r})")
+        elif sid in pics:
+            pics[sid] += 1
+        k = (sid, r.get("title"))
+        if k in seen:
+            problems.append(f"duplicate staged row {k}")
+        seen.add(k)
+    for sid in pics:
+        if not pics[sid]:
+            problems.append(f"staged site {sid} has no staged picture")
+    my_cls = Counter((c.get("site"), c.get("title")) for c in _load(CLASSIFIED_ROMAN)
+                     if (c.get("site"), c.get("title")) in seen)
+    if my_cls != Counter(seen):
+        problems.append("the classified rows are not 1:1 with the staged file rows")
+
+    code = 0
+    if files:
+        with tempfile.NamedTemporaryFile("w", suffix=".jsonl", delete=False, encoding="utf-8") as fh:
+            for r in files:
+                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            tmp = fh.name
+        code, text = evidence.check(tmp, NO_BOOKS, catalog=SITES_CATALOG)
+        os.unlink(tmp)
+    else:
+        text = "evidence: 0 rows, 0 pass, 0 fail, 0 no-tie"
+    for p in problems:
+        print("join:", p)
+    print(text)
+    return 1 if problems else code
+
+
+def _norm(rows):
+    """The rows for the golden file: the volatile "checked" dates normalized (they vary with the staging
+    date); everything else is stored content."""
+    out = []
+    for r in rows:
+        r = dict(r)
+        lc = r.get("location_check")
+        if isinstance(lc, dict) and lc.get("checked"):
+            r["location_check"] = dict(lc, checked="0000-00-00")
+        ev = r.get("evidence")
+        if isinstance(ev, dict) and ev.get("checked"):
+            r["evidence"] = dict(ev, checked="0000-00-00")
+        out.append(r)
+    return out
+
+
+def golden(path=None):
+    """Write tests/golden/src_roman_maclauchlan_sample.json: this book's staged rows (the one picture,
+    its new site, its classified row) plus this book's per-file staged counts, dates normalized, keys
+    sorted. Regenerate only for an intended change."""
+    p = path or GOLDEN
+    files = [r for r in _load(FILES_ROMAN) if r.get("by") == MODULE]
+    sites = [s for s in _load(EXTRAS_ROMAN) if s.get("source") == MODULE]
+    keys = {(r["site"], r["title"]) for r in files}
+    cls = [c for c in _load(CLASSIFIED_ROMAN) if (c.get("site"), c.get("title")) in keys]
+    out = {"count": {"extras": len(sites), "files": len(files), "classified": len(cls)},
+           "extras": _norm(sites),
+           "files": _norm(files),
+           "classified": _norm(cls)}
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1, sort_keys=True)
+        f.write("\n")
+    print("wrote", p)
 
 
 def list_cmd():
@@ -353,5 +474,9 @@ if __name__ == "__main__":
         djvu_cmd(a[1:])
     elif a and a[0] in ("--stage", "--dry"):
         stage("--dry" in a)
+    elif a and a[0] == "--check":
+        raise SystemExit(check_staged())
+    elif a and a[0] == "--golden":
+        golden()
     else:
-        raise SystemExit("the check/golden legs are not built yet (see the module docstring)")
+        raise SystemExit(__doc__.strip().split("usage:")[1].strip())
