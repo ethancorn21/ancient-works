@@ -24,9 +24,12 @@ location is in the plate.
       (triage/memoirwrittendu00maclgoog.*.jsonl, lists/memoirwrittendu00maclgoog.json,
       lists/memoirwrittendu00maclgoog.map.json); the shared data/books/index.jsonl and
       validation.json are NOT written by this subtask.
-- [ ] The book's own printed list of plates is transcribed (the books_lists PLATES pattern)
+- [x] The book's own printed list of plates is transcribed (the books_lists PLATES pattern)
       and mapped to leaves; the stage-A/B recall against that list is recorded in the
       Maclauchlan section of docs/lead_roman.md (instead of the shared validation.json).
+      (The book has NO printed plate list - its only list is the binder's directions, djvu leaf
+      119; the ground truth is the per-leaf hand table per the 207a/Horsley fallback, 131's
+      decision; transcribed + mapped + recall recorded as decided.)
 - [ ] Staged rows (appended to the parent's shared staging files, rows tagged with this
       book): files_roman.jsonl for every verified site-plan page of a named fort/structure
       tied to a Roman site - an existing catalog site by QID where one exists, or a new
@@ -56,97 +59,76 @@ still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e
 207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
-(2026-10-14, iteration 132, agent c - the stage-B session. READ THIS FIRST.)
+(2026-10-14, iteration 133, agent c - the validate_book / lead-doc session. READ THIS FIRST.)
 
 **What happened this session.**
-1. 131's uncommitted work is safely committed by the driver (66530ec "[driver] uncommitted
-   work after iteration 131"): working tree was clean at session start and both list
-   artifacts md5-match 131's recorded values (8479d53f196fed1fa2bb0d7159b58257 /
-   f6593c9e01c19157daf997e7a03bb04a). Hand-over item 1 is DONE - nothing owed on it.
-2. `--status`: replicas 8080/8081 UP (8082 down), 171/171 leaves fetched, stage A 171/0.
-3. **`--triage B` live (131's item 2): 3 pages (78, 93, 111 = A's site set ∪ list's kind-s
-   set), 3/3 ok, 0 errors, 9.7 s on the two live replicas.** Sole new file:
-   `data/books/triage/memoirwrittendu00maclgoog.B.jsonl` (per-book, committed this
-   session). Rows (map_box = norm1000 over each triage image, 964x1400):
-   - **n0093 (the Carlisle plan - the one that gets staged):** map_box **[100,405,830,880]**
-     (= px 96,567-800,1232 on 964x1400), label "FIG. 4", scale_text "Scale of Chains. 0 5
-     10 Chains. Scale of Feet. 0 100 ... 1000 Feet."; the LLM's site_names are street
-     labels (Trinity Church, Bury Street, New Sewer) - the row's named place comes from
-     the binder's list (130's Decision 3), not from B.
-   - n0078 (Brampton, blank, not staged): map_box [160,98,875,860], site_names [BRAMPTO] -
-     record only.
-   - n0111 (the 1856 Housesteads gateway, blank, not staged): map_box [338,495,595,512] is
-     the scale-bar strip, not the small blank figure - record only.
-4. **Box 1 ticked in the task file**: fetched 171/171 + triage A 171/0 + B 3/0 + per-book
-   lists (131); the shared data/books/index.jsonl and validation.json were NOT written
-   (git status showed only the B file). No stage F needed: A's site set equals the list's
-   kind-s set exactly (nothing missed).
+1. Ran `validate_book` OFFLINE: socket-blocking wrapper (import urllib.request/ssl/socket
+   FIRST; patch socket.socket.connect + connect_ex, socket.create_connection, socket.getaddrinfo
+   to raise; then importlib-load fit/src_roman_maclauchlan.py, register(), books_lists.
+   validate_book(KEY)). No network, no LLM. Output matched the 132 hand-over's hand-computed
+   expectations EXACTLY: pages 171, triaged_A 171, flagged_site_pages_stageA 3, stageF_pages 0,
+   flagged_site_pages 3; figures listed 6 / site 3 / other 3 / unsure 0 / expected None,
+   gt_site_pages 3, recall_pages 1.0 (±1: 1.0), flagged_nonplate_pages 3, precision_strict
+   1.0, precision_lenient 1.0, flagged_on_other_only_pages [], flagged_not_in_list [],
+   missed_pages [], stage_A_only {recall 1.0, flagged 3}; no "plates" key (no printed list -
+   the figs branch is the list). Mechanism verified in source: `flagged` = site_pages_qwen =
+   stage-A SITE_TYPES rows surviving ink >= BLANK_INK (0.005); measured ink 0.0102 (n0078),
+   0.0352 (n0093), 0.1048 (n0111) -> all three in; 90/129 other_illustration, 115 text_only ->
+   never flagged. Filed as a PITFALLS entry (validate_book offline-safe + the ink-drop trap).
+2. Wrote the "## Maclauchlan" section into docs/lead_roman.md, inserted after the lead header,
+   BEFORE "## Roy" (subtask order; if a merge brings 807's Horsley section, mine moves AFTER
+   it - never edit 807's text; the lead's own title line still says 1857-58 - I left the
+   header untouched and the section records the corrected date). Contents: source (1858
+   original the only readable copy; Nochlin mislabel + Wanney LCP-restriction, PITFALLS),
+   DATE (survey 1852-1854 + imprint MDCCCLVIII 1858 vs the parent's 1857-59; the 1858 printing
+   carries later 1857-58 work - Willow Holm section Sep't 7th 1858, the Carlisle great sewer;
+   gift leaf n0007, 1859), the no-list finding (binder's directions verbatim + the hand-table
+   fallback), the 6-leaf inventory with per-leaf verdicts (n0078 BLANK, n0090 wall section,
+   n0093 the only legible plan - the one that gets staged, n0111 BLANK, n0115 table, n0129
+   tiles), the unprinted Figs 2/3/5/6 (122 size census), the stage-A/B recall numbers, and
+   the 90% accounting (1 of 3 = 33% < 90%; the two missing each accounted for as blank in
+   this copy - the box's disjunct).
+3. Box 2 ticked: the list (binder's directions -> per-leaf hand table, 131's decision) is
+   transcribed and mapped to leaves (lists/*.json + .map.json, byte-stable since 131), and the
+   stage-A/B recall is recorded in the lead doc's Maclauchlan section.
+4. Suite NOT run this session (doc/offline-run session; no code changed, no new test). The
+   driver's 2026-10-13 baseline 159/1/1 (lone red = agent a's 307d placement test) stands.
 
-**Suite state:** not run this session (data-only leg; no test reads the B jsonl -
-test_merge.py joins only stage-A `.A.jsonl` files; my own test file is not built yet).
-The driver's 2026-10-13 baseline 159/1/1 stands (the lone red is agent a's 307d
-placement test).
+**Acceptance boxes:** box 1 (132), box 2 (this session) ticked. Boxes 3-5 untouched.
 
-**Acceptance boxes:** box 1 ticked this session. Box 2 half (lists on disk; the
-stage-A/B recall record in docs/lead_roman.md is what remains - next step 1). Boxes
-3-5 untouched.
+**Exact next steps (134+, in order).**
+1. **Build `--stage`** in fit/src_roman_maclauchlan.py (read tasks/808-horsley-stage.md in
+   full first for the row-content conventions; re-read data/commons/files.jsonl row shape,
+   a no-QID row of data/catalog/extras.jsonl (the location_check field), fit/evidence.py
+   with fresh eyes): create the three shared staging files (ABSENT on this branch) with the
+   decided rows - extras_roman.jsonl +1 (Luguvallium (Carlisle), Q71551754, lon/lat
+   54.896187/-2.94077, kind "roman fort" SPACE form, region england, place "Carlisle,
+   Cumberland, England", location_check per 130's Decision 2); files_roman.jsonl +1 (n0093:
+   site = the new extras id, qid Q71551754, title/desc carrying "Carlisle" + the binder's-
+   list entry + the p.77 reference; year 1858; url/thumb the IA page image
+   https://archive.org/download/memoirwrittendu00maclgoog/page/n0093.jpg; w/h 964x1400 from
+   the triage row; map_box [100,405,830,880] from this book's B row; evidence kind
+   caption_coords: named_place Carlisle, place Q192896 P625 54.894722/-2.936389, dist_m
+   324.1); classified_roman.jsonl +1 ((site,title), class "plan" by hand). Append-only,
+   idempotent (a second run changes no byte), rows tagged memoirwrittendu00maclgoog, --dry
+   previews. Then verify the lead doc's n0093 line (written this session) matches what was
+   actually staged (the tie to the new Luguvallium site).
+2. **`--check` (offline: join staged rows to catalog+extras - every row names an existing or
+   staged site, every new site has its plans; fit/evidence.py check over this book's rows)
+   + `--golden` (tests/golden/src_roman_maclauchlan_sample.json) + tests/
+   test_src_roman_maclauchlan.py** (the no_network socket-blocking fixture as in
+   tests/test_src_van_deventer.py; no LLM calls in tests; no fixed ports; writes only
+   inside the project). Then run the suite (baseline 159/1/1; my tests all pass, the lone
+   307d red stays) and re-baseline in the notes.
+3. **Boxes 4-5 -> done**: box 4's evidence check is covered by --check's test; the 90%
+   accounting is already in the lead doc (the box's disjunct). When boxes 3+4+5 all pass:
+   Status: done (the driver re-checks every box + the suite).
 
-**Exact next steps (133+, in order).**
-1. **validate_book offline -> the NEW "## Maclauchlan" section in `docs/lead_roman.md`,
-   inserted after the lead's header, BEFORE the "## Roy" section** (subtask order
-   Horsley, Maclauchlan, Roy; 807's Horsley section is absent while 807 is blocked - if
-   a merge brings it, move my section AFTER it and NEVER edit 807's text). Run it the
-   131 offline way: a socket-blocking wrapper (import urllib.request/ssl/socket FIRST,
-   patch socket.socket.connect + socket.create_connection to raise), then
-   importlib-load fit/src_roman_maclauchlan.py, register(), books_lists.validate_book(KEY).
-   EXPECTED (hand-computed from validate_book's source, pipeline/books_lists.py:895-994,
-   the HAND_FIGS figs branch - record what actually runs): pages 171, triaged_A 171,
-   flagged_site_pages 3 (stage F 0), figures: listed 6 / site 3 / other 3 / unsure 0 /
-   expected None, gt_site_pages 3, recall_pages 1.0 (±1: 1.0), flagged_nonplate_pages 3,
-   precision_strict 1.0, precision_lenient 1.0, flagged_on_other_only_pages [] (90/129
-   are other_illustration), missed_pages [], stage_A_only {recall 1.0, flagged 3}.
-   Section contents: source (the 1858 original is the only readable IA copy; the
-   Nochlin mislabel + the lending-restricted 2015 Wanney presentation, both unusable -
-   PITFALLS), the no-list discovery (no printed plate list anywhere; the binder's
-   directions, djvu leaf 119, are the book's list verbatim - quoted in the module
-   docstring), the 6-line inventory with per-leaf verdicts, the blank-plate findings
-   (n0078, n0111), the unprinted Figs 2/3/5/6 (the 122 size census), the DATE
-   DISCREPANCY (title-page survey 1852-1854 + imprint MDCCCLVIII 1858 vs the parent's
-   1857-59; the 1858 printing carries later 1857-58 work - the Willow Holm section taken
-   Sep't 7th 1858, the Carlisle plan's 1857-58 great sewer; gift leaf n0007 1859), the
-   stage-A/B recall numbers, and the 90% accounting (1 staged of 3 verified site plans
-   = 33% < 90%; n0078 and n0111 each accounted for individually as blank in this copy -
-   the box's disjunct).
-2. **Build `--stage`** (read tasks/808-horsley-stage.md in full first for the
-   row-content conventions; re-read data/commons/files.jsonl's row shape, a
-   no-QID row of data/catalog/extras.jsonl (the location_check field), fit/evidence.py
-   with fresh eyes): create the three shared files (absent on this branch) with the
-   decided rows - extras_roman.jsonl +1 (Luguvallium (Carlisle), Q71551754,
-   lon/lat 54.896187/-2.94077, kind "roman fort" SPACE form, region england, place
-   "Carlisle, Cumberland, England", location_check per 130's Decision 2); files_roman.
-   jsonl +1 (n0093: site = the new extras id, qid Q71551754, title/desc carrying
-   "Carlisle" + the binder's-list entry + the p.77 reference; year 1858; url/thumb the
-   IA page image https://archive.org/download/memoirwrittendu00maclgoog/page/n0093.jpg;
-   w/h from the triage row [964,1400]; map_box from this session's B row
-   [100,405,830,880]; the caption_coords evidence of 130's Decision 3: named_place
-   Carlisle, place Q192896 P625 54.894722/-2.936389, dist_m 324.1); classified_roman.
-   jsonl +1 ((site,title), class "plan" by hand). Append-only, idempotent (a second run
-   changes no byte), rows tagged memoirwrittendu00maclgoog, --dry previews.
-3. **`--check` (offline: join staged rows to catalog+extras - every row names an
-   existing or staged site, every new site has its plans; fit/evidence.py check over
-   this book's rows) + `--golden` (tests/golden/src_roman_maclauchlan_sample.json) +
-   tests/test_src_roman_maclauchlan.py** (the no_network socket-blocking fixture as in
-   tests/test_src_van_deventer.py - monkeypatch socket.socket/create_connection/
-   getaddrinfo; no LLM calls in tests; no fixed ports; writes only inside the project).
-   Then run the suite (baseline 159/1/1; my tests must all pass, the lone 307d red
-   stays) and re-baseline in the notes.
-
-**Re-read next session:** `fit/src_roman_maclauchlan.py` (--stage/--check/--golden NOT
-built - main() rejects them with the docstring pointer; MACLAUCHLAN_FIGS + docstring
-current); `tasks/808-horsley-stage.md` (in full - row-content conventions);
-`data/commons/files.jsonl` (row shape); `data/catalog/extras.jsonl` (no-QID row shape,
-location_check field); `fit/evidence.py` (check/check_commons/check_caption);
-`pipeline/books_lists.py:895-994` (validate_book, the HAND_FIGS figs branch - expected
-numbers above); `data/books/triage/memoirwrittendu00maclgoog.B.jsonl` (this session's 3
-rows); the djvu text is cached at data/raw/books/memoirwrittendu00maclgoog/
-memoirwrittendu00maclgoog_djvu.xml (leafNum = n+1, aligned 1:1).
+**Re-read next session:** `fit/src_roman_maclauchlan.py` (--stage/--check/--golden NOT built
+- main() rejects them with the docstring pointer; MACLAUCHLAN_FIGS + docstring current);
+`tasks/808-horsley-stage.md` (in full - row-content conventions); `data/commons/files.jsonl`
+(row shape); `data/catalog/extras.jsonl` (no-QID row shape, location_check field);
+`fit/evidence.py` (check/check_commons/check_caption); `data/books/triage/
+memoirwrittendu00maclgoog.B.jsonl` (n0093 map_box [100,405,830,880]); `docs/lead_roman.md`
+(the Maclauchlan section written this session - keep it in sync if the staged row differs);
+PITFALLS' new validate_book entry (the offline wrapper recipe).

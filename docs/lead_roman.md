@@ -14,6 +14,81 @@ the shared index from the per-book files once. The stage-A/B recall against each
 printed list of plates is recorded in that book's section, in place of the shared
 validation.json.
 
+## Maclauchlan, Memoir, Written During a Survey of the Roman Wall (1858) - 207b (in progress)
+
+**Source (verified 2026-10-13/14):** one readable IA copy only - memoirwrittendu00maclgoog, the
+1858 original (Google scan, 171 leaves, median 3290x5182 px; djvu.txt + djvu.xml, NO hOCR page
+index - per-leaf OCR comes from the djvu.xml OBJECTs, leafNum = n+1, aligned 1:1 with the
+bookreader leaves). The other copies are unusable: memoirwrittendur0000henr, the "1971 reprint"
+candidate, is a MISLABELED item (its pages are Linda Nochlin's *Realism*), and
+henrymaclauchlan0000macl (the 2015 Wanney presentation) is lending-restricted (LCP/ACS) and
+unreadable from this machine (both PITFALLS) - so fetch, triage and every staged image come from
+the 1858 original, and the text is read from its djvu.xml and triage images.
+
+**Date (settled by reading the title pages from the triage images, iterations 130-131):** the
+short and full title pages both print "A SURVEY OF THE ROMAN WALL, THROUGH THE COUNTIES OF
+NORTHUMBERLAND AND CUMBERLAND, IN THE YEARS 1852-1854" and end "LONDON: PRINTED FOR PRIVATE
+CIRCULATION. MDCCCLVIII" (the printer's line on the verso: Bradbury and Evans, Whitefriars). The
+preface dates the survey: Wallsend summer 1852, to Carvoran 1853, completed to Bowness by winter
+1854. So the survey ran 1852-1854 and the volume was printed 1858 - NOT the 1857-59 this lead's
+title line (and the parent task file) assumed; the 1858 printing does carry later work (the
+Willow Holm section taken Sep't 7th 1858, the Carlisle plan's 1857-58 great sewer), and a gift
+leaf (n0007, presented by the Duke of Northumberland, Alnwick Castle, 17 July 1859) shows the
+volume circulating by 1859. Staged rows carry 1858, the year printed on the title page.
+
+**List (the book has no printed plate list):** a privately-circulated original - no LIST / PLATES
+heading anywhere in the front or back matter. Its only list is the DIRECTIONS TO THE BINDER (djvu
+leaf 119), verbatim: "The Plans, Fig. 1, 2, 3, and 6, showing the Mote, Brampton, &c., to be
+inserted at page 65. The Plans, &c. of the Roman Wall in Willow Holm, at page 76. The Plans, Fig.
+4, 6, Carlisle and the Camp on Skew Hill at page 76." Per books_lists' own fallback ("where the
+book has none, the plate headings printed in its text"), the ground truth is the per-leaf hand
+table (the six lines of MACLAUCHLAN_FIGS in fit/src_roman_maclauchlan.py): each plate/figure
+leaf's own printed heading/caption, transcribed by eye from the triage images + djvu.xml - the
+book's list, mapped to leaves in data/books/lists/memoirwrittendu00maclgoog.json + .map.json
+(written offline, byte-stable).
+
+**Inventory (the six leaves, per-leaf verdicts):**
+- **n0078** Fig. 1, Brampton (p.65) - plan of the Brampton camp (the doubtful position of
+  Aballava). **BLANK in this copy** (frame, compass, labels and scale bar survive; the drawing
+  faded) - verified site plan (stage A plate_site_plan), nothing left to stage.
+- **n0090** Willow Holm (p.76) - plan, section and elevation of the Roman Wall in Willow Holm
+  (440 yards from the west mouth of the sewer; reduced from M'Me Kie's section taken Sep't 7th
+  1858). A wall section - not a site (207 Notes) - not staged (stage A other_illustration).
+- **n0093** Fig. 4, Carlisle (p.76) - plan of Carlisle: course of the Wall and the Vallum between
+  Stanwix and the Castle, with the 1857-58 great sewer and its drain; scale of chains and scale
+  of feet; "H M^L delin", Sandridge & Co. Litho London. **The only site plan legible in this copy
+  - the one that gets staged** (a new site row in extras_roman.jsonl, 207b's stage leg).
+- **n0111** gateway near Housesteads (p.93) - the gateway of 1856 near the station of Borcovicus
+  in the Knag Burn valley (caption "Gateway discovered near Housesteads (Borcovicus) in 1856.").
+  **BLANK in this copy** (faint frame only) - verified site plan (stage A figure_site_plan),
+  nothing left to stage.
+- **n0115** Table of Stations (p.97) - printed table of the stations of the Notitia, the Ravenna
+  and the Chorographus, with their distances. A text table, not a plan (stage A text_only) - not
+  staged.
+- **n0129** marks on Roman tiles, Binchester (p.7 of the Watling Street memoir) - two boxed
+  letter-marks from Roman tiles with a 6-inches bar. An artifact figure, not a site plan (stage A
+  other_illustration) - not staged.
+
+**Unprinted figures:** Figs 2, 3 and 5/6 (the Mote, the Camp on Skew Hill) were never printed in
+this copy - the 122 size census (all 171 triage images) leaves no room for hidden plates. They
+count against no box.
+
+**Stage-A/B recall against the list** (books_lists.validate_book, run OFFLINE 2026-10-14 with
+the network blocked; the shared validation.json is not written - 211 rebuilds it): 171 pages,
+171 triaged (A, 0 errors); stage F never needed (A's site set equals the list's kind-s set
+exactly). Against the six-line hand list (3 kind-s site pages: 78, 93, 111; 3 kind-o: 90, 115,
+129): flagged site pages 3 (stage-A-only 3), recall_pages 1.0 (±1: 1.0), precision_strict 1.0,
+precision_lenient 1.0, missed_pages [], no false positives (90/129 both read other_illustration,
+115 text_only; flagged_on_other_only_pages [], flagged_not_in_list []). Stage B read all three
+site leaves (3/3 ok, 0 errors, ~10 s on the two live replicas): n0093's map_box
+[100,405,830,880] norm1000 (label "FIG. 4" and both scale bars read) is what the staged row
+uses; n0078/n0111's boxes are record-only.
+
+**90% box (staged vs verified site-plan pages):** 1 of 3 (n0093) = 33% < 90%; the two missing are
+accounted for individually per the box's disjunct: n0078 (Brampton) and n0111 (the Housesteads
+gateway) are blank in this copy - the drawings faded (only frame/labels/scale bar survive), so
+there is nothing to stage from them, and no other IA copy is readable (Source, above).
+
 ## Roy, Military Antiquities of the Romans in North Britain (1793) - 207c (dropped)
 
 **Source (verified 2026-10-11, re-verified 2026-10-13):** NOT on the Internet Archive -
