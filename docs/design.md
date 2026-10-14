@@ -80,14 +80,16 @@ DEM's box is on screen. Layer order: sat, relief-*, per-site `rel-<id>`, `dep-<i
 `fit-prev`, Finder crop/rings/dots, Amazon tiles and marks. Controls: NavigationControl top-right and a compact
 AttributionControl bottom-right, restyled square with `--sheet` faces and 1px `--ink` borders (L181-183).
 
-Markers (L159-179, L452-498) are DOM `<button class="marker tN">` elements, anchor `left`, offset `[-6, 0]`,
-holding a `.sq` square and a `.tag` label. Tier from `build_site` score: `TIERS = [[2.5,'t4'],[1.6,'t3'],
-[1.2,'t2'],[0.01,'t1']]`, else `plain`. Square sizes and fills: t4 15px `#8A1230` 2px border; t3 13px `--survey`;
-t2 11px `#E2697F`; t1 9px `#F4B4C0`; plain 7px `--sheet`; all `1.5px solid var(--ink)`. Today's sites.json: 385
-sites, t4 3 (Bergues 1545, Old Sarum 1761, Mayburgh 1769), t3 11, t2 12, t1 251, plain 108; plain shows only with
-"More sites". Labels (`.tag`: `--sheet` box, 1px ink, 600 11px caps .08em) appear from zoom `LABEL_FROM = {t4:0,
-t3:3, t2:5, t1:7, plain:9}` and hide on collision, higher tiers placed first; the open site's own square hides.
-Clicks land only on the square or a showing label (`pointer-events`). Red rule: a site is coloured when any
+Markers (L159-200, L477-535) are DOM `<button class="marker tN">` elements, anchor `bottom` (the pin's tip is the
+site's coordinate), holding a `.sq.pin` map pin (inline svg `PIN`, 72x100 frame, paper eye) and a `.tag` label. Tier
+from `build_site` score: `TIERS = [[2.5,'t4'],[1.6,'t3'],[1.2,'t2'],[0.01,'t1']]`, else `plain`. Pin sizes (w x h) and
+fills: t4 14x19 `#8A1230`; t3 12x17 `--survey`; t2 11x15 `#E2697F`; t1 9x13 `#F4B4C0`; plain 7x10 `--sheet` (ink eye);
+one non-scaling 1.2px ink outline. `PIN_W`/`PIN_H` in the script repeat the sizes for the label collision boxes. Today's
+sites.json: 385 sites, t4 3 (Bergues 1545, Old Sarum 1761, Mayburgh 1769), t3 11, t2 12, t1 251, plain 108; plain shows
+only with "More sites". Labels (`.tag`, an EU direction sign: 20px tall `--sheet` box with the left end pointed at the pin, 1px ink outline
+made by clipping the ink box and its `::before` paper face to the same polygon, 600 11px caps .08em) appear from zoom `LABEL_FROM = {t4:0,
+t3:3, t2:5, t1:7, plain:9}` and hide on collision, higher tiers placed first; the open site's own pin hides.
+Clicks land only on the pin or a showing label (`pointer-events`). Red rule: a site is coloured when any
 overlay is at least 150 years old (plans and drawings of any age, surveys only if >= 150 years). Finder scan
 areas reuse `.marker.scan` with a dashed square; catalog pins are not on the map (owner: "we shouldn't be
 pinning every single earthwork in the world").
@@ -174,7 +176,7 @@ Severity: HIGH = the owner has complained or the task is open; MED = visible dri
   as you go into that place mode the already placed overlay needs to go"; "it'll move near it but it does not
   accurately move over". Fix: put the ink preview on the map first (a draggable `fit-prev` with handles), open the
   pane in its existing `.min` state as a reference thumbnail, hide `dep-*`/`ink-*` layers while `P.active`.
-- HIGH, markers are squares, not arrowheads (task 308; L165-178, L471). Owner: "instead of the squares we're going
+- DONE (superseded 2026-10-13: the arrowhead read as a heart, now a map pin + pointed sign label), markers are squares, not arrowheads (task 308; L165-178, L471). Owner: "instead of the squares we're going
   to move to a new shape ... keep the color gradient and all that stuff ... like an old arrowhead ... a notched
   arrowhead ... it would need to be small though, like a contracting stem arrowhead". The marker also anchors at
   `left` with offset `[-6, 0]`, so the coordinate is the square's centre, not a tip. Fix: an inline SVG silhouette
