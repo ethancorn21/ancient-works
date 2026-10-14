@@ -99,6 +99,42 @@ The Q36091 QID is clean: no FLAG (the single P625 IS the table point, dist 0) an
 first name-search hit with coordinates is the city itself - Denver's pattern, not St. Paul's);
 the Q28848 TRAP line repeats as expected, guarded the same way.
 
+The Cleveland landing (the 240 session-11 run 2026-10-14, verbatim; re-verifies all four
+batch-4 QIDs now staged):
+
+```
+checked 2026-10-14 - 4 QIDs (Wikidata)
+  Q16554  'Denver'  (site id: denver-q16554, new (this task))
+      P625: [(-104.98472222222, 39.739166666667)]  (table site point: -104.984722, 39.739167)
+      P373: ['Denver, Colorado']
+      P131: [('Colorado', 'Q1261'), ('Denver County', 'Q13052701')]  (table place: 'Denver County, Colorado')
+      enwiki: 'Denver'  (table wikipedia: 'https://en.wikipedia.org/wiki/Denver')
+      search 'Denver': first hit with P625 is Q16554 'Denver' (-104.98472222222, 39.739166666667)
+  Q28848  'Saint Paul'  (site id: st-paul-q28848, new (this task))
+      P625: [(-93.093611111111, 44.944166666667)]  (table site point: -93.093611, 44.944167)
+      P373: ['Saint Paul, Minnesota']
+      P131: [('Ramsey County', 'Q491201')]  (table place: 'Ramsey County, Minnesota')
+      enwiki: 'Saint Paul, Minnesota'  (table wikipedia: 'https://en.wikipedia.org/wiki/Saint_Paul,_Minnesota')
+      search 'St. Paul': first hit with P625 is Q174 'São Paulo' (-46.633947222222, -23.550394444444)   <- TRAP: 8953 km, the live record would store a conflict (kind none)
+  Q36091  'Minneapolis'  (site id: minneapolis-q36091, new (this task))
+      P625: [(-93.26916666666666, 44.981944444444444)]  (table site point: -93.26916666666666, 44.981944444444444)
+      P373: ['Minneapolis']
+      P131: [('Hennepin County', 'Q486229')]  (table place: 'Hennepin County, Minnesota')
+      enwiki: 'Minneapolis'  (table wikipedia: 'https://en.wikipedia.org/wiki/Minneapolis')
+      search 'Minneapolis': first hit with P625 is Q36091 'Minneapolis' (-93.26916666666666, 44.981944444444444)
+  Q37320  'Cleveland'  (site id: cleveland-q37320, new (this task))
+      P625: [(-81.69472222222223, 41.49916666666667)]  (table site point: -81.69472222222223, 41.49916666666667)
+      P373: ['Cleveland, Ohio']
+      P131: [('Cuyahoga County', 'Q251267')]  (table place: 'Cuyahoga County, Ohio')
+      enwiki: 'Cleveland'  (table wikipedia: 'https://en.wikipedia.org/wiki/Cleveland')
+      search 'Cleveland': first hit with P625 is Q37320 'Cleveland' (-81.69472222222223, 41.49916666666667)
+```
+
+The Q37320 QID is clean: no FLAG (the single P625 IS the table point, dist 0) and no TRAP
+(the first name-search hit with coordinates is the city itself - the batch's first clean
+first-guess, Denver's and Minneapolis's pattern); the Q28848 TRAP line repeats as expected,
+guarded the same way.
+
 ## The evidence field (as in 236a/236b)
 
 As in the 236b doc: every staged row carries a hand-recorded `caption_coords` tie in the exact key
@@ -379,30 +415,138 @@ extras files and web/data/sites.json); the site id `minneapolis-q36091` is the c
 (catalog.slug("Minneapolis") = "minneapolis", verified), and the SITES name is "Minneapolis"
 (the caption prints the full name - no short-form gate issue).
 
+## Cleveland (site `cleveland-q37320`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg` - 1877, A. Ruger (artist);
+  lith. by Shober & Carqueville, Chicago (the sheet's own line "LITH. BY SHOBER & CARQÉVILLE
+  CHICAGO" keeps its accent; the row label and the SOURCES label stay ASCII), 10704x6544,
+  Public domain (LC Panoramic maps (2nd ed.), 687.2). **THE steepest (near-vertical) whole-city
+  view in the pool: the rotated street grid legible across the whole frame (lakefront to the
+  farmland horizon)**, drawn from a high vantage OVER LAKE ERIE (south of the city; the lake
+  with its sailing/steam traffic fills the bottom band) looking NORTH (sheet up = north,
+  confirmed three ways - the Cuyahoga enters from the north, the Chippewa to its east, the lake
+  to the south - no mirroring possible; verified on the 19.4 MB original at the 240 session-10
+  run): the banner reads "BIRDS EYE VIEW OF CLEVELAND / OHIO 1877" (three lines, no apostrophe)
+  bottom-centre; "A. RUGER, ARTIST" at the image area's lower-left corner; "ENTERED ACCORDING
+  TO ACT OF CONGRESS BY J. J. STONER MADISON WIS." lower right; the LC stamp "Division of Maps
+  / FEB 28 1941 / Library of Congress" and the handwritten call number "G4084 .C5A3 1877 .R8 /
+  Rug 157" - the page date (1877) is the drawing's year (no Zwolle-style swap). The Cuyahoga
+  meanders in from the upper centre (the north) to its mouth at the sheet's centre-right,
+  crossed by the multi-arch Washington Avenue viaduct (label "WASHINGTON" on the sheet) and a
+  truss bridge, the "UNION PASSANGER DOCK" (spelled so on the sheet) on the WEST side of the
+  mouth; the dense downtown core (Public Square with its fountain, on the bluff above the
+  lakefront - the site's P625 point sits right at it) at the sheet's centre just left of the
+  mouth; the Woodland / Catholic / Cleveland cemeteries and the factory stacks on the farmland
+  horizon at the top; the "SUPERIOR" street label lower-left; the "CHIPPEWA RIVER" meander
+  upper-right (east of the Cuyahoga). The drawn extent spans the whole city beyond the 2000 m
+  town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent).
+  **Same-sheet scans (one row per sheet, the LOC .jpg staged): the 10704x6544 `.tif` twin and
+  the DPLA-family `File:Cleveland 1877.jpg` (the same sheet, a wider index crop)** - both
+  eyeballed, identical sheet.
+
+**DROP (with reasons):** all 48 of the pool's 51 unique rows besides the staged sheet and its
+two same-sheet scans (the pool: 51 unique / 9 good, every good thumb eyeballed one by one at
+the 240 session-10 run), grouped: the **1853 John W. Hill sheet** (`File:Cleveland, 1853 - DPLA
+- 2b1e8d8d2e48334e8a6e02a36fa36987.jpg`, 11831x8413, Public domain) - a mid-steepness oblique
+drawn from Ohio City (the independent municipality west of the Cuyahoga, annexed 1854) looking
+east, Superior Street at the centre - the pool's OLDEST whole-city view, but shallower than
+the 1877 pick (one row per city). The **1887 C.H. Vogt & Son sheet** (two scans: the LOC
+`File:Cleveland, Ohio. LOC 75694918.jpg` 6632x5128, LC Panoramic maps (2nd ed.), 689; the
+DPLA-family `File:Cleveland 1887.jpg` 6632x5125) - shallower than the pick (a bigger sky band,
+the city receding to the farmland horizon); its banner prints only "CLEVELAND, OHIO." - the
+year 1887 comes from the LC record alone (the file page's "Birds-eye view of Cleveland, Ohio
+in 1887"). The **1884 Edward Molitor "Bird's-eye view of the Mississippi River" sheet**
+(`.tif`, 9558x4942, Public domain; its 604x336 cropped copy is too small) - a REGIONAL
+three-band view from the mouth of the Missouri to the Gulf of Mexico: "Cleveland" only as the
+publisher's place ("Cleveland, Ohio: Brooks and Co Publishers") - it passed the caption gate
+via the file description, but it is not a city view (the DC 1861 Bohn regional-drop
+precedent). The **1923 Fairchild "Remarkable airplane view of the heart of the east end of
+Cleveland"** (`File:Bird's Eye Photograph of the East End of Cleveland - DPLA -
+66f1c763439535f396561c8932b904be.jpg`, 9570x6491, Public domain) - a rotogravure (the Sunday
+News-Leader, January 7, 1923) of a 1923 airplane PHOTOGRAPH of the Euclid/Cedar/E 105th
+neighbourhood - a district close-up (the Fort-Negley class), not the whole city, and a
+photograph, not a drawn view. The **1890 Lucien R. Burleigh "Cleveland, N.Y." sheet**
+(`File:Cleveland, N.Y. LOC 2009584347.jpg`, 11072x7850, Public domain, Burleigh Litho) - a
+DIFFERENT Cleveland: the village on Oneida Lake, Onondaga County, New York (a good sheet of a
+different city - the same-city-name trap class). The **DPLA district close-ups (all "No
+restrictions" - a licence reject - and all < 4000 px wide):** the Cleveland Municipal
+Stadium x2 (3328x2112, "239c2c1e" - the Terminal Tower, the Cleveland Mall), the
+Municipal-Stadium-and-downtown x4 (3296x2080 / 3328x2112, "31a647d5" and "50b3f04a"), the
+Cleveland City Hospital x4 (3328x2112 / 3296x2080, "031265df" and "e85e3c19" - the "1317"
+year in both of those titles is a FALSE year picked up from the DPLA hash inside the title,
+the Denver-1603 class), the Rockefeller Park x6 (3296x2080-3360x2144, "f8ea4fc0" - the "1426"
+hash year on two of the titles -, "2458aea2", "ae05937b"), the Cleveland Museum of Art / Wade
+Park x2 (3296x2080 / 3360x2144, "a373577c"), the Edgewater Park bathing beach x2 (3296x2080,
+"5c57a079"), the Art Museum and Fine Arts Garden x2 (3296x2080, "4f9d9309"). The
+**industrial-ad scans (keep() rejects):** the Adams Paint Company (3284x2114, No restrictions,
+page 2015 - beyond the 1925 MAX_YEAR), the Cleveland-Chandler Motors Corporation HAER
+rendering (5000x3963, Public domain, 1968 - an early-20th-century plant rendering, beyond
+MAX_YEAR), the Dixie Foundry "16 acre plant" postcard (828x527, Public domain, 1930 - keep()
++ width + the caption gate). The **other-city scans ("Cleveland" only as a name):** Hancock,
+Michigan 1873 (2000x1557, CC BY 2.0 - the author is A. J. Cleveland), Houghton, Michigan
+1872 (2000x1517, CC BY 2.0 - the publisher is Cleveland & Porter), Canton, Ohio 1913
+(3329x700 - the caption gate rejects it correctly), Walrus Island 1873 (1821x1407, Public
+domain - the caption gate + width). The **false search hits:** the two Israël Silvestre
+château paintings held by the Cleveland Museum of Art (CC0, 5640x4204 Fontainebleau /
+5613x4397 Versailles - "Cleveland" is the holding institution's name; the "1679"/"1676" years
+are FALSE years picked up from the file names), the 1884 "A lake tour to picturesque
+Mackinac" book sheet (2828x1536, No restrictions - a view of Port Huron from the decks of the
+steamers City of Mackinac / City of Cleveland; "Cleveland" in the company name), and the
+eight 1864 William R. Lowes letter pages (DPLA, 2411-2461 x 3019-3053, Public domain -
+Civil-War letters from Lookout Valley, Tennessee; the caption gate rejects them correctly).
+The **NBY "Aeroplane View of Union Terminal Group and Public Square" postcard** (514x821,
+Public domain, 1930 - a photograph, keep() + width + the caption gate).
+
+**The QID's facts** (verified live at the 240 session-10 research run, re-verified by the
+session-11 --verify; the transcript is in the QID section above): Q37320, label "Cleveland"
+(the largest city of Ohio and seat of Cuyahoga County; first-guess check: the "Cleveland,
+Ohio" name search's first hit IS the city itself - the batch's first clean first-guess
+(Denver's Q3101 a person, St. Paul's Q16842 a person, Minneapolis's Q3094 a Romanian
+monastery) - though the memorized QID Q131855 turned out to be a ROADSTER (a bicycle; enwiki
+"Roadster (bicycle)", no P625) - a memory error caught by the label check), enwiki
+"Cleveland". P625 = ONE value (-81.69472222222223, 41.49916666666667, 30 m) - the central CBD
+(no refinement needed). P373 = the STRING "Cleveland, Ohio" (the usual US quirk - the place
+is written "Cuyahoga County, Ohio" from P131 + the state). P131 = Q251267 Cuyahoga County
+(the only one). P17 = Q30 (a proper entity). Name search "Cleveland" (limit 20): **no
+first-hit trap** - the first hit with P625 is the city itself (0 km, Denver's and
+Minneapolis's pattern); the in-city institution traps rank behind it (Cleveland State
+University 1.7 km, Cleveland Clinic 6.1, Cleveland Museum of Art 7.0, Cleveland Guardians
+0.9, Cleveland Browns 0.9); other-state namesakes: Cleveland TN 756.0 km (the big one near
+Knoxville), Georgia 788.6, Quebec (Canada) 901.4, Mississippi 1172.0, Oklahoma 1400.0;
+foreign: Tasmania 15993.8 (Cleveland, Wisconsin and Texas carry no P625 in the top 20) - no
+local near-miss. No existing site holds the QID (checked at the 240 session-10 run in the
+catalog, extras, 236a's and 236b's extras files, 241's absent batch-5 file, this task's own
+file and web/data/sites.json); the site id `cleveland-q37320` is the catalog slug rule
+(catalog.slug("Cleveland") = "cleveland", verified), and the SITES name is "Cleveland" (the
+caption prints the full name - no short-form gate issue).
+
 ## Staging and checks (2026-10-14)
 
-All batch-4 cities staged so far are in this task's own files only: **3 views** (Denver, St.
-Paul, Minneapolis) in `data/commons/files_us_birdseye_batch4.jsonl` (files.jsonl shape + the
-200 evidence field) and `data/commons/classified_us_birdseye_batch4.jsonl` (`p_birdseye: 1.0`,
-`by: "hand"`); the site rows are in `data/catalog/extras_us_birdseye_batch4.jsonl`. `--check`
-(offline, no network), the 240 session-8 run:
+All batch-4 cities are staged in this task's own files only: **4 views / 4 site rows**
+(Denver, St. Paul, Minneapolis, Cleveland) in `data/commons/files_us_birdseye_batch4.jsonl`
+(files.jsonl shape + the 200 evidence field) and `data/commons/classified_us_birdseye_batch4.jsonl`
+(`p_birdseye: 1.0`, `by: "hand"`); the site rows are in `data/catalog/extras_us_birdseye_batch4.jsonl`.
+`--check` (offline, no network), the 240 session-11 run:
 
 ```
 PASS caption_coords  denver-q16554|File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg
 PASS caption_coords  st-paul-q28848|File:St. Paul, Minn. LOC 75694650.jpg
 PASS caption_coords  minneapolis-q36091|File:Minneapolis, Minnesota. LOC 75694644.jpg
-evidence: 3 rows, 3 pass, 0 fail, 0 no-tie
+PASS caption_coords  cleveland-q37320|File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg
+evidence: 4 rows, 4 pass, 0 fail, 0 no-tie
 ```
 
 No join problems (the file rows name the staged sites; classified rows 1:1; no staged id or QID
 collides with an existing site - the module's `known_sites()` reads the catalog, extras, 236a's,
 236b's and 241's extras files plus web/data/sites.json on every run). The golden sample
-`tests/golden/src_us_birdseye_batch4_sample.json` pins the staged rows (3/3/3; regenerated only
+`tests/golden/src_us_birdseye_batch4_sample.json` pins the staged rows (4/4/4; regenerated only
 via the module's `--golden` for an intended change).
 
-**Not done yet - Cleveland (this task), then 241's batch 5:** this task (240) closes
-at **4 staged cities**. The remaining cities of the 25 total go to **241** (batch 5:
-the final five; its own module `fit/src_us_birdseye_batch5.py` copies THIS one, its staging files
+**Not done yet - only 241's batch 5 (this task, 240, is DONE at 4/4 cities: Denver,
+St. Paul, Minneapolis, Cleveland, all staged above):** the remaining five cities of the
+25 total go to **241** (batch 5: the final five; its own module `fit/src_us_birdseye_batch5.py` copies THIS one, its staging files
 `*_us_birdseye_batch5.jsonl`, lead doc, test and golden; it reads THIS task's
 `extras_us_birdseye_batch4.jsonl` as the forward no-op becomes a real read - a QID can never sit
 on two sites). The 236b lead-doc candidate order after New Orleans (iteration 181) runs

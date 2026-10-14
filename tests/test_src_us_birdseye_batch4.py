@@ -5,9 +5,10 @@ loc.gov, so the files are fetched from their Wikimedia Commons mirrors - the 236
 doc), each a NEW site of its own in this task's own staging files (one module + one staging file
 set per batch, so 240 and 241 build in parallel): Denver first - the 1908 Birdseye View Publishing
 Co. sheet looking south from the Twenty-Third Street Viaduct - then St. Paul (the 1906 Robert M.
-Saint sheet) and Minneapolis (the 1885 W. V. Herancourt / I. Monasch sheet); Cleveland follows in
-candidate order (the task owes FOUR staged cities, not specifically these four: a city with no
-usable view gets a lead-doc note and the next candidate). The tests are offline: a
+Saint sheet), Minneapolis (the 1885 W. V. Herancourt / I. Monasch sheet) and Cleveland (the 1877
+A. Ruger / Shober & Carqueville sheet): all four of the task's cities, one steepest
+near-vertical whole-city view each (a city with no usable view would have got a lead-doc note
+and the next candidate - none did). The tests are offline: a
 socket-blocking fixture makes any network fetch fail loud, so the evidence check runs from the
 stored fields only (200's fail-closed box). The negative control pins the trap the hand record
 exists for: a staged row with a foreign place point (Venice) instead of the site's own point -
@@ -50,7 +51,7 @@ def test_check_staged_files_join_and_pass(capsys):
     existing or staged site - the batch-4 ids via this task's own extras file, never a QID on two
     sites, (site, title) unique, no clash with the canonical files.jsonl, classified rows 1:1,
     every new site has a picture) and every staged row PASSes the evidence check. The key list
-    grows one entry per city landing (Denver first; four at close)."""
+    grows one entry per city landing (Denver first; all four now)."""
     code = src_us_birdseye_batch4.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
@@ -59,7 +60,8 @@ def test_check_staged_files_join_and_pass(capsys):
     assert f"evidence: {n} rows, {n} pass, 0 fail, 0 no-tie" in out, out
     for key in ("denver-q16554|File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg",
                 "st-paul-q28848|File:St. Paul, Minn. LOC 75694650.jpg",
-                "minneapolis-q36091|File:Minneapolis, Minnesota. LOC 75694644.jpg"):
+                "minneapolis-q36091|File:Minneapolis, Minnesota. LOC 75694644.jpg",
+                "cleveland-q37320|File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -143,16 +145,17 @@ def test_sites_table_and_staged_rows():
     """The hand-checked tables and the staged rows are exactly them: batch 4 stages NO shared
     (owner-named) cities - 236a's four owner cities are tied to their 236a site ids by 236b's
     module (its tests) - so this task's extras file has NO owner-city rows at all: it is EXACTLY
-    the SITES set, one new site per city (Denver, St. Paul and Minneapolis now: denver-q16554,
-    st-paul-q28848 and minneapolis-q36091, region "United States", kind "town", aerial_ok true;
-    Cleveland follows) and one steepest view each; the staged file rows are exactly the module's
-    source rows: the Denver 1908, St. Paul 1906 and Minneapolis 1885 picks' page dates match the
-    drawings (no Zwolle-style swap needed yet), and every row's evidence point is the
+    the SITES set, one new site per city (all four: denver-q16554, st-paul-q28848,
+    minneapolis-q36091 and cleveland-q37320, region "United States", kind "town", aerial_ok
+    true) and one steepest view each; the staged file rows are exactly the module's source rows:
+    the Denver 1908, St. Paul 1906, Minneapolis 1885 and Cleveland 1877 picks' page dates match
+    the drawings (no Zwolle-style swap needed), and every row's evidence point is the
     site's own point (the city's verified P625) with the short caption name."""
     # the hand-verified SITES table (slug rule, P625 points, aerial ground) - grows one entry per
     # city landing (four at close)
     assert {qid: s["id"] for qid, s in src_us_birdseye_batch4.SITES.items()} == {
-        "Q16554": "denver-q16554", "Q28848": "st-paul-q28848", "Q36091": "minneapolis-q36091"}
+        "Q16554": "denver-q16554", "Q28848": "st-paul-q28848", "Q36091": "minneapolis-q36091",
+        "Q37320": "cleveland-q37320"}
     for s in src_us_birdseye_batch4.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -168,12 +171,15 @@ def test_sites_table_and_staged_rows():
     assert len(files) == len(src_us_birdseye_batch4.SITES)  # one view per city
     years = {"File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg": 1908,
              "File:St. Paul, Minn. LOC 75694650.jpg": 1906,
-             "File:Minneapolis, Minnesota. LOC 75694644.jpg": 1885}
+             "File:Minneapolis, Minnesota. LOC 75694644.jpg": 1885,
+             "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg": 1877}
     # the new-cities' P625s (verified here): the stored evidence point must be the site's own point
     points = {"denver-q16554": (-104.984722, 39.739167),
               "st-paul-q28848": (-93.093611, 44.944167),
-              "minneapolis-q36091": (-93.26916666666666, 44.981944444444444)}
-    named_by_qid = {"Q16554": "Denver", "Q28848": "St. Paul", "Q36091": "Minneapolis"}
+              "minneapolis-q36091": (-93.26916666666666, 44.981944444444444),
+              "cleveland-q37320": (-81.69472222222223, 41.49916666666667)}
+    named_by_qid = {"Q16554": "Denver", "Q28848": "St. Paul", "Q36091": "Minneapolis",
+                    "Q37320": "Cleveland"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid
@@ -197,6 +203,11 @@ def test_sites_table_and_staged_rows():
                        if r["title"] == "File:Minneapolis, Minnesota. LOC 75694644.jpg")
     # the Minneapolis 1885 pick: the page date is the drawing's year - no Zwolle swap either
     assert minneapolis["date"] == "1885" and "date_commons" not in minneapolis
+    cleveland = next(r for r in files
+                     if r["title"] == "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg")
+    # the Cleveland 1877 pick: the page date is the drawing's year (the sheet's own copyright
+    # line) - no Zwolle swap either
+    assert cleveland["date"] == "1877" and "date_commons" not in cleveland
 
 
 def test_evidence_offline_and_negative_control(tmp_path):
