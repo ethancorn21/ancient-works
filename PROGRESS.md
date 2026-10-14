@@ -6,7 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/236-us-cities.md` (split)
-- `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
+- `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-14, iteration 173, agent c - step 0 done: batch5 module + lead-doc/test skeletons (empty SITES) uncommitted in the working tree; pre-change full-suite baseline running in background (pid 2670235, /tmp/aw241_suite_pre_173.log); next: record baseline, --golden, run the 6 skeleton tests, commit, then Omaha research)
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
