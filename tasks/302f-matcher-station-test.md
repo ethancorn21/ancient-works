@@ -5,8 +5,24 @@ Touches: tests/
 
 ## Hand-over
 
-(2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
-branch after the 302e merge); the complete verified design is below. ON DISK NOW: only
+(2026-10-14, iteration 124, agent c - re-verified the ENTIRE 210/211 design against the current
+merged tree (eb12e59: agent a's 212/236a/307d work on main): every line-shape, module behavior
+and data fact holds; TWO corrections found (below). No code written this session (context limit
+before the rewrite). ON DISK NOW: only
+
+(2026-10-13, iteration 211, preserved for the complete design - the recorder design in the next
+paragraph and the test design that follows are still valid and were re-verified this session;
+detail entries 210/211 in DECISIONS.md carry the full trace.)
+
+**Corrections from this session (apply when writing record.py):**
+1. ROOT in record.py must be `Path(__file__).resolve().parents[3]` - the old note's `parents[2]`
+   is tests/ (the file sits in tests/fixtures/matchfit_station/). The committed stub has the
+   parents[2] bug; rewrite it, don't patch it.
+2. web/data/sites/badbury-rings-q798831 symlinks to /home/agent/projects/ancient-works (the
+   lead's original project dir): copy os.path.realpath of it (a real dir lands in the tree).
+   (The 210 note's "another checkout" = this dir; same fact.)
+
+**Re-verified this session (fresh eyes, current tree):**
 `tests/fixtures/matchfit_station/record.py` as a TRUNCATED STUB - it ends with a bogus line
 `import matchfit_holdout_dummy  # noqa: F401` and has no body: REWRITE IT FROM SCRATCH (the
 design is complete below; the stub is worthless except for its docstring). No tests run yet;
@@ -15,10 +31,7 @@ still running at session end - CHECK IT; if incomplete, rerun: `.venv/bin/python
 -p no:cacheprovider > /tmp/aw302f_baseline.log 2>&1` ~5 min) before adding my test, so I can
 diff new reds. Nothing else in the tree changed.)
 
-**Verified this session (fresh eyes, current tree):** ELoFTR LIVE 127.0.0.1:8091/health ->
-{model: zju-community/matchanything_eloftr, device: RTX 5060 Ti}; RoMa 8092 refused (curl exit
-7). .venv py3.12.3. Hand doc + row + site entry + depictions.json + heldout + index row all
-re-verified (see 210 hand-over details preserved below). Additionally verified:
+**Re-verified this session (fresh eyes, current tree) - all of the following still true:**
 - matchfit_heldout.candidates(root, site, row, url) returns ALL 15 candidates (matches, inliers,
   rot, resid_m, pairs in row frame; rot/resid only when ransac kept >=3; seconds each). It calls
   mf.match/mf.ransac/mf._merc - patching mf.match makes it a faithful offline replay. Importing
