@@ -204,3 +204,35 @@ Ground truth measured while planning (all verified by running code, iteration 10
 - Why unblock (807/808/809 -> open): the owner's direct "b" lift is the newest owner word and it covers exactly the work 807-809 carry - 207a's own moved boxes (809's file: "This makes 207a's moved boxes 4-5 stand..."; 207a's done close: "boxes 2-5 live in the blocked 807/808/809"). The lead's block is a non-owner's interpretation; it registered no open request (AGENTS.md: a blocked task waits only while its request is open - no ask file for 807/808/809 exists); and the owner's 008 policy ("if you need it get it") covers the whole chain - 807-809 need only already-fetched local data (the 936 pages, triage A/B, the list images): no external file, nothing the owner must do. The driver's return of the parent for completion is consistent with the lift.
 - Box state (verified on the tree): none of the parent's four boxes ticked - Maclauchlan's half of each box is done and verified (fetch/triage/lists/recall 1.0x4 + lead section; 1 staged row n0093/1858 + new extras luguvallium-q71551754 + "plan" classified row, evidence check rc=0, 4/4 offline test + golden; the two blank plates n0078/n0111 are accounted in the lead section per the 90%-box disjunct; git shows no 207-family commit touched data/books/index.jsonl or validation.json); Horsley's half of every box is pending 807 (list 22 -> 24 correction + validate 1.0x4 + the lead section), 808 (the 17 staged rows) and 809 (offline --check + golden + test).
 - Changes this session (bookkeeping only; no code, no data - no test reads tasks/*.md, verified, so the suite is unaffected and the driver's loop-start baseline stands: 1 failed / 159 passed / 1 skipped, the red = agent a's 307bb placement test): tasks/807/808/809 Status blocked -> open (each with a one-line unblock note); tasks/207 gained "Depends on: 200, 807, 808, 809", the three task paths in Touches, and a rewritten hand-over (box state, per-part next steps, the Roy resume recipe kept as the single source of truth per 207c's hand-over). The driver gives this agent other work meanwhile and brings 207 back once 807/808/809 merge.
+
+## 2026-10-14 307 DECISION: parent closed - all six boxes verified on the merged tree, Status: done
+The driver returned the parent (all subtasks done) for its own box check. Verified, not on
+faith, on this branch (a237650: driver sync over the 307bc close 4549978; 309/804/805,
+235 and all of 307b/307c/307d already on main):
+- Box 1: ran the build's own check directly on the committed queue (imported
+  tools/fit_queue as a module; _place_store('.') + _place_flags over the entries'
+  candidate maps): 0 residual namesake pairs over the 180-entry queue. n0686_1 (the
+  owner's "The Devil's Dyke Camp, near Brighton") no longer pairs with
+  devil-s-dyke-q3307343 (that site keeps n0662_1 "SWEALD"); it is the candidate on the
+  unbuilt Sussex hillfort's review item (data/review/
+  devil-s-dyke-hillfort-q17674160.earthworkenglan01allcgoog_n0686_1.json) with the
+  reason "same name, other place: near Brighton vs Stetchworth, Cambridgeshire,
+  England". docs/site_flow.md ("The right-place check", task 309) reports 15 wrong
+  pairings over 9 sites in the 116-entry rebuild, with the per-row list and the H1/H2
+  rules.
+- Boxes 2-4 and 6: full suite on this tree: 177 passed, 1 skipped, 0 failed (497.6 s) -
+  exactly 235's recorded baseline; the pre-235 red (marietta's page-filtered 1904 topo)
+  is gone (307bc's post-235 re-run). Part 4 of tests/test_fit_queue.py covers boxes 2-4
+  end to end in headless Chrome (open on the works, dep layer hidden/restored, the
+  gestures, the 17-key by:hand save, the hermetic write-surface hash);
+  tests/test_owner_check.py (two derived queue sites, real headless Chrome, the
+  one-site line, the revert proven) covers box 6; the place-check tests of box 6 are
+  309's (804's namesake + real tests, 805's drift test) and green; the golden hand-fit
+  hashes and test_fit_provenance stayed green.
+- Box 5: place_before.png / place_after.png measured 1440x900 (file(1)); the "The
+  working space (task 307c)" section cites them; every other page layout's pinned
+  footprints green in the same run.
+No subtasks filed - nothing in the six boxes is missing. The only open follow-on from the
+307 line is tasks/242 (the 307d owner-check screenshot drift; filed by 307bc; its own
+owner) - it postdates the boxes (screenshot stability, not a box requirement) and does
+not block done. Status: done.
