@@ -4,18 +4,14 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
-- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 172, agent a, written at the context limit. RESEARCH session,
+- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 173, agent a, context limit). APPLY session (the 146/148 pattern): the
 - `tasks/236-us-cities.md` (split)
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/807-horsley-list-correction.md` (blocked)
-- `tasks/808-horsley-stage.md` (blocked)
-- `tasks/809-horsley-check.md` (blocked)
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
