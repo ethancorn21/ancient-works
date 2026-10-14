@@ -1103,6 +1103,16 @@ Where: `data/review/*.json` candidate entries written by the 306 audit's 303-way
 Symptom: following a hand-over note saying "use the row's url verbatim", a 306e entry stored upload.wikimedia.org/... and the Review tab fetched an EXTERNAL image - dead on no-internet test runs (ERR_ABORTED, like the Esri tiles) and inconsistent with every other 306e entry, which all use the relative form (iteration 196, taunton)
 Why/how: the candidate url is what the page loads, and the only thing the server can serve is a local file under data/raw; the fit doc's own `url` field already stores exactly that served path, so reuse it verbatim (books docs: the equivalent /books/ path, as the existing book-candidate items use).
 
+#### np.abs on an (n,2) point array is per-element, not the per-row radius; broadcasting (n,1) against it silently yields (n,n,2)
+Where: any numpy work over `[x, y]` point arrays in ground metres (238's gate measurements: `pipeline/fit_gate.py` `score` shapes; throwaway /tmp scripts that distort a doc's pairs before re-gating)
+Symptom: per-row scale factors computed as `rho[:, None] / rho.max()` style or `np.abs(z - C)` on a complex-free (n,2) array give per-element magnitudes, and any `(n,1) * (n,2)` product you build from them silently broadcasts to (n,n,2) - the gate then runs on garbage pairs without any error (med/slope look plausible).
+Why: numpy's abs is elementwise; the row-wise magnitude of (x, y) is the COMPLEX magnitude `abs(x + 1j*y)`, which is what `fit_gate.score`/`matchfit.ransac` do internally. Do the distortion/scale math in complex form (`z = x + 1j*y`), never in (n,1)x(n,2) outer-product form.
+
+#### tests/golden/hand_fit_docs.sha256 is 22 by:hand docs + 19 data/sites/<id>/site.json - not "22 + 19 by:None docs"
+Where: `tests/golden/hand_fit_docs.sha256`, `tests/golden/hand_fit_sites.txt`, `fit/batch_us.py` (`write_golden`), `data/db/platefits/`
+Symptom: the 41-line golden file looks like it could be 22 + 19 PLATEFITS docs (the prep note 238/A8 guessed "19 by:None docs" in the store); the second half is actually the 19 hand-fit SITES' old-style `data/sites/<id>/site.json` files (from `hand_fit_sites.txt`).
+Why: `write_golden` (docstring: "plus the 19 hand-fit sites' data/sites/<id>/site.json files") hashes exactly those two sets; the store itself holds 71 docs = 22 by:hand + 49 by:agent/fitter:matcher and zero unmarked, so a hermeticity check (238's test, candidate 3) should snapshot every `data/db/platefits/*.json` (all 71) and the golden separately, never assume the golden covers the matcher docs.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing

@@ -257,3 +257,48 @@ statistic of these anchors can tell them apart. The review queue (GOAL point 1) 
 difference: an auto-accepted fit may sit 15% off in scale, which is exactly what the human's 18/20
 sample of auto-accepted fits (GOAL point 3) is the check for. A future re-derivation may tune a
 tighter rule, but only on documents this registration never saw − this set is spent.
+
+## 10. The matcher's fit as a gate input (238, 2026-10-14)
+
+An application note: section 1's pre-registration and section 2's rule are unchanged by this section
+(no threshold, clause or exception for the matcher's point style; a change would void the
+registration, so none was made). It records how the automatic image matcher's fit (fit/matchfit.py,
+238) goes through the gate, which had never been run on a matcher fit.
+
+**The input.** A matcher fit is written only when it passes both the matcher's judge and this gate, in
+that order (fit/matchfit._settle, on the final candidate - ELoFTR or RoMa). The gate's input is the
+document's own pairs: up to 8 of the RANSAC inliers, spread over the plan (fit/matchfit._spread,
+N_PAIRS = 8), and no claimed placement: transform = None, so the gate solves the canonical similarity
+from those pairs − exactly the "true" case of section 4 (the placement solved from the document's own
+anchors) and the batch's own convention (fit/batch_us.run_sites gates as
+gate_placement(pairs, (a, b)) with (a, b) = plan_fit.similarity(pairs)). ACCEPT is the only way a
+matcher fit is written; the written document's "score" is the gate's median residual in ground metres
+(the batch_us.gate_placement convention). For a good matcher fit the pairs re-solve to ~0, so the
+recorded badbury-rings fit scores 0.0 (med 0.009 m) while the matcher's own residual, measured against
+the pre-refit matched keypoints, stays in the document's matcher block as resid_m (3.1 for that fit).
+
+**The two refusal stages divide the failures.** The judge (fit/matchfit.judge) refuses what is not a
+consensus: too few consistent points (ELoFTR fewer than 10 inliers; RoMa an agreement fraction below
+0.4), a rotation beyond 30° from north-up (ELoFTR), and the near-line pattern whose scale the
+similarity cannot pin (the spread guard). The gate then refuses what a strong consensus can still be
+wrong at, scored on the document's own internal consistency: a large median residual (measured on the
+recorded badbury-rings 8-pair document: its anchors offset ±200 m, alternating in spread order,
+re-solve to med 96.8 m, rejected by the median clause); the radial gradient of section 2 (the
+through-origin slope and the inner/outer clause − the latter, slope_o > 0.11 and io < −10, exists for
+the 15% scale class: the only class of section 4 it catches, and the only wrong class with accepts in
+the section-9 run); and degeneracy (n < 3; the no-radial-spread case is largely subsumed by the
+judge's spread guard).
+
+**What this input cannot show the gate (section 7, applied to the matcher).** With transform = None
+the placement is solved from the same pairs the anchors record, so a consistent global error −
+anchors and placement wrong together − leaves per-anchor residuals ~0 and passes: the section-7
+limit, and its backstops (the review queue, GOAL point 1; the human's sample of auto-accepted fits,
+at least 18 of 20 right, GOAL point 3) apply to matcher fits exactly as to the batch's. Measured on
+the recorded badbury-rings 8-pair document (Web-Mercator, about their centroid): a uniform 15% scale
+of the ground points re-solves to med 0.01 m and is accepted (score 0.0); a radial (non-uniform)
+scale, 15% to 50% at the edge, re-solves to med 2.3 / 7.6 m and is likewise accepted − the re-solved
+similarity absorbs what a claimed placement would score as a radial gradient, and the through-origin
+slope attenuates the rest at small n, as the section-9 scale15 accepts show. The 15% scale class
+registered in section 9 is thus invisible to the matcher's gate in its uniform form and passes in
+every measured radial form at n = 8; it remains what the review queue and the 18/20 sample are the
+check for.
