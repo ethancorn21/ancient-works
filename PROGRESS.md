@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
 - `tasks/236-us-cities.md` (split)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
-- `tasks/302f-matcher-station-test.md` (open) - hand-over: (2026-10-14, iteration 124, agent c - re-verified the ENTIRE 210/211 design against the current
+- `tasks/302f-matcher-station-test.md` (open) - hand-over: (2026-10-14, iteration 125, agent c - **REWROTE tests/fixtures/matchfit_station/record.py from
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
@@ -155,6 +155,50 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   station.py per the hand-over's test design (two tests; ephemeral-port in-process stub;
   pass-through guard variant; drift-checked queue counts); run it; then the full suite diffed
   against the baseline; tick the six boxes as verified.
+
+### 2026-10-14 302f DECISION: iteration 125 - record.py REWRITTEN from scratch per the 211 design (complete on disk, unrun, uncommitted); the live run is the next step
+No test written yet. This session re-verified the entire 210/211 design against the current
+merged tree and replaced the truncated stub with the complete recorder:
+- build_tree (lockstep with the test's): tools/ fit/ pipeline/ (no pycache), web/data/
+  {sites,plans,review}.json, web/data/sites/SID copied from os.path.realpath (it is a symlink
+  to the lead's /home/agent/projects/ancient-works), data/review (all 481), data/books/
+  index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/sites/SID/site.json,
+  data/raw/books/earthworkenglan01allcgoog/full/n0132.jpg, data/db/platefits (all; the badbury
+  hand doc unlinked when delete_hand_doc). ROOT = parents[3] (124 correction 1); realpath copy
+  (124 correction 2).
+- Live phase: urlopen patched (sha256 of the exact /match body -> parsed response + response-
+  bytes hash, per run) around mfh.candidates run twice; then offline replay with mf.match
+  faked (body rebuilt exactly: mf._b64 + json.dumps, threshold 0.2, max_side 1024 -> same
+  key), mf.reachable patched (True only for None/MATCHER_URL), mf.ROMA_URL = dead ephemeral
+  port. Then two IN-PROCESS site_done runs (importlib; same module objects) on fresh trees
+  T1/T2: confident fixture, and the unsure variant (ground keypoints of every >=10-inlier
+  response permuted with np.random.default_rng(seed); seeds 7..36 until the offline fit_row
+  best lands at 3..9 inliers - fit_row's best exists only at >=3, so 3..9 gives exactly the
+  "not sure: N consistent points" line; "nothing consistent" is explicitly rejected).
+- Facts verified by running this session: ELoFTR healthy (RTX 5060 Ti), RoMa refused (exit
+  7); propose_for SUCCEEDS for this row in-process (coarse False, bar scale 0.1902 m/px, rot
+  0.0, 5 pairs) -> the unsure item candidate gets all six proposal fields, pairs []; n0132.jpg
+  3367x5050 L; six-inch 1066x1066 RGBA, relief/os1inch 1600x1600; site entry 1/1.45/1842/2;
+  depictions 3; NO badbury item (481 files, 480 with a site field - review.export's n_total
+  counts only those: baseline 456/480, after the unsure run 457/481); the frozen held-out
+  (2026-10-12) matches (best six-inch x0.35 61/22/3.62/3.1; the two >=10 responses are six-
+  inch x0.5=15 and x0.35=22; unperturbed best six-inch x0.7=8 rot -43.51). PRE-CHECK:
+  review.export on a scratch tree = 456/480, stderr clean (so the err=="" asserts should
+  hold). Full-suite baseline COMPLETE at /tmp/aw302f_baseline.log: 1 failed (test_fit_queue::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb, on main, not mine), 157
+  passed, 1 skipped, 324.50 s.
+- record.py details that would trip a reader: _save uses default=float (ransac rot is
+  np.float64); the seed loop restores mf.match to the original afterwards; the header records
+  input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog row extracts,
+  site.json, data/review combined) for the test's drift detector, and the in-process runs
+  hash the checkout surface before/after to prove they write nothing outside the trees.
+- NEXT (exact): run `.venv/bin/python tests/fixtures/matchfit_station/record.py` live; on
+  success commit the recorder + both fixtures; then write tests/test_matchfit_station.py per
+  the TEST DESIGN block in the task hand-over (ephemeral-port stub, pass-through GUARD
+  variant, subprocess, confident + unsure tests, drift preconditions); full suite diffed
+  against the baseline; tick the six boxes. Known risks at run time: GPU drift (recorded,
+  non-fatal), line-shape asserts (fail loudly with actual stdout), site_entry_equal narrow
+  margin (1.4535 -> 1.45), seed landing.
 
 ## Project-wide driver notes (newest)
 
