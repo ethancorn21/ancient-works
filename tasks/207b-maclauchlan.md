@@ -56,6 +56,85 @@ still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e
 207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
+(2026-10-14, iteration 131, agent c - the list-leg session, ended by the context limit mid-commit. READ THIS FIRST.)
+
+**What happened this session.**
+1. Rewrote `fit/src_roman_maclauchlan.py` to the 207a/Horsley HAND_FIGS pattern (the hand-over item 1, DONE on disk but UNCOMMITTED - the harness saved it; commit it first next session):
+   `MACLAUCHLAN_FIGS` 6-line table (78 Brampton s|65, 90 Willow Holm o|76, 93 Carlisle s|76, 111 gateway s|93,
+   115 Table of Stations o|97, 129 Binchester tiles o|7; all kind_by hand) injected into `books_lists.HAND_FIGS[IA]` by
+   register(); the MACLAUCHLAN_PLATES/PLATES injection and the djvu page_texts swap are GONE; `--list` is now offline
+   (register + cmd_ocrmap); docstring/CITE/WHY fully rewritten (Nochlin mislabel, no-list discovery + binder-list
+   transcription, 123 corrections, kind decisions). `--djvu` kept (its leafNum = n+1 numbering is the 1:1-aligned
+   convention). `IA_LIST` removed.
+2. Ran `--list` OFFLINE (socket-blocking wrapper) TWICE: writes only `data/books/lists/memoirwrittendu00maclgoog.json`
+   (table dump, ensure_ascii=False; plates=None, figures=6: s3/o3) + `.map.json` (6 leaves; site_plan true for 78/93/111).
+   Byte-stable across runs (both files UNCOMMITTED on disk): .json md5 8479d53f196fed1fa2bb0d7159b58257,
+   .map.json md5 f6593c9e01c19157daf997e7a03bb04a - verify before committing. No other file touched.
+3. **Read the title pages (n0009/n0011/n0012/n0013) from the triage images - NEW date facts for the lead doc and
+   CITE (already corrected in the uncommitted module):** the short title (n0009) and the FULL title (n0011) both print
+   "...A SURVEY OF THE ROMAN WALL, THROUGH THE COUNTIES OF NORTHUMBERLAND AND CUMBERLAND, IN THE YEARS 1852-1854.";
+   the full title adds "MADE BY DIRECTION OF HIS GRACE THE DUKE OF NORTHUMBERLAND, K.G., PATRON OF THE SOCIETY OF
+   ANTIQUARIES OF NEWCASTLE-UPON-TYNE. By HENRY MACLAUCHLAN... LONDON: PRINTED FOR PRIVATE CIRCULATION. MDCCCLVIII.";
+   the verso (n0012) = "LONDON: BRADBURY AND EVANS, PRINTERS, WHITEFRIARS." (the djvu 'WHITBY' read was OCR garbage);
+   the preface (n0013) retitles "BETWEEN THE TYNE AND THE SOLWAY, IN THE YEARS 1852-1854" with the footnote: survey
+   commenced at Wallsend summer 1852, to Portgate that year; 1853 to Carvoran; by the winter of 1854 completed to
+   Bowness. **The parent's "survey ran 1857-59" is WRONG** (the djvu OCR's "1852-1864" was also a misread). The 1858
+   printing does carry later 1857-58 work (Willow Holm section taken Sep't 7th 1858; the Carlisle plan shows the
+   1857-58 great sewer) - THAT is the discrepancy the lead doc records. A gift leaf (n0007): "Presented to Professor
+   Phillip by the Duke of Northumberland, Alnwick Castle, 17 July 1859". djvu leafNums = n+1, aligned 1:1 (the
+   n0011 full title = djvu 12, preface = djvu 14, imprint = djvu 13).
+4. **Stage A re-verified (171/0):** n0078 plate_site_plan (cap "BRAMPTO"), n0090 other_illustration (cap the Willow
+   Holm title), n0093 plate_site_plan (cap "Sandridge & Co. Litho London"), n0111 figure_site_plan (cap the gateway
+   caption), n0115 text_only (cap "TABLE OF STATIONS."), n0129 other_illustration (cap the tile-marks caption).
+   So stage-A flagged = {78,93,111} = exactly the table's gt_site set -> the next session's validate_book should
+   give recall_pages 3/3 (clean on both strict/lenient, flagged_nonplate = {90,129} as other_illustration, NOT in
+   SITE_TYPES). LLM replicas RE-CHECKED today: 8080/8081 up, 8082 down.
+
+**Suite state:** not run this session (list-leg only; the driver's 2026-10-13 baseline 159/1/1 stands - the lone red
+is agent a's 307d placement test). No tests reference this book yet (grep of tests/ empty).
+
+**Acceptance boxes:** box 2 is HALF done (list transcribed + mapped to leaves + artifacts on disk; the stage-A/B
+recall record in docs/lead_roman.md is still owed to it - together with the 90% accounting, that lands in the
+validate step below). Boxes 1,3,4 untouched this session.
+
+**Exact next steps (132+, in order).**
+1. **Commit the uncommitted 131 work**: `git add fit/src_roman_maclauchlan.py data/books/lists/memoirwrittendu00maclgoog.json data/books/lists/memoirwrittendu00maclgoog.map.json && git commit -m "207b: list leg to the HAND_FIGS pattern (6-leaf table) - the book has no printed plate list, the binder's instructions are the book's list; the per-book list artifacts"` (md5-check the two list files against the values above first; re-run --list if a byte differs).
+2. **`--triage B`** (live, 8080/8081 up - re-check first): cmd_triage_b runs on A's site pages + the list's kind-s
+   leaves = {78,93,111}; only n0093's B row (map_box/title) feeds staging, the other two are for the record. If it
+   exits "tunnels down", log it and come back next session (nothing else depends on B except the n0093 staging row).
+3. **`books_lists.validate_book(KEY)` (offline, after register) -> the NEW "## Maclauchlan" section in
+   `docs/lead_roman.md`, inserted BEFORE the "## Roy" section** (807's Horsley section is absent while 807 is
+   blocked - if a merge brings it, move my section after it and NEVER edit 807's text). Record: source (1858
+   original; the Nochlin mislabel + the lending-restricted 2015 Wanney presentation, both unusable), the no-list
+   discovery + the binder-list verbatim, the 6-line inventory with per-leaf verdicts, the blank-plate findings
+   (n0078, n0111), the unprinted Figs 2/3/5/6 (the 122 size census), the DATE DISCREPANCY (title-page survey
+   1852-1854 + imprint MDCCCLVIII 1858 vs the parent's 1857-59; the 1858 printing carries 1857-58 addenda; the
+   n0007 gift leaf 1859), the stage-A/B recall numbers, and the 90% accounting (1 staged of 3 verified site plans;
+   n0078 and n0111 each accounted for individually as blank in this copy).
+4. **Build `--stage`** (read tasks/808-horsley-stage.md in full first for the row-content conventions; the parent's
+   Notes: append-only, idempotent, rows tagged memoirwrittendu00maclgoog, --dry previews): creates the three shared
+   files (absent on this branch) with the decided rows - extras_roman.jsonl +1 (Luguvallium (Carlisle), Q71551754,
+   lon/lat 54.896187/-2.94077, kind "roman fort" SPACE form, region england, place "Carlisle, Cumberland, England",
+   location_check per Decision 2); files_roman.jsonl +1 (n0093: site = the new extras id, qid Q71551754, title/desc
+   carrying "Carlisle" + the binder's-list entry + the p.77 reference, year 1858, url/thumb the IA page image
+   https://archive.org/download/memoirwrittendu00maclgoog/page/n0093.jpg, w/h from the triage row [964,1400], the
+   caption_coords evidence of Decision 3: named_place Carlisle, place Q192896 P625 54.894722/-2.936389, dist_m
+   324.1); classified_roman.jsonl +1 ((site,title), class "plan" by hand).
+5. **`--check` (offline: join staged rows to catalog+extras; fit/evidence.py check over this book's rows) +
+   `--golden` (tests/golden/src_roman_maclauchlan_sample.json) + tests/test_src_roman_maclauchlan.py** (the
+   no_network socket-blocking fixture as in tests/test_src_van_deventer.py - monkeypatch socket.socket/
+   create_connection/getaddrinfo; no LLM calls in tests; no fixed ports; writes only inside the project). Then run
+   the suite (baseline 159/1/1; my tests must all pass, the lone 307d red stays) and re-baseline in the notes.
+
+**Re-read next session:** `fit/src_roman_maclauchlan.py` (freshly rewritten; MACLAUCHLAN_FIGS + the docstring);
+`tasks/808-horsley-stage.md` (in full - the row-content conventions for --stage); `data/commons/files.jsonl`
+(the row shape); `data/catalog/extras.jsonl` (a no-QID row for the location_check field shape); `fit/evidence.py`
+(check_commons/check_caption - re-read with fresh eyes before wiring --check); the djvu text is cached at
+data/raw/books/memoirwrittendu00maclgoog/memoirwrittendu00maclgoog_djvu.xml (leafNums = n+1); the title pages are
+triage images n0009/n0011/n0012/n0013 (read above).
+
+---
+
 (2026-10-14, iteration 130, agent c - the kind-decision session. Read djvu leaves 93-99 (printed pp.76-80)
 verbatim, re-verified the catalog (Housesteads now HAS a row), verified Q71551754 via the Wikidata API,
 filed the two drafted PITFALLS entries. No code written this session; no tests run - the suite stands at
