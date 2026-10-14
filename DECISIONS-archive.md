@@ -183,6 +183,92 @@ suite not run (last known: the one known 212/235 red, 159 passed, 1 skipped).
 ## 2026-10-13 000 DRIVER: done claim rejected, task reopened
 - Team project: these tasks can never start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits on 212 238 302f 302g)
 
+## 2026-10-10 000 DECISION: 000 closed done - finished the GOAL-change plan update (213 created, 212 reworded, CODEMAP rules written, boxes verified)
+
+Iteration 12 was cut at the context limit with five small steps left; this session did them and
+closed the planning task.
+- tasks/212-cover-final.md: the three deferred edits landed (the cover-pass loop is now "fitkit
+  sheet -> model fit -> fit -> gate" in Goal and box 1; the human's 18/20 check is GOAL.md point 3,
+  not point 2 - the 21:11 change renumbered the points). Iteration 12's atomic edit rejection was a
+  hard-wrap mismatch (the file wraps at ~79 columns; the lines looked different after rendering);
+  this session verified the exact bytes with `sed -n ... | cat -A` before editing (new PITFALLS
+  entry under Agent tools and harness).
+- tasks/213-artist-views.md created (lowest free 200-499 number; Depends on 200; wave 2 per
+  PLAN.md): GOAL point 5's 22:58 lead - Leonardo's Imola (the anchor: a new site with no open
+  LiDAR here, FITKIT_GROUND=aerial verified at tools/fitkit.py:38, its streets carry the fit),
+  de' Barbari's Venice, Braun & Hogenberg, Merian. Own module fit/src_artists.py plus its own
+  extras_/files_/classified_artists.jsonl staging, docs/lead_artists.md and test file; the
+  conditional IA-book machinery follows the 208 pattern (declare the exact per-book paths in the
+  Touches line before writing, never the shared index).
+- CODEMAP.md "Architecture rules" block written: five standing rules (the 25 hand fits and the
+  private Finder/Amazon data are never changed or deleted; fit/ imports pipeline/ read-only; the
+  canonical files are written only by 211/212; the model is a lead, not a fact, and its step is
+  injectable so tests never call the model server; web/index.html takes exactly one change). The
+  iteration-2 hand-over had claimed these rules were already here; they had never been written.
+- Verified: `grep -L "Depends on:" tasks/*.md` and the Touches equivalent both come back empty
+  (001, 200-213, 800, 801 all carry both lines); the suite is green in this checkout's .venv
+  (12 passed; no code changed by this session). All seven boxes ticked, Status: done.
+- The driver's note ".venv could not be built from requirements.txt" is a main-side problem:
+  origin/main still carries the bare unpinned 9-line file (e2d4060, verified with git show), while
+  this checkout and agent/c carry the fully pinned + hashed file (676a0d4), and this checkout's
+  suite is green. Open task 800 (filed by agent c) lands the pinned file on main; this session
+  deliberately left requirements.in/requirements.txt untouched (they are 800's files). If the
+  driver's re-check of this done claim fails on the main-side venv build, the fix belongs to 800
+  and merges independently.
+
+## 2026-10-13 000 DECISION: done-claim rejection fixed - the `Depends on:` line must be a bare id list (212/212a/307a); 000 re-claimed done
+The driver reopened 000 (commit 6955a66) with: "Team project: these tasks can never
+start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits
+on 212 238 302f 302g)". Diagnosis (checked by running code, /tmp/depcheck2.py, not
+reasoned): the driver's team-mode scheduler tokenizes every `NNN`/`NNNx` on the
+one-line `Depends on:` line, prose included. tasks/212-cover-final.md:3 carried an
+explanatory parenthetical that the 212 session (69ed411 - my own task, other checkout)
+added when it made 212 wait on 235; its prose contained "212's" and "212b's" (plus
+301, 306e, 307d), so the parse gave 212 a self-dependency. The driver's "waits on 212
+235" is exactly the PENDING subset of the parsed tokens (203a, 203b, 211, 212b, 301,
+306e, 307d are all done and dropped from the note; only 212 and 235 are pending) - the
+note reproduces the tokenizer, confirming the theory. 239's wait on 212 is legitimate
+(cover.py is 212's in-flight file; not a code dependency, a same-file gate) and
+parked behind 212.
+
+Fix (box 5 of 000 is exactly "the numbers of the tasks that must be finished first, or
+none" - a format-line cleanup on agent-created files, precedent 302a/308/309 from
+iteration 157; goal/acceptance boxes untouched; each file's hand-over body already
+carries the full rationale, so nothing moved):
+- tasks/212-cover-final.md:3 -> `Depends on: 203a, 203b, 211, 235` (212 now waits only
+  on 235, whose deps 306e+307d are done - it starts when 235 merges)
+- tasks/212a-cover-search.md:3 -> `Depends on: 211, 203b` (parenthetical carried a
+  "212a" self-ref; done task)
+- tasks/307a-place-check.md:3 -> `Depends on: none` (was `(none - a record; ...
+  307b/307c/307d ... 309)`, which tokenized as deps ON the live work - inverted
+  intent; done task)
+
+Verification after the fix (checker over all 99 task files): every `Depends on:` line
+is a bare comma list or `none`; every id names an existing task file; no
+self-references; the pending graph (24 tasks) has no cycle and no task that can never
+start. Note: 307bb's `Depends on: 307ba` looks like a prose hit to a one-letter regex
+but is a valid two-letter subtask id (done task) - checker artifact, no action. The
+2026-10-13 GOAL re-plan stands untouched (PLAN.md committed 5420291; 238/239 created
+f828ce0; assumptions 10-11). Residual team-mode risk: 212's other checkout may still
+carry the parenthetical on line 3, so a main<->branch merge can conflict on that one
+line; the resolution is always the bare list (the scheduler requires it) with the
+rationale staying in the hand-over body. PITFALLS gained the tokenizer fact under
+Agent tools and harness. All seven boxes re-verified true; Status set back to done.
+
+## 2026-10-14 000 DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.
+    1 failed, 159 passed, 1 skipped in 409.92s (0:06:49)
+    (full test output: .agent/reports/last-test-output.txt)
+
+## 2026-10-14 000 DECISION: done claim re-filed - the PLAN.md merge-conflict hold resolved (both sides' intent kept); full suite green on the merged tree (166 passed / 1 skipped / 0 failed)
+- The 2026-10-14 DRIVER note ("Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md") is a merge-conflict hold, not a content rejection - the same class as the 207a holds (129af49, resolved by 4cc34aa) and the earlier 307d screenshot holds. Its instructions were followed exactly: `git merge main`, resolve keeping both sides' intent, run the tests, commit, set done again.
+- Anatomy (diffed against merge-base c72706b, not reasoned): main had changed exactly three places in PLAN.md - the module-map Roman row (the per-book split from the 207 work), task-map line 5 (the Roy 1793 drop, owner's call) and the appended 207c Deviations entry; the other side of every remaining difference was my 2026-10-13 GOAL re-plan (5420291: current state 10-13, matcher-only architecture, batch retired by 239, assumptions 10-11, waves 6-8, task-map lines 1-3). The single conflicted region = the module map (lines 105-112): I had rewritten the batch row, inserted the matchfit row and rewritten the src row, and main had rewritten that same src row - adjacent edits merged into one conflict, with main's side carrying the base's batch row.
+- Resolution: HEAD's batch row (RETIRED by 239 - main's side was base text that contradicted the merged file's own tech choices/architecture, which both sides carry as matcher-first) plus HEAD's new matchfit row, and main's src row (the per-book Roman split is a fact on main: `fit/src_roman_horsley.py` exists since the base, `fit/src_roman_maclauchlan.py` was added by 207b, and `fit/src_roman.py` never existed - my row was stale base text). Main's three non-conflicting changes auto-merged and stayed verbatim. The merged 292-line PLAN.md was read whole: one coherent matcher-first plan; no dangling references (238/239 from my side, 302f/302g from main's, all present after the merge).
+- Tests on the real merged tree (.venv, -p no:cacheprovider): 166 passed / 1 skipped / 0 failed, 454 s - the loop-start red (test_fit_queue::test_placement_gestures_and_save_in_the_browser, the 235-era red) is cleared on this tree (bba5961's e2e-only rewrite on main; the corrected PITFALLS entry says notes naming the old signature are stale) and the suite grew 159 -> 166 with the 302f merge. Queue checker over all 99 task files: bare-list `Depends on:`/`Touches:` on every task but 000/999, every dep id names an existing file, no self-references, no cycle in the 14-task pending graph.
+- Outcome: Status: done re-filed. Commits: eeff0b8 (the merge) + this bookkeeping commit. If the driver reopens 000 again: (a) another merge-conflict hold -> same procedure (merge, both-sides resolution - the planning world is mine, the merged-work facts are main's, test, commit, re-file); (b) a GOAL.md change -> diff GOAL against the task map and update PLAN.md/tasks (new leads take the next free 200-499 number, bare one-line `Depends on:` + `Touches:` - the scheduler tokenizes every NNN/NNNx on that line; PITFALLS); (c) a named content issue -> fix exactly what the note names.
+- Housekeeping: the suite run re-encoded the ten tracked docs/site_flow/307d_*.png and `git add -A` in the bookkeeping commit (ac7c5f8) captured them; a follow-up commit restores main's exact bytes (verified: eeff0b8 == main on all ten) so the driver's merge into main stays conflict-free (207a 4cc34aa precedent: branch PNGs must equal main's; no test pins their bytes).
+
 
 <!-- task 001 -->
 # Task 001 fit-gate
@@ -2587,6 +2673,26 @@ Step: main unmoved since iter 90's sync (1dcbc06; main...agent/a = 0/8, all book
 - Observed, no action (agent a's file): my branch's PLAN.md differs from main's by 23 lines = my own 207-split/207c-drop planning record (module-map row + Roy-drop Deviations entry); main's 000 rework for the changed GOAL.md did not touch those regions, so the auto-merge kept both sides' text. GOAL.md is identical to main's.
 - Outcome: Status: done re-filed per the note. Next note, if any: old-signature red = stale (run it on the merged tree, cite the corrected PITFALLS entry); a new red = the 120 step-2 A/B (my files = fit/src_roman_horsley.py + data/books/lists|triage/britanniaromanao00hors.*) + the 306c/306d precedent; 3rd failed attempt at the same blocker -> ask_human + blocked.
 
+## 2026-10-13 207a DECISION: iteration 120 - done claim re-filed (3rd filing): the driver's named red is resolved on the verification tree by the lead port bba5961 - the rewritten test is measured green on this VM, so the 222 ask_human trigger (same red still failing) does not hold
+- Context: both rejections (464a2c1, 2a0b228) named tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser in its 3c91518-era form (the loop-start red d14577e above: seed-check + /tiles/relief 404 signature). Since those rejections main gained three lead ports: d286196 (GOAL point 2: the image matcher fit/matchfit.py - RoMa/ELoFTR - is the ONLY automatic placement; Qwen never places or writes point pairs; batch_us/batch_eu model-fitting retired; auto-fit LiDAR-sites only), bba5961 (owner's Mac 9680a17: fit tool toolbar, e2e-only fit tests parts 4-5, notthis server hook, fit_queue drops dropped) and c72706b (307d end-to-end-only; Fort Ancient joins the hand-fit golden). agent/c's merge-base with main is still 3c91518, so this branch lacks all three; the driver's done-verification merges all of main first, so it runs bba5961's rewritten test, not the red one both rejections cited.
+- What is different from the two failed filings (no-blind-retry rule): not the same red - the driver now verifies against a main whose named test is the e2e-only rewrite, and that version is measured green here on the exact merged tree. The 222 hand-over's plan (ask_human after a 2nd rejection on the same red) did not fire because the red is gone, not because the plan was ignored.
+- Measurements (in-checkout per the PITFALLS A/B idiom; my 207a files = fit/src_roman_horsley.py + data/books/lists/britanniaromanao00hors.{json,map.json} + data/books/triage/britanniaromanao00hors.{A,B}.jsonl; backups /tmp/ab207a_c120; tree restored byte-clean, git status empty): A = branch as-is -> pre-port test FAIL 50.15 s (same seed-check signature + 404s on GET /tiles/relief/12/1121/1559.webp, same pick as 222/d14577e). B = my files at main's state (215-era module, no britanniaromanao00hors lists/triage) -> FAIL 52.45 s, byte-identical signature -> the red is not my combination (the 222 A/B conclusion re-confirmed on the current tree). C = verification-tree preview (all 30 files main changed since 3c91518 swapped in from main; my branch touches none of them - verified against `git diff 3c91518 agent/c` - so the driver's merge is clean) -> the rewritten test PASSES 77.65 s, and the FULL suite (.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider) = 158 passed / 1 skipped / 0 failed in 430 s (the 1 skip = the same one in the d14577e baseline; c72706b's rewritten test_owner_check and test_fit_provenance with the Fort Ancient golden are green too).
+- The lead's message this iteration ("GOAL.md point 2 changed on main ... your 236b work is unaffected: stage pictures only") is recorded in the hand-over: no impact on 207a - the remaining work (807/808/809, blocked by the owner's stop on 207 per 06c1aa8) is offline book staging: stage pictures, never placement; no LLM point pairs anywhere in it.
+- Outcome: task Status set to done and the claim re-filed (hand-over committed 1d01e82). If a 4th verification rejects, it will name a NEW tree (the lead ports keep moving main under the branches) - the next step is then ask_human to the lead: the 306c/306d precedent (12b2274 accepted both on 2026-10-13 with this identical red, on A/B evidence) plus this session's A/B + full-suite measurements, with the recommendation to accept 207a now (its remaining work is blocked by the owner's own stop, so the task is terminal until that lifts).
+- Housekeeping for any later session (PITFALLS.md is off-limits to me this session - context limit): the entry under `### tests/test_fit_queue.py` ("...is the project's known pre-existing red - on every current tree it fails at the seed check... the fix comes via the 307 merge") is now stale: the red cleared on main via lead port bba5961 (the e2e-only rewrite passes on this VM, measured above). Correct that header/claim to say the PRE-bba5961 trees (e.g. a branch still at merge-base 3c91518) carry it, and post-bba5961 main does not; keep the red's history, the do-not-touch list and the A/B-idiom pointer.
+
+## 2026-10-13 207a DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: docs/site_flow/307d_A_1-card.png docs/site_flow/307d_A_2-placed.png docs/site_flow/307d_A_3-gestured.png docs/site_flow/307d_B_2-placed.png docs/site_flow/307d_B_3-gestured.png
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.
+
+## 2026-10-13 207a DECISION: iteration 121 - resolved the driver's "accepted but cannot merge" hold (129af49): merged main (4cc34aa) with the 5 307d screenshot conflicts resolved to main's final 307d captures, full suite green on the real verification tree (158/1, 432 s), Status: done re-filed
+- The 129af49 note was NOT a test rejection (both earlier rejections, 464a2c1/2a0b228, named the 3c91518-era test_placement_gestures_and_save_in_the_browser; this one says "Accepted, but it cannot go into main yet"): a pure merge-conflict hold on 5 binary files, with explicit instructions (merge, resolve keeping both sides' intent, test, commit, set done again).
+- Conflict anatomy: both sides descend from f516b1e. Main: 9c8a46a (307d done) + c72706b (lead port: 307d e2e-only, Fort Ancient in the hand-fit golden) = the finished test captures. Ours: [driver] snapshot commits 464a2c1/d14577e = byte-different re-encodings of the same docs from verification runs of the 3c91518-era suite, which regenerates all 10 docs/site_flow/307d_*.png per run; my 207a work never wrote them (my Touches = the book machinery). Resolution: main's bytes for all 10 (5 via --theirs, 5 auto-merged), keeping the branch byte-identical to main on these files so the driver's merge-into-main is conflict-free on them (both-sides-identical merges cleanly). My green run's fresh captures (re-encode jitter) were restored away before the merge commit; no test pins the PNG bytes (test_owner_check overwrites all 10 by design after its write-surface byte-identity assert; rewritten test_fit_queue only reads them).
+- Verification on the REAL merged tree (the 120 C preview, 158/1/430 s, was a manual file-swap; this is the actual merge): .venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider = 158 passed / 1 skipped / 0 failed, 432.40 s. bba5961's rewritten test_fit_queue green, c72706b's test_owner_check green, Fort Ancient hand-fit golden green. The driver's loop-start red note (d14577e: 1 failed / 159 passed, the OLD test) names a test that no longer exists on this tree.
+- PITFALLS.md: corrected the stale tests/test_fit_queue.py entry from "known pre-existing red ... clears only via agent a's 307 merge" to "CLEARED by bba5961; notes naming the old signature are stale - verify by running the test on the merged tree" (history kept: 306c/306d accepted on A/B evidence 12b2274 while live; the driver's mechanical baseline flagged it against every task merged after 307bb).
+- Observed, no action (agent a's file): my branch's PLAN.md differs from main's by 23 lines = my own 207-split/207c-drop planning record (module-map row + Roy-drop Deviations entry); main's 000 rework for the changed GOAL.md did not touch those regions, so the auto-merge kept both sides' text. GOAL.md is identical to main's.
+- Outcome: Status: done re-filed per the note. Next note, if any: old-signature red = stale (run it on the merged tree, cite the corrected PITFALLS entry); a new red = the 120 step-2 A/B (my files = fit/src_roman_horsley.py + data/books/lists|triage/britanniaromanao00hors.*) + the 306c/306d precedent; 3rd failed attempt at the same blocker -> ask_human + blocked.
+
 
 <!-- task 207c -->
 # Task 207c roy
@@ -2601,6 +2707,12 @@ Step: main unmoved since iter 90's sync (1dcbc06; main...agent/a = 0/8, all book
 - Request 008 (filed iteration 205: (1) does the owner's "Stop 207" cover this subtask, (2) the NLS facsimile into data/raw/books/roy1793/ or a drop decision) was answered 2026-10-13 14:36 (console): "drop Roy. I dont want to have to ever go out and get a file. If you need it get it. If you can't get it, then you don't need it." Read as: the stop is moot for 207c because the subtask is dropped; the "get it" clause is addressed to the loop, so before dropping this session re-verified the fetchability question one last time for this book - all three checks negative: (1) https://maps.nls.uk/roy/antiquities/ with a browser UA -> HTTP 405 AWS-WAF "Human Verification" (unchanged since the 10-11 attempts 1-3); (2) the NLS S3 tile bucket mapseries-tilesets, roy/ prefix -> 1747-55 military-survey tiles only, still no antiquities set; (3) the Google Books API - the one source class never tried for Roy (attempts 1-3 were IA / NLS / NLS-S3) -> HTTP 429 RESOURCE_EXHAUSTED, "Quota exceeded for quota metric 'Queries' and limit 'Queries per day'", quota_limit_value: 0 for the anonymous consumer: a hard refusal matching the Wiltshire lead's 10-12/13 Hoare finding (PITFALLS "HathiTrust and Google Books refuse this VM"; HathiTrust itself is the 403-class wall recorded there). Not a retry of a failed approach: a new source, under the owner's new explicit instruction to fetch it myself, answering with the same wall. The book is not fetchable from this VM by any known means, and the owner - who twice declined book downloads (001/002, the standing PITFALLS rule that even predicted this: "if it gets the same answer, drop 207c rather than re-asking") - says it is not needed: DROPPED, exactly the contingency the parent's hand-over wrote for this answer.
 - What changed (all this session, no code): tasks/207c-roy.md Status: dropped + the hand-over rewritten as the final record (209a's pattern; the blank slate stands - no module, no per-book artifacts, no roman staging rows, no test, no data/raw/books/roy1793/; nothing to unwind; no tests run because no code changed in any 207c session - the newest full-suite measurement on record, 307d this day in agent a's checkout: 159 passed, 1 skipped, 1 failed (the pre-existing 235 red), stands as the baseline). docs/lead_roman.md CREATED (the lead's header + the Roy section: source, the owner's answer verbatim, stage-A/B recall n/a, the effect on the lead; the header carries a layout note for the 207a/207b sections - the file is theirs too, and the driver resolves the add/add when 207a's branch lands). The parent's (207) hand-over updated in place (a dated update line, the State paragraph, and exact-next-steps item 3, which now holds the full resume recipe for the dropped subtask: local-file fetch on the Wiltshire-Hoare 3-point wrap, the 51-plate list transcribed by eye, scotland rows, the four no-QID Antonine Wall camps as tie targets). PLAN.md (the point-5 "delivered by" row and the module-map cell note the drop; a new Deviations entry: GOAL's growth list names Roy - the project drops it on the owner's call, the Roman lead stands on Horsley + Maclauchlan, and the owner made the identical trade for Hoare earlier the same day). PITFALLS (the two book-source entries corrected to this outcome: the HathiTrust/Google entry records the 429 as a 0-quota hard refusal re-verified today and that the Roy module was never built; the human-refusal entry records 008 and the 207c drop instead of the stale "003 still open" guess).
 - If ever reopened: a complete scan of the book (any layout) in data/raw/books/roy1793/ -> resume per the parent's hand-over "Mechanics for every subtask" + its exact-next-steps item 3 (the recipe now lives there, the single source of truth, not in this task's hand-over).
+
+## 2026-10-13 207c DECISION: iteration 205 - the driver's auto-unblock did not lift the owner's "Stop 207" (which names the parent and hence this subtask), and the book (request 003, answered 10-11 "Use your recommendation") never arrived - no work possible; filed ask_human 008 (human_only/outside-vm: stop-scope confirmation + the NLS download or a drop-Roy decision); set Status: blocked again
+- The driver put 207c back to in-progress (0500b36) purely because its only request, 003, had been answered and closed and no request was open against 207c - the same no-open-request safety valve that fired on 207b (9906c89). It is not a lift of the owner's stop: the lead recorded "Stop 207" on 10-13 11:19 (62455ad: "the owner said 'Stop 207'. Do not start until the owner lifts it."), the stop names the parent task and hence all subtasks, and the lead's commit only named 207a + 207b because 207c was already blocked for a different reason (the book). No lift has come through (checked inbox, lead notes, DECISIONS, git log through today).
+- The book itself never arrived: 003 was answered "Use your recommendation" (console, 10-11) - the human downloads the NLS facsimile at https://maps.nls.uk/roy/antiquities/ into data/raw/books/roy1793/ - but that directory does not exist (verified this session; data/raw/books/ holds only a metadata.json cache for macdonald-1917-roy, the 1917 dissertation ABOUT Roy: no facsimile pages, no plate list, not a substitute). NLS is unreachable from this VM (AWS-WAF captcha, HTTP 405 "Human Verification", on every path; attempts 1-3, 10-11), so only a person with a browser can supply the copy, or the owner can drop Roy (003's option 2).
+- Filed ask_human request 008 (.agent/asks/008.md, blocking, human_only/outside-vm) against this task: (1) confirm the stop covers 207c too (a = it stands, my recommendation, consistent with the parked siblings 207a/207b on open 006/007 - one answer applies to all three; b = lifted), and (2) the book in data/raw/books/roy1793/ (any layout; minimum the 51 map plates + the printed list-of-plates page) or a "drop Roy" decision. human_only because the download can only be done by a person (outside-vm) and dropping Roy is the owner's call; the request waits for the human however long, which is what makes the blocked state stable.
+- Status set back to blocked (harness note "keep the status as it is" read as in the 207b iteration-204 precedent: do not close the task out - blocked-with-open-request is the state the lead wrote and the stuck rule prescribes). Blank slate verified: no module, no per-book artifacts, no roman staging files, no lead doc, no test, no roy1793 dir - nothing to unwind; the hand-over holds the resume recipe (local-file fetch adaptation + the parent's pipeline mechanics + the Roy-specific staging/lead-doc/golden steps). Tests not run: no code written this session (task file + journal only); suite unchanged at the recorded baseline 1/155/1 (lone red = agent a's in-flight 307 placement test, not this task's).
 
 
 <!-- task 208 -->
@@ -3676,6 +3788,94 @@ unconditionally. No code changed this session.
 - **Tests**: tests/test_cover.py 6/6 PASSED (41.7 s; test_report re-derives the 20-sample from the recorded seed 20261012 and checks buckets sum to the built total). Golden: `sha256sum -c tests/golden/hand_fit_docs.sha256` all 40 OK (21 hand docs + 19 site files byte-identical); test_fit_provenance::test_every_doc_carries_provenance PASSED. **Full suite: 159 passed / 1 failed / 1 skipped (390 s)** - the lone failure is test_fit_queue::test_placement_gestures_and_save_in_the_browser at its SEED ("dep:null"): **235's pre-existing red** (tasks/235, open + unassigned, Touches tests/test_fit_queue.py; red since ~iter 199, in the driver's baseline, named in 307d's hand-over line 66). I ran `_pick_place()`: it still returns **marietta** (plan ancientmonuments00squi_n0169_1; its only depiction is a 1904 USGS topo the page's surveyOldEnough 150-year filter hides, so no dep-<site> layer is ever created and the seed check reads null) - same site and same signature as 235's record, so my sync did not move or change it (marietta is none of the 11 re-fit sites). CORRECTION to the iter-252 hand-over: "later fixed by 307d" was wrong - 307d fixed its own test_owner_check; the gesture red was never 307d's to fix. The suite is exactly the established baseline: no test newly red by this session.
 - **Verdict**: all six boxes verified on live evidence (1: 212a's run + its 5 tests re-passing + the 13 re-fits went through the matcher line in this sync; 2: test_nopicture + 244 no-picture rows each with their exact searched string; 3: this task alone ran the sync, hand fits' overlays byte-identical; 4: review.json re-exported by the sync, open sets agree, test_review's page check green; 5: fresh docs/batch.md; 6: invariant 0/499, golden green, sample reproducible via test_report). The written port-0 test stays WAIVED per the lead's 212b say-so (design in git show 45675c9/1cd9671:tasks/212b-cover-sync.md; the driver accepted the identical live-evidence tick for 212b) - not re-opened as a subtask. NEXT SESSION: tick the six boxes, set Status: done, commit (the hand-over has the exact order and commit message). If the driver rejects the done claim, this entry + the 235 file + the 212b precedent are the defence.
 - PITFALLS: (a) dep-entry FILE name = "plan_" + doc["plan"] + ".webp" - the site prefix is STRIPPED from the doc id for the file, while fit.doc keeps the full "<sid>.<plan>"; audit with is_done's triple (file, fit.doc, fit.at) or you get false results (my first audit pass using the raw doc id as the name reported 70 missing / 57 stale instead of the true 13 / 0). (b) platefits doc ids = os.path.basename(path)[:-5] (a glob path keeps its dir and breaks the dict key).
+
+## 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
+The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
+(case b) never reads the deleted bethlehem doc - its seed is the golden doc
+c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
+is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
+c_61b86efb4511e099 with the 211 pictures; the item file and the published page
+entry still agree with each other at 13 candidates - verified). 231 was rewritten
+to cover only the year-once pin (case e) with a candidate list measured from the
+live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
+"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
+Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
+state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
+entry above (depends on 212). 234: test key to the generator's documented
+(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
+depend on the entry order) - plus a byte-reproducible regeneration of
+web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
+212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
+worktrees were removed (agent c's /tmp/aw306cab untouched).
+
+## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
+Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
+post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
+the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
+box 6 - did NOT materialize:
+1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
+   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
+   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
+   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
+   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
+   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
+   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
+2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
+   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
+   re-pruned here) still carries the STALE plan entry of that doc -
+   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
+   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
+   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
+   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
+   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
+Both sit in the 52-site population whose plans rows are ALL already review-item
+candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
+entry (its docstring: a blind re-run would swap the audit entries whole), so the
+loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
+also in DECISIONS under the 306a entries). Neither is in the search set (both have
+rows), so nopicture does not touch them. Box 6 holds for both via the open item -
+NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
+hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
+upsert in-place replacement + the skip guard that protects audit notes.
+Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
+doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
+pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
+carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
+searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
+no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
+definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
+untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
+the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
+CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
+row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
+(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
+n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
+the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
+(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
+hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
+well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
+expected item end states follow 201's derivation computed from the live items (doc on
+an in-item row -> item resolved write-once and off the open list, as for aesica; doc
+on a not-in-item row or no item -> item stays open if it exists; sent case -> item
+keeps the line-check why on that row's plan).
+
+## 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
+Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
+Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
+dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
+3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
+files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
+web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
+store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
+Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
+new inodes - and os.link every existing file; nothing is ever written in place):
+data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
+data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
+.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
+3.6G). Consequence: the hand-over's fallback (hard-link files only under the
+dirs that exist in the store + a few known dirs) is DROPPED - the test builder
+walks the store's data/raw and the followed checkout sites view
+unconditionally. No code changed this session.
 
 
 <!-- task 212a -->
