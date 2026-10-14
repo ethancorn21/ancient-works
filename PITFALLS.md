@@ -5,7 +5,7 @@ Contents, with the number of entries. Search for a file, function, library or er
 - Agent tools and harness (16)
 - This machine and its environment (42): Model servers (this VM's own cards) 30, Internet Archive (archive.org) 12
 - Libraries and frameworks (15): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 7, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1, pytest (9.1.1, project .venv) 1
-- This codebase (122): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 21, fit/ 20, pipeline/ 11, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 13, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 4, web/ (the page and its extension scripts) 16, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 2, tests/playwright 4, data/merge/ (211's consolidation runners) 1, A/B-testing a change against a pristine tree (in-checkout, never a fresh worktree) 1, tools/export_plans.py 1, tools/site_done.py, fit/review.py 5
+- This codebase (126): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 21, fit/ 23, pipeline/ 11, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 13, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 4, web/ (the page and its extension scripts) 16, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 2, tests/playwright 4, data/merge/ (211's consolidation runners) 1, A/B-testing a change against a pristine tree (in-checkout, never a fresh worktree) 1, tools/export_plans.py 1, tools/site_done.py, fit/review.py 5
 1 entry lacks a `Where:` or `Symptom:` line: add them when you touch those entries.
 <!-- contents:end -->
 
@@ -633,6 +633,23 @@ Accept the 1-in-8 scale-error acceptance, backstopped by the review queue (GOAL 
 human's 18/20 sample of auto-accepted fits (GOAL 3); a tighter rule may only be derived on
 fresh documents with a fresh seed.
 
+#### A transform=None gate cannot see a scale-shaped ground error of any measured magnitude - a 15%-scale matcher answer re-solves to median ~ 0
+Where: `pipeline/fit_gate.py` (`gate`/`placement` with `transform=None`), `fit/batch_us.py`
+      (`gate_placement`), `fit/matchfit.py` (`_settle`), the fails-gate test case of tasks/238-matcher-gate.md
+Symptom: the variant the 238 task Notes proposed as the fails-gate matcher example (the pairs'
+      ground points scaled 1.15x about their centroid, then `gate(pairs, None)`) does not fail:
+      it ACCEPTS with med 0.0104 (a uniform 1.15x); a radial 15%/50% variant ACCEPTS too (med
+      2.27/7.59) - a fails-gate test case built on scale silently passes.
+Why: with transform=None the gate solves the canonical similarity from the pairs themselves, so a
+      CONSISTENT global distortion (uniform or radial scale) is absorbed into the solved placement
+      and the residuals return to ~0 (the section-7 limit, docs/gate.md). Only anchor-offset
+      patterns fail it (4 of 8 anchors +-200 m E, alternating: med 96.8 m > 45 m, the median
+      clause; 2 of 8: the slope clause) - i.e. what is self-inconsistent, measured. Section 9's
+      scale15 rows were caught only because they were CLAIMED placements (transform != None) tested
+      against recorded anchors. Build fails-gate test cases from anchor offsets and label them
+      synthetic; the scale-shaped variants belong in the test as PASSING (they back the
+      section-7 limit statement).
+
 #### In-place re-dump of a jsonl line must carry the line terminator or rows glue together
 Where: `fit/evidence.py` (`set_field`, `rewrite`, `record`); the test that guards it: `tests/test_evidence.py` (`test_record_appends_evidence_without_touching_existing_bytes`)
 Symptom: after a `record`-style rewrite, one line of a jsonl file contains two JSON objects (this line
@@ -869,6 +886,18 @@ Why: MediaWiki page titles are case-sensitive except in the first character; a m
 
 ### fit/
 
+#### record._fake_match takes the fixture's responses dict, not the fixture
+Where: `tests/fixtures/matchfit_station/record.py` (`_fake_match`); offline replays of the 302f/
+      238 fixtures (`records.json`, `records_unsure.json`)
+Symptom: passing the whole fixture to `rec._fake_match(fixture)` KeyErrors on every /match
+      request (the lookup is by sha256 of the exact request body, which never matches a fixture
+      top-level key) - matchfit prints `matcher error on <ground> x<f>: '<sha256>'` for every
+      window and fit_row reports "the matcher found nothing consistent".
+Why: `_fake_match(records)` does `records[hashlib.sha256(body).hexdigest()]`; the fixture's top
+      level is `{header, responses}`, so pass `fixture["responses"]` (the flat sha256 -> response
+      map). test_matchfit_station.py's in-process stub never hits this: it hashes the live request
+      body against the same dict itself.
+
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
 Where: `fit/batch_us.py` (`write_report`, path building), `tests/test_batch_us.py`
       (`_check_doc`, `_check_doc_stub`)
@@ -1078,6 +1107,21 @@ Why/how: `item_path` builds the name from `ROOT = Path(__file__).resolve().paren
 Where: `data/review/*.json` candidate entries written by the 306 audit's 303-way (`fit/review.py` `upsert_item`), `server/serve.py` (route `/media/commons/<site>/<h>.jpg` -> data/raw/commons/<site>/<h>.jpg), `web/review.js` (L126: `url: c.url` - the page loads the candidate's url directly)
 Symptom: following a hand-over note saying "use the row's url verbatim", a 306e entry stored upload.wikimedia.org/... and the Review tab fetched an EXTERNAL image - dead on no-internet test runs (ERR_ABORTED, like the Esri tiles) and inconsistent with every other 306e entry, which all use the relative form (iteration 196, taunton)
 Why/how: the candidate url is what the page loads, and the only thing the server can serve is a local file under data/raw; the fit doc's own `url` field already stores exactly that served path, so reuse it verbatim (books docs: the equivalent /books/ path, as the existing book-candidate items use).
+
+#### np.abs on an (n,2) point array is per-element, not the per-row radius; broadcasting (n,1) against it silently yields (n,n,2)
+Where: any numpy work over `[x, y]` point arrays in ground metres (238's gate measurements: `pipeline/fit_gate.py` `score` shapes; throwaway /tmp scripts that distort a doc's pairs before re-gating)
+Symptom: per-row scale factors computed as `rho[:, None] / rho.max()` style or `np.abs(z - C)` on a complex-free (n,2) array give per-element magnitudes, and any `(n,1) * (n,2)` product you build from them silently broadcasts to (n,n,2) - the gate then runs on garbage pairs without any error (med/slope look plausible).
+Why: numpy's abs is elementwise; the row-wise magnitude of (x, y) is the COMPLEX magnitude `abs(x + 1j*y)`, which is what `fit_gate.score`/`matchfit.ransac` do internally. Do the distortion/scale math in complex form (`z = x + 1j*y`), never in (n,1)x(n,2) outer-product form.
+
+#### tests/golden/hand_fit_docs.sha256 is 22 by:hand docs + 19 data/sites/<id>/site.json - not "22 + 19 by:None docs"
+Where: `tests/golden/hand_fit_docs.sha256`, `tests/golden/hand_fit_sites.txt`, `fit/batch_us.py` (`write_golden`), `data/db/platefits/`
+Symptom: the 41-line golden file looks like it could be 22 + 19 PLATEFITS docs (the prep note 238/A8 guessed "19 by:None docs" in the store); the second half is actually the 19 hand-fit SITES' old-style `data/sites/<id>/site.json` files (from `hand_fit_sites.txt`).
+Why: `write_golden` (docstring: "plus the 19 hand-fit sites' data/sites/<id>/site.json files") hashes exactly those two sets; the store itself holds 71 docs = 22 by:hand + 49 by:agent/fitter:matcher and zero unmarked, so a hermeticity check (238's test, candidate 3) should snapshot every `data/db/platefits/*.json` (all 71) and the golden separately, never assume the golden covers the matcher docs.
+
+#### Patching `matchfit.reachable` for an offline replay needs a lambda returning False - a bare `False` crashes the run
+Where: `fit/matchfit.py` (`run` calls `reachable(roma)` WITH the URL argument; `reachable(url=None)`), offline replays of the 302f/238 fixtures (`rec._fake_match`)
+Symptom: after `mf.reachable = False` (a shorthand the 238 hand-over notes used), `mf.run(...)` raises `TypeError: 'bool' object is not callable` on the first site - it looks like a matcher failure but it is the patch itself
+Why/how: `run` calls `reachable` with the RoMa URL as an argument, so the patch must be a callable: `mf.reachable = lambda url=None: False` (tests/test_matchfit_gate.py does exactly this; the 302f station test instead keeps the real `reachable` and points `ROMA_URL` at a dead ephemeral port, letting its `except Exception` turn the refused connection into False).
 
 ### pipeline/
 

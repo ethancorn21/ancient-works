@@ -224,7 +224,7 @@ def test_confident_matcher_station(tmp_path):
     assert "at" in doc
     assert {k: v for k, v in doc.items() if k != "at"} == hdr["doc"]
     assert (doc["by"], doc["auto"], doc["fitter"]) == ("agent", True, "matcher")
-    assert set(doc["matcher"]) == {"model", "inliers", "matches", "ground", "window", "rot_deg", "spread"}
+    assert set(doc["matcher"]) == {"model", "inliers", "matches", "ground", "window", "rot_deg", "resid_m", "spread"}
 
     # the build replaced the same-file plan depiction (the matcher's fit) and rebuilt the webps
     dep = next(d for d in json.loads(
