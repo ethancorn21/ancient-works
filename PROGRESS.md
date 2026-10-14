@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 215, agent a - DONE, all 5 boxes ticked, committed. it.214's
+- `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
@@ -18,34 +18,7 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-14 230 DECISION: iteration 214 - the commons.NO google-refinement APPLIED and verified (1572 plans, pure growth, test_merge 10/10, test_data 3/3); full suite 4 reds, ALL triaged: 2 = the 302f fixture drift (caused by 230's own step-2 index rebuild - re-record tasked as 243 next session), 2 = the 307d owner-check probe (NOT 230's combination - A/B + byte-identity proven; now consistent on this checkout, local-build suspect recorded)
-
-**The fix (applied, uncommitted):** pipeline/commons.py NO: bare `google` -> `google (?:maps?|earth|art|street view|satellite)` with a why-comment (book-scan provenance "leaf nNNNN of the 936-leaf Google scan" vs screenshot junk; the junk the rule targets names its product). Re-verified before editing: the ONLY files.jsonl rows with "google" in title/desc are the 17 horsley roman rows (their flip drop->pass is the intended one; a first-pass probe printed 50 flips but that was a Match-object identity bug in MY comparison script, not the code); GAp/Maps/Earth/StreetView junk titles all still caught (fit/src_artists.py:71's rationale stays true - that file untouched); no test fixture asserts a bare-google drop.
-
-**Verification so far:** export_plans re-run -> plans.json 1572 (1510 baseline + 44 roman book + 18 roman commons): 0 lost keys vs data/merge/plans_premerge_keys.jsonl (JSONL {id,site}, 1510 keys, no header - the "lost ('id','site')" in the first probe was my tuple(dict) bug), 0 duplicate (id, sites[0]), 0 rows changed/gone vs the 1555 file (the 17 new = the previously-dropped horsley commons, each tied to its own site; the maclauchlan row was already in 1555). test_merge.py 10/10 (the open build gate CLOSED - all 9 built sites complete). test_data.py 3/3. PENDING (next session, 2 small checks): the export_plans SECOND-RUN byte-identity (sha256 twice - the earlier script crashed before that check) and the box-5 named test test_serve::test_hand_fits_are_the_reference run alone (it passed inside the full suite).
-
-**FULL SUITE: 4 failed / 182 passed / 1 skipped (480s), and the driver's loop-start red (test_fit_queue::test_placement_gestures) PASSED this time.** The 4:
-
-1+2. tests/test_matchfit_station.py (both) - the 302f fixture's drift detector fired: input_hashes.index_row. CAUSE = my step 2 (37edbfb): the index rebuild re-stamped evidence.checked 2026-10-12 -> 2026-10-14 on every row; PROVEN by hash: the earthworkenglan01allcgoog_n0132_1 row's hash at 37edbfb^ equals the fixture's recorded hash exactly, and the only field that changed since is evidence.checked (the matcher request body itself is unchanged). The detector's own prescription: rerun tests/fixtures/matchfit_station/record.py in the working phase (live ELoFTR 127.0.0.1:8091) and commit the refreshed fixture. That is 302f's files, outside my Touches -> new task 243 (created next session: Depends on 230, Touches tests/test_matchfit_station.py + tests/fixtures/matchfit_station/). record.py hashes 9 inputs; only index_row is drifted, the re-record refreshes all.
-
-... (3.5 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 214 - the commons.NO google-refinement APPLIED and verified (1572 plans, pure growth, test_merge 10/10, test_data 3/3); full suite 4 reds, ALL triaged: 2 = the 302f fixture drift (caused by 230's own step-2 index rebuild - re-record tasked as 243 next session), 2 = the 307d owner-check probe (NOT 230's combination - A/B + byte-identity proven; now consistent on this checkout, local-build suspect recorded)' DECISIONS.md`)
-
-### 2026-10-14 230 DECISION: iteration 215 - DONE (all 5 boxes, committed). it.214's code changes were lost by the driver's dc7f9ee sweep (PNGs only) and were restored from the /tmp backups and re-verified from scratch; the owner-check red's last suspect (divergent local site builds) is REFUTED - all site files byte-identical across the three checkouts, so the red is the 307d mid-transition family (remedy = queued task 242); the 302f fixture re-record is task 243 (created)
-
-**The loss + restore (the session's first finding):** at session start the tree was CLEAN but pipeline/commons.py had the PRE-fix NO (bare `google`) and web/data/plans.json was the 1555-row file - the it.214 uncommitted fix and 1572-row export had been dropped when the driver committed dc7f9ee ("uncommitted work after iteration 214", which contained only the three dirty 307d PNGs). The /tmp backups made in it.214 (/tmp/commons_230s5.py, /tmp/plans_230s5.json) were intact; both restored (the backup commons.py diffs from HEAD by exactly the 4 comment lines + the refined NO alternative; the backup plans.json is pure growth over the current 1555 file: 0 lost keys, 17 added = the previously-dropped horsley commons rows).
-
-**Fresh verification (all run this session, none inferred):** (1) NO fix re-probe: 17/17 horsley "936-leaf Google scan" files rows pass keep(); Google Art Project/Earth/Maps/Street View/satellite titles all still dropped; 0 non-roman files rows contain bare "google". (2) export_plans run TWICE: first run's output sha256 dee768f2db7c... is BYTE-IDENTICAL to the it.214 backup (the regeneration is exactly reproducible), second run byte-identical to the first (the it.213/214 pending idempotence check, now closed). (3) fit/merge.py merge --sources roman re-run on the current tree: +0/+0/+0, refused 0, the 3 canonical files sha256-unchanged (box 1 idempotence re-proven post-merge-state). (4) fit/evidence.py check: rc 0, "2751 rows, 1456 pass, 0 fail, 1295 no-tie". (5) sites.json 508, all 9 roman site dirs present and complete. (6) test_merge.py 10/10, test_data.py 3/3, test_serve.py::test_hand_fits_are_the_reference 1/1 alone, tests/golden/hand_fit_docs.sha256 all OK.
-
-**data/raw finding (why regeneration is reproducible here):** data/raw in this checkout is a SYMLINK to /home/agent/projects/ancient-works/data/raw (the lead's shared raw store; aeeb5aa "data/raw synced both ways Mac<->VM so any export is complete"). `find data/raw -type f` reports 0 because find does not follow the top-level arg symlink - the content is all there (britanniaromanao00hors/full 24, memoirwrittendu00maclgoog/full 6, the 18 roman commons copies).
-
-... (4.5 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 215 - DONE (all 5 boxes, committed). it.214's code changes were lost by the driver's dc7f9ee sweep (PNGs only) and were restored from the /tmp backups and re-verified from scratch; the owner-check red's last suspect (divergent local site builds) is REFUTED - all site files byte-identical across the three checkouts, so the red is the 307d mid-transition family (remedy = queued task 242); the 302f fixture re-record is task 243 (created)' DECISIONS.md`)
-
-### 2026-10-14 230 DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_matchfit_station.py::test_confident_matcher_station
-    tests/test_matchfit_station.py::test_unsure_matcher_station
-    tests/test_owner_check.py::test_owner_save_bar_scale
-    tests/test_owner_check.py::test_owner_save_site_size_fallback
+(no entries yet)
 
 ## Project-wide driver notes (newest)
 
