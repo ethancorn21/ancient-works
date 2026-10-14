@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 212, agent a - STEP 4 (9 site builds) LAUNCHED and running at session end; the plans.json prep for step 5 is fully scoped and t
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 213, agent a - step 4 closed (background build finished all 9 roman sites, sites.json 508); step 5: 44 roman matcher rows appended (matches.jsonl 934) + export_plans re-run exposed the commons.NO bare-'google' trap dropping 17 of 18 roman commons rows - the product-name refinement is decided/scoped, apply next session, then re-run export_plans (1572) + test_merge/test_data/full suite, tick boxes, done)
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
