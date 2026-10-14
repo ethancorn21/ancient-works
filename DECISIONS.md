@@ -648,3 +648,7 @@ carry the parenthetical on line 3, so a main<->branch merge can conflict on that
 line; the resolution is always the bare list (the scheduler requires it) with the
 rationale staying in the hand-over body. PITFALLS gained the tokenizer fact under
 Agent tools and harness. All seven boxes re-verified true; Status set back to done.
+
+## 2026-10-14 000 DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.

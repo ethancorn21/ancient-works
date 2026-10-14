@@ -1,4 +1,4 @@
-Status: done
+Status: in-progress
 # 000: Plan the project from GOAL.md
 Depends on: none
 Touches: PLAN.md, CODEMAP.md, tasks/, requirements.in, requirements.txt, tests/, server/serve.py, PITFALLS.md, DECISIONS.md
