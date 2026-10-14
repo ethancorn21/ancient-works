@@ -66,6 +66,10 @@ staging files, the way 213 staged Civitates.
 
 NEVER write the canonical files (that is 236c); NEVER touch 236a's extras_us_cities.jsonl (read-only; the module's _shared_site enforces it); run live commands under .venv/bin/python (system python3 has no numpy; the module top stays stdlib-only); batch size ~5 cities/session to fit the context limit; the golden sample is the contract (--golden only for an intended change); the full suite re-writes the docs/site_flow/307d_*.png every run - if the bytes change, carry them in the commit with the 306g-style disclosure; tests never bind fixed network ports or write outside the project + temp dir; when recording a distance/direction claim in a doc or comment, MEASURE it (the 188 NE/west errors, and the 192 correction of the 191 "9109 km" to the measured 7943 km east, are exactly that class of claim).
 
+---
+
+**EVERYTHING BELOW THIS LINE IS SUPERSEDED** (the iteration-191/189 hand-over bodies and the driver-moved PROGRESS snapshot, kept only so nothing is lost; a fresh-budget session should delete it - the 189/191 content is in DECISIONS.md, the driver block in git 8b5c498 and the regenerated PROGRESS.md).
+
 ### State (tree was clean at session start)
 
 - Kansas City (batch 3 city 1) LANDED and committed by the driver's sweep 7771bc6 (iteration 190's work): module 15 cities, 11 site rows / 22 file rows / 22 classified rows, lead doc at 15 cities / 22 views, golden + tests at 22 rows.

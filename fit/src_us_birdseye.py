@@ -77,8 +77,8 @@ SHARED_SITES = {
 # task Notes). Batch 1 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
 # docs/lead_us_birdseye.md): Boston, Philadelphia, Baltimore, Pittsburgh, Cincinnati. Batch 2 (checked
 # live 2026-10-14): Louisville, St. Louis, Chicago, Detroit, Milwaukee. Batch 3 (checked live
-# 2026-10-14): Kansas City. >= 25 cities total with the four shared above, the remaining batches as
-# they are added.
+# 2026-10-14): Kansas City, New Orleans. >= 25 cities total with the four shared above, the remaining
+# batches as they are added.
 SITES = {
     # Q100: P625 (-71.057778, 42.360278) = downtown (the old town center / Faneuil Hall); P131 Suffolk
     # County; enwiki "Boston"; no name-search trap (the first search hit with coordinates is the city).
@@ -241,6 +241,31 @@ SITES = {
                         "steamboats in the foreground, the grid dense and legible out to the rural "
                         "outskirts, spanning the whole city beyond the 2000 m town box, so its fit is "
                         "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
+    # Q34404: P625 (-90.078333, 29.976111) is the city's ONLY normal-rank value (30 m precision) - the
+    # point sits in the city's northern part (the City Park area, a few km north of the downtown core);
+    # the 1851 sheet's drawn extent covers the 2000 m town box, so no refinement. P131 = Q486231 Orleans
+    # Parish (SINGLE - New Orleans is a consolidated city-parish); P373 is the STRING "New Orleans"
+    # (a Wikidata quirk, not a country entity - the place is written from the parish + the state);
+    # P17 = Q30 United States; enwiki "New Orleans". The name search has NO trap (the first hit with
+    # P625 is Q34404 itself, dist 0); the other P625 hits are the second hit Q1474157 "LSU New
+    # Orleans" (P625 (-90.0671, 30.0275), 5.8 km away - 1.1 km east and 5.7 km north, bearing 11 deg,
+    # within the 50 km flag, not a trap) and the BUILDING Q2522995 "New Orleans (Rotterdam)"
+    # (4.487222, 51.904722) - 7725 km away (7943 km east and 2432 km north of the city's point,
+    # bearing 73 deg, measured 2026-10-14).
+    "Q34404": dict(id="new-orleans-q34404", name="New Orleans", named="New Orleans",
+                   lon=-90.078333, lat=29.976111,
+                   place="Orleans Parish, Louisiana", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/New_Orleans",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Mississippi and its levee and Lake "
+                        "Pontchartrain carry the fit; the 1851 staged sheet is a steep oblique whole-city "
+                        "view drawn from the river side (the west/southwest of the city) looking "
+                        "east/northeast - the Mississippi and its levee and steamboat fleet in the "
+                        "foreground, the grid dense and legible out to the rural outskirts, the delta "
+                        "and the Gulf of Mexico toward the lower right of the sheet and Lake "
+                        "Pontchartrain upper left (the sheet's compass rotated ~90 deg counter-clockwise "
+                        "from a north-up map), spanning the whole city far beyond the 2000 m town box, so "
+                        "its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # New York (checked live 2026-10-14; per-file STAGED/DROP verdicts in docs/lead_us_birdseye.md). The
@@ -433,6 +458,18 @@ KANSASCITY_1869 = [
     ("File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg",
      "Q41819", "Kansas City", dict()),
 ]
+BACHMAN_1851 = [
+    # the OLDEST staged view of the whole project (1851, before the SF 1854 Bill view): steep oblique
+    # whole-city view drawn from the river side (the west/southwest of the city) looking east/northeast
+    # - inside the frame "DRAWN FROM NATURE ON STONE BY J. BACHMAN." and "PRINTED BY J. BACHMAN", the
+    # banner "BIRDS EYE VIEW OF NEW-ORLEANS / PUBLISHED BY THE AGENTS A. GUERBER & Co, 160 Pearl St.
+    # New York."; the LOC's own copy's standard summary is "with the Mississippi River in the
+    # foreground"; the levee and its steamboat fleet in the foreground, the grid dense and legible out
+    # to the rural outskirts, the delta and the Gulf of Mexico toward the lower right of the sheet and
+    # Lake Pontchartrain upper left; the page date 1851 matches the drawing (no Zwolle-style swap)
+    ("File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif",
+     "Q34404", "New Orleans", dict()),
+]
 
 SOURCES = {
     "bachmann_1874": dict(rows=BACHMANN_1874, p="birdseye",
@@ -479,6 +516,8 @@ SOURCES = {
                            label="{name}, the Bailey bird's-eye view (1872)"),
     "kansascity_1869": dict(rows=KANSASCITY_1869, p="birdseye",
                             label="{name}, the Ruger bird's-eye view (1869)"),
+    "neworleans_1851": dict(rows=BACHMAN_1851, p="birdseye",
+                            label="{name}, the Bachman bird's-eye view (1851)"),
 }
 
 
