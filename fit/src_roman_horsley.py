@@ -219,6 +219,399 @@ def list_cmd():
     books_lists.cmd_ocrmap([KEY])
 
 
+# ---------------------------------------------------------------- staging (box 2/3/4, the 808 decisions)
+
+# The 17 verified kind-s leaves staged into the shared roman files: one row per leaf, in leaf order.
+# title = the plate's printed heading (the 24-entry list's entry for the leaf; n0114/n0185 the short
+# form of it) - the 200 evidence's named place; name = a short descriptive name; desc = the plate's
+# subject + the other forts named on it (the stage-B site_names) + the tie decision (DECISIONS 808
+# 147/149). tie = the site the row names: a catalog site id (looked up at run time in sites.jsonl;
+# luguvallium in extras_roman.jsonl), a reused extras.jsonl id (bar-hill-fort, rough-castle-fort),
+# or a NEW_SITES key below. Multi-fort maps tie to the most-named/planned fort (216's design), the
+# others recorded in desc.
+STAGE_ROWS = [
+    (114, "ardoch",
+     "Innerpeffery camp. and Ardoch camp.",
+     "The legionary camps of Ardoch and Innerpeffery, two plans, Horsley (1732), P.44",
+     "Horsley, Britannia Romana (1732), P.44 (leaf n0114): the two legionary camps of the Mons "
+     "Graupius campaign per the book's text pp.43-44 ('the legions might poflibly have been at "
+     "Ardoch, or Innerpeffery, before they marched to the battle'): Ardoch camp (the lower plan, "
+     "concentric with a Praetorium box, the Knoch river on its west and the Ruchel to its north) and "
+     "the Innerpeffery camp (the upper plan, a single circuit with a military way and 'a bank by "
+     "which the river has formerly run'; each plan with its 200-yard scale). The Ardoch row is the "
+     "Braco camp (Q4788225, Gask Ridge - DECISIONS 808 148); the Innerpeffery camp is recorded here "
+     "on this row (the 808 box: no row of its own). Internet Archive britanniaromanao00hors, leaf "
+     "n0114 of the 936-leaf Google scan (British Museum volume)."),
+    (185, "virosidum",
+     "The five fecondary ftations per lineam valli",
+     "The five secondary stations per lineam valli, five fort plans, Horsley (1732), P.113",
+     "Horsley, Britannia Romana (1732), P.113 (leaf n0185): five fort plans - I GLANNIBANTA "
+     "(Lanchester), II ALIONE (Whitley castle), III BREMETEN RACUM (Old Penrith), IV OLENACUM (Old "
+     "Carlisle), V VIROSIDUM (near Elenborough), with Praetorium boxes on I and III, Watling Street, "
+     "a compass and 'A feale of 100 paces'. I-IV have catalog rows (longovicium-q6674222, "
+     "whitley-castle-q7996561, voreda-roman-fort-q17642742, luguvallium-q71551754); the row ties to "
+     "V VIROSIDUM, the only one of the five without a catalog row, as the plate's new no-QID 'roman "
+     "fort' row - all five plans are equal, so no other ranking (DECISIONS 808 147 item 4). "
+     "Internet Archive britanniaromanao00hors, leaf n0185 of the 936-leaf Google scan (British "
+     "Museum volume)."),
+    (236, "castrum-segedunum-q637958",
+     "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+     "Hadrian's Wall, general map of the whole secondary-station line, Horsley (1732), N.1",
+     "Horsley, Britannia Romana (1732), P.158 N.1 (leaf n0236): a general map of the Roman walls in "
+     "the north of England and so much of the adjacent countryes as includes the secondary stations "
+     "per lineam valli: the whole line from Segedunum (SEGEDYNVM) to Tunnocelum (TIVN NOCELVM), every "
+     "station labelled (B's read: PONSAELII, CONDERCVVM, VINDOBALA, HYNVNVM, CILVRNVM, BORCOVICVS, "
+     "PROCOLITIA, MAGNA, PETRIANA, AESTICA, VINDOLANA, ALIONE, GLANNIBANTA, BREMENIVM, BREMETERACVM, "
+     "BROCAVVM, BRONONACAE, BLATVM VVLGIVM, CASTRA EXPLORATORVM, CORSTOPITVM, GALLAVA, HABITANCVM, "
+     "VINDOMORA, ABALLABA, AMBBOGLANNA, CONGAVATA, AXELODYNYVM, LVGVAVALLIVM, OLENACVM, VIROSIDVM, "
+     "GABROSENTVM; a scale of ten miles) - no inset fort plans: the map itself is the series' "
+     "subject, so the row ties to the wall's east end, Segedunum (DECISIONS 808 147 item 6). "
+     "Internet Archive britanniaromanao00hors, leaf n0236 of the 936-leaf Google scan (British "
+     "Museum volume)."),
+    (238, "castrum-segedunum-q637958",
+     "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.",
+     "Hadrian's Wall, map from Segedunum to Condercum, Horsley (1732), N.2",
+     "Horsley, Britannia Romana (1732), P.158 N.2 (leaf n0238): the wall from Segedunum to Condercum, "
+     "with Pons Aelius (PONSAELIVM) between them (216's full-size reading; B's names: Severus's "
+     "wall, Hadrian's stallum and the Roman way, a scale of two miles). Tied to Segedunum, the "
+     "title's first station. Internet Archive britanniaromanao00hors, leaf n0238 of the 936-leaf "
+     "Google scan (British Museum volume)."),
+    (240, "rudchester-roman-fort-associated-civil-s-q17669775",
+     "A map of the Roman wall, from CONDERCVVM to VINDOBALA.",
+     "Hadrian's Wall, map from Condercum to Vindobala (Rudchester), Horsley (1732), N.3",
+     "Horsley, Britannia Romana (1732), P.158 N.3 (leaf n0240): the wall from Condercum ('now Benwel "
+     "hill') to Vindobala ('now Rutchester'), with both forts' inset plans, the Tine river, Severic's "
+     "wall and vallum and Hedrican's wall and vallum. Tied to the Vindobala plan (the catalog's "
+     "Q17669775 row). Internet Archive britanniaromanao00hors, leaf n0240 of the 936-leaf Google "
+     "scan (British Museum volume)."),
+    (242, "haltonchesters-roman-fort-settlement-and-q17648018",
+     "A map of the Roman wall, from VINDOBALA to HANNAVVM.",
+     "Hadrian's Wall, map from Vindobala to Hannavum (Haltonchesters), Horsley (1732), N.4",
+     "Horsley, Britannia Romana (1732), P.158 N.4 (leaf n0242): the wall from Vindobala to Hannavum "
+     "('now Halton Cheisters'), with the Hannavum plan, two oval camp/fort plans, the Tine river, "
+     "Halden Lough, and Severus's wall and Hadrian's vallum. Tied to the Hannavum plan (the catalog's "
+     "Q17648018 row). Internet Archive britanniaromanao00hors, leaf n0242 of the 936-leaf Google "
+     "scan (British Museum volume)."),
+    (244, "cilurni",
+     "A map of the Roman wall, from HANNAVVM to CILVRNVA.",
+     "Hadrian's Wall, map from Hannavum to Cilurni (Chesters), Horsley (1732), N.5",
+     "Horsley, Britannia Romana (1732), P.158 N.5 (leaf n0244): the wall from Hannavum to Cilurni "
+     "('now West Chesters'), with the Cilurni plan, Onnum (HVNNVM), Corbridge, the Tine river, the "
+     "Hadrian's vallum, the military way and the modern places (Aldon gate, Hollerton, Hulton, "
+     "Whittingtons, ...). Tied to the new no-QID cilurni row (the catalog's Q17650519 row sits ~300 m "
+     "away; the row stays no-QID per the 808 box's tie list - DECISIONS 808 147/149). Internet "
+     "Archive britanniaromanao00hors, leaf n0244 of the 936-leaf Google scan (British Museum "
+     "volume)."),
+    (246, "birdoswald-roman-fort-and-the-section-of-q17650767",
+     "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.",
+     "Hadrian's Wall, map from Cilurni to Borcovaceus (Birdoswald), Horsley (1732), N.6",
+     "Horsley, Britannia Romana (1732), P.158 N.6 (leaf n0246): the wall from Cilurni to Borcovaceus "
+     "(Birdoswald), with the Borcovaceus plan, Procolitia (Carvoran), Cilurni again, the military "
+     "way, Severus's wall and Hadrian's wall and vallum. Tied to the Borcovaceus plan (the catalog's "
+     "Q17650767 row). Internet Archive britanniaromanao00hors, leaf n0246 of the 936-leaf Google "
+     "scan (British Museum volume)."),
+    (248, "aesica-q4688554",
+     "A map of the Roman walls from BORCOVACEVS to MAGNA.",
+     "Hadrian's Wall, map from Borcovaceus to Magna with inset fort plans, Horsley (1732), N.7",
+     "Horsley, Britannia Romana (1732), P.158 N.7 (leaf n0248): the wall from Borcovaceus to Magna, "
+     "with three inset fort plans on a 100-yard scale - Magna, Vindolana and Aesica. Tied to the "
+     "Aesica plan (the box's explicit tie; the catalog's Q4688554 row). Internet Archive "
+     "britanniaromanao00hors, leaf n0248 of the 936-leaf Google scan (British Museum volume)."),
+    (250, "petriana",
+     "A map of the Roman walls from MAGNA to PETRIANA.",
+     "Hadrian's Wall, map from Magna to Petriana with inset fort plans, Horsley (1732), N.8",
+     "Horsley, Britannia Romana (1732), P.158 N.8 (leaf n0250): the wall from Magna to Petriana, "
+     "with two inset fort plans (PETRIANA, AMBOGLANNA). PETRIANA here is Horsley's HYPOTHETICAL "
+     "station on the Cumberland coast (between Longhope and the Cark), not the real Petriana = "
+     "Rudchester (the VINDOBALA-tied catalog row); the inset plan is a schematic. Tied to the new "
+     "no-QID petriana row. Internet Archive britanniaromanao00hors, leaf n0250 of the 936-leaf "
+     "Google scan (British Museum volume)."),
+    (252, "congavata",
+     "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.",
+     "Hadrian's Wall, map from Petriana to Congavata (Castlesteads), Horsley (1732), N.9",
+     "Horsley, Britannia Romana (1732), P.158 N.9 (leaf n0252): the wall from Petriana to Congavata "
+     "(Castlesteads), with the Congavata plan, Aballaba, and the Cauda (Peterel), Eden, Irlthing and "
+     "Gelt rivers. Tied to the new no-QID congavata row (the catalog's Q17650705 row sits ~200 m "
+     "away; the row stays no-QID - DECISIONS 808 149). Internet Archive britanniaromanao00hors, "
+     "leaf n0252 of the 936-leaf Google scan (British Museum volume)."),
+    (254, "tunnocelum",
+     "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM.",
+     "Hadrian's Wall, map from Congavata to Tunnocelum (Solway fold-out), Horsley (1732), N.10",
+     "Horsley, Britannia Romana (1732), P.158 N.10 (leaf n0254): a two-landscape-page fold-out of "
+     "the wall from Congavata to Tunnocelum: the west part shows CONGAVATA 'now Stanwicks' at the "
+     "Eden mouth (Grinfdale, Stenton, Etterby), the east part shows TVNNOCEIVM 'now Boulneis' by "
+     "Braken ridge on the Solway shore north of the Esk estuary (ITVNNAE AESTVARIVM; the Esk mouth "
+     "with Ronciff at the SW of the map), with Gabrosentum, Drumbrugh, Axelodunum, Brugh, the Solway "
+     "Frith, and Hadrian's and Severus's vallums. Tied to the new no-QID tunnocelum row, which "
+     "follows the plate's Boulneis placement (DECISIONS 808 149). Internet Archive "
+     "britanniaromanao00hors, leaf n0254 of the 936-leaf Google scan (British Museum volume)."),
+    (278, "bar-hill-fort",
+     "A general map of Antoninus's wall in Scotland.",
+     "Antonine Wall, general map of the wall in Scotland, Horsley (1732), N.1",
+     "Horsley, Britannia Romana (1732), P.176 N.1 (leaf n0278): a general map of Antoninus's wall in "
+     "Scotland: the whole wall line from the west end to Falkirk, with the forts and camps named "
+     "(B's read: New Kirkpatrick, Old Kirkpatrick, Duntocher, Castle-hill, Bemulie, Kirkintilloch, "
+     "Auchindavy, Barhill, Crowyhill, Wellerwood, Castle-cary, Rough-castle, Camelon, Falkirk, "
+     "Mumrills, Caer-niden, Abercorn, Alaterva, Glasgow, Hamilton, Edinburgh, Leviston, Lindthgow, "
+     "Reafew, the Calder, Alordur, Gartnavan, Dangoin hill; a scale of ten miles). Tied to the "
+     "wall's west end, Bar Hill (the reused bar-hill-fort row - DECISIONS 808 147 item 6). Internet "
+     "Archive britanniaromanao00hors, leaf n0278 of the 936-leaf Google scan (British Museum "
+     "volume)."),
+    (280, "bar-hill-fort",
+     "A map of the Roman wall in Scotland from the west end to Bemulie.",
+     "Antonine Wall, map from the west end to Bemulie, Horsley (1732), N.2",
+     "Horsley, Britannia Romana (1732), P.176 N.2 (leaf n0280): the wall from the west end to "
+     "Bemulie, with three inset fort plans - New Kirkpatrick fort (the west end), Cattle-hill fort "
+     "and Duntocher fort - the Clyde, Duntocher water, Bemulie and Old Kirkpatrick; a scale of two "
+     "English miles. Tied to the wall's west end, Bar Hill (the reused bar-hill-fort row - "
+     "DECISIONS 808 147 item 6). Internet Archive britanniaromanao00hors, leaf n0280 of the 936-leaf "
+     "Google scan (British Museum volume)."),
+    (282, "kirkintilloch",
+     "A map of the Roman wall in Scotland from Bemulie to Crowy-hill.",
+     "Antonine Wall, map from Bemulie to Crowy-hill with fort plans, Horsley (1732), N.3",
+     "Horsley, Britannia Romana (1732), P.176 N.3 (leaf n0282): the wall from Bemulie to Crowy-hill, "
+     "with four inset fort plans - the Peel of Kirkintilloch (concentric), Bemulie fort, Barhull "
+     "fort and Auchindavy fort. Tied to the new no-QID kirkintilloch row - the most-planned fort on "
+     "the plate. Internet Archive britanniaromanao00hors, leaf n0282 of the 936-leaf Google scan "
+     "(British Museum volume)."),
+    (284, "rough-castle-fort",
+     "A map of the Roman wall in Scotland from Crowy-hill to Falkirk.",
+     "Antonine Wall, map from Crowy-hill to Falkirk with fort plans, Horsley (1732), N.4",
+     "Horsley, Britannia Romana (1732), P.176 N.4 (leaf n0284): the wall from Crowy-hill to "
+     "Falkirk, with three inset fort plans - Cattle-cary fort, Rounthall fort and Welterwood fort. "
+     "'Rough castle fort' is labelled twice on the plate = most named; 216's 'Falkirk fort plan' "
+     "reading was a misread (no Falkirk plan, only the town label). Tied to the reused "
+     "rough-castle-fort row. Internet Archive britanniaromanao00hors, leaf n0284 of the 936-leaf "
+     "Google scan (British Museum volume)."),
+    (286, "carriden",
+     "A map of the Roman wall in Scotland from Falkirk to the east end.",
+     "Antonine Wall, map from Falkirk to the east end (Carriden), Horsley (1732), N.5",
+     "Horsley, Britannia Romana (1732), P.176 N.5 (leaf n0286): the wall from Falkirk down to the "
+     "Firth of Forth ('Borth of Forth'), with the east-end fort labelled Caer-ridden (Carriden) and "
+     "the Kinneil fortlet (Kinnelton), Mumrills, Cuffabent and the modern places (Stinghouse, "
+     "Collender-house, Lanton, Bevercote, Grange-house, ...; a scale of two English miles) - no "
+     "inset fort plan on the plate (the tree-marked Caer-ridden/Kinnelton enclosures are not forts - "
+     "147). Tied to the new no-QID carriden row, the wall's east end (kind 'roman site'; renamed "
+     "from falkirk-end after the Wikipedia Antonine Wall article fixed the end as Carriden - "
+     "DECISIONS 808 149). Internet Archive britanniaromanao00hors, leaf n0286 of the 936-leaf "
+     "Google scan (British Museum volume)."),
+]
+
+# The 8 new no-QID site rows the staged rows need (216's design + the 808 build decisions, DECISIONS
+# 808 147/149/150): region lowercase per site, kind the space form (207a's spec), lon/lat
+# cross-checked at build time (Wikipedia/Wikidata/Nominatim + the book's own maps) and recorded in
+# location_check (the checked date is injected by stage()). The Antonine reuses (bar-hill-fort,
+# rough-castle-fort) stay in the canonical extras.jsonl - looked up at run time, never re-created.
+# Key order = the landed 207b extras-row shape (id, qid, name, lon, lat, region, kind, aerial_ok,
+# place, location_check, source, note), inserted in STAGE_ROWS first-appearance order.
+NEW_SITES = {
+    "ardoch": {"id": "ardoch", "qid": None, "name": "Ardoch", "lon": -3.8731, "lat": 56.2742,
+               "region": "scotland", "kind": "roman site", "aerial_ok": True,
+               "place": "Braco, Gask Ridge, Perth and Kinross, Scotland",
+               "location_check": {"status": "confirmed",
+                                  "method": "Wikidata Q4788225 (Ardoch camp) P625 (precision 1e-6) cross-checked against the plate's rivers and the book's text pp.43-44 (checked 2026-10-14)",
+                                  "note": ("the Braco camp (SM1601, Black Hill beside it) - the only surviving Roman camp named "
+                                           "Ardoch, per the plate's rivers (Knoch west, Ruchel north) and pp.43-44 following "
+                                           "Gordon 1726; the Wikipedia Antonine Wall article confirms the Gask Ridge area; the "
+                                           "Knoch stream is unlocated in the 18th-c. and modern sources checked (Nominatim + "
+                                           "Wikipedia, 2026-10-14); the Innerpeffery camp (the other plan on the plate) is "
+                                           "recorded on the n0114 files row's desc - no row of its own (the 808 box); kind "
+                                           "'roman site' - a legionary camp, not a fort")},
+               "source": MODULE,
+               "note": "new site staged by 808 (Horsley 1732, P.44, leaf n0114) - DECISIONS 808 148"},
+    "virosidum": {"id": "virosidum", "qid": None, "name": "Virosum (near Elenborough, Solway coast)",
+                  "lon": -3.482559, "lat": 54.708744, "region": "england", "kind": "roman fort",
+                  "aerial_ok": True, "place": "near Maryport (Ellenborough), Solway coast, Cumberland, England",
+                  "location_check": {"status": "approx",
+                                     "method": "Nominatim (Ellenborough, Maryport) + the book's N.1 map placement between Olenacum and Gabrosentum (checked 2026-10-14)",
+                                     "note": ("the P.113 principal - the only one of the five forts without a catalog row "
+                                              "(I-IV = longovicium-q6674222/whitley-castle-q7996561/voreda-roman-fort-q17642742/"
+                                              "luguvallium-q71551754; DECISIONS 808 147 item 4); Horsley's N.1 places VIROSIDUM near "
+                                              "Elenborough between Old Carlisle and Brougham by 'Boulneis' on the Solway coast; the "
+                                              "only Elenborough (Ellenborough) in the region is near Maryport (Nominatim 54.708744, "
+                                              "-3.482559); no Wikidata item for Virosum; P.113 plan V is a schematic fort with no "
+                                              "Praetorium")},
+                  "source": MODULE,
+                  "note": "new site staged by 808 (Horsley 1732, P.113, leaf n0185) - DECISIONS 808 147 item 4"},
+    "cilurni": {"id": "cilurni", "qid": None, "name": "Cilurni (Chesters)", "lon": -2.139, "lat": 55.026,
+               "region": "england", "kind": "roman fort", "aerial_ok": True,
+               "place": "Chesters, near Corbridge, Northumberland, England",
+               "location_check": {"status": "confirmed",
+                                  "method": "Wikipedia 'Cilurnum' infobox (55deg01'34'N 2deg08'20'W) + Wikidata Q3818331 P625 (55.026, -2.1391, precision 1e-6) cross-checked against the book's N.5 map (checked 2026-10-14)",
+                                  "note": ("the fort ON the wall line (N.5's CILVRNVM 'now West Chesters'); the catalog's "
+                                           "Q17650519 row (P625 55.0246, -2.14302) sits ~300 m away, consistent - the row stays "
+                                           "no-QID per the 808 box's tie list")},
+               "source": MODULE,
+               "note": "new site staged by 808 (Horsley 1732, N.5, leaf n0244) - DECISIONS 808 147/149"},
+    "petriana": {"id": "petriana", "qid": None,
+                "name": "Petriana (Horsley's N.8 Solway-coast station)", "lon": -3.45, "lat": 54.90,
+                "region": "england", "kind": "roman fort", "aerial_ok": True,
+                "place": "Cumberland coast (Longhope to the Cark), England",
+                "location_check": {"status": "approx",
+                                   "method": "the book's N.8 map placement (a hypothetical station - no web source exists for it) (checked 2026-10-14)",
+                                   "note": ("no real fort - Horsley's N.8 invents PETRIANA on the Cumberland coast; the Roman "
+                                            "Petriana of Rudchester is the catalog row rudchester-roman-fort-associated-civil-s-"
+                                            "q17669775 (VINDOBALA); the N.8 coastal placement between Longhope and the Cark; "
+                                            "the inset plan is a schematic")},
+                "source": MODULE,
+                "note": "new site staged by 808 (Horsley 1732, N.8, leaf n0250) - DECISIONS 808 147/149"},
+    "congavata": {"id": "congavata", "qid": None, "name": "Congavata (Castlesteads)", "lon": -2.761,
+                 "lat": 54.965, "region": "england", "kind": "roman fort", "aerial_ok": True,
+                 "place": "Castlesteads, Cumbria, England",
+                 "location_check": {"status": "confirmed",
+                                    "method": "Wikipedia 'Camboglanna' infobox (54deg57'54'N 2deg45'40'W) cross-checked against the book's N.9/N.10 maps (checked 2026-10-14)",
+                                    "note": ("the fort on the bluff over the Cam Beck at the Irthing bend ('now Stanwicks' on "
+                                             "the N.10 plate); the catalog's Q17650705 row (P625 54.9632, -2.76252) sits ~200 m away, "
+                                             "consistent - the row stays no-QID")},
+                 "source": MODULE,
+                 "note": "new site staged by 808 (Horsley 1732, N.9, leaf n0252) - DECISIONS 808 147/149"},
+    "tunnocelum": {"id": "tunnocelum", "qid": None,
+                  "name": "Tunnocelum (Boulneis, north of the Esk mouth)", "lon": -3.012, "lat": 54.898,
+                  "region": "england", "kind": "roman fort", "aerial_ok": True,
+                  "place": "Boulneis (near Bowness), Solway coast, Cumbria, England",
+                  "location_check": {"status": "approx",
+                                     "method": "the book's N.10 map placement ('now Boulneis', north of the Esk mouth); Nominatim geocoding of the small places (Ronciff/Braken/Boulneis/Drumbrugh) returned nothing (checked 2026-10-14)",
+                                     "note": ("Horsley's N.10 places TVNNOCEIVM 'now Boulneis' by Braken ridge on the Solway "
+                                              "shore north of the Esk estuary (ITVNNAE AESTVARIVM; the Esk mouth with Ronciff at the "
+                                              "SW of the map); no Wikipedia article 'Tunnocelum'; the 'Stanwix' district article "
+                                              "says the district is built on the fort 'known as Uxelodunum or Petriana' on the Eden "
+                                              "- Horsley's own map puts that (as CONGAVATA 'now Stanwicks') at the Eden mouth, west "
+                                              "of the Esk; no catalog row for either - the row follows the plate's Boulneis "
+                                              "placement (DECISIONS 808 149)")},
+                  "source": MODULE,
+                  "note": "new site staged by 808 (Horsley 1732, N.10, leaf n0254) - DECISIONS 808 149"},
+    "kirkintilloch": {"id": "kirkintilloch", "qid": None, "name": "Kirkintilloch (the Peel)",
+                     "lon": -4.15472222, "lat": 55.93583333, "region": "scotland", "kind": "roman fort",
+                     "aerial_ok": True, "place": "Kirkintilloch, East Dunbartonshire, Scotland",
+                     "location_check": {"status": "confirmed",
+                                        "method": "Wikidata Q2422689 (Kirkintilloch town) P625 (precision 30 m) cross-checked against the book's N.3 map (checked 2026-10-14)",
+                                        "note": ("the Peel of Kirkintilloch on the Antonine Wall line at the east end of the "
+                                                 "town; coordinates = the town's item Q2422689 P625; Horsley's N.3 shows the "
+                                                 "concentric plan (the most-planned fort on the plate)")},
+                     "source": MODULE,
+                     "note": "new site staged by 808 (Horsley 1732, P.176 N.3, leaf n0282) - DECISIONS 808 149"},
+    "carriden": {"id": "carriden", "qid": None,
+                "name": "Carriden (east end of the Antonine Wall near Bo'ness)", "lon": -3.564436,
+                "lat": 56.010057, "region": "scotland", "kind": "roman site", "aerial_ok": True,
+                "place": "near Bo'ness, Falkirk, Scotland",
+                "location_check": {"status": "confirmed",
+                                   "method": "Wikidata Q81445376 (the Carriden Roman fort, precision 1e-6) cross-checked against the book's N.5 map label 'Caer-ridden' and the Wikipedia Antonine Wall article (checked 2026-10-14)",
+                                   "note": ("the wall's east end where it met the Firth of Forth; Horsley's N.5 shows the wall "
+                                            "from Falkirk down to the Forth ('Borth of Forth') with the fort labelled Caer-ridden "
+                                            "and the Kinneil fortlet (Kinnelton); no fort PLAN on the plate - kind 'roman site'; "
+                                            "renamed from falkirk-end after the Wikipedia Antonine Wall article fixed the east "
+                                            "end as Carriden (the 147 'Falkirk ~ -3.79' fallback was the wrong end - DECISIONS "
+                                            "808 149); Carriden House (Q5046188) and Nominatim agree with the fort item to "
+                                            "<500 m")},
+                "source": MODULE,
+                "note": "new site staged by 808 (Horsley 1732, P.176 N.5, leaf n0286) - DECISIONS 808 149"},
+}
+
+
+def _page_sizes():
+    """The BookReader width/height of every leaf, from the cached bookreader.json (offline; the
+    staged rows' w/h come from here, never a download). {leaf n: (width, height)}; exits if the
+    book has not been fetched."""
+    import books_ia
+    path = os.path.join(books_ia.RAW, IA, "bookreader.json")
+    if not os.path.exists(path):
+        raise SystemExit(f"{IA}: no cached bookreader.json - run --fetch first")
+    d = json.load(open(path))
+    pages = [p for spread in d["data"]["brOptions"]["data"] for p in spread]
+    return {n: (p["width"], p["height"]) for n, p in enumerate(pages)}
+
+
+def _file_row(leaf, tie, title, name, desc, s, wh):
+    """The picture row + its hand 'plan' classified row for one staged leaf: 207b's 19-field files
+    row (by = this module, url/thumb the stable IA page image, w/h from bookreader.json, the 200
+    evidence field: kind caption_coords - named_place = the plate's printed list entry = the row's
+    title, so check_caption's norm check is trivially true, and place_* = the tied site's own
+    coordinates, so dist_m 0 reproduces offline) + the hand classified row (p_plan 1.0)."""
+    w, h = wh
+    url = f"https://archive.org/download/{IA}/page/n{leaf:04d}.jpg"
+    f = {"site": tie, "qid": s.get("qid"), "title": title, "year": YEAR, "wd_plan": False,
+         "cat": None, "name": name, "by": MODULE, "url": url, "thumb": url, "w": w, "h": h,
+         "mime": "image/jpeg", "date": str(YEAR), "desc": desc, "artist": "John Horsley",
+         "license": LICENSE, "page": f"https://archive.org/details/{IA}",
+         "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": now(),
+                      "named_place": title, "place_qid": s.get("qid"),
+                      "place_label": s["name"], "place_lon": s["lon"], "place_lat": s["lat"],
+                      "site_lon": s["lon"], "site_lat": s["lat"], "dist_m": 0.0}}
+    c = {"site": tie, "title": title, "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+    return f, c
+
+
+def stage(dry=False):
+    """OFFLINE (no LLM, no network): append the book's 17 verified kind-s rows - one per leaf of the
+    24-entry list's 17 kind-s (the 15 wall maps + n0114 P.44 + n0185 P.113) - to the shared roman
+    staging files: the picture rows to files_roman.jsonl, their hand 'plan' rows to
+    classified_roman.jsonl, and the new no-QID sites the rows need (the NEW_SITES keys in
+    STAGE_ROWS first-appearance order) to extras_roman.jsonl (the Antonine reuses bar-hill-fort /
+    rough-castle-fort stay in the canonical extras.jsonl - looked up at run time, never
+    re-created). Every row carries the book's date 1732 and the 200 evidence field. Append-only
+    and idempotent on (site, title) and site id: a second run changes no byte, and the other
+    book's rows (207b) stay byte-identical; --dry previews instead of writing. 211 consolidates
+    the *_roman files into the canonical ones."""
+    sites = {}
+    for r in _load(SITES_JSONL):
+        if r.get("id"):
+            sites[r["id"]] = r
+    for r in _load(EXTRAS_CANON):
+        if r.get("id") and r["id"] not in sites:
+            sites[r["id"]] = r
+    sites.update(NEW_SITES)
+    page_sizes = _page_sizes()
+
+    have_file = {(r.get("site"), r.get("title")) for r in _load(FILES_ROMAN)}
+    have_cls = {(r.get("site"), r.get("title")) for r in _load(CLASSIFIED_ROMAN)}
+    have_site = {r.get("id") for r in _load(EXTRAS_ROMAN)}
+
+    files_rows, cls_rows = [], []
+    for leaf, tie, title, name, desc in STAGE_ROWS:
+        s = sites.get(tie)
+        if not s:
+            raise SystemExit(f"leaf n{leaf:04d} ties to {tie!r}, which is not a known site")
+        if leaf not in page_sizes:
+            raise SystemExit(f"leaf n{leaf:04d} has no page in the cached bookreader.json")
+        f, c = _file_row(leaf, tie, title, name, desc, s, page_sizes[leaf])
+        files_rows.append(f)
+        cls_rows.append(c)
+
+    site_rows, seen = [], set()
+    for leaf, tie, title, name, desc in STAGE_ROWS:   # the new sites in STAGE_ROWS first-appearance order
+        if tie in NEW_SITES and tie not in seen:
+            seen.add(tie)
+            if tie in have_site:
+                print(f"   extras_roman.jsonl: site {tie} already present (skipped, nothing written)")
+                continue
+            r = dict(NEW_SITES[tie])
+            r["location_check"] = dict(NEW_SITES[tie]["location_check"], checked=now())
+            site_rows.append(r)
+
+    for path, rows, have in ((FILES_ROMAN, files_rows, have_file),
+                             (CLASSIFIED_ROMAN, cls_rows, have_cls)):
+        tag = os.path.basename(path)
+        for r in rows:
+            k = (r.get("site"), r.get("title"))
+            if k in have:
+                print(f"   {tag}: row for {k[0]} already present (skipped, nothing written)")
+            elif dry:
+                print(f"   {tag}: would append {json.dumps(r, ensure_ascii=False)}")
+            else:
+                with open(path, "a", encoding="utf-8") as fh:
+                    fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+                print(f"   {tag}: appended 1 row ({k[0]})")
+    for r in site_rows:
+        if dry:
+            print(f"   extras_roman.jsonl: would append {json.dumps(r, ensure_ascii=False)}")
+        else:
+            with open(EXTRAS_ROMAN, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            print(f"   extras_roman.jsonl: appended 1 row ({r['id']})")
+    print(f"horsley staging: {len(files_rows)} files rows, {len(cls_rows)} classified, "
+          f"{len(site_rows)} of {len(seen)} new site rows appended ({IA})")
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if a and a[0] not in ("--fetch", "--status", "--triage", "--list", "--stage", "--dry", "--check", "--golden"):
@@ -231,5 +624,7 @@ if __name__ == "__main__":
         triage(a[1])
     elif a and a[0] == "--list":
         list_cmd()
+    elif a and a[0] in ("--stage", "--dry"):
+        stage("--dry" in a)
     else:
-        raise SystemExit("the stage/check/golden legs are not built yet (see the module docstring)")
+        raise SystemExit("the check/golden legs are not built yet (809; see the module docstring)")
