@@ -3,9 +3,11 @@ hand-checked file -> QID table for the old plans of New York - the 1660 Castello
 the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - of Washington DC - the 1791 L'Enfant plan
 (as its 1792 first-printed edition), the 1792 Ellicott plan and the 1865 Civil War defences map - and of San
 Francisco - the 1839 Vioget plan (the first plan of the old town), the 1849 Eddy survey map, the 1850
-first-published map and the 1854 Eddy 'full and complete' sheet - staged into this task's own staging
-files the way src_artists.py does. Nashville follows in a later
-session; 236c consolidates the staged rows into the canonical data and builds the sites.
+first-published map and the 1854 Eddy 'full and complete' sheet - and of Nashville - the 1804
+Clayton/Temple plan (engraved 1880), the 1860 Haydon & Booth plan, the 1860s O.M. Poe military survey and
+the 1895 Civil War fortification atlas plate (surveyed Dec 1864) - staged into this task's own staging
+files the way src_artists.py does; 236c consolidates the staged rows into the canonical data and builds
+the sites.
 
 usage: src_us_cities.py --verify     re-verify every table QID (SITES) against Wikidata
                                    (label, every P625 value, P373, P131, enwiki, the first name-search hit
@@ -109,6 +111,34 @@ SITES = {
                      "P625 (see the SITES comment); the 1854 sheet's 1850s growth (the Center Street grid, "
                      "the Market & 10th-11th corner) reaches past the box's SW corner - likely a review "
                      "item (the NY 1811 precedent, docs/lead_artists.md)"),
+    # Q23197 (verified 2026-10-13/14 via pipeline/catalog_wd; --verify re-checks): ONE P625
+    # (-86.774444, 36.162222) = downtown, 721 m NE of the table point (no >50 km flag). The point is
+    # REFINED, not a P625: the 1804 Clayton plan is a near north-up bird's-eye view of the 1790s town at
+    # the Cumberland/Tennessee confluence (its mirror similarity fit, w = a*conj(z) + b, over the fort
+    # (Q5471739, 36.164167, -86.774444) and the capitol-hill knoll gives 0.852 m/px and ~6 deg tilt; the
+    # drawn rivers' corner projects 207 m from the real OSM confluence node), and its projected drawn
+    # extent (1.82 x 0.96 km, 2026-10-14) overshoots the P625-centred 2000 m town box W 543 m, so the
+    # point is the center of that projected extent (the 147/148 SF precedent; its 2000 m box covers the
+    # extent with margins 92-519 m). The other three staged sheets span beyond the box: review items
+    # (the NY 1811 / DC 1865 ring precedent). Fort Negley (Q5471744, 36.145097, -86.774658; drawn on the
+    # 1895 plate) gets a site of its own (kind 'fort', 1600 m box, a 3DEP LiDAR candidate like the mounds
+    # in 203a) only when a fort-only plan is found - none is on Commons (its P373 category is photos and
+    # the 3 Fletcher 1864 views, which are 236b leads).
+    "Q23197": dict(id="nashville-q23197", name="Nashville", named="Nashville",
+                   lon=-86.78152, lat=36.16529,
+                   place="Davidson County, Tennessee", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Nashville,_Tennessee",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Cumberland shoreline, the squares and "
+                        "the church footprints carry the fit; the point is the center of the projected "
+                        "1804 drawn extent (the 147/148 SF precedent) - P625 is 721 m NE and its "
+                        "2000 m box overshoots the drawn extent W 543 m, so it is not a P625; the 1804 "
+                        "Clayton plan is a near north-up bird's-eye view (~6 deg tilt, 0.852 m/px); the "
+                        "other three staged sheets span beyond the 2000 m town box, so their fits are "
+                        "likely to end review items (the NY 1811 / DC 1865 ring precedent); Fort Negley "
+                        "Q5471744 (drawn on the 1895 plate) gets a fort site of its own (1600 m box, a "
+                        "3DEP LiDAR candidate) only when a fort-only plan is found - none is on Commons "
+                        "(the 3 Fletcher 1864 views are 236b leads)"),
 }
 
 # New York leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the 1916
@@ -188,6 +218,45 @@ EDDY_1854 = [
      "the-present-5870000).jpg", "Q62", "San Francisco", dict(date="1854")),
 ]
 
+# Nashville leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the Burns 1906
+# copy of the 1804 plan and the Fort Negley photos - are in docs/lead_us_cities.md). All four titles
+# print "Nashville" in the title itself (gate-safe). The 1804 Clayton plan and the 1895 atlas plate get
+# the known drawing/publication date on the row (the page value kept as date_commons - the Zwolle
+# precedent); the Haydon and Poe pages date their drawings themselves, so no swap.
+CLAYTON_1804 = [
+    # the 1804 Clayton/Temple plan: the 1790s town from the notes of Mrs Temple, daughter of Genl
+    # Robertson, engraved in Clayton's 1880 History of Davidson County - a near north-up bird's-eye view
+    # (the mirror fit, ~6 deg tilt, 0.852 m/px - docs/lead_us_cities.md), the oldest staged Nashville
+    # drawing and the basis of the site point; page 1880 = the book's publication, so the known survey
+    # date is on the row
+    ("File:1804 Map of Nashville published 1880.jpg", "Q23197", "Nashville", dict(date="1804")),
+]
+HAYDON_1860 = [
+    # the 1860 Haydon & Booth city plan (John Haydon and Booth, 'City of Nashville and Edgefield',
+    # scale 400 ft to 1 in) - a decorative composite (the rivers are bent for composition, the plates
+    # are tacked together at different rotations: docs/lead_us_cities.md); page date = drawing date
+    ("File:1860 Haydon map of City of Nashville and Edgefield.jpg", "Q23197", "Nashville", dict()),
+]
+POE_1860S = [
+    # the O.M. Poe 1860s survey of the whole city (Chief Engineer's Office, Military Division of the
+    # Mississippi; LOC 2003630459, pen-and-ink and pencil on cloth, fold-line relief, every building):
+    # the page's "1860s" (QS precision 8) IS the LOC-verified drawing date "[186-]" - no swap
+    ("File:Map of Nashville, Tennessee. LOC 2003630459.jpg", "Q23197", "Nashville", dict()),
+]
+DEFENSES_1895 = [
+    # the Civil War fortification atlas plate (the atlas to accompany the Official Histories of the
+    # Union and Confederate Armies 1861-1865; Julius Bien, the 1895 scanned edition; nine panels -
+    # Chattanooga's Erwin and Coolidge batteries plus seven Nashville: the magazine battery, the
+    # Capitol, Fort McCook, Fort Morton, Fort Hill, Fort Nashville, the Heights; surveyed Nov 30 -
+    # Dec 1864): the task's Fort Negley lead realized as a city-defences sheet, staged on the city
+    # (the DC 1865 ring precedent); NO page date (the "..." in the title is literal - three dots),
+    # so the atlas's verified publication year is on the row (and required: the undated title has no
+    # plan/map/survey word for keep())
+    ("File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. "
+     "Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg",
+     "Q23197", "Nashville", dict(date="1895")),
+]
+
 SOURCES = {
     "castello": dict(rows=CASTELLO, p="plan",
                      label="{name}, the Castello plan (1660 Dutch survey of New Amsterdam)"),
@@ -209,6 +278,14 @@ SOURCES = {
                     label="{name}, the first published map (1850, 'Copied From Originals')"),
     "eddy_1854": dict(rows=EDDY_1854, p="plan",
                      label="{name}, the Eddy 'full and complete' sheet (1854)"),
+    "clayton_1804": dict(rows=CLAYTON_1804, p="plan",
+                         label="{name}, the Clayton/Temple plan (1804, engraved 1880)"),
+    "haydon_1860": dict(rows=HAYDON_1860, p="plan",
+                        label="{name}, the Haydon & Booth plan (1860)"),
+    "poe_1860s": dict(rows=POE_1860S, p="plan",
+                      label="{name}, the O.M. Poe survey map (1860s, Chief Engineer's Office)"),
+    "defenses_1895": dict(rows=DEFENSES_1895, p="plan",
+                          label="{name}, the Civil War fortifications (1895 atlas plate, surveyed Dec 1864)"),
 }
 
 

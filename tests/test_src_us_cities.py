@@ -1,11 +1,13 @@
 """The US city plans staging (task 236a, GOAL.md point 5): the four old plans of New York - the 1660 Castello
 plan, the 1767 Ratzer map, the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - the three
 of Washington DC - the 1791 L'Enfant plan (as its 1792 first-printed edition), the 1792 Ellicott plan and
-the 1865 Civil War defences map - and the four of San Francisco - the 1839 Vioget plan (the first plan of
+the 1865 Civil War defences map - the four of San Francisco - the 1839 Vioget plan (the first plan of
 the old town), the 1849 Eddy survey map, the 1850 first-published map and the 1854 Eddy 'full and complete'
-sheet - staged by fit/src_us_cities.py into this
-task's own files (extras/files/classified _us_cities.jsonl), plus the hand-verified QID table (New York
-City Q60, Washington DC Q61, San Francisco Q62; Nashville follows in a later session, 236c consolidates). The tests are offline:
+sheet - and the four of Nashville - the 1804 Clayton plan (as its 1880 publication), the 1860 Haydon
+sheet, the 1860s LOC building-by-building map and the 1895 Defences atlas plate - staged by
+fit/src_us_cities.py into this task's own files (extras/files/classified _us_cities.jsonl), plus the
+hand-verified QID table (New York City Q60, Washington DC Q61, San Francisco Q62 and Nashville Q23197;
+236c consolidates). The tests are offline:
 a socket-blocking fixture makes any network fetch fail loud, so the evidence check runs from the stored
 fields only (200's fail-closed box). The negative control pins the trap the hand record exists for: a
 staged row with a foreign place point (Venice) instead of the site's own point - ~6681 km away, a
@@ -49,7 +51,7 @@ def test_check_staged_files_join_and_pass(capsys):
     out = capsys.readouterr().out
     assert code == 0, out
     assert "join:" not in out, f"join problems:\n{out}"
-    assert "evidence: 11 rows, 11 pass, 0 fail, 0 no-tie" in out, out
+    assert "evidence: 15 rows, 15 pass, 0 fail, 0 no-tie" in out, out
     for key in ("new-york-q60|File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif",
                 "new-york-q60|File:Plan of the City of New York by Bernard Ratzer, 1767.jpg",
                 "new-york-q60|File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg",
@@ -60,7 +62,13 @@ def test_check_staged_files_join_and_pass(capsys):
                 "san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg",
                 "san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg",
                 "san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg",
-                "san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg"):
+                "san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg",
+                "nashville-q23197|File:1804 Map of Nashville published 1880.jpg",
+                "nashville-q23197|File:1860 Haydon map of City of Nashville and Edgefield.jpg",
+                "nashville-q23197|File:Map of Nashville, Tennessee. LOC 2003630459.jpg",
+                "nashville-q23197|File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. "
+                "Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-"
+                "battery-coolidge-defenses-01104241).jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -71,8 +79,9 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     rows present with IDENTICAL content (the 236c first-row-wins merge has run) - check 0, no join
     problems: an already-merged row is a no-op and the known-site checks stop self-triggering on the
     module's own rows; (c) the same (site, title) key, or a staged QID or site id, held by a DIFFERENT row
-    or site - still fails loud, naming exactly that problem and no other. This task stages three sites so
-    far (New York, Washington DC and San Francisco); the test scales when the other cities are added."""
+    or site - still fails loud, naming exactly that problem and no other. This task stages one site per
+    owner-named city (New York, Washington DC, San Francisco and Nashville); the test scales when more
+    cities are added."""
     staged_files = src_us_cities._load(src_us_cities.FILES_US_CITIES)
     staged_sites = src_us_cities._load(src_us_cities.EXTRAS_US_CITIES)
     skeys = {(r.get("site"), r.get("title")) for r in staged_files}
@@ -162,14 +171,14 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
 
 def test_qid_table_and_staged_rows():
     """The hand-checked table is complete and the staged rows are exactly it: New York City (Q60),
-    Washington DC (Q61) and San Francisco (Q62) staged - Nashville (Q23197) follows in a later session
-    (the trap note: the prep's first New York memory, Q30492, is the NUMBER "483") - every staged extras
-    row is complete (id/qid/name/lon/lat/region/kind/wikipedia/aerial_ok) and matches its table entry;
-    the staged file rows are exactly the module's source rows with the known drawing dates (the 1811 plan,
-    the 1660 Castello survey, the 1791 L'Enfant plan and the 1854 Eddy sheet, whose file pages lost the
-    date or printed the publication date, swapped in)."""
+    Washington DC (Q61), San Francisco (Q62) and Nashville (Q23197) staged (the trap note: the prep's
+    first New York memory, Q30492, is the NUMBER "483") - every staged extras row is complete
+    (id/qid/name/lon/lat/region/kind/wikipedia/aerial_ok) and matches its table entry; the staged file
+    rows are exactly the module's source rows with the known drawing dates (the 1811 plan, the 1660
+    Castello survey, the 1791 L'Enfant plan, the 1854 Eddy sheet, the 1804 Clayton plan and the 1895
+    Defences sheet, whose file pages lost the date or printed the publication date, swapped in)."""
     table = src_us_cities.SITES
-    assert set(table) == {"Q60", "Q61", "Q62"}
+    assert set(table) == {"Q60", "Q61", "Q62", "Q23197"}
     s = table["Q60"]
     assert s["id"] == "new-york-q60"
     for k in ("name", "named", "lon", "lat", "place", "wikipedia", "note"):
@@ -189,9 +198,19 @@ def test_qid_table_and_staged_rows():
     # (Washington & Jones / Rincon Point), not either P625 (the SITES comment and the lead doc record
     # the derivation)
     assert s["lon"] == -122.40289 and s["lat"] == 37.79213
+    s = table["Q23197"]
+    assert s["id"] == "nashville-q23197" and s["named"] == "Nashville"
+    for k in ("name", "lon", "lat", "place", "wikipedia", "note"):
+        assert s.get(k), f"Q23197 missing {k}"
+    assert s["region"] == "United States" and s["kind"] == "town"
+    # the Q23197 point is the center of the projected 1804 Clayton extent (the mirror fit), not the
+    # city's P625, whose 2000 m box overshoots the extent's west edge by 543 m (the SITES comment and
+    # the lead doc record the derivation)
+    assert s["lon"] == -86.78152 and s["lat"] == 36.16529
 
     extras = src_us_cities._load(src_us_cities.EXTRAS_US_CITIES)
-    assert [x["id"] for x in extras] == ["new-york-q60", "washington-q61", "san-francisco-q62"]
+    assert [x["id"] for x in extras] == ["new-york-q60", "washington-q61", "san-francisco-q62",
+                                         "nashville-q23197"]
     for x in extras:
         t = table[x["qid"]]
         for k in ("name", "lon", "lat", "place", "wikipedia"):
@@ -217,8 +236,14 @@ def test_qid_table_and_staged_rows():
              "File:Map of San Francisco, Apollo storeship at the bottom.jpg": 1850,
              "File:Official map of the City of San Francisco, Full and complete to the present date. "
              "Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-"
-             "full-and-complete-to-the-present-5870000).jpg": 1854}
-    named_by_qid = {"Q60": "New York", "Q61": "Washington", "Q62": "San Francisco"}
+             "full-and-complete-to-the-present-5870000).jpg": 1854,
+             "File:1804 Map of Nashville published 1880.jpg": 1804,
+             "File:1860 Haydon map of City of Nashville and Edgefield.jpg": 1860,
+             "File:Map of Nashville, Tennessee. LOC 2003630459.jpg": 1860,
+             "File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of "
+             "Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-"
+             "coolidge-defenses-01104241).jpg": 1895}
+    named_by_qid = {"Q60": "New York", "Q61": "Washington", "Q62": "San Francisco", "Q23197": "Nashville"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r.get("evidence") and r["evidence"]["kind"] == "caption_coords"
@@ -250,7 +275,7 @@ def test_evidence_offline_and_negative_control(tmp_path):
     code, text = evidence.check(src_us_cities.FILES_US_CITIES, src_us_cities.NO_BOOKS,
                                 catalog=src_us_cities.EXTRAS_US_CITIES)
     assert code == 0, text
-    assert "evidence: 11 rows, 11 pass, 0 fail, 0 no-tie" in text, text
+    assert "evidence: 15 rows, 15 pass, 0 fail, 0 no-tie" in text, text
 
     castello = next(r for r in src_us_cities._load(src_us_cities.FILES_US_CITIES)
                     if r["title"].startswith("File:Afbeeldinge"))

@@ -4,19 +4,23 @@ GOAL.md point 5 (the 2026-10-13 owner change): the map grows with US cities - "l
 like nashville or dc or SF or New York. Those had to have had some survey stuff as well." Town plans and
 views count as drawings (exempt from the 150-year rule); plain survey sheets (Coast Survey charts, USGS
 quads) are background, not drawings. This task stages the **named city plans** (manuscript and engraved
-plans, 1660-1880): New York - the **Castello plan (1660)**, the **Ratzer map (1767)**, the
+plans, 1660-1880, plus the 1895 Civil War fortification atlas plate - the Civil War exception, in the
+Nashville section): New York - the **Castello plan (1660)**, the **Ratzer map (1767)**, the
 **Commissioners' Plan (1811)** and the **Viele map (1865)** - Washington DC - the **L'Enfant plan
 (1791, first printed 1792)**, the **Ellicott plan (1792)** and the **Civil War defences (1865)** - and
 San Francisco - the **1839 Vioget plan (the first plan of the old town)**, the **1849 Eddy survey map**,
-the **1850 first-published map** and the **1854 Eddy 'full and complete' sheet** - three cities staged;
-Nashville last. Bird's-eye/panoramic views of the same and other US cities are task 236b.
+the **1850 first-published map** and the **1854 Eddy 'full and complete' sheet** - and Nashville - the
+**1804 Clayton/Temple plan** (as its 1880 publication), the **1860 Haydon & Booth plan**, the **1860s
+O.M. Poe military survey** and the **1895 Civil War fortification atlas plate** (the panels surveyed
+Nov 30 - Dec 1864) - all four owner-named cities staged (2026-10-14). Bird's-eye/panoramic views of
+the same and other US cities are task 236b.
 The picture rows are staged in this task's own files (`data/catalog/extras_us_cities.jsonl`,
 `data/commons/files_us_cities.jsonl`, `data/commons/classified_us_cities.jsonl`); **236c** consolidates
 them into the canonical data and builds the sites, 212's cover runs the fitting loop.
 
-**None of the four owner-named QIDs is in the catalog yet** (checked against `data/catalog/sites.jsonl`
-and `extras.jsonl`, 2026-10-13), so every city gets a **new extras site row**, not picture rows on an
-existing site. The region string "United States" needed a one-line addition to
+**None of the four owner-named QIDs is in the catalog yet** (checked against `data/catalog/sites.jsonl`,
+`data/catalog/extras.jsonl` and `web/data/sites.json`, 2026-10-13/14 - the two Nashville fort QIDs
+included), so every city gets a **new extras site row**, not picture rows on an existing site. The region string "United States" needed a one-line addition to
 `pipeline/build_catalog.py:REGION_NAME` (`"united states": "United States"` - 236b adds the identical
 line; the old US extras rows keep their "US" region and are untouched).
 
@@ -24,8 +28,9 @@ line; the old US extras rows keep their "US" region and are untouched).
 no open LiDAR over a built-up city - bare-earth LiDAR erases the streets). The street grid, the
 shoreline, the squares and the church footprints carry the fit. Civil War fortification plans are the
 exception: their earthwork banks may show on 3DEP bare earth (`pipeline/aw.py`), so each fort is a
-candidate **site of its own** (kind "fort" = 1600 m box, its own QID) - the later DC/Barnard and
-Nashville/Fort Negley sessions.
+candidate **site of its own** (kind "fort" = 1600 m box, its own QID) - the DC ring's forts (the
+catalog already holds the individuals, see the Washington section) and Nashville's Fort Negley
+(no fort-only plan on Commons yet - recorded on the city's site note).
 
 **The evidence field on every staged row is hand-recorded `caption_coords`** in the exact key order of
 `fit/evidence.py:caption_route`: the caption names the city (the site's `named` short form appears in
@@ -39,14 +44,15 @@ Zwolle precedent; `sources.py` and `src_van_deventer.py` swap before the `keep()
 drawing's year - not a 21st-century upload - is what `keep()` judges). The hand-checked file -> QID
 table lives in `fit/src_us_cities.py` (the `pipeline/sources.py` pattern, no book machinery).
 
-## QID verification (checked 2026-10-13, re-run with `.venv/bin/python fit/src_us_cities.py --verify`)
+## QID verification (checked 2026-10-13/14, re-run with `.venv/bin/python fit/src_us_cities.py --verify`)
 
-**Staged (in the table):** New York City Q60, Washington DC Q61 and San Francisco Q62, re-verified
-against Wikidata - label, every P625 value (flagged when >50 km from the table point), P373, P131
-(with labels), the enwiki article, and the first name-search hit with coordinates (what `record
---live` would resolve for the caption route). No P625 flag fired (Q62's two values are 2.0-2.4 km
-from its table point); no search trap: the first search hit with coordinates is the city itself in
-all three cases.
+**Staged (in the table):** New York City Q60, Washington DC Q61, San Francisco Q62 and Nashville
+Q23197, re-verified against Wikidata - label, every P625 value (flagged when >50 km from the table
+point), P373, P131 (with labels), the enwiki article, and the first name-search hit with coordinates
+(what `record --live` would resolve for the caption route). No P625 flag fired (Q62's two values are
+2.0-2.4 km from its table point; Q23197's is 721 m NE of the table point - the point is a refinement,
+not a P625 - see the Nashville section); no search trap: the first search hit with coordinates is the
+city itself in all four cases.
 
 ```
 checked 2026-10-13 - 3 QIDs (Wikidata)
@@ -70,12 +76,30 @@ checked 2026-10-13 - 3 QIDs (Wikidata)
       search 'San Francisco': first hit with P625 is Q62 'San Francisco' (-122.41944444444445, 37.775)
 ```
 
-**Prep-verified for the last session (checked 2026-10-13 via `pipeline/catalog_wd`; not in the module
-table yet - the Nashville site point is not final, the table stays honest):**
+```
+checked 2026-10-14 - Q23197 (Wikidata; the same --verify ran all four table QIDs in one pass)
+  Q23197  'Nashville'
+      P625: [(-86.77444444444444, 36.16222222222222)]  (table site point: -86.78152, 36.16529; 721 m NE - no >50 km flag)
+      P373: ['Nashville, Tennessee']
+      P131: [('Davidson County', 'Q1177705')]  (table place: 'Davidson County, Tennessee')
+      enwiki: 'Nashville, Tennessee'  (table wikipedia: 'https://en.wikipedia.org/wiki/Nashville,_Tennessee')
+      search 'Nashville': first hit with P625 is Q23197 'Nashville' (-86.77444444444444, 36.16222222222222)
+```
 
-- **Q23197 "Nashville"** - P625 (-86.7744, 36.1622) is downtown east of the Cumberland; the old 1790s
-  town sat at the river confluence (~-86.788, 36.166) - refine at staging. The first search hit with
-  coordinates is Q23197 itself (no trap).
+**The two Nashville fort QIDs (checked 2026-10-14 via `pipeline/catalog_wd`; not in the module
+table - the table holds the city site only; a fort gets its own site only when a fort-only plan
+appears):**
+
+- **Q5471739 "Fort Nashborough"** - P625 (36.164167, -86.774444), precision 0.001, P131 Q1509; the
+  enwiki infobox gives the same coordinates (a small replica stands along First Avenue N in modern
+  downtown) and OSM way 130910783 (historic=fort) sits at the same spot - three independent sources
+  agree. This is the Clayton 1804 plan's hatched "former Fort" block, the 1790s town's SE corner,
+  217 m north of the city P625 at the same longitude - anchor A of the mirror fit in the Nashville
+  section.
+- **Q5471744 "Fort Negley"** - P625 (-86.774658, 36.145097), ~1.9 km south of the city P625, P131
+  Q23197, P373 = 12 files: photos (Barnard, Webster & Albee, modern park) and the three Fletcher
+  1864 lithograph views - **no plan**. The Fort Negley fort-site candidate (Nashville section
+  below).
 
 **The "Barnard Castle trap" in action (task's warning, confirmed):** the prep's *recalled* QIDs were
 wrong twice - New York first remembered as **Q30492, which is the NUMBER "483"**, and Nashville first
@@ -196,33 +220,6 @@ came back empty from the wp API (the `coordinates` property) - not blocking; the
   same review-item caveat as the 1811 sheet. Its **made-land coastline and the original water courses
   are the strongest anchors**: features that moved (filled ground) versus features that did not
   (the pre-1835 shoreline) give the fit something to hang on.
-
-## Offline check
-
-`.venv/bin/python fit/src_us_cities.py --check` (2026-10-13): no join problems, and
-
-```
-PASS caption_coords  new-york-q60|File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif
-PASS caption_coords  new-york-q60|File:Plan of the City of New York by Bernard Ratzer, 1767.jpg
-PASS caption_coords  new-york-q60|File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg
-PASS caption_coords  new-york-q60|File:Viele Map (Topographical map of the City of New York), 1865.jpg
-PASS caption_coords  washington-q61|File:Plan of the city of Washington LOC 88694159.tif
-PASS caption_coords  washington-q61|File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg
-PASS caption_coords  washington-q61|File:Map of the defences of Washington. LOC 88690674.jpg
-PASS caption_coords  san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg
-PASS caption_coords  san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg
-PASS caption_coords  san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg
-PASS caption_coords  san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg
-evidence: 11 rows, 11 pass, 0 fail, 0 no-tie
-```
-
-The join rules it enforces: every staged file row names a staged or existing site, a staged id or QID
-is a problem only when it resolves to a **different** site (after 236c's first-row-wins merge the
-module's own rows are a no-op, not a collision), every staged site has a picture, (site, title)
-unique, no clash with the canonical `files.jsonl` (a same-key different row still fails loud), and the
-classified rows are 1:1 with the file rows. The same guards, and a staged-row negative control
-(Castello row with the Venice point - ~6681 km, the name-search-style resolution a live record could
-store - must report FAIL), are pinned in `tests/test_src_us_cities.py` (offline, socket blocked).
 
 ## Washington DC (Q61)
 
@@ -521,9 +518,246 @@ books and reprints, not as a Commons file; the 1849 Eddy row above covers the su
   James Gordon Bennett (IA dr ...11955001).jpg` (the Beechy 1827 harbour plan): **gone from Commons**
   (title changed/deleted, info() returns no url) - and a harbour chart anyway.
 
-## Nashville (Q23197) - later sessions
+## Nashville (Q23197)
 
-Leads: **early town plans** (the 1790s town at the confluence of the Cumberland and the Tennessee,
-south of the modern downtown point); the **Civil War fortification plans of Fort Negley** (a large
-earthwork on the west side of the city - a 3DEP LiDAR candidate, its own kind-"fort" site with its own
-QID, as the DC forts).
+The fourth owner-named city (staged 2026-10-14, iteration 173): four plans on the new
+`nashville-q23197` site - the 1804 Clayton/Temple plan, the 1860 Haydon & Booth plan, the 1860s O.M.
+Poe military survey and the 1895 Civil War fortification atlas plate (the panels surveyed
+Nov 30 - Dec 1864). All four titles print "Nashville" in the title itself, so the named-place gate
+(`fit/evidence.py:check_caption`) is safe on every row.
+
+- **The site point (REFINED, not a P625).** `nashville-q23197` at (-86.78152, 36.16529) - the
+  **center of the projected 1804 drawn extent** (1.82 x 0.96 km, the mirror fit below), not Q23197's
+  P625 (-86.774444, 36.162222): P625 is 721 m NE of the point (no >50 km flag), and its 2000 m town
+  box overshoots the 1804 extent's west edge by 543 m (margins on the extent: W -543 / E +726 / S
+  +860 / N +178 m) - the 147/148 San Francisco precedent (center of the drawn extent, five
+  decimals). The 2 km box centred on this point covers the 1804 scene with margins W +92 / E +91 /
+  S +519 / N +519 m. Kind "town" = the 2000 m box: the other three staged sheets span well beyond
+  it, so their fits are **review items, not wider boxes** (the NY 1811 / DC 1865 ring precedent; an
+  extras row cannot carry its own extent - see the New York extent decision).
+- **Staged rows.** `extras_us_cities.jsonl`: `nashville-q23197` (name "Nashville", place "Davidson
+  County, Tennessee", lon/lat above, region "United States", kind "town", QID, wikipedia,
+  `aerial_ok: true`, the note - aerial ground, the mirror fit, the P625 rejection, the oversize
+  review-item caveat, and the Fort Negley fort-site candidate). `files_us_cities.jsonl`: the four
+  rows below, each with the hand-recorded `caption_coords` evidence (`named_place` "Nashville",
+  `place_qid` Q23197, place = site point, dist 0; `cat: null`). `classified_us_cities.jsonl`: plan
+  on all four, `by: "hand"`. Row date facts: the Clayton row takes the known-date swap
+  (`date: "1804"`, `date_commons: "1880"` - the page's 1880 is Clayton's book publication); Haydon
+  needs no swap (page date 1860 = drawing date); the LOC/Poe row needs no swap either (the page's
+  precision-8 "1860s" IS the LOC-verified drawing date "[186-]", so the row keeps the raw page
+  string, `year: 1860`); the 1895 plate swaps to the atlas's verified publication year
+  (`date: "1895"`, `date_commons: ""` - the title is undated; the golden normalizes the empty page
+  value to 0000-00-00).
+
+### The Clayton/Temple plan (1804)
+
+- **What it is.** The 1790s town of Nashville "from the notes of one then resident (Mrs Temple,
+  Daughter of Genl Robertson)" - the oldest staged Nashville drawing, engraved in 1880 for
+  Clayton's History of Davidson County. The sheet (2557x1913) is a **near north-up bird's-eye view**
+  of the town between the rivers' corner and the Rich Branch: a REFERENCES index (1-20) tops the
+  sheet; the labelled streets are Broad / Church / Cedar (vertical) and Summer / College / Market
+  (horizontal) - modern Broadway is the drawn "Broad"; the hatched fort block, White Hall ("former
+  Fort"), the Nashville Inn, Dr. Henning's house, the cemetery, McNairy's and the Sulphur springs
+  all carry their 1804 labels; the rivers' corner runs as a hatched band along the bottom (the 1804
+  author labelled the whole band "Cumberland River"), two arms merging at a V in the sheet's SE
+  corner, with the Rich Branch entering east of the town.
+- **Where the files live.**
+  - **STAGED** - `File:1804 Map of Nashville published 1880.jpg` (2557x1913, Public domain, page
+    date 1880 = the book's publication): the known-date swap fired (`date: "1804"`,
+    `date_commons: "1880"`).
+  - DROP - the Burns 1906 copy of the same 1804 plan (1018x704, page 1906): the same plan - one row
+    per plan (the Ratzer precedent).
+- **The mirror fit (212's fit model, and the basis of the site point).** The sheet is a view from
+  above the town, so the right model is a mirror similarity w = a*conj(z) + b (a page-up
+  reflection), NOT a flat-plan similarity. Over anchor A = the fort pin (746,1362) <-> Q5471739
+  (36.164167, -86.774444) and B = the "now. Capitol Hill" wooded knoll (1750,1040) <-> Nominatim way
+  249147622's centroid (36.1658290, -86.7842374), with the ENU origin (36.163, -86.775), it gives
+  a-angle -174.1 deg, 0.8520 m/px: page-up projects to 354.1 deg (~N) and page-right to 264.1 deg
+  (~W) - a near north-up bird's-eye view with a ~6 deg tilt. Independent checks: the drawn rivers'
+  V (490,1680) projects **207 m** from the real OSM confluence node 303579826 (36.1606686,
+  -86.7700322) (the dead rotation fit would place it 521 m away) and 7 m from the mapped Cumberland
+  way; the Rich Branch mouth (2222,1620) projects to (36.161022, -86.788123) - the west riverfront
+  (12th-15th Ave S) - agreeing with the independent Haydon 1860 cross-check (below); the river
+  flows left -> right on the page = **westward = the Cumberland's true flow** (the 170 rotation fit
+  w = a*z + b is dead: it placed the river north of the town); the fort is the town's SE corner.
+  Projected scene extent (scene box x 448-2496, y 678-1600): lat 36.16096..36.16963, lon
+  -86.79163..-86.77140 = 1.82 x 0.96 km (the dense core (718-1790, 986-1575) is 0.96 x 0.59 km; the
+  full ink including the REFERENCES index and the title is 2.20 x 1.38 km - it still fits the 2 km
+  box). **Fit note for 212:** use the mirror similarity, anchored on the fort and the capitol
+  knoll. Caveat (recorded, not a fit blocker): the drawn street families do not match the modern
+  ones under either fit (map-horizontal -> 84.1/264.1 matches Division St within 6 deg; map-vertical
+  -> 354.1/174.1 is ~67 deg off modern Broadway) - perspective convergence and/or the 1796 plat's
+  own orientation; the anchors are the evidence. The bottom river band is bent 40-60 deg for
+  composition (the decorative-rivers pattern: trust the town, not the drawn V or the mouth).
+
+### The Haydon & Booth plan (1860)
+
+- **What it is.** John Haydon and Booth's 1860 city plan - title block: "CITY OF NASHVILLE AND
+  EDGEFIELD, DAVIDSON COUNTY, TENNESSEE. Published by Hayden and Booth. 1860. SCALE 400 FEET TO 1
+  INCH." A **decorative composite, not a single survey sheet** (the finding below).
+- **Where the files live.**
+  - **STAGED** - `File:1860 Haydon map of City of Nashville and Edgefield.jpg` (10000x6082, Public
+    domain, page 1860 = drawing date - no swap).
+- **The composite finding (why it cannot carry a whole-sheet georef).** The labelled CUMBERLAND
+  band runs across the sheet's middle (y ~3900-4300 for x ~3160-6300) and the dense downtown core
+  sits NORTH of it (x ~3250-5750, y ~2700-4250) - geographically correct - but the blue TENNESSEE
+  arm enters upper-left and the combined river exits lower-left: the map's V (3288,4302) is a right
+  angle while the real confluence is nearly a straight line - the rivers are **bent for
+  composition** (the Clayton pattern); the compass rose (~(7185,1425)) is a decorative 8-point
+  star; the plates are tacked together at different rotations (the core plate is the modern CBD;
+  the OVERTOWN/EDGEFIELD diagonal grids; the FILLMORE/BARROW grid south of the river; the "Shelby"
+  floodplain; the red 1860 Corporation Line; the REFERENCES legend and the CHURCHES list).
+  Consequence: the sheet is usable only **qualitatively** (the core plate = the modern CBD) and for
+  the site-note extent estimate from labelled landmarks (the Franklin Turnpike, the Wesleyan College
+  green, Howard School, the T&A RR line, the red Corporation Line); the 1833 waterworks reservoir
+  is dead as an anchor (the 1860 built-up ground covers the site). Pins (full sheet): confluence V
+  (3288,4302), capitol (4880,3193), Rich Branch mouth (3836,3981) - the mouth is the cross-check
+  that closed the site point: it projects to the west riverfront under the 1804 mirror fit, an
+  independent 1860 confirmation of the 1804 sheet. **Fit caveat for 212:** the sheet spans well
+  beyond the 2 km box (the ring of suburbs and the two arms of the bent river) - its fit is likely
+  to end as a **review item** (the NY 1811 precedent).
+
+### The O.M. Poe survey map (1860s, LOC 2003630459)
+
+- **What it is.** The big 1860s building-by-building survey of the whole city, from the Chief
+  Engineer's Office, Headquarters Military Division of the Mississippi: pen-and-ink (black) and
+  lead pencil on cloth, fold-line relief, every building. The signature (lower right, confirmed at
+  6x): "From Chief Eng'rs Office / H'd Qu'rs Mil'y Div'n of the Mis. / O.M. Poe / Capt. & Actg
+  Chf Eng'r (17x29.)" - the (17x29.) is the **sheet size** (17 x 29 inches, the LOC cataloguing
+  convention), not a date, and the scan (19690x11294, ~664-679 px/in) is the whole sheet. The LOC
+  record (loc.gov/item/2003630459) dates the drawing "[186-]" - the Commons page's precision-8
+  "1860s" IS the LOC-verified drawing date, so there is **no known-date swap** (the row keeps the
+  raw page value, `year: 1860`).
+- **Where the files live.**
+  - **STAGED** - `File:Map of Nashville, Tennessee. LOC 2003630459.jpg` (19690x11294, Public
+    domain).
+- **The extent estimate (the review-item number).** The printed scale bar spans 0-12000 ft with
+  100-ft subdivisions over the first 500; the ticks measure ~600-604 px per 1000 ft ->
+  **~0.50-0.51 m/px, scale ~1:13,500** (1 in ~= 1100 ft). A 29 x 17 in sheet at that scale is
+  **~10.0 x 5.7-5.8 km**, and the drawn content (the city core, a ring of named suburbs, both
+  rivers, the N&C and N&W RRs plus a "Proposed RR", the City and Catholic cemeteries and country
+  with contours) runs nearly to **all four sheet edges** - ~10 x 5.7 km drawn against the 2 km town
+  box = **3-5x over-size -> review item** (the NY 1811 / DC 1865 ring precedent). Orientation: the
+  LOC record says "Oriented with north toward the lower right"; the independent read agrees with
+  the street grid (Broad/Union/Decatur/Washington vertical, Vine/College/Market/High/Park
+  horizontal; the State Capitol hill and building, Market Square/City Hall/Court House, the
+  University & Western Military Institute all legible). The rivers' confluence is drawn as a
+  compressed ~90-degree V at the lower-right of the dense core (junction ~0.7 km from the capitol
+  by pixel measure vs ~1.4 km real - the rivers bent for composition; for any future fit, trust
+  the street grid, not the V). The handwritten "1" = 10000" scale note (1:120,000) **disagrees
+  with the bar** - impossible for a building-by-building map (a 10 m house would be 0.08 mm) - the
+  bar's value stands, the note is recorded as a discrepancy.
+
+### The Civil War fortification atlas plate (1895, surveyed Nov 30 - Dec 1864)
+
+- **What it is.** One page (1536x886) of the **atlas to accompany the official histories of the
+  Union and Confederate armies, 1861-1865** - the header, confirmed at 6x zoom, reads exactly that
+  (plus "PLATE" and a Roman numeral: CXIII/CXIV/CXVIII - not legible at this resolution, the hedge
+  stands). The scanned copy is the **Julius Bien 1895 edition** (the first edition is 1884-85 per
+  the plate header; not verifiable online from this machine - the routes died, the blocked-route
+  notes in DECISIONS 152/175); the row's date is the scanned copy's verified 1895. The task's
+  1660-1880 window is a description, not a rule: a Civil War fortification plan is a drawing by the
+  owner's standing rule (the DC 1865 ring precedent), and this is that case. The page is a
+  **multi-panel plate: nine independent fort/battery plans, each with its own "Scale of Feet" bar
+  (~100-400 m per panel at those bars)** - too small to georef individually; the only city-wide
+  content is the small "Plan of Nashville, Tenn." inset in the Fort Hill panel, which shows the
+  whole ring a few centimetres wide - too small to georef. The panels (surveyed Nov 30 - Dec
+  1864): 1 Chattanooga Battery Erwin, 2 Battery Coolidge, 3 Nashville Magazine Battery "Dec. 1864"
+  (Eng. Capt. J.S. Wheatley), 4 Nashville Capitol "Nov. 30, 1864" (Eng. Capt. J. St. Clair Morton),
+  5 Fort Dan McCook "Dec. 21, 1864" (planned by Brig. Gen. James Ste. Clair Morton; showing
+  changes by Brig. Gen. J.H. Torbert, U.S. Eng'rs - confirmed at 6x), 6 Fort Morton "Dec. 1864"
+  (Eng. Capt. H.K. Wright), 7 Fort Hill "Dec. 1, 1864" (+ the small "Plan of Nashville, Tenn."),
+  8 Fort Nashville, 9 the Nashville Heights "Dec. 1864" - **7 of 9 Nashville**. **Panel-caption
+  caveat:** panels 3, 8 and 9 are only partly legible at 1536 px and the two sessions that read
+  them differ (panel 3: "Nashville Magazine Battery" vs a "BATTERY FOR CASI..." [= ? Casino Hill]
+  designed for the Tennessee Army; panel 8: "Fort Nashville" vs "Fort Washington, Tenn."; panel
+  9: "the Nashville Heights, Dec. 1864" vs "Redoubt on Hill No. 230. Not yet completed. November
+  30th, 1864.") - no high-res route works from this machine (David Rumsey is reCAPTCHA-walled on
+  every ID form, the LOC keyword search does not surface the atlas, the IA item 01104241 is gone) -
+  the readings above (152) stand with that explicit hedge; the row's date 1895 and the surveyed
+  Nov 30 - Dec 1864 range stand either way. **Fort Negley (Q5471744) is NOT among the nine panels
+  on this sheet** (151's thumbnail-era reading claimed a "Fort Negley (plan + A-B section +
+  magazine)" panel; the 152/175 close reads settle the nine as listed - and the fort's P373
+  category holds only photos and the three Fletcher views, no plan): the sheet is the task's Fort
+  Negley lead realized as the **city-defences** sheet (the DC 1865 ring precedent), staged on the
+  city, not on a fort.
+- **Where the files live.**
+  - **STAGED** - `File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses
+    of Nashville, Tenn. Capitol (IA dr
+    defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg` (1536x886,
+    Public domain; the "..." in the title is three literal dots; no page date - the atlas's
+    verified 1895 publication is on the row, and required: the undated title has no
+    plan/map/survey word for `keep()`).
+- **Fit caveat for 212 (the extent case).** Each panel is ~100-400 m (its own scale bar), but the
+  nine panels together span the whole defences ring (the Nashville heights north/east of the city,
+  plus the Chattanooga batteries at the plate's other end) - well beyond the 2 km town box - so
+  the sheet's fit is likely to end as a **review item**, not a fitted plan (the DC 1865 ring
+  precedent); the 1864 earthworks are the 3DEP LiDAR case (the mounds in 203a), like the DC ring.
+
+**Fort Negley (Q5471744) - a fort site only when a fort-only plan appears.** The large Civil War
+earthwork sits ~1.9 km south of the city P625 (36.145097, -86.774658). No fort-only plan is on
+Commons (the fort's P373 category is photos and the three Fletcher 1864 views; every
+"Negley"/"plan of Fort Negley"/"defenses" search came up with none) - and a staged site without a
+picture fails `check_staged()` - so **no fort site is staged**: the candidate is recorded on the
+city's site note (kind "fort", 1600 m box, a 3DEP LiDAR candidate - the 203a mounds precedent) and
+this task is done. **236b leads (record, do not stage here):** the three Fletcher 1864 lithograph
+VIEWS of Fort Negley (drawn by W.H.H. Fletcher, 12th Battery Ind. Vols.; the SE one inscribed
+"Filed Dec 31, 1864"; Public domain, page date 1864) - `File:South west view of Fort Negley
+LCCN2003655690.jpg` (7950x3822) + `.tif` (7964x4356), `File:North west view of Fort Negley
+LCCN2003655670.tif` (7964x4356), `File:South east view of Fort Negley LCCN2003655689.jpg`
+(8082x3978) - bird's-eye views are task 236b's domain (the Henry Bill precedent).
+
+### Dropped plans, maps and photos (this task's searches, 2026-10-13)
+
+- **The Burns 1906 copy of the 1804 plan** (1018x704, page 1906): the same plan as the staged
+  Clayton file - one row per plan (the Ratzer precedent).
+- **The 1854 Putnam "Detail"**: a cropped fragment - too small to fit.
+- **The 1888 Sanborn fragment** (491x572): too small.
+- **The 1916 Marshall & Bruce map**: outside the 1660-1880 window, commercial.
+- **The 1887 Cowen battle map** (1:110,000): a battle map, not a city plan (outside the window
+  besides).
+- **The 1895 Bien Nashville-and-Franklin battlefield map** - settled 2026-10-14: the atlas group's
+  own battle pages, IA items 01104200 and 01104201 of the same David Rumsey group (1780.000) as the
+  staged plate - 01104200: "Battle-fields in front of Nashville, Tenn., where the United States
+  forces commanded by Major-General Geo. H. Thomas, defeated and routed the rebel army under
+  General Hood, December 15th and 16th 1864. Surveyed and drawn under the direction of Gen. Tower
+  by M. Peseux, C.S. Mergell, auth. (with) Battle-field in front of Franklin, Tenn. ... November
+  30th, 1864 ... Julius Bien & Co., Lith., N.Y. (1891-1895)" (year 1895); 01104201: the companion
+  Merrill/Willett topographical battle-field sheet - **DROP: a battle map, not a city plan** (the
+  Cowen precedent).
+- **All the Fort Negley photos** (the fort's P373 category, 12 files): Barnard 1864 ("Fort negley
+  1864.jpg", lowercase n - undated, no plan/map/survey word, fails `keep()`); LCCN2007662878;
+  Webster & Albee ca. 1890; 2019 CC-BY ruins; the modern park shots - **photographs, not plans**
+  (the three Fletcher views among them are the 236b leads, above).
+
+## Offline check
+
+`.venv/bin/python fit/src_us_cities.py --check` (2026-10-14, all 15 staged rows): no join problems,
+and
+
+```
+PASS caption_coords  new-york-q60|File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif
+PASS caption_coords  new-york-q60|File:Plan of the City of New York by Bernard Ratzer, 1767.jpg
+PASS caption_coords  new-york-q60|File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg
+PASS caption_coords  new-york-q60|File:Viele Map (Topographical map of the City of New York), 1865.jpg
+PASS caption_coords  washington-q61|File:Plan of the city of Washington LOC 88694159.tif
+PASS caption_coords  washington-q61|File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg
+PASS caption_coords  washington-q61|File:Map of the defences of Washington. LOC 88690674.jpg
+PASS caption_coords  san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg
+PASS caption_coords  san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg
+PASS caption_coords  san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg
+PASS caption_coords  san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg
+PASS caption_coords  nashville-q23197|File:1804 Map of Nashville published 1880.jpg
+PASS caption_coords  nashville-q23197|File:1860 Haydon map of City of Nashville and Edgefield.jpg
+PASS caption_coords  nashville-q23197|File:Map of Nashville, Tennessee. LOC 2003630459.jpg
+PASS caption_coords  nashville-q23197|File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg
+evidence: 15 rows, 15 pass, 0 fail, 0 no-tie
+```
+
+The join rules it enforces: every staged file row names a staged or existing site, a staged id or QID
+is a problem only when it resolves to a **different** site (after 236c's first-row-wins merge the
+module's own rows are a no-op, not a collision), every staged site has a picture, (site, title)
+unique, no clash with the canonical `files.jsonl` (a same-key different row still fails loud), and the
+classified rows are 1:1 with the file rows. The same guards, and a staged-row negative control
+(Castello row with the Venice point - ~6681 km, the name-search-style resolution a live record could
+store - must report FAIL), are pinned in `tests/test_src_us_cities.py` (offline, socket blocked).
