@@ -5,6 +5,84 @@ Touches: tests/
 
 ## Hand-over
 
+(2026-10-14, iteration 125, agent c - **REWROTE tests/fixtures/matchfit_station/record.py from
+scratch** per the 210/211 design (the old truncated stub is replaced; the file is complete and
+syntax-checked, NOT yet run, NOT committed - the harness holds the uncommitted write). Next step
+is one command: run it live, then write the test. The 210/211 design text preserved further down
+remains valid where this section does not supersede it; DECISIONS entries 210/211 carry the full
+test-design trace.)
+
+**State of iteration 125 (fresh-eyes re-verification, all on the current tree):**
+- ELoFTR UP: 127.0.0.1:8091/health = {model: zju-community/matchanything_eloftr, device: RTX
+  5060 Ti}; RoMa :8092 REFUSED (exit 7). .venv current (PIL, numpy, skimage all import).
+- Inputs verified: n0132.jpg 3367x5050 (mode L); grounds relief.jpg 1600x1600 RGB,
+  six-inch-1st.webp 1066x1066 RGBA, os1inch.webp 1600x1600 RGB (3 grounds x 5 windows = 15
+  requests); hand doc (4 pairs, by: hand, size present, crop [300,1380,2900,3330],
+  at 2026-10-10T17:38:04); plans row (map_box [0.107,0.278,0.857,0.658], size [3367,5050]);
+  index row (evidence present, scale_bar true, north 0.0); **propose_for SUCCEEDS in-process
+  (coarse False, ground relief, scale_m_px 0.1902, rot_deg 0.0, scale_source bar, note about the
+  scale bar, 5 pairs) -> the unsure item candidate carries all six proposal fields, pairs [];**
+  site entry drawings 1 / score 1.45 / oldest 1842 / overlays 2; depictions = 3 entries (six-inch
+  1842, os1inch 1900, hand plan 1908); NO badbury review item (481 item files, 480 with a site
+  field); NO badbury in the published review.json (456 open).
+- Frozen held-out (data/matchfit/heldout/results.json, at 2026-10-12T02:58:37) ALL HOLDS: 15
+  candidates; best six-inch-1st.webp x0.35 = 61 matches / 22 inliers / rot 3.62 / resid 3.1;
+  the EXACT two >=10-inlier responses to permute for the unsure variant: six-inch x0.5 (15) and
+  x0.35 (22); the unperturbed six-inch x0.7 (8, rot -43.51) and relief x0.25 (7) keep the best
+  at 3..9, so the expected unsure line is "not sure: 8 consistent points (need 10) [six-inch-1st
+  .webp x0.7, rot -44]" (unless a seed pushes a perturbed one to 9 - the recorder loops seeds
+  7..36 and records the one that lands).
+- PRE-CHECK RAN: review.export on a scratch tree (all 481 item files + platefits store +
+  sites.json + catalog) = 456 open of 480, **stderr clean** -> the recorder's err=="" asserts
+  should hold (n_total counts only items WITH a site field: 480, not 481 - one repo item has no
+  site field; the unsure run's counts will be 457/481, the test's baseline export 456/480).
+- Full-suite baseline COMPLETE: /tmp/aw302f_baseline.log = **1 failed (test_fit_queue.py::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb work, on main, NOT mine),
+  157 passed, 1 skipped, 324.50 s**. That is the yardstick for "no new reds" (the driver's
+  159-passed note is from the pre-eb12e59 tree).
+
+**record.py on disk (read it before running; it is complete):** ROOT = parents[3] (the 124
+  correction); the site dir is copied from os.path.realpath (symlink to the lead's
+  /home/agent/projects/ancient-works - the 124 correction); build_tree lists in lockstep with
+  the test's (tools/, fit/, pipeline/, web/data/{sites,plans,review}.json, web/data/sites/SID
+  real copy, data/review all, data/books/index.jsonl, data/commons/files.jsonl,
+  data/catalog/sites.jsonl, data/sites/SID/site.json, data/raw/books/.../n0132.jpg,
+  data/db/platefits all, unlink badbury doc when delete_hand_doc); live phase patches
+  urllib.request.urlopen (records sha256(body)->response JSON AND response-bytes hash per run,
+  for the stability verdict) and runs mfh.candidates TWICE; offline replay patches mf.match
+  with a fake that rebuilds the exact body (mf._b64 + json.dumps, same key) and patches
+  mf.reachable (True only for None/MATCHER_URL) and mf.ROMA_URL (dead ephemeral port);
+  in-process site_done runs (importlib, same module objects) on fresh trees T1 (confident) / T2
+  (unsure) with contextlib capture; _save uses default=float (ransac rot is np.float64);
+  header records input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog rows,
+  site.json, data/review combined) for the test's drift detector. Known risks at run time:
+  (a) live GPU drift vs frozen (recorded, not fatal - box 1 allows it); (b) the confident run's
+  11-line shape / unsure 8-line shape (asserts fail loudly with the actual stdout printed -
+  read it, correct the expected shape in the header, re-run); (c) site_entry_equal (score
+  1.4535 -> 1.45 is a narrow margin - if False, the test relaxes to field asserts and the
+  header records actuals); (d) seed 7 may not land 3..9 (the loop tries up to 36).
+
+**EXACT NEXT STEPS (one or two sessions):**
+1. `.venv/bin/python tests/fixtures/matchfit_station/record.py` (needs ELoFTR up; ~2-5 min;
+   prints a live-vs-frozen table and both stdouts; on failure it keeps the scratch tree and
+   prints the actual stdout). Verify the two fixture JSONs land in tests/fixtures/
+   matchfit_station/ (records.json: header.confident; records_unsure.json: header.unsure;
+   both: header.frozen_heldout/live_runs/offline_replay/input_hashes + 15 responses).
+2. `git add tests/fixtures/matchfit_station && git commit` the recorder + fixtures.
+3. Write tests/test_matchfit_station.py per the TEST DESIGN in the preserved 211 block below
+   (ephemeral-port ThreadingHTTPServer stub keyed by sha256(body); GUARD passes through only
+   (127.0.0.1, GUARD_ALLOW port) - patch socket.socket.connect AND connect_ex, NOT
+   create_connection; subprocess [sys.executable, "-c", GUARD, tree/tools/site_done.py, SID],
+   cwd=tree, env MATCHER_URL/ROMA_URL(dead)/GUARD_ALLOW; two tests, confident + unsure, with
+   the drift-detector preconditions and the file-effect asserts as designed; the unsure test's
+   baseline = build_tree WITHOUT doc deletion, in-process review.export must give
+   (n_open-1, n_total-1) of the fixture's recorded 457/481, i.e. 456/480).
+4. Run my test until green; FULL suite (`.venv/bin/python -m pytest -q -p no:cacheprovider`);
+   diff failures against /tmp/aw302f_baseline.log (only the placement_gestures red allowed);
+   tick the six boxes as verified; commit "302f: ...".
+
+**Preserved 210/211 design (valid unless superseded above):**
+
 (2026-10-14, iteration 124, agent c - re-verified the ENTIRE 210/211 design against the current
 merged tree (eb12e59: agent a's 212/236a/307d work on main): every line-shape, module behavior
 and data fact holds; TWO corrections found (below). No code written this session (context limit

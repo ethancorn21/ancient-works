@@ -596,3 +596,47 @@ practical rules; today's run corroborated it exactly).
 - **Clayton 1804 READ (the first look of the three sessions trying):** rendered the full 2557x1913 at 1400 px and read it. Layout: the river band runs along the BOTTOM of the sheet; the fort is ON the river at the town's SW corner, where the band bends; the town (numbered references 1-20, "Market or Main St", White Hall "farmer fort", Nashville Inn, Dr Henning's House) is NORTH of the band; the **Rich Branch** is labeled on the RIGHT and flows south into the band EAST of the town, its mouth in the sheet's SE corner beside the "Cumberland River" label (the 1804 author labeled the whole band "Cumberland River"); "Johnson's House, Ferry & Keel Boat Landing" is at the western end of the band; "Cemetery", "now Capitol Hill" (the Walker house, "Present College Str") and Judge McNairy's properties extend the drawing well north of the town; the title block "NASHVILLE IN 1804 / From Notes of one then resident (Mrs Temple, Daughter of Dunc. Robertson)" is below the river. Working hypothesis: the bottom band is the rivers' corner (the Tennessee running SW->E into the Cumberland; the 1804 town on the NE side of it, between the corner and the Rich Branch) - which matches the pinned fort and would put P625 inside the drawn extent. The sketch is hand-drawn and not to scale, so the extent's center is to be measured by a 2-anchor linear georef (fort + the Rich Branch mouth), cross-checked against the to-scale Haydon 1860 (see the task file's step 1 for the exact recipe: crop coords, the /map bbox for the Rich Branch, the cross-check).
 - **OSM is unreliable around the Nashville CBD - do not use it for the point decision:** api.openstreetmap.org /map on 0.02 deg boxes + /way/40806685/full (the only way tagged "Cumberland River" nearby) give a "hook" (36.177,-86.781) -> (36.163,-86.773) -> (36.161,-86.770) -> (36.159,-86.764) -> (36.159,-86.758) -> (36.161,-86.747) that places the river EAST of P625 at the CBD's latitude (contradicting both 151's "P625 east of the Cumberland" and the greenway hit at (36.1729, -86.7831) which sits 400 m WEST of the way's point there); SW boxes around the supposed confluence contain no river ways at all; the 50k-node limit blocks bigger boxes. Nissan Stadium (way 58759639, 36.1665, -86.7713) is NE of the CBD, not at a river corner as often recalled. The confluence of the two rivers is simply not cleanly mapped in OSM here. The old maps (Clayton/Haydon/Poe) + Wikidata are the trustworthy sources, per the project's own method.
 - **The next session FILES TO PITFALLS (this one hit the context limit first): Overpass is dead from this machine** (overpass-api.de -> HTTP 406 "Not Acceptable" even with a UA; overpass.kumi.systems -> an XHTML error page). Use api.openstreetmap.org instead: /map?bbox=s,w,n,e (keep it <= ~0.02x0.02 deg or the "You requested too many nodes (limit is 50000)" error), /way/{id}/full for a single way with node coordinates, and Nominatim (1.1 s gap, a UA) for names. Also: PIL lives in the project .venv, not system python3 (ModuleNotFoundError on plain python3) - run .venv/bin/python and set Image.MAX_IMAGE_PIXELS = None for the 10000x6082 Haydon (222 M px trips PIL's 178 M-px bomb limit, the 152 finding).
+
+## 2026-10-14 302f DECISION: iteration 125 - record.py REWRITTEN from scratch per the 211 design (complete on disk, unrun, uncommitted); the live run is the next step
+No test written yet. This session re-verified the entire 210/211 design against the current
+merged tree and replaced the truncated stub with the complete recorder:
+- build_tree (lockstep with the test's): tools/ fit/ pipeline/ (no pycache), web/data/
+  {sites,plans,review}.json, web/data/sites/SID copied from os.path.realpath (it is a symlink
+  to the lead's /home/agent/projects/ancient-works), data/review (all 481), data/books/
+  index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/sites/SID/site.json,
+  data/raw/books/earthworkenglan01allcgoog/full/n0132.jpg, data/db/platefits (all; the badbury
+  hand doc unlinked when delete_hand_doc). ROOT = parents[3] (124 correction 1); realpath copy
+  (124 correction 2).
+- Live phase: urlopen patched (sha256 of the exact /match body -> parsed response + response-
+  bytes hash, per run) around mfh.candidates run twice; then offline replay with mf.match
+  faked (body rebuilt exactly: mf._b64 + json.dumps, threshold 0.2, max_side 1024 -> same
+  key), mf.reachable patched (True only for None/MATCHER_URL), mf.ROMA_URL = dead ephemeral
+  port. Then two IN-PROCESS site_done runs (importlib; same module objects) on fresh trees
+  T1/T2: confident fixture, and the unsure variant (ground keypoints of every >=10-inlier
+  response permuted with np.random.default_rng(seed); seeds 7..36 until the offline fit_row
+  best lands at 3..9 inliers - fit_row's best exists only at >=3, so 3..9 gives exactly the
+  "not sure: N consistent points" line; "nothing consistent" is explicitly rejected).
+- Facts verified by running this session: ELoFTR healthy (RTX 5060 Ti), RoMa refused (exit
+  7); propose_for SUCCEEDS for this row in-process (coarse False, bar scale 0.1902 m/px, rot
+  0.0, 5 pairs) -> the unsure item candidate gets all six proposal fields, pairs []; n0132.jpg
+  3367x5050 L; six-inch 1066x1066 RGBA, relief/os1inch 1600x1600; site entry 1/1.45/1842/2;
+  depictions 3; NO badbury item (481 files, 480 with a site field - review.export's n_total
+  counts only those: baseline 456/480, after the unsure run 457/481); the frozen held-out
+  (2026-10-12) matches (best six-inch x0.35 61/22/3.62/3.1; the two >=10 responses are six-
+  inch x0.5=15 and x0.35=22; unperturbed best six-inch x0.7=8 rot -43.51). PRE-CHECK:
+  review.export on a scratch tree = 456/480, stderr clean (so the err=="" asserts should
+  hold). Full-suite baseline COMPLETE at /tmp/aw302f_baseline.log: 1 failed (test_fit_queue::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb, on main, not mine), 157
+  passed, 1 skipped, 324.50 s.
+- record.py details that would trip a reader: _save uses default=float (ransac rot is
+  np.float64); the seed loop restores mf.match to the original afterwards; the header records
+  input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog row extracts,
+  site.json, data/review combined) for the test's drift detector, and the in-process runs
+  hash the checkout surface before/after to prove they write nothing outside the trees.
+- NEXT (exact): run `.venv/bin/python tests/fixtures/matchfit_station/record.py` live; on
+  success commit the recorder + both fixtures; then write tests/test_matchfit_station.py per
+  the TEST DESIGN block in the task hand-over (ephemeral-port stub, pass-through GUARD
+  variant, subprocess, confident + unsure tests, drift preconditions); full suite diffed
+  against the baseline; tick the six boxes. Known risks at run time: GPU drift (recorded,
+  non-fatal), line-shape asserts (fail loudly with actual stdout), site_entry_equal narrow
+  margin (1.4535 -> 1.45), seed landing.
