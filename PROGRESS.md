@@ -4,14 +4,16 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 122, agent c - investigation session; the 204 hand-over's "waiting
+- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 123, agent c - plate-transcription session. ALL candidate plate
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
+- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
+- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
 - `tasks/236-us-cities.md` (split)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/302f-matcher-station-test.md` (open) - hand-over: (2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+- `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 - `tasks/807-horsley-list-correction.md` (blocked)
 - `tasks/808-horsley-stage.md` (blocked)
@@ -20,26 +22,139 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/235-placement-test-dep-pick.md`
-- `tasks/236a-us-city-plans.md`
+- `tasks/236b-us-birdseye.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-11 207 DECISION: split into 207a (Horsley), 207b (Maclauchlan), 207c (Roy); reordered so the unblocked books go first
-Chose per-book subtasks over one task: the three-book pipeline (fetch + triage A/F/C/B + list mapping + recall + staging + tests + lead doc) is far beyond a few sessions, and the task's own Notes anticipate the split. Reordered from the Notes' (Roy, Horsley, Maclauchlan) to (Horsley, Maclauchlan, Roy): the driver hands out subtasks in a/b/c order, and Roy (207c) is blocked waiting on a human-provided copy (BLOCKER below), so putting it last keeps the pipeline moving.
-Copy choices (measured this session via books_ia): Horsley -> `britanniaromanao00hors` (Google Books, 936 leaves, median 2237x3861 px, hOCR + djvu.txt; alternates the bim British Museum copies, 831/827 leaves, ~14000 px images - only if the Google pages are unreadable). Maclauchlan -> `memoirwrittendu00maclgoog` (the 1858 original, 171 leaves, 3290x5182 px, djvu.txt only, no hOCR; the 1971 reprint `memoirwrittendur0000henr`, 292 leaves 1625x2697, has hOCR and is the OCR source for the book's list; stage images only from the 1858 original). Mechanics: each subtask's module registers its book in `books.BOOKS` and patches `books.LLM_URLS` in-process to the live replicas (127.0.0.1:8080-8082, model qwen3.8-27b, verified up this session) - no edits to pipeline/ (215 re-points books.py properly); per-book artifacts only (triage/<ia>.*, lists/<ia>.json/.map.json via `books_lists.cmd_ocrmap` after in-process `books_lists.PLATES[ia]` injection); recall recorded per book in docs/lead_roman.md via `books_lists.validate_book` (the shared validation.json/index.jsonl stay untouched until 211); staging appends to the parent's shared files (files_roman.jsonl etc.) with rows tagged per book, the 204/205 append-only idempotent pattern.
+### 2026-10-11 302 DECISION: split into 302a (method module), 302b (one-shot held-out table), 302c (decision + site_done wiring + e2e test), 302d (Stonehenge run) - the method is ink-vs-relief, never model coordinates
+    First session on this task (iteration 74): investigation only, no code written. The split files carry the
+    per-step acceptance boxes; the parent hand-over carries the verified facts and the frozen design.
+    Method choice (evidence, not hope): matching points = the plate's own ink (autowalls' frozen extractor,
+    docs/autofit.md section 3) matched against the site's bare-earth relief with fit_plate's ridge-contrast
+    objective (the 2026-10-09 Fudge proof: commit 16c6b9a) and autofit.py's coarse-FFT + refine search from a
+    fit/propose.py seed (scale bar / ratio text / picture size, north arrow / north-up, catalog centre). The
+    2026-10-10 pre-registered run (docs/autofit.md, FAIL 0/40 seeds) showed: the search works, the relief score
+    has false peaks, random-placement nulls cannot accept/reject, and template junk is the binding problem -
+    so the design keeps the proven machinery, adds a per-piece keep/drop step (model-classified where the AI
+    box is reachable, deterministic no-model fallback otherwise), a search-matched null (same search on a
+    scrambled template and a shifted DEM box, whichever scores higher), and the frozen gate + fabrication
+    check on the method's own ink pairs as acceptance layers. The 10-10 test sites (US 1848 plates) are none
+    of the 19 held-out sites, so their failures are warnings, not predictions.
+    Verified by running this session:
+    - All 19 hand-fit sites have 0.5-1 m DEMs reachable from this VM: dem_sources probe -> ea (13 England
+      sites, EA composite DTM 1 m), usgs (serpent-mound, cahokia, aztalan, mound-bottom), ign (bergues,
+      camp-d-attila); all returned finite data for the site box.
+    - Plate images: 20 of 21 present in this VM's data/raw (9 books pages under data/raw/books/<ia>/full/,
+      11 commons bigs under data/raw/commons/big/); the lead's new maiden-castle c_c20ff6b1f16d173d has only
+      its 1280 px thumbnail here - plan_fit.load_picture fetches the big on demand (network, working phase).
+    - The AI box is NOT reachable from this VM (127.0.0.1:18080/18083 refused; the 10-10 Qwen calls ran on
+      the Mac through its tunnel). Consequence: the model step (page-triage boxes, piece labels) must be
+      injectable with a deterministic no-model fallback; the held-out run here is the no-model variant.
+    - scikit-image is missing from requirements.in/.txt and from this .venv, but autowalls.py needs it
+      (Frangi + skeletonize); 302a pins it (001's archive note anticipated exactly this). .npy is
+      gitignored globally, so committed relief seeds are .npz under data/inkfit/ (only data/autofit/*.npz
+      is ignored); data/sites/<id>/dem.npy stays a local cache built in the working phase.
+    - The lead's 21st hand fit (main 984b1b4, merged from vm/main) is the no-auto version of
+      maiden-castle-q1232816.c_c20ff6b1f16d173d.json (3 hand pairs, crop [165,256,895,663]); my branch still
+      carries the pre-merge auto version until the driver's next sync. Held-out set = the original 20 golden
+      docs + this one = 21 rows over 19 sites (old-sarum and maiden-castle each have 2). The golden files
+      (hand_fit_docs.sha256, hand_fit_sites.txt) stay at the original 20/19 and are never edited.
+    One trap recorded for the builders: plan_fit.fabrication_pattern clause (b) (1D ladder) fires on >=3
+    anchors sharing one coordinate (spread <= 2 px) with near-arithmetic spacing on the other - evenly
+    stepped points along one straight wall would trigger it, so emitted ink pairs use irregular steps or
+    junction/feature points, never a fixed stride on a straight run.
 
-### 2026-10-11 207 BLOCKER: Roy 1793 "Military Antiquities of the Romans in North Britain" is not on the Internet Archive
-- Attempt 1: IA advancedsearch by exact title, "romans in north britain", "antiquities of the romans in north britain", creator "Roy, William" (fuzzy: unrelated hits), title:"military antiquities" (20 hits: Grose et al., never Roy), a 1790-1800 year-range text query -> the only related item is a 1917 dissertation ABOUT Roy (macdonald-1917-roy, ~76 journal leaves, no facsimile, no plate list) - not the book
-- Attempt 2: ten guessed identifier patterns (militaryantiquit00roy, ...u, ...0, ...w, ...goog, ...0000roy, ...0000royw, militaryantiquities00{,00}roy{,w}, militaryantiquiti00roy, militaryantiquit01roy) -> all return `{}`
-- Attempt 3: the NLS complete facsimile (maps.nls.uk/roy/antiquities/, "174 pages, 51 map plates") via web_fetch and curl with three browser UAs, HTML and guessed image paths alike -> HTTP 405 AWS-WAF "Human Verification" captcha challenge on every path; the NLS open S3 tile bucket (mapseries-tilesets) lists fine but holds no antiquities set (roy/ = 1747-55 military survey only, already used by pipeline/nls.py as background maps)
-Needed: a human with a real browser to download the NLS facsimile and place it in data/raw/books/roy1793/ (or a decision to drop Roy). Filed ask_human (request 003, open, human_only); 207c set to blocked. 207a/207b proceed independently: the subtasks run in sequence, so the shared staging files (files_roman.jsonl etc.) carry per-book tagged rows without conflict; each subtask's module, triage/lists artifacts and tests are disjoint.
+### 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)
+    The driver's post-207 commit 745056e touched only tasks/302-autofit-real.md, so the 207 hand-over's "created subtasks 302e/302f/302g" was a false claim (the session was cut before the writes landed). This session re-verified all five boxes from the current tree and ticked 1-3:
+    - Box 1 met: fit/inkfit.py (302a: ink skeleton vs LiDAR relief, ridge-contrast objective, frozen no-model variant, model injectable) + the lead's fit/matchfit.py (pretrained MatchAnything ELoFTR/RoMa correspondences between the plan and relief/aerial/OS sheets - points computed from the images, never a vision-model list). The line is matcher-first (site_done._fit:78-84). The lead's newer fit/matchfit2.py (two-stage located windows), fit/matchfit_queue.py (rule sweep) and fit/surveyfit* are lead work, outside the boxes.
+    - Box 2 met: docs/site_flow.md line 129 (pre-registered protocol, "the method never sees the hand fits", the 21 docs, frozen config) + the 21-row table at lines 226-248 (corner errors 231.2-2203.6 m as measured; fabrication column silent on every placed fit; the lone non-silent cell is camp-d-attila "not enough wall ink (2 candidate points, need 4)"). Checkpoint re-verified by script: 21 entries == the golden's 21 exactly, 0 errors, 0 re-runs, all "no-model", fixed at 2026-10-11T22:47:37.081160+00:00. The matcher's own held-out tables (data/matchfit/heldout{,_located,_roma}; docs/matchfit.md: ELoFTR 7/21 accepted, 0 wrong, worst centre 55 m) re-verified present.
+    - Box 3 met: fit/matchfit.judge() - ELoFTR inliers>=10 & |rot|<=30, RoMa fraction>=0.4 (set on the held-out + queue tables, docstring cites docs/matchfit.md sections 7-8), both plus the spread guard (ratio>=0.1, sd>=20 px); "not sure: ..." reasons; matchfit.run writes a document only when judge is silent, so unsure fits never become docs and never build; second line of defence at site_done._sync_doc:204-206 (spread guard on fitter:"matcher" docs before build).
+    - Box 4 half-met -> 302f (file written): wiring met (site_done._fit:78-84) but `grep matchfit tests/` is empty - the matcher station has never been exercised by a test. 302f's site is badbury-rings-q798831: exactly one candidate picture (a confident fit empties uncovered, so the vision batch never runs in the test - the only network is the ephemeral-port stub), all ground images local, its ELoFTR held-out best re-verified this session (six-inch-1st.webp x0.35, 61 matches, 22 inliers, rot 3.62, 58.6 m corner / 2.9 m centre from data/matchfit/heldout/results.json).
+    - Box 5 not met -> 302g (file written): no post-matcher Stonehenge run anywhere; stonehenge-q39671 = 0 drawings / 1 overlay / 14 candidates (7 fabricated-line, 4 median-residual, 2 feature-based, 1 no-model-answer), no matcher doc; the only screenshot (stonehenge.png, 2026-10-11) predates the matcher. 302g runs the current line live (ELoFTR up, RoMa down -> ELoFTR-only run), checks whatever lands in a browser against the sarsens (301/306 shot.mjs pattern), and records it plainly - "places nothing" is a passing answer.
+    Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
+... (0.4 KB more: `grep -n -A 200 -F '## 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)' DECISIONS.md`)
 
-### 2026-10-13 207b DECISION: iteration 204 - the driver's auto-unblock did not lift the owner's "Stop 207"; no work started; filed ask_human 007 against this task (same question as open 006/207a), set Status: blocked again
-- The driver put 207b back to in-progress (ffe11d4) purely because no request was open against 207b itself - its safety valve for a blocked task that nothing would ever resume. It is not a lift: the lead's block (62455ad, "the owner said 'Stop 207'. Do not start until the owner lifts it.") is verbatim in the task file, the owner's stop is the newest word on record (no lift in the inbox, lead notes or DECISIONS), and request 006 (sibling 207a, 10-13 17:19 UTC, still open) already asks the same question for BOTH subtasks, recommending (a) it stands. Same resolution as 207a's iteration 203: the owner's word outranks the driver's dispatch.
-- Verified the task is a true blank slate on this branch before deciding: no fit/src_roman_maclauchlan.py; no data/books/triage/memoirwrittendu00maclgoog.* or lists/*.json (the per-book artifacts); data/raw/books/ has only cached bookreader.json + metadata.json for both IA copies (1858 original memoirwrittendu00maclgoog, 171 leaves; 1971 reprint memoirwrittendur0000henr, hOCR); no roman staging files (files_roman/classified_roman/extras_roman) and no docs/lead_roman.md exist yet. So (a) the stop stands costs nothing - no fetch, no LLM minute, nothing to unwind; (b) lifted resumes at the hand-over recipe step 2 (module + fetch).
-- Filed ask_human request 007 (.agent/asks/007.md, blocking, task: 207b) with recommendation (a) the stop stands; one answer covers 006 + 007. Status set back to blocked: stable now that a request is open against the task (driver rule), and it matches the lead's 62455ad. The harness's "keep the status as it is" note was read as "do not close the task out" - blocked-with-open-request is the state the lead wrote and the stuck rule prescribes. Tests not run: no code written this session (task file + journal only); suite unchanged at the recorded baseline 1/155/1 (lone red = agent a's in-flight 307 placement test).
+### 2026-10-13 302f DECISION: iteration 210 - investigation only; the fixture is keyed by the sha256 of the exact request body matchfit.match sends, and the test's stub reuses that key, so no image code runs in the stub
+    No code written this session (context limit during design; the full trace is in the task
+    hand-over). Design decisions taken, so the next session does not re-litigate them:
+    - Fixture format (tests/fixtures/matchfit_station/records.json + records_unsure.json):
+      {"header": {...}, "responses": {sha256(exact request body): <verbatim live /match JSON>}}.
+      matchfit.match sends json.dumps({"image0": b64(PNG of the plan crop), "image1": b64(PNG of
+      the ground window), "threshold": 0.2, "max_side": 1024}); the recorder monkeypatches
+      urllib.request.urlopen to record (body sha256 -> response) while matchfit.fit_row runs
+      live against 127.0.0.1:8091 (twice, for a stability check), and the test's in-process
+      stub answers POST /match by the same key. Same .venv PIL (12.3.0) + same source bytes on
+      both sides => same PNG bytes => same key; a missing key 500s and the test's stderr==""
+      assertion fails loudly. 15 requests per fit_row (3 grounds x 5 windows); RoMa needs no
+      responses (ROMA_URL points at a dead ephemeral port; reachable()'s except Exception swallows
+      the guard's AssertionError).
+    - Unsure variant: deterministic permutation (np.random.default_rng(7)) of the ground-side
+      keypoints of every response whose candidate has >= 10 inliers (frozen heldout: six-inch
+      x0.5 = 15, x0.35 = 22 - BOTH must be broken, since fit_row's strict-greater best would
+      otherwise stay confident on x0.5); the script asserts the perturbed best lands at
+      3..9 inliers (frozen values say 8, six-inch x0.7, rot -43.51) and records the exact
+      "not sure: N consistent points (need 10)" line in the header; the test asserts that line
+      verbatim (N from the header, never hardcoded).
+    - GUARD variant: patch socket.socket.connect and connect_ex to pass through only
+      (127.0.0.1, stub_port) (allowed port via env GUARD_ALLOW) and raise AssertionError
+      otherwise; do NOT patch socket.create_connection to dead (it must flow through to the
+      patched instance connect). The test_site_done/test_fit_queue full-dead guard is the
+      template.
+    - The unsure branch's published review.json must NOT be asserted equal to the repo's
+      current web/data/review.json (457 items may have drifted from what export recomputes
+      today): the test recomputes the baseline by calling fit/review.py export in-process on a
+      second clean tmp copy and expects exactly baseline + the badbury entry (same name sort).
+    - Tmp tree inputs (all verified to exist in this checkout): the code dirs tools/ fit/
+      pipeline/; web/data/{sites,plans,review}.json; a REAL copy of web/data/sites/badbury...
+      (it is a symlink to another checkout - copy os.path.realpath); data/db/platefits (all 70,
+      then delete the badbury doc); data/review (all 481); data/books/index.jsonl (evidence +
+      propose), data/commons/files.jsonl, data/catalog/sites.jsonl (export's name fallback -
+      missing => stderr warning, and the test asserts stderr == ""), data/sites/<SID>/site.json
+      (no "plate" field: is_pre_fit False), data/raw/books/earthworkenglan01allcgoog/full/
+      n0132.jpg (3367x5050, exactly the row's size => every scale factor 1.0).
+    - Confident-branch file effects: the matcher doc replaces nothing in the store (the hand doc
+      was deleted in the tmp only), build() REBUILDS the same-named plan_*.webp/_ink.webp and
+      replaces the same-file plan depiction (both year 1908), so drawings stays 1 -> the entry
+      line is "drawings 1 -> 1" in BOTH branches; no review item is created in the confident
+      branch (batch never runs) => export never runs => review.json byte-identical.
+
+### 2026-10-13 302f DECISION: iteration 211 - design fully verified against the current code (matchfit/site_done/batch_us/review/plan_fit/propose/build_site all re-read; heldout + index + depictions re-checked live); recorder left as a truncated stub to rewrite; expected stdout is 11 lines confident / 8 lines unsure (the 210 note's "9" was wrong); the sites.json entry recomputes to the same 1.45 but only just - the recorder must verify
+- This session read the whole chain with fresh eyes and confirmed the 210 design end to end;
+  three corrections that change the recorder's asserts:
+  1. The unsure branch's expected stdout is 8 lines, not 9 (210's count included a non-existent
+     "fit written" line): no-model, site, not-sure, sent-to-queue, entry, review, summary, done.
+  2. build_site.marks() recomputes score/oldest/overlays from depictions: hand fit rms 5.99 ->
+     score 1.45 (the repo's value); the matcher's ~3 m residuals give 1.4535 -> rounds back to
+     1.45, but the margin is narrow. The recorder MUST assert post-run site entry == repo entry
+     (parsed); if any marker field moves, the test relaxes to field-level asserts (drawings==1)
+     and records the actuals in the fixture header instead of whole-entry equality.
+  3. propose.propose_for's default root is the importing module's own ROOT: in the recorder's
+     IN-PROCESS site_done run it reads the CHECKOUT's data (same bytes as the tree copies made
+     the same moment); in the subprocess it reads the tree copies. Same input -> same output,
+     but the recorder should note which copy it read in the header so a future drift is visible.
+- matchfit_heldout.candidates(root, site, row, url) is the right offline-replay vehicle (it
+  calls mf.match/mf.ransac, so patching mf.match answers all 15 windows; the frozen
+  data/matchfit/heldout/results.json "docs" dict is the checkpoint: badbury best = six-inch
+  x0.35, 22/61, rot 3.62, resid 3.1, corner 58.6, centre 2.9; both six-inch x0.5 (15) and x0.35
+  (22) need their ground keypoints permuted for the unsure variant - fit_row keeps the
+  strict-greater best, so one would survive otherwise).
+- Environment re-verified this session: ELoFTR 127.0.0.1:8091 healthy (RTX 5060 Ti), RoMa 8092
+  refused (curl exit 7), .venv py3.12.3, hand doc/row/site entry/depictions/index row as
+  recorded in the 210 hand-over. The full-suite baseline was started in the background (nohup,
+  log /tmp/aw302f_baseline.log, ~5 min); check it in the next session (rerun if the log is
+  incomplete) before adding my test, to diff new reds.
+- State on disk: tests/fixtures/matchfit_station/record.py is a TRUNCATED STUB (ends in a bogus
+  `import matchfit_holdout_dummy`, no body) - the session hit the context limit mid-write.
+  NEXT SESSION: rewrite record.py from the design in the task hand-over (complete: tree
+  builder, live double-run with urlopen recording keyed by sha256 of the exact request body,
+  offline replay via the mf.match fake, in-process site_done runs for both branches,
+  perturbation loop with seed 7+, header with input hashes for the test's drift detector);
+  run it live once; commit both fixtures + the script; then write tests/test_matchfit_
+  station.py per the hand-over's test design (two tests; ephemeral-port in-process stub;
+  pass-through guard variant; drift-checked queue counts); run it; then the full suite diffed
+  against the baseline; tick the six boxes as verified.
 
 ## Project-wide driver notes (newest)
 
@@ -61,5 +176,5 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
     tests/test_fit_queue.py:1749: AssertionError
     =========================== short test summary info ============================
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-    1 failed, 159 passed, 1 skipped in 409.92s (0:06:49)
+    1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
