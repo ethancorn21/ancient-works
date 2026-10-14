@@ -4,7 +4,7 @@
 Contents, with the number of entries. Search for a file, function, library or error text: `grep -n -i "<key>" PITFALLS.md`; every entry's one-line fact: `grep -n "^#### " PITFALLS.md`.
 - Agent tools and harness (16)
 - This machine and its environment (42): Model servers (this VM's own cards) 30, Internet Archive (archive.org) 12
-- Libraries and frameworks (15): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 7, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1, pytest (9.1.1, project .venv) 1
+- Libraries and frameworks (16): pillow (12.3.0, project .venv) 1, pyproj (3.8, project .venv) 2, Python (3.12.3) 7, scipy (1.18.1, project .venv) 3, PIL (12.3.0, project .venv) 1, pytest (9.1.1, project .venv) 2
 - This codebase (127): tools/right_place.py 1, Wikimedia APIs (Commons, Wikidata) 21, fit/ 24, pipeline/ 11, fit/evidence.py (the evidence contract) 1, pipeline/commons.py 1, pipeline/books.py, pipeline/books_ia.py (the book machinery) 13, pipeline/autowalls.py (the frozen ink extractor) 3, data/db/platefits (shared fit-doc store) 4, web/ (the page and its extension scripts) 16, tools/right_place.py (the right-place check; lands on main with 804 - until then read it via `git show agent/c:tools/right_place.py`) 4, data/sites.json (site points) 1, tests/test_fit_queue.py 2, tests/playwright 4, data/merge/ (211's consolidation runners) 1, A/B-testing a change against a pristine tree (in-checkout, never a fresh worktree) 1, tools/export_plans.py 1, tools/site_done.py, fit/review.py 5
 1 entry lacks a `Where:` or `Symptom:` line: add them when you touch those entries.
 <!-- contents:end -->
