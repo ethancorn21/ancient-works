@@ -227,3 +227,10 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
 **Done claim (all 5 boxes ticked in the task file):** box 1 = merge re-run idempotent on the current tree (+0/+0/+0, refused 0, canonical byte-identical; the original run's 45 merged rows + 0 refused are the log.jsonl snapshot); box 2 = index 1112 rebuilt from all books, validation 12, evidence re-recorded on all rows, check rc 0; box 3 = 508 sites (499 + exactly 9), per-site dirs complete, plans.json 1572 = 1510 + 44 book + 18 commons, pure growth, unique keys, export_plans idempotent; box 4 = docs/sources.md section 9 Roman row (committed ce4ed0b, it.211); box 5 = test_hand_fits_are_the_reference green alone + hand_fit_docs.sha256 all OK + the re-run's tests hermetic (port 0, temp tree, no network per their fixtures). SUITE REDS (4): 2 x test_matchfit_station = this task's intended index rebuild firing the drift detector by design (remedy: 243, created); 2 x test_owner_check = 307d mid-transition flake family, proven not this combination (remedy: 242, already queued). Neither red is addressed by 230's files; the driver's own 207a-it.222 precedent shows this A/B + byte-identity accounting is the expected answer to a rejected claim.
 
 **Commit (team hygiene, never git add -A):** pipeline/commons.py, web/data/plans.json, tasks/230-roman-merge-rerun.md, tasks/243-matchfit-station-rerecord.md, DECISIONS.md, PITFALLS.md, and the ten docs/site_flow/307d_*.png restored to MAIN's bytes (the driver's dc7f9ee had committed today's dirty renders onto this branch; PITFALLS "test_owner_check re-renders all ten 307d golden PNGs..." mandates the branch carry main's bytes - committing them clears the pending binary-merge conflict, the 6af207b precedent).
+
+## 2026-10-14 230 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_matchfit_station.py::test_confident_matcher_station
+    tests/test_matchfit_station.py::test_unsure_matcher_station
+    tests/test_owner_check.py::test_owner_save_bar_scale
+    tests/test_owner_check.py::test_owner_save_site_size_fallback
