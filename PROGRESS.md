@@ -8,7 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
 - `tasks/236-us-cities.md` (split)
-- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
+- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-14, iteration 139, agent c - driver returned the parent after 306a-f all finished.
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
@@ -48,6 +48,13 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
   `drawings` are stale for most A-group sites (0 despite the overlay present; only aldenhaag=1,
   forthill=2, newark=2 non-zero) - 306a's rebuild via tools/site_done.py fixes the counts for the
   sites it changes.
+
+### 2026-10-14 306 DECISION: parent returned after 306a-f all done; both parent boxes verified fresh; added subtask 306g for the 16 lead-port on-map docs that have no audit record; parent stays split
+- The driver returned the parent (306a/306b/306c/306d/306e/306f all Status: done; 306e/306f were closed by the lead's own ruling 10dcb23 "306e + 306f done (superseded) ... survivors are eye-checked matcher re-fits", the 306f file's "Nothing left to audit"). Verified both parent boxes with fresh eyes by running code (this checkout, main merged at f31c874):
+- **Box 2 holds.** Spot-checked the 303-way end to end: shotwick's review item holds the removed doc with the "306a audit 2026-10-12: the drawn moated ring spans ~188 m..." reason, doc gone from store, depictions.json fitless; bethlehem's item holds all 12 removed docs with reasons (7 wrong-place, 2 wrong-kind 306a entries, 3 212b line-check entries), depictions fitless; '306c audit' = 9 / '306d audit' = 14 / '306e audit' = 10 occurrences across data/review/. No wrong fit on the map.
+- **Box 1 gap found.** Store census 2026-10-14: 71 docs = 49 by:agent (all fitter:matcher, all on the map) + 22 by:hand. Per-doc check: 33 of the 49 have bullet line + aerial shot + relief shot (where the site has relief.jpg) - verified each. 16 have NEITHER: arras, avesnes-sur-helpe, bavay, burcht-van-leiden x2, cahokia c_1a7c2a11c3a0dd21, douai, gouda (306f survivor re-ported by 77405cf), gravelines, groningen, le-cateau-cambresis, lille, saint-omer, utrecht, valenciennes, old-sarum c_b2701b5231da42f2. All 16 are the lead's own ports (20277f3 x11, 0685a4c x2, 77405cf x13 - "eye-checked" per that commit and the 306f close) - owner-placed, so the risk 306 guards against (an unseen agent fit) is lower, but box 1's record (shot + line in the repo) does not exist for them, so the parent's box cannot be ticked over them: filed **tasks/306g-agent-fits-lead-ports.md** (Status: open, Depends on: none, its own Touches) to audit them the visitor's way + backfill the 3 missing 306e lines (windmill-hill n0558_2, york c_8dac, york c_a7db - judged in 49ca718, deleted/kept/deleted; their lines + upserts never ran before the lead's close; 306g backfills lines only, no item edits).
+- Not a gap (lead's explicit ruling, recorded in the 306f file): the 17 306f docs (13 deleted by the 212b line check, gouda re-ported into 306g's list) and the 3 306e docs above are closed by the lead; re-auditing the 17 would contradict the close, so 306g touches only gouda + the 3 backfill lines.
+- Bookkeeping this session: tasks/306g created; parent 306 hand-over rewritten (census, verified boxes, the gap, the close recipe for the next return). No code, no data, no test input changed - the driver's loop-start baseline (1 red = agent a's in-flight 307 placement test, 159 passed, 1 skipped) stands untouched; no suite run needed (nothing it reads changed).
 
 ## Project-wide driver notes (newest)
 
