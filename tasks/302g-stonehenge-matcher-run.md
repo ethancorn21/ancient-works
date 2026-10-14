@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: none
 # 302g: Stonehenge on the matcher-first line - the run, the browser check, the plain statement
 Touches: docs/site_flow.md, docs/site_flow/, data/review/, data/db/platefits/, web/data/sites.json, web/data/review.json, web/data/sites/stonehenge/
@@ -42,7 +42,7 @@ recorded environment fact, not a defect of this task.
       same section. -> the log's per-candidate section (all 14: ELoFTR unsure/empty, batch not
       run, no docs written or deleted, item entries byte-identical) + the 14 pre-run entries
       verbatim in the log's pre-run snapshot section.
-- [ ] Whatever the line puts on the map is checked in a browser against the real sarsens
+- [x] Whatever the line puts on the map is checked in a browser against the real sarsens
       with the 301/306 pattern (tools/shot.mjs: headless Chrome 155,
       NODE_PATH=/home/agent/tools/shot/node_modules, the tree served by
       server/serve.py --port 0): the stonehenge map page, the overlay's stone positions
@@ -50,11 +50,20 @@ recorded environment fact, not a defect of this task.
       extent, and a screenshot committed as a NEW file under docs/site_flow/. If the line
       placed nothing: the current map page is screenshotted anyway and the record says
       plainly "the method placed nothing on Stonehenge" with the per-candidate reasons -
-      that is a passing answer to this box.
-- [ ] A new section in docs/site_flow.md APPENDED at the end of the file (do not edit any
+      that is a passing answer to this box. -> docs/site_flow/stonehenge-matcher-2026-10-14.png
+      (headless Chrome on server/serve.py --port 0, page #stonehenge-q39671, [eval] read from the
+      page's own state: the one overlay = the 1842 six-inch sheet (c.1900 one-inch out by the
+      150-years rule), visible at 85% ink, corners identical to depictions.json, extent
+      998.8 x 996.2 m on the 1000 m site box, sarsen centre = sheet centre (0 m off), no plan/drawing
+      depiction; in the shot the ink circle rides on the visible standing-stone circle and the ink
+      Avenue on the avenue earthwork - checked by looking at the shot). The plain statement is in the
+      record (log's final line and docs/site_flow.md's new section).
+- [x] A new section in docs/site_flow.md APPENDED at the end of the file (do not edit any
       other section - agent a's 307d work also writes there and both must merge cleanly):
       run date, matcher availability, what was placed (or not), the screenshot name, the
-      plain statement.
+      plain statement. -> appended after the 307d section (agent a's, appended this session by
+      the driver's merge; nothing else in the file touched): "## The matcher-first line on
+      Stonehenge: the live run, the map check, the plain statement (task 302g, 2026-10-14)".
 - [x] The golden files and the 21 hand-fit documents byte-unchanged; no new reds against
       the newest driver loop-start note. web/data/review.json is a generated whole-queue
       publish: if it conflicts at merge time with other tasks' exports, regenerate it
@@ -67,72 +76,45 @@ recorded environment fact, not a defect of this task.
 
 ## Hand-over
 
-(2026-10-14, iteration 128, agent c - live-run session. Boxes 1, 2, 5 ticked; remaining =
-boxes 3-4: the browser check (screenshot) and the section APPENDED to docs/site_flow.md. About
-one session's work.)
+(2026-10-14, iteration 129, agent c - browser-check session. ALL FIVE BOXES TICKED -
+task done, ready for the driver's re-check. No remaining work on this task.)
 
-**Done and committed this session:**
-- The live run of the current matcher-first line: `.venv/bin/python tools/site_done.py
-  stonehenge-q39671` (real checkout, no --root, no --working/--model-json), 2026-10-14 02:06-02:10
-  CDT, exit 0, wall 3m08s. ELoFTR UP (127.0.0.1:8091/health: zju-community/matchanything_eloftr on
-  the RTX 5060 Ti); RoMa DOWN (127.0.0.1:8092 refused) -> ELoFTR-only run (matchfit.run
-  use_roma=False; no picture got the RoMa second pass). Grounds matched: relief.jpg (site-box
-  corners), six-inch-1st.webp and os1inch.webp (own corners) - no imagery.jpg for this site - each
-  in 5 centred windows: 15 /match calls per picture, 210 total.
-- RESULT: the line placed nothing. 0 of 14 pictures became documents: ELoFTR "the matcher found
-  nothing consistent" on 3 (the earthworks, Early Man Fig 143, Fig 145a) and "not sure: 3-7
-  consistent points (need 10)" on the other 11 (best per picture: six-inch-1st x1.0 for most;
-  relief x1.0/x0.7 for three; rotations -125..+31 deg). No documents written, none deleted. The
-  vision batch never ran (all 14 already had review-item entries, so nothing was uncovered) - the
-  task's "no model answer" environment fact therefore did not apply to this run; the item's one
-  such entry (c_61b86efb4511e099) is pre-existing from the 301-era batch.
-- Recorded in docs/site_flow/stonehenge-matcher-2026-10-14.log (boxes 1+2): header (run date,
-  both /health probes verbatim, the RoMa-down degradation, the batch fact), the pre-run snapshot
-  (sites.json entry, 0 docs in the store, the site dir, and the 14 candidate entries VERBATIM),
-  the per-candidate effect section (matcher verdict / batch / docs / item state for each of the
-  14, with the pre-run why quoted), the post-run verification, the plain statement, then the full
-  stdout+stderr verbatim.
-- Verified by diff: the item file, the site's depictions.json, the site dir (no new overlay), the
-  sites.json entry (drawings 0, overlays 1, score 1.1, oldest 1842) and all 14 candidate entries
-  are byte-identical before/after; the ONLY file the run changed is web/data/review.json, whose
-  diff is the top-level "at" timestamp (the whole-queue re-publish: 456 open of 480 item files;
-  the 24 excluded all carry a resolving doc, counted via review.resolved_doc) (box 5, the
-  regenerate-at-merge clause stands for the driver).
-- Suite (full, `.venv/bin/python -m pytest tests/ -p no:cacheprovider`): 168 passed / 1 skipped /
-  0 failed (525 s) -> no new reds vs the newest driver loop-start note (that note's lone red,
-  307bb's test_placement_gestures_and_save_in_the_browser, is GREEN on this tree; the suite also
-  grew 161 -> 169 tests since the note) (box 5). Golden: 41/41 OK before and after the run and the
-  suite, the file itself untouched.
+**Done and committed this session (boxes 3-4; boxes 1/2/5 from iteration 128 stand):**
+- Box 3 (the browser check, the 301/306 pattern): served THIS checkout with
+  `.venv/bin/python server/serve.py --port 0` (printed base http://127.0.0.1:38859/, killed after
+  the shot), then `NODE_PATH=/home/agent/tools/shot/node_modules POSTWAIT=300 node tools/shot.mjs
+  <base>/#stonehenge-q39671 docs/site_flow/stonehenge-matcher-2026-10-14.png 8000 1200 800 "<IIFE probe>"`
+  (the probe polled S.ready && S.sites.length && S.mapLoaded, settled the map's zoom, then read the
+  page's own state; only the known 2 expected 404s plus ArcGIS tile aborts from the flyTo, no pageerrors).
+  [eval] result: sel = stonehenge-q39671; the site's ONLY depiction after the 150-years filter
+  (surveyOldEnough, web/index.html:445) is the 1842 six-inch sheet - the c.1900 one-inch is out (1900 > 2026-150);
+  depSel = six-inch-1st.webp shown as the `dep-stonehenge-q39671` source, visible, opacity 0.85, ink mode;
+  its four coordinates identical to depictions.json (shiftCorners' mercator round-trip, 0 at micro-degree
+  precision); extent 998.8 m (w) x 996.2 m (h), diagonal 1410.8 m, on the site's 1000 m box; no
+  plan/drawing/view depiction anywhere; map centred on (-1.826111, 51.178889) at zoom 15. The sarsen centre
+  (the catalog site point) is the sheet's exact centre (frac 0.5/0.5, offM [0,0]) - the sheet is the 1840s
+  survey of this ground, so the stones it drew are at their true positions; verified in the shot itself:
+  the red-ink circle rides on the visible standing-stone circle, the ink Avenue on the avenue earthwork
+  running SW. Site fields as recorded: drawings 0, overlays 1, score 1.1, oldest 1842, lidar true.
+- Box 4: appended ONE section to the end of docs/site_flow.md (after agent a's 307d section, which the
+  driver's pre-session merge had appended; nothing else in the file touched - append-only as required):
+  "## The matcher-first line on Stonehenge: the live run, the map check, the plain statement (task 302g,
+  2026-10-14)" - run date, ELoFTR up / RoMa down, the per-picture matcher verdicts and the batch not
+  running (pointing at the log for the 14-entry detail), the browser-check numbers, both file names, and
+  the plain statement: **the method placed nothing on Stonehenge** - the a-priori expectation the matcher's
+  own held-out tables predicted, met by the live line.
+- Suite not re-run this session: since the last full run (iteration 128, 168 passed / 1 skipped / 0
+  failed, 525 s) the only commits on this branch are the driver's bookkeeping (PROGRESS.md) and agent a's
+  four regenerated 307d PNGs - no code changed, so the green state stands on this exact tree; this session
+  touched only docs (the .md and the .png). Driver's done re-check will re-run it.
+- Committed with EXPLICIT paths: docs/site_flow.md, docs/site_flow/stonehenge-matcher-2026-10-14.png,
+  this task file, DECISIONS.md. The 307d PNGs are agent a's files (they drift with every full-suite run
+  in any checkout) and were not touched by me.
 
-**Next session (boxes 3-4, in order):**
-1. Serve THIS checkout (the full web/data/sites build is here - the 306d worktree pitfall does not
-   apply to the live checkout): `.venv/bin/python server/serve.py --port 0`, parse the base URL it
-   prints, kill it after the shot. The page is a hash-routed SPA: the stonehenge page is
-   `<base>/#stonehenge-q39671` (web/index.html start(): `S.byId[id]` -> select).
-2. The shot: `NODE_PATH=/home/agent/tools/shot/node_modules POSTWAIT=300 node tools/shot.mjs
-   <base>/#stonehenge-q39671 docs/site_flow/stonehenge-matcher-2026-10-14.png 8000 1200 800 "<js>"`
-   (tools/shot.mjs usage line: <url> <out.png> [waitMs=4000] [w=1200] [h=800] [js]; the [js] probe
-   is an EXPRESSION - write it as an `(async () => {...})()` IIFE, as tests/test_review.py's
-   PROBE_LIST does: poll S.ready && S.sites.length, read the page's own state; the [eval] line is
-   JSON). The 301/306 pattern: check what the map shows for the site (expect ONLY the 1842 OS
-   six-inch sheet inside the site box lon -1.833276..-1.818946, lat 51.174397..51.183380 - the
-   c.1900 one-inch is hidden by MIN_AGE_YEARS - and no plan overlay), its stone positions against
-   the real sarsens (circle + avenue around the site point -1.826111, 51.178889; the sheet's
-   corners are in web/data/sites/stonehenge-q39671/depictions.json), and an [eval] measurement of
-   the overlay's extent. Commit the screenshot as the NEW file named above (box 3). If the line
-   placed nothing (it did): the record says plainly "the method placed nothing on Stonehenge" -
-   that is the passing answer.
-3. APPEND one section to the very END of docs/site_flow.md (append-only: agent a's 307d writes
-   there too - touch no other section): run date, matcher availability (ELoFTR up / RoMa down),
-   what was placed (nothing; per-candidate reasons, pointing at the log for the 14-entry detail),
-   the screenshot name, the log name, the plain statement (box 4).
-4. Commit EXPLICIT paths only. Gotcha: every full-suite run regenerates agent a's
-   docs/site_flow/307d_*.png (they show modified in this working tree with different bytes each
-   run) - they are 307d's files: never commit them from my branch.
-
-**Re-read:** tools/shot.mjs (the usage line and the [eval]/[after] mechanics - and that the page's
-`S` state is a bare name, not on window); tests/test_review.py queue()/_shot/_probe (the served-
-ephemeral-port + IIFE-probe idiom and the 404-count gotcha); web/index.html start() (hash routing)
-and how overlays render (S.dep/applyDep, ~line 1530: the texture load order imagery->relief/block)
-for the extent probe; the current END of docs/site_flow.md (agent a's 307d section may have
-landed - append after whatever is last).
+**Re-read (for the driver or a future agent, if anything reopens this task):** web/index.html's
+select() (~line 855: every site opens on the aerial photograph with the latest old map in ink, the
+4.5 s flyTo) and loadDeps/surveyOldEnough/applyDep (~lines 445-470: the 150-years filter and the
+`dep-<id>` image source); tools/shot.mjs (usage line; [eval] = an expression, write an IIFE; POSTWAIT
+env before the screenshot); the probe in this session's DECISIONS.md entry shows the exact [eval]
+shape that reads S.dep/S.depSel (a string, not an object - the 128 hand-over's draft had this wrong
+once) and map.getSource('dep-<id>').coordinates.
