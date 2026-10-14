@@ -10,6 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
+- `tasks/808-horsley-stage.md` (open) - hand-over: (2026-10-14, iteration 147, agent c - RESEARCH SESSION, no code yet: every fact the build needs was verified below; next session = write --stage/--dry
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
@@ -20,7 +21,14 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 808 DECISION: iteration 147 - research session settled the 17 ties against CURRENT main; three prep-note assumptions were wrong
+No code built yet (the hand-over carries the full design; next session writes --stage/--dry, runs --dry under the socket-block wrapper, runs --stage, commits, ticks boxes).
+1. PREP NOTE WRONG (a): "the three *_roman.jsonl files do not exist on main" - they exist: 207b (Maclauchlan) landed its row in each (luguvallium-q71551754) before 808 started. 808 appends; 207b's rows stay byte-identical (skip-by-key on (site,title) / site id).
+2. PREP NOTE WRONG (b): the 220 catalog check ("none of the seven P.113/Ardoch/Innerpeffery sites exists") is STALE on current main. sites.jsonl now holds 4 of the 5 P.113 forts: GLANNIBANTA (I, Lanchester) = longovicium-q6674222 (Q6674222, alias 'Lanchester Roman fort'); ALIONE (II, Whitley Castle) = whitley-castle-q7996561 (Q7996561, alias 'Epiacum Roman Fort' - NOT alauna-q4708853, which also aliases 'Alione' but is Maryport, a different fort); BREMETEN RACUM (III, Old Penrith) = voreda-roman-fort-q17642742 (alias 'Old Penrith, Plumpton Wall'); OLENACUM (IV, Old Carlisle) = luguvallium-q71551754 (207b's own staged extras_roman row, Q71551754). Only V VIROSIDUM (Elenborough) has no row anywhere (checked sites/extras/extras_roman; Ardoch and Innerpeffery also absent).
+3. PREP NOTE WRONG (c): its "12 new extras rows (7 Hadrian's + 3 Antonine + 1 P.113 + 1 Ardoch)" assumed every fort named on the wall maps gets a row. 809's join (every NEW extras row needs >=1 staged plan) makes that impossible: only rows the 17 staged rows actually tie to get created. Settled set = 8 new rows: cilurni (N.5, the fort at Chesters), petriana (N.8, Horsley's HYPOTHETICAL Solway-coast station - not the real Petriana=Rudchester, which is the VINDOBALA-tied QID row), congavata (N.9, Castlesteads), tunnocelum (N.10, Stanwix/Esk mouth), kirkintilloch (P.176 N.3, the Peel), falkirk-end (P.176 N.5, the wall's east end, kind "roman site"), ardoch (n0114, kind "roman site" - a legionary camp, Innerpeffery on its desc), virosidum (n0185 principal, kind "roman fort"). Condercum/Procolitia/Magna/Amboglan na/Castle-cary/Wellerwood appear in descs only - no rows (they would fail the join).
+4. P.113 PRINCIPAL (the box's decision): the box says "n0185 ONE row tied to the principal of the five P.113 forts' new 'roman fort' extras row". Since 4 of the 5 now have catalog rows, the only fort that can anchor a NEW extras row is VIROSIDUM; all five have equal plan boxes (B read I-V), so the plate order gives no other ranking. DECISION: principal = VIROSIDUM -> new no-QID row (kind "roman fort", region england); the other four forts' names on desc, desc also noting I-IV have catalog rows (longovicium/whitley-castle/voreda/luguvallium) so 809's join can reference them. This satisfies the box's literal wording and 809's join; the alternative (principal GLANNIBANTA -> existing longovicium, no new row at all) is the rejected reading - it deviates from the box's "new extras row" wording.
+5. TAG: the prep note recommended a "book" = IA-id field; 207b landed first with the by=module-path convention (files rows "by": MODULE + IA id in desc/url/thumb; extras rows "source": MODULE). FOLLOW 207b's landed convention (the prep note itself says to match the existing convention over its recommendation); the IA id britanniaromanao00hors is greppable in every row via desc/url/thumb. 809 filters by by == "fit/src_roman_horsley.py".
+... (3.7 KB more: `grep -n -A 200 -F '## 2026-10-14 808 DECISION: iteration 147 - research session settled the 17 ties against CURRENT main; three prep-note assumptions were wrong' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
