@@ -1482,6 +1482,121 @@ the site stays covered for the union check, an open item counts).
   was deleted, the site's review page file re-exported scoped to the site; the site stays
   covered by the new open item).
 
+The last three 306e lines, backfilled 2026-10-14 (306g): judged in the 306e audit (49ca718)
+but never written to this section before the lead closed 306e (10dcb23, the 212b item entries
+as-is). All three documents are gone from the store (the 212b sync, 6ce742f) and the review
+items hold the 212b entries unchanged - these lines are the repo record of the 306e verdicts
+(lines only: no new shots, no item edits).
+
+- windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 - Allcroft 1908, "WINDMILL SITES,
+  LEWES DOWN" (similarity, 6 pts, resid 0.0 m, 1.0000 m/px, 0.0 deg): the 6 anchors are a
+  2000..2800-px grid box + (2400,2900) + (1900,2400), the site point inverse-mapping to the
+  box centre (2399.5, 2399.5) - the fit carries no placement information. The plate is a
+  conical hachured barrow hill with a ring of ~6 barrow mounds: Lewes Down is EAST SUSSEX, a
+  toponymic collision with this site (Windmill Hill, Avebury, Wiltshire - the Neolithic
+  causewayed enclosure the 1842 map labels "Windmill Hill"). On the audit shots the plate
+  sits ~one hill-width W-NW of the real hill, on open downland and fields; the drawn barrow
+  hill does not match the real causewayed enclosure. Wrong place, wrong kind. DELETED (the
+  212b sync removed the doc; the review item holds the candidate) - 306e, backfilled 2026-10-14.
+- york-castle-q80637.c_8dac5aacd73916b8 - "York Castle in 1820", from a 1820 watercolour by
+  Mr Waud (4-point perspective fit, 1.0507 m/px, +7.03 deg, gate 31.7 m): a genuine
+  perspective view of THIS castle - Clifford's Tower on its conical motte, the 1820 curtain
+  walls, the Foss lower-left, the city behind. The 4 anchors are a fabricated grid (site
+  point -> page (412.9, 91.5), the top of the drawn tower), so the fit is unverifiable by
+  construction, but the picture is of the right site and kind (the surviving tower and moat
+  ring sit ~300 m N of the catalog site point, and the drawn complex inherits the site's
+  offset, like taunton's). KEPT in the item - the owner's call: the 212b sync deleted the
+  doc as a fabricated-anchor-pattern document, the item holds the candidate; 306e,
+  backfilled 2026-10-14.
+- york-castle-q80637.c_a7db545536f13e24 - "Plan of Center, Broome County 1855" (Gifford
+  Wenig) (similarity, 4 pts, resid 11-36 m, 0.9742 m/px, +0.38 deg): a street plan of the
+  VILLAGE OF CENTER, BROOME COUNTY, NEW YORK ("PLAN of CENTER", Store St / Main St / Elm St,
+  the Sunbury R. creek, named houses) - a toponymic collision (site point -> page
+  (298.3, 384.9)). The drawn street grid sits on the 1842 dense old-town fabric of York with
+  no matching streets, and the Sunbury R. band does not land on the Foss. Wrong place.
+  DELETED (the 212b sync removed the doc; the review item holds the candidate) - 306e,
+  backfilled 2026-10-14.
+
+306g - the 16 lead-port on-map matcher re-fits (2026-10-14): the lead's own port commits put
+these documents on the map after the 306a-f audits (20277f3 the 11 van Deventer city sheets,
+0685a4c the 2 Leiden plans, 77405cf the 3 re-ports of already-judged docs - cahokia, gouda,
+old-sarum), stated "eye-checked" on the Mac, with no record in this repo. Each is the
+fit.doc overlay of its site's depictions.json and was audited the visitor's way (the site
+opened, the doc's own depiction active over the aerial photograph, and over the LiDAR relief
+where the site has one; the 27 shots in docs/site_flow/agent_fits/). They are georeferenced
+sheets, so the question for each is whether the sheet's content (town core, river, walls,
+labels) sits on the real town, not the anchor arithmetic (the 8-point similarity re-fits are
+near-exact: resid <=0.3 m, the depictions.json corners are the placement). All sixteen
+STAY - none reached the map unseen, and none had to leave.
+
+- arras-q131329.c_4e242bc2623751a0 - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.2 m, 1.69 m/px, -8.0 deg): the drawn street grid, the Scarpe and Deule rivers and the
+  old-town core sit on the real town (lead port 20277f3; visitor-view record). STAYS.
+- avesnes-sur-helpe-q217178.c_61fbbcd3d6051cd9 - town plan by Jacob van Deventer, 1545 (8
+  pts, resid <=0.1 m, 1.40 m/px, -12.6 deg): the walled diamond core sits on the real built
+  centre with its streets tracing the modern streets, the hatched farmland frame extending
+  around the town as drawn (lead port 20277f3; visitor-view record). STAYS.
+- bavay-q477176.c_e8345a33509010ae - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.1 m, 1.53 m/px, -25.6 deg): the town core sits on the real urban centre (the sheet's
+  "Bavais" label over it) and the drawn Scheldt band at the sheet's right edge matches the
+  real river at the box edge (lead port 20277f3; visitor-view record). STAYS.
+- burcht-van-leiden.c_2ed7167f77ea05d4 - Atlas de Wit 1698 pl. 17, Leiden (8 pts, resid
+  <=0.1 m, 0.98 m/px, -15.0 deg): the drawn Leiden street grid follows the real streets over
+  the whole city (a blue/red composite over the independent 1850 TMK survey confirms the two
+  inks track each other), the Burcht - the site's point - inside the drawn centre (lead
+  port 0685a4c; visitor-view record). STAYS.
+- burcht-van-leiden.c_b790b0ce40d7d26b - Atlas Van der Hagen (De Wit) c. 1690, "Lugduni
+  Batavorum Vulgo Leyden" (8 pts, resid <=0.1 m, 0.77 m/px, -11.3 deg): the same city, a
+  slightly wider sheet - the street grid sits on the real streets, the Burcht in the drawn
+  centre (lead port 0685a4c; visitor-view record). STAYS.
+- cahokia-q333661.c_1a7c2a11c3a0dd21 - manuscript map of St. Clair and Madison counties,
+  Illinois, with survey of the Cahokia mounds, 1876 (John J.R. Patrick) (8 pts, resid <=0.2
+  m, 1.80 m/px, -1.9 deg): the drawn mound rings sit on the real mounds - the central mound
+  complex, the round barrows, the ringed earthwork lower-right - confirmed on the LiDAR
+  relief, where each drawn ring covers a real relief feature (lead re-port 77405cf;
+  visitor-view record). STAYS.
+- douai-q193826.c_661c074bcd04d49a - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.3 m, 1.84 m/px, -13.1 deg): the dense old-town grid sits on the real urban centre and
+  the drawn river bands match the real water at the sheet's lower edge (lead port 20277f3;
+  visitor-view record). STAYS.
+- gouda-q84125.c_ba646ea988fc6bc8 - town plan by Jacob van Deventer, c. 1560 (8 pts, resid
+  <=0.1 m, 1.29 m/px, -12.3 deg): the street grid and the canals/river bend (the sheet's
+  "Goude" label) track the real town tightly (lead re-port 77405cf of the 306f survivor;
+  visitor-view record). STAYS.
+- gravelines-q323399.c_173e0d61c038bada - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.1 m, 1.50 m/px, -9.8 deg): the walled town with its canals sits on the real
+  built-up area (the sheet's "Grueulinghen" label over it) (lead port 20277f3;
+  visitor-view record). STAYS.
+- groningen-q749.c_498f9aa12d03fc30 - town plan by Jacob van Deventer, c. 1563-1567 (8 pts,
+  resid <=0.2 m, 1.90 m/px, -9.3 deg): the dense medieval grid sits on the real city core
+  (the sheet's "Groeningen" label over it) (lead port 20277f3; visitor-view record). STAYS.
+- le-cateau-cambresis-q329103.c_f613a7c2165ba280 - town plan by Jacob van Deventer, 1545
+  (8 pts, resid <=0.1 m, 1.40 m/px, -9.3 deg): the town core sits on the real town (the
+  sheet's "Ocatonoyr" label beside it), the sheet's frame extending over the surrounding
+  farmland as drawn (lead port 20277f3; visitor-view record). STAYS.
+- lille-q648.c_1f7cce1c856a7bcb - town plan by Jacob van Deventer, 1545 (8 pts, resid <=0.2
+  m, 2.03 m/px, -11.6 deg): the star-shaped ramparts and the dense street grid trace the
+  real city, the rampart line visible in the modern street layout (lead port 20277f3;
+  visitor-view record). STAYS.
+- saint-omer-q208793.c_df791c935a4905f7 - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.2 m, 1.90 m/px, -8.7 deg): the street grid and the canals follow the real city
+  (its real canal network matches the drawn ones) (lead port 20277f3; visitor-view
+  record). STAYS.
+- utrecht-q803.c_f5f96070065c0763 - town plan by Jacob van Deventer, 1565-1570 ("Trarlectum
+  inferius") (8 pts, resid <=0.1 m, 1.04 m/px, -12.7 deg): the dense street grid sits on
+  the real Utrecht core and the drawn rivers match the real water (lead port 20277f3;
+  visitor-view record). STAYS.
+- valenciennes-q163795.c_0b5e6f27e6aeba51 - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.2 m, 2.22 m/px, -12.4 deg): the street grid sits on the real town (the sheet's
+  "Valencienyes" label over it) and the drawn Sambre matches the real river (lead port
+  20277f3; visitor-view record). STAYS.
+- old-sarum-q782719.c_b2701b5231da42f2 - "Plan of Old Sarum" (Ordinance Survey Plan, 1916)
+  (8 pts, resid 0.0 m, 1.47 m/px, -0.3 deg): the drawn concentric rampart rings and the two
+  gate gaps ("Brewer by ye Gate" at the west end, the "Great Gate To Winchester" at the
+  east) sit exactly on the real earthworks visible in the LiDAR relief and the 1842
+  six-inch - the 306e coarse candidate, re-ported to the map by 77405cf, the review item
+  already holds it as a candidate (visitor-view record). STAYS.
+
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
 Owner, 2026-10-11: instead of the squares, a shape that says "this is a point of interest", "like an
