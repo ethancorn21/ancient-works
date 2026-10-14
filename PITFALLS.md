@@ -1128,6 +1128,11 @@ Where: `fit/matchfit.py` (`run` calls `reachable(roma)` WITH the URL argument; `
 Symptom: after `mf.reachable = False` (a shorthand the 238 hand-over notes used), `mf.run(...)` raises `TypeError: 'bool' object is not callable` on the first site - it looks like a matcher failure but it is the patch itself
 Why/how: `run` calls `reachable` with the RoMa URL as an argument, so the patch must be a callable: `mf.reachable = lambda url=None: False` (tests/test_matchfit_gate.py does exactly this; the 302f station test instead keeps the real `reachable` and points `ROMA_URL` at a dead ephemeral port, letting its `except Exception` turn the refused connection into False).
 
+#### The bird's-eye pool's "the caption names the city" gate is a substring match - incidental mentions pass, so every gate-pass item must be eyeballed
+Where: the LOC Panoramic Maps pool scripts and `fit/src_us_birdseye*.py` (`evidence_for`, the pool gate `books_match.norm(name) in books_match.norm(title + " " + desc)`); observed on the Omaha pool at 241 iter-175 (/tmp/aw241_omaha_pool.json)
+Symptom: the pool's "good" list contains items that are not views of the city at all: stereoscopic photo cards from a series whose line says "Across the continent west from Omaha", a postcard whose back text mentions the city (a Minneapolis sheet), a regional railroad-promo sheet whose copyright line says "...Omaha, Nebr.", a sheet captioned "846 miles west of Omaha" (Green River, WY), a book index page listing a bird's-eye of a different city.
+Why: `books_match.norm()` lowercases and strips punctuation, and the gate is a bare `in` (substring) over title + description, so any incidental mention in those fields passes. In the pool the gate is a coarse pre-filter, not a selector: eyeball every gate-pass item's 1280 px thumb before picking (the 236b/240/241 practice). In the staging modules the same substring test is the last line (stage fails loud when the caption does not print the city) - there it is sound because the title is already hand-chosen, which is why a false-positive pool item never reaches a staged row.
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing

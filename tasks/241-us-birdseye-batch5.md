@@ -96,135 +96,103 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-14, iteration 173, agent c - **step 0 done (prep-note plan): the batch5 module, the lead-doc
-skeleton and the test skeleton are WRITTEN in the working tree (uncommitted; the harness carries them);
-the pre-change full-suite baseline is RUNNING in the background. 240 is DONE (4/4: Denver, St. Paul,
-Minneapolis, Cleveland) - read and verified.)
+(2026-10-14, iteration 175, agent c - **Omaha RESEARCH done (the task's first open question resolved:
+236b skipped Omaha with no recorded reason, but its pool has a strong pick); next session = the Omaha
+LANDING, batch-5 city 1 of 5**)
 
-**State of the working tree (check `git status` first; nothing of mine is committed yet):**
-- `fit/src_us_birdseye_batch5.py` (401 lines) - the batch4 module copied with ONLY the intended
-  changes (verified by `diff fit/src_us_birdseye_batch4.py fit/src_us_birdseye_batch5.py` - look ONLY
-  at: docstring, the 4 path constants, the SITES preamble + `SITES = {}`, `SOURCES = {}`, known_sites()
-  reading `EXTRAS_BIRDS_BATCH4` instead of the then-absent batch5 file, the "by"/"source" strings,
-  the two lead-doc references, the check_staged docstring, the golden path). AST parsed OK. `--check`
-  works on the absent staging files (evidence.check tolerates a missing path -> 0 rows, exit 0);
-  `c.info([])` is a safe no-op (empty batch loop). `--verify` on an EMPTY SITES would send a bad
-  Wikidata call - do not run it until SITES has an entry.
-- `docs/lead_us_birdseye_batch5.md` (skeleton): header with the candidate order (Omaha - re-run its
-  pool search - Indianapolis, Columbus, Memphis, then the 181 list's remainder), Fetch route,
-  QID-verification and evidence-field pointer sections, a Staging section that says "nothing staged
-  yet", and the Not-done-yet pointer. City sections land here per landing (the 240 pattern).
-- `tests/test_src_us_birdseye_batch5.py` (six offline tests, mirroring batch4's 249-line file, pure
-  ASCII, NOT yet run): no_network fixture; --check join/PASS (empty key list); the hermetic
-  three-states test with state (c) guarded by `if staged_files:` (re-enabled by the first landing);
-  the sites-table test with the empty tables (grows per landing); the negative control SYNTHETIC
-  (Batchville site point (-95.933889, 41.256944) vs Venice (12.33, 45.44), distance formatted from
-  `evidence.hav_m` - no magic number); the golden test. The 236b/240 pattern rebinds the negative
-  control to the real first staged row (files[0] with the Venice point) at the first landing.
-- `docs/site_flow/307d_*.png`: five were re-encoded in the working tree from the 240 close-out era
-  and were restored to main's bytes at session start (they are STAGED in the index and ride this
-  hand-over commit; R5 - never a content change; the batch4 task carried the same Touches entry).
+**State:**
+- Step 0 committed (driver 193e4d2): `fit/src_us_birdseye_batch5.py` (401 lines, `SITES = {}`),
+  `docs/lead_us_birdseye_batch5.md` (skeleton), `tests/test_src_us_birdseye_batch5.py` (5 tests),
+  `tests/golden/src_us_birdseye_batch5_sample.json` (empty 0/0/0). Working tree clean. Post-174 full
+  suite GREEN: 190 passed / 1 skipped / 0 failed (/tmp/aw241_suite_post_174.log; 191 = 186 baseline + 5
+  new). The driver's 241 baseline: 0 failing (loop.log) - any red is not this task's (R2).
+- Omaha RESEARCH (this session; full record in the DECISIONS 175 entry, the 240 format):
+  - **QID Q43199 = Omaha, Nebraska**: label matches; ONE P625 (-95.9375, 41.25861111111111, ~30 m) =
+    downtown, no refinement; P373 = STRING "Omaha, Nebraska" -> place "Douglas County, Nebraska"
+    (P131 = Q490695 Douglas County only + the state, the Denver pattern); P17 = Q30; enwiki
+    "Omaha, Nebraska". Name search (limit 5 AND 20, R5): **NO TRAP** (the first P625 hit at both
+    limits is Q43199 itself, dist 0; other hits = album/UNO/film/Beach/namesakes). Q43199 and
+    "omaha" are in NO existing site file (catalog, extras, 236a/236b/240 files, web/data/sites.json -
+    clean grep); catalog.slug("Omaha") = "omaha" verified -> id **omaha-q43199**.
+  - **Pool** (/tmp/aw241_omaha_pool.json, six phrase forms + filetype:bitmap): 39 unique, 8 gate-pass.
+    Only TWO true whole-city sheets: **the 1868 E. Ruger sheet** (File:Bird's eye view of the city of
+    Omaha, Nebraska 1868. LOC 73693495.tif, 8896x7024, PD, LC Panoramic 467, page date 1868 = title
+    year - no Zwolle swap; the .tif is the ONLY scan of the sheet - LCCN search) and **the 1905
+    Austen sheet** (File:Panoramic view of Omaha. LOC 75694679.jpg + .tif, 10080x5808, PD, LC
+    Panoramic 468, "Supplement to the Omaha Daily Bee, January 1, 1906"). **PICK = the 1868**: steeper
+    (the built-up grid fills the sheet from a high vantage over the Missouri River; the river a
+    foreground strip with steamboats + a railroad, a thin hill-horizon band at the top) vs the 1905's
+    LOW "PANORAMIC VIEW OF OMAHA" oblique (frozen river fills the lower-right quadrant, wide plain
+    horizon band ~30% at the top) - the 1905 is the same-genre dupe drop (both its scans). Six other
+    gate-pass items eyeballed (/tmp/aw241_omaha_thumbs/) are false positives: Weber stereo PHOTO cards
+    x2 (the series line "west from Omaha"), Green River WY 1875 ("846 miles west of Omaha"), the 1893
+    Rocky Mountains regional sheet (copyright line "...Omaha, Nebr."), the Great Plains book TEXT
+    page. 31 more rows fail a gate (22 too small incl. the 1865 Jackson Bros / Currier set + 9 NYPL
+    3072 px + the 1897/98 Trans-Mississippi x2; 6 Union Pacific book sheets; Sioux City; 2 "No
+    restrictions" rejects; 1 NBY photo) - full list in the DECISIONS entry.
+  - **Verdict on 236b's silent Omaha skip**: stageable - it fell out of 236b's batch order (the 181
+    list ran past it to St. Paul/Minneapolis), not for a pool failure. Omaha stays batch-5 city 1;
+    next candidates: **Indianapolis, Columbus, Memphis**, then the collection's search order.
+- New PITFALLS fit/ entry filed (the pool gate is a substring match - incidental mentions pass;
+  eyeball every gate-pass item).
+- /tmp artifacts (re-verifiable): aw241_omaha_qid.py/.log, aw241_omaha_pool.py/.json/.log,
+  aw241_omaha_thumbs.py + /tmp/aw241_omaha_thumbs/ (8 thumbs). `aw241_omaha_pool.py` is the template
+  for the next candidates (change CITIES, the output path, and the thumbs script's slug).
 
-**Baseline (R2):** pre-change full suite running BEFORE any file was created:
-`.venv/bin/python -m pytest -q > /tmp/aw241_suite_pre_173.log` (background pid 2670235 at session
-end; ~45 of ~186 tests done then). `.venv` exists (Python 3.12.3); the driver's test command is
-exactly that. `.agent/reports/last-failing-tests.txt` still names
-tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (the driver's 2026-10-13
-loop-start red) - 240's run 172 (today, main) was 185P/1S/0F, so it is probably STALE; the baseline
-result is the truth. If it is red, it is not 241's to fix (R2) - record it and move on.
+**Next session - the Omaha LANDING (the per-city playbook step 2, the 240 pattern):**
+1. Module edit (`fit/src_us_birdseye_batch5.py`): replace the `SITES = {}` preamble with the Q43199
+   comment block (mirror batch4's Denver comment: the facts above, no trap, skip-list check, slug)
+   + `SITES = {"Q43199": dict(id="omaha-q43199", name="Omaha", named="Omaha", lon=-95.9375,
+   lat=41.258611, place="Douglas County, Nebraska", region="United States", kind="town",
+   wikipedia="https://en.wikipedia.org/wiki/Omaha,_Nebraska", note=<angle text below>)}`;
+   `OMAHA_1868 = [("File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif",
+   "Q43199", "Omaha", dict())]` (empty dict = no Zwolle swap; the page date IS 1868);
+   `SOURCES = {"omaha_1868": dict(rows=OMAHA_1868, p="birdseye", label="{name}, the E. Ruger /
+   Chicago Lithographing Co. bird's-eye view (1868)")}`. Angle text: "the 1868 E. Ruger sheet
+   (the steepest whole-city view in the pool; the 1905 Austen 'panoramic' oblique is the recorded
+   dupe): a steep bird's-eye view from a high vantage across the Missouri River (the river a
+   foreground strip with steamboats and a railroad along the sheet's bottom, a thin hill-horizon
+   band at the top); the city grid fills the sheet beyond the 2000 m town box, so the fit is
+   likely to end a review item (the 236a NY-1811 / DC-ring precedent)". NOTE: the page's artist
+   field says "Ruger, A.; Chicago Lithographing Co." but the sheet's own signature (lower left)
+   says "E. Ruger" - label from the signature and record the mismatch in the lead doc (240's
+   Cleveland 1877 is an A. Ruger work - a different person).
+2. `.venv/bin/python fit/src_us_birdseye_batch5.py --verify` -> expect exactly 1 QID, NO FLAG/TRAP
+   (the first P625 name-search hit is Q43199 itself); save the output VERBATIM into the lead doc's
+   QID section (replacing the placeholder).
+3. `--dry` -> stage (live commons.info re-check: keep() must pass - date 1868, PD, 8896 px) ->
+   `--check` (expect `PASS caption_coords  omaha-q43199|File:Bird's eye view of the city of Omaha,
+   Nebraska 1868. LOC 73693495.tif`, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`, no join: lines);
+   save the transcript verbatim into the lead doc's Staging section (append after the skeleton's
+   "Nothing is staged yet" - that sentence becomes the running count "1 view / 1 site row so far of
+   the final five").
+4. Lead-doc city section (`docs/lead_us_birdseye_batch5.md`, mirror batch4's Denver section):
+   "## Omaha (site `omaha-q43199`, this task's point = the verified P625; 1 view staged)" with the
+   STAGED bullet (the facts + the angle text), the DROP list (the 38 non-staged pool items - the
+   full text is in the DECISIONS 175 entry; format it batch4-style: the 1905 dupe first with both
+   scans, then the six eyeballed false positives with what the gate caught, then the gate-fail
+   groups), the QID-facts paragraph (from the --verify transcript + the live log: the namesake
+   hits, the P373 string quirk, no existing site holds the QID). Update the Not-done-yet pointer:
+   Omaha done; the remaining four = Indianapolis, Columbus, Memphis, then search order.
+5. `--golden` (now 1/1/1 - an intended change) -> extend `tests/test_src_us_birdseye_batch5.py`:
+   test 2's key list = [(omaha site, the 1868 title)]; test 4's tables (id omaha-q43199,
+   lon/lat -95.9375/41.258611, place, year 1868, named "Omaha"); the hermetic three-states test is
+   unguarded (`if staged_files:` becomes live: states a/b/c, the c-state message "join: staged
+   title already in the canonical files.jsonl: ('omaha-q43199', '<title>')"); the negative control
+   rebinds to files[0] (the real Omaha row with the Venice point 12.33, 45.44 - the 236b pattern;
+   drop the Batchville synthetic).
+6. Module tests -> the FULL suite (.venv/bin/python -m pytest -q; ALL edits done first - R4;
+   restore any re-encoded docs/site_flow/307d_*.png to main's bytes first - R5; expect 191 tests
+   plus whatever main merges) -> commit "241: Omaha landed (batch-5 city 1/5) - the 1868 E. Ruger
+   sheet (LOC 73693495) - steepest of the pool's two whole-city views".
 
-**Next session, in order (do these before any research):**
-1. `git status` + `tail /tmp/aw241_suite_pre_173.log` (or `ps -p 2670235`): record the baseline
-   result (expect ~185P/1S/0F). If the process is dead with no summary line, re-run it (it is
-   pre-change state still, since my files are additive-only: a new module/test/doc - nothing
-   shared is touched, so a re-run is still a valid baseline).
-2. `.venv/bin/python fit/src_us_birdseye_batch5.py --golden` ->
-   tests/golden/src_us_birdseye_batch5_sample.json (empty: {"classified": [], "extras": [], "files": []}).
-3. `.venv/bin/python -m pytest tests/test_src_us_birdseye_batch5.py -q` (offline) -> expect 6/6;
-   then the post-change full suite (R4: ALL edits done first - i.e. after step 2), restore any
-   re-encoded docs/site_flow/307d_*.png to main's bytes (`git checkout main -- <files>`), and
-   commit: `241: batch5 module + lead-doc/test skeleton (empty) - the step-0 setup before Omaha
-   research` (add the uncommitted files with `git add` - the five 307d pngs already in the index
-   ride along; if the suite re-encoded more pngs, restore+add those too).
-4. **OMAHA RESEARCH (the per-city playbook step 1, 240's Notes):** QID first (Wikidata live, the
-   wbgetentities pattern: label, every P625, P373, P131, P17, enwiki, the first name-search hit with
-   P625 at limit 5 AND limit 20 (R5: limit=5 misses well-known short names; a label search with
-   parentheses returns EMPTY); first-guess QIDs are the usual mislabel trap - Omaha's first guess is
-   probably a person/monastery/namesake; record the memory-error if the memorized QID fails the
-   label check). Skip-list check (catalog, extras, 236a/236b/240 files, web/data/sites.json - the
-   module's known_sites() enforces this at stage). Then the POOL: clone
-   /tmp/aw236b_b3_dvr.py (still present; the aw240 pool scripts may be gone - the 240 Notes' b3
-   template is the canonical one): six plain-phrase forms + " filetype:bitmap", srnamespace 6,
-   srlimit 40, dedupe, commons.info gates (keep() after any date swap, caption names the city,
-   Public domain, >= 4000 px), 1280 px thumbs eyeballed one by one (/tmp artifacts, ~2 s pace, the
-   Wikimedia 429 back-off is in commons.get). THE PICK = the steepest near-vertical best-scanned
-   whole-city view; record every non-staged pool item with its reason (the 236b/240 DROP-list
-   format). Save the pool JSON + thumbs + a log under /tmp/aw241_omaha_* (re-verifiable). Record
-   everything in DECISIONS (the 240 DECISION-entry format: QID facts, pool counts, the pick, the
-   drops). Omaha was skipped in 236b with NO recorded drop reason (the 181 list ran past it to
-   St. Paul/Minneapolis) - its research verdict (usable pick, or a documented drop + next
-   candidate) is the first open question of the task.
-
-**Landing session after research (the per-city playbook step 2):** module edit (SITES entry + the
-per-view `<CITY>_<YEAR>` row + SOURCES entry) -> --verify (verbatim output into the lead doc's QID
-section) -> --dry -> stage (live commons.info re-check) -> --check (verbatim transcript into the
-Staging section) -> lead-doc city section (STAGED bullet with the apparent angle, full DROP list,
-QID-facts paragraph) -> --golden -> test extension (the key list, the id/points/years/named
-tables, the negative control rebind) -> module tests -> FULL suite (restore the 307d pngs) ->
-commit. Cities 2-5 the same (Indianapolis, Columbus, Memphis, then the 181 remainder); the Staging
-section ends with the project total 25 (16 + 4 + 5, or the recorded shortfall) and the 236c note.
+**Cities 2-5 the same** (Indianapolis, Columbus, Memphis, then the 181 list's remainder - clone
+/tmp/aw241_omaha_pool.py per city; the Staging section ends at the total 25 = 16 + 4 + 5, or the
+recorded shortfall, with the 236c note; a city whose pool yields no usable view gets the drop note
+and the next candidate).
 
 **Rules (unchanged):** never write the canonical files (236c); never touch 236a's/236b's/240's files
-(read-only; the known_sites() cross-check enforces); live commands under .venv/bin/python (the
-module top stays stdlib-only); the golden is the contract (--golden only for an intended change);
-tests never bind fixed network ports or write outside the project and /tmp; every full-suite run
-re-encodes up to ten docs/site_flow/307d_*.png - restore main's bytes before committing (R5).
-Re-read: fit/src_us_birdseye_batch5.py:known_sites - confirm it reads exactly SITES_JSONL, EXTRAS,
-EXTRAS_US_CITIES, EXTRAS_BIRDS_236B, EXTRAS_BIRDS_BATCH4 + WEB_SITES (box 1) - the diff check above
-says it does, but re-verify with fresh eyes.
-
-### Also written to PROGRESS.md (moved here by the driver)
-
-# PROGRESS (generated by the driver before every session)
-
-Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
-
-## Tasks in flight
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/236-us-cities.md` (split)
-- `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-14, iteration 173, agent c - step 0 done: batch5 module + lead-doc/test skeletons (empty SITES) uncommitted in the working tree; pre-change full-suite baseline running in background (pid 2670235, /tmp/aw241_suite_pre_173.log); next: record baseline, --golden, run the 6 skeleton tests, commit, then Omaha research)
-
-## Next open tasks
-- `tasks/230-roman-merge-rerun.md`
-- `tasks/236c-us-cities-merge.md`
-- `tasks/239-retire-vision-fit.md`
-
-## Your task's journal
-
-Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-(no entries yet)
-
-## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
-- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
-- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
-- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
-- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
-- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
-
-### 2026-10-13 DRIVER: test suite failing at loop start (1 tests)
-    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-    tests/test_fit_queue.py:1749: AssertionError
-    =========================== short test summary info ============================
-    FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-    1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
-    (full test output: .agent/reports/last-test-output.txt)
+(read-only; known_sites() enforces); live commands under .venv/bin/python (module top stays
+stdlib-only); the golden is the contract (--golden only for an intended change); tests never bind
+fixed ports or write outside the project and /tmp; every full-suite run re-encodes up to ten
+docs/site_flow/307d_*.png - restore main's bytes before committing (R5).
