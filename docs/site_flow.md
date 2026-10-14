@@ -1067,6 +1067,10 @@ the site stays covered for the union check, an open item counts).
   on the page (the 303 way: the picture and its 8 points went to the site's review item with this
   reason - merged into the item that already held the Allcroft 1908 n0136_1 candidate, which stays
   open; the document was deleted 2026-10-12).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - cassiobury-house-q5049456.c_3446adfe7a8ed6c7 - Kip 1707 bird's-eye view of the house (the page's
   view model: homography, 4 points, an exact 4-point fit resid 0.0, near-affine ~1.29 m/px): the
   4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue
@@ -1182,6 +1186,10 @@ the site stays covered for the union check, an open item counts).
   ~600-800 m off the town. DELETED - an orphan today, invisible on the page (the 303 way: the
   picture and its 8 points went to the site's review item with this reason, creating its item;
   the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - goodrich-castle-q5583571.c_cd89cb69f385859b - Mackenzie 1897, The Castles of England
   (similarity, 4 points, resid 0.8 m, 0.84 m/px, 0.0 deg): the 4 anchors are a consistent 0.838
   m/px rectangle spanning the plan and the fit is centred right (the 1842 'Goodrich Castle
@@ -1191,6 +1199,10 @@ the site stays covered for the union check, an open item counts).
   (the 1842 'GOODRICH' label sits inside the drawn castle). DELETED - an orphan today, invisible
   on the page (the 303 way: the picture and its 4 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - gurnard-s-head-q5620199.earthworkenglan01allcgoog_n0262_1 - Allcroft 1908 Fig. 87, 'Castell-an-
   Dinas, Cornwall' after Cotton (similarity, 8 points, resid 0, 0.4 m/px, 0.0 deg): the fit is
   centred on the site point, but the drawn W. Cotton schematic dun (the plate's own footnote:
@@ -1264,6 +1276,10 @@ the site stays covered for the union check, an open item counts).
   bigger than the real complex, walls through the town. DELETED - an orphan today, invisible on
   the page (the 303 way: the picture and its 6 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 
 306e - the 17 UK orphan documents (sites o-y): in the store, but no overlay built on the site
 and no review item referencing them, so the page shows them to a visitor not at all; each was
@@ -1328,6 +1344,12 @@ the site stays covered for the union check, an open item counts).
   drawn works bigger than the real complex, walls past the fields. DELETED - an orphan today,
   invisible on the page (the 303 way, as for c_ff62: the picture and its 6 points went to the
   site's review item with this reason, the document deleted, the site stays covered).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close (written after that re-port) keeps the eye-checked matcher re-fits as the
+  state of record; this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, which is resolved on the other
+  re-ported document, c_b2701b.)
 - oxford-castle-q2600886.c_ba6b308580428184 - Oxford Castle, plan from Mackenzie, The Castles
   of England (1897; similarity, 4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the 4 anchors are a
   perfect 100-px diagonal ladder, so the fit carries no placement information; the site point
@@ -1399,6 +1421,14 @@ the site stays covered for the union check, an open item counts).
   way: the picture and its 6 points went to a new review item for the site with this reason -
   the site had none before - the document was deleted, the site's review page file
   re-exported scoped to the site; the site stays covered by the new open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, resolved on this
+  document. One of the 7 audit-deleted documents 77405cf re-ported: the 5 annotated above,
+  plus this twin pair.)
 - portus-adurni-q762664.c_4912bb54aa79f3ea - Burg von Portchester (GB), Plan von 1836 aus der
   Penny Cyclopaedia, Seite 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the
   German-titled twin of the deleted c_42bedb90fffce1d4 - the same Penny Cyclopaedia 1836 v6 p
@@ -1412,6 +1442,13 @@ the site stays covered for the union check, an open item counts).
   the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
   created by the twin's deletion - the item keeps its file name and its lead, and the site
   stays covered by the still-open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, which is resolved
+  on the twin, c_42bedb90fffce1d4.)
 - raby-castle-q4583646.c_fe1d6c7f0ba858cb - Raby Castle, plan from Mackenzie, The Castles of
   England (1897) (similarity, 4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg): the 4 anchors are the
   plate's 900-px corner square - a ladder with no placement information: the fit pins the plate
