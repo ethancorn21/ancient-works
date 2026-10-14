@@ -30,16 +30,22 @@ location is in the plate.
       (The book has NO printed plate list - its only list is the binder's directions, djvu leaf
       119; the ground truth is the per-leaf hand table per the 207a/Horsley fallback, 131's
       decision; transcribed + mapped + recall recorded as decided.)
-- [ ] Staged rows (appended to the parent's shared staging files, rows tagged with this
+- [x] Staged rows (appended to the parent's shared staging files, rows tagged with this
       book): files_roman.jsonl for every verified site-plan page of a named fort/structure
       tied to a Roman site - an existing catalog site by QID where one exists, or a new
       extras_roman.jsonl entry (kind "roman fort" / "roman site", QID where it exists,
       lon/lat from the book's list or a cross-check) - each with the 200 evidence field
       (list entry, caption, coordinates distance recorded on the row) and a classified row
       by hand ("plan"); the book's date (title-page year, 1857/1858) is recorded on the row.
-- [ ] fit/evidence.py check passes offline on every staged row. At least 90% of the verified
-      site-plan pages are staged, or each missing one (wall sections, sections alone) is
-      accounted for in docs/lead_roman.md.
+      (n0093 staged 2026-10-14: files_roman +1, classified_roman +1 "plan", extras_roman +1
+      the new site luguvallium-q71551754 Q71551754, year 1858 on the row; the other kind-s
+      leaves n0078/n0111 are blank in this copy - nothing to stage, accounted for below.)
+- [x] fit/evidence.py check passes offline on every staged row (2026-10-14: PASS
+      caption_coords, rc=0, dist 324.1 m reproduced from stored fields). At least 90% of the
+      verified site-plan pages are staged, or each missing one (wall sections, sections alone)
+      is accounted for in docs/lead_roman.md (1 of 3 = 33% < 90%; the two missing are the blank
+      plates n0078/n0111, accounted for individually in the lead doc's Maclauchlan section -
+      the box's disjunct).
 - [ ] Test (no network): the staged files join (every row names an existing or staged site;
       every new site has its plans) and the evidence check passes; a golden sample of rows.
 
@@ -59,7 +65,23 @@ still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e
 207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
-(2026-10-14, iteration 133, agent c - the validate_book / lead-doc session. READ THIS FIRST.)
+(2026-10-14, iteration 134, agent c - the --stage session. READ THIS FIRST.)
+
+**What happened this session** (all done; code + data changes UNCOMMITTED - the harness saves them for 135 to commit):
+1. Built the `--stage` leg in fit/src_roman_maclauchlan.py (docstring updated, main() dispatches --stage/--dry; new constants SITE_NAME/SITE_QID/SITE_LON/LAT/PLACE_QID/PLACE_LON/LAT/FILE_TITLE/FILE_NAME/FILE_DESC above stage()). OFFLINE: the row is built from stored facts only - title = the plate's own printed heading; desc = the binder's-list entry (djvu leaf 119) + the p.77 running head "(See Plans, Fig. 4.)" (the named-place "Carlisle" carrier check_caption re-verifies); year/date 1858; url/thumb = the stable IA /download/ page image; w/h 964x1400 read from the committed stage-B row (data/books/triage/<ia>.B.jsonl img_size - the ONLY dynamic input; fails loud if missing/unreadable); artist Henry Maclauchlan; license "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)" (live item metadata: no licenseurl, possible-copyright-status NOT_IN_COPYRIGHT). NO map_box on the files row: files.jsonl's shape has no such field - the propose/inkfit fit flow reads map_box from the BOOK-INDEX row (211 consolidates it from the B file) and falls back to the full page when absent (808/809: same).
+2. Ran it under the socket-blocking wrapper (0.58 s, no network): the three shared staging files, ABSENT on this branch, created with exactly one row each - extras_roman.jsonl + luguvallium-q71551754 (Q71551754 "Luguvallium (Carlisle)", lon/lat -2.94077/54.896187 the item's P625 precision 1e-6, region "england", kind "roman fort" SPACE form, place "Carlisle, Cumberland, England", aerial_ok true, location_check records the cross-check: P625 on the castle ground where the book's supposed station stands and the plan's Wall+Vallum meet, 324 m from the city's P625, VICI 12444, item has NO enwiki article so no wikipedia field); files_roman.jsonl + the n0093 row (evidence caption_coords: named_place "Carlisle", place Q192896 P625 -2.936388889/54.894722222, site the fort's P625, dist_m 324.1 = evidence.hav_m with its R=6371008.8 so check_caption reproduces it exactly); classified_roman.jsonl + (site,title) p_plan 1.0 by hand. Idempotency verified: a second real --stage and --dry both print "row already present (skipped, nothing written)" and all three files' md5 stayed unchanged.
+3. Box 4 verified this session: `.venv/bin/python fit/evidence.py check --files data/commons/files_roman.jsonl --books data/books/.no-books` -> "PASS caption_coords luguvallium-q71551754|FIG. 4...", "1 rows, 1 pass, 0 fail, 0 no-tie", rc=0 (offline, stored fields only). Join (one-off python): every file row names a staged site, every new site has its plan, every file row has its classified row.
+4. docs/lead_roman.md: the n0093 inventory line now records the actual staging (site id, QID, caption_coords 324.1 m, offline PASS, year 1858, stable /download/ url). Boxes 3-4 ticked in the task file (box 4's 90% disjunct was already in the section since 133).
+
+**Tests:** a full-suite run was STARTED in the background this session (`nohup .venv/bin/python -m pytest tests/ -q -p no:cacheprovider > /tmp/aw134_suite.log 2>&1 &`, ~7 min) and its result was NEVER READ (context limit). Expectation: baseline 159/1/1 (lone red = agent a's 307d placement test); no committed test reads the new *_roman staging files (test_merge joins only stage-A .A.jsonl). NEXT SESSION: read /tmp/aw134_suite.log (if gone, re-run the same command) and re-baseline the number here.
+
+**Acceptance boxes:** 1 (132), 2 (133), 3 (134), 4 (134) ticked. Only box 5 (test + golden) is left.
+
+**Exact next step (135).**
+1. Commit the session's saved changes first (fit/src_roman_maclauchlan.py, the three *_roman staging files, docs/lead_roman.md, this task file; check /tmp/aw134_suite.log first and note the suite state in DECISIONS).
+2. Build `--check` (offline: join staged roman rows to catalog+extras - every row names an existing or staged site, every new site has its plans, every file row has its classified row; then fit/evidence.py check over this book's rows) and `--golden` (tests/golden/src_roman_maclauchlan_sample.json = the staged rows as the approved sample) in fit/src_roman_maclauchlan.py (main() still rejects them; the docstring's "(not built yet)" lines say so), then tests/test_src_roman_maclauchlan.py on the tests/test_src_van_deventer.py no_network socket-blocking fixture pattern: run stage() with the module's FILES_ROMAN/CLASSIFIED_ROMAN/EXTRAS_ROMAN constants MONKEYPATCHED to temp-dir paths (stage() reads them as globals at call time - that is the hook; stage() also lazy-imports catalog + evidence, both offline) and assert idempotency (second run changes no byte) + the row shapes + the evidence PASS + the join; no LLM, no network, no fixed ports, writes only inside the project + temp. Then run the full suite, re-baseline, tick box 5 -> Status: done.
+
+**Re-read next session:** fit/src_roman_maclauchlan.py (stage() + the staging constants; --check/--golden NOT built); the three staging files (one row each: data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl); tests/test_src_van_deventer.py (the fixture pattern); docs/lead_roman.md's Maclauchlan section (in sync with the staged rows since this session).
 
 **What happened this session.**
 1. Ran `validate_book` OFFLINE: socket-blocking wrapper (import urllib.request/ssl/socket

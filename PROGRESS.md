@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-14, iteration 133, agent c - the validate_book / lead-doc session. READ THIS FIRST.)
+- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-14, iteration 134, agent c - the --stage session. READ THIS FIRST.) --stage built and run: the three *_roman staging files created (new site luguvallium-q71551754 Q71551754 + the n0093 row + its "plan" classified row); fit/evidence.py check PASSES offline (rc=0); boxes 3-4 ticked; only box 5 (test + golden) left - 135 builds --check/--golden/tests and re-baselines the suite (a background run's log /tmp/aw134_suite.log was never read)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
