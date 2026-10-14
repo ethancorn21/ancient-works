@@ -5,20 +5,35 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 207, agent a - FIRST session. Investigation done; prep step half
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
-- `tasks/230-roman-merge-rerun.md`
 - `tasks/236c-us-cities-merge.md`
 - `tasks/239-retire-vision-fit.md`
+- `tasks/242-owner-check-stable-shots.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session
+First session on 230. The Roman staging is on main (808's 9adaf16 + 207b: extras_roman 9 / files_roman 18 / classified_roman 18, both books' lists+triage, lead_roman.md), 211 is done, and the post-211 state is: extras.jsonl 193, files.jsonl 1730 (211's 1623 + 212a's 107 direct appends 9c48d94), classified 1037, index.jsonl 1068, sites.json 499, plans.json 1510. 207c is DROPPED (owner, ask 008) so the re-run covers the two landed books; the task's Notes cover exactly this case and the Depends on line already matches (207c was never on it) - no edit made.
+
+**Decision 1: add `--sources` to fit/merge.py (Landed).** The module's glob picks up EVERY extras_*/files_*/classified_* file next to the canonical ones, so an unfiltered re-run would fold the US families' still-pending staging (files_us_cities/us_birdseye.jsonl etc., owned by open task 236c) into the canonical files and into my run's log. The new flag scopes a run to named source families and records only that run's rows in the log (236c will need it too). Default (no flag) is byte-for-byte the old behaviour; new test test_sources_filter_merges_only_named_sources covers filter + unfiltered rerun-once. Chose the flag over "move the other staging files aside" because a session killed mid-move would leave source families' staging files out of the tree (the driver commits uncommitted work - that would propagate to main and break the 222-228 source-guard tests).
+
+**Decision 2: re-baseline data/merge/ to the post-211 state (Landed).** sites_premerge_baseline.jsonl = the 499 current sites.json entries (one json.dumps line each, ensure_ascii=False; was the 385 entries served at 406562b); plans_premerge_keys.jsonl = the 1510 current (id, sites[0]) keys (uniqueness asserted before writing; was 1166). These make test_served_sites_grew_purely / test_plan_list_refresh_is_pure_growth assert THIS re-run's box ("pre-run entries unchanged"), per the task Notes. Both files are git-tracked; the old baselines live in git history.
+
+**FAILED: applying the tests/test_merge.py edits (3 attempts, all aborted atomically - the file is UNMODIFIED).** Each attempt mixed one typo'd oldText with three good ones; the atomic abort means NOTHING was applied, including the good edits. The 4 pending edits, exact oldText -> newText (verify current text with `sed -n '16,31p;245,249p;293,299p' tests/test_merge.py` before applying; line numbers approximate):
+1. Module docstring Box 4+3 block: oldText starts "Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py\nrefresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in\ndata/merge/plans_premerge_keys.jsonl) is still present" and ends "values their recorded builds produced.\n\"\"\""; newText: "...every (id, sites[0]) key of the frozen pre-run list (data/merge/plans_premerge_keys.jsonl,\n230 re-baselined it to the post-211 rows) is still present..." and "...grew purely against the frozen pre-run baseline\n(data/merge/sites_premerge_baseline.jsonl, the 499 entries served after 211's consolidation - the 385\npre-211 set plus 211's 114 builds, re-baselined by 230 before the Roman re-run): nothing removed..." (rest unchanged).
+2. test_plan_list_refresh_is_pure_growth docstring (file lines ~246-249, exact): oldText =
+    "    after the merge. Every pre-merge (id, sites[0]) key is still present (frozen list), (id, sites[0])\n    stays unique, the merged pictures that qualify as plans reach the list, and each picture row's files\n    row carries the 200 evidence field.\"\"\""
+   newText =
+    "    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,\n    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture\n    row's files row carries the 200 evidence field.\"\"\""
+3. test_served_sites_grew_purely docstring + assertion (~lines 293-299, exact): oldText =
+... (4.4 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
