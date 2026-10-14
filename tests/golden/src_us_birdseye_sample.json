@@ -175,6 +175,14 @@
    "p_plan": 0.0,
    "site": "kansas-city-q41819",
    "title": "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 1.0,
+   "p_photo": 0.0,
+   "p_plan": 0.0,
+   "site": "new-orleans-q34404",
+   "title": "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif"
   }
  ],
  "extras": [
@@ -331,6 +339,20 @@
    "region": "United States",
    "source": "fit/src_us_birdseye.py kansascity_1869",
    "wikipedia": "https://en.wikipedia.org/wiki/Kansas_City,_Missouri"
+  },
+  {
+   "aerial_ok": true,
+   "id": "new-orleans-q34404",
+   "kind": "town",
+   "lat": 29.976111,
+   "lon": -90.078333,
+   "name": "New Orleans",
+   "note": "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the streets); the street grid, the Mississippi and its levee and Lake Pontchartrain carry the fit; the 1851 staged sheet is a steep oblique whole-city view drawn from the river side (the west/southwest of the city) looking east/northeast - the Mississippi and its levee and steamboat fleet in the foreground, the grid dense and legible out to the rural outskirts, the delta and the Gulf of Mexico toward the lower right of the sheet and Lake Pontchartrain upper left (the sheet's compass rotated ~90 deg counter-clockwise from a north-up map), spanning the whole city far beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent)",
+   "place": "Orleans Parish, Louisiana",
+   "qid": "Q34404",
+   "region": "United States",
+   "source": "fit/src_us_birdseye.py neworleans_1851",
+   "wikipedia": "https://en.wikipedia.org/wiki/New_Orleans"
   }
  ],
  "files": [
@@ -1060,6 +1082,39 @@
    "w": 8752,
    "wd_plan": false,
    "year": 1869
+  },
+  {
+   "artist": "Scan by NYPL",
+   "by": "fit/src_us_birdseye.py neworleans_1851",
+   "cat": null,
+   "date": "1851",
+   "desc": "Stokes 1851-G-13 \n Deák 605",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "New Orleans",
+    "place_label": "New Orleans",
+    "place_lat": 29.976111,
+    "place_lon": -90.078333,
+    "place_qid": "Q34404",
+    "rec": "evidence/1",
+    "site_lat": 29.976111,
+    "site_lon": -90.078333
+   },
+   "h": 4600,
+   "license": "Public domain",
+   "mime": "image/tiff",
+   "name": "New Orleans, the Bachman bird's-eye view (1851)",
+   "page": "https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_New_Orleans_(NYPL_Hades-118746-54871).tif",
+   "qid": "Q34404",
+   "site": "new-orleans-q34404",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Bird%27s_eye_view_of_New_Orleans_%28NYPL_Hades-118746-54871%29.tif/lossy-page1-1280px-Bird%27s_eye_view_of_New_Orleans_%28NYPL_Hades-118746-54871%29.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Bird%27s_eye_view_of_New_Orleans_%28NYPL_Hades-118746-54871%29.tif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 5843,
+   "wd_plan": false,
+   "year": 1851
   }
  ]
 }

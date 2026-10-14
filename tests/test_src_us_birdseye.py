@@ -11,9 +11,10 @@ Davis/Harper's Weekly, Baltimore the 1880 Parsons, Pittsburgh the 1902 Fowler an
 Trout views; batch 2: Louisville the 1883 Clarke/Levyau sheet (the International Exposition two-panel
 composite), St. Louis the 1858 Palmatary (the steepest and oldest view staged for the city), Chicago
 the 1892 Peter Roy, Detroit the 1889 Calvert and Milwaukee the 1872 Bailey views; batch 3: Kansas
-City the 1869 Ruger view (the only whole-city view of the city through the gate) - into this task's
-own files (files/classified _us_birdseye.jsonl; extras _us_birdseye.jsonl holds the eleven new-cities
-site rows). The tests are offline: a socket-blocking fixture makes any network fetch fail loud, so
+City the 1869 Ruger view (the only whole-city view of the city through the gate) and New Orleans
+the 1851 Bachman view (the oldest staged view of the whole project) - into this task's own files
+(files/classified _us_birdseye.jsonl; extras _us_birdseye.jsonl holds the twelve new-cities site
+rows). The tests are offline: a socket-blocking fixture makes any network fetch fail loud, so
 the evidence check runs from the stored fields only (200's fail-closed box). The negative control
 pins the trap the hand record exists for: a staged row with a foreign place point (Venice) instead
 of the site's own point - ~6681 km away, a name-search-style resolution that record --live could
@@ -78,7 +79,8 @@ def test_check_staged_files_join_and_pass(capsys):
                 "baltimore-q5092|File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg",
                 "pittsburgh-q1342|File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg",
                 "cincinnati-q43196|File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg",
-                "kansas-city-q41819|File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"):
+                "kansas-city-q41819|File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg",
+                "new-orleans-q34404|File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -166,8 +168,8 @@ def test_shared_table_and_staged_rows():
     (a drift fails loud, offline); batches 1-3 of the new cities each stage one NEW site
     (boston-q100, philadelphia-q1345, baltimore-q5092, pittsburgh-q1342, cincinnati-q43196,
     louisville-q43668, st-louis-q38022, chicago-q1297, detroit-q12439, milwaukee-q37836,
-    kansas-city-q41819 - region "United States", kind "town", aerial_ok true) and one steepest view
-    each; the staged file rows are
+    kansas-city-q41819, new-orleans-q34404 - region "United States", kind "town", aerial_ok true)
+    and one steepest view each; the staged file rows are
     exactly the module's source rows: the known drawing/publication dates are on the rows where the
     file page lost them or printed the copyright year (the 1897 Centennial view: page 1896 kept as
     date_commons; the 1854 Bill view: the page is undated, the year from the title), and every row's
@@ -185,7 +187,8 @@ def test_shared_table_and_staged_rows():
         "Q100": "boston-q100", "Q1345": "philadelphia-q1345", "Q5092": "baltimore-q5092",
         "Q1342": "pittsburgh-q1342", "Q43196": "cincinnati-q43196",
         "Q43668": "louisville-q43668", "Q38022": "st-louis-q38022", "Q1297": "chicago-q1297",
-        "Q12439": "detroit-q12439", "Q37836": "milwaukee-q37836", "Q41819": "kansas-city-q41819"}
+        "Q12439": "detroit-q12439", "Q37836": "milwaukee-q37836", "Q41819": "kansas-city-q41819",
+        "Q34404": "new-orleans-q34404"}
     for s in src_us_birdseye.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -201,13 +204,14 @@ def test_shared_table_and_staged_rows():
         "boston-q100": "Q100", "philadelphia-q1345": "Q1345", "baltimore-q5092": "Q5092",
         "pittsburgh-q1342": "Q1342", "cincinnati-q43196": "Q43196",
         "louisville-q43668": "Q43668", "st-louis-q38022": "Q38022", "chicago-q1297": "Q1297",
-        "detroit-q12439": "Q12439", "milwaukee-q37836": "Q37836", "kansas-city-q41819": "Q41819"}  # the four owner cities' sites come from 236a's file, not this task's
+        "detroit-q12439": "Q12439", "milwaukee-q37836": "Q37836", "kansas-city-q41819": "Q41819",
+        "new-orleans-q34404": "Q34404"}  # the four owner cities' sites come from 236a's file, not this task's
     assert all(s["region"] == "United States" and s["kind"] == "town" and s["aerial_ok"] is True for s in extras)
 
     files = src_us_birdseye._load(src_us_birdseye.FILES_BIRDS)
     want = {(r[0], r[1]) for src in src_us_birdseye.SOURCES.values() for r in src["rows"]}
     assert {(r["title"], r["qid"]) for r in files} == want
-    assert len(files) == 22
+    assert len(files) == 23
     years = {"File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. "
              "LCCN98508526.jpg": 1874,
              "File:The city of New York. LOC 75694818.jpg": 1879,
@@ -232,7 +236,8 @@ def test_shared_table_and_staged_rows():
              "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg": 1892,
              "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg": 1889,
              "File:Milwaukee, Wis. LOC 76693067.jpg": 1872,
-             "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg": 1869}
+             "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg": 1869,
+             "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif": 1851}
     # the 236a site points (verified there) and the new-cities' P625s (verified here): the stored
     # evidence point must be the site's own point
     points = {"new-york-q60": (-74.006111, 40.712778), "washington-q61": (-77.036667, 38.895),
@@ -242,12 +247,14 @@ def test_shared_table_and_staged_rows():
               "cincinnati-q43196": (-84.5125, 39.1),
               "louisville-q43668": (-85.751389, 38.256111), "st-louis-q38022": (-90.199444, 38.626389),
               "chicago-q1297": (-87.627778, 41.881944), "detroit-q12439": (-83.0475, 42.331667),
-              "milwaukee-q37836": (-87.95, 43.05), "kansas-city-q41819": (-94.583333, 39.05)}
+              "milwaukee-q37836": (-87.95, 43.05), "kansas-city-q41819": (-94.583333, 39.05),
+              "new-orleans-q34404": (-90.078333, 29.976111)}
     named_by_qid = {"Q60": "New York", "Q61": "Washington", "Q62": "San Francisco", "Q23197": "Nashville",
                     "Q100": "Boston", "Q1345": "Philadelphia", "Q5092": "Baltimore",
                     "Q1342": "Pittsburgh", "Q43196": "Cincinnati",
                     "Q43668": "Louisville", "Q38022": "St. Louis", "Q1297": "Chicago",
-                    "Q12439": "Detroit", "Q37836": "Milwaukee", "Q41819": "Kansas City"}
+                    "Q12439": "Detroit", "Q37836": "Milwaukee", "Q41819": "Kansas City",
+                    "Q34404": "New Orleans"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid

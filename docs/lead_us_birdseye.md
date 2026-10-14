@@ -70,31 +70,39 @@ the DC 1921/1883/1886 sheets span far beyond it, so their fits are likely to end
 
 The four shared QIDs were first verified by 236a (docs/lead_us_cities.md, 2026-10-13/14); the
 new-city QIDs were verified when their cities were added. This is 236b's re-check (re-run at the
-batch-3 close-out, with the Kansas City QID added) that its own table stands on: label, every P625
-value (flagged when >50 km from the table point), P373, P131 (with labels), the enwiki article, and
-the first name-search hit with coordinates (what `record --live` would resolve for the caption
-route). No P625 flag fired on any of the fifteen (Q62's two P625s are 2.0-2.4 km from its refined
-table point - the point is a refinement, not a P625; Q23197's is 721 m SE; the eleven new-city
-points ARE the P625s, dist 0). Two search traps (the Barnard-Castle class, the 236a Q60 note):
-**Pittsburgh** -> Q235034 University of Pittsburgh (~4.0 km east of the city point) and **Chicago**
--> Q131252 University of Chicago (~10.5 km south) - both within the 50 km flag, so the run does not
-flag them, but `record --live` would store the university's point instead of the city's; the staged
-rows hand-record the city's P625 (dist 0), and both traps are recorded on the Q1342/Q1297 SITES
-comments and site notes. **Kansas City** has no search trap: the first hit with P625 is Q41819
-itself (dist 0); the second hit is the twin city Q486472 Kansas City, Kansas (Wyandotte County,
-P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west and 6.3 km north of the city's point,
-measured 2026-10-14). **Q41819's P131 carries four counties** (Jackson / Cass / Clay / Platte - all
-Missouri, the city straddles all four; the P625 point sits in Jackson County, hence place "Jackson
-County, Missouri"), and its **P373 is the STRING "Kansas City, Missouri"** (a Wikidata quirk, not a
-country entity - the place is written from the county + the state). The other P131s as before:
-Baltimore's carries two values (Maryland and the historic Province of Maryland) - the city is no
-county of its own, so its place is written "Baltimore City, Maryland" from P373 + the state;
-St. Louis's carries **only Missouri** (an independent city, no county of its own), hence "St. Louis
-City, Missouri"; Milwaukee's carries **three counties** (Milwaukee / Washington / Waukesha - the
-city point sits in Milwaukee County). The transcript (15 QIDs, sorted, verbatim):
+batch-3 close-out, with the Kansas City and New Orleans QIDs added) that its own table stands on:
+label, every P625 value (flagged when >50 km from the table point), P373, P131 (with labels), the
+enwiki article, and the first name-search hit with coordinates (what `record --live` would resolve
+for the caption route). No P625 flag fired on any of the sixteen (Q62's two P625s are 2.0-2.4 km
+from its refined table point - the point is a refinement, not a P625; Q23197's is 721 m SE; the
+twelve new-city points ARE the P625s, dist 0). Two search traps (the Barnard-Castle class, the
+236a Q60 note): **Pittsburgh** -> Q235034 University of Pittsburgh (~4.0 km east of the city
+point) and **Chicago** -> Q131252 University of Chicago (~10.5 km south) - both within the 50 km
+flag, so the run does not flag them, but `record --live` would store the university's point
+instead of the city's; the staged rows hand-record the city's P625 (dist 0), and both traps are
+recorded on the Q1342/Q1297 SITES comments and site notes. **Kansas City** has no search trap:
+the first hit with P625 is Q41819 itself (dist 0); the second hit is the twin city Q486472
+Kansas City, Kansas (Wyandotte County, P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west
+and 6.3 km north of the city's point, measured 2026-10-14). **New Orleans** has no search trap
+either: the first hit with P625 is Q34404 itself (dist 0); the other P625 hits are the second hit
+Q1474157 "LSU New Orleans" (5.8 km north of the city's point - within the 50 km flag, not a trap)
+and Q2522995 "New Orleans (Rotterdam)" - a *building* in Rotterdam, 7725 km away (measured
+2026-10-14), a same-name, not a trap. **Q41819's P131 carries four counties** (Jackson / Cass /
+Clay / Platte - all Missouri, the city straddles all four; the P625 point sits in Jackson County,
+hence place "Jackson County, Missouri"), and its **P373 is the STRING "Kansas City, Missouri"**
+(a Wikidata quirk, not a country entity - the place is written from the county + the state).
+**Q34404's P131 is the SINGLE Q486231 Orleans Parish** (New Orleans is a consolidated
+city-parish; hence place "Orleans Parish, Louisiana"), and its **P373 is the STRING "New
+Orleans"** (the same quirk - the place is written from the parish + the state); P17 = Q30 United
+States (a proper entity, unlike P373). The other P131s as before: Baltimore's carries two values
+(Maryland and the historic Province of Maryland) - the city is no county of its own, so its
+place is written "Baltimore City, Maryland" from P373 + the state; St. Louis's carries **only
+Missouri** (an independent city, no county of its own), hence "St. Louis City, Missouri";
+Milwaukee's carries **three counties** (Milwaukee / Washington / Waukesha - the city point sits
+in Milwaukee County). The transcript (16 QIDs, sorted, verbatim):
 
 ```
-checked 2026-10-14 - 15 QIDs (Wikidata)
+checked 2026-10-14 - 16 QIDs (Wikidata)
   Q100  'Boston'  (site id: boston-q100, new (this task))
       P625: [(-71.05777777777777, 42.360277777777775)]  (table site point: -71.057778, 42.360278)
       P373: ['Boston']
@@ -131,6 +139,12 @@ checked 2026-10-14 - 15 QIDs (Wikidata)
       P131: [('Davidson County', 'Q1177705')]  (table place: 'Davidson County, Tennessee')
       enwiki: 'Nashville, Tennessee'  (table wikipedia: 'https://en.wikipedia.org/wiki/Nashville,_Tennessee')
       search 'Nashville': first hit with P625 is Q23197 'Nashville' (-86.77444444444444, 36.16222222222222)
+  Q34404  'New Orleans'  (site id: new-orleans-q34404, new (this task))
+      P625: [(-90.07833333333333, 29.976111111111113)]  (table site point: -90.078333, 29.976111)
+      P373: ['New Orleans']
+      P131: [('Orleans Parish', 'Q486231')]  (table place: 'Orleans Parish, Louisiana')
+      enwiki: 'New Orleans'  (table wikipedia: 'https://en.wikipedia.org/wiki/New_Orleans')
+      search 'New Orleans': first hit with P625 is Q34404 'New Orleans' (-90.07833333333333, 29.976111111111113)
   Q37836  'Milwaukee'  (site id: milwaukee-q37836, new (this task))
       P625: [(-87.95, 43.05)]  (table site point: -87.95, 43.05)
       P373: ['Milwaukee, Wisconsin']
@@ -734,15 +748,91 @@ is Q41819 itself, dist 0); the second hit is the twin city Q486472 Kansas City, 
 County, P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west and 6.3 km north of the city's
 point, measured).
 
+## New Orleans (site `new-orleans-q34404`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif` - 1851, drawn from nature
+  on stone by J. Bachman, printed by J. Bachman, published by the agents A. Guerber & Co, 160
+  Pearl St. New York, 5843x4600, Public domain (NYPL Hades-118746-54871; the NYPL description
+  "Stokes 1851-G-13 / Deak 605"; the LOC's own copy is item 93500720, LC Panoramic maps (2nd
+  ed.), 240.1). **Steep oblique whole-city view drawn from the river side (the west/southwest of
+  the city) looking east/northeast** - the LOC's own standard summary is "with the Mississippi
+  River in the foreground": the levee and its steamboat fleet in the foreground, the grid dense
+  and legible out to the rural outskirts, the river's delta and the Gulf of Mexico toward the
+  lower right of the sheet and Lake Pontchartrain upper left (the sheet's compass is rotated
+  ~90 deg counter-clockwise from a north-up map: north upper-left, south the delta side; the
+  P625 point, in the City Park area, sits in the city's upper left); the drawn extent spans the
+  whole city far beyond the 2000 m town box, so its fit is likely to end a review item. **The
+  oldest staged view of the whole project (1851, before the SF 1854 Bill view).** The page date
+  (1851) matches the drawing (no Zwolle-style swap).
+
+**DROP (with reasons):** the 1863 "New Orleans, La. and its vicinity." (LOC 75693238 .jpg/.tif,
+3152x2152, J. Wells del. / W. Ridgway sc., LC Panoramic maps (2nd ed.), 241) - a genuine indexed
+whole-city bird's-eye view but **too small** (< 4000 px); its mirror copy `File:New Orleans and
+Vicinity Birds Eye 1863.jpg` (2445x1917) too. The 1861 Bachman "Birds eye view of Louisiana,
+Mississippi, Alabama and part of Florida" (LOC 99447004 .jpg/.tif, 8597x5967, LC Civil War Maps
+(2nd ed.), 1.7 - "Panorama of the seat of war") - **regional**: the Gulf coast centered on the
+delta, the city a small settlement (the DC 1861 Bohn regional-drop precedent). The DPLA "Bird's
+eye view of St. Louis from the Illinois side of the Mississippi River, with four people standing
+in Illinois, watching" (J. H. Fisher, "VIEW OF ST. LOUIS, 1850-54", 5325x6997) - **a St. Louis
+view** (search noise: the steamboat "New Orleans" in the description). The 1815 battle engravings
+"Battle of New Orleans - January 8, 1815 - desd. on the field of battle by Hthe. Laclotte; drawn
+on stone by A. Hoffy; P.S. Duval lith. Phila." (LCCN2012645333.jpg, 5304x4352, U.S. Military
+Magazine; the NARA 530953 .tif/.gif twins, 5616x3744 / 600x369) - a **battle scene**, not a city
+view (the Fort-Negley close-up class). The 1917-18 "Tulane University, New Orleans, Louisiana.
+SATC Sections A and B. Birdseye view, showing barracks, auto mechanics sheds, etc" (NARA
+26428460.jpg, 8646x5792) - a **district PHOTOGRAPH**, not a view (the photo-drop precedent). The
+1868 Dennis / Lilienthal / Blessing stereoscopic set (the twelve .jpg/.png/.tiff scans, 2737-3072
+px) - **fail the caption gate** (no "New Orleans" in title + description) **and too small**. The
+"Birds-eye view of Jackson Sqr" NYPL b11707483 .tiff pair (3072 px) - gate (the title says
+Jackson Sqr) + too small. The **Fred Harvey NBY strips** - `File:New Orleans (NBY 7257).jpg`
+(1900, 822x526), `File:New Orleans LA (NBY 432193).jpg` (1903, 824x521), `File:Aerial View of
+New Orleans, Photo furnished by Association of Commerce (NBY 7794).jpg` (1946, 816x519) -
+**too small** (< 4000 px), the 1946 one also beyond MAX_YEAR. The **other small scans** -
+`File:New Orleans view 1873.jpeg` (567x359), `File:The City of New Orleans, Louisiana.jpg`
+(990x652), `File:BirdsEyeCanalStreetCrescentCard.jpg` (1609x1023),
+`File:PostcardNewOrleansDistrict CBMason.jpg` (1633x1031), `File:New Orleans panorama 1919.jpg`
+(4640x612 - a narrow strip). The **modern photos (beyond the 1925 MAX_YEAR)** - the 2017 Lee Circle photo (CC BY-SA
+2.0), the 2008 "the Crescent City, Lake Ponchartrain in the distance" photo (CC BY 2.0), the
+2022 "A Day Trip to the New Orleans Lake Front" (5184x3888) and "Secretary Vilsack at the
+Commodity Classic" (6500x4333) photos, and the 2018 bird's-eye-*maple* guitar photo pair (CC0 -
+the Kansas City-section precedent). The **other-city gate rejects** in the pool - the 1891 San
+Antonio sheet, the 1880 Albion (N.Y.) sheet, the 1890 L&N rail "tourist through car line" card.
+The **extra pool's 70 "good" (caption-gate-passing) items are ALL non-views**: the 1885 and 1893
+Sanborn fire-insurance plates and the 1883 Robinson's Atlas district plates (flat plans - the
+236a genre, not bird's-eye), the Detroit Publishing photo panoramas c1900-1921 (42611x7111
+"New Orleans, La. Panorama", 30816x6698 "The City from Algiers") - **PHOTOS**, not drawings (the
+SF-1906-photograph drop precedent), the 1877 Bennett troop-withdrawal lithograph pair (a scene,
+not a city view), the 1876 S. Augustus Mitchell "Plan of New Orleans" (a flat plan - the 236a
+genre), the 1877 diocesan map, the 1920 "Kings County, Enumeration District 1028" census sheet
+(Brooklyn - the pool hit comes via the description), and the photos (the 1920 Hearn courtyard,
+the 1903 milk-cart, the 1903 Cotton Exchange, the 1906 "New Orleans (1885)" photo, the 1906 Clay
+Monument streetcar) and postcards/ads.
+
+**The QID's facts** (verified live 2026-10-14; the transcript is in the QID section above):
+Q34404, enwiki "New Orleans". P625 = the city's only normal-rank value (-90.078333, 29.976111,
+30 m precision; the point sits in the City Park area, a few km north of the downtown core; the
+1851 sheet's drawn extent covers the 2000 m town box, so no refinement). P131 = Q486231 Orleans
+Parish (SINGLE - New Orleans is a consolidated city-parish; hence place "Orleans Parish,
+Louisiana"). P373 = the string "New Orleans" (a Wikidata quirk, not a country entity - the place
+is written from the parish + the state); P17 = Q30 United States (a proper entity, unlike P373).
+Name search: no trap (the first hit with P625 is Q34404 itself, dist 0); the other P625 hits are
+the second hit Q1474157 "LSU New Orleans" (P625 (-90.0671, 30.0275)) - 5.8 km away (1.1 km east
+and 5.7 km north of the city's point, bearing 11 deg, within the 50 km flag, not a trap) - and
+Q2522995 "New Orleans (Rotterdam)" (a *building* in Rotterdam, P625 (4.487222, 51.904722)) -
+7725 km away (7943 km east and 2432 km north of the city's point, bearing 73 deg, measured
+2026-10-14).
+
 ## Staging and checks (2026-10-14)
 
-All fifteen cities staged so far are in this task's own files only: **22 views** total (11 for
-the four owner-named cities - NYC 3, DC 3, SF 4, Nashville 1 - plus one for each of the eleven
-batch-1, batch-2 and batch-3 cities) in `data/commons/files_us_birdseye.jsonl` (files.jsonl shape +
-the 200 evidence field) and `data/commons/classified_us_birdseye.jsonl` (`p_birdseye: 1.0`,
-`by: "hand"`); the eleven new-city site rows are in `data/catalog/extras_us_birdseye.jsonl` (the
-four owner cities' sites come from 236a's file, above). `--check` (offline, no network), re-run at
-the batch-3 close-out 2026-10-14:
+All sixteen cities staged so far are in this task's own files only: **23 views** total (11 for
+the four owner-named cities - NYC 3, DC 3, SF 4, Nashville 1 - plus one for each of the twelve
+batch-1, batch-2 and batch-3 cities) in `data/commons/files_us_birdseye.jsonl` (files.jsonl
+shape + the 200 evidence field) and `data/commons/classified_us_birdseye.jsonl` (`p_birdseye:
+1.0`, `by: "hand"`); the twelve new-city site rows are in `data/catalog/extras_us_birdseye.jsonl`
+(the four owner cities' sites come from 236a's file, above). `--check` (offline, no network),
+re-run at the batch-3 close-out 2026-10-14:
 
 ```
 PASS caption_coords  new-york-q60|File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg
@@ -767,18 +857,19 @@ PASS caption_coords  chicago-q1297|File:Bird's eye view of Chicago, 1892. LOC 75
 PASS caption_coords  detroit-q12439|File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg
 PASS caption_coords  milwaukee-q37836|File:Milwaukee, Wis. LOC 76693067.jpg
 PASS caption_coords  kansas-city-q41819|File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg
-evidence: 22 rows, 22 pass, 0 fail, 0 no-tie
+PASS caption_coords  new-orleans-q34404|File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif
+evidence: 23 rows, 23 pass, 0 fail, 0 no-tie
 ```
 
 No join problems (every file row names an existing site - the four shared ids via 236a's file,
-the eleven new ids staged above; classified rows 1:1; the golden sample `tests/golden/
-src_us_birdseye_sample.json` pins the 22 rows, regenerated at the stage).
+the twelve new ids staged above; classified rows 1:1; the golden sample `tests/golden/
+src_us_birdseye_sample.json` pins the 23 rows, regenerated at the stage).
 
-**Not done yet (next sessions):** the 25-cities box - **10 more US cities** (25 total, 15 done),
+**Not done yet (next sessions):** the 25-cities box - **9 more US cities** (25 total, 16 done),
 each a NEW site in `extras_us_birdseye.jsonl` (region "United States", kind "town", aerial_ok
 true, the point = the city's verified P625 or a recorded refinement, the note recording the
 view's apparent angle), one best view per city, found by the file-namespace search route above
-and QID-verified with `--verify` before staging. The next candidates (in order): **New Orleans,
-Denver, St. Paul, Minneapolis, Cleveland**, ... (the LOC Panoramic collection, 1847-1929; a city
-with no usable view gets a lead-doc note and the next candidate). **Do NOT write the canonical
-files - that is 236c.**
+and QID-verified with `--verify` before staging. The next candidates (in order): **Denver, St.
+Paul, Minneapolis, Cleveland**, ... (the LOC Panoramic collection, 1847-1929; a city with no
+usable view gets a lead-doc note and the next candidate). **Do NOT write the canonical files -
+that is 236c.**
